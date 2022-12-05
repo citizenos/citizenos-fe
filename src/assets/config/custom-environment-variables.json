@@ -1,0 +1,39 @@
+{
+  "api": {
+    "baseUrl": "CITIZENOS_URL_API"
+  },
+  "etherpad": {
+    "baseUrl": "CITIZENOS_ETHERPAD_BASEURL"
+  },
+  "language": {
+    "default": "DEFAULT_LANG_KEY",
+    "list": {
+      "__name": "CITIZENOS_LANGUAGE_LIST",
+      "__format": "json"
+    }
+  },
+  "links": {
+    "__name": "CITIZENOS_LINKS",
+    "__format": "json"
+  },
+  "legal": {
+    "__name": "CITIZENOS_LEGAL",
+    "__format": "json"
+  },
+  "attachments": {
+    "__name": "CITIZENOS_ATTACHMENTS",
+    "__format": "json"
+  },
+  "moderation": {
+    "codeOfConduct": "CITIZENOS_MODERATION_CODE_OF_CONDUCT_LNK"
+  },
+  "features": {
+    "analytics": {
+      "__name": "CITIZENOS_FEATURES_ANALYTICS",
+      "__format": "json"
+    }
+  },
+  "helplink": "CITIZENOS_HELP_LINK",
+  "newHelp": "CITIZENOS_HELP_NEW",
+  "showHelpTooltip": "CITIZENOS_SHOW_HELP_TOOLTIP"
+}

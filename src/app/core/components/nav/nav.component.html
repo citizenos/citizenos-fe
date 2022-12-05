@@ -1,0 +1,225 @@
+<div *ngIf="wWidth > 1024">
+  <div class="logo_area" >
+      <div class="logo sprite sprite-x5-cos-logo-small2x" routerLink="/" *ngIf="!!(auth.loggedIn$ | async)"></div>
+      <!-- Only show this if the user is NOT logged in -->
+      <div class="logo sprite sprite-x6-cos-logo-big2x" routerLink="/" *ngIf="!(auth.loggedIn$ | async)"></div>
+  </div>
+</div>
+
+
+<div class="nav_inside" >
+  <!-- Only show this if the user is NOT logged in -->
+  <ng-component *ngIf="auth.user$ | async; then loggedIn; else loggedOut"></ng-component>
+  <ng-template #loggedOut>
+    <button class="blue_button ngShow" (click)="doShowLogin()" translate="DEFAULT.NAV.LNK_LOG_IN_REGISTER"></button>
+  </ng-template>
+
+
+  <!-- Nav section -->
+  <ng-template #loggedOut>
+    <div class="section">
+        <div class="line dark_line"></div>
+        <div class="line light_line"></div>
+
+        <a routerLink="home" routerLinkActive="active" class="section_item">
+            <div class="section_icon">
+                <div class="table_cell">
+                    <div class="sprite sprite-menu-icon-topics2x"></div>
+                </div>
+            </div>
+            <span translate="DEFAULT.NAV.LNK_PUBLIC_TOPICS"></span>
+        </a>
+
+        <a routerLink="public/groups" routerLinkActive="active" class="section_item">
+            <div class="section_icon">
+                <div class="table_cell">
+                    <div class="sprite sprite-menu-icon-groups2x"></div>
+                </div>
+            </div>
+            <span translate="DEFAULT.NAV.LNK_PUBLIC_GROUPS"></span>
+        </a>
+    </div>
+  </ng-template>
+    <!-- Only show this if the user is logged in -->
+  <ng-template #loggedIn>
+
+    <div>
+
+        <div id="account_area" *ngIf="auth.user$ | async as user">
+
+            <div class="table_cell">
+                <div class="profile_image_wrapper">
+                    <!--div class="profile_moon sprite sprite-icon-certified-google2x"></!--div-->
+                    <div class="account_picture">
+                        <img  [src]="user.imageUrl" src="">
+
+                    </div>
+                </div>
+            </div>
+
+            <div id="account_text">
+                <div class="section_header bold_white">{{user.name}}</div>
+                <a routerLink="account/settings" id="account_action" href="" translate="DEFAULT.NAV.LNK_MY_ACCOUNT"></a>
+            </div>
+
+        </div>
+
+        <div class="line dark_line"></div>
+        <div class="line light_line"></div>
+
+        <!-- Nav section -->
+        <div class="section">
+            <!--a (click)="app.doShowActivityModal()" class="section_item" >
+                <div class="section_icon">
+                    <div class="table_cell">
+                        <!--div *ngIf="!app.unreadActivitiesCount" class="sprite sprite-menu-icon-activities2x"></!--div-->
+                        <!--div *ngIf="app.unreadActivitiesCount" class="activities_counter">
+                            {{app.unreadActivitiesCount}}
+                        </!--div>
+                    </div>
+                </div>
+                <span id="activity_feed_link_text" translate="DEFAULT.NAV.LNK_ACTIVITY"></span>
+            </!--a-->
+        </div>
+
+        <div class="line dark_line"></div>
+        <div class="line light_line"></div>
+
+        <div class="section">
+            <div class="section_item section_header bold_white">
+                <div class="section_icon">
+                    <div class="table_cell">
+                        <div class="sprite sprite-menu-icon-topics2x"></div>
+                    </div>
+                </div>
+                <span translate="DEFAULT.NAV.HEADING_TOPICS"></span>
+            </div>
+            <a routerLink="topics/create" routerLinkActive="active" class="section_item bold_blue">
+                <div class="section_icon">
+                    <div class="table_cell">
+                        <div class="sprite sprite-bullet-plus2x"></div>
+                    </div>
+                </div>
+                <span translate="DEFAULT.NAV.LNK_CREATE_TOPICS"></span>
+            </a>
+            <a routerLink="my/topics" routerLinkActive="active" class="section_item">
+                <div class="section_icon">
+                    <div class="table_cell">
+                        <div class="sprite sprite-bullet-arrow2x"></div>
+                    </div>
+                </div>
+                <span translate="DEFAULT.NAV.LNK_MY_TOPICS"></span>
+            </a>
+            <a routerLink="home" routerLinkActive="active" class="section_item">
+                <div class="section_icon">
+                    <div class="table_cell">
+                        <div class="sprite sprite-bullet-arrow2x"></div>
+                    </div>
+                </div>
+                <span translate="DEFAULT.NAV.LNK_PUBLIC_TOPICS"></span>
+            </a>
+        </div>
+
+        <!-- Nav section -->
+        <div class="section">
+            <div class="section_item section_header bold_white">
+                <div class="section_icon">
+                    <div class="table_cell">
+                        <div class="sprite sprite-menu-icon-groups2x"></div>
+                    </div>
+                </div>
+                <span translate="DEFAULT.NAV.HEADING_GROUPS"></span>
+            </div>
+            <a routerLink="my/groups/create({filter:null})" ui-sref-opts="{reload: true}" routerLinkActive="active" class="section_item bold_blue">
+                <div class="section_icon">
+                    <div class="table_cell">
+                        <div class="sprite sprite-bullet-plus2x"></div>
+                    </div>
+                </div>
+                <span translate="DEFAULT.NAV.LNK_CREATE_GROUPS"></span>
+            </a>
+            <a routerLink="my/groups({filter: 'grouped'})" ui-sref-opts="{reload: true}" routerLinkActive="active" class="section_item">
+                <div class="section_icon">
+                    <div class="table_cell">
+                        <div class="sprite sprite-bullet-arrow2x"></div>
+                    </div>
+                </div>
+                <span translate="DEFAULT.NAV.LNK_MY_GROUPS"></span>
+            </a>
+            <a routerLink="public/groups" routerLinkActive="active" class="section_item">
+                <div class="section_icon">
+                    <div class="table_cell">
+                        <div class="sprite sprite-bullet-arrow2x"></div>
+                    </div>
+                </div>
+                <span translate="DEFAULT.NAV.LNK_PUBLIC_GROUPS"></span>
+            </a>
+        </div>
+    </div>
+  </ng-template>
+
+
+  <div class="line dark_line"></div>
+  <div class="line light_line"></div>
+
+
+  <!-- Nav section -->
+  <div class="section">
+
+      <!--a *ngIf="config.get('links').about" class="section_item" target="_blank" [href]="config.config$ | async as config">
+          <div class="section_icon">
+              <div class="table_cell">
+                  <div class="sprite sprite-menu-icon-about2x"></div>
+              </div>
+          </div>
+          <span translate="DEFAULT.NAV.LNK_ABOUT">About</span>
+      </!--a>
+
+      <!--a class="section_item" (click)="app.toggleHelp()">
+          <div class="section_icon">
+              <div class="table_cell">
+                  <div class="sprite sprite-menu-icon-help2x"></div>
+              </div>
+          </div>
+          <span translate="DEFAULT.NAV.LNK_HELP">Help</span>
+      </!--a -->
+      <a class="section_item" (click)="doShowLanguageSelect()">
+              <div class="section_icon">
+                  <div class="table_cell">
+                      <div class="sprite sprite-x0-menu-icon-help2x"></div>
+                  </div>
+              </div>
+              {{ config.get('language').list[translate.currentLang]}}
+      </a>
+    </div>
+
+
+  <!-- Only show this if the user is logged in -->
+  <div *ngIf="auth.loggedIn$ | async">
+
+      <div class="line dark_line"></div>
+      <div class="line light_line"></div>
+
+
+      <div class="section">
+
+          <a (click)="auth.logout();" class="section_item" href="">
+              <div class="section_icon">
+                  <div class="table_cell">
+                      <div class="sprite sprite-menu-icon-logout2x"></div>
+                  </div>
+              </div>
+              <span translate="DEFAULT.NAV.LNK_LOG_OUT"></span>
+          </a>
+
+      </div>
+  </div>
+  <div id="nav_partner_wrap" *ngIf="displayEmpoweredIcon()">
+      <a href="https://citizenos.com" target="_blank">
+          <div id="nav_partner_items">
+              <span>Empowered by </span>
+              <span><div id="nav_partner_logo" class="nav_partner_logo"></div></span>
+          </div>
+      </a>
+  </div>
+</div>

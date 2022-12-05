@@ -1,0 +1,180 @@
+<div id="home_root">
+
+  <!-- FILTER AREA DESKTOP -->
+  <div *ngIf="wWidth > 767" id="filter_bar_desktop">
+
+      <div id="bar_top">
+          <div class="bar_text" translate="VIEWS.HOME.HEADINGS_SHOW_ME_TOPICS_ABOUT"></div>
+          <div class="bar_select">
+            <mat-select class="bar_select dropdown big_drop" [(value)]="category$">
+                <mat-select-trigger class="select_text">{{'TXT_TOPIC_CATEGORY_' + (category$ | async) | uppercase | translate}}</mat-select-trigger>
+                <mat-option (click)="doSetCategory('all')" [value]="category$">{{'TXT_TOPIC_CATEGORY_ALL' | translate}}</mat-option>
+                <mat-option class="dropdown_item" [value]="category$" *ngFor="let category of categories$" [ngClass]="category === (category$ | async) ? 'bold' : ''" (click)="doSetCategory(category)" >
+                    {{'TXT_TOPIC_CATEGORY_' + category | uppercase | translate}}
+                </mat-option>
+            </mat-select>
+          </div>
+      </div>
+
+
+      <div id="bar_bottom">
+
+          <!-- TODO: Implement orderBy -->
+          <!--div cos-dropdown class="bar_section">
+              <div class="bar_text">
+                  Order by
+              </div>
+              <div class="bar_select">
+                  time
+                  <div class="icon_holder">
+                      <div class="table_cell">
+                          <div class="sprite sprite-dropdown-arrowdown-small2x"></div>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="dropdown">
+                  <div class="line lightest_line"></div>
+
+                  <div class="dropdown_item" *ngFor=[ngClass]="key == 0 ? 'bold' : ''" *ngFor="(key, n) in ['time','popularity','size']">
+                      <div class="item_name">
+                          {{n}}
+                      </div>
+                      <div class="clearer"></div>
+                  </div>
+              </div>
+
+          </div-->
+
+          <div class="bar_section">
+            <div class="bar_text" translate="VIEWS.HOME.LNK_SHOW"></div>
+            <div class="bar_select">
+              <mat-select class="dropdown bar_text">
+                <mat-option class="dropdown_item" (click)="doSetStatus('all')" [value]="category$">{{'TXT_TOPIC_STATUS_ALL' | translate}}</mat-option>
+                <mat-option class="dropdown_item" [value]="status$" *ngFor="let status of statuses$" [ngClass]="status === (status$ | async) ? 'bold' : ''" (click)="doSetStatus(status)" >
+                    {{'TXT_TOPIC_STATUS_' + status | uppercase | translate}}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div>
+          <span *ngIf="(category$ | async) !== FILTERS_ALL || (status$ | async) !== FILTERS_ALL">
+              <div class="line_holder">
+                  <div class="v_line dark_gray_background">
+                  </div>
+              </div>
+
+
+              <div class="blue_link" (click)="doClearFilters()" translate="VIEWS.HOME.LNK_CLEAR_FILTERS"></div>
+          </span>
+
+      </div>
+  </div>
+
+
+  <!-- FILTER AREA MOBILE >
+  <div-- *ngIf="app.wWidth <= 767" id="filter_bar_mobile">
+
+      <div class="filter_topics" *ngIf="!app.showSearchFiltersMobile && !isFilterApplied()" (click)="app.showSearchFiltersMobile = true">
+          <div class="table_cell" translate="VIEWS.HOME.LBL_FILTER_THE_TOPICS">Filter the topics</div>
+      </div>
+
+      <div class="filter_topics edit" *ngIf="!app.showSearchFiltersMobile && isFilterApplied()">
+          <div class="filter_topics_top">
+              <div class="blue_link" (click)="app.showSearchFiltersMobile = true" translate="VIEWS.HOME.LNK_EDIT_FILTER">Edit filter</div>
+              <div class="blue_link" (click)="doClearFilters()" translate="VIEWS.HOME.LNK_CLEAR_FILTERS">Clear filters</div>
+          </div>
+          <div class="line lightest_line"></div>
+          <div class="filter_topics_bottom">
+              <div class="filter_text"><span translate="VIEWS.HOME.LBL_CATEGORY">Category:</span> {{'TXT_TOPIC_CATEGORY_' + (category$ | async) | uppercase | translate}}</div>
+              <div class="filter_text"><span translate="VIEWS.HOME.LBL_STATUS">Status:</span> {{'TXT_TOPIC_STATUS_' + (status$ | async) | uppercase | translate}}</div>
+          </div>
+      </div>
+
+      <div id="fi_area" *ngIf="app.showSearchFiltersMobile">
+
+          <div id="fi_top">
+              <div id="fi_header">
+                  <div id="fi_header_text" translate="VIEWS.HOME.LBL_FILTER_THE_TOPICS">Filter the topics</div>
+                  <div id="close_fi" (click)="app.showSearchFiltersMobile = false">
+                      <div class="table_cell">
+                          <div class="sprite sprite-btn-popup-close2x"></div>
+                      </div>
+                  </div>
+              </div>
+              <div id="fi_nav">
+
+                  <div class="fi_nav_button" (click)="filters.tabSelected = 'categories'">
+                      <div class="fi_button_text" [ngClass]="filters.tabSelected === 'categories' ? 'selected' : ''" translate="VIEWS.HOME.BTN_CATEGORY">CATEGORY</div>
+                      <div class="line blue_background" [ngClass]="filters.tabSelected === 'categories' ? 'selected' :  ''"></div>
+                  </div>
+
+                  <!--div class="fi_nav_button" (click)="app.filterTabOrder = true">
+                      <div class="fi_button_text">ORDER</div>
+                      <div class="line blue_background"></div>
+                  </div>
+
+                  <div class="fi_nav_button">
+                      <div class="fi_button_text" [ngClass]="filters.tabSelected === 'statuses' ? 'selected' : ''" (click)="filters.tabSelected = 'statuses'" translate="VIEWS.HOME.BTN_STATUS">STATUS</div>
+                      <div class="line blue_background" [ngClass]="filters.tabSelected === 'statuses' ? 'selected' : ''"></div>
+                  </div>
+
+              </div>
+              <div class="clearer"></div>
+          </div>
+
+          <div class="line lightest_line"></div>
+
+          <div id="fi_selection_area">
+              <a href="" class="fi_link" *ngFor="option in filters[filters.tabSelected].options" (click)="doSetFilter(filters[filters.tabSelected], option)"
+                 [ngClass]="option === filters[filters.tabSelected].value ? 'bold' : ''">
+                  <span *ngIf="filters.tabSelected === 'categories'">
+                      {{'TXT_TOPIC_CATEGORY_' + option | uppercase | translate}}
+                  </span>
+                  <span *ngIf="filters.tabSelected === 'statuses'">
+                      {{'TXT_TOPIC_STATUS_' + option | uppercase | translate}}
+                  </span>
+              </a>
+          </div>
+
+          <div class="fi_submit">
+              <div class="blue_button" (click)="app.showSearchFiltersMobile = false" translate="VIEWS.HOME.BTN_SUBMIT_FILTER">Submit filter</div>
+          </div>
+
+      </div>
+
+  </div-->
+
+  <!-- TOPICS AREA -->
+  <div id="topics_area" [ngClass]="{'no_tutorial_topic': ((category$ | async) !== FILTERS_ALL || (status$ | async) !== FILTERS_ALL), 'no_results': !(PublicTopicService.countTotal$ | async)}">
+      <div  class="table" *ngIf="(PublicTopicService.countTotal$ | async) === 0"> <!---->
+          <div class="no_results v_align_cell">
+              <div class="no_results_icon_wrap">
+                  <div class="sprite sprite-icon-no-results2x"></div>
+              </div>
+              <div class="title_area">
+                  <h3 translate="VIEWS.HOME.HEADING_NO_RESUTS"></h3>
+                  <p translate="VIEWS.HOME.HEADING_GET_STARTED"></p>
+              </div>
+
+              <div class="button_area">
+
+                  <div class="big_button" ui-sref="topics/create">
+                      <div class="button_cell">
+                          <div class="topic_text" translate="VIEWS.HOME.BTN_CREATING_A_NEW_TOPIC"></div>
+                      </div>
+                  </div>
+
+              </div>
+          </div>
+      </div>
+      <app-categorybox *ngIf="(category$ | async) == FILTERS_ALL;"></app-categorybox>
+      <app-topicbox [topic]="topic" *ngFor="let topic of PublicTopicService.topics$ | async; trackBy: trackByFn;"></app-topicbox>
+
+      <div class="clearer"></div>
+  </div>
+
+  <div id="blue_button_wrap" (click)="PublicTopicService.loadMore()" *ngIf="(PublicTopicService.hasMore$ | async)">
+      <div class="blue_button" translate="VIEWS.HOME.BTN_LOAD_MORE_TOPICS"></div> <!-- [ngClass]="isTopicListLoading ? 'disabled': ''" -->
+  </div>
+
+</div>

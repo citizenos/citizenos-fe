@@ -1,0 +1,336 @@
+
+  @use 'vars';
+  .big {
+    height: 300px;
+    margin: 0 0 10px 10px;
+    float: left;
+    display: block;
+    background: vars.$category_varia;
+    color: vars.$black;
+    transition: transform .1s;
+    cursor: pointer;
+    padding-right: 10px;
+    width: 24%;
+
+    .topic_wrap {
+        padding: 19px 20px 0 20px;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+    .top {
+      margin-bottom: 10px;
+
+      .date {
+          float: left;
+      }
+
+      .author {
+          float: right;
+      }
+    }
+
+    .line {
+        margin: 0px 0 12px 0;
+        background: vars.$black;
+    }
+
+    .line::before {
+        content: '\00a0';
+        position: relative;
+        display: block;
+        bottom: 2em;
+        height: 2em;
+        background: linear-gradient(to bottom, rgba(vars.$category_varia, 0), vars.$category_varia);
+    }
+
+    .text_small {
+        font-size: 13px;
+        color: inherit;
+        font-weight: inherit;
+
+        &.categories {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        @media (max-width: 667px) {
+            width: 100%;
+        }
+
+        * {
+            font-size: inherit;
+            color: inherit;
+            font-weight: inherit;
+        }
+    }
+
+    .main_text {
+        height: 207px;
+        overflow: hidden;
+
+        .text_small {
+            margin-top: 10px;
+        }
+    }
+
+    .text_big {
+        font-size: 26px;
+        font-weight: vars.$bold;
+        line-height: 1.23;
+
+        @media (max-width: 667px) {
+            font-size: 18px;
+            line-height: 24px;
+        }
+    }
+
+    &:hover {
+        transform: scale(1.015);
+        box-shadow: 0 0 8px 0 vars.$dark_gray;
+    }
+
+    .text_area {
+        width: 60%;
+    }
+
+    &.tutorial {
+        background-image: url('./imgs/img_partner_citizenoshelp.png');
+        background-repeat: no-repeat;
+        background-position: right -50px bottom 0px;
+        background-size: 300px;
+        background-color: vars.$tutorial_background;
+
+        @media (max-width: 667px) {
+            background-image: none;
+        }
+
+        .line {
+            background: vars.$white;
+        }
+
+        .line::before {
+            background-image: linear-gradient(to bottom, rgba(vars.$tutorial_background, 0), vars.$tutorial_background);
+        }
+    }
+
+    &.citizenos {
+        background-image: url('./imgs/citizenos_home_square_background.png');
+        background-repeat: no-repeat;
+        background-position: right -50px bottom 0px;
+        background-size: 300px;
+        background-color: vars.$citizenos_background;
+
+        @media (max-width: 667px) {
+            background-image: none;
+        }
+
+        .main_text {
+            height: 189px;
+        }
+
+        .line::before {
+            background-image: linear-gradient(to bottom, rgba(vars.$citizenos_background, 0), vars.$citizenos_background);
+        }
+    }
+
+    &.keep_it_clean_plan {
+        background-image: url('./imgs/img_partner_wcd.png');
+        background-repeat: no-repeat;
+        background-position: right -50px bottom 0px;
+        background-size: 300px;
+        background-color: vars.$keepitclean_background;
+
+        @media (max-width: 667px) {
+            background-image: none;
+        }
+
+        .line::before {
+            background-image: linear-gradient(to bottom, rgba(vars.$keepitclean_background, 0), vars.$keepitclean_background);
+        }
+    }
+
+    &.hacktivist_community {
+        background-image: url('./imgs/img_partner_hacktivist.png');
+        background-repeat: no-repeat;
+        background-position: right -50px bottom 0px;
+        background-size: 300px;
+        background-color: vars.$hacktivist_community_background;
+
+        @media (max-width: 667px) {
+            background-image: none;
+        }
+
+        .line::before {
+            background-image: linear-gradient(to bottom, rgba(vars.$hacktivist_community_background, 0), vars.$hacktivist_community_background);
+        }
+    }
+
+    &.thirty_four_island_project {
+        background-image: url('./imgs/img_partner_ldiindonesia.png');
+        background-repeat: no-repeat;
+        background-position: right -50px bottom 0px;
+        background-size: 300px;
+        background-color: vars.$thirtyfourislandproject_background;
+
+        @media (max-width: 667px) {
+            background-image: none;
+        }
+
+        .line::before {
+            background-image: linear-gradient(to bottom, rgba(vars.$thirtyfourislandproject_background, 0), vars.$thirtyfourislandproject_background);
+        }
+    }
+
+    &.opinionfestival {
+        background-image: url('./imgs/img_partner_opinionfestival.png');
+        background-repeat: no-repeat;
+        background-position: right -50px bottom 0px;
+        background-size: 300px;
+        background-color: vars.$opinionfestival_background;
+
+        @media (max-width: 667px) {
+            background-image: none;
+        }
+
+        .line::before {
+            background-image: linear-gradient(to bottom, rgba(vars.$opinionfestival_background, 0), vars.$opinionfestival_background);
+        }
+    }
+
+    &.pyln {
+        background-image: url('./imgs/img_partner_indiaYouthParticipationNetwork.png');
+        background-repeat: no-repeat;
+        background-position: right -50px bottom 0px;
+        background-size: 300px;
+        background-color: vars.$pyln_background;
+
+        @media (max-width: 667px) {
+            background-image: none;
+        }
+
+        .line::before {
+            background-image: linear-gradient(to bottom, rgba(vars.$pyln_background, 0), vars.$pyln_background);
+        }
+    }
+
+    &.eesti_jazzi_arengusuunad { /** https://github.com/citizenos/citizenos-api/issues/73 **/
+        background-image: url('./imgs/img_partner_jazzunion.png');
+        background-repeat: no-repeat;
+        background-position: right -50px bottom 0px;
+        background-size: 300px;
+        background-color: vars.$eestijazziarengusuunad_background;
+
+        @media (max-width: 667px) {
+            background-image: none;
+        }
+
+        .line::before {
+            background-image: linear-gradient(to bottom, rgba(vars.$eestijazziarengusuunad_background, 0), vars.$eestijazziarengusuunad_background);
+        }
+    }
+
+    &.eurochangemakers {
+        background-image: url('./imgs/GEYC.png');
+        background-repeat: no-repeat;
+        background-position: right -50px bottom 0px;
+        background-size: 300px;
+        background-color: vars.$geyc_background;
+
+        @media (max-width: 667px) {
+            background-image: none;
+        }
+
+        .line {
+            background: vars.$white;
+        }
+
+        .line::before {
+            background-image: linear-gradient(to bottom, rgba(vars.$geyc_background, 0), vars.$geyc_background);
+        }
+    }
+
+    &.biotoopia {
+        background-image: url('./imgs/biotoopia_white.png');
+        background-repeat: no-repeat;
+        background-position: right -50px bottom 0px;
+        background-size: 300px;
+        background-color: vars.$biotoopia_background;
+
+        @media (max-width: 667px) {
+            background-image: none;
+        }
+
+        .main_text {
+            height: 189px;
+        }
+        .line {
+            background: vars.$white;
+        }
+
+        .line::before {
+            background-image: linear-gradient(to bottom, rgba(vars.$biotoopia_background, 0), vars.$biotoopia_background);
+        }
+    }
+
+    @media (max-width: 2480px) {
+        padding-right: 0;
+    }
+
+    @media (max-width: 2180px) {
+        & {
+            background-position: right -150px top;
+        }
+    }
+
+    @media (max-width: 1920px) {
+        width: 48%;
+        padding-right: 10px;
+        & {
+            background-position: right -100px top;
+        }
+    }
+
+    @media (max-width: 1350px) {
+        padding-right: 0;
+        .text_area {
+            width: 55%;
+        }
+        width: calc(50% - 15px);
+        & {
+            background-position: right -150px top;
+        }
+    }
+
+    @media (max-width: 1150px) {
+        .text_area {
+            xwidth: 280px;
+        }
+        & {
+            background-position: right -190px top;
+        }
+    }
+
+    @media (max-width: 880px) {
+        width: calc(100% - 30px);
+        padding-right: 10px;
+        & {
+            background-position: right -100px top;
+        }
+    }
+
+    @media (max-width: 667px) {
+        .text_area {
+            width: 100%;
+        }
+        & {
+            background-image: none;
+        }
+    }
+
+    @media (max-width: 667px) {
+        width: 100%;
+        padding-right: 0;
+    }
+
+}

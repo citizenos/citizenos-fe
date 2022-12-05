@@ -1,0 +1,57 @@
+
+@use 'vars';
+@use 'mixins_n_extends';
+
+.info_bar_wrap {
+  position: fixed;
+  width: 100%;
+  z-index: 9999;
+  font-size: 14px;
+  font-weight: vars.$bold;
+
+  @media print {
+      display: none;
+  }
+
+  @include mixins_n_extends.tablet {
+      margin-top: 60px;
+  }
+
+  .info_bar {
+      height: 100%;
+      width: 100%;
+      display: none;
+
+      &.info_bar_show {
+          display: table;
+      }
+
+      .info_row {
+          display: table-row;
+      }
+
+      .info_bar_text {
+          @extend %table_cell;
+          padding: 10px 0 11px 0;
+      }
+
+      .info_icon {
+          width: 56px;
+          @extend %table_cell;
+
+          vertical-align: top;
+          padding: 13px 0 13px 0;
+
+          .sprite {
+              margin: 0 auto;
+          }
+      }
+
+      .info_icon:last-child {
+          cursor: pointer;
+          height: 100%;
+      }
+
+  }
+
+}

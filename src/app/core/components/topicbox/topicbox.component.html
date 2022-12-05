@@ -1,0 +1,22 @@
+<a (click)="goToView()" class="topic" [ngClass]="catClass">
+  <div class="topic_wrap">
+      <div class="top text_small">
+          <div class="date">{{topic.lastActivity}}</div>
+          <div class="author">{{topic.creator.name}}</div>
+          <div class="clearer"></div>
+      </div>
+
+      <div class="main_text">
+          <div class="text_big" [innerHTML]="topic.title"></div>
+          <div class="text_small" *ngIf="showInfo()" [innerHTML]="topic.description"></div>
+      </div>
+
+      <div class="line"></div>
+
+      <div class="text_small categories" *ngIf="showInfo()">
+          <span *ngFor="let category of topic.categories; let last = last;">
+              <span translate="{{'TXT_TOPIC_CATEGORY_' + category | uppercase}}"></span><span [ngClass]="{hidden: last}">, </span>
+          </span>
+      </div>
+  </div>
+</a>

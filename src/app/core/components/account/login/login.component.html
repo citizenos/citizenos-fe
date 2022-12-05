@@ -1,0 +1,125 @@
+<!-- LIGHTBOX SKELETON -->
+<div id="root_lightbox">
+  <div id="lightbox" class="wide_lightbox">
+      <div id="lightbox_wrap">
+          <form name="loginForm"  [formGroup]="form">
+          <div id="lightbox_header">
+
+              <div id="lightbox_header_text">
+                  <div class="title" translate="MODALS.LOGIN_HEADING"></div>
+              </div>
+
+              <div id="lightbox_close" class="ngdialog-close" mat-dialog-close>
+                  <div class="table_cell ngdialog-close">
+                      <div class="sprite sprite-btn-popup-close2x ngdialog-close">
+                      </div>
+                  </div>
+              </div>
+
+          </div>
+
+          <div class="lightbox_content">
+              <div id="login_lightbox">
+                  <div class="line lightest_line"></div>
+                  <div class="lightbox_section" *ngIf="authMethodsAvailable.facebook || authMethodsAvailable.google || authMethodsAvailable.mobiilId || authMethodsAvailable.idCard || authMethodsAvailable.smartId">
+
+                      <div *ngIf="authMethodsAvailable.facebook" id="facebook" (click)="doLoginPartner(LOGIN_PARTNERS.facebook)" class="social_button">
+                          <div class="social_icon">
+                              <div class="table_cell">
+                                  <div class="sprite sprite-login-icon-facebook2x"></div>
+                              </div>
+                          </div>
+                          <div class="social_text">
+                              <div class="table_cell" translate="MODALS.LOGIN_BTN_LOGIN_FACEBOOK"></div>
+                          </div>
+                      </div>
+
+                      <div *ngIf="authMethodsAvailable.google" id="google" (click)="doLoginPartner(LOGIN_PARTNERS.google)" class="social_button">
+                          <div class="social_icon">
+                              <div class="table_cell">
+                                  <div class="sprite sprite-login-icon-google2x"></div>
+                              </div>
+                          </div>
+                          <div class="social_text">
+                              <div class="table_cell" translate="MODALS.LOGIN_BTN_LOGIN_GOOGLE"></div>
+                          </div>
+                      </div>
+
+                      <div *ngIf="authMethodsAvailable.mobiilId || authMethodsAvailable.idCard" id="id_card" (click)="doLoginEsteId()" class="social_button">
+                          <div class="social_icon">
+                              <div class="table_cell">
+                                  <div class="sprite sprite-login-icon-id2x"></div>
+                              </div>
+                          </div>
+                          <div class="social_text">
+                              <div class="table_cell" translate="MODALS.LOGIN_BTN_LOGIN_ESTEID"></div>
+                          </div>
+                      </div>
+
+                      <div *ngIf="authMethodsAvailable.smartId" id="smart_id" (click)="doLoginSmartId()" class="social_button">
+                          <div class="social_icon">
+                              <div class="table_cell">
+                                  <div class="sprite sprite-login-icon-smartid2x"></div>
+                              </div>
+                          </div>
+                          <div class="social_text">
+                              <div class="table_cell" translate="MODALS.LOGIN_BTN_LOGIN_SMARTID"></div>
+                          </div>
+                      </div>
+
+                  </div>
+
+                  <div *ngIf="authMethodsAvailable.citizenos">
+                      <div class="line lightest_line"></div>
+
+                      <div class="lightbox_section">
+                              <!-- Do not focus on mobile devices, otherwise scrolls past social login options and shows keyboard -->
+                              <p class="bold" translate="MODALS.LOGIN_EMAIL_HEADING"></p>
+                              <div class="error_no_account" *ngIf="errors?.accoundDoesNotExist">
+                                  <div class="icon_cell"><div class="sprite sprite-icon-inputfield-error2x"></div></div>
+                                  <div class="table_cell">
+                                      <span translate="MODALS.LOGIN_ERROR_NO_ACCOUNT" translate-values="{linkRegister: linkRegister}"></span>
+                                  </div>
+                              </div>
+                              <input id="email" formControlName="email" type="email" placeholder="{{'MODALS.LOGIN_PLACEHOLDER_EMAIL' | translate}}" ng-class="{'error_input': errors.email}" maxlength="254" required>
+                              <label for="email" class="error_label" *ngIf="errors?.email">
+                                  <div class="table_cell">
+                                      <div class="sprite sprite-icon-inputfield-error2x"></div>
+                                      <span translate="{{errors.email}}"></span>
+                                  </div>
+                              </label>
+                              <div class="input_with_icon clickable">
+                                  <input id="password" formControlName="password" type="password" placeholder="{{'MODALS.LOGIN_PLACEHOLDER_PASSWORD' | translate}}"
+                                     focus-if="isFormEmailProvided" ng-class="{'error_input': errors.password}" maxlength="64" required cos-view-input>
+                              </div>
+                              <label for="password" class="error_label" *ngIf="errors?.password">
+                                  <div class="table_cell">
+                                      <div class="sprite sprite-icon-inputfield-error2x"></div>
+                                      <span translate="{{errors.password}}"></span>
+                                  </div>
+                              </label>
+                              <div class="link_section">
+                                  <a class="lightbox_link" (click)="doResetPassword()" href="" translate="MODALS.LOGIN_LNK_FORGOT_PASSWORD"></a>
+                              </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="lightbox_footer login_footer">
+              <div class="line lightest_line"></div>
+              <div class="lightbox_section">
+                  <div class="footer_button_wrap"></div>
+                  <div class="footer_button_wrap right">
+                      <a class="footer_link" ui-sref="account/signup" translate="MODALS.LOGIN_LNK_NO_ACCOUNT_REGISTER"></a>
+                      <button type="submit" (click)="doLogin()" cos-disabled="loginForm.$invalid" class="blue_button login_button" translate="MODALS.LOGIN_BTN_LOGIN"></button>
+                  </div>
+              </div>
+          </div>
+          </form>
+      </div>
+  </div>
+
+  <div id="close_lightbox" class="ngdialog-close">
+  </div>
+
+</div>

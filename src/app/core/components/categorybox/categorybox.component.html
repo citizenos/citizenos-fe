@@ -1,0 +1,19 @@
+
+<a routerLink="{{item.link}}" class="big fixed_topic" [ngClass]="item.class" *ngFor="let item of categoryBoxes;">
+  <div class="topic_wrap">
+      <div class="text_area">
+
+          <div class="top text_small">{{item.topText | translate}}</div>
+
+          <div class="main_text">
+              <div class="text_big">{{item.title | translate}}</div>
+              <div class="text_small">{{item.description | translate}}</div>
+          </div>
+
+          <div class="line black_line"></div>
+
+          <div class="text_small" *ngIf="showTextSmall()" [innerHtml]="resolveFooter(item.footer)"></div>
+
+      </div>
+  </div>
+</a>
