@@ -1,0 +1,59 @@
+<div class="small_topic " class="small_topic"  [ngClass]="isActiveItem() ? 'active': ''" (click)="goToItemView()" >
+  <div *ngIf="topic.title" class="container_pin" [ngClass]="topic.pinned ? 'pinned' : ''" (click)="topic.togglePin();">
+      <div class="ff_table_fix" translate translate-attr-title="TOOLTIP_PIN_TOPIC">
+          <div class="table_cell">
+              <div class="sprite sprite-icon-favourite2x-white"></div>
+              <div class="yellow_bg"></div>
+          </div>
+      </div>
+  </div>
+  <div class="small_topic_header">
+      <div class="small_topic_left_cont" *ngIf="topic.status">
+          <div class="small_topic_icon">
+              <div class="sprite" [ngClass]="'sprite-mytopics-icon-' + (topic.status | lowercase) + '2x'"></div>
+          </div>
+          <div class="small_topic_small_text">{{'TXT_TOPIC_STATUS_' + topic.status | uppercase | translate}}</div>
+      </div>
+
+      <!--div class="small_topic_right_cont" *ngIf="topic.members.groups.count > 0">
+          <div class="small_topic_icon">
+              <div ></div>
+          </div>
+          <div class="small_topic_small_text" translate="VIEWS.MY.LBL_GROUPS_COUNT" translate-values="{count: topic.members.groups.count}">0 groups</div>
+      </!--div>
+      <div-- class="small_topic_right_cont" *ngIf="topic.members.topics.count > 0">
+          <div class="small_topic_icon">
+              <div ></div>
+          </div>
+          <div class="small_topic_small_text" translate="VIEWS.MY.LBL_TOPICS_COUNT" translate-values="{count: topic.members.topics.count}">0 groups</div>
+      </div-->
+      <div class="clearer"></div>
+  </div>
+
+  <a class="small_topic_title">
+      <div class="title_div" [innerHtml]="topic.title">title</div>
+      <div class="container_visibility" >
+          <!--div class="ff_table_fix" tooltips tooltip-side="left" tooltip-template="<span>{{('TOOLTIP_TOPIC_VISIBILITY_'+topic.visibility | uppercase) | translate}}</span>">
+              <div class="table_cell">
+                  <div class="sprite" [ngClass]="{'sprite-icon-public-topic': !.isPrivate(), 'sprite-icon-private-topic': .isPrivate()}"></div>
+              </div>
+          </!--div-->
+      </div>
+  </a>
+
+  <div class="line lightest_line"></div>
+
+  <div class="small_topic_footer">
+      <div class="small_topic_left_cont">
+          <div class="small_topic_link" (click)="goToView(true); $event.stopPropagation();" *ngIf="topic.status==='inProgress'">
+              <div class="small_topic_icon">
+                  <div class="sprite" [ngClass]="isActiveItem() ? 'sprite-icon-edit-topic_white': 'sprite-icon-edit-topic_black'"></div>
+              </div>
+              <div class="small_topic_small_text small_topic_link" translate="VIEWS.MY.LNK_TOPIC_EDIT">Edit</div>
+          </div>
+      </div>
+      <div class="small_topic_right_cont">
+          <div class="small_topic_small_text" ng-bind="(topic.updatedAt || topic.createdAt) | amDateFormat : 'L LT'">12/12/2015</div>
+      </div>
+  </div>
+</div>

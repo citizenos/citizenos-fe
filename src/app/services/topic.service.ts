@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { LocationService } from './location.service';
-import { Observable, map, of } from 'rxjs';
+import { Observable, switchMap, of } from 'rxjs';
+import { Topic } from 'src/app/interfaces/topic';
 @Injectable({
   providedIn: 'root'
 })
@@ -45,6 +46,16 @@ export class TopicService {
 
   constructor(private Location: LocationService, private http: HttpClient) { }
 
+  get(id: string, params?: { [key:string]: string }): Observable<Topic>  {
+      let path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId', {topicId: id});
+
+      return this.http.get<Topic>(path, {withCredentials: true, params, observe: 'body', responseType: 'json' })
+          .pipe(switchMap((res: any) => {
+            const topic = res.data;
+            return of(topic);
+          }))
+  }
+
   queryPublic(params: {[key: string]: any }): Observable<ApiResponse> {
     let path = this.Location.getAbsoluteUrlApi('/api/topics');
     const queryParams = Object.fromEntries(Object.entries(params).filter((i) => i[1] !== null));
@@ -56,6 +67,6 @@ export class TopicService {
     let path = this.Location.getAbsoluteUrlApi('/api/users/self/topics');
     const queryParams = Object.fromEntries(Object.entries(params).filter((i) => i[1] !== null));
 
-    return this.http.get<ApiResponse>(path, { params: queryParams, observe: 'body', responseType: 'json' } );
+    return this.http.get<ApiResponse>(path, { withCredentials: true, params: queryParams, observe: 'body', responseType: 'json' } );
   };
 }

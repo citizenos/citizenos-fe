@@ -66,7 +66,6 @@ export class AuthService {
   };
 
   logout () {
-    console.log('logout');
     const pathLogoutEtherpad = this.Location.getAbsoluteUrlEtherpad('/ep_auth_citizenos/logout');
     const pathLogoutAPI = this.Location.getAbsoluteUrlApi('/api/auth/logout');
 
@@ -74,7 +73,6 @@ export class AuthService {
       this.http.get(pathLogoutEtherpad, { withCredentials: true , responseType: 'text'}),
       this.http.post(pathLogoutAPI, {}, {withCredentials: true})]).pipe(
       switchMap(([res]) => {
-        console.log('RES', res);
         this.user$ = null;
         return res;
       }),
@@ -88,7 +86,6 @@ export class AuthService {
     const path = this.Location.getAbsoluteUrlApi('/api/auth/status');
     return this.user$ = this.http.get<User>(path, { withCredentials: true, responseType: 'json', observe: 'body' } ).pipe(
       switchMap((res: any) => {
-        console.log(res.data);
         const user = res.data;
         user.loggedIn = true;
         this.loggedIn$.next(true);

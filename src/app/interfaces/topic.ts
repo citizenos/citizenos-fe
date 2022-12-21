@@ -11,6 +11,7 @@ export interface Topic {
   createdAt:	string,
   sourcePartnerId:	string | null,
   sourcePartnerObjectId:	string | null,
+  permission: {level: string},
   creator: any,
   lastActivity: string | null,
   members: any,

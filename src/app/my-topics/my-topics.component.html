@@ -1,0 +1,12 @@
+<div class="full_height">
+  <div id="topics_root">
+
+      <div class="v_line separator absolute_separator" ng-class="{hidden: (app.wWidth < 750)}"></div>
+
+      <div id="topics_wrap">
+          <app-list name="mytopicsleft"></app-list>
+          <router-outlet name="mytopicsright"></router-outlet>
+          <div class="clearer"></div>
+      </div>
+  </div>
+</div>

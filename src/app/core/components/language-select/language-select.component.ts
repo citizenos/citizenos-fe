@@ -18,6 +18,7 @@ export class LanguageSelectComponent implements OnInit {
   }
 
   doSwitchLanguage (lang: string) {
-    this.router.navigateByUrl(this.router.url.replace(`/${this.translate.currentLang}/`, `/${lang}/`));
+    this.translate.use(lang);
+    this.router.navigateByUrl(this.router.url.toString().replace('/'+this.translate.currentLang, '/'+lang));
   }
 }

@@ -30,7 +30,7 @@
                   <div class="language_cell" *ngFor="let language of languages$ | keyvalue" (click)='doSwitchLanguage(language.key)'>
                     <label>
                       <div class="table_cell">
-                          <div class="item_text " [ngClass]="translate.currentLang !== language.key ? 'blue_link' : 'gray_link'">{{language.value}} </div>
+                          <div class="item_text " (click)='doSwitchLanguage(language.key)' [ngClass]="translate.currentLang !== language.key ? 'blue_link' : 'gray_link'">{{language.value}} </div>
                       </div>
                   </label>
                   </div>

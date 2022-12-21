@@ -27,6 +27,7 @@ import { LanguageSelectComponent } from './core/components/language-select/langu
 import { NotificationComponent } from './core/components/notification/notification.component';
 import { TopicboxComponent } from './core/components/topicbox/topicbox.component';
 import { CategoryboxComponent } from './core/components/categorybox/categorybox.component';
+import { ActivityFeedComponent } from './core/components/activity-feed/activity-feed.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { CategoryboxComponent } from './core/components/categorybox/categorybox.
     LanguageSelectComponent,
     NotificationComponent,
     TopicboxComponent,
-    CategoryboxComponent
+    CategoryboxComponent,
+    ActivityFeedComponent
   ],
   imports: [
     BrowserModule,

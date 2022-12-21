@@ -14,7 +14,7 @@ export class TopicboxComponent implements OnInit {
   constructor(private TopicService: TopicService) { }
 
   ngOnInit(): void {
-    const catEntries = Object.keys(this.TopicService.CATEGORIES).filter((cat) => this.topic.categories.indexOf(cat) > -1);
+    const catEntries = Object.keys(this.TopicService.CATEGORIES).filter((cat) => this.topic.categories?.indexOf(cat) > -1);
     if (catEntries.length) {
       this.catClass = catEntries[0];
     }

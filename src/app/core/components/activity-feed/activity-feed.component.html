@@ -1,0 +1,11 @@
+<a (click)="doShowActivityModal()" class="section_item" >
+  <div class="section_icon">
+      <div class="table_cell">
+          <div *ngIf="!unreadActivitiesCount" class="sprite sprite-menu-icon-activities2x"></div>
+          <div *ngIf="unreadActivitiesCount" class="activities_counter">
+              {{unreadActivitiesCount}}
+          </div>
+      </div>
+  </div>
+  <span id="activity_feed_link_text" translate="DEFAULT.NAV.LNK_ACTIVITY"></span>
+</a>

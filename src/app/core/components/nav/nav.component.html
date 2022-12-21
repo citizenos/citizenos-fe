@@ -9,7 +9,7 @@
 
 <div class="nav_inside" >
   <!-- Only show this if the user is NOT logged in -->
-  <ng-component *ngIf="auth.user$ | async; then loggedIn; else loggedOut"></ng-component>
+  <ng-container *ngIf="auth.user$ | async; then loggedIn; else loggedOut"></ng-container>
   <ng-template #loggedOut>
     <button class="blue_button ngShow" (click)="doShowLogin()" translate="DEFAULT.NAV.LNK_LOG_IN_REGISTER"></button>
   </ng-template>
@@ -69,17 +69,7 @@
 
         <!-- Nav section -->
         <div class="section">
-            <!--a (click)="app.doShowActivityModal()" class="section_item" >
-                <div class="section_icon">
-                    <div class="table_cell">
-                        <!--div *ngIf="!app.unreadActivitiesCount" class="sprite sprite-menu-icon-activities2x"></!--div-->
-                        <!--div *ngIf="app.unreadActivitiesCount" class="activities_counter">
-                            {{app.unreadActivitiesCount}}
-                        </!--div>
-                    </div>
-                </div>
-                <span id="activity_feed_link_text" translate="DEFAULT.NAV.LNK_ACTIVITY"></span>
-            </!--a-->
+            <activity-feed></activity-feed>
         </div>
 
         <div class="line dark_line"></div>
