@@ -18,10 +18,8 @@ export class MyTopicComponent implements OnInit {
   activities = false;
 
   constructor(public TopicService: TopicService, private route: ActivatedRoute, private router: Router) {
-    console.log(this.route.params);
     this.topic$ = this.route.params.pipe(
       switchMap((params) => {
-        console.log('params', params)
         return this.TopicService.get(params['topicId']);
       })
     );

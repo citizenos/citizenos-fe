@@ -78,7 +78,7 @@
                               <div class="error_no_account" *ngIf="errors?.accoundDoesNotExist">
                                   <div class="icon_cell"><div class="sprite sprite-icon-inputfield-error2x"></div></div>
                                   <div class="table_cell">
-                                      <span translate="MODALS.LOGIN_ERROR_NO_ACCOUNT" translate-values="{linkRegister: linkRegister}"></span>
+                                      <span translate="MODALS.LOGIN_ERROR_NO_ACCOUNT" [translateParams]="{linkRegister: linkRegister}"></span>
                                   </div>
                               </div>
                               <input id="email" formControlName="email" type="email" placeholder="{{'MODALS.LOGIN_PLACEHOLDER_EMAIL' | translate}}" ng-class="{'error_input': errors.email}" maxlength="254" required>

@@ -1,0 +1,178 @@
+@use 'vars';
+@use 'mixins_n_extends';
+
+.timeline {
+  height: 85px;
+  display: table;
+  padding: 0 60px;
+  box-sizing: border-box;
+  width: 100%;
+  font-size: 14px;
+  margin-top: 15px;
+  position: relative;
+  background: vars.$light_gray;
+
+  @media (max-width: 767px) {
+      padding: 0;
+      height: 106px;
+      margin-top: 22px;
+  }
+
+  .milestones_wrap {
+      text-align: center;
+      margin-bottom: 38px;
+      display: none;
+      width: 100px;
+
+      @media (max-width: 767px) {
+          display: table-row;
+          height: 42px;
+      }
+
+      .milestones_section {
+          display: inline-table;
+          background: vars.$lightest_gray;
+          padding-right: 12px;
+          border-radius: 12px;
+          margin-left: -2px;
+          .table_cell {
+              width: auto;
+              .milestones_text {
+                  padding-left: 9px;
+              }
+              .milestones_checkmark {
+                  padding-right: 5px;
+              }
+          }
+      }
+
+  }
+
+  .table_cell {
+      position: relative;
+      width: 100%;
+
+      .background_line {
+          height: 4px;
+          width: 100%;
+          position: absolute;
+          left: 0;
+          margin-top: -2px;
+      }
+
+      .progress_line {
+          @extend .background_line;
+
+          &.progress_status_line {
+              width: 33%;
+          }
+
+          &.in_progress_line {
+              width: 25%;
+          }
+
+          &.voting_line {
+              width: 66%;
+          }
+
+          &.in_voting_line {
+              width: 50%;
+          }
+
+          &.follow_up_line {
+              width: 100%;
+          }
+
+          &.in_follow_up_line {
+              width: 75%;
+          }
+      }
+
+      .days_left_wrap {
+          height: 24px;
+          display: table;
+          border-radius: 100px;
+          font-weight: vars.$bold;
+          padding: 0 10px;
+          position: absolute;
+          margin-top: -12px;
+
+          &.days_left_in_progress {
+              left: 25%;
+          }
+
+          &.days_left_voting {
+              left: 50%;
+          }
+
+          &.days_left_follow_up {
+              left: 75%;
+          }
+
+          &.days_left_closed {
+              left: 99%;
+          }
+      }
+
+      .checkmark {
+          height: 30px;
+          width: 30px;
+          display: table;
+          margin-top: -15px;
+          position: absolute;
+
+          @media (max-width: 767px) {
+              display: none;
+          }
+
+          .table_cell {
+              width: 100%;
+              height: 100%;
+              border-radius: 50%;
+              .sprite {
+                  margin: 0 auto;
+              }
+          }
+          &:hover {
+              cursor: pointer;
+              .tooltip {
+                  visibility: visible;
+                  @include mixins_n_extends.tablet {
+                      visibility: hidden;
+                  }
+              }
+          }
+      }
+
+      .checkmark_in_progress {
+          left: 32%;
+      }
+
+      .checkmark_voting {
+          left: 65%;
+      }
+  }
+
+  .additional_info {
+      position: absolute;
+      top: 2px;
+  }
+
+  .additional_info.signing_deadline {
+      right: 60px;
+      @media (max-width: 767px) {
+          width: 100%;
+          left: 0;
+          text-align: center;
+          top: 33px;
+      }
+  }
+
+  .additional_info.current_phase {
+      left: 60px;
+      @media (max-width: 767px) {
+          display: none;
+      }
+  }
+
+}

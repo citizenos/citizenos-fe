@@ -17,5 +17,15 @@ export interface Topic {
   members: any,
   voteId:	string | null,
   comments: any,
-  url	: string
+  url	: string,
+  pinned?: boolean | null,
+  imageUrl: string | null,
+  report: {
+    type: null | string,
+    moderatedReasonType: string | null
+  },
+  vote: {
+    id: string| null,
+    endsAt: string | null
+  }
 }

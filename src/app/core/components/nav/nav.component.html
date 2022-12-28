@@ -12,16 +12,12 @@
   <ng-container *ngIf="auth.user$ | async; then loggedIn; else loggedOut"></ng-container>
   <ng-template #loggedOut>
     <button class="blue_button ngShow" (click)="doShowLogin()" translate="DEFAULT.NAV.LNK_LOG_IN_REGISTER"></button>
-  </ng-template>
 
-
-  <!-- Nav section -->
-  <ng-template #loggedOut>
     <div class="section">
         <div class="line dark_line"></div>
         <div class="line light_line"></div>
 
-        <a routerLink="home" routerLinkActive="active" class="section_item">
+        <a routerLink="public/topics" routerLinkActive="active" class="section_item">
             <div class="section_icon">
                 <div class="table_cell">
                     <div class="sprite sprite-menu-icon-topics2x"></div>
@@ -156,23 +152,23 @@
   <!-- Nav section -->
   <div class="section">
 
-      <!--a *ngIf="config.get('links').about" class="section_item" target="_blank" [href]="config.config$ | async as config">
+      <a *ngIf="config.get('links').about" class="section_item" target="_blank" [href]="config.get('links').about">
           <div class="section_icon">
               <div class="table_cell">
                   <div class="sprite sprite-menu-icon-about2x"></div>
               </div>
           </div>
-          <span translate="DEFAULT.NAV.LNK_ABOUT">About</span>
-      </!--a>
+          <span translate="DEFAULT.NAV.LNK_ABOUT"></span>
+      </a>
 
-      <!--a class="section_item" (click)="app.toggleHelp()">
+      <a class="section_item" (click)="toggleHelp()">
           <div class="section_icon">
               <div class="table_cell">
                   <div class="sprite sprite-menu-icon-help2x"></div>
               </div>
           </div>
-          <span translate="DEFAULT.NAV.LNK_HELP">Help</span>
-      </!--a -->
+          <span translate="DEFAULT.NAV.LNK_HELP"></span>
+      </a>
       <a class="section_item" (click)="doShowLanguageSelect()">
               <div class="section_icon">
                   <div class="table_cell">

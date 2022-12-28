@@ -1,10 +1,11 @@
+import { TooltipDirective } from './directives/tooltip';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateModule, TranslateLoader, TranslateCompiler } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -23,11 +24,11 @@ export function createTranslateLoader(http: HttpClient) {
 }
 
 import {} from '@ngx-translate/core';
+import { JSONPointerCompiler } from './JSONPointerCompiler';
 import { LanguageSelectComponent } from './core/components/language-select/language-select.component';
 import { NotificationComponent } from './core/components/notification/notification.component';
-import { TopicboxComponent } from './core/components/topicbox/topicbox.component';
-import { CategoryboxComponent } from './core/components/categorybox/categorybox.component';
 import { ActivityFeedComponent } from './core/components/activity-feed/activity-feed.component';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -39,8 +40,6 @@ import { ActivityFeedComponent } from './core/components/activity-feed/activity-
     HomeComponent,
     LanguageSelectComponent,
     NotificationComponent,
-    TopicboxComponent,
-    CategoryboxComponent,
     ActivityFeedComponent
   ],
   imports: [
@@ -50,7 +49,8 @@ import { ActivityFeedComponent } from './core/components/activity-feed/activity-
         provide: TranslateLoader,
         useFactory: (createTranslateLoader),
         deps: [HttpClient]
-    }
+      },
+      compiler: {provide: TranslateCompiler, useClass: JSONPointerCompiler},
     }),
     CommonModule,
     HttpClientModule,
@@ -59,7 +59,11 @@ import { ActivityFeedComponent } from './core/components/activity-feed/activity-
     AppRoutingModule,
     NoopAnimationsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
+  ],
+  exports: [
+    MatSelectModule,
   ],
   providers: [
     ConfigService,

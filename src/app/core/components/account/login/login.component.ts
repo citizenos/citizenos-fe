@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   public email: any;
   public authMethodsAvailable: any;
   public isFormEmailProvided: any;
-  private linkRegister: any;
+  public linkRegister: any;
   public form = new FormGroup({
     email: new FormControl(''),
     password: new FormControl(''),

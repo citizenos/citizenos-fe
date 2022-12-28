@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { Router, Event, ActivatedRoute, NavigationStart } from '@angular/router';
+import { Router, Event, NavigationStart } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { Title } from "@angular/platform-browser";
 
 import { ConfigService } from './services/config.service';
 import { NotificationService } from './services/notification.service';
-import { takeUntil, Subject } from 'rxjs';
+import { takeUntil, Subject , tap} from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,7 @@ export class AppComponent {
   config$ = this.config.load();
   wWidth: number = window.innerWidth;
   destroy$ = new Subject<boolean>();
-  constructor (private router: Router, private route: ActivatedRoute, public translate: TranslateService, private config: ConfigService) {
+  constructor (private router: Router, private title: Title, public translate: TranslateService, private config: ConfigService) {
     const languageConf = config.get('language');
     translate.addLangs(Object.keys(languageConf.list));
     translate.setDefaultLang(languageConf.default);
@@ -34,6 +35,7 @@ export class AppComponent {
               }
             }
         }
+        this.title.setTitle(translate.instant('META_DEFAULT_TITLE'));
     });
   }
 

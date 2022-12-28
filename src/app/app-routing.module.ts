@@ -6,8 +6,9 @@ const routes: Routes = [
   {
     path: ':lang',
     children: [
-      {path: 'account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule)},
       {path: '', component: HomeComponent},
+      {path: 'account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule)},
+      {path: 'topics', loadChildren: () => import('./topic/topic.module').then(m => m.TopicModule)},
       {path: ':category', component: HomeComponent},
       {path: 'my', children: [
         {path: 'topics', loadChildren: () => import('./my-topics/my-topics.module').then((m) => {console.log('MODULE', m); return m.MyTopicsModule})},
@@ -19,6 +20,7 @@ const routes: Routes = [
       ]}
     ],
   },
+  { path: 'topic', loadChildren: () => import('./topic/topic.module').then(m => m.TopicModule) },
 ];
 
 @NgModule({

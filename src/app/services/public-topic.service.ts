@@ -1,5 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { TopicService } from './topic.service';
+import { LocationService } from './location.service';
 import { Observable, BehaviorSubject, map, switchMap, tap, of, catchError, distinct, EMPTY } from 'rxjs';
 import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { Topic } from 'src/app/interfaces/topic';
@@ -25,7 +26,7 @@ export class PublicTopicService {
   hasMore$ = new BehaviorSubject(false);
   countTotal$ = new BehaviorSubject(0);
 
-  constructor(private TopicService: TopicService) {
+  constructor(private http: HttpClient, private Location: LocationService) {
     this.topics$ = this.loadTopics();
   }
 
@@ -37,13 +38,14 @@ export class PublicTopicService {
   loadTopics (): Observable<Topic[]> {
     return this.params$.pipe(
       switchMap((params) => {
+        this.topics$ = of([]);
         return this.getTopics(params);
       })
     )
   }
 
   getTopics(params: any) {
-    return this.TopicService.queryPublic(params).pipe(
+    return this.queryPublic(params).pipe(
       map((res: ApiResponse) => {
         this.countTotal$.next(res.data.countTotal || 0);
 
@@ -64,6 +66,13 @@ export class PublicTopicService {
       catchError(() => EMPTY)
     );
   }
+
+  queryPublic(params: {[key: string]: any }): Observable<ApiResponse> {
+    let path = this.Location.getAbsoluteUrlApi('/api/topics');
+    const queryParams = Object.fromEntries(Object.entries(params).filter((i) => i[1] !== null));
+
+    return this.http.get<ApiResponse>(path, { params: queryParams, observe: 'body', responseType: 'json' } );
+  };
 
   setCategory (category: string) {
     const params = this.params$.value;

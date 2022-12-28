@@ -11,7 +11,6 @@
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
-@include mat.core();
 
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
@@ -281,23 +280,6 @@ body.body_not_fixed {
     }
 }
 
-
-
-h1 {
-    padding: 0;
-    margin: 0;
-    color: vars.$dark_gray;
-    font-weight: vars.$light;
-    font-size: 36px;
-}
-
-h2 {
-    padding: 0;
-    margin: 20px 0 0 0;
-    color: vars.$deep_sky_blue;
-    font-weight: vars.$bold;
-    font-size: 16px;
-}
 
 #view {
     height: 100%;
@@ -3710,4 +3692,49 @@ a:link, a:visited {
             margin: 0;
         }
     }
+}
+
+$tooltip-background-color: #111111ee;
+$margin-tooltip-arrow: 6px !default;
+.tooltip-container {
+  text-align: center;
+  z-index: 100;
+  position: fixed;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 600;
+  line-height: initial;
+  color: white;
+  width: auto;
+  background: $tooltip-background-color ;
+  box-sizing: border-box;
+  opacity: 0;
+  transform: translate(-50%, -30%);
+  animation: tooltip-slide 0.18s ease-out 0.5s;
+  animation-fill-mode: forwards;
+  pointer-events: none;
+
+  :before {
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid $tooltip-background-color;
+    content: '';
+    height: 0;
+    left: 50%;
+    margin-left: -$margin-tooltip-arrow;
+    position: absolute;
+    top: 100%;
+    width: 0;
+  }
+}
+
+@keyframes tooltip-slide {
+0% {
+  opacity: 0;
+  transform: translate(-50%, -30%);
+}
+100% {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
 }

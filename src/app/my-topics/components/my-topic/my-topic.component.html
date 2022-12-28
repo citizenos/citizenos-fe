@@ -23,7 +23,7 @@
                       </div>
                   </!--div-->
               </div>
-              <div class="container_pin" [ngClass]="topic.pinned ? 'pinned' : ''" (click)="togglePin()">
+              <div class="container_pin" [ngClass]="topic.pinned ? 'pinned' : ''" > <!--(click)="togglePin()"-->
                   <!--div class="ff_table_fix" tooltips tooltip-side="left" tooltip-template="<span'>{{'TOOLTIP_PIN_TOPIC' | translate}}</span>">
                       <div class="table_cell">
                           <div class="sprite sprite-icon-favourite2x-white"></div>
@@ -76,7 +76,7 @@
                           <div class="item_text">
                               <!--span [textContent]="topicMemberUserService.countTotal">0</!--span-->
                               <span class="separator">|</span>
-                              <span class="item_link blue_link" (click)="viewMemberUsers();" translate="VIEWS.MY_TOPICS_TOPICID.LNK_VIEW"></span>
+                              <span class="item_link blue_link" translate="VIEWS.MY_TOPICS_TOPICID.LNK_VIEW"></span> <!-- (click)="viewMemberUsers();"-->
                           </div>
                       </div>
                       <div class="clearer"></div>
@@ -88,7 +88,7 @@
                           <div class="item_text">
                               <!--span [textContent]="topicMemberGroupService.countTotal">0</!--span-->
                               <span class="separator">|</span>
-                              <span class="item_link blue_link" (click)="viewMemberGroups();" translate="VIEWS.MY_TOPICS_TOPICID.LNK_VIEW"></span>
+                              <span class="item_link blue_link"  translate="VIEWS.MY_TOPICS_TOPICID.LNK_VIEW"></span> <!--(click)="viewMemberGroups();"-->
                           </div>
                       </div>
                       <div class="clearer"></div>
@@ -107,7 +107,7 @@
                       <div class="clearer"></div>
                   </div>
 
-                  <div class="content_item">
+                  <!--div class="content_item">
                       <div class="item_description" translate="VIEWS.MY_TOPICS_TOPICID.LBL_TOPIC_ACTIONS"></div>
                       <div class="item_content">
                           <span class="item_text blue_link" *ngIf="topic.canUpdate(topic)" ui-sref="my/topics/topicId/settings({topicId: topic.id})" translate="VIEWS.MY_TOPICS_TOPICID.LNK_SETTINGS"></span>
@@ -126,7 +126,7 @@
                           </span>
                       </div>
                       <div class="clearer"></div>
-                  </div>
+                  </!--div-->
 
               </div>
 
@@ -142,11 +142,11 @@
   <!-- ACTIVITY FEED & NOTIFICATIONS -->
   <div id="activities_list" class="info_container">
 
-      <div class="container_header" (click)="doToggleActivities();">
+      <div class="container_header" > <!--(click)="doToggleActivities();"-->
           <div class="header_text">
               <span translate="VIEWS.MY_TOPICS_TOPICID.HEADING_ACTIVITY_FEED_AND_NOTIFICATIONS"></span>
               <span>|</span>
-              <a class="blue_link" translate="VIEWS.TOPICS_TOPICID.NAV_LNK_SET_TOPIC_NOTIFICATIONS" (click)="$event.stopPropagation(); app.doShowTopicNotificationSettings(topic.id)"></a>
+              <a class="blue_link" translate="VIEWS.TOPICS_TOPICID.NAV_LNK_SET_TOPIC_NOTIFICATIONS"></a> <!-- (click)="$event.stopPropagation(); app.doShowTopicNotificationSettings(topic.id)"-->
           </div>
           <div class="minimize_container">
               <!--div [ngClass]="!app.activityFeed ? 'sprite-btn-expand2x' : 'sprite-btn-minimize2x'" class="sprite"></!--div-->
@@ -157,7 +157,7 @@
           <div class="activity_wrap compact">
               <div class="activity_area">
 
-                  <!--activity item="activity" ng-repeat="(key, activity) in topicActivitiesService.activities"></!--activity>
+                  <activity item="activity" ng-repeat="(key, activity) in topicActivitiesService.activities"></activity>
               </div>
           </div>
       </!--div-->
@@ -166,7 +166,7 @@
 
   <!-- CURRENT VOTE WITH VOTING -->
 
-  <div id="vote_results" class="info_container vote_results" *ngIf="topic.voteId">
+  <!--div id="vote_results" class="info_container vote_results" *ngIf="topic.voteId">
 
       <div class="container_header" (click)="doToggleVoteResults()">
           <div class="header_text" translate="VIEWS.MY_TOPICS_TOPICID.HEADING_CURRENT_VOTE_RESULTS">Current vote results</div>
@@ -180,11 +180,11 @@
 
           <div class="content_bottom">
 
-              <!-- COLUMN 1 >
+              < COLUMN 1 >
               <topic-vote-cast-- class="content_column" vote="topic.vote"></topic-vote-cast-->
 
 
-              <!--COLUMN 2 -->
+              <!--COLUMN 2 >
               <div class="content_column">
 
 
@@ -222,7 +222,7 @@
       </div>
 
 
-  </div>
+  </!--div-->
 
   <!-- GROUP LIST >
   <div-- class="info_container group_list" id="group_list">
@@ -301,7 +301,7 @@
                       </div>
                   </div>
                   <div class="pretend_td">
-                      <span class="pretend_table_mobile_text" translate="VIEWS.MY_TOPICS_TOPICID.LBL_USERS_COUNT" translate-values="{count: group.members.users.count}">Users: 0</span>
+                      <span class="pretend_table_mobile_text" translate="VIEWS.MY_TOPICS_TOPICID.LBL_USERS_COUNT" [translateParams]="{count: group.members.users.count}">Users: 0</span>
                       <span *ngIf="app.wWidth >= 560" [textContent]="group.members.users.count">1</span>
                   </div>
                   <div class="pretend_td recycle_bin_wrap">

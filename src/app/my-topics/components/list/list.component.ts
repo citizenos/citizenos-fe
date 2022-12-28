@@ -12,11 +12,9 @@ export class ListComponent {
   topics$;
 
   constructor(public UserTopicService: UserTopicService, public route: ActivatedRoute, private router: Router) {
-    console.log('current', route);
     this.topics$ = this.route.paramMap.pipe(switchMap((params) => {
         return this.UserTopicService.topics$.pipe(map((items) => {
           if(!params.get('topicId')) {
-            console.log(params, items[0].id)
             this.router.navigateByUrl('/my/topics/' + items[0].id);
           }
           return items;

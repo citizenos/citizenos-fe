@@ -4,6 +4,7 @@ import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { LocationService } from './location.service';
 import { Observable, switchMap, of } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
+import { AuthService } from './auth.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -44,11 +45,25 @@ export class TopicService {
     closed: 'closed' // Final status - Topic is completed and no editing/reopening/voting can occur.
   };
 
-  constructor(private Location: LocationService, private http: HttpClient) { }
+  public VISIBILITY = {
+      public: 'public', // Everyone has read-only on the Topic.  Pops up in the searches..
+      private: 'private' // No-one can see except collaborators
+  };
+
+  public LEVELS = {
+      read: 'read',
+      edit: 'edit',
+      admin: 'admin'
+  };
+
+  constructor(private Location: LocationService, private http: HttpClient, private Auth: AuthService) { }
 
   get(id: string, params?: { [key:string]: string }): Observable<Topic>  {
       let path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId', {topicId: id});
-
+      console.log('AUTH', this.Auth.loggedIn$.value)
+      if (!this.Auth.loggedIn$.value) {
+        path = this.Location.getAbsoluteUrlApi('/api/topics/:topicId', {topicId: id});
+      }
       return this.http.get<Topic>(path, {withCredentials: true, params, observe: 'body', responseType: 'json' })
           .pipe(switchMap((res: any) => {
             const topic = res.data;
@@ -56,17 +71,63 @@ export class TopicService {
           }))
   }
 
-  queryPublic(params: {[key: string]: any }): Observable<ApiResponse> {
-    let path = this.Location.getAbsoluteUrlApi('/api/topics');
-    const queryParams = Object.fromEntries(Object.entries(params).filter((i) => i[1] !== null));
-
-    return this.http.get<ApiResponse>(path, { params: queryParams, observe: 'body', responseType: 'json' } );
-  };
-
   query(params: {[key: string]: any }): Observable<ApiResponse> {
     let path = this.Location.getAbsoluteUrlApi('/api/users/self/topics');
     const queryParams = Object.fromEntries(Object.entries(params).filter((i) => i[1] !== null));
 
     return this.http.get<ApiResponse>(path, { withCredentials: true, params: queryParams, observe: 'body', responseType: 'json' } );
+  };
+
+
+  isPrivate (topic: Topic) {
+      return topic && topic.visibility === this.VISIBILITY.private;
+  };
+
+  canUpdate (topic: Topic) {
+      return (topic && topic.permission && topic.permission.level === this.LEVELS.admin && topic.status !== this.STATUSES.closed);
+  };
+
+  /**
+   * Can one edit Topics settings and possibly description (content)?
+   * Use canEditDescription() if you only need to check if content can be edited.
+   *
+   * @returns {boolean}
+   *
+   */
+  canEdit (topic: Topic) {
+      return (topic && [this.LEVELS.admin, this.LEVELS.edit].indexOf(topic.permission.level) > -1 && topic.status !== this.STATUSES.closed);
+  };
+
+  /**
+   * Can one edit Topics description (content)?
+   *
+   * @returns {boolean}
+   *
+   */
+  canEditDescription (topic: Topic) {
+      return this.canEdit(topic) && topic.status === this.STATUSES.inProgress;
+  };
+
+  canDelete (topic: Topic) {
+      return (topic && topic.permission.level === this.LEVELS.admin);
+  };
+/*
+  canVote (topic: Topic) {
+      return topic && topic.vote && ((topic.vote.authType === this.TopicVote.VOTE_AUTH_TYPES.hard && topic.visibility === this.VISIBILITY.public) && topic.status === this.STATUSES.voting);
+  };*/
+/*
+  canDelegate (topic: Topic) {
+      return (this.canVote(topic) && topic.vote.delegationIsAllowed === true);
+  };*/
+  canSendToFollowUp (topic: Topic) {
+      return this.canUpdate(topic) && topic.vote && topic.vote.id && topic.status !== this.STATUSES.followUp;
+  };
+
+  canSendToVote (topic: Topic) {
+      return this.canUpdate(topic) && [this.STATUSES.voting, this.STATUSES.closed].indexOf(topic.status) < 0;
+  };
+
+  canLeave () {
+      return this.Auth.loggedIn$.value;
   };
 }

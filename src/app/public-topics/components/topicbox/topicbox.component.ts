@@ -1,17 +1,19 @@
+import { Router } from '@angular/router';
 import { TopicService } from 'src/app/services/topic.service';
 import { Component, Input, OnInit } from '@angular/core';
 import {tap} from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 
 @Component({
-  selector: 'app-topicbox',
+  selector: 'topicbox',
   templateUrl: './topicbox.component.html',
   styleUrls: ['./topicbox.component.scss']
 })
+
 export class TopicboxComponent implements OnInit {
   @Input() topic = <Topic>{}; // decorate the property with @Input()
   catClass = "varia";
-  constructor(private TopicService: TopicService) { }
+  constructor(private TopicService: TopicService, private router: Router) { }
 
   ngOnInit(): void {
     const catEntries = Object.keys(this.TopicService.CATEGORIES).filter((cat) => this.topic.categories?.indexOf(cat) > -1);
@@ -24,7 +26,9 @@ export class TopicboxComponent implements OnInit {
     return window.innerWidth > 667;
   }
 
-  goToView() {//topic param
+  goToView() {
+    this.router.navigateByUrl('/public/topics/' + this.topic.id);
+    //topic param
       /*const params = {
           language: this.$stateParams.language,
           topicId: topic.id

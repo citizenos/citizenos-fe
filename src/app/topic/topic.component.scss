@@ -1,0 +1,645 @@
+@use 'vars';
+@use 'mixins_n_extends';
+
+#topics_admin_root {
+    @extend %default_setup;
+
+    .content_wrap {
+
+        .tabs_wrap_wrap {
+            height: 44px;
+            position: relative;
+            display: table;
+            width: 100%;
+
+            .arrow_btn {
+                position: absolute;
+                background: linear-gradient(90deg, rgba(246, 246, 246, 100%) 72.5%, rgba(246, 246, 246, 0%) 100%);
+                height: inherit;
+                width: 70px;
+                z-index: 2;
+                border-bottom: 1px solid vars.$lightest_gray;
+                display: table;
+                box-sizing: border-box;
+                cursor: pointer;
+                .sprite {
+                    margin-left: 4px;
+                }
+                &:hover {
+                    .sprite {
+                        margin-left: 0;
+                        @extend %sprite-icon-arrow-topic-tab2x-hover;
+                    }
+                }
+
+            }
+
+            .arrow_btn.right {
+                right: 0;
+                background: linear-gradient(90deg, rgba(246, 246, 246, 0%) 0, rgba(246, 246, 246, 100%) 28.5%);
+                left: auto;
+                .sprite {
+                    margin-left: auto;
+                    margin-right: 4px;
+                }
+                &:hover {
+                    .sprite {
+                        margin-left: auto;
+                        margin-right: 0;
+                        @extend %sprite-icon-arrow-right-topic-tab2x-hover;
+                    }
+                }
+            }
+
+            .fake_cell {
+                display: table-cell;
+                min-width: 310px;
+                @include mixins_n_extends.tablet {
+                    display: none;
+                }
+            }
+
+            .tabs_wrap {
+                height: inherit;
+                position: relative;
+                display: table-cell;
+                width: 70%;
+                padding-left: 60px;
+                box-sizing: border-box;
+                @include mixins_n_extends.tablet {
+                    width: 100%;
+                    padding-left: 0;
+                }
+                .tabs_visible_area {
+                    height: inherit;
+                    position: relative;
+                    overflow: hidden;
+
+                    @include mixins_n_extends.tablet {
+                        padding-left: 10px;
+                    }
+
+                    .tabs_rails {
+                        height: inherit;
+                        width: 99999px;
+                        position: absolute;
+                        top: 0;
+                        .tabs_train {
+                            height: inherit;
+                            float: left;
+                            position: absolute;
+                            transition: all 450ms cubic-bezier(.45, .78, 0, 1);
+                            @include mixins_n_extends.tablet {
+                                transition: none;
+                            }
+                            .tab {
+                                display: table;
+                                height: inherit;
+                                float: left;
+                                background: vars.$white;
+                                font-size: 14px;
+                                font-weight: bold;
+                                padding: 0 20px;
+                                box-sizing: border-box;
+                                margin-right: 10px;
+                                border: 1px solid vars.$lightest_gray;
+                                position: relative;
+                                z-index: 1;
+                                text-align: center;
+                                color: vars.$text_gray;
+
+                                &:hover {
+                                    cursor: pointer;
+                                    background: vars.$light_gray;
+                                    @include mixins_n_extends.tablet {
+                                        background: vars.$white;
+                                    }
+                                }
+                                @include mixins_n_extends.tablet {
+                                    &:last-child {
+                                        margin-right: 0;
+                                    }
+                                }
+                            }
+                            .selected {
+                                background: vars.$light_gray;
+                                border-bottom: 1px solid vars.$light_gray;
+
+                                &:hover {
+                                    cursor: initial;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .line {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+            }
+
+        }
+
+        .content {
+            display: table;
+            width: 100%;
+            box-sizing: border-box;
+            position: relative;
+
+            .main_panel {
+                box-sizing: border-box;
+                display: table-cell;
+                width: 70%;
+                position: relative;
+
+                @include mixins_n_extends.tablet {
+                    width: 100%;
+                }
+
+                .info_bar_wrap {
+                    position: relative;
+                    z-index: 1;
+                    .info_icon {
+                        vertical-align: middle;
+                    }
+                    @include mixins_n_extends.tablet {
+                        margin-top: 0;
+                    }
+
+                }
+
+                .main_content_wrap {
+                    position: relative;
+                    box-sizing: border-box;
+
+                    @include mixins_n_extends.tablet {
+                        width: 100%;
+                    }
+                    .iframe_content_wrap {
+                        padding: 30px 60px;
+
+                        @media (max-width: 767px) {
+                            padding: 30px 20px;
+                        }
+
+                        .topic_info.open {
+                            .more_info_button {
+                                .table_cell {
+                                    .circle_holder {
+                                        .circle_wrap {
+                                            .circle {
+                                                bottom: -1px;
+                                            }
+                                            &:nth-child(2) {
+                                                .circle {
+                                                    bottom: auto;
+                                                    top: -2px;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            .line {
+                                margin-top: 63px;
+                            }
+
+                        }
+
+                        .topic_info {
+                            position: relative;
+                            margin-bottom: 29px;
+                            display: block;
+
+                            .container_pin {
+                                top: -4px;
+                                right: -41px;
+                                &:active {
+                                    top: -5px;
+                                    right: -42px;
+                                }
+                                @media (max-width: 767px) {
+                                    display: blocK;
+                                    top: auto;
+                                    right: 0;
+                                    &:active {
+                                        top: auto;
+                                        right: -1px;
+                                    }
+                                }
+                            }
+
+                            .container_report {
+                                top: -4px;
+                                right: 16px;
+                                &:active {
+                                    top: -5px;
+                                    right: -17px;
+                                }
+                                @media (max-width: 767px) {
+                                    display: blocK;
+                                    top: auto;
+                                    right: 55px;
+                                    &:active {
+                                        top: auto;
+                                        right: 28px;
+                                    }
+                                }
+                            }
+
+                            .container_visibility {
+                                top: -4px;
+                                right: -12px;
+                                @media (max-width: 767px) {
+                                    display: blocK;
+                                    top: auto;
+                                    right: 28px;
+                                }
+                            }
+
+                            .more_info_button {
+                                margin-bottom: 21px;
+                                font-family: "Noto Sans";
+                                font-size: 14px;
+                                line-height: 22px;
+                                color: vars.$deep_sky_blue;
+                                display: none;
+                                @media (max-width: 767px) {
+                                    display: table;
+                                }
+                                .table_cell {
+                                    width: 100%;
+                                    height: 100%;
+
+                                    .more_info_button_text_wrap {
+                                        display: inline-block;
+
+                                        .arrow_down_wrap {
+                                            display: inline-block;
+                                            margin-right: 5px;
+
+                                            .arrow_down_blue {
+                                                width: 8px;
+                                                height: 5px;
+                                                display: inline-block;
+                                                vertical-align: middle;
+                                            }
+                                        }
+                                    }
+
+                                    .more_info_attachment_wrap {
+                                        background-color: vars.$deep_sky_blue;
+                                        color:vars.$white;
+                                        height: 22px;
+                                        width: 38px;
+                                        border-radius: 11px;
+                                        margin-left: 7px;
+                                        display: inline-block;
+
+                                        .more_info_attachment_icon {
+                                            margin-left: 6px;
+                                            display: inline-block;
+                                        }
+                                    }
+                                }
+                            }
+
+                            .info_sections_wrap {
+                                .info_section {
+                                    margin-bottom: 7px;
+                                    font-size: 13px;
+                                    line-height: 30px;
+
+                                    @media (min-width: 767px) {
+                                        line-height: 18px;
+                                    }
+
+                                    .info_section_title {
+                                        font-weight: bold;
+
+                                        @media (min-width: 767px) {
+                                            display: inline-block;
+                                            font-weight: 400;
+                                        }
+                                    }
+                                    .info_section_content {
+                                        color: vars.$deep_sky_blue;
+
+                                        @media (min-width: 767px) {
+                                            display: inline-block;
+
+                                            .blue_link {
+                                                line-height: 18px;
+                                            }
+                                        }
+                                    }
+                                    .info_section_separator {
+                                        color: vars.$medium_black;
+                                    }
+                                    .file_type {
+                                        padding: 0 3px 0px 3px;
+                                        font-size: 12px;
+                                        margin-left: 10px;
+                                    }
+                                    .info_section_add_attachments {
+                                        margin-top: 15px;
+                                    }
+                                }
+                                tooltip, .tooltip_author {
+                                    display: inline;
+                                }
+                            }
+
+                            .line {
+                                margin-top: 22px;
+                                @media (max-width: 767px) {
+                                    margin-top: 32px;
+                                }
+                            }
+                            .info_section, .blue_link {
+                                font-size: 14px;
+                                line-height: 30px;
+                            }
+                            .creator_data_tooltip_row {
+                                display: table-row;
+                            }
+                        }
+
+                        /** For @media print - hiding the topic_content_read_only and showing later with CSS when print is pushed **/
+                        #topic_content_read_only {
+                            display: inline;
+                        }
+
+                        @media print {
+                            #topic_content_area {
+                                iframe {
+                                    display: none !important;
+                                }
+
+                                #topic_content_read_only {
+                                    display: inline !important; /** Whatever happens, on print show read-only content **/
+                                }
+                            }
+                        }
+
+                        .topic_content {
+                            font-family: 'Noto Sans', sans-serif;
+                            font-size: 16px;
+                            font-weight: normal;
+                            line-height: 175%;
+                            word-break: break-word;
+
+                            h1, h2, h3, h4, h5, h6 {
+                                font-family: 'Noto Sans', sans-serif;
+                                color: vars.$medium_black;
+                                margin: 20px 0;
+                                line-height: 135%;
+                                font-weight: bold;
+                            }
+
+                            h1 {
+                                font-size: 46px;
+                            }
+
+                            h2 {
+                                font-size: 40px;
+                            }
+
+                            h3 {
+                                font-size: 34px;
+                            }
+
+                            h4 {
+                                font-size: 28px;
+                            }
+
+                            h5 {
+                                font-size: 22px;
+                            }
+
+                            h6 {
+                                font-size: 16px;
+                            }
+
+                            @include mixins_n_extends.mobile {
+                                h1 {
+                                    font-size: 30px;
+                                }
+
+                                h2 {
+                                    font-size: 24px;
+                                }
+
+                                h3 {
+                                    font-size: 18px;
+                                }
+
+                                h4, h5, h6 {
+                                    font-size: 16px;
+                                }
+                            }
+
+                            code {
+                                font-family: Consolas, Menlo, Monaco, 'Lucida Console', 'Liberation Mono', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Courier New', monospace, sans-serif;
+                            }
+
+                            .fs8, .font-size\:8 {
+                                font-size: 8px;
+                            }
+                            .fs9, .font-size\:9 {
+                                font-size: 9px;
+                            }
+                            .fs10, .font-size\:10 {
+                                font-size: 10px;
+                            }
+                            .fs11, .font-size\:11 {
+                                font-size: 11px;
+                            }
+                            .fs12, .font-size\:12 {
+                                font-size: 12px;
+                            }
+                            .fs13, .font-size\:13 {
+                                font-size: 13px;
+                            }
+                            .fs14, .font-size\:14 {
+                                font-size: 14px;
+                            }
+                            .fs15, .font-size\:15 {
+                                font-size: 15px;
+                            }
+                            .fs16, .font-size\:16 {
+                                font-size: 16px;
+                            }
+                            .fs17, .font-size\:17 {
+                                font-size: 17px;
+                            }
+                            .fs18, .font-size\:18 {
+                                font-size: 18px;
+                            }
+                            .fs19, .font-size\:19 {
+                                font-size: 19px;
+                            }
+                            .fs20, .font-size\:20 {
+                                font-size: 20px;
+                            }
+                            .color\:black {
+                                color:black;
+                            }
+                            .color\:red {
+                                color:red;
+                            }
+                            .color\:green {
+                                color:green;
+                            }
+                            .color\:blue {
+                                color:blue;
+                            }
+                            .color\:yellow {
+                                color:yellow;
+                            }
+                            .color\:orange {
+                                color:orange;
+                            }
+                            .center {
+                                width: 100%;
+                                margin: 0 auto;
+                                list-style-position: inside;
+                                display: block;
+                                text-align: center;
+                            }
+                            .justify {
+                                width: 100%;
+                                margin: 0 auto;
+                                list-style-position: inside;
+                                display: block;
+                                text-align: justify;
+                            }
+                            .left {
+                                width: 100%;
+                                margin: 0 auto;
+                                list-style-position: inside;
+                                display: block;
+                                text-align: left;
+                            }
+                            .right {
+                                width: 100%;
+                                margin: 0 auto;
+                                list-style-position: inside;
+                                display: block;
+                                text-align: right;
+                            }
+                            ul.indent li{
+                                list-style: none;
+                            }
+                            img {
+                                max-width: 100%;
+                            }
+
+                            .inline-comment {
+                                background-color: #fffacc;
+                                color: #485365;
+                                cursor: pointer;
+                            }
+
+                            .fnEndLine {
+                                font-size: 13px;
+                            }
+                        }
+                    }
+
+                }
+            }
+
+            .side_panel {
+                padding: 30px 30px 10px 30px;
+                display: table-cell;
+                width: 30%;
+                min-width: 250px;
+                background: vars.$side_panel_gray;
+                vertical-align: top;
+
+                @include mixins_n_extends.tablet {
+                    top: 60px;
+                    position: fixed;
+                    z-index: 1;
+                    width: 100%;
+                    box-sizing: border-box;
+                    left: 0;
+                    overflow: auto;
+                    padding: 20px 20px 40px;
+                    min-width: initial;
+                }
+                .options_wrap {
+                    width: 100%;
+                    font-size: 14px;
+                    margin-bottom: 20px;
+                    .options_header {
+                        background: vars.$light_gray;
+                        padding: 0 10px;
+                        height: 40px;
+                        display: table;
+                        width: 100%;
+                        font-weight: vars.$bold;
+                        box-sizing: border-box;
+                    }
+                    .options_content {
+                        background: vars.$white;
+                        padding: 5px 10px;
+                        .blue_link, .personal_note {
+                            padding: 5px 0;
+                        }
+                        .line {
+                            margin: 5px 0;
+                        }
+                        .file_type {
+                            font-size: 9px;
+                            padding: 2px;
+                        }
+                    }
+                }
+
+                .feedback_btn_wrap {
+                    width: 100%;
+
+                    div {
+                        display: inline-block;
+                        vertical-align: middle;
+                        font-weight: 600;
+                        font-size: 16px;
+                        line-height: 32px;
+
+                        &.icon_left {
+                            float: left;
+                            margin-left: 6px;
+                            margin-top: 3px;
+                        }
+
+                        &.icon_right {
+                            float: right;
+                            margin-right: 14px;
+                            margin-top: 9px;
+                        }
+
+                        &.btn_text {
+                            margin-left: auto;
+                            margin-right: auto;
+                        }
+                    }
+
+                    .feedback_btn {
+                        height: 56px;
+                        background-color: vars.$deep_sky_blue;
+                        border: none;
+                        color: vars.$white;
+                        width: 100%;
+                    }
+                }
+            }
+
+        }
+
+    }
+}

@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Router, Routes, UrlSegment } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { TopicsComponent } from './components/topics/topics.component';
 
 const routes: Routes = [
   {path: '', children: [
-    {path: ':topicId'}
+    {path: ':topicId'},
+    {path: '', component: TopicsComponent}
   ]}
 ];
 
@@ -12,7 +14,6 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class PublicTopicsRoutingModule {
-  constructor (router: Router) {
-    console.log('public topics', router)
+  constructor () {
   }
 }
