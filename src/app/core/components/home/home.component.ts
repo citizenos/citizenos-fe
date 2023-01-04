@@ -3,8 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { TopicService } from 'src/app/services/topic.service';
 import { PublicTopicService } from 'src/app/services/public-topic.service';
 import { PublicGroupService } from 'src/app/services/public-group.service';
-import { switchMap, map, of, BehaviorSubject, takeUntil, Subject, combineLatest } from 'rxjs';
-
+import { switchMap, map, of, BehaviorSubject, takeUntil, Subject, combineLatest, Observable } from 'rxjs';
+import { Topic } from 'src/app/interfaces/topic';
+import { Group } from 'src/app/interfaces/group';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -14,8 +15,8 @@ export class HomeComponent implements OnInit {
   categories$ = Object.keys(this.Topic.CATEGORIES);
   statuses$ = Object.keys(this.Topic.STATUSES);
 
-  topics$ = this.PublicTopicService.topics$;
-  groups$ = this.PublicGroupService.groups$;
+  topics$: Observable<Topic[]> = of([]);
+  groups$: Observable<Group[]> = of([]);
   wWidth = window.innerWidth;
   destroy$ = new Subject<boolean>();
 
@@ -28,13 +29,16 @@ export class HomeComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.PublicTopicService.reload();
+    this.PublicGroupService.reload();
+
     const topicsParams = this.PublicTopicService.params$.value;
     topicsParams.limit = 8;
-    this.PublicTopicService.params$.next(topicsParams);
-
+    this.topics$ = this.PublicTopicService.getTopics(topicsParams);
     const groupsParams = this.PublicGroupService.params$.value;
     groupsParams.limit = 8;
     this.PublicGroupService.params$.next(groupsParams);
+    this.groups$ = this.PublicGroupService.loadGroups();
   }
 
   goToPage (url: string) {

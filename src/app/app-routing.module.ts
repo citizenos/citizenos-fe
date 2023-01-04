@@ -8,6 +8,8 @@ const routes: Routes = [
     children: [
       {path: '', component: HomeComponent},
       {path: 'account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule)},
+      { path: 'topic', loadChildren: () => import('./topic/topic.module').then(m => m.TopicModule) },
+      { path: 'groups', loadChildren: () => import('./group/group.module').then(m => m.GroupModule) },
       {path: 'topics', loadChildren: () => import('./topic/topic.module').then(m => m.TopicModule)},
       {path: ':category', component: HomeComponent},
       {path: 'my', children: [
@@ -19,8 +21,7 @@ const routes: Routes = [
         {path: 'groups', loadChildren: () => import('./public-groups/public-groups.module').then(m => m.PublicGroupsModule)}
       ]}
     ],
-  },
-  { path: 'topic', loadChildren: () => import('./topic/topic.module').then(m => m.TopicModule) },
+  }
 ];
 
 @NgModule({

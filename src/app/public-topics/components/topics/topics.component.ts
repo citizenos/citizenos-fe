@@ -2,76 +2,76 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TopicService } from 'src/app/services/topic.service';
 import { PublicTopicService } from 'src/app/services/public-topic.service';
-import { switchMap, map, of, BehaviorSubject, takeUntil, Subject, combineLatest } from 'rxjs';
-
+import { map, tap, switchMap, of,Observable, Subject, concatWith, } from 'rxjs';
+import { Topic } from 'src/app/interfaces/topic';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 @Component({
   selector: 'public-topics',
   templateUrl: './topics.component.html',
   styleUrls: ['./topics.component.scss']
 })
 export class TopicsComponent implements OnInit {
+  topicFilters = new FormGroup({
+    category: new FormControl('all'),
+    status: new FormControl('all')
+  });
+
   public FILTERS_ALL = 'all';
-  category$;
-  status$ = new BehaviorSubject('all');
 
   categories$ = Object.keys(this.Topic.CATEGORIES);
 
   statuses$ = Object.keys(this.Topic.STATUSES);
-
-  topics$ = this.PublicTopicService.topics$;
+  allTopics$: Topic[] = [];
+  topics$ = of(<Topic[]>[]);
   wWidth = window.innerWidth;
   destroy$ = new Subject<boolean>();
 
-  constructor(private route: ActivatedRoute, private Topic: TopicService, public PublicTopicService: PublicTopicService) {
-    this.category$ = this.route.params.pipe(
-      switchMap((routeParams) => {
-        const category = routeParams['category'];
-        if(this.categories$.indexOf(category) > -1) {
-          return of(category);
-        }
-        return of('all');
+  constructor(private route: ActivatedRoute, private Topic: TopicService, public PublicTopicService: PublicTopicService, private FormBuilder:FormBuilder) {
+    this.topics$ = this.PublicTopicService.params$.pipe(
+      switchMap((params) => {
+        return this.PublicTopicService.getTopics(params).pipe(map(
+          (newtopics) => {
+            this.allTopics$ = this.allTopics$.concat(newtopics);
+            return this.allTopics$;
+          }
+        ))
       })
     );
-
-    combineLatest([this.status$, this.category$]).pipe(
-      map(([category, status]) => {
-        this.PublicTopicService.setCategory(category);
-        this.PublicTopicService.setStatus(status);
-      })
-    );
-
-    this.status$.pipe(
-      map((status) => {
-        this.PublicTopicService.setStatus(status);
-      })
-    );
-
-
   }
 
   trackByFn (index: number, element: any) {
     return element.id;
   }
 
-  doSetCategory (category: string) {
-    this.category$ = of(category);
-  };
+  setStatus (status: string) {
+    this.topicFilters.patchValue({status: status});
+    if (status && status === 'all') {
+      status = '';
+    }
+    this.allTopics$ = [];
+    this.PublicTopicService.setStatus(status);
+  }
 
-  doSetStatus (status: string) {
-    console.log('STATUS', status)
-    this.status$.next(status);
-  };
+  setCategory (category: string) {
+    this.topicFilters.patchValue({category: category});
+    if (category && category === 'all') {
+      category = '';
+    }
+    this.allTopics$ = [];
+    this.PublicTopicService.setCategory(category);
+  }
 
-  ngOnInit(): void { }
-
-  goToPage (url: string) {
-    window.location.href = url;
+  ngOnInit(): void {
   }
 
   doClearFilters () {
-    console.log('clear');
-    this.doSetCategory('all');
-    this.doSetStatus('all');
+    this.topicFilters.reset({
+      category: 'all',
+      status: 'all'
+    });
+
+    this.setStatus('');
+    this.setCategory('');
   }
 
   ngOnDestroy(): void {

@@ -1,7 +1,6 @@
 import { Router } from '@angular/router';
 import { TopicService } from 'src/app/services/topic.service';
 import { Component, Input, OnInit } from '@angular/core';
-import {tap} from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 
 @Component({
@@ -27,7 +26,7 @@ export class TopicboxComponent implements OnInit {
   }
 
   goToView() {
-    this.router.navigateByUrl('/public/topics/' + this.topic.id);
+    this.router.navigateByUrl('/topics/' + this.topic.id);
     //topic param
       /*const params = {
           language: this.$stateParams.language,

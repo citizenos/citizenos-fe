@@ -12,6 +12,7 @@ import { User } from '../interfaces/user';
 export class AuthService {
   public user$: Observable<User> | null;
   public loggedIn$ = new BehaviorSubject(false);
+  public user = new BehaviorSubject({id: null});
 
   constructor(private Location: LocationService, private http: HttpClient, private Notification: NotificationService) {
     this.user$ = this.status();
@@ -50,17 +51,6 @@ export class AuthService {
         map((data) => {
           return data;
         }),
-        catchError(res => {
-          console.log('ERR', res)
-          if (res.error) {
-            console.log(res.error.status)
-            if (res.error.status !== 401) {
-              this.Notification.addError(res.error.status.message);
-              console.log('MESSAGES', this.Notification.messages)
-            }
-          }
-          return res;
-        }),
         share()
       );
   };
@@ -88,6 +78,7 @@ export class AuthService {
       switchMap((res: any) => {
         const user = res.data;
         user.loggedIn = true;
+        this.user.next({id: user.id});
         this.loggedIn$.next(true);
         return of(user);
       }),

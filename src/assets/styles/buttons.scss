@@ -1,0 +1,727 @@
+@use "mixins_n_extends";
+@use "vars";
+
+.button_area .big_button {
+  width: auto;
+  height: auto;
+  border-radius: 4px;
+  background: vars.$deep_sky_blue;
+  color: vars.$white;
+  font-weight: 700;
+  display: inline-table;
+  margin: 0 20px 26px 20px;
+  cursor: pointer;
+  vertical-align: middle;
+}
+.btn_wrap.white_bg {
+  background-color: vars.$white;
+}
+
+.btn_wrap {
+  border-radius: 4px;
+  border: solid 1px vars.$lightest_gray;
+  width: 30px;
+  height: 30px;
+  margin: 0 auto;
+  cursor: pointer;
+
+  &:hover {
+    .tooltip {
+      visibility: visible;
+    }
+  }
+
+  .btn {
+    width: inherit;
+    height: inherit;
+    display: table;
+    position: relative;
+
+    .sprite {
+      margin: 0 auto;
+    }
+  }
+}
+
+.btn_wrap.white_bg:not(.disabled) {
+  &:hover {
+    border: solid 1px vars.$lightest_gray;
+    @include mixins_n_extends.tablet {
+      background: vars.$white !important;
+    }
+  }
+}
+
+.btn_wrap.recycle_bin:not(.disabled) {
+  background-color: vars.$white;
+
+  &:hover {
+    border: solid 1px vars.$pinky_red;
+    background: vars.$pinky_red;
+
+    .sprite.desktop_fix {
+      @extend %sprite-mytopics-icon-deletetopic02x;
+    }
+
+    @include mixins_n_extends.tablet {
+      background: initial;
+      border: solid 1px vars.$lightest_gray;
+    }
+  }
+}
+
+.btn_wrap.edit_btn:not(.disabled) {
+  background-color: vars.$white;
+
+  &:hover {
+    border: solid 1px vars.$lightest_gray;
+    background: vars.$lightest_gray;
+
+    @include mixins_n_extends.tablet {
+      background: vars.$white !important;
+    }
+  }
+}
+
+.btn_wrap.check.yes {
+  &:hover {
+    border: solid 1px vars.$aqua_marine_border;
+    @include mixins_n_extends.tablet {
+      border: solid 1px vars.$lightest_gray;
+    }
+
+    .sprite {
+      @extend %sprite-voted-check2x;
+    }
+  }
+}
+
+.btn_wrap.check.no {
+  .sprite {
+    @extend %sprite-voted-nocheck2x;
+  }
+
+  &:hover {
+    border: solid 1px vars.$pinky_red_dark;
+    @include mixins_n_extends.tablet {
+      border: solid 1px vars.$lightest_gray;
+    }
+
+    .sprite {
+      @extend %sprite-voted-nocheck2x;
+    }
+  }
+}
+
+/* Global voting buttons styles */
+.voting_button {
+  height: 40px;
+  display: table;
+  width: 100%;
+  font-weight: vars.$bold;
+  text-align: center;
+  cursor: pointer;
+
+  .option_checkbox {
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: vars.$white;
+    display: block;
+
+    &:after {
+      content: "";
+      position: absolute;
+      display: none;
+      left: 5px;
+      top: 2px;
+      width: 7px;
+      height: 10px;
+      border: solid vars.$aqua_marine_border;
+      border-width: 0 3px 3px 0;
+      -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+  }
+
+  .option_radio {
+    position: relative;
+    display: block;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: vars.$white;
+    border: solid 1px vars.$lightest_gray;
+    border-radius: 50%;
+
+    &:after {
+      content: "";
+      position: absolute;
+      display: none;
+      top: 5px;
+      left: 5px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: vars.$aqua_marine_border;
+    }
+  }
+
+  .vote_option_radio {
+    position: absolute;
+  }
+
+  * {
+    color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  &:not(:last-child) {
+    margin-bottom: 10px;
+  }
+
+  overflow: hidden;
+
+  &.active {
+    .option_radio {
+      border: none;
+    }
+
+    .option_checkbox:after,
+    .option_radio:after {
+      display: block;
+    }
+
+    .table_cell:first-child {
+      border: 1px solid vars.$aqua_marine_border;
+      background: vars.$aqua_marine;
+    }
+
+    .table_cell:last-child {
+      background: vars.$aqua_marine;
+      border-top: 1px solid vars.$aqua_marine_border;
+      border-right: 1px solid vars.$aqua_marine_border;
+      border-bottom: 1px solid vars.$aqua_marine_border;
+    }
+  }
+
+  .table_cell {
+    border-radius: 0 4px 4px 0;
+    padding: 5px 10px;
+    word-break: break-all;
+    box-sizing: border-box;
+
+    &:first-child {
+      width: 40px;
+      border-radius: 4px 0 0 4px;
+      background: vars.$light_gray;
+      border: 1px solid vars.$lightest_gray;
+    }
+
+    &:last-child {
+      background: vars.$light_gray;
+      border-top: 1px solid vars.$lightest_gray;
+      border-right: 1px solid vars.$lightest_gray;
+      border-bottom: 1px solid vars.$lightest_gray;
+    }
+  }
+
+  &:not(.active):hover {
+    cursor: initial;
+    @media (min-width: 1025px) {
+      .table_cell {
+        &:first-child {
+          background: vars.$medium_gray;
+        }
+
+        &:last-child {
+          background: vars.$medium_gray;
+        }
+      }
+    }
+  }
+
+  &.voting_button_blue {
+    cursor: initial;
+
+    &.active {
+      cursor: pointer;
+
+      .table_cell {
+        color: vars.$white;
+        background: vars.$deep_sky_blue;
+
+        &.right_side {
+          background: vars.$deep_sky_blue;
+        }
+
+        &:last-child {
+          border-left: 1px solid vars.$deep_sky_blue;
+          border-top: 1px solid vars.$deep_sky_blue;
+          border-right: 1px solid vars.$deep_sky_blue;
+          border-bottom: 1px solid vars.$deep_sky_blue;
+        }
+      }
+    }
+
+    .table_cell {
+      border-top: 2px solid vars.$deep_sky_blue;
+      border-right: 2px solid vars.$deep_sky_blue;
+      border-bottom: 2px solid vars.$deep_sky_blue;
+      border-left: 2px solid vars.$deep_sky_blue;
+      background: none;
+      border-radius: 4px;
+      color: vars.$deep_sky_blue;
+
+      &.left_side {
+        background: vars.$deep_sky_blue;
+        border-radius: 4px 0 0 4px;
+      }
+
+      &.right_side {
+        background: transparent;
+        border-top: 2px solid vars.$deep_sky_blue;
+        border-right: 2px solid vars.$deep_sky_blue;
+        border-bottom: 2px solid vars.$deep_sky_blue;
+        border-radius: 0 4px 4px 0;
+      }
+
+      .sprite {
+        margin: 0 auto;
+      }
+    }
+
+    &:not(.active):hover {
+      @media (min-width: 1025px) {
+        .table_cell {
+          border-color: vars.$deep_sky_blue;
+
+          &.left_side {
+            background: vars.$deep_sky_blue;
+          }
+
+          &.right_side {
+            background: vars.$medium_gray;
+          }
+        }
+      }
+    }
+  }
+}
+
+//Overall button styles and other general items
+.container_pin {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  background-color: vars.$lightest_gray;
+  border-radius: 50%;
+  overflow: visible;
+
+  .ff_table_fix {
+    display: table;
+    width: 100%;
+    height: 100%;
+  }
+
+  &:hover {
+    .yellow_bg {
+      width: 24px;
+      height: 24px;
+      top: -1px;
+      right: -1px;
+    }
+  }
+
+  &:active {
+    width: 24px;
+    height: 24px;
+
+    .yellow_bg {
+      transition: none;
+      width: 24px;
+      height: 24px;
+      top: -1px;
+      right: -1px;
+    }
+  }
+
+  .yellow_bg {
+    transition: all 360ms cubic-bezier(0.45, 0.78, 0, 1);
+    background: vars.$pin_yellow;
+    border-radius: 50%;
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+  }
+
+  .sprite {
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+}
+
+.container_pin.pinned {
+  .yellow_bg {
+    transition: none;
+    width: 24px !important;
+    height: 24px !important;
+    top: -1px;
+    right: -1px;
+  }
+}
+
+.container_report {
+  @extend .container_pin;
+
+  .red_bg {
+    @extend .yellow_bg;
+    background: vars.$pinky_red;
+  }
+}
+
+.container_visibility {
+  @extend .container_pin;
+}
+
+.yes_no_buttons {
+  display: table;
+  width: 100%;
+  margin-top: 20px;
+
+  .table_cell:first-child {
+    padding-right: 5px;
+  }
+
+  .table_cell:last-child {
+    padding-left: 5px;
+  }
+}
+
+input.default_radio {
+  position: relative;
+  display: block;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: vars.$white;
+  border: solid 1px vars.$lightest_gray;
+  border-radius: 50%;
+
+  &:after {
+    content: "";
+    position: absolute;
+    display: none;
+    top: 5px;
+    left: 5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: vars.$aqua_marine_border;
+  }
+}
+
+
+.vote_multiple_submit_section {
+  padding-top: 20px;
+}
+
+.delegation_section {
+  margin-top: 20px;
+
+  .voting_button {
+    .table_cell:first-child {
+      &.left_side {
+        background-color: vars.$lightest_gray;
+        color: vars.$dark_gray;
+      }
+    }
+
+    &.active {
+      .table_cell:first-child {
+        &.left_side {
+          background-color: vars.$aqua_marine_border;
+        }
+      }
+    }
+  }
+
+  .delegation_information {
+    background: vars.$light_gray;
+    padding: 20px;
+    margin-top: 20px;
+
+    .delegation_title {
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .delegations {
+      margin-top: 19px;
+      display: table;
+      width: 100%;
+      height: 40px;
+
+      .name_wrap {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+
+      .blue_button {
+        float: right;
+        padding-left: 20px;
+        padding-right: 20px;
+
+        @media (max-width: 568px) {
+          margin-top: 20px;
+          float: none;
+        }
+      }
+
+      @media (max-width: 568px) {
+        & > .table_cell {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+.input_with_icon {
+  position: relative;
+  margin-bottom: 10px;
+
+  input {
+    height: 43px;
+    width: 100%;
+    font-size: 13px;
+    padding: 0 45px 0 10px;
+    box-sizing: border-box;
+  }
+
+  .icon_table {
+    height: 43px;
+    width: 43px;
+    position: absolute;
+    display: table;
+    top: 0;
+    right: 0;
+
+    .icon_cell {
+      height: inherit;
+      width: inherit;
+      @extend %table_cell;
+
+      .sprite {
+        margin: 0 auto;
+      }
+    }
+  }
+}
+
+.input_with_icon.clickable {
+  .icon_table:hover {
+    @media (min-width: 1025px) {
+      cursor: pointer;
+      height: 41px;
+      width: 41px;
+      background: vars.$light_gray;
+      border-radius: 0 4px 4px 0;
+      border-top: 1px solid vars.$lightest_gray;
+      border-right: 1px solid vars.$lightest_gray;
+      border-bottom: 1px solid vars.$lightest_gray;
+    }
+  }
+
+  .icon_table.error:hover {
+    @media (min-width: 1025px) {
+      cursor: pointer;
+      height: 41px;
+      width: 41px;
+      background: vars.$light_gray;
+      border-radius: 0 4px 4px 0;
+      border-top: 1px solid vars.$pinky_red;
+      border-right: 1px solid vars.$pinky_red;
+      border-bottom: 1px solid vars.$pinky_red;
+    }
+  }
+}
+
+.blue_button {
+  background: vars.$deep_sky_blue;
+  border-radius: 4px;
+  font-weight: vars.$bold;
+  cursor: pointer;
+  text-align: center;
+  color: vars.$white;
+  font-size: 14px;
+  padding: 10px 15px;
+  box-sizing: border-box;
+  border: none;
+}
+
+.gray_button {
+  @extend .blue_button;
+  background: vars.$lightest_gray;
+  color: vars.$medium_black;
+  border: 1px solid vars.$id_dark !important;
+  border-radius: 4px;
+  padding: 6px 10px 5px 10px;
+  font-size: 13px;
+
+  &:hover {
+    @media (min-width: 1025px) {
+      background: vars.$medium_gray !important;
+    }
+  }
+}
+
+.light_gray_button {
+  @extend .gray_button;
+  background-color: vars.$light_gray;
+}
+
+.pink_button {
+  @extend .gray_button;
+  color: vars.$pinky_red;
+  border: 1px solid vars.$pinky_red !important;
+  background-color: vars.$new_pink;
+  display: inline-block;
+  margin-left: 10px;
+
+  .icon {
+    vertical-align: initial;
+  }
+}
+
+.pink_button_big {
+  background-color: vars.$new_pink;
+  border: 1px solid vars.$red;
+  border-radius: 4px;
+  color: vars.$red;
+  padding: 10px 57px 10px 57px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 20px;
+
+  &:hover {
+    background-color: vars.$old_pink;
+    color: vars.$pinky_red;
+    border: 1px solid vars.$pinky_red;
+  }
+}
+.edit_deadline_button {
+  padding: 6px 5px 5px 5px;
+}
+
+.white_button {
+  @extend .gray_button;
+  background: vars.$white;
+  color: vars.$medium_black;
+}
+
+.blue_button.no,
+.blue_button.yes {
+  border-radius: 4px;
+}
+
+.blue_button.no {
+  background: vars.$white;
+  color: vars.$medium_black;
+  border: solid 1px vars.$lightest_gray;
+
+  &:hover {
+    @media (min-width: 1025px) {
+      background: vars.$lightest_gray !important;
+    }
+  }
+}
+
+.blue_button.yes {
+  background: vars.$pinky_red;
+  border: solid 1px vars.$pinky_red_border;
+
+  &:hover {
+    @media (min-width: 1025px) {
+      background: vars.$pinky_red_dark_hover !important;
+    }
+  }
+}
+
+.blue_button[disabled],
+.blue_button.disabled {
+  background: vars.$disabled_blue;
+  cursor: initial;
+}
+
+.gray_button[disabled],
+.gray_button.disabled {
+  background: vars.$disabled_gray;
+  cursor: initial;
+}
+
+.blue_button.yes[disabled],
+.blue_button.yes.disabled {
+  background: vars.$pinky_red;
+  cursor: initial;
+}
+
+.blue_link {
+  color: vars.$deep_sky_blue;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.blue_link:hover {
+  text-decoration: underline;
+  @include mixins_n_extends.tablet {
+    text-decoration: none;
+  }
+}
+
+.black_link {
+  @extend .blue_link;
+  color: vars.$medium_black;
+}
+
+.red_link {
+  color: vars.$deep_sky_blue;
+  font-size: 14px;
+  cursor: pointer;
+}
+.underline_link {
+  cursor: pointer;
+  @media (min-width: 1025px) {
+    &:hover {
+      text-decoration: underline;
+      opacity: 1 !important;
+    }
+  }
+}
+
+.underlined_link {
+  cursor: pointer;
+  color: vars.$medium_black;
+  text-decoration: underline !important;
+  @media (min-width: 1025px) {
+    &:hover {
+      color: vars.$deep_sky_blue;
+    }
+  }
+}
+
+.blue_button:not([disabled]):not(.disabled):hover {
+  @media (min-width: 1025px) {
+    background: vars.$dark_blue;
+  }
+}

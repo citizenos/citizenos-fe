@@ -13,7 +13,6 @@ export class LoginDialogComponent {
   openDialog(): void {
     const dialogRef = this.dialog.open(LoginComponent);
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       this.router.navigate([':lang']);
     });
   }

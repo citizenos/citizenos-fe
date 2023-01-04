@@ -1,6 +1,6 @@
 <div class="group_wrap">
   <div>
-      <div class="group_shown_content" ng-click="$ctrl.goToGroupView(group)">
+      <div class="group_shown_content" (click)="viewGroup()">
           <div class="group_header">
               <div class="group_icon">
                   <div class="group_circle">
@@ -19,8 +19,8 @@
       </div>
       <div class="join_button">
           <div class="blue_button_wrap">
-              <button class="blue_button" *ngIf="!group.userLevel" ng-click="$ctrl.joinGroup(group);$event.stopPropagation();" translate="VIEWS.PUBLIC_GROUPS.BTN_JOIN_GROUP"></button>
-              <button class="blue_button" *ngIf="group.userLevel" ng-click="$ctrl.goToGroupView(group);$event.stopPropagation();" translate="VIEWS.PUBLIC_GROUPS.BTN_VIEW_GROUP"></button>
+              <button class="blue_button" *ngIf="!group.userLevel" (click)="joinGroup()" translate="VIEWS.PUBLIC_GROUPS.BTN_JOIN_GROUP"></button>
+              <button class="blue_button" *ngIf="group.userLevel" (click)="viewGroup()" translate="VIEWS.PUBLIC_GROUPS.BTN_VIEW_GROUP"></button>
           </div>
       </div>
   </div>

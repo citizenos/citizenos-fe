@@ -12,33 +12,55 @@ import { NotificationService } from './notification.service';
 export class GroupService {
 
   params$ = new BehaviorSubject({
-    showModerated:<boolean> false,
-    offset:<number> 0,
-    limit:<number> 8,
-    orderBy: <string | null> 'name',
-    order: <string | null> 'ASC',
-    sourcePartnerId: <string | null> null,
-    search: <string | null> null
+    showModerated: <boolean>false,
+    offset: <number>0,
+    limit: <number>8,
+    orderBy: <string | null>'name',
+    order: <string | null>'ASC',
+    sourcePartnerId: <string | null>null,
+    search: <string | null>null
   });
 
+  public VISIBILITY = {
+    public: 'public',
+    private: 'private'
+  };
 
-  constructor(private Location: LocationService,private http: HttpClient, private Notification: NotificationService) {;
+  public members = {
+    topics: {
+      rows: [],
+      latest: null,
+      order: null,
+      count: 0
+    },
+    users: {
+      rows: [],
+      count: 0
+    }
+  };
+
+  public permission = {
+    level: 'none'
+  };
+
+  constructor(private Location: LocationService, private http: HttpClient, private Notification: NotificationService) {
+    ;
   }
 
-  get(id: string, params?: { [key:string]: string }): Observable<Group>  {
-    let path = this.Location.getAbsoluteUrlApi('/api/users/self/groups/:groupId', {groupId: id});
+  get(id: string, params?: { [key: string]: string }): Observable<Group> {
+    let path = this.Location.getAbsoluteUrlApi('/api/users/self/groups/:groupId', { groupId: id });
 
-    return this.http.get<Group>(path, {withCredentials: true, params, observe: 'body', responseType: 'json' })
-        .pipe(switchMap((res: any) => {
-          const topic = res.data;
-          return of(topic);
-        }))
+    return this.http.get<Group>(path, { withCredentials: true, params, observe: 'body', responseType: 'json' })
+      .pipe(switchMap((res: any) => {
+        const topic = res.data;
+        return of(topic);
+      }))
   }
 
   save(data: any) {
     let path = this.Location.getAbsoluteUrlApi('/api/users/self/groups');
 
-    return this.http.post(path, data, { withCredentials:true, responseType: 'json', observe: 'body'}).pipe(
+    return this.http.post(path, data, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
       map((data) => {
         return data;
       }),
@@ -58,72 +80,87 @@ export class GroupService {
   }
 
   update(data: any) {
-      const allowedFields = ['name', 'description', 'imageUrl'];
-      const sendData:any = {};
-      allowedFields.forEach((key)=> {
-          sendData[key] = data[key] || null;
-      });
-      const path = this.Location.getAbsoluteUrlApi('/api/users/self/groups/:groupId', {groupId: data.id || data.groupId});
-      return this.http.put(path, sendData, { withCredentials:true, responseType: 'json', observe: 'body'}).pipe(
-          map((data) => {
-            return data;
-          }),
-          catchError(res => {
-            console.log('ERR', res)
-            if (res.error) {
-              console.log(res.error.status)
-              if (res.error.status !== 401) {
-                this.Notification.addError(res.error.status.message);
-                console.log('MESSAGES', this.Notification.messages)
-              }
-            }
-            return res;
-          }),
-          share()
-        );
+    const allowedFields = ['name', 'description', 'imageUrl'];
+    const sendData: any = {};
+    allowedFields.forEach((key) => {
+      sendData[key] = data[key] || null;
+    });
+    const path = this.Location.getAbsoluteUrlApi('/api/users/self/groups/:groupId', { groupId: data.id || data.groupId });
+    return this.http.put(path, sendData, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
+      map((data) => {
+        return data;
+      }),
+      catchError(res => {
+        console.log('ERR', res)
+        if (res.error) {
+          console.log(res.error.status)
+          if (res.error.status !== 401) {
+            this.Notification.addError(res.error.status.message);
+            console.log('MESSAGES', this.Notification.messages)
+          }
+        }
+        return res;
+      }),
+      share()
+    );
   }
 
   delete(data: any) {
-      const path = this.Location.getAbsoluteUrlApi('/api/users/self/groups/:groupId', {groupId: data.id || data.groupId});
+    const path = this.Location.getAbsoluteUrlApi('/api/users/self/groups/:groupId', { groupId: data.id || data.groupId });
 
-      return this.http.delete(path).pipe(
-        map((data) => {
-          return data;
-        }),
-        catchError(res => {
-          console.log('ERR', res)
-          if (res.error) {
-            console.log(res.error.status)
-            if (res.error.status !== 401) {
-              this.Notification.addError(res.error.status.message);
-              console.log('MESSAGES', this.Notification.messages)
-            }
+    return this.http.delete(path).pipe(
+      map((data) => {
+        return data;
+      }),
+      catchError(res => {
+        console.log('ERR', res)
+        if (res.error) {
+          if (res.error.status !== 401) {
+            this.Notification.addError(res.error.status.message);
+            console.log('MESSAGES', this.Notification.messages)
           }
-          return res;
-        }),
-        share()
-      );
+        }
+        return res;
+      }),
+      share()
+    );
   }
 
-  join (token: string) {
-      const path = this.Location.getAbsoluteUrlApi('/api/groups/join/:token', {token});
+  join(token: string) {
+    const path = this.Location.getAbsoluteUrlApi('/api/groups/join/:token', { token });
 
-      return this.http.post<ApiResponse>(path, {}).pipe(
-        map((res) => {
-          return res.data;
-        }),
-        catchError(res => {
-          console.log('ERR', res)
-          if (res.error) {
-            console.log(res.error.status)
-            if (res.error.status !== 401) {
-              this.Notification.addError(res.error.status.message);
-              console.log('MESSAGES', this.Notification.messages)
-            }
+    return this.http.post<ApiResponse>(path, {}).pipe(
+      map((res) => {
+        return res.data;
+      }),
+      catchError(res => {
+        console.log('ERR', res)
+        if (res.error) {
+          console.log(res.error.status)
+          if (res.error.status !== 401) {
+            this.Notification.addError(res.error.status.message);
+            console.log('MESSAGES', this.Notification.messages)
           }
-          return res;
-        }),
-        share()
-      );
+        }
+        return res;
+      }),
+      share()
+    );
   }
+
+  canUpdate(group: Group) {
+    //this.GroupMemberUser.LEVELS.admin replace with 'admin'
+    return group && ((group.permission && group.permission.level === 'admin') || (group.userLevel && group.userLevel === 'admin'));
+  };
+
+  canShare(group: Group) {
+    return group && (!this.isPrivate(group) || this.canUpdate(group));
+  }
+  canDelete(group: Group) {
+    return this.canUpdate(group);
+  };
+
+  isPrivate(group: Group) {
+    return group && group.visibility === this.VISIBILITY.private;
+  };
 }

@@ -1,13 +1,13 @@
-import { TooltipDirective } from './directives/tooltip';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { TranslateModule, TranslateLoader, TranslateCompiler } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 
 import { ConfigModule, ConfigService } from './services/config.service';
 import { AppRoutingModule } from './app-routing.module';
@@ -29,7 +29,7 @@ import { LanguageSelectComponent } from './core/components/language-select/langu
 import { NotificationComponent } from './core/components/notification/notification.component';
 import { ActivityFeedComponent } from './core/components/activity-feed/activity-feed.component';
 import { SharedModule } from './shared/shared.module';
-
+import { HttpErrorInterceptor } from './services/http.error.interceptor.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,14 +60,20 @@ import { SharedModule } from './shared/shared.module';
     NoopAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    LoadingBarHttpClientModule
   ],
   exports: [
-    MatSelectModule,
+    MatSelectModule
   ],
   providers: [
     ConfigService,
     ConfigModule.init(),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

@@ -5,11 +5,9 @@ import { ListComponent } from './components/list/list.component';
 import { MyTopicsComponent } from './my-topics.component';
 
 const routes: Routes = [
-  {path: '', children: [
-    {path: ':topicId', component: MyTopicsComponent, children: [
-      {path: '', outlet:"mytopicsright", component: MyTopicComponent},
-    ]},
-    {path: '', component: MyTopicsComponent},
+  {path: '', component: MyTopicsComponent},
+  {path: ':topicId', component: MyTopicsComponent, children: [
+    {path: '', outlet:"mytopicsright", component: MyTopicComponent},
   ]}
 ];
 

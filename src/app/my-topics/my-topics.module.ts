@@ -6,12 +6,10 @@ import { ListComponent } from './components/list/list.component';
 import { MyTopicComponent } from './components/my-topic/my-topic.component';
 import { TopicListItemComponent } from './components/topic-list-item/topic-list-item.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { TooltipDirective } from '../directives/tooltip';
-
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
-    TooltipDirective,
     MyTopicsComponent,
     ListComponent,
     MyTopicComponent,
@@ -19,9 +17,10 @@ import { TooltipDirective } from '../directives/tooltip';
   ],
   imports: [
     CommonModule,
+    SharedModule,
     MyTopicsRoutingModule,
     TranslateModule
   ],
-  exports: [TooltipDirective],
+  exports: [],
 })
 export class MyTopicsModule { }

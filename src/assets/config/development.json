@@ -58,5 +58,8 @@
       "citizenos": true
     },
     "analytics": false
+  },
+  "moderation": {
+    "codeOfConduct": "https://app.citizenos.com/topics/ac8b66a4-ca56-4d02-8406-5e19da73d7ce"
   }
 }

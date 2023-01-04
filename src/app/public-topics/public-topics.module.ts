@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatSelectModule } from '@angular/material/select';
 import { TopicsComponent } from './components/topics/topics.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { PublicTopicsRoutingModule } from './public-topics.router.module';
 import { SharedModule } from '../shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -17,7 +17,7 @@ import { SharedModule } from '../shared/shared.module';
     SharedModule,
     PublicTopicsRoutingModule,
     TranslateModule,
-    MatSelectModule
+    ReactiveFormsModule
   ]
 })
 export class PublicTopicsModule { }

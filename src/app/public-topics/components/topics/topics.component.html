@@ -3,24 +3,60 @@
   <!-- FILTER AREA DESKTOP -->
   <div *ngIf="wWidth > 767" id="filter_bar_desktop">
 
+    <form [formGroup]="topicFilters">
+
       <div id="bar_top">
-          <div class="bar_text" translate="VIEWS.HOME.HEADINGS_SHOW_ME_TOPICS_ABOUT"></div>
-          <div class="bar_select">
-            <mat-select class="bar_select dropdown big_drop" [(value)]="category$">
-                <mat-select-trigger class="select_text">{{'TXT_TOPIC_CATEGORY_' + (category$ | async) | uppercase | translate}}</mat-select-trigger>
-                <mat-option (click)="doSetCategory('all')" [value]="category$">{{'TXT_TOPIC_CATEGORY_ALL' | translate}}</mat-option>
-                <mat-option class="dropdown_item" [value]="category$" *ngFor="let category of categories$" [ngClass]="category === (category$ | async) ? 'bold' : ''" (click)="doSetCategory(category)" >
-                    {{'TXT_TOPIC_CATEGORY_' + category | uppercase | translate}}
-                </mat-option>
-            </mat-select>
+        <div class="bar_text" translate="VIEWS.HOME.HEADINGS_SHOW_ME_TOPICS_ABOUT"></div>
+        <div [cosDropdown] class="bar_select">
+
+          <div class="select_text">
+            {{'TXT_TOPIC_CATEGORY_' + topicFilters.value.category | uppercase | translate}}
+            <div class="icon_holder">
+              <div class="table_cell">
+                <div class="sprite sprite-dropdown-arrowdown-big2x"></div>
+              </div>
+            </div>
           </div>
+
+          <div class="animated_bg_bar">
+          </div>
+
+          <div class="dropdown big_drop" formControlName="category">
+            <div class="line lightest_line"></div>
+            <div class="dropdown_item" (click)="setCategory('all');">
+              <div class="item_name" translate="TXT_TOPIC_CATEGORY_ALL">
+              </div>
+              <div class="clearer"></div>
+            </div>
+            <div class="dropdown_item" *ngFor="let category of categories$" (click)="setCategory(category);"
+              [ngClass]="category === topicFilters.value.category ? 'bold' : ''">
+              <div class="item_name">
+                {{'TXT_TOPIC_CATEGORY_' + category | uppercase | translate}}
+              </div>
+              <!--div class="item_props">
+                        404 topics
+                    </div-->
+              <div class="clearer"></div>
+            </div>
+
+          </div>
+        </div>
+
+        <!--div class="bar_select">
+              <select class="bar_select dropdown big_drop" formControlName="category" (change)="setCategory()">
+                  <option [ngValue]="'all'">{{'TXT_TOPIC_CATEGORY_ALL' | translate}}</option>
+                  <option class="dropdown_item" [ngValue]="category" *ngFor="let category of categories$" [ngClass]="category === (topicFilters.get('category')?.value) ? 'bold' : ''">
+                      {{'TXT_TOPIC_CATEGORY_' + category | uppercase | translate}}
+                  </option>
+              </select>
+            </!--div-->
       </div>
 
 
       <div id="bar_bottom">
 
-          <!-- TODO: Implement orderBy -->
-          <!--div cos-dropdown class="bar_section">
+        <!-- TODO: Implement orderBy -->
+        <!--div cos-dropdown class="bar_section">
               <div class="bar_text">
                   Order by
               </div>
@@ -45,29 +81,46 @@
               </div>
 
           </div-->
-
-          <div class="bar_section">
-            <div class="bar_text" translate="VIEWS.HOME.LNK_SHOW"></div>
-            <div class="bar_select">
-              <mat-select class="dropdown bar_text">
-                <mat-option class="dropdown_item" (click)="doSetStatus('all')" [value]="category$">{{'TXT_TOPIC_STATUS_ALL' | translate}}</mat-option>
-                <mat-option class="dropdown_item" [value]="status$" *ngFor="let status of statuses$" [ngClass]="status === (status$ | async) ? 'bold' : ''" (click)="doSetStatus(status)" >
-                    {{'TXT_TOPIC_STATUS_' + status | uppercase | translate}}
-                </mat-option>
-              </mat-select>
+        <div [cosDropdown] class="bar_section">
+          <div class="bar_text" translate="VIEWS.HOME.LNK_SHOW"></div>
+          <div class="bar_select">
+            {{'TXT_TOPIC_STATUS_' + topicFilters.value.status | uppercase | translate}}
+            <div class="icon_holder">
+              <div class="table_cell">
+                <div class="sprite sprite-dropdown-arrowdown-small2x"></div>
+              </div>
             </div>
           </div>
-          <span *ngIf="(category$ | async) !== FILTERS_ALL || (status$ | async) !== FILTERS_ALL">
-              <div class="line_holder">
-                  <div class="v_line dark_gray_background">
-                  </div>
+
+          <div class="dropdown">
+            <div class="line lightest_line"></div>
+            <div class="dropdown_item" (click)="setStatus('all');">
+              <div class="item_name" translate="TXT_TOPIC_STATUS_ALL"></div>
+              <div class="clearer"></div>
+            </div>
+
+            <div class="dropdown_item" *ngFor="let status of statuses$" (click)="setStatus(status);"
+              ng-class="status === $ctrl.filters.statuses.value ? 'bold' : ''">
+              <div class="item_name">
+                {{'TXT_TOPIC_STATUS_' + status | uppercase | translate}}
               </div>
+              <div class="clearer"></div>
+            </div>
+          </div>
 
-
-              <div class="blue_link" (click)="doClearFilters()" translate="VIEWS.HOME.LNK_CLEAR_FILTERS"></div>
-          </span>
+        </div>
+        <span
+          *ngIf="(topicFilters.get('category')?.value) !== FILTERS_ALL || (topicFilters.get('status')?.value) !== FILTERS_ALL">
+          <div class="line_holder">
+            <div class="v_line dark_gray_background">
+            </div>
+          </div>
+          <div class="blue_link" (click)="doClearFilters()" translate="VIEWS.HOME.LNK_CLEAR_FILTERS"></div>
+        </span>
 
       </div>
+
+    </form>
   </div>
 
 
@@ -145,35 +198,36 @@
   </div-->
 
   <!-- TOPICS AREA -->
-  <div id="topics_area" [ngClass]="{'no_tutorial_topic': ((category$ | async) !== FILTERS_ALL || (status$ | async) !== FILTERS_ALL), 'no_results': !(PublicTopicService.countTotal$ | async)}">
-      <div  class="table" *ngIf="(PublicTopicService.countTotal$ | async) === 0"> <!---->
-          <div class="no_results v_align_cell">
-              <div class="no_results_icon_wrap">
-                  <div class="sprite sprite-icon-no-results2x"></div>
-              </div>
-              <div class="title_area">
-                  <h3 translate="VIEWS.HOME.HEADING_NO_RESUTS"></h3>
-                  <p translate="VIEWS.HOME.HEADING_GET_STARTED"></p>
-              </div>
+  <div id="topics_area" [ngClass]="{'no_results': !(PublicTopicService.countTotal$ | async)}">
+    <div class="table" *ngIf="(PublicTopicService.countTotal$ | async) === 0"> <!---->
+      <div class="no_results v_align_cell">
+        <div class="no_results_icon_wrap">
+          <div class="sprite sprite-icon-no-results2x"></div>
+        </div>
+        <div class="title_area">
+          <h3 translate="VIEWS.HOME.HEADING_NO_RESUTS"></h3>
+          <p translate="VIEWS.HOME.HEADING_GET_STARTED"></p>
+        </div>
 
-              <div class="button_area">
+        <div class="button_area">
 
-                  <div class="big_button" ui-sref="topics/create">
-                      <div class="button_cell">
-                          <div class="topic_text" translate="VIEWS.HOME.BTN_CREATING_A_NEW_TOPIC"></div>
-                      </div>
-                  </div>
-
-              </div>
+          <div class="big_button" ui-sref="topics/create">
+            <div class="button_cell">
+              <div class="topic_text" translate="VIEWS.HOME.BTN_CREATING_A_NEW_TOPIC"></div>
+            </div>
           </div>
-      </div>
-      <topicbox [topic]="topic" *ngFor="let topic of topics$ | async; trackBy: trackByFn;"></topicbox>
 
-      <div class="clearer"></div>
+        </div>
+      </div>
+    </div>
+    <topicbox [topic]="topic" *ngFor="let topic of topics$ | async; trackBy: trackByFn;"></topicbox>
+
+    <div class="clearer"></div>
   </div>
 
-  <div id="blue_button_wrap" (click)="PublicTopicService.loadMore()" *ngIf="(PublicTopicService.hasMore$ | async)">
-      <div class="blue_button" translate="VIEWS.HOME.BTN_LOAD_MORE_TOPICS"></div> <!-- [ngClass]="isTopicListLoading ? 'disabled': ''" -->
+  <div id="blue_button_wrap" (click)="PublicTopicService.loadMore();" *ngIf="(PublicTopicService.hasMore$ | async)">
+    <div class="blue_button" translate="VIEWS.HOME.BTN_LOAD_MORE_TOPICS"></div>
+    <!-- [ngClass]="isTopicListLoading ? 'disabled': ''" -->
   </div>
 
 </div>

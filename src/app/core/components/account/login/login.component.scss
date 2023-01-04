@@ -1,0 +1,59 @@
+@use 'mixins_n_extends';
+@use 'vars';
+
+#login_lightbox {
+  input {
+      height: 40px;
+      margin-bottom: 10px;
+  }
+
+  .link_section {
+      text-align: left;
+  }
+
+  .input_with_icon.clickable {
+      margin-bottom: 0;
+
+      .icon_table:hover {
+          @media (min-width: 1025px) {
+              cursor: pointer;
+              height: 40px;
+              width: 40px;
+              background: inherit;
+              border-radius: 0 4px 4px 0;
+              border-top: 1px solid vars.$lightest_gray;
+              border-right: 1px solid vars.$lightest_gray;
+              border-bottom: 1px solid vars.$lightest_gray;
+          }
+      }
+
+      .icon_table.error:hover {
+          @media (min-width: 1025px) {
+              cursor: pointer;
+              height: 40px;
+              width: 40px;
+              background: inherit;
+              border-radius: 0 4px 4px 0;
+              border-top: 1px solid vars.$pinky_red;
+              border-right: 1px solid vars.$pinky_red;
+              border-bottom: 1px solid vars.$pinky_red;
+          }
+      }
+  }
+
+  .error_no_account {
+      display: table-row;
+      background-color: vars.$old_pink;
+      padding: 10px;
+      font-size: 14px;
+      line-height: 24px;
+
+      .icon_cell {
+          padding: 16px 0px 0px 12px;
+      }
+
+      .table_cell {
+          padding: 12px;
+      }
+  }
+}

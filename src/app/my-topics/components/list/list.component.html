@@ -3,7 +3,7 @@
 <!-- LEFT SIDE -->
 <div class="topics_left" ng-class="{hidden: (app.wWidth <= 750 && (('my/groups/groupId' | isState) || ('my/topics/topicId' | isState)))}">
 
-    <!--div ng-if="filters" cos-dropdown class="classic_dropdown">
+    <div ng-if="filters" [cosDropdown] class="classic_dropdown">
 
         <div class="dropdown_selection">
             <div class="dropdown_text" translate="{{filters.selected.name}}">
@@ -21,13 +21,13 @@
 
         <div class="dropdown">
 
-            <div class="dropdown_item" ng-repeat="item in filters.items">
+            <div class="dropdown_item" *ngFor="let item of filters.items">
                 <div ng-if="item.children">
                     <div class="item_category" translate="{{item.name}}">
                         Item category
                     </div>
                     <div class="item_names_wrap">
-                        <div ng-repeat="child in item.children" class="item_name" ng-click="onSelect(child.id)" ng-class="child === filters.selected ? 'bold' : ''">
+                        <div *ngFor="let child of item.children" class="item_name" (click)="onSelect(child.id)" [ngClass]="child === filters.selected ? 'bold' : ''">
                             <span translate="{{child.name}}">Child name</span>
                         </div>
                     </div>
@@ -43,7 +43,7 @@
             </div>
 
         </div>
-    </!--div>
+    </div>
 
     <!-- Topics -->
     <!--my-menu-item  item="group" ng-repeat="group in GroupService.groups"></!--my-menu-item>

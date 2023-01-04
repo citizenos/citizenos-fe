@@ -4,7 +4,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { Title } from "@angular/platform-browser";
 
 import { ConfigService } from './services/config.service';
-import { NotificationService } from './services/notification.service';
 import { takeUntil, Subject , tap} from 'rxjs';
 
 @Component({

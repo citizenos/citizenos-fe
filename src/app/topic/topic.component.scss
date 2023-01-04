@@ -643,3 +643,212 @@
 
     }
 }
+
+.comments_content {
+  background: vars.$white;
+  padding: 0 60px 20px 60px;
+  @media (max-width: 767px) {
+      padding: 0 20px 20px 20px;
+  }
+
+  @media (max-width: 621px) {
+      padding: 0;
+  }
+
+
+
+  .social_mentions_container {
+      @media (max-width: 1200px) {
+          padding: 19px 0 0;
+      }
+      @media (max-width: 1024px) {
+          padding-top: 40px;
+      }
+      @media (max-width: 621px) {
+          padding: 19px 20px 0;
+      }
+
+      .social_mentions_header {
+          padding-top: 20px;
+
+          .social_mentions_description, .social_mentions_hashtag {
+              font-size: 24px;
+              font-weight: vars.$bold;
+          }
+
+          .social_mentions_description {
+              float: left;
+          }
+
+          .social_mentions_hashtag {
+              @extend .blue_link;
+              float: right;
+          }
+
+          .line {
+              margin-top: 25px;
+          }
+
+          @media (max-width: 1200px) {
+              .social_mentions_description, .social_mentions_hashtag {
+                  float: none;
+              }
+          }
+          @media (max-width: 1024px) {
+              .social_mentions_description {
+                  float: left;
+              }
+              .social_mentions_hashtag {
+                  float: right;
+              }
+          }
+          @media (max-width: 621px) {
+              .social_mentions_description, .social_mentions_hashtag {
+                  float: none;
+              }
+          }
+      }
+
+      .social_mentions_wrap {
+          padding: 40px 0 40px;
+          @media (max-width: 1200px) {
+              padding: 20px 0;
+          }
+          @media (max-width: 1024px) {
+              padding: 40px 0 40px;
+          }
+          @media (max-width: 621px) {
+              padding: 20px 0;
+          }
+
+          .social_mentions_message_info {
+              font-weight: bold;
+              text-align: center;
+
+              .blue_button {
+                  max-width: 180px;
+                  margin-left: auto;
+                  margin-right: auto;
+                  margin-top: 40px;
+              }
+          }
+
+          .social_mention {
+              margin-bottom: 21px;
+
+              .social_mention_header {
+                  margin-bottom: 10px;
+                  @media (max-width: 1200px) {
+                      margin-bottom: 9px;
+                  }
+                  @media (max-width: 1024px) {
+                      margin-bottom: 10px;
+                  }
+                  @media (max-width: 621px) {
+                      margin-bottom: 9px;
+                  }
+
+                  .social_mention_header_section {
+                      float: left;
+                      font-size: 13px;
+                      height: 20px;
+                      display: table;
+                      margin-right: 10px;
+
+                      img {
+                          border-radius: 50%;
+                          overflow: hidden;
+                          height: 20px;
+                          width: 20px;
+                          display: block;
+                      }
+
+                      .v_line {
+                          height: 15px;
+                          background: vars.$dark_gray;
+                      }
+
+                      &.social_mention_opacity {
+                          opacity: 0.7;
+                      }
+                  }
+
+                  .mobile_clearer {
+                      display: none;
+                      @media (max-width: 1200px) {
+                          display: block;
+                      }
+                      @media (max-width: 1024px) {
+                          display: none;
+                      }
+                      @media (max-width: 621px) {
+                          display: block;
+                      }
+                  }
+
+                  .social_channel {
+                      float: right;
+
+                      .social_mention_header_section {
+                          float: inherit;
+                          margin-right: 0;
+                          margin-left: 10px;
+
+                          .social_mention_channel {
+                              display: none;
+                          }
+                      }
+
+                      @media (max-width: 1200px) {
+                          float: none;
+                          .social_mention_icon {
+                              display: none;
+                          }
+                          .social_mention_header_section {
+                              margin-left: 30px;
+
+                              .social_mention_channel {
+                                  display: inline;
+                              }
+                          }
+                      }
+                      @media (max-width: 1024px) {
+                          float: right;
+                          .social_mention_icon {
+                              display: table;
+                          }
+                          .social_mention_header_section {
+                              float: inherit;
+                              margin-left: 10px;
+
+                              .social_mention_channel {
+                                  display: none;
+                              }
+                          }
+                      }
+                      @media (max-width: 621px) {
+                          float: none;
+                          .social_mention_icon {
+                              display: none;
+                          }
+                          .social_mention_header_section {
+                              margin-left: 30px;
+
+                              .social_mention_channel {
+                                  display: inline;
+                              }
+                          }
+                      }
+                  }
+              }
+
+              .social_mention_text {
+                  font-size: 14px;
+              }
+          }
+
+      }
+
+  }
+
+}

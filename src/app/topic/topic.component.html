@@ -79,28 +79,28 @@
 
                       <div class="topic_info print_never" *ngIf="!editMode">
                           <div class="container_visibility" >
-                              <!--div class="ff_table_fix" tooltips tooltip-side="left" tooltip-template="<span>{{('TOOLTIP_TOPIC_VISIBILITY_'+topic.visibility | uppercase) | translate}}</span>">
+                              <div class="ff_table_fix" [tooltip]="('TOOLTIP_TOPIC_VISIBILITY_'+topic.visibility | uppercase) | translate">
                                   <div class="table_cell">
-                                      <div class="sprite" ng-class="{'sprite-icon-public-topic': !TopicService.isPrivate(topic), 'sprite-icon-private-topic': TopicService.isPrivate(topic)}"></div>
+                                      <div class="sprite" [ngClass]="{'sprite-icon-public-topic': !TopicService.isPrivate(topic), 'sprite-icon-private-topic': TopicService.isPrivate(topic)}"></div>
                                   </div>
-                              </!--div-->
+                              </div>
                           </div>
                           <div class="container_report" *ngIf="topic.visibility === TopicService.VISIBILITY.public && !topic.report" ui-sref="topics/view/report">
-                              <!--div class="ff_table_fix" tooltips tooltip-side="left" tooltip-template="<span>{{'TOOLTIP_REPORT_TOPIC' | translate}}</span>">
+                              <div class="ff_table_fix" [tooltip]="('TOOLTIP_REPORT_TOPIC'| translate)">
                                   <div class="table_cell">
                                       <div class="sprite sprite-icon-exclamation2x-white"></div>
                                       <div class="red_bg"></div>
                                   </div>
-                              </!--div-->
+                              </div>
                           </div>
 
                           <div class="container_pin" ng-class="topic.pinned ? 'pinned' : ''" ng-click="togglePin()">
-                              <!--div class="ff_table_fix" tooltips tooltip-side="left" tooltip-template="<span>{{'TOOLTIP_PIN_TOPIC' | translate}}</span>">
+                              <div class="ff_table_fix" [tooltip]="('TOOLTIP_PIN_TOPIC'| translate)">
                                   <div class="table_cell">
                                       <div class="sprite sprite-icon-favourite2x-white"></div>
                                       <div class="yellow_bg"></div>
                                   </div>
-                              </!--div-->
+                              </div>
                           </div>
 
                           <div class="more_info_button" ng-click="app.more_info_button = !app.more_info_button">
@@ -152,7 +152,7 @@
                                   <div class="info_section_content">
                                       <span class="blue_link" ng-click="app.activeCommentSection = 'arguments'; app.scrollToAnchor('arguments')"
                                             translate="VIEWS.TOPICS_TOPICID.LNK_ARGUMENTS_COUNT"
-                                            [translateParams]="{count: TopicCommentService.count.total || 0}"></span>
+                                            [translateParams]="{count: TopicArgumentService.count.value.total || 0}"></span>
                                       <span class="info_section_separator"> | </span>
                                       <span class="blue_link" ng-click="app.activeCommentSection = 'socialMentions'; app.scrollToAnchor('socialMentions')"
                                             translate="VIEWS.TOPICS_TOPICID.LNK_MENTIONS_COUNT"
@@ -210,7 +210,7 @@
                       </div>
                       <div class="clearer"></div>
                       <div class="comments_content">
-                          <!--topic-comments *ngIf="app.activeCommentSection == 'arguments' || app.activeCommentSection == undefined" ></!--topic-comments-->
+                          <topic-arguments *ngIf="activeCommentSection == 'arguments' || activeCommentSection == undefined" ></topic-arguments>
                           <!--topic-social-mentions-- *ngIf="app.activeCommentSection == 'socialMentions'"></!--topic-social-mentions-->
                       </div>
                   </div>
