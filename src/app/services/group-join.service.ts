@@ -28,10 +28,9 @@ export class GroupJoinService {
 
   save(data: any) {
     const path = this.Location.getAbsoluteUrlApi('/api/users/self/groups/:groupId/join', { groupId: data.groupId });
-    return this.http.put<any>(path, {}, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
-      map((data) => {
-        console.log('data', data);
-        return data;
+    return this.http.put<any>(path, data, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
+      map((res) => {
+        return res.data;
       }),
       share()
     );
@@ -40,10 +39,9 @@ export class GroupJoinService {
   update(data: any) {
     let path = this.Location.getAbsoluteUrlApi('/api/users/self/groups/:groupId/join/:token', { groupId: data.groupId || data.id, token: data.token });
 
-    return this.http.put<any>(path, data).pipe(
-      map((data) => {
-        console.log('data', data);
-        return data;
+    return this.http.put<any>(path, data, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
+      map((res) => {
+        return res.data;
       }),
       share()
     );

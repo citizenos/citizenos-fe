@@ -24,9 +24,12 @@
     "@ngx-loading-bar/http-client": "^6.0.2",
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
-    "angular-tooltips": "^1.2.2",
+    "angularx-qrcode": "^13.0.15",
+    "moment": "^2.29.4",
+    "ngx-moment": "^6.0.2",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
+    "validator": "^13.7.0",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {

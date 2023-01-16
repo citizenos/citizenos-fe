@@ -11,7 +11,7 @@ export interface Topic {
   createdAt:	string,
   sourcePartnerId:	string | null,
   sourcePartnerObjectId:	string | null,
-  permission: {level: string},
+  permission: {level: string, levelGroup?: string},
   creator: any,
   lastActivity: string | null,
   members: any,
@@ -24,7 +24,7 @@ export interface Topic {
     type: null | string,
     moderatedReasonType: string | null
   },
-  vote: {
+  vote?: {
     id: string| null,
     endsAt: string | null
   }

@@ -1,0 +1,155 @@
+<!-- LIGHTBOX SKELETON -->
+<div id="root_lightbox" class="full_screen" *ngIf="group">
+  <div id="lightbox" class="wide_lightbox with_header_menu" [ngClass]="group.id ? 'with_title_description' : ''">
+
+    <div id="lightbox_wrap">
+
+      <div id="lightbox_header">
+
+        <div id="lightbox_header_text">
+          <div class="title" translate="MODALS.GROUP_CREATE_SETTINGS_HEADING_EDIT"></div>
+          <div class="title_description" *ngIf="group.id">{{group.name}}</div>
+        </div>
+
+        <div id="lightbox_close" class="ngdialog-close" mat-dialog-close>
+          <div class="table_cell ngdialog-close">
+            <div class="sprite sprite-btn-popup-close2x ngdialog-close">
+            </div>
+          </div>
+        </div>
+
+        <div class="clearer"></div>
+      </div>
+
+      <div class="line lightest_line"></div>
+
+      <!-- SETTINGS -->
+      <div class="lightbox_content settings_section_wrap">
+
+        <div class="lightbox_section">
+          <div class="settings_section full_width" *ngIf="isVisible('name')">
+            <div class="settings_cell">
+              <div class="setting_title" translate="MODALS.GROUP_CREATE_SETTINGS_LBL_GROUP_NAME"></div>
+              <div class="setting_description" translate="MODALS.GROUP_CREATE_SETTINGS_LBL_GROUP_NAME_EXP"></div>
+
+              <input id="groupName" class="full_width" cos-disabled="!GroupService.canUpdate(group)"
+                placeholder="{{'MODALS.GROUP_CREATE_SETTINGS_PLACEHOLDER_GROUP_NAME' | translate}}"
+                [(ngModel)]="group.name" [ngClass]="{'error_input': errors?.name}">
+              <label for="groupName" class="error_label" *ngIf="errors?.name">
+                <div class="table_cell">
+                  <div class="sprite sprite-icon-inputfield-error2x"></div>
+                  <span translate="{{errors?.name}}"></span>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <div class="line lightest_line" *ngIf="isVisible('name')"></div>
+
+          <div class="settings_section full_width" *ngIf="isVisible('description')">
+            <div class="settings_cell">
+              <div class="setting_title" translate="MODALS.GROUP_CREATE_SETTINGS_LBL_GROUP_DESCRIPTION"></div>
+              <div class="setting_description" translate="MODALS.GROUP_CREATE_SETTINGS_LBL_GROUP_DESCRIPTION_EXP"
+                [translateParams]="{max: 500}"></div>
+              <textarea id="groupDescription" cos-disabled="!GroupService.canUpdate(group)"
+                placeholder="{{'MODALS.GROUP_CREATE_SETTINGS_PLACEHOLDER_GROUP_DESCRIPTION' | translate}}"
+                [(ngModel)]="group.description" [ngClass]="{'error_input': errors?.description}"></textarea>
+              <label for="groupDescription" class="error_label" *ngIf="errors?.description">
+                <div class="table_cell">
+                  <div class="sprite sprite-icon-inputfield-error2x"></div>
+                  <span translate="{{errors?.description}}"></span>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <div class="line lightest_line" *ngIf="isVisible('description')"></div>
+
+          <div class="settings_section group_image" *ngIf="isVisible('image') && GroupService.canUpdate(group)">
+
+            <div class="settings_cell">
+              <div class="setting_title">
+                Group image
+              </div>
+              <div class="button_holder">
+                <input type="file" #imageUpload id="group_image_upload" class="image_item" (change)="fileUpload()"/>
+                <div class="gray_button" (click)="triggerUploadImage()"
+                  translate="MODALS.GROUP_CREATE_SETTINGS_BTN_UPLOAD_IMAGE"></div>
+                <div class="pink_button red_text" *ngIf="group.imageUrl || tmpImageUrl" (click)="deleteGroupImage()">
+                  <span>{{imageFile.name || ('MODALS.GROUP_CREATE_SETTINGS_BTN_REMOVE_IMAGE' | translate)}}</span>
+                  <span class="icon icon_delete"></span></div>
+              </div>
+            </div>
+            <div class="clearer"></div>
+
+            <div class="settings_cell profile_image_wrapper">
+              <div class="account_picture">
+                <img *ngIf="group.imageUrl || tmpImageUrl" [src]="group.imageUrl || tmpImageUrl">
+                <div class="profile_image_filler" *ngIf="!group.imageUrl ||  !tmpImageUrl">
+                  <cos-initials class="table_cell" *ngIf="group.name" [name]="group.name"></cos-initials>
+                  <div class="profile_circle"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="line lightest_line" *ngIf="isVisible('visibility')"></div>
+
+          <div class="settings_section" *ngIf="isVisible('visibility')">
+            <div class="settings_cell">
+              <div class="setting_title" translate="MODALS.GROUP_CREATE_SETTINGS_HEADING_GROUP_VISIBILITY"></div>
+              <div class="setting_description" translate="MODALS.GROUP_CREATE_SETTINGS_DESC_GROUP_VISIBILITY">ONLY
+                PEOPLE YOU INVITE WILL BE ABLE TO JOIN THE TOPIC</div>
+              <div class="radio_input_wrap">
+                <label class="checkcontainer">
+                  <input type="radio" class="vote_option_radio"
+                    (click)="group.visibility = GroupService.VISIBILITY.private"
+                    ng-checked="group.visibility === GroupService.VISIBILITY.private">
+                  <span class="option_radio" translate="MODALS.GROUP_CREATE_SETTINGS_LBL_PRIVATE">Private</span>
+                </label>
+              </div>
+              <div class="radio_input_wrap">
+                <label class="checkcontainer">
+                  <input type="radio" class="vote_option_radio"
+                    (click)="group.visibility = GroupService.VISIBILITY.public"
+                    ng-checked="group.visibility === GroupService.VISIBILITY.public">
+                  <span class="option_radio" translate="MODALS.GROUP_CREATE_SETTINGS_LBL_PUBLIC">Public</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="line lightest_line" *ngIf="isVisible('visibility')"></div>
+
+          <div class="settings_section" *ngIf="isVisible('delete')">
+            <div class="settings_cell">
+              <div class="setting_title" translate="MODALS.GROUP_CREATE_SETTINGS_LBL_DELETE_GROUP">Delete group</div>
+              <div class="setting_description" translate="MODALS.GROUP_CREATE_SETTINGS_LBL_DELETE_GROUP_EXP">DELETING A
+                GROUP CAN NOT BE UNDONE. BE SURE TO BE REALLY SURE ABOUT THIS.</div>
+            </div>
+            <div class="settings_cell">
+              <div class="blue_button yes" (click)="doDeleteGroup()"
+                translate="MODALS.GROUP_CREATE_SETTINGS_BTN_DELETE_GROUP">Delete group</div>
+            </div>
+          </div>
+
+
+        </div>
+
+      </div>
+
+      <div class="lightbox_footer">
+
+        <div class="line lightest_line"></div>
+        <div class="blue_button_wrap">
+          <div class="blue_button" *ngIf="GroupService.canUpdate(group)" (click)="doSaveGroup()"
+            translate="MODALS.GROUP_CREATE_SETTINGS_BTN_SAVE_GROUP"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="close_lightbox" class="ngdialog-close" mat-dialog-close></div>
+
+</div>

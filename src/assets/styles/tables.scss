@@ -1,0 +1,47 @@
+@use "vars";
+
+.default_table {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+
+  tr, .pretend_tr {
+      height: 56px;
+      background-color: vars.$white;
+
+      &:nth-child(even) {
+          background-color: vars.$light_gray;;
+      }
+  }
+
+  th, .pretend_th {
+      padding: 20px;
+
+      .icon {
+          vertical-align: baseline;
+      }
+
+      .th_text {
+          width: max-content;
+      }
+  }
+  td, .pretend_td {
+      padding: 0 20px;
+      vertical-align: middle;
+      text-align: right;
+
+      &:first-child {
+          font-weight: 700;
+          text-align: left;
+      }
+      .toggle_cell {
+          bottom: 14px;
+          position: relative;
+      }
+  }
+
+  .pretend_table_mobile_text {
+      display: none;
+  }
+}

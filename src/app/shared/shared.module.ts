@@ -8,26 +8,48 @@ import { TranslateModule } from '@ngx-translate/core';
 import { TooltipDirective } from '../directives/tooltip';
 import { CosDropdownDirective } from '../directives/cos-dropdown.directive';
 import { MatDialogModule } from '@angular/material/dialog';
-import { AppRoutingModule } from '../app-routing.module';
+import { TypeaheadComponent, TypeaheadItem } from './components/typeahead/typeahead.component';
+import { FormsModule } from '@angular/forms';
+import { CosInitialsComponent } from './components/cos-initials/cos-initials.component';
+import { MomentModule } from 'ngx-moment';
+import { QRCodeModule } from 'angularx-qrcode';
+import { CosPaginationComponent } from './components/cos-pagination/cos-pagination.component';
+import { SocialshareDirective } from '../directives/socialshare.directive';
 @NgModule({
   declarations: [
-    TopicboxComponent,
-    TooltipDirective,
-    CosDropdownDirective,
-    PublicgroupboxComponent,
     ConfirmDialogComponent,
+    CosDropdownDirective,
+    CosInitialsComponent,
+    CosPaginationComponent,
+    PublicgroupboxComponent,
+    SocialshareDirective,
+    TooltipDirective,
+    TopicboxComponent,
+    TypeaheadComponent,
+    TypeaheadItem,
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    MatDialogModule,
+    MomentModule,
+    QRCodeModule,
     TranslateModule,
-    MatDialogModule
   ],
    exports: [
-    TopicboxComponent,
-    TooltipDirective,
+    ConfirmDialogComponent,
     CosDropdownDirective,
+    CosInitialsComponent,
+    CosPaginationComponent,
+    MatDialogModule,
+    MomentModule,
     PublicgroupboxComponent,
-    ConfirmDialogComponent
+    QRCodeModule,
+    SocialshareDirective,
+    TooltipDirective,
+    TopicboxComponent,
+    TypeaheadComponent,
+    TypeaheadItem
    ]
 })
 export class SharedModule { }

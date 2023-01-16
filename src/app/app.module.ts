@@ -8,6 +8,7 @@ import { TranslateModule, TranslateLoader, TranslateCompiler } from '@ngx-transl
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
+import { MomentModule } from 'ngx-moment';
 
 import { ConfigModule, ConfigService } from './services/config.service';
 import { AppRoutingModule } from './app-routing.module';
@@ -51,6 +52,11 @@ import { HttpErrorInterceptor } from './services/http.error.interceptor.service'
         deps: [HttpClient]
       },
       compiler: {provide: TranslateCompiler, useClass: JSONPointerCompiler},
+    }),
+    MomentModule.forRoot({
+      relativeTimeThresholdOptions: {
+        'm': 59
+      }
     }),
     CommonModule,
     HttpClientModule,

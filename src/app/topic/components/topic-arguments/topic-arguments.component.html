@@ -10,7 +10,7 @@
                   <span class="data_item" translate="VIEWS.TOPICS_TOPICID.LBL_ARGUMENTS_COUNT_REPLY" [translateParams]="{countReplies:TopicArgumentService.count.value.reply}"></span>
               </div>
               <div class="data_right print_never">
-                  <!--div cos-dropdown class="classic_dropdown borderless_dropdown">
+                  <div [cosDropdown] class="classic_dropdown borderless_dropdown">
                       <div class="dropdown_selection">
                           <div class="dropdown_text data_item">
                               {{'VIEWS.TOPICS_TOPICID.TXT_ARGUMENT_ORDER_BY_' + TopicArgumentService.params$.value.orderBy | uppercase | translate}}
@@ -25,16 +25,16 @@
 
                       <div class="dropdown">
                           <!-- NO CATEGORY -->
-                          <!--div class="dropdown_item" ng-repeat="(key, orderOption) in topicComments.orderByOptions">
-                              <div class="item_name" ng-click="TopicArgumentService.doOrder(key)">
-                                  {{orderOption.translation}}
+                          <div class="dropdown_item" *ngFor="let orderOption in topicComments.orderByOptions | keyvalue">
+                              <div class="item_name" (click)="TopicArgumentService.updateParams({orderBy: orderOption.key})">
+                                  {{orderOption.value.translation}}
                               </div>
-                          </!--div>
+                          </div>
                       </div>
 
-                  </!--div-->
+                  </div>
 
-                  <div class="blue_button" ng-click="doAddComment()" translate="VIEWS.TOPICS_TOPICID.BTN_ADD_ARGUMENT"></div>
+                  <!--div class="blue_button" (click)="doAddComment()" translate="VIEWS.TOPICS_TOPICID.BTN_ADD_ARGUMENT"></!--div-->
 
               </div>
           </div>

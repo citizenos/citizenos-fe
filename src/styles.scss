@@ -1,10 +1,12 @@
-@use "./assets/styles/mixins_n_extends";
-@use "./assets/styles/vars";
-@forward "./assets/styles/buttons";
-@forward "./assets/styles/icons";
-@forward "./assets/styles/icons_new";
-@forward "./assets/styles/lightbox";
-@forward "./assets/styles/toggle";
+/*read from ./assets/styles*/
+@use "mixins_n_extends";
+@use "vars";
+@forward "buttons";
+@forward "icons";
+@forward "icons_new";
+@forward "lightbox";
+@forward "tables";
+@forward "toggle";
 
 /* You can add global styles to this file, and also import other style files */
 
@@ -897,8 +899,10 @@ a:visited {
     overflow: hidden;
 
     img {
-      width: inherit;
-      height: inherit;
+      width: 80px;
+      height: 80px;
+      aspect-ratio: 1;
+      object-fit: contain;
     }
 
     #profileImage {
@@ -2299,7 +2303,7 @@ a:visited {
       input {
         height: 38px;
         width: 100%;
-        border: 1px solid #e5e5e5;
+        border: 1px solid vars.$lightest_gray;
         border-radius: 4px;
         vertical-align: middle;
         -webkit-appearance: textfield;
@@ -2314,7 +2318,7 @@ a:visited {
         .time_input {
           width: 40px;
           height: 38px;
-          border: 1px solid #e5e5e5;
+          border: 1px solid vars.$lightest_gray;
           border-radius: 4px;
           vertical-align: middle;
           -webkit-appearance: textfield;

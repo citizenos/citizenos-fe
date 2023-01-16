@@ -8,7 +8,7 @@ import { Topic } from '../interfaces/topic';
 })
 export class AppService {
   showHelp = new BehaviorSubject(false);
-  group: Group | undefined;
+  group = new BehaviorSubject<Group | undefined>(undefined);
   topic: Topic | undefined;
   constructor() { }
 }

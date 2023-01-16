@@ -9,6 +9,10 @@
     bottom: 0;
     right: 0;
     padding-top: 156px;
+
+    &.no_padding {
+      padding-top: 0;
+    }
     @media (max-width: 767px) {
         padding-top: 50px;
     }

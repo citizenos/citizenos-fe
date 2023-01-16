@@ -23,6 +23,14 @@ export class AuthService {
     }))
   }
 
+  resolveAuthorizedPath(path: string) {
+    let authorized = '';
+    if (this.loggedIn$.value) {
+      authorized = '/users/self';
+    }
+    return `/api${authorized}${path}`
+  }
+
   signUp (email: string, password: string, name: string, company: string, redirectSuccess: string, preferences: object, termsVersion: string) {
     const data = {
       email: email,

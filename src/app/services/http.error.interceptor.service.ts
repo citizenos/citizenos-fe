@@ -1,27 +1,44 @@
 import { Injectable } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Router } from '@angular/router';
+import { Observable, throwError, tap } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { NotificationService } from './notification.service';
 import { TranslateService } from '@ngx-translate/core';
+import { LocationService } from './location.service';
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
   API_REQUEST_REGEX = /\/api\/(?!auth\/status).*/i; //Filter out status 401 errors
-  constructor(private Notification: NotificationService, private translate: TranslateService) { }
+  constructor(private Notification: NotificationService, private translate: TranslateService, private Location: LocationService, private Router: Router) { }
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request)
       .pipe(
+        tap(() => {
+          const undefinedUrlParams = request.url.match(/(?<=\/):+\w+/gi);
+          if (undefinedUrlParams?.length) {
+            throw new Error(`Undefined URL params: ${undefinedUrlParams.join(',')}`);
+          }
+        }),
         catchError((response: HttpErrorResponse) => {
           this.Notification.removeAll();
           let errorMsg = '';
-          if (response.error instanceof ErrorEvent) {
-            errorMsg = response.error.message;
-            console.error(`Client side error', ${response.error.message} `);
+          if (!response.error || response.error instanceof ErrorEvent) {
+            errorMsg = response.error?.message || response.message;
+            console.error(`Client side error:' ${errorMsg} `);
+            if (!response.error) {
+              this.Notification.addError(response.message);
+              return throwError(() => response);
+            }
           }
           else {
+            console.log(response.error)
             errorMsg = response.message;
-            console.error(`Client side error', ${response.error.message} `);
+            console.error(`Server side error:', ${errorMsg} `);
+            if (response.url?.match(this.API_REQUEST_REGEX) && response.status === 401) {
+              // Cannot use $state here due to circular dependencies with $http
+              this.Router.navigate([this.Location.getAbsoluteUrl('/account/login', null, { redirectSuccess: this.Location.getAbsoluteUrl(window.location.pathname) + window.location.search })]);
+            }
           }
 
 
@@ -29,6 +46,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             this.errorsToKeys(response, request.method);
           } catch (err) {
             // Catch all so that promise get rejected later with response to continue interceptor chain
+         //   this.Notification.addError(err);
             console.warn('cosHttpApiErrorInterceptor.responseError', 'Failed to translate errors', response, err);
           }
           return throwError(() => response.error);
@@ -59,7 +77,9 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     const GENERAL_ERROR_KEY_PATTERN = 'MSG_ERROR_:method_:path_:statusCode';
 
     const url = errorResponse.url;
-
+    if (!url) {
+      return errorResponse.message;
+    }
     const path = url.match(this.API_REQUEST_REGEX)[0]
       .replace(/\/self\//g, '_')
       .replace(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/ig, '_')
@@ -103,7 +123,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     const translationKey = this.getGeneralErrorTranslationKey(errorResponse, method);
 
     const translationKeyHeading = translationKey + '_HEADING'; // Error/info dialog heading key
-
     const statusCode = (errorResponse.error.status && errorResponse.error.status.code) ? errorResponse.error.status.code : errorResponse.status;
     const translationKeyFallback = GENERAL_ERROR_FALLBACK_KEY_PATTERN
       .replace(':statusCode', statusCode);

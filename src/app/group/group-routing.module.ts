@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { GroupSettingsDialogComponent } from './components/group-settings-dialog/group-settings-dialog.component';
 import { GroupComponent } from './group.component';
 
 const routes: Routes = [
   {path: '', children: [
     {path: ':groupId', component: GroupComponent, children: [
-      {path: '', component: GroupComponent},
-    ]},
-    {path: '', component: GroupComponent},
+      {path: 'settings', component: GroupSettingsDialogComponent},
+    ]}
 ]}];
 
 @NgModule({

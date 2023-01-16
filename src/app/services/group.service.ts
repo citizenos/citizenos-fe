@@ -5,6 +5,7 @@ import { Group } from 'src/app/interfaces/group';
 import { LocationService } from './location.service';
 import { HttpClient } from '@angular/common/http';
 import { NotificationService } from './notification.service';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -43,12 +44,15 @@ export class GroupService {
     level: 'none'
   };
 
-  constructor(private Location: LocationService, private http: HttpClient, private Notification: NotificationService) {
-    ;
+  constructor(private Location: LocationService, private http: HttpClient, private Notification: NotificationService, private Auth: AuthService) {
   }
 
   get(id: string, params?: { [key: string]: string }): Observable<Group> {
-    let path = this.Location.getAbsoluteUrlApi('/api/users/self/groups/:groupId', { groupId: id });
+    let url = '/api/groups/:groupId';
+    if (this.Auth.loggedIn$.value) {
+      url = '/api/users/self/groups/:groupId';
+    }
+    let path = this.Location.getAbsoluteUrlApi(url, { groupId: id });
 
     return this.http.get<Group>(path, { withCredentials: true, params, observe: 'body', responseType: 'json' })
       .pipe(switchMap((res: any) => {
@@ -65,12 +69,9 @@ export class GroupService {
         return data;
       }),
       catchError(res => {
-        console.log('ERR', res)
         if (res.error) {
-          console.log(res.error.status)
           if (res.error.status !== 401) {
             this.Notification.addError(res.error.status.message);
-            console.log('MESSAGES', this.Notification.messages)
           }
         }
         return res;
@@ -91,12 +92,9 @@ export class GroupService {
         return data;
       }),
       catchError(res => {
-        console.log('ERR', res)
         if (res.error) {
-          console.log(res.error.status)
           if (res.error.status !== 401) {
             this.Notification.addError(res.error.status.message);
-            console.log('MESSAGES', this.Notification.messages)
           }
         }
         return res;
@@ -113,11 +111,9 @@ export class GroupService {
         return data;
       }),
       catchError(res => {
-        console.log('ERR', res)
         if (res.error) {
           if (res.error.status !== 401) {
             this.Notification.addError(res.error.status.message);
-            console.log('MESSAGES', this.Notification.messages)
           }
         }
         return res;
@@ -134,12 +130,9 @@ export class GroupService {
         return res.data;
       }),
       catchError(res => {
-        console.log('ERR', res)
         if (res.error) {
-          console.log(res.error.status)
           if (res.error.status !== 401) {
             this.Notification.addError(res.error.status.message);
-            console.log('MESSAGES', this.Notification.messages)
           }
         }
         return res;

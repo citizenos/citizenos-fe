@@ -1,17 +1,18 @@
 
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, tap } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 
 import { GroupMemberUserService } from 'src/app/services/group-member-user.service';
+import { GroupMemberUsersService } from 'src/app/services/group-member-users.service';
 import { GroupService } from 'src/app/services/group.service';
 import { Group } from 'src/app/interfaces/group';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { AuthService } from '../services/auth.service';
 import { GroupInviteComponent } from './components/group-invite/group-invite.component';
 import { AppService } from '../services/app.service';
-
+import { PublicGroupMemberTopicsService } from '../services/public-group-member-topics.service';
 @Component({
   selector: 'group',
   templateUrl: './group.component.html',
@@ -23,13 +24,23 @@ export class GroupComponent implements OnInit {
   tabSelected = 'topics';
   wWidth: number = window.innerWidth;
 
-  constructor(public dialog: MatDialog, public GroupService: GroupService, private route: ActivatedRoute, public GroupMemberUser: GroupMemberUserService, private Auth: AuthService, private app: AppService) {
+
+  constructor(public dialog: MatDialog,
+    public GroupService: GroupService,
+    private route: ActivatedRoute,
+    private router: Router,
+    public GroupMemberUser: GroupMemberUserService,
+    public GroupMemberUsersService: GroupMemberUsersService,
+    private Auth: AuthService, private app: AppService,
+    public PublicGroupMemberTopicsService: PublicGroupMemberTopicsService) {
     this.group$ = this.route.params.pipe<Group>(
       switchMap((params) => {
         this.groupId = <string>params['groupId'];
+        PublicGroupMemberTopicsService.params$.value.groupId = this.groupId;
+        GroupMemberUsersService.params$.value.groupId = this.groupId;
         return this.GroupService.get(params['groupId']).pipe(
           tap((group) => {
-            this.app.group = group;
+            this.app.group.next(group);
           })
         )
       })
@@ -67,4 +78,10 @@ export class GroupComponent implements OnInit {
       }
     });
   }
+
+  showSettings () {
+    this.router.navigate(['settings'], {relativeTo: this.route});
+  }
+
+  deleteGroup () {}
 }
