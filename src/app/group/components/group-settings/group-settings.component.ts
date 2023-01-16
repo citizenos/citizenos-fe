@@ -1,11 +1,12 @@
 import { ActivatedRoute } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-
+import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { GroupService } from 'src/app/services/group.service';
 import { GroupInviteUserService } from 'src/app/services/group-invite-user.service';
 import { AppService } from 'src/app/services/app.service';
-import { Subscription, take } from 'rxjs';
+import { Subscription, take, takeWhile } from 'rxjs';
+import { UploadService } from 'src/app/services/upload.service';
 @Component({
   selector: 'group-settings',
   templateUrl: './group-settings.component.html',
@@ -20,7 +21,12 @@ export class GroupSettingsComponent implements OnInit {
   public sectionsVisible = ['name', 'description', 'image', 'leave'];
   subscription: Subscription;
   // private sUpload,
-  constructor(private Route: ActivatedRoute, private ref: ChangeDetectorRef, private dialog: MatDialog, public GroupService: GroupService, private GroupInviteUserService: GroupInviteUserService, public app: AppService) {
+  constructor(
+    public dialogRef: MatDialogRef<GroupSettingsComponent>,
+    private Route: ActivatedRoute, private ref: ChangeDetectorRef, private dialog: MatDialog,
+    public GroupService: GroupService, private GroupInviteUserService: GroupInviteUserService,
+    private Upload: UploadService,
+    public app: AppService) {
     this.subscription = this.app.group
       .subscribe((val) => this.group = val);
     this.ref.markForCheck();
@@ -67,44 +73,39 @@ export class GroupSettingsComponent implements OnInit {
       take(1)
     ).subscribe((res) => {
       console.log('UPDATED res', res);
+      this.GroupService
+        .uploadGroupImage(this.imageFile, this.group.id).pipe(
+          takeWhile((e) => !e.link)
+        )
+        .subscribe((res: any) => {
+          if (res.link) {
+            this.group.imageUrl = res.link;
+          }
+        });
+
+        this.dialogRef.close();
     })
-    /*   .then((data) => {
-         if (this.imageFile?.length) {
-           this.sUpload
-             .uploadGroupImage(this.imageFile[0], this.group.id)
-             .then((response) => {
-               this.group.imageUrl = response.data.link;
-             }, (err) => {
-               this.errors = err;
-             });
-
-         }
-
-         angular.extend(this.group, data);
-       })
-       .then(() => {
-         this.GroupInviteUserService.reload();
-         const dialogs = this.ngDialog.getOpenDialogs();
-         this.ngDialog.close(dialogs[0], '$closeButton');
-       }), ((errorResponse) => {
-         if (errorResponse.data && errorResponse.data.errors) {
-           this.errors = errorResponse.data.errors;
-         }
-       });*/
   };
 
   doDeleteGroup() {
-    /*  this.ngDialog
-        .openConfirm({
-          template: '/views/modals/group_delete_confirm.html'
-        })
-        .then(() => {
-          this.GroupService
-            .delete(this.group)
-            .then(() => {
-              this.GroupService.reload();
-              this.$state.go('my/groups', null, { reload: true });
-            });
-        }, angular.noop);*/
+    const deleteDialog = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        heading: 'MODALS.GROUP_DELETE_CONFIRM_HEADING',
+        title: 'MODALS.GROUP_DELETE_CONFIRM_TXT_ARE_YOU_SURE',
+        points: ['MODALS.GROUP_DELETE_CONFIRM_TXT_GROUP_DELETED', 'MODALS.GROUP_DELETE_CONFIRM_TXT_LOSE_ACCESS'],
+        confirmBtn: 'MODALS.GROUP_DELETE_CONFIRM_BTN_YES',
+        closeBtn: 'MODALS.GROUP_DELETE_CONFIRM_BTN_NO'
+      }
+    });
+
+    deleteDialog.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.GroupService.delete(this.group)
+          .pipe(take(1))
+          .subscribe((res) => {
+            console.log(res);
+          })
+      }
+    });
   };
 }

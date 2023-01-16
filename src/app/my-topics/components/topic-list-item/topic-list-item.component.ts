@@ -16,7 +16,7 @@ export class TopicListItemComponent {
     return this.topic.id === this.route.snapshot.params['topicId'];
   }
   goToItemView() {
-    this.router.navigateByUrl('/my/topics/' + this.topic.id);
+    this.router.navigate(['my','topics', this.topic.id]);
   }
   goToView (check: boolean) {}
 }

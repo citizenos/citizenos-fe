@@ -26,7 +26,7 @@ export class TopicboxComponent implements OnInit {
   }
 
   goToView() {
-    this.router.navigateByUrl('/topics/' + this.topic.id);
+    this.router.navigate(['topics', this.topic.id]);
     //topic param
       /*const params = {
           language: this.$stateParams.language,

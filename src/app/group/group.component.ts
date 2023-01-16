@@ -1,7 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap, tap } from 'rxjs/operators';
+import { switchMap, tap, take } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 
 import { GroupMemberUserService } from 'src/app/services/group-member-user.service';
@@ -83,5 +83,28 @@ export class GroupComponent implements OnInit {
     this.router.navigate(['settings'], {relativeTo: this.route});
   }
 
-  deleteGroup () {}
+  deleteGroup () {
+    const deleteDialog = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        level: 'delete',
+        heading: 'MODALS.GROUP_DELETE_CONFIRM_HEADING',
+        title: 'MODALS.GROUP_DELETE_CONFIRM_TXT_ARE_YOU_SURE',
+        description: 'MODALS.GROUP_DELETE_CONFIRM_TXT_NO_UNDO',
+        points: ['MODALS.GROUP_DELETE_CONFIRM_TXT_GROUP_DELETED', 'MODALS.GROUP_DELETE_CONFIRM_TXT_LOSE_ACCESS'],
+        confirmBtn: 'MODALS.GROUP_DELETE_CONFIRM_BTN_YES',
+        closeBtn: 'MODALS.GROUP_DELETE_CONFIRM_BTN_NO'
+      }
+    });
+
+    deleteDialog.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.GroupService.delete(this.app.group.value)
+        .pipe(take(1))
+        .subscribe((res) => {
+          console.log(res);
+          this.router.navigate(['../'], { relativeTo: this.route });
+        })
+      }
+    });
+  }
 }

@@ -26,8 +26,9 @@
 
               <div class="second_header">
 
-                  <div class="sprite sprite-icon-warn-topic2x"></div>
-                  <div class="warn_title" translate="{{data.title}}"></div>
+                  <div [ngClass]="{'sprite-icon-warn-topic2x': data.level === 'warn', 'sprite-icon-delete-topic2x': data.level === 'delete'}" class="sprite"></div>
+                  <div [ngClass]="{'warn_title': data.level === 'warn', 'delete_title': data.level === 'delete'}" translate="{{data.title}}"></div>
+                  <div [ngClass]="{'warn_description': data.level === 'warn', 'delete_description': data.level === 'delete'}" translate="{{data.description}}"></div>
 
                   <div id="lightbox_close" mat-dialog-close>
                       <div class="table_cell">
@@ -45,8 +46,8 @@
               <div id="delete_info_wrap">
 
                   <div class="delete_info_text_wrap">
-                      <div class="delete_info_button_wrap" *ngIf="data.description">
-                          <div class="delete_info_text" translate="{{data.description}}"></div>
+                      <div class="delete_info_button_wrap" *ngIf="data.info">
+                          <div class="delete_info_text" translate="{{data.info}}"></div>
                       </div>
                       <div class="delete_info" *ngFor="let point of data.points">
                           <div class="sprite sprite-checkmark2x"></div>
@@ -61,7 +62,7 @@
                       </div>
 
                       <div class="table_cell">
-                          <div class="blue_button"  [mat-dialog-close]="true" translate="{{data.confirmBtn}}"></div>
+                          <div class="blue_button" [ngClass]="{'yes': data.level === 'delete'}" [mat-dialog-close]="true" translate="{{data.confirmBtn}}"></div>
                       </div>
 
                   </div>

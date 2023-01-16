@@ -14,7 +14,7 @@ export class TypeaheadItem implements OnDestroy {
 
 @Component({
   selector: 'typeahead',
-  template: `<div><div [ngClass]="{hidden: !label}" class="ac-label">{{label}}</div><div class="ac-input"><input name="term" [(ngModel)]="term" (ngModelChange)="query()" type="text" autocomplete="off" placeholder="{{placeholder}}" focus-if autofocus/></div><ng-content></ng-content></div>`,
+  templateUrl: './typeahead.component.html',
   styleUrls: ['./typeahead.component.scss']
 })
 export class TypeaheadComponent implements OnInit {

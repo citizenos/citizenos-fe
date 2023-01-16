@@ -7,6 +7,7 @@ import { Group } from 'src/app/interfaces/group';
 import { GroupJoinService } from 'src/app/services/group-join.service';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { LoginComponent } from 'src/app/core/components/account/login/login.component';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'public-group-box',
@@ -21,7 +22,7 @@ export class PublicgroupboxComponent implements OnInit {
   }
 
   viewGroup () {
-    this.router.navigateByUrl('/groups/' + this.group.id);
+    this.router.navigate(['groups', this.group.id]);
   }
 
   joinGroup () {
@@ -38,7 +39,7 @@ export class PublicgroupboxComponent implements OnInit {
           heading: 'MODALS.GROUP_JOIN_CONFIRM_HEADING',
           closeBtn: 'MODALS.GROUP_JOIN_CONFIRM_BTN_NO',
           confirmBtn: 'MODALS.GROUP_JOIN_CONFIRM_BTN_YES',
-          description: 'MODALS.GROUP_JOIN_CONFIRM_TXT_DESC',
+          info: 'MODALS.GROUP_JOIN_CONFIRM_TXT_DESC',
           points: ['MODALS.GROUP_JOIN_CONFIRM_TXT_POINT1', 'MODALS.GROUP_JOIN_CONFIRM_TXT_POINT2', 'MODALS.GROUP_JOIN_CONFIRM_TXT_POINT3']
         }
       });
@@ -48,7 +49,7 @@ export class PublicgroupboxComponent implements OnInit {
         if (result === true) {
           console.log('JOIN', this.group.join.token)
           this.GroupJoinService
-            .join(this.group.join.token).subscribe(result => {
+            .join(this.group.join.token).pipe(take(1)).subscribe(result => {
               console.log(result) // handle reloading
                /*.then((res) => {
                   if (res.id) {

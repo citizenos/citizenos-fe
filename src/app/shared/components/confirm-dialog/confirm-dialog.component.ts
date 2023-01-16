@@ -4,8 +4,10 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export interface ConfirmDialogData {
   title: string | null,
   heading: string | null,
+  level: string,
   closeBtn: string | null,
   confirmBtn: string | null,
+  info: string | null,
   description: string | null,
   points: string[] | null,
 }
@@ -18,6 +20,7 @@ export interface ConfirmDialogData {
 export class ConfirmDialogComponent implements OnInit {
 
   constructor (public dialogRef: MatDialogRef<ConfirmDialogComponent>, @Inject(MAT_DIALOG_DATA) public data:ConfirmDialogData) {
+    if (!data.level) data.level = 'warn';
   }
 
   ngOnInit(): void {

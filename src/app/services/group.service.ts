@@ -6,6 +6,7 @@ import { LocationService } from './location.service';
 import { HttpClient } from '@angular/common/http';
 import { NotificationService } from './notification.service';
 import { AuthService } from './auth.service';
+import { UploadService } from './upload.service';
 
 @Injectable({
   providedIn: 'root'
@@ -44,7 +45,7 @@ export class GroupService {
     level: 'none'
   };
 
-  constructor(private Location: LocationService, private http: HttpClient, private Notification: NotificationService, private Auth: AuthService) {
+  constructor(private Location: LocationService, private http: HttpClient, private Notification: NotificationService, private Auth: AuthService, private Upload: UploadService) {
   }
 
   get(id: string, params?: { [key: string]: string }): Observable<Group> {
@@ -106,7 +107,7 @@ export class GroupService {
   delete(data: any) {
     const path = this.Location.getAbsoluteUrlApi('/api/users/self/groups/:groupId', { groupId: data.id || data.groupId });
 
-    return this.http.delete(path).pipe(
+    return this.http.delete(path, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
       map((data) => {
         return data;
       }),
@@ -140,6 +141,13 @@ export class GroupService {
       share()
     );
   }
+
+  uploadGroupImage(file: File, groupId: string) {
+    const path = this.Location.getAbsoluteUrlApi('/api/users/self/groups/:groupId/upload')
+      .replace(':groupId', groupId);
+
+    return this.Upload.upload(path, file);
+  };
 
   canUpdate(group: Group) {
     //this.GroupMemberUser.LEVELS.admin replace with 'admin'

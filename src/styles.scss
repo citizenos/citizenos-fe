@@ -899,8 +899,8 @@ a:visited {
     overflow: hidden;
 
     img {
-      width: 80px;
-      height: 80px;
+      width: inherit;
+      height: inherit;
       aspect-ratio: 1;
       object-fit: contain;
     }
