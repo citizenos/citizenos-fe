@@ -9,6 +9,7 @@ export interface Topic {
   categories: string[],
   endsAt:	string | null,
   createdAt:	string,
+  updatedAt: string,
   sourcePartnerId:	string | null,
   sourcePartnerObjectId:	string | null,
   permission: {level: string, levelGroup?: string},

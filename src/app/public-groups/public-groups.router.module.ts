@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Router, Routes, UrlSegment } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { GroupsComponent } from './components/groups/groups.component';
 
 const routes: Routes = [
   {path: '', children: [
-    {path: ':groupId'}
+    {path: ':groupId'},
+    {path: '', component: GroupsComponent}
   ]}
 ];
 
@@ -12,6 +14,6 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class PublicGroupsRoutingModule {
-  constructor (router: Router) {
+  constructor () {
   }
 }

@@ -1,9 +1,9 @@
 
 
 <!-- LEFT SIDE -->
-<div class="topics_left" ng-class="{hidden: (app.wWidth <= 750 && (('my/groups/groupId' | isState) || ('my/topics/topicId' | isState)))}">
+<div class="topics_left" [ngClass]="{hidden: (wWidth <= 750)}">
 
-    <div ng-if="filters" [cosDropdown] class="classic_dropdown">
+    <div *ngIf="filters" [cosDropdown] class="classic_dropdown">
 
         <div class="dropdown_selection">
             <div class="dropdown_text" translate="{{filters.selected.name}}">
@@ -22,7 +22,7 @@
         <div class="dropdown">
 
             <div class="dropdown_item" *ngFor="let item of filters.items">
-                <div ng-if="item.children">
+                <div *ngIf="item.children">
                     <div class="item_category" translate="{{item.name}}">
                         Item category
                     </div>
@@ -33,8 +33,8 @@
                     </div>
                 </div>
 
-                <div ng-if="!item.children">
-                    <div class="item_name" ng-click="onSelect(item.id)" ng-class="item === filters.selected ? 'bold' : ''" translate="{{item.name}}">
+                <div *ngIf="!item.children">
+                    <div class="item_name" (click)="onSelect(item.id)" [ngClass]="item === filters.selected ? 'bold' : ''" translate="{{item.name}}">
                         Item name
                     </div>
                 </div>
@@ -46,21 +46,21 @@
     </div>
 
     <!-- Topics -->
-    <!--my-menu-item  item="group" ng-repeat="group in GroupService.groups"></!--my-menu-item>
-    <my-menu-item--  item="topic" ng-repeat="topic in TopicService.topics"></my-menu-item-->
     <topic-list-item [topic]="topic" *ngFor="let topic of topics$ | async"></topic-list-item>
     <!-- No results -->
-    <div class="no_results table" *ngIf="!UserTopicService.countTotal$">
+    <div class="no_results table" *ngIf="!(UserTopicService.countTotal$ | async)">
         <!-- No Groups view -->
         <div class="v_align_cell">
             <div class="no_results_icon_wrap">
                 <div class="sprite sprite-icon-no-results2x"></div>
             </div>
             <div class="title_area">
-                <h3 translate="VIEWS.MY.NO_RESULTS_FOUND_TITLE">No results found</h3>
-                <p translate="VIEWS.MY.NO_RESULTS_FOUND_DESCRIPTION">We can’t display results for what you’re searching. Maybe try another search?</p>
+                <h3 translate="VIEWS.MY.NO_RESULTS_FOUND_TITLE"></h3>
+                <p translate="VIEWS.MY.NO_RESULTS_FOUND_DESCRIPTION"></p>
             </div>
         </div>
     </div>
 
 </div>
+
+<router-outlet name="mytopicsright"></router-outlet>

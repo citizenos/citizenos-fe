@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { tap, map, switchMap } from 'rxjs/operators';
+import { Topic } from 'src/app/interfaces/topic';
+import { AuthService } from 'src/app/services/auth.service';
 import { UserTopicService } from 'src/app/services/user-topic.service';
 @Component({
   selector: 'app-list',
@@ -10,6 +13,7 @@ import { UserTopicService } from 'src/app/services/user-topic.service';
 export class ListComponent {
 
   topics$;
+  allTopics$: Topic[] = [];
   public filters;
   public topicFilters = [
     {
@@ -70,37 +74,71 @@ export class ListComponent {
       name: 'VIEWS.MY.FILTERS.TOPICS_ORDERED_BY_GROUPS'
     }
   ];
-  constructor(public UserTopicService: UserTopicService, public route: ActivatedRoute, private router: Router) {
+
+  public wWidth = window.innerWidth;
+
+  constructor(public UserTopicService: UserTopicService, public route: ActivatedRoute, private router: Router, private Auth: AuthService, TranslateService: TranslateService) {
     this.topics$ = this.route.queryParams.pipe(
-      switchMap((queryParams) => {
-        console.log(queryParams);
-        this.UserTopicService.filterTopics(queryParams['filter']);
-        return this.route.paramMap.pipe(switchMap((params) => {
-          console.log(params);
-          return this.UserTopicService.topics$.pipe(map((items) => {
-            if (!items.length) {
-              this.router.navigate(['my','topics'], {queryParams});
+      switchMap((queryParams: any) => {
+        this.UserTopicService.reset();
+        const filter = queryParams['filter'];
+        this.setFilter(filter)
+        return this.UserTopicService.loadItems().pipe(map(
+          (newtopics: any) => {
+            if (!newtopics.length) {
+              this.router.navigate([TranslateService.currentLang, 'my', 'topics'], { queryParams });
+
             } else {
-              const inlist = items.map(item => item.id).find((id) => id === params.get('topicId'));
+              const inlist = newtopics.map((item: any) => item.id).find((id: string) => id === queryParams['topicId']);
               if (!inlist) {
-                this.router.navigate(['my','topics', items[0].id], {queryParams});
+                this.router.navigate([TranslateService.currentLang, 'my', 'topics', newtopics[0].id], { queryParams });
               }
             }
-            return items;
+            return newtopics;
           }))
-        }))
-      })
-    );
-    //find(this.topicFilters, { id: filterParam }) || chain(this.topicFilters).map('children').flatten().find({ id: filterParam }).value()
+      }
+      ));
+
     this.filters = {
       items: this.topicFilters,
       selected: this.topicFilters[0]
     };
   }
 
+  private setFilter (filter: string) {
+    let param = '';
+        let value;
+        if (this.UserTopicService.STATUSES.indexOf(filter) > -1) {
+          param = 'statuses'; value = [filter];
+        } else if (this.UserTopicService.VISIBILITY.indexOf(filter) > -1) {
+          param = 'visibility'; value = filter;
+        } else {
+          switch (filter) {
+            case 'all':
+              break;
+            case 'haveVoted':
+              param = 'hasVoted'; value = true;
+              break;
+            case 'haveNotVoted':
+              param = 'hasVoted'; value = false;
+              break;
+            case 'iCreated':
+              param = 'creatorId'; value = this.Auth.user.value.id;
+              break;
+            case 'pinnedTopics':
+              param = 'pinned'; value = true;
+              break;
+            case 'showModerated':
+              param = 'showModerated'; value = true;
+              break;
+          };
+        }
+        this.UserTopicService.setParam(param, value);
+  }
+
   onSelect(id: string) {
-   // this.UserTopicService.filterTopics(id);
-    this.router.navigate([], { relativeTo: this.route, queryParams: {filter:id}});
+    // this.UserTopicService.filterTopics(id);
+    this.router.navigate([], { relativeTo: this.route, queryParams: { filter: id } });
   }
 
 }

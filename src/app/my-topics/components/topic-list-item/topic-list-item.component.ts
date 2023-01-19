@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Topic } from 'src/app/interfaces/topic';
+import { TopicService } from 'src/app/services/topic.service';
 
 @Component({
   selector: 'topic-list-item',
@@ -10,7 +11,7 @@ import { Topic } from 'src/app/interfaces/topic';
 
 export class TopicListItemComponent {
   @Input() topic!: Topic;
-  constructor(private router: Router, private route: ActivatedRoute) {
+  constructor(private router: Router, private route: ActivatedRoute, public TopicService: TopicService) {
   }
   isActiveItem () {
     return this.topic.id === this.route.snapshot.params['topicId'];

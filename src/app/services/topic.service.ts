@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { LocationService } from './location.service';
-import { Observable, switchMap, of } from 'rxjs';
+import { Observable, switchMap, map, of, take } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { AuthService } from './auth.service';
 @Injectable({
@@ -74,9 +74,40 @@ export class TopicService {
     let path = this.Location.getAbsoluteUrlApi('/api/users/self/topics');
     const queryParams = Object.fromEntries(Object.entries(params).filter((i) => i[1] !== null));
 
-    return this.http.get<ApiResponse>(path, { withCredentials: true, params: queryParams, observe: 'body', responseType: 'json' });
+    return this.http.get<ApiResponse>(path, { withCredentials: true, params: queryParams, observe: 'body', responseType: 'json' })
+      .pipe(switchMap((res: any) => {
+        const topic = res.data;
+        return of(topic);
+      }))
   };
 
+  addToPinned(topicId: string) {
+    const path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/pin', { topicId: topicId });
+
+    return this.http.post(path, {}, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
+      map(((res: any) => { return res.data }))
+    )
+  }
+
+  removeFromPinned(topicId: string) {
+    const path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/pin', { topicId: topicId });
+
+    return this.http.delete(path, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
+      map(((res: any) => { return res.data }))
+    )
+  }
+
+  togglePin(topic: Topic) {
+    if (!topic.pinned) {
+      return this.addToPinned(topic.id).pipe(take(1)).subscribe(() => {
+        topic.pinned = true;
+      });
+    } else {
+      return this.removeFromPinned(topic.id).pipe(take(1)).subscribe(() => {
+        topic.pinned = false;
+      });
+    }
+  };
 
   isPrivate(topic: Topic) {
     return topic && topic.visibility === this.VISIBILITY.private;

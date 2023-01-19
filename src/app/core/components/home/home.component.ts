@@ -15,8 +15,8 @@ export class HomeComponent implements OnInit {
   categories$ = Object.keys(this.Topic.CATEGORIES);
   statuses$ = Object.keys(this.Topic.STATUSES);
 
-  topics$: Observable<Topic[]> = of([]);
-  groups$: Observable<Group[]> = of([]);
+  topics$: Observable<Topic[]| any[]> = of([]);
+  groups$: Observable<Group[] | any[]> = of([]);
   wWidth = window.innerWidth;
   destroy$ = new Subject<boolean>();
 
@@ -29,16 +29,16 @@ export class HomeComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.PublicTopicService.reload();
-    this.PublicGroupService.reload();
+    this.PublicTopicService.reset();
+    this.PublicGroupService.reset();
 
     const topicsParams = this.PublicTopicService.params$.value;
     topicsParams.limit = 8;
-    this.topics$ = this.PublicTopicService.getTopics(topicsParams);
+    this.topics$ = this.PublicTopicService.loadItems();
     const groupsParams = this.PublicGroupService.params$.value;
     groupsParams.limit = 8;
     this.PublicGroupService.params$.next(groupsParams);
-    this.groups$ = this.PublicGroupService.loadGroups();
+    this.groups$ = this.PublicGroupService.loadItems();
   }
 
   goToPage (url: string) {

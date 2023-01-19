@@ -27,16 +27,13 @@ export class TopicsComponent implements OnInit {
   destroy$ = new Subject<boolean>();
 
   constructor(private route: ActivatedRoute, private Topic: TopicService, public PublicTopicService: PublicTopicService, private FormBuilder:FormBuilder) {
-    this.topics$ = this.PublicTopicService.params$.pipe(
-      switchMap((params) => {
-        return this.PublicTopicService.getTopics(params).pipe(map(
-          (newtopics) => {
-            this.allTopics$ = this.allTopics$.concat(newtopics);
-            return this.allTopics$;
-          }
-        ))
-      })
-    );
+    this.PublicTopicService.reset();
+    this.topics$ = this.PublicTopicService.loadItems().pipe(map(
+      (newtopics:any) => {
+        this.allTopics$ = this.allTopics$.concat(newtopics);
+        return this.allTopics$;
+      }
+    ));
   }
 
   trackByFn (index: number, element: any) {
@@ -49,7 +46,7 @@ export class TopicsComponent implements OnInit {
       status = '';
     }
     this.allTopics$ = [];
-    this.PublicTopicService.setStatus(status);
+    this.PublicTopicService.setParam('statuses', status);
   }
 
   setCategory (category: string) {
@@ -58,7 +55,7 @@ export class TopicsComponent implements OnInit {
       category = '';
     }
     this.allTopics$ = [];
-    this.PublicTopicService.setCategory(category);
+    this.PublicTopicService.setParam('category', category);
   }
 
   ngOnInit(): void {

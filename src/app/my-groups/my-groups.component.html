@@ -4,7 +4,8 @@
       <div class="v_line separator absolute_separator" ng-class="{hidden: (app.wWidth < 750)}"></div>
 
       <div id="topics_wrap">
-          <app-list name="mytopicsleft"></app-list>
+          <group-list name="mygroupsleft"></group-list>
+          <router-outlet name="mygroupsright"></router-outlet>
           <div class="clearer"></div>
       </div>
   </div>
