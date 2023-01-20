@@ -1,0 +1,22 @@
+#root_lightbox.full_screen {
+  &.left_menu_visible {
+    left: 190px;
+    @media (max-width: 1024px) {
+      left: 0;
+    }
+  }
+
+  #lightbox.aligned_left_top {
+    left: 0;
+    top: 0;
+    bottom: 0;
+    margin-right: initial;
+    -webkit-transform: none;
+    -ms-transform: none;
+    transform: none;
+    width: 804px;
+    @media (max-width: 1024px) {
+      width: 100%;
+    }
+  }
+}

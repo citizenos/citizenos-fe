@@ -17,19 +17,19 @@
           <div class="content_top">
               <div class="container_title" ui-sref="topics/view({topicId: topic.id})" [textContent]="topic.title">Topic title</div>
               <div class="container_visibility" >
-                  <!--div *ngIf="topic" class="ff_table_fix" tooltips tooltip-side="left" tooltip-template="<span>{{'TOOLTIP_TOPIC_VISIBILITY_'+topic.visibility | uppercase | translate}}</span>">
+                  <div *ngIf="topic" class="ff_table_fix" [tooltip]="('TOOLTIP_TOPIC_VISIBILITY_'+topic.visibility | uppercase | translate)">
                       <div class="table_cell">
-                          <div class="sprite" [ngClass]="{'sprite-icon-public-topic': !topic.isPrivate(topic), 'sprite-icon-private-topic': topic.isPrivate(topic)}"></div>
+                          <div class="sprite" [ngClass]="{'sprite-icon-public-topic': !TopicService.isPrivate(topic), 'sprite-icon-private-topic': TopicService.isPrivate(topic)}"></div>
                       </div>
-                  </!--div-->
+                  </div>
               </div>
-              <div class="container_pin" [ngClass]="topic.pinned ? 'pinned' : ''" > <!--(click)="togglePin()"-->
-                  <!--div class="ff_table_fix" tooltips tooltip-side="left" tooltip-template="<span'>{{'TOOLTIP_PIN_TOPIC' | translate}}</span>">
+              <div class="container_pin" [ngClass]="topic.pinned ? 'pinned' : ''" (click)="TopicService.togglePin(topic)">
+                  <div class="ff_table_fix" [tooltip]="('TOOLTIP_PIN_TOPIC' | translate)">
                       <div class="table_cell">
                           <div class="sprite sprite-icon-favourite2x-white"></div>
                           <div class="yellow_bg"></div>
                       </div>
-                  </!--div-->
+                  </div>
               </div>
           </div>
 

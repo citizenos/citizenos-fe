@@ -15,7 +15,7 @@ export class PublicGroupService extends ItemsListService {
     showModerated: <boolean>false,
     limit: 2
   });
-  params$ = new BehaviorSubject(this.params);
+  params$ = new BehaviorSubject(Object.assign({},this.params));
  /* private defaultParams = {
     showModerated: <boolean>false,
     offset: <number>0,

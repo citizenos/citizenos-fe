@@ -20,6 +20,9 @@ export class AppComponent {
     const languageConf = config.get('language');
     translate.addLangs(Object.keys(languageConf.list));
     translate.setDefaultLang(languageConf.default);
+    translate.onTranslationChange.pipe(
+      tap((event) => {this.title.setTitle(translate.instant('META_DEFAULT_TITLE'));})
+    );
     this.router.events.pipe(takeUntil(this.destroy$)).subscribe
       ((event: Event) => {
         if (event instanceof NavigationStart) {
@@ -34,7 +37,6 @@ export class AppComponent {
               }
             }
         }
-        this.title.setTitle(translate.instant('META_DEFAULT_TITLE'));
     });
   }
 

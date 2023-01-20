@@ -19,5 +19,7 @@ export class TopicListItemComponent {
   goToItemView() {
     this.router.navigate(['my','topics', this.topic.id]);
   }
-  goToView (check: boolean) {}
+  goToView (check: boolean) {
+    this.router.navigate(['topics', this.topic.id], {queryParams: {editMode:true}});
+  }
 }

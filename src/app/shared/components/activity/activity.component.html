@@ -1,0 +1,77 @@
+<div class="activity_content" *ngFor="let activity of activitygroup.values; let $first = first;">
+  <div class="left_side">
+    <div class="line_top"></div>
+    <div class="icon">
+      <div [ngClass]="('sprite sprite-icon-activity-{{activity.values.className}}{{activity.isNew}}-2x')"></div>
+    </div>
+    <div class="line_bottom"></div>
+  </div>
+  <div class="right_side" *ngIf="keyCounter(activitygroup.values) > 1">
+    <div class="text_box" *ngIf="$first" (click)="activitygroup.show = !activitygroup.show">
+      <div class="main_text">
+        <span [innerHtml]="translateGroup(activitygroup.referer, activitygroup.values)"></span>
+      </div>
+      <div class="separator"></div>
+      <div class="arrow_holder">
+        <div class="table_cell">
+          <div class="sprite sprite-icon-dropdown-arrowdown2x"></div>
+
+          <div class="v_line"></div>
+        </div>
+      </div>
+      <b class="notch border-notch"></b>
+      <b class="notch"></b>
+    </div>
+    <div class="text_box no_margin" *ngIf="$first && activitygroup.show">
+      <div class="activity_group_row" *ngFor="let a of activitygroup.values" (click)="activityRedirect(a)">
+        <div class="contents">
+          <div class="contents_image">
+            <div class="profile_image_wrapper dark">
+              <!--div class="profile_moon sprite sprite-icon-certified-fb2x"></div-->
+              <div class="account_picture">
+                <div class="profile_image_filler">
+                  <cos-initials class="table_cell" [name]="a.values.userName"></cos-initials>
+                  <div class="profile_circle"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="contents_data">
+            <span translate="{{a.string}}" [translateParams]="a.values"></span>
+            <i *ngIf="showActivityUpdateVersions(a)">
+              <em>{{a.values.fieldName}}</em>
+              <div class="activity_previous" translate="ACTIVITY_FEED.ACTIVITY_PREVIOUS_VERSION"></div>
+              <!--[translateParams]="{previousValue: {{(a.values.previousValue | slice:0:200) + (a.values.previousValue.length > 200 ? '...' : '')}}}"-->
+
+              <div class="activity_new" translate="ACTIVITY_FEED.ACTIVITY_NEW_VERSION"></div>
+              <!--[translateParams]="{newValue: {{(a.values.newValue | slice:0:200) + (a.values.newValue.length > 200 ? '...' : '')}}}"-->
+            </i>
+            <div class="date_area" [innerHtml]="a.updatedAt | amDateFormat : 'L LT'"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="right_side" *ngIf="keyCounter(activitygroup.values) === 1" (click)="activityRedirect(activity)">
+    <div class="text_box">
+      <div class="main_text">
+        <span translate="{{activity.string}}" [translateParams]="activity.values"></span>
+      </div>
+      <div class="description_area italic">
+        <span *ngIf="showActivityUpdateVersions(activity)">{{activity.values.previousValue}}
+          <span class="activity_previous" translate="ACTIVITY_FEED.ACTIVITY_PREVIOUS_VERSION" [translateParams]="{previousValue: (activity.values.previousValue | slice:0:200).toString() + (activity.values.previousValue.length > 200) ? '...' : ''}"></span> <!---->
+          <br>
+          <span class="activity_new" translate="ACTIVITY_FEED.ACTIVITY_NEW_VERSION"></span><!--[translateParams]="{newValue: '{{(activity.values.newValue | slice:0:200) + (activity.values.newValue.length > 200 ? '...' : '')}}'}"-->
+        </span>
+        <span *ngIf="showActivityDescription(activity) && !showActivityUpdateVersions(activity)"
+          class="activity_description_text"> <!--[innerHtml]="(activity.values.description | slice:0:200) + (activity.values.description.length > 200 ? '...' : '')"-->
+        </span>
+      </div>
+      <div class="date_area" [innerHtml]="activity.updatedAt | amDateFormat : 'L LT'"></div>
+      <b class="notch border-notch"></b>
+      <b class="notch"></b>
+    </div>
+  </div>
+  <div class="clearer" *ngIf="$first"></div>
+</div>

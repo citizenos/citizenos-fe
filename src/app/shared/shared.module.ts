@@ -15,8 +15,10 @@ import { MomentModule } from 'ngx-moment';
 import { QRCodeModule } from 'angularx-qrcode';
 import { CosPaginationComponent } from './components/cos-pagination/cos-pagination.component';
 import { SocialshareDirective } from '../directives/socialshare.directive';
+import { ActivityComponent } from './components/activity/activity.component';
 @NgModule({
   declarations: [
+    ActivityComponent,
     ConfirmDialogComponent,
     CosDropdownDirective,
     CosInitialsComponent,
@@ -37,6 +39,7 @@ import { SocialshareDirective } from '../directives/socialshare.directive';
     TranslateModule,
   ],
    exports: [
+    ActivityComponent,
     ConfirmDialogComponent,
     CosDropdownDirective,
     CosInitialsComponent,

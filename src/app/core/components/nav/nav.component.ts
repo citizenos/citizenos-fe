@@ -7,31 +7,41 @@ import { TranslateService } from '@ngx-translate/core';
 import { LanguageSelectComponent } from '../language-select/language-select.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoginComponent } from '../account/login/login.component';
+import { ActivityFeedComponent } from '../activity-feed/activity-feed.component';
 import { AppService } from 'src/app/services/app.service';
+import { ActivityService } from 'src/app/services/activity.service';
 @Component({
   selector: 'nav',
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  providers: [Location, {provide: LocationStrategy, useClass: PathLocationStrategy}],
+  providers: [Location, { provide: LocationStrategy, useClass: PathLocationStrategy }],
 })
 export class NavComponent implements OnInit {
   wWidth = window.innerWidth;
-  constructor(private path: LocationStrategy, public translate: TranslateService, public config: ConfigService, public auth: AuthService, public dialog: MatDialog, private app: AppService ) {
+  unreadActivitiesCount$: any;
+  constructor(private path: LocationStrategy,
+    public translate: TranslateService,
+    public config: ConfigService,
+    public auth: AuthService, public dialog: MatDialog,
+    private app: AppService,
+    private ActivityService: ActivityService
+  ) {
+    this.unreadActivitiesCount$ = ActivityService.getUnreadActivities();
   }
 
   ngOnInit(): void {
   }
 
-  displayEmpoweredIcon () {
+  displayEmpoweredIcon() {
     if (!/citizenos\.com/.test(this.path.getBaseHref())) {
-        return true;
+      return true;
     }
 
     return false;
   };
 
-  doShowLanguageSelect () {
+  doShowLanguageSelect() {
     this.dialog.open(LanguageSelectComponent);
   }
 
@@ -42,8 +52,13 @@ export class NavComponent implements OnInit {
   doLogout() {
     this.auth.loggedIn$.next(false);
   }
-  toggleHelp () {
-    const curStatus  = this.app.showHelp.getValue();
+  toggleHelp() {
+    const curStatus = this.app.showHelp.getValue();
     this.app.showHelp.next(!curStatus);
   }
+
+  doShowActivityModal() {
+    const dialog = this.dialog.open(ActivityFeedComponent);
+
+  };
 }

@@ -85,6 +85,7 @@
                                   </div>
                               </div>
                           </div>
+                          <!--REPORT topic-->
                           <div class="container_report" *ngIf="topic.visibility === TopicService.VISIBILITY.public && !topic.report" ui-sref="topics/view/report">
                               <div class="ff_table_fix" [tooltip]="('TOOLTIP_REPORT_TOPIC'| translate)">
                                   <div class="table_cell">
