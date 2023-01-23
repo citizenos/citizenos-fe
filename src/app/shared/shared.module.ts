@@ -16,6 +16,7 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { CosPaginationComponent } from './components/cos-pagination/cos-pagination.component';
 import { SocialshareDirective } from '../directives/socialshare.directive';
 import { ActivityComponent } from './components/activity/activity.component';
+import { CosToggleComponent } from './components/cos-toggle/cos-toggle.component';
 @NgModule({
   declarations: [
     ActivityComponent,
@@ -23,6 +24,7 @@ import { ActivityComponent } from './components/activity/activity.component';
     CosDropdownDirective,
     CosInitialsComponent,
     CosPaginationComponent,
+    CosToggleComponent,
     PublicgroupboxComponent,
     SocialshareDirective,
     TooltipDirective,
@@ -44,6 +46,7 @@ import { ActivityComponent } from './components/activity/activity.component';
     CosDropdownDirective,
     CosInitialsComponent,
     CosPaginationComponent,
+    CosToggleComponent,
     MatDialogModule,
     MomentModule,
     PublicgroupboxComponent,

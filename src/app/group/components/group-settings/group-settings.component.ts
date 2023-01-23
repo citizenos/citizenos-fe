@@ -72,18 +72,19 @@ export class GroupSettingsComponent implements OnInit {
     this.GroupService.update(this.group).pipe(
       take(1)
     ).subscribe((res) => {
-      console.log('UPDATED res', res);
-      this.GroupService
-        .uploadGroupImage(this.imageFile, this.group.id).pipe(
-          takeWhile((e) => !e.link)
-        )
-        .subscribe((res: any) => {
-          if (res.link) {
-            this.group.imageUrl = res.link;
-          }
-        });
+      if (this.imageFile) {
+        this.GroupService
+          .uploadGroupImage(this.imageFile, this.group.id).pipe(
+            takeWhile((e) => !e.link)
+          )
+          .subscribe((res: any) => {
+            if (res.link) {
+              this.group.imageUrl = res.link;
+            }
+          });
+      }
 
-        this.dialogRef.close();
+      this.dialogRef.close();
     })
   };
 

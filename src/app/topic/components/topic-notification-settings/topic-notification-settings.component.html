@@ -1,0 +1,173 @@
+<!-- LIGHTBOX SKELETON -->
+<div id="root_lightbox" class="full_screen">
+
+  <div id="lightbox" class="wide_lightbox with_title_description with_header_menu">
+    <div id="lightbox_wrap">
+
+      <div id="lightbox_header">
+
+        <div id="lightbox_header_text">
+          <div class="title" translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_TITLE"></div>
+          <div class="title_description" translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_TITLE_DESCRIPTION" [translateParams]="{topicTitle: (topic | async)?.title}"></div>
+        </div>
+
+        <div id="lightbox_close" class="ngdialog-close" mat-dialog-close>
+          <div class="table_cell ngdialog-close">
+            <div class="sprite sprite-btn-popup-close2x ngdialog-close">
+            </div>
+          </div>
+        </div>
+
+        <div class="clearer"></div>
+
+        <!--div class="header_row_wrap">
+                  <div class="header_row" slide-controller identifier="topicSettingsSlider">
+                      <div class="tab_button" (click)="selectTab('general')" [ngClass]="tabSelected === 'general' ? 'active' : ''">
+                          <div class="tab_buttom_wrap">
+                              <div class="tab_button_text" translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_TAB_GENERAL">GENERAL</div>
+                              <div class="blue_bottom_line"></div>
+                          </div>
+                      </div>
+                      <div class="tab_button" (click)="selectTab('channels')" [ngClass]="tabSelected === 'channels' ? 'active' : ''">
+                          <div class="tab_buttom_wrap">
+                              <div class="tab_button_text" translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_TAB_CHANNELS">CHANNELS</div>
+                              <div class="blue_bottom_line"></div>
+                          </div>
+                      </div>
+                  </div>
+              </div-->
+      </div>
+
+
+      <div class="line lightest_line"></div>
+
+      <!-- SETTINGS -->
+      <div class="lightbox_content settings_section_wrap" *ngIf="tabSelected === 'general'">
+
+        <div class="lightbox_section">
+          <div class="settings_section">
+            <div class="settings_cell toggle_cell_title"
+              [ngClass]="{'toggle_cell_off': !allowNotifications, 'toggle_cell_on': allowNotifications}">
+              <div class="setting_title" translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_LBL_TOPIC_NOTIFICATIONS"></div>
+            </div>
+            <div class="settings_cell toggle_cell_wrap"
+              [ngClass]="{'toggle_cell_off': !allowNotifications, 'toggle_cell_on': allowNotifications}">
+              <cos-toggle cos-toggle-text-on="'TOGGLE_ON' | translate" cos-toggle-text-off="'TOGGLE_OFF' | translate"
+                [model]="allowNotifications" (click)="toggleAllNotifications()"></cos-toggle>
+            </div>
+          </div>
+          <div class="line lightest_line"></div>
+          <div class="settings_section">
+            <div class="settings_cell no_padding">
+              <div class="setting_title" translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_LBL_NOTIFY_ME_ABOUT"></div>
+              <table *ngIf="settings | async; as settings">
+                <tr>
+                  <td>
+                    <label class="checkcontainer">
+                      <input type="checkbox" class="checkbox" [checked]="allChecked()"
+                        (click)="toggleAllNotifications()">
+                      <span class="option_checkbox"></span>
+                      <span translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_LBL_ALL_ACTIONS"></span>
+                    </label>
+                    <label class="checkcontainer">
+                      <input type="checkbox" class="checkbox"
+                        [checked]="preferences.Topic && preferences.TopicReport"
+                        (click)="selectOption('Topic');selectOption('TopicReport');">
+                      <span class="option_checkbox"></span>
+                      <span translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_LBL_TOPIC_UPDATES"></span>
+                    </label>
+                    <label class="checkcontainer">
+                      <input type="checkbox" class="checkbox"
+                        [checked]="preferences.TopicComment && preferences.CommentVote"
+                        (click)="selectOption('TopicComment');selectOption('CommentVote');">
+                      <span class="option_checkbox"></span>
+                      <span translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_LBL_TOPIC_DISCUSSION"></span>
+                    </label>
+                    <label class="checkcontainer">
+                      <input type="checkbox" class="checkbox" [checked]="preferences.TopicVoteList"
+                        (click)="selectOption('TopicVoteList')">
+                      <span class="option_checkbox"></span>
+                      <span translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_LBL_TOPIC_VOTING"></span>
+                    </label>
+                    <label class="checkcontainer">
+                      <input type="checkbox" class="checkbox" [checked]="preferences.TopicEvent"
+                        (click)="selectOption('TopicEvent')">
+                      <span class="option_checkbox"></span>
+                      <span translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_LBL_TOPIC_FOLLOW_UP"></span>
+                    </label>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+      <!-- CATEGORIES -->
+      <!--div class="lightbox_content settings_section_wrap" *ngIf="tabSelected === 'channels'">
+        <div class="lightbox_section">
+          <div class="settings_section">
+            <div class="settings_cell no_padding">
+              <div class="setting_title" translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_LBL_NOTIFY_ME_IN_CHANNELS">Notify
+                me in channels:</div>
+              <table>
+                <tr>
+                  <td>
+                    <label class="checkcontainer">
+                      <input type="checkbox" class="checkbox" [checked]="allChecked()"
+                        (click)="toggleAllNotifications()">
+                      <span class="option_checkbox"></span>
+                      <span>All channels</span>
+                    </label>
+                    <label class="checkcontainer">
+                      <input type="checkbox" class="checkbox" [checked]="notifications.updates"
+                        (click)="notifications.updates = !notifications.updates">
+                      <span class="option_checkbox"></span>
+                      <span>Push (web and mobile)</span>
+                    </label>
+                    <label class="checkcontainer">
+                      <input type="checkbox" class="checkbox" [checked]="notifications.discussion"
+                        (click)="notifications.discussion = !notifications.discussion">
+                      <span class="option_checkbox"></span>
+                      <span>Email</span>
+                    </label>
+                    <label class="checkcontainer">
+                      <input type="checkbox" class="checkbox" [checked]="notifications.reports"
+                        (click)="notifications.reports = !notifications.reports">
+                      <span class="option_checkbox"></span>
+                      <span>SMS</span>
+                    </label>
+                    <label class="checkcontainer">
+                      <input type="checkbox" class="checkbox" [checked]="notifications.events"
+                        (click)="notifications.events = !notifications.events">
+                      <span class="option_checkbox"></span>
+                      <span>Slack</span>
+                    </label>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </!--div-->
+
+      <div class="lightbox_footer">
+        <div class="line lightest_line"></div>
+        <div class="lightbox_section">
+          <div class="footer_button_wrap right">
+            <div class="blue_link ngdialog-close" translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_LNK_CANCEL"></div>
+            <div class="blue_button" (click)="doSaveSettings();"
+              translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_BTN_SAVE"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="close_lightbox" class="ngdialog-close" mat-dialog-close>
+  </div>
+
+</div>

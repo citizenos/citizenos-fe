@@ -10,11 +10,14 @@ import { NotificationService } from 'src/app/services/notification.service';
 })
 export class NotificationComponent implements OnInit {
   showTestingEnvNotification: boolean = false;
-  constructor(public notifications: NotificationService, @Inject(DOCUMENT) private document: any, private changeDetection: ChangeDetectorRef ) { }
+  constructor(public notifications: NotificationService, @Inject(DOCUMENT) private document: any, private changeDetection: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    this.showTestingEnvNotification =  (this.document.location.hostname === 'test.app.citizenos.com');
+    this.showTestingEnvNotification = (this.document.location.hostname === 'test.app.citizenos.com');
     this.changeDetection.detectChanges();
   }
 
+  trackByIndex(index: number): number {
+    return index;
+  }
 }

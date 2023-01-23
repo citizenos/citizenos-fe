@@ -49,13 +49,14 @@ export class GroupMemberUserService {
     )
   }
 
-  query(params: any) {
+  query(params: { [key: string]: any }) {
     let path = this.Location.getAbsoluteUrlApi(
       this.Auth.resolveAuthorizedPath('/groups/:groupId/members/users'),
-      { groupId: params.groupId });
+      { groupId: params['groupId'] });
+    const queryParams = Object.fromEntries(Object.entries(params).filter((i) => i[1] !== null));
 
-    return this.http.get<ApiResponse>(path, { withCredentials: true, params }).pipe(
-      map((res:any) => {
+    return this.http.get<ApiResponse>(path, { withCredentials: true, params: queryParams, observe: 'body', responseType: 'json' }).pipe(
+      map((res: any) => {
         return res.data;
       }),
       share()

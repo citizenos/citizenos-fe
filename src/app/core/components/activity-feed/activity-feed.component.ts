@@ -13,7 +13,7 @@ export class ActivityFeedComponent implements OnInit {
 
   constructor(public ActivityService: ActivityService) {
     this.activities$ = this.ActivityService.loadItems().pipe(map(
-      (newActivities:any) => {
+      (newActivities: any) => {
         console.log('newActivities', newActivities)
         this.allActivities$ = this.allActivities$.concat(newActivities);
         return this.allActivities$;
@@ -21,10 +21,19 @@ export class ActivityFeedComponent implements OnInit {
     ));
   }
 
+  filterActivities(filter: string) {
+    this.allActivities$ = [];
+    this.ActivityService.setParam('include', filter)
+  }
   ngOnInit(): void {
   }
 
-  doShowActivityModal () {
+  loadMore(event: any) {
+    if ((event.target.scrollTop + event.target.offsetHeight) >= event.target.scrollHeight) {
+      this.ActivityService.loadMore()
+    }
+  }
+  doShowActivityModal() {
 
   }
 }

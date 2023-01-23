@@ -1,27 +1,29 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
-import { ItemsListService } from './items-list.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import * as jsonpatch from 'fast-json-patch';
+import { TranslateService } from '@ngx-translate/core';
+
+import { ItemsListService } from './items-list.service';
 import { LocationService } from './location.service';
 import { ApiResponse } from '../interfaces/apiResponse';
 import { AuthService } from './auth.service';
-import * as jsonpatch from 'fast-json-patch';
-import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ActivityService extends ItemsListService {
   params = {
-    page: <number>1,
     offset: <number>0,
     limit: <number>10,
     include: <string | null>null,
     filter: <string | null>null
   };
+  public filters = ['all', 'userTopics', 'userGroups', 'user', 'self'];
   params$ = new BehaviorSubject(Object.assign({}, this.params));
-
-  constructor(private Location: LocationService, private Auth: AuthService, private http: HttpClient, private $translate: TranslateService) {
+  lastViewTime = <string | null>null;
+  constructor(private Location: LocationService, private Auth: AuthService, private http: HttpClient, private $translate: TranslateService, private router: Router, private route: ActivatedRoute) {
     super();
     this.items$ = this.loadItems();
   }
@@ -101,7 +103,22 @@ export class ActivityService extends ItemsListService {
             }
           });
           const dataRows = this.activitiesToGroups(parsedResult);
-          console.log(parsedResult);
+
+          dataRows.forEach((activityGroups: any, groupKey: any) => {
+            activityGroups.isNew = '';
+            Object.keys(activityGroups.values).forEach((key) => {
+              var activity = activityGroups.values[key];
+              activity.isNew = '';
+              if (activity.data.type === 'View' && activity.data.object && activity.data.object['@type'] === 'Activity') {
+                if (!this.lastViewTime || activity.updatedAt > this.lastViewTime) {
+                  this.lastViewTime = activity.updatedAt;
+                }
+                dataRows.splice(groupKey, 1);
+              } else if (!this.lastViewTime || activity.updatedAt > this.lastViewTime) {
+                activity.isNew = '-new';
+              }
+            });
+          });
           return { rows: dataRows };
         }));
   };
@@ -512,7 +529,6 @@ export class ActivityService extends ItemsListService {
           }
         }
       });
-      console.log(groupKey)
       if (groupKey) {
         if (!final[groupKey]) {
           final[groupKey] = [activity];
@@ -532,12 +548,11 @@ export class ActivityService extends ItemsListService {
           if (a['updatedAt'] < b['updatedAt']) return -1;
           else if (a['updatedAt'] > b['updatedAt']) return 1;
           return 0;
-        }).reverse();
+        });
       } else {
         final[activity.id] = [activity];
       }
     });
-    console.log(final);
     Object.keys(final).forEach((key) => {
       returnActivities.push({ referer: key, values: final[key] });
     });
@@ -545,7 +560,7 @@ export class ActivityService extends ItemsListService {
       if (a['updatedAt'] < b['updatedAt']) return -1;
       else if (a['updatedAt'] > b['updatedAt']) return 1;
       return 0;
-    }).reverse();
+    });
     return returnActivities
   };
 
@@ -582,4 +597,90 @@ export class ActivityService extends ItemsListService {
 
     return false;
   };
+
+  handleActivityRedirect(activity:any) {
+    if (!activity.data) {
+      return;
+    }
+
+    const activityType = activity.data.type;
+    let stateName = '';
+    let state = [this.$translate.currentLang];
+    const params = <any>{};
+    let hash = '';
+    const object = this.getActivityObject(activity);
+    const target = activity.data.target;
+    const origin = activity.data.origin;
+
+
+    if (activityType === 'Invite' && target['@type'] === 'User' && object['@type'] === 'Topic') { // https://github.com/citizenos/citizenos-fe/issues/112
+      // The invited user is viewing
+      if (this.Auth.loggedIn$.value && this.Auth.user.value.id === target.id) {
+        state.push('topicsTopicIdInvitesUsers');
+        params['topicId'] = object.id;
+        params['inviteId'] = target.inviteId; // HACKISH! Change once issue resolves - https://github.com/w3c/activitystreams/issues/506
+      } else {
+        // Creator of the invite or a person who has read permissions is viewing
+        state = state.concat(['topics', object.id]);
+      }
+    } else if (activityType === 'Invite' && target['@type'] === 'User' && object['@type'] === 'Group') { // https://github.com/citizenos/citizenos-fe/issues/348
+      // The invited user is viewing
+      if (this.Auth.loggedIn$.value && this.Auth.user.value.id === target.id) {
+        stateName = 'groupsGroupIdInvitesUsers';
+        params['groupId'] = object.id;
+        params['inviteId'] = target.inviteId; // HACKISH! Change once issue resolves - https://github.com/w3c/activitystreams/issues/506
+      } else {
+        // Creator of the invite or a person who has read permissions is viewing
+        stateName = 'group/view';
+        params['groupId'] = object.id;
+      }
+    } else if ((object && object['@type'] === 'Topic')) {
+      stateName = 'topics/view';
+      params['topicId'] = object.id;
+    } else if ((object && object['@type'] === 'TopicMemberUser')) {
+      stateName = 'topics/view';
+      params['topicId'] = object.topicId;
+    } else if (object['@type'] === 'Comment' || object['@type'] === 'CommentVote') {
+      if (target && (target['@type'] === 'Topic' || object.topicId || target.topicId)) {
+        stateName = 'topics/view';
+        params['topicId'] = object.topicId || target.topicId || target.id;
+        params['commentId'] = object.commentId || object.id;
+        // hash = object.commentId || object.id;
+      }
+    } else if (object['@type'] === 'Vote' || object['@type'] === 'VoteList' && target && target['@type'] === 'Topic') {
+      stateName = 'topics/view/votes/view';
+      params['topicId'] = target.topicId || target.id;
+      params['voteId'] = object.voteId || object.id;
+    } else if (object['@type'] === 'Group' || object['@type'] === 'TopicMemberGroup') {
+      state = state.concat(['my','groups', object.id || object.groupId])
+      params['groupId'] = object.id || object.groupId;
+    } else if (object['@type'] === 'Vote' || object['@type'] === 'VoteFinalContainer') {
+      stateName = 'topics/view/votes/view';
+      params['topicId'] = object.topicId || object.id;
+      params['voteId'] = object.voteId || object.id;
+    } else if (target && target['@type'] === 'Topic' || target.topicId) {
+      stateName = 'topics/view';
+      params['topicId'] = target.topicId || target.id
+    }
+
+    if (target && target['@type'] === 'Group') {
+      state = state.concat(['my','groups', target.id])
+      stateName = 'my/groups/:groupId';
+      params['groupId'] = target.id;
+    }
+
+    if (!stateName && origin && origin['@type'] === 'Topic') {
+      stateName = 'topics';
+      params['topicId'] = origin.id;
+    }
+    if (state.length) {
+      //  ngDialog.closeAll();
+      console.log(state)
+      this.router.navigate(state, params);
+     /* if (hash) {
+        link = link + '#' + hash;
+      }
+      this.$window.location.href = link;*/
+    }
+  }
 }

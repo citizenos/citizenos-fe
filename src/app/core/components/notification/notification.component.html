@@ -22,7 +22,7 @@
       </div>
 
       <div class="info_bar_text">
-          <div class="info_row" *ngFor="let key of notifications.messages[notifications.levels.ERROR] track by $index">
+          <div class="info_row" *ngFor="let key of notifications.messages[notifications.levels.ERROR];trackBy: trackByIndex;">
               <span translate="{{key}}"></span>
           </div>
       </div>
@@ -39,7 +39,7 @@
       </div>
 
       <div class="info_bar_text">
-          <div class="info_row" *ngFor="let key of notifications.messages[notifications.levels.INFO] track by $index">
+          <div class="info_row" *ngFor="let key of notifications.messages[notifications.levels.INFO]; trackBy: trackByIndex;">
               <span translate="{{key}}"></span>
           </div>
       </div>
@@ -56,7 +56,7 @@
       </div>
 
       <div class="info_bar_text">
-          <div class="info_row" *ngFor="let key of notifications.messages[notifications.levels.SUCCESS] track by $index">
+          <div class="info_row" *ngFor="let key of notifications.messages[notifications.levels.SUCCESS]; trackBy: trackByIndex;">
               <span translate="{{key}}"></span>
           </div>
       </div>

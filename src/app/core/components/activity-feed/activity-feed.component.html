@@ -8,12 +8,12 @@
 
         <div id="lightbox_header_text">
           <div class="title" translate="MODALS.ACTIVITY_MODAL_HEADING"></div>
-
+          {{ActivityService.params$.value['filter']?.toUpperCase()}}
           <div [cosDropdown] class="classic_dropdown">
 
             <div class="dropdown_selection">
               <div class="dropdown_text medium"
-                translate="ACTIVITY_FEED.FILTER_{{ActivityService.params$.value['filter']?.toUpperCase()}}">
+                translate="ACTIVITY_FEED.FILTER_{{((ActivityService.params$ | async)?.include?.toUpperCase() || 'ALL')}}">
               </div>
 
               <div class="arrow_holder">
@@ -27,8 +27,8 @@
             <div class="dropdown">
 
               <!-- NO CATEGORY -->
-              <div class="dropdown_item" *ngFor="let filter in ActivityService.filters"
-                (click)="ActivityService.setParam('include', filter)">
+              <div class="dropdown_item" *ngFor="let filter of ActivityService.filters"
+                (click)="filterActivities(filter)">
                 <div class="item_name medium" translate="ACTIVITY_FEED.FILTER_{{filter.toUpperCase()}}">
                 </div>
               </div>
@@ -53,7 +53,7 @@
 
 
       <!-- CONFIRM CONTENT -->
-      <div class="lightbox_content" cos-scroll on-scroll="ActivityService.loadMore()">
+      <div class="lightbox_content" (scroll)="loadMore($event)">
         <div class="lightbox_section">
           <div class="activity_wrap modal">
             <div class="activity_area">

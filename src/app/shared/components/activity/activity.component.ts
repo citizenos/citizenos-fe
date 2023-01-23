@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
 import { ActivityService } from 'src/app/services/activity.service';
 
@@ -9,7 +10,8 @@ import { ActivityService } from 'src/app/services/activity.service';
 })
 export class ActivityComponent implements OnInit {
   @Input() activitygroup!: any;
-  constructor(private Translate: TranslateService, private ActivityService: ActivityService) { }
+  constructor(private Translate: TranslateService, private ActivityService: ActivityService, private sanitized: DomSanitizer) {
+  }
 
   ngOnInit(): void {
   }
@@ -22,8 +24,7 @@ export class ActivityComponent implements OnInit {
     return objIn?.length;
   };
   activityRedirect(activity: any) {
-    console.log(activity, 'shouldredirects')
-    //return this.sActivity.handleActivityRedirect(activity);
+    return this.ActivityService.handleActivityRedirect(activity);
   };
 
   translateGroup(key: string, group: any) {
@@ -33,8 +34,12 @@ export class ActivityComponent implements OnInit {
       values.groupCount--;
     }
 
-    return this.Translate.instant(key.split(':')[0], values);
+    return this.sanitized.bypassSecurityTrustHtml(this.Translate.instant(key.split(':')[0], values));
   };
+
+  translateActivity(activity: any) {
+    return this.sanitized.bypassSecurityTrustHtml(this.Translate.instant(activity.string, activity.values));
+  }
   showActivityUpdateVersions(activity: any) {
     return this.ActivityService.showActivityUpdateVersions(activity);
   };
@@ -42,4 +47,15 @@ export class ActivityComponent implements OnInit {
   showActivityDescription(activity:any) {
     return this.ActivityService.showActivityDescription(activity);
   };
+  translateVersion(a: any, type: string) {
+    let string = 'ACTIVITY_FEED.ACTIVITY_NEW_VERSION';
+    if (type == 'new') {
+      string = 'ACTIVITY_FEED.ACTIVITY_PREVIOUS_VERSION'
+    }
+    const translateParams={
+      previousValue: (a.values.previousValue?.slice(0,200) + ((a.values.previousValue?.length > 200) ? '...' : '')),
+      newValue: (a.values.newValue?.slice(0,200) + ((a.values.newValue?.length > 200) ? '...' : ''))
+    };
+    return this.sanitized.bypassSecurityTrustHtml(this.Translate.instant(string, translateParams));
+  }
 }

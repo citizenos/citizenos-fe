@@ -8,13 +8,15 @@ import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '../shared/shared.module';
 import { TopicArgumentsComponent } from './components/topic-arguments/topic-arguments.component';
 import { ArgumentComponent } from './components/argument/argument.component';
+import { TopicNotificationSettingsComponent } from './components/topic-notification-settings/topic-notification-settings.component';
 
 @NgModule({
   declarations: [
     TopicComponent,
     TopicTimelineComponent,
     TopicArgumentsComponent,
-    ArgumentComponent
+    ArgumentComponent,
+    TopicNotificationSettingsComponent
   ],
   imports: [
     CommonModule,

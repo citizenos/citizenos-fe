@@ -1,4 +1,13 @@
 #root_lightbox.full_screen {
+
+  .lightbox_content {
+    position: absolute;
+    top: 97px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow-y: auto !important;
+  }
   &.left_menu_visible {
     left: 190px;
     @media (max-width: 1024px) {
@@ -17,6 +26,11 @@
     width: 804px;
     @media (max-width: 1024px) {
       width: 100%;
+    }
+
+    #lightbox_wrap #lightbox_header {
+      height: 96px;
+      border-radius: 0;
     }
   }
 }

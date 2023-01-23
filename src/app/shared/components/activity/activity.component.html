@@ -2,7 +2,7 @@
   <div class="left_side">
     <div class="line_top"></div>
     <div class="icon">
-      <div [ngClass]="('sprite sprite-icon-activity-{{activity.values.className}}{{activity.isNew}}-2x')"></div>
+      <div [ngClass]="('sprite sprite-icon-activity-'+activity.values.className+(activity.isNew || '')+'-2x')"></div>
     </div>
     <div class="line_bottom"></div>
   </div>
@@ -37,14 +37,12 @@
             </div>
           </div>
           <div class="contents_data">
-            <span translate="{{a.string}}" [translateParams]="a.values"></span>
+            <span [innerHTML]="translateActivity(a)"></span>
             <i *ngIf="showActivityUpdateVersions(a)">
               <em>{{a.values.fieldName}}</em>
-              <div class="activity_previous" translate="ACTIVITY_FEED.ACTIVITY_PREVIOUS_VERSION"></div>
-              <!--[translateParams]="{previousValue: {{(a.values.previousValue | slice:0:200) + (a.values.previousValue.length > 200 ? '...' : '')}}}"-->
+              <div class="activity_previous" [innerHtml]="translateVersion(a, 'previous')"></div>
 
-              <div class="activity_new" translate="ACTIVITY_FEED.ACTIVITY_NEW_VERSION"></div>
-              <!--[translateParams]="{newValue: {{(a.values.newValue | slice:0:200) + (a.values.newValue.length > 200 ? '...' : '')}}}"-->
+              <div class="activity_new" [innerHtml]="translateVersion(a, 'new')"></div>
             </i>
             <div class="date_area" [innerHtml]="a.updatedAt | amDateFormat : 'L LT'"></div>
           </div>
@@ -56,13 +54,13 @@
   <div class="right_side" *ngIf="keyCounter(activitygroup.values) === 1" (click)="activityRedirect(activity)">
     <div class="text_box">
       <div class="main_text">
-        <span translate="{{activity.string}}" [translateParams]="activity.values"></span>
+        <span [innerHTML]="translateActivity(activity)"></span>
       </div>
       <div class="description_area italic">
-        <span *ngIf="showActivityUpdateVersions(activity)">{{activity.values.previousValue}}
-          <span class="activity_previous" translate="ACTIVITY_FEED.ACTIVITY_PREVIOUS_VERSION" [translateParams]="{previousValue: (activity.values.previousValue | slice:0:200).toString() + (activity.values.previousValue.length > 200) ? '...' : ''}"></span> <!---->
+        <span *ngIf="showActivityUpdateVersions(activity)">
+          <span class="activity_previous" [innerHtml]="translateVersion(activity, 'previous')"></span> <!---->
           <br>
-          <span class="activity_new" translate="ACTIVITY_FEED.ACTIVITY_NEW_VERSION"></span><!--[translateParams]="{newValue: '{{(activity.values.newValue | slice:0:200) + (activity.values.newValue.length > 200 ? '...' : '')}}'}"-->
+          <span class="activity_new" [innerHtml]="translateVersion(activity, 'new')"></span><!--[translateParams]="{newValue: '{{(activity.values.newValue | slice:0:200) + (activity.values.newValue.length > 200 ? '...' : '')}}'}"-->
         </span>
         <span *ngIf="showActivityDescription(activity) && !showActivityUpdateVersions(activity)"
           class="activity_description_text"> <!--[innerHtml]="(activity.values.description | slice:0:200) + (activity.values.description.length > 200 ? '...' : '')"-->
