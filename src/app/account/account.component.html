@@ -164,9 +164,9 @@
               <tr class="notification_setting_row" *ngFor="let topic of topics$ | async">
                 <td><a class="blue_link" [innerHtml]>{{topic.title}}</a></td>
                 <td>
-                  <cos-toggle cos-toggle-text-on="'TOGGLE_ON' | translate"
-                    cos-toggle-text-off="'TOGGLE_OFF' | translate" [model]="topic.allowNotifications"
-                    (click)="removeTopicNotifications(topic)"></cos-toggle>
+                  <cos-toggle [cosToggleTextOn]="'TOGGLE_ON' | translate"
+                  [cosToggleTextOff]="'TOGGLE_OFF' | translate" [model]="topic.allowNotifications"
+                    (click)="topic.allowNotifications=!topic.allowNotifications;toggleTopicNotifications(topic)"></cos-toggle>
                 </td>
                 <td>
                   <a class="blue_link" translate="VIEWS.TOPICS_TOPICID.NAV_LNK_SET_TOPIC_NOTIFICATIONS"

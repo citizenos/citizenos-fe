@@ -52,7 +52,7 @@
             </div>
             <div class="settings_cell toggle_cell_wrap"
               [ngClass]="{'toggle_cell_off': !allowNotifications, 'toggle_cell_on': allowNotifications}">
-              <cos-toggle cos-toggle-text-on="'TOGGLE_ON' | translate" cos-toggle-text-off="'TOGGLE_OFF' | translate"
+              <cos-toggle [cosToggleTextOn]="'TOGGLE_ON' | translate" [cosToggleTextOff]="'TOGGLE_OFF' | translate"
                 [model]="allowNotifications" (click)="toggleAllNotifications()"></cos-toggle>
             </div>
           </div>

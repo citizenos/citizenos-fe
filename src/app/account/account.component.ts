@@ -72,38 +72,48 @@ export class AccountComponent implements OnInit {
     this.tabSelected = tab;
   }
 
-  doShowTopicNotificationSettings (topicId: string) {
-    this.dialog.open(TopicNotificationSettingsComponent, {data: {topicId}});
+  doShowTopicNotificationSettings(topicId: string) {
+    this.dialog.open(TopicNotificationSettingsComponent, { data: { topicId } });
   }
-  removeTopicNotifications(topic: any) {
-    /* if (!topic.allowNotifications) {
-       return this
-         .app
-         .removeTopicNotifications(topic.topicId, topic.allowNotifications)
-         .then(() => {
-           this.TopicNotificationService.reload();
-         }, () => {
-           topic.allowNotifications = true;
-         });
-     }
+  toggleTopicNotifications(topic: any) {
+    console.log(topic);
+    if (!topic.allowNotifications) {
+      const removeDialog = this.dialog
+        .open(
+          ConfirmDialogComponent, {
+          data: {
+            level: 'delete',
+            heading: 'MODALS.REMOVE_TOPIC_NOTIFICATIONS_CONFIRM_TITLE',
+            title: 'MODALS.REMOVE_TOPIC_NOTIFICATIONS_CONFIRM_ARE_YOU_SURE',
+            confirmBtn: 'MODALS.REMOVE_TOPIC_NOTIFICATIONS_CONFIRM_YES',
+            closeBtn: 'MODALS.REMOVE_TOPIC_NOTIFICATIONS_CONFIRM_NO'
+          }
+        });
 
-     this.TopicNotification.update({
-       topicId: topic.topicId,
-       preferences: {
-         Topic: true,
-         TopicComment: true,
-         CommentVote: true,
-         TopicReport: true,
-         TopicVoteList: true,
-         TopicEvent: true
-       },
-       allowNotifications: true
-     })
-       .then((data) => {
-         this.settings = data;
-       }, (err) => {
-         this.sNotification.addError(err);
-       });*/
+      removeDialog.afterClosed().subscribe((result) => {
+        if (result === true) {
+          this.TopicNotificationService
+            .delete({ topicId: topic.topicId }).pipe(take(1)).subscribe();
+        }
+      });
+    } else {
+      this.TopicNotificationService.update({
+        topicId: topic.topicId,
+        preferences: {
+          Topic: true,
+          TopicComment: true,
+          CommentVote: true,
+          TopicReport: true,
+          TopicVoteList: true,
+          TopicEvent: true
+        },
+        allowNotifications: true
+      }).pipe(take(1))
+      .subscribe((data) => {
+        console.log(data);
+        this.settings = data;
+      })
+    }
   };
 
   doUpdateProfile() {

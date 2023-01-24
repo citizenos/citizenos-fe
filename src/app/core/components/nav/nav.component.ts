@@ -10,6 +10,7 @@ import { LoginComponent } from '../account/login/login.component';
 import { ActivityFeedComponent } from '../activity-feed/activity-feed.component';
 import { AppService } from 'src/app/services/app.service';
 import { ActivityService } from 'src/app/services/activity.service';
+import { tap } from 'rxjs';
 @Component({
   selector: 'nav',
   templateUrl: './nav.component.html',
@@ -20,14 +21,18 @@ import { ActivityService } from 'src/app/services/activity.service';
 export class NavComponent implements OnInit {
   wWidth = window.innerWidth;
   unreadActivitiesCount$: any;
+  newActivities: number = 0;
   constructor(private path: LocationStrategy,
     public translate: TranslateService,
     public config: ConfigService,
     public auth: AuthService, public dialog: MatDialog,
     private app: AppService,
-    private ActivityService: ActivityService
+    ActivityService: ActivityService
   ) {
-    this.unreadActivitiesCount$ = ActivityService.getUnreadActivities();
+    this.unreadActivitiesCount$ = ActivityService.getUnreadActivities().pipe(tap((count:number) => {
+      this.newActivities = 0;
+      if (count) this.newActivities = count
+    }));
   }
 
   ngOnInit(): void {
@@ -42,10 +47,12 @@ export class NavComponent implements OnInit {
   };
 
   doShowLanguageSelect() {
+    this.dialog.closeAll();
     this.dialog.open(LanguageSelectComponent);
   }
 
   doShowLogin() {
+    this.dialog.closeAll();
     this.dialog.open(LoginComponent);
   }
 
@@ -58,7 +65,7 @@ export class NavComponent implements OnInit {
   }
 
   doShowActivityModal() {
-    const dialog = this.dialog.open(ActivityFeedComponent);
-
+    this.dialog.closeAll();
+    this.dialog.open(ActivityFeedComponent);
   };
 }
