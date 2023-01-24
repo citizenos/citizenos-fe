@@ -2,7 +2,7 @@ import { GroupInviteUserService } from './../../../services/group-invite-user.se
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { isEmail } from 'validator';
-import { take, of, switchMap } from 'rxjs';
+import { take, of, switchMap, BehaviorSubject } from 'rxjs';
 import { Group } from 'src/app/interfaces/group';
 import { AuthService } from 'src/app/services/auth.service';
 import { GroupJoinService } from 'src/app/services/group-join.service';
@@ -14,7 +14,7 @@ import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog
 import { NotificationService } from 'src/app/services/notification.service';
 
 export interface GroupInviteData {
-  group: Group
+  group: BehaviorSubject<Group>
 };
 
 @Component({
@@ -75,8 +75,8 @@ export class GroupInviteComponent implements OnInit {
     private Notification: NotificationService,
     private GroupInviteUser: GroupInviteUserService,
   ) {
-    this.group = data.group;
-    this.form.join.token = this.group.join.token;
+    this.group = data.group.value;
+    this.form.join.token = data.group.value.join.token;
     this.generateJoinUrl();
   }
 

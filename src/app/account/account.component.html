@@ -132,10 +132,9 @@
               <div class="setting_title" translate="MODALS.MY_ACCOUNT_LBL_SHOW_IN_SEARCH"></div>
               <div class="setting_description" translate="MODALS.MY_ACCOUNT_LBL_SHOW_IN_SEARCH_DESCRIPTION"></div>
             </div>
-
             <div class="settings_cell setting_toggle">
               <cos-toggle [cosToggleTextOn]="('TOGGLE_ON' | translate)" [cosToggleTextOff]="('TOGGLE_OFF' | translate)"
-                [model]="form.preferences.showInSearch"
+                [model]="form.preferences?.showInSearch"
                 (click)="form.preferences.showInSearch = !form.preferences.showInSearch"></cos-toggle>
             </div>
           </div>

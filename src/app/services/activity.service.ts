@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import * as jsonpatch from 'fast-json-patch';
 import { TranslateService } from '@ngx-translate/core';
@@ -23,7 +23,7 @@ export class ActivityService extends ItemsListService {
   public filters = ['all', 'userTopics', 'userGroups', 'user', 'self'];
   params$ = new BehaviorSubject(Object.assign({}, this.params));
   lastViewTime = <string | null>null;
-  constructor(private Location: LocationService, private Auth: AuthService, private http: HttpClient, private $translate: TranslateService, private router: Router, private route: ActivatedRoute) {
+  constructor(public Location: LocationService, public Auth: AuthService, public http: HttpClient, public $translate: TranslateService, public router: Router) {
     super();
     this.items$ = this.loadItems();
   }
@@ -31,6 +31,88 @@ export class ActivityService extends ItemsListService {
   getItems(params: any) {
     return this.query(params);
   }
+
+  success = (res: any) => {
+    const data = res.data;
+    const parsedResult = <any[]>[];
+    data.forEach((activity: any, key: number) => {
+      if (activity.data) {
+        if (activity.data.type === 'Create' &&
+          !activity.data.target &&
+          activity.data.object &&
+          (activity.data.object['@type'] === 'Vote' || Array.isArray(activity.data.object)
+            && activity.data.object[0]['@type'] === 'VoteOption')
+        ) {
+          data.splice(key, 1);
+        } else if (activity.data.type === 'Update' && Array.isArray(activity.data.result)) {
+          let i = 0;
+          const resultItems = <any>[];
+          if (activity.data.origin['@type'] === 'Topic') {
+            activity.data.origin.description = null;
+          }
+          const resultObject = Object.assign({}, activity.data.origin);
+          activity.data.resultObject = jsonpatch.applyPatch(resultObject, activity.data.result).newDocument;
+          activity.data.result.forEach((item: any) => {
+            const field = item.path.split('/')[1];
+            if (['deletedById', 'deletedByReportId', 'edits'].indexOf(field) > -1) {
+              item = null;
+            } else {
+              const change = resultItems.find((resItem: any) => {
+                return resItem.path.indexOf(field) > -1;
+              });
+
+              if (!change) {
+                resultItems.push(item);
+              } else if (item.value) {
+                if (!Array.isArray(change.value)) {
+                  change.value = [change.value];
+                }
+                change.value.push(item.value);
+              }
+            }
+          });
+          activity.data.result = resultItems;
+          while (i < activity.data.result.length) {
+            let act = Object.assign({}, activity);
+            const change = activity.data.result[i];
+            act.data.result = [change];
+            if (act.data.target) {
+              act.id = act.id + '_' + change.path; //this is to avoid weird grouping of update activities with multiple fields
+            }
+            act.id = act.id + '_' + change.path;
+            this.buildActivityString(act);
+            act = this.getActivityValues(act);
+            parsedResult.push(act);
+            i++;
+          }
+        } else {
+          this.buildActivityString(activity);
+          activity = this.getActivityValues(activity);
+          parsedResult.push(activity)
+        }
+      } else {
+        console.error('Activity data missing');
+      }
+    });
+    const dataRows = this.activitiesToGroups(parsedResult);
+
+    dataRows.forEach((activityGroups: any, groupKey: any) => {
+      activityGroups.isNew = '';
+      Object.keys(activityGroups.values).forEach((key) => {
+        var activity = activityGroups.values[key];
+        activity.isNew = '';
+        if (activity.data.type === 'View' && activity.data.object && activity.data.object['@type'] === 'Activity') {
+          if (!this.lastViewTime || activity.updatedAt > this.lastViewTime) {
+            this.lastViewTime = activity.updatedAt;
+          }
+          dataRows.splice(groupKey, 1);
+        } else if (!this.lastViewTime || activity.updatedAt > this.lastViewTime) {
+          activity.isNew = '-new';
+        }
+      });
+    });
+    return { rows: dataRows };
+  };
 
   query(params: any) {
     let path = this.Location.getAbsoluteUrlApi(
@@ -40,87 +122,8 @@ export class ActivityService extends ItemsListService {
 
     return this.http.get(path, { params, withCredentials: true, responseType: 'json', observe: 'body' })
       .pipe(
-        map((res: any) => {
-          const data = res.data;
-          const parsedResult = <any[]>[];
-          data.forEach((activity: any, key: number) => {
-            if (activity.data) {
-              if (activity.data.type === 'Create' &&
-                !activity.data.target &&
-                activity.data.object &&
-                (activity.data.object['@type'] === 'Vote' || Array.isArray(activity.data.object)
-                  && activity.data.object[0]['@type'] === 'VoteOption')
-              ) {
-                data.splice(key, 1);
-              } else if (activity.data.type === 'Update' && Array.isArray(activity.data.result)) {
-                let i = 0;
-                const resultItems = <any>[];
-                if (activity.data.origin['@type'] === 'Topic') {
-                  activity.data.origin.description = null;
-                }
-                const resultObject = Object.assign({}, activity.data.origin);
-                activity.data.resultObject = jsonpatch.applyPatch(resultObject, activity.data.result).newDocument;
-                activity.data.result.forEach((item: any) => {
-                  const field = item.path.split('/')[1];
-                  if (['deletedById', 'deletedByReportId', 'edits'].indexOf(field) > -1) {
-                    item = null;
-                  } else {
-                    const change = resultItems.find((resItem: any) => {
-                      return resItem.path.indexOf(field) > -1;
-                    });
-
-                    if (!change) {
-                      resultItems.push(item);
-                    } else if (item.value) {
-                      if (!Array.isArray(change.value)) {
-                        change.value = [change.value];
-                      }
-                      change.value.push(item.value);
-                    }
-                  }
-                });
-                activity.data.result = resultItems;
-                while (i < activity.data.result.length) {
-                  let act = Object.assign({}, activity);
-                  const change = activity.data.result[i];
-                  act.data.result = [change];
-                  if (act.data.target) {
-                    act.id = act.id + '_' + change.path; //this is to avoid weird grouping of update activities with multiple fields
-                  }
-                  act.id = act.id + '_' + change.path;
-                  this.buildActivityString(act);
-                  act = this.getActivityValues(act);
-                  parsedResult.push(act);
-                  i++;
-                }
-              } else {
-                this.buildActivityString(activity);
-                activity = this.getActivityValues(activity);
-                parsedResult.push(activity)
-              }
-            } else {
-              console.error('Activity data missing');
-            }
-          });
-          const dataRows = this.activitiesToGroups(parsedResult);
-
-          dataRows.forEach((activityGroups: any, groupKey: any) => {
-            activityGroups.isNew = '';
-            Object.keys(activityGroups.values).forEach((key) => {
-              var activity = activityGroups.values[key];
-              activity.isNew = '';
-              if (activity.data.type === 'View' && activity.data.object && activity.data.object['@type'] === 'Activity') {
-                if (!this.lastViewTime || activity.updatedAt > this.lastViewTime) {
-                  this.lastViewTime = activity.updatedAt;
-                }
-                dataRows.splice(groupKey, 1);
-              } else if (!this.lastViewTime || activity.updatedAt > this.lastViewTime) {
-                activity.isNew = '-new';
-              }
-            });
-          });
-          return { rows: dataRows };
-        }));
+        map(this.success)
+      );
   };
 
   getUnreadActivities() {
@@ -134,7 +137,7 @@ export class ActivityService extends ItemsListService {
         }));
   };
 
-  private buildActivityString(activity: any) {
+  buildActivityString = (activity: any) => {
     const stringparts = ['ACTIVITY'];
     const activityDataKeys = Object.keys(activity.data);
     // Object.entries<any>(this.activity.data).forEach(([key, value]) => {
@@ -228,7 +231,7 @@ export class ActivityService extends ItemsListService {
     return activity;
   };
 
-  private getActivityTopicTitle = (activity: any) => {
+  getActivityTopicTitle = (activity: any) => {
     const dataobject = this.getActivityObject(activity);
     if (['Topic', 'VoteFinalContainer'].indexOf(dataobject['@type']) > -1) {
       return dataobject.title;
@@ -245,7 +248,7 @@ export class ActivityService extends ItemsListService {
     }
   };
 
-  private getActivityClassName = (activity: any) => {
+  getActivityClassName = (activity: any) => {
     const dataobject = this.getActivityObject(activity);
 
     if (activity.data.type === 'Accept' || activity.data.type === 'Invite' || (activity.data.type === 'Add' && activity.data.actor.type === 'User' && activity.data.object['@type'] === 'User' && activity.data.target['@type'] === 'Group')) { // Last condition if for Group invites
@@ -265,7 +268,7 @@ export class ActivityService extends ItemsListService {
     }
   };
 
-  private getActivityDescription = (activity: any) => {
+  getActivityDescription = (activity: any) => {
     const dataobject = this.getActivityObject(activity);
 
     if (dataobject['@type'] === 'Comment' || dataobject.text) {
@@ -276,7 +279,7 @@ export class ActivityService extends ItemsListService {
     }
   };
 
-  private getActivityGroupName = (activity: any) => {
+  getActivityGroupName = (activity: any) => {
     const dataobject = this.getActivityObject(activity);
 
     if (dataobject['@type'] === 'Group') {
@@ -294,7 +297,7 @@ export class ActivityService extends ItemsListService {
     }
   };
 
-  private getActivityAttachmentName = (activity: any) => {
+  getActivityAttachmentName = (activity: any) => {
     let dataobject = activity.data.object;
     if (Array.isArray(dataobject)) {
       dataobject = dataobject[0];
@@ -305,7 +308,7 @@ export class ActivityService extends ItemsListService {
     }
   };
 
-  private getAactivityUserConnectionName = (activity: any) => {
+  getAactivityUserConnectionName = (activity: any) => {
     let dataobject = activity.data.object;
 
     if (Array.isArray(dataobject)) {
@@ -326,7 +329,7 @@ export class ActivityService extends ItemsListService {
     }
   };
 
-  private getActivityUsers = (activity: any, values: any) => {
+  getActivityUsers = (activity: any, values: any) => {
     var dataobject = activity.data.object;
     if (Array.isArray(dataobject)) {
       dataobject = dataobject[0];
@@ -345,7 +348,7 @@ export class ActivityService extends ItemsListService {
     }
   };
 
-  private getActivityUserLevel = (activity: any, values: any) => {
+  getActivityUserLevel = (activity: any, values: any) => {
     const levelKeyPrefix = 'ACTIVITY_FEED.ACTIVITY_TOPIC_LEVELS_';
     let levelKey;
 
@@ -360,7 +363,7 @@ export class ActivityService extends ItemsListService {
     }
   };
 
-  private getActivityObject = (activity: any) => {
+  getActivityObject = (activity: any) => {
     let dataobject = activity.data.object && activity.data.object.object ? activity.data.object.object : activity.data.object;
     if (Array.isArray(dataobject)) {
       dataobject = dataobject[0];
@@ -368,7 +371,7 @@ export class ActivityService extends ItemsListService {
     return dataobject;
   }
 
-  private getCategoryTranslationKeys = (catInput: any) => {
+  getCategoryTranslationKeys = (catInput: any) => {
     if (Array.isArray(catInput)) {
       const translationKeys: any = [];
       catInput.forEach((category) => {
@@ -474,7 +477,7 @@ export class ActivityService extends ItemsListService {
 
   };
 
-  private activitiesToGroups = (activities: any) => {
+  activitiesToGroups = (activities: any) => {
     const userActivityGroups: any = {};
     const activityGroups: any = {};
     const grouped: any = {};
@@ -598,7 +601,7 @@ export class ActivityService extends ItemsListService {
     return false;
   };
 
-  handleActivityRedirect(activity:any) {
+  handleActivityRedirect(activity: any) {
     if (!activity.data) {
       return;
     }
@@ -652,19 +655,19 @@ export class ActivityService extends ItemsListService {
       params['topicId'] = target.topicId || target.id;
       params['voteId'] = object.voteId || object.id;
     } else if (object['@type'] === 'Group' || object['@type'] === 'TopicMemberGroup') {
-      state = state.concat(['my','groups', object.id || object.groupId])
+      state = state.concat(['my', 'groups', object.id || object.groupId])
       params['groupId'] = object.id || object.groupId;
     } else if (object['@type'] === 'Vote' || object['@type'] === 'VoteFinalContainer') {
       stateName = 'topics/view/votes/view';
       params['topicId'] = object.topicId || object.id;
       params['voteId'] = object.voteId || object.id;
-    } else if (target && target['@type'] === 'Topic' || target.topicId) {
+    } else if (target && (target['@type'] === 'Topic' || target.topicId)) {
       stateName = 'topics/view';
       params['topicId'] = target.topicId || target.id
     }
 
     if (target && target['@type'] === 'Group') {
-      state = state.concat(['my','groups', target.id])
+      state = state.concat(['my', 'groups', target.id])
       stateName = 'my/groups/:groupId';
       params['groupId'] = target.id;
     }
@@ -677,10 +680,10 @@ export class ActivityService extends ItemsListService {
       //  ngDialog.closeAll();
       console.log(state)
       this.router.navigate(state, params);
-     /* if (hash) {
-        link = link + '#' + hash;
-      }
-      this.$window.location.href = link;*/
+      /* if (hash) {
+         link = link + '#' + hash;
+       }
+       this.$window.location.href = link;*/
     }
   }
 }

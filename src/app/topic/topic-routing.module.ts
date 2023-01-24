@@ -5,6 +5,9 @@ import { TopicComponent } from './topic.component';
 const routes: Routes = [
   {path: '', children: [
     {path: ':topicId', component: TopicComponent, children: [
+      {path: 'votes', children: [
+        {path: ':voteId', component: TopicComponent}
+      ]},
       {path: '', component: TopicComponent},
     ]},
     {path: '', component: TopicComponent},

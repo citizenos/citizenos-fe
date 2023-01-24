@@ -81,6 +81,13 @@ export class TopicService {
       }))
   };
 
+  delete(data: any) {
+    const path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId', { topicId: data.id || data.topicId });
+
+    return this.http.delete<ApiResponse>(path, { withCredentials: true, observe: 'body', responseType: 'json' })
+      .pipe(map((res) => { return res.data }));
+  }
+
   addToPinned(topicId: string) {
     const path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/pin', { topicId: topicId });
 

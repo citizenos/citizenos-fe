@@ -42,6 +42,7 @@ export class TopicNotificationSettingsComponent implements OnInit {
     this.topic = this.Topic.get(this.data.topicId).pipe(map((res: any) => res.data));
     this.settings = this.TopicNotificationService.get({ topicId: this.topicId }).pipe(
       tap((settings: any) => {
+        console.log(settings)
         this.allowNotifications = settings.allowNotifications;
         this.preferences = Object.assign(this.preferences, settings.preferences);
         this.settings = Object.assign(this.settings, settings);
@@ -51,6 +52,7 @@ export class TopicNotificationSettingsComponent implements OnInit {
 
   toggleAllNotifications() {
     let toggle = true;
+    this.allowNotifications = false;
     if (Object.values(this.preferences).indexOf(false) === -1) {
       toggle = false;
     }
@@ -79,9 +81,11 @@ export class TopicNotificationSettingsComponent implements OnInit {
 
   doSaveSettings() {
     if (!this.allowNotifications) {
-      this.TopicNotificationService.delete({ topicId: this.topicId });
+      this.TopicNotificationService.delete({ topicId: this.topicId }).pipe(
+        take(1)
+      ).subscribe();
     } else {
-      this.TopicNotificationService.update({ preferences: this.preferences, topicId: this.topicId }).pipe(
+      this.TopicNotificationService.update({ allowNotifications: this.allowNotifications, preferences: this.preferences, topicId: this.topicId }).pipe(
         take(1)
       ).subscribe();
     }

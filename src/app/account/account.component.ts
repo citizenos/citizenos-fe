@@ -57,6 +57,15 @@ export class AccountComponent implements OnInit {
     if (Auth.user$) {
       Auth.user$.pipe(take(1))
         .subscribe((user) => {
+          if (!user.preferences) {
+            user.preferences = {
+              showInSearch: false,
+              notifications: {
+                topics: {},
+                groups: {}
+              }
+            }
+          }
           this.form = Object.assign(this.form, user);
           this.user = user;
         })

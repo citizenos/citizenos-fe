@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LocationService } from './location.service';
-import { Observable, BehaviorSubject, map, switchMap, tap, of, catchError, distinct, EMPTY } from 'rxjs';
+import { Observable, BehaviorSubject, map } from 'rxjs';
 import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { Topic } from 'src/app/interfaces/topic';
 import { AuthService } from './auth.service';

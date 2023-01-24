@@ -9,8 +9,8 @@ export abstract class ItemsListService {
     page: <number>1,
     offset: <number>0,
     limit: <number>10,
-    order: <string | null | undefined> null,
-    orderBy: <string | null | undefined> null,
+    order: <string | null | undefined>null,
+    orderBy: <string | null | undefined>null,
     sourcePartnerId: <string | null | undefined>null,
     search: <string | null | undefined>null
   };
@@ -45,8 +45,10 @@ export abstract class ItemsListService {
   };
 
   loadMore() {
-    const page = this.page$.value;
-    this.loadPage(page + 1);
+    if (this.hasMore$.value === true) {
+      const page = this.page$.value;
+      this.loadPage(page + 1);
+    }
   }
 
   loadItems() {
