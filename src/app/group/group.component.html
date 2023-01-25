@@ -103,7 +103,7 @@
         <div class="tab_button" (click)="tabSelected = 'members'" [ngClass]="tabSelected === 'members' ? 'active' : ''">
           <div class="tab_buttom_wrap">
             <div class="tab_button_text"><span translate="VIEWS.PUBLIC_GROUP.TAB_MEMBERS"></span>
-              <span>({{(GroupMemberUsersService.countTotal$ | async) || group.members.count}})</span></div>
+              <span>({{(GroupMemberUserService.countTotal$ | async) || group.members.count}})</span></div>
             <div class="blue_bottom_line"></div>
           </div>
         </div>
@@ -210,12 +210,12 @@
           <div class="dropdown big_drop">
             <div class="line lightest_line"></div>
 
-            <div class="dropdown_item" (click)="GroupMemberUsersService.doOrder('name', 'ASC')">
+            <div class="dropdown_item" (click)="GroupMemberUserService.doOrder('name', 'ASC')">
               <div class="icon arrow_th_sort_down"></div>
               <div class="item_name" translate="VIEWS.PUBLIC_GROUP.ORDER_NAME_ASC"></div>
               <div class="clearer"></div>
             </div>
-            <div class="dropdown_item" (click)="GroupMemberUsersService.doOrder('name', 'DESC')">
+            <div class="dropdown_item" (click)="GroupMemberUserService.doOrder('name', 'DESC')">
               <div class="icon arrow_th_sort_up"></div>
               <div class="item_name" translate="VIEWS.PUBLIC_GROUP.ORDER_NAME_DESC"></div>
               <div class="clearer"></div>
@@ -225,26 +225,26 @@
 
         <div class="default_table">
           <div class="pretend_tr" *ngIf="wWidth > 560">
-            <div class="pretend_th" (click)="GroupMemberUsersService.doOrder('name')">
+            <div class="pretend_th" (click)="GroupMemberUserService.doOrder('name')">
               <div class="th_text">
                 <span translate="VIEWS.PUBLIC_GROUP.LNK_PROFILE"></span>
                 <div
-                  [ngClass]="{'icon arrow_th_sort_up': GroupMemberUsersService.params$.value.order === 'ASC', 'icon arrow_th_sort_down': GroupMemberUsersService.params$.value.order === 'DESC' }"
-                  *ngIf="GroupMemberUsersService.params$.value.orderBy === 'name'"></div>
+                  [ngClass]="{'icon arrow_th_sort_up': GroupMemberUserService.params$.value.order === 'ASC', 'icon arrow_th_sort_down': GroupMemberUserService.params$.value.order === 'DESC' }"
+                  *ngIf="GroupMemberUserService.params$.value.orderBy === 'name'"></div>
               </div>
             </div>
-            <div class="pretend_th member_level" (click)="GroupMemberUsersService.doOrder('level')">
+            <div class="pretend_th member_level" (click)="GroupMemberUserService.doOrder('level')">
               <span translate="VIEWS.PUBLIC_GROUP.LNK_ROLE"></span>
               <div
-                [ngClass]="{'icon arrow_th_sort_up': GroupMemberUsersService.params$.value.order === 'ASC', 'icon arrow_th_sort_down': GroupMemberUsersService.params$.value.order === 'DESC' }"
-                *ngIf="GroupMemberUsersService.params$.value.orderBy === 'level'"></div>
+                [ngClass]="{'icon arrow_th_sort_up': GroupMemberUserService.params$.value.order === 'ASC', 'icon arrow_th_sort_down': GroupMemberUserService.params$.value.order === 'DESC' }"
+                *ngIf="GroupMemberUserService.params$.value.orderBy === 'level'"></div>
             </div>
             <div class="pretend_th" *ngIf="GroupService.canUpdate(group)">
               <span translate="VIEWS.PUBLIC_GROUP.LBL_REMOVE_FROM_GROUP"></span>
             </div>
           </div>
           <!-- GroupMemberUsers trackBy user.id"-->
-          <group-member-user class="group_item_row pretend_tr" *ngFor="let user of GroupMemberUsersService.items$ | async" [member]="user" [group]="group" [fields]="['level', 'remove']"></group-member-user>
+          <group-member-user class="group_item_row pretend_tr" *ngFor="let user of GroupMemberUserService.items$ | async" [member]="user" [group]="group" [fields]="['level', 'remove']"></group-member-user>
 
           <!--div class="pretend_tr" *ngIf="GroupMemberUserService.totalPages > 1">
                       <div class="pagination_wrapper">

@@ -1,7 +1,7 @@
 import { AuthService } from 'src/app/services/auth.service';
 import { TopicArgumentService } from 'src/app/services/topic-argument.service';
 import { TopicActivityService } from 'src/app/services/topic-activity.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TopicService } from 'src/app/services/topic.service';
 import { Observable, take, map, switchMap, BehaviorSubject, tap, of } from 'rxjs';
@@ -12,23 +12,30 @@ import { TranslateService } from '@ngx-translate/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { TopicNotificationSettingsComponent } from 'src/app/topic/components/topic-notification-settings/topic-notification-settings.component';
-import { AnyForUntypedForms } from '@angular/forms';
 @Component({
   selector: 'my-topic',
   templateUrl: './my-topic.component.html',
   styleUrls: ['./my-topic.component.scss']
 })
 export class MyTopicComponent implements OnInit {
+  @ViewChild('userListEl') userListEl?: ElementRef;
+  @ViewChild('groupListEl') groupListEl?: ElementRef;
+
   topic$: Observable<Topic>;
   activities$ = of(<any[]>[])
   allActivities$ = <any[]>[];
   memberGroups$ = of(<any[]>[]);
+  memberUsers$ = of(<any[]>[]);
 
   groupLevels = Object.keys(this.TopicService.LEVELS);
+  //Sections
   generalInfo = true;
   activityFeed = false;
   groupList = false;
   groupListSearch = false;
+  userList = false;
+  userListSearch = false;
+  //Sections end
   activities = false;
   app: any;
   wWidth = window.innerWidth;
@@ -46,7 +53,6 @@ export class MyTopicComponent implements OnInit {
 
     this.topic$ = this.route.params.pipe(
       switchMap((params) => {
-        TopicMemberUserService.setParam('topicId', params['topicId']);
         return this.TopicService.get(params['topicId']);
       })
     );
@@ -57,6 +63,12 @@ export class MyTopicComponent implements OnInit {
         return this.TopicMemberGroupService.loadItems()
       }));
 
+    this.memberUsers$ = this.route.params.pipe(
+      switchMap((params) => {
+        this.TopicMemberUserService.params.topicId = params['topicId'];
+        this.TopicMemberUserService.setParam('topicId', params['topicId']);
+        return this.TopicMemberUserService.loadItems()
+      }));
     this.activities$ = this.route.params.pipe(
       switchMap((params) => {
         this.TopicActivityService.setParam('topicId', params['topicId']);
@@ -64,7 +76,6 @@ export class MyTopicComponent implements OnInit {
       }),
       map(
         (newActivities: any) => {
-          console.log('newActivities', newActivities)
           this.allActivities$ = this.allActivities$.concat(newActivities);
           return this.allActivities$;
         }
@@ -156,48 +167,29 @@ export class MyTopicComponent implements OnInit {
            });*/
   };
 
+  doToggleMemberUserList() {
+    this.TopicMemberUserService.reset();;
+    this.userList = !this.userList;
+  };
+
   loadMoreActivities(event: any) {
     if ((event.target.scrollTop + event.target.offsetHeight) >= event.target.scrollHeight) {
       this.TopicActivityService.loadMore()
     }
   }
 
-  viewMemberUsers() {}
-  viewMemberGroups() {
-    this.groupList = true;
+  scroll(el: HTMLElement) {
+    el.scrollIntoView();
   }
 
-  doUpdateMemberGroup(topic: Topic, topicMemberGroup: any, level: string) {
-    if (topicMemberGroup.level !== level) {
-      const oldLevel = topicMemberGroup.level;
-      topicMemberGroup.level = level;
-      topicMemberGroup.topicId = topic.id;
-      /*   this.TopicMemberGroupService
-             .update(topicMemberGroup)
-             .then(() => {
-                 this.TopicMemberGroupService.reload();
-             },() => {
-                 topicMemberGroup.level = oldLevel;
-         });*/
-    }
-  };
-  doDeleteMemberGroup(topicMemberGroup:AnyForUntypedForms) {
-   /* this.ngDialog
-      .openConfirm({
-        template: '/views/modals/topic_member_group_delete_confirm.html',
-        data: {
-          group: topicMemberGroup
-        }
-      })
-      .then(() => {
-        topicMemberGroup.topicId = this.topic.id;
-        this.TopicMemberGroup
-          .delete(topicMemberGroup)
-          .then(() => {
-            this.TopicMemberGroupService.reload();
-            this.TopicMemberUserService.reload();
-            this.topic.members.groups.count = this.topic.members.groups.count - 1;
-          });
-      }, angular.noop);*/
-  };
+  viewMemberUsers() {
+    this.userList = true;
+    this.scroll(this.userListEl?.nativeElement);
+  }
+
+  viewMemberGroups() {
+    this.groupList = true;
+    this.scroll(this.groupListEl?.nativeElement);
+  }
+
 }

@@ -59,10 +59,7 @@ export class TopicService {
   constructor(private Location: LocationService, private http: HttpClient, private Auth: AuthService) { }
 
   get(id: string, params?: { [key: string]: string }): Observable<Topic> {
-    let path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId', { topicId: id });
-    if (!this.Auth.loggedIn$.value) {
-      path = this.Location.getAbsoluteUrlApi('/api/topics/:topicId', { topicId: id });
-    }
+    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId'), { topicId: id });
     return this.http.get<Topic>(path, { withCredentials: true, params, observe: 'body', responseType: 'json' })
       .pipe(switchMap((res: any) => {
         const topic = res.data;
@@ -167,4 +164,8 @@ export class TopicService {
   canLeave() {
     return this.Auth.loggedIn$.value;
   };
+
+  canShare(topic: Topic) {
+    return topic && (!this.isPrivate(topic) || this.canUpdate(topic));
+  }
 }

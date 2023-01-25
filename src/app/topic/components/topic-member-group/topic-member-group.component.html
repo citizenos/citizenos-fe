@@ -1,0 +1,46 @@
+<ng-container *ngIf="topic && group">
+  <div class="pretend_td">
+    <div class="blue_link" *ngIf="group.permission.level"
+      ui-sref="my/groups/groupId({groupId: group.id, filter: 'grouped'})" ui-sref-opts="{reload: true}"
+      [textContent]="group.name">Group name</div>
+    <div *ngIf="!group.permission.level"><i class="disabled"
+        translate="VIEWS.MY_TOPICS_TOPICID.LBL_INACCESSIBLE_GROUP">Inaccessible Group</i></div>
+  </div>
+  <div class="pretend_td">
+    <div cos-dropdown class="classic_dropdown" *ngIf="TopicService.canUpdate(topic)">
+      <div class="dropdown_selection">
+        <div class="dropdown_text">{{'TXT_TOPIC_LEVELS_' + group.level | uppercase | translate}}</div>
+
+        <div class="arrow_holder">
+          <div class="table_cell">
+            <div class="sprite sprite-icon-dropdown-arrowdown2x"></div>
+
+            <div class="v_line"></div>
+          </div>
+        </div>
+      </div>
+      <div class="dropdown">
+        <div class="dropdown_item" *ngFor="let level of groupLevels">
+          <div class="item_name" (click)="doUpdateMemberGroup(level)">{{'TXT_TOPIC_LEVELS_' +
+            level |
+            uppercase | translate}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pretend_td">
+    <span class="pretend_table_mobile_text" translate="VIEWS.MY_TOPICS_TOPICID.LBL_USERS_COUNT"
+      [translateParams]="{count: group.members.users.count}">Users: 0</span>
+    <span *ngIf="wWidth >= 560" [textContent]="group.members.users.count">1</span>
+  </div>
+  <div class="pretend_td recycle_bin_wrap">
+    <div class="btn_wrap recycle_bin" *ngIf="TopicService.canUpdate(topic)">
+      <div class="btn" (click)="doDeleteMemberGroup()">
+        <div class="table_cell">
+          <div class="sprite desktop_fix sprite-mytopics-icon-deletetopic2x"></div>
+          <div class="sprite mobile_fix sprite-mytopics-icon-deletetopic2x"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

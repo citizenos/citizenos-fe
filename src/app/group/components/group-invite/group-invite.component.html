@@ -41,14 +41,14 @@
         <div class="lightbox_section" *ngIf="GroupService.canShare(group)">
           <div class="input_text_margin_bottom" translate="MODALS.GROUP_CREATE_SETTINGS_INVITE_LBL_OPTIONAL_MESSAGE">
           </div>
-          <textarea id="invite_body" class="gray_borders" [(ngModel)]="form.inviteMessage"
+          <textarea id="invite_body" class="gray_borders" [(ngModel)]="inviteMessage"
             placeholder="{{'MODALS.GROUP_CREATE_SETTINGS_INVITE_PLACHOLDER_OPTIONAL_MESSAGE' | translate}}"
             maxlength="inviteMessageMaxLength"></textarea>
 
           <div class="input_text_margin_bottom" translate="MODALS.GROUP_CREATE_SETTINGS_LBL_INVITE_USERS"></div>
 
           <div class="searchbox_with_icon_and_text only_text">
-            <div [cosDropdown] [ngClass]="{'search_with_dropdown' : resultCount, 'dropdown_active' : resultCount}">
+            <div [cosDropdown] [ngClass]="{'search_with_dropdown dropdown_active' : resultCount}">
               <typeahead id="userSearch" class="auto-complete" [items]="searchResultUsers$ | async"
                 [term]="searchStringUser" (search)="search($event)" (select)="addGroupMemberUser($event)"
                 [placeholder]="'MODALS.GROUP_CREATE_SETTINGS_PLACEHOLDER_SEARCH_BY_NAME_EMAIL' | translate">
@@ -336,84 +336,7 @@
       </div>
 
       <!-- SHARE -->
-      <div class="lightbox_content invite_url" *ngIf="tabSelected === 'share'">
-
-        <div class="lightbox_section" *ngIf="GroupService.canShare(group)">
-          <h3 translate="MODALS.TOPIC_SETTINGS_HEADING_LINK_SHARING"></h3>
-          <div class="share_link">
-            <div class="table_row">
-              <div class="searchbox_with_icon_and_text only_text">
-                <input id="url_invite_group_input" [value]="form.joinUrl"
-                  placeholder="{{'MODALS.GROUP_CREATE_SETTINGS_PLACEHOLDER_CREATE_NEW_LINK' | translate}}">
-                <div class="regenerate_link not_mobile" (click)="generateTokenJoin()"
-                  *ngIf="GroupService.canUpdate(group)">
-                  <div class="sprite sprite-icon-refresh"></div>
-                </div>
-              </div>
-              <div class="blue_button not_mobile" (click)="copyInviteLink()"
-                translate="MODALS.GROUP_CREATE_SETTINGS_BTN_COPY_LINK"></div>
-            </div>
-            <div class="permissions">
-              <div class="label" translate="MODALS.GROUP_CREATE_SETTINGS_LABEL_DROPDOWN_PERMISSION_DESCRIPTION"></div>
-              <span *ngIf="!GroupService.canUpdate(group)" class="bold">{{('TXT_GROUP_LEVELS_' + form.join.level |
-                uppercase) | translate}}</span>
-              <div [cosDropdown] class="classic_dropdown" *ngIf="GroupService.canUpdate(group)">
-                <div class="dropdown_selection">
-                  <div class="dropdown_text">
-                    {{('TXT_GROUP_LEVELS_' + form.join.level | uppercase) | translate}}
-                  </div>
-
-                  <div class="arrow_holder">
-                    <div class="table_cell">
-                      <div class="sprite sprite-icon-dropdown-arrowdown2x"></div>
-
-                      <div class="v_line"></div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="dropdown">
-                  <div class="dropdown_item" *ngFor="let level of GroupMemberUser.LEVELS">
-                    <div class="item_name" (click)="doUpdateJoinToken(level)">
-                      {{('TXT_GROUP_LEVELS_' + level | uppercase) | translate}}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="table_row mobile_only">
-              <div class="blue_button" (click)="copyInviteLink()"
-                translate="MODALS.GROUP_CREATE_SETTINGS_BTN_COPY_LINK"></div>
-            </div>
-            <div class="table_row mobile_only">
-              <div class="white_button" (click)="generateTokenJoin()"
-                translate="MODALS.GROUP_CREATE_SETTINGS_LNK_CREATE_NEW_LINK"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="lightbox_section social_sharing" *ngIf="GroupService.canUpdate(group)">
-          <h3 translate="MODALS.GROUP_CREATE_SETTINGS_HEADING_SOCIAL_SHARING">Social sharing</h3>
-          <a socialshare sharetext="{{group.name}}" shareprovider="facebook" shareurl="{{form.joinUrl}}">
-            <div class="sprite sprite-icon-social-facebook-v2"></div>
-          </a>
-          <a socialshare sharetext="{{group.name}}" shareprovider="linkedin" shareurl="{{form.joinUrl}}">
-            <div class="sprite sprite-icon-social-linkedin-v2"></div>
-          </a>
-          <a socialshare sharetext="{{group.name}}" shareprovider="twitter" shareurl="{{form.joinUrl}}">
-            <div class="sprite sprite-icon-social-twitter-v2"></div>
-          </a>
-        </div>
-
-        <div class="lightbox_section" *ngIf="GroupService.canUpdate(group)">
-          <h3 translate="MODALS.GROUP_CREATE_SETTINGS_HEADING_QR_SHARING"></h3>
-          <div class="qr_code">
-            <qrcode [qrdata]="form.joinUrl || ''" [width]="120" [version]="4" [errorCorrectionLevel]="'L'"></qrcode>
-          </div>
-          <!--a href="#fixme" class="table_cell" translate="MODALS.TOPIC_SETTINGS_LINK_QR_CODE_PDF">Download QR code PDF</a-->
-        </div>
-
-      </div>
+      <group-share [group]="group" class="lightbox_content invite_url" *ngIf="tabSelected === 'share'"></group-share>
 
       <div class="lightbox_footer">
 

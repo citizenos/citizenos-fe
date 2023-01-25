@@ -27,7 +27,6 @@ export class GroupMemberTopicComponent implements OnInit {
   ngOnInit(): void {
   }
 
-
   isVisibleField(field: string) {
     return this.fields?.indexOf(field) > -1
   }

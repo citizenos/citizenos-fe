@@ -1,18 +1,33 @@
-import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { Injectable } from '@angular/core';
+import { ItemsListService } from './items-list.service';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject, map, switchMap, of, catchError, share } from 'rxjs';
+import { BehaviorSubject, map, of, share } from 'rxjs';
 
 import { LocationService } from './location.service';
-import { NotificationService } from './notification.service';
 import { AuthService } from './auth.service';
-
+import { ApiResponse } from 'src/app/interfaces/apiResponse';
 @Injectable({
   providedIn: 'root'
 })
-export class GroupMemberUserService {
-  public LEVELS = ['read', 'admin'];
-  constructor(private Location: LocationService, private http: HttpClient, private Auth: AuthService) { }
+export class GroupMemberUserService extends ItemsListService {
+  params = Object.assign(this.defaultParams, {groupId: <string | null>null});
+  params$ = new BehaviorSubject(this.params);
+  public LEVELS = ['read','admin'];
+
+  constructor(private Location: LocationService, private http: HttpClient, private Auth: AuthService) {
+    super ();
+    this.items$ = this.loadItems();
+  }
+
+  reload() {
+    this.params$.value.offset = 0;
+    this.params$.value.page = 1;
+    this.items$ = of([]);
+  }
+
+  getItems (params:any) {
+    return this.query(params)
+  }
 
   get(params: any) {
     let path = this.Location.getAbsoluteUrlApi(
@@ -73,5 +88,4 @@ export class GroupMemberUserService {
       share()
     )
   }
-
 }

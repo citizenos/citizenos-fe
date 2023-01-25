@@ -1,16 +1,13 @@
 import { GroupInviteUserService } from './../../../services/group-invite-user.service';
-import { Component, OnInit, Input, Inject } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { isEmail } from 'validator';
 import { take, of, switchMap, BehaviorSubject } from 'rxjs';
 import { Group } from 'src/app/interfaces/group';
-import { AuthService } from 'src/app/services/auth.service';
 import { GroupJoinService } from 'src/app/services/group-join.service';
 import { GroupMemberUserService } from 'src/app/services/group-member-user.service';
 import { GroupService } from 'src/app/services/group.service';
-import { LocationService } from 'src/app/services/location.service';
 import { SearchService } from 'src/app/services/search.service';
-import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { NotificationService } from 'src/app/services/notification.service';
 
 export interface GroupInviteData {
@@ -25,14 +22,7 @@ export interface GroupInviteData {
 export class GroupInviteComponent implements OnInit {
   group: Group;
 
-  public form = {
-    inviteMessage: <string | null>null,
-    join: {
-      level: <string | null>this.GroupMemberUser.LEVELS[0],
-      token: <string | null>null
-    },
-    joinUrl: <string | null>''
-  };
+  inviteMessage = <string | null>null;
 
   public inviteMessageMaxLength = 1000;
 
@@ -47,6 +37,7 @@ export class GroupInviteComponent implements OnInit {
     }
   ];
 
+  public searchStringUser = '';
   public searchResultUsers$ = of(<any>[]);
   public resultCount = 0;
   public maxUsers = 550;
@@ -60,7 +51,6 @@ export class GroupInviteComponent implements OnInit {
   public groupLevel = 'read';
 
   public tabSelected = 'users';
-  public searchStringUser = '';
   private EMAIL_SEPARATOR_REGEXP = /[;,\s]/ig;
 
   constructor(private dialog: MatDialog,
@@ -68,74 +58,16 @@ export class GroupInviteComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: GroupInviteData,
     public GroupMemberUser: GroupMemberUserService,
     public GroupService: GroupService,
-    private Location: LocationService,
     public GroupJoin: GroupJoinService,
     public Search: SearchService,
-    private Auth: AuthService,
     private Notification: NotificationService,
     private GroupInviteUser: GroupInviteUserService,
   ) {
     this.group = data.group.value;
-    this.form.join.token = data.group.value.join.token;
-    this.generateJoinUrl();
   }
 
   ngOnInit(): void {
   }
-
-  generateTokenJoin() {
-    const generateTokenDialog = this.dialog.open(ConfirmDialogComponent, {
-      data: {
-        title: 'MODALS.GROUP_INVITE_SHARE_LINK_GENERATE_CONFIRM_TXT_ARE_YOU_SURE',
-        heading: 'MODALS.GROUP_INVITE_SHARE_LINK_GENERATE_CONFIRM_HEADING',
-        closeBtn: 'MODALS.GROUP_INVITE_SHARE_LINK_GENERATE_CONFIRM_BTN_NO',
-        confirmBtn: 'MODALS.GROUP_INVITE_SHARE_LINK_GENERATE_CONFIRM_BTN_YES',
-        points: ['MODALS.GROUP_INVITE_SHARE_LINK_GENERATE_CONFIRM_TXT_POINT1', 'MODALS.GROUP_INVITE_SHARE_LINK_GENERATE_CONFIRM_TXT_POINT2']
-      }
-    });
-    generateTokenDialog.afterClosed().pipe(take(1)).subscribe(result => {
-      if (result === true) {
-        this.GroupJoin
-          .save({
-            groupId: this.group.id,
-            userId: this.Auth.user.value.id,
-            level: this.form.join.level
-          }).pipe(take(1)).subscribe(res => {
-            this.group.join = res;
-            this.form.join.token = res.token;
-            this.form.join.level = res.level;
-            this.generateJoinUrl();
-          })
-      }
-    });
-  };
-
-  doUpdateJoinToken(level: string) {
-    const groupJoin = {
-      groupId: this.group.id,
-      userId: this.Auth.user.value.id,
-      level: level,
-      token: this.form.join.token
-    };
-
-    this.GroupJoin.update(groupJoin).pipe(take(1)).subscribe(() => {
-      this.form.join.level = level;
-    })
-  };
-
-  copyInviteLink() {
-    const urlInputElement = document.getElementById('url_invite_group_input') as HTMLInputElement || null;
-    urlInputElement.focus();
-    urlInputElement.select();
-    urlInputElement.setSelectionRange(0, 99999);
-    document.execCommand('copy');
-  };
-
-  generateJoinUrl() {
-    if (this.form.join.token && this.GroupService.canShare(this.group)) {
-      this.form.joinUrl = this.Location.getAbsoluteUrl('/groups/join/' + this.form.join.token);
-    }
-  };
 
   loadPage(pageNr: number) {
     this.membersPage = pageNr;
@@ -152,7 +84,7 @@ export class GroupInviteComponent implements OnInit {
       groupMemberUsersToInvite.push({
         userId: member.userId || member.id,
         level: member.level,
-        inviteMessage: this.form.inviteMessage
+        inviteMessage: this.inviteMessage
       })
     });
 

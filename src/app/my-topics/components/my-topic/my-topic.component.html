@@ -15,7 +15,7 @@
     <div class="container_content" *ngIf="generalInfo === true">
 
       <div class="content_top">
-        <div class="container_title" ui-sref="topics/view({topicId: topic.id})" [textContent]="topic.title">Topic title
+        <div class="container_title" [routerLink]="['/topics/', topic.id]" [textContent]="topic.title">Topic title
         </div>
         <div class="container_visibility">
           <div *ngIf="topic" class="ff_table_fix"
@@ -80,7 +80,8 @@
               <div class="item_text">
                 <span [textContent]="(TopicMemberUserService.countTotal$ | async) || topic.members.users.count"></span>
                 <span class="separator">|</span>
-                <span class="item_link blue_link" translate="VIEWS.MY_TOPICS_TOPICID.LNK_VIEW" (click)="viewMemberUsers();"></span>
+                <span class="item_link blue_link" translate="VIEWS.MY_TOPICS_TOPICID.LNK_VIEW"
+                  (click)="viewMemberUsers();"></span>
                 <!-- (click)="viewMemberUsers();"-->
               </div>
             </div>
@@ -91,9 +92,11 @@
             <div class="item_description" translate="VIEWS.MY_TOPICS_TOPICID.LBL_GROUPS"></div>
             <div class="item_content">
               <div class="item_text">
-                <span [textContent]="(TopicMemberGroupService.countTotal$ | async) || topic.members.groups.count">0</span>
+                <span
+                  [textContent]="(TopicMemberGroupService.countTotal$ | async) || topic.members.groups.count">0</span>
                 <span class="separator">|</span>
-                <span class="item_link blue_link" translate="VIEWS.MY_TOPICS_TOPICID.LNK_VIEW" (click)="viewMemberGroups();"></span>
+                <span class="item_link blue_link" translate="VIEWS.MY_TOPICS_TOPICID.LNK_VIEW"
+                  (click)="viewMemberGroups();"></span>
                 <!--(click)="viewMemberGroups();"-->
               </div>
             </div>
@@ -117,14 +120,14 @@
             <div class="item_description" translate="VIEWS.MY_TOPICS_TOPICID.LBL_TOPIC_ACTIONS"></div>
             <div class="item_content">
               <span class="item_text blue_link" *ngIf="TopicService.canUpdate(topic)"
-                ui-sref="my/topics/topicId/settings({topicId: topic.id})"
+                [routerLink]="['/my/topics/', topic.id, '/settings']"
                 translate="VIEWS.MY_TOPICS_TOPICID.LNK_SETTINGS"></span>
               <span class="separator" *ngIf="TopicService.canUpdate(topic)">|</span>
               <span class="item_text blue_link" (click)="goToTopicView(topic)"
                 translate="VIEWS.MY_TOPICS_TOPICID.LNK_VIEW"></span>
               <span class="separator" *ngIf="TopicService.canEditDescription(topic)">|</span>
               <span class="item_text blue_link" *ngIf="TopicService.canEditDescription(topic)"
-                ui-sref="topics/view({topicId: topic.id, editMode: true})"
+                [routerLink]="['/topics/',topic.id]" fragment="editMode"
                 translate="VIEWS.MY_TOPICS_TOPICID.LNK_EDIT"></span>
               <span class="separator">|</span>
               <span class="item_text blue_link" (click)="doLeaveTopic(topic)"
@@ -237,15 +240,17 @@
   </!--div-->
 
   <!-- GROUP LIST -->
-  <div class="info_container group_list" id="group_list">
+  <div class="info_container group_list" id="group_list" #groupListEl>
     <div class="container_header" (click)="doToggleMemberGroupList();">
-      <div class="header_text"><span translate="VIEWS.MY_TOPICS_TOPICID.HEADING_GROUP_LIST"></span> <span> ({{(TopicMemberGroupService.countTotal$ | async)}})</span> |
+      <div class="header_text"><span translate="VIEWS.MY_TOPICS_TOPICID.HEADING_GROUP_LIST"></span> <span>
+          ({{(TopicMemberGroupService.countTotal$ | async)}})</span> |
         <div class="blue_link" *ngIf="TopicMemberGroupService.countTotal$ | async"
           (click)="groupListSearch = !groupListSearch; groupList=true; $event.stopPropagation()"
           translate="VIEWS.MY_TOPICS_TOPICID.LNK_SEARCH"></div>
         <span *ngIf="(TopicMemberGroupService.countTotal$ | async) && TopicService.canUpdate(topic)">|</span>
         <div class="blue_link" *ngIf="TopicService.canUpdate(topic)"
-          ui-sref="my/topics/topicId/invite({topicId: topic.id, tab: 'invite'})" (click)="$event.stopPropagation()"
+        [routerLink]="['/my/topics/', topic.id, 'invite']" [queryParams]="{tab: 'invite'}"
+        (click)="$event.stopPropagation()"
           translate="VIEWS.MY_TOPICS_TOPICID.LNK_ADD"></div>
       </div>
       <div class="minimize_container" *ngIf="TopicMemberGroupService.countTotal$ | async">
@@ -300,52 +305,8 @@
             </div>
           </div>
         </div>
-        <div class="pretend_tr" *ngFor="let group of memberGroups$ | async">
-          <div class="pretend_td">
-            <div class="blue_link" *ngIf="group.permission.level"
-              ui-sref="my/groups/groupId({groupId: group.id, filter: 'grouped'})" ui-sref-opts="{reload: true}"
-              [textContent]="group.name">Group name</div>
-            <div *ngIf="!group.permission.level"><i class="disabled"
-                translate="VIEWS.MY_TOPICS_TOPICID.LBL_INACCESSIBLE_GROUP">Inaccessible Group</i></div>
-          </div>
-          <div class="pretend_td">
-            <div cos-dropdown class="classic_dropdown" *ngIf="TopicService.canUpdate(topic)">
-              <div class="dropdown_selection">
-                <div class="dropdown_text">{{'TXT_TOPIC_LEVELS_' + group.level | uppercase | translate}}</div>
-
-                <div class="arrow_holder">
-                  <div class="table_cell">
-                    <div class="sprite sprite-icon-dropdown-arrowdown2x"></div>
-
-                    <div class="v_line"></div>
-                  </div>
-                </div>
-              </div>
-              <div class="dropdown">
-                <div class="dropdown_item" *ngFor="let level of groupLevels">
-                  <div class="item_name" (click)="doUpdateMemberGroup(topic, group, level)">{{'TXT_TOPIC_LEVELS_' +
-                    level |
-                    uppercase | translate}}</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="pretend_td">
-            <span class="pretend_table_mobile_text" translate="VIEWS.MY_TOPICS_TOPICID.LBL_USERS_COUNT"
-              [translateParams]="{count: group.members.users.count}">Users: 0</span>
-            <span *ngIf="wWidth >= 560" [textContent]="group.members.users.count">1</span>
-          </div>
-          <div class="pretend_td recycle_bin_wrap">
-            <div class="btn_wrap recycle_bin" *ngIf="TopicService.canUpdate(topic)">
-              <div class="btn" (click)="doDeleteMemberGroup(group)">
-                <div class="table_cell">
-                  <div class="sprite desktop_fix sprite-mytopics-icon-deletetopic2x"></div>
-                  <div class="sprite mobile_fix sprite-mytopics-icon-deletetopic2x"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <topic-member-group [topic]="topic" [group]="group" class="pretend_tr"
+          *ngFor="let group of memberGroups$ | async"></topic-member-group>
         <div class="pretend_tr">
           <div class="pagination_wrapper">
             <cos-pagination class="pagination" (select)="TopicMemberGroupService.loadPage($event)"
@@ -358,60 +319,74 @@
   </div>
 
   <!-- USER LIST -->
-  <!--div class="info_container group_list user_list" id="user_list">
-      <div class="container_header" (click)="doToggleMemberUserList(); $event.stopPropagation();">
-          <div class="header_text">
-              <span translate="VIEWS.MY_TOPICS_TOPICID.HEADING_USERS_LIST">User list</span> <span [textContent]="'(' + topicMemberUserService.countTotal + ')'">(0)</span> |
-              <div class="blue_link" (click)="userList.isSearchVisible = !userList.isSearchVisible; doShowMemberUserList(); $event.stopPropagation();" translate="VIEWS.MY_TOPICS_TOPICID.LNK_FILTER">filter</div>
-              <span *ngIf="topic.canUpdate(topic)">|</span>
-              <div class="blue_link" *ngIf="topic.canUpdate(topic)" translate="VIEWS.MY_TOPICS_TOPICID.LNK_INVITE" ui-sref="my/topics/topicId/invite({topicId: topic.id, tab: 'invite'})" (click)="$event.stopPropagation()">invite</div>
-          </div>
-          <div class="minimize_container">
-              <div [ngClass]="!userList.isVisible ? 'sprite-btn-expand2x' : 'sprite-btn-minimize2x'" class="sprite"></div>
-          </div>
+  <div class="info_container group_list user_list" id="user_list" #userListEl>
+    <div class="container_header" (click)="doToggleMemberUserList(); $event.stopPropagation();">
+      <div class="header_text">
+        <span translate="VIEWS.MY_TOPICS_TOPICID.HEADING_USERS_LIST"></span>
+        <span> ({{((TopicMemberUserService.countTotal$ | async) || topic.members.users.count)}})</span> |
+        <div class="blue_link" (click)="userListSearch = !userListSearch; userList = true; $event.stopPropagation();"
+          translate="VIEWS.MY_TOPICS_TOPICID.LNK_FILTER"></div>
+        <span *ngIf="TopicService.canUpdate(topic)">|</span>
+        <div class="blue_link" *ngIf="TopicService.canUpdate(topic)" translate="VIEWS.MY_TOPICS_TOPICID.LNK_INVITE"
+        [routerLink]="['/my/topics/', topic.id, 'invite']" [queryParams]="{tab: 'invite'}" (click)="$event.stopPropagation()">
+        </div>
       </div>
-      <div class="container_header second_header" *ngIf="userList.isSearchVisible">
-          <div class="table_cell">
-              <input placeholder="{{'VIEWS.MY_TOPICS_TOPICID.PLACEHOLDER_NAME_PERMISSION' | translate}}" ng-change="topicMemberUserService.doSearch(); loadTopicInviteUserList();" ng-model-options="{debounce:250}" ng-model="topicMemberUserService.search">
-          </div>
-          <div class="table_cell">
-              <div class="blue_link" (click)="topicMemberUserService.search = ''" translate="VIEWS.MY_TOPICS_TOPICID.LNK_CLEAR_FILTER">clear filter</div>
-          </div>
+      <div class="minimize_container">
+        <div [ngClass]="!userList ? 'sprite-btn-expand2x' : 'sprite-btn-minimize2x'" class="sprite"></div>
       </div>
-      <div class="container_content" *ngIf="userList.isVisible">
-          <div class="pretend_table">
-              <div class="pretend_tr">
-                  <div class="mobile_text pretend_th" *ngIf="app.wWidth <= 560">
-                      <div class="th_text" translate="VIEWS.MY_TOPICS_TOPICID.LBL_ORDER_BY">Order by:</div>
-                  </div>
-                  <div class="pretend_th" (click)="topicMemberUserService.doOrder('name');">
-                      <div class="th_text">
-                          <span translate="VIEWS.MY_TOPICS_TOPICID.LNK_PROFILE">Profile</span>
-                          <div [ngClass]="{'sprite sprite-icon-list-ordering2x': topicMemberUserService.order === 'ASC', 'sprite sprite-icon-list-ordering-down-black2x': topicMemberUserService.order === 'DESC' }" *ngIf="topicMemberUserService.orderBy === 'name'"></div>
-                      </div>
-                  </div>
-                  <div class="pretend_th" (click)="topicMemberUserService.doOrder('level');">
-                      <div class="th_text">
-                          <span translate="VIEWS.MY_TOPICS_TOPICID.LNK_ROLES">Roles</span>
-                          <div [ngClass]="{'sprite sprite-icon-list-ordering2x': topicMemberUserService.order === 'ASC', 'sprite sprite-icon-list-ordering-down-black2x': topicMemberUserService.order === 'DESC' }" *ngIf="topicMemberUserService.orderBy === 'level'"></div>
-                      </div>
-                  </div>
-                  <div class="pretend_th not_sortable" *ngIf="topic.canUpdate(topic)">
-                      <div class="th_text">
-                          <span translate="VIEWS.MY_TOPICS_TOPICID.LBL_REMOVE_FROM_TOPIC">Remove from topic</span>
-                      </div>
-                  </div>
-              </div>
-              <!-- TopicMemberUsers -->
-  <!--my-member-user class="pretend_tr" ng-repeat="user in topicMemberUserService.users" member="user" topic="topic" fields="['level', 'remove']"></!--my-member-user>
+    </div>
+    <!--div class="container_header second_header" *ngIf="userListSearch">
+      <div class="table_cell">
+        <input placeholder="{{'VIEWS.MY_TOPICS_TOPICID.PLACEHOLDER_NAME_PERMISSION' | translate}}"
+          ng-change="TopicMemberUserService.doSearch(); loadTopicInviteUserList();" ng-model-options="{debounce:250}"
+          ng-model="TopicMemberUserService.search">
+      </div>
+      <div class="table_cell">
+        <div class="blue_link" (click)="TopicMemberUserService.search = ''"
+          translate="VIEWS.MY_TOPICS_TOPICID.LNK_CLEAR_FILTER">clear filter</div>
+      </div>
+    </!--div-->
+    <div class="container_content" *ngIf="userList">
+      <div class="pretend_table">
+        <div class="pretend_tr">
+          <div class="mobile_text pretend_th" *ngIf="wWidth <= 560">
+            <div class="th_text" translate="VIEWS.MY_TOPICS_TOPICID.LBL_ORDER_BY"></div>
+          </div>
+          <div class="pretend_th" (click)="TopicMemberUserService.doOrder('name');">
+            <div class="th_text">
+              <span translate="VIEWS.MY_TOPICS_TOPICID.LNK_PROFILE"></span>
+              <div
+                [ngClass]="{'sprite sprite-icon-list-ordering2x': TopicMemberUserService.params.order === 'ASC', 'sprite sprite-icon-list-ordering-down-black2x': TopicMemberUserService.params.order === 'DESC' }"
+                *ngIf="TopicMemberUserService.params.orderBy === 'name'"></div>
+            </div>
+          </div>
+          <div class="pretend_th" (click)="TopicMemberUserService.doOrder('level');">
+            <div class="th_text">
+              <span translate="VIEWS.MY_TOPICS_TOPICID.LNK_ROLES"></span>
+              <div
+                [ngClass]="{'sprite sprite-icon-list-ordering2x': TopicMemberUserService.params.order === 'ASC', 'sprite sprite-icon-list-ordering-down-black2x': TopicMemberUserService.params.order === 'DESC' }"
+                *ngIf="TopicMemberUserService.params.orderBy === 'level'"></div>
+            </div>
+          </div>
+          <div class="pretend_th not_sortable" *ngIf="TopicService.canUpdate(topic)">
+            <div class="th_text">
+              <span translate="VIEWS.MY_TOPICS_TOPICID.LBL_REMOVE_FROM_TOPIC"></span>
+            </div>
+          </div>
+        </div>
+        <!-- TopicMemberUsers -->
+        <topic-member-user class="pretend_tr" *ngFor="let user of memberUsers$ | async" [member]="user" [topic]="topic"
+          fields="['level', 'remove']"></topic-member-user>
 
-              <div class="pretend_tr">
-                  <div class="pagination_wrapper">
-                      <cos-pagination class="pagination" select="topicMemberUserService.loadPage(page)" total-pages="topicMemberUserService.totalPages" page="topicMemberUserService.page"></cos-pagination>
-                  </div>
-              </div>
-              <!-- TopicInviteUsers -->
-  <!--div class="pretend_tr" ng-repeat="invite in topicInviteUserService.users">
+        <div class="pretend_tr">
+          <div class="pagination_wrapper">
+            <cos-pagination class="pagination" (select)="TopicMemberUserService.loadPage($event)"
+              [totalPages]="(TopicMemberUserService.totalPages$ | async) || 0"
+              [page]="(TopicMemberUserService.page$ | async) || 0"></cos-pagination>
+          </div>
+        </div>
+        <!-- TopicInviteUsers -->
+        <!--div class="pretend_tr" ng-repeat="invite in topicInviteUserService.users">
                   <div class="pretend_td">
                       <div class="profile_image_wrapper dark">
                           <!--div class="profile_moon sprite sprite-icon-certified-fb2x"></div>
@@ -455,7 +430,7 @@
                       </div>
                   </div>
                   <div class="pretend_td recycle_bin_wrap">
-                      <div class="btn_wrap recycle_bin" *ngIf="topic.canUpdate(topic)">
+                      <div class="btn_wrap recycle_bin" *ngIf="TopicService.canUpdate(topic)">
                           <div class="btn" (click)="doDeleteInviteUser(invite)">
                               <div class="table_cell">
                                   <div class="sprite desktop_fix sprite-mytopics-icon-deletetopic2x"></div>
@@ -465,14 +440,14 @@
                       </div>
                   </div>
               </!--div>
-              <div class="pretend_tr">
+              <div-- class="pretend_tr">
                   <div class="pagination_wrapper">
                       <cos-pagination class="pagination" select="topicInviteUserService.loadPage(page)" total-pages="topicInviteUserService.totalPages" page="topicInviteUserService.page"></cos-pagination>
                   </div>
-              </div>
-          </div>
+              </div-->
       </div>
+    </div>
 
-  </div-->
+  </div>
 
 </div>

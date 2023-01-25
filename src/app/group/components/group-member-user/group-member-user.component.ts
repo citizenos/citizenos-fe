@@ -1,10 +1,12 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { GroupService } from 'src/app/services/group.service';
 import { GroupMemberUserService } from 'src/app/services/group-member-user.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { take } from 'rxjs/operators';
+import { take, catchError } from 'rxjs/operators';
 import { Group } from 'src/app/interfaces/group';
 import { GroupMemberUser } from 'src/app/interfaces/user';
+import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'group-member-user',
@@ -12,12 +14,11 @@ import { GroupMemberUser } from 'src/app/interfaces/user';
   styleUrls: ['./group-member-user.component.scss']
 })
 export class GroupMemberUserComponent implements OnInit {
-  @Input() member?: GroupMemberUser | any;
-  @Input() canUpdate?: any;
-  @Input() group?: Group;
+  @Input() member: GroupMemberUser | any;
+  @Input() group: Group | any;
   @Input() fields?: any;
-
-  constructor(private dialog: MatDialog, public GroupMemberUser: GroupMemberUserService, public GroupService: GroupService) { }
+  memberLevels = this.GroupMemberUser.LEVELS;
+  constructor(private dialog: MatDialog, private AuthService: AuthService, private GroupMemberUser: GroupMemberUserService, private GroupService: GroupService) { }
 
   ngOnInit(): void {
   }
@@ -26,6 +27,9 @@ export class GroupMemberUserComponent implements OnInit {
     return this.fields?.indexOf(field) > -1
   }
 
+  canUpdate () {
+    return this.GroupService.canUpdate(this.group);
+  }
   doUpdateMemberUser(level: string) {
     if (this.member && this.member?.level !== level) {
       const oldLevel = this.member.level;
@@ -33,7 +37,11 @@ export class GroupMemberUserComponent implements OnInit {
       if (this.group) {
         this.GroupMemberUser
           .update({ groupId: this.group.id, userId: this.member.userId || this.member.id }, this.member)
-          .pipe(take(1))
+          .pipe(take(1),
+          catchError((error) => {
+            this.member.level = oldLevel
+            return error;
+          }))
           .subscribe((res) => {
             console.log('RES', res)
           })
@@ -42,6 +50,43 @@ export class GroupMemberUserComponent implements OnInit {
   };
 
   doDeleteMemberUser() {
+      if (this.member.id === this.AuthService.user.value.id) {
+  //      return this.doLeaveGroup();
+      }
+      const deleteUserDialog = this.dialog.open(ConfirmDialogComponent, {
+        data: {
+          level: 'delete',
+          heading: 'MODALS.TOPIC_MEMBER_USER_DELETE_CONFIRM_HEADING',
+          title: 'MODALS.TOPIC_MEMBER_USER_DELETE_CONFIRM_TXT_ARE_YOU_SURE',
+          confirmBtn: 'MODALS.TOPIC_MEMBER_USER_DELETE_CONFIRM_YES',
+          closeBtn: 'MODALS.TOPIC_MEMBER_USER_DELETE_CONFIRM_NO'
+        }
+      });
+      deleteUserDialog.afterClosed().subscribe(result => {
+        if (result === true) {
+          this.member.groupId = this.group.id;
+          this.GroupMemberUser.delete({ groupId: this.group.id, userId: this.member.userId || this.member.id })
+            .pipe(take(1))
+            .subscribe(() => {
+              //return this.GroupMemberUserService.reset(); // Good old topic.members.users.splice wont work due to group permission inheritance
+            });
+        }
+      });/*
+        this.ngDialog
+          .openConfirm({
+            template: '/views/modals/topic_member_user_delete_confirm.html',
+            data: {
+              user: member
+            }
+          })
+          .then(() => {
+            member.topicId = topic.id;
+            this.TopicMemberUserService.delete({ topicId: topic.id, userId: member.userId || member.id })
+              .then(() => {
+                return this.TopicMemberUserService.reload(); // Good old topic.members.users.splice wont work due to group permission inheritance
+              });
+          }, angular.noop);*/
+    };
    /* const member = this.member
     if (this.group) {
       const group = this.group
@@ -63,26 +108,6 @@ export class GroupMemberUserComponent implements OnInit {
             });
         }, angular.noop);
 
-    } else {
-      const topic = this.topic;
-      if (member.id = this.sAuth.user.id) {
-        return this.doLeaveTopic();
-      }
-      this.ngDialog
-        .openConfirm({
-          template: '/views/modals/topic_member_user_delete_confirm.html',
-          data: {
-            user: member
-          }
-        })
-        .then(() => {
-          member.topicId = topic.id;
-          this.TopicMemberUser.delete(member)
-            .then(() => {
-              return this.TopicMemberUserService.reload(); // Good old topic.members.users.splice wont work due to group permission inheritance
-            });
-        }, angular.noop);
     }*/
-  };
 
 }

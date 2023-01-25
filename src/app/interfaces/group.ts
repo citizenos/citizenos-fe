@@ -14,3 +14,11 @@ export interface Group {
   userLevel: string | null,
   imageUrl: string | null
 }
+
+export interface TopicMemberGroup extends Group {
+  userId?: string,
+  phoneNumber?: string | number,
+  level?: string,
+  groupId: string,
+  latestActivity: string
+}

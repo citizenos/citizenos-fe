@@ -21,7 +21,7 @@ export class TopicMemberUserService extends ItemsListService {
   }
 
   query(params: { [key: string]: any }): Observable<ApiResponse> {
-    let path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/members/users');
+    let path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/members/users', params);
     const queryParams = Object.fromEntries(Object.entries(params).filter((i) => i[1] !== null));
 
     return this.http.get<ApiResponse>(path, { withCredentials: true, params: queryParams, observe: 'body', responseType: 'json' }).pipe(
@@ -30,6 +30,16 @@ export class TopicMemberUserService extends ItemsListService {
       })
     );
   };
+
+  update(params: any) {
+    if (!params.userId) params.userId = params.id;
+    const path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/members/users/:userId', params);
+    return this.http.put<ApiResponse>(path, params, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
+      map((res) => {
+        return res.data;
+      })
+    );
+  }
 
   delete(params: any) {
     if (!params.userId) params.userId = params.id;

@@ -1,0 +1,75 @@
+<div class="lightbox_section" *ngIf="canUpdate()">
+  <h3 translate="MODALS.TOPIC_SETTINGS_HEADING_LINK_SHARING"></h3>
+  <div class="share_link">
+    <div class="table_row">
+      <div class="searchbox_with_icon_and_text only_text">
+        <input id="url_invite_topic_input" [value]="joinUrl"
+          placeholder="{{'MODALS.TOPIC_SETTINGS_PLACEHOLDER_CREATE_NEW_LINK' | translate}}">
+        <div class="regenerate_link not_mobile" (click)="generateTokenJoin()">
+          <div class="sprite sprite-icon-refresh"></div>
+        </div>
+      </div>
+      <div class="blue_button not_mobile" (click)="copyInviteLink()" translate="MODALS.TOPIC_SETTINGS_BTN_COPY_LINK">
+      </div>
+    </div>
+    <div class="permissions">
+      <div class="label" translate="MODALS.TOPIC_SETTINGS_LABEL_DROPDOWN_PERMISSION_DESCRIPTION"></div>
+      <div [cosDropdown] class="classic_dropdown">
+        <div class="dropdown_selection">
+          <div class="dropdown_text">
+            {{('TXT_TOPIC_LEVELS_' + join.level | uppercase) | translate}}
+          </div>
+
+          <div class="arrow_holder">
+            <div class="table_cell">
+              <div class="sprite sprite-icon-dropdown-arrowdown2x"></div>
+
+              <div class="v_line"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dropdown">
+          <div class="dropdown_item" *ngFor="let level of topicLevels">
+            <div class="item_name" (click)="doUpdateJoinToken(level)">
+              {{('TXT_TOPIC_LEVELS_' + level | uppercase) | translate}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="table_row mobile_only">
+      <div class="blue_button" (click)="copyInviteLink()" translate="MODALS.TOPIC_SETTINGS_BTN_COPY_LINK"></div>
+    </div>
+    <div class="table_row mobile_only">
+      <div class="white_button" (click)="generateTokenJoin()" translate="MODALS.TOPIC_SETTINGS_LNK_CREATE_NEW_LINK">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="lightbox_section social_sharing" *ngIf="canUpdate()">
+  <h3 translate="MODALS.TOPIC_SETTINGS_HEADING_SOCIAL_SHARING"></h3>
+
+  <a socialshare shareprovider="facebook" sharetext="{{topic.title}}"
+  shareurl="{{joinUrl}}">
+    <div class="sprite sprite-icon-social-facebook-v2"></div>
+  </a>
+  <a socialshare shareprovider="linkedin" sharetext="{{topic.title}}"
+    shareurl="{{joinUrl}}">
+    <div class="sprite sprite-icon-social-linkedin-v2"></div>
+  </a>
+  <a socialshare shareprovider="twitter" sharetext="{{topic.title}}"
+    shareurl="{{joinUrl}}">
+    <div class="sprite sprite-icon-social-twitter-v2"></div>
+  </a>
+</div>
+
+<div class="lightbox_section" *ngIf="canUpdate()">
+  <h3 translate="MODALS.TOPIC_SETTINGS_HEADING_QR_SHARING"></h3>
+  <div class="qr_code">
+    <qrcode [qrdata]="joinUrl || ''" [width]="120" [version]="4" [errorCorrectionLevel]="'L'" class="qr_img">
+    </qrcode>
+  </div>
+  <!--a href="#fixme" class="table_cell" translate="MODALS.TOPIC_SETTINGS_LINK_QR_CODE_PDF">Download QR code PDF</a-->
+</div>

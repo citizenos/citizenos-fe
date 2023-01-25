@@ -12,9 +12,9 @@ export class ActivityFeedComponent implements OnInit {
   activities$ = of(<any[]>[]);
 
   constructor(public ActivityService: ActivityService) {
+    this.ActivityService.reset();
     this.activities$ = this.ActivityService.loadItems().pipe(map(
       (newActivities: any) => {
-        console.log('newActivities', newActivities)
         this.allActivities$ = this.allActivities$.concat(newActivities);
         return this.allActivities$;
       }

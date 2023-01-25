@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { Router, Event, NavigationStart } from '@angular/router';
+import { Router, PRIMARY_OUTLET, Event, NavigationStart, ActivatedRoute, UrlSerializer } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Title } from "@angular/platform-browser";
 
 import { ConfigService } from './services/config.service';
-import { takeUntil, Subject , tap} from 'rxjs';
+import { takeUntil, Subject, tap } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -16,28 +16,29 @@ export class AppComponent {
   config$ = this.config.load();
   wWidth: number = window.innerWidth;
   destroy$ = new Subject<boolean>();
-  constructor (private router: Router, private title: Title, public translate: TranslateService, private config: ConfigService) {
+  constructor(private router: Router, route: ActivatedRoute, private title: Title, public translate: TranslateService, private config: ConfigService) {
     const languageConf = config.get('language');
     translate.addLangs(Object.keys(languageConf.list));
     translate.setDefaultLang(languageConf.default);
     translate.onTranslationChange.pipe(
-      tap((event) => {this.title.setTitle(translate.instant('META_DEFAULT_TITLE'));})
+      tap((event) => { this.title.setTitle(translate.instant('META_DEFAULT_TITLE')); })
     );
     this.router.events.pipe(takeUntil(this.destroy$)).subscribe
       ((event: Event) => {
-        if (event instanceof NavigationStart) {
-            if (event) {
-              const urlDelimitators = new RegExp(/[?//,;&:#$+=]/);
-              let langParam = event.url.slice(1).split(urlDelimitators)[0];
-              if( translate.currentLang !== langParam && translate.getLangs().indexOf(langParam) === -1) {
-                const path = `${translate.currentLang || translate.getBrowserLang() || translate.getDefaultLang()}${event.url}`
-                this.router.navigate([path]);
-              } else if (translate.currentLang !== langParam){
-                translate.use(langParam);
-              }
-            }
+        if (event && event instanceof NavigationStart) {
+          const parsedUrl = router.parseUrl(event.url);
+          const outlet = parsedUrl.root.children[PRIMARY_OUTLET];
+
+          const g = outlet?.segments.map(seg => seg.path) || [''];
+          let langParam = g[0];
+          if (translate.currentLang !== langParam && translate.getLangs().indexOf(langParam) === -1) {
+            g.unshift(translate.currentLang || translate.getBrowserLang() || translate.getDefaultLang());
+            this.router.navigate(g, { queryParams: parsedUrl.queryParams, fragment: parsedUrl.fragment || undefined });
+          } else if (translate.currentLang !== langParam) {
+            translate.use(langParam);
+          }
         }
-    });
+      });
   }
 
   ngOnDestroy(): void {
@@ -47,7 +48,7 @@ export class AppComponent {
   displaySearch = () => {
     const allowedState = ['home', 'my/groups', 'my/topics', 'public/groups', 'public/groups/view', 'my/groups/groupId', 'my/topics/topicId'];
     if (allowedState.indexOf(this.router.url) > -1) {
-        return true;
+      return true;
     }
 
     return false;

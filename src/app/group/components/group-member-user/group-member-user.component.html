@@ -26,7 +26,7 @@
   </div>
   <div class="pretend_td" *ngIf="isVisibleField('level')">
     <div class="pretend_table_mobile_text mobile_label" translate="VIEWS.PUBLIC_GROUP.LNK_ROLE">Level</div>
-    <div cos-dropdown class="classic_dropdown" *ngIf="this.group && GroupService.canUpdate(this.group)">
+    <div cos-dropdown class="classic_dropdown" *ngIf="this.group && canUpdate()">
       <div class="dropdown_selection">
         <div class="dropdown_text">{{'TXT_TOPIC_LEVELS_' + member.level | uppercase | translate}}</div>
 
@@ -38,18 +38,18 @@
           </div>
         </div>
       </div>
-      <div class="dropdown" *ngIf="this.group && GroupService.canUpdate(this.group)">
-        <div class="dropdown_item" *ngFor="let level of GroupMemberUser.LEVELS">
+      <div class="dropdown" *ngIf="this.group && canUpdate()">
+        <div class="dropdown_item" *ngFor="let level of memberLevels">
           <div class="item_name" (click)="doUpdateMemberUser(level)">{{'TXT_TOPIC_LEVELS_' + level | uppercase |
             translate}}</div>
         </div>
       </div>
     </div>
-    <div *ngIf="this.group && !GroupService.canUpdate(this.group)">
+    <div *ngIf="this.group && !canUpdate()">
       <span class="user_level_text">{{'TXT_TOPIC_LEVELS_' + member.level | uppercase | translate}}</span>
     </div>
   </div>
-  <div class="pretend_td recycle_bin_wrap" *ngIf="this.group && GroupService.canUpdate(this.group) && isVisibleField('remove')">
+  <div class="pretend_td recycle_bin_wrap" *ngIf="this.group && canUpdate() && isVisibleField('remove')">
     <div class="pretend_table_mobile_text mobile_label" translate="VIEWS.PUBLIC_GROUP.LBL_REMOVE"></div>
     <div class="btn_wrap recycle_bin">
       <div class="btn" (click)="doDeleteMemberUser()">

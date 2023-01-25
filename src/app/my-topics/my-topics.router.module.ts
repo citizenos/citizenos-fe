@@ -1,16 +1,28 @@
 import { MyTopicComponent } from './components/my-topic/my-topic.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ListComponent } from './components/list/list.component';
 import { MyTopicsComponent } from './my-topics.component';
+import { TopicInviteDialogComponent } from './components/topic-invite-dialog/topic-invite-dialog.component';
 
 const routes: Routes = [
-  {path: '', component: MyTopicsComponent, children: [
+  {
+    path: '', component: MyTopicsComponent, children: [
 
-  ],},
-  {path: ':topicId', component: MyTopicsComponent, children: [
-    {path: '',outlet: 'mytopicsright',component: MyTopicComponent}
-  ]}
+    ],
+  },
+  {
+    path: ':topicId', component: MyTopicsComponent, children: [
+      {
+        path: '', outlet: 'mytopicsright', component: MyTopicComponent, children: [
+        ]
+      },
+      {
+        path: 'invite', children: [
+            {path: '', component: TopicInviteDialogComponent}
+        ]
+      },
+    ]
+  }
 ];
 
 @NgModule({
@@ -18,6 +30,6 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class MyTopicsRoutingModule {
-  constructor () {
+  constructor() {
   }
 }

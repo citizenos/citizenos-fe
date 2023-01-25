@@ -17,6 +17,8 @@ import { CosPaginationComponent } from './components/cos-pagination/cos-paginati
 import { SocialshareDirective } from '../directives/socialshare.directive';
 import { ActivityComponent } from './components/activity/activity.component';
 import { CosToggleComponent } from './components/cos-toggle/cos-toggle.component';
+import { TopicMemberUserComponent } from '../topic/components/topic-member-user/topic-member-user.component';
+import { TopicMemberGroupComponent } from '../topic/components/topic-member-group/topic-member-group.component';
 @NgModule({
   declarations: [
     ActivityComponent,
@@ -28,6 +30,8 @@ import { CosToggleComponent } from './components/cos-toggle/cos-toggle.component
     PublicgroupboxComponent,
     SocialshareDirective,
     TooltipDirective,
+    TopicMemberUserComponent,
+    TopicMemberGroupComponent,
     TopicboxComponent,
     TypeaheadComponent,
     TypeaheadItem,
@@ -54,6 +58,8 @@ import { CosToggleComponent } from './components/cos-toggle/cos-toggle.component
     SocialshareDirective,
     TooltipDirective,
     TopicboxComponent,
+    TopicMemberUserComponent,
+    TopicMemberGroupComponent,
     TypeaheadComponent,
     TypeaheadItem
    ]

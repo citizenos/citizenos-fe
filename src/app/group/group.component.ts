@@ -5,7 +5,6 @@ import { switchMap, tap, take } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 
 import { GroupMemberUserService } from 'src/app/services/group-member-user.service';
-import { GroupMemberUsersService } from 'src/app/services/group-member-users.service';
 import { GroupService } from 'src/app/services/group.service';
 import { Group } from 'src/app/interfaces/group';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
@@ -29,15 +28,14 @@ export class GroupComponent implements OnInit {
     public GroupService: GroupService,
     private route: ActivatedRoute,
     private router: Router,
-    public GroupMemberUser: GroupMemberUserService,
-    public GroupMemberUsersService: GroupMemberUsersService,
+    public GroupMemberUserService: GroupMemberUserService,
     private Auth: AuthService, private app: AppService,
     public PublicGroupMemberTopicsService: PublicGroupMemberTopicsService) {
     this.group$ = this.route.params.pipe<Group>(
       switchMap((params) => {
         this.groupId = <string>params['groupId'];
         PublicGroupMemberTopicsService.params$.value.groupId = this.groupId;
-        GroupMemberUsersService.params$.value.groupId = this.groupId;
+        GroupMemberUserService.params$.value.groupId = this.groupId;
         return this.GroupService.get(params['groupId']).pipe(
           tap((group) => {
             this.app.group.next(group);
@@ -70,7 +68,7 @@ export class GroupComponent implements OnInit {
 
     leaveDialog.afterClosed().subscribe(result => {
       if (result === true) {
-        this.GroupMemberUser
+        this.GroupMemberUserService
           .delete({ groupId: this.groupId, userId: this.Auth.user.value.id })
           .subscribe((result) => {
             console.log(result);
