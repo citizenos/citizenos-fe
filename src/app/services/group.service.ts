@@ -76,8 +76,7 @@ export class GroupService {
           }
         }
         return res;
-      }),
-      share()
+      })
     );
   }
 
@@ -99,8 +98,7 @@ export class GroupService {
           }
         }
         return res;
-      }),
-      share()
+      })
     );
   }
 
@@ -118,8 +116,7 @@ export class GroupService {
           }
         }
         return res;
-      }),
-      share()
+      })
     );
   }
 
@@ -137,8 +134,7 @@ export class GroupService {
           }
         }
         return res;
-      }),
-      share()
+      })
     );
   }
 

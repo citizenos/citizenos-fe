@@ -25,13 +25,13 @@
             <div class="tab_button" (click)="tabSelected = 'invite'"
               [ngClass]="tabSelected === 'invite' ? 'active' : ''">
               <div class="tab_buttom_wrap">
-                <div class="tab_button_text" translate="MODALS.TOPIC_INVITE_TAB_INVITE">INVITE</div>
+                <div class="tab_button_text" translate="MODALS.TOPIC_INVITE_TAB_INVITE"></div>
                 <div class="blue_bottom_line"></div>
               </div>
             </div>
             <div class="tab_button" (click)="tabSelected = 'share'" [ngClass]="tabSelected === 'share' ? 'active' : ''">
               <div class="tab_buttom_wrap">
-                <div class="tab_button_text" translate="MODALS.TOPIC_INVITE_TAB_SHARE">SHARE</div>
+                <div class="tab_button_text" translate="MODALS.TOPIC_INVITE_TAB_SHARE"></div>
                 <div class="blue_bottom_line"></div>
               </div>
             </div>
@@ -50,19 +50,18 @@
           <textarea id="invite_body" class="gray_borders" [(ngModel)]="inviteMessage"
             placeholder="{{'MODALS.TOPIC_INVITE_PLACHOLDER_OPTIONAL_MESSAGE' | translate}}"
             [maxlength]="inviteMessageMaxLength"></textarea>
-          <div class="input_text_margin_bottom" translate="MODALS.TOPIC_INVITE_TXT_INVITE_USERS_AND_GROUPS">Invite users
-            and groups via name or e-mail address</div>
+          <div class="input_text_margin_bottom" translate="MODALS.TOPIC_INVITE_TXT_INVITE_USERS_AND_GROUPS"></div>
 
           <div class="searchbox_with_icon_and_text only_text">
             <div [cosDropdown] [ngClass]="{'search_with_dropdown dropdown_active' : resultCount}">
             <typeahead id="userSearch" class="auto-complete" [items]="(searchResults$ | async)?.combined" [term]="searchString"
                 (search)="search($event)" (select)="addTopicMember($event)"
-                placeholder="'MODALS.TOPIC_INVITE_PLACEHOLDER_INVITE_USERS_AND_GROUPS' | translate">
+                placeholder="{{'MODALS.TOPIC_INVITE_PLACEHOLDER_INVITE_USERS_AND_GROUPS' | translate}}">
                 <div class="search_area_wrap">
                   <div class="search_dropdown_area"
                     [ngClass]="{hidden: !resultCount}">
                     <div class="search_dropdown_item" *ngIf="(searchResults$ | async)?.users?.length">
-                      <div class="table_cell" translate="MODALS.TOPIC_INVITE_TH_USERS">Users</div>
+                      <div class="table_cell" translate="MODALS.TOPIC_INVITE_TH_USERS"></div>
                     </div>
                     <div class="search_dropdown_item" [typeaheadItem]="user" *ngFor="let user of (searchResults$ | async)?.users">
                       <div class="table_cell search_item_text">
@@ -70,12 +69,11 @@
                       </div>
                       <div class="table_cell blue_link">
                         <span class="submit_link" (click)="addTopicMemberUser(user)"
-                          translate="MODALS.TOPIC_SETTINGS_TXT_PRESS_ENTER_OR_CLICK_TO_ADD">Press enter or click to
-                          add</span>
+                          translate="MODALS.TOPIC_SETTINGS_TXT_PRESS_ENTER_OR_CLICK_TO_ADD"></span>
                       </div>
                     </div>
                     <div class="search_dropdown_item" *ngIf="(searchResults$ | async)?.groups?.length">
-                      <div class="table_cell" translate="MODALS.TOPIC_SETTINGS_TH_GROUPS">Groups</div>
+                      <div class="table_cell" translate="MODALS.TOPIC_SETTINGS_TH_GROUPS"></div>
                     </div>
                     <div class="search_dropdown_item" [typeaheadItem]="group" *ngFor="let group of (searchResults$ | async)?.groups">
                       <div class="table_cell search_item_text">
@@ -83,11 +81,11 @@
                       </div>
                       <div class="table_cell blue_link">
                         <span class="submit_link" (click)="addTopicMemberGroup(group)"
-                          translate="MODALS.TOPIC_SETTINGS_TXT_PRESS_ENTER_TO_ADD">Press enter or click to add</span>
+                          translate="MODALS.TOPIC_SETTINGS_TXT_PRESS_ENTER_TO_ADD"></span>
                       </div>
                     </div>
                     <div class="search_dropdown_item" *ngIf="(searchResults$ | async)?.emails?.length">
-                      <div class="table_cell" translate="MODALS.TOPIC_SETTINGS_TH_USERS"></div>
+                      <div class="table_cell" translate="MODALS.TOPIC_SETTINGS_TH_EMAILS"></div>
                     </div>
                     <div class="search_dropdown_item" [typeaheadItem]="email" *ngFor="let email of (searchResults$ | async)?.emails">
                       <div class="table_cell search_item_text">
@@ -165,7 +163,7 @@
         <div class="lightbox_section double_row_list user_list" *ngIf="members.length">
           <table>
             <tr>
-              <td><span translate="MODALS.TOPIC_SETTINGS_LBL_CHANGE_ALL">Change all</span>
+              <td><span translate="MODALS.TOPIC_SETTINGS_LBL_CHANGE_ALL"></span>
                 <div class="mobile_extra_info">
                   <div class="left">
                     <div [cosDropdown] class="classic_dropdown">
@@ -186,9 +184,9 @@
 
                       <div class="dropdown">
                         <div class="dropdown_item" *ngFor="let level of topicLevels">
-                          <!--div class="item_name" (click)="updateTopicMemberGroupLevel(level)">
+                          <div class="item_name" (click)="updateGroupLevel(level)">
                             {{'TXT_TOPIC_LEVELS_' + level | uppercase | translate}}
-                          </!--div-->
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -225,9 +223,9 @@
 
                   <div class="dropdown">
                     <div class="dropdown_item" *ngFor="let level of topicLevels">
-                      <!--div class="item_name" (click)="updateTopicMemberGroupLevel(level)">
+                      <div class="item_name" (click)="updateGroupLevel(level)">
                         {{'TXT_TOPIC_LEVELS_' + level | uppercase | translate}}
-                      </!--div-->
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -270,7 +268,7 @@
                         <div class="blue_link" (click)="doRemoveMemberUser(member.value)">{{member.value.name}}</div>
                         <div class="via">{{member.value.company}}</div>
                         <div class="via" translate="MODALS.TOPIC_SETTINGS_INVITE_EXPIRES"
-                          translate-values="{expiresAt: (getExpiresAt() | amTimeAgo)}">{{getExpiresAt() | amTimeAgo}}
+                          [translateParams]="{expiresAt: (getExpiresAt() | amTimeAgo)}">{{getExpiresAt() | amTimeAgo}}
                         </div>
                       </div>
                     </div>
@@ -373,8 +371,7 @@
         <div class="line lightest_line"></div>
         <div class="blue_button_wrap">
           <div class="blue_button" cos-disabled="!members.length" (click)="doSaveTopic()"
-            translate="MODALS.TOPIC_SETTINGS_BTN_SEND_INVITES">Send invites
-          </div>
+            translate="MODALS.TOPIC_SETTINGS_BTN_SEND_INVITES"></div>
         </div>
       </div>
 

@@ -21,8 +21,7 @@ export class GroupJoinService {
       map((data) => {
         console.log('data', data);
         return data;
-      }),
-      share()
+      })
     );
   }
 
@@ -31,8 +30,7 @@ export class GroupJoinService {
     return this.http.put<any>(path, data, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
       map((res) => {
         return res.data;
-      }),
-      share()
+      })
     );
   }
 
@@ -42,8 +40,7 @@ export class GroupJoinService {
     return this.http.put<any>(path, data, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
       map((res) => {
         return res.data;
-      }),
-      share()
+      })
     );
   }
 }

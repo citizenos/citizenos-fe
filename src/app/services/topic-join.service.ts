@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { LocationService } from 'src/app/services/location.service';
-import { map, share } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +20,7 @@ export class TopicJoinService {
       map((data) => {
         console.log('data', data);
         return data;
-      }),
-      share()
+      })
     );
   }
 
@@ -30,8 +29,7 @@ export class TopicJoinService {
     return this.http.put<any>(path, data, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
       map((res) => {
         return res.data;
-      }),
-      share()
+      })
     );
   }
 
@@ -41,8 +39,7 @@ export class TopicJoinService {
     return this.http.put<any>(path, data, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
       map((res) => {
         return res.data;
-      }),
-      share()
+      })
     );
   }
 }

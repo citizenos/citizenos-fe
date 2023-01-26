@@ -30,4 +30,32 @@ export class TopicMemberGroupService extends ItemsListService {
       })
     );
   };
+
+  save(data: any) {
+    if (!data.groupId) {
+      data.groupId = data.id;
+    }
+    let path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/members/groups', data)
+
+    return this.http.post<ApiResponse>(path, data, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
+      map(res => res.data)
+    );
+  }
+
+  update(data: any) {
+    if (!data.groupId) data.groupId = data.id;
+    const path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/members/groups/:groupId', data);
+    return this.http.put<ApiResponse>(path, data, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
+      map(res => res.data)
+    );
+  }
+
+  delete(data: any) {
+    if (!data.groupId) data.groupId = data.id;
+    const path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/members/groups/:groupId', data);
+
+    return this.http.delete<ApiResponse>(path, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
+      map(res => res.data)
+    );
+  }
 }

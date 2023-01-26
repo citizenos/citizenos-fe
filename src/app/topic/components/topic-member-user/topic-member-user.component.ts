@@ -51,7 +51,7 @@ export class TopicMemberUserComponent implements OnInit {
         .update(this.member)
         .pipe(take(1))
         .subscribe((res) => {
-          console.log(res);
+          return this.TopicMemberUserService.reset();
         });
     }
   };
@@ -75,24 +75,10 @@ export class TopicMemberUserComponent implements OnInit {
         this.TopicMemberUserService.delete({ topicId: this.topic.id, userId: this.member.userId || this.member.id })
           .pipe(take(1))
           .subscribe(() => {
-            return this.TopicMemberUserService.reset(); // Good old topic.members.users.splice wont work due to group permission inheritance
+            return this.TopicMemberUserService.reset();
           });
       }
-    });/*
-      this.ngDialog
-        .openConfirm({
-          template: '/views/modals/topic_member_user_delete_confirm.html',
-          data: {
-            user: member
-          }
-        })
-        .then(() => {
-          member.topicId = topic.id;
-          this.TopicMemberUserService.delete({ topicId: topic.id, userId: member.userId || member.id })
-            .then(() => {
-              return this.TopicMemberUserService.reload(); // Good old topic.members.users.splice wont work due to group permission inheritance
-            });
-        }, angular.noop);*/
+    });
   };
 
   doLeaveTopic() {
@@ -112,7 +98,6 @@ export class TopicMemberUserComponent implements OnInit {
           .delete({ id: this.AuthService.user.value.id, topicId: this.topic.id })
           .pipe(take(1))
           .subscribe(() => {
-            /* this.$state.go('my/topics', null, { reload: true });*/
             this.router.navigate([this.Translate.currentLang, 'my', 'topics']);
           });
       }

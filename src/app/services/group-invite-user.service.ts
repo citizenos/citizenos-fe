@@ -1,7 +1,7 @@
 import { LocationService } from 'src/app/services/location.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, share } from 'rxjs';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +17,7 @@ export class GroupInviteUserService {
         const data = res.data;
         data.user.isRegistered = res.status.code !== 20002;
         return data;
-      }),
-      share()
+      })
     );
   }
 
@@ -28,8 +27,7 @@ export class GroupInviteUserService {
     return this.http.post<any>(path, data, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
       map((data) => {
         return data;
-      }),
-      share()
+      })
     );
   }
 
@@ -39,8 +37,7 @@ export class GroupInviteUserService {
     return this.http.get<any>(path, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
       map((res) => {
         return res.data;
-      }),
-      share()
+      })
     );
   }
 
@@ -50,8 +47,7 @@ export class GroupInviteUserService {
     return this.http.post<any>(path, {}, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
       map((data) => {
         return data;
-      }),
-      share()
+      })
     );
   }
 
@@ -61,8 +57,7 @@ export class GroupInviteUserService {
     return this.http.delete<any>(path, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
       map((data) => {
         return data;
-      }),
-      share()
+      })
     );
   }
 }

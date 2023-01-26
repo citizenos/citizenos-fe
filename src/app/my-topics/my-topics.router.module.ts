@@ -7,20 +7,14 @@ import { TopicInviteDialogComponent } from './components/topic-invite-dialog/top
 const routes: Routes = [
   {
     path: '', component: MyTopicsComponent, children: [
-
-    ],
-  },
-  {
-    path: ':topicId', component: MyTopicsComponent, children: [
       {
-        path: '', outlet: 'mytopicsright', component: MyTopicComponent, children: [
+        path: ':topicId', children: [
+          { path: '', component: MyTopicComponent,  outlet: 'mytopicsright' },
+          { path: 'invite', children: [
+             {path: '', component: TopicInviteDialogComponent }
+          ]},
         ]
-      },
-      {
-        path: 'invite', children: [
-            {path: '', component: TopicInviteDialogComponent}
-        ]
-      },
+      }
     ]
   }
 ];

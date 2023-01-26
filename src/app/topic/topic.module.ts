@@ -10,6 +10,7 @@ import { TopicArgumentsComponent } from './components/topic-arguments/topic-argu
 import { ArgumentComponent } from './components/argument/argument.component';
 import { TopicNotificationSettingsComponent } from './components/topic-notification-settings/topic-notification-settings.component';
 
+
 @NgModule({
   declarations: [
     TopicComponent,

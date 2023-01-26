@@ -181,63 +181,51 @@
 
   <!-- CURRENT VOTE WITH VOTING -->
 
-  <!--div id="vote_results" class="info_container vote_results" *ngIf="topic.voteId">
+  <div id="vote_results" class="info_container vote_results" *ngIf="topic.voteId">
 
-      <div class="container_header" (click)="doToggleVoteResults()">
-          <div class="header_text" translate="VIEWS.MY_TOPICS_TOPICID.HEADING_CURRENT_VOTE_RESULTS">Current vote results</div>
-          <div class="minimize_container">
-              <div [ngClass]="!voteResults.isVisible ? 'sprite-btn-expand2x' : 'sprite-btn-minimize2x'" class="sprite"></div>
-          </div>
+    <div class="container_header" (click)="doToggleVoteResults()">
+      <div class="header_text" translate="VIEWS.MY_TOPICS_TOPICID.HEADING_CURRENT_VOTE_RESULTS">Current vote results
       </div>
-
-      <div class="container_content" *ngIf="voteResults.isVisible">
-
-
-          <div class="content_bottom">
-
-              < COLUMN 1 >
-              <topic-vote-cast-- class="content_column" vote="topic.vote"></topic-vote-cast-->
-
-
-  <!--COLUMN 2 >
-              <div class="content_column">
-
-
-                  <div class="content_item">
-                      <div class="item_description" translate="VIEWS.MY_TOPICS_TOPICID.LBL_VOTES_COUNTED">Votes counted</div>
-                      <div class="item_content">
-                          <div class="item_text">
-                              {{topic.vote.getVoteCountTotal()}}
-                              <span class="separator">|</span>
-                              <span class="item_link blue_link">
-                                  view who voted TODO!
-                              </span>
-                          </div>
-                      </div>
-                      <div class="clearer"></div>
-                  </div>
-
-                  <div class="content_item">
-                      <div class="item_description" translate="VIEWS.MY_TOPICS_TOPICID.LBL_VOTE_DEADLINE">Vote deadline</div>
-                      <div class="item_content">
-                          <div class="item_text">
-                              <span [textContent]=" (topic.vote.endsAt | amDateFormat : 'L LT Z') || ('VIEWS.MY_TOPICS_TOPICID.LBL_VOTE_DEADLINE_NONE' | translate)">12/12/2017</span>
-                              <span class="separator">|</span>
-                              <cos-modal-datepicker ng-model="topic.vote.endsAt" cos-modal-title="'VIEWS.MY_TOPICS_TOPICID.LBL_VOTE_DEADLINE' | translate" cos-modal-description="topic.title" cos-modal-on-save="doSaveVoteEndsAt"></cos-modal-datepicker>
-                          </div>
-                      </div>
-                  </div>
-
+      <div class="minimize_container">
+        <div [ngClass]="!voteResults ? 'sprite-btn-expand2x' : 'sprite-btn-minimize2x'" class="sprite"></div>
+      </div>
+    </div>
+    <div class="container_content" *ngIf="voteResults">
+      <div class="content_bottom">
+        <!-- COLUMN 1 -->
+        <topic-vote-cast class="content_column" vote="topic.vote"></topic-vote-cast>
+        <!--COLUMN 2 -->
+        <!--div class="content_column">
+          <div class="content_item">
+            <div class="item_description" translate="VIEWS.MY_TOPICS_TOPICID.LBL_VOTES_COUNTED">Votes counted</div>
+            <div class="item_content">
+              <div class="item_text">
+                {{topic.vote.getVoteCountTotal()}}
+                <span class="separator">|</span>
+                <span class="item_link blue_link">
+                  view who voted TODO!
+                </span>
               </div>
-
-              <div class="clearer"></div>
-
+            </div>
+            <div class="clearer"></div>
           </div>
-
+          <div class="content_item">
+            <div class="item_description" translate="VIEWS.MY_TOPICS_TOPICID.LBL_VOTE_DEADLINE">Vote deadline</div>
+            <div class="item_content">
+              <div class="item_text">
+                <span [textContent]="(topic.vote.endsAt | amDateFormat : 'L LT Z') || ('VIEWS.MY_TOPICS_TOPICID.LBL_VOTE_DEADLINE_NONE' | translate)"></span>
+                <span class="separator">|</span>
+                <!--cos-modal-datepicker ng-model="topic.vote.endsAt"
+                  cos-modal-title="'VIEWS.MY_TOPICS_TOPICID.LBL_VOTE_DEADLINE' | translate"
+                  cos-modal-description="topic.title" cos-modal-on-save="doSaveVoteEndsAt"></!--cos-modal-datepicker>
+              </div>
+            </div>
+          </div>
+        </!--div-->
+        <div class="clearer"></div>
       </div>
-
-
-  </!--div-->
+    </div>
+  </div>
 
   <!-- GROUP LIST -->
   <div class="info_container group_list" id="group_list" #groupListEl>
@@ -248,26 +236,26 @@
           (click)="groupListSearch = !groupListSearch; groupList=true; $event.stopPropagation()"
           translate="VIEWS.MY_TOPICS_TOPICID.LNK_SEARCH"></div>
         <span *ngIf="(TopicMemberGroupService.countTotal$ | async) && TopicService.canUpdate(topic)">|</span>
-        <div class="blue_link" *ngIf="TopicService.canUpdate(topic)"
-        [routerLink]="['/my/topics/', topic.id, 'invite']" [queryParams]="{tab: 'invite'}"
-        (click)="$event.stopPropagation()"
+        <div class="blue_link" *ngIf="TopicService.canUpdate(topic)" [routerLink]="['invite']"
+          [queryParams]="{tab: 'invite'}" (click)="$event.stopPropagation()"
           translate="VIEWS.MY_TOPICS_TOPICID.LNK_ADD"></div>
       </div>
       <div class="minimize_container" *ngIf="TopicMemberGroupService.countTotal$ | async">
         <div [ngClass]="!groupList ? 'sprite-btn-expand2x' : 'sprite-btn-minimize2x'" class="sprite"></div>
       </div>
     </div>
-    <!--div class="container_header second_header" *ngIf="groupListSearch">
+    <div class="container_header second_header" *ngIf="groupListSearch">
       <div class="table_cell">
         <input placeholder="{{'VIEWS.MY_TOPICS_TOPICID.PLACEHOLDER_TOPIC_TITLE_PERMISSION' | translate}}"
-          (change)="TopicMemberGroupService.setParam('search', '')" ng-model-options="{debounce:250}"
+          (ngModelChange)="TopicMemberGroupService.setParam('search', TopicMemberGroupService.params.search)"
           [(ngModel)]="TopicMemberGroupService.params.search">
       </div>
       <div class="table_cell">
-        <div class="blue_link" (click)="TopicMemberGroupService.setParam('search', '')"
-          translate="VIEWS.MY_TOPICS_TOPICID.LNK_CLEAR_SEARCH">clear filter</div>
+        <div class="blue_link"
+          (click)="TopicMemberGroupService.params.search = '';TopicMemberGroupService.setParam('search', TopicMemberGroupService.params.search);"
+          translate="VIEWS.MY_TOPICS_TOPICID.LNK_CLEAR_SEARCH"></div>
       </div>
-    </!--div-->
+    </div>
     <div class="container_content" *ngIf="groupList">
       <div class="pretend_table">
         <div class="pretend_tr">
@@ -328,24 +316,25 @@
           translate="VIEWS.MY_TOPICS_TOPICID.LNK_FILTER"></div>
         <span *ngIf="TopicService.canUpdate(topic)">|</span>
         <div class="blue_link" *ngIf="TopicService.canUpdate(topic)" translate="VIEWS.MY_TOPICS_TOPICID.LNK_INVITE"
-        [routerLink]="['/my/topics/', topic.id, 'invite']" [queryParams]="{tab: 'invite'}" (click)="$event.stopPropagation()">
+          [routerLink]="['invite']" [queryParams]="{tab: 'invite'}" (click)="$event.stopPropagation()">
         </div>
       </div>
       <div class="minimize_container">
         <div [ngClass]="!userList ? 'sprite-btn-expand2x' : 'sprite-btn-minimize2x'" class="sprite"></div>
       </div>
     </div>
-    <!--div class="container_header second_header" *ngIf="userListSearch">
+    <div class="container_header second_header" *ngIf="userListSearch">
       <div class="table_cell">
         <input placeholder="{{'VIEWS.MY_TOPICS_TOPICID.PLACEHOLDER_NAME_PERMISSION' | translate}}"
-          ng-change="TopicMemberUserService.doSearch(); loadTopicInviteUserList();" ng-model-options="{debounce:250}"
-          ng-model="TopicMemberUserService.search">
+          (ngModelChange)="TopicMemberUserService.setParam('search', TopicMemberUserService.params.search)"
+          ng-model-options="{debounce:250}" [(ngModel)]="TopicMemberUserService.params.search">
       </div>
       <div class="table_cell">
-        <div class="blue_link" (click)="TopicMemberUserService.search = ''"
-          translate="VIEWS.MY_TOPICS_TOPICID.LNK_CLEAR_FILTER">clear filter</div>
+        <div class="blue_link"
+          (click)="TopicMemberUserService.params.search = '';TopicMemberUserService.setParam('search', TopicMemberUserService.params.search);"
+          translate="VIEWS.MY_TOPICS_TOPICID.LNK_CLEAR_FILTER"></div>
       </div>
-    </!--div-->
+    </div>
     <div class="container_content" *ngIf="userList">
       <div class="pretend_table">
         <div class="pretend_tr">
@@ -386,65 +375,15 @@
           </div>
         </div>
         <!-- TopicInviteUsers -->
-        <!--div class="pretend_tr" ng-repeat="invite in topicInviteUserService.users">
-                  <div class="pretend_td">
-                      <div class="profile_image_wrapper dark">
-                          <!--div class="profile_moon sprite sprite-icon-certified-fb2x"></div>
-                          <div class="account_picture">
-                              <img *ngIf="invite.user.imageUrl" ng-src="{{invite.user.imageUrl}}">
-                              <div *ngIf="!invite.user.imageUrl" class="profile_image_filler">
-                                  <cos-initials class="table_cell" ng-model="invite.user.name"></cos-initials>
-                                  <div class="profile_circle"></div>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="name_wrap">
-                          <div class="table_cell smooth_gray">
-                              <div [textContent]="invite.user.name">John Smith</div>
-                              <div class="via">
-                                  <span *ngIf="invite.user.email || invite.user.phoneNumber">
-                                      {{invite.user.email}} {{invite.user.phoneNumber}}
-                                  </span>
-                                  <span>
-                                      <span *ngIf="invite.user.email || invite.user.phoneNumber"> • </span>
-                                      <span translate="VIEWS.MY_TOPICS_TOPICID.TXT_INVITE_PENDING">Pending invite</span>
-                                  </span>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="pretend_td">
-                      <span class="user_level_text">{{'TXT_TOPIC_LEVELS_' + invite.level | uppercase | translate}}</span>
-                      <!--div cos-dropdown class="classic_dropdown" cos-disabled>
-                          <div class="dropdown_selection">
-                              <div class="dropdown_text">{{'TXT_TOPIC_LEVELS_' + invite.level | uppercase | translate}}</div>
-
-                              <div class="arrow_holder">
-                                  <div class="table_cell">
-                                      <div class="sprite sprite-icon-dropdown-arrowdown2x"></div>
-
-                                      <div class="v_line"></div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="pretend_td recycle_bin_wrap">
-                      <div class="btn_wrap recycle_bin" *ngIf="TopicService.canUpdate(topic)">
-                          <div class="btn" (click)="doDeleteInviteUser(invite)">
-                              <div class="table_cell">
-                                  <div class="sprite desktop_fix sprite-mytopics-icon-deletetopic2x"></div>
-                                  <div class="sprite mobile_fix sprite-mytopics-icon-deletetopic2x"></div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </!--div>
-              <div-- class="pretend_tr">
-                  <div class="pagination_wrapper">
-                      <cos-pagination class="pagination" select="topicInviteUserService.loadPage(page)" total-pages="topicInviteUserService.totalPages" page="topicInviteUserService.page"></cos-pagination>
-                  </div>
-              </div-->
+        <topic-member-invite class="pretend_tr" *ngFor="let invite of memberInvites$ | async" [invite]="invite"
+          [topic]="topic" fields="['level', 'remove']"></topic-member-invite>
+        <div class="pretend_tr">
+          <div class="pagination_wrapper">
+            <cos-pagination class="pagination" (select)="TopicInviteUserService.loadPage($event)"
+              [totalPages]="(TopicInviteUserService.totalPages$ | async) || 0"
+              [page]="(TopicInviteUserService.page$ | async) || 0"></cos-pagination>
+          </div>
+        </div>
       </div>
     </div>
 

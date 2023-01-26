@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { of, BehaviorSubject, Observable, combineLatest } from 'rxjs';
-import { switchMap, catchError, share, tap, map, } from 'rxjs/operators';
+import { switchMap, catchError, tap, map, } from 'rxjs/operators';
 import { LocationService } from './location.service';
 import { NotificationService } from './notification.service';
 import { User } from '../interfaces/user';
@@ -12,7 +12,7 @@ import { User } from '../interfaces/user';
 export class AuthService {
   public user$: Observable<User> | null;
   public loggedIn$ = new BehaviorSubject(false);
-  public user = new BehaviorSubject({id: null});
+  public user = new BehaviorSubject({ id: null });
 
   constructor(private Location: LocationService, private http: HttpClient, private Notification: NotificationService) {
     this.user$ = this.status();
@@ -25,13 +25,19 @@ export class AuthService {
 
   resolveAuthorizedPath(path: string) {
     let authorized = '';
-    if (this.loggedIn$.value) {
-      authorized = '/users/self';
-    }
+    const pathName = this.loggedIn$.subscribe((res) => {
+      console.log('loggedIn', this.loggedIn$)
+      if (res === true) {
+        authorized = '/users/self';
+      }
+
+      return `/api${authorized}${path}`
+    });
+    console.log(pathName)
     return `/api${authorized}${path}`
   }
 
-  signUp (email: string, password: string, name: string, company: string, redirectSuccess: string, preferences: object, termsVersion: string) {
+  signUp(email: string, password: string, name: string, company: string, redirectSuccess: string, preferences: object, termsVersion: string) {
     const data = {
       email: email,
       password: password,
@@ -47,59 +53,58 @@ export class AuthService {
     return this.http.post(path, data);
   };
 
-  login (email: string, password: string){
-      const data = {
-          email: email,
-          password: password
-      };
+  login(email: string, password: string) {
+    const data = {
+      email: email,
+      password: password
+    };
 
-      const path = this.Location.getAbsoluteUrlApi('/api/auth/login');
+    const path = this.Location.getAbsoluteUrlApi('/api/auth/login');
 
-      return this.http.post<any>(path, data, { withCredentials:true, responseType: 'json', observe: 'body'}).pipe(
-        map((data) => {
-          return data;
-        }),
-        share()
-      );
+    return this.http.post<any>(path, data, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
+      map((data) => {
+        return data;
+      })
+    );
   };
 
-  logout () {
+  logout() {
     const pathLogoutEtherpad = this.Location.getAbsoluteUrlEtherpad('/ep_auth_citizenos/logout');
     const pathLogoutAPI = this.Location.getAbsoluteUrlApi('/api/auth/logout');
 
     return combineLatest([
-      this.http.get(pathLogoutEtherpad, { withCredentials: true , responseType: 'text'}),
-      this.http.post(pathLogoutAPI, {}, {withCredentials: true})]).pipe(
-      switchMap(([res]) => {
-        this.user$ = null;
-        return res;
-      }),
-      catchError((err) => {
-        console.log(err); return err;
-      })
-    ).subscribe();
+      this.http.get(pathLogoutEtherpad, { withCredentials: true, responseType: 'text' }),
+      this.http.post(pathLogoutAPI, {}, { withCredentials: true })]).pipe(
+        switchMap(([res]) => {
+          this.user$ = null;
+          return res;
+        }),
+        catchError((err) => {
+          console.log(err); return err;
+        })
+      ).subscribe();
   }
 
-  status () {
+  status() {
     const path = this.Location.getAbsoluteUrlApi('/api/auth/status');
-    return this.user$ = this.http.get<User>(path, { withCredentials: true, responseType: 'json', observe: 'body' } ).pipe(
+    return this.user$ = this.http.get<User>(path, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
       switchMap((res: any) => {
         const user = res.data;
         user.loggedIn = true;
-        this.user.next({id: user.id});
+        this.user.next({ id: user.id });
         this.loggedIn$.next(true);
         return of(user);
       }),
-      catchError( res => {
+      catchError(res => {
         console.log('STATUS ERR', res.error)
-          if (res.error) {
-            if (res.status !== 401) {
-              this.Notification.addError(res.error.status.message);
-            }
+        if (res.error) {
+          if (res.status !== 401) {
+            this.Notification.addError(res.error.status.message);
           }
-          return of(null);
+        }
+        return of(null);
       }),
-      share()
+      map(res =>res)
     );
   };
 }

@@ -40,8 +40,8 @@ export class SearchService {
 */
   search(str: string, params?: any) {
     const path = this.Location.getAbsoluteUrlApi('/api/search');
-
-    return this.http.get(path, { withCredentials: true, observe: 'body', responseType: 'json', params: { str } }).pipe(switchMap((res: any) => {
+    const queryParams = Object.assign({ str }, params);
+    return this.http.get(path, { withCredentials: true, observe: 'body', responseType: 'json', params: queryParams }).pipe(switchMap((res: any) => {
       const results = res.data;
       return of(results);
     }))

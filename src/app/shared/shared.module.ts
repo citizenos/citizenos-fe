@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TopicboxComponent } from '../public-topics/components/topicbox/topicbox.component';
@@ -19,6 +20,9 @@ import { ActivityComponent } from './components/activity/activity.component';
 import { CosToggleComponent } from './components/cos-toggle/cos-toggle.component';
 import { TopicMemberUserComponent } from '../topic/components/topic-member-user/topic-member-user.component';
 import { TopicMemberGroupComponent } from '../topic/components/topic-member-group/topic-member-group.component';
+import { TopicMemberInviteComponent } from '../topic/components/topic-member-invite/topic-member-invite.component';
+import { TopicMemberInviteDeleteComponent } from '../topic/components/topic-member-invite-delete/topic-member-invite-delete.component';
+import { TopicVoteCastComponent } from '../topic/components/topic-vote-cast/topic-vote-cast.component';
 @NgModule({
   declarations: [
     ActivityComponent,
@@ -30,13 +34,17 @@ import { TopicMemberGroupComponent } from '../topic/components/topic-member-grou
     PublicgroupboxComponent,
     SocialshareDirective,
     TooltipDirective,
+    TopicMemberInviteComponent,
+    TopicMemberInviteDeleteComponent,
     TopicMemberUserComponent,
     TopicMemberGroupComponent,
+    TopicVoteCastComponent,
     TopicboxComponent,
     TypeaheadComponent,
     TypeaheadItem,
   ],
   imports: [
+    RouterModule,
     CommonModule,
     FormsModule,
     MatDialogModule,
@@ -58,8 +66,11 @@ import { TopicMemberGroupComponent } from '../topic/components/topic-member-grou
     SocialshareDirective,
     TooltipDirective,
     TopicboxComponent,
+    TopicMemberInviteComponent,
+    TopicMemberInviteDeleteComponent,
     TopicMemberUserComponent,
     TopicMemberGroupComponent,
+    TopicVoteCastComponent,
     TypeaheadComponent,
     TypeaheadItem
    ]

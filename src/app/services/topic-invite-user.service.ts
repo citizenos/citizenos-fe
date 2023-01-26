@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LocationService } from './location.service';
-import { Observable, BehaviorSubject, map, share } from 'rxjs';
+import { Observable, BehaviorSubject, map } from 'rxjs';
 import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { ItemsListService } from './items-list.service';
 
@@ -20,14 +20,11 @@ export class TopicInviteUserService extends ItemsListService {
     return this.query(params);
   }
 
-  query(params: any) {
+  query(params: { [key: string]: any }) {
     let path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/invites/users', params);
-
-    return this.http.get(path, { params, withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
-      map((data) => {
-        return data;
-      }),
-      share()
+    const queryParams = Object.fromEntries(Object.entries(params).filter((i) => i[1] !== null));
+    return this.http.get<ApiResponse>(path, { params: queryParams, withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
+      map(res => res.data)
     );
   }
 
@@ -50,8 +47,7 @@ export class TopicInviteUserService extends ItemsListService {
     return this.http.post<ApiResponse>(path, data, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
       map((res) => {
         return res.data;
-      }),
-      share()
+      })
     );
   }
 

@@ -37,8 +37,7 @@ export class GroupMemberUserService extends ItemsListService {
     return this.http.get<ApiResponse>(path, { withCredentials: true }).pipe(
       map((res) => {
         return res.data;
-      }),
-      share()
+      })
     )
   }
 
@@ -48,8 +47,7 @@ export class GroupMemberUserService extends ItemsListService {
     return this.http.post<ApiResponse>(path, data, { withCredentials: true }).pipe(
       map((res) => {
         return res.data;
-      }),
-      share()
+      })
     )
   }
 
@@ -59,8 +57,7 @@ export class GroupMemberUserService extends ItemsListService {
     return this.http.put<ApiResponse>(path, data, { withCredentials: true }).pipe(
       map((res) => {
         return res.data;
-      }),
-      share()
+      })
     )
   }
 
@@ -73,8 +70,7 @@ export class GroupMemberUserService extends ItemsListService {
     return this.http.get<ApiResponse>(path, { withCredentials: true, params: queryParams, observe: 'body', responseType: 'json' }).pipe(
       map((res: any) => {
         return res.data;
-      }),
-      share()
+      })
     )
   }
 
@@ -84,8 +80,7 @@ export class GroupMemberUserService extends ItemsListService {
     return this.http.delete<ApiResponse>(path, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
       map((data) => {
         return data;
-      }),
-      share()
+      })
     )
   }
 }

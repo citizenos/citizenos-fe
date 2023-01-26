@@ -1,13 +1,12 @@
 <ng-container *ngIf="topic && group">
   <div class="pretend_td">
-    <div class="blue_link" *ngIf="group.permission.level"
-      ui-sref="my/groups/groupId({groupId: group.id, filter: 'grouped'})" ui-sref-opts="{reload: true}"
-      [textContent]="group.name">Group name</div>
+    <div class="blue_link" *ngIf="group.permission.level" [routerLink]="['/my/groups/', group.id]"
+      [textContent]="group.name"></div>
     <div *ngIf="!group.permission.level"><i class="disabled"
-        translate="VIEWS.MY_TOPICS_TOPICID.LBL_INACCESSIBLE_GROUP">Inaccessible Group</i></div>
+        translate="VIEWS.MY_TOPICS_TOPICID.LBL_INACCESSIBLE_GROUP"></i></div>
   </div>
   <div class="pretend_td">
-    <div cos-dropdown class="classic_dropdown" *ngIf="TopicService.canUpdate(topic)">
+    <div [cosDropdown] class="classic_dropdown" *ngIf="TopicService.canUpdate(topic)">
       <div class="dropdown_selection">
         <div class="dropdown_text">{{'TXT_TOPIC_LEVELS_' + group.level | uppercase | translate}}</div>
 
@@ -21,9 +20,7 @@
       </div>
       <div class="dropdown">
         <div class="dropdown_item" *ngFor="let level of groupLevels">
-          <div class="item_name" (click)="doUpdateMemberGroup(level)">{{'TXT_TOPIC_LEVELS_' +
-            level |
-            uppercase | translate}}</div>
+          <div class="item_name" (click)="doUpdateMemberGroup(level)">{{'TXT_TOPIC_LEVELS_' +level | uppercase | translate}}</div>
         </div>
       </div>
     </div>

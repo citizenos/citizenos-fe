@@ -1,20 +1,20 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { isEmail } from 'validator';
-import { take, of, switchMap, BehaviorSubject, filter, find, combineLatest } from 'rxjs';
+import { take, of, switchMap, forkJoin, combineLatest } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicService } from 'src/app/services/topic.service';
 import { TopicMemberGroup } from 'src/app/interfaces/group';
 import { TopicMemberUser } from 'src/app/interfaces/user';
-import { validator } from 'fast-json-patch';
 import { NotificationService } from 'src/app/services/notification.service';
 import { SearchService } from 'src/app/services/search.service';
 import { TopicJoinService } from 'src/app/services/topic-join.service';
 import { TopicMemberUserService } from 'src/app/services/topic-member-user.service';
+import { TopicMemberGroupService } from 'src/app/services/topic-member-group.service';
 import { TopicInviteUserService } from 'src/app/services/topic-invite-user.service';
-import { ApiResponse } from 'src/app/interfaces/apiResponse';
+import { ActivatedRoute } from '@angular/router';
 export interface TopicInviteData {
-  topic: BehaviorSubject<Topic>
+  topic: Topic
 };
 
 @Component({
@@ -45,30 +45,33 @@ export class TopicInviteComponent implements OnInit {
   public maxUsers = 550;
 
   public membersPage = 1;
-  public itemsPerPage = 1;
-  public memberGroups = ['users', 'emails'];
+  public itemsPerPage = 10;
+  public memberGroups = ['groups', 'users'];
 
   public invalid = <any[]>[];
   public members = <any[]>[];
   public groupLevel = 'read';
 
-  public tabSelected = 'users';
+  public tabSelected = 'invite';
   public searchString = '';
   public searchResults$ = of({ users: <any[]>[], groups: <any[]>[], emails: <any[]>[], combined: <any[]>[] });
   private EMAIL_SEPARATOR_REGEXP = /[;,\s]/ig;
   public topicLevels = Object.keys(this.TopicService.LEVELS);
 
   constructor(private dialog: MatDialog,
+    private route: ActivatedRoute,
     public dialogRef: MatDialogRef<TopicInviteComponent>,
     @Inject(MAT_DIALOG_DATA) public data: TopicInviteData,
     public TopicMemberUser: TopicMemberUserService,
+    private TopicMemberGroup: TopicMemberGroupService,
     public TopicService: TopicService,
     public TopicJoin: TopicJoinService,
     public Search: SearchService,
     private Notification: NotificationService,
     private TopicInviteUser: TopicInviteUserService,
   ) {
-    this.topic = data.topic.value;
+    this.topic = data.topic;
+    const urlSnap = this.route.snapshot;
   }
 
   ngOnInit(): void {
@@ -141,7 +144,6 @@ export class TopicInviteComponent implements OnInit {
       return;
     }
     if (!member || (typeof member === 'string' && (isEmail(member) || member.match(this.EMAIL_SEPARATOR_REGEXP)))) {
-      console.debug('go to addTopicMemberUser');
       return this.addTopicMemberUser();
     }
     if (member.hasOwnProperty('company')) {
@@ -252,6 +254,12 @@ export class TopicInviteComponent implements OnInit {
     }
   };
 
+  updateGroupLevel(level: string) {
+    this.groupLevel = level;
+    this.members.forEach((item) => {
+      item.level = level;
+    });
+  };
   doRemoveMemberUser(member: TopicMemberUser) {
     this.members.splice(this.members.indexOf(member), 1);
   };
@@ -269,46 +277,39 @@ export class TopicInviteComponent implements OnInit {
   };
 
   doSaveTopic() {
-    /*   this.errors = null;
+    // Users
+    const topicMemberUsersToSave = <any[]>[];
+    //request
+    const membersToSave = <any>{};
+    this.members.forEach((member) => {
+      if (member.groupId) {
+        member = {
+          groupId: member.groupId,
+          topicId: this.topic.id,
+          level: member.level
+        };
 
-       if (this.topic.endsAt && this.topic.endsAt === this.topic.endsAt) { //Remove endsAt field so that topics with endsAt value set could be updated if endsAt is not changed
-         delete this.topic.endsAt;
-       }
+        membersToSave[member.groupId] = this.TopicMemberGroup.save(member);
+      } else {
+        topicMemberUsersToSave.push({
+          userId: member.userId || member.id,
+          inviteMessage: this.inviteMessage,
+          level: member.level
+        })
+      }
+    });
 
-       const savePromises = [];
-       // Users
-       const topicMemberUsersToSave = [];
-       this.members.forEach((member) => {
-         if (member.groupId) {
-           member = {
-             groupId: member.groupId,
-             topicId: this.topic.id,
-             level: member.level
-           };
-
-           savePromises.push(this.TopicMemberGroup.save(member));
-         } else {
-           topicMemberUsersToSave.push({
-             userId: member.userId || member.id,
-             inviteMessage: this.form.inviteMessage,
-             level: member.level
-           })
-         }
-       });
-
-       if (topicMemberUsersToSave.length) {
-         savePromises.push(
-           this.TopicInviteUser.save(this.topic.id, topicMemberUsersToSave)
-         );
-       }
-
-       Promise.all(savePromises).then((data) => {
-         this.$timeout(() => { // Avoid $digest already in progress
-           this.TopicInviteUserService.reload()
-           const dialogs = this.ngDialog.getOpenDialogs();
-           this.ngDialog.close(dialogs[0], '$closeButton');
-         });
-       });*/
+    if (topicMemberUsersToSave.length) {
+      membersToSave['users'] = this.TopicInviteUser.save(this.topic.id, topicMemberUsersToSave)
+    }
+    if (Object.keys(membersToSave).length) {
+      forkJoin(membersToSave)
+        .pipe(take(1))
+        .subscribe((res:any) => {
+          this.dialogRef.close();
+          this.TopicMemberGroup.reset();
+        })
+    }
   };
 
   getExpiresAt() {
@@ -354,7 +355,7 @@ export class TopicInviteComponent implements OnInit {
     }
   };
 
-  loadPage(pageNr:number) {
+  loadPage(pageNr: number) {
     this.membersPage = pageNr;
   };
 

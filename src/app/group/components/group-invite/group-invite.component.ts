@@ -170,7 +170,7 @@ export class GroupInviteComponent implements OnInit {
       this.searchStringUser = '';
     }
   }
-  /*add search handle Observable*/
+
   search(str: any): void {
     if (str && str.length >= 2) {
       this.searchStringUser = str;

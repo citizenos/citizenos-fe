@@ -16,7 +16,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class TopicShareComponent implements OnInit {
   @Input() topic!: Topic;
   join = {
-    level: <string | null>null,
+    level: <string | null>this.TopicService.LEVELS.read,
     token: <string | null>null
   };
   joinUrl = ''
@@ -26,7 +26,12 @@ export class TopicShareComponent implements OnInit {
     private dialog: MatDialog,
     private TopicService: TopicService,
     private TopicJoinService: TopicJoinService,
-    private Location: LocationService) { }
+    private Location: LocationService) {
+    if (this.topic.join) {
+      this.join = this.topic.join;
+    }
+    this.generateJoinUrl();
+  }
 
   ngOnInit(): void {
   }

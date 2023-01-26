@@ -1,20 +1,32 @@
 <div class="pretend_td">
   <div class="profile_image_wrapper dark">
-      <div class="account_picture">
-          <img *ngIf="member.imageUrl" [src]="member.imageUrl">
-          <div *ngIf="!member.imageUrl" class="profile_image_filler">
-              <cos-initials class="table_cell" [name]="member.name"></cos-initials>
-              <div class="profile_circle"></div>
-          </div>
+    <div class="account_picture">
+      <img *ngIf="member.imageUrl" [src]="member.imageUrl">
+      <div *ngIf="!member.imageUrl" class="profile_image_filler">
+        <cos-initials class="table_cell" [name]="member.name"></cos-initials>
+        <div class="profile_circle"></div>
       </div>
+    </div>
   </div>
   <div class="name_wrap">
-      <div class="table_cell">
-          <div [innerText]="member.name"></div>
-          <div class="via">
-              {{member.email}} {{member.phoneNumber}}
-          </div>
+    <div class="table_cell">
+      <div [innerText]="member.name"></div>
+      <div class="via">
+        <span *ngIf="member.email || member.phoneNumber">{{member.email}} {{member.phoneNumber}} </span>
+
+        <span *ngIf="member.groups.rows.length && !member.levelUser">
+          <span *ngIf="member.email || member.phoneNumber"> • </span>
+          <span translate="VIEWS.MY_TOPICS_TOPICID.LBL_VIA"></span>
+          <ng-container *ngFor="let group of member.groups.rows; let i = index;">
+            <span *ngIf="i !== 0">,</span>
+            <span *ngIf="group.name" class="blue_link" [routerLink]="['/my/groups/', group.id]"> {{group.name}} </span>
+            <i *ngIf="!group.name" class="disabled" translate="VIEWS.MY_TOPICS_TOPICID.LBL_INACCESSIBLE_GROUP"
+              [translateParams]="{level:('TXT_TOPIC_LEVELS_'+group.level | uppercase | translate)}"></i>
+            <i class="disabled">({{'TXT_TOPIC_LEVELS_'+group.level | uppercase | translate}})</i>
+          </ng-container>
+        </span>
       </div>
+    </div>
   </div>
 </div>
 
@@ -25,35 +37,36 @@
 <div class="pretend_td" *ngIf="isVisibleField('level')">
   <div class="pretend_table_mobile_text mobile_label" translate="VIEWS.PUBLIC_GROUP.LNK_ROLE"></div>
   <div [cosDropdown] class="classic_dropdown" *ngIf="canUpdate()">
-      <div class="dropdown_selection">
-          <div class="dropdown_text">{{'TXT_TOPIC_LEVELS_' + member.level | uppercase | translate}}</div>
+    <div class="dropdown_selection">
+      <div class="dropdown_text">{{'TXT_TOPIC_LEVELS_' + member.level | uppercase | translate}}</div>
 
-          <div class="arrow_holder">
-              <div class="table_cell">
-                  <div class="sprite sprite-icon-dropdown-arrowdown2x"></div>
+      <div class="arrow_holder">
+        <div class="table_cell">
+          <div class="sprite sprite-icon-dropdown-arrowdown2x"></div>
 
-                  <div class="v_line"></div>
-              </div>
-          </div>
+          <div class="v_line"></div>
+        </div>
       </div>
-      <div class="dropdown" *ngIf="canUpdate()">
-          <div class="dropdown_item" *ngFor="let level of userLevels">
-              <div class="item_name" (click)="doUpdateMemberUser(level)">{{'TXT_TOPIC_LEVELS_' + level | uppercase | translate}}</div>
-          </div>
+    </div>
+    <div class="dropdown" *ngIf="canUpdate()">
+      <div class="dropdown_item" *ngFor="let level of userLevels">
+        <div class="item_name" (click)="doUpdateMemberUser(level)">{{'TXT_TOPIC_LEVELS_' + level | uppercase |
+          translate}}</div>
       </div>
+    </div>
   </div>
   <div *ngIf="!canUpdate() ">
-      <span class="user_level_text">{{'TXT_TOPIC_LEVELS_' + member.level | uppercase | translate}}</span>
+    <span class="user_level_text">{{'TXT_TOPIC_LEVELS_' + member.level | uppercase | translate}}</span>
   </div>
 </div>
 <div class="pretend_td recycle_bin_wrap" *ngIf="canUpdate() && isVisibleField('remove')">
   <div class="pretend_table_mobile_text mobile_label" translate="VIEWS.PUBLIC_GROUP.LBL_REMOVE">Level</div>
   <div class="btn_wrap recycle_bin">
-      <div class="btn" (click)="doDeleteMemberUser()">
-          <div class="table_cell">
-              <div class="sprite desktop_fix sprite-mytopics-icon-deletetopic2x"></div>
-              <div class="sprite mobile_fix sprite-mytopics-icon-deletetopic2x"></div>
-          </div>
+    <div class="btn" (click)="doDeleteMemberUser()">
+      <div class="table_cell">
+        <div class="sprite desktop_fix sprite-mytopics-icon-deletetopic2x"></div>
+        <div class="sprite mobile_fix sprite-mytopics-icon-deletetopic2x"></div>
       </div>
+    </div>
   </div>
 </div>

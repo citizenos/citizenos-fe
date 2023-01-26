@@ -7,6 +7,7 @@ import { TopicService } from 'src/app/services/topic.service';
 import { Observable, take, map, switchMap, BehaviorSubject, tap, of } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicMemberUserService } from 'src/app/services/topic-member-user.service';
+import { TopicInviteUserService } from 'src/app/services/topic-invite-user.service';
 import { TopicMemberGroupService } from 'src/app/services/topic-member-group.service';
 import { TranslateService } from '@ngx-translate/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -26,11 +27,13 @@ export class MyTopicComponent implements OnInit {
   allActivities$ = <any[]>[];
   memberGroups$ = of(<any[]>[]);
   memberUsers$ = of(<any[]>[]);
+  memberInvites$ = of(<any[]>[]);
 
   groupLevels = Object.keys(this.TopicService.LEVELS);
   //Sections
   generalInfo = true;
   activityFeed = false;
+  voteResults = false;
   groupList = false;
   groupListSearch = false;
   userList = false;
@@ -46,6 +49,7 @@ export class MyTopicComponent implements OnInit {
     public dialog: MatDialog,
     public TopicMemberUserService: TopicMemberUserService,
     public TopicMemberGroupService: TopicMemberGroupService,
+    public TopicInviteUserService: TopicInviteUserService,
     private route: ActivatedRoute,
     private router: Router,
     public TopicActivityService: TopicActivityService
@@ -69,6 +73,14 @@ export class MyTopicComponent implements OnInit {
         this.TopicMemberUserService.setParam('topicId', params['topicId']);
         return this.TopicMemberUserService.loadItems()
       }));
+
+    this.memberInvites$ = this.route.params.pipe(
+      switchMap((params) => {
+        this.TopicInviteUserService.params.topicId = params['topicId'];
+        this.TopicInviteUserService.setParam('topicId', params['topicId']);
+        return this.TopicInviteUserService.loadItems()
+      }));
+
     this.activities$ = this.route.params.pipe(
       switchMap((params) => {
         this.TopicActivityService.setParam('topicId', params['topicId']);
@@ -155,16 +167,13 @@ export class MyTopicComponent implements OnInit {
     this.activityFeed = !this.activityFeed;
   };
 
+  doToggleVoteResults() {
+    this.voteResults = !this.voteResults;
+  };
+
   doToggleMemberGroupList() {
     this.TopicMemberGroupService.reset();
     this.groupList = !this.groupList;
-    /*   this.toggleTabParam('group_list')
-           .then(() => {
-               if (!doShowList) {
-                   this.doShowMemberGroupList();
-                   this.checkIfInView('group_list');
-               }
-           });*/
   };
 
   doToggleMemberUserList() {
