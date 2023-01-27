@@ -30,7 +30,6 @@ export class CosToggleComponent implements OnInit {
     } else {
       this.model = !this.model;
     }
-    console.log('toggle', this.model)
   };
 
   isEnabled() {

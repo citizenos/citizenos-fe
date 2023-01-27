@@ -1,9 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { LocationService } from './location.service';
-import { Observable, BehaviorSubject, map } from 'rxjs';
+import { Observable, BehaviorSubject, map, take } from 'rxjs';
 import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { ItemsListService } from './items-list.service';
+import { AuthService } from './auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { Topic } from '../interfaces/topic';
+import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +16,7 @@ import { ItemsListService } from './items-list.service';
 export class TopicMemberUserService extends ItemsListService {
   params = Object.assign({ topicId: <string>'' }, this.defaultParams);
   params$ = new BehaviorSubject(this.params);
-  constructor(private Location: LocationService, private http: HttpClient) {
+  constructor(private dialog: MatDialog, private Location: LocationService, private http: HttpClient, private AuthService: AuthService, private router: Router) {
     super();
     this.items$ = this.loadItems();
   }
@@ -51,4 +56,26 @@ export class TopicMemberUserService extends ItemsListService {
       })
     );
   }
+
+  doLeaveTopic(topic: Topic, redirect: string[]) {
+    const leaveDialog = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        level: 'delete',
+        heading: 'MODALS.TOPIC_MEMBER_USER_LEAVE_CONFIRM_HEADING',
+        title: 'MODALS.TOPIC_MEMBER_USER_LEAVE_CONFIRM_TXT_ARE_YOU_SURE',
+        points: ['MODALS.TOPIC_MEMBER_USER_LEAVE_CONFIRM_TXT_LEAVING_TOPIC_DESC'],
+        confirmBtn: 'MODALS.TOPIC_MEMBER_USER_LEAVE_CONFIRM_BTN_YES',
+        closeBtn: 'MODALS.TOPIC_MEMBER_USER_LEAVE_CONFIRM_BTN_NO'
+      }
+    });
+    leaveDialog.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.delete({ id: this.AuthService.user.value.id, topicId: topic.id })
+          .pipe(take(1))
+          .subscribe(() => {
+            this.router.navigate(redirect);
+          });
+      }
+    });
+  };
 }

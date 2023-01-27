@@ -115,51 +115,11 @@ export class MyTopicComponent implements OnInit {
   }
 
   doLeaveTopic(topic: Topic) {
-    const leaveDialog = this.dialog.open(ConfirmDialogComponent, {
-      data: {
-        level: 'delete',
-        heading: 'MODALS.TOPIC_MEMBER_USER_LEAVE_CONFIRM_HEADING',
-        title: 'MODALS.TOPIC_MEMBER_USER_LEAVE_CONFIRM_TXT_ARE_YOU_SURE',
-        points: ['MODALS.TOPIC_MEMBER_USER_LEAVE_CONFIRM_TXT_LEAVING_TOPIC_DESC'],
-        confirmBtn: 'MODALS.TOPIC_MEMBER_USER_LEAVE_CONFIRM_BTN_YES',
-        closeBtn: 'MODALS.TOPIC_MEMBER_USER_LEAVE_CONFIRM_BTN_NO'
-      }
-    });
-    leaveDialog.afterClosed().subscribe(result => {
-      if (result === true) {
-        this.TopicMemberUserService
-          .delete({ id: this.AuthService.user.value.id, topicId: topic.id })
-          .pipe(take(1))
-          .subscribe(() => {
-            /* this.$state.go('my/topics', null, { reload: true });*/
-            this.router.navigate([this.Translate.currentLang, 'my', 'topics']);
-          });
-      }
-    });
+    this.TopicMemberUserService.doLeaveTopic(topic, [this.Translate.currentLang, 'my', 'topics']);
   };
 
   doDeleteTopic(topic: Topic) {
-    const deleteDialog = this.dialog.open(ConfirmDialogComponent, {
-      data: {
-        level: 'delete',
-        heading: 'MODALS.TOPIC_DELETE_CONFIRM_HEADING',
-        title: 'MODALS.TOPIC_DELETE_CONFIRM_TXT_ARE_YOU_SURE',
-        description: 'MODALS.TOPIC_DELETE_CONFIRM_TXT_NO_UNDO',
-        points: ['MODALS.TOPIC_DELETE_CONFIRM_TXT_TOPIC_DELETED', 'MODALS.TOPIC_DELETE_CONFIRM_TXT_DISCUSSION_DELETED', 'MODALS.TOPIC_DELETE_CONFIRM_TXT_TOPIC_REMOVED_FROM_GROUPS'],
-        confirmBtn: 'MODALS.TOPIC_DELETE_CONFIRM_YES',
-        closeBtn: 'MODALS.TOPIC_DELETE_CONFIRM_NO'
-      }
-    });
-    deleteDialog.afterClosed().subscribe(result => {
-      if (result === true) {
-        this.TopicService
-          .delete(topic)
-          .pipe(take(1))
-          .subscribe((res) => {
-            this.router.navigate([this.Translate.currentLang, 'my', 'topics']);
-          })
-      }
-    });
+    this.TopicService.doDeleteTopic(topic, [this.Translate.currentLang, 'my', 'topics']);
   };
 
   doToggleActivities() {

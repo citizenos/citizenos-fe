@@ -193,7 +193,7 @@
     <div class="container_content" *ngIf="voteResults">
       <div class="content_bottom">
         <!-- COLUMN 1 -->
-        <topic-vote-cast class="content_column" vote="topic.vote"></topic-vote-cast>
+        <topic-vote-cast class="content_column" [vote]="topic.vote" [topic]="topic"></topic-vote-cast>
         <!--COLUMN 2 -->
         <!--div class="content_column">
           <div class="content_item">

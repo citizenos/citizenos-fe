@@ -50,7 +50,7 @@
       <div class="message_title" translate="VIEWS.TOPICS_TOPICID.HEADING_VOTE_REGISTERED"></div>
       <div class="float_wrap">
         <div class="blue_link" [ngClass]="{hidden: vote.authType !== VOTE_AUTH_TYPES.hard}">
-          <a ng-href="{{vote.downloads.bdocVote}}" translate="VIEWS.TOPICS_TOPICID.BTN_DOWNLOAD_USER_BDOC" download></a>
+          <a [href]="vote.downloads.bdocVote" translate="VIEWS.TOPICS_TOPICID.BTN_DOWNLOAD_USER_BDOC" download></a>
         </div>
       </div>
       <div class="clearer"></div>
@@ -67,39 +67,35 @@
       [translateParams]="{maxChoices: vote.maxChoices}"></div>
   </div>
   <div class="vote_casting_overlay"
-    *ngIf="vote.authType === VOTE_AUTH_TYPES.soft && !hasVoteEnded() && !app.user.loggedIn">
-    <h3 translate-compile translate="VIEWS.TOPICS_TOPICID.LOG_IN_TO_PARTICIPATE">You need to
-      <div class="blue_link">log in</div>
-      to comment
-    </h3>
+    *ngIf="vote.authType === VOTE_AUTH_TYPES.soft && !hasVoteEnded() && !(AuthService.loggedIn$ | async)">
+    <h3 translate-compile translate="VIEWS.TOPICS_TOPICID.LOG_IN_TO_PARTICIPATE"></h3>
   </div>
   <div class="voting_platform_buttons" *ngIf="!hasVoteEnded()">
 
-    <div class="voting_button" ng-click="selectOption(option)" ng-disabled="!topic.canVote()"
-      [ngClass]="(option.selected) ? 'active': ''" ng-repeat="(key, option) in vote.options.rows">
+    <div class="voting_button" (click)="selectOption(option)" [attr.disabled]="!canVote()"
+      [ngClass]="(option.selected) ? 'active': ''" *ngFor="let option of vote.options.rows">
       <div class="table_cell left_side">
         <label class="checkcontainer" *ngIf="!isRadio(vote, option)">
-          <input type="checkbox" class="vote_option_radio" checked="(option.selected) ? 'checked: ''"
-            ng-click="selectOption(option)">
+          <input type="checkbox" class="vote_option_radio" [checked]="option.selected"
+            (click)="selectOption(option)">
           <span class="option_checkbox"></span>
         </label>
         <label class="checkcontainer" *ngIf="isRadio(vote, option)">
-          <input type="radio" class="vote_option_radio" ng-click="selectOption(option)">
+          <input type="radio" class="vote_option_radio" (click)="selectOption(option)">
           <span class="option_radio"></span>
         </label>
 
       </div>
       <div class="table_cell right_side"
-        translate="{{'VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_' + option.value | linky | uppercase}}"
-        translate-default="{{option.value | linky}}"></div>
-    </div>
+        translate="{{'VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_' + option.value  | uppercase}}"></div>
+    </div><!--'VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_' + option.value | linky | uppercase}} translate-default="{{option.value}}pip-->
 
   </div>
 
   <!--div-- class="delegation_section" *ngIf="!hasVoteEnded()">
 
     <div class="voting_button" *ngIf="(canDelegate() && vote.authType !== VOTE_AUTH_TYPES.hard)"
-      [ngClass]="vote.delegation ? 'active' : ''" ng-click="doDelegate()">
+      [ngClass]="vote.delegation ? 'active' : ''" (click)="doDelegate()">
       <div class="table_cell left_side">
         <div class="sprite sprite-icon-delegate2x"></div>
       </div>
@@ -129,7 +125,7 @@
         </div>
 
         <div class="table_cell">
-          <div class="blue_button" ng-click="doRevokeDelegation()"
+          <div class="blue_button" (click)="doRevokeDelegation()"
             translate="VIEWS.TOPICS_TOPICID.VOTE_REVOKE_DELEGATION">Revoke your delegation</div>
         </div>
       </div>
@@ -139,89 +135,12 @@
   <div class="line lightest_line multiplechoice" *ngIf="!hasVoteEnded()"></div>
   <div class="vote_multiple_submit_section" *ngIf="!hasVoteEnded()">
     <div class="table_cell" cos-disabled="!canSubmit()">
-      <div class="blue_button" ng-click="doVote()" translate="VIEWS.TOPICS_TOPICID.VOTE_SUBMIT">Submit your vote</div>
+      <div class="blue_button" (click)="doVote()" translate="VIEWS.TOPICS_TOPICID.VOTE_SUBMIT">Submit your vote</div>
     </div>
   </div>
 
   <!-- Statistics graph start -->
-  <div class="vote_casting_message" *ngIf="hasVoteEndedExpired() || hasVoteEnded()">
-
-    <div class="message_header">
-      <div class="message_title" translate="VIEWS.TOPICS_TOPICID.VOTE_HEADING_VOTE_CLOSED"></div>
-      <div class="clearer"></div>
-    </div>
-
-    <div *ngIf="Topic.canUpdate(topic)" class="message_content print_never"
-      translate="VIEWS.TOPICS_TOPICID.VOTE_TXT_VOTE_CLOSED">
-    </div>
-
-    <div *ngIf="hasVoteEndedExpired() && Topic.canUpdate(topic)" class="print_never">
-      <div class="message_content" translate="VIEWS.TOPICS_TOPICID.VOTE_TXT_VOTE_CLOSED_EXPIRED"></div>
-      <div class="voting_button voting_button_blue active">
-        <div class="table_cell" ng-click="sendToFollowUp('topics/view/votes/view')"
-          translate="VIEWS.TOPICS_TOPICID.NAV_LNK_SEND_TO_FOLLOW_UP"></div>
-      </div>
-    </div>
-    <div class="info_box_wrap"
-      *ngIf="multipleWinners && (hasVoteEndedExpired() || hasVoteEnded()) && ('topics/view/votes/view' | isState) && showInfoWinners && Topic.canUpdate(topic)">
-      <div class="info_box"
-        [ngClass]="{'info_box_show': multipleWinners && (hasVoteEndedExpired() || hasVoteEnded()) && ('topics/view/votes/view' | isState)}">
-        <div class="info_icon">
-          <div class="sprite sprite-icon-box-info2x"></div>
-        </div>
-
-        <div>
-          <div class="info_row">
-            <p class="info_box_heading" translate="VIEWS.TOPICS_TOPICID.TAB_INFO_TITLE_DRAW">
-            </p>
-            <p class="info_bar_text" translate="VIEWS.TOPICS_TOPICID.TAB_INFO_DRAW_DESCRIPTION">
-            </p>
-            <p class="info_box_heading" translate="VIEWS.TOPICS_TOPICID.TAB_INFO_TITLE_DRAW_WHAT_NOW">
-            </p>
-            <p class="info_bar_text" translate="VIEWS.TOPICS_TOPICID.TAB_INFO_TXT_DRAW_WHAT_NOW">
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div *ngIf="vote.authType===VOTE_AUTH_TYPES.hard && vote.downloads.bdocFinal" cos-dropdown class="bar_select">
-
-      <div class="select_text">
-        {{'VIEWS.TOPICS_TOPICID.BTN_DOWNLOAD_FINAL_BDOC' | translate}}
-        <div class="icon_holder">
-          <div class="table_cell">
-            <div class="sprite sprite-icon-arrow_down-white"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="dropdown big_drop">
-        <div class="line lightest_line"></div>
-
-        <div class="dropdown_item" ng-click="downloadContainer(false)">
-          <div class="item_name" translate="VIEWS.TOPICS_TOPICID.FINAL_OPTION_WITHOUT_CSV">
-            Container without CSV
-          </div>
-          <div class="clearer"></div>
-        </div>
-        <div class="dropdown_item" ng-click="downloadContainer(true)">
-          <div class="item_name" translate="VIEWS.TOPICS_TOPICID.FINAL_OPTION_WITH_CSV">
-            Container with CSV
-          </div>
-          <div class="clearer"></div>
-        </div>
-      </div>
-    </div>
-
-    <a class="print_never" *ngIf="vote.authType === VOTE_AUTH_TYPES.soft && vote.downloads.zipFinal"
-      [href]="{{vote.downloads.zipFinal}}" download>
-      <div class="voting_button voting_button_blue active">
-        <div class="table_cell" translate="VIEWS.TOPICS_TOPICID.BTN_DOWNLOAD_FINAL_ZIP">Download full ZIP</div>
-      </div>
-    </a>
-
-  </div>
+  <!--vote-closed class="vote_casting_message" [topic]="topic" [vote]="vote" *ngIf="hasVoteEndedExpired() || hasVoteEnded()"></!--vote-closed-->
 
   <!-- Regular graph >
   <regular-graph *ngIf="vote.type === VOTE_TYPES.regular && (hasVoteEndedExpired() || hasVoteEnded())" options="vote.options"></regular-graph>

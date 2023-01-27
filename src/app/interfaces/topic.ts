@@ -1,3 +1,5 @@
+import {Vote} from './vote';
+
 export interface Topic {
   id:	string,
   title: string,
@@ -25,8 +27,5 @@ export interface Topic {
     type: null | string,
     moderatedReasonType: string | null
   },
-  vote?: {
-    id: string| null,
-    endsAt: string | null
-  }
+  vote?: Vote
 }
