@@ -1,4 +1,5 @@
 import { AuthService } from 'src/app/services/auth.service';
+import { AppService } from 'src/app/services/app.service';
 import { TopicArgumentService } from 'src/app/services/topic-argument.service';
 import { TopicActivityService } from 'src/app/services/topic-activity.service';
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
@@ -40,9 +41,9 @@ export class MyTopicComponent implements OnInit {
   userListSearch = false;
   //Sections end
   activities = false;
-  app: any;
   wWidth = window.innerWidth;
   constructor(
+    public app: AppService,
     private AuthService: AuthService,
     public TopicService: TopicService,
     private Translate: TranslateService,
@@ -109,10 +110,6 @@ export class MyTopicComponent implements OnInit {
       this.router.navigate([language, 'topics', topic.id, 'followup']);
     }
   };
-
-  doShowTopicNotificationSettings(topicId: string) {
-    this.dialog.open(TopicNotificationSettingsComponent, { data: { topicId } });
-  }
 
   doLeaveTopic(topic: Topic) {
     this.TopicMemberUserService.doLeaveTopic(topic, [this.Translate.currentLang, 'my', 'topics']);

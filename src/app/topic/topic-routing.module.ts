@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { TopicSettingsDialogComponent } from './components/topic-settings-dialog/topic-settings-dialog.component';
 import { TopicComponent } from './topic.component';
 
 const routes: Routes = [
@@ -8,6 +9,7 @@ const routes: Routes = [
       {path: 'votes', children: [
         {path: ':voteId', component: TopicComponent}
       ]},
+      {path: 'settings', component: TopicSettingsDialogComponent},
       {path: '', component: TopicComponent},
     ]},
     {path: '', component: TopicComponent},

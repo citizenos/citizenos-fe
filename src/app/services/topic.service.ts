@@ -58,16 +58,52 @@ export class TopicService {
     edit: 'edit',
     admin: 'admin'
   };
-
+  CATEGORIES_COUNT_MAX = 3;
   constructor(private dialog: MatDialog, private Location: LocationService, private http: HttpClient, private Auth: AuthService, private router: Router) { }
 
   get(id: string, params?: { [key: string]: string }): Observable<Topic> {
     let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId'), { topicId: id });
-    return this.http.get<Topic>(path, { withCredentials: true, params, observe: 'body', responseType: 'json' })
+    return this.http.get<ApiResponse>(path, { withCredentials: true, params, observe: 'body', responseType: 'json' })
       .pipe(switchMap((res: any) => {
         const topic = res.data;
         return of(topic);
       }))
+  }
+
+  update(data: any) {
+    const updateFields = ['visibility', 'status', 'categories', 'endsAt', 'hashtag'];
+    const sendData:any = {};
+
+    updateFields.forEach((field) => {
+      if (field in data) {
+        sendData[field] = data[field];
+      }
+    });
+
+    const path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId', { topicId: data.id || data.topicId });
+
+    return this.http.put<ApiResponse>(path, sendData, { withCredentials: true, observe: 'body', responseType: 'json' })
+    .pipe(
+      map(res => res.data)
+    );
+  }
+
+  patch(data: any) {
+    const updateFields = ['visibility', 'status', 'categories', 'endsAt', 'hashtag'];
+    const sendData:any = {};
+
+    updateFields.forEach((field) => {
+      if (field in data) {
+        sendData[field] = data[field];
+      }
+    });
+
+    const path = this.Location.getAbsoluteUrlApi('/api/:prefix/:userId/topics/:topicId', { topicId: data.id || data.topicId });
+
+    return this.http.patch<ApiResponse>(path, sendData, { withCredentials: true, observe: 'body', responseType: 'json' })
+    .pipe(
+      map(res => res.data)
+    );
   }
 
   query(params: { [key: string]: any }): Observable<ApiResponse> {

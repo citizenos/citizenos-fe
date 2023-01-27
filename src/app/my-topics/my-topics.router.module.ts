@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MyTopicsComponent } from './my-topics.component';
 import { TopicInviteDialogComponent } from './components/topic-invite-dialog/topic-invite-dialog.component';
+import { TopicSettingsDialogComponent } from '../topic/components/topic-settings-dialog/topic-settings-dialog.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,9 @@ const routes: Routes = [
           { path: '', component: MyTopicComponent,  outlet: 'mytopicsright' },
           { path: 'invite', children: [
              {path: '', component: TopicInviteDialogComponent }
+          ]},
+          {path: 'settings',  children: [
+            {path: '', component: TopicSettingsDialogComponent}
           ]},
         ]
       }

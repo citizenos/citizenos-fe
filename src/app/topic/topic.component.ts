@@ -11,16 +11,17 @@ import { Topic } from 'src/app/interfaces/topic';
   styleUrls: ['./topic.component.scss']
 })
 export class TopicComponent implements OnInit {
-  topic$ ; // decorate the property with @Input()
+  topic$; // decorate the property with @Input()
   editMode = false;
   showInfoEdit = false;
   hideTopicContent = false;
   topicSocialMentions = [];
   activeCommentSection = 'arguments';
   wWidth: number = window.innerWidth;
-
+  topicSettings = false;
+  more_info_button = false; //app.more_info_button not sure where used
   constructor(public TopicService: TopicService, private route: ActivatedRoute, public TopicArgumentService: TopicArgumentService) {
-    this.topic$= this.route.params.pipe<Topic>(
+    this.topic$ = this.route.params.pipe<Topic>(
       switchMap((params) => {
         return this.TopicService.get(params['topicId']);
       })
@@ -32,8 +33,29 @@ export class TopicComponent implements OnInit {
     console.log('Topic', this.topic$)
   }
 
-  hideInfoEdit () {
+  hideInfoEdit() {
     this.showInfoEdit = false;
   };
 
+  togglePin(topic: Topic) {
+    this.TopicService.togglePin(topic);
+  }
+
+  doShowReportOverlay() {
+    /*this.ngDialog.openConfirm({
+      template: '/views/modals/topic_reports_reportId.html',
+      data: this.$stateParams,
+      scope: this,
+      closeByEscape: false
+    }).then(() => {
+      this.hideTopicContent = false;
+    }, () => {
+      this.$state.go('home');
+    }
+    );*/
+  };
+
+  scroll(el: HTMLElement) {
+    el.scrollIntoView();
+  }
 }

@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { TopicNotificationSettingsComponent } from 'src/app/topic/components/topic-notification-settings/topic-notification-settings.component';
+import { AppService } from 'src/app/services/app.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 import { TopicNotificationService } from 'src/app/services/topic-notification.service';
@@ -47,7 +48,9 @@ export class AccountComponent implements OnInit {
   user?: User;
   topicSearch: string = '';
   topics$ = of(<Topic[] | any[]>[]);
-  constructor(public dialog: MatDialog,
+  constructor(
+    public app: AppService,
+    public dialog: MatDialog,
     public TopicNotificationService: TopicNotificationService,
     private Notification: NotificationService,
     private User: UserService,
@@ -81,9 +84,6 @@ export class AccountComponent implements OnInit {
     this.tabSelected = tab;
   }
 
-  doShowTopicNotificationSettings(topicId: string) {
-    this.dialog.open(TopicNotificationSettingsComponent, { data: { topicId } });
-  }
   toggleTopicNotifications(topic: any) {
     console.log(topic);
     if (!topic.allowNotifications) {

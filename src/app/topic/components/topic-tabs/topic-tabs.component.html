@@ -1,0 +1,40 @@
+<div class="tabs_wrap_wrap print_never">
+
+  <div class="tabs_wrap">
+    <div class="tabs_visible_area">
+      <div *ngIf="trainPosition != 0 && tabsTrainWidth > tabsVisibleAreaWidth && wWidth > 1024" class="arrow_btn"
+        (click)="moveLeft()">
+        <div class="table_cell">
+          <div class="sprite sprite-icon-arrow-topic-tab2x"></div>
+        </div>
+      </div>
+      <div *ngIf="trainPosition >= -tabsTrainWidth+tabsVisibleAreaWidth && wWidth > 1024" class="arrow_btn right"
+        (click)="moveRight()">
+        <div class="table_cell">
+          <div class="sprite sprite-icon-arrow-right-topic-tab2x"></div>
+        </div>
+      </div>
+      <div class="tabs_rails">
+        <div class="tabs_train" slide-controller identifier="tabsTrain" dimensions>
+          <div class="tab" [routerLink]="['topics',topicId]" routerLinkActive="selected" dimensions>
+            <div *ngIf="!editMode" class="table_cell" translate="VIEWS.TOPICS_TOPICID.TAB_VIEW"></div>
+            <div *ngIf="editMode" class="table_cell" translate="VIEWS.TOPICS_TOPICID.TAB_EDIT"></div>
+          </div>
+          <div *ngIf="voteId" class="tab" [routerLink]="['topics',topicId,'votes',voteId]" routerLinkActive="selected"
+            dimensions>
+            <div class="table_cell" translate="VIEWS.TOPICS_TOPICID.TAB_VOTE"></div>
+          </div>
+          <div *ngIf="[STATUSES.closed, STATUSES.followUp].indexOf(status) > -1" class="tab"
+            [routerLink]="['topics',topicId, 'followUp']" routerLinkActive="selected" dimensions>
+            <div class="table_cell" translate="VIEWS.TOPICS_TOPICID.TAB_FOLLOW_UP"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="fake_cell"></div>
+
+  <div class="line lightest_line"></div>
+
+
+</div>

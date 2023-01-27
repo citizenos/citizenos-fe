@@ -11,7 +11,8 @@ import { TopicArgumentsComponent } from './components/topic-arguments/topic-argu
 import { ArgumentComponent } from './components/argument/argument.component';
 import { TopicNotificationSettingsComponent } from './components/topic-notification-settings/topic-notification-settings.component';
 import { VoteClosedComponent } from './components/vote-closed/vote-closed.component';
-import { TopicSettingsComponent } from './components/topic-settings/topic-settings.component';
+import { TopicTabsComponent } from './components/topic-tabs/topic-tabs.component';
+import { TopicSidepanelComponent } from './components/topic-sidepanel/topic-sidepanel.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { TopicSettingsComponent } from './components/topic-settings/topic-settin
     ArgumentComponent,
     TopicNotificationSettingsComponent,
     VoteClosedComponent,
-    TopicSettingsComponent
+    TopicTabsComponent,
+    TopicSidepanelComponent,
   ],
   imports: [
     CommonModule,

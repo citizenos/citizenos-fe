@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { GroupService } from 'src/app/services/group.service';
+import { Component, OnInit, Inject } from '@angular/core';
+import { Router, ActivatedRoute, PRIMARY_OUTLET } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 import { Topic } from 'src/app/interfaces/topic';
@@ -7,30 +8,41 @@ import { TopicService } from 'src/app/services/topic.service';
 import { TopicVoteService } from 'src/app/services/topic-vote.service';
 import { TopicMemberGroupService } from 'src/app/services/topic-member-group.service';
 import { TopicMemberUserService } from 'src/app/services/topic-member-user.service';
-import { take } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
+import { take, BehaviorSubject } from 'rxjs';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+export interface TopicSettingsData {
+  topic: Topic
+};
 @Component({
   selector: 'app-topic-settings',
   templateUrl: './topic-settings.component.html',
   styleUrls: ['./topic-settings.component.scss']
 })
 export class TopicSettingsComponent implements OnInit {
-  @Input() topic!: Topic;
+  topic: Topic;
   tabSelected = 'settings'
   errors: any = {};
   VISIBILITY = this.TopicService.VISIBILITY;
+  CATEGORIES = Object.keys(this.TopicService.CATEGORIES);
   reminder = false;
   reminderOptions = [{ value: 1, unit: 'days' }, { value: 2, unit: 'days' }, { value: 3, unit: 'days' }, { value: 1, unit: 'weeks' }, { value: 2, unit: 'weeks' }, { value: 1, unit: 'month' }];
 
   constructor(
     private dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) data: TopicSettingsData,
     private router: Router,
+    private route: ActivatedRoute,
     private TopicService: TopicService,
+    private GroupService: GroupService,
     private TranslateService: TranslateService,
     private TopicVoteService: TopicVoteService,
     private TopicMemberGroupService: TopicMemberGroupService,
+    private dialogRef: MatDialogRef<TopicSettingsComponent>,
     private TopicMemberUserService: TopicMemberUserService
-  ) { }
+  ) {
+    console.log(data)
+    this.topic = data.topic;
+  }
 
   ngOnInit(): void {
   }
@@ -82,8 +94,13 @@ export class TopicSettingsComponent implements OnInit {
   }
 
   canChangeVisibility() {
-    /*  const publicGroups = this.TopicMemberGroupService.item$.filter((group) => group.visibility === this.Group.VISIBILITY.public);
-      return (this.canDelete() && (this.topic.visibility === this.Topic.VISIBILITY.private || publicGroups.length === 0));*/
+    return this.TopicMemberGroupService
+      .loadItems()
+      .pipe(take(1))
+      .subscribe((groups) => {
+        const publicGroups = groups.filter((group: any) => group.visibility === this.GroupService.VISIBILITY.public);
+        return (this.canDelete() && (this.topic.visibility === this.VISIBILITY.private || publicGroups.length === 0));
+      });
   }
 
   selectedReminderOption() {
@@ -96,7 +113,7 @@ export class TopicSettingsComponent implements OnInit {
       const weeks = Math.ceil(diffTime / (dayTime * 7));
       const months = (voteDeadline.getMonth() - reminder.getMonth() +
         12 * (voteDeadline.getFullYear() - reminder.getFullYear()));
-      const item = this.reminderOptions.find((item:any) => {
+      const item = this.reminderOptions.find((item: any) => {
         if (item.value === days && item.unit === 'days') return item;
         else if (item.value === weeks && item.unit === 'weeks') return item;
         else if (item.value === months && item.unit === 'month') return item;
@@ -169,4 +186,37 @@ export class TopicSettingsComponent implements OnInit {
   doDeleteTopic() {
     this.TopicService.doDeleteTopic(this.topic, [this.TranslateService.currentLang, 'my', 'topics']);
   };
+
+  addTopicCategory(category: string) {
+    if (this.topic.categories.indexOf(category) === -1 && this.topic.categories.length < this.TopicService.CATEGORIES_COUNT_MAX) {
+      this.topic.categories.push(category);
+    }
+  };
+
+  removeTopicCategory(category: string) {
+    this.topic.categories.splice(this.topic.categories.indexOf(category), 1);
+  };
+
+  doSaveTopic() {
+    this.errors = {};
+    console.log(this.topic);
+    const topic: any = Object.assign({}, this.topic);
+    if (topic.endsAt && topic.endsAt === topic.endsAt) { //Remove endsAt field so that topics with endsAt value set could be updated if endsAt is not changed
+      delete topic.endsAt;
+    }
+
+    this.TopicService.update(topic)
+      .pipe(take(1))
+      .subscribe(() => {
+        this.dialog.closeAll();
+        //     this.loadTopic();
+      });
+    /*
+    (errorResponse) => {
+      if (errorResponse.data && errorResponse.data.errors) {
+        this.errors = errorResponse.data.errors;
+      }
+    }
+    */
+  }
 }

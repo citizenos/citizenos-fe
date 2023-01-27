@@ -23,6 +23,8 @@ import { TopicMemberGroupComponent } from '../topic/components/topic-member-grou
 import { TopicMemberInviteComponent } from '../topic/components/topic-member-invite/topic-member-invite.component';
 import { TopicMemberInviteDeleteComponent } from '../topic/components/topic-member-invite-delete/topic-member-invite-delete.component';
 import { TopicVoteCastComponent } from '../topic/components/topic-vote-cast/topic-vote-cast.component';
+import { TopicSettingsComponent } from '../topic/components/topic-settings/topic-settings.component';
+import { TopicSettingsDialogComponent } from '../topic/components/topic-settings-dialog/topic-settings-dialog.component';
 @NgModule({
   declarations: [
     ActivityComponent,
@@ -38,6 +40,8 @@ import { TopicVoteCastComponent } from '../topic/components/topic-vote-cast/topi
     TopicMemberInviteDeleteComponent,
     TopicMemberUserComponent,
     TopicMemberGroupComponent,
+    TopicSettingsComponent,
+    TopicSettingsDialogComponent,
     TopicVoteCastComponent,
     TopicboxComponent,
     TypeaheadComponent,
@@ -70,6 +74,8 @@ import { TopicVoteCastComponent } from '../topic/components/topic-vote-cast/topi
     TopicMemberInviteDeleteComponent,
     TopicMemberUserComponent,
     TopicMemberGroupComponent,
+    TopicSettingsComponent,
+    TopicSettingsDialogComponent,
     TopicVoteCastComponent,
     TypeaheadComponent,
     TypeaheadItem

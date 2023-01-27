@@ -23,7 +23,8 @@ export interface Topic {
   url	: string,
   pinned?: boolean | null,
   imageUrl: string | null,
-  report: {
+  report?: {
+    id: string,
     type: null | string,
     moderatedReasonType: string | null
   },

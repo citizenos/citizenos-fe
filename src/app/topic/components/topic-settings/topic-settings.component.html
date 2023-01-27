@@ -25,16 +25,14 @@
             <div class="tab_button" (click)="selectTab('settings')"
               [ngClass]="tabSelected === 'settings' ? 'active' : ''">
               <div class="tab_buttom_wrap">
-                <div class="tab_button_text" translate="MODALS.TOPIC_SETTINGS_TAB_SETTINGS">ACTIONS
-                </div>
+                <div class="tab_button_text" translate="MODALS.TOPIC_SETTINGS_TAB_SETTINGS"></div>
                 <div class="blue_bottom_line"></div>
               </div>
             </div>
             <div class="tab_button" *ngIf="canEdit()" (click)="selectTab('categories')"
               [ngClass]="tabSelected === 'categories' ? 'active' : ''">
               <div class="tab_buttom_wrap">
-                <div class="tab_button_text" translate="MODALS.TOPIC_SETTINGS_TAB_CATEGORIES">CATEGORIES
-                </div>
+                <div class="tab_button_text" translate="MODALS.TOPIC_SETTINGS_TAB_CATEGORIES"></div>
                 <div class="blue_bottom_line"></div>
               </div>
             </div>
@@ -82,7 +80,7 @@
                   </div>
                 </div>
               </div>
-              <input id="hashtag" [value]="topic.hashtag" (change)="checkHashtag()"
+              <input id="hashtag" [(ngModel)]="topic.hashtag" (change)="checkHashtag()"
                 placeholder="{{'MODALS.TOPIC_SETTINGS_PLACEHOLDER_HASHTAG' | translate}}"
                 [ngClass]="{'error_input': errors.hashtag}">
               <div class="recycle_bin_wrap wrap_mobile">
@@ -179,8 +177,7 @@
             </div>
 
             <div class="settings_cell">
-              <div class="blue_button yes" (click)="doDeleteTopic()" translate="MODALS.TOPIC_SETTINGS_BTN_DELETE_TOPIC">
-              </div>
+              <div class="blue_button yes" (click)="doDeleteTopic()" translate="MODALS.TOPIC_SETTINGS_BTN_DELETE_TOPIC"></div>
             </div>
           </div>
 
@@ -196,8 +193,7 @@
             <div class="category_wrap" *ngFor="let topicCategory of topic.categories"
               (click)="removeTopicCategory(topicCategory)">
               <div class="category_cell category_title">
-                <span translate="{{'TXT_TOPIC_CATEGORY_' + topicCategory | uppercase}}"
-                  translate-default="{{topicCategory}}"></span>
+                <span translate="{{'TXT_TOPIC_CATEGORY_' + topicCategory | uppercase}}"></span><!--translate-default="{{topicCategory}}" create missing translation handler https://github.com/ngx-translate/core#how-to-handle-missing-translations-->
               </div>
               <div class="category_cell category_control" (click)="removeTopicCategory(topicCategory)">
                 <div class="sprite sprite-icon-category-delete2x"></div>
@@ -208,7 +204,7 @@
           <div class="line lightest_line"></div>
 
           <div class="category_selection">
-            <div class="category_wrap" *ngFor="let category of Topic.CATEGORIES"
+            <div class="category_wrap" *ngFor="let category of CATEGORIES"
               (click)="(topic.categories.indexOf(category) > -1) ? removeTopicCategory(category): addTopicCategory(category)"
               [ngClass]="{'category_selected': (topic.categories.indexOf(category) > -1)}">
               <div class="category_cell category_title">

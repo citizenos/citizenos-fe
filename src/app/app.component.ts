@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, PRIMARY_OUTLET, Event, NavigationStart, ActivatedRoute, UrlSerializer } from '@angular/router';
+import { Router, PRIMARY_OUTLET, Event, NavigationStart } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Title } from "@angular/platform-browser";
 
@@ -16,7 +16,7 @@ export class AppComponent {
   config$ = this.config.load();
   wWidth: number = window.innerWidth;
   destroy$ = new Subject<boolean>();
-  constructor(private router: Router, route: ActivatedRoute, private title: Title, public translate: TranslateService, private config: ConfigService) {
+  constructor(private router: Router, private title: Title, public translate: TranslateService, private config: ConfigService) {
     const languageConf = config.get('language');
     translate.addLangs(Object.keys(languageConf.list));
     translate.setDefaultLang(languageConf.default);

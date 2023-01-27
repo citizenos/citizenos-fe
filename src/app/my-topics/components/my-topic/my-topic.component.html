@@ -120,7 +120,7 @@
             <div class="item_description" translate="VIEWS.MY_TOPICS_TOPICID.LBL_TOPIC_ACTIONS"></div>
             <div class="item_content">
               <span class="item_text blue_link" *ngIf="TopicService.canUpdate(topic)"
-                [routerLink]="['/my/topics/', topic.id, '/settings']"
+                [routerLink]="['/my/topics/', topic.id, 'settings']"
                 translate="VIEWS.MY_TOPICS_TOPICID.LNK_SETTINGS"></span>
               <span class="separator" *ngIf="TopicService.canUpdate(topic)">|</span>
               <span class="item_text blue_link" (click)="goToTopicView(topic)"
@@ -162,7 +162,7 @@
         <span translate="VIEWS.MY_TOPICS_TOPICID.HEADING_ACTIVITY_FEED_AND_NOTIFICATIONS"></span>
         <span>|</span>
         <a class="blue_link" translate="VIEWS.TOPICS_TOPICID.NAV_LNK_SET_TOPIC_NOTIFICATIONS"
-          (click)="$event.stopPropagation(); doShowTopicNotificationSettings(topic.id)"></a>
+          (click)="$event.stopPropagation(); app.doShowTopicNotificationSettings(topic.id)"></a>
       </div>
       <div class="minimize_container">
         <div [ngClass]="!activityFeed ? 'sprite-btn-expand2x' : 'sprite-btn-minimize2x'" class="sprite"></div>
