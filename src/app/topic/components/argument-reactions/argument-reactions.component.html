@@ -1,0 +1,81 @@
+<!-- LIGHTBOX SKELETON -->
+<div id="root_lightbox" class="full_screen">
+
+  <div id="lightbox" class="wide_lightbox">
+    <div id="lightbox_wrap">
+
+      <div id="lightbox_header">
+
+        <div id="lightbox_header_text">
+          <div class="title" translate="MODALS.TOPIC_COMMENT_REACTIONS_HEADING"></div>
+        </div>
+
+        <div id="lightbox_close" class="ngdialog-close" mat-dialog-close>
+          <div class="table_cell ngdialog-close">
+            <div class="ngdialog-close sprite sprite-btn-popup-close2x">
+            </div>
+          </div>
+        </div>
+
+        <div class="clearer"></div>
+      </div>
+
+
+      <div class="line lightest_line"></div>
+      <!-- INVITE USERS -->
+      <div class="lightbox_content padding_bottom_zero">
+
+        <div class="lightbox_section user_list">
+
+          <table>
+            <ng-container *ngFor="let member of voteItems | async | keyvalue">
+              <tr *ngIf="isOnPage(member.key, page)">
+                <td>
+                  <div class="profile_image_wrapper dark">
+                    <!--div class="profile_moon sprite"></div-->
+                    <div class="account_picture">
+                      <img *ngIf="member.value.imageUrl" [src]="member.value.imageUrl">
+                      <div class="profile_image_filler">
+                        <cos-initials class="table_cell" [name]="member.value.name"></cos-initials>
+                        <div class="profile_circle"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="name_wrap">
+                    <div class="reaction_name">
+                      <div class="blue_link">{{member.value.name}}</div>
+                      <div class="via">{{member.value.company}}</div>
+                    </div>
+                    <div class="reaction_wrap">
+                      <div class="reaction sprite"
+                        [ngClass]="member.value.vote === 'up' ? 'sprite-icon-thumb-up-outline' : 'sprite-icon-thumb-down-outline'">
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
+            <tr>
+              <td></td>
+            </tr>
+          </table>
+        </div>
+
+      </div>
+      <div class="lightbox_footer" *ngIf="totalPages > 1">
+        <div class="line lightest_line"></div>
+        <div class="row">
+          <div class="table_cell">
+            <cos-pagination class="pagination" (select)="loadPage($event)" [totalPages]="totalPages"
+              [page]="page"></cos-pagination>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="close_lightbox" class="ngdialog-close" mat-dialog-close>
+  </div>
+
+</div>

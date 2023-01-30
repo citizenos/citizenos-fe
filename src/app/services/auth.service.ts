@@ -26,14 +26,12 @@ export class AuthService {
   resolveAuthorizedPath(path: string) {
     let authorized = '';
     const pathName = this.loggedIn$.subscribe((res) => {
-      console.log('loggedIn', this.loggedIn$)
       if (res === true) {
         authorized = '/users/self';
       }
 
       return `/api${authorized}${path}`
     });
-    console.log(pathName)
     return `/api${authorized}${path}`
   }
 
@@ -96,7 +94,6 @@ export class AuthService {
         return of(user);
       }),
       catchError(res => {
-        console.log('STATUS ERR', res.error)
         if (res.error) {
           if (res.status !== 401) {
             this.Notification.addError(res.error.status.message);

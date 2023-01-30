@@ -10,6 +10,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { MomentModule } from 'ngx-moment';
 
+
+import { MarkdownService, MarkdownModule } from './services/markdown.service';
 import { ConfigModule, ConfigService } from './services/config.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -31,6 +33,7 @@ import { NotificationComponent } from './core/components/notification/notificati
 import { ActivityFeedComponent } from './core/components/activity-feed/activity-feed.component';
 import { SharedModule } from './shared/shared.module';
 import { HttpErrorInterceptor } from './services/http.error.interceptor.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +44,7 @@ import { HttpErrorInterceptor } from './services/http.error.interceptor.service'
     HomeComponent,
     LanguageSelectComponent,
     NotificationComponent,
-    ActivityFeedComponent
+    ActivityFeedComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,6 +76,8 @@ import { HttpErrorInterceptor } from './services/http.error.interceptor.service'
     MatSelectModule
   ],
   providers: [
+    MarkdownService,
+    MarkdownModule.init(),
     ConfigService,
     ConfigModule.init(),
     {

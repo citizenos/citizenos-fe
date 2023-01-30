@@ -83,10 +83,8 @@
                 translate="VIEWS.TOPICS_TOPICID.ARGUMENT_LNK_EDIT"></div>
               <div *ngIf="canEdit()" class="item_name" (click)="doShowDeleteArgument()"
                 translate="VIEWS.TOPICS_TOPICID.ARGUMENT_LNK_DELETE"></div>
-              <div class="item_name" (click)="copyArgumentLink($event)"><span translate="LNK_DIRECT_LINK"></span><input
-                  class="comment_link_input" id="comment_link_input_{{argument.id + '_v'+(argument.edits.length-1)}}"
-                  value="" /></div>
-              <div class="item_name" *ngIf="Auth.loggedIn$ | async" (click)="doArgumentReport()"
+              <div class="item_name" (click)="copyArgumentLink($event)"><span translate="LNK_DIRECT_LINK"></span></div>
+              <div class="item_name" #loggedIn (click)="doArgumentReport()"
                 translate="VIEWS.TOPICS_TOPICID.ARGUMENT_LNK_REPORT"></div>
             </div>
           </div>
@@ -97,15 +95,15 @@
     </div>
     <!-- END COMMENT HEADER -->
     <!-- EDIT COMMENT -->
-    <!--comment-edit *ngIf="comment.showEdit" comment="comment" topic-id="topicId"></!--comment-edit-->
+    <edit-argument *ngIf="showEdit" [argument]="argument" [topicId]="topicId" (showEdit)="toggleEdit($event)"></edit-argument>
     <!-- END EDIT COMMENT -->
     <!-- COMMENT CONTENT -->
     <div class="argument_title">
       <span *ngIf="isVisible() && !showDeletedArgument" [innerHTML]="argument.subject"></span>
     </div>
 
-    <div class="argument_text_wrap" check-height
-      ng-class="{overheight: offsetHeight > maxTextHeight, read_more: readMore}">
+    <div class="argument_text_wrap" > <!--check-height
+      [ngClass]="{overheight: offsetHeight > maxTextHeight, read_more: readMore}"-->
       <div *ngIf="isVisible() && !showDeletedArgument" class="argument_text" [innerHTML]="argument.text"></div>
       <!--| markdown-->
       <div *ngIf="!isVisible() && !showDeletedArgument && argument.deletedBy.id === argument.creator.id"
@@ -116,90 +114,15 @@
         [translateParams]="{usersFullName: argument.deletedBy.name}"></div>
       <div class="argument_overlay"></div>
       <!--div class="blue_link read_more_link" (click)="$parent.readMore = !$parent.readMore"
-               translate="{{($parent.readMore) ? 'VIEWS.TOPICS_TOPICID.LNK_ARGUMENT_CLOSE' : 'VIEWS.TOPICS_TOPICID.LNK_ARGUMENT_READ_MORE'}}">Read more
-          </!--div-->
+        translate="{{($parent.readMore) ? 'VIEWS.TOPICS_TOPICID.LNK_ARGUMENT_CLOSE' : 'VIEWS.TOPICS_TOPICID.LNK_ARGUMENT_READ_MORE'}}">
+      </!--div-->
     </div>
     <!-- END COMMENT CONTENT -->
     <!-- COMMENT DELETED -->
-    <div class="argument_footer delete_reasons" *ngIf="argument.deletedAt">
-      <div class="link_wrap">
-        <div class="table_cell">
-          <div class="blue_link active_red" (click)="showDeleteReason = !showDeleteReason"
-            translate="VIEWS.TOPICS_TOPICID.ARGUMENT_WHY">
-          </div>
-          <div class="active_red_triangle_wrap" *ngIf="showDeleteReason">
-            <div class="active_red_triangle">
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="line_wrap">
-        <div class="table_cell">
-          <div class="v_line"></div>
-        </div>
-      </div>
-      <div class="link_wrap">
-        <div class="table_cell">
-          <div class="blue_link active_red" (click)="showDeletedArgument = !showDeletedArgument"
-            translate="VIEWS.TOPICS_TOPICID.ARGUMENT_VIEW_ARGUMENT_ANYWAY">
-          </div>
-          <div class="active_red_triangle_wrap" *ngIf="isVisible() && !showDeleteReason">
-            <div class="active_red_triangle">
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-
-    <div class="alert_argument" *ngIf="showDeleteReason" (click)="showDeleteReason = !showDeleteReason">
-      <span translate="VIEWS.TOPICS_TOPICID.ARGUMENT_FOUND_INAPPRIOPRIATE_BY"
-        [translateParams]="{usersFullName: argument.deletedBy.name}"></span><span
-        *ngIf="argument.deletedReasonType || argument.deletedReasonText">:</span>
-      <b *ngIf="argument.deletedReasonType">{{('TXT_REPORT_TYPES_' + argument.deletedReasonType | uppercase) |
-        translate}}</b><br>
-      <b *ngIf="argument.deletedReasonText" class="italic">{{argument.deletedReasonText}}</b>
-      <br>
-      <br>
-      <span translate="VIEWS.TOPICS_TOPICID.ARGUMENT_READ_CODE_OF_CONDUCT"
-        [translateParams]="{codeOfConduct: config.get('moderation').codeOfConduct}"></span>
-    </div>
-    <div class="alert_argument" *ngIf="argument.deletedAt && isVisible()">
-      <span class="replys_reply italic"><b>{{argument.subject}}</b></span><br>
-      <span class="italic" (click)="showDeletedArgument = !showDeletedArgument" [innerHTML]="argument.text"></span>
-      <!-- pipe markdown -->
-    </div>
+    <argument-deleted *ngIf="argument.deletedAt" [argument]="argument"></argument-deleted>
     <!-- END COMMENT DELETED-->
-    <!-- COMMENT EDITS -->
-    <!--div-- id="{{argument.id + '_v' + version}}" class="argument" ng-class="'is_' + edit.type" *ngIf="comment.showEdits && TopicComment.isEdited(comment) && !$last"
-           *ngFor="let item of argument.edits | keyvalue">
-          <div class="argument_header">
-              <div class="argument_header_widget">
-                  <div class="table_cell" [title]="item.value.createdAt | date : 'L LT'">
-                      {{item.value.createdAt | date}}
-                  </div>
-              </div>
-              <div class="line_wrap">
-                  <div class="table_cell">
-                      <div class="v_line"></div>
-                  </div>
-              </div>
-              <div class="argument_header_widget">
-                  <div class="table_cell">
-                      <a href="#" (click)="copyCommentLink(comment.id, version, $event)"><span translate="LNK_DIRECT_LINK"></span><input class="comment_link_input"
-                                                                                                                                              id="comment_link_input_{{argument.id + '_v'+version}}"
-                                                                                                                                              value=""/></a>
-                  </div>
-              </div>
-              <div class="clearer"></div>
-          </div>
-          <div class="argument_title" *ngIf="edit.subject">
-              {{item.value.subject}}
-          </div>
-          <div class="argument_text_wrap">
-              <div class="argument_text italic" ng-bind-html="edit.text"></div>
-          </div>
-      </!--div-->
+    <!-- COMMENT EDITS  && !$last-->
+    <argument-edits *ngIf="argument.showEdits && isEdited()" [argument]="argument"></argument-edits>
     <!-- END COMMENT EDITS -->
     <!-- COMMENT FOOTER -->
     <div class="argument_footer">
@@ -210,15 +133,16 @@
               translate="VIEWS.TOPICS_TOPICID.LNK_ARGUMENT_REPLY"></div>
           </div>
         </div>
-        <ng-component *ngIf="Auth.loggedIn$ | async as loggedIn;"></ng-component>
+
+        <ng-container *ngIf="Auth.loggedIn$ | async; then loggedIn;"></ng-container>
         <ng-template #loggedIn>
           <div class="line_wrap">
             <div class="table_cell">
               <div class="v_line"></div>
             </div>
           </div>
-          <div class="thumbs_up" ng-class="{'active': comment.votes.up.selected}" *ngIf="loggedIn">
-            <div class="table_cell" (click)="doCommentVote(1)">
+          <div class="thumbs_up" [ngClass]="{'active': argument.votes.up.selected}">
+            <div class="table_cell" (click)="doArgumentVote(1)">
               <div class="sprite sprite-icon-thumb-up-gray">
               </div>
             </div>
@@ -226,8 +150,8 @@
               {{argument.votes.up.count}}
             </div>
           </div>
-          <div class="thumbs_down" ng-class="{'active': comment.votes.down.selected}" *ngIf="loggedIn">
-            <div class="table_cell" (click)="doCommentVote(-1)">
+          <div class="thumbs_down" [ngClass]="{'active': argument.votes.down.selected}">
+            <div class="table_cell" (click)="doArgumentVote(-1)">
               <div class="sprite sprite-icon-thumb-down-gray">
               </div>
             </div>
@@ -256,6 +180,6 @@
   </div>
 
   <!-- REPLY TO COMMENT  -->
-  <!--comment-reply *ngIf="showReply" comment="comment" topic-id="topicId"></!--comment-reply-->
+  <argument-reply *ngIf="showReply" [argument]="argument" [topicId]="topicId"></argument-reply>
   <!-- END REPLY TO COMMENT -->
 </div>

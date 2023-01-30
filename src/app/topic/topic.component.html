@@ -57,14 +57,12 @@
                   (click)="doShowReportOverlay()" href=""
                   translate="VIEWS.TOPICS_TOPICID.TAB_INFO_LNK_VIEW_REPORT_DETAILS"></a>
                 <span *ngIf="topic.report.type && !topic.report.moderatedReasonType">&nbsp;<a
-                    ui-sref="topics/view/reportsModerate({topicId: topic.id, reportId: topic.report.id})"
-                    ui-sref-opts="{reload:false}" translate="VIEWS.TOPICS_TOPICID.TAB_INFO_LNK_MODERATE"></a></span>
-                <span *ngIf="topic.report.type">&nbsp;<a
-                    ui-sref="topics/view/reportsResolve({topicId: topic.id, reportId: topic.report.id})"
-                    ui-sref-opts="{reload:false}" translate="VIEWS.TOPICS_TOPICID.TAB_INFO_LNK_RESOLVE"></a></span>
+                    [routerLink]="['reports', topic.report.id, 'moderate']"
+                    translate="VIEWS.TOPICS_TOPICID.TAB_INFO_LNK_MODERATE"></a></span>
+                <span *ngIf="topic.report.type">&nbsp;<a [routerLink]="['reports', topic.report.id, 'resolve']"
+                    translate="VIEWS.TOPICS_TOPICID.TAB_INFO_LNK_RESOLVE"></a></span>
                 <span *ngIf="TopicService.canEdit(topic) && topic.report.moderatedReasonType">&nbsp;<a
-                    ui-sref="topics/view/reportsReview({topicId: topic.id, reportId: topic.report.id})"
-                    ui-sref-opts="{reload:false}"
+                    [routerLink]="['reports', topic.report.id, 'review']"
                     translate="VIEWS.TOPICS_TOPICID.TAB_INFO_LNK_SUBMIT_FOR_REVIEW"></a></span>
               </div>
             </div>
@@ -97,7 +95,7 @@
               </div>
               <!--REPORT topic-->
               <div class="container_report" *ngIf="topic.visibility === TopicService.VISIBILITY.public && !topic.report"
-                ui-sref="topics/view/report">
+                [routerLink]="['report']">
                 <div class="ff_table_fix" [tooltip]="('TOOLTIP_REPORT_TOPIC'| translate)">
                   <div class="table_cell">
                     <div class="sprite sprite-icon-exclamation2x-white"></div>
@@ -126,7 +124,7 @@
                   </div>
                   <div class="more_info_attachment_wrap">
                     <div class="more_info_attachment_icon sprite sprite-icon-attachment"></div>
-                    <!--span class="more_info_attachment_count">{{topicAttachments.length}}</!--span-->
+                    <span class="more_info_attachment_count">{{(topicAttachments$ | async)?.length}}</span>
                   </div>
                 </div>
               </div>
@@ -137,14 +135,16 @@
                     <span translate="VIEWS.TOPICS_TOPICID.LBL_CATEGORIES"></span>
                   </div>
                   <div class="info_section_content">
-                    <!--span *ngFor="let category of topic.categories">
-                        <span translate="{{'TXT_TOPIC_CATEGORY_' + category | uppercase}}" translate-default="{{category}}">Poliitika</span>
-                        <span *ngIf="!$last" class="info_section_separator"> | </span>
-                    </!--span-->
-                    <span *ngIf="!topic.categories.length" translate="VIEWS.TOPICS_TOPICID.LBL_NO_CATEGORIES">
-                      <span *ngIf="TopicService.canEdit(topic)" class="blue_link"
-                        ui-sref="topics/view/settings({topicId: topic.id, tab: 'categories'})"
-                        translate="VIEWS.TOPICS_TOPICID.LNK_ADD_CATEGORIES"></span>
+                    <span *ngFor="let category of topic.categories; let $last = last;">
+                      <span
+                        translate="{{'TXT_TOPIC_CATEGORY_' + category | uppercase}}"></span><!--translate-default="{{category}}"-->
+                      <span *ngIf="!$last" class="info_section_separator"> | </span>
+                    </span>
+                    <span *ngIf="!topic.categories.length">
+                      <span *ngIf="!TopicService.canEdit(topic)"
+                        translate="VIEWS.TOPICS_TOPICID.LBL_NO_CATEGORIES"></span>
+                      <span *ngIf="TopicService.canEdit(topic)" class="blue_link" [routerLink]="['settings']"
+                        [queryParams]="{tab: 'categories'}" translate="VIEWS.TOPICS_TOPICID.LNK_ADD_CATEGORIES"></span>
                     </span>
                   </div>
                 </div>
@@ -152,32 +152,34 @@
                   <div class="info_section_title">
                     <span translate="VIEWS.TOPICS_TOPICID.LBL_AUTHORS" [translateParams]="{topic: topic}"></span>
                   </div>
-                  <!--div class="info_section_content"><span *ngFor="let author of topic.authors" *ngIf="author.email" class="blue_link"
-                      tooltips tooltip-class="tooltip_author"
-                      tooltip-template="<span class='creator_data_tooltip_row'>{{author.email}}</span><span class='creator_data_tooltip_row'>{{author.phoneNumber}}</span>"
-                      tooltip-smart="true">{{author.name}}<span *ngIf="!$last" class="info_section_separator"> | </span></span><span *ngFor="let author of topic.authors" *ngIf="!author.email">{{author.name}}<span *ngIf="!$last" class="info_section_separator"> | </span></span>
-                    </!--div-->
+                  <div class="info_section_content">
+                    <ng-container *ngFor="let author of topic.authors; let $last = last;">
+                      <span *ngIf="author.email" class="blue_link"
+                        [tooltip]="author.email + ' ' + author.phoneNumber">{{author.name}}">
+                        <span *ngIf="!$last"
+                          class="info_section_separator"> | </span>
+                      </span>
+                    </ng-container>
+                  </div>
                 </div>
                 <div class="info_section">
                   <div class="info_section_title">
                     <span translate="VIEWS.TOPICS_TOPICID.LBL_ACTIVITY"></span>
                   </div>
                   <div class="info_section_content">
-                    <span class="blue_link"
-                      (click)="activeCommentSection= 'arguments'"
+                    <span class="blue_link" (click)="activeCommentSection= 'arguments'"
                       translate="VIEWS.TOPICS_TOPICID.LNK_ARGUMENTS_COUNT"
                       [translateParams]="{count: TopicArgumentService.count.value.total || 0}"></span><!--; scroll('arguments')-->
                     <span class="info_section_separator"> | </span>
-                    <span class="blue_link"
-                      (click)="activeCommentSection= 'socialMentions'"
+                    <span class="blue_link" (click)="activeCommentSection= 'socialMentions'"
                       translate="VIEWS.TOPICS_TOPICID.LNK_MENTIONS_COUNT"
                       [translateParams]="{mentionsCount: (topicSocialMentions.length ||0)}"></span><!--; scroll('socialMentions')-->
                     <span *ngIf="!topic.hashtag && TopicService.canEdit(topic)" class="info_section_separator"> |
                     </span>
                     <span class="blue_link" *ngIf="!topic.hashtag && TopicService.canEdit(topic)"
-                      ui-sref="topics/view/settings({topicId: topic.id, tab: 'settings'})"
+                      [routerLink]="['settings']" [queryParams]="{tab: 'settings'}"
                       translate="VIEWS.TOPICS_TOPICID.LNK_MENTIONS_COUNT_ADD_HASHTAG"></span>
-                    <span *ngIf="topic.hashtag" class="black_text" ng-bind="('#'+topic.hashtag)"> </span>
+                    <span *ngIf="topic.hashtag" class="black_text" [innerText]="('#'+topic.hashtag)"> </span>
                   </div>
                 </div>
                 <div class="info_section" *ngIf="wWidth < 767">
@@ -185,14 +187,18 @@
                     <span translate="VIEWS.TOPICS_TOPICID.LBL_ATTACHMENTS"></span>
                   </div>
                   <div class="info_section_content">
-                    <!--div class="blue_link" *ngFor="let attachment of topicAttachments">
-                                          <a *ngIf="attachment.source === ATTACHMENT_SOURCES.upload" class="blue_link info_section_attachment"
-                                             (click)="$event.preventDefault(); downloadAttachment(attachment);" href="{{attachment.link}}">{{attachment.name}}<span
-                                              class="btn blue_button file_type">.{{attachment.type}}</span></a>
-                                          <a *ngIf="attachment.source !== ATTACHMENT_SOURCES.upload" class="blue_link info_section_attachment" target="_blank" href="{{attachment.link}}">{{attachment.name}} <span
-                                              class="btn blue_button file_type">{{attachment.type}}</span></a>
-                                      </!--div-->
-                    <div ui-sref="topics/view/files" *ngIf="TopicService.canEdit(topic)"
+                    <div class="blue_link" *ngFor="let attachment of topicAttachments$ | async">
+                      <a *ngIf="attachment.source === ATTACHMENT_SOURCES.upload"
+                        class="blue_link info_section_attachment"
+                        (click)="$event.preventDefault(); downloadAttachment(topic.id, attachment);"
+                        href="{{attachment.link}}">{{attachment.name}}<span
+                          class="btn blue_button file_type">.{{attachment.type}}</span></a>
+                      <a *ngIf="attachment.source !== ATTACHMENT_SOURCES.upload"
+                        class="blue_link info_section_attachment" target="_blank"
+                        href="{{attachment.link}}">{{attachment.name}} <span
+                          class="btn blue_button file_type">{{attachment.type}}</span></a>
+                    </div>
+                    <div *ngIf="TopicService.canEdit(topic)" [routerLink]="['files']"
                       class="blue_link info_section_add_attachments"
                       translate="VIEWS.TOPICS_TOPICID.LNK_ADD_MANAGE_FILES">
                     </div>
@@ -229,8 +235,7 @@
             </div>
             <div class="clearer"></div>
             <div class="comments_content">
-              <topic-arguments #arguments
-                *ngIf="activeCommentSection == 'arguments' || activeCommentSection == undefined"></topic-arguments>
+              <topic-arguments #arguments [topic]="topic"               *ngIf="activeCommentSection == 'arguments' || activeCommentSection == undefined"></topic-arguments>
               <!--topic-social-mentions-- #socialMentions *ngIf="activeCommentSection== 'socialMentions'"></!--topic-social-mentions-->
             </div>
           </div>
@@ -239,7 +244,8 @@
 
       </div>
 
-      <topic-sidepanel class="side_panel print_never" *ngIf="app.wWidth > 1024 || app.topicsSettings"></topic-sidepanel>
+      <topic-sidepanel class="side_panel print_never" [topic]="topic"
+        *ngIf="wWidth > 1024 || app.topicsSettings"></topic-sidepanel>
     </div>
 
   </div>
@@ -247,7 +253,7 @@
   <div class="side_panel_background">
   </div>
 
-  <div ui-view></div>
+  <router-outlet></router-outlet>
 
   <div class="print_footer" *ngIf="topic">
     <!--div class="qr_code" *ngIf="app.currentUrlAbs">

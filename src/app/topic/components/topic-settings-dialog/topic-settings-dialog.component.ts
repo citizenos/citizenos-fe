@@ -11,7 +11,8 @@ import { switchMap, take } from 'rxjs';
 export class TopicSettingsDialogComponent implements OnInit {
 
   constructor(dialog: MatDialog, route: ActivatedRoute, router: Router, TopicService: TopicService) {
-    route.params.pipe(
+    console.log(route.parent)
+    route.parent?.params.pipe(
       switchMap((params) => {
         return TopicService.get(params['topicId'])
       })

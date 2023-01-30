@@ -26,7 +26,7 @@ export class TopicSettingsComponent implements OnInit {
   CATEGORIES = Object.keys(this.TopicService.CATEGORIES);
   reminder = false;
   reminderOptions = [{ value: 1, unit: 'days' }, { value: 2, unit: 'days' }, { value: 3, unit: 'days' }, { value: 1, unit: 'weeks' }, { value: 2, unit: 'weeks' }, { value: 1, unit: 'month' }];
-
+  private publicGroups:any;
   constructor(
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) data: TopicSettingsData,
@@ -42,6 +42,14 @@ export class TopicSettingsComponent implements OnInit {
   ) {
     console.log(data)
     this.topic = data.topic;
+    TopicMemberGroupService.setParam('topicId', data.topic.id);
+    this.TopicMemberGroupService
+      .loadItems()
+      .pipe(take(1))
+      .subscribe((groups) => {
+        console.log('GROUPs', groups)
+        this.publicGroups = groups.filter((group: any) => group.visibility === this.GroupService.VISIBILITY.public);
+      });
   }
 
   ngOnInit(): void {
@@ -94,13 +102,7 @@ export class TopicSettingsComponent implements OnInit {
   }
 
   canChangeVisibility() {
-    return this.TopicMemberGroupService
-      .loadItems()
-      .pipe(take(1))
-      .subscribe((groups) => {
-        const publicGroups = groups.filter((group: any) => group.visibility === this.GroupService.VISIBILITY.public);
-        return (this.canDelete() && (this.topic.visibility === this.VISIBILITY.private || publicGroups.length === 0));
-      });
+    return (this.canDelete() && (this.topic.visibility === this.VISIBILITY.private || this.publicGroups.length === 0));
   }
 
   selectedReminderOption() {

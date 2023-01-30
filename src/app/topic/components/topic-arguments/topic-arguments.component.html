@@ -1,55 +1,62 @@
 <div class="arguments_container">
   <div class="arguments_wrap">
-      <div class="arguments_header">
-          <div class="number_of_arguments" translate="VIEWS.TOPICS_TOPICID.TAB_ARGUMENTS_HEADING" [translateParams]="{count: (TopicArgumentService.count.value.total)}"></div>
-          <div class="arguments_data">
-              <div class="data_left">
-                  <span class="data_item" translate="VIEWS.TOPICS_TOPICID.LBL_ARGUMENTS_COUNT_PRO" [translateParams]="{countPro:TopicArgumentService.count.value.pro}"></span>
-                  <span class="data_item" translate="VIEWS.TOPICS_TOPICID.LBL_ARGUMENTS_COUNT_CON" [translateParams]="{countCon:TopicArgumentService.count.value.con}"></span>
-                  <span class="data_item" translate="VIEWS.TOPICS_TOPICID.LBL_ARGUMENTS_COUNT_POI" [translateParams]="{countPoi:TopicArgumentService.count.value.poi}"></span>
-                  <span class="data_item" translate="VIEWS.TOPICS_TOPICID.LBL_ARGUMENTS_COUNT_REPLY" [translateParams]="{countReplies:TopicArgumentService.count.value.reply}"></span>
+    <div class="arguments_header">
+      <div class="number_of_arguments" translate="VIEWS.TOPICS_TOPICID.TAB_ARGUMENTS_HEADING"
+        [translateParams]="{count: (TopicArgumentService.count.value.total)}"></div>
+      <div class="arguments_data">
+        <div class="data_left">
+          <span class="data_item" translate="VIEWS.TOPICS_TOPICID.LBL_ARGUMENTS_COUNT_PRO"
+            [translateParams]="{countPro:TopicArgumentService.count.value.pro}"></span>
+          <span class="data_item" translate="VIEWS.TOPICS_TOPICID.LBL_ARGUMENTS_COUNT_CON"
+            [translateParams]="{countCon:TopicArgumentService.count.value.con}"></span>
+          <span class="data_item" translate="VIEWS.TOPICS_TOPICID.LBL_ARGUMENTS_COUNT_POI"
+            [translateParams]="{countPoi:TopicArgumentService.count.value.poi}"></span>
+          <span class="data_item" translate="VIEWS.TOPICS_TOPICID.LBL_ARGUMENTS_COUNT_REPLY"
+            [translateParams]="{countReplies:TopicArgumentService.count.value.reply}"></span>
+        </div>
+        <div class="data_right print_never">
+          <div [cosDropdown] class="classic_dropdown borderless_dropdown">
+            <div class="dropdown_selection">
+              <div class="dropdown_text data_item">
+                {{'VIEWS.TOPICS_TOPICID.TXT_ARGUMENT_ORDER_BY_' + TopicArgumentService.params$.value.orderBy | uppercase
+                | translate}}
               </div>
-              <div class="data_right print_never">
-                  <div [cosDropdown] class="classic_dropdown borderless_dropdown">
-                      <div class="dropdown_selection">
-                          <div class="dropdown_text data_item">
-                              {{'VIEWS.TOPICS_TOPICID.TXT_ARGUMENT_ORDER_BY_' + TopicArgumentService.params$.value.orderBy | uppercase | translate}}
-                          </div>
 
-                          <div class="arrow_holder">
-                              <div class="table_cell">
-                                  <div class="sprite sprite-dropdown-arrowdown-small2x"></div>
-                              </div>
-                          </div>
-                      </div>
-
-                      <div class="dropdown">
-                          <!-- NO CATEGORY -->
-                          <div class="dropdown_item" *ngFor="let orderOption in topicComments.orderByOptions | keyvalue">
-                              <div class="item_name" (click)="TopicArgumentService.updateParams({orderBy: orderOption.key})">
-                                  {{orderOption.value.translation}}
-                              </div>
-                          </div>
-                      </div>
-
-                  </div>
-
-                  <!--div class="blue_button" (click)="doAddComment()" translate="VIEWS.TOPICS_TOPICID.BTN_ADD_ARGUMENT"></!--div-->
-
+              <div class="arrow_holder">
+                <div class="table_cell">
+                  <div class="sprite sprite-dropdown-arrowdown-small2x"></div>
+                </div>
               </div>
+            </div>
+
+            <div class="dropdown">
+              <!-- NO CATEGORY -->
+              <div class="dropdown_item" *ngFor="let orderOption of orderByOptions">
+                <div class="item_name" (click)="TopicArgumentService.setParam('orderBy', orderOption)">
+                  {{orderOption}}
+                </div>
+              </div>
+            </div>
+
           </div>
-          <div class="clearer"></div>
 
-          <div class="line lightest_line"></div>
+          <div class="blue_button" (click)="doAddComment()" translate="VIEWS.TOPICS_TOPICID.BTN_ADD_ARGUMENT"></div>
+
+        </div>
       </div>
+      <div class="clearer"></div>
 
-      <div class="arguments_content" id="arguments" ng-if="(TopicArgumentService.count.pro + TopicArgumentService.count.con + TopicArgumentService.count.poi)">
-          <!-- FIRST COMMENT -->
-          <div class="argument_wrap is_{{argument.type}}" *ngFor="let argument of arguments$ | async;">
+      <div class="line lightest_line"></div>
+    </div>
 
-              <argument [argument]="argument" [topicId]="topicId"></argument>
-              <!-- COMMENT REPLY -->
-              <!--div-- class="single_argument is_reply" ng-if="comment.showReplies" ng-repeat="reply in comment.replies.rows" ng-click="">
+    <div class="arguments_content" id="arguments" >
+      <!-- FIRST COMMENT -->
+
+        <div class="argument_wrap is_{{arg.type}}" *ngFor="let arg of arguments$ | async">
+
+          <argument [argument]="arg" [topicId]="topic.id"></argument>
+          <!-- COMMENT REPLY -->
+          <!--div-- class="single_argument is_reply" ng-if="comment.showReplies" ng-repeat="reply in comment.replies.rows" ng-click="">
                   <div id="{{reply.id + '_v' + (reply.edits.length-1)}}" class="argument" ng-class="{post_argument_wrap: reply.showEdit}">
                       <!-- REPLY HEADER >
                       <div class="argument_header">
@@ -270,14 +277,13 @@
                       <!-- REPLY FOOTER >
                   </div>
                   <!-- REPLY TO REPLY >
-                  <comment-reply ng-if="reply.showReply" comment="reply" topic-id="topicId"></comment-reply>
+                  <argument-reply ng-if="reply.showReply" comment="reply" topic-id="topicId"></argument-reply>
               </!--div-->
-          </div>
-          <!--cos-pagination class="pagination" select="loadPage(page)" total-pages="TopicArgumentService.totalPages" page="TopicArgumentService.page"></!--cos-pagination-->
+        </div>
+        <!--cos-pagination class="pagination" select="loadPage(page)" total-pages="TopicArgumentService.totalPages" page="TopicArgumentService.page"></!--cos-pagination-->
+    </div>
 
-      </div>
-
-      <!--post-argument topic-id="topicId"></!--post-argument-->
+    <post-argument [topicId]="topic.id"></post-argument>
 
   </div>
 

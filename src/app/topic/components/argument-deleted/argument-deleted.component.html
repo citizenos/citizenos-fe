@@ -1,0 +1,48 @@
+<div class="argument_footer delete_reasons" >
+  <div class="link_wrap">
+    <div class="table_cell">
+      <div class="blue_link active_red" (click)="showDeleteReason = !showDeleteReason"
+        translate="VIEWS.TOPICS_TOPICID.ARGUMENT_WHY">
+      </div>
+      <div class="active_red_triangle_wrap" *ngIf="showDeleteReason">
+        <div class="active_red_triangle">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="line_wrap">
+    <div class="table_cell">
+      <div class="v_line"></div>
+    </div>
+  </div>
+  <div class="link_wrap">
+    <div class="table_cell">
+      <div class="blue_link active_red" (click)="showDeletedArgument = !showDeletedArgument"
+        translate="VIEWS.TOPICS_TOPICID.ARGUMENT_VIEW_ARGUMENT_ANYWAY">
+      </div>
+      <div class="active_red_triangle_wrap" *ngIf="isVisible() && !showDeleteReason">
+        <div class="active_red_triangle">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="clearer"></div>
+</div>
+
+<div class="alert_argument" *ngIf="showDeleteReason" (click)="showDeleteReason = !showDeleteReason">
+  <span translate="VIEWS.TOPICS_TOPICID.ARGUMENT_FOUND_INAPPRIOPRIATE_BY"
+    [translateParams]="{usersFullName: argument.deletedBy.name}"></span><span
+    *ngIf="argument.deletedReasonType || argument.deletedReasonText">:</span>
+  <b *ngIf="argument.deletedReasonType">{{('TXT_REPORT_TYPES_' + argument.deletedReasonType | uppercase) |
+    translate}}</b><br>
+  <b *ngIf="argument.deletedReasonText" class="italic">{{argument.deletedReasonText}}</b>
+  <br>
+  <br>
+  <span translate="VIEWS.TOPICS_TOPICID.ARGUMENT_READ_CODE_OF_CONDUCT"
+    [translateParams]="{codeOfConduct: config.get('moderation').codeOfConduct}"></span>
+</div>
+<div class="alert_argument" *ngIf="argument.deletedAt && isVisible()">
+  <span class="replys_reply italic"><b>{{argument.subject}}</b></span><br>
+  <span class="italic" (click)="showDeletedArgument = !showDeletedArgument" [innerHTML]="argument.text"></span>
+  <!-- pipe markdown -->
+</div>

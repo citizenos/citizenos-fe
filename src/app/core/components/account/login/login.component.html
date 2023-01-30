@@ -90,7 +90,7 @@
                               </label>
                               <div class="input_with_icon clickable">
                                   <input id="password" formControlName="password" type="password" placeholder="{{'MODALS.LOGIN_PLACEHOLDER_PASSWORD' | translate}}"
-                                     focus-if="isFormEmailProvided" ng-class="{'error_input': errors.password}" maxlength="64" required cos-view-input>
+                                     (focus)="isFormEmailProvided" ng-class="{'error_input': errors.password}" maxlength="64" required cos-view-input>
                               </div>
                               <label for="password" class="error_label" *ngIf="errors?.password">
                                   <div class="table_cell">

@@ -35,6 +35,7 @@
     }
   },
   "attachments": {
+    "limit": 10,
     "dropbox": {
       "appKey": "lkk7j6f41sfpm5b"
     },

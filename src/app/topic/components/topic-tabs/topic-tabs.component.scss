@@ -1,0 +1,144 @@
+@use 'vars';
+@use 'mixins_n_extends';
+
+.tabs_wrap_wrap {
+  height: 44px;
+  position: relative;
+  display: table;
+  width: 100%;
+
+  .arrow_btn {
+    position: absolute;
+    background: linear-gradient(
+      90deg,
+      rgba(246, 246, 246, 100%) 72.5%,
+      rgba(246, 246, 246, 0%) 100%
+    );
+    height: inherit;
+    width: 70px;
+    z-index: 2;
+    border-bottom: 1px solid vars.$lightest_gray;
+    display: table;
+    box-sizing: border-box;
+    cursor: pointer;
+    .sprite {
+      margin-left: 4px;
+    }
+    &:hover {
+      .sprite {
+        margin-left: 0;
+        @extend %sprite-icon-arrow-topic-tab2x-hover;
+      }
+    }
+  }
+
+  .arrow_btn.right {
+    right: 0;
+    background: linear-gradient(
+      90deg,
+      rgba(246, 246, 246, 0%) 0,
+      rgba(246, 246, 246, 100%) 28.5%
+    );
+    left: auto;
+    .sprite {
+      margin-left: auto;
+      margin-right: 4px;
+    }
+    &:hover {
+      .sprite {
+        margin-left: auto;
+        margin-right: 0;
+        @extend %sprite-icon-arrow-right-topic-tab2x-hover;
+      }
+    }
+  }
+
+  .fake_cell {
+    display: table-cell;
+    min-width: 310px;
+    @include mixins_n_extends.tablet {
+      display: none;
+    }
+  }
+
+  .tabs_wrap {
+    height: inherit;
+    position: relative;
+    display: table-cell;
+    width: 70%;
+    padding-left: 60px;
+    box-sizing: border-box;
+    @include mixins_n_extends.tablet {
+      width: 100%;
+      padding-left: 0;
+    }
+    .tabs_visible_area {
+      height: inherit;
+      position: relative;
+      overflow: hidden;
+
+      @include mixins_n_extends.tablet {
+        padding-left: 10px;
+      }
+
+      .tabs_rails {
+        height: inherit;
+        width: 99999px;
+        position: absolute;
+        top: 0;
+        .tabs_train {
+          height: inherit;
+          float: left;
+          position: absolute;
+          transition: all 450ms cubic-bezier(0.45, 0.78, 0, 1);
+          @include mixins_n_extends.tablet {
+            transition: none;
+          }
+          .tab {
+            display: table;
+            height: inherit;
+            float: left;
+            background: vars.$white;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 0 20px;
+            box-sizing: border-box;
+            margin-right: 10px;
+            border: 1px solid vars.$lightest_gray;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: vars.$text_gray;
+
+            &:hover {
+              cursor: pointer;
+              background: vars.$light_gray;
+              @include mixins_n_extends.tablet {
+                background: vars.$white;
+              }
+            }
+            @include mixins_n_extends.tablet {
+              &:last-child {
+                margin-right: 0;
+              }
+            }
+          }
+          .selected {
+            background: vars.$light_gray;
+            border-bottom: 1px solid vars.$light_gray;
+
+            &:hover {
+              cursor: initial;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+}

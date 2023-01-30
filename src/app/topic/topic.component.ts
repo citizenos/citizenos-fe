@@ -1,9 +1,14 @@
+import { TopicAttachmentService } from 'src/app/services/topic-attachment.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { UploadService } from 'src/app/services/upload.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, of } from 'rxjs';
 import { TopicService } from 'src/app/services/topic.service';
 import { TopicArgumentService } from 'src/app/services/topic-argument.service';
+import { AppService } from 'src/app/services/app.service';
 import { Topic } from 'src/app/interfaces/topic';
+import { Attachment } from 'src/app/interfaces/attachment';
 
 @Component({
   selector: 'topic',
@@ -20,17 +25,33 @@ export class TopicComponent implements OnInit {
   wWidth: number = window.innerWidth;
   topicSettings = false;
   more_info_button = false; //app.more_info_button not sure where used
-  constructor(public TopicService: TopicService, private route: ActivatedRoute, public TopicArgumentService: TopicArgumentService) {
+  topicAttachments$ = of(<Attachment[] | any[]>[]);
+  ATTACHMENT_SOURCES = this.TopicAttachmentService.SOURCES;
+
+  constructor(
+    private Auth: AuthService,
+    public TopicService: TopicService,
+    private route: ActivatedRoute,
+    private Upload: UploadService,
+    public TopicAttachmentService: TopicAttachmentService,
+    public TopicArgumentService: TopicArgumentService,
+    public app: AppService
+  ) {
     this.topic$ = this.route.params.pipe<Topic>(
       switchMap((params) => {
         return this.TopicService.get(params['topicId']);
       })
     );
+
+    this.topicAttachments$ = this.route.params.pipe(
+      switchMap((params) => {
+        this.TopicAttachmentService.setParam('topicId', params['topicId']);
+        return this.TopicAttachmentService.loadItems();
+      })
+    );
   }
 
   ngOnInit(): void {
-
-    console.log('Topic', this.topic$)
   }
 
   hideInfoEdit() {
@@ -58,4 +79,8 @@ export class TopicComponent implements OnInit {
   scroll(el: HTMLElement) {
     el.scrollIntoView();
   }
+
+  downloadAttachment(topicId: string, attachment: Attachment) {
+    return this.Upload.download(topicId, attachment.id, this.Auth.user.value.id || '');
+  };
 }

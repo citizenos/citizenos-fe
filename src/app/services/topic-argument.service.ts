@@ -6,51 +6,54 @@ import { LocationService } from './location.service';
 import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { Argument } from 'src/app/interfaces/argument';
 import { Observable, BehaviorSubject, map, distinct, catchError, EMPTY } from 'rxjs';
+import { ItemsListService } from './items-list.service';
 @Injectable({
   providedIn: 'root'
 })
 
-export class TopicArgumentService {
-  private defaultParams = {
-    topicId: <string | null> null,
-    orderBy: <string | null> null,
-    sortOrder: <string | null> null,
-    offset: <number> 0,
-    limit: <number> 8,
-  };
+export class TopicArgumentService extends ItemsListService {
 
-  params$ = new BehaviorSubject(this.defaultParams);
-
-  private ARGUMENT_TYPES = {
+  public ARGUMENT_TYPES = {
     pro: 'pro',
     con: 'con',
     poi: 'poi',
     reply: 'reply'
   };
 
-  private ARGUMENT_SUBJECT_MAXLENGTH = 128;
+  public ARGUMENT_SUBJECT_MAXLENGTH = 128;
 
-  private ARGUMENT_TYPES_MAXLENGTH = {
-      pro: 2048,
-      con: 2048,
-      poi: 500,
-      reply: 2048
+  public ARGUMENT_TYPES_MAXLENGTH = <any>{
+    'pro': 2048,
+    'con': 2048,
+    'poi': 500,
+    'reply': 2048
   };
 
-  private ARGUMENT_REPORT_TYPES = {
-      abuse: 'abuse', // is abusive or insulting
-      obscene: 'obscene', // contains obscene language
-      spam: 'spam', // contains spam or is unrelated to topic
-      hate: 'hate', // contains hate speech
-      netiquette: 'netiquette', // infringes (n)etiquette
-      duplicate: 'duplicate' // duplicate
+  public ARGUMENT_REPORT_TYPES = {
+    abuse: 'abuse', // is abusive or insulting
+    obscene: 'obscene', // contains obscene language
+    spam: 'spam', // contains spam or is unrelated to topic
+    hate: 'hate', // contains hate speech
+    netiquette: 'netiquette', // infringes (n)etiquette
+    duplicate: 'duplicate' // duplicate
   };
 
-  private ARGUMENT_ORDER_BY = {
-  //    rating: 'rating', removed 23.12.2022
-      popularity: 'popularity',
-      date: 'date'
+  public ARGUMENT_ORDER_BY = {
+    //    rating: 'rating', removed 23.12.2022
+    popularity: 'popularity',
+    date: 'date'
   };
+
+  params = {
+    topicId: <string | null>null,
+    orderBy: <string>this.ARGUMENT_ORDER_BY.date,
+    sortOrder: <string | null>null,
+    offset: <number>0,
+    limit: <number>8,
+  };
+
+  params$ = new BehaviorSubject(this.params);
+
   count = new BehaviorSubject({
     total: 0,
     con: 0,
@@ -59,31 +62,89 @@ export class TopicArgumentService {
     reply: 0
   });
 
-  countTotal$ = new BehaviorSubject(0);
-  constructor(private http: HttpClient, private Location: LocationService, private Auth: AuthService) { }
+  constructor(private http: HttpClient, private Location: LocationService, private Auth: AuthService) {
+    super();
+    this.items$ = this.loadItems();
 
-  query(params: {[key: string]: any }): Observable<ApiResponse> {
-    let path = this.Location.getAbsoluteUrlApi('/api/topics/:topicId/comments', params);
+  }
+
+  save(data: any) {
+    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/comments'), data);
+
+    return this.http.post<ApiResponse>(path, data, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
+      map(res => res.data)
+    );
+  }
+
+  update(data: any) {
+    if (!data.commentId) data.commentId = data.id;
+    const path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/comments/:commentId'), data);
+
+    return this.http.put<ApiResponse>(path, data, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
+      map(res => res.data)
+    );
+  }
+
+  delete(data: any) {
+    if (!data.commentId) data.commentId = data.id;
+    const path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/comments/:commentId'), data)
+
+    return this.http.delete<ApiResponse>(path, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
+      map(res => res.data)
+    );
+  }
+
+  query(params: { [key: string]: any }): Observable<ApiResponse> {
+    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/comments'), params);
 
     const queryParams = Object.fromEntries(Object.entries(params).filter((i) => i[1] !== null));
 
-    return this.http.get<ApiResponse>(path, { params: queryParams, observe: 'body', responseType: 'json' } );
+    return this.http.get<ApiResponse>(path, { withCredentials: true, params: queryParams, observe: 'body', responseType: 'json' });
+  }
+
+  vote(data: any) {
+    let path = this.Location.getAbsoluteUrlApi('/api/topics/:topicId/comments/:commentId/votes', data);
+
+    return this.http.post<ApiResponse>(path, data, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
+      map(res => res.data)
+    );
+  }
+
+  votes(data: { [key: string]: any }) {
+    if (!data['commentId']) data['commentId'] = data['id'];
+    const queryParams = Object.fromEntries(Object.entries(data).filter((i) => i[1] !== null));
+
+    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/comments/:commentId/votes'), data);
+    return this.http.get<ApiResponse>(path, { withCredentials: true, params: queryParams, observe: 'body', responseType: 'json' }).pipe(
+      map(res => res.data)
+    );
+  };
+
+  report(data: any) {
+    if (!data.commentId) data.commentId = data.id;
+    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/comments/:commentId/reports'), data);
+
+    return this.http.post<ApiResponse>(path, data, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
+      map(res => res.data)
+    );
+  };
+
+  getItems(params: any) {
+    return this.getArguments(params);
   }
 
   getArguments(params?: any | null) {
     return this.query(params).pipe(
-      map((res: ApiResponse) => {
-        console.log(res.data);
-        this.countTotal$.next(res.data.countTotal || 0);
+      map((res) => {
         this.count.next(res.data.count);
-        return Array.from<Argument>(res.data.rows);
+        return { rows: res.data.rows, countTotal: res.data.count.total || 0 }
       }),
       distinct(),
       catchError(() => EMPTY)
     );
   }
 
-  updateParams(params: {[key: string]: any }) {
+  updateParams(params: { [key: string]: any }) {
     const curparams = this.params$.value;
     Object.assign(curparams, params);
     this.params$.next(curparams);

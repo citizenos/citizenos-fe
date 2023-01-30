@@ -38,6 +38,7 @@ export interface Argument {
       selected: boolean
     },
     count: number
-  }
+  },
+  showEdits: boolean
 }
 

@@ -13,11 +13,17 @@ export class AppService {
   showHelp = new BehaviorSubject(false);
   group = new BehaviorSubject<Group | undefined>(undefined);
   topic: Topic | undefined;
-  topicsSettings =false;
+  topicsSettings = false;
+  wWidth = window.innerWidth;
+
   constructor(private dialog: MatDialog, public config: ConfigService) { }
 
 
   doShowTopicNotificationSettings(topicId: string) {
     this.dialog.open(TopicNotificationSettingsComponent, { data: { topicId } });
   }
+
+  isTouchDevice() {
+    return (('ontouchstart' in window) || (navigator.maxTouchPoints > 0));
+  };
 }

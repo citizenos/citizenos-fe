@@ -25,6 +25,7 @@ import { TopicMemberInviteDeleteComponent } from '../topic/components/topic-memb
 import { TopicVoteCastComponent } from '../topic/components/topic-vote-cast/topic-vote-cast.component';
 import { TopicSettingsComponent } from '../topic/components/topic-settings/topic-settings.component';
 import { TopicSettingsDialogComponent } from '../topic/components/topic-settings-dialog/topic-settings-dialog.component';
+import { MarkdownDirective } from '../directives/markdown.directive';
 @NgModule({
   declarations: [
     ActivityComponent,
@@ -33,6 +34,7 @@ import { TopicSettingsDialogComponent } from '../topic/components/topic-settings
     CosInitialsComponent,
     CosPaginationComponent,
     CosToggleComponent,
+    MarkdownDirective,
     PublicgroupboxComponent,
     SocialshareDirective,
     TooltipDirective,
@@ -63,6 +65,7 @@ import { TopicSettingsDialogComponent } from '../topic/components/topic-settings
     CosInitialsComponent,
     CosPaginationComponent,
     CosToggleComponent,
+    MarkdownDirective,
     MatDialogModule,
     MomentModule,
     PublicgroupboxComponent,
