@@ -72,15 +72,15 @@
         <div class="main_content_wrap" (click)="topicSettings = false">
 
           <!-- Create a milestone -->
-          <!--topic-milestones *ngIf="('topics/view/followUp' | isState) && TopicService.canEdit(topic)"></!--topic-milestones-->
+          <topic-milestones *ngIf="viewFollowup && TopicService.canEdit(topic)" [topic]="topic"></topic-milestones>
 
           <!-- Cast your vote container-->
-          <!--topic-vote-cast *ngIf="('topics/view/votes/view' | isState) && topic.vote.id" vote="topic.vote"></!--topic-vote-cast-->
+          <topic-vote-cast *ngIf="showVoteCast && topic.vote?.id" [vote]="topic.vote"></topic-vote-cast>
 
-          <!--topic-vote-create *ngIf="showVoteCreateForm" topic-id="topic.id"></!--topic-vote-create-->
+          <topic-vote-create *ngIf="showVoteCreateForm" [topic]="topic"></topic-vote-create>
 
 
-          <div class="iframe_content_wrap"> <!--*ngIf="!('topics/view/followUp' | isState)"-->
+          <div class="iframe_content_wrap"> <!--*ngIf="!viewFollowup"-->
 
             <div class="topic_info print_never" *ngIf="!editMode">
               <div class="container_visibility">

@@ -6,11 +6,11 @@
 <div id="content_root">
   <!-- CONTENT WRAP -->
   <div id="content_wrap">
-      <!-- div id="close_mobile_menu" ng-if="app.showNav" ng-swipe-right="app.showNav = false" ng-click="app.showNav = false"></!-- -->
+      <!-- div id="close_mobile_menu" ngIf="app.showNav" ng-swipe-right="app.showNav = false" ng-click="app.showNav = false"></!-- -->
 
       <div id="content" [ngClass]="!displaySearch() ? 'content_no_padding' : ''">
           <!-- SEARCH AREA -->
-          <div id="search_area" ng-if="app.wWidth > 1024 && displaySearch()">
+          <div id="search_area" *ngIf="wWidth > 1024 && displaySearch()">
               <!--search></!--search-->
           </div>
           <div id="content_cell">

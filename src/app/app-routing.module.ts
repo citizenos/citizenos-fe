@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes, UrlSegment } from '@angular/router';
+import { RouterModule, Routes, ExtraOptions, UrlSegment } from '@angular/router';
 import { HomeComponent } from './core/components/home/home.component';
 import { AuthGuard } from './auth/auth.guard';
+
+const options: ExtraOptions = {
+  paramsInheritanceStrategy: 'always'
+};
 
 const routes: Routes = [
   {
@@ -26,7 +30,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, options)],
   providers: [AuthGuard],
   exports: [RouterModule]
 })

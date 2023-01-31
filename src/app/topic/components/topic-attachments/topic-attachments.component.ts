@@ -1,8 +1,8 @@
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
-import { takeWhile } from 'rxjs';
+import { take, takeWhile, map } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { AppService } from 'src/app/services/app.service';
 import { NotificationService } from 'src/app/services/notification.service';
@@ -20,6 +20,7 @@ export interface ArgumentReactionsData {
   styleUrls: ['./topic-attachments.component.scss']
 })
 export class TopicAttachmentsComponent implements OnInit {
+  @ViewChild('fileUpload') fileInput?: ElementRef;
   public topic!: Topic;
   public form = {
     files: <any[]>[],
@@ -41,18 +42,15 @@ export class TopicAttachmentsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.TopicAttachmentService
+      .query({ topicId: this.topic.id })
+      .pipe(take(1)).subscribe((files: any) => {
+        this.form.files = files.rows;
+      });
   }
-  uploadFile() {
-    /* const input = document.getElementById('addFile')
-     input.click();
 
-     input.on('change', (e) => {
-       const files = e.target['files'];
-       this.selectFile(files);
-     });*/
-  };
-
-  selectFile(files: any) {
+  attachmentUpload(): void {
+    const files = this.fileInput?.nativeElement.files;
     for (let i = 0; i < files.length; i++) {
       const attachment = {
         name: files[i].name,
@@ -71,6 +69,11 @@ export class TopicAttachmentsComponent implements OnInit {
         this.appendAttachment(attachment);
       }
     }
+  }
+
+  triggerUpload() {
+    console.log(this.fileInput)
+    this.fileInput?.nativeElement.click();
   };
 
   handleAttachment(attachment: any) {
@@ -134,36 +137,33 @@ export class TopicAttachmentsComponent implements OnInit {
     attachment.editMode = !attachment.editMode;
     attachment.topicId = this.topic.id;
     if (!attachment.editMode && attachment.id) {
-     // this.TopicAttachmentService.update(attachment);
+      this.TopicAttachmentService.update(attachment).pipe(take(1)).subscribe()
     }
   };
 
   deleteAttachment(key: number, attachment: any) {
-    const deleteDialog = this.dialog.open(ConfirmDialogComponent)
+    const deleteDialog = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        level: 'delete',
+        heading: 'MODALS.TOPIC_ATTACHMENT_DELETE_CONFIRM_HEADING',
+        title: 'MODALS.TOPIC_ATTACHMENT_DELETE_CONFIRM_TXT_ARE_YOU_SURE',
+        description: 'MODALS.TOPIC_ATTACHMENT_DELETE_CONFIRM_TXT_NO_UNDO',
+        points: ['MODALS.TOPIC_ATTACHMENT_DELETE_CONFIRM_TXT_ATTACHMENT_DELETED'],
+        confirmBtn: 'MODALS.TOPIC_ATTACHMENT_DELETE_CONFIRM_BTN_YES',
+        closeBtn: 'MODALS.TOPIC_ATTACHMENT_DELETE_CONFIRM_BTN_NO'
+      }
+    })
 
-    deleteDialog.afterClosed().subscribe((confirm:any) => {
+    deleteDialog.afterClosed().subscribe((confirm: any) => {
       if (confirm === true) {
-        /*this.form.files.splice(key, 1);
+        this.form.files.splice(key, 1);
         if (attachment.id) {
           this.TopicAttachmentService.delete({
             attachmentId: attachment.id,
             topicId: this.topic.id
-          });
-        }*/
-      }
-    })
-    /*this.ngDialog
-      .openConfirm({
-        template: '/views/modals/topic_attachment_delete_confirm.html'
-      })
-      .then(() => {
-        this.form.files.splice(key, 1);
-        if (attachment.id) {
-          this.TopicAttachment.delete({
-            attachmentId: attachment.id,
-            topicId: this.topic.id
-          });
+          }).pipe(take(1)).subscribe();
         }
-      }, angular.noop);*/
+      }
+    });
   };
 }

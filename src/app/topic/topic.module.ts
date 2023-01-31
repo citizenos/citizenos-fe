@@ -22,6 +22,18 @@ import { ArgumentReplyComponent } from './components/argument-reply/argument-rep
 import { ArgumentReactionsComponent } from './components/argument-reactions/argument-reactions.component';
 import { TopicAttachmentsComponent } from './components/topic-attachments/topic-attachments.component';
 import { TopicAttachmentsDialogComponent } from './components/topic-attachments-dialog/topic-attachments-dialog.component';
+import { TopicMilestonesComponent } from './components/topic-milestones/topic-milestones.component';
+import { TopicVoteCreateComponent } from './components/topic-vote-create/topic-vote-create.component';
+import { TopicParticipantsDialogComponent } from './components/topic-participants-dialog/topic-participants-dialog.component';
+import { TopicParticipantsComponent } from './components/topic-participants/topic-participants.component';
+import { TopicReportFormComponent } from './components/topic-report-form/topic-report-form.component';
+import { TopicReportFormDialogComponent } from './components/topic-report-form-dialog/topic-report-form-dialog.component';
+import { TopicReportModerateDialogComponent } from './components/topic-report-moderate-dialog/topic-report-moderate-dialog.component';
+import { TopicReportModerateComponent } from './components/topic-report-moderate/topic-report-moderate.component';
+import { TopicReportReviewComponent } from './components/topic-report-review/topic-report-review.component';
+import { TopicReportReviewDialogComponent } from './components/topic-report-review-dialog/topic-report-review-dialog.component';
+import { TopicReportResolveDialogComponent } from './components/topic-report-resolve-dialog/topic-report-resolve-dialog.component';
+import { TopicReportResolveComponent } from './components/topic-report-resolve/topic-report-resolve.component';
 
 
 @NgModule({
@@ -42,6 +54,18 @@ import { TopicAttachmentsDialogComponent } from './components/topic-attachments-
     ArgumentReactionsComponent,
     TopicAttachmentsComponent,
     TopicAttachmentsDialogComponent,
+    TopicMilestonesComponent,
+    TopicVoteCreateComponent,
+    TopicParticipantsDialogComponent,
+    TopicParticipantsComponent,
+    TopicReportFormComponent,
+    TopicReportFormDialogComponent,
+    TopicReportModerateDialogComponent,
+    TopicReportModerateComponent,
+    TopicReportReviewComponent,
+    TopicReportReviewDialogComponent,
+    TopicReportResolveDialogComponent,
+    TopicReportResolveComponent,
   ],
   imports: [
     CommonModule,

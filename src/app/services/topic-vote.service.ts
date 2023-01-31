@@ -28,7 +28,7 @@ export class TopicVoteService {
   constructor(private Location: LocationService, private http: HttpClient, private Auth: AuthService, private TopicService: TopicService) { }
 
   query(params: any) {
-    let path = this.Location.getAbsoluteUrlApi('/api/:prefix/:userId/topics/:topicId/votes', params);
+    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('topics/:topicId/votes'), params);
 
     return this.http.get<ApiResponse>(path, { withCredentials: true, params, observe: 'body', responseType: 'json' })
       .pipe(
@@ -38,7 +38,7 @@ export class TopicVoteService {
 
   get(params?: any) {
     if (!params.voteId) params.voteId = params.id;
-    let path = this.Location.getAbsoluteUrlApi('/api/:prefix/:userId/topics/:topicId/votes/:voteId', params);
+    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/votes/:voteId'), params);
 
     return this.http.get<ApiResponse>(path, { withCredentials: true, params, observe: 'body', responseType: 'json' })
       .pipe(
@@ -47,7 +47,7 @@ export class TopicVoteService {
   }
 
   save(data: any) {
-    let path = this.Location.getAbsoluteUrlApi('/api/:prefix/:userId/topics/:topicId/votes', data)
+    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/votes'), data)
 
     return this.http.post<ApiResponse>(path, data, { withCredentials: true, observe: 'body', responseType: 'json' })
       .pipe(
@@ -57,7 +57,7 @@ export class TopicVoteService {
 
   update(data: any) {
     if (!data.voteId) data.voteId = data.id;
-    const path = this.Location.getAbsoluteUrlApi('/api/:prefix/:userId/topics/:topicId/votes/:voteId', data);
+    const path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/votes/:voteId'), data);
     return this.http.put<ApiResponse>(path, data, { withCredentials: true, observe: 'body', responseType: 'json' })
       .pipe(
         map(res => res.data)
@@ -66,7 +66,7 @@ export class TopicVoteService {
 
   delete(data: any) {
     if (!data.voteId) data.voteId = data.id;
-    const path = this.Location.getAbsoluteUrlApi('/api/:prefix/:userId/topics/:topicId/votes/:voteId', data)
+    const path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/votes/:voteId'), data)
 
     return this.http.delete<ApiResponse>(path, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
       map(res => res.data)
@@ -75,7 +75,7 @@ export class TopicVoteService {
 
   cast(data: any) {
     if (!data.voteId) data.voteId = data.id;
-    let path = this.Location.getAbsoluteUrlApi('/api/:prefix/:userId/topics/:topicId/votes/:voteId', data)
+    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('//topics/:topicId/votes/:voteId'), data)
 
     return this.http.post<ApiResponse>(path, data, { withCredentials: true, observe: 'body', responseType: 'json' })
       .pipe(
@@ -85,7 +85,7 @@ export class TopicVoteService {
 
   status(params: any) {
     if (!params.voteId) params.voteId = params.id;
-    let path = this.Location.getAbsoluteUrlApi('/api/:prefix/:userId/topics/:topicId/votes/:voteId/status', params)
+    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/votes/:voteId/status'), params)
 
     return this.http.get<ApiResponse>(path, { params: { token: params.token }, withCredentials: true, observe: 'body', responseType: 'json' })
       .pipe(
@@ -95,7 +95,7 @@ export class TopicVoteService {
 
   sign(data: any) {
     if (!data.voteId) data.voteId = data.id;
-    let path = this.Location.getAbsoluteUrlApi('/api/:prefix/:userId/topics/:topicId/votes/:voteId/sign', data)
+    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/votes/:voteId/sign'), data);
 
     return this.http.post<ApiResponse>(path, data, { withCredentials: true, observe: 'body', responseType: 'json' })
       .pipe(

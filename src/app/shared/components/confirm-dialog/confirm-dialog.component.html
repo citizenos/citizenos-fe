@@ -44,7 +44,17 @@
               </div>
 
               <div id="delete_info_wrap">
-
+                  <!--Sections with h3-->
+                  <ng-container *ngFor="let section of data.sections">
+                    <h3 translate="{{section.heading}}">This content will be duplicated</h3>
+                    <div class="delete_info_text_wrap">
+                      <div class="delete_info" *ngFor="let point of section.points">
+                          <div class="sprite sprite-checkmark2x"></div>
+                          <div class="delete_info_text" translate="{{point}}"></div>
+                      </div>
+                  </div>
+                  </ng-container>
+                  <!--Sections with h3 end-->
                   <div class="delete_info_text_wrap">
                       <div class="delete_info_button_wrap" *ngIf="data.info">
                           <div class="delete_info_text" translate="{{data.info}}"></div>

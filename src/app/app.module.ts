@@ -44,7 +44,7 @@ import { HttpErrorInterceptor } from './services/http.error.interceptor.service'
     HomeComponent,
     LanguageSelectComponent,
     NotificationComponent,
-    ActivityFeedComponent,
+    ActivityFeedComponent
   ],
   imports: [
     BrowserModule,

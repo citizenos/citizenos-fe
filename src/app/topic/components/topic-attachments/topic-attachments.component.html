@@ -2,26 +2,19 @@
 <div id="root_lightbox" class="full_screen">
   <div id="lightbox" class="wide_lightbox with_title_description with_header_menu">
     <div id="lightbox_wrap">
-
       <div id="lightbox_header">
-
         <div id="lightbox_header_text">
           <div class="title" translate="MODALS.TOPIC_ATTACHMENTS_TITLE"></div>
           <div class="title_description">{{topic.title}}</div>
         </div>
-
         <div id="lightbox_close" mat-dialog-close>
           <div class="table_cell ngdialog-close">
             <div class="sprite sprite-btn-popup-close2x ngdialog-close">
             </div>
           </div>
         </div>
-
         <div class="clearer"></div>
-
       </div>
-
-
       <div class="line lightest_line"></div>
 
       <!-- INVITE USERS -->
@@ -31,11 +24,12 @@
           <div class="table_row">
             <div class="file_add_cell" *ngIf="config.upload">
               <!--cos-file-upload id="addFile" file-item="form.uploadfiles" , multiple="true"></!--cos-file-upload-->
-              <div class="file_add_btn_wrap" (click)="uploadFile()">
+              <input type="file" #fileUpload id="addFile" class="image_item" (change)="attachmentUpload()" multiple="true"/>
+              <div class="file_add_btn_wrap" (click)="triggerUpload()">
                 <div class="file_add_btn">
                   <div class="sprite sprite-topic-file-upload2x"></div>
                 </div>
-                <div class="file_add_btn_description" translate="MODALS.TOPIC_ATTACHMENTS_LBL_COMPUTER">Computer</div>
+                <div class="file_add_btn_description" translate="MODALS.TOPIC_ATTACHMENTS_LBL_COMPUTER"></div>
               </div>
             </div>
             <div class="line_files_sepparator" *ngIf="config.upload"></div>
@@ -44,7 +38,7 @@
                 <div class="file_add_btn">
                   <div class="sprite sprite-topic-file-dropbox2x"></div>
                 </div>
-                <div class="file_add_btn_description" translate="MODALS.TOPIC_ATTACHMENTS_LBL_DROPBOX">Dropbox</div>
+                <div class="file_add_btn_description" translate="MODALS.TOPIC_ATTACHMENTS_LBL_DROPBOX"></div>
               </div>
             </div>
             <div class="line_files_sepparator" *ngIf="config.dropbox"></div>
@@ -53,8 +47,7 @@
                 <div class="file_add_btn">
                   <div class="sprite sprite-topic-file-googledrive2x"></div>
                 </div>
-                <div class="file_add_btn_description" translate="MODALS.TOPIC_ATTACHMENTS_LBL_GOOGLE_DRIVE">Google Drive
-                </div>
+                <div class="file_add_btn_description" translate="MODALS.TOPIC_ATTACHMENTS_LBL_GOOGLE_DRIVE"></div>
               </div>
             </div>
             <div class="line_files_sepparator" *ngIf="config.googleDrive"></div>
@@ -63,32 +56,28 @@
                 <div class="file_add_btn">
                   <div class="sprite sprite-topic-file-onedrive2x"></div>
                 </div>
-                <div class="file_add_btn_description" translate="MODALS.TOPIC_ATTACHMENTS_LBL_ONEDRIVE">OneDrive</div>
+                <div class="file_add_btn_description" translate="MODALS.TOPIC_ATTACHMENTS_LBL_ONEDRIVE"></div>
               </div>
             </div>
           </div>
         </div>
-
-
         <div class="lightbox_section double_row_list user_list" *ngIf="form.files.length">
 
           <div>
 
             <div class="category_title">
-              <div class="table_cell" translate="MODALS.TOPIC_ATTACHMENTS_TITLE_FILES">
-                Files
-              </div>
+              <div class="table_cell" translate="MODALS.TOPIC_ATTACHMENTS_TITLE_FILES"></div>
             </div>
 
             <table>
 
-              <tr *ngFor="let file in form.files | keyvalue">
+              <tr *ngFor="let file of form.files; let $index = index;">
                 <td>
                   <div class="name_wrap file_name">
                     <div class="table_cell">
-                      <div *ngIf="!file.value.editMode" class="blue_link">{{file.value.name}}</div>
-                      <input *ngIf="file.value.editMode" type="text" ng-model="file.value.name" focus-if
-                        (keyup)="$event.keyCode === 13 && editAttachment(file.value)" />
+                      <div *ngIf="!file.editMode" class="blue_link">{{file.name}}</div>
+                      <input *ngIf="file.editMode" type="text" [(ngModel)]="file.name" focus-if
+                        (keyup)="$event.keyCode === 13 && editAttachment(file)" />
                     </div>
                   </div>
 
@@ -96,20 +85,20 @@
                     <div class="left">
                       <div class="name_wrap">
                         <div class="table_cell">
-                          <div *ngIf="!file.value.editMode" class="blue_link">{{file.value.name}}</div>
-                          <input *ngIf="file.value.editMode" type="text" ng-model="file.value.name" />
+                          <div *ngIf="!file.editMode" class="blue_link">{{file.name}}</div>
+                          <input *ngIf="file.editMode" type="text" ng-model="file.value.name" />
                         </div>
                       </div>
                     </div>
                     <div class="right">
                       <div class="btn_wrap recycle_bin white_bg">
-                        <div class="btn" (click)="deleteAttachment(file.key, file.value)">
+                        <div class="btn" (click)="deleteAttachment($index, file)">
                           <div class="table_cell">
                             <div class="sprite sprite-mytopics-icon-deletetopic2x"></div>
                           </div>
                         </div>
                       </div>
-                      <div class="btn_wrap edit_btn" (click)="editAttachment(file.value)">
+                      <div class="btn_wrap edit_btn" (click)="editAttachment(file)">
                         <div class="btn">
                           <div class="table_cell">
                             <div class="sprite sprite-icon-edit2x"></div>
@@ -120,18 +109,18 @@
                   </div>
                 </td>
                 <td class="file_buttons">
-                  <div class="btn_wrap edit_btn" (click)="editAttachment(file.value)">
+                  <div class="btn_wrap edit_btn" (click)="editAttachment(file)">
                     <div class="btn">
                       <div class="table_cell">
                         <div class="sprite desktop_fix"
-                          [ngClass]="file.value.editMode ? 'sprite-icon-confirm2x' : 'sprite-icon-edit2x'"></div>
+                          [ngClass]="file.editMode ? 'sprite-icon-confirm2x' : 'sprite-icon-edit2x'"></div>
                         <div class="sprite mobile_fix"
-                          [ngClass]="file.value.editMode ? 'sprite-icon-confirm2x' : 'sprite-icon-edit2x'"></div>
+                          [ngClass]="file.editMode ? 'sprite-icon-confirm2x' : 'sprite-icon-edit2x'"></div>
                       </div>
                     </div>
                   </div>
                   <div class="btn_wrap recycle_bin white_bg">
-                    <div class="btn" (click)="deleteAttachment(file.key, file.value)">
+                    <div class="btn" (click)="deleteAttachment($index, file)">
                       <div class="table_cell">
                         <div class="sprite desktop_fix sprite-mytopics-icon-deletetopic2x"></div>
                         <div class="sprite mobile_fix sprite-mytopics-icon-deletetopic2x"></div>

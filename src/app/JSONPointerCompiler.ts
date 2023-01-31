@@ -33,7 +33,19 @@ export class JSONPointerCompiler extends TranslateCompiler {
             }
             if (typeof currentTranslations[key] === 'string') {
                 if (currentTranslations[key].includes("@:")) {
+
                     let replacementProperty = this.getDescendantPropertyValue(masterLanguageFile, currentTranslations[key].substring(2));
+                    let i = 0
+                    while (replacementProperty.includes("@:")) {
+                      i++;
+                      const tryProp = replacementProperty;
+                      replacementProperty = this.getDescendantPropertyValue(masterLanguageFile, tryProp.substring(2));
+
+                      if (tryProp === replacementProperty) {
+                        console.error('Translation loop for key:', tryProp)
+                        break
+                      };
+                    }
                     currentTranslations[key] = replacementProperty;
                 }
             }

@@ -12,9 +12,9 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class TopicService {
-  public CATEGORIES = {
-    biotoopia: "biotoopia",
-    citizenos: "citizenos",
+  public CATEGORIES = <any>{
+    biotoopia: 'biotoopia',
+    citizenos: 'citizenos',
     eestijazziarengusuunad: 'eestijazziarengusuunad', // Special project with http://www.jazz.ee/ - https://github.com/citizenos/citizenos-api/issues/73
     eurochangemakers: 'eurochangemakers',
     hacktivistcommunity: 'hacktivistcommunity',
@@ -41,19 +41,19 @@ export class TopicService {
     varia: 'varia' // Varia
   };
 
-  public STATUSES = {
+  public STATUSES = <any>{
     inProgress: 'inProgress', // Being worked on
     voting: 'voting', // Is being voted which means the Topic is locked and cannot be edited.
     followUp: 'followUp', // Done editing Topic and executing on the follow up plan.
     closed: 'closed' // Final status - Topic is completed and no editing/reopening/voting can occur.
   };
 
-  public VISIBILITY = {
+  public VISIBILITY = <any>{
     public: 'public', // Everyone has read-only on the Topic.  Pops up in the searches..
     private: 'private' // No-one can see except collaborators
   };
 
-  public LEVELS = {
+  public LEVELS = <any>{
     read: 'read',
     edit: 'edit',
     admin: 'admin'
@@ -72,7 +72,7 @@ export class TopicService {
 
   update(data: any) {
     const updateFields = ['visibility', 'status', 'categories', 'endsAt', 'hashtag'];
-    const sendData:any = {};
+    const sendData: any = {};
 
     updateFields.forEach((field) => {
       if (field in data) {
@@ -83,14 +83,14 @@ export class TopicService {
     const path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId', { topicId: data.id || data.topicId });
 
     return this.http.put<ApiResponse>(path, sendData, { withCredentials: true, observe: 'body', responseType: 'json' })
-    .pipe(
-      map(res => res.data)
-    );
+      .pipe(
+        map(res => res.data)
+      );
   }
 
   patch(data: any) {
     const updateFields = ['visibility', 'status', 'categories', 'endsAt', 'hashtag'];
-    const sendData:any = {};
+    const sendData: any = {};
 
     updateFields.forEach((field) => {
       if (field in data) {
@@ -98,12 +98,12 @@ export class TopicService {
       }
     });
 
-    const path = this.Location.getAbsoluteUrlApi('/api/:prefix/:userId/topics/:topicId', { topicId: data.id || data.topicId });
+    const path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId', { topicId: data.id || data.topicId });
 
     return this.http.patch<ApiResponse>(path, sendData, { withCredentials: true, observe: 'body', responseType: 'json' })
-    .pipe(
-      map(res => res.data)
-    );
+      .pipe(
+        map(res => res)
+      );
   }
 
   query(params: { [key: string]: any }): Observable<ApiResponse> {
@@ -121,23 +121,31 @@ export class TopicService {
     const path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId', { topicId: data.id || data.topicId });
 
     return this.http.delete<ApiResponse>(path, { withCredentials: true, observe: 'body', responseType: 'json' })
-      .pipe(map((res) => { return res.data }));
+      .pipe(map(res => res.data));
   }
+
+  duplicate(data: any) {
+    if (!data.topicId) data.topicId = data.id;
+    const path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/duplicate', data);
+
+    return this.http.get<ApiResponse>(path, { withCredentials: true, observe: 'body', responseType: 'json' })
+      .pipe(map(res => res.data));
+  };
 
   addToPinned(topicId: string) {
     const path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/pin', { topicId: topicId });
 
-    return this.http.post(path, {}, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
-      map(((res: any) => { return res.data }))
-    )
+    return this.http.post<ApiResponse>(path, {}, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
+      map(res => res.data)
+    );
   }
 
   removeFromPinned(topicId: string) {
     const path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/pin', { topicId: topicId });
 
-    return this.http.delete(path, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
-      map(((res: any) => { return res.data }))
-    )
+    return this.http.delete<ApiResponse>(path, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
+      map(res => res.data)
+    );
   }
 
   togglePin(topic: Topic) {
@@ -161,6 +169,54 @@ export class TopicService {
   };
 
   changeState(topic: Topic, state: string, stateSuccess?: string) {
+    console.log(topic, state, stateSuccess)
+    const templates = <any>{
+      followUp: {
+        level: 'delete',
+        heading: 'MODALS.TOPIC_SEND_TO_FOLLOWUP_CONFIRM_HEADING',
+        title: 'MODALS.TOPIC_SEND_TO_FOLLOWUP_CONFIRM_TXT_ARE_YOU_SURE',
+        description: 'MODALS.USER_DELETE_CONFIRM_TXT_NO_UNDO',
+        points: ['MODALS.TOPIC_SEND_TO_FOLLOWUP_CONFIRM_TXT_NO_EDIT', 'MODALS.TOPIC_SEND_TO_FOLLOWUP_CONFIRM_TXT_NO_VOTE'],
+        confirmBtn: 'MODALS.TOPIC_SEND_TO_FOLLOWUP_CONFIRM_BTN_YES',
+        closeBtn: 'MODALS.TOPIC_SEND_TO_FOLLOWUP_CONFIRM_BTN_NO'
+      },
+      closed: {
+        level: 'delete',
+        heading: 'MODALS.TOPIC_CLOSE_CONFIRM_HEADING_CLOSE_TOPIC',
+        title: 'MODALS.TOPIC_CLOSE_CONFIRM_TXT_ARE_YOU_SURE',
+        description: 'MODALS.TOPIC_CLOSE_CONFIRM_TXT_NO_UNDO',
+        points: ['MODALS.TOPIC_CLOSE_CONFIRM_TXT_NO_EDIT', 'MODALS.TOPIC_CLOSE_CONFIRM_TXT_NO_VOTE'],
+        closeBtn: 'MODALS.TOPIC_CLOSE_CONFIRM_BTN_NO',
+        confirmBtn: 'MODALS.TOPIC_CLOSE_CONFIRM_BTN_YES'
+      },
+      vote: {
+        heading: 'MODALS.TOPIC_SEND_TO_VOTE_CONFIRM_HEADING',
+        title: 'MODALS.TOPIC_SEND_TO_VOTE_CONFIRM_TXT_ARE_YOU_SURE',
+        description: 'MODALS.USER_DELETE_CONFIRM_TXT_NO_UNDO',
+        points: ['MODALS.TOPIC_SEND_TO_VOTE_CONFIRM_TXT_NO_EDIT'],
+        confirmBtn: 'MODALS.TOPIC_SEND_TO_VOTE_CONFIRM_BTN_YES',
+        closeBtn: 'MODALS.TOPIC_SEND_TO_VOTE_CONFIRM_BTN_NO'
+      }
+    }
+
+    const confirm = this.dialog.open(ConfirmDialogComponent, {
+      data: templates[state]
+    });
+    confirm.afterClosed().subscribe((res) => {
+      if (res === true) {
+        this.patch({
+          id: topic.id,
+          status: this.STATUSES[state]
+        }).pipe(take(1))
+          .subscribe((res) => {
+            console.log(res);
+          })
+
+        if (state === 'vote' && !topic.voteId && !topic.vote) {
+          this.router.navigate(['/topics', topic.id, 'votes', 'create'])
+        }
+      }
+    })
     /*const templates = {
       followUp: '/views/modals/topic_send_to_followUp_confirm.html',
       vote: '/views/modals/topic_close_confirm.html',

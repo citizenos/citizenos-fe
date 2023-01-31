@@ -26,8 +26,10 @@ export interface Topic {
   imageUrl: string | null,
   report?: {
     id: string,
-    type: null | string,
-    moderatedReasonType: string | null
+    type: string | null,
+    text: string | null,
+    moderatedReasonType: string | null,
+    moderatedReasonText: string | null
   },
   vote?: Vote
 }

@@ -17,7 +17,7 @@
       <div class="line dark_line"></div>
       <div class="line light_line"></div>
 
-      <a routerLink="public/topics" routerLinkActive="active" class="section_item">
+      <a routerLink="public/topics" [routerLinkActive]="['active']" class="section_item">
         <div class="section_icon">
           <div class="table_cell">
             <div class="sprite sprite-menu-icon-topics2x"></div>
@@ -105,7 +105,7 @@
           </div>
           <span translate="DEFAULT.NAV.LNK_CREATE_TOPICS"></span>
         </a>
-        <a routerLink="my/topics" routerLinkActive="active" class="section_item">
+        <a [routerLink]="['/my/topics']" routerLinkActive="active" class="section_item">
           <div class="section_icon">
             <div class="table_cell">
               <div class="sprite sprite-bullet-arrow2x"></div>

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ItemsListService } from './items-list.service';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, map, of, share } from 'rxjs';
+import { BehaviorSubject, map, of } from 'rxjs';
 
 import { LocationService } from './location.service';
 import { AuthService } from './auth.service';
@@ -35,9 +35,7 @@ export class GroupMemberUserService extends ItemsListService {
       { 'userId:': params.userId, 'groupId:': params.groupId })
 
     return this.http.get<ApiResponse>(path, { withCredentials: true }).pipe(
-      map((res) => {
-        return res.data;
-      })
+      map(res => res.data)
     )
   }
 
@@ -45,9 +43,7 @@ export class GroupMemberUserService extends ItemsListService {
     let path = this.Location.getAbsoluteUrlApi('/api/users/self/groups/:groupId/members/users', params);
 
     return this.http.post<ApiResponse>(path, data, { withCredentials: true }).pipe(
-      map((res) => {
-        return res.data;
-      })
+      map(res => res.data)
     )
   }
 
@@ -55,9 +51,7 @@ export class GroupMemberUserService extends ItemsListService {
     let path = this.Location.getAbsoluteUrlApi('/api/users/self/groups/:groupId/members/users/:userId', params);
 
     return this.http.put<ApiResponse>(path, data, { withCredentials: true }).pipe(
-      map((res) => {
-        return res.data;
-      })
+      map(res => res.data)
     )
   }
 
@@ -68,19 +62,13 @@ export class GroupMemberUserService extends ItemsListService {
     const queryParams = Object.fromEntries(Object.entries(params).filter((i) => i[1] !== null));
 
     return this.http.get<ApiResponse>(path, { withCredentials: true, params: queryParams, observe: 'body', responseType: 'json' }).pipe(
-      map((res: any) => {
-        return res.data;
-      })
+      map(res => res.data)
     )
   }
 
   delete(params: any) {
     let path = this.Location.getAbsoluteUrlApi('/api/users/self/groups/:groupId/members/users/:userId', params)
 
-    return this.http.delete<ApiResponse>(path, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
-      map((data) => {
-        return data;
-      })
-    )
+    return this.http.delete<ApiResponse>(path, { withCredentials: true, responseType: 'json', observe: 'body' });
   }
 }

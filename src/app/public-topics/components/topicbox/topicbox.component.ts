@@ -37,7 +37,7 @@ export class TopicboxComponent implements OnInit {
           view += '/votes/view'
           params['voteId'] = topic.voteId;
       } else if ([this.Topic.STATUSES.followUp, this.Topic.STATUSES.close].indexOf(topic.status) > -1) {
-          view += '/followUp';
+          view += '/followup';
       }
       console.log('GO', view)
       this.$state.go(view, params);*/

@@ -26,11 +26,13 @@ import { TopicVoteCastComponent } from '../topic/components/topic-vote-cast/topi
 import { TopicSettingsComponent } from '../topic/components/topic-settings/topic-settings.component';
 import { TopicSettingsDialogComponent } from '../topic/components/topic-settings-dialog/topic-settings-dialog.component';
 import { MarkdownDirective } from '../directives/markdown.directive';
+import { CosEllipsisPipe } from './pipes/cos-ellipsis.pipe';
 @NgModule({
   declarations: [
     ActivityComponent,
     ConfirmDialogComponent,
     CosDropdownDirective,
+    CosEllipsisPipe,
     CosInitialsComponent,
     CosPaginationComponent,
     CosToggleComponent,
@@ -62,6 +64,7 @@ import { MarkdownDirective } from '../directives/markdown.directive';
     ActivityComponent,
     ConfirmDialogComponent,
     CosDropdownDirective,
+    CosEllipsisPipe,
     CosInitialsComponent,
     CosPaginationComponent,
     CosToggleComponent,

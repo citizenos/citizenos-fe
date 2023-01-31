@@ -1,0 +1,85 @@
+<div class="voting_platform_wrap create_a_milestone_wrap print_never">
+
+  <div class="vote_casting_header">
+    <div class="vote_casting_header_section">
+      <div class="table_cell bold" translate="VIEWS.TOPICS_TOPICID.ADD_MILESTONES_CREATE_A_MILESTONE">
+      </div>
+    </div>
+    <div class="clearer"></div>
+  </div>
+
+  <div class="line lightest_line"></div>
+
+  <div class="create_a_milestone_content">
+    <div class="voting_platform_section">
+
+      <input id="create_milestone_title" [(ngModel)]="event.subject"
+        [ngClass]="{'error_input': errors?.subject}" translate
+        translate-attr-placeholder="VIEWS.TOPICS_TOPICID.ADD_MILESTONES_PLACEHOLDER_SUBJECT" class="gray_borders"
+        maxlength="{{maxLengthSubject}}" required>
+      <label for="create_milestone_title" class="error_label" *ngIf="errors?.subject">
+        <div class="table_cell">
+          <div class="sprite sprite-icon-inputfield-error2x"></div>
+          <span translate="{{errors.subject}}"></span>
+        </div>
+      </label>
+
+      <textarea id="create_milestone_textarea" class="gray_borders"
+        [ngClass]="{'error_input': errors?.text}" [(ngModel)]="event.text"
+        [placeholder]="'VIEWS.TOPICS_TOPICID.ADD_MILESTONES_PLACEHOLDER_TEXT' | translate"
+        maxlength="{{maxLengthText}}" required></textarea>
+
+      <label for="create_milestone_textarea" class="error_label" *ngIf="errors?.text">
+        <div class="table_cell">
+          <div class="sprite sprite-icon-inputfield-error2x"></div>
+          <span translate="{{errors.text}}"></span>
+        </div>
+      </label>
+
+      <div class="blue_button">
+        <div class="table_cell" translate="VIEWS.TOPICS_TOPICID.ADD_MILESTONES_ADD_MILESTONE"
+          (click)="submitEvent()">
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+<div class="milestones_in_descriptions_wrap">
+  <div class="milestone_description" *ngFor="let evt of topicEvents | async; let $index = index">
+    <div class="milestone_description_header">
+      <div class="table_cell">
+        <div class="sprite sprite-check-timeline-blue2x"></div>
+      </div>
+      <div class="table_cell">
+        <div class="milestone_number" translate="VIEWS.TOPICS_TOPICID.ADD_MILESTONES_MILESTONE"
+          [translateParams]="{number: countTotal.value - $index}"></div>
+      </div>
+      <div class="table_cell">
+        <div class="v_line"></div>
+      </div>
+      <div class="table_cell">
+        <div class="milestone_date">
+          {{evt.createdAt | amDateFormat: 'LLL'}}
+        </div>
+      </div>
+      <div class="table_cell" *ngIf="canEdit()">
+        <div class="v_line"></div>
+      </div>
+      <div class="table_cell print_never" *ngIf="canEdit()">
+        <div class="milestone_action">
+          <span class="red_text blue_link" translate="VIEWS.TOPICS_TOPICID.ADD_MILESTONE_DELETE"
+            (click)="deleteEvent(evt)"></span>
+        </div>
+      </div>
+    </div>
+    <div class="milestone_description_content">
+      <div class="milestone_description_title" [innerHtml]="evt.subject">
+      </div>
+      <div class="milestone_description_text" [innerHtml]="evt.text | linky"></div>
+    </div>
+  </div>
+</div>

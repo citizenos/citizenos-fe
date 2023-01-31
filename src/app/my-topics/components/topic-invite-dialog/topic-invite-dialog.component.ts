@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap, Observable, Subscription } from 'rxjs';
+import { switchMap, of, Subscription, combineLatest } from 'rxjs';
 import { TopicInviteComponent } from 'src/app/topic/components/topic-invite/topic-invite.component';
 import { TopicService } from 'src/app/services/topic.service';
 
@@ -23,11 +23,9 @@ export class TopicInviteDialogComponent implements OnInit {
       switchMap((params) => {
         return this.TopicService.get(params['topicId']);
       }),
-    ).subscribe((topic) => {
-      console.log(topic)
+    ).subscribe((topic:any) => {
       const inviteDialog = this.dialog.open(TopicInviteComponent, { data: { topic } });
       inviteDialog.afterClosed().subscribe((res)=> {
-        console.log('res', res)
         this.router.navigate(['..'], {relativeTo: this.route});
       })
     })

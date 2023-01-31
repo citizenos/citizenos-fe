@@ -2,8 +2,8 @@ import { TopicAttachmentService } from 'src/app/services/topic-attachment.servic
 import { AuthService } from 'src/app/services/auth.service';
 import { UploadService } from 'src/app/services/upload.service';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { switchMap, of } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { switchMap, of, combineLatest, Observable } from 'rxjs';
 import { TopicService } from 'src/app/services/topic.service';
 import { TopicArgumentService } from 'src/app/services/topic-argument.service';
 import { AppService } from 'src/app/services/app.service';
@@ -17,8 +17,13 @@ import { Attachment } from 'src/app/interfaces/attachment';
 })
 export class TopicComponent implements OnInit {
   topic$; // decorate the property with @Input()
+  topicId$: Observable<string> = of('');
   editMode = false;
   showInfoEdit = false;
+
+  showVoteCreateForm = false;
+  showVoteCast = false;
+  viewFollowup = false;
   hideTopicContent = false;
   topicSocialMentions = [];
   activeCommentSection = 'arguments';
@@ -31,21 +36,34 @@ export class TopicComponent implements OnInit {
   constructor(
     private Auth: AuthService,
     public TopicService: TopicService,
+    private router: Router,
     private route: ActivatedRoute,
     private Upload: UploadService,
     public TopicAttachmentService: TopicAttachmentService,
     public TopicArgumentService: TopicArgumentService,
     public app: AppService
   ) {
-    this.topic$ = this.route.params.pipe<Topic>(
+    if (this.router.url.indexOf('votes/create') > -1) {
+      this.showVoteCreateForm = true;
+    }
+
+    if (this.router.url.indexOf('followup') > -1) {
+      this.viewFollowup = true;
+    }
+
+    this.topicId$ = this.route.params.pipe(
       switchMap((params) => {
-        return this.TopicService.get(params['topicId']);
+        return of(params['topicId']);
       })
     );
-
-    this.topicAttachments$ = this.route.params.pipe(
-      switchMap((params) => {
-        this.TopicAttachmentService.setParam('topicId', params['topicId']);
+    this.topic$ = this.topicId$.pipe(
+      switchMap((topicId: string) => {
+        return this.TopicService.get(topicId);
+      })
+    );
+    this.topicAttachments$ = this.topicId$.pipe(
+      switchMap((topicId: string) => {
+        this.TopicAttachmentService.setParam('topicId', topicId);
         return this.TopicAttachmentService.loadItems();
       })
     );

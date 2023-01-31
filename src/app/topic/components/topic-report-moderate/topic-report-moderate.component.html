@@ -1,0 +1,115 @@
+<!-- LIGHTBOX SKELETON -->
+<div id="root_lightbox" class="full_screen">
+  <div id="lightbox" class="delete_comment">
+    <div id="lightbox_wrap">
+
+      <div id="lightbox_header">
+
+        <div id="lightbox_header_text">
+          <div class="title" translate="MODALS.TOPIC_REPORT_MODERATE_HEADING"></div>
+        </div>
+
+        <div id="lightbox_close" mat-dialog-close>
+          <div class="table_cell">
+            <div class="sprite sprite-btn-popup-close2x">
+            </div>
+          </div>
+        </div>
+
+        <div class="confirm_description_wrap">
+          <div class="confirm_description">
+            <div class="confirm_description_under_text">
+              <i>
+                {{topic.title | cosEllipsis}}
+              </i>
+            </div>
+          </div>
+        </div>
+
+        <div class="clearer"></div>
+
+      </div>
+
+      <div class="line lightest_line"></div>
+
+      <!-- CONFIRM CONTENT -->
+      <div class="lightbox_content">
+
+
+        <div class="lightbox_section">
+          <b translate="MODALS.TOPIC_REPORT_MODERATE_LABEL_REASON"></b> <span class="required_text"
+            translate="MODALS.TOPIC_REPORT_MODERATE_LABEL_REASON_REQUIRED"></span>
+
+          <div [cosDropdown] class="classic_dropdown" [ngClass]="{'error_input': errors?.moderatedReasonType}">
+
+            <div class="dropdown_selection">
+              <div class="dropdown_text">
+                {{('TXT_MODERATION_TYPES_' + moderate.type | uppercase) | translate}}
+              </div>
+
+              <div class="arrow_holder">
+                <div class="table_cell">
+                  <div class="sprite sprite-icon-dropdown-arrowdown2x"></div>
+
+                  <div class="v_line"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="dropdown">
+              <div class="dropdown_item" *ngFor="let type of reportTypes">
+                <div class="item_name" (click)="moderate.type = type">
+                  {{('TXT_MODERATION_TYPES_' + type | uppercase) | translate}}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="error_label" *ngIf="errors?.moderatedReasonType">
+            <div class="table_cell">
+              <div class="sprite sprite-icon-inputfield-error2x"></div>
+              <span translate="{{errors.moderatedReasonType}}"></span>
+            </div>
+          </div>
+
+          <textarea class="gray_borders" [(ngModel)]="moderate.text"
+            [ngClass]="{'error_input': errors?.moderatedReasonText}"
+            [placeholder]="'MODALS.TOPIC_REPORT_MODERATE_PLACEHOLDER_REPORT_TEXT' | translate"
+            maxlength="2048"></textarea>
+          <div class="error_label" *ngIf="errors?.moderatedReasonText">
+            <div class="table_cell">
+              <div class="sprite sprite-icon-inputfield-error2x"></div>
+              <span translate="{{errors.moderatedReasonText}}"></span>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="line lightest_line"></div>
+
+        <div class="lightbox_section confirm_area">
+          <span translate="MODALS.TOPIC_REPORT_MODERATE_TXT_ARE_YOU_SURE"></span>
+
+          <div class="yes_no_buttons">
+            <div class="table_cell">
+              <div class="gray_button no" [attr.disabled]="isLoading"
+                mat-dialog-close translate="MODALS.TOPIC_REPORT_MODERATE_BTN_NO"></div>
+            </div>
+            <div class="table_cell">
+              <div class="blue_button yes" [attr.disabled]="isLoading" (click)="doModerate()"
+                translate="MODALS.TOPIC_REPORT_MODERATE_BTN_YES"></div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+
+    </div>
+  </div>
+
+  <div id="close_lightbox" mat-dialog-close>
+  </div>
+
+</div>

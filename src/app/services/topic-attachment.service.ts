@@ -54,13 +54,51 @@ export class TopicAttachmentService extends ItemsListService {
     );
   };
 
+  save(data: any) {
+    let path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/attachments', data);
+
+    return this.http.post<ApiResponse>(path, data, {withCredentials: true, observe: 'body', responseType: 'json'}).pipe(
+      map((res) => {
+        return res.data;
+      })
+    );
+  }
+
+  update(data: any) {
+    const requestObject = <any>{};
+    Object.keys(data).forEach(function (key) { // Remove all object properties as we have none we care about in the server side
+      if (typeof data[key] !== 'object') {
+        requestObject[key] = data[key];
+      }
+    });
+    if (!data.attachmentId) data.attachmentId = data.id;
+    const path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/attachments/:attachmentId', data)
+
+    return this.http.put<ApiResponse>(path, requestObject, {withCredentials: true, observe: 'body', responseType: 'json'}).pipe(
+      map((res) => {
+        return res.data;
+      })
+    );
+  }
+
+  delete(data: any) {
+    if (!data.attachmentId) data.attachmentId = data.id;
+    const path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/attachments/:attachmentId', data);
+
+    return this.http.delete<ApiResponse>(path, {withCredentials: true, observe: 'body', responseType: 'json'}).pipe(
+      map((res) => {
+        return res.data;
+      })
+    );
+  }
+
   googleDriveSelect() {
 
     let googlePickerApiLoaded = false;
-    let oauthToken:any;
+    let oauthToken: any;
     const createPicker = () => {
       return new Promise((resolve) => {
-        const pickerCallback = (data:any) => {
+        const pickerCallback = (data: any) => {
           if (data[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
             const doc = data[google.picker.Response.DOCUMENTS][0];
             const attachment = {
@@ -73,7 +111,7 @@ export class TopicAttachmentService extends ItemsListService {
             return resolve(attachment);
           }
         };
-        var picker = new google.picker.PickerBuilder()
+        const picker = new google.picker.PickerBuilder()
           .addView(google.picker.ViewId.DOCS)
           .setOAuthToken(oauthToken)
           .setDeveloperKey(this.config.get('attachments').googleDrive.developerKey)
@@ -91,7 +129,7 @@ export class TopicAttachmentService extends ItemsListService {
             'client_id': this.config.get('attachments').googleDrive.clientId,
             'scope': ['https://www.googleapis.com/auth/drive.file'],
             'immediate': false
-          }, (authResult:any) => {
+          }, (authResult: any) => {
             if (authResult && !authResult.error && googlePickerApiLoaded) {
               oauthToken = authResult.access_token;
               googlePickerApiLoaded = true;
@@ -118,7 +156,7 @@ export class TopicAttachmentService extends ItemsListService {
     Dropbox.appKey = this.config.get('attachments').dropbox.appKey;
     return new Promise((resolve, reject) => {
       return Dropbox.choose({
-        success: (files:any) => {
+        success: (files: any) => {
           const attachment = {
             name: files[0].name,
             type: files[0].name.split('.').pop(),
@@ -147,7 +185,7 @@ export class TopicAttachmentService extends ItemsListService {
         advanced: {
           redirectUri: this.Location.getAbsoluteUrl('/onedrive')
         },
-        success: (res:any) => {
+        success: (res: any) => {
           const attachment = {
             name: res.value[0].name,
             type: res.value[0].name.split('.').pop(),
@@ -158,7 +196,7 @@ export class TopicAttachmentService extends ItemsListService {
           resolve(attachment);
         },
         cancel: () => { },
-        error: (err:any) => {
+        error: (err: any) => {
           console.error(err);
         }
       });

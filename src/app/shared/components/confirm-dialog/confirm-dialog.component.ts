@@ -7,6 +7,7 @@ export interface ConfirmDialogData {
   level: string,
   closeBtn: string | null,
   confirmBtn: string | null,
+  sections: any | null,
   info: string | null,
   description: string | null,
   points: string[] | null,

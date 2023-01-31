@@ -1,0 +1,56 @@
+@use "vars";
+
+.file_upload_table {
+  width: 100%;
+  text-align: center;
+
+  .file_add_btn_wrap {
+      &:hover {
+          cursor: pointer;
+      }
+
+      .file_add_btn {
+          line-height: 50px;
+      }
+
+      .file_add_btn_description {
+          height: 20px;
+          width: auto;
+          color: vars.$medium_black;
+          font-size: 16px;
+          font-weight: bold;
+          line-height: 20px;
+          text-align: center;
+          margin-top: 15px;
+          @media (max-width: 600px) {
+              width: auto;
+          }
+      }
+  }
+
+  .file_add_cell {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      display: table-cell;
+  }
+}
+
+.file_buttons {
+  .edit_btn {
+      float: left;
+      margin: 0px 0 0 15px;
+  }
+
+  .recycle_bin {
+      margin: 0 10px 0px 0px;
+      right: 0;
+      float: right;
+  }
+}
+
+#addFile {
+  width: 1px;
+  height: 1px;
+  z-index: -1;
+  position: absolute;
+}
