@@ -35,9 +35,9 @@
               <!-- Do not focus on mobile devices, otherwise scrolls past social login options and shows keyboard -->
               <input id="phone" name="phoneNumber" type="tel" [(ngModel)]="phoneNumber" #phoneNumberInput="ngModel"
                 [placeholder]="'MODALS.LOGIN_ESTEID_PLACEHOLDER_PHONE' | translate" (focus)="wWidth > 1024"
-                [ngClass]="{'error_input': phoneNumberInput.errors && phoneNumberInput.touched}" ngModel
-                pattern="/^\+?[0-9\s-]{7,}$/" required>
-              <label for="phone" class="error_label" *ngIf="phoneNumberInput.errors && phoneNumberInput.touched">
+                [ngClass]="{'error_input': (phoneNumberInput.errors && phoneNumberInput.errors['pattern'] && phoneNumberInput.touched)}" ngModel
+                pattern="^\+?[0-9\s-]{7,}$" required>
+              <label for="phone" class="error_label" *ngIf="phoneNumberInput.errors && phoneNumberInput.errors['pattern']  && phoneNumberInput.touched">
                 <div class="table_cell">
                   <div class="sprite sprite-icon-inputfield-error2x"></div>
                   <span translate="MODALS.LOGIN_ESTEID_ERROR_PHONE"></span>
@@ -45,9 +45,9 @@
               </label>
               <input id="pid" name="pid" type="text" inputmode="numeric" [(ngModel)]="pid"
                 [placeholder]="'MODALS.LOGIN_ESTEID_PLACEHOLDER_PID' | translate" #pidInput="ngModel"
-                [ngClass]="{'error_input': pidInput.errors && pidInput.touched}" ngModel pattern="/^[0-9]{11}$/"
+                [ngClass]="{'error_input': pidInput.errors && pidInput.errors['pattern']  && pidInput.touched}" ngModel pattern="^[0-9]{11}$"
                 required>
-              <label for="pid" class="error_label" *ngIf="pidInput.errors && pidInput.touched">
+              <label for="pid" class="error_label" *ngIf="pidInput.errors && pidInput.errors['pattern'] && pidInput.touched">
                 <div class="table_cell">
                   <div class="sprite sprite-icon-inputfield-error2x"></div>
                   <span translate="MODALS.LOGIN_ESTEID_ERROR_PID"></span>

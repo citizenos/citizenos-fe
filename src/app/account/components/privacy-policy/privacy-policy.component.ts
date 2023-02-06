@@ -1,11 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { take } from 'rxjs';
+import { User } from 'src/app/interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { UserService } from 'src/app/services/user.service';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 
+export interface PrivacyPolicyData {
+  user: User
+}
 @Component({
   selector: 'app-privacy-policy',
   templateUrl: './privacy-policy.component.html',
@@ -13,8 +17,11 @@ import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog
 })
 export class PrivacyPolicyComponent implements OnInit {
   config: any;
-  constructor(private dialog: MatDialog, private ConfigService: ConfigService, private AuthService: AuthService, private UserService: UserService) {
+  user!: User;
+  constructor(@Inject(MAT_DIALOG_DATA) private data: PrivacyPolicyData, private dialog: MatDialog, private ConfigService: ConfigService, private AuthService: AuthService, private UserService: UserService) {
     this.config = ConfigService.get('legal');
+    this.user = data.user;
+    console.log(this.config)
   }
 
   ngOnInit(): void {

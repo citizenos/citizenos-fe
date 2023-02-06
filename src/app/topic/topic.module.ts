@@ -1,4 +1,4 @@
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LinkyModule } from 'angular2-linky';
@@ -83,6 +83,7 @@ import { TopicVoteSignSmartidComponent } from './components/topic-vote-sign-smar
     CommonModule,
     LinkyModule,
     FormsModule,
+    ReactiveFormsModule,
     SharedModule,
     TopicRoutingModule,
     TranslateModule,

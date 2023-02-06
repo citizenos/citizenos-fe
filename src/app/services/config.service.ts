@@ -8,56 +8,60 @@ import { environment } from '../../environments/environment'; //path to your env
 })
 export class ConfigService {
 
-    private _config: any = {}
-    private _env: string = 'development';
+  private _config: any = {}
+  private _env: string = 'development';
 
-    constructor(private _http: HttpClient) { }
-    load() {
-      return new Promise ((resolve, reject ) => {
+  constructor(private _http: HttpClient) { }
+  load() {
+    return new Promise((resolve, reject) => {
 
       if (environment.production)
         this._env = 'production';
-      this._http.get('./assets/config/' + this._env + '.json')
-          .subscribe({
-            next: (data) => {
-              this._config = data;
+      this._http.get('./assets/config/default.json').
+        subscribe((defaultConfig) => {
+          this._http.get('./assets/config/' + this._env + '.json')
+            .subscribe({
+              next: (data) => {
+                this._config = Object.assign(defaultConfig, data);
 
-              resolve(data);
-            },
-            error: (error: any) => {
+                resolve(data);
+              },
+              error: (error: any) => {
                 console.error(error);
                 reject(error);
-            }
-          });
-      });
-    }
+              }
+            });
+        });
+    })
 
-    // Is app in the development mode?
-    isDevmode() {
-        return this._env === 'development';
-    }
+  }
 
-    // Gets a value of specified property in the configuration file
-    get(key: any) {
-        return this._config[key];
-    }
+  // Is app in the development mode?
+  isDevmode() {
+    return this._env === 'development';
+  }
+
+  // Gets a value of specified property in the configuration file
+  get(key: any) {
+    return this._config[key];
+  }
 }
 
 export function ConfigFactory(config: ConfigService) {
-    return () => config.load();
+  return () => config.load();
 }
 
 export function init() {
-    return {
-        provide: APP_INITIALIZER,
-        useFactory: ConfigFactory,
-        deps: [ConfigService],
-        multi: true
-    }
+  return {
+    provide: APP_INITIALIZER,
+    useFactory: ConfigFactory,
+    deps: [ConfigService],
+    multi: true
+  }
 }
 
 const ConfigModule = {
-    init: init
+  init: init
 }
 
 export { ConfigModule };

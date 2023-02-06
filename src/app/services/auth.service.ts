@@ -7,6 +7,9 @@ import { switchMap, catchError, tap, take, map } from 'rxjs/operators';
 import { LocationService } from './location.service';
 import { NotificationService } from './notification.service';
 import { User } from '../interfaces/user';
+import { MatDialog } from '@angular/material/dialog';
+import { PrivacyPolicyComponent } from '../account/components/privacy-policy/privacy-policy.component';
+import { AddEmailComponent } from '../account/components/add-email/add-email.component';
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +19,12 @@ export class AuthService {
   public loggedIn$ = new BehaviorSubject(false);
   public user = new BehaviorSubject({ id: null });
 
-  constructor(private Location: LocationService, private http: HttpClient, private Notification: NotificationService, private config: ConfigService) {
-    this.user$ =  this.status();
+  constructor(private dialog: MatDialog, private Location: LocationService, private http: HttpClient, private Notification: NotificationService, private config: ConfigService) {
+    this.user$ = this.status();
 
     this.loggedIn$.pipe(tap((status) => {
       if (status === false) {
-        this.logout().pipe(take(1)).subscribe((res) => console.log('logged out') );
+        this.logout().pipe(take(1)).subscribe((res) => console.log('logged out'));
       }
     }))
   }
@@ -91,10 +94,21 @@ export class AuthService {
     return this.user$ = this.http.get<User>(path, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
       switchMap((res: any) => {
         const user = res.data;
-        user.loggedIn = true;
-        this.user.next({ id: user.id });
-        this.loggedIn$.next(true);
-        return of(user);
+        if (!user.termsVersion || user.termsVersion !== this.config.get('legal').version) {
+          const tosDialog = this.dialog.open(PrivacyPolicyComponent, {
+            data: { user }
+          });
+        } else if (!user.email) {
+          const emailDialog = this.dialog.open(AddEmailComponent, {
+            data: { user }
+          });
+        } else {
+          user.loggedIn = true;
+          this.user.next({ id: user.id });
+          this.loggedIn$.next(true);
+          return of(user);
+        }
+        return of();
       }),
       catchError(res => {
         if (res.error) {

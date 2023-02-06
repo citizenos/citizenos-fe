@@ -20,10 +20,13 @@
         <div class="clearer"></div>
 
         <div class="voting_tag_padding">
-          <span *ngIf="options.length === 1" translate="MODALS.TOPIC_VOTE_SIGN_TXT_VOTING_FOR" [translateParams]="{optionSelected: options[0]}"></span>
+          <span *ngIf="options.length === 1" translate="MODALS.TOPIC_VOTE_SIGN_TXT_VOTING_FOR"
+            [translateParams]="{optionSelected: options[0]}"></span>
           <div class="voting_tag" *ngFor="let option of options">
             <div class="table_cell">
-              <span class="bold" [innerHtml]="(('VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_' + option.value) | uppercase) | translate | linky"></span> <!--translate-default="{{option.value | linky}}"-->
+              <span class="bold"
+                [innerHtml]="(('VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_' + option.value) | uppercase) | translate | linky"></span>
+              <!--translate-default="{{option.value | linky}}"-->
             </div>
           </div>
         </div>
@@ -39,21 +42,24 @@
         <div class="sign_in_section">
           <form name="formMobileSign" novalidate>
             <div class="sprite_big sprite sprite-mobiil-i-d2x"></div>
-            <input *ngIf="!isLoading" id="phone" name="phoneNumber"
-              [ngClass]="{error_input: phoneNumber}" [(ngModel)]="phoneNumber"
-              [placeholder]="'MODALS.TOPIC_VOTE_SIGN_ESTEID_PLACEHOLDER_PHONE' | translate"
-              (focus)="wWidth > 1024" ngModel pattern="/^\+?[0-9\s-]{7,}$/" required>
-            <!--label *ngIf="phoneNumber.$error.pattern && formMobileSign.phoneNumber.$touched" for="phone"
+            <input *ngIf="!isLoading" id="phone" name="phoneNumber" type="tel" [(ngModel)]="phoneNumber"
+              #phoneNumberInput="ngModel" ngModel
+              [placeholder]="'MODALS.TOPIC_VOTE_SIGN_ESTEID_PLACEHOLDER_PHONE' | translate" (focus)="wWidth > 1024"
+              [ngClass]="{'error_input': (phoneNumberInput.errors && phoneNumberInput.errors['pattern'] && phoneNumberInput.touched)}"
+              pattern="^\+?[0-9\s-]{7,}$" required>
+            <!--label for="phoneNumber"
+              *ngIf="phoneNumberInput.errors && phoneNumberInput.errors['pattern'] && phoneNumberInput.touched"
               class="error_label">
               <div class="table_cell">
                 <div class="sprite sprite-icon-inputfield-error2x"></div>
                 <span translate="MODALS.TOPIC_VOTE_SIGN_ESTEID_ERROR_PHONE"></span>
               </div>
             </!--label-->
-            <input *ngIf="!isLoading" [(ngModel)]="pid" name="pid" type="text"
-              inputmode="numeric" [placeholder]="'MODALS.TOPIC_VOTE_SIGN_ESTEID_PLACEHOLDER_PID' | translate" ngModel pattern="/^[0-9]{11}$/"
-              required> <!--[ngClass]="{error_input: formMobileSign.pid.$error.pattern && formMobileSign.pid.$touched}"-->
-            <!--label *ngIf="pid.$error.pattern && formMobileSign.pid.$touched" for="phone"
+            <input *ngIf="!isLoading" name="pid" type="text" inputmode="numeric" [(ngModel)]="pid" #pidInput="ngModel"
+              ngModel [placeholder]="'MODALS.TOPIC_VOTE_SIGN_ESTEID_PLACEHOLDER_PID' | translate"
+              [ngClass]="{'error_input': pidInput.errors && pidInput.errors['pattern'] && pidInput.touched}"
+              pattern="/^[0-9]{11}$/" required>
+            <!--label for="pid" *ngIf="pidInput.errors && pidInput.errors['pattern'] && pidInput.touched"
               class="error_label">
               <div class="table_cell">
                 <div class="sprite sprite-icon-inputfield-error2x"></div>
@@ -61,15 +67,13 @@
               </div>
             </!--label-->
             <div *ngIf="isLoading && challengeID" class="code"
-              translate="MODALS.TOPIC_VOTE_SIGN_ESTEID_TXT_CONTROL_CODE"
-              [translateParams]="{code: challengeID}"></div>
+              translate="MODALS.TOPIC_VOTE_SIGN_ESTEID_TXT_CONTROL_CODE" [translateParams]="{code: challengeID}"></div>
             <div *ngIf="isLoading && challengeID" class="code_text"
               translate="MODALS.TOPIC_VOTE_SIGN_ESTEID_TXT_CHECK_CONTROL_CODE"></div>
             <div *ngIf="isLoading" class="loader_wrap">
               <div class="loader"></div>
             </div>
-            <button *ngIf="wWidth <= 550" class="blue_button"
-              (click)="doSignWithMobile()"
+            <button *ngIf="wWidth <= 550" class="blue_button" (click)="doSignWithMobile()"
               translate="MODALS.TOPIC_VOTE_SIGN_ESTEID_BTN_SIGN_MID"></button><!--[attr.disabled]="formMobileSign.$invalid || isLoading || TopicVoteService.isLoadingIdCard"-->
           </form>
         </div>
@@ -83,22 +87,18 @@
         <div class="sign_in_section">
           <div class="sprite_big sprite sprite-i-d-kaart2x"></div>
           <div class="sprite_big sprite sprite-img-idkaart2x"></div>
-          <button *ngIf="wWidth <= 550" class="blue_button a"
-            [disabled]="isLoadingIdCard || isLoading" (click)="doSignWithCard()"
-            translate="MODALS.TOPIC_VOTE_SIGN_ESTEID_BTN_SIGN_CARD"></button>
+          <button *ngIf="wWidth <= 550" class="blue_button a" [disabled]="isLoadingIdCard || isLoading"
+            (click)="doSignWithCard()" translate="MODALS.TOPIC_VOTE_SIGN_ESTEID_BTN_SIGN_CARD"></button>
         </div>
 
         <div class="clearer"></div>
 
         <div *ngIf="wWidth > 550" class="sign_in_section">
-          <button class="blue_button" (click)="doSignWithMobile()"
-            [disabled]="isLoading || isLoadingIdCard"
+          <button class="blue_button" (click)="doSignWithMobile()" [disabled]="isLoading || isLoadingIdCard"
             translate="MODALS.TOPIC_VOTE_SIGN_ESTEID_BTN_SIGN_MID"></button>
         </div>
         <div *ngIf="wWidth > 550" class="sign_in_section">
-          <button class="blue_button"
-            [disabled]="isLoadingIdCard || isLoading"
-            (click)="doSignWithCard()"
+          <button class="blue_button" [disabled]="isLoadingIdCard || isLoading" (click)="doSignWithCard()"
             translate="MODALS.TOPIC_VOTE_SIGN_ESTEID_BTN_SIGN_CARD"></button>
         </div>
 
