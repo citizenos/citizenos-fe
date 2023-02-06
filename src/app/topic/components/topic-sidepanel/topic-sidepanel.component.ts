@@ -43,7 +43,14 @@ export class TopicSidepanelComponent implements OnInit {
   }
 
   doToggleEditMode() {
+    const params = this.router.parseUrl(this.router.url).queryParams;
+    if (params['editMode']) {
+      delete params['editMode'];
+    } else {
+      params['editMode'] = true;
+    }
 
+    this.router.navigate([], {queryParams: params});
   }
 
   sendToVote() {

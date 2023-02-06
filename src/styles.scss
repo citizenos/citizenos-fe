@@ -1,14 +1,33 @@
 /*read from ./assets/styles*/
 @use "mixins_n_extends";
 @use "vars";
+/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+
 @forward "buttons";
 @forward "icons";
 @forward "icons_new";
 @forward "lightbox";
 @forward "tables";
 @forward "toggle";
+@forward "easyMDE.min";
 
-/* You can add global styles to this file, and also import other style files */
+$my-primary: mat.define-palette(mat.$indigo-palette, 500);
+$my-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The "warn" palette is optional and defaults to red if not specified.
+$my-warn: mat.define-palette(mat.$red-palette);
+$my-theme: mat.define-light-theme((
+ color: (
+   primary: $my-primary,
+   accent: $my-accent,
+   warn: $my-warn,
+ ),
+ typography: mat.define-typography-config(),
+ density: 0,
+));
+
+@include mat.datepicker-theme($my-theme);
 
 body,
 html {

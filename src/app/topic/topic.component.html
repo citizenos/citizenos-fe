@@ -75,12 +75,14 @@
           <topic-milestones *ngIf="viewFollowup && TopicService.canEdit(topic)" [topic]="topic"></topic-milestones>
 
           <!-- Cast your vote container-->
-          <topic-vote-cast *ngIf="showVoteCast && topic.vote?.id" [vote]="topic.vote"></topic-vote-cast>
+          <ng-container *ngIf="showVoteCast && topic.voteId && (vote$ | async) as vote">
+            <topic-vote-cast [topic]="topic" [vote]="vote"></topic-vote-cast>
+          </ng-container>
 
           <topic-vote-create *ngIf="showVoteCreateForm" [topic]="topic"></topic-vote-create>
 
 
-          <div class="iframe_content_wrap"> <!--*ngIf="!viewFollowup"-->
+          <div class="iframe_content_wrap" *ngIf="!viewFollowup">
 
             <div class="topic_info print_never" *ngIf="!editMode">
               <div class="container_visibility">
@@ -124,7 +126,7 @@
                   </div>
                   <div class="more_info_attachment_wrap">
                     <div class="more_info_attachment_icon sprite sprite-icon-attachment"></div>
-                    <span class="more_info_attachment_count">{{(topicAttachments$ | async)?.length}}</span>
+                    <span class="more_info_attachment_count">{{(TopicAttachmentService.countTotal$ | async)}}</span>
                   </div>
                 </div>
               </div>
@@ -156,8 +158,7 @@
                     <ng-container *ngFor="let author of topic.authors; let $last = last;">
                       <span *ngIf="author.email" class="blue_link"
                         [tooltip]="author.email + ' ' + author.phoneNumber">{{author.name}}">
-                        <span *ngIf="!$last"
-                          class="info_section_separator"> | </span>
+                        <span *ngIf="!$last" class="info_section_separator"> | </span>
                       </span>
                     </ng-container>
                   </div>
@@ -209,11 +210,10 @@
               <div class="line lightest_line"></div>
             </div>
 
-
             <div id="topic_content_area" class="topic_content">
-              <!--iframe cos-etherpad *ngIf="!hideTopicContent && TopicService.canEdit(topic) && app.editMode" frameborder="0" scrolling="no"
-                                  [ngClass]="{hidden: !topic.padUrl || ('topics.view.followUp' | isState)}"
-                                  ng-src="{{topic.padUrl}}" width="100%" height="600"></!--iframe-->
+              <iframe cosEtherpad *ngIf="!hideTopicContent && TopicService.canEdit(topic) && (editMode$ | async)"
+                frameborder="0" scrolling="no" [ngClass]="{hidden: !topic.padUrl || viewFollowup}"
+                [src]="sanitizeURL(topic.padUrl)" width="100%" height="600"></iframe>
               <!--ng-bind-html *ngIf="!hideTopicContent && !app.editMode" ng-bind-html="topic.description"></ng-bind-html -->
               <div *ngIf="!hideTopicContent && !editMode" [innerHtml]="topic.description"></div>
               <h1 *ngIf="hideTopicContent"><i>Topic content has been hidden due to violation of community guidelines</i>
@@ -235,8 +235,10 @@
             </div>
             <div class="clearer"></div>
             <div class="comments_content">
-              <topic-arguments #arguments [topic]="topic"               *ngIf="activeCommentSection == 'arguments' || activeCommentSection == undefined"></topic-arguments>
-              <!--topic-social-mentions-- #socialMentions *ngIf="activeCommentSection== 'socialMentions'"></!--topic-social-mentions-->
+              <topic-arguments #arguments [topic]="topic"
+                *ngIf="activeCommentSection == 'arguments' || activeCommentSection == undefined"></topic-arguments>
+              <topic-social-mentions [topic]="topic" #socialMentions
+                *ngIf="activeCommentSection=='socialMentions'"></topic-social-mentions>
             </div>
           </div>
 

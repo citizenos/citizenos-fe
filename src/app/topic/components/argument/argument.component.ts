@@ -1,7 +1,8 @@
 import { TranslateService } from '@ngx-translate/core';
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ViewEncapsulation, ElementRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { take } from 'rxjs';
+import { Router } from '@angular/router';
 import { Argument } from 'src/app/interfaces/argument';
 import { AuthService } from 'src/app/services/auth.service';
 import { ConfigService } from 'src/app/services/config.service';
@@ -18,17 +19,20 @@ import { ArgumentReactionsComponent } from '../argument-reactions/argument-react
 })
 export class ArgumentComponent implements OnInit {
   @Input() argument!: Argument;
+  @Input() root?: Argument;
   @Input() topicId!: string;
   showEdit = false;
   showEdits = false;
   showReply = false;
   showReplies = false;
   showDeletedArgument = false;
+  isReply = false;
   errors = [];
 
   constructor(
     public dialog: MatDialog,
     public config: ConfigService,
+    private router: Router,
     public Auth: AuthService,
     private Location: LocationService,
     private Notification: NotificationService,
@@ -37,6 +41,7 @@ export class ArgumentComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.isReply = this.argument.type === 'reply';
   }
 
   isEdited() {
@@ -84,15 +89,7 @@ export class ArgumentComponent implements OnInit {
           .delete(argument)
           .pipe(take(1))
           .subscribe(() => {
-            /* return this.$state.go(
-                 this.$state.current.name,
-                 {
-                     commentId: this.getCommentIdWithVersion(comment.id, comment.edits.length - 1)
-                 },
-                 {
-                     reload: true
-                 }
-             );*/
+            this.TopicArgumentService.reset();
           });
       }
     });
@@ -100,7 +97,7 @@ export class ArgumentComponent implements OnInit {
 
   copyArgumentLink(event: MouseEvent) {
     const id = this.argument.id + '_v' + (this.argument.edits.length - 1);
-    const url = this.Location.getAbsoluteUrl('/topics/:topicId', { topicId: this.topicId }, { commentId: id });
+    const url = this.Location.getAbsoluteUrl('/topics/:topicId', { topicId: this.topicId }, { argumentId: id });
     const selBox = document.createElement('textarea');
     selBox.style.position = 'fixed';
     selBox.style.left = '0';
@@ -142,7 +139,6 @@ export class ArgumentComponent implements OnInit {
       .vote(argument)
       .pipe(take(1))
       .subscribe((voteResult) => {
-        console.log(voteResult)
         this.argument.votes = voteResult;
       });
   };
@@ -154,5 +150,25 @@ export class ArgumentComponent implements OnInit {
         topicId: this.topicId
       }
     });
+  };
+
+  getParentAuthor() {
+    if (this.argument.parent.id === this.root?.id) {
+      return this.root.creator.name;
+    }
+
+    const parentReply = this.root?.replies.rows.find((a: any) => a.id === this.argument.parent.id)
+    if (parentReply) {
+      return parentReply.creator.name;
+    }
+    return '';
+  };
+
+  goToParentArgument() {
+    if (!this.argument.parent.id || !this.argument.parent.hasOwnProperty('version')) {
+      return;
+    }
+    const argumentIdWithVersion = this.TopicArgumentService.getArgumentIdWithVersion(this.argument.parent.id, this.argument.parent.version);
+    this.router.navigate([], {queryParams: {argumentId: argumentIdWithVersion}});
   };
 }

@@ -1,8 +1,10 @@
-<div class="single_argument">
+<div class="single_argument" [ngClass]="{'is_reply': isReply}">
   <div id="{{argument.id + '_v' + (argument.edits.length-1)}}" class="argument"
     [ngClass]="{post_argument_wrap: showEdit}">
     <!-- COMMENT HEADER -->
     <div class="argument_header">
+      <div class="reply_icon sprite sprite-icon-arrow-reply2x" *ngIf="isReply">
+      </div>
       <div class="argumentator">
         <div class="table_cell">
           <div *ngIf="!argument.creator.email" class="classic_dropdown borderless_dropdown">
@@ -104,6 +106,8 @@
 
     <div class="argument_text_wrap" > <!--check-height
       [ngClass]="{overheight: offsetHeight > maxTextHeight, read_more: readMore}"-->
+      <a *ngIf="isReply && !argument.deletedAt && isVisible()" href="#" class="replys_reply"
+        (click)="goToParentArgument()">@{{getParentAuthor()}}</a>
       <div *ngIf="isVisible() && !showDeletedArgument" class="argument_text" [innerHTML]="argument.text"></div>
       <!--| markdown-->
       <div *ngIf="!isVisible() && !showDeletedArgument && argument.deletedBy.id === argument.creator.id"
@@ -168,7 +172,7 @@
       </div>
       <div class="link_wrap" *ngIf="argument.replies.rows.length" (click)="showReplies = !showReplies">
         <div class="table_cell">
-          <div *ngIf="!showReplies" class="blue_link bold" translate="VIEWS.TOPICS_TOPICID.LNK_ARGUMENT_SHOW_REPLIES"
+          <div *ngIf="!showReplies" class="blue_link bold" id="{{argument.id}}_replies" translate="VIEWS.TOPICS_TOPICID.LNK_ARGUMENT_SHOW_REPLIES"
             [translateParams]="{count: argument.replies.rows.length}"></div>
           <div *ngIf="showReplies" class="blue_link bold" translate="VIEWS.TOPICS_TOPICID.LNK_ARGUMENT_HIDE_REPLIES">
           </div>
@@ -183,3 +187,6 @@
   <argument-reply *ngIf="showReply" [argument]="argument" [topicId]="topicId"></argument-reply>
   <!-- END REPLY TO COMMENT -->
 </div>
+<ng-container *ngIf="showReplies">
+  <argument [argument]="reply" [topicId]="topicId" [root]="argument" *ngFor="let reply of argument.replies.rows"></argument>
+</ng-container>

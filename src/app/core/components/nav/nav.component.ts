@@ -10,7 +10,7 @@ import { LoginComponent } from '../account/login/login.component';
 import { ActivityFeedComponent } from '../activity-feed/activity-feed.component';
 import { AppService } from 'src/app/services/app.service';
 import { ActivityService } from 'src/app/services/activity.service';
-import { tap } from 'rxjs';
+import { tap, take } from 'rxjs';
 @Component({
   selector: 'nav',
   templateUrl: './nav.component.html',
@@ -57,7 +57,9 @@ export class NavComponent implements OnInit {
   }
 
   doLogout() {
-    this.auth.loggedIn$.next(false);
+    this.auth.logout()
+    .pipe(take(1))
+    .subscribe();
   }
   toggleHelp() {
     const curStatus = this.app.showHelp.getValue();

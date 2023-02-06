@@ -4,7 +4,7 @@ import { TopicVoteService } from 'src/app/services/topic-vote.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { TranslateService } from '@ngx-translate/core';
 import { take } from 'rxjs';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'topic-vote-create',
   templateUrl: './topic-vote-create.component.html',
@@ -91,7 +91,12 @@ export class TopicVoteCreateComponent implements OnInit {
   reminder = false;
   reminderOptions = [{ value: 1, unit: 'days' }, { value: 2, unit: 'days' }, { value: 3, unit: 'days' }, { value: 1, unit: 'weeks' }, { value: 2, unit: 'weeks' }, { value: 1, unit: 'month' }];
 
-  constructor(private TopicVoteService: TopicVoteService, private Translate: TranslateService, private Notification: NotificationService) {
+  constructor(
+    private TopicVoteService: TopicVoteService,
+    private Translate: TranslateService,
+    private Notification: NotificationService,
+    private router: Router
+    ) {
     this.setTimeZones();
   }
 
@@ -272,7 +277,6 @@ export class TopicVoteCreateComponent implements OnInit {
   };
 
   createVote() {
-    console.log(this.vote)
     this.Notification.removeAll();
 
 
@@ -299,6 +303,7 @@ export class TopicVoteCreateComponent implements OnInit {
     .pipe(take(1))
     .subscribe((vote) => {
       console.log(vote)
+      this.router.navigate([vote.id]);
   //    this.router.navigate([])
     })
    /*   .then((vote) => {

@@ -1,7 +1,7 @@
 
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap, tap, take, takeWhile, catchError } from 'rxjs/operators';
+import { switchMap, map, take, takeWhile, catchError } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
@@ -44,7 +44,7 @@ export class AccountComponent implements OnInit {
 
   wWidth = window.innerWidth;
   errors: any = {};
-  tabSelected = 'profile';
+  tabSelected;
   user?: User;
   topicSearch: string = '';
   topics$ = of(<Topic[] | any[]>[]);
@@ -57,6 +57,15 @@ export class AccountComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private Auth: AuthService) {
+    this.tabSelected = this.route.fragment.pipe(
+      map((fragment) => {
+        if(!fragment) {
+          return this.selectTab('profile')
+        }
+        return fragment
+      }
+    ));
+
     if (Auth.user$) {
       Auth.user$.pipe(take(1))
         .subscribe((user) => {
@@ -76,12 +85,19 @@ export class AccountComponent implements OnInit {
 
     this.topics$ = TopicNotificationService.items$;
   }
+
+  searchTopics () {
+    console.log(this.topicSearch, this.topicSearch.length)
+    if (this.topicSearch.length >= 3  || this.topicSearch.length === 0)
+      this.TopicNotificationService.setParam('search', this.topicSearch);
+  }
+
   ngOnInit(): void {
 
   }
 
   selectTab(tab: string) {
-    this.tabSelected = tab;
+    this.router.navigate( [], { fragment: tab } )
   }
 
   toggleTopicNotifications(topic: any) {
@@ -218,7 +234,7 @@ export class AccountComponent implements OnInit {
           .deleteUser()
           .pipe(take(1))
           .subscribe((res) => {
-            this.Auth.logout();
+            this.Auth.logout().pipe(take(1)).subscribe();
             this.router.navigate(['/']);
           });
       }

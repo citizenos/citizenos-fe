@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TopicInviteDialogComponent } from '../my-topics/components/topic-invite-dialog/topic-invite-dialog.component';
 import { TopicAttachmentsDialogComponent } from './components/topic-attachments-dialog/topic-attachments-dialog.component';
+import { TopicCreateComponent } from './components/topic-create/topic-create.component';
 import { TopicParticipantsDialogComponent } from './components/topic-participants-dialog/topic-participants-dialog.component';
 import { TopicReportFormDialogComponent } from './components/topic-report-form-dialog/topic-report-form-dialog.component';
 import { TopicReportModerateDialogComponent } from './components/topic-report-moderate-dialog/topic-report-moderate-dialog.component';
@@ -11,6 +12,7 @@ import { TopicSettingsDialogComponent } from './components/topic-settings-dialog
 import { TopicComponent } from './topic.component';
 
 const routes: Routes = [
+    {path: 'create', component: TopicCreateComponent},
     {path: ':topicId', component: TopicComponent, children: [
       {path: 'invite', component: TopicInviteDialogComponent },
       {path: 'followup', component: TopicComponent},

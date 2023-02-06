@@ -1,3 +1,4 @@
+import { ApiResponse } from './../interfaces/apiResponse';
 import { TopicService } from 'src/app/services/topic.service';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -38,11 +39,10 @@ export class GroupMemberTopicService {
         '/topics/:topicId/members/groups')
       , params)
 
-    return this.http.post(path, data, { withCredentials: true, responseType: 'json', observe: 'body' })
+    return this.http.post<ApiResponse>(path, data, { withCredentials: true, responseType: 'json', observe: 'body' })
       .pipe(
-        map((res: any) => {
-          return res.data.data
-        }));
+        map(res => res.data)
+      );
   }
 
   update(params: any, data: any) {
@@ -50,11 +50,10 @@ export class GroupMemberTopicService {
       this.Auth.resolveAuthorizedPath('/topics/:topicId/members/groups/:groupId')
       , params);
 
-    return this.http.put(path, data, { withCredentials: true, responseType: 'json', observe: 'body' })
+    return this.http.put<ApiResponse>(path, data, { withCredentials: true, responseType: 'json', observe: 'body' })
       .pipe(
-        map((res: any) => {
-          return res.data.data
-        }));
+        map(res => res.data)
+      );
   }
 
   query(params: any) {
@@ -62,21 +61,19 @@ export class GroupMemberTopicService {
       this.Auth.resolveAuthorizedPath('/groups/:groupId/members/topics')
       , params);
 
-    return this.http.get(path, { params, withCredentials: true, responseType: 'json', observe: 'body' })
+    return this.http.get<ApiResponse>(path, { params, withCredentials: true, responseType: 'json', observe: 'body' })
       .pipe(
-        map((res: any) => {
-          return res.data.data
-        }));
+        map(res => res.data)
+      );
   }
 
   queryPublic(params: any) {
     let path = this.Location.getAbsoluteUrlApi('/api/groups/:groupId/members/topics', params);
 
-    return this.http.get(path, { params, withCredentials: true, responseType: 'json', observe: 'body' })
+    return this.http.get<ApiResponse>(path, { params, withCredentials: true, responseType: 'json', observe: 'body' })
       .pipe(
-        map((res: any) => {
-          return res.data
-        }));
+        map(res => res.data)
+      );
   }
 
   delete(params: any) {
@@ -84,10 +81,9 @@ export class GroupMemberTopicService {
       this.Auth.resolveAuthorizedPath('/topics/:topicId/members/groups/:groupId')
       , params);
 
-    return this.http.delete(path, { withCredentials: true, responseType: 'json', observe: 'body' })
+    return this.http.delete<ApiResponse>(path, { withCredentials: true, responseType: 'json', observe: 'body' })
       .pipe(
-        map((res: any) => {
-          return res.data
-        }));
+        map(res => res.data)
+      );
   }
 }

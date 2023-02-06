@@ -43,7 +43,8 @@ export class TopicArgumentService extends ItemsListService {
     popularity: 'popularity',
     date: 'date'
   };
-
+  ARGUMENT_VERSION_SEPARATOR = '_v';
+  ArgumentIds = <string[]>[];
   params = {
     topicId: <string | null>null,
     orderBy: <string>this.ARGUMENT_ORDER_BY.date,
@@ -137,6 +138,13 @@ export class TopicArgumentService extends ItemsListService {
     return this.query(params).pipe(
       map((res) => {
         this.count.next(res.data.count);
+        this.ArgumentIds = [];
+        res.data.rows.forEach((argument:Argument) => {
+          this.ArgumentIds.push(argument.id)
+          if (argument.replies.count) {
+            argument.replies.rows.forEach((reply:Argument) => this.ArgumentIds.push(reply.id))
+          }
+        })
         return { rows: res.data.rows, countTotal: res.data.count.total || 0 }
       }),
       distinct(),
@@ -149,4 +157,8 @@ export class TopicArgumentService extends ItemsListService {
     Object.assign(curparams, params);
     this.params$.next(curparams);
   }
+
+  getArgumentIdWithVersion(argumentId:string, version:number) {
+    return argumentId + this.ARGUMENT_VERSION_SEPARATOR + version;
+  };
 }

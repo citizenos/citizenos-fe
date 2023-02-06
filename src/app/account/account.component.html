@@ -11,7 +11,7 @@
         <div class="header_row_wrap">
           <div class="header_row" slide-controller identifier="topicSettingsSlider">
             <div class="tab_button" (click)="selectTab('profile')"
-              [ngClass]="tabSelected === 'profile' ? 'active' : ''">
+              [ngClass]="(tabSelected | async) === 'profile' ? 'active' : ''">
               <div class="tab_buttom_wrap">
                 <div class="tab_button_text" translate="MODALS.MY_ACCOUNT_TAB_PROFILE"></div>
                 <div class="blue_bottom_line"></div>
@@ -19,7 +19,7 @@
             </div>
 
             <div class="tab_button" (click)="selectTab('preferences')"
-              [ngClass]="tabSelected === 'preferences' ? 'active' : ''">
+              [ngClass]="(tabSelected | async) === 'preferences' ? 'active' : ''">
               <div class="tab_buttom_wrap">
                 <div class="tab_button_text" translate="MODALS.MY_ACCOUNT_TAB_PREFERENCES"></div>
                 <div class="blue_bottom_line"></div>
@@ -27,7 +27,7 @@
             </div>
 
             <div class="tab_button" (click)="selectTab('notifications')"
-              [ngClass]="tabSelected === 'notifications' ? 'active' : ''">
+              [ngClass]="(tabSelected | async) === 'notifications' ? 'active' : ''">
               <div class="tab_buttom_wrap">
                 <div class="tab_button_text" translate="MODALS.MY_ACCOUNT_TAB_NOTIFICATIONS"></div>
                 <div class="blue_bottom_line"></div>
@@ -35,7 +35,7 @@
             </div>
 
             <div class="tab_button" (click)="selectTab('account')"
-              [ngClass]="tabSelected === 'account' ? 'active' : ''">
+              [ngClass]="(tabSelected | async) === 'account' ? 'active' : ''">
               <div class="tab_buttom_wrap">
                 <div class="tab_button_text" translate="MODALS.MY_ACCOUNT_TAB_ACCOUNT"></div>
                 <div class="blue_bottom_line"></div>
@@ -46,7 +46,7 @@
         </div>
       </div>
 
-      <div class="content" *ngIf="tabSelected === 'profile'">
+      <div class="content" *ngIf="(tabSelected | async) === 'profile'">
         <div class="content_section">
           <div id="image_edit_section">
             <div class="profile_image_wrapper dark big">
@@ -125,7 +125,7 @@
           </div>
         </div>
       </div>
-      <div class="content" *ngIf="tabSelected === 'preferences'">
+      <div class="content" *ngIf="(tabSelected | async) === 'preferences'">
         <div class="content_section">
           <div class="settings_section">
             <div class="settings_cell">
@@ -141,7 +141,7 @@
         </div>
       </div>
       <!--div class="content_description" *ngIf="tabSelected === 'notifications'">Make your topic private</div-->
-      <div class="content" *ngIf="tabSelected === 'notifications'">
+      <div class="content" *ngIf="(tabSelected | async) === 'notifications'">
         <div class="content_section">
           <div class="settings_section">
             <div class="settings_cell">
@@ -150,8 +150,8 @@
             <div class="searchbox_with_icon_and_text only_text">
               <div class="input_wrap">
                 <input class="topic_search_input" placeholder="{{'MODALS.MY_ACCOUNT_PLACEHOLDER_SEARCH' | translate}}"
-                  (change)="TopicNotificationService.setParam('search', topicSearch)" ng-model-options="{debounce:250}"
-                  [(ngModel)]="topicSearch" [ngModelOptions]="{standalone: true}">
+                  [value]="topicSearch" [(ngModel)]="topicSearch"
+                  [ngModelOptions]="{standalone: true, updateOn:'change'}" (ngModelChange)="searchTopics()">
               </div>
             </div>
             <table class="notification_settings_table">
@@ -163,8 +163,8 @@
               <tr class="notification_setting_row" *ngFor="let topic of topics$ | async">
                 <td><a class="blue_link" [innerHtml]>{{topic.title}}</a></td>
                 <td>
-                  <cos-toggle [cosToggleTextOn]="'TOGGLE_ON' | translate"
-                  [cosToggleTextOff]="'TOGGLE_OFF' | translate" [model]="topic.allowNotifications"
+                  <cos-toggle [cosToggleTextOn]="'TOGGLE_ON' | translate" [cosToggleTextOff]="'TOGGLE_OFF' | translate"
+                    [model]="topic.allowNotifications"
                     (click)="topic.allowNotifications=!topic.allowNotifications;toggleTopicNotifications(topic)"></cos-toggle>
                 </td>
                 <td>
@@ -176,7 +176,7 @@
           </div>
         </div>
       </div>
-      <div class="content" *ngIf="tabSelected === 'account'">
+      <div class="content" *ngIf="(tabSelected | async) === 'account'">
         <div class="content_section">
           <div class="settings_section">
             <div class="input_wrap">
@@ -212,14 +212,14 @@
           </div>
         </div>
       </div>
-      <div class="footer pagination_footer" *ngIf="tabSelected === 'notifications'">
+      <div class="footer pagination_footer" *ngIf="(tabSelected | async) === 'notifications'">
         <div class="line lightest_line"></div>
         <cos-pagination class="pagination" (select)="TopicNotificationService.loadPage($event)"
           [totalPages]="(TopicNotificationService.totalPages$ | async) || 0"
           [page]="(TopicNotificationService.page$ | async) || 0"></cos-pagination>
       </div>
 
-      <div class="footer" *ngIf="tabSelected !== 'notifications'">
+      <div class="footer" *ngIf="(tabSelected | async) !== 'notifications'">
 
         <div class="line lightest_line"></div>
         <span class="delete_account" (click)="doDeleteAccount()">

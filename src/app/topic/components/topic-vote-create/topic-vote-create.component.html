@@ -20,19 +20,6 @@
         </div>
       </div>
 
-      <!--div class="table_cell"  (click)="setVoteType(voteTypes.multiple)" >
-              <div class="voting_platform_radio_wrap" [ngClass]="vote.type == 'multiple' ? 'active' : ''">
-                  <div class="check"></div>
-                  <input class="voting_platform_radio" type="radio" (checked)="vote.type=='multiple'" name="voteTypeMultiple"/>
-              </div>
-              <div class="voting_platform_button" [ngClass]="vote.type == 'multiple' ? 'active' : ''">
-                  <div class="table_cell">
-                      <div class="button_title" translate="VIEWS.TOPICS_TOPICID.VOTE_BTN_TYPE_MULTIPLECHOICE">MULTIPLECHOICE</div>
-                      <div class="button_description" translate="VIEWS.TOPICS_TOPICID.VOTE_BTN_TYPE_MULTIPLECHOICE_EXPLANATION">(ie. A/B/C/D/…)</div>
-                  </div>
-              </div>
-          </!--div-->
-
     </div>
 
     <div class="clearer"></div>
@@ -53,8 +40,7 @@
               <div class="table_cell" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_YES"></div>
               <div class="table_cell">
                 <cos-toggle [cosToggleTextOn]="('TOGGLE_ON' | translate)"
-                  [cosToggleTextOff]="('TOGGLE_OFF' | translate)" [model]="vote.options[0].enabled"
-                  (click)="vote.options[0].enabled = !vote.options[0].enabled"></cos-toggle>
+                  [cosToggleTextOff]="('TOGGLE_OFF' | translate)" [(model)]="vote.options[0].enabled"></cos-toggle>
               </div>
             </div>
           </div>
@@ -63,8 +49,7 @@
               <div class="table_cell" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_NO"></div>
               <div class="table_cell">
                 <cos-toggle [cosToggleTextOn]="('TOGGLE_ON' | translate)"
-                  [cosToggleTextOff]="('TOGGLE_OFF' | translate)" [model]="vote.options[1].enabled"
-                  (click)="vote.options[1].enabled = !vote.options[1].enabled"></cos-toggle>
+                  [cosToggleTextOff]="('TOGGLE_OFF' | translate)" [(model)]="vote.options[1].enabled"></cos-toggle>
               </div>
             </div>
           </div>
@@ -77,8 +62,7 @@
               <div class="table_cell" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_NEUTRAL"></div>
               <div class="table_cell">
                 <cos-toggle [cosToggleTextOn]="('TOGGLE_ON' | translate)"
-                  [cosToggleTextOff]="('TOGGLE_OFF' | translate)" [model]="extraOptions.neutral.enabled"
-                  (click)="extraOptions.neutral.enabled = !extraOptions.neutral.enabled"></cos-toggle>
+                  [cosToggleTextOff]="('TOGGLE_OFF' | translate)" [(model)]="extraOptions.neutral.enabled"></cos-toggle>
               </div>
             </div>
           </div>
@@ -87,8 +71,7 @@
               <div class="table_cell" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_VETO"></div>
               <div class="table_cell">
                 <cos-toggle [cosToggleTextOn]="('TOGGLE_ON' | translate)"
-                  [cosToggleTextOff]="('TOGGLE_OFF' | translate)" [model]="extraOptions.veto.enabled"
-                  (click)="extraOptions.veto.enabled = !extraOptions.veto.enabled"></cos-toggle>
+                  [cosToggleTextOff]="('TOGGLE_OFF' | translate)" [(model)]="extraOptions.veto.enabled"></cos-toggle>
               </div>
             </div>
           </div>
@@ -126,8 +109,7 @@
           <div class="table_cell" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_NEUTRAL"></div>
           <div class="table_cell">
             <cos-toggle [cosToggleTextOn]="('TOGGLE_ON' | translate)" [cosToggleTextOff]="('TOGGLE_OFF' | translate)"
-              [model]="extraOptions.neutral.enabled"
-              (click)="extraOptions.neutral.enabled = !extraOptions.neutral.enabled"></cos-toggle>
+              [(model)]="extraOptions.neutral.enabled"></cos-toggle>
           </div>
         </div>
 
@@ -135,8 +117,7 @@
           <div class="table_cell" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_VETO"></div>
           <div class="table_cell">
             <cos-toggle [cosToggleTextOn]="('TOGGLE_ON' | translate)" [cosToggleTextOff]="('TOGGLE_OFF' | translate)"
-              [model]="extraOptions.veto.enabled"
-              (click)="extraOptions.veto.enabled = !extraOptions.veto.enabled"></cos-toggle>
+              [(model)]="extraOptions.veto.enabled"></cos-toggle>
           </div>
         </div>
 
@@ -193,8 +174,9 @@
             </div>
           </div>
           <div class="table_cell">
-            <cos-toggle value="VOTE_AUTH_TYPES.hard" off-value="VOTE_AUTH_TYPES.soft" model="vote.authType"
-              cos-toggle-text-on="'TOGGLE_ON' | translate" cos-toggle-text-off="'TOGGLE_OFF' | translate"></cos-toggle>
+            <cos-toggle [value]="VOTE_AUTH_TYPES.hard" [offValue]="VOTE_AUTH_TYPES.soft" [cosToggleTextOn]="('TOGGLE_ON' | translate)"
+            [cosToggleTextOff]="('TOGGLE_OFF' | translate)"
+              [(model)]="vote.authType"></cos-toggle>
           </div>
         </div>
       </div>
@@ -206,8 +188,9 @@
             <div class="toggle_box_description" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_DELEGATION_EXPLANATION"></div>
           </div>
           <div class="table_cell">
-            <cos-toggle cos-disabled="(vote.authType == VOTE_AUTH_TYPES.hard)" model="vote.delegationIsAllowed"
-              cos-toggle-text-on="'TOGGLE_ON' | translate" cos-toggle-text-off="'TOGGLE_OFF' | translate"></cos-toggle>
+            <cos-toggle [attr.disabled]="(vote.authType == VOTE_AUTH_TYPES.hard)"  [cosToggleTextOn]="('TOGGLE_ON' | translate)"
+            [cosToggleTextOff]="('TOGGLE_OFF' | translate)"
+              [(model)]="vote.delegationIsAllowed"></cos-toggle>
           </div>
         </div>
 
@@ -238,7 +221,7 @@
           </div>
           <div class="table_cell">
             <cos-toggle [cosToggleTextOn]="('TOGGLE_ON' | translate)" [cosToggleTextOff]="('TOGGLE_OFF' | translate)"
-              [model]="deadline" (click)="deadline = !deadline"></cos-toggle><!--cos-toggle-datepicker-toggle="true"-->
+              [(model)]="deadline" (click)="deadline = !deadline"></cos-toggle><!--cos-toggle-datepicker-toggle="true"-->
           </div>
         </div>
         <div class="picker_content" [ngClass]="deadline ? 'active' : ''" *ngIf="deadline">
@@ -310,7 +293,7 @@
                   </div>
                 </div>
                 <div class="set_vote_timezone_wrap">
-                  <div class="toggle_box_title" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_SET_TIMEZONE">Set a time</div>
+                  <div class="toggle_box_title" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_SET_TIMEZONE"></div>
                   <div class="input_row">
                     <div [cosDropdown] class="classic_dropdown timezone_dropdown">
 
@@ -348,8 +331,9 @@
                 </div>
               </div>
               <div class="right_row gray_toggle_box">
-                <div class="toggle_box_title datepicker_title" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_SET_DATE">Set
-                  date</div>
+                <div class="toggle_box_title datepicker_title" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_SET_DATE"></div>
+                <!--datepicker></!--datepicker-->
+                <mat-calendar></mat-calendar>
                 <div (click)="setEndsAtTime()" class="date_picker_wrap" date-picker="endsAt.date"
                   min-date="datePickerMin" max-view="date" min-view="date"
                   template="/views/directives/date_picker.html"></div>
@@ -393,7 +377,7 @@
           </div>
           <div class="table_cell">
             <cos-toggle [cosToggleTextOn]="('TOGGLE_ON' | translate)" [cosToggleTextOff]="('TOGGLE_OFF' | translate)"
-              [model]="reminder" (click)="reminder = !reminder"></cos-toggle>
+              [(model)]="reminder"></cos-toggle>
           </div>
         </div>
       </div>
@@ -402,15 +386,12 @@
       <div class="left_row">
         <div class="gray_toggle_box">
           <div class="table_cell">
-            <div class="toggle_box_title" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_ALL_VOTES_ARE_IN">All votes are in
-            </div>
-            <div class="toggle_box_description" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_ALL_VOTES_ARE_IN_EXPLANATION">
-              WHEN EVERY USER IN THE TOPIC HAS VOTED, THE VOTE SYSTEM CLOSES.</div>
+            <div class="toggle_box_title" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_ALL_VOTES_ARE_IN"></div>
+            <div class="toggle_box_description" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_ALL_VOTES_ARE_IN_EXPLANATION"></div>
           </div>
           <div class="table_cell">
             <cos-toggle [cosToggleTextOn]="('TOGGLE_ON' | translate)" [cosToggleTextOff]="('TOGGLE_OFF' | translate)"
-              [model]="vote.autoClose.allMembersVoted.enabled"
-              (click)="vote.autoClose.allMembersVoted.enabled = !vote.autoClose.allMembersVoted.enabled"></cos-toggle>
+              [(model)]="vote.autoClose.allMembersVoted.enabled"></cos-toggle>
           </div>
         </div>
       </div>

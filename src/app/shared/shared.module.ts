@@ -9,6 +9,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { TooltipDirective } from '../directives/tooltip';
 import { CosDropdownDirective } from '../directives/cos-dropdown.directive';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatDatepickerModule} from '@angular/material/datepicker';
 import { TypeaheadComponent, TypeaheadItem } from './components/typeahead/typeahead.component';
 import { FormsModule } from '@angular/forms';
 import { CosInitialsComponent } from './components/cos-initials/cos-initials.component';
@@ -27,6 +28,9 @@ import { TopicSettingsComponent } from '../topic/components/topic-settings/topic
 import { TopicSettingsDialogComponent } from '../topic/components/topic-settings-dialog/topic-settings-dialog.component';
 import { MarkdownDirective } from '../directives/markdown.directive';
 import { CosEllipsisPipe } from './pipes/cos-ellipsis.pipe';
+import { ModalDatepickerComponent } from './components/modal-datepicker/modal-datepicker.component';
+import { MatNativeDateModule } from '@angular/material/core';
+
 @NgModule({
   declarations: [
     ActivityComponent,
@@ -50,12 +54,15 @@ import { CosEllipsisPipe } from './pipes/cos-ellipsis.pipe';
     TopicboxComponent,
     TypeaheadComponent,
     TypeaheadItem,
+    ModalDatepickerComponent,
   ],
   imports: [
     RouterModule,
     CommonModule,
     FormsModule,
     MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MomentModule,
     QRCodeModule,
     TranslateModule,
@@ -70,6 +77,8 @@ import { CosEllipsisPipe } from './pipes/cos-ellipsis.pipe';
     CosToggleComponent,
     MarkdownDirective,
     MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MomentModule,
     PublicgroupboxComponent,
     QRCodeModule,

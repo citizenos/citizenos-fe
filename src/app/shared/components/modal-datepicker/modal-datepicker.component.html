@@ -1,0 +1,184 @@
+<div id="root_lightbox" class="full_screen" *ngIf="isModalVisible">
+  <div id="lightbox" class="date_picker_wrap wide_lightbox">
+    <div id="lightbox_wrap">
+
+      <div id="lightbox_header">
+
+        <div id="lightbox_header_text">
+          <div class="title">{{cosModalTitle}}</div>
+          <div class="lightbox_header_description_text" *ngIf="cosModalDescription">
+            {{cosModalDescription}}
+          </div>
+        </div>
+
+        <div id="lightbox_close" (click)="cosModalClose()">
+          <div class="table_cell">
+            <div class="sprite sprite-btn-popup-close2x">
+            </div>
+          </div>
+        </div>
+
+        <div class="clearer"></div>
+
+      </div>
+
+      <div class="line lightest_line"></div>
+
+      <div class="lightbox_content">
+
+        <div class="lightbox_section picker_content">
+
+          <div class="gray_toggle_box">
+            <div class="table_cell">
+              <div class="toggle_box_title" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_DEADLINE"></div>
+            </div>
+            <div class="table_cell">
+              <cos-toggle [(model)]="cosModalIsDateSelected" [cosToggleTextOn]="'TOGGLE_ON' | translate"
+                [cosToggleTextOff]="'TOGGLE_OFF' | translate"></cos-toggle>
+            </div>
+          </div>
+          <div class="double_cell_layout ten_px_margin_between margin_betwen_boxes ten_px_padding"
+            *ngIf="cosModalIsDateSelected">
+            <div class="left_row add_bottom_borders">
+              <div class="picker_content active">
+                <div class="bubble_content">
+
+                  <div class="bubble_section">
+
+                    <div class="bubble_description">
+                      <div class="picker_deadline_date">
+                        {{deadline | amDateFormat:'L LT Z'}}
+                      </div>
+                      <div class="picker_days_left"
+                        translate="VIEWS.TOPICS_TOPICID.VOTE_TXT_DEADLINE_CALENDAR_DAYS_LEFT"
+                        [translateParams]="{numberOfDaysLeft: daysToVoteEnd()}"></div>
+                      <div class="clearer"></div>
+                    </div>
+                  </div>
+                  <div class="double_cell_layout">
+                    <div class="left_row gray_toggle_box">
+                      <div class="set_vote_time_wrap">
+                        <div class="toggle_box_title" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_SET_TIME"></div>
+                        <div class="input_row">
+                          <input class="time_input" [(ngModel)]="endsAt.h"
+                            (change)="formatTime(endsAt.h); setEndsAtTime()" type="number" min="0" max="{{HCount}}"
+                            step="1" /><span class="time_separator">:</span><input type="number" class="time_input"
+                            min="0" max="60" step="5" [(ngModel)]="endsAt.min"
+                            (change)="formatTime(endsAt.min);setEndsAtTime()" />
+
+                          <div [cosDropdown] class="classic_dropdown">
+
+                            <div class="dropdown_selection">
+                              <div class="dropdown_text">
+                                {{'VIEWS.TOPICS_TOPICID.VOTE_SETTING_TIME_OPTION_'+timeFormat
+                                | uppercase | translate}}
+                              </div>
+
+                              <div class="arrow_holder">
+                                <div class="table_cell">
+                                  <div class="sprite sprite-icon-dropdown-arrowdown2x">
+                                  </div>
+                                  <div class="v_line"></div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="dropdown">
+
+                              <div class="dropdown_item">
+
+                                <div class="item_names_wrap">
+                                  <div class="item_name" translate="VIEWS.TOPICS_TOPICID.VOTE_SETTING_TIME_OPTION_24"
+                                    (click)="timeFormat = 24; setTimeFormat()">
+                                  </div>
+                                  <div class="item_name" translate="VIEWS.TOPICS_TOPICID.VOTE_SETTING_TIME_OPTION_AM"
+                                    (click)="timeFormat = 'AM'; setTimeFormat()">
+                                  </div>
+                                  <div class="item_name" translate="VIEWS.TOPICS_TOPICID.VOTE_SETTING_TIME_OPTION_PM"
+                                    (click)="timeFormat = 'PM'; setTimeFormat()">
+                                  </div>
+                                </div>
+
+                                <div class="clearer"></div>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="set_vote_timezone_wrap">
+                        <div class="toggle_box_title" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_SET_TIMEZONE">Set a time
+                        </div>
+                        <div class="input_row">
+                          <div [cosDropdown] class="classic_dropdown timezone_dropdown">
+
+                            <div class="dropdown_selection">
+                              <div class="dropdown_text">
+                                {{getTimeZoneName(timezone)}}
+                              </div>
+
+                              <div class="arrow_holder">
+                                <div class="table_cell">
+                                  <div class="sprite sprite-icon-dropdown-arrowdown2x">
+                                  </div>
+
+                                  <div class="v_line"></div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="dropdown">
+
+                              <div class="dropdown_item" [ngClass]="zone === timezone ? 'bold' : ''"
+                                *ngFor="let zone of timezones">
+                                <div class="item_names_wrap">
+                                  <div class="item_name" (click)="timezone = zone.value; setEndsAtTime()">
+                                    {{zone.name}}
+                                  </div>
+                                </div>
+                                <!--div class="item_props">
+                                                                  404 topics
+                                                              </div-->
+                                <div class="clearer"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="right_row gray_toggle_box">
+                      <div class="toggle_box_title datepicker_title" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_SET_DATE">
+                      </div>
+                      <div class="date_picker_wrap">
+                        <mat-calendar [(selected)]="endsAt.date"></mat-calendar>
+                      </div>
+                      <!--div class="date_picker_wrap" date-picker="endsAt.date" min-date="datePickerMin" max-view="date"
+                        min-view="date" template="/views/directives/date_picker.html" (click)="setEndsAtTime()"></!--div>
+                        <div-- class="date_picker_wrap">
+
+                        </div-->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lightbox_footer">
+        <div class="line lightest_line"></div>
+        <div class="blue_button_wrap">
+          <div class="blue_button" (click)="cosModalSaveAction()" translate="DIRECTIVES.COS_MODAL_DATEPICKER.BTN_SAVE">
+          </div>
+          <div class="blue_button no" (click)="cosModalClose()" translate="DIRECTIVES.COS_MODAL_DATEPICKER.BTN_CANCEL">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="close_lightbox" (click)="cosModalClose()"></div>
+
+</div>
+<span class="item_link blue_link" (click)="cosModalOpen()">{{cosModalLinkText}}</span>

@@ -31,6 +31,7 @@
     "express": "4.18.1",
     "express-csp-header": "5.1.0",
     "fast-json-patch": "^3.1.1",
+    "hwcrypto-js": "0.0.13",
     "marked": "^4.2.12",
     "moment": "^2.29.4",
     "ngx-moment": "^6.0.2",
@@ -54,5 +55,8 @@
     "karma-jasmine-html-reporter": "~1.7.0",
     "ngx-unused-css": "^4.0.0-1",
     "typescript": "~4.6.2"
+  },
+  "browser": {
+    "hwcrypto-js": true
   }
 }

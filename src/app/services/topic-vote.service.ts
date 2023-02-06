@@ -75,7 +75,7 @@ export class TopicVoteService {
 
   cast(data: any) {
     if (!data.voteId) data.voteId = data.id;
-    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('//topics/:topicId/votes/:voteId'), data)
+    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/votes/:voteId'), data)
 
     return this.http.post<ApiResponse>(path, data, { withCredentials: true, observe: 'body', responseType: 'json' })
       .pipe(
@@ -87,10 +87,7 @@ export class TopicVoteService {
     if (!params.voteId) params.voteId = params.id;
     let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/votes/:voteId/status'), params)
 
-    return this.http.get<ApiResponse>(path, { params: { token: params.token }, withCredentials: true, observe: 'body', responseType: 'json' })
-      .pipe(
-        map(res => res.data)
-      );
+    return this.http.get<ApiResponse>(path, { params: { token: params.token }, withCredentials: true, observe: 'body', responseType: 'json' });
   };
 
   sign(data: any) {
@@ -129,6 +126,6 @@ export class TopicVoteService {
   };
 
   canVote(topic: Topic) {
-    return topic && topic.vote && ((topic.vote.authType === this.VOTE_AUTH_TYPES.hard && topic.visibility === this.TopicService.VISIBILITY.public) && topic.status === this.STATUSES.voting);
+    return topic && topic.vote && ((topic.permission.level !== 'none' || (topic.vote.authType === this.VOTE_AUTH_TYPES.hard && topic.visibility === this.TopicService.VISIBILITY.public)) && topic.status === this.STATUSES.voting);
   };
 }

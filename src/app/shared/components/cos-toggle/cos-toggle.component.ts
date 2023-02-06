@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'cos-toggle',
@@ -8,6 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 export class CosToggleComponent implements OnInit {
   @Input() model:any = '';
+  @Output() modelChange:any = new EventEmitter<any>();
   @Input() value:any = '';
   @Input() offValue:any = '';
   @Input() cosToggleTextOn:any = '';
@@ -30,6 +31,7 @@ export class CosToggleComponent implements OnInit {
     } else {
       this.model = !this.model;
     }
+    this.modelChange.emit(this.model);
   };
 
   isEnabled() {

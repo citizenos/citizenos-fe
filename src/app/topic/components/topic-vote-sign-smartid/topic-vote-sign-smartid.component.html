@@ -1,0 +1,90 @@
+<div id="root_lightbox">
+  <div id="lightbox" class="id_signing">
+    <div id="lightbox_wrap">
+
+      <div id="lightbox_header">
+
+        <div id="lightbox_header_text">
+          <div class="title" translate="MODALS.TOPIC_VOTE_SIGN_SMARTID_HEADING"></div>
+          <div class="title_description">{{topic.title}}</div>
+        </div>
+
+        <div id="lightbox_close" mat-dialog-close>
+          <div class="table_cell">
+            <div class="sprite sprite-btn-popup-close2x">
+            </div>
+          </div>
+        </div>
+
+        <div class="clearer"></div>
+
+        <div class="voting_tag_padding">
+          <span *ngIf="options.length === 1" translate="MODALS.TOPIC_VOTE_SIGN_TXT_VOTING_FOR" [translateParams]="{optionSelected: options[0]}"></span>
+          <div class="voting_tag" *ngFor="let option of options">
+            <div class="table_cell">
+              <span class="bold" [innerHtml]="(('VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_' + option.value) | uppercase) | translate | linky"></span> <!--translate-default="{{option.value | linky}}"-->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lightbox_content">
+        <form name="signSmartIdForm" novalidate>
+          <div class="sign_in_section sid">
+            <div class="sprite_big sprite sprite-smart-i-d2x"></div>
+            <div *ngIf="isLoading && !challengeID" class="loader_wrap">
+              <div class="loader"></div>
+            </div>
+            <div *ngIf="!challengeID && !isLoading">
+              <input *ngIf="!isLoading" id="countryCode" ngModel name="countryCode" maxlength="2"
+              [ngClass]="{error_input: countryCode}" [(ngModel)]="countryCode"
+              [placeholder]="'MODALS.TOPIC_VOTE_SIGN_SMARTID_PLACEHOLDER_COUNTRY_CODE' | translate"
+              (focus)="wWidth > 1024" pattern="/^[A-Z]{2}$/" required>
+              <!--input id="countryCode" name="countryCode" type="text" ng-model="$ctrl.TopicVoteService.countryCode"
+                maxlength="2" ng-maxlength="2"
+                placeholder="{{'MODALS.TOPIC_VOTE_SIGN_SMARTID_PLACEHOLDER_COUNTRY_CODE' | translate}}"
+                ng-class="{'error_input': formSmartIdSign.countryCode.$error.pattern && formSmartIdSign.countryCode.$touched}"
+                ng-pattern="/^[A-Z]{2}$/" required-->
+              <!--label for="countryCode" class="error_label"
+                ng-if="formSmartIdSign.countryCode.$error.pattern && formSmartIdSign.countryCode.$touched">
+                <div class="table_cell">
+                  <div class="sprite sprite-icon-inputfield-error2x"></div>
+                  <span translate="MODALS.TOPIC_VOTE_SIGN_SMARTID_ERROR_COUNTRY_CODE"></span>
+                </div>
+              </!--label-->
+              <input *ngIf="!isLoading" [(ngModel)]="pid" name="pid" type="text"
+              inputmode="numeric" [placeholder]="'MODALS.TOPIC_VOTE_SIGN_SMARTID_PLACEHOLDER_PID' | translate" ngModel pattern="/^[0-9]{11}$/"
+              required>
+              <!--input id="pid" name="pid" type="text" inputmode="numeric" ng-model="$ctrl.TopicVoteService.pid"
+                placeholder="{{'MODALS.TOPIC_VOTE_SIGN_SMARTID_PLACEHOLDER_PID' | translate}}"
+                ng-class="{'error_input': formSmartIdSign.pid.$touched}" required>
+              <label-- for="pid" class="error_label" ng-if="formSmartIdSign.pid.$touched">
+                <div class="table_cell">
+                  <div class="sprite sprite-icon-inputfield-error2x"></div>
+                  <span translate="MODALS.TOPIC_VOTE_SIGN_SMARTID_ERROR_PID">Invalid personal identification code</span>
+                </div>
+              </label-->
+            </div>
+
+            <div *ngIf="challengeID">
+              <div class="code" translate="MODALS.TOPIC_VOTE_SIGN_SMARTID_TXT_CONTROL_CODE"
+                [translateParams]="{code: challengeID}"></div>
+              <div class="code_text" translate="MODALS.TOPIC_VOTE_SIGN_SMARTID_TXT_CHECK_CONTROL_CODE"></div>
+              <div class="loader_wrap">
+                <div class="loader"></div>
+              </div>
+            </div>
+            <button type="submit" (click)="doSignWithSmartId()"
+              [disabled]="isLoading" class="blue_button"
+              translate="MODALS.TOPIC_VOTE_SIGN_SMARTID_BTN_SIGN"></button><!--formSmartIdSign.$invalid-->
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="close_lightbox" mat-dialog-close>
+  </div>
+
+</div>

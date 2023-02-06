@@ -18,13 +18,12 @@ export class EditArgumentComponent implements OnInit {
   public ARGUMENT_TYPES = Object.keys(this.TopicArgumentService.ARGUMENT_TYPES);
   public ARGUMENT_TYPES_MAXLENGTH = this.TopicArgumentService.ARGUMENT_TYPES_MAXLENGTH;
   public ARGUMENT_SUBJECT_MAXLENGTH = this.TopicArgumentService.ARGUMENT_SUBJECT_MAXLENGTH;
-  private ARGUMENT_VERSION_SEPARATOR = '_v';
 
   edit = {
     subject: '',
     text: '',
     type: '',
-    topicId: this.topicId
+    topicId: ''
   }
   errors: any = null;
   constructor(private TopicArgumentService: TopicArgumentService, public app: AppService, public AuthService: AuthService) {
@@ -41,7 +40,7 @@ export class EditArgumentComponent implements OnInit {
     if (this.edit.type !== this.argument.type || this.argument.subject !== this.edit.subject || this.argument.text !== this.edit.text) {
       this.TopicArgumentService.update(this.edit)
       .pipe(take(1))
-      .subscribe((edited) => {
+      .subscribe(() => {
         this.TopicArgumentService.reset()
       })
       /*
@@ -65,10 +64,6 @@ export class EditArgumentComponent implements OnInit {
     }
   };
 
-  getArgumentIdWithVersion(argumentId: string, version: number) {
-    return argumentId + this.ARGUMENT_VERSION_SEPARATOR + version;
-  };
-
   argumentEditMode() {
     this.edit.subject = this.argument.subject;
     this.edit.text = this.argument.text;
@@ -81,6 +76,7 @@ export class EditArgumentComponent implements OnInit {
 
   ngOnInit(): void {
     this.edit = Object.assign(this.edit, this.argument);
+    this.edit.topicId = this.topicId;
   }
 
 }

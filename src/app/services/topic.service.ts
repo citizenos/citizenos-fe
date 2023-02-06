@@ -70,6 +70,14 @@ export class TopicService {
       }))
   }
 
+  save(data: any) {
+    let path = this.Location.getAbsoluteUrlApi('/api/users/self/topics')
+
+    return this.http.post<ApiResponse>(path, data, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
+      map(res => res.data)
+    );
+  }
+
   update(data: any) {
     const updateFields = ['visibility', 'status', 'categories', 'endsAt', 'hashtag'];
     const sendData: any = {};

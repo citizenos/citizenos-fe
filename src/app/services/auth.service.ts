@@ -1,7 +1,9 @@
+import { ConfigService } from 'src/app/services/config.service';
+import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { of, BehaviorSubject, Observable, combineLatest } from 'rxjs';
-import { switchMap, catchError, tap, map, } from 'rxjs/operators';
+import { of, BehaviorSubject, Observable, forkJoin } from 'rxjs';
+import { switchMap, catchError, tap, take, map } from 'rxjs/operators';
 import { LocationService } from './location.service';
 import { NotificationService } from './notification.service';
 import { User } from '../interfaces/user';
@@ -14,11 +16,12 @@ export class AuthService {
   public loggedIn$ = new BehaviorSubject(false);
   public user = new BehaviorSubject({ id: null });
 
-  constructor(private Location: LocationService, private http: HttpClient, private Notification: NotificationService) {
-    this.user$ = this.status();
+  constructor(private Location: LocationService, private http: HttpClient, private Notification: NotificationService, private config: ConfigService) {
+    this.user$ =  this.status();
+
     this.loggedIn$.pipe(tap((status) => {
       if (status === false) {
-        this.logout();
+        this.logout().pipe(take(1)).subscribe((res) => console.log('logged out') );
       }
     }))
   }
@@ -69,18 +72,18 @@ export class AuthService {
   logout() {
     const pathLogoutEtherpad = this.Location.getAbsoluteUrlEtherpad('/ep_auth_citizenos/logout');
     const pathLogoutAPI = this.Location.getAbsoluteUrlApi('/api/auth/logout');
-
-    return combineLatest([
+    return forkJoin([
       this.http.get(pathLogoutEtherpad, { withCredentials: true, responseType: 'text' }),
       this.http.post(pathLogoutAPI, {}, { withCredentials: true })]).pipe(
         switchMap(([res]) => {
           this.user$ = null;
+          this.loggedIn$.next(false);
           return res;
         }),
         catchError((err) => {
           console.log(err); return err;
         })
-      ).subscribe();
+      );
   }
 
   status() {
@@ -101,7 +104,61 @@ export class AuthService {
         }
         return of(null);
       }),
-      map(res =>res)
+      map(res => res)
     );
+  };
+
+  loginMobiilIdInit(pid: string, phoneNumber: string, userId?: string) {
+    const data = {
+      pid: pid,
+      phoneNumber: phoneNumber,
+      userId: userId
+    };
+
+    const path = this.Location.getAbsoluteUrlApi('/api/auth/mobile/init');
+
+    return this.http.post<ApiResponse>(path, data, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
+      map(res => res.data)
+    );
+  };
+
+  loginMobiilIdStatus(token: string) {
+    /* const success = (response) => {
+         if ([20002, 20003].indexOf(response.data.status.code) > -1) {
+             this.user.loggedIn = true;
+             angular.extend(this.user, response.data.data);
+         }
+         return response;
+     };*/
+
+    const path = this.Location.getAbsoluteUrlApi('/api/auth/mobile/status');
+
+    return this.http.get<ApiResponse>(path, { params: { token: token }, withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
+      map(res => res.data)
+    );
+  };
+
+  idCardInit() {
+    return this.http.get<ApiResponse>(this.config.get('features').authentication.idCard.url, { withCredentials: true, responseType: 'json', observe: 'body' })
+      .pipe(
+        map(res => res.data)
+      );
+  };
+  loginIdCard(userId?: string) {
+    return this.idCardInit()
+      .pipe(
+        switchMap((response) => {
+          console.log('response', response)
+          if (response.token) {
+            const path = this.Location.getAbsoluteUrlApi('/api/auth/id');
+            if (userId) {
+              response.userId = userId;
+            }
+            return this.http.get(path, { params: response, withCredentials: true, responseType: 'json', observe: 'body' });
+          } else {
+            return response;
+          }
+        })
+      );
   };
 }

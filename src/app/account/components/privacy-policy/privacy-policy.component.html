@@ -1,0 +1,57 @@
+<!-- LIGHTBOX SKELETON -->
+<div id="root_lightbox">
+  <div id="lightbox" class="privacy_policy_lightbox confirm_lightbox">
+    <div id="lightbox_wrap">
+      <div id="lightbox_header">
+
+        <div id="lightbox_header_text">
+          <div class="title" translate="MODALS.PRIVACY_POLICY_HEADING"></div>
+        </div>
+
+        <div class="clearer"></div>
+
+      </div>
+
+      <div class="lightbox_content">
+        <div class="content_text" translate="MODALS.PRIVACY_POLICY_DESCRIPTION"></div>
+        <div class="policy_links">
+          <div class="policy_link_wrap">
+            <a class="policy_link" target="_blank" [href]="config.termsOfUse">
+              <div class="section_icon">
+                <div class="table_cell">
+                  <div class="sprite sprite-bullet-arrow-blue2x"></div>
+                </div>
+              </div>
+              <span translate="MODALS.PRIVACY_POLICY_LNK_TERMS_OF_USE"></span>
+            </a>
+          </div>
+          <div class="policy_link_wrap">
+            <a class="policy_link" target="_blank" [href]="config.privacyPolicy">
+              <div class="section_icon">
+                <div class="table_cell">
+                  <div class="sprite sprite-bullet-arrow-blue2x"></div>
+                </div>
+              </div>
+              <span translate="MODALS.PRIVACY_POLICY_LNK_PRIVACY_POLICY"></span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="lightbox_footer">
+        <div class="line lightest_line"></div>
+
+        <div class="lightbox_section">
+          <div class="footer_button_wrap left">
+            <div class="blue_button yes" (click)="reject()" class="red_button"
+              translate="MODALS.PRIVACY_POLICY_BTN_REJECT"></div>
+          </div>
+          <div class="footer_button_wrap right">
+            <div class="blue_button" (click)="accept()" class="blue_button"
+              translate="MODALS.PRIVACY_POLICY_BTN_ACCEPT"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

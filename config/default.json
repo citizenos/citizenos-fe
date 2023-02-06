@@ -1,0 +1,63 @@
+{
+  "csp": {
+    "directives": {
+      "default-src": [
+        "self"
+      ],
+      "img-src": [
+        "*",
+        "self",
+        "data:",
+        "https://dev.api.citizenos.com:3003",
+        "https://citizenos-test.s3.eu-west-1.amazonaws.com",
+        "https://lh3.googleusercontent.com"
+      ],
+      "script-src": [
+        "self",
+        "https://stats.citizenos.com",
+        "https://cdn.crowdin.com",
+        "https://apis.google.com",
+        "https://cdn.jsdelivr.net/",
+        "'unsafe-eval'"
+      ],
+      "style-src": [
+        "self",
+        "'sha256-PbCqj2GWszK09EPTGc+Y9YN3Gagm6CylUWxhiz+kSvU='",
+        "https://fonts.googleapis.com",
+        "https://ajax.googleapis.com/ajax/libs/angular_material/1.2.1/angular-material.min.css"
+      ],
+      "script-src-elem": [
+        "self",
+        "https://apis.google.com",
+        "https://js.live.net"
+      ],
+      "font-src": [
+        "self",
+        "https://fonts.gstatic.com"
+      ],
+      "connect-src": [
+        "self",
+        "https://p.citizenos.com",
+        "https://id.citizenos.com",
+        "https://api.citizenos.com",
+        "https://stats.citizenos.com",
+        "https://sentry.io",
+        "https://cdn.jsdelivr.net/",
+        "https://graph.microsoft.com"
+      ],
+      "base-uri": [
+        "self"
+      ],
+      "object-src": [
+        "none"
+      ],
+      "frame-src": [
+        "https://citizenos.com",
+        "https://p.citizenos.com",
+        "https://accounts.google.com/",
+        "https://docs.google.com"
+      ]
+    },
+    "reportUri": "https://api.citizenos.com/api/internal/report"
+  }
+}

@@ -1,17 +1,17 @@
-<div class="voting_platform_wrap vote_casting_wrap">
+<div class="voting_platform_wrap vote_casting_wrap" *ngIf="topic && vote">
 
   <div class="vote_casting_header">
     <div class="vote_casting_header_section">
       <div class="table_cell bold vote_casting_description" *ngIf="!hasVoteEndedExpired() && !hasVoteEnded()"
-        translate="VIEWS.TOPICS_TOPICID.VOTE_CAST_YOUR_VOTE">Cast your vote</div>
+        translate="VIEWS.TOPICS_TOPICID.VOTE_CAST_YOUR_VOTE"></div>
       <div class="table_cell bold vote_casting_description" *ngIf="hasVoteEndedExpired() || hasVoteEnded()"
-        translate="VIEWS.TOPICS_TOPICID.LBL_VOTE_RESULTS">Cast your vote</div>
+        translate="VIEWS.TOPICS_TOPICID.LBL_VOTE_RESULTS"></div>
     </div>
     <div class="vote_casting_header_section">
       <div class="table_cell">
         <span class="bold">{{vote.votersCount || 0}}</span><span
           *ngIf="topic.visibility === VISIBILITY.private">/{{topic.members.users.count}}</span> <span
-          translate="VIEWS.TOPICS_TOPICID.VOTE_VOTES_COUNTED"> votes counted</span>
+          translate="VIEWS.TOPICS_TOPICID.VOTE_VOTES_COUNTED"></span>
       </div>
     </div>
     <div class="clearer"></div>
@@ -135,7 +135,7 @@
   <div class="line lightest_line multiplechoice" *ngIf="!hasVoteEnded()"></div>
   <div class="vote_multiple_submit_section" *ngIf="!hasVoteEnded()">
     <div class="table_cell" cos-disabled="!canSubmit()">
-      <div class="blue_button" (click)="doVote()" translate="VIEWS.TOPICS_TOPICID.VOTE_SUBMIT">Submit your vote</div>
+      <div class="blue_button" (click)="doVote()" translate="VIEWS.TOPICS_TOPICID.VOTE_SUBMIT"></div>
     </div>
   </div>
 

@@ -6,8 +6,8 @@ import { MarkdownService } from '../services/markdown.service';
   selector: '[cosmarkdown]'
 })
 export class MarkdownDirective implements OnDestroy {
-  @Output() update = new EventEmitter<string>();
   @Input() item: string = ''; // The text for the tooltip to display
+  @Output() itemChange = new EventEmitter<string>();
   @Input() limit: number = 100; // Optional delay input, in m
   @Input() cosMarkdownTranslateCharacterStatusKey: any;
   CHAR_COUNTER_ELEMENT_CLASS_NAME = 'charCounter';
@@ -72,10 +72,13 @@ export class MarkdownDirective implements OnDestroy {
     this.easymde.codemirror.on('beforeChange', this.enforceMaxLength);
     this.easymde.codemirror.on('change',() => {
       //let curLength = this.easymde.value().length;
-        this.update.emit(this.easymde.value());
+        this.itemChange.emit(this.easymde.value());
     });
   }
 
+  ngOnInit(): void {
+    this.easymde.value(this.item);
+  }
   ngOnDestroy(): void {
   }
 

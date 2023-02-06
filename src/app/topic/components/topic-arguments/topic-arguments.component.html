@@ -55,6 +55,8 @@
         <div class="argument_wrap is_{{arg.type}}" *ngFor="let arg of arguments$ | async">
 
           <argument [argument]="arg" [topicId]="topic.id"></argument>
+          {{arg.showReplies}}
+
           <!-- COMMENT REPLY -->
           <!--div-- class="single_argument is_reply" ng-if="comment.showReplies" ng-repeat="reply in comment.replies.rows" ng-click="">
                   <div id="{{reply.id + '_v' + (reply.edits.length-1)}}" class="argument" ng-class="{post_argument_wrap: reply.showEdit}">

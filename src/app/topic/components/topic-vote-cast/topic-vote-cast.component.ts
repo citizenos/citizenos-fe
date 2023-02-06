@@ -1,8 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Topic } from 'src/app/interfaces/topic';
 import { AuthService } from 'src/app/services/auth.service';
+import { NotificationService } from 'src/app/services/notification.service';
 import { TopicService } from 'src/app/services/topic.service';
 import { TopicVoteService } from 'src/app/services/topic-vote.service';
+import { MatDialog } from '@angular/material/dialog';
+import { take } from 'rxjs';
+import { TopicVoteSignComponent } from '../topic-vote-sign/topic-vote-sign.component';
 @Component({
   selector: 'topic-vote-cast',
   templateUrl: './topic-vote-cast.component.html',
@@ -19,15 +23,20 @@ export class TopicVoteCastComponent implements OnInit {
   userHasVoted: boolean = false;
 
   constructor(
+    private dialog: MatDialog,
+    private Notification: NotificationService,
     public AuthService: AuthService,
     private TopicService: TopicService,
     private TopicVoteService: TopicVoteService,
   ) { }
 
   ngOnInit(): void {
+    console.log(this.vote);
   }
 
   canVote() {
+    this.topic.vote = this.vote;
+  //  console.log(this.topic, this.vote)
     return this.TopicVoteService.canVote(this.topic);
   }
 
@@ -40,10 +49,10 @@ export class TopicVoteCastComponent implements OnInit {
 
 
   doVote(option?: any) {
-    /*let options = [];
+    let options = [];
     //if (!$scope.topic.canVote()) return;
     if (!option) {
-      options = this.vote.options.rows.filter((option) => {
+      options = this.vote.options.rows.filter((option:any) => {
         option.optionId = option.id;
         return !!option.selected;
       });
@@ -51,20 +60,23 @@ export class TopicVoteCastComponent implements OnInit {
       options = [option];
     }
     if (options.length > this.vote.maxChoices || options.length < this.vote.minChoices && options[0].value !== 'Neutral' && options[0].value !== 'Veto') {
-      this.sNotification.addError('MSG_ERROR_SELECTED_OPTIONS_COUNT_DOES_NOT_MATCH_VOTE_SETTINGS');
+      this.Notification.addError('MSG_ERROR_SELECTED_OPTIONS_COUNT_DOES_NOT_MATCH_VOTE_SETTINGS');
       return;
     }
-    this.TopicVoteService.options = options;
+  //  this.TopicVoteService.options = options;
     if (this.vote.authType === this.VOTE_AUTH_TYPES.hard) {
-      const signDialog = this.ngDialog
-        .open({
-          template: '<topic-vote-sign options="options"></topic-vote-sign>',
+      const signDialog = this.dialog
+        .open(TopicVoteSignComponent,{data: {
+          topic: this.topic,
+          options
+        }
+        /*  template: '<topic-vote-sign options="options"></topic-vote-sign>',
           plain: true,
           preCloseCallback: (data) => {
             if (data) {
               this.vote.topicId = this.topic.id;
 
-              this.TopicVote
+              this.TopicVoteService
                 .get(this.vote)
                 .then((vote) => {
                   this.vote = vote;
@@ -81,28 +93,23 @@ export class TopicVoteCastComponent implements OnInit {
                 });
               return true;
             }
-          }
+          }*/
         });
-
-      signDialog.closePromise.then((data) => {
-        if (data.value) {
-          this.sNotification.addSuccess('VIEWS.TOPICS_TOPICID.MSG_VOTE_REGISTERED');
-        }
-      });
 
       return;
     } else {
-      options.forEach((dOption) => {
+      options.forEach((dOption:any) => {
         dOption.optionId = dOption.id;
       });
-      this.TopicVote
+      this.TopicVoteService
         .cast({ voteId: this.vote.id, topicId: this.topic.id, options: options })
-        .then((data) => {
+        .pipe(take(1))
+        .subscribe((data) => {
           this.vote.topicId = this.topic.id;
-          this.sNotification.addSuccess('VIEWS.TOPICS_TOPICID.MSG_VOTE_REGISTERED');
-          this.getVote();
+          this.Notification.addSuccess('VIEWS.TOPICS_TOPICID.MSG_VOTE_REGISTERED');
+     //     this.getVote();
         });
-    }*/
+    }
   }
 
   hasVoteEndedExpired() {
@@ -113,5 +120,30 @@ export class TopicVoteCastComponent implements OnInit {
     return this.TopicVoteService.hasVoteEnded(this.topic, this.vote);
   };
 
-  selectOption(option: any) { }
+  selectOption(option: any) {
+    if (!this.canVote()) {
+      return false;
+    }
+    this.vote.options.rows.forEach((opt: any) => {
+      if (option.value === 'Neutral' || option.value === 'Veto' || this.vote.maxChoices === 1) {
+        opt.selected = false;
+      } else if (opt.value === 'Neutral' || opt.value === 'Veto' || this.vote.maxChoices === 1) {
+        opt.selected = false;
+      }
+    });
+
+    option.optionId = option.id;
+
+    const selected = this.vote.options.rows.filter((option: any) => {
+      return !!option.selected;
+    });
+
+    const isSelected = selected.find((item: any) => {
+      if (item.id === option.id) return item;
+    });
+
+    if (selected.length >= this.vote.maxChoices && !isSelected) return;
+    option.selected = !option.selected;
+    return;
+  };
 }

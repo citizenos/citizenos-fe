@@ -6,6 +6,8 @@ import { LocationService } from 'src/app/services/location.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup } from '@angular/forms';
+import { EstIdLoginComponent } from '../est-id-login/est-id-login.component';
+import { SmartIdLoginComponent } from '../smart-id-login/smart-id-login.component';
 
 @Component({
   selector: 'app-login',
@@ -141,17 +143,14 @@ export class LoginComponent implements OnInit {
    * Login with Estonian ID-Card
    */
   doLoginEsteId() {
-    /* this.dialog.open(ActivityFeed, {});
-       this.dialog
-           .open(EstIdLoginComponent);*/
+    this.dialog.open(EstIdLoginComponent, {});
   };
 
   /**
    * Login with Smart-ID
    */
   doLoginSmartId() {
-    /*this.dialog
-      .open(SmartIdLoginComponent);*/
+    this.dialog.open(SmartIdLoginComponent);
   };
 
   /**

@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatSelectModule } from '@angular/material/select';
 import { TranslateModule, TranslateLoader, TranslateCompiler } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -33,6 +32,8 @@ import { NotificationComponent } from './core/components/notification/notificati
 import { ActivityFeedComponent } from './core/components/activity-feed/activity-feed.component';
 import { SharedModule } from './shared/shared.module';
 import { HttpErrorInterceptor } from './services/http.error.interceptor.service';
+import { EstIdLoginComponent } from './core/components/account/est-id-login/est-id-login.component';
+import { SmartIdLoginComponent } from './core/components/account/smart-id-login/smart-id-login.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,9 @@ import { HttpErrorInterceptor } from './services/http.error.interceptor.service'
     HomeComponent,
     LanguageSelectComponent,
     NotificationComponent,
-    ActivityFeedComponent
+    ActivityFeedComponent,
+    EstIdLoginComponent,
+    SmartIdLoginComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +67,6 @@ import { HttpErrorInterceptor } from './services/http.error.interceptor.service'
     CommonModule,
     HttpClientModule,
     MatDialogModule,
-    MatSelectModule,
     AppRoutingModule,
     NoopAnimationsModule,
     FormsModule,
@@ -73,7 +75,6 @@ import { HttpErrorInterceptor } from './services/http.error.interceptor.service'
     LoadingBarHttpClientModule
   ],
   exports: [
-    MatSelectModule
   ],
   providers: [
     MarkdownService,

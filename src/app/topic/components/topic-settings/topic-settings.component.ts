@@ -1,3 +1,4 @@
+import { Vote } from 'src/app/interfaces/vote';
 import { GroupService } from 'src/app/services/group.service';
 import { Component, OnInit, Inject } from '@angular/core';
 import { Router, ActivatedRoute, PRIMARY_OUTLET } from '@angular/router';
@@ -40,8 +41,14 @@ export class TopicSettingsComponent implements OnInit {
     private dialogRef: MatDialogRef<TopicSettingsComponent>,
     private TopicMemberUserService: TopicMemberUserService
   ) {
-    console.log(data)
     this.topic = data.topic;
+    if (this.topic.voteId) {
+      this.TopicVoteService.get({topicId: this.topic.id, voteId: this.topic.voteId})
+      .pipe(take(1))
+      .subscribe((vote) => {
+        this.topic.vote = vote;
+      })
+    }
     TopicMemberGroupService.setParam('topicId', data.topic.id);
     this.TopicMemberGroupService
       .loadItems()
@@ -102,7 +109,7 @@ export class TopicSettingsComponent implements OnInit {
   }
 
   canChangeVisibility() {
-    return (this.canDelete() && (this.topic.visibility === this.VISIBILITY.private || this.publicGroups.length === 0));
+    return (this.canDelete() && (this.topic.visibility === this.VISIBILITY.private || this.publicGroups?.length === 0));
   }
 
   selectedReminderOption() {

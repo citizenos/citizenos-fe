@@ -34,6 +34,12 @@ import { TopicReportReviewComponent } from './components/topic-report-review/top
 import { TopicReportReviewDialogComponent } from './components/topic-report-review-dialog/topic-report-review-dialog.component';
 import { TopicReportResolveDialogComponent } from './components/topic-report-resolve-dialog/topic-report-resolve-dialog.component';
 import { TopicReportResolveComponent } from './components/topic-report-resolve/topic-report-resolve.component';
+import { TopicCreateComponent } from './components/topic-create/topic-create.component';
+import { EtherpadDirective } from '../directives/etherpad.directive';
+import { TopicSocialMentionsComponent } from './components/topic-social-mentions/topic-social-mentions.component';
+import { TopicVoteSignComponent } from './components/topic-vote-sign/topic-vote-sign.component';
+import { TopicVoteSignEsteidComponent } from './components/topic-vote-sign-esteid/topic-vote-sign-esteid.component';
+import { TopicVoteSignSmartidComponent } from './components/topic-vote-sign-smartid/topic-vote-sign-smartid.component';
 
 
 @NgModule({
@@ -66,6 +72,12 @@ import { TopicReportResolveComponent } from './components/topic-report-resolve/t
     TopicReportReviewDialogComponent,
     TopicReportResolveDialogComponent,
     TopicReportResolveComponent,
+    TopicCreateComponent,
+    EtherpadDirective,
+    TopicSocialMentionsComponent,
+    TopicVoteSignComponent,
+    TopicVoteSignEsteidComponent,
+    TopicVoteSignSmartidComponent,
   ],
   imports: [
     CommonModule,

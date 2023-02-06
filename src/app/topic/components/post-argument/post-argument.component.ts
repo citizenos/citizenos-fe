@@ -7,7 +7,7 @@ import { TopicArgumentService } from 'src/app/services/topic-argument.service';
 @Component({
   selector: 'post-argument',
   templateUrl: './post-argument.component.html',
-  styleUrls: ['./post-argument.component.scss', '../../../../../node_modules/easymde/src/css/easymde.css']
+  styleUrls: ['./post-argument.component.scss']
 })
 export class PostArgumentComponent implements OnInit {
   @Input() topicId!:string;
@@ -46,7 +46,6 @@ export class PostArgumentComponent implements OnInit {
       text: this.text,
       topicId: this.topicId
     };
-    console.log(argument)
     /*
         this.errors = null;
     */
@@ -55,6 +54,7 @@ export class PostArgumentComponent implements OnInit {
       .pipe(take(1))
       .subscribe((argument) => {
         console.log(argument, { commentId: this.getCommentIdWithVersion(argument.id, argument.edits.length - 1) })
+        this.TopicArgumentService.reset();
         // this.router.navigate()
         /*return this.$state.go(
           this.$state.current.name,

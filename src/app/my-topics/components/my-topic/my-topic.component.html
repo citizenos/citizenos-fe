@@ -127,7 +127,7 @@
                 translate="VIEWS.MY_TOPICS_TOPICID.LNK_VIEW"></span>
               <span class="separator" *ngIf="TopicService.canEditDescription(topic)">|</span>
               <span class="item_text blue_link" *ngIf="TopicService.canEditDescription(topic)"
-                [routerLink]="['/topics/',topic.id]" fragment="editMode"
+                [routerLink]="['/topics/',topic.id]" [queryParams]="{editMode:true}"
                 translate="VIEWS.MY_TOPICS_TOPICID.LNK_EDIT"></span>
               <span class="separator">|</span>
               <span class="item_text blue_link" (click)="doLeaveTopic(topic)"

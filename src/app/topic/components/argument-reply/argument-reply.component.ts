@@ -20,7 +20,6 @@ export class ArgumentReplyComponent implements OnInit {
   ARGUMENT_TYPES = Object.keys(this.TopicArgumentService.ARGUMENT_TYPES);
   ARGUMENT_TYPES_MAXLENGTH = this.TopicArgumentService.ARGUMENT_TYPES_MAXLENGTH;
   ARGUMENT_SUBJECT_MAXLENGTH = this.TopicArgumentService.ARGUMENT_SUBJECT_MAXLENGTH;
-  private ARGUMENT_VERSION_SEPARATOR = '_v';
   errors = <any>null;
   constructor(public AuthService: AuthService, private TopicArgumentService: TopicArgumentService) { }
 
@@ -48,6 +47,7 @@ export class ArgumentReplyComponent implements OnInit {
       .pipe(take(1))
       .subscribe((reply) => {
         console.log(reply)
+        this.TopicArgumentService.reset();
        /* return this.$state.go(
           this.$state.current.name,
           { commentId: this.getCommentIdWithVersion(comment.id, comment.edits.length - 1) }
@@ -56,10 +56,6 @@ export class ArgumentReplyComponent implements OnInit {
      /* function (res) {
         this.form.errors = res.data.errors;
       }*/
-  };
-
-  getArgumentIdWithVersion(argumentId:string, version:number) {
-    return argumentId + this.ARGUMENT_VERSION_SEPARATOR + version;
   };
 
 }

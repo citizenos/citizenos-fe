@@ -13,7 +13,6 @@ export class TopicSettingsDialogComponent implements OnInit {
   constructor(dialog: MatDialog, route: ActivatedRoute, router: Router, TopicService: TopicService) {
     route.params.pipe(
       switchMap((params) => {
-        console.log('params', params)
         return TopicService.get(params['topicId'])
       })
     ).pipe(take(1)).subscribe((topic) => {
