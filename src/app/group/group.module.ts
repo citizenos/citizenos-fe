@@ -9,8 +9,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { GroupInviteComponent } from './components/group-invite/group-invite.component';
 import { GroupMemberTopicComponent } from './components/group-member-topic/group-member-topic.component';
 import { GroupMemberUserComponent } from './components/group-member-user/group-member-user.component';
-import { GroupSettingsComponent } from './components/group-settings/group-settings.component';
-import { GroupSettingsDialogComponent } from './components/group-settings-dialog/group-settings-dialog.component';
+import { GroupSettingsComponent, GroupSettingsDialogComponent } from './components/group-settings/group-settings.component';
 import { GroupShareComponent } from './components/group-share/group-share.component';
 
 

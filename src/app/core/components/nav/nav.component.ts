@@ -6,7 +6,7 @@ import { Location, LocationStrategy, PathLocationStrategy } from '@angular/commo
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageSelectComponent } from '../language-select/language-select.component';
 import { AuthService } from 'src/app/services/auth.service';
-import { LoginComponent } from '../account/login/login.component';
+import { LoginComponent } from 'src/app/account/components/login/login.component';
 import { ActivityFeedComponent } from '../activity-feed/activity-feed.component';
 import { AppService } from 'src/app/services/app.service';
 import { ActivityService } from 'src/app/services/activity.service';

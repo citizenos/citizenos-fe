@@ -9,7 +9,7 @@ import { UploadService } from './upload.service';
 })
 export class UserService {
 
-  private USER_CONNECTION_IDS_TO_AUTH_METHOD_MAP = {
+  USER_CONNECTION_IDS_TO_AUTH_METHOD_MAP = <any>{
     esteid: ['mobiilId', 'idCard', 'smartId'], // TODO: We should fix it properly on API/FE side - mapping of PID to auth methods
     smartid: ['mobiilId', 'idCard', 'smartId'], // TODO: We should fix it properly on API/FE side - mapping of PID to auth methods
     google: 'google',

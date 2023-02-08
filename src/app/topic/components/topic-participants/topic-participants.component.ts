@@ -5,11 +5,11 @@ import { TopicMemberUserService } from 'src/app/services/topic-member-user.servi
 import { TopicInviteUserService } from 'src/app/services/topic-invite-user.service';
 import { TopicMemberGroupService } from 'src/app/services/topic-member-group.service';
 import { TopicService } from 'src/app/services/topic.service';
-import { of, take } from 'rxjs';
+import { of, take, switchMap } from 'rxjs';
 import { TopicMemberUser } from 'src/app/interfaces/user';
 import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
-
+import { ActivatedRoute } from '@angular/router';
 export interface TopicParticipantsData {
   topic: Topic
 };
@@ -93,4 +93,25 @@ export class TopicParticipantsComponent implements OnInit {
       }
     });
   };
+}
+
+@Component({
+  selector: 'app-topic-participants-dialog',
+  template: ''
+})
+export class TopicParticipantsDialogComponent implements OnInit {
+
+  constructor(dialog: MatDialog,route: ActivatedRoute, TopicService: TopicService) {
+    route.params.pipe(switchMap((params) => {
+      return TopicService.get(params['topicId']);
+    })).pipe(take(1))
+    .subscribe((topic) => {
+      dialog.open(TopicParticipantsComponent, {data: {topic}});
+    })
+
+  }
+
+  ngOnInit(): void {
+  }
+
 }

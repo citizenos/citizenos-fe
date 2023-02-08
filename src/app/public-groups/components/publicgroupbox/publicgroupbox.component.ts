@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { Group } from 'src/app/interfaces/group';
 import { GroupJoinService } from 'src/app/services/group-join.service';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
-import { LoginComponent } from 'src/app/core/components/account/login/login.component';
+import { LoginComponent } from 'src/app/account/components/login/login.component';
 import { take } from 'rxjs';
 
 @Component({

@@ -41,16 +41,7 @@ export class AuthService {
     return `/api${authorized}${path}`
   }
 
-  signUp(email: string, password: string, name: string, company: string, redirectSuccess: string, preferences: object, termsVersion: string) {
-    const data = {
-      email: email,
-      password: password,
-      name: name,
-      company: company,
-      redirectSuccess: redirectSuccess,
-      preferences: preferences,
-      termsVersion: termsVersion
-    };
+  signUp(data: any) {
 
     const path = this.Location.getAbsoluteUrlApi('/api/auth/signup');
 
@@ -122,13 +113,7 @@ export class AuthService {
     );
   };
 
-  loginMobiilIdInit(pid: string, phoneNumber: string, userId?: string) {
-    const data = {
-      pid: pid,
-      phoneNumber: phoneNumber,
-      userId: userId
-    };
-
+  loginMobiilIdInit(data: any) {
     const path = this.Location.getAbsoluteUrlApi('/api/auth/mobile/init');
 
     return this.http.post<ApiResponse>(path, data, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
@@ -137,15 +122,23 @@ export class AuthService {
   };
 
   loginMobiilIdStatus(token: string) {
-    /* const success = (response) => {
-         if ([20002, 20003].indexOf(response.data.status.code) > -1) {
-             this.user.loggedIn = true;
-             angular.extend(this.user, response.data.data);
-         }
-         return response;
-     };*/
-
     const path = this.Location.getAbsoluteUrlApi('/api/auth/mobile/status');
+
+    return this.http.get<ApiResponse>(path, { params: { token: token }, withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
+      map(res => res.data)
+    );
+  };
+
+  loginSmartIdInit(data: any) {
+    const path = this.Location.getAbsoluteUrlApi('/api/auth/smartid/init');
+
+    return this.http.post<ApiResponse>(path, data, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
+      map(res => res.data)
+    );
+  };
+
+  loginSmartIdStatus(token: string) {
+    const path = this.Location.getAbsoluteUrlApi('/api/auth/smartid/status');
 
     return this.http.get<ApiResponse>(path, { params: { token: token }, withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
       map(res => res.data)
@@ -174,5 +167,19 @@ export class AuthService {
           }
         })
       );
+  };
+
+  passwordReset(data: any) {
+    const path = this.Location.getAbsoluteUrlApi('/api/auth/password/reset');
+    return this.http.post<ApiResponse>(path, data, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
+      map(res => res.data)
+    );
+  };
+
+  passwordResetSend(data: any) {
+    const path = this.Location.getAbsoluteUrlApi('/api/auth/password/reset/send');
+    return this.http.post<ApiResponse>(path, data, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
+      map(res => res.data)
+    );
   };
 }

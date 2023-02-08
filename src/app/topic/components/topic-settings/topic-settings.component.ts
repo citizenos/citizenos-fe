@@ -1,7 +1,6 @@
-import { Vote } from 'src/app/interfaces/vote';
 import { GroupService } from 'src/app/services/group.service';
 import { Component, OnInit, Inject } from '@angular/core';
-import { Router, ActivatedRoute, PRIMARY_OUTLET } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 import { Topic } from 'src/app/interfaces/topic';
@@ -9,7 +8,7 @@ import { TopicService } from 'src/app/services/topic.service';
 import { TopicVoteService } from 'src/app/services/topic-vote.service';
 import { TopicMemberGroupService } from 'src/app/services/topic-member-group.service';
 import { TopicMemberUserService } from 'src/app/services/topic-member-user.service';
-import { take, BehaviorSubject } from 'rxjs';
+import { take, switchMap } from 'rxjs';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export interface TopicSettingsData {
   topic: Topic
@@ -27,7 +26,7 @@ export class TopicSettingsComponent implements OnInit {
   CATEGORIES = Object.keys(this.TopicService.CATEGORIES);
   reminder = false;
   reminderOptions = [{ value: 1, unit: 'days' }, { value: 2, unit: 'days' }, { value: 3, unit: 'days' }, { value: 1, unit: 'weeks' }, { value: 2, unit: 'weeks' }, { value: 1, unit: 'month' }];
-  private publicGroups:any;
+  private publicGroups: any;
   constructor(
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) data: TopicSettingsData,
@@ -43,11 +42,11 @@ export class TopicSettingsComponent implements OnInit {
   ) {
     this.topic = data.topic;
     if (this.topic.voteId) {
-      this.TopicVoteService.get({topicId: this.topic.id, voteId: this.topic.voteId})
-      .pipe(take(1))
-      .subscribe((vote) => {
-        this.topic.vote = vote;
-      })
+      this.TopicVoteService.get({ topicId: this.topic.id, voteId: this.topic.voteId })
+        .pipe(take(1))
+        .subscribe((vote) => {
+          this.topic.vote = vote;
+        })
     }
     TopicMemberGroupService.setParam('topicId', data.topic.id);
     this.TopicMemberGroupService
@@ -208,7 +207,6 @@ export class TopicSettingsComponent implements OnInit {
 
   doSaveTopic() {
     this.errors = {};
-    console.log(this.topic);
     const topic: any = Object.assign({}, this.topic);
     if (topic.endsAt && topic.endsAt === topic.endsAt) { //Remove endsAt field so that topics with endsAt value set could be updated if endsAt is not changed
       delete topic.endsAt;
@@ -216,16 +214,44 @@ export class TopicSettingsComponent implements OnInit {
 
     this.TopicService.update(topic)
       .pipe(take(1))
-      .subscribe(() => {
-        this.dialog.closeAll();
-        //     this.loadTopic();
+      .subscribe({
+        next: () => {
+          this.dialog.closeAll();
+          //     this.loadTopic();
+        },
+        error: (errorResponse) => {
+          this.errors = errorResponse.errors;
+        }
       });
-    /*
-    (errorResponse) => {
-      if (errorResponse.data && errorResponse.data.errors) {
-        this.errors = errorResponse.data.errors;
-      }
-    }
-    */
   }
+}
+
+
+@Component({
+  selector: 'topic-settings-dialog',
+  template: ''
+})
+export class TopicSettingsDialogComponent implements OnInit {
+
+  constructor(dialog: MatDialog, route: ActivatedRoute, router: Router, TopicService: TopicService) {
+    route.params.pipe(
+      switchMap((params) => {
+        return TopicService.get(params['topicId'])
+      })
+    ).pipe(take(1)).subscribe((topic) => {
+      const settingsDialog = dialog.open(TopicSettingsComponent, {
+        data: {
+          topic
+        }
+      });
+      settingsDialog.afterClosed().subscribe(() => {
+        router.navigate(['../'], { relativeTo: route })
+      })
+    });
+
+  }
+
+  ngOnInit(): void {
+  }
+
 }

@@ -1,11 +1,11 @@
-@use 'mixins_n_extends';
-@use 'vars';
+@use "mixins_n_extends";
+@use "vars";
 
 #help_tooltip {
   width: 240px;
   height: 404px;
   position: absolute;
-  background: #2A2A2A;
+  background: #2a2a2a;
   border-radius: 8px;
   color: vars.$white;
   z-index: 999;
@@ -16,86 +16,84 @@
 
   &::before {
     border-bottom: 10px solid transparent;
-    border-left: 10px solid #2A2A2A;
+    border-left: 10px solid #2a2a2a;
     border-top: 10px solid transparent;
-    content: '';
+    content: "";
     height: 0;
     left: 100%;
     margin-top: -6px;
     position: absolute;
     bottom: 20px;
     width: 0;
-
-
   }
 
   &.help_visible {
-      top: 38px;
-      right: 372px;
-      bottom: auto;
+    top: 38px;
+    right: 372px;
+    bottom: auto;
 
-      &::before {
-          top: 32px;
-          bottom: auto;
-      }
+    &::before {
+      top: 32px;
+      bottom: auto;
+    }
   }
   .tip_heading {
-      font-family: Noto Sans;
-      font-style: normal;
-      font-weight: bold;
-      font-size: 12px;
-      line-height: 16px;
-      letter-spacing: 2px;
-      padding: 16px;
-      text-align: center;
+    font-family: Noto Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 2px;
+    padding: 16px;
+    text-align: center;
 
-      color: #BADCFF;
+    color: #badcff;
   }
 
   .tip_desription {
-      font-family: Noto Sans;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 14px;
-      line-height: 24px;
-      color: vars.$white;
-      padding-left: 16px;
-      padding-right: 16px;
+    font-family: Noto Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 24px;
+    color: vars.$white;
+    padding-left: 16px;
+    padding-right: 16px;
   }
 
   .tip_button_wrap {
-      .tip_button {
-          padding: 10px;
-          width: 90%;
-          background: vars.$dark_black;
-          color: vars.$white;
-          border-radius: 4px;
-          text-align: center;
-          margin-left: auto;
-          margin-right: auto;
-          right: 0;
-          left: 0;
-          position: absolute;
-          font-weight: bold;
-          font-size: 14px;
-      }
+    .tip_button {
+      padding: 10px;
+      width: 90%;
+      background: vars.$dark_black;
+      color: vars.$white;
+      border-radius: 4px;
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+      right: 0;
+      left: 0;
+      position: absolute;
+      font-weight: bold;
+      font-size: 14px;
+    }
   }
 
   .help_bubble_icon {
-      padding-top: 24px;
-      padding-bottom: 32px;
+    padding-top: 24px;
+    padding-bottom: 32px;
 
-      .help_icon {
-          width: 60px;
-          height: 60px;
-          border-radius: 30px;
-          background-color: vars.$deep_sky_blue;
-          background-image: url(./imgs/icon_bubble_help.svg);
-          background-repeat: no-repeat;
-          background-position: center;
-          margin-left: auto;
-          margin-right: auto;
-      }
+    .help_icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 30px;
+      background-color: vars.$deep_sky_blue;
+      background-image: url(./imgs/icon_bubble_help.svg);
+      background-repeat: no-repeat;
+      background-position: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
 }
 #help_bubble {
@@ -113,34 +111,34 @@
   box-shadow: 0 0 8px 0 vars.$dark_gray;
 
   &:hover {
-      cursor: pointer;
+    cursor: pointer;
   }
 
   &.animate {
-      cursor: unset;
-      -webkit-animation-name: jump;
-      -webkit-animation-duration: 500ms;
-      -webkit-animation-direction: alternate-reverse;
-      -webkit-animation-iteration-count: 2;
-      -webkit-animation-timing-function: linear;
+    cursor: unset;
+    -webkit-animation-name: jump;
+    -webkit-animation-duration: 500ms;
+    -webkit-animation-direction: alternate-reverse;
+    -webkit-animation-iteration-count: 2;
+    -webkit-animation-timing-function: linear;
 
-      -moz-animation-name: jump;
-      -moz-animation-duration: 500ms;
-      -moz-animation-direction: alternate-reverse;
-      -moz-animation-iteration-count: 2;
-      -moz-animation-timing-function: linear;
+    -moz-animation-name: jump;
+    -moz-animation-duration: 500ms;
+    -moz-animation-direction: alternate-reverse;
+    -moz-animation-iteration-count: 2;
+    -moz-animation-timing-function: linear;
 
-      -ms-animation-name: jump;
-      -ms-animation-duration: 500ms;
-      -ms-animation-direction: alternate-reverse;
-      -ms-animation-iteration-count: 2;
-      -ms-animation-timing-function: linear;
+    -ms-animation-name: jump;
+    -ms-animation-duration: 500ms;
+    -ms-animation-direction: alternate-reverse;
+    -ms-animation-iteration-count: 2;
+    -ms-animation-timing-function: linear;
 
-      animation-name: jump;
-      animation-duration: 500ms;
-      animation-direction: alternate-reverse;
-      animation-iteration-count: 2;
-      animation-timing-function: linear;
+    animation-name: jump;
+    animation-duration: 500ms;
+    animation-direction: alternate-reverse;
+    animation-iteration-count: 2;
+    animation-timing-function: linear;
   }
 }
 .help_widget {
@@ -155,45 +153,45 @@
   box-shadow: 0 0 8px 0 vars.$dark_gray;
 
   #help_close {
-      height: 54px;
-      border-radius: 0 4px;
-      position: absolute;
-      float: none;
-      right: 10px;
-      top: 10px;
+    height: 54px;
+    border-radius: 0 4px;
+    position: absolute;
+    float: none;
+    right: 10px;
+    top: 10px;
   }
 
   .help_content {
-      width: 360px;
-      height: 100vh;
+    width: 360px;
+    height: 100vh;
 
-      iframe {
-          width: 100%;
-          height: 90%;
-      }
+    iframe {
+      width: 100%;
+      height: 90%;
+    }
   }
 
   .help_top {
-      border-radius: 4px 4px 0 0;
+    border-radius: 4px 4px 0 0;
+    width: 100%;
+
+    .help_back_link {
+      padding: 10px;
+      position: absolute;
+    }
+
+    .help_title_text_wrapper {
+      padding: 10px 0px;
       width: 100%;
+      text-align: center;
 
-      .help_back_link {
-          padding: 10px;
-          position: absolute;
+      .help_title_text {
+        font-size: 12px;
+        line-height: 16px;
+        font-weight: 700;
+        color: vars.$dark_gray;
+        text-transform: uppercase;
       }
-
-      .help_title_text_wrapper {
-          padding: 10px 0px;
-          width: 100%;
-          text-align: center;
-
-          .help_title_text {
-              font-size: 12px;
-              line-height: 16px;
-              font-weight: 700;
-              color: vars.$dark_gray;
-              text-transform: uppercase;
-          }
-      }
+    }
   }
 }

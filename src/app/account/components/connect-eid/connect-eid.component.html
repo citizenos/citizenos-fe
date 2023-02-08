@@ -1,0 +1,111 @@
+<!-- LIGHTBOX SKELETON -->
+<div id="root_lightbox">
+  <div id="lightbox" class="id_signing wide_lightbox">
+    <div id="lightbox_wrap">
+
+      <div id="lightbox_header">
+
+        <div id="lightbox_header_text">
+          <div class="title" translate="MODALS.LOGIN_ESTEID_HEADING"></div>
+        </div>
+
+        <div id="lightbox_close" mat-dialog-close="">
+          <div class="table_cell">
+            <div class="sprite sprite-btn-popup-close2x">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="line lightest_line"></div>
+
+      <div class="lightbox_content">
+
+        <form name="loginMobiilIdForm" novalidate>
+
+          <div class="v_line lightest_line" *ngIf="authMethodsAvailable.mobiilId && authMethodsAvailable.idCard"></div>
+
+          <div *ngIf="authMethodsAvailable.mobiilId" class="sign_in_section"
+            [ngClass]="{'single_section': !authMethodsAvailable.idCard}">
+            <div class="sprite_big sprite sprite-mobiil-i-d2x"></div>
+            <div *ngIf="isLoading && !challengeID" class="loader_wrap">
+              <div class="loader"></div>
+            </div>
+            <div *ngIf="!challengeID && !isLoading">
+              <!-- Do not focus on mobile devices, otherwise scrolls past social login options and shows keyboard -->
+              <input id="phone" name="phoneNumber" type="tel" [(ngModel)]="phoneNumber" #phoneNumberInput="ngModel"
+                [placeholder]="'MODALS.LOGIN_ESTEID_PLACEHOLDER_PHONE' | translate" (focus)="wWidth > 1024"
+                [ngClass]="{'error_input': (phoneNumberInput.errors && phoneNumberInput.errors['pattern'] && phoneNumberInput.touched)}"
+                ngModel pattern="^\+?[0-9\s-]{7,}$" required>
+              <label for="phone" class="error_label"
+                *ngIf="phoneNumberInput.errors && phoneNumberInput.errors['pattern']  && phoneNumberInput.touched">
+                <div class="table_cell">
+                  <div class="sprite sprite-icon-inputfield-error2x"></div>
+                  <span translate="MODALS.LOGIN_ESTEID_ERROR_PHONE"></span>
+                </div>
+              </label>
+              <input id="pid" name="pid" type="text" inputmode="numeric" [(ngModel)]="pid"
+                [placeholder]="'MODALS.LOGIN_ESTEID_PLACEHOLDER_PID' | translate" #pidInput="ngModel"
+                [ngClass]="{'error_input': pidInput.errors && pidInput.errors['pattern']  && pidInput.touched}" ngModel
+                pattern="^[0-9]{11}$" required>
+              <label for="pid" class="error_label"
+                *ngIf="pidInput.errors && pidInput.errors['pattern'] && pidInput.touched">
+                <div class="table_cell">
+                  <div class="sprite sprite-icon-inputfield-error2x"></div>
+                  <span translate="MODALS.LOGIN_ESTEID_ERROR_PID"></span>
+                </div>
+              </label>
+            </div>
+            <div *ngIf="challengeID">
+              <div class="code" translate="MODALS.LOGIN_ESTEID_TXT_CONTROL_CODE"
+                [translateParams]="{code: challengeID}"></div>
+              <div class="code_text" translate="MODALS.LOGIN_ESTEID_TXT_CHECK_CONTROL_CODE"></div>
+              <div class="loader_wrap">
+                <div class="loader"></div>
+              </div>
+            </div>
+            <button type="submit" (click)="authMobiilId()" *ngIf="wWidth <= 550"
+              [disabled]="isLoading || isLoadingIdCard" class="blue_button"
+              translate="MODALS.LOGIN_ESTEID_BTN_AUTHENTICATE_MID"></button>
+          </div>
+
+          <div class="line_wrap">
+            <div class="line lightest_line"></div>
+          </div>
+
+          <div *ngIf="authMethodsAvailable.idCard" class="sign_in_section"
+            [ngClass]="{'single_section': !authMethodsAvailable.mobiilId}">
+            <div class="sprite_big sprite sprite-i-d-kaart2x"></div>
+            <div *ngIf="!isLoadingIdCard" class="sprite_big sprite sprite-img-idkaart2x"></div>
+            <div *ngIf="isLoadingIdCard" class="loader_wrap id_card_loader">
+              <div class="loader"></div>
+            </div>
+            <button (click)="authIdCard()" *ngIf="!isLoadingIdCard && wWidth <= 550"
+              [disabled]="isLoading || isLoadingIdCard" class="blue_button"
+              translate="MODALS.LOGIN_ESTEID_BTN_AUTHENTICATE_ID"></button>
+          </div>
+
+          <div class="clearer"></div>
+          <div *ngIf="authMethodsAvailable.mobiilId && wWidth > 550" class="sign_in_section"
+            [ngClass]="{'single_section': !authMethodsAvailable.idCard}">
+            <button (click)="authMobiilId()" [disabled]="isLoading || isLoadingIdCard" class="blue_button"
+              [ngClass]="{margin_mobile_id: !config.authentication.idCard}"
+              translate="MODALS.LOGIN_ESTEID_BTN_AUTHENTICATE_MID"></button>
+          </div>
+
+          <div *ngIf="authMethodsAvailable.idCard && wWidth > 550" class="sign_in_section"
+            [ngClass]="{'single_section': !authMethodsAvailable.mobiilId}">
+            <button (click)="authIdCard()" [disabled]="isLoading || isLoadingIdCard" class="blue_button"
+              translate="MODALS.LOGIN_ESTEID_BTN_AUTHENTICATE_ID"></button>
+          </div>
+
+          <div class="clearer"></div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="close_lightbox" mat-dialog-close=""></div>
+
+</div>

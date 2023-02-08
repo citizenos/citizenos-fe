@@ -3,7 +3,7 @@
 </div>
 <div class="pretend_td" *ngIf="isVisibleField('lastActivity')">
   <div class="pretend_table_mobile_text mobile_label" translate="">Last activity</div>
-  <span ng-bind="memberTopic.lastActivity | amDateFormat:'L LT'"></span>
+  <span [innerText]="memberTopic.lastActivity | amDateFormat:'L LT'"></span>
 </div>
 <div class="pretend_td" *ngIf="isVisibleField('level')">
   <div class="pretend_table_mobile_text mobile_label" translate="VIEWS.PUBLIC_GROUP.LNK_RIGHTS">Level</div>
@@ -29,8 +29,8 @@
   <span *ngIf="!TopicService.canUpdate(memberTopic) || group?.visibility === GroupService.VISIBILITY.public">{{'TXT_TOPIC_LEVELS_' + memberTopic.permission.levelGroup | uppercase | translate}}</span>
 </div>
 <div class="pretend_td" *ngIf="isVisibleField('userscount')">
-  <span class="pretend_table_mobile_text mobile_label" translate="VIEWS.MY_GROUPS_GROUPID.LBL_USERS_COUNT" translate-values="{count: memberTopic.members.users.count}">Users: 0</span>
-  <span *ngIf="wWidth > 550" ng-bind="memberTopic.members.users.count"></span>
+  <span class="pretend_table_mobile_text mobile_label" translate="VIEWS.MY_GROUPS_GROUPID.LBL_USERS_COUNT" [translateParams]="{count: memberTopic.members.users.count}">Users: 0</span>
+  <span *ngIf="wWidth > 550" [innerText]="memberTopic.members.users.count"></span>
 </div>
 <div class="pretend_td" *ngIf="isVisibleField('status')">
   <div class="pretend_table_mobile_text mobile_label" translate="VIEWS.PUBLIC_GROUP.LNK_STATUS">Status</div>

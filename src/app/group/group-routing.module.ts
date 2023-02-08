@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { GroupSettingsDialogComponent } from './components/group-settings-dialog/group-settings-dialog.component';
+import { GroupSettingsDialogComponent } from './components/group-settings/group-settings.component';
 import { GroupComponent } from './group.component';
 
 const routes: Routes = [

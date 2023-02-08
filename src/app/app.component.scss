@@ -1,3 +1,43 @@
 @use "mixins_n_extends";
 @use "vars";
 
+#search_area {
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  right: 0;
+  left: 190px;
+  height: 60px;
+  text-align: left;
+  font-size: 14px;
+  transition: all 220ms ease-out;
+
+  @include mixins_n_extends.tablet {
+      right: 136px;
+  }
+
+  @media (max-width: 750px) {
+      left: 62px;
+  }
+
+  @media (max-width: 340px) {
+      right: 70px;
+  }
+
+  @media  print {
+      display: none;
+  }
+}
+
+/* SEARCH AREA (Search bar styles in nav.scss) */
+#search_area_close {
+  position: fixed;
+  top: 60px;
+  left: 190px;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  @include mixins_n_extends.tablet {
+    left: 0;
+  }
+}

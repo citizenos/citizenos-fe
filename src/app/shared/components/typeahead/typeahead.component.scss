@@ -1,0 +1,37 @@
+@use "mixins_n_extends";
+
+.ac-input {
+  @include mixins_n_extends.tablet {
+    position: relative;
+    height: 60px;
+    vertical-align: middle;
+    width: 100%;
+    top: 15px;
+  }
+
+  input {
+    border: none;
+    height: 60px;
+    width: 100%;
+    font-size: 14px;
+    padding: 0 58px;
+    box-sizing: border-box;
+    @include mixins_n_extends.tablet {
+      border-radius: 15px;
+      border: none;
+      height: 30px;
+      padding: 0 34px 1px 34px;
+      box-sizing: border-box;
+      width: 100%;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    &:focus,
+    input:focus {
+      outline: none;
+    }
+  }
+}

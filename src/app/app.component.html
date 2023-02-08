@@ -11,11 +11,11 @@
       <div id="content" [ngClass]="!displaySearch() ? 'content_no_padding' : ''">
           <!-- SEARCH AREA -->
           <div id="search_area" *ngIf="wWidth > 1024 && displaySearch()">
-              <!--search></!--search-->
+              <search></search>
           </div>
           <div id="content_cell">
               <!-- CLOSE SEARCH AREA -->
-              <div id="search_area_close"></div>
+              <div id="search_area_close" *ngIf="displaySearch()"></div>
 
               <!-- ROUTES CONTENT -->
               <router-outlet id="view"></router-outlet>

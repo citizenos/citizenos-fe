@@ -17,8 +17,6 @@ import { AppComponent } from './app.component';
 import { HelpComponent } from './core/components/help/help.component';
 import { NavComponent } from './core/components/nav/nav.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { LoginComponent } from './core/components/account/login/login.component';
-import { LoginDialogComponent } from './core/components/account/login/loginDialog';
 import { HomeComponent } from './core/components/home/home.component';
 
 export function createTranslateLoader(http: HttpClient) {
@@ -32,22 +30,20 @@ import { NotificationComponent } from './core/components/notification/notificati
 import { ActivityFeedComponent } from './core/components/activity-feed/activity-feed.component';
 import { SharedModule } from './shared/shared.module';
 import { HttpErrorInterceptor } from './services/http.error.interceptor.service';
-import { EstIdLoginComponent } from './core/components/account/est-id-login/est-id-login.component';
-import { SmartIdLoginComponent } from './core/components/account/smart-id-login/smart-id-login.component';
+import { EstIdLoginComponent } from './account/components/est-id-login/est-id-login.component';
+import { SearchComponent } from './core/components/search/search.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HelpComponent,
     NavComponent,
-    LoginComponent,
-    LoginDialogComponent,
     HomeComponent,
     LanguageSelectComponent,
     NotificationComponent,
     ActivityFeedComponent,
     EstIdLoginComponent,
-    SmartIdLoginComponent
+    SearchComponent,
   ],
   imports: [
     BrowserModule,

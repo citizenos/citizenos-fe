@@ -1,4 +1,4 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
@@ -109,4 +109,24 @@ export class GroupSettingsComponent implements OnInit {
       }
     });
   };
+}
+
+@Component({
+  selector: 'group-settings-dialog',
+  template: ''
+})
+export class GroupSettingsDialogComponent implements OnInit {
+
+  constructor(private dialog: MatDialog, private router: Router, private route: ActivatedRoute) {
+
+  }
+
+  ngOnInit(): void {
+    const settingsDialog = this.dialog.open(GroupSettingsComponent);
+    settingsDialog.afterClosed().subscribe(result => {
+      console.log(result)
+      this.router.navigate(['../'], { relativeTo: this.route });
+    });
+  }
+
 }

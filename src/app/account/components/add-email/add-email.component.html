@@ -82,6 +82,6 @@
       </div>
   </div>
 
-  <div id="close_lightbox" ng-click="$ctrl.logout();$ctrl.app.closeThisDialog($event);"></div>
+  <div id="close_lightbox" (click)="logout();" mat-dialog-close></div>
 
 </div>

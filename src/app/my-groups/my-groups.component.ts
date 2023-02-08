@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./my-groups.component.scss']
 })
 export class MyGroupsComponent implements OnInit {
-
+  wWidth = window.innerWidth;
   constructor() { }
 
   ngOnInit(): void {

@@ -42,30 +42,30 @@
         <div class="sign_in_section">
           <form name="formMobileSign" novalidate>
             <div class="sprite_big sprite sprite-mobiil-i-d2x"></div>
-            <input *ngIf="!isLoading" id="phone" name="phoneNumber" type="tel" [(ngModel)]="phoneNumber"
-              #phoneNumberInput="ngModel" ngModel
-              [placeholder]="'MODALS.TOPIC_VOTE_SIGN_ESTEID_PLACEHOLDER_PHONE' | translate" (focus)="wWidth > 1024"
+            <input id="phone" name="phoneNumber" type="tel" [(ngModel)]="phoneNumber" #phoneNumberInput="ngModel"
+              ngModel [placeholder]="'MODALS.TOPIC_VOTE_SIGN_ESTEID_PLACEHOLDER_PHONE' | translate"
+              (focus)="wWidth > 1024"
               [ngClass]="{'error_input': (phoneNumberInput.errors && phoneNumberInput.errors['pattern'] && phoneNumberInput.touched)}"
               pattern="^\+?[0-9\s-]{7,}$" required>
-            <!--label for="phoneNumber"
+            <label for="phoneNumber"
               *ngIf="phoneNumberInput.errors && phoneNumberInput.errors['pattern'] && phoneNumberInput.touched"
               class="error_label">
               <div class="table_cell">
                 <div class="sprite sprite-icon-inputfield-error2x"></div>
                 <span translate="MODALS.TOPIC_VOTE_SIGN_ESTEID_ERROR_PHONE"></span>
               </div>
-            </!--label-->
-            <input *ngIf="!isLoading" name="pid" type="text" inputmode="numeric" [(ngModel)]="pid" #pidInput="ngModel"
+            </label>
+            <input #pidInput="ngModel" name="pid" type="text" inputmode="numeric" [(ngModel)]="pid"
               ngModel [placeholder]="'MODALS.TOPIC_VOTE_SIGN_ESTEID_PLACEHOLDER_PID' | translate"
               [ngClass]="{'error_input': pidInput.errors && pidInput.errors['pattern'] && pidInput.touched}"
-              pattern="/^[0-9]{11}$/" required>
-            <!--label for="pid" *ngIf="pidInput.errors && pidInput.errors['pattern'] && pidInput.touched"
-              class="error_label">
+              pattern="^[0-9]{11}$" required>
+            <label class="error_label" for="pid"
+              *ngIf="pidInput.errors && pidInput.errors['pattern'] && pidInput.touched">
               <div class="table_cell">
                 <div class="sprite sprite-icon-inputfield-error2x"></div>
-                <span translate="MODALS.TOPIC_VOTE_SIGN_ESTEID_ERROR_PID">Invalid PID number</span>
+                <span translate="MODALS.TOPIC_VOTE_SIGN_ESTEID_ERROR_PID"></span>
               </div>
-            </!--label-->
+            </label>
             <div *ngIf="isLoading && challengeID" class="code"
               translate="MODALS.TOPIC_VOTE_SIGN_ESTEID_TXT_CONTROL_CODE" [translateParams]="{code: challengeID}"></div>
             <div *ngIf="isLoading && challengeID" class="code_text"

@@ -82,6 +82,11 @@
     .no_results {
         padding-left: 0 !important;
         height: 100%;
+
+        .no_results_icon_wrap {
+          width: max-content;
+          margin: auto;
+        }
     }
 
     #topics_area {

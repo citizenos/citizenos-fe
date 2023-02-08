@@ -12,7 +12,7 @@ const routes: Routes = [
     path: ':lang',
     children: [
       {path: '', component: HomeComponent},
-      {path: 'account', canActivate: [AuthGuard], loadChildren: () => import('./account/account.module').then(m => m.AccountModule)},
+      {path: 'account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule)},
       { path: 'topic', loadChildren: () => import('./topic/topic.module').then(m => m.TopicModule) },
       { path: 'groups', loadChildren: () => import('./group/group.module').then(m => m.GroupModule) },
       {path: 'topics', loadChildren: () => import('./topic/topic.module').then(m => m.TopicModule)},

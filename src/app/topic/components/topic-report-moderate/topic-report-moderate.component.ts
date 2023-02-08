@@ -1,9 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { take } from 'rxjs';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicReportService } from 'src/app/services/topic-report.service';
-
+import { switchMap, take } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { TopicService } from 'src/app/services/topic.service';
 export interface TopicReportModerateData {
   topic: Topic
 };
@@ -41,14 +42,35 @@ export class TopicReportModerateComponent implements OnInit {
 
     this.TopicReportService
       .moderate(this.moderate).pipe(take(1))
-      .subscribe((report) => { })
-    /*.$promise
-    .then((report) => {
-        this.topic.report = report;
-        this.ngDialog.closeAll();
-    },(res) => {
-        this.form.isLoading = false;
-        this.form.errors = res.data.errors;
-    });*/
+      .subscribe({
+        next: (report) => {
+          this.topic.report = report;
+        },
+        error: (res) => {
+          this.isLoading = false;
+          this.errors = res.errors;
+        }
+      })
   };
+}
+
+@Component({
+  selector: 'topic-report-moderate-dialog',
+  template: '',
+})
+export class TopicReportModerateDialogComponent implements OnInit {
+
+  constructor(dialog: MatDialog, route: ActivatedRoute, TopicService: TopicService) {
+    route.params.pipe(switchMap((params) => {
+      return TopicService.get(params['topicId']);
+    })).pipe(take(1))
+      .subscribe((topic) => {
+        dialog.open(TopicReportModerateComponent, { data: { topic } });
+      })
+
+  }
+
+  ngOnInit(): void {
+  }
+
 }

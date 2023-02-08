@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { isEmail } from 'validator';
-import { take, of, switchMap, forkJoin, combineLatest } from 'rxjs';
+import { take, of, switchMap, forkJoin, combineLatest, Subscription } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicService } from 'src/app/services/topic.service';
 import { TopicMemberGroup } from 'src/app/interfaces/group';
@@ -12,7 +12,7 @@ import { TopicJoinService } from 'src/app/services/topic-join.service';
 import { TopicMemberUserService } from 'src/app/services/topic-member-user.service';
 import { TopicMemberGroupService } from 'src/app/services/topic-member-group.service';
 import { TopicInviteUserService } from 'src/app/services/topic-invite-user.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 export interface TopicInviteData {
   topic: Topic
 };
@@ -362,4 +362,36 @@ export class TopicInviteComponent implements OnInit {
   totalPages() {
     return Math.ceil(this.members.length / this.itemsPerPage);
   };
+}
+
+
+@Component({
+  selector: 'topic-invite-dialog',
+  template: '',
+})
+export class TopicInviteDialogComponent implements OnInit {
+  subscriber: Subscription;
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+      this.subscriber.unsubscribe();
+  }
+  constructor(private dialog: MatDialog, private TopicService: TopicService, private route: ActivatedRoute, private router: Router) {
+    console.log('TopicInviteDialogComponent')
+    this.subscriber = this.route.params.pipe(
+      switchMap((params) => {
+        return this.TopicService.get(params['topicId']);
+      }),
+    ).subscribe((topic:any) => {
+      const inviteDialog = this.dialog.open(TopicInviteComponent, { data: { topic } });
+      inviteDialog.afterClosed().subscribe((res)=> {
+        this.router.navigate(['..'], {relativeTo: this.route});
+      })
+    })
+  }
+
+  ngOnInit(): void {
+  }
+
 }

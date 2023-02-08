@@ -21,7 +21,7 @@
     <div class="blue_link" *ngIf="canUpdate()" (click)="closeTopic()"
       translate="VIEWS.TOPICS_TOPICID.NAV_LNK_CLOSE_TOPIC"></div>
     <div class="line lightest_line" *ngIf="canUpdate()"></div>
-    <div class="blue_link" *ngIf="canDelete() || canLeave()" [routerLink]="['settings']"
+    <div class="blue_link" *ngIf="canDelete() || canLeave()" [routerLink]="['/topics', topic.id, 'settings']"
       [queryParams]="{tab: 'settings'}" translate="VIEWS.TOPICS_TOPICID.NAV_LNK_ACTIONS"></div>
     <div class="blue_link" *ngIf="canUpdate()" [routerLink]="['invite']"
       [queryParams]="{tab: 'invite'}" translate="VIEWS.TOPICS_TOPICID.NAV_LNK_INVITE_USERS"></div>

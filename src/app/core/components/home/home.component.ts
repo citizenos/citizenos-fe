@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 import { TopicService } from 'src/app/services/topic.service';
 import { PublicTopicService } from 'src/app/services/public-topic.service';
 import { PublicGroupService } from 'src/app/services/public-group.service';
-import { switchMap, map, of, BehaviorSubject, takeUntil, Subject, combineLatest, Observable } from 'rxjs';
+import { of, Subject, Observable } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { Group } from 'src/app/interfaces/group';
 @Component({
@@ -15,19 +16,26 @@ export class HomeComponent implements OnInit {
   categories$ = Object.keys(this.Topic.CATEGORIES);
   statuses$ = Object.keys(this.Topic.STATUSES);
 
-  topics$: Observable<Topic[]| any[]> = of([]);
+  topics$: Observable<Topic[] | any[]> = of([]);
   groups$: Observable<Group[] | any[]> = of([]);
   wWidth = window.innerWidth;
   destroy$ = new Subject<boolean>();
 
-  constructor(private route: ActivatedRoute, private Topic: TopicService, public PublicTopicService: PublicTopicService, public PublicGroupService: PublicGroupService) {
+  constructor(
+    private AuthService: AuthService,
+    private route: ActivatedRoute,
+    private Topic: TopicService,
+    private PublicTopicService: PublicTopicService,
+    private PublicGroupService: PublicGroupService) {
   }
 
-  trackByTopic (index: number, element: any) {
+  trackByTopic(index: number, element: any) {
     return element.id;
   }
 
-
+  isLoggedIn () {
+    return this.AuthService.loggedIn$.value;
+  }
   ngOnInit(): void {
     this.PublicTopicService.reset();
     this.PublicGroupService.reset();
@@ -41,11 +49,14 @@ export class HomeComponent implements OnInit {
     this.groups$ = this.PublicGroupService.loadItems();
   }
 
-  goToPage (url: string) {
+  goToPage(url: string) {
     window.location.href = url;
   }
 
   ngOnDestroy(): void {
     this.destroy$.next(true);
   }
+
+  createGroup () {}
+  createNewTopic() {}
 }

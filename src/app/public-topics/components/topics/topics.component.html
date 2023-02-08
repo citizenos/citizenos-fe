@@ -100,7 +100,7 @@
             </div>
 
             <div class="dropdown_item" *ngFor="let status of statuses$" (click)="setStatus(status);"
-              ng-class="status === $ctrl.filters.statuses.value ? 'bold' : ''">
+              [ngClass]="status === topicFilters.value.status ? 'bold' : ''">
               <div class="item_name">
                 {{'TXT_TOPIC_STATUS_' + status | uppercase | translate}}
               </div>

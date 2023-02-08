@@ -1,9 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { take } from 'rxjs';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { take, switchMap } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicReportService } from 'src/app/services/topic-report.service';
-
+import { ActivatedRoute } from '@angular/router';
+import { TopicService } from 'src/app/services/topic.service';
 export interface TopicReportFormData {
   topic: Topic
 }
@@ -51,4 +52,25 @@ export class TopicReportFormComponent implements OnInit {
          }*/
       );
   };
+}
+
+@Component({
+  selector: 'topic-report-form-dialog',
+  template: '',
+})
+export class TopicReportFormDialogComponent implements OnInit {
+
+  constructor(dialog: MatDialog, route: ActivatedRoute, TopicService: TopicService) {
+    route.params.pipe(switchMap((params) => {
+      return TopicService.get(params['topicId']);
+    })).pipe(take(1))
+      .subscribe((topic) => {
+        dialog.open(TopicReportFormComponent, { data: { topic } });
+      })
+
+  }
+
+  ngOnInit(): void {
+  }
+
 }

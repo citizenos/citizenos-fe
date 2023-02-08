@@ -1,29 +1,35 @@
 <div>
-  <div id="help_tooltip" *ngIf="helptooltip" ng-class="{help_visible: showHelp}">
-      <div class="tip_heading" translate="HELP_CENTER_TOOLTIP_HEADING"></div>
-      <div class="tip_desription" translate="HELP_CENTER_TOOLTIP_DESCRIPTION"></div>
-      <div class="help_bubble_icon" ><div class="help_icon"></div></div>
-      <div class="tip_button_wrap"><button class="blue_white_button tip_button" translate="HELP_CENTER_TOOLTIP_BTN_OK" (click)="closeTootlip()"></button></div>
-      <div class="tip-arrow"  ng-class="{help_visible: showHelp}"></div>
+  <div id="help_tooltip" *ngIf="helptooltip" [ngClass]="{help_visible: app.showHelp}">
+    <div class="tip_heading" translate="HELP_CENTER_TOOLTIP_HEADING"></div>
+    <div class="tip_desription" translate="HELP_CENTER_TOOLTIP_DESCRIPTION"></div>
+    <div class="help_bubble_icon">
+      <div class="help_icon"></div>
+    </div>
+    <div class="tip_button_wrap"><button class="blue_white_button tip_button" translate="HELP_CENTER_TOOLTIP_BTN_OK"
+        (click)="closeTootlip()"></button></div>
+    <div class="tip-arrow help_visible" [ngClass]="{help_visible: app.showHelp}"></div>
   </div>
   <div id="dark_overlay" *ngIf="((app.showHelp | async) || helptooltip)" (click)="toggleHelp()"></div>
 
   <div class="help_widget" *ngIf="(app.showHelp | async)">
-      <div class="help_top">
-          <div class="help_back_link" (click)="helpback()"><div class="sprite sprite-icon-help-back"></div></div>
-          <div class="help_title_text_wrapper">
-              <div class="help_title_text" translate="HELP_WIDGET.HEADER_TITLE"></div>
-          </div>
-          <div id="help_close" (click)="toggleHelp()">
-              <div class="table_cell">
-                  <div class="sprite sprite sprite-btn-popup-close2x">
-                  </div>
-              </div>
-          </div>
+    <div class="help_top">
+      <div class="help_back_link" (click)="helpback()">
+        <div class="sprite sprite-icon-help-back"></div>
       </div>
-      <div class="help_content">
-          <iframe id="help_frame" name="help_frame" *ngIf="(app.showHelp| async)" frameborder="0"  [src]="urlSafe" width="100%"></iframe>
+      <div class="help_title_text_wrapper">
+        <div class="help_title_text" translate="HELP_WIDGET.HEADER_TITLE"></div>
       </div>
+      <div id="help_close" (click)="toggleHelp()">
+        <div class="table_cell">
+          <div class="sprite sprite sprite-btn-popup-close2x">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="help_content">
+      <iframe id="help_frame" name="help_frame" *ngIf="(app.showHelp| async)" frameborder="0" [src]="urlSafe"
+        width="100%"></iframe>
+    </div>
   </div>
 
   <div id="help_bubble" (click)="toggleHelp();"></div>

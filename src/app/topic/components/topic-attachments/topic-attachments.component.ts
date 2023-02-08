@@ -1,15 +1,15 @@
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { Component, Inject, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
-import { take, takeWhile, map } from 'rxjs';
+import { take, takeWhile, switchMap } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { AppService } from 'src/app/services/app.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { TopicAttachmentService } from 'src/app/services/topic-attachment.service';
 import { UploadService } from 'src/app/services/upload.service';
 import { TopicService } from 'src/app/services/topic.service';
-
+import { ActivatedRoute, Router } from '@angular/router';
 export interface ArgumentReactionsData {
   topic: Topic
 };
@@ -166,4 +166,32 @@ export class TopicAttachmentsComponent implements OnInit {
       }
     });
   };
+}
+
+@Component({
+  selector: 'topic-attachments-dialog',
+  template: '',
+})
+export class TopicAttachmentsDialogComponent implements OnInit {
+
+  constructor(dialog: MatDialog, router: Router, route: ActivatedRoute, TopicService: TopicService) {
+    route.params.pipe(
+      switchMap((params) => {
+        return TopicService.get(params['topicId'])
+      })
+    ).pipe(take(1)).subscribe((topic) => {
+      const attachmentsDialog = dialog.open(
+        TopicAttachmentsComponent, {data: {
+        topic
+      }});
+
+      attachmentsDialog.afterClosed().subscribe(() => {
+        router.navigate(['../'], {relativeTo: route})
+      })
+    });
+  }
+
+  ngOnInit(): void {
+  }
+
 }

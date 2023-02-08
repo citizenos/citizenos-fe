@@ -1,0 +1,112 @@
+<div id="search_area_wrap">
+  <div class="logo_area" (click)="!showSearchResults" ui-sref="home">
+    <div class="logo sprite sprite-x5-cos-logo-small2x">
+    </div>
+  </div>
+  <div id="donate_wrap" *ngIf="!showSearchResults">
+    <div class="donate_item" id="donate_icon"></div>
+    <div class="donate_item" id="donate_text" translate="DONATE_TXT"></div>
+    <a class="donate_item" id="donate_button" target="_blank" [href]="lnkDonate" translate="DONATE_BTN"></a>
+  </div>
+  <!--typeahead id="userSearch" class="auto-complete" [items]="searchResultUsers$ | async"
+                [term]="searchStringUser" (search)="search($event)" (select)="addGroupMemberUser($event)"
+                [placeholder]="'MODALS.GROUP_CREATE_SETTINGS_PLACEHOLDER_SEARCH_BY_NAME_EMAIL' | translate"-->
+  <typeahead class="auto-complete" [items]="searchResults" [term]="searchInput" (search)="doSearch($event)"
+    (select)="goToView($event)" [placeholder]="'LAYOUTS.MAIN.PLACEHOLDER_SEARCH_TOPICS_USERS_GROUPS' | translate">
+    <!--select-limit="3" enter-action="enterAction(item)" -->
+
+    <div id="search_results_area">
+      <div id="m_search_icon">
+        <div class="table_cell">
+          <div class="sprite sprite-icon-search-b-2x"></div>
+        </div>
+      </div>
+      <div id="m_search_close" (click)="showSearch = !showSearch; showSearchResults = false">
+        <div class="table_cell">
+          <div class="sprite sprite-icon-closemenu-b-2x"></div>
+        </div>
+      </div>
+
+      <div id="search_icon">
+        <div class="table_cell">
+          <div class="sprite sprite-x3-icon-topbar-earch2x"></div>
+        </div>
+      </div>
+
+      <div id="close_search_icon" (click)="closeSearchArea()" [ngClass]="{hidden: !showSearchResults}">
+        <div class="table_cell">
+          <div class="sprite sprite-icon-closemenu-b-2x"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="search_results_list" *ngIf="showSearchResults">
+      <ng-container *ngFor="let context of contexts">
+        <ng-container *ngFor="let model of models">
+          <ng-container
+            *ngIf="searchResults[context] && searchResults[context][model] && searchResults[context][model].count">
+            <div class="search_cat">
+              <div class="cat_wrap"><span translate="DEFAULT.SEARCH.HEADING_RESULTS_IN"></span> <b
+                  translate="{{'LBL_CONTEXT_' + context + '_' + model | uppercase}}"></b></div>
+            </div>
+            <div class="results_area" *ngIf="searchResults[context][model].rows.length">
+              <div class="result_group">
+
+                <div class="result_links" typeahead-item="row" typeahead-item-no-close="row.id === 'viewMore'"
+                  *ngFor="let row of searchResults[context][model].rows">
+                  <div *ngIf="model !== 'viewMore'" class="links_wrap">
+                    <span>
+                      <a (click)="goToView(row, context)" class="blue_link result_link">
+                        {{row.name || row.title}}</a>
+                    </span>
+                  </div>
+                  <div *ngIf="row.id ==='viewMore'" class="more_results"
+                    translate="DEFAULT.SEARCH.LNK_VIEW_MORE_RESULTS">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+      <!--context: my, public-->
+      <!--div *ngFor="(context, results) of searchResults" [ngClass]="{last: $last}">
+        <div *ngFor=" let (model, items) of results"> <!--model: topics, groups>
+          <div class="search_cat" *ngIf="!noResults && items.count">
+            <div class="cat_wrap"><span translate="DEFAULT.SEARCH.HEADING_RESULTS_IN"></span> <b
+                translate="{{'LBL_CONTEXT_' + context + '_' + model | uppercase}}"></b></div>
+          </div>
+
+          <div class="results_area" *ngIf="!noResults && items.count">
+            <div class="result_group">
+
+              <div class="result_links" typeahead-item="row" typeahead-item-no-close="row.id === 'viewMore'"
+                *ngFor="let row of items.rows">
+                <div *ngIf="row.id !== 'viewMore'" class="links_wrap">
+                  <span>
+                    <a *ngIf="model ==='groups'" (click)="goToView(row, context)" class="blue_link result_link">
+                      {{row.name}}</a>
+                    <a *ngIf="model ==='topics'" (click)="goToView(row, context)"
+                      class="blue_link result_link">{{row.title}}</a>
+                  </span>
+                </div>
+                <div *ngIf="row.id ==='viewMore'" class="more_results" translate="DEFAULT.SEARCH.LNK_VIEW_MORE_RESULTS">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </!--div-->
+      <div class="results_area" *ngIf="noResults">
+        <div class="result_group">
+
+          <div class="no_results">
+            <b class="search_msgb" translate="DEFAULT.SEARCH.TXT_OOPS_NO_RESULTS"></b>
+            <br>
+            <div class="search_msg" translate="DEFAULT.SEARCH.TXT_MAYBE_TYPO"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </typeahead>
+</div>

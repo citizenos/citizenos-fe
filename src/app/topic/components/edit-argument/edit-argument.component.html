@@ -36,7 +36,7 @@
                 <p>{{('VIEWS.TOPICS_TOPICID.COMMENT_TYPE_SELECT_OPTION_DESCRIPTION_' + type | uppercase) | translate}}
                 </p>
                 <p class="bold" translate="VIEWS.TOPICS_TOPICID.COMMENT_TYPE_CHARACTER_LIMIT"
-                  translate-values="{numberOfCharacters: COMMENT_TYPES_MAXLENGTH[type]}"></p>
+                  [translateParams]="{numberOfCharacters: ARGUMENT_TYPES_MAXLENGTH[type]}"></p>
                 <button *ngIf="app.isTouchDevice()  && ($index === 0 || edit.type === type)"
                   class="light_gray_button full_width dropdown_selector {{type}}"
                   (click)="edit.type = type" translate="DROPDOWN_BTN_SELECT">Select</button>

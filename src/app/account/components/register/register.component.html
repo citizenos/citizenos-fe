@@ -1,0 +1,140 @@
+<!-- LIGHTBOX SKELETON -->
+<div id="root_lightbox">
+  <div id="lightbox" class="wide_lightbox with_title_description">
+    <div id="lightbox_wrap">
+      <form name="signUpForm" [formGroup]="signUpForm">
+        <div id="lightbox_header">
+
+          <div *ngIf="!isInviteFlowSignUp" id="lightbox_header_text">
+            <div class="title" translate="MODALS.SIGN_UP_HEADING"></div>
+            <div class="title_description_register" translate="MODALS.SIGN_UP_HEADING_DESCRIPTION"></div>
+          </div>
+
+          <div *ngIf="isInviteFlowSignUp" id="lightbox_header_text">
+            <div class="title" translate="MODALS.SIGN_UP_INVITE_FLOW_HEADING"></div>
+            <div class="title_description_register" translate="MODALS.SIGN_UP_INVITE_FLOW_HEADING_DESCRIPTION"></div>
+          </div>
+
+          <div id="lightbox_close" mat-dialog-close>
+            <div class="table_cell">
+              <div class="sprite sprite-btn-popup-close2x">
+              </div>
+            </div>
+          </div>
+          <div class="line lightest_line"></div>
+        </div>
+        <div class="lightbox_content">
+          <div id="sign_up_lightbox">
+            <div class="lightbox_section">
+              <input id="name" formControlName="name" [placeholder]="'MODALS.SIGN_UP_PLACEHOLDER_NAME' | translate"
+                (focus)="wWidth > 1024" [ngClass]="{'error_input': errors.name}" maxlength="255" required>
+              <label for="name" class="error_label" *ngIf="errors.name">
+                <div class="table_cell">
+                  <div class="sprite sprite-icon-inputfield-error2x"></div>
+                  <span translate="{{errors.name}}"></span>
+                </div>
+              </label>
+              <input id="email" formControlName="email" [placeholder]="'MODALS.SIGN_UP_PLACEHOLDER_EMAIL' | translate"
+                [ngClass]="{'error_input': errors.email}" maxlength="254" required>
+              <label for="email" class="error_label" *ngIf="errors.email">
+                <div class="table_cell">
+                  <div class="sprite sprite-icon-inputfield-error2x"></div>
+                  <span translate="{{errors.email}}"></span>
+                </div>
+              </label>
+              <input id="company" formControlName="company"
+                [placeholder]="'MODALS.SIGN_UP_PLACEHOLDER_COMPANY' | translate"
+                [ngClass]="{'error_input': errors.company}" maxlength="255">
+              <label for="company" class="error_label" *ngIf="errors.company">
+                <div class="table_cell">
+                  <div class="sprite sprite-icon-inputfield-error2x"></div>
+                  <span translate="{{errors.company}}"></span>
+                </div>
+              </label>
+              <input id="password" formControlName="password" type="password"
+                [placeholder]="'MODALS.SIGN_UP_PLACEHOLDER_PASSWORD' | translate"
+                [ngClass]="{'error_input': errors.password}" maxlength="64" required>
+              <input id="password_confirm" formControlName="passwordConfirm" type="password"
+                [placeholder]="'MODALS.SIGN_UP_PLACEHOLDER_PASSWORD_CONFIRM' | translate"
+                [ngClass]="{'error_input': errors.password}" maxlength="64" required>
+              <label for="password_confirm" class="error_label" *ngIf="errors.password">
+                <div class="table_cell">
+                  <div class="sprite sprite-icon-inputfield-error2x"></div>
+                  <span translate="{{errors.password}}"></span>
+                </div>
+              </label>
+              <div class="settings_section">
+                <div class="settings_cell">
+                  <div class="setting_title" translate="MODALS.SIGN_UP_LBL_TERMS_AND_CONDITIONS"></div>
+                  <div class="setting_description" translate="MODALS.SIGN_UP_LBL_TERMS_AND_CONDITIONS_DESCRIPTION">
+                  </div>
+                  <div>
+                    <div class="policy_links">
+                      <div class="policy_link_wrap">
+                        <a class="policy_link" target="_blank" [href]="config.termsOfUse">
+                          <div class="section_icon">
+                            <div class="table_cell">
+                              <div class="sprite sprite-bullet-arrow-blue2x"></div>
+                            </div>
+                          </div>
+                          <span translate="MODALS.PRIVACY_POLICY_LNK_TERMS_OF_USE"></span>
+                        </a>
+                      </div>
+                      <div class="policy_link_wrap">
+                        <a class="policy_link" target="_blank" [href]="config.privacyPolicy">
+                          <div class="section_icon">
+                            <div class="table_cell">
+                              <div class="sprite sprite-bullet-arrow-blue2x"></div>
+                            </div>
+                          </div>
+                          <span translate="MODALS.PRIVACY_POLICY_LNK_PRIVACY_POLICY"></span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="settings_cell">
+                  <cos-toggle [cosToggleTextOn]="'TOGGLE_ON' | translate" [cosToggleTextOff]="'TOGGLE_OFF' | translate"
+                    [(model)]="agreeToTerms" (click)="toggleTerms()"></cos-toggle>
+                </div>
+              </div>
+              <label class="error_label" *ngIf="errors.terms && !signUpForm.get('agreeToTerms')">
+                <div class="table_cell">
+                  <div class="sprite sprite-icon-inputfield-error2x"></div>
+                  <span translate="{{errors.terms}}"></span>
+                </div>
+              </label>
+
+              <div class="settings_section">
+                <div class="settings_cell">
+                  <div class="setting_title" translate="MODALS.SIGN_UP_LBL_SHOW_IN_SEARCH"></div>
+                  <div class="setting_description" translate="MODALS.SIGN_UP_LBL_SHOW_IN_SEARCH_DESCRIPTION"></div>
+                </div>
+
+                <div class="settings_cell">
+                  <cos-toggle [cosToggleTextOn]="'TOGGLE_ON' | translate" [cosToggleTextOff]="'TOGGLE_OFF' | translate"
+                    [(model)]="preferences.showInSearch"></cos-toggle>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="lightbox_footer login_footer">
+          <div class="line lightest_line"></div>
+          <div class="lightbox_section">
+            <div class="footer_button_wrap"></div>
+            <div class="footer_button_wrap right">
+              <a class="footer_link" ui-sref="account/login" translate="MODALS.SIGN_UP_HAVE_AN_ACCOUNT"></a>
+              <button type="submit" (click)="doSignUp()" [disabled]="signUpForm.invalid"
+                class="blue_button login_button" translate="MODALS.SIGN_UP_BTN_SAVE"></button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="close_lightbox" mat-dialog-close>
+  </div>
+
+</div>
