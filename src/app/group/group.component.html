@@ -39,12 +39,12 @@
             <div class="dropdown big_drop">
               <div class="line lightest_line"></div>
 
-              <div class="dropdown_item (click)="createTopicDialog();$event.stopPropagation();">
+              <div class="dropdown_item" (click)="createTopicDialog(group);">
                 <div class="icon icon_plus_black"></div>
                 <div class="item_name" translate="VIEWS.PUBLIC_GROUP.ACTION_OPTION_CREATE_TOPIC"></div>
                 <div class="clearer"></div>
               </div>
-              <div class="dropdown_item" (click)="addTopicDialog(); $event.stopPropagation();">
+              <div class="dropdown_item" (click)="addTopicDialog(group);">
                 <div class="icon icon_topic_black"></div>
                 <div class="item_name" translate="VIEWS.PUBLIC_GROUP.ACTION_OPTION_ADD_TOPICS"></div>
                 <div class="clearer"></div>
@@ -81,7 +81,7 @@
               </div>
             </div>
           </div>
-          <button *ngIf="!group.userLevel" class="blue_button" ng-click="joinGroup()"
+          <button *ngIf="!group.userLevel" class="blue_button" (click)="joinGroup(group)"
             translate="VIEWS.PUBLIC_GROUP.BTN_JOIN_GROUP"></button>
           <button *ngIf="group.userLevel && !GroupService.canUpdate(group)" class="light_gray_button_big"
             (click)="leaveGroup()">
@@ -111,7 +111,7 @@
     </div>
     <div class="content" *ngIf="tabSelected === 'topics'">
       <div class="container_content">
-        <!--!PublicGroupMemberTopicService.countTotal-->
+        <!--!PublicGroupMemberTopicsService.countTotal-->
         <div *ngIf="!group.members.count" class="table">
           <div class="no_results v_align_cell">
             <div class="no_results_icon_wrap">
@@ -124,7 +124,7 @@
 
             <div class="button_area">
 
-              <div class="big_button" *ngIf="group.userLevel" ng-click="addTopicDialog()">
+              <div class="big_button" *ngIf="group.userLevel" (click)="addTopicDialog(group)">
                 <div class="button_cell">
                   <div class="topic_text" translate="VIEWS.PUBLIC_GROUP.BTN_ADD_TOPICS"></div>
                 </div>
@@ -146,14 +146,14 @@
           <div class="dropdown big_drop">
             <div class="line lightest_line"></div>
 
-            <div class="dropdown_item" ng-click="PublicGroupMemberTopicService.doOrder('title', 'ASC')">
+            <div class="dropdown_item" (click)="PublicGroupMemberTopicsService.doOrder('title', 'ASC')">
               <div class="icon arrow_th_sort_down"></div>
               <div class="item_name" translate="VIEWS.PUBLIC_GROUP.ORDER_TITLE_ASC">
                 ORDER
               </div>
               <div class="clearer"></div>
             </div>
-            <div class="dropdown_item" ng-click="PublicGroupMemberTopicService.doOrder('title', 'DESC')">
+            <div class="dropdown_item" (click)="PublicGroupMemberTopicsService.doOrder('title', 'DESC')">
               <div class="icon arrow_th_sort_up"></div>
               <div class="item_name" translate="VIEWS.PUBLIC_GROUP.ORDER_TITLE_DESC">
                 Leave
@@ -162,10 +162,10 @@
             </div>
           </div>
         </div>
-        <!--PublicGroupMemberTopicService.countTotal-->
+        <!--PublicGroupMemberTopicsService.countTotal-->
         <div class="default_table" *ngIf="group.members.count">
           <div class="pretend_tr" *ngIf="wWidth > 560">
-            <div class="pretend_th link" ng-click="PublicGroupMemberTopicService.doOrder('title')">
+            <div class="pretend_th link" (click)="PublicGroupMemberTopicsService.doOrder('title')">
               <div class="th_text">
                 <span translate="VIEWS.PUBLIC_GROUP.LNK_TITLE"></span>
                 <div

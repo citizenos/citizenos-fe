@@ -12,6 +12,8 @@ import { AuthService } from '../services/auth.service';
 import { GroupInviteComponent } from './components/group-invite/group-invite.component';
 import { AppService } from '../services/app.service';
 import { PublicGroupMemberTopicsService } from '../services/public-group-member-topics.service';
+import { CreateGroupTopicComponent } from './components/create-group-topic/create-group-topic.component';
+import { GroupAddTopicsComponent } from './components/group-add-topics/group-add-topics.component';
 @Component({
   selector: 'group',
   templateUrl: './group.component.html',
@@ -34,8 +36,8 @@ export class GroupComponent implements OnInit {
     this.group$ = this.route.params.pipe<Group>(
       switchMap((params) => {
         this.groupId = <string>params['groupId'];
-        PublicGroupMemberTopicsService.params$.value.groupId = this.groupId;
-        GroupMemberUserService.params$.value.groupId = this.groupId;
+        PublicGroupMemberTopicsService.setParam('groupId', this.groupId);
+        GroupMemberUserService.setParam('groupId', this.groupId);
         return this.GroupService.get(params['groupId']).pipe(
           tap((group) => {
             this.app.group.next(group);
@@ -50,7 +52,7 @@ export class GroupComponent implements OnInit {
 
   shareGroupDialog() {
     if (this.app.group) {
-      const inviteDialog = this.dialog.open(GroupInviteComponent, {data: {group: this.app.group}});
+      const inviteDialog = this.dialog.open(GroupInviteComponent, { data: { group: this.app.group } });
       inviteDialog.afterClosed().subscribe(result => {
         console.log(result);
       });
@@ -77,11 +79,11 @@ export class GroupComponent implements OnInit {
     });
   }
 
-  showSettings () {
-    this.router.navigate(['settings'], {relativeTo: this.route});
+  showSettings() {
+    this.router.navigate(['settings'], { relativeTo: this.route });
   }
 
-  deleteGroup () {
+  deleteGroup() {
     const deleteDialog = this.dialog.open(ConfirmDialogComponent, {
       data: {
         level: 'delete',
@@ -97,12 +99,63 @@ export class GroupComponent implements OnInit {
     deleteDialog.afterClosed().subscribe(result => {
       if (result === true) {
         this.GroupService.delete(this.app.group.value)
-        .pipe(take(1))
-        .subscribe((res) => {
-          console.log(res);
-          this.router.navigate(['../'], { relativeTo: this.route });
-        })
+          .pipe(take(1))
+          .subscribe((res) => {
+            console.log(res);
+            this.router.navigate(['../'], { relativeTo: this.route });
+          })
       }
+    });
+  }
+
+  createTopicDialog(group: Group) {
+    this.dialog.open(CreateGroupTopicComponent, {
+      data: {
+        group: group
+      }
+    });
+  }
+
+  addTopicDialog(group: Group) {
+    this.dialog.open(GroupAddTopicsComponent, {
+      data: {
+        group: group
+      }
+    });
+  }
+
+  joinGroup(group: Group) {
+    const joinDialog = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        heading: 'MODALS.GROUP_JOIN_CONFIRM_HEADING',
+        title: 'MODALS.GROUP_JOIN_CONFIRM_TXT_ARE_YOU_SURE',
+        description: 'MODALS.GROUP_JOIN_CONFIRM_TXT_DESC',
+        points: ['MODALS.GROUP_JOIN_CONFIRM_TXT_POINT1', 'MODALS.GROUP_JOIN_CONFIRM_TXT_POINT2', 'MODALS.GROUP_JOIN_CONFIRM_TXT_POINT3'],
+        confirmBtn: 'MODALS.GROUP_JOIN_CONFIRM_BTN_YES',
+        closeBtn: 'MODALS.GROUP_JOIN_CONFIRM_BTN_NO'
+      }
+    })/*.openConfirm({
+        template: '/views/modals/group_join_confirm.html',
+        closeByEscape: false
+    })*/
+    joinDialog.afterClosed().subscribe((res) => {
+      if (res === true) {
+        this.GroupService
+          .join(group.join.token)
+          .pipe(take(1))
+          .subscribe({
+            next: (res) => {
+              console.log(res)
+              if (res.id) {
+                window.location.reload();
+              }
+            },
+            error: (res) => {
+              console.error('Failed to join Topic', res)
+            }
+          });
+      }
+
     });
   }
 }

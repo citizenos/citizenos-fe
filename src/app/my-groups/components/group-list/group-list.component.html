@@ -1,1 +1,24 @@
-<p>group-list works!</p>
+
+
+<!-- LEFT SIDE -->
+<div class="topics_left" [ngClass]="{hidden: (wWidth <= 750)}">
+
+  <!-- Groups -->
+  <group-list-item [group]="group" *ngFor="let group of groups$ | async"></group-list-item>
+  <!-- No results -->
+  <div class="no_results table" *ngIf="!(GroupService.countTotal$ | async)">
+      <!-- No Groups view -->
+      <div class="v_align_cell">
+          <div class="no_results_icon_wrap">
+              <div class="sprite sprite-icon-no-results2x"></div>
+          </div>
+          <div class="title_area">
+              <h3 translate="VIEWS.MY.NO_RESULTS_FOUND_TITLE"></h3>
+              <p translate="VIEWS.MY.NO_RESULTS_FOUND_DESCRIPTION"></p>
+          </div>
+      </div>
+  </div>
+
+</div>
+
+<router-outlet name="mygroupsright"></router-outlet>

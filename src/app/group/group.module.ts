@@ -11,6 +11,9 @@ import { GroupMemberTopicComponent } from './components/group-member-topic/group
 import { GroupMemberUserComponent } from './components/group-member-user/group-member-user.component';
 import { GroupSettingsComponent, GroupSettingsDialogComponent } from './components/group-settings/group-settings.component';
 import { GroupShareComponent } from './components/group-share/group-share.component';
+import { CreateGroupTopicComponent } from './components/create-group-topic/create-group-topic.component';
+import { GroupAddTopicsComponent } from './components/group-add-topics/group-add-topics.component';
+import { GroupCreateComponent } from './components/group-create/group-create.component';
 
 
 @NgModule({
@@ -21,7 +24,10 @@ import { GroupShareComponent } from './components/group-share/group-share.compon
     GroupMemberUserComponent,
     GroupSettingsComponent,
     GroupSettingsDialogComponent,
-    GroupShareComponent
+    GroupShareComponent,
+    CreateGroupTopicComponent,
+    GroupAddTopicsComponent,
+    GroupCreateComponent
   ],
   imports: [
     CommonModule,

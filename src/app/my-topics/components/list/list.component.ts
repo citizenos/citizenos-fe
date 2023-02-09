@@ -105,35 +105,35 @@ export class ListComponent {
     };
   }
 
-  private setFilter (filter: string) {
+  private setFilter(filter: string) {
     let param = '';
-        let value;
-        if (this.UserTopicService.STATUSES.indexOf(filter) > -1) {
-          param = 'statuses'; value = [filter];
-        } else if (this.UserTopicService.VISIBILITY.indexOf(filter) > -1) {
-          param = 'visibility'; value = filter;
-        } else {
-          switch (filter) {
-            case 'all':
-              break;
-            case 'haveVoted':
-              param = 'hasVoted'; value = true;
-              break;
-            case 'haveNotVoted':
-              param = 'hasVoted'; value = false;
-              break;
-            case 'iCreated':
-              param = 'creatorId'; value = this.Auth.user.value.id;
-              break;
-            case 'pinnedTopics':
-              param = 'pinned'; value = true;
-              break;
-            case 'showModerated':
-              param = 'showModerated'; value = true;
-              break;
-          };
-        }
-        this.UserTopicService.setParam(param, value);
+    let value;
+    if (this.UserTopicService.STATUSES.indexOf(filter) > -1) {
+      param = 'statuses'; value = [filter];
+    } else if (this.UserTopicService.VISIBILITY.indexOf(filter) > -1) {
+      param = 'visibility'; value = filter;
+    } else {
+      switch (filter) {
+        case 'all':
+          break;
+        case 'haveVoted':
+          param = 'hasVoted'; value = true;
+          break;
+        case 'haveNotVoted':
+          param = 'hasVoted'; value = false;
+          break;
+        case 'iCreated':
+          param = 'creatorId'; value = this.Auth.user.value.id;
+          break;
+        case 'pinnedTopics':
+          param = 'pinned'; value = true;
+          break;
+        case 'showModerated':
+          param = 'showModerated'; value = true;
+          break;
+      };
+    }
+    this.UserTopicService.setParam(param, value);
   }
 
   onSelect(id: string) {

@@ -4,14 +4,24 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { LocationService } from './location.service';
-import { map } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
+import { ItemsListService } from './items-list.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class GroupMemberTopicService {
+export class GroupMemberTopicService extends ItemsListService {
+  params = Object.assign(this.defaultParams, {groupId: <string | null>null});
+  params$ = new BehaviorSubject(this.params);
+  constructor(private http: HttpClient, private Location: LocationService, private Auth: AuthService, private Topic: TopicService) {
+    super();
+    this.items$ = this.loadItems();
+  }
 
-  constructor(private http: HttpClient, private Location: LocationService, private Auth: AuthService, private Topic: TopicService) { }
+  getItems (params:any) {
+    return this.query(params)
+  }
+
   public LEVELS = {
     read: 'read',
     edit: 'edit',

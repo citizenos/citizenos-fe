@@ -1,65 +1,64 @@
-
-
 <!-- LEFT SIDE -->
 <div class="topics_left" [ngClass]="{hidden: (wWidth <= 750)}">
 
-    <div *ngIf="filters" [cosDropdown] class="classic_dropdown">
+  <div *ngIf="filters" [cosDropdown] class="classic_dropdown">
 
-        <div class="dropdown_selection">
-            <div class="dropdown_text" translate="{{filters.selected.name}}">
-                Selected filter
-            </div>
+    <div class="dropdown_selection">
+      <div class="dropdown_text" translate="{{filters.selected.name}}">
+      </div>
 
-            <div class="arrow_holder">
-                <div class="table_cell">
-                    <div class="sprite sprite-icon-dropdown-arrowdown2x"></div>
+      <div class="arrow_holder">
+        <div class="table_cell">
+          <div class="sprite sprite-icon-dropdown-arrowdown2x"></div>
 
-                    <div class="v_line"></div>
-                </div>
-            </div>
+          <div class="v_line"></div>
         </div>
-
-        <div class="dropdown">
-
-            <div class="dropdown_item" *ngFor="let item of filters.items">
-                <div *ngIf="item.children">
-                    <div class="item_category" translate="{{item.name}}">
-                        Item category
-                    </div>
-                    <div class="item_names_wrap">
-                        <div *ngFor="let child of item.children" class="item_name" (click)="onSelect(child.id)" [ngClass]="child === filters.selected ? 'bold' : ''">
-                            <span translate="{{child.name}}">Child name</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div *ngIf="!item.children">
-                    <div class="item_name" (click)="onSelect(item.id)" [ngClass]="item === filters.selected ? 'bold' : ''" translate="{{item.name}}">
-                        Item name
-                    </div>
-                </div>
-
-                <div class="clearer"></div>
-            </div>
-
-        </div>
+      </div>
     </div>
 
-    <!-- Topics -->
-    <topic-list-item [topic]="topic" *ngFor="let topic of topics$ | async"></topic-list-item>
-    <!-- No results -->
-    <div class="no_results table" *ngIf="!(UserTopicService.countTotal$ | async)">
-        <!-- No Groups view -->
-        <div class="v_align_cell">
-            <div class="no_results_icon_wrap">
-                <div class="sprite sprite-icon-no-results2x"></div>
+    <div class="dropdown">
+
+      <div class="dropdown_item" *ngFor="let item of filters.items">
+        <div *ngIf="item.children">
+          <div class="item_category" translate="{{item.name}}">
+            Item category
+          </div>
+          <div class="item_names_wrap">
+            <div *ngFor="let child of item.children" class="item_name" (click)="onSelect(child.id)"
+              [ngClass]="child === filters.selected ? 'bold' : ''">
+              <span translate="{{child.name}}">Child name</span>
             </div>
-            <div class="title_area">
-                <h3 translate="VIEWS.MY.NO_RESULTS_FOUND_TITLE"></h3>
-                <p translate="VIEWS.MY.NO_RESULTS_FOUND_DESCRIPTION"></p>
-            </div>
+          </div>
         </div>
+
+        <div *ngIf="!item.children">
+          <div class="item_name" (click)="onSelect(item.id)" [ngClass]="item === filters.selected ? 'bold' : ''"
+            translate="{{item.name}}">
+            Item name
+          </div>
+        </div>
+
+        <div class="clearer"></div>
+      </div>
+
     </div>
+  </div>
+
+  <!-- Topics -->
+  <topic-list-item [topic]="topic" *ngFor="let topic of topics$ | async"></topic-list-item>
+  <!-- No results -->
+  <div class="no_results table" *ngIf="!(UserTopicService.countTotal$ | async)">
+    <!-- No Groups view -->
+    <div class="v_align_cell">
+      <div class="no_results_icon_wrap">
+        <div class="sprite sprite-icon-no-results2x"></div>
+      </div>
+      <div class="title_area">
+        <h3 translate="VIEWS.MY.NO_RESULTS_FOUND_TITLE"></h3>
+        <p translate="VIEWS.MY.NO_RESULTS_FOUND_DESCRIPTION"></p>
+      </div>
+    </div>
+  </div>
 
 </div>
 

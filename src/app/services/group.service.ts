@@ -7,21 +7,24 @@ import { HttpClient } from '@angular/common/http';
 import { NotificationService } from './notification.service';
 import { AuthService } from './auth.service';
 import { UploadService } from './upload.service';
+import { ItemsListService } from './items-list.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class GroupService {
-
-  params$ = new BehaviorSubject({
-    showModerated: <boolean>false,
-    offset: <number>0,
-    limit: <number>8,
-    orderBy: <string | null>'name',
-    order: <string | null>'ASC',
-    sourcePartnerId: <string | null>null,
-    search: <string | null>null
-  });
+export class GroupService extends ItemsListService {
+  params = Object.assign(this.defaultParams, { groupId: <string | null>null });
+  params$ = new BehaviorSubject(this.params);
+  /*
+    params$ = new BehaviorSubject({
+      showModerated: <boolean>false,
+      offset: <number>0,
+      limit: <number>8,
+      orderBy: <string | null>'name',
+      order: <string | null>'ASC',
+      sourcePartnerId: <string | null>null,
+      search: <string | null>null
+    });*/
 
   public VISIBILITY = {
     public: 'public',
@@ -46,6 +49,12 @@ export class GroupService {
   };
 
   constructor(private Location: LocationService, private http: HttpClient, private Notification: NotificationService, private Auth: AuthService, private Upload: UploadService) {
+    super();
+    this.items$ = this.loadItems();
+  }
+
+  getItems(params: any) {
+    return this.query(params);
   }
 
   get(id: string, params?: { [key: string]: string }): Observable<Group> {
@@ -55,28 +64,25 @@ export class GroupService {
     }
     let path = this.Location.getAbsoluteUrlApi(url, { groupId: id });
 
-    return this.http.get<Group>(path, { withCredentials: true, params, observe: 'body', responseType: 'json' })
-      .pipe(switchMap((res: any) => {
-        const topic = res.data;
-        return of(topic);
-      }))
+    return this.http.get<ApiResponse>(path, { withCredentials: true, params, observe: 'body', responseType: 'json' }).pipe(
+      map(res => res.data)
+    )
+  }
+
+  query(params: any) {
+    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/groups'), params);
+
+    return this.http.get<ApiResponse>(path, { withCredentials: true, params, observe: 'body', responseType: 'json' })
+    .pipe(
+      map(res => res.data)
+    )
   }
 
   save(data: any) {
     let path = this.Location.getAbsoluteUrlApi('/api/users/self/groups');
 
-    return this.http.post(path, data, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
-      map((data) => {
-        return data;
-      }),
-      catchError(res => {
-        if (res.error) {
-          if (res.error.status !== 401) {
-            this.Notification.addError(res.error.status.message);
-          }
-        }
-        return res;
-      })
+    return this.http.post<ApiResponse>(path, data, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
+      map(res => res.data)
     );
   }
 
@@ -87,36 +93,16 @@ export class GroupService {
       sendData[key] = data[key] || null;
     });
     const path = this.Location.getAbsoluteUrlApi('/api/users/self/groups/:groupId', { groupId: data.id || data.groupId });
-    return this.http.put(path, sendData, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
-      map((data) => {
-        return data;
-      }),
-      catchError(res => {
-        if (res.error) {
-          if (res.error.status !== 401) {
-            this.Notification.addError(res.error.status.message);
-          }
-        }
-        return res;
-      })
+    return this.http.put<ApiResponse>(path, sendData, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
+      map(res => res.data)
     );
   }
 
   delete(data: any) {
     const path = this.Location.getAbsoluteUrlApi('/api/users/self/groups/:groupId', { groupId: data.id || data.groupId });
 
-    return this.http.delete(path, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
-      map((data) => {
-        return data;
-      }),
-      catchError(res => {
-        if (res.error) {
-          if (res.error.status !== 401) {
-            this.Notification.addError(res.error.status.message);
-          }
-        }
-        return res;
-      })
+    return this.http.delete<ApiResponse>(path, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
+      map(res => res.data)
     );
   }
 

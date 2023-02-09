@@ -4,9 +4,12 @@ import { AuthService } from 'src/app/services/auth.service';
 import { TopicService } from 'src/app/services/topic.service';
 import { PublicTopicService } from 'src/app/services/public-topic.service';
 import { PublicGroupService } from 'src/app/services/public-group.service';
+import { GroupService } from 'src/app/services/group.service';
 import { of, Subject, Observable } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { Group } from 'src/app/interfaces/group';
+import { GroupCreateComponent } from 'src/app/group/components/group-create/group-create.component';
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -22,9 +25,11 @@ export class HomeComponent implements OnInit {
   destroy$ = new Subject<boolean>();
 
   constructor(
+    private dialog: MatDialog,
     private AuthService: AuthService,
     private route: ActivatedRoute,
     private Topic: TopicService,
+    private GroupService: GroupService,
     private PublicTopicService: PublicTopicService,
     private PublicGroupService: PublicGroupService) {
   }
@@ -57,6 +62,12 @@ export class HomeComponent implements OnInit {
     this.destroy$.next(true);
   }
 
-  createGroup () {}
+  createGroup () {
+    this.dialog.open(GroupCreateComponent, {
+      data: {
+        visibility: this.GroupService.VISIBILITY.private
+      }
+    })
+  }
   createNewTopic() {}
 }

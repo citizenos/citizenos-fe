@@ -1,0 +1,155 @@
+<!-- LIGHTBOX SKELETON -->
+<div id="root_lightbox" class="full_screen">
+
+  <div id="lightbox" class="wide_lightbox with_header_menu" [ngClass]="group.id ? 'with_title_description' : ''">
+
+    <div id="lightbox_wrap">
+
+      <div id="lightbox_header">
+
+        <div id="lightbox_header_text">
+          <div class="title" translate="MODALS.GROUP_ADD_TOPICS_HEADING"></div>
+          <div class="title_description" *ngIf="group.visibility == VISIBILITY.private">
+            {{group.name}}</div>
+          <div class="title_description_register" *ngIf="group.visibility == VISIBILITY.public"
+            translate="MODALS.GROUP_ADD_TOPICS_DESCRIPTION">{{group.name}}</div>
+        </div>
+
+        <div id="lightbox_close" class="ngdialog-close" mat-dialog-close>
+          <div class="table_cell ngdialog-close">
+            <div class="sprite sprite-btn-popup-close2x ngdialog-close">
+            </div>
+          </div>
+        </div>
+
+        <div class="clearer"></div>
+      </div>
+
+      <div class="line lightest_line"></div>
+
+      <!-- ADD TOPICS -->
+      <div class="lightbox_content settings_section_wrap padding_bottom_zero">
+        <div class="lightbox_section" *ngIf="canUpdate()">
+          <div class="input_text_margin_bottom" translate="MODALS.GROUP_CREATE_SETTINGS_LBL_ADD_TOPICS"></div>
+          <!--div [cosDropdown]
+            [ngClass]="{search_with_dropdown : searchResults$.topics.length, dropdown_active : searchResults$.topics.length}">
+            <typeahead class="searchbox_with_icon_and_text auto-complete" items="searchResults$.topics"
+              term=".searchStringTopic" search=".search(term, 'topic')"
+              (select)=".addGroupMemberTopic(item)"
+              [placeholder]="'MODALS.GROUP_CREATE_SETTINGS_PLACEHOLDER_SEARCH_TOPIC' | translate">
+              <div class="search_icon">
+                <div class="table_cell">
+                  <div class="sprite sprite-icon-search-gray-2x"></div>
+                </div>
+              </div>
+              <div class="search_text" (click)="addGroupMemberTopic(item)">
+                <div class="table_cell blue_link" translate="MODALS.GROUP_CREATE_SETTINGS_TXT_PRESS_ENTER_TO_ADD"></div>
+              </div>
+              <div class="search_area_wrap" [ngClass]="{hidden: !searchResults$.topics.length}">
+                <div class="search_dropdown_area">
+                  <div class="search_dropdown_item" typeahead-item="topic"
+                    *ngFor="let topic in searchResults$.topics">
+                    <div class="table_cell search_item_text">
+                      <b>{{topic.title}}</b>
+                    </div>
+                    <div class="table_cell blue_link">
+                      <span class="submit_link" (click)="addGroupMemberTopic(topic)"
+                        translate="MODALS.GROUP_CREATE_SETTINGS_TXT_PRESS_ENTER_OR_CLICK_TO_ADD"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </typeahead>
+          </!--div-->
+        </div>
+        <!--div class="lightbox_section double_row_list small_header" *ngIf="memberTopics.length">
+          <div class="category_title">
+            <div class="table_cell">
+              Order by:
+              <div class="black_link" (click)="doOrderTopics('title')">
+                <span translate="MODALS.GROUP_CREATE_SETTINGS_TH_TITLE"></span>
+                <div class="sprite sprite-icon-list-ordering2x"
+                  *ngIf="topicList.searchOrderBy.property === 'title' || topicList.searchOrderBy.property === '-title'"
+                  [ngClass]="{desc : topicList.searchOrderBy.property === '-title'}"></div>
+              </div>
+              <div class="black_link" (click)=".doOrderTopics('members.users.count')">
+                <span translate="MODALS.GROUP_CREATE_SETTINGS_TH_USERS">Users</span>
+                <div class="sprite sprite-icon-list-ordering2x"
+                  *ngIf="topicList.searchOrderBy.property === 'members.users.count' || topicList.searchOrderBy.property === '-members.users.count'"
+                  [ngClass]="{desc : topicList.searchOrderBy.property === '-members.users.count'}"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="double_row_item"
+            *ngFor="let topic of memberTopics | orderBy: topicList.searchOrderBy.property">
+            <div class="blue_link">
+              {{topic.title}}
+            </div>
+            <div class="double_row_footer">
+              <div class="left" translate="MODALS.GROUP_CREATE_SETTINGS_TXT_TOPIC_USERS"
+                [translateParams]="{count: .topic.members.users.countTotal}"></div>
+              <div class="right">
+                <span class="dropdown_description" translate="MODALS.GROUP_CREATE_SETTINGS_LBL_GROUP_RIGHTS"></span>
+
+                <div class="btn_wrap recycle_bin white_bg">
+                  <div class="btn">
+                    <div class="table_cell" (click)="removeGroupMemberTopic(topic)">
+                      <div class="sprite desktop_fix sprite-mytopics-icon-deletetopic2x"></div>
+                      <div class="sprite mobile_fix sprite-voted-check2x"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div [cosDropdown] class="classic_dropdown"
+                  *ngIf="group.visibility === VISIBILITY.private">
+                  <div class="dropdown_selection">
+                    <div class="dropdown_text">
+                      {{'TXT_TOPIC_LEVELS_' + topic.permission.level | uppercase | translate}}
+                    </div>
+
+                    <div class="arrow_holder">
+                      <div class="table_cell">
+                        <div class="sprite sprite-icon-dropdown-arrowdown2x"></div>
+
+                        <div class="v_line"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="dropdown">
+                    <div class="dropdown_item" *ngFor="let level of LEVELS">
+                      <div class="item_name" (click)=".updateGroupMemberTopicLevel(topic, level)">
+                        {{'TXT_TOPIC_LEVELS_' + level | uppercase | translate}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="bold" *ngIf="group.visibility === VISIBILITY.public">
+                  {{'TXT_TOPIC_LEVELS_' + topic.permission.level | uppercase | translate}}
+                </div>
+              </div>
+
+              <div class="clearer"></div>
+
+            </div>
+          </div>
+
+        </!--div-->
+      </div>
+
+      <div class="lightbox_footer">
+
+        <div class="line lightest_line"></div>
+        <div class="blue_button_wrap">
+          <div class="blue_button" *ngIf="canUpdate()" (click)="doSaveGroup()"
+            translate="MODALS.GROUP_CREATE_SETTINGS_BTN_SAVE_GROUP"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="close_lightbox" class="ngdialog-close" mat-dialog-close></div>
+
+</div>

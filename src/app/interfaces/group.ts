@@ -5,6 +5,7 @@ export interface Group {
   visibility:	string,
   join: {token: string, level: string},
   createdAt:	string,
+  updatedAt: string,
   sourcePartnerId:	string | null,
   sourcePartnerObjectId:	string | null,
   permission: {level: string},

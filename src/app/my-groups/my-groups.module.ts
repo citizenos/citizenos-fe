@@ -5,11 +5,15 @@ import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '../shared/shared.module';
 import { MyGroupsComponent } from './my-groups.component';
 import { GroupListComponent } from './components/group-list/group-list.component';
+import { GroupListItemComponent } from './components/group-list-item/group-list-item.component';
+import { MyGroupComponent } from './components/my-group/my-group.component';
 
 @NgModule({
   declarations: [
     MyGroupsComponent,
-    GroupListComponent
+    GroupListComponent,
+    GroupListItemComponent,
+    MyGroupComponent
   ],
   imports: [
     CommonModule,
