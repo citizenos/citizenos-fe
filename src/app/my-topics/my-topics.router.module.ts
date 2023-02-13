@@ -7,10 +7,10 @@ import { TopicSettingsDialogComponent } from '../topic/components/topic-settings
 
 const routes: Routes = [
   {
-    path: '', component: MyTopicsComponent, children: [
+    path: '', data: {name: 'myTopicsView'}, component: MyTopicsComponent, children: [
       {
-        path: ':topicId', children: [
-          { path: '', component: MyTopicComponent, outlet: 'mytopicsright' },
+        path: ':topicId', data: {name: 'myTopicView'}, children: [
+          { path: '', component: MyTopicComponent, outlet: 'mytopicsright', data: {name: 'myTopicView'}},
           {
             path: 'invite', children: [
               { path: '', component: TopicInviteDialogComponent }

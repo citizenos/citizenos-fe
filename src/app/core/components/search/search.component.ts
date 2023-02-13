@@ -11,8 +11,6 @@ import { take } from 'rxjs';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
-  showSearchResults: boolean = false;
-  showSearch = true;
   noResults = true;
   config: any;
   lnkDonate: string;
@@ -38,7 +36,7 @@ export class SearchComponent implements OnInit {
     this.noResults = true;
 
     if (!str || str.length < 3) {
-      return this.showSearchResults = false;
+      return this.app.showSearchResults = false;
     }
     let include = ['public.topic', 'public.group'];
 
@@ -58,11 +56,11 @@ export class SearchComponent implements OnInit {
         next: (data) => {
           console.log(data.results)
           this.searchResults = data.results;
-          this.showSearchResults=true;
+          this.app.showSearchResults=true;
           this.noResults = false;
           /*this.searchResults = result.data.data.results;
           this.searchResults.combined = [];
-          this.app.showSearchResults = true;
+          this.app.app.showSearchResults = true;
           this.app.showNav = false;
           this.app.showSearchFiltersMobile = false;
           this.combineResults();*/
@@ -75,7 +73,7 @@ export class SearchComponent implements OnInit {
   goToView(item:any, context?:any) {
     console.log(context)
     if (item) {
-      this.showSearchResults = false;
+      this.app.showSearchResults = false;
       let model = 'topic';
       if (item.id === 'viewMore') {
         model = 'viewMore';
@@ -136,9 +134,9 @@ export class SearchComponent implements OnInit {
   };
 
   closeSearchArea () {
-    this.showSearchResults = false;
+    this.app.showSearchResults = false;
    // this.searchInput = null;
     this.searchResults.combined = [];
-    this.showSearch = false;
+    this.app.showSearch = false;
 };
 }

@@ -23,7 +23,7 @@
           <span [innerText]="group.description"></span>
         </div>
         <div class="group_actions">
-          <div class="group_members" (click)="shareGroupDialog();$event.stopPropagation();" *ngIf="group.userLevel">
+          <div class="group_members" (click)="shareGroupDialog(group);$event.stopPropagation();" *ngIf="group.userLevel">
             <span translate="VIEWS.PUBLIC_GROUP.BTN_INVITE_SHARE"></span>
           </div>
           <div [cosDropdown] class="bar_select bar_select_blue" *ngIf="GroupService.canUpdate(group)">
@@ -74,7 +74,7 @@
                 <div class="item_name" translate="VIEWS.PUBLIC_GROUP.ACTION_OPTION_LEAVE"></div>
                 <div class="clearer"></div>
               </div>
-              <div class="dropdown_item" (click)="deleteGroup()" *ngIf="GroupService.canUpdate(group)">
+              <div class="dropdown_item" (click)="deleteGroup(group)" *ngIf="GroupService.canUpdate(group)">
                 <div class="icon icon_delete"></div>
                 <div class="item_name red_text" translate="VIEWS.PUBLIC_GROUP.ACTION_OPTION_DELETE"></div>
                 <div class="clearer"></div>
@@ -182,7 +182,7 @@
           </div>
           <group-member-topic class="group_item_row pretend_tr"
             *ngFor="let topic of PublicGroupMemberTopicsService.items$ | async" [fields]="['lastActivity', 'status']"
-            [memberTopic]="topic" [group]="group"></group-member-topic>
+            [topic]="topic" [group]="group"></group-member-topic>
           <div class="pretend_tr" *ngIf="PublicGroupMemberTopicsService.totalPages$ | async as pages">
             <div class="pagination_wrapper">
 

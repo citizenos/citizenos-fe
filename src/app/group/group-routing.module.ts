@@ -10,7 +10,8 @@ const routes: Routes = [
         path: ':groupId', component: GroupComponent, children: [
           { path: 'settings', component: GroupSettingsDialogComponent },
         ]
-      }
+      },
+      {path: '', redirectTo: '/my/groups', pathMatch: 'prefix'},
     ]
   }
 ];

@@ -34,6 +34,8 @@ import { TopicSocialMentionsComponent } from './components/topic-social-mentions
 import { TopicVoteSignComponent } from './components/topic-vote-sign/topic-vote-sign.component';
 import { TopicVoteSignEsteidComponent } from './components/topic-vote-sign-esteid/topic-vote-sign-esteid.component';
 import { TopicVoteSignSmartidComponent } from './components/topic-vote-sign-smartid/topic-vote-sign-smartid.component';
+import { ArgumentReportComponent } from './components/argument-report/argument-report.component';
+import { ArgumentReportModerateComponent, ArgumentReportModerateDialogComponent } from './components/argument-report-moderate/argument-report-moderate.component';
 
 
 @NgModule({
@@ -72,6 +74,9 @@ import { TopicVoteSignSmartidComponent } from './components/topic-vote-sign-smar
     TopicVoteSignComponent,
     TopicVoteSignEsteidComponent,
     TopicVoteSignSmartidComponent,
+    ArgumentReportComponent,
+    ArgumentReportModerateComponent,
+    ArgumentReportModerateDialogComponent
   ],
   imports: [
     CommonModule,

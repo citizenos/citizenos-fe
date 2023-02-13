@@ -88,75 +88,6 @@
               </tr>
               <topic-member-user class="pretend_tr" *ngFor="let user of memberUsers" [member]="user" [topic]="topic"
                 fields="['level', 'remove']"></topic-member-user>
-              <!--tr [ngClass]="{'with_padding': $first}" *ngFor="let user of memberUsers$ | async; let $first = first;">
-              <td>
-                <div class="profile_image_wrapper dark">
-                  <!--div class="profile_moon sprite sprite-icon-certified-fb2x"></div>
-                  <div class="account_picture">
-                    <img *ngIf="user.imageUrl" [src]="user.imageUrl">
-                    <div *ngIf="!user.imageUrl" class="profile_image_filler">
-                      <cos-initials class="table_cell" [(ngModel)]="user.name"></cos-initials>
-                      <div class="profile_circle"></div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="name_wrap">
-                  <div class="table_cell">
-                    <div [innerText]="user.name"
-                      [tooltip]="'<span class=\'creator_data_tooltip_row\'>'+user.email+'</span><span class=\'creator_data_tooltip_row\'>'+user.phoneNumber+'</span><span class=\'creator_data_tooltip_row\'>'+user.pid+'</span>'">
-                    </div>
-                    <div class="via" *ngIf="user.email">
-                      <span [innerText]="user.email"></span>
-                    </div>
-                    <div class="via" *ngIf="user.groups.rows.length && !user.levelUser">
-                      <span translate="MODALS.TOPIC_MEMBERS_LBL_VIA">via</span> <span
-                        *ngFor="let group of user.groups.rows; let $first = first;"><span *ngIf="!$first">, </span><span
-                          *ngIf="group.name" class="blue_link"
-                          ui-sref="my/groups/groupId({groupId: group.id, filter: 'grouped'})">{{group.name}}
-                          ({{'TXT_TOPIC_LEVELS_' + group.level | uppercase | translate}})</span><i *ngIf="!group.name"
-                          class="disabled" translate="MODALS.TOPIC_MEMBERS_LBL_INACCESSIBLE_GROUP"
-                          [translateParams]="{level: ('TXT_TOPIC_LEVELS_' + group.level | uppercase | translate)}"></i>
-                        <i class="disabled">(<span
-                            translate="{{'TXT_TOPIC_LEVELS_' + group.level | uppercase }}">admin</span>)</i></span>
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <div cos-dropdown class="classic_dropdown" *ngIf="canUpdate()">
-                  <div class="dropdown_selection">
-                    <div class="dropdown_text">{{'TXT_TOPIC_LEVELS_' + user.level | uppercase | translate}}</div>
-
-                    <div class="arrow_holder">
-                      <div class="table_cell">
-                        <div class="sprite sprite-icon-dropdown-arrowdown2x"></div>
-
-                        <div class="v_line"></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="dropdown">
-                    <div class="dropdown_item" *ngFor="let level of LEVELS">
-                      <div class="item_name" (click)="doUpdateMemberUser(user, level)">{{'TXT_TOPIC_LEVELS_' +
-                        level | uppercase | translate}}</div>
-                    </div>
-                  </div>
-                </div>
-                <span *ngIf="!canUpdate()" class="user_level_text">{{'TXT_TOPIC_LEVELS_' +
-                  user.level | uppercase | translate}}</span>
-              </td>
-              <td class="recycle_bin_wrap" *ngIf="canUpdate()">
-                <div class="btn_wrap recycle_bin" *ngIf="user.levelUser">
-                  <div class="btn" (click)="doDeleteMemberUser(user)">
-                    <div class="table_cell">
-                      <div class="sprite desktop_fix sprite-mytopics-icon-deletetopic2x"></div>
-                      <div class="sprite mobile_fix sprite-mytopics-icon-deletetopic2x"></div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-            </!--tr-->
             </table>
             <div class="pagination_row">
               <div class="pagination_wrapper">
@@ -211,46 +142,6 @@
               </tr>
               <topic-member-group [topic]="topic" [group]="group" class="pretend_tr"
                 *ngFor="let group of memberGroups"></topic-member-group>
-              <!--tr-- [ngClass]="{'with_padding': $first}" *ngFor="let group of memberGroups$ | async; let $first = first;">
-              <td>
-                <div class="blue_link" *ngIf="group.permission.level"
-                  ui-sref="my/groups/groupId({groupId: group.id, filter: 'grouped'})" ui-sref-opts="{reload: true}"
-                  [innerText]="group.name"></div>
-                <div *ngIf="!group.permission.level"><i class="disabled"
-                    translate="MODALS.TOPIC_MEMBERS_LBL_INACCESSIBLE_GROUP"></i></div>
-              </td>
-              <td>
-                <div cos-dropdown class="classic_dropdown">
-                  <div class="dropdown_selection">
-                    <div class="dropdown_text">{{'TXT_TOPIC_LEVELS_' + group.level | uppercase | translate}}</div>
-
-                    <div class="arrow_holder">
-                      <div class="table_cell">
-                        <div class="sprite sprite-icon-dropdown-arrowdown2x"></div>
-
-                        <div class="v_line"></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="dropdown">
-                    <div class="dropdown_item" ng-repeat="(key, level) in Topic.LEVELS">
-                      <div class="item_name" (click)="doUpdateMemberGroup(group, level)">{{'TXT_TOPIC_LEVELS_' +
-                        level | uppercase | translate}}</div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td class="recycle_bin_wrap">
-                <div class="btn_wrap recycle_bin" *ngIf="canUpdate()">
-                  <div class="btn" (click)="doDeleteMemberGroup(group)">
-                    <div class="table_cell">
-                      <div class="sprite desktop_fix sprite-mytopics-icon-deletetopic2x"></div>
-                      <div class="sprite mobile_fix sprite-mytopics-icon-deletetopic2x"></div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-            </!--tr-->
             </table>
             <div class="pagination_row">
               <div class="pagination_wrapper">
@@ -303,68 +194,6 @@
             </tr>
             <topic-member-invite class="pretend_tr" *ngFor="let invite of memberInvites" [invite]="invite"
               [topic]="topic" fields="['level', 'remove']"></topic-member-invite>
-            <!--tr [ngClass]="{'with_padding': $first}" ng-repeat="invite in TopicInviteUserService.users">
-              <td>
-                <div class="profile_image_wrapper dark">
-                  <div class="profile_moon sprite sprite-icon-certified-fb2x"></div>
-              <div class="account_picture">
-                <img *ngIf="invite.user.imageUrl" ng-src="{{invite.user.imageUrl}}">
-                <div *ngIf="!invite.user.imageUrl" class="profile_image_filler">
-                  <cos-initials class="table_cell" [(ngModel)]="invite.user.name"></cos-initials>
-                  <div class="profile_circle"></div>
-                </div>
-              </div>
-            </div>
-            <div class="name_wrap">
-              <div class="table_cell smooth_gray">
-                <div [innerText]="invite.user.name" tooltips
-                  tooltip-hidden="{{(!invite.user.email && !invite.user.pid && !invite.user.phoneNumber)}}"
-                  tooltip-class="tooltip_author"
-                  tooltip-template="<span class='creator_data_tooltip_row'>{{invite.user.email}}</span><span class='creator_data_tooltip_row'>{{invite.user.phoneNumber}}</span><span class='creator_data_tooltip_row'>{{invite.user.pid}}</span>"
-                  tooltip-smart="true">invite.user.name</div>
-                <div class="via">
-                  <span translate="MODALS.TOPIC_MEMBERS_TXT_INVITE_PENDING"></span> <span
-                    *ngIf="invite.user.email" [innerText]="invite.user.email"></span>
-                </div>
-                <div class="via error">
-                  <span translate="MODALS.TOPIC_MEMBERS_TXT_INVITE_EXPIRED"></span>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td>
-            <div cos-dropdown class="classic_dropdown">
-              <div class="dropdown_selection">
-                <div class="dropdown_text">{{'TXT_TOPIC_LEVELS_' + invite.level | uppercase | translate}}</div>
-
-                <div class="dropdown">
-                  <div class="dropdown_item" ng-repeat="(key, level) in Topic.LEVELS">
-                    <div class="item_name" (click)="doUpdateInvite(invite, level)">{{'TXT_TOPIC_LEVELS_' + level
-                      | uppercase | translate}}</div>
-                  </div>
-                </div>
-
-                <div class="arrow_holder">
-                  <div class="table_cell">
-                    <div class="sprite sprite-icon-dropdown-arrowdown2x"></div>
-
-                    <div class="v_line"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td class="recycle_bin_wrap">
-            <div class="btn_wrap recycle_bin" *ngIf="canUpdate()">
-              <div class="btn" (click)="doDeleteInviteUser(invite)">
-                <div class="table_cell">
-                  <div class="sprite desktop_fix sprite-mytopics-icon-deletetopic2x"></div>
-                  <div class="sprite mobile_fix sprite-mytopics-icon-deletetopic2x"></div>
-                </div>
-              </div>
-            </div>
-          </td>
-        </!--tr-->
           </table>
           <div class="pagination_row">
             <div class="pagination_wrapper">

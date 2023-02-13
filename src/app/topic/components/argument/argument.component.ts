@@ -11,6 +11,7 @@ import { TopicArgumentService } from 'src/app/services/topic-argument.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { ArgumentReactionsComponent } from '../argument-reactions/argument-reactions.component';
+import { ArgumentReportComponent } from '../argument-report/argument-report.component';
 @Component({
   selector: 'argument',
   templateUrl: './argument.component.html',
@@ -25,6 +26,7 @@ export class ArgumentComponent implements OnInit {
   showEdits = false;
   showReply = false;
   showReplies = false;
+  readMore = false;
   showDeletedArgument = false;
   isReply = false;
   errors = [];
@@ -117,11 +119,12 @@ export class ArgumentComponent implements OnInit {
   };
 
   doArgumentReport() {
-    /*this.ngDialog
-        .open({
-            template: '<topic-comment-report comment-id="'+comment.id+'"></topic-comment-report>',
-            plain: true
-        });*/
+    this.dialog.open(ArgumentReportComponent, {
+      data: {
+        argument: this.argument,
+        topicId: this.topicId
+      }
+    });
   };
 
   doArgumentVote(value: number) {

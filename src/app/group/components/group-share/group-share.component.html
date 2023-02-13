@@ -1,10 +1,10 @@
-<div class="lightbox_section" *ngIf="group && GroupService.canShare(group)">
+<div class="lightbox_section" *ngIf="group && canShare()">
   <h3 translate="MODALS.TOPIC_SETTINGS_HEADING_LINK_SHARING"></h3>
   <div class="share_link">
     <div class="table_row">
       <div class="searchbox_with_icon_and_text only_text">
         <input id="url_invite_group_input" [value]="joinUrl"
-          placeholder="{{'MODALS.GROUP_CREATE_SETTINGS_PLACEHOLDER_CREATE_NEW_LINK' | translate}}">
+          [placeholder]="'MODALS.GROUP_CREATE_SETTINGS_PLACEHOLDER_CREATE_NEW_LINK' | translate">
         <div class="regenerate_link not_mobile" (click)="generateTokenJoin()"
           *ngIf="canUpdate()">
           <div class="sprite sprite-icon-refresh"></div>
@@ -33,7 +33,7 @@
         </div>
 
         <div class="dropdown">
-          <div class="dropdown_item" *ngFor="let level of GroupMemberUser.LEVELS">
+          <div class="dropdown_item" *ngFor="let level of LEVELS">
             <div class="item_name" (click)="doUpdateJoinToken(level)">
               {{('TXT_GROUP_LEVELS_' + level | uppercase) | translate}}
             </div>

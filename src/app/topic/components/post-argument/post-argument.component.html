@@ -4,7 +4,7 @@
   </div>
   <form [attr.disabled]="!loggedIn()" name="argumentForm">
     <div [cosDropdown] class="classic_dropdown"
-      [ngClass]="{'error_input': errors?.argumentType, 'placeholder': !argumentType}"><!--cos-dropdown-mobile="{{app.isTouchDevice()}}"-->
+      [ngClass]="{'error_input': errors?.argumentType, 'placeholder': !argumentType}" [cosDropdownMobile]="app.isTouchDevice()">
       <div class="dropdown_selection">
         <div class="dropdown_text">
           {{('VIEWS.TOPICS_TOPICID.COMMENT_TYPE_SELECT_OPTION_' + argumentType | uppercase) | translate}} <span

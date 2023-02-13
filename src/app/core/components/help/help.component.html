@@ -27,7 +27,7 @@
       </div>
     </div>
     <div class="help_content">
-      <iframe id="help_frame" name="help_frame" *ngIf="(app.showHelp| async)" frameborder="0" [src]="urlSafe"
+      <iframe id="help_frame" #helpFrame name="help_frame" *ngIf="(app.showHelp| async)" frameborder="0" [src]="urlSafe"
         width="100%"></iframe>
     </div>
   </div>

@@ -18,7 +18,7 @@ export class TypeaheadItem implements OnDestroy {
   styleUrls: ['./typeahead.component.scss']
 })
 export class TypeaheadComponent implements OnInit {
-  @Input() enterAction: ((args: any) => void) | undefined;
+  @Output() enterAction = new EventEmitter<any | null>();
   @Input() selectLimit: number | null | undefined;
   @Input() items: string[] | any = [];
   @Input() term: string | undefined | null = null;
@@ -52,7 +52,6 @@ export class TypeaheadComponent implements OnInit {
   @HostListener('keyup', ['$event']) keyup(e: any) {
     if (e.keyCode === 13) { // ENTER
       if (!this.selectLimit || (this.term && (this.selectLimit <= this.term.length)) || (this.items && this.items.length)) {
-
         this.selectActive();
       } else {
         this.doEnterAction();
@@ -101,12 +100,13 @@ export class TypeaheadComponent implements OnInit {
   };
 
   selectActive() {
-      this.doSelect(this.active);
+    if (!this.active) this.active = this.items[0];
+    this.doSelect(this.active);
   };
 
   doEnterAction() {
     if (this.enterAction)
-      this.enterAction({ text: this.term, limit: true });
+      this.enterAction.emit({ text: this.term, limit: true });
   };
 
   doSelect(item: any) {

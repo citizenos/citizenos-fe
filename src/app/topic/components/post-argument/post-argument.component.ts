@@ -17,7 +17,7 @@ export class PostArgumentComponent implements OnInit {
   argumentType = <string>'pro';
   text = <string>'';
   errors: any;
-  ARGUMENT_TYPES = Object.keys(this.TopicArgumentService.ARGUMENT_TYPES);
+  ARGUMENT_TYPES = Object.keys(this.TopicArgumentService.ARGUMENT_TYPES).filter((key) => key !='reply');
   ARGUMENT_TYPES_MAXLENGTH = this.TopicArgumentService.ARGUMENT_TYPES_MAXLENGTH;
   ARGUMENT_SUBJECT_MAXLENGTH = this.TopicArgumentService.ARGUMENT_SUBJECT_MAXLENGTH;
   private COMMENT_VERSION_SEPARATOR = '_v';

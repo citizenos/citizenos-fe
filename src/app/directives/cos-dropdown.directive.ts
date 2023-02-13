@@ -41,12 +41,12 @@ export class CosDropdownDirective implements OnDestroy {
   ngOnDestroy(): void {
   }
 
-  @HostListener('mouseenter', ['$event.target'])
-  mouseenter(targetElem: any) {
+  @HostListener('mouseover', ['$event.target'])
+  mouseenter(item: any) {
     const dropdownWithDescription = this.elem.nativeElement.getElementsByClassName('dropdown with_description')[0];
-    if (dropdownWithDescription) {
-      const elementMouseEnterHandler = (item: Element) => {
-        const elementClasses = item.classList;
+    if (dropdownWithDescription && item.classList.contains('dropdown_item')) {
+      const dropdownItems = dropdownWithDescription.getElementsByClassName('dropdown_item');
+      const elementClasses = item.classList;
         let itemClass;
 
         // find the "item_*" class name to use it to highlight the right description
@@ -74,83 +74,6 @@ export class CosDropdownDirective implements OnDestroy {
             }
           }
         }
-      };
-
-      const dropdownItems = dropdownWithDescription.getElementsByClassName('dropdown_item');
-      for (let i = 0; i < dropdownItems.length; i++) {
-        dropdownItems[i].addEventListener('mouseenter', elementMouseEnterHandler(dropdownItems[i]));
-      }
-      /*
-        const elementClasses = this.elem.nativeElement.classList;
-        let itemClass;
-
-        // find the "item_*" class name to use it to highlight the right description
-        for (var i = 0; i < elementClasses.length; i++) {
-            if (elementClasses[i].indexOf('item_') === 0) {
-                itemClass = elementClasses[i];
-                break;
-            }
-        }
-        if (itemClass) {
-            // Add active class to the dropdown items
-            for (var j = 0; j < dropdownItems.length; j++) {
-                dropdownItems[j].classList.remove('active');
-            }
-            elementClasses.add('active');
-
-            // Add active to the relevant description
-            var itemDescriptions = dropdownWithDescription.getElementsByClassName('item_description');
-            for (var k = 0; k < itemDescriptions.length; k++) {
-                var itemDescriptionClassList = itemDescriptions[k].classList;
-                if (itemDescriptionClassList.contains(itemClass)) {
-                    itemDescriptionClassList.add('active');
-                } else {
-                    itemDescriptionClassList.remove('active');
-                }
-            }
-        }*/
     }
   }
-  /*
-    setTimeout(() => {
-      var dropdownWithDescription = elem[0].getElementsByClassName('dropdown with_description')[0];
-      if (dropdownWithDescription) {
-          var dropdownItems = dropdownWithDescription.getElementsByClassName('dropdown_item');
-
-          var elementMouseEnterHandler = function () {
-              var elementClasses = this.classList;
-              var itemClass;
-
-              // find the "item_*" class name to use it to highlight the right description
-              for (var i = 0; i < elementClasses.length; i++) {
-                  if (elementClasses[i].indexOf('item_') === 0) {
-                      itemClass = elementClasses[i];
-                      break;
-                  }
-              }
-              if (itemClass) {
-                  // Add active class to the dropdown items
-                  for (var j = 0; j < dropdownItems.length; j++) {
-                      dropdownItems[j].classList.remove('active');
-                  }
-                  elementClasses.add('active');
-
-                  // Add active to the relevant description
-                  var itemDescriptions = dropdownWithDescription.getElementsByClassName('item_description');
-                  for (var k = 0; k < itemDescriptions.length; k++) {
-                      var itemDescriptionClassList = itemDescriptions[k].classList;
-                      if (itemDescriptionClassList.contains(itemClass)) {
-                          itemDescriptionClassList.add('active');
-                      } else {
-                          itemDescriptionClassList.remove('active');
-                      }
-                  }
-              }
-          };
-
-          for (var i = 0; i < dropdownItems.length; i++) {
-              dropdownItems[i].addEventListener('mouseenter', elementMouseEnterHandler.bind(dropdownItems[i]));
-          }
-      }
-    })*/
 }

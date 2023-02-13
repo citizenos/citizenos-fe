@@ -38,7 +38,7 @@
       <!-- INVITE USERS -->
       <div class="lightbox_content settings_section_wrap padding_bottom_zero" *ngIf="tabSelected === 'users'">
 
-        <div class="lightbox_section" *ngIf="GroupService.canShare(group)">
+        <div class="lightbox_section" *ngIf="canShare()">
           <div class="input_text_margin_bottom" translate="MODALS.GROUP_CREATE_SETTINGS_INVITE_LBL_OPTIONAL_MESSAGE">
           </div>
           <textarea id="invite_body" class="gray_borders" [(ngModel)]="inviteMessage"
@@ -139,7 +139,7 @@
                   <div class="mobile_extra_info">
                     <div class="left">
 
-                      <div [cosDropdown] class="classic_dropdown" *ngIf="GroupService.canUpdate(group)">
+                      <div [cosDropdown] class="classic_dropdown" *ngIf="canUpdate()">
 
                         <div class="dropdown_selection">
                           <div class="dropdown_text">
@@ -156,7 +156,7 @@
                         </div>
 
                         <div class="dropdown">
-                          <div class="dropdown_item" *ngFor="let level of GroupMemberUser.LEVELS">
+                          <div class="dropdown_item" *ngFor="let level of LEVELS">
                             <div class="item_name" (click)="updateGroupLevel(level)">
                               {{'TXT_TOPIC_LEVELS_' + level | uppercase | translate}}
                             </div>
@@ -177,8 +177,8 @@
                     </div>
                   </div>
                 </td>
-                <td *ngIf="GroupService.canUpdate(group)">
-                  <div [cosDropdown] class="classic_dropdown" *ngIf="GroupService.canUpdate(group)">
+                <td *ngIf="canUpdate()">
+                  <div [cosDropdown] class="classic_dropdown" *ngIf="canUpdate()">
 
                     <div class="dropdown_selection">
                       <div class="dropdown_text">
@@ -195,7 +195,7 @@
                     </div>
 
                     <div class="dropdown">
-                      <div class="dropdown_item" *ngFor="let level of GroupMemberUser.LEVELS">
+                      <div class="dropdown_item" *ngFor="let level of LEVELS">
                         <div *ngIf="level !=='none'" class="item_name" (click)="updateGroupLevel(level)">
                           {{'TXT_TOPIC_LEVELS_' + level | uppercase | translate}}
                         </div>
@@ -247,7 +247,7 @@
 
                       <div class="mobile_extra_info">
                         <div class="left">
-                          <div [cosDropdown] class="classic_dropdown" *ngIf="GroupService.canUpdate(group)">
+                          <div [cosDropdown] class="classic_dropdown" *ngIf="canUpdate()">
 
                             <div class="dropdown_selection">
                               <div class="dropdown_text">
@@ -264,7 +264,7 @@
                             </div>
 
                             <div class="dropdown">
-                              <div class="dropdown_item" *ngFor="let level of GroupMemberUser.LEVELS">
+                              <div class="dropdown_item" *ngFor="let level of LEVELS">
                                 <div class="item_name" (click)="updateGroupMemberUserLevel(member.value, level)">
                                   {{'TXT_TOPIC_LEVELS_' + level | uppercase | translate}}
                                 </div>
@@ -287,7 +287,7 @@
                     </td>
 
                     <td>
-                      <div [cosDropdown] class="classic_dropdown" *ngIf="GroupService.canUpdate(group)">
+                      <div [cosDropdown] class="classic_dropdown" *ngIf="canUpdate()">
 
                         <div class="dropdown_selection">
                           <div class="dropdown_text">
@@ -304,7 +304,7 @@
                         </div>
 
                         <div class="dropdown">
-                          <div class="dropdown_item" *ngFor="let level of GroupMemberUser.LEVELS">
+                          <div class="dropdown_item" *ngFor="let level of LEVELS">
                             <div class="item_name" (click)="updateGroupMemberUserLevel(member.value, level)">
                               {{'TXT_TOPIC_LEVELS_' + level | uppercase | translate}}
                             </div>
@@ -342,9 +342,9 @@
 
         <div class="line lightest_line"></div>
         <div class="blue_button_wrap">
-          <div class="blue_button" *ngIf="!members.length && GroupService.canShare(group)" mat-dialog-close
+          <div class="blue_button" *ngIf="!members.length && canShare()" mat-dialog-close
             translate="MODALS.GROUP_CREATE_SETTINGS_BTN_SAVE_GROUP"></div>
-          <div class="blue_button" *ngIf="members.length && GroupService.canShare(group)" (click)="doSaveGroup()"
+          <div class="blue_button" *ngIf="members.length && canShare()" (click)="doSaveGroup()"
             translate="MODALS.GROUP_CREATE_SETTINGS_BTN_SAVE_GROUP_AND_INVITE"></div>
         </div>
       </div>

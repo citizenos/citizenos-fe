@@ -67,19 +67,18 @@
       <div class="section">
         <a (click)="doShowActivityModal()" class="section_item">
           <div class="section_icon">
-            <ng-container
-              *ngIf="unreadActivitiesCount$ | async ; then unread; else noUnread">
+            <ng-container *ngIf="unreadActivitiesCount$ | async ; then unread; else noUnread">
             </ng-container>
-              <div class="table_cell">
-                <ng-template #noUnread>
-                  <div class="sprite sprite-menu-icon-activities2x"></div>
-                </ng-template>
-                <ng-template #unread>
-                  <div class="activities_counter">
-                    {{newActivities}}
-                  </div>
-                </ng-template>
-              </div>
+            <div class="table_cell">
+              <ng-template #noUnread>
+                <div class="sprite sprite-menu-icon-activities2x"></div>
+              </ng-template>
+              <ng-template #unread>
+                <div class="activities_counter">
+                  {{newActivities}}
+                </div>
+              </ng-template>
+            </div>
           </div>
           <span id="activity_feed_link_text" translate="DEFAULT.NAV.LNK_ACTIVITY"></span>
         </a>
@@ -133,8 +132,7 @@
           </div>
           <span translate="DEFAULT.NAV.HEADING_GROUPS"></span>
         </div>
-        <a routerLink="my/groups/create" routerLinkActive="active"
-          class="section_item bold_blue">
+        <a routerLink="my/groups/create" routerLinkActive="active" class="section_item bold_blue">
           <div class="section_icon">
             <div class="table_cell">
               <div class="sprite sprite-bullet-plus2x"></div>
@@ -142,8 +140,7 @@
           </div>
           <span translate="DEFAULT.NAV.LNK_CREATE_GROUPS"></span>
         </a>
-        <a routerLink="my/groups" routerLinkActive="active"
-          class="section_item"><!--({filter: 'grouped'})-->
+        <a routerLink="my/groups" routerLinkActive="active" class="section_item"><!--({filter: 'grouped'})-->
           <div class="section_icon">
             <div class="table_cell">
               <div class="sprite sprite-bullet-arrow2x"></div>

@@ -7,6 +7,7 @@ import { MyGroupsComponent } from './my-groups.component';
 import { GroupListComponent } from './components/group-list/group-list.component';
 import { GroupListItemComponent } from './components/group-list-item/group-list-item.component';
 import { MyGroupComponent } from './components/my-group/my-group.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { MyGroupComponent } from './components/my-group/my-group.component';
   ],
   imports: [
     CommonModule,
+    FormsModule,
     SharedModule,
     MyGroupsRoutingModule,
     TranslateModule

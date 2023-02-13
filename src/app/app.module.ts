@@ -32,6 +32,9 @@ import { SharedModule } from './shared/shared.module';
 import { HttpErrorInterceptor } from './services/http.error.interceptor.service';
 import { EstIdLoginComponent } from './account/components/est-id-login/est-id-login.component';
 import { SearchComponent } from './core/components/search/search.component';
+import { PageNotFoundComponent } from './core/components/page-not-found/page-not-found.component';
+import { PageUnauthorizedComponent } from './core/components/page-unauthorized/page-unauthorized.component';
+import { NavMobileComponent } from './core/components/nav-mobile/nav-mobile.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +47,9 @@ import { SearchComponent } from './core/components/search/search.component';
     ActivityFeedComponent,
     EstIdLoginComponent,
     SearchComponent,
+    PageNotFoundComponent,
+    PageUnauthorizedComponent,
+    NavMobileComponent,
   ],
   imports: [
     BrowserModule,

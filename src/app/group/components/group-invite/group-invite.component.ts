@@ -11,7 +11,7 @@ import { SearchService } from 'src/app/services/search.service';
 import { NotificationService } from 'src/app/services/notification.service';
 
 export interface GroupInviteData {
-  group: BehaviorSubject<Group>
+  group: Group
 };
 
 @Component({
@@ -24,9 +24,9 @@ export class GroupInviteComponent implements OnInit {
 
   inviteMessage = <string | null>null;
 
-  public inviteMessageMaxLength = 1000;
+  inviteMessageMaxLength = 1000;
 
-  public tabs = [
+  tabs = [
     {
       id: 'users',
       name: 'INVITE_USERS'
@@ -37,33 +37,34 @@ export class GroupInviteComponent implements OnInit {
     }
   ];
 
-  public searchStringUser = '';
-  public searchResultUsers$ = of(<any>[]);
-  public resultCount = 0;
-  public maxUsers = 550;
+  searchStringUser = '';
+  searchResultUsers$ = of(<any>[]);
+  resultCount = 0;
+  maxUsers = 550;
 
-  public membersPage = 1;
-  public itemsPerPage = 1;
-  public memberGroups = ['users', 'emails'];
+  membersPage = 1;
+  itemsPerPage = 1;
+  memberGroups = ['users', 'emails'];
 
-  public invalid = <any[]>[];
-  public members = <any[]>[];
-  public groupLevel = 'read';
+  invalid = <any[]>[];
+  members = <any[]>[];
+  groupLevel = 'read';
 
-  public tabSelected = 'users';
+  tabSelected = 'users';
   private EMAIL_SEPARATOR_REGEXP = /[;,\s]/ig;
+  LEVELS = this.GroupMemberUser.LEVELS;
 
   constructor(private dialog: MatDialog,
-    public dialogRef: MatDialogRef<GroupInviteComponent>,
+    private dialogRef: MatDialogRef<GroupInviteComponent>,
     @Inject(MAT_DIALOG_DATA) public data: GroupInviteData,
-    public GroupMemberUser: GroupMemberUserService,
-    public GroupService: GroupService,
-    public GroupJoin: GroupJoinService,
-    public Search: SearchService,
+    private GroupMemberUser: GroupMemberUserService,
+    private GroupService: GroupService,
+    private GroupJoin: GroupJoinService,
+    private Search: SearchService,
     private Notification: NotificationService,
     private GroupInviteUser: GroupInviteUserService,
   ) {
-    this.group = data.group.value;
+    this.group = data.group;
   }
 
   ngOnInit(): void {
@@ -250,5 +251,13 @@ export class GroupInviteComponent implements OnInit {
     const time = new Date();
     time.setDate(time.getDate() + 14);
     return time;
+  }
+
+  canShare () {
+    return this.GroupService.canShare(this.group);
+  }
+
+  canUpdate () {
+    return this.GroupService.canUpdate(this.group);
   }
 }

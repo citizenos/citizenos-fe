@@ -41,12 +41,11 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private UserService: UserService,
     private route: ActivatedRoute,
-    private Auth: AuthService) { }
+    private Auth: AuthService) {console.log(this.Location.currentUrl()) }
 
   ngOnInit(): void {
-
     this.route.params.subscribe(value => {
-      this.form.patchValue({'email': value['email']});
+      this.form.patchValue({ 'email': value['email'] });
       this.userConnections = value['userConnections'];
       this.redirectSuccess = value['redirectSuccess'];
 
@@ -256,7 +255,7 @@ export class LoginComponent implements OnInit {
     this.dialog.open(RegisterComponent, {
       data: {
         email: this.form.value.email,
-        redirectSuccess: this.route.url
+        redirectSuccess: this.Location.currentUrl()
       }
     })
   }

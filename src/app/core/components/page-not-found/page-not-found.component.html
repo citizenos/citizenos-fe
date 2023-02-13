@@ -1,0 +1,20 @@
+<div class="table">
+  <div class="v_align_cell">
+      <div class="title_area">
+          <h1 translate="MSG_ERROR_40400"></h1>
+          <h2 translate="VIEWS.401.HEADING_YOU_MAY_RECOVER" *ngIf="!loggedIn()"></h2>
+      </div>
+      <div class="button_area">
+          <div class="big_button" *ngIf="!loggedIn()">
+              <div class="button_cell" (click)="doShowLogin()">
+                  <div class="topic_text" translate="VIEWS.401.BTN_LOGIN"></div>
+              </div>
+          </div>
+          <div class="big_button" *ngIf="loggedIn()" [attr.disabled]="true">
+              <div class="button_cell">
+                  <div class="topic_text" translate="VIEWS.401.BTN_REQUEST_ACCESS"></div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

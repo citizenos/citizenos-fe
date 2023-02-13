@@ -58,9 +58,8 @@
                 <input type="file" #imageUpload id="profileImage" class="image_item" (change)="fileUpload()" />
 
                 <div class="profile_image_filler" *ngIf="!form.imageUrl && !tmpImageUrl">
-                  <div class="table_cell" cos-initials="form.name">
-                    ML
-                  </div>
+                  <cos-initials class="table_cell" cos-initials="form.name">
+                  </cos-initials>
                   <div class="profile_circle"></div>
                 </div>
               </div>
@@ -78,7 +77,7 @@
               <span translate="MODALS.MY_ACCOUNT_PLACEHOLDER_NAME"></span>
               <input id="name" name="name" [(ngModel)]="form.name"
                 placeholder="{{'MODALS.MY_ACCOUNT_PLACEHOLDER_NAME' | translate}}"
-                [ngClass]="{'error_input': errors.name}" maxlength="255" required> <!--focus-if="{{wWidth > 1024}}"-->
+                [ngClass]="{'error_input': errors.name}" maxlength="255" required (focus)="wWidth > 1024">
               <label for="name" class="error_label" *ngIf="errors.name">
                 <div class="table_cell">
                   <div class="sprite sprite-icon-inputfield-error2x"></div>

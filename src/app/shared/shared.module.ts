@@ -8,6 +8,7 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
 import { TranslateModule } from '@ngx-translate/core';
 import { TooltipDirective } from '../directives/tooltip';
 import { CosDropdownDirective } from '../directives/cos-dropdown.directive';
+
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule} from '@angular/material/datepicker';
 import { TypeaheadComponent, TypeaheadItem } from './components/typeahead/typeahead.component';
@@ -25,10 +26,21 @@ import { TopicMemberInviteComponent } from '../topic/components/topic-member-inv
 import { TopicMemberInviteDeleteComponent } from '../topic/components/topic-member-invite-delete/topic-member-invite-delete.component';
 import { TopicVoteCastComponent } from '../topic/components/topic-vote-cast/topic-vote-cast.component';
 import { TopicSettingsComponent, TopicSettingsDialogComponent } from '../topic/components/topic-settings/topic-settings.component';
+
+import { GroupInviteComponent } from '../group/components/group-invite/group-invite.component';
+import { GroupMemberTopicComponent } from '../group/components/group-member-topic/group-member-topic.component';
+import { GroupMemberUserComponent } from '../group/components/group-member-user/group-member-user.component';
+import { GroupSettingsComponent, GroupSettingsDialogComponent } from '../group/components/group-settings/group-settings.component';
+import { GroupShareComponent } from '../group/components/group-share/group-share.component';
+import { CreateGroupTopicComponent } from '../group/components/create-group-topic/create-group-topic.component';
+import { GroupAddTopicsComponent } from '../group/components/group-add-topics/group-add-topics.component';
+
 import { MarkdownDirective } from '../directives/markdown.directive';
 import { CosEllipsisPipe } from './pipes/cos-ellipsis.pipe';
 import { ModalDatepickerComponent } from './components/modal-datepicker/modal-datepicker.component';
 import { MatNativeDateModule } from '@angular/material/core';
+import { GroupInviteUserComponent } from '../group/components/group-invite-user/group-invite-user.component';
+import { CheckHeightDirective } from '../directives/check-height.directive';
 
 @NgModule({
   declarations: [
@@ -39,6 +51,15 @@ import { MatNativeDateModule } from '@angular/material/core';
     CosInitialsComponent,
     CosPaginationComponent,
     CosToggleComponent,
+    GroupInviteComponent,
+    GroupMemberTopicComponent,
+    GroupMemberUserComponent,
+    GroupSettingsComponent,
+    GroupSettingsDialogComponent,
+    GroupShareComponent,
+    CreateGroupTopicComponent,
+    GroupAddTopicsComponent,
+    GroupInviteUserComponent,
     MarkdownDirective,
     PublicgroupboxComponent,
     SocialshareDirective,
@@ -54,6 +75,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     TypeaheadComponent,
     TypeaheadItem,
     ModalDatepickerComponent,
+    CheckHeightDirective
   ],
   imports: [
     RouterModule,
@@ -74,6 +96,15 @@ import { MatNativeDateModule } from '@angular/material/core';
     CosInitialsComponent,
     CosPaginationComponent,
     CosToggleComponent,
+    GroupInviteComponent,
+    GroupMemberTopicComponent,
+    GroupMemberUserComponent,
+    GroupSettingsComponent,
+    GroupSettingsDialogComponent,
+    GroupShareComponent,
+    CreateGroupTopicComponent,
+    GroupAddTopicsComponent,
+    GroupInviteUserComponent,
     MarkdownDirective,
     MatDialogModule,
     MatDatepickerModule,
@@ -92,7 +123,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     TopicSettingsDialogComponent,
     TopicVoteCastComponent,
     TypeaheadComponent,
-    TypeaheadItem
+    TypeaheadItem,
+    CheckHeightDirective
    ]
 })
 export class SharedModule { }

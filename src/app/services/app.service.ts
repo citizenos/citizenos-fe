@@ -12,6 +12,10 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AppService {
+  showNav = false;
+  showSearch=false;
+  editMode = false;
+  showSearchResults = false;
   showHelp = new BehaviorSubject(false);
   group = new BehaviorSubject<Group | undefined>(undefined);
   topic: Topic | undefined;
@@ -49,7 +53,7 @@ export class AppService {
             level: level
           };
           this.GroupMemberTopicService
-            .save(member, member)
+            .save(member)
             .pipe(take(1)).
             subscribe(() => {
               this.router.navigate(['/topic', topic.id], { queryParams: { editMode: true } })

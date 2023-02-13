@@ -1,12 +1,13 @@
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Inject, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { GroupService } from 'src/app/services/group.service';
 import { GroupInviteUserService } from 'src/app/services/group-invite-user.service';
 import { AppService } from 'src/app/services/app.service';
-import { Subscription, take, takeWhile } from 'rxjs';
+import { switchMap, take, takeWhile } from 'rxjs';
 import { UploadService } from 'src/app/services/upload.service';
+import { Group } from 'src/app/interfaces/group';
 @Component({
   selector: 'group-settings',
   templateUrl: './group-settings.component.html',
@@ -14,27 +15,23 @@ import { UploadService } from 'src/app/services/upload.service';
 })
 export class GroupSettingsComponent implements OnInit {
   @ViewChild('imageUpload') fileInput?: ElementRef;
-  public group?: any;
+  public group!: Group;
   public imageFile?: any;
   public tmpImageUrl?: any;
   public errors: any = null;
   public sectionsVisible = ['name', 'description', 'image', 'leave'];
-  subscription: Subscription;
   // private sUpload,
   constructor(
-    public dialogRef: MatDialogRef<GroupSettingsComponent>,
-    private Route: ActivatedRoute, private ref: ChangeDetectorRef, private dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) private data: any,
+    private dialogRef: MatDialogRef<GroupSettingsComponent>,
+    private Route: ActivatedRoute, private dialog: MatDialog,
     public GroupService: GroupService, private GroupInviteUserService: GroupInviteUserService,
     private Upload: UploadService,
     public app: AppService) {
-    this.subscription = this.app.group
-      .subscribe((val) => this.group = val);
-    this.ref.markForCheck();
-    console.log('SETTINGS', this.group)
+      this.group = data.group;
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe()
   }
   ngOnInit(): void {
   }
@@ -117,16 +114,25 @@ export class GroupSettingsComponent implements OnInit {
 })
 export class GroupSettingsDialogComponent implements OnInit {
 
-  constructor(private dialog: MatDialog, private router: Router, private route: ActivatedRoute) {
-
+  constructor(dialog: MatDialog, router: Router, route: ActivatedRoute, GroupService: GroupService) {
+    route.params.pipe(
+      switchMap((params) => {
+        return GroupService.get(params['groupId'])
+      })
+    ).pipe(take(1)).subscribe((group) => {
+      console.log(group)
+      const settingsDialog = dialog.open(GroupSettingsComponent, {
+        data: {
+          group
+        }
+      });
+      settingsDialog.afterClosed().subscribe(() => {
+        router.navigate(['../'], { relativeTo: route })
+      })
+    });
   }
 
   ngOnInit(): void {
-    const settingsDialog = this.dialog.open(GroupSettingsComponent);
-    settingsDialog.afterClosed().subscribe(result => {
-      console.log(result)
-      this.router.navigate(['../'], { relativeTo: this.route });
-    });
   }
 
 }

@@ -9,9 +9,9 @@ import { PasswordResetDialogComponent } from './components/password-reset/passwo
 import { RegisterDialogComponent } from './components/register/register.component';
 
 const routes: Routes = [
+  { path: '', canActivate: [AuthGuard], component: AccountComponent },
   {
     path: '', component: HomeComponent, children: [
-      { path: '', canActivate: [AuthGuard], component: AccountComponent },
       { path: 'login', component: LoginDialogComponent },
       { path: 'signup', component: RegisterDialogComponent },
       { path: 'password/reset/:passwordResetCode', component: PasswordResetDialogComponent },

@@ -5,6 +5,7 @@ import { TopicVoteSignData } from '../topic-vote-sign/topic-vote-sign.component'
 import { TopicVoteService } from 'src/app/services/topic-vote.service';
 import { take, interval, takeWhile, switchMap, map, catchError, of } from 'rxjs';
 import { NotificationService } from 'src/app/services/notification.service';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-topic-vote-sign-smartid',
@@ -12,6 +13,11 @@ import { NotificationService } from 'src/app/services/notification.service';
   styleUrls: ['./topic-vote-sign-smartid.component.scss']
 })
 export class TopicVoteSignSmartidComponent implements OnInit {
+  signForm = new FormGroup({
+    countryCode: new FormControl(''),
+    pid: new FormControl(''),
+  });
+
   topic!: Topic;
   options!: any;
   isLoading = false;

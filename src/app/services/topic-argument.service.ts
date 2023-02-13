@@ -130,6 +130,29 @@ export class TopicArgumentService extends ItemsListService {
     );
   };
 
+  getReport(data: any) {
+    const path = this.Location.getAbsoluteUrlApi('/api/topics/:topicId/comments/:reportedCommentId/reports/:reportId', data);
+
+    const headers = {
+      'Authorization': 'Bearer ' + data.token
+    };
+
+    return this.http.get<ApiResponse>(path, { headers, withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
+      map(res => res.data)
+    );
+  };
+
+  moderate(data: any) {
+    const path = this.Location.getAbsoluteUrlApi('/api/topics/:topicId/comments/:commentId/reports/:reportId/moderate', data)
+    const headers = {
+      'Authorization': 'Bearer ' + data.token
+    };
+
+    return this.http.post<ApiResponse>(path, data.report, { headers, withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
+      map(res => res.data)
+    );
+  }
+
   getItems(params: any) {
     return this.getArguments(params);
   }
@@ -139,10 +162,10 @@ export class TopicArgumentService extends ItemsListService {
       map((res) => {
         this.count.next(res.data.count);
         this.ArgumentIds = [];
-        res.data.rows.forEach((argument:Argument) => {
+        res.data.rows.forEach((argument: Argument) => {
           this.ArgumentIds.push(argument.id)
           if (argument.replies.count) {
-            argument.replies.rows.forEach((reply:Argument) => this.ArgumentIds.push(reply.id))
+            argument.replies.rows.forEach((reply: Argument) => this.ArgumentIds.push(reply.id))
           }
         })
         return { rows: res.data.rows, countTotal: res.data.count.total || 0 }
@@ -158,7 +181,7 @@ export class TopicArgumentService extends ItemsListService {
     this.params$.next(curparams);
   }
 
-  getArgumentIdWithVersion(argumentId:string, version:number) {
+  getArgumentIdWithVersion(argumentId: string, version: number) {
     return argumentId + this.ARGUMENT_VERSION_SEPARATOR + version;
   };
 }

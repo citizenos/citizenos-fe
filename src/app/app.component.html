@@ -1,12 +1,16 @@
 <ngx-loading-bar></ngx-loading-bar>
 <app-notification></app-notification>
 <!-- NAV -->
-<nav class="nav"></nav>
+<!-- MOBILE HEADER NAV -->
+<ng-container *ngIf="app.wWidth <= 1024">
+  <nav-mobile  id="mobile_header"></nav-mobile>
+</ng-container>
+<nav class="nav" [ngClass]="app.showNav ? 'nav_is_open' : ''" ></nav>
 <!-- CONTENT -->
 <div id="content_root">
   <!-- CONTENT WRAP -->
   <div id="content_wrap">
-      <!-- div id="close_mobile_menu" ngIf="app.showNav" ng-swipe-right="app.showNav = false" ng-click="app.showNav = false"></!-- -->
+      <div id="close_mobile_menu" *ngIf="app.showNav" ng-swipe-right="app.showNav = false" (click)="app.showNav = false"></div>
 
       <div id="content" [ngClass]="!displaySearch() ? 'content_no_padding' : ''">
           <!-- SEARCH AREA -->

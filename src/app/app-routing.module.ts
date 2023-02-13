@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes, ExtraOptions, UrlSegment } from '@angular/router';
 import { HomeComponent } from './core/components/home/home.component';
 import { AuthGuard } from './auth/auth.guard';
+import { PageNotFoundComponent } from './core/components/page-not-found/page-not-found.component';
+import { PageUnauthorizedComponent } from './core/components/page-unauthorized/page-unauthorized.component';
 
 const options: ExtraOptions = {
   paramsInheritanceStrategy: 'always'
@@ -11,22 +13,35 @@ const routes: Routes = [
   {
     path: ':lang',
     children: [
-      {path: '', component: HomeComponent},
-      {path: 'account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule)},
+      { path: '401', component: PageUnauthorizedComponent },
+      { path: '403', component: PageUnauthorizedComponent },
+      { path: '404', component: PageNotFoundComponent},
+      { path: 'account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
       { path: 'topic', loadChildren: () => import('./topic/topic.module').then(m => m.TopicModule) },
       { path: 'groups', loadChildren: () => import('./group/group.module').then(m => m.GroupModule) },
-      {path: 'topics', loadChildren: () => import('./topic/topic.module').then(m => m.TopicModule)},
-      {path: ':category', component: HomeComponent},
-      {path: 'my', canActivate: [AuthGuard], children: [
-        {path: 'topics', loadChildren: () => import('./my-topics/my-topics.module').then((m) => m.MyTopicsModule)},
-        {path: 'groups', loadChildren: () => import('./my-groups/my-groups.module').then(m => m.MyGroupsModule)}
+      { path: 'topics', loadChildren: () => import('./topic/topic.module').then(m => m.TopicModule) },
+      {
+        path: 'my', canActivate: [AuthGuard], children: [
+          { path: 'topics', loadChildren: () => import('./my-topics/my-topics.module').then((m) => m.MyTopicsModule) },
+          { path: 'groups', loadChildren: () => import('./my-groups/my-groups.module').then(m => m.MyGroupsModule) }
+        ]
+      },
+      {
+        path: 'public', children: [
+          { path: 'topics', loadChildren: () => import('./public-topics/public-topics.module').then(m => m.PublicTopicsModule) },
+          { path: 'groups', loadChildren: () => import('./public-groups/public-groups.module').then(m => m.PublicGroupsModule) }
+        ]
+      },
+      { path: 'error/401', component: PageNotFoundComponent },
+      { path: 'error/404', component: PageNotFoundComponent },
+      { path: '', component: HomeComponent, children: [
+        { path: ':category', component: HomeComponent },
       ]},
-      {path: 'public', children: [
-        {path: 'topics', loadChildren: () => import('./public-topics/public-topics.module').then(m => m.PublicTopicsModule)},
-        {path: 'groups', loadChildren: () => import('./public-groups/public-groups.module').then(m => m.PublicGroupsModule)}
-      ]}
     ],
-  }
+  },
+  { path: '401', redirectTo: '/:lang/error/401' },
+  { path: '404', redirectTo: '/:lang/error/404' },
+  { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({

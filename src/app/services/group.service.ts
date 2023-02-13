@@ -69,10 +69,11 @@ export class GroupService extends ItemsListService {
     )
   }
 
-  query(params: any) {
+  query(params: { [key: string]: any }) {
     let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/groups'), params);
+    const queryParams = Object.fromEntries(Object.entries(params).filter((i) => i[1] !== null));
 
-    return this.http.get<ApiResponse>(path, { withCredentials: true, params, observe: 'body', responseType: 'json' })
+    return this.http.get<ApiResponse>(path, { withCredentials: true, params: queryParams, observe: 'body', responseType: 'json' })
     .pipe(
       map(res => res.data)
     )

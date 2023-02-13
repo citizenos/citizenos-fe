@@ -1,27 +1,22 @@
 <div id="search_area_wrap">
-  <div class="logo_area" (click)="!showSearchResults" ui-sref="home">
+  <div class="logo_area" (click)="!app.showSearchResults" routerLink="/">
     <div class="logo sprite sprite-x5-cos-logo-small2x">
     </div>
   </div>
-  <div id="donate_wrap" *ngIf="!showSearchResults">
+  <div id="donate_wrap" *ngIf="!app.showSearchResults">
     <div class="donate_item" id="donate_icon"></div>
     <div class="donate_item" id="donate_text" translate="DONATE_TXT"></div>
     <a class="donate_item" id="donate_button" target="_blank" [href]="lnkDonate" translate="DONATE_BTN"></a>
   </div>
-  <!--typeahead id="userSearch" class="auto-complete" [items]="searchResultUsers$ | async"
-                [term]="searchStringUser" (search)="search($event)" (select)="addGroupMemberUser($event)"
-                [placeholder]="'MODALS.GROUP_CREATE_SETTINGS_PLACEHOLDER_SEARCH_BY_NAME_EMAIL' | translate"-->
   <typeahead class="auto-complete" [items]="searchResults" [term]="searchInput" (search)="doSearch($event)"
-    (select)="goToView($event)" [placeholder]="'LAYOUTS.MAIN.PLACEHOLDER_SEARCH_TOPICS_USERS_GROUPS' | translate">
-    <!--select-limit="3" enter-action="enterAction(item)" -->
-
+    (select)="goToView($event)" [placeholder]="'LAYOUTS.MAIN.PLACEHOLDER_SEARCH_TOPICS_USERS_GROUPS' | translate" [selectLimit]="3" (enterAction)="doSearch($event)">
     <div id="search_results_area">
       <div id="m_search_icon">
         <div class="table_cell">
           <div class="sprite sprite-icon-search-b-2x"></div>
         </div>
       </div>
-      <div id="m_search_close" (click)="showSearch = !showSearch; showSearchResults = false">
+      <div id="m_search_close" (click)="app.showSearch = !app.showSearch; app.showSearchResults = false">
         <div class="table_cell">
           <div class="sprite sprite-icon-closemenu-b-2x"></div>
         </div>
@@ -33,14 +28,14 @@
         </div>
       </div>
 
-      <div id="close_search_icon" (click)="closeSearchArea()" [ngClass]="{hidden: !showSearchResults}">
+      <div id="close_search_icon" (click)="closeSearchArea()" [ngClass]="{hidden: !app.showSearchResults}">
         <div class="table_cell">
           <div class="sprite sprite-icon-closemenu-b-2x"></div>
         </div>
       </div>
     </div>
 
-    <div id="search_results_list" *ngIf="showSearchResults">
+    <div id="search_results_list" *ngIf="app.showSearchResults">
       <ng-container *ngFor="let context of contexts">
         <ng-container *ngFor="let model of models">
           <ng-container
@@ -52,7 +47,7 @@
             <div class="results_area" *ngIf="searchResults[context][model].rows.length">
               <div class="result_group">
 
-                <div class="result_links" typeahead-item="row" typeahead-item-no-close="row.id === 'viewMore'"
+                <div class="result_links" [typeaheadItem]="row" typeahead-item-no-close="row.id === 'viewMore'"
                   *ngFor="let row of searchResults[context][model].rows">
                   <div *ngIf="model !== 'viewMore'" class="links_wrap">
                     <span>

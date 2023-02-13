@@ -16,7 +16,7 @@ import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog
 })
 export class GroupMemberTopicComponent implements OnInit {
 
-  @Input() memberTopic?: any;
+  @Input() topic?: any;
   @Input() canUpdate?: any;
   @Input() group?: Group;
   @Input() fields?: any;
@@ -32,18 +32,18 @@ export class GroupMemberTopicComponent implements OnInit {
   }
 
   doUpdateMemberTopic(level: string) {
-    const memberTopic = this.memberTopic;
+    const topic = this.topic;
     const group = this.group;
-    if (memberTopic && memberTopic?.permission.levelGroup !== level) {
-      const oldLevel = memberTopic?.permission.levelGroup;
-      memberTopic.permission.levelGroup = level;
-      memberTopic['level'] = level;
+    if (topic && topic?.permission.levelGroup !== level) {
+      const oldLevel = topic?.permission.levelGroup;
+      topic.permission.levelGroup = level;
+      topic['level'] = level;
       this.GroupMemberTopic
-        .update({ groupId: group?.id, topicId: memberTopic.id }, memberTopic)
+        .update({ groupId: group?.id, topicId: topic.id }, topic)
         .pipe(
           take(1)
         ).subscribe((res) => {
-          memberTopic.permission.levelGroup = oldLevel;
+          topic.permission.levelGroup = oldLevel;
         })
     }
   }
@@ -63,7 +63,7 @@ export class GroupMemberTopicComponent implements OnInit {
       if (result === true) {
         this.GroupMemberTopic
           .delete({
-            topicId: this.memberTopic.id,
+            topicId: this.topic.id,
             groupId: this.group?.id
           }).pipe(take(1)).subscribe((res) => {
             console.log(res);

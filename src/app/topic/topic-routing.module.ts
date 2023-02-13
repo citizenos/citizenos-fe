@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TopicInviteDialogComponent } from 'src/app/topic/components/topic-invite/topic-invite.component';
+import { ArgumentReportModerateDialogComponent } from './components/argument-report-moderate/argument-report-moderate.component';
 import { TopicAttachmentsDialogComponent } from './components/topic-attachments/topic-attachments.component';
 import { TopicCreateComponent } from './components/topic-create/topic-create.component';
 import { TopicParticipantsDialogComponent } from './components/topic-participants/topic-participants.component';
@@ -30,6 +31,7 @@ const routes: Routes = [
       { path: 'report/:reportId/moderate', component: TopicReportModerateDialogComponent },
       { path: 'report/:reportId/review', component: TopicReportReviewDialogComponent },
       { path: 'report/:reportId/resolve', component: TopicReportResolveDialogComponent },
+      { path: 'comments/:commentId/reports/:reportId/moderate', component: ArgumentReportModerateDialogComponent},
       { path: '', component: TopicComponent },
     ]
   },

@@ -39,10 +39,15 @@ export class EditArgumentComponent implements OnInit {
   updateArgument() {
     if (this.edit.type !== this.argument.type || this.argument.subject !== this.edit.subject || this.argument.text !== this.edit.text) {
       this.TopicArgumentService.update(this.edit)
-      .pipe(take(1))
-      .subscribe(() => {
-        this.TopicArgumentService.reset()
-      })
+        .pipe(take(1))
+        .subscribe({
+          next: () => {
+            this.TopicArgumentService.reset()
+          },
+          error: (res) => {
+            this.errors = res.errors;
+          }
+        })
       /*
             this.TopicArgumentService
               .update(this.argument)

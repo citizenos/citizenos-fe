@@ -29,22 +29,18 @@
       </div>
 
       <div class="lightbox_content">
-        <form name="signSmartIdForm" novalidate>
+        <form name="signSmartIdForm" [formGroup]="signForm" novalidate>
           <div class="sign_in_section sid">
             <div class="sprite_big sprite sprite-smart-i-d2x"></div>
             <div *ngIf="isLoading && !challengeID" class="loader_wrap">
               <div class="loader"></div>
             </div>
             <div *ngIf="!challengeID && !isLoading">
-              <input *ngIf="!isLoading" id="countryCode" ngModel name="countryCode" maxlength="2"
-              [ngClass]="{error_input: countryCode}" [(ngModel)]="countryCode"
-              [placeholder]="'MODALS.TOPIC_VOTE_SIGN_SMARTID_PLACEHOLDER_COUNTRY_CODE' | translate"
+              {{signForm.errors | json}}
+              <input *ngIf="!isLoading" id="countryCode" formControlName="countryCode" maxlength="2"
+              [ngClass]="{error_input: signForm.errors && signForm.errors['countryCode']}" [placeholder]="'MODALS.TOPIC_VOTE_SIGN_SMARTID_PLACEHOLDER_COUNTRY_CODE' | translate"
               (focus)="wWidth > 1024" pattern="^[A-Z]{2}$" required>
-              <!--input id="countryCode" name="countryCode" type="text" ng-model="$ctrl.TopicVoteService.countryCode"
-                maxlength="2" ng-maxlength="2"
-                placeholder="{{'MODALS.TOPIC_VOTE_SIGN_SMARTID_PLACEHOLDER_COUNTRY_CODE' | translate}}"
-                ng-class="{'error_input': formSmartIdSign.countryCode.$error.pattern && formSmartIdSign.countryCode.$touched}"
-                ng-pattern="/^[A-Z]{2}$/" required-->
+
               <!--label for="countryCode" class="error_label"
                 ng-if="formSmartIdSign.countryCode.$error.pattern && formSmartIdSign.countryCode.$touched">
                 <div class="table_cell">

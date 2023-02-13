@@ -37,7 +37,7 @@
   </div>
 </div>
 
-<div *ngIf="vote.authType===VOTE_AUTH_TYPES.hard && vote.downloads.bdocFinal" cos-dropdown class="bar_select">
+<div *ngIf="vote.authType===VOTE_AUTH_TYPES.hard && vote.downloads.bdocFinal" [cosDropdown] class="bar_select">
 
   <div class="select_text">
     {{'VIEWS.TOPICS_TOPICID.BTN_DOWNLOAD_FINAL_BDOC' | translate}}

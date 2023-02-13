@@ -57,7 +57,7 @@
           <div class="v_line"></div>
         </div>
       </div>
-      <div *ngIf="isEdited()" class="argument_header_widget underline_link" (click)="showEdits = !showEdits">
+      <div *ngIf="isEdited()" class="argument_header_widget underline_link" (click)="argument.showEdits = !argument.showEdits">
         <div class="table_cell" translate="VIEWS.TOPICS_TOPICID.ARGUMENT_LNK_VIEW_PREVIOUS_VERSIONS"></div>
       </div>
       <div class="line_wrap">
@@ -104,8 +104,7 @@
       <span *ngIf="isVisible() && !showDeletedArgument" [innerHTML]="argument.subject"></span>
     </div>
 
-    <div class="argument_text_wrap" > <!--check-height
-      [ngClass]="{overheight: offsetHeight > maxTextHeight, read_more: readMore}"-->
+    <div class="argument_text_wrap" check-height [ngClass]="{read_more: readMore}"> <!--check-height -->
       <a *ngIf="isReply && !argument.deletedAt && isVisible()" href="#" class="replys_reply"
         (click)="goToParentArgument()">@{{getParentAuthor()}}</a>
       <div *ngIf="isVisible() && !showDeletedArgument" class="argument_text" [innerHTML]="argument.text"></div>
@@ -117,16 +116,16 @@
         class="argument_text italic" translate="VIEWS.TOPICS_TOPICID.ARGUMENT_HAS_BEEN_DELETED_BY_MODERATOR"
         [translateParams]="{usersFullName: argument.deletedBy.name}"></div>
       <div class="argument_overlay"></div>
-      <!--div class="blue_link read_more_link" (click)="$parent.readMore = !$parent.readMore"
-        translate="{{($parent.readMore) ? 'VIEWS.TOPICS_TOPICID.LNK_ARGUMENT_CLOSE' : 'VIEWS.TOPICS_TOPICID.LNK_ARGUMENT_READ_MORE'}}">
-      </!--div-->
+      <div class="blue_link read_more_link" (click)="readMore = !readMore"
+        translate="{{(readMore) ? 'VIEWS.TOPICS_TOPICID.LNK_ARGUMENT_CLOSE' : 'VIEWS.TOPICS_TOPICID.LNK_ARGUMENT_READ_MORE'}}">
+      </div>
     </div>
     <!-- END COMMENT CONTENT -->
     <!-- COMMENT DELETED -->
     <argument-deleted *ngIf="argument.deletedAt" [argument]="argument"></argument-deleted>
     <!-- END COMMENT DELETED-->
     <!-- COMMENT EDITS  && !$last-->
-    <argument-edits *ngIf="argument.showEdits && isEdited()" [argument]="argument"></argument-edits>
+    <argument-edits *ngIf="argument.showEdits && isEdited()" [topicId]="topicId" [argument]="argument"></argument-edits>
     <!-- END COMMENT EDITS -->
     <!-- COMMENT FOOTER -->
     <div class="argument_footer">

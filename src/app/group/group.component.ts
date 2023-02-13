@@ -1,7 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap, tap, take } from 'rxjs/operators';
+import { switchMap, tap, of, take, catchError } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 
 import { GroupMemberUserService } from 'src/app/services/group-member-user.service';
@@ -41,6 +41,12 @@ export class GroupComponent implements OnInit {
         return this.GroupService.get(params['groupId']).pipe(
           tap((group) => {
             this.app.group.next(group);
+          }),
+          catchError((err:any) => {
+            console.log(err);
+            if (['401', '403', '404'].indexOf(err.status))
+              this.router.navigate(['error/' + err.status])
+              return of(err);
           })
         )
       })
@@ -50,9 +56,9 @@ export class GroupComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  shareGroupDialog() {
+  shareGroupDialog(group: Group) {
     if (this.app.group) {
-      const inviteDialog = this.dialog.open(GroupInviteComponent, { data: { group: this.app.group } });
+      const inviteDialog = this.dialog.open(GroupInviteComponent, { data: { group: group } });
       inviteDialog.afterClosed().subscribe(result => {
         console.log(result);
       });
@@ -83,7 +89,7 @@ export class GroupComponent implements OnInit {
     this.router.navigate(['settings'], { relativeTo: this.route });
   }
 
-  deleteGroup() {
+  deleteGroup(group: Group) {
     const deleteDialog = this.dialog.open(ConfirmDialogComponent, {
       data: {
         level: 'delete',
@@ -98,7 +104,7 @@ export class GroupComponent implements OnInit {
 
     deleteDialog.afterClosed().subscribe(result => {
       if (result === true) {
-        this.GroupService.delete(this.app.group.value)
+        this.GroupService.delete(group)
           .pipe(take(1))
           .subscribe((res) => {
             console.log(res);

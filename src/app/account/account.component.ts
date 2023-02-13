@@ -57,6 +57,7 @@ export class AccountComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private Auth: AuthService) {
+      console.log('ACCOUNT')
     this.tabSelected = this.route.fragment.pipe(
       map((fragment) => {
         if(!fragment) {

@@ -23,21 +23,20 @@ export class GroupShareComponent implements OnInit {
   };
 
   joinUrl = <string | null>'';
-
+  LEVELS = this.GroupMemberUser.LEVELS;
   constructor(
     private Auth: AuthService,
     private dialog: MatDialog,
-    public GroupService: GroupService,
-    public GroupMemberUser: GroupMemberUserService,
-    public GroupJoin: GroupJoinService,
+    private GroupService: GroupService,
+    private GroupMemberUser: GroupMemberUserService,
+    private GroupJoin: GroupJoinService,
     private Location: LocationService,
   ) {
   }
 
   ngOnInit(): void {
-    this.generateJoinUrl();
-    console.log(this.group);
     this.join.token = this.group.join.token;
+    this.generateJoinUrl();
   }
 
   canUpdate() {
@@ -97,4 +96,8 @@ export class GroupShareComponent implements OnInit {
       this.joinUrl = this.Location.getAbsoluteUrl('/groups/join/' + this.join.token);
     }
   };
+
+  canShare() {
+    return this.GroupService.canShare(this.group);
+  }
 }

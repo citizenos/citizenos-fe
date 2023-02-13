@@ -55,7 +55,6 @@
         <div class="argument_wrap is_{{arg.type}}" *ngFor="let arg of arguments$ | async">
 
           <argument [argument]="arg" [topicId]="topic.id"></argument>
-          {{arg.showReplies}}
 
           <!-- COMMENT REPLY -->
           <!--div-- class="single_argument is_reply" ng-if="comment.showReplies" ng-repeat="reply in comment.replies.rows" ng-click="">
@@ -282,7 +281,9 @@
                   <argument-reply ng-if="reply.showReply" comment="reply" topic-id="topicId"></argument-reply>
               </!--div-->
         </div>
-        <!--cos-pagination class="pagination" select="loadPage(page)" total-pages="TopicArgumentService.totalPages" page="TopicArgumentService.page"></!--cos-pagination-->
+        <cos-pagination class="pagination" (select)="TopicArgumentService.loadPage($event)"
+        [totalPages]="(TopicArgumentService.totalPages$ | async) || 0"
+        [page]="(TopicArgumentService.page$ | async) || 0"></cos-pagination>
     </div>
 
     <post-argument [topicId]="topic.id"></post-argument>

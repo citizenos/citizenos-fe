@@ -20,13 +20,13 @@
   </div>
 
   <div class="pretend_td" *ngIf="isVisibleField('lastActivity')">
-    <div class="pretend_table_mobile_text mobile_label" translate="VIEWS.PUBLIC_GROUP.LNK_LAST_ACTIVITY">Latest activity
+    <div class="pretend_table_mobile_text mobile_label" translate="VIEWS.PUBLIC_GROUP.LNK_LAST_ACTIVITY">
     </div>
     <div [innerText]="member.latestActivity | amDateFormat : 'L LT'">12.02.2015 21:40</div>
   </div>
   <div class="pretend_td" *ngIf="isVisibleField('level')">
-    <div class="pretend_table_mobile_text mobile_label" translate="VIEWS.PUBLIC_GROUP.LNK_ROLE">Level</div>
-    <div cos-dropdown class="classic_dropdown" *ngIf="this.group && canUpdate()">
+    <div class="pretend_table_mobile_text mobile_label" translate="VIEWS.PUBLIC_GROUP.LNK_ROLE"></div>
+    <div [cosDropdown] class="classic_dropdown" *ngIf="this.group && canUpdate()">
       <div class="dropdown_selection">
         <div class="dropdown_text">{{'TXT_TOPIC_LEVELS_' + member.level | uppercase | translate}}</div>
 

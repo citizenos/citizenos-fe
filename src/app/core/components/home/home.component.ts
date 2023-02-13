@@ -10,6 +10,7 @@ import { Topic } from 'src/app/interfaces/topic';
 import { Group } from 'src/app/interfaces/group';
 import { GroupCreateComponent } from 'src/app/group/components/group-create/group-create.component';
 import { MatDialog } from '@angular/material/dialog';
+import { TopicCreateComponent } from 'src/app/topic/components/topic-create/topic-create.component';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -38,7 +39,7 @@ export class HomeComponent implements OnInit {
     return element.id;
   }
 
-  isLoggedIn () {
+  isLoggedIn() {
     return this.AuthService.loggedIn$.value;
   }
   ngOnInit(): void {
@@ -62,12 +63,18 @@ export class HomeComponent implements OnInit {
     this.destroy$.next(true);
   }
 
-  createGroup () {
+  createGroup() {
     this.dialog.open(GroupCreateComponent, {
       data: {
         visibility: this.GroupService.VISIBILITY.private
       }
     })
   }
-  createNewTopic() {}
+  createNewTopic() {
+    this.dialog.open(TopicCreateComponent, {
+      data: {
+        visibility: this.GroupService.VISIBILITY.private
+      }
+    })
+  }
 }

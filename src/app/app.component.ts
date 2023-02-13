@@ -3,6 +3,7 @@ import { Router, PRIMARY_OUTLET, Event, NavigationStart } from '@angular/router'
 import { TranslateService } from '@ngx-translate/core';
 import { Title } from "@angular/platform-browser";
 
+import { AppService } from './services/app.service';
 import { ConfigService } from './services/config.service';
 import { takeUntil, Subject, tap } from 'rxjs';
 
@@ -16,7 +17,7 @@ export class AppComponent {
   config$ = this.config.load();
   wWidth: number = window.innerWidth;
   destroy$ = new Subject<boolean>();
-  constructor(private router: Router, private title: Title, public translate: TranslateService, private config: ConfigService) {
+  constructor(private router: Router, private title: Title, public translate: TranslateService, private config: ConfigService, public app: AppService) {
     const languageConf = config.get('language');
     translate.addLangs(Object.keys(languageConf.list));
     translate.setDefaultLang(languageConf.default);
@@ -46,7 +47,7 @@ export class AppComponent {
   }
 
   displaySearch = () => {
-    const allowedState = ['home', 'my/groups', 'my/topics', 'public/groups', 'public/groups/view', 'my/groups/groupId', 'my/topics/topicId'];
+    const allowedState = ['home', 'my/groups', 'my/topics', 'public/groups', 'public/groups/', 'my/groups/', 'my/topics/'];
     if (allowedState.indexOf(this.router.url) > -1) {
       return true;
     }

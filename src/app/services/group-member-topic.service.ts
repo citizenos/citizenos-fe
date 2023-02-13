@@ -11,14 +11,14 @@ import { ItemsListService } from './items-list.service';
   providedIn: 'root'
 })
 export class GroupMemberTopicService extends ItemsListService {
-  params = Object.assign(this.defaultParams, {groupId: <string | null>null});
+  params = Object.assign(this.defaultParams, { groupId: <string | null>null });
   params$ = new BehaviorSubject(this.params);
   constructor(private http: HttpClient, private Location: LocationService, private Auth: AuthService, private Topic: TopicService) {
     super();
     this.items$ = this.loadItems();
   }
 
-  getItems (params:any) {
+  getItems(params: any) {
     return this.query(params)
   }
 
@@ -43,11 +43,11 @@ export class GroupMemberTopicService extends ItemsListService {
         }));
   }
 
-  save(params: any, data: any) {
+  save(data: any) {
     let path = this.Location.getAbsoluteUrlApi(
       this.Auth.resolveAuthorizedPath(
         '/topics/:topicId/members/groups')
-      , params)
+      , data)
 
     return this.http.post<ApiResponse>(path, data, { withCredentials: true, responseType: 'json', observe: 'body' })
       .pipe(
@@ -66,12 +66,12 @@ export class GroupMemberTopicService extends ItemsListService {
       );
   }
 
-  query(params: any) {
+  query(params: { [key: string]: any }) {
     let path = this.Location.getAbsoluteUrlApi(
       this.Auth.resolveAuthorizedPath('/groups/:groupId/members/topics')
       , params);
-
-    return this.http.get<ApiResponse>(path, { params, withCredentials: true, responseType: 'json', observe: 'body' })
+    const queryParams = Object.fromEntries(Object.entries(params).filter((i) => i[1] !== null));
+    return this.http.get<ApiResponse>(path, { params: queryParams, withCredentials: true, responseType: 'json', observe: 'body' })
       .pipe(
         map(res => res.data)
       );

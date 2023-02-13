@@ -18,7 +18,7 @@ export interface Argument {
     email: string | null,
     phoneNumber: string | null,
   },
-  edits: any,
+  edits: any[],
   parent: {
     id: string,
     version: number
