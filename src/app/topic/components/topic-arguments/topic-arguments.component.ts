@@ -4,6 +4,7 @@ import { tap, of, take } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { Argument } from 'src/app/interfaces/argument';
 import { AuthService } from 'src/app/services/auth.service';
+import { AppService } from 'src/app/services/app.service';
 import { TopicArgumentService } from 'src/app/services/topic-argument.service';
 
 @Component({
@@ -21,7 +22,9 @@ export class TopicArgumentsComponent implements OnInit {
   focusArgumentSubject = false;
   constructor(
     private Auth: AuthService,
-    private route: ActivatedRoute, public TopicArgumentService: TopicArgumentService) {
+    private route: ActivatedRoute,
+    private app: AppService,
+    public TopicArgumentService: TopicArgumentService) {
     this.route.queryParams.pipe(take(1), tap((params) => {
       if (params['argumentId']) {
         console.log(params)
@@ -40,7 +43,7 @@ export class TopicArgumentsComponent implements OnInit {
       this.postArgumentEl?.nativeElement.scrollIntoView();
       this.focusArgumentSubject = true;
     } else {
-      // this.app.doShowLogin();
+      this.app.doShowLogin();
     }
   };
 
@@ -123,7 +126,7 @@ export class TopicArgumentsComponent implements OnInit {
                   if (items[i].replies.rows[j].id === argumentId) {
                     const id = items[i].id;
                     setTimeout(() => {
-                      document.getElementById(id+'_replies')?.click();
+                      document.getElementById(id + '_replies')?.click();
                       this.scrollTo(document.getElementById(argumentIdWithVersion))
                     }, 300)
 

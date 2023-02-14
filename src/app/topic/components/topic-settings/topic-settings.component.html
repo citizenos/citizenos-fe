@@ -113,7 +113,10 @@
               <span class="bold">{{topic.vote?.endsAt | amDateFormat:'L LT Z'}}</span>
             </div>
             <div class="settings_cell">
-              <modal-datepicker [cosModalLinkText]="'MODALS.TOPIC_SETTINGS_BTN_EDIT_DEADLINE' | translate" [cosModalTitle]="'MODALS.TOPIC_SETTINGS_MODAL_DEADLINE_TITLE' | translate"
+              {{topic.vote | json}}
+              <modal-datepicker [cosModalLinkText]="'MODALS.TOPIC_SETTINGS_BTN_EDIT_DEADLINE' | translate"
+              [cosModalTitle]="'MODALS.TOPIC_SETTINGS_MODAL_DEADLINE_TITLE' | translate"
+              [ngModel]="topic.vote?.endsAt"
               [cosModalDescription]="'MODALS.TOPIC_SETTINGS_MODAL_DEADLINE_DESCRIPTION' | translate"
               ><span
               translate="MODALS.TOPIC_SETTINGS_BTN_EDIT_DEADLINE"></span></modal-datepicker>

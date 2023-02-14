@@ -51,7 +51,7 @@ export class TopicSidepanelComponent implements OnInit {
       params['editMode'] = true;
     }
 
-    this.router.navigate([], {queryParams: params});
+    this.router.navigate([], { queryParams: params });
   }
 
   sendToVote() {
@@ -140,16 +140,9 @@ export class TopicSidepanelComponent implements OnInit {
           });
       }
     })
-    /*this.dialog
-      .openConfirm({
-        template: '/views/modals/topic_duplicate_confirm.html',
-      })
-      .then(() => {
-
-      }, angular.noop);*/
   };
 
   openFeedback() {
-      const dialog = this.dialog.open(FeedbackComponent);
+    this.dialog.open(FeedbackComponent);
   };
 }

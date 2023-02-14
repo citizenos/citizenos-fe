@@ -8,6 +8,7 @@ import { ConfigService } from './config.service';
 import { TopicService } from './topic.service';
 import { GroupMemberTopicService } from './group-member-topic.service';
 import { Router } from '@angular/router';
+import { LoginComponent } from '../account/components/login/login.component';
 @Injectable({
   providedIn: 'root'
 })
@@ -24,6 +25,10 @@ export class AppService {
 
   constructor(private dialog: MatDialog, public config: ConfigService, private TopicService: TopicService, private GroupMemberTopicService: GroupMemberTopicService, private router: Router) { }
 
+  doShowLogin() {
+    this.dialog.closeAll();
+    this.dialog.open(LoginComponent);
+  }
 
   doShowTopicNotificationSettings(topicId: string) {
     this.dialog.open(TopicNotificationSettingsComponent, { data: { topicId } });

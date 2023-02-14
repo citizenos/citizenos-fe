@@ -221,7 +221,7 @@
           </div>
           <div class="table_cell">
             <cos-toggle [cosToggleTextOn]="('TOGGLE_ON' | translate)" [cosToggleTextOff]="('TOGGLE_OFF' | translate)"
-              [(model)]="deadline" (click)="deadline = !deadline"></cos-toggle><!--cos-toggle-datepicker-toggle="true"-->
+              [(model)]="deadline"></cos-toggle><!--cos-toggle-datepicker-toggle="true"-->
           </div>
         </div>
         <div class="picker_content" [ngClass]="deadline ? 'active' : ''" *ngIf="deadline">
@@ -333,10 +333,10 @@
               <div class="right_row gray_toggle_box">
                 <div class="toggle_box_title datepicker_title" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_SET_DATE"></div>
                 <!--datepicker></!--datepicker-->
-                <mat-calendar></mat-calendar>
-                <div (click)="setEndsAtTime()" class="date_picker_wrap" date-picker="endsAt.date"
+                <mat-calendar class="date_picker_wrap" [minDate]="datePickerMin" [(selected)]="endsAt.date" (click)="setEndsAtTime()"></mat-calendar>
+                <!--div (click)="setEndsAtTime()" class="date_picker_wrap" date-picker="endsAt.date"
                   min-date="datePickerMin" max-view="date" min-view="date"
-                  template="/views/directives/date_picker.html"></div>
+                  template="/views/directives/date_picker.html"></!--div-->
               </div>
             </div>
           </div>

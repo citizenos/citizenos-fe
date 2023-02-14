@@ -150,7 +150,8 @@
                       <div class="toggle_box_title datepicker_title" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_SET_DATE">
                       </div>
                       <div class="date_picker_wrap">
-                        <mat-calendar [(selected)]="endsAt.date"></mat-calendar>
+
+                        <mat-calendar class="date_picker_wrap" [minDate]="datePickerMin" [(selected)]="endsAt.date" (click)="setEndsAtTime()"></mat-calendar>
                       </div>
                       <!--div class="date_picker_wrap" date-picker="endsAt.date" min-date="datePickerMin" max-view="date"
                         min-view="date" template="/views/directives/date_picker.html" (click)="setEndsAtTime()"></!--div>

@@ -52,8 +52,8 @@ export class ModalDatepickerComponent implements OnInit {
   numberOfDaysLeft = 0;
   HCount = <any>24;
   cosModalIsDateSelected = false;
+  datePickerMin = new Date();
   /*
-        private datePickerMin;
         private date;
         private model;
         private cosModalOnSave; // Expects a function that returns a Promise
@@ -68,6 +68,8 @@ export class ModalDatepickerComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.model)
+    this.setFormValues();
   }
 
   getTimeZoneName(value: number) {

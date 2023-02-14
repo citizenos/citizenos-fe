@@ -18,6 +18,7 @@ export class TopicVoteCreateComponent implements OnInit {
   HCount = 24;
   timeFormat: any;
   timezones = <any[]>[];
+  datePickerMin = new Date();
   private CONF = {
     defaultOptions: {
       regular: [
@@ -175,13 +176,16 @@ export class TopicVoteCreateComponent implements OnInit {
   }
 
   setEndsAtTime() {
+    console.log(this.endsAt.date)
     this.endsAt.date = this.endsAt.date || new Date();
     this.deadline = new Date(this.endsAt.date);
-
+    console.log(this.deadline)
     let hour = this.endsAt.h;
+    console.log(this.endsAt.h, this.endsAt.timeFormat, hour)
     if (this.endsAt.timeFormat === 'PM') { hour += 12; }
     this.deadline.setUTCHours(hour - this.endsAt.timezone);
     this.deadline.setMinutes(this.endsAt.min);
+    console.log(this.deadline)
     this.daysToVoteEnd();
   };
 
@@ -298,7 +302,9 @@ export class TopicVoteCreateComponent implements OnInit {
     this.vote.options = this.vote.options.filter((option: any) => {
       return !!option.value
     });
-
+    if (this.deadline) {
+      this.vote.endsAt = this.deadline
+    }
     this.TopicVoteService.save(this.vote)
       .pipe(take(1))
       .subscribe({
