@@ -15,8 +15,6 @@ export class CheckHeightDirective {
 
   ngAfterContentInit(): void {
     this.offsetHeight = this.elem.nativeElement.offsetHeight;
-
-    console.log(this.offsetHeight, this.maxTextHeight)
     if(this.offsetHeight > this.maxTextHeight) {
       this.overHeight = true
     }

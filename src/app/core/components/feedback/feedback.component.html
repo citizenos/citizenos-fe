@@ -1,0 +1,84 @@
+<!-- LIGHTBOX SKELETON -->
+<div id="root_lightbox">
+  <div id="lightbox" class="wide_lightbox">
+    <div id="lightbox_wrap">
+
+      <div id="lightbox_header">
+        <div id="lightbox_header_text">
+          <div class="title" translate="MODALS.GIVE_FEEDBACK_HEADING"></div>
+          <div class="description" translate="MODALS.GIVE_FEEDBACK_DESC"></div>
+        </div>
+
+        <div id="lightbox_close" matDialogClose>
+          <div class="table_cell ngdialog-close">
+            <div class="sprite sprite-btn-popup-close2x ngdialog-close"></div>
+          </div>
+        </div>
+
+        <div class="line lightest_line"></div>
+
+      </div>
+
+
+      <div class="lightbox_content">
+
+        <div class="line_wrap">
+          <div class="line lightest_line"></div>
+        </div>
+
+        <div class="lightbox_section" *ngIf="!isSubmitted">
+          <label class="bold" translate="MODALS.GIVE_FEEDBACK_LBL_NAME"></label>
+          <input class="feedback_input" [(ngModel)]="name">
+          <label class="bold" translate="MODALS.GIVE_FEEDBACK_LBL_EMAIL"></label>
+          <input class="feedback_input" [(ngModel)]="email">
+          <label class="bold" translate="MODALS.GIVE_FEEDBACK_LBL_GROUP_OR_ORG"></label>
+          <input class="feedback_input" [(ngModel)]="org">
+          <div class="feedback_info_text bold" translate="MODALS.GIVE_FEEDBACK_QUESTION_1"></div>
+
+          <textarea class="feedback_info_textarea" [ngClass]="{error_input: error}" [(ngModel)]="message"
+            [placeholder]="'MODALS.GIVE_FEEDBACK_PLACEHOLDER_TEXTAREA' | translate"></textarea>
+
+          <div class="feedback_info_text bold" translate="MODALS.GIVE_FEEDBACK_QUESTION_2"></div>
+
+          <label class="checkcontainer">
+            <input type="checkbox" class="checkbox" (checked)="allowContact"
+              (click)="allowContact = !allowContact">
+            <span class="option_checkbox"></span>
+            <span class="bold" translate="MODALS.GIVE_FEEDBACK_LBL_CHECKBOX"></span>
+          </label>
+          <p class="feedback_info_text" translate="MODALS.GIVE_FEEDBACK_BE_CAREFULL"></p>
+          <p class="feedback_info_text" translate="MODALS.GIVE_FEEDBACK_BE_GDPR"></p>
+          <p class="feedback_info_text" translate="MODALS.GIVE_FEEDBACK_BE_VIEW_MORE_LEGAL"></p>
+        </div>
+        <div class="lightbox_section" *ngIf="isSubmitted">
+          <div class="feedback_icon_wrap">
+            <div class="feedback_icon_circle">
+              <div class="icon_checkmark_white"></div>
+            </div>
+          </div>
+          <div class="feedback_submitted_title" translate="MODALS.GIVE_FEEDBACK_TITLE_THANK_YOU"></div>
+          <div class="feedback_info_text thank_you" translate="MODALS.GIVE_FEEDBACK_TEXT_THANK_YOU"></div>
+        </div>
+      </div>
+      <div class="lightbox_footer">
+        <div class="line lightest_line"></div>
+
+        <div class="lightbox_section">
+          <div class="footer_button_wrap right">
+            <div *ngIf="!isSubmitted" class="blue_link ngdialog-close"
+              mat-dialog-close translate="MODALS.GIVE_FEEDBACK_BTN_CANCEL">
+              Cancel</div>
+            <div *ngIf="!isSubmitted" class="blue_button" (click)="submitFeedback()" class="blue_button"
+              translate="MODALS.GIVE_FEEDBACK_BTN_SUBMIT"></div>
+            <div *ngIf="isSubmitted" class="blue_button ngdialog-close"
+              mat-dialog-close translate="MODALS.GIVE_FEEDBACK_BTN_CLOSE">
+              Cancel</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="close_lightbox" class="ngdialog-close" mat-dialog-close></div>
+
+</div>

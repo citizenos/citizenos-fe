@@ -77,7 +77,7 @@
                     <div class="table_cell">
                       <div *ngIf="!file.editMode" class="blue_link">{{file.name}}</div>
                       <input *ngIf="file.editMode" type="text" [(ngModel)]="file.name" focus-if
-                        (keyup)="$event.keyCode === 13 && editAttachment(file)" />
+                        (keyup)="$event.keyCode === 13 && editAttachment(file, $index)" />
                     </div>
                   </div>
 
@@ -86,7 +86,7 @@
                       <div class="name_wrap">
                         <div class="table_cell">
                           <div *ngIf="!file.editMode" class="blue_link">{{file.name}}</div>
-                          <input *ngIf="file.editMode" type="text" ng-model="file.value.name" />
+                          <input *ngIf="file.editMode" type="text" [(ngModel)]="file.name" />
                         </div>
                       </div>
                     </div>
@@ -98,7 +98,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="btn_wrap edit_btn" (click)="editAttachment(file)">
+                      <div class="btn_wrap edit_btn" (click)="editAttachment(file, $index)">
                         <div class="btn">
                           <div class="table_cell">
                             <div class="sprite sprite-icon-edit2x"></div>
@@ -109,21 +109,22 @@
                   </div>
                 </td>
                 <td class="file_buttons">
-                  <div class="btn_wrap edit_btn" (click)="editAttachment(file)">
+                  <div class="btn_wrap recycle_bin white_bg">
+                    <div class="btn" (click)="deleteAttachment($index, file)">
+                      <div class="table_cell">
+                        <div class="sprite desktop_fix sprite-mytopics-icon-deletetopic2x"></div>
+                        <div class="sprite mobile_fix sprite-mytopics-icon-deletetopic2x"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="btn_wrap edit_btn" (click)="editAttachment(file, $index)">
                     <div class="btn">
                       <div class="table_cell">
                         <div class="sprite desktop_fix"
                           [ngClass]="file.editMode ? 'sprite-icon-confirm2x' : 'sprite-icon-edit2x'"></div>
                         <div class="sprite mobile_fix"
                           [ngClass]="file.editMode ? 'sprite-icon-confirm2x' : 'sprite-icon-edit2x'"></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="btn_wrap recycle_bin white_bg">
-                    <div class="btn" (click)="deleteAttachment($index, file)">
-                      <div class="table_cell">
-                        <div class="sprite desktop_fix sprite-mytopics-icon-deletetopic2x"></div>
-                        <div class="sprite mobile_fix sprite-mytopics-icon-deletetopic2x"></div>
                       </div>
                     </div>
                   </div>

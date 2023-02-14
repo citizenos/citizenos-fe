@@ -96,7 +96,7 @@ export class TopicVoteCreateComponent implements OnInit {
     private Translate: TranslateService,
     private Notification: NotificationService,
     private router: Router
-    ) {
+  ) {
     this.setTimeZones();
   }
 
@@ -295,26 +295,21 @@ export class TopicVoteCreateComponent implements OnInit {
       this.vote.autoClose = null;
     }
 
-    this.vote.options = this.vote.options.filter((option:any) => {
+    this.vote.options = this.vote.options.filter((option: any) => {
       return !!option.value
     });
 
     this.TopicVoteService.save(this.vote)
-    .pipe(take(1))
-    .subscribe((vote) => {
-      console.log(vote)
-      this.router.navigate([vote.id]);
-  //    this.router.navigate([])
-    })
-   /*   .then((vote) => {
-        this.voteForm.errors = null;
-        this.$state.go('topics/view/votes/view', {
-          topicId: this.topicId,
-          voteId: vote.id
-        }, { reload: true });
-      }, (res) => {
-        this.$log.debug('createVote() ERR', res, res.data.errors, this.voteForm.options);
-        this.voteForm.errors = res.data.errors;
-      });*/
+      .pipe(take(1))
+      .subscribe({
+        next: (vote) => {
+          console.log(vote)
+          this.router.navigate([vote.id]);
+        },
+        error: (res) => {
+          console.debug('createVote() ERR', res, res.errors, this.vote.options);
+          this.errors = res.errors;
+        }
+      });
   };
 }

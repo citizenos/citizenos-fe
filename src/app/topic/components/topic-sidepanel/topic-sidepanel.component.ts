@@ -9,6 +9,7 @@ import { TopicAttachmentService } from 'src/app/services/topic-attachment.servic
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
+import { FeedbackComponent } from 'src/app/core/components/feedback/feedback.component';
 @Component({
   selector: 'topic-sidepanel',
   templateUrl: './topic-sidepanel.component.html',
@@ -149,7 +150,6 @@ export class TopicSidepanelComponent implements OnInit {
   };
 
   openFeedback() {
-    /*  const dialog = this.dialog
-        .open(FeedbackComponent);*/
+      const dialog = this.dialog.open(FeedbackComponent);
   };
 }

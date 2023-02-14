@@ -34,14 +34,6 @@ export class PasswordResetComponent implements OnInit {
     console.log(this.resetForm.value)
     const formValue = this.resetForm.value;
     this.errors = null;
-/*
-    const success = () => {
-      this.$state
-        .go('account/login', { email: this.passwordResetEmail })
-        .then(() => {
-          this.Notification.addInfo('MSG_INFO_PASSWORD_RESET_SUCCESS');
-        });
-    };*/
 
     if (formValue.password && formValue.password !== formValue.passwordConfirm) {
       this.errors = {
@@ -56,7 +48,7 @@ export class PasswordResetComponent implements OnInit {
       .subscribe({
         next: () => {
           //redirect login
-          this.router.navigate(['/account/login']);
+          this.router.navigate(['/account/login'], {queryParams: {email: formValue.email}});
           this.Notification.addInfo('MSG_INFO_PASSWORD_RESET_SUCCESS');
         },
         error: (res: any) => {

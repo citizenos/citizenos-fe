@@ -175,11 +175,6 @@ export class LoginComponent implements OnInit {
     this.dialog.open(PasswordForgotComponent, {
       data: {}
     })
-    /* this.ngDialog
-         .open({
-             template: '<password-forgot></password-forgot>',
-             plain: true
-         });*/
   };
 
   doLoginPartner(partnerId?: string) {

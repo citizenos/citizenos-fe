@@ -10,7 +10,7 @@ import { TopicAttachmentService } from 'src/app/services/topic-attachment.servic
 import { UploadService } from 'src/app/services/upload.service';
 import { TopicService } from 'src/app/services/topic.service';
 import { ActivatedRoute, Router } from '@angular/router';
-export interface ArgumentReactionsData {
+export interface AttachmentData {
   topic: Topic
 };
 
@@ -31,7 +31,7 @@ export class TopicAttachmentsComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     public app: AppService,
-    @Inject(MAT_DIALOG_DATA) public data: ArgumentReactionsData,
+    @Inject(MAT_DIALOG_DATA) public data: AttachmentData,
     public TopicService: TopicService,
     private TopicAttachmentService: TopicAttachmentService,
     private Notification: NotificationService,
@@ -66,38 +66,43 @@ export class TopicAttachmentsComponent implements OnInit {
         const fileTypeError = this.Translate.instant('MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED', { allowedFileTypes: this.Upload.ALLOWED_FILE_TYPES.toString() });
         this.Notification.addError(fileTypeError);
       } else {
-        this.appendAttachment(attachment);
+        this.doSaveAttachment(attachment);
       }
     }
   }
 
   triggerUpload() {
-    console.log(this.fileInput)
     this.fileInput?.nativeElement.click();
   };
-
-  handleAttachment(attachment: any) {
-    if (attachment) {
-      this.appendAttachment(attachment);
-    }
-  }
 
   dropboxSelect() {
     this.TopicAttachmentService
       .dropboxSelect()
-      .then(this.handleAttachment);
+      .then((attachment) => {
+        if (attachment) {
+          this.doSaveAttachment(attachment);
+        }
+      });
   };
 
   oneDriveSelect() {
     this.TopicAttachmentService
       .oneDriveSelect()
-      .then(this.handleAttachment);
+      .then((attachment) => {
+        if (attachment) {
+          this.doSaveAttachment(attachment);
+        }
+      });
   };
 
   googleDriveSelect() {
     this.TopicAttachmentService
       .googleDriveSelect()
-      .then(this.handleAttachment);
+      .then((attachment) => {
+        if (attachment) {
+          this.doSaveAttachment(attachment);
+        }
+      });
   };
 
   appendAttachment(attachment: any) {
@@ -105,35 +110,49 @@ export class TopicAttachmentsComponent implements OnInit {
   };
 
   doSaveAttachment(attachment: any) {
+    attachment.topicId = this.topic.id;
     if (attachment.file) {
       this.Upload.topicAttachment(this.topic.id, attachment)
-        .pipe(takeWhile((e) => !e.link))
-        .subscribe((result) => {
-          /*   this.form.files.push(result.data);
-            }).catch((err) => {
-              if (err.data.errors) {
-                var keys = Object.keys(err.data.errors);
-                keys.forEach(function (key) {
-                  this.Notification.addError(err.data.errors[key]);
-                });
-              } else if (err.data.status && err.data.status.message) {
-                this.Notification.addError(err.data.status.message);
-              } else {
-                this.Notification.addError(err.message);
-              }*/
+        .pipe(takeWhile((e) => !e.link, true))
+        .subscribe({
+          next: (result) => {
+            if (result.link)
+              this.form.files.push(result);
+          },
+          error: (res) => {
+            if (res.errors) {
+              var keys = Object.keys(res.errors);
+              keys.forEach((key) => {
+                this.Notification.addError(res.errors[key]);
+              });
+            } else if (res.status && res.status.message) {
+              this.Notification.addError(res.status.message);
+            } else {
+              this.Notification.addError(res.message);
+            }
+          }
         });
     }
-    attachment.topicId = this.topic.id;
-    if (attachment.id) {
-      //   this.TopicAttachmentService.update(attachment);
+    else if (attachment.id) {
+         this.TopicAttachmentService.update(attachment).pipe(take(1)).subscribe(() => {
+          this.form.files.push(attachment);
+         });
     } else {
-      //   this.TopicAttachmentService.save(attachment);
+         this.TopicAttachmentService.save(attachment).pipe(take(1)).subscribe({
+          next: (result) => {
+            if (result.id) {
+              attachment = result
+              this.form.files.push(attachment);
+            }
+          },
+          error: (res) => {
+            console.error(res);
+          }
+         });
     }
-
-    this.form.files.push(attachment);
   };
 
-  editAttachment(attachment: any) {
+  editAttachment(attachment: any, index: number) {
     attachment.editMode = !attachment.editMode;
     attachment.topicId = this.topic.id;
     if (!attachment.editMode && attachment.id) {

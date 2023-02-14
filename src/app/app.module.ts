@@ -35,6 +35,7 @@ import { SearchComponent } from './core/components/search/search.component';
 import { PageNotFoundComponent } from './core/components/page-not-found/page-not-found.component';
 import { PageUnauthorizedComponent } from './core/components/page-unauthorized/page-unauthorized.component';
 import { NavMobileComponent } from './core/components/nav-mobile/nav-mobile.component';
+import { FeedbackComponent } from './core/components/feedback/feedback.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { NavMobileComponent } from './core/components/nav-mobile/nav-mobile.comp
     PageNotFoundComponent,
     PageUnauthorizedComponent,
     NavMobileComponent,
+    FeedbackComponent,
   ],
   imports: [
     BrowserModule,

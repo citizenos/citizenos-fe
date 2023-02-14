@@ -1,4 +1,4 @@
-import { Directive, ElementRef } from '@angular/core';
+import { Directive, ElementRef, HostListener } from '@angular/core';
 
 @Directive({
   selector: 'cosEtherpad'
@@ -10,7 +10,6 @@ export class EtherpadDirective {
   minHeight: any;
 
   constructor(private element: ElementRef) {
-    console.log(element)
     this.width = element.nativeElement.attr.width;
     this.height = element.nativeElement.attr.height;
     if (this.width && this.valueNotPercent(this.width)) {
@@ -27,36 +26,38 @@ export class EtherpadDirective {
   };
 
   debounce(func: any, timeout = 300) {
-    let timer:any;
-    return (...args:any) => {
+    let timer: any;
+    return (...args: any) => {
       clearTimeout(timer);
       timer = setTimeout(() => { func.apply(this, args); }, timeout);
     };
   }
 
-  receiveMessageHandler(e:any) {
-    const msg = e.data;
-    if (msg.name === 'ep_resize') {
-      const width = msg.data.width;
-      const height = msg.data.height;
+  @HostListener('window.message') receiveMessageHandler(e: any | null) {
+    if (e) {
+      const msg = e.data;
+      if (msg.name === 'ep_resize') {
+        const width = msg.data.width;
+        const height = msg.data.height;
 
-      if (Number.isSafeInteger(width) && width > this.minWidth) {
-        const newWidth = width + 'px';
-        if (newWidth !== this.element.nativeElement.css('width')) {
-          this.element.nativeElement.css('width', newWidth);
+        if (Number.isSafeInteger(width) && width > this.minWidth) {
+          const newWidth = width + 'px';
+          if (newWidth !== this.element.nativeElement.css('width')) {
+            this.element.nativeElement.css('width', newWidth);
+          }
         }
-      }
 
-      if (Number.isSafeInteger(height) && height > this.minHeight) {
-        const newHeight = height + 'px';
-        if (newHeight !== this.element.nativeElement.css('height')) {
-          this.element.nativeElement.css('height', newHeight);
+        if (Number.isSafeInteger(height) && height > this.minHeight) {
+          const newHeight = height + 'px';
+          if (newHeight !== this.element.nativeElement.css('height')) {
+            this.element.nativeElement.css('height', newHeight);
+          }
         }
       }
     }
   };
 
-  sendScrollMessage = this.debounce(() => {
+  @HostListener('window.scroll') sendScrollMessage = this.debounce(() => {
     const targetWindow = this.element.nativeElement.contentWindow;
 
     let yOffsetExtra = 0; // Additional Y offset in case there is a floating header element
@@ -82,7 +83,7 @@ export class EtherpadDirective {
 
   // As angular.element does not support $.offset(), copied it over from Jquery source.
   getFrameOffset() {
-    var elem = this.element.nativeElement;
+    const elem = this.element.nativeElement;
 
     // Return zeros for disconnected and hidden (display: none) elements (gh-2310)
     // Support: IE <=11 only
@@ -104,15 +105,4 @@ export class EtherpadDirective {
     };
   };
 
-  /*
-
-$($window).on('message onmessage', receiveMessageHandler);
-$($window).on('scroll resize', sendScrollMessage);
-
-this.$on('$destroy', function () {
-  // Don't leave handlers hanging...
-  $($window).off('message onmessage', receiveMessageHandler);
-  $($window).off('scroll resize', sendScrollMessage);
-});
-  */
 }
