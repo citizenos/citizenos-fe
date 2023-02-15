@@ -17,11 +17,13 @@ const routes: Routes = [
   {
     path: ':topicId', component: TopicComponent, children: [
       { path: 'invite', component: TopicInviteDialogComponent },
-      { path: 'followup', component: TopicComponent },
+      { path: 'followup' },
       {
         path: 'votes', children: [
-          { path: 'create', component: TopicComponent },
-          { path: ':voteId', component: TopicComponent }
+          { path: 'create', },
+          { path: ':voteId', children: [
+            { path: 'followup'},
+          ]}
         ]
       },
       { path: 'settings', component: TopicSettingsDialogComponent },

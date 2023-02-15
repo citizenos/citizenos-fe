@@ -9,7 +9,7 @@ export class ModalDatepickerComponent implements OnInit {
   @Input() cosModalTitle?: string;
   @Input() cosModalDescription?: string;
   @Input() cosModalLinkText?: string;
-  @Input('ngModel') model!: any;
+  @Input('date') model!: any;
   endsAt = {
     date: <any>null,
     min: 0,
@@ -60,11 +60,7 @@ export class ModalDatepickerComponent implements OnInit {
         private timezones;
         private HCount;*/
   /*date: '=?',
-  model: '=ngModel',
-  cosModalOnSave: '&', // Expects a function that returns a Promise
-  cosModalTitle: '=?',
-  cosModalDescription: '=?',
-  cosModalLinkText: '=?'*/
+  cosModalOnSave: '&', // Expects a function that returns a Promise*/
   constructor() { }
 
   ngOnInit(): void {

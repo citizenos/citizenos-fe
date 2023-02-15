@@ -40,4 +40,9 @@ export class GroupsComponent implements OnInit {
       }
     })
   }
+
+  doOrder(orderBy: string, order: string) {
+    this.allGroups$ = [];
+    this.PublicGroupService.doOrder(orderBy, order)
+  }
 }

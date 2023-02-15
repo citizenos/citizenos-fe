@@ -124,78 +124,93 @@
   </div>
 
 
-  <!-- FILTER AREA MOBILE >
-  <div-- *ngIf="app.wWidth <= 767" id="filter_bar_mobile">
+  <!-- FILTER AREA MOBILE -->
+  <div *ngIf="app.wWidth <= 767" id="filter_bar_mobile">
 
-      <div class="filter_topics" *ngIf="!app.showSearchFiltersMobile && !isFilterApplied()" (click)="app.showSearchFiltersMobile = true">
-          <div class="table_cell" translate="VIEWS.HOME.LBL_FILTER_THE_TOPICS">Filter the topics</div>
+    <div class="filter_topics" *ngIf="!app.showSearchFiltersMobile && !isFilterApplied()"
+      (click)="app.showSearchFiltersMobile = true">
+      <div class="table_cell" translate="VIEWS.HOME.LBL_FILTER_THE_TOPICS"></div>
+    </div>
+
+    <div class="filter_topics edit" *ngIf="!app.showSearchFiltersMobile && isFilterApplied()">
+      <div class="filter_topics_top">
+        <div class="blue_link" (click)="app.showSearchFiltersMobile = true" translate="VIEWS.HOME.LNK_EDIT_FILTER">
+        </div>
+        <div class="blue_link" (click)="doClearFilters()" translate="VIEWS.HOME.LNK_CLEAR_FILTERS"></div>
       </div>
-
-      <div class="filter_topics edit" *ngIf="!app.showSearchFiltersMobile && isFilterApplied()">
-          <div class="filter_topics_top">
-              <div class="blue_link" (click)="app.showSearchFiltersMobile = true" translate="VIEWS.HOME.LNK_EDIT_FILTER">Edit filter</div>
-              <div class="blue_link" (click)="doClearFilters()" translate="VIEWS.HOME.LNK_CLEAR_FILTERS">Clear filters</div>
-          </div>
-          <div class="line lightest_line"></div>
-          <div class="filter_topics_bottom">
-              <div class="filter_text"><span translate="VIEWS.HOME.LBL_CATEGORY">Category:</span> {{'TXT_TOPIC_CATEGORY_' + (category$ | async) | uppercase | translate}}</div>
-              <div class="filter_text"><span translate="VIEWS.HOME.LBL_STATUS">Status:</span> {{'TXT_TOPIC_STATUS_' + (status$ | async) | uppercase | translate}}</div>
-          </div>
+      <div class="line lightest_line"></div>
+      <div class="filter_topics_bottom">
+        <div class="filter_text"><span translate="VIEWS.HOME.LBL_CATEGORY"></span> {{'TXT_TOPIC_CATEGORY_' +
+          (topicFilters.value.category) | uppercase | translate}}</div>
+        <div class="filter_text"><span translate="VIEWS.HOME.LBL_STATUS"></span> {{'TXT_TOPIC_STATUS_' +
+          (topicFilters.value.status) | uppercase | translate}}</div>
       </div>
+    </div>
 
-      <div id="fi_area" *ngIf="app.showSearchFiltersMobile">
+    <div id="fi_area" *ngIf="app.showSearchFiltersMobile">
 
-          <div id="fi_top">
-              <div id="fi_header">
-                  <div id="fi_header_text" translate="VIEWS.HOME.LBL_FILTER_THE_TOPICS">Filter the topics</div>
-                  <div id="close_fi" (click)="app.showSearchFiltersMobile = false">
-                      <div class="table_cell">
-                          <div class="sprite sprite-btn-popup-close2x"></div>
-                      </div>
-                  </div>
-              </div>
-              <div id="fi_nav">
+      <div id="fi_top">
+        <div id="fi_header">
+          <div id="fi_header_text" translate="VIEWS.HOME.LBL_FILTER_THE_TOPICS"></div>
+          <div id="close_fi" (click)="app.showSearchFiltersMobile = false">
+            <div class="table_cell">
+              <div class="sprite sprite-btn-popup-close2x"></div>
+            </div>
+          </div>
+        </div>
+        <div id="fi_nav">
 
-                  <div class="fi_nav_button" (click)="filters.tabSelected = 'categories'">
-                      <div class="fi_button_text" [ngClass]="filters.tabSelected === 'categories' ? 'selected' : ''" translate="VIEWS.HOME.BTN_CATEGORY">CATEGORY</div>
-                      <div class="line blue_background" [ngClass]="filters.tabSelected === 'categories' ? 'selected' :  ''"></div>
-                  </div>
+          <div class="fi_nav_button" (click)="tabSelected = 'categories'">
+            <div class="fi_button_text" [ngClass]="tabSelected === 'categories' ? 'selected' : ''"
+              translate="VIEWS.HOME.BTN_CATEGORY"></div>
+            <div class="line blue_background" [ngClass]="tabSelected === 'categories' ? 'selected' :  ''"></div>
+          </div>
 
-                  <!--div class="fi_nav_button" (click)="app.filterTabOrder = true">
+          <!--div class="fi_nav_button" (click)="app.filterTabOrder = true">
                       <div class="fi_button_text">ORDER</div>
                       <div class="line blue_background"></div>
-                  </div>
+                  </div-->
 
-                  <div class="fi_nav_button">
-                      <div class="fi_button_text" [ngClass]="filters.tabSelected === 'statuses' ? 'selected' : ''" (click)="filters.tabSelected = 'statuses'" translate="VIEWS.HOME.BTN_STATUS">STATUS</div>
-                      <div class="line blue_background" [ngClass]="filters.tabSelected === 'statuses' ? 'selected' : ''"></div>
-                  </div>
-
-              </div>
-              <div class="clearer"></div>
+          <div class="fi_nav_button">
+            <div class="fi_button_text" [ngClass]="tabSelected === 'statuses' ? 'selected' : ''"
+              (click)="tabSelected = 'statuses'" translate="VIEWS.HOME.BTN_STATUS"></div>
+            <div class="line blue_background" [ngClass]="tabSelected === 'statuses' ? 'selected' : ''"></div>
           </div>
 
-          <div class="line lightest_line"></div>
-
-          <div id="fi_selection_area">
-              <a href="" class="fi_link" *ngFor="option in filters[filters.tabSelected].options" (click)="doSetFilter(filters[filters.tabSelected], option)"
-                 [ngClass]="option === filters[filters.tabSelected].value ? 'bold' : ''">
-                  <span *ngIf="filters.tabSelected === 'categories'">
-                      {{'TXT_TOPIC_CATEGORY_' + option | uppercase | translate}}
-                  </span>
-                  <span *ngIf="filters.tabSelected === 'statuses'">
-                      {{'TXT_TOPIC_STATUS_' + option | uppercase | translate}}
-                  </span>
-              </a>
-          </div>
-
-          <div class="fi_submit">
-              <div class="blue_button" (click)="app.showSearchFiltersMobile = false" translate="VIEWS.HOME.BTN_SUBMIT_FILTER">Submit filter</div>
-          </div>
-
+        </div>
+        <div class="clearer"></div>
       </div>
 
-  </div-->
+      <div class="line lightest_line"></div>
+
+      <div id="fi_selection_area">
+        <ng-container *ngIf="tabSelected === 'categories'">
+          <a  class="fi_link" *ngFor="let category of categories$"
+          (click)="setCategory(category)"
+          [ngClass]="category === topicFilters.value.category ? 'bold' : ''">
+          <span>
+            {{'TXT_TOPIC_CATEGORY_' + category | uppercase | translate}}
+          </span>
+        </a>
+        </ng-container>
+        <ng-container *ngIf="tabSelected === 'statuses'">
+          <a  class="fi_link" *ngFor="let status of statuses$"
+          (click)="setStatus(status)"
+          [ngClass]="status === topicFilters.value.status ? 'bold' : ''">
+          <span>
+            {{'TXT_TOPIC_STATUS_' + status | uppercase | translate}}
+          </span>
+        </a>
+        </ng-container>
+      </div>
+
+      <div class="fi_submit">
+        <div class="blue_button" (click)="app.showSearchFiltersMobile = false" translate="VIEWS.HOME.BTN_SUBMIT_FILTER"></div>
+      </div>
+
+    </div>
+
+  </div>
 
   <!-- TOPICS AREA -->
   <div id="topics_area" [ngClass]="{'no_results': !(PublicTopicService.countTotal$ | async)}">

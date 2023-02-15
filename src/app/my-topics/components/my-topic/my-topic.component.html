@@ -184,18 +184,18 @@
   <div id="vote_results" class="info_container vote_results" *ngIf="topic.voteId">
 
     <div class="container_header" (click)="doToggleVoteResults()">
-      <div class="header_text" translate="VIEWS.MY_TOPICS_TOPICID.HEADING_CURRENT_VOTE_RESULTS">Current vote results
-      </div>
+      <div class="header_text" translate="VIEWS.MY_TOPICS_TOPICID.HEADING_CURRENT_VOTE_RESULTS"></div>
       <div class="minimize_container">
         <div [ngClass]="!voteResults ? 'sprite-btn-expand2x' : 'sprite-btn-minimize2x'" class="sprite"></div>
       </div>
     </div>
     <div class="container_content" *ngIf="voteResults">
-      <div class="content_bottom">
-        <!-- COLUMN 1 -->
-        <topic-vote-cast class="content_column" [vote]="topic.vote" [topic]="topic"></topic-vote-cast>
-        <!--COLUMN 2 -->
-        <!--div class="content_column">
+      <ng-container *ngIf="vote$ | async as vote">
+        <div class="content_bottom">
+          <!-- COLUMN 1 -->
+          <topic-vote-cast class="content_column" [vote]="vote" [topic]="topic"></topic-vote-cast>
+          <!--COLUMN 2 -->
+          <!--div class="content_column">
           <div class="content_item">
             <div class="item_description" translate="VIEWS.MY_TOPICS_TOPICID.LBL_VOTES_COUNTED">Votes counted</div>
             <div class="item_content">
@@ -222,8 +222,9 @@
             </div>
           </div>
         </!--div-->
-        <div class="clearer"></div>
-      </div>
+          <div class="clearer"></div>
+        </div>
+      </ng-container>
     </div>
   </div>
 

@@ -80,7 +80,7 @@
                   </div>
                 </div>
               </div>
-              <input id="hashtag" [(ngModel)]="topic.hashtag" (change)="checkHashtag()"
+              <input id="hashtag" name="hashtag" [(ngModel)]="topic.hashtag" (change)="checkHashtag()"
                 placeholder="{{'MODALS.TOPIC_SETTINGS_PLACEHOLDER_HASHTAG' | translate}}"
                 [ngClass]="{'error_input': errors.hashtag}">
               <div class="recycle_bin_wrap wrap_mobile">
@@ -113,17 +113,11 @@
               <span class="bold">{{topic.vote?.endsAt | amDateFormat:'L LT Z'}}</span>
             </div>
             <div class="settings_cell">
-              {{topic.vote | json}}
-              <modal-datepicker [cosModalLinkText]="'MODALS.TOPIC_SETTINGS_BTN_EDIT_DEADLINE' | translate"
+              <modal-datepicker name="datepicker" [cosModalLinkText]="'MODALS.TOPIC_SETTINGS_BTN_EDIT_DEADLINE' | translate"
               [cosModalTitle]="'MODALS.TOPIC_SETTINGS_MODAL_DEADLINE_TITLE' | translate"
-              [ngModel]="topic.vote?.endsAt"
+              [date]="topic.vote?.endsAt"
               [cosModalDescription]="'MODALS.TOPIC_SETTINGS_MODAL_DEADLINE_DESCRIPTION' | translate"
-              ><span
-              translate="MODALS.TOPIC_SETTINGS_BTN_EDIT_DEADLINE"></span></modal-datepicker>
-              <!--div class="gray_button edit_deadline_button" cos-modal-datepicker [(ngModel)]="topic.vote.endsAt"
-                cos-modal-on-save="doEditVoteDeadline" cos-modal-title="'MODALS.TOPIC_SETTINGS_MODAL_DEADLINE_TITLE'"
-                cos-modal-description="'MODALS.TOPIC_SETTINGS_MODAL_DEADLINE_DESCRIPTION'"><span
-                  translate="MODALS.TOPIC_SETTINGS_BTN_EDIT_DEADLINE"></span></div-->
+              ><span translate="MODALS.TOPIC_SETTINGS_BTN_EDIT_DEADLINE"></span></modal-datepicker>
             </div>
           </div>
           <div class="line lightest_line" *ngIf="canEdit()"></div>

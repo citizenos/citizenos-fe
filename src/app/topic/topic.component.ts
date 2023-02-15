@@ -37,7 +37,8 @@ export class TopicComponent implements OnInit {
   more_info_button = false; //app.more_info_button not sure where used
   topicAttachments$ = of(<Attachment[] | any[]>[]);
   ATTACHMENT_SOURCES = this.TopicAttachmentService.SOURCES;
-
+  STATUSES = this.TopicService.STATUSES;
+  VOTE_TYPES = this.TopicVoteService.VOTE_TYPES;
   constructor(
     private Auth: AuthService,
     public TopicService: TopicService,
@@ -80,7 +81,7 @@ export class TopicComponent implements OnInit {
       }),
       tap((topic) => {
         if (topic.voteId) {
-          this.vote$ = this.TopicVoteService.get({topicId: topic.id, voteId: topic.voteId});
+          this.vote$ = this.TopicVoteService.get({ topicId: topic.id, voteId: topic.voteId });
         }
         return topic;
       })
@@ -128,5 +129,17 @@ export class TopicComponent implements OnInit {
 
   downloadAttachment(topicId: string, attachment: Attachment) {
     return this.Upload.download(topicId, attachment.id, this.Auth.user.value.id || '');
+  };
+
+  hasVoteEndedExpired(topic: Topic, vote: Vote) {
+    return [this.STATUSES.followUp, this.STATUSES.closed].indexOf(topic.status) < 0 && vote && vote.endsAt && new Date() > new Date(vote.endsAt);
+  };
+
+  hasVoteEnded(topic: Topic, vote:Vote) {
+    if ([this.STATUSES.followUp, this.STATUSES.closed].indexOf(topic.status) > -1) {
+      return true;
+    }
+
+    return vote && vote.endsAt && new Date() > new Date(vote.endsAt);
   };
 }

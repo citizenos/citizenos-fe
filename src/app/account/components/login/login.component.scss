@@ -7,6 +7,17 @@
       margin-bottom: 10px;
   }
 
+  input {
+    @extend %input_small;
+  }
+
+  input,
+  button {
+    &:not(:first-child) {
+      margin-top: 10px;
+    }
+  }
+
   .link_section {
       text-align: left;
   }

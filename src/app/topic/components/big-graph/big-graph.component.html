@@ -1,0 +1,29 @@
+<div class="big_graph">
+  <div class="long_text_holder">
+    <div class="long_text" [ngClass]="(option.value.value) ? 'active' : ''" *ngFor="let option of options.rows | keyvalue">
+      <span class="bold">{{getOptionLetter(option.key)}}.</span> <span
+        translate="{{'VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_' + option.value | linky | uppercase}}"
+        [translateParams]="{default: (option.value.value | linky)}"></span>
+    </div>
+  </div>
+
+  <div class="graph_wrap">
+    <div class="graph_row" [ngClass]="option.value.winner ? 'active' : ''" *ngFor="let option of options.rows | keyvalue">
+      <!-- TODO: Maybe there is a better solution for translation fallback in the tooltip text? -->
+      <div class="graph_row_fill" [style.width]="getVoteValuePercentage(option.value.voteCount)"
+        [tooltip]="''">
+        <div class="graph_row_text_wrap">
+          <div class="table_cell">
+            <div class="graph_row_text">
+              {{getOptionLetter(option.key)}}.<br>
+              <span class="bold">{{option.value.voteCount || 0}}</span><span class="bold bullet"
+                *ngIf="option.value.selected">•</span><span class="bold" *ngIf="option.value.selected"
+                translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_YOUR_VOTE"></span><!--span class="bold" ng-if="option.delegated" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_YOUR_VOTE_DELEGATED" translate-values="{userName: vote.delegation.name}">Your vote delegated to </span-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

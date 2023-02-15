@@ -295,10 +295,6 @@ export class TopicVoteCreateComponent implements OnInit {
       this.vote.reminderTime = this.vote.reminderTime = null;
     }
 
-    if (!this.vote.autoClose.length) {
-      this.vote.autoClose = null;
-    }
-
     this.vote.options = this.vote.options.filter((option: any) => {
       return !!option.value
     });

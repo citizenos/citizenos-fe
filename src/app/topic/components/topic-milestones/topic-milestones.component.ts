@@ -16,7 +16,7 @@ export class TopicMilestonesComponent implements OnInit {
   event = {
     subject: '',
     text: '',
-    topicId: this.topic.id
+    topicId: ''
   };
 
   errors = <any>null;
@@ -31,15 +31,18 @@ export class TopicMilestonesComponent implements OnInit {
 
   ngOnInit(): void {
     this.TopicEventService.setParam('topicId', this.topic.id);
+    this.event.topicId = this.topic.id;
   }
 
   submitEvent() {
+    console.log(this.event)
     this.TopicEventService
       .save(this.event)
       .pipe(take(1))
       .subscribe(() => {
         this.event.subject = '';
         this.event.text = '';
+        this.TopicEventService.reset();
       });
   };
 
@@ -48,6 +51,7 @@ export class TopicMilestonesComponent implements OnInit {
   }
 
   deleteEvent(event: any) {
+    event.topicId = this.topic.id;
     const deleteDialog = this.dialog.open(ConfirmDialogComponent, {
       data: {
         heading: 'MODALS.TOPIC_EVENT_DELETE_CONFIRM_HEADING',
@@ -67,6 +71,7 @@ export class TopicMilestonesComponent implements OnInit {
           .subscribe(() => {
             this.event.subject = '';
             this.event.text = '';
+            this.TopicEventService.reset();
           });
       }
     });

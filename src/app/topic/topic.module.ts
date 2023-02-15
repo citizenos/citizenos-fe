@@ -36,6 +36,8 @@ import { TopicVoteSignEsteidComponent } from './components/topic-vote-sign-estei
 import { TopicVoteSignSmartidComponent } from './components/topic-vote-sign-smartid/topic-vote-sign-smartid.component';
 import { ArgumentReportComponent } from './components/argument-report/argument-report.component';
 import { ArgumentReportModerateComponent, ArgumentReportModerateDialogComponent } from './components/argument-report-moderate/argument-report-moderate.component';
+import { BigGraphComponent } from './components/big-graph/big-graph.component';
+import { RegularGraphComponent } from './components/regular-graph/regular-graph.component';
 
 
 @NgModule({
@@ -45,7 +47,6 @@ import { ArgumentReportModerateComponent, ArgumentReportModerateDialogComponent 
     TopicArgumentsComponent,
     ArgumentComponent,
     TopicNotificationSettingsComponent,
-    VoteClosedComponent,
     TopicTabsComponent,
     TopicSidepanelComponent,
     PostArgumentComponent,
@@ -76,7 +77,10 @@ import { ArgumentReportModerateComponent, ArgumentReportModerateDialogComponent 
     TopicVoteSignSmartidComponent,
     ArgumentReportComponent,
     ArgumentReportModerateComponent,
-    ArgumentReportModerateDialogComponent
+    ArgumentReportModerateDialogComponent,
+    VoteClosedComponent,
+    BigGraphComponent,
+    RegularGraphComponent
   ],
   imports: [
     CommonModule,
@@ -86,6 +90,10 @@ import { ArgumentReportModerateComponent, ArgumentReportModerateDialogComponent 
     SharedModule,
     TopicRoutingModule,
     TranslateModule,
+  ],
+  exports: [
+    VoteClosedComponent,
+    BigGraphComponent
   ]
 })
 export class TopicModule { }

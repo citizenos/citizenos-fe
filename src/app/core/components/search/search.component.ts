@@ -57,6 +57,8 @@ export class SearchComponent implements OnInit {
           console.log(data.results)
           this.searchResults = data.results;
           this.app.showSearchResults=true;
+          this.app.showNav = false;
+          this.app.showSearchFiltersMobile = false;
           this.noResults = false;
           /*this.searchResults = result.data.data.results;
           this.searchResults.combined = [];

@@ -9,7 +9,9 @@ export interface Vote {
   id: string,
   maxChoices: number,
   minChoices: number,
-  options: any,
+  options: {
+    rows: any[]
+  } | any,
   reminderSent: string | null | Date,
   reminderTime: string | null | Date,
   type: string,

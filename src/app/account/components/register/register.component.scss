@@ -1,0 +1,15 @@
+@use "mixins_n_extends";
+
+input {
+  @extend %input_small;
+}
+
+input,
+button {
+  &:not(:first-child) {
+    margin-top: 10px;
+  }
+}
+.settings_cell:first-child {
+  width: 80%;
+}

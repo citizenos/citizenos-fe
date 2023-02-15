@@ -42,9 +42,8 @@ export class TopicVoteSignSmartidComponent implements OnInit {
       voteId: this.topic.voteId,
       topicId: this.topic.id,
       options: this.options,
-      pid: this.pid,
-      certificate: null,
-      countryCode: this.countryCode
+      pid: this.signForm.value.pid,
+      countryCode: this.signForm.value.countryCode
     };
 
     this.TopicVoteService.cast(userVote)

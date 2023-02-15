@@ -5,6 +5,7 @@ import { TopicActivityService } from 'src/app/services/topic-activity.service';
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TopicService } from 'src/app/services/topic.service';
+import { TopicVoteService } from 'src/app/services/topic-vote.service';
 import { Observable, take, map, switchMap, BehaviorSubject, tap, of } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicMemberUserService } from 'src/app/services/topic-member-user.service';
@@ -14,6 +15,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { TopicNotificationSettingsComponent } from 'src/app/topic/components/topic-notification-settings/topic-notification-settings.component';
+import { Vote } from 'src/app/interfaces/vote';
 @Component({
   selector: 'my-topic',
   templateUrl: './my-topic.component.html',
@@ -24,6 +26,7 @@ export class MyTopicComponent implements OnInit {
   @ViewChild('groupListEl') groupListEl?: ElementRef;
 
   topic$: Observable<Topic>;
+  vote$?: Observable<Vote>;
   activities$ = of(<any[]>[])
   allActivities$ = <any[]>[];
   memberGroups$ = of(<any[]>[]);
@@ -46,6 +49,7 @@ export class MyTopicComponent implements OnInit {
     public app: AppService,
     private AuthService: AuthService,
     public TopicService: TopicService,
+    private TopicVoteService: TopicVoteService,
     private Translate: TranslateService,
     public dialog: MatDialog,
     public TopicMemberUserService: TopicMemberUserService,
@@ -59,6 +63,11 @@ export class MyTopicComponent implements OnInit {
     this.topic$ = this.route.params.pipe(
       switchMap((params) => {
         return this.TopicService.get(params['topicId']);
+      }),
+      tap((topic) => {
+        if (topic.voteId) {
+          this.vote$ = this.TopicVoteService.get({ topicId: topic.id, voteId: topic.voteId });
+        }
       })
     );
     this.memberGroups$ = this.route.params.pipe(

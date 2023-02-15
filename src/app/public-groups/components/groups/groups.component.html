@@ -21,18 +21,14 @@
           <div class="dropdown group_filter_dropdown big_drop">
             <div class="line lightest_line"></div>
 
-            <div class="dropdown_item" (click)="PublicGroupService.doOrder('title', 'ASC')">
+            <div class="dropdown_item" (click)="doOrder('title', 'ASC')">
               <div class="icon arrow_th_sort_down"></div>
-              <div class="item_name" translate="VIEWS.PUBLIC_GROUPS.ORDER_TITLE_ASC">
-                ORDER
-              </div>
+              <div class="item_name" translate="VIEWS.PUBLIC_GROUPS.ORDER_TITLE_ASC"></div>
               <div class="clearer"></div>
             </div>
-            <div class="dropdown_item" (click)="PublicGroupService.doOrder('title', 'DESC')">
+            <div class="dropdown_item" (click)="doOrder('title', 'DESC')">
               <div class="icon arrow_th_sort_up"></div>
-              <div class="item_name" translate="VIEWS.PUBLIC_GROUPS.ORDER_TITLE_DESC">
-                Leave
-              </div>
+              <div class="item_name" translate="VIEWS.PUBLIC_GROUPS.ORDER_TITLE_DESC"></div>
               <div class="clearer"></div>
             </div>
           </div>

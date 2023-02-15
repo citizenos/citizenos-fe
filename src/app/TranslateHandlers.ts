@@ -1,4 +1,4 @@
-import { TranslateCompiler } from '@ngx-translate/core';
+import { TranslateCompiler, MissingTranslationHandler } from '@ngx-translate/core';
 
 export class JSONPointerCompiler extends TranslateCompiler {
 
@@ -63,4 +63,13 @@ export class JSONPointerCompiler extends TranslateCompiler {
         return obj;
     }
 
+}
+
+export class CosMissingTranslationHandler implements MissingTranslationHandler {
+  handle(params: any) {
+    if (params.interpolateParams && params.interpolateParams.default) {
+      return params.interpolateParams.default
+    }
+      return params.key
+  }
 }

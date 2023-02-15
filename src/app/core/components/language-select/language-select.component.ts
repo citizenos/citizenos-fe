@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { ConfigService } from 'src/app/services/config.service';
-import { Router } from '@angular/router';
+import { Router, PRIMARY_OUTLET } from '@angular/router';
 
 @Component({
   selector: 'app-language-select',
@@ -9,16 +9,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./language-select.component.scss']
 })
 export class LanguageSelectComponent implements OnInit {
-  languages$: {[key: string]: any} = this.config.get('language').list;
-
+  languages$: { [key: string]: any } = this.config.get('language').list;
   constructor(public translate: TranslateService, public config: ConfigService, private router: Router) {
   }
 
   ngOnInit(): void {
   }
 
-  doSwitchLanguage (lang: string) {
+  doSwitchLanguage(lang: string) {
     this.translate.use(lang);
-    this.router.navigateByUrl(this.router.url.toString().replace('/'+this.translate.currentLang, '/'+lang));
+    const parsedUrl = this.router.parseUrl(this.router.url);
+    const outlet = parsedUrl.root.children[PRIMARY_OUTLET];
+
+    const g = outlet?.segments.map(seg => seg.path) || [''];
+    g[0] = lang;
+    this.router.navigate(g, { queryParams: parsedUrl.queryParams, fragment: parsedUrl.fragment || undefined });
   }
 }

@@ -11,7 +11,6 @@ import { UserTopicService } from 'src/app/services/user-topic.service';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent {
-
   topics$;
   allTopics$: Topic[] = [];
   public filters;

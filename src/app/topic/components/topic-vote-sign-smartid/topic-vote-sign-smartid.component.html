@@ -36,7 +36,6 @@
               <div class="loader"></div>
             </div>
             <div *ngIf="!challengeID && !isLoading">
-              {{signForm.errors | json}}
               <input *ngIf="!isLoading" id="countryCode" formControlName="countryCode" maxlength="2"
               [ngClass]="{error_input: signForm.errors && signForm.errors['countryCode']}" [placeholder]="'MODALS.TOPIC_VOTE_SIGN_SMARTID_PLACEHOLDER_COUNTRY_CODE' | translate"
               (focus)="wWidth > 1024" pattern="^[A-Z]{2}$" required>
@@ -48,7 +47,7 @@
                   <span translate="MODALS.TOPIC_VOTE_SIGN_SMARTID_ERROR_COUNTRY_CODE"></span>
                 </div>
               </!--label-->
-              <input *ngIf="!isLoading" [(ngModel)]="pid" name="pid" type="text"
+              <input *ngIf="!isLoading" formControlName="pid" name="pid" type="text"
               inputmode="numeric" [placeholder]="'MODALS.TOPIC_VOTE_SIGN_SMARTID_PLACEHOLDER_PID' | translate" ngModel pattern="/^[0-9]{11}$/"
               required>
               <!--input id="pid" name="pid" type="text" inputmode="numeric" ng-model="$ctrl.TopicVoteService.pid"

@@ -2,6 +2,16 @@
 @use "vars";
 
 #lightbox.my_account_lightbox {
+  input {
+    @extend %input_small;
+  }
+
+  input,
+  button {
+    &:not(:first-child) {
+      margin-top: 10px;
+    }
+  }
   #lightbox_wrap {
     @include mixins_n_extends.mobile {
       padding: 0;
@@ -12,7 +22,6 @@
 
       .lightbox_section {
         padding: 20px;
-
       }
     }
   }

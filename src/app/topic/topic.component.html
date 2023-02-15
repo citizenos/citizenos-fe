@@ -76,7 +76,20 @@
 
           <!-- Cast your vote container-->
           <ng-container *ngIf="showVoteCast && topic.voteId && (vote$ | async) as vote">
-            <topic-vote-cast [topic]="topic" [vote]="vote"></topic-vote-cast>
+            <div class="voting_platform_wrap vote_casting_wrap">
+              <topic-vote-cast [topic]="topic" [vote]="vote"></topic-vote-cast>
+
+              <!-- Statistics graph start -->
+              <vote-closed [topic]="topic" [vote]="vote" *ngIf="hasVoteEndedExpired(topic, vote) || hasVoteEnded(topic, vote)"></vote-closed>
+
+              <!-- Regular graph -->
+              <regular-graph *ngIf="vote.type === VOTE_TYPES.regular && (hasVoteEndedExpired(topic, vote) || hasVoteEnded(topic, vote))" [options]="vote.options"></regular-graph>
+
+              <!-- Big graph -->
+              <big-graph
+                [options]="vote.options" *ngIf="vote.type === VOTE_TYPES.multiple && (hasVoteEndedExpired(topic, vote) || hasVoteEnded(topic, vote))"></big-graph>
+              <!-- Statistics graph end -->
+            </div>
           </ng-container>
 
           <topic-vote-create *ngIf="showVoteCreateForm" [topic]="topic"></topic-vote-create>
@@ -214,7 +227,6 @@
               <iframe cosEtherpad *ngIf="!hideTopicContent && TopicService.canEdit(topic) && (editMode$ | async)"
                 frameborder="0" scrolling="no" [ngClass]="{hidden: !topic.padUrl || viewFollowup}"
                 [src]="sanitizeURL(topic.padUrl)" width="100%" height="600"></iframe>
-              <!--ng-bind-html *ngIf="!hideTopicContent && !app.editMode" ng-bind-html="topic.description"></ng-bind-html -->
               <div *ngIf="!hideTopicContent && !editMode" [innerHtml]="topic.description"></div>
               <h1 *ngIf="hideTopicContent"><i>Topic content has been hidden due to violation of community guidelines</i>
               </h1>

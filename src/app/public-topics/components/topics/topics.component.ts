@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AppService } from 'src/app/services/app.service';
 import { TopicService } from 'src/app/services/topic.service';
 import { PublicTopicService } from 'src/app/services/public-topic.service';
-import { map, tap, switchMap, of,Observable, Subject, concatWith, } from 'rxjs';
+import { map, tap, switchMap, of, Observable, Subject, concatWith, } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 @Component({
@@ -11,13 +12,14 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./topics.component.scss']
 })
 export class TopicsComponent implements OnInit {
+  public FILTERS_ALL = 'all';
   topicFilters = new FormGroup({
-    category: new FormControl('all'),
-    status: new FormControl('all')
+    category: new FormControl(this.FILTERS_ALL),
+    status: new FormControl(this.FILTERS_ALL)
   });
 
-  public FILTERS_ALL = 'all';
 
+  tabSelected = 'categories';
   categories$ = Object.keys(this.Topic.CATEGORIES);
 
   statuses$ = Object.keys(this.Topic.STATUSES);
@@ -26,52 +28,53 @@ export class TopicsComponent implements OnInit {
   wWidth = window.innerWidth;
   destroy$ = new Subject<boolean>();
 
-  constructor(private route: ActivatedRoute, private Topic: TopicService, public PublicTopicService: PublicTopicService, private FormBuilder:FormBuilder) {
+  constructor(private route: ActivatedRoute, private Topic: TopicService, public PublicTopicService: PublicTopicService, private FormBuilder: FormBuilder, public app: AppService) {
     this.PublicTopicService.reset();
     this.topics$ = this.PublicTopicService.loadItems().pipe(map(
-      (newtopics:any) => {
+      (newtopics: any) => {
         this.allTopics$ = this.allTopics$.concat(newtopics);
         return this.allTopics$;
       }
     ));
   }
 
-  trackByFn (index: number, element: any) {
+  trackByFn(index: number, element: any) {
     return element.id;
   }
 
-  setStatus (status: string) {
-    this.topicFilters.patchValue({status: status});
+  setStatus(status: string) {
+    this.topicFilters.patchValue({ status: status });
     if (status && status === 'all') {
       status = '';
     }
     this.allTopics$ = [];
-    this.PublicTopicService.setParam('statuses', status);
+    this.PublicTopicService.setParam('statuses', [status]);
   }
 
-  setCategory (category: string) {
-    this.topicFilters.patchValue({category: category});
+  setCategory(category: string) {
+    this.topicFilters.patchValue({ category: category });
     if (category && category === 'all') {
       category = '';
     }
     this.allTopics$ = [];
-    this.PublicTopicService.setParam('category', category);
+    this.PublicTopicService.setParam('categories', [category]);
   }
 
   ngOnInit(): void {
   }
 
-  doClearFilters () {
-    this.topicFilters.reset({
-      category: 'all',
-      status: 'all'
-    });
+  doClearFilters() {
+    this.topicFilters.reset();
 
-    this.setStatus('');
-    this.setCategory('');
+    this.setStatus(this.FILTERS_ALL);
+    this.setCategory(this.FILTERS_ALL);
   }
 
   ngOnDestroy(): void {
     this.destroy$.next(true);
   }
+
+  isFilterApplied() {
+    return this.topicFilters.value.category !== this.FILTERS_ALL || this.topicFilters.value.status !== this.FILTERS_ALL;
+  };
 }

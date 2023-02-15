@@ -17,6 +17,7 @@ export class AppService {
   showSearch=false;
   editMode = false;
   showSearchResults = false;
+  showSearchFiltersMobile = false;
   showHelp = new BehaviorSubject(false);
   group = new BehaviorSubject<Group | undefined>(undefined);
   topic: Topic | undefined;

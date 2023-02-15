@@ -1,98 +1,96 @@
-<div class="voting_platform_wrap vote_casting_wrap" *ngIf="topic && vote">
-
-  <div class="vote_casting_header">
-    <div class="vote_casting_header_section">
-      <div class="table_cell bold vote_casting_description" *ngIf="!hasVoteEndedExpired() && !hasVoteEnded()"
-        translate="VIEWS.TOPICS_TOPICID.VOTE_CAST_YOUR_VOTE"></div>
-      <div class="table_cell bold vote_casting_description" *ngIf="hasVoteEndedExpired() || hasVoteEnded()"
-        translate="VIEWS.TOPICS_TOPICID.LBL_VOTE_RESULTS"></div>
+<div class="vote_casting_header">
+  <div class="vote_casting_header_section">
+    <div class="table_cell bold vote_casting_description" *ngIf="!hasVoteEndedExpired() && !hasVoteEnded()"
+      translate="VIEWS.TOPICS_TOPICID.VOTE_CAST_YOUR_VOTE"></div>
+    <div class="table_cell bold vote_casting_description" *ngIf="hasVoteEndedExpired() || hasVoteEnded()"
+      translate="VIEWS.TOPICS_TOPICID.LBL_VOTE_RESULTS"></div>
+  </div>
+  <div class="vote_casting_header_section">
+    <div class="table_cell">
+      <span class="bold">{{vote.votersCount || 0}}</span><span
+        *ngIf="topic.visibility === VISIBILITY.private">/{{topic.members.users.count}}</span> <span
+        translate="VIEWS.TOPICS_TOPICID.VOTE_VOTES_COUNTED"></span>
     </div>
-    <div class="vote_casting_header_section">
-      <div class="table_cell">
-        <span class="bold">{{vote.votersCount || 0}}</span><span
-          *ngIf="topic.visibility === VISIBILITY.private">/{{topic.members.users.count}}</span> <span
-          translate="VIEWS.TOPICS_TOPICID.VOTE_VOTES_COUNTED"></span>
+  </div>
+  <div class="clearer"></div>
+</div>
+
+<div class="line lightest_line"></div>
+
+<div class="vote_casting_message with_upper_right_links"
+  *ngIf="vote.authType === VOTE_AUTH_TYPES.hard && !hasVoteEnded()">
+
+  <div class="message_header">
+    <div class="message_title" translate="VIEWS.TOPICS_TOPICID.VOTE_HEADING_REQUIRE_HARD_ID"></div>
+    <div class="message_content" translate="VIEWS.TOPICS_TOPICID.VOTE_TXT_REQUIRE_HARD_ID"></div>
+    <div class="float_wrap">
+      <div class="icon_wrapper">
+        <div class="sprite sprite-id-kaart-big2x"></div>
+      </div>
+      <div class="icon_wrapper">
+        <div class="sprite sprite-mobiil-id-big2x"></div>
+      </div>
+      <div class="icon_wrapper">
+        <div class="sprite sprite-smart-id-small2x"></div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="clearer"></div>
+
+  </div>
+
+
+</div>
+
+<div class="vote_casting_message with_upper_right_links with_border" *ngIf="userHasVoted && !hasVoteEnded()">
+
+  <div class="message_header">
+    <div class="message_title" translate="VIEWS.TOPICS_TOPICID.HEADING_VOTE_REGISTERED"></div>
+    <div class="float_wrap">
+      <div class="blue_link" [ngClass]="{hidden: vote.authType !== VOTE_AUTH_TYPES.hard}">
+        <a [href]="vote.downloads.bdocVote" translate="VIEWS.TOPICS_TOPICID.BTN_DOWNLOAD_USER_BDOC" download></a>
       </div>
     </div>
     <div class="clearer"></div>
   </div>
 
-  <div class="line lightest_line"></div>
+  <div class="message_content" [ngClass]="{hidden: vote.authType !== VOTE_AUTH_TYPES.hard}"
+    translate="VIEWS.TOPICS_TOPICID.VOTE_TXT_VOTE_REGISTERED">
+  </div>
 
-  <div class="vote_casting_message with_upper_right_links"
-    *ngIf="vote.authType === VOTE_AUTH_TYPES.hard && !hasVoteEnded()">
+</div>
 
-    <div class="message_header">
-      <div class="message_title" translate="VIEWS.TOPICS_TOPICID.VOTE_HEADING_REQUIRE_HARD_ID"></div>
-      <div class="message_content" translate="VIEWS.TOPICS_TOPICID.VOTE_TXT_REQUIRE_HARD_ID"></div>
-      <div class="float_wrap">
-        <div class="icon_wrapper">
-          <div class="sprite sprite-id-kaart-big2x"></div>
-        </div>
-        <div class="icon_wrapper">
-          <div class="sprite sprite-mobiil-id-big2x"></div>
-        </div>
-        <div class="icon_wrapper">
-          <div class="sprite sprite-smart-id-small2x"></div>
-        </div>
-        <div class="clearer"></div>
-      </div>
-      <div class="clearer"></div>
+<div class="vote_casting_message" *ngIf="vote.type === 'multiple' && vote.maxChoices > 1">
+  <div class="message_content" translate="VIEWS.TOPICS_TOPICID.TXT_YOU_CAN_CHOOSE_OPTIONS"
+    [translateParams]="{maxChoices: vote.maxChoices}"></div>
+</div>
+<div class="vote_casting_overlay"
+  *ngIf="vote.authType === VOTE_AUTH_TYPES.soft && !hasVoteEnded() && !(AuthService.loggedIn$ | async)">
+  <h3 translate-compile translate="VIEWS.TOPICS_TOPICID.LOG_IN_TO_PARTICIPATE"></h3>
+</div>
+<div class="voting_platform_buttons" *ngIf="!hasVoteEnded()">
+
+  <div class="voting_button" (click)="selectOption(option)" [attr.disabled]="!canVote()"
+    [ngClass]="(option.selected) ? 'active': ''" *ngFor="let option of vote.options.rows">
+    <div class="table_cell left_side">
+      <label class="checkcontainer" *ngIf="!isRadio(vote, option)">
+        <input type="checkbox" class="vote_option_radio" [checked]="option.selected" (click)="selectOption(option)">
+        <span class="option_checkbox"></span>
+      </label>
+      <label class="checkcontainer" *ngIf="isRadio(vote, option)">
+        <input type="radio" class="vote_option_radio" (click)="selectOption(option)">
+        <span class="option_radio"></span>
+      </label>
 
     </div>
-
-
+    <div class="table_cell right_side" [translateParams]="{default: option.value}"
+      translate="{{'VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_' + option.value  | uppercase}}"></div>
   </div>
+  <!--'VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_' + option.value | linky | uppercase}} translate-default="{{option.value}}pip-->
 
-  <div class="vote_casting_message with_upper_right_links with_border" *ngIf="userHasVoted && !hasVoteEnded()">
+</div>
 
-    <div class="message_header">
-      <div class="message_title" translate="VIEWS.TOPICS_TOPICID.HEADING_VOTE_REGISTERED"></div>
-      <div class="float_wrap">
-        <div class="blue_link" [ngClass]="{hidden: vote.authType !== VOTE_AUTH_TYPES.hard}">
-          <a [href]="vote.downloads.bdocVote" translate="VIEWS.TOPICS_TOPICID.BTN_DOWNLOAD_USER_BDOC" download></a>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-
-    <div class="message_content" [ngClass]="{hidden: vote.authType !== VOTE_AUTH_TYPES.hard}"
-      translate="VIEWS.TOPICS_TOPICID.VOTE_TXT_VOTE_REGISTERED">
-    </div>
-
-  </div>
-
-  <div class="vote_casting_message" *ngIf="vote.type === 'multiple' && vote.maxChoices > 1">
-    <div class="message_content" translate="VIEWS.TOPICS_TOPICID.TXT_YOU_CAN_CHOOSE_OPTIONS"
-      [translateParams]="{maxChoices: vote.maxChoices}"></div>
-  </div>
-  <div class="vote_casting_overlay"
-    *ngIf="vote.authType === VOTE_AUTH_TYPES.soft && !hasVoteEnded() && !(AuthService.loggedIn$ | async)">
-    <h3 translate-compile translate="VIEWS.TOPICS_TOPICID.LOG_IN_TO_PARTICIPATE"></h3>
-  </div>
-  <div class="voting_platform_buttons" *ngIf="!hasVoteEnded()">
-
-    <div class="voting_button" (click)="selectOption(option)" [attr.disabled]="!canVote()"
-      [ngClass]="(option.selected) ? 'active': ''" *ngFor="let option of vote.options.rows">
-      <div class="table_cell left_side">
-        <label class="checkcontainer" *ngIf="!isRadio(vote, option)">
-          <input type="checkbox" class="vote_option_radio" [checked]="option.selected"
-            (click)="selectOption(option)">
-          <span class="option_checkbox"></span>
-        </label>
-        <label class="checkcontainer" *ngIf="isRadio(vote, option)">
-          <input type="radio" class="vote_option_radio" (click)="selectOption(option)">
-          <span class="option_radio"></span>
-        </label>
-
-      </div>
-      <div class="table_cell right_side"
-        translate="{{'VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_' + option.value  | uppercase}}"></div>
-    </div><!--'VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_' + option.value | linky | uppercase}} translate-default="{{option.value}}pip-->
-
-  </div>
-
-  <!--div-- class="delegation_section" *ngIf="!hasVoteEnded()">
+<!--div-- class="delegation_section" *ngIf="!hasVoteEnded()">
 
     <div class="voting_button" *ngIf="(canDelegate() && vote.authType !== VOTE_AUTH_TYPES.hard)"
       [ngClass]="vote.delegation ? 'active' : ''" (click)="doDelegate()">
@@ -132,21 +130,9 @@
     </div>
 
   </!--div-->
-  <div class="line lightest_line multiplechoice" *ngIf="!hasVoteEnded()"></div>
-  <div class="vote_multiple_submit_section" *ngIf="!hasVoteEnded()">
-    <div class="table_cell" cos-disabled="!canSubmit()">
-      <div class="blue_button" (click)="doVote()" translate="VIEWS.TOPICS_TOPICID.VOTE_SUBMIT"></div>
-    </div>
+<div class="line lightest_line multiplechoice" *ngIf="!hasVoteEnded()"></div>
+<div class="vote_multiple_submit_section" *ngIf="!hasVoteEnded()">
+  <div class="table_cell" cos-disabled="!canSubmit()">
+    <div class="blue_button" (click)="doVote()" translate="VIEWS.TOPICS_TOPICID.VOTE_SUBMIT"></div>
   </div>
-
-  <!-- Statistics graph start -->
-  <!--vote-closed class="vote_casting_message" [topic]="topic" [vote]="vote" *ngIf="hasVoteEndedExpired() || hasVoteEnded()"></!--vote-closed-->
-
-  <!-- Regular graph >
-  <regular-graph *ngIf="vote.type === VOTE_TYPES.regular && (hasVoteEndedExpired() || hasVoteEnded())" options="vote.options"></regular-graph>
-
-  <!-- Big graph >
-  <big-graph *ngIf="vote.type === VOTE_TYPES.multiple && (hasVoteEndedExpired() || hasVoteEnded())" options="vote.options"></big-graph>
-  <!-- Statistics graph end -->
-
 </div>

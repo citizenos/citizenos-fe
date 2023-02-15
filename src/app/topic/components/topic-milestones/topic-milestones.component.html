@@ -15,8 +15,8 @@
 
       <input id="create_milestone_title" [(ngModel)]="event.subject"
         [ngClass]="{'error_input': errors?.subject}" translate
-        translate-attr-placeholder="VIEWS.TOPICS_TOPICID.ADD_MILESTONES_PLACEHOLDER_SUBJECT" class="gray_borders"
-        maxlength="{{maxLengthSubject}}" required>
+        [placeholder]="'VIEWS.TOPICS_TOPICID.ADD_MILESTONES_PLACEHOLDER_SUBJECT' | translate" class="gray_borders"
+        [maxlength]="maxLengthSubject" required>
       <label for="create_milestone_title" class="error_label" *ngIf="errors?.subject">
         <div class="table_cell">
           <div class="sprite sprite-icon-inputfield-error2x"></div>
@@ -27,7 +27,7 @@
       <textarea id="create_milestone_textarea" class="gray_borders"
         [ngClass]="{'error_input': errors?.text}" [(ngModel)]="event.text"
         [placeholder]="'VIEWS.TOPICS_TOPICID.ADD_MILESTONES_PLACEHOLDER_TEXT' | translate"
-        maxlength="{{maxLengthText}}" required></textarea>
+        [maxlength]="maxLengthText" required></textarea>
 
       <label for="create_milestone_textarea" class="error_label" *ngIf="errors?.text">
         <div class="table_cell">

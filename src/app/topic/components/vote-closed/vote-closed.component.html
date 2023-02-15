@@ -1,74 +1,74 @@
-<div class="message_header">
-  <div class="message_title" translate="VIEWS.TOPICS_TOPICID.VOTE_HEADING_VOTE_CLOSED"></div>
-  <div class="clearer"></div>
-</div>
-
-<div *ngIf="canUpdate()" class="message_content print_never"
-  translate="VIEWS.TOPICS_TOPICID.VOTE_TXT_VOTE_CLOSED">
-</div>
-
-<div *ngIf="hasVoteEndedExpired() && canUpdate()" class="print_never">
-  <div class="message_content" translate="VIEWS.TOPICS_TOPICID.VOTE_TXT_VOTE_CLOSED_EXPIRED"></div>
-  <div class="voting_button voting_button_blue active">
-    <div class="table_cell" (click)="sendToFollowUp('topics/view/votes/view')"
-      translate="VIEWS.TOPICS_TOPICID.NAV_LNK_SEND_TO_FOLLOW_UP"></div>
+<div class="vote_casting_message">
+  <div class="message_header">
+    <div class="message_title" translate="VIEWS.TOPICS_TOPICID.VOTE_HEADING_VOTE_CLOSED"></div>
+    <div class="clearer"></div>
   </div>
-</div>
-<div class="info_box_wrap"
-  *ngIf="multipleWinners && (hasVoteEndedExpired() || hasVoteEnded())  && showInfoWinners && canUpdate()"> <!--('topics/view/votes/view' | isState)-->
-  <div class="info_box"
-    [ngClass]="{'info_box_show': multipleWinners && (hasVoteEndedExpired() || hasVoteEnded())}"> <!-- && ('topics/view/votes/view' | isState)-->
-    <div class="info_icon">
-      <div class="sprite sprite-icon-box-info2x"></div>
-    </div>
 
-    <div>
-      <div class="info_row">
-        <p class="info_box_heading" translate="VIEWS.TOPICS_TOPICID.TAB_INFO_TITLE_DRAW">
-        </p>
-        <p class="info_bar_text" translate="VIEWS.TOPICS_TOPICID.TAB_INFO_DRAW_DESCRIPTION">
-        </p>
-        <p class="info_box_heading" translate="VIEWS.TOPICS_TOPICID.TAB_INFO_TITLE_DRAW_WHAT_NOW">
-        </p>
-        <p class="info_bar_text" translate="VIEWS.TOPICS_TOPICID.TAB_INFO_TXT_DRAW_WHAT_NOW">
-        </p>
+  <div *ngIf="canUpdate()" class="message_content print_never" translate="VIEWS.TOPICS_TOPICID.VOTE_TXT_VOTE_CLOSED">
+  </div>
+
+  <div *ngIf="hasVoteEndedExpired() && canUpdate()" class="print_never">
+    <div class="message_content" translate="VIEWS.TOPICS_TOPICID.VOTE_TXT_VOTE_CLOSED_EXPIRED"></div>
+    <div class="voting_button voting_button_blue active">
+      <div class="table_cell" (click)="sendToFollowUp('topics/view/votes/view')"
+        translate="VIEWS.TOPICS_TOPICID.NAV_LNK_SEND_TO_FOLLOW_UP"></div>
+    </div>
+  </div>
+  <div class="info_box_wrap"
+    *ngIf="multipleWinners && (hasVoteEndedExpired() || hasVoteEnded())  && showInfoWinners && canUpdate()">
+    <!--('topics/view/votes/view' | isState)-->
+    <div class="info_box" [ngClass]="{'info_box_show': multipleWinners && (hasVoteEndedExpired() || hasVoteEnded())}">
+      <!-- && ('topics/view/votes/view' | isState)-->
+      <div class="info_icon">
+        <div class="sprite sprite-icon-box-info2x"></div>
       </div>
-    </div>
-  </div>
-</div>
 
-<div *ngIf="vote.authType===VOTE_AUTH_TYPES.hard && vote.downloads.bdocFinal" [cosDropdown] class="bar_select">
-
-  <div class="select_text">
-    {{'VIEWS.TOPICS_TOPICID.BTN_DOWNLOAD_FINAL_BDOC' | translate}}
-    <div class="icon_holder">
-      <div class="table_cell">
-        <div class="sprite sprite-icon-arrow_down-white"></div>
+      <div>
+        <div class="info_row">
+          <p class="info_box_heading" translate="VIEWS.TOPICS_TOPICID.TAB_INFO_TITLE_DRAW">
+          </p>
+          <p class="info_bar_text" translate="VIEWS.TOPICS_TOPICID.TAB_INFO_DRAW_DESCRIPTION">
+          </p>
+          <p class="info_box_heading" translate="VIEWS.TOPICS_TOPICID.TAB_INFO_TITLE_DRAW_WHAT_NOW">
+          </p>
+          <p class="info_bar_text" translate="VIEWS.TOPICS_TOPICID.TAB_INFO_TXT_DRAW_WHAT_NOW">
+          </p>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="dropdown big_drop">
-    <div class="line lightest_line"></div>
+  <div *ngIf="vote.authType===VOTE_AUTH_TYPES.hard && vote.downloads?.bdocFinal" [cosDropdown] class="bar_select">
 
-    <div class="dropdown_item" (click)="downloadContainer(false)">
-      <div class="item_name" translate="VIEWS.TOPICS_TOPICID.FINAL_OPTION_WITHOUT_CSV">
-        Container without CSV
+    <div class="select_text">
+      {{'VIEWS.TOPICS_TOPICID.BTN_DOWNLOAD_FINAL_BDOC' | translate}}
+      <div class="icon_holder">
+        <div class="table_cell">
+          <div class="sprite sprite-icon-arrow_down-white"></div>
+        </div>
       </div>
-      <div class="clearer"></div>
     </div>
-    <div class="dropdown_item" (click)="downloadContainer(true)">
-      <div class="item_name" translate="VIEWS.TOPICS_TOPICID.FINAL_OPTION_WITH_CSV">
-        Container with CSV
+
+    <div class="dropdown big_drop">
+      <div class="line lightest_line"></div>
+
+      <div class="dropdown_item" (click)="downloadContainer(false)">
+        <div class="item_name" translate="VIEWS.TOPICS_TOPICID.FINAL_OPTION_WITHOUT_CSV">
+        </div>
+        <div class="clearer"></div>
       </div>
-      <div class="clearer"></div>
+      <div class="dropdown_item" (click)="downloadContainer(true)">
+        <div class="item_name" translate="VIEWS.TOPICS_TOPICID.FINAL_OPTION_WITH_CSV">
+        </div>
+        <div class="clearer"></div>
+      </div>
     </div>
   </div>
+
+  <a class="print_never" *ngIf="vote.authType === VOTE_AUTH_TYPES.soft && vote.downloads.zipFinal"
+    [href]="vote.downloads.zipFinal" download>
+    <div class="voting_button voting_button_blue active">
+      <div class="table_cell" translate="VIEWS.TOPICS_TOPICID.BTN_DOWNLOAD_FINAL_ZIP">Download full ZIP</div>
+    </div>
+  </a>
 </div>
-
-<a class="print_never" *ngIf="vote.authType === VOTE_AUTH_TYPES.soft && vote.downloads.zipFinal"
-  [href]="vote.downloads.zipFinal" download>
-  <div class="voting_button voting_button_blue active">
-    <div class="table_cell" translate="VIEWS.TOPICS_TOPICID.BTN_DOWNLOAD_FINAL_ZIP">Download full ZIP</div>
-  </div>
-</a>

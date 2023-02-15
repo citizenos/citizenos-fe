@@ -1,7 +1,21 @@
 @use "vars";
+@use "mixins_n_extends";
 
 #lightbox.id_signing {
+
+  input {
+    @extend %input_small;
+  }
+
+  input,
+  button {
+    &:not(:first-child) {
+      margin-top: 10px;
+    }
+  }
+
   #lightbox_wrap {
+
     @media (max-width: 640px) {
       padding: 10px;
     }

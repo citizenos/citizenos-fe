@@ -1,0 +1,57 @@
+@use "vars";
+@use "mixins_n_extends";
+
+.big_graph {
+  margin-top: 30px;
+
+  .graph_wrap {
+    margin-top: 30px;
+
+    .graph_row {
+      .graph_row_fill {
+        cursor: pointer;
+        @media (min-width: 1025px) {
+          &:hover {
+            background: vars.$another_gray;
+          }
+        }
+      }
+
+      &.active {
+        .graph_row_fill {
+          @media (min-width: 1025px) {
+            &:hover {
+              background: vars.$aqua_marine_border_second;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .long_text_holder {
+    font-size: 14px;
+    @media (max-width: 500px) {
+      padding: 0;
+    }
+
+    .long_text {
+      cursor: pointer;
+      padding: 5px 3px;
+      @media (max-width: 500px) {
+        padding: 5px 5px 0;
+      }
+
+      &.active {
+        color: vars.$aqua_marine_text;
+        font-weight: vars.$bold;
+      }
+
+      @media (min-width: 1025px) {
+        &:hover {
+          background: vars.$side_panel_gray;
+        }
+      }
+    }
+  }
+}
