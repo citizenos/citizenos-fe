@@ -41,7 +41,6 @@ import { ModalDatepickerComponent } from './components/modal-datepicker/modal-da
 import { MatNativeDateModule } from '@angular/material/core';
 import { GroupInviteUserComponent } from '../group/components/group-invite-user/group-invite-user.component';
 import { CheckHeightDirective } from '../directives/check-height.directive';
-import { CosinputComponent, Pane } from './components/cosinput/cosinput.component';
 
 @NgModule({
   declarations: [
@@ -77,9 +76,7 @@ import { CosinputComponent, Pane } from './components/cosinput/cosinput.componen
     TypeaheadItem,
     TypeaheadSelect,
     ModalDatepickerComponent,
-    CheckHeightDirective,
-    CosinputComponent,
-    Pane
+    CheckHeightDirective
   ],
   imports: [
     RouterModule,
@@ -129,9 +126,7 @@ import { CosinputComponent, Pane } from './components/cosinput/cosinput.componen
     TypeaheadComponent,
     TypeaheadItem,
     TypeaheadSelect,
-    CheckHeightDirective,
-    CosinputComponent,
-    Pane
+    CheckHeightDirective
    ]
 })
 export class SharedModule { }

@@ -42,13 +42,15 @@ export class MyTopicComponent implements OnInit {
   groupListSearch = false;
   userList = false;
   userListSearch = false;
+  inviteList = false;
+  inviteListSearch = false;
   //Sections end
   activities = false;
   wWidth = window.innerWidth;
   constructor(
     public app: AppService,
     private AuthService: AuthService,
-    public TopicService: TopicService,
+    private TopicService: TopicService,
     private TopicVoteService: TopicVoteService,
     private Translate: TranslateService,
     public dialog: MatDialog,
@@ -143,9 +145,14 @@ export class MyTopicComponent implements OnInit {
   };
 
   doToggleMemberUserList() {
-    this.TopicMemberUserService.reset();;
+    this.TopicMemberUserService.reset();
     this.userList = !this.userList;
   };
+
+  doToggleMemberInviteList() {
+    this.TopicInviteUserService.reset();
+    this.inviteList = !this.inviteList;
+  }
 
   loadMoreActivities(event: any) {
     if ((event.target.scrollTop + event.target.offsetHeight) >= event.target.scrollHeight) {
@@ -167,4 +174,22 @@ export class MyTopicComponent implements OnInit {
     this.scroll(this.groupListEl?.nativeElement);
   }
 
+  canUpdate(topic: Topic) {
+    return this.TopicService.canUpdate(topic);
+  }
+
+  isPrivate(topic: Topic) {
+    return this.TopicService.isPrivate(topic);
+  }
+
+  togglePin(topic: Topic): void {
+    this.TopicService.togglePin(topic);
+  }
+  canEditDescription(topic: Topic) {
+    return this.TopicService.canEditDescription(topic);
+  }
+
+  canDelete(topic: Topic) {
+    return this.TopicService.canDelete(topic);
+  }
 }

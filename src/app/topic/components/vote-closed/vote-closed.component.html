@@ -4,7 +4,7 @@
     <div class="clearer"></div>
   </div>
 
-  <div *ngIf="canUpdate()" class="message_content print_never" translate="VIEWS.TOPICS_TOPICID.VOTE_TXT_VOTE_CLOSED">
+  <div *ngIf="canUpdate() && vote.downloads" class="message_content print_never" translate="VIEWS.TOPICS_TOPICID.VOTE_TXT_VOTE_CLOSED">
   </div>
 
   <div *ngIf="hasVoteEndedExpired() && canUpdate()" class="print_never">
@@ -65,10 +65,10 @@
     </div>
   </div>
 
-  <a class="print_never" *ngIf="vote.authType === VOTE_AUTH_TYPES.soft && vote.downloads.zipFinal"
+  <a class="print_never" *ngIf="vote.authType === VOTE_AUTH_TYPES.soft && vote.downloads?.zipFinal"
     [href]="vote.downloads.zipFinal" download>
     <div class="voting_button voting_button_blue active">
-      <div class="table_cell" translate="VIEWS.TOPICS_TOPICID.BTN_DOWNLOAD_FINAL_ZIP">Download full ZIP</div>
+      <div class="table_cell" translate="VIEWS.TOPICS_TOPICID.BTN_DOWNLOAD_FINAL_ZIP"></div>
     </div>
   </a>
 </div>

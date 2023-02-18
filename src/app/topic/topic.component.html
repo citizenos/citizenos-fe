@@ -165,12 +165,12 @@
                 </div>
                 <div class="info_section">
                   <div class="info_section_title">
-                    <span translate="VIEWS.TOPICS_TOPICID.LBL_AUTHORS" [translateParams]="{topic: topic}"></span>
+                    <span translate="VIEWS.TOPICS_TOPICID.LBL_AUTHORS" [translateParams]="{topic: {creator: {name: ''}}}"></span>
                   </div>
                   <div class="info_section_content">
                     <ng-container *ngFor="let author of topic.authors; let $last = last;">
                       <span *ngIf="author.email" class="blue_link"
-                        [tooltip]="author.email + ' ' + author.phoneNumber">{{author.name}}">
+                        [tooltip]="author.email + ' ' + author.phoneNumber">{{author.name}}
                         <span *ngIf="!$last" class="info_section_separator"> | </span>
                       </span>
                     </ng-container>

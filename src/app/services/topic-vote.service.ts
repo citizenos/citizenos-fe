@@ -40,7 +40,7 @@ export class TopicVoteService {
     if (!params.voteId) params.voteId = params.id;
     let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/votes/:voteId'), params);
 
-    return this.http.get<ApiResponse>(path, { withCredentials: true, params, observe: 'body', responseType: 'json' })
+    return this.http.get<ApiResponse>(path, { withCredentials: true, observe: 'body', responseType: 'json' })
       .pipe(
         map(res => res.data)
       );
