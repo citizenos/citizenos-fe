@@ -124,7 +124,7 @@
           <div class="lightbox_section">
             <div class="footer_button_wrap"></div>
             <div class="footer_button_wrap right">
-              <a class="footer_link" ui-sref="account/login" translate="MODALS.SIGN_UP_HAVE_AN_ACCOUNT"></a>
+              <a class="footer_link" [routerLink]="['/account/login']" translate="MODALS.SIGN_UP_HAVE_AN_ACCOUNT"></a>
               <button type="submit" (click)="doSignUp()" [disabled]="signUpForm.invalid"
                 class="blue_button login_button" translate="MODALS.SIGN_UP_BTN_SAVE"></button>
             </div>

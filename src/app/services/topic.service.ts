@@ -216,58 +216,22 @@ export class TopicService {
           id: topic.id,
           status: this.STATUSES[state]
         }).pipe(take(1))
-          .subscribe((res) => {
-            console.log(res);
+          .subscribe({
+            next: (res) => {
+              console.log(res);
+              if (state === 'vote' && !topic.voteId && !topic.vote) {
+                this.router.navigate(['/topics', topic.id, 'votes', 'create'])
+              }
+              if (state  === 'followUp') {
+                this.router.navigate(['/topics', topic.id, 'followUp'])
+              }
+            }, error: (res) => {
+              console.error(res);
+            }
           })
 
-        if (state === 'vote' && !topic.voteId && !topic.vote) {
-          this.router.navigate(['/topics', topic.id, 'votes', 'create'])
-        }
       }
-    })
-    /*const templates = {
-      followUp: '/views/modals/topic_send_to_followUp_confirm.html',
-      vote: '/views/modals/topic_close_confirm.html',
-      closed: '/views/modals/topic_close_confirm.html'
-    };
-    const nextStates = {
-      followUp: 'topics/view/followUp',
-      vote: 'topics/view/votes/view',
-      closed: 'topics/view'
-    };
-
-    this.ngDialog
-      .openConfirm({
-        template: templates[state]
-      })
-      .then(() => {
-        if (state === 'vote' && !topic.voteId && !topic.vote) {
-          this.$state.go('topics/view/votes/create', {
-            topicId: topic.id,
-            commentId: null
-          }, { reload: true });
-          return;
-        }
-
-        return this.patch({
-          id: topic.id,
-          status: this.STATUSES[state]
-        });
-      })
-      .then(() => {
-        const stateNext = stateSuccess || nextStates[state];
-        const stateParams = angular.extend({}, this.$stateParams, {
-          editMode: null,
-          commentId: null
-        });
-        this.$state.go(
-          stateNext,
-          stateParams,
-          {
-            reload: true
-          }
-        );
-      }, angular.noop);*/
+    });
   }
   /**
    * Can one edit Topics settings and possibly description (content)?

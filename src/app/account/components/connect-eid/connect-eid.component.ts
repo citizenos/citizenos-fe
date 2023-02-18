@@ -1,6 +1,6 @@
 import { NotificationService } from 'src/app/services/notification.service';
 import { Component, OnInit } from '@angular/core';
-import { catchError, interval, map, of, switchMap, take, takeWhile } from 'rxjs';
+import { interval, map, switchMap, take, takeWhile } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 import { ConfigService } from 'src/app/services/config.service';
@@ -15,7 +15,7 @@ declare let hwcrypto: any;
 })
 export class ConnectEidComponent implements OnInit {
 
-  config:any;
+  config: any;
   pid?: string;
   phoneNumber?: string;
   challengeID?: number | null;
@@ -34,23 +34,23 @@ export class ConnectEidComponent implements OnInit {
   authMobiilId() {
     console.debug('LoginEstEIdController.doLoginMobiilId()');
     if (this.pid && this.phoneNumber) {
-
       this.isLoading = true;
       this.AuthService
-        .loginMobiilIdInit({pid: this.pid, phoneNumber: this.phoneNumber}) //,this.$stateParams.userId
-        .pipe(take(1),
-          catchError((err) => {
+        .loginMobiilIdInit({ pid: this.pid, phoneNumber: this.phoneNumber }) //,this.$stateParams.userId
+        .pipe(take(1))
+        .subscribe({
+          next: (loginMobileIdInitResult) => {
+            this.isLoading = false;
+            if (loginMobileIdInitResult.challengeID && loginMobileIdInitResult.token) {
+              this.challengeID = loginMobileIdInitResult.challengeID;
+              const token = loginMobileIdInitResult.token;
+              return this.pollMobiilIdLoginStatus(token, 3000, 80);
+            }
+          },
+          error: (err) => {
             this.isLoading = false;
             this.challengeID = null;
             console.error(err);
-            return of(err);
-          }))
-        .subscribe((loginMobileIdInitResult) => {
-          this.isLoading = false;
-          if (loginMobileIdInitResult.challengeID && loginMobileIdInitResult.token) {
-            this.challengeID = loginMobileIdInitResult.challengeID;
-            const token = loginMobileIdInitResult.token;
-            return this.pollMobiilIdLoginStatus(token, 3000, 80);
           }
         })
     }
@@ -66,15 +66,18 @@ export class ConnectEidComponent implements OnInit {
       .then((certificate: any) => {
         this.AuthService.loginIdCard().pipe(
           take(1)
-        ).subscribe((authRes:any) => {
-          console.log(authRes);1
-          this.isLoadingIdCard = false;
-          this.UserService.addUserConnection(this.AuthService.user?.value.id || '', 'esteid', authRes.token)
-          this.AuthService.status().pipe(take(1)).subscribe();
-          this.dialog.closeAll();
-          console.log(authRes);
+        ).subscribe({
+          next: (authRes: any) => {
+            this.isLoadingIdCard = false;
+            this.UserService.addUserConnection(this.AuthService.user?.value.id || '', 'esteid', authRes.token)
+            this.AuthService.status().pipe(take(1)).subscribe();
+            this.dialog.closeAll();
+          }, error: (res) => {
+            this.isLoadingIdCard = false;
+            console.error(res)
+          }
         })
-      }, (err:any) => {
+      }, (err: any) => {
         this.isLoadingIdCard = false;
         let message = err.message
         if (message === 'no_certificates') {
@@ -97,17 +100,18 @@ export class ConnectEidComponent implements OnInit {
         return (res.status?.code === 20001)
       }, true),
       map(res => res.data),
-      catchError((error) => {
-        console.error('ERROR', error);
-        this.isLoading = false;
-        this.challengeID = null;
-        return of(error);
-      })).subscribe((response) => {
+    ).subscribe({
+      next: (response) => {
         this.isLoading = false;
         this.challengeID = null;
         this.AuthService.status().pipe(take(1)).subscribe();
         this.dialog.closeAll();
-      });
+      }, error: (res) => {
+        console.error('ERROR', res);
+        this.isLoading = false;
+        this.challengeID = null;
+      }
+    });
   };
 
 }

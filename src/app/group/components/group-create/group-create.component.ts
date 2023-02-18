@@ -51,6 +51,8 @@ export class GroupCreateComponent implements OnInit {
     if (this.fileInput) {
       this.fileInput.nativeElement.value = null;
     }
+    this.imageFile = null;
+    this.tmpImageUrl = undefined;
   }
 
   createGroup() {
@@ -64,16 +66,28 @@ export class GroupCreateComponent implements OnInit {
           if (this.imageFile) {
             this.GroupService
               .uploadGroupImage(this.imageFile, this.group.id).pipe(
-                takeWhile((e) => !e.link)
+                takeWhile((e) => !e.link, true)
               )
               .subscribe((res: any) => {
                 if (res.link) {
                   this.group.imageUrl = res.link;
+
+                  this.dialog.closeAll();
+                  if ( group.visibility === this.VISIBILITY.public) {
+                    this.router.navigate(['/groups', group.id]);
+                  } else {
+                    this.router.navigate(['/my', 'groups', group.id]);
+                  }
                 }
               });
+          } else {
+            this.dialog.closeAll();
+            if ( group.visibility === this.VISIBILITY.public) {
+              this.router.navigate(['/groups', group.id]);
+            } else {
+              this.router.navigate(['/my', 'groups', group.id]);
+            }
           }
-          this.dialog.closeAll();
-          this.router.navigate(['my','groups', this.group.id]);
         },
         error: (errorResponse) => {
           if (errorResponse && errorResponse.errors) {

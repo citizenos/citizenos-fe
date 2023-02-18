@@ -41,14 +41,15 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private UserService: UserService,
     private route: ActivatedRoute,
-    private Auth: AuthService) {console.log(this.Location.currentUrl()) }
+    private Auth: AuthService) {
+    }
 
   ngOnInit(): void {
-    this.route.params.subscribe(value => {
+    this.route.queryParams.subscribe(value => {
       this.form.patchValue({ 'email': value['email'] });
       this.userConnections = value['userConnections'];
       this.redirectSuccess = value['redirectSuccess'];
-
+      console.log(this.redirectSuccess)
       if (this.userConnections) {
         let userAuthMethods = <any[]>[];
 
@@ -71,6 +72,10 @@ export class LoginComponent implements OnInit {
         Object.keys(this.authMethodsAvailable).forEach((val) => {
           this.authMethodsAvailable[val] = userAuthMethods.indexOf(val) > -1;
         });
+      }
+      if (this.Auth.loggedIn$.value) {
+       console.log(this.redirectSuccess || '/')
+        // window.location = this.redirectSuccess || '/';
       }
     });
 
@@ -242,7 +247,7 @@ export class LoginComponent implements OnInit {
       const redirectSuccess = this.Location.currentUrl();
       url += '?redirectSuccess=' + redirectSuccess + '?'; // HACK: + '?' avoids digest loop on Angular side for Google callbacks.
     }
-
+    console.log(url)
     window.location.href = url;
   };
 
@@ -266,7 +271,7 @@ export class LoginDialogComponent {
   openDialog(): void {
     const dialogRef = this.dialog.open(LoginComponent);
     dialogRef.afterClosed().subscribe(result => {
-      this.router.navigate([':lang']);
+      console.log('RESULT')
     });
   }
 }

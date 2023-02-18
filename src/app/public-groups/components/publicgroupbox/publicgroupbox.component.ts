@@ -22,7 +22,7 @@ export class PublicgroupboxComponent implements OnInit {
   }
 
   viewGroup () {
-    this.router.navigate(['groups', this.group.id]);
+    this.router.navigate(['/groups', this.group.id]);
   }
 
   joinGroup () {

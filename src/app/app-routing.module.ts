@@ -17,9 +17,8 @@ const routes: Routes = [
       { path: '403', component: PageUnauthorizedComponent },
       { path: '404', component: PageNotFoundComponent},
       { path: 'account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
-      { path: 'topic', loadChildren: () => import('./topic/topic.module').then(m => m.TopicModule) },
-      { path: 'groups', loadChildren: () => import('./group/group.module').then(m => m.GroupModule) },
       { path: 'topics', loadChildren: () => import('./topic/topic.module').then(m => m.TopicModule) },
+      { path: 'groups', loadChildren: () => import('./group/group.module').then(m => m.GroupModule) },
       {
         path: 'my', canActivate: [AuthGuard], children: [
           { path: 'topics', loadChildren: () => import('./my-topics/my-topics.module').then((m) => m.MyTopicsModule) },

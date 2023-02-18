@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { MatDialog } from '@angular/material/dialog';
 import { NotificationService } from 'src/app/services/notification.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 declare let hwcrypto: any;
 
 @Component({
@@ -13,8 +14,10 @@ declare let hwcrypto: any;
 })
 export class EstIdLoginComponent implements OnInit {
   config: any;
-  pid?: string;
-  phoneNumber?: string;
+  mobiilIdForm = new FormGroup({
+    pid: new FormControl('', Validators.compose([Validators.pattern(/^[0-9]{11}$/), Validators.required])),
+    phoneNumber: new FormControl('', Validators.compose([Validators.pattern(/^\+?[0-9\s-]{7,}$/), Validators.required]))
+  });
   challengeID?: number | null;
   isLoading = false;
   isLoadingIdCard = false;
@@ -30,24 +33,25 @@ export class EstIdLoginComponent implements OnInit {
 
   authMobiilId() {
     console.debug('LoginEstEIdController.doLoginMobiilId()');
-    if (this.pid && this.phoneNumber) {
+    if (this.mobiilIdForm.value.pid && this.mobiilIdForm.value.phoneNumber) {
 
       this.isLoading = true;
       this.AuthService
-        .loginMobiilIdInit({ pid: this.pid, phoneNumber: this.phoneNumber })
-        .pipe(take(1),
-          catchError((err) => {
+        .loginMobiilIdInit({ pid: this.mobiilIdForm.value.pid, phoneNumber: this.mobiilIdForm.value.phoneNumber })
+        .pipe(take(1))
+        .subscribe({
+          next: (loginMobileIdInitResult) => {
+            this.isLoading = false;
+            if (loginMobileIdInitResult.challengeID && loginMobileIdInitResult.token) {
+              this.challengeID = loginMobileIdInitResult.challengeID;
+              const token = loginMobileIdInitResult.token;
+              return this.pollMobiilIdLoginStatus(token, 3000, 80);
+            }
+          },
+          error: (err) => {
             this.isLoading = false;
             this.challengeID = null;
             console.error(err);
-            return of(err);
-          }))
-        .subscribe((loginMobileIdInitResult) => {
-          this.isLoading = false;
-          if (loginMobileIdInitResult.challengeID && loginMobileIdInitResult.token) {
-            this.challengeID = loginMobileIdInitResult.challengeID;
-            const token = loginMobileIdInitResult.token;
-            return this.pollMobiilIdLoginStatus(token, 3000, 80);
           }
         })
     }
@@ -63,11 +67,17 @@ export class EstIdLoginComponent implements OnInit {
       .then((certificate: any) => {
         this.AuthService.loginIdCard().pipe(
           take(1)
-        ).subscribe((authRes) => {
-          this.isLoadingIdCard = false;
+        ).subscribe({
+          next: (authRes) => {
+            this.isLoadingIdCard = false;
 
-          this.AuthService.status().pipe(take(1)).subscribe();
-          this.dialog.closeAll();
+            this.AuthService.status().pipe(take(1)).subscribe();
+            this.dialog.closeAll();
+          },
+          error: (res) => {
+            this.isLoadingIdCard = false;
+            console.error(res);
+          }
         })
       }, (err: any) => {
         this.isLoadingIdCard = false;

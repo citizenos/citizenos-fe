@@ -46,13 +46,14 @@ export class AppComponent {
     this.destroy$.next(true);
   }
 
-  displaySearch = () => {
-    const allowedState = ['home', 'my/groups', 'my/topics', 'public/groups', 'public/groups/', 'my/groups/', 'my/topics/'];
-    if (allowedState.indexOf(this.router.url) > -1) {
-      return true;
-    }
+  displaySearch () {
+    const parsedUrl = this.router.parseUrl(this.router.url);
+    const outlet = parsedUrl.root.children[PRIMARY_OUTLET];
 
-    return false;
+    const g = outlet?.segments.map(seg => seg.path) || [''];
+    let langParam = g[0];
+    if (langParam === this.translate.currentLang && g[0] === 'topics') return false;
+    return true;
   };
 }
 

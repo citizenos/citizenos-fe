@@ -72,6 +72,9 @@ export class TopicInviteComponent implements OnInit {
   ) {
     this.topic = data.topic;
     const urlSnap = this.route.snapshot;
+    if (urlSnap.queryParams['tab']) {
+      this.tabSelected = urlSnap.queryParams['tab'];
+    }
   }
 
   ngOnInit(): void {

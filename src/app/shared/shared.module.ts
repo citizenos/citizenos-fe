@@ -11,7 +11,7 @@ import { CosDropdownDirective } from '../directives/cos-dropdown.directive';
 
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule} from '@angular/material/datepicker';
-import { TypeaheadComponent, TypeaheadItem } from './components/typeahead/typeahead.component';
+import { TypeaheadComponent, TypeaheadItem, TypeaheadSelect } from './components/typeahead/typeahead.component';
 import { FormsModule } from '@angular/forms';
 import { CosInitialsComponent } from './components/cos-initials/cos-initials.component';
 import { MomentModule } from 'ngx-moment';
@@ -41,6 +41,7 @@ import { ModalDatepickerComponent } from './components/modal-datepicker/modal-da
 import { MatNativeDateModule } from '@angular/material/core';
 import { GroupInviteUserComponent } from '../group/components/group-invite-user/group-invite-user.component';
 import { CheckHeightDirective } from '../directives/check-height.directive';
+import { CosinputComponent, Pane } from './components/cosinput/cosinput.component';
 
 @NgModule({
   declarations: [
@@ -74,8 +75,11 @@ import { CheckHeightDirective } from '../directives/check-height.directive';
     TopicboxComponent,
     TypeaheadComponent,
     TypeaheadItem,
+    TypeaheadSelect,
     ModalDatepickerComponent,
-    CheckHeightDirective
+    CheckHeightDirective,
+    CosinputComponent,
+    Pane
   ],
   imports: [
     RouterModule,
@@ -124,7 +128,10 @@ import { CheckHeightDirective } from '../directives/check-height.directive';
     TopicVoteCastComponent,
     TypeaheadComponent,
     TypeaheadItem,
-    CheckHeightDirective
+    TypeaheadSelect,
+    CheckHeightDirective,
+    CosinputComponent,
+    Pane
    ]
 })
 export class SharedModule { }

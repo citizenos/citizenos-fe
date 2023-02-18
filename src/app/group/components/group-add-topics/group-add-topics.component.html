@@ -12,7 +12,7 @@
           <div class="title_description" *ngIf="group.visibility == VISIBILITY.private">
             {{group.name}}</div>
           <div class="title_description_register" *ngIf="group.visibility == VISIBILITY.public"
-            translate="MODALS.GROUP_ADD_TOPICS_DESCRIPTION">{{group.name}}</div>
+            translate="MODALS.GROUP_ADD_TOPICS_DESCRIPTION"></div>
         </div>
 
         <div id="lightbox_close" class="ngdialog-close" mat-dialog-close>
@@ -32,7 +32,8 @@
         <div class="lightbox_section" *ngIf="canUpdate()">
           <div class="input_text_margin_bottom" translate="MODALS.GROUP_CREATE_SETTINGS_LBL_ADD_TOPICS"></div>
           <div [cosDropdown] [ngClass]="{search_with_dropdown : resultCount, dropdown_active : resultCount}">
-            <typeahead class="searchbox_with_icon_and_text auto-complete" [items]="searchResults$ | async"
+            <!--[items]="searchResults$ | async"-->
+            <typeahead class="searchbox_with_icon_and_text auto-complete"
               [term]="searchStringTopic" (search)="search($event)" (select)="addGroupMemberTopic($event)" (enterAction)="addGroupMemberTopic($event)"
               [placeholder]="'MODALS.GROUP_CREATE_SETTINGS_PLACEHOLDER_SEARCH_TOPIC' | translate">
               <div class="search_icon">
@@ -42,7 +43,6 @@
               </div>
               <div class="search_text">
                 <div class="table_cell blue_link" translate="MODALS.GROUP_CREATE_SETTINGS_TXT_PRESS_ENTER_TO_ADD"></div>
-                <!--(click)="addGroupMemberTopic(item)"-->
               </div>
               <ng-container *ngIf="searchResults$ | async as searchResults">
                 <div class="search_area_wrap" [ngClass]="{hidden: !searchResults.length}">
@@ -87,8 +87,7 @@
               {{topic.title}}
             </div>
             <div class="double_row_footer">
-              <div class="left" translate="MODALS.GROUP_CREATE_SETTINGS_TXT_TOPIC_USERS"
-                [translateParams]="{count: topic.members.users.countTotal}"></div>
+              <div class="left" [innerHtml]="'MODALS.GROUP_CREATE_SETTINGS_TXT_TOPIC_USERS' | translate : { count: topic.members.users.count}"></div>
               <div class="right">
                 <span class="dropdown_description" translate="MODALS.GROUP_CREATE_SETTINGS_LBL_GROUP_RIGHTS"></span>
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { catchError, interval, map, of, switchMap, take, takeWhile } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-smart-id-login',
@@ -9,6 +10,10 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./smart-id-login.component.scss']
 })
 export class SmartIdLoginComponent implements OnInit {
+  smartIdForm = new FormGroup({
+    pid: new FormControl('', Validators.compose([Validators.pattern(/^[0-9]{11}$/), Validators.required])),
+    countryCode: new FormControl('', Validators.compose([Validators.pattern(/^[A-Z]{2}$/), Validators.required]))
+  });
   pid?: string;
   countryCode = 'EE';
   challengeID?: number | null;
@@ -22,24 +27,24 @@ export class SmartIdLoginComponent implements OnInit {
     console.debug('LoginSmartIdController.authSmartId()');
 
     this.isLoading = true;
-    if (this.pid && this.countryCode) {
+    if (this.smartIdForm.value.pid && this.smartIdForm.value.countryCode) {
 
       this.isLoading = true;
       this.AuthService
-        .loginSmartIdInit({pid: this.pid, countryCode: this.countryCode}) //,this.$stateParams.userId
-        .pipe(take(1),
-          catchError((err) => {
+        .loginSmartIdInit({ pid: this.smartIdForm.value.pid, countryCode: this.smartIdForm.value.countryCode }) //,this.$stateParams.userId
+        .pipe(take(1))
+        .subscribe({
+          next: (loginSmartIdInitResult) => {
+            this.isLoading = false;
+            if (loginSmartIdInitResult.challengeID && loginSmartIdInitResult.token) {
+              this.challengeID = loginSmartIdInitResult.challengeID;
+              const token = loginSmartIdInitResult.token;
+              return this.pollSmartIdLoginStatus(token, 3000, 80);
+            }
+          }, error: (err) => {
             this.isLoading = false;
             this.challengeID = null;
             console.error(err);
-            return of(err);
-          }))
-        .subscribe((loginSmartIdInitResult) => {
-          this.isLoading = false;
-          if (loginSmartIdInitResult.challengeID && loginSmartIdInitResult.token) {
-            this.challengeID = loginSmartIdInitResult.challengeID;
-            const token = loginSmartIdInitResult.token;
-            return this.pollSmartIdLoginStatus(token, 3000, 80);
           }
         })
     }

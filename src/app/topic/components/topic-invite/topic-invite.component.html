@@ -54,7 +54,8 @@
 
           <div class="searchbox_with_icon_and_text only_text">
             <div [cosDropdown] [ngClass]="{'search_with_dropdown dropdown_active' : resultCount}">
-            <typeahead id="userSearch" class="auto-complete" [items]="(searchResults$ | async)?.combined" [term]="searchString"
+              <!--[items]="(searchResults$ | async)?.combined"-->
+            <typeahead id="userSearch" class="auto-complete"  [term]="searchString"
                 (search)="search($event)" (select)="addTopicMember($event)"
                 placeholder="{{'MODALS.TOPIC_INVITE_PLACEHOLDER_INVITE_USERS_AND_GROUPS' | translate}}">
                 <div class="search_area_wrap">

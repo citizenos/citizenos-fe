@@ -13,10 +13,10 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 })
 export class TopicsComponent implements OnInit {
   public FILTERS_ALL = 'all';
-  topicFilters = new FormGroup({
-    category: new FormControl(this.FILTERS_ALL),
-    status: new FormControl(this.FILTERS_ALL)
-  });
+  topicFilters = {
+    category: this.FILTERS_ALL,
+    status: this.FILTERS_ALL
+  };
 
 
   tabSelected = 'categories';
@@ -43,20 +43,22 @@ export class TopicsComponent implements OnInit {
   }
 
   setStatus(status: string) {
-    this.topicFilters.patchValue({ status: status });
+    this.topicFilters.status = status;
     if (status && status === 'all') {
       status = '';
     }
     this.allTopics$ = [];
+    this.PublicTopicService.setParam('offset',0)
     this.PublicTopicService.setParam('statuses', [status]);
   }
 
   setCategory(category: string) {
-    this.topicFilters.patchValue({ category: category });
+    this.topicFilters.category = category ;
     if (category && category === 'all') {
       category = '';
     }
     this.allTopics$ = [];
+    this.PublicTopicService.setParam('offset',0)
     this.PublicTopicService.setParam('categories', [category]);
   }
 
@@ -64,8 +66,6 @@ export class TopicsComponent implements OnInit {
   }
 
   doClearFilters() {
-    this.topicFilters.reset();
-
     this.setStatus(this.FILTERS_ALL);
     this.setCategory(this.FILTERS_ALL);
   }
@@ -75,6 +75,6 @@ export class TopicsComponent implements OnInit {
   }
 
   isFilterApplied() {
-    return this.topicFilters.value.category !== this.FILTERS_ALL || this.topicFilters.value.status !== this.FILTERS_ALL;
+    return this.topicFilters.category !== this.FILTERS_ALL || this.topicFilters.status !== this.FILTERS_ALL;
   };
 }

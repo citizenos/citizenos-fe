@@ -43,7 +43,7 @@ export class GroupInviteComponent implements OnInit {
   maxUsers = 550;
 
   membersPage = 1;
-  itemsPerPage = 1;
+  itemsPerPage = 10;
   memberGroups = ['users', 'emails'];
 
   invalid = <any[]>[];

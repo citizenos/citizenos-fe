@@ -13,18 +13,9 @@ export class PublicGroupService extends ItemsListService {
   params = Object.assign(this.defaultParams, {
     groupId: <string | null>null,
     showModerated: <boolean>false,
-    limit: 2
+    limit: 8
   });
   params$ = new BehaviorSubject(Object.assign({},this.params));
- /* private defaultParams = {
-    showModerated: <boolean>false,
-    offset: <number>0,
-    limit: <number>8,
-    orderBy: <string | null>'name',
-    order: <string | null>'ASC',
-    sourcePartnerId: <string | null>null,
-    search: <string | null>null
-  };*/
 
   constructor(private Location: LocationService, private http: HttpClient) {
     super();

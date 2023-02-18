@@ -19,28 +19,29 @@
       </div>
 
       <div class="lightbox_content">
-        <form name="loginSmartIdForm" novalidate>
+        <form name="loginSmartIdForm" [formGroup]="smartIdForm" novalidate>
           <div class="sign_in_section sid">
             <div class="sprite_big sprite sprite-smart-i-d2x"></div>
             <div *ngIf="isLoading && !challengeID" class="loader_wrap">
               <div class="loader"></div>
             </div>
             <div *ngIf="!challengeID && !isLoading">
-              <input id="countryCode" name="countryCode" type="text" [(ngModel)]="countryCode" maxlength="2" #countryInput="ngModel"
+              <input id="countryCode" formControlName="countryCode" type="text" maxlength="2"
                 [placeholder]="'MODALS.LOGIN_SMARTID_PLACEHOLDER_COUNTRY_CODE' | translate"
-                [ngClass]="{'error_input': countryInput.errors && countryInput.errors['pattern'] && countryInput.touched}"
+                [ngClass]="{'error_input': smartIdForm.controls['countryCode'].errors && smartIdForm.controls['countryCode'].errors['pattern'] && smartIdForm.touched}"
                 pattern="^[A-Z]{2}$" required>
               <label for="pid" class="error_label"
-                *ngIf="countryInput.errors && countryInput.errors['pattern'] && countryInput.touched">
+                *ngIf="smartIdForm.controls['countryCode'].errors && smartIdForm.controls['countryCode'].errors['pattern'] && smartIdForm.touched">
                 <div class="table_cell">
                   <div class="sprite sprite-icon-inputfield-error2x"></div>
                   <span translate="MODALS.LOGIN_SMARTID_ERROR_COUNTRY_CODE"></span>
                 </div>
               </label>
-              <input id="pid" name="pid" type="text" inputmode="numeric" [(ngModel)]="pid" #pidInput="ngModel"
-                [placeholder]="'MODALS.LOGIN_SMARTID_PLACEHOLDER_PID' | translate" ngModel
-                [ngClass]="{'error_input': pidInput.errors && pidInput.errors['pattern'] &&pidInput.touched}" pattern="^[0-9]{11}$" required>
-              <label for="pid" class="error_label" *ngIf="pidInput.errors && pidInput.errors['pattern'] && pidInput.touched">
+              <input id="pid" formControlName="pid" type="text" inputmode="numeric"
+                [placeholder]="'MODALS.LOGIN_SMARTID_PLACEHOLDER_PID' | translate"
+                [ngClass]="{'error_input': smartIdForm.controls['pid'].errors && smartIdForm.controls['pid'].errors['pattern'] && smartIdForm.touched}">
+              <label for="pid" class="error_label"
+                *ngIf="smartIdForm.controls['pid'].errors && smartIdForm.controls['pid'].errors['pattern'] && smartIdForm.touched">
                 <div class="table_cell">
                   <div class="sprite sprite-icon-inputfield-error2x"></div>
                   <span translate="MODALS.LOGIN_SMARTID_ERROR_PID"></span>
@@ -56,8 +57,8 @@
                 <div class="loader"></div>
               </div>
             </div>
-            <button type="submit" (click)="authSmartId()" [disabled]="isLoading"
-              class="blue_button" translate="MODALS.LOGIN_SMARTID_BTN_AUTHENTICATE_SID"></button>
+            <button type="submit" (click)="authSmartId()" [disabled]="isLoading || smartIdForm.invalid" class="blue_button"
+              translate="MODALS.LOGIN_SMARTID_BTN_AUTHENTICATE_SID"></button>
           </div>
         </form>
       </div>

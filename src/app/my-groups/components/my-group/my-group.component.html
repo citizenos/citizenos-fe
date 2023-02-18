@@ -121,7 +121,7 @@
             <div class="item_description" translate="VIEWS.MY_GROUPS_GROUPID.LBL_GROUP_ACTIONS"></div>
             <div class="item_content">
               <span class="item_text blue_link" *ngIf="canUpdate(group)"
-                ui-sref="my/groups/groupId/settings({groupId: group.id})" [routerLink]="['settings']"
+                [routerLink]="['/my/groups',group.id, 'settings']"
                 translate="VIEWS.MY_GROUPS_GROUPID.LNK_SETTINGS"></span>
               <span class="separator" *ngIf="canUpdate(group)">|</span>
               <span class="item_text blue_link" (click)="leaveGroup(group)"

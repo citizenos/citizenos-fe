@@ -49,7 +49,8 @@
 
           <div class="searchbox_with_icon_and_text only_text">
             <div [cosDropdown] [ngClass]="{'search_with_dropdown dropdown_active' : resultCount}">
-              <typeahead id="userSearch" class="auto-complete" [items]="searchResultUsers$ | async"
+              <!--[items]="searchResultUsers$ | async"-->
+              <typeahead id="userSearch" class="auto-complete"
                 [term]="searchStringUser" (search)="search($event)" (select)="addGroupMemberUser($event)"
                 [placeholder]="'MODALS.GROUP_CREATE_SETTINGS_PLACEHOLDER_SEARCH_BY_NAME_EMAIL' | translate">
                 <div class="search_area_wrap">

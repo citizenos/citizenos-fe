@@ -1,0 +1,22 @@
+@use "vars";
+@use "mixins_n_extends";
+
+#lightbox {
+
+  .title_description_register  {
+    font-weight: 100;
+    font-size: 14px;
+    padding-right: 20px;
+  }
+
+  input {
+    @extend %input_small;
+  }
+
+  input,
+  button {
+    &:not(:first-child) {
+      margin-top: 10px;
+    }
+  }
+}

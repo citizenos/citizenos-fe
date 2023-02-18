@@ -5,7 +5,7 @@
     (click)="doToggleEditMode()"></div>
 </div>
 <div *ngIf="canEdit()&& topic.report?.moderatedReasonType" class="options_wrap">
-  <div class="blue_button" [routerLink]="['reports', topic.report?.id, 'review']"
+  <div class="blue_button" [routerLink]="['/topics', topic.id,'reports', topic.report?.id, 'review']"
     translate="VIEWS.TOPICS_TOPICID.NAV_BTN_SUBMIT_FOR_REVIEW"></div>
 </div>
 <div class="options_wrap"
@@ -23,11 +23,11 @@
     <div class="line lightest_line" *ngIf="canUpdate()"></div>
     <div class="blue_link" *ngIf="canDelete() || canLeave()" [routerLink]="['/topics', topic.id, 'settings']"
       [queryParams]="{tab: 'settings'}" translate="VIEWS.TOPICS_TOPICID.NAV_LNK_ACTIONS"></div>
-    <div class="blue_link" *ngIf="canUpdate()" [routerLink]="['invite']"
+    <div class="blue_link" *ngIf="canUpdate()" [routerLink]="['/topics', topic.id,'invite']"
       [queryParams]="{tab: 'invite'}" translate="VIEWS.TOPICS_TOPICID.NAV_LNK_INVITE_USERS"></div>
-    <div class="blue_link" *ngIf="canUpdate()" [routerLink]="['invite']"
+    <div class="blue_link" *ngIf="canUpdate()" [routerLink]="['/topics', topic.id,'invite']"
       [queryParams]="{tab: 'share'}" translate="VIEWS.TOPICS_TOPICID.NAV_LNK_SHARE"></div>
-    <div class="blue_link" *ngIf="canUpdate()" [routerLink]="['participants']"
+    <div class="blue_link" *ngIf="canUpdate()" [routerLink]="['/topics', topic.id,'participants']"
       [queryParams]="{tab: 'participants'}" translate="VIEWS.TOPICS_TOPICID.NAV_LNK_PARTICIPANTS"></div>
     <div class="blue_link" *ngIf="canUpdate()" (click)="duplicateTopic()"
       translate="VIEWS.TOPICS_TOPICID.NAV_LNK_DUPLICATE_TOPIC"></div>

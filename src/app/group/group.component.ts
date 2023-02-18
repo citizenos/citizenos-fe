@@ -27,7 +27,7 @@ export class GroupComponent implements OnInit {
 
 
   constructor(public dialog: MatDialog,
-    public GroupService: GroupService,
+    private GroupService: GroupService,
     private route: ActivatedRoute,
     private router: Router,
     public GroupMemberUserService: GroupMemberUserService,
@@ -36,7 +36,9 @@ export class GroupComponent implements OnInit {
     this.group$ = this.route.params.pipe<Group>(
       switchMap((params) => {
         this.groupId = <string>params['groupId'];
+        PublicGroupMemberTopicsService.reset()
         PublicGroupMemberTopicsService.setParam('groupId', this.groupId);
+        GroupMemberUserService.reset();
         GroupMemberUserService.setParam('groupId', this.groupId);
         return this.GroupService.get(params['groupId']).pipe(
           tap((group) => {
@@ -163,5 +165,9 @@ export class GroupComponent implements OnInit {
       }
 
     });
+  }
+
+  canUpdate(group: Group) {
+    return this.GroupService.canUpdate(group);
   }
 }

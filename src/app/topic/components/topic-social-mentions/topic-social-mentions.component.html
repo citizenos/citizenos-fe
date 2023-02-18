@@ -2,7 +2,7 @@
 
   <div class="social_mentions_header">
       <div class="social_mentions_description" translate="VIEWS.TOPICS_TOPICID.TAB_SOCIAL_MENTIONS_HEADING"></div>
-      <div class="social_mentions_hashtag" *ngIf="topic.hashtag" ui-sref="topics/view/settings({topicId: topicId, tab: 'settings'})">
+      <div class="social_mentions_hashtag" *ngIf="topic.hashtag" [routerLink]="['/topics', topic.id, 'settings']" [queryParams]="{tab: 'settings'}">
           #{{topic.hashtag}}
       </div>
       <div class="clearer"></div>
@@ -12,13 +12,13 @@
   <div class="social_mentions_wrap">
       <div class="social_mentions_message_info" *ngIf="!topic.hashtag">
           <span translate="VIEWS.TOPICS_TOPICID.TAB_SOCIAL_METIONS_TXT_NO_HASHTAG_DEFINED"></span>
-          <div *ngIf="canEdit()" class="blue_button" ui-sref="topics/view/settings({topicId: topicId, tab: 'settings'})"
+          <div *ngIf="canEdit()" class="blue_button" [routerLink]="['/topics', topic.id, 'settings']" [queryParams]="{tab: 'settings'}"
                translate="VIEWS.TOPICS_TOPICID.TAB_SOCIAL_MENTIONS_BTN_ADD_HASHTAG"></div>
       </div>
       <div class="social_mentions_message_info" *ngIf="topic.hashtag && !(topicSocialMentions$ | async)?.length">
           <span translate="VIEWS.TOPICS_TOPICID.TAB_SOCIAL_MENTIONS_NO_MENTIONS_FOUND"></span>
-          <span [ngClass]="{blue_link: canEdit()}" ui-sref="topics/view/settings({topicId: topicId, tab: 'settings'})">#{{topic.hashtag}}</span>
-          <div *ngIf="canEdit()" class="blue_button" ui-sref="topics/view/settings({topicId: topicId, tab: 'settings'})"
+          <span [ngClass]="{blue_link: canEdit()}" [routerLink]="['/topics', topic.id, 'settings']" [queryParams]="{tab: 'settings'}">#{{topic.hashtag}}</span>
+          <div *ngIf="canEdit()" class="blue_button" [routerLink]="['/topics', topic.id, 'settings']" [queryParams]="{tab: 'settings'}"
                translate="VIEWS.TOPICS_TOPICID.TAB_SOCIAL_MENTIONS_BTN_CHANGE_HASHTAG"></div>
       </div>
       <div class="social_mention" *ngFor="let mention of topicSocialMentions$ | async">

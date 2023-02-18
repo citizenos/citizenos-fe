@@ -62,10 +62,10 @@ export class AppService {
             .save(member)
             .pipe(take(1)).
             subscribe(() => {
-              this.router.navigate(['/topic', topic.id], { queryParams: { editMode: true } })
+              this.router.navigate(['/topics', topic.id], { queryParams: { editMode: true } })
             });
         } else {
-          this.router.navigate(['/topic', topic.id], { queryParams: { editMode: true } })
+          this.router.navigate(['/topics', topic.id], { queryParams: { editMode: true } })
         }
       });
   }

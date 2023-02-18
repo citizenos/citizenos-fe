@@ -21,7 +21,7 @@
 
       <div class="lightbox_content">
 
-        <form name="loginMobiilIdForm" novalidate>
+        <form name="loginMobiilIdForm" [formGroup]="mobiilIdForm" novalidate>
 
           <div class="v_line lightest_line" *ngIf="authMethodsAvailable.mobiilId && authMethodsAvailable.idCard"></div>
 
@@ -33,23 +33,21 @@
             </div>
             <div *ngIf="!challengeID && !isLoading">
               <!-- Do not focus on mobile devices, otherwise scrolls past social login options and shows keyboard -->
-              <input id="phone" name="phoneNumber" type="tel" [(ngModel)]="phoneNumber" #phoneNumberInput="ngModel"
+              <input id="phone" formControlName="phoneNumber" type="tel"
                 [placeholder]="'MODALS.LOGIN_ESTEID_PLACEHOLDER_PHONE' | translate" (focus)="wWidth > 1024"
-                [ngClass]="{'error_input': (phoneNumberInput.errors && phoneNumberInput.errors['pattern'] && phoneNumberInput.touched)}"
-                ngModel pattern="^\+?[0-9\s-]{7,}$" required>
+                [ngClass]="{'error_input': (mobiilIdForm.controls['phoneNumber'].errors && mobiilIdForm.controls['phoneNumber'].errors['pattern'] && mobiilIdForm.touched)}">
               <label for="phone" class="error_label"
-                *ngIf="phoneNumberInput.errors && phoneNumberInput.errors['pattern']  && phoneNumberInput.touched">
+                *ngIf="mobiilIdForm.controls['phoneNumber'].errors && mobiilIdForm.controls['phoneNumber'].errors['pattern']  && mobiilIdForm.touched">
                 <div class="table_cell">
                   <div class="sprite sprite-icon-inputfield-error2x"></div>
                   <span translate="MODALS.LOGIN_ESTEID_ERROR_PHONE"></span>
                 </div>
               </label>
-              <input id="pid" name="pid" type="text" inputmode="numeric" [(ngModel)]="pid"
-                [placeholder]="'MODALS.LOGIN_ESTEID_PLACEHOLDER_PID' | translate" #pidInput="ngModel"
-                [ngClass]="{'error_input': pidInput.errors && pidInput.errors['pattern']  && pidInput.touched}" ngModel
-                pattern="^[0-9]{11}$" required>
+              <input id="pid" formControlName="pid" type="text" inputmode="numeric"
+                [placeholder]="'MODALS.LOGIN_ESTEID_PLACEHOLDER_PID' | translate"
+                [ngClass]="{'error_input': mobiilIdForm.controls['pid'].errors && mobiilIdForm.controls['pid'].errors['pattern']  && mobiilIdForm.touched}">
               <label for="pid" class="error_label"
-                *ngIf="pidInput.errors && pidInput.errors['pattern'] && pidInput.touched">
+                *ngIf="mobiilIdForm.controls['pid'].errors && mobiilIdForm.controls['pid'].errors['pattern'] && mobiilIdForm.touched">
                 <div class="table_cell">
                   <div class="sprite sprite-icon-inputfield-error2x"></div>
                   <span translate="MODALS.LOGIN_ESTEID_ERROR_PID"></span>
@@ -65,7 +63,7 @@
               </div>
             </div>
             <button type="submit" (click)="authMobiilId()" *ngIf="wWidth <= 550"
-              [disabled]="isLoading || isLoadingIdCard" class="blue_button"
+              [disabled]="isLoading || isLoadingIdCard || mobiilIdForm.invalid" class="blue_button"
               translate="MODALS.LOGIN_ESTEID_BTN_AUTHENTICATE_MID"></button>
           </div>
 
@@ -88,7 +86,7 @@
           <div class="clearer"></div>
           <div *ngIf="authMethodsAvailable.mobiilId && wWidth > 550" class="sign_in_section"
             [ngClass]="{'single_section': !authMethodsAvailable.idCard}">
-            <button (click)="authMobiilId()" [disabled]="isLoading || isLoadingIdCard" class="blue_button"
+            <button (click)="authMobiilId()" [disabled]="isLoading || isLoadingIdCard || mobiilIdForm.invalid" class="blue_button"
               [ngClass]="{margin_mobile_id: !config.authentication.idCard}"
               translate="MODALS.LOGIN_ESTEID_BTN_AUTHENTICATE_MID"></button>
           </div>

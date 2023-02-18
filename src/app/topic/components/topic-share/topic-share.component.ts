@@ -27,13 +27,13 @@ export class TopicShareComponent implements OnInit {
     private TopicService: TopicService,
     private TopicJoinService: TopicJoinService,
     private Location: LocationService) {
+  }
+
+  ngOnInit(): void {
     if (this.topic.join) {
       this.join = this.topic.join;
     }
     this.generateJoinUrl();
-  }
-
-  ngOnInit(): void {
   }
 
   canUpdate() {

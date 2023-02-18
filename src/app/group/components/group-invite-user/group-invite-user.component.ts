@@ -26,7 +26,6 @@ export class GroupInviteUserComponent implements OnInit {
     return this.GroupService.canUpdate(this.group);
   }
   doDeleteInviteUser() {
-    console.log(this.invite)
     const deleteDialog = this.dialog
       .open(TopicMemberInviteDeleteComponent, {
         data: {

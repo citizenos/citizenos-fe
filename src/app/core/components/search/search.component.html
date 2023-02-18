@@ -8,8 +8,10 @@
     <div class="donate_item" id="donate_text" translate="DONATE_TXT"></div>
     <a class="donate_item" id="donate_button" target="_blank" [href]="lnkDonate" translate="DONATE_BTN"></a>
   </div>
-  <typeahead class="auto-complete" [items]="searchResults" [term]="searchInput" (search)="doSearch($event)"
-    (select)="goToView($event)" [placeholder]="'LAYOUTS.MAIN.PLACEHOLDER_SEARCH_TOPICS_USERS_GROUPS' | translate" [selectLimit]="3" (enterAction)="doSearch($event)">
+  <!-- [items]="searchResults" -->
+  <typeahead class="auto-complete" [term]="searchInput" (search)="doSearch($event)"
+    (select)="goToView($event)" [placeholder]="'LAYOUTS.MAIN.PLACEHOLDER_SEARCH_TOPICS_USERS_GROUPS' | translate"
+    [selectLimit]="3" (enterAction)="doSearch($event)">
     <div id="search_results_area">
       <div id="m_search_icon">
         <div class="table_cell">
@@ -34,20 +36,19 @@
         </div>
       </div>
     </div>
-
     <div id="search_results_list" *ngIf="app.showSearchResults">
       <ng-container *ngFor="let context of contexts">
         <ng-container *ngFor="let model of models">
           <ng-container
             *ngIf="searchResults[context] && searchResults[context][model] && searchResults[context][model].count">
+
             <div class="search_cat">
               <div class="cat_wrap"><span translate="DEFAULT.SEARCH.HEADING_RESULTS_IN"></span> <b
                   translate="{{'LBL_CONTEXT_' + context + '_' + model | uppercase}}"></b></div>
             </div>
             <div class="results_area" *ngIf="searchResults[context][model].rows.length">
               <div class="result_group">
-
-                <div class="result_links" [typeaheadItem]="row" typeahead-item-no-close="row.id === 'viewMore'"
+                <div class="result_links" [typeaheadItem]="row"
                   *ngFor="let row of searchResults[context][model].rows">
                   <div *ngIf="model !== 'viewMore'" class="links_wrap">
                     <span>
@@ -55,7 +56,9 @@
                         {{row.name || row.title}}</a>
                     </span>
                   </div>
-                  <div *ngIf="row.id ==='viewMore'" class="more_results"
+                </div>
+                <div *ngIf="searchResults[context][model].count > searchResults[context][model].rows.length" class="result_links" [typeaheadItem]="{id:'viewMore', model, context}" [noClose]="true">
+                  <div class="more_results" (click)="goToView({id:'viewMore', context, model}, context)"
                     translate="DEFAULT.SEARCH.LNK_VIEW_MORE_RESULTS">
                   </div>
                 </div>
@@ -64,34 +67,6 @@
           </ng-container>
         </ng-container>
       </ng-container>
-      <!--context: my, public-->
-      <!--div *ngFor="(context, results) of searchResults" [ngClass]="{last: $last}">
-        <div *ngFor=" let (model, items) of results"> <!--model: topics, groups>
-          <div class="search_cat" *ngIf="!noResults && items.count">
-            <div class="cat_wrap"><span translate="DEFAULT.SEARCH.HEADING_RESULTS_IN"></span> <b
-                translate="{{'LBL_CONTEXT_' + context + '_' + model | uppercase}}"></b></div>
-          </div>
-
-          <div class="results_area" *ngIf="!noResults && items.count">
-            <div class="result_group">
-
-              <div class="result_links" typeahead-item="row" typeahead-item-no-close="row.id === 'viewMore'"
-                *ngFor="let row of items.rows">
-                <div *ngIf="row.id !== 'viewMore'" class="links_wrap">
-                  <span>
-                    <a *ngIf="model ==='groups'" (click)="goToView(row, context)" class="blue_link result_link">
-                      {{row.name}}</a>
-                    <a *ngIf="model ==='topics'" (click)="goToView(row, context)"
-                      class="blue_link result_link">{{row.title}}</a>
-                  </span>
-                </div>
-                <div *ngIf="row.id ==='viewMore'" class="more_results" translate="DEFAULT.SEARCH.LNK_VIEW_MORE_RESULTS">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </!--div-->
       <div class="results_area" *ngIf="noResults">
         <div class="result_group">
 

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AppService } from 'src/app/services/app.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { SearchService } from 'src/app/services/search.service';
 import { TranslateService } from '@ngx-translate/core';
-import { take } from 'rxjs';
+import { debounceTime, distinctUntilChanged, of, take } from 'rxjs';
 @Component({
   selector: 'search',
   templateUrl: './search.component.html',
@@ -12,15 +13,23 @@ import { take } from 'rxjs';
 })
 export class SearchComponent implements OnInit {
   noResults = true;
+  viewMoreInProgress = false;
+  moreStr: string = '';
   config: any;
   lnkDonate: string;
-  searchInput:string = '';
+  searchInput: string = '';
   contexts = ['my', 'public'];
   models = ['groups', 'topics']
   //review
-  searchResults:any = {};
+  searchResults: any = {};
 
-  constructor(ConfigService: ConfigService, private Translate: TranslateService, private Search: SearchService, private AuthService: AuthService, public app: AppService) {
+  constructor(
+    ConfigService: ConfigService,
+    private Translate: TranslateService,
+    private Search: SearchService,
+    private AuthService: AuthService,
+    private router: Router,
+    public app: AppService) {
     this.config = ConfigService.get('links');
     this.lnkDonate = this.config.donate[this.Translate.currentLang || this.Translate.getDefaultLang()];
   }
@@ -49,96 +58,99 @@ export class SearchComponent implements OnInit {
         str,
         {
           include: include,
-          limit: 5
+          limit: 2
         }
-      ).pipe(take(1)).
+      ).pipe(debounceTime(200), distinctUntilChanged(), take(1)).
       subscribe({
         next: (data) => {
-          console.log(data.results)
           this.searchResults = data.results;
-          this.app.showSearchResults=true;
+          this.app.showSearchResults = true;
           this.app.showNav = false;
           this.app.showSearchFiltersMobile = false;
           this.noResults = false;
           /*this.searchResults = result.data.data.results;
-          this.searchResults.combined = [];
-          this.app.app.showSearchResults = true;
-          this.app.showNav = false;
-          this.app.showSearchFiltersMobile = false;
-          this.combineResults();*/
+          */
         }, error: (err) => {
           console.error('SearchCtrl', 'Failed to retrieve search results', err);
         }
       });
   };
 
-  goToView(item:any, context?:any) {
-    console.log(context)
+  goToView(item: any, context?: any) {
+    console.log(item, context)
     if (item) {
       this.app.showSearchResults = false;
-      let model = 'topic';
       if (item.id === 'viewMore') {
-        model = 'viewMore';
-    //    return this.viewMoreResults(item.context, item.model);
+        this.viewMoreResults(item.context || context, item.model);
+        this.app.showSearchResults = true;
+        return;
       }
 
+      let model = 'topic';
       if (item.hasOwnProperty('name')) {
         model = 'group';
       }
 
       if (model == 'topic') {
         if (this.AuthService.loggedIn$.value === true && context === 'my') {
-          /*return this.$state.go(
-            'my/topics/topicId',
-            {
-              topicId: item.id,
-              filter: 'all'
-            },
-            {
-              reload: true
-            }
-          );*/
+          this.router.navigate(['my/topics', item.id], { queryParams: { filter: 'all' } });
         }
-      /*  this.$state.go(
-          'topics/view',
-          {
-            topicId: item.id
-          },
-          {
-            reload: true
-          }
-        );*/
+        return this.router.navigate(['/topics', item.id]);
       } else if (model === 'group') {
-      /*  if (this.sAuth.user.loggedIn && context === 'my') {
-          return this.$state.go(
-            'my/groups/groupId',
-            {
-              groupId: item.id,
-              filter: 'grouped'
-            },
-            {
-              reload: true
-            }
-          );*/
+        if (this.AuthService.loggedIn$.value === true && context === 'my') {
+          return this.router.navigate(['my/groups', item.id], { queryParams: { filter: 'grouped' } });
         }
-        console.log('GO TO VIEW')
-      /* this.$state.go(
-          'public/groups/view',
-          {
-            groupId: item.id
-          },
-          {
-            reload: true
-          }
-        );
-      }*/
+        return this.router.navigate(['/groups', item.id]);
+      }
     }
+    return;
   };
 
-  closeSearchArea () {
+  closeSearchArea() {
     this.app.showSearchResults = false;
-   // this.searchInput = null;
-    this.searchResults.combined = [];
+    // this.searchInput = null;
     this.app.showSearch = false;
-};
+  };
+
+  viewMoreResults(context: string, model: string) {
+    if (this.viewMoreInProgress) {
+      return;
+    } else {
+      this.viewMoreInProgress = true;
+      this.moreStr = this.searchInput;
+    }
+
+    if (context && model && this.searchResults[context][model].count > this.searchResults[context][model].rows.length - 1) { // -1 because the "viewMore" is added as an item that is not in the actual search result
+      let include = context + '.' + model;
+      if (model === 'topics') {
+        include = context + '.topic';
+      } else if (model === 'groups') {
+        include = context + '.group';
+      }
+
+      this.Search
+        .search(
+          this.moreStr,
+          {
+            include: include,
+            limit: 5,
+            offset: this.searchResults[context][model].rows.length
+          }
+        )
+        .pipe(take(1)).
+        subscribe({
+          next: (result) => {
+            const moreResults = result.results;
+            this.searchResults[context][model].count = moreResults[context][model].count;
+            moreResults[context][model].rows.forEach((row:any) => {
+              this.searchResults[context][model].rows.push(row);
+            });
+          },
+          error: (err) => {
+            console.error('SearchCtrl', 'Failed to retrieve search results', err);
+            this.viewMoreInProgress = false;
+          }
+        });
+    }
+  };
 }

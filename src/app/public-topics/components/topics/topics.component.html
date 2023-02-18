@@ -3,14 +3,14 @@
   <!-- FILTER AREA DESKTOP -->
   <div *ngIf="wWidth > 767" id="filter_bar_desktop">
 
-    <form [formGroup]="topicFilters">
+    <form>
 
       <div id="bar_top">
         <div class="bar_text" translate="VIEWS.HOME.HEADINGS_SHOW_ME_TOPICS_ABOUT"></div>
         <div [cosDropdown] class="bar_select">
 
           <div class="select_text">
-            {{'TXT_TOPIC_CATEGORY_' + topicFilters.value.category | uppercase | translate}}
+            {{'TXT_TOPIC_CATEGORY_' + topicFilters.category | uppercase | translate}}
             <div class="icon_holder">
               <div class="table_cell">
                 <div class="sprite sprite-dropdown-arrowdown-big2x"></div>
@@ -21,7 +21,7 @@
           <div class="animated_bg_bar">
           </div>
 
-          <div class="dropdown big_drop" formControlName="category">
+          <div class="dropdown big_drop">
             <div class="line lightest_line"></div>
             <div class="dropdown_item" (click)="setCategory('all');">
               <div class="item_name" translate="TXT_TOPIC_CATEGORY_ALL">
@@ -29,7 +29,7 @@
               <div class="clearer"></div>
             </div>
             <div class="dropdown_item" *ngFor="let category of categories$" (click)="setCategory(category);"
-              [ngClass]="category === topicFilters.value.category ? 'bold' : ''">
+              [ngClass]="category === topicFilters.category ? 'bold' : ''">
               <div class="item_name">
                 {{'TXT_TOPIC_CATEGORY_' + category | uppercase | translate}}
               </div>
@@ -84,7 +84,7 @@
         <div [cosDropdown] class="bar_section">
           <div class="bar_text" translate="VIEWS.HOME.LNK_SHOW"></div>
           <div class="bar_select">
-            {{'TXT_TOPIC_STATUS_' + topicFilters.value.status | uppercase | translate}}
+            {{'TXT_TOPIC_STATUS_' + topicFilters.status | uppercase | translate}}
             <div class="icon_holder">
               <div class="table_cell">
                 <div class="sprite sprite-dropdown-arrowdown-small2x"></div>
@@ -100,7 +100,7 @@
             </div>
 
             <div class="dropdown_item" *ngFor="let status of statuses$" (click)="setStatus(status);"
-              [ngClass]="status === topicFilters.value.status ? 'bold' : ''">
+              [ngClass]="status === topicFilters.status ? 'bold' : ''">
               <div class="item_name">
                 {{'TXT_TOPIC_STATUS_' + status | uppercase | translate}}
               </div>
@@ -110,7 +110,7 @@
 
         </div>
         <span
-          *ngIf="(topicFilters.get('category')?.value) !== FILTERS_ALL || (topicFilters.get('status')?.value) !== FILTERS_ALL">
+          *ngIf="(topicFilters.category) !== FILTERS_ALL || (topicFilters.status) !== FILTERS_ALL">
           <div class="line_holder">
             <div class="v_line dark_gray_background">
             </div>
@@ -141,9 +141,9 @@
       <div class="line lightest_line"></div>
       <div class="filter_topics_bottom">
         <div class="filter_text"><span translate="VIEWS.HOME.LBL_CATEGORY"></span> {{'TXT_TOPIC_CATEGORY_' +
-          (topicFilters.value.category) | uppercase | translate}}</div>
+          (topicFilters.category) | uppercase | translate}}</div>
         <div class="filter_text"><span translate="VIEWS.HOME.LBL_STATUS"></span> {{'TXT_TOPIC_STATUS_' +
-          (topicFilters.value.status) | uppercase | translate}}</div>
+          (topicFilters.status) | uppercase | translate}}</div>
       </div>
     </div>
 
@@ -187,7 +187,7 @@
         <ng-container *ngIf="tabSelected === 'categories'">
           <a  class="fi_link" *ngFor="let category of categories$"
           (click)="setCategory(category)"
-          [ngClass]="category === topicFilters.value.category ? 'bold' : ''">
+          [ngClass]="category === topicFilters.category ? 'bold' : ''">
           <span>
             {{'TXT_TOPIC_CATEGORY_' + category | uppercase | translate}}
           </span>
@@ -196,7 +196,7 @@
         <ng-container *ngIf="tabSelected === 'statuses'">
           <a  class="fi_link" *ngFor="let status of statuses$"
           (click)="setStatus(status)"
-          [ngClass]="status === topicFilters.value.status ? 'bold' : ''">
+          [ngClass]="status === topicFilters.status ? 'bold' : ''">
           <span>
             {{'TXT_TOPIC_STATUS_' + status | uppercase | translate}}
           </span>
@@ -226,7 +226,7 @@
 
         <div class="button_area">
 
-          <div class="big_button" ui-sref="topics/create">
+          <div class="big_button" [routerLink]="['/topics/create']">
             <div class="button_cell">
               <div class="topic_text" translate="VIEWS.HOME.BTN_CREATING_A_NEW_TOPIC"></div>
             </div>

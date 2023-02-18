@@ -48,11 +48,19 @@
     border: solid 1px vars.$lightest_gray;
     border-radius: 4px;
     &:focus {
-        border: 1px solid vars.$dark_gray;
-        outline: none;
+      border: 1px solid vars.$dark_gray;
+      outline: none;
     }
   }
-
+  .ac-input input {
+    width: 100%;
+    box-sizing: border-box;
+    border: solid 1px #e5e5e5;
+    border-radius: 4px;
+    height: 30px;
+    font-size: 13px;
+    padding: 0 10px;
+  }
   textarea {
     width: 100%;
     font-size: 13px;

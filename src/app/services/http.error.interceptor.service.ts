@@ -37,7 +37,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             console.error(`Server side error:', ${errorMsg} `);
             if (response.url?.match(this.API_REQUEST_REGEX) && response.status === 401) {
               // Cannot use $state here due to circular dependencies with $http
-              this.Router.navigate([this.Location.getAbsoluteUrl('/account/login', null, { redirectSuccess: this.Location.getAbsoluteUrl(window.location.pathname) + window.location.search })]);
+              this.Router.navigate(['/account/login'], { queryParams: { redirectSuccess: this.Location.getAbsoluteUrl(window.location.pathname) + window.location.search }});
             }
           }
 

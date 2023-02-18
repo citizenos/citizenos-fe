@@ -13,14 +13,14 @@ import { ItemsListService } from './items-list.service';
 export class PublicTopicService extends ItemsListService {
   params = Object.assign(this.defaultParams, {
     showModerated: <boolean>false,
-    statuses: <Array<string> | string | null>'',
-    include: <Array<string> | string | null>'',
-    categories: <Array<string> | string | null>'',
-    title: <string | null>'',
-    visibility: <string | null>'',
-    hasVoted: <boolean | string | null>'',
-    creatorId: <string | null>'',
-    pinned: <boolean | string | null>'null',
+    statuses: <Array<string> | string | null>null,
+    include: <Array<string> | string | null>null,
+    categories: <Array<string> | string | null>null,
+    title: <string | null>null,
+    visibility: <string | null>null,
+    hasVoted: <boolean | string | null>null,
+    creatorId: <string | null>null,
+    pinned: <boolean | string | null>null,
   });
   params$ = new BehaviorSubject(this.params);
   STATUSES = <string[]>['inProgress', // Being worked on
@@ -46,7 +46,7 @@ export class PublicTopicService extends ItemsListService {
   queryPublic(params: { [key: string]: any }): Observable<ApiResponse> {
     let path = this.Location.getAbsoluteUrlApi('/api/topics');
     const queryParams = Object.fromEntries(Object.entries(params).filter((i) => i[1] !== null));
-
+    console.log(queryParams)
     return this.http.get<ApiResponse>(path, { withCredentials: true, params: queryParams, observe: 'body', responseType: 'json' }).pipe(
       map((res) => {
         return res.data;

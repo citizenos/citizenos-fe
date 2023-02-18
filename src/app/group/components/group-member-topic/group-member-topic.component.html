@@ -1,5 +1,5 @@
 <div class="pretend_td">
-  <div class="blue_link" ui-sref="topics/view({topicId: topic.id})" [innerHtml]="topic.title"></div>
+  <div class="blue_link" [routerLink]="['/topics',topic.id]" [innerHtml]="topic.title"></div>
 </div>
 <div class="pretend_td" *ngIf="isVisibleField('lastActivity')">
   <div class="pretend_table_mobile_text mobile_label" translate="">Last activity</div>

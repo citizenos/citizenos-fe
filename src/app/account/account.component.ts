@@ -57,15 +57,14 @@ export class AccountComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private Auth: AuthService) {
-      console.log('ACCOUNT')
     this.tabSelected = this.route.fragment.pipe(
       map((fragment) => {
-        if(!fragment) {
+        if (!fragment) {
           return this.selectTab('profile')
         }
         return fragment
       }
-    ));
+      ));
 
     if (Auth.user$) {
       Auth.user$.pipe(take(1))
@@ -87,9 +86,8 @@ export class AccountComponent implements OnInit {
     this.topics$ = TopicNotificationService.items$;
   }
 
-  searchTopics () {
-    console.log(this.topicSearch, this.topicSearch.length)
-    if (this.topicSearch.length >= 3  || this.topicSearch.length === 0)
+  searchTopics() {
+    if (this.topicSearch.length >= 3 || this.topicSearch.length === 0)
       this.TopicNotificationService.setParam('search', this.topicSearch);
   }
 
@@ -98,11 +96,10 @@ export class AccountComponent implements OnInit {
   }
 
   selectTab(tab: string) {
-    this.router.navigate( [], { fragment: tab } )
+    this.router.navigate([], { fragment: tab })
   }
 
   toggleTopicNotifications(topic: any) {
-    console.log(topic);
     if (!topic.allowNotifications) {
       const removeDialog = this.dialog
         .open(
@@ -135,10 +132,12 @@ export class AccountComponent implements OnInit {
         },
         allowNotifications: true
       }).pipe(take(1))
-      .subscribe((data) => {
-        console.log(data);
-        this.settings = data;
-      })
+        .subscribe({
+          next: (data) => {
+            this.settings = data;
+          },
+          error: (res) => console.error(res)
+        })
     }
   };
 
@@ -207,12 +206,14 @@ export class AccountComponent implements OnInit {
     this.User
       .update(this.form.name, this.form.email, this.form.password, this.form.company, '')
       .pipe(take(1))
-      .subscribe((res) => {
-        console.log(res);
-        //    angular.extend(this.user, res.data);
-        this.form.imageUrl = '';
-        this.form.imageUrl = this.tmpImageUrl = null;
-        this.imageFile = null;
+      .subscribe({
+        next: (res) => {
+          //    angular.extend(this.user, res.data);
+          this.form.imageUrl = '';
+          this.form.imageUrl = this.tmpImageUrl = null;
+          this.imageFile = null;
+        },
+        error: (res) => console.error(res)
       })
   };
 

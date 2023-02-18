@@ -1,7 +1,7 @@
 <a (click)="goToView()" class="topic" [ngClass]="catClass">
   <div class="topic_wrap">
       <div class="top text_small">
-          <div class="date">{{topic.lastActivity}}</div>
+          <div class="date">{{topic.lastActivity  | amDateFormat : 'L'}}</div>
           <div class="author">{{topic.creator.name}}</div>
           <div class="clearer"></div>
       </div>
