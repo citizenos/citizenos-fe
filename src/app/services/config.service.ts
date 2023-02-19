@@ -1,6 +1,6 @@
 import { Injectable, APP_INITIALIZER } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { take } from 'rxjs';
 import { environment } from '../../environments/environment'; //path to your environment files
 
 @Injectable({
@@ -14,23 +14,18 @@ export class ConfigService {
   constructor(private _http: HttpClient) { }
   load() {
     return new Promise((resolve, reject) => {
-
       if (environment.production)
         this._env = 'production';
-      this._http.get('./assets/config/default.json').
-        subscribe((defaultConfig) => {
-          this._http.get('./assets/config/' + this._env + '.json')
-            .subscribe({
-              next: (data) => {
-                this._config = Object.assign(defaultConfig, data);
-
-                resolve(data);
-              },
-              error: (error: any) => {
-                console.error(error);
-                reject(error);
-              }
-            });
+      this._http.get('./assets/config/config.json').pipe(take(1))
+        .subscribe({
+          next: (defaultConfig) => {
+            this._config = defaultConfig;
+            resolve(defaultConfig);
+          },
+          error: (error: any) => {
+            console.error(error);
+            reject(error);
+          }
         });
     })
 

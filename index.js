@@ -13,20 +13,6 @@ const { expressCspHeader, INLINE, NONE, SELF } = require('express-csp-header');
 
 const prerender = require('prerender-node');
 
-const configFe = config.util.loadFileConfigs('./public/config');
-/*
-const pathSettings = path.resolve('./public/settings.js');
-try {
-    var settingsFileTxt = '(function (window) { window.__config = window.__config || {};';
-    _(configFe).forEach(function (value, key) {
-        settingsFileTxt += ' window.__config.' + key + ' = ' + JSON.stringify(value) + ';';
-    });
-    settingsFileTxt += '}(this));';
-    fs.writeFileSync(pathSettings, settingsFileTxt);
-} catch (err) {
-    console.log('Settings.json write FAILED to ' + pathSettings, err);
-    process.exit(1);
-}*/
 //TODO: list whitelisted urls to github with description
 const cspConfig = config.csp;
 const cspOptions = _.cloneDeep(cspConfig);

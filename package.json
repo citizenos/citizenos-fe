@@ -2,9 +2,10 @@
   "name": "citizenos-fe",
   "version": "0.0.0",
   "scripts": {
+    "dev": "node ./prebuild.js && ng serve",
     "ng": "ng",
     "start": "node ./index.js",
-    "build": "ng build",
+    "build": "node ./prebuild.js && ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
