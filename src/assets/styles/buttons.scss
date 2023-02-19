@@ -347,8 +347,15 @@
       transition: none;
       width: 24px;
       height: 24px;
+      top: 0px;
+      right: 0px;
+    }
+    .red_bg {
+      transition: none;
+      width: 24px;
+      height: 24px;
       top: -1px;
-      right: -1px;
+      right: 30px;
     }
   }
 

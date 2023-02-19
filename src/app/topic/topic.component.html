@@ -109,17 +109,15 @@
                 </div>
               </div>
               <!--REPORT topic-->
-              <div class="container_report" *ngIf="topic.visibility === TopicService.VISIBILITY.public && !topic.report"
-                [routerLink]="['report']">
+              <div class="container_report" *ngIf="topic.visibility === TopicService.VISIBILITY.public && !topic.report" [routerLink]="['/topics', topic.id, 'report']">
                 <div class="ff_table_fix" [tooltip]="('TOOLTIP_REPORT_TOPIC'| translate)">
-                  <div class="table_cell">
+                  <div class="table_cell" >
                     <div class="sprite sprite-icon-exclamation2x-white"></div>
                     <div class="red_bg"></div>
                   </div>
                 </div>
               </div>
-
-              <div class="container_pin" [ngClass]="topic.pinned ? 'pinned' : ''" (click)="togglePin(topic)">
+              <div class="container_pin " [ngClass]="topic.pinned ? 'pinned' : ''" (click)="togglePin(topic)">
                 <div class="ff_table_fix" [tooltip]="('TOOLTIP_PIN_TOPIC'| translate)">
                   <div class="table_cell">
                     <div class="sprite sprite-icon-favourite2x-white"></div>

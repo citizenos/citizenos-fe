@@ -3,7 +3,7 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { take, switchMap } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicReportService } from 'src/app/services/topic-report.service';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { TopicService } from 'src/app/services/topic.service';
 export interface TopicReportFormData {
   topic: Topic
@@ -60,12 +60,14 @@ export class TopicReportFormComponent implements OnInit {
 })
 export class TopicReportFormDialogComponent implements OnInit {
 
-  constructor(dialog: MatDialog, route: ActivatedRoute, TopicService: TopicService) {
+  constructor(dialog: MatDialog, router: Router, route: ActivatedRoute, TopicService: TopicService) {
     route.params.pipe(switchMap((params) => {
       return TopicService.get(params['topicId']);
     })).pipe(take(1))
       .subscribe((topic) => {
-        dialog.open(TopicReportFormComponent, { data: { topic } });
+        const reportDialog = dialog.open(TopicReportFormComponent, { data: { topic } });
+        reportDialog.afterClosed().subscribe(() => router.navigate(['../'], {relativeTo: route}))
+
       })
 
   }

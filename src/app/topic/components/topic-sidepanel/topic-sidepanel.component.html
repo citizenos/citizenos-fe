@@ -32,7 +32,7 @@
     <div class="blue_link" *ngIf="canUpdate()" (click)="duplicateTopic()"
       translate="VIEWS.TOPICS_TOPICID.NAV_LNK_DUPLICATE_TOPIC"></div>
     <div *ngIf="topic.visibility === VISIBILITY.public && !topic.report" class="blue_link"
-      [routerLink]="['report']" translate="VIEWS.TOPICS_TOPICID.NAV_LNK_REPORT"></div>
+      [routerLink]="['/topics', topic.id,'report']" translate="VIEWS.TOPICS_TOPICID.NAV_LNK_REPORT"></div>
     <div class="blue_link" translate="VIEWS.TOPICS_TOPICID.NAV_LNK_SET_TOPIC_NOTIFICATIONS"
       (click)="app.doShowTopicNotificationSettings(topic.id)"></div>
   </div>

@@ -12,6 +12,8 @@ import { Topic } from 'src/app/interfaces/topic';
 import { Attachment } from 'src/app/interfaces/attachment';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Vote } from '../interfaces/vote';
+import { TopicReportFormDialogComponent } from './components/topic-report-form/topic-report-form.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'topic',
@@ -40,6 +42,7 @@ export class TopicComponent implements OnInit {
   STATUSES = this.TopicService.STATUSES;
   VOTE_TYPES = this.TopicVoteService.VOTE_TYPES;
   constructor(
+    private dialog: MatDialog,
     private Auth: AuthService,
     public TopicService: TopicService,
     private router: Router,
