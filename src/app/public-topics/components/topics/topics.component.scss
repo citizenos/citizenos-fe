@@ -30,7 +30,7 @@
         .dropdown {
             display: none;
             position: absolute;
-            width: 100%;
+            width: max-content;
             background: vars.$white;
             left: 0;
             z-index: 1;

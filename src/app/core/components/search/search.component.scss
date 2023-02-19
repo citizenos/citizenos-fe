@@ -252,6 +252,9 @@
     display: none;
   }
 
+  @include mixins_n_extends.tablet {
+    display: none;
+  }
   position: absolute;
   height: 60px;
   right: 0px;

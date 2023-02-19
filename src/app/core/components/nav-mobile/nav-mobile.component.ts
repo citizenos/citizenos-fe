@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PRIMARY_OUTLET, Router, ActivatedRoute } from '@angular/router';
 import { AppService } from 'src/app/services/app.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { TopicService } from 'src/app/services/topic.service';
 import { Topic } from 'src/app/interfaces/topic';
 
@@ -11,7 +12,7 @@ import { Topic } from 'src/app/interfaces/topic';
 })
 export class NavMobileComponent implements OnInit {
 
-  constructor(public app: AppService, private TopicService: TopicService, private router: Router, private route: ActivatedRoute) {
+  constructor(public app: AppService, private Auth: AuthService, private TopicService: TopicService, private router: Router, private route: ActivatedRoute) {
 
   }
 
@@ -20,6 +21,10 @@ export class NavMobileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  loggedIn () {
+    return this.Auth.loggedIn$;
   }
 
   doToggleEditMode() {
@@ -34,6 +39,7 @@ export class NavMobileComponent implements OnInit {
   }
 
   back() {
+    this.router.navigate(['../'], {relativeTo: this.route});
   }
 
   showBack() {
@@ -41,5 +47,10 @@ export class NavMobileComponent implements OnInit {
     const outlet = parsedUrl.root.children[PRIMARY_OUTLET];
     const g = outlet?.segments.map(seg => seg.path) || [''];
     return g[1] === 'my' && (g[2] === 'topics' || g[2] === 'groups');
+  }
+
+  includedByState(path: string) {
+    console.log('includes', this.router.url.includes(path))
+    return this.router.url.includes(path);
   }
 }
