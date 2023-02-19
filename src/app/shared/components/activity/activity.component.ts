@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
 import { ActivityService } from 'src/app/services/activity.service';
@@ -10,7 +11,7 @@ import { ActivityService } from 'src/app/services/activity.service';
 })
 export class ActivityComponent implements OnInit {
   @Input() activitygroup!: any;
-  constructor(private Translate: TranslateService, private ActivityService: ActivityService, private sanitized: DomSanitizer) {
+  constructor(private dialog: MatDialog, private Translate: TranslateService, private ActivityService: ActivityService, private sanitized: DomSanitizer) {
   }
 
   ngOnInit(): void {
@@ -24,7 +25,8 @@ export class ActivityComponent implements OnInit {
     return objIn?.length;
   };
   activityRedirect(activity: any) {
-    return this.ActivityService.handleActivityRedirect(activity);
+    this.ActivityService.handleActivityRedirect(activity);
+    this.dialog.closeAll();
   };
 
   translateGroup(key: string, group: any) {
@@ -44,7 +46,7 @@ export class ActivityComponent implements OnInit {
     return this.ActivityService.showActivityUpdateVersions(activity);
   };
 
-  showActivityDescription(activity:any) {
+  showActivityDescription(activity: any) {
     return this.ActivityService.showActivityDescription(activity);
   };
   translateVersion(a: any, type: string) {
@@ -52,9 +54,9 @@ export class ActivityComponent implements OnInit {
     if (type == 'new') {
       string = 'ACTIVITY_FEED.ACTIVITY_PREVIOUS_VERSION'
     }
-    const translateParams={
-      previousValue: (a.values.previousValue?.slice(0,200) + ((a.values.previousValue?.length > 200) ? '...' : '')),
-      newValue: (a.values.newValue?.slice(0,200) + ((a.values.newValue?.length > 200) ? '...' : ''))
+    const translateParams = {
+      previousValue: (a.values.previousValue?.slice(0, 200) + ((a.values.previousValue?.length > 200) ? '...' : '')),
+      newValue: (a.values.newValue?.slice(0, 200) + ((a.values.newValue?.length > 200) ? '...' : ''))
     };
     return this.sanitized.bypassSecurityTrustHtml(this.Translate.instant(string, translateParams));
   }

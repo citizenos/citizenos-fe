@@ -609,12 +609,11 @@ export class ActivityService extends ItemsListService {
     const activityType = activity.data.type;
     let stateName = '';
     let state = [this.$translate.currentLang];
-    const params = <any>{};
+    let params = <any>{};
     let hash = '';
     const object = this.getActivityObject(activity);
     const target = activity.data.target;
     const origin = activity.data.origin;
-
 
     if (activityType === 'Invite' && target['@type'] === 'User' && object['@type'] === 'Topic') { // https://github.com/citizenos/citizenos-fe/issues/112
       // The invited user is viewing
@@ -634,56 +633,40 @@ export class ActivityService extends ItemsListService {
         params['inviteId'] = target.inviteId; // HACKISH! Change once issue resolves - https://github.com/w3c/activitystreams/issues/506
       } else {
         // Creator of the invite or a person who has read permissions is viewing
-        stateName = 'group/view';
-        params['groupId'] = object.id;
+        state = state.concat(['groups', object.id]);
       }
     } else if ((object && object['@type'] === 'Topic')) {
-      stateName = 'topics/view';
-      params['topicId'] = object.id;
+      state = state.concat(['topics', object.id]);
     } else if ((object && object['@type'] === 'TopicMemberUser')) {
-      stateName = 'topics/view';
-      params['topicId'] = object.topicId;
+      state = state.concat(['topics', object.topicId]);
     } else if (object['@type'] === 'Comment' || object['@type'] === 'CommentVote') {
       if (target && (target['@type'] === 'Topic' || object.topicId || target.topicId)) {
-        stateName = 'topics/view';
-        params['topicId'] = object.topicId || target.topicId || target.id;
-        params['commentId'] = object.commentId || object.id;
+        state = state.concat(['topics', object.topicId || target.topicId || target.id]);
+        params = { queryParams: { 'commentId': object.commentId || object.id } };
         // hash = object.commentId || object.id;
       }
     } else if (object['@type'] === 'Vote' || object['@type'] === 'VoteList' && target && target['@type'] === 'Topic') {
-      stateName = 'topics/view/votes/view';
-      params['topicId'] = target.topicId || target.id;
-      params['voteId'] = object.voteId || object.id;
+      state = state.concat(['topics', target.topicId || target.id, 'votes', object.voteId || object.id]);
     } else if (object['@type'] === 'Group' || object['@type'] === 'TopicMemberGroup') {
       state = state.concat(['my', 'groups', object.id || object.groupId])
-      params['groupId'] = object.id || object.groupId;
     } else if (object['@type'] === 'Vote' || object['@type'] === 'VoteFinalContainer') {
-      stateName = 'topics/view/votes/view';
-      params['topicId'] = object.topicId || object.id;
-      params['voteId'] = object.voteId || object.id;
+      state = state.concat(['topics', object.topicId || object.id, 'votes', object.voteId || object.id]);
     } else if (target && (target['@type'] === 'Topic' || target.topicId)) {
-      stateName = 'topics/view';
-      params['topicId'] = target.topicId || target.id
+      state = state.concat(['topics', target.topicId || target.id]);
     }
 
     if (target && target['@type'] === 'Group') {
-      state = state.concat(['my', 'groups', target.id])
-      stateName = 'my/groups/:groupId';
-      params['groupId'] = target.id;
+      state = state.concat(['my', 'groups', target.id]);
     }
 
     if (!stateName && origin && origin['@type'] === 'Topic') {
-      stateName = 'topics';
-      params['topicId'] = origin.id;
+      state = state.concat(['topics', origin.id]);
     }
     if (state.length) {
-      //  ngDialog.closeAll();
-      console.log(state)
+      if (hash) {
+        params.fragment = hash;
+      }
       this.router.navigate(state, params);
-      /* if (hash) {
-         link = link + '#' + hash;
-       }
-       this.$window.location.href = link;*/
     }
   }
 }
