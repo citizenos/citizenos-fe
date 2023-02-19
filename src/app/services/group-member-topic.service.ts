@@ -77,10 +77,12 @@ export class GroupMemberTopicService extends ItemsListService {
       );
   }
 
-  queryPublic(params: any) {
+  queryPublic(params: { [key: string]: any }) {
     let path = this.Location.getAbsoluteUrlApi('/api/groups/:groupId/members/topics', params);
 
-    return this.http.get<ApiResponse>(path, { params, withCredentials: true, responseType: 'json', observe: 'body' })
+    const queryParams = Object.fromEntries(Object.entries(params).filter((i) => i[1] !== null));
+
+    return this.http.get<ApiResponse>(path, { params: queryParams, withCredentials: true, responseType: 'json', observe: 'body' })
       .pipe(
         map(res => res.data)
       );
