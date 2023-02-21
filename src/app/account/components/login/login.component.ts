@@ -11,6 +11,7 @@ import { EstIdLoginComponent } from '../est-id-login/est-id-login.component';
 import { SmartIdLoginComponent } from '../smart-id-login/smart-id-login.component';
 import { RegisterComponent } from '../register/register.component';
 import { PasswordForgotComponent } from '../password-forgot/password-forgot.component';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -42,14 +43,32 @@ export class LoginComponent implements OnInit {
     private UserService: UserService,
     private route: ActivatedRoute,
     private Auth: AuthService) {
-    }
+  }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(value => {
       this.form.patchValue({ 'email': value['email'] });
       this.userConnections = value['userConnections'];
       this.redirectSuccess = value['redirectSuccess'];
-      console.log(this.redirectSuccess)
+      if (value['userId']) {
+        this.UserService.listUserConnections(value['userId'])
+          .pipe(take(1))
+          .subscribe({
+            next: (res) => {
+              Object.keys(this.authMethodsAvailable).forEach((method) => {
+                this.authMethodsAvailable[method] = false;
+                res.rows.forEach((availableMethod: any) => {
+                  if (availableMethod.connectionId === method) {
+                    this.authMethodsAvailable[method] = true;
+                  }
+                })
+              });
+            }, error: (err) => {
+              // If the UserConnection fetch fails, it does not matter, we just don't filter authentication methods
+              console.warn('Unable to fetch UserConnections for User', err);
+            }
+          });
+      }
       if (this.userConnections) {
         let userAuthMethods = <any[]>['citizenos'];
 
@@ -73,19 +92,14 @@ export class LoginComponent implements OnInit {
           this.authMethodsAvailable[val] = userAuthMethods.indexOf(val) > -1;
         });
       }
-      if (this.Auth.loggedIn$.value) {
-       console.log(this.redirectSuccess || '/')
-        // window.location = this.redirectSuccess || '/';
-      }
     });
 
     this.authMethodsAvailable = this.config.get('features').authentication;
     this.isFormEmailProvided = !!this.form.get('email');
     this.linkRegister = this.Location.getAbsoluteUrl('/account/signup');
-
-    // UserConnections to know which auth methods to show - https://github.com/citizenos/citizenos-fe/issues/657
-    /* const userConnections = this.$stateParams ? this.$stateParams.userConnections : null;
-      }*/
+    if (this.Auth.loggedIn$.value) {
+      window.location = this.redirectSuccess || '/';
+    }
   }
 
   popupCenter(url: string, title: string, w: number, h: number) {

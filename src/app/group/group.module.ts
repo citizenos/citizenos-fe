@@ -9,13 +9,15 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { GroupCreateComponent } from './components/group-create/group-create.component';
 import { GroupJoinComponent } from './components/group-join/group-join.component';
+import { GroupInvitationComponent } from './components/group-invitation/group-invitation.component';
 
 
 @NgModule({
   declarations: [
     GroupComponent,
     GroupCreateComponent,
-    GroupJoinComponent
+    GroupJoinComponent,
+    GroupInvitationComponent
   ],
   imports: [
     CommonModule,

@@ -3,15 +3,13 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, take } from 'rxjs';
 import { RegisterComponent } from 'src/app/account/components/register/register.component';
+import { InviteData } from 'src/app/interfaces/dialogdata';
 import { AuthService } from 'src/app/services/auth.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { LocationService } from 'src/app/services/location.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { TopicInviteUserService } from 'src/app/services/topic-invite-user.service';
 
-interface InviteData{
-  invite: any
-}
 @Component({
   selector: 'app-topic-invitation',
   templateUrl: './topic-invitation.component.html',
@@ -21,7 +19,6 @@ export class TopicInvitationComponent implements OnInit {
   invite: any;
   config = <any>this.ConfigService.get('links');
   constructor(private ConfigService: ConfigService, private dialog: MatDialog, @Inject(MAT_DIALOG_DATA) private data: InviteData, private Auth: AuthService, private Location: LocationService, private router: Router) {
-
     this.invite = data.invite;
   }
 
@@ -93,8 +90,7 @@ export class TopicInvitationDialogComponent implements OnInit {
       })
     ).subscribe({
       next: (topicInvite: any) => {
-        console.log(topicInvite)
-        topicInvite.id = this.inviteId;
+        topicInvite.inviteId = this.inviteId;
         // 1. The invited User is logged in - https://github.com/citizenos/citizenos-fe/issues/112#issuecomment-541674320
         if (Auth.loggedIn$.value && topicInvite.user.id === Auth.user.value.id) {
           TopicInviteUserService
@@ -115,9 +111,7 @@ export class TopicInvitationDialogComponent implements OnInit {
                 invite: topicInvite
               }
             });
-          invitationDialog
         }
-
       },
       error: (err) => {
         if (err.status === 404) {
