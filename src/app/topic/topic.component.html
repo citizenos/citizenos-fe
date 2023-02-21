@@ -54,7 +54,7 @@
             <div class="info_bar_text">
               <div class="info_row">
                 <span translate="VIEWS.TOPICS_TOPICID.TAB_INFO_TXT_REPORTED"></span>&nbsp;<a
-                  (click)="doShowReportOverlay()" href=""
+                  (click)="doShowReportOverlay(topic); $event.preventDefault()" href="#"
                   translate="VIEWS.TOPICS_TOPICID.TAB_INFO_LNK_VIEW_REPORT_DETAILS"></a>
                 <span *ngIf="topic.report.type && !topic.report.moderatedReasonType">&nbsp;<a
                     [routerLink]="['reports', topic.report.id, 'moderate']"

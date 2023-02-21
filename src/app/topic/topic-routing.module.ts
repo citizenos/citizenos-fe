@@ -33,9 +33,9 @@ const routes: Routes = [
       { path: 'files', component: TopicAttachmentsDialogComponent },
       { path: 'participants', component: TopicParticipantsDialogComponent },
       { path: 'report', component: TopicReportFormDialogComponent },
-      { path: 'report/:reportId/moderate', component: TopicReportModerateDialogComponent },
-      { path: 'report/:reportId/review', component: TopicReportReviewDialogComponent },
-      { path: 'report/:reportId/resolve', component: TopicReportResolveDialogComponent },
+      { path: 'reports/:reportId/moderate', component: TopicReportModerateDialogComponent },
+      { path: 'reports/:reportId/review', component: TopicReportReviewDialogComponent },
+      { path: 'reports/:reportId/resolve', component: TopicReportResolveDialogComponent },
       { path: 'comments/:commentId/reports/:reportId/moderate', component: ArgumentReportModerateDialogComponent},
       { path: '', component: TopicComponent },
     ]

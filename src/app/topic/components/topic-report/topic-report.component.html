@@ -1,0 +1,64 @@
+<!-- LIGHTBOX SKELETON -->
+<div id="root_lightbox">
+  <div id="lightbox" class="id_signing delete_topic wide_lightbox">
+    <div id="lightbox_wrap">
+
+      <div id="lightbox_header">
+
+
+        <div id="lightbox_header_text">
+          <div class="title" translate="MODALS.TOPIC_REPORT_REPORTID_HEADING_2"></div>
+        </div>
+
+        <div class="line lightest_line"></div>
+
+      </div>
+
+
+      <div class="lightbox_content">
+
+        <div class="second_header">
+
+          <div class="sprite sprite-icon-delete-topic2x"></div>
+          <div class="delete_title" translate="MODALS.TOPIC_REPORT_REPORTID_HEADING"></div>
+          <div class="delete_title" translate="MODALS.TOPIC_REPORT_REPORTID_HEADING_2"></div>
+
+        </div>
+
+        <div class="line_wrap">
+          <div class="line lightest_line"></div>
+        </div>
+
+        <div id="delete_info_wrap">
+          <h3 translate="MODALS.TOPIC_REPORT_REPORTID_HEADING_REASON"></h3>
+          <div class="text-block">
+            <h4 translate="TXT_REPORT_TYPES_{{topic.report?.moderatedReasonType || topic.report?.type | uppercase}}">
+              {{topic.report?.moderatedReasonType || topic.report?.type}}</h4>
+            {{topic.report?.moderatedReasonText || topic.report?.text}}
+          </div>
+
+          <h3 translate="MODALS.TOPIC_REPORT_REPORTID_HEADING_CURRENT_STATUS"></h3>
+          <div class="text-block">
+            <h4 translate="MODALS.TOPIC_REPORT_REPORTID_TXT_STATUS_WAITING_FOR_UPDATE_AND_REVIEW"></h4>
+            <span [innerHTML]="'MODALS.TOPIC_REPORT_REPORTID_TXT_FIND_MORE_DETAILS' | translate"></span><!--<a href="https://app.citizenos.com/en/topics/ac8b66a4-ca56-4d02-8406-5e19da73d7ce">here</a>.-->
+          </div>
+
+          <div class="delete_info_button_wrap">
+
+            <div class="table_cell">
+              <div class="blue_button no" mat-dialog-close translate="MODALS.TOPIC_REPORT_REPORTID_BTN_NO"></div>
+            </div>
+
+            <div class="table_cell">
+              <div class="blue_button yes" mat-dialog-close="true" translate="MODALS.TOPIC_REPORT_REPORTID_BTN_YES"></div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>

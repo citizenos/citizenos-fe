@@ -14,6 +14,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Vote } from '../interfaces/vote';
 import { TopicReportFormDialogComponent } from './components/topic-report-form/topic-report-form.component';
 import { MatDialog } from '@angular/material/dialog';
+import { TopicReportComponent } from './components/topic-report/topic-report.component';
 
 @Component({
   selector: 'topic',
@@ -82,8 +83,15 @@ export class TopicComponent implements OnInit {
       switchMap((topicId: string) => {
         return this.TopicService.get(topicId);
       }),
-      tap((topic) => {
+      tap((topic:Topic) => {
         this.app.topic = topic;
+        if (topic.report && topic.report.moderatedReasonType) {
+          // NOTE: Well.. all views that are under the topics/view/votes/view would trigger doble overlays which we don't want
+          // Not nice, but I guess the problem starts with the 2 views using same controller. Ideally they should have a parent controller and extend that with their specific functionality
+          this.dialog.closeAll();
+          this.doShowReportOverlay(topic);
+          this.hideTopicContent = true;
+      }
         if (topic.voteId) {
           this.vote$ = this.TopicVoteService.get({ topicId: topic.id, voteId: topic.voteId });
         }
@@ -113,18 +121,20 @@ export class TopicComponent implements OnInit {
     this.TopicService.togglePin(topic);
   }
 
-  doShowReportOverlay() {
-    /*this.ngDialog.openConfirm({
-      template: '/views/modals/topic_reports_reportId.html',
-      data: this.$stateParams,
-      scope: this,
-      closeByEscape: false
-    }).then(() => {
-      this.hideTopicContent = false;
-    }, () => {
-      this.$state.go('home');
-    }
-    );*/
+  doShowReportOverlay(topic: Topic) {
+    const reportDialog = this.dialog.open(TopicReportComponent, {
+      data: {
+        topic: topic
+      }
+    })
+
+    reportDialog.afterClosed().subscribe((confirm) => {
+      if (confirm) {
+        return this.hideTopicContent = false;
+      }
+
+      return this.router.navigate(['/']);
+    })
   };
 
   scroll(el: HTMLElement) {
