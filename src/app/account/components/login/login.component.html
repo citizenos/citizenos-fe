@@ -85,8 +85,7 @@
                     <div class="sprite sprite-icon-inputfield-error2x"></div>
                   </div>
                   <div class="table_cell">
-                    <span translate="MODALS.LOGIN_ERROR_NO_ACCOUNT"
-                      [translateParams]="{linkRegister: linkRegister}"></span>
+                    <span [innerHtml]="'MODALS.LOGIN_ERROR_NO_ACCOUNT' | translate: {linkRegister: linkRegister}"></span>
                   </div>
                 </div>
                 <input id="email" formControlName="email" type="email"

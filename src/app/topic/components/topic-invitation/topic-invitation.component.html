@@ -1,0 +1,84 @@
+<!-- LIGHTBOX SKELETON -->
+<div id="root_lightbox" class="full_screen">
+  <div id="lightbox" class="delete_comment">
+    <div id="lightbox_wrap">
+
+      <div id="lightbox_header">
+
+        <div id="lightbox_header_text">
+          <div class="title" translate="MODALS.TOPIC_INVITE_VIEW_HEADING"></div>
+        </div>
+
+        <div id="lightbox_close" mat-dialog-close>
+          <div class="table_cell">
+            <div class="sprite sprite-btn-popup-close2x">
+            </div>
+          </div>
+        </div>
+
+        <div class="clearer"></div>
+
+      </div>
+
+      <div class="line lightest_line"></div>
+
+      <!-- CONFIRM CONTENT -->
+      <div class="lightbox_content">
+        <div class="lightbox_section">
+          <table>
+            <tbody>
+              <tr>
+                <td translate="MODALS.TOPIC_INVITE_VIEW_LBL_TOPIC_TITLE"></td>
+                <td class="bold">{{invite.topic.title}}</td>
+              </tr>
+              <tr>
+                <td translate="MODALS.TOPIC_INVITE_VIEW_LBL_INVITED_BY"></td>
+                <td>{{invite.creator.name}}</td>
+              </tr>
+              <tr>
+                <td translate="MODALS.TOPIC_INVITE_VIEW_LBL_INVITATION_SENT_TO"></td>
+                <td>{{invite.user.email}}</td>
+              </tr>
+              <tr>
+                <td translate="MODALS.TOPIC_INVITE_VIEW_LBL_TOPIC_LEVEL"></td>
+                <td>{{'TXT_TOPIC_LEVELS_' + invite.level | uppercase | translate}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="lightbox_section" *ngIf="!invite.user.isRegistered"
+          translate="MODALS.TOPIC_INVITE_VIEW_TXT_COMPLETE_ACCOUNT" [translateParams]="{email: invite.user.email}">
+        </div>
+        <div class="lightbox_section" *ngIf="invite.user.isRegistered">
+          <b translate="MODALS.TOPIC_INVITE_VIEW_BTN_LOGIN_AS" [translateParams]="{email: invite.user.email}"></b>
+        </div>
+
+        <div class="lightbox_section">
+          <div *ngIf="invite.user.isRegistered" class="blue_button" (click)="doAccept()"
+            translate="MODALS.TOPIC_INVITE_VIEW_BTN_GO_TO_LOGIN" [translateParams]="{email: invite.user.email}"></div>
+          <div *ngIf="!invite.user.isRegistered" class="blue_button" (click)="doAccept()"
+            translate="MODALS.TOPIC_INVITE_VIEW_BTN_COMPLETE_ACCOUNT"></div>
+        </div>
+
+        <div class="line lightest_line"></div>
+
+        <div class="lightbox_section">
+          <span class="medium_black_seven" translate="MODALS.TOPIC_INVITE_VIEW_LBL_ADDITIONAL_ACTIONS"></span>
+          <ul>
+            <li>
+              <a [href]="config.about" translate="MODALS.TOPIC_INVITE_VIEW_LNK_LEARN_MORE"></a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+
+    </div>
+  </div>
+
+  <div id="close_lightbox">
+  </div>
+
+</div>

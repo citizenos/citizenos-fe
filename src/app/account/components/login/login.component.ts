@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
       this.redirectSuccess = value['redirectSuccess'];
       console.log(this.redirectSuccess)
       if (this.userConnections) {
-        let userAuthMethods = <any[]>[];
+        let userAuthMethods = <any[]>['citizenos'];
 
         if (this.userConnections.rows.length) {
           // Check out from the UserConnection.connectionId map which authentication methods apply

@@ -4,6 +4,7 @@ import { TopicInviteDialogComponent } from 'src/app/topic/components/topic-invit
 import { ArgumentReportModerateDialogComponent } from './components/argument-report-moderate/argument-report-moderate.component';
 import { TopicAttachmentsDialogComponent } from './components/topic-attachments/topic-attachments.component';
 import { TopicCreateComponent } from './components/topic-create/topic-create.component';
+import { TopicInvitationDialogComponent } from './components/topic-invitation/topic-invitation.component';
 import { TopicJoinComponent } from './components/topic-join/topic-join.component';
 import { TopicParticipantsDialogComponent } from './components/topic-participants/topic-participants.component';
 import { TopicReportFormDialogComponent } from './components/topic-report-form/topic-report-form.component';
@@ -15,6 +16,7 @@ import { TopicComponent } from './topic.component';
 
 const routes: Routes = [
   { path: 'create', component: TopicCreateComponent },
+  { path: ':topicId/invites/users/:inviteId', component: TopicInvitationDialogComponent },
   {
     path: ':topicId', component: TopicComponent, children: [
       { path: 'invite', component: TopicInviteDialogComponent },
