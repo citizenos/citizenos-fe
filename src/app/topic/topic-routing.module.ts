@@ -4,6 +4,7 @@ import { TopicInviteDialogComponent } from 'src/app/topic/components/topic-invit
 import { ArgumentReportModerateDialogComponent } from './components/argument-report-moderate/argument-report-moderate.component';
 import { TopicAttachmentsDialogComponent } from './components/topic-attachments/topic-attachments.component';
 import { TopicCreateComponent } from './components/topic-create/topic-create.component';
+import { TopicJoinComponent } from './components/topic-join/topic-join.component';
 import { TopicParticipantsDialogComponent } from './components/topic-participants/topic-participants.component';
 import { TopicReportFormDialogComponent } from './components/topic-report-form/topic-report-form.component';
 import { TopicReportModerateDialogComponent } from './components/topic-report-moderate/topic-report-moderate.component';
@@ -37,7 +38,9 @@ const routes: Routes = [
       { path: '', component: TopicComponent },
     ]
   },
+  {path: 'join/:token', component: TopicJoinComponent},//https://dev.citizenos.com:3001/topics/join/XwBvIs29gwrH
   { path: '', component: TopicComponent },
+
 ];
 
 @NgModule({

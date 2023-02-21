@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { NotificationService } from 'src/app/services/notification.service';
 import { LocationService } from 'src/app/services/location.service';
 import { map, catchError, share } from 'rxjs/operators';
+import { ApiResponse } from '../interfaces/apiResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -14,33 +15,24 @@ export class GroupJoinService {
   constructor(private Location: LocationService, private http: HttpClient, private Notification: NotificationService) { }
 
   join(token: string) {
-    console.log('join', token)
     const path = this.Location.getAbsoluteUrlApi('/api/groups/join/:token', { token });
-    console.log('path', path)
-    return this.http.post<any>(path, {}, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
-      map((data) => {
-        console.log('data', data);
-        return data;
-      })
+    return this.http.post<ApiResponse>(path, {}, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
+      map(res => res.data)
     );
   }
 
   save(data: any) {
     const path = this.Location.getAbsoluteUrlApi('/api/users/self/groups/:groupId/join', { groupId: data.groupId });
-    return this.http.put<any>(path, data, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
-      map((res) => {
-        return res.data;
-      })
+    return this.http.put<ApiResponse>(path, data, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
+      map(res => res.data)
     );
   }
 
   update(data: any) {
     let path = this.Location.getAbsoluteUrlApi('/api/users/self/groups/:groupId/join/:token', { groupId: data.groupId || data.id, token: data.token });
 
-    return this.http.put<any>(path, data, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
-      map((res) => {
-        return res.data;
-      })
+    return this.http.put<ApiResponse>(path, data, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
+      map(res => res.data)
     );
   }
 }

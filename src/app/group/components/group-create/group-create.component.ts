@@ -73,6 +73,7 @@ export class GroupCreateComponent implements OnInit {
                   this.group.imageUrl = res.link;
 
                   this.dialog.closeAll();
+                  this.GroupService.reset();
                   if ( group.visibility === this.VISIBILITY.public) {
                     this.router.navigate(['/groups', group.id]);
                   } else {
@@ -82,6 +83,7 @@ export class GroupCreateComponent implements OnInit {
               });
           } else {
             this.dialog.closeAll();
+            this.GroupService.reset();
             if ( group.visibility === this.VISIBILITY.public) {
               this.router.navigate(['/groups', group.id]);
             } else {

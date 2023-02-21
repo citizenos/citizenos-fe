@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { LocationService } from 'src/app/services/location.service';
 import { map } from 'rxjs/operators';
+import { ApiResponse } from '../interfaces/apiResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -12,34 +13,35 @@ export class TopicJoinService {
 
   constructor(private Location: LocationService, private http: HttpClient) { }
 
+  getByToken(token: string) {
+    let path = this.Location.getAbsoluteUrlApi('/api/topics/join/:token', { token: token })
+
+    return this.http.get<ApiResponse>(path, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
+      map(res => res.data)
+    );
+  }
+
   join(token: string) {
     console.log('join', token)
     const path = this.Location.getAbsoluteUrlApi('/api/topics/join/:token', { token });
     console.log('path', path)
-    return this.http.post<any>(path, {}, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
-      map((data) => {
-        console.log('data', data);
-        return data;
-      })
+    return this.http.post<ApiResponse>(path, {}, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
+      map(res => res.data)
     );
   }
 
   save(data: any) {
     const path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/join', { topicId: data.topicId });
-    return this.http.put<any>(path, data, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
-      map((res) => {
-        return res.data;
-      })
+    return this.http.put<ApiResponse>(path, data, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
+      map(res => res.data)
     );
   }
 
   update(data: any) {
     let path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/join/:token', { topicId: data.topicId || data.id, token: data.token });
 
-    return this.http.put<any>(path, data, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
-      map((res) => {
-        return res.data;
-      })
+    return this.http.put<ApiResponse>(path, data, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
+      map(res => res.data)
     );
   }
 }

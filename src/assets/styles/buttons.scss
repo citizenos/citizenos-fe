@@ -12,6 +12,14 @@
   margin: 0 20px 26px 20px;
   cursor: pointer;
   vertical-align: middle;
+  .button_cell {
+    .topic_text {
+      padding: 10px 24px;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 20px;
+    }
+  }
 }
 .btn_wrap.white_bg {
   background-color: vars.$white;
@@ -437,7 +445,6 @@ input.default_radio {
     background: vars.$aqua_marine_border;
   }
 }
-
 
 .vote_multiple_submit_section {
   padding-top: 20px;

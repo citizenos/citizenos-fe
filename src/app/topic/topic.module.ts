@@ -38,6 +38,7 @@ import { ArgumentReportComponent } from './components/argument-report/argument-r
 import { ArgumentReportModerateComponent, ArgumentReportModerateDialogComponent } from './components/argument-report-moderate/argument-report-moderate.component';
 import { BigGraphComponent } from './components/big-graph/big-graph.component';
 import { RegularGraphComponent } from './components/regular-graph/regular-graph.component';
+import { TopicJoinComponent } from './components/topic-join/topic-join.component';
 
 
 @NgModule({
@@ -80,7 +81,8 @@ import { RegularGraphComponent } from './components/regular-graph/regular-graph.
     ArgumentReportModerateDialogComponent,
     VoteClosedComponent,
     BigGraphComponent,
-    RegularGraphComponent
+    RegularGraphComponent,
+    TopicJoinComponent
   ],
   imports: [
     CommonModule,

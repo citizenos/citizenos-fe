@@ -8,12 +8,14 @@ import { SharedModule } from '../shared/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { GroupCreateComponent } from './components/group-create/group-create.component';
+import { GroupJoinComponent } from './components/group-join/group-join.component';
 
 
 @NgModule({
   declarations: [
     GroupComponent,
-    GroupCreateComponent
+    GroupCreateComponent,
+    GroupJoinComponent
   ],
   imports: [
     CommonModule,

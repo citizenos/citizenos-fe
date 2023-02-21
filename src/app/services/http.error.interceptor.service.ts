@@ -10,6 +10,7 @@ import { LocationService } from './location.service';
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
   API_REQUEST_REGEX = /\/api\/(?!auth\/status).*/i; //Filter out status 401 errors
+  API_REQUEST_JOIN = /api\/(topics?|groups).\/join/i; //Filter out status 401 errors
   constructor(private Notification: NotificationService, private translate: TranslateService, private Location: LocationService, private Router: Router) { }
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request)
@@ -35,9 +36,17 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             console.log(response.error)
             errorMsg = response.message;
             console.error(`Server side error:', ${errorMsg} `);
+            if (response.status === 403) {
+              this.Router.navigate(['/error/404']);
+              return throwError(() => response.error);
+            }
+            if (response.url?.match(this.API_REQUEST_JOIN) && response.status === 404) {
+              return throwError(() => response.error);
+            }
             if (response.url?.match(this.API_REQUEST_REGEX) && response.status === 401) {
               // Cannot use $state here due to circular dependencies with $http
               this.Router.navigate(['/account/login'], { queryParams: { redirectSuccess: this.Location.getAbsoluteUrl(window.location.pathname) + window.location.search }});
+              return throwError(() => response.error);
             }
           }
 
