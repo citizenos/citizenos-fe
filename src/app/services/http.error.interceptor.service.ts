@@ -33,7 +33,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             }
           }
           else {
-            console.log(response.error)
             errorMsg = response.message;
             console.error(`Server side error:', ${errorMsg} `);
             if (response.status === 403) {

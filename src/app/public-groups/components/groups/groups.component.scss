@@ -5,8 +5,20 @@
   @extend %default_setup;
   padding: 0 20px 10px 20px;
 
-  .blue_button_wrap {
-    position: relative;
+  #blue_button_wrap {
+    background: vars.$light_gray;
+    text-align: center;
+
+    .blue_button {
+      display: inline-block;
+      margin: 10px auto 20px auto;
+      padding-right: 50px;
+      padding-left: 50px;
+      border-radius: 4px;
+      @media (max-width: 667px) {
+        margin-top: 0;
+      }
+    }
   }
 }
 .no_results {
@@ -144,5 +156,4 @@
   @include mixins_n_extends.mobile {
     padding: 0;
   }
-
 }

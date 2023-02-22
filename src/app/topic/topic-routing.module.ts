@@ -37,7 +37,6 @@ const routes: Routes = [
       { path: 'reports/:reportId/review', component: TopicReportReviewDialogComponent },
       { path: 'reports/:reportId/resolve', component: TopicReportResolveDialogComponent },
       { path: 'comments/:commentId/reports/:reportId/moderate', component: ArgumentReportModerateDialogComponent},
-      { path: '', component: TopicComponent },
     ]
   },
   {path: 'join/:token', component: TopicJoinComponent},//https://dev.citizenos.com:3001/topics/join/XwBvIs29gwrH

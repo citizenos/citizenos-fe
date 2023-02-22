@@ -246,7 +246,7 @@
             <div class="clearer"></div>
             <div class="comments_content">
               <topic-arguments #arguments [topic]="topic"
-                *ngIf="activeCommentSection == 'arguments' || activeCommentSection == undefined"></topic-arguments>
+                *ngIf="activeCommentSection == 'arguments'"></topic-arguments>
               <topic-social-mentions [topic]="topic" #socialMentions
                 *ngIf="activeCommentSection=='socialMentions'"></topic-social-mentions>
             </div>
