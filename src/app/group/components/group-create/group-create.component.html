@@ -53,7 +53,7 @@
                 [translateParams]="{max: 500}"></div>
               <textarea id="groupDescription"
                 [placeholder]="'MODALS.GROUP_CREATE_SETTINGS_PLACEHOLDER_GROUP_DESCRIPTION' | translate"
-                [(ngModel)]="group.description" [ngClass]="{'error_input': errors?.description}"></textarea>
+                [(ngModel)]="group.description" [ngClass]="{'error_input': errors?.description}" [maxlength]="500"></textarea>
               <label for="groupDescription" class="error_label" *ngIf="errors?.description">
                 <div class="table_cell">
                   <div class="sprite sprite-icon-inputfield-error2x"></div>

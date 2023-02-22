@@ -14,7 +14,6 @@ export class GroupCreateComponent implements OnInit {
   @ViewChild('imageUpload') fileInput?: ElementRef;
 
   group: any = {
-    id: '',
     name: '',
     description: '',
     imageUrl: '',
