@@ -77,7 +77,7 @@
               <span translate="MODALS.MY_ACCOUNT_PLACEHOLDER_NAME"></span>
               <input id="name" name="name" [(ngModel)]="form.name"
                 placeholder="{{'MODALS.MY_ACCOUNT_PLACEHOLDER_NAME' | translate}}"
-                [ngClass]="{'error_input': errors.name}" maxlength="255" required (focus)="wWidth > 1024">
+                [ngClass]="{'error_input': errors.name}" [maxlength]="255" required (focus)="wWidth > 1024">
               <label for="name" class="error_label" *ngIf="errors.name">
                 <div class="table_cell">
                   <div class="sprite sprite-icon-inputfield-error2x"></div>
@@ -89,7 +89,7 @@
               <span translate="MODALS.MY_ACCOUNT_PLACEHOLDER_COMPANY"></span>
               <input id="company" name="company" [(ngModel)]="form.company"
                 [placeholder]="('MODALS.MY_ACCOUNT_PLACEHOLDER_COMPANY' | translate)"
-                [ngClass]="{'error_input': errors.company}" maxlength="255">
+                [ngClass]="{'error_input': errors.company}" [maxlength]="255">
               <label for="company" class="error_label" *ngIf="errors.company">
                 <div class="table_cell">
                   <div class="sprite sprite-icon-inputfield-error2x"></div>
@@ -101,7 +101,7 @@
               <span translate="MODALS.MY_ACCOUNT_PLACEHOLDER_EMAIL"></span>
               <input id="email" name="email" [(ngModel)]="form.email"
                 placeholder="{{'MODALS.MY_ACCOUNT_PLACEHOLDER_EMAIL' | translate}}"
-                [ngClass]="{'error_input': errors.email}" maxlength="254" required #email="ngModel">
+                [ngClass]="{'error_input': errors.email}" [maxlength]="254" required #email="ngModel">
               <label for="email" class="error_label" *ngIf="errors.email">
                 <div class="table_cell">
                   <div class="sprite sprite-icon-inputfield-error2x"></div>
@@ -113,7 +113,7 @@
               <span translate="MODALS.MY_ACCOUNT_PLACEHOLDER_PASSWORD"></span>
               <input id="password" name="password" [(ngModel)]="form.password" type="password"
                 placeholder="{{'MODALS.MY_ACCOUNT_PLACEHOLDER_PASSWORD' | translate}}"
-                [ngClass]="{'error_input': errors.password}" maxlength="64" required #password="ngModel">
+                [ngClass]="{'error_input': errors.password}" [maxlength]="64" required #password="ngModel">
               <label for="password" class="error_label" *ngIf="errors.password">
                 <div class="table_cell">
                   <div class="sprite sprite-icon-inputfield-error2x"></div>
@@ -182,13 +182,13 @@
               <span translate="MODALS.MY_ACCOUNT_PLACEHOLDER_NEW_PASSWORD"></span>
               <input id="newPassword" name="newPassword" [(ngModel)]="form.newPassword" type="password"
                 placeholder="{{'MODALS.MY_ACCOUNT_PLACEHOLDER_PASSWORD' | translate}}"
-                [ngClass]="{'error_input': errors.newPassword}" maxlength="64">
+                [ngClass]="{'error_input': errors.newPassword}" [maxlength]="64">
             </div>
             <div class="input_wrap">
               <span translate="MODALS.MY_ACCOUNT_PLACEHOLDER_PASSWORD_CONFIRM"></span>
               <input id="password_confirm" name="passwordConfirm" [(ngModel)]="form.passwordConfirm" type="password"
                 placeholder="{{'MODALS.MY_ACCOUNT_PLACEHOLDER_PASSWORD_CONFIRM' | translate}}"
-                [ngClass]="{'error_input': errors.newPassword}" maxlength="64">
+                [ngClass]="{'error_input': errors.newPassword}" [maxlength]="64">
               <label for="newPassword" class="error_label" *ngIf="errors.newPassword">
                 <div class="table_cell">
                   <div class="sprite sprite-icon-inputfield-error2x"></div>
@@ -200,7 +200,7 @@
               <span translate="MODALS.MY_ACCOUNT_PLACEHOLDER_PASSWORD"></span>
               <input id="password" name="password" [(ngModel)]="form.password" type="password"
                 placeholder="{{'MODALS.MY_ACCOUNT_PLACEHOLDER_PASSWORD' | translate}}"
-                [ngClass]="{'error_input': errors.password}" maxlength="64">
+                [ngClass]="{'error_input': errors.password}" [maxlength]="64">
               <label for="password" class="error_label" *ngIf="errors.password">
                 <div class="table_cell">
                   <div class="sprite sprite-icon-inputfield-error2x"></div>

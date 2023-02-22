@@ -77,7 +77,7 @@
           </div>
 
           <textarea class="gray_borders" [(ngModel)]="report.text" [ngClass]="{'error_input': errors?.text}"
-            [placeholder]="'MODALS.TOPIC_ARGUMENT_REPORT_PLACEHOLDER_REPORT_TEXT' | translate" maxlength="2048"></textarea>
+            [placeholder]="'MODALS.TOPIC_ARGUMENT_REPORT_PLACEHOLDER_REPORT_TEXT' | translate" [maxlength]="2048"></textarea>
           <div class="error_label" *ngIf="errors?.text">
             <div class="table_cell">
               <div class="sprite sprite-icon-inputfield-error2x"></div>

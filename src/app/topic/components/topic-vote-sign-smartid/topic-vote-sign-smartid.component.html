@@ -36,7 +36,7 @@
               <div class="loader"></div>
             </div>
             <div *ngIf="!challengeID && !isLoading">
-              <input *ngIf="!isLoading" id="countryCode" formControlName="countryCode" maxlength="2"
+              <input *ngIf="!isLoading" id="countryCode" formControlName="countryCode" [maxlength]="2"
               [ngClass]="{error_input: signForm.errors && signForm.errors['countryCode']}" [placeholder]="'MODALS.TOPIC_VOTE_SIGN_SMARTID_PLACEHOLDER_COUNTRY_CODE' | translate"
               (focus)="wWidth > 1024" pattern="^[A-Z]{2}$" required>
 

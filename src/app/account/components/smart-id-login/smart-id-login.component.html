@@ -26,7 +26,7 @@
               <div class="loader"></div>
             </div>
             <div *ngIf="!challengeID && !isLoading">
-              <input id="countryCode" formControlName="countryCode" type="text" maxlength="2"
+              <input id="countryCode" formControlName="countryCode" type="text" [maxlength]="2"
                 [placeholder]="'MODALS.LOGIN_SMARTID_PLACEHOLDER_COUNTRY_CODE' | translate"
                 [ngClass]="{'error_input': smartIdForm.controls['countryCode'].errors && smartIdForm.controls['countryCode'].errors['pattern'] && smartIdForm.touched}"
                 pattern="^[A-Z]{2}$" required>

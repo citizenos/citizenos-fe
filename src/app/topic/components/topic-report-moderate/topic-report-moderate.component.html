@@ -75,7 +75,7 @@
           <textarea class="gray_borders" [(ngModel)]="moderate.text"
             [ngClass]="{'error_input': errors?.moderatedReasonText}"
             [placeholder]="'MODALS.TOPIC_REPORT_MODERATE_PLACEHOLDER_REPORT_TEXT' | translate"
-            maxlength="2048"></textarea>
+            [maxlength]="2048"></textarea>
           <div class="error_label" *ngIf="errors?.moderatedReasonText">
             <div class="table_cell">
               <div class="sprite sprite-icon-inputfield-error2x"></div>
