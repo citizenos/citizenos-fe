@@ -20,10 +20,10 @@ const routes: Routes = [
   {
     path: ':topicId', component: TopicComponent, children: [
       { path: 'invite', component: TopicInviteDialogComponent },
-      { path: 'followup' },
+      { path: 'followup'},
       {
         path: 'votes', children: [
-          { path: 'create', },
+          { path: 'create'},
           { path: ':voteId', children: [
             { path: 'followup'},
           ]}

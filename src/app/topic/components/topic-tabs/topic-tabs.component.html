@@ -20,12 +20,12 @@
             <div *ngIf="!editMode" class="table_cell" translate="VIEWS.TOPICS_TOPICID.TAB_VIEW"></div>
             <div *ngIf="editMode" class="table_cell" translate="VIEWS.TOPICS_TOPICID.TAB_EDIT"></div>
           </div>
-          <div *ngIf="voteId" class="tab" [routerLink]="['votes',voteId]" routerLinkActive="selected"
+          <div *ngIf="voteId" class="tab" [routerLink]="['/topics',topicId,'votes',voteId]" routerLinkActive="selected"
             dimensions>
             <div class="table_cell" translate="VIEWS.TOPICS_TOPICID.TAB_VOTE"></div>
           </div>
           <div *ngIf="[STATUSES.closed, STATUSES.followUp].indexOf(status) > -1" class="tab"
-            [routerLink]="['followup']" routerLinkActive="selected" dimensions>
+            [routerLink]="['/topics',topicId,'followup']" routerLinkActive="selected" dimensions>
             <div class="table_cell" translate="VIEWS.TOPICS_TOPICID.TAB_FOLLOW_UP"></div>
           </div>
         </div>

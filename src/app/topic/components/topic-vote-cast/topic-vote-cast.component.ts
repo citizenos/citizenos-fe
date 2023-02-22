@@ -31,12 +31,10 @@ export class TopicVoteCastComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.vote);
   }
 
   canVote() {
     this.topic.vote = this.vote;
-  //  console.log(this.topic, this.vote)
     return this.TopicVoteService.canVote(this.topic);
   }
 
@@ -52,7 +50,7 @@ export class TopicVoteCastComponent implements OnInit {
     let options = [];
     //if (!$scope.topic.canVote()) return;
     if (!option) {
-      options = this.vote.options.rows.filter((option:any) => {
+      options = this.vote.options.rows.filter((option: any) => {
         option.optionId = option.id;
         return !!option.selected;
       });
@@ -63,42 +61,19 @@ export class TopicVoteCastComponent implements OnInit {
       this.Notification.addError('MSG_ERROR_SELECTED_OPTIONS_COUNT_DOES_NOT_MATCH_VOTE_SETTINGS');
       return;
     }
-  //  this.TopicVoteService.options = options;
+    //  this.TopicVoteService.options = options;
     if (this.vote.authType === this.VOTE_AUTH_TYPES.hard) {
       const signDialog = this.dialog
-        .open(TopicVoteSignComponent,{data: {
-          topic: this.topic,
-          options
-        }
-        /*  template: '<topic-vote-sign options="options"></topic-vote-sign>',
-          plain: true,
-          preCloseCallback: (data) => {
-            if (data) {
-              this.vote.topicId = this.topic.id;
-
-              this.TopicVoteService
-                .get(this.vote)
-                .then((vote) => {
-                  this.vote = vote;
-                  this.vote.options.rows.forEach((option) => {
-                    data.options.forEach((dOption) => {
-                      option.optionId = option.id;
-                      if (option.id === dOption.optionId) {
-                        option.selected = true;
-                      }
-                    });
-                  });
-                  this.vote.downloads = { bdocVote: data.bdocUri };
-                  this.userHasVoted = true;
-                });
-              return true;
-            }
-          }*/
+        .open(TopicVoteSignComponent, {
+          data: {
+            topic: this.topic,
+            options
+          }
         });
 
       return;
     } else {
-      options.forEach((dOption:any) => {
+      options.forEach((dOption: any) => {
         dOption.optionId = dOption.id;
       });
       this.TopicVoteService
@@ -107,7 +82,6 @@ export class TopicVoteCastComponent implements OnInit {
         .subscribe((data) => {
           this.vote.topicId = this.topic.id;
           this.Notification.addSuccess('VIEWS.TOPICS_TOPICID.MSG_VOTE_REGISTERED');
-     //     this.getVote();
         });
     }
   }

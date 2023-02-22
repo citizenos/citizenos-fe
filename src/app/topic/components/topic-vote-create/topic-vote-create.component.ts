@@ -47,12 +47,10 @@ export class TopicVoteCreateComponent implements OnInit {
         enabled: false
       }
     },
-    autoClose: {
-      allMembersVoted: {
-        value: 'allMembersVoted',
-        enabled: false
-      }
-    },
+    autoClose: [{
+      value: 'allMembersVoted',
+      enabled: false
+    }],
     optionsMax: 10,
     optionsMin: 2
   };
@@ -65,7 +63,7 @@ export class TopicVoteCreateComponent implements OnInit {
     maxChoices: <number>1,
     minChoices: <number>1,
     reminderTime: <Date | null>null,
-    autoClose: <any>this.CONF.autoClose,
+    autoClose: <any[]>this.CONF.autoClose,
     endsAt: <Date | null>null
   };
   deadline = <any>null;
@@ -103,6 +101,9 @@ export class TopicVoteCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.vote.topicId = this.topic.id;
+    if (this.topic.voteId) {
+      this.router.navigate(['/topics', this.topic.id, 'votes', this.topic.voteId]);
+    }
   }
 
   private setTimeZones() {
@@ -305,8 +306,7 @@ export class TopicVoteCreateComponent implements OnInit {
       .pipe(take(1))
       .subscribe({
         next: (vote) => {
-          console.log(vote)
-          this.router.navigate([vote.id]);
+          this.router.navigate(['/topics', vote.id]);
         },
         error: (res) => {
           console.debug('createVote() ERR', res, res.errors, this.vote.options);

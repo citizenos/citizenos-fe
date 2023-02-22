@@ -3,7 +3,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { UploadService } from 'src/app/services/upload.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap, of, map, tap, Observable } from 'rxjs';
+import { switchMap, of, map, tap, Observable, Subscription } from 'rxjs';
 import { TopicService } from 'src/app/services/topic.service';
 import { TopicArgumentService } from 'src/app/services/topic-argument.service';
 import { TopicVoteService } from 'src/app/services/topic-vote.service';
@@ -42,6 +42,8 @@ export class TopicComponent implements OnInit {
   ATTACHMENT_SOURCES = this.TopicAttachmentService.SOURCES;
   STATUSES = this.TopicService.STATUSES;
   VOTE_TYPES = this.TopicVoteService.VOTE_TYPES;
+  routerSubscription: Subscription;
+
   constructor(
     private dialog: MatDialog,
     private Auth: AuthService,
@@ -55,17 +57,21 @@ export class TopicComponent implements OnInit {
     private sanitizer: DomSanitizer,
     public app: AppService
   ) {
-    if (this.router.url.indexOf('votes/create') > -1) {
-      this.showVoteCreateForm = true;
-    }
+    this.routerSubscription = this.route.url.subscribe(url => {
+      this.showVoteCreateForm = false;
+      this.showVoteCast = false;
+      this.viewFollowup = false;
+      if (this.router.url.indexOf('votes/create') > -1) {
+        this.showVoteCreateForm = true;
+      }
+      if (this.router.url.indexOf('followup') > -1) {
+        this.viewFollowup = true;
+      }
+      if (this.router.url.indexOf('votes/') > -1 && !this.showVoteCreateForm) {
+        this.showVoteCast = true;
+      }
+    });
 
-    if (this.router.url.indexOf('followup') > -1) {
-      this.viewFollowup = true;
-    }
-
-    if (this.router.url.indexOf('votes/') > -1 && !this.showVoteCreateForm) {
-      this.showVoteCast = true;
-    }
 
     this.editMode$ = this.route.queryParams.pipe(
       map((params: any) => {
@@ -106,6 +112,9 @@ export class TopicComponent implements OnInit {
     );
   }
 
+  ngOnDestroy(): void {
+    this.routerSubscription.unsubscribe();
+  }
   sanitizeURL(url: string) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
