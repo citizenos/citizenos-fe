@@ -16,10 +16,10 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     return next.handle(request)
       .pipe(
         tap(() => {
-          const undefinedUrlParams = request.url.match(/(?<=\/):+\w+/gi);
+         /* const undefinedUrlParams = request.url.match(/(?<=\/):+\w+/gi);
           if (undefinedUrlParams?.length) {
             throw new Error(`Undefined URL params: ${undefinedUrlParams.join(',')}`);
-          }
+          }*/
         }),
         catchError((response: HttpErrorResponse) => {
           this.Notification.removeAll();
