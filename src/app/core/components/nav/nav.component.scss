@@ -37,6 +37,8 @@
   .blue_button {
     margin-top: 20px;
     margin-bottom: 20px;
+    word-break: break-word;
+
     @include mixins_n_extends.tablet {
       margin-top: -10px;
     }

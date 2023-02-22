@@ -2,10 +2,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfigService } from 'src/app/services/config.service';
 
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageSelectComponent } from '../language-select/language-select.component';
 import { AuthService } from 'src/app/services/auth.service';
+import { LocationService } from 'src/app/services/location.service';
 import { ActivityFeedComponent } from '../activity-feed/activity-feed.component';
 import { AppService } from 'src/app/services/app.service';
 import { ActivityService } from 'src/app/services/activity.service';
@@ -14,14 +14,13 @@ import { tap, take } from 'rxjs';
   selector: 'nav',
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  providers: [Location, { provide: LocationStrategy, useClass: PathLocationStrategy }],
+  encapsulation: ViewEncapsulation.None
 })
 export class NavComponent implements OnInit {
   wWidth = window.innerWidth;
   unreadActivitiesCount$: any;
   newActivities: number = 0;
-  constructor(private path: LocationStrategy,
+  constructor(private Location: LocationService,
     public translate: TranslateService,
     public config: ConfigService,
     public auth: AuthService, public dialog: MatDialog,
@@ -38,7 +37,7 @@ export class NavComponent implements OnInit {
   }
 
   displayEmpoweredIcon() {
-    if (!/citizenos\.com/.test(this.path.getBaseHref())) {
+    if (!/citizenos\.com/.test(this.Location.getBaseUrl())) {
       return true;
     }
 
