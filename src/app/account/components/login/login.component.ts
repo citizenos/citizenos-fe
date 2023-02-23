@@ -261,7 +261,6 @@ export class LoginComponent implements OnInit {
       const redirectSuccess = this.Location.currentUrl();
       url += '?redirectSuccess=' + redirectSuccess + '?'; // HACK: + '?' avoids digest loop on Angular side for Google callbacks.
     }
-    console.log(url)
     window.location.href = url;
   };
 
@@ -285,7 +284,9 @@ export class LoginDialogComponent {
   openDialog(): void {
     const dialogRef = this.dialog.open(LoginComponent);
     dialogRef.afterClosed().subscribe(result => {
-      console.log('RESULT')
+      if (this.router.url.indexOf('login') > -1) {
+        this.router.navigate(['/']);
+      }
     });
   }
 }
