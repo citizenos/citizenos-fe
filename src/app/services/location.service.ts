@@ -9,12 +9,13 @@ export class LocationService {
   constructor(private location: Location, private PlatformLocation: PlatformLocation, private router: Router, private config: ConfigService) { }
 
   getBaseUrl() {
-    let port;
+    let port='';
     if (this.PlatformLocation.protocol === 'https:' && this.PlatformLocation.port !== '443') {
       port = `:${this.PlatformLocation.port}`;
     }else if (this.PlatformLocation.protocol === 'http:' && this.PlatformLocation.port !== '80') {
       port = `:${this.PlatformLocation.port}`;
     }
+    if (port === ':') {console.log(port, this.PlatformLocation); port = '';}
     return this.PlatformLocation.protocol + "//" + this.PlatformLocation.hostname + port ;
   };
 

@@ -178,6 +178,7 @@ export class TopicAttachmentService extends ItemsListService {
   /* ONEDRIVE */
 
   oneDriveSelect() {
+    console.log(this.Location.getAbsoluteUrl('/onedrive'));
     return new Promise((resolve, reject) => {
       OneDrive.open({
         clientId: this.config.get('attachments').oneDrive.clientId,
