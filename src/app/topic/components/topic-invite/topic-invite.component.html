@@ -86,7 +86,7 @@
                       </div>
                     </div>
                     <div class="search_dropdown_item" *ngIf="(searchResults$ | async)?.emails?.length">
-                      <div class="table_cell" translate="MODALS.TOPIC_SETTINGS_TH_EMAILS"></div>
+                      <div class="table_cell" translate="MODALS.TOPIC_SETTINGS_RESULT_GROUP_EMAILS"></div>
                     </div>
                     <div class="search_dropdown_item" [typeaheadItem]="email" *ngFor="let email of (searchResults$ | async)?.emails">
                       <div class="table_cell search_item_text">
