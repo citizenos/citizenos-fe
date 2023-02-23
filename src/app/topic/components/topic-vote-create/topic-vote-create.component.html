@@ -242,7 +242,7 @@
             <div class="double_cell_layout">
               <div class="left_row gray_toggle_box">
                 <div class="set_vote_time_wrap">
-                  <div class="toggle_box_title" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_SET_TIME">Set a time</div>
+                  <div class="toggle_box_title" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_SET_TIME"></div>
                   <div class="input_row">
                     <input class="time_input" [(ngModel)]="endsAt.h" (change)="formatTime(endsAt.h); setEndsAtTime()"
                       type="number" min="0" max="{{HCount}}" step="1" /><span class="time_separator">:</span><input
@@ -273,15 +273,12 @@
                           <div class="item_names_wrap">
                             <div class="item_name" translate="VIEWS.TOPICS_TOPICID.VOTE_SETTING_TIME_OPTION_24"
                               (click)="endsAt.timeFormat = 24; setTimeFormat()">
-                              24 hr clock
                             </div>
                             <div class="item_name" translate="VIEWS.TOPICS_TOPICID.VOTE_SETTING_TIME_OPTION_AM"
                               (click)="endsAt.timeFormat = 'AM'; setTimeFormat()">
-                              AM
                             </div>
                             <div class="item_name" translate="VIEWS.TOPICS_TOPICID.VOTE_SETTING_TIME_OPTION_PM"
                               (click)="endsAt.timeFormat = 'PM'; setTimeFormat()">
-                              PM
                             </div>
                           </div>
 

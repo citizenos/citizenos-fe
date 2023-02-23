@@ -177,22 +177,17 @@ export class TopicVoteCreateComponent implements OnInit {
   }
 
   setEndsAtTime() {
-    console.log(this.endsAt.date)
     this.endsAt.date = this.endsAt.date || new Date();
     this.deadline = new Date(this.endsAt.date);
-    console.log(this.deadline)
     let hour = this.endsAt.h;
-    console.log(this.endsAt.h, this.endsAt.timeFormat, hour)
     if (this.endsAt.timeFormat === 'PM') { hour += 12; }
     this.deadline.setUTCHours(hour - this.endsAt.timezone);
     this.deadline.setMinutes(this.endsAt.min);
-    console.log(this.deadline)
     this.daysToVoteEnd();
   };
 
   daysToVoteEnd() {
     if (this.deadline) {
-
       if (this.deadline.toDateString() === new Date().toDateString()) {
         this.deadline = new Date()//moment(new Date()).startOf('day').add(1, 'day');
         this.deadline = this.deadline.setDate(this.deadline.getDate() + 1);
@@ -306,7 +301,7 @@ export class TopicVoteCreateComponent implements OnInit {
       .pipe(take(1))
       .subscribe({
         next: (vote) => {
-          this.router.navigate(['/topics', vote.id]);
+          this.router.navigate(['/topics', this.topic.id, 'votes', vote.id]);
         },
         error: (res) => {
           console.debug('createVote() ERR', res, res.errors, this.vote.options);
