@@ -1,9 +1,10 @@
 import { TopicAttachmentService } from 'src/app/services/topic-attachment.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { LocationService } from 'src/app/services/location.service';
 import { UploadService } from 'src/app/services/upload.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap, of, map, tap, Observable, Subscription } from 'rxjs';
+import { switchMap, take, of, map, tap, Observable, Subscription } from 'rxjs';
 import { TopicService } from 'src/app/services/topic.service';
 import { TopicArgumentService } from 'src/app/services/topic-argument.service';
 import { TopicVoteService } from 'src/app/services/topic-vote.service';
@@ -25,7 +26,6 @@ export class TopicComponent implements OnInit {
   topic$; // decorate the property with @Input()
   vote$?: Observable<Vote>;
   topicId$: Observable<string> = of('');
-  editMode = false;
   editMode$;
   showInfoEdit = false;
 
@@ -51,6 +51,7 @@ export class TopicComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private Upload: UploadService,
+    private Location: LocationService,
     public TopicAttachmentService: TopicAttachmentService,
     public TopicArgumentService: TopicArgumentService,
     private TopicVoteService: TopicVoteService,
@@ -75,11 +76,10 @@ export class TopicComponent implements OnInit {
 
     this.editMode$ = this.route.queryParams.pipe(
       map((params: any) => {
-        this.editMode = !!params.editMode;
-        this.app.editMode = this.editMode;
+        this.app.editMode = !!params.editMode;
         return !!params.editMode
       })
-    )
+    );
     this.topicId$ = this.route.params.pipe(
       switchMap((params) => {
         return of(params['topicId']);
@@ -120,6 +120,10 @@ export class TopicComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  currentUrl () {
+    return this.Location.currentUrl();
   }
 
   hideInfoEdit() {

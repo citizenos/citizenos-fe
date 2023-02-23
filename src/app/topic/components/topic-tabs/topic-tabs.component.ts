@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { TopicService } from 'src/app/services/topic.service';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+
 
 @Component({
   selector: 'topic-tabs',
@@ -18,7 +20,8 @@ export class TopicTabsComponent implements OnInit {
   wWidth = window.innerWidth;
   editMode = false;
   public STATUSES = this.TopicService.STATUSES;
-  constructor(private TopicService:TopicService, route: ActivatedRoute) {
+  public lang = this.translate.currentLang;
+  constructor(private TopicService:TopicService, route: ActivatedRoute, private translate: TranslateService) {
     if (route.snapshot.fragment && route.snapshot.fragment.indexOf('editMode') > -1) this.editMode = true;
   }
 

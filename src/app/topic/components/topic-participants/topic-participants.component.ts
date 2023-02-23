@@ -7,9 +7,8 @@ import { TopicMemberGroupService } from 'src/app/services/topic-member-group.ser
 import { TopicService } from 'src/app/services/topic.service';
 import { of, take, switchMap } from 'rxjs';
 import { TopicMemberUser } from 'src/app/interfaces/user';
-import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 export interface TopicParticipantsData {
   topic: Topic
 };
@@ -101,12 +100,15 @@ export class TopicParticipantsComponent implements OnInit {
 })
 export class TopicParticipantsDialogComponent implements OnInit {
 
-  constructor(dialog: MatDialog,route: ActivatedRoute, TopicService: TopicService) {
+  constructor(dialog: MatDialog, router: Router, route: ActivatedRoute, TopicService: TopicService) {
     route.params.pipe(switchMap((params) => {
       return TopicService.get(params['topicId']);
     })).pipe(take(1))
     .subscribe((topic) => {
-      dialog.open(TopicParticipantsComponent, {data: {topic}});
+      const manageDialog = dialog.open(TopicParticipantsComponent, {data: {topic}});
+      manageDialog.afterClosed().subscribe(() => {
+        router.navigate(['../'], {relativeTo: route});
+      })
     })
 
   }

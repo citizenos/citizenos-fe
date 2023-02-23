@@ -61,7 +61,7 @@ export abstract class ItemsListService {
         this.countTotal$.next(res.countTotal || res.count || 0);
         this.totalPages$.next(Math.ceil(this.countTotal$.value / this.params$.value.limit));
         this.hasMore$.next(true);
-        if (this.totalPages$.value === this.page$.value) {
+        if (this.totalPages$.value === 0 || this.totalPages$.value === this.page$.value) {
           this.hasMore$.next(false);
         }
         return Array.from(res.rows);

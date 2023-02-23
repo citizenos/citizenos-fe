@@ -8,7 +8,7 @@
 
     <div class="content">
       <div class="main_panel">
-        <div class="info_bar_wrap" *ngIf="editMode && showInfoEdit && TopicService.canEditDescription(topic)">
+        <div class="info_bar_wrap" *ngIf="(editMode$ | async) && showInfoEdit && TopicService.canEditDescription(topic)">
           <div class="info_bar bar_blue info_bar_show">
             <div class="info_icon">
               <div class="sprite sprite-icon-notification-info2x"></div>
@@ -97,7 +97,7 @@
 
           <div class="iframe_content_wrap" *ngIf="!viewFollowup">
 
-            <div class="topic_info print_never" *ngIf="!editMode">
+            <div class="topic_info print_never" *ngIf="!(editMode$ | async)">
               <div class="container_visibility">
                 <div class="ff_table_fix"
                   [tooltip]="('TOOLTIP_TOPIC_VISIBILITY_'+topic.visibility | uppercase) | translate">
@@ -225,7 +225,7 @@
               <iframe cosEtherpad *ngIf="!hideTopicContent && TopicService.canEdit(topic) && (editMode$ | async)"
                 frameborder="0" scrolling="no" [ngClass]="{hidden: !topic.padUrl || viewFollowup}"
                 [src]="sanitizeURL(topic.padUrl)" width="100%" height="600"></iframe>
-              <div *ngIf="!hideTopicContent && !editMode" [innerHtml]="topic.description"></div>
+              <div *ngIf="!hideTopicContent && !(editMode$ | async)" [innerHtml]="topic.description"></div>
               <h1 *ngIf="hideTopicContent"><i>Topic content has been hidden due to violation of community guidelines</i>
               </h1>
             </div>
@@ -268,10 +268,10 @@
   <router-outlet></router-outlet>
 
   <div class="print_footer" *ngIf="topic">
-    <!--div class="qr_code" *ngIf="app.currentUrlAbs">
-          <qrcode data="{{app.currentUrlAbs}}" size="210" version="12" error-correction-level="L" download class="qr_img"></qrcode>
-      </!--div-->
-    <!--span translate="VIEWS.TOPICS_TOPICID.TXT_QR_CODE_FOOTER_SCAN_CODE" [translateParams]="{topicTitle: topic.title}">Jump right into the topic <b>{{topicTitle}}</b> by scanning this QR code!</!--span-->
-    <!--a ng-href="app.currentUrlAbs">{{app.currentUrlAbs}}</!--a-->
+    <div class="qr_code" *ngIf="currentUrl()">
+          <qrcode [qrdata]="currentUrl()" [width]="210" [version]="12" [errorCorrectionLevel]="'L'" download class="qr_img"></qrcode>
+      </div>
+    <span [innerHtml]="'VIEWS.TOPICS_TOPICID.TXT_QR_CODE_FOOTER_SCAN_CODE' | translate:{topicTitle: topic.title}"></span>
+    <a [href]="currentUrl()">{{currentUrl()}}</a>
   </div>
 </div>

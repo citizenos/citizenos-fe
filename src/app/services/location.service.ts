@@ -10,12 +10,12 @@ export class LocationService {
 
   getBaseUrl() {
     let port='';
-    if (this.PlatformLocation.protocol === 'https:' && this.PlatformLocation.port !== '443') {
+    if (this.PlatformLocation.port && this.PlatformLocation.protocol === 'https:' && this.PlatformLocation.port !== '443') {
       port = `:${this.PlatformLocation.port}`;
-    }else if (this.PlatformLocation.protocol === 'http:' && this.PlatformLocation.port !== '80') {
+    }else if (this.PlatformLocation.port && this.PlatformLocation.protocol === 'http:' && this.PlatformLocation.port !== '80') {
       port = `:${this.PlatformLocation.port}`;
     }
-    if (port === ':') {console.log(port, this.PlatformLocation); port = '';}
+    if (port === ':') {console.log(port, this.PlatformLocation); port = '';} //log out Location info to avoid : without port number
     return this.PlatformLocation.protocol + "//" + this.PlatformLocation.hostname + port ;
   };
 

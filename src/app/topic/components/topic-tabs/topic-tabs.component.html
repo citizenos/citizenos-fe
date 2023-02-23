@@ -16,16 +16,16 @@
       </div>
       <div class="tabs_rails">
         <div class="tabs_train" slide-controller identifier="tabsTrain" dimensions>
-          <div class="tab" [routerLink]="['/topics',topicId]" routerLinkActive="selected" dimensions>
+          <div class="tab" [routerLink]="['/',lang, 'topics', topicId]" routerLinkActive="selected" [routerLinkActiveOptions]="{exact:true}" dimensions>
             <div *ngIf="!editMode" class="table_cell" translate="VIEWS.TOPICS_TOPICID.TAB_VIEW"></div>
             <div *ngIf="editMode" class="table_cell" translate="VIEWS.TOPICS_TOPICID.TAB_EDIT"></div>
           </div>
-          <div *ngIf="voteId" class="tab" [routerLink]="['/topics',topicId,'votes',voteId]" routerLinkActive="selected"
+          <div *ngIf="voteId" class="tab" [routerLink]="['/', lang, 'topics', topicId, 'votes', voteId]" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="selected"
             dimensions>
             <div class="table_cell" translate="VIEWS.TOPICS_TOPICID.TAB_VOTE"></div>
           </div>
           <div *ngIf="[STATUSES.closed, STATUSES.followUp].indexOf(status) > -1" class="tab"
-            [routerLink]="['/topics',topicId,'followup']" routerLinkActive="selected" dimensions>
+            [routerLink]="['/', lang, 'topics',topicId,'followup']" [routerLinkActive]="'selected'" [routerLinkActiveOptions]="{exact:true}" dimensions>
             <div class="table_cell" translate="VIEWS.TOPICS_TOPICID.TAB_FOLLOW_UP"></div>
           </div>
         </div>
