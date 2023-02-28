@@ -277,7 +277,7 @@
             </div>
           </div>
         </div>
-        <group-member-topic [topic]="topic" [group]="group" class="pretend_tr"
+        <group-member-topic [topic]="topic" [group]="group" [fields]="['delete', 'level', 'userscount']" class="pretend_tr"
           *ngFor="let topic of memberTopics$ | async"></group-member-topic>
         <div class="pretend_tr">
           <div class="pagination_wrapper">

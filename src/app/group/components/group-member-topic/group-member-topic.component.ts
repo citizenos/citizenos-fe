@@ -65,9 +65,14 @@ export class GroupMemberTopicComponent implements OnInit {
           .delete({
             topicId: this.topic.id,
             groupId: this.group?.id
-          }).pipe(take(1)).subscribe((res) => {
-            console.log(res);
-            //this.GroupMemberTopicService.reload();
+          }).pipe(take(1)).subscribe({
+            next: (res) => {
+              console.log(res);
+              this.GroupMemberTopic.reset();
+            },
+            error: (err) => {
+              console.error(err)
+            }
           })
       }
     });

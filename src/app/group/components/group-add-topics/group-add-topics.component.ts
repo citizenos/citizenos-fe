@@ -114,7 +114,7 @@ export class GroupAddTopicsComponent implements OnInit {
         .subscribe({
           next: (res: any) => {
             this.dialogRef.close();
-            this.GroupMemberTopicService.reset();
+            this.GroupMemberTopicService.setParam('groupId', this.group.id);
           },
           error: (errorResponse) => {
             if (errorResponse && errorResponse.errors) {

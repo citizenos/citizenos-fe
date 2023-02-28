@@ -12,7 +12,7 @@ import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog
 import { AuthService } from '../services/auth.service';
 import { GroupInviteComponent } from './components/group-invite/group-invite.component';
 import { AppService } from '../services/app.service';
-import { PublicGroupMemberTopicsService } from '../services/public-group-member-topics.service';
+import { GroupMemberTopicService } from '../services/group-member-topic.service';
 import { CreateGroupTopicComponent } from './components/create-group-topic/create-group-topic.component';
 import { GroupAddTopicsComponent } from './components/group-add-topics/group-add-topics.component';
 @Component({
@@ -34,12 +34,12 @@ export class GroupComponent implements OnInit {
     private router: Router,
     public GroupMemberUserService: GroupMemberUserService,
     private Auth: AuthService, private app: AppService,
-    public PublicGroupMemberTopicsService: PublicGroupMemberTopicsService) {
+    public GroupMemberTopicService: GroupMemberTopicService) {
     this.group$ = this.route.params.pipe<Group>(
       switchMap((params) => {
         this.groupId = <string>params['groupId'];
-        PublicGroupMemberTopicsService.reset()
-        PublicGroupMemberTopicsService.setParam('groupId', this.groupId);
+        GroupMemberTopicService.reset()
+        GroupMemberTopicService.setParam('groupId', this.groupId);
         GroupMemberUserService.reset();
         GroupMemberUserService.setParam('groupId', this.groupId);
         return this.GroupService.get(params['groupId']).pipe(

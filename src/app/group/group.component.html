@@ -96,7 +96,7 @@
         <div class="tab_button" (click)="tabSelected = 'topics'" [ngClass]="tabSelected === 'topics' ? 'active' : ''">
           <div class="tab_buttom_wrap">
             <div class="tab_button_text"><span translate="VIEWS.PUBLIC_GROUP.TAB_TOPICS"></span>
-              <span>({{PublicGroupMemberTopicsService.countTotal$ | async}})</span>
+              <span>({{GroupMemberTopicService.countTotal$ | async}})</span>
             </div>
             <div class="blue_bottom_line"></div>
           </div>
@@ -148,14 +148,14 @@
           <div class="dropdown big_drop">
             <div class="line lightest_line"></div>
 
-            <div class="dropdown_item" (click)="PublicGroupMemberTopicsService.doOrder('title', 'ASC')">
+            <div class="dropdown_item" (click)="GroupMemberTopicService.doOrder('title', 'ASC')">
               <div class="icon arrow_th_sort_down"></div>
               <div class="item_name" translate="VIEWS.PUBLIC_GROUP.ORDER_TITLE_ASC">
                 ORDER
               </div>
               <div class="clearer"></div>
             </div>
-            <div class="dropdown_item" (click)="PublicGroupMemberTopicsService.doOrder('title', 'DESC')">
+            <div class="dropdown_item" (click)="GroupMemberTopicService.doOrder('title', 'DESC')">
               <div class="icon arrow_th_sort_up"></div>
               <div class="item_name" translate="VIEWS.PUBLIC_GROUP.ORDER_TITLE_DESC">
                 Leave
@@ -164,14 +164,14 @@
             </div>
           </div>
         </div>
-        <!--PublicGroupMemberTopicsService.countTotal-->
+        <!--GroupMemberTopicService.countTotal-->
         <div class="default_table" *ngIf="group.members.count">
           <div class="pretend_tr" *ngIf="wWidth > 560">
-            <div class="pretend_th link" (click)="PublicGroupMemberTopicsService.doOrder('title')">
+            <div class="pretend_th link" (click)="GroupMemberTopicService.doOrder('title')">
               <div class="th_text">
                 <span translate="VIEWS.PUBLIC_GROUP.LNK_TITLE"></span>
                 <div
-                  [ngClass]="{'icon arrow_th_sort_up': PublicGroupMemberTopicsService.params$.value.order === 'ASC', 'icon arrow_th_sort_down': PublicGroupMemberTopicsService.params$.value.order === 'DESC' }">
+                  [ngClass]="{'icon arrow_th_sort_up': GroupMemberTopicService.params$.value.order === 'ASC', 'icon arrow_th_sort_down': GroupMemberTopicService.params$.value.order === 'DESC' }">
                 </div>
               </div>
             </div>
@@ -183,14 +183,14 @@
             </div>
           </div>
           <group-member-topic class="group_item_row pretend_tr"
-            *ngFor="let topic of PublicGroupMemberTopicsService.items$ | async" [fields]="['lastActivity', 'status']"
+            *ngFor="let topic of GroupMemberTopicService.items$ | async" [fields]="['lastActivity', 'status']"
             [topic]="topic" [group]="group"></group-member-topic>
-          <div class="pretend_tr" *ngIf="PublicGroupMemberTopicsService.totalPages$ | async as pages">
+          <div class="pretend_tr" *ngIf="GroupMemberTopicService.totalPages$ | async as pages">
             <div class="pagination_wrapper">
 
-              <cos-pagination class="pagination" (select)="PublicGroupMemberTopicsService.loadPage($event)"
-                [totalPages]="(PublicGroupMemberTopicsService.totalPages$ | async) || 0"
-                [page]="(PublicGroupMemberTopicsService.page$ | async) || 0"></cos-pagination>
+              <cos-pagination class="pagination" (select)="GroupMemberTopicService.loadPage($event)"
+                [totalPages]="(GroupMemberTopicService.totalPages$ | async) || 0"
+                [page]="(GroupMemberTopicService.page$ | async) || 0"></cos-pagination>
             </div>
           </div>
 
