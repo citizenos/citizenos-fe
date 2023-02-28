@@ -1,4 +1,5 @@
 import { AuthService } from 'src/app/services/auth.service';
+import { PublicGroupService } from 'src/app/services/public-group.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -16,7 +17,7 @@ import { take } from 'rxjs';
 })
 export class PublicgroupboxComponent implements OnInit {
   @Input() group = <Group>{}; // decorate the property with @Input()
-  constructor(private dialog: MatDialog, private router: Router, private GroupJoinService: GroupJoinService, private Auth: AuthService) { }
+  constructor(private dialog: MatDialog, private router: Router, private GroupJoinService: GroupJoinService, private Auth: AuthService, private PublicGroupService: PublicGroupService) { }
 
   ngOnInit(): void {
   }
@@ -49,16 +50,16 @@ export class PublicgroupboxComponent implements OnInit {
         if (result === true) {
           console.log('JOIN', this.group.join.token)
           this.GroupJoinService
-            .join(this.group.join.token).pipe(take(1)).subscribe(result => {
-              console.log(result) // handle reloading
-               /*.then((res) => {
-                  if (res.id) {
-                      this.$state.reload(true);
-                  }
-              }, (res) => {
-                  this.$log.error('Failed to join Topic', res);
-              }*/
-            })
+            .join(this.group.join.token).pipe(take(1)).subscribe(
+              {
+                next: () => {
+                  this.PublicGroupService.reset();
+                },
+                error: (err) => {
+                  console.error('Failed to join Topic', err)
+                }
+              }
+            )
         }
       });
     }

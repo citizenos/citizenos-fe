@@ -605,6 +605,23 @@ input.default_radio {
   background-color: vars.$light_gray;
 }
 
+.gray_button_big {
+  @extend .gray_button;
+  padding: 10px 10px 8px 10px;
+}
+
+.light_gray_button_big {
+  @extend .light_gray_button;
+  padding: 10px 16px 8px 16px;
+  vertical-align: middle;
+  font-size: 14px;
+  font-weight: 700;
+  .icon {
+      vertical-align: initial;
+      margin-right: 11px;
+  }
+}
+
 .pink_button {
   @extend .gray_button;
   color: vars.$pinky_red;
