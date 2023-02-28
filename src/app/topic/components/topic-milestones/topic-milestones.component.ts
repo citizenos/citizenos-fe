@@ -50,6 +50,10 @@ export class TopicMilestonesComponent implements OnInit {
     return this.TopicService.canEdit(this.topic);
   }
 
+  canDelete () {
+    return this.TopicService.canDelete(this.topic);
+  }
+
   deleteEvent(event: any) {
     event.topicId = this.topic.id;
     const deleteDialog = this.dialog.open(ConfirmDialogComponent, {

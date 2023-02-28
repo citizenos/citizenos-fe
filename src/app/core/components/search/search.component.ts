@@ -145,6 +145,7 @@ export class SearchComponent implements OnInit {
             moreResults[context][model].rows.forEach((row:any) => {
               this.searchResults[context][model].rows.push(row);
             });
+            this.viewMoreInProgress = false;
           },
           error: (err) => {
             console.error('SearchCtrl', 'Failed to retrieve search results', err);

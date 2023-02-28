@@ -1,4 +1,4 @@
-<div class="voting_platform_wrap create_a_milestone_wrap print_never">
+<div class="voting_platform_wrap create_a_milestone_wrap print_never" *ngIf="canDelete()">
 
   <div class="vote_casting_header">
     <div class="vote_casting_header_section">
@@ -13,10 +13,9 @@
   <div class="create_a_milestone_content">
     <div class="voting_platform_section">
 
-      <input id="create_milestone_title" [(ngModel)]="event.subject"
-        [ngClass]="{'error_input': errors?.subject}" translate
-        [placeholder]="'VIEWS.TOPICS_TOPICID.ADD_MILESTONES_PLACEHOLDER_SUBJECT' | translate" class="gray_borders"
-        [maxlength]="maxLengthSubject" required>
+      <input id="create_milestone_title" [(ngModel)]="event.subject" [ngClass]="{'error_input': errors?.subject}"
+        translate [placeholder]="'VIEWS.TOPICS_TOPICID.ADD_MILESTONES_PLACEHOLDER_SUBJECT' | translate"
+        class="gray_borders" [maxlength]="maxLengthSubject" required>
       <label for="create_milestone_title" class="error_label" *ngIf="errors?.subject">
         <div class="table_cell">
           <div class="sprite sprite-icon-inputfield-error2x"></div>
@@ -24,9 +23,8 @@
         </div>
       </label>
 
-      <textarea id="create_milestone_textarea" class="gray_borders"
-        [ngClass]="{'error_input': errors?.text}" [(ngModel)]="event.text"
-        [placeholder]="'VIEWS.TOPICS_TOPICID.ADD_MILESTONES_PLACEHOLDER_TEXT' | translate"
+      <textarea id="create_milestone_textarea" class="gray_borders" [ngClass]="{'error_input': errors?.text}"
+        [(ngModel)]="event.text" [placeholder]="'VIEWS.TOPICS_TOPICID.ADD_MILESTONES_PLACEHOLDER_TEXT' | translate"
         [maxlength]="maxLengthText" required></textarea>
 
       <label for="create_milestone_textarea" class="error_label" *ngIf="errors?.text">
@@ -37,8 +35,7 @@
       </label>
 
       <div class="blue_button">
-        <div class="table_cell" translate="VIEWS.TOPICS_TOPICID.ADD_MILESTONES_ADD_MILESTONE"
-          (click)="submitEvent()">
+        <div class="table_cell" translate="VIEWS.TOPICS_TOPICID.ADD_MILESTONES_ADD_MILESTONE" (click)="submitEvent()">
         </div>
       </div>
     </div>
