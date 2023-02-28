@@ -163,7 +163,7 @@
         </div>
         <div class="lightbox_section double_row_list user_list" *ngIf="members.length">
           <table>
-            <tr>
+            <tr *ngIf="members.length > 1">
               <td><span translate="MODALS.TOPIC_SETTINGS_LBL_CHANGE_ALL"></span>
                 <div class="mobile_extra_info">
                   <div class="left">
@@ -352,9 +352,6 @@
                       </div>
                     </div>
                   </td>
-                </tr>
-                <tr>
-                  <td></td>
                 </tr>
               </ng-container>
             </table>

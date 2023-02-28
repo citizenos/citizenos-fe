@@ -135,7 +135,7 @@
         <div class="lightbox_section double_row_list user_list" *ngIf="members.length">
           <div>
             <table>
-              <tr>
+              <tr *ngIf="members.length > 1">
                 <td><span translate="MODALS.GROUP_CREATE_SETTINGS_LBL_CHANGE_ALL"></span>
                   <div class="mobile_extra_info">
                     <div class="left">

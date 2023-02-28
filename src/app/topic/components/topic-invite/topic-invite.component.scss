@@ -1,0 +1,45 @@
+@use "vars";
+@use "mixins_n_extends";
+
+#lightbox {
+  input {
+    @extend %input_small;
+  }
+
+  input,
+  button {
+    &:not(:first-child) {
+      margin-top: 10px;
+    }
+  }
+
+  .lightbox_section.double_row_list {
+    padding: 0 !important;
+    text-align: center;
+    overflow-y: auto;
+
+    table {
+      margin: 19px 0;
+      td:first-child {
+        padding-left: 20px;
+        padding-right: 10px;
+        text-align: left;
+      }
+    }
+
+    .recycle_bin {
+      margin-right: 20px;
+    }
+  }
+
+  .category_title {
+    padding: 0 20px;
+    display: table;
+    height: 30px;
+    background: vars.$medium_gray;
+    width: 100%;
+    text-align: left;
+    box-sizing: border-box;
+    font-size: 13px;
+  }
+}

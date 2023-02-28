@@ -383,7 +383,7 @@
   <div class="info_container group_list user_list" id="invite_list" #inviteListEl>
     <div class="container_header" (click)="doToggleMemberInviteList(); $event.stopPropagation();">
       <div class="header_text">
-        <span translate="VIEWS.MY_TOPICS_TOPICID.HEADING_USERS_LIST"></span>
+        <span translate="VIEWS.MY_TOPICS_TOPICID.HEADING_INITED"></span>
         <span> ({{((userList)? (TopicMemberUserService.countTotal$ | async) : topic.members.users.count)}})</span> |
         <div class="blue_link" (click)="inviteListSearch = !inviteListSearch; inviteList = true; $event.stopPropagation();"
           translate="VIEWS.MY_TOPICS_TOPICID.LNK_FILTER"></div>
