@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { GroupMemberUserService } from 'src/app/services/group-member-user.service';
 import { GroupService } from 'src/app/services/group.service';
+import { GroupJoinService } from 'src/app/services/group-join.service';
 import { Group } from 'src/app/interfaces/group';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { AuthService } from '../services/auth.service';
@@ -28,6 +29,7 @@ export class GroupComponent implements OnInit {
 
   constructor(public dialog: MatDialog,
     private GroupService: GroupService,
+    private GroupJoinService: GroupJoinService,
     private route: ActivatedRoute,
     private router: Router,
     public GroupMemberUserService: GroupMemberUserService,
@@ -44,11 +46,11 @@ export class GroupComponent implements OnInit {
           tap((group) => {
             this.app.group.next(group);
           }),
-          catchError((err:any) => {
+          catchError((err: any) => {
             console.log(err);
             if (['401', '403', '404'].indexOf(err.status))
               this.router.navigate(['error/' + err.status])
-              return of(err);
+            return of(err);
           })
         )
       })
@@ -80,8 +82,15 @@ export class GroupComponent implements OnInit {
       if (result === true) {
         this.GroupMemberUserService
           .delete({ groupId: this.groupId, userId: this.Auth.user.value.id })
-          .subscribe((result) => {
-            console.log(result);
+          .subscribe({
+            next: (result) => {
+              const url = this.router.url;
+              this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+                this.router.navigateByUrl(url));
+            },
+            error: (err) => {
+              console.error(err);
+            }
           });
       }
     });
@@ -147,7 +156,22 @@ export class GroupComponent implements OnInit {
         closeByEscape: false
     })*/
     joinDialog.afterClosed().subscribe((res) => {
+      console.log(res, group);
       if (res === true) {
+        console.log('JOIN', group.join.token)
+        this.GroupJoinService
+          .join(group.join.token).pipe(take(1)).subscribe(
+            {
+              next: (res) => {
+                group.userLevel = res.userLevel;
+              },
+              error: (err) => {
+                console.error('Failed to join Topic', err)
+              }
+            }
+          )
+      }
+      /*if (res === true) {
         this.GroupService
           .join(group.join.token)
           .pipe(take(1))
@@ -155,14 +179,14 @@ export class GroupComponent implements OnInit {
             next: (res) => {
               console.log(res)
               if (res.id) {
-                window.location.reload();
+                group.userLevel = res.userLevel;
               }
             },
             error: (res) => {
               console.error('Failed to join Topic', res)
             }
           });
-      }
+      }*/
 
     });
   }
