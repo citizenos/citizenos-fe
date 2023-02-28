@@ -42,7 +42,7 @@
           <div class="input_text_margin_bottom" translate="MODALS.GROUP_CREATE_SETTINGS_INVITE_LBL_OPTIONAL_MESSAGE">
           </div>
           <textarea id="invite_body" class="gray_borders" [(ngModel)]="inviteMessage"
-            placeholder="{{'MODALS.GROUP_CREATE_SETTINGS_INVITE_PLACHOLDER_OPTIONAL_MESSAGE' | translate}}"
+            [placeholder]="'MODALS.GROUP_CREATE_SETTINGS_INVITE_PLACHOLDER_OPTIONAL_MESSAGE' | translate"
             [maxlength]="inviteMessageMaxLength"></textarea>
 
           <div class="input_text_margin_bottom" translate="MODALS.GROUP_CREATE_SETTINGS_LBL_INVITE_USERS"></div>
