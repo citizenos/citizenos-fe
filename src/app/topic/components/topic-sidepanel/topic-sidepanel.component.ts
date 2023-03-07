@@ -1,4 +1,4 @@
-import { Observable, take } from 'rxjs';
+import { map, of, Observable, take } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { UploadService } from 'src/app/services/upload.service';
 import { Component, OnInit, Input } from '@angular/core';
@@ -7,7 +7,7 @@ import { AppService } from 'src/app/services/app.service';
 import { TopicService } from 'src/app/services/topic.service';
 import { TopicAttachmentService } from 'src/app/services/topic-attachment.service';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { FeedbackComponent } from 'src/app/core/components/feedback/feedback.component';
 @Component({
@@ -17,7 +17,7 @@ import { FeedbackComponent } from 'src/app/core/components/feedback/feedback.com
 })
 export class TopicSidepanelComponent implements OnInit {
   @Input() topic!: Topic;
-  editMode = false;
+  editMode = of(false);
   wWidth = window.innerWidth;
   STATUSES = this.TopicService.STATUSES;
   VISIBILITY = this.TopicService.VISIBILITY;
@@ -29,11 +29,17 @@ export class TopicSidepanelComponent implements OnInit {
     public AuthService: AuthService,
     private dialog: MatDialog,
     private router: Router,
+    private route: ActivatedRoute,
     private TopicService: TopicService,
     public app: AppService,
     private Upload: UploadService
   ) {
     this.attachments$ = this.TopicAttachmentService.loadItems();
+    this.editMode = this.route.queryParams.pipe(
+      map((params) => {
+        return !!params['editMode']
+      })
+    )
   }
 
   ngOnInit(): void {

@@ -1,7 +1,7 @@
 <div *ngIf="canEditDescription()" class="options_wrap">
-  <div *ngIf="editMode" class="blue_button" translate="VIEWS.TOPICS_TOPICID.NAV_BTN_DONE_EDITING"
+  <div *ngIf="editMode | async" class="blue_button" translate="VIEWS.TOPICS_TOPICID.NAV_BTN_DONE_EDITING"
     (click)="doToggleEditMode()"></div>
-  <div *ngIf="!editMode" class="blue_button" translate="VIEWS.TOPICS_TOPICID.NAV_LNK_EDIT_TOPIC"
+  <div *ngIf="!(editMode | async)" class="blue_button" translate="VIEWS.TOPICS_TOPICID.NAV_LNK_EDIT_TOPIC"
     (click)="doToggleEditMode()"></div>
 </div>
 <div *ngIf="canEdit()&& topic.report?.moderatedReasonType" class="options_wrap">
