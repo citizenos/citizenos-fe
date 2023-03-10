@@ -192,10 +192,11 @@ export class TopicAttachmentsComponent implements OnInit {
   template: '',
 })
 export class TopicAttachmentsDialogComponent implements OnInit {
-
-  constructor(dialog: MatDialog, router: Router, route: ActivatedRoute, TopicService: TopicService) {
+  private topicId:string = '';
+  constructor(dialog: MatDialog, router: Router, route: ActivatedRoute, TopicService: TopicService, TopicAttachmentService: TopicAttachmentService) {
     route.params.pipe(
       switchMap((params) => {
+        this.topicId = params['topicId'];
         return TopicService.get(params['topicId'])
       })
     ).pipe(take(1)).subscribe((topic) => {
@@ -205,6 +206,8 @@ export class TopicAttachmentsDialogComponent implements OnInit {
       }});
 
       attachmentsDialog.afterClosed().subscribe(() => {
+        TopicAttachmentService.reset();
+        TopicAttachmentService.params['topicId'] = this.topicId;
         router.navigate(['../'], {relativeTo: route})
       })
     });
