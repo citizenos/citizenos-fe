@@ -14,7 +14,7 @@ export class TopicListItemComponent {
   constructor(private router: Router, private route: ActivatedRoute, public TopicService: TopicService) {
   }
   isActiveItem () {
-    return this.topic.id === this.route.snapshot.params['topicId'];
+    return this.router.url.indexOf(this.topic.id) > -1;
   }
   goToItemView() {
     this.router.navigate(['my','topics', this.topic.id]);

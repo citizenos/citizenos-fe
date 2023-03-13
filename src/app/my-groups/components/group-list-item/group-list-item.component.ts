@@ -14,7 +14,7 @@ export class GroupListItemComponent {
   constructor(private router: Router, private route: ActivatedRoute, public GroupService: GroupService) {
   }
   isActiveItem () {
-    return this.group.id === this.route.snapshot.params['groupId'];
+    return this.router.url.indexOf(this.group.id) > -1;
   }
   goToItemView() {
     this.router.navigate(['my','groups', this.group.id]);

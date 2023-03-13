@@ -79,7 +79,7 @@ export class TopicVoteService {
 
     return this.http.post<ApiResponse>(path, data, { withCredentials: true, observe: 'body', responseType: 'json' })
       .pipe(
-        map((res) => {console.log(res); return res.data;})
+        map((res) => {return res.data;})
       );
   }
 

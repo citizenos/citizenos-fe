@@ -79,9 +79,14 @@ export class TopicVoteCastComponent implements OnInit {
       this.TopicVoteService
         .cast({ voteId: this.vote.id, topicId: this.topic.id, options: options })
         .pipe(take(1))
-        .subscribe((data) => {
-          this.vote.topicId = this.topic.id;
-          this.Notification.addSuccess('VIEWS.TOPICS_TOPICID.MSG_VOTE_REGISTERED');
+        .subscribe({
+          next: (data) => {
+            console.log(data);
+            this.vote.topicId = this.topic.id;
+            this.Notification.addSuccess('VIEWS.TOPICS_TOPICID.MSG_VOTE_REGISTERED');
+          }, error: (err) => {
+            console.error(err);
+          }
         });
     }
   }
