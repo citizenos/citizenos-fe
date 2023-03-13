@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { catchError, interval, map, of, switchMap, take, takeWhile } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-smart-id-login',
@@ -10,9 +10,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./smart-id-login.component.scss']
 })
 export class SmartIdLoginComponent implements OnInit {
-  smartIdForm = new FormGroup({
-    pid: new FormControl('', Validators.compose([Validators.pattern(/^[0-9]{11}$/), Validators.required])),
-    countryCode: new FormControl('', Validators.compose([Validators.pattern(/^[A-Z]{2}$/), Validators.required]))
+  smartIdForm = new UntypedFormGroup({
+    pid: new UntypedFormControl('', Validators.compose([Validators.pattern(/^[0-9]{11}$/), Validators.required])),
+    countryCode: new UntypedFormControl('', Validators.compose([Validators.pattern(/^[A-Z]{2}$/), Validators.required]))
   });
   pid?: string;
   countryCode = 'EE';

@@ -6,7 +6,7 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { LocationService } from 'src/app/services/location.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { EstIdLoginComponent } from '../est-id-login/est-id-login.component';
 import { SmartIdLoginComponent } from '../smart-id-login/smart-id-login.component';
 import { RegisterComponent } from '../register/register.component';
@@ -24,9 +24,9 @@ export class LoginComponent implements OnInit {
   authMethodsAvailable: any;
   isFormEmailProvided: any;
   linkRegister: any;
-  form = new FormGroup({
-    email: new FormControl(),
-    password: new FormControl(),
+  form = new UntypedFormGroup({
+    email: new UntypedFormControl(),
+    password: new UntypedFormControl(),
   });
   errors: any;
 

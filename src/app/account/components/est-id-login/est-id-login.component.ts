@@ -4,7 +4,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { MatDialog } from '@angular/material/dialog';
 import { NotificationService } from 'src/app/services/notification.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 declare let hwcrypto: any;
 
 @Component({
@@ -14,9 +14,9 @@ declare let hwcrypto: any;
 })
 export class EstIdLoginComponent implements OnInit {
   config: any;
-  mobiilIdForm = new FormGroup({
-    pid: new FormControl('', Validators.compose([Validators.pattern(/^[0-9]{11}$/), Validators.required])),
-    phoneNumber: new FormControl('', Validators.compose([Validators.pattern(/^\+?[0-9\s-]{7,}$/), Validators.required]))
+  mobiilIdForm = new UntypedFormGroup({
+    pid: new UntypedFormControl('', Validators.compose([Validators.pattern(/^[0-9]{11}$/), Validators.required])),
+    phoneNumber: new UntypedFormControl('', Validators.compose([Validators.pattern(/^\+?[0-9\s-]{7,}$/), Validators.required]))
   });
   challengeID?: number | null;
   isLoading = false;

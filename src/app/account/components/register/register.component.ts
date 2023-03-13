@@ -4,7 +4,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { take } from 'rxjs';
-import { FormGroup, FormControl, Validators} from '@angular/forms'
+import { UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -15,13 +15,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class RegisterComponent implements OnInit {
 
   config: any;
-  signUpForm = new FormGroup({
-    name: new FormControl('', Validators.required),
-    email: new FormControl('', Validators.email),
-    company: new FormControl(''),
-    password: new FormControl('', Validators.required),
-    passwordConfirm: new FormControl('', Validators.required),
-    agreeToTerms: new FormControl(false, Validators.requiredTrue)
+  signUpForm = new UntypedFormGroup({
+    name: new UntypedFormControl('', Validators.required),
+    email: new UntypedFormControl('', Validators.email),
+    company: new UntypedFormControl(''),
+    password: new UntypedFormControl('', Validators.required),
+    passwordConfirm: new UntypedFormControl('', Validators.required),
+    agreeToTerms: new UntypedFormControl(false, Validators.requiredTrue)
   })
 
   isInviteFlowSignUp = false;

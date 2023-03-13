@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { take } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
@@ -10,8 +10,8 @@ import { NotificationService } from 'src/app/services/notification.service';
   styleUrls: ['./password-forgot.component.scss']
 })
 export class PasswordForgotComponent implements OnInit {
-  passwordForgotForm = new FormGroup({
-    email: new FormControl()
+  passwordForgotForm = new UntypedFormGroup({
+    email: new UntypedFormControl()
   });
   errors: any;
   constructor(private dialog: MatDialog, private AuthService: AuthService, private Notification: NotificationService) { }

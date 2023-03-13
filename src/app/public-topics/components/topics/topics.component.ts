@@ -5,7 +5,7 @@ import { TopicService } from 'src/app/services/topic.service';
 import { PublicTopicService } from 'src/app/services/public-topic.service';
 import { map, tap, switchMap, of, Observable, Subject, concatWith, } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, FormControl, FormGroup } from '@angular/forms';
 @Component({
   selector: 'public-topics',
   templateUrl: './topics.component.html',
@@ -28,7 +28,7 @@ export class TopicsComponent implements OnInit {
   wWidth = window.innerWidth;
   destroy$ = new Subject<boolean>();
 
-  constructor(private route: ActivatedRoute, private Topic: TopicService, public PublicTopicService: PublicTopicService, private FormBuilder: FormBuilder, public app: AppService) {
+  constructor(private route: ActivatedRoute, private Topic: TopicService, public PublicTopicService: PublicTopicService, private FormBuilder: UntypedFormBuilder, public app: AppService) {
     this.PublicTopicService.reset();
     this.topics$ = this.PublicTopicService.loadItems().pipe(map(
       (newtopics: any) => {

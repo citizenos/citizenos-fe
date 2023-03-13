@@ -4,7 +4,7 @@ import { take } from 'rxjs';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AuthService } from 'src/app/services/auth.service';
 import { NotificationService } from 'src/app/services/notification.service';
-import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms'
+import { UntypedFormGroup, UntypedFormControl, FormArray, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-password-reset',
@@ -12,11 +12,11 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./password-reset.component.scss']
 })
 export class PasswordResetComponent implements OnInit {
-  resetForm = new FormGroup({
-    password: new FormControl(),
-    passwordConfirm: new FormControl(),
-    email: new FormControl(),
-    passwordResetCode: new FormControl()
+  resetForm = new UntypedFormGroup({
+    password: new UntypedFormControl(),
+    passwordConfirm: new UntypedFormControl(),
+    email: new UntypedFormControl(),
+    passwordResetCode: new UntypedFormControl()
   });
 
   errors: any = {};
