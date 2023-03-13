@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { map, of } from 'rxjs';
 import { TopicArgumentService } from 'src/app/services/topic-argument.service';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 export interface ArgumentReactionsData {
   commentId: string,

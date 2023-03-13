@@ -23,7 +23,7 @@ export class AddEmailComponent implements OnInit {
     private dialog: MatDialog,
     private AuthService: AuthService,
     private Notification: NotificationService,
-    private router: Router,
+    @Inject(Router) private router: Router,
     private UserService: UserService) {
     this.user = data.user;
   }

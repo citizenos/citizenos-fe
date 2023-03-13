@@ -20,7 +20,7 @@ export class PasswordResetComponent implements OnInit {
   });
 
   errors: any = {};
-  constructor(@Inject(MAT_DIALOG_DATA) data: any, private AuthService: AuthService, private Notification: NotificationService, private router: Router) {
+  constructor(@Inject(MAT_DIALOG_DATA) data: any, private AuthService: AuthService, private Notification: NotificationService, @Inject(Router) private router: Router) {
     this.resetForm.patchValue({
       email: data.email,
       passwordResetCode: data.passwordResetCode

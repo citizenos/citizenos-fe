@@ -56,7 +56,7 @@ $my-theme: mat.define-light-theme((
    accent: $my-accent,
    warn: $my-warn,
  ),
- typography: mat.define-typography-config(),
+ typography: mat.define-legacy-typography-config(),
  density: 0,
 ));
 .cdk-visually-hidden {
@@ -1085,77 +1085,6 @@ a:visited {
   }
 }
 
-@-ms-keyframes jump {
-  0% {
-    transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
-  }
-  40% {
-    transform: translate3d(0, -30%, 0) scale3d(0.7, 1.5, 1);
-  }
-  60% {
-    transform: translate3d(0, -60%, 0) scale3d(1.5, 0.7, 1);
-  }
-  80% {
-    transform: translate3d(0, -30%, 0) scale3d(0.7, 1.5, 1);
-  }
-  100% {
-    transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
-  }
-}
-
-@-moz-keyframes jump {
-  0% {
-    transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
-  }
-  40% {
-    transform: translate3d(0, -30%, 0) scale3d(0.7, 1.5, 1);
-  }
-  60% {
-    transform: translate3d(0, -60%, 0) scale3d(1.5, 0.7, 1);
-  }
-  80% {
-    transform: translate3d(0, -30%, 0) scale3d(0.7, 1.5, 1);
-  }
-  100% {
-    transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
-  }
-}
-
-@-webkit-keyframes jump {
-  0% {
-    transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
-  }
-  40% {
-    transform: translate3d(0, -30%, 0) scale3d(0.7, 1.5, 1);
-  }
-  60% {
-    transform: translate3d(0, -60%, 0) scale3d(1.5, 0.7, 1);
-  }
-  80% {
-    transform: translate3d(0, -30%, 0) scale3d(0.7, 1.5, 1);
-  }
-  100% {
-    transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
-  }
-}
-
-@keyframes jump {
-  0% {
-    transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
-  }
-  40% {
-    transform: translate3d(0, -30%, 0) scale3d(0.8, 1.3, 1);
-  }
-  60% {
-    transform: translate3d(0, -50%, 0) scale3d(1.3, 0.8, 1);
-  }
-  80% {
-    transform: translate3d(0, -30%, 0) scale3d(0.8, 1.3, 1);
-  }
-  100% {
-    transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
-  }
-}
 
 #dark_overlay {
   background-color: rgba(0, 0, 0, 0.6);

@@ -13,7 +13,7 @@ import { GroupService } from 'src/app/services/group.service';
 export class GroupCreateComponent implements OnInit {
   @ViewChild('imageUpload') fileInput?: ElementRef;
 
-  group: any = {
+  group: Group = <Group>{
     name: '',
     description: '',
     imageUrl: '',

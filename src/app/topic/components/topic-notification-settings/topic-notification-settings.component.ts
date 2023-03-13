@@ -1,4 +1,3 @@
-import { ConfirmDialogData } from './../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NotificationService } from 'src/app/services/notification.service';

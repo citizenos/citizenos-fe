@@ -1,4 +1,4 @@
-import { GroupInviteUserService } from './../../../services/group-invite-user.service';
+import { GroupInviteUserService } from 'src/app/services/group-invite-user.service';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { isEmail } from 'validator';

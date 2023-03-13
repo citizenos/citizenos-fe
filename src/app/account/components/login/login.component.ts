@@ -1,6 +1,6 @@
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { ConfigService } from 'src/app/services/config.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { LocationService } from 'src/app/services/location.service';
@@ -39,9 +39,9 @@ export class LoginComponent implements OnInit {
     private Location: LocationService,
     private Notification: NotificationService,
     private config: ConfigService,
-    private router: Router,
+    @Inject(Router) private router: Router,
     private UserService: UserService,
-    private route: ActivatedRoute,
+    @Inject(ActivatedRoute) private route: ActivatedRoute,
     private Auth: AuthService) {
   }
 
