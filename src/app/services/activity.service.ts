@@ -607,6 +607,7 @@ export class ActivityService extends ItemsListService {
     }
 
     const activityType = activity.data.type;
+    console.log(activity)
     let stateName = '';
     let state = [this.$translate.currentLang];
     let params = <any>{};
@@ -637,6 +638,7 @@ export class ActivityService extends ItemsListService {
       }
     } else if ((object && object['@type'] === 'Topic')) {
       state = state.concat(['topics', object.id]);
+      console.log('STATE 641', state)
     } else if ((object && object['@type'] === 'TopicMemberUser')) {
       state = state.concat(['topics', object.topicId]);
     } else if (object['@type'] === 'Comment' || object['@type'] === 'CommentVote') {
@@ -658,10 +660,10 @@ export class ActivityService extends ItemsListService {
     if (target && target['@type'] === 'Group') {
       state = state.concat(['my', 'groups', target.id]);
     }
-
-    if (!stateName && origin && origin['@type'] === 'Topic') {
+    if (!stateName && state[1] !== 'topics' && origin && origin['@type'] === 'Topic') {
       state = state.concat(['topics', origin.id]);
     }
+    console.log('STATE', state)
     if (state.length) {
       if (hash) {
         params.fragment = hash;

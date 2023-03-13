@@ -2,9 +2,9 @@ import { TopicAttachmentService } from 'src/app/services/topic-attachment.servic
 import { AuthService } from 'src/app/services/auth.service';
 import { LocationService } from 'src/app/services/location.service';
 import { UploadService } from 'src/app/services/upload.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap, take, of, map, tap, Observable, Subscription } from 'rxjs';
+import { switchMap, of, map, tap, Observable, Subscription } from 'rxjs';
 import { TopicService } from 'src/app/services/topic.service';
 import { TopicArgumentService } from 'src/app/services/topic-argument.service';
 import { TopicVoteService } from 'src/app/services/topic-vote.service';
@@ -13,7 +13,6 @@ import { Topic } from 'src/app/interfaces/topic';
 import { Attachment } from 'src/app/interfaces/attachment';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Vote } from '../interfaces/vote';
-import { TopicReportFormDialogComponent } from './components/topic-report-form/topic-report-form.component';
 import { MatDialog } from '@angular/material/dialog';
 import { TopicReportComponent } from './components/topic-report/topic-report.component';
 
@@ -48,14 +47,14 @@ export class TopicComponent implements OnInit {
     private dialog: MatDialog,
     private Auth: AuthService,
     public TopicService: TopicService,
-    private router: Router,
-    private route: ActivatedRoute,
+    @Inject(Router) private router: Router,
+    @Inject(ActivatedRoute) private route: ActivatedRoute,
     private Upload: UploadService,
     private Location: LocationService,
     public TopicAttachmentService: TopicAttachmentService,
     public TopicArgumentService: TopicArgumentService,
     private TopicVoteService: TopicVoteService,
-    private sanitizer: DomSanitizer,
+    @Inject(DomSanitizer) private sanitizer: DomSanitizer,
     public app: AppService
   ) {
     this.routerSubscription = this.route.url.subscribe(url => {

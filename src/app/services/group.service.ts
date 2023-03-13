@@ -15,16 +15,6 @@ import { ItemsListService } from './items-list.service';
 export class GroupService extends ItemsListService {
   params = Object.assign(this.defaultParams, { groupId: <string | null>null });
   params$ = new BehaviorSubject(this.params);
-  /*
-    params$ = new BehaviorSubject({
-      showModerated: <boolean>false,
-      offset: <number>0,
-      limit: <number>8,
-      orderBy: <string | null>'name',
-      order: <string | null>'ASC',
-      sourcePartnerId: <string | null>null,
-      search: <string | null>null
-    });*/
 
   public VISIBILITY = {
     public: 'public',

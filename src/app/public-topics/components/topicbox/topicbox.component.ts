@@ -27,19 +27,5 @@ export class TopicboxComponent implements OnInit {
 
   goToView() {
     this.router.navigate(['topics', this.topic.id]);
-    //topic param
-      /*const params = {
-          language: this.$stateParams.language,
-          topicId: topic.id
-      }
-      let view = 'topics/view';
-      if (topic.status === this.Topic.STATUSES.voting) {
-          view += '/votes/view'
-          params['voteId'] = topic.voteId;
-      } else if ([this.Topic.STATUSES.followUp, this.Topic.STATUSES.close].indexOf(topic.status) > -1) {
-          view += '/followup';
-      }
-      console.log('GO', view)
-      this.$state.go(view, params);*/
   }
 }

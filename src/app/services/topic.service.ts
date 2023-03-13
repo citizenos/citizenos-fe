@@ -223,7 +223,7 @@ export class TopicService {
                 this.router.navigate(['/topics', topic.id, 'votes', 'create'])
               }
               if (state  === 'followUp') {
-                this.router.navigate(['/topics', topic.id, 'followUp'])
+                this.router.navigate(['/topics', topic.id, 'followup'])
               }
             }, error: (res) => {
               console.error(res);
