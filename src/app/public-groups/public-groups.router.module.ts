@@ -3,10 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { GroupsComponent } from './components/groups/groups.component';
 
 const routes: Routes = [
-  {path: '', children: [
-    {path: ':groupId'},
-    {path: '', component: GroupsComponent}
-  ]}
+  {path: '', component: GroupsComponent}
 ];
 
 @NgModule({

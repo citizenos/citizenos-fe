@@ -58,7 +58,7 @@
                 <input type="file" #imageUpload id="profileImage" class="image_item" (change)="fileUpload()" />
 
                 <div class="profile_image_filler" *ngIf="!form.imageUrl && !tmpImageUrl">
-                  <cos-initials class="table_cell" cos-initials="form.name">
+                  <cos-initials class="table_cell" *ngIf="form.name" [name]="form.name">
                   </cos-initials>
                   <div class="profile_circle"></div>
                 </div>

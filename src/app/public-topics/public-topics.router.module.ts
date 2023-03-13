@@ -3,10 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { TopicsComponent } from './components/topics/topics.component';
 
 const routes: Routes = [
-  {path: '', children: [
-    {path: ':topicId'},
-    {path: '', component: TopicsComponent}
-  ]}
+  {path: '', component: TopicsComponent}
 ];
 
 @NgModule({
