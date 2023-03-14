@@ -22,6 +22,7 @@ import { GroupAddTopicsComponent } from 'src/app/group/components/group-add-topi
 export class MyGroupComponent implements OnInit {
   @ViewChild('userListEl') userListEl?: ElementRef;
   @ViewChild('topicListEl') topicListEl?: ElementRef;
+  @ViewChild('inviteListEl') inviteListEl?: ElementRef;
 
   group$: Observable<Group>;
   //Sections
@@ -31,6 +32,8 @@ export class MyGroupComponent implements OnInit {
   topicListSearch = false;
   userList = false;
   userListSearch = false;
+  inviteList = false;
+  inviteListSearch = false;
   //Sections end
   activities = false;
   wWidth = window.innerWidth;
