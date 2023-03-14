@@ -348,7 +348,7 @@
     "TOPIC_INVITE_SHARE_LINK_GENERATE_CONFIRM_BTN_NO": "Ne, neměnit odkaz",
     "TOPIC_INVITE_SHARE_LINK_GENERATE_CONFIRM_BTN_YES": "Ano, změnit odkaz",
     "TOPIC_INVITE_HEADING": "Pozvat uživatele do tématu",
-    "TOPIC_INVITE_TH_USERS": "@:MODALS.TOPIC_SETTINGS_TH_USERS",
+    "TOPIC_INVITE_TH_USERS": "@:MODALS.TOPIC_INVITE_TH_USERS",
     "TOPIC_INVITE_LBL_OPTIONAL_MESSAGE": "Přidat volitelnou pozvánku",
     "TOPIC_INVITE_PLACHOLDER_OPTIONAL_MESSAGE": "Napište něco zde",
     "TOPIC_INVITE_TAB_INVITE": "@:MODALS.TOPIC_SETTINGS_TAB_INVITE",
@@ -793,6 +793,7 @@
       "LBL_REMOVE_FROM_GROUP": "Odstranit ze skupiny",
       "LBL_USERS_COUNT": "Členů: {{count}}",
       "HEADING_USERS_LIST": "Seznam členů ({{count}})",
+      "HEADING_INVITED": "@:MODALS.TOPIC_MEMBERS_TAB_INVITED",
       "LNK_PROFILE": "Profil"
     },
     "MY_TOPICS_TOPICID": {
@@ -834,7 +835,7 @@
       "LBL_INACCESSIBLE_GROUP": "Nedostupná skupina",
       "LBL_USERS_COUNT": "@:VIEWS.MY_GROUPS_GROUPID.LBL_USERS_COUNT",
       "HEADING_USERS_LIST": "Seznam uživatelů",
-      "HEADING_INITED": "@:MODALS.TOPIC_MEMBERS_TAB_INVITED",
+      "HEADING_INVITED": "@:MODALS.TOPIC_MEMBERS_TAB_INVITED",
       "LNK_INVITE": "@:VIEWS.MY_GROUPS_GROUPID.LNK_INVITE",
       "LNK_PROFILE": "Profil",
       "LBL_VIA": "přes skupinu",
