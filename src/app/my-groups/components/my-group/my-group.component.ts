@@ -150,6 +150,7 @@ export class MyGroupComponent implements OnInit {
         this.GroupService.delete(group)
           .pipe(take(1))
           .subscribe((res) => {
+            this.GroupService.reset();
             this.router.navigate(['../'], { relativeTo: this.route });
           })
       }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { tap, map, switchMap } from 'rxjs/operators';
+import { tap, map, switchMap, combineLatest } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserTopicService } from 'src/app/services/user-topic.service';
@@ -77,8 +77,8 @@ export class ListComponent {
   public wWidth = window.innerWidth;
 
   constructor(public UserTopicService: UserTopicService, public route: ActivatedRoute, private router: Router, private Auth: AuthService, TranslateService: TranslateService) {
-    this.topics$ = this.route.queryParams.pipe(
-      switchMap((queryParams: any) => {
+    this.topics$ = combineLatest([this.route.queryParams, this.route.params]).pipe(
+      switchMap(([queryParams, params]) => {
         this.UserTopicService.reset();
         const filter = queryParams['filter'];
         this.setFilter(filter)

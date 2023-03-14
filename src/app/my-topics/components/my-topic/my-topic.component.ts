@@ -1,12 +1,11 @@
-import { AuthService } from 'src/app/services/auth.service';
 import { AppService } from 'src/app/services/app.service';
-import { TopicArgumentService } from 'src/app/services/topic-argument.service';
+import { UserTopicService } from 'src/app/services/user-topic.service';
 import { TopicActivityService } from 'src/app/services/topic-activity.service';
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TopicService } from 'src/app/services/topic.service';
 import { TopicVoteService } from 'src/app/services/topic-vote.service';
-import { Observable, take, map, switchMap, BehaviorSubject, tap, of } from 'rxjs';
+import { Observable, take, map, switchMap, tap, of } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicMemberUserService } from 'src/app/services/topic-member-user.service';
 import { TopicInviteUserService } from 'src/app/services/topic-invite-user.service';
@@ -14,7 +13,6 @@ import { TopicMemberGroupService } from 'src/app/services/topic-member-group.ser
 import { TranslateService } from '@ngx-translate/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
-import { TopicNotificationSettingsComponent } from 'src/app/topic/components/topic-notification-settings/topic-notification-settings.component';
 import { Vote } from 'src/app/interfaces/vote';
 @Component({
   selector: 'my-topic',
@@ -49,7 +47,7 @@ export class MyTopicComponent implements OnInit {
   wWidth = window.innerWidth;
   constructor(
     public app: AppService,
-    private AuthService: AuthService,
+    private UserTopicService: UserTopicService,
     private TopicService: TopicService,
     private TopicVoteService: TopicVoteService,
     private Translate: TranslateService,
@@ -127,7 +125,28 @@ export class MyTopicComponent implements OnInit {
   };
 
   doDeleteTopic(topic: Topic) {
-    this.TopicService.doDeleteTopic(topic, [this.Translate.currentLang, 'my', 'topics']);
+    /*this.TopicService.doDeleteTopic(topic, [this.Translate.currentLang, 'my', 'topics']);*/
+    const deleteDialog = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        level: 'delete',
+        heading: 'MODALS.TOPIC_DELETE_CONFIRM_HEADING',
+        title: 'MODALS.TOPIC_DELETE_CONFIRM_TXT_ARE_YOU_SURE',
+        description: 'MODALS.TOPIC_DELETE_CONFIRM_TXT_NO_UNDO',
+        points: ['MODALS.TOPIC_DELETE_CONFIRM_TXT_TOPIC_DELETED', 'MODALS.TOPIC_DELETE_CONFIRM_TXT_DISCUSSION_DELETED', 'MODALS.TOPIC_DELETE_CONFIRM_TXT_TOPIC_REMOVED_FROM_GROUPS'],
+        confirmBtn: 'MODALS.TOPIC_DELETE_CONFIRM_YES',
+        closeBtn: 'MODALS.TOPIC_DELETE_CONFIRM_NO'
+      }
+    });
+    deleteDialog.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.TopicService.delete(topic)
+          .pipe(take(1))
+          .subscribe(() => {
+            this.UserTopicService.reset();
+            this.router.navigate(['my', 'topics']);
+          })
+      }
+    });
   };
 
   doToggleActivities() {
