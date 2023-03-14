@@ -384,7 +384,7 @@
     <div class="container_header" (click)="doToggleMemberInviteList(); $event.stopPropagation();">
       <div class="header_text">
         <span translate="VIEWS.MY_TOPICS_TOPICID.HEADING_INITED"></span>
-        <span> ({{((userList)? (TopicMemberUserService.countTotal$ | async) : topic.members.users.count)}})</span> |
+        <span> ({{(TopicInviteUserService.countTotal$ | async)}})</span> |
         <div class="blue_link" (click)="inviteListSearch = !inviteListSearch; inviteList = true; $event.stopPropagation();"
           translate="VIEWS.MY_TOPICS_TOPICID.LNK_FILTER"></div>
         <span *ngIf="canUpdate(topic)">|</span>
@@ -393,7 +393,7 @@
         </div>
       </div>
       <div class="minimize_container">
-        <div [ngClass]="!userList ? 'sprite-btn-expand2x' : 'sprite-btn-minimize2x'" class="sprite"></div>
+        <div [ngClass]="!inviteList ? 'sprite-btn-expand2x' : 'sprite-btn-minimize2x'" class="sprite"></div>
       </div>
     </div>
     <div class="container_header second_header" *ngIf="inviteListSearch">

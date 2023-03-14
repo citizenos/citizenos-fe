@@ -608,7 +608,6 @@ export class ActivityService extends ItemsListService {
 
     const activityType = activity.data.type;
     console.log(activity)
-    let stateName = '';
     let state = [this.$translate.currentLang];
     let params = <any>{};
     let hash = '';
@@ -619,9 +618,7 @@ export class ActivityService extends ItemsListService {
     if (activityType === 'Invite' && target['@type'] === 'User' && object['@type'] === 'Topic') { // https://github.com/citizenos/citizenos-fe/issues/112
       // The invited user is viewing
       if (this.Auth.loggedIn$.value && this.Auth.user.value.id === target.id) {
-        state.push('topicsTopicIdInvitesUsers');
-        params['topicId'] = object.id;
-        params['inviteId'] = target.inviteId; // HACKISH! Change once issue resolves - https://github.com/w3c/activitystreams/issues/506
+        state = state.concat(['topics', object.id, 'invites', 'users', target.inviteId]);
       } else {
         // Creator of the invite or a person who has read permissions is viewing
         state = state.concat(['topics', object.id]);
@@ -629,16 +626,13 @@ export class ActivityService extends ItemsListService {
     } else if (activityType === 'Invite' && target['@type'] === 'User' && object['@type'] === 'Group') { // https://github.com/citizenos/citizenos-fe/issues/348
       // The invited user is viewing
       if (this.Auth.loggedIn$.value && this.Auth.user.value.id === target.id) {
-        stateName = 'groupsGroupIdInvitesUsers';
-        params['groupId'] = object.id;
-        params['inviteId'] = target.inviteId; // HACKISH! Change once issue resolves - https://github.com/w3c/activitystreams/issues/506
+        state = state.concat(['groups', object.id, 'invites', 'users', target.inviteId]);
       } else {
         // Creator of the invite or a person who has read permissions is viewing
         state = state.concat(['groups', object.id]);
       }
     } else if ((object && object['@type'] === 'Topic')) {
       state = state.concat(['topics', object.id]);
-      console.log('STATE 641', state)
     } else if ((object && object['@type'] === 'TopicMemberUser')) {
       state = state.concat(['topics', object.topicId]);
     } else if (object['@type'] === 'Comment' || object['@type'] === 'CommentVote') {
@@ -660,7 +654,7 @@ export class ActivityService extends ItemsListService {
     if (target && target['@type'] === 'Group') {
       state = state.concat(['my', 'groups', target.id]);
     }
-    if (!stateName && state[1] !== 'topics' && origin && origin['@type'] === 'Topic') {
+    if (state[1] !== 'topics' && origin && origin['@type'] === 'Topic') {
       state = state.concat(['topics', origin.id]);
     }
     console.log('STATE', state)
