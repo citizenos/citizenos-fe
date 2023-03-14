@@ -201,16 +201,16 @@
   <div class="info_container group_list" id="topic_list" #topicListEl>
     <div class="container_header" (click)="doToggleMemberTopicList();">
       <div class="header_text">
-          <span translate="VIEWS.MY_GROUPS_GROUPID.HEADING_TOPIC_LIST"
-            [translateParams]="{count: GroupMemberTopicService.countTotal$ | async}"></span>
-          <span *ngIf="GroupMemberTopicService.countTotal$ | async">|</span>
-          <div class="blue_link" *ngIf="GroupMemberTopicService.countTotal$ | async"
-            (click)="topicListSearch = !topicListSearch; topicList = true; $event.stopPropagation();"
-            translate="VIEWS.MY_GROUPS_GROUPID.LNK_SEARCH"></div>
-          <span *ngIf="canUpdate(group)">|
-            <div class="blue_link" (click)="addTopicDialog(group); $event.stopPropagation()"
-              translate="VIEWS.MY_GROUPS_GROUPID.LNK_ADD"></div>
-          </span>
+        <span translate="VIEWS.MY_GROUPS_GROUPID.HEADING_TOPIC_LIST"
+          [translateParams]="{count: GroupMemberTopicService.countTotal$ | async}"></span>
+        <span *ngIf="GroupMemberTopicService.countTotal$ | async">|</span>
+        <div class="blue_link" *ngIf="GroupMemberTopicService.countTotal$ | async"
+          (click)="topicListSearch = !topicListSearch; topicList = true; $event.stopPropagation();"
+          translate="VIEWS.MY_GROUPS_GROUPID.LNK_SEARCH"></div>
+        <span *ngIf="canUpdate(group)">|
+          <div class="blue_link" (click)="addTopicDialog(group); $event.stopPropagation()"
+            translate="VIEWS.MY_GROUPS_GROUPID.LNK_ADD"></div>
+        </span>
       </div>
       <div [cosDropdown] class="classic_dropdown minimize_container">
         <div class="sprite sprite-btn-filter-gray"></div>
@@ -277,8 +277,8 @@
             </div>
           </div>
         </div>
-        <group-member-topic [topic]="topic" [group]="group" [fields]="['delete', 'level', 'userscount']" class="pretend_tr"
-          *ngFor="let topic of memberTopics$ | async"></group-member-topic>
+        <group-member-topic [topic]="topic" [group]="group" [fields]="['delete', 'level', 'userscount']"
+          class="pretend_tr" *ngFor="let topic of memberTopics$ | async"></group-member-topic>
         <div class="pretend_tr">
           <div class="pagination_wrapper">
             <cos-pagination class="pagination" (select)="GroupMemberTopicService.loadPage($event)"
@@ -298,8 +298,7 @@
         <span translate="VIEWS.MY_GROUPS_GROUPID.HEADING_USERS_LIST"
           [translateParams]="{count: (GroupMemberUserService.countTotal$ | async)}"></span>
         |
-        <div class="blue_link"
-          (click)="userListSearch = !userListSearch; userList=true; $event.stopPropagation();"
+        <div class="blue_link" (click)="userListSearch = !userListSearch; userList=true; $event.stopPropagation();"
           translate="VIEWS.MY_GROUPS_GROUPID.LNK_SEARCH"></div>
         <span *ngIf="canUpdate(group)">|
           <div class="blue_link" (click)="shareGroupDialog(group);$event.stopPropagation()"
@@ -314,11 +313,12 @@
     <div class="container_header second_header" *ngIf="userListSearch">
       <div class="table_cell">
         <input [placeholder]="'VIEWS.MY_GROUPS_GROUPID.PLACEHOLDER_NAME_PERMISSION' | translate"
-        (ngModelChange)="GroupMemberUserService.setParam('search', GroupMemberUserService.params.search)"
-        [(ngModel)]="GroupMemberUserService.params.search">
+          (ngModelChange)="GroupMemberUserService.setParam('search', GroupMemberUserService.params.search)"
+          [(ngModel)]="GroupMemberUserService.params.search">
       </div>
       <div class="table_cell">
-        <div class="blue_link" (click)="GroupMemberUserService.params.search = '';GroupMemberUserService.setParam('search', GroupMemberUserService.params.search);"
+        <div class="blue_link"
+          (click)="GroupMemberUserService.params.search = '';GroupMemberUserService.setParam('search', GroupMemberUserService.params.search);"
           translate="VIEWS.MY_GROUPS_GROUPID.LNK_CLEAR_SEARCH"></div>
       </div>
     </div>
@@ -331,14 +331,16 @@
           <div class="pretend_th" (click)="GroupMemberUserService.doOrder('name')">
             <div class="th_text">
               <span translate="VIEWS.MY_GROUPS_GROUPID.LNK_PROFILE"></span>
-              <div class="sprite sprite-icon-list-ordering2x" *ngIf="GroupMemberUserService.params$.value.orderBy === 'name'">
+              <div class="sprite sprite-icon-list-ordering2x"
+                *ngIf="GroupMemberUserService.params$.value.orderBy === 'name'">
               </div>
             </div>
           </div>
           <div class="pretend_th" (click)="GroupMemberUserService.doOrder('level')">
             <div class="th_text">
               <span translate="VIEWS.MY_GROUPS_GROUPID.LNK_ROLES"></span>
-              <div class="sprite sprite-icon-list-ordering2x" *ngIf="GroupMemberUserService.params$.value.orderBy === 'level'">
+              <div class="sprite sprite-icon-list-ordering2x"
+                *ngIf="GroupMemberUserService.params$.value.orderBy === 'level'">
               </div>
             </div>
           </div>
@@ -349,8 +351,8 @@
           </div>
         </div>
         <!-- GroupMemberUsers -->
-        <group-member-user class="pretend_tr" *ngFor="let user of memberUsers$ | async"
-          [member]="user" [group]="group" [fields]="['level', 'remove']"></group-member-user>
+        <group-member-user class="pretend_tr" *ngFor="let user of memberUsers$ | async" [member]="user" [group]="group"
+          [fields]="['level', 'remove']"></group-member-user>
 
         <div class="pretend_tr">
           <div class="pagination_wrapper">
@@ -359,9 +361,72 @@
               [page]="(GroupMemberUserService.page$ | async) || 0"></cos-pagination>
           </div>
         </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="info_container group_list user_list" id="invite_list" #inviteListEl>
+    <div class="container_header" (click)="inviteList = !inviteList; $event.stopPropagation()">
+      <div class="header_text">
+        <span translate="VIEWS.MY_GROUPS_GROUPID.HEADING_INVITED"
+          [translateParams]="{count: (GroupInviteUserService.countTotal$ | async)}"></span>
+        |
+        <div class="blue_link" (click)="inviteListSearch = !inviteListSearch; inviteList=true; $event.stopPropagation();"
+          translate="VIEWS.MY_GROUPS_GROUPID.LNK_SEARCH"></div>
+        <span *ngIf="canUpdate(group)">|
+          <div class="blue_link" (click)="shareGroupDialog(group);$event.stopPropagation()"
+            translate="VIEWS.MY_GROUPS_GROUPID.LNK_INVITE"></div>
+        </span>
+      </div>
+      <div class="minimize_container">
+        <div [ngClass]="!userList ? 'sprite-btn-expand2x' : 'sprite-btn-minimize2x'" class="sprite">
+        </div>
+      </div>
+    </div>
+    <div class="container_header second_header" *ngIf="inviteListSearch">
+      <div class="table_cell">
+        <input [placeholder]="'VIEWS.MY_GROUPS_GROUPID.PLACEHOLDER_NAME_PERMISSION' | translate"
+          (ngModelChange)="GroupInviteUserService.setParam('search', GroupInviteUserService.params.search)"
+          [(ngModel)]="GroupInviteUserService.params.search">
+      </div>
+      <div class="table_cell">
+        <div class="blue_link"
+          (click)="GroupInviteUserService.params.search = '';GroupInviteUserService.setParam('search', GroupInviteUserService.params.search);"
+          translate="VIEWS.MY_GROUPS_GROUPID.LNK_CLEAR_SEARCH"></div>
+      </div>
+    </div>
+    <div class="container_content" *ngIf="inviteList">
+      <div class="pretend_table">
+        <div class="pretend_tr">
+          <div class="mobile_text pretend_th" *ngIf="wWidth <= 560">
+            <div class="th_text" translate="VIEWS.MY_GROUPS_GROUPID.LBL_ORDER_BY"></div>
+          </div>
+          <div class="pretend_th" (click)="GroupInviteUserService.doOrder('name')">
+            <div class="th_text">
+              <span translate="VIEWS.MY_GROUPS_GROUPID.LNK_PROFILE"></span>
+              <div class="sprite sprite-icon-list-ordering2x"
+                *ngIf="GroupInviteUserService.params$.value.orderBy === 'name'">
+              </div>
+            </div>
+          </div>
+          <div class="pretend_th" (click)="GroupInviteUserService.doOrder('level')">
+            <div class="th_text">
+              <span translate="VIEWS.MY_GROUPS_GROUPID.LNK_ROLES"></span>
+              <div class="sprite sprite-icon-list-ordering2x"
+                *ngIf="GroupInviteUserService.params$.value.orderBy === 'level'">
+              </div>
+            </div>
+          </div>
+          <div class="pretend_th" *ngIf="canUpdate(group)">
+            <div class="th_text">
+              <span translate="VIEWS.MY_GROUPS_GROUPID.LBL_REMOVE_FROM_GROUP"></span>
+            </div>
+          </div>
+        </div>
         <!-- GroupInviteUsers -->
-        <group-invite-user class="pretend_tr" *ngFor="let invite of memberInvites$ | async"
-        [invite]="invite" [group]="group"></group-invite-user>
+        <group-invite-user class="pretend_tr" *ngFor="let invite of memberInvites$ | async" [invite]="invite"
+          [group]="group"></group-invite-user>
 
         <div class="pretend_tr">
           <div class="pagination_wrapper">
@@ -372,7 +437,6 @@
         </div>
       </div>
     </div>
-
   </div>
 
 
