@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { tap, map, switchMap } from 'rxjs/operators';
+import { map, switchMap, combineLatest } from 'rxjs';
 import { Group } from 'src/app/interfaces/group';
-import { AuthService } from 'src/app/services/auth.service';
 import { GroupService } from 'src/app/services/group.service';
 
 @Component({
@@ -17,8 +16,8 @@ export class GroupListComponent implements OnInit {
   allGroups$: Group[] = [];
 
   constructor(private route: ActivatedRoute, public GroupService: GroupService, private router: Router, TranslateService: TranslateService) {
-    this.groups$ = this.route.queryParams.pipe(
-      switchMap((queryParams: any) => {
+    this.groups$ = combineLatest([this.route.queryParams, this.route.params]).pipe(
+      switchMap(([queryParams, params]) => {
         GroupService.reset();
         return GroupService.loadItems().pipe(map(
           (newgroups: any) => {
