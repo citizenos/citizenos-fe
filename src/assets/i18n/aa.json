@@ -793,6 +793,7 @@
       "LBL_REMOVE_FROM_GROUP": "crwdns21098:0crwdne21098:0",
       "LBL_USERS_COUNT": "crwdns37571:0{{count}}crwdne37571:0",
       "HEADING_USERS_LIST": "crwdns37573:0{{count}}crwdne37573:0",
+      "HEADING_INVITED": "@:MODALS.TOPIC_MEMBERS_TAB_INVITED",
       "LNK_PROFILE": "crwdns21104:0crwdne21104:0"
     },
     "MY_TOPICS_TOPICID": {
@@ -834,7 +835,7 @@
       "LBL_INACCESSIBLE_GROUP": "crwdns25216:0crwdne25216:0",
       "LBL_USERS_COUNT": "@:VIEWS.MY_GROUPS_GROUPID.LBL_USERS_COUNT",
       "HEADING_USERS_LIST": "crwdns21176:0crwdne21176:0",
-      "HEADING_INITED": "crwdns40959:0crwdne40959:0",
+      "HEADING_INVITED": "@:MODALS.TOPIC_MEMBERS_TAB_INVITED",
       "LNK_INVITE": "@:VIEWS.MY_GROUPS_GROUPID.LNK_INVITE",
       "LNK_PROFILE": "crwdns21180:0crwdne21180:0",
       "LBL_VIA": "crwdns21182:0crwdne21182:0",
