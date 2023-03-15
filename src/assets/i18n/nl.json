@@ -793,6 +793,7 @@
       "LBL_REMOVE_FROM_GROUP": "Verwijderen uit groep",
       "LBL_USERS_COUNT": "Members: {{count}}",
       "HEADING_USERS_LIST": "Members list ({{count}})",
+      "HEADING_INVITED": "@:MODALS.TOPIC_MEMBERS_TAB_INVITED",
       "LNK_PROFILE": "Profiel"
     },
     "MY_TOPICS_TOPICID": {
@@ -834,7 +835,7 @@
       "LBL_INACCESSIBLE_GROUP": "Ontoegankelijke groep",
       "LBL_USERS_COUNT": "@:VIEWS.MY_GROUPS_GROUPID.LBL_USERS_COUNT",
       "HEADING_USERS_LIST": "Gebruikerslijst",
-      "HEADING_INITED": "@:MODALS.TOPIC_MEMBERS_TAB_INVITED",
+      "HEADING_INVITED": "@:MODALS.TOPIC_MEMBERS_TAB_INVITED",
       "LNK_INVITE": "@:VIEWS.MY_GROUPS_GROUPID.LNK_INVITE",
       "LNK_PROFILE": "Profiel",
       "LBL_VIA": "via groep",
