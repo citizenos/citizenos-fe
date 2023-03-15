@@ -793,6 +793,7 @@
       "LBL_REMOVE_FROM_GROUP": "Dzēst no grupas",
       "LBL_USERS_COUNT": "Members: {{count}}",
       "HEADING_USERS_LIST": "Members list ({{count}})",
+      "HEADING_INVITED": "@:MODALS.TOPIC_MEMBERS_TAB_INVITED",
       "LNK_PROFILE": "Profils"
     },
     "MY_TOPICS_TOPICID": {
@@ -834,7 +835,7 @@
       "LBL_INACCESSIBLE_GROUP": "Nepieejama grupa",
       "LBL_USERS_COUNT": "@:VIEWS.MY_GROUPS_GROUPID.LBL_USERS_COUNT",
       "HEADING_USERS_LIST": "Lietotāju saraksts",
-      "HEADING_INITED": "@:MODALS.TOPIC_MEMBERS_TAB_INVITED",
+      "HEADING_INVITED": "@:MODALS.TOPIC_MEMBERS_TAB_INVITED",
       "LNK_INVITE": "@:VIEWS.MY_GROUPS_GROUPID.LNK_INVITE",
       "LNK_PROFILE": "Profils",
       "LBL_VIA": "caur grupu",

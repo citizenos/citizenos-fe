@@ -793,6 +793,7 @@
       "LBL_REMOVE_FROM_GROUP": "Eemalda grupist",
       "LBL_USERS_COUNT": "Liikmeid: {{count}}",
       "HEADING_USERS_LIST": "Kasutajate nimekiri ({{count}})",
+      "HEADING_INVITED": "@:MODALS.TOPIC_MEMBERS_TAB_INVITED",
       "LNK_PROFILE": "Kasutaja"
     },
     "MY_TOPICS_TOPICID": {
@@ -834,7 +835,7 @@
       "LBL_INACCESSIBLE_GROUP": "Juurdepääsuõiguseta grupp",
       "LBL_USERS_COUNT": "@:VIEWS.MY_GROUPS_GROUPID.LBL_USERS_COUNT",
       "HEADING_USERS_LIST": "Kasutajaid",
-      "HEADING_INITED": "@:MODALS.TOPIC_MEMBERS_TAB_INVITED",
+      "HEADING_INVITED": "@:MODALS.TOPIC_MEMBERS_TAB_INVITED",
       "LNK_INVITE": "@:VIEWS.MY_GROUPS_GROUPID.LNK_INVITE",
       "LNK_PROFILE": "Kasutaja",
       "LBL_VIA": "grupi kaudu:",

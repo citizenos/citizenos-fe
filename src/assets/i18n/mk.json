@@ -793,6 +793,7 @@
       "LBL_REMOVE_FROM_GROUP": "Отстрани од група",
       "LBL_USERS_COUNT": "Members: {{count}}",
       "HEADING_USERS_LIST": "Members list ({{count}})",
+      "HEADING_INVITED": "@:MODALS.TOPIC_MEMBERS_TAB_INVITED",
       "LNK_PROFILE": "Профил"
     },
     "MY_TOPICS_TOPICID": {
@@ -834,7 +835,7 @@
       "LBL_INACCESSIBLE_GROUP": "Непристапна група",
       "LBL_USERS_COUNT": "@:VIEWS.MY_GROUPS_GROUPID.LBL_USERS_COUNT",
       "HEADING_USERS_LIST": "Листа на косирници",
-      "HEADING_INITED": "@:MODALS.TOPIC_MEMBERS_TAB_INVITED",
+      "HEADING_INVITED": "@:MODALS.TOPIC_MEMBERS_TAB_INVITED",
       "LNK_INVITE": "@:VIEWS.MY_GROUPS_GROUPID.LNK_INVITE",
       "LNK_PROFILE": "Профил",
       "LBL_VIA": "преку група",
