@@ -7,7 +7,8 @@
       </div>
       <div class="table_cell">
         <div class="bold" translate="VIEWS.TOPICS_TOPICID.BAR_MILESTONES"
-          [translateParams]="{count: (status==STATUSES.voting ? 1 :  status==STATUSES.followUp ? 2: 0)}"></div>
+          [translateParams]="{count: (topic.status==STATUSES.voting ? 1 :  topic.status==STATUSES.followUp ? 2: 0)}">
+        </div>
       </div>
     </div>
 
@@ -18,24 +19,24 @@
     </div>
 
     <div *ngIf="isValidStatus(2)" class="progress_line bar_blue follow_up_line"
-      [ngClass]="{in_follow_up_line: STATUSES.followUp === status}">
+      [ngClass]="{in_follow_up_line: STATUSES.followUp === topic.status}">
     </div>
 
     <div *ngIf="isValidStatus(3)" class="progress_line voting_line bar_green"
-      [ngClass]="{in_voting_line: STATUSES.voting === status}">
+      [ngClass]="{in_voting_line: STATUSES.voting === topic.status}">
     </div>
 
     <div *ngIf="isValidStatus(4)" class="progress_line pin_yellow_background progress_status_line"
-      [ngClass]="{in_progress_line: STATUSES.inProgress === status}">
+      [ngClass]="{in_progress_line: STATUSES.inProgress === topic.status}">
     </div>
 
-    <div class="days_left_wrap" [ngClass]="{'pin_yellow_background days_left_in_progress': status === STATUSES.inProgress,
-              'bar_green days_left_voting': status === STATUSES.voting,
-              'bar_blue days_left_follow_up': status === STATUSES.followUp,
-              'timeline_gray_background days_left_closed': status === STATUSES.closed
+    <div class="days_left_wrap" [ngClass]="{'pin_yellow_background days_left_in_progress': topic.status === STATUSES.inProgress,
+              'bar_green days_left_voting': topic.status === STATUSES.voting,
+              'bar_blue days_left_follow_up': topic.status === STATUSES.followUp,
+              'timeline_gray_background days_left_closed': topic.status === STATUSES.closed
            }">
       <div class="table_cell">
-        {{'TXT_TOPIC_STATUS_' + status | uppercase | translate}}
+        {{'TXT_TOPIC_STATUS_' + topic.status | uppercase | translate}}
       </div>
     </div>
 
@@ -70,9 +71,9 @@
 
   </div>
 
-  <div class="additional_info signing_deadline" *ngIf="voteEndsAt">
-    <span translate="VIEWS.TOPICS_TOPICID.BAR_SIGNING_DEADLINE"></span> <span class="bold">{{voteEndsAt | date:'L LT
-      Z'}}</span>
+  <div class="additional_info signing_deadline" *ngIf="topic.vote?.endsAt">
+    <span translate="VIEWS.TOPICS_TOPICID.BAR_SIGNING_DEADLINE"></span> <span class="bold">{{topic.vote?.endsAt |
+      date:'L LT Z'}}</span>
   </div>
 
 </div>
