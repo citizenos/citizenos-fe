@@ -61,9 +61,9 @@
                         <div class="toggle_box_title" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_SET_TIME"></div>
                         <div class="input_row">
                           <input name="hours" class="time_input" [(ngModel)]="endsAt.h"
-                            (change)="formatTime(endsAt.h); setEndsAtTime()" type="number" min="0" max="{{HCount}}"
+                            (change)="formatTime(endsAt.h); setEndsAtTime()" type="number" [min]="minHours()" max="{{HCount}}"
                             step="1" /><span class="time_separator">:</span>
-                            <input name="minutes" type="number" class="time_input" min="0" max="60" step="5" [(ngModel)]="endsAt.min"
+                            <input name="minutes" type="number" class="time_input" [min]="minMinutes()" max="60" step="5" [(ngModel)]="endsAt.min"
                             (change)="formatTime(endsAt.min);setEndsAtTime()" />
 
                           <div [cosDropdown] class="classic_dropdown">

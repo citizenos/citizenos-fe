@@ -51,7 +51,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 
 
           try {
-            this.errorsToKeys(response, request.method);
+            const keys = this.errorsToKeys(response, request.method);
           } catch (err) {
             // Catch all so that promise get rejected later with response to continue interceptor chain
          //   this.Notification.addError(err);
@@ -74,7 +74,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
       throw new Error(`cosHttpApiErrorInterceptor.errorsToKeys(), Missing one or more required parameters, ${arguments}`);
     }
 
-    if (errorResponse.data && errorResponse.data.errors) {
+    if (errorResponse.error && errorResponse.error.errors) {
       return this.fieldErrorsToKeys(errorResponse, method);
     } else {
       return this.generalErrorToKey(errorResponse, method);
@@ -106,8 +106,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   };
 
   fieldErrorsToKeys(errorResponse: any | undefined, method: string) {
-    var errors = errorResponse.data.errors;
-
+    const errors = errorResponse.error.errors;
     Object.keys(errors).forEach((key) => {
       var translationKey = this.getGeneralErrorTranslationKey(errorResponse, method);
       translationKey += '_' + key.toUpperCase();
@@ -118,6 +117,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         errors[key] = errors[key] + ' *'; // Add asterisk to the end so its easy to see that untranslated message was shown
       }
     });
+    console.log(errors);
+    return errors;
   };
 
   generalErrorToKey(errorResponse: any | null | undefined, method: string) {

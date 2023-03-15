@@ -176,28 +176,50 @@ export class TopicVoteCreateComponent implements OnInit {
     return this.deadline;
   }
 
+  toggleDeadline () {
+    if (!this.deadline) {
+      this.endsAt.h = new Date().getUTCHours();
+      this.endsAt.min = Math.ceil(new Date().getUTCMinutes() / 5) * 5;
+      this.setEndsAtTime();
+    } else {
+      this.deadline = null;
+    }
+  }
+
+  minHours () {
+    if (new Date(this.endsAt.date).getDate() === (new Date()).getDate()) {
+      return new Date().getUTCHours();
+    }
+    return 0;
+  };
+  minMinutes () {
+    if (new Date(this.endsAt.date).getDate() === (new Date()).getDate()) {
+      return Math.ceil(new Date().getUTCMinutes() / 5) * 5;
+    }
+
+    return 0
+  };
   setEndsAtTime() {
     this.endsAt.date = this.endsAt.date || new Date();
     this.deadline = new Date(this.endsAt.date);
+    if (this.endsAt.h === 0 && this.endsAt.min === 0) {
+      this.deadline = new Date(this.deadline.setDate(this.deadline.getDate() + 1));
+    }
+
     let hour = this.endsAt.h;
     if (this.endsAt.timeFormat === 'PM') { hour += 12; }
-    this.deadline.setUTCHours(hour - this.endsAt.timezone);
+    this.deadline.setHours(hour - this.endsAt.timezone);
     this.deadline.setMinutes(this.endsAt.min);
     this.daysToVoteEnd();
   };
 
   daysToVoteEnd() {
     if (this.deadline) {
-      if (this.deadline.toDateString() === new Date().toDateString()) {
-        this.deadline = new Date()//moment(new Date()).startOf('day').add(1, 'day');
-        this.deadline = this.deadline.setDate(this.deadline.getDate() + 1);
-        this.endsAt.date = this.deadline;
-      }
       this.numberOfDaysLeft = Math.ceil((new Date(this.deadline).getTime() - new Date().getTime()) / (1000 * 3600 * 24));
     }
     return this.numberOfDaysLeft;
   };
-
+  //To display hours in the dropdown like 01
   formatTime(val: number | string) {
     if (val < 10) {
       val = '0' + val;
@@ -306,6 +328,10 @@ export class TopicVoteCreateComponent implements OnInit {
         error: (res) => {
           console.debug('createVote() ERR', res, res.errors, this.vote.options);
           this.errors = res.errors;
+          Object.values(this.errors).forEach((message) => {
+            if (typeof message === 'string')
+              this.Notification.addError(message);
+          });
         }
       });
   };
