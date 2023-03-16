@@ -108,7 +108,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   fieldErrorsToKeys(errorResponse: any | undefined, method: string) {
     const errors = errorResponse.error.errors;
     Object.keys(errors).forEach((key) => {
-      var translationKey = this.getGeneralErrorTranslationKey(errorResponse, method);
+      let translationKey = this.getGeneralErrorTranslationKey(errorResponse, method);
       translationKey += '_' + key.toUpperCase();
 
       if (translationKey !== this.translate.instant(translationKey, {})) {

@@ -66,8 +66,7 @@ export class GroupMemberTopicComponent implements OnInit {
             topicId: this.topic.id,
             groupId: this.group?.id
           }).pipe(take(1)).subscribe({
-            next: (res) => {
-              console.log(res);
+            next: () => {
               this.GroupMemberTopic.reset();
             },
             error: (err) => {

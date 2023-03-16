@@ -122,7 +122,7 @@ export class MarkdownDirective implements OnDestroy {
       if (newVal) {
         easymde.codemirror.setOption('maxLength', newVal);
         if (easymde.gui.statusbar) {
-          var statusBarElement = easymde.gui.statusbar.getElementsByClassName(CHAR_COUNTER_ELEMENT_CLASS_NAME)[0];
+          const statusBarElement = easymde.gui.statusbar.getElementsByClassName(CHAR_COUNTER_ELEMENT_CLASS_NAME)[0];
           if (statusBarElement) {
             updateCharacterCount(statusBarElement);
           }

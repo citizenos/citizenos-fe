@@ -31,7 +31,6 @@ export class PasswordResetComponent implements OnInit {
   }
 
   doPasswordReset() {
-    console.log(this.resetForm.value)
     const formValue = this.resetForm.value;
     this.errors = null;
 

@@ -50,7 +50,6 @@ export class NavMobileComponent implements OnInit {
   }
 
   includedByState(path: string) {
-    console.log('includes', this.router.url.includes(path))
     return this.router.url.includes(path);
   }
 }

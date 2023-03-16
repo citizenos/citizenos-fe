@@ -114,11 +114,6 @@
             </div>
             <div class="settings_cell">
               <span class="item_link blue_link" translate="MODALS.TOPIC_SETTINGS_BTN_EDIT_DEADLINE" (click)="openSetDeadline()"></span>
-              <!--modal-datepicker name="datepicker" [cosModalLinkText]="'MODALS.TOPIC_SETTINGS_BTN_EDIT_DEADLINE' | translate"
-              [cosModalTitle]="'MODALS.TOPIC_SETTINGS_MODAL_DEADLINE_TITLE' | translate"
-              [date]="topic.vote?.endsAt" (cosModalOnSave)="doEditVoteDeadline($event)"
-              [cosModalDescription]="'MODALS.TOPIC_SETTINGS_MODAL_DEADLINE_DESCRIPTION' | translate"
-              ><span translate="MODALS.TOPIC_SETTINGS_BTN_EDIT_DEADLINE"></span></!--modal-datepicker-->
             </div>
           </div>
           <div class="line lightest_line" *ngIf="canEdit()"></div>

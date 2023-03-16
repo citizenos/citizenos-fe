@@ -36,9 +36,6 @@ export class ArgumentEditComponent implements OnInit {
     document.execCommand('copy');
     document.body.removeChild(selBox);
 
-    var X = event.pageX;
-    var Y = event.pageY;
-
-    this.Notification.inline(this.Translate.instant('VIEWS.TOPICS_TOPICID.ARGUMENT_LNK_COPIED'), X, Y - 35);
+    this.Notification.inline(this.Translate.instant('VIEWS.TOPICS_TOPICID.ARGUMENT_LNK_COPIED'), event.pageX, event.pageY - 35);
   };
 }

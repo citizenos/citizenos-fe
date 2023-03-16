@@ -77,7 +77,6 @@ export class SearchComponent implements OnInit {
   };
 
   goToView(item: any, context?: any) {
-    console.log(item, context)
     if (item) {
       this.app.showSearchResults = false;
       if (item.id === 'viewMore') {

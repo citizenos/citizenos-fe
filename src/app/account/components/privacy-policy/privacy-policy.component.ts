@@ -21,16 +21,15 @@ export class PrivacyPolicyComponent implements OnInit {
   config: any;
   user!: User;
   constructor(
-    @Inject(MAT_DIALOG_DATA) private data: PrivacyPolicyData,
+    @Inject(MAT_DIALOG_DATA) data: PrivacyPolicyData,
     private dialog: MatDialog,
-    private ConfigService: ConfigService,
+    ConfigService: ConfigService,
     private AuthService: AuthService,
     private UserService: UserService,
     private router: Router
   ) {
     this.config = ConfigService.get('legal');
     this.user = data.user;
-    console.log(this.router)
   }
 
   ngOnInit(): void {
