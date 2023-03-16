@@ -16,8 +16,8 @@ export class BigGraphComponent implements OnInit {
     let voteCountTotal = 0;
     if (this.options) {
       const options = this.options.rows;
-      for (var i in options) {
-        var voteCount = options[i].voteCount;
+      for (let i in options) {
+        const voteCount = options[i].voteCount;
         if (voteCount) {
           voteCountTotal += voteCount;
         }

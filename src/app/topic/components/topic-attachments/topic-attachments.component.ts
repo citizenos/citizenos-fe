@@ -121,7 +121,7 @@ export class TopicAttachmentsComponent implements OnInit {
           },
           error: (res) => {
             if (res.errors) {
-              var keys = Object.keys(res.errors);
+              const keys = Object.keys(res.errors);
               keys.forEach((key) => {
                 this.Notification.addError(res.errors[key]);
               });

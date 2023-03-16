@@ -75,12 +75,15 @@ export class TopicVoteService {
 
   cast(data: any) {
     if (!data.voteId) data.voteId = data.id;
-    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/votes/:voteId'), data)
-    console.log(path, data)
-    return this.http.post<ApiResponse>(path, data, { withCredentials: true, observe: 'body', responseType: 'json' })
+    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/votes/:voteId'), data);
+
+    return this.http.post<any>(path, data, { withCredentials: true, observe: 'response', responseType: 'json' })
       .pipe(
-        tap((res) => console.log(res)),
-        map((res) => {return res.data;})
+        tap((res) => {
+          if (res.status === 205) {
+            window.location.reload();
+          }
+        })
       );
   }
 
@@ -105,7 +108,7 @@ export class TopicVoteService {
     let voteCountTotal = 0;
     if (vote.options) {
       const options = vote.options.rows;
-      for (var i in options) {
+      for (let i in options) {
         const voteCount = options[i].voteCount;
         if (voteCount) {
           voteCountTotal += voteCount;

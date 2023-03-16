@@ -60,7 +60,6 @@ export class GroupCreateComponent implements OnInit {
     this.GroupService.save(this.group).pipe(take(1))
       .subscribe({
         next: (group) => {
-          console.log('GROUP', group)
           this.group = group;
           if (this.imageFile) {
             this.GroupService

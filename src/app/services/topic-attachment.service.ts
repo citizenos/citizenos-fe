@@ -8,10 +8,10 @@ import { ItemsListService } from './items-list.service';
 import { Attachment } from '../interfaces/attachment';
 import { ConfigService } from './config.service';
 
-declare var google: any;
-declare var gapi: any;
-declare var Dropbox: any;
-declare var OneDrive: any;
+declare let google: any;
+declare let gapi: any;
+declare let Dropbox: any;
+declare let OneDrive: any;
 @Injectable({
   providedIn: 'root'
 })
@@ -178,7 +178,6 @@ export class TopicAttachmentService extends ItemsListService {
   /* ONEDRIVE */
 
   oneDriveSelect() {
-    console.log(this.Location.getAbsoluteUrl('/onedrive'));
     return new Promise((resolve, reject) => {
       OneDrive.open({
         clientId: this.config.get('attachments').oneDrive.clientId,
