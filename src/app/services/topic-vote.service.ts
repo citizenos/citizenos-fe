@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { LocationService } from './location.service';
-import { Observable, switchMap, map, of, take } from 'rxjs';
+import { Observable, switchMap, map, of, tap, take } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic'; // Vote interface
 import { Vote } from 'src/app/interfaces/vote'; // Vote interface
 import { AuthService } from './auth.service';
@@ -76,9 +76,10 @@ export class TopicVoteService {
   cast(data: any) {
     if (!data.voteId) data.voteId = data.id;
     let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/votes/:voteId'), data)
-
+    console.log(path, data)
     return this.http.post<ApiResponse>(path, data, { withCredentials: true, observe: 'body', responseType: 'json' })
       .pipe(
+        tap((res) => console.log(res)),
         map((res) => {return res.data;})
       );
   }

@@ -1528,11 +1528,15 @@ a:visited {
       margin: 12px 0;
       border-collapse: collapse;
 
+      tr {
+        height: initial;
+      }
       th {
         font-weight: vars.$bold;
         opacity: 0.7;
         padding-bottom: 7px;
         text-align: center;
+        border: none;
       }
 
       td {
@@ -2227,12 +2231,10 @@ a:visited {
 
     .date_picker_wrap {
       background-color: vars.$white;
-      border: solid 1px vars.$lightest_gray;
       border-radius: 4px;
       width: 400px;
       margin-right: auto;
       margin-left: auto;
-      padding-bottom: 15px;
     }
 
     .bubble_section_table {

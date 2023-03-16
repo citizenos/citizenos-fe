@@ -8,7 +8,7 @@ export interface Group {
   updatedAt: string,
   sourcePartnerId:	string | null,
   sourcePartnerObjectId:	string | null,
-  permission: {level: string},
+  permission?: {level: string},
   creator: any,
   lastActivity: string | null,
   members: any,
