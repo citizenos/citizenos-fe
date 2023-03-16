@@ -73,7 +73,7 @@
 
   <div class="additional_info signing_deadline" *ngIf="topic.vote?.endsAt">
     <span translate="VIEWS.TOPICS_TOPICID.BAR_SIGNING_DEADLINE"></span> <span class="bold">{{topic.vote?.endsAt |
-      date:'L LT Z'}}</span>
+      amDateFormat:'L LT Z'}}</span>
   </div>
 
 </div>
