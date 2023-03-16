@@ -10,6 +10,7 @@ import { TopicMemberGroupService } from 'src/app/services/topic-member-group.ser
 import { TopicMemberUserService } from 'src/app/services/topic-member-user.service';
 import { take, switchMap } from 'rxjs';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ModalDatepickerComponent } from 'src/app/shared/components/modal-datepicker/modal-datepicker.component';
 export interface TopicSettingsData {
   topic: Topic
 };
@@ -168,6 +169,23 @@ export class TopicSettingsComponent implements OnInit {
 
     }
   };
+
+  openSetDeadline() {
+    if (this.topic.vote) {
+      const deadlineDialog = this.dialog.open(ModalDatepickerComponent, {
+        data: {
+          date: this.topic.vote.endsAt,
+          topic: this.topic
+        }
+      });
+
+      deadlineDialog.afterClosed().subscribe((vote) => {
+        if (vote) {
+          this.topic.vote = vote;
+        }
+      })
+    }
+  }
 
   doEditVoteDeadline(deadline?: any) {
     const vote: any = { topicId: this.topic.id, voteId: this.topic.voteId };

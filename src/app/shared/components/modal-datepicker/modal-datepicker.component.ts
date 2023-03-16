@@ -1,16 +1,21 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { take } from 'rxjs';
+import { TopicVoteService } from 'src/app/services/topic-vote.service';
+import { Topic } from 'src/app/interfaces/topic';
 
+export interface DatepickerModalData {
+  date: any,
+  topic: Topic
+}
 @Component({
   selector: 'modal-datepicker',
   templateUrl: './modal-datepicker.component.html',
   styleUrls: ['./modal-datepicker.component.scss']
 })
 export class ModalDatepickerComponent implements OnInit {
-  @Input() cosModalTitle?: string;
-  @Input() cosModalDescription?: string;
-  @Input() cosModalLinkText?: string;
-  @Input() date!: any;
-  @Output() cosModalOnSave = new EventEmitter<any | null>();
+  date!: any;
+  topic!: Topic;
   endsAt = {
     date: <any>null,
     min: 0,
@@ -51,18 +56,15 @@ export class ModalDatepickerComponent implements OnInit {
   isModalVisible = false;
   deadline: Date = new Date(this.date) || new Date();
   numberOfDaysLeft = 0;
-  HCount = <any>24;
+  HCount = <any>23;
   cosModalIsDateSelected = false;
   datePickerMin = new Date();
-  /*
-        private date;
-        private model;
-        private cosModalOnSave; // Expects a function that returns a Promise
-        private timezones;
-        private HCount;*/
-  /*date: '=?',
-  cosModalOnSave: '&', // Expects a function that returns a Promise*/
-  constructor() { }
+
+  constructor(private dialog: MatDialogRef<ModalDatepickerComponent>, @Inject(MAT_DIALOG_DATA) data: DatepickerModalData, private TopicVoteService:TopicVoteService) {
+    this.date = data.date;
+    this.topic = data.topic;
+    this.setFormValues();
+  }
 
   ngOnInit(): void {
     this.setFormValues();
@@ -70,17 +72,6 @@ export class ModalDatepickerComponent implements OnInit {
 
   getTimeZoneName(value: number) {
     return (this.timezones.find((item) => { return item.value === value })).name;
-  };
-
-  cosModalOpen(date?: any) {
-    this.isModalVisible = true;
-    if (date) {
-      this.setFormValues();
-    }
-  };
-
-  cosModalClose() {
-    this.isModalVisible = false;
   };
 
   formatTime(val: number | string) {
@@ -91,10 +82,12 @@ export class ModalDatepickerComponent implements OnInit {
 
   minHours() {
     if (new Date(this.endsAt.date).getDate() === (new Date()).getDate()) {
-      return new Date().getUTCHours();
+      const h = new Date().getHours() + (this.timezone - (new Date(this.deadline).getTimezoneOffset() / -60));
+      return h;
     }
-    return 0;
+    return 1;
   };
+
   minMinutes() {
     if (new Date(this.endsAt.date).getDate() === (new Date()).getDate()) {
       return Math.ceil(new Date().getUTCMinutes() / 5) * 5;
@@ -112,7 +105,6 @@ export class ModalDatepickerComponent implements OnInit {
     this.cosModalIsDateSelected = true;
   };
 
-
   setEndsAtTime() {
     this.endsAt.date = this.endsAt.date || new Date();
     this.deadline = new Date(this.endsAt.date);
@@ -122,15 +114,15 @@ export class ModalDatepickerComponent implements OnInit {
 
     let hour = this.endsAt.h;
     if (this.timeFormat === 'PM') { hour += 12; }
-    this.deadline.setUTCHours(hour - this.timezone);
-    this.deadline.setUTCMinutes(this.endsAt.min);
+    this.deadline.setHours(hour - (this.timezone - (new Date(this.deadline).getTimezoneOffset() / -60)));
+    this.deadline.setMinutes(this.endsAt.min);
     this.daysToVoteEnd();
   };
 
   setTimeFormat() {
-    this.HCount = 24;
+    this.HCount = 23;
     if (this.timeFormat !== 24) {
-      this.HCount = 12;
+      this.HCount = 11;
       if (this.endsAt.h > 12) {
         this.endsAt.h -= 12;
       }
@@ -141,9 +133,26 @@ export class ModalDatepickerComponent implements OnInit {
   cosModalSaveAction() {
     // The 'add' and 'subtract' - because the picked date is inclusive
     this.date = this.cosModalIsDateSelected ? this.deadline : null;
-    this.cosModalClose();
-    this.cosModalOnSave.emit(this.date)
-    this.cosModalClose();
+    const vote: any = { topicId: this.topic.id, voteId: this.topic.voteId };
+    if (this.date) {
+      vote.endsAt = this.date;
+    }
+
+    return this.TopicVoteService
+      .update(vote)
+      .pipe(take(1))
+      .subscribe({
+        next: (voteValue) => {
+          if (this.topic.vote) {
+            this.topic.vote.endsAt = voteValue.endsAt;
+          }
+
+          this.dialog.close(voteValue);
+        },
+        error: (err) => {
+          console.error(err);
+        }
+      });
   };
 
   daysToVoteEnd() {

@@ -233,9 +233,10 @@
                 <div class="picker_deadline_date">
                   {{getDeadline() | amDateFormat:'L LT Z'}}
                 </div>
-                <div class="picker_days_left" translate="VIEWS.TOPICS_TOPICID.VOTE_TXT_DEADLINE_CALENDAR_DAYS_LEFT"
+                <!--div class="picker_days_left" translate="VIEWS.TOPICS_TOPICID.VOTE_TXT_DEADLINE_CALENDAR_DAYS_LEFT"
                   [translateParams]="{numberOfDaysLeft: numberOfDaysLeft}">
-                </div>
+                </!--div-->
+                <div class="picker_days_left">{{deadline | amTimeAgo}}</div>
                 <div class="clearer"></div>
               </div>
             </div>
@@ -246,7 +247,7 @@
                   <div class="input_row">
                     <input class="time_input" [(ngModel)]="endsAt.h" (change)="formatTime(endsAt.h); setEndsAtTime()"
                       type="number" [min]="minHours()" max="{{HCount}}" step="1" /><span class="time_separator">:</span><input
-                      type="number" class="time_input" [min]="minMinutes()" max="60" step="5" [(ngModel)]="endsAt.min"
+                      type="number" class="time_input" [min]="minMinutes()" max="59" step="5" [(ngModel)]="endsAt.min"
                       (change)="formatTime(endsAt.min);setEndsAtTime()" />
 
                     <div [cosDropdown] class="classic_dropdown">

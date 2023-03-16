@@ -15,8 +15,7 @@ export class TopicVoteCreateComponent implements OnInit {
   VOTE_TYPES = this.TopicVoteService.VOTE_TYPES;
   voteTypes = Object.keys(this.VOTE_TYPES);
   VOTE_AUTH_TYPES = this.TopicVoteService.VOTE_AUTH_TYPES;
-  HCount = 24;
-  timeFormat: any;
+  HCount = 23;
   timezones = <any[]>[];
   datePickerMin = new Date();
   private CONF = {
@@ -178,8 +177,9 @@ export class TopicVoteCreateComponent implements OnInit {
 
   toggleDeadline () {
     if (!this.deadline) {
-      this.endsAt.h = new Date().getUTCHours();
-      this.endsAt.min = Math.ceil(new Date().getUTCMinutes() / 5) * 5;
+      console.log(new Date().getHours(), new Date().getUTCHours())
+      this.endsAt.h = new Date().getHours();
+      this.endsAt.min = Math.ceil(new Date().getMinutes() / 5) * 5;
       this.setEndsAtTime();
     } else {
       this.deadline = null;
@@ -188,13 +188,15 @@ export class TopicVoteCreateComponent implements OnInit {
 
   minHours () {
     if (new Date(this.endsAt.date).getDate() === (new Date()).getDate()) {
-      return new Date().getUTCHours();
+      const h = new Date().getHours() + (this.endsAt.timezone - (this.deadline.getTimezoneOffset() / -60));
+      return h;
     }
-    return 0;
+    return 1;
   };
+
   minMinutes () {
     if (new Date(this.endsAt.date).getDate() === (new Date()).getDate()) {
-      return Math.ceil(new Date().getUTCMinutes() / 5) * 5;
+      return Math.ceil(new Date().getMinutes() / 5) * 5;
     }
 
     return 0
@@ -208,7 +210,7 @@ export class TopicVoteCreateComponent implements OnInit {
 
     let hour = this.endsAt.h;
     if (this.endsAt.timeFormat === 'PM') { hour += 12; }
-    this.deadline.setHours(hour - this.endsAt.timezone);
+    this.deadline.setHours(hour - (this.endsAt.timezone - (this.deadline.getTimezoneOffset() / -60)));
     this.deadline.setMinutes(this.endsAt.min);
     this.daysToVoteEnd();
   };
@@ -229,8 +231,8 @@ export class TopicVoteCreateComponent implements OnInit {
   };
 
   setTimeFormat() {
-    this.HCount = 24;
-    if (this.timeFormat !== 24) {
+    this.HCount = 23;
+    if (this.endsAt.timeFormat !== 24) {
       this.HCount = 12;
       if (this.endsAt.h > 12) {
         this.endsAt.h -= 12;
