@@ -27,6 +27,7 @@ export class AppComponent {
     this.router.events.pipe(takeUntil(this.destroy$)).subscribe
       ((event: Event) => {
         if (event && event instanceof NavigationStart) {
+          app.showNav = false;
           const parsedUrl = router.parseUrl(event.url);
           const outlet = parsedUrl.root.children[PRIMARY_OUTLET];
 

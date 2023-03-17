@@ -40,39 +40,40 @@
   display: block;
   right: 0;
   position: absolute;
+  height: 60px;
+  width: max-content;
+}
+
+.line_holder {
+  height: 30px;
+  text-align: center;
+  vertical-align: middle;
+  position: relative;
+  display: inline-block;
+
+  .v_line {
+    height: 30px;
+    width: 1px;
+    float: left;
+  }
 }
 
 .header_button {
-  height: 60px;
+  height: 100%;
   position: relative;
+  text-align: center;
   color: vars.$white;
   font-weight: bold;
   font-size: 14px;
-  display: inline-block;
+  display: inline-table;
   vertical-align: middle;
   cursor: pointer;
+  padding: 0 10px;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0.45);
 
-  .header_button_content{
-    height: 60px;
-  }
-  .line_holder,
-  .header_button_icon,
-  .header_button_text {
-    text-align: center;
-    vertical-align: middle;
-    position: relative;
-    display: inline-block;
-    margin-left: 20px;
-    top: 15px;
-  }
-
-  .line_holder {
-    height: 30px;
-    display: inline-block;
-  }
   @include mixins_n_extends.mobile {
-    width: 53px;
+    min-width: 53px;
+    width: auto;
     .header_button_icon {
       .sprite {
         display: inline-block;
@@ -81,34 +82,37 @@
         transform: translateY(-65%);
       }
     }
-
-    .header_button_text:first-child {
-      display: inline-block;
+    .header_button_content {
+      display: table-cell;
+      vertical-align: middle;
+      height: 60px;
     }
+
     .header_button_text {
       display: none;
+      margin: 0 20px;
     }
     .first_holder {
       width: 2px;
     }
+
+    &:last-child {
+      .header_button_text {
+        display: inline-block;
+      }
+    }
   }
 
   .header_button_icon {
-    width: 34px;
+    width: auto;
   }
 
   .sprite {
     display: inline-block;
     vertical-align: middle;
-    top: 15px;
     position: relative;
   }
 
-  .v_line {
-    height: 30px;
-    width: 1px;
-    float: left;
-  }
 }
 
 /* SEARCH BAR (search area styles in content.scss) */
