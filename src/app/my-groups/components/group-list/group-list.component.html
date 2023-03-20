@@ -1,7 +1,7 @@
 
 
 <!-- LEFT SIDE -->
-<div class="topics_left" [ngClass]="{hidden: (wWidth <= 750)}">
+<div class="topics_left" [ngClass]="{hidden: menuHidden()}">
 
   <!-- Groups -->
   <group-list-item [group]="group" *ngFor="let group of groups$ | async"></group-list-item>
