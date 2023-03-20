@@ -14,7 +14,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class NavMobileComponent implements OnInit {
 
   constructor(private translate: TranslateService, public app: AppService, private Auth: AuthService, private TopicService: TopicService, private router: Router, private route: ActivatedRoute) {
-    console.log(translate)
+    console.log(app.topic)
   }
 
   canEdit(topic: Topic) {
@@ -24,7 +24,7 @@ export class NavMobileComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  loggedIn () {
+  loggedIn() {
     return this.Auth.loggedIn$;
   }
 
@@ -35,12 +35,19 @@ export class NavMobileComponent implements OnInit {
     } else {
       params['editMode'] = true;
     }
-
-    this.router.navigate([], {queryParams: params});
+    console.log('PARAMS', params)
+    this.router.navigate(['topics', this.app.topic?.id], { queryParams: params });
   }
 
   back() {
-    this.router.navigate(['../'], {relativeTo: this.route});
+    const parsedUrl = this.router.parseUrl(this.router.url);
+    const outlet = parsedUrl.root.children[PRIMARY_OUTLET];
+    const g = outlet?.segments.map(seg => seg.path) || [''];
+    if (g.length === 4 && g[1] === 'my') { //hackish because level up navigation doesn't work for my/topics/:topicId
+      this.router.navigate(['../my', g[2]], { relativeTo: this.route });
+    } else {
+      this.router.navigate(['../'], { relativeTo: this.route });
+    }
   }
 
   showBack() {
@@ -51,6 +58,13 @@ export class NavMobileComponent implements OnInit {
   }
 
   includedByState(path: string) {
-    return this.router.url.includes(this.translate.currentLang + path);
+    const parsedUrl = this.router.parseUrl(this.router.url);
+    const outlet = parsedUrl.root.children[PRIMARY_OUTLET];
+    const g = outlet?.segments.map(seg => seg.path) || [''];
+    const item =  g.find((frag) => {
+      return frag === path;
+    });
+
+    return item === path;
   }
 }

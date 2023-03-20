@@ -1,5 +1,5 @@
 <!-- LEFT SIDE -->
-<div class="topics_left" [ngClass]="{hidden: (wWidth <= 750)}">
+<div class="topics_left" [ngClass]="{hidden: menuHidden()}">
 
   <div *ngIf="filters" [cosDropdown] class="classic_dropdown">
 

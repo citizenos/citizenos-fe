@@ -59,6 +59,8 @@
 }
 
 .header_button {
+  min-width: 53px;
+  width: auto;
   height: 100%;
   position: relative;
   text-align: center;
@@ -68,29 +70,33 @@
   display: inline-table;
   vertical-align: middle;
   cursor: pointer;
-  padding: 0 10px;
+  padding: 0;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0.45);
 
-  @include mixins_n_extends.mobile {
-    min-width: 53px;
-    width: auto;
-    .header_button_icon {
-      .sprite {
-        display: inline-block;
-        margin: 0 auto;
-        top: 45%;
-        transform: translateY(-65%);
-      }
-    }
-    .header_button_content {
-      display: table-cell;
-      vertical-align: middle;
-      height: 60px;
-    }
+  .header_button_text {
+    display: inline-block;
+    margin-left:20px;
+    vertical-align: middle;
+  }
 
+  .header_button_content {
+    display: table-cell;
+    vertical-align: middle;
+    height: 60px;
+    padding: 0 20px;
+  }
+
+  .header_button_icon {
+    .sprite {
+      display: inline-block;
+      margin: 0 auto;
+      top: 45%;
+      transform: translateY(-65%);
+    }
+  }
+  @include mixins_n_extends.mobile {
     .header_button_text {
       display: none;
-      margin: 0 20px;
     }
     .first_holder {
       width: 2px;
