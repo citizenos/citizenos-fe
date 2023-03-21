@@ -2,7 +2,7 @@ import { ConfigService } from 'src/app/services/config.service';
 import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { of, BehaviorSubject, Observable, forkJoin } from 'rxjs';
+import { of, BehaviorSubject, Observable, combineLatestWith } from 'rxjs';
 import { switchMap, catchError, tap, take, map } from 'rxjs/operators';
 import { LocationService } from './location.service';
 import { NotificationService } from './notification.service';
@@ -66,20 +66,20 @@ export class AuthService {
   logout() {
     const pathLogoutEtherpad = this.Location.getAbsoluteUrlEtherpad('/ep_auth_citizenos/logout');
     const pathLogoutAPI = this.Location.getAbsoluteUrlApi('/api/auth/logout');
-    return forkJoin([
-      this.http.get(pathLogoutEtherpad, { withCredentials: true, responseType: 'json', observe: 'body' }),
-      this.http.post(pathLogoutAPI, {}, { withCredentials: true })]).pipe(
-        switchMap((res) => {
-          this.user$ = null;
-          this.loggedIn$.next(false);
-          return res;
-        }),
-        catchError((err) => {
-          this.user$ = null;
-          this.loggedIn$.next(false);
-          console.log(err); return err;
-        })
-      );
+    return this.http.get(pathLogoutEtherpad, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
+      combineLatestWith(this.http.post(pathLogoutAPI, {}, { withCredentials: true })),
+      switchMap((res) => {
+        console.log('RES', res)
+        this.user$ = null;
+        this.loggedIn$.next(false);
+        return res;
+      }),
+      catchError((err) => {
+        this.user$ = null;
+        this.loggedIn$.next(false);
+        console.log(err); return err;
+      })
+    );
   }
 
   status() {
