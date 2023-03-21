@@ -22,7 +22,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           }
         }),
         catchError((response: HttpErrorResponse) => {
-          console.log('RESPONSE', response);
           this.Notification.removeAll();
           let errorMsg = '';
           if (!response.error || response.error instanceof ErrorEvent) {
@@ -118,7 +117,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         errors[key] = errors[key] + ' *'; // Add asterisk to the end so its easy to see that untranslated message was shown
       }
     });
-    console.log(errors);
+
     return errors;
   };
 
