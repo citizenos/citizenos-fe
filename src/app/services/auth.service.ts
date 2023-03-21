@@ -67,15 +67,14 @@ export class AuthService {
     const pathLogoutEtherpad = this.Location.getAbsoluteUrlEtherpad('/ep_auth_citizenos/logout');
     const pathLogoutAPI = this.Location.getAbsoluteUrlApi('/api/auth/logout');
     return forkJoin([
-      this.http.get(pathLogoutEtherpad, { withCredentials: true, responseType: 'text' }),
+      this.http.get(pathLogoutEtherpad, { withCredentials: true, responseType: 'json', observe: 'body' }),
       this.http.post(pathLogoutAPI, {}, { withCredentials: true })]).pipe(
-        switchMap(([res]) => {
+        switchMap((res) => {
           this.user$ = null;
           this.loggedIn$.next(false);
           return res;
         }),
         catchError((err) => {
-          console.error('CAUGHT ERROR', err);
           this.user$ = null;
           this.loggedIn$.next(false);
           console.log(err); return err;
@@ -158,7 +157,6 @@ export class AuthService {
     return this.idCardInit()
       .pipe(
         switchMap((response) => {
-          console.log('response', response)
           if (response.token) {
             const path = this.Location.getAbsoluteUrlApi('/api/auth/id');
             if (userId) {
