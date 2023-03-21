@@ -56,7 +56,14 @@ export class NavComponent implements OnInit {
   doLogout() {
     this.auth.logout()
     .pipe(take(1))
-    .subscribe();
+    .subscribe({
+      next: (done) => {
+        console.log('SUCCESS', done);
+      },
+      error: (err) => {
+        console.log('ERROR', err);
+      }
+    });
   }
   toggleHelp() {
     const curStatus = this.app.showHelp.getValue();

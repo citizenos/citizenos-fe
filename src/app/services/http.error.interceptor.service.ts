@@ -22,6 +22,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           }
         }),
         catchError((response: HttpErrorResponse) => {
+          console.log('RESPONSE', response);
           this.Notification.removeAll();
           let errorMsg = '';
           if (!response.error || response.error instanceof ErrorEvent) {

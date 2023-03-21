@@ -75,6 +75,9 @@ export class AuthService {
           return res;
         }),
         catchError((err) => {
+          console.error('CAUGHT ERROR', err);
+          this.user$ = null;
+          this.loggedIn$.next(false);
           console.log(err); return err;
         })
       );
