@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Topic } from 'src/app/interfaces/topic';
+import { TopicService } from 'src/app/services/topic.service';
 import { TopicVoteService } from 'src/app/services/topic-vote.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -90,6 +91,7 @@ export class TopicVoteCreateComponent implements OnInit {
   reminderOptions = [{ value: 1, unit: 'days' }, { value: 2, unit: 'days' }, { value: 3, unit: 'days' }, { value: 1, unit: 'weeks' }, { value: 2, unit: 'weeks' }, { value: 1, unit: 'month' }];
 
   constructor(
+    private TopicService: TopicService,
     private TopicVoteService: TopicVoteService,
     private Translate: TranslateService,
     private Notification: NotificationService,
@@ -325,6 +327,7 @@ export class TopicVoteCreateComponent implements OnInit {
       .pipe(take(1))
       .subscribe({
         next: (vote) => {
+          this.TopicService.get(this.topic.id).pipe(take(1)).subscribe();
           this.router.navigate(['/topics', this.topic.id, 'votes', vote.id]);
         },
         error: (res) => {
