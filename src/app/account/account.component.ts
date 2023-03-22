@@ -176,7 +176,7 @@ export class AccountComponent implements OnInit {
             if (this.user?.email !== this.form.email) {
               this.Notification.addInfo('MSG_INFO_CHECK_EMAIL_TO_VERIFY_YOUR_NEW_EMAIL_ADDRESS');
             }
-
+            this.Auth.status().pipe(take(1)).subscribe();
             this.dialog.closeAll(); // Close all dialogs, including the one open now...u
           }
         });
