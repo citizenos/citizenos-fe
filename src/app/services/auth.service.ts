@@ -3,7 +3,7 @@ import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { of, BehaviorSubject, Observable, combineLatestWith } from 'rxjs';
-import { switchMap, catchError, tap, take, map } from 'rxjs/operators';
+import { switchMap, catchError, tap, take, map, retry } from 'rxjs/operators';
 import { LocationService } from './location.service';
 import { NotificationService } from './notification.service';
 import { User } from '../interfaces/user';
@@ -66,14 +66,15 @@ export class AuthService {
   logout() {
     const pathLogoutEtherpad = this.Location.getAbsoluteUrlEtherpad('/ep_auth_citizenos/logout');
     const pathLogoutAPI = this.Location.getAbsoluteUrlApi('/api/auth/logout');
+
     return this.http.get(pathLogoutEtherpad, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
       combineLatestWith(this.http.post(pathLogoutAPI, {}, { withCredentials: true })),
       switchMap((res) => {
-        console.log('RES', res)
         this.user$ = null;
         this.loggedIn$.next(false);
         return res;
       }),
+      retry(2), // retry 2 times on error
       catchError((err) => {
         this.user$ = null;
         this.loggedIn$.next(false);

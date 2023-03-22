@@ -51,7 +51,10 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 
 
           try {
-            const keys = this.errorsToKeys(response, request.method);
+            const keys = <{[key:string]: string}>this.errorsToKeys(response, request.method);
+            Object.values(keys).forEach((err:string) => {
+              this.Notification.addError(err);
+            });
           } catch (err) {
             // Catch all so that promise get rejected later with response to continue interceptor chain
          //   this.Notification.addError(err);
