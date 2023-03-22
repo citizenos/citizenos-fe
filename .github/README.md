@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/citizenos/citizenos-fe.svg?branch=master)](https://travis-ci.org/citizenos/citizenos-fe)
-[![Crowdin](https://d322cqt584bo4o.cloudfront.net/citizenos-fe/localized.svg)](https://crowdin.com/project/citizen-os-misc-et)
+[![Crowdin](https://d322cqt584bo4o.cloudfront.net/citizenos-fe/localized.svg)](https://crowdin.com/project/citizenos-fe)
 
 <p align="center">
   <a href="https://app.citizenos.com">
@@ -93,7 +93,7 @@ We listen to our users in issues.
 
 ### :book: Prerequisites
 
-* Node.JS >= 18.15.0
+* Node.JS >= 10.22.1 (https://github.com/mklement0/n-install)
 
 ### :book: Installing
 
@@ -110,7 +110,7 @@ We listen to our users in issues.
     * Development/local - `development`
 * Run the application:
     * Production/test - `node ./bin/www`. Note that Heroku and some other cloud envs pick up the starting point from `Procfile` (https://github.com/citizenos/citizenos-fe/blob/master/Procfile.txt)
-    * Development - `npm run start-dev`
+    * Development - `npm run dev` (optionally could add an ip address to serve externally`npm run dev -- --host 192.168.56.101` )
 * Open
     * Production/test - your configured public app url.
     * Development - https://dev.citizenos.com:3001 or http://dev.citizenos.com:3000 in your browser.
