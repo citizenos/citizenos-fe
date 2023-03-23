@@ -1,6 +1,6 @@
 import { ConfigService } from 'src/app/services/config.service';
 import { ApiResponse } from 'src/app/interfaces/apiResponse';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { of, BehaviorSubject, Observable, combineLatestWith } from 'rxjs';
 import { switchMap, catchError, tap, take, map, retry } from 'rxjs/operators';
@@ -10,6 +10,7 @@ import { User } from '../interfaces/user';
 import { MatDialog } from '@angular/material/dialog';
 import { PrivacyPolicyComponent } from '../account/components/privacy-policy/privacy-policy.component';
 import { AddEmailComponent } from '../account/components/add-email/add-email.component';
+import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -185,3 +186,8 @@ export class AuthService {
     );
   };
 }
+
+export const authResolver: ResolveFn<User> =
+  (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
+    return inject(AuthService).status();
+  };

@@ -83,6 +83,9 @@ export class TopicVoteService {
           if (res.status === 205) {
             window.location.reload();
           }
+        }),
+        map((res) => {
+          return res.body.data;
         })
       );
   }
