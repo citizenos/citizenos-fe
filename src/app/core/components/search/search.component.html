@@ -43,8 +43,7 @@
             *ngIf="searchResults[context] && searchResults[context][model] && searchResults[context][model].count">
 
             <div class="search_cat">
-              <div class="cat_wrap"><span translate="DEFAULT.SEARCH.HEADING_RESULTS_IN"></span> <b
-                  translate="{{'LBL_CONTEXT_' + context + '_' + model | uppercase}}"></b></div>
+              <div class="cat_wrap"><span [innerHtml]="'DEFAULT.SEARCH.HEADING_RESULTS_IN' | translate:{context: ('LBL_CONTEXT_' + context + '_' + model | uppercase | translate)}"> </span></div>
             </div>
             <div class="results_area" *ngIf="searchResults[context][model].rows.length">
               <div class="result_group">
