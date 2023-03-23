@@ -1,4 +1,4 @@
-import { TranslateCompiler, MissingTranslationHandler } from '@ngx-translate/core';
+import {  TranslateCompiler, MissingTranslationHandler } from '@ngx-translate/core';
 
 export class JSONPointerCompiler extends TranslateCompiler {
 

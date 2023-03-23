@@ -4,6 +4,7 @@ import { HomeComponent } from './core/components/home/home.component';
 import { AuthGuard } from './auth/auth.guard';
 import { PageNotFoundComponent } from './core/components/page-not-found/page-not-found.component';
 import { PageUnauthorizedComponent } from './core/components/page-unauthorized/page-unauthorized.component';
+import { authResolver } from './services/auth.service';
 
 const options: ExtraOptions = {
   paramsInheritanceStrategy: 'always'
@@ -11,7 +12,7 @@ const options: ExtraOptions = {
 
 const routes: Routes = [
   {
-    path: ':lang',
+    path: ':lang', resolve: {user: authResolver},
     children: [
       { path: '401', component: PageUnauthorizedComponent },
       { path: '403', component: PageUnauthorizedComponent },
