@@ -82,6 +82,12 @@ export class MarkdownDirective implements OnDestroy {
   ngOnDestroy(): void {
   }
 
+  ngOnChanges(): void {
+    if (this.item === '') {
+      this.easymde.value(this.item);
+    }
+  }
+
   getCharLength() {
     let curLength = 0;
     if (this.item && this.item.length) {
