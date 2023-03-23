@@ -116,7 +116,6 @@ export class TopicVoteSignEsteidComponent implements OnInit {
 
               this.TopicVoteService.sign(signTopicVote).pipe(take(1)).subscribe({
                 next: (signed) => {
-                  console.log(signed);
                   this.isLoadingIdCard = false;
                   this.dialog.closeAll();
                   this.Notification.addSuccess('VIEWS.TOPICS_TOPICID.MSG_VOTE_REGISTERED');
@@ -153,9 +152,9 @@ export class TopicVoteSignEsteidComponent implements OnInit {
     );
     voteResult.pipe(
       takeWhile((res: any,) => {
-        return (res.status.code === 20001)
+        return (res?.status.code === 20001)
       }, true),
-      map(res => res.data)
+      map((res) => { return res?.data || {} })
     ).subscribe({
       next: (response) => {
         this.isLoading = false;

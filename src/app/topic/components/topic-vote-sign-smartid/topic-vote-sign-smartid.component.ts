@@ -50,7 +50,6 @@ export class TopicVoteSignSmartidComponent implements OnInit {
       .pipe(take(1))
       .subscribe({
         next: (voteInitResult) => {
-          console.log(voteInitResult)
           this.isLoading = false;
           if (voteInitResult.challengeID && voteInitResult.token) {
             this.challengeID = voteInitResult.challengeID;
@@ -66,7 +65,6 @@ export class TopicVoteSignSmartidComponent implements OnInit {
   };
 
   pollVoteSignStatus(token: string, milliseconds: number, retry: number) {
-    console.log('POLL')
     const delay = interval(milliseconds);
     this.isLoading = true;
     const voteResult = delay.pipe(
@@ -76,21 +74,21 @@ export class TopicVoteSignSmartidComponent implements OnInit {
     );
     voteResult.pipe(
       takeWhile((res: any,) => {
-        return (res.status.code === 20001)
+        return (res?.status.code === 20001)
       }, true),
-      map(res => res.data))
-      .subscribe({
-        next: (response) => {
-          this.isLoading = false;
-          this.challengeID = null;
-          this.dialog.closeAll();
-          this.Notification.addSuccess('VIEWS.TOPICS_TOPICID.MSG_VOTE_REGISTERED');
-        },
-        error: (error) => {
-          console.error(error);
-          this.isLoading = false;
-          this.challengeID = null;
-        }
-      });
+      map((res) => { return res?.data || {} })
+    ).subscribe({
+      next: (response) => {
+        this.isLoading = false;
+        this.challengeID = null;
+        this.dialog.closeAll();
+        this.Notification.addSuccess('VIEWS.TOPICS_TOPICID.MSG_VOTE_REGISTERED');
+      },
+      error: (error) => {
+        console.error(error);
+        this.isLoading = false;
+        this.challengeID = null;
+      }
+    });
   };
 }
