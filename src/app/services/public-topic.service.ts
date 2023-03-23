@@ -4,7 +4,6 @@ import { LocationService } from './location.service';
 import { Observable, BehaviorSubject, map } from 'rxjs';
 import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { Topic } from 'src/app/interfaces/topic';
-import { AuthService } from './auth.service';
 import { ItemsListService } from './items-list.service';
 
 @Injectable({
