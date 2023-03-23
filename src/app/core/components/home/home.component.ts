@@ -48,6 +48,7 @@ export class HomeComponent implements OnInit {
 
     const topicsParams = this.PublicTopicService.params$.value;
     topicsParams.limit = 8;
+    this.PublicTopicService.params$.next(topicsParams);
     this.topics$ = this.PublicTopicService.loadItems();
     const groupsParams = this.PublicGroupService.params$.value;
     groupsParams.limit = 8;
