@@ -625,6 +625,9 @@
   },
   "DEFAULT": {
     "NAV": {
+      "BTN_LOGIN": "Log in",
+      "BTN_REGISTER": "Register",
+      "BTN_CREATE": "Create",
       "LNK_LOG_IN_REGISTER": "Log in / Register to Citizen OS",
       "LNK_MY_ACCOUNT": "@:MODALS.MY_ACCOUNT_HEADING",
       "HEADING_TOPICS": "Topics",
@@ -638,6 +641,7 @@
       "LNK_ABOUT": "About",
       "LNK_FAQ": "FAQ",
       "LNK_HELP": "Help",
+      "LNK_ACCESSIBILITY": "Accerssibility",
       "LNK_LOG_OUT": "Log out",
       "LNK_ACTIVITY": "Activity feed"
     },
