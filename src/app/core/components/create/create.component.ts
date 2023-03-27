@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-create',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./create.component.scss']
 })
 export class CreateComponent {
+  constructor (public translate: TranslateService) {
 
+  }
 }

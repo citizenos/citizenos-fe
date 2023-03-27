@@ -5,9 +5,7 @@
   /* Auto layout */
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
-  padding: 24px 0px;
   gap: 0;
 
   position: fixed;
@@ -20,13 +18,15 @@
 
   background: vars.$white;
 
+  .logo_wrap {
+    display: flex;
+    padding: 24px 0px;
+  }
   .nav_inside {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    position: absolute;
-    top: 76px;
     width: 100%;
 
     .nav_button {
@@ -47,36 +47,117 @@
       align-items: center;
       padding: 0px 8px;
       gap: 16px;
+      color: vars.$new_medium_black;
+      min-width: 130px;
+      min-height: 32px;
 
-      width: 130px;
-      height: 32px;
-      a {
+      .menu_icon {
+        display: inline-flex;
+      }
+      span {
+        display: inline-flex;
+
+        font-family: "Noto Sans";
+        font-style: normal;
+        font-size: 13px;
+        line-height: 16px;
+
+        .bold {
+          font-weight: 600;
+        }
+      }
+
+      &:hover {
+        background: vars.$blue_50;
+        color: vars.$blue_700;
+        border-radius: 24px;
+      }
+    }
+
+    .sub_items {
+      display: flex;
+      flex-direction: column;
+
+      .sub_item {
         display: flex;
         flex-direction: row;
         align-items: center;
+        gap: 8px;
+        padding: 8px;
+        color: vars.$black;
 
-        .menu_icon {
-          display: inline-flex;
+        &:hover {
+          background: vars.$blue_50;
+          border-radius: 24px;
         }
-        span {
-          display: inline-flex;
-
+        .sub_item_bubble {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          padding: 0px 8px;
           font-family: "Noto Sans";
           font-style: normal;
-          font-size: 13px;
+          font-weight: 600;
+          font-size: 10px;
           line-height: 16px;
-          margin-left: 19px;
-          color: vars.$new_medium_black;
+          color: vars.$white;
+          padding: 0 8px;
+          height: 16px;
 
-          .bold {
-            font-weight: 600;
+          &.discussion {
+            background: vars.$blue_700;
+            border-radius: 30px;
+          }
+
+          &.ideation {
+            background: vars.$yellow_700;
+            border-radius: 30px;
+          }
+
+          &.voting {
+            background: vars.$green_500;
+            border-radius: 30px;
+          }
+
+          &.follow_up {
+            background: vars.$purple_500;
+            border-radius: 30px;
           }
         }
       }
-      &:hover {
-        background: #f1f7fc;
-        border-radius: 24px;
+    }
+  }
+
+  .nav_footer_wrap {
+    position: absolute;
+    bottom: 0;
+    .nav_footer {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 0px;
+      gap: 16px;
+      height: 48px;
+
+      .footer_icon_wrap {
+        width: 16px;
+        height: 16px;
       }
+    }
+
+    .footer_hashtag_wrap {
+      color: vars.$new_medium_black;
+      height: 16px;
+      font-family: "Noto Sans";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 13px;
+      line-height: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-bottom: 24px;
     }
   }
 }

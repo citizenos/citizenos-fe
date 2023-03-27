@@ -1,0 +1,114 @@
+@use "vars";
+
+#create_menu {
+  /* Create Menu */
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 16px;
+  gap: 8px;
+
+  position: fixed;
+  top: 74px;
+  left: 200px;
+  z-index: 9;
+
+  /* White */
+
+  background: vars.$white;
+  /* Shadow/Heavy */
+
+  box-shadow: 0px 12px 16px rgba(50, 85, 112, 0.1),
+    0px 8px 20px rgba(220, 231, 240, 0.3);
+  border-radius: 16px;
+
+  .line_separator {
+    height: 1px;
+    left: calc(50% - 328px/2);
+    top: calc(50% - 1px/2 + 0.5px);
+    width: 100%;
+    background: vars.$gray_500;
+    display: flex;
+    margin: 16px 0;
+  }
+
+  .create_menu_item {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    padding: 8px;
+    &:hover {
+      background: vars.$blue_50;
+      border-radius: 8px;
+    }
+    .icon_wrap {
+      width: 32px;
+      height: 32px;
+      border-radius: 40px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+
+      &.discussion {
+        background: vars.$blue_700;
+      }
+      &.ideation {
+        background: vars.$yellow_700;
+      }
+      &.vote {
+        background: vars.$green_500;
+      }
+      &.group {
+        background: vars.$blue_200;
+      }
+    }
+
+    .item_text_wrap {
+      /* Auto layout */
+
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 0px;
+      gap: 8px;
+
+      width: 255px;
+
+      /* Inside auto layout */
+
+      .item_title {
+        width: 181px;
+        height: 24px;
+        font-family: "Noto Sans";
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+        color: vars.$new_medium_black;
+      }
+
+      .item_description {
+        /* Discuss a topic which close to you. Vivamus rhoncus fermentum mauris a commodo. */
+
+        font-family: "Noto Sans";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 13px;
+        line-height: 16px;
+        /* or 123% */
+
+        /* Grey/700 */
+
+        color: vars.$grey_700;
+      }
+    }
+    .icon_item {
+      display: flex;
+      margin-top: 6px;
+    }
+  }
+}
