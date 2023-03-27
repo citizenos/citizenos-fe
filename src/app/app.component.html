@@ -2,10 +2,10 @@
 <app-notification></app-notification>
 <!-- NAV -->
 <!-- MOBILE HEADER NAV -->
-<ng-container *ngIf="app.wWidth <= 1024">
+<!--ng-container *ngIf="app.wWidth <= 1024">
   <nav-mobile  id="mobile_header"></nav-mobile>
-</ng-container>
-<nav *ngIf="translate.currentLang" class="nav" [ngClass]="app.showNav ? 'nav_is_open' : ''" ></nav>
+</!--ng-container-->
+<nav *ngIf="translate.currentLang"></nav>
 <!-- CONTENT -->
 <div id="content_root" *ngIf="translate.currentLang">
   <!-- CONTENT WRAP -->

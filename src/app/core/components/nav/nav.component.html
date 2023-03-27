@@ -1,4 +1,14 @@
-<div class="nav">
+<div class="nav_mobile">
+  <div class="logo_wrap">
+    <div class="icon_logo_small_positive" routerLink="/"></div>
+  </div>
+
+  <div class="nav_mobile_button" >
+    <a [ngClass]="app.showNav ? 'icon_close_mobile' : 'icon_menu_mobile'" (click)="app.showNav = !app.showNav"></a>
+    <!--div class="header_button_text" translate="DEFAULT.NAV_MOBILE.BTN_MENU"></!--div-->
+  </div>
+</div>
+<div class="nav" [ngClass]="app.showNav ? 'nav_is_open' : ''">
   <div class="logo_wrap">
     <div class="icon_logo_small_positive" routerLink="/"></div>
   </div>

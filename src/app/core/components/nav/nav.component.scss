@@ -1,22 +1,66 @@
 @use "vars";
 @use "mixins_n_extends";
+.nav_mobile {
+  display: none;
+  @include mixins_n_extends.tablet {
+    width: 100%;
+    height: 56px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: vars.$white;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    z-index: 999;
+    .logo_wrap {
+      display: flex;
+      padding: 24px 0px;
+    }
+    .nav_mobile_button {
+      display: flex;
+      position: fixed;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      border-radius: 40px;
+      align-items: center;
+      justify-content: center;
 
+      &:hover {
+        background: vars.$blue_200;
+      }
+    }
+  }
+}
 .nav {
   /* Auto layout */
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0;
-
   position: fixed;
   width: 200px;
   height: 100%;
   left: 0;
   top: 0;
-
-  /* White */
-
   background: vars.$white;
+  @include mixins_n_extends.tablet {
+    display: none;
+    &.nav_is_open {
+      display: flex;
+    }
+  }
+  &.nav_is_open {
+    margin-top: 56px;
+    right: 0;
+    left: initial;
+    z-index: 999;
+
+    .logo_wrap {
+      display: none;
+    }
+  }
 
   .logo_wrap {
     display: flex;
