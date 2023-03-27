@@ -6,9 +6,11 @@ import { Topic } from '../interfaces/topic';
 import { TopicNotificationSettingsComponent } from '../topic/components/topic-notification-settings/topic-notification-settings.component';
 import { ConfigService } from './config.service';
 import { TopicService } from './topic.service';
+import { LocationService } from 'src/app/services/location.service';
 import { GroupMemberTopicService } from './group-member-topic.service';
 import { Router } from '@angular/router';
 import { LoginComponent } from '../account/components/login/login.component';
+import { RegisterComponent } from '../account/components/register/register.component';
 @Injectable({
   providedIn: 'root'
 })
@@ -24,11 +26,21 @@ export class AppService {
   topicsSettings = false;
   wWidth = window.innerWidth;
 
-  constructor(private dialog: MatDialog, public config: ConfigService, private TopicService: TopicService, private GroupMemberTopicService: GroupMemberTopicService, private router: Router) { }
+  constructor(private dialog: MatDialog, public config: ConfigService, private Location: LocationService, private TopicService: TopicService, private GroupMemberTopicService: GroupMemberTopicService, private router: Router) { }
 
   doShowLogin() {
     this.dialog.closeAll();
     this.dialog.open(LoginComponent);
+  }
+
+  doShowRegister (email?:string) {
+    this.dialog.closeAll();
+    this.dialog.open(RegisterComponent, {
+      data: {
+        email: email,
+        redirectSuccess: this.Location.currentUrl()
+      }
+    })
   }
 
   doShowTopicNotificationSettings(topicId: string) {

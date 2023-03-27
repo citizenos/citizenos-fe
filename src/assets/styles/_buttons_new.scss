@@ -1,0 +1,64 @@
+@use "vars";
+
+.button_big_black {
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 24px;
+  gap: 8px;
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 32px;
+  width: 160px;
+  height: 48px;
+  left: 16px;
+  top: 16px;
+
+  /* Black */
+  background: vars.$new_medium_black;
+  color: vars.$white;
+  border-radius: 24px;
+  :hover {
+    background: vars.$blue_700;
+  }
+}
+.button_big_black_icon {
+  @extend .button_big_black;
+
+}
+.button_big_ghost {
+  /* Property 1=Inactive */
+
+  box-sizing: border-box;
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 24px;
+  gap: 8px;
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 32px;
+  width: 160px;
+  height: 48px;
+  left: 16px;
+  top: 16px;
+
+  /* Black */
+  color: vars.$new_medium_black;
+  border: 2px solid vars.$new_medium_black;
+  border-radius: 24px;
+  :hover {
+    background: vars.$blue_700;
+    color: vars.$blue_700;
+  }
+}

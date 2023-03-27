@@ -53,6 +53,10 @@ export class NavComponent implements OnInit {
     this.app.doShowLogin();
   }
 
+  doShowRegister() {
+    this.app.doShowRegister();
+  }
+
   doLogout() {
     this.auth.logout()
     .pipe(take(1))
@@ -74,4 +78,12 @@ export class NavComponent implements OnInit {
     this.dialog.closeAll();
     this.dialog.open(ActivityFeedComponent);
   };
+
+  showCreateMenu() {
+
+  }
+
+  accessibility() {
+
+  }
 }

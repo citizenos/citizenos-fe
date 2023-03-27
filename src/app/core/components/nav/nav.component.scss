@@ -1,6 +1,86 @@
 @use "vars";
 @use "mixins_n_extends";
 
+.nav {
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 0px;
+  gap: 0;
+
+  position: fixed;
+  width: 200px;
+  height: 100%;
+  left: 0;
+  top: 0;
+
+  /* White */
+
+  background: vars.$white;
+
+  .nav_inside {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    position: absolute;
+    top: 76px;
+    width: 100%;
+
+    .nav_button {
+      margin-bottom: 10px;
+    }
+
+    .line_separator {
+      margin-top: 24px;
+      margin-bottom: 24px;
+      width: 160px;
+      height: 1px;
+      background-color: vars.$gray_500;
+    }
+
+    .menu_item {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 0px 8px;
+      gap: 16px;
+
+      width: 130px;
+      height: 32px;
+      a {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .menu_icon {
+          display: inline-flex;
+        }
+        span {
+          display: inline-flex;
+
+          font-family: "Noto Sans";
+          font-style: normal;
+          font-size: 13px;
+          line-height: 16px;
+          margin-left: 19px;
+          color: vars.$new_medium_black;
+
+          .bold {
+            font-weight: 600;
+          }
+        }
+      }
+      &:hover {
+        background: #f1f7fc;
+        border-radius: 24px;
+      }
+    }
+  }
+}
+/*
 .logo_area {
   width: 190px;
   height: 60px;
@@ -109,7 +189,7 @@
         box-sizing: border-box;
       }
 
-      /* Use tables to center icons*/
+      /* Use tables to center icons
       .section_icon {
         width: 21px;
         overflow: hidden;
@@ -240,3 +320,4 @@
     }
   }
 }
+*/

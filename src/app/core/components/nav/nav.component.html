@@ -1,14 +1,78 @@
-<div *ngIf="wWidth > 1024">
-  <div class="logo_area">
-    <div class="logo sprite sprite-x5-cos-logo-small2x" routerLink="/" *ngIf="!!(auth.loggedIn$ | async)"></div>
-    <!-- Only show this if the user is NOT logged in -->
-    <div class="logo sprite sprite-x6-cos-logo-big2x" routerLink="/" *ngIf="!(auth.loggedIn$ | async)"></div>
+<div class="nav">
+  <div class="icon_logo_small_positive" routerLink="/"></div>
+  <div class="nav_inside">
+    <ng-container *ngIf="auth.user$ | async; then loggedIn; else loggedOut"></ng-container>
+    <ng-template #loggedOut>
+      <button class="nav_button button_big_black" (click)="doShowLogin()" translate="DEFAULT.NAV.BTN_LOGIN"></button>
+      <button class="nav_button button_big_ghost" (click)="doShowRegister()" translate="DEFAULT.NAV.BTN_REGISTER"></button>
+    </ng-template>
+    <ng-template #loggedIn>
+      <button class="nav_button button_big_black_icon" (click)="showCreateMenu()">
+        <div class="icon_create"></div>
+        <span translate="DEFAULT.NAV.BTN_CREATE"></span>
+      </button>
+    </ng-template>
+    <div class="line_separator"></div>
+    <div class="menu_item">
+      <a [routerLink]="['/', translate.currentLang, 'public' ,'topics']" routerLinkActive="active">
+        <div class="menu_icon icon_public_topics"></div>
+        <span class="bold" translate="DEFAULT.NAV.LNK_PUBLIC_TOPICS"></span>
+      </a>
+    </div>
+    <div class="menu_item">
+      <a [routerLink]="['/', translate.currentLang, 'public' ,'groups']" routerLinkActive="active">
+        <div class="menu_icon icon_public_groups"></div>
+        <span class="bold" translate="DEFAULT.NAV.LNK_PUBLIC_GROUPS"></span>
+      </a>
+    </div>
+    <div class="line_separator"></div>
+    <ng-template #loggedIn>
+      <div class="menu_item">
+        <a [routerLink]="['/', translate.currentLang, 'account']" routerLinkActive="active">
+          <div class="menu_icon icon_profile"></div>
+          <span translate="DEFAULT.NAV.LNK_MY_ACCOUNT"></span>
+        </a>
+      </div>
+    </ng-template>
+
+    <div class="menu_item">
+      <a (click)="doShowLanguageSelect()">
+        <div class="menu_icon icon_language"></div>
+        <span>{{ config.get('language').list[translate.currentLang]}}</span>
+      </a>
+    </div>
+    <div class="menu_item">
+      <a (click)="toggleHelp()">
+        <div class="menu_icon icon_help"></div>
+        <span translate="DEFAULT.NAV.LNK_HELP"></span>
+      </a>
+    </div>
+    <div class="menu_item">
+      <a *ngIf="config.get('links').about" target="_blank" [href]="config.get('links').about">
+        <div class="menu_icon icon_about_us"></div>
+        <span translate="DEFAULT.NAV.LNK_ABOUT"></span>
+      </a>
+    </div>
+    <div class="menu_item">
+      <a (click)="accessibility()">
+        <div class="menu_icon icon_accessibility"></div>
+        <span translate="DEFAULT.NAV.LNK_ACCESSIBILITY"></span>
+      </a>
+    </div>
   </div>
 </div>
 
+<!--div *ngIf="wWidth > 1024">
+  <div class="logo_area">
+    <div class="logo sprite sprite-x5-cos-logo-small2x" routerLink="/" *ngIf="!!(auth.loggedIn$ | async)"></div>
+    <!-- Only show this if the user is NOT logged in >
+    <div class="logo sprite sprite-x6-cos-logo-big2x" routerLink="/" *ngIf="!(auth.loggedIn$ | async)"></div>
+  </div>
+</!--div-->
 
-<div class="nav_inside">
-  <!-- Only show this if the user is NOT logged in -->
+
+<!--div class="nav_inside">
+  <!-- Only show this if the user is NOT logged in >
   <ng-container *ngIf="auth.user$ | async; then loggedIn; else loggedOut"></ng-container>
   <ng-template #loggedOut>
     <button class="blue_button ngShow" (click)="doShowLogin()" translate="DEFAULT.NAV.LNK_LOG_IN_REGISTER"></button>
@@ -36,7 +100,7 @@
       </a>
     </div>
   </ng-template>
-  <!-- Only show this if the user is logged in -->
+  <!-- Only show this if the user is logged in >
   <ng-template #loggedIn>
 
     <div>
@@ -45,7 +109,7 @@
 
         <div class="table_cell">
           <div class="profile_image_wrapper">
-            <!--div class="profile_moon sprite sprite-icon-certified-google2x"></!--div-->
+            <!--div class="profile_moon sprite sprite-icon-certified-google2x"></!--div>
             <div class="account_picture">
               <img [src]="user.imageUrl" *ngIf="user.imageUrl">
               <div class="profile_image_filler" *ngIf="!user.imageUrl">
@@ -68,7 +132,7 @@
       <div class="line dark_line"></div>
       <div class="line light_line"></div>
 
-      <!-- Nav section -->
+      <!-- Nav section >
       <div class="section">
         <a (click)="doShowActivityModal()" class="section_item">
           <div class="section_icon">
@@ -127,7 +191,7 @@
         </a>
       </div>
 
-      <!-- Nav section -->
+      <!-- Nav section >
       <div class="section">
         <div class="section_item section_header bold_white">
           <div class="section_icon">
@@ -145,7 +209,7 @@
           </div>
           <span translate="DEFAULT.NAV.LNK_CREATE_GROUPS"></span>
         </a>
-        <a [routerLink]="['/', translate.currentLang, 'my', 'groups']" routerLinkActive="active" class="section_item"><!--({filter: 'grouped'})-->
+        <a [routerLink]="['/', translate.currentLang, 'my', 'groups']" routerLinkActive="active" class="section_item"><!--({filter: 'grouped'})>
           <div class="section_icon">
             <div class="table_cell">
               <div class="sprite sprite-bullet-arrow2x"></div>
@@ -170,7 +234,7 @@
   <div class="line light_line"></div>
 
 
-  <!-- Nav section -->
+  <!-- Nav section >
   <div class="section">
 
     <a *ngIf="config.get('links').about" class="section_item" target="_blank" [href]="config.get('links').about">
@@ -201,7 +265,7 @@
   </div>
 
 
-  <!-- Only show this if the user is logged in -->
+  <!-- Only show this if the user is logged in >
   <div *ngIf="auth.loggedIn$ | async">
 
     <div class="line dark_line"></div>
@@ -231,4 +295,4 @@
       </div>
     </a>
   </div>
-</div>
+</!--div-->
