@@ -26,7 +26,7 @@ export class NavComponent implements OnInit {
     public translate: TranslateService,
     public config: ConfigService,
     public auth: AuthService, public dialog: MatDialog,
-    private app: AppService,
+    public app: AppService,
     ActivityService: ActivityService
   ) {
     this.unreadActivitiesCount$ = ActivityService.getUnreadActivities().pipe(tap((count:number) => {
