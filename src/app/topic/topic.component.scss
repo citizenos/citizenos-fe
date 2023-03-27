@@ -161,6 +161,11 @@
           .iframe_content_wrap {
             padding: 30px 60px;
 
+            .topic_content_area {
+              img: {
+                max-width: 100%;
+              }
+            }
             @media (max-width: 767px) {
               padding: 30px 20px;
             }
