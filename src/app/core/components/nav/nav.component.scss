@@ -5,7 +5,7 @@
   @include mixins_n_extends.tablet {
     width: 100%;
     height: 56px;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     background: vars.$white;
@@ -17,19 +17,12 @@
       display: flex;
       padding: 24px 0px;
     }
-    .nav_mobile_button {
+    #button_area {
       display: flex;
-      position: fixed;
-      right: 20px;
-      width: 40px;
-      height: 40px;
-      border-radius: 40px;
       align-items: center;
       justify-content: center;
-
-      &:hover {
-        background: vars.$blue_200;
-      }
+      position: fixed;
+      right: 0;
     }
   }
 }
@@ -73,7 +66,7 @@
     align-items: center;
     width: 100%;
 
-    .nav_button {
+    button {
       margin-bottom: 10px;
     }
 
@@ -85,91 +78,9 @@
       background-color: vars.$gray_500;
     }
 
-    .menu_item {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      padding: 0px 8px;
-      gap: 16px;
-      color: vars.$new_medium_black;
-      min-width: 130px;
-      min-height: 32px;
-
-      .menu_icon {
-        display: inline-flex;
-      }
-      span {
-        display: inline-flex;
-
-        font-family: "Noto Sans";
-        font-style: normal;
-        font-size: 13px;
-        line-height: 16px;
-
-        .bold {
-          font-weight: 600;
-        }
-      }
-
-      &:hover {
-        background: vars.$blue_50;
-        color: vars.$blue_700;
-        border-radius: 24px;
-      }
-    }
-
     .sub_items {
       display: flex;
       flex-direction: column;
-
-      .sub_item {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 8px;
-        padding: 8px;
-        color: vars.$black;
-
-        &:hover {
-          background: vars.$blue_50;
-          border-radius: 24px;
-        }
-        .sub_item_bubble {
-          display: flex;
-          flex-direction: row;
-          justify-content: center;
-          align-items: center;
-          padding: 0px 8px;
-          font-family: "Noto Sans";
-          font-style: normal;
-          font-weight: 600;
-          font-size: 10px;
-          line-height: 16px;
-          color: vars.$white;
-          padding: 0 8px;
-          height: 16px;
-
-          &.discussion {
-            background: vars.$blue_700;
-            border-radius: 30px;
-          }
-
-          &.ideation {
-            background: vars.$yellow_700;
-            border-radius: 30px;
-          }
-
-          &.voting {
-            background: vars.$green_500;
-            border-radius: 30px;
-          }
-
-          &.follow_up {
-            background: vars.$purple_500;
-            border-radius: 30px;
-          }
-        }
-      }
     }
   }
 

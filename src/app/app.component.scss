@@ -42,7 +42,7 @@
   }
 }
 
-
+/*
 #mobile_header {
   height: 60px;
   background: vars.$medium_black;
@@ -64,40 +64,4 @@
     padding-right: 73px;
   }
 }
-
-
-/*
-.nav {
-  width: vars.$nav_d_width;
-  height: 100%;
-  background: vars.$medium_black;
-  color: vars.$transparent_white;
-  font-size: 13px;
-  position: fixed;
-  z-index: 10;
-  overflow-y: auto;
-  overflow-x: hidden;
-  &.nav_is_open {
-    right: 0;
-    width: vars.$nav_t_width;
-  }
-  .dark_line {
-    margin-top: 16px;
-  }
-
-  .logo {
-    margin-top: 20px;
-  }
-
-  @include mixins_n_extends.tablet {
-    right: -(vars.$nav_t_width);
-    transition: all 220ms cubic-bezier(0.45, 0.78, 0, 1);
-    overflow-y: visible;
-    overflow-x: hidden;
-    padding-bottom: 60px;
-    box-sizing: border-box;
-    top: 60px;
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
-  }
-}*/
+*/

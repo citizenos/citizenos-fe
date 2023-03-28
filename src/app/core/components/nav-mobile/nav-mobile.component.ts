@@ -13,7 +13,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class NavMobileComponent implements OnInit {
 
-  constructor(private translate: TranslateService, public app: AppService, private Auth: AuthService, private TopicService: TopicService, private router: Router, private route: ActivatedRoute) {
+  constructor(public translate: TranslateService, public app: AppService, private Auth: AuthService, private TopicService: TopicService, private router: Router, private route: ActivatedRoute) {
     console.log(app.topic)
   }
 

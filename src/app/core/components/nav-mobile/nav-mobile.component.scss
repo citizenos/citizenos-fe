@@ -1,6 +1,20 @@
 @use "vars";
 @use "mixins_n_extends";
 
+#mobile_nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  background-color: vars.$white;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 56px;
+  width: 100%;
+
+}
+/*
 .logo_area {
   width: 190px;
   height: 60px;
@@ -121,7 +135,7 @@
 
 }
 
-/* SEARCH BAR (search area styles in content.scss) */
+/* SEARCH BAR (search area styles in content.scss) /
 
 #m_search_bar {
   display: inline-block;
@@ -183,3 +197,4 @@
     margin-left: -(vars.$nav_t_width);
   }
 }
+*/
