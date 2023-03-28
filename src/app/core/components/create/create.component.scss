@@ -1,4 +1,5 @@
 @use "vars";
+@use "mixins_n_extends";
 
 #create_menu {
   /* Create Menu */
@@ -10,20 +11,36 @@
   align-items: flex-start;
   padding: 16px;
   gap: 8px;
-
   position: fixed;
   top: 74px;
   left: 200px;
   z-index: 9;
-
-  /* White */
-
   background: vars.$white;
-  /* Shadow/Heavy */
 
   box-shadow: 0px 12px 16px rgba(50, 85, 112, 0.1),
     0px 8px 20px rgba(220, 231, 240, 0.3);
   border-radius: 16px;
+
+  @include mixins_n_extends.tablet {
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    right: auto;
+    top: auto;
+    justify-content: space-around;
+    border-radius: 16px;
+  }
+
+  @include mixins_n_extends.mobile {
+    padding: 16px 0;
+    bottom: 56px;
+    transform: initial;
+    left: 0;
+    top: auto;
+    width: 100%;
+    justify-content: space-evenly;
+    border-radius: 16px 16px 0 0;
+  }
 
   .line_separator {
     height: 1px;
@@ -40,6 +57,13 @@
     flex-direction: row;
     gap: 16px;
     padding: 8px;
+    justify-content: space-around;
+
+    @include mixins_n_extends.mobile {
+      width: 100%;
+      justify-content: center;
+    }
+
     &:hover {
       background: vars.$blue_50;
       border-radius: 8px;

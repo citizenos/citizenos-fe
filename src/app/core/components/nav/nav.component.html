@@ -2,10 +2,17 @@
   <div class="logo_wrap">
     <div class="icon_logo_small_positive" routerLink="/"></div>
   </div>
-
-  <div class="nav_mobile_button" >
-    <a [ngClass]="app.showNav ? 'icon_close_mobile' : 'icon_menu_mobile'" (click)="app.showNav = !app.showNav"></a>
-    <!--div class="header_button_text" translate="DEFAULT.NAV_MOBILE.BTN_MENU"></!--div-->
+  <div id="search_area" [ngClass]="{hidden: !app.showSearch}">
+    <search></search>
+  </div>
+  <div id="button_area">
+    <a class="button_medium_icon" (click)="app.showSearch = !app.showSearch">
+      <div [ngClass]="app.showSearch ? 'icon_close_mobile' : 'icon_menu_search'"></div>
+    </a>
+    <a class="button_medium_icon" (click)="app.showNav = !app.showNav">
+      <div [ngClass]="app.showNav ? 'icon_close_mobile' : 'icon_menu_mobile'"></div>
+      <!--div class="header_button_text" translate="DEFAULT.NAV_MOBILE.BTN_MENU"></!--div-->
+    </a>
   </div>
 </div>
 <div class="nav" [ngClass]="app.showNav ? 'nav_is_open' : ''">
@@ -15,78 +22,78 @@
   <div class="nav_inside">
     <ng-container *ngIf="auth.user$ | async; then loggedIn; else loggedOut"></ng-container>
     <ng-template #loggedOut>
-      <button class="nav_button button_big_black" (click)="doShowLogin()" translate="DEFAULT.NAV.BTN_LOGIN"></button>
-      <button class="nav_button button_big_ghost" (click)="doShowRegister()"
+      <button class="button_big_black" (click)="doShowLogin()" translate="DEFAULT.NAV.BTN_LOGIN"></button>
+      <button class="button_big_ghost" (click)="doShowRegister()"
         translate="DEFAULT.NAV.BTN_REGISTER"></button>
     </ng-template>
     <ng-template #loggedIn>
-      <button class="nav_button button_big_black_icon" (click)="showCreateMenu()">
+      <button class="button_big_black_icon" (click)="app.showCreateMenu()">
         <div class="icon_create"></div>
         <span translate="DEFAULT.NAV.BTN_CREATE"></span>
       </button>
 
-      <a class="menu_item" [routerLink]="['/', translate.currentLang, 'dashboard']" routerLinkActive="active">
-        <div class="menu_icon icon_home"></div>
+      <a class="button_medium" [routerLink]="['/', translate.currentLang, 'dashboard']" routerLinkActive="active">
+        <div class="button_icon icon_home"></div>
         <span class="bold" translate="DEFAULT.NAV.LNK_DASHBOARD"></span>
       </a>
-      <div class="menu_item">
-        <div class="menu_icon icon_topic"></div>
+      <div class="button_medium">
+        <div class="button_icon icon_topic"></div>
         <span class="bold" translate="DEFAULT.NAV.LNK_MY_TOPICS"></span>
       </div>
       <div class="sub_items">
-        <a class="sub_item" [routerLink]="['/', translate.currentLang, 'my', 'topics']"
+        <a class="button_medium" [routerLink]="['/', translate.currentLang, 'my', 'topics']"
           [queryParams]="{filter: 'inProgress'}">
-          <div class="sub_item_bubble discussion">3</div><span translate="DEFAULT.NAV.LNK_IN_DISCUSSION"></span>
+          <div class="bubble bg_blue">3</div><span translate="DEFAULT.NAV.LNK_IN_DISCUSSION"></span>
         </a>
-        <a class="sub_item" [routerLink]="['/', translate.currentLang, 'my', 'topics']"
+        <a class="button_medium" [routerLink]="['/', translate.currentLang, 'my', 'topics']"
           [queryParams]="{filter: 'ideation'}">
-          <div class="sub_item_bubble ideation">3</div><span translate="DEFAULT.NAV.LNK_IN_IDEATION"></span>
+          <div class="bubble bg_yellow">3</div><span translate="DEFAULT.NAV.LNK_IN_IDEATION"></span>
         </a>
-        <a class="sub_item" [routerLink]="['/', translate.currentLang, 'my', 'topics']"
+        <a class="button_medium" [routerLink]="['/', translate.currentLang, 'my', 'topics']"
           [queryParams]="{filter: 'voting'}">
-          <div class="sub_item_bubble voting">3</div><span translate="DEFAULT.NAV.LNK_IN_VOTING"></span>
+          <div class="bubble bg_green">3</div><span translate="DEFAULT.NAV.LNK_IN_VOTING"></span>
         </a>
-        <a class="sub_item" [routerLink]="['/', translate.currentLang, 'my', 'topics']"
+        <a class="button_medium" [routerLink]="['/', translate.currentLang, 'my', 'topics']"
           [queryParams]="{filter: 'followUp'}">
-          <div class="sub_item_bubble follow_up">3</div><span translate="DEFAULT.NAV.LNK_IN_FOLLOW_UP"></span>
+          <div class="bubble bg_purple">3</div><span translate="DEFAULT.NAV.LNK_IN_FOLLOW_UP"></span>
         </a>
       </div>
-      <a class="menu_item" [routerLink]="['/', translate.currentLang, 'my', 'groups']" routerLinkActive="active">
-        <div class="menu_icon icon_group"></div>
+      <a class="button_medium" [routerLink]="['/', translate.currentLang, 'my', 'groups']" routerLinkActive="active">
+        <div class="button_icon icon_group"></div>
         <span class="bold" translate="DEFAULT.NAV.LNK_MY_GROUPS"></span>
       </a>
     </ng-template>
     <div class="line_separator"></div>
-    <a class="menu_item" [routerLink]="['/', translate.currentLang, 'public' ,'topics']" routerLinkActive="active">
-      <div class="menu_icon icon_public_topics"></div>
+    <a class="button_medium" [routerLink]="['/', translate.currentLang, 'public' ,'topics']" routerLinkActive="active">
+      <div class="button_icon icon_public_topics"></div>
       <span class="bold" translate="DEFAULT.NAV.LNK_PUBLIC_TOPICS"></span>
     </a>
-    <a class="menu_item" [routerLink]="['/', translate.currentLang, 'public' ,'groups']" routerLinkActive="active">
-      <div class="menu_icon icon_public_groups"></div>
+    <a class="button_medium" [routerLink]="['/', translate.currentLang, 'public' ,'groups']" routerLinkActive="active">
+      <div class="button_icon icon_public_groups"></div>
       <span class="bold" translate="DEFAULT.NAV.LNK_PUBLIC_GROUPS"></span>
     </a>
     <div class="line_separator"></div>
     <ng-container *ngIf="auth.user$ | async">
-      <a class="menu_item" [routerLink]="['/', translate.currentLang, 'account']" routerLinkActive="active">
-        <div class="menu_icon icon_profile"></div>
+      <a class="button_medium" [routerLink]="['/', translate.currentLang, 'account']" routerLinkActive="active">
+        <div class="button_icon icon_profile"></div>
         <span translate="DEFAULT.NAV.LNK_MY_ACCOUNT"></span>
       </a>
     </ng-container>
 
-    <a class="menu_item" (click)="doShowLanguageSelect()">
-      <div class="menu_icon icon_language"></div>
+    <a class="button_medium" (click)="doShowLanguageSelect()">
+      <div class="button_icon icon_language"></div>
       <span>{{ config.get('language').list[translate.currentLang]}}</span>
     </a>
-    <a class="menu_item" (click)="toggleHelp()">
-      <div class="menu_icon icon_help"></div>
+    <a class="button_medium" (click)="toggleHelp()">
+      <div class="button_icon icon_help"></div>
       <span translate="DEFAULT.NAV.LNK_HELP"></span>
     </a>
-    <a class="menu_item" *ngIf="config.get('links').about" target="_blank" [href]="config.get('links').about">
-      <div class="menu_icon icon_about_us"></div>
+    <a class="button_medium" *ngIf="config.get('links').about" target="_blank" [href]="config.get('links').about">
+      <div class="button_icon icon_about_us"></div>
       <span translate="DEFAULT.NAV.LNK_ABOUT"></span>
     </a>
-    <a class="menu_item" (click)="accessibility()">
-      <div class="menu_icon icon_accessibility"></div>
+    <a class="button_medium" (click)="accessibility()">
+      <div class="button_icon icon_accessibility"></div>
       <span translate="DEFAULT.NAV.LNK_ACCESSIBILITY"></span>
     </a>
   </div>

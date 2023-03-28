@@ -1,10 +1,7 @@
 <ngx-loading-bar></ngx-loading-bar>
 <app-notification></app-notification>
 <!-- NAV -->
-<!-- MOBILE HEADER NAV -->
-<!--ng-container *ngIf="app.wWidth <= 1024">
-  <nav-mobile  id="mobile_header"></nav-mobile>
-</!--ng-container-->
+
 <nav *ngIf="translate.currentLang"></nav>
 <!-- CONTENT -->
 <div id="content_root" *ngIf="translate.currentLang">
@@ -26,4 +23,8 @@
       </div>
   </div>
 </div>
+<!-- MOBILE NAV -->
+<ng-container *ngIf="app.wWidth <= 1024">
+  <nav-mobile></nav-mobile>
+</ng-container>
 <app-help></app-help>

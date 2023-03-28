@@ -11,6 +11,8 @@ import { GroupMemberTopicService } from './group-member-topic.service';
 import { Router } from '@angular/router';
 import { LoginComponent } from '../account/components/login/login.component';
 import { RegisterComponent } from '../account/components/register/register.component';
+import { CreateComponent } from 'src/app/core/components/create/create.component';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -25,6 +27,7 @@ export class AppService {
   topic: Topic | undefined;
   topicsSettings = false;
   wWidth = window.innerWidth;
+  createMenu = false;
 
   constructor(private dialog: MatDialog, public config: ConfigService, private Location: LocationService, private TopicService: TopicService, private GroupMemberTopicService: GroupMemberTopicService, private router: Router) { }
 
@@ -80,5 +83,14 @@ export class AppService {
           this.router.navigate(['/topics', topic.id], { queryParams: { editMode: true } })
         }
       });
+  }
+
+  showCreateMenu() {
+    console.log('showCreateMenu')
+    this.dialog.closeAll();
+    if (!this.createMenu) {
+      this.dialog.open(CreateComponent);
+    }
+    this.createMenu = !this.createMenu;
   }
 }

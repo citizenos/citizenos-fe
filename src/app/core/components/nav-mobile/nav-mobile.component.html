@@ -1,4 +1,21 @@
-
+<div id="mobile_nav">
+  <a class="button_medium_icon" [routerLink]="['/', translate.currentLang, 'dashboard']" routerLinkActive="active">
+    <div class="icon_home"></div>
+  </a>
+  <a class="button_medium_icon">
+    <div class="icon_topic"></div>
+  </a>
+  <a class="button_medium_icon dark" (click)="app.showCreateMenu()">
+    <div [ngClass]="(app.createMenu)? 'icon_close_mobile_white': 'icon_create'"></div>
+  </a>
+  <a class="button_medium_icon" [routerLink]="['/', translate.currentLang, 'my', 'groups']">
+    <div class="icon_group"></div>
+  </a>
+  <a class="button_medium_icon">
+    <div class="icon_activities"></div>
+  </a>
+</div>
+<!--
 <div class="logo_area" (click)="!app.showSearchResults" routerLink="/">
   <div class="logo sprite sprite-x5-cos-logo-small2x">
   </div>
@@ -8,7 +25,7 @@
     <div class="header_button settings" (click)="app.topicsSettings = !app.topicsSettings"
       [ngClass]="app.topicsSettings ? 'active': ''">
       <div class="header_button_content">
-        <!--*ngIf="('topics.**' | includedByState) && app.user.loggedIn"-->
+        <!--*ngIf="('topics.**' | includedByState) && app.user.loggedIn">
         <div class="sprite sprite-icon-mobile-settings2x">
         </div>
         <div class="header_button_text" translate="DEFAULT.NAV_MOBILE.BTN_SETTINGS"></div>
@@ -70,6 +87,6 @@
     </div>
   </div>
 </div>
-<div id="search_area" [ngClass]="{hidden: !app.showSearch}">
+<div-- id="search_area" [ngClass]="{hidden: !app.showSearch}">
   <search></search>
-</div>
+</div-->>
