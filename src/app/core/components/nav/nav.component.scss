@@ -32,13 +32,28 @@
   flex-direction: column;
   align-items: center;
   gap: 0;
-  position: fixed;
+  position: absolute;
   width: 200px;
   height: 100%;
   left: 0;
   top: 0;
   background: vars.$white;
+
+  .btn_small {
+    min-width: 130px;
+  }
+  .btn_big {
+    min-width: 160px;
+  }
   @include mixins_n_extends.tablet {
+    width: 320px;
+    .btn_small {
+      min-width: 288px;
+    }
+    .btn_big {
+      min-width: 288px;
+    }
+
     display: none;
     &.nav_is_open {
       display: flex;
@@ -85,7 +100,7 @@
   }
 
   .nav_footer_wrap {
-    position: absolute;
+    position: relative;
     bottom: 0;
     .nav_footer {
       display: flex;
@@ -98,11 +113,20 @@
       .footer_icon_wrap {
         width: 16px;
         height: 16px;
+        @include mixins_n_extends.tablet {
+          width: 32px;
+          height: 32px;
+          div {
+            background-size: 32px 32px;
+            width: 32px;
+            height: 32px;
+          }
+        }
       }
     }
 
     .footer_hashtag_wrap {
-      color: vars.$new_medium_black;
+      color: vars.$black_new;
       height: 16px;
       font-family: "Noto Sans";
       font-style: normal;
@@ -116,244 +140,36 @@
     }
   }
 }
-/*
-.logo_area {
-  width: 190px;
-  height: 60px;
-  background: vars.$dark_black;
-  display: table;
-  cursor: pointer;
 
-  @include mixins_n_extends.tablet {
-    background: none;
-    position: absolute;
-    left: 0;
+.nav_bubble {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 8px;
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 10px;
+  line-height: 16px;
+  color: vars.$white;
+  padding: 0 8px;
+  height: 16px;
+  border-radius: 30px;
+
+  &.bg_blue {
+    background: vars.$blue_700;
   }
 
-  @media (max-width: "750px") {
-    width: 59px;
+  &.bg_yellow {
+    background: vars.$yellow_700;
   }
 
-  .logo {
-    margin-top: 16px;
-    margin-bottom: 16px;
-    @media (max-width: "750px") {
-      width: 28px;
-    }
-  }
-}
-
-.logo {
-  margin: 0 auto;
-}
-
-.nav_inside {
-  padding: 20px;
-
-  .blue_button {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    word-break: break-word;
-
-    @include mixins_n_extends.tablet {
-      margin-top: -10px;
-    }
+  &.bg_green {
+    background: vars.$green_500;
   }
 
-  a:link,
-  a:visited {
-    color: vars.$transparent_white;
-  }
-
-  .sprite,
-  a,
-  .section_item {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-  }
-
-  .section_header {
-    font-size: 14px;
-
-    .sprite {
-      opacity: 1 !important;
-    }
-  }
-
-  .bold_white {
-    font-weight: 700;
-    color: vars.$white;
-  }
-
-  .bold_blue,
-  .bold_blue:visited,
-  .bold_blue:link {
-    font-weight: 700;
-    color: vars.$sky_blue;
-    opacity: 1;
-  }
-
-  a:hover {
-    color: vars.$white;
-  }
-
-  #account_area {
-    margin-bottom: 21px;
-    display: table;
-  }
-
-  .section {
-    & {
-      margin-top: 16px;
-    }
-
-    .section_item {
-      padding: 4px 0 6px 12px;
-      display: block;
-
-      span {
-        display: block;
-        padding-left: 37px;
-      }
-
-      #activity_feed_link_text {
-        width: 84px;
-      }
-
-      @include mixins_n_extends.tablet {
-        padding: 8px 0 8px 12px;
-        box-sizing: border-box;
-      }
-
-      /* Use tables to center icons
-      .section_icon {
-        width: 21px;
-        overflow: hidden;
-        height: 20px;
-        display: table;
-        float: left;
-        margin-right: 16px;
-
-        .sprite {
-          margin: 0 auto;
-          opacity: 0.69;
-        }
-
-        .activities_counter {
-          height: 17px;
-          width: 17px;
-          border-radius: 8px;
-          background-color: #0680fc;
-          color: #ffffff;
-          font-family: "Noto Sans";
-          font-size: 10px;
-          font-weight: bold;
-          line-height: 17px;
-          text-align: center;
-          margin: 0 auto;
-        }
-      }
-
-      .section_icon.arrow_down {
-        float: right;
-        margin-right: 1px;
-        margin-top: 1px;
-      }
-    }
-
-    .dropdown_active .section_item {
-      background: vars.$black !important;
-    }
-
-    .dropdown_active .dropdown {
-      visibility: visible;
-      height: initial;
-      height: 150px;
-      overflow-y: auto;
-    }
-
-    .dropdown {
-      // display: none;
-      visibility: hidden;
-      height: 0;
-      width: 100%;
-
-      .section_item {
-        padding-left: 49px;
-        padding-right: 5px;
-      }
-    }
-
-    .section_item:not(.section_header):hover,
-    .section_item.active {
-      cursor: pointer;
-      font-weight: vars.$bold;
-      color: vars.$white;
-
-      @include mixins_n_extends.tablet {
-        font-weight: initial;
-
-        &.bold_blue {
-          font-weight: vars.$bold;
-          color: vars.$sky_blue;
-          opacity: 1;
-
-          .sprite {
-            opacity: 0.69;
-          }
-        }
-      }
-
-      & {
-        background: vars.$black;
-        font-weight: vars.$bold;
-      }
-
-      .sprite {
-        opacity: 1;
-      }
-    }
-
-    .section_item:not(.section_header):hover {
-      @include mixins_n_extends.tablet {
-        -webkit-tap-highlight-color: rgba(0, 0, 0, 0.45);
-        background: initial;
-      }
-    }
+  &.bg_purple {
+    background: vars.$purple_500;
   }
 }
-
-#nav_partner_wrap {
-  height: 50px;
-  width: 190px;
-  background-color: #1a1a1a;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  text-align: center;
-  @include mixins_n_extends.tablet {
-    right: 0;
-    width: 230px;
-  }
-
-  #nav_partner_items {
-    display: table-cell;
-    height: 50px;
-    vertical-align: middle;
-
-    span {
-      font-size: 12px;
-      float: left;
-    }
-
-    .nav_partner_logo {
-      background: url("/assets/imgs/cos_logo_small_negative.png");
-      width: 88px;
-      height: 16px;
-      background-repeat: no-repeat;
-      background-size: 88px 16px;
-      margin-left: 5px;
-    }
-  }
-}
-*/
