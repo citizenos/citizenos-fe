@@ -7,6 +7,8 @@
     </div>
     <div class="description" translate="VIEWS.HOME.PUBLIC_GROUPS_DESCRIPTION"></div>
   </div>
+  <div class="illustration_cos_all_features">
+  </div>
   <div class="groups_wrap">
     <ng-container *ngIf="groups$ | async; let groups;">
       <public-group-box [group]="group" *ngFor="let group of groups; trackBy: trackByTopic"></public-group-box>
