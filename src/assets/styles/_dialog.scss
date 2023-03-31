@@ -1,0 +1,65 @@
+@use "vars";
+@use "mixins_n_extends";
+.cdk-global-overlay-wrapper {
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  z-index: 11;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.overlay {
+  @extend %all_zero;
+  position: fixed;
+  cursor: pointer;
+  z-index: 12;
+}
+.dialog {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 999;
+  position: relative;
+
+  .dialog_header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 56px;
+    background-color: vars.$blue_50;
+    justify-content: space-between;
+    .header_text {
+      display: flex;
+      padding-left: 20px;
+      justify-content: center;
+      align-items: center;
+    }
+    .dialog_close {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .dialog_content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .dialog_footer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+}

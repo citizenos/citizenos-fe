@@ -493,6 +493,7 @@
     "TOPIC_INVITE_VIEW_LNK_LEARN_MORE": "Learn more about Citizen OS if you're new!",
     "ACTIVITY_MODAL_HEADING": "@:DEFAULT.NAV.LNK_ACTIVITY",
     "LANGUAGES_MODAL_HEADING": "Select Your Language",
+    "LANGUAGES_MODAL_HELP_US_TRANSLATE": "Your language missing? Help us translate!",
     "WIDGETS_HOW_DOES_IT_WORK_HEADING": "@:DEFAULT.WIDGET.BTN_HOW_DOES_IT_WORK",
     "WIDGETS_HOW_DOES_IT_WORK_TEXT": "You can participate in a discussion by adding your arguments",
     "PRIVACY_POLICY_HEADING": "Terms of Use & Privacy Policy",

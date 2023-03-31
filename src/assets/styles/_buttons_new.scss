@@ -27,10 +27,18 @@ $button-themes: (
     hover: vars.$blue_700,
     hover-color: vars.$white,
   ),
+  light_blue: (
+    bg: vars.$blue_50,
+    color: vars.$black_new,
+    hover: vars.$white,
+  ),
 );
 
 @mixin button_themes($theme-map) {
-  button, .btn_big, .btn_medium, .btn_small {
+  button,
+  .btn_big,
+  .btn_medium,
+  .btn_small {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -40,12 +48,17 @@ $button-themes: (
     cursor: pointer;
 
     &.btn_icon {
-      min-width: 1vh;
+      width: 1vh;
+
+      div {
+        position: absolute;
+      }
     }
   }
 
   @each $section, $map in $theme-map {
     .btn_#{$section} {
+      border: none;
       background-color: map-get($map, bg);
       color: map-get($map, color);
 
@@ -101,3 +114,19 @@ $button-themes: (
 }
 
 @include button_themes($button-themes);
+
+.btn_dialog_close {
+  border: none;
+  background: none;
+  border-radius: 50vh;
+  height: 48px;
+  width: 48px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+
+  &:focus, &:hover {
+    border: none;
+  }
+}
