@@ -1,4 +1,33 @@
-<!-- LIGHTBOX SKELETON -->
+<div class="overlay" mat-dialog-close></div>
+<div class="dialog">
+  <div class="dialog_header">
+    <div class="header_text">
+      <h4 class="title" translate="MODALS.LANGUAGES_MODAL_HEADING"></h4>
+    </div>
+    <div class="dialog_close">
+      <button class="btn_dialog_close" mat-dialog-close>
+        <div class="icon_mobile_close"></div>
+      </button>
+    </div>
+  </div>
+  <div class="dialog_content">
+    <div class="language_list">
+      <ng-container *ngFor="let language of languages$ | keyvalue;">
+        <a class="language_item" (click)='doSwitchLanguage(language.key)' >
+          {{language.value}}
+        </a>
+      </ng-container>
+    </div>
+  </div>
+  <div class="dialog_footer">
+    <a href="https://crowdin.com/project/citizenos-fe" target="_blank" class="help_us_box">
+      <div class="illustration_who_politics"></div>
+      <h3 translate="MODALS.LANGUAGES_MODAL_HELP_US_TRANSLATE"></h3>
+      <div class="icon_arrow_long_right"></div>
+    </a>
+  </div>
+</div>
+<!-- LIGHTBOX SKELETON >
 <div id="root_lightbox" class="full_screen left_menu_visible">
   <div id="lightbox" class="wide_lightbox with_header_menu">
     <div id="lightbox_wrap">
@@ -15,7 +44,7 @@
         <div class="clearer"></div>
       </div>
       <div class="line lightest_line"></div>
-      <!-- SETTINGS -->
+      <!-- SETTINGS >
       <div class="lightbox_content settings_section_wrap">
         <div class="lightbox_section language_section">
           <div class="settings_section full_width">
@@ -37,4 +66,4 @@
   <div id="close_lightbox" mat-dialog-close>
   </div>
 
-</div>
+</div-->

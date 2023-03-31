@@ -1,0 +1,52 @@
+@use "vars";
+@use "mixins_n_extends";
+
+.language_list {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  flex-flow: wrap;
+  width: 560px;
+  padding: 16px;
+
+  @include mixins_n_extends.mobile {
+    width: 100%;
+  }
+
+  .language_item {
+    font-family: "Noto Sans";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    padding: 8px;
+    width: calc(50% - 16px);
+    text-align: left;
+    display: flex;
+    justify-content: flex-start;
+    color: vars.$blue_700;
+  }
+}
+
+.help_us_box {
+  cursor: pointer;
+  padding: 16px 20px;
+  display: flex;
+  background-color: vars.$gray_300;
+  flex-direction: row;
+  width: calc(100% - 72px);
+  align-items: center;
+  justify-content: space-around;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  border-radius: 15px;
+
+  :nth-child(2) {
+    margin-left: 20px;
+    display: flex;
+    flex-grow: 2;
+  }
+}
