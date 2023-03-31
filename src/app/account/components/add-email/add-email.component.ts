@@ -6,6 +6,8 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { take } from 'rxjs';
 import { User } from 'src/app/interfaces/user';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
+
 export interface AddEmailData {
   user: User
 }
@@ -16,7 +18,9 @@ export interface AddEmailData {
 })
 export class AddEmailComponent implements OnInit {
   user!: User;
-  email?: string;
+  form = new UntypedFormGroup({
+    email: new UntypedFormControl('', Validators.email),
+  });
   errors?: any;
   wWidth = window.innerWidth;
   constructor(@Inject(MAT_DIALOG_DATA) private data: AddEmailData,
@@ -34,9 +38,10 @@ export class AddEmailComponent implements OnInit {
   doUpdateProfile() {
     this.errors = null;
 
-    if (this.email) {
+    if (this.form.value.email) {
+      console.log(this.user.name, this.form.value.email)
       this.UserService
-        .update(this.user.name, this.email)
+        .update(this.user.name, this.form.value.email)
         .pipe(take(1))
         .subscribe((userData) => {
           this.Notification.addInfo('MSG_INFO_CHECK_EMAIL_TO_VERIFY_YOUR_NEW_EMAIL_ADDRESS');

@@ -4,7 +4,6 @@ import { LocationService } from './location.service';
 import { Observable, BehaviorSubject, map } from 'rxjs';
 import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { Topic } from 'src/app/interfaces/topic';
-import { AuthService } from './auth.service';
 import { ItemsListService } from './items-list.service';
 
 @Injectable({
@@ -46,7 +45,7 @@ export class PublicTopicService extends ItemsListService {
   queryPublic(params: { [key: string]: any }): Observable<ApiResponse> {
     let path = this.Location.getAbsoluteUrlApi('/api/topics');
     const queryParams = Object.fromEntries(Object.entries(params).filter((i) => i[1] !== null));
-    console.log(queryParams)
+
     return this.http.get<ApiResponse>(path, { withCredentials: true, params: queryParams, observe: 'body', responseType: 'json' }).pipe(
       map((res) => {
         return res.data;

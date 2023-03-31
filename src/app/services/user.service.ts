@@ -49,7 +49,9 @@ export class UserService {
       userData.newPassword = newPassword;
     }
 
-    return this.http.put(path, userData, {withCredentials: true, observe: 'body', responseType: 'json' });
+    return this.http.put<ApiResponse>(path, userData, {withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
+      map((data) => data)
+    );
   };
 
   updateLanguage(language :string) {

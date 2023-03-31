@@ -51,12 +51,17 @@ export class TopicVoteSignEsteidComponent implements OnInit {
           console.error(err);
           return of(err);
         }))
-      .subscribe((voteInitResult) => {
-        this.isLoading = false;
-        if (voteInitResult.challengeID && voteInitResult.token) {
-          this.challengeID = voteInitResult.challengeID;
-          const token = voteInitResult.token;
-          return this.pollVoteMobileSignStatus(token, 3000, 80);
+      .subscribe({
+        next: (voteInitResult) => {
+          this.isLoading = false;
+          if (voteInitResult.challengeID && voteInitResult.token) {
+            this.challengeID = voteInitResult.challengeID;
+            const token = voteInitResult.token;
+            return this.pollVoteMobileSignStatus(token, 3000, 80);
+          }
+        },
+        error: (err) => {
+          this.isLoading = false;
         }
       })
   };
@@ -109,13 +114,16 @@ export class TopicVoteSignEsteidComponent implements OnInit {
                 token: voteResponse.token
               };
 
-              this.TopicVoteService.sign(signTopicVote).pipe(take(1)).subscribe(
-                (signed) => {
-                  console.log(signed);
+              this.TopicVoteService.sign(signTopicVote).pipe(take(1)).subscribe({
+                next: (signed) => {
                   this.isLoadingIdCard = false;
                   this.dialog.closeAll();
                   this.Notification.addSuccess('VIEWS.TOPICS_TOPICID.MSG_VOTE_REGISTERED');
+                },
+                error: (err) => {
+                  this.isLoadingIdCard = false;
                 }
+              }
               );
             }
           })
@@ -144,20 +152,22 @@ export class TopicVoteSignEsteidComponent implements OnInit {
     );
     voteResult.pipe(
       takeWhile((res: any,) => {
-        return (res.status.code === 20001)
+        return (res?.status.code === 20001)
       }, true),
-      map(res => res.data),
-      catchError((error) => {
-        console.log('ERROR', error);
-        this.isLoading = false;
-        this.challengeID = null;
-        return of(error);
-      })).subscribe((response) => {
+      map((res) => { return res?.data || {} })
+    ).subscribe({
+      next: (response) => {
         this.isLoading = false;
         this.challengeID = null;
         this.dialog.closeAll();
         this.Notification.addSuccess('VIEWS.TOPICS_TOPICID.MSG_VOTE_REGISTERED');
-      });
+      },
+      error: (err) => {
+        console.error(err);
+        this.isLoading = false;
+        this.challengeID = null;
+      }
+    });
   };
 
 }

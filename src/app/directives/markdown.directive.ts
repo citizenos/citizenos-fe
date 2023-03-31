@@ -82,6 +82,12 @@ export class MarkdownDirective implements OnDestroy {
   ngOnDestroy(): void {
   }
 
+  ngOnChanges(): void {
+    if (this.item === '') {
+      this.easymde.value(this.item);
+    }
+  }
+
   getCharLength() {
     let curLength = 0;
     if (this.item && this.item.length) {
@@ -122,7 +128,7 @@ export class MarkdownDirective implements OnDestroy {
       if (newVal) {
         easymde.codemirror.setOption('maxLength', newVal);
         if (easymde.gui.statusbar) {
-          var statusBarElement = easymde.gui.statusbar.getElementsByClassName(CHAR_COUNTER_ELEMENT_CLASS_NAME)[0];
+          const statusBarElement = easymde.gui.statusbar.getElementsByClassName(CHAR_COUNTER_ELEMENT_CLASS_NAME)[0];
           if (statusBarElement) {
             updateCharacterCount(statusBarElement);
           }

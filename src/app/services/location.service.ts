@@ -15,7 +15,7 @@ export class LocationService {
     }else if (this.PlatformLocation.port && this.PlatformLocation.protocol === 'http:' && this.PlatformLocation.port !== '80') {
       port = `:${this.PlatformLocation.port}`;
     }
-    if (port === ':') {console.log(port, this.PlatformLocation); port = '';} //log out Location info to avoid : without port number
+    if (port === ':') {console.info(port, this.PlatformLocation); port = '';} //log out Location info to avoid : without port number
     return this.PlatformLocation.protocol + "//" + this.PlatformLocation.hostname + port ;
   };
 
@@ -41,7 +41,6 @@ export class LocationService {
 
   getAbsoluteUrl(path: string, params?: any, query?: any) {
     const baseUrlApi = this.getBaseUrl();
-    console.log(baseUrlApi)
     return this._getAbsoluteUrl(baseUrlApi, path, params, query);
   };
 

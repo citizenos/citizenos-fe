@@ -34,7 +34,7 @@ export class TopicVoteSignSmartidComponent implements OnInit {
   ngOnInit(): void {
   }
   doSignWithSmartId() {
-    console.debug('doSignWithMobile()');
+    console.debug('doSignWithSmartId()');
 
     this.isLoading = true;
 
@@ -47,21 +47,21 @@ export class TopicVoteSignSmartidComponent implements OnInit {
     };
 
     this.TopicVoteService.cast(userVote)
-      .pipe(take(1),
-        catchError((err) => {
+      .pipe(take(1))
+      .subscribe({
+        next: (voteInitResult) => {
+          this.isLoading = false;
+          if (voteInitResult.challengeID && voteInitResult.token) {
+            this.challengeID = voteInitResult.challengeID;
+            const token = voteInitResult.token;
+            return this.pollVoteSignStatus(token, 3000, 80);
+          }
+        },
+        error: (err) => {
           this.isLoading = false;
           console.error(err);
-          return of(err);
-        }))
-      .subscribe((voteInitResult) => {
-        this.isLoading = false;
-        if (voteInitResult.challengeID && voteInitResult.token) {
-          this.challengeID = voteInitResult.challengeID;
-          const token = voteInitResult.token;
-          return this.pollVoteSignStatus(token, 3000, 80);
         }
-
-      })
+      });
   };
 
   pollVoteSignStatus(token: string, milliseconds: number, retry: number) {
@@ -74,19 +74,21 @@ export class TopicVoteSignSmartidComponent implements OnInit {
     );
     voteResult.pipe(
       takeWhile((res: any,) => {
-        return (res.status.code === 20001)
+        return (res?.status.code === 20001)
       }, true),
-      map(res => res.data),
-      catchError((error) => {
-        console.log('ERROR', error);
-        this.isLoading = false;
-        this.challengeID = null;
-        return of(error);
-      })).subscribe((response) => {
+      map((res) => { return res?.data || {} })
+    ).subscribe({
+      next: (response) => {
         this.isLoading = false;
         this.challengeID = null;
         this.dialog.closeAll();
         this.Notification.addSuccess('VIEWS.TOPICS_TOPICID.MSG_VOTE_REGISTERED');
-      });
+      },
+      error: (error) => {
+        console.error(error);
+        this.isLoading = false;
+        this.challengeID = null;
+      }
+    });
   };
 }

@@ -22,9 +22,7 @@ export class TopicJoinService {
   }
 
   join(token: string) {
-    console.log('join', token)
     const path = this.Location.getAbsoluteUrlApi('/api/topics/join/:token', { token });
-    console.log('path', path)
     return this.http.post<ApiResponse>(path, {}, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
       map(res => res.data)
     );

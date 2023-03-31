@@ -48,8 +48,8 @@
         </div>
       </div>
       <div class="argument_header_widget">
-        <div class="table_cell" [title]="argument.createdAt | date : 'L LT'">
-          {{argument.createdAt | date}}
+        <div class="table_cell" [title]="argument.createdAt | amDateFormat : 'L LT'">
+          {{argument.createdAt | amTimeAgo}}
         </div>
       </div>
       <div *ngIf="isEdited()" class="line_wrap">

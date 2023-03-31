@@ -10,6 +10,7 @@ import { TopicMemberGroupService } from 'src/app/services/topic-member-group.ser
 import { TopicMemberUserService } from 'src/app/services/topic-member-user.service';
 import { take, switchMap } from 'rxjs';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ModalDatepickerComponent } from 'src/app/shared/components/modal-datepicker/modal-datepicker.component';
 export interface TopicSettingsData {
   topic: Topic
 };
@@ -53,7 +54,6 @@ export class TopicSettingsComponent implements OnInit {
       .loadItems()
       .pipe(take(1))
       .subscribe((groups) => {
-        console.log('GROUPs', groups)
         this.publicGroups = groups.filter((group: any) => group.visibility === this.GroupService.VISIBILITY.public);
       });
   }
@@ -170,19 +170,47 @@ export class TopicSettingsComponent implements OnInit {
     }
   };
 
-  doEditVoteDeadline() {
-    const vote: any = { topicId: this.topic.id };
+  openSetDeadline() {
+    if (this.topic.vote) {
+      const deadlineDialog = this.dialog.open(ModalDatepickerComponent, {
+        data: {
+          date: this.topic.vote.endsAt,
+          topic: this.topic
+        }
+      });
+
+      deadlineDialog.afterClosed().subscribe((vote) => {
+        if (vote) {
+          this.topic.vote = vote;
+        }
+      })
+    }
+  }
+
+  doEditVoteDeadline(deadline?: any) {
+    const vote: any = { topicId: this.topic.id, voteId: this.topic.voteId };
+    if (deadline) {
+      vote.endsAt = deadline;
+    }
     if (!this.reminder && !this.topic.vote?.reminderSent) {
       vote.reminderTime = null;
     }
     return this.TopicVoteService
       .update(vote)
       .pipe(take(1))
-      .subscribe((voteValue) => {
-        if (voteValue.reminderTime && !voteValue.reminderSent) {
-          this.reminder = true;
-        } else {
-          this.reminder = false;
+      .subscribe({
+        next: (voteValue) => {
+          if (this.topic.vote) {
+            this.topic.vote.endsAt = voteValue.endsAt;
+          }
+          if (voteValue.reminderTime && !voteValue.reminderSent) {
+            this.reminder = true;
+          } else {
+            this.reminder = false;
+          }
+        },
+        error: (err) => {
+          console.error(err);
         }
       });
   };

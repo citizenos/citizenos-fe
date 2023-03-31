@@ -1,19 +1,21 @@
+import { Component, OnInit, Inject } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { switchMap, of, map, tap, Observable, Subscription } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
+import { DomSanitizer } from '@angular/platform-browser';
+
 import { TopicAttachmentService } from 'src/app/services/topic-attachment.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { LocationService } from 'src/app/services/location.service';
 import { UploadService } from 'src/app/services/upload.service';
-import { Component, OnInit, Inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap, of, map, tap, Observable, Subscription } from 'rxjs';
 import { TopicService } from 'src/app/services/topic.service';
 import { TopicArgumentService } from 'src/app/services/topic-argument.service';
 import { TopicVoteService } from 'src/app/services/topic-vote.service';
 import { AppService } from 'src/app/services/app.service';
 import { Topic } from 'src/app/interfaces/topic';
 import { Attachment } from 'src/app/interfaces/attachment';
-import { DomSanitizer } from '@angular/platform-browser';
 import { Vote } from '../interfaces/vote';
-import { MatDialog } from '@angular/material/dialog';
 import { TopicReportComponent } from './components/topic-report/topic-report.component';
 
 @Component({
@@ -44,6 +46,7 @@ export class TopicComponent implements OnInit {
   routerSubscription: Subscription;
 
   constructor(
+    private translate: TranslateService,
     private dialog: MatDialog,
     private Auth: AuthService,
     public TopicService: TopicService,
@@ -88,7 +91,7 @@ export class TopicComponent implements OnInit {
       switchMap((topicId: string) => {
         return this.TopicService.get(topicId);
       }),
-      tap((topic:Topic) => {
+      tap((topic: Topic) => {
         this.app.topic = topic;
         if (topic.report && topic.report.moderatedReasonType) {
           // NOTE: Well.. all views that are under the topics/view/votes/view would trigger doble overlays which we don't want
@@ -96,10 +99,16 @@ export class TopicComponent implements OnInit {
           this.dialog.closeAll();
           this.doShowReportOverlay(topic);
           this.hideTopicContent = true;
-      }
+        }
         if (topic.voteId) {
           this.vote$ = this.TopicVoteService.get({ topicId: topic.id, voteId: topic.voteId });
         }
+        const padURL = new URL(topic.padUrl);
+        if (padURL.searchParams.get('lang') !== this.translate.currentLang) {
+          padURL.searchParams.set('lang', this.translate.currentLang);
+        }
+        padURL.searchParams.set('theme', 'default');
+        topic.padUrl = padURL.href; // Change of PAD URL here has to be before $sce.trustAsResourceUrl($scope.topic.padUrl);
         return topic;
       })
     );
@@ -114,6 +123,7 @@ export class TopicComponent implements OnInit {
   ngOnDestroy(): void {
     this.routerSubscription.unsubscribe();
   }
+
   sanitizeURL(url: string) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
@@ -121,7 +131,7 @@ export class TopicComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  currentUrl () {
+  currentUrl() {
     return this.Location.currentUrl();
   }
 
@@ -161,7 +171,7 @@ export class TopicComponent implements OnInit {
     return [this.STATUSES.followUp, this.STATUSES.closed].indexOf(topic.status) < 0 && vote && vote.endsAt && new Date() > new Date(vote.endsAt);
   };
 
-  hasVoteEnded(topic: Topic, vote:Vote) {
+  hasVoteEnded(topic: Topic, vote: Vote) {
     if ([this.STATUSES.followUp, this.STATUSES.closed].indexOf(topic.status) > -1) {
       return true;
     }

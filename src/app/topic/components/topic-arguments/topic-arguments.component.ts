@@ -25,13 +25,15 @@ export class TopicArgumentsComponent implements OnInit {
     private route: ActivatedRoute,
     private app: AppService,
     public TopicArgumentService: TopicArgumentService) {
-    this.route.queryParams.pipe(take(1), tap((params) => {
-      if (params['argumentId']) {
-        console.log(params)
-        this.goToArgument(params['argumentId'], null);
-      }
-    })).subscribe();
-    this.arguments$ = this.TopicArgumentService.loadItems();
+    this.arguments$ = this.TopicArgumentService.loadItems().pipe(tap(() => {
+      this.route.queryParams.pipe(take(1), tap((params) => {
+        setTimeout(() => {
+          if (params['argumentId']) {
+            this.goToArgument(params['argumentId'], null);
+          }
+        });
+      })).subscribe();
+    }));
   }
 
   ngOnInit(): void {
@@ -77,7 +79,6 @@ export class TopicArgumentsComponent implements OnInit {
 
   private scrollTo(argumentEl: HTMLElement | null) {
     if (argumentEl) {
-      console.log(argumentEl)
       argumentEl.scrollIntoView();
       argumentEl.classList.add('highlight');
       setTimeout(() => {
@@ -92,7 +93,6 @@ export class TopicArgumentsComponent implements OnInit {
       return;
     }
     let commentElement: HTMLElement | null = document.getElementById(argumentIdWithVersion);
-
     // The referenced comment was found on the page displayed
     if (commentElement) {
       this.scrollTo(commentElement)

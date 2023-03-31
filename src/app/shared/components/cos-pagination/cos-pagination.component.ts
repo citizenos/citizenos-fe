@@ -18,19 +18,19 @@ export class CosPaginationComponent implements OnInit {
     const array = [];
 
     if (this.totalPages <= 5) {
-      for (var i = 1; i <= this.totalPages; i++) {
+      for (let i = 1; i <= this.totalPages; i++) {
         array.push(i);
       }
     } else if (this.page < 4) {
-      for (var i = 1; i < 6; i++) {
+      for (let i = 1; i < 6; i++) {
         array.push(i);
       }
     } else if (this.totalPages - this.page >= 2) {
-      for (var i = -2; i < 3; i++) {
+      for (let i = -2; i < 3; i++) {
         array.push(this.page + i);
       }
     } else {
-      for (var i = -4; i < 1; i++) {
+      for (let i = -4; i < 1; i++) {
         array.push(this.totalPages + i);
       }
     }

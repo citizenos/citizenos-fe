@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { LocationService } from './location.service';
-import { Observable, switchMap, map, of, take } from 'rxjs';
+import { Observable, switchMap, map, of, tap, take } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic'; // Vote interface
 import { Vote } from 'src/app/interfaces/vote'; // Vote interface
 import { AuthService } from './auth.service';
@@ -75,11 +75,18 @@ export class TopicVoteService {
 
   cast(data: any) {
     if (!data.voteId) data.voteId = data.id;
-    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/votes/:voteId'), data)
+    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/votes/:voteId'), data);
 
-    return this.http.post<ApiResponse>(path, data, { withCredentials: true, observe: 'body', responseType: 'json' })
+    return this.http.post<any>(path, data, { withCredentials: true, observe: 'response', responseType: 'json' })
       .pipe(
-        map((res) => {return res.data;})
+        tap((res) => {
+          if (res.status === 205) {
+            window.location.reload();
+          }
+        }),
+        map((res) => {
+          return res.body.data;
+        })
       );
   }
 
@@ -104,7 +111,7 @@ export class TopicVoteService {
     let voteCountTotal = 0;
     if (vote.options) {
       const options = vote.options.rows;
-      for (var i in options) {
+      for (let i in options) {
         const voteCount = options[i].voteCount;
         if (voteCount) {
           voteCountTotal += voteCount;

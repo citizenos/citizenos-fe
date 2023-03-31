@@ -6,7 +6,7 @@ import { Title } from "@angular/platform-browser";
 import { AppService } from './services/app.service';
 import { ConfigService } from './services/config.service';
 import { takeUntil, Subject, tap } from 'rxjs';
-
+import * as moment  from 'moment';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -27,6 +27,8 @@ export class AppComponent {
     this.router.events.pipe(takeUntil(this.destroy$)).subscribe
       ((event: Event) => {
         if (event && event instanceof NavigationStart) {
+          app.showNav = false;
+          app.topic = undefined;
           const parsedUrl = router.parseUrl(event.url);
           const outlet = parsedUrl.root.children[PRIMARY_OUTLET];
 
@@ -37,6 +39,7 @@ export class AppComponent {
             this.router.navigate(g, { queryParams: parsedUrl.queryParams, fragment: parsedUrl.fragment || undefined });
           } else if (translate.currentLang !== langParam) {
             translate.use(langParam);
+            moment.locale(langParam);
           }
         }
       });

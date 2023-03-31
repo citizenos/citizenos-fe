@@ -1,6 +1,6 @@
 <div id="topics_admin_root" *ngIf="topic$ | async as topic;">
 
-  <topic-timeline [status]="topic.status" [voteEndsAt]="topic.vote ? topic.vote.endsAt : null"></topic-timeline>
+  <topic-timeline  [topic]="topic"></topic-timeline>
 
   <div class="content_wrap">
 

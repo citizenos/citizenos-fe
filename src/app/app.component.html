@@ -5,9 +5,9 @@
 <ng-container *ngIf="app.wWidth <= 1024">
   <nav-mobile  id="mobile_header"></nav-mobile>
 </ng-container>
-<nav class="nav" [ngClass]="app.showNav ? 'nav_is_open' : ''" ></nav>
+<nav *ngIf="translate.currentLang" class="nav" [ngClass]="app.showNav ? 'nav_is_open' : ''" ></nav>
 <!-- CONTENT -->
-<div id="content_root">
+<div id="content_root" *ngIf="translate.currentLang">
   <!-- CONTENT WRAP -->
   <div id="content_wrap">
       <div id="close_mobile_menu" *ngIf="app.showNav" ng-swipe-right="app.showNav = false" (click)="app.showNav = false"></div>

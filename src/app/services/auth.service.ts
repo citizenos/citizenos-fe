@@ -1,15 +1,16 @@
 import { ConfigService } from 'src/app/services/config.service';
 import { ApiResponse } from 'src/app/interfaces/apiResponse';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { of, BehaviorSubject, Observable, forkJoin } from 'rxjs';
-import { switchMap, catchError, tap, take, map } from 'rxjs/operators';
+import { of, BehaviorSubject, Observable, combineLatestWith } from 'rxjs';
+import { switchMap, catchError, tap, take, map, retry } from 'rxjs/operators';
 import { LocationService } from './location.service';
 import { NotificationService } from './notification.service';
 import { User } from '../interfaces/user';
 import { MatDialog } from '@angular/material/dialog';
 import { PrivacyPolicyComponent } from '../account/components/privacy-policy/privacy-policy.component';
 import { AddEmailComponent } from '../account/components/add-email/add-email.component';
+import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -66,18 +67,21 @@ export class AuthService {
   logout() {
     const pathLogoutEtherpad = this.Location.getAbsoluteUrlEtherpad('/ep_auth_citizenos/logout');
     const pathLogoutAPI = this.Location.getAbsoluteUrlApi('/api/auth/logout');
-    return forkJoin([
-      this.http.get(pathLogoutEtherpad, { withCredentials: true, responseType: 'text' }),
-      this.http.post(pathLogoutAPI, {}, { withCredentials: true })]).pipe(
-        switchMap(([res]) => {
-          this.user$ = null;
-          this.loggedIn$.next(false);
-          return res;
-        }),
-        catchError((err) => {
-          console.log(err); return err;
-        })
-      );
+
+    return this.http.get(pathLogoutEtherpad, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
+      combineLatestWith(this.http.post(pathLogoutAPI, {}, { withCredentials: true })),
+      switchMap((res) => {
+        this.user$ = null;
+        this.loggedIn$.next(false);
+        return res;
+      }),
+      retry(2), // retry 2 times on error
+      catchError((err) => {
+        this.user$ = null;
+        this.loggedIn$.next(false);
+        console.log(err); return err;
+      })
+    );
   }
 
   status() {
@@ -155,7 +159,6 @@ export class AuthService {
     return this.idCardInit()
       .pipe(
         switchMap((response) => {
-          console.log('response', response)
           if (response.token) {
             const path = this.Location.getAbsoluteUrlApi('/api/auth/id');
             if (userId) {
@@ -183,3 +186,8 @@ export class AuthService {
     );
   };
 }
+
+export const authResolver: ResolveFn<User> =
+  (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
+    return inject(AuthService).status();
+  };

@@ -47,7 +47,7 @@ export class GroupComponent implements OnInit {
             this.app.group.next(group);
           }),
           catchError((err: any) => {
-            console.log(err);
+            console.error(err);
             if (['401', '403', '404'].indexOf(err.status))
               this.router.navigate(['error/' + err.status])
             return of(err);
@@ -64,7 +64,6 @@ export class GroupComponent implements OnInit {
     if (this.app.group) {
       const inviteDialog = this.dialog.open(GroupInviteComponent, { data: { group: group } });
       inviteDialog.afterClosed().subscribe(result => {
-        console.log(result);
       });
     }
   }
@@ -118,7 +117,6 @@ export class GroupComponent implements OnInit {
         this.GroupService.delete(group)
           .pipe(take(1))
           .subscribe((res) => {
-            console.log(res);
             this.router.navigate(['../'], { relativeTo: this.route });
           })
       }
@@ -156,9 +154,7 @@ export class GroupComponent implements OnInit {
         closeByEscape: false
     })*/
     joinDialog.afterClosed().subscribe((res) => {
-      console.log(res, group);
       if (res === true) {
-        console.log('JOIN', group.join.token)
         this.GroupJoinService
           .join(group.join.token).pipe(take(1)).subscribe(
             {
@@ -171,22 +167,6 @@ export class GroupComponent implements OnInit {
             }
           )
       }
-      /*if (res === true) {
-        this.GroupService
-          .join(group.join.token)
-          .pipe(take(1))
-          .subscribe({
-            next: (res) => {
-              console.log(res)
-              if (res.id) {
-                group.userLevel = res.userLevel;
-              }
-            },
-            error: (res) => {
-              console.error('Failed to join Topic', res)
-            }
-          });
-      }*/
 
     });
   }

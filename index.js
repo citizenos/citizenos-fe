@@ -53,7 +53,7 @@ const browserDetect = (req, res, next) => {
   const msie = ua.indexOf('MSIE ');
   if (msie > 0) {
     // IE 10 or older => return version number
-    var IEversion = parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
+    const IEversion = parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
     console.log('IEversion', IEversion);
     res.sendFile(__dirname + '/public/views/unknown_device.html');
 
@@ -63,8 +63,8 @@ const browserDetect = (req, res, next) => {
   const trident = ua.indexOf('Trident/');
   if (trident > 0) {
     // IE 11 => return version number
-    var rv = ua.indexOf('rv:');
-    var version = parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
+    const rv = ua.indexOf('rv:');
+    const version = parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
     console.log('IE 11');
     res.sendFile(__dirname + 'src/unknown_device.html');
 
