@@ -1,15 +1,21 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { take } from 'rxjs';
+import { TopicVoteService } from 'src/app/services/topic-vote.service';
+import { Topic } from 'src/app/interfaces/topic';
 
+export interface DatepickerModalData {
+  date: any,
+  topic: Topic
+}
 @Component({
   selector: 'modal-datepicker',
   templateUrl: './modal-datepicker.component.html',
   styleUrls: ['./modal-datepicker.component.scss']
 })
 export class ModalDatepickerComponent implements OnInit {
-  @Input() cosModalTitle?: string;
-  @Input() cosModalDescription?: string;
-  @Input() cosModalLinkText?: string;
-  @Input('date') model!: any;
+  date!: any;
+  topic!: Topic;
   endsAt = {
     date: <any>null,
     min: 0,
@@ -48,39 +54,24 @@ export class ModalDatepickerComponent implements OnInit {
   timezone = (new Date().getTimezoneOffset() / -60);
   timeFormat = <string | number>24;
   isModalVisible = false;
-  deadline:Date = new Date(this.model) || new Date();
+  deadline: Date = new Date(this.date) || new Date();
   numberOfDaysLeft = 0;
-  HCount = <any>24;
+  HCount = <any>23;
   cosModalIsDateSelected = false;
   datePickerMin = new Date();
-  /*
-        private date;
-        private model;
-        private cosModalOnSave; // Expects a function that returns a Promise
-        private timezones;
-        private HCount;*/
-  /*date: '=?',
-  cosModalOnSave: '&', // Expects a function that returns a Promise*/
-  constructor() { }
+
+  constructor(private dialog: MatDialogRef<ModalDatepickerComponent>, @Inject(MAT_DIALOG_DATA) data: DatepickerModalData, private TopicVoteService:TopicVoteService) {
+    this.date = data.date;
+    this.topic = data.topic;
+    this.setFormValues();
+  }
 
   ngOnInit(): void {
-    console.log(this.model)
     this.setFormValues();
   }
 
   getTimeZoneName(value: number) {
     return (this.timezones.find((item) => { return item.value === value })).name;
-  };
-
-  cosModalOpen(date?: any) {
-    this.isModalVisible = true;
-    if (date) {
-      this.setFormValues();
-    }
-  };
-
-  cosModalClose() {
-    this.isModalVisible = false;
   };
 
   formatTime(val: number | string) {
@@ -89,30 +80,49 @@ export class ModalDatepickerComponent implements OnInit {
     }
   };
 
+  minHours() {
+    if (new Date(this.endsAt.date).getDate() === (new Date()).getDate()) {
+      const h = new Date().getHours() + (this.timezone - (new Date(this.deadline).getTimezoneOffset() / -60));
+      return h;
+    }
+    return 1;
+  };
+
+  minMinutes() {
+    if (new Date(this.endsAt.date).getDate() === (new Date()).getDate()) {
+      return Math.ceil(new Date().getUTCMinutes() / 5) * 5;
+    }
+
+    return 0
+  };
+
   setFormValues() {
-    this.deadline = this.model;
-    this.endsAt.date = this.model;
-    this.endsAt.min = new Date(this.deadline).getMinutes();
-    this.endsAt.h = new Date(this.deadline).getHours();
+    this.deadline = this.date;
+    this.endsAt.date = this.date;
+    this.endsAt.min = new Date(this.deadline).getUTCMinutes();
+    this.endsAt.h = new Date(this.deadline).getUTCHours();
     this.timezone = (new Date(this.deadline).getTimezoneOffset() / 60) * -1;
     this.cosModalIsDateSelected = true;
   };
 
-  setEndsAtTime() { //looks buggish
-    console.debug('SET ENDS AT')
+  setEndsAtTime() {
     this.endsAt.date = this.endsAt.date || new Date();
     this.deadline = new Date(this.endsAt.date);
-    // this.deadline.utcOffset(this.endsAt.timezone, true);
+    if (this.endsAt.h === 0 && this.endsAt.min === 0) {
+      this.deadline = new Date(this.deadline.setDate(this.deadline.getDate() + 1));
+    }
+
     let hour = this.endsAt.h;
     if (this.timeFormat === 'PM') { hour += 12; }
-    this.deadline.setHours(hour);
+    this.deadline.setHours(hour - (this.timezone - (new Date(this.deadline).getTimezoneOffset() / -60)));
     this.deadline.setMinutes(this.endsAt.min);
+    this.daysToVoteEnd();
   };
 
   setTimeFormat() {
-    this.HCount = 24;
+    this.HCount = 23;
     if (this.timeFormat !== 24) {
-      this.HCount = 12;
+      this.HCount = 11;
       if (this.endsAt.h > 12) {
         this.endsAt.h -= 12;
       }
@@ -122,18 +132,32 @@ export class ModalDatepickerComponent implements OnInit {
 
   cosModalSaveAction() {
     // The 'add' and 'subtract' - because the picked date is inclusive
-    this.model = this.cosModalIsDateSelected ? this.deadline : null;
+    this.date = this.cosModalIsDateSelected ? this.deadline : null;
+    const vote: any = { topicId: this.topic.id, voteId: this.topic.voteId };
+    if (this.date) {
+      vote.endsAt = this.date;
+    }
 
-    /*   this.cosModalOnSave()()
-         .then(() => {
-           this.cosModalClose();
-         });*/
+    return this.TopicVoteService
+      .update(vote)
+      .pipe(take(1))
+      .subscribe({
+        next: (voteValue) => {
+          if (this.topic.vote) {
+            this.topic.vote.endsAt = voteValue.endsAt;
+          }
+
+          this.dialog.close(voteValue);
+        },
+        error: (err) => {
+          console.error(err);
+        }
+      });
   };
 
   daysToVoteEnd() {
     if (this.deadline) {
-      let diffTime = new Date(this.deadline).getTime() - new Date().getTime();
-      this.numberOfDaysLeft = Math.ceil(diffTime / (1000 * 3600 * 24)); // Diff in days
+      this.numberOfDaysLeft = Math.ceil((new Date(this.deadline).getTime() - new Date().getTime()) / (1000 * 3600 * 24));
     }
     return this.numberOfDaysLeft;
   };

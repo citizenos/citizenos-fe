@@ -99,7 +99,7 @@ export class ActivityService extends ItemsListService {
     dataRows.forEach((activityGroups: any, groupKey: any) => {
       activityGroups.isNew = '';
       Object.keys(activityGroups.values).forEach((key) => {
-        var activity = activityGroups.values[key];
+        const activity = activityGroups.values[key];
         activity.isNew = '';
         if (activity.data.type === 'View' && activity.data.object && activity.data.object['@type'] === 'Activity') {
           if (!this.lastViewTime || activity.updatedAt > this.lastViewTime) {
@@ -316,7 +316,7 @@ export class ActivityService extends ItemsListService {
     }
 
     if (dataobject['@type'] === 'UserConnection') {
-      var key = 'ACTIVITY_FEED.ACTIVITY_USERCONNECTION_CONNECTION_NAME_:connectionId'
+      const key = 'ACTIVITY_FEED.ACTIVITY_USERCONNECTION_CONNECTION_NAME_:connectionId'
         .replace(':connectionId', dataobject.connectionId)
         .toUpperCase();
       const translation = this.$translate.instant(key);
@@ -330,7 +330,7 @@ export class ActivityService extends ItemsListService {
   };
 
   getActivityUsers = (activity: any, values: any) => {
-    var dataobject = activity.data.object;
+    let dataobject = activity.data.object;
     if (Array.isArray(dataobject)) {
       dataobject = dataobject[0];
     }
@@ -539,7 +539,7 @@ export class ActivityService extends ItemsListService {
           final[groupKey].push(activity);
           final[groupKey].sort((a: any, b: any) => {
             if (!a || !b) return 0;
-            var keyA = new Date(a.updatedAt),
+            const keyA = new Date(a.updatedAt),
               keyB = new Date(b.updatedAt);
             // Compare the 2 dates
             if (keyA < keyB) return 1;
@@ -607,7 +607,6 @@ export class ActivityService extends ItemsListService {
     }
 
     const activityType = activity.data.type;
-    console.log(activity)
     let state = [this.$translate.currentLang];
     let params = <any>{};
     let hash = '';
@@ -657,7 +656,7 @@ export class ActivityService extends ItemsListService {
     if (state[1] !== 'topics' && origin && origin['@type'] === 'Topic') {
       state = state.concat(['topics', origin.id]);
     }
-    console.log('STATE', state)
+
     if (state.length) {
       if (hash) {
         params.fragment = hash;

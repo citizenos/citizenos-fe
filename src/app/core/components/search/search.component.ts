@@ -67,9 +67,18 @@ export class SearchComponent implements OnInit {
           this.app.showSearchResults = true;
           this.app.showNav = false;
           this.app.showSearchFiltersMobile = false;
-          this.noResults = false;
           /*this.searchResults = result.data.data.results;
           */
+          let countTotal = 0;
+          Object.values(data.results).forEach((item: any) => {
+            Object.values(item).forEach((sgroup:any) => {
+              countTotal += sgroup.count || 0;
+            })
+          });
+
+          if (countTotal > 0) {
+            this.noResults = false;
+          }
         }, error: (err) => {
           console.error('SearchCtrl', 'Failed to retrieve search results', err);
         }
@@ -77,7 +86,6 @@ export class SearchComponent implements OnInit {
   };
 
   goToView(item: any, context?: any) {
-    console.log(item, context)
     if (item) {
       this.app.showSearchResults = false;
       if (item.id === 'viewMore') {
@@ -91,12 +99,12 @@ export class SearchComponent implements OnInit {
         model = 'group';
       }
 
-      if (model == 'topic') {
+      if (model == 'topic' && item.id) {
         if (this.AuthService.loggedIn$.value === true && context === 'my') {
           this.router.navigate(['my/topics', item.id], { queryParams: { filter: 'all' } });
         }
         return this.router.navigate(['/topics', item.id]);
-      } else if (model === 'group') {
+      } else if (model === 'group' && item.id) {
         if (this.AuthService.loggedIn$.value === true && context === 'my') {
           return this.router.navigate(['my/groups', item.id], { queryParams: { filter: 'grouped' } });
         }
@@ -142,7 +150,7 @@ export class SearchComponent implements OnInit {
           next: (result) => {
             const moreResults = result.results;
             this.searchResults[context][model].count = moreResults[context][model].count;
-            moreResults[context][model].rows.forEach((row:any) => {
+            moreResults[context][model].rows.forEach((row: any) => {
               this.searchResults[context][model].rows.push(row);
             });
             this.viewMoreInProgress = false;

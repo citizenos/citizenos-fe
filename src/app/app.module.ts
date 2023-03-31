@@ -23,7 +23,7 @@ export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
-import {} from '@ngx-translate/core';
+import { } from '@ngx-translate/core';
 import { JSONPointerCompiler, CosMissingTranslationHandler } from './TranslateHandlers';
 import { LanguageSelectComponent } from './core/components/language-select/language-select.component';
 import { NotificationComponent } from './core/components/notification/notification.component';
@@ -61,8 +61,8 @@ import { FeedbackComponent } from './core/components/feedback/feedback.component
         useFactory: (createTranslateLoader),
         deps: [HttpClient]
       },
-      missingTranslationHandler: {provide: MissingTranslationHandler, useClass: CosMissingTranslationHandler},
-      compiler: {provide: TranslateCompiler, useClass: JSONPointerCompiler},
+      missingTranslationHandler: { provide: MissingTranslationHandler, useClass: CosMissingTranslationHandler },
+      compiler: { provide: TranslateCompiler, useClass: JSONPointerCompiler },
     }),
     MomentModule.forRoot({
       relativeTimeThresholdOptions: {

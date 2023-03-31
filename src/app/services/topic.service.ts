@@ -177,7 +177,6 @@ export class TopicService {
   };
 
   changeState(topic: Topic, state: string, stateSuccess?: string) {
-    console.log(topic, state, stateSuccess)
     const templates = <any>{
       followUp: {
         level: 'delete',
@@ -217,8 +216,7 @@ export class TopicService {
           status: this.STATUSES[state]
         }).pipe(take(1))
           .subscribe({
-            next: (res) => {
-              console.log(res);
+            next: () => {
               if (state === 'vote' && !topic.voteId && !topic.vote) {
                 this.router.navigate(['/topics', topic.id, 'votes', 'create'])
               }

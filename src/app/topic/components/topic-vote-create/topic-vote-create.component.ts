@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Topic } from 'src/app/interfaces/topic';
+import { TopicService } from 'src/app/services/topic.service';
 import { TopicVoteService } from 'src/app/services/topic-vote.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -15,8 +16,7 @@ export class TopicVoteCreateComponent implements OnInit {
   VOTE_TYPES = this.TopicVoteService.VOTE_TYPES;
   voteTypes = Object.keys(this.VOTE_TYPES);
   VOTE_AUTH_TYPES = this.TopicVoteService.VOTE_AUTH_TYPES;
-  HCount = 24;
-  timeFormat: any;
+  HCount = 23;
   timezones = <any[]>[];
   datePickerMin = new Date();
   private CONF = {
@@ -91,6 +91,7 @@ export class TopicVoteCreateComponent implements OnInit {
   reminderOptions = [{ value: 1, unit: 'days' }, { value: 2, unit: 'days' }, { value: 3, unit: 'days' }, { value: 1, unit: 'weeks' }, { value: 2, unit: 'weeks' }, { value: 1, unit: 'month' }];
 
   constructor(
+    private TopicService: TopicService,
     private TopicVoteService: TopicVoteService,
     private Translate: TranslateService,
     private Notification: NotificationService,
@@ -176,28 +177,53 @@ export class TopicVoteCreateComponent implements OnInit {
     return this.deadline;
   }
 
+  toggleDeadline () {
+    if (!this.deadline) {
+      console.log(new Date().getHours(), new Date().getUTCHours())
+      this.endsAt.h = new Date().getHours();
+      this.endsAt.min = Math.ceil(new Date().getMinutes() / 5) * 5;
+      this.setEndsAtTime();
+    } else {
+      this.deadline = null;
+    }
+  }
+
+  minHours () {
+    if (new Date(this.endsAt.date).getDate() === (new Date()).getDate()) {
+      const h = new Date().getHours() + (this.endsAt.timezone - (this.deadline.getTimezoneOffset() / -60));
+      return h;
+    }
+    return 1;
+  };
+
+  minMinutes () {
+    if (new Date(this.endsAt.date).getDate() === (new Date()).getDate()) {
+      return Math.ceil(new Date().getMinutes() / 5) * 5;
+    }
+
+    return 0
+  };
   setEndsAtTime() {
     this.endsAt.date = this.endsAt.date || new Date();
     this.deadline = new Date(this.endsAt.date);
+    if (this.endsAt.h === 0 && this.endsAt.min === 0) {
+      this.deadline = new Date(this.deadline.setDate(this.deadline.getDate() + 1));
+    }
+
     let hour = this.endsAt.h;
     if (this.endsAt.timeFormat === 'PM') { hour += 12; }
-    this.deadline.setUTCHours(hour - this.endsAt.timezone);
+    this.deadline.setHours(hour - (this.endsAt.timezone - (this.deadline.getTimezoneOffset() / -60)));
     this.deadline.setMinutes(this.endsAt.min);
     this.daysToVoteEnd();
   };
 
   daysToVoteEnd() {
     if (this.deadline) {
-      if (this.deadline.toDateString() === new Date().toDateString()) {
-        this.deadline = new Date()//moment(new Date()).startOf('day').add(1, 'day');
-        this.deadline = this.deadline.setDate(this.deadline.getDate() + 1);
-        this.endsAt.date = this.deadline;
-      }
       this.numberOfDaysLeft = Math.ceil((new Date(this.deadline).getTime() - new Date().getTime()) / (1000 * 3600 * 24));
     }
     return this.numberOfDaysLeft;
   };
-
+  //To display hours in the dropdown like 01
   formatTime(val: number | string) {
     if (val < 10) {
       val = '0' + val;
@@ -207,8 +233,8 @@ export class TopicVoteCreateComponent implements OnInit {
   };
 
   setTimeFormat() {
-    this.HCount = 24;
-    if (this.timeFormat !== 24) {
+    this.HCount = 23;
+    if (this.endsAt.timeFormat !== 24) {
       this.HCount = 12;
       if (this.endsAt.h > 12) {
         this.endsAt.h -= 12;
@@ -301,11 +327,16 @@ export class TopicVoteCreateComponent implements OnInit {
       .pipe(take(1))
       .subscribe({
         next: (vote) => {
+          this.TopicService.get(this.topic.id).pipe(take(1)).subscribe();
           this.router.navigate(['/topics', this.topic.id, 'votes', vote.id]);
         },
         error: (res) => {
           console.debug('createVote() ERR', res, res.errors, this.vote.options);
           this.errors = res.errors;
+          Object.values(this.errors).forEach((message) => {
+            if (typeof message === 'string')
+              this.Notification.addError(message);
+          });
         }
       });
   };

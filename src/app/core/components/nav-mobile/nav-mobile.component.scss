@@ -40,75 +40,85 @@
   display: block;
   right: 0;
   position: absolute;
+  height: 60px;
+  width: max-content;
 }
 
-.header_button {
-  height: 60px;
-  position: relative;
-  color: vars.$white;
-  font-weight: bold;
-  font-size: 14px;
-  display: inline-block;
+.line_holder {
+  height: 30px;
+  text-align: center;
   vertical-align: middle;
-  cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.45);
-
-  .header_button_content{
-    height: 60px;
-  }
-  .line_holder,
-  .header_button_icon,
-  .header_button_text {
-    text-align: center;
-    vertical-align: middle;
-    position: relative;
-    display: inline-block;
-    margin-left: 20px;
-    top: 15px;
-  }
-
-  .line_holder {
-    height: 30px;
-    display: inline-block;
-  }
-  @include mixins_n_extends.mobile {
-    width: 53px;
-    .header_button_icon {
-      .sprite {
-        display: inline-block;
-        margin: 0 auto;
-        top: 45%;
-        transform: translateY(-65%);
-      }
-    }
-
-    .header_button_text:first-child {
-      display: inline-block;
-    }
-    .header_button_text {
-      display: none;
-    }
-    .first_holder {
-      width: 2px;
-    }
-  }
-
-  .header_button_icon {
-    width: 34px;
-  }
-
-  .sprite {
-    display: inline-block;
-    vertical-align: middle;
-    top: 15px;
-    position: relative;
-  }
+  position: relative;
+  display: inline-block;
 
   .v_line {
     height: 30px;
     width: 1px;
     float: left;
   }
+}
+
+.header_button {
+  min-width: 53px;
+  width: auto;
+  height: 100%;
+  position: relative;
+  text-align: center;
+  color: vars.$white;
+  font-weight: bold;
+  font-size: 14px;
+  display: inline-table;
+  vertical-align: middle;
+  cursor: pointer;
+  padding: 0;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.45);
+
+  .header_button_text {
+    display: inline-block;
+    margin-left:20px;
+    vertical-align: middle;
+  }
+
+  .header_button_content {
+    display: table-cell;
+    vertical-align: middle;
+    height: 60px;
+    padding: 0 20px;
+  }
+
+  .header_button_icon {
+    .sprite {
+      display: inline-block;
+      margin: 0 auto;
+      top: 45%;
+      transform: translateY(-65%);
+    }
+  }
+  @include mixins_n_extends.mobile {
+    .header_button_text {
+      display: none;
+    }
+    .first_holder {
+      width: 2px;
+    }
+
+    &:last-child {
+      .header_button_text {
+        display: inline-block;
+      }
+    }
+  }
+
+  .header_button_icon {
+    width: auto;
+  }
+
+  .sprite {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+  }
+
 }
 
 /* SEARCH BAR (search area styles in content.scss) */

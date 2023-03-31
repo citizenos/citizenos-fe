@@ -120,7 +120,6 @@ export class GroupSettingsDialogComponent implements OnInit {
         return GroupService.get(params['groupId'])
       })
     ).pipe(take(1)).subscribe((group) => {
-      console.log(group)
       const settingsDialog = dialog.open(GroupSettingsComponent, {
         data: {
           group

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, PRIMARY_OUTLET } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { tap, map, switchMap, combineLatest } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
@@ -89,7 +89,7 @@ export class ListComponent {
 
             } else {
               const inlist = newtopics.map((item: any) => item.id).find((id: string) => id === queryParams['topicId']);
-              if (!inlist) {
+              if (!inlist && this.wWidth > 750) {
                 this.router.navigate([TranslateService.currentLang, 'my', 'topics', newtopics[0].id], { queryParams });
               }
             }
@@ -138,6 +138,19 @@ export class ListComponent {
   onSelect(id: string) {
     // this.UserTopicService.filterTopics(id);
     this.router.navigate([], { relativeTo: this.route, queryParams: { filter: id } });
+  }
+
+  menuHidden() {
+    if (window.innerWidth <= 750) {
+      const parsedUrl = this.router.parseUrl(this.router.url);
+      const outlet = parsedUrl.root.children[PRIMARY_OUTLET];
+      const g = outlet?.segments.map(seg => seg.path) || [''];
+      if (g.length === 3 && g[2] === 'topics') return false
+
+      return true;
+    }
+
+    return false;
   }
 
 }

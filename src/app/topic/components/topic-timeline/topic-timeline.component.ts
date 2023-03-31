@@ -1,5 +1,6 @@
 import { TopicService } from 'src/app/services/topic.service';
 import { Component, Input, OnInit } from '@angular/core';
+import { Topic } from 'src/app/interfaces/topic';
 
 @Component({
   selector: 'topic-timeline',
@@ -7,8 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./topic-timeline.component.scss']
 })
 export class TopicTimelineComponent implements OnInit {
-  @Input() status: any;
-  @Input() voteEndsAt: any;
+  @Input() topic!: Topic;
 
   STATUSES = this.TopicService.STATUSES;
 
@@ -19,7 +19,7 @@ export class TopicTimelineComponent implements OnInit {
 
   isValidStatus (index: number) {
     const statusesArray = Object.values(this.STATUSES).reverse().splice(0, index);
-    return statusesArray.indexOf(this.status) > -1;
+    return statusesArray.indexOf(this.topic.status) > -1;
   };
 
 }

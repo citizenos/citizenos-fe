@@ -35,13 +35,16 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           else {
             errorMsg = response.message;
             console.error(`Server side error:', ${errorMsg} `);
-            if (response.status === 403) {
-              this.Router.navigate(['/error/404']);
-              return throwError(() => response.error);
-            }
+
             if (response.url?.match(this.API_REQUEST_JOIN) && response.status === 404) {
               return throwError(() => response.error);
             }
+
+            if (response.status === 403 || response.status === 404) {
+              this.Router.navigate(['/error/404']);
+              return throwError(() => response.error);
+            }
+
             if (response.url?.match(this.API_REQUEST_REGEX) && response.status === 401) {
               // Cannot use $state here due to circular dependencies with $http
               this.Router.navigate(['/account/login'], { queryParams: { redirectSuccess: this.Location.getAbsoluteUrl(window.location.pathname) + window.location.search }});
@@ -51,7 +54,10 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 
 
           try {
-            this.errorsToKeys(response, request.method);
+            const keys = <{[key:string]: string}>this.errorsToKeys(response, request.method);
+            Object.values(keys).forEach((err:string) => {
+              this.Notification.addError(err);
+            });
           } catch (err) {
             // Catch all so that promise get rejected later with response to continue interceptor chain
          //   this.Notification.addError(err);
@@ -74,7 +80,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
       throw new Error(`cosHttpApiErrorInterceptor.errorsToKeys(), Missing one or more required parameters, ${arguments}`);
     }
 
-    if (errorResponse.data && errorResponse.data.errors) {
+    if (errorResponse.error && errorResponse.error.errors) {
       return this.fieldErrorsToKeys(errorResponse, method);
     } else {
       return this.generalErrorToKey(errorResponse, method);
@@ -106,10 +112,9 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   };
 
   fieldErrorsToKeys(errorResponse: any | undefined, method: string) {
-    var errors = errorResponse.data.errors;
-
+    const errors = errorResponse.error.errors;
     Object.keys(errors).forEach((key) => {
-      var translationKey = this.getGeneralErrorTranslationKey(errorResponse, method);
+      let translationKey = this.getGeneralErrorTranslationKey(errorResponse, method);
       translationKey += '_' + key.toUpperCase();
 
       if (translationKey !== this.translate.instant(translationKey, {})) {
@@ -118,6 +123,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         errors[key] = errors[key] + ' *'; // Add asterisk to the end so its easy to see that untranslated message was shown
       }
     });
+
+    return errors;
   };
 
   generalErrorToKey(errorResponse: any | null | undefined, method: string) {

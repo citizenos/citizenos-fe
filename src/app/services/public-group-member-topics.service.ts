@@ -11,7 +11,6 @@ export class PublicGroupMemberTopicsService extends ItemsListService {
   params$ = new BehaviorSubject(this.params);
   constructor(private GroupMemberTopicService: GroupMemberTopicService) {
     super();
-    console.log(this);
     this.items$ = this.loadItems();
   }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, PRIMARY_OUTLET } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { map, switchMap, combineLatest } from 'rxjs';
 import { Group } from 'src/app/interfaces/group';
@@ -26,7 +26,7 @@ export class GroupListComponent implements OnInit {
 
             } else {
               const inlist = newgroups.map((item: any) => item.id).find((id: string) => id === queryParams['groupId']);
-              if (!inlist) {
+              if (!inlist && window.innerWidth > 750) {
                 this.router.navigate([TranslateService.currentLang, 'my', 'groups', newgroups[0].id], { queryParams });
               }
             }
@@ -42,5 +42,18 @@ export class GroupListComponent implements OnInit {
   onSelect(id: string) {
     // this.UserTopicService.filterTopics(id);
     this.router.navigate([], { relativeTo: this.route, queryParams: { filter: id } });
+  }
+
+  menuHidden() {
+    if (window.innerWidth <= 750) {
+      const parsedUrl = this.router.parseUrl(this.router.url);
+      const outlet = parsedUrl.root.children[PRIMARY_OUTLET];
+      const g = outlet?.segments.map(seg => seg.path) || [''];
+      if (g.length === 3 && g[2] === 'groups') return false
+
+      return true;
+    }
+
+    return false;
   }
 }

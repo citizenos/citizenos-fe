@@ -1,85 +1,86 @@
 <!-- LIGHTBOX SKELETON -->
 <div id="root_lightbox">
   <div id="lightbox" class="id_signing delete_topic wide_lightbox my_account_lightbox">
-      <div id="lightbox_wrap">
+    <div id="lightbox_wrap">
+      <form [formGroup]="form" >
+        <div id="lightbox_header">
 
-          <div id="lightbox_header">
+
+          <div id="lightbox_header_text">
+            <div class="title" translate="MODALS.ADD_EMAIL_HEADING"></div>
+          </div>
+
+          <div id="lightbox_close" mat-dialog-close>
+            <div class="table_cell">
+              <div class="sprite sprite-btn-popup-close2x"></div>
+            </div>
+          </div>
+
+          <div class="line lightest_line"></div>
+
+        </div>
 
 
-              <div id="lightbox_header_text">
-                  <div class="title" translate="MODALS.ADD_EMAIL_HEADING"></div>
+        <div class="lightbox_content">
+
+          <div class="second_header">
+
+            <div class="sprite sprite-icon-warn-topic2x"></div>
+            <div class="warn_title" translate="MODALS.ADD_EMAIL_HEADING"></div>
+
+            <div id="lightbox_close" mat-dialog-close>
+              <div class="table_cell">
+                <div class="sprite sprite-btn-popup-close2x"></div>
               </div>
+            </div>
 
-              <div id="lightbox_close" mat-dialog-close>
+          </div>
+
+          <div class="line_wrap">
+            <div class="line lightest_line"></div>
+          </div>
+
+          <div class="lightbox_section">
+
+            <div class="delete_info_text_wrap">
+              <div>
+                <div class="delete_info_text" translate="MODALS.ADD_EMAIL_DESCRIPTION"></div>
+              </div>
+            </div>
+            <div class="delete_info_text_wrap section_with_padding">
+              <div>
+                <input id="email" formControlName="email" type="email"
+                  placeholder="{{'MODALS.ADD_EMAIL_PLACEHOLDER_EMAIL' | translate}}" (focus)="wWidth > 1024"
+                  [ngClass]="{'error_input': form.controls['email'].errors && form.controls['email'].errors['email']  && form.touched}" [maxlength]="254" required>
+                <label for="email" class="error_label" *ngIf="form.invalid && form.touched">
                   <div class="table_cell">
-                      <div class="sprite sprite-btn-popup-close2x"></div>
+                    <div class="sprite sprite-icon-inputfield-error2x"></div>
+                    <span translate="{{errors?.email}}"></span>
                   </div>
+                </label>
               </div>
-
-              <div class="line lightest_line"></div>
+            </div>
+            <div class="delete_info_text_wrap section_with_padding">
+              <div>
+                <div class="delete_info_text bold" translate="MODALS.ADD_EMAIL_TXT_VERIFY"></div>
+              </div>
+            </div>
 
           </div>
 
-
-          <div class="lightbox_content">
-
-              <div class="second_header">
-
-                  <div class="sprite sprite-icon-warn-topic2x"></div>
-                  <div class="warn_title" translate="MODALS.ADD_EMAIL_HEADING"></div>
-
-                  <div id="lightbox_close" mat-dialog-close>
-                      <div class="table_cell">
-                          <div class="sprite sprite-btn-popup-close2x"></div>
-                      </div>
-                  </div>
-
-              </div>
-
-              <div class="line_wrap">
-                  <div class="line lightest_line"></div>
-              </div>
-
-              <div class="lightbox_section">
-
-                  <div class="delete_info_text_wrap">
-                      <div>
-                          <div class="delete_info_text" translate="MODALS.ADD_EMAIL_DESCRIPTION"></div>
-                      </div>
-                  </div>
-                  <div class="delete_info_text_wrap section_with_padding">
-                      <div >
-                          <input id="email" [(ngModel)]="email" type="email" #emailInput="ngModel" placeholder="{{'MODALS.ADD_EMAIL_PLACEHOLDER_EMAIL' | translate}}" (focus)="wWidth > 1024"
-                                     [ngClass]="{'error_input': emailInput.invalid}" [maxlength]="254" required>
-                          <label for="email" class="error_label" *ngIf="emailInput.invalid">
-                              <div class="table_cell">
-                                  <div class="sprite sprite-icon-inputfield-error2x"></div>
-                                  <span translate="{{errors?.email}}"></span>
-                              </div>
-                          </label>
-                      </div>
-                  </div>
-                  <div class="delete_info_text_wrap section_with_padding">
-                      <div>
-                          <div class="delete_info_text bold" translate="MODALS.ADD_EMAIL_TXT_VERIFY"></div>
-                      </div>
-                  </div>
-
-              </div>
-
+        </div>
+        <div class="lightbox_footer">
+          <div class="line lightest_line"></div>
+          <div class="lightbox_section">
+            <div class="footer_button_wrap right">
+              <div class="blue_link" translate="MODALS.ADD_EMAIL_LNK_CANCEL" (click)="logout()"></div>
+              <button class="blue_button" (click)="doUpdateProfile()" [disabled]="form.invalid"
+                class="blue_button" translate="MODALS.ADD_EMAIL_LOG_IN"></button>
+            </div>
           </div>
-          <div class="lightbox_footer">
-              <div class="line lightest_line"></div>
-
-              <div class="lightbox_section">
-                  <div class="footer_button_wrap right">
-                      <div class="blue_link" translate="MODALS.ADD_EMAIL_LNK_CANCEL" (click)="logout()"></div>
-                      <div class="blue_button" (click)="doUpdateProfile()" [attr.disabled]="emailInput.invalid" class="blue_button"
-                      translate="MODALS.ADD_EMAIL_LOG_IN"></div>
-                  </div>
-              </div>
-          </div>
-      </div>
+        </div>
+      </form>
+    </div>
   </div>
 
   <div id="close_lightbox" (click)="logout();" mat-dialog-close></div>

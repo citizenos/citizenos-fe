@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { PRIMARY_OUTLET, Router, ActivatedRoute } from '@angular/router';
+import { PRIMARY_OUTLET, Router, ActivatedRoute, UrlSegment } from '@angular/router';
 import { AppService } from 'src/app/services/app.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { TopicService } from 'src/app/services/topic.service';
 import { Topic } from 'src/app/interfaces/topic';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'nav-mobile',
@@ -12,8 +13,8 @@ import { Topic } from 'src/app/interfaces/topic';
 })
 export class NavMobileComponent implements OnInit {
 
-  constructor(public app: AppService, private Auth: AuthService, private TopicService: TopicService, private router: Router, private route: ActivatedRoute) {
-
+  constructor(private translate: TranslateService, public app: AppService, private Auth: AuthService, private TopicService: TopicService, private router: Router, private route: ActivatedRoute) {
+    console.log(app.topic)
   }
 
   canEdit(topic: Topic) {
@@ -23,7 +24,7 @@ export class NavMobileComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  loggedIn () {
+  loggedIn() {
     return this.Auth.loggedIn$;
   }
 
@@ -34,12 +35,19 @@ export class NavMobileComponent implements OnInit {
     } else {
       params['editMode'] = true;
     }
-
-    this.router.navigate([], {queryParams: params});
+    console.log('PARAMS', params)
+    this.router.navigate(['topics', this.app.topic?.id], { queryParams: params });
   }
 
   back() {
-    this.router.navigate(['../'], {relativeTo: this.route});
+    const parsedUrl = this.router.parseUrl(this.router.url);
+    const outlet = parsedUrl.root.children[PRIMARY_OUTLET];
+    const g = outlet?.segments.map(seg => seg.path) || [''];
+    if (g.length === 4 && g[1] === 'my') { //hackish because level up navigation doesn't work for my/topics/:topicId
+      this.router.navigate(['../my', g[2]], { relativeTo: this.route });
+    } else {
+      this.router.navigate(['../'], { relativeTo: this.route });
+    }
   }
 
   showBack() {
@@ -50,7 +58,13 @@ export class NavMobileComponent implements OnInit {
   }
 
   includedByState(path: string) {
-    console.log('includes', this.router.url.includes(path))
-    return this.router.url.includes(path);
+    const parsedUrl = this.router.parseUrl(this.router.url);
+    const outlet = parsedUrl.root.children[PRIMARY_OUTLET];
+    const g = outlet?.segments.map(seg => seg.path) || [''];
+    const item =  g.find((frag) => {
+      return frag === path;
+    });
+
+    return item === path;
   }
 }

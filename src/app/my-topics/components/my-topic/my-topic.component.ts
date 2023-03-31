@@ -65,6 +65,7 @@ export class MyTopicComponent implements OnInit {
         return this.TopicService.get(params['topicId']);
       }),
       tap((topic) => {
+        this.app.topic = topic;
         if (topic.voteId) {
           this.vote$ = this.TopicVoteService.get({ topicId: topic.id, voteId: topic.voteId });
         }
