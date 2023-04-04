@@ -4,6 +4,8 @@ import { ConfigService } from 'src/app/services/config.service';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageSelectComponent } from '../language-select/language-select.component';
+import { AccessibilityMenuComponent } from '../accessibility-menu/accessibility-menu.component';
+
 import { AuthService } from 'src/app/services/auth.service';
 import { LocationService } from 'src/app/services/location.service';
 import { ActivityFeedComponent } from '../activity-feed/activity-feed.component';
@@ -81,6 +83,7 @@ export class NavComponent implements OnInit {
 
 
   accessibility() {
-
+    this.dialog.closeAll();
+    this.dialog.open(AccessibilityMenuComponent);
   }
 }

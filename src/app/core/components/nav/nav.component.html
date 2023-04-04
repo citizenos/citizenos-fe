@@ -22,78 +22,78 @@
   <div class="nav_inside">
     <ng-container *ngIf="auth.user$ | async; then loggedIn; else loggedOut"></ng-container>
     <ng-template #loggedOut>
-      <button class="btn_big btn_black" (click)="doShowLogin()" translate="DEFAULT.NAV.BTN_LOGIN"></button>
-      <button class="btn_big ghost btn_black" (click)="doShowRegister()"
+      <button class="btn_nav_big" (click)="doShowLogin()" translate="DEFAULT.NAV.BTN_LOGIN"></button>
+      <button class="btn_nav_big_ghost" (click)="doShowRegister()"
         translate="DEFAULT.NAV.BTN_REGISTER"></button>
     </ng-template>
     <ng-template #loggedIn>
-      <button class="btn_big btn_black" (click)="app.showCreateMenu()">
+      <button class="btn_nav_big" (click)="app.showCreateMenu()">
         <div class="icon_create"></div>
         <span translate="DEFAULT.NAV.BTN_CREATE"></span>
       </button>
-      <button class="btn_big btn_black" (click)="doLogout()" translate="DEFAULT.NAV.BTN_LOGOUT"></button>
+      <button class="btn_nav_big" (click)="doLogout()" translate="DEFAULT.NAV.BTN_LOGOUT"></button>
 
-      <a class="btn_small btn_nav" [routerLink]="['/', translate.currentLang, 'dashboard']" routerLinkActive="active">
+      <a class="btn_nav_small" [routerLink]="['/', translate.currentLang, 'dashboard']" routerLinkActive="active">
         <div class="button_icon icon_dashboard"></div>
         <span class="bold" translate="DEFAULT.NAV.LNK_DASHBOARD"></span>
       </a>
-      <div class="btn_small btn_nav">
+      <div class="btn_nav_small">
         <div class="button_icon icon_topics"></div>
         <span class="bold" translate="DEFAULT.NAV.LNK_MY_TOPICS"></span>
       </div>
       <div class="sub_items">
-        <a class="btn_small btn_nav" [routerLink]="['/', translate.currentLang, 'my', 'topics']"
+        <a class="btn_nav_small" [routerLink]="['/', translate.currentLang, 'my', 'topics']"
           [queryParams]="{filter: 'inProgress'}">
           <div class="nav_bubble bg_blue">3</div><span translate="DEFAULT.NAV.LNK_IN_DISCUSSION"></span>
         </a>
-        <a class="btn_small btn_nav" [routerLink]="['/', translate.currentLang, 'my', 'topics']"
+        <a class="btn_nav_small" [routerLink]="['/', translate.currentLang, 'my', 'topics']"
           [queryParams]="{filter: 'ideation'}">
           <div class="nav_bubble bg_yellow">3</div><span translate="DEFAULT.NAV.LNK_IN_IDEATION"></span>
         </a>
-        <a class="btn_small btn_nav" [routerLink]="['/', translate.currentLang, 'my', 'topics']"
+        <a class="btn_nav_small" [routerLink]="['/', translate.currentLang, 'my', 'topics']"
           [queryParams]="{filter: 'voting'}">
           <div class="nav_bubble bg_green">3</div><span translate="DEFAULT.NAV.LNK_IN_VOTING"></span>
         </a>
-        <a class="btn_small btn_nav" [routerLink]="['/', translate.currentLang, 'my', 'topics']"
+        <a class="btn_nav_small" [routerLink]="['/', translate.currentLang, 'my', 'topics']"
           [queryParams]="{filter: 'followUp'}">
           <div class="nav_bubble bg_purple">3</div><span translate="DEFAULT.NAV.LNK_IN_FOLLOW_UP"></span>
         </a>
       </div>
-      <a class="btn_small btn_nav" [routerLink]="['/', translate.currentLang, 'my', 'groups']" routerLinkActive="active">
+      <a class="btn_nav_small" [routerLink]="['/', translate.currentLang, 'my', 'groups']" routerLinkActive="active">
         <div class="button_icon icon_group"></div>
         <span class="bold" translate="DEFAULT.NAV.LNK_MY_GROUPS"></span>
       </a>
     </ng-template>
     <div class="line_separator"></div>
-    <a class="btn_small btn_nav" [routerLink]="['/', translate.currentLang, 'public' ,'topics']" routerLinkActive="active">
+    <a class="btn_nav_small" [routerLink]="['/', translate.currentLang, 'public' ,'topics']" routerLinkActive="active">
       <div class="button_icon icon_public_topics"></div>
       <span class="bold" translate="DEFAULT.NAV.LNK_PUBLIC_TOPICS"></span>
     </a>
-    <a class="btn_small btn_nav" [routerLink]="['/', translate.currentLang, 'public' ,'groups']" routerLinkActive="active">
+    <a class="btn_nav_small" [routerLink]="['/', translate.currentLang, 'public' ,'groups']" routerLinkActive="active">
       <div class="button_icon icon_public_groups"></div>
       <span class="bold" translate="DEFAULT.NAV.LNK_PUBLIC_GROUPS"></span>
     </a>
     <div class="line_separator"></div>
     <ng-container *ngIf="auth.user$ | async">
-      <a class="btn_small btn_nav" [routerLink]="['/', translate.currentLang, 'account']" routerLinkActive="active">
+      <a class="btn_nav_small" [routerLink]="['/', translate.currentLang, 'account']" routerLinkActive="active">
         <div class="button_icon icon_profile"></div>
         <span translate="DEFAULT.NAV.LNK_MY_ACCOUNT"></span>
       </a>
     </ng-container>
 
-    <a class="btn_small btn_nav" (click)="doShowLanguageSelect()">
+    <a class="btn_nav_small" (click)="doShowLanguageSelect()">
       <div class="button_icon icon_language"></div>
       <span>{{ config.get('language').list[translate.currentLang]}}</span>
     </a>
-    <a class="btn_small btn_nav" (click)="toggleHelp()">
+    <a class="btn_nav_small" (click)="toggleHelp()">
       <div class="button_icon icon_help"></div>
       <span translate="DEFAULT.NAV.LNK_HELP"></span>
     </a>
-    <a class="btn_small btn_nav" *ngIf="config.get('links').about" target="_blank" [href]="config.get('links').about">
+    <a class="btn_nav_small" *ngIf="config.get('links').about" target="_blank" [href]="config.get('links').about">
       <div class="button_icon icon_cos"></div>
       <span translate="DEFAULT.NAV.LNK_ABOUT"></span>
     </a>
-    <a class="btn_small btn_nav" (click)="accessibility()">
+    <a class="btn_nav_small" (click)="accessibility()">
       <div class="button_icon icon_accessibility"></div>
       <span translate="DEFAULT.NAV.LNK_ACCESSIBILITY"></span>
     </a>

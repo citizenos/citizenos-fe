@@ -1,0 +1,76 @@
+@use "mixins";
+
+/*Need to be declared as variables for the theme*/
+$green_300: #98DAA2;
+
+$orange_50: #FFF1E1;
+$orange_500: #F39129;
+$red_500: #EF4025;
+$yellow_50: #FDF0C3;
+
+
+$--theme-background: --theme-background;
+$--theme-primary: --theme-primary;
+$--theme-on-primary: --theme-on-primary;
+$--theme-primary-separator: --theme-primary-separator;
+$--theme-secondary: --theme-secondary;
+$--theme-third: --theme-third;
+$--theme-surface: --theme-surface;
+$--theme-on-secondary: --theme-on-secondary;
+$--theme-on-surface: --theme-on-surface;
+$--font-size: --font-size;
+$--line-height: --line-heigth;
+$--color-discussion: --color-discussion;
+$--color-voting: --color-voting;
+$--color-ideation: --color-ideation;
+$--color-follow-up: --color-follow-up;
+$--color-group: --color-group;
+
+// Default theme
+$theme-map-default: (
+  $--theme-background: #F1F7FC,
+  $--theme-primary: #2C3B47,
+  $--theme-on-primary: #FFF,
+  $--theme-primary-separator: #E1E7EE,
+  $--theme-secondary: #EBF4FB,
+  $--theme-third: #D7E9F8,
+  $--theme-on-secondary: #1168A8,
+  $--theme-surface: #F9FBFD,
+  $--theme-on-surface: #000,
+  $--color-discussion: #1168A8,
+  $--color-voting: #5AB467,
+  $--color-ideation: #E4B722,
+  $--color-follow-up: #DA7AB1,
+  $--color-group: #D7E9F8,
+  $--font-size: 14px,
+  $--line-height: 16px,
+);
+
+// Override the default light theme
+$theme-map-contrast: (
+  $--theme-background: #000,
+  $--theme-primary: #000,
+  $--theme-on-primary: #FFF500,
+  $--theme-primary-separator: #000,
+  $--theme-secondary: #FFF500,
+  $--theme-surface: #2f2b2b,
+  $--theme-on-secondary: #000,
+  $--theme-on-surface: #f5f1f2,
+  $--color-discussion: #1168A8,
+  $--color-voting: #5AB467,
+  $--color-ideation: #E4B722,
+  $--color-follow-up: #DA7AB1,
+  $--color-group: #D7E9F8,
+  $--font-size: 14px,
+  $--line-height: 16px,
+);
+
+$theme-font-large: (
+  $--font-size: 18px,
+  $--line-height: 24px,
+);
+
+$theme-font-extra-large: (
+  $--font-size: 24px,
+  $--line-height: 32px,
+);

@@ -1,5 +1,5 @@
-@use "vars";
-@use "mixins_n_extends";
+@use "mixins";
+
 .cdk-global-overlay-wrapper {
   top: 0;
   bottom: 0;
@@ -37,7 +37,7 @@
     flex-direction: row;
     width: 100%;
     height: 56px;
-    background-color: vars.$blue_50;
+    background-color: var(--theme-background);
     justify-content: space-between;
     .header_text {
       display: flex;

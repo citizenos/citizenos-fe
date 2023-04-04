@@ -71,6 +71,7 @@
     "MSG_REQUEST_SENT": "Your help request has been sent!"
   },
   "MODALS": {
+    "ACCESSIBILITY_MODAL_HEADING": "@:DEFAULT.NAV.LNK_ACCESSIBILITY",
     "CREATE_TITLE_DISCUSSION": "Discussion topic",
     "CREATE_DESC_DISCUSSION": "Choose this if you want to encourage a discussion before potentially moving to ideation, voting and/or follow-up.",
     "CREATE_TITLE_IDEATION": "Ideation topic",
@@ -655,7 +656,7 @@
       "LNK_ABOUT": "About",
       "LNK_FAQ": "FAQ",
       "LNK_HELP": "Help",
-      "LNK_ACCESSIBILITY": "Accerssibility",
+      "LNK_ACCESSIBILITY": "Accessibility",
       "LNK_LOG_OUT": "Log out",
       "LNK_ACTIVITY": "Activity feed"
     },

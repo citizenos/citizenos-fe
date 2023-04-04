@@ -5,23 +5,14 @@
 <nav *ngIf="translate.currentLang"></nav>
 <!-- CONTENT -->
 <div id="content_root" *ngIf="translate.currentLang">
-  <!-- CONTENT WRAP -->
-  <div id="content_wrap">
-      <div id="close_mobile_menu" *ngIf="app.showNav" ng-swipe-right="app.showNav = false" (click)="app.showNav = false"></div>
-
-      <div id="content" [ngClass]="!displaySearch() ? 'content_no_padding' : ''">
-          <!-- SEARCH AREA -->
-          <div id="search_area" *ngIf="wWidth > 1024 && displaySearch()">
-              <search></search>
-          </div>
-          <div id="content_cell">
-              <!-- CLOSE SEARCH AREA -->
-
-              <!-- ROUTES CONTENT -->
-              <router-outlet id="view"></router-outlet>
-          </div>
-      </div>
-  </div>
+  <!-- CONTENT -->
+  <div id="content" [ngClass]="!displaySearch() ? 'content_no_padding' : ''">
+    <!-- SEARCH AREA -->
+    <div id="search_area" *ngIf="wWidth > 1024 && displaySearch()">
+      <search></search>
+    </div>
+    <!-- ROUTES CONTENT -->
+    <router-outlet id="view"></router-outlet>
 </div>
 <!-- MOBILE NAV -->
 <ng-container *ngIf="app.wWidth <= 1024">
