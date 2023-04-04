@@ -1,0 +1,7 @@
+@forward "mixins_n_extends";
+
+@mixin spread-map($map: ()) {
+  @each $key, $value in $map {
+      #{$key}: $value;
+  }
+}

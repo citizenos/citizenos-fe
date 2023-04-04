@@ -1,93 +1,86 @@
-@forward "styles-old";
+@forward "icons";
+@forward "icons_new";
 @forward "buttons_new";
 @forward "illustrations";
 @forward "dialog";
+@use "themes";
+@use "mixins";
+
+:root .default {
+  @include mixins.spread-map(themes.$theme-map-default);
+}
+:root .contrast {
+  @include mixins.spread-map(themes.$theme-map-contrast);
+}
+
+:root .large {
+  @include mixins.spread-map(themes.$theme-font-large);
+}
+:root .extra_large {
+  @include mixins.spread-map(themes.$theme-font-extra-large);
+}
 
 .main_content {
   display: flex;
   flex-direction: column;
+  width: 100%;
 
 }
 
-
-#content_root{
+#content_root {
   display: flex;
   flex-direction: column;
-  padding-left: 190px;
-}
+  position: absolute;
+  top: 0;
+  left: 200px;
+  width: -webkit-fill-available;
+  min-height: 100%;
+  padding-top: 60px;
 
-$theme-1: (
-  container: (
-    bg: #e4ada7,
-    color: #000,
-    border-color: #000,
-  ),
-  left: (
-    bg: #d88880,
-    color: #fff,
-    height: 100%,
-    width: 69%,
-  ),
-  right: (
-    bg: #cc6359,
-    color: #fff,
-    height: 100%,
-    width: 29%,
-  ),
-  button: (
-    bg: #481b16,
-    color: #fff,
-  ),
-);
+  #content {
+    width: 100%;
 
-@mixin themable($theme-name, $theme-map) {
-  .#{$theme-name} {
-    .container {
-      .left,
-      .right {
-        font-size: 2rem;
-      }
-    }
+    min-height: 100%;
+    flex-direction: column;
 
-    .container .right {
-      position: relative;
-    }
-
-    button, .btn {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      font-family: "Noto Sans";
-      font-style: normal;
-      border-radius: 50vh;
-    }
-
-    // Loop through each of the keys (sections)
-    @each $section, $map in $theme-map {
-      @if ($section == container) {
-        .container {
-          background-color: map-get($map, bg);
-          border: 1px solid map-get($map, border-color);
-          display: flex;
-          height: 500px;
-          justify-content: space-between;
-          margin: 0 auto;
-          padding: 1em;
-          width: 50%;
-        }
-      } @else {
-        .#{$section} {
-          background-color: map-get($map, bg);
-          color: map-get($map, color);
-
-          @if ($section != button) {
-            height: map-get($map, height);
-            width: map-get($map, width);
-          }
-        }
-      }
+    #view {
+      width: 100%;
     }
   }
 }
 
-@include themable(cos-theme, $theme-1);
+* {
+  box-sizing: border-box;
+  font-family: "Noto Sans", sans-serif;
+  font-size: var(--font-size);
+  line-height: var(--line-height);
+}
+
+a {
+  text-decoration: none;
+}
+
+body,
+html {
+  font-family: "Noto Sans", sans-serif;
+  font-size: 14px;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  min-height: 100%;
+  width: 100%;
+  bottom: 0;
+  color: var(--theme-primary);
+  background-color: var(--theme-background);
+  -webkit-text-size-adjust: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.line_separator {
+  height: 1px;
+  width: 100%;
+  background: var(--theme-primary-separator);
+  display: flex;
+  margin: 16px 0;
+}

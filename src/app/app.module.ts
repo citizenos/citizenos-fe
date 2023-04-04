@@ -37,6 +37,7 @@ import { PageUnauthorizedComponent } from './core/components/page-unauthorized/p
 import { NavMobileComponent } from './core/components/nav-mobile/nav-mobile.component';
 import { FeedbackComponent } from './core/components/feedback/feedback.component';
 import { CreateComponent } from './core/components/create/create.component';
+import { AccessibilityMenuComponent } from './core/components/accessibility-menu/accessibility-menu.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { CreateComponent } from './core/components/create/create.component';
     NavMobileComponent,
     FeedbackComponent,
     CreateComponent,
+    AccessibilityMenuComponent,
   ],
   imports: [
     BrowserModule,

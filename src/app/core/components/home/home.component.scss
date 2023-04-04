@@ -3,7 +3,8 @@
 
 #home_root {
     background: vars.$light_gray;
-    position: absolute;
+    position: relative;
+    flex-direction: column;
     top: 0;
     left: 0;
     bottom: 0;

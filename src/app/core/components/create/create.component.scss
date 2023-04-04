@@ -42,16 +42,6 @@
     border-radius: 16px 16px 0 0;
   }
 
-  .line_separator {
-    height: 1px;
-    left: calc(50% - 328px/2);
-    top: calc(50% - 1px/2 + 0.5px);
-    width: 100%;
-    background: vars.$gray_500;
-    display: flex;
-    margin: 16px 0;
-  }
-
   .create_menu_item {
     display: flex;
     flex-direction: row;
@@ -65,7 +55,7 @@
     }
 
     &:hover {
-      background: vars.$blue_50;
+      background: var(--theme-secondary);
       border-radius: 8px;
     }
     .icon_wrap {
@@ -78,16 +68,16 @@
       justify-content: center;
 
       &.discussion {
-        background: vars.$blue_700;
+        background: var(--color-discussion);
       }
       &.ideation {
-        background: vars.$yellow_700;
+        background: var(--color-ideation);
       }
       &.vote {
-        background: vars.$green_500;
+        background: var(--color-voting);
       }
       &.group {
-        background: vars.$blue_200;
+        background: var(--color-group);
       }
     }
 
@@ -112,21 +102,15 @@
         font-weight: 600;
         font-size: 16px;
         line-height: 24px;
-        color: vars.$black_new;
+        color: var(--theme-primary);
       }
 
       .item_description {
-        /* Discuss a topic which close to you. Vivamus rhoncus fermentum mauris a commodo. */
-
         font-family: "Noto Sans";
         font-style: normal;
         font-weight: 400;
         font-size: 13px;
         line-height: 16px;
-        /* or 123% */
-
-        /* Grey/700 */
-
         color: vars.$grey_700;
       }
     }
