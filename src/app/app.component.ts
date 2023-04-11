@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Router, PRIMARY_OUTLET, Event, NavigationStart } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Title } from "@angular/platform-browser";
 
 import { AppService } from './services/app.service';
 import { ConfigService } from './services/config.service';
-import { takeUntil, Subject, tap } from 'rxjs';
-import * as moment  from 'moment';
+import { takeUntil, Subject, tap, map } from 'rxjs';
+import * as moment from 'moment';
+import { DOCUMENT } from '@angular/common';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -17,7 +18,7 @@ export class AppComponent {
   config$ = this.config.load();
   wWidth: number = window.innerWidth;
   destroy$ = new Subject<boolean>();
-  constructor(private router: Router, private title: Title, public translate: TranslateService, private config: ConfigService, public app: AppService) {
+  constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private title: Title, public translate: TranslateService, private config: ConfigService, public app: AppService) {
     const languageConf = config.get('language');
     translate.addLangs(Object.keys(languageConf.list));
     translate.setDefaultLang(languageConf.default);
@@ -43,13 +44,24 @@ export class AppComponent {
           }
         }
       });
+    /* Change body class if accessibility settings are changed */
+    this.app.accessibility.pipe(
+      takeUntil(this.destroy$),
+      map((classes: any) => {
+        this.document.body.classList.remove(...this.document.body.classList);
+        this.document.body.classList.add(classes.contrast);
+        if (classes.text) {
+          this.document.body.classList.add(classes.text);
+        }
+      })
+    ).subscribe();
   }
 
   ngOnDestroy(): void {
     this.destroy$.next(true);
   }
 
-  displaySearch () {
+  displaySearch() {
     const parsedUrl = this.router.parseUrl(this.router.url);
     const outlet = parsedUrl.root.children[PRIMARY_OUTLET];
 

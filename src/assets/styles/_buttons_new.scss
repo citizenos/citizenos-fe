@@ -1,11 +1,11 @@
-@use "vars";
+@use "mixins";
 
 %btn_big {
   justify-content: center;
   padding: 8px 24px;
   font-weight: 600;
   gap: 8px;
-  font-size: 16px;
+  font-size: var(--font-size);
   line-height: 32px;
   min-height: 48px;
   border: none;
@@ -37,8 +37,8 @@ button,
   font-style: normal;
   border-radius: 50vh;
   cursor: pointer;
-  color: var(--theme-primary);
-  border-color: var(--theme-primary);
+  color: var(--color-text);
+  border-color: var(--color-text);
 
   &:focus,
   &:hover {
@@ -56,39 +56,75 @@ button,
 
 .btn_nav_big {
   @extend %btn_big;
-  background-color: var(--theme-primary);
-  color: var(--theme-on-primary);
+  background-color: var(--color-text);
+  color: var(--color-surfaces);
   min-width: 160px;
 
-  &:focus, &:hover {
-    background-color: var(--theme-on-secondary);
+  &:focus,
+  &:hover {
+    background-color: var(--color-link);
   }
 }
 
 .btn_nav_big_ghost {
   @extend %btn_big;
   background: none;
-  border: 2px solid var(--theme-primary);
+  border: 2px solid var(--color-text);
   min-width: 160px;
-  &:focus, &:hover {
-    color: var(--theme-on-secondary);
-    border: 2px solid var(--theme-on-secondary);
+  &:focus,
+  &:hover {
+    color: var(--color-link);
+    border: 2px solid var(--color-link);
   }
 }
 
 .btn_nav_small {
   @extend %btn_small;
-  color: var(--theme-primary);
+  color: var(--color-text);
   min-width: 160px;
 
-  &:focus, &:hover {
-    background-color: var(--theme-background);
+  &:focus,
+  &:hover {
+    background-color: var(--color-background);
   }
 
   &.active {
-    color: var(--theme-on-secondary);
-    background-color: var(--theme-background)
+    color: var(--color-link);
+    background-color: var(--color-background);
   }
+
+  @include mixins.tablet {
+    width: 100%;
+    padding: 16px;
+    border-radius: 0;
+  }
+}
+
+.btn_small {
+  @extend %btn_small;
+}
+.btn_nav_icon {
+  @extend %btn_small;
+  width: 40px;
+  height: 40px;
+  border-radius: 0;
+  justify-content: center;
+}
+
+.btn_nav_medium {
+  @extend %btn_medium;
+  padding: 8px;
+  justify-content: center;
+  &:hover,
+  &.active {
+    color: var(--color-link);
+    background-color: var(--color-background);
+  }
+}
+.btn_nav_create {
+  justify-content: center;
+  width: 40px;
+  border-radius: 40px;
 }
 
 .btn_dialog_close {
@@ -106,4 +142,116 @@ button,
   &:hover {
     border: none;
   }
+}
+
+.radio_wrap {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  justify-content: space-between;
+  padding: 16px;
+  gap: 8px;
+  background-origin: padding-box;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  &:focus,
+  &:hover {
+    background: var(--color-background);
+  }
+
+  .radio_text_wrap {
+    display: flex;
+    flex-direction: column;
+
+    .radio_lable_wrap {
+      display: flex;
+      flex-direction: row;
+    }
+  }
+
+  .radio_icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+/* Customize the label (the container) */
+.radio_box {
+  display: flex;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  height: 100%;
+  vertical-align: middle;
+  align-items: center;
+
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+
+  .radio_lable {
+    font-size: var(--font-size);
+    line-height: 16px;
+    font-weight: 600;
+  }
+}
+
+/* Create a custom radio button */
+.radio {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 24px;
+  width: 24px;
+  background-color: none;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+}
+
+/* On mouse-over, add a grey background color */
+.radio_box:hover input ~ .radio {
+  background-color: var(--color-info);
+  border: 1px solid var(--color-link);
+}
+
+/* When the radio button is checked, add a blue background */
+.radio_box input:checked ~ .radio {
+  background-color: var(--color-info);
+  border: 1px solid var(--color-link);
+}
+
+.radio_box input:checked ~ .radio_wrap {
+  background: var(--color-background);
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.radio:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.radio_box input:checked ~ .radio:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.radio_box .radio:after {
+  top: 6px;
+  left: 6px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: white;
 }

@@ -6,10 +6,10 @@
     <search></search>
   </div>
   <div id="button_area">
-    <a class="btn_small btn_icon btn_nav" (click)="app.showSearch = !app.showSearch">
+    <a class="btn_nav_icon" (click)="app.showSearch = !app.showSearch">
       <div [ngClass]="app.showSearch ? 'icon_mobile_close' : 'icon_search'"></div>
     </a>
-    <a class="btn_small btn_icon btn_nav" (click)="app.showNav = !app.showNav">
+    <a class="btn_nav_icon" (click)="app.showNav = !app.showNav">
       <div [ngClass]="app.showNav ? 'icon_mobile_close' : 'icon_mobile_hamburger'"></div>
       <!--div class="header_button_text" translate="DEFAULT.NAV_MOBILE.BTN_MENU"></!--div-->
     </a>
@@ -34,86 +34,96 @@
       <button class="btn_nav_big" (click)="doLogout()" translate="DEFAULT.NAV.BTN_LOGOUT"></button>
 
       <a class="btn_nav_small" [routerLink]="['/', translate.currentLang, 'dashboard']" routerLinkActive="active">
-        <div class="button_icon icon_dashboard"></div>
+        <div class="button_icon icon_desktop_dashboard"></div>
         <span class="bold" translate="DEFAULT.NAV.LNK_DASHBOARD"></span>
       </a>
+      <div class="line_separator_tablet"></div>
       <div class="btn_nav_small">
-        <div class="button_icon icon_topics"></div>
+        <div class="button_icon icon_desktop_topics"></div>
         <span class="bold" translate="DEFAULT.NAV.LNK_MY_TOPICS"></span>
       </div>
+      <div class="line_separator_tablet"></div>
       <div class="sub_items">
         <a class="btn_nav_small" [routerLink]="['/', translate.currentLang, 'my', 'topics']"
           [queryParams]="{filter: 'inProgress'}">
-          <div class="nav_bubble bg_blue">3</div><span translate="DEFAULT.NAV.LNK_IN_DISCUSSION"></span>
+          <div class="nav_bubble bg_discussion">3</div><span translate="DEFAULT.NAV.LNK_IN_DISCUSSION"></span>
         </a>
         <a class="btn_nav_small" [routerLink]="['/', translate.currentLang, 'my', 'topics']"
           [queryParams]="{filter: 'ideation'}">
-          <div class="nav_bubble bg_yellow">3</div><span translate="DEFAULT.NAV.LNK_IN_IDEATION"></span>
+          <div class="nav_bubble bg_ideation">3</div><span translate="DEFAULT.NAV.LNK_IN_IDEATION"></span>
         </a>
         <a class="btn_nav_small" [routerLink]="['/', translate.currentLang, 'my', 'topics']"
           [queryParams]="{filter: 'voting'}">
-          <div class="nav_bubble bg_green">3</div><span translate="DEFAULT.NAV.LNK_IN_VOTING"></span>
+          <div class="nav_bubble bg_voting">3</div><span translate="DEFAULT.NAV.LNK_IN_VOTING"></span>
         </a>
         <a class="btn_nav_small" [routerLink]="['/', translate.currentLang, 'my', 'topics']"
           [queryParams]="{filter: 'followUp'}">
-          <div class="nav_bubble bg_purple">3</div><span translate="DEFAULT.NAV.LNK_IN_FOLLOW_UP"></span>
+          <div class="nav_bubble bg_follow_up">35</div><span translate="DEFAULT.NAV.LNK_IN_FOLLOW_UP"></span>
         </a>
       </div>
+      <div class="line_separator_tablet"></div>
       <a class="btn_nav_small" [routerLink]="['/', translate.currentLang, 'my', 'groups']" routerLinkActive="active">
-        <div class="button_icon icon_group"></div>
+        <div class="button_icon icon_desktop_group"></div>
         <span class="bold" translate="DEFAULT.NAV.LNK_MY_GROUPS"></span>
       </a>
+      <div class="line_separator_tablet"></div>
     </ng-template>
     <div class="line_separator"></div>
     <a class="btn_nav_small" [routerLink]="['/', translate.currentLang, 'public' ,'topics']" routerLinkActive="active">
-      <div class="button_icon icon_public_topics"></div>
+      <div class="button_icon icon_desktop_public_topics"></div>
       <span class="bold" translate="DEFAULT.NAV.LNK_PUBLIC_TOPICS"></span>
     </a>
+    <div class="line_separator_tablet"></div>
     <a class="btn_nav_small" [routerLink]="['/', translate.currentLang, 'public' ,'groups']" routerLinkActive="active">
-      <div class="button_icon icon_public_groups"></div>
+      <div class="button_icon icon_desktop_public_groups"></div>
       <span class="bold" translate="DEFAULT.NAV.LNK_PUBLIC_GROUPS"></span>
     </a>
+    <div class="line_separator_tablet"></div>
     <div class="line_separator"></div>
     <ng-container *ngIf="auth.user$ | async">
       <a class="btn_nav_small" [routerLink]="['/', translate.currentLang, 'account']" routerLinkActive="active">
-        <div class="button_icon icon_profile"></div>
+        <div class="button_icon icon_desktop_profile"></div>
         <span translate="DEFAULT.NAV.LNK_MY_ACCOUNT"></span>
       </a>
+      <div class="line_separator_tablet"></div>
     </ng-container>
 
     <a class="btn_nav_small" (click)="doShowLanguageSelect()">
-      <div class="button_icon icon_language"></div>
+      <div class="button_icon icon_desktop_language"></div>
       <span>{{ config.get('language').list[translate.currentLang]}}</span>
     </a>
+    <div class="line_separator_tablet"></div>
     <a class="btn_nav_small" (click)="toggleHelp()">
-      <div class="button_icon icon_help"></div>
+      <div class="button_icon icon_desktop_help"></div>
       <span translate="DEFAULT.NAV.LNK_HELP"></span>
     </a>
+    <div class="line_separator_tablet"></div>
     <a class="btn_nav_small" *ngIf="config.get('links').about" target="_blank" [href]="config.get('links').about">
-      <div class="button_icon icon_cos"></div>
+      <div class="button_icon icon_desktop_cos"></div>
       <span translate="DEFAULT.NAV.LNK_ABOUT"></span>
     </a>
+    <div class="line_separator_tablet"></div>
     <a class="btn_nav_small" (click)="accessibility()">
-      <div class="button_icon icon_accessibility"></div>
+      <div class="button_icon icon_desktop_accessibility"></div>
       <span translate="DEFAULT.NAV.LNK_ACCESSIBILITY"></span>
     </a>
   </div>
   <div class="nav_footer_wrap">
     <div class="nav_footer">
       <a class="footer_icon_wrap" href="https://www.facebook.com/citizenos.web" target="_blank">
-        <div class="icon_nav_social_facebook"></div>
+        <div class="icon_social_facebook"></div>
       </a>
       <a class="footer_icon_wrap" href="https://www.instagram.com/citizen_os_foundation/" target="_blank">
-        <div class="icon_nav_social_instagram"></div>
+        <div class="icon_social_instagram"></div>
       </a>
       <div class="footer_icon_wrap" href="https://twitter.com/Citizen_OS" target="_blank">
-        <div class="icon_nav_social_twitter"></div>
+        <div class="icon_social_twitter"></div>
       </div>
       <div class="footer_icon_wrap" href="https://medium.com/@Citizen_OS" target="_blank">
-        <div class="icon_nav_social_meedium"></div>
+        <div class="icon_social_medium"></div>
       </div>
       <div class="footer_icon_wrap" href="http://github.com/citizenos" target="_blank">
-        <div class="icon_nav_social_github"></div>
+        <div class="icon_social_github"></div>
       </div>
     </div>
     <div class="footer_hashtag_wrap">

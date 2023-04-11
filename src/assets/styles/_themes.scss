@@ -2,22 +2,17 @@
 
 /*Need to be declared as variables for the theme*/
 $green_300: #98DAA2;
-
-$orange_50: #FFF1E1;
-$orange_500: #F39129;
-$red_500: #EF4025;
 $yellow_50: #FDF0C3;
 
 
-$--theme-background: --theme-background;
-$--theme-primary: --theme-primary;
-$--theme-on-primary: --theme-on-primary;
-$--theme-primary-separator: --theme-primary-separator;
-$--theme-secondary: --theme-secondary;
-$--theme-third: --theme-third;
-$--theme-surface: --theme-surface;
-$--theme-on-secondary: --theme-on-secondary;
-$--theme-on-surface: --theme-on-surface;
+$--color-background: --color-background;
+$--color-text: --color-text;
+$--color-surfaces: --color-surfaces;
+$--color-border: --color-border;
+$--color-secondary: --color-secondary;
+$--color-surface-contrast: --color-surface-contrast;
+$--color-link: --color-link;
+$--color-on-surfaces: --color-on-surfaces;
 $--font-size: --font-size;
 $--line-height: --line-heigth;
 $--color-discussion: --color-discussion;
@@ -25,42 +20,64 @@ $--color-voting: --color-voting;
 $--color-ideation: --color-ideation;
 $--color-follow-up: --color-follow-up;
 $--color-group: --color-group;
-
+$--color-error: --color-error;
+$--color-error-background: --color-error-background;
+$--color-warn: --color-warn;
+$--color-warn-background: --color-warn-background;
+$--color-info: --color-info;
+$--color-info-background: --color-info-background;
+$--color-success: --color-success;
+$--color-success-background: --color-success-background;
 // Default theme
 $theme-map-default: (
-  $--theme-background: #F1F7FC,
-  $--theme-primary: #2C3B47,
-  $--theme-on-primary: #FFF,
-  $--theme-primary-separator: #E1E7EE,
-  $--theme-secondary: #EBF4FB,
-  $--theme-third: #D7E9F8,
-  $--theme-on-secondary: #1168A8,
-  $--theme-surface: #F9FBFD,
-  $--theme-on-surface: #000,
+  $--color-background: #F1F7FC, //blue 50
+  $--color-text: #2C3B47, //black new
+  $--color-surfaces: #FFFFFF, //white
+  $--color-border: #E1E7EE, //gray 500
+  $--color-secondary: #EBF4FB, //blue 100
+  $--color-link: #1168A8, //blue 700
+  $--color-surface-contrast: #F9FBFD, //gray 300
+  $--color-on-surfaces: #000,
   $--color-discussion: #1168A8,
   $--color-voting: #5AB467,
   $--color-ideation: #E4B722,
   $--color-follow-up: #DA7AB1,
   $--color-group: #D7E9F8,
+  $--color-error: #EF4025,
+  $--color-error-background: #FFDFD9,
+  $--color-warn: #F39129,
+  $--color-warn-background: #FFF1E1,
+  $--color-info: #5C9CD0,
+  $--color-info-background: #D7E9F8,
+  $--color-success: #5AB467,
+  $--color-success-background: #E0F5E3,
   $--font-size: 14px,
   $--line-height: 16px,
 );
 
 // Override the default light theme
 $theme-map-contrast: (
-  $--theme-background: #000,
-  $--theme-primary: #000,
-  $--theme-on-primary: #FFF500,
-  $--theme-primary-separator: #000,
-  $--theme-secondary: #FFF500,
-  $--theme-surface: #2f2b2b,
-  $--theme-on-secondary: #000,
-  $--theme-on-surface: #f5f1f2,
+  $--color-background: #FFF500,
+  $--color-text: #000,
+  $--color-surfaces: #FFF500,
+  $--color-border: #000,
+  $--color-secondary: #FFF500,
+  $--color-surface-contrast: #FFF500,
+  $--color-link: #000,
+  $--color-on-surfaces: #000,
   $--color-discussion: #1168A8,
   $--color-voting: #5AB467,
   $--color-ideation: #E4B722,
   $--color-follow-up: #DA7AB1,
   $--color-group: #D7E9F8,
+  $--color-error: #EF4025,
+  $--color-error-background: #FFDFD9,
+  $--color-warn: #F39129,
+  $--color-warn-background: #FFF1E1,
+  $--color-info: #5C9CD0,
+  $--color-info-background: #D7E9F8,
+  $--color-success: #5AB467,
+  $--color-success-background: #E0F5E3,
   $--font-size: 14px,
   $--line-height: 16px,
 );
