@@ -9,7 +9,7 @@
 :root .default {
   @include mixins.spread-map(themes.$theme-map-default);
 }
-:root .contrast {
+:root .high_contrast {
   @include mixins.spread-map(themes.$theme-map-contrast);
 }
 
@@ -20,6 +20,9 @@
   @include mixins.spread-map(themes.$theme-font-extra-large);
 }
 
+.hidden {
+  display: none;
+}
 .main_content {
   display: flex;
   flex-direction: column;
@@ -70,8 +73,8 @@ html {
   min-height: 100%;
   width: 100%;
   bottom: 0;
-  color: var(--theme-primary);
-  background-color: var(--theme-background);
+  color: var(--color-text);
+  background-color: var(--color-background);
   -webkit-text-size-adjust: 100%;
   display: flex;
   flex-direction: row;
@@ -80,7 +83,7 @@ html {
 .line_separator {
   height: 1px;
   width: 100%;
-  background: var(--theme-primary-separator);
+  background: var(--color-border);
   display: flex;
   margin: 16px 0;
 }

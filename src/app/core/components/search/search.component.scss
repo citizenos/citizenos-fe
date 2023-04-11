@@ -10,7 +10,7 @@
   z-index: 4;
 
   @include mixins_n_extends.tablet {
-    background: vars.$medium_black;
+    background: var(--color-background);
     display: table;
     height: 60px;
     width: 100%;

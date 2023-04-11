@@ -18,7 +18,7 @@ import { CreateComponent } from 'src/app/core/components/create/create.component
 })
 export class AppService {
   showNav = false;
-  showSearch=false;
+  showSearch = false;
   editMode = false;
   showSearchResults = false;
   showSearchFiltersMobile = false;
@@ -28,6 +28,10 @@ export class AppService {
   topicsSettings = false;
   wWidth = window.innerWidth;
   createMenu = false;
+  accessibility = new BehaviorSubject({
+    contrast: 'default',
+    text: ''
+  });
 
   constructor(private dialog: MatDialog, public config: ConfigService, private Location: LocationService, private TopicService: TopicService, private GroupMemberTopicService: GroupMemberTopicService, private router: Router) { }
 
@@ -36,7 +40,7 @@ export class AppService {
     this.dialog.open(LoginComponent);
   }
 
-  doShowRegister (email?:string) {
+  doShowRegister(email?: string) {
     this.dialog.closeAll();
     this.dialog.open(RegisterComponent, {
       data: {
