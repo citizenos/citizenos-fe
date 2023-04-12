@@ -17,6 +17,7 @@ import { PasswordForgotComponent } from './components/password-forgot/password-f
 import { SmartIdLoginComponent } from './components/smart-id-login/smart-id-login.component';
 import { RegisterComponent, RegisterDialogComponent } from './components/register/register.component';
 import { LoginComponent, LoginDialogComponent } from './components/login/login.component';
+import { LoginFormComponent } from './components/login-form/login-form.component';
 @NgModule({
   declarations: [
     AccountComponent,
@@ -32,7 +33,8 @@ import { LoginComponent, LoginDialogComponent } from './components/login/login.c
     SmartIdLoginComponent,
     RegisterComponent,
     RegisterDialogComponent,
-    PasswordResetDialogComponent
+    PasswordResetDialogComponent,
+    LoginFormComponent
   ],
   imports: [
     CommonModule,

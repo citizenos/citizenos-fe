@@ -1,5 +1,21 @@
-<!-- LIGHTBOX SKELETON -->
-<div id="root_lightbox">
+<div id="login_page">
+  <div class="login_page_section">
+    <div class="logo_container">
+      <div class="login_logo"></div>
+    </div>
+    <div class="illustration_container">
+      <div class="illustration_cos_all_features"></div>
+    </div>
+  </div>
+  <div class="login_page_section">
+    <button class="btn_medium">
+      <div class="icon_general_arrow_long_left"></div> <span>Back to dashboard</span></button>
+    <h1 translate="LOGIN_TITLE"></h1>
+    <login-form></login-form>
+  </div>
+</div>
+<!-- LIGHTBOX SKELETON >
+<div-- id="root_lightbox">
   <div id="lightbox" class="wide_lightbox">
     <div id="lightbox_wrap">
       <form name="loginForm" [formGroup]="form">
@@ -78,7 +94,7 @@
               <div class="line lightest_line"></div>
 
               <div class="lightbox_section">
-                <!-- Do not focus on mobile devices, otherwise scrolls past social login options and shows keyboard -->
+                <!-- Do not focus on mobile devices, otherwise scrolls past social login options and shows keyboard >
                 <p class="bold" translate="MODALS.LOGIN_EMAIL_HEADING"></p>
                 <div class="error_no_account" *ngIf="errors?.accoundDoesNotExist">
                   <div class="icon_cell">
@@ -133,4 +149,4 @@
   <div id="close_lightbox" class="ngdialog-close" mat-dialog-close>
   </div>
 
-</div>
+</div-->

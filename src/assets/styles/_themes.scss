@@ -1,25 +1,25 @@
 @use "mixins";
 
-/*Need to be declared as variables for the theme*/
-$green_300: #98DAA2;
-$yellow_50: #FDF0C3;
-
-
+//Main definitions
 $--color-background: --color-background;
 $--color-text: --color-text;
 $--color-surfaces: --color-surfaces;
+$--color-surface-contrast: --color-surface-contrast;
+$--color-on-surfaces: --color-on-surfaces;
 $--color-border: --color-border;
 $--color-secondary: --color-secondary;
-$--color-surface-contrast: --color-surface-contrast;
 $--color-link: --color-link;
-$--color-on-surfaces: --color-on-surfaces;
 $--font-size: --font-size;
 $--line-height: --line-heigth;
 $--color-discussion: --color-discussion;
 $--color-voting: --color-voting;
+$--color-voting-disabled: --color-voting-disabled;
 $--color-ideation: --color-ideation;
+$--color-ideation-disabled: --color-ideation-disabled;
 $--color-follow-up: --color-follow-up;
+$--color-follow-up-disabled: --color-follow-up-disabled;
 $--color-group: --color-group;
+//messages
 $--color-error: --color-error;
 $--color-error-background: --color-error-background;
 $--color-warn: --color-warn;
@@ -28,59 +28,168 @@ $--color-info: --color-info;
 $--color-info-background: --color-info-background;
 $--color-success: --color-success;
 $--color-success-background: --color-success-background;
+//dialogs
+$--color-dialog: --color-dialog;
+$--color-dialog-contrast: --color-dialog-contrast;
+$--color-dialog-background: --color-dialog-background;
+$--color-dialog-text: --color-dialog-text;
+$--color-dialog-ideation: --color-dialog-ideation;
+$--color-dialog-ideation-contrast: --color-dialog-ideation-contrast;
+$--color-dialog-voting: --color-dialog-voting;
+$--color-dialog-voting-contrast: --color-dialog-voting-contrast;
+$--color-dialog-follow-up: --color-dialog-follow-up;
+$--color-dialog-follow-up-contrast: --color-dialog-follow-up-contrast;
+
 // Default theme
 $theme-map-default: (
-  $--color-background: #F1F7FC, //blue 50
-  $--color-text: #2C3B47, //black new
-  $--color-surfaces: #FFFFFF, //white
-  $--color-border: #E1E7EE, //gray 500
-  $--color-secondary: #EBF4FB, //blue 100
-  $--color-link: #1168A8, //blue 700
-  $--color-surface-contrast: #F9FBFD, //gray 300
+  $--color-background: #f1f7fc,
+  //blue 50
+  $--color-text: #2c3b47,
+  //black new
+  $--color-surfaces: #ffffff,
+  //white
+  $--color-surface-contrast: #f9fbfd,
+  //gray 300
   $--color-on-surfaces: #000,
-  $--color-discussion: #1168A8,
-  $--color-voting: #5AB467,
-  $--color-ideation: #E4B722,
-  $--color-follow-up: #DA7AB1,
-  $--color-group: #D7E9F8,
-  $--color-error: #EF4025,
-  $--color-error-background: #FFDFD9,
-  $--color-warn: #F39129,
-  $--color-warn-background: #FFF1E1,
-  $--color-info: #5C9CD0,
-  $--color-info-background: #D7E9F8,
-  $--color-success: #5AB467,
-  $--color-success-background: #E0F5E3,
+  //black
+  $--color-border: #e1e7ee,
+  //gray 500
+  $--color-secondary: #ebf4fb,
+  //blue 100
+  $--color-link: #1168a8,
+  //blue 700
+  $--color-discussion: #1168a8,
+  //blue 700
+  $--color-voting: #5ab467,
+  //green 500
+  $--color-voting-disabled: #98DAA2,
+  //green 300
+  $--color-ideation: #e4b722,
+  //yellow 700
+  $--color-ideation-disabled: #EFE08A,
+  //yellow 100
+  $--color-follow-up: #da7ab1,
+  //purple 500
+  $--color-follow-up-disabled: #E3A8CC,
+  //purple 100
+  $--color-group: #d7e9f8,
+  //blue 200
   $--font-size: 14px,
   $--line-height: 16px,
 );
 
-// Override the default light theme
+$theme-dialog-default: (
+  //dialog colors
+  $--color-dialog: #f1f7fc,
+  //blue 50
+  $--color-dialog-contrast: #d7e9f8,
+  //blue 200
+  $--color-dialog-background: #ffffff,
+  //white
+  $--color-dialog-text: #2c3b47,
+  //black
+  //modals-ideation
+  $--color-dialog-ideation: #fff8e1,
+  //yellow 10
+  $--color-dialog-ideation-contrast: #fdf0c3,
+  //yellow 50
+  //modals-voting
+  $--color-dialog-voting: #f1faf3,
+  //green 50
+  $--color-dialog-voting-contrast: #e0f5e3,
+  //green 100
+  //modals-follow-up
+  $--color-dialog-follow-up: #f4dfec,
+  //purple 50
+  $--color-dialog-follow-up-contrast: #e3a8cc,
+  //purple 100
+);
+
+$theme-messages-default: (
+  $--color-error: #ef4025,
+  $--color-error-background: #ffdfd9,
+  $--color-warn: #f39129,
+  $--color-warn-background: #fff1e1,
+  $--color-info: #5c9cd0,
+  $--color-info-background: #d7e9f8,
+  $--color-success: #5ab467,
+  $--color-success-background: #e0f5e3,
+);
+
+
+/*Contrast and other definitions below*/
+
 $theme-map-contrast: (
-  $--color-background: #FFF500,
+  $--color-background: #fff500,
+  //Accessibility/Yellow
   $--color-text: #000,
-  $--color-surfaces: #FFF500,
-  $--color-border: #000,
-  $--color-secondary: #FFF500,
-  $--color-surface-contrast: #FFF500,
-  $--color-link: #000,
+  //black
+  $--color-surfaces: #fff500,
+  $--color-surface-contrast: #000,
   $--color-on-surfaces: #000,
-  $--color-discussion: #1168A8,
-  $--color-voting: #5AB467,
-  $--color-ideation: #E4B722,
-  $--color-follow-up: #DA7AB1,
-  $--color-group: #D7E9F8,
-  $--color-error: #EF4025,
-  $--color-error-background: #FFDFD9,
-  $--color-warn: #F39129,
-  $--color-warn-background: #FFF1E1,
-  $--color-info: #5C9CD0,
-  $--color-info-background: #D7E9F8,
-  $--color-success: #5AB467,
-  $--color-success-background: #E0F5E3,
+  $--color-border: #000,
+  $--color-secondary: #ebf4fb,
+  //blue 100
+  $--color-link: #1168a8,
+  //blue 700
+  $--color-discussion: #1168a8,
+  //blue 700
+  $--color-voting: #5ab467,
+  //green 500
+  $--color-voting-disabled: #98DAA2,
+  //green 300
+  $--color-ideation: #e4b722,
+  //yellow 700
+  $--color-ideation-disabled: #EFE08A,
+  //yellow 100
+  $--color-follow-up: #da7ab1,
+  //purple 500
+  $--color-follow-up-disabled: #E3A8CC,
+  //purple 100
+  $--color-group: #d7e9f8,
+  //blue 200
   $--font-size: 14px,
   $--line-height: 16px,
 );
+
+$theme-dialog-contrast: (
+  //dialog colors
+  $--color-dialog: #fff500,
+  //blue 50
+  $--color-dialog-contrast: #fff500,
+  //blue 200
+  $--color-dialog-background: #fff500,
+  //white
+  $--color-dialog-text: #2c3b47,
+  //black
+  //modals-ideation
+  $--color-dialog-ideation: #fff8e1,
+  //yellow 10
+  $--color-dialog-ideation-contrast: #fdf0c3,
+  //yellow 50
+  //modals-voting
+  $--color-dialog-voting: #f1faf3,
+  //green 50
+  $--color-dialog-voting-contrast: #e0f5e3,
+  //green 100
+  //modals-follow-up
+  $--color-dialog-follow-up: #f4dfec,
+  //purple 50
+  $--color-dialog-follow-up-contrast: #e3a8cc,
+  //purple 100
+);
+
+$theme-messages-contrast: (
+  $--color-error: #ef4025,
+  $--color-error-background: #ffdfd9,
+  $--color-warn: #f39129,
+  $--color-warn-background: #fff1e1,
+  $--color-info: #5c9cd0,
+  $--color-info-background: #d7e9f8,
+  $--color-success: #5ab467,
+  $--color-success-background: #e0f5e3,
+);
+
 
 $theme-font-large: (
   $--font-size: 18px,

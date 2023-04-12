@@ -34,17 +34,10 @@
   cursor: pointer;
   padding: 16px 20px;
   display: flex;
-  background-color: var(--color-surface-contrast);
   flex-direction: row;
-  width: calc(100% - 72px);
+  width: 100%;
   align-items: center;
   justify-content: space-around;
-  position: relative;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 8px;
-  margin-bottom: 16px;
-  border-radius: 15px;
 
   :nth-child(2) {
     margin-left: 20px;

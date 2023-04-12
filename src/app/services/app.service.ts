@@ -9,7 +9,7 @@ import { TopicService } from './topic.service';
 import { LocationService } from 'src/app/services/location.service';
 import { GroupMemberTopicService } from './group-member-topic.service';
 import { Router } from '@angular/router';
-import { LoginComponent } from '../account/components/login/login.component';
+import { LoginDialogComponent } from '../account/components/login/login.component';
 import { RegisterComponent } from '../account/components/register/register.component';
 import { CreateComponent } from 'src/app/core/components/create/create.component';
 
@@ -37,7 +37,7 @@ export class AppService {
 
   doShowLogin() {
     this.dialog.closeAll();
-    this.dialog.open(LoginComponent);
+    this.dialog.open(LoginDialogComponent);
   }
 
   doShowRegister(email?: string) {
