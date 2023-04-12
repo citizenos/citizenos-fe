@@ -13,18 +13,20 @@
   <div class="dialog_content">
     <div class="language_list">
       <ng-container *ngFor="let language of languages$ | keyvalue;">
-        <a class="language_item" (click)='doSwitchLanguage(language.key)' >
+        <a class="language_item" (click)='doSwitchLanguage(language.key)'>
           {{language.value}}
         </a>
       </ng-container>
     </div>
   </div>
-  <div class="dialog_footer">
-    <a href="https://citizenos.com/get-involved/" target="_blank" class="help_us_box">
-      <div class="illustration_who_politics"></div>
-      <h3 translate="MODALS.LANGUAGES_MODAL_HELP_US_TRANSLATE"></h3>
-      <div class="icon_general_arrow_long_right"></div>
-    </a>
+  <div class="dialog_info_wrap">
+    <div class="dialog_info">
+      <a href="https://citizenos.com/get-involved/" target="_blank" class="help_us_box">
+        <div class="illustration_who_politics"></div>
+        <h3 translate="MODALS.LANGUAGES_MODAL_HELP_US_TRANSLATE"></h3>
+        <div class="icon_general_arrow_long_right"></div>
+      </a>
+    </div>
   </div>
 </div>
 <!-- LIGHTBOX SKELETON >

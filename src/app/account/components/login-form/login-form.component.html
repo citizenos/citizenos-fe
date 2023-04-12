@@ -1,0 +1,40 @@
+<div class="icons_wrap">
+  <a class="login_icon" *ngIf="authMethodsAvailable.facebook" (click)="doLoginPartner(LOGIN_PARTNERS.facebook)">
+    <div class="icon_login_facebook"></div>
+  </a>
+  <a class="login_icon" *ngIf="authMethodsAvailable.google" (click)="doLoginPartner(LOGIN_PARTNERS.google)">
+    <div class="icon_login_google"></div>
+  </a>
+  <a class="login_icon" *ngIf="authMethodsAvailable.esteid || authMethodsAvailable.smartId" (click)="doLoginEsteId()">
+    <div class="icon_login_esteid"></div>
+  </a>
+  <a class="login_icon" *ngIf="authMethodsAvailable.esteid || authMethodsAvailable.smartId" (click)="doLoginEsteId()">
+    <div class="icon_login_smart_id"></div>
+  </a>
+</div>
+<p>or</p>
+<div class="login_email_wrap">
+  <input id="email" formControlName="email" type="email" placeholder="{{'MODALS.LOGIN_PLACEHOLDER_EMAIL' | translate}}"
+    [ngClass]="{'error_input': errors?.email}" [maxlength]="254" required>
+  <label for="email" class="error_label" *ngIf="errors?.email">
+    <div class="table_cell">
+      <div class="sprite sprite-icon-inputfield-error2x"></div>
+      <span translate="{{errors.email}}"></span>
+    </div>
+  </label>
+  <div>
+    <input id="password" formControlName="password" type="password"
+      placeholder="{{'MODALS.LOGIN_PLACEHOLDER_PASSWORD' | translate}}" (focus)="isFormEmailProvided"
+      [ngClass]="{'error_input': errors?.password}" [maxlength]="64" required cos-view-input>
+  </div>
+  <label for="password" class="error_label" *ngIf="errors?.password">
+    <div class="sprite sprite-icon-inputfield-error2x"></div>
+    <span translate="{{errors.password}}"></span>
+  </label>
+  <div class="link_section">
+    <a (click)="doResetPassword()" translate="MODALS.LOGIN_LNK_FORGOT_PASSWORD"></a>
+  </div>
+  <button id="login_button" type="submit" (click)="doLogin()" cos-disabled="loginForm.$invalid" class="btn_nav_big"
+    translate="MODALS.LOGIN_BTN_LOGIN"></button>
+  <a (click)="register()" translate="MODALS.LOGIN_LNK_NO_ACCOUNT_REGISTER"></a>
+</div>
