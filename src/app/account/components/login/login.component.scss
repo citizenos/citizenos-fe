@@ -14,7 +14,7 @@
     flex-direction: column;
     height: 100%;
     align-items: center;
-    justify-content: space-around;
+    justify-content: flex-start;
     background-color: var(--color-surfaces);
 
     &:nth-child(1) {
@@ -33,6 +33,17 @@
       justify-content: flex-start;
       width: 100%;
       padding-left: 60px;
+    }
+
+    #login_form_wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: 40px;
+
+      h1, p {
+        text-align: center;
+      }
     }
   }
 }
