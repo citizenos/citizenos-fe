@@ -1,17 +1,20 @@
-import { Directive, ElementRef, HostListener } from '@angular/core';
+import { Directive, ElementRef, HostListener, OnDestroy, Input } from '@angular/core';
 
 @Directive({
-  selector: 'cosEtherpad'
+  selector: '[cosEtherpad]'
 })
-export class EtherpadDirective {
+export class EtherpadDirective implements OnDestroy {
   width;
   height;
   minWidth: any;
   minHeight: any;
+  @Input() cosEtherpad: any;
+
+  ngOnDestroy(): void {}
 
   constructor(private element: ElementRef) {
-    this.width = element.nativeElement.attr.width;
-    this.height = element.nativeElement.attr.height;
+    this.width = this.element.nativeElement.width;
+    this.height = this.element.nativeElement.height;
     if (this.width && this.valueNotPercent(this.width)) {
       this.minWidth = parseFloat(this.width);
     }
@@ -33,8 +36,9 @@ export class EtherpadDirective {
     };
   }
 
-  @HostListener('window.message') receiveMessageHandler(e: any | null) {
+  @HostListener('window:message', ['$event']) receiveMessageHandler(e: any | null) {
     if (e) {
+      console.log('window.message');
       const msg = e.data;
       if (msg.name === 'ep_resize') {
         const width = msg.data.width;
@@ -42,15 +46,15 @@ export class EtherpadDirective {
 
         if (Number.isSafeInteger(width) && width > this.minWidth) {
           const newWidth = width + 'px';
-          if (newWidth !== this.element.nativeElement.css('width')) {
-            this.element.nativeElement.css('width', newWidth);
+          if (newWidth !== this.element.nativeElement.width) {
+            this.element.nativeElement.width = newWidth; //css('width', newWidth);
           }
         }
 
         if (Number.isSafeInteger(height) && height > this.minHeight) {
           const newHeight = height + 'px';
-          if (newHeight !== this.element.nativeElement.css('height')) {
-            this.element.nativeElement.css('height', newHeight);
+          if (newHeight !== this.element.nativeElement.height) {
+            this.element.nativeElement.height = newHeight; //css('height', newHeight);
           }
         }
       }
