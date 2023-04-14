@@ -41,7 +41,7 @@ import { ModalDatepickerComponent } from './components/modal-datepicker/modal-da
 import { MatNativeDateModule } from '@angular/material/core';
 import { GroupInviteUserComponent } from '../group/components/group-invite-user/group-invite-user.component';
 import { CheckHeightDirective } from '../directives/check-height.directive';
-
+import { EtherpadDirective } from '../directives/etherpad.directive';
 @NgModule({
   declarations: [
     ActivityComponent,
@@ -51,6 +51,7 @@ import { CheckHeightDirective } from '../directives/check-height.directive';
     CosInitialsComponent,
     CosPaginationComponent,
     CosToggleComponent,
+    EtherpadDirective,
     GroupInviteComponent,
     GroupMemberTopicComponent,
     GroupMemberUserComponent,
@@ -97,6 +98,7 @@ import { CheckHeightDirective } from '../directives/check-height.directive';
     CosInitialsComponent,
     CosPaginationComponent,
     CosToggleComponent,
+    EtherpadDirective,
     GroupInviteComponent,
     GroupMemberTopicComponent,
     GroupMemberUserComponent,
