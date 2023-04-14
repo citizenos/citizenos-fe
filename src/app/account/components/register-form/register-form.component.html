@@ -35,4 +35,11 @@
       <span translate="{{errors.password}}"></span>
     </div>
   </label>
+  <a [routerLink]="['/account/login']" translate="MODALS.SIGN_UP_HAVE_AN_ACCOUNT"></a>
+  <label class="checkbox">One
+    <input type="checkbox" checked="checked">
+    <span class="checkmark"></span>
+  </label>
+  <button id="register_button" type="submit" (click)="doSignUp()" [disabled]="signUpForm.invalid" class="btn_nav_big"
+    translate="MODALS.SIGN_UP_BTN_SAVE"></button>
 </div>
