@@ -1,5 +1,26 @@
-<!-- LIGHTBOX SKELETON -->
-<div id="root_lightbox">
+<div id="register_page">
+  <div class="register_page_section">
+    <div class="logo_container">
+      <div class="login_logo"></div>
+    </div>
+    <div class="illustration_container">
+      <div class="illustration_cos_all_features"></div>
+    </div>
+  </div>
+  <div class="register_page_section">
+    <div id="register_form_wrap">
+      <a class="btn_medium_light" [routerLink]="['/']">
+        <div class="icon_general_arrow_long_left"></div> <span class="bold" translate="VIEWS.LOGIN.BTN_BACK"></span>
+      </a>
+      <h1 translate="VIEWS.REGISTER.REGISTER_TITLE"></h1>
+      <div translate="VIEWS.REGISTER.REGISTER_DESCRIPTION"></div>
+      <register-form></register-form>
+    </div>
+  </div>
+</div>
+
+<!-- LIGHTBOX SKELETON >
+<div-- id="root_lightbox">
   <div id="lightbox" class="wide_lightbox with_title_description">
     <div id="lightbox_wrap">
       <form name="signUpForm" [formGroup]="signUpForm">
@@ -26,43 +47,6 @@
         <div class="lightbox_content">
           <div id="sign_up_lightbox">
             <div class="lightbox_section">
-              <input id="name" formControlName="name" [placeholder]="'MODALS.SIGN_UP_PLACEHOLDER_NAME' | translate"
-                (focus)="wWidth > 1024" [ngClass]="{'error_input': errors.name}" [maxlength]="255" required>
-              <label for="name" class="error_label" *ngIf="errors.name">
-                <div class="table_cell">
-                  <div class="sprite sprite-icon-inputfield-error2x"></div>
-                  <span translate="{{errors.name}}"></span>
-                </div>
-              </label>
-              <input id="email" formControlName="email" [placeholder]="'MODALS.SIGN_UP_PLACEHOLDER_EMAIL' | translate"
-                [ngClass]="{'error_input': errors.email}" [maxlength]="254" required>
-              <label for="email" class="error_label" *ngIf="errors.email">
-                <div class="table_cell">
-                  <div class="sprite sprite-icon-inputfield-error2x"></div>
-                  <span translate="{{errors.email}}"></span>
-                </div>
-              </label>
-              <input id="company" formControlName="company"
-                [placeholder]="'MODALS.SIGN_UP_PLACEHOLDER_COMPANY' | translate"
-                [ngClass]="{'error_input': errors.company}" [maxlength]="255">
-              <label for="company" class="error_label" *ngIf="errors.company">
-                <div class="table_cell">
-                  <div class="sprite sprite-icon-inputfield-error2x"></div>
-                  <span translate="{{errors.company}}"></span>
-                </div>
-              </label>
-              <input id="password" formControlName="password" type="password"
-                [placeholder]="'MODALS.SIGN_UP_PLACEHOLDER_PASSWORD' | translate"
-                [ngClass]="{'error_input': errors.password}" [maxlength]="64" required>
-              <input id="password_confirm" formControlName="passwordConfirm" type="password"
-                [placeholder]="'MODALS.SIGN_UP_PLACEHOLDER_PASSWORD_CONFIRM' | translate"
-                [ngClass]="{'error_input': errors.password}" [maxlength]="64" required>
-              <label for="password_confirm" class="error_label" *ngIf="errors.password">
-                <div class="table_cell">
-                  <div class="sprite sprite-icon-inputfield-error2x"></div>
-                  <span translate="{{errors.password}}"></span>
-                </div>
-              </label>
               <div class="settings_section">
                 <div class="settings_cell">
                   <div class="setting_title" translate="MODALS.SIGN_UP_LBL_TERMS_AND_CONDITIONS"></div>
@@ -137,4 +121,4 @@
   <div id="close_lightbox" mat-dialog-close>
   </div>
 
-</div>
+</div-->

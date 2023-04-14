@@ -121,6 +121,20 @@ button,
     background-color: var(--color-background);
   }
 }
+
+.btn_medium_light {
+  @extend %btn_medium;
+  padding: 8px 16px;
+  justify-content: center;
+  background-color: var(--color-background);
+
+  &:hover,
+  &.active {
+    color: var(--color-link);
+    background-color: var(--color-background);
+  }
+}
+
 .btn_nav_create {
   justify-content: center;
   width: 40px;

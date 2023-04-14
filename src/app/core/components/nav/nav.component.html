@@ -23,9 +23,8 @@
   <div class="nav_inside">
     <ng-container *ngIf="auth.user$ | async; then loggedIn; else loggedOut"></ng-container>
     <ng-template #loggedOut>
-      <button class="btn_nav_big" (click)="doShowLogin()" translate="DEFAULT.NAV.BTN_LOGIN"></button>
-      <button class="btn_nav_big_ghost" (click)="doShowRegister()"
-        translate="DEFAULT.NAV.BTN_REGISTER"></button>
+      <button class="btn_nav_big" [routerLink]="['/', translate.currentLang, 'account', 'login']" translate="DEFAULT.NAV.BTN_LOGIN"></button>
+      <button class="btn_nav_big_ghost" [routerLink]="['/', translate.currentLang, 'account', 'signup']" translate="DEFAULT.NAV.BTN_REGISTER"></button> <!--(click)="doShowRegister()" [-->
     </ng-template>
     <ng-template #loggedIn>
       <button class="btn_nav_big" (click)="app.showCreateMenu()">

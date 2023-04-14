@@ -18,6 +18,7 @@ import { SmartIdLoginComponent } from './components/smart-id-login/smart-id-logi
 import { RegisterComponent, RegisterDialogComponent } from './components/register/register.component';
 import { LoginComponent, LoginDialogComponent } from './components/login/login.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
+import { RegisterFormComponent } from './components/register-form/register-form.component';
 @NgModule({
   declarations: [
     AccountComponent,
@@ -34,7 +35,8 @@ import { LoginFormComponent } from './components/login-form/login-form.component
     RegisterComponent,
     RegisterDialogComponent,
     PasswordResetDialogComponent,
-    LoginFormComponent
+    LoginFormComponent,
+    RegisterFormComponent
   ],
   imports: [
     CommonModule,

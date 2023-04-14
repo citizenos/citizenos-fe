@@ -8,10 +8,13 @@
     </div>
   </div>
   <div class="login_page_section">
-    <button class="btn_medium">
-      <div class="icon_general_arrow_long_left"></div> <span>Back to dashboard</span></button>
-    <h1 translate="LOGIN_TITLE"></h1>
-    <login-form></login-form>
+    <div id="login_form_wrap">
+      <a class="btn_medium_light" [routerLink]="['/']">
+        <div class="icon_general_arrow_long_left"></div> <span class="bold" translate="VIEWS.LOGIN.BTN_BACK"></span>
+      </a>
+      <h1 translate="VIEWS.LOGIN.LOGIN_TITLE"></h1>
+      <login-form></login-form>
+    </div>
   </div>
 </div>
 <!-- LIGHTBOX SKELETON >
