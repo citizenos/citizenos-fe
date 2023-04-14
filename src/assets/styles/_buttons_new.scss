@@ -1,126 +1,103 @@
 @use "mixins";
 
 %btn_big {
-  justify-content: center;
   padding: 8px 24px;
   font-weight: 600;
   gap: 8px;
-  font-size: var(--font-size);
   line-height: 32px;
   min-height: 48px;
+  min-width: 48px;
   border: none;
+  border-radius: 48px;
 }
 
 %btn_medium {
-  align-items: center;
   padding: 0px 8px;
   gap: 16px;
   min-height: 40px;
+  min-width: 40px;
+  border-radius: 40px;
 }
 
 %btn_small {
   padding: 0px 8px;
-  align-items: center;
   gap: 8px;
   min-height: 32px;
+  min-width: 32px;
+  border-radius: 32px;
 }
 
 button,
 %btn_big,
 %btn_medium,
 %btn_small {
+  justify-content: center;
+  align-items: center;
   border: none;
   display: flex;
   flex-direction: row;
   align-items: center;
   font-family: "Noto Sans";
   font-style: normal;
-  border-radius: 50vh;
   cursor: pointer;
   color: var(--color-text);
   border-color: var(--color-text);
+}
 
-  &:focus,
-  &:hover {
-    border: none;
-  }
+//list of different buttons
+$buttons: (big, medium, small);
+//list of color themes for different buttons
+$button-styles: (
+  submit: (
+    background: var(--btn-submit),
+    color: var(--btn-submit-text),
+    border: none,
+    hover: var(--btn-submit-hover),
+  ),
+  submit_ghost: (
+    background: none,
+    color: var(--btn-submit),
+    border: 2px solid var(--btn-submit),
+    hover: none,
+    hover-color: var(--btn-submit-hover),
+    hover-border: 2px solid var(--btn-submit-hover),
+  ),
+  nav: (
+    background: none,
+    color: #2c3b47,
+    hover: #f1f7fc,
+    hover-color: #1168a8,
+  ),
+);
 
-  &.btn_icon {
-    width: 1vh;
+@mixin button_styles($theme-map) {
+  @each $section, $map in $theme-map {
+    @each $button in $buttons {
+      .btn_#{$button}_#{$section} {
+        @extend %btn_#{$button};
+        background: map-get($map, background);
+        border: map-get($map, border);
+        color: map-get($map, color);
 
-    div {
-      position: absolute;
+        span {
+          color: map-get($map, color);
+        }
+
+        &:hover {
+          background: map-get($map, hover);
+          border: map-get($map, hover-border);
+          color: map-get($map, hover-color);
+
+          span {
+            color: map-get($map, hover-color);
+          }
+        }
+      }
     }
   }
 }
 
-.btn_nav_big {
-  @extend %btn_big;
-  background-color: var(--color-text);
-  color: var(--color-surfaces);
-  min-width: 160px;
-
-  &:focus,
-  &:hover {
-    background-color: var(--color-link);
-  }
-}
-
-.btn_nav_big_ghost {
-  @extend %btn_big;
-  background: none;
-  border: 2px solid var(--color-text);
-  min-width: 160px;
-  &:focus,
-  &:hover {
-    color: var(--color-link);
-    border: 2px solid var(--color-link);
-  }
-}
-
-.btn_nav_small {
-  @extend %btn_small;
-  color: var(--color-text);
-  min-width: 160px;
-
-  &:focus,
-  &:hover {
-    background-color: var(--color-background);
-  }
-
-  &.active {
-    color: var(--color-link);
-    background-color: var(--color-background);
-  }
-
-  @include mixins.tablet {
-    width: 100%;
-    padding: 16px;
-    border-radius: 0;
-  }
-}
-
-.btn_small {
-  @extend %btn_small;
-}
-.btn_nav_icon {
-  @extend %btn_small;
-  width: 40px;
-  height: 40px;
-  border-radius: 0;
-  justify-content: center;
-}
-
-.btn_nav_medium {
-  @extend %btn_medium;
-  padding: 8px;
-  justify-content: center;
-  &:hover,
-  &.active {
-    color: var(--color-link);
-    background-color: var(--color-background);
-  }
-}
+@include button_styles($button-styles);
 
 .btn_medium_light {
   @extend %btn_medium;
@@ -190,7 +167,6 @@ button,
   }
 }
 
-/* Customize the label (the container) */
 .radio_box {
   display: flex;
   position: relative;
@@ -220,7 +196,6 @@ button,
   }
 }
 
-/* Create a custom radio button */
 .radio {
   position: absolute;
   top: 0;
@@ -232,13 +207,11 @@ button,
   border: 1px solid var(--color-border);
 }
 
-/* On mouse-over, add a grey background color */
 .radio_box:hover input ~ .radio {
   background-color: var(--color-info);
   border: 1px solid var(--color-link);
 }
 
-/* When the radio button is checked, add a blue background */
 .radio_box input:checked ~ .radio {
   background-color: var(--color-info);
   border: 1px solid var(--color-link);
@@ -248,19 +221,16 @@ button,
   background: var(--color-background);
 }
 
-/* Create the indicator (the dot/circle - hidden when not checked) */
 .radio:after {
   content: "";
   position: absolute;
   display: none;
 }
 
-/* Show the indicator (dot/circle) when checked */
 .radio_box input:checked ~ .radio:after {
   display: block;
 }
 
-/* Style the indicator (dot/circle) */
 .radio_box .radio:after {
   top: 6px;
   left: 6px;
@@ -268,4 +238,68 @@ button,
   height: 10px;
   border-radius: 50%;
   background: white;
+}
+
+/* Customize the label (the container) */
+.checkbox {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+
+  /* Create a custom checkbox */
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 24px;
+    width: 24px;
+    background-color: var(--color-surfaces);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+
+    &:after {
+      content: "";
+      position: absolute;
+      display: none;
+      left: 8px;
+      top: 4px;
+      width: 4px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 3px 3px 0;
+      -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+  }
+}
+
+/* On mouse-over, add a grey background color */
+.checkbox:hover input ~ .checkmark {
+  background-color: var(--color-surfaces);
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkbox input:checked ~ .checkmark {
+  background-color: var(--color-border);
+  border: 1px solid var(--color-link);
+}
+/* Show the checkmark when checked */
+.checkbox input:checked ~ .checkmark:after {
+  display: block;
 }

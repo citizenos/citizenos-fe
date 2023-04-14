@@ -38,6 +38,11 @@
   position: relative;
   min-width: 560px;
 
+  @include mixins.mobile {
+    min-width: auto;
+    width: 100%;
+  }
+
   .dialog_header {
     display: flex;
     flex-direction: row;

@@ -14,7 +14,7 @@
     </a>
   </div>
   <div translate="COMPONENTS.LOGIN_FORM.LOGIN_OR"></div>
-  <div class="login_email_wrap">
+  <div id="login_email_wrap">
     <input id="email" formControlName="email" type="email"
       placeholder="{{'COMPONENTS.LOGIN_FORM.LOGIN_PLACEHOLDER_EMAIL' | translate}}" [ngClass]="{'error_input': errors?.email}"
       [maxlength]="254" required>
@@ -36,7 +36,7 @@
     <div class="link_section">
       <a (click)="doResetPassword()" translate="COMPONENTS.LOGIN_FORM.LOGIN_LNK_FORGOT_PASSWORD"></a>
     </div>
-    <button id="login_button" type="submit" (click)="doLogin()" cos-disabled="loginForm.$invalid" class="btn_nav_big"
+    <button id="login_button" type="submit" (click)="doLogin()" cos-disabled="loginForm.$invalid" class="btn_big_submit"
       translate="COMPONENTS.LOGIN_FORM.LOGIN_BTN_LOGIN"></button>
     <a (click)="register()" translate="COMPONENTS.LOGIN_FORM.LOGIN_LNK_NO_ACCOUNT_REGISTER"></a>
   </div>

@@ -40,20 +40,20 @@
   top: 0;
   background: var(--color-surfaces);
 
-  .btn_small {
+  .btn_small_nav {
     min-width: 130px;
   }
-  .btn_big {
+  .btn_big_submit, .btn_big_submit_ghost  {
     min-width: 160px;
   }
   @include mixins.tablet {
     height: max-content;
     position: absolute;
     width: 320px;
-    .btn_small {
+    .btn_small_nav {
       min-width: 272px;
     }
-    .btn_big {
+    .btn_big_submit, .btn_big_submit_ghost {
       min-width: 272px;
     }
 

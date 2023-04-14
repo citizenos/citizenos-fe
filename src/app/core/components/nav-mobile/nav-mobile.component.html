@@ -1,17 +1,17 @@
 <div id="mobile_nav">
-  <a class="btn_nav_medium" [routerLink]="['/', translate.currentLang, 'dashboard']" routerLinkActive="active">
+  <a class="btn_medium_nav" [routerLink]="['/', translate.currentLang, 'dashboard']" routerLinkActive="active">
     <div class="icon_mobile_dashboard"></div>
   </a>
-  <a class="btn_nav_medium">
+  <a class="btn_medium_nav">
     <div class="icon_mobile_topics"></div>
   </a>
   <a class="btn_nav_create" (click)="app.showCreateMenu()">
     <div [ngClass]="(app.createMenu)? 'icon_mobile_create_close': 'icon_mobile_create'"></div>
   </a>
-  <a class="btn_nav_medium" [routerLink]="['/', translate.currentLang, 'my', 'groups']">
+  <a class="btn_medium_nav" [routerLink]="['/', translate.currentLang, 'my', 'groups']">
     <div class="icon_mobile_group"></div>
   </a>
-  <a class="btn_nav_medium">
+  <a class="btn_medium_nav">
     <div class="icon_mobile_activity"></div>
   </a>
 </div>

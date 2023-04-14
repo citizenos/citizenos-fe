@@ -40,6 +40,12 @@ $--color-dialog-voting-contrast: --color-dialog-voting-contrast;
 $--color-dialog-follow-up: --color-dialog-follow-up;
 $--color-dialog-follow-up-contrast: --color-dialog-follow-up-contrast;
 
+
+//buttons
+$--btn-submit: --btn-submit;
+$--btn-submit-text: --btn-submit-text;
+$--btn-submit-hover: --btn-submit-hover;
+
 // Default theme
 $theme-map-default: (
   $--color-background: #f1f7fc,
@@ -116,6 +122,11 @@ $theme-messages-default: (
   $--color-success-background: #e0f5e3,
 );
 
+$theme-buttons-default: (
+  $--btn-submit:#2c3b47,
+  $--btn-submit-text: #fff,
+  $--btn-submit-hover: #1168a8
+);
 
 /*Contrast and other definitions below*/
 
@@ -155,11 +166,8 @@ $theme-map-contrast: (
 $theme-dialog-contrast: (
   //dialog colors
   $--color-dialog: #fff500,
-  //blue 50
   $--color-dialog-contrast: #fff500,
-  //blue 200
   $--color-dialog-background: #fff500,
-  //white
   $--color-dialog-text: #2c3b47,
   //black
   //modals-ideation
@@ -188,6 +196,12 @@ $theme-messages-contrast: (
   $--color-info-background: #d7e9f8,
   $--color-success: #5ab467,
   $--color-success-background: #e0f5e3,
+);
+
+$theme-buttons-contrast: (
+  $--btn-submit:#000,
+  $--btn-submit-text: #fff500,
+  $--btn-submit-hover: #1168a8
 );
 
 $theme-font-large: (
