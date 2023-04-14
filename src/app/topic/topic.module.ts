@@ -29,7 +29,6 @@ import { TopicReportModerateComponent, TopicReportModerateDialogComponent } from
 import { TopicReportReviewComponent, TopicReportReviewDialogComponent } from './components/topic-report-review/topic-report-review.component';
 import { TopicReportResolveComponent, TopicReportResolveDialogComponent } from './components/topic-report-resolve/topic-report-resolve.component';
 import { TopicCreateComponent } from './components/topic-create/topic-create.component';
-import { EtherpadDirective } from '../directives/etherpad.directive';
 import { TopicSocialMentionsComponent } from './components/topic-social-mentions/topic-social-mentions.component';
 import { TopicVoteSignComponent } from './components/topic-vote-sign/topic-vote-sign.component';
 import { TopicVoteSignEsteidComponent } from './components/topic-vote-sign-esteid/topic-vote-sign-esteid.component';
@@ -73,7 +72,6 @@ import { TopicReportComponent } from './components/topic-report/topic-report.com
     TopicReportResolveDialogComponent,
     TopicReportResolveComponent,
     TopicCreateComponent,
-    EtherpadDirective,
     TopicSocialMentionsComponent,
     TopicVoteSignComponent,
     TopicVoteSignEsteidComponent,
