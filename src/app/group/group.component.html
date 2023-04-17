@@ -114,7 +114,7 @@
     </div>
     <div class="content" *ngIf="tabSelected === 'topics'">
       <div class="container_content">
-        <div *ngIf="!group.members.count" class="table">
+        <div *ngIf="!group.members.topics.count" class="table">
           <div class="no_results v_align_cell">
             <div class="no_results_icon_wrap">
               <div class="no_results_img sprite sprite-icon-no-results2x"></div>
@@ -161,7 +161,7 @@
           </div>
         </div>
         <!--GroupMemberTopicService.countTotal-->
-        <div class="default_table" *ngIf="group.members.count">
+        <div class="default_table" *ngIf="group.members.topics.count">
           <div class="pretend_tr" *ngIf="wWidth > 560">
             <div class="pretend_th link" (click)="GroupMemberTopicService.doOrder('title')">
               <div class="th_text">
