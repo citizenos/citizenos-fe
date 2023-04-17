@@ -68,6 +68,7 @@ export class GroupMemberTopicComponent implements OnInit {
           }).pipe(take(1)).subscribe({
             next: () => {
               this.GroupMemberTopic.reset();
+              this.GroupService.reloadGroup();
             },
             error: (err) => {
               console.error(err)

@@ -2,16 +2,17 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Router, Routes, UrlSegment } from '@angular/router';
 import { GroupCreateDialogComponent } from '../group/components/group-create/group-create.component';
 import { GroupSettingsDialogComponent } from '../group/components/group-settings/group-settings.component';
-import { MyGroupComponent } from './components/my-group/my-group.component';
 import { MyGroupsComponent } from './my-groups.component';
+import { GroupListComponent } from './components/group-list/group-list.component';
 
 const routes: Routes = [
   {
     path: '', component: MyGroupsComponent, children: [
+      { path: '', component: GroupListComponent },
       { path: 'create', component: GroupCreateDialogComponent },
       {
         path: ':groupId', children: [
-          { path: '', component: MyGroupComponent, outlet: 'mygroupsright' },
+          { path: '', component: GroupListComponent },
           {
             path: 'settings', children: [
               { path: '', component: GroupSettingsDialogComponent }

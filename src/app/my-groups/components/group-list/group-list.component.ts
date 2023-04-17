@@ -12,24 +12,23 @@ import { GroupService } from 'src/app/services/group.service';
 })
 export class GroupListComponent implements OnInit {
   public wWidth = window.innerWidth;
+  groupId = <string | null>null;
   groups$;
   allGroups$: Group[] = [];
 
   constructor(private route: ActivatedRoute, public GroupService: GroupService, private router: Router, TranslateService: TranslateService) {
     this.groups$ = combineLatest([this.route.queryParams, this.route.params]).pipe(
       switchMap(([queryParams, params]) => {
+        this.groupId = params['groupId'];
         GroupService.reset();
         return GroupService.loadItems().pipe(map(
           (newgroups: any) => {
             if (!newgroups.length) {
               this.router.navigate([TranslateService.currentLang, 'my', 'groups'], { queryParams });
-
-            } else {
-              const inlist = newgroups.map((item: any) => item.id).find((id: string) => id === queryParams['groupId']);
-              if (!inlist && window.innerWidth > 750) {
-                this.router.navigate([TranslateService.currentLang, 'my', 'groups', newgroups[0].id], { queryParams });
-              }
+            } else if (!params['groupId'] && window.innerWidth > 750) {
+              this.router.navigate([TranslateService.currentLang, 'my', 'groups', newgroups[0].id], { queryParams });
             }
+
             return newgroups;
           }))
       }
