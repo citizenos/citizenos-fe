@@ -78,7 +78,7 @@
             <div class="item_description" translate="VIEWS.MY_TOPICS_TOPICID.LBL_USERS"></div>
             <div class="item_content">
               <div class="item_text">
-                <span [textContent]="(userList)? (TopicMemberUserService.countTotal$ | async) : topic.members.users.count"></span>
+                <span [textContent]="topic.members.users.count"></span>
                 <span class="separator">|</span>
                 <span class="item_link blue_link" translate="VIEWS.MY_TOPICS_TOPICID.LNK_VIEW"
                   (click)="viewMemberUsers();"></span>
@@ -93,7 +93,7 @@
             <div class="item_content">
               <div class="item_text">
                 <span
-                  [textContent]="(groupList)? (TopicMemberGroupService.countTotal$ | async) : topic.members.groups.count"></span>
+                  [textContent]="topic.members.groups.count"></span>
                 <span class="separator">|</span>
                 <span class="item_link blue_link" translate="VIEWS.MY_TOPICS_TOPICID.LNK_VIEW"
                   (click)="viewMemberGroups();"></span>
@@ -232,7 +232,7 @@
   <div class="info_container group_list" id="group_list" #groupListEl>
     <div class="container_header" (click)="doToggleMemberGroupList();">
       <div class="header_text"><span translate="VIEWS.MY_TOPICS_TOPICID.HEADING_GROUP_LIST"></span> <span>
-          ({{((groupList)? (TopicMemberGroupService.countTotal$ | async) : topic.members.groups.count)}})</span> |
+          ({{topic.members.groups.count}})</span> |
         <div class="blue_link" *ngIf="TopicMemberGroupService.countTotal$ | async"
           (click)="groupListSearch = !groupListSearch; groupList=true; $event.stopPropagation()"
           translate="VIEWS.MY_TOPICS_TOPICID.LNK_SEARCH"></div>
@@ -312,7 +312,7 @@
     <div class="container_header" (click)="doToggleMemberUserList(); $event.stopPropagation();">
       <div class="header_text">
         <span translate="VIEWS.MY_TOPICS_TOPICID.HEADING_USERS_LIST"></span>
-        <span> ({{((userList)? (TopicMemberUserService.countTotal$ | async) : topic.members.users.count)}})</span> |
+        <span> ({{topic.members.users.count}})</span> |
         <div class="blue_link" (click)="userListSearch = !userListSearch; userList = true; $event.stopPropagation();"
           translate="VIEWS.MY_TOPICS_TOPICID.LNK_FILTER"></div>
         <span *ngIf="canUpdate(topic)">|</span>

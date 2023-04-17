@@ -311,6 +311,7 @@ export class TopicInviteComponent implements OnInit {
         .subscribe((res:any) => {
           this.dialogRef.close();
           this.TopicMemberGroup.reset();
+          this.TopicService.reloadTopic();
         })
     }
   };

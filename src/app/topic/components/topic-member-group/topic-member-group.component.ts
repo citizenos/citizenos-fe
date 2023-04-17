@@ -49,8 +49,8 @@ export class TopicMemberGroupComponent implements OnInit {
         level: 'delete',
         heading: 'MODALS.TOPIC_MEMBER_GROUP_DELETE_CONFIRM_HEADING',
         title: 'MODALS.TOPIC_MEMBER_GROUP_DELETE_CONFIRM_TXT_ARE_YOU_SURE',
-        confirmBtn: 'MODALS.TOPIC_MEMBER_GROUP_DELETE_CONFIRM_YES',
-        closeBtn: 'MODALS.TOPIC_MEMBER_GROUP_DELETE_CONFIRM_NO'
+        confirmBtn: 'MODALS.TOPIC_MEMBER_GROUP_DELETE_CONFIRM_BTN_YES',
+        closeBtn: 'MODALS.TOPIC_MEMBER_GROUP_DELETE_CONFIRM_BTN_NO'
       }
     });
     deleteUserDialog.afterClosed().subscribe(result => {
@@ -59,6 +59,7 @@ export class TopicMemberGroupComponent implements OnInit {
         this.TopicMemberGroupService.delete({ topicId: this.topic.id, groupId: this.group.userId || this.group.id })
           .pipe(take(1))
           .subscribe(() => {
+            this.TopicService.reloadTopic();
             return this.TopicMemberGroupService.reset();
           });
       }

@@ -68,46 +68,10 @@ export class GroupMemberUserComponent implements OnInit {
           this.GroupMemberUser.delete({ groupId: this.group.id, userId: this.member.userId || this.member.id })
             .pipe(take(1))
             .subscribe(() => {
-              //return this.GroupMemberUserService.reset(); // Good old topic.members.users.splice wont work due to group permission inheritance
+              this.GroupService.reloadGroup();
             });
         }
-      });/*
-        this.ngDialog
-          .openConfirm({
-            template: '/views/modals/topic_member_user_delete_confirm.html',
-            data: {
-              user: member
-            }
-          })
-          .then(() => {
-            member.topicId = topic.id;
-            this.TopicMemberUserService.delete({ topicId: topic.id, userId: member.userId || member.id })
-              .then(() => {
-                return this.TopicMemberUserService.reload(); // Good old topic.members.users.splice wont work due to group permission inheritance
-              });
-          }, angular.noop);*/
+      });
     };
-   /* const member = this.member
-    if (this.group) {
-      const group = this.group
-      if (member.id === this.sAuth.user.id) { // IF User tries to delete himself, show "Leave" dialog instead
-        return this.doLeaveGroup();
-      }
-      this.ngDialog
-        .openConfirm({
-          template: '/views/modals/group_member_user_delete_confirm.html',
-          data: {
-            user: member
-          }
-        })
-        .then(() => {
-          this.GroupMemberUser
-            .delete({ groupId: group.id, userId: member.userId })
-            .then(() => {
-              group.getMemberUsers();
-            });
-        }, angular.noop);
-
-    }*/
 
 }

@@ -13,6 +13,7 @@ import { UserTopicService } from 'src/app/services/user-topic.service';
 export class ListComponent {
   topics$;
   allTopics$: Topic[] = [];
+  topicId = <string | null>null;
   public filters;
   public topicFilters = [
     {
@@ -79,6 +80,7 @@ export class ListComponent {
   constructor(public UserTopicService: UserTopicService, public route: ActivatedRoute, private router: Router, private Auth: AuthService, TranslateService: TranslateService) {
     this.topics$ = combineLatest([this.route.queryParams, this.route.params]).pipe(
       switchMap(([queryParams, params]) => {
+        this.topicId = params['topicId'];
         this.UserTopicService.reset();
         const filter = queryParams['filter'];
         this.setFilter(filter)
@@ -86,13 +88,10 @@ export class ListComponent {
           (newtopics: any) => {
             if (!newtopics.length) {
               this.router.navigate([TranslateService.currentLang, 'my', 'topics'], { queryParams });
-
-            } else {
-              const inlist = newtopics.map((item: any) => item.id).find((id: string) => id === queryParams['topicId']);
-              if (!inlist && this.wWidth > 750) {
-                this.router.navigate([TranslateService.currentLang, 'my', 'topics', newtopics[0].id], { queryParams });
-              }
+            } else if (!params['topicId'] && this.wWidth > 750) {
+              this.router.navigate([TranslateService.currentLang, 'my', 'topics', newtopics[0].id], { queryParams });
             }
+
             return newtopics;
           }))
       }
@@ -132,6 +131,18 @@ export class ListComponent {
           break;
       };
     }
+    this.topicFilters.forEach((topicFilter) => {
+      if (topicFilter.id === filter) {
+        this.filters.selected = topicFilter;
+      } else if (topicFilter.children) {
+        topicFilter.children.forEach((childFilter) => {
+          if (childFilter.id === filter) {
+            this.filters.selected = childFilter;
+          }
+        })
+      }
+    });
+
     this.UserTopicService.setParam(param, value);
   }
 
