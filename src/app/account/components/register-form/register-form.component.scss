@@ -3,13 +3,29 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  gap: 8px;
-
-  input, button {
+  gap: 24px;
+  max-width: 560px;
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
+    gap: 24px;
+
+    #register_inputs_wrap {
+      gap: 6px;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      width: 100%;
+
+      input {
+        width: 100%;
+      }
+    }
   }
 
   #register_button {
-    margin: 36px 0;
+    width: 100%;
   }
 }

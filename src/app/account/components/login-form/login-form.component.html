@@ -15,29 +15,29 @@
   </div>
   <div translate="COMPONENTS.LOGIN_FORM.LOGIN_OR"></div>
   <div id="login_email_wrap">
-    <input id="email" formControlName="email" type="email"
-      placeholder="{{'COMPONENTS.LOGIN_FORM.LOGIN_PLACEHOLDER_EMAIL' | translate}}" [ngClass]="{'error_input': errors?.email}"
-      [maxlength]="254" required>
-    <label for="email" class="error_label" *ngIf="errors?.email">
-      <div class="table_cell">
-        <div class="sprite sprite-icon-inputfield-error2x"></div>
-        <span translate="{{errors.email}}"></span>
-      </div>
-    </label>
-    <div>
+    <form name="loginForm" [formGroup]="form">
+      <input id="email" formControlName="email" type="email"
+        placeholder="{{'COMPONENTS.LOGIN_FORM.LOGIN_PLACEHOLDER_EMAIL' | translate}}"
+        [ngClass]="{'error_input': errors?.email}" [maxlength]="254" required>
+      <label for="email" class="error_label" *ngIf="errors?.email">
+        <div class="table_cell">
+          <div class="sprite sprite-icon-inputfield-error2x"></div>
+          <span translate="{{errors.email}}"></span>
+        </div>
+      </label>
       <input id="password" formControlName="password" type="password"
         placeholder="{{'COMPONENTS.LOGIN_FORM.LOGIN_PLACEHOLDER_PASSWORD' | translate}}" (focus)="isFormEmailProvided"
         [ngClass]="{'error_input': errors?.password}" [maxlength]="64" required cos-view-input>
-    </div>
-    <label for="password" class="error_label" *ngIf="errors?.password">
-      <div class="sprite sprite-icon-inputfield-error2x"></div>
-      <span translate="{{errors.password}}"></span>
-    </label>
-    <div class="link_section">
-      <a (click)="doResetPassword()" translate="COMPONENTS.LOGIN_FORM.LOGIN_LNK_FORGOT_PASSWORD"></a>
-    </div>
-    <button id="login_button" type="submit" (click)="doLogin()" cos-disabled="loginForm.$invalid" class="btn_big_submit"
-      translate="COMPONENTS.LOGIN_FORM.LOGIN_BTN_LOGIN"></button>
-    <a (click)="register()" translate="COMPONENTS.LOGIN_FORM.LOGIN_LNK_NO_ACCOUNT_REGISTER"></a>
+      <label for="password" class="error_label" *ngIf="errors?.password">
+        <div class="sprite sprite-icon-inputfield-error2x"></div>
+        <span translate="{{errors.password}}"></span>
+      </label>
+      <div class="link_section">
+        <a (click)="doResetPassword()" translate="COMPONENTS.LOGIN_FORM.LOGIN_LNK_FORGOT_PASSWORD"></a>
+      </div>
+      <button id="login_button" type="submit" (click)="doLogin()" cos-disabled="loginForm.$invalid"
+        class="btn_big_submit" translate="COMPONENTS.LOGIN_FORM.LOGIN_BTN_LOGIN"></button>
+    </form>
+    <a [routerLink]="['/account/signup']" translate="COMPONENTS.LOGIN_FORM.LOGIN_LNK_NO_ACCOUNT_REGISTER"></a>
   </div>
 </div>

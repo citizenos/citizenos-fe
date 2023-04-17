@@ -41,8 +41,10 @@
   background: var(--color-surfaces);
 
   .btn_small_nav {
-    min-width: 130px;
+    min-width: 160px;
+    justify-content: normal;
   }
+
   .btn_big_submit, .btn_big_submit_ghost  {
     min-width: 160px;
   }

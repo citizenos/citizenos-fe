@@ -1,8 +1,8 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { ConfigService } from 'src/app/services/config.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { NotificationService } from 'src/app/services/notification.service';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { take } from 'rxjs';
 import { UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
 
@@ -19,17 +19,14 @@ export class RegisterFormComponent {
     company: new UntypedFormControl(''),
     password: new UntypedFormControl('', Validators.required),
     passwordConfirm: new UntypedFormControl('', Validators.required),
-    agreeToTerms: new UntypedFormControl(false, Validators.requiredTrue)
+    agreeToTerms: new UntypedFormControl(false, Validators.requiredTrue),
+    showInSearch: new UntypedFormControl(false)
   })
 
   isInviteFlowSignUp = false;
   wWidth = window.innerWidth;
   errors = <any>{};
-  agreeToTerms = false;
   termsVersion: number;
-  preferences = {
-    showInSearch: false
-  }
   redirectSuccess?:string = '';
   constructor(private dialog: MatDialog, ConfigService: ConfigService, private AuthService: AuthService, private Notification: NotificationService) {
     this.config = ConfigService.get('legal');
@@ -45,13 +42,10 @@ export class RegisterFormComponent {
   ngOnInit(): void {
   }
 
-  toggleTerms() {
-    this.signUpForm.patchValue({agreeToTerms: this.agreeToTerms})
-  }
-
   doSignUp() {
     const formData = this.signUpForm.value;
-    if (!this.agreeToTerms) {
+    console.log('signup', formData);
+    if (!formData.agreeToTerms) {
       this.errors = {
         terms: 'MSG_ERROR_NEED_TO_AGREE_TERMS'
       }
@@ -71,7 +65,9 @@ export class RegisterFormComponent {
           name: formData.name,
           company: formData.company,
           redirectSuccess: this.redirectSuccess,
-          preferences: this.preferences,
+          preferences: {
+            showInSearch: formData.showInSearch
+          },
           termsVersion: this.termsVersion
         }).pipe(take(1))
         .subscribe({

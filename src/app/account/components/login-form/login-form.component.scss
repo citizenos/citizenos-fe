@@ -3,6 +3,17 @@
   flex-direction: column;
   align-items: center;
   gap: 16px;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+
+    input, button {
+      width: 100%;
+    }
+  }
 }
 
 .icons_wrap {

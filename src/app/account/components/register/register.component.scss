@@ -37,11 +37,18 @@
 
     #register_form_wrap {
       display: flex;
+      align-items: center;
       flex-direction: column;
       gap: 20px;
       padding: 40px;
+      max-width: 560px;
 
-      h1, p {
+      a {
+        width: max-content;
+      }
+
+      h1,
+      p {
         text-align: center;
       }
     }

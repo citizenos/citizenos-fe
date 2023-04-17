@@ -17,22 +17,13 @@ export class RegisterComponent {
 }
 
 @Component({
-  selector: 'app-register-dialog',
-  template: '',
+  templateUrl: './register-dialog.component.html'
 })
-export class RegisterDialogComponent implements OnInit {
+export class RegisterDialogComponent {
 
-  constructor(dialog: MatDialog, route: ActivatedRoute, private router: Router) {
-    const params = Object.assign({}, route.snapshot.params);
-    const registerDialog = dialog.open(RegisterComponent, {
-      data: Object.assign(params, {redirectSuccess: route.url})
-    });
-    registerDialog.afterClosed().subscribe(() => {
-      this.router.navigate(['/']);
-    })
+  constructor() {
+
   }
 
-  ngOnInit(): void {
-  }
 
 }
