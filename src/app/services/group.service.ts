@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, map, switchMap, of, catchError, share } from 'rxjs';
+import { Observable, BehaviorSubject, map, exhaustMap, catchError, shareReplay } from 'rxjs';
 import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { Group } from 'src/app/interfaces/group';
 import { LocationService } from './location.service';
@@ -45,6 +45,19 @@ export class GroupService extends ItemsListService {
 
   getItems(params: any) {
     return this.query(params);
+  }
+
+  private loadGroup$ = new BehaviorSubject<void>(undefined);
+
+  loadGroup(id: string, params?: { [key: string]: string }) {
+    return this.loadGroup$.pipe(
+      exhaustMap(() => this.get(id, params)),
+      shareReplay()
+    );
+  }
+
+  reloadGroup(): void {
+    this.loadGroup$.next();
   }
 
   get(id: string, params?: { [key: string]: string }): Observable<Group> {

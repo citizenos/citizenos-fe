@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { LocationService } from './location.service';
-import { Observable, switchMap, map, of, take } from 'rxjs';
+import { Observable, switchMap, map, of, take, BehaviorSubject, exhaustMap, shareReplay } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { AuthService } from './auth.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -61,7 +61,20 @@ export class TopicService {
   CATEGORIES_COUNT_MAX = 3;
   constructor(private dialog: MatDialog, private Location: LocationService, private http: HttpClient, private Auth: AuthService, private router: Router) { }
 
-  get(id: string, params?: { [key: string]: string }): Observable<Topic> {
+  private loadTopic$ = new BehaviorSubject<void>(undefined);
+
+  loadTopic(id: string, params?: { [key: string]: string | boolean }) {
+    return this.loadTopic$.pipe(
+      exhaustMap(() => this.get(id, params)),
+      shareReplay()
+    );
+  }
+
+  reloadTopic(): void {
+    this.loadTopic$.next();
+  }
+
+  get(id: string, params?: { [key: string]: string | boolean }): Observable<Topic> {
     let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId'), { topicId: id });
     return this.http.get<ApiResponse>(path, { withCredentials: true, params, observe: 'body', responseType: 'json' })
       .pipe(switchMap((res: any) => {
@@ -220,7 +233,7 @@ export class TopicService {
               if (state === 'vote' && !topic.voteId && !topic.vote) {
                 this.router.navigate(['/topics', topic.id, 'votes', 'create'])
               }
-              if (state  === 'followUp') {
+              if (state === 'followUp') {
                 this.router.navigate(['/topics', topic.id, 'followup'])
               }
             }, error: (res) => {
