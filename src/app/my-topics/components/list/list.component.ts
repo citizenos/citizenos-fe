@@ -82,7 +82,7 @@ export class ListComponent {
       switchMap(([queryParams, params]) => {
         this.topicId = params['topicId'];
         this.UserTopicService.reset();
-        const filter = queryParams['filter'];
+        const filter = queryParams['filter']|| this.topicFilters[0].id;
         this.setFilter(filter)
         return this.UserTopicService.loadItems().pipe(map(
           (newtopics: any) => {
