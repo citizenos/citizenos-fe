@@ -15,7 +15,7 @@ import { CreateGroupTopicComponent } from 'src/app/group/components/create-group
 import { GroupAddTopicsComponent } from 'src/app/group/components/group-add-topics/group-add-topics.component';
 
 @Component({
-  selector: 'app-my-group',
+  selector: 'my-group',
   templateUrl: './my-group.component.html',
   styleUrls: ['./my-group.component.scss']
 })
@@ -55,7 +55,7 @@ export class MyGroupComponent implements OnInit {
   ) {
     this.group$ = this.route.params.pipe(
       switchMap((params) => {
-        return this.GroupService.get(params['groupId'])
+        return this.GroupService.loadGroup(params['groupId'])
       }),
       catchError((err:any) => {
         console.log(err);
