@@ -10,7 +10,7 @@ import { LocationService } from 'src/app/services/location.service';
 import { GroupMemberTopicService } from './group-member-topic.service';
 import { Router } from '@angular/router';
 import { LoginDialogComponent } from '../account/components/login/login.component';
-import { RegisterComponent } from '../account/components/register/register.component';
+import { RegisterComponent, RegisterDialogComponent } from '../account/components/register/register.component';
 import { CreateComponent } from 'src/app/core/components/create/create.component';
 
 @Injectable({
@@ -42,7 +42,7 @@ export class AppService {
 
   doShowRegister(email?: string) {
     this.dialog.closeAll();
-    this.dialog.open(RegisterComponent, {
+    this.dialog.open(RegisterDialogComponent, {
       data: {
         email: email,
         redirectSuccess: this.Location.currentUrl()

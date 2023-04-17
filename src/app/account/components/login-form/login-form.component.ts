@@ -9,7 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { EstIdLoginComponent } from '../est-id-login/est-id-login.component';
 import { SmartIdLoginComponent } from '../smart-id-login/smart-id-login.component';
-import { RegisterComponent } from '../register/register.component';
+import { RegisterDialogComponent } from '../register/register.component';
 import { PasswordForgotComponent } from '../password-forgot/password-forgot.component';
 import { take } from 'rxjs';
 
@@ -263,13 +263,4 @@ export class LoginFormComponent {
     window.location.href = url;
   };
 
-  register() {
-    console.log('REGISTER');
-    this.dialog.open(RegisterComponent, {
-      data: {
-        email: this.form.value.email,
-        redirectSuccess: this.Location.currentUrl()
-      }
-    })
-  }
 }

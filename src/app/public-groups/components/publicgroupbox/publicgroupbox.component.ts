@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { Group } from 'src/app/interfaces/group';
 import { GroupJoinService } from 'src/app/services/group-join.service';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
-import { LoginComponent } from 'src/app/account/components/login/login.component';
+import { LoginDialogComponent } from 'src/app/account/components/login/login.component';
 import { take } from 'rxjs';
 
 @Component({
@@ -27,7 +27,7 @@ export class PublicgroupboxComponent implements OnInit {
 
   joinGroup () {
     if (!this.Auth.loggedIn$.value) {
-      const loginDialog = this.dialog.open(LoginComponent);
+      const loginDialog = this.dialog.open(LoginDialogComponent);
       loginDialog.afterClosed().subscribe(result => {
         console.log(`Login result: ${result}`);
       });

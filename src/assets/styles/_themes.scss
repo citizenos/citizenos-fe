@@ -46,6 +46,11 @@ $--btn-submit: --btn-submit;
 $--btn-submit-text: --btn-submit-text;
 $--btn-submit-hover: --btn-submit-hover;
 
+//checkboxs
+$--input-checkbox-background-default: --input-checkbox-background-default;
+$--input-checkbox-border-default: --input-checkbox-border-default;
+$--input-checkbox-background-voting: --input-checkbox-background-voting;
+$--input-checkbox-border-voting: --input-checkbox-border-voting;
 // Default theme
 $theme-map-default: (
   $--color-background: #f1f7fc,
@@ -66,7 +71,7 @@ $theme-map-default: (
   //blue 700
   $--color-discussion: #1168a8,
   //blue 700
-  $--color-voting: #5ab467,
+  $--color-voting: #5AB467,
   //green 500
   $--color-voting-disabled: #98DAA2,
   //green 300
@@ -80,6 +85,10 @@ $theme-map-default: (
   //purple 100
   $--color-group: #d7e9f8,
   //blue 200
+  $--input-checkbox-background-default: #5C9CD0,
+  $--input-checkbox-border-default: #1168A8,
+  $--input-checkbox-background-voting: #5AB467,
+  $--input-checkbox-border-voting: #346933,
   $--font-size: 14px,
   $--line-height: 16px,
 );
