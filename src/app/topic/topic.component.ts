@@ -89,7 +89,7 @@ export class TopicComponent implements OnInit {
     );
     this.topic$ = this.topicId$.pipe(
       switchMap((topicId: string) => {
-        return this.TopicService.get(topicId);
+        return this.TopicService.loadTopic(topicId);
       }),
       tap((topic: Topic) => {
         this.app.topic = topic;

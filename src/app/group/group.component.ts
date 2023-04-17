@@ -42,7 +42,7 @@ export class GroupComponent implements OnInit {
         GroupMemberTopicService.setParam('groupId', this.groupId);
         GroupMemberUserService.reset();
         GroupMemberUserService.setParam('groupId', this.groupId);
-        return this.GroupService.get(params['groupId']).pipe(
+        return this.GroupService.loadGroup(params['groupId']).pipe(
           tap((group) => {
             this.app.group.next(group);
           }),

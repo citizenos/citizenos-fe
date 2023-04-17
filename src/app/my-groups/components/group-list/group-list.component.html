@@ -21,4 +21,5 @@
 
 </div>
 
-<router-outlet name="mygroupsright"></router-outlet>
+<my-group *ngIf="groupId"></my-group>
+<router-outlet></router-outlet>

@@ -38,12 +38,10 @@ export class EtherpadDirective implements OnDestroy {
 
   @HostListener('window:message', ['$event']) receiveMessageHandler(e: any | null) {
     if (e) {
-      console.log('window.message');
       const msg = e.data;
       if (msg.name === 'ep_resize') {
-        const width = msg.data.width;
-        const height = msg.data.height;
-
+        const width = Math.round(msg.data.width);
+        const height = Math.round(msg.data.height);
         if (Number.isSafeInteger(width) && width > this.minWidth) {
           const newWidth = width + 'px';
           if (newWidth !== this.element.nativeElement.width) {

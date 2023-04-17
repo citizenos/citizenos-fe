@@ -96,7 +96,7 @@
         <div class="tab_button" (click)="tabSelected = 'topics'" [ngClass]="tabSelected === 'topics' ? 'active' : ''">
           <div class="tab_buttom_wrap">
             <div class="tab_button_text"><span translate="VIEWS.PUBLIC_GROUP.TAB_TOPICS"></span>
-              <span>({{GroupMemberTopicService.countTotal$ | async}})</span>
+              <span>({{group.members.topics.count}})</span>
             </div>
             <div class="blue_bottom_line"></div>
           </div>
@@ -105,7 +105,7 @@
         <div class="tab_button" (click)="tabSelected = 'members'" [ngClass]="tabSelected === 'members' ? 'active' : ''">
           <div class="tab_buttom_wrap">
             <div class="tab_button_text"><span translate="VIEWS.PUBLIC_GROUP.TAB_MEMBERS"></span>
-              <span>({{(tabSelected === 'members')? (GroupMemberUserService.countTotal$ | async) : group.members.count}})</span>
+              <span>({{group.members.users.count}})</span>
             </div>
             <div class="blue_bottom_line"></div>
           </div>
@@ -114,7 +114,7 @@
     </div>
     <div class="content" *ngIf="tabSelected === 'topics'">
       <div class="container_content">
-        <div *ngIf="!group.members.count" class="table">
+        <div *ngIf="!group.members.topics.count" class="table">
           <div class="no_results v_align_cell">
             <div class="no_results_icon_wrap">
               <div class="no_results_img sprite sprite-icon-no-results2x"></div>
@@ -161,7 +161,7 @@
           </div>
         </div>
         <!--GroupMemberTopicService.countTotal-->
-        <div class="default_table" *ngIf="group.members.count">
+        <div class="default_table" *ngIf="group.members.topics.count">
           <div class="pretend_tr" *ngIf="wWidth > 560">
             <div class="pretend_th link" (click)="GroupMemberTopicService.doOrder('title')">
               <div class="th_text">

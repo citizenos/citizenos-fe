@@ -1,13 +1,11 @@
 <div class="full_height">
   <div id="topics_root">
 
-      <div class="v_line separator absolute_separator" [ngClass]="{hidden: (wWidth < 750)}"></div>
+    <div class="v_line separator absolute_separator" [ngClass]="{hidden: (wWidth < 750)}"></div>
 
-      <div id="topics_wrap">
-          <group-list name="mygroupsleft"></group-list>
-          <div class="clearer"></div>
-      </div>
+    <div id="topics_wrap">
+      <router-outlet></router-outlet>
+      <div class="clearer"></div>
+    </div>
   </div>
 </div>
-
-<router-outlet></router-outlet>

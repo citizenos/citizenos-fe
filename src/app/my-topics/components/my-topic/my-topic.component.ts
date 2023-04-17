@@ -62,7 +62,7 @@ export class MyTopicComponent implements OnInit {
 
     this.topic$ = this.route.params.pipe(
       switchMap((params) => {
-        return this.TopicService.get(params['topicId']);
+        return this.TopicService.loadTopic(params['topicId']);
       }),
       tap((topic) => {
         this.app.topic = topic;

@@ -62,4 +62,5 @@
 
 </div>
 
-<router-outlet name="mytopicsright"></router-outlet>
+<my-topic *ngIf="topicId"></my-topic>
+<router-outlet></router-outlet>
