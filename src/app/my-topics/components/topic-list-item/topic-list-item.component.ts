@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicService } from 'src/app/services/topic.service';
 
@@ -11,15 +12,13 @@ import { TopicService } from 'src/app/services/topic.service';
 
 export class TopicListItemComponent {
   @Input() topic!: Topic;
-  constructor(private router: Router, private route: ActivatedRoute, public TopicService: TopicService) {
+  constructor(private router: Router, private route: ActivatedRoute, public TopicService: TopicService, public translate: TranslateService) {
   }
   isActiveItem () {
     return this.router.url.indexOf(this.topic.id) > -1;
   }
-  goToItemView() {
-    this.router.navigate(['my','topics', this.topic.id]);
-  }
-  goToView (check: boolean) {
+
+  goToEditView () {
     this.router.navigate(['topics', this.topic.id], {queryParams: {editMode:true}});
   }
 }
