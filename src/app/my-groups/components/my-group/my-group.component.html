@@ -59,7 +59,7 @@
             <div class="item_description" translate="VIEWS.MY_GROUPS_GROUPID.LBL_TOPICS"></div>
             <div class="item_content">
               <div class="item_text">
-                <span [innerHtml]="GroupMemberTopicService.countTotal$ | async"></span>
+                <span [innerHtml]="group.members.topics.count"></span>
                 <span class="separator">|</span>
                 <span class="item_link blue_link" (click)="viewMemberTopics()"
                   translate="VIEWS.MY_GROUPS_GROUPID.LNK_VIEW"></span>
@@ -77,7 +77,7 @@
             <div class="item_description" translate="VIEWS.MY_GROUPS_GROUPID.LBL_USERS"></div>
             <div class="item_content">
               <div class="item_text">
-                <span [innerHtml]="GroupMemberUserService.countTotal$ | async"></span>
+                <span [innerHtml]="group.members.users.count"></span>
                 <span class="separator">|</span>
                 <span class="item_link blue_link" (click)="viewMemberUsers()"
                   translate="VIEWS.MY_GROUPS_GROUPID.LNK_VIEW"></span>
@@ -202,9 +202,9 @@
     <div class="container_header" (click)="doToggleMemberTopicList();">
       <div class="header_text">
         <span translate="VIEWS.MY_GROUPS_GROUPID.HEADING_TOPIC_LIST"
-          [translateParams]="{count: GroupMemberTopicService.countTotal$ | async}"></span>
-        <span *ngIf="GroupMemberTopicService.countTotal$ | async">|</span>
-        <div class="blue_link" *ngIf="GroupMemberTopicService.countTotal$ | async"
+          [translateParams]="{count: group.members.topics.count}"></span>
+        <span *ngIf="group.members.topics.count">|</span>
+        <div class="blue_link" *ngIf="group.members.topics.count"
           (click)="topicListSearch = !topicListSearch; topicList = true; $event.stopPropagation();"
           translate="VIEWS.MY_GROUPS_GROUPID.LNK_SEARCH"></div>
         <span *ngIf="canUpdate(group)">|
@@ -232,7 +232,7 @@
 
         </!--div-->
       </div>
-      <div class="minimize_container" *ngIf="GroupMemberTopicService.countTotal$ | async"
+      <div class="minimize_container" *ngIf="group.members.topics.count"
         (click)="doToggleMemberTopicList(); $event.stopPropagation();">
         <div [ngClass]="!topicList ? 'sprite-btn-expand2x' : 'sprite-btn-minimize2x'" class="sprite">
         </div>
@@ -296,7 +296,7 @@
     <div class="container_header" (click)="userList = !userList; $event.stopPropagation();">
       <div class="header_text">
         <span translate="VIEWS.MY_GROUPS_GROUPID.HEADING_USERS_LIST"
-          [translateParams]="{count: (GroupMemberUserService.countTotal$ | async)}"></span>
+          [translateParams]="{count: group.members.users.count}"></span>
         |
         <div class="blue_link" (click)="userListSearch = !userListSearch; userList=true; $event.stopPropagation();"
           translate="VIEWS.MY_GROUPS_GROUPID.LNK_SEARCH"></div>
@@ -441,4 +441,3 @@
 
 
 </div>
-<router-outlet></router-outlet>
