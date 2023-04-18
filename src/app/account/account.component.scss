@@ -1,417 +1,51 @@
-@use "vars";
-@use "mixins_n_extends";
+#account_page {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9;
+  flex-direction: row;
 
-#root_account {
-  @extend %default_setup;
+  .account_page_section {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: var(--color-surfaces);
 
-  .content_wrap {
-    .header {
-      background-color: vars.$white;
-      padding: 16px 40px 0;
+    &:nth-child(1) {
+      background-color: var(--color-background);
+      justify-content: space-between;
+    }
 
-      .title {
-        h1 {
-          color: vars.$medium_black;
-          font-weight: 700;
-          font-family: "Noto Sans", sans-serif;
-          font-style: normal;
-          font-size: 26px;
-          line-height: 32px;
-        }
-      }
-      .header_row_wrap {
+    .logo_container {
+      display: flex;
+      justify-content: center;
+      padding: 40px;
+    }
+
+    .illustration_container {
+      display: flex;
+      justify-content: flex-start;
+      width: 100%;
+
+      .illustration {
+        display: flex;
         width: 100%;
-        display: table-row;
-
-        @include mixins_n_extends.mobile {
-          width: 200%;
-          overflow: hidden;
-        }
-
-        .header_row {
-          top: 54px;
-          overflow: hidden;
-
-          @include mixins_n_extends.mobile {
-            float: left;
-            padding: 0 0 0 10px;
-          }
-
-          .tab_button {
-            float: left;
-            position: relative;
-            height: 40px;
-            overflow: hidden;
-            padding-left: 0;
-            padding-right: 20px;
-            box-sizing: border-box;
-            cursor: pointer;
-            .tab_buttom_wrap {
-              position: relative;
-              height: 40px;
-              margin: 0 auto;
-
-              .tab_button_text {
-                font-size: 14px;
-                padding-top: 10px;
-                opacity: 0.7;
-                text-transform: uppercase;
-              }
-
-              .blue_bottom_line {
-                width: 0%;
-                left: 50%;
-                height: 2px;
-                position: absolute;
-                background: vars.$deep_sky_blue;
-                transition: all 300ms cubic-bezier(0.45, 0.78, 0, 1);
-                bottom: 0;
-
-                @include mixins_n_extends.tablet {
-                  transition: none;
-                }
-
-                margin-top: -2px;
-              }
-
-              &:hover {
-                .blue_bottom_line {
-                  width: 100%;
-                  left: 0%;
-                  @include mixins_n_extends.tablet {
-                    transition: none;
-
-                    width: auto;
-                    left: initial;
-                  }
-                }
-              }
-            }
-          }
-
-          .tab_button.active {
-            .tab_buttom_wrap {
-              .tab_button_text {
-                opacity: 1;
-              }
-
-              .blue_bottom_line {
-                width: 100%;
-                left: 0%;
-                height: 2px;
-                background: vars.$deep_sky_blue;
-              }
-            }
-          }
-
-          .blue_button_wrap {
-            float: right;
-
-            .blue_button {
-              padding-left: 10px;
-              padding-right: 10px;
-              border-radius: 4px;
-              position: relative;
-            }
-          }
-        }
-      }
-    }
-
-    .content_description {
-      font-family: "Noto Sans", sans-serif;
-      font-style: italic;
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 15px;
-      padding: 40px 10px 0 40px;
-      margin-bottom: -15px;
-    }
-
-    .content {
-      background: #ffffff;
-      box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
-      margin: 40px 40px 0 40px;
-      padding: 10px;
-
-      .profile_line {
-        position: relative;
-        display: inline-block;
-        height: 197px;
-        @include mixins_n_extends.mobile {
-          display: none;
-        }
-      }
-
-      .content_section {
-        padding: 20px;
-
-        .topic_search_input {
-          width: 100%;
-        }
-        .notification_settings_table {
-          .notification_setting_row {
-            height: 56px;
-            background-color: vars.$white;
-            &:nth-child(even) {
-              background-color: vars.$light_gray;
-            }
-            th {
-              padding: 0 20px;
-              font-weight: normal;
-              width: auto;
-              text-align: right;
-              &:first-child {
-                text-align: left;
-                width: 50%;
-              }
-            }
-
-            td {
-              padding: 0 20px;
-              vertical-align: middle;
-              text-align: right;
-
-              &:first-child {
-                text-align: left;
-              }
-              cos-toggle {
-                bottom: 14px;
-                position: relative;
-              }
-            }
-          }
-        }
-
-        .settings_cell {
-          display: inline-block;
-          position: relative;
-          &.setting_toggle {
-            position: absolute;
-            right: 40px;
-          }
-
-          .setting_title {
-            font-size: 16px;
-            font-weight: vars.$bold;
-            display: inline-block;
-          }
-
-          .setting_description {
-            font-size: 11px;
-          }
-        }
-
-        table {
-          .title_item {
-            display: inline-block;
-            width: max-content;
-            min-width: 150px;
-            min-height: 20px;
-          }
-          th {
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 14px;
-            color: vars.$medium_black;
-            border-bottom: none;
-          }
-          tr {
-            td {
-              &.setting_title {
-                font-weight: 400;
-                font-size: 13px;
-                line-height: 24px;
-                padding: 5px;
-              }
-
-              .option_checkbox {
-                position: relative;
-                top: 0;
-                left: 0;
-                height: 20px;
-                width: 20px;
-                background-color: vars.$white;
-                display: block;
-
-                &:after {
-                  content: "";
-                  position: absolute;
-                  display: none;
-                  left: 5px;
-                  top: 2px;
-                  width: 7px;
-                  height: 10px;
-                  border: solid vars.$aqua_marine_border;
-                  border-width: 0 3px 3px 0;
-                  -webkit-transform: rotate(45deg);
-                  -ms-transform: rotate(45deg);
-                  transform: rotate(45deg);
-                }
-              }
-
-              .remove {
-                color: red;
-                display: inline-block;
-              }
-              .delete_icon {
-                display: inline-block;
-                margin-left: 10px;
-              }
-            }
-          }
-        }
-      }
-      #image_edit_section {
-        display: block;
-        width: 210px;
-        height: auto;
-        text-align: center;
-        float: left;
-        padding-top: 40px;
-
-        .profile_image_wrapper {
-          margin-left: 38px;
-
-          @include mixins_n_extends.mobile {
-            width: 100%;
-            margin-left: 20px;
-            margin-right: 20px;
-
-            .account_picture {
-              width: 140px;
-              margin-left: auto;
-              margin-right: auto;
-            }
-          }
-        }
-
-        #edit_image_properties {
-          display: block;
-
-          .blue_link {
-            display: inline-block;
-            margin-bottom: 3px;
-          }
-
-          span {
-            opacity: 0.69;
-          }
-
-          @include mixins_n_extends.mobile {
-            //text-align: center;
-            margin-left: 20px;
-          }
-        }
-
-        @include mixins_n_extends.mobile {
-          width: 100%;
-          position: relative;
-        }
-      }
-
-      #profile_edit_section {
-        width: auto;
-        display: inline-block;
-        margin-left: 20px;
-        margin-right: 20px;
-        position: relative;
-
-        @include mixins_n_extends.mobile {
-          position: relative;
-          margin-left: 0;
-          margin-right: 0;
-        }
-      }
-
-      .input_wrap {
-        padding-top: 20px;
-        font-size: 13px;
-
-        span {
-          clear: both;
-          display: block;
-          padding-bottom: 4px;
-        }
-
-        input {
-          background: vars.$white;
-          border: 1px solid vars.$lightest_gray;
-          box-sizing: border-box;
-          border-radius: 4px;
-          line-height: 20px;
-          padding: 10px;
-          min-width: 340px;
-        }
-      }
-      .table_setting_cell {
-        .option_checkbox {
-          position: relative;
-          top: 0;
-          left: 0;
-          height: 20px;
-          width: 20px;
-          background-color: vars.$white;
-          display: block;
-
-          &:after {
-            content: "";
-            position: absolute;
-            display: none;
-            left: 5px;
-            top: 2px;
-            width: 7px;
-            height: 10px;
-            border: solid vars.$aqua_marine_border;
-            border-width: 0 3px 3px 0;
-            -webkit-transform: rotate(45deg);
-            -ms-transform: rotate(45deg);
-            transform: rotate(45deg);
-          }
-        }
-      }
-    }
-
-    .footer {
-      background: #ffffff;
-      box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
-      margin: 0 40px 40px 40px;
-      padding: 10px 32px 38px;
-
-      .delete_account {
-        display: inline-block;
-        padding-top: 25px;
-        width: max-content;
-
-        span {
-          display: inline-block;
-          color: vars.$pinky_red;
-        }
-      }
-
-      .blue_button_wrap {
-        margin-top: 20px;
-        display: inline-block;
-        right: 60px;
-        position: absolute;
-        padding-bottom: 20px;
-
-        .blue_button {
-          padding-left: 20px;
-          padding-right: 20px;
-        }
-      }
-
-      &.pagination_footer {
-        margin: 0 40px 0px 40px;
-        padding: 0 32px 20px;
-        text-align: right;
-
-        .pagination {
-          margin-top: 10px;
-          display: inline-block;
-        }
+        height: 100%;
+        flex-direction: row;
       }
     }
   }
+}
+
+.login_logo {
+  background-image: url("data:image/svg+xml,%3Csvg width='218' height='40' viewBox='0 0 218 40' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50.2465 19.5443C50.2465 12.1514 55.9406 7.16431 63.4238 7.16431C69.3011 7.16431 72.4418 10.43 74.0477 13.5872L68.6457 16.0986C67.842 14.1972 65.7608 12.6172 63.4238 12.6172C59.4461 12.6172 56.6339 15.6315 56.6339 19.5429C56.6339 23.4543 59.4461 26.4672 63.4238 26.4672C65.7593 26.4672 67.842 24.89 68.6457 22.9843L74.0477 25.4986C72.4781 28.5829 69.3011 31.92 63.4238 31.92C55.9421 31.9257 50.2465 26.9 50.2465 19.5443Z' fill='%232C3B47'/%3E%3Cpath d='M76.6056 31.4928H82.2271V14.1614H76.6056V31.4928ZM76.2045 9.4257C76.2045 7.66713 77.6273 6.26855 79.4163 6.26855C81.2054 6.26855 82.6297 7.66713 82.6297 9.4257C82.6297 11.1828 81.2054 12.6186 79.4163 12.6186C77.6273 12.6186 76.2045 11.1828 76.2045 9.4257Z' fill='%232C3B47'/%3E%3Cpath d='M87.4852 26.8285V18.9699H84.5655V14.1614H87.4852V9.42566H93.0704V14.1614H96.647V18.9699H93.0704V25.2857C93.0704 26.2885 93.6546 27.0414 94.64 27.0414C95.2606 27.0414 95.8811 26.8285 96.0628 26.6099L97.1586 30.7728C96.4639 31.4185 95.0774 31.9214 92.9963 31.9214C89.4196 31.9257 87.4852 30.1657 87.4852 26.8285Z' fill='%232C3B47'/%3E%3Cpath d='M99.4607 31.4928H105.082V14.1614H99.4607V31.4928ZM99.0581 9.4257C99.0581 7.66713 100.481 6.26855 102.27 6.26855C104.059 6.26855 105.483 7.66713 105.483 9.4257C105.483 11.1828 104.059 12.6186 102.27 12.6186C100.481 12.6186 99.0581 11.1828 99.0581 9.4257Z' fill='%232C3B47'/%3E%3Cpath d='M108.515 31.4928V27.4385L115.597 18.9699H108.515V14.1614H123.224V18.0728L115.996 26.7214H123.372V31.4928H108.515Z' fill='%232C3B47'/%3E%3Cpath d='M135.018 18.0014C132.57 18.0014 131.623 19.7243 131.405 20.9786H138.668C138.52 19.76 137.609 18.0014 135.018 18.0014ZM125.636 22.81C125.636 17.7857 129.505 13.7314 135.018 13.7314C140.238 13.7314 144.033 17.4986 144.033 23.3843V24.5672H131.474C131.804 26.1829 133.336 27.6529 135.893 27.6529C137.134 27.6529 139.286 27.1143 140.274 26.1829L142.648 29.6272C140.893 31.1686 137.975 31.9214 135.273 31.9214C129.835 31.9257 125.636 28.4429 125.636 22.81Z' fill='%232C3B47'/%3E%3Cpath d='M158.748 31.4929V21.4814C158.748 19.3657 157.618 18.6114 155.865 18.6114C154.188 18.6114 153.092 19.5086 152.434 20.2986V31.4929H146.814V14.1614H152.434V16.2786C153.493 15.0586 155.573 13.7314 158.53 13.7314C162.547 13.7314 164.373 16.0286 164.373 19.2214V31.4929H158.748Z' fill='%232C3B47'/%3E%3Cpath d='M195.811 19.5443C195.811 13.4443 192.016 9.03002 186.174 9.03002C180.262 9.03002 176.537 13.4443 176.537 19.5443C176.537 25.5714 180.26 30.0586 186.174 30.0586C192.016 30.0586 195.811 25.5714 195.811 19.5443ZM174.347 19.5443C174.347 12.5472 179.019 7.16431 186.175 7.16431C193.294 7.16431 198.005 12.5472 198.005 19.5443C198.005 26.5414 193.297 31.9243 186.175 31.9243C179.019 31.9257 174.347 26.5414 174.347 19.5443Z' fill='%232C3B47'/%3E%3Cpath d='M200.347 28.1199L201.7 26.5771C203.268 28.3742 205.825 30.0599 209.294 30.0599C214.295 30.0599 215.719 27.3314 215.719 25.2871C215.719 18.2528 201.116 21.9142 201.116 13.5528C201.116 9.64137 204.697 7.16565 209.112 7.16565C212.764 7.16565 215.465 8.42136 217.363 10.5385L215.978 12.0457C214.224 9.96422 211.743 9.03136 209.003 9.03136C205.756 9.03136 203.309 10.8614 203.309 13.4457C203.309 19.5814 217.911 16.2085 217.911 25.1428C217.911 28.2285 215.828 31.9257 209.259 31.9257C205.242 31.9257 202.21 30.3457 200.347 28.1199Z' fill='%232C3B47'/%3E%3Cpath d='M18.2899 15.9129C18.7709 16 19.2665 16.05 19.7737 16.05C20.2824 16.05 20.7794 16.0014 21.2605 15.9129C19.0688 12.7871 19.3857 8.47429 22.2153 5.69429C23.4288 4.50143 24.9301 3.76143 26.5012 3.47714C25.029 1.37857 22.5656 0 19.7737 0C16.9833 0 14.5214 1.37857 13.0491 3.47714C14.6202 3.76143 16.1215 4.50143 17.335 5.69429C20.1647 8.47429 20.4815 12.7871 18.2899 15.9129Z' fill='%23D42027'/%3E%3Cpath d='M21.2605 22.9629C20.7794 22.8758 20.2838 22.8286 19.7737 22.8286C19.2665 22.8286 18.7709 22.8758 18.2899 22.9629C20.4815 26.09 20.1647 30.4043 17.3365 33.1829C16.1229 34.3772 14.6202 35.1143 13.0491 35.3986C14.5214 37.5015 16.9833 38.8772 19.7737 38.8772C22.5656 38.8772 25.0275 37.5 26.4997 35.3986C24.9287 35.1143 23.4274 34.3772 22.2139 33.1829C19.3857 30.4043 19.0688 26.0915 21.2605 22.9629Z' fill='%23E4B722'/%3E%3Cpath d='M39.5514 19.4385C39.5514 16.6943 38.1489 14.2743 36.014 12.8257C35.7233 14.3685 34.9734 15.8471 33.7584 17.0414C30.9302 19.82 26.5426 20.1328 23.3612 17.9771C23.274 18.45 23.2232 18.9385 23.2232 19.4371C23.2232 19.9371 23.2726 20.4243 23.3612 20.8971C26.5426 18.7428 30.9302 19.0528 33.7584 21.8343C34.9719 23.0271 35.7233 24.5043 36.014 26.0471C38.1489 24.6043 39.5514 22.1814 39.5514 19.4385Z' fill='%23E79427'/%3E%3Cpath d='M16.1887 20.8986C16.2773 20.4257 16.3267 19.9386 16.3267 19.4371C16.3267 18.9386 16.2773 18.4514 16.1887 17.9771C13.0073 20.1329 8.62117 19.8214 5.79153 17.0414C4.57655 15.8486 3.82663 14.3729 3.53887 12.8271C1.40101 14.2743 0 16.6971 0 19.4371C0 22.18 1.40101 24.6029 3.53741 26.0486C3.82663 24.5057 4.578 23.03 5.79153 21.8357C8.62117 19.0543 13.0088 18.7443 16.1887 20.8986Z' fill='%23EF4025'/%3E%3Cpath d='M21.2603 15.9128C21.5394 16.3099 21.8547 16.6885 22.2152 17.0428C22.5741 17.3942 22.9578 17.7042 23.3633 17.9785C24.0609 14.2442 27.3876 11.4142 31.3886 11.4142C33.105 11.4142 34.6978 11.9357 36.0146 12.8257C36.484 10.3185 35.7326 7.63281 33.759 5.69281C31.7868 3.75281 29.0545 3.01566 26.5025 3.47566C27.4065 4.76995 27.9398 6.33424 27.9398 8.02424C27.9384 11.9571 25.0593 15.2257 21.2603 15.9128Z' fill='%235C9CD0'/%3E%3Cpath d='M21.2612 15.9129C25.0602 15.2257 27.9393 11.9571 27.9393 8.02428C27.9393 6.33428 27.4073 4.77142 26.5019 3.47571C24.9309 3.75999 23.4296 4.49999 22.216 5.69285C19.3864 8.47428 19.0696 12.7871 21.2612 15.9129Z' fill='%23E3A8CC'/%3E%3Cpath d='M23.3605 17.9786C26.5404 20.1329 30.9294 19.8229 33.7576 17.0429C34.9712 15.8486 35.7211 14.3729 36.0117 12.8272C34.695 11.9372 33.1036 11.4158 31.3858 11.4158C27.3862 11.4143 24.061 14.2443 23.3605 17.9786Z' fill='%23EED6DA'/%3E%3Cpath d='M18.2902 22.9628C18.0126 22.5671 17.6943 22.1886 17.3368 21.8357C16.9779 21.4828 16.5927 21.1714 16.1887 20.8986C15.4911 24.6314 12.1644 27.4628 8.16339 27.4628C6.447 27.4628 4.85415 26.9414 3.53743 26.05C3.068 28.56 3.81792 31.2457 5.79155 33.1843C7.76517 35.1228 10.4974 35.8628 13.0495 35.4C12.1441 34.1086 11.6121 32.5414 11.6121 30.8543C11.6121 26.92 14.4912 23.6528 18.2902 22.9628Z' fill='%23346933'/%3E%3Cpath d='M18.2902 22.9629C14.4912 23.6515 11.6121 26.9186 11.6121 30.8529C11.6121 32.54 12.144 34.1057 13.0495 35.3986C14.6205 35.1143 16.1218 34.3772 17.3368 33.1829C20.165 30.4043 20.4818 26.0915 18.2902 22.9629Z' fill='%23E9D519'/%3E%3Cpath d='M16.1887 20.8986C13.0073 18.7443 8.62117 19.0543 5.79153 21.8357C4.57655 23.03 3.82663 24.5057 3.53741 26.0486C4.85268 26.94 6.44408 27.4614 8.16337 27.4614C12.1629 27.4628 15.4896 24.6314 16.1887 20.8986Z' fill='%23F39129'/%3E%3Cpath d='M23.3609 20.8986C22.9583 21.1714 22.5732 21.4828 22.2142 21.8357C21.8538 22.1871 21.5384 22.5671 21.2594 22.9628C25.0584 23.6486 27.9374 26.9186 27.9374 30.8514C27.9374 32.54 27.4055 34.1057 26.5001 35.4C29.0507 35.8614 31.783 35.1228 33.758 33.1828C35.7317 31.2443 36.4816 28.5571 36.0122 26.0486C34.6954 26.94 33.104 27.4614 31.3862 27.4614C27.3866 27.4628 24.0614 24.6314 23.3609 20.8986Z' fill='%235AB467'/%3E%3Cpath d='M21.2612 22.9629C19.0696 26.09 19.3864 30.4043 22.216 33.1829C23.4296 34.3772 24.9309 35.1143 26.5019 35.3986C27.4059 34.1072 27.9393 32.54 27.9393 30.8529C27.9393 26.92 25.0602 23.6529 21.2612 22.9629Z' fill='%23EDEC7F'/%3E%3Cpath d='M23.3605 20.8986C24.061 24.6314 27.3862 27.4629 31.3858 27.4629C33.1051 27.4629 34.695 26.9414 36.0117 26.05C35.7211 24.5071 34.9712 23.0314 33.7576 21.8371C30.9294 19.0543 26.5418 18.7443 23.3605 20.8986Z' fill='%23EFE08A'/%3E%3Cpath d='M16.1891 17.9785C16.5931 17.7057 16.9768 17.3942 17.3372 17.0428C17.6962 16.6885 18.0115 16.31 18.2906 15.9128C14.4916 15.2257 11.6125 11.9557 11.6125 8.02424C11.6125 6.33567 12.1444 4.77138 13.0499 3.47567C10.4978 3.01567 7.76554 3.75424 5.79191 5.69138C3.81828 7.63281 3.06836 10.3171 3.53924 12.8257C4.85306 11.9371 6.44591 11.4142 8.16375 11.4142C12.1633 11.4142 15.49 14.2442 16.1891 17.9785Z' fill='%231168A8'/%3E%3Cpath d='M18.2902 15.9129C20.4818 12.7872 20.165 8.47432 17.3368 5.69432C16.1218 4.50003 14.6205 3.76146 13.0495 3.47717C12.144 4.77146 11.6121 6.33574 11.6121 8.02432C11.6121 11.9572 14.4912 15.2257 18.2902 15.9129Z' fill='%23DA7AB1'/%3E%3Cpath d='M16.1891 17.9786C15.4901 14.2443 12.1634 11.4143 8.16381 11.4143C6.44597 11.4143 4.85457 11.9357 3.53931 12.8257C3.82707 14.3714 4.57844 15.8472 5.79197 17.0415C8.62161 19.8229 13.0092 20.1329 16.1891 17.9786Z' fill='%23F190B7'/%3E%3C/svg%3E%0A");
+
+  width: 218px;
+  height: 40px;
 }

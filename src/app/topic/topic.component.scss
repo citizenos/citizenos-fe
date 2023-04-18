@@ -160,6 +160,7 @@
           }
           .iframe_content_wrap {
             padding: 30px 60px;
+
             @media (max-width: 767px) {
               padding: 30px 20px;
             }
@@ -298,7 +299,6 @@
 
                   .info_section_title {
                     font-weight: bold;
-                    margin-right: 5px;
 
                     @media (min-width: 767px) {
                       display: inline-block;

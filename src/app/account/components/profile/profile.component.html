@@ -1,0 +1,236 @@
+<!-- LIGHTBOX SKELETON -->
+<div id="root_account">
+  <form name="myAccountForm">
+    <div class="content_wrap">
+      <div class="header">
+        <div class="heading_wrap">
+          <div class="title">
+            <h1 translate="MODALS.MY_ACCOUNT_HEADING"></h1>
+          </div>
+        </div>
+        <div class="header_row_wrap">
+          <div class="header_row" slide-controller identifier="topicSettingsSlider">
+            <div class="tab_button" (click)="selectTab('profile')"
+              [ngClass]="(tabSelected | async) === 'profile' ? 'active' : ''">
+              <div class="tab_buttom_wrap">
+                <div class="tab_button_text" translate="MODALS.MY_ACCOUNT_TAB_PROFILE"></div>
+                <div class="blue_bottom_line"></div>
+              </div>
+            </div>
+
+            <div class="tab_button" (click)="selectTab('preferences')"
+              [ngClass]="(tabSelected | async) === 'preferences' ? 'active' : ''">
+              <div class="tab_buttom_wrap">
+                <div class="tab_button_text" translate="MODALS.MY_ACCOUNT_TAB_PREFERENCES"></div>
+                <div class="blue_bottom_line"></div>
+              </div>
+            </div>
+
+            <div class="tab_button" (click)="selectTab('notifications')"
+              [ngClass]="(tabSelected | async) === 'notifications' ? 'active' : ''">
+              <div class="tab_buttom_wrap">
+                <div class="tab_button_text" translate="MODALS.MY_ACCOUNT_TAB_NOTIFICATIONS"></div>
+                <div class="blue_bottom_line"></div>
+              </div>
+            </div>
+
+            <div class="tab_button" (click)="selectTab('account')"
+              [ngClass]="(tabSelected | async) === 'account' ? 'active' : ''">
+              <div class="tab_buttom_wrap">
+                <div class="tab_button_text" translate="MODALS.MY_ACCOUNT_TAB_ACCOUNT"></div>
+                <div class="blue_bottom_line"></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="content" *ngIf="(tabSelected | async) === 'profile'">
+        <div class="content_section">
+          <div id="image_edit_section">
+            <div class="profile_image_wrapper dark big">
+              <!--div class="profile_moon sprite sprite-icon-certified-google-2-x2x"></div-->
+              <div class="account_picture">
+                <!-- NB Remember to use image that has 2x size, meaning 160x160px for this <img *ngIf="app.user.imageUrl" [src]="{{app.user.imageUrl}}" src="">-->
+                <img *ngIf="tmpImageUrl || form.imageUrl" [src]="tmpImageUrl || form.imageUrl">
+
+                <input type="file" #imageUpload id="profileImage" class="image_item" (change)="fileUpload()" />
+
+                <div class="profile_image_filler" *ngIf="!form.imageUrl && !tmpImageUrl">
+                  <cos-initials class="table_cell" *ngIf="form.name" [name]="form.name">
+                  </cos-initials>
+                  <div class="profile_circle"></div>
+                </div>
+              </div>
+            </div>
+            <div id="edit_image_properties">
+              <div class="blue_link" (click)="triggerUploadImage()" translate="MODALS.MY_ACCOUNT_UPLOAD_AVATAR"></div> |
+              <div class="blue_link" (click)="deleteUserImage()" translate="MODALS.MY_ACCOUNT_DELETE_AVATAR"></div>
+              <br>
+              <span translate="MODALS.MY_ACCOUNT_AVATAR_RESTRICTIONS"></span>
+            </div>
+          </div>
+
+          <div id="profile_edit_section">
+            <div class="input_wrap">
+              <span translate="MODALS.MY_ACCOUNT_PLACEHOLDER_NAME"></span>
+              <input id="name" name="name" [(ngModel)]="form.name"
+                placeholder="{{'MODALS.MY_ACCOUNT_PLACEHOLDER_NAME' | translate}}"
+                [ngClass]="{'error_input': errors.name}" [maxlength]="255" required (focus)="wWidth > 1024">
+              <label for="name" class="error_label" *ngIf="errors.name">
+                <div class="table_cell">
+                  <div class="sprite sprite-icon-inputfield-error2x"></div>
+                  <span translate="{{errors.name}}"></span>
+                </div>
+              </label>
+            </div>
+            <div class="input_wrap">
+              <span translate="MODALS.MY_ACCOUNT_PLACEHOLDER_COMPANY"></span>
+              <input id="company" name="company" [(ngModel)]="form.company"
+                [placeholder]="('MODALS.MY_ACCOUNT_PLACEHOLDER_COMPANY' | translate)"
+                [ngClass]="{'error_input': errors.company}" [maxlength]="255">
+              <label for="company" class="error_label" *ngIf="errors.company">
+                <div class="table_cell">
+                  <div class="sprite sprite-icon-inputfield-error2x"></div>
+                  <span translate="errors.company"></span>
+                </div>
+              </label>
+            </div>
+            <div class="input_wrap">
+              <span translate="MODALS.MY_ACCOUNT_PLACEHOLDER_EMAIL"></span>
+              <input id="email" name="email" [(ngModel)]="form.email"
+                placeholder="{{'MODALS.MY_ACCOUNT_PLACEHOLDER_EMAIL' | translate}}"
+                [ngClass]="{'error_input': errors.email}" [maxlength]="254" required #email="ngModel">
+              <label for="email" class="error_label" *ngIf="errors.email">
+                <div class="table_cell">
+                  <div class="sprite sprite-icon-inputfield-error2x"></div>
+                  <span translate="{{errors.email}}"></span>
+                </div>
+              </label>
+            </div>
+            <div class="input_wrap" *ngIf="form.email !== user?.email">
+              <span translate="MODALS.MY_ACCOUNT_PLACEHOLDER_PASSWORD"></span>
+              <input id="password" name="password" [(ngModel)]="form.password" type="password"
+                placeholder="{{'MODALS.MY_ACCOUNT_PLACEHOLDER_PASSWORD' | translate}}"
+                [ngClass]="{'error_input': errors.password}" [maxlength]="64" required #password="ngModel">
+              <label for="password" class="error_label" *ngIf="errors.password">
+                <div class="table_cell">
+                  <div class="sprite sprite-icon-inputfield-error2x"></div>
+                  <span translate="{{errors.password}}"></span>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content" *ngIf="(tabSelected | async) === 'preferences'">
+        <div class="content_section">
+          <div class="settings_section">
+            <div class="settings_cell">
+              <div class="setting_title" translate="MODALS.MY_ACCOUNT_LBL_SHOW_IN_SEARCH"></div>
+              <div class="setting_description" translate="MODALS.MY_ACCOUNT_LBL_SHOW_IN_SEARCH_DESCRIPTION"></div>
+            </div>
+            <div class="settings_cell setting_toggle">
+              <cos-toggle [cosToggleTextOn]="('TOGGLE_ON' | translate)" [cosToggleTextOff]="('TOGGLE_OFF' | translate)"
+                [model]="form.preferences?.showInSearch"
+                (click)="form.preferences.showInSearch = !form.preferences.showInSearch"></cos-toggle>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--div class="content_description" *ngIf="tabSelected === 'notifications'">Make your topic private</div-->
+      <div class="content" *ngIf="(tabSelected | async) === 'notifications'">
+        <div class="content_section">
+          <div class="settings_section">
+            <div class="settings_cell">
+              <div class="setting_title" translate="MODALS.MY_ACCOUNT_LBL_NOTIFICATION_TOPICS"></div>
+            </div>
+            <div class="searchbox_with_icon_and_text only_text">
+              <div class="input_wrap">
+                <input class="topic_search_input" placeholder="{{'MODALS.MY_ACCOUNT_PLACEHOLDER_SEARCH' | translate}}"
+                  [value]="topicSearch" [(ngModel)]="topicSearch"
+                  [ngModelOptions]="{standalone: true, updateOn:'change'}" (ngModelChange)="searchTopics()">
+              </div>
+            </div>
+            <table class="notification_settings_table">
+              <tr class="notification_setting_row">
+                <th translate="MODALS.MY_ACCOUNT_TABLE_HEADER_TOPIC"></th>
+                <th translate="MODALS.MY_ACCOUNT_TABLE_HEADER_NOTIFICATIONS"></th>
+                <th></th>
+              </tr>
+              <tr class="notification_setting_row" *ngFor="let topic of topics$ | async">
+                <td><a class="blue_link" [innerHtml]>{{topic.title}}</a></td>
+                <td>
+                  <cos-toggle [cosToggleTextOn]="'TOGGLE_ON' | translate" [cosToggleTextOff]="'TOGGLE_OFF' | translate"
+                    [model]="topic.allowNotifications"
+                    (click)="topic.allowNotifications=!topic.allowNotifications;toggleTopicNotifications(topic)"></cos-toggle>
+                </td>
+                <td>
+                  <a class="blue_link" translate="VIEWS.TOPICS_TOPICID.NAV_LNK_SET_TOPIC_NOTIFICATIONS"
+                    (click)="app.doShowTopicNotificationSettings(topic.topicId)"></a>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="content" *ngIf="(tabSelected | async) === 'account'">
+        <div class="content_section">
+          <div class="settings_section">
+            <div class="input_wrap">
+              <span translate="MODALS.MY_ACCOUNT_PLACEHOLDER_NEW_PASSWORD"></span>
+              <input id="newPassword" name="newPassword" [(ngModel)]="form.newPassword" type="password"
+                placeholder="{{'MODALS.MY_ACCOUNT_PLACEHOLDER_PASSWORD' | translate}}"
+                [ngClass]="{'error_input': errors.newPassword}" [maxlength]="64">
+            </div>
+            <div class="input_wrap">
+              <span translate="MODALS.MY_ACCOUNT_PLACEHOLDER_PASSWORD_CONFIRM"></span>
+              <input id="password_confirm" name="passwordConfirm" [(ngModel)]="form.passwordConfirm" type="password"
+                placeholder="{{'MODALS.MY_ACCOUNT_PLACEHOLDER_PASSWORD_CONFIRM' | translate}}"
+                [ngClass]="{'error_input': errors.newPassword}" [maxlength]="64">
+              <label for="newPassword" class="error_label" *ngIf="errors.newPassword">
+                <div class="table_cell">
+                  <div class="sprite sprite-icon-inputfield-error2x"></div>
+                  <span translate="{{errors.newPassword}}"></span>
+                </div>
+              </label>
+            </div>
+            <div class="input_wrap">
+              <span translate="MODALS.MY_ACCOUNT_PLACEHOLDER_PASSWORD"></span>
+              <input id="password" name="password" [(ngModel)]="form.password" type="password"
+                placeholder="{{'MODALS.MY_ACCOUNT_PLACEHOLDER_PASSWORD' | translate}}"
+                [ngClass]="{'error_input': errors.password}" [maxlength]="64">
+              <label for="password" class="error_label" *ngIf="errors.password">
+                <div class="table_cell">
+                  <div class="sprite sprite-icon-inputfield-error2x"></div>
+                  <span translate="{{errors.password}}"></span>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer pagination_footer" *ngIf="(tabSelected | async) === 'notifications'">
+        <div class="line lightest_line"></div>
+        <cos-pagination class="pagination" (select)="TopicNotificationService.loadPage($event)"
+          [totalPages]="(TopicNotificationService.totalPages$ | async) || 0"
+          [page]="(TopicNotificationService.page$ | async) || 0"></cos-pagination>
+      </div>
+
+      <div class="footer" *ngIf="(tabSelected | async) !== 'notifications'">
+
+        <div class="line lightest_line"></div>
+        <span class="delete_account" (click)="doDeleteAccount()">
+          <span class="sprite sprite-mytopics-icon-deletetopic2x"></span>
+          <span class="item_text remove blue_link ng-scope" translate="MODALS.MY_ACCOUNT_LNK_DELETE"></span>
+        </span>
+        <div class="blue_button_wrap">
+          <div class="blue_button" (click)="doUpdateProfile()" class="blue_button"
+            translate="MODALS.MY_ACCOUNT_BTN_SAVE"></div> <!--[disabled]="myAccountForm.invalid" -->
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>
