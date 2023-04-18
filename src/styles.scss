@@ -118,3 +118,184 @@ html {
   vertical-align: middle;
   align-items: center;
 }
+
+#topic_read_content {
+  font-family: "Noto Sans", sans-serif;
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 175%;
+  word-break: break-word;
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Noto Sans", sans-serif;
+    color: vars.$medium_black;
+    margin: 20px 0;
+    line-height: 135%;
+    font-weight: bold;
+  }
+
+  h1 {
+    font-size: 46px;
+  }
+
+  h2 {
+    font-size: 40px;
+  }
+
+  h3 {
+    font-size: 34px;
+  }
+
+  h4 {
+    font-size: 28px;
+  }
+
+  h5 {
+    font-size: 22px;
+  }
+
+  h6 {
+    font-size: 16px;
+  }
+
+  @include mixins_n_extends.mobile {
+    h1 {
+      font-size: 30px;
+    }
+
+    h2 {
+      font-size: 24px;
+    }
+
+    h3 {
+      font-size: 18px;
+    }
+
+    h4,
+    h5,
+    h6 {
+      font-size: 16px;
+    }
+  }
+
+  code {
+    font-family: Consolas, Menlo, Monaco, "Lucida Console", "Liberation Mono",
+      "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Courier New", monospace,
+      sans-serif;
+  }
+
+  .fs8,
+  .font-size\:8 {
+    font-size: 8px;
+  }
+  .fs9,
+  .font-size\:9 {
+    font-size: 9px;
+  }
+  .fs10,
+  .font-size\:10 {
+    font-size: 10px;
+  }
+  .fs11,
+  .font-size\:11 {
+    font-size: 11px;
+  }
+  .fs12,
+  .font-size\:12 {
+    font-size: 12px;
+  }
+  .fs13,
+  .font-size\:13 {
+    font-size: 13px;
+  }
+  .fs14,
+  .font-size\:14 {
+    font-size: 14px;
+  }
+  .fs15,
+  .font-size\:15 {
+    font-size: 15px;
+  }
+  .fs16,
+  .font-size\:16 {
+    font-size: 16px;
+  }
+  .fs17,
+  .font-size\:17 {
+    font-size: 17px;
+  }
+  .fs18,
+  .font-size\:18 {
+    font-size: 18px;
+  }
+  .fs19,
+  .font-size\:19 {
+    font-size: 19px;
+  }
+  .fs20,
+  .font-size\:20 {
+    font-size: 20px;
+  }
+  .color\:black {
+    color: black;
+  }
+  .color\:red {
+    color: red;
+  }
+  .color\:green {
+    color: green;
+  }
+  .color\:blue {
+    color: blue;
+  }
+  .color\:yellow {
+    color: yellow;
+  }
+  .color\:orange {
+    color: orange;
+  }
+  .center {
+    width: 100%;
+    margin: 0 auto;
+    list-style-position: inside;
+    display: block;
+    text-align: center;
+  }
+  .justify {
+    width: 100%;
+    margin: 0 auto;
+    list-style-position: inside;
+    display: block;
+    text-align: justify;
+  }
+  .left {
+    width: 100%;
+    margin: 0 auto;
+    list-style-position: inside;
+    display: block;
+    text-align: left;
+  }
+  .right {
+    width: 100%;
+    margin: 0 auto;
+    list-style-position: inside;
+    display: block;
+    text-align: right;
+  }
+  ul.indent li {
+    list-style: none;
+  }
+  img {
+    max-width: 100%!important;
+  }
+
+  .inline-comment {
+    background-color: #fffacc;
+    color: #485365;
+    cursor: pointer;
+  }
+
+  .fnEndLine {
+    font-size: 13px;
+  }
+}
