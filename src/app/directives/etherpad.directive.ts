@@ -59,7 +59,7 @@ export class EtherpadDirective implements OnDestroy {
     }
   };
 
-  @HostListener('window.scroll') sendScrollMessage = this.debounce(() => {
+  @HostListener('window:scroll') sendScrollMessage = this.debounce(() => {
     const targetWindow = this.element.nativeElement.contentWindow;
 
     let yOffsetExtra = 0; // Additional Y offset in case there is a floating header element
