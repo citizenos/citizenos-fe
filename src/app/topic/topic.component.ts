@@ -79,6 +79,7 @@ export class TopicComponent implements OnInit {
     this.editMode$ = this.route.queryParams.pipe(
       map((params: any) => {
         this.app.editMode = !!params.editMode;
+        this.TopicService.reloadTopic();
         return !!params.editMode
       })
     );
