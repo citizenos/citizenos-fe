@@ -19,6 +19,7 @@ import { RegisterComponent, RegisterDialogComponent } from './components/registe
 import { LoginComponent, LoginDialogComponent } from './components/login/login.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { RegisterFormComponent } from './components/register-form/register-form.component';
+import { PasswordForgotFormComponent } from './components/password-forgot-form/password-forgot-form.component';
 @NgModule({
   declarations: [
     AccountComponent,
@@ -36,7 +37,8 @@ import { RegisterFormComponent } from './components/register-form/register-form.
     RegisterDialogComponent,
     PasswordResetDialogComponent,
     LoginFormComponent,
-    RegisterFormComponent
+    RegisterFormComponent,
+    PasswordForgotFormComponent
   ],
   imports: [
     CommonModule,
