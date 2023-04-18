@@ -33,7 +33,7 @@
         <span translate="{{errors.password}}"></span>
       </label>
       <div class="link_section">
-        <a (click)="doResetPassword()" translate="COMPONENTS.LOGIN_FORM.LOGIN_LNK_FORGOT_PASSWORD"></a>
+        <a [routerLink]="['/account/password/forgot']" translate="COMPONENTS.LOGIN_FORM.LOGIN_LNK_FORGOT_PASSWORD"></a>
       </div>
       <button id="login_button" type="submit" (click)="doLogin()" cos-disabled="loginForm.$invalid"
         class="btn_big_submit" translate="COMPONENTS.LOGIN_FORM.LOGIN_BTN_LOGIN"></button>

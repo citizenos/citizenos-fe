@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
 import { take } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
-  selector: 'app-password-forgot-form',
+  selector: 'password-forgot-form',
   templateUrl: './password-forgot-form.component.html',
   styleUrls: ['./password-forgot-form.component.scss']
 })
@@ -16,7 +15,7 @@ export class PasswordForgotFormComponent {
   });
   errors: any;
 
-  constructor(private dialog: MatDialog, private AuthService: AuthService, private Notification: NotificationService) { }
+  constructor(private AuthService: AuthService, private Notification: NotificationService) { }
 
   ngOnInit(): void {
   }
@@ -25,7 +24,6 @@ export class PasswordForgotFormComponent {
     this.errors = null;
 
     const success = () => {
-      this.dialog.closeAll(); // Close all dialogs, including this one..
       this.Notification.addInfo('MSG_INFO_PASSWORD_RECOVERY_EMAIL_SENT');
     };
 
