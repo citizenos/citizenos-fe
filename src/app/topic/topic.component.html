@@ -163,7 +163,7 @@
                 </div>
                 <div class="info_section">
                   <div class="info_section_title">
-                    <span translate="VIEWS.TOPICS_TOPICID.LBL_AUTHORS" [translateParams]="{topic: {creator: {name: ''}}}"></span>
+                    <span translate="VIEWS.TOPICS_TOPICID.LBL_AUTHORS" [translateParams]="{topic: topic}"></span>
                   </div>
                   <div class="info_section_content">
                     <ng-container *ngFor="let author of topic.authors; let $last = last;">
