@@ -100,11 +100,13 @@ export class SearchComponent implements OnInit {
       }
 
       if (model == 'topic' && item.id) {
+        this.app.showSearch = false;
         if (this.AuthService.loggedIn$.value === true && context === 'my') {
           this.router.navigate(['my/topics', item.id], { queryParams: { filter: 'all' } });
         }
         return this.router.navigate(['/topics', item.id]);
       } else if (model === 'group' && item.id) {
+        this.app.showSearch = false;
         if (this.AuthService.loggedIn$.value === true && context === 'my') {
           return this.router.navigate(['my/groups', item.id], { queryParams: { filter: 'grouped' } });
         }

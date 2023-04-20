@@ -1,0 +1,44 @@
+@use "mixins";
+
+#content_root {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 200px;
+  width: -webkit-fill-available;
+  min-height: 100%;
+  padding: 0 16px 16px 16px;
+
+  @include mixins.tablet {
+    left: 0;
+  }
+
+  #content_header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-evenly;
+    position: relative;
+
+    #notification_wrap {
+      width: 100%;
+    }
+
+    #search_wrap {
+      min-width: 300px;
+      margin-left: 16px;
+    }
+  }
+
+  #content {
+    width: 100%;
+    min-height: 100%;
+    flex-direction: column;
+    position: relative;
+
+    #view {
+      width: 100%;
+    }
+  }
+}

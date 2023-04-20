@@ -1,6 +1,19 @@
-<!-- INFO BAR - base.scss -->
+<ng-container *ngFor="let level of notifications.levels | keyvalue">
+  <div class="notification_top" [ngClass]="level.value"
+    *ngFor="let notification of notifications.messages[level.value];trackBy: trackByIndex;">
+    <div class="icon_notification"></div>
+    <div class="message">
+      <div class="title" translate="{{'COMPONENTS.NOTIFICATION.TITLE_'+level.key}}"></div>
+      <div class="content" [innerHTML]="notification | translate"></div>
+    </div>
+    <button class="btn_medium_nav" (click)="notifications.removeAll(level.value)">
+      <div class="icon_general_close"></div>
+    </button>
+  </div>
+</ng-container>
+<!-- INFO BAR - base.scss >
 <div class="info_bar_wrap">
-  <!-- ORANGE MESSAGE for TESTING ENV NOTIFICATION -->
+  <!-- ORANGE MESSAGE for TESTING ENV NOTIFICATION
   <div class="info_bar bar_orange" [ngClass]="{'info_bar_show': showTestingEnvNotification}">
       <div class="info_icon">
           <div class="sprite sprite-icon-notification-error2x"></div>
@@ -15,7 +28,7 @@
       </div>
   </div>
 
-  <!-- RED MESSAGE -->
+  <!-- RED MESSAGE >
   <div class="info_bar bar_red" [ngClass]="{'info_bar_show': notifications.messages[notifications.levels.ERROR]?.length}" >
       <div class="info_icon">
           <div class="sprite sprite-icon-notification-error2x"></div>
@@ -32,7 +45,7 @@
       </div>
   </div>
 
-  <!-- BLUE MESSAGE -->
+  <!-- BLUE MESSAGE>
   <div class="info_bar bar_blue"  [ngClass]="{'info_bar_show': notifications.messages[notifications.levels.INFO].length}">
       <div class="info_icon">
           <div class="sprite sprite-icon-notification-info2x"></div>
@@ -49,7 +62,7 @@
       </div>
   </div>
 
-  <!-- GREEN MESSAGE -->
+  <!-- GREEN MESSAGE>
   <div class="info_bar bar_green" [ngClass]="{'info_bar_show': notifications.messages[notifications.levels.SUCCESS].length}">
       <div class="info_icon">
           <div class="sprite sprite-icon-notification-check2x"></div>
@@ -65,4 +78,4 @@
           <div class="sprite sprite-btn-popup-close-2x-green"></div>
       </div>
   </div>
-</div>
+</div-->

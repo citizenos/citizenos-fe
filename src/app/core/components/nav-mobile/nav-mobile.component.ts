@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { PRIMARY_OUTLET, Router, ActivatedRoute, UrlSegment } from '@angular/router';
 import { AppService } from 'src/app/services/app.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -9,12 +9,12 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'nav-mobile',
   templateUrl: './nav-mobile.component.html',
-  styleUrls: ['./nav-mobile.component.scss']
+  styleUrls: ['./nav-mobile.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class NavMobileComponent implements OnInit {
 
   constructor(public translate: TranslateService, public app: AppService, private Auth: AuthService, private TopicService: TopicService, private router: Router, private route: ActivatedRoute) {
-    console.log(app.topic)
   }
 
   canEdit(topic: Topic) {
@@ -24,7 +24,7 @@ export class NavMobileComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  loggedIn() {
+  isLoggedIn() {
     return this.Auth.loggedIn$;
   }
 

@@ -2,12 +2,9 @@
   <div class="logo_wrap">
     <div class="logo_positive" routerLink="/"></div>
   </div>
-  <div id="search_area" [ngClass]="{hidden: !app.showSearch}">
-    <search></search>
-  </div>
   <div id="button_area">
     <a class="btn_medium_nav" (click)="app.showSearch = !app.showSearch">
-      <div [ngClass]="app.showSearch ? 'icon_mobile_close' : 'icon_search'"></div>
+      <div [ngClass]="app.showSearch ? 'icon_mobile_close' : 'icon_general_search'"></div>
     </a>
     <a class="btn_medium_nav" (click)="app.showNav = !app.showNav">
       <div [ngClass]="app.showNav ? 'icon_mobile_close' : 'icon_mobile_hamburger'"></div>

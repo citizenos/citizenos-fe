@@ -1,57 +1,101 @@
+@use "icons_new";
+@use "mixins";
 
-@use 'vars';
-@use 'mixins_n_extends';
-
-.info_bar_wrap {
-  position: fixed;
+.notification_top {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  padding: 12px 16px 16px 16px;
+  justify-content: space-around;
+  gap: 16px;
   width: 100%;
+  min-height: 50px;
+  border-top: 4px solid;
   z-index: 9999;
-  font-size: 14px;
-  font-weight: vars.$bold;
+  position: relative;
+  left: 0;
+  top: 0;
+  background-color: var(--color-surfaces);
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
 
-  @media print {
-      display: none;
+  @include mixins.mobile {
+    flex-direction: column;
+    position: fixed;
+    width: auto;
+    margin: 0px 16px 16px 16px;
   }
 
-  @include mixins_n_extends.tablet {
-      margin-top: 60px;
+  .btn_medium_nav {
+    position: absolute;
+    float: right;
+    right: 16px;
+    top: 16px;
   }
 
-  .info_bar {
-      height: 100%;
-      width: 100%;
-      display: none;
+  .message {
+    width: calc(100% - 77px);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
 
-      &.info_bar_show {
-          display: table;
+    .title {
+      font-size: 16px;
+      line-height: 16px;
+      font-weight: 700;
+    }
+  }
+  &.error {
+    border-color: var(--color-error-background);
+
+    .icon_notification {
+      @extend %icon_notification_error;
+
+      @include mixins.mobile {
+        width: 24px;
+        height: 24px;
+        background-size: 24px 24px;
       }
-
-      .info_row {
-          display: table-row;
-      }
-
-      .info_bar_text {
-          @extend %table_cell;
-          padding: 10px 0 11px 0;
-      }
-
-      .info_icon {
-          width: 56px;
-          @extend %table_cell;
-
-          vertical-align: top;
-          padding: 13px 0 13px 0;
-
-          .sprite {
-              margin: 0 auto;
-          }
-      }
-
-      .info_icon:last-child {
-          cursor: pointer;
-          height: 100%;
-      }
-
+    }
   }
 
+  &.info {
+    border-color: var(--color-info-background);
+
+    .icon_notification {
+      @extend %icon_notification_info;
+      @include mixins.mobile {
+        width: 24px;
+        height: 24px;
+        background-size: 24px 24px;
+      }
+    }
+  }
+
+  &.warning {
+    border-color: var(--color-warn-background);
+
+    .icon_notification {
+      @extend %icon_notification_warning;
+      @include mixins.mobile {
+        width: 24px;
+        height: 24px;
+        background-size: 24px 24px;
+      }
+    }
+  }
+
+  &.success {
+    border-color: var(--color-success-background);
+
+    .icon_notification {
+      @extend %icon_notification_success;
+      @include mixins.mobile {
+        width: 24px;
+        height: 24px;
+        background-size: 24px 24px;
+      }
+    }
+  }
 }

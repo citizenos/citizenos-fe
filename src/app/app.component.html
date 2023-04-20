@@ -1,22 +1,24 @@
 <ngx-loading-bar></ngx-loading-bar>
-<app-notification></app-notification>
 <!-- NAV -->
-
 <nav *ngIf="translate.currentLang"></nav>
 <!-- CONTENT -->
-<div id="search_area" *ngIf="wWidth > 1024 && displaySearch()">
-  <search></search>
-</div>
-
 <div id="content_root" *ngIf="translate.currentLang">
+  <div id="content_header">
+    <div id="notification_wrap">
+      <notification></notification>
+    </div>
+    <!-- SEARCH AREA -->
+    <div id="search_wrap" *ngIf="app.showSearch">
+      <search></search>
+    </div>
+  </div>
   <!-- CONTENT -->
   <div id="content" [ngClass]="!displaySearch() ? 'content_no_padding' : ''">
-    <!-- SEARCH AREA -->
     <!-- ROUTES CONTENT -->
     <router-outlet id="view"></router-outlet>
-</div>
-<!-- MOBILE NAV -->
-<ng-container *ngIf="app.wWidth <= 1024">
-  <nav-mobile></nav-mobile>
-</ng-container>
-<app-help></app-help>
+  </div>
+  <!-- MOBILE NAV -->
+  <ng-container *ngIf="app.wWidth <= 1024">
+    <nav-mobile></nav-mobile>
+  </ng-container>
+  <app-help></app-help>

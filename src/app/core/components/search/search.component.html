@@ -1,10 +1,53 @@
-<div id="search_area_wrap">
+<div id="search">
+  <h3 translate="COMPONENTS.SEARCH.TITLE"></h3>
+  <a class="btn_medium_close"  (click)="app.showSearch = false">
+    <div class="icon_general_close"></div>
+  </a>
+  <div id="input_area">
+    <div class="icon_general_search"></div>
+    <input type="text" [(ngModel)]="searchInput" (ngModelChange)="doSearch(searchInput)">
+    <a class="clear_search" (click)="searchInput=''; doSearch(searchInput);" *ngIf="searchInput"
+      translate="COMPONENTS.SEARCH.LNK_CLEAR"></a>
+  </div>
+  <div id="start_search" *ngIf="!app.showSearchResults">
+    <div class="illustration_search"></div>
+    <div id="text_wrap">
+      <h3 translate="COMPONENTS.SEARCH.HEADING_START_SEARCH"></h3>
+      <div translate="COMPONENTS.SEARCH.DESC_START_SEARCH"></div>
+    </div>
+  </div>
+  <div id="results_area" *ngIf="app.showSearchResults">
+    <h4 translate="COMPONENTS.SEARCH.HEADING_SEARCH_RESULTS"></h4>
+    <ng-container *ngFor="let context of contexts">
+      <ng-container *ngFor="let model of models">
+        <ng-container
+          *ngIf="searchResults[context] && searchResults[context][model] && searchResults[context][model].count">
+
+          <div class="category bold">{{'LBL_CONTEXT_' + context + '_' + model | uppercase | translate}}</div>
+
+          <a (click)="goToView(row, context)" class="blue_link result_link"
+            *ngFor="let row of searchResults[context][model].rows">
+            {{row.name || row.title}}</a>
+          <ng-container *ngIf="searchResults[context][model].count > searchResults[context][model].rows.length"
+            class="result_links" [typeaheadItem]="{id:'viewMore', model, context}" [noClose]="true">
+            <a class="more_results" (click)="goToView({id:'viewMore', context, model}, context)"
+              translate="COMPONENTS.SEARCH.LNK_VIEW_MORE_RESULTS">
+            </a>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </div>
+
+</div>
+<div class="overlay"></div>
+<!--div id="search_area_wrap">
   <div id="donate_wrap" *ngIf="!app.showSearchResults">
     <div class="donate_item" id="donate_icon"></div>
     <div class="donate_item" id="donate_text" translate="DONATE_TXT"></div>
     <a class="donate_item" id="donate_button" target="_blank" [href]="lnkDonate" translate="DONATE_BTN"></a>
   </div>
-  <!-- [items]="searchResults" -->
+  <!-- [items]="searchResults" >
   <typeahead class="auto-complete" [term]="searchInput" (search)="doSearch($event)"
     (select)="goToView($event)" [placeholder]="'LAYOUTS.MAIN.PLACEHOLDER_SEARCH_TOPICS_USERS_GROUPS' | translate"
     [selectLimit]="3" (enterAction)="doSearch($event)">
@@ -39,7 +82,7 @@
             *ngIf="searchResults[context] && searchResults[context][model] && searchResults[context][model].count">
 
             <div class="search_cat">
-              <div class="cat_wrap"><span [innerHtml]="'DEFAULT.SEARCH.HEADING_RESULTS_IN' | translate:{context: ('LBL_CONTEXT_' + context + '_' + model | uppercase | translate)}"> </span></div>
+              <div class="cat_wrap"><span [innerHtml]="'COMPONENTS.SEARCH.HEADING_RESULTS_IN' | translate:{context: ('LBL_CONTEXT_' + context + '_' + model | uppercase | translate)}"> </span></div>
             </div>
             <div class="results_area" *ngIf="searchResults[context][model].rows.length">
               <div class="result_group">
@@ -54,7 +97,7 @@
                 </div>
                 <div *ngIf="searchResults[context][model].count > searchResults[context][model].rows.length" class="result_links" [typeaheadItem]="{id:'viewMore', model, context}" [noClose]="true">
                   <div class="more_results" (click)="goToView({id:'viewMore', context, model}, context)"
-                    translate="DEFAULT.SEARCH.LNK_VIEW_MORE_RESULTS">
+                    translate="COMPONENTS.SEARCH.LNK_VIEW_MORE_RESULTS">
                   </div>
                 </div>
               </div>
@@ -66,12 +109,12 @@
         <div class="result_group">
 
           <div class="no_results">
-            <b class="search_msgb" translate="DEFAULT.SEARCH.TXT_OOPS_NO_RESULTS"></b>
+            <b class="search_msgb" translate="COMPONENTS.SEARCH.TXT_OOPS_NO_RESULTS"></b>
             <br>
-            <div class="search_msg" translate="DEFAULT.SEARCH.TXT_MAYBE_TYPO"></div>
+            <div class="search_msg" translate="COMPONENTS.SEARCH.TXT_MAYBE_TYPO"></div>
           </div>
         </div>
       </div>
     </div>
   </typeahead>
-</div>
+</!--div-->

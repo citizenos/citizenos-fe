@@ -49,6 +49,7 @@
     min-width: 160px;
   }
   @include mixins.tablet {
+    transition: width 2s, height 4s;
     height: max-content;
     position: absolute;
     width: 320px;
