@@ -7,6 +7,7 @@ $--color-surfaces: --color-surfaces;
 $--color-surface-contrast: --color-surface-contrast;
 $--color-on-surfaces: --color-on-surfaces;
 $--color-border: --color-border;
+$--color-border-active: --color-border-active;
 $--color-secondary: --color-secondary;
 $--color-link: --color-link;
 $--font-size: --font-size;
@@ -65,6 +66,8 @@ $theme-map-default: (
   //black
   $--color-border: #e1e7ee,
   //gray 500
+  $--color-border-active: #4D5C6A,
+  //gray 700
   $--color-secondary: #ebf4fb,
   //blue 100
   $--color-link: #1168a8,

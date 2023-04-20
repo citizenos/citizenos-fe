@@ -1,11 +1,11 @@
 
-#register_form_wrap {
+#register_wrap {
   display: flex;
   align-items: center;
   flex-direction: column;
   gap: 20px;
   padding: 40px;
-  max-width: 560px;
+  max-width: 400px;
 
   a {
     width: max-content;

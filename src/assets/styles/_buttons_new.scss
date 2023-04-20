@@ -62,6 +62,10 @@ $button-styles: (
     hover-color: var(--btn-submit-hover),
     hover-border: 2px solid var(--btn-submit-hover),
   ),
+  close: (
+    background: none,
+    hover: var(--color-surfaces),
+  ),
   nav: (
     background: none,
     color: #2c3b47,

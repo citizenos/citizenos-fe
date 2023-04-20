@@ -4,17 +4,19 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class NotificationService {
-  public levels: any = {
+  public levels: { [key: string]: string } = {
     SUCCESS: 'success',
     INFO: 'info',
-    ERROR: 'error'
+    ERROR: 'error',
+    WARNING: 'warning'
   };
   dialog: any = null;
 
   public messages: any = {
     error: [],
     info: [],
-    success: []
+    success: [],
+    warning: []
   };
 
   constructor() { }
@@ -24,59 +26,63 @@ export class NotificationService {
 
 
   private init = () => {
-      Object.keys(this.levels).forEach((key) => {
-          this.messages[this.levels[key]] = [];
-      });
-      this.dialog = null;
+    Object.keys(this.levels).forEach((key) => {
+      this.messages[this.levels[key]] = [];
+    });
+    this.dialog = null;
   };
 
-  add (level: string, key: string) {
-      if (this.messages[level].indexOf(key) === -1) {
-          this.messages[level].push(key);
-      }
+  add(level: string, key: string) {
+    if (this.messages[level].indexOf(key) === -1) {
+      this.messages[level].push(key);
+    }
   };
 
-  removeAll (level?: string) {
-      if (level) {
-          this.messages[level] = [];
-      } else {
-          this.init();
-      }
+  removeAll(level?: string) {
+    if (level) {
+      this.messages[level] = [];
+    } else {
+      this.init();
+    }
   };
 
-  addSuccess (key: string) {
-      this.add(this.levels.SUCCESS, key);
+  addSuccess(key: string) {
+    this.add(this.levels['SUCCESS'], key);
   };
 
-  addInfo (key: string) {
-      this.add(this.levels.INFO, key);
+  addInfo(key: string) {
+    this.add(this.levels['INFO'], key);
   };
 
-  addError (key: string) {
-      this.add(this.levels.ERROR, key);
+  addError(key: string) {
+    this.add(this.levels['ERROR'], key);
   };
 
-  showDialog (heading: string, content: string) {
-      this.dialog = {
-          heading: heading,
-          content: content
-      }
+  addWarning(key: string) {
+    this.add(this.levels['WARNING'], key);
   };
 
-  inline (text: string, X: number, Y: number) {
-      const el = document.createElement("div");
-      el.className = 'inline-message';
-      el.innerText = text;
-      el.style.left = X + 'px';
-      el.style.top = Y + 'px';
+  showDialog(heading: string, content: string) {
+    this.dialog = {
+      heading: heading,
+      content: content
+    }
+  };
 
-      document.body.appendChild(el);
-      setTimeout(() => {
-          el.classList.add('no-opacity');
-      }, 300);
+  inline(text: string, X: number, Y: number) {
+    const el = document.createElement("div");
+    el.className = 'inline-message';
+    el.innerText = text;
+    el.style.left = X + 'px';
+    el.style.top = Y + 'px';
 
-      setTimeout(() => {
-          el.remove();
-      }, 1000);
+    document.body.appendChild(el);
+    setTimeout(() => {
+      el.classList.add('no-opacity');
+    }, 300);
+
+    setTimeout(() => {
+      el.remove();
+    }, 1000);
   };
 }

@@ -42,6 +42,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { GroupInviteUserComponent } from '../group/components/group-invite-user/group-invite-user.component';
 import { CheckHeightDirective } from '../directives/check-height.directive';
 import { EtherpadDirective } from '../directives/etherpad.directive';
+import { CosInputComponent } from './components/cos-input/cos-input.component';
 @NgModule({
   declarations: [
     ActivityComponent,
@@ -77,7 +78,8 @@ import { EtherpadDirective } from '../directives/etherpad.directive';
     TypeaheadItem,
     TypeaheadSelect,
     ModalDatepickerComponent,
-    CheckHeightDirective
+    CheckHeightDirective,
+    CosInputComponent
   ],
   imports: [
     RouterModule,
@@ -128,7 +130,8 @@ import { EtherpadDirective } from '../directives/etherpad.directive';
     TypeaheadComponent,
     TypeaheadItem,
     TypeaheadSelect,
-    CheckHeightDirective
+    CheckHeightDirective,
+    CosInputComponent
    ]
 })
 export class SharedModule { }
