@@ -6,7 +6,7 @@ import { Title } from "@angular/platform-browser";
 import { AppService } from './services/app.service';
 import { ConfigService } from './services/config.service';
 import { takeUntil, Subject, tap } from 'rxjs';
-import * as moment  from 'moment';
+import * as moment from 'moment';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -17,6 +17,7 @@ export class AppComponent {
   config$ = this.config.load();
   wWidth: number = window.innerWidth;
   destroy$ = new Subject<boolean>();
+
   constructor(private router: Router, private title: Title, public translate: TranslateService, private config: ConfigService, public app: AppService) {
     const languageConf = config.get('language');
     translate.addLangs(Object.keys(languageConf.list));
@@ -49,7 +50,7 @@ export class AppComponent {
     this.destroy$.next(true);
   }
 
-  displaySearch () {
+  displaySearch() {
     const parsedUrl = this.router.parseUrl(this.router.url);
     const outlet = parsedUrl.root.children[PRIMARY_OUTLET];
 
