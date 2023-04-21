@@ -2,7 +2,7 @@ import { ConfigService } from 'src/app/services/config.service';
 import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { of, BehaviorSubject, Observable, combineLatestWith } from 'rxjs';
+import { of, BehaviorSubject, Observable, zip } from 'rxjs';
 import { switchMap, catchError, tap, take, map, retry } from 'rxjs/operators';
 import { LocationService } from './location.service';
 import { NotificationService } from './notification.service';
@@ -72,8 +72,10 @@ export class AuthService {
       'Pragma': 'no-cache',
       'Expires': '0'
     });
-    return this.http.get(pathLogoutEtherpad, { withCredentials: true, responseType: 'json', observe: 'body', headers }).pipe(
-      combineLatestWith(this.http.post(pathLogoutAPI, {}, { withCredentials: true, headers })),
+
+    return zip(
+      this.http.get(pathLogoutEtherpad, { withCredentials: true, headers, responseType: 'json', observe: 'body' }),
+      this.http.get(pathLogoutAPI, { withCredentials: true, responseType: 'json', observe: 'body', headers })).pipe(
       switchMap((res) => {
         this.user$ = null;
         this.loggedIn$.next(false);
