@@ -93,6 +93,7 @@ export class TopicComponent implements OnInit {
         return this.TopicService.loadTopic(topicId);
       }),
       tap((topic: Topic) => {
+        topic.description = topic.description.replace(/href="/gi, 'target="_blank" href="');
         this.app.topic = topic;
         if (topic.report && topic.report.moderatedReasonType) {
           // NOTE: Well.. all views that are under the topics/view/votes/view would trigger doble overlays which we don't want
