@@ -225,7 +225,7 @@
               <iframe [cosEtherpad]="''" *ngIf="!hideTopicContent && TopicService.canEdit(topic) && (editMode$ | async)"
                 frameborder="0" scrolling="no" [ngClass]="{hidden: !topic.padUrl || viewFollowup}"
                 [src]="sanitizeURL(topic.padUrl)" width="100%" height="600"></iframe>
-              <div id="topic_read_content" *ngIf="!hideTopicContent && !(editMode$ | async)" [innerHtml]="topic.description"></div>
+              <div id="topic_read_content" htmlwrap *ngIf="!hideTopicContent && !(editMode$ | async)" [innerHtml]="topic.description"></div>
               <h1 *ngIf="hideTopicContent"><i>Topic content has been hidden due to violation of community guidelines</i>
               </h1>
             </div>
