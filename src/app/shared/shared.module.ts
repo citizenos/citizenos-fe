@@ -43,6 +43,7 @@ import { GroupInviteUserComponent } from '../group/components/group-invite-user/
 import { CheckHeightDirective } from '../directives/check-height.directive';
 import { EtherpadDirective } from '../directives/etherpad.directive';
 import { CosInputComponent } from './components/cos-input/cos-input.component';
+import { HtmlDirective } from '../directives/html.directive';
 @NgModule({
   declarations: [
     ActivityComponent,
@@ -79,7 +80,8 @@ import { CosInputComponent } from './components/cos-input/cos-input.component';
     TypeaheadSelect,
     ModalDatepickerComponent,
     CheckHeightDirective,
-    CosInputComponent
+    CosInputComponent,
+    HtmlDirective
   ],
   imports: [
     RouterModule,
@@ -131,7 +133,8 @@ import { CosInputComponent } from './components/cos-input/cos-input.component';
     TypeaheadItem,
     TypeaheadSelect,
     CheckHeightDirective,
-    CosInputComponent
+    CosInputComponent,
+    HtmlDirective
    ]
 })
 export class SharedModule { }

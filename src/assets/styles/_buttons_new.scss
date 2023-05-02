@@ -63,8 +63,8 @@ $button-styles: (
     hover-border: 2px solid var(--btn-submit-hover),
   ),
   close: (
-    background: none,
-    hover: var(--color-surfaces),
+    background: var(--color-surfaces),
+    hover: var(--color-dialog-contrast),
   ),
   nav: (
     background: none,

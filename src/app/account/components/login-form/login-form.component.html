@@ -21,24 +21,25 @@
         <div [innerHtml]="'MODALS.LOGIN_ERROR_NO_ACCOUNT' | translate: {linkRegister: linkRegister}">
         </div>
       </div>
-      <div class="cos_input_wrap">
-        <div class="cos_input_placeholder" [innerHTML]="'COMPONENTS.LOGIN_FORM.LOGIN_PLACEHOLDER_EMAIL' | translate"></div>
-        <input id="email" formControlName="email" type="email"
-          [ngClass]="{'error_input': errors?.email}" [maxlength]="254" required>
-      </div>
-      <label for="email" class="error_label" *ngIf="errors?.email">
-        <div class="table_cell">
+      <cos-input placeholder="{{'COMPONENTS.LOGIN_FORM.LOGIN_PLACEHOLDER_EMAIL' | translate}}">
+        <input id="email" formControlName="email" type="email" [ngClass]="{'error_input': errors?.email}"
+          placeholder="{{'COMPONENTS.LOGIN_FORM.LOGIN_PLACEHOLDER_EMAIL' | translate}}" [maxlength]="254" required>
+        <label for="email" class="error_label" *ngIf="errors?.email">
+          <div class="table_cell">
+            <div class="sprite sprite-icon-inputfield-error2x"></div>
+            <span translate="{{errors.email}}"></span>
+          </div>
+        </label>
+      </cos-input>
+      <cos-input placeholder="{{'COMPONENTS.LOGIN_FORM.LOGIN_PLACEHOLDER_PASSWORD' | translate}}">
+        <input id="password" formControlName="password" type="password"
+          placeholder="{{'COMPONENTS.LOGIN_FORM.LOGIN_PLACEHOLDER_PASSWORD' | translate}}" (focus)="isFormEmailProvided"
+          [ngClass]="{'error_input': errors?.password}" [maxlength]="64" required cos-view-input>
+        <label for="password" class="error_label" *ngIf="errors?.password">
           <div class="sprite sprite-icon-inputfield-error2x"></div>
-          <span translate="{{errors.email}}"></span>
-        </div>
-      </label>
-      <input id="password" formControlName="password" type="password"
-        placeholder="{{'COMPONENTS.LOGIN_FORM.LOGIN_PLACEHOLDER_PASSWORD' | translate}}" (focus)="isFormEmailProvided"
-        [ngClass]="{'error_input': errors?.password}" [maxlength]="64" required cos-view-input>
-      <label for="password" class="error_label" *ngIf="errors?.password">
-        <div class="sprite sprite-icon-inputfield-error2x"></div>
-        <span translate="{{errors.password}}"></span>
-      </label>
+          <span translate="{{errors.password}}"></span>
+        </label>
+      </cos-input>
       <div class="link_section">
         <a [routerLink]="['/account/password/forgot']" translate="COMPONENTS.LOGIN_FORM.LOGIN_LNK_FORGOT_PASSWORD"></a>
       </div>
