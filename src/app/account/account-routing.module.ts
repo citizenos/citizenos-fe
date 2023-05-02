@@ -10,6 +10,7 @@ import { PasswordForgotComponent } from './components/password-forgot/password-f
 import { ProfileComponent } from './components/profile/profile.component';
 
 const routes: Routes = [
+  { path: '', canActivate: [AuthGuard], component: ProfileComponent },
   {
     path: '', component: AccountComponent, children: [
       { path: 'login', component: LoginComponent },
@@ -17,7 +18,6 @@ const routes: Routes = [
       { path: 'password/forgot', component: PasswordForgotComponent },
     ]
   },
-  { path: '', canActivate: [AuthGuard], component: ProfileComponent },
   /* {
      path: '', component: HomeComponent, children: [
        { path: 'login', component: LoginComponent },

@@ -1,0 +1,24 @@
+
+.cos_input_wrap {
+  display: flex;
+  flex-direction: column;
+
+
+  input {
+    padding: 23px 14px 7px 14px;
+  }
+
+  .cos_input_placeholder {
+    display: flex;
+    position: relative;
+    font-size: 12px;
+    line-height: 16px;
+    top: 4px;
+    left: 15px;
+    color: #727C84;
+
+    &.hidden {
+      display:none;
+    }
+  }
+}

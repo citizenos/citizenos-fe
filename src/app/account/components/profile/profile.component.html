@@ -73,8 +73,7 @@
           </div>
 
           <div id="profile_edit_section">
-            <div class="input_wrap">
-              <span translate="MODALS.MY_ACCOUNT_PLACEHOLDER_NAME"></span>
+            <cos-input placeholder="{{'MODALS.MY_ACCOUNT_PLACEHOLDER_NAME' | translate}}">
               <input id="name" name="name" [(ngModel)]="form.name"
                 placeholder="{{'MODALS.MY_ACCOUNT_PLACEHOLDER_NAME' | translate}}"
                 [ngClass]="{'error_input': errors.name}" [maxlength]="255" required (focus)="wWidth > 1024">
@@ -84,9 +83,9 @@
                   <span translate="{{errors.name}}"></span>
                 </div>
               </label>
-            </div>
-            <div class="input_wrap">
-              <span translate="MODALS.MY_ACCOUNT_PLACEHOLDER_COMPANY"></span>
+            </cos-input>
+
+            <cos-input placeholder="{{'MODALS.MY_ACCOUNT_PLACEHOLDER_COMPANY' | translate}}">
               <input id="company" name="company" [(ngModel)]="form.company"
                 [placeholder]="('MODALS.MY_ACCOUNT_PLACEHOLDER_COMPANY' | translate)"
                 [ngClass]="{'error_input': errors.company}" [maxlength]="255">
@@ -96,7 +95,7 @@
                   <span translate="errors.company"></span>
                 </div>
               </label>
-            </div>
+            </cos-input>
             <div class="input_wrap">
               <span translate="MODALS.MY_ACCOUNT_PLACEHOLDER_EMAIL"></span>
               <input id="email" name="email" [(ngModel)]="form.email"

@@ -18,7 +18,8 @@ export class AppComponent {
   config$ = this.config.load();
   wWidth: number = window.innerWidth;
   destroy$ = new Subject<boolean>();
-  constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private title: Title, public translate: TranslateService, private config: ConfigService, public app: AppService) {
+
+  constructor(private router: Router, @Inject(DOCUMENT) private document: Document,  private title: Title, public translate: TranslateService, private config: ConfigService, public app: AppService) {
     const languageConf = config.get('language');
     translate.addLangs(Object.keys(languageConf.list));
     translate.setDefaultLang(languageConf.default);

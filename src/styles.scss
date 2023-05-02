@@ -62,14 +62,14 @@ input {
   border: 1px solid var(--color-border);
   border-radius: 8px;
 
-
   &:focus {
     outline: none;
     border: 1px solid var(--color-border-active);
   }
 
-  &.error_input, &.error {
-    border: 1px solid var(--color-error)
+  &.error_input,
+  &.error {
+    border: 1px solid var(--color-error);
   }
 }
 
@@ -98,11 +98,11 @@ html {
   }
 
   h3 {
-    font-size:  1.17em;
+    font-size: 1.17em;
   }
 
   h4 {
-    font-size:  1.17em;
+    font-size: 1.17em;
   }
 
   h5 {
@@ -175,22 +175,12 @@ html {
     }
   }
 }
-
 .cos_input_wrap {
   display: flex;
   flex-direction: column;
-  justify-content: center;
 
-  .cos_input_placeholder {
-    position: absolute;
-    padding-left: 8px;
+  input.with_value {
+    padding: 23px 14px 7px 14px;
+    margin-top: -16px;
   }
-}
-
-.cos_input_wrap input:focus ~ .cos_input_placeholder {
-  font-size: 8px;
-}
-
-.cos_input_wrap input:active ~ .cos_input_placeholder {
-  font-size: 8px;
 }
