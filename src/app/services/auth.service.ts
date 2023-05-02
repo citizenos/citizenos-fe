@@ -1,8 +1,8 @@
 import { ConfigService } from 'src/app/services/config.service';
 import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { of, BehaviorSubject, Observable, combineLatestWith } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { of, BehaviorSubject, Observable, zip } from 'rxjs';
 import { switchMap, catchError, tap, take, map, retry } from 'rxjs/operators';
 import { LocationService } from './location.service';
 import { NotificationService } from './notification.service';
@@ -67,9 +67,15 @@ export class AuthService {
   logout() {
     const pathLogoutEtherpad = this.Location.getAbsoluteUrlEtherpad('/ep_auth_citizenos/logout');
     const pathLogoutAPI = this.Location.getAbsoluteUrlApi('/api/auth/logout');
+    const headers = new HttpHeaders({
+      'Cache-Control': 'no-cache, no-store, must-revalidate, post-check=0, pre- check=0',
+      'Pragma': 'no-cache',
+      'Expires': '0'
+    });
 
-    return this.http.get(pathLogoutEtherpad, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
-      combineLatestWith(this.http.post(pathLogoutAPI, {}, { withCredentials: true })),
+    return zip(
+      this.http.get(pathLogoutEtherpad, { withCredentials: true, headers, responseType: 'json', observe: 'body' }),
+      this.http.get(pathLogoutAPI, { withCredentials: true, responseType: 'json', observe: 'body', headers })).pipe(
       switchMap((res) => {
         this.user$ = null;
         this.loggedIn$.next(false);
@@ -86,7 +92,13 @@ export class AuthService {
 
   status() {
     const path = this.Location.getAbsoluteUrlApi('/api/auth/status');
-    return this.user$ = this.http.get<User>(path, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
+    const headers = new HttpHeaders({
+      'Cache-Control': 'no-cache, no-store, must-revalidate, post-check=0, pre- check=0',
+      'Pragma': 'no-cache',
+      'Expires': '0'
+    });
+
+    return this.user$ = this.http.get<User>(path, { withCredentials: true, responseType: 'json', observe: 'body', headers }).pipe(
       switchMap((res: any) => {
         const user = res.data;
         if (!user.termsVersion || user.termsVersion !== this.config.get('legal').version) {
