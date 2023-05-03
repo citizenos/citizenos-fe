@@ -1,7 +1,148 @@
-@use "vars";
-@use "mixins_n_extends";
+@use "mixins";
 
-#root_account {
+.tabs_row {
+  display: flex;
+  gap: 24px;
+  border-bottom: 1px solid var(--color-dialog-contrast);
+  margin-bottom: 40px;
+
+  .tab_item {
+    padding: 12px 24px;
+    font-size: 18px;
+    line-height: 24px;
+    color: var(--color-border-active);
+    font-weight: 600;
+
+    &.active {
+      color: var(--color-link);
+      border-bottom: 2px solid var(--color-link);
+    }
+  }
+}
+
+#profile_area_wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+
+  .profile_area_section {
+    display: flex;
+    flex-direction: row;
+    border-radius: 16px;
+    background-color: var(--color-surfaces);
+
+    @include mixins.mobile {
+      flex-direction: column;
+    }
+
+    #profile_image_area {
+      display: flex;
+      flex-direction: column;
+      padding: 24px 40px;
+      background-color: var(--color-surface-contrast);
+      border-top-left-radius: 16px;
+      border-bottom-left-radius: 16px;
+      align-items: center;
+
+      #profile_image_input {
+        width: 1px;
+        height: 1px;
+        border: none;
+        z-index: -1;
+      }
+
+      #profile_image_wrap {
+        display: flex;
+        position: relative;
+        width: 160px;
+        height: 160px;
+
+        #remove_profile_image {
+          position: absolute;
+          top: 0;
+          right: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: var(--color-error-background);
+          width: 40px;
+          height: 40px;
+          border-radius: 20px;
+        }
+
+        #profile_image {
+          width: 160px;
+          height: 160px;
+          display: flex;
+          border-radius: 80px;
+        }
+
+        .profile_image_filler {
+          width: 100%;
+          background-color: var(--color-surfaces);
+          border-radius: 80px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cos-initials {
+            font-size: 24px;
+          }
+        }
+      }
+    }
+
+    #profile_data_area {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 24px;
+      width: 100%;
+
+      #profile_form {
+        width: 400px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        @include mixins.mobile {
+          width: 100%;
+
+          button {
+            @include mixins.mobile {
+              width: 100%;
+            }
+          }
+        }
+      }
+
+      .prefrence_box {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+        background-color: var(--color-surface-contrast);
+        padding: 16px;
+
+        cos-toggle {
+          margin-top: 8px;
+        }
+
+        .delete_account {
+          display: flex;
+          align-items: center;
+          gap: 11px;
+          color: var(--color-error);
+
+          a {
+            color: var(--color-error);
+          }
+        }
+      }
+    }
+  }
+}
+/*#root_account {
   @extend %default_setup;
 
   .content_wrap {
@@ -415,3 +556,4 @@
     }
   }
 }
+*/

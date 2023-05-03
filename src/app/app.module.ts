@@ -55,7 +55,7 @@ import { AccessibilityMenuComponent } from './core/components/accessibility-menu
     NavMobileComponent,
     FeedbackComponent,
     CreateComponent,
-    AccessibilityMenuComponent,
+    AccessibilityMenuComponent
   ],
   imports: [
     BrowserModule,

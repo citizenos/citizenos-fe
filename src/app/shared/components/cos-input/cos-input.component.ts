@@ -10,23 +10,16 @@ export class CosInputComponent {
   placeholderElement?: HTMLElement;
   constructor (private elementRef: ElementRef) {}
 
-  ngAfterViewInit() {
+  ngAfterContentChecked() {
     const input = this.elementRef.nativeElement.querySelector('input');
-    if (input.value.length) {
-      input.classList.add('with_value');
-    }
     this.placeholderElement = this.elementRef.nativeElement.querySelector('.cos_input_placeholder');
-    input.addEventListener('input', this.editText.bind(this));
-  }
-
-  editText (e: Event) {
-    const input = e.target as HTMLInputElement;
-
-    this.placeholderElement?.classList.remove('hidden');
     input.classList.add('with_value');
+
+    this.placeholderElement?.classList.add('show');
+
     if (!input.value.length) {
       input.classList.remove('with_value');
-      this.placeholderElement?.classList.add('hidden');
+      this.placeholderElement?.classList.remove('show');
     }
   }
 }

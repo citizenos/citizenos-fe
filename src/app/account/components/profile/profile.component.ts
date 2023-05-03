@@ -1,7 +1,7 @@
 
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap, map, take, takeWhile, catchError } from 'rxjs/operators';
+import { switchMap, map, tap, take, takeWhile, catchError } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
@@ -12,8 +12,9 @@ import { UserService } from 'src/app/services/user.service';
 import { TopicNotificationService } from 'src/app/services/topic-notification.service';
 import { User } from 'src/app/interfaces/user';
 import { NotificationService } from 'src/app/services/notification.service';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
+import { PasswordResetDialogComponent } from '../password-reset/password-reset.component';
 
 @Component({
   selector: 'app-profile',
@@ -45,9 +46,11 @@ export class ProfileComponent {
   wWidth = window.innerWidth;
   errors: any = {};
   tabSelected;
-  user?: User;
+  user?: Observable<User>;
   topicSearch: string = '';
   topics$ = of(<Topic[] | any[]>[]);
+  resetPassword = <boolean>false;
+
   constructor(
     public app: AppService,
     public dialog: MatDialog,
@@ -67,8 +70,8 @@ export class ProfileComponent {
       ));
 
     if (Auth.user$) {
-      Auth.user$.pipe(take(1))
-        .subscribe((user) => {
+      this.user = Auth.user$.pipe(
+        map((user) => {
           if (!user.preferences) {
             user.preferences = {
               showInSearch: false,
@@ -79,8 +82,23 @@ export class ProfileComponent {
             }
           }
           this.form = Object.assign(this.form, user);
-          this.user = user;
+          return user
         })
+      );
+      /* Auth.user$.pipe(take(1))
+         .subscribe((user) => {
+           if (!user.preferences) {
+             user.preferences = {
+               showInSearch: false,
+               notifications: {
+                 topics: {},
+                 groups: {}
+               }
+             }
+           }
+           this.form = Object.assign(this.form, user);
+           this.user = user;
+         })*/
     }
 
     this.topics$ = TopicNotificationService.items$;
@@ -141,7 +159,7 @@ export class ProfileComponent {
     }
   };
 
-  doUpdateProfile() {
+  doUpdateProfile(user: User) {
     this.errors = {};
     if (this.form.newPassword) {
       if (this.form.newPassword !== this.form.passwordConfirm) {
@@ -163,24 +181,28 @@ export class ProfileComponent {
         });
     } else {
       this.User
-        .update(this.form.name, this.form.email, this.form.password, this.form.company, this.form.imageUrl, this.form.preferences, undefined, this.user?.termsVersion || undefined, this.form.newPassword)
-        .pipe(take(1),
-          catchError((res: any) => {
+        .update(this.form.name, this.form.email, this.form.password, this.form.company, this.form.imageUrl, this.form.preferences, undefined, user?.termsVersion || undefined, this.form.newPassword)
+        .pipe(take(1))
+        .subscribe({
+          next: (res: any) => {
+            this.Notification.addSuccess('COMPONENTS.NOTIFICATION.TITLE_SUCCESS');
+            if (res.data) {
+              const values = Object.assign({}, this.form, res.data);
+              if (user.email !== this.form.email) {
+                this.Notification.addInfo('MSG_INFO_CHECK_EMAIL_TO_VERIFY_YOUR_NEW_EMAIL_ADDRESS');
+              }
+              this.Auth.reloadUser();
+              this.dialog.closeAll(); // Close all dialogs, including the one open now...u
+            }
+          },
+          error: (res: any) => {
+            console.log('ERROR', res)
             if (res.status.message === 'Invalid password')
               this.errors = { password: res.status.message }
             return of({ error: res.status })
-          }))
-        .subscribe((res: any) => {
-          if (res.data) {
-            const values = Object.assign({}, this.form, res.data);
-            if (this.user?.email !== this.form.email) {
-              this.Notification.addInfo('MSG_INFO_CHECK_EMAIL_TO_VERIFY_YOUR_NEW_EMAIL_ADDRESS');
-            }
-            this.Auth.status().pipe(take(1)).subscribe();
-            this.dialog.closeAll(); // Close all dialogs, including the one open now...u
           }
-        });
-    }
+        })
+    };
   };
 
   fileUpload() {
@@ -193,7 +215,8 @@ export class ProfileComponent {
       };
     })();
     reader.readAsDataURL(files[0]);
-  }
+  };
+
   triggerUploadImage() {
     this.fileInput?.nativeElement.click();
   };

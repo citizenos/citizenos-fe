@@ -3,7 +3,7 @@ import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { of, BehaviorSubject, Observable, zip } from 'rxjs';
-import { switchMap, catchError, tap, take, map, retry } from 'rxjs/operators';
+import { switchMap, catchError, tap, take, map, retry, exhaustMap, shareReplay } from 'rxjs/operators';
 import { LocationService } from './location.service';
 import { NotificationService } from './notification.service';
 import { User } from '../interfaces/user';
@@ -16,18 +16,27 @@ import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from '@angular
   providedIn: 'root'
 })
 export class AuthService {
+  private loadUser$ = new BehaviorSubject<void>(undefined);
   public user$: Observable<User> | null;
   public loggedIn$ = new BehaviorSubject(false);
   public user = new BehaviorSubject({ id: null });
 
   constructor(private dialog: MatDialog, private Location: LocationService, private http: HttpClient, private Notification: NotificationService, private config: ConfigService) {
-    this.user$ = this.status();
+    this.user$ = this.loadUser$.pipe(
+      exhaustMap(() => this.status()),
+      shareReplay()
+    );
 
     this.loggedIn$.pipe(tap((status) => {
       if (status === false) {
         this.logout().pipe(take(1)).subscribe((res) => console.log('logged out'));
       }
     }))
+  }
+
+  reloadUser(): void {
+    console.log('reloadUser')
+    this.loadUser$.next();
   }
 
   resolveAuthorizedPath(path: string) {

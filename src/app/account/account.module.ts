@@ -13,6 +13,7 @@ import { AddEidComponent } from './components/add-eid/add-eid.component';
 import { ConnectEidComponent } from './components/connect-eid/connect-eid.component';
 import { ConnectSmartIdComponent } from './components/connect-smart-id/connect-smart-id.component';
 import { PasswordResetComponent, PasswordResetDialogComponent } from './components/password-reset/password-reset.component';
+import { PasswordResetFormComponent } from './components/password-reset-form/password-reset-form.component';
 import { PasswordForgotComponent } from './components/password-forgot/password-forgot.component';
 import { SmartIdLoginComponent } from './components/smart-id-login/smart-id-login.component';
 import { RegisterComponent, RegisterDialogComponent } from './components/register/register.component';
@@ -40,7 +41,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     LoginFormComponent,
     RegisterFormComponent,
     PasswordForgotFormComponent,
-    ProfileComponent
+    ProfileComponent,
+    PasswordResetFormComponent
   ],
   imports: [
     CommonModule,
