@@ -35,7 +35,7 @@ export class JSONPointerCompiler extends TranslateCompiler {
         if (currentTranslations[key].includes("@:")) {
 
           let replacementProperty = this.getDescendantPropertyValue(masterLanguageFile, currentTranslations[key].substring(2));
-          let i = 0
+          let i = 0;
           while (replacementProperty.includes("@:")) {
             i++;
             const tryProp = replacementProperty;

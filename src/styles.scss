@@ -108,6 +108,12 @@ html {
   h5 {
     font-size: 0.83em;
   }
+
+  .page_header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+  }
 }
 
 .line_separator {
@@ -175,12 +181,26 @@ html {
     }
   }
 }
-.cos_input_wrap {
-  display: flex;
-  flex-direction: column;
 
-  input.with_value {
-    padding: 23px 14px 7px 14px;
-    margin-top: -16px;
+/*Components*/
+cos-input {
+  position: relative;
+  display: flex;
+  height: max-content;
+  .cos_input_wrap {
+    display: flex;
+    flex-direction: column;
+
+    input {
+      position: relative;
+
+      &.with_value {
+        padding: 23px 14px 7px 14px;
+      }
+    }
   }
+}
+
+cos-toggle {
+  width: max-content;
 }

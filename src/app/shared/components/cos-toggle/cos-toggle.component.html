@@ -1,11 +1,9 @@
-<div class="toggle_cell" >
-  <div class="toggle_widget text_on" (click)="cosToggle()" [ngClass]="isEnabled() ? 'on' : 'off'">
-      <div class="toggle_circle"></div>
-          <div class="toggle_text" *ngIf="cosToggleTextOff && !isEnabled()">
-          <div class="table_cell">{{cosToggleTextOff}}</div>
-      </div>
-      <div class="toggle_text" *ngIf="cosToggleTextOn && isEnabled()">
-          <div class="table_cell">{{cosToggleTextOn}}</div>
-      </div>
+<div class="toggle_wrap">
+  <div class="toggle_widget" (click)="cosToggle()" [ngClass]="isEnabled() ? 'on' : 'off'">
+    <div class="toggle_circle"></div>
+
+  </div>
+  <div class="toggle_text">
+    <span class="bold">{{(cosToggleTextOn && isEnabled())? cosToggleTextOn : cosToggleTextOff}}</span>
   </div>
 </div>

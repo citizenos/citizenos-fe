@@ -59,9 +59,10 @@ export class TopicService {
     admin: 'admin'
   };
   CATEGORIES_COUNT_MAX = 3;
-  constructor(private dialog: MatDialog, private Location: LocationService, private http: HttpClient, private Auth: AuthService, private router: Router) { }
 
   private loadTopic$ = new BehaviorSubject<void>(undefined);
+
+  constructor(private dialog: MatDialog, private Location: LocationService, private http: HttpClient, private Auth: AuthService, private router: Router) { }
 
   loadTopic(id: string, params?: { [key: string]: string | boolean }) {
     return this.loadTopic$.pipe(
