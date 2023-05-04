@@ -8,7 +8,7 @@
     translate="VIEWS.ACCOUNT.MY_ACCOUNT_TAB_NOTIFICATIONS"></div>
 </div>
 <div id="profile_area_wrap">
-  <div class="profile_area_section" *ngIf="(tabSelected | async) === 'profile'">
+  <div id="profile_settings" class="profile_area_section" *ngIf="(tabSelected | async) === 'profile'">
     <div id="profile_image_area">
       <div id="profile_image_wrap">
         <div id="remove_profile_image" (click)="deleteUserImage()" *ngIf="tmpImageUrl || form.imageUrl">
@@ -115,10 +115,36 @@
     </div>
   </div>
   <div class="profile_area_section" *ngIf="(tabSelected | async) === 'notifications'">
-    <h3>Manage e-mail updates</h3>
+    <h3 class="section_title">Manage e-mail updates</h3>
+    <div class="section_description">Engagement updates and analytics will be sent via e-mail every defined period</div>
+    <cos-input placeholder="Set period">
+      <div class="dropdown" [cosDropdown]>
+        <div class="selection">
+          <div class="selected_item">Weekly</div>
+          <div class="icon_arrow_down_black"></div>
+        </div>
+        <div class="options">
+          <div class="option">Dayly</div>
+          <div class="option">Weekly</div>
+          <div class="option">Monthly</div>
+        </div>
+      </div>
+    </cos-input>
   </div>
   <div class="profile_area_section" *ngIf="(tabSelected | async) === 'notifications'">
     <h3>Manage topic notification</h3>
+    <div class="filter_section"></div>
+    <div class="content_section">
+      <div class="row_list" *ngFor="let topic of topics$ | async">
+        <div class="row_cell"><a class="blue_link" [innerHtml]>{{topic.title}}</a></div>
+        <div class="row_cell"><cos-toggle [cosToggleTextOn]="'TOGGLE_ON' | translate"
+            [cosToggleTextOff]="'TOGGLE_OFF' | translate" [model]="topic.allowNotifications"
+            (click)="topic.allowNotifications=!topic.allowNotifications;toggleTopicNotifications(topic)"></cos-toggle>
+        </div>
+        <div class="row_cell"><a class="blue_link" translate="VIEWS.TOPICS_TOPICID.NAV_LNK_SET_TOPIC_NOTIFICATIONS"
+            (click)="app.doShowTopicNotificationSettings(topic.topicId)"></a></div>
+      </div>
+    </div>
   </div>
 </div>
 <!-- LIGHTBOX SKELETON -->

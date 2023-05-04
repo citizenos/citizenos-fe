@@ -28,9 +28,17 @@
 
   .profile_area_section {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     border-radius: 16px;
     background-color: var(--color-surfaces);
+    padding: 24px;
+    gap: 16px;
+
+    &#profile_settings{
+      flex-direction: row;
+      padding: 0;
+    }
+
 
     @include mixins.mobile {
       flex-direction: column;
