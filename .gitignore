@@ -37,6 +37,8 @@ yarn-error.log
 testem.log
 /typings
 
+/config/local.json
+/src/assets/config/local.json
 # System files
 .DS_Store
 Thumbs.db
