@@ -43,6 +43,7 @@ import { GroupInviteUserComponent } from '../group/components/group-invite-user/
 import { CheckHeightDirective } from '../directives/check-height.directive';
 import { EtherpadDirective } from '../directives/etherpad.directive';
 import { HtmlDirective } from '../directives/html.directive';
+import { DownloadDirective } from '../directives/download.directive';
 @NgModule({
   declarations: [
     ActivityComponent,
@@ -79,7 +80,8 @@ import { HtmlDirective } from '../directives/html.directive';
     TypeaheadSelect,
     ModalDatepickerComponent,
     CheckHeightDirective,
-    HtmlDirective
+    HtmlDirective,
+    DownloadDirective
   ],
   imports: [
     RouterModule,
@@ -131,7 +133,8 @@ import { HtmlDirective } from '../directives/html.directive';
     TypeaheadItem,
     TypeaheadSelect,
     CheckHeightDirective,
-    HtmlDirective
+    HtmlDirective,
+    DownloadDirective
    ]
 })
 export class SharedModule { }
