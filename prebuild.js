@@ -6,7 +6,6 @@ const path = require('path');
 
 const configFe = config.util.loadFileConfigs(__dirname + '/src/assets/config');
 const pathSettings = path.resolve('./src/assets/config/config.json');
-
 try {
   /*  const settingsFileTxt = '(function (window) { window.__config = window.__config || {};';
     _(configFe).forEach(function (value, key) {

@@ -56,7 +56,8 @@ a {
   }
 }
 
-input {
+input,
+.dropdown {
   padding: 14px;
   background: var(--color-surfaces);
   border: 1px solid var(--color-border);
@@ -70,6 +71,44 @@ input {
   &.error_input,
   &.error {
     border: 1px solid var(--color-error);
+  }
+}
+
+.dropdown {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 0;
+  .selection {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px;
+  }
+
+  .options {
+    display: none;
+    flex-direction: column;
+    .option {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      padding: 14px;
+
+      &:hover {
+        background-color: var(--color-surface-contrast);
+      }
+    }
+  }
+
+  &.dropdown_active {
+    .options {
+      display: flex;
+    }
   }
 }
 
@@ -198,9 +237,35 @@ cos-input {
         padding: 23px 14px 7px 14px;
       }
     }
+    .dropdown {
+      position: relative;
+      &.with_value {
+        .selection {
+          padding: 23px 14px 7px 14px;
+        }
+      }
+    }
   }
 }
 
 cos-toggle {
   width: max-content;
+}
+
+.row_list {
+  display:flex;
+  padding: 16px 20px;
+  background-color: var(--color-surface-contrast);
+  .row_cell {
+    display: flex;
+    flex-grow: 1;
+
+    &:first-child {
+      flex-grow: 10;
+    }
+  }
+
+  &:nth-child(2) {
+    background-color: var(--color-surfaces);
+  }
 }

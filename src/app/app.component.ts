@@ -8,6 +8,8 @@ import { ConfigService } from './services/config.service';
 import { takeUntil, Subject, tap, map } from 'rxjs';
 import * as moment from 'moment';
 import { DOCUMENT } from '@angular/common';
+import { environment } from 'src/environments/environment';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -20,6 +22,7 @@ export class AppComponent {
   destroy$ = new Subject<boolean>();
 
   constructor(private router: Router, @Inject(DOCUMENT) private document: Document,  private title: Title, public translate: TranslateService, private config: ConfigService, public app: AppService) {
+    console.log(environment.production);
     const languageConf = config.get('language');
     translate.addLangs(Object.keys(languageConf.list));
     translate.setDefaultLang(languageConf.default);
