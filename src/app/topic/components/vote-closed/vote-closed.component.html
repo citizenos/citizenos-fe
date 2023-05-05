@@ -66,9 +66,9 @@
   </div>
 
   <a class="print_never" *ngIf="vote.authType === VOTE_AUTH_TYPES.soft && vote.downloads?.zipFinal"
-    [href]="vote.downloads.zipFinal" download>
-    <div class="voting_button voting_button_blue active">
-      <div class="table_cell" translate="VIEWS.TOPICS_TOPICID.BTN_DOWNLOAD_FINAL_ZIP"></div>
-    </div>
+    [href]="vote.downloads.zipFinal">
+    <a class="voting_button voting_button_blue active" [href]="vote.downloads.zipFinal">
+      <a class="table_cell" translate="VIEWS.TOPICS_TOPICID.BTN_DOWNLOAD_FINAL_ZIP" [href]="vote.downloads.zipFinal" download></a>
+    </a>
   </a>
 </div>
