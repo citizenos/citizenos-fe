@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material/dialog';
-import { TranslateModule, TranslateLoader, TranslateCompiler, MissingTranslationHandler } from '@ngx-translate/core';
+import { TranslateModule, TranslateLoader, TranslateCompiler, MissingTranslationHandler, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
@@ -36,6 +36,14 @@ import { PageNotFoundComponent } from './core/components/page-not-found/page-not
 import { PageUnauthorizedComponent } from './core/components/page-unauthorized/page-unauthorized.component';
 import { NavMobileComponent } from './core/components/nav-mobile/nav-mobile.component';
 import { FeedbackComponent } from './core/components/feedback/feedback.component';
+
+/*Needs update to also properly load config */
+export function appInitializerFactory(translate: TranslateService) {
+  return () => {
+    translate.setDefaultLang('en');
+    return translate.use('en');
+  };
+}
 
 @NgModule({
   declarations: [
@@ -90,7 +98,14 @@ import { FeedbackComponent } from './core/components/feedback/feedback.component
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorInterceptor,
       multi: true
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: appInitializerFactory,
+      deps: [TranslateService],
+      multi: true
     }
+
   ],
   bootstrap: [AppComponent]
 })
