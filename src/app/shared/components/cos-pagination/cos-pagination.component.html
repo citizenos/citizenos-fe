@@ -1,8 +1,6 @@
 <div class="pagination" *ngIf="totalPages > 1">
-  <div class="pagination_items_wrap">
-    <div class="page_button button_prev table_cell" (click)="loadPrevious()">«</div>
-    <div class="page_button table_cell" *ngFor="let x of pages()" (click)="doSelect(x)"
-      [ngClass]="{'active': x === page }">{{x}}</div>
-    <div class="page_button button_next table_cell" (click)="loadNext()">»</div>
-  </div>
+  <button class="btn_big_nav btn_pagination" (click)="loadPrevious()"><div class="icon_general_arrow_long_left" ></div></button>
+  <button class="btn_big_nav" *ngFor="let x of pages()" (click)="doSelect(x)"
+    [ngClass]="{'active': x === page }">{{x}}</button>
+  <button class="btn_big_nav btn_pagination" (click)="loadNext()"><div class="icon_general_arrow_long_right" ></div></button>
 </div>

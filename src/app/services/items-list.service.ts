@@ -8,7 +8,7 @@ export abstract class ItemsListService {
   defaultParams = {
     page: <number>1,
     offset: <number>0,
-    limit: <number>10,
+    limit: <number>4,
     order: <string | null | undefined>null,
     orderBy: <string | null | undefined>null,
     sourcePartnerId: <string | null | undefined>null,
@@ -30,6 +30,11 @@ export abstract class ItemsListService {
     orderparams.orderBy = orderBy;
     if (order) {
       orderparams.order = order.toUpperCase();
+    }
+    else if (!order && orderparams.order?.toLowerCase() === 'asc') {
+      orderparams.order = 'desc'
+    } else {
+      orderparams.order = 'asc'
     }
     this.params$.next(orderparams);
   };

@@ -56,6 +56,29 @@ a {
   }
 }
 
+.input_area {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  background-color: var(--color-surfaces);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  input, cos-input {
+    border: none;
+    &:focus,
+    &:active,
+    &:hover {
+      border: none;
+      outline: none;
+    }
+
+    @include mixins.mobile {
+      width: 100%;
+      background-color: var(--color-background);
+    }
+  }
+}
+
 input,
 .dropdown {
   padding: 14px;
@@ -110,6 +133,13 @@ input,
       display: flex;
     }
   }
+}
+
+.error_label {
+  margin-top: 8px;
+  position: relative;
+  display: flex;
+  gap: 8px;
 }
 
 body,
@@ -252,20 +282,60 @@ cos-toggle {
   width: max-content;
 }
 
-.row_list {
-  display:flex;
+.row_list,
+.row_header {
+  display: flex;
+  flex-flow: row wrap;
   padding: 16px 20px;
-  background-color: var(--color-surface-contrast);
+  background-color: var(--color-surfaces-contrast);
+  justify-content: space-between;
+
   .row_cell {
     display: flex;
-    flex-grow: 1;
+    flex-direction: row;
+    justify-content: space-between;
 
-    &:first-child {
-      flex-grow: 10;
+    a {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 8px;
     }
   }
 
-  &:nth-child(2) {
-    background-color: var(--color-surfaces);
+  &:nth-child(even) {
+    background-color: var(--color-surface-contrast);
+  }
+}
+
+.form_wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+
+  form {
+    min-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+
+    input,
+    button,
+    cos-input {
+      width: 100%;
+    }
+
+    .inputs_wrap {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      input,
+      button,
+      cos-input {
+        width: 100%;
+      }
+    }
   }
 }

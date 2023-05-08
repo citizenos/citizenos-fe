@@ -1,0 +1,51 @@
+<div class="form_wrap">
+  <div class="inputs_wrap">
+    <form name="loginSmartIdForm" [formGroup]="smartIdForm" novalidate>
+      <div class="sprite_big sprite sprite-smart-i-d2x"></div>
+      <div *ngIf="isLoading && !challengeID" class="loader_wrap">
+        <div class="loader"></div>
+      </div>
+      <ng-container *ngIf="!challengeID && !isLoading">
+        <cos-input
+          placeholder="{{'COMPONENTS.LOGIN_SMART_ID_FORM.LOGIN_SMARTID_PLACEHOLDER_COUNTRY_CODE' | translate}}">
+          <input id="countryCode" formControlName="countryCode" type="text" [maxlength]="2"
+            [placeholder]="'COMPONENTS.LOGIN_SMART_ID_FORM.LOGIN_SMARTID_PLACEHOLDER_COUNTRY_CODE' | translate"
+            [ngClass]="{'error_input': smartIdForm.controls['countryCode'].errors && smartIdForm.controls['countryCode'].errors['pattern'] && smartIdForm.touched}"
+            pattern="^[A-Z]{2}$" required>
+          <label for="pid" class="error_label"
+            *ngIf="smartIdForm.controls['countryCode'].errors && smartIdForm.controls['countryCode'].errors['pattern'] && smartIdForm.touched">
+            <div class="table_cell">
+              <div class="icon_notification_error_small"></div>
+              <span translate="COMPONENTS.LOGIN_SMART_ID_FORM.LOGIN_SMARTID_ERROR_COUNTRY_CODE"></span>
+            </div>
+          </label>
+        </cos-input>
+        <cos-input placeholder="{{'COMPONENTS.LOGIN_SMART_ID_FORM.LOGIN_SMARTID_PLACEHOLDER_PID' | translate}}">
+          <input id="pid" formControlName="pid" type="text" inputmode="numeric"
+            [placeholder]="'COMPONENTS.LOGIN_SMART_ID_FORM.LOGIN_SMARTID_PLACEHOLDER_PID' | translate"
+            [ngClass]="{'error_input': smartIdForm.controls['pid'].errors && smartIdForm.controls['pid'].errors['pattern'] && smartIdForm.touched}">
+          <label for="pid" class="error_label"
+            *ngIf="smartIdForm.controls['pid'].errors && smartIdForm.controls['pid'].errors['pattern'] && smartIdForm.touched">
+            <div class="table_cell">
+              <div class="icon_notification_error_small"></div>
+              <span translate="COMPONENTS.LOGIN_SMART_ID_FORM.LOGIN_SMARTID_ERROR_PID"></span>
+            </div>
+          </label>
+        </cos-input>
+      </ng-container>
+
+      <div *ngIf="challengeID">
+        <div class="code" translate="COMPONENTS.LOGIN_SMART_ID_FORM.LOGIN_SMARTID_TXT_CONTROL_CODE"
+          [translateParams]="{code: challengeID}">
+        </div>
+        <div class="code_text" translate="COMPONENTS.LOGIN_SMART_ID_FORM.LOGIN_SMARTID_TXT_CHECK_CONTROL_CODE"></div>
+        <div class="loader_wrap">
+          <div class="loader"></div>
+        </div>
+      </div>
+      <button id="#submit_button" type="submit" (click)="authSmartId()" [disabled]="isLoading || smartIdForm.invalid"
+        class="btn_big_submit" translate="COMPONENTS.LOGIN_SMART_ID_FORM.LOGIN_SMARTID_BTN_AUTHENTICATE_SID"></button>
+
+    </form>
+  </div>
+</div>

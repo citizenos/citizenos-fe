@@ -18,7 +18,7 @@ import { CreateComponent } from 'src/app/core/components/create/create.component
 })
 export class AppService {
   showNav = false;
-  showSearch = false;
+  showSearch = true;
   editMode = false;
   showSearchResults = false;
   showSearchFiltersMobile = false;

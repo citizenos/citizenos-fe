@@ -1,4 +1,24 @@
-@use "vars";
+
+.pagination {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+button {
+  width: 40px;
+  height: 40px;
+
+  &.btn_pagination {
+    display: flex;
+
+    div {
+      position: absolute;
+    }
+  }
+}
+/*@use "vars";
 @use "mixins_n_extends";
 
 .pagination {
@@ -32,4 +52,4 @@
       }
     }
   }
-}
+}*/

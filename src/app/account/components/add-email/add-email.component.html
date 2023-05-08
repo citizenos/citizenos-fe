@@ -1,8 +1,45 @@
-<!-- LIGHTBOX SKELETON -->
+<div class="overlay" mat-dialog-close></div>
+<div class="dialog">
+  <div class="dialog_header info">
+    <div class="header_with_icon">
+      <div class="icon_notification_info"></div>
+      <h4 class="title" translate="MODALS.ADD_EMAIL_HEADING"></h4>
+    </div>
+    <div class="dialog_close">
+      <button class="btn_dialog_close" mat-dialog-close>
+        <div class="icon_mobile_close"></div>
+      </button>
+    </div>
+  </div>
+  <div class="dialog_content">
+    <form [formGroup]="form">
+      <cos-input placeholder="{{'MODALS.ADD_EMAIL_PLACEHOLDER_EMAIL' | translate}}">
+        <input id="email" formControlName="email" type="email"
+          placeholder="{{'MODALS.ADD_EMAIL_PLACEHOLDER_EMAIL' | translate}}" (focus)="wWidth > 1024"
+          [ngClass]="{'error_input': form.controls['email'].errors && form.controls['email'].errors['email']  && form.touched}"
+          [maxlength]="254" required>
+        <label for="email" class="error_label" *ngIf="form.invalid && form.touched">
+          <div class="icon_notification_error_small"></div>
+          <span translate="{{errors?.email}}"></span>
+        </label>
+      </cos-input>
+
+      <div class="delete_info_text bold" translate="MODALS.ADD_EMAIL_TXT_VERIFY"></div>
+    </form>
+    <div class="button_wrap">
+      <button class="btn_big_submit" (click)="doUpdateProfile()" [disabled]="form.invalid"
+        translate="MODALS.ADD_EMAIL_LOG_IN"></button>
+      <a translate="MODALS.ADD_EMAIL_LNK_CANCEL" (click)="logout()"></a>
+    </div>
+    <div class="dialog_footer">
+    </div>
+  </div>
+
+
+  <!-- LIGHTBOX SKELETON >
 <div id="root_lightbox">
   <div id="lightbox" class="id_signing delete_topic wide_lightbox my_account_lightbox">
     <div id="lightbox_wrap">
-      <form [formGroup]="form" >
         <div id="lightbox_header">
 
 
@@ -51,10 +88,11 @@
               <div>
                 <input id="email" formControlName="email" type="email"
                   placeholder="{{'MODALS.ADD_EMAIL_PLACEHOLDER_EMAIL' | translate}}" (focus)="wWidth > 1024"
-                  [ngClass]="{'error_input': form.controls['email'].errors && form.controls['email'].errors['email']  && form.touched}" [maxlength]="254" required>
+                  [ngClass]="{'error_input': form.controls['email'].errors && form.controls['email'].errors['email']  && form.touched}"
+                  [maxlength]="254" required>
                 <label for="email" class="error_label" *ngIf="form.invalid && form.touched">
                   <div class="table_cell">
-                    <div class="sprite sprite-icon-inputfield-error2x"></div>
+                    <div class="icon_notification_error_small"></div>
                     <span translate="{{errors?.email}}"></span>
                   </div>
                 </label>
@@ -73,9 +111,7 @@
           <div class="line lightest_line"></div>
           <div class="lightbox_section">
             <div class="footer_button_wrap right">
-              <div class="blue_link" translate="MODALS.ADD_EMAIL_LNK_CANCEL" (click)="logout()"></div>
-              <button class="blue_button" (click)="doUpdateProfile()" [disabled]="form.invalid"
-                class="blue_button" translate="MODALS.ADD_EMAIL_LOG_IN"></button>
+
             </div>
           </div>
         </div>
@@ -85,4 +121,4 @@
 
   <div id="close_lightbox" (click)="logout();" mat-dialog-close></div>
 
-</div>
+</div-->

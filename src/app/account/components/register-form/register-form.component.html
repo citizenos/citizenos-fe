@@ -1,44 +1,41 @@
-<div id="register_form_wrap">
+<div class="form_wrap">
   <form name="signUpForm" [formGroup]="signUpForm">
     <div id="register_inputs_wrap">
       <input id="name" formControlName="name" [placeholder]="'COMPONENTS.REGISTER_FORM.PLACEHOLDER_NAME' | translate"
         (focus)="wWidth > 1024" [ngClass]="{'error_input': errors.name}" [maxlength]="255" required>
       <label for="name" class="error_label" *ngIf="errors.name">
-        <div class="table_cell">
-          <div class="sprite sprite-icon-inputfield-error2x"></div>
-          <span translate="{{errors.name}}"></span>
-        </div>
+        <div class="icon_notification_error_small"></div>
+        <span translate="{{errors.name}}"></span>
       </label>
       <input id="email" formControlName="email" [placeholder]="'COMPONENTS.REGISTER_FORM.PLACEHOLDER_EMAIL' | translate"
         [ngClass]="{'error_input': errors.email}" [maxlength]="254" required>
       <label for="email" class="error_label" *ngIf="errors.email">
-        <div class="table_cell">
-          <div class="sprite sprite-icon-inputfield-error2x"></div>
-          <span translate="{{errors.email}}"></span>
-        </div>
+        <div class="icon_notification_error_small"></div>
+        <span translate="{{errors.email}}"></span>
       </label>
-      <input id="company" formControlName="company" [placeholder]="'COMPONENTS.REGISTER_FORM.PLACEHOLDER_COMPANY' | translate"
+      <input id="company" formControlName="company"
+        [placeholder]="'COMPONENTS.REGISTER_FORM.PLACEHOLDER_COMPANY' | translate"
         [ngClass]="{'error_input': errors.company}" [maxlength]="255">
       <label for="company" class="error_label" *ngIf="errors.company">
-        <div class="table_cell">
-          <div class="sprite sprite-icon-inputfield-error2x"></div>
-          <span translate="{{errors.company}}"></span>
-        </div>
+        <div class="icon_notification_error_small"></div>
+        <span translate="{{errors.company}}"></span>
       </label>
       <input id="password" formControlName="password" type="password"
-        [placeholder]="'COMPONENTS.REGISTER_FORM.PLACEHOLDER_PASSWORD' | translate" [ngClass]="{'error_input': errors.password}"
-        [maxlength]="64" required>
+        [placeholder]="'COMPONENTS.REGISTER_FORM.PLACEHOLDER_PASSWORD' | translate"
+        [ngClass]="{'error_input': errors.password}" [maxlength]="64" required>
       <input id="password_confirm" formControlName="passwordConfirm" type="password"
         [placeholder]="'COMPONENTS.REGISTER_FORM.PLACEHOLDER_PASSWORD_CONFIRM' | translate"
         [ngClass]="{'error_input': errors.password}" [maxlength]="64" required>
       <label for="password_confirm" class="inline_notification error" *ngIf="errors.password">
-          <div class="icon_notification"></div>
-          <div translate="{{errors.password}}"></div>
+        <div class="icon_notification"></div>
+        <div translate="{{errors.password}}"></div>
       </label>
     </div>
     <label class="checkbox"><span translate="COMPONENTS.REGISTER_FORM.LBL_TERMS_AND_CONDITIONS_DESCRIPTION"></span>
-      <p><a class="bold" [href]="config.termsOfUse" target="_blank" translate="COMPONENTS.REGISTER_FORM.PRIVACY_POLICY_LNK_TERMS_OF_USE"></a></p>
-      <p><a class="bold" [href]="config.privacyPolicy" target="_blank" translate="COMPONENTS.REGISTER_FORM.PRIVACY_POLICY_LNK_PRIVACY_POLICY"></a></p>
+      <a class="bold" [href]="config.termsOfUse" target="_blank"
+        translate="COMPONENTS.REGISTER_FORM.PRIVACY_POLICY_LNK_TERMS_OF_USE"></a>
+      <a class="bold" [href]="config.privacyPolicy" target="_blank"
+        translate="COMPONENTS.REGISTER_FORM.PRIVACY_POLICY_LNK_PRIVACY_POLICY"></a>
       <input type="checkbox" formControlName="agreeToTerms" value="true">
       <span class="checkmark"></span>
     </label>

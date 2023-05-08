@@ -30,7 +30,6 @@ import { NotificationComponent } from './core/components/notification/notificati
 import { ActivityFeedComponent } from './core/components/activity-feed/activity-feed.component';
 import { SharedModule } from './shared/shared.module';
 import { HttpErrorInterceptor } from './services/http.error.interceptor.service';
-import { EstIdLoginComponent } from './account/components/est-id-login/est-id-login.component';
 import { SearchComponent } from './core/components/search/search.component';
 import { PageNotFoundComponent } from './core/components/page-not-found/page-not-found.component';
 import { PageUnauthorizedComponent } from './core/components/page-unauthorized/page-unauthorized.component';
@@ -48,7 +47,6 @@ import { AccessibilityMenuComponent } from './core/components/accessibility-menu
     LanguageSelectComponent,
     NotificationComponent,
     ActivityFeedComponent,
-    EstIdLoginComponent,
     SearchComponent,
     PageNotFoundComponent,
     PageUnauthorizedComponent,

@@ -1,0 +1,54 @@
+<div class="form_wrap">
+  <form name="loginMobiilIdForm" [formGroup]="mobiilIdForm" novalidate>
+    <div *ngIf="authMethodsAvailable.mobiilId" class="sign_in_section"
+      [ngClass]="{'single_section': !authMethodsAvailable.idCard}">
+      <div class="sprite_big sprite sprite-mobiil-i-d2x"></div>
+      <div *ngIf="isLoading && !challengeID" class="loader_wrap">
+        <div class="loader"></div>
+      </div>
+      <ng-container *ngIf="!challengeID && !isLoading">
+        <cos-input placeholder="{{'MODALS.LOGIN_ESTEID_PLACEHOLDER_PHONE' | translate}}">
+          <input id="phone" formControlName="phoneNumber" type="tel"
+            [placeholder]="'MODALS.LOGIN_ESTEID_PLACEHOLDER_PHONE' | translate" (focus)="wWidth > 1024"
+            [ngClass]="{'error_input': (mobiilIdForm.controls['phoneNumber'].errors && mobiilIdForm.controls['phoneNumber'].errors['pattern'] && mobiilIdForm.touched)}">
+          <label for="phone" class="error_label"
+            *ngIf="mobiilIdForm.controls['phoneNumber'].errors && mobiilIdForm.controls['phoneNumber'].errors['pattern']  && mobiilIdForm.touched">
+              <div class="icon_notification_error_small"></div>
+              <span translate="MODALS.LOGIN_ESTEID_ERROR_PHONE"></span>
+          </label>
+        </cos-input>
+        <cos-input placeholder="{{'MODALS.LOGIN_ESTEID_PLACEHOLDER_PHONE' | translate}}">
+          <input id="pid" formControlName="pid" type="text" inputmode="numeric"
+            [placeholder]="'MODALS.LOGIN_ESTEID_PLACEHOLDER_PID' | translate"
+            [ngClass]="{'error_input': mobiilIdForm.controls['pid'].errors && mobiilIdForm.controls['pid'].errors['pattern']  && mobiilIdForm.touched}">
+          <label for="pid" class="error_label"
+            *ngIf="mobiilIdForm.controls['pid'].errors && mobiilIdForm.controls['pid'].errors['pattern'] && mobiilIdForm.touched">
+              <div class="icon_notification_error_small"></div>
+              <span translate="MODALS.LOGIN_ESTEID_ERROR_PID"></span>
+          </label>
+        </cos-input>
+      </ng-container>
+      <div *ngIf="challengeID">
+        <div class="code" translate="MODALS.LOGIN_ESTEID_TXT_CONTROL_CODE" [translateParams]="{code: challengeID}">
+        </div>
+        <div class="code_text" translate="MODALS.LOGIN_ESTEID_TXT_CHECK_CONTROL_CODE"></div>
+        <div class="loader_wrap">
+          <div class="loader"></div>
+        </div>
+      </div>
+      <button type="submit" (click)="authMobiilId()" [disabled]="isLoading || isLoadingIdCard || mobiilIdForm.invalid"
+        class="btn_big_submit" translate="MODALS.LOGIN_ESTEID_BTN_AUTHENTICATE_MID"></button>
+    </div>
+
+    <div *ngIf="authMethodsAvailable.idCard" class="sign_in_section"
+      [ngClass]="{'single_section': !authMethodsAvailable.mobiilId}">
+      <div class="sprite_big sprite sprite-i-d-kaart2x"></div>
+      <div *ngIf="!isLoadingIdCard" class="sprite_big sprite sprite-img-idkaart2x"></div>
+      <div *ngIf="isLoadingIdCard" class="loader_wrap id_card_loader">
+        <div class="loader"></div>
+      </div>
+      <button (click)="authIdCard()" *ngIf="!isLoadingIdCard" [disabled]="isLoading || isLoadingIdCard"
+        class="btn_big_submit" translate="MODALS.LOGIN_ESTEID_BTN_AUTHENTICATE_ID"></button>
+    </div>
+  </form>
+</div>

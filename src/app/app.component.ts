@@ -21,7 +21,7 @@ export class AppComponent {
   wWidth: number = window.innerWidth;
   destroy$ = new Subject<boolean>();
 
-  constructor(private router: Router, @Inject(DOCUMENT) private document: Document,  private title: Title, public translate: TranslateService, private config: ConfigService, public app: AppService) {
+  constructor(private router: Router, @Inject(DOCUMENT) private document: Document, private title: Title, public translate: TranslateService, private config: ConfigService, public app: AppService) {
     console.log(environment.production);
     const languageConf = config.get('language');
     translate.addLangs(Object.keys(languageConf.list));

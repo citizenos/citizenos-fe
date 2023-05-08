@@ -67,7 +67,7 @@
 
           <div class="error_label" *ngIf="errors?.type">
             <div class="table_cell">
-              <div class="sprite sprite-icon-inputfield-error2x"></div>
+              <div class="icon_notification_error_small"></div>
               <span translate="{{errors.type}}"></span>
             </div>
           </div>
@@ -76,7 +76,7 @@
             [placeholder]="'MODALS.TOPIC_REPORT_PLACEHOLDER_REPORT_TEXT' | translate"  [maxlength]="2048"></textarea>
           <div class="error_label" *ngIf="errors?.text">
             <div class="table_cell">
-              <div class="sprite sprite-icon-inputfield-error2x"></div>
+              <div class="icon_notification_error_small"></div>
               <span translate="{{errors?.text}}"></span>
             </div>
           </div>

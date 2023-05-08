@@ -22,6 +22,10 @@ import { LoginFormComponent } from './components/login-form/login-form.component
 import { RegisterFormComponent } from './components/register-form/register-form.component';
 import { PasswordForgotFormComponent } from './components/password-forgot-form/password-forgot-form.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { SmartIdLoginFormComponent } from './components/smart-id-login-form/smart-id-login-form.component';
+import { EstIdLoginComponent} from './components/est-id-login/est-id-login.component';
+import { EstIdLoginFormComponent } from './components/est-id-login-form/est-id-login-form.component';
+
 @NgModule({
   declarations: [
     AccountComponent,
@@ -42,7 +46,10 @@ import { ProfileComponent } from './components/profile/profile.component';
     RegisterFormComponent,
     PasswordForgotFormComponent,
     ProfileComponent,
-    PasswordResetFormComponent
+    PasswordResetFormComponent,
+    SmartIdLoginFormComponent,
+    EstIdLoginComponent,
+    EstIdLoginFormComponent
   ],
   imports: [
     CommonModule,

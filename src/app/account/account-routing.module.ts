@@ -8,12 +8,16 @@ import { PasswordResetComponent } from './components/password-reset/password-res
 import { RegisterComponent } from './components/register/register.component';
 import { PasswordForgotComponent } from './components/password-forgot/password-forgot.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { SmartIdLoginComponent } from './components/smart-id-login/smart-id-login.component';
+import { EstIdLoginComponent } from './components/est-id-login/est-id-login.component';
 
 const routes: Routes = [
   { path: '', canActivate: [AuthGuard], component: ProfileComponent },
   {
     path: '', component: AccountComponent, children: [
       { path: 'login', component: LoginComponent },
+      { path: 'login/smartid', component: SmartIdLoginComponent },
+      { path: 'login/estid', component: EstIdLoginComponent },
       { path: 'signup', component: RegisterComponent },
       { path: 'password/forgot', component: PasswordForgotComponent },
       { path: 'password/reset/:passwordResetCode', component: PasswordResetComponent },
