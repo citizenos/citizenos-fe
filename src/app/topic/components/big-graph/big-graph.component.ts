@@ -34,9 +34,9 @@ export class BigGraphComponent implements OnInit {
 
   getOptionLetter(index:any) {
     if (index < 26) {
-      return String.fromCharCode(65 + index);
+      return String.fromCharCode(65 + parseInt(index));
     } else {
-      return String.fromCharCode(65 + Math.floor(index / 26) - 1) + (String.fromCharCode(65 + index % 26))
+      return String.fromCharCode(65 + Math.floor(parseInt(index) / 26) - 1) + (String.fromCharCode(65 + parseInt(index) % 26))
     }
   };
 }
