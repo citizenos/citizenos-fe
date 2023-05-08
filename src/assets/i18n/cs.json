@@ -402,7 +402,7 @@
     "GROUP_CREATE_SETTINGS_DESC_GROUP_VISIBILITY": "Nastavení viditelnosti vaší skupiny má vliv na to, kdo ji uvidí.",
     "GROUP_CREATE_SETTINGS_LBL_PRIVATE": "@:ACTIVITY_FEED.ACTIVITY_TOPIC_FIELD_VISIBILITY_PRIVATE",
     "GROUP_CREATE_SETTINGS_LBL_PUBLIC": "@:ACTIVITY_FEED.ACTIVITY_TOPIC_FIELD_VISIBILITY_PUBLIC",
-    "GROUP_CREATE_SETTINGS_LBL_GROUP_IMAGE": "Group image",
+    "GROUP_CREATE_SETTINGS_LBL_GROUP_IMAGE": "Obrázek skupiny",
     "GROUP_CREATE_SETTINGS_BTN_UPLOAD_IMAGE": "Nahrát obrázek",
     "GROUP_CREATE_SETTINGS_BTN_REMOVE_IMAGE": "Odebrat obrázek",
     "GROUP_INVITE_SHARE_LINK_GENERATE_CONFIRM_HEADING": "@:MODALS.TOPIC_INVITE_SHARE_LINK_GENERATE_CONFIRM_HADING",
@@ -574,8 +574,8 @@
     "GROUP_JOIN_CONFIRM_BTN_YES": "Ano, připojit se ke skupině",
     "GIVE_FEEDBACK_HEADING": "We'd love to know you better",
     "GIVE_FEEDBACK_DESC": "Hi there! We're really excited to get to know our users, and find out what you use our platform for. Happy to share? It will help us evaluate our impact and make our platform better suit your needs.",
-    "GIVE_FEEDBACK_LBL_NAME": "Name",
-    "GIVE_FEEDBACK_LBL_EMAIL": "Email address",
+    "GIVE_FEEDBACK_LBL_NAME": "Název",
+    "GIVE_FEEDBACK_LBL_EMAIL": "E-mailová adresa",
     "GIVE_FEEDBACK_LBL_GROUP_OR_ORG": "Group/Organisation",
     "GIVE_FEEDBACK_QUESTION_1": "What do you use Citizen OS for?",
     "GIVE_FEEDBACK_QUESTION_2": "Could we contact you to find out more? (We'll keep it brief, we promise).",
@@ -585,7 +585,7 @@
     "GIVE_FEEDBACK_BE_VIEW_MORE_LEGAL": "For more information, please read our <a target=\"_blank\" href=\"https://citizenos.com/legal/privacy/\">Privacy Policy</a>",
     "GIVE_FEEDBACK_PLACEHOLDER_TEXTAREA": "Napište sem...",
     "GIVE_FEEDBACK_BTN_CANCEL": "@:LNK_CANCEL",
-    "GIVE_FEEDBACK_BTN_SUBMIT": "Submit",
+    "GIVE_FEEDBACK_BTN_SUBMIT": "Odeslat",
     "GIVE_FEEDBACK_TITLE_THANK_YOU": "Thank you for sharing!",
     "GIVE_FEEDBACK_TEXT_THANK_YOU": "Thank you so much for sharing with us. If you agreed to chat more, we'll be in touch soon! For any queries or feedback in future, please submit a Help Request or User Feedback via our Help Centre.",
     "GIVE_FEEDBACK_BTN_CLOSE": "@:BTN_CLOSE"
@@ -785,7 +785,7 @@
       "PLACEHOLDER_TOPIC_TITLE_PERMISSION": "Název tématu, oprávnění",
       "PLACEHOLDER_NAME_PERMISSION": "Název, oprávnění",
       "LNK_CLEAR_FILTER": "vyčistit filtr",
-      "LNK_CLEAR_SEARCH": "clear search",
+      "LNK_CLEAR_SEARCH": "vyčistit vyhledávání",
       "LBL_ORDER_BY": "Řadit podle:",
       "LNK_TITLE": "Názvu",
       "LNK_ROLES": "Role",
@@ -1065,7 +1065,7 @@
       "LNK_ADD_MANAGE_FILES": "Přidat/spravovat přílohy",
       "TXT_QR_CODE_FOOTER_SCAN_CODE": "Přejděte přímo na téma <b>{{topicTitle}}</b> přes naskenování tohoto QR kódu!",
       "INLINE_COMMENT_SUGGEST_CHANGE": "Navrhovaná změna z \"{{changeFrom}}\" na \"{{changeTo}}\"",
-      "BTN_FEEDBACK_OPEN": "Help us improve"
+      "BTN_FEEDBACK_OPEN": "Pomozte nám to zlepšit"
     },
     "PUBLIC_GROUPS": {
       "TITLE": "Veřejné skupiny",
