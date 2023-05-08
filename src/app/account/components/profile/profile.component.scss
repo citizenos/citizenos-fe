@@ -44,6 +44,12 @@
       flex-direction: column;
     }
 
+    .filter_section {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
+
     #profile_image_area {
       display: flex;
       flex-direction: column;
@@ -145,6 +151,22 @@
           a {
             color: var(--color-error);
           }
+        }
+      }
+    }
+
+    .row_list, .row_header {
+      .row_cell {
+        width: 25%;
+        &:first-child {
+          width: 50%;
+        }
+
+        &:nth-child(2) {
+          justify-content: center;
+        }
+        &:nth-child(3) {
+          justify-content: end;
         }
       }
     }

@@ -37,7 +37,7 @@
                 [(ngModel)]="group.name" [ngClass]="{'error_input': errors?.name}">
               <label for="groupName" class="error_label" *ngIf="errors?.name">
                 <div class="table_cell">
-                  <div class="sprite sprite-icon-inputfield-error2x"></div>
+                  <div class="icon_notification_error_small"></div>
                   <span translate="{{errors?.name}}"></span>
                 </div>
               </label>
@@ -56,7 +56,7 @@
                 [(ngModel)]="group.description" [ngClass]="{'error_input': errors?.description}" [maxlength]="500"></textarea>
               <label for="groupDescription" class="error_label" *ngIf="errors?.description">
                 <div class="table_cell">
-                  <div class="sprite sprite-icon-inputfield-error2x"></div>
+                  <div class="icon_notification_error_small"></div>
                   <span translate="{{errors?.description}}"></span>
                 </div>
               </label>

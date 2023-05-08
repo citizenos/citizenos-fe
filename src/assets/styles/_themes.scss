@@ -41,7 +41,6 @@ $--color-dialog-voting-contrast: --color-dialog-voting-contrast;
 $--color-dialog-follow-up: --color-dialog-follow-up;
 $--color-dialog-follow-up-contrast: --color-dialog-follow-up-contrast;
 
-
 //buttons
 $--btn-submit: --btn-submit;
 $--btn-submit-text: --btn-submit-text;
@@ -66,7 +65,7 @@ $theme-map-default: (
   //black
   $--color-border: #e1e7ee,
   //gray 500
-  $--color-border-active: #4D5C6A,
+  $--color-border-active: #4d5c6a,
   //gray 700
   $--color-secondary: #ebf4fb,
   //blue 100
@@ -74,23 +73,23 @@ $theme-map-default: (
   //blue 700
   $--color-discussion: #1168a8,
   //blue 700
-  $--color-voting: #5AB467,
+  $--color-voting: #5ab467,
   //green 500
-  $--color-voting-disabled: #98DAA2,
+  $--color-voting-disabled: #98daa2,
   //green 300
   $--color-ideation: #e4b722,
   //yellow 700
-  $--color-ideation-disabled: #EFE08A,
+  $--color-ideation-disabled: #efe08a,
   //yellow 100
   $--color-follow-up: #da7ab1,
   //purple 500
-  $--color-follow-up-disabled: #E3A8CC,
+  $--color-follow-up-disabled: #e3a8cc,
   //purple 100
   $--color-group: #d7e9f8,
   //blue 200
-  $--input-checkbox-background-default: #5C9CD0,
-  $--input-checkbox-border-default: #1168A8,
-  $--input-checkbox-background-voting: #5AB467,
+  $--input-checkbox-background-default: #5c9cd0,
+  $--input-checkbox-border-default: #1168a8,
+  $--input-checkbox-background-voting: #5ab467,
   $--input-checkbox-border-voting: #346933,
   $--font-size: 14px,
   $--line-height: 16px,
@@ -135,9 +134,9 @@ $theme-messages-default: (
 );
 
 $theme-buttons-default: (
-  $--btn-submit:#2c3b47,
+  $--btn-submit: #2c3b47,
   $--btn-submit-text: #fff,
-  $--btn-submit-hover: #1168a8
+  $--btn-submit-hover: #1168a8,
 );
 
 /*Contrast and other definitions below*/
@@ -159,15 +158,15 @@ $theme-map-contrast: (
   //blue 700
   $--color-voting: #5ab467,
   //green 500
-  $--color-voting-disabled: #98DAA2,
+  $--color-voting-disabled: #98daa2,
   //green 300
   $--color-ideation: #e4b722,
   //yellow 700
-  $--color-ideation-disabled: #EFE08A,
+  $--color-ideation-disabled: #efe08a,
   //yellow 100
   $--color-follow-up: #da7ab1,
   //purple 500
-  $--color-follow-up-disabled: #E3A8CC,
+  $--color-follow-up-disabled: #e3a8cc,
   //purple 100
   $--color-group: #d7e9f8,
   //blue 200
@@ -211,9 +210,9 @@ $theme-messages-contrast: (
 );
 
 $theme-buttons-contrast: (
-  $--btn-submit:#000,
+  $--btn-submit: #000,
   $--btn-submit-text: #fff500,
-  $--btn-submit-hover: #1168a8
+  $--btn-submit-hover: #1168a8,
 );
 
 $theme-font-large: (

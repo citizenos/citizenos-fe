@@ -31,10 +31,8 @@
             placeholder="{{'VIEWS.ACCOUNT.MY_ACCOUNT_PLACEHOLDER_NAME' | translate}}"
             [ngClass]="{'error_input': errors.name}" [maxlength]="255" required (focus)="wWidth > 1024">
           <label for="name" class="error_label" *ngIf="errors.name">
-            <div class="table_cell">
-              <div class="sprite sprite-icon-inputfield-error2x"></div>
-              <span translate="{{errors.name}}"></span>
-            </div>
+            <div class="icon_notification_error_small"></div>
+            <span translate="{{errors.name}}"></span>
           </label>
         </cos-input>
         <cos-input placeholder="{{'VIEWS.ACCOUNT.MY_ACCOUNT_PLACEHOLDER_COMPANY' | translate}}">
@@ -42,10 +40,8 @@
             [placeholder]="('VIEWS.ACCOUNT.MY_ACCOUNT_PLACEHOLDER_COMPANY' | translate)"
             [ngClass]="{'error_input': errors.company}" [maxlength]="255">
           <label for="company" class="error_label" *ngIf="errors.company">
-            <div class="table_cell">
-              <div class="sprite sprite-icon-inputfield-error2x"></div>
-              <span translate="errors.company"></span>
-            </div>
+            <div class="icon_notification_error_small"></div>
+            <span translate="errors.company"></span>
           </label>
         </cos-input>
         <cos-input placeholder="{{'VIEWS.ACCOUNT.MY_ACCOUNT_PLACEHOLDER_EMAIL' | translate}}">
@@ -53,10 +49,8 @@
             placeholder="{{'VIEWS.ACCOUNT.MY_ACCOUNT_PLACEHOLDER_EMAIL' | translate}}"
             [ngClass]="{'error_input': errors.email}" [maxlength]="254" required #email="ngModel">
           <label for="email" class="error_label" *ngIf="errors.email">
-            <div class="table_cell">
-              <div class="sprite sprite-icon-inputfield-error2x"></div>
-              <span translate="{{errors.email}}"></span>
-            </div>
+            <div class="icon_notification_error_small"></div>
+            <span translate="{{errors.email}}"></span>
           </label>
         </cos-input>
         <ng-container *ngIf="resetPassword">
@@ -70,10 +64,8 @@
               placeholder="{{'VIEWS.ACCOUNT.MY_ACCOUNT_PLACEHOLDER_PASSWORD_CONFIRM' | translate}}"
               [ngClass]="{'error_input': errors.newPassword}" [maxlength]="64">
             <label for="newPassword" class="error_label" *ngIf="errors.newPassword">
-              <div class="table_cell">
-                <div class="sprite sprite-icon-inputfield-error2x"></div>
-                <span translate="{{errors.newPassword}}"></span>
-              </div>
+              <div class="icon_notification_error_small"></div>
+              <span translate="{{errors.newPassword}}"></span>
             </label>
           </cos-input>
         </ng-container>
@@ -83,10 +75,8 @@
             placeholder="{{'VIEWS.ACCOUNT.MY_ACCOUNT_PLACEHOLDER_PASSWORD' | translate}}"
             [ngClass]="{'error_input': errors.password}" [maxlength]="64" required #password="ngModel">
           <label for="password" class="error_label" *ngIf="errors.password">
-            <div class="table_cell">
-              <div class="sprite sprite-icon-inputfield-error2x"></div>
-              <span translate="{{errors.password}}"></span>
-            </div>
+            <div class="icon_notification_error_small"></div>
+            <span translate="{{errors.password}}"></span>
           </label>
         </cos-input>
         <a (click)="resetPassword=!resetPassword" translate="VIEWS.ACCOUNT.MY_ACCOUNT_RESET_PASSWORD"></a>
@@ -133,17 +123,56 @@
   </div>
   <div class="profile_area_section" *ngIf="(tabSelected | async) === 'notifications'">
     <h3>Manage topic notification</h3>
-    <div class="filter_section"></div>
+    <div class="filter_section">
+      <div class="input_area">
+        <div class="icon_general_search"></div>
+          <cos-input placeholder="Show per page">
+            <input class="topic_search_input"
+              placeholder="{{'VIEWS.ACCOUNT.MY_ACCOUNT_PLACEHOLDER_SEARCH' | translate}}" [value]="topicSearch"
+              [(ngModel)]="topicSearch" [ngModelOptions]="{standalone: true, updateOn:'change'}"
+              (ngModelChange)="searchTopics()">
+          </cos-input>
+      </div>
+      <cos-input placeholder="Show per page">
+        <div class="dropdown" [cosDropdown]>
+          <div class="selection">
+            <div class="selected_item">{{(TopicNotificationService.params$ | async)?.limit}}</div>
+            <div class="icon_arrow_down_black"></div>
+          </div>
+          <div class="options">
+            <div class="option" (click)="TopicNotificationService.setParam('limit', 5)">5</div>
+            <div class="option" (click)="TopicNotificationService.setParam('limit', 10)">10</div>
+            <div class="option" (click)="TopicNotificationService.setParam('limit', 15)">15</div>
+          </div>
+        </div>
+      </cos-input>
+    </div>
     <div class="content_section">
+      <div class="row_header">
+        <div class="row_cell"><a (click)="TopicNotificationService.doOrder('title')"><span
+              translate="VIEWS.ACCOUNT.MY_ACCOUNT_TABLE_HEADER_TOPIC"></span>
+            <div
+              [ngClass]="{'icon_general_arrow_small_down': (TopicNotificationService.params$ | async)?.order ==='desc', 'icon_general_arrow_small_up': (TopicNotificationService.params$ | async)?.order ==='asc'}">
+            </div>
+          </a></div>
+        <div class="row_cell" translate="VIEWS.ACCOUNT.MY_ACCOUNT_TABLE_HEADER_NOTIFICATIONS"></div>
+        <div class="row_cell"></div>
+      </div>
       <div class="row_list" *ngFor="let topic of topics$ | async">
         <div class="row_cell"><a class="blue_link" [innerHtml]>{{topic.title}}</a></div>
         <div class="row_cell"><cos-toggle [cosToggleTextOn]="'TOGGLE_ON' | translate"
             [cosToggleTextOff]="'TOGGLE_OFF' | translate" [model]="topic.allowNotifications"
             (click)="topic.allowNotifications=!topic.allowNotifications;toggleTopicNotifications(topic)"></cos-toggle>
         </div>
-        <div class="row_cell"><a class="blue_link" translate="VIEWS.TOPICS_TOPICID.NAV_LNK_SET_TOPIC_NOTIFICATIONS"
-            (click)="app.doShowTopicNotificationSettings(topic.topicId)"></a></div>
+        <div class="row_cell">
+          <a (click)="app.doShowTopicNotificationSettings(topic.topicId)">
+            <div class="icon_general_settings"></div>
+          </a>
+        </div>
       </div>
+      <cos-pagination class="pagination" (select)="TopicNotificationService.loadPage($event)"
+        [totalPages]="(TopicNotificationService.totalPages$ | async) || 0"
+        [page]="(TopicNotificationService.page$ | async) || 0"></cos-pagination>
     </div>
   </div>
 </div>
@@ -228,7 +257,7 @@
                 [ngClass]="{'error_input': errors.name}" [maxlength]="255" required (focus)="wWidth > 1024">
               <label for="name" class="error_label" *ngIf="errors.name">
                 <div class="table_cell">
-                  <div class="sprite sprite-icon-inputfield-error2x"></div>
+                  <div class="icon_notification_error_small"></div>
                   <span translate="{{errors.name}}"></span>
                 </div>
               </label>
@@ -240,7 +269,7 @@
                 [ngClass]="{'error_input': errors.company}" [maxlength]="255">
               <label for="company" class="error_label" *ngIf="errors.company">
                 <div class="table_cell">
-                  <div class="sprite sprite-icon-inputfield-error2x"></div>
+                  <div class="icon_notification_error_small"></div>
                   <span translate="errors.company"></span>
                 </div>
               </label>
@@ -252,7 +281,7 @@
                 [ngClass]="{'error_input': errors.email}" [maxlength]="254" required #email="ngModel">
               <label for="email" class="error_label" *ngIf="errors.email">
                 <div class="table_cell">
-                  <div class="sprite sprite-icon-inputfield-error2x"></div>
+                  <div class="icon_notification_error_small"></div>
                   <span translate="{{errors.email}}"></span>
                 </div>
               </label>
@@ -264,7 +293,7 @@
                 [ngClass]="{'error_input': errors.password}" [maxlength]="64" required #password="ngModel">
               <label for="password" class="error_label" *ngIf="errors.password">
                 <div class="table_cell">
-                  <div class="sprite sprite-icon-inputfield-error2x"></div>
+                  <div class="icon_notification_error_small"></div>
                   <span translate="{{errors.password}}"></span>
                 </div>
               </label>
@@ -339,7 +368,7 @@
                 [ngClass]="{'error_input': errors.newPassword}" [maxlength]="64">
               <label for="newPassword" class="error_label" *ngIf="errors.newPassword">
                 <div class="table_cell">
-                  <div class="sprite sprite-icon-inputfield-error2x"></div>
+                  <div class="icon_notification_error_small"></div>
                   <span translate="{{errors.newPassword}}"></span>
                 </div>
               </label>
@@ -351,7 +380,7 @@
                 [ngClass]="{'error_input': errors.password}" [maxlength]="64">
               <label for="password" class="error_label" *ngIf="errors.password">
                 <div class="table_cell">
-                  <div class="sprite sprite-icon-inputfield-error2x"></div>
+                  <div class="icon_notification_error_small"></div>
                   <span translate="{{errors.password}}"></span>
                 </div>
               </label>

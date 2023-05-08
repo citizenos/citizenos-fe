@@ -1,5 +1,7 @@
-cos-toggle {
-  position: absolute;
-  margin-top: -15px;
-  right: 20px;
+.info_row.with_toggle {
+  justify-content: space-between;
+}
+
+.dialog_content {
+  gap: 16px;
 }

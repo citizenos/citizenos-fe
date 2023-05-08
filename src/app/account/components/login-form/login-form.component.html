@@ -1,4 +1,4 @@
-<div id="login_form_wrap">
+<div class="form_wrap">
   <div class="icons_wrap">
     <a class="login_icon" *ngIf="authMethodsAvailable.facebook" (click)="doLoginPartner(LOGIN_PARTNERS.facebook)">
       <div class="icon_login_facebook"></div>
@@ -9,12 +9,13 @@
     <a class="login_icon" *ngIf="authMethodsAvailable.esteid || authMethodsAvailable.smartId" (click)="doLoginEsteId()">
       <div class="icon_login_esteid"></div>
     </a>
-    <a class="login_icon" *ngIf="authMethodsAvailable.esteid || authMethodsAvailable.smartId" (click)="doLoginEsteId()">
+    <a class="login_icon" *ngIf="authMethodsAvailable.esteid || authMethodsAvailable.smartId"
+      (click)="doLoginSmartId()">
       <div class="icon_login_smart_id"></div>
     </a>
   </div>
   <div translate="COMPONENTS.LOGIN_FORM.LOGIN_OR"></div>
-  <div id="login_email_wrap">
+  <div class="inputs_wrap">
     <form name="loginForm" [formGroup]="form">
       <div class="inline_notification error" *ngIf="errors?.accoundDoesNotExist">
         <div class="icon_notification"></div>
@@ -25,10 +26,8 @@
         <input id="email" formControlName="email" type="email" [ngClass]="{'error_input': errors?.email}"
           placeholder="{{'COMPONENTS.LOGIN_FORM.LOGIN_PLACEHOLDER_EMAIL' | translate}}" [maxlength]="254" required>
         <label for="email" class="error_label" *ngIf="errors?.email">
-          <div class="table_cell">
-            <div class="sprite sprite-icon-inputfield-error2x"></div>
-            <span translate="{{errors.email}}"></span>
-          </div>
+          <div class="icon_notification_error_small"></div>
+          <span translate="{{errors.email}}"></span>
         </label>
       </cos-input>
       <cos-input placeholder="{{'COMPONENTS.LOGIN_FORM.LOGIN_PLACEHOLDER_PASSWORD' | translate}}">
@@ -36,7 +35,7 @@
           placeholder="{{'COMPONENTS.LOGIN_FORM.LOGIN_PLACEHOLDER_PASSWORD' | translate}}" (focus)="isFormEmailProvided"
           [ngClass]="{'error_input': errors?.password}" [maxlength]="64" required cos-view-input>
         <label for="password" class="error_label" *ngIf="errors?.password">
-          <div class="sprite sprite-icon-inputfield-error2x"></div>
+          <div class="icon_notification_error_small"></div>
           <span translate="{{errors.password}}"></span>
         </label>
       </cos-input>
@@ -45,7 +44,7 @@
       </div>
       <button id="login_button" type="submit" (click)="doLogin()" cos-disabled="loginForm.$invalid"
         class="btn_big_submit" translate="COMPONENTS.LOGIN_FORM.LOGIN_BTN_LOGIN"></button>
+      <a [routerLink]="['/account/signup']" translate="COMPONENTS.LOGIN_FORM.LOGIN_LNK_NO_ACCOUNT_REGISTER"></a>
     </form>
-    <a [routerLink]="['/account/signup']" translate="COMPONENTS.LOGIN_FORM.LOGIN_LNK_NO_ACCOUNT_REGISTER"></a>
   </div>
 </div>

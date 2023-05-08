@@ -95,7 +95,7 @@
           </div>
           <label for="{{'voteOption' + $index}}" class="error_label" *ngIf="option.value && errors?.value">
             <div class="table_cell">
-              <div class="sprite sprite-icon-inputfield-error2x"></div>
+              <div class="icon_notification_error_small"></div>
               <span translate="{{errors.value}}"></span>
             </div>
           </label>
@@ -196,7 +196,7 @@
 
         <div class="gray_toggle_box" *ngIf="(vote.authType == VOTE_AUTH_TYPES.hard)">
           <div class="toggle_box_warning">
-            <div class="sprite sprite-icon-inputfield-error2x"></div>
+            <div class="icon_notification_error_small"></div>
             <span translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_NOTICE_DELEGATION_DISABLED_FOR_HARD_ID"></span>
           </div>
         </div>

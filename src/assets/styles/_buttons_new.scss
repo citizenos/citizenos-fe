@@ -31,6 +31,7 @@ button,
 %btn_big,
 %btn_medium,
 %btn_small {
+  background: none;
   justify-content: center;
   align-items: center;
   border: none;
@@ -68,10 +69,13 @@ $button-styles: (
   ),
   nav: (
     background: none,
-    color: #2c3b47,
-    hover: #f1f7fc,
-    hover-color: #1168a8,
+    color: var(--color-text),
+    hover: var(--color-background),
+    hover-color: var(--color-link),
   ),
+  paggination: (
+
+  )
 );
 
 @mixin button_styles($theme-map) {
@@ -87,7 +91,7 @@ $button-styles: (
           color: map-get($map, color);
         }
 
-        &:hover {
+        &:hover, &.active {
           background: map-get($map, hover);
           border: map-get($map, hover-border);
           color: map-get($map, hover-color);
@@ -103,6 +107,7 @@ $button-styles: (
 
 @include button_styles($button-styles);
 
+/*account back*/
 .btn_medium_light {
   @extend %btn_medium;
   padding: 8px 16px;
@@ -244,15 +249,18 @@ $button-styles: (
 
 /* Customize the label (the container) */
 .checkbox {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
   position: relative;
   padding-left: 35px;
-  margin-bottom: 12px;
   cursor: pointer;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  min-height: 24px;
 
   input {
     position: absolute;
@@ -261,7 +269,15 @@ $button-styles: (
     height: 0;
     width: 0;
   }
+  label {
+    display: flex;
+    align-content: center;
 
+    span {
+      display: flex;
+      align-content: center;
+    }
+  }
   /* Create a custom checkbox */
   .checkmark {
     position: absolute;

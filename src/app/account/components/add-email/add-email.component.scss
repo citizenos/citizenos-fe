@@ -1,100 +1,14 @@
-@use "mixins_n_extends";
-@use "vars";
+.dialog_content {
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-dialog-background);
+  padding: 16px;
+  gap: 16px;
 
-#lightbox.my_account_lightbox {
-  input {
-    @extend %input_small;
-  }
-
-  input,
-  button {
-    &:not(:first-child) {
-      margin-top: 10px;
-    }
-  }
-  #lightbox_wrap {
-    @include mixins_n_extends.mobile {
-      padding: 0;
-    }
-
-    .lightbox_content {
-      padding: 0;
-
-      .lightbox_section {
-        padding: 20px;
-
-        form {
-          padding: 20px 0px 0px;
-        }
-
-        .settings_section {
-          width: 100%;
-          display: table;
-
-          .settings_cell {
-            display: table-cell;
-            width: 50%;
-
-            .setting_title {
-              font-size: 16px;
-              font-weight: vars.$bold;
-            }
-
-            .setting_description {
-              font-size: 11px;
-            }
-          }
-        }
-      }
-    }
-
-    .lightbox_footer {
-      .delete_account {
-        margin-left: 20px;
-
-        span {
-          display: inline-block;
-          color: vars.$pinky_red;
-        }
-      }
-    }
-  }
-}
-
-.second_header {
-  padding: 20px 20px 22px 20px;
-  text-align: center;
-
-  background: vars.$white;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-
-  @include mixins_n_extends.mobile {
-    background: vars.$light_gray;
-    padding-top: 40px;
-    border-radius: 0;
-  }
-
-  .sprite-icon-delete-topic2x,
-  .sprite-icon-warn-topic2x {
-    margin: 0 auto 16px auto;
-  }
-
-  .delete_title {
-    color: vars.$pinky_red !important;
-    font-size: 22px;
-    font-weight: vars.$bold;
-    margin-bottom: 5px;
-  }
-
-  .warn_title {
-    color: vars.$dark_blue !important;
-    font-size: 22px;
-    font-weight: vars.$bold;
-    margin-bottom: 5px;
-  }
-
-  .delete_description {
-    font-size: 14px;
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
   }
 }

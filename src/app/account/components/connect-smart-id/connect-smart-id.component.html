@@ -32,19 +32,15 @@
                 pattern="^[A-Z]{2}$" required>
               <label for="pid" class="error_label"
                 *ngIf="countryInput.errors && countryInput.errors['pattern'] && countryInput.touched">
-                <div class="table_cell">
-                  <div class="sprite sprite-icon-inputfield-error2x"></div>
+                  <div class="icon_notification_error_small"></div>
                   <span translate="MODALS.LOGIN_SMARTID_ERROR_COUNTRY_CODE"></span>
-                </div>
               </label>
               <input id="pid" name="pid" type="text" inputmode="numeric" [(ngModel)]="pid" #pidInput="ngModel"
                 [placeholder]="'MODALS.LOGIN_SMARTID_PLACEHOLDER_PID' | translate" ngModel
                 [ngClass]="{'error_input': pidInput.errors && pidInput.errors['pattern'] &&pidInput.touched}" pattern="^[0-9]{11}$" required>
               <label for="pid" class="error_label" *ngIf="pidInput.errors && pidInput.errors['pattern'] && pidInput.touched">
-                <div class="table_cell">
-                  <div class="sprite sprite-icon-inputfield-error2x"></div>
+                  <div class="icon_notification_error_small"></div>
                   <span translate="MODALS.LOGIN_SMARTID_ERROR_PID"></span>
-                </div>
               </label>
             </div>
 

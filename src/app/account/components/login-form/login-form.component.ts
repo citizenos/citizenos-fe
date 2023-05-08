@@ -176,14 +176,18 @@ export class LoginFormComponent {
    * Login with Estonian ID-Card
    */
   doLoginEsteId() {
-    this.dialog.open(EstIdLoginComponent, {});
+    this.router.navigate(['estid'], { relativeTo: this.route })
+    /*
+    this.dialog.open(EstIdLoginComponent, {});*/
   };
 
   /**
    * Login with Smart-ID
    */
   doLoginSmartId() {
-    this.dialog.open(SmartIdLoginComponent);
+    this.router.navigate(['smartid'], { relativeTo: this.route })
+  /*  console.log('doLoginSmartId')
+    this.dialog.open(SmartIdLoginComponent);*/
   };
 
   /**

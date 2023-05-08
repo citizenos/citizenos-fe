@@ -1,31 +1,11 @@
-#register_form_wrap {
+#register_inputs_wrap {
+  gap: 6px;
   display: flex;
-  flex-direction: column;
   align-items: center;
+  flex-direction: column;
   width: 100%;
-  gap: 24px;
-  min-width: 400px;
-  form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    gap: 24px;
 
-    #register_inputs_wrap {
-      gap: 6px;
-      display: flex;
-      align-items: center;
-      flex-direction: column;
-      width: 100%;
-
-      input {
-        width: 100%;
-      }
-    }
-  }
-
-  #register_button {
+  input {
     width: 100%;
   }
 }
