@@ -250,6 +250,8 @@
             font-size: 26px;
           }
           img {
+            aspect-ratio: 1;
+            object-fit: contain;
             float: left;
             height: 40px;
             width: 40px;
