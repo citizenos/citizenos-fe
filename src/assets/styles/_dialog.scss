@@ -52,9 +52,24 @@
     background-color: var(--color-dialog);
     justify-content: space-between;
 
+    &.error {
+      background-color: var(--color-error-background);
+      color: var(--color-error);
+    }
+
+    &.warning {
+      background-color: var(--color-warn-background);
+      color: var(--color-warn);
+    }
+
     &.info {
       background-color: var(--color-info-background);
       color: var(--color-info);
+    }
+
+    &.success {
+      background-color: var(--color-success-background);
+      color: var(--color-success);
     }
 
     .header_with_icon{
@@ -78,7 +93,6 @@
       position: absolute;
       right: 0;
       height: 100%;
-      align-items: center;
     }
   }
 
@@ -118,10 +132,10 @@
         background: var(--color-success-background);
       }
 
-      .info_row {
+      a, div {
         display: flex;
-        flex-direction: row;
         gap: 8px;
+        align-items: center;
       }
     }
   }
@@ -132,6 +146,9 @@
     gap: 24px;
     align-items: center;
     justify-content: center;
+    a {
+      line-height: 32px;
+    }
   }
 
   .dialog_footer {
@@ -150,5 +167,12 @@
         padding: 12px 24px;
       }
     }
+  }
+
+  .info_row {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    max-width: 520px;
   }
 }

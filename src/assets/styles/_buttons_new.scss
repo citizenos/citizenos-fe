@@ -73,9 +73,7 @@ $button-styles: (
     hover: var(--color-background),
     hover-color: var(--color-link),
   ),
-  paggination: (
-
-  )
+  paggination: (),
 );
 
 @mixin button_styles($theme-map) {
@@ -86,18 +84,30 @@ $button-styles: (
         background: map-get($map, background);
         border: map-get($map, border);
         color: map-get($map, color);
-
+        path {
+          fill: map-get($map, color);
+        }
+        circle {
+          stroke: map-get($map, color);
+        }
         span {
           color: map-get($map, color);
         }
 
-        &:hover, &.active {
+        &:hover,
+        &.active {
           background: map-get($map, hover);
           border: map-get($map, hover-border);
           color: map-get($map, hover-color);
 
           span {
             color: map-get($map, hover-color);
+          }
+          path {
+            fill: map-get($map, hover-color);
+          }
+          circle {
+            stroke: map-get($map, hover-color);
           }
         }
       }
@@ -118,6 +128,14 @@ $button-styles: (
   &.active {
     color: var(--color-link);
     background-color: var(--color-background);
+
+    path {
+      fill: var(--color-link);
+    }
+
+    circle {
+      stroke: var(--color-link);
+    }
   }
 }
 

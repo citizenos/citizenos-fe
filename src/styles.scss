@@ -51,9 +51,18 @@ a {
   color: var(--color-link);
   cursor: pointer;
 
+  path {
+    fill: var(--color-link);
+  }
+
+  circle {
+    stroke: var(--color-link);
+  }
+
   &:hover {
     color: var(--color-link);
   }
+
 }
 
 .input_area {
@@ -63,7 +72,8 @@ a {
   background-color: var(--color-surfaces);
   border: 1px solid var(--color-border);
   border-radius: 8px;
-  input, cos-input {
+  input,
+  cos-input {
     border: none;
     &:focus,
     &:active,
@@ -98,11 +108,13 @@ input,
 }
 
 .dropdown {
+  border: none;
+  height: 48px;
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 16px;
   padding: 0;
+
   .selection {
     position: relative;
     cursor: pointer;
@@ -110,12 +122,20 @@ input,
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
     padding: 14px;
   }
 
   .options {
     display: none;
     flex-direction: column;
+    padding: 8px 0 0;
+    background: var(--color-surfaces);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    z-index: 9;
+
     .option {
       display: flex;
       align-items: center;
@@ -129,7 +149,14 @@ input,
   }
 
   &.dropdown_active {
+    .selection {
+      border-bottom: none;
+      border-radius: 8px 8px 0 0;
+    }
+
     .options {
+      border-top: none;
+      border-radius: 0 0 8px 8px;
       display: flex;
     }
   }

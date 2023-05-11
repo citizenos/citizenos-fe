@@ -1,5 +1,58 @@
 <!-- LIGHTBOX SKELETON -->
-<div id="root_lightbox">
+<div class="overlay" mat-dialog-close></div>
+<div class="dialog">
+  <div class="dialog_header"
+    [ngClass]="{'warning': data.level === 'warn', 'error': data.level === 'delete', 'info': data.level === 'info'}">
+    <div class="header_with_icon">
+      <div class="icon_notification_info"
+        [ngClass]="{'icon_notification_warn': data.level === 'warn', 'icon_notification_error': data.level === 'delete', 'icon_notification_info': data.level === 'info'}">
+      </div>
+      <h4 class="title" translate="{{data.heading}}"></h4>
+    </div>
+    <div class="dialog_close">
+      <button class="btn_dialog_close" mat-dialog-close>
+        <div class="icon_mobile_close"></div>
+      </button>
+    </div>
+  </div>
+  <div class="dialog_content">
+    <div class="info_row" translate="{{data.description}}"></div>
+  </div>
+  <div class="dialog_info_wrap">
+    <!--Sections with h3-->
+    <ng-container *ngFor="let section of data.sections">
+      <h3 translate="{{section.heading}}"></h3>
+      <div class="delete_info_text_wrap">
+        <div class="delete_info" *ngFor="let point of section.points">
+          <div class="sprite sprite-checkmark2x"></div>
+          <div class="delete_info_text" translate="{{point}}"></div>
+        </div>
+      </div>
+    </ng-container>
+    <!--Sections with h3 end-->
+    <div class="dialog_info">
+      <div class="delete_info_button_wrap" *ngIf="data.info">
+        <div class="delete_info_text" translate="{{data.info}}"></div>
+      </div>
+      <ng-container *ngFor="let point of data.points">
+        <div>
+          <div class="sprite sprite-checkmark2x"></div>
+          <div class="delete_info_text" translate="{{point}}"></div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <div class="dialog_content">
+    <div class="button_wrap">
+      <button class="btn_big_submit" [mat-dialog-close]="true" translate="{{data.confirmBtn}}"></button>
+      <a mat-dialog-close translate="{{data.closeBtn}}"></a>
+    </div>
+  </div>
+  <div class="dialog_footer">
+  </div>
+</div>
+
+<!--div id="root_lightbox">
   <div id="lightbox" class="confirm wide_lightbox">
       <div id="lightbox_wrap">
 
@@ -44,7 +97,7 @@
               </div>
 
               <div id="delete_info_wrap">
-                  <!--Sections with h3-->
+                  <!--Sections with h3>
                   <ng-container *ngFor="let section of data.sections">
                     <h3 translate="{{section.heading}}">This content will be duplicated</h3>
                     <div class="delete_info_text_wrap">
@@ -54,7 +107,7 @@
                       </div>
                   </div>
                   </ng-container>
-                  <!--Sections with h3 end-->
+                  <!--Sections with h3 end>
                   <div class="delete_info_text_wrap">
                       <div class="delete_info_button_wrap" *ngIf="data.info">
                           <div class="delete_info_text" translate="{{data.info}}"></div>
@@ -86,4 +139,4 @@
 
   <div id="close_lightbox" mat-dialog-close></div>
 
-</div>
+</!--div-->
