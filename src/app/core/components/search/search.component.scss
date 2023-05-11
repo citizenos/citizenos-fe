@@ -28,39 +28,36 @@
     padding: 16px 0;
   }
 
-  #input_area {
-    display: flex;
-    padding: 0 12px;
-    gap: 8px;
-    align-items: center;
-    border: 1px solid var(--color-border);
+  .input_area {
     border-radius: 40px;
-    background-color: var(--color-surfaces);
-    width: 100%;
-
+    gap: 0;
     @include mixins.mobile {
       background-color: var(--color-background);
-      border:none;
+      border: none;
       border-radius: 0;
     }
+
     .icon_general_search {
-      position: absolute;
+      margin-left: 11px;
     }
 
-    input {
-      margin-left: 8px;
-      border:none;
-      &:focus, &:active, &:hover {
-        border: none;
-        outline: none;
+    cos-input {
+      .cos_input_wrap {
+        .cos_input_placeholder {
+          left: 8px;
+        }
       }
-
-      @include mixins.mobile {
-        width: 100%;
-        background-color: var(--color-background);
+      input {
+        &.with_value {
+          padding: 23px 0 7px 16px;
+        }
       }
+    }
+    a {
+      margin-right: 16px;
     }
   }
+
   .btn_medium_close {
     position: absolute;
     float: right;
@@ -96,236 +93,3 @@
     }
   }
 }
-/*
-#search_area_wrap {
-  background: vars.$white;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 4;
-
-  @include mixins_n_extends.tablet {
-    background: var(--color-background);
-    display: table;
-    height: 60px;
-    width: 100%;
-    position: relative;
-  }
-
-  .logo_area,
-  .header_button {
-    display: none;
-    @include mixins_n_extends.tablet {
-      display: table;
-    }
-  }
-
-
-  .ac-input {
-    @include mixins_n_extends.tablet {
-      position: relative;
-      height: 60px;
-      vertical-align: middle;
-      width: 100%;
-      top: 15px;
-    }
-
-    input {
-      border: none;
-      height: 60px;
-      width: 100%;
-      font-size: 14px;
-      padding: 0 58px;
-      box-sizing: border-box;
-      @include mixins_n_extends.tablet {
-        border-radius: 15px;
-        border: none;
-        height: 30px;
-        padding: 0 34px 1px 34px;
-        box-sizing: border-box;
-        width: 100%;
-
-        &:focus {
-          outline: none;
-        }
-      }
-
-      &:focus,
-      input:focus {
-        outline: none;
-      }
-    }
-  }
-
-
-  .search_cat {
-    width: 100%;
-    background: vars.$medium_gray;
-
-    .cat_wrap {
-      @extend %table_cell;
-      padding: 0 20px 0 20px;
-      height: 40px;
-    }
-  }
-
-  #search_results_list {
-    background: vars.$white;
-    position: fixed;
-    overflow-y: scroll;
-    left: 190px;
-    right: 0;
-    height: 100%;
-
-    @include mixins_n_extends.tablet {
-      left: 0;
-    }
-
-    .last {
-      margin-bottom: 60px;
-    }
-  }
-
-  .results_area {
-    padding: 5px 5px 15px 5px;
-    background: vars.$white;
-    .result_group {
-      margin-bottom: 8px;
-      display: table;
-      width: 100%;
-
-      .no_results {
-        text-align: center;
-        padding: 35px 20px 17px 20px;
-
-        @include mixins_n_extends.mobile {
-          padding: 15px 10px 0 10px;
-        }
-
-        .search_msgb {
-          display: inline-block;
-          margin-bottom: 10px;
-        }
-
-        .search_msg {
-          display: inline-block;
-          width: 560px;
-          @media (max-width: 600px) {
-            width: 100%;
-          }
-        }
-      }
-
-      .results_header,
-      .result_links {
-        display: table-row;
-      }
-
-      .result_links {
-        &.active {
-          .result_link,
-          .more_results {
-            color: vars.$sky_blue;
-            text-decoration: underline;
-          }
-        }
-      }
-      .result_title,
-      .links_wrap {
-        display: table-cell;
-      }
-
-      .links_wrap,
-      .result_title,
-      .more_results {
-        padding: 5px 15px;
-      }
-
-      .links_wrap {
-        @include mixins_n_extends.mobile {
-          padding: 10px 15px;
-        }
-      }
-
-      .result_link,
-      .result_title {
-        font-weight: bold;
-      }
-
-      .result_link {
-        color: vars.$deep_sky_blue;
-      }
-
-      .more_results {
-        color: vars.$deep_sky_blue;
-        font-size: 13px;
-        cursor: pointer;
-        display: inline-block;
-      }
-
-      .more_results:hover,
-      .result_link:hover {
-        color: vars.$sky_blue;
-      }
-    }
-  }
-}
-
-#donate_wrap {
-  @include mixins_n_extends.mobile {
-    display: none;
-  }
-
-  @include mixins_n_extends.tablet {
-    display: none;
-  }
-  position: absolute;
-  height: 60px;
-  right: 0px;
-  top: 0px;
-  border-radius: 0px;
-  background: #f5e6e8;
-  border-radius: 32px 0px 0px 32px;
-
-  .donate_item {
-    display: inline-block;
-    vertical-align: middle;
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-  #donate_icon {
-    position: static;
-    width: 20px;
-    height: 20px;
-    margin-left: 20px;
-    background-image: url("./imgs/icon_donate.png");
-  }
-
-  #donate_text {
-    font-family: "Noto Sans", sans-serif;
-    position: static;
-    font-style: normal;
-    color: #8e4765;
-    margin-left: 10px;
-  }
-
-  #donate_button {
-    padding: 10px 20px;
-    box-sizing: border-box;
-    border-radius: 4px;
-
-    font-family: "Noto Sans", sans-serif;
-    font-weight: 700;
-    font-size: 14px;
-    line-height: 20px;
-    text-align: center;
-    color: #8e4765;
-    background: linear-gradient(180deg, #ecd5d6 0%, #e598b8 100%);
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 20px;
-    margin-left: 20px;
-    margin-right: 20px;
-  }
-}
-*/
