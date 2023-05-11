@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes, ExtraOptions, UrlSegment } from '@angular/router';
 import { HomeComponent } from './core/components/home/home.component';
+import { DashboardComponent } from './core/components/dashboard/dashboard.component';
 import { AuthGuard } from './auth/auth.guard';
 import { PageNotFoundComponent } from './core/components/page-not-found/page-not-found.component';
 import { PageUnauthorizedComponent } from './core/components/page-unauthorized/page-unauthorized.component';
@@ -12,11 +13,11 @@ const options: ExtraOptions = {
 
 const routes: Routes = [
   {
-    path: ':lang', resolve: {user: authResolver},
+    path: ':lang', resolve: { user: authResolver },
     children: [
       { path: '401', component: PageUnauthorizedComponent },
       { path: '403', component: PageUnauthorizedComponent },
-      { path: '404', component: PageNotFoundComponent},
+      { path: '404', component: PageNotFoundComponent },
       { path: 'account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
       { path: 'topics', loadChildren: () => import('./topic/topic.module').then(m => m.TopicModule) },
       { path: 'groups', loadChildren: () => import('./group/group.module').then(m => m.GroupModule) },
@@ -34,9 +35,12 @@ const routes: Routes = [
       },
       { path: 'error/401', component: PageNotFoundComponent },
       { path: 'error/404', component: PageNotFoundComponent },
-      { path: '', component: HomeComponent, children: [
-        { path: ':category', component: HomeComponent },
-      ]},
+      { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+      {
+        path: '', component: HomeComponent, children: [
+          { path: ':category', component: HomeComponent },
+        ]
+      },
     ],
   },
   { path: '401', redirectTo: '/:lang/error/401' },

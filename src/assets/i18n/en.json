@@ -747,6 +747,12 @@
       "MY_ACCOUNT_LBL_NOTIFICATION_TOPICS": "Topics with notifications turned on",
       "MY_ACCOUNT_REMOVE_TOPIC_NOTIFICATIONS": "Turn off topic notifications"
     },
+    "DASHBOARD": {
+      "HEADER_WELCOME": "Welcome back to yout dashboard <a href=\"/account\">{{user.name}}</a>",
+      "BTN_GLOBAL_ACTIVITIES":"Global activities",
+      "MY_TOPICS_HEADER": "@:DEFAULT.NAV.LNK_MY_TOPICS",
+      "MY_TOPICS_LNK_VIEW_ALL": "View all your topics"
+    },
     "401": {
       "HEADING_INSUFFICIENT_PERMISSIONS": "Sorry, you haven't got sufficient permissions to access the resource",
       "DESCRIPTION_INSUFFICIENT_PERMISSIONS": "If you have an invite to topic or group, you need to accept it first. Please check your activity feed or e-mail.",
@@ -779,6 +785,7 @@
       "BTN_BACK": "@:VIEWS.LOGIN.BTN_BACK"
     },
     "HOME": {
+      "HEADING_WELCOME": "Hi there, welcome to Citizen OS!",
       "PUBLIC_GROUPS_TITLE": "Popular public groups",
       "PUBLIC_GROUPS_DESCRIPTION": "Have a sneak peek at some of the most popular public groups currently available on Citizen OS.",
       "BTN_VIEW_ALL_GROUPS": "View all public groups",

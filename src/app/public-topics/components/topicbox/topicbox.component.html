@@ -1,5 +1,56 @@
 <a (click)="goToView()" class="topic" [ngClass]="catClass">
-  <div class="topic_wrap">
+  <div class="topic_header"></div>
+  <div class="image">
+    <img
+      [src]="topic.imageUrl || 'https://hips.hearstapps.com/hmg-prod/images/champagne-beach-espiritu-santo-island-vanuatu-royalty-free-image-1655672510.jpg?crop=1.00xw:0.755xh;0,0.173xh&resize=1200:*'">
+  </div>
+  <div class="topic_content">
+    <div class="icon_private" *ngIf="topic.visibility === 'private'">
+      <svg class="svg">
+        <clipPath id="my-clip-path" clipPathUnits="objectBoundingBox">
+          <path
+            d="M0.829,0.305 C0.86,0.407,0.921,0.5,1,0.5 V0.5 C0.982,0.753,0.685,1,0.5,1 C0.309,1,0.009,0.765,0,0.5 V0.5 C0.079,0.5,0.14,0.407,0.171,0.305 C0.225,0.126,0.352,0,0.5,0 C0.648,0,0.775,0.126,0.829,0.305">
+          </path>
+        </clipPath>
+      </svg>
+
+      <div class="clipped">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M8 9V7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7V9H17C18.1046 9 19 9.89543 19 11V17C19 18.1046 18.1046 19 17 19H7C5.89543 19 5 18.1046 5 17V11C5 9.89543 5.89543 9 7 9H8ZM14 7V9H10V7C10 5.89543 10.8954 5 12 5C13.1046 5 14 5.89543 14 7ZM11 13C11 12.4477 11.4477 12 12 12C12.5523 12 13 12.4477 13 13V15C13 15.5523 12.5523 16 12 16C11.4477 16 11 15.5523 11 15V13Z"
+            fill="#2C3B47" />
+        </svg>
+      </div>
+    </div>
+    <div class="date">{{topic.createdAt | amDateFormat : 'L'}}</div>
+    <h3 [innerHTML]="topic.title"></h3>
+
+  </div>
+  <div class="topic_footer">
+    <div class="line_separator"></div>
+    <div class="data_wrap">
+      <div class="participants_count">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M7.99999 8.00016C9.84094 8.00016 11.3333 6.50778 11.3333 4.66683C11.3333 2.82588 9.84094 1.3335 7.99999 1.3335C6.15904 1.3335 4.66666 2.82588 4.66666 4.66683C4.66666 6.50778 6.15904 8.00016 7.99999 8.00016Z"
+            fill="#2C3B47" />
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M4 11.6295C4 9.99307 5.19391 8.6665 6.66667 8.6665H9.33333C10.8061 8.6665 12 9.99307 12 11.6295V15.3332H4V11.6295Z"
+            fill="#2C3B47" />
+        </svg>
+        <span>{{topic.members.users.count}}</span>
+      </div>
+      <div class="last_edit">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M8.8143 4.18517L11.8147 7.18569L5.29947 13.7012L2.62438 13.9965C2.26626 14.0361 1.96369 13.7333 2.00354 13.3752L2.30118 10.6981L8.8143 4.18517V4.18517ZM13.6704 3.73845L12.2616 2.3296C11.8222 1.89013 11.1095 1.89013 10.67 2.3296L9.34467 3.65501L12.3451 6.65553L13.6704 5.33011C14.1099 4.89042 14.1099 4.17791 13.6704 3.73845V3.73845Z"
+            fill="#2C3B47" />
+        </svg>
+        <span>{{topic.createdAt | amTimeAgo}}</span>
+      </div>
+    </div>
+  </div>
+  <!--div class="topic_wrap">
       <div class="top text_small">
           <div class="date">{{topic.lastActivity  | amDateFormat : 'L'}}</div>
           <div class="author">{{topic.creator.name}}</div>
@@ -7,7 +58,6 @@
       </div>
 
       <div class="main_text">
-          <div class="text_big" [innerHTML]="topic.title"></div>
           <div class="text_small" *ngIf="showInfo()" [innerHTML]="topic.description.replace(topic.title, '')"></div>
       </div>
 
@@ -18,5 +68,5 @@
               <span translate="{{'TXT_TOPIC_CATEGORY_' + category | uppercase}}"></span><span [ngClass]="{hidden: last}">, </span>
           </span>
       </div>
-  </div>
+  </!--div-->
 </a>
