@@ -37,6 +37,7 @@ import { NavMobileComponent } from './core/components/nav-mobile/nav-mobile.comp
 import { FeedbackComponent } from './core/components/feedback/feedback.component';
 import { CreateComponent } from './core/components/create/create.component';
 import { AccessibilityMenuComponent } from './core/components/accessibility-menu/accessibility-menu.component';
+import { DashboardComponent } from './core/components/dashboard/dashboard.component';
 
 /*Needs update to also properly load config */
 export function appInitializerFactory(translate: TranslateService) {
@@ -61,7 +62,8 @@ export function appInitializerFactory(translate: TranslateService) {
     NavMobileComponent,
     FeedbackComponent,
     CreateComponent,
-    AccessibilityMenuComponent
+    AccessibilityMenuComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

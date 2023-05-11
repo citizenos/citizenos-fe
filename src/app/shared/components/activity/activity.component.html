@@ -1,4 +1,27 @@
-<div class="activity_content" *ngFor="let activity of activitygroup.values; let $first = first;">
+<div class="activity_wrap" *ngFor="let activity of activitygroup.values; let $first = first;">
+  <ng-container >
+    <div id="new_activity" *ngIf="activity.isNew">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="7" cy="7" r="6" fill="#F39129" stroke="#EBF4FB" stroke-width="2"/>
+      </svg>
+    </div>
+  </ng-container>
+  <div class="activity_header">
+    <div class="activity_icon" [ngClass]="('icon_feature_'+activity.values.className)"></div>
+    <div class="date" [innerHtml]="activity.updatedAt | amDateFormat : 'L LT'"></div>
+  </div>
+  <div class="activity_content">
+    <div class="grouped" *ngIf="keyCounter(activitygroup.values) > 1">
+      <div [innerHtml]="translateGroup(activitygroup.referer, activitygroup.values)"></div>
+    </div>
+    <div class="single" *ngIf="keyCounter(activitygroup.values) === 1">
+      <div [innerHTML]="translateActivity(activity)"></div>
+    </div>
+  </div>
+  <div class="activity_actions"></div>
+</div>
+
+<!--div class="activity_content" *ngFor="let activity of activitygroup.values; let $first = first;">
   <div class="left_side">
     <div class="line_top"></div>
     <div class="icon">
@@ -27,7 +50,7 @@
         <div class="contents">
           <div class="contents_image">
             <div class="profile_image_wrapper dark">
-              <!--div class="profile_moon sprite sprite-icon-certified-fb2x"></div-->
+              <!--div class="profile_moon sprite sprite-icon-certified-fb2x"></div>
               <div class="account_picture">
                 <div class="profile_image_filler">
                   <cos-initials class="table_cell" [name]="a.values.userName"></cos-initials>
@@ -58,12 +81,12 @@
       </div>
       <div class="description_area italic">
         <span *ngIf="showActivityUpdateVersions(activity)">
-          <span class="activity_previous" [innerHtml]="translateVersion(activity, 'previous')"></span> <!---->
+          <span class="activity_previous" [innerHtml]="translateVersion(activity, 'previous')"></span>
           <br>
-          <span class="activity_new" [innerHtml]="translateVersion(activity, 'new')"></span><!--[translateParams]="{newValue: '{{(activity.values.newValue | slice:0:200) + (activity.values.newValue.length > 200 ? '...' : '')}}'}"-->
+          <span class="activity_new" [innerHtml]="translateVersion(activity, 'new')"></span><!--[translateParams]="{newValue: '{{(activity.values.newValue | slice:0:200) + (activity.values.newValue.length > 200 ? '...' : '')}}'}">
         </span>
         <span *ngIf="showActivityDescription(activity) && !showActivityUpdateVersions(activity)"
-          class="activity_description_text"> <!--[innerHtml]="(activity.values.description | slice:0:200) + (activity.values.description.length > 200 ? '...' : '')"-->
+          class="activity_description_text"> <!--[innerHtml]="(activity.values.description | slice:0:200) + (activity.values.description.length > 200 ? '...' : '')">
         </span>
       </div>
       <div class="date_area" [innerHtml]="activity.updatedAt | amDateFormat : 'L LT'"></div>
@@ -72,4 +95,4 @@
     </div>
   </div>
   <div class="clearer" *ngIf="$first"></div>
-</div>
+</!--div-->

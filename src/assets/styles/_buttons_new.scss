@@ -73,7 +73,13 @@ $button-styles: (
     hover: var(--color-background),
     hover-color: var(--color-link),
   ),
-  paggination: (),
+  activity: (
+    background: var(--color-warn-background),
+  ),
+  activity_new: (
+    background: var(--color-warn),
+    color: var(--color-surfaces)
+  )
 );
 
 @mixin button_styles($theme-map) {

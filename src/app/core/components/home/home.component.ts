@@ -42,6 +42,7 @@ export class HomeComponent implements OnInit {
   isLoggedIn() {
     return this.AuthService.loggedIn$.value;
   }
+
   ngOnInit(): void {
     this.PublicTopicService.reset();
     this.PublicGroupService.reset();

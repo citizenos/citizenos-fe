@@ -1,5 +1,31 @@
 <!-- LIGHTBOX SKELETON -->
-<div class="line lightest_line"></div>
+<div id="activity_feed">
+  <h3 translate="MODALS.ACTIVITY_MODAL_HEADING"></h3>
+  <a class="btn_medium_close" mat-dialog-close>
+    <div class="icon_general_close"></div>
+  </a>
+  <cos-input placeholder="Show">
+    <div class="dropdown" [cosDropdown]>
+      <div class="selection">
+        <div class="selected_item">{{'ACTIVITY_FEED.FILTER_' + ((ActivityService.params$ |
+          async)?.include?.toUpperCase() || 'ALL') | translate}}</div>
+        <div class="icon_arrow_down_black"></div>
+      </div>
+      <div class="options">
+        <div class="option" *ngFor="let filter of ActivityService.filters" (click)="filterActivities(filter)"
+          translate="ACTIVITY_FEED.FILTER_{{filter.toUpperCase()}}">
+        </div>
+      </div>
+    </div>
+  </cos-input>
+  <div id="results_area" (scroll)="loadMore($event)">
+    <activity [activitygroup]="item" *ngFor="let item of activities$ | async"></activity>
+  </div>
+</div>
+
+<div class="overlay"></div>
+
+<!--div class="line lightest_line"></!--div>
 <div id="root_lightbox" class="full_screen left_menu_visible">
   <div id="lightbox" class="aligned_left_top">
     <div id="lightbox_wrap">
@@ -26,7 +52,7 @@
             </div>
             <div class="dropdown">
 
-              <!-- NO CATEGORY -->
+              <!-- NO CATEGORY >
               <div class="dropdown_item" *ngFor="let filter of ActivityService.filters"
                 (click)="filterActivities(filter)">
                 <div class="item_name medium" translate="ACTIVITY_FEED.FILTER_{{filter.toUpperCase()}}">
@@ -52,7 +78,7 @@
       <div class="line lightest_line"></div>
 
 
-      <!-- CONFIRM CONTENT -->
+      <!-- CONFIRM CONTENT >
       <div class="lightbox_content" (scroll)="loadMore($event)">
         <div class="lightbox_section">
           <div class="activity_wrap modal">
@@ -74,4 +100,4 @@
   <div id="close_lightbox" mat-dialog-close>
   </div>
 
-</div>
+</div-->
