@@ -36,17 +36,36 @@
       </div>
     </div>
   </div>
-  <div class="group_content">
+  <div class="group_title">
     <h3 [innerText]="group.name"></h3>
-    <div class="group_description" [innerText]="group.description"></div>
   </div>
-  <div class="group_info_area">
-    <div class="info_item"></div>
-    <div class="info_item"></div>
-    <div class="info_item"></div>
+  <div class="group_footer">
+    <div class="group_description bold" [innerText]="group.description"></div>
+    <div class="date" [innerText]="group.createdAt"></div>
   </div>
-  <button *ngIf="!group.userLevel" class="btn_big_submit" (click)="joinGroup()" translate="VIEWS.PUBLIC_GROUPS.BTN_JOIN_GROUP">
-  </button>
-  <button *ngIf="group.userLevel" class="btn_big_submit" (click)="viewGroup()" translate="VIEWS.PUBLIC_GROUPS.BTN_VIEW_GROUP">
-  </button>
+  <!--div class="group_title">
+    <div class="group_header">
+      <div class="group_icon">
+        <div class="group_circle">
+          <div class="group_icon" *ngIf="group.imageUrl"><img [src]="group.imageUrl" /></div>
+
+          <!--cos-initials  *ngIf="!group.imageUrl && group.name" class="table_cell" ng-model="group.name" initial-limit="1"></!--cos-initials>
+        </div>
+      </div>
+    </div>
+    <div class="group_name">
+      <span [innerText]="group.name"></span>
+    </div>
+    <div class="group_details">
+      <span [innerText]="group.description"></span>
+    </div>
+  </!--div>
+  <div-- class="join_button">
+    <div class="blue_button_wrap">
+      <button class="blue_button" *ngIf="!group.userLevel" (click)="joinGroup()"
+        translate="VIEWS.PUBLIC_GROUPS.BTN_JOIN_GROUP"></button>
+      <button class="blue_button" *ngIf="group.userLevel" (click)="viewGroup()"
+        translate="VIEWS.PUBLIC_GROUPS.BTN_VIEW_GROUP"></button>
+    </div>
+  </div-->
 </a>

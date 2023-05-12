@@ -1,37 +1,36 @@
-<div id="home_wrap">
+<div class="page_content" id="home_wrap">
   <h3 translate="VIEWS.HOME.HEADING_WELCOME"></h3>
-  <ng-container *ngIf="topics$ | async; let topics;">
-    <div class="home_items_section topics_section">
-      <div class="section_header">
-        <h2 translate="VIEWS.HOME.PUBLIC_TOPICS_TITLE"></h2>
-        <div>Have a sneak peek a t popular public topics</div>
-      </div>
-      <div class="section_content">
-        <topicbox [topic]="topic" *ngFor="let topic of topics; trackBy: trackByTopic" [ngClass]="topic.categories">
-        </topicbox>
-      </div>
 
-      <div class="view_more_button">
-        <a class="btn_medium_submit" [routerLink]="['/public/topics']" translate="VIEWS.HOME.BTN_VIEW_ALL_TOPICS"></a>
-      </div>
-    </div>
-  </ng-container>
-  <ng-container *ngIf="groups$ | async; let groups;">
-    <div class="home_items_section">
-      <div class="section_header">
-        <h2 translate="VIEWS.HOME.PUBLIC_GROUPS_TITLE"></h2>
-        <div>Have a sneak peek a t popular public groups</div>
-      </div>
-      <div class="section_content">
-        <public-group-box> [topic]="topic" *ngFor="let group of groups; trackBy: trackByTopic">
-        </public-group-box>
-      </div>
-
-      <div class="view_more_button">
-        <a class="btn_medium_submit" [routerLink]="['/public/topics']" translate="VIEWS.HOME.BTN_VIEW_ALL_GROUPS"></a>
-      </div>
-    </div>
-  </ng-container>
 </div>
+<ng-container *ngIf="topics$ | async; let topics;">
+  <div class="home_items_section topics_section">
+    <div class="section_header">
+      <h2 translate="VIEWS.HOME.PUBLIC_TOPICS_TITLE"></h2>
+      <div>Have a sneak peek at popular public topics</div>
+    </div>
+    <div class="section_content">
+      <topicbox [topic]="topic" *ngFor="let topic of topics; trackBy: trackByTopic" [ngClass]="topic.categories">
+      </topicbox>
+    </div>
 
+    <div class="view_more_button">
+      <a class="btn_medium_submit" [routerLink]="['/public/topics']" translate="VIEWS.HOME.BTN_VIEW_ALL_TOPICS"></a>
+    </div>
+  </div>
+</ng-container>
+<ng-container *ngIf="groups$ | async as groups;">
+  <div class="home_items_section">
+    <div class="section_header">
+      <h2 translate="VIEWS.HOME.PUBLIC_GROUPS_TITLE"></h2>
+      <div>Have a sneak peek a t popular public groups</div>
+    </div>
+    <div class="section_content">
+      <public-group-box [group]="group" *ngFor="let group of groups; trackBy: trackByTopic"></public-group-box>
+    </div>
+
+    <div class="view_more_button">
+      <a class="btn_medium_submit" [routerLink]="['/public/topics']" translate="VIEWS.HOME.BTN_VIEW_ALL_GROUPS"></a>
+    </div>
+  </div>
+</ng-container>
 <router-outlet></router-outlet>

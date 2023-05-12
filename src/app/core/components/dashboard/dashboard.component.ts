@@ -1,0 +1,55 @@
+import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { AppService } from 'src/app/services/app.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { UserTopicService } from 'src/app/services/user-topic.service';
+import { ActivityFeedComponent } from '../activity-feed/activity-feed.component';
+import { TranslateService } from '@ngx-translate/core';
+import { ActivityService } from 'src/app/services/activity.service';
+
+import { GroupService } from 'src/app/services/group.service';
+import { of, tap, Subject, Observable } from 'rxjs';
+import { Topic } from 'src/app/interfaces/topic';
+import { Group } from 'src/app/interfaces/group';
+import { GroupCreateComponent } from 'src/app/group/components/group-create/group-create.component';
+import { MatDialog } from '@angular/material/dialog';
+import { TopicCreateComponent } from 'src/app/topic/components/topic-create/topic-create.component';
+
+@Component({
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.scss']
+})
+export class DashboardComponent {
+  newActivities: number = 0;
+  unreadActivitiesCount$: any;
+  groups$: Observable<Group[] | any[]> = of([]);
+  topics$: Observable<Group[] | any[]> = of([]);
+  constructor(
+    private dialog: MatDialog,
+    public auth: AuthService,
+    public app: AppService,
+    public translate: TranslateService,
+    private route: ActivatedRoute,
+    private UserTopicService: UserTopicService,
+    private GroupService: GroupService,
+    ActivityService: ActivityService) {
+    this.groups$ = this.GroupService.loadItems().pipe(
+      tap((groups) => console.log(groups))
+    );
+    this.topics$ = this.UserTopicService.loadItems();
+    this.unreadActivitiesCount$ = ActivityService.getUnreadActivities().pipe(tap((count: number) => {
+      this.newActivities = 0;
+      if (count) this.newActivities = count
+    }));
+  }
+
+  doShowActivityModal() {
+    this.dialog.closeAll();
+    this.dialog.open(ActivityFeedComponent);
+  };
+
+  trackByTopic(index: number, element: any) {
+    return element.id;
+  }
+}

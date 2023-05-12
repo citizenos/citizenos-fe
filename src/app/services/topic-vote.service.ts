@@ -36,7 +36,7 @@ export class TopicVoteService {
       );
   }
 
-  get(params?: any) {
+  get<Vote>(params?: any) {
     if (!params.voteId) params.voteId = params.id;
     let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/votes/:voteId'), params);
 
