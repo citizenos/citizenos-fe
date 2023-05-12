@@ -135,6 +135,12 @@
       "PASSWORD_RESET_PLACEHOLDER_PASSWORD_CONFIRM": "@:VIEWS.ACCOUNT.MY_ACCOUNT_PLACEHOLDER_PASSWORD_CONFIRM",
       "PASSWORD_RESET_BTN_RESET_PASSWORD": "Reset your password",
       "PASSWORD_RESET_LNK_CANCEL": "@:LNK_CANCEL"
+    },
+    "TOPICBOX": {
+      "HEADER_DISCUSSION": "Arguments: {{value}}",
+      "HEADER_VOTING": "{{value}} of {{target}} votes",
+      "HEADER_FOLLOW_UP": "{{value}} events",
+      "HEADER_IDEATION": "{{value}} ideas gathered"
     }
   },
   "MODALS": {
@@ -751,7 +757,9 @@
       "HEADER_WELCOME": "Welcome back to yout dashboard <a href=\"/account\">{{user.name}}</a>",
       "BTN_GLOBAL_ACTIVITIES":"Global activities",
       "MY_TOPICS_HEADER": "@:DEFAULT.NAV.LNK_MY_TOPICS",
-      "MY_TOPICS_LNK_VIEW_ALL": "View all your topics"
+      "MY_TOPICS_LNK_VIEW_ALL": "View all your topics",
+      "MY_GROUPS_HEADER": "@:DEFAULT.NAV.LNK_MY_GROUPS",
+      "MY_GROUPS_LNK_VIEW_ALL": "View all your groups"
     },
     "401": {
       "HEADING_INSUFFICIENT_PERMISSIONS": "Sorry, you haven't got sufficient permissions to access the resource",

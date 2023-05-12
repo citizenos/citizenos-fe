@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   width: 280px;
-  height: 360px;
+  height: 224px;
   background-color: var(--color-surfaces);
   border-radius: 16px;
   padding: 16px;
@@ -57,30 +57,25 @@
     }
   }
 
-  .group_content {
+  .group_title {
     display: flex;
-    flex-direction: column;
+    height: 48px;
     color: var(--color-text);
-    height: 120px;
+  }
+
+  .group_footer {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    gap: 8px;
+    border-top: 1px solid var(--color-border);
 
     .group_description {
       display: flex;
-    }
-  }
-  .group_info_area {
-    display: flex;
-    flex-direction: row;
-    gap: 16px;
-    justify-content: space-between;
-    padding: 8px 0;
-
-    .info_item {
-      display: flex;
-      flex-direction: column;
-      background-color: var(--color-surface-contrast);
-      border-radius: 8px;
-      width: 72px;
-      height: 56px;
+      align-items: center;
+      padding: 16px 0 0 0;
     }
   }
 }

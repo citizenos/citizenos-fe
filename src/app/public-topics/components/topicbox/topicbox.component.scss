@@ -13,7 +13,51 @@
     border-radius: 16px 16px 0 0;
     height: 40px;
     width: 100%;
-    background-color: var(--color-discussion);
+    align-items: center;
+    overflow: hidden;
+
+    .progress {
+      position: relative;
+      display: flex;
+      height: 40px;
+      align-items: center;
+
+      .header_content {
+        display: flex;
+        position: absolute;
+        width: 280px;
+        padding: 12px;
+        gap: 8px;
+        align-items: center;
+        color: var(--color-surfaces);
+      }
+    }
+
+    &.discussion {
+      background-color: var(--color-discussion);
+
+      .progress {
+        background-color: var(--color-discussion);
+        width: 100%;
+      }
+    }
+
+    &.voting {
+      background-color: var(--color-voting-disabled);
+      .progress {
+        background-color: var(--color-voting);
+      }
+    }
+    &.follow_up {
+      background-color: var(--color-follow-up-disabled);
+      .progress {
+        background-color: var(--color-follow-up);
+      }
+    }
+
+    path {
+      fill: var(--color-surfaces);
+    }
   }
 
   .image {
@@ -23,7 +67,7 @@
 
     img {
       width: inherit;
-    /*  aspect-ratio: 1;
+      /*  aspect-ratio: 1;
       object-fit: contain;*/
     }
   }
@@ -42,31 +86,39 @@
   .topic_content {
     padding-bottom: 0;
 
-    .icon_private {
+    .icon_area {
       display: flex;
-      justify-content: center;
-      align-items: center;
+      align-items: flex-end;
       position: absolute;
       right: 4px;
       top: -20px;
-      width: 56px;
-      height: 40px;
-
+      path {
+        fill: var(--color-text);
+      }
       .svg {
         position: absolute;
         width: 0;
         height: 0;
       }
-      .clipped {
-        width: 100%;
-        height: 40px;
-        background: var(--color-surfaces);
-        background-size: cover;
-        -webkit-clip-path: url(#my-clip-path);
-        clip-path: url(#my-clip-path);
+
+      .topic_icon {
         display: flex;
-        align-items: center;
         justify-content: center;
+        align-items: center;
+        width: 56px;
+        height: 40px;
+
+        .clipped {
+          width: 100%;
+          height: 40px;
+          background: var(--color-surfaces);
+          background-size: cover;
+          -webkit-clip-path: url(#my-clip-path);
+          clip-path: url(#my-clip-path);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
       }
     }
   }
@@ -75,6 +127,10 @@
     padding-top: 0;
     display: flex;
     flex-direction: column;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+
     color: var(--color-text);
     path {
       fill: var(--color-text);

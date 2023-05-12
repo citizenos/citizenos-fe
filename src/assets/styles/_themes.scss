@@ -9,6 +9,8 @@ $--color-on-surfaces: --color-on-surfaces;
 $--color-border: --color-border;
 $--color-border-active: --color-border-active;
 $--color-secondary: --color-secondary;
+$--color-scrollbar: --color-scrollbar;
+$--color-scrollbar-thumb: --color-scrollbar-thumb;
 $--color-link: --color-link;
 $--font-size: --font-size;
 $--line-height: --line-heigth;
@@ -69,6 +71,10 @@ $theme-map-default: (
   //gray 700
   $--color-secondary: #ebf4fb,
   //blue 100
+  $--color-scrollbar: #D7E9F8,
+  //blue 200
+  $--color-scrollbar-thumb: #A7D1F3,
+  //blue 300
   $--color-link: #1168a8,
   //blue 700
   $--color-discussion: #1168a8,
@@ -152,6 +158,10 @@ $theme-map-contrast: (
   $--color-border: #000,
   $--color-secondary: #ebf4fb,
   //blue 100
+  $--color-scrollbar: #D7E9F8,
+  //blue 200
+  $--color-scrollbar-thumb: #A7D1F3,
+  //blue 300
   $--color-link: #1168a8,
   //blue 700
   $--color-discussion: #1168a8,
