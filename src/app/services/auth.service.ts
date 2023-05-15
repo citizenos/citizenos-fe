@@ -3,7 +3,7 @@ import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { of, BehaviorSubject, Observable, zip } from 'rxjs';
-import { switchMap, catchError, tap, take, map, retry } from 'rxjs/operators';
+import { switchMap, catchError, tap, take, map, retry, combineLatestWith } from 'rxjs/operators';
 import { LocationService } from './location.service';
 import { NotificationService } from './notification.service';
 import { User } from '../interfaces/user';
@@ -67,16 +67,11 @@ export class AuthService {
   logout() {
     const pathLogoutEtherpad = this.Location.getAbsoluteUrlEtherpad('/ep_auth_citizenos/logout');
     const pathLogoutAPI = this.Location.getAbsoluteUrlApi('/api/auth/logout');
-    const headers = new HttpHeaders({
-      'Cache-Control': 'no-cache, no-store, must-revalidate, post-check=0, pre- check=0',
-      'Pragma': 'no-cache',
-      'Expires': '0'
-    });
 
-    return zip(
-      this.http.get(pathLogoutEtherpad, { withCredentials: true, headers, responseType: 'json', observe: 'body' }),
-      this.http.get(pathLogoutAPI, { withCredentials: true, responseType: 'json', observe: 'body', headers })).pipe(
+    return this.http.get(pathLogoutEtherpad, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
+      combineLatestWith(this.http.post(pathLogoutAPI, {}, { withCredentials: true })),
       switchMap((res) => {
+        console.log('RES', res)
         this.user$ = null;
         this.loggedIn$.next(false);
         return res;
