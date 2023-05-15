@@ -63,6 +63,12 @@ $button-styles: (
     hover-color: var(--btn-submit-hover),
     hover-border: 2px solid var(--btn-submit-hover),
   ),
+  secondary: (
+    background: var(--color-secondary),
+    color: var(--color-link),
+    hover: var(--btn-submit-hover),
+    hover-color: var(--color-surfaces),
+  ),
   close: (
     background: var(--color-surfaces),
     hover: var(--color-dialog-contrast),
