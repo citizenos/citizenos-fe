@@ -58,14 +58,6 @@ a {
   color: var(--color-link);
   cursor: pointer;
 
-  path {
-    fill: var(--color-link);
-  }
-
-  circle {
-    stroke: var(--color-link);
-  }
-
   &:hover {
     color: var(--color-link);
   }

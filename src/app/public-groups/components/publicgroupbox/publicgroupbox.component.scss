@@ -9,9 +9,6 @@
   gap: 8px;
   position: relative;
 
-  path {
-    fill: var(--color-text);
-  }
   .group_header {
     display: flex;
     flex-direction: row;
@@ -77,10 +74,17 @@
     .info_item {
       display: flex;
       flex-direction: column;
+      gap: 8px;
+      align-items: center;
+      justify-content: center;
       background-color: var(--color-surface-contrast);
       border-radius: 8px;
       width: 72px;
       height: 56px;
+
+      path: {
+        color: initial;
+      }
     }
   }
 }
