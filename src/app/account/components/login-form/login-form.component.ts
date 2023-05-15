@@ -1,6 +1,6 @@
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Input } from '@angular/core';
 import { ConfigService } from 'src/app/services/config.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { LocationService } from 'src/app/services/location.service';
@@ -19,8 +19,8 @@ import { take } from 'rxjs';
   styleUrls: ['./login-form.component.scss']
 })
 export class LoginFormComponent {
+  @Input() redirectSuccess?: any;
   userConnections?: any;
-  redirectSuccess?: any;
   authMethodsAvailable: any;
   isFormEmailProvided: any;
   linkRegister: any;
@@ -48,7 +48,7 @@ export class LoginFormComponent {
     this.route.queryParams.subscribe(value => {
       this.form.patchValue({ 'email': value['email'] });
       this.userConnections = value['userConnections'];
-      this.redirectSuccess = value['redirectSuccess'];
+      this.redirectSuccess = this.redirectSuccess || value['redirectSuccess'];
       if (value['userId']) {
         this.UserService.listUserConnections(value['userId'])
           .pipe(take(1))

@@ -1,7 +1,7 @@
 import { AuthService } from 'src/app/services/auth.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { Group } from 'src/app/interfaces/group';
 import { GroupJoinService } from 'src/app/services/group-join.service';
@@ -16,7 +16,7 @@ import { take } from 'rxjs';
 })
 export class PublicgroupboxComponent implements OnInit {
   @Input() group = <Group>{}; // decorate the property with @Input()
-  constructor(private dialog: MatDialog, private router: Router, private GroupJoinService: GroupJoinService, private Auth: AuthService) { }
+  constructor(private dialog: MatDialog, private route: ActivatedRoute, private router: Router, private GroupJoinService: GroupJoinService, private Auth: AuthService) { }
 
   ngOnInit(): void {
   }
@@ -27,7 +27,9 @@ export class PublicgroupboxComponent implements OnInit {
 
   joinGroup () {
     if (!this.Auth.loggedIn$.value) {
-      const loginDialog = this.dialog.open(LoginDialogComponent);
+      const loginDialog = this.dialog.open(LoginDialogComponent, {
+        data: {redirectSuccess: ['/groups', this.group.id]}
+      });
       loginDialog.afterClosed().subscribe(result => {
         console.log(`Login result: ${result}`);
       });
