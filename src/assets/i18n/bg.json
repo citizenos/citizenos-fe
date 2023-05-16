@@ -62,13 +62,13 @@
     "TITLE": "Тук сме за да помогнем!",
     "DESCRIPTION": "Имате въпроси или коментари? Просто ни изпратете съобщение по-долу.",
     "LINK_FAQ": "Често задавани въпроси",
-    "LINK_HELP_PAGE": "Step-by-step guidance",
-    "SEND_US_MESSAGE": "Send us a message",
+    "LINK_HELP_PAGE": "Ръководство стъпка по стъпка",
+    "SEND_US_MESSAGE": "Изпратете ни съобщение",
     "PLACEHOLDER_WRITE_YOUR_EMAIL": "youremail@example.com",
-    "PLACEHOLDER_WRITE_YOUR_MESSAGE": "Your message here...",
-    "BTN_SEND": "Send",
+    "PLACEHOLDER_WRITE_YOUR_MESSAGE": "Вашето съобщение...",
+    "BTN_SEND": "Изпрати",
     "ERROR_INVALID_EMAIL": "@:MSG_ERROR_POST_API_AUTH_SIGNUP_40000_EMAIL",
-    "MSG_REQUEST_SENT": "Your help request has been sent!"
+    "MSG_REQUEST_SENT": "Вашата молба за помощ е изпратена!"
   },
   "MODALS": {
     "GROUP_DELETE_CONFIRM_HEADING": "Delete group",
