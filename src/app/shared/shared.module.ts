@@ -44,6 +44,7 @@ import { CheckHeightDirective } from '../directives/check-height.directive';
 import { EtherpadDirective } from '../directives/etherpad.directive';
 import { HtmlDirective } from '../directives/html.directive';
 import { DownloadDirective } from '../directives/download.directive';
+import { CosDisabledDirective } from '../directives/cos-disabled.directive';
 @NgModule({
   declarations: [
     ActivityComponent,
@@ -81,7 +82,8 @@ import { DownloadDirective } from '../directives/download.directive';
     ModalDatepickerComponent,
     CheckHeightDirective,
     HtmlDirective,
-    DownloadDirective
+    DownloadDirective,
+    CosDisabledDirective
   ],
   imports: [
     RouterModule,
@@ -134,7 +136,8 @@ import { DownloadDirective } from '../directives/download.directive';
     TypeaheadSelect,
     CheckHeightDirective,
     HtmlDirective,
-    DownloadDirective
+    DownloadDirective,
+    CosDisabledDirective
    ]
 })
 export class SharedModule { }

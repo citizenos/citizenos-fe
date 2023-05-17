@@ -234,6 +234,7 @@ export class TopicService {
                 this.router.navigate(['/topics', topic.id, 'votes', 'create'])
               }
               if (state === 'followUp') {
+                this.reloadTopic();
                 this.router.navigate(['/topics', topic.id, 'followup'])
               }
             }, error: (res) => {
@@ -268,10 +269,7 @@ export class TopicService {
   canDelete(topic: Topic) {
     return (topic && topic.permission.level === this.LEVELS.admin);
   };
-  /*
-    canDelegate (topic: Topic) {
-        return (this.canVote(topic) && topic.vote.delegationIsAllowed === true);
-    };*/
+
   canSendToFollowUp(topic: Topic) {
     return this.canUpdate(topic) && topic.vote && topic.vote.id && topic.status !== this.STATUSES.followUp;
   };

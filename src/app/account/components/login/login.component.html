@@ -121,7 +121,7 @@
             <div class="footer_button_wrap"></div>
             <div class="footer_button_wrap right">
               <a class="footer_link" (click)="register()" translate="MODALS.LOGIN_LNK_NO_ACCOUNT_REGISTER"></a>
-              <button type="submit" (click)="doLogin()" cos-disabled="loginForm.$invalid"
+              <button type="submit" (click)="doLogin()" [cosDisabled]="form.invalid"
                 class="blue_button login_button" translate="MODALS.LOGIN_BTN_LOGIN"></button>
             </div>
           </div>

@@ -40,6 +40,7 @@ import { RegularGraphComponent } from './components/regular-graph/regular-graph.
 import { TopicJoinComponent } from './components/topic-join/topic-join.component';
 import { TopicInvitationComponent } from './components/topic-invitation/topic-invitation.component';
 import { TopicReportComponent } from './components/topic-report/topic-report.component';
+import { TopicVoteDelegateComponent } from './components/topic-vote-delegate/topic-vote-delegate.component';
 
 
 @NgModule({
@@ -84,7 +85,8 @@ import { TopicReportComponent } from './components/topic-report/topic-report.com
     RegularGraphComponent,
     TopicJoinComponent,
     TopicInvitationComponent,
-    TopicReportComponent
+    TopicReportComponent,
+    TopicVoteDelegateComponent
   ],
   imports: [
     CommonModule,
