@@ -99,7 +99,6 @@ export class TypeaheadComponent implements OnInit {
   };
 
   getActiveIndex() {
-    console.log(this.itemList)
     if (this.active) {
       const active = this.itemList.find((item) => item?.id === this.active?.id);
       return this.itemList.indexOf(active);
@@ -137,7 +136,6 @@ export class TypeaheadComponent implements OnInit {
   };
 
   doSelect(item: any) {
-    console.log('SELECT')
     this.hide = true;
     this.focused = true;
     this.term = '';

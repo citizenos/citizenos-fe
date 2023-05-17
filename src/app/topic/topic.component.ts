@@ -87,9 +87,9 @@ export class TopicComponent implements OnInit {
         return of(params['topicId']);
       })
     );
-    this.topic$ = this.topicId$.pipe(
-      switchMap((topicId: string) => {
-        return this.TopicService.loadTopic(topicId);
+    this.topic$ = this.route.params.pipe(
+      switchMap((params) => {
+        return this.TopicService.loadTopic(params['topicId']);
       }),
       tap((topic: Topic) => {
         topic.description = topic.description.replace(/href="/gi, 'target="_blank" href="');
@@ -113,6 +113,7 @@ export class TopicComponent implements OnInit {
         return topic;
       })
     );
+
     this.topicAttachments$ = this.topicId$.pipe(
       switchMap((topicId: string) => {
         this.TopicAttachmentService.setParam('topicId', topicId);
