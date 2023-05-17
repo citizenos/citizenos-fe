@@ -115,6 +115,7 @@ export class TopicVoteCastComponent implements OnInit {
                 console.error(err);
               }
             });
+            this.Notification.removeAll();
             this.Notification.addSuccess('VIEWS.TOPICS_TOPICID.MSG_VOTE_REGISTERED');
           }, error: (err) => {
             console.error(err);
