@@ -4,9 +4,12 @@ import { AuthService } from 'src/app/services/auth.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { TopicService } from 'src/app/services/topic.service';
 import { TopicVoteService } from 'src/app/services/topic-vote.service';
+import { VoteDelegationService } from 'src/app/services/vote-delegation.service';
 import { MatDialog } from '@angular/material/dialog';
 import { take } from 'rxjs';
 import { TopicVoteSignComponent } from '../topic-vote-sign/topic-vote-sign.component';
+import { TopicVoteDelegateComponent } from '../topic-vote-delegate/topic-vote-delegate.component';
+import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 @Component({
   selector: 'topic-vote-cast',
   templateUrl: './topic-vote-cast.component.html',
@@ -28,6 +31,7 @@ export class TopicVoteCastComponent implements OnInit {
     public AuthService: AuthService,
     private TopicService: TopicService,
     private TopicVoteService: TopicVoteService,
+    private VoteDelegationService: VoteDelegationService
   ) { }
 
   ngOnInit(): void {
@@ -38,6 +42,10 @@ export class TopicVoteCastComponent implements OnInit {
     return this.TopicVoteService.canVote(this.topic);
   }
 
+  canDelegate() {
+    return this.TopicVoteService.canDelegate(this.topic);
+  }
+
   isRadio(vote: any, option: any) {
     if (option.value === 'Neutral' || option.value === 'Veto') return true;
     if (vote.type === 'regular' || vote.maxChoices === 1) return true;
@@ -45,6 +53,22 @@ export class TopicVoteCastComponent implements OnInit {
     return false;
   };
 
+
+  canSubmit() {
+    if (!this.vote.options || !Array.isArray(this.vote.options.rows)) return false;
+    const options = this.vote.options.rows.filter((option: any) => {
+      return !!option.selected;
+    });
+
+    if (options && options.length === 1 && (options[0].value === 'Neutral' || options[0].value === 'Veto')) {
+      return true;
+    }
+
+    if (options.length > this.vote.maxChoices || options.length < this.vote.minChoices)
+      return false;
+
+    return true;
+  };
 
   doVote(option?: any) {
     let options = [];
@@ -80,10 +104,10 @@ export class TopicVoteCastComponent implements OnInit {
         .cast({ voteId: this.vote.id, topicId: this.topic.id, options: options })
         .pipe(take(1))
         .subscribe({
-          next: (data) => {
+          next: () => {
             this.vote.topicId = this.topic.id;
-            this.TopicVoteService.get({voteId: this.vote.id, topicId: this.topic.id}).pipe(take(1)).subscribe({
-              next:(vote) => {
+            this.TopicVoteService.get({ voteId: this.vote.id, topicId: this.topic.id }).pipe(take(1)).subscribe({
+              next: (vote) => {
                 this.vote = vote;
                 this.topic.vote = vote;
               },
@@ -106,6 +130,47 @@ export class TopicVoteCastComponent implements OnInit {
   hasVoteEnded() {
     return this.TopicVoteService.hasVoteEnded(this.topic, this.vote);
   };
+
+  doDelegate() {
+    if (!this.vote.delegation) {
+      const delegateDialog = this.dialog
+        .open(TopicVoteDelegateComponent, {
+          data: {
+            topic: this.topic
+          }
+        });
+    }
+  };
+  doRevokeDelegation() {
+    const revokeDialog = this.dialog
+      .open(
+        ConfirmDialogComponent, {
+        data: {
+          level: 'delete',
+          heading: 'MODALS.TOPIC_VOTE_REVOKE_DELEGATION_CONFIRM_HEADING',
+          title: 'MODALS.TOPIC_VOTE_REVOKE_DELEGATION_CONFIRM_TXT_ARE_YOU_SURE',
+          confirmBtn: 'MODALS.TOPIC_VOTE_REVOKE_DELEGATION_CONFIRM_YES',
+          closeBtn: 'MODALS.TOPIC_VOTE_REVOKE_DELEGATION_CONFIRM_NO'
+        }
+      });
+
+    revokeDialog.afterClosed().subscribe((result) => {
+      if (result === true) {
+        this.VoteDelegationService
+          .delete({ topicId: this.topic.id, voteId: this.vote.id })
+          .pipe(
+            take(1)
+          ).subscribe({
+            next: () => {
+              this.TopicService.reloadTopic();
+            },
+            error: (err) => {
+              console.error('ERROR', err)
+            }
+          })
+      }
+    });
+  }
 
   selectOption(option: any) {
     if (!this.canVote()) {

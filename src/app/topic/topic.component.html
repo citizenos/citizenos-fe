@@ -255,7 +255,7 @@
 
       </div>
 
-      <topic-sidepanel class="side_panel print_never" [topic]="topic"
+      <topic-sidepanel class="side_panel print_never" [topic]="topic" [attachments]="topicAttachments$"
         *ngIf="wWidth > 1024 || app.topicsSettings"></topic-sidepanel>
     </div>
 

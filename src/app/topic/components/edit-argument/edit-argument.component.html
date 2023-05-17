@@ -99,7 +99,7 @@
 
     <div class="argument_footer_with_buttons">
       <div class="table_cell">
-        <div class="blue_button" cos-disabled="postArgument.$invalid || !argument.edit.type"
+        <div class="blue_button" [cosDisabled]="!edit.type"
           translate="VIEWS.TOPICS_TOPICID.BTN_ARGUMENT_POST" (click)="updateArgument()">
         </div>
       </div>

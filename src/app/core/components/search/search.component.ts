@@ -60,8 +60,8 @@ export class SearchComponent implements OnInit {
           include: include,
           limit: 2
         }
-      ).pipe(debounceTime(200), distinctUntilChanged(), take(1)).
-      subscribe({
+      ).pipe(debounceTime(200), distinctUntilChanged(), take(1))
+      .subscribe({
         next: (data) => {
           this.searchResults = data.results;
           this.app.showSearchResults = true;
