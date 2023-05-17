@@ -134,6 +134,10 @@
       margin: 40px 40px 0 40px;
       padding: 10px;
 
+      @include mixins_n_extends.mobile {
+        margin: 10px 10px 0 10px;
+      }
+
       .profile_line {
         position: relative;
         display: inline-block;
@@ -153,6 +157,7 @@
           .notification_setting_row {
             height: 56px;
             background-color: vars.$white;
+
             &:nth-child(even) {
               background-color: vars.$light_gray;
             }
@@ -172,12 +177,13 @@
               vertical-align: middle;
               text-align: right;
 
+              @include mixins_n_extends.mobile {
+                padding: 0;
+                vertical-align: middle;
+              }
+
               &:first-child {
                 text-align: left;
-              }
-              cos-toggle {
-                bottom: 14px;
-                position: relative;
               }
             }
           }
@@ -378,6 +384,10 @@
       margin: 0 40px 40px 40px;
       padding: 10px 32px 38px;
 
+      @include mixins_n_extends.mobile {
+        margin: 0 10px 0 10px;
+      }
+
       .delete_account {
         display: inline-block;
         padding-top: 25px;
@@ -406,6 +416,10 @@
         margin: 0 40px 0px 40px;
         padding: 0 32px 20px;
         text-align: right;
+
+        @include mixins_n_extends.mobile {
+          margin: 0 10px 0 10px;
+        }
 
         .pagination {
           margin-top: 10px;

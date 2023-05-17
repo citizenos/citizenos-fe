@@ -44,7 +44,6 @@ export class TopicSidepanelComponent implements OnInit {
 
   ngOnInit(): void {
     const attachmentParams = this.TopicAttachmentService.params$.value;
-    console.log(this.config)
     attachmentParams.topicId = this.topic.id;
     this.TopicAttachmentService.params$.next(attachmentParams);
   }
@@ -53,6 +52,7 @@ export class TopicSidepanelComponent implements OnInit {
     const params = this.router.parseUrl(this.router.url).queryParams;
     if (params['editMode']) {
       delete params['editMode'];
+      this.TopicService.reloadTopic();
     } else {
       params['editMode'] = true;
     }
