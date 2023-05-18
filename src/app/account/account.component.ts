@@ -236,8 +236,11 @@ export class AccountComponent implements OnInit {
           .deleteUser()
           .pipe(take(1))
           .subscribe((res) => {
-            this.Auth.logout().pipe(take(1)).subscribe();
-            this.router.navigate(['/']);
+            this.Auth.logout().pipe(take(1)).subscribe({
+              next: () => {
+                this.router.navigate(['/']);
+              }
+            })
           });
       }
     });
