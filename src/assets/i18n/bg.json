@@ -720,12 +720,12 @@
       "LBL_ENVIRONMENT": "Околна среда",
       "LBL_HACKTIVIST_COMMUNITY": "Демокрация и гражданско общество",
       "HEADING_CITIZENOS_COMMUNITY": "Citizen OS",
-      "TXT_CITIZENOS_COMMUNITY": "E-democracy discussions with Citizen OS team",
-      "TXT_CITIZENOS_COMMUNITY_DESCRIPTION": "Join us in our platform development and e-democracy discussions.",
-      "LBL_CITIZENOS_COMMUNITY": "Topics about Citizen OS"
+      "TXT_CITIZENOS_COMMUNITY": "Дискусии за електронна демокрация с екипа на Citizen OS",
+      "TXT_CITIZENOS_COMMUNITY_DESCRIPTION": "Присъединете се към нас в нашите дискусии за разработване на платформа и електронна демокрация.",
+      "LBL_CITIZENOS_COMMUNITY": "Теми за Citizen OS"
     },
     "MY": {
-      "LBL_GROUPS_COUNT": "Groups: {{count}}",
+      "LBL_GROUPS_COUNT": "Група{{count}}",
       "LBL_TOPICS_COUNT": "Topics: {{count}}",
       "HEADING_NOT_IN_GROUP": "You are not yet part of a group.",
       "HEADING_AT_LEAST_WE_HELP": "At least you still have us to help you by",
