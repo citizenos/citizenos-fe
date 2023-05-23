@@ -13,9 +13,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   API_REQUEST_JOIN = /api\/(topics?|groups).\/join/i; //Filter out status 401 errors
   constructor(private Notification: NotificationService, private translate: TranslateService, private Location: LocationService, private Router: Router) { }
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (request.url.indexOf('/ep_auth_citizenos')> -1) {
-      console.log(request)
-    }
     return next.handle(request)
       .pipe(
         tap((response) => {
@@ -38,7 +35,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           else {
             errorMsg = response.message;
             console.error(`Server side error:', ${errorMsg} `);
-
+            console.log(response.error)
             if (response.url?.match(this.API_REQUEST_JOIN) && response.status === 404) {
               return throwError(() => response.error);
             }
