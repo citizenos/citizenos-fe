@@ -1,9 +1,9 @@
 import { ConfigService } from 'src/app/services/config.service';
 import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { inject, Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { of, BehaviorSubject, Observable, zip } from 'rxjs';
 import { switchMap, catchError, tap, take, map, retry, exhaustMap, shareReplay } from 'rxjs/operators';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { LocationService } from './location.service';
 import { NotificationService } from './notification.service';
 import { User } from '../interfaces/user';
@@ -29,7 +29,7 @@ export class AuthService {
 
     this.loggedIn$.pipe(tap((status) => {
       if (status === false) {
-        this.logout().pipe(take(1)).subscribe((res) => console.log('logged out'));
+        this.logout().pipe(take(1)).subscribe(() => console.log('logged out'));
       }
     }))
   }
@@ -76,38 +76,36 @@ export class AuthService {
   logout() {
     const pathLogoutEtherpad = this.Location.getAbsoluteUrlEtherpad('/ep_auth_citizenos/logout');
     const pathLogoutAPI = this.Location.getAbsoluteUrlApi('/api/auth/logout');
-    const headers = new HttpHeaders({
-      'Cache-Control': 'no-cache, no-store, must-revalidate, post-check=0, pre- check=0',
-      'Pragma': 'no-cache',
-      'Expires': '0'
-    });
 
-    return zip(
-      this.http.get(pathLogoutEtherpad, { withCredentials: true, headers, responseType: 'json', observe: 'body' }),
-      this.http.get(pathLogoutAPI, { withCredentials: true, responseType: 'json', observe: 'body', headers })).pipe(
-      switchMap((res) => {
-        this.user$ = null;
-        this.loggedIn$.next(false);
-        return res;
-      }),
-      retry(2), // retry 2 times on error
-      catchError((err) => {
-        this.user$ = null;
-        this.loggedIn$.next(false);
-        console.log(err); return err;
-      })
-    );
+    this.http.get(pathLogoutEtherpad, { withCredentials: true, responseType: 'blob', observe: 'response' }).pipe(
+      take(1)
+    ).subscribe();
+
+    return this.http.post(pathLogoutAPI, {}, { withCredentials: true, responseType: 'json', observe: 'response' })
+      .pipe(
+        map((res) => {
+          this.user$ = null;
+          this.loggedIn$.next(false);
+          return res;
+        }),
+        retry(2), // retry 2 times on error
+        catchError((err) => {
+          this.user$ = null;
+          this.loggedIn$.next(false);
+          throw err;
+        })
+      );
   }
 
   status() {
     const path = this.Location.getAbsoluteUrlApi('/api/auth/status');
-    const headers = new HttpHeaders({
-      'Cache-Control': 'no-cache, no-store, must-revalidate, post-check=0, pre- check=0',
-      'Pragma': 'no-cache',
-      'Expires': '0'
-    });
+    /*   const headers = new HttpHeaders({
+         'Cache-Control': 'no-cache, no-store, must-revalidate, post-check=0, pre- check=0',
+         'Pragma': 'no-cache',
+         'Expires': '0'
+       });*/
 
-    return this.user$ = this.http.get<User>(path, { withCredentials: true, responseType: 'json', observe: 'body', headers }).pipe(
+    return this.user$ = this.http.get<User>(path, { withCredentials: true, observe: 'body' }).pipe(
       switchMap((res: any) => {
         const user = res.data;
         if (!user.termsVersion || user.termsVersion !== this.config.get('legal').version) {

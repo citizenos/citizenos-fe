@@ -368,9 +368,6 @@
         box-sizing: border-box;
         cursor: pointer;
 
-        @include mixins_n_extends.mobile {
-          width: 50%;
-        }
 
         .tab_buttom_wrap {
           position: relative;

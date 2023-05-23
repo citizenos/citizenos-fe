@@ -4,7 +4,7 @@
   </div>
 
   <form [attr.disabled]="!AuthService.loggedIn$.value" name="postArgument">
-    <div [cosDropdown]  class="classic_dropdown" [cosDropdownMobile]="app.isTouchDevice()"
+    <div [cosDropdown] class="classic_dropdown" [cosDropdownMobile]="app.isTouchDevice()"
       [ngClass]="{'error_input': errors?.type, 'placeholder': !edit.type}" *ngIf="edit.type !== 'reply'">
       <div class="dropdown_selection">
         <div class="dropdown_text">
@@ -23,56 +23,60 @@
 
       <div class="dropdown with_description" *ngIf="app.wWidth <= 560">
         <div>
-          <div class="dropdown_item" *ngFor="let type of ARGUMENT_TYPES; let $index = index;"
-            [ngClass]="['item_' + $index, 'is_' + type.toLowerCase()]" (click)="edit.type = type">
-            <div class="item_name">
-              {{('VIEWS.TOPICS_TOPICID.COMMENT_TYPE_SELECT_OPTION_' + type | uppercase) | translate}}
-            </div>
-            <div class="item_descriptions">
-              <div class="item_description"
-                [ngClass]="['item_' + $index, {active: $index === 0}, 'is_' + type.toLowerCase()]"
-                (click)="edit.type = type">
-                <p>{{('VIEWS.TOPICS_TOPICID.COMMENT_TYPE_SELECT_OPTION_DESCRIPTION_' + type | uppercase) | translate}}
-                </p>
-                <p class="bold" translate="VIEWS.TOPICS_TOPICID.COMMENT_TYPE_CHARACTER_LIMIT"
-                  [translateParams]="{numberOfCharacters: ARGUMENT_TYPES_MAXLENGTH[type]}"></p>
-                <button *ngIf="app.isTouchDevice()  && ($index === 0 || edit.type === type)"
-                  class="light_gray_button full_width dropdown_selector {{type}}"
-                  (click)="edit.type = type" translate="DROPDOWN_BTN_SELECT">Select</button>
+          <ng-container *ngFor="let type of ARGUMENT_TYPES; let $index = index;">
+            <div class="dropdown_item" [ngClass]="['item_' + $index, 'is_' + type.toLowerCase()]" *ngIf="type!=='reply'"
+              (click)="edit.type = type">
+              <div class="item_name">
+                {{('VIEWS.TOPICS_TOPICID.COMMENT_TYPE_SELECT_OPTION_' + type | uppercase) | translate}}
+              </div>
+              <div class="item_descriptions">
+                <div class="item_description" [ngClass]="{'active': $index === 0}"
+                  [ngClass]="['item_' + $index, 'is_' + type.toLowerCase()]" (click)="edit.type = type">
+                  <p>{{('VIEWS.TOPICS_TOPICID.COMMENT_TYPE_SELECT_OPTION_DESCRIPTION_' + type) | uppercase | translate}}
+                  </p>
+                  <p class="bold" translate="VIEWS.TOPICS_TOPICID.COMMENT_TYPE_CHARACTER_LIMIT"
+                    [translateParams]="{numberOfCharacters: ARGUMENT_TYPES_MAXLENGTH[type]}"></p>
+                  <button *ngIf="app.isTouchDevice()  && ($index === 0 || edit.type === type)"
+                    class="light_gray_button full_width dropdown_selector {{type}}" (click)="edit.type = type"
+                    translate="DROPDOWN_BTN_SELECT">Select</button>
+                </div>
               </div>
             </div>
-          </div>
+          </ng-container>
         </div>
       </div>
 
       <div class="dropdown with_description" *ngIf="app.wWidth > 560">
         <div class="column">
-          <div class="dropdown_item" *ngFor="let type of ARGUMENT_TYPES; let $index = index"
-            [ngClass]="['item_' + $index, 'is_' + type.toLowerCase()]" (click)="edit.type = type">
-            <div class="item_name">
-              {{('VIEWS.TOPICS_TOPICID.COMMENT_TYPE_SELECT_OPTION_' + type | uppercase) | translate}}
+          <ng-container *ngFor="let type of ARGUMENT_TYPES; let $index = index">
+            <div class="dropdown_item" [ngClass]="['item_' + $index, 'is_' + type.toLowerCase()]" *ngIf="type !== 'reply'"
+              (click)="edit.type = type">
+              <div class="item_name">
+                {{('VIEWS.TOPICS_TOPICID.COMMENT_TYPE_SELECT_OPTION_' + type | uppercase) | translate}}
+              </div>
             </div>
-          </div>
+          </ng-container>
         </div>
         <div class="column dropdown_item_descriptions">
-          <div class="item_description" *ngFor="let type of ARGUMENT_TYPES; let $index = index"
-            [ngClass]="['item_' + $index, 'is_' + type.toLowerCase()]"
-            (click)="edit.type = type"><!-- {active: $index === 0}-->
-            <p>{{('VIEWS.TOPICS_TOPICID.COMMENT_TYPE_SELECT_OPTION_DESCRIPTION_' + type | uppercase) | translate}}</p>
-            <p class="bold" translate="VIEWS.TOPICS_TOPICID.COMMENT_TYPE_CHARACTER_LIMIT"
-              [translateParams]="{numberOfCharacters: ARGUMENT_TYPES_MAXLENGTH[type]}"></p>
-            <button *ngIf="app.isTouchDevice() && ($index === 0 || edit.type === type)"
-              class="light_gray_button full_width dropdown_selector" (click)="edit.type = type"
-              translate="DROPDOWN_BTN_SELECT"></button>
-          </div>
+          <ng-container *ngFor="let type of ARGUMENT_TYPES; let $index = index">
+            <div class="item_description" *ngIf="type !== 'reply'"
+              [ngClass]="['item_' + $index, 'is_' + type.toLowerCase()]" (click)="edit.type = type">
+              <!-- {active: $index === 0}-->
+              <p>{{('VIEWS.TOPICS_TOPICID.COMMENT_TYPE_SELECT_OPTION_DESCRIPTION_' + type | uppercase) | translate}}</p>
+              <p class="bold" translate="VIEWS.TOPICS_TOPICID.COMMENT_TYPE_CHARACTER_LIMIT"
+                [translateParams]="{numberOfCharacters: ARGUMENT_TYPES_MAXLENGTH[type]}"></p>
+              <button *ngIf="app.isTouchDevice() && ($index === 0 || edit.type === type)"
+                class="light_gray_button full_width dropdown_selector" (click)="edit.type = type"
+                translate="DROPDOWN_BTN_SELECT"></button>
+            </div>
+          </ng-container>
         </div>
       </div>
     </div>
 
     <input id="comment_edit_subject" name="subject" [(ngModel)]="edit.subject" *ngIf="edit.type !== 'reply'"
       placeholder="{{'VIEWS.TOPICS_TOPICID.PLACEHOLDER_EDIT_ARGUMENT_SUBJECT' | translate}}" class="gray_borders"
-      [ngClass]="{'error_input': errors?.subject}"
-      [attr.maxlength]="ARGUMENT_SUBJECT_MAXLENGTH" required>
+      [ngClass]="{'error_input': errors?.subject}" [attr.maxlength]="ARGUMENT_SUBJECT_MAXLENGTH" required>
 
     <label for="comment_edit_subject" class="error_label" *ngIf="errors?.subject">
       <div class="table_cell">
@@ -81,12 +85,10 @@
       </div>
     </label>
 
-    <textarea cosmarkdown  cosmarkdowntranslatecharacterstatuskey="'VIEWS.TOPICS_TOPICID.COMMENT_TYPE_CHARACTER_LIMIT'"
+    <textarea cosmarkdown cosmarkdowntranslatecharacterstatuskey="'VIEWS.TOPICS_TOPICID.COMMENT_TYPE_CHARACTER_LIMIT'"
       id="comment_edit" (update)="updateText($event)"
       placeholder="{{'VIEWS.TOPICS_TOPICID.PLACEHOLDER_EDIT_ARGUMENT_TEXT' | translate}}" class="gray_borders"
-      [(item)]="edit.text" [ngClass]="{'error_input': errors?.text}"
-      [limit]="argumentMaxLength()"
-      required></textarea>
+      [(item)]="edit.text" [ngClass]="{'error_input': errors?.text}" [limit]="argumentMaxLength()" required></textarea>
 
     <label for="comment_edit" class="error_label" *ngIf="errors?.text">
       <div class="table_cell">
@@ -97,7 +99,7 @@
 
     <div class="argument_footer_with_buttons">
       <div class="table_cell">
-        <div class="blue_button" cos-disabled="postArgument.$invalid || !argument.edit.type"
+        <div class="blue_button" [cosDisabled]="!edit.type"
           translate="VIEWS.TOPICS_TOPICID.BTN_ARGUMENT_POST" (click)="updateArgument()">
         </div>
       </div>
