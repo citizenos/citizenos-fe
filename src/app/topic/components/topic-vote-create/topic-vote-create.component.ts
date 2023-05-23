@@ -327,7 +327,7 @@ export class TopicVoteCreateComponent implements OnInit {
       .pipe(take(1))
       .subscribe({
         next: (vote) => {
-          this.TopicService.get(this.topic.id).pipe(take(1)).subscribe();
+          this.TopicService.reloadTopic();
           this.router.navigate(['/topics', this.topic.id, 'votes', vote.id]);
         },
         error: (res) => {

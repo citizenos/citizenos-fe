@@ -90,7 +90,7 @@
 
 </div>
 
-<!--div-- class="delegation_section" *ngIf="!hasVoteEnded()">
+<div class="delegation_section" *ngIf="!hasVoteEnded()">
 
     <div class="voting_button" *ngIf="(canDelegate() && vote.authType !== VOTE_AUTH_TYPES.hard)"
       [ngClass]="vote.delegation ? 'active' : ''" (click)="doDelegate()">
@@ -106,11 +106,11 @@
 
         <div class="table_cell">
           <div class="profile_image_wrapper dark">
-            <!--div class="profile_moon sprite sprite-icon-certified-fb2x"></div>
+            <!--div class="profile_moon sprite sprite-icon-certified-fb2x"></div-->
             <div class="account_picture">
-              <img *ngIf="vote.delegation.imageUrl" ng-src="{{vote.delegation.imageUrl}}">
+              <img *ngIf="vote.delegation.imageUrl" [src]="vote.delegation.imageUrl">
               <div *ngIf="!vote.delegation.imageUrl" class="profile_image_filler">
-                <cos-initials class="table_cell" ng-model="vote.delegation.name" initial-limit="1"></cos-initials>
+                <cos-initials class="table_cell" [name]="vote.delegation.name" initial-limit="1"></cos-initials>
                 <div class="profile_circle"></div>
               </div>
             </div>
@@ -124,15 +124,15 @@
 
         <div class="table_cell">
           <div class="blue_button" (click)="doRevokeDelegation()"
-            translate="VIEWS.TOPICS_TOPICID.VOTE_REVOKE_DELEGATION">Revoke your delegation</div>
+            translate="VIEWS.TOPICS_TOPICID.VOTE_REVOKE_DELEGATION"></div>
         </div>
       </div>
     </div>
 
-  </!--div-->
+  </div>
 <div class="line lightest_line multiplechoice" *ngIf="!hasVoteEnded()"></div>
 <div class="vote_multiple_submit_section" *ngIf="!hasVoteEnded()">
-  <div class="table_cell" cos-disabled="!canSubmit()">
-    <div class="blue_button" (click)="doVote()" translate="VIEWS.TOPICS_TOPICID.VOTE_SUBMIT"></div>
+  <div class="table_cell" *ngIf="!vote.delegation || vote.delegation && canSubmit()">
+    <button class="blue_button" [cosDisabled]="!canSubmit()" (click)="doVote()" translate="VIEWS.TOPICS_TOPICID.VOTE_SUBMIT"></button>
   </div>
 </div>

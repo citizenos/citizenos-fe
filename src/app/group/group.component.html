@@ -96,7 +96,7 @@
         <div class="tab_button" (click)="tabSelected = 'topics'" [ngClass]="tabSelected === 'topics' ? 'active' : ''">
           <div class="tab_buttom_wrap">
             <div class="tab_button_text"><span translate="VIEWS.PUBLIC_GROUP.TAB_TOPICS"></span>
-              <span>({{group.members.topics.count}})</span>
+              <span> ({{group.members.topics.count}})</span>
             </div>
             <div class="blue_bottom_line"></div>
           </div>
@@ -105,7 +105,7 @@
         <div class="tab_button" (click)="tabSelected = 'members'" [ngClass]="tabSelected === 'members' ? 'active' : ''">
           <div class="tab_buttom_wrap">
             <div class="tab_button_text"><span translate="VIEWS.PUBLIC_GROUP.TAB_MEMBERS"></span>
-              <span>({{group.members.users.count}})</span>
+              <span> ({{group.members.users.count}})</span>
             </div>
             <div class="blue_bottom_line"></div>
           </div>

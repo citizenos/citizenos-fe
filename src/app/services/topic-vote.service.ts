@@ -83,9 +83,10 @@ export class TopicVoteService {
           if (res.status === 205) {
             window.location.reload();
           }
+          return res;
         }),
         map((res) => {
-          return res.body.data;
+          return res?.body?.data || res.body;
         })
       );
   }
@@ -134,5 +135,9 @@ export class TopicVoteService {
 
   canVote(topic: Topic) {
     return topic && topic.vote && ((topic.permission.level !== 'none' || (topic.vote.authType === this.VOTE_AUTH_TYPES.hard && topic.visibility === this.TopicService.VISIBILITY.public)) && topic.status === this.STATUSES.voting);
+  };
+
+  canDelegate(topic: Topic) {
+    return (this.canVote(topic) && topic.vote?.delegationIsAllowed === true);
   };
 }
