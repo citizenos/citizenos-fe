@@ -13,9 +13,10 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   API_REQUEST_JOIN = /api\/(topics?|groups).\/join/i; //Filter out status 401 errors
   constructor(private Notification: NotificationService, private translate: TranslateService, private Location: LocationService, private Router: Router) { }
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
     return next.handle(request)
       .pipe(
-        tap(() => {
+        tap((response) => {
           const undefinedUrlParams = request.url.match(/(\/):+\w+/gi);
           if (undefinedUrlParams?.length) {
             throw new Error(`Undefined URL params: ${undefinedUrlParams.join(',')}`);
@@ -44,23 +45,22 @@ export class HttpErrorInterceptor implements HttpInterceptor {
               this.Router.navigate(['/error/404']);
               return throwError(() => response.error);
             }
-
-            if (response.url?.match(this.API_REQUEST_REGEX) && response.status === 401) {
+            if (response.url?.match(this.API_REQUEST_REGEX) && response?.status === 401) {
               // Cannot use $state here due to circular dependencies with $http
-              this.Router.navigate(['/account/login'], { queryParams: { redirectSuccess: this.Location.getAbsoluteUrl(window.location.pathname) + window.location.search }});
+              this.Router.navigate(['/account/login'], { queryParams: { redirectSuccess: this.Location.getAbsoluteUrl(window.location.pathname) + window.location.search } });
               return throwError(() => response.error);
             }
           }
 
 
           try {
-            const keys = <{[key:string]: string}>this.errorsToKeys(response, request.method);
-            Object.values(keys).forEach((err:string) => {
+            const keys = <{ [key: string]: string }>this.errorsToKeys(response, request.method);
+            Object.values(keys).forEach((err: string) => {
               this.Notification.addError(err);
             });
           } catch (err) {
             // Catch all so that promise get rejected later with response to continue interceptor chain
-         //   this.Notification.addError(err);
+            //   this.Notification.addError(err);
             console.warn('cosHttpApiErrorInterceptor.responseError', 'Failed to translate errors', response, err);
           }
           return throwError(() => response.error);
@@ -92,6 +92,9 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 
     const url = errorResponse.url;
     if (!url) {
+      return errorResponse.message;
+    }
+    if (url.indexOf('ep_auth_citizenos') > -1) {
       return errorResponse.message;
     }
     const path = url.match(this.API_REQUEST_REGEX)[0]
@@ -160,7 +163,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
       this.Notification.addError(translationKeyFallback);
     } else {
       console.warn('cosHttpApiErrorInterceptor.generalErrorToKey', 'No translation for', translationKey, translationKeyFallback, errorResponse);
-      this.Notification.addError(errorResponse.error.status.message ? errorResponse.error.status.message + ' *' : errorResponse.status + ' - ' + errorResponse.message + ' *');
+      this.Notification.addError(errorResponse.error?.status?.message ? errorResponse.error.status.message + ' *' : errorResponse.status + ' - ' + errorResponse.message + ' *');
     }
   };
 

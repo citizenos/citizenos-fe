@@ -210,7 +210,7 @@
 
     <div class="section">
 
-      <a (click)="doLogout();" class="section_item" href="">
+      <a (click)="$event.preventDefault();doLogout();" class="section_item">
         <div class="section_icon">
           <div class="table_cell">
             <div class="sprite sprite-menu-icon-logout2x"></div>
