@@ -1,6 +1,7 @@
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { LinkyModule} from 'ngx-linky';
 
 import { TopicRoutingModule } from './topic-routing.module';
 import { TopicComponent } from './topic.component';
@@ -40,7 +41,6 @@ import { TopicJoinComponent } from './components/topic-join/topic-join.component
 import { TopicInvitationComponent } from './components/topic-invitation/topic-invitation.component';
 import { TopicReportComponent } from './components/topic-report/topic-report.component';
 import { TopicVoteDelegateComponent } from './components/topic-vote-delegate/topic-vote-delegate.component';
-
 
 @NgModule({
   declarations: [
@@ -88,6 +88,7 @@ import { TopicVoteDelegateComponent } from './components/topic-vote-delegate/top
     TopicVoteDelegateComponent
   ],
   imports: [
+    LinkyModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,

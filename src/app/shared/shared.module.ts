@@ -1,6 +1,8 @@
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { LinkyModule} from 'ngx-linky';
+
 import { TopicboxComponent } from '../public-topics/components/topicbox/topicbox.component';
 import { PublicgroupboxComponent } from '../public-groups/components/publicgroupbox/publicgroupbox.component';
 import { GroupboxComponent } from '../my-groups/components/groupbox/groupbox.component';
@@ -99,6 +101,7 @@ import { CosDisabledDirective } from '../directives/cos-disabled.directive';
     MomentModule,
     QRCodeModule,
     TranslateModule,
+    LinkyModule
   ],
    exports: [
     ActivityComponent,

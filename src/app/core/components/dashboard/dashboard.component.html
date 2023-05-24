@@ -182,7 +182,7 @@
   </div>
   <div class="dashboard_section">
     <div class="section_header">
-      <h4 translate="VIEWS.DASHBOARD.MY_TOPICS_HEADER"></h4><a
+      <h4 translate="VIEWS.DASHBOARD.MY_TOPICS_HEADER"></h4><a class="view_more_link"
         [routerLink]="['/', translate.currentLang, 'my', 'topics']"><span
           translate="VIEWS.DASHBOARD.MY_TOPICS_LNK_VIEW_ALL"></span><svg width="24" height="24" viewBox="0 0 24 24"
           fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -196,12 +196,13 @@
         </topicbox>
       </ng-container>
     </div>
+    <button class="view_more_button btn_big_submit" [routerLink]="['/', translate.currentLang, 'my', 'topics']" translate="VIEWS.DASHBOARD.MY_TOPICS_LNK_VIEW_ALL"></button>
   </div>
-  <div class="dashboard_section">
+   <div class="dashboard_section">
     <div class="section_header">
-      <h4 translate="VIEWS.DASHBOARD.MY_GROUPS_HEADER"></h4><a
+      <h4 translate="VIEWS.DASHBOARD.MY_GROUPS_HEADER"></h4><a class="view_more_link"
         [routerLink]="['/', translate.currentLang, 'my', 'groups']"><span
-          translate="VIEWS.DASHBOARD.MY_GROUPS.LNK_VIEW_ALL"></span><svg width="24" height="24" viewBox="0 0 24 24"
+          translate="VIEWS.DASHBOARD.MY_GROUPS_LNK_VIEW_ALL"></span><svg width="24" height="24" viewBox="0 0 24 24"
           fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M15 12V14L19 11.5L15 9V11H6V12H15Z" />
         </svg>
@@ -213,5 +214,124 @@
         </group-box>
       </ng-container>
     </div>
+    <button class="view_more_button btn_big_submit" [routerLink]="['/', translate.currentLang, 'my', 'groups']" translate="VIEWS.DASHBOARD.MY_GROUPS_LNK_VIEW_ALL"></button>
+  </div>
+  <div class="dashboard_section_row">
+    <div id="news">
+      <div class="section_header">
+        <h4 translate="VIEWS.DASHBOARD.NEWS_HEADER"></h4><a
+          [routerLink]="['/', translate.currentLang, 'my', 'groups']"><span
+            translate="VIEWS.DASHBOARD.NEWS_LNK_VIEW_ALL"></span><svg width="24" height="24" viewBox="0 0 24 24"
+            fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 12V14L19 11.5L15 9V11H6V12H15Z" />
+          </svg>
+        </a>
+      </div>
+      <div class="news_item">
+        <div class="news_image">
+
+        </div>
+        <div class="news_text">
+          <div class="date">YYYY-MM-DD</div>
+          <a class="bold">Our New Government Partnership for Youth E-engagement in Indonesia</a>
+        </div>
+      </div>
+    </div>
+    <div id="help_us">
+      <div class="bold" translate="VIEWS.DASHBOARD.HELP_US_HEADER"></div>
+      <div class="help_item">
+        <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M26.7558 40.0116C34.0768 40.0116 40.0116 34.0768 40.0116 26.7558C40.0116 19.4348 34.0768 13.5 26.7558 13.5C19.4348 13.5 13.5 19.4348 13.5 26.7558C13.5 29.3644 14.2535 31.7969 15.5546 33.8477L13.5 40.0116L19.6639 37.957C21.7147 39.2582 24.1473 40.0116 26.7558 40.0116Z"
+            fill="#98DAA2" />
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M28.7442 16.0385C21.727 16.0385 16.0384 21.7271 16.0384 28.7443C16.0384 31.2454 16.7605 33.5762 18.0074 35.5415L18.1475 35.7622L16.358 41.1305L21.7263 39.3411L21.947 39.4811C23.9123 40.728 26.2431 41.4501 28.7442 41.4501C35.7614 41.4501 41.45 35.7615 41.45 28.7443C41.45 21.7271 35.7614 16.0385 28.7442 16.0385ZM14.9384 28.7443C14.9384 21.1196 21.1195 14.9385 28.7442 14.9385C36.369 14.9385 42.55 21.1196 42.55 28.7443C42.55 36.369 36.369 42.5501 28.7442 42.5501C26.1225 42.5501 23.67 41.8188 21.5814 40.5489L14.6188 42.8697L16.9396 35.9071C15.6697 33.8185 14.9384 31.366 14.9384 28.7443Z"
+            fill="#2C3B47" />
+          <circle cx="25.5" cy="31.5" r="1" fill="#2C3B47" />
+          <circle cx="29" cy="31.5" r="1" fill="#2C3B47" />
+          <circle cx="32.5" cy="31.5" r="1" fill="#2C3B47" />
+        </svg>
+        <a [routerLink]="['/', translate.currentLang, 'my', 'topics']"><span
+            translate="VIEWS.DASHBOARD.HELP_US_LNK_SHARE_STORY"></span><svg width="24" height="24" viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 12V14L19 11.5L15 9V11H6V12H15Z" />
+          </svg>
+        </a>
+      </div>
+      <div class="help_item">
+        <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M43.2969 17.4487C39.7649 14.4779 34.5121 15.0123 31.2702 18.3139L30.0005 19.6053L28.7308 18.3139C25.4953 15.0123 20.236 14.4779 16.704 17.4487C12.6565 20.8585 12.4438 26.9782 16.066 30.6743L28.5374 43.3845C29.3431 44.2052 30.6514 44.2052 31.4571 43.3845L43.9285 30.6743C47.5572 26.9782 47.3445 20.8585 43.2969 17.4487Z"
+            fill="#F190B7" />
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M14.704 15.9485C18.236 12.9777 23.4952 13.512 26.7307 16.8136L28.0004 18.105L29.2701 16.8136C32.5121 13.512 37.7649 12.9777 41.2968 15.9485C45.3444 19.3582 45.5571 25.478 41.9285 29.174L29.457 41.8843C28.6514 42.7049 27.343 42.7049 26.5374 41.8843L14.0659 29.174C10.4437 25.478 10.6564 19.3582 14.704 15.9485ZM42.6421 29.8746L30.1708 42.5846C28.9732 43.8045 27.0214 43.8047 25.8238 42.5848L13.3517 29.8739C9.3274 25.7676 9.56149 18.9731 14.0597 15.1837L14.0603 15.1832C18.0368 11.8385 23.885 12.4818 27.4442 16.113C27.4444 16.1132 27.4447 16.1135 27.4449 16.1137L28.0004 16.6787L28.5566 16.113C28.5565 16.1131 28.5567 16.1129 28.5566 16.113C28.5567 16.1129 28.557 16.1126 28.5571 16.1125C32.122 12.4824 37.9636 11.8381 41.9405 15.1832L41.2968 15.9485L41.9411 15.1837C46.4394 18.9731 46.6734 25.7682 42.6421 29.8746C42.6421 29.8745 42.642 29.8746 42.6421 29.8746Z"
+            fill="#2C3B47" />
+          <path
+            d="M35.2529 21.0598C33.3263 19.4441 30.4611 19.7347 28.6928 21.5304L28.0003 22.2327L27.3077 21.5304C25.5429 19.7347 22.6742 19.4441 20.7477 21.0598C18.5399 22.9143 18.4239 26.2426 20.3996 28.2527L27.2022 35.1653C27.6417 35.6116 28.3553 35.6116 28.7948 35.1653L35.5974 28.2527C37.5766 26.2426 37.4606 22.9143 35.2529 21.0598Z"
+            fill="#EED6DA" />
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M20.7476 21.0596C22.6706 19.4468 25.5324 19.7334 27.298 21.5203C27.3012 21.5236 27.3044 21.5268 27.3076 21.5301L28.0002 22.2324L28.6928 21.5301C28.696 21.5268 28.6992 21.5236 28.7024 21.5203C30.4715 19.7334 33.3298 19.4468 35.2528 21.0596C37.4606 22.914 37.5766 26.2423 35.5973 28.2524L28.7947 35.165C28.3553 35.6113 27.6416 35.6113 27.2022 35.165L20.3996 28.2524C18.4238 26.2423 18.5398 22.914 20.7476 21.0596ZM28.0002 20.8083C25.9097 18.7016 22.4679 18.3117 20.105 20.2934L20.1044 20.2938C17.4448 22.5278 17.3069 26.5325 19.6864 28.9534L26.4894 35.8664C27.3206 36.7106 28.6761 36.7108 29.5073 35.8666L36.3099 28.954C38.6936 26.5331 38.5557 22.5279 35.896 20.2938L35.2528 21.0596L35.8954 20.2934C33.5319 18.3112 30.0936 18.7022 28.0002 20.8083Z"
+            fill="#2C3B47" />
+        </svg>
+        <a [routerLink]="['/', translate.currentLang, 'my', 'topics']"><span
+            translate="VIEWS.DASHBOARD.HELP_US_LNK_KEEP_PLATFORM_FREE"></span><svg width="24" height="24" viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 12V14L19 11.5L15 9V11H6V12H15Z" />
+          </svg>
+        </a>
+      </div>
+      <div class="help_item">
+        <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M21.5 33C27.0228 33 31.5 28.5228 31.5 23C31.5 17.4772 27.0228 13 21.5 13C15.9772 13 11.5 17.4772 11.5 23C11.5 24.9678 12.0684 26.8029 13.05 28.35L11.5 33L16.15 31.45C17.6971 32.4316 19.5322 33 21.5 33Z"
+            fill="white" />
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M20 31.5C25.5228 31.5 30 27.0228 30 21.5C30 15.9772 25.5228 11.5 20 11.5C14.4772 11.5 10 15.9772 10 21.5C10 23.4678 10.5684 25.3029 11.55 26.85L10 31.5L14.65 29.95C16.1971 30.9316 18.0322 31.5 20 31.5Z"
+            fill="#E9D519" />
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M21.5 13.5502C16.2809 13.5502 12.05 17.7811 12.05 23.0002C12.05 24.8606 12.5871 26.594 13.5144 28.0556L13.6544 28.2762L12.3696 32.1306L16.224 30.8458L16.4446 30.9858C17.9062 31.9131 19.6395 32.4502 21.5 32.4502C26.7191 32.4502 30.95 28.2193 30.95 23.0002C30.95 17.7811 26.7191 13.5502 21.5 13.5502ZM10.95 23.0002C10.95 17.1736 15.6734 12.4502 21.5 12.4502C27.3266 12.4502 32.05 17.1736 32.05 23.0002C32.05 28.8268 27.3266 33.5502 21.5 33.5502C19.5192 33.5502 17.6644 33.0038 16.08 32.0533L10.6304 33.8698L12.4469 28.4202C11.4964 26.8358 10.95 24.981 10.95 23.0002Z"
+            fill="#2C3B47" />
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M21.9984 18.2676C21.908 18.074 21.7136 17.9502 21.5 17.9502C21.2863 17.9502 21.0919 18.074 21.0016 18.2676L17.5016 25.7676C17.3731 26.0429 17.4921 26.3701 17.7674 26.4986C18.0426 26.6271 18.3699 26.508 18.4984 26.2328L19.5169 24.0502H23.483L24.5016 26.2328C24.63 26.508 24.9573 26.6271 25.2325 26.4986C25.5078 26.3701 25.6268 26.0429 25.4984 25.7676L21.9984 18.2676ZM22.9697 22.9502L21.5 19.8008L20.0302 22.9502H22.9697Z"
+            fill="#2C3B47" />
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M34.5 43.5C28.9772 43.5 24.5 39.0228 24.5 33.5C24.5 27.9772 28.9772 23.5 34.5 23.5C40.0228 23.5 44.5 27.9772 44.5 33.5C44.5 35.4678 43.9316 37.3029 42.95 38.85L44.5 43.5L39.85 41.95C38.3029 42.9316 36.4678 43.5 34.5 43.5Z"
+            fill="white" />
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M35.5 42C29.9772 42 25.5 37.5228 25.5 32C25.5 26.4772 29.9772 22 35.5 22C41.0228 22 45.5 26.4772 45.5 32C45.5 33.9678 44.9316 35.8029 43.95 37.35L45.5 42L40.85 40.45C39.3029 41.4316 37.4678 42 35.5 42Z"
+            fill="#E3A8CC" />
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M34.5 24.0502C39.7191 24.0502 43.95 28.2811 43.95 33.5002C43.95 35.3606 43.4129 37.094 42.4856 38.5556L42.3456 38.7762L43.6304 42.6306L39.776 41.3458L39.5554 41.4858C38.0938 42.4131 36.3605 42.9502 34.5 42.9502C29.2809 42.9502 25.05 38.7193 25.05 33.5002C25.05 28.2811 29.2809 24.0502 34.5 24.0502ZM45.05 33.5002C45.05 27.6736 40.3266 22.9502 34.5 22.9502C28.6734 22.9502 23.95 27.6736 23.95 33.5002C23.95 39.3268 28.6734 44.0502 34.5 44.0502C36.4808 44.0502 38.3356 43.5038 39.92 42.5533L45.3696 44.3698L43.5531 38.9202C44.5036 37.3358 45.05 35.481 45.05 33.5002Z"
+            fill="#2C3B47" />
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M35.0496 30.0002C35.0496 29.6964 34.8033 29.4502 34.4996 29.4502C34.1958 29.4502 33.9496 29.6964 33.9496 30.0002V30.9502H31C30.6962 30.9502 30.45 31.1964 30.45 31.5002C30.45 31.804 30.6962 32.0502 31 32.0502H32.4498C32.461 33.4275 32.9345 34.7039 33.7186 35.6797C33.0798 36.1682 32.3123 36.4502 31.5 36.4502C31.1962 36.4502 30.95 36.6964 30.95 37.0002C30.95 37.304 31.1962 37.5502 31.5 37.5502C32.6343 37.5502 33.6675 37.1455 34.4998 36.4678C35.332 37.1455 36.3653 37.5502 37.4996 37.5502C37.8033 37.5502 38.0496 37.304 38.0496 37.0002C38.0496 36.6964 37.8033 36.4502 37.4996 36.4502C36.6873 36.4502 35.9197 36.1682 35.281 35.6797C36.0651 34.7039 36.5385 33.4275 36.5498 32.0502H38C38.3037 32.0502 38.55 31.804 38.55 31.5002C38.55 31.1964 38.3037 30.9502 38 30.9502H35.0496V30.0002ZM33.5498 32.0502H35.4497C35.4391 33.1496 35.0798 34.1362 34.4998 34.8952C33.9197 34.1362 33.5604 33.1496 33.5498 32.0502Z"
+            fill="#2C3B47" />
+        </svg>
+        <a [routerLink]="['/', translate.currentLang, 'my', 'topics']"><span
+            translate="VIEWS.DASHBOARD.HELP_US_LNK_VOLUNTEER_TO_TRANSLATE"></span><svg width="24" height="24" viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 12V14L19 11.5L15 9V11H6V12H15Z" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="dashboard_section">
+    <div class="section_header">
+      <h4 translate="VIEWS.DASHBOARD.PUBLIC_TOPICS_HEADER"></h4><a class="view_more_link"
+        [routerLink]="['/', translate.currentLang, 'public', 'topics']"><span
+          translate="VIEWS.DASHBOARD.PUBLIC_TOPICS_LNK_VIEW_ALL"></span><svg width="24" height="24" viewBox="0 0 24 24"
+          fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15 12V14L19 11.5L15 9V11H6V12H15Z" />
+        </svg>
+      </a>
+    </div>
+    <div class="section_content">
+      <ng-container *ngIf="publictopics$ | async as topics;">
+        <topicbox [topic]="topic" *ngFor="let topic of topics; trackBy: trackByTopic" [ngClass]="topic.categories">
+        </topicbox>
+      </ng-container>
+    </div>
+    <button class="view_more_button btn_big_submit" [routerLink]="['/', translate.currentLang, 'public', 'topics']" translate="VIEWS.DASHBOARD.PUBLIC_TOPICS_LNK_VIEW_ALL"></button>
   </div>
 </div>
