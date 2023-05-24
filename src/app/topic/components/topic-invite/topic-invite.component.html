@@ -368,7 +368,7 @@
       <div class="lightbox_footer" *ngIf="TopicService.canEdit(topic) && tabSelected === 'invite'">
         <div class="line lightest_line"></div>
         <div class="blue_button_wrap">
-          <div class="blue_button" cos-disabled="!members.length" (click)="doSaveTopic()"
+          <div class="blue_button" [cosDisabled]="!members.length" (click)="doSaveTopic()"
             translate="MODALS.TOPIC_SETTINGS_BTN_SEND_INVITES"></div>
         </div>
       </div>

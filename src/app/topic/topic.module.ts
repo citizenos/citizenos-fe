@@ -1,7 +1,6 @@
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LinkyModule } from 'angular2-linky';
 
 import { TopicRoutingModule } from './topic-routing.module';
 import { TopicComponent } from './topic.component';
@@ -40,6 +39,7 @@ import { RegularGraphComponent } from './components/regular-graph/regular-graph.
 import { TopicJoinComponent } from './components/topic-join/topic-join.component';
 import { TopicInvitationComponent } from './components/topic-invitation/topic-invitation.component';
 import { TopicReportComponent } from './components/topic-report/topic-report.component';
+import { TopicVoteDelegateComponent } from './components/topic-vote-delegate/topic-vote-delegate.component';
 
 
 @NgModule({
@@ -84,11 +84,11 @@ import { TopicReportComponent } from './components/topic-report/topic-report.com
     RegularGraphComponent,
     TopicJoinComponent,
     TopicInvitationComponent,
-    TopicReportComponent
+    TopicReportComponent,
+    TopicVoteDelegateComponent
   ],
   imports: [
     CommonModule,
-    LinkyModule,
     FormsModule,
     ReactiveFormsModule,
     SharedModule,

@@ -181,18 +181,19 @@ export class ActivityService extends ItemsListService {
           }
           break;
       }
-      if (activity.data.object && activity.data.object['@type'] && activity.data.object['@type'] === 'CommentVote' && activity.data.type !== 'Delete') {
-        let val = 'up';
-        if ((activity.data.resultObject && activity.data.resultObject.value === -1) || (!activity.data.resultObject && activity.data.object.value === -1)) {
-          val = 'down';
-        }
-        if (activity.data.resultObject && activity.data.resultObject.value === 0) {
-          val = 'remove';
-        }
-        stringparts.push(val);
-      }
-      activity.string = 'ACTIVITY_FEED.' + stringparts.join('_').toUpperCase();
     });
+
+    if (activity.data.object && activity.data.object['@type'] && activity.data.object['@type'] === 'CommentVote' && activity.data.type !== 'Delete') {
+      let val = 'up';
+      if ((activity.data.resultObject && activity.data.resultObject.value === -1) || (!activity.data.resultObject && activity.data.object.value === -1)) {
+        val = 'down';
+      }
+      if (activity.data.resultObject && activity.data.resultObject.value === 0) {
+        val = 'remove';
+      }
+      stringparts.push(val);
+    }
+    activity.string = 'ACTIVITY_FEED.' + stringparts.join('_').toUpperCase();
   }
   getActivityValues(activity: any) {
     const values: any = {};

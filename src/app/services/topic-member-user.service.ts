@@ -25,7 +25,7 @@ export class TopicMemberUserService extends ItemsListService {
     return this.query(params);
   }
 
-  query(params: { [key: string]: any }): Observable<ApiResponse> {
+  query(params: { [key: string]: any }) {
     let path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/members/users', params);
     const queryParams = Object.fromEntries(Object.entries(params).filter((i) => i[1] !== null));
 
