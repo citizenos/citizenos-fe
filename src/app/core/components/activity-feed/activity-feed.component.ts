@@ -34,6 +34,7 @@ export class ActivityFeedComponent implements OnInit {
 
   filterActivities(filter: string) {
     this.allActivities$ = [];
+    this.ActivityService.reset();
     this.ActivityService.setParam('include', filter)
   }
   ngOnInit(): void {
