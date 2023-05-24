@@ -35,7 +35,6 @@ export abstract class ItemsListService {
   };
 
   reset() {
-    this.hasMore$.next(false);
     this.page$.next(1);
     this.params$.next(Object.assign({}, this.params || this.defaultParams));
   }
@@ -45,6 +44,7 @@ export abstract class ItemsListService {
   };
 
   loadMore() {
+    console.log(this.hasMore$.value);
     if (this.hasMore$.value === true) {
       const page = this.page$.value;
       this.loadPage(page + 1);
