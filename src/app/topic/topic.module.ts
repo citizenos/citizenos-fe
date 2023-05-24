@@ -1,7 +1,6 @@
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LinkyModule } from 'angular2-linky';
 
 import { TopicRoutingModule } from './topic-routing.module';
 import { TopicComponent } from './topic.component';
@@ -90,7 +89,6 @@ import { TopicVoteDelegateComponent } from './components/topic-vote-delegate/top
   ],
   imports: [
     CommonModule,
-    LinkyModule,
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
