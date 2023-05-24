@@ -225,7 +225,7 @@ export class TopicVoteCreateComponent implements OnInit {
   };
   //To display hours in the dropdown like 01
   formatTime(val: number | string) {
-    if (val < 10) {
+    if (parseInt(val.toString()) < 10) {
       val = '0' + val;
     }
 
