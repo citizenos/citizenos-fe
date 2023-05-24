@@ -1,9 +1,8 @@
 import { ConfigService } from 'src/app/services/config.service';
 import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { inject, Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse} from '@angular/common/http';
 import { of, BehaviorSubject, Observable, throwError } from 'rxjs';
-import { fromFetch } from 'rxjs/fetch';
 import { switchMap, catchError, tap, take, map, retry, exhaustMap, shareReplay, combineLatestWith } from 'rxjs/operators';
 import { LocationService } from './location.service';
 import { NotificationService } from './notification.service';
@@ -93,13 +92,13 @@ export class AuthService {
 
 
 
-    return this.http.get(pathLogoutEtherpad, { withCredentials: true, responseType: 'blob', observe: 'body' })
+    return this.http.get(pathLogoutEtherpad, { withCredentials: true, responseType: 'json', observe: 'body' })
       .pipe(
         combineLatestWith(this.http.post(pathLogoutAPI, {}, { withCredentials: true, responseType: 'json', observe: 'body' })),
         map(([res1, res2]) => {
           this.user$ = null;
           this.loggedIn$.next(false);
-          return res1;
+          return res2;
         }),
         retry(2), // retry 2 times on error
         catchError(this.handleError)
@@ -108,11 +107,6 @@ export class AuthService {
 
   status() {
     const path = this.Location.getAbsoluteUrlApi('/api/auth/status');
-    /*   const headers = new HttpHeaders({
-         'Cache-Control': 'no-cache, no-store, must-revalidate, post-check=0, pre- check=0',
-         'Pragma': 'no-cache',
-         'Expires': '0'
-       });*/
 
     return this.user$ = this.http.get<User>(path, { withCredentials: true, observe: 'body' }).pipe(
       switchMap((res: any) => {
