@@ -760,7 +760,15 @@
       "MY_TOPICS_HEADER": "@:DEFAULT.NAV.LNK_MY_TOPICS",
       "MY_TOPICS_LNK_VIEW_ALL": "View all your topics",
       "MY_GROUPS_HEADER": "@:DEFAULT.NAV.LNK_MY_GROUPS",
-      "MY_GROUPS_LNK_VIEW_ALL": "View all your groups"
+      "MY_GROUPS_LNK_VIEW_ALL": "View all your groups",
+      "NEWS_HEADER": "Citizen OS news",
+      "NEWS_LNK_VIEW_ALL": "View all news",
+      "HELP_US_HEADER": "Help us make the best e-democracy platform!",
+      "HELP_US_LNK_SHARE_STORY": "Share your Citizen OS Story",
+      "HELP_US_LNK_KEEP_PLATFORM_FREE": "Help us keep the platform free",
+      "HELP_US_LNK_VOLUNTEER_TO_TRANSLATE": "Volunteer to translate",
+      "PUBLIC_TOPICS_HEADER": "Popular public topics",
+      "PUBLIC_TOPICS_LNK_VIEW_ALL": "View all public topics"
     },
     "401": {
       "HEADING_INSUFFICIENT_PERMISSIONS": "Sorry, you haven't got sufficient permissions to access the resource",

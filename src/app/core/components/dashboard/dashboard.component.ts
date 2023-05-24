@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AppService } from 'src/app/services/app.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserTopicService } from 'src/app/services/user-topic.service';
+import { PublicTopicService } from 'src/app/services/public-topic.service';
 import { ActivityFeedComponent } from '../activity-feed/activity-feed.component';
 import { TranslateService } from '@ngx-translate/core';
 import { ActivityService } from 'src/app/services/activity.service';
@@ -24,7 +25,9 @@ export class DashboardComponent {
   newActivities: number = 0;
   unreadActivitiesCount$: any;
   groups$: Observable<Group[] | any[]> = of([]);
-  topics$: Observable<Group[] | any[]> = of([]);
+  topics$: Observable<Topic[] | any[]> = of([]);
+  publictopics$: Observable<Topic[] | any[]> = of([]);
+
   constructor(
     private dialog: MatDialog,
     public auth: AuthService,
@@ -32,12 +35,14 @@ export class DashboardComponent {
     public translate: TranslateService,
     private route: ActivatedRoute,
     private UserTopicService: UserTopicService,
+    private PublicTopicService: PublicTopicService,
     private GroupService: GroupService,
     ActivityService: ActivityService) {
     this.groups$ = this.GroupService.loadItems().pipe(
       tap((groups) => console.log(groups))
     );
     this.topics$ = this.UserTopicService.loadItems();
+    this.publictopics$ = this.PublicTopicService.loadItems();
     this.unreadActivitiesCount$ = ActivityService.getUnreadActivities().pipe(tap((count: number) => {
       this.newActivities = 0;
       if (count) this.newActivities = count

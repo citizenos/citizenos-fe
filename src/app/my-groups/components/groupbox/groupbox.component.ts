@@ -8,6 +8,7 @@ import { GroupJoinService } from 'src/app/services/group-join.service';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { LoginDialogComponent } from 'src/app/account/components/login/login.component';
 import { take } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'group-box',
@@ -16,7 +17,7 @@ import { take } from 'rxjs';
 })
 export class GroupboxComponent implements OnInit {
   @Input() group = <Group>{}; // decorate the property with @Input()
-  constructor(private dialog: MatDialog, private router: Router, private GroupJoinService: GroupJoinService, private Auth: AuthService) { }
+  constructor(private dialog: MatDialog, private router: Router, private GroupJoinService: GroupJoinService, private Auth: AuthService, public Translate: TranslateService) { }
 
   ngOnInit(): void {
   }

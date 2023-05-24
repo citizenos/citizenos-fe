@@ -1,9 +1,16 @@
+@use 'mixins';
+
 #dashboard_wrap {
   display: flex;
   flex-direction: column;
   gap: 24px;
   width: 100%;
   height: 100%;
+
+  @include mixins.mobile {
+    display: flex;
+    margin-bottom: 60px;
+  }
 
   #dashboard_header {
     padding: 16px 0;
@@ -30,11 +37,21 @@
     }
   }
 
+  .view_more_button {
+    display: none;
+    @include mixins.mobile {
+      display: flex;
+      margin-top: 24px;
+    }
+  }
+
   .dashboard_section_row {
     display: flex;
     flex-direction: row;
     gap: 16px;
-
+    @include mixins.mobile {
+      display: flex;
+    }
     #achievements {
       display: flex;
       flex-direction: column;
@@ -47,6 +64,9 @@
       border-radius: 16px;
       padding: 24px 16px;
 
+      @include mixins.mobile {
+        width: 100%;
+      }
       .box_title {
         font-weight: 600;
         font-size: 18px;
@@ -113,21 +133,102 @@
         }
       }
     }
-  }
-  .dashboard_section {
-    display: flex;
-    flex-direction: column;
 
-    .section_header {
+    #news {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
+      width: 100%;
+      background-color: var(--color-surfaces);
+      border-radius: 16px;
+      padding: 0px 16px 24px 16px;
+      min-height: 456px;
 
+      .news_item {
+        display: flex;
+        gap: 24px;
+        .news_image {
+          display: flex;
+          width: 123px;
+          height: 88px;
+          border-radius: 8px;
+          background-color: var(--color-surface-contrast);
+        }
+        .news_text {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          .date {
+            font-size: 13px;
+            line-height: 16px;
+          }
+        }
+      }
+    }
+
+    #help_us {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      text-align: center;
+      min-width: 280px;
+      max-width: 280px;
+      min-height: 456px;
+
+      background-color: var(--color-scrollbar);
+      border-radius: 16px;
+      padding: 24px 16px;
+      gap: 24px;
+
+      @include mixins.mobile {
+        max-width: 100%;
+        width: 100%;
+      }
+      .help_item {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+        gap: 10px;
+      }
       a {
         align-items: center;
         display: flex;
         gap: 8px;
+        vertical-align: middle;
+        font-size: 14px;
+        line-height: 20px;
+        path {
+          fill: var(--color-link);
+        }
       }
     }
+  }
+
+  .section_header {
+    display: flex;
+    justify-content: space-between;
+
+    a {
+      align-items: center;
+      display: flex;
+      gap: 8px;
+      vertical-align: middle;
+      path {
+        fill: var(--color-link);
+      }
+    }
+    .view_more_link {
+      @include mixins.mobile {
+        display: none;
+      }
+    }
+  }
+
+  .dashboard_section {
+    display: flex;
+    flex-direction: column;
+
     .section_content {
       display: flex;
       flex-direction: row;
