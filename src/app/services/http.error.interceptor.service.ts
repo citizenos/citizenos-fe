@@ -13,6 +13,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   API_REQUEST_JOIN = /api\/(topics?|groups).\/join/i; //Filter out status 401 errors
   constructor(private Notification: NotificationService, private translate: TranslateService, private Location: LocationService, private Router: Router) { }
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
     return next.handle(request)
       .pipe(
         tap((response) => {
