@@ -17,12 +17,12 @@ import { FeedbackComponent } from 'src/app/core/components/feedback/feedback.com
 })
 export class TopicSidepanelComponent implements OnInit {
   @Input() topic!: Topic;
+  @Input() attachments!: Observable<any[]>;
   editMode = of(false);
   wWidth = window.innerWidth;
   STATUSES = this.TopicService.STATUSES;
   VISIBILITY = this.TopicService.VISIBILITY;
   ATTACHMENT_SOURCES = this.TopicAttachmentService.SOURCES;
-  attachments$: Observable<any[]>;
   config = this.app.config.get('attachments');
   constructor(
     private TopicAttachmentService: TopicAttachmentService,
@@ -34,7 +34,6 @@ export class TopicSidepanelComponent implements OnInit {
     public app: AppService,
     private Upload: UploadService
   ) {
-    this.attachments$ = this.TopicAttachmentService.loadItems();
     this.editMode = this.route.queryParams.pipe(
       map((params) => {
         return !!params['editMode']
@@ -43,16 +42,13 @@ export class TopicSidepanelComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const attachmentParams = this.TopicAttachmentService.params$.value;
-    console.log(this.config)
-    attachmentParams.topicId = this.topic.id;
-    this.TopicAttachmentService.params$.next(attachmentParams);
   }
 
   doToggleEditMode() {
     const params = this.router.parseUrl(this.router.url).queryParams;
     if (params['editMode']) {
       delete params['editMode'];
+      this.TopicService.reloadTopic();
     } else {
       params['editMode'] = true;
     }

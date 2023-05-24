@@ -46,6 +46,7 @@ import { EtherpadDirective } from '../directives/etherpad.directive';
 import { CosInputComponent } from './components/cos-input/cos-input.component';
 import { HtmlDirective } from '../directives/html.directive';
 import { DownloadDirective } from '../directives/download.directive';
+import { CosDisabledDirective } from '../directives/cos-disabled.directive';
 @NgModule({
   declarations: [
     ActivityComponent,
@@ -85,7 +86,8 @@ import { DownloadDirective } from '../directives/download.directive';
     CosInputComponent,
     HtmlDirective,
     DownloadDirective,
-    GroupboxComponent
+    GroupboxComponent,
+    CosDisabledDirective
   ],
   imports: [
     RouterModule,
@@ -140,7 +142,8 @@ import { DownloadDirective } from '../directives/download.directive';
     CosInputComponent,
     HtmlDirective,
     DownloadDirective,
-    GroupboxComponent
+    GroupboxComponent,
+    CosDisabledDirective
    ]
 })
 export class SharedModule { }

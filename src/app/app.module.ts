@@ -1,7 +1,7 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS, HttpClientXsrfModule } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material/dialog';
 import { TranslateModule, TranslateLoader, TranslateCompiler, MissingTranslationHandler, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -83,6 +83,10 @@ export function appInitializerFactory(translate: TranslateService) {
     }),
     CommonModule,
     HttpClientModule,
+    HttpClientXsrfModule.withOptions({
+      cookieName: 'XSRF-TOKEN',
+      headerName: 'X-CSRF-TOKEN'
+    }),
     MatDialogModule,
     AppRoutingModule,
     NoopAnimationsModule,

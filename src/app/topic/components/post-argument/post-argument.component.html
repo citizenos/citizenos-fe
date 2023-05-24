@@ -91,7 +91,7 @@
       </div>
     </label>
 
-    <div class="blue_button" cos-disabled="argumentForm.$invalid || !argumentType"
+    <div class="blue_button" [cosDisabled]="!argumentType"
       translate="VIEWS.TOPICS_TOPICID.BTN_ARGUMENT_POST" (click)="postArgument()">
     </div>
     <div class="clearer"></div>

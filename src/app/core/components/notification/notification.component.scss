@@ -1,4 +1,3 @@
-@use "icons_new";
 @use "mixins";
 
 .notification_top {
@@ -46,55 +45,11 @@
       font-weight: 700;
     }
   }
-  &.error {
-    border-color: var(--color-error-background);
-
-    .icon_notification {
-      @extend %icon_notification_error;
-
-      @include mixins.mobile {
+  .icon_notification {
+    @include mixins.mobile {
+      svg {
         width: 24px;
         height: 24px;
-        background-size: 24px 24px;
-      }
-    }
-  }
-
-  &.info {
-    border-color: var(--color-info-background);
-
-    .icon_notification {
-      @extend %icon_notification_info;
-      @include mixins.mobile {
-        width: 24px;
-        height: 24px;
-        background-size: 24px 24px;
-      }
-    }
-  }
-
-  &.warning {
-    border-color: var(--color-warn-background);
-
-    .icon_notification {
-      @extend %icon_notification_warning;
-      @include mixins.mobile {
-        width: 24px;
-        height: 24px;
-        background-size: 24px 24px;
-      }
-    }
-  }
-
-  &.success {
-    border-color: var(--color-success-background);
-
-    .icon_notification {
-      @extend %icon_notification_success;
-      @include mixins.mobile {
-        width: 24px;
-        height: 24px;
-        background-size: 24px 24px;
       }
     }
   }

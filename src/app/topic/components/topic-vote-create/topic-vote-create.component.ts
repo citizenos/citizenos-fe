@@ -225,7 +225,7 @@ export class TopicVoteCreateComponent implements OnInit {
   };
   //To display hours in the dropdown like 01
   formatTime(val: number | string) {
-    if (val < 10) {
+    if (parseInt(val.toString()) < 10) {
       val = '0' + val;
     }
 
@@ -327,7 +327,7 @@ export class TopicVoteCreateComponent implements OnInit {
       .pipe(take(1))
       .subscribe({
         next: (vote) => {
-          this.TopicService.get(this.topic.id).pipe(take(1)).subscribe();
+          this.TopicService.reloadTopic();
           this.router.navigate(['/topics', this.topic.id, 'votes', vote.id]);
         },
         error: (res) => {
