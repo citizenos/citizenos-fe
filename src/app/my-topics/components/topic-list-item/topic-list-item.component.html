@@ -58,7 +58,7 @@
       </div>
     </div>
     <div class="small_topic_right_cont">
-      <div class="small_topic_small_text">{{(topic.updatedAt || topic.createdAt) | amDateFormat : 'L LT'}}</div>
+      <div class="small_topic_small_text">{{(topic.updatedAt || topic.createdAt) | date : 'YYYY-MM-dd HH:mm'}}</div>
     </div>
   </div>
 </div>
