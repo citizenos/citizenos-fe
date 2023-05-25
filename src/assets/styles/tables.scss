@@ -8,6 +8,7 @@
   box-sizing: border-box;
   tr,
   .pretend_tr {
+    min-height: 56px;
     height: 56px;
     background-color: vars.$white;
 
@@ -98,6 +99,7 @@ table,
 
   tr,
   .pretend_tr {
+    min-height: 56px;
     height: 56px;
   }
 
