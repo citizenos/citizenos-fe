@@ -279,13 +279,14 @@
         </div>
         <group-member-topic [topic]="topic" [group]="group" [fields]="['delete', 'level', 'userscount']"
           class="pretend_tr" *ngFor="let topic of memberTopics$ | async"></group-member-topic>
-        <div class="pretend_tr">
-          <div class="pagination_wrapper">
-            <cos-pagination class="pagination" (select)="GroupMemberTopicService.loadPage($event)"
-              [totalPages]="(GroupMemberTopicService.totalPages$ | async) || 0"
-              [page]="(GroupMemberTopicService.page$ | async) || 0"></cos-pagination>
+        <ng-container *ngIf="(GroupMemberTopicService.totalPages$ | async) as totalPages ">
+          <div class="pretend_tr" *ngIf="totalPages > 1">
+            <div class="pagination_wrapper">
+              <cos-pagination class="pagination" (select)="GroupMemberTopicService.loadPage($event)"
+                [totalPages]=" totalPages || 0" [page]="(GroupMemberTopicService.page$ | async) || 0"></cos-pagination>
+            </div>
           </div>
-        </div>
+        </ng-container>
 
       </div>
     </div>
@@ -372,7 +373,8 @@
         <span translate="VIEWS.MY_GROUPS_GROUPID.HEADING_INVITED"
           [translateParams]="{count: (GroupInviteUserService.countTotal$ | async)}"></span>
         |
-        <div class="blue_link" (click)="inviteListSearch = !inviteListSearch; inviteList=true; $event.stopPropagation();"
+        <div class="blue_link"
+          (click)="inviteListSearch = !inviteListSearch; inviteList=true; $event.stopPropagation();"
           translate="VIEWS.MY_GROUPS_GROUPID.LNK_SEARCH"></div>
         <span *ngIf="canUpdate(group)">|
           <div class="blue_link" (click)="shareGroupDialog(group);$event.stopPropagation()"

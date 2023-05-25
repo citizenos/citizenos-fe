@@ -1,52 +1,63 @@
 @use "vars";
-
+@use "mixins_n_extends";
 .default_table {
   display: table;
   width: 100%;
   border-collapse: collapse;
   table-layout: fixed;
+  box-sizing: border-box;
+  tr,
+  .pretend_tr {
+    height: 56px;
+    background-color: vars.$white;
 
-  tr, .pretend_tr {
-      height: 56px;
+    &:nth-child(even) {
+      background-color: vars.$light_gray;
+    }
+
+    &:last-child {
       background-color: vars.$white;
-
-      &:nth-child(even) {
-          background-color: vars.$light_gray;
-      }
-
-      &:last-child {
-        background-color: vars.$white;
     }
   }
 
-  th, .pretend_th {
-      padding: 20px;
+  th,
+  .pretend_th {
+    padding: 20px;
 
-      .icon {
-          vertical-align: baseline;
-      }
+    @include mixins_n_extends.mobile {
+      padding: 0px;
+    }
 
-      .th_text {
-          width: max-content;
-      }
+    .icon {
+      vertical-align: baseline;
+    }
+
+    .th_text {
+      width: max-content;
+    }
   }
-  td, .pretend_td {
-      padding: 0 20px;
-      vertical-align: middle;
-      text-align: right;
+  td,
+  .pretend_td {
+    padding: 0 20px;
+    vertical-align: middle;
+    text-align: right;
 
-      &:first-child {
-          font-weight: 700;
-          text-align: left;
-      }
-      .toggle_cell {
-          bottom: 14px;
-          position: relative;
-      }
+    @include mixins_n_extends.mobile {
+      padding: 0px;
+    }
+
+    &:first-child {
+      font-weight: 700;
+      text-align: left;
+    }
+    .toggle_cell {
+      bottom: 14px;
+      position: relative;
+    }
   }
 
   .pretend_table_mobile_text {
-      display: none;
+    display: none;
   }
 }
 
@@ -85,24 +96,30 @@ table,
     }
   }
 
-  tr, .pretend_tr {
+  tr,
+  .pretend_tr {
     height: 56px;
   }
 
-  td, .pretend_td {
+  td,
+  .pretend_td {
     padding: 0 20px;
     vertical-align: middle;
     text-align: right;
 
+    @include mixins_n_extends.mobile {
+      padding: 0px;
+    }
+
     &:first-child {
-        font-weight: 700;
-        text-align: left;
+      font-weight: 700;
+      text-align: left;
     }
     .toggle_cell {
-        bottom: 14px;
-        position: relative;
+      bottom: 14px;
+      position: relative;
     }
-}
+  }
 
   .pretend_table_mobile_text {
     display: none;
