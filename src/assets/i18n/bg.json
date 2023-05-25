@@ -748,21 +748,21 @@
         "TOPICS_IN_PROGRESS": "Теми в процес",
         "TOPICS_IN_VOTING": "Теми в процес на гласуване",
         "TOPICS_IN_FOLLOW_UP": "Теми с последващи действия",
-        "TOPICS_CLOSED": "Closed topics",
-        "TOPICS_PINNED": "Pinned topics",
-        "TOPICS_MODERATED": "Moderated topics"
+        "TOPICS_CLOSED": "Затворени теми",
+        "TOPICS_PINNED": "Закачени теми",
+        "TOPICS_MODERATED": "Модерирани теми"
       },
       "FILTERS_GROUP_TOPICS": {
         "SHOW_ONLY": "@:VIEWS.MY.FILTERS.SHOW_ONLY",
-        "ORDER_TOPICS_BY": "Order group topics by:",
+        "ORDER_TOPICS_BY": "Подреди темите в групите по:",
         "TOPICS_IN_PROGRESS": "@:VIEWS.MY.FILTERS.TOPICS_IN_PROGRESS",
         "TOPICS_IN_VOTING": "@:VIEWS.MY.FILTERS.TOPICS_IN_VOTING",
         "TOPICS_IN_FOLLOW_UP": "@:VIEWS.MY.FILTERS.TOPICS_IN_FOLLOW_UP",
         "TOPICS_CLOSED": "@:VIEWS.MY.FILTERS.TOPICS_CLOSED",
         "STATUS_ASCENDING": "По статус възходящо",
         "STATUS_DESCENDING": "По статус низходящо",
-        "PINNED_ASCENDING": "Attention (non-pinned first)",
-        "PINNED_DESCENDING": "Attention (pinned first)",
+        "PINNED_ASCENDING": "Внимаени (теми които не са закачени)",
+        "PINNED_DESCENDING": "Внимание (закачени теми първо)",
         "ACTIVITY_ASCENDING": "Activity (latest)",
         "ACTIVITY_DESCENDING": "Activity (oldest)"
       }
