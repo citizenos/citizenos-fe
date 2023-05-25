@@ -1,5 +1,5 @@
 <ng-container *ngIf="member">
-  <div class="pretend_td">
+  <div class="pretend_td image_cell">
     <div class="profile_image_wrapper dark">
       <div class="account_picture">
         <img *ngIf="member.imageUrl" [src]="member.imageUrl">
@@ -9,16 +9,13 @@
         </div>
       </div>
     </div>
-    <div class="name_wrap">
-      <div class="table_cell">
-        <div [innerText]="member.name">John Smith</div>
-        <div class="via">
-          {{member.email}} {{member.phoneNumber}}
-        </div>
-      </div>
+  </div>
+  <div class="pretend_td user_cell">
+    <div [innerText]="member.name">John Smith</div>
+    <div class="via">
+      {{member.email}} {{member.phoneNumber}}
     </div>
   </div>
-
   <div class="pretend_td" *ngIf="isVisibleField('lastActivity')">
     <div class="pretend_table_mobile_text mobile_label" translate="VIEWS.PUBLIC_GROUP.LNK_LAST_ACTIVITY">
     </div>
