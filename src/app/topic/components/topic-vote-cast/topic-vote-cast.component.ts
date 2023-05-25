@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Topic } from 'src/app/interfaces/topic';
 import { AuthService } from 'src/app/services/auth.service';
+import { AppService } from 'src/app/services/app.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { TopicService } from 'src/app/services/topic.service';
 import { TopicVoteService } from 'src/app/services/topic-vote.service';
@@ -26,6 +27,7 @@ export class TopicVoteCastComponent implements OnInit {
   userHasVoted: boolean = false;
 
   constructor(
+    public app: AppService,
     private dialog: MatDialog,
     private Notification: NotificationService,
     public AuthService: AuthService,

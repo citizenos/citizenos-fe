@@ -22,7 +22,7 @@
   <div class="pretend_td" *ngIf="isVisibleField('lastActivity')">
     <div class="pretend_table_mobile_text mobile_label" translate="VIEWS.PUBLIC_GROUP.LNK_LAST_ACTIVITY">
     </div>
-    <div [innerText]="member.latestActivity | amDateFormat : 'L LT'">12.02.2015 21:40</div>
+    <div [innerText]="member.latestActivity | date : 'yyyy-MM-dd HH:mm'">12.02.2015 21:40</div>
   </div>
   <div class="pretend_td" *ngIf="isVisibleField('level')">
     <div class="pretend_table_mobile_text mobile_label" translate="VIEWS.PUBLIC_GROUP.LNK_ROLE"></div>

@@ -3,7 +3,7 @@
 </div>
 <div class="pretend_td" *ngIf="isVisibleField('lastActivity')">
   <div class="pretend_table_mobile_text mobile_label" translate="">Last activity</div>
-  <span [innerText]="topic.lastActivity | amDateFormat:'L LT'"></span>
+  <span [innerText]="topic.lastActivity | date:'YYYY-MM-dd HH:mm'"></span>
 </div>
 <div class="pretend_td" *ngIf="isVisibleField('level')">
   <div class="pretend_table_mobile_text mobile_label" translate="VIEWS.PUBLIC_GROUP.LNK_RIGHTS">Level</div>
