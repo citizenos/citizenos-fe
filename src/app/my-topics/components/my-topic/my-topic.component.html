@@ -56,7 +56,7 @@
           <div class="content_item">
             <div class="item_description" translate="VIEWS.MY_TOPICS_TOPICID.LBL_DATE_CREATED"></div>
             <div class="item_content">
-              <div class="item_text" [textContent]="topic.createdAt | date:'dd/mm/yyyy'">12/12/2017</div>
+              <div class="item_text" [textContent]="topic.createdAt | date:'YYYY-MM-dd'">12/12/2017</div>
             </div>
             <div class="clearer"></div>
           </div>
@@ -213,7 +213,7 @@
             <div class="item_description" translate="VIEWS.MY_TOPICS_TOPICID.LBL_VOTE_DEADLINE">Vote deadline</div>
             <div class="item_content">
               <div class="item_text">
-                <span [textContent]="(topic.vote.endsAt | amDateFormat : 'L LT Z') || ('VIEWS.MY_TOPICS_TOPICID.LBL_VOTE_DEADLINE_NONE' | translate)"></span>
+                <span [textContent]="(topic.vote.endsAt | date : 'yyyy-MM-dd HH:mm Z') || ('VIEWS.MY_TOPICS_TOPICID.LBL_VOTE_DEADLINE_NONE' | translate)"></span>
                 <span class="separator">|</span>
                 <!--cos-modal-datepicker ng-model="topic.vote.endsAt"
                   cos-modal-title="'VIEWS.MY_TOPICS_TOPICID.LBL_VOTE_DEADLINE' | translate"

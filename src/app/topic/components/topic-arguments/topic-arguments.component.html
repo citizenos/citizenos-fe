@@ -98,7 +98,7 @@
                               </div>
                           </div>
                           <div class="argument_header_widget">
-                              <div class="table_cell" [title]="{{::reply.createdAt | amDateFormat : 'L LT'}}">
+                              <div class="table_cell" [title]="{{::reply.createdAt | date : 'yyyy-MM-dd HH:mm'}}">
                                   {{::reply.createdAt | amTimeAgo}}
                               </div>
                           </div>
@@ -154,9 +154,9 @@
                       <!-- REPLY EDITS >
                       <div id="{{reply.id + '_v' + version}}" class="argument" ng-if="reply.showEdits && TopicComment.isEdited(reply) && !$last" ng-repeat="(version, edit) in reply.edits">
                           {{reply.showEdits}}
-                          <div class="argument_header" [title]="{{edit.createdAt | amDateFormat : 'L LT'}}">
+                          <div class="argument_header" [title]="{{edit.createdAt | date : 'yyyy-MM-dd HH:mm'}}">
                               <div class="argument_header_widget">
-                                  <div class="table_cell" [title]="{{edit.createdAt | amDateFormat : 'L LT'}}">
+                                  <div class="table_cell" [title]="{{edit.createdAt | date : 'yyyy-MM-dd HH:mm'}}">
                                       {{edit.createdAt | amTimeAgo}}
                                   </div>
                               </div>

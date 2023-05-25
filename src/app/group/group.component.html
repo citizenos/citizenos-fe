@@ -181,15 +181,15 @@
           <group-member-topic class="group_item_row pretend_tr"
             *ngFor="let topic of GroupMemberTopicService.items$ | async" [fields]="['lastActivity', 'status']"
             [topic]="topic" [group]="group"></group-member-topic>
-          <div class="pretend_tr" *ngIf="GroupMemberTopicService.totalPages$ | async as pages">
-            <div class="pagination_wrapper">
-
-              <cos-pagination class="pagination" (select)="GroupMemberTopicService.loadPage($event)"
-                [totalPages]="(GroupMemberTopicService.totalPages$ | async) || 0"
-                [page]="(GroupMemberTopicService.page$ | async) || 0"></cos-pagination>
+          <ng-container *ngIf="(GroupMemberTopicService.totalPages$ | async) as totalPages ">
+            <div class="pretend_tr" *ngIf="totalPages > 1">
+              <div class="pagination_wrapper">
+                <cos-pagination class="pagination" (select)="GroupMemberTopicService.loadPage($event)"
+                  [totalPages]=" totalPages || 0"
+                  [page]="(GroupMemberTopicService.page$ | async) || 0"></cos-pagination>
+              </div>
             </div>
-          </div>
-
+          </ng-container>
         </div>
       </div>
     </div>
@@ -245,14 +245,14 @@
           <group-member-user class="group_item_row pretend_tr"
             *ngFor="let user of GroupMemberUserService.items$ | async" [member]="user" [group]="group"
             [fields]="['level', 'remove']"></group-member-user>
-
-          <div class="pretend_tr" *ngIf="(GroupMemberUserService.totalPages$ | async) || 0 > 1">
-            <div class="pagination_wrapper">
-              <cos-pagination class="pagination" (select)="GroupMemberUserService.loadPage($event)"
-                [totalPages]="(GroupMemberUserService.totalPages$ | async) || 0"
-                [page]="(GroupMemberUserService.page$ | async) || 0"></cos-pagination>
+          <ng-container *ngIf="(GroupMemberUserService.totalPages$ | async) as totalPages">
+            <div class="pretend_tr" *ngIf="totalPages > 1">
+              <div class="pagination_wrapper">
+                <cos-pagination class="pagination" (select)="GroupMemberUserService.loadPage($event)"
+                  [totalPages]="totalPages" [page]="(GroupMemberUserService.page$ | async) || 0"></cos-pagination>
+              </div>
             </div>
-          </div>
+          </ng-container>
         </div>
       </div>
     </div>
