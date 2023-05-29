@@ -1,6 +1,6 @@
 @use "mixins";
 
-#mobile_login{
+#mobile_login {
   position: fixed;
   bottom: 0;
   left: 0;
@@ -20,12 +20,27 @@
     width: 100%;
   }
 }
+.btn_notifications {
+  circle {
+    stroke: var(--color-surfaces);
+  }
+  text {
+    font-size: 10px;
+  }
 
+  &:hover {
+    circle {
+      stroke: var(--color-surfaces);
+    }
+  }
+}
+
+#tablet_nav,
 #mobile_nav {
   position: fixed;
   bottom: 0;
   left: 0;
-  display: flex;
+  display: none;
   flex-direction: row;
   background-color: var(--color-surfaces);
   align-items: center;
@@ -33,4 +48,20 @@
   height: 56px;
   width: 100%;
   z-index: 9999;
+}
+
+#tablet_nav {
+  @include mixins.tablet {
+    display: flex;
+  }
+
+  @include mixins.mobile {
+    display: none;
+  }
+}
+
+#mobile_nav {
+  @include mixins.mobile {
+    display: flex;
+  }
 }

@@ -72,19 +72,25 @@
 
       .illustration {
         margin-left: 60px;
-        background-repeat: no-repeat;
-        background-position: bottom;
+        bottom: 0;
+        display: flex;
 
         @include mixins.tablet {
           margin-left: 0;
-          background-size: contain;
           max-height: 240px;
           width: 50%;
+
+          svg {
+            height: 100%;
+          }
         }
 
         @include mixins.mobile {
           justify-content: center;
           width: 100%;
+          svg {
+            height: 100%;
+          }
         }
       }
     }

@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { LoginDialogComponent } from '../account/components/login/login.component';
 import { RegisterComponent, RegisterDialogComponent } from '../account/components/register/register.component';
 import { CreateComponent } from 'src/app/core/components/create/create.component';
+import { ActivityFeedComponent } from '../core/components/activity-feed/activity-feed.component';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,11 @@ export class AppService {
   });
 
   constructor(private dialog: MatDialog, public config: ConfigService, private Location: LocationService, private TopicService: TopicService, private GroupMemberTopicService: GroupMemberTopicService, private router: Router) { }
+
+  doShowActivityModal() {
+    this.dialog.closeAll();
+    this.dialog.open(ActivityFeedComponent);
+  };
 
   doShowLogin() {
     this.dialog.closeAll();

@@ -757,6 +757,11 @@
     "DASHBOARD": {
       "HEADER_WELCOME": "Welcome back to yout dashboard <a href=\"/account\">{{user.name}}</a>",
       "BTN_GLOBAL_ACTIVITIES":"Global activities",
+      "HAVENT_ENGAGED_TOPICS_HEADING": "You haven’t engaged in any topics yet",
+      "HAVENT_ENGAGED_TOPICS_DESCRIPTION": "Engage in topics by discussing, sharing ideas and voting. Or create your own topics and invite participants so they can share their thoughts.",
+      "HAVENT_ENGAGED_BTN_CREATE": "Create a topic",
+      "HAVENT_ENGAGED_BTN_VIEW_PUBLIC_TOPICS": "View public topics",
+      "HAVENT_ENGAGED_BTN_VIEW_PUBLIC_GROUPS": "View public groups",
       "MY_TOPICS_HEADER": "@:DEFAULT.NAV.LNK_MY_TOPICS",
       "MY_TOPICS_LNK_VIEW_ALL": "View all your topics",
       "MY_GROUPS_HEADER": "@:DEFAULT.NAV.LNK_MY_GROUPS",
@@ -768,7 +773,11 @@
       "HELP_US_LNK_KEEP_PLATFORM_FREE": "Help us keep the platform free",
       "HELP_US_LNK_VOLUNTEER_TO_TRANSLATE": "Volunteer to translate",
       "PUBLIC_TOPICS_HEADER": "Popular public topics",
-      "PUBLIC_TOPICS_LNK_VIEW_ALL": "View all public topics"
+      "PUBLIC_TOPICS_LNK_VIEW_ALL": "View all public topics",
+      "SUBSCRIBE_FORM_TITLE": "Want to get updates?",
+      "SUBSCRIBE_FORM_DESCRIPTION": "Subscribe to our newsletter to receive updates and news related to our platform and our work.",
+      "SUBSCRIBE_FORM_INPUT_PLACEHOLDER": "E-mail address",
+      "SUBSCRIBE_FORM_BTN": "Subscribe"
     },
     "401": {
       "HEADING_INSUFFICIENT_PERMISSIONS": "Sorry, you haven't got sufficient permissions to access the resource",
