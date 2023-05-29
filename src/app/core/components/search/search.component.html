@@ -9,7 +9,7 @@
     <a class="donate_item" id="donate_button" target="_blank" [href]="lnkDonate" translate="DONATE_BTN"></a>
   </div>
   <!-- [items]="searchResults" -->
-  <typeahead class="auto-complete" [term]="searchInput" (search)="doSearch($event)"
+  <typeahead class="auto-complete" (search)="doSearch($event)"
     (select)="goToView($event)" [placeholder]="'LAYOUTS.MAIN.PLACEHOLDER_SEARCH_TOPICS_USERS_GROUPS' | translate"
     [selectLimit]="3" (enterAction)="doSearch($event)">
     <div id="search_results_area">
