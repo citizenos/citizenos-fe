@@ -27,6 +27,7 @@ export class DashboardComponent {
   groups$: Observable<Group[] | any[]> = of([]);
   topics$: Observable<Topic[] | any[]> = of([]);
   publictopics$: Observable<Topic[] | any[]> = of([]);
+  showNoEngagements = false;
 
   constructor(
     private dialog: MatDialog,
@@ -41,18 +42,19 @@ export class DashboardComponent {
     this.groups$ = this.GroupService.loadItems().pipe(
       tap((groups) => console.log(groups))
     );
-    this.topics$ = this.UserTopicService.loadItems();
+    this.topics$ = this.UserTopicService.loadItems().pipe(
+      tap((topics) => {
+        if (topics.length === 0) {
+          this.showNoEngagements = true;
+        }
+      })
+    );
     this.publictopics$ = this.PublicTopicService.loadItems();
     this.unreadActivitiesCount$ = ActivityService.getUnreadActivities().pipe(tap((count: number) => {
       this.newActivities = 0;
       if (count) this.newActivities = count
     }));
   }
-
-  doShowActivityModal() {
-    this.dialog.closeAll();
-    this.dialog.open(ActivityFeedComponent);
-  };
 
   trackByTopic(index: number, element: any) {
     return element.id;
