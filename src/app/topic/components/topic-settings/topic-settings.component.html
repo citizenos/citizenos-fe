@@ -110,7 +110,7 @@
               <div class="setting_description" translate="MODALS.TOPIC_SETTINGS_LBL_DEADLINE_EXT"></div>
             </div>
             <div class="settings_cell text-right">
-              <span class="bold">{{topic.vote?.endsAt | amDateFormat:'L LT Z'}}</span>
+              <span class="bold">{{topic.vote?.endsAt | date:'yyyy-MM-dd HH:mm Z'}}</span>
             </div>
             <div class="settings_cell">
               <span class="item_link blue_link" translate="MODALS.TOPIC_SETTINGS_BTN_EDIT_DEADLINE" (click)="openSetDeadline()"></span>

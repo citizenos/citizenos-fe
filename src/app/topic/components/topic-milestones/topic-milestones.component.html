@@ -60,7 +60,7 @@
       </div>
       <div class="table_cell">
         <div class="milestone_date">
-          {{evt.createdAt | amDateFormat: 'LLL'}}
+          {{evt.createdAt | date: 'yyyy-MM-dd HH:mm'}}
         </div>
       </div>
       <div class="table_cell" *ngIf="canEdit()">

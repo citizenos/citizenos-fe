@@ -67,7 +67,7 @@
 
               <div class="activity_new" [innerHtml]="translateVersion(a, 'new')"></div>
             </i>
-            <div class="date_area" [innerHtml]="a.updatedAt | amDateFormat : 'L LT'"></div>
+            <div class="date_area" [innerHtml]="a.updatedAt | date : 'yyyy-MM-dd HH:mm'"></div>
           </div>
         </div>
       </div>
@@ -89,7 +89,7 @@
           class="activity_description_text"> <!--[innerHtml]="(activity.values.description | slice:0:200) + (activity.values.description.length > 200 ? '...' : '')">
         </span>
       </div>
-      <div class="date_area" [innerHtml]="activity.updatedAt | amDateFormat : 'L LT'"></div>
+      <div class="date_area" [innerHtml]="activity.updatedAt | date : 'yyyy-MM-dd HH:mm'"></div>
       <b class="notch border-notch"></b>
       <b class="notch"></b>
     </div>

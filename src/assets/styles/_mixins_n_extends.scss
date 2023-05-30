@@ -226,7 +226,7 @@
 
     .pretend_tr:not(:first-child) {
         position: relative;
-        display: block;
+        display: table-row;
         width: 100%;
         border-top: 1px solid vars.$lightest_gray;
         padding: 9px 0 20px;
@@ -267,10 +267,6 @@
 
     .pretend_tr:last-child .pretend_td:not(:first-child) {
         padding-bottom: 0;
-    }
-
-    .pretend_table, .pretend_tr, .pretend_td, .pretend_th {
-        display: block;
     }
 
     .recycle_bin_wrap {
