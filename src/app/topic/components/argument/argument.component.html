@@ -48,7 +48,7 @@
         </div>
       </div>
       <div class="argument_header_widget">
-        <div class="table_cell" [title]="argument.createdAt | amDateFormat : 'L LT'">
+        <div class="table_cell" [title]="argument.createdAt | date : 'yyyy-MM-dd HH:mm'">
           {{argument.createdAt | amTimeAgo}}
         </div>
       </div>
