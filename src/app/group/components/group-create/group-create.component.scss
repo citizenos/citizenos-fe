@@ -1,15 +1,63 @@
-@use "mixins_n_extends";
+.page_content {
+  gap: 16px;
+  padding: 16px 24px 24px 24px;
+}
 
-#lightbox {
+#group_create_heading {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  align-items: center;
+}
 
-  input {
-    @extend %input_small;
+#group_create_tabs {
+  display: flex;
+  background-color: var(--color-surfaces);
+  width: 100%;
+  gap: 80px;
+  padding: 0 16px;
+  border-radius: 16px;
+  padding: 28px 56px;
+}
+
+#group_create_content_wrap {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 32px;
+
+  #group_create_content {
+    display: flex;
+    flex-direction: row;
+    background-color: var(--color-surfaces);
+    border-radius: 16px;
+    width: 100%;
+    padding: 26px 24px;
+    gap: 16px;
+    #create_form_wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
   }
 
-  input,
-  button {
-    &:not(:first-child) {
-      margin-top: 10px;
+  #group_create_help {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    max-width: 288px;
+    border-radius: 16px;
+    background-color: var(--color-secondary);
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px;
+
+    #help_text_wrap {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
     }
   }
 }
