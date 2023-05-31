@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild, ElementRef, Inject } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { take, takeWhile } from 'rxjs';
 import { Group } from 'src/app/interfaces/group';
 import { GroupService } from 'src/app/services/group.service';
 
 @Component({
-  selector: 'app-group-create',
+  selector: 'group-create-component',
   templateUrl: './group-create.component.html',
   styleUrls: ['./group-create.component.scss']
 })
@@ -23,8 +23,8 @@ export class GroupCreateComponent implements OnInit {
   errors?: any;
   tmpImageUrl?: string;
   imageFile?: any;
-  constructor(@Inject(MAT_DIALOG_DATA) private data: any, private GroupService: GroupService, private router: Router, private dialog: MatDialog) {
-    this.group = Object.assign(this.group, data);
+  constructor(private GroupService: GroupService, private router: Router, private dialog: MatDialog) {
+
   }
 
   ngOnInit(): void {
@@ -98,14 +98,3 @@ export class GroupCreateComponent implements OnInit {
   }
 }
 
-@Component({
-  selector: 'group-create-dialog',
-  template: '',
-  styleUrls: ['./group-create.component.scss']
-})
-export class GroupCreateDialogComponent {
-  constructor(private router: Router, dialog: MatDialog) {
-    dialog.open(GroupCreateComponent);
-  }
-
-}
