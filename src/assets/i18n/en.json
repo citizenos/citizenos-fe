@@ -734,7 +734,15 @@
       "CREATE_TAB_1": "1.Info",
       "CREATE_TAB_2": "2.Settings",
       "CREATE_TAB_3": "3.Add topics",
-      "CREATE_TAB_4": "4.Invite"
+      "CREATE_TAB_4": "4.Invite",
+      "INFO_SETTINGS_HEADING": "Group Information",
+      "INFO_SETTINGS_INPUT_NAME_DESC": "Use a name that’s understandable and logical.",
+      "INFO_SETTINGS_INPUT_NAME": "Name",
+      "INFO_SETTINGS_INPUT_DESCRIPTION_DESC": "Add a group description (max 250 characters)",
+      "INFO_SETTINGS_INPUT_DESCRIPTION": "Description",
+      "HELP_HEADING": "Did you know?",
+      "HELP_DESCRIPTION": "Creating a group is a great way to give people a sense they belong to a community and incentivises them to engage more easily.",
+      "HELP_LNK_LEARN_MORE": "Learn more about groups"
     },
     "401": {
       "HEADING_INSUFFICIENT_PERMISSIONS": "Sorry, you haven't got sufficient permissions to access the resource",

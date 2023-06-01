@@ -47,16 +47,21 @@
       </svg>
       <div id="create_form_wrap">
         <div class="form_heading">
-          <div class="bold">Group information</div>
-          <div>Use a name that’s understandable and logical.</div>
+          <div class="bold" translate="VIEWS.GROUP_CREATE.INFO_SETTINGS_HEADING"></div>
+          <div translate="VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_NAME_DESC"></div>
         </div>
-        <cos-input placeholder="{{'MODALS.ADD_EMAIL_PLACEHOLDER_EMAIL' | translate}}">
-          <input id="email" type="email" placeholder="{{'MODALS.ADD_EMAIL_PLACEHOLDER_EMAIL' | translate}}" required>
+        <cos-input placeholder="{{'VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_NAME' | translate}}">
+          <input type="text" placeholder="{{'VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_NAME' | translate}}" required>
+        </cos-input>
+        <div translate="VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_DESCRIPTION_DESC">Add a group description (max 250 characters)</div>
+        <cos-input placeholder="{{'VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_DESCRIPTION' | translate}}">
+          <textarea value="TEST" [placeholder]="'VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_DESCRIPTION' | translate"></textarea>
         </cos-input>
         <div>Add a group description (max 250 characters)</div>
-        <cos-input placeholder="{{'MODALS.ADD_EMAIL_PLACEHOLDER_EMAIL' | translate}}">
-          <textarea></textarea>
-        </cos-input>
+        <div id="image_input_area">
+          <div class="bold">Drop the image here</div>
+          <button class="btn_big_nav">Choose image</button>
+        </div>
       </div>
     </div>
     <div id="group_create_help">
@@ -104,11 +109,10 @@
           fill="#2C3B47" />
       </svg>
       <div id="help_text_wrap">
-        <h3>Did you know?</h3>
-        <div>Creating a group is a great way to give people a sense they belong to a community and incentivises them to
-          engage more easily.</div>
+        <h3 translate="VIEWS.GROUP_CREATE.HELP_HEADING"></h3>
+        <div translate="VIEWS.GROUP_CREATE.HELP_DESCRIPTION"></div>
       </div>
-      <a>Learn more about groups</a>
+      <a translate="VIEWS.GROUP_CREATE.HELP_LNK_LEARN_MORE"></a>
     </div>
   </div>
 </div>

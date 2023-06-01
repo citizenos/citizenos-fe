@@ -38,6 +38,19 @@
       display: flex;
       flex-direction: column;
       gap: 16px;
+      width: 100%;
+
+      cos-input, input, textarea {
+        width: 100%;
+      }
+
+      #image_input_area {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        border: 2px dashed var(--color-border);
+        border-radius: 16px;
+      }
     }
   }
 
