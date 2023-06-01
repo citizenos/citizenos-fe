@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef, Inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { take, takeWhile } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { map, take, takeWhile } from 'rxjs';
 import { Group } from 'src/app/interfaces/group';
 import { GroupService } from 'src/app/services/group.service';
 
@@ -23,8 +24,21 @@ export class GroupCreateComponent implements OnInit {
   errors?: any;
   tmpImageUrl?: string;
   imageFile?: any;
-  constructor(private GroupService: GroupService, private router: Router, private dialog: MatDialog) {
+  tabSelected;
 
+  constructor(public translate: TranslateService, private GroupService: GroupService, private router: Router, private route: ActivatedRoute, private dialog: MatDialog) {
+    this.tabSelected = this.route.fragment.pipe(
+      map((fragment) => {
+        if (!fragment) {
+          return this.selectTab('info')
+        }
+        return fragment
+      }
+      ));
+  }
+
+  selectTab(tab: string) {
+    this.router.navigate([], { fragment: tab })
   }
 
   ngOnInit(): void {
