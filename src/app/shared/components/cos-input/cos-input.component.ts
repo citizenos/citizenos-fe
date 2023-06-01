@@ -11,7 +11,7 @@ export class CosInputComponent {
   constructor (private elementRef: ElementRef) {}
 
   ngAfterContentChecked() {
-    const input = this.elementRef.nativeElement.querySelector('input, .dropdown');
+    const input = this.elementRef.nativeElement.querySelector('input, .dropdown, textarea');
     this.placeholderElement = this.elementRef.nativeElement.querySelector('.cos_input_placeholder');
     input.classList.add('with_value');
     this.placeholderElement?.classList.add('show');
