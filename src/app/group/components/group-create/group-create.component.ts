@@ -42,6 +42,17 @@ export class GroupCreateComponent implements OnInit {
     reader.readAsDataURL(files[0]);
   }
 
+  fileDroped (files: any) {
+    console.log(files)
+    this.imageFile = files[0];
+    const reader = new FileReader();
+    reader.onload = (() => {
+      return (e: any) => {
+        this.tmpImageUrl = e.target.result;
+      };
+    })();
+    reader.readAsDataURL(files[0]);
+  }
   uploadImage() {
     this.fileInput?.nativeElement.click();
   };
