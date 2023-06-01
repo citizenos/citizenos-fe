@@ -14,10 +14,16 @@
   display: flex;
   background-color: var(--color-surfaces);
   width: 100%;
-  gap: 80px;
   padding: 0 16px;
   border-radius: 16px;
-  padding: 28px 56px;
+
+  .group_create_tab {
+    padding: 28px 56px;
+    &.active {
+      color: var(--color-link);
+      border-bottom: 2px solid var(--color-link);
+    }
+  }
 }
 
 #group_create_content_wrap {
@@ -135,5 +141,15 @@
   div {
     display: flex;
     gap: 16px;
+  }
+
+  .btn_big_submit_ghost {
+    width: 40px;
+    display: flex;
+
+    svg {
+      display: flex;
+      position: absolute;
+    }
   }
 }
