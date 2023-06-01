@@ -17,6 +17,7 @@ export class SearchComponent implements OnInit {
   moreStr: string = '';
   config: any;
   lnkDonate: string;
+  searchInput: string = '';
   contexts = ['my', 'public'];
   models = ['groups', 'topics']
   //review
@@ -47,7 +48,7 @@ export class SearchComponent implements OnInit {
     if (this.AuthService.loggedIn$.value === true) {
       include = ['my.topic', 'my.group', 'public.topic', 'public.group'];
     }
-    this.moreStr = str;
+
     return this.Search
       .search(
         str,
@@ -121,6 +122,7 @@ export class SearchComponent implements OnInit {
       return;
     } else {
       this.viewMoreInProgress = true;
+      this.moreStr = this.searchInput;
     }
 
     if (context && model && this.searchResults[context][model].count > this.searchResults[context][model].rows.length - 1) { // -1 because the "viewMore" is added as an item that is not in the actual search result
@@ -130,7 +132,7 @@ export class SearchComponent implements OnInit {
       } else if (model === 'groups') {
         include = context + '.group';
       }
-      console.log(this.moreStr);
+
       this.Search
         .search(
           this.moreStr,
