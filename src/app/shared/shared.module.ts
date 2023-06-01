@@ -49,6 +49,8 @@ import { CosInputComponent } from './components/cos-input/cos-input.component';
 import { HtmlDirective } from '../directives/html.directive';
 import { DownloadDirective } from '../directives/download.directive';
 import { CosDisabledDirective } from '../directives/cos-disabled.directive';
+import { DragndropDirective } from '../directives/dragndrop.directive';
+
 @NgModule({
   declarations: [
     ActivityComponent,
@@ -89,7 +91,8 @@ import { CosDisabledDirective } from '../directives/cos-disabled.directive';
     HtmlDirective,
     DownloadDirective,
     GroupboxComponent,
-    CosDisabledDirective
+    CosDisabledDirective,
+    DragndropDirective
   ],
   imports: [
     RouterModule,
@@ -146,7 +149,8 @@ import { CosDisabledDirective } from '../directives/cos-disabled.directive';
     HtmlDirective,
     DownloadDirective,
     GroupboxComponent,
-    CosDisabledDirective
+    CosDisabledDirective,
+    DragndropDirective
    ]
 })
 export class SharedModule { }
