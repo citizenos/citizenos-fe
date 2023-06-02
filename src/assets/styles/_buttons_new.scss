@@ -184,8 +184,7 @@ $button-styles: (
   background-origin: padding-box;
   border: 1px solid var(--color-border);
   border-radius: 8px;
-  &:focus,
-  &:hover {
+  &:focus,  &:hover, &.active {
     background: var(--color-background);
   }
 
@@ -218,7 +217,6 @@ $button-styles: (
   user-select: none;
   height: 100%;
   vertical-align: middle;
-  align-items: center;
 
   input {
     position: absolute;
