@@ -1,4 +1,4 @@
-<div class="page_content">
+<div class="page_content" *ngIf="tabSelected | async  as tabSelected">
   <div id="group_create_heading">
     <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect width="40" height="40" rx="20" fill="#D7E9F8" />
@@ -17,90 +17,96 @@
     </svg>
     <h3 translate="VIEWS.GROUP_CREATE.HEADING"></h3>
   </div>
-  <div id="group_create_tabs" *ngIf="tabSelected | async  as tabSelected">
-    <a class="group_create_tab" translate="VIEWS.GROUP_CREATE.CREATE_TAB_1" [ngClass]="tabSelected=== 'info' ? 'active' : ''" (click)="selectTab('info')" ></a>
-    <a class="group_create_tab" translate="VIEWS.GROUP_CREATE.CREATE_TAB_2" [ngClass]="tabSelected=== 'settings' ? 'active' : ''" (click)="selectTab('settings')"></a>
-    <a class="group_create_tab" translate="VIEWS.GROUP_CREATE.CREATE_TAB_3" [ngClass]="tabSelected=== 'add_topics' ? 'active' : ''" (click)="selectTab('add_topics')"></a>
-    <a class="group_create_tab" translate="VIEWS.GROUP_CREATE.CREATE_TAB_4" [ngClass]="tabSelected=== 'invite' ? 'active' : ''" (click)="selectTab('invite')"></a>
+  <div id="group_create_tabs">
+    <a class="group_create_tab" translate="VIEWS.GROUP_CREATE.CREATE_TAB_1"
+      [ngClass]="tabSelected=== 'info' ? 'active' : ''" (click)="selectTab('info')"></a>
+    <a class="group_create_tab" translate="VIEWS.GROUP_CREATE.CREATE_TAB_2"
+      [ngClass]="tabSelected=== 'settings' ? 'active' : ''" (click)="selectTab('settings')"></a>
+    <a class="group_create_tab" translate="VIEWS.GROUP_CREATE.CREATE_TAB_3"
+      [ngClass]="tabSelected=== 'add_topics' ? 'active' : ''" (click)="selectTab('add_topics')"></a>
+    <a class="group_create_tab" translate="VIEWS.GROUP_CREATE.CREATE_TAB_4"
+      [ngClass]="tabSelected=== 'invite' ? 'active' : ''" (click)="selectTab('invite')"></a>
   </div>
 
   <div id="group_create_content_wrap">
     <div id="group_form_area">
-      <div id="group_create_content">
-        <svg width="40" height="44" viewBox="0 0 40 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect y="4" width="40" height="40" rx="20" fill="#EBF4FB" />
-          <path
-            d="M20.974 29H19.21V22.77C19.21 22.5647 19.21 22.3547 19.21 22.14C19.2193 21.9253 19.2287 21.7107 19.238 21.496C19.2473 21.272 19.2567 21.0667 19.266 20.88C19.1727 20.9733 19.056 21.0853 18.916 21.216C18.776 21.3373 18.6313 21.4633 18.482 21.594L17.362 22.49L16.48 21.398L19.504 19.004H20.974V29Z"
-            fill="#2C3B47" />
-          <rect x="24" width="16" height="16" rx="8" fill="white" />
-          <path
-            d="M36.6558 9.32812C35.2233 8.52002 33.7907 7.71195 32.3582 6.90385C32.4712 7.10587 32.5843 7.30788 32.7163 7.4916V7.47328C32.7163 7.2345 32.5843 6.99582 32.3582 6.88553C30.9256 6.07743 29.493 5.26936 28.0605 4.46126C27.2688 4.02046 26.5525 5.21426 27.3442 5.65493C28.7767 6.46303 30.2093 7.2711 31.6418 8.0792C31.5288 7.87718 31.4157 7.67517 31.2837 7.49145V7.50977C31.2837 7.74856 31.4157 7.98723 31.6418 8.09752C33.0744 8.90563 34.507 9.71369 35.9395 10.5218C36.7312 10.9626 37.4475 9.76892 36.6558 9.32812Z"
-            fill="#EF4025" />
-          <path
-            d="M32.7163 7.4916L32.7163 2.66112C32.7163 1.77963 31.3026 1.77963 31.3026 2.66112V7.49117C31.3026 8.3728 32.7163 8.37323 32.7163 7.4916Z"
-            fill="#EF4025" />
-          <path
-            d="M32.7163 12.3388V7.50873C32.7163 6.62723 31.3026 6.62723 31.3026 7.50873V12.3388C31.3026 13.2204 32.7163 13.2204 32.7163 12.3388Z"
-            fill="#EF4025" />
-          <path
-            d="M28.0605 10.5208C30.9256 8.90464 33.7907 7.28856 36.6558 5.69076C37.4475 5.24996 36.7311 4.05625 35.9395 4.49708C33.0744 6.11326 30.2093 7.72933 27.3442 9.32714C26.5525 9.76783 27.2689 10.9615 28.0605 10.5208Z"
-            fill="#EF4025" />
-        </svg>
-        <div id="create_form_wrap">
-          <div class="form_heading">
-            <h3 translate="VIEWS.GROUP_CREATE.INFO_SETTINGS_HEADING"></h3>
-            <div translate="VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_NAME_DESC"></div>
-          </div>
-          <cos-input placeholder="{{'VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_NAME' | translate}}">
-            <input id="groupName" [placeholder]="'VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_NAME' | translate"
-              [(ngModel)]="group.name" [ngClass]="{'error_input': errors?.name}">
-            <label for="groupName" class="error_label" *ngIf="errors?.name">
-              <div class="table_cell">
-                <div class="icon_notification_error_small"></div>
-                <span translate="{{errors?.name}}"></span>
-              </div>
-            </label>
-          </cos-input>
-          <div translate="VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_DESCRIPTION_DESC"></div>
-          <cos-input placeholder="{{'VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_DESCRIPTION' | translate}}">
-            <textarea id="groupDescription"
-              [placeholder]="'VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_DESCRIPTION' | translate" rows="5"
-              [(ngModel)]="group.description" [ngClass]="{'error_input': errors?.description}"
-              [maxlength]="250"></textarea>
-            <label for="groupDescription" class="error_label" *ngIf="errors?.description">
-              <div class="table_cell">
-                <div class="icon_notification_error_small"></div>
-                <span translate="{{errors?.description}}"></span>
-              </div>
-            </label>
-          </cos-input>
-          <div translate="VIEWS.GROUP_CREATE.INFO_SETTINGS_CHOOSE_IMAGE_DESC">Add a group description (max 250
-            characters)
-          </div>
-          <div id="image_input_area" dragndrop (fileDropped)="fileDroped($event)"
-            *ngIf="!group.imageUrl && !tmpImageUrl">
-            <div class="bold" translate="VIEWS.GROUP_CREATE.INFO_SETTINGS_LBL_DROP_IMAGE"></div>
-            <input type="file" #imageUpload (change)="fileUpload()" />
-            <button class="btn_big_secondary" (click)="uploadImage()"
-              translate="VIEWS.GROUP_CREATE.INFO_SETTINGS_BTN_CHOOSE_IMAGE"></button>
-          </div>
-          <div id="image_area" *ngIf="group.imageUrl || tmpImageUrl">
-            <div id="image_wrap">
-              <img [src]="group.imageUrl || tmpImageUrl" />
+      <ng-container *ngIf="tabSelected==='info'">
+        <div id="group_create_content">
+          <svg width="40" height="44" viewBox="0 0 40 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect y="4" width="40" height="40" rx="20" fill="#EBF4FB" />
+            <path
+              d="M20.974 29H19.21V22.77C19.21 22.5647 19.21 22.3547 19.21 22.14C19.2193 21.9253 19.2287 21.7107 19.238 21.496C19.2473 21.272 19.2567 21.0667 19.266 20.88C19.1727 20.9733 19.056 21.0853 18.916 21.216C18.776 21.3373 18.6313 21.4633 18.482 21.594L17.362 22.49L16.48 21.398L19.504 19.004H20.974V29Z"
+              fill="#2C3B47" />
+            <rect x="24" width="16" height="16" rx="8" fill="white" />
+            <path
+              d="M36.6558 9.32812C35.2233 8.52002 33.7907 7.71195 32.3582 6.90385C32.4712 7.10587 32.5843 7.30788 32.7163 7.4916V7.47328C32.7163 7.2345 32.5843 6.99582 32.3582 6.88553C30.9256 6.07743 29.493 5.26936 28.0605 4.46126C27.2688 4.02046 26.5525 5.21426 27.3442 5.65493C28.7767 6.46303 30.2093 7.2711 31.6418 8.0792C31.5288 7.87718 31.4157 7.67517 31.2837 7.49145V7.50977C31.2837 7.74856 31.4157 7.98723 31.6418 8.09752C33.0744 8.90563 34.507 9.71369 35.9395 10.5218C36.7312 10.9626 37.4475 9.76892 36.6558 9.32812Z"
+              fill="#EF4025" />
+            <path
+              d="M32.7163 7.4916L32.7163 2.66112C32.7163 1.77963 31.3026 1.77963 31.3026 2.66112V7.49117C31.3026 8.3728 32.7163 8.37323 32.7163 7.4916Z"
+              fill="#EF4025" />
+            <path
+              d="M32.7163 12.3388V7.50873C32.7163 6.62723 31.3026 6.62723 31.3026 7.50873V12.3388C31.3026 13.2204 32.7163 13.2204 32.7163 12.3388Z"
+              fill="#EF4025" />
+            <path
+              d="M28.0605 10.5208C30.9256 8.90464 33.7907 7.28856 36.6558 5.69076C37.4475 5.24996 36.7311 4.05625 35.9395 4.49708C33.0744 6.11326 30.2093 7.72933 27.3442 9.32714C26.5525 9.76783 27.2689 10.9615 28.0605 10.5208Z"
+              fill="#EF4025" />
+          </svg>
+          <div id="create_form_wrap">
+            <div class="form_heading">
+              <h3 translate="VIEWS.GROUP_CREATE.INFO_SETTINGS_HEADING"></h3>
+              <div translate="VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_NAME_DESC"></div>
             </div>
-            <a class="icon_link" (click)="deleteGroupImage()">
-              <span class="bold">Remove</span>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M9 9H11V17H9L9 9Z" fill="#1168A8" />
-                <path d="M15 9H13V17H15V9Z" fill="#1168A8" />
-                <path fill-rule="evenodd" clip-rule="evenodd"
-                  d="M17 5V4C17 2.89543 16.1046 2 15 2L9 2C7.89543 2 7 2.89543 7 4L7 5H4C3.44772 5 3 5.44772 3 6C3 6.55228 3.44772 7 4 7H5L5 18C5 19.6569 6.34315 21 8 21L16 21C17.6569 21 19 19.6569 19 18L19 7H20C20.5523 7 21 6.55228 21 6C21 5.44772 20.5523 5 20 5L17 5ZM15 4L9 4V5L15 5V4ZM17 7L7 7L7 18C7 18.5523 7.44772 19 8 19L16 19C16.5523 19 17 18.5523 17 18V7Z"
-                  fill="#1168A8" />
-              </svg>
-            </a>
+            <cos-input placeholder="{{'VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_NAME' | translate}}">
+              <input id="groupName" [placeholder]="'VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_NAME' | translate"
+                [(ngModel)]="group.name" [ngClass]="{'error_input': errors?.name}">
+              <label for="groupName" class="error_label" *ngIf="errors?.name">
+                <div class="table_cell">
+                  <div class="icon_notification_error_small"></div>
+                  <span translate="{{errors?.name}}"></span>
+                </div>
+              </label>
+            </cos-input>
+            <div translate="VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_DESCRIPTION_DESC"></div>
+            <cos-input placeholder="{{'VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_DESCRIPTION' | translate}}">
+              <textarea id="groupDescription"
+                [placeholder]="'VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_DESCRIPTION' | translate" rows="5"
+                [(ngModel)]="group.description" [ngClass]="{'error_input': errors?.description}"
+                [maxlength]="250"></textarea>
+              <label for="groupDescription" class="error_label" *ngIf="errors?.description">
+                <div class="table_cell">
+                  <div class="icon_notification_error_small"></div>
+                  <span translate="{{errors?.description}}"></span>
+                </div>
+              </label>
+            </cos-input>
+            <div translate="VIEWS.GROUP_CREATE.INFO_SETTINGS_CHOOSE_IMAGE_DESC">Add a group description (max 250
+              characters)
+            </div>
+            <div id="image_input_area" dragndrop (fileDropped)="fileDroped($event)"
+              *ngIf="!group.imageUrl && !tmpImageUrl">
+              <div class="bold" translate="VIEWS.GROUP_CREATE.INFO_SETTINGS_LBL_DROP_IMAGE"></div>
+              <input type="file" #imageUpload (change)="fileUpload()" />
+              <button class="btn_big_secondary" (click)="uploadImage()"
+                translate="VIEWS.GROUP_CREATE.INFO_SETTINGS_BTN_CHOOSE_IMAGE"></button>
+            </div>
+            <div id="image_area" *ngIf="group.imageUrl || tmpImageUrl">
+              <div id="image_wrap">
+                <img [src]="group.imageUrl || tmpImageUrl" />
+              </div>
+              <a class="icon_link" (click)="deleteGroupImage()">
+                <span class="bold">Remove</span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9 9H11V17H9L9 9Z" fill="#1168A8" />
+                  <path d="M15 9H13V17H15V9Z" fill="#1168A8" />
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M17 5V4C17 2.89543 16.1046 2 15 2L9 2C7.89543 2 7 2.89543 7 4L7 5H4C3.44772 5 3 5.44772 3 6C3 6.55228 3.44772 7 4 7H5L5 18C5 19.6569 6.34315 21 8 21L16 21C17.6569 21 19 19.6569 19 18L19 7H20C20.5523 7 21 6.55228 21 6C21 5.44772 20.5523 5 20 5L17 5ZM15 4L9 4V5L15 5V4ZM17 7L7 7L7 18C7 18.5523 7.44772 19 8 19L16 19C16.5523 19 17 18.5523 17 18V7Z"
+                    fill="#1168A8" />
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
-      </div>
+      </ng-container>
       <div id="group_create_footer">
         <div id="close_group_create">
           <button class="btn_big_submit_ghost" [routerLink]="['/', translate.currentLang, 'my', 'groups']">

@@ -2,7 +2,6 @@
   <div class="group_header">
     <div class="image_area">
       <img *ngIf="group.imageUrl" [src]="group.imageUrl">
-      <div class="group_icon" *ngIf="group.imageUrl"><img [src]="group.imageUrl" /></div>
       <div class="initial_wrap" *ngIf="!group.imageUrl && group.name">
         <cos-initials class="table_cell" [name]="group.name" [initialLimit]="1"></cos-initials>
       </div>
