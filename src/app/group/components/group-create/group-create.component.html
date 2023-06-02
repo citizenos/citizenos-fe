@@ -32,30 +32,27 @@
     <div id="group_form_area">
       <ng-container *ngIf="tabSelected==='info'">
         <div id="group_create_content">
-          <svg width="40" height="44" viewBox="0 0 40 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect y="4" width="40" height="40" rx="20" fill="#EBF4FB" />
-            <path
-              d="M20.974 29H19.21V22.77C19.21 22.5647 19.21 22.3547 19.21 22.14C19.2193 21.9253 19.2287 21.7107 19.238 21.496C19.2473 21.272 19.2567 21.0667 19.266 20.88C19.1727 20.9733 19.056 21.0853 18.916 21.216C18.776 21.3373 18.6313 21.4633 18.482 21.594L17.362 22.49L16.48 21.398L19.504 19.004H20.974V29Z"
-              fill="#2C3B47" />
-            <rect x="24" width="16" height="16" rx="8" fill="white" />
-            <path
-              d="M36.6558 9.32812C35.2233 8.52002 33.7907 7.71195 32.3582 6.90385C32.4712 7.10587 32.5843 7.30788 32.7163 7.4916V7.47328C32.7163 7.2345 32.5843 6.99582 32.3582 6.88553C30.9256 6.07743 29.493 5.26936 28.0605 4.46126C27.2688 4.02046 26.5525 5.21426 27.3442 5.65493C28.7767 6.46303 30.2093 7.2711 31.6418 8.0792C31.5288 7.87718 31.4157 7.67517 31.2837 7.49145V7.50977C31.2837 7.74856 31.4157 7.98723 31.6418 8.09752C33.0744 8.90563 34.507 9.71369 35.9395 10.5218C36.7312 10.9626 37.4475 9.76892 36.6558 9.32812Z"
-              fill="#EF4025" />
-            <path
-              d="M32.7163 7.4916L32.7163 2.66112C32.7163 1.77963 31.3026 1.77963 31.3026 2.66112V7.49117C31.3026 8.3728 32.7163 8.37323 32.7163 7.4916Z"
-              fill="#EF4025" />
-            <path
-              d="M32.7163 12.3388V7.50873C32.7163 6.62723 31.3026 6.62723 31.3026 7.50873V12.3388C31.3026 13.2204 32.7163 13.2204 32.7163 12.3388Z"
-              fill="#EF4025" />
-            <path
-              d="M28.0605 10.5208C30.9256 8.90464 33.7907 7.28856 36.6558 5.69076C37.4475 5.24996 36.7311 4.05625 35.9395 4.49708C33.0744 6.11326 30.2093 7.72933 27.3442 9.32714C26.5525 9.76783 27.2689 10.9615 28.0605 10.5208Z"
-              fill="#EF4025" />
-          </svg>
+          <div class="number_wrap">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="16" height="16" rx="8" fill="white" />
+              <path
+                d="M12.6558 9.32812C11.2233 8.52002 9.79067 7.71195 8.35815 6.90385C8.47123 7.10587 8.5843 7.30788 8.71632 7.4916V7.47328C8.71632 7.2345 8.58432 6.99582 8.35815 6.88553C6.92564 6.07743 5.49303 5.26936 4.06051 4.46126C3.26884 4.02046 2.55253 5.21426 3.3442 5.65493C4.77672 6.46303 6.20933 7.2711 7.64185 8.0792C7.52877 7.87718 7.41569 7.67517 7.28368 7.49145V7.50977C7.28368 7.74856 7.41569 7.98723 7.64185 8.09752C9.07436 8.90563 10.507 9.71369 11.9395 10.5218C12.7312 10.9626 13.4475 9.76892 12.6558 9.32812Z"
+                fill="#EF4025" />
+              <path
+                d="M8.71632 7.4916L8.71634 2.66112C8.71634 1.77963 7.30264 1.77963 7.30264 2.66112V7.49117C7.30264 8.3728 8.71632 8.37323 8.71632 7.4916Z"
+                fill="#EF4025" />
+              <path
+                d="M8.71627 12.3388V7.50873C8.71627 6.62723 7.30257 6.62723 7.30257 7.50873V12.3388C7.30257 13.2204 8.71627 13.2204 8.71627 12.3388Z"
+                fill="#EF4025" />
+              <path
+                d="M4.06051 10.5208C6.92563 8.90464 9.7907 7.28856 12.6558 5.69076C13.4475 5.24996 12.7311 4.05625 11.9395 4.49708C9.07435 6.11326 6.20929 7.72933 3.3442 9.32714C2.55253 9.76783 3.26886 10.9615 4.06051 10.5208Z"
+                fill="#EF4025" />
+            </svg>
+            <div>1</div>
+          </div>
           <div id="create_form_wrap">
-            <div class="form_heading">
-              <h3 translate="VIEWS.GROUP_CREATE.INFO_SETTINGS_HEADING"></h3>
-              <div translate="VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_NAME_DESC"></div>
-            </div>
+            <h3 translate="VIEWS.GROUP_CREATE.INFO_SETTINGS_HEADING_GENERAL_INFO"></h3>
+            <div translate="VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_NAME_DESC"></div>
             <cos-input placeholder="{{'VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_NAME' | translate}}">
               <input id="groupName" [placeholder]="'VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_NAME' | translate"
                 [(ngModel)]="group.name" [ngClass]="{'error_input': errors?.name}">
@@ -106,6 +103,242 @@
             </div>
           </div>
         </div>
+        <div id="group_create_content">
+          <div class="number_wrap">
+            <div>2</div>
+          </div>
+          <div id="create_form_wrap">
+            <h3 translate="VIEWS.GROUP_CREATE.INFO_SETTINGS_HEADING_CONTACT_EMAIL"></h3>
+            <div translate="VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_CONTACT_EMAIL_DESC"></div>
+            <cos-input placeholder="{{'VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_CONTACT_EMAIL' | translate}}">
+              <input id="groupName" [placeholder]="'VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_CONTACT_EMAIL' | translate"
+                [(ngModel)]="group.name" [ngClass]="{'error_input': errors?.name}">
+              <label for="groupName" class="error_label" *ngIf="errors?.name">
+                <div class="table_cell">
+                  <div class="icon_notification_error_small"></div>
+                  <span translate="{{errors?.name}}"></span>
+                </div>
+              </label>
+            </cos-input>
+          </div>
+        </div>
+        <div id="group_create_content">
+          <div class="number_wrap">
+            <div>3</div>
+          </div>
+          <div id="create_form_wrap">
+            <h3 translate="VIEWS.GROUP_CREATE.INFO_SETTINGS_HEADING_RULES_OF_CONDUCT"></h3>
+            <div translate="VIEWS.GROUP_CREATE.INFO_SETTINGS_RULES_OF_CONDUCT_DESC"></div>
+
+            <cos-input class="rule_input"
+              placeholder="{{'VIEWS.GROUP_CREATE.INFO_SETTINGS_RULES_OF_CONDUCT_RULE' | translate:{number: index+1} }}"
+              *ngFor="let rule of rulesOfConduct; let index = index">
+              <input
+                [placeholder]="'VIEWS.GROUP_CREATE.INFO_SETTINGS_RULES_OF_CONDUCT_RULE' | translate: {number: index+1}"
+                [(ngModel)]="rule.rule">
+              <button (click)="removeRule(index)">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6 6.00065H7.33333L7.33333 11.334H6L6 6.00065Z" fill="#2C3B47" />
+                  <path d="M10 6.00065H8.66667L8.66667 11.334H10L10 6.00065Z" fill="#2C3B47" />
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M11.3333 3.33398V2.66732C11.3333 1.93094 10.7364 1.33398 10 1.33398L6 1.33398C5.26362 1.33398 4.66667 1.93094 4.66667 2.66732V3.33398L2.66667 3.33398C2.29848 3.33398 2 3.63246 2 4.00065C2 4.36884 2.29848 4.66732 2.66667 4.66732H3.33333L3.33333 12.0007C3.33333 13.1053 4.22877 14.0007 5.33333 14.0007L10.6667 14.0007C11.7713 14.0007 12.6667 13.1053 12.6667 12.0007L12.6667 4.66732H13.3333C13.7015 4.66732 14 4.36884 14 4.00065C14 3.63246 13.7015 3.33398 13.3333 3.33398H11.3333ZM10 2.66732L6 2.66732V3.33398L10 3.33398V2.66732ZM11.3333 4.66732L4.66667 4.66732L4.66667 12.0007C4.66667 12.3689 4.96515 12.6673 5.33333 12.6673L10.6667 12.6673C11.0349 12.6673 11.3333 12.3689 11.3333 12.0007L11.3333 4.66732Z"
+                    fill="#2C3B47" />
+                </svg>
+              </button>
+            </cos-input>
+            <button class="btn_big_secondary add_rule" (click)="addRule()">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12 20C11.4711 20 11.0423 19.5712 11.0423 19.0423L11.0423 12.9577L4.95775 12.9577C4.4288 12.9577 4 12.5289 4 12C4 11.4711 4.4288 11.0423 4.95775 11.0423H11.0423V4.95775C11.0423 4.4288 11.4711 4 12 4C12.5289 4 12.9577 4.4288 12.9577 4.95775L12.9577 11.0423L19.0423 11.0423C19.5712 11.0423 20 11.4711 20 12C20 12.5289 19.5712 12.9577 19.0423 12.9577H12.9577V19.0423C12.9577 19.5712 12.5289 20 12 20Z"
+                  fill="#1168A8" />
+              </svg>
+              <span>Add a new rule </span>
+            </button>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="tabSelected==='settings'">
+        <div id="group_create_content">
+          <div class="number_wrap">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="16" height="16" rx="8" fill="white" />
+              <path
+                d="M12.6558 9.32812C11.2233 8.52002 9.79067 7.71195 8.35815 6.90385C8.47123 7.10587 8.5843 7.30788 8.71632 7.4916V7.47328C8.71632 7.2345 8.58432 6.99582 8.35815 6.88553C6.92564 6.07743 5.49303 5.26936 4.06051 4.46126C3.26884 4.02046 2.55253 5.21426 3.3442 5.65493C4.77672 6.46303 6.20933 7.2711 7.64185 8.0792C7.52877 7.87718 7.41569 7.67517 7.28368 7.49145V7.50977C7.28368 7.74856 7.41569 7.98723 7.64185 8.09752C9.07436 8.90563 10.507 9.71369 11.9395 10.5218C12.7312 10.9626 13.4475 9.76892 12.6558 9.32812Z"
+                fill="#EF4025" />
+              <path
+                d="M8.71632 7.4916L8.71634 2.66112C8.71634 1.77963 7.30264 1.77963 7.30264 2.66112V7.49117C7.30264 8.3728 8.71632 8.37323 8.71632 7.4916Z"
+                fill="#EF4025" />
+              <path
+                d="M8.71627 12.3388V7.50873C8.71627 6.62723 7.30257 6.62723 7.30257 7.50873V12.3388C7.30257 13.2204 8.71627 13.2204 8.71627 12.3388Z"
+                fill="#EF4025" />
+              <path
+                d="M4.06051 10.5208C6.92563 8.90464 9.7907 7.28856 12.6558 5.69076C13.4475 5.24996 12.7311 4.05625 11.9395 4.49708C9.07435 6.11326 6.20929 7.72933 3.3442 9.32714C2.55253 9.76783 3.26886 10.9615 4.06051 10.5208Z"
+                fill="#EF4025" />
+            </svg>
+            <div>1</div>
+          </div>
+          <div id="create_form_wrap">
+            <h3 translate="VIEWS.GROUP_CREATE.SETTINGS_HEADING_VISIBILITY"></h3>
+            <div translate="VIEWS.GROUP_CREATE.SETTINGS_VISIBILITY_DESC"></div>
+
+            <div class="row_wrap">
+              <div class="radio_wrap" (click)="group.visibility = VISIBILITY.private"
+                [ngClass]="{'active': group.visibility === VISIBILITY.private}">
+                <div class="radio_text_wrap">
+                  <div class="radio_lable_wrap">
+                    <label class="radio_box">
+                      <input type="radio" [checked]="group.visibility === VISIBILITY.private" name="contrast"
+                        value="default">
+                      <span class="radio"></span>
+                      <div class="radio_lable" translate="VIEWS.GROUP_CREATE.SETTINGS_VISIBILITY_PRIVATE">
+                      </div>
+                    </label>
+                  </div>
+                  <div class="radio_description" translate="VIEWS.GROUP_CREATE.SETTINGS_VISIBILITY_PRIVATE_DESC"></div>
+                </div>
+                <div class="radio_icon">
+                  <div class="icon_contrast_default"></div>
+                </div>
+              </div>
+              <div class="radio_wrap" (click)="group.visibility = VISIBILITY.public"
+                [ngClass]="{'active': group.visibility === VISIBILITY.public}">
+                <div class="radio_text_wrap">
+                  <div class="radio_lable_wrap">
+                    <label class="radio_box">
+                      <input type="radio" [checked]="group.visibility == VISIBILITY.public" name="contrast"
+                        value="default">
+                      <span class="radio"></span>
+                      <div class="radio_lable" translate="VIEWS.GROUP_CREATE.SETTINGS_VISIBILITY_PUBLIC">
+                      </div>
+                    </label>
+                  </div>
+                  <div class="radio_description" translate="VIEWS.GROUP_CREATE.SETTINGS_VISIBILITY_PUBLIC_DESC"></div>
+                </div>
+                <div class="radio_icon">
+                  <div class="icon_contrast_default"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="group_create_content">
+          <div class="number_wrap">
+            <div>2</div>
+          </div>
+          <div id="create_form_wrap">
+            <h3 translate="VIEWS.GROUP_CREATE.SETTINGS_HEADING_CATEGORY_AND_LOCALITY"></h3>
+            <div translate="VIEWS.GROUP_CREATE.SETTINGS_CATEGORY_SELECT_DESC"></div>
+            <div class="dropdown" [cosDropdown]>
+              <div class="selection">
+                <div class="selected_item" translate="VIEWS.GROUP_CREATE.SETTINGS_CATEGORY_SELECT"></div>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </div>
+              <div class="options">
+                <div class="option" *ngFor="let category of CATEGORIES" (click)="chooseCategory(category)">
+                  {{'TXT_TOPIC_CATEGORY_' + category | uppercase | translate}}
+                </div>
+              </div>
+            </div>
+            <div id="group_category_selection">
+              <div class="group_category_item" *ngFor="let category of groupcategories"
+                (click)="chooseCategory(category)">
+                <span>{{'TXT_TOPIC_CATEGORY_' + category | uppercase | translate}}</span>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M4.47132 3.52925C4.21097 3.2689 3.78886 3.2689 3.52851 3.52925C3.26816 3.7896 3.26816 4.21171 3.52851 4.47206L7.05711 8.00065L3.52851 11.5292C3.26816 11.7896 3.26816 12.2117 3.52851 12.4721C3.78886 12.7324 4.21097 12.7324 4.47132 12.4721L7.99992 8.94346L11.5285 12.4721C11.7889 12.7324 12.211 12.7324 12.4713 12.4721C12.7317 12.2117 12.7317 11.7896 12.4713 11.5292L8.94273 8.00065L12.4713 4.47206C12.7317 4.21171 12.7317 3.7896 12.4713 3.52925C12.211 3.2689 11.7889 3.2689 11.5285 3.52925L7.99992 7.05784L4.47132 3.52925Z"
+                    fill="#2C3B47" />
+                </svg>
+
+              </div>
+            </div>
+            <h3 translate="VIEWS.GROUP_CREATE.SETTINGS_HEADING_LOCALITY"></h3>
+            <div translate="VIEWS.GROUP_CREATE.SETTINGS_LOCALITY_SELECT_DESC"></div>
+            <div class="row_wrap">
+              <div class="dropdown" [cosDropdown]>
+                <div class="selection">
+                  <div class="selected_item" translate="VIEWS.GROUP_CREATE.SETTINGS_COUNTRY_SELECT"></div>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
+                  </svg>
+                </div>
+                <div class="options">
+                  <div class="option" *ngFor="let category of CATEGORIES" (click)="chooseCategory(category)">
+                    {{'TXT_TOPIC_CATEGORY_' + category | uppercase | translate}}
+                  </div>
+                </div>
+              </div>
+              <div class="dropdown" [cosDropdown]>
+                <div class="selection">
+                  <div class="selected_item">
+                    <span *ngIf="!grouplanguage" translate="VIEWS.GROUP_CREATE.SETTINGS_LANGUAGE_SELECT"></span>
+                    <span *ngIf="grouplanguage">{{grouplanguage}}</span>
+                  </div>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
+                  </svg>
+                </div>
+                <div class="options">
+                  <div class="option" *ngFor="let language of languages$ | keyvalue;"
+                    (click)="grouplanguage = language.value">
+                    {{language.value}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="tabSelected==='add_topics'">
+        <div id="group_create_content">
+          <div id="create_form_wrap">
+            <h3 translate="VIEWS.GROUP_CREATE.ADD_TOPICS_HEADING"></h3>
+            <div translate="VIEWS.GROUP_CREATE.ADD_TOPICS_DESC"></div>
+            <div [cosDropdown] [ngClass]="{search_with_dropdown : resultCount, dropdown_active : resultCount}">
+              <!--[items]="searchResults$ | async"-->
+              <typeahead class="searchbox_with_icon_and_text auto-complete"
+                [term]="searchStringTopic" (search)="search($event)" (select)="addGroupMemberTopic($event)" (enterAction)="addGroupMemberTopic($event)"
+                [placeholder]="'MODALS.GROUP_CREATE_SETTINGS_PLACEHOLDER_SEARCH_TOPIC' | translate">
+                <div class="search_icon">
+                  <div class="table_cell">
+                    <div class="sprite sprite-icon-search-gray-2x"></div>
+                  </div>
+                </div>
+                <div class="search_text">
+                  <div class="table_cell blue_link" translate="MODALS.GROUP_CREATE_SETTINGS_TXT_PRESS_ENTER_TO_ADD"></div>
+                </div>
+                <ng-container *ngIf="searchResults$ | async as searchResults">
+                  <div class="search_area_wrap" [ngClass]="{hidden: !searchResults.length}">
+                    <div class="search_dropdown_area">
+                      <div class="search_dropdown_item" [typeaheadItem]="topic" *ngFor="let topic of searchResults">
+                        <div class="table_cell search_item_text">
+                          <b>{{topic.title}}</b>
+                        </div>
+                        <div class="table_cell blue_link">
+                          <span class="submit_link" (click)="addGroupMemberTopic(topic)"
+                            translate="MODALS.GROUP_CREATE_SETTINGS_TXT_PRESS_ENTER_OR_CLICK_TO_ADD"></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+              </typeahead>
+            </div>
+            <!--div class="input_area">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M14.1922 15.6064C13.0236 16.4816 11.5723 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10C17 11.5723 16.4816 13.0236 15.6064 14.1922L19.7071 18.2929C20.0976 18.6834 20.0976 19.3166 19.7071 19.7071C19.3166 20.0976 18.6834 20.0976 18.2929 19.7071L14.1922 15.6064ZM15 10C15 12.7614 12.7614 15 10 15C7.23858 15 5 12.7614 5 10C5 7.23858 7.23858 5 10 5C12.7614 5 15 7.23858 15 10Z"
+                  fill="#727C84" />
+              </svg>
+              <cos-input placeholder="{{'LAYOUTS.MAIN.PLACEHOLDER_SEARCH_TOPICS_USERS_GROUPS' | translate}}">
+                <input type="text" [(ngModel)]="searchInput" (ngModelChange)="doSearch(searchInput)">
+              </cos-input>
+              <a class="clear_search" (click)="searchInput=''; doSearch(searchInput);" *ngIf="searchInput"
+                translate="COMPONENTS.SEARCH.LNK_CLEAR"></a>
+            </!--div-->
+          </div>
+        </div>
       </ng-container>
       <div id="group_create_footer">
         <div id="close_group_create">
@@ -118,18 +351,19 @@
           </button>
         </div>
         <div id="navigate_group_create">
-          <button class="btn_big_submit_ghost">
+          <button class="btn_big_submit_ghost" *ngIf="tabSelected !== 'info'" (click)="previousTab(tabSelected)">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M10.4533 17.6874C10.8529 18.1042 11.5009 18.1042 11.9006 17.6874C12.3003 17.2705 12.3003 16.5947 11.9006 16.1779L8.91837 13L19 13C19.5652 13 20 12.5892 20 11.9997C20 11.4103 19.5652 11.0176 19 11.0176L8.91837 11.0176L11.9006 7.8221C12.3003 7.40527 12.3003 6.72945 11.9006 6.31262C11.5009 5.89579 10.8529 5.89579 10.4533 6.31262L5 12L10.4533 17.6874Z"
                 fill="#2C3B47" />
             </svg>
           </button>
-          <button class="btn_big_submit">Continue</button>
+          <button class="btn_big_submit" translate="VIEWS.GROUP_CREATE.FOOTER_BTN_CONTINUE"
+            (click)="nextTab(tabSelected)"></button>
         </div>
       </div>
-    </div>
 
+    </div>
     <div id="group_help_wrap">
       <div id="group_create_help">
         <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -182,6 +416,7 @@
         <a translate="VIEWS.GROUP_CREATE.HELP_LNK_LEARN_MORE"></a>
       </div>
     </div>
+
   </div>
 </div>
 <!-- LIGHTBOX SKELETON >

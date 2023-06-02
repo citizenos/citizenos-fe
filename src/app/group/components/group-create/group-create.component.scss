@@ -47,6 +47,25 @@
       width: 100%;
       padding: 26px 24px;
       gap: 16px;
+
+      .number_wrap {
+        width: 40px;
+        height: 40px;
+        justify-content: center;
+        position: relative;
+        align-items: center;
+        display: flex;
+        border-radius: 20px;
+        background-color: var(--color-secondary);
+        font-weight: bold;
+
+        svg {
+          position: absolute;
+          top: 0;
+          right: 0;
+        }
+      }
+
       #create_form_wrap {
         display: flex;
         flex-direction: column;
@@ -59,6 +78,10 @@
           width: 100%;
         }
 
+        h3 {
+          padding: 0;
+          margin: 0;
+        }
         #image_input_area {
           display: flex;
           flex-direction: column;
@@ -97,6 +120,58 @@
             }
           }
         }
+
+        .rule_input {
+          display: flex;
+          align-items: center;
+          position: relative;
+
+          button {
+            display: flex;
+            position: absolute;
+            right: 8px;
+            height: 32px;
+            width: 32px;
+            top: 8px;
+          }
+        }
+        .add_rule {
+          width: fit-content;
+        }
+
+        .row_wrap {
+          display: flex;
+          gap: 16px;
+          .dropdown {
+            width: 100%;
+          }
+          .radio_wrap {
+            width: 100%;
+            &.active {
+              color: var(--color-link)
+            }
+            .radio_lable {
+              font-size: 18px;
+              line-height: 24px;
+            }
+          }
+        }
+
+        #group_category_selection {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px
+          ;
+          .group_category_item {
+            display: flex;
+            background-color: var(--color-surface-contrast);
+            border-radius: 8px;
+            gap: 8px;
+            padding: 8px 16px;
+            font-weight: bold;
+            cursor: pointer;
+          }
+        }
       }
     }
   }
@@ -132,9 +207,9 @@
   justify-content: space-between;
   background-color: var(--color-surfaces);
   border-radius: 16px 16px 0 0;
-  width: calc(100% - 368px);
+  width: 100%;
   padding: 12px 16px;
-  position: absolute;
+  position: relative;
   bottom: 0;
   margin-top: 16px;
 
