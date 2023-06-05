@@ -85,7 +85,7 @@
       </div>
     </label>
 
-    <textarea cosmarkdown cosmarkdowntranslatecharacterstatuskey="'VIEWS.TOPICS_TOPICID.COMMENT_TYPE_CHARACTER_LIMIT'"
+    <textarea cosmarkdown cosmarkdowntranslatecharacterstatuskey="VIEWS.TOPICS_TOPICID.COMMENT_TYPE_CHARACTER_LIMIT"
       id="comment_edit" (update)="updateText($event)"
       placeholder="{{'VIEWS.TOPICS_TOPICID.PLACEHOLDER_EDIT_ARGUMENT_TEXT' | translate}}" class="gray_borders"
       [(item)]="edit.text" [ngClass]="{'error_input': errors?.text}" [limit]="argumentMaxLength()" required></textarea>

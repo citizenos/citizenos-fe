@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { MatDialog } from '@angular/material/dialog';
+import { AppService } from 'src/app/services/app.service';
 declare let hwcrypto: any;
 
 
@@ -23,7 +24,7 @@ export class ConnectEidComponent implements OnInit {
   isLoadingIdCard = false;
   authMethodsAvailable;
   wWidth = window.innerWidth;
-  constructor(cosConfig: ConfigService, private AuthService: AuthService, private UserService: UserService, private Notification: NotificationService, private dialog: MatDialog) {
+  constructor(private app: AppService, cosConfig: ConfigService, private AuthService: AuthService, private UserService: UserService, private Notification: NotificationService, private dialog: MatDialog) {
     this.config = cosConfig.get('features');
     this.authMethodsAvailable = Object.assign({}, this.config.authentication);
   }
@@ -79,9 +80,11 @@ export class ConnectEidComponent implements OnInit {
         })
       }, (err: any) => {
         this.isLoadingIdCard = false;
-        let message = err.message
-        if (message === 'no_certificates') {
-          message = 'MSG_ERROR_HWCRYPTO_NO_CERTIFICATES';
+        let message = '';
+        if (err instanceof Error) { //hwcrypto and JS errors
+          message = this.app.hwCryptoErrorToTranslationKey(err);
+        } else {
+          message = err.status.message;
         }
         this.Notification.addError(message);
       });
