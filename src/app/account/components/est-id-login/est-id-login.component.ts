@@ -5,6 +5,7 @@ import { ConfigService } from 'src/app/services/config.service';
 import { MatDialog } from '@angular/material/dialog';
 import { NotificationService } from 'src/app/services/notification.service';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
+import { AppService } from 'src/app/services/app.service';
 declare let hwcrypto: any;
 
 @Component({
@@ -23,7 +24,7 @@ export class EstIdLoginComponent implements OnInit {
   isLoadingIdCard = false;
   authMethodsAvailable;
   wWidth = window.innerWidth;
-  constructor(cosConfig: ConfigService, private AuthService: AuthService, private Notification: NotificationService, private dialog: MatDialog) {
+  constructor(private app: AppService, cosConfig: ConfigService, private AuthService: AuthService, private Notification: NotificationService, private dialog: MatDialog) {
     this.config = cosConfig.get('features');
     this.authMethodsAvailable = Object.assign({}, this.config.authentication);
   }
@@ -82,8 +83,8 @@ export class EstIdLoginComponent implements OnInit {
       }, (err: any) => {
         this.isLoadingIdCard = false;
         let message = err.message
-        if (message === 'no_certificates') {
-          message = 'MSG_ERROR_HWCRYPTO_NO_CERTIFICATES';
+        if (err instanceof Error) { //hwcrypto and JS errors
+          message = this.app.hwCryptoErrorToTranslationKey(err);
         }
         this.Notification.addError(message);
       });
