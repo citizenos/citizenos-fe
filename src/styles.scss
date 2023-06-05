@@ -1216,7 +1216,7 @@ a:visited {
     }
 
     @media (max-width: 560px) {
-      display: none;
+      top: 15px;
     }
   }
 }
@@ -1257,9 +1257,6 @@ a:visited {
       max-height: 250px;
       overflow-y: auto;
 
-      @include mixins_n_extends.mobile {
-        max-height: 200px;
-      }
 
       .search_dropdown_item {
         min-height: 30px;
@@ -1279,17 +1276,8 @@ a:visited {
               display: inline;
             }
           }
-
-          @include mixins_n_extends.tablet {
-            background-color: initial;
-          }
         }
 
-        @include mixins_n_extends.tablet {
-          .blue_link {
-            display: none;
-          }
-        }
 
         .table_cell {
           padding: 5px;
@@ -1298,7 +1286,6 @@ a:visited {
         .blue_link {
           font-weight: vars.$bold;
           font-size: 13px;
-          width: 174px;
           text-align: right;
 
           .submit_link {
