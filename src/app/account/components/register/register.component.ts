@@ -40,7 +40,12 @@ export class RegisterComponent implements OnInit {
       this.signUpForm.patchValue({'email': data.email});
     }
     if (data.redirectSuccess) {
-      this.redirectSuccess = data.redirectSuccess;
+      try {
+        const parsedUrl = new URL(data.redirectSuccess);
+        this.redirectSuccess = (parsedUrl.origin === window.location.origin) ? this.redirectSuccess : '';
+      } catch (error) {
+        this.redirectSuccess = '';
+      }
     }
   }
 
