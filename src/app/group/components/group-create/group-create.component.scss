@@ -1,3 +1,5 @@
+@use "mixins";
+
 .page_content {
   gap: 16px;
   padding: 16px 24px 24px 24px;
@@ -39,7 +41,7 @@
     width: 100%;
     gap: 8px;
 
-    #group_create_content {
+    .group_create_content_section {
       display: flex;
       flex-direction: row;
       background-color: var(--color-surfaces);
@@ -66,7 +68,7 @@
         }
       }
 
-      #create_form_wrap {
+      .create_content_wrap {
         display: flex;
         flex-direction: column;
         gap: 16px;
@@ -148,7 +150,7 @@
           .radio_wrap {
             width: 100%;
             &.active {
-              color: var(--color-link)
+              color: var(--color-link);
             }
             .radio_lable {
               font-size: 18px;
@@ -160,8 +162,7 @@
         #group_category_selection {
           display: flex;
           flex-wrap: wrap;
-          gap: 8px
-          ;
+          gap: 8px;
           .group_category_item {
             display: flex;
             background-color: var(--color-surface-contrast);
@@ -172,6 +173,83 @@
             cursor: pointer;
           }
         }
+      }
+      #topic_members_list_wrap {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+
+        .member_topic {
+          display: flex;
+          width: 100%;
+          align-items: center;
+          justify-content: space-between;
+        }
+      }
+    }
+
+    #input_area {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+
+      .search_area_wrap {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        background-color: var(--color-surfaces);
+        border-radius: 16px;
+        padding: 16px;
+        gap: 24px;
+
+        .search_dropdown_item {
+          display: flex;
+          flex-direction: row;
+          gap: 8px;
+          padding: 8px;
+          justify-content: space-between;
+          &.active {
+            background-color: var(--color-surface-contrast);
+          }
+
+          .item_text_wrap {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            vertical-align: middle;
+          }
+        }
+      }
+
+      @include mixins.mobile {
+        background-color: var(--color-background);
+        border: none;
+        border-radius: 0;
+      }
+
+      svg {
+        position: relative;
+      }
+
+      cos-input {
+        .cos_input_wrap {
+          .cos_input_placeholder {
+            left: 8px;
+          }
+        }
+        input {
+          &.with_value {
+            padding: 23px 0 7px 16px;
+          }
+        }
+      }
+      a {
+        margin-right: 16px;
       }
     }
   }
