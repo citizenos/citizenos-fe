@@ -13,7 +13,10 @@ export interface Group {
   lastActivity: string | null,
   members: any,
   userLevel: string | null,
-  imageUrl: string | null
+  imageUrl: string | null,
+  language: string | null,
+  country: string | null,
+  categories: string[] | null
 }
 
 export interface TopicMemberGroup extends Group {

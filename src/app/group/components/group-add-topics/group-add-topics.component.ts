@@ -1,6 +1,5 @@
 import { Topic } from 'src/app/interfaces/topic';
-import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Component, OnInit, Inject, Input } from '@angular/core';
 import { Group } from 'src/app/interfaces/group';
 import { GroupService } from 'src/app/services/group.service';
 import { AppService } from 'src/app/services/app.service';
@@ -8,12 +7,12 @@ import { SearchService } from 'src/app/services/search.service';
 import { GroupMemberTopicService } from 'src/app/services/group-member-topic.service';
 import { of, tap, switchMap, take, forkJoin } from 'rxjs';
 @Component({
-  selector: 'app-group-add-topics',
+  selector: 'group-add-topics',
   templateUrl: './group-add-topics.component.html',
   styleUrls: ['./group-add-topics.component.scss']
 })
 export class GroupAddTopicsComponent implements OnInit {
-  group!: Group;
+  @Input() group!: Group;
   VISIBILITY = this.GroupService.VISIBILITY;
   LEVELS = Object.keys(this.GroupMemberTopicService.LEVELS);
   searchStringTopic?: string;
@@ -24,22 +23,22 @@ export class GroupAddTopicsComponent implements OnInit {
   searchOrderBy?: string;
   errors?: any;
   constructor(
-    private dialogRef: MatDialogRef<GroupAddTopicsComponent>,
     private Search: SearchService,
-    @Inject(MAT_DIALOG_DATA) data: any,
     private GroupService: GroupService,
     private app: AppService,
     private GroupMemberTopicService: GroupMemberTopicService) {
-    this.group = data.group;
-    GroupMemberTopicService.setParam('groupId', this.group.id);
-    this.memberTopics$ = GroupMemberTopicService.loadItems().pipe(
-      tap((topics) => {
-        this.memberTopics = topics;
-      })
-    );
+
   }
 
   ngOnInit(): void {
+    if (this.group && this.group.id) {
+      this.GroupMemberTopicService.setParam('groupId', this.group.id);
+      this.memberTopics$ = this.GroupMemberTopicService.loadItems().pipe(
+        tap((topics) => {
+          this.memberTopics = topics;
+        })
+      );
+    }
   }
 
   canUpdate() {
@@ -113,7 +112,6 @@ export class GroupAddTopicsComponent implements OnInit {
         .pipe(take(1))
         .subscribe({
           next: (res: any) => {
-            this.dialogRef.close();
             this.GroupService.reloadGroup();
             this.GroupMemberTopicService.setParam('groupId', this.group.id);
           },
