@@ -76,7 +76,7 @@
                 <div class="gray_button" (click)="triggerUploadImage()"
                   translate="MODALS.GROUP_CREATE_SETTINGS_BTN_UPLOAD_IMAGE"></div>
                 <div class="pink_button red_text" *ngIf="group.imageUrl || tmpImageUrl" (click)="deleteGroupImage()">
-                  <span>{{(group.imageUrl || imageFile.name).split('/').pop() || ('MODALS.GROUP_CREATE_SETTINGS_BTN_REMOVE_IMAGE' | translate)}}</span>
+                  <span>{{('MODALS.GROUP_CREATE_SETTINGS_BTN_REMOVE_IMAGE' | translate)}}</span>
                   <span class="icon icon_delete"></span></div>
               </div>
             </div>
