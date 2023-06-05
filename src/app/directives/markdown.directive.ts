@@ -1,4 +1,4 @@
-import {Directive, Input, ElementRef, OnDestroy, EventEmitter, Output} from '@angular/core';
+import { Directive, Input, ElementRef, OnDestroy, EventEmitter, Output } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import * as EasyMDE from 'easymde';
 import { MarkdownService } from '../services/markdown.service';
@@ -9,7 +9,7 @@ export class MarkdownDirective implements OnDestroy {
   @Input() item: string = ''; // The text for the tooltip to display
   @Output() itemChange = new EventEmitter<string>();
   @Input() limit: number = 100; // Optional delay input, in m
-  @Input() cosMarkdownTranslateCharacterStatusKey: any;
+  @Input('cosmarkdowntranslatecharacterstatuskey') cosMarkdownTranslateCharacterStatusKey: any;
   CHAR_COUNTER_ELEMENT_CLASS_NAME = 'charCounter';
   curLength = 0;
   easymde;
@@ -61,24 +61,43 @@ export class MarkdownDirective implements OnDestroy {
     },
     status: [{
       className: this.CHAR_COUNTER_ELEMENT_CLASS_NAME,
-      defaultValue: this.updateCharacterCount,
-      onUpdate: this.updateCharacterCount
+      defaultValue: (el: any) => {
+        this.updateCharacterCount(el);
+      },
+      onUpdate: (el: any) => {
+        this.updateCharacterCount(el);
+      },
     }],
     element: this.el.nativeElement,
     initialValue: this.item
   };
   constructor(private el: ElementRef, private Translate: TranslateService, markdown: MarkdownService) {
     this.easymde = new EasyMDE(this.config);
-    this.easymde.codemirror.on('beforeChange', this.enforceMaxLength);
-    this.easymde.codemirror.on('change',() => {
-      //let curLength = this.easymde.value().length;
-        this.itemChange.emit(this.easymde.value());
+    this.easymde.codemirror.on('beforeChange', (cm: any, change: any) => {
+      const maxLength = cm.getOption('maxLength') || this.limit;
+      if (maxLength && change.update) {
+        let str = change.text.join('\n');
+        let delta = str.length - (cm.indexFromPos(change.to) - cm.indexFromPos(change.from));
+        if (delta <= 0) {
+          return true;
+        }
+        delta = cm.getValue().length + delta - maxLength;
+        if (delta > 0) {
+          str = str.substr(0, str.length - delta);
+          change.update(change.from, change.to, str.split('\n'));
+        }
+      }
+      return true;
+    });
+    this.easymde.codemirror.on('change', () => {
+      this.itemChange.emit(this.easymde.value());
     });
   }
 
   ngOnInit(): void {
     this.easymde.value(this.item);
   }
+
   ngOnDestroy(): void {
   }
 
@@ -98,44 +117,11 @@ export class MarkdownDirective implements OnDestroy {
   };
 
 
-  updateCharacterCount() {
+  updateCharacterCount(el: any) {
     if (this.cosMarkdownTranslateCharacterStatusKey && this.limit) {
-      this.el.nativeElement.innerHTML = this.Translate.instant(this.cosMarkdownTranslateCharacterStatusKey, {
+      el.innerHTML = this.Translate.instant(this.cosMarkdownTranslateCharacterStatusKey, {
         numberOfCharacters: this.limit,
       }) + ' (' + (this.limit - this.getCharLength()) + ')';
     }
   };
-
-
-  enforceMaxLength(cm: any, change: any) {
-    const maxLength = cm.getOption('maxLength');
-    if (maxLength && change.update) {
-      let str = change.text.join('\n');
-      let delta = str.length - (cm.indexFromPos(change.to) - cm.indexFromPos(change.from));
-      if (delta <= 0) {
-        return true;
-      }
-      delta = cm.getValue().length + delta - maxLength;
-      if (delta > 0) {
-        str = str.substr(0, str.length - delta);
-        change.update(change.from, change.to, str.split('\n'));
-      }
-    }
-    return true;
-  };
-  /*
-  scope.$watch('limit', function(newVal, oldVal) {
-      if (newVal) {
-        easymde.codemirror.setOption('maxLength', newVal);
-        if (easymde.gui.statusbar) {
-          const statusBarElement = easymde.gui.statusbar.getElementsByClassName(CHAR_COUNTER_ELEMENT_CLASS_NAME)[0];
-          if (statusBarElement) {
-            updateCharacterCount(statusBarElement);
-          }
-        }
-      }
-    });*/
-  /*
-
-  */
 }
