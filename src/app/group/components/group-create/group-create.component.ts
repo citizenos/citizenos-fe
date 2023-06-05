@@ -24,8 +24,9 @@ export class GroupCreateComponent implements OnInit {
     name: '',
     description: '',
     imageUrl: '',
-    visibility: this.GroupService.VISIBILITY.private,
+    visibility: this.GroupService.VISIBILITY.private
   };
+
   grouplanguage: string = '';
   groupcategories = <string[]>[]; //should be moved under group object
   VISIBILITY = this.GroupService.VISIBILITY;

@@ -242,7 +242,7 @@
               </div>
             </div>
             <div id="group_category_selection">
-              <div class="group_category_item" *ngFor="let category of groupcategories"
+              <div class="group_category_item" *ngFor="let category of group.categories"
                 (click)="chooseCategory(category)">
                 <span>{{'TXT_TOPIC_CATEGORY_' + category | uppercase | translate}}</span>
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -264,16 +264,17 @@
                   </svg>
                 </div>
                 <div class="options">
-                  <div class="option" *ngFor="let category of CATEGORIES" (click)="chooseCategory(category)">
-                    {{'TXT_TOPIC_CATEGORY_' + category | uppercase | translate}}
+                  <div class="option" *ngFor="let language of languages$ | keyvalue;"
+                    (click)="group.country = language.value">
+                    {{language.value}}
                   </div>
                 </div>
               </div>
               <div class="dropdown" [cosDropdown]>
                 <div class="selection">
                   <div class="selected_item">
-                    <span *ngIf="!grouplanguage" translate="VIEWS.GROUP_CREATE.SETTINGS_LANGUAGE_SELECT"></span>
-                    <span *ngIf="grouplanguage">{{grouplanguage}}</span>
+                    <span *ngIf="!group.language" translate="VIEWS.GROUP_CREATE.SETTINGS_LANGUAGE_SELECT"></span>
+                    <span *ngIf="group.language">{{group.language}}</span>
                   </div>
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
@@ -281,7 +282,7 @@
                 </div>
                 <div class="options">
                   <div class="option" *ngFor="let language of languages$ | keyvalue;"
-                    (click)="grouplanguage = language.value">
+                    (click)="group.language = language.value">
                     {{language.value}}
                   </div>
                 </div>
@@ -295,36 +296,7 @@
           <div id="create_form_wrap">
             <h3 translate="VIEWS.GROUP_CREATE.ADD_TOPICS_HEADING"></h3>
             <div translate="VIEWS.GROUP_CREATE.ADD_TOPICS_DESC"></div>
-            <div [cosDropdown] [ngClass]="{search_with_dropdown : resultCount, dropdown_active : resultCount}">
-              <!--[items]="searchResults$ | async"-->
-              <typeahead class="searchbox_with_icon_and_text auto-complete"
-                [term]="searchStringTopic" (search)="search($event)" (select)="addGroupMemberTopic($event)" (enterAction)="addGroupMemberTopic($event)"
-                [placeholder]="'MODALS.GROUP_CREATE_SETTINGS_PLACEHOLDER_SEARCH_TOPIC' | translate">
-                <div class="search_icon">
-                  <div class="table_cell">
-                    <div class="sprite sprite-icon-search-gray-2x"></div>
-                  </div>
-                </div>
-                <div class="search_text">
-                  <div class="table_cell blue_link" translate="MODALS.GROUP_CREATE_SETTINGS_TXT_PRESS_ENTER_TO_ADD"></div>
-                </div>
-                <ng-container *ngIf="searchResults$ | async as searchResults">
-                  <div class="search_area_wrap" [ngClass]="{hidden: !searchResults.length}">
-                    <div class="search_dropdown_area">
-                      <div class="search_dropdown_item" [typeaheadItem]="topic" *ngFor="let topic of searchResults">
-                        <div class="table_cell search_item_text">
-                          <b>{{topic.title}}</b>
-                        </div>
-                        <div class="table_cell blue_link">
-                          <span class="submit_link" (click)="addGroupMemberTopic(topic)"
-                            translate="MODALS.GROUP_CREATE_SETTINGS_TXT_PRESS_ENTER_OR_CLICK_TO_ADD"></span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </ng-container>
-              </typeahead>
-            </div>
+            <group-add-topics [group]="group"></group-add-topics>
             <!--div class="input_area">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd"
