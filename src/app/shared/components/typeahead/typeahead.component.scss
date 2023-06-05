@@ -1,13 +1,6 @@
 @use "mixins_n_extends";
 
 .ac-input {
-  @include mixins_n_extends.tablet {
-    position: relative;
-    height: 60px;
-    vertical-align: middle;
-    width: 100%;
-    top: 15px;
-  }
 
   input {
     border: none;
@@ -16,7 +9,8 @@
     font-size: 14px;
     padding: 0 58px;
     box-sizing: border-box;
-    @include mixins_n_extends.tablet {
+
+  /*  @include mixins_n_extends.tablet {
       border-radius: 15px;
       border: none;
       height: 30px;
@@ -27,7 +21,7 @@
       &:focus {
         outline: none;
       }
-    }
+    }*/
 
     &:focus,
     input:focus {
