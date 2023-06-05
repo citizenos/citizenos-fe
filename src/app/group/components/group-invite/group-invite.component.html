@@ -1,7 +1,7 @@
 <!-- LIGHTBOX SKELETON -->
 <div id="root_lightbox" class="full_screen">
 
-  <div id="lightbox" class="wide_lightbox with_header_menu" [ngClass]="group.id ? 'with_title_description' : ''">
+  <div id="lightbox" class="wide_lightbox with_header_menu with_title_description">
 
     <div id="lightbox_wrap">
 
@@ -67,11 +67,16 @@
                     </div>
                   </div>
                 </div>
-
-                <div class="search_text">
+                <div class="search_text"
+                  *ngIf="searchStringUser && !resultCount">
                   <div class="table_cell blue_link" (click)="addGroupMemberUser()"
                     translate="MODALS.GROUP_CREATE_SETTINGS_TXT_PRESS_ENTER_TO_ADD"></div>
                 </div>
+
+                <!--div-- class="search_text">
+                  <div class="table_cell blue_link" (click)="addGroupMemberUser()"
+                    translate="MODALS.GROUP_CREATE_SETTINGS_TXT_PRESS_ENTER_TO_ADD"></div>
+                </!--div-->
 
               </typeahead>
 
@@ -339,13 +344,11 @@
       <!-- SHARE -->
       <group-share [group]="group" class="lightbox_content invite_url" *ngIf="tabSelected === 'share'"></group-share>
 
-      <div class="lightbox_footer">
+      <div class="lightbox_footer" *ngIf="canShare() && tabSelected === 'users'">
 
         <div class="line lightest_line"></div>
         <div class="blue_button_wrap">
-          <div class="blue_button" *ngIf="!members.length && canShare()" mat-dialog-close
-            translate="MODALS.GROUP_CREATE_SETTINGS_BTN_SAVE_GROUP"></div>
-          <div class="blue_button" *ngIf="members.length && canShare()" (click)="doSaveGroup()"
+          <div class="blue_button" [cosDisabled]="!members.length" (click)="doSaveGroup()"
             translate="MODALS.GROUP_CREATE_SETTINGS_BTN_SAVE_GROUP_AND_INVITE"></div>
         </div>
       </div>

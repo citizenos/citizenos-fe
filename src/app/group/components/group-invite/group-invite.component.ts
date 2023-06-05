@@ -122,6 +122,7 @@ export class GroupInviteComponent implements OnInit {
   };
 
   addGroupMemberUser(member?: any): void {
+    console.log(member);
     if (member) {
       if (this.members && this.members.find((m) => m.id === member.id)) {
         // Ignore duplicates
@@ -180,6 +181,10 @@ export class GroupInviteComponent implements OnInit {
         .pipe(
           switchMap((response) => {
             this.resultCount = response.results.public.users.count;
+            if (!this.resultCount && isEmail(str)) {
+              this.resultCount = 1;
+              return of([{email: str, name: str, userId: str}]);
+            }
             return of(response.results.public.users.rows);
           }));
     } else {

@@ -5,6 +5,7 @@ import { TopicVoteSignData } from '../topic-vote-sign/topic-vote-sign.component'
 import { TopicVoteService } from 'src/app/services/topic-vote.service';
 import { take, interval, takeWhile, switchMap, map, catchError, of } from 'rxjs';
 import { NotificationService } from 'src/app/services/notification.service';
+import { AppService } from 'src/app/services/app.service';
 declare let hwcrypto: any;
 
 @Component({
@@ -22,7 +23,7 @@ export class TopicVoteSignEsteidComponent implements OnInit {
   wWidth = window.innerWidth;
   isLoadingIdCard = false;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: TopicVoteSignData, private dialog: MatDialog, private Notification: NotificationService, public TopicVoteService: TopicVoteService) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: TopicVoteSignData, private dialog: MatDialog, private Notification: NotificationService, public TopicVoteService: TopicVoteService, private app: AppService) {
     this.topic = data.topic;
     this.options = data.options;
   }
@@ -64,27 +65,6 @@ export class TopicVoteSignEsteidComponent implements OnInit {
           this.isLoading = false;
         }
       })
-  };
-
-  hwCryptoErrorToTranslationKey(err: any) {
-    const errorKeyPrefix = 'MSG_ERROR_HWCRYPTO_';
-
-    switch (err.message) {
-      case hwcrypto.NO_CERTIFICATES:
-      case hwcrypto.USER_CANCEL:
-      case hwcrypto.NO_IMPLEMENTATION:
-        return errorKeyPrefix + err.message.toUpperCase();
-        break;
-      case hwcrypto.INVALID_ARGUMENT:
-      case hwcrypto.NOT_ALLOWED:
-      case hwcrypto.TECHNICAL_ERROR:
-        console.error(err.message, 'Technical error from HWCrypto library', err);
-        return errorKeyPrefix + 'TECHNICAL_ERROR';
-        break;
-      default:
-        console.error(err.message, 'Unknown error from HWCrypto library', err);
-        return errorKeyPrefix + 'TECHNICAL_ERROR';
-    }
   };
 
   doSignWithCard() {
@@ -134,7 +114,7 @@ export class TopicVoteSignEsteidComponent implements OnInit {
 
         let msg = null;
         if (err instanceof Error) { //hwcrypto and JS errors
-          msg = this.hwCryptoErrorToTranslationKey(err);
+          msg = this.app.hwCryptoErrorToTranslationKey(err);
         } else { // API error response
           msg = err.status.message;
         }

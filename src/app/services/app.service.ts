@@ -13,6 +13,8 @@ import { LoginDialogComponent } from '../account/components/login/login.componen
 import { RegisterComponent, RegisterDialogComponent } from '../account/components/register/register.component';
 import { CreateComponent } from 'src/app/core/components/create/create.component';
 import { ActivityFeedComponent } from '../core/components/activity-feed/activity-feed.component';
+import { LoginComponent } from '../account/components/login/login.component';
+declare let hwcrypto: any;
 
 @Injectable({
   providedIn: 'root'
@@ -95,12 +97,32 @@ export class AppService {
       });
   }
 
+
   showCreateMenu() {
     console.log('showCreateMenu')
-    this.dialog.closeAll();
     if (!this.createMenu) {
       this.dialog.open(CreateComponent);
     }
     this.createMenu = !this.createMenu;
   }
+
+  hwCryptoErrorToTranslationKey(err: any) {
+    const errorKeyPrefix = 'MSG_ERROR_HWCRYPTO_';
+    switch (err.message) {
+      case hwcrypto.NO_CERTIFICATES:
+      case hwcrypto.USER_CANCEL:
+      case hwcrypto.NO_IMPLEMENTATION:
+        return errorKeyPrefix + err.message.toUpperCase();
+        break;
+      case hwcrypto.INVALID_ARGUMENT:
+      case hwcrypto.NOT_ALLOWED:
+      case hwcrypto.TECHNICAL_ERROR:
+        console.error(err.message, 'Technical error from HWCrypto library', err);
+        return errorKeyPrefix + 'TECHNICAL_ERROR';
+        break;
+      default:
+        console.error(err.message, 'Unknown error from HWCrypto library', err);
+        return errorKeyPrefix + 'TECHNICAL_ERROR';
+    }
+  };
 }
