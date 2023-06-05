@@ -60,20 +60,26 @@ export class TopicComponent implements OnInit {
     @Inject(DomSanitizer) private sanitizer: DomSanitizer,
     public app: AppService
   ) {
-    this.routerSubscription = this.route.url.subscribe(url => {
-      this.showVoteCreateForm = false;
-      this.showVoteCast = false;
-      this.viewFollowup = false;
-      if (this.router.url.indexOf('votes/create') > -1) {
-        this.showVoteCreateForm = true;
-      }
-      if (this.router.url.indexOf('followup') > -1) {
-        this.viewFollowup = true;
-      }
-      if (this.router.url.indexOf('votes/') > -1 && !this.showVoteCreateForm) {
-        this.showVoteCast = true;
-      }
-    });
+    this.routerSubscription = this.route.url.pipe(
+      tap((url) => {
+        console.log('URL', url)
+        this.showVoteCreateForm = false;
+        this.showVoteCast = false;
+        this.viewFollowup = false;
+        if (this.router.url.indexOf('votes/create') > -1) {
+          console.log('showVoteCreateForm')
+          this.showVoteCreateForm = true;
+        } else {
+          this.showVoteCreateForm = false;
+        }
+        if (this.router.url.indexOf('followup') > -1) {
+          this.viewFollowup = true;
+        }
+        if (this.router.url.indexOf('votes/') > -1 && !this.showVoteCreateForm) {
+          this.showVoteCast = true;
+        }
+      })
+    ).subscribe();
 
 
     this.editMode$ = this.route.queryParams.pipe(
@@ -102,6 +108,8 @@ export class TopicComponent implements OnInit {
           this.hideTopicContent = true;
         }
         if (topic.voteId) {
+          this.showVoteCreateForm = false;
+          this.showVoteCast = true;
           this.vote$ = this.TopicVoteService.get({ topicId: topic.id, voteId: topic.voteId });
         }
         const padURL = new URL(topic.padUrl);
