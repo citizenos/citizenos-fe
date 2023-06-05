@@ -1,6 +1,26 @@
-<div class="pretend_td">
-  <div class="blue_link" [routerLink]="['/topics',topic.id]" [innerHtml]="topic.title"></div>
+<div class="member_topic_title">
+  {{topic.title}}
 </div>
+<div class="member_topic_members">
+  {{topic.members.users.count}}
+</div>
+<div class="dropdown" [cosDropdown] [cosDisabled]="TopicService.canUpdate(topic) && group?.visibility !== GroupService.VISIBILITY.public">
+  <div class="selection">
+    <div class="selected_item">{{'TXT_TOPIC_LEVELS_' + topic.permission.levelGroup | uppercase | translate}}</div>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
+    </svg>
+  </div>
+  <div class="options">
+    <div class="option" *ngFor="let level of GroupMemberTopic.LEVELS | keyvalue"
+    (click)="doUpdateMemberTopic(level.value)">
+    {{'TXT_TOPIC_LEVELS_' + level.value | uppercase | translate}}
+    </div>
+  </div>
+</div>
+<!--div class="pretend_td">
+  <div class="blue_link" [routerLink]="['/topics',topic.id]" [innerHtml]="topic.title"></div>
+</!--div>
 <div class="pretend_td" *ngIf="isVisibleField('lastActivity')">
   <div class="pretend_table_mobile_text mobile_label" translate="">Last activity</div>
   <span [innerText]="topic.lastActivity | date:'YYYY-MM-dd HH:mm'"></span>
@@ -36,7 +56,7 @@
   <div class="pretend_table_mobile_text mobile_label" translate="VIEWS.PUBLIC_GROUP.LNK_STATUS">Status</div>
   <span> {{'TXT_TOPIC_STATUS_'+topic.status | uppercase | translate}} </span>
 </div>
-<div class="pretend_td recycle_bin_wrap" *ngIf="isVisibleField('delete') && TopicService.canUpdate(topic) ">
+<div-- class="pretend_td recycle_bin_wrap" *ngIf="isVisibleField('delete') && TopicService.canUpdate(topic) ">
   <div class="btn_wrap recycle_bin">
       <div class="btn" (click)="doDeleteMemberTopic()">
           <div class="table_cell">
@@ -45,4 +65,4 @@
           </div>
       </div>
   </div>
-</div>
+</div-->
