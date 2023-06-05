@@ -1,11 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { ConfigService } from 'src/app/services/config.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { NotificationService } from 'src/app/services/notification.service';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { take } from 'rxjs';
-import { UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms'
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-register',

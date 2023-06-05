@@ -4,7 +4,7 @@
   </div>
   <form  *ngIf="AuthService.loggedIn$ | async" name="argumentReply">
     <textarea cosmarkdown
-      cosmarkdowntranslatecharacterstatuskey="'VIEWS.TOPICS_TOPICID.COMMENT_TYPE_CHARACTER_LIMIT'"
+      cosmarkdowntranslatecharacterstatuskey="VIEWS.TOPICS_TOPICID.COMMENT_TYPE_CHARACTER_LIMIT"
       id="argument_reply_text" [(item)]="reply.text" class="gray_borders"
        [ngClass]="{'error_input': errors?.text}"
       placeholder="{{'VIEWS.TOPICS_TOPICID.PLACEHOLDER_WRITE_REPLY_HERE' | translate}}"

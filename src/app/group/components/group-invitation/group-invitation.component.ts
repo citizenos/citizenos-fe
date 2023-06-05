@@ -44,11 +44,6 @@ export class GroupInvitationComponent implements OnInit {
             redirectSuccess: currentUrl,
             email: this.invite.user.email
           }});
-            /*return $state.go('account/login', {
-                userId: $scope.invite.user.id,
-                redirectSuccess: currentUrl,
-                email: $scope.invite.user.email // HACK: Hidden e-mail from the URL and tracking - https://github.com/citizenos/citizenos-fe/issues/657
-            });*/
         }
     }
 
