@@ -1,11 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Inject } from '@angular/core';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicService } from 'src/app/services/topic.service';
 import { TopicVoteService } from 'src/app/services/topic-vote.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { TranslateService } from '@ngx-translate/core';
 import { take } from 'rxjs';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'topic-vote-create',
   templateUrl: './topic-vote-create.component.html',
@@ -95,6 +95,7 @@ export class TopicVoteCreateComponent implements OnInit {
     private TopicVoteService: TopicVoteService,
     private Translate: TranslateService,
     private Notification: NotificationService,
+    @Inject(ActivatedRoute) private route: ActivatedRoute,
     private router: Router
   ) {
     this.setTimeZones();
@@ -329,6 +330,7 @@ export class TopicVoteCreateComponent implements OnInit {
         next: (vote) => {
           this.TopicService.reloadTopic();
           this.router.navigate(['/topics', this.topic.id, 'votes', vote.id]);
+          this.route.url.pipe(take(1)).subscribe();
         },
         error: (res) => {
           console.debug('createVote() ERR', res, res.errors, this.vote.options);
