@@ -50,6 +50,13 @@ export class LoginComponent implements OnInit {
       this.form.patchValue({ 'email': value['email'] });
       this.userConnections = value['userConnections'];
       this.redirectSuccess = value['redirectSuccess'];
+      try {
+        const parsedUrl = new URL(this.redirectSuccess);
+        this.redirectSuccess = (parsedUrl.origin === window.location.origin) ? this.redirectSuccess : false;
+      } catch (error) {
+        this.redirectSuccess = false;
+      }
+
       if (value['userId']) {
         this.UserService.listUserConnections(value['userId'])
           .pipe(take(1))
