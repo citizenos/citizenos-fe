@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { catchError, map, of, switchMap, take, takeWhile } from 'rxjs';
+import { isEmail } from 'validator';
 import { Group } from 'src/app/interfaces/group';
 import { Topic } from 'src/app/interfaces/topic';
 import { ConfigService } from 'src/app/services/config.service';
@@ -10,6 +11,7 @@ import { GroupService } from 'src/app/services/group.service';
 import { SearchService } from 'src/app/services/search.service';
 import { TopicService } from 'src/app/services/topic.service';
 import { GroupMemberTopicService } from 'src/app/services/group-member-topic.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'group-create-component',
@@ -42,14 +44,23 @@ export class GroupCreateComponent implements OnInit {
     { rule: '' },
   ];
 
-  constructor(private TopicService: TopicService,
+  searchStringUser = '';
+  searchResultUsers$ = of(<any>[]);
+  invalid = <any[]>[];
+  members = <any[]>[];
+  groupLevel = 'read';
+  maxUsers = 550;
+  private EMAIL_SEPARATOR_REGEXP = /[;,\s]/ig;
+
+  constructor(public TopicService: TopicService,
     public translate: TranslateService,
-    private GroupService: GroupService,
+    public GroupService: GroupService,
+    private Notification: NotificationService,
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,
     private Search: SearchService,
-    private GroupMemberTopicService: GroupMemberTopicService,
+    public GroupMemberTopicService: GroupMemberTopicService,
     private config: ConfigService) {
     this.tabSelected = this.route.fragment.pipe(
       map((fragment) => {
@@ -62,7 +73,8 @@ export class GroupCreateComponent implements OnInit {
   }
 
   selectTab(tab: string) {
-    this.router.navigate([], { fragment: tab })
+    this.router.navigate([], { fragment: tab });
+    console.log(this.memberTopics);
   }
 
   previousTab(tab: string | void) {
@@ -204,6 +216,96 @@ export class GroupCreateComponent implements OnInit {
       this.searchResults$ = of([]);
     }
   }
+
+  searchUsers(str: any): void {
+    if (str && str.length >= 2) {
+      this.searchStringUser = str;
+      this.searchResultUsers$ = this.Search
+        .searchUsers(str)
+        .pipe(
+          switchMap((response) => {
+            this.resultCount = response.results.public.users.count;
+            if (!this.resultCount && isEmail(str)) {
+              this.resultCount = 1;
+              return of([{ email: str, name: str, userId: str }]);
+            }
+            return of(response.results.public.users.rows);
+          }));
+    } else {
+      this.searchResultUsers$ = of([]);
+    }
+  }
+
+  orderMembers() {
+    const compare = (a: any, b: any) => {
+      const property = 'name';
+      return (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+    };
+    const users = this.members.filter((member) => {
+      return !!member.id;
+    }).sort(compare);
+    const emails = this.members.filter((member) => {
+      return member.userId === member.name;
+    }).sort(compare);
+
+    this.members = users.concat(emails);
+  };
+
+  addGroupMemberUser(member?: any): void {
+    console.log(member);
+    if (member) {
+      if (this.members && this.members.find((m) => m.id === member.id)) {
+        // Ignore duplicates
+        this.searchStringUser = '';
+        this.searchResultUsers$ = of([]);
+      } else {
+        const memberClone = Object.assign({}, member);
+        memberClone.userId = member.userId;
+        memberClone.level = this.groupLevel;
+        this.members.push(memberClone);
+        this.searchResultUsers$ = of([]);
+
+        this.orderMembers();
+      }
+    } else {
+      if (!this.searchStringUser) return;
+
+      // Assume e-mail was entered.
+      const emails = this.searchStringUser.replace(this.EMAIL_SEPARATOR_REGEXP, ',').split(',');
+      const filtered = emails.filter((email) => {
+        if (isEmail(email.trim())) {
+          return email.trim();
+        } else if (email.trim().length) {
+          this.invalid.push(email.trim());
+        }
+
+        return;
+      });
+
+      if (filtered.length) {
+        filtered.sort().forEach((email) => {
+          email = email.trim();
+          if (this.members.length >= this.maxUsers) {
+            return this.Notification.addError('MSG_ERROR_INVITE_MEMBER_COUNT_OVER_LIMIT');
+          }
+          if (!this.members.find((member) => member['userId'] === email)) {
+            this.members.push({
+              userId: email,
+              name: email,
+              level: this.groupLevel
+            });
+            this.orderMembers();
+          }
+        });
+      }
+
+      this.searchStringUser = '';
+    }
+  }
+
+  removeGroupMemberUser(member: any) {
+    this.members.splice(this.members.indexOf(member), 1);
+  };
 
   addGroupMemberTopic(topic: Topic) {
     this.searchStringTopic = '';

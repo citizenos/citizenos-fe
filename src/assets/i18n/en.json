@@ -768,6 +768,12 @@
       "ADD_TOPICS_PLACEHOLDER_SEARCH": "Search for a topic",
       "ADD_TOPICS_PRESS_ENTER_TO_ADD": "Press enter to add",
       "ADD_TOPICS_SELECT_TO_ADD": "Select to add",
+      "INVITE_MEMBERS_HEADING": "Invite members to the group",
+      "INVITE_MEMBERS_MESSAGE_DESC": "Add an optional invitation message",
+      "INVITE_MEMBERS_MESSAGE_PLACEHOLDER": "Write your message here",
+      "INVITE_MEMBERS_EMAIL_DESC": "Invite users via their username or e-mail address",
+      "INVITE_MEMBERS_PLACEHOLDER_SEARCH": "Search",
+      "INVITE_MEMBERS_SELECT_TO_ADD": "@:VIEWS.GROUP_CREATE.ADD_TOPICS_SELECT_TO_ADD",
       "HELP_HEADING": "Did you know?",
       "HELP_DESCRIPTION": "Creating a group is a great way to give people a sense they belong to a community and incentivises them to engage more easily.",
       "HELP_LNK_LEARN_MORE": "Learn more about groups"

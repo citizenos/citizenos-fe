@@ -8,6 +8,7 @@ import { GroupService } from 'src/app/services/group.service';
 import { Group } from 'src/app/interfaces/group';
 import { Topic } from 'src/app/interfaces/topic';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'group-member-topic',
@@ -22,9 +23,14 @@ export class GroupMemberTopicComponent implements OnInit {
   @Input() fields?: any;
 
   wWidth = window.innerWidth;
-  constructor(private dialog: MatDialog, public GroupMemberTopic: GroupMemberTopicService, public TopicService: TopicService, public GroupService: GroupService) { }
+  constructor(private dialog: MatDialog, public GroupMemberTopic: GroupMemberTopicService, public TopicService: TopicService, public GroupService: GroupService, public translate: TranslateService) { }
 
   ngOnInit(): void {
+    console.log(!this.topic.permission.levelGroup)
+    if (!this.topic.permission.levelGroup) {
+      console.log(this.GroupMemberTopic.LEVELS.read)
+      this.topic.permission.levelGroup =  this.GroupMemberTopic.LEVELS.read;
+    }
   }
 
   isVisibleField(field: string) {
@@ -38,13 +44,15 @@ export class GroupMemberTopicComponent implements OnInit {
       const oldLevel = topic?.permission.levelGroup;
       topic.permission.levelGroup = level;
       topic['level'] = level;
-      this.GroupMemberTopic
-        .update({ groupId: group?.id, topicId: topic.id }, topic)
-        .pipe(
-          take(1)
-        ).subscribe((res) => {
-          topic.permission.levelGroup = oldLevel;
-        })
+      if (group?.id) {
+        this.GroupMemberTopic
+          .update({ groupId: group?.id, topicId: topic.id }, topic)
+          .pipe(
+            take(1)
+          ).subscribe((res) => {
+            topic.permission.levelGroup = oldLevel;
+          })
+      }
     }
   }
   doDeleteMemberTopic() {
