@@ -180,11 +180,21 @@
         justify-content: center;
         text-align: center;
 
-        .member_topic {
-          display: flex;
+        .row_header, .row_list {
           width: 100%;
-          align-items: center;
-          justify-content: space-between;
+
+          .row_cell {
+            align-items: center;
+            flex-grow: 1;
+            text-align: left;
+
+            &:first-child {
+              flex-grow: 3;
+            }
+            &:last-child {
+              flex-grow: 0;
+            }
+          }
         }
       }
     }
