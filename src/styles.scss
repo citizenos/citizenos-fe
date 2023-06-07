@@ -3,6 +3,7 @@
 @forward "buttons_new";
 @forward "illustrations";
 @forward "dialog";
+@forward "create_views";
 @use "themes";
 @use "mixins";
 
@@ -115,7 +116,6 @@ textarea {
 
 .dropdown {
   border: none;
-  height: 48px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -130,7 +130,7 @@ textarea {
     justify-content: space-between;
     border: 1px solid var(--color-border);
     border-radius: 8px;
-    padding: 14px;
+    padding: 8px;
   }
 
   .options {
@@ -141,13 +141,15 @@ textarea {
     border: 1px solid var(--color-border);
     border-radius: 8px;
     z-index: 9;
+    margin-top: 41px;
+    min-width: 100%;
+    position: absolute;
 
     .option {
       display: flex;
       align-items: center;
       cursor: pointer;
       padding: 14px;
-
       &:hover {
         background-color: var(--color-surface-contrast);
       }
@@ -244,43 +246,25 @@ html {
   padding: 16px;
   border-radius: 8px;
 
-  .icon_notification {
-    background-size: 24px 24px;
-  }
   &.error {
     background-color: var(--color-error-background);
-    .icon_notification {
-      @extend %icon_notification_error;
-      width: 24px;
-      height: 24px;
-    }
   }
 
   &.warning {
     background-color: var(--color-warn-background);
-    .icon_notification {
-      @extend %icon_notification_warning;
-      width: 24px;
-      height: 24px;
-    }
   }
 
   &.info {
     background-color: var(--color-info-background);
-    .icon_notification {
-      @extend %icon_notification_info;
-      width: 24px;
-      height: 24px;
-    }
   }
 
   &.success {
     background-color: var(--color-success-background);
-    .icon_notification {
-      @extend %icon_notification_success;
-      width: 24px;
-      height: 24px;
-    }
+  }
+
+  .icon_notification {
+    width: 24px;
+    height: 24px;
   }
 }
 
@@ -319,7 +303,7 @@ cos-toggle {
 .row_header {
   display: flex;
   flex-flow: row wrap;
-  padding: 16px 20px;
+  padding: 8px;
   background-color: var(--color-surfaces-contrast);
   justify-content: space-between;
 

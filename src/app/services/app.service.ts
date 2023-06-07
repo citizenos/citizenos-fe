@@ -23,8 +23,9 @@ export class AppService {
   showNav = false;
   showSearch = false;
   editMode = false;
+  searchAllowed = false;
   showSearchResults = false;
-  showSearchFiltersMobile = false;
+  showSearchFiltersMobile = false; //remove after UI update
   showHelp = new BehaviorSubject(false);
   group = new BehaviorSubject<Group | undefined>(undefined);
   topic: Topic | undefined;
