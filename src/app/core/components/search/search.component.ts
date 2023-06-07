@@ -66,7 +66,6 @@ export class SearchComponent implements OnInit {
           this.searchResults = data.results;
           this.app.showSearchResults = true;
           this.app.showNav = false;
-          this.app.showSearchFiltersMobile = false;
           /*this.searchResults = result.data.data.results;
           */
           let countTotal = 0;

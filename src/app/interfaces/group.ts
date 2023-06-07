@@ -16,7 +16,10 @@ export interface Group {
   imageUrl: string | null,
   language: string | null,
   country: string | null,
-  categories: string[] | null
+  categories: string[] | null,
+  rules: any[] | null,
+  contact: string | null,
+  inviteMessage: string | null | undefined //optional field while creating groups
 }
 
 export interface TopicMemberGroup extends Group {

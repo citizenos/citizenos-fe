@@ -1,0 +1,397 @@
+@use "mixins";
+
+#create_heading {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  align-items: center;
+}
+
+#create_tabs {
+  display: flex;
+  background-color: var(--color-surfaces);
+  width: 100%;
+  padding: 0 16px;
+  border-radius: 16px;
+
+  .create_tab {
+    padding: 28px 56px;
+    &.active {
+      color: var(--color-link);
+      border-bottom: 2px solid var(--color-link);
+    }
+  }
+}
+
+#create_content_wrap {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  gap: 32px;
+
+  @include mixins.tablet {
+    flex-direction: column;
+  }
+
+  #form_area {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 32px;
+    position: relative;
+    justify-content: space-between;
+
+    .error_section {
+      display: flex;
+      flex-direction: column;
+      .section_header {
+        display: flex;
+        border-radius: 16px 16px 0 0;
+        padding: 8px;
+        background-color: var(--color-error-background);
+        align-items: center;
+        padding: 16px;
+        gap: 8px;
+      }
+      .section_content_wrap {
+        display: flex;
+        flex-direction: row;
+        background-color: var(--color-surfaces);
+        border-radius: 0 0 16px 16px;
+        width: 100%;
+        gap: 16px;
+
+        .row_list,
+        .row_cell,
+        cos-input,
+        input,
+        textarea {
+          width: 100%;
+        }
+        .row_cell {
+          vertical-align: middle;
+          align-items: center;
+          gap: 16px;
+        }
+        .remove_button {
+          width: 32px;
+          height: 32px;
+        }
+      }
+    }
+    .create_content {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      .create_content_section {
+        display: flex;
+        flex-direction: row;
+        background-color: var(--color-surfaces);
+        border-radius: 16px;
+        width: 100%;
+        padding: 26px 24px;
+        gap: 16px;
+
+        .number_wrap {
+          width: 40px;
+          height: 40px;
+          justify-content: center;
+          position: relative;
+          align-items: center;
+          display: flex;
+          border-radius: 20px;
+          background-color: var(--color-secondary);
+          font-weight: bold;
+
+          svg {
+            position: absolute;
+            top: 0;
+            right: 0;
+          }
+        }
+
+        .section_content_wrap {
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+          width: 100%;
+
+          cos-input,
+          input,
+          textarea {
+            width: 100%;
+          }
+
+          h3 {
+            padding: 0;
+            margin: 0;
+          }
+          #image_input_area {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 160px;
+            border: 2px dashed var(--color-border);
+            border-radius: 16px;
+            input {
+              position: absolute;
+              z-index: -1;
+              width: 1px;
+              height: 1px;
+            }
+          }
+
+          #image_area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            #image_wrap {
+              border-radius: 80px;
+              width: 80px;
+              height: 80px;
+              overflow: hidden;
+
+              img {
+                height: inherit;
+                width: inherit;
+                display: flex;
+                aspect-ratio: 1;
+                object-fit: contain;
+              }
+            }
+          }
+
+          .rule_input {
+            display: flex;
+            align-items: center;
+            position: relative;
+
+            button {
+              display: flex;
+              position: absolute;
+              right: 8px;
+              height: 32px;
+              width: 32px;
+              top: 8px;
+            }
+          }
+          .add_rule {
+            width: fit-content;
+          }
+
+          .row_wrap {
+            display: flex;
+            gap: 16px;
+            .dropdown {
+              width: 100%;
+            }
+            .radio_wrap {
+              width: 100%;
+              &.active {
+                color: var(--color-link);
+              }
+              .radio_lable {
+                font-size: 18px;
+                line-height: 24px;
+              }
+            }
+          }
+
+          #category_selection {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            .category_item {
+              display: flex;
+              background-color: var(--color-surface-contrast);
+              border-radius: 8px;
+              gap: 8px;
+              padding: 8px 16px;
+              font-weight: bold;
+              cursor: pointer;
+            }
+          }
+        }
+        #topic_members_list_wrap {
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+
+          .row_header,
+          .row_list {
+            width: 100%;
+
+            .row_cell {
+              align-items: center;
+              flex-grow: 1;
+              text-align: left;
+
+              &:first-child {
+                flex-grow: 3;
+              }
+              &:last-child {
+                flex-grow: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    #input_area {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+
+      .search_area_wrap {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        background-color: var(--color-surfaces);
+        border-radius: 16px;
+        padding: 16px;
+        gap: 24px;
+
+        .search_dropdown_item {
+          display: flex;
+          flex-direction: row;
+          gap: 8px;
+          padding: 8px;
+          justify-content: space-between;
+          &.active {
+            background-color: var(--color-surface-contrast);
+          }
+
+          .item_text_wrap {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            vertical-align: middle;
+          }
+        }
+      }
+
+      @include mixins.mobile {
+        background-color: var(--color-background);
+        border: none;
+        border-radius: 0;
+      }
+
+      svg {
+        position: relative;
+      }
+
+      cos-input {
+        .cos_input_wrap {
+          .cos_input_placeholder {
+            left: 8px;
+          }
+        }
+        input {
+          &.with_value {
+            padding: 23px 0 7px 16px;
+          }
+        }
+      }
+      a {
+        margin-right: 16px;
+      }
+    }
+  }
+  #help_wrap {
+    display: flex;
+    min-width: 288px;
+    @include mixins.tablet {
+      width: 100%;
+      margin-bottom: 72px;
+    }
+
+    #help_illustration {
+      display: flex;
+      width: 80px;
+      height: 80px;
+    }
+
+    #create_help {
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      max-width: 288px;
+      max-height: 292px;
+      border-radius: 16px;
+      background-color: var(--color-secondary);
+      flex-direction: column;
+
+      gap: 16px;
+      padding: 24px;
+
+      @include mixins.tablet {
+        max-width: 100%;
+        flex-direction: row;
+        margin-bottom: 96px;
+      }
+
+      #help_text_wrap {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        gap: 8px;
+
+        a {
+          margin-top: 8px;
+        }
+        @include mixins.tablet {
+          text-align: left;
+          align-items: initial;
+        }
+      }
+    }
+  }
+}
+
+#create_footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: var(--color-surfaces);
+  border-radius: 16px 16px 0 0;
+  width: 100%;
+  padding: 12px 16px;
+  position: relative;
+  bottom: 0;
+
+  @include mixins.tablet {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 9999999;
+  }
+
+  div {
+    display: flex;
+    gap: 16px;
+  }
+
+  .btn_big_submit_ghost {
+    width: 40px;
+    display: flex;
+
+    svg {
+      display: flex;
+      position: absolute;
+    }
+  }
+}

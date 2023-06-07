@@ -8,11 +8,14 @@
     position: fixed;
     top: 0;
     left: 0;
-    background: var(--color-surfaces);
     display: flex;
     align-items: center;
     padding: 0 16px;
     z-index: 999;
+
+    &.with_search {
+      background: var(--color-surfaces);
+    }
     .logo_wrap {
       display: flex;
       padding: 24px 0px;
@@ -45,7 +48,8 @@
     justify-content: normal;
   }
 
-  .btn_big_submit, .btn_big_submit_ghost  {
+  .btn_big_submit,
+  .btn_big_submit_ghost {
     min-width: 160px;
   }
 
@@ -57,7 +61,8 @@
     .btn_small_nav {
       min-width: 272px;
     }
-    .btn_big_submit, .btn_big_submit_ghost {
+    .btn_big_submit,
+    .btn_big_submit_ghost {
       min-width: 272px;
     }
 
@@ -67,7 +72,7 @@
     }
   }
   &.nav_is_open {
-    margin-top: 56px;
+    padding-top: 56px;
     padding-bottom: 56px;
     right: 0;
     left: initial;
