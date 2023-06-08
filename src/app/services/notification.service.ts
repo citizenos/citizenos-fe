@@ -32,9 +32,9 @@ export class NotificationService {
     this.dialog = null;
   };
 
-  add(level: string, key: string) {
-    if (this.messages[level].indexOf(key) === -1) {
-      this.messages[level].push(key);
+  add(level: string, message: string, title?: string) {
+    if (this.messages[level].indexOf(message) === -1) {
+      this.messages[level].push({message, title});
     }
   };
 
@@ -46,20 +46,20 @@ export class NotificationService {
     }
   };
 
-  addSuccess(key: string) {
-    this.add(this.levels['SUCCESS'], key);
+  addSuccess(message: string,  title?: string) {
+    this.add(this.levels['SUCCESS'], message, title);
   };
 
-  addInfo(key: string) {
-    this.add(this.levels['INFO'], key);
+  addInfo(message: string,  title?: string) {
+    this.add(this.levels['INFO'], message, title);
   };
 
-  addError(key: string) {
-    this.add(this.levels['ERROR'], key);
+  addError(message: string,  title?: string) {
+    this.add(this.levels['ERROR'], message, title);
   };
 
-  addWarning(key: string) {
-    this.add(this.levels['WARNING'], key);
+  addWarning(message: string,  title?: string) {
+    this.add(this.levels['WARNING'], message, title);
   };
 
   showDialog(heading: string, content: string) {

@@ -39,15 +39,16 @@ export class GroupInviteComponent implements OnInit {
   maxUsers = 550;
 
   membersPage = 1;
-  itemsPerPage = 10;
+  itemsPerPage = 1;
   memberGroups = ['users', 'emails'];
 
   invalid = <any[]>[];
-  groupLevel = 'read';
+  LEVELS = this.GroupMemberUser.LEVELS;
+
+  groupLevel = this.LEVELS[0];
 
   tabSelected = 'users';
   private EMAIL_SEPARATOR_REGEXP = /[;,\s]/ig;
-  LEVELS = this.GroupMemberUser.LEVELS;
 
   constructor(private dialog: MatDialog,
     private GroupMemberUser: GroupMemberUserService,
@@ -60,14 +61,6 @@ export class GroupInviteComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  loadPage(pageNr: number) {
-    this.membersPage = pageNr;
-  };
-
-  totalPages(items: any) {
-    return Math.ceil(items.length / this.itemsPerPage);
-  };
 
   doSaveGroup() {
     // Users
@@ -89,11 +82,19 @@ export class GroupInviteComponent implements OnInit {
 
   }
 
-  updateGroupLevel(level: string) {
+  updateAllLevels(level: string) {
     this.groupLevel = level;
     this.group.members.users.forEach((item: any) => {
       item.level = level;
     });
+  };
+
+  loadPage(pageNr: number) {
+    this.membersPage = pageNr;
+  };
+
+  totalPages(items: any) {
+    return Math.ceil(items.length / this.itemsPerPage);
   };
 
   orderMembers() {
@@ -113,7 +114,7 @@ export class GroupInviteComponent implements OnInit {
 
   addGroupMemberUser(member?: any): void {
     if (member) {
-      if (this.group.members.users && this.group.members.users.find((m: any) => m.id === member.id)) {
+      if (this.group.members.users && this.group.members.users.find((m: any) => m.userId === member.userId)) {
         // Ignore duplicates
         this.searchStringUser = '';
         this.searchResultUsers$ = of([]);
@@ -127,6 +128,7 @@ export class GroupInviteComponent implements OnInit {
         this.orderMembers();
       }
     } else {
+      console.log('ELSE')
       if (!this.searchStringUser) return;
 
       // Assume e-mail was entered.
@@ -140,7 +142,7 @@ export class GroupInviteComponent implements OnInit {
 
         return;
       });
-
+      console.log(filtered);
       if (filtered.length) {
         filtered.sort().forEach((email) => {
           email = email.trim();
@@ -235,6 +237,7 @@ export class GroupInviteComponent implements OnInit {
 
   removeGroupMemberUser(member: any) {
     this.group.members.users.splice(this.group.members.users.indexOf(member), 1);
+    this.membersPage = 1;
   };
 
   updateGroupMemberUserLevel(member: any, level: string) {

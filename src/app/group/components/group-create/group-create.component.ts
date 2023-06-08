@@ -191,6 +191,7 @@ export class GroupCreateComponent implements OnInit {
 
           this.doInviteMembers();
           this.doAddTopics();
+          this.Notification.addSuccess('VIEWS.GROUP_CREATE.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.GROUP_CREATE.NOTIFICATION_SUCCESS_TITLE');
         },
         error: (errorResponse) => {
           if (errorResponse && errorResponse.errors) {

@@ -42,8 +42,8 @@
       </ng-container>
     </div>
     <div class="message">
-      <div class="title" translate="{{'COMPONENTS.NOTIFICATION.TITLE_'+level.key}}"></div>
-      <div class="content" [innerHTML]="notification | translate"></div>
+      <div class="title" translate="{{notification.title || 'COMPONENTS.NOTIFICATION.TITLE_'+level.key}}"></div>
+      <div class="content" [innerHTML]="notification.message | translate"></div>
     </div>
     <button class="btn_medium_nav" (click)="notifications.removeAll(level.value)">
       <div class="icon_general_close"></div>
