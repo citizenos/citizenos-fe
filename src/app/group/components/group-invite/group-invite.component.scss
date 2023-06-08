@@ -1,3 +1,5 @@
+@use "mixins";
+
 .dropdown {
   min-width: 160px;
 }
@@ -6,6 +8,20 @@
   .row_cell {
     a {
       min-width: 200px;
+    }
+    .dropdown {
+      @include mixins.mobile {
+        width: calc(100% - 40px);
+      }
+    }
+  }
+
+  .remove_item_mobile {
+    @include mixins.mobile {
+      top: auto !important;
+      bottom: 12px !important;
+      right: 8px !important;
+      background-color: initial !important;
     }
   }
 }

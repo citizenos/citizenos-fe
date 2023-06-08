@@ -23,6 +23,10 @@ export class GroupAddTopicsComponent implements OnInit {
   resultCount: number = 0;
   searchOrderBy?: string;
   errors?: any;
+
+  membersPage = 1;
+  itemsPerPage = 1;
+
   constructor(
     private Search: SearchService,
     public GroupService: GroupService,
@@ -74,7 +78,8 @@ export class GroupAddTopicsComponent implements OnInit {
   addGroupMemberTopic(topic: Topic) {
     this.searchStringTopic = '';
     this.searchResults$ = of([]);
-
+    console.log(topic);
+    console.log(this.group.members.topics)
     if (!topic || !topic.id || !topic.title) {
       return false;
     }
@@ -128,5 +133,28 @@ export class GroupAddTopicsComponent implements OnInit {
           }
         })
     }
+  };
+
+  isOnPage(index: any, page: number) {
+    const endIndex = page * this.itemsPerPage;
+    return (parseInt(index) >= (endIndex - this.itemsPerPage) && parseInt(index) < endIndex);
+  };
+
+  loadPage(pageNr: number) {
+    this.membersPage = pageNr;
+  };
+
+  totalPages(items: any) {
+    return Math.ceil(items.length / this.itemsPerPage);
+  };
+
+  removeAllTopics() {
+    this.group.members.topics = []
+  };
+
+  updateAllLevels(level: string) {
+    this.group.members.topics.forEach((topic: any) => {
+      topic.permission.level = level;
+    });
   };
 }
