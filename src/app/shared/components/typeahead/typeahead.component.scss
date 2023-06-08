@@ -1,4 +1,4 @@
-@use "mixins_n_extends";
+@use "mixins";
 
 #input_wrap {
   display: flex;
@@ -12,6 +12,15 @@
   position: relative;
   width: 100%;
 
+  @include mixins.mobile {
+    gap: 0;
+  }
+
+  #search_icon {
+    display: flex;
+    width: 24px;
+    height: 24px;
+  }
   input {
     border: none;
     height: 48px;

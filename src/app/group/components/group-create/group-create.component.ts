@@ -48,6 +48,7 @@ export class GroupCreateComponent implements OnInit {
   tmpImageUrl?: string;
   imageFile?: any;
   tabSelected;
+  showHelp = false;
   tabs = ['info', 'settings', 'add_topics', 'invite'];
 
   searchStringUser = '';

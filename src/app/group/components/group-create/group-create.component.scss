@@ -7,6 +7,10 @@
   @include mixins.tablet {
     margin: 60px 0;
   }
+
+  @include mixins.mobile {
+    padding: 0;
+  }
 }
 
 
