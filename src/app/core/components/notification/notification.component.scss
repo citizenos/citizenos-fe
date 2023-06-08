@@ -18,6 +18,22 @@
   border-bottom-left-radius: 16px;
   border-bottom-right-radius: 16px;
 
+  &.error {
+    border-color: var(--color-error-background);
+  }
+
+  &.info {
+    border-color: var(--color-info-background);
+  }
+
+  &.warning {
+    border-color: var(--color-warn-background);
+  }
+
+  &.success {
+    border-color: var(--color-success-background);
+  }
+
   @include mixins.mobile {
     flex-direction: column;
     position: fixed;

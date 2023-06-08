@@ -82,6 +82,9 @@
       "TXT_OOPS_NO_RESULTS": "Oops, we couldn’t find any results matching your search :(",
       "TXT_MAYBE_TYPO": "Maybe you have a typo in your search?"
     },
+    "TYPEAHEAD": {
+      "PRESS_ENTER_TO_ADD":"Press enter to add"
+    },
     "NOTIFICATION": {
       "TITLE_ERROR": "Error!",
       "TITLE_INFO": "Info!",
@@ -142,6 +145,17 @@
       "HEADER_FOLLOW_UP": "{{value}} events",
       "HEADER_IDEATION": "{{value}} ideas gathered"
     },
+    "GROUP_ADD_TOPICS": {
+      "HEADING": "Find and add topics to the group",
+      "DESC": "When you add a topic to the group, all members of that group will have access to the topic.",
+      "PLACEHOLDER_SEARCH": "Search for a topic",
+      "NO_TOPICS_HEADING": "You haven’t added any topics yet",
+      "NO_TOPICS_DESC": "Add topics to your group to incentivise your members to get engaged with them.This is not mandatory and you can still add topics later as well.",
+      "SELECT_TO_ADD": "Select to add",
+      "HEADING_TITLE": "Title",
+      "HEADING_PARTICIPANTS": "Participants",
+      "HEADING_GROUP_PERMISSIONS": "Group permissions"
+    },
     "GROUP_INVITE": {
       "HEADING": "Invite members to the group",
       "MESSAGE_DESC": "Add an optional invitation message",
@@ -151,7 +165,7 @@
       "NO_INVITES_HEADING": "You haven’t invited anyone yet",
       "NO_INVITES_DESC": "Invite members to your group to hit the ground running.This is not mandatory and you can still invite members later as well.",
       "INVALID_EMAILS_HEADER": "Invalid e-mail formats found. Please correct before sending invitation.",
-      "SELECT_TO_ADD": "@:VIEWS.GROUP_CREATE.ADD_TOPICS_SELECT_TO_ADD",
+      "SELECT_TO_ADD": "@:COMPONENTS.GROUP_ADD_TOPICS.SELECT_TO_ADD",
       "NAME": "Name",
       "ROLE": "Role",
       "ACTIONS": "Actions"
@@ -720,7 +734,7 @@
     },
     "DASHBOARD": {
       "HEADER_WELCOME": "Welcome back to yout dashboard <a href=\"/account\">{{user.name}}</a>",
-      "BTN_GLOBAL_ACTIVITIES":"Global activities",
+      "BTN_GLOBAL_ACTIVITIES": "Global activities",
       "HAVENT_ENGAGED_TOPICS_HEADING": "You haven’t engaged in any topics yet",
       "HAVENT_ENGAGED_TOPICS_DESCRIPTION": "Engage in topics by discussing, sharing ideas and voting. Or create your own topics and invite participants so they can share their thoughts.",
       "HAVENT_ENGAGED_BTN_CREATE": "Create a topic",
@@ -745,10 +759,10 @@
     },
     "GROUP_CREATE": {
       "HEADING": "Create a group",
-      "CREATE_TAB_1": "1.Info",
-      "CREATE_TAB_2": "2.Settings",
-      "CREATE_TAB_3": "3.Add topics",
-      "CREATE_TAB_4": "4.Invite",
+      "CREATE_TAB_1": "Info",
+      "CREATE_TAB_2": "Settings",
+      "CREATE_TAB_3": "Add topics",
+      "CREATE_TAB_4": "Invite",
       "INFO_SETTINGS_HEADING_GENERAL_INFO": "Group Information",
       "INFO_SETTINGS_INPUT_NAME_DESC": "Use a name that’s understandable and logical.",
       "INFO_SETTINGS_INPUT_NAME": "Name",
@@ -779,11 +793,6 @@
       "SETTINGS_LOCALITY_SELECT_DESC": "You can assign a country and language to this group, making it more easy to find for local participants.",
       "SETTINGS_COUNTRY_SELECT": "Choose a country",
       "SETTINGS_LANGUAGE_SELECT": "Choose a language",
-      "ADD_TOPICS_HEADING": "Find and add topics to the group",
-      "ADD_TOPICS_DESC": "When you add a topic to the group, all members of that group will have access to the topic.",
-      "ADD_TOPICS_PLACEHOLDER_SEARCH": "Search for a topic",
-      "ADD_TOPICS_PRESS_ENTER_TO_ADD": "Press enter to add",
-      "ADD_TOPICS_SELECT_TO_ADD": "Select to add",
       "HELP_HEADING": "Did you know?",
       "HELP_DESCRIPTION": "Creating a group is a great way to give people a sense they belong to a community and incentivises them to engage more easily.",
       "HELP_LNK_LEARN_MORE": "Learn more about groups"

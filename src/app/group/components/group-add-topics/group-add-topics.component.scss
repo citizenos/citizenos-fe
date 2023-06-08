@@ -1,5 +1,10 @@
+@use "mixins";
+
 .dropdown {
   min-width: 160px;
+  @include mixins.mobile {
+    width: 100%;
+  }
 }
 
 .row_list {
