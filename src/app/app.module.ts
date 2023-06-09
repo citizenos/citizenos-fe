@@ -38,6 +38,7 @@ import { FeedbackComponent } from './core/components/feedback/feedback.component
 import { CreateComponent } from './core/components/create/create.component';
 import { AccessibilityMenuComponent } from './core/components/accessibility-menu/accessibility-menu.component';
 import { DashboardComponent } from './core/components/dashboard/dashboard.component';
+import { FeatureBoxComponent } from './core/components/feature-box/feature-box.component';
 
 /*Needs update to also properly load config */
 export function appInitializerFactory(translate: TranslateService) {
@@ -63,7 +64,8 @@ export function appInitializerFactory(translate: TranslateService) {
     FeedbackComponent,
     CreateComponent,
     AccessibilityMenuComponent,
-    DashboardComponent
+    DashboardComponent,
+    FeatureBoxComponent
   ],
   imports: [
     BrowserModule,
