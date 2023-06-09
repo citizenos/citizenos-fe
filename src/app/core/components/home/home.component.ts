@@ -12,6 +12,7 @@ import { GroupCreateComponent } from 'src/app/group/components/group-create/grou
 import { MatDialog } from '@angular/material/dialog';
 import { TopicCreateComponent } from 'src/app/topic/components/topic-create/topic-create.component';
 import { AppService } from 'src/app/services/app.service';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -33,6 +34,7 @@ export class HomeComponent implements OnInit {
     private route: ActivatedRoute,
     private Topic: TopicService,
     private GroupService: GroupService,
+    public translate: TranslateService,
     private PublicTopicService: PublicTopicService,
     private PublicGroupService: PublicGroupService) {
   }

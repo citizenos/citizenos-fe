@@ -446,6 +446,51 @@
 
     </div>
   </div>
+
+  <div id="features_wrap">
+    <feature-box class="feature_box" feature="discussion" [items]="4"></feature-box>
+    <feature-box class="feature_box" feature="ideation" [items]="4"></feature-box>
+    <feature-box class="feature_box" feature="voting" [items]="4"></feature-box>
+  </div>
+  <div id="feature_group">
+    <div id="illustration">
+      <img src="/assets/imgs/group image.png">
+    </div>
+    <div id="text_area">
+      <div class="heading" translate="VIEWS.HOME.FEATURE_GROUP_HEADING"></div>
+      <div class="description_item">
+        <div class="icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9.38602 14.8088L17.5256 6L19 7.59558L9.38602 18L5 13.2534L6.47436 11.6578L9.38602 14.8088Z"
+              fill="#4D5C6A" />
+          </svg>
+        </div>
+        <span translate="VIEWS.HOME.FEATURE_GROUP_DESC_ITEM_1"></span>
+      </div>
+      <div class="description_item">
+        <div class="icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9.38602 14.8088L17.5256 6L19 7.59558L9.38602 18L5 13.2534L6.47436 11.6578L9.38602 14.8088Z"
+              fill="#4D5C6A" />
+          </svg>
+        </div>
+        <span translate="VIEWS.HOME.FEATURE_GROUP_DESC_ITEM_2"></span>
+      </div>
+      <div class="description_item">
+        <div class="icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9.38602 14.8088L17.5256 6L19 7.59558L9.38602 18L5 13.2534L6.47436 11.6578L9.38602 14.8088Z"
+              fill="#4D5C6A" />
+          </svg>
+        </div>
+        <span translate="VIEWS.HOME.FEATURE_GROUP_DESC_ITEM_3"></span>
+      </div>
+    </div>
+    <div id="button_area">
+      <button class="btn_medium_secondary" translate="VIEWS.HOME.FEATURE_GROUP_BTN" [routerLink]="['/', translate.currentLang, 'my', 'groups', 'create']"></button>
+      <a translate="VIEWS.HOME.FEATURE_GROUP_LNK" [routerLink]="['/', translate.currentLang, 'public', 'groups']"></a>
+    </div>
+  </div>
   <ng-container *ngIf="topics$ | async; let topics;">
     <div class="home_items_section topics_section">
       <div class="section_header">

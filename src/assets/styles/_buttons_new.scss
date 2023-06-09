@@ -84,6 +84,18 @@ $button-styles: (
   activity_new: (
     background: var(--color-warn),
     color: var(--color-surfaces)
+  ),
+  discussion: (
+    background: var(--color-discussion),
+    color: var(--color-surfaces)
+  ),
+  ideation: (
+    background: var(--color-ideation),
+    color: var(--color-surfaces)
+  ),
+  voting: (
+    background: var(--color-voting),
+    color: var(--color-surfaces)
   )
 );
 
