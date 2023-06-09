@@ -12,6 +12,7 @@ import { TopicService } from 'src/app/services/topic.service';
 import { GroupMemberTopicService } from 'src/app/services/group-member-topic.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { GroupInviteUserService } from 'src/app/services/group-invite-user.service';
+import { AppService } from 'src/app/services/app.service';
 
 @Component({
   selector: 'group-create-component',
@@ -59,7 +60,9 @@ export class GroupCreateComponent implements OnInit {
   maxUsers = 550;
   private EMAIL_SEPARATOR_REGEXP = /[;,\s]/ig;
 
-  constructor(public TopicService: TopicService,
+  constructor(
+    private app: AppService,
+    public TopicService: TopicService,
     public translate: TranslateService,
     public GroupService: GroupService,
     private Notification: NotificationService,
@@ -70,6 +73,7 @@ export class GroupCreateComponent implements OnInit {
     private GroupInviteUser: GroupInviteUserService,
     public GroupMemberTopicService: GroupMemberTopicService,
     private config: ConfigService) {
+    this.app.darkNav = true;
     this.tabSelected = this.route.fragment.pipe(
       map((fragment) => {
         if (!fragment) {
@@ -201,7 +205,7 @@ export class GroupCreateComponent implements OnInit {
       });
   }
 
-  doInviteMembers () {
+  doInviteMembers() {
     // Users
     const groupMemberUsersToInvite = <any[]>[];
     this.group.members.users.forEach((member: any) => {
@@ -243,7 +247,7 @@ export class GroupCreateComponent implements OnInit {
             this.GroupService.reloadGroup();
             this.GroupMemberTopicService.setParam('groupId', this.group.id);
           },
-          error: (errorResponse:any) => {
+          error: (errorResponse: any) => {
             if (errorResponse && errorResponse.errors) {
               this.errors = errorResponse.errors;
             }

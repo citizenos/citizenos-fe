@@ -11,6 +11,7 @@ import { Group } from 'src/app/interfaces/group';
 import { GroupCreateComponent } from 'src/app/group/components/group-create/group-create.component';
 import { MatDialog } from '@angular/material/dialog';
 import { TopicCreateComponent } from 'src/app/topic/components/topic-create/topic-create.component';
+import { AppService } from 'src/app/services/app.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -24,10 +25,11 @@ export class HomeComponent implements OnInit {
   groups$: Observable<Group[] | any[]> = of([]);
   wWidth = window.innerWidth;
   destroy$ = new Subject<boolean>();
-
+  stats$ = this.app.stats();
   constructor(
     private dialog: MatDialog,
     private AuthService: AuthService,
+    public app: AppService,
     private route: ActivatedRoute,
     private Topic: TopicService,
     private GroupService: GroupService,

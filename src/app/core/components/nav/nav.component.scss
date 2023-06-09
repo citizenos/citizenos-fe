@@ -12,10 +12,12 @@
     align-items: center;
     padding: 0 16px;
     z-index: 999;
+    background: var(--color-surfaces);
 
-    &.with_search {
-      background: var(--color-surfaces);
+    &.dark_backround {
+      background: var(--color-surface-contrast);
     }
+
     .logo_wrap {
       display: flex;
       padding: 24px 0px;
@@ -76,7 +78,7 @@
     padding-bottom: 56px;
     right: 0;
     left: initial;
-    z-index: 9;
+    z-index: 10;
 
     .logo_wrap {
       display: none;
