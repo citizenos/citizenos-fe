@@ -5,6 +5,23 @@
   width: 100%;
   height: 100%;
   flex-direction: column;
+
+  @include mixins.mobile {
+    padding: 60px 8px 8px 8px;
+  }
+
+  .page_heading {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 24px;
+    padding: 16px;
+    @include mixins.mobile {
+      background-color: var(--color-surfaces);
+      width: calc(100% + 16px);
+      margin-top: -2px;
+      margin-left: -8px;
+    }
+  }
 }
 
 #lets_decide_section {
@@ -14,41 +31,87 @@
   justify-content: space-between;
   width: 100%;
   margin-bottom: 40px;
+
+  @include mixins.mobile {
+    flex-direction: column-reverse;
+  }
+
   #text_area {
     display: flex;
     flex-direction: column;
     padding: 48px;
     gap: 16px;
+    max-width: 700px;
+    z-index: 9;
+
+    #description {
+      width: 90%;
+    }
+    @include mixins.tablet {
+      max-width: 400px;
+      padding: 24px 16px;
+    }
 
     #stats_wrap {
       display: flex;
       gap: 16px;
-
+      flex-flow: row wrap;
+      width: 690px;
+      @include mixins.tablet {
+        width: 400px;
+      }
+      @include mixins.mobile {
+        flex-direction: column;
+        width: 100%;
+      }
       .stats_box {
+        display: flex;
+        flex-direction: column;
         width: 160px;
         height: 96px;
         text-align: center;
+        align-items: center;
+        gap: 8px;
         justify-content: center;
         border-radius: 16px;
         padding: 4px;
 
+        .number {
+          font-weight: 600;
+          font-size: 14px;
+          line-height: 16px;
+        }
+
+        @include mixins.tablet {
+          padding: 16px;
+          justify-content: flex-start;
+          flex-direction: row;
+          width: 168px;
+          height: 48px;
+        }
+
+        @include mixins.mobile {
+          width: 100%;
+          height: 40px;
+        }
+
         &.discussion {
           background-color: var(--color-dialog);
-          h3 {
+          .number {
             color: var(--color-discussion);
           }
         }
 
         &.ideation {
           background-color: var(--color-dialog-ideation);
-          h3 {
+          .number {
             color: var(--color-ideation);
           }
         }
 
         &.votes {
           background-color: var(--color-dialog-voting);
-          h3 {
+          .number {
             color: var(--color-voting);
           }
         }
@@ -61,11 +124,29 @@
   }
 
   #illustration {
+    display: flex;
     background-color: var(--color-secondary);
     border-radius: 320px 0px 0px 320px;
+    position: absolute;
+    right: 24px;
+
+    @include mixins.mobile {
+      position: relative;
+      border-radius: 0 0px 320px 320px;
+      right: 0;
+      left: 0;
+      align-items: center;
+      justify-content: center;
+    }
+
     svg {
       right: -16px;
       position: relative;
+      max-height: 340px;
+
+      @include mixins.mobile {
+        max-width: 295px;
+      }
     }
   }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { BehaviorSubject, take } from 'rxjs';
+import { BehaviorSubject, map, take } from 'rxjs';
 import { Group } from '../interfaces/group';
 import { Topic } from '../interfaces/topic';
 import { TopicNotificationSettingsComponent } from '../topic/components/topic-notification-settings/topic-notification-settings.component';
@@ -14,6 +14,8 @@ import { RegisterComponent, RegisterDialogComponent } from '../account/component
 import { CreateComponent } from 'src/app/core/components/create/create.component';
 import { ActivityFeedComponent } from '../core/components/activity-feed/activity-feed.component';
 import { LoginComponent } from '../account/components/login/login.component';
+import { HttpClient } from '@angular/common/http';
+import { ApiResponse } from '../interfaces/apiResponse';
 declare let hwcrypto: any;
 
 @Injectable({
@@ -23,7 +25,9 @@ export class AppService {
   showNav = false;
   showSearch = false;
   editMode = false;
+  darkNav = false;
   searchAllowed = false;
+
   showSearchResults = false;
   showSearchFiltersMobile = false; //remove after UI update
   showHelp = new BehaviorSubject(false);
@@ -37,7 +41,7 @@ export class AppService {
     text: ''
   });
 
-  constructor(private dialog: MatDialog, public config: ConfigService, private Location: LocationService, private TopicService: TopicService, private GroupMemberTopicService: GroupMemberTopicService, private router: Router) { }
+  constructor(private dialog: MatDialog, public config: ConfigService, private Location: LocationService, private TopicService: TopicService, private GroupMemberTopicService: GroupMemberTopicService, private router: Router, private http: HttpClient) { }
 
   doShowActivityModal() {
     this.dialog.closeAll();
@@ -125,5 +129,13 @@ export class AppService {
         console.error(err.message, 'Unknown error from HWCrypto library', err);
         return errorKeyPrefix + 'TECHNICAL_ERROR';
     }
+  };
+
+  stats() {
+    const path = this.Location.getAbsoluteUrlApi('/api/stats');
+
+    return this.http.get<ApiResponse>(path, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
+      map(res => res.data)
+    );
   };
 }
