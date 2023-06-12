@@ -1,7 +1,72 @@
-<div id="back_link">
+<div class="page_content" *ngIf="group$ | async as group;">
+  <div id="page_header">
+    <div id="user_info_area">
+      <button class="btn_medium_close"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M10.4533 17.6874C10.8529 18.1042 11.5009 18.1042 11.9006 17.6874C12.3003 17.2705 12.3003 16.5947 11.9006 16.1779L8.91837 13L19 13C19.5652 13 20 12.5892 20 11.9997C20 11.4103 19.5652 11.0176 19 11.0176L8.91837 11.0176L11.9006 7.8221C12.3003 7.40527 12.3003 6.72945 11.9006 6.31262C11.5009 5.89579 10.8529 5.89579 10.4533 6.31262L5 12L10.4533 17.6874Z"
+            fill="#2C3B47" />
+        </svg>
+      </button>
+      <h3 [innerHTML]="'VIEWS.MY_GROUPS.HEADER'| translate"></h3>
+    </div>
+    <div id="buttons_area">
+      <button id="show_search" class="btn_medium_close">
+        Join group
+      </button>
+      <button id="show_search" class="btn_medium_close">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M12 3L14.645 8.35942L20.5595 9.21885L16.2798 13.3906L17.2901 19.2812L12 16.5L6.70993 19.2812L7.72025 13.3906L3.44049 9.21885L9.35497 8.35942L12 3Z"
+            fill="#2C3B47" />
+        </svg>
+
+      </button>
+      <button id="show_search" class="btn_medium_close">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M14 6C14 4.9 13.1 4 12 4C10.9 4 10 4.9 10 6C10 7.1 10.9 8 12 8C13.1 8 14 7.1 14 6ZM14 18C14 16.9 13.1 16 12 16C10.9 16 10 16.9 10 18C10 19.1 10.9 20 12 20C13.1 20 14 19.1 14 18ZM12 10C13.1 10 14 10.9 14 12C14 13.1 13.1 14 12 14C10.9 14 10 13.1 10 12C10 10.9 10.9 10 12 10Z"
+            fill="#2C3B47" />
+        </svg>
+      </button>
+
+    </div>
+  </div>
+  <div id="group_info_area">
+    <div id="group_image_wrap">
+      <div class="group_circle">
+        <div class="group_icon" *ngIf="group.imageUrl"><img [src]="group.imageUrl" /></div>
+        <cos-initials *ngIf="!group.imageUrl && group.name" class="table_cell" [name]="group.name"
+          initial-limit="1"></cos-initials>
+      </div>
+    </div>
+    <div id="group_description_wrap">
+      <div id="group_name_wrap">
+        <h2 [innerHTML]="group.name"></h2>
+        <div class="group_visbility_icon">
+          <svg *ngIf="group.visibility === 'private'" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M8 9V7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7V9H17C18.1046 9 19 9.89543 19 11V17C19 18.1046 18.1046 19 17 19H7C5.89543 19 5 18.1046 5 17V11C5 9.89543 5.89543 9 7 9H8ZM14 7V9H10V7C10 5.89543 10.8954 5 12 5C13.1046 5 14 5.89543 14 7ZM11 13C11 12.4477 11.4477 12 12 12C12.5523 12 13 12.4477 13 13V15C13 15.5523 12.5523 16 12 16C11.4477 16 11 15.5523 11 15V13Z"
+              fill="#2C3B47" />
+          </svg>
+          <svg *ngIf="group.visibility === 'public'" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M8.88 19.37C9.85333 19.79 10.8933 20 12 20C13.1067 20 14.1467 19.79 15.12 19.37C15.1913 19.3392 15.2619 19.3077 15.3318 19.2753C15.5704 19.1659 15.8026 19.045 16.0279 18.9135C16.6297 18.5641 17.1737 18.1463 17.66 17.66C18.1463 17.1737 18.5641 16.6297 18.9135 16.0279C19.0454 15.8021 19.1665 15.5692 19.2761 15.3301C19.3082 15.2607 19.3395 15.1907 19.37 15.12C19.79 14.1467 20 13.1067 20 12C20 10.8933 19.79 9.85333 19.37 8.88C19.3392 8.80873 19.3077 8.73813 19.2753 8.66821C19.1659 8.42962 19.045 8.19732 18.9135 7.97205C18.5641 7.37026 18.1462 6.82625 17.66 6.34C17.1739 5.85394 16.6302 5.43625 16.0287 5.08691C15.8032 4.95523 15.5707 4.83427 15.3319 4.72472C15.2619 4.69234 15.1913 4.66077 15.12 4.63C14.1467 4.21 13.1067 4 12 4C10.8933 4 9.85333 4.21 8.88 4.63C8.80854 4.66084 8.73776 4.69248 8.66766 4.72494C8.42901 4.83443 8.19667 4.95532 7.97135 5.08691C7.36984 5.43625 6.82606 5.85394 6.34 6.34C5.85377 6.82623 5.43594 7.37023 5.08653 7.972C4.95499 8.19728 4.83415 8.42957 4.7247 8.66817C4.69233 8.7381 4.66076 8.80871 4.63 8.88C4.21 9.85333 4 10.8933 4 12C4 13.1067 4.21 14.1467 4.63 15.12C4.66077 15.1913 4.69234 15.2619 4.72472 15.3319C4.83427 15.5707 4.95523 15.8032 5.08691 16.0287C5.43625 16.6302 5.85394 17.1739 6.34 17.66C6.82606 18.1461 7.36984 18.5638 7.97135 18.9131C8.19739 19.0451 8.43049 19.1663 8.66994 19.2761C8.73929 19.3082 8.80931 19.3395 8.88 19.37ZM6.06613 11.1061C6.02257 11.3978 6 11.6962 6 12C6 15.0217 8.23371 17.5217 11.14 17.9388V17.14C10.6733 17.14 10.28 16.9667 9.96 16.62C9.64 16.2733 9.48 15.8667 9.48 15.4V14.52L6.06613 11.1061ZM16.5786 15.8779C16.5292 15.8295 16.4763 15.7835 16.42 15.74C16.1267 15.5133 15.7867 15.4 15.4 15.4H14.54V12.86C14.54 12.6333 14.4667 12.4333 14.32 12.26C14.1733 12.0867 13.9867 12 13.76 12H8.6V10.24H10.26C10.4867 10.24 10.69 10.1667 10.87 10.02C11.05 9.87333 11.14 9.68667 11.14 9.46V7.72H12.88C13.3467 7.72 13.74 7.54667 14.06 7.2C14.2484 6.99591 14.3813 6.77101 14.4588 6.52533C16.5464 7.46438 18 9.56244 18 12C18 13.4785 17.4652 14.8321 16.5786 15.8779Z"
+              fill="#5C9CD0" />
+          </svg>
+        </div>
+      </div>
+      <div id="group_description" [innerHTML]="group.description"></div>
+    </div>
+  </div>
+</div>
+
+<!--div id="back_link">
   <div class="icon bullet_arrow_left"></div><a routerLink="/public/groups"
     translate="VIEWS.PUBLIC_GROUP.LNK_BACK_TO_PUBLIC_GROUPS"></a>
-</div>
+</!--div>
 <div id="group_root" *ngIf="group$ | async as group;">
   <div class="group_wrap">
     <div class="group_header">
@@ -160,7 +225,7 @@
             </div>
           </div>
         </div>
-        <!--GroupMemberTopicService.countTotal-->
+        <!--GroupMemberTopicService.countTotal>
         <div class="default_table" *ngIf="group.members.topics.count">
           <div class="pretend_tr" *ngIf="wWidth > 560">
             <div class="pretend_th title_cell link" (click)="GroupMemberTopicService.doOrder('title')">
@@ -242,7 +307,7 @@
               <span translate="VIEWS.PUBLIC_GROUP.LBL_REMOVE_FROM_GROUP"></span>
             </div>
           </div>
-          <!-- GroupMemberUsers trackBy user.id"-->
+          <!-- GroupMemberUsers trackBy user.id">
           <group-member-user class="group_item_row pretend_tr"
             *ngFor="let user of GroupMemberUserService.items$ | async" [member]="user" [group]="group"
             [fields]="['level', 'remove']"></group-member-user>
@@ -260,3 +325,4 @@
   </div>
 </div>
 <router-outlet></router-outlet>
+-->

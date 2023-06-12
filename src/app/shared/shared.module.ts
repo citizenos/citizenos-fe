@@ -50,6 +50,7 @@ import { HtmlDirective } from '../directives/html.directive';
 import { DownloadDirective } from '../directives/download.directive';
 import { CosDisabledDirective } from '../directives/cos-disabled.directive';
 import { DragndropDirective } from '../directives/dragndrop.directive';
+import { PageHeaderComponent } from '../core/components/page-header/page-header.component';
 
 @NgModule({
   declarations: [
@@ -92,7 +93,8 @@ import { DragndropDirective } from '../directives/dragndrop.directive';
     DownloadDirective,
     GroupboxComponent,
     CosDisabledDirective,
-    DragndropDirective
+    DragndropDirective,
+    PageHeaderComponent
   ],
   imports: [
     RouterModule,
@@ -150,7 +152,8 @@ import { DragndropDirective } from '../directives/dragndrop.directive';
     DownloadDirective,
     GroupboxComponent,
     CosDisabledDirective,
-    DragndropDirective
+    DragndropDirective,
+    PageHeaderComponent
    ]
 })
 export class SharedModule { }

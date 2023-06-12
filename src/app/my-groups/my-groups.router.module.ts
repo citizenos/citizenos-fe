@@ -9,7 +9,6 @@ const routes: Routes = [
   { path: 'create', component: GroupCreateComponent },
   {
     path: '', component: MyGroupsComponent, children: [
-      { path: '', component: GroupListComponent },
       {
         path: ':groupId', children: [
           { path: '', component: GroupListComponent },

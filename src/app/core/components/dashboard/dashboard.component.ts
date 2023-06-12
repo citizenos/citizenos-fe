@@ -22,8 +22,6 @@ import { TopicCreateComponent } from 'src/app/topic/components/topic-create/topi
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
-  newActivities: number = 0;
-  unreadActivitiesCount$: any;
   groups$: Observable<Group[] | any[]> = of([]);
   topics$: Observable<Topic[] | any[]> = of([]);
   publictopics$: Observable<Topic[] | any[]> = of([]);
@@ -38,7 +36,7 @@ export class DashboardComponent {
     private UserTopicService: UserTopicService,
     private PublicTopicService: PublicTopicService,
     private GroupService: GroupService,
-    ActivityService: ActivityService) {
+    ) {
     this.groups$ = this.GroupService.loadItems().pipe(
       tap((groups) => console.log(groups))
     );
@@ -50,10 +48,6 @@ export class DashboardComponent {
       })
     );
     this.publictopics$ = this.PublicTopicService.loadItems();
-    this.unreadActivitiesCount$ = ActivityService.getUnreadActivities().pipe(tap((count: number) => {
-      this.newActivities = 0;
-      if (count) this.newActivities = count
-    }));
   }
 
   trackByTopic(index: number, element: any) {

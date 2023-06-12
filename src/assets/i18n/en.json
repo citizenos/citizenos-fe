@@ -806,6 +806,9 @@
       "NOTIFICATION_SUCCESS_TITLE": "Successfully created group",
       "NOTIFICATION_SUCCESS_MESSAGE": "Congratulations! Keep in mind you can always manage the group via the group actions."
     },
+    "MY_GROUPS": {
+      "HEADER": "My groups"
+    },
     "401": {
       "HEADING_INSUFFICIENT_PERMISSIONS": "Sorry, you haven't got sufficient permissions to access the resource",
       "DESCRIPTION_INSUFFICIENT_PERMISSIONS": "If you have an invite to topic or group, you need to accept it first. Please check your activity feed or e-mail.",
