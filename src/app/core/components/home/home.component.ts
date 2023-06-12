@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { TopicService } from 'src/app/services/topic.service';
 import { PublicTopicService } from 'src/app/services/public-topic.service';
@@ -13,6 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { TopicCreateComponent } from 'src/app/topic/components/topic-create/topic-create.component';
 import { AppService } from 'src/app/services/app.service';
 import { TranslateService } from '@ngx-translate/core';
+import { LocationService } from 'src/app/services/location.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -32,6 +33,8 @@ export class HomeComponent implements OnInit {
     private AuthService: AuthService,
     public app: AppService,
     private route: ActivatedRoute,
+    private location: LocationService,
+    private router: Router,
     private Topic: TopicService,
     private GroupService: GroupService,
     public translate: TranslateService,
@@ -70,11 +73,14 @@ export class HomeComponent implements OnInit {
   }
 
   createGroup() {
-    this.dialog.open(GroupCreateComponent, {
-      data: {
-        visibility: this.GroupService.VISIBILITY.private
-      }
-    })
+    const createGroupTree = ['/', this.translate.currentLang,'my','groups','create'];
+    if (!this.AuthService.loggedIn$.value) {
+      const tree = this.router.createUrlTree(createGroupTree);
+      const redirectSuccess = this.location.getAbsoluteUrl(this.router.serializeUrl(tree));
+      this.router.navigate(['/', this.translate.currentLang, 'account', 'login'], {queryParams: {redirectSuccess }})
+    } else {
+      this.router.navigate(createGroupTree);
+    }
   }
   createNewTopic() {
     this.dialog.open(TopicCreateComponent, {

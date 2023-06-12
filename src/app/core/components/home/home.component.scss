@@ -67,7 +67,7 @@
       flex-flow: row wrap;
       width: 690px;
 
-      @media (max-width: 1340px)  {
+      @media (max-width: 1340px) {
         width: 400px;
       }
       @include mixins.mobile {
@@ -179,8 +179,9 @@
   .feature_box {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     gap: 24px;
-    height: 480px;
+    min-height: 480px;
     border-radius: 16px;
     background-color: var(--color-surfaces);
     width: 100%;
@@ -238,6 +239,13 @@
     gap: 16px;
     min-width: 200px;
 
+    @include mixins.tablet {
+      display: none;
+    }
+
+    @include mixins.mobile {
+      display: flex;
+    }
     button {
       width: 100%;
     }
@@ -255,6 +263,11 @@
   &.topics_section {
     background-color: var(--color-dialog-contrast);
   }
+
+  &.groups_section {
+    padding-bottom: 0;
+  }
+
   .section_header {
     display: flex;
     flex-direction: column;
@@ -289,6 +302,80 @@
     a {
       padding: 0 24px;
       font-weight: bold;
+    }
+  }
+}
+
+#mission_box {
+  display: flex;
+  width: 100%;
+  background-color: var(--color-dialog-contrast);
+  padding: 32px 40px;
+  gap: 52px;
+  justify-content: space-between;
+
+  @include mixins.tablet {
+    padding-bottom: 89px;
+  }
+
+  @include mixins.mobile {
+    flex-direction: column;
+    padding: 44px 16px 89px 16px;
+  }
+
+  #illustration {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 24px;
+
+    @include mixins.tablet {
+      flex-direction: column;
+    }
+
+    #text_area {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-width: 560px;
+      justify-content: center;
+
+      .heading {
+        font-weight: 600;
+        font-size: 24px;
+        line-height: 32px;
+      }
+      .description {
+        display: flex;
+        gap: 16px;
+      }
+    }
+
+    #button_area {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      min-width: 200px;
+
+      @include mixins.tablet {
+        flex-direction: row;
+      }
+
+      @include mixins.mobile {
+        flex-direction: column;
+      }
+
+      button, a {
+        width: 100%;
+      }
     }
   }
 }

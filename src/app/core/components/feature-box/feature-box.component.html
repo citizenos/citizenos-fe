@@ -28,11 +28,12 @@
   <div class="feature_heading" [ngClass]="feature"
     [innerHTML]="'VIEWS.HOME.FEATURE_'+feature+'_HEADING' | uppercase | translate"></div>
   <div class="feature_description_item" *ngFor="let item of itemsList(); let index = index">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M9.38602 14.8088L17.5256 6L19 7.59558L9.38602 18L5 13.2534L6.47436 11.6578L9.38602 14.8088Z"
-        fill="#4D5C6A" />
-    </svg>
-
+    <div class="item_icon">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9.38602 14.8088L17.5256 6L19 7.59558L9.38602 18L5 13.2534L6.47436 11.6578L9.38602 14.8088Z"
+          fill="#4D5C6A" />
+      </svg>
+    </div>
     <span [innerHTML]="'VIEWS.HOME.FEATURE_'+feature+'_ITEM_'+(index+1) | uppercase | translate"></span>
   </div>
 
