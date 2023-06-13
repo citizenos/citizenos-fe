@@ -7,7 +7,7 @@ import { GroupService } from 'src/app/services/group.service';
 import { AppService } from '../services/app.service';
 import { AuthService } from '../services/auth.service';
 import { ActivityService } from '../services/activity.service';
-import { animate, state, style, transition, keyframes, trigger } from '@angular/animations';
+import { animate, group, state, style, transition, keyframes, trigger } from '@angular/animations';
 
 @Component({
   selector: 'my-groups',
@@ -17,33 +17,15 @@ import { animate, state, style, transition, keyframes, trigger } from '@angular/
     trigger('openClose', [
       // ...
       state('open', style({
-        display: 'flex',
-        height: 'auto',
-        opacity: 1,
+        'maxHeight': '200px',
+        transition: '0.2s ease-in-out max-height'
       })),
       state('closed', style({
-        display: 'none',
-        height: '0',
-        opacity: 0,
-      })),
-      transition('open => closed', [
-        animate('1s ease-out', keyframes([
-          style({ backgroundColor: "red", offset: 0 }),
-          style({ backgroundColor: "blue", offset: 0.2 }),
-          style({ backgroundColor: "orange", offset: 0.3 }),
-          style({ backgroundColor: "black", offset: 1 })
-        ]))
-      ]),
-      transition('closed => open', [
-        animate('1s ease-in', keyframes([
-          style({ backgroundColor: "red", offset: 0 }),
-          style({ backgroundColor: "blue", offset: 0.2 }),
-          style({ backgroundColor: "orange", offset: 0.3 }),
-          style({ backgroundColor: "black", offset: 1 })
-        ]))
-      ]),
-    ]),
-  ],
+        'maxHeight': 0,
+        'overflowY': 'hidden',
+        transition: '0.2s ease-in-out max-height'
+      }))
+  ])]
 })
 export class MyGroupsComponent implements OnInit {
   public wWidth = window.innerWidth;
