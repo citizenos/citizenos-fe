@@ -16,17 +16,31 @@ import { GroupMemberTopicService } from '../services/group-member-topic.service'
 import { CreateGroupTopicComponent } from './components/create-group-topic/create-group-topic.component';
 import { GroupAddTopicsComponent } from './components/group-add-topics/group-add-topics.component';
 import { TranslateService } from '@ngx-translate/core';
+import { trigger, state, style } from '@angular/animations';
 @Component({
   selector: 'group',
   templateUrl: './group.component.html',
-  styleUrls: ['./group.component.scss']
+  styleUrls: ['./group.component.scss'],
+  animations: [
+    trigger('openClose', [
+      // ...
+      state('open', style({
+        'maxHeight': '600px',
+        transition: '0.2s ease-in-out max-height'
+      })),
+      state('closed', style({
+        'maxHeight': '180px',
+        'overflowY': 'hidden',
+        transition: '0.2s ease-in-out max-height'
+      }))
+  ])]
 })
 export class GroupComponent implements OnInit {
   group$;
   groupId: string = '';
   tabSelected = 'topics';
   wWidth: number = window.innerWidth;
-
+  moreInfo = false;
 
   constructor(public dialog: MatDialog,
     private GroupService: GroupService,
@@ -35,7 +49,8 @@ export class GroupComponent implements OnInit {
     private router: Router,
     public translate: TranslateService,
     public GroupMemberUserService: GroupMemberUserService,
-    private Auth: AuthService, private app: AppService,
+    private Auth: AuthService,
+    public app: AppService,
     public GroupMemberTopicService: GroupMemberTopicService) {
     this.group$ = this.route.params.pipe<Group>(
       switchMap((params) => {

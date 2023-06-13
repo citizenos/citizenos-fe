@@ -21,18 +21,11 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./page-header.component.scss']
 })
 export class PageHeaderComponent {
-  newActivities: number = 0;
-  unreadActivitiesCount$: any;
 
   constructor(
     public auth: AuthService,
     public app: AppService,
-    public translate: TranslateService,
-    private route: ActivatedRoute,
-    ActivityService: ActivityService) {
-    this.unreadActivitiesCount$ = ActivityService.getUnreadActivities().pipe(tap((count: number) => {
-      this.newActivities = 0;
-      if (count) this.newActivities = count
-    }));
+    public translate: TranslateService) {
+
   }
 }
