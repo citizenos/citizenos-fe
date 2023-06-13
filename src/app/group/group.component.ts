@@ -15,6 +15,7 @@ import { AppService } from '../services/app.service';
 import { GroupMemberTopicService } from '../services/group-member-topic.service';
 import { CreateGroupTopicComponent } from './components/create-group-topic/create-group-topic.component';
 import { GroupAddTopicsComponent } from './components/group-add-topics/group-add-topics.component';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'group',
   templateUrl: './group.component.html',
@@ -32,6 +33,7 @@ export class GroupComponent implements OnInit {
     private GroupJoinService: GroupJoinService,
     private route: ActivatedRoute,
     private router: Router,
+    public translate: TranslateService,
     public GroupMemberUserService: GroupMemberUserService,
     private Auth: AuthService, private app: AppService,
     public GroupMemberTopicService: GroupMemberTopicService) {

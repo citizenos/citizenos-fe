@@ -13,7 +13,7 @@ import { ItemsListService } from './items-list.service';
   providedIn: 'root'
 })
 export class GroupService extends ItemsListService {
-  params = Object.assign(this.defaultParams, { groupId: <string | null>null });
+  params = Object.assign(this.defaultParams, { visibility: <string | null>null,groupId: <string | null>null });
   params$ = new BehaviorSubject(this.params);
 
   public VISIBILITY = {
