@@ -1,4 +1,4 @@
-@use 'mixins';
+@use "mixins";
 
 .page_content {
   gap: 24px;
@@ -13,13 +13,6 @@
   padding: 16px;
   gap: 16px;
 
-  max-height: 90px;
-  overflow: hidden;
-
-  &.slide-out {
-    max-height: 180px;
-    overflow: initial;
-  }
 
   #options_area {
     width: 100%;
@@ -27,13 +20,22 @@
     flex-flow: row wrap;
     gap: 16px;
 
-    .dropdown_input {
-      flex-grow: 1;
-      min-width: calc(25% - 12px);
-    }
+    .options_row {
+      display: flex;
+      gap: 16px;
+      width: 100%;
+      .dropdown_input {
+        flex-grow: 1;
+        min-width: calc(25% - 12px);
+      }
 
-    .search_input {
-      flex-grow: 2;
+      .input_area {
+        flex-grow: 2;
+        padding: 0 16px;
+        cos-input {
+          width: 100%;
+        }
+      }
     }
   }
 

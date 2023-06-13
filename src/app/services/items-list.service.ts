@@ -73,6 +73,7 @@ export abstract class ItemsListService {
 
   setParam(param: string, value: any) {
     const curparams = this.params$.value;
+    console.log(curparams);
     if (Object.keys(curparams).indexOf(param) > -1) {
 
       curparams[param] = value;

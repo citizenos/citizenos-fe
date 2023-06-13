@@ -807,7 +807,16 @@
       "NOTIFICATION_SUCCESS_MESSAGE": "Congratulations! Keep in mind you can always manage the group via the group actions."
     },
     "MY_GROUPS": {
-      "HEADER": "My groups"
+      "HEADER": "My groups",
+      "BTN_GLOBAL_ACTIVITIES": "Global activities",
+      "SHOW_PER_PAGE": "Show per page",
+      "FILTER_VISIBILITY": "Visibility",
+      "FILTER_MY_ENGAGEMENT": "My engagement",
+      "FILTER_CATEGORIES": "Category",
+      "FILTER_ORDER": "Order",
+      "FILTER_COUNTRY": "Country",
+      "FILTER_LANGUAGE": "Language",
+      "FILTER_SEARCH": "Search"
     },
     "401": {
       "HEADING_INSUFFICIENT_PERMISSIONS": "Sorry, you haven't got sufficient permissions to access the resource",
