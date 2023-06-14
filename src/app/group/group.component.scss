@@ -9,7 +9,7 @@
   #group_image_wrap {
     display: flex;
     max-width: 80px;
-    align-items: center;
+    align-items: top;
 
     .group_circle {
       display: flex;
@@ -30,90 +30,130 @@
     }
   }
 
-  #group_description_wrap {
+  #group_content {
     display: flex;
-    flex-direction: column;
-    gap: 16px;
-    position: relative;
+    gap: 24px;
+    justify-content: space-between;
+    width: 100%;
 
-    #group_name_wrap {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-
-      .group_visbility_icon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 32px;
-        height: 32px;
-        background-color: var(--color-surface-contrast);
-      }
-    }
-
-    #group_description {
-      min-height: 400px;
-    }
-
-    #view_more {
-      display: flex;
-      gap: 16px;
-      align-items: center;
-      position: absolute;
-      bottom: 16px;
-    }
-  }
-
-  #right_content {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-
-    #info_items_wrap {
-      display: flex;
-      gap: 16px;
-
-      .info_item {
-        width: 80px;
-        height: 88px;
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        align-items: center;
-        justify-content: center;
-        border-radius: 16px;
-        background-color: var(--color-surface-contrast);
-      }
-    }
-
-    #group_extra_info_wrap {
+    #group_description_wrap {
       display: flex;
       flex-direction: column;
       gap: 16px;
-      padding: 16px;
-      border-radius: 16px;
-      background-color: var(--color-surface-contrast);
+      position: relative;
 
-      .info_items_wrap {
+      #group_name_wrap {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+
+        .group_visbility_icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 32px;
+          height: 32px;
+          background-color: var(--color-surface-contrast);
+        }
+      }
+
+      #group_description {
+        min-height: 100px;
+      }
+
+      #rule_items_wrap {
         display: flex;
         flex-direction: column;
         gap: 8px;
 
-        .info_item {
+        .rule_item {
           display: flex;
-          gap: 8px;
           align-items: center;
+          justify-content: center;
+          gap: 8px;
         }
       }
 
-      #categories_wrap {
+      #tag_items_wrap {
         display: flex;
-        flex-flow: wrap row;
-
-        .category {
-          color: var(--color-link)
+        gap: 8px;
+        flex-flow: row wrap;
+        .tag_item {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          background-color: var(--color-surface-contrast);
+          border-radius: 8px;
+          padding: 8px;
+          font-weight: 800;
         }
       }
+      #view_more {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        position: absolute;
+        bottom: 16px;
+      }
+    }
+
+    #right_content {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      #info_items_wrap {
+        display: flex;
+        gap: 16px;
+
+        .info_item {
+          width: 80px;
+          height: 88px;
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+          align-items: center;
+          justify-content: center;
+          border-radius: 16px;
+          background-color: var(--color-surface-contrast);
+        }
+      }
+
+      #group_extra_info_wrap {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        padding: 16px;
+        border-radius: 16px;
+        background-color: var(--color-surface-contrast);
+
+        .info_items_wrap {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+
+          .info_item {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+          }
+        }
+
+        #categories_wrap {
+          display: flex;
+          flex-flow: wrap row;
+
+          .category {
+            color: var(--color-link);
+          }
+        }
+      }
+    }
+    .line_separator {
+      position: absolute;
+      width: 100%;
+      bottom: 24px;
     }
   }
 }
