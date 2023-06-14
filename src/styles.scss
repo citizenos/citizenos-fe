@@ -302,6 +302,26 @@ html {
   }
 }
 
+.tabs_row {
+  display: flex;
+  gap: 24px;
+  border-bottom: 1px solid var(--color-dialog-contrast);
+  margin-bottom: 40px;
+
+  .tab_item {
+    padding: 12px 24px;
+    font-size: 18px;
+    line-height: 24px;
+    color: var(--color-border-active);
+    font-weight: 600;
+
+    &.active {
+      color: var(--color-link);
+      border-bottom: 2px solid var(--color-link);
+    }
+  }
+}
+
 .line_separator {
   height: 1px;
   width: 100%;

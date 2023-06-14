@@ -5,6 +5,8 @@
   border-radius: 16px;
   gap: 24px;
   justify-content: space-between;
+  position: relative;
+  min-height: 180px;
 
   #group_image_wrap {
     display: flex;
@@ -30,130 +32,197 @@
     }
   }
 
-  #group_content {
+  #view_more {
     display: flex;
-    gap: 24px;
-    justify-content: space-between;
+    gap: 16px;
+    align-items: center;
+    position: absolute;
+    bottom: 16px;
+    left: 120px;
+  }
+
+  #group_content_wrap {
+    display: flex;
+    flex-direction: column;
     width: 100%;
 
-    #group_description_wrap {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      position: relative;
-
-      #group_name_wrap {
-        display: flex;
-        gap: 8px;
-        align-items: center;
-
-        .group_visbility_icon {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 32px;
-          height: 32px;
-          background-color: var(--color-surface-contrast);
-        }
-      }
-
-      #group_description {
-        min-height: 100px;
-      }
-
-      #rule_items_wrap {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-
-        .rule_item {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 8px;
-        }
-      }
-
-      #tag_items_wrap {
-        display: flex;
-        gap: 8px;
-        flex-flow: row wrap;
-        .tag_item {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 8px;
-          background-color: var(--color-surface-contrast);
-          border-radius: 8px;
-          padding: 8px;
-          font-weight: 800;
-        }
-      }
-      #view_more {
-        display: flex;
-        gap: 16px;
-        align-items: center;
-        position: absolute;
-        bottom: 16px;
-      }
+    .line_separator {
+      margin: 16px 0 42px;
     }
 
-    #right_content {
+    #group_content {
       display: flex;
-      flex-direction: column;
-      gap: 20px;
+      gap: 24px;
+      justify-content: space-between;
+      width: 100%;
 
-      #info_items_wrap {
+      #group_description_wrap {
         display: flex;
+        flex-direction: column;
         gap: 16px;
+        position: relative;
 
-        .info_item {
-          width: 80px;
-          height: 88px;
+        #group_name_wrap {
+          display: flex;
+          gap: 8px;
+          align-items: center;
+
+          .group_visbility_icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background-color: var(--color-surface-contrast);
+          }
+        }
+
+        #group_description {
+          min-height: 100px;
+        }
+
+        #rule_items_wrap {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+
+          .rule_item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+          }
+        }
+
+        #tag_items_wrap {
+          display: flex;
+          gap: 8px;
+          flex-flow: row wrap;
+          .tag_item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background-color: var(--color-surface-contrast);
+            border-radius: 8px;
+            padding: 8px;
+            font-weight: 800;
+          }
+        }
+      }
+
+      #right_content {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        #info_items_wrap {
+          display: flex;
+          gap: 16px;
+
+          .info_item {
+            width: 80px;
+            height: 88px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            background-color: var(--color-surface-contrast);
+          }
+        }
+
+        #group_extra_info_wrap {
           display: flex;
           flex-direction: column;
           gap: 16px;
-          align-items: center;
-          justify-content: center;
+          padding: 16px;
           border-radius: 16px;
           background-color: var(--color-surface-contrast);
-        }
-      }
 
-      #group_extra_info_wrap {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        padding: 16px;
-        border-radius: 16px;
-        background-color: var(--color-surface-contrast);
-
-        .info_items_wrap {
-          display: flex;
-          flex-direction: column;
-          gap: 8px;
-
-          .info_item {
+          .info_items_wrap {
             display: flex;
+            flex-direction: column;
             gap: 8px;
-            align-items: center;
+
+            .info_item {
+              display: flex;
+              gap: 8px;
+              align-items: center;
+            }
           }
-        }
 
-        #categories_wrap {
-          display: flex;
-          flex-flow: wrap row;
+          #categories_wrap {
+            display: flex;
+            flex-flow: wrap row;
 
-          .category {
-            color: var(--color-link);
+            .category {
+              color: var(--color-link);
+            }
           }
         }
       }
     }
-    .line_separator {
-      position: absolute;
+  }
+}
+#topic_list_filters {
+  display: flex;
+  flex-direction: row;
+  border-radius: 16px;
+  background-color: var(--color-surfaces);
+  width: 100%;
+  padding: 16px;
+  gap: 16px;
+
+  #options_area {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    gap: 16px;
+    position: relative;
+
+    .options_row {
+      display: flex;
+      gap: 16px;
       width: 100%;
-      bottom: 24px;
+      position: relative;
+      flex-flow: row wrap;
+
+      .dropdown_input {
+        flex-grow: 1;
+        min-width: calc(25% - 12px);
+      }
+
+      .input_area {
+        flex-grow: 4;
+        padding: 0 16px;
+        cos-input {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  button {
+    width: 40px;
+    height: 40px;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    perspective: 40px;
+
+    &.flip {
+      transform: rotateX(180deg);
+    }
+
+    .btn_icon {
+      display: flex;
+      width: 24px;
+      height: 24px;
+
+      path {
+        fill: none;
+      }
     }
   }
 }
