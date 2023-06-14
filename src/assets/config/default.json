@@ -8,20 +8,15 @@
   "language": {
     "default": "en",
     "list": {
+      "de": "Deutsch",
+      "bg": "Български",
       "en": "English",
       "et": "Eesti",
       "fr": "Français",
       "ru": "Pусский",
-      "fi": "Suomi",
       "uk": "Українська",
-      "de": "Deutsch",
       "es": "Español",
-      "id": "Bahasa Indonesia",
-      "mk": "Македонски",
-      "nl": "Nederlands",
-      "lv": "Latviešu",
-      "pl": "Polski",
-      "pt-br": "Português (Brasil)"
+      "id": "Bahasa Indonesia"
     },
     "debug": "dbg"
   },
