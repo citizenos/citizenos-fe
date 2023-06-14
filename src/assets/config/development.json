@@ -8,14 +8,12 @@
   "language": {
     "default": "en",
     "list": {
+      "de": "Deutsch",
       "en": "English",
       "fr": "Français",
       "et": "Eesti",
-      "lv": "Latviešu",
       "lt": "Lietuvių",
-      "pl": "Polski",
       "ru": "Pусский",
-      "fi": "Suomi",
       "uk": "Українська",
       "aa": "Crowdin",
       "id": "Bahasa Indonesia"
