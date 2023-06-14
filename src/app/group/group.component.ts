@@ -1,7 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap, tap, of, take, catchError } from 'rxjs';
+import { switchMap, tap, of, take, catchError, map, Observable, BehaviorSubject } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 
 import { GroupMemberUserService } from 'src/app/services/group-member-user.service';
@@ -17,6 +17,7 @@ import { CreateGroupTopicComponent } from './components/create-group-topic/creat
 import { GroupAddTopicsComponent } from './components/group-add-topics/group-add-topics.component';
 import { TranslateService } from '@ngx-translate/core';
 import { trigger, state, style } from '@angular/animations';
+import { Topic } from '../interfaces/topic';
 @Component({
   selector: 'group',
   templateUrl: './group.component.html',
@@ -25,11 +26,23 @@ import { trigger, state, style } from '@angular/animations';
     trigger('openClose', [
       // ...
       state('open', style({
-        'maxHeight': '600px',
+        'minHeight': 'auto',
         transition: '0.2s ease-in-out max-height'
       })),
       state('closed', style({
-        'maxHeight': '180px',
+        'minHeight': '180px',
+        'overflowY': 'hidden',
+        transition: '0.2s ease-in-out max-height'
+      }))
+    ]),
+    trigger('openSlide', [
+      // ...
+      state('open', style({
+        'maxHeight': '200px',
+        transition: '0.2s ease-in-out max-height'
+      })),
+      state('closed', style({
+        'maxHeight': 0,
         'overflowY': 'hidden',
         transition: '0.2s ease-in-out max-height'
       }))
@@ -38,9 +51,14 @@ import { trigger, state, style } from '@angular/animations';
 export class GroupComponent implements OnInit {
   group$;
   groupId: string = '';
-  tabSelected = 'topics';
+  tabSelected;
   wWidth: number = window.innerWidth;
   moreInfo = false;
+  topics$: Observable<Topic[] | any[]> = of([]);
+  showNoEngagements = false;
+  moreFilters = false;
+  searchInput = '';
+  searchTopicString$ = new BehaviorSubject('');
 
   constructor(public dialog: MatDialog,
     private GroupService: GroupService,
@@ -52,9 +70,17 @@ export class GroupComponent implements OnInit {
     private Auth: AuthService,
     public app: AppService,
     public GroupMemberTopicService: GroupMemberTopicService) {
+    this.topics$ = this.GroupMemberTopicService.loadItems().pipe(
+      tap((topics) => {
+        if (topics.length === 0) {
+          this.showNoEngagements = true;
+        }
+      })
+    );
     this.group$ = this.route.params.pipe<Group>(
       switchMap((params) => {
         this.groupId = <string>params['groupId'];
+
         GroupMemberTopicService.reset()
         GroupMemberTopicService.setParam('groupId', this.groupId);
         GroupMemberUserService.reset();
@@ -72,6 +98,23 @@ export class GroupComponent implements OnInit {
         )
       })
     );
+
+    this.tabSelected = this.route.fragment.pipe(
+      map((fragment) => {
+        if (!fragment) {
+          return this.selectTab('topics')
+        }
+        return fragment
+      }
+      ));
+  }
+
+  doSearch(search: string) {
+    this.searchTopicString$.next(search);
+  }
+
+  selectTab(tab: string) {
+    this.router.navigate([], { fragment: tab })
   }
 
   ngOnInit(): void {

@@ -806,6 +806,18 @@
       "NOTIFICATION_SUCCESS_TITLE": "Successfully created group",
       "NOTIFICATION_SUCCESS_MESSAGE": "Congratulations! Keep in mind you can always manage the group via the group actions."
     },
+    "GROUP": {
+      "HEADING_BACK_TO_MY_GROUPS": "Back to my groups",
+      "BTN_JOIN": "Join group",
+      "BTN_LEAVE": "Leave group",
+      "RULES_OF_CONDUCT": "Rules of conduct",
+      "TAGS": "Tags",
+      "CATEGORIES": "Categories",
+      "LNK_MORE_INFO": "More info",
+      "LNK_CLOSE_INFO": "Close info",
+      "TAB_TOPICS": "Topics",
+      "TAB_MEMBERS": "Members"
+    },
     "MY_GROUPS": {
       "HEADER": "My groups",
       "BTN_GLOBAL_ACTIVITIES": "Global activities",
