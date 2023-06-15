@@ -1,3 +1,68 @@
+@use "mixins";
+
+.page_content {
+  gap: 24px;
+
+  #page_header {
+    padding: 16px 0 0 0;
+
+    .button_dropdown {
+      background-color: initial;
+
+      .options {
+        right: 0;
+
+        .option {
+          width: max-content;
+          gap: 8px;
+        }
+      }
+    }
+
+  }
+  .content_section {
+    .filter_section {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+
+      cos-input {
+        width: inherit;
+      }
+      .dropdown_input {
+        max-width: 200px;
+      }
+      @include mixins.mobile {
+        flex-direction: column;
+
+        cos-input,
+        .dropdown_input {
+          max-width: 100%;
+          width: 100%;
+        }
+      }
+
+      .input_area {
+        width: 100%;
+        padding: 0px 0px 0px 16px;
+        gap: 0;
+
+        @include mixins.mobile {
+          input,
+          cos-input {
+            width: 100%;
+            background-color: unset;
+          }
+        }
+        cos-input {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
 #group_info_area {
   display: flex;
   padding: 16px;
@@ -116,6 +181,9 @@
         flex-direction: column;
         gap: 20px;
 
+        activities-button {
+          align-self: flex-end;
+        }
         #info_items_wrap {
           display: flex;
           gap: 16px;
@@ -166,6 +234,21 @@
     }
   }
 }
+
+.tabs_wrap {
+  display: flex;
+  gap: 24px;
+  width: 100%;
+  justify-content: space-between;
+
+  .tabs_row {
+    width: 100%;
+  }
+  button {
+    min-width: 240px;
+  }
+}
+
 #topic_list_filters {
   display: flex;
   flex-direction: row;
@@ -204,25 +287,39 @@
     }
   }
 
-  button {
-    width: 40px;
-    height: 40px;
-    transition: transform 0.6s;
-    transform-style: preserve-3d;
-    perspective: 40px;
+  #buttons_area {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    button {
+      width: 40px;
+      height: 40px;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+      perspective: 40px;
 
-    &.flip {
-      transform: rotateX(180deg);
-    }
+      &.flip {
+        transform: rotateX(180deg);
+      }
 
-    .btn_icon {
-      display: flex;
-      width: 24px;
-      height: 24px;
+      .btn_icon {
+        display: flex;
+        width: 24px;
+        height: 24px;
 
-      path {
-        fill: none;
+        path {
+          fill: none;
+        }
+
+      }
+
+
+      #reload_button {
+        path {
+          fill: initial;
+        }
       }
     }
   }
+
 }

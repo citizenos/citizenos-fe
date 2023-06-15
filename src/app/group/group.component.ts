@@ -18,6 +18,7 @@ import { GroupAddTopicsComponent } from './components/group-add-topics/group-add
 import { TranslateService } from '@ngx-translate/core';
 import { trigger, state, style } from '@angular/animations';
 import { Topic } from '../interfaces/topic';
+import { User } from '../interfaces/user';
 @Component({
   selector: 'group',
   templateUrl: './group.component.html',
@@ -26,11 +27,12 @@ import { Topic } from '../interfaces/topic';
     trigger('openClose', [
       // ...
       state('open', style({
-        'minHeight': 'auto',
+        minHeight: 'auto',
+        maxHeight: 'auto',
         transition: '0.2s ease-in-out max-height'
       })),
       state('closed', style({
-        'minHeight': '180px',
+        maxHeight: '180px',
         'overflowY': 'hidden',
         transition: '0.2s ease-in-out max-height'
       }))
@@ -42,7 +44,7 @@ import { Topic } from '../interfaces/topic';
         transition: '0.2s ease-in-out max-height'
       })),
       state('closed', style({
-        'maxHeight': 0,
+        'maxHeight': '80px',
         'overflowY': 'hidden',
         transition: '0.2s ease-in-out max-height'
       }))
@@ -55,10 +57,15 @@ export class GroupComponent implements OnInit {
   wWidth: number = window.innerWidth;
   moreInfo = false;
   topics$: Observable<Topic[] | any[]> = of([]);
+  users$: Observable<User[] | any[]> = of([]);
   showNoEngagements = false;
   moreFilters = false;
-  searchInput = '';
+
+  searchTopicsInput = '';
   searchTopicString$ = new BehaviorSubject('');
+
+  searchUsersInput = '';
+  searchUserString$ = new BehaviorSubject('');
 
   constructor(public dialog: MatDialog,
     private GroupService: GroupService,
@@ -77,6 +84,15 @@ export class GroupComponent implements OnInit {
         }
       })
     );
+
+    this.users$ = this.GroupMemberUserService.loadItems().pipe(
+      tap((topics) => {
+        if (topics.length === 0) {
+          this.showNoEngagements = true;
+        }
+      })
+    );
+
     this.group$ = this.route.params.pipe<Group>(
       switchMap((params) => {
         this.groupId = <string>params['groupId'];
@@ -109,8 +125,12 @@ export class GroupComponent implements OnInit {
       ));
   }
 
-  doSearch(search: string) {
+  searchTopics(search: string) {
     this.searchTopicString$.next(search);
+  }
+
+  searchUsers (search: string) {
+    this.searchUserString$.next(search);
   }
 
   selectTab(tab: string) {
@@ -127,6 +147,7 @@ export class GroupComponent implements OnInit {
       });
     }
   }
+
   leaveGroup() {
     const leaveDialog = this.dialog.open(ConfirmDialogComponent, {
       data: {
@@ -202,6 +223,7 @@ export class GroupComponent implements OnInit {
   joinGroup(group: Group) {
     const joinDialog = this.dialog.open(ConfirmDialogComponent, {
       data: {
+        level: 'info',
         heading: 'MODALS.GROUP_JOIN_CONFIRM_HEADING',
         title: 'MODALS.GROUP_JOIN_CONFIRM_TXT_ARE_YOU_SURE',
         description: 'MODALS.GROUP_JOIN_CONFIRM_TXT_DESC',

@@ -4,6 +4,7 @@
 @forward "illustrations";
 @forward "dialog";
 @forward "create_views";
+@forward "tables";
 @use "themes";
 @use "mixins";
 
@@ -70,6 +71,15 @@
         height: 40px;
       }
     }
+  }
+
+  .content_section {
+    display: flex;
+    flex-direction: column;
+    border-radius: 16px;
+    background-color: var(--color-surfaces);
+    padding: 24px;
+    gap: 16px;
   }
 }
 
@@ -306,7 +316,6 @@ html {
   display: flex;
   gap: 24px;
   border-bottom: 1px solid var(--color-dialog-contrast);
-  margin-bottom: 40px;
 
   .tab_item {
     padding: 12px 24px;
@@ -379,7 +388,7 @@ cos-input {
     display: flex;
     flex-direction: column;
 
-    input {
+    input, textarea {
       position: relative;
 
       &.with_value {
@@ -401,31 +410,6 @@ cos-toggle {
   width: max-content;
 }
 
-.row_list,
-.row_header {
-  display: flex;
-  flex-flow: row wrap;
-  padding: 8px;
-  background-color: var(--color-surfaces-contrast);
-  justify-content: space-between;
-
-  .row_cell {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-
-    a {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap: 8px;
-    }
-  }
-
-  &:nth-child(even) {
-    background-color: var(--color-surface-contrast);
-  }
-}
 
 .form_wrap {
   display: flex;
