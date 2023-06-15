@@ -43,7 +43,7 @@
   </div>
 </div>
 <div class="create_content_section">
-  <div id="topic_members_list_wrap" class="section_content_wrap">
+  <div id="topic_members_list_wrap" class="table_section">
     <ng-container *ngIf="group.members.topics?.length === 0">
       <svg width="96" height="90" viewBox="0 0 96 90" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M60.4741 78.8165L33.9747 81.5576L34.5735 92.5014L60.4741 92.5014L60.4741 78.8165Z" fill="#5C9CD0" />
@@ -131,7 +131,7 @@
         </div>
       </ng-container>
 
-      <div id="footer_buttons">
+      <div class="filter_section">
         <div class="dropdown" [cosDropdown]>
           <button class="btn_medium_secondary"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
               xmlns="http://www.w3.org/2000/svg">
