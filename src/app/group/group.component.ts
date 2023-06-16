@@ -32,7 +32,6 @@ import { User } from '../interfaces/user';
         transition: '0.2s ease-in-out max-height'
       })),
       state('closed', style({
-        maxHeight: '180px',
         'overflowY': 'hidden',
         transition: '0.2s ease-in-out max-height'
       }))
@@ -40,10 +39,12 @@ import { User } from '../interfaces/user';
     trigger('openSlide', [
       // ...
       state('open', style({
-        'maxHeight': '200px',
+        minHeight: 'auto',
+        'maxHeight': '400px',
         transition: '0.2s ease-in-out max-height'
       })),
       state('closed', style({
+        minHeight: '80px',
         'maxHeight': '80px',
         'overflowY': 'hidden',
         transition: '0.2s ease-in-out max-height'
@@ -255,5 +256,9 @@ export class GroupComponent implements OnInit {
 
   canUpdate(group: Group) {
     return this.GroupService.canUpdate(group);
+  }
+
+  trackByTopic(index: number, element: any) {
+    return element.id;
   }
 }

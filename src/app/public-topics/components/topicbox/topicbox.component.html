@@ -13,7 +13,7 @@
               fill="white" />
           </svg>
           <div class="bold" translate="COMPONENTS.TOPICBOX.HEADER_DISCUSSION"
-            [translateParams]="{value: topic.comments.count}"></div>
+            [translateParams]="{value: topic.comments?.count || 0}"></div>
         </ng-container>
         <ng-container *ngIf="topic.status==='voting'">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

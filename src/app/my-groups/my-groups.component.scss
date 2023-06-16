@@ -2,6 +2,24 @@
 
 .page_content {
   gap: 24px;
+
+  @include mixins.tablet {
+    margin: 60px 0;
+    gap: 16px;
+
+    #page_header {
+      margin: 0;
+      padding: 8px 0 0 0;
+
+      h3 {
+        margin: 0;
+      }
+    }
+  }
+
+  @include mixins.mobile {
+    padding: 0;
+  }
 }
 
 #page_filters_wrap {
@@ -26,9 +44,17 @@
       width: 100%;
       position: relative;
 
+      @include mixins.tablet {
+        flex-flow: row wrap;
+      }
+
       .dropdown_input {
         flex-grow: 1;
         min-width: calc(25% - 12px);
+
+        @include mixins.tablet {
+          min-width: calc(50% - 12px);
+        }
       }
 
       .input_area {
