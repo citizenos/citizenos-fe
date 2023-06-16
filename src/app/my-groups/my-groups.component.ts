@@ -17,11 +17,11 @@ import { animate, group, state, style, transition, keyframes, trigger } from '@a
     trigger('openClose', [
       // ...
       state('open', style({
-        'maxHeight': '200px',
+        'maxHeight': '300px',
         transition: '0.2s ease-in-out max-height'
       })),
       state('closed', style({
-        'maxHeight': 0,
+        'maxHeight': '50px',
         'overflowY': 'hidden',
         transition: '0.2s ease-in-out max-height'
       }))

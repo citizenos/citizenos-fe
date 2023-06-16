@@ -35,7 +35,7 @@
     </div>
   </div>
   <div id="page_filters_wrap">
-    <div id="options_area">
+    <div id="options_area" [@openClose]="moreFilters ? 'open' : 'closed'">
       <div class="options_row">
         <cos-input [placeholder]="'VIEWS.MY_GROUPS.FILTER_VISIBILITY' | translate" class="dropdown_input">
           <div class="dropdown" [cosDropdown]>
@@ -99,7 +99,7 @@
           </div>
         </cos-input>
       </div>
-      <div class="options_row" [@openClose]="moreFilters ? 'open' : 'closed'">
+      <div class="options_row">
         <cos-input [placeholder]="'VIEWS.MY_GROUPS.FILTER_COUNTRY' | translate" class="dropdown_input">
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
