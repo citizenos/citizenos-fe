@@ -16,7 +16,7 @@
       <button id="leave_button" *ngIf="group.userLevel" class="btn_medium_close" translate="VIEWS.GROUP.BTN_LEAVE"
         (click)="leaveGroup()"></button>
 
-      <activities-button></activities-button>
+      <activities-button *ngIf="auth.loggedIn$"></activities-button>
       <button class="btn_medium_close">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -117,7 +117,7 @@
           <div id="group_description" [ngClass]="moreInfo? 'open': ''" [innerHTML]="group.description"></div>
         </div>
         <div id="description_right">
-          <activities-button></activities-button>
+          <activities-button [groupId]="group.id"></activities-button>
           <div id="info_items_wrap">
 
             <div class="info_item">
@@ -375,7 +375,7 @@
             </div>
           </cos-input>
         </div>
-        <div class="options_row">
+        <div class="options_row" *ngIf="moreFilters">
           <cos-input [placeholder]="'VIEWS.GROUP.TOPICS_FILTER_TAGS' | translate" class="dropdown_input">
             <div class="dropdown" [cosDropdown]>
               <div class="selection">
@@ -451,7 +451,7 @@
             </svg>
           </div>
         </button>
-        <button class="btn_big_secondary">
+        <button class="btn_big_secondary" *ngIf="moreFilters">
           <div id="reload_button" class="btn_icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path

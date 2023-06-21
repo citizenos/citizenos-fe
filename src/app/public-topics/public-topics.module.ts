@@ -4,7 +4,7 @@ import { TopicsComponent } from './components/topics/topics.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { PublicTopicsRoutingModule } from './public-topics.router.module';
 import { SharedModule } from '../shared/shared.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -13,6 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     TopicsComponent
   ],
   imports: [
+    FormsModule,
     CommonModule,
     SharedModule,
     PublicTopicsRoutingModule,

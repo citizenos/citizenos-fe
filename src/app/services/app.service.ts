@@ -43,9 +43,11 @@ export class AppService {
 
   constructor(private dialog: MatDialog, public config: ConfigService, private Location: LocationService, private TopicService: TopicService, private GroupMemberTopicService: GroupMemberTopicService, private router: Router, private http: HttpClient) { }
 
-  doShowActivityModal() {
+  doShowActivityModal(params?: any) {
     this.dialog.closeAll();
-    this.dialog.open(ActivityFeedComponent);
+    this.dialog.open(ActivityFeedComponent, {
+      data: params
+    });
   };
 
   doShowLogin() {

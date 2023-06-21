@@ -56,7 +56,7 @@
     </svg>
     <div translate="COMPONENTS.GROUP_INVITE.INVALID_EMAILS_HEADER"></div>
   </div>
-  <div class="section_content_wrap">
+  <div class="section_content_wrap table_section">
     <div class="row_list" *ngFor="let email of invalid | keyvalue">
       <div class="row_cell">
         <input name="invalid" type="text" [(ngModel)]="email.value"
@@ -75,7 +75,7 @@
   </div>
 </div>
 <div class="create_content_section">
-  <div id="topic_members_list_wrap" class="section_content_wrap">
+  <div id="topic_members_list_wrap" class="section_content_wrap table_section">
     <ng-container *ngIf="group.members?.users.length === 0">
       <svg width="96" height="90" viewBox="0 0 96 90" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M60.4741 78.8165L33.9747 81.5576L34.5735 92.5014L60.4741 92.5014L60.4741 78.8165Z" fill="#5C9CD0" />

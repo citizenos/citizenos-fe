@@ -10,7 +10,7 @@ import { GroupJoinService } from 'src/app/services/group-join.service';
 import { Group } from 'src/app/interfaces/group';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { AuthService } from '../services/auth.service';
-import { GroupInviteComponent } from './components/group-invite/group-invite.component';
+import { GroupInviteDialogComponent } from './components/group-invite/group-invite.component';
 import { AppService } from '../services/app.service';
 import { GroupMemberTopicService } from '../services/group-member-topic.service';
 import { CreateGroupTopicComponent } from './components/create-group-topic/create-group-topic.component';
@@ -27,12 +27,12 @@ import { User } from '../interfaces/user';
     trigger('openClose', [
       // ...
       state('open', style({
-        minHeight: 'auto',
-        maxHeight: 'auto',
+        minHeight: 'min-content',
+        maxHeight: 'min-content',
         transition: '0.2s ease-in-out max-height'
       })),
       state('closed', style({
-        'overflowY': 'hidden',
+        overflowY: 'hidden',
         transition: '0.2s ease-in-out max-height'
       }))
     ]),
@@ -46,7 +46,6 @@ import { User } from '../interfaces/user';
       state('closed', style({
         minHeight: '80px',
         'maxHeight': '80px',
-        'overflowY': 'hidden',
         transition: '0.2s ease-in-out max-height'
       }))
   ])]
@@ -75,7 +74,7 @@ export class GroupComponent implements OnInit {
     private router: Router,
     public translate: TranslateService,
     public GroupMemberUserService: GroupMemberUserService,
-    private Auth: AuthService,
+    public auth: AuthService,
     public app: AppService,
     public GroupMemberTopicService: GroupMemberTopicService) {
     this.topics$ = this.GroupMemberTopicService.loadItems().pipe(
@@ -143,7 +142,7 @@ export class GroupComponent implements OnInit {
 
   shareGroupDialog(group: Group) {
     if (this.app.group) {
-      const inviteDialog = this.dialog.open(GroupInviteComponent, { data: { group: group } });
+      const inviteDialog = this.dialog.open(GroupInviteDialogComponent, { data: { group: group } });
       inviteDialog.afterClosed().subscribe(result => {
       });
     }
@@ -162,7 +161,7 @@ export class GroupComponent implements OnInit {
     leaveDialog.afterClosed().subscribe(result => {
       if (result === true) {
         this.GroupMemberUserService
-          .delete({ groupId: this.groupId, userId: this.Auth.user.value.id })
+          .delete({ groupId: this.groupId, userId: this.auth.user.value.id })
           .subscribe({
             next: (result) => {
               const url = this.router.url;

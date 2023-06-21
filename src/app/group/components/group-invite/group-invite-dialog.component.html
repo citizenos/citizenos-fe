@@ -1,0 +1,33 @@
+<div class="overlay" mat-dialog-close></div>
+<div class="dialog">
+  <div class="dialog_header">
+    <div class="header_text">
+      <h4 class="title" translate="MODALS.LOGIN_HEADING"></h4>
+    </div>
+    <div class="dialog_close">
+      <button class="btn_dialog_close" mat-dialog-close>
+        <div class="icon_mobile_close"></div>
+      </button>
+    </div>
+  </div>
+  <div class="dialog_tabs_wrap">
+    <a class="dialog_tab active" (click)="activeTab = 'invite'">
+      Invite
+    </a>
+    <a class="dialog_tab" (click)="activeTab = 'share'">
+      Share
+    </a>
+  </div>
+  <div class="dialog_content">
+    <ng-container *ngIf="activeTab === 'invite'">
+      <div id="form_area">
+        <group-invite class="create_content" [group]="data.group"></group-invite>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="activeTab === 'share'">
+
+    </ng-container>
+  </div>
+  <div class="dialog_footer">
+  </div>
+</div>

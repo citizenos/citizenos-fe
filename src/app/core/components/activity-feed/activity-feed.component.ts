@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { map, tap, of } from 'rxjs';
 import { ActivityService } from 'src/app/services/activity.service'
 @Component({
@@ -11,7 +12,21 @@ export class ActivityFeedComponent implements OnInit {
   allActivities$: any[] = [];
   activities$ = of(<any[]>[]);
 
-  constructor(public ActivityService: ActivityService) {
+  constructor(public ActivityService: ActivityService, @Inject(MAT_DIALOG_DATA) private data: any) {
+
+  }
+
+  filterActivities(filter: string) {
+    this.allActivities$ = [];
+    this.ActivityService.reset();
+    this.ActivityService.setParam('include', filter)
+  }
+  ngOnInit(): void {
+    if (this.data?.groupId) {
+      this.ActivityService.setParam('groupId', this.data.groupId);
+    } else if (this.data?.topicId) {
+      this.ActivityService.setParam('topicId', this.data.topicId);
+    }
     this.ActivityService.reset();
     this.activities$ = this.ActivityService.loadItems().pipe(
       tap((res: any) => {
@@ -30,14 +45,6 @@ export class ActivityFeedComponent implements OnInit {
           return this.allActivities$;
         }
       ));
-  }
-
-  filterActivities(filter: string) {
-    this.allActivities$ = [];
-    this.ActivityService.reset();
-    this.ActivityService.setParam('include', filter)
-  }
-  ngOnInit(): void {
   }
 
   loadMore(event: any) {

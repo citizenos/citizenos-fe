@@ -30,7 +30,7 @@ import { TopicMemberInviteDeleteComponent } from '../topic/components/topic-memb
 import { TopicVoteCastComponent } from '../topic/components/topic-vote-cast/topic-vote-cast.component';
 import { TopicSettingsComponent, TopicSettingsDialogComponent } from '../topic/components/topic-settings/topic-settings.component';
 
-import { GroupInviteComponent } from '../group/components/group-invite/group-invite.component';
+import { GroupInviteComponent, GroupInviteDialogComponent } from '../group/components/group-invite/group-invite.component';
 import { GroupMemberTopicComponent } from '../group/components/group-member-topic/group-member-topic.component';
 import { GroupMemberUserComponent } from '../group/components/group-member-user/group-member-user.component';
 import { GroupSettingsComponent, GroupSettingsDialogComponent } from '../group/components/group-settings/group-settings.component';
@@ -64,6 +64,7 @@ import { ActivitiesButtonComponent } from './components/activities-button/activi
     CosToggleComponent,
     EtherpadDirective,
     GroupInviteComponent,
+    GroupInviteDialogComponent,
     GroupMemberTopicComponent,
     GroupMemberUserComponent,
     GroupSettingsComponent,
@@ -120,6 +121,7 @@ import { ActivitiesButtonComponent } from './components/activities-button/activi
     CosToggleComponent,
     EtherpadDirective,
     GroupInviteComponent,
+    GroupInviteDialogComponent,
     GroupMemberTopicComponent,
     GroupMemberUserComponent,
     GroupSettingsComponent,

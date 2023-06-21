@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, PRIMARY_OUTLET } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { tap, switchMap, combineLatest, Observable, of, BehaviorSubject } from 'rxjs';
+import { switchMap, combineLatest, Observable, of, BehaviorSubject } from 'rxjs';
 import { Group } from 'src/app/interfaces/group';
 import { GroupService } from 'src/app/services/group.service';
 import { AppService } from '../services/app.service';
 import { AuthService } from '../services/auth.service';
-import { ActivityService } from '../services/activity.service';
-import { animate, group, state, style, transition, keyframes, trigger } from '@angular/animations';
+import { state, style, trigger } from '@angular/animations';
 
 @Component({
   selector: 'my-groups',
@@ -22,7 +21,6 @@ import { animate, group, state, style, transition, keyframes, trigger } from '@a
       })),
       state('closed', style({
         'maxHeight': '50px',
-        'overflowY': 'hidden',
         transition: '0.2s ease-in-out max-height'
       }))
   ])]
@@ -32,8 +30,6 @@ export class MyGroupsComponent implements OnInit {
   groupId = <string | null>null;
   groups$: Observable<Group[] | any[]> = of([]);
   allGroups$: Group[] = [];
-  newActivities: number = 0;
-  unreadActivitiesCount$: any;
   visibility = ['all'].concat(Object.values(this.GroupService.VISIBILITY));
   categories = ['all', 'democracy'];
   searchInput = '';
@@ -47,11 +43,8 @@ export class MyGroupsComponent implements OnInit {
     public GroupService: GroupService,
     private router: Router,
     TranslateService: TranslateService,
-    ActivityService: ActivityService) {
-    this.unreadActivitiesCount$ = ActivityService.getUnreadActivities().pipe(tap((count: number) => {
-      this.newActivities = 0;
-      if (count) this.newActivities = count
-    }));
+    ) {
+
     this.groups$ = combineLatest([this.route.queryParams, this.searchString$]).pipe(
       switchMap(([queryParams, search]) => {
         console.log(search);
