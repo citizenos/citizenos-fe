@@ -18,7 +18,9 @@ export class ActivityService extends ItemsListService {
     offset: <number>0,
     limit: <number>10,
     include: <string | null>null,
-    filter: <string | null>null
+    filter: <string | null>null,
+    groupId: <string|undefined> undefined,
+    topicId: <string|undefined> undefined
   };
   public filters = ['all', 'userTopics', 'userGroups', 'user', 'self'];
   params$ = new BehaviorSubject(Object.assign({}, this.params));
@@ -115,10 +117,17 @@ export class ActivityService extends ItemsListService {
   };
 
   query(params: any) {
+    let rootPath = '';
+    console.log(params);
+    if (params.groupId) {
+      rootPath += '/groups/:groupId'
+    } else if (params.topicId) {
+      rootPath += '/topics/:topicId'
+    }
     let path = this.Location.getAbsoluteUrlApi(
       this.Auth.resolveAuthorizedPath(
-        '/activities'
-      ));
+        `${rootPath}/activities`
+      ), params);
 
     return this.http.get(path, { params, withCredentials: true, responseType: 'json', observe: 'body' })
       .pipe(
@@ -126,8 +135,15 @@ export class ActivityService extends ItemsListService {
       );
   };
 
-  getUnreadActivities() {
-    const path = this.Location.getAbsoluteUrlApi('/api/users/self/activities/unread');
+  getUnreadActivities(params?: any) {
+    let pathRoot = '/api/users/self'
+    if (params && params.groupId) {
+      pathRoot +='/groups/:groupId'
+    }
+    else if (params && params.topicId) {
+      pathRoot +='/topics/:topicId'
+    }
+    const path = this.Location.getAbsoluteUrlApi(`${pathRoot}/activities/unread`, params);
     return this.http.get(path, { withCredentials: true, responseType: 'json', observe: 'body' })
       .pipe(
         map((res: any) => {

@@ -1,7 +1,10 @@
 @use "mixins";
 
 .mat-mdc-dialog-container .mdc-dialog__surface {
-  border-radius: var(--mdc-dialog-container-shape, var(--mdc-shape-medium, 16px))!important;
+  border-radius: var(
+    --mdc-dialog-container-shape,
+    var(--mdc-shape-medium, 16px)
+  ) !important;
 }
 
 .cdk-global-overlay-wrapper {
@@ -72,7 +75,7 @@
       color: var(--color-success);
     }
 
-    .header_with_icon{
+    .header_with_icon {
       margin-top: 24px;
       display: flex;
       flex-direction: column;
@@ -102,6 +105,12 @@
     flex-direction: column;
     background-color: var(--color-dialog-background);
     padding: 16px;
+
+    .content_item {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
   }
 
   .dialog_info_wrap {
@@ -132,7 +141,8 @@
         background: var(--color-success-background);
       }
 
-      a, div {
+      a,
+      div {
         display: flex;
         gap: 8px;
         align-items: center;
@@ -174,5 +184,26 @@
     flex-direction: row;
     gap: 8px;
     max-width: 520px;
+  }
+
+  .dialog_tabs_wrap {
+    width: 100%;
+    display: flex;
+    padding: 0 16px;
+    gap: 8px;
+    background-color: var(--color-dialog);
+
+    .dialog_tab {
+      color: var(--color-text);
+      display: flex;
+      padding: 12px 16px;
+      background-color: var(--color-group);
+      border-radius: 8px 8px 0 0;
+
+      &.active {
+        background-color: var(--color-surfaces);
+        font-weight: bold;
+      }
+    }
   }
 }

@@ -1,6 +1,6 @@
 import { GroupInviteUserService } from 'src/app/services/group-invite-user.service';
 import { Component, OnInit, Input, Inject } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { isEmail } from 'validator';
 import { take, of, switchMap, BehaviorSubject } from 'rxjs';
 import { Group } from 'src/app/interfaces/group';
@@ -60,6 +60,9 @@ export class GroupInviteComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    if (this.group.members.users.count || !this.group.members.users) {
+      this.group.members.users = [];
+    }
   }
 
   doSaveGroup() {
@@ -128,7 +131,6 @@ export class GroupInviteComponent implements OnInit {
         this.orderMembers();
       }
     } else {
-      console.log('ELSE')
       if (!this.searchStringUser) return;
 
       // Assume e-mail was entered.
@@ -142,7 +144,7 @@ export class GroupInviteComponent implements OnInit {
 
         return;
       });
-      console.log(filtered);
+
       if (filtered.length) {
         filtered.sort().forEach((email) => {
           email = email.trim();
@@ -256,5 +258,16 @@ export class GroupInviteComponent implements OnInit {
 
   canUpdate() {
     return this.GroupService.canUpdate(this.group);
+  }
+}
+
+@Component({
+  templateUrl: './group-invite-dialog.component.html',
+  styleUrls: ['./group-invite-dialog.component.scss']
+})
+export class GroupInviteDialogComponent {
+  activeTab = 'invite';
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
   }
 }

@@ -23,7 +23,7 @@
       background-color: var(--color-surfaces);
       border-radius: 16px 16px 0 0;
       margin: 0;
-      padding: 8px 0 0 0;
+      padding: 8px 0;
       height: 56px;
       align-items: center;
       vertical-align: middle;
@@ -122,6 +122,10 @@
     max-height: initial;
   }
 
+  @include mixins.mobile {
+    min-height: 380px;
+  }
+
   #group_image_wrap {
     display: flex;
     max-width: 80px;
@@ -159,6 +163,10 @@
 
     @include mixins.tablet {
       left: 16px;
+    }
+
+    @include mixins.mobile {
+      left: 36%;
     }
   }
 
@@ -201,8 +209,16 @@
         gap: 8px;
         align-items: center;
 
+        h2 {
+          margin: 0;
+        }
         @include mixins.tablet {
           vertical-align: middle;
+        }
+
+        @include mixins.mobile {
+          flex-direction: column;
+          justify-content: center;
         }
 
         #group_image_tablet_wrap {
@@ -238,6 +254,12 @@
           width: 32px;
           height: 32px;
           background-color: var(--color-surface-contrast);
+
+          @include mixins.mobile {
+            position: absolute;
+            right: 8px;
+            top: 8px;
+          }
         }
       }
 
@@ -260,6 +282,7 @@
 
         @include mixins.tablet {
           max-width: 100%;
+          min-width: initial;
         }
 
         activities-button {
@@ -273,6 +296,10 @@
         #info_items_wrap {
           display: flex;
           gap: 16px;
+
+          @include mixins.tablet {
+            justify-content: center;
+          }
 
           .info_item {
             width: 80px;
@@ -403,9 +430,18 @@
 
   .tabs_row {
     width: 100%;
+
+    @include mixins.mobile {
+      justify-content: center;
+    }
   }
+
   button {
     min-width: 240px;
+
+    @include mixins.mobile {
+      display: none;
+    }
   }
 }
 
@@ -497,6 +533,8 @@
   }
 
   @include mixins.mobile {
+    padding: 8px;
+    padding-bottom: 64px;
     width: 100%;
 
     topicbox {
