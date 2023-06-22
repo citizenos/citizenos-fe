@@ -268,6 +268,29 @@ export class GroupInviteComponent implements OnInit {
 export class GroupInviteDialogComponent {
   activeTab = 'invite';
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private GroupInviteUser: GroupInviteUserService,) {
+  }
+
+  doInviteMembers() {
+    // Users
+    console.log('DO invite', this.data.group.members.users);
+
+    const groupMemberUsersToInvite = <any[]>[];
+    this.data.group.members.users.forEach((member: any) => {
+      groupMemberUsersToInvite.push({
+        userId: member.userId || member.id,
+        level: member.level,
+        inviteMessage: this.data.group.inviteMessage
+      })
+    });
+
+    if (groupMemberUsersToInvite.length) {
+      this.GroupInviteUser.save({ groupId: this.data.group.id }, groupMemberUsersToInvite)
+        .pipe(take(1))
+        .subscribe(res => {
+          console.log(res)
+        })
+    }
+
   }
 }

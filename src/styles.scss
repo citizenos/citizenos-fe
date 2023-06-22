@@ -454,3 +454,40 @@ cos-toggle {
     object-fit: contain;
   }
 }
+
+.content_section {
+  display: flex;
+  flex-direction: row;
+  background-color: var(--color-surfaces);
+  border-radius: 16px;
+  width: 100%;
+
+  .section_content_wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+
+    cos-input,
+    input,
+    textarea {
+      width: 100%;
+    }
+
+    h3 {
+      padding: 0;
+      margin: 0;
+      @include mixins.tablet {
+        margin: 12px 12px 12px 52px;
+      }
+    }
+  }
+
+  #footer_buttons {
+    display: flex;
+    justify-content: space-between;
+    button {
+      width: max-content;
+    }
+  }
+}

@@ -114,3 +114,18 @@
     }
   }
 }
+
+.dialog_content {
+  .row_list {
+    .row_cell {
+      min-height: 40px;
+    }
+    &:nth-child(even) {
+      background-color: initial;
+    }
+  }
+
+  #topic_members_list_wrap {
+    gap: 0;
+  }
+}
