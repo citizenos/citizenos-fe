@@ -28,4 +28,10 @@ export class TopicboxComponent implements OnInit {
   goToView() {
     this.router.navigate(['topics', this.topic.id]);
   }
+
+  getDescription() {
+    const element = document.createElement('html');
+    element.innerHTML = this.topic.description;
+    return element.innerHTML.replace(this.topic.title, '')
+  }
 }

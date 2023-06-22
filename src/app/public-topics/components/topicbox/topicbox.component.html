@@ -8,7 +8,7 @@
 
       <div class="main_text">
           <div class="text_big" [innerHTML]="topic.title"></div>
-          <div class="text_small" *ngIf="showInfo()" [innerHTML]="topic.description.replace(topic.title, '')"></div>
+          <div class="text_small" *ngIf="showInfo()" [innerHTML]="getDescription()"></div>
       </div>
 
       <div class="line"></div>
