@@ -28,6 +28,11 @@
 
     </ng-container>
   </div>
-  <div class="dialog_footer">
+  <div class="dialog_footer with_buttons">
+    <div></div>
+    <div class="button_row">
+      <a mat-dialog-close translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_LNK_CANCEL"></a>
+      <button class="btn_medium_submit" translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_BTN_SAVE" (click)="doInviteMembers()"></button>
+    </div>
   </div>
 </div>
