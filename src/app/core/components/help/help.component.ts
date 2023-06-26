@@ -36,7 +36,8 @@ export class HelpComponent implements OnInit {
 
   helpback() {
     try {
-      this.helpFrame?.nativeElement.contentWindow.postMessage('back', 'https://citizenos.com/');
+      const helpDomain = new URL(this.config.get('helplink') || this.helpUrl);
+      this.helpFrame?.nativeElement.contentWindow.postMessage('back', helpDomain.origin);
     } catch (err) {
       if (this.helpFrame)
         this.helpFrame.nativeElement.src = this.helpFrame.nativeElement.src;
