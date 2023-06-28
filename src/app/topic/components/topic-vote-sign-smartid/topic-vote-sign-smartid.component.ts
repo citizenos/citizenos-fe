@@ -6,6 +6,7 @@ import { TopicVoteService } from 'src/app/services/topic-vote.service';
 import { take, interval, takeWhile, switchMap, map, catchError, of } from 'rxjs';
 import { NotificationService } from 'src/app/services/notification.service';
 import { UntypedFormGroup, UntypedFormControl } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-topic-vote-sign-smartid',
@@ -26,7 +27,11 @@ export class TopicVoteSignSmartidComponent implements OnInit {
   challengeID?: number | null;
   wWidth = window.innerWidth;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: TopicVoteSignData, private dialog: MatDialog, private Notification: NotificationService, public TopicVoteService: TopicVoteService) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: TopicVoteSignData,
+  private dialog: MatDialog,
+  private Notification: NotificationService,
+  private translate: TranslateService,
+  public TopicVoteService: TopicVoteService) {
     this.topic = data.topic;
     this.options = data.options;
   }
@@ -91,4 +96,12 @@ export class TopicVoteSignSmartidComponent implements OnInit {
       }
     });
   };
+
+  getOptionValueText(option: string) {
+    const optionvalue = this.translate.instant(('VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_' + option).toUpperCase());
+    if (optionvalue.indexOf('VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_') == -1) {
+      return optionvalue;
+    }
+    return option;
+  }
 }
