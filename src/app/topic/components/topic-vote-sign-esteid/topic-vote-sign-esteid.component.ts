@@ -42,6 +42,10 @@ export class TopicVoteSignEsteidComponent implements OnInit {
 
     this.isLoading = true;
 
+    if (this.phoneNumber?.indexOf('+') !== 0) {
+      this.phoneNumber = '+'+this.phoneNumber;
+    }
+
     const userVote = {
       voteId: this.topic.voteId,
       topicId: this.topic.id,
@@ -55,7 +59,6 @@ export class TopicVoteSignEsteidComponent implements OnInit {
       .pipe(take(1),
         catchError((err) => {
           this.isLoading = false;
-          console.error(err);
           return of(err);
         }))
       .subscribe({
