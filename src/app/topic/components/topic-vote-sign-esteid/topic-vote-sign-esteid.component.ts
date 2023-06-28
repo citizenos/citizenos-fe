@@ -85,7 +85,7 @@ export class TopicVoteSignEsteidComponent implements OnInit {
               return of(err);
             }))
           .subscribe(async (voteResponse) => {
-            if (voteResponse.signedInfoDiges && voteResponse.token && voteResponse.signedInfoHashType) {
+            if (voteResponse.signedInfoDigest && voteResponse.token && voteResponse.signedInfoHashType) {
               const signature = await hwcrypto.sign(certificate, { hex: voteResponse.signedInfoDigest, type: voteResponse.signedInfoHashType }, {});
               const signTopicVote = {
                 id: this.topic.voteId,
