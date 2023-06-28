@@ -36,6 +36,10 @@ export class EstIdLoginComponent implements OnInit {
     console.debug('LoginEstEIdController.doLoginMobiilId()');
     if (this.mobiilIdForm.value.pid && this.mobiilIdForm.value.phoneNumber) {
 
+      if (this.mobiilIdForm.value.phoneNumber.indexOf('+') !== 0) {
+        this.mobiilIdForm.value.phoneNumber = '+'+this.mobiilIdForm.value.phoneNumber;
+      }
+
       this.isLoading = true;
       this.AuthService
         .loginMobiilIdInit({ pid: this.mobiilIdForm.value.pid, phoneNumber: this.mobiilIdForm.value.phoneNumber })
