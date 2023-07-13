@@ -14,7 +14,7 @@ import { GroupInviteDialogComponent } from './components/group-invite/group-invi
 import { AppService } from '../services/app.service';
 import { GroupMemberTopicService } from '../services/group-member-topic.service';
 import { CreateGroupTopicComponent } from './components/create-group-topic/create-group-topic.component';
-import { GroupAddTopicsComponent } from './components/group-add-topics/group-add-topics.component';
+import { GroupAddTopicsDialogComponent } from './components/group-add-topics/group-add-topics.component';
 import { TranslateService } from '@ngx-translate/core';
 import { trigger, state, style } from '@angular/animations';
 import { Topic } from '../interfaces/topic';
@@ -213,7 +213,7 @@ export class GroupComponent implements OnInit {
   }
 
   addTopicDialog(group: Group) {
-    this.dialog.open(GroupAddTopicsComponent, {
+    this.dialog.open(GroupAddTopicsDialogComponent, {
       data: {
         group: group
       }

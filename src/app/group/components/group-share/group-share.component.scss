@@ -1,16 +1,59 @@
-@use "vars";
-@use "mixins_n_extends";
+@use "mixins";
 
-.lightbox_section {
+.section_heading {
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 16px;
+}
 
-  input {
-    @extend %input_small;
+.share_wrap {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  justify-content: space-between;
+  align-items: center;
+
+  @include mixins.mobile {
+    flex-direction: column;
+
+    .btn_medium_secondary {
+      width: 100%;
+    }
   }
 
-  input,
-  button {
-    &:not(:first-child) {
-      margin-top: 10px;
+  .input_area {
+    width: 100%;
+    input {
+      width: 100%;
+      padding: 14px 0px 14px 8px;
+    }
+  }
+
+  .btn_medium_secondary {
+    min-width: 120px;
+    padding: 0 24px;
+  }
+}
+
+.info_section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .qr_code {
+    img {
+      height: 150px;
+      width: 150px;
+      margin-bottom: 19px;
+    }
+
+    a {
+      font-size: 14px;
+    }
+  }
+  @include mixins.mobile {
+    .btn_medium_secondary {
+      width: 100%;
     }
   }
 }

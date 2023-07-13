@@ -13,4 +13,22 @@
       min-width: 200px;
     }
   }
+  .row_cell_dialog {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+
+    .cell_title {
+      display: flex;
+      width: 100%;
+    }
+    .action_items {
+      display: flex;
+      gap: 8px;
+      justify-content: space-between;
+      width: 100%;
+    }
+  }
 }

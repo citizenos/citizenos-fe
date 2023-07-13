@@ -136,14 +136,21 @@ export class ActivityService extends ItemsListService {
   };
 
   getUnreadActivities(params?: any) {
-    let pathRoot = '/api/users/self'
+    let path = ''
     if (params && params.groupId) {
-      pathRoot +='/groups/:groupId'
+      path += this.Location.getAbsoluteUrlApi(
+        this.Auth.resolveAuthorizedPath(
+          '/groups/:groupId/activities/unread'
+        ), params);
     }
     else if (params && params.topicId) {
-      pathRoot +='/topics/:topicId'
+      path += this.Location.getAbsoluteUrlApi(
+        this.Auth.resolveAuthorizedPath(
+          '/topics/:topicId/activities/unread'
+        ), params);
+    } else {
+      path = this.Location.getAbsoluteUrlApi(`/users/self/activities/unread`, params);
     }
-    const path = this.Location.getAbsoluteUrlApi(`${pathRoot}/activities/unread`, params);
     return this.http.get(path, { withCredentials: true, responseType: 'json', observe: 'body' })
       .pipe(
         map((res: any) => {

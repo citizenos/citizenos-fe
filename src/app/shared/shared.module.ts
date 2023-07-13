@@ -36,7 +36,7 @@ import { GroupMemberUserComponent } from '../group/components/group-member-user/
 import { GroupSettingsComponent, GroupSettingsDialogComponent } from '../group/components/group-settings/group-settings.component';
 import { GroupShareComponent } from '../group/components/group-share/group-share.component';
 import { CreateGroupTopicComponent } from '../group/components/create-group-topic/create-group-topic.component';
-import { GroupAddTopicsComponent } from '../group/components/group-add-topics/group-add-topics.component';
+import { GroupAddTopicsComponent, GroupAddTopicsDialogComponent } from '../group/components/group-add-topics/group-add-topics.component';
 
 import { MarkdownDirective } from '../directives/markdown.directive';
 import { CosEllipsisPipe } from './pipes/cos-ellipsis.pipe';
@@ -72,6 +72,7 @@ import { ActivitiesButtonComponent } from './components/activities-button/activi
     GroupShareComponent,
     CreateGroupTopicComponent,
     GroupAddTopicsComponent,
+    GroupAddTopicsDialogComponent,
     GroupInviteUserComponent,
     MarkdownDirective,
     PublicgroupboxComponent,
@@ -129,6 +130,7 @@ import { ActivitiesButtonComponent } from './components/activities-button/activi
     GroupShareComponent,
     CreateGroupTopicComponent,
     GroupAddTopicsComponent,
+    GroupAddTopicsDialogComponent,
     GroupInviteUserComponent,
     MarkdownDirective,
     MatDialogModule,

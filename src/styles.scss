@@ -259,6 +259,17 @@ textarea {
   }
 }
 
+.mobile_hidden {
+  @include mixins.mobile {
+    display: none!important;
+  }
+}
+.mobile_show {
+  display: none!important;
+  @include mixins.mobile {
+    display: flex!important;
+  }
+}
 .error_label {
   margin-top: 8px;
   position: relative;

@@ -4,8 +4,9 @@
     <div translate="COMPONENTS.GROUP_INVITE.MESSAGE_DESC"></div>
     <cos-input [placeholder]="'COMPONENTS.GROUP_INVITE.MESSAGE_PLACEHOLDER' | translate">
       <textarea id="groupDescription" [placeholder]="'COMPONENTS.GROUP_INVITE.MESSAGE_PLACEHOLDER' | translate" rows="5"
-        [(ngModel)]="group.inviteMessage" [maxlength]="250"></textarea>
+        [(ngModel)]="group.inviteMessage" [maxlength]="inviteMessageMaxLength"></textarea>
     </cos-input>
+    <div class="character_limit"><span translate="COMPONENTS.GROUP_INVITE.CHARACTER_LIMIT"></span>{{group.inviteMessage?.length || 0 }}/{{inviteMessageMaxLength}}</div>
     <div id="search_wrap">
       <typeahead id="input_area" [term]="searchStringUser" (search)="search($event)"
         (select)="addGroupMemberUser($event)" (enterAction)="addGroupMemberUser($event)"
