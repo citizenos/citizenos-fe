@@ -1,6 +1,6 @@
 import { GroupInviteUserService } from 'src/app/services/group-invite-user.service';
 import { Component, OnInit, Input, Inject } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { isEmail } from 'validator';
 import { take, of, switchMap, BehaviorSubject } from 'rxjs';
 import { Group } from 'src/app/interfaces/group';
@@ -17,10 +17,10 @@ import { NotificationService } from 'src/app/services/notification.service';
 })
 export class GroupInviteComponent implements OnInit {
   @Input() group!: Group;
-
+  @Input() dialog = false;
   inviteMessage = <string | null>null;
 
-  inviteMessageMaxLength = 1000;
+  inviteMessageMaxLength = 250;
 
   tabs = [
     {
@@ -50,7 +50,7 @@ export class GroupInviteComponent implements OnInit {
   tabSelected = 'users';
   private EMAIL_SEPARATOR_REGEXP = /[;,\s]/ig;
 
-  constructor(private dialog: MatDialog,
+  constructor(
     private GroupMemberUser: GroupMemberUserService,
     private GroupService: GroupService,
     private GroupJoin: GroupJoinService,
@@ -268,7 +268,7 @@ export class GroupInviteComponent implements OnInit {
 export class GroupInviteDialogComponent {
   activeTab = 'invite';
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private GroupInviteUser: GroupInviteUserService,) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialogRef<GroupInviteDialogComponent>, private GroupInviteUser: GroupInviteUserService,) {
   }
 
   doInviteMembers() {
@@ -288,8 +288,10 @@ export class GroupInviteDialogComponent {
       this.GroupInviteUser.save({ groupId: this.data.group.id }, groupMemberUsersToInvite)
         .pipe(take(1))
         .subscribe(res => {
-          console.log(res)
+          this.dialog.close()
         })
+    } else {
+      this.dialog.close();
     }
 
   }

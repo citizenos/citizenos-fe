@@ -145,6 +145,11 @@
       "HEADER_FOLLOW_UP": "{{value}} events",
       "HEADER_IDEATION": "{{value}} ideas gathered"
     },
+    "GROUP_ADD_TOPICS_DIALOG": {
+      "HEADING": "Add topics to the group",
+      "LNK_CANCEL": "Cancel",
+      "BTN_SAVE": "Add topics to group"
+    },
     "GROUP_ADD_TOPICS": {
       "HEADING": "Find and add topics to the group",
       "DESC": "When you add a topic to the group, all members of that group will have access to the topic.",
@@ -162,6 +167,7 @@
       "HEADING": "Invite members to the group",
       "MESSAGE_DESC": "Add an optional invitation message",
       "MESSAGE_PLACEHOLDER": "Write your message here",
+      "CHARACTER_LIMIT": "Character limit:",
       "EMAIL_DESC": "Invite users via their username or e-mail address",
       "PLACEHOLDER_SEARCH": "Search",
       "SHOW_PER_PAGE": "@:VIEWS.ACCOUNT.SHOW_PER_PAGE",
@@ -175,6 +181,22 @@
       "BTN_BULK_ACTIONS": "Bulk actions",
       "BULK_OPT_SET_ALL_RIGHTS": "Set all permissions to <b>{{level}}</b>",
       "BULK_OPT_REMOVE_ALL": "Remove all"
+    },
+    "GROUP_INVITE_DIALOG": {
+      "HEADING": "Invite and share",
+      "TAB_INVITE": "Invite participants",
+      "TAB_SHARE": "Generate link / QR",
+      "LNK_CANCEL": "Invite later",
+      "BTN_SAVE": "Send invites"
+    },
+    "GROUP_SHARE": {
+      "GENERATE_LINK": "Generate access link",
+      "PLACEHOLDER_CREATE_NEW_LINK": "Generate a link to share",
+      "COPY_LINK": "Copy link",
+      "GENERATE_QR_CODE": "Generate QR code",
+      "GENERATE_QR_CODE_DESCRIPTION": "Generate a QR code that people can scan to come straight to the topic. You can add the code to digital or physical comms, and display it wherever the right people will see it.",
+      "GENERATE_QR_CODE_PRINT": "To save the QR code as a PDF, open it up and use the \"print as PDF\" functionality.",
+      "BTN_GENERATE_QR_CODE": "@:COMPONENTS.GROUP_SHARE.GENERATE_QR_CODE"
     }
   },
   "MODALS": {

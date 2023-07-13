@@ -24,6 +24,7 @@ export class GroupShareComponent implements OnInit {
 
   joinUrl = <string | null>'';
   LEVELS = this.GroupMemberUser.LEVELS;
+  showQR = false;
   constructor(
     private Auth: AuthService,
     private dialog: MatDialog,
@@ -84,16 +85,31 @@ export class GroupShareComponent implements OnInit {
   };
 
   copyInviteLink() {
-    const urlInputElement = document.getElementById('url_invite_group_input') as HTMLInputElement || null;
-    urlInputElement.focus();
-    urlInputElement.select();
-    urlInputElement.setSelectionRange(0, 99999);
-    document.execCommand('copy');
+    if (this.joinUrl) {
+
+      try {
+        const urlInputElement = document.getElementById('invite_group_url_input') as HTMLInputElement || null;
+        urlInputElement.focus();
+        urlInputElement.select();
+        urlInputElement.setSelectionRange(0, 99999);
+        document.execCommand('copy');
+      } catch (err) {
+        console.error('Input copying error, trying Clipboard')
+        try {
+          navigator.clipboard.writeText(this.joinUrl);
+        } catch (err) {
+          console.error('Clipoard copying error')
+        }
+      }
+
+    }
   };
 
   generateJoinUrl() {
+    console.log(this.joinUrl,this.GroupService.canShare(this.group))
     if (this.join.token && this.GroupService.canShare(this.group)) {
       this.joinUrl = this.Location.getAbsoluteUrl('/groups/join/' + this.join.token);
+      console.log(this.joinUrl)
     }
   };
 

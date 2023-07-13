@@ -11,7 +11,7 @@
     width: 100%;
     display: flex;
     flex-flow: row wrap;
-    background-color: var(--color-surfaces-contrast);
+    background-color: var(--color-surface-contrast);
     justify-content: space-between;
     @include mixins.mobile {
       padding: 8px;
@@ -117,6 +117,7 @@
 
 .dialog_content {
   .row_list {
+    padding: 16px;
     .row_cell {
       min-height: 40px;
     }
