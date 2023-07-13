@@ -1,0 +1,26 @@
+<div class="overlay" mat-dialog-close></div>
+<div class="dialog">
+  <div class="dialog_header">
+    <div class="header_text">
+      <h4 class="title" translate="COMPONENTS.GROUP_ADD_TOPICS_DIALOG.HEADING"></h4>
+    </div>
+    <div class="dialog_close">
+      <button class="btn_dialog_close" mat-dialog-close>
+        <div class="icon_mobile_close"></div>
+      </button>
+    </div>
+  </div>
+  <div class="dialog_content">
+    <div id="form_area">
+      <group-add-topics class="create_content" [dialog]="true" [group]="group"></group-add-topics>
+    </div>
+  </div>
+  <div class="dialog_footer with_buttons">
+    <div></div>
+    <div class="button_row">
+      <a mat-dialog-close translate="COMPONENTS.GROUP_ADD_TOPICS_DIALOG.LNK_CANCEL"></a>
+      <button class="btn_medium_submit" translate="COMPONENTS.GROUP_ADD_TOPICS_DIALOG.BTN_SAVE"
+        (click)="doInviteMembers()"></button>
+    </div>
+  </div>
+</div>

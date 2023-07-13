@@ -1,0 +1,22 @@
+.dialog {
+  max-width: 560px;
+  padding: 0;
+  .dialog_content {
+    padding: 0;
+  }
+}
+#form_area {
+  .create_content {
+    .create_content_section {
+      padding: 0;
+    }
+  }
+}
+
+.dialog_footer {
+  .button_row {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
