@@ -61,5 +61,9 @@
   },
   "browser": {
     "hwcrypto-js": true
+  },
+  "engines": {
+    "node": "18.15.0",
+    "npm": "9.5.0"
   }
 }
