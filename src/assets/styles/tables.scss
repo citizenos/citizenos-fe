@@ -5,7 +5,6 @@
   flex-direction: column;
   width: 100%;
 
-
   .row_list,
   .row_header {
     width: 100%;
@@ -58,32 +57,6 @@
           flex-direction: row;
           justify-content: flex-start;
         }
-
-        .profile_image_wrap {
-          display: flex;
-          position: relative;
-          width: 40px;
-          height: 40px;
-
-          .profile_image {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            border-radius: 40px;
-          }
-
-          .profile_image_filler {
-            width: 100%;
-            background-color: var(--color-surfaces);
-            border-radius: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cos-initials {
-              font-size: 24px;
-            }
-          }
-        }
       }
       @include mixins.mobile {
         &.mobile_hide {
@@ -103,8 +76,47 @@
       }
     }
 
+    .row_cell_row {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 8px;
+      align-items: center;
+      min-height: 56px;
+
+      &:last-child {
+        border-top: 1px solid var(--color-border);
+      }
+    }
+
     &:nth-child(even) {
       background-color: var(--color-surface-contrast);
+    }
+  }
+
+  .profile_image_wrap {
+    display: flex;
+    position: relative;
+    width: 40px;
+    height: 40px;
+
+    .profile_image {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      border-radius: 40px;
+    }
+
+    .profile_image_filler {
+      width: 100%;
+      background-color: var(--color-surfaces);
+      border-radius: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cos-initials {
+        font-size: 24px;
+      }
     }
   }
 
