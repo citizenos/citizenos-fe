@@ -46,9 +46,9 @@ export class TopicComponent implements OnInit {
   routerSubscription: Subscription;
 
   constructor(
-    private translate: TranslateService,
-    private dialog: MatDialog,
-    private Auth: AuthService,
+    @Inject(TranslateService) public translate: TranslateService,
+    @Inject(MatDialog) private dialog: MatDialog,
+    public auth: AuthService,
     public TopicService: TopicService,
     @Inject(Router) private router: Router,
     @Inject(ActivatedRoute) private route: ActivatedRoute,
@@ -174,7 +174,7 @@ export class TopicComponent implements OnInit {
   }
 
   downloadAttachment(topicId: string, attachment: Attachment) {
-    return this.Upload.download(topicId, attachment.id, this.Auth.user.value.id || '');
+    return this.Upload.download(topicId, attachment.id, this.auth.user.value.id || '');
   };
 
   hasVoteEndedExpired(topic: Topic, vote: Vote) {

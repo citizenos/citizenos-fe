@@ -873,6 +873,34 @@
       "FILTER_LANGUAGE": "Language",
       "FILTER_SEARCH": "Search"
     },
+    "MY_TOPICS": {
+      "HEADER": "My topics",
+      "BTN_GLOBAL_ACTIVITIES": "Global activities",
+      "SHOW_PER_PAGE": "Show per page",
+      "FILTER_VISIBILITY": "Visibility",
+      "FILTER_MY_ENGAGEMENT": "My engagement",
+      "FILTER_CATEGORIES": "Category",
+      "FILTER_ORDER": "Order",
+      "FILTER_COUNTRY": "Country",
+      "FILTER_LANGUAGE": "Language",
+      "FILTER_SEARCH": "Search",
+      "FILTERS": {
+        "SHOW_ALL_MY_TOPICS": "Show all my topics",
+        "SHOW_ONLY": "Show only:",
+        "MY_PUBLIC_TOPICS": "My public topics",
+        "MY_PRIVATE_TOPICS": "My private topics",
+        "TOPICS_I_HAVE_VOTED": "Topics I have voted on",
+        "TOPICS_I_HAVE_NOT_VOTED": "Topics that need my vote",
+        "TOPICS_I_CREATED": "Topics I created",
+        "TOPICS_ORDERED_BY_GROUPS": "Show topics ordered by groups",
+        "TOPICS_IN_PROGRESS": "Topics in progress",
+        "TOPICS_IN_VOTING": "Topics in voting",
+        "TOPICS_IN_FOLLOW_UP": "Topics in follow-up",
+        "TOPICS_CLOSED": "Closed topics",
+        "TOPICS_PINNED": "Pinned topics",
+        "TOPICS_MODERATED": "Moderated topics"
+      }
+    },
     "401": {
       "HEADING_INSUFFICIENT_PERMISSIONS": "Sorry, you haven't got sufficient permissions to access the resource",
       "DESCRIPTION_INSUFFICIENT_PERMISSIONS": "If you have an invite to topic or group, you need to accept it first. Please check your activity feed or e-mail.",
