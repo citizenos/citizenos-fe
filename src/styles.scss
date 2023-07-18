@@ -11,6 +11,7 @@
 :root .default {
   @include mixins.spread-map(themes.$theme-map-default);
   @include mixins.spread-map(themes.$theme-dialog-default);
+  @include mixins.spread-map(themes.$theme-arguments-default);
   @include mixins.spread-map(themes.$theme-messages-default);
   @include mixins.spread-map(themes.$theme-buttons-default);
 }

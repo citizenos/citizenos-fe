@@ -31,6 +31,10 @@ $--color-info: --color-info;
 $--color-info-background: --color-info-background;
 $--color-success: --color-success;
 $--color-success-background: --color-success-background;
+//arguments
+$--color-argument-pro: --color-argument-pro;
+$--color-argument-con: --color-argument-con;
+$--color-argument-info: --color-argument-info;
 //dialogs
 $--color-dialog: --color-dialog;
 $--color-dialog-contrast: --color-dialog-contrast;
@@ -99,6 +103,12 @@ $theme-map-default: (
   $--input-checkbox-border-voting: #346933,
   $--font-size: 14px,
   $--line-height: 16px,
+);
+
+$theme-arguments-default: (
+  $--color-argument-pro:#5ab467,
+  $--color-argument-con:#F39129,
+  $--color-argument-info:#727C84
 );
 
 $theme-dialog-default: (

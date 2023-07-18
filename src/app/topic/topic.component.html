@@ -11,10 +11,11 @@
       <h3 [innerHTML]="'VIEWS.TOPIC.HEADING_BACK_TO_MY_TOPICS'| translate"></h3>
     </div>
     <div id="buttons_area">
-      <button id="join_button" *ngIf="!topic.permission.level" class="btn_medium_close" translate="VIEWS.TOPIC.BTN_JOIN"></button>
-      <button id="leave_button" *ngIf="topic.permission.level" class="btn_medium_close" translate="VIEWS.TOPICa.BTN_LEAVE"></button>
+      <button id="join_button" *ngIf="!topic.permission.level" class="btn_medium_close"
+        translate="VIEWS.TOPIC.BTN_JOIN"></button>
+      <button id="leave_button" (click)="leaveTopic(topic)" *ngIf="topic.permission.level" class="btn_medium_close"
+        translate="VIEWS.TOPIC.BTN_LEAVE"></button>
 
-      <activities-button *ngIf="auth.loggedIn$"></activities-button>
       <button class="btn_medium_close">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -32,7 +33,7 @@
           </svg>
         </button>
         <div class="options">
-          <div class="option" >
+          <div class="option">
             <div><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M13.8536 6.14645C13.7598 6.05268 13.6326 6 13.5 6C13.3674 6 13.2402 6.05268 13.1464 6.14645C13.0527 6.24021 13 6.36739 13 6.5V8H11.5C11.3674 8 11.2402 8.05268 11.1464 8.14645C11.0527 8.24021 11 8.36739 11 8.5C11 8.63261 11.0527 8.75979 11.1464 8.85355C11.2402 8.94732 11.3674 9 11.5 9H13V10.5C13 10.6326 13.0527 10.7598 13.1464 10.8536C13.2402 10.9473 13.3674 11 13.5 11C13.6326 11 13.7598 10.9473 13.8536 10.8536C13.9473 10.7598 14 10.6326 14 10.5V9H15.5C15.6326 9 15.7598 8.94732 15.8536 8.85355C15.9473 8.75979 16 8.63261 16 8.5C16 8.36739 15.9473 8.24021 15.8536 8.14645C15.7598 8.05268 15.6326 8 15.5 8H14V6.5C14 6.36739 13.9473 6.24021 13.8536 6.14645Z"
@@ -44,7 +45,7 @@
               </svg>
             </div><span translate="VIEWS.GROUP.BTN_OPTION_INVITE"></span>
           </div>
-          <div class="option" >
+          <div class="option">
             <div><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd"
                   d="M2 3C1.44772 3 1 3.44772 1 4V14C1 14.5523 1.44772 15 2 15H9C9.55228 15 10 14.5523 10 14V6.62081C10 6.3517 9.89153 6.09394 9.69912 5.9058L7.01874 3.28499C6.83189 3.1023 6.58095 3 6.31963 3H2ZM6 4L9 7H6V4Z"
@@ -77,8 +78,303 @@
 
     </div>
   </div>
-</div>
 
+  <div id="topic_tabs">
+    <a class="topic_tab" [ngClass]="tabSelected=== 'inProgress' ? 'active' : ''">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="32" height="32" rx="16" fill="#1168A8" />
+        <path
+          d="M22 17.7634C22.024 17.7288 22.0472 17.6928 22.0709 17.6591C22.6753 16.7608 22.9987 15.703 23 14.6203C23.01 11.5172 20.3918 9 17.1543 9C14.3306 9 11.975 10.9216 11.4231 13.4725C11.3403 13.8506 11.2984 14.2364 11.2981 14.6234C11.2981 17.7297 13.8156 20.3144 17.0531 20.3144C17.5678 20.3144 18.2612 20.1597 18.6415 20.0553C19.0218 19.9509 19.3987 19.8131 19.4962 19.7759C19.5937 19.7387 19.7462 19.7006 19.8678 19.7356L22.2872 20.435C22.3084 20.4413 22.331 20.4418 22.3525 20.4365C22.3741 20.4312 22.3938 20.4202 22.4097 20.4048C22.4256 20.3893 22.4371 20.3699 22.443 20.3485C22.449 20.3271 22.4491 20.3046 22.4434 20.2831L21.8897 18.1741C21.8512 18.0178 21.8462 17.9884 22 17.7634Z"
+          fill="white" />
+        <path
+          d="M17.7669 20.9804C17.5264 21.0188 17.2835 21.0402 17.04 21.0444C15.7141 21.0444 14.4619 20.6944 13.4463 20.0382C12.7966 19.6394 12.2327 19.1155 11.7872 18.4969C10.9722 17.4166 10.5278 16.0435 10.5278 14.6066C10.5278 14.5088 10.5313 14.4147 10.5347 14.3204C10.536 14.2925 10.5286 14.265 10.5136 14.2415C10.4987 14.218 10.4768 14.1997 10.4511 14.189C10.4253 14.1784 10.3969 14.1759 10.3698 14.182C10.3426 14.188 10.3179 14.2023 10.2991 14.2229C9.55083 15.0416 9.09849 16.0874 9.01431 17.1934C8.93014 18.2993 9.21898 19.4016 9.83472 20.3241C9.91191 20.4419 9.95566 20.5329 9.94222 20.5935L9.50191 22.8516C9.49785 22.8731 9.49949 22.8953 9.50666 22.9159C9.51384 22.9365 9.5263 22.9549 9.5428 22.9693C9.55931 22.9836 9.57928 22.9933 9.60073 22.9975C9.62218 23.0017 9.64435 23.0002 9.66504 22.9932L11.79 22.2357C11.8545 22.2102 11.9233 22.1977 11.9926 22.1989C12.0619 22.2001 12.1302 22.2149 12.1938 22.2426C12.8297 22.4926 13.5332 22.6463 14.2366 22.6463C15.5906 22.6507 16.8949 22.1363 17.8813 21.2088C17.9017 21.1889 17.9152 21.1631 17.9199 21.1351C17.9246 21.107 17.9203 21.0782 17.9076 21.0528C17.8948 21.0274 17.8744 21.0066 17.8491 20.9936C17.8238 20.9806 17.795 20.976 17.7669 20.9804Z"
+          fill="white" />
+      </svg>
+      <span class="tab_text" translate="VIEWS.GROUP_CREATE.CREATE_TAB_1"></span>
+    </a>
+    <a class="topic_tab" [ngClass]="tabSelected=== 'settings' ? 'active' : ''">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="32" height="32" rx="16" fill="#EFE08A" />
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M22.0001 15.9667C21.6319 15.9667 21.3334 15.6682 21.3334 15.3C21.3334 14.9318 21.6319 14.6333 22.0001 14.6333H22.6668C23.0349 14.6333 23.3334 14.9318 23.3334 15.3C23.3334 15.6682 23.0349 15.9667 22.6668 15.9667H22.0001ZM21.1647 10.138C20.9046 9.87789 20.4828 9.87848 20.2234 10.1393L19.9675 10.3967C19.7091 10.6565 19.7097 11.0763 19.9688 11.3354C20.2289 11.5954 20.6507 11.5949 20.9101 11.334L21.166 11.0767C21.4244 10.8169 21.4238 10.397 21.1647 10.138ZM15.3334 9.3C15.3334 9.66819 15.6319 9.96667 16.0001 9.96667C16.3683 9.96667 16.6667 9.66819 16.6667 9.3V8.66667C16.6667 8.29848 16.3683 8 16.0001 8C15.6319 8 15.3334 8.29848 15.3334 8.66667V9.3ZM10.0001 14.6333C10.3683 14.6333 10.6667 14.9318 10.6667 15.3C10.6667 15.6682 10.3683 15.9667 10.0001 15.9667L9.33341 15.9667C8.96522 15.9667 8.66675 15.6682 8.66675 15.3C8.66675 14.9318 8.96522 14.6333 9.33341 14.6333L10.0001 14.6333ZM11.7821 10.1313C11.5235 9.87122 11.1028 9.87064 10.8434 10.13C10.5841 10.3894 10.5846 10.8101 10.8447 11.0687L11.1055 11.328C11.3641 11.5852 11.7821 11.5846 12.0401 11.3267C12.298 11.0687 12.2986 10.6507 12.0414 10.392L11.7821 10.1313ZM11.8409 15.2612C11.8409 12.8819 13.8871 11.1999 16.001 11.1999C18.1149 11.1999 20.1609 12.8821 20.1609 15.2612C20.1609 16.9416 19.4913 17.8986 18.8812 18.7705C18.4344 19.409 18.0195 20.0019 17.9231 20.7999H14.0831C13.9866 20.0018 13.5708 19.4088 13.1231 18.7702C12.5118 17.8984 11.8409 16.9414 11.8409 15.2612ZM14.0822 22.0819H17.9222V21.4401H14.0822V22.0819ZM14.0822 22.7201H17.9222C17.9222 23.427 17.3491 24.0001 16.6422 24.0001H15.3622C14.6552 24.0001 14.0822 23.427 14.0822 22.7201Z"
+          fill="white" />
+      </svg>
+      <span class="tab_text" translate="VIEWS.GROUP_CREATE.CREATE_TAB_2"></span>
+    </a>
+    <a class="topic_tab" [ngClass]="tabSelected=== 'add_topics' ? 'active' : ''">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="32" height="32" rx="16" fill="#98DAA2" />
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M16 8C11.584 8 8 11.584 8 16C8 20.416 11.584 24 16 24C20.416 24 24 20.416 24 16C24 11.584 20.416 8 16 8ZM14.4444 20L20.6667 13.8246L19.5 12.6667L14.4444 17.6842L12.5 15.7544L11.3333 16.9123L14.4444 20Z"
+          fill="white" />
+      </svg>
+      <span class="tab_text" translate="VIEWS.GROUP_CREATE.CREATE_TAB_3"></span>
+    </a>
+    <a class="topic_tab" [ngClass]="tabSelected=== 'invite' ? 'active' : ''">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="32" height="32" rx="16" fill="#E3A8CC" />
+        <rect x="4" y="4" width="24" height="24" rx="12" fill="#E3A8CC" />
+        <path d="M17.8933 11.5294L17.6 10H11V23H12.4667V17.6471H16.5733L16.8667 19.1765H22V11.5294H17.8933Z"
+          fill="white" />
+      </svg>
+      <span class="tab_text" translate="VIEWS.GROUP_CREATE.CREATE_TAB_4"></span>
+    </a>
+    <div id="activities_button_wrap">
+      <activities-button *ngIf="auth.loggedIn$"></activities-button>
+    </div>
+  </div>
+
+  <div class="topic_content_area_wrap">
+    <div class="content_area_left">
+      <div class="topic_content_wrap">
+        <div class="topic_image">
+          <img
+            [src]="topic.imageUrl || 'https://hips.hearstapps.com/hmg-prod/images/champagne-beach-espiritu-santo-island-vanuatu-royalty-free-image-1655672510.jpg?crop=1.00xw:0.755xh;0,0.173xh&resize=1200:*'">
+        </div>
+        <div class="topic_title">
+          <h1 [innerHTML]="topic.title"></h1>
+        </div>
+        <div class="topic_content">
+          <div [innerHTML]="topic.description"></div>
+          <div class="button_wrap"><button class="btn_medium_secondary"><svg width="24" height="24" viewBox="0 0 24 24"
+                fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17 10L12 15L7 10" stroke="#1168A8" stroke-width="2" stroke-linecap="round" />
+              </svg>
+              <span>Read more</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <topic-arguments class="topic_arguments" #arguments [topic]="topic"></topic-arguments>
+    </div>
+    <div class="content_area_right">
+      <div class="info_section">
+        <div class="topic_visibility">
+          <ng-container *ngIf="topic.visibility === TopicService.VISIBILITY.private">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M8 9V7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7V9H17C18.1046 9 19 9.89543 19 11V17C19 18.1046 18.1046 19 17 19H7C5.89543 19 5 18.1046 5 17V11C5 9.89543 5.89543 9 7 9H8ZM14 7V9H10V7C10 5.89543 10.8954 5 12 5C13.1046 5 14 5.89543 14 7ZM11 13C11 12.4477 11.4477 12 12 12C12.5523 12 13 12.4477 13 13V15C13 15.5523 12.5523 16 12 16C11.4477 16 11 15.5523 11 15V13Z"
+                fill="#2C3B47" />
+            </svg>
+          </ng-container>
+          <ng-container *ngIf="topic.visibility === TopicService.VISIBILITY.public">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M8.88 19.37C9.85333 19.79 10.8933 20 12 20C13.1067 20 14.1467 19.79 15.12 19.37C15.1913 19.3392 15.2619 19.3077 15.3318 19.2753C15.5704 19.1659 15.8026 19.045 16.0279 18.9135C16.6297 18.5641 17.1737 18.1463 17.66 17.66C18.1463 17.1737 18.5641 16.6297 18.9135 16.0279C19.0454 15.8021 19.1665 15.5692 19.2761 15.3301C19.3082 15.2607 19.3395 15.1907 19.37 15.12C19.79 14.1467 20 13.1067 20 12C20 10.8933 19.79 9.85333 19.37 8.88C19.3392 8.80873 19.3077 8.73813 19.2753 8.66821C19.1659 8.42962 19.045 8.19732 18.9135 7.97205C18.5641 7.37026 18.1462 6.82625 17.66 6.34C17.1739 5.85394 16.6302 5.43625 16.0287 5.08691C15.8032 4.95523 15.5707 4.83427 15.3319 4.72472C15.2619 4.69234 15.1913 4.66077 15.12 4.63C14.1467 4.21 13.1067 4 12 4C10.8933 4 9.85333 4.21 8.88 4.63C8.80854 4.66084 8.73776 4.69248 8.66766 4.72494C8.42901 4.83443 8.19667 4.95532 7.97135 5.08691C7.36984 5.43625 6.82606 5.85394 6.34 6.34C5.85377 6.82623 5.43594 7.37023 5.08653 7.972C4.95499 8.19728 4.83415 8.42957 4.7247 8.66817C4.69233 8.7381 4.66076 8.80871 4.63 8.88C4.21 9.85333 4 10.8933 4 12C4 13.1067 4.21 14.1467 4.63 15.12C4.66077 15.1913 4.69234 15.2619 4.72472 15.3319C4.83427 15.5707 4.95523 15.8032 5.08691 16.0287C5.43625 16.6302 5.85394 17.1739 6.34 17.66C6.82606 18.1461 7.36984 18.5638 7.97135 18.9131C8.19739 19.0451 8.43049 19.1663 8.66994 19.2761C8.73929 19.3082 8.80931 19.3395 8.88 19.37ZM6.06613 11.1061C6.02257 11.3978 6 11.6962 6 12C6 15.0217 8.23371 17.5217 11.14 17.9388V17.14C10.6733 17.14 10.28 16.9667 9.96 16.62C9.64 16.2733 9.48 15.8667 9.48 15.4V14.52L6.06613 11.1061ZM16.5786 15.8779C16.5292 15.8295 16.4763 15.7835 16.42 15.74C16.1267 15.5133 15.7867 15.4 15.4 15.4H14.54V12.86C14.54 12.6333 14.4667 12.4333 14.32 12.26C14.1733 12.0867 13.9867 12 13.76 12H8.6V10.24H10.26C10.4867 10.24 10.69 10.1667 10.87 10.02C11.05 9.87333 11.14 9.68667 11.14 9.46V7.72H12.88C13.3467 7.72 13.74 7.54667 14.06 7.2C14.2484 6.99591 14.3813 6.77101 14.4588 6.52533C16.5464 7.46438 18 9.56244 18 12C18 13.4785 17.4652 14.8321 16.5786 15.8779Z"
+                fill="#5C9CD0" />
+            </svg>
+
+          </ng-container>
+        </div>
+        <div class="info_items_wrap">
+          <div class="info_title">Information</div>
+          <div class="info_items open">
+            <div class="info_item">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M8.8143 4.18517L11.8147 7.18569L5.29947 13.7012L2.62438 13.9965C2.26626 14.0361 1.96369 13.7333 2.00354 13.3752L2.30118 10.6981L8.8143 4.18517ZM13.6704 3.73845L12.2616 2.3296C11.8222 1.89013 11.1095 1.89013 10.67 2.3296L9.34467 3.65501L12.3451 6.65553L13.6704 5.33011C14.1099 4.89042 14.1099 4.17791 13.6704 3.73845Z"
+                  fill="#4D5C6A" />
+              </svg><span>{{topic.creator.name}}</span>
+            </div>
+            <div class="info_item">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M6 2H4V3H3C2.44772 3 2 3.44771 2 4V13C2 13.5523 2.44772 14 3 14H13C13.5523 14 14 13.5523 14 13V4C14 3.44772 13.5523 3 13 3H12V2H10V3H6V2ZM4 7H6V9H4V7ZM4 10H6V12H4V10ZM9 7H7V9H9V7ZM7 10H9V12H7V10ZM12 7H10V9H12V7ZM10 10H12V12H10V10ZM3 6H13V13H3V6Z"
+                  fill="#2C3B47" />
+              </svg>
+              <span>{{topic.createdAt | date: 'YYYY-MM-dd hh:mm'}}</span>
+            </div>
+            <div class="info_item">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M8 15C8 15 13 10 13 6C13 3.23858 10.7614 1 8 1C5.23858 1 3 3.23858 3 6C3 10 8 15 8 15ZM8 8C9.10457 8 10 7.10457 10 6C10 4.89543 9.10457 4 8 4C6.89543 4 6 4.89543 6 6C6 7.10457 6.89543 8 8 8Z"
+                  fill="#2C3B47" />
+              </svg>
+              <span></span>
+            </div>
+            <div class="info_item">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M8 15C7.02 15 6.10417 14.8162 5.2525 14.4487C4.40083 14.0812 3.66 13.5825 3.03 12.9525C2.4 12.3225 1.90417 11.5787 1.5425 10.7212C1.18083 9.86375 1 8.945 1 7.965C1 6.985 1.18083 6.07208 1.5425 5.22625C1.90417 4.38042 2.4 3.6425 3.03 3.0125C3.66 2.3825 4.40083 1.88958 5.2525 1.53375C6.10417 1.17792 7.02 1 8 1C8.98 1 9.89583 1.17792 10.7475 1.53375C11.5992 1.88958 12.34 2.3825 12.97 3.0125C13.6 3.6425 14.0958 4.38042 14.4575 5.22625C14.8192 6.07208 15 6.985 15 7.965C15 8.945 14.8192 9.86375 14.4575 10.7212C14.0958 11.5787 13.6 12.3225 12.97 12.9525C12.34 13.5825 11.5992 14.0812 10.7475 14.4487C9.89583 14.8162 8.98 15 8 15ZM8 13.985C8.40833 13.565 8.74958 13.0837 9.02375 12.5412C9.29792 11.9987 9.5225 11.3542 9.6975 10.6075H6.32C6.48333 11.3075 6.70208 11.9375 6.97625 12.4975C7.25042 13.0575 7.59167 13.5533 8 13.985ZM6.5125 13.775C6.22083 13.3317 5.97 12.8533 5.76 12.34C5.55 11.8267 5.375 11.2492 5.235 10.6075H2.61C3.05333 11.4358 3.56667 12.0863 4.15 12.5588C4.73333 13.0312 5.52083 13.4367 6.5125 13.775ZM9.505 13.7575C10.345 13.4892 11.1004 13.0867 11.7713 12.55C12.4421 12.0133 12.9817 11.3658 13.39 10.6075H10.7825C10.6308 11.2375 10.4529 11.8092 10.2487 12.3225C10.0446 12.8358 9.79667 13.3142 9.505 13.7575ZM2.26 9.5575H5.0425C5.0075 9.2425 4.98708 8.95958 4.98125 8.70875C4.97542 8.45792 4.9725 8.21 4.9725 7.965C4.9725 7.67333 4.97833 7.41375 4.99 7.18625C5.00167 6.95875 5.025 6.705 5.06 6.425H2.26C2.17833 6.705 2.12292 6.95583 2.09375 7.1775C2.06458 7.39917 2.05 7.66167 2.05 7.965C2.05 8.26833 2.06458 8.53958 2.09375 8.77875C2.12292 9.01792 2.17833 9.2775 2.26 9.5575ZM6.1275 9.5575H9.89C9.93667 9.19583 9.96583 8.90125 9.9775 8.67375C9.98917 8.44625 9.995 8.21 9.995 7.965C9.995 7.73167 9.98917 7.50708 9.9775 7.29125C9.96583 7.07542 9.93667 6.78667 9.89 6.425H6.1275C6.08083 6.78667 6.05167 7.07542 6.04 7.29125C6.02833 7.50708 6.0225 7.73167 6.0225 7.965C6.0225 8.21 6.02833 8.44625 6.04 8.67375C6.05167 8.90125 6.08083 9.19583 6.1275 9.5575ZM10.94 9.5575H13.74C13.8217 9.2775 13.8771 9.01792 13.9062 8.77875C13.9354 8.53958 13.95 8.26833 13.95 7.965C13.95 7.66167 13.9354 7.39917 13.9062 7.1775C13.8771 6.95583 13.8217 6.705 13.74 6.425H10.9575C10.9925 6.83333 11.0158 7.14542 11.0275 7.36125C11.0392 7.57708 11.045 7.77833 11.045 7.965C11.045 8.22167 11.0363 8.46375 11.0188 8.69125C11.0013 8.91875 10.975 9.2075 10.94 9.5575ZM10.765 5.375H13.39C13.005 4.57 12.4771 3.89917 11.8062 3.3625C11.1354 2.82583 10.3625 2.44667 9.4875 2.225C9.77917 2.65667 10.0271 3.12333 10.2312 3.625C10.4354 4.12667 10.6133 4.71 10.765 5.375ZM6.32 5.375H9.715C9.58667 4.75667 9.37083 4.15875 9.0675 3.58125C8.76417 3.00375 8.40833 2.49333 8 2.05C7.62667 2.365 7.31167 2.77917 7.055 3.2925C6.79833 3.80583 6.55333 4.5 6.32 5.375ZM2.61 5.375H5.2525C5.38083 4.745 5.54417 4.18208 5.7425 3.68625C5.94083 3.19042 6.19167 2.70917 6.495 2.2425C5.62 2.46417 4.85583 2.8375 4.2025 3.3625C3.54917 3.8875 3.01833 4.55833 2.61 5.375Z"
+                  fill="#2C3B47" />
+              </svg>
+              <span></span>
+            </div>
+            <div class="info_item">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M14 12V5L8 9.5L2 5V12H14ZM8 8L13.4545 4H2.54545L8 8Z"
+                  fill="#2C3B47" />
+              </svg>
+              <a></a>
+            </div>
+          </div>
+          <div class="info_items_wrap">
+            <ng-container *ngIf="topicAttachments$ | async as attachments">
+              <a class="info_title" (click)="showAttachments = !showAttachments">
+                <div><span>Attachments</span> <span> ({{attachments.length}})</span></div>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </a>
+              <div class="info_items" [@openClose]="showAttachments ? 'open' : 'closed'">
+                <div class="info_item" *ngFor="let attachment of attachments"><a
+                    [href]="attachment.link">{{attachment.name}}</a></div>
+              </div>
+            </ng-container>
+          </div>
+          <div class="info_items_wrap">
+            <a class="info_title" (click)="showGroups = !showGroups">
+              <span>Groups</span>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </a>
+            <div class="info_items" [@openClose]="showGroups ? 'open' : 'closed'">
+              <div class="info_item">asdasdasd,</div>
+              <div class="info_item">asdasdasd,</div>
+              <div class="info_item">asdasdasd,</div>
+              <div class="info_item">asdasdasd,</div>
+              <div class="info_item">asdasdasd,</div>
+              <div class="info_item">asdasdasd</div>
+            </div>
+          </div>
+          <div class="info_items_wrap">
+            <a class="info_title" (click)="showCategories = !showCategories">
+              <span>Categories</span>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </a>
+            <div class="info_items" [@openClose]="showCategories ? 'open' : 'closed'">
+              <div class="info_item">asdasdasd,</div>
+              <div class="info_item">asdasdasd,</div>
+              <div class="info_item">asdasdasd,</div>
+              <div class="info_item">asdasdasd,</div>
+              <div class="info_item">asdasdasd,</div>
+              <div class="info_item">asdasdasd</div>
+            </div>
+          </div>
+          <div class="info_items_wrap">
+            <a class="info_title" (click)="showTags = !showTags">
+              <span>Tags</span>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </a>
+            <div class="info_items" [@openClose]="showTags ? 'open' : 'closed'">
+              <div class="info_item">asdasdasd,</div>
+              <div class="info_item">asdasdasd,</div>
+              <div class="info_item">asdasdasd,</div>
+              <div class="info_item">asdasdasd,</div>
+              <div class="info_item">asdasdasd,</div>
+              <div class="info_item">asdasdasd</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="info_section">
+        <div class="info_items_wrap">
+          <div class="info_title">Participants</div>
+          <div class="participants_count_wrap">
+            <div class="participants_count">{{topic.members.users.count}}</div>
+          </div>
+          <button class="btn_medium_secondary bold">
+            Invite & share
+          </button>
+        </div>
+      </div>
+      <div class="state_item discussion">
+        <div class="item_header">
+          <div class="item_title">Discussion</div>
+          <div class="item_title">111 contributions</div>
+        </div>
+        <div class="item_content">
+          <div class="argument_graph_wrap">
+            <div class="legend">
+              <div class="legend_item pro">
+                <div class="dot"></div>
+                <div class="bold">Pro</div>
+                <span>{{TopicArgumentService.count.value.pro}}</span>
+              </div>
+              <div class="legend_item con">
+                <div class="dot"></div>
+                <div class="bold">Con</div>
+                <span>{{TopicArgumentService.count.value.con}}</span>
+              </div>
+              <div class="legend_item">
+                <div class="dot"></div>
+                <div class="bold">Info</div>
+                <span>{{TopicArgumentService.count.value.poi}}</span>
+              </div>
+            </div>
+            <div class="argument_graph">
+              <div class="arguments_pro" [style.width.%]="getArgumentPercentage(TopicArgumentService.count.value.pro)"></div>
+              <div class="arguments_con" [style.width.%]="getArgumentPercentage(TopicArgumentService.count.value.con)"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="state_item empty ideation">
+        <div class="icon_wrap">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="16" fill="#EFE08A" />
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M22.0001 15.9667C21.6319 15.9667 21.3334 15.6682 21.3334 15.3C21.3334 14.9318 21.6319 14.6333 22.0001 14.6333H22.6668C23.0349 14.6333 23.3334 14.9318 23.3334 15.3C23.3334 15.6682 23.0349 15.9667 22.6668 15.9667H22.0001ZM21.1647 10.138C20.9046 9.87789 20.4828 9.87848 20.2234 10.1393L19.9675 10.3967C19.7091 10.6565 19.7097 11.0763 19.9688 11.3354C20.2289 11.5954 20.6507 11.5949 20.9101 11.334L21.166 11.0767C21.4244 10.8169 21.4238 10.397 21.1647 10.138ZM15.3334 9.3C15.3334 9.66819 15.6319 9.96667 16.0001 9.96667C16.3683 9.96667 16.6667 9.66819 16.6667 9.3V8.66667C16.6667 8.29848 16.3683 8 16.0001 8C15.6319 8 15.3334 8.29848 15.3334 8.66667V9.3ZM10.0001 14.6333C10.3683 14.6333 10.6667 14.9318 10.6667 15.3C10.6667 15.6682 10.3683 15.9667 10.0001 15.9667L9.33341 15.9667C8.96522 15.9667 8.66675 15.6682 8.66675 15.3C8.66675 14.9318 8.96522 14.6333 9.33341 14.6333L10.0001 14.6333ZM11.7821 10.1313C11.5235 9.87122 11.1028 9.87064 10.8434 10.13C10.5841 10.3894 10.5846 10.8101 10.8447 11.0687L11.1055 11.328C11.3641 11.5852 11.7821 11.5846 12.0401 11.3267C12.298 11.0687 12.2986 10.6507 12.0414 10.392L11.7821 10.1313ZM11.8409 15.2612C11.8409 12.8819 13.8871 11.1999 16.001 11.1999C18.1149 11.1999 20.1609 12.8821 20.1609 15.2612C20.1609 16.9416 19.4913 17.8986 18.8812 18.7705C18.4344 19.409 18.0195 20.0019 17.9231 20.7999H14.0831C13.9866 20.0018 13.5708 19.4088 13.1231 18.7702C12.5118 17.8984 11.8409 16.9414 11.8409 15.2612ZM14.0822 22.0819H17.9222V21.4401H14.0822V22.0819ZM14.0822 22.7201H17.9222C17.9222 23.427 17.3491 24.0001 16.6422 24.0001H15.3622C14.6552 24.0001 14.0822 23.427 14.0822 22.7201Z"
+              fill="white" />
+          </svg>
+
+        </div>
+        <div class="state_item_text">
+          No voting system yet
+        </div>
+        <div class="info_icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9.75 2.5C9.75 3.32843 9.07843 4 8.25 4C7.42157 4 6.75 3.32843 6.75 2.5C6.75 1.67157 7.42157 1 8.25 1C9.07843 1 9.75 1.67157 9.75 2.5Z" fill="#2C3B47"/>
+            <path d="M6.20993 6.06234L9.64493 5.63184L8.14343 12.6893C8.03693 13.1993 8.18693 13.4888 8.59943 13.4888C8.89043 13.4888 9.32843 13.3838 9.62843 13.1198L9.49643 13.7438C9.06593 14.2628 8.11643 14.6408 7.29893 14.6408C6.24443 14.6408 5.79593 14.0078 6.08693 12.6623L7.19393 7.46034C7.28993 7.02084 7.20293 6.86184 6.76193 6.75684L6.08693 6.63234L6.20993 6.06234Z" fill="#2C3B47"/>
+            </svg>
+        </div>
+      </div>
+      <div class="state_item empty vote">
+        <div class="icon_wrap">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M8 0C3.584 0 0 3.584 0 8C0 12.416 3.584 16 8 16C12.416 16 16 12.416 16 8C16 3.584 12.416 0 8 0ZM6.44444 12L12.6667 5.82456L11.5 4.66667L6.44444 9.68421L4.5 7.75439L3.33333 8.91228L6.44444 12Z"
+              fill="white" />
+          </svg>
+        </div>
+        <div class="state_item_text">
+          No voting system yet
+        </div>
+        <div class="info_icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9.75 2.5C9.75 3.32843 9.07843 4 8.25 4C7.42157 4 6.75 3.32843 6.75 2.5C6.75 1.67157 7.42157 1 8.25 1C9.07843 1 9.75 1.67157 9.75 2.5Z" fill="#2C3B47"/>
+            <path d="M6.20993 6.06234L9.64493 5.63184L8.14343 12.6893C8.03693 13.1993 8.18693 13.4888 8.59943 13.4888C8.89043 13.4888 9.32843 13.3838 9.62843 13.1198L9.49643 13.7438C9.06593 14.2628 8.11643 14.6408 7.29893 14.6408C6.24443 14.6408 5.79593 14.0078 6.08693 12.6623L7.19393 7.46034C7.28993 7.02084 7.20293 6.86184 6.76193 6.75684L6.08693 6.63234L6.20993 6.06234Z" fill="#2C3B47"/>
+            </svg>
+        </div>
+      </div>
+      <div class="state_item empty follow-up">
+        <div class="icon_wrap">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="16" fill="#E3A8CC" />
+            <rect x="4" y="4" width="24" height="24" rx="12" fill="#E3A8CC" />
+            <path d="M17.8933 11.5294L17.6 10H11V23H12.4667V17.6471H16.5733L16.8667 19.1765H22V11.5294H17.8933Z"
+              fill="white" />
+          </svg>
+        </div>
+        <div class="state_item_text">
+          No voting system yet
+        </div>
+        <div class="info_icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9.75 2.5C9.75 3.32843 9.07843 4 8.25 4C7.42157 4 6.75 3.32843 6.75 2.5C6.75 1.67157 7.42157 1 8.25 1C9.07843 1 9.75 1.67157 9.75 2.5Z" fill="#2C3B47"/>
+            <path d="M6.20993 6.06234L9.64493 5.63184L8.14343 12.6893C8.03693 13.1993 8.18693 13.4888 8.59943 13.4888C8.89043 13.4888 9.32843 13.3838 9.62843 13.1198L9.49643 13.7438C9.06593 14.2628 8.11643 14.6408 7.29893 14.6408C6.24443 14.6408 5.79593 14.0078 6.08693 12.6623L7.19393 7.46034C7.28993 7.02084 7.20293 6.86184 6.76193 6.75684L6.08693 6.63234L6.20993 6.06234Z" fill="#2C3B47"/>
+            </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <!--div id="topics_admin_root" *ngIf="topic$ | async as topic;">
 
   <topic-timeline  [topic]="topic"></topic-timeline>
@@ -123,8 +419,8 @@
           </div>
         </div>
         <!-- Show this in 2 cases - topic has been moderated OR topic has been reported && User is a moderator -->
-        <!-- topic.report.type is returned for Moderators only -->
-        <!-- topic.report.moderatedReasonType is returned in case Topic has been moderated >
+<!-- topic.report.type is returned for Moderators only -->
+<!-- topic.report.moderatedReasonType is returned in case Topic has been moderated >
         <div class="info_bar_wrap"
           *ngIf="topic.report && (topic.report.moderatedReasonType || (topic.report.type && !topic.report.moderatedReasonType))">
           <div class="info_bar bar_red info_bar_show">

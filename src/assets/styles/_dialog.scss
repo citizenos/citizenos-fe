@@ -123,6 +123,10 @@
     background-color: var(--color-dialog-background);
     padding: 16px;
 
+    .info_row {
+      justify-content: center;
+      width: 100%;
+    }
     .content_item {
       display: flex;
       flex-direction: column;
@@ -216,7 +220,6 @@
     display: flex;
     flex-direction: row;
     gap: 8px;
-    max-width: 520px;
   }
 
   .dialog_tabs_wrap {

@@ -1,6 +1,104 @@
-@use 'vars';
-@use 'mixins_n_extends';
+@use "mixins";
+.arguments_wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 
+  .arguments_header {
+    display: flex;
+    justify-content: space-between;
+
+    .title {
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 24px; /* 133.333% */
+    }
+
+    button {
+      padding: 8px 16px;
+      font-weight: bold;
+    }
+  }
+}
+.argument_graph_wrap {
+  background-color: var(--color-surfaces);
+  padding: 16px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  .graph_header {
+    display: flex;
+    justify-content: space-between;
+
+    .graph_title {
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 24px; /* 150% */
+    }
+    .legend {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      gap: 24px;
+      .dot {
+        height: 8px;
+        width: 8px;
+        background-color: var(--color-argument-info);
+        border-radius: 50%;
+      }
+
+      .legend_item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        &.pro {
+          .dot {
+            background-color: var(--color-argument-pro);
+          }
+        }
+        &.con {
+          .dot {
+            background-color: var(--color-argument-con);
+          }
+        }
+      }
+    }
+  }
+
+  .argument_graph {
+    display: flex;
+    width: 100%;
+    gap: 4px;
+
+    .arguments_pro {
+      height: 4px;
+      display: flex;
+      width: 50%;
+      background-color: var(--color-argument-pro);
+    }
+
+    .arguments_con {
+      height: 4px;
+      display: flex;
+      width: 50%;
+      background-color: var(--color-argument-con);
+    }
+  }
+}
+.arguments_filters {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  .dropdown_input {
+    width: 100%;
+  }
+}
+/*
 .arguments_header {
   padding-top: 20px;
   @media (max-width: 621px) {
@@ -260,3 +358,4 @@
 
     }
 }
+*/
