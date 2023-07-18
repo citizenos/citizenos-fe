@@ -901,6 +901,11 @@
         "TOPICS_MODERATED": "Moderated topics"
       }
     },
+    "TOPIC": {
+      "HEADING_BACK_TO_MY_TOPICS": "Back to my topics",
+      "BTN_JOIN": "Join topic",
+      "BTN_LEAVE": "Leave topic"
+    },
     "401": {
       "HEADING_INSUFFICIENT_PERMISSIONS": "Sorry, you haven't got sufficient permissions to access the resource",
       "DESCRIPTION_INSUFFICIENT_PERMISSIONS": "If you have an invite to topic or group, you need to accept it first. Please check your activity feed or e-mail.",

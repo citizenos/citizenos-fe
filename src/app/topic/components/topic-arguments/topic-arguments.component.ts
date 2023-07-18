@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation, Input } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation, Input, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { tap, of, take } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
@@ -17,12 +17,13 @@ export class TopicArgumentsComponent implements OnInit {
   @Input() topic!: Topic;
   @ViewChild('post_argument_wrap') postArgumentEl?: ElementRef;
 
+  argumentTypes = Object.keys(this.TopicArgumentService.ARGUMENT_TYPES);
   arguments$ = of(<Argument[] | any[]>[]);
   orderByOptions = Object.keys(this.TopicArgumentService.ARGUMENT_ORDER_BY);
   focusArgumentSubject = false;
   constructor(
     private Auth: AuthService,
-    private route: ActivatedRoute,
+    @Inject(ActivatedRoute) private route: ActivatedRoute,
     private app: AppService,
     public TopicArgumentService: TopicArgumentService) {
     this.arguments$ = this.TopicArgumentService.loadItems().pipe(tap(() => {
@@ -40,7 +41,11 @@ export class TopicArgumentsComponent implements OnInit {
     this.TopicArgumentService.setParam('topicId', this.topic.id)
   }
 
-  doAddComment() {
+  getArgumentPercentage (count: number) {
+    return count/(this.TopicArgumentService.count.value.pro + this.TopicArgumentService.count.value.con) * 100 || 0;
+  }
+
+  doAddArgument() {
     if (this.Auth.loggedIn$.value) {
       this.postArgumentEl?.nativeElement.scrollIntoView();
       this.focusArgumentSubject = true;
