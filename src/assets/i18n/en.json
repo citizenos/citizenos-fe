@@ -197,6 +197,36 @@
       "GENERATE_QR_CODE_DESCRIPTION": "Generate a QR code that people can scan to come straight to the topic. You can add the code to digital or physical comms, and display it wherever the right people will see it.",
       "GENERATE_QR_CODE_PRINT": "To save the QR code as a PDF, open it up and use the \"print as PDF\" functionality.",
       "BTN_GENERATE_QR_CODE": "@:COMPONENTS.GROUP_SHARE.GENERATE_QR_CODE"
+    },
+    "TOPIC_ARGUMENTS": {
+      "TITLE": "{{count}} Arguments",
+      "BTN_ADD_YOUR_ARGUMENT": "Add your argument",
+      "GRAPH_TITLE": "Discussion sentiment",
+      "GRAPH_LEGEND_PRO": "Pro",
+      "GRAPH_LEGEND_CON": "Con",
+      "GRAPH_LEGEND_INFO": "Info",
+      "FILTER_ARGUMENT_TYPE": "Argument type",
+      "FILTER_TYPE_ALL": "All",
+      "FILTER_TYPE_PRO": "Pro arguments",
+      "FILTER_TYPE_CON": "Con arguments",
+      "FILTER_TYPE_POI": "Informational comments",
+      "FILTER_ARGUMENT_ORDER_BY_DEFAULT": "Default",
+      "FILTER_ARGUMENT_ORDER_BY_DATE": "Date",
+      "FILTER_ARGUMENT_ORDER_BY_POPULARITY": "Popularity"
+    },
+    "POST_ARGUMENT": {
+      "FOOTER_MENU_TITLE": "Join discussion",
+      "FOOTER_MENU_BTN_ADD_ARGUMENT": "Add your argument",
+      "FOOTER_FORM_TITLE": "Join the discussion",
+      "FOOTER_FORM_ARGUMENT_TYPE_TITLE": "Select type of argument",
+      "ARGUMENT_TYPE_SELECT_OPTION_PRO": "Pro argument",
+      "ARGUMENT_TYPE_SELECT_OPTION_CON": "Con argument",
+      "ARGUMENT_TYPE_SELECT_OPTION_POI": "Informational",
+      "PLACEHOLDER_ADD_SUBJECT_TO_ARGUMENT": "Make your main statement here",
+      "SUBJECT_CHARACTERS_LEFT": "Characters left: {{chars}}/{{charsLeft}}",
+      "ARGUMENT_TYPE_CHARACTER_LIMIT": "Character limit: {{numberOfCharacters}}",
+      "BTN_ADD_IMAGE": "Add image",
+      "BTN_ARGUMENT_POST": "@:COMPONENTS.POST_ARGUMENT.FOOTER_MENU_BTN_ADD_ARGUMENT"
     }
   },
   "MODALS": {
@@ -1310,7 +1340,7 @@
       "COMMENT_TYPE_SELECT_OPTION_DESCRIPTION_POI": "Use this option if you want to make a short statement or a point, ask a question or clarify something about the topic.",
       "COMMENT_TYPE_CHARACTER_LIMIT": "Character limit: {{numberOfCharacters}}",
       "PLACEHOLDER_WRITE_REPLY_HERE": "Write your reply here...",
-      "PLACEHOLDER_ADD_SUBJECT_TO_ARGUMENT": "Make your main statement here ...",
+      "PLACEHOLDER_ADD_SUBJECT_TO_ARGUMENT": "Make your main statement here ({{chars}}/{{charsLeft}})",
       "PLACEHOLDER_EXPLAIN_YOUR_ARGUMENT": "Explain and prove your statement here...",
       "BTN_ARGUMENT_POST_REPLY": "Post reply",
       "LNK_ARGUMENT_REPLY_CLOSE": "@:VIEWS.TOPICS_TOPICID.LNK_ARGUMENT_CLOSE",

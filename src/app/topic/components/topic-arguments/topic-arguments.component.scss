@@ -98,6 +98,19 @@
     width: 100%;
   }
 }
+
+#arguments {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 16px;
+  position: relative;
+
+
+  argument {
+    display: contents;
+  }
+}
 /*
 .arguments_header {
   padding-top: 20px;

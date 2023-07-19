@@ -33,8 +33,11 @@ $--color-success: --color-success;
 $--color-success-background: --color-success-background;
 //arguments
 $--color-argument-pro: --color-argument-pro;
+$--color-argument-pro-contrast: --color-argument-pro-contrast;
 $--color-argument-con: --color-argument-con;
+$--color-argument-con-contrast: --color-argument-con-contrast;
 $--color-argument-info: --color-argument-info;
+$--color-argument-info-contrast: --color-argument-info-contrast;
 //dialogs
 $--color-dialog: --color-dialog;
 $--color-dialog-contrast: --color-dialog-contrast;
@@ -107,8 +110,11 @@ $theme-map-default: (
 
 $theme-arguments-default: (
   $--color-argument-pro:#5ab467,
+  $--color-argument-pro-contrast: #E0F5E3,
   $--color-argument-con:#F39129,
-  $--color-argument-info:#727C84
+  $--color-argument-con-contrast: #FFF1E1,
+  $--color-argument-info:#727C84,
+  $--color-argument-info-contrast: #E1E7EE
 );
 
 $theme-dialog-default: (
