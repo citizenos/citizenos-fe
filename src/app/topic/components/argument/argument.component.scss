@@ -1,5 +1,71 @@
-@use 'vars';
-@use 'mixins_n_extends';
+@use "mixins";
+.argument_wrap {
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  padding: 16px;
+  width: 85%;
+  gap: 16px;
+
+  &.pro {
+    background-color: var(--color-argument-pro-contrast);
+    border-left: solid 4px var(--color-argument-pro);
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    align-self: flex-start;
+  }
+  &.con {
+    background-color: var(--color-argument-con-contrast);
+    border-right: solid 4px var(--color-argument-con);
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    align-self: flex-end;
+  }
+  &.poi {
+    background-color: var(--color-argument-info-contrast);
+    align-self: center;
+    width: 100%;
+  }
+  .argument_header {
+    display: flex;
+    justify-content: space-between;
+
+    .header_left,
+    .header_right {
+      display: flex;
+      gap: 8px;
+    }
+  }
+  .argument_content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .argument_subject {
+      display: flex;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 24px; /* 150% */
+    }
+    .argument_body {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  .argument_footer {
+    display: flex;
+    justify-content: space-between;
+
+    .footer_left,
+    .footer_right {
+      display: flex;
+      gap: 8px;
+    }
+  }
+}
+
+/*
 .argument_wrap {
   .argument_edit_wrap {
       padding-bottom: 20px;
@@ -176,7 +242,7 @@
       -webkit-transition-duration: 2s;
       -webkit-transition-timing-function: linear;
       -webkit-transition-property: background;
-      /* Standard syntax */
+      /* Standard syntax
       transition-duration: 2s;
       transition-timing-function: linear;
       transition-property: background;
@@ -188,7 +254,7 @@
           -webkit-transition-duration: 2s;
           -webkit-transition-timing-function: linear;
           -webkit-transition-property: background;
-          /* Standard syntax */
+          /* Standard syntax
           transition-duration: 2s;
           transition-timing-function: linear;
           transition-property: background;
@@ -552,4 +618,4 @@
       }
   }
 
-}
+}*/

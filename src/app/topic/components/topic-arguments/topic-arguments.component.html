@@ -1,28 +1,28 @@
 <div class="arguments_wrap" *ngIf="arguments$ | async as arguments">
   <div class="arguments_header">
-    <div class="title">{{TopicArgumentService.count.value.total}} Arguments</div>
-    <button class="btn_medium_submit" (click)="doAddArgument()">Add your argument</button>
+    <div class="title" translate="COMPONENTS.TOPIC_ARGUMENTS.TITLE"
+      [translateParams]="{count: TopicArgumentService.count.value.total}"></div>
+    <button class="btn_medium_submit" (click)="doAddArgument()"
+      translate="COMPONENTS.TOPIC_ARGUMENTS.BTN_ADD_YOUR_ARGUMENT"></button>
   </div>
   <div class="argument_graph_wrap">
     <div class="graph_header">
-      <div class="graph_title">
-        Discussion sentiment
-      </div>
+      <div class="graph_title" translate="COMPONENTS.TOPIC_ARGUMENTS.GRAPH_TITLE"></div>
       <div>
         <div class="legend">
           <div class="legend_item pro">
             <div class="dot"></div>
-            <div class="bold">Pro</div>
+            <div class="bold" translate="COMPONENTS.TOPIC_ARGUMENTS.GRAPH_LEGEND_PRO"></div>
             <span>{{TopicArgumentService.count.value.pro}}</span>
           </div>
           <div class="legend_item con">
             <div class="dot"></div>
-            <div class="bold">Con</div>
+            <div class="bold" translate="COMPONENTS.TOPIC_ARGUMENTS.GRAPH_LEGEND_CON"></div>
             <span>{{TopicArgumentService.count.value.con}}</span>
           </div>
           <div class="legend_item">
             <div class="dot"></div>
-            <div class="bold">Info</div>
+            <div class="bold" translate="COMPONENTS.TOPIC_ARGUMENTS.GRAPH_LEGEND_INFO"></div>
             <span>{{TopicArgumentService.count.value.poi}}</span>
           </div>
         </div>
@@ -34,16 +34,16 @@
     </div>
   </div>
   <div class="arguments_filters">
-    <cos-input [placeholder]="'VIEWS.MY_GROUPS.FILTER_VISIBILITY' | translate" class="dropdown_input">
+    <cos-input [placeholder]="'COMPONENTS.TOPIC_ARGUMENTS.FILTER_ARGUMENT_TYPE' | translate" class="dropdown_input">
       <div class="dropdown" [cosDropdown]>
         <div class="selection">
-          <div class="selected_item">{{TopicArgumentService.params}}</div>
+          <div class="selected_item">{{'COMPONENTS.TOPIC_ARGUMENTS.FILTER_ARGUMENT_TYPE' | translate}}</div>
           <div class="icon_arrow_down_black"></div>
         </div>
         <div class="options">
-          <div class="option" translate="TXT_TOPIC_STATUS_ALL"></div>
-          <div class="option"  *ngFor="let type of argumentTypes">
-            {{type}} <!--{{'TXT_TOPIC_STATUS_' + status | uppercase | translate}}-->
+          <div class="option" translate="COMPONENTS.TOPIC_ARGUMENTS.FILTER_TYPE_ALL"></div>
+          <div class="option" *ngFor="let type of argumentTypes">
+            {{'COMPONENTS.TOPIC_ARGUMENTS.FILTER_TYPE_' + type | uppercase | translate}}
           </div>
         </div>
       </div>
@@ -51,21 +51,25 @@
     <cos-input [placeholder]="'Order'" class="dropdown_input">
       <div class="dropdown" [cosDropdown]>
         <div class="selection">
-          <div class="selected_item">{{'VIEWS.TOPICS_TOPICID.TXT_ARGUMENT_ORDER_BY_' + TopicArgumentService.params$.value.orderBy | uppercase
+          <div class="selected_item">{{'COMPONENTS.TOPIC_ARGUMENTS.FILTER_ARGUMENT_ORDER_BY_' +
+            TopicArgumentService.params$.value.orderBy | uppercase
             | translate}}</div>
           <div class="icon_arrow_down_black"></div>
         </div>
         <div class="options">
-          <div class="option" translate="TXT_TOPIC_STATUS_ALL"></div>
-          <div class="option" *ngFor="let orderOption of orderByOptions" (click)="TopicArgumentService.setParam('orderBy', orderOption)">
-            {{orderOption}}
+          <div class="option" translate="COMPONENTS.TOPIC_ARGUMENTS.FILTER_ARGUMENT_ORDER_BY_DEFAULT" (click)="TopicArgumentService.setParam('orderBy', null)"> </div>
+          <div class="option" *ngFor="let orderOption of orderByOptions"
+            (click)="TopicArgumentService.setParam('orderBy', orderOption)">
+            {{'COMPONENTS.TOPIC_ARGUMENTS.FILTER_ARGUMENT_ORDER_BY_' + orderOption | uppercase | translate}}
           </div>
         </div>
       </div>
     </cos-input>
   </div>
+  <div id="arguments">
+    <argument [argument]="arg" [topicId]="topic.id" *ngFor="let arg of arguments$ | async"></argument>
+  </div>
 </div>
-<post-argument [topicId]="topic.id"></post-argument>
 <!--div class="arguments_container">
   <div class="arguments_wrap">
     <div class="arguments_header">
