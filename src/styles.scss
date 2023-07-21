@@ -226,6 +226,14 @@ textarea {
       gap: 8px;
       min-width: 100%;
       padding: 0;
+      &:hover {
+        background-color: initial;
+        color: var(--color-link);
+
+        path, circle {
+          fill: var(--color-link);
+        }
+      }
     }
 
     @include mixins.mobile {
@@ -280,7 +288,12 @@ textarea {
 
 .error_text {
   color: var(--color-error);
+
+  path {
+    fill: var(--color-error);
+  }
 }
+
 body,
 html {
   font-family: "Noto Sans", sans-serif;

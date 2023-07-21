@@ -13,7 +13,7 @@ export class ArgumentReplyComponent implements OnInit {
   @Input() topicId!: string;
 
   public reply = {
-    subject: null,
+    subject: '',
     type: 'reply',
     text: ''
   };
