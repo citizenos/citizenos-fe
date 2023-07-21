@@ -1,23 +1,42 @@
-<div class="post_argument_wrap">
-  <div *ngIf="!(AuthService.loggedIn$ | async)">
-    <h3 class="text-center" translate-compile translate="VIEWS.TOPICS_TOPICID.LOG_IN_TO_PARTICIPATE"></h3>
-  </div>
-  <form  *ngIf="AuthService.loggedIn$ | async" name="argumentReply">
-    <textarea cosmarkdown
-      cosmarkdowntranslatecharacterstatuskey="VIEWS.TOPICS_TOPICID.COMMENT_TYPE_CHARACTER_LIMIT"
-      id="argument_reply_text" [(item)]="reply.text" class="gray_borders"
-       [ngClass]="{'error_input': errors?.text}"
-      placeholder="{{'VIEWS.TOPICS_TOPICID.PLACEHOLDER_WRITE_REPLY_HERE' | translate}}"
-      [limit]="ARGUMENT_TYPES_MAXLENGTH['reply']" ></textarea><!--(keyup)="argumentTextLengthCheck(form, form.text)"-->
-    <label for="argument_reply_text" class="error_label" *ngIf="errors?.text">
-      <div class="table_cell">
-        <div class="icon_notification_error_small"></div>
-        <span translate="{{errors?.text}}"></span>
-      </div>
-    </label>
-    <div class="blue_button" (click)="saveReply()"
-      translate="VIEWS.TOPICS_TOPICID.BTN_ARGUMENT_POST_REPLY">
+<div class="reply_wrap">
+  <ng-container *ngIf="AuthService.loggedIn$ | async; then loggedIn; else loggedOut"></ng-container>
+  <ng-template #loggedIn>
+    <div>
+      <h3 class="text-center" translate-compile>Add your reply</h3>
     </div>
-    <div class="clearer"></div>
-  </form>
+    <form name="argumentReply">
+      <cos-input
+        placeholder="{{'COMPONENTS.POST_ARGUMENT.SUBJECT_CHARACTERS_LEFT' | translate:{chars: reply.subject.length, charsLeft: ARGUMENT_SUBJECT_MAXLENGTH} }}">
+        <input id="argument_subject" name="subject" [(ngModel)]="reply.subject"
+          placeholder="{{'COMPONENTS.POST_ARGUMENT.PLACEHOLDER_ADD_SUBJECT_TO_ARGUMENT' | translate:{chars: reply.subject.length, charsLeft: ARGUMENT_SUBJECT_MAXLENGTH} }}"
+          class="gray_borders" [ngClass]="{'error_input': errors?.subject}"
+          [attr.maxlength]="ARGUMENT_SUBJECT_MAXLENGTH" required>
+        <label for="argument_subject" class="error_label" *ngIf="errors?.subject">
+          <div class="table_cell">
+            <div class="icon_notification_error_small"></div>
+            <span translate="{{errors.subject}}"></span>
+          </div>
+        </label>
+      </cos-input>
+      <textarea cosmarkdown cosmarkdowntranslatecharacterstatuskey="VIEWS.TOPICS_TOPICID.COMMENT_TYPE_CHARACTER_LIMIT"
+        id="argument_reply_text" [(item)]="reply.text" class="gray_borders" [ngClass]="{'error_input': errors?.text}"
+        placeholder="{{'VIEWS.TOPICS_TOPICID.PLACEHOLDER_WRITE_REPLY_HERE' | translate}}"
+        [limit]="ARGUMENT_TYPES_MAXLENGTH['reply']"></textarea><!--(keyup)="argumentTextLengthCheck(form, form.text)"-->
+      <label for="argument_reply_text" class="error_label" *ngIf="errors?.text">
+        <div class="table_cell">
+          <div class="icon_notification_error_small"></div>
+          <span translate="{{errors?.text}}"></span>
+        </div>
+      </label>
+      <div class="btn_medium_submit bold" (click)="saveReply()"
+        translate="VIEWS.TOPICS_TOPICID.BTN_ARGUMENT_POST_REPLY">
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template #loggedOut>
+    <div>
+      <h3 class="text-center">Log in to particiapte</h3>
+    </div>
+  </ng-template>
 </div>

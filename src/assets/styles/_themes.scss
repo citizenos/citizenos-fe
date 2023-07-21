@@ -33,11 +33,17 @@ $--color-success: --color-success;
 $--color-success-background: --color-success-background;
 //arguments
 $--color-argument-pro: --color-argument-pro;
-$--color-argument-pro-contrast: --color-argument-pro-contrast;
+$--color-argument-pro-light: --color-argument-pro-light;
+$--color-argument-pro-medium: --color-argument-pro-medium;
+$--color-argument-pro-text: --color-argument-pro-text;
 $--color-argument-con: --color-argument-con;
-$--color-argument-con-contrast: --color-argument-con-contrast;
+$--color-argument-con-light: --color-argument-con-light;
+$--color-argument-con-medium: --color-argument-con-medium;
+$--color-argument-con-text: --color-argument-con-text;
 $--color-argument-info: --color-argument-info;
-$--color-argument-info-contrast: --color-argument-info-contrast;
+$--color-argument-info-light: --color-argument-info-light;
+$--color-argument-info-medium: --color-argument-info-medium;
+$--color-argument-info-text: --color-argument-info-text;
 //dialogs
 $--color-dialog: --color-dialog;
 $--color-dialog-contrast: --color-dialog-contrast;
@@ -109,12 +115,18 @@ $theme-map-default: (
 );
 
 $theme-arguments-default: (
-  $--color-argument-pro:#5ab467,
-  $--color-argument-pro-contrast: #E0F5E3,
-  $--color-argument-con:#F39129,
-  $--color-argument-con-contrast: #FFF1E1,
+  $--color-argument-pro-light: #F1FAF3, //green 50,
+  $--color-argument-pro-medium: #E0F5E3, //green 100
+  $--color-argument-pro:#5ab467, //green 500
+  $--color-argument-pro-text: #346933, //green 500
+  $--color-argument-con-light: #FFF1E1, //orange 50
+  $--color-argument-con-medium: #FFD8AE, //orange 200
+  $--color-argument-con:#F39129, //orange 500
+  $--color-argument-con-text: #CD7705, //Orange 900
+  $--color-argument-info-light: #F9FBFD, //green 50,
+  $--color-argument-info-medium: #EBF4FB, //blue 100
   $--color-argument-info:#727C84,
-  $--color-argument-info-contrast: #E1E7EE
+  $--color-argument-info-text: #1168A8 //blue 700
 );
 
 $theme-dialog-default: (
