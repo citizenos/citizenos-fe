@@ -20,7 +20,7 @@ export interface TopicParticipantsData {
 })
 export class TopicParticipantsComponent implements OnInit {
 
-  tabSelected = 'participants';
+  activeTab = 'participants';
   topic:Topic;
   memberGroups$ = of(<any[]>[]);
   memberUsers$ = of(<any[]>[]);
@@ -44,10 +44,6 @@ export class TopicParticipantsComponent implements OnInit {
     this.TopicMemberGroupService.setParam('topicId', this.topic.id);
     this.TopicMemberUserService.setParam('topicId', this.topic.id);
     this.TopicInviteUserService.setParam('topicId', this.topic.id);
-  }
-
-  selectTab(tab: string) {
-    this.tabSelected = tab;
   }
 
   canUpdate () {

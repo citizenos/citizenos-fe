@@ -340,16 +340,21 @@
           flex-direction: column;
           gap: 8px;
 
-          .info_title {
-            font-size: 14px;
-            font-style: normal;
-            font-weight: 600;
-            line-height: 16px;
-            padding-bottom: 8px;
+          .info_header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            color: var(--color-text);
+
+            .info_title {
+              font-size: 14px;
+              font-style: normal;
+              font-weight: 600;
+              line-height: 16px;
+              padding-bottom: 8px;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              color: var(--color-text);
+            }
           }
 
           .info_items {

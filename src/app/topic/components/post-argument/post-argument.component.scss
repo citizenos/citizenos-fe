@@ -121,13 +121,13 @@
         padding: 8px;
         vertical-align: middle;
         &.pro {
-          background-color: var(--color-argument-pro-contrast);
+          background-color: var(--color-argument-pro-light);
         }
         &.con {
-          background-color: var(--color-argument-con-contrast);
+          background-color: var(--color-argument-con-light);
         }
         &.poi {
-          background-color: var(--color-argument-info-contrast);
+          background-color: var(--color-argument-info-light);
         }
       }
     }

@@ -2,8 +2,8 @@
 @forward "icons_new";
 @forward "buttons_new";
 @forward "illustrations";
-@forward "dialog";
 @forward "create_views";
+@forward "dialog";
 @forward "tables";
 @use "themes";
 @use "mixins";
@@ -182,8 +182,8 @@ textarea {
     border-radius: 8px;
     z-index: 9;
     margin-top: 41px;
-    min-width: 100%;
-    position: absolute;
+    min-width: max-content;
+    position: fixed;
 
     .option {
       display: flex;
@@ -225,7 +225,7 @@ textarea {
       flex-direction: row;
       gap: 8px;
       min-width: 100%;
-      padding: 0;
+      padding: 8px;
       &:hover {
         background-color: initial;
         color: var(--color-link);
@@ -361,7 +361,6 @@ html {
   width: 100%;
   background: var(--color-border);
   display: flex;
-  margin: 16px 0;
 }
 
 .row {

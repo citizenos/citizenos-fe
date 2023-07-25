@@ -1,15 +1,9 @@
-@use "mixins_n_extends";
+@use "mixins";
 
-#lightbox {
+#topic_members_list_wrap {
+  gap: 16px;
+}
 
-  input {
-    @extend %input_small;
-  }
-
-  input,
-  button {
-    &:not(:first-child) {
-      margin-top: 10px;
-    }
-  }
+topic-member-user {
+  display: contents;
 }

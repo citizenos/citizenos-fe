@@ -337,7 +337,7 @@
       flex-direction: column;
       background-color: var(--color-surfaces);
       border-radius: 16px;
-      padding: 16px;
+      padding: 16px 0;
       gap: 24px;
 
       @include mixins.mobile {

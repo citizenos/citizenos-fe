@@ -1,3 +1,5 @@
+import { NotificationService } from 'src/app/services/notification.service';
+import { TopicMemberGroupService } from 'src/app/services/topic-member-group.service';
 import { Component, OnInit, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, of, map, tap, Observable, Subscription, take } from 'rxjs';
@@ -16,10 +18,13 @@ import { AppService } from 'src/app/services/app.service';
 import { Topic } from 'src/app/interfaces/topic';
 import { Attachment } from 'src/app/interfaces/attachment';
 import { Vote } from '../interfaces/vote';
+import { Group } from '../interfaces/group';
 import { TopicReportComponent } from './components/topic-report/topic-report.component';
 import { trigger, state, style } from '@angular/animations';
 import { ConfirmDialogComponent } from '../shared/components/confirm-dialog/confirm-dialog.component';
 import { TopicMemberUserService } from '../services/topic-member-user.service';
+import { TopicInviteDialogComponent } from './components/topic-invite/topic-invite.component';
+import { TopicParticipantsComponent } from './components/topic-participants/topic-participants.component';
 
 @Component({
   selector: 'topic',
@@ -48,6 +53,7 @@ export class TopicComponent implements OnInit {
   showTags = false;
   //new end
   topic$; // decorate the property with @Input()
+  // groups$: Observable<Group[]>;
   vote$?: Observable<Vote>;
   topicId$: Observable<string> = of('');
   editMode$;
@@ -78,7 +84,9 @@ export class TopicComponent implements OnInit {
     @Inject(ActivatedRoute) private route: ActivatedRoute,
     private Upload: UploadService,
     private Location: LocationService,
+    private NotificationService: NotificationService,
     private TopicMemberUserService: TopicMemberUserService,
+    private TopicMemberGroupService: TopicMemberGroupService,
     public TopicAttachmentService: TopicAttachmentService,
     public TopicArgumentService: TopicArgumentService,
     private TopicVoteService: TopicVoteService,
@@ -146,6 +154,13 @@ export class TopicComponent implements OnInit {
         return topic;
       })
     );
+    //needs implementation
+    /*   this.groups$ = this.route.params.pipe(
+         switchMap((params) => {
+           this.TopicMemberGroupService.setParam('topicId', params['topicId']);
+           return this.TopicMemberGroupService.loadItems();
+         })
+       );*/
 
     this.topicAttachments$ = this.topicId$.pipe(
       switchMap((topicId: string) => {
@@ -182,8 +197,8 @@ export class TopicComponent implements OnInit {
     });
   };
 
-  getArgumentPercentage (count: number) {
-    return count/(this.TopicArgumentService.count.value.pro + this.TopicArgumentService.count.value.con) * 100 || 0;
+  getArgumentPercentage(count: number) {
+    return count / (this.TopicArgumentService.count.value.pro + this.TopicArgumentService.count.value.con) * 100 || 0;
   }
 
   sanitizeURL(url: string) {
@@ -240,4 +255,28 @@ export class TopicComponent implements OnInit {
 
     return vote && vote.endsAt && new Date() > new Date(vote.endsAt);
   };
+
+  inviteMembers(topic: Topic) {
+    const inviteDialog = this.dialog.open(TopicInviteDialogComponent, { data: { topic } });
+    inviteDialog.afterClosed().subscribe({
+      next: (res) => {
+        this.NotificationService.addSuccess('');
+      },
+      error: (error) => {
+        this.NotificationService.addError(error);
+      }
+    })
+  }
+
+  manageParticipants(topic: Topic) {
+    const participantsDialog = this.dialog.open(TopicParticipantsComponent, { data: { topic } });
+    participantsDialog.afterClosed().subscribe({
+      next: (res) => {
+        this.NotificationService.addSuccess('');
+      },
+      error: (error) => {
+        this.NotificationService.addError(error);
+      }
+    })
+  }
 }
