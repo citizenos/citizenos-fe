@@ -20,7 +20,8 @@ export class TopicShareComponent implements OnInit {
     token: <string | null>null
   };
   joinUrl = ''
-  topicLevels = Object.keys(this.TopicService.LEVELS);
+  LEVELS = Object.keys(this.TopicService.LEVELS);
+  showQR = false;
   constructor(
     private Auth: AuthService,
     private dialog: MatDialog,
@@ -30,9 +31,10 @@ export class TopicShareComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.topic.join) {
+   if (this.topic.join) {
       this.join = this.topic.join;
     }
+  //this.join.token = this.topic.join.token;
     this.generateJoinUrl();
   }
 

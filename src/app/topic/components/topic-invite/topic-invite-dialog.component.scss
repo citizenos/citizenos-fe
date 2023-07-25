@@ -1,0 +1,24 @@
+@use "mixins";
+
+.dialog {
+  max-width: 560px;
+  @include mixins.mobile {
+    max-width: initial;
+    width: 100%;
+  }
+}
+#form_area {
+  .create_content {
+    .create_content_section {
+      padding: 0;
+    }
+  }
+}
+
+.dropdown.mobile_show {
+  width: 100%;
+  margin-bottom: 16px;
+  .selection {
+    padding: 12px 16px;
+  }
+}

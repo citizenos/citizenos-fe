@@ -220,8 +220,8 @@
                 </svg>
               </a>
               <div class="info_items" [@openClose]="showAttachments ? 'open' : 'closed'">
-                <div class="info_item" *ngFor="let attachment of attachments"><a
-                    [href]="attachment.link">{{attachment.name}}</a></div>
+                <a class="info_item" *ngFor="let attachment of attachments"><a
+                    [href]="attachment.link">{{attachment.name}}</a></a>
               </div>
             </ng-container>
           </div>
@@ -233,12 +233,16 @@
               </svg>
             </a>
             <div class="info_items" [@openClose]="showGroups ? 'open' : 'closed'">
-              <div class="info_item">asdasdasd,</div>
-              <div class="info_item">asdasdasd,</div>
-              <div class="info_item">asdasdasd,</div>
-              <div class="info_item">asdasdasd,</div>
-              <div class="info_item">asdasdasd,</div>
-              <div class="info_item">asdasdasd</div>
+              <!--a class="info_item" *ngFor="let group of groups$ | async">{{group.name}}</!--a-->
+              <a class="info_item"
+                [routerLink]="['/',translate.currentLang, 'groups', '2be354aa-485a-443f-bc85-a67b2408df08']">Test
+                group</a>
+              <a class="info_item"
+                [routerLink]="['/',translate.currentLang, 'groups', '2be354aa-485a-443f-bc85-a67b2408df08']">Test
+                group</a>
+              <a class="info_item"
+                [routerLink]="['/',translate.currentLang, 'groups', '2be354aa-485a-443f-bc85-a67b2408df08']">Test
+                group</a>
             </div>
           </div>
           <div class="info_items_wrap">
@@ -277,11 +281,14 @@
       </div>
       <div class="info_section">
         <div class="info_items_wrap">
-          <div class="info_title">Participants</div>
+          <div class="info_header">
+            <div class="info_title">Participants</div>
+            <a class="members_link" (click)="manageParticipants(topic)">Manage</a>
+          </div>
           <div class="participants_count_wrap">
             <div class="participants_count">{{topic.members.users.count}}</div>
           </div>
-          <button class="btn_medium_secondary bold">
+          <button class="btn_medium_secondary bold" (click)="inviteMembers(topic)">
             Invite & share
           </button>
         </div>

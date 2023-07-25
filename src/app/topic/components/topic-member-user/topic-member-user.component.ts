@@ -42,7 +42,7 @@ export class TopicMemberUserComponent implements OnInit {
     return this.fields?.indexOf(field) > -1
   }
 
-  doUpdateMemberUser(level: string) {
+  doUpdateMemberUser(level: any) {
     if (this.member.level !== level) {
       const oldLevel = this.member.level;
       this.member.level = level;

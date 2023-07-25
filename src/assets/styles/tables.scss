@@ -21,6 +21,7 @@
       flex-direction: row;
       justify-content: space-between;
       padding: 8px;
+      gap: 8px;
       align-items: center;
       min-height: 56px;
 
@@ -119,7 +120,6 @@
       }
     }
   }
-
   .row_list {
     @include mixins.mobile {
       flex-direction: column;
@@ -129,16 +129,23 @@
 
 .dialog_content {
   .row_list {
-    padding: 16px;
     .row_cell {
       min-height: 40px;
+      padding: 0;
     }
     &:nth-child(even) {
+      background-color: initial;
+    }
+    &:nth-child(odd) {
       background-color: initial;
     }
   }
 
   #topic_members_list_wrap {
     gap: 0;
+
+    .row_list {
+      padding: 0;
+    }
   }
 }

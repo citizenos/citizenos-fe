@@ -1,0 +1,51 @@
+<div class="overlay" mat-dialog-close></div>
+<div class="dialog">
+  <div class="dialog_header">
+    <div class="header_text">
+      <h4 class="title" translate="COMPONENTS.GROUP_INVITE_DIALOG.HEADING"></h4>
+    </div>
+    <div class="dialog_close">
+      <button class="btn_dialog_close" mat-dialog-close>
+        <div class="icon_mobile_close"></div>
+      </button>
+    </div>
+  </div>
+  <div class="dialog_tabs_wrap">
+    <a class="dialog_tab mobile_hidden" [ngClass]="{'active': activeTab ==='invite'}" (click)="activeTab = 'invite'"
+      translate="COMPONENTS.GROUP_INVITE_DIALOG.TAB_INVITE"></a>
+    <a class="dialog_tab mobile_hidden" [ngClass]="{'active': activeTab ==='share'}" (click)="activeTab = 'share'"
+      translate="COMPONENTS.GROUP_INVITE_DIALOG.TAB_SHARE"></a>
+    <div class="dropdown mobile_show" [cosDropdown]>
+      <div class="selection">
+        <div class="selected_item">
+          {{'COMPONENTS.GROUP_INVITE_DIALOG.TAB_'+activeTab | uppercase | translate}}
+        </div>
+        <div class="icon_arrow_down_black"></div>
+      </div>
+      <div class="options">
+        <div class="option" (click)="activeTab = 'invite'" translate="COMPONENTS.GROUP_INVITE_DIALOG.TAB_INVITE">
+        </div>
+        <div class="option" (click)="activeTab = 'share'" translate="COMPONENTS.GROUP_INVITE_DIALOG.TAB_SHARE">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="dialog_content">
+    <ng-container *ngIf="activeTab === 'invite'">
+      <div id="form_area">
+        <topic-invite class="create_content" [dialog]="true" [topic]="data.topic" [members]="members"></topic-invite>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="activeTab === 'share'">
+      <topic-share [topic]="data.topic"></topic-share>
+    </ng-container>
+  </div>
+  <div class="dialog_footer with_buttons">
+    <div></div>
+    <div class="button_row">
+      <a mat-dialog-close translate="COMPONENTS.GROUP_INVITE_DIALOG.LNK_CANCEL"></a>
+      <button class="btn_medium_submit" translate="COMPONENTS.GROUP_INVITE_DIALOG.BTN_SAVE"
+        (click)="doInviteMembers()"></button>
+    </div>
+  </div>
+</div>

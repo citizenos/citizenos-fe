@@ -4,8 +4,8 @@
   z-index: 999;
 
   .cdk-overlay-pane {
-    max-width: initial!important;
-    position: initial!important;
+    max-width: initial !important;
+    position: initial !important;
   }
 }
 
@@ -123,6 +123,10 @@
     background-color: var(--color-dialog-background);
     padding: 16px;
 
+    &.no_padding {
+      padding: 0;
+    }
+
     .info_row {
       justify-content: center;
       width: 100%;
@@ -136,6 +140,23 @@
     .table_section {
       .no_results {
         display: none;
+      }
+    }
+    #form_area {
+      .section_header {
+        border-radius: initial;
+        padding: 8px 16px;
+        position: relative;
+        width: calc(100% + 32px);
+        left: -16px;
+      }
+
+      .content_section {
+        .section_content_wrap {
+          h3, .section_content_description {
+            padding: 8px 16px;
+          }
+        }
       }
     }
   }

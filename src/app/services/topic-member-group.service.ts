@@ -4,6 +4,7 @@ import { LocationService } from './location.service';
 import { Observable, BehaviorSubject, map } from 'rxjs';
 import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { ItemsListService } from './items-list.service';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ import { ItemsListService } from './items-list.service';
 export class TopicMemberGroupService extends ItemsListService {
   params = Object.assign({ topicId: <string>'' }, this.defaultParams);
   params$ = new BehaviorSubject(this.params);
-  constructor(private Location: LocationService, private http: HttpClient) {
+  constructor(private Location: LocationService, private http: HttpClient, private Auth: AuthService) {
     super();
     this.items$ = this.loadItems();
   }
@@ -21,7 +22,11 @@ export class TopicMemberGroupService extends ItemsListService {
   }
 
   query(params: { [key: string]: any }): Observable<ApiResponse> {
-    let path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/members/groups', params);
+    //needs public topic API endpoint
+    let path = this.Location.getAbsoluteUrlApi(
+      this.Auth.resolveAuthorizedPath(
+        '/topics/:topicId/members/groups'
+      ), params);
     const queryParams = Object.fromEntries(Object.entries(params).filter((i) => i[1] !== null));
 
     return this.http.get<ApiResponse>(path, { withCredentials: true, params: queryParams, observe: 'body', responseType: 'json' }).pipe(
