@@ -39,7 +39,7 @@
   <div class="dialog_content">
     <div class="info_row" translate="{{data.description}}"></div>
   </div>
-  <div class="dialog_info_wrap">
+  <div class="dialog_info_wrap" *ngIf="data.sections">
     <!--Sections with h3-->
     <ng-container *ngFor="let section of data.sections">
       <h3 translate="{{section.heading}}"></h3>
@@ -51,7 +51,7 @@
       </div>
     </ng-container>
     <!--Sections with h3 end-->
-    <div class="dialog_info">
+    <div class="dialog_info" *ngIf="data.info || data.points">
       <div class="delete_info_button_wrap" *ngIf="data.info">
         <div class="delete_info_text" translate="{{data.info}}"></div>
       </div>

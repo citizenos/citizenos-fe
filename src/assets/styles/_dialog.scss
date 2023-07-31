@@ -168,6 +168,7 @@
     justify-content: center;
     align-items: center;
     background-color: var(--color-surfaces);
+
     .dialog_info {
       padding: 8px 16px;
       display: flex;
@@ -188,6 +189,26 @@
       }
       &.toggle_on {
         background: var(--color-success-background);
+      }
+
+      &.error {
+        background-color: var(--color-error-background);
+      }
+
+      &.warning {
+        background-color: var(--color-warn-background);
+      }
+
+      &.info {
+        background-color: var(--color-info-background);
+      }
+
+      &.success {
+        background-color: var(--color-success-background);
+      }
+      &.row {
+        flex-direction: row;
+        justify-content: flex-start;
       }
 
       a,

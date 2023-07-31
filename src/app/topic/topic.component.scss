@@ -7,6 +7,7 @@
     margin: 60px 0;
     padding: 8px;
     gap: 16px;
+    padding-bottom: 60px;
   }
 
   @include mixins.mobile {
@@ -15,6 +16,12 @@
 
   #page_header {
     padding: 16px 0 0 0;
+
+    @include mixins.mobile {
+      h3 {
+        display: none;
+      }
+    }
 
     activities-button {
       display: none;
@@ -31,10 +38,6 @@
 
       activities-button {
         display: flex;
-      }
-
-      h3 {
-        display: none;
       }
 
       #buttons_area {
@@ -62,7 +65,7 @@
       }
     }
   }
-  #topic_tabs {
+  .topic_tabs {
     display: flex;
     background-color: var(--color-surfaces);
     width: 100%;
@@ -71,8 +74,31 @@
     padding: 0px 16px;
 
     @include mixins.tablet {
-      border-radius: 0;
-      margin-top: -16px;
+      display: none;
+    }
+
+    &.tablet {
+      display: none;
+      z-index: 999999;
+      @include mixins.tablet {
+        display: flex;
+        bottom: 0;
+        width: 100%;
+        justify-content: space-between;
+
+        .topic_tab {
+          &.discussion.active {
+            background-color: var(--color-discussion);
+            border-bottom: 2px solid var(--color-link);
+            rect {
+              fill: var(--color-scrollbar);
+            }
+            path {
+              filL: var(--color-discussion);
+            }
+          }
+        }
+      }
     }
 
     .topic_tab {
@@ -82,6 +108,11 @@
       padding: 28px 24px;
       @include mixins.tablet {
         padding: 12px 38px;
+        width: 100%;
+        justify-content: center;
+      }
+      @include mixins.mobile {
+        padding: 12px;
       }
       &.active {
         color: var(--color-link);
@@ -102,6 +133,10 @@
       position: absolute;
       right: 36px;
       height: 72px;
+
+      @include mixins.tablet {
+        display: none;
+      }
     }
   }
 
@@ -110,12 +145,20 @@
     gap: 32px;
     flex-direction: row;
 
+    @include mixins.tablet {
+      flex-direction: column;
+    }
+
     .content_area_left {
       display: flex;
       flex-direction: column;
       max-width: calc(100% - 312px);
       width: 100%;
       gap: 32px;
+
+      @include mixins.tablet {
+        max-width: 100%;
+      }
 
       .topic_content_wrap {
         display: flex;
@@ -172,6 +215,14 @@
         display: flex;
         flex-direction: column;
         padding: 24px;
+
+        @include mixins.tablet {
+          display: none;
+
+          &.show {
+            display: flex;
+          }
+        }
       }
     }
     .content_area_right {
@@ -179,6 +230,13 @@
       flex-direction: column;
       gap: 16px;
       width: 288px;
+
+      @include mixins.tablet {
+        width: 100%;
+      }
+      @include mixins.mobile {
+        padding: 8px;
+      }
 
       .state_item {
         display: flex;
@@ -211,9 +269,11 @@
 
         .item_content {
           display: flex;
-          flex: column;
+          flex-direction: column;
           gap: 8px;
-
+          @include mixins.tablet {
+            width: 100%;
+          }
           .argument_graph_wrap {
             display: flex;
             flex-direction: column;
@@ -271,10 +331,16 @@
           }
         }
         &.empty {
+          position: relative;
           flex-direction: row;
           background-color: initial;
           border: 1px dashed;
           border-left: 8px solid;
+
+          .info_icon {
+            position: absolute;
+            right: 16px;
+          }
         }
         .icon_wrap {
           width: 32px;
@@ -321,6 +387,11 @@
         gap: 8px;
         position: relative;
 
+        @include mixins.tablet {
+          width: 100%;
+          max-width: 100%;
+        }
+
         .topic_visibility {
           display: flex;
           width: 32px;
@@ -355,6 +426,13 @@
               align-items: center;
               color: var(--color-text);
             }
+          }
+
+          a.info_title {
+            display: flex;
+            justify-content: space-between;
+            vertical-align: middle;
+            align-items: center;
           }
 
           .info_items {

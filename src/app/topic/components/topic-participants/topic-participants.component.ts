@@ -21,7 +21,7 @@ export interface TopicParticipantsData {
 export class TopicParticipantsComponent implements OnInit {
 
   activeTab = 'participants';
-  topic:Topic;
+  topic: Topic;
   memberGroups$ = of(<any[]>[]);
   memberUsers$ = of(<any[]>[]);
   memberInvites$ = of(<any[]>[]);
@@ -33,7 +33,7 @@ export class TopicParticipantsComponent implements OnInit {
     public TopicInviteUserService: TopicInviteUserService,
     public TopicMemberGroupService: TopicMemberGroupService,
     private TopicService: TopicService
-    ) {
+  ) {
     this.topic = data.topic;
     this.memberGroups$ = TopicMemberGroupService.loadItems();
     this.memberUsers$ = TopicMemberUserService.loadItems();
@@ -46,7 +46,7 @@ export class TopicParticipantsComponent implements OnInit {
     this.TopicInviteUserService.setParam('topicId', this.topic.id);
   }
 
-  canUpdate () {
+  canUpdate() {
     return this.TopicService.canUpdate(this.topic);
   }
 
@@ -63,10 +63,10 @@ export class TopicParticipantsComponent implements OnInit {
     }
   };
 
-  doDeleteMemberUser(member:TopicMemberUser) {
-  /*  if (member.id === this.AuthService.user.value.id) {
-      return this.doLeaveTopic();
-    }*/
+  doDeleteMemberUser(member: TopicMemberUser) {
+    /*  if (member.id === this.AuthService.user.value.id) {
+        return this.doLeaveTopic();
+      }*/
     const deleteUserDialog = this.dialog.open(ConfirmDialogComponent, {
       data: {
         level: 'delete',
@@ -100,12 +100,12 @@ export class TopicParticipantsDialogComponent implements OnInit {
     route.params.pipe(switchMap((params) => {
       return TopicService.get(params['topicId']);
     })).pipe(take(1))
-    .subscribe((topic) => {
-      const manageDialog = dialog.open(TopicParticipantsComponent, {data: {topic}});
-      manageDialog.afterClosed().subscribe(() => {
-        router.navigate(['../'], {relativeTo: route});
+      .subscribe((topic) => {
+        const manageDialog = dialog.open(TopicParticipantsComponent, { data: { topic } });
+        manageDialog.afterClosed().subscribe(() => {
+          router.navigate(['../'], { relativeTo: route });
+        })
       })
-    })
 
   }
 

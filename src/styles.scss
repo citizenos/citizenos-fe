@@ -515,3 +515,29 @@ cos-toggle {
     }
   }
 }
+
+.profile_image_wrap {
+  display: flex;
+  position: relative;
+  width: 40px;
+  height: 40px;
+
+  .profile_image {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    border-radius: 40px;
+  }
+
+  .profile_image_filler {
+    width: 100%;
+    background-color: var(--color-surfaces);
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cos-initials {
+      font-size: 24px;
+    }
+  }
+}

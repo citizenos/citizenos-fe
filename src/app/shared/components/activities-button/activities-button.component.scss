@@ -1,6 +1,6 @@
 @use "mixins";
 
-@include mixins.mobile {
+@include mixins.tablet {
   span {
     display: none;
   }
