@@ -1,0 +1,17 @@
+.dialog {
+  max-width: 580px;
+}
+
+.content_item {
+  margin-top: 24px;
+  .radio_wrap {
+    padding: 0;
+    border: none;
+    .radio_box {
+      .radio_lable {
+        font-weight: initial;
+      }
+    }
+  }
+
+}

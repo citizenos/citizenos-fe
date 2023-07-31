@@ -51,6 +51,8 @@ export class TopicComponent implements OnInit {
   showAttachments = false;
   showGroups = false;
   showTags = false;
+  readMore = false;
+  showArgumentsTablet = false;
   //new end
   topic$; // decorate the property with @Input()
   // groups$: Observable<Group[]>;
@@ -58,7 +60,6 @@ export class TopicComponent implements OnInit {
   topicId$: Observable<string> = of('');
   editMode$;
   showInfoEdit = false;
-
 
   showVoteCreateForm = false;
   showVoteCast = false;
@@ -93,6 +94,7 @@ export class TopicComponent implements OnInit {
     @Inject(DomSanitizer) private sanitizer: DomSanitizer,
     public app: AppService
   ) {
+    this.app.darkNav = true;
     this.routerSubscription = this.route.url.pipe(
       tap((url) => {
         console.log('URL', url)
@@ -260,7 +262,7 @@ export class TopicComponent implements OnInit {
     const inviteDialog = this.dialog.open(TopicInviteDialogComponent, { data: { topic } });
     inviteDialog.afterClosed().subscribe({
       next: (res) => {
-        this.NotificationService.addSuccess('');
+     //   this.NotificationService.addSuccess('');
       },
       error: (error) => {
         this.NotificationService.addError(error);
@@ -272,11 +274,56 @@ export class TopicComponent implements OnInit {
     const participantsDialog = this.dialog.open(TopicParticipantsComponent, { data: { topic } });
     participantsDialog.afterClosed().subscribe({
       next: (res) => {
-        this.NotificationService.addSuccess('');
+     //   this.NotificationService.addSuccess('');
       },
       error: (error) => {
         this.NotificationService.addError(error);
       }
     })
   }
+
+  canUpdate(topic: Topic) {
+    return this.TopicService.canUpdate(topic);
+  }
+
+  duplicateTopic(topic: Topic) {
+    const duplicateDialog = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        heading: 'MODALS.DUPLICATE_TOPIC_CONFIRM_HEADING',
+        description: 'MODALS.DUPLICATE_TOPIC_CONFIRM_HEADING_DESCRIPTION',
+        title: 'MODALS.DUPLICATE_TOPIC_CONFIRM_HEADING',
+        sections: [{
+          heading: 'MODALS.DUPLICATE_TOPIC_CONFIRM_HEADING_WILL_BE_DUPLICATED',
+          points: [
+            'MODALS.DUPLICATE_TOPIC_CONFIRM_TXT_COPY_TOPIC_CONTENT',
+            'MODALS.DUPLICATE_TOPIC_CONFIRM_TXT_COPY_ATTACHMENTS',
+          ]
+        }, {
+          heading: 'MODALS.DUPLICATE_TOPIC_CONFIRM_HEADING_WILL_NOT_BE_DUPLICATED',
+          points: [
+            'MODALS.DUPLICATE_TOPIC_CONFIRM_TXT_SETTINGS',
+            'MODALS.DUPLICATE_TOPIC_CONFIRM_TXT_PERMISSIONS',
+            'MODALS.DUPLICATE_TOPIC_CONFIRM_TXT_HISTORY',
+            'MODALS.DUPLICATE_TOPIC_CONFIRM_TXT_DISCUSSIONS',
+            'MODALS.DUPLICATE_TOPIC_CONFIRM_TXT_RELATED_INFO',
+            'MODALS.DUPLICATE_TOPIC_CONFIRM_TXT_VOTES',
+            'MODALS.DUPLICATE_TOPIC_CONFIRM_TXT_FOLLOW_UP_POSTS'
+          ]
+        }],
+        confirmBtn: 'MODALS.DUPLICATE_TOPIC_CONFIRM__BTN_YES',
+        closeBtn: 'MODALS.DUPLICATE_TOPIC_CONFIRM_BTN_NO'
+      }
+    });
+
+    duplicateDialog.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.TopicService
+          .duplicate(topic)
+          .pipe(take(1))
+          .subscribe((duplicate) => {
+            this.router.navigate(['/topics', duplicate.id]);
+          });
+      }
+    })
+  };
 }

@@ -83,10 +83,12 @@ $button-styles: (
   ),
   activity: (
     background: var(--color-warn-background),
+    hover: var(--color-info-background),
   ),
   activity_new: (
     background: var(--color-warn),
-    color: var(--color-surfaces)
+    color: var(--color-surfaces),
+    hover: var(--color-info),
   ),
   discussion: (
     background: var(--color-discussion),

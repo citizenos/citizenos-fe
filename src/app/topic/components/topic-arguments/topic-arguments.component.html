@@ -52,7 +52,7 @@
       <div class="dropdown" [cosDropdown]>
         <div class="selection">
           <div class="selected_item">{{'COMPONENTS.TOPIC_ARGUMENTS.FILTER_ARGUMENT_ORDER_BY_' +
-            TopicArgumentService.params$.value.orderBy | uppercase
+            (TopicArgumentService.params$.value.orderBy?  TopicArgumentService.params$.value.orderBy : 'DEFAULT') | uppercase
             | translate}}</div>
           <div class="icon_arrow_down_black"></div>
         </div>

@@ -3,7 +3,16 @@
 #topic_members_list_wrap {
   gap: 16px;
 }
+#topic_members_filters {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
 
-topic-member-user {
+  .dropdown {
+    min-width: 160px;
+  }
+}
+
+topic-member-user, topic-member-group, topic-member-invite {
   display: contents;
 }

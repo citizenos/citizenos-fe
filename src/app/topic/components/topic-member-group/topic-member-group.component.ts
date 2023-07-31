@@ -30,7 +30,7 @@ export class TopicMemberGroupComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  doUpdateMemberGroup(level: string) {
+  doUpdateMemberGroup(level: any) {
     if (this.group.level !== level) {
       const oldLevel = this.group.level;
       this.group.level = level;
@@ -48,7 +48,7 @@ export class TopicMemberGroupComponent implements OnInit {
       data: {
         level: 'delete',
         heading: 'MODALS.TOPIC_MEMBER_GROUP_DELETE_CONFIRM_HEADING',
-        title: 'MODALS.TOPIC_MEMBER_GROUP_DELETE_CONFIRM_TXT_ARE_YOU_SURE',
+        description: 'MODALS.TOPIC_MEMBER_GROUP_DELETE_CONFIRM_TXT_ARE_YOU_SURE',
         confirmBtn: 'MODALS.TOPIC_MEMBER_GROUP_DELETE_CONFIRM_BTN_YES',
         closeBtn: 'MODALS.TOPIC_MEMBER_GROUP_DELETE_CONFIRM_BTN_NO'
       }

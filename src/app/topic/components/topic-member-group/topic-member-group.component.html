@@ -1,10 +1,50 @@
 <ng-container *ngIf="topic && group">
-  <div class="pretend_td">
+  <div class="row_cell">
+    <div class="profile_image_wrap">
+      <img class="profile_image" *ngIf="group.imageUrl" [src]="group.imageUrl">
+      <div class="profile_image_filler" *ngIf="!group.imageUrl">
+        <cos-initials class="table_cell" *ngIf="group.name" [name]="group.name">
+        </cos-initials>
+      </div>
+    </div>
+    <a class="user_name" *ngIf="group.permission.level" [routerLink]="['/my/groups/', group.id]"
+      [innerHtml]>{{group.name}}</a>
+  </div>
+  <div class="row_cell">
+    <div class="dropdown" [cosDropdown] *ngIf="TopicService.canUpdate(topic)">
+      <div class="selection">
+        <div class="selected_item">{{'TXT_TOPIC_LEVELS_' + (group.level) |
+          uppercase | translate}}</div>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
+        </svg>
+      </div>
+      <div class="options">
+        <div class="option" *ngFor="let level of groupLevels | keyvalue" (click)="doUpdateMemberGroup(level.value)">
+          {{'TXT_TOPIC_LEVELS_' + level.value | uppercase | translate}}
+        </div>
+      </div>
+    </div>
+    <div class="dropdown button_dropdown" [cosDropdown]>
+      <button>
+        <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M9.81738 4.00033C9.81738 3.26699 9.21738 2.66699 8.48405 2.66699C7.75072 2.66699 7.15072 3.26699 7.15072 4.00033C7.15072 4.73366 7.75072 5.33366 8.48405 5.33366C9.21738 5.33366 9.81738 4.73366 9.81738 4.00033ZM9.81738 12.0003C9.81738 11.267 9.21738 10.667 8.48405 10.667C7.75072 10.667 7.15072 11.267 7.15072 12.0003C7.15072 12.7337 7.75072 13.3337 8.48405 13.3337C9.21738 13.3337 9.81738 12.7337 9.81738 12.0003ZM8.48405 6.66699C9.21738 6.66699 9.81738 7.26699 9.81738 8.00033C9.81738 8.73366 9.21738 9.33366 8.48405 9.33366C7.75072 9.33366 7.15072 8.73366 7.15072 8.00033C7.15072 7.26699 7.75072 6.66699 8.48405 6.66699Z"
+            fill="#2C3B47" />
+        </svg>
+      </button>
+      <div class="options">
+        <div class="option" (click)="doDeleteMemberGroup()">Remove group</div>
+      </div>
+    </div>
+  </div>
+
+  <!--div class="pretend_td">
     <div class="blue_link" *ngIf="group.permission.level" [routerLink]="['/my/groups/', group.id]"
       [textContent]="group.name"></div>
     <div *ngIf="!group.permission.level"><i class="disabled"
         translate="VIEWS.MY_TOPICS_TOPICID.LBL_INACCESSIBLE_GROUP"></i></div>
-  </div>
+  </!--div>
   <div class="pretend_td">
     <div [cosDropdown] class="classic_dropdown" *ngIf="TopicService.canUpdate(topic)">
       <div class="dropdown_selection">
@@ -30,7 +70,7 @@
       [translateParams]="{count: group.members.users.count}">Users: 0</span>
     <span *ngIf="wWidth >= 560" [textContent]="group.members.users.count">1</span>
   </div>
-  <div class="pretend_td recycle_bin_wrap">
+  <div-- class="pretend_td recycle_bin_wrap">
     <div class="btn_wrap recycle_bin" *ngIf="TopicService.canUpdate(topic)">
       <div class="btn" (click)="doDeleteMemberGroup()">
         <div class="table_cell">
@@ -39,5 +79,5 @@
         </div>
       </div>
     </div>
-  </div>
+  </div-->
 </ng-container>

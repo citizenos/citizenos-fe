@@ -14,11 +14,38 @@
   max-width: calc(100% - 566px);
   width: 100%;
 
+  @include mixins.tablet {
+    max-width: 100%;
+    display: none;
+  }
+
   .footer_title {
     font-size: 16px;
     font-style: normal;
     font-weight: 600;
     line-height: 24px; /* 150% */
+  }
+}
+
+#create_argument_tablet_btn {
+  display: none;
+  @include mixins.tablet {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: -52px;
+    margin-right: -8px;
+
+    button {
+      svg {
+        position: absolute;
+      }
+    }
+  }
+
+  @include mixins.mobile {
+    margin-top: -30px;
+    margin-bottom: 0;
+    margin-right: 0;
   }
 }
 
@@ -42,6 +69,7 @@
     bottom: 0;
     left: 0;
     z-index: 9999999;
+    max-width: 100%;
   }
 
   #buttons_row {
