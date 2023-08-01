@@ -41,6 +41,7 @@ import { TopicJoinComponent } from './components/topic-join/topic-join.component
 import { TopicInvitationComponent } from './components/topic-invitation/topic-invitation.component';
 import { TopicReportComponent } from './components/topic-report/topic-report.component';
 import { TopicVoteDelegateComponent } from './components/topic-vote-delegate/topic-vote-delegate.component';
+import { DuplicateTopicDialogComponent } from './components/duplicate-topic-dialog/duplicate-topic-dialog.component';
 
 @NgModule({
   declarations: [
@@ -85,7 +86,8 @@ import { TopicVoteDelegateComponent } from './components/topic-vote-delegate/top
     TopicJoinComponent,
     TopicInvitationComponent,
     TopicReportComponent,
-    TopicVoteDelegateComponent
+    TopicVoteDelegateComponent,
+    DuplicateTopicDialogComponent
   ],
   imports: [
     LinkyModule,

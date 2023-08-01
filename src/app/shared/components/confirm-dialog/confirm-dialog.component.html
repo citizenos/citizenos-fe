@@ -57,7 +57,10 @@
       </div>
       <ng-container *ngFor="let point of data.points">
         <div>
-          <div class="sprite sprite-checkmark2x"></div>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9.38602 14.8088L17.5256 6L19 7.59558L9.38602 18L5 13.2534L6.47436 11.6578L9.38602 14.8088Z"
+              fill="#2C3B47" />
+          </svg>
           <div class="delete_info_text" translate="{{point}}"></div>
         </div>
       </ng-container>

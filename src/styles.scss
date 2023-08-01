@@ -267,6 +267,16 @@ textarea {
     }
   }
 }
+.inline-message {
+  position: absolute;
+  padding: 5px 20px;
+  background-color: var(--color-success-background);
+  z-index: 999999;
+  color: var(--color-text);
+  border-radius: 5px;
+  opacity: 1;
+  transition: opacity 0.5s;
+}
 
 .mobile_hidden {
   @include mixins.mobile {

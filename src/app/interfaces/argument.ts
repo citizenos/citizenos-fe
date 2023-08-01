@@ -16,6 +16,7 @@ export interface Argument {
     name: string,
     company: string | null,
     email: string | null,
+    imageUrl: string | null,
     phoneNumber: string | null,
   },
   edits: any[],
