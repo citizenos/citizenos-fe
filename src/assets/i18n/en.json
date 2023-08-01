@@ -71,6 +71,15 @@
     "MSG_REQUEST_SENT": "Your help request has been sent!"
   },
   "COMPONENTS": {
+    "ACTIVITY_FEED": {
+      "HEADING": "@:DEFAULT.NAV.LNK_ACTIVITY",
+      "PLACEHOLDER_FILTER": "Show",
+      "FILTER_ALL": "All activities",
+      "FILTER_USERTOPICS": "Activities related to my topics",
+      "FILTER_USERGROUPS": "Activities related to my groups",
+      "FILTER_USER": "Activities related to user",
+      "FILTER_SELF": "My activities"
+    },
     "SEARCH": {
       "LNK_CLEAR": "Clear",
       "TITLE": "Global search",
@@ -233,7 +242,7 @@
       "HEADING": "Revoke invitation",
       "MESSAGE_MAIN": "You are revoking the invitation of: ",
       "MESSAGE_DESCRIPTION": "This person has not yet accepted the invitation and is not yet taking part in the topic. Removing them will result in revoking invitation. You cannot undo this action.",
-      "MESSGE_PENDING_COUNT": "This user has {{count}} pending invitations!",
+      "MESSAGE_PENDING_COUNT": "This user has {{count}} pending invitations!",
       "SELECT_HEADING": "Please select below what you want to do:",
       "OPTION_1": "Revoke only last invitation",
       "OPTION_2": "Revoke all invitations",
@@ -255,7 +264,7 @@
       "BTN_READ_MORE": "Read more",
       "BTN_READ_LESS": "Read less",
       "SECTION_INFO_TITLE_INFO": "Information",
-      "SECTION_INFO_TITLE_ATTACHMENTS":"Attachments",
+      "SECTION_INFO_TITLE_ATTACHMENTS": "Attachments",
       "SECTION_INFO_TITLE_GROUPS": "Groups",
       "SECTION_INFO_TITLE_CATEGORIES": "Categories",
       "SECTION_INFO_TITLE_TAGS": "Tags",
@@ -270,6 +279,42 @@
       "STATE_ITEM_NO_IDEATON": "No ideation yet",
       "STATE_ITEM_NO_VOTING": "No voting system yet",
       "STATE_ITEM_ADD_FOLLOW_UP": "Add follow-up"
+    },
+    "DUPLICATE_TOPIC": {
+      "HEADING": "Duplicate topic",
+      "MESSAGE_MAIN": "You are duplicating",
+      "MESSAGE_DESCRIPTION": "Are you sure you want to duplicate the topic ? This will create a new private topic in draft.",
+      "HEADING_WILL_BE_DUPLICATED": "This content will be duplicated",
+      "WILL_BE_DUPLICATED_1": "Topic content as it is right now (including images, footnotes, comments, mini-votes)",
+      "WILL_BE_DUPLICATED_2": "All attachments",
+      "HEADING_WILL_NOT_BE_DUPLICATED": "This content will not be duplicated",
+      "WILL_NOT_BE_DUPLICATED_1": "settings (public/private, voting systems, hashtags etc.)",
+      "WILL_NOT_BE_DUPLICATED_2": "permissions (users, groups)",
+      "WILL_NOT_BE_DUPLICATED_3": "history (edit history, activity feed items)",
+      "WILL_NOT_BE_DUPLICATED_4": "discussions (arguments, replies)",
+      "WILL_NOT_BE_DUPLICATED_5": "related information (topic status, pinned status)",
+      "WILL_NOT_BE_DUPLICATED_6": "votes",
+      "WILL_NOT_BE_DUPLICATED_7": "follow-up posts",
+      "BTN_SUBMIT": "Duplicate topic",
+      "BTN_CANCEL": "@:LNK_CANCEL"
+    },
+    "REPORT_TOPIC": {
+      "HEADING": "Report topic",
+      "MESSAGE_MAIN": "You are reporting",
+      "LABLE_REASON": "Reason for reporting *",
+      "PLACEHOLDER_REPORT_TEXT": "Explain, why you found this argument inappropriate...",
+      "ERROR_TEXT": "@:MSG_ERROR_POST_API_TOPICS_COMMENTS_REPORTS_40000_TEXT",
+      "BTN_SUBMIT": "Report to admin",
+      "BTN_CANCEL": "@:LNK_CANCEL"
+    },
+    "ARGUMENT_REPORT": {
+      "HEADING": "Report user to admin",
+      "MESSAGE_MAIN": "You are reporting",
+      "LABLE_REASON": "Reason for reporting *",
+      "PLACEHOLDER_REPORT_TEXT": "Explain, why you found this argument inappropriate...",
+      "ERROR_TEXT": "@:MSG_ERROR_POST_API_TOPICS_COMMENTS_REPORTS_40000_TEXT",
+      "BTN_SUBMIT": "Report to admin",
+      "BTN_CANCEL": "@:LNK_CANCEL"
     }
   },
   "MODALS": {
@@ -1682,12 +1727,7 @@
     "ACTIVITY_USERCONNECTION_CONNECTION_NAME_FACEBOOK": "Facebook",
     "ACTIVITY_USERCONNECTION_CONNECTION_NAME_SMARTID": "Smart-ID",
     "ACTIVITY_USERCONNECTION_CONNECTION_NAME_ESTEID": "Estonian ID-card / Mobiil-ID",
-    "ACTIVITY_USERCONNECTION_CONNECTION_NAME_CITIZENOS": "Citizen OS",
-    "FILTER_ALL": "All activities",
-    "FILTER_USERTOPICS": "Activities related to my topics",
-    "FILTER_USERGROUPS": "Activities related to my groups",
-    "FILTER_USER": "Activities related to user",
-    "FILTER_SELF": "My activities"
+    "ACTIVITY_USERCONNECTION_CONNECTION_NAME_CITIZENOS": "Citizen OS"
   },
   "MSG_ERROR_POST_API_AUTH_SIGNUP_40000_EMAIL": "Invalid email.",
   "MSG_ERROR_POST_API_AUTH_SIGNUP_40001_EMAIL": "The email address is already in use.",

@@ -37,7 +37,6 @@
             </svg>
             <span translate="VIEWS.TOPICS_TOPICID.ARGUMENT_LNK_EDIT"></span>
           </div>
-          <div class="line_separator"></div>
           <div class="option" (click)="copyArgumentLink($event)">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -46,7 +45,6 @@
             </svg>
             <span translate="LNK_DIRECT_LINK"></span>
           </div>
-          <div class="line_separator"></div>
           <div class="option" #loggedIn (click)="doArgumentReport()"><svg width="16" height="16" viewBox="0 0 16 16"
               fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="8" cy="8" r="5.5" fill="#2C3B47" stroke="#2C3B47" />
@@ -56,7 +54,6 @@
             </svg>
             <span translate="VIEWS.TOPICS_TOPICID.ARGUMENT_LNK_REPORT"></span>
           </div>
-          <div class="line_separator"></div>
           <div *ngIf="canEdit()" class="option error_text" (click)="doShowDeleteArgument()">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd"

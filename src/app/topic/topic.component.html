@@ -106,7 +106,7 @@
             </div>
             <span translate="COMPONENTS.TOPIC.OPTION_ADD_TO_GROUP"></span>
           </div>
-          <div class="option">
+          <div class="option" *ngIf="topic.visibility === TopicService.VISIBILITY.public && !topic.report" [routerLink]="['/topics', topic.id, 'report']">
             <div><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="8" cy="8" r="5.5" fill="#2C3B47" stroke="#2C3B47" />
                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -504,6 +504,7 @@
     </div>
   </div>
 </div>
+<router-outlet></router-outlet>
 <!--div id="topics_admin_root" *ngIf="topic$ | async as topic;">
 
   <topic-timeline  [topic]="topic"></topic-timeline>

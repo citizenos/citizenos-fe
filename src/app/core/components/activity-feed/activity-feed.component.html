@@ -1,19 +1,19 @@
 <!-- LIGHTBOX SKELETON -->
 <div id="activity_feed">
-  <h3 translate="MODALS.ACTIVITY_MODAL_HEADING"></h3>
+  <h3 translate="COMPONENTS.ACTIVITY_FEED.HEADING"></h3>
   <a class="btn_medium_close" mat-dialog-close>
     <div class="icon_general_close"></div>
   </a>
-  <cos-input placeholder="Show">
+  <cos-input [placeholder]="'COMPONENTS.ACTIVITY_FEED.PLACEHOLDER_FILTER' | translate">
     <div class="dropdown" [cosDropdown]>
       <div class="selection">
-        <div class="selected_item">{{'ACTIVITY_FEED.FILTER_' + ((ActivityService.params$ |
+        <div class="selected_item">{{'COMPONENTS.ACTIVITY_FEED.FILTER_' + ((ActivityService.params$ |
           async)?.include?.toUpperCase() || 'ALL') | translate}}</div>
         <div class="icon_arrow_down_black"></div>
       </div>
       <div class="options">
         <div class="option" *ngFor="let filter of ActivityService.filters" (click)="filterActivities(filter)"
-          translate="ACTIVITY_FEED.FILTER_{{filter.toUpperCase()}}">
+          translate="COMPONENTS.ACTIVITY_FEED.FILTER_{{filter.toUpperCase()}}">
         </div>
       </div>
     </div>

@@ -25,6 +25,7 @@ import { ConfirmDialogComponent } from '../shared/components/confirm-dialog/conf
 import { TopicMemberUserService } from '../services/topic-member-user.service';
 import { TopicInviteDialogComponent } from './components/topic-invite/topic-invite.component';
 import { TopicParticipantsComponent } from './components/topic-participants/topic-participants.component';
+import { DuplicateTopicDialogComponent } from './components/duplicate-topic-dialog/duplicate-topic-dialog.component';
 
 @Component({
   selector: 'topic',
@@ -52,7 +53,7 @@ export class TopicComponent implements OnInit {
   showGroups = false;
   showTags = false;
   readMore = false;
-  showArgumentsTablet = false;
+  showArgumentsTablet = (window.innerWidth >= 1024);
   //new end
   topic$; // decorate the property with @Input()
   // groups$: Observable<Group[]>;
@@ -287,31 +288,9 @@ export class TopicComponent implements OnInit {
   }
 
   duplicateTopic(topic: Topic) {
-    const duplicateDialog = this.dialog.open(ConfirmDialogComponent, {
+    const duplicateDialog = this.dialog.open(DuplicateTopicDialogComponent, {
       data: {
-        heading: 'MODALS.DUPLICATE_TOPIC_CONFIRM_HEADING',
-        description: 'MODALS.DUPLICATE_TOPIC_CONFIRM_HEADING_DESCRIPTION',
-        title: 'MODALS.DUPLICATE_TOPIC_CONFIRM_HEADING',
-        sections: [{
-          heading: 'MODALS.DUPLICATE_TOPIC_CONFIRM_HEADING_WILL_BE_DUPLICATED',
-          points: [
-            'MODALS.DUPLICATE_TOPIC_CONFIRM_TXT_COPY_TOPIC_CONTENT',
-            'MODALS.DUPLICATE_TOPIC_CONFIRM_TXT_COPY_ATTACHMENTS',
-          ]
-        }, {
-          heading: 'MODALS.DUPLICATE_TOPIC_CONFIRM_HEADING_WILL_NOT_BE_DUPLICATED',
-          points: [
-            'MODALS.DUPLICATE_TOPIC_CONFIRM_TXT_SETTINGS',
-            'MODALS.DUPLICATE_TOPIC_CONFIRM_TXT_PERMISSIONS',
-            'MODALS.DUPLICATE_TOPIC_CONFIRM_TXT_HISTORY',
-            'MODALS.DUPLICATE_TOPIC_CONFIRM_TXT_DISCUSSIONS',
-            'MODALS.DUPLICATE_TOPIC_CONFIRM_TXT_RELATED_INFO',
-            'MODALS.DUPLICATE_TOPIC_CONFIRM_TXT_VOTES',
-            'MODALS.DUPLICATE_TOPIC_CONFIRM_TXT_FOLLOW_UP_POSTS'
-          ]
-        }],
-        confirmBtn: 'MODALS.DUPLICATE_TOPIC_CONFIRM__BTN_YES',
-        closeBtn: 'MODALS.DUPLICATE_TOPIC_CONFIRM_BTN_NO'
+        topic: topic
       }
     });
 
