@@ -6,7 +6,7 @@ import { Directive, ElementRef, Input, HostListener, OnDestroy, Renderer2 } from
 export class CosDropdownDirective implements OnDestroy {
   @Input() cosDropdown: undefined; // The text for the tooltip to display
   @Input() cosDropdownMobile!: any;
-
+  @Input() multipleChoice?: boolean;
   constructor(private elem: ElementRef, private renderer: Renderer2) {
   }
 
@@ -19,7 +19,7 @@ export class CosDropdownDirective implements OnDestroy {
       if (elem.classList.contains('dropdown_selector')) {
         this.renderer.removeClass(elem, 'dropdown_active');
       }
-    } else if (elem.classList.contains('dropdown_active')) {
+    } else if (elem.classList.contains('dropdown_active') && !this.multipleChoice) {
       this.renderer.removeClass(elem, 'dropdown_active');
     } else {
       this.renderer.addClass(elem, 'dropdown_active');
@@ -27,7 +27,6 @@ export class CosDropdownDirective implements OnDestroy {
 
     this.renderer.addClass(elem, 'active_recent');
   }
-
   @HostListener('document:click', ['$event'])
   clickout() {
     const elem = this.elem.nativeElement;

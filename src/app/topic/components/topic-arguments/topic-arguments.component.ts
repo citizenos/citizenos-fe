@@ -26,6 +26,7 @@ export class TopicArgumentsComponent implements OnInit {
     @Inject(ActivatedRoute) private route: ActivatedRoute,
     private app: AppService,
     public TopicArgumentService: TopicArgumentService) {
+      this.TopicArgumentService.setParam('limit', 5);
     this.arguments$ = this.TopicArgumentService.loadItems().pipe(tap(() => {
       this.route.queryParams.pipe(take(1), tap((params) => {
         setTimeout(() => {

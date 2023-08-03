@@ -9,6 +9,7 @@
 button {
   width: 40px;
   height: 40px;
+  transition: background-color 0.2s linear;
 
   &.btn_pagination {
     display: flex;
@@ -18,38 +19,3 @@ button {
     }
   }
 }
-/*@use "vars";
-@use "mixins_n_extends";
-
-.pagination {
-  .pagination_items_wrap {
-    width: max-content;
-    margin-left: auto;
-    margin-right: auto;
-
-    .page_button {
-      width: 20px;
-      height: 20px;
-      border: 1px solid vars.$light_gray;
-      border-right: 0;
-      color: vars.$deep_sky_blue;
-      text-align: center;
-      font-size: 14px;
-      padding: 5px;
-
-      &:hover {
-        cursor: pointer;
-        color: vars.$dark_blue;
-      }
-
-      &:last-child {
-        border-right: 1px solid vars.$light_gray;
-      }
-
-      &.active {
-        background: vars.$deep_sky_blue;
-        color: vars.$white;
-      }
-    }
-  }
-}*/

@@ -11,6 +11,7 @@ export interface Argument {
   },
   deletedReasonText: string | null,
   deletedReasonType: string | null,
+  showDeletedArgument: boolean | undefined,
   creator: {
     id: string,
     name: string,

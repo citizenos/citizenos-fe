@@ -294,20 +294,20 @@ $button-styles: (
 /* Customize the label (the container) */
 .checkbox {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
+  align-items: center;
   gap: 8px;
   position: relative;
-  padding-left: 35px;
   cursor: pointer;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   min-height: 24px;
+  flex-direction: row-reverse;
 
   input {
-    position: absolute;
+    position: absolute!important;
     opacity: 0;
     cursor: pointer;
     height: 0;
@@ -324,17 +324,15 @@ $button-styles: (
   }
   /* Create a custom checkbox */
   .checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
     height: 24px;
     width: 24px;
+    min-width: 24px;
     border: 1px solid var(--input-checkbox-border-default);
     border-radius: 8px;
 
     &:after {
       content: "";
-      position: absolute;
+      position: relative;
       display: none;
       left: 8px;
       top: 4px;

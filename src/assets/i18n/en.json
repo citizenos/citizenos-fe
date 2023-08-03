@@ -307,6 +307,19 @@
       "BTN_SUBMIT": "Report to admin",
       "BTN_CANCEL": "@:LNK_CANCEL"
     },
+    "ARGUMENT_LNK_VIEW_PREVIOUS_VERSIONS": "view edits",
+      "ARGUMENT_LNK_EDIT": "edit",
+      "ARGUMENT_LNK_DELETE": "@:VIEWS.MY_GROUPS_GROUPID.LNK_DELETE",
+      "ARGUMENT_LNK_COPIED": "Link copied",
+      "ARGUMENT_LNK_REPORT": "report",
+    "ARGUMENT": {
+      "OPTION_EDIT": "edit",
+      "OPTION_REPORT": "report",
+      "OPTION_DELETE": "delete",
+      "LNK_SHOW_REPLIES": "Show replies ({{count}})",
+      "LNK_HIDE_REPLIES": "Hide replies",
+      "BTN_REPLY": "Reply"
+    },
     "ARGUMENT_REPORT": {
       "HEADING": "Report user to admin",
       "MESSAGE_MAIN": "You are reporting",
@@ -315,6 +328,20 @@
       "ERROR_TEXT": "@:MSG_ERROR_POST_API_TOPICS_COMMENTS_REPORTS_40000_TEXT",
       "BTN_SUBMIT": "Report to admin",
       "BTN_CANCEL": "@:LNK_CANCEL"
+    },
+    "ARGUMENT_REPORT_MODERATE": {
+      "HEADING": "Moderate argument",
+      "MESSAGE_MAIN": "User wrote:",
+      "LABLE_REASON": "Reason for moderating",
+      "PLACEHOLDER_REPORT_TEXT": "@:MODALS.TOPIC_ARGUMENT_REPORT_PLACEHOLDER_REPORT_TEXT",
+      "ARE_YOU_SURE": "Are you sure you want to moderate this argument? You cannot undo this action.",
+      "ERROR_TEXT": "@:MSG_ERROR_POST_API_TOPICS_COMMENTS_REPORTS_40000_TEXT",
+      "BTN_SUBMIT": "Yes, moderate this argument",
+      "BTN_CANCEL": "@:MODALS.TOPIC_ARGUMENT_REPORT_BTN_NO"
+    },
+    "ARGUMENT_WHY": {
+      "HEADING": "Why is this content hidden?",
+      "MESSAGE_MAIN": "The admin chose to hide this content. You can review the reason below."
     }
   },
   "MODALS": {

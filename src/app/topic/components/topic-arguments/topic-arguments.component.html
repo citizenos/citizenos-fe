@@ -35,15 +35,25 @@
   </div>
   <div class="arguments_filters">
     <cos-input [placeholder]="'COMPONENTS.TOPIC_ARGUMENTS.FILTER_ARGUMENT_TYPE' | translate" class="dropdown_input">
-      <div class="dropdown" [cosDropdown]>
+      <div class="dropdown" [cosDropdown] [multipleChoice]="true">
         <div class="selection">
           <div class="selected_item">{{'COMPONENTS.TOPIC_ARGUMENTS.FILTER_ARGUMENT_TYPE' | translate}}</div>
           <div class="icon_arrow_down_black"></div>
         </div>
         <div class="options">
-          <div class="option" translate="COMPONENTS.TOPIC_ARGUMENTS.FILTER_TYPE_ALL"></div>
-          <div class="option" *ngFor="let type of argumentTypes">
-            {{'COMPONENTS.TOPIC_ARGUMENTS.FILTER_TYPE_' + type | uppercase | translate}}
+          <div class="option check">
+            <label class="checkbox">
+              <span translate="COMPONENTS.TOPIC_ARGUMENTS.FILTER_TYPE_ALL"></span>
+              <input type="checkbox">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="option check" *ngFor="let type of argumentTypes">
+            <label class="checkbox">
+              <span [translate]="'COMPONENTS.TOPIC_ARGUMENTS.FILTER_TYPE_'+ type.toUpperCase()"></span>
+              <input type="checkbox">
+              <span class="checkmark"></span>
+            </label>
           </div>
         </div>
       </div>
@@ -52,12 +62,14 @@
       <div class="dropdown" [cosDropdown]>
         <div class="selection">
           <div class="selected_item">{{'COMPONENTS.TOPIC_ARGUMENTS.FILTER_ARGUMENT_ORDER_BY_' +
-            (TopicArgumentService.params$.value.orderBy?  TopicArgumentService.params$.value.orderBy : 'DEFAULT') | uppercase
+            (TopicArgumentService.params$.value.orderBy? TopicArgumentService.params$.value.orderBy : 'DEFAULT') |
+            uppercase
             | translate}}</div>
           <div class="icon_arrow_down_black"></div>
         </div>
         <div class="options">
-          <div class="option" translate="COMPONENTS.TOPIC_ARGUMENTS.FILTER_ARGUMENT_ORDER_BY_DEFAULT" (click)="TopicArgumentService.setParam('orderBy', null)"> </div>
+          <div class="option" translate="COMPONENTS.TOPIC_ARGUMENTS.FILTER_ARGUMENT_ORDER_BY_DEFAULT"
+            (click)="TopicArgumentService.setParam('orderBy', null)"> </div>
           <div class="option" *ngFor="let orderOption of orderByOptions"
             (click)="TopicArgumentService.setParam('orderBy', orderOption)">
             {{'COMPONENTS.TOPIC_ARGUMENTS.FILTER_ARGUMENT_ORDER_BY_' + orderOption | uppercase | translate}}
@@ -68,6 +80,11 @@
   </div>
   <div id="arguments">
     <argument [argument]="arg" [topicId]="topic.id" *ngFor="let arg of arguments$ | async"></argument>
+  </div>
+  <div class="pagination_wrap">
+    <cos-pagination (select)="TopicArgumentService.loadPage($event)"
+      [totalPages]="(TopicArgumentService.totalPages$ | async) || 0"
+      [page]="(TopicArgumentService.page$ | async) || 0"></cos-pagination>
   </div>
 </div>
 <!--div class="arguments_container">

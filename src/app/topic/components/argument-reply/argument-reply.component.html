@@ -1,5 +1,5 @@
 <div class="reply_wrap">
-  <ng-container *ngIf="AuthService.loggedIn$ | async; then loggedIn; else loggedOut"></ng-container>
+  <ng-container *ngIf="AuthService.loggedIn$ | async; then loggedIn;"></ng-container>
   <ng-template #loggedIn>
     <div>
       <h3 class="text-center" translate-compile>Add your reply</h3>
@@ -32,11 +32,5 @@
         translate="VIEWS.TOPICS_TOPICID.BTN_ARGUMENT_POST_REPLY">
       </div>
     </form>
-  </ng-template>
-
-  <ng-template #loggedOut>
-    <div>
-      <h3 class="text-center">Log in to particiapte</h3>
-    </div>
   </ng-template>
 </div>

@@ -20,7 +20,17 @@
       font-weight: bold;
     }
   }
+
+  .pagination {
+    button {
+      background-color: var(--color-surfaces);
+      &:hover, &.active  {
+        background-color: initial;
+      }
+    }
+  }
 }
+
 .argument_graph_wrap {
   background-color: var(--color-surfaces);
   padding: 16px;
@@ -117,6 +127,11 @@
   argument {
     display: contents;
   }
+}
+
+.pagination_wrap {
+  justify-content: center;
+  display: flex;
 }
 /*
 .arguments_header {

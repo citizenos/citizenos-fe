@@ -215,6 +215,7 @@
         display: flex;
         flex-direction: column;
         padding: 24px;
+        margin-bottom: 90px;
 
         @include mixins.tablet {
           display: none;
