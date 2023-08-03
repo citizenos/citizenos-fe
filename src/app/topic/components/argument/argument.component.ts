@@ -58,6 +58,9 @@ export class ArgumentComponent implements OnInit {
     return (!this.argument.deletedAt && !this.showDeletedArgument) || (this.argument.deletedAt && this.showDeletedArgument);
   };
 
+  showArgument (value: boolean) {
+    this.showDeletedArgument = value;
+  }
   argumentEditMode() {
     /* this.editSubject = this.argument.subject;
      this.editText = this.argument.text;

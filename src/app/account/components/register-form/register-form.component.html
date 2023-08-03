@@ -39,11 +39,13 @@
         <div translate="{{errors.password}}"></div>
       </label>
     </div>
-    <label class="checkbox"><span translate="COMPONENTS.REGISTER_FORM.LBL_TERMS_AND_CONDITIONS_DESCRIPTION"></span>
-      <a class="bold" [href]="config.termsOfUse" target="_blank"
-        translate="COMPONENTS.REGISTER_FORM.PRIVACY_POLICY_LNK_TERMS_OF_USE"></a>
-      <a class="bold" [href]="config.privacyPolicy" target="_blank"
-        translate="COMPONENTS.REGISTER_FORM.PRIVACY_POLICY_LNK_PRIVACY_POLICY"></a>
+    <label class="checkbox">
+      <div><span translate="COMPONENTS.REGISTER_FORM.LBL_TERMS_AND_CONDITIONS_DESCRIPTION"></span>
+        <a class="bold" [href]="config.termsOfUse" target="_blank"
+          translate="COMPONENTS.REGISTER_FORM.PRIVACY_POLICY_LNK_TERMS_OF_USE"></a>
+        <a class="bold" [href]="config.privacyPolicy" target="_blank"
+          translate="COMPONENTS.REGISTER_FORM.PRIVACY_POLICY_LNK_PRIVACY_POLICY"></a>
+      </div>
       <input type="checkbox" formControlName="agreeToTerms" value="true">
       <span class="checkmark"></span>
     </label>

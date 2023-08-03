@@ -5,7 +5,7 @@ import { AuthService } from './auth.service';
 import { LocationService } from './location.service';
 import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { Argument } from 'src/app/interfaces/argument';
-import { Observable, BehaviorSubject, map, distinct, catchError, EMPTY } from 'rxjs';
+import { Observable, BehaviorSubject, map, distinct, catchError, EMPTY, combineLatest, switchMap } from 'rxjs';
 import { ItemsListService } from './items-list.service';
 @Injectable({
   providedIn: 'root'
@@ -131,7 +131,7 @@ export class TopicArgumentService extends ItemsListService {
   };
 
   getReport(data: any) {
-    const path = this.Location.getAbsoluteUrlApi('/api/topics/:topicId/comments/:reportedCommentId/reports/:reportId', data);
+    const path = this.Location.getAbsoluteUrlApi('/api/topics/:topicId/comments/:commentId/reports/:reportId', data);
 
     const headers = {
       'Authorization': 'Bearer ' + data.token
@@ -168,7 +168,7 @@ export class TopicArgumentService extends ItemsListService {
             argument.replies.rows.forEach((reply: Argument) => this.ArgumentIds.push(reply.id))
           }
         })
-        return { rows: res.data.rows, countTotal: res.data.count.total || 0 }
+        return { rows: res.data.rows, countTotal: (res.data.count.total - res.data.count.reply) || 0 }
       }),
       distinct(),
       catchError(() => EMPTY)

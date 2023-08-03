@@ -1,4 +1,23 @@
-<div class="argument_footer delete_reasons" >
+<div class="deleted_argument_wrap">
+  <div class="deleted_argument_content_wrap">
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="40" height="40" rx="20" fill="#F39129" />
+      <path
+        d="M19.0645 8C18.4876 8 18.0304 8.48668 18.0664 9.06238L18.9414 23.0624C18.9743 23.5894 19.4114 24 19.9395 24H20.0605C20.5886 24 21.0257 23.5894 21.0586 23.0624L21.9336 9.06238C21.9696 8.48668 21.5124 8 20.9355 8H19.0645Z"
+        fill="white" />
+      <path
+        d="M20 31C21.1046 31 22 30.1046 22 29C22 27.8954 21.1046 27 20 27C18.8954 27 18 27.8954 18 29C18 30.1046 18.8954 31 20 31Z"
+        fill="white" />
+    </svg>
+    <div class="bold">This content was hidden by the admin</div>
+    <div class="buttons_wrap">
+      <a (click)="showReason()">Why?</a>
+      <a (click)="showArgument()">View anyway</a>
+    </div>
+  </div>
+</div>
+
+<!--div class="argument_footer delete_reasons">
   <div class="link_wrap">
     <div class="table_cell">
       <div class="blue_link active_red" (click)="showDeleteReason = !showDeleteReason"
@@ -27,7 +46,7 @@
     </div>
   </div>
   <div class="clearer"></div>
-</div>
+</!--div>
 
 <div class="alert_argument" *ngIf="showDeleteReason" (click)="showDeleteReason = !showDeleteReason">
   <span translate="VIEWS.TOPICS_TOPICID.ARGUMENT_FOUND_INAPPRIOPRIATE_BY"
@@ -41,8 +60,8 @@
   <span translate="VIEWS.TOPICS_TOPICID.ARGUMENT_READ_CODE_OF_CONDUCT"
     [translateParams]="{codeOfConduct: config.get('moderation').codeOfConduct}"></span>
 </div>
-<div class="alert_argument" *ngIf="argument.deletedAt && isVisible()">
+<div-- class="alert_argument" *ngIf="argument.deletedAt && isVisible()">
   <span class="replys_reply italic"><b>{{argument.subject}}</b></span><br>
   <span class="italic" (click)="showDeletedArgument = !showDeletedArgument" [innerHTML]="argument.text"></span>
-  <!-- pipe markdown -->
-</div>
+  <!-- pipe markdown >
+</div-->

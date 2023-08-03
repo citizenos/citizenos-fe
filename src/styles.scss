@@ -184,14 +184,23 @@ textarea {
     margin-top: 41px;
     min-width: max-content;
     position: fixed;
+    gap: 8px;
+    padding: 16px 8px;
 
     .option {
       display: flex;
       align-items: center;
       cursor: pointer;
-      padding: 14px;
+      padding: 8px;
+
+      &.check {
+        padding: 0;
+      }
       &:hover {
         background-color: var(--color-surface-contrast);
+      }
+      .checkbox {
+        width: 100%;
       }
     }
   }

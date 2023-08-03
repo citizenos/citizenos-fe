@@ -9,3 +9,21 @@
     width: 100%;
   }
 }
+
+.checkbox {
+  div {
+    display: flex;
+    flex-direction: column;
+  }
+}
+/*
+.checkbox {
+  flex-direction: column;
+
+  .checkmark {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+}
+*/

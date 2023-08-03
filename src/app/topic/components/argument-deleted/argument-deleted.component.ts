@@ -1,6 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Argument } from 'src/app/interfaces/argument';
 import { ConfigService } from 'src/app/services/config.service';
+import { ArgumentWhyDialogComponent } from '../argument-why-dialog/argument-why-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'argument-deleted',
@@ -9,12 +11,18 @@ import { ConfigService } from 'src/app/services/config.service';
 })
 export class ArgumentDeletedComponent implements OnInit {
   @Input() argument!: Argument;
-
-  showDeleteReason = false;
-  showDeletedArgument = false;
-  constructor(public config: ConfigService) { }
+  @Output() showDeletedArgument = new EventEmitter();
+  constructor(public config: ConfigService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
+  }
+
+  showReason() {
+    this.dialog.open(ArgumentWhyDialogComponent, {data: {argument: this.argument}});
+  }
+
+  showArgument () {
+    this.showDeletedArgument.emit(true);
   }
 
   isVisible() {

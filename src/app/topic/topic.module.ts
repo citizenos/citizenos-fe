@@ -42,6 +42,7 @@ import { TopicInvitationComponent } from './components/topic-invitation/topic-in
 import { TopicReportComponent } from './components/topic-report/topic-report.component';
 import { TopicVoteDelegateComponent } from './components/topic-vote-delegate/topic-vote-delegate.component';
 import { DuplicateTopicDialogComponent } from './components/duplicate-topic-dialog/duplicate-topic-dialog.component';
+import { ArgumentWhyDialogComponent } from './components/argument-why-dialog/argument-why-dialog.component';
 
 @NgModule({
   declarations: [
@@ -87,7 +88,8 @@ import { DuplicateTopicDialogComponent } from './components/duplicate-topic-dial
     TopicInvitationComponent,
     TopicReportComponent,
     TopicVoteDelegateComponent,
-    DuplicateTopicDialogComponent
+    DuplicateTopicDialogComponent,
+    ArgumentWhyDialogComponent
   ],
   imports: [
     LinkyModule,

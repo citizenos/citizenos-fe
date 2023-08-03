@@ -35,7 +35,7 @@
                 d="M8.8143 4.18517L11.8147 7.18569L5.29947 13.7012L2.62438 13.9965C2.26626 14.0361 1.96369 13.7333 2.00354 13.3752L2.30118 10.6981L8.8143 4.18517ZM13.6704 3.73845L12.2616 2.3296C11.8222 1.89013 11.1095 1.89013 10.67 2.3296L9.34467 3.65501L12.3451 6.65553L13.6704 5.33011C14.1099 4.89042 14.1099 4.17791 13.6704 3.73845Z"
                 fill="#2C3B47" />
             </svg>
-            <span translate="VIEWS.TOPICS_TOPICID.ARGUMENT_LNK_EDIT"></span>
+            <span translate="COMPONENTS.ARGUMENT.OPTION_EDIT"></span>
           </div>
           <div class="option" (click)="copyArgumentLink($event)">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -52,7 +52,7 @@
                 d="M4.83552 4.12842L11.8714 11.1643C11.6598 11.4228 11.4228 11.6598 11.1643 11.8714L4.12842 4.83552C4.34 4.57697 4.57697 4.34 4.83552 4.12842Z"
                 fill="white" />
             </svg>
-            <span translate="VIEWS.TOPICS_TOPICID.ARGUMENT_LNK_REPORT"></span>
+            <span translate="COMPONENTS.ARGUMENT.OPTION_REPORT"></span>
           </div>
           <div *ngIf="canEdit()" class="option error_text" (click)="doShowDeleteArgument()">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -60,15 +60,18 @@
                 d="M10 3H6V4H10V3ZM11 4V3C11 2.44772 10.5523 2 10 2H6C5.44772 2 5 2.44772 5 3V4H4H2.5C2.22386 4 2 4.22386 2 4.5C2 4.77614 2.22386 5 2.5 5H4V13C4 13.5523 4.44772 14 5 14H11C11.5523 14 12 13.5523 12 13V5H13.5C13.7761 5 14 4.77614 14 4.5C14 4.22386 13.7761 4 13.5 4H12H11ZM7 7H6V11H7V7ZM10 7H9V11H10V7Z"
                 fill="#2C3B47" />
             </svg>
-            <span translate="VIEWS.TOPICS_TOPICID.ARGUMENT_LNK_DELETE"></span>
+            <span translate="COMPONENTS.ARGUMENT.OPTION_DELETE"></span>
           </div>
         </div>
       </div>
     </div>
   </div>
   <div class="argument_content">
-    <div class="argument_subject" [innerHTML]="argument.subject"></div>
-    <div class="argument_body" [innerHTML]="argument.text"></div>
+    <ng-container *ngIf="isVisible()">
+      <div class="argument_subject" [innerHTML]="argument.subject"></div>
+      <div class="argument_body" [innerHTML]="argument.text"></div>
+    </ng-container>
+    <argument-deleted *ngIf="argument.deletedAt" [argument]="argument" (showDeletedArgument)="showArgument($event)"></argument-deleted>
   </div>
   <div class="argument_footer">
     <div class="footer_left">
@@ -117,13 +120,13 @@
     </div>
     <div class="footer_right">
       <a *ngIf="!showReplies && argument.replies.rows.length" id="{{argument.id}}_replies"
-        translate="VIEWS.TOPICS_TOPICID.LNK_ARGUMENT_SHOW_REPLIES"
+        translate="COMPONENTS.ARGUMENT.LNK_SHOW_REPLIES"
         [translateParams]="{count: argument.replies.rows.length}" (click)="showReplies = !showReplies"></a>
       <a *ngIf="showReplies" (click)="showReplies = !showReplies"
-        translate="VIEWS.TOPICS_TOPICID.LNK_ARGUMENT_HIDE_REPLIES">
+        translate="COMPONENTS.ARGUMENT.LNK_HIDE_REPLIES">
       </a>
       <button class="btn_reply_argument" (click)="showReply=!showReply"
-        translate="VIEWS.TOPICS_TOPICID.LNK_ARGUMENT_REPLY"></button>
+        translate="COMPONENTS.ARGUMENT.BTN_REPLY"></button>
     </div>
   </div>
   <argument-reply *ngIf="showReply" [argument]="argument" [topicId]="topicId"></argument-reply>
