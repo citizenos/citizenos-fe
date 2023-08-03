@@ -42,7 +42,7 @@
     </div>
   </div>
 </div>
-<div class="create_content_section" *ngIf="group.members.topics?.length === 0 && !dialog || group.members.topics?.length && dialog">
+<div class="create_content_section" *ngIf="group.members.topics?.length === 0 && !dialog || group.members.topics?.length || dialog">
   <div id="topic_members_list_wrap" class="table_section">
     <ng-container *ngIf="group.members.topics?.length === 0 && !dialog">
       <svg width="96" height="90" viewBox="0 0 96 90" fill="none" xmlns="http://www.w3.org/2000/svg">
