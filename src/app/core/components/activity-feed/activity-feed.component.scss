@@ -1,16 +1,5 @@
 @use "mixins";
 
-.overlay {
-  @extend %all_zero;
-  position: fixed;
-  cursor: pointer;
-  z-index: 12;
-  background-color: rgba(0, 0, 0, 0.6);
-  @include mixins.mobile {
-    display: none;
-  }
-}
-
 #activity_feed {
   position: fixed;
   right: 0;
@@ -36,6 +25,11 @@
 
     @include mixins.mobile {
       padding: 16px;
+    }
+    activity {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
   }
 }

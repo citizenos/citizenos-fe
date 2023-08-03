@@ -181,9 +181,10 @@ textarea {
     border: 1px solid var(--color-border);
     border-radius: 8px;
     z-index: 9;
-    margin-top: 41px;
+    margin-top: 47px;
     min-width: max-content;
-    position: fixed;
+    position: absolute;
+    width: 100%;
     gap: 8px;
     padding: 16px 8px;
 

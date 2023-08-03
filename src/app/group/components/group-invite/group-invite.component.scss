@@ -4,6 +4,15 @@
   min-width: 160px;
 }
 
+
+#topic_members_list_wrap {
+  text-align: center;
+  svg {
+    justify-self: center;
+    align-self: center;
+  }
+}
+
 .row_list {
   .row_cell {
     a {
