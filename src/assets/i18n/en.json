@@ -215,6 +215,7 @@
       "GRAPH_LEGEND_CON": "Con",
       "GRAPH_LEGEND_INFO": "Info",
       "FILTER_ARGUMENT_TYPE": "Argument type",
+      "FILTER_ARGUMENT_ORDER": "Order",
       "FILTER_TYPE_ALL": "All",
       "FILTER_TYPE_PRO": "Pro arguments",
       "FILTER_TYPE_CON": "Con arguments",

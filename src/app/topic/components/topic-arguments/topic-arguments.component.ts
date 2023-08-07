@@ -16,7 +16,7 @@ import { TopicArgumentService } from 'src/app/services/topic-argument.service';
 export class TopicArgumentsComponent implements OnInit {
   @Input() topic!: Topic;
   @ViewChild('post_argument_wrap') postArgumentEl?: ElementRef;
-
+  wWidth = window.innerWidth;
   argumentTypes = Object.keys(this.TopicArgumentService.ARGUMENT_TYPES);
   arguments$ = of(<Argument[] | any[]>[]);
   orderByOptions = Object.keys(this.TopicArgumentService.ARGUMENT_ORDER_BY);

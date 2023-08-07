@@ -92,16 +92,16 @@ $button-styles: (
   ),
   discussion: (
     background: var(--color-discussion),
-    color: var(--color-surfaces)
+    color: var(--color-surfaces),
   ),
   ideation: (
     background: var(--color-ideation),
-    color: var(--color-surfaces)
+    color: var(--color-surfaces),
   ),
   voting: (
     background: var(--color-voting),
-    color: var(--color-surfaces)
-  )
+    color: var(--color-surfaces),
+  ),
 );
 
 @mixin button_styles($theme-map) {
@@ -200,7 +200,9 @@ $button-styles: (
   background-origin: padding-box;
   border: 1px solid var(--color-border);
   border-radius: 8px;
-  &:focus,  &:hover, &.active {
+  &:focus,
+  &:hover,
+  &.active {
     background: var(--color-background);
   }
 
@@ -255,7 +257,7 @@ $button-styles: (
   left: 0;
   height: 24px;
   width: 24px;
-  background-color: var(--color-surfaces);;
+  background-color: var(--color-surfaces);
   border-radius: 50%;
   border: 1px solid var(--color-border);
 
@@ -307,7 +309,7 @@ $button-styles: (
   flex-direction: row-reverse;
 
   input {
-    position: absolute!important;
+    position: absolute !important;
     opacity: 0;
     cursor: pointer;
     height: 0;
@@ -360,4 +362,75 @@ $button-styles: (
 /* Show the checkmark when checked */
 .checkbox input:checked ~ .checkmark:after {
   display: block;
+}
+
+.mobile_filters {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  background-color: var(--color-surfaces);
+  border-radius: 8px;
+  flex-direction: column;
+  padding: 8px 16px;
+
+  &.active {
+    .filter_items {
+      display: none;
+    }
+
+    .selector {
+      .icon_active {
+        display: flex;
+      }
+
+      .icon {
+        display: none;
+      }
+    }
+  }
+  .selector {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+
+    span {
+      font-weight: bold;
+    }
+    .icon_active {
+      display: none;
+    }
+  }
+  .filter_items {
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+
+    .filter {
+      display: flex;
+      justify-content: space-between;
+      background-color: var(--color-surface-contrast);
+      border-radius: 8px;
+      padding: 12px 16px;
+
+      a {
+        font-weight: bold;
+      }
+      .filter_options {
+        width: 100%;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        background-color: var(--color-surfaces);
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        gap: 8px;
+        z-index: 999;
+        padding: 16px;
+      }
+    }
+
+  }
 }

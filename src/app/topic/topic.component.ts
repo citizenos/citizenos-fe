@@ -53,7 +53,7 @@ export class TopicComponent implements OnInit {
   showGroups = false;
   showTags = false;
   readMore = false;
-  showArgumentsTablet = (window.innerWidth >= 1024);
+  showArgumentsTablet = (window.innerWidth <= 1024);
   //new end
   topic$; // decorate the property with @Input()
   // groups$: Observable<Group[]>;
@@ -95,6 +95,7 @@ export class TopicComponent implements OnInit {
     @Inject(DomSanitizer) private sanitizer: DomSanitizer,
     public app: AppService
   ) {
+    console.log(window.innerWidth >=1024)
     this.app.darkNav = true;
     this.routerSubscription = this.route.url.pipe(
       tap((url) => {
