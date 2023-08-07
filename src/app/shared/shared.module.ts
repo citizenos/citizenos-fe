@@ -52,6 +52,7 @@ import { CosDisabledDirective } from '../directives/cos-disabled.directive';
 import { DragndropDirective } from '../directives/dragndrop.directive';
 import { PageHeaderComponent } from '../core/components/page-header/page-header.component';
 import { ActivitiesButtonComponent } from './components/activities-button/activities-button.component';
+import { MobileFiltersDirective } from '../directives/mobile-filters.directive';
 
 @NgModule({
   declarations: [
@@ -98,7 +99,8 @@ import { ActivitiesButtonComponent } from './components/activities-button/activi
     CosDisabledDirective,
     DragndropDirective,
     PageHeaderComponent,
-    ActivitiesButtonComponent
+    ActivitiesButtonComponent,
+    MobileFiltersDirective
   ],
   imports: [
     RouterModule,
@@ -136,6 +138,7 @@ import { ActivitiesButtonComponent } from './components/activities-button/activi
     MatDialogModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MobileFiltersDirective,
     MomentModule,
     PublicgroupboxComponent,
     QRCodeModule,

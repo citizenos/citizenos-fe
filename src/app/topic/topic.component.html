@@ -204,7 +204,7 @@
 
       <topic-arguments class="topic_arguments" #arguments [topic]="topic" [ngClass]="showArgumentsTablet? 'show': ''"></topic-arguments>
 
-      <post-argument *ngIf="showArgumentsTablet" [topicId]="topic.id"></post-argument>
+      <post-argument *ngIf="showArgumentsTablet || wWidth > 1024" [topicId]="topic.id"></post-argument>
     </div>
     <div class="content_area_right" *ngIf="!showArgumentsTablet">
       <div class="info_section">
