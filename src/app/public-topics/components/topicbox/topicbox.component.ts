@@ -50,4 +50,11 @@ export class TopicboxComponent implements OnInit {
         return 100;
     }
   }
+
+
+  getDescription() {
+    const element = document.createElement('html');
+    element.innerHTML = this.topic.description;
+    return element.innerHTML.replace(this.topic.title, '')
+  }
 }

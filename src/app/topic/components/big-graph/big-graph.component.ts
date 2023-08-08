@@ -7,9 +7,14 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class BigGraphComponent implements OnInit {
   @Input() options!:{rows: any[]};
-  constructor() { }
+  constructor() {
+
+  }
 
   ngOnInit(): void {
+  /*  console.log(this.options.rows);
+    this.sortedOptions = this.options.rows.sort((a, b) => {console.log(a, b); return 1;}); //.sort((a, b) => a['value'] > b['value'] ? 1 : a['value'] === b['value'] ? 0 : -1);
+    console.log(this.sortedOptions);*/
   }
 
   getVoteCountTotal() {
@@ -39,4 +44,8 @@ export class BigGraphComponent implements OnInit {
       return String.fromCharCode(65 + Math.floor(parseInt(index) / 26) - 1) + (String.fromCharCode(65 + parseInt(index) % 26))
     }
   };
+
+  trackByFn(index: number, element: any) {
+    return element.key;
+  }
 }

@@ -8,8 +8,43 @@
     margin-top: 30px;
 
     .graph_row {
+      position: relative;
+      height: 40px;
+      width: 100%;
+      &:not(:last-child) {
+        margin-bottom: 10px;
+      }
+
+
+      .graph_row_text_wrap {
+        display: table;
+        height: 100%;
+        width: 200px;
+        min-width: 150px;
+        position: absolute;
+      }
+
+      .graph_row_text {
+        box-sizing: border-box;
+        padding-left: 10px;
+        font-size: 13px;
+        line-height: 15px;
+        text-align: left;
+        word-wrap: break-word;
+        width: 200px;
+        min-width: 150px;
+      }
+
+      .bullet {
+        padding-left: 2px;
+        padding-right: 2px;
+      }
       .graph_row_fill {
+        background: vars.$side_panel_gray;
+        height: 100%;
+        position: relative;
         cursor: pointer;
+
         @media (min-width: 1025px) {
           &:hover {
             background: vars.$another_gray;

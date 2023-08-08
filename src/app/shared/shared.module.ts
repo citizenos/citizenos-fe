@@ -39,6 +39,7 @@ import { CreateGroupTopicComponent } from '../group/components/create-group-topi
 import { GroupAddTopicsComponent, GroupAddTopicsDialogComponent } from '../group/components/group-add-topics/group-add-topics.component';
 
 import { MarkdownDirective } from '../directives/markdown.directive';
+import { MarkdownPipe } from '../services/markdown.service';
 import { CosEllipsisPipe } from './pipes/cos-ellipsis.pipe';
 import { ModalDatepickerComponent } from './components/modal-datepicker/modal-datepicker.component';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -52,8 +53,7 @@ import { CosDisabledDirective } from '../directives/cos-disabled.directive';
 import { DragndropDirective } from '../directives/dragndrop.directive';
 import { PageHeaderComponent } from '../core/components/page-header/page-header.component';
 import { ActivitiesButtonComponent } from './components/activities-button/activities-button.component';
-import { MobileFiltersDirective } from '../directives/mobile-filters.directive';
-
+import { MobileFiltersDirective, MobileFilterDirective } from '../directives/mobile-filters.directive';
 @NgModule({
   declarations: [
     ActivityComponent,
@@ -76,6 +76,7 @@ import { MobileFiltersDirective } from '../directives/mobile-filters.directive';
     GroupAddTopicsDialogComponent,
     GroupInviteUserComponent,
     MarkdownDirective,
+    MarkdownPipe,
     PublicgroupboxComponent,
     SocialshareDirective,
     TooltipDirective,
@@ -100,7 +101,8 @@ import { MobileFiltersDirective } from '../directives/mobile-filters.directive';
     DragndropDirective,
     PageHeaderComponent,
     ActivitiesButtonComponent,
-    MobileFiltersDirective
+    MobileFiltersDirective,
+    MobileFilterDirective
   ],
   imports: [
     RouterModule,
@@ -135,10 +137,10 @@ import { MobileFiltersDirective } from '../directives/mobile-filters.directive';
     GroupAddTopicsDialogComponent,
     GroupInviteUserComponent,
     MarkdownDirective,
+    MarkdownPipe,
     MatDialogModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MobileFiltersDirective,
     MomentModule,
     PublicgroupboxComponent,
     QRCodeModule,
@@ -163,7 +165,9 @@ import { MobileFiltersDirective } from '../directives/mobile-filters.directive';
     CosDisabledDirective,
     DragndropDirective,
     PageHeaderComponent,
-    ActivitiesButtonComponent
+    ActivitiesButtonComponent,
+    MobileFiltersDirective,
+    MobileFilterDirective
    ]
 })
 export class SharedModule { }

@@ -40,15 +40,16 @@
           <span>Filters</span>
           <button>
             <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round"/>
+              <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
             </svg>
-            <svg class="icon_active" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg class="icon_active" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
               <path d="M17 15L12 10L7 15" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
             </svg>
           </button>
         </div>
         <div class="filter_items">
-          <div class="filter" filter>
+          <div class="filter" mobileFilter>
             <span translate="COMPONENTS.TOPIC_ARGUMENTS.FILTER_ARGUMENT_TYPE"></span>
             <a translate="COMPONENTS.TOPIC_ARGUMENTS.FILTER_TYPE_ALL"></a>
             <div class="filter_options">
@@ -66,16 +67,24 @@
                   <span class="checkmark"></span>
                 </label>
               </div>
-              <button class="btn_medium_secondary bold">
+              <button class="btn_medium_secondary bold filter_apply_btn">
                 Apply
               </button>
             </div>
           </div>
-          <div class="filter">
+          <div class="filter" mobileFilter>
             <span translate="COMPONENTS.TOPIC_ARGUMENTS.FILTER_ARGUMENT_ORDER"></span>
             <a
               [translate]="'COMPONENTS.TOPIC_ARGUMENTS.FILTER_ARGUMENT_ORDER_BY_' +
             (TopicArgumentService.params$.value.orderBy? TopicArgumentService.params$.value.orderBy : 'DEFAULT') | uppercase"></a>
+            <div class="filter_options">
+              <a class="option filter_apply_btn" translate="COMPONENTS.TOPIC_ARGUMENTS.FILTER_ARGUMENT_ORDER_BY_DEFAULT"
+                (click)="TopicArgumentService.setParam('orderBy', null)"> </a>
+              <a class="option filter_apply_btn" *ngFor="let orderOption of orderByOptions"
+                (click)="TopicArgumentService.setParam('orderBy', orderOption)">
+                {{'COMPONENTS.TOPIC_ARGUMENTS.FILTER_ARGUMENT_ORDER_BY_' + orderOption | uppercase | translate}}
+              </a>
+            </div>
           </div>
         </div>
       </div>
