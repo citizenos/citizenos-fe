@@ -51,5 +51,6 @@
       "citizenos": true
     },
     "analytics": false
-  }
+  },
+  "helplink": "https://beta.citizenos.com/help?app=true"
 }

@@ -140,6 +140,7 @@ import { TranslateService } from '@ngx-translate/core';
 @Pipe({
   name: 'markdown'
 })
+
 export class MarkdownPipe implements PipeTransform {
 
   transform(input: string, ...args: unknown[]): unknown {

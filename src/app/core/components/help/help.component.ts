@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { AppService } from 'src/app/services/app.service';
+import { ConfigService } from 'src/app/services/config.service';
 
 @Component({
   selector: 'app-help',
@@ -13,10 +14,10 @@ export class HelpComponent implements OnInit {
   public helpUrl = 'https://citizenos.com/help?app=true';
   public urlSafe: SafeResourceUrl = 'https://citizenos.com/help?app=true';
 
-  constructor(public sanitizer: DomSanitizer, public app: AppService) { }
+  constructor(public sanitizer: DomSanitizer, public app: AppService, private config: ConfigService) { }
 
   ngOnInit(): void {
-    this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.helpUrl);
+    this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.config.get('helplink') || this.helpUrl);
   }
 
   toggleHelp() {
@@ -35,7 +36,8 @@ export class HelpComponent implements OnInit {
 
   helpback() {
     try {
-      this.helpFrame?.nativeElement.contentWindow.postMessage('back', 'https://citizenos.com/');
+      const helpDomain = new URL(this.config.get('helplink') || this.helpUrl);
+      this.helpFrame?.nativeElement.contentWindow.postMessage('back', helpDomain.origin);
     } catch (err) {
       if (this.helpFrame)
         this.helpFrame.nativeElement.src = this.helpFrame.nativeElement.src;

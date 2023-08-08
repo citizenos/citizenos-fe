@@ -375,7 +375,7 @@ $button-styles: (
 
   &.active {
     .filter_items {
-      display: none;
+      display: flex;
     }
 
     .selector {
@@ -416,19 +416,29 @@ $button-styles: (
       a {
         font-weight: bold;
       }
+      &.selected {
+        .filter_options {
+          display: flex;
+        }
+      }
       .filter_options {
         width: 100%;
         border-top-left-radius: 8px;
         border-top-right-radius: 8px;
         background-color: var(--color-surfaces);
-        display: flex;
+        display: none;
         flex-direction: column;
         position: fixed;
         bottom: 0;
         left: 0;
         gap: 8px;
-        z-index: 999;
+        z-index: 99999999;
         padding: 16px;
+
+        .option {
+          font-weight: bold;
+          padding: 8px;
+        }
       }
     }
 

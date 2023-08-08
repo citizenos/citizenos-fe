@@ -6,6 +6,7 @@ import { TopicVoteService } from 'src/app/services/topic-vote.service';
 import { take, interval, takeWhile, switchMap, map, catchError, of } from 'rxjs';
 import { NotificationService } from 'src/app/services/notification.service';
 import { AppService } from 'src/app/services/app.service';
+import { TranslateService } from '@ngx-translate/core';
 declare let hwcrypto: any;
 
 @Component({
@@ -23,7 +24,12 @@ export class TopicVoteSignEsteidComponent implements OnInit {
   wWidth = window.innerWidth;
   isLoadingIdCard = false;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: TopicVoteSignData, private dialog: MatDialog, private Notification: NotificationService, public TopicVoteService: TopicVoteService, private app: AppService) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: TopicVoteSignData,
+    private dialog: MatDialog,
+    private Notification: NotificationService,
+    public TopicVoteService: TopicVoteService,
+    private translate: TranslateService,
+    private app: AppService) {
     this.topic = data.topic;
     this.options = data.options;
   }
@@ -35,6 +41,10 @@ export class TopicVoteSignEsteidComponent implements OnInit {
     console.debug('doSignWithMobile()');
 
     this.isLoading = true;
+
+    if (this.phoneNumber?.indexOf('+') !== 0) {
+      this.phoneNumber = '+'+this.phoneNumber;
+    }
 
     const userVote = {
       voteId: this.topic.voteId,
@@ -49,7 +59,6 @@ export class TopicVoteSignEsteidComponent implements OnInit {
       .pipe(take(1),
         catchError((err) => {
           this.isLoading = false;
-          console.error(err);
           return of(err);
         }))
       .subscribe({
@@ -85,7 +94,7 @@ export class TopicVoteSignEsteidComponent implements OnInit {
               return of(err);
             }))
           .subscribe(async (voteResponse) => {
-            if (voteResponse.signedInfoDiges && voteResponse.token && voteResponse.signedInfoHashType) {
+            if (voteResponse.signedInfoDigest && voteResponse.token && voteResponse.signedInfoHashType) {
               const signature = await hwcrypto.sign(certificate, { hex: voteResponse.signedInfoDigest, type: voteResponse.signedInfoHashType }, {});
               const signTopicVote = {
                 id: this.topic.voteId,
@@ -150,4 +159,11 @@ export class TopicVoteSignEsteidComponent implements OnInit {
     });
   };
 
+  getOptionValueText(option: string) {
+    const optionvalue = this.translate.instant(('VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_' + option).toUpperCase());
+    if (optionvalue.indexOf('VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_') == -1) {
+      return optionvalue;
+    }
+    return option;
+  }
 }
