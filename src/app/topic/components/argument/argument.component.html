@@ -107,7 +107,7 @@
     <div class="argument_text_wrap" check-height [ngClass]="{read_more: readMore}"> <!--check-height -->
       <a *ngIf="isReply && !argument.deletedAt && isVisible()" href="#" class="replys_reply"
         (click)="goToParentArgument()">@{{getParentAuthor()}}</a>
-      <div *ngIf="isVisible() && !showDeletedArgument" class="argument_text" [innerHTML]="argument.text"></div>
+      <div *ngIf="isVisible() && !showDeletedArgument" class="argument_text" [innerHTML]="argument.text | markdown"></div>
       <!--| markdown-->
       <div *ngIf="!isVisible() && !showDeletedArgument && argument.deletedBy.id === argument.creator.id"
         class="argument_text italic" translate="VIEWS.TOPICS_TOPICID.ARGUMENT_HAS_BEEN_DELETED_BY"

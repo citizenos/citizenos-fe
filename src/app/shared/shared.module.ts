@@ -36,6 +36,7 @@ import { CreateGroupTopicComponent } from '../group/components/create-group-topi
 import { GroupAddTopicsComponent } from '../group/components/group-add-topics/group-add-topics.component';
 
 import { MarkdownDirective } from '../directives/markdown.directive';
+import { MarkdownPipe } from '../services/markdown.service';
 import { CosEllipsisPipe } from './pipes/cos-ellipsis.pipe';
 import { ModalDatepickerComponent } from './components/modal-datepicker/modal-datepicker.component';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -65,6 +66,7 @@ import { CosDisabledDirective } from '../directives/cos-disabled.directive';
     GroupAddTopicsComponent,
     GroupInviteUserComponent,
     MarkdownDirective,
+    MarkdownPipe,
     PublicgroupboxComponent,
     SocialshareDirective,
     TooltipDirective,
@@ -115,6 +117,7 @@ import { CosDisabledDirective } from '../directives/cos-disabled.directive';
     GroupAddTopicsComponent,
     GroupInviteUserComponent,
     MarkdownDirective,
+    MarkdownPipe,
     MatDialogModule,
     MatDatepickerModule,
     MatNativeDateModule,
