@@ -1,0 +1,65 @@
+.vote_options_wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  .radio_wrap {
+    width: calc(50% - 8px);
+  }
+}
+
+.radio_wrap {
+  padding: 16px;
+  border: 2px solid var(--color-argument-pro-light);
+  border-radius: 8px;
+
+  &.selected {
+    background-color: var(--color-argument-pro-light);
+  }
+}
+
+.date_selector {
+  width: 100%;
+
+  .checkbox {
+    width: 100%;
+
+    .deadline {
+      position: absolute;
+      right: 0;
+    }
+  }
+}
+
+.deadline_wrap {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 16px;
+
+  .date_row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    vertical-align: middle;
+
+    .input_wrap {
+      display: flex;
+      gap: 8px;
+      .time_input {
+        max-width: max-content;
+      }
+    }
+  }
+}
+
+.reminder_wrap {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-argument-pro-medium);
+  padding: 16px;
+  gap: 8px;
+
+  .dropdown {
+    width: 100%;
+  }
+}

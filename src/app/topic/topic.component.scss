@@ -94,7 +94,7 @@
               fill: var(--color-scrollbar);
             }
             path {
-              filL: var(--color-discussion);
+              fill: var(--color-discussion);
             }
           }
         }
@@ -223,6 +223,42 @@
 
           &.show {
             display: flex;
+          }
+        }
+      }
+
+      .topic_voting {
+        background-color: var(--color-argument-pro-light);
+        border-radius: 16px;
+        display: flex;
+        flex-direction: column;
+        padding: 24px 32px;
+        margin-bottom: 90px;
+
+        @include mixins.tablet {
+          display: none;
+
+          &.show {
+            display: flex;
+          }
+        }
+        .no_voting_yet {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 16px;
+
+          .header {
+            font-size: 24px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 32px; /* 133.333% */
+          }
+
+          .no_voting_description {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
           }
         }
       }

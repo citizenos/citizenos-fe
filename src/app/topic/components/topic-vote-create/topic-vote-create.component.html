@@ -1,4 +1,17 @@
-<div class="voting_platform_wrap">
+<div class="voting_create_wrap">
+  <div class="voting_tabs_wrap">
+    <div class="tab">
+      <span class="tab_number">1</span>
+      <span class="tab_text">1.Introduction</span>
+    </div>
+    <div class="tab">
+      <span>2</span>
+    </div>
+    <div class="tab"></div>
+    <div class="tab"></div>
+  </div>
+</div>
+<!--div class="voting_platform_wrap">
   <div class="platform_description" translate="VIEWS.TOPICS_TOPICID.VOTE_HEADING_CREATE"></div>
   <div class="voting_platform_section">
     <div class="line lightest_line"></div>
@@ -31,7 +44,7 @@
   <div class="voting_platform_section" *ngIf="vote.type">
     <div class="voting_platform_section_title" translate="VIEWS.TOPICS_TOPICID.VOTE_HEADING_STEP2"></div>
 
-    <!-- regular -->
+    <!-- regular >
     <div class="define_answers_wrap" *ngIf="vote.type == 'regular'">
       <div class="table_cell">
         <div class="table">
@@ -80,7 +93,7 @@
 
     </div>
 
-    <!-- multiplechoice -->
+    <!-- multiplechoice >
     <div class="double_cell_layout section_padding" *ngIf="vote.type == 'multiple'">
       <div class="left_row">
 
@@ -221,7 +234,7 @@
           </div>
           <div class="table_cell">
             <cos-toggle [cosToggleTextOn]="('TOGGLE_ON' | translate)" [cosToggleTextOff]="('TOGGLE_OFF' | translate)"
-              (click)="toggleDeadline()"></cos-toggle><!--cos-toggle-datepicker-toggle="true"-->
+              (click)="toggleDeadline()"></cos-toggle><!--cos-toggle-datepicker-toggle="true">
           </div>
         </div>
         <div class="picker_content" [ngClass]="deadline ? 'active' : ''" *ngIf="deadline">
@@ -235,7 +248,7 @@
                 </div>
                 <!--div class="picker_days_left" translate="VIEWS.TOPICS_TOPICID.VOTE_TXT_DEADLINE_CALENDAR_DAYS_LEFT"
                   [translateParams]="{numberOfDaysLeft: numberOfDaysLeft}">
-                </!--div-->
+                </!--div>
                 <div class="picker_days_left">{{deadline | amTimeAgo}}</div>
                 <div class="clearer"></div>
               </div>
@@ -320,7 +333,7 @@
                           </div>
                           <!--div class="item_props">
                                                       404 topics
-                                                  </div-->
+                                                  </div
                           <div class="clearer"></div>
                         </div>
                       </div>
@@ -330,11 +343,11 @@
               </div>
               <div class="right_row gray_toggle_box">
                 <div class="toggle_box_title datepicker_title" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_SET_DATE"></div>
-                <!--datepicker></!--datepicker-->
+                <!--datepicker></!--datepicker->
                 <mat-calendar class="date_picker_wrap" [minDate]="datePickerMin" [(selected)]="endsAt.date" (click)="setEndsAtTime()"></mat-calendar>
                 <!--div (click)="setEndsAtTime()" class="date_picker_wrap" date-picker="endsAt.date"
                   min-date="datePickerMin" max-view="date" min-view="date"
-                  template="/views/directives/date_picker.html"></!--div-->
+                  template="/views/directives/date_picker.html"></!--div->
               </div>
             </div>
           </div>
@@ -407,4 +420,4 @@
   </div>
 
 
-</div>
+</!--div-->

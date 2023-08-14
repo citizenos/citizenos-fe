@@ -1,0 +1,439 @@
+<div class="overlay" mat-dialog-close></div>
+<div class="dialog">
+  <div class="dialog_header voting">
+    <div class="header_text">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="40" height="40" rx="20" fill="#5AB467" />
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M20 10C14.48 10 10 14.48 10 20C10 25.52 14.48 30 20 30C25.52 30 30 25.52 30 20C30 14.48 25.52 10 20 10ZM18.0556 25L25.8333 17.2807L24.375 15.8333L18.0556 22.1053L15.625 19.693L14.1667 21.1404L18.0556 25Z"
+          fill="white" />
+      </svg>
+      <h4 class="title" translate="MODALS.LOGIN_HEADING"></h4>
+    </div>
+    <div class="dialog_close">
+      <button class="btn_dialog_close" mat-dialog-close>
+        <div class="icon_mobile_close"></div>
+      </button>
+    </div>
+  </div>
+  <div class="dialog_tabs_wrap">
+    <a class="dialog_tab mobile_hidden" *ngFor="let tab of tabs" [ngClass]="(tabActive === tab+1)? 'active' :''"
+      (click)="tabActive=tab+1">
+      <span class="tab_number">{{tab+1}}</span>
+      <span class="tab_text">{{tab+1}}. <span>Tab active</span></span>
+    </a>
+    <div class="dropdown mobile_show">
+      <div class="selection">
+        <div class="selected_item"> Invite participants </div>
+        <div class="icon_arrow_down_black"></div>
+      </div>
+      <div class="options">
+        <div class="option">
+          <span class="tab_number">1</span>
+        </div>
+        <div class="option">
+          <span class="tab_number">2</span>
+        </div>
+        <div class="option">
+          <span class="tab_number">3</span>
+        </div>
+        <div class="option">
+          <span class="tab_number">4</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="dialog_content">
+    <ng-container *ngIf="tabActive === 1">
+      <div class="introduction_wrap">
+        <div class="intro_heading">Are you sure you want to start the topic vote? Things to keep in mind:</div>
+        <div class="dialog_info">
+          <div class="row"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path d="M17 7L7 17" stroke="#2C3B47" stroke-width="2" />
+              <path d="M7 7L17 17" stroke="#2C3B47" stroke-width="2" />
+            </svg>
+            <span>You can no longer (co-)edit your document</span>
+          </div>
+          <div class="row"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path d="M9.38602 14.8088L17.5256 6L19 7.59558L9.38602 18L5 13.2534L6.47436 11.6578L9.38602 14.8088Z"
+                fill="#2C3B47" />
+            </svg>
+            <span>You can still invite and share with participants</span>
+          </div>
+          <div class="row"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path d="M9.38602 14.8088L17.5256 6L19 7.59558L9.38602 18L5 13.2534L6.47436 11.6578L9.38602 14.8088Z"
+                fill="#2C3B47" />
+            </svg>
+            <span>Participants can still continue to have a discussion</span>
+          </div>
+          <div class="row"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path d="M9.38602 14.8088L17.5256 6L19 7.59558L9.38602 18L5 13.2534L6.47436 11.6578L9.38602 14.8088Z"
+                fill="#2C3B47" />
+            </svg>
+            <span>Participants can submit their vote</span>
+          </div>
+        </div>
+        <div class="dialog_info_wrap">
+          <div class="dialog_info">
+            <div class="row">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="24" height="24" rx="4" fill="#5AB467" />
+                <path
+                  d="M13.75 6.5C13.75 7.32843 13.0784 8 12.25 8C11.4216 8 10.75 7.32843 10.75 6.5C10.75 5.67157 11.4216 5 12.25 5C13.0784 5 13.75 5.67157 13.75 6.5Z"
+                  fill="white" />
+                <path
+                  d="M10.2099 10.0623L13.6449 9.63184L12.1434 16.6893C12.0369 17.1993 12.1869 17.4888 12.5994 17.4888C12.8904 17.4888 13.3284 17.3838 13.6284 17.1198L13.4964 17.7438C13.0659 18.2628 12.1164 18.6408 11.2989 18.6408C10.2444 18.6408 9.79593 18.0078 10.0869 16.6623L11.1939 11.4603C11.2899 11.0208 11.2029 10.8618 10.7619 10.7568L10.0869 10.6323L10.2099 10.0623Z"
+                  fill="white" />
+              </svg>
+              <span>From here you can move the topic into follow-up.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="tabActive === 2">
+      <div id="form_area">
+        <div class="content_section">
+          <div class="section_content_wrap">
+            <h3>1.</h3>
+            <div class="section_content_description">
+              <cos-input placeholder="{{'VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_NAME' | translate}}">
+                <input id="groupName" [placeholder]="'VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_NAME' | translate"
+                  [(ngModel)]="vote.question">
+              </cos-input>
+            </div>
+          </div>
+        </div>
+        <div class="content_section">
+          <div class="section_content_wrap">
+            <h3>2.</h3>
+            <div class="radio_wrap" (click)="setVoteType(type)" *ngFor="let type of voteTypes">
+              <div class="radio_text_wrap">
+                <div class="radio_lable_wrap">
+                  <label class="radio_box">
+                    <input type="radio" [checked]="vote.type == type" name="contrast" value="default">
+                    <span class="radio"></span>
+                    <div class="radio_lable" [translate]="('VIEWS.TOPICS_TOPICID.VOTE_BTN_TYPE_'+type).toUpperCase()">
+                    </div>
+                  </label>
+                </div>
+                <div class="radio_description"
+                  [translate]="('VIEWS.TOPICS_TOPICID.VOTE_BTN_TYPE_'+type+'_EXPLANATION').toUpperCase()"></div>
+              </div>
+              <div class="radio_icon">
+                <div class="icon_contrast_default"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="tabActive === 3">
+      <div id="form_area">
+        <div class="content_section">
+          <div class="section_content_wrap">
+            <h3>1. Define vote answers</h3>
+            <div class="vote_options_wrap" *ngIf="vote.type == 'regular'">
+              <div class="radio_wrap" [ngClass]="vote.options[0].enabled? 'selected': ''"
+                (click)="vote.options[0].enabled = !vote.options[0].enabled">
+                <div class="radio_text_wrap">
+                  <div class="radio_lable_wrap">
+                    <label class="checkbox"><span class="bold"
+                        translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_YES"></span>
+                      <input type="checkbox" [(ngModel)]="vote.options[0].enabled" />
+                      <span class="checkmark"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="radio_wrap" [ngClass]="vote.options[1].enabled? 'selected': ''"
+                (click)="vote.options[1].enabled = !vote.options[1].enabled">
+                <div class="radio_text_wrap">
+                  <div class="radio_lable_wrap">
+                    <label class="checkbox"><span class="bold"
+                        translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_NO"></span>
+                      <input type="checkbox" [(ngModel)]="vote.options[1].enabled" />
+                      <span class="checkmark"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="radio_wrap" [ngClass]="extraOptions.neutral.enabled? 'selected': ''"
+                (click)="extraOptions.neutral.enabled = !extraOptions.neutral.enabled">
+                <div class="radio_text_wrap">
+                  <div class="radio_lable_wrap">
+                    <label class="checkbox"><span class="bold"
+                        translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_NEUTRAL"></span>
+                      <input type="checkbox" [(ngModel)]="extraOptions.neutral.enabled" />
+                      <span class="checkmark"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="radio_wrap" [ngClass]="extraOptions.veto.enabled? 'selected': ''"
+                (click)="extraOptions.veto.enabled = !extraOptions.veto.enabled">
+                <div class="radio_text_wrap">
+                  <div class="radio_lable_wrap">
+                    <label class="checkbox"><span class="bold"
+                        translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_VETO"></span>
+                      <input type="checkbox" [(ngModel)]="extraOptions.veto.enabled" />
+                      <span class="checkmark"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="content_section">
+          <div class="section_content_wrap">
+            <h3>2. Set up voting rights</h3>
+            <div class="radio_wrap"
+              (click)="(vote.authType !== VOTE_AUTH_TYPES.hard)? vote.authType=VOTE_AUTH_TYPES.hard : vote.authType=VOTE_AUTH_TYPES.soft">
+              <div class="radio_text_wrap">
+                <div class="radio_lable_wrap">
+                  <label class="checkbox" (click)="vote.authType = VOTE_AUTH_TYPES.hard"
+                    [ngClass]="vote.authType === VOTE_AUTH_TYPES.hard ? 'selected': ''">
+                    <span class="bold" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_AUTH_HARD_ID"></span>
+                    <input type="checkbox" [checked]="vote.authType === VOTE_AUTH_TYPES.hard" />
+                    <span class="checkmark"></span>
+                  </label>
+                </div>
+                <div class="radio_description">
+                  <span>The participant has to log in to cast their vote</span>
+                  <div>
+                    <svg width="76" height="22" viewBox="0 0 76 22" fill="none" xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <g style="mix-blend-mode:multiply">
+                        <rect width="76" height="22" fill="url(#pattern0)" />
+                      </g>
+                      <defs>
+                        <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+                          <use xlink:href="#image0_6469_4980" transform="scale(0.00909091 0.03125)" />
+                        </pattern>
+                        <image id="image0_6469_4980" width="110" height="32"
+                          xlink:href="data:image/png;base64,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" />
+                      </defs>
+                    </svg>
+                    <svg width="71" height="22" viewBox="0 0 71 22" fill="none" xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <g style="mix-blend-mode:multiply">
+                        <rect width="71" height="22" fill="url(#pattern0)" />
+                      </g>
+                      <defs>
+                        <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+                          <use xlink:href="#image0_6469_4982" transform="scale(0.00961538 0.03125)" />
+                        </pattern>
+                        <image id="image0_6469_4982" width="104" height="32"
+                          xlink:href="data:image/png;base64,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" />
+                      </defs>
+                    </svg>
+                    <svg width="83" height="20" viewBox="0 0 83 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M12.4671 6.40008C12.4671 6.80008 12.156 7.11119 11.756 7.11119C11.356 7.11119 11.0449 6.80008 11.0449 6.40008C11.0449 6.00008 11.356 5.68896 11.756 5.68896C12.156 5.68896 12.4671 6.00008 12.4671 6.40008Z"
+                        fill="#00AFAA" />
+                      <path
+                        d="M15.4438 18.1333C15.2661 18.1333 15.0883 18.0444 14.9772 17.9111C14.7994 17.6666 14.8438 17.3111 15.0883 17.1111C17.3327 15.4666 18.6661 12.8444 18.6661 10.0666C18.6883 5.26662 14.7549 1.33329 9.9105 1.33329C9.48828 1.33329 9.06606 1.35551 8.64384 1.42218V13.7777C8.64384 14.0888 8.39939 14.3333 8.06606 14.3333C7.75495 14.3333 7.48828 14.0888 7.48828 13.7777V0.93329C7.48828 0.666623 7.68828 0.422179 7.95495 0.377734C8.59939 0.244401 9.24384 0.177734 9.9105 0.177734C15.3772 0.177734 19.8216 4.59996 19.8216 10.0444C19.8216 13.1777 18.3105 16.1555 15.7772 18C15.6661 18.1111 15.5549 18.1333 15.4438 18.1333Z"
+                        fill="#00AFAA" />
+                      <path
+                        d="M9.91111 19.9555C4.44444 19.9555 0 15.5111 0 10.0889C0 6.95554 1.51111 3.97776 4.04444 2.13332C4.31111 1.93332 4.66667 1.99998 4.84444 2.24443C5.02222 2.48887 4.97778 2.84443 4.73333 3.04443C2.46667 4.66665 1.13333 7.31109 1.13333 10.0889C1.13333 14.9111 5.06667 18.8222 9.91111 18.8222C10.3333 18.8222 10.7556 18.8 11.1778 18.7333V10.6222C11.1778 10.3111 11.4222 10.0666 11.7556 10.0666C12.0667 10.0666 12.3333 10.3111 12.3333 10.6222V19.2C12.3333 19.4667 12.1333 19.7111 11.8667 19.7555C11.2222 19.8889 10.5778 19.9555 9.91111 19.9555Z"
+                        fill="#00AFAA" />
+                      <path
+                        d="M24.4453 11.5406H25.7904C25.8821 12.3091 26.1878 12.9547 27.4718 12.9547C28.2972 12.9547 28.9086 12.4936 28.9086 11.7865C28.9086 11.0794 28.5723 10.8335 27.3189 10.6183C25.5153 10.3724 24.6287 9.81901 24.6287 8.40486C24.6287 7.17518 25.6987 6.22217 27.2578 6.22217C28.878 6.22217 29.8562 6.95998 30.0091 8.43561H28.7251C28.5723 7.63631 28.1443 7.29815 27.2578 7.29815C26.4018 7.29815 25.9433 7.69779 25.9433 8.2819C25.9433 8.89674 26.1878 9.20416 27.5023 9.38862C29.2754 9.63455 30.2231 10.1572 30.2231 11.6635C30.2231 12.9855 29.1226 13.9999 27.4412 13.9999C25.4236 13.9999 24.5676 12.9855 24.4453 11.5406Z"
+                        fill="#00AFAA" />
+                      <path
+                        d="M33.1113 6.22217H35.0249L37.0311 11.5123L39.0064 6.22217H40.8891V13.9999H39.4694V8.11151L37.1854 13.9999H36.7224L34.3768 8.11151V13.9999H33.1113V6.22217Z"
+                        fill="#00AFAA" />
+                      <path d="M62.3776 7.35577H60.2227V6.22217H66.0004V7.35577H63.8455V13.9999H62.3776V7.35577Z"
+                        fill="#00AFAA" />
+                      <rect x="66.2227" y="10" width="2.88889" height="1.11111" fill="#00AFAA" />
+                      <path
+                        d="M50.4451 13.9999L47.865 6.22217H45.9456L43.334 13.9999H44.7184L46.8266 7.38726L47.8964 10.7566H46.9525L46.6064 11.8902H48.2425L48.9348 13.9999H50.4451Z"
+                        fill="#00AFAA" />
+                      <rect x="71.1113" y="6.22217" width="1.33333" height="7.77778" fill="#00AFAA" />
+                      <path
+                        d="M78.0557 6.22217H75.7793V13.9999H77.1755V12.8663V7.35577H77.995C79.7554 7.35577 80.5143 8.36342 80.5143 10.0323V10.1268C80.5143 11.5753 79.9376 12.52 78.7538 12.7719V13.9685C80.9392 13.7165 82.0015 12.2051 82.0015 10.1268V10.0323C81.9712 7.76513 80.6964 6.22217 78.0557 6.22217Z"
+                        fill="#00AFAA" />
+                      <path
+                        d="M56.2664 10.6621C57.2453 10.4102 58.0032 9.78042 58.0032 8.58384V8.52086C58.0032 6.94641 56.8032 6.22217 55.0664 6.22217H52.4453V13.9999H53.8979V7.35577H55.0664C56.0137 7.35577 56.5506 7.67066 56.5506 8.55235V8.58384C56.5506 9.40255 56.0453 9.81191 55.0664 9.81191H54.8137V10.851L56.8664 13.9999H58.4453L56.2664 10.6621Z"
+                        fill="#00AFAA" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div class="radio_icon">
+                <div class="icon_contrast_default"></div>
+              </div>
+            </div>
+
+            <div class="radio_wrap" (click)="vote.delegationIsAllowed = !vote.delegationIsAllowed">
+              <div class="radio_text_wrap">
+                <div class="radio_lable_wrap">
+                  <label class="checkbox" [ngClass]="vote.delegationIsAllowed? 'selected': ''"><span
+                      translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_DELEGATION"></span>
+                    <input type="checkbox" [(ngModel)]="vote.delegationIsAllowed" />
+                    <span class="checkmark"></span>
+                  </label>
+                </div>
+                <div class="radio_description" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_DELEGATION_EXPLANATION">
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="content_section">
+          <div class="section_content_wrap">
+            <h3>3. Choose how voting ends</h3>
+            <div class="radio_wrap date_selector" [ngClass]="deadline ? 'selected': ''">
+              <div class="radio_text_wrap date_selector">
+                <div class="radio_lable_wrap">
+                  <label class="checkbox" (click)="toggleDeadline()">
+                    <span class="deadline" *ngIf="deadline">{{deadline | amTimeAgo}}</span>
+                    <span class="bold" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_DEADLINE"
+                      (click)="toggleDeadline()"></span>
+                    <input type="checkbox" [checked]="deadline" />
+                    <span class="checkmark" (click)="toggleDeadline()"></span>
+                  </label>
+                </div>
+                <div class="radio_description">
+                  <span>The participant has to log in to cast their vote</span>
+
+                  <ng-container *ngIf="deadline">
+                    <div class="deadline_wrap">
+                      <div class="date_row">
+                        <div class="bold">Time</div>
+                        <div class="input_wrap">
+                          <input class="time_input" [(ngModel)]="endsAt.h"
+                            (change)="formatTime(endsAt.h); setEndsAtTime()" type="number" [min]="minHours()"
+                            max="{{HCount}}" step="1" />
+                          <span class="time_separator">:</span>
+                          <input type="number" class="time_input" [min]="minMinutes()" max="59" step="5"
+                            [(ngModel)]="endsAt.min" (change)="formatTime(endsAt.min);setEndsAtTime()" />
+
+
+                          <div class="dropdown" [cosDropdown]>
+                            <div class="selection">
+                              <div class="selected_item">
+                                {{'VIEWS.TOPICS_TOPICID.VOTE_SETTING_TIME_OPTION_'+endsAt.timeFormat |
+                                uppercase | translate}}</div>
+                              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
+                              </svg>
+
+                            </div>
+                            <div class="options">
+                              <div class="option" translate="VIEWS.TOPICS_TOPICID.VOTE_SETTING_TIME_OPTION_24"
+                                (click)="endsAt.timeFormat = 24; setTimeFormat()">
+                              </div>
+                              <div class="option" translate="VIEWS.TOPICS_TOPICID.VOTE_SETTING_TIME_OPTION_AM"
+                                (click)="endsAt.timeFormat = 'AM'; setTimeFormat()">
+                              </div>
+                              <div class="option" translate="VIEWS.TOPICS_TOPICID.VOTE_SETTING_TIME_OPTION_PM"
+                                (click)="endsAt.timeFormat = 'PM'; setTimeFormat()">
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                      <div class="date_row">
+                        <div class="bold">Timezone</div>
+                        <div class="input_wrap">
+                          <div class="dropdown" [cosDropdown]>
+                            <div class="selection">
+                              {{getTimeZoneName(endsAt.timezone)}}
+                            </div>
+                            <div class="options">
+                              <div class="option" *ngFor="let zone of timezones"
+                                [ngClass]="zone === endsAt.timezone ? 'bold' : ''"
+                                (click)="endsAt.timezone = zone.value;setEndsAtTime();">
+                                {{zone.name}}
+                              </div>
+                              <div class="option" translate="VIEWS.TOPICS_TOPICID.VOTE_SETTING_TIME_OPTION_AM"
+                                (click)="endsAt.timeFormat = 'AM'; setTimeFormat()">
+                              </div>
+                              <div class="option" translate="VIEWS.TOPICS_TOPICID.VOTE_SETTING_TIME_OPTION_PM"
+                                (click)="endsAt.timeFormat = 'PM'; setTimeFormat()">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!--mat-calendar class="date_picker_wrap" [minDate]="datePickerMin" [(selected)]="endsAt.date"
+                        (click)="setEndsAtTime()"></!--mat-calendar-->
+                      <cos-calender [minDate]="datePickerMin" [(date)]="endsAt.date"
+                        (click)="setEndsAtTime()"></cos-calender>
+                      <div class="reminder_wrap">
+                        <label class="checkbox" [ngClass]="reminder ? 'selected': ''">
+                          <span class="bold" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_SET_VOTE_REMINDER"></span>
+                          <input type="checkbox" [(ngModel)]="reminder" />
+                          <span class="checkmark"></span>
+                        </label>
+                        <div translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_SET_VOTE_REMINDER_EXPLANATION"></div>
+                        <div class="dropdown" [cosDropdown] *ngIf="reminderOptions.length">
+                          <div class="selection">
+                            <div class="selected_item">
+                              {{selectedReminderOption()}}
+                            </div>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
+                            </svg>
+                          </div>
+                          <div class="options">
+                            <ng-container *ngFor="let option of reminderOptions">
+                              <div class="option" (click)="setVoteReminder(option)">
+                                {{'OPTION_' + option.value
+                                + '_'+
+                                option.unit.toUpperCase() | translate}}
+                              </div>
+                            </ng-container>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+              <div class="radio_icon">
+                <div class="icon_contrast_default"></div>
+              </div>
+            </div>
+
+            <div class="radio_wrap" (click)="vote.autoClose[0].enabled = !vote.autoClose[0].enabled">
+              <div class="radio_text_wrap">
+                <div class="radio_lable_wrap">
+                  <label class="checkbox" [ngClass]="vote.delegationIsAllowed? 'selected': ''"><span
+                      translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_ALL_VOTES_ARE_IN"></span>
+                    <input type="checkbox" [(ngModel)]="vote.autoClose[0].enabled" />
+                    <span class="checkmark"></span>
+                  </label>
+                </div>
+                <div class="radio_description" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_ALL_VOTES_ARE_IN_EXPLANATION">
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="tabActive === 4">
+
+    </ng-container>
+    <!--topic-vote-create [topic]="topic"></!--topic-vote-create-->
+  </div>
+  <div class="dialog_footer with_buttons">
+    <a mat-dialog-close translate="COMPONENTS.GROUP_ADD_TOPICS_DIALOG.LNK_CANCEL"></a>
+    <button class="btn_medium_submit" translate="COMPONENTS.GROUP_ADD_TOPICS_DIALOG.BTN_SAVE"
+      (click)="tabActive = tabActive+1"></button>
+  </div>
+</div>

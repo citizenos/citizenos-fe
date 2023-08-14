@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Inject } from '@angular/core';
+import { Component, OnInit, Input, Inject, inject } from '@angular/core';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicService } from 'src/app/services/topic.service';
 import { TopicVoteService } from 'src/app/services/topic-vote.service';
@@ -6,6 +6,7 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { TranslateService } from '@ngx-translate/core';
 import { take } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 @Component({
   selector: 'topic-vote-create',
   templateUrl: './topic-vote-create.component.html',
@@ -19,7 +20,7 @@ export class TopicVoteCreateComponent implements OnInit {
   HCount = 23;
   timezones = <any[]>[];
   datePickerMin = new Date();
-  private CONF = {
+  public CONF = {
     defaultOptions: {
       regular: [
         {
@@ -88,15 +89,15 @@ export class TopicVoteCreateComponent implements OnInit {
     }
   };
   reminder = false;
-  reminderOptions = [{ value: 1, unit: 'days' }, { value: 2, unit: 'days' }, { value: 3, unit: 'days' }, { value: 1, unit: 'weeks' }, { value: 2, unit: 'weeks' }, { value: 1, unit: 'month' }];
-
+  reminderOptionsList = [{ value: 1, unit: 'days' }, { value: 2, unit: 'days' }, { value: 3, unit: 'days' }, { value: 1, unit: 'weeks' }, { value: 2, unit: 'weeks' }, { value: 1, unit: 'month' }];
+  reminderOptions = <any[]>[];
   constructor(
-    private TopicService: TopicService,
-    private TopicVoteService: TopicVoteService,
-    private Translate: TranslateService,
-    private Notification: NotificationService,
-    @Inject(ActivatedRoute) private route: ActivatedRoute,
-    private router: Router
+    public TopicService: TopicService,
+    public TopicVoteService: TopicVoteService,
+    public Translate: TranslateService,
+    public Notification: NotificationService,
+    @Inject(ActivatedRoute) public route: ActivatedRoute,
+    public router: Router
   ) {
     this.setTimeZones();
   }
@@ -178,9 +179,8 @@ export class TopicVoteCreateComponent implements OnInit {
     return this.deadline;
   }
 
-  toggleDeadline () {
+  toggleDeadline() {
     if (!this.deadline) {
-      console.log(new Date().getHours(), new Date().getUTCHours())
       this.endsAt.h = new Date().getHours();
       this.endsAt.min = Math.ceil(new Date().getMinutes() / 5) * 5;
       this.setEndsAtTime();
@@ -189,7 +189,7 @@ export class TopicVoteCreateComponent implements OnInit {
     }
   }
 
-  minHours () {
+  minHours() {
     if (new Date(this.endsAt.date).getDate() === (new Date()).getDate()) {
       const h = new Date().getHours() + (this.endsAt.timezone - (this.deadline.getTimezoneOffset() / -60));
       return h;
@@ -197,7 +197,7 @@ export class TopicVoteCreateComponent implements OnInit {
     return 1;
   };
 
-  minMinutes () {
+  minMinutes() {
     if (new Date(this.endsAt.date).getDate() === (new Date()).getDate()) {
       return Math.ceil(new Date().getMinutes() / 5) * 5;
     }
@@ -216,6 +216,8 @@ export class TopicVoteCreateComponent implements OnInit {
     this.deadline.setHours(hour - (this.endsAt.timezone - (this.deadline.getTimezoneOffset() / -60)));
     this.deadline.setMinutes(this.endsAt.min);
     this.daysToVoteEnd();
+
+    this.setReminderOptions();
   };
 
   daysToVoteEnd() {
@@ -248,21 +250,25 @@ export class TopicVoteCreateComponent implements OnInit {
     return (this.timezones.find((item) => { return item.value === value })).name;
   };
 
-  isVisibleReminderOption(time: any) {
-    let timeItem = new Date(this.deadline);
-    switch (time.unit) {
-      case 'weeks':
-        timeItem.setDate(timeItem.getDate() + 1 - (time.value * 7));
-        break;
-      case 'month':
-        timeItem.setMonth(timeItem.getMonth() - time.value);
-        break
-      default:
-        timeItem.setDate(timeItem.getDate() + 1 - time.value);
-    }
-    if (timeItem > new Date()) return true;
+  setReminderOptions() {
+    this.reminderOptions = [];
+    this.reminderOptionsList.forEach((item: any) => {
+      console.log(item);
+      let timeItem = new Date(this.deadline);
+      switch (item.unit) {
+        case 'weeks':
+          timeItem.setDate(timeItem.getDate() + 1 - (item.value * 7));
+          break;
+        case 'month':
+          timeItem.setMonth(timeItem.getMonth() - item.value);
+          break
+        default:
+          timeItem.setDate(timeItem.getDate() + 1 - item.value);
+      }
+      if (timeItem > new Date() && (timeItem.getDate() !== (new Date).getDate() || (timeItem.getDate() === (new Date).getDate()) && (timeItem.getFullYear() !== (new Date()).getFullYear() || timeItem.getMonth() !== (new Date()).getMonth())))
+        this.reminderOptions.push(item);
+    });
 
-    return false;
   };
 
   selectedReminderOption() {
@@ -280,12 +286,14 @@ export class TopicVoteCreateComponent implements OnInit {
       else if (item.value === months && item.unit === 'month') return item;
     });
 
-    if (!item) {
+    if (!item && this.reminderOptions.length) {
       item = this.reminderOptions[0];
       this.setVoteReminder(item);
     }
+    if (item)
+      return this.Translate.instant('OPTION_' + item.value + '_' + item.unit.toUpperCase());
 
-    return this.Translate.instant('OPTION_' + item.value + '_' + item.unit.toUpperCase());
+    return '';
   };
 
   setVoteReminder(time: any) {
@@ -303,10 +311,7 @@ export class TopicVoteCreateComponent implements OnInit {
     this.vote.reminderTime = reminderTime;
   };
 
-  createVote() {
-    this.Notification.removeAll();
-
-
+  filterOptions() {
     for (let o in this.extraOptions) {
       const option = this.extraOptions[o];
       if (option.enabled) {
@@ -314,13 +319,20 @@ export class TopicVoteCreateComponent implements OnInit {
       }
     }
 
+    this.vote.options = this.vote.options.filter((option: any) => {
+      return !!option.value
+    });
+  }
+
+  createVote() {
+    this.Notification.removeAll();
+
+    this.filterOptions();
+
     if (!this.reminder) {
       this.vote.reminderTime = this.vote.reminderTime = null;
     }
 
-    this.vote.options = this.vote.options.filter((option: any) => {
-      return !!option.value
-    });
     if (this.deadline) {
       this.vote.endsAt = this.deadline
     }
@@ -342,4 +354,38 @@ export class TopicVoteCreateComponent implements OnInit {
         }
       });
   };
+}
+@Component({
+  selector: 'topic-vote-create-dialog',
+  templateUrl: './topic-vote-create-dialog.component.html',
+  styleUrls: ['./topic-vote-create-dialog.component.scss']
+})
+export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
+  override topic!: Topic;
+  tabs = [...Array(4).keys()];
+  tabActive = 1;
+
+  override vote = {
+    question: <string>'',
+    topicId: <string>'',
+    options: <any>[],
+    delegationIsAllowed: false,
+    type: '',
+    authType: '',
+    maxChoices: <number>1,
+    minChoices: <number>1,
+    reminderTime: <Date | null>null,
+    autoClose: <any[]>this.CONF.autoClose,
+    endsAt: <Date | null>null
+  };
+  private dialog = inject(MatDialog);
+  private data = inject(MAT_DIALOG_DATA);
+
+  override ngOnInit(): void {
+    this.topic = this.data.topic;
+    this.vote.topicId = this.topic.id;
+    if (this.topic.voteId) {
+      this.router.navigate(['/topics', this.topic.id, 'votes', this.topic.voteId]);
+    }
+  }
 }

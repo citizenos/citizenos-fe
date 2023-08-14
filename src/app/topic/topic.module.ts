@@ -22,7 +22,7 @@ import { ArgumentReplyComponent } from './components/argument-reply/argument-rep
 import { ArgumentReactionsComponent } from './components/argument-reactions/argument-reactions.component';
 import { TopicAttachmentsComponent, TopicAttachmentsDialogComponent } from './components/topic-attachments/topic-attachments.component';
 import { TopicMilestonesComponent } from './components/topic-milestones/topic-milestones.component';
-import { TopicVoteCreateComponent } from './components/topic-vote-create/topic-vote-create.component';
+import { TopicVoteCreateComponent, TopicVoteCreateDialogComponent } from './components/topic-vote-create/topic-vote-create.component';
 import { TopicParticipantsComponent, TopicParticipantsDialogComponent } from './components/topic-participants/topic-participants.component';
 import { TopicReportFormComponent, TopicReportFormDialogComponent } from './components/topic-report-form/topic-report-form.component';
 import { TopicReportModerateComponent, TopicReportModerateDialogComponent } from './components/topic-report-moderate/topic-report-moderate.component';
@@ -63,6 +63,7 @@ import { ArgumentWhyDialogComponent } from './components/argument-why-dialog/arg
     TopicAttachmentsDialogComponent,
     TopicMilestonesComponent,
     TopicVoteCreateComponent,
+    TopicVoteCreateDialogComponent,
     TopicParticipantsDialogComponent,
     TopicParticipantsComponent,
     TopicReportFormComponent,

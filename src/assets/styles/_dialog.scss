@@ -91,6 +91,9 @@
       background-color: var(--color-success-background);
       color: var(--color-success);
     }
+    &.voting {
+      background-color: var(--color-argument-pro-light);
+    }
 
     .header_with_icon {
       margin-top: 24px;
@@ -106,6 +109,7 @@
       padding-left: 20px;
       justify-content: center;
       align-items: center;
+      gap: 16px;
     }
     .dialog_close {
       display: flex;
@@ -153,7 +157,8 @@
 
       .content_section {
         .section_content_wrap {
-          h3, .section_content_description {
+          h3,
+          .section_content_description {
             padding: 8px 16px;
           }
         }
@@ -278,9 +283,20 @@
       background-color: var(--color-group);
       border-radius: 8px 8px 0 0;
 
+      .tab_text {
+        display: none;
+      }
       &.active {
         background-color: var(--color-surfaces);
         font-weight: bold;
+
+        .tab_text {
+          display: flex;
+        }
+
+        .tab_number {
+          display: none;
+        }
       }
     }
   }
