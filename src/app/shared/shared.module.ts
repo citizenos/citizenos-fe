@@ -54,6 +54,7 @@ import { DragndropDirective } from '../directives/dragndrop.directive';
 import { PageHeaderComponent } from '../core/components/page-header/page-header.component';
 import { ActivitiesButtonComponent } from './components/activities-button/activities-button.component';
 import { MobileFiltersDirective, MobileFilterDirective } from '../directives/mobile-filters.directive';
+import { CosCalenderComponent } from './cos-calender/cos-calender.component';
 @NgModule({
   declarations: [
     ActivityComponent,
@@ -102,7 +103,8 @@ import { MobileFiltersDirective, MobileFilterDirective } from '../directives/mob
     PageHeaderComponent,
     ActivitiesButtonComponent,
     MobileFiltersDirective,
-    MobileFilterDirective
+    MobileFilterDirective,
+    CosCalenderComponent
   ],
   imports: [
     RouterModule,
@@ -167,7 +169,8 @@ import { MobileFiltersDirective, MobileFilterDirective } from '../directives/mob
     PageHeaderComponent,
     ActivitiesButtonComponent,
     MobileFiltersDirective,
-    MobileFilterDirective
+    MobileFilterDirective,
+    CosCalenderComponent
    ]
 })
 export class SharedModule { }

@@ -26,6 +26,7 @@ import { TopicMemberUserService } from '../services/topic-member-user.service';
 import { TopicInviteDialogComponent } from './components/topic-invite/topic-invite.component';
 import { TopicParticipantsComponent } from './components/topic-participants/topic-participants.component';
 import { DuplicateTopicDialogComponent } from './components/duplicate-topic-dialog/duplicate-topic-dialog.component';
+import { TopicVoteCreateDialogComponent } from './components/topic-vote-create/topic-vote-create.component';
 
 @Component({
   selector: 'topic',
@@ -54,6 +55,7 @@ export class TopicComponent implements OnInit {
   showTags = false;
   readMore = false;
   showArgumentsTablet = (window.innerWidth <= 1024);
+  tabSelected$:Observable<string>;
   //new end
   topic$; // decorate the property with @Input()
   // groups$: Observable<Group[]>;
@@ -75,7 +77,6 @@ export class TopicComponent implements OnInit {
   STATUSES = this.TopicService.STATUSES;
   VOTE_TYPES = this.TopicVoteService.VOTE_TYPES;
   routerSubscription: Subscription;
-  tabSelected = 'inProgress';
 
   constructor(
     @Inject(TranslateService) public translate: TranslateService,
@@ -97,6 +98,12 @@ export class TopicComponent implements OnInit {
   ) {
     console.log(window.innerWidth >=1024)
     this.app.darkNav = true;
+
+    this.tabSelected$ = this.route.fragment.pipe(
+      map((value) => {
+        return value || 'discussion';
+      })
+    )
     this.routerSubscription = this.route.url.pipe(
       tap((url) => {
         console.log('URL', url)
@@ -306,4 +313,10 @@ export class TopicComponent implements OnInit {
       }
     })
   };
+
+  startVote(topic: Topic) {
+    this.dialog.open(TopicVoteCreateDialogComponent, {data: {
+      topic: topic
+    }})
+  }
 }

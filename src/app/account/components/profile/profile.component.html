@@ -30,8 +30,8 @@
           <form id="profile_form" name="myAccountForm" *ngIf="user | async as user">
             <cos-input placeholder="{{'VIEWS.ACCOUNT.PLACEHOLDER_NAME' | translate}}">
               <input id="name" name="name" [(ngModel)]="form.name"
-                placeholder="{{'VIEWS.ACCOUNT.PLACEHOLDER_NAME' | translate}}"
-                [ngClass]="{'error_input': errors.name}" [maxlength]="255" required (focus)="wWidth > 1024">
+                placeholder="{{'VIEWS.ACCOUNT.PLACEHOLDER_NAME' | translate}}" [ngClass]="{'error_input': errors.name}"
+                [maxlength]="255" required (focus)="wWidth > 1024">
               <label for="name" class="error_label" *ngIf="errors.name">
                 <div class="icon_notification_error_small"></div>
                 <span translate="{{errors.name}}"></span>
@@ -137,9 +137,8 @@
                 fill="#727C84" />
             </svg>
             <cos-input placeholder="{{'VIEWS.ACCOUNT.PLACEHOLDER_SEARCH' | translate}}">
-              <input class="topic_search_input"
-                placeholder="{{'VIEWS.ACCOUNT.PLACEHOLDER_SEARCH' | translate}}" [value]="topicSearch"
-                [(ngModel)]="topicSearch" [ngModelOptions]="{standalone: true, updateOn:'change'}"
+              <input class="topic_search_input" placeholder="{{'VIEWS.ACCOUNT.PLACEHOLDER_SEARCH' | translate}}"
+                [value]="topicSearch" [(ngModel)]="topicSearch" [ngModelOptions]="{standalone: true, updateOn:'change'}"
                 (ngModelChange)="searchTopics()">
             </cos-input>
           </div>
@@ -147,7 +146,9 @@
             <div class="dropdown" [cosDropdown]>
               <div class="selection">
                 <div class="selected_item">{{(TopicNotificationService.params$ | async)?.limit}}</div>
-                <div class="icon_arrow_down_black"></div>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
+                </svg>
               </div>
               <div class="options">
                 <div class="option" (click)="TopicNotificationService.setParam('limit', 5)">5</div>
