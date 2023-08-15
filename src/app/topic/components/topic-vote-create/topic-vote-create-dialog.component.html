@@ -8,7 +8,7 @@
           d="M20 10C14.48 10 10 14.48 10 20C10 25.52 14.48 30 20 30C25.52 30 30 25.52 30 20C30 14.48 25.52 10 20 10ZM18.0556 25L25.8333 17.2807L24.375 15.8333L18.0556 22.1053L15.625 19.693L14.1667 21.1404L18.0556 25Z"
           fill="white" />
       </svg>
-      <h4 class="title" translate="MODALS.LOGIN_HEADING"></h4>
+      <h4 class="title" translate="COMPONENTS.TOPIC_VOTE_CREATE.DIALOG_HEADING"></h4>
     </div>
     <div class="dialog_close">
       <button class="btn_dialog_close" mat-dialog-close>
@@ -20,11 +20,12 @@
     <a class="dialog_tab mobile_hidden" *ngFor="let tab of tabs" [ngClass]="(tabActive === tab+1)? 'active' :''"
       (click)="tabActive=tab+1">
       <span class="tab_number">{{tab+1}}</span>
-      <span class="tab_text">{{tab+1}}. <span>Tab active</span></span>
+      <span class="tab_text">{{tab+1}}. <span
+          [translate]="'COMPONENTS.TOPIC_VOTE_CREATE.DIALOG_TAB_'+(tab+1)"></span></span>
     </a>
     <div class="dropdown mobile_show">
       <div class="selection">
-        <div class="selected_item"> Invite participants </div>
+        <div class="selected_item" [translate]="'COMPONENTS.TOPIC_VOTE_CREATE.DIALOG_TAB_'+tabActive"> </div>
         <div class="icon_arrow_down_black"></div>
       </div>
       <div class="options">
@@ -46,35 +47,35 @@
   <div class="dialog_content">
     <ng-container *ngIf="tabActive === 1">
       <div class="introduction_wrap">
-        <div class="intro_heading">Are you sure you want to start the topic vote? Things to keep in mind:</div>
+        <div class="intro_heading" translate="COMPONENTS.TOPIC_VOTE_CREATE.DIALOG_TAB_INTRODUCTION_HEADING"></div>
         <div class="dialog_info">
           <div class="row"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
               xmlns="http://www.w3.org/2000/svg">
               <path d="M17 7L7 17" stroke="#2C3B47" stroke-width="2" />
               <path d="M7 7L17 17" stroke="#2C3B47" stroke-width="2" />
             </svg>
-            <span>You can no longer (co-)edit your document</span>
+            <span translate="COMPONENTS.TOPIC_VOTE_CREATE.DIALOG_TAB_INTRODUCTION_ITEM_1"></span>
           </div>
           <div class="row"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
               xmlns="http://www.w3.org/2000/svg">
               <path d="M9.38602 14.8088L17.5256 6L19 7.59558L9.38602 18L5 13.2534L6.47436 11.6578L9.38602 14.8088Z"
                 fill="#2C3B47" />
             </svg>
-            <span>You can still invite and share with participants</span>
+            <span translate="COMPONENTS.TOPIC_VOTE_CREATE.DIALOG_TAB_INTRODUCTION_ITEM_2"></span>
           </div>
           <div class="row"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
               xmlns="http://www.w3.org/2000/svg">
               <path d="M9.38602 14.8088L17.5256 6L19 7.59558L9.38602 18L5 13.2534L6.47436 11.6578L9.38602 14.8088Z"
                 fill="#2C3B47" />
             </svg>
-            <span>Participants can still continue to have a discussion</span>
+            <span translate="COMPONENTS.TOPIC_VOTE_CREATE.DIALOG_TAB_INTRODUCTION_ITEM_3"></span>
           </div>
           <div class="row"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
               xmlns="http://www.w3.org/2000/svg">
               <path d="M9.38602 14.8088L17.5256 6L19 7.59558L9.38602 18L5 13.2534L6.47436 11.6578L9.38602 14.8088Z"
                 fill="#2C3B47" />
             </svg>
-            <span>Participants can submit their vote</span>
+            <span translate="COMPONENTS.TOPIC_VOTE_CREATE.DIALOG_TAB_INTRODUCTION_ITEM_4"></span>
           </div>
         </div>
         <div class="dialog_info_wrap">
@@ -89,7 +90,7 @@
                   d="M10.2099 10.0623L13.6449 9.63184L12.1434 16.6893C12.0369 17.1993 12.1869 17.4888 12.5994 17.4888C12.8904 17.4888 13.3284 17.3838 13.6284 17.1198L13.4964 17.7438C13.0659 18.2628 12.1164 18.6408 11.2989 18.6408C10.2444 18.6408 9.79593 18.0078 10.0869 16.6623L11.1939 11.4603C11.2899 11.0208 11.2029 10.8618 10.7619 10.7568L10.0869 10.6323L10.2099 10.0623Z"
                   fill="white" />
               </svg>
-              <span>From here you can move the topic into follow-up.</span>
+              <span translate="COMPONENTS.TOPIC_VOTE_CREATE.DIALOG_TAB_INTRODUCTION_INFO"></span>
             </div>
           </div>
         </div>
@@ -101,8 +102,9 @@
           <div class="section_content_wrap">
             <h3>1.</h3>
             <div class="section_content_description">
-              <cos-input placeholder="{{'VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_NAME' | translate}}">
-                <input id="groupName" [placeholder]="'VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_NAME' | translate"
+              <cos-input placeholder="{{'COMPONENTS.TOPIC_VOTE_CREATE.VOTE_QUESTION_PLACEHOLDER' | translate}}">
+                <input id="groupName"
+                  [placeholder]="'COMPONENTS.TOPIC_VOTE_CREATE.VOTE_QUESTION_PLACEHOLDER' | translate"
                   [(ngModel)]="vote.question">
               </cos-input>
             </div>
@@ -110,22 +112,21 @@
         </div>
         <div class="content_section">
           <div class="section_content_wrap">
-            <h3>2.</h3>
-            <div class="radio_wrap" (click)="setVoteType(type)" *ngFor="let type of voteTypes">
+            <h3>2. <span translate="COMPONENTS.TOPIC_VOTE_CREATE.SELECT_VOTING_SYSTEM"></span></h3>
+            <div class="radio_wrap" (click)="setVoteType(type)" *ngFor="let type of voteTypes"
+              [ngClass]="vote.type == type? 'selected': ''">
               <div class="radio_text_wrap">
                 <div class="radio_lable_wrap">
                   <label class="radio_box">
-                    <input type="radio" [checked]="vote.type == type" name="contrast" value="default">
+                    <input type="radio" [checked]="vote.type == type">
                     <span class="radio"></span>
-                    <div class="radio_lable" [translate]="('VIEWS.TOPICS_TOPICID.VOTE_BTN_TYPE_'+type).toUpperCase()">
+                    <div class="radio_lable"
+                      [translate]="('COMPONENTS.TOPIC_VOTE_CREATE.OPTION_VOTING_'+type).toUpperCase()">
                     </div>
                   </label>
                 </div>
                 <div class="radio_description"
-                  [translate]="('VIEWS.TOPICS_TOPICID.VOTE_BTN_TYPE_'+type+'_EXPLANATION').toUpperCase()"></div>
-              </div>
-              <div class="radio_icon">
-                <div class="icon_contrast_default"></div>
+                  [translate]="('COMPONENTS.TOPIC_VOTE_CREATE.OPTION_VOTING_'+type+'_DESC').toUpperCase()"></div>
               </div>
             </div>
           </div>
@@ -133,17 +134,23 @@
       </div>
     </ng-container>
     <ng-container *ngIf="tabActive === 3">
+      <div class="dialog_info_wrap">
+        <div class="dialog_info success">
+          <span translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_VOTING_QUESTION"></span>
+          <span class="bold">{{vote.question}}</span>
+        </div>
+      </div>
       <div id="form_area">
         <div class="content_section">
           <div class="section_content_wrap">
-            <h3>1. Define vote answers</h3>
+            <h3>1. <span translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_DEFINE_VOTE_ANSWERS"></span></h3>
             <div class="vote_options_wrap" *ngIf="vote.type == 'regular'">
               <div class="radio_wrap" [ngClass]="vote.options[0].enabled? 'selected': ''"
                 (click)="vote.options[0].enabled = !vote.options[0].enabled">
                 <div class="radio_text_wrap">
                   <div class="radio_lable_wrap">
                     <label class="checkbox"><span class="bold"
-                        translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_YES"></span>
+                        translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_YES"></span>
                       <input type="checkbox" [(ngModel)]="vote.options[0].enabled" />
                       <span class="checkmark"></span>
                     </label>
@@ -155,7 +162,7 @@
                 <div class="radio_text_wrap">
                   <div class="radio_lable_wrap">
                     <label class="checkbox"><span class="bold"
-                        translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_NO"></span>
+                        translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_NO"></span>
                       <input type="checkbox" [(ngModel)]="vote.options[1].enabled" />
                       <span class="checkmark"></span>
                     </label>
@@ -164,11 +171,11 @@
               </div>
 
               <div class="radio_wrap" [ngClass]="extraOptions.neutral.enabled? 'selected': ''"
-                (click)="extraOptions.neutral.enabled = !extraOptions.neutral.enabled">
+                (click)="extraOptions.neutral.enabled = !extraOptions.neutral.enabled;  filterOptions();">
                 <div class="radio_text_wrap">
                   <div class="radio_lable_wrap">
                     <label class="checkbox"><span class="bold"
-                        translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_NEUTRAL"></span>
+                        translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_NEUTRAL"></span>
                       <input type="checkbox" [(ngModel)]="extraOptions.neutral.enabled" />
                       <span class="checkmark"></span>
                     </label>
@@ -176,11 +183,11 @@
                 </div>
               </div>
               <div class="radio_wrap" [ngClass]="extraOptions.veto.enabled? 'selected': ''"
-                (click)="extraOptions.veto.enabled = !extraOptions.veto.enabled">
+                (click)="extraOptions.veto.enabled = !extraOptions.veto.enabled; filterOptions()">
                 <div class="radio_text_wrap">
                   <div class="radio_lable_wrap">
                     <label class="checkbox"><span class="bold"
-                        translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_VETO"></span>
+                        translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_VETO"></span>
                       <input type="checkbox" [(ngModel)]="extraOptions.veto.enabled" />
                       <span class="checkmark"></span>
                     </label>
@@ -192,20 +199,20 @@
         </div>
         <div class="content_section">
           <div class="section_content_wrap">
-            <h3>2. Set up voting rights</h3>
-            <div class="radio_wrap"
+            <h3>2. <span translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_SET_UP_VOTING_RIGHTS"></span></h3>
+            <div class="radio_wrap" [ngClass]="(vote.authType === VOTE_AUTH_TYPES.hard)? 'selected': ''"
               (click)="(vote.authType !== VOTE_AUTH_TYPES.hard)? vote.authType=VOTE_AUTH_TYPES.hard : vote.authType=VOTE_AUTH_TYPES.soft">
               <div class="radio_text_wrap">
                 <div class="radio_lable_wrap">
                   <label class="checkbox" (click)="vote.authType = VOTE_AUTH_TYPES.hard"
                     [ngClass]="vote.authType === VOTE_AUTH_TYPES.hard ? 'selected': ''">
-                    <span class="bold" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_AUTH_HARD_ID"></span>
+                    <span class="bold" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_AUTH_HARD_ID"></span>
                     <input type="checkbox" [checked]="vote.authType === VOTE_AUTH_TYPES.hard" />
                     <span class="checkmark"></span>
                   </label>
                 </div>
                 <div class="radio_description">
-                  <span>The participant has to log in to cast their vote</span>
+                  <span translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_AUTH_HARD_ID_DESC"></span>
                   <div>
                     <svg width="76" height="22" viewBox="0 0 76 22" fill="none" xmlns="http://www.w3.org/2000/svg"
                       xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -266,21 +273,19 @@
                   </div>
                 </div>
               </div>
-              <div class="radio_icon">
-                <div class="icon_contrast_default"></div>
-              </div>
             </div>
 
-            <div class="radio_wrap" (click)="vote.delegationIsAllowed = !vote.delegationIsAllowed">
+            <div class="radio_wrap" (click)="vote.delegationIsAllowed = !vote.delegationIsAllowed"
+              [ngClass]="vote.delegationIsAllowed? 'selected': ''">
               <div class="radio_text_wrap">
                 <div class="radio_lable_wrap">
                   <label class="checkbox" [ngClass]="vote.delegationIsAllowed? 'selected': ''"><span
-                      translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_DELEGATION"></span>
+                      translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_DELEGATION"></span>
                     <input type="checkbox" [(ngModel)]="vote.delegationIsAllowed" />
                     <span class="checkmark"></span>
                   </label>
                 </div>
-                <div class="radio_description" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_DELEGATION_EXPLANATION">
+                <div class="radio_description" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_DELEGATION_DESC">
 
                 </div>
               </div>
@@ -289,25 +294,26 @@
         </div>
         <div class="content_section">
           <div class="section_content_wrap">
-            <h3>3. Choose how voting ends</h3>
+            <h3>3. <span translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_CHOOSE_VOTING_END"></span></h3>
+            <div translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_CHOOSE_VOTING_END_DESC"></div>
             <div class="radio_wrap date_selector" [ngClass]="deadline ? 'selected': ''">
               <div class="radio_text_wrap date_selector">
                 <div class="radio_lable_wrap">
                   <label class="checkbox" (click)="toggleDeadline()">
                     <span class="deadline" *ngIf="deadline">{{deadline | amTimeAgo}}</span>
-                    <span class="bold" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_DEADLINE"
+                    <span class="bold" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_DEADLINE"
                       (click)="toggleDeadline()"></span>
                     <input type="checkbox" [checked]="deadline" />
                     <span class="checkmark" (click)="toggleDeadline()"></span>
                   </label>
                 </div>
                 <div class="radio_description">
-                  <span>The participant has to log in to cast their vote</span>
+                  <span translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_DEADLINE_DESC"></span>
 
                   <ng-container *ngIf="deadline">
                     <div class="deadline_wrap">
                       <div class="date_row">
-                        <div class="bold">Time</div>
+                        <div class="bold" translate="COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_LBL_TIME"></div>
                         <div class="input_wrap">
                           <input class="time_input" [(ngModel)]="endsAt.h"
                             (change)="formatTime(endsAt.h); setEndsAtTime()" type="number" [min]="minHours()"
@@ -320,7 +326,7 @@
                           <div class="dropdown" [cosDropdown]>
                             <div class="selection">
                               <div class="selected_item">
-                                {{'VIEWS.TOPICS_TOPICID.VOTE_SETTING_TIME_OPTION_'+endsAt.timeFormat |
+                                {{'translate="COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_TIME_OPTION_'+endsAt.timeFormat |
                                 uppercase | translate}}</div>
                               <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -329,13 +335,13 @@
 
                             </div>
                             <div class="options">
-                              <div class="option" translate="VIEWS.TOPICS_TOPICID.VOTE_SETTING_TIME_OPTION_24"
+                              <div class="option" translate="COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_TIME_OPTION_24"
                                 (click)="endsAt.timeFormat = 24; setTimeFormat()">
                               </div>
-                              <div class="option" translate="VIEWS.TOPICS_TOPICID.VOTE_SETTING_TIME_OPTION_AM"
+                              <div class="option" translate="COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_TIME_OPTION_AM"
                                 (click)="endsAt.timeFormat = 'AM'; setTimeFormat()">
                               </div>
-                              <div class="option" translate="VIEWS.TOPICS_TOPICID.VOTE_SETTING_TIME_OPTION_PM"
+                              <div class="option" translate="COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_TIME_OPTION_PM"
                                 (click)="endsAt.timeFormat = 'PM'; setTimeFormat()">
                               </div>
                             </div>
@@ -344,7 +350,7 @@
                         </div>
                       </div>
                       <div class="date_row">
-                        <div class="bold">Timezone</div>
+                        <div class="bold" translate="COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_LBL_TIMEZONE"></div>
                         <div class="input_wrap">
                           <div class="dropdown" [cosDropdown]>
                             <div class="selection">
@@ -356,12 +362,6 @@
                                 (click)="endsAt.timezone = zone.value;setEndsAtTime();">
                                 {{zone.name}}
                               </div>
-                              <div class="option" translate="VIEWS.TOPICS_TOPICID.VOTE_SETTING_TIME_OPTION_AM"
-                                (click)="endsAt.timeFormat = 'AM'; setTimeFormat()">
-                              </div>
-                              <div class="option" translate="VIEWS.TOPICS_TOPICID.VOTE_SETTING_TIME_OPTION_PM"
-                                (click)="endsAt.timeFormat = 'PM'; setTimeFormat()">
-                              </div>
                             </div>
                           </div>
                         </div>
@@ -372,11 +372,12 @@
                         (click)="setEndsAtTime()"></cos-calender>
                       <div class="reminder_wrap">
                         <label class="checkbox" [ngClass]="reminder ? 'selected': ''">
-                          <span class="bold" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_SET_VOTE_REMINDER"></span>
+                          <span class="bold"
+                            translate="COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_LBL_OPTION_SET_VOTE_REMINDER"></span>
                           <input type="checkbox" [(ngModel)]="reminder" />
                           <span class="checkmark"></span>
                         </label>
-                        <div translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_SET_VOTE_REMINDER_EXPLANATION"></div>
+                        <div translate="COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_LBL_OPTION_SET_VOTE_REMINDER_DESC"></div>
                         <div class="dropdown" [cosDropdown] *ngIf="reminderOptions.length">
                           <div class="selection">
                             <div class="selected_item">
@@ -403,21 +404,20 @@
                   </ng-container>
                 </div>
               </div>
-              <div class="radio_icon">
-                <div class="icon_contrast_default"></div>
-              </div>
             </div>
 
-            <div class="radio_wrap" (click)="vote.autoClose[0].enabled = !vote.autoClose[0].enabled">
+            <div class="radio_wrap" (click)="vote.autoClose[0].enabled = !vote.autoClose[0].enabled"
+              [ngClass]="vote.autoClose[0].enabled ? 'selected': ''">
               <div class="radio_text_wrap">
                 <div class="radio_lable_wrap">
                   <label class="checkbox" [ngClass]="vote.delegationIsAllowed? 'selected': ''"><span
-                      translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_ALL_VOTES_ARE_IN"></span>
+                      translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_ALL_VOTES_ARE_IN"></span>
                     <input type="checkbox" [(ngModel)]="vote.autoClose[0].enabled" />
                     <span class="checkmark"></span>
                   </label>
                 </div>
-                <div class="radio_description" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_ALL_VOTES_ARE_IN_EXPLANATION">
+                <div class="radio_description"
+                  translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_ALL_VOTES_ARE_IN_DESC">
 
                 </div>
               </div>
@@ -427,13 +427,81 @@
       </div>
     </ng-container>
     <ng-container *ngIf="tabActive === 4">
+      <div class="dialog_info_wrap">
+        <div class="dialog_info success">
+          <span translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_VOTING_QUESTION"></span>
+          <span class="bold">{{vote.question}}</span>
+        </div>
+      </div>
+      <div class="dialog_info_wrap">
+        <div class="dialog_info success">
+          <ng-container *ngIf="vote.type === 'regular'">
+            <div class="dialog_info_header">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="24" cy="24" r="24" fill="#98DAA2" />
+                <rect x="18" y="26" width="12" height="12" rx="1" fill="#F1FAF3" />
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M19.1992 32.1455L22.6278 35.6004L28.7992 29.3816L27.8324 28.4004L22.6278 33.6449L20.1661 31.1712L19.1992 32.1455Z"
+                  fill="#5AB467" />
+                <rect x="18" y="10" width="12" height="12" rx="1" fill="#F1FAF3" />
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M20 16.1209L22.8571 19L28 13.8177L27.1943 13L22.8571 17.3704L20.8057 15.309L20 16.1209Z"
+                  fill="#5AB467" />
+              </svg>
+              <span translate="COMPONENTS.TOPIC_VOTE_CREATE.PREVIEW_VOTE_TYPE_REGULAR"></span>
+            </div>
+            <div class="dialog_info_content">
+              <div class="radio_wrap" *ngFor="let option of vote.options">
+                <div class="radio_text_wrap">
+                  <div class="radio_lable_wrap">
+                    <label class="checkbox"><span
+                        translate="{{'VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_' + option.value  | uppercase}}"></span>
+                      <input type="checkbox" />
+                      <span class="checkmark"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
 
+          <ng-container *ngIf="vote.type === 'multiple'">
+            <div class="dialog_info_header">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="24" cy="24" r="24" fill="#98DAA2" />
+                <rect x="18" y="26" width="12" height="12" rx="1" fill="#F1FAF3" />
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M19.1992 32.1455L22.6278 35.6004L28.7992 29.3816L27.8324 28.4004L22.6278 33.6449L20.1661 31.1712L19.1992 32.1455Z"
+                  fill="#5AB467" />
+                <rect x="18" y="10" width="12" height="12" rx="1" fill="#F1FAF3" />
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M20 16.1209L22.8571 19L28 13.8177L27.1943 13L22.8571 17.3704L20.8057 15.309L20 16.1209Z"
+                  fill="#5AB467" />
+              </svg>
+              <span translate="COMPONENTS.TOPIC_VOTE_CREATE.PREVIEW_VOTE_TYPE_MULTIPLE"></span>
+            </div>
+            <div class="dialog_info_content">
+              <div class="radio_wrap" *ngFor="let option of vote.options">
+                <div class="radio_text_wrap">
+                  <div class="radio_lable_wrap">
+                    <label class="checkbox"><span
+                        translate="{{'VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_' + option.value  | uppercase}}"></span>
+                      <input type="checkbox" />
+                      <span class="checkmark"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
     </ng-container>
     <!--topic-vote-create [topic]="topic"></!--topic-vote-create-->
   </div>
   <div class="dialog_footer with_buttons">
     <a mat-dialog-close translate="COMPONENTS.GROUP_ADD_TOPICS_DIALOG.LNK_CANCEL"></a>
     <button class="btn_medium_submit" translate="COMPONENTS.GROUP_ADD_TOPICS_DIALOG.BTN_SAVE"
-      (click)="tabActive = tabActive+1"></button>
+      (click)="(tabActive < 4)? tabActive = tabActive+1 : createVote()"></button>
   </div>
 </div>

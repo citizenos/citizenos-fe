@@ -179,13 +179,9 @@
       display: flex;
       flex-direction: column;
       gap: 8px;
-      width: calc(100% - 32px);
+      width: 100%;
       justify-content: space-around;
       position: relative;
-      margin-left: auto;
-      margin-right: auto;
-      margin-top: 8px;
-      margin-bottom: 16px;
       border-radius: 15px;
       background-color: var(--color-dialog);
 
@@ -211,6 +207,7 @@
       &.success {
         background-color: var(--color-success-background);
       }
+
       &.row {
         flex-direction: row;
         justify-content: flex-start;

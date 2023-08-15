@@ -1,3 +1,11 @@
+.dialog {
+  max-width: 560px;
+
+  .dialog_content {
+    gap: 16px;
+  }
+}
+
 .vote_options_wrap {
   display: flex;
   flex-wrap: wrap;
@@ -43,6 +51,7 @@
     vertical-align: middle;
 
     .input_wrap {
+      flex-grow: 2;
       display: flex;
       gap: 8px;
       .time_input {
@@ -61,5 +70,27 @@
 
   .dropdown {
     width: 100%;
+  }
+}
+
+.dialog_info_wrap {
+  .dialog_info {
+    .dialog_info_header {
+      display: flex;
+      background-color: var(--color-argument-pro-medium);
+    }
+
+    .dialog_info_content {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-start;
+      width: 100%;
+
+      .radio_wrap {
+        width: 100%;
+        background-color: var(--color-surfaces);
+      }
+    }
   }
 }
