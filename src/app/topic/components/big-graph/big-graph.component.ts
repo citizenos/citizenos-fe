@@ -10,11 +10,13 @@ export class BigGraphComponent implements OnInit {
   constructor() {
 
   }
-
+  sortedOptions = <any[]>[];
   ngOnInit(): void {
-  /*  console.log(this.options.rows);
-    this.sortedOptions = this.options.rows.sort((a, b) => {console.log(a, b); return 1;}); //.sort((a, b) => a['value'] > b['value'] ? 1 : a['value'] === b['value'] ? 0 : -1);
-    console.log(this.sortedOptions);*/
+    this.sortedOptions = this.options.rows.sort((a, b) => {
+      const aCount = a['voteCount'] || 0;
+      const bCount = b['voteCount'] || 0;
+      return aCount < bCount ? 1 : aCount === bCount ? 0 : -1
+    });
   }
 
   getVoteCountTotal() {
@@ -35,14 +37,6 @@ export class BigGraphComponent implements OnInit {
   getVoteValuePercentage(value:any) {
     if (!this.getVoteCountTotal() || value < 1 || !value) return 0;
     return value / this.getVoteCountTotal() * 100;
-  };
-
-  getOptionLetter(index:any) {
-    if (index < 26) {
-      return String.fromCharCode(65 + parseInt(index));
-    } else {
-      return String.fromCharCode(65 + Math.floor(parseInt(index) / 26) - 1) + (String.fromCharCode(65 + parseInt(index) % 26))
-    }
   };
 
   trackByFn(index: number, element: any) {
