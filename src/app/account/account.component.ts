@@ -156,31 +156,40 @@ export class AccountComponent implements OnInit {
         .uploadUserImage(this.imageFile).pipe(
           takeWhile((e) => !e.link)
         )
-        .subscribe((res: any) => {
+        .subscribe({next: (res: any) => {
           if (res.link) {
             this.form.imageUrl = res.link;
           }
-        });
-    } else {
-      this.User
-        .update(this.form.name, this.form.email, this.form.password, this.form.company, this.form.imageUrl, this.form.preferences, undefined, this.user?.termsVersion || undefined, this.form.newPassword)
-        .pipe(take(1),
-          catchError((res: any) => {
-            if (res.status.message === 'Invalid password')
-              this.errors = { password: res.status.message }
-            return of({ error: res.status })
-          }))
-        .subscribe((res: any) => {
+        },
+      error: (err) => {
+        this.Notification.addError(err.status.message);
+      }});
+    }
+    this.User
+      .update(this.form.name, this.form.email, this.form.password, this.form.company, this.form.imageUrl, this.form.preferences, undefined, this.user?.termsVersion || undefined, this.form.newPassword)
+      .pipe(take(1),
+        catchError((res: any) => {
+          if (res.status.message === 'Invalid password')
+            this.errors = { password: res.status.message }
+          return of({ error: res.status })
+        }))
+      .subscribe({
+        next: (res: any) => {
           if (res.data) {
             const values = Object.assign({}, this.form, res.data);
             if (this.user?.email !== this.form.email) {
               this.Notification.addInfo('MSG_INFO_CHECK_EMAIL_TO_VERIFY_YOUR_NEW_EMAIL_ADDRESS');
             }
             this.Auth.status().pipe(take(1)).subscribe();
+            this.Notification.addSuccess('MSG_SUCCESS_PUT_API_USERS_SELF');
             this.dialog.closeAll(); // Close all dialogs, including the one open now...u
           }
-        });
-    }
+        },
+        error: (err) => {
+          this.Notification.addError(err.status.message);
+        }
+      });
+
   };
 
   fileUpload() {
