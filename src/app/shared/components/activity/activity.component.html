@@ -39,7 +39,6 @@
           <div class="contents_data">
             <span [innerHTML]="translateActivity(a)"></span>
             <i *ngIf="showActivityUpdateVersions(a)">
-              <em>{{a.values.fieldName}}</em>
               <div class="activity_previous" [innerHtml]="translateVersion(a, 'previous')"></div>
 
               <div class="activity_new" [innerHtml]="translateVersion(a, 'new')"></div>
