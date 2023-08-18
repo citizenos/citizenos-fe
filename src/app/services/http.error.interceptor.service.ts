@@ -42,7 +42,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             }
 
             if (response.status === 403 || response.status === 404) {
-              this.Router.navigate(['/error/404']);
+              this.Router.navigate(['/error/404'], { queryParams: { redirectSuccess: this.Location.getAbsoluteUrl(window.location.pathname) + window.location.search } });
               return throwError(() => response.error);
             }
             if (response.url?.match(this.API_REQUEST_REGEX) && response?.status === 401) {
