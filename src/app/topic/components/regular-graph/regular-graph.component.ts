@@ -7,9 +7,15 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class RegularGraphComponent implements OnInit {
   @Input() options!: { rows: any[] };
+  sortedOptions = <any[]>[];
   constructor() { }
 
   ngOnInit(): void {
+    this.sortedOptions = this.options.rows.sort((a, b) => {
+      const aCount = a['voteCount'] || 0;
+      const bCount = b['voteCount'] || 0;
+      return aCount < bCount ? 1 : aCount === bCount ? 0 : -1
+    });
   }
 
   getVoteCountTotal() {

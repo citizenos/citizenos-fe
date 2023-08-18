@@ -181,16 +181,16 @@
                     <span class="blue_link" (click)="activeCommentSection= 'arguments'"
                       translate="VIEWS.TOPICS_TOPICID.LNK_ARGUMENTS_COUNT"
                       [translateParams]="{count: TopicArgumentService.count.value.total || 0}"></span><!--; scroll('arguments')-->
-                    <span class="info_section_separator"> | </span>
+                    <!--span class="info_section_separator"> | </!--span>
                     <span class="blue_link" (click)="activeCommentSection= 'socialMentions'"
                       translate="VIEWS.TOPICS_TOPICID.LNK_MENTIONS_COUNT"
-                      [translateParams]="{mentionsCount: (topicSocialMentions.length ||0)}"></span><!--; scroll('socialMentions')-->
-                    <span *ngIf="!topic.hashtag && TopicService.canEdit(topic)" class="info_section_separator"> |
-                    </span>
-                    <span class="blue_link" *ngIf="!topic.hashtag && TopicService.canEdit(topic)"
+                      [translateParams]="{mentionsCount: (topicSocialMentions.length ||0)}"></!--span--><!--; scroll('socialMentions')-->
+                    <!--span *ngIf="!topic.hashtag && TopicService.canEdit(topic)" class="info_section_separator"> |
+                    </!--span-->
+                    <!--span class="blue_link" *ngIf="!topic.hashtag && TopicService.canEdit(topic)"
                       [routerLink]="['settings']" [queryParams]="{tab: 'settings'}"
-                      translate="VIEWS.TOPICS_TOPICID.LNK_MENTIONS_COUNT_ADD_HASHTAG"></span>
-                    <span *ngIf="topic.hashtag" class="black_text" [innerText]="('#'+topic.hashtag)"> </span>
+                      translate="VIEWS.TOPICS_TOPICID.LNK_MENTIONS_COUNT_ADD_HASHTAG"></!--span>
+                    <span-- *ngIf="topic.hashtag" class="black_text" [innerText]="('#'+topic.hashtag)"> </span-->
                   </div>
                 </div>
                 <div class="info_section" *ngIf="wWidth < 767">
@@ -237,17 +237,17 @@
                 [ngClass]="activeCommentSection== 'arguments' || activeCommentSection== undefined ? 'active':''">
                 <div class="table_cell" translate="VIEWS.TOPICS_TOPICID.LBL_TAB_ARGUMENTS"></div>
               </div>
-              <div (click)="activeCommentSection= 'socialMentions'" class="tab"
+              <!--div (click)="activeCommentSection= 'socialMentions'" class="tab"
                 [ngClass]="activeCommentSection== 'socialMentions' ? 'active':''">
                 <div class="table_cell" translate="VIEWS.TOPICS_TOPICID.LBL_TAB_MENTIONS"></div>
-              </div>
+              </!--div-->
             </div>
             <div class="clearer"></div>
             <div class="comments_content">
               <topic-arguments #arguments [topic]="topic"
                 *ngIf="activeCommentSection == 'arguments'"></topic-arguments>
-              <topic-social-mentions [topic]="topic" #socialMentions
-                *ngIf="activeCommentSection=='socialMentions'"></topic-social-mentions>
+              <!--topic-social-mentions [topic]="topic" #socialMentions
+                *ngIf="activeCommentSection=='socialMentions'"></!--topic-social-mentions-->
             </div>
           </div>
 
