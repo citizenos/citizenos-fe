@@ -275,7 +275,7 @@ export class TopicService {
   };
 
   canSendToVote(topic: Topic) {
-    return this.canUpdate(topic) && [this.STATUSES.voting, this.STATUSES.closed].indexOf(topic.status) < 0;
+    return this.canUpdate(topic) && [this.STATUSES.voting, this.STATUSES.followUp, this.STATUSES.closed].indexOf(topic.status) < 0;
   };
 
   canLeave() {
