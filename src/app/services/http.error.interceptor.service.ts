@@ -41,10 +41,11 @@ export class HttpErrorInterceptor implements HttpInterceptor {
               return throwError(() => response.error);
             }
 
-            if (response.status === 403 || response.status === 404) {
-              this.Router.navigate(['/error/404']);
+            if (response.status === 404) {
+              this.Router.navigate(['/error/404'], { queryParams: { redirectSuccess: this.Location.getAbsoluteUrl(window.location.pathname) + window.location.search } });
               return throwError(() => response.error);
             }
+
             if (response.url?.match(this.API_REQUEST_REGEX) && response?.status === 401) {
               // Cannot use $state here due to circular dependencies with $http
               if(response.error && response.error.status?.message !== 'Unauthorized' || response.error.status?.code !==  40100) {} else {
