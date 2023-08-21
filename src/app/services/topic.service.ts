@@ -234,8 +234,8 @@ export class TopicService {
               if (state === 'vote' && !topic.voteId && !topic.vote) {
                 this.router.navigate(['/topics', topic.id, 'votes', 'create'])
               }
+              this.reloadTopic();
               if (state === 'followUp') {
-                this.reloadTopic();
                 this.router.navigate(['/topics', topic.id, 'followup'])
               }
             }, error: (res) => {
