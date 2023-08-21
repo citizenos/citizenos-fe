@@ -1448,7 +1448,7 @@
   "MSG_ERROR_INVITE_MEMBER_COUNT_OVER_LIMIT": "Лимитът за нови членове е достигнат",
   "MSG_ERROR_SELECTED_OPTIONS_COUNT_DOES_NOT_MATCH_VOTE_SETTINGS": "Броят на избраните опции не съответства на настройките за гласуване!",
   "MSG_ERROR_LOGOUT_FAILED": "За съжаление излизането не бе успешно. Моля, опитайте отново. Ако проблемът продължава, моля, свържете се с поддръжката.",
-  "MSG_ERROR_POST_API_USERS_TOPICS_INVITES_USERS_40001": "Sending invites failed: user already a member, or incorrect email address",
+  "MSG_ERROR_POST_API_USERS_TOPICS_INVITES_USERS_40001": "Изпращането на покани бе неуспешно: налице е потребител, който вече е член или некоректна ел. поща",
   "MSG_ERROR_POST_API_USERS_GROUPS_INVITES_USERS_40001": "@:MSG_ERROR_POST_API_USERS_TOPICS_INVITES_USERS_40001",
   "MSG_ERROR_NO_CERTIFICATES": "",
   "MSG_INFO_ACCOUNT_SWITCH_PAGE_REDIRECT": "Страницата е пренасочена поради смяна на акаунт",
