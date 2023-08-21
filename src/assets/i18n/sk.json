@@ -1341,7 +1341,7 @@
   "MSG_ERROR_POST_API_AUTH_PASSWORD_RESET_SEND_40002_EMAIL": "Účet s týmto mailom neexistuje.",
   "MSG_INFO_PASSWORD_RECOVERY_EMAIL_SENT": "Podarilo sa! Skontrolujte si prosím mailovú schránku, aby ste dokončili obnovu hesla.",
   "MSG_INFO_PASSWORD_RESET_SUCCESS": "Podarilo sa! Vaše heslo bolo obnovené. Prihláste sa teraz s novým heslom.",
-  "MSG_SUCCESS_PUT_API_USERS_SELF": "Success! Profile updated",
+  "MSG_SUCCESS_PUT_API_USERS_SELF": "Profil úspešne aktualizovaný",
   "MSG_ERROR_PUT_API_USERS_SELF_40000_PASSWORD": "@:MSG_ERROR_POST_API_AUTH_SIGNUP_40000_PASSWORD",
   "MSG_ERROR_PUT_API_USERS_SELF_40000_EMAIL": "@:MSG_ERROR_POST_API_AUTH_SIGNUP_40001_EMAIL",
   "MSG_ERROR_POST_API_USERS_GROUPS_40000_NAME": "Názov skupiny musí obsahovať od 2 do 255 znakov.",
