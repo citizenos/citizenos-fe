@@ -1,7 +1,7 @@
 <div class="big_graph">
   <div class="long_text_holder">
-    <div class="long_text" [ngClass]="(option.value) ? 'active' : ''" *ngFor="let option of options.rows; index as i; trackBy: trackByFn;">
-      <span class="bold">{{getOptionLetter(i)}}.</span> <span
+    <div class="long_text" [ngClass]="(option.value) ? 'active' : ''" *ngFor="let option of sortedOptions; index as i; trackBy: trackByFn;">
+      <span
         translate="{{'VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_' + i | linky | uppercase}}"
         [translateParams]="{default: (option.value | linky)}"></span>
     </div>
@@ -15,7 +15,6 @@
         <div class="graph_row_text_wrap">
           <div class="table_cell">
             <div class="graph_row_text">
-              {{getOptionLetter(i)}}.<br>
               <span class="bold">{{option.voteCount || 0}}</span><span class="bold bullet"
                 *ngIf="option.selected">•</span><span class="bold" *ngIf="option.selected"
                 translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_YOUR_VOTE"></span><!--span class="bold" ng-if="option.delegated" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_YOUR_VOTE_DELEGATED" translate-values="{userName: vote.delegation.name}">Your vote delegated to </span-->
