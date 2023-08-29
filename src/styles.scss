@@ -561,3 +561,8 @@ cos-toggle {
     }
   }
 }
+.pos_dialog_fixed {
+  position: fixed;
+  top: 0;
+  left: calc(50% - 280px);
+}

@@ -1,5 +1,14 @@
 @use "mixins";
 
+mat-dialog-container {
+  display: flex!important;
+
+  .mdc-dialog__container {
+    height: max-content;
+    align-self: flex-start;
+  }
+}
+
 .cdk-overlay-container {
   z-index: 999;
 
@@ -185,6 +194,10 @@
       border-radius: 15px;
       background-color: var(--color-dialog);
 
+      &.no_padding {
+        padding: 0;
+      }
+
       &.toggle_off {
         background-color: var(--color-error-background);
       }
@@ -204,6 +217,10 @@
         background-color: var(--color-info-background);
       }
 
+      &.voting {
+        background-color: var(--color-argument-pro-light);
+      }
+
       &.success {
         background-color: var(--color-success-background);
       }
@@ -218,6 +235,17 @@
         display: flex;
         gap: 8px;
         align-items: center;
+      }
+
+      .dialog_info_header {
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        padding: 16px;
+        gap: 16px;
+      }
+
+      .dialog_info_content {
+        padding: 16px;
       }
     }
   }
@@ -280,9 +308,14 @@
       background-color: var(--color-group);
       border-radius: 8px 8px 0 0;
 
+      &.success {
+        background-color: var(--color-success-background);
+      }
+
       .tab_text {
         display: none;
       }
+
       &.active {
         background-color: var(--color-surfaces);
         font-weight: bold;

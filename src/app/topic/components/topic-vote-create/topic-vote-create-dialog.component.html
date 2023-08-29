@@ -17,11 +17,12 @@
     </div>
   </div>
   <div class="dialog_tabs_wrap">
-    <a class="dialog_tab mobile_hidden" *ngFor="let tab of tabs" [ngClass]="(tabActive === tab+1)? 'active' :''"
+    <a class="dialog_tab success mobile_hidden" *ngFor="let tab of tabs" [ngClass]="(tabActive === tab+1)? 'active' :''"
       (click)="tabActive=tab+1">
       <span class="tab_number">{{tab+1}}</span>
-      <span class="tab_text">{{tab+1}}. <span
-          [translate]="'COMPONENTS.TOPIC_VOTE_CREATE.DIALOG_TAB_'+(tab+1)"></span></span>
+      <span class="tab_text">{{tab+1}}.
+        <span [translate]="'COMPONENTS.TOPIC_VOTE_CREATE.DIALOG_TAB_'+(tab+1)"></span>
+      </span>
     </a>
     <div class="dropdown mobile_show">
       <div class="selection">
@@ -47,7 +48,10 @@
   <div class="dialog_content">
     <ng-container *ngIf="tabActive === 1">
       <div class="introduction_wrap">
-        <div class="intro_heading" translate="COMPONENTS.TOPIC_VOTE_CREATE.DIALOG_TAB_INTRODUCTION_HEADING"></div>
+        <div class="intro_heading">
+          <span translate="COMPONENTS.TOPIC_VOTE_CREATE.DIALOG_TAB_INTRODUCTION_ARE_YOU_SURE"></span>
+          <span translate="COMPONENTS.TOPIC_VOTE_CREATE.DIALOG_TAB_INTRODUCTION_KEEP_IN_MIND"></span>
+        </div>
         <div class="dialog_info">
           <div class="row"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
               xmlns="http://www.w3.org/2000/svg">
@@ -79,7 +83,7 @@
           </div>
         </div>
         <div class="dialog_info_wrap">
-          <div class="dialog_info">
+          <div class="dialog_info voting">
             <div class="row">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect width="24" height="24" rx="4" fill="#5AB467" />
@@ -135,7 +139,7 @@
     </ng-container>
     <ng-container *ngIf="tabActive === 3">
       <div class="dialog_info_wrap">
-        <div class="dialog_info success">
+        <div class="dialog_info voting">
           <span translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_VOTING_QUESTION"></span>
           <span class="bold">{{vote.question}}</span>
         </div>
@@ -171,7 +175,7 @@
               </div>
 
               <div class="radio_wrap" [ngClass]="extraOptions.neutral.enabled? 'selected': ''"
-                (click)="extraOptions.neutral.enabled = !extraOptions.neutral.enabled;  filterOptions();">
+                (click)="extraOptions.neutral.enabled = !extraOptions.neutral.enabled;">
                 <div class="radio_text_wrap">
                   <div class="radio_lable_wrap">
                     <label class="checkbox"><span class="bold"
@@ -183,7 +187,7 @@
                 </div>
               </div>
               <div class="radio_wrap" [ngClass]="extraOptions.veto.enabled? 'selected': ''"
-                (click)="extraOptions.veto.enabled = !extraOptions.veto.enabled; filterOptions()">
+                (click)="extraOptions.veto.enabled = !extraOptions.veto.enabled;">
                 <div class="radio_text_wrap">
                   <div class="radio_lable_wrap">
                     <label class="checkbox"><span class="bold"
@@ -193,6 +197,113 @@
                     </label>
                   </div>
                 </div>
+              </div>
+            </div>
+            <div class="vote_options_wrap" *ngIf="vote.type === 'multiple'">
+              <div class="input_area" *ngFor="let option of vote.options; let $index = index">
+                <cos-input placeholder="{{'VIEWS.TOPICS_TOPICID.PLACEHOLDER_ENTER_A_POSSIBLE_ANSWER' | translate}}" *ngIf="displayOptInput(option)">
+                  <input placeholder="{{'VIEWS.TOPICS_TOPICID.PLACEHOLDER_ENTER_A_POSSIBLE_ANSWER' | translate}}"
+                    id="{{'voteOption' + $index}}" [(ngModel)]="option.value"
+                    [ngClass]="{'error_input': option.value && errors?.value}" />
+                  <label for="{{'voteOption' + $index}}" class="error_label" *ngIf="option.value && errors?.value">
+                    <div class="table_cell">
+                      <div class="icon_notification_error_small"></div>
+                      <span translate="{{errors.value}}"></span>
+                    </div>
+                  </label>
+                </cos-input>
+                <button (click)="removeOption($index)">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 6.00016H7.33333L7.33333 11.3335H6L6 6.00016Z" fill="#2C3B47" />
+                    <path d="M10 6.00016H8.66667L8.66667 11.3335H10L10 6.00016Z" fill="#2C3B47" />
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M11.3333 3.3335V2.66683C11.3333 1.93045 10.7364 1.3335 10 1.3335L6 1.3335C5.26362 1.3335 4.66667 1.93045 4.66667 2.66683V3.3335L2.66667 3.3335C2.29848 3.3335 2 3.63198 2 4.00016C2 4.36835 2.29848 4.66683 2.66667 4.66683H3.33333L3.33333 12.0002C3.33333 13.1048 4.22877 14.0002 5.33333 14.0002L10.6667 14.0002C11.7713 14.0002 12.6667 13.1048 12.6667 12.0002L12.6667 4.66683H13.3333C13.7015 4.66683 14 4.36835 14 4.00016C14 3.63198 13.7015 3.3335 13.3333 3.3335H11.3333ZM10 2.66683L6 2.66683V3.3335L10 3.3335V2.66683ZM11.3333 4.66683L4.66667 4.66683L4.66667 12.0002C4.66667 12.3684 4.96515 12.6668 5.33333 12.6668L10.6667 12.6668C11.0349 12.6668 11.3333 12.3684 11.3333 12.0002L11.3333 4.66683Z"
+                      fill="#2C3B47" />
+                  </svg>
+                </button>
+              </div>
+              <button class="btn_medium_plain" (click)="addOption()"><svg width="16" height="16" viewBox="0 0 16 16"
+                  fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M8 16C7.47105 16 7.04225 15.5712 7.04225 15.0423L7.04225 8.95775L0.957747 8.95775C0.428798 8.95775 0 8.52895 0 8C0 7.47105 0.428798 7.04225 0.957747 7.04225L7.04225 7.04225L7.04225 0.957747C7.04225 0.428798 7.47105 0 8 0C8.52895 0 8.95775 0.428798 8.95775 0.957747L8.95775 7.04225L15.0423 7.04225C15.5712 7.04225 16 7.47105 16 8C16 8.52895 15.5712 8.95775 15.0423 8.95775H8.95775V15.0423C8.95775 15.5712 8.52895 16 8 16Z"
+                    fill="#2C3B47" />
+                </svg>
+                <span translate="COMPONENTS.TOPIC_VOTE_CREATE.BTN_ADD_OPTION"></span>
+              </button>
+
+              <div class="description_text" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_CAN_ADD_EXTRA_OPTIONS"></div>
+              <div class="radio_wrap" [ngClass]="extraOptions.neutral.enabled? 'selected': ''"
+                (click)="extraOptions.neutral.enabled = !extraOptions.neutral.enabled;">
+                <div class="radio_text_wrap">
+                  <div class="radio_lable_wrap">
+                    <label class="checkbox"><span class="bold"
+                        translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_NEUTRAL"></span>
+                      <input type="checkbox" [(ngModel)]="extraOptions.neutral.enabled" />
+                      <span class="checkmark"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="radio_wrap" [ngClass]="extraOptions.veto.enabled? 'selected': ''"
+                (click)="extraOptions.veto.enabled = !extraOptions.veto.enabled;">
+                <div class="radio_text_wrap">
+                  <div class="radio_lable_wrap">
+                    <label class="checkbox"><span class="bold"
+                        translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_VETO"></span>
+                      <input type="checkbox" [(ngModel)]="extraOptions.veto.enabled" />
+                      <span class="checkmark"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="content_section" *ngIf="vote.type === 'multiple'">
+          <div class="section_content_wrap">
+            <h3>2. <span translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_SET_UP_VOTING_RIGHTS"></span></h3>
+            <div translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_CHOOSE_VOTING_END_DESC"></div>
+            <div class="input_area min_max_options">
+              <label class="bold" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_MIN_CHOICES"></label>
+              <div class="options_count_input_wrap">
+                <button class="btn_medium_voting_light icon" (click)="optionsCountDown('min')"><svg width="12" height="2"
+                    viewBox="0 0 12 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0L11 0C11.5523 0 12 0.447715 12 1C12 1.55228 11.5523 2 11 2L1 2Z"
+                      fill="#5AB467" />
+                  </svg>
+                </button>
+                <input class="options_count_input" type="number" [min]="1" [max]="vote.options.length"
+                  [(ngModel)]="vote.minChoices" />
+                <button class="btn_medium_voting_light icon" (click)="optionsCountUp('min')">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M8 16C7.47105 16 7.04225 15.5712 7.04225 15.0423L7.04225 8.95775L0.957747 8.95775C0.428798 8.95775 0 8.52895 0 8C0 7.47105 0.428798 7.04225 0.957747 7.04225L7.04225 7.04225L7.04225 0.957747C7.04225 0.428798 7.47105 0 8 0C8.52895 0 8.95775 0.428798 8.95775 0.957747L8.95775 7.04225L15.0423 7.04225C15.5712 7.04225 16 7.47105 16 8C16 8.52895 15.5712 8.95775 15.0423 8.95775H8.95775V15.0423C8.95775 15.5712 8.52895 16 8 16Z"
+                      fill="#5AB467" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div class="input_area min_max_options">
+              <label class="bold" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_MAX_CHOICES"></label>
+              <div class="options_count_input_wrap">
+                <button class="btn_medium_voting_light icon" (click)="optionsCountDown()">
+                  <svg width="12" height="2" viewBox="0 0 12 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0L11 0C11.5523 0 12 0.447715 12 1C12 1.55228 11.5523 2 11 2L1 2Z"
+                      fill="#5AB467" />
+                  </svg>
+                </button>
+                <input class="options_count_input" type="number" [min]="1" [max]="vote.options.length"
+                  [(ngModel)]="vote.maxChoices" />
+                <button class="btn_medium_voting_light icon" (click)="optionsCountUp()">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M8 16C7.47105 16 7.04225 15.5712 7.04225 15.0423L7.04225 8.95775L0.957747 8.95775C0.428798 8.95775 0 8.52895 0 8C0 7.47105 0.428798 7.04225 0.957747 7.04225L7.04225 7.04225L7.04225 0.957747C7.04225 0.428798 7.47105 0 8 0C8.52895 0 8.95775 0.428798 8.95775 0.957747L8.95775 7.04225L15.0423 7.04225C15.5712 7.04225 16 7.47105 16 8C16 8.52895 15.5712 8.95775 15.0423 8.95775H8.95775V15.0423C8.95775 15.5712 8.52895 16 8 16Z"
+                      fill="#5AB467" />
+                  </svg>
+                </button>
               </div>
             </div>
           </div>
@@ -275,12 +386,11 @@
               </div>
             </div>
 
-            <div class="radio_wrap" (click)="vote.delegationIsAllowed = !vote.delegationIsAllowed"
-              [ngClass]="vote.delegationIsAllowed? 'selected': ''">
+            <div class="radio_wrap" [ngClass]="vote.delegationIsAllowed? 'selected': ''">
               <div class="radio_text_wrap">
                 <div class="radio_lable_wrap">
-                  <label class="checkbox" [ngClass]="vote.delegationIsAllowed? 'selected': ''"><span
-                      translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_DELEGATION"></span>
+                  <label class="checkbox" [ngClass]="vote.delegationIsAllowed? 'selected': ''">
+                    <span class="bold" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_DELEGATION"></span>
                     <input type="checkbox" [(ngModel)]="vote.delegationIsAllowed" />
                     <span class="checkmark"></span>
                   </label>
@@ -299,12 +409,11 @@
             <div class="radio_wrap date_selector" [ngClass]="deadline ? 'selected': ''">
               <div class="radio_text_wrap date_selector">
                 <div class="radio_lable_wrap">
-                  <label class="checkbox" (click)="toggleDeadline()">
+                  <label class="checkbox">
                     <span class="deadline" *ngIf="deadline">{{deadline | amTimeAgo}}</span>
-                    <span class="bold" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_DEADLINE"
-                      (click)="toggleDeadline()"></span>
-                    <input type="checkbox" [checked]="deadline" />
-                    <span class="checkmark" (click)="toggleDeadline()"></span>
+                    <span class="bold" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_DEADLINE"></span>
+                    <input type="checkbox" [checked]="deadline" (click)="toggleDeadline()" />
+                    <span class="checkmark"></span>
                   </label>
                 </div>
                 <div class="radio_description">
@@ -313,7 +422,8 @@
                   <ng-container *ngIf="deadline">
                     <div class="deadline_wrap">
                       <div class="date_row">
-                        <div class="bold" translate="COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_LBL_TIME"></div>
+                        <div class="bold date_row_title" translate="COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_LBL_TIME">
+                        </div>
                         <div class="input_wrap">
                           <input class="time_input" [(ngModel)]="endsAt.h"
                             (change)="formatTime(endsAt.h); setEndsAtTime()" type="number" [min]="minHours()"
@@ -326,8 +436,8 @@
                           <div class="dropdown" [cosDropdown]>
                             <div class="selection">
                               <div class="selected_item">
-                                {{'translate="COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_TIME_OPTION_'+endsAt.timeFormat |
-                                uppercase | translate}}</div>
+                                {{'COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_TIME_OPTION_'+endsAt.timeFormat | uppercase |
+                                translate}}</div>
                               <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
@@ -350,11 +460,18 @@
                         </div>
                       </div>
                       <div class="date_row">
-                        <div class="bold" translate="COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_LBL_TIMEZONE"></div>
+                        <div class="date_row_title bold" translate="COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_LBL_TIMEZONE">
+                        </div>
                         <div class="input_wrap">
                           <div class="dropdown" [cosDropdown]>
                             <div class="selection">
-                              {{getTimeZoneName(endsAt.timezone)}}
+                              <div class="selected_item">
+                                {{getTimeZoneName(endsAt.timezone)}}
+                              </div>
+                              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
+                              </svg>
                             </div>
                             <div class="options">
                               <div class="option" *ngFor="let zone of timezones"
@@ -366,8 +483,6 @@
                           </div>
                         </div>
                       </div>
-                      <!--mat-calendar class="date_picker_wrap" [minDate]="datePickerMin" [(selected)]="endsAt.date"
-                        (click)="setEndsAtTime()"></!--mat-calendar-->
                       <cos-calender [minDate]="datePickerMin" [(date)]="endsAt.date"
                         (click)="setEndsAtTime()"></cos-calender>
                       <div class="reminder_wrap">
@@ -410,8 +525,8 @@
               [ngClass]="vote.autoClose[0].enabled ? 'selected': ''">
               <div class="radio_text_wrap">
                 <div class="radio_lable_wrap">
-                  <label class="checkbox" [ngClass]="vote.delegationIsAllowed? 'selected': ''"><span
-                      translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_ALL_VOTES_ARE_IN"></span>
+                  <label class="checkbox" [ngClass]="vote.delegationIsAllowed? 'selected': ''">
+                    <span class="bold" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_ALL_VOTES_ARE_IN"></span>
                     <input type="checkbox" [(ngModel)]="vote.autoClose[0].enabled" />
                     <span class="checkmark"></span>
                   </label>
@@ -428,13 +543,13 @@
     </ng-container>
     <ng-container *ngIf="tabActive === 4">
       <div class="dialog_info_wrap">
-        <div class="dialog_info success">
+        <div class="dialog_info voting">
           <span translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_VOTING_QUESTION"></span>
           <span class="bold">{{vote.question}}</span>
         </div>
       </div>
       <div class="dialog_info_wrap">
-        <div class="dialog_info success">
+        <div class="dialog_info voting no_padding">
           <ng-container *ngIf="vote.type === 'regular'">
             <div class="dialog_info_header">
               <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -455,7 +570,7 @@
                 <div class="radio_text_wrap">
                   <div class="radio_lable_wrap">
                     <label class="checkbox"><span
-                        translate="{{'VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_' + option.value  | uppercase}}"></span>
+                        translate="{{'COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_' + option.value  | uppercase}}"></span>
                       <input type="checkbox" />
                       <span class="checkmark"></span>
                     </label>
@@ -478,14 +593,14 @@
                   d="M20 16.1209L22.8571 19L28 13.8177L27.1943 13L22.8571 17.3704L20.8057 15.309L20 16.1209Z"
                   fill="#5AB467" />
               </svg>
-              <span translate="COMPONENTS.TOPIC_VOTE_CREATE.PREVIEW_VOTE_TYPE_MULTIPLE"></span>
+              <span translate="COMPONENTS.TOPIC_VOTE_CREATE.PREVIEW_VOTE_TYPE_MULTIPLE" [translateParams]="{maxOptions: vote.maxChoices}"></span>
             </div>
             <div class="dialog_info_content">
               <div class="radio_wrap" *ngFor="let option of vote.options">
                 <div class="radio_text_wrap">
                   <div class="radio_lable_wrap">
                     <label class="checkbox"><span
-                        translate="{{'VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_' + option.value  | uppercase}}"></span>
+                        translate="{{'COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_' + option.value  | uppercase}}" [translateParams]="{default: option.value}"></span>
                       <input type="checkbox" />
                       <span class="checkmark"></span>
                     </label>
@@ -500,8 +615,18 @@
     <!--topic-vote-create [topic]="topic"></!--topic-vote-create-->
   </div>
   <div class="dialog_footer with_buttons">
-    <a mat-dialog-close translate="COMPONENTS.GROUP_ADD_TOPICS_DIALOG.LNK_CANCEL"></a>
-    <button class="btn_medium_submit" translate="COMPONENTS.GROUP_ADD_TOPICS_DIALOG.BTN_SAVE"
-      (click)="(tabActive < 4)? tabActive = tabActive+1 : createVote()"></button>
+    <a mat-dialog-close translate="COMPONENTS.TOPIC_VOTE_CREATE.LNK_CANCEL"></a>
+    <div class="button_row">
+      <button *ngIf="tabActive > 1" class="btn_medium_submit_ghost icon" (click)="tabActive = tabActive - 1; (tabActive !==3)? addPosAbsolute = false: addPosAbsolute=true;"><svg width="24"
+          height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M10.4533 17.6874C10.8529 18.1042 11.5009 18.1042 11.9006 17.6874C12.3003 17.2705 12.3003 16.5947 11.9006 16.1779L8.91837 13L19 13C19.5652 13 20 12.5892 20 11.9997C20 11.4103 19.5652 11.0176 19 11.0176L8.91837 11.0176L11.9006 7.8221C12.3003 7.40527 12.3003 6.72945 11.9006 6.31262C11.5009 5.89579 10.8529 5.89579 10.4533 6.31262L5 12L10.4533 17.6874Z"
+            fill="#2C3B47" />
+        </svg>
+      </button>
+      <button class="btn_medium_submit" (click)="tabNext()">{{((this.tabActive <
+          4)? "COMPONENTS.TOPIC_VOTE_CREATE.BTN_CONTINUE" : "COMPONENTS.TOPIC_VOTE_CREATE.BTN_START_VOTE" ) | translate
+          }}</button>
+    </div>
   </div>
 </div>
