@@ -6,6 +6,7 @@
   "BTN_NO": "NO",
   "BTN_CLOSE": "Close",
   "DROPDOWN_BTN_SELECT": "Select",
+  "BTN_CONTINUE": "Continue",
   "LNK_CANCEL": "Cancel",
   "LNK_DIRECT_LINK": "direct link",
   "TOGGLE_ON": "On",
@@ -102,7 +103,8 @@
       "DIALOG_TAB_2": "Voting system",
       "DIALOG_TAB_3": "Settings",
       "DIALOG_TAB_4": "Preview",
-      "DIALOG_TAB_INTRODUCTION_HEADING": "Are you sure you want to start the topic vote? Things to keep in mind:",
+      "DIALOG_TAB_INTRODUCTION_ARE_YOU_SURE": "Are you sure you want to start the topic vote?",
+      "DIALOG_TAB_INTRODUCTION_KEEP_IN_MIND": "Things to keep in mind:",
       "DIALOG_TAB_INTRODUCTION_ITEM_1": "You can no longer (co-)edit your document",
       "DIALOG_TAB_INTRODUCTION_ITEM_2": "You can still invite and share with participants",
       "DIALOG_TAB_INTRODUCTION_ITEM_3": "Participants can still continue to have a discussion",
@@ -120,6 +122,8 @@
       "LBL_OPTION_NO": "No",
       "LBL_OPTION_NEUTRAL": "Neutral",
       "LBL_OPTION_VETO": "Veto",
+      "BTN_ADD_OPTION": "Add another answer",
+      "LBL_CAN_ADD_EXTRA_OPTIONS": "You can also add Neutral and Veto options.",
       "LBL_SET_UP_VOTING_RIGHTS": "Set up voting rights",
       "LBL_OPTION_AUTH_HARD_ID": "eID",
       "LBL_OPTION_AUTH_HARD_ID_DESC": "The participant has to log in to cast their vote",
@@ -140,7 +144,10 @@
       "LBL_OPTION_ALL_VOTES_ARE_IN_DESC": "When every participant in the topic has voted, the vote system closes.",
       "PREVIEW_HEADER": "Voting options preview",
       "PREVIEW_VOTE_TYPE_MULTIPLE": "This is a multiple choice vote. You can choose maximum {{maxOptions}} options.",
-      "PREVIEW_VOTE_TYPE_REGULAR": "This is a single choice vote"
+      "PREVIEW_VOTE_TYPE_REGULAR": "This is a single choice vote",
+      "LNK_CANCEL": "@:LNK_CANCEL",
+      "BTN_CONTINUE": "@:BTN_CONTINUE",
+      "BTN_START_VOTE": "Start topic vote"
     },
     "ACTIVITY_FEED": {
       "HEADING": "@:DEFAULT.NAV.LNK_ACTIVITY",
@@ -227,7 +234,7 @@
     },
     "GROUP_ADD_TOPICS_DIALOG": {
       "HEADING": "Add topics to the group",
-      "LNK_CANCEL": "Cancel",
+      "LNK_CANCEL": "@:LNK_CANCEL",
       "BTN_SAVE": "Add topics to group"
     },
     "GROUP_ADD_TOPICS": {
@@ -1033,7 +1040,7 @@
       "SETTINGS_HEADING_CATEGORY_AND_LOCALITY": "Categories & locality",
       "SETTINGS_CATEGORY_SELECT_DESC": "Choose up to 3 categories that fit your topic.",
       "SETTINGS_CATEGORY_SELECT": "Choose a category",
-      "FOOTER_BTN_CONTINUE": "Continue",
+      "FOOTER_BTN_CONTINUE": "@:BTN_CONTINUE",
       "FOOTER_BTN_CREATE": "Create group and send invites",
       "SETTINGS_HEADING_LOCALITY": "Country & language",
       "SETTINGS_LOCALITY_SELECT_DESC": "You can assign a country and language to this group, making it more easy to find for local participants.",
@@ -1360,7 +1367,7 @@
       "TXT_VIEW_GROUPS": "View and edit your Citizen OS groups.",
       "TXT_POLICY": "{{website}} will use this information in accordance with their respective <a href=\"{{linkPrivacyPolicy}}\" target=\"_blank\">terms of service and privacy policies</a>.",
       "_AGREE": "Accept",
-      "DISAGREE": "Cancel"
+      "DISAGREE": "@:LNK_CANCEL"
     },
     "PARTNERS_LOGIN": {
       "HEADING": "<strong>{{website}} works together with Citizen OS</strong> to offer you a great experience. If you want to use the platform to its fullest, <strong>please login to Citizen OS or register.</strong>",

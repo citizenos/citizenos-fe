@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Inject, inject } from '@angular/core';
+import { Component, OnInit, Input, Inject, inject, HostBinding } from '@angular/core';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicService } from 'src/app/services/topic.service';
 import { TopicVoteService } from 'src/app/services/topic-vote.service';
@@ -314,20 +314,25 @@ export class TopicVoteCreateComponent implements OnInit {
   filterOptions() {
     for (let o in this.extraOptions) {
       const option = this.extraOptions[o];
+      this.vote.options = this.vote.options.filter((opt: any) => {
+        return opt.value !== option.value;
+      });
       if (option.enabled) {
         this.vote.options.push({ value: option.value });
       }
     }
-
+    console.log(this.vote.options)
     this.vote.options = this.vote.options.filter((option: any) => {
       return !!option.value
     });
   }
 
+  displayOptInput (option: any) {
+    return (Object.keys(this.extraOptions).indexOf(option.value) === -1)
+  }
+
   createVote() {
     this.Notification.removeAll();
-
-    this.filterOptions();
 
     if (!this.reminder) {
       this.vote.reminderTime = this.vote.reminderTime = null;
@@ -365,6 +370,8 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
   tabs = [...Array(4).keys()];
   tabActive = 1;
 
+  @HostBinding('class.pos_dialog_fixed') addPosAbsolute: boolean = false;
+
   override vote = {
     question: <string>'',
     topicId: <string>'',
@@ -387,5 +394,13 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
     if (this.topic.voteId) {
       this.router.navigate(['/topics', this.topic.id, 'votes', this.topic.voteId]);
     }
+  }
+
+  tabNext () {
+    this.addPosAbsolute = false;
+    if (this.tabActive === 2 && !this.vote.type) return;
+    if (this.tabActive >= 3) this.filterOptions();
+    (this.tabActive < 4)? this.tabActive = this.tabActive+1 : this.createVote()
+    if (this.tabActive === 3) this.addPosAbsolute = true;
   }
 }

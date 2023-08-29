@@ -13,7 +13,7 @@
 }
 
 %btn_medium {
-  padding: 0px 8px;
+  padding: 0px 16px;
   gap: 16px;
   max-height: 40px;
   min-height: 40px;
@@ -102,6 +102,13 @@ $button-styles: (
     background: var(--color-voting),
     color: var(--color-surfaces),
   ),
+  voting_light: (
+    background: var(--color-argument-pro-light),
+    color: var(--color-voting),
+  ),
+  plain: (
+    hover: var(--color-scrollbar),
+  ),
 );
 
 @mixin button_styles($theme-map) {
@@ -122,6 +129,11 @@ $button-styles: (
           color: map-get($map, color);
         }
 
+        &.icon {
+          svg {
+            position: absolute;
+          }
+        }
         &:hover,
         &.active {
           background: map-get($map, hover);
@@ -214,6 +226,12 @@ $button-styles: (
     .radio_lable_wrap {
       display: flex;
       flex-direction: row;
+    }
+
+    .radio_description {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
   }
 
@@ -443,6 +461,5 @@ $button-styles: (
         }
       }
     }
-
   }
 }
