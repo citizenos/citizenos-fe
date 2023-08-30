@@ -518,9 +518,10 @@ cos-toggle {
       width: 100%;
     }
 
-    h3 {
+    h3.with_icon_padding {
       padding: 0;
       margin: 0;
+
       @include mixins.tablet {
         margin: 12px 12px 12px 52px;
       }

@@ -24,23 +24,18 @@
         <span [translate]="'COMPONENTS.TOPIC_VOTE_CREATE.DIALOG_TAB_'+(tab+1)"></span>
       </span>
     </a>
-    <div class="dropdown mobile_show">
+    <div class="dropdown mobile_show" [cosDropdown]>
       <div class="selection">
         <div class="selected_item" [translate]="'COMPONENTS.TOPIC_VOTE_CREATE.DIALOG_TAB_'+tabActive"> </div>
-        <div class="icon_arrow_down_black"></div>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+        </svg>
+
       </div>
       <div class="options">
-        <div class="option">
-          <span class="tab_number">1</span>
-        </div>
-        <div class="option">
-          <span class="tab_number">2</span>
-        </div>
-        <div class="option">
-          <span class="tab_number">3</span>
-        </div>
-        <div class="option">
-          <span class="tab_number">4</span>
+        <div class="option" *ngFor="let tab of tabs" (click)="tabActive = tab+1">
+          <span class="tab_number">{{tab+1}}. <span
+              [translate]="'COMPONENTS.TOPIC_VOTE_CREATE.DIALOG_TAB_'+(tab+1)"></span></span>
         </div>
       </div>
     </div>
@@ -104,7 +99,7 @@
       <div id="form_area">
         <div class="content_section">
           <div class="section_content_wrap">
-            <h3>1.</h3>
+            <h3>1. <span translate="COMPONENTS.TOPIC_VOTE_CREATE.VOTE_QUESTION_HEADING"></span></h3>
             <div class="section_content_description">
               <cos-input placeholder="{{'COMPONENTS.TOPIC_VOTE_CREATE.VOTE_QUESTION_PLACEHOLDER' | translate}}">
                 <input id="groupName"
@@ -201,7 +196,8 @@
             </div>
             <div class="vote_options_wrap" *ngIf="vote.type === 'multiple'">
               <div class="input_area" *ngFor="let option of vote.options; let $index = index">
-                <cos-input placeholder="{{'VIEWS.TOPICS_TOPICID.PLACEHOLDER_ENTER_A_POSSIBLE_ANSWER' | translate}}" *ngIf="displayOptInput(option)">
+                <cos-input placeholder="{{'VIEWS.TOPICS_TOPICID.PLACEHOLDER_ENTER_A_POSSIBLE_ANSWER' | translate}}"
+                  *ngIf="displayOptInput(option)">
                   <input placeholder="{{'VIEWS.TOPICS_TOPICID.PLACEHOLDER_ENTER_A_POSSIBLE_ANSWER' | translate}}"
                     id="{{'voteOption' + $index}}" [(ngModel)]="option.value"
                     [ngClass]="{'error_input': option.value && errors?.value}" />
@@ -267,8 +263,8 @@
             <div class="input_area min_max_options">
               <label class="bold" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_MIN_CHOICES"></label>
               <div class="options_count_input_wrap">
-                <button class="btn_medium_voting_light icon" (click)="optionsCountDown('min')"><svg width="12" height="2"
-                    viewBox="0 0 12 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <button class="btn_medium_voting_light icon" (click)="optionsCountDown('min')"><svg width="12"
+                    height="2" viewBox="0 0 12 2" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0L11 0C11.5523 0 12 0.447715 12 1C12 1.55228 11.5523 2 11 2L1 2Z"
                       fill="#5AB467" />
@@ -324,7 +320,7 @@
                 </div>
                 <div class="radio_description">
                   <span translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_AUTH_HARD_ID_DESC"></span>
-                  <div>
+                  <div class="id_icons_wrap">
                     <svg width="76" height="22" viewBox="0 0 76 22" fill="none" xmlns="http://www.w3.org/2000/svg"
                       xmlns:xlink="http://www.w3.org/1999/xlink">
                       <g style="mix-blend-mode:multiply">
@@ -593,14 +589,16 @@
                   d="M20 16.1209L22.8571 19L28 13.8177L27.1943 13L22.8571 17.3704L20.8057 15.309L20 16.1209Z"
                   fill="#5AB467" />
               </svg>
-              <span translate="COMPONENTS.TOPIC_VOTE_CREATE.PREVIEW_VOTE_TYPE_MULTIPLE" [translateParams]="{maxOptions: vote.maxChoices}"></span>
+              <span translate="COMPONENTS.TOPIC_VOTE_CREATE.PREVIEW_VOTE_TYPE_MULTIPLE"
+                [translateParams]="{maxOptions: vote.maxChoices}"></span>
             </div>
             <div class="dialog_info_content">
               <div class="radio_wrap" *ngFor="let option of vote.options">
                 <div class="radio_text_wrap">
                   <div class="radio_lable_wrap">
                     <label class="checkbox"><span
-                        translate="{{'COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_' + option.value  | uppercase}}" [translateParams]="{default: option.value}"></span>
+                        translate="{{'COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_' + option.value  | uppercase}}"
+                        [translateParams]="{default: option.value}"></span>
                       <input type="checkbox" />
                       <span class="checkmark"></span>
                     </label>
@@ -617,8 +615,9 @@
   <div class="dialog_footer with_buttons">
     <a mat-dialog-close translate="COMPONENTS.TOPIC_VOTE_CREATE.LNK_CANCEL"></a>
     <div class="button_row">
-      <button *ngIf="tabActive > 1" class="btn_medium_submit_ghost icon" (click)="tabActive = tabActive - 1; (tabActive !==3)? addPosAbsolute = false: addPosAbsolute=true;"><svg width="24"
-          height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <button *ngIf="tabActive > 1" class="btn_medium_submit_ghost icon mobile_hidden"
+        (click)="tabActive = tabActive - 1; (tabActive !==3)? addPosAbsolute = false: addPosAbsolute=true;"><svg
+          width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M10.4533 17.6874C10.8529 18.1042 11.5009 18.1042 11.9006 17.6874C12.3003 17.2705 12.3003 16.5947 11.9006 16.1779L8.91837 13L19 13C19.5652 13 20 12.5892 20 11.9997C20 11.4103 19.5652 11.0176 19 11.0176L8.91837 11.0176L11.9006 7.8221C12.3003 7.40527 12.3003 6.72945 11.9006 6.31262C11.5009 5.89579 10.8529 5.89579 10.4533 6.31262L5 12L10.4533 17.6874Z"
             fill="#2C3B47" />
