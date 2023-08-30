@@ -233,12 +233,16 @@
         padding: 24px 32px;
         margin-bottom: 90px;
 
+        @include mixins.mobile {
+          padding: 24px;
+        }
+
         @include mixins.tablet {
-          display: none;
+          /*  display: none;
 
           &.show {
             display: flex;
-          }
+          }*/
         }
         .no_voting_yet {
           display: flex;
@@ -246,17 +250,44 @@
           align-items: center;
           gap: 16px;
 
-          .header {
+          .description_heading {
+            width: 100%;
+            text-align: center;
             font-size: 24px;
             font-style: normal;
             font-weight: 600;
             line-height: 32px; /* 133.333% */
+
+            @include mixins.mobile {
+              font-size: 18px;
+              font-style: normal;
+              font-weight: 600;
+              line-height: 24px;
+            }
           }
 
           .no_voting_description {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
+            gap: 16px;
+
+            .description_text {
+              display: flex;
+              flex-direction: column;
+              gap: 16px;
+            }
+
+            .description_heading {
+              text-align: start;
+              font-size: 16px;
+              font-style: normal;
+              font-weight: 600;
+              line-height: 24px;
+            }
+            @include mixins.mobile {
+              flex-direction: column;
+            }
           }
         }
       }

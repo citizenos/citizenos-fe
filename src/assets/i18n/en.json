@@ -110,6 +110,7 @@
       "DIALOG_TAB_INTRODUCTION_ITEM_3": "Participants can still continue to have a discussion",
       "DIALOG_TAB_INTRODUCTION_ITEM_4": "Participants can submit their vote",
       "DIALOG_TAB_INTRODUCTION_INFO": "From here you can move the topic into follow-up.",
+      "VOTE_QUESTION_HEADING": "Please add a specific voting question to bring focus for the participants.",
       "VOTE_QUESTION_PLACEHOLDER": "Write your voting question",
       "SELECT_VOTING_SYSTEM": "Select a voting system",
       "OPTION_VOTING_REGULAR": "Choose Yes/No/Neutral",

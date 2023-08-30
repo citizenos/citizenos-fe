@@ -1,9 +1,20 @@
+@use "mixins";
+
 .dialog {
   max-width: 560px;
-
+  .dialog_tabs_wrap {
+    @include mixins.mobile {
+      background-color: var(--color-argument-pro-light);
+      padding: 16px;
+    }
+  }
   .dialog_content {
     gap: 16px;
     padding: 24px;
+
+    @include mixins.mobile {
+      padding: 16px;
+    }
 
     .introduction_wrap {
       display: flex;
@@ -16,6 +27,16 @@
         width: 100%;
         flex-direction: column;
         justify-content: center;
+      }
+    }
+  }
+  .dialog_footer {
+    @include mixins.mobile {
+      gap: 16px;
+      flex-direction: column-reverse;
+
+      button {
+        width: 100%;
       }
     }
   }
@@ -36,6 +57,14 @@
 }
 
 .input_area {
+
+  input {
+    background-color: var(--color-surfaces);
+  }
+  button {
+    width: max-content;
+    padding: 8px 16px;
+  }
   &.min_max_options {
     justify-content: space-between;
     padding: 8px 8px 8px 16px;
@@ -66,6 +95,14 @@
         margin: 0;
       }
     }
+  }
+}
+
+.dropdown.mobile_show {
+  width: 100%;
+
+  .selection {
+    padding: 8px 16px;
   }
 }
 
@@ -159,4 +196,9 @@
       }
     }
   }
+}
+
+.id_icons_wrap{
+  display: flex;
+  justify-content: space-around;
 }

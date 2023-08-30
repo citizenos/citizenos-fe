@@ -166,8 +166,7 @@ mat-dialog-container {
 
       .content_section {
         .section_content_wrap {
-          h3,
-          .section_content_description {
+          .icon_padding{
             padding: 8px 16px;
           }
         }
@@ -322,6 +321,7 @@ mat-dialog-container {
 
         .tab_text {
           display: flex;
+          gap: 8px;
         }
 
         .tab_number {
