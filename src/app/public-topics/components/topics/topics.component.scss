@@ -31,6 +31,10 @@
   padding: 16px;
   gap: 16px;
 
+  .dropdown {
+    width: 100%;
+  }
+
   #options_area {
     width: 100%;
     display: flex;
@@ -68,8 +72,6 @@
   }
 
   button {
-    width: 40px;
-    height: 40px;
     transition: transform 0.6s;
     transform-style: preserve-3d;
     perspective: 40px;
@@ -82,7 +84,7 @@
       display: flex;
       width: 24px;
       height: 24px;
-
+      position: absolute;
       path {
         fill: none;
       }

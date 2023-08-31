@@ -38,6 +38,10 @@ export class TopicsComponent implements OnInit {
     status: this.FILTERS_ALL
   };
 
+  mobile_filters = {
+    category: false,
+    status: false,
+  }
 
   tabSelected = 'categories';
   categories$ = Object.keys(this.Topic.CATEGORIES);

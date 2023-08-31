@@ -7,7 +7,10 @@
   "BTN_CLOSE": "Close",
   "DROPDOWN_BTN_SELECT": "Select",
   "BTN_CONTINUE": "Continue",
+  "LNK_FILTER": "filter",
+  "BTN_RESET_FILTER": "Reset filter",
   "LNK_CANCEL": "Cancel",
+  "BTN_APPLY": "Apply",
   "LNK_DIRECT_LINK": "direct link",
   "TOGGLE_ON": "On",
   "TOGGLE_OFF": "Off",
@@ -232,6 +235,9 @@
       "HEADER_VOTING": "{{value}} of {{target}} votes",
       "HEADER_FOLLOW_UP": "{{value}} events",
       "HEADER_IDEATION": "{{value}} ideas gathered"
+    },
+    "PUBLIC_TOPICS": {
+      "LBL_FILTER": "@:LNK_FILTER"
     },
     "GROUP_ADD_TOPICS_DIALOG": {
       "HEADING": "Add topics to the group",
@@ -1295,7 +1301,7 @@
       "LNK_LEAVE": "leave",
       "LNK_DELETE": "delete",
       "HEADING_TOPIC_LIST": "Topic list ({{count}})",
-      "LNK_FILTER": "filter",
+      "LNK_FILTER": "@:LNK_FILTER",
       "LNK_SEARCH": "@:DEFAULT.NAV_MOBILE.BTN_SEARCH",
       "PLACEHOLDER_TOPIC_TITLE_PERMISSION": "Topic title, permission",
       "PLACEHOLDER_NAME_PERMISSION": "Name, permission",
