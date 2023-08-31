@@ -19,7 +19,7 @@
       <button id="leave_button" (click)="leaveTopic(topic)" *ngIf="topic.permission.level" class="btn_medium_close"
         translate="VIEWS.TOPIC.BTN_LEAVE"></button>
 
-      <button class="btn_medium_close" (click)="togglePin(topic)">
+      <button class="btn_medium_close icon" (click)="togglePin(topic)">
         <svg *ngIf="!topic.pinned" width="24" height="24" viewBox="0 0 24 24" fill="none"
           xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd"
@@ -34,7 +34,7 @@
         </svg>
       </button>
       <div class="dropdown button_dropdown" [cosDropdown]>
-        <button class="btn_medium_close">
+        <button class="btn_medium_close icon">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd"
               d="M14 6C14 4.9 13.1 4 12 4C10.9 4 10 4.9 10 6C10 7.1 10.9 8 12 8C13.1 8 14 7.1 14 6ZM14 18C14 16.9 13.1 16 12 16C10.9 16 10 16.9 10 18C10 19.1 10.9 20 12 20C13.1 20 14 19.1 14 18ZM12 10C13.1 10 14 10.9 14 12C14 13.1 13.1 14 12 14C10.9 14 10 13.1 10 12C10 10.9 10.9 10 12 10Z"
@@ -42,7 +42,7 @@
           </svg>
         </button>
         <div class="options">
-          <div class="option" (click)="togglePin(topic)">
+          <button class="option" (click)="togglePin(topic)">
             <div>
               <svg *ngIf="!topic.pinned" width="24" height="24" viewBox="0 0 24 24" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
@@ -58,8 +58,8 @@
               </svg>
             </div>
             <span translate="COMPONENTS.TOPIC.OPTION_FAVORITE"></span>
-          </div>
-          <div class="option">
+          </button>
+          <button class="option" (click)="inviteMembers(topic)">
             <div>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -72,8 +72,8 @@
               </svg>
             </div>
             <span translate="COMPONENTS.TOPIC.OPTION_INVITE_CO_EDITOR"></span>
-          </div>
-          <div class="option">
+          </button>
+          <button class="option">
             <div>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -82,8 +82,8 @@
               </svg>
             </div>
             <span translate="COMPONENTS.TOPIC.OPTION_INVITE_EDIT_TOPIC"></span>
-          </div>
-          <div class="option" (click)="duplicateTopic(topic)">
+          </button>
+          <button class="option" (click)="duplicateTopic(topic)">
             <div>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M2 5H11V14H2V5Z" fill="#2C3B47" />
@@ -91,8 +91,8 @@
               </svg>
             </div>
             <span translate="COMPONENTS.TOPIC.OPTION_DUPLICATE_TOPIC"></span>
-          </div>
-          <div class="option">
+          </button>
+          <button class="option">
             <div>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M1 13C1 14 2 14 2 14H10C10 14 11 14 11 13C11 12 10 9 6 9C2 9 1 12 1 13Z" fill="#2C3B47" />
@@ -105,8 +105,8 @@
               </svg>
             </div>
             <span translate="COMPONENTS.TOPIC.OPTION_ADD_TO_GROUP"></span>
-          </div>
-          <div class="option" *ngIf="topic.visibility === TopicService.VISIBILITY.public && !topic.report"
+          </button>
+          <button class="option" *ngIf="topic.visibility === TopicService.VISIBILITY.public && !topic.report"
             [routerLink]="['/topics', topic.id, 'report']">
             <div><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="8" cy="8" r="5.5" fill="#2C3B47" stroke="#2C3B47" />
@@ -115,8 +115,8 @@
                   fill="white" />
               </svg>
             </div><span translate="COMPONENTS.TOPIC.OPTION_REPORT_TOPIC"></span>
-          </div>
-          <div class="option error_text">
+          </button>
+          <button class="option error_text">
             <div><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd"
                   d="M10 3H6V4H10V3ZM11 4V3C11 2.44772 10.5523 2 10 2H6C5.44772 2 5 2.44772 5 3V4H4H2.5C2.22386 4 2 4.22386 2 4.5C2 4.77614 2.22386 5 2.5 5H4V13C4 13.5523 4.44772 14 5 14H11C11.5523 14 12 13.5523 12 13V5H13.5C13.7761 5 14 4.77614 14 4.5C14 4.22386 13.7761 4 13.5 4H12H11ZM7 7H6V11H7V7ZM10 7H9V11H10V7Z"
@@ -124,7 +124,7 @@
               </svg>
 
             </div><span translate="COMPONENTS.TOPIC.OPTION_DELETE_TOPIC"></span>
-          </div>
+          </button>
         </div>
       </div>
 
