@@ -3,7 +3,7 @@
     <div class="logo_positive" routerLink="/"></div>
   </div>
   <div id="button_area">
-    <a *ngIf="app.searchAllowed" class="btn_medium_close" (click)="app.showSearch = !app.showSearch">
+    <a *ngIf="app.searchAllowed" class="btn_medium_close icon" (click)="app.showSearch = !app.showSearch">
       <svg *ngIf="!app.showSearch" width="24" height="24" viewBox="0 0 24 24" fill="none"
         xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -18,7 +18,7 @@
       </svg>
 
     </a>
-    <a class="btn_medium_close" (click)="app.showNav = !app.showNav">
+    <a class="btn_medium_close icon" (click)="app.showNav = !app.showNav">
       <svg *ngIf="!app.showNav" width="24" height="24" viewBox="0 0 24 24" fill="none"
         xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd"
