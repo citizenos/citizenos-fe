@@ -31,6 +31,8 @@
   .input_area {
     border-radius: 40px;
     gap: 0;
+    padding: 0 8px;
+
     @include mixins.mobile {
       background-color: var(--color-background);
       border: none;
