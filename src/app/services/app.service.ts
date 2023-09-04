@@ -1,3 +1,4 @@
+import { AuthService } from './auth.service';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BehaviorSubject, map, take } from 'rxjs';
@@ -41,7 +42,14 @@ export class AppService {
     text: ''
   });
 
-  constructor(private dialog: MatDialog, public config: ConfigService, private Location: LocationService, private TopicService: TopicService, private GroupMemberTopicService: GroupMemberTopicService, private router: Router, private http: HttpClient) { }
+  constructor(private dialog: MatDialog,
+    public config: ConfigService,
+    private Location: LocationService,
+    private TopicService: TopicService,
+    private GroupMemberTopicService: GroupMemberTopicService,
+    private router: Router,
+    private AuthService: AuthService,
+    private http: HttpClient) { }
 
   showMobile () {
     return window.innerWidth <= 560;
@@ -76,6 +84,19 @@ export class AppService {
   isTouchDevice() {
     return (('ontouchstart' in window) || (navigator.maxTouchPoints > 0));
   };
+
+  logout() {
+    this.AuthService.logout()
+    .pipe(take(1))
+    .subscribe({
+      next: (done) => {
+        console.log('SUCCESS', done);
+      },
+      error: (err) => {
+        console.log('ERROR', err);
+      }
+    });
+  }
 
   createNewTopic(title?: string, visibility?: string, groupId?: string, groupLevel?: string) {
     const topic = <any>{};
