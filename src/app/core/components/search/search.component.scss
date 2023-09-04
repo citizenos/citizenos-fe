@@ -22,7 +22,7 @@
   z-index: 98;
   padding: 16px;
 
-  @include mixins.mobile {
+  @include mixins.tablet {
     width: 100%;
     background-color: var(--color-surfaces);
     padding: 16px 0;
@@ -33,8 +33,8 @@
     gap: 0;
     padding: 0 8px;
 
-    @include mixins.mobile {
-      background-color: var(--color-background);
+    @include mixins.tablet {
+      background-color: var(--color-surfaces);
       border: none;
       border-radius: 0;
     }
@@ -44,6 +44,15 @@
     }
 
     cos-input {
+      @include mixins.tablet {
+        width: 100%;
+        border: none;
+        background-color: var(--color-surfaces);
+        input {
+          background-color: var(--color-surfaces);
+        }
+      }
+
       .cos_input_wrap {
         .cos_input_placeholder {
           left: 8px;
@@ -90,7 +99,7 @@
     flex-direction: column;
     gap: 8px;
 
-    @include mixins.mobile {
+    @include mixins.tablet {
       padding: 16px;
     }
   }
