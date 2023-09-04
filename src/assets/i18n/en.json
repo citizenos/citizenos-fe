@@ -14,6 +14,7 @@
   "LNK_DIRECT_LINK": "direct link",
   "TOGGLE_ON": "On",
   "TOGGLE_OFF": "Off",
+  "BTN_BULK_ACTIONS": "Bulk actions",
   "TXT_TOPIC_STATUS_ALL": "all",
   "TXT_TOPIC_STATUS_INPROGRESS": "in progress",
   "TXT_TOPIC_STATUS_VOTING": "in voting",
@@ -272,7 +273,7 @@
       "NAME": "Name",
       "ROLE": "Role",
       "ACTIONS": "Actions",
-      "BTN_BULK_ACTIONS": "Bulk actions",
+      "BTN_BULK_ACTIONS": "@:BTN_BULK_ACTIONS",
       "BULK_OPT_SET_ALL_RIGHTS": "Set all permissions to <b>{{level}}</b>",
       "BULK_OPT_REMOVE_ALL": "Remove all"
     },
@@ -959,6 +960,7 @@
   "VIEWS": {
     "ACCOUNT": {
       "HEADING": "Profile",
+      "BTN_LOG_OUT": "@:DEFAULT.NAV.LNK_LOG_OUT",
       "HEADING_ACCOUNT_DETAILS": "Your account details",
       "PLACEHOLDER_NAME": "Full name",
       "PLACEHOLDER_COMPANY": "Company",
@@ -990,7 +992,8 @@
       "PLACEHOLDER_SEARCH": "Search for a topic",
       "LBL_NOTIFICATION_TOPICS": "Topics with notifications turned on",
       "REMOVE_TOPIC_NOTIFICATIONS": "Turn off topic notifications",
-      "SHOW_PER_PAGE": "Show per page"
+      "SHOW_PER_PAGE": "Show per page",
+      "BTN_BULK_ACTIONS": "@:BTN_BULK_ACTIONS"
     },
     "DASHBOARD": {
       "HEADER_WELCOME": "Welcome back to yout dashboard <a href=\"/account\">{{user.name}}</a>",

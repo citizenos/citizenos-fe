@@ -97,4 +97,7 @@
   display: flex;
   gap: 24px;
   flex-flow: row wrap;
+  @include mixins.mobile {
+    justify-content: center;
+  }
 }
