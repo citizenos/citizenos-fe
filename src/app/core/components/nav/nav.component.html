@@ -49,10 +49,13 @@
     </ng-template>
     <ng-template #loggedIn>
       <button class="btn_big_submit" (click)="app.showCreateMenu()">
-        <div class="icon_create"></div>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M12 20C11.4711 20 11.0423 19.5712 11.0423 19.0423V12.9577H4.95775C4.4288 12.9577 4 12.5289 4 12C4 11.4711 4.4288 11.0423 4.95775 11.0423H11.0423V4.95775C11.0423 4.4288 11.4711 4 12 4C12.5289 4 12.9577 4.4288 12.9577 4.95775V11.0423H19.0423C19.5712 11.0423 20 11.4711 20 12C20 12.5289 19.5712 12.9577 19.0423 12.9577H12.9577V19.0423C12.9577 19.5712 12.5289 20 12 20Z"
+            fill="white" />
+        </svg>
         <span translate="DEFAULT.NAV.BTN_CREATE"></span>
       </button>
-      <button class="btn_big_submit" (click)="doLogout()" translate="DEFAULT.NAV.BTN_LOGOUT"></button>
 
       <a class="btn_small_nav" [routerLink]="['/', translate.currentLang, 'dashboard']" routerLinkActive="active">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

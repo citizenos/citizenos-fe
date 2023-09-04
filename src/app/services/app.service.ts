@@ -27,7 +27,7 @@ export class AppService {
   showSearch = false;
   editMode = false;
   darkNav = false;
-  searchAllowed = false;
+  searchAllowed = true;
 
   showSearchResults = false;
   showSearchFiltersMobile = false; //remove after UI update

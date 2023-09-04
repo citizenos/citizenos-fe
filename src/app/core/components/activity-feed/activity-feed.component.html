@@ -1,4 +1,5 @@
 <!-- LIGHTBOX SKELETON -->
+<div class="overlay"></div>
 <div id="activity_feed">
   <h3 translate="COMPONENTS.ACTIVITY_FEED.HEADING"></h3>
   <a class="btn_medium_close" mat-dialog-close>
@@ -22,8 +23,6 @@
     <activity [activitygroup]="item" *ngFor="let item of activities$ | async"></activity>
   </div>
 </div>
-
-<div class="overlay"></div>
 
 <!--div class="line lightest_line"></!--div>
 <div id="root_lightbox" class="full_screen left_menu_visible">
