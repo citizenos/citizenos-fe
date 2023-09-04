@@ -108,6 +108,7 @@
       margin-bottom: 24px;
       width: 160px;
       height: 1px;
+
       @include mixins.tablet {
         display: none;
       }
@@ -118,7 +119,7 @@
       width: calc(100% - 30px);
       background: var(--color-border);
       display: none;
-      margin-left: 30px;
+      margin: 8px 0 8px 30px ;
       @include mixins.tablet {
         display: flex;
       }
@@ -142,6 +143,7 @@
     flex-grow: 2;
     justify-content: center;
     gap: 16px;
+    padding: 32px;
 
     .nav_footer {
       display: flex;
@@ -205,6 +207,11 @@
   padding: 0 8px;
   height: 16px;
   border-radius: 30px;
+
+  @include mixins.tablet {
+    width: 32px;
+    height: 24px;
+  }
 
   &.bg_discussion {
     background: var(--color-discussion);
