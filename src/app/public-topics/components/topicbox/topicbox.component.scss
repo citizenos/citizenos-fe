@@ -74,8 +74,8 @@
 
     img {
       width: inherit;
-      /*  aspect-ratio: 1;
-      object-fit: contain;*/
+      aspect-ratio: 1;
+      object-fit: cover;
     }
   }
   .topic_content,

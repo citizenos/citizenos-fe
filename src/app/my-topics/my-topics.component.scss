@@ -19,6 +19,10 @@
 
   @include mixins.mobile {
     padding: 0;
+
+    #page_header {
+      padding: 16px 8px 0 8px;
+    }
   }
 }
 
@@ -30,6 +34,10 @@
   width: 100%;
   padding: 16px;
   gap: 16px;
+
+  .dropdown {
+    width: 100%;
+  }
 
   #options_area {
     width: 100%;
@@ -68,8 +76,6 @@
   }
 
   button {
-    width: 40px;
-    height: 40px;
     transition: transform 0.6s;
     transform-style: preserve-3d;
     perspective: 40px;
@@ -82,7 +88,7 @@
       display: flex;
       width: 24px;
       height: 24px;
-
+      position: absolute;
       path {
         fill: none;
       }
@@ -95,6 +101,9 @@
   display: flex;
   gap: 24px;
   flex-flow: row wrap;
+  @include mixins.mobile {
+    justify-content: center;
+  }
 }
 
 topicbox {

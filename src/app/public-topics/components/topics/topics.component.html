@@ -1,7 +1,7 @@
 <div class="page_content">
   <div id="page_header">
     <div id="user_info_area">
-      <h3 [innerHTML]="'VIEWS.MY_GROUPS.HEADER'| translate"></h3>
+      <h3 [innerHTML]="'VIEWS.MY_TOPICS.HEADER'| translate"></h3>
     </div>
     <div id="buttons_area">
       <button id="show_search" class="btn_medium_close icon" (click)="app.showSearch = !app.showSearch">
@@ -18,7 +18,7 @@
   <div id="page_filters_wrap">
     <div id="options_area" [@openClose]="moreFilters ? 'open' : 'closed'" class="mobile_hidden">
       <div class="options_row">
-        <cos-input [placeholder]="'VIEWS.MY_GROUPS.FILTER_VISIBILITY' | translate" class="dropdown_input">
+        <cos-input [placeholder]="'VIEWS.MY_TOPICS.FILTER_VISIBILITY' | translate" class="dropdown_input">
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
               <div class="selected_item">{{topicFilters.status}}</div>
@@ -32,7 +32,7 @@
             </div>
           </div>
         </cos-input>
-        <!--cos-input [placeholder]="'VIEWS.MY_GROUPS.FILTER_MY_ENGAGEMENT' | translate" class="dropdown_input">
+        <!--cos-input [placeholder]="'VIEWS.MY_TOPICS.FILTER_MY_ENGAGEMENT' | translate" class="dropdown_input">
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
               <div class="selected_item">All</div>
@@ -45,7 +45,7 @@
             </div>
           </div>
         </!--cos-input-->
-        <cos-input [placeholder]="'VIEWS.MY_GROUPS.FILTER_CATEGORIES' | translate" class="dropdown_input">
+        <cos-input [placeholder]="'VIEWS.MY_TOPICS.FILTER_CATEGORIES' | translate" class="dropdown_input mobile_hidden">
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
               <div class="selected_item">All</div>
@@ -59,7 +59,7 @@
             </div>
           </div>
         </cos-input>
-        <!--cos-input [placeholder]="'VIEWS.MY_GROUPS.FILTER_ORDER' | translate" class="dropdown_input">
+        <!--cos-input [placeholder]="'VIEWS.MY_TOPICS.FILTER_ORDER' | translate" class="dropdown_input">
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
               <div class="selected_item">All</div>
@@ -75,8 +75,24 @@
           </div>
         </!--cos-input-->
       </div>
+      <div class="options_row tablet_show ">
+        <cos-input [placeholder]="'VIEWS.MY_TOPICS.FILTER_CATEGORIES' | translate" class="dropdown_input mobile_hidden">
+          <div class="dropdown" [cosDropdown]>
+            <div class="selection">
+              <div class="selected_item">All</div>
+              <div class="icon_arrow_down_black"></div>
+            </div>
+            <div class="options">
+              <div class="option" (click)="setCategory('all');" translate="TXT_TOPIC_CATEGORY_ALL"></div>
+              <div class="option" *ngFor="let category of categories$" (click)="setCategory(category);">
+                {{'TXT_TOPIC_CATEGORY_' + category | uppercase | translate}}
+              </div>
+            </div>
+          </div>
+        </cos-input>
+      </div>
       <div class="options_row" *ngIf="moreFilters">
-        <!--cos-input [placeholder]="'VIEWS.MY_GROUPS.FILTER_COUNTRY' | translate" class="dropdown_input">
+        <!--cos-input [placeholder]="'VIEWS.MY_TOPICS.FILTER_COUNTRY' | translate" class="dropdown_input">
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
               <div class="selected_item">All</div>
@@ -89,7 +105,7 @@
             </div>
           </div>
         </!--cos-input>
-        <cos-input-- [placeholder]="'VIEWS.MY_GROUPS.FILTER_LANGUAGE' | translate" class="dropdown_input">
+        <cos-input-- [placeholder]="'VIEWS.MY_TOPICS.FILTER_LANGUAGE' | translate" class="dropdown_input">
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
               <div class="selected_item">All</div>
@@ -135,12 +151,12 @@
 
       <div class="options filter_options">
         <div class="filter_option">
-          <span translate="VIEWS.MY_GROUPS.FILTER_VISIBILITY"></span><a class="bold"
+          <span translate="VIEWS.MY_TOPICS.FILTER_VISIBILITY"></span><a class="bold"
             (click)="mobile_filters.status = true">{{'TXT_TOPIC_STATUS_'+topicFilters.status | uppercase |
             translate}}</a>
         </div>
         <div class="filter_option">
-          <span translate="VIEWS.MY_GROUPS.FILTER_CATEGORIES"></span><a class="bold"
+          <span translate="VIEWS.MY_TOPICS.FILTER_CATEGORIES"></span><a class="bold"
             (click)="mobile_filters.category = true">{{'TXT_TOPIC_CATEGORY_'+topicFilters.category | uppercase |
             translate}}</a>
         </div>

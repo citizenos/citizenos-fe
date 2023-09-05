@@ -324,6 +324,19 @@ textarea {
     display: flex!important;
   }
 }
+.tablet_hidden {
+  @include mixins.tablet {
+    display: none!important;
+  }
+}
+
+.tablet_show {
+  display: none!important;
+  @include mixins.tablet {
+    display: flex!important;
+  }
+}
+
 .error_label {
   margin-top: 8px;
   position: relative;
@@ -520,7 +533,7 @@ cos-toggle {
     width: inherit;
     border-radius: 40px;
     aspect-ratio: 1;
-    object-fit: contain;
+    object-fit: cover;
   }
 }
 

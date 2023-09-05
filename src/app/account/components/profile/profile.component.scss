@@ -145,6 +145,8 @@
           height: 160px;
           display: flex;
           border-radius: 80px;
+          aspect-ratio: 1;
+          object-fit: cover;
         }
 
         .profile_image_filler {
