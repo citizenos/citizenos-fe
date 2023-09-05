@@ -25,6 +25,8 @@
       }
 
       .graph_row_text {
+        display: flex;
+        gap: 8px;
         box-sizing: border-box;
         padding-left: 10px;
         font-size: 13px;
