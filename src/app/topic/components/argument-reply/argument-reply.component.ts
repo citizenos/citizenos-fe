@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { take } from 'rxjs';
 import { Argument } from 'src/app/interfaces/argument';
+import { AppService } from 'src/app/services/app.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { TopicArgumentService } from 'src/app/services/topic-argument.service';
 @Component({
@@ -21,7 +22,7 @@ export class ArgumentReplyComponent implements OnInit {
   ARGUMENT_TYPES_MAXLENGTH = this.TopicArgumentService.ARGUMENT_TYPES_MAXLENGTH;
   ARGUMENT_SUBJECT_MAXLENGTH = this.TopicArgumentService.ARGUMENT_SUBJECT_MAXLENGTH;
   errors = <any>null;
-  constructor(public AuthService: AuthService, private TopicArgumentService: TopicArgumentService) { }
+  constructor(public AuthService: AuthService, private TopicArgumentService: TopicArgumentService, public app: AppService) { }
 
   ngOnInit(): void {
   }

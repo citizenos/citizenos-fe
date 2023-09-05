@@ -1,6 +1,6 @@
 <div class="argument_edit_wrap">
   <div class="post_argument_overlay" *ngIf="!AuthService.loggedIn$.value">
-    <h3 translate-compile translate="VIEWS.TOPICS_TOPICID.LOG_IN_TO_PARTICIPATE"></h3>
+    <h3 translate-compile translate="VIEWS.TOPICS_TOPICID.LOG_IN_TO_PARTICIPATE" (click)="app.doShowLogin()"></h3>
   </div>
 
   <form [attr.disabled]="!AuthService.loggedIn$.value" name="postArgument">
