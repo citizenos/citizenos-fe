@@ -11,7 +11,7 @@ import { ItemsListService } from './items-list.service';
   providedIn: 'root'
 })
 export class GroupMemberTopicService extends ItemsListService {
-  params = Object.assign(this.defaultParams, { groupId: <string | null>null });
+  params = Object.assign(this.defaultParams, { groupId: <string | null>null, visibility: <string | null| undefined>null });
   params$ = new BehaviorSubject(this.params);
   constructor(private http: HttpClient, private Location: LocationService, private Auth: AuthService, private Topic: TopicService) {
     super();
