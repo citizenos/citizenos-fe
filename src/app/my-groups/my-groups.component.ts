@@ -35,6 +35,10 @@ export class MyGroupsComponent implements OnInit {
   searchInput = '';
   searchString$ = new BehaviorSubject('');
   moreFilters = false;
+  mobile_filters = {
+    visibility: false,
+    category: false
+  }
 
   constructor(
     public app: AppService,
@@ -58,6 +62,10 @@ export class MyGroupsComponent implements OnInit {
         return GroupService.loadItems();
       }
       ));
+  }
+
+  doClearFilters () {
+
   }
 
   doSearch(search: string) {
