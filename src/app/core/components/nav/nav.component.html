@@ -65,13 +65,13 @@
         <span class="bold" translate="DEFAULT.NAV.LNK_DASHBOARD"></span>
       </a>
       <div class="line_separator_tablet"></div>
-      <div class="btn_small_nav">
+      <a class="btn_small_nav" [routerLink]="['/', translate.currentLang, 'my', 'topics']">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd"
             d="M13 6L9.49999 2H4C3.44771 2 3 2.44577 3 2.99806L3.00005 12.8182C3.00005 13.4682 3.5737 14 4.15265 14H11.9474C12.5263 14 13 13.4682 13 12.8182V6ZM9.00005 3V6H11.5L9.00005 3ZM8.00005 3H4L4.00005 12.8182C4.00005 12.8431 4.01186 12.8916 4.06376 12.9431C4.08823 12.9674 4.11374 12.9837 4.13404 12.9928C4.14588 12.998 4.15308 12.9996 4.15534 13H11.9317C11.9347 12.9975 11.9389 12.9936 11.9441 12.9877C11.9698 12.9589 12 12.9009 12 12.8182V7H8.00005V3Z" />
         </svg>
         <span class="bold" translate="DEFAULT.NAV.LNK_MY_TOPICS"></span>
-      </div>
+      </a>
       <div class="line_separator_tablet"></div>
       <div class="sub_items">
         <a class="btn_small_nav" [routerLink]="['/', translate.currentLang, 'my', 'topics']"

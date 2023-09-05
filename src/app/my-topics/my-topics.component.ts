@@ -28,6 +28,12 @@ export class MyTopicsComponent {
     status: this.FILTERS_ALL,
     engagements: this.FILTERS_ALL
   };
+
+  mobile_filters = {
+    category: false,
+    status: false,
+  }
+
   tabSelected = 'categories';
   categories$ = Object.keys(this.Topic.CATEGORIES);
 
@@ -217,4 +223,10 @@ export class MyTopicsComponent {
     // this.UserTopicService.filterTopics(id);
     this.router.navigate([], { relativeTo: this.route, queryParams: { filter: id } });
   }
+
+  doClearFilters() {
+    this.setStatus(this.FILTERS_ALL);
+    this.setCategory(this.FILTERS_ALL);
+  }
+
 }

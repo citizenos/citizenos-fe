@@ -1,4 +1,4 @@
-<button class="btn_medium_activity" (click)="app.doShowActivityModal({topicId, groupId})"><span
+<button class="btn_medium_activity bold" (click)="app.doShowActivityModal({topicId, groupId})"><span
   translate="VIEWS.MY_GROUPS.BTN_GLOBAL_ACTIVITIES"></span>
 <ng-container *ngIf="unreadActivitiesCount$ | async ; then unread; else noUnread">
 </ng-container>

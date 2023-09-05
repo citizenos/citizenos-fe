@@ -149,7 +149,7 @@
       height: 80px;
       border-radius: 80px;
       aspect-ratio: 1;
-      object-fit: contain;
+      object-fit: cover;
     }
   }
 
@@ -244,7 +244,7 @@
             height: 64px;
             border-radius: 64px;
             aspect-ratio: 1;
-            object-fit: contain;
+            object-fit: cover;
           }
         }
         .group_visbility_icon {

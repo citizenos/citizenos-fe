@@ -19,6 +19,9 @@
 
   @include mixins.mobile {
     padding: 0;
+    #page_header {
+      padding: 16px 8px 0 8px;
+    }
   }
 }
 

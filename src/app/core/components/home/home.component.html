@@ -443,7 +443,6 @@
           </clipPath>
         </defs>
       </svg>
-
     </div>
   </div>
 
@@ -495,7 +494,7 @@
     <div class="home_items_section topics_section">
       <div class="section_header">
         <h2 translate="VIEWS.HOME.PUBLIC_TOPICS_TITLE"></h2>
-        <div>Have a sneak peek at popular public topics</div>
+        <div translate="VIEWS.HOME.PUBLIC_TOPICS_DESCRIPTION"></div>
       </div>
       <div class="section_content">
         <topicbox [topic]="topic" *ngFor="let topic of topics; trackBy: trackByTopic" [ngClass]="topic.categories">
@@ -511,7 +510,7 @@
     <div class="home_items_section groups_section">
       <div class="section_header">
         <h2 translate="VIEWS.HOME.PUBLIC_GROUPS_TITLE"></h2>
-        <div>Have a sneak peek a t popular public groups</div>
+        <div translate="VIEWS.HOME.PUBLIC_GROUPS_DESCRIPTION"></div>
       </div>
       <div class="section_content">
         <public-group-box [group]="group" *ngFor="let group of groups; trackBy: trackByTopic"></public-group-box>
