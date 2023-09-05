@@ -153,7 +153,7 @@
                         translate="{{'TXT_TOPIC_CATEGORY_' + category | uppercase}}"></span><!--translate-default="{{category}}"-->
                       <span *ngIf="!$last" class="info_section_separator"> | </span>
                     </span>
-                    <span *ngIf="!topic.categories.length">
+                    <span *ngIf="!topic.categories?.length">
                       <span *ngIf="!TopicService.canEdit(topic)"
                         translate="VIEWS.TOPICS_TOPICID.LBL_NO_CATEGORIES"></span>
                       <span *ngIf="TopicService.canEdit(topic)" class="blue_link" [routerLink]="['settings']"

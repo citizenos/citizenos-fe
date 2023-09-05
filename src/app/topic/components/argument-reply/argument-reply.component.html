@@ -1,6 +1,6 @@
 <div class="post_argument_wrap">
   <div *ngIf="!(AuthService.loggedIn$ | async)">
-    <h3 class="text-center" translate-compile translate="VIEWS.TOPICS_TOPICID.LOG_IN_TO_PARTICIPATE"></h3>
+    <h3 class="text-center" (click)="app.doShowLogin()" translate-compile translate="VIEWS.TOPICS_TOPICID.LOG_IN_TO_PARTICIPATE"></h3>
   </div>
   <form  *ngIf="AuthService.loggedIn$ | async" name="argumentReply">
     <textarea cosmarkdown
