@@ -71,24 +71,35 @@
     }
   }
 
-  button {
-    width: 40px;
-    height: 40px;
-    transition: transform 0.6s;
-    transform-style: preserve-3d;
-    perspective: 40px;
-
-    &.flip {
-      transform: rotateX(180deg);
+  @include mixins.mobile {
+    .dropdown {
+      width: 100%;
     }
+  }
 
-    .btn_icon {
-      display: flex;
-      width: 24px;
-      height: 24px;
+  .filter_control_buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 
-      path {
-        fill: none;
+    button {
+      width: 40px;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+      perspective: 40px;
+
+      &.flip {
+        transform: rotateX(180deg);
+      }
+
+      .btn_icon {
+        display: flex;
+        width: 24px;
+        height: 24px;
+
+        path {
+          fill: none;
+        }
       }
     }
   }
@@ -99,4 +110,12 @@
   display: flex;
   gap: 24px;
   flex-flow: row wrap;
+
+  @include mixins.mobile {
+    padding: 0 16px;
+    justify-content: center;
+    group-box {
+      width: 100%;
+    }
+  }
 }

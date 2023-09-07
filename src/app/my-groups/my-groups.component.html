@@ -51,6 +51,8 @@
             </div>
           </div>
         </cos-input>
+      </div>
+      <div class="options_row" *ngIf="moreFilters">
         <cos-input [placeholder]="'VIEWS.MY_GROUPS.FILTER_CATEGORIES' | translate" class="dropdown_input">
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
@@ -64,7 +66,7 @@
             </div>
           </div>
         </cos-input>
-        <cos-input [placeholder]="'VIEWS.MY_GROUPS.FILTER_ORDER' | translate" class="dropdown_input">
+        <cos-input [placeholder]="'VIEWS.MY_GROUPS.FILTER_ORDER' | translate" class="dropdown_input" >
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
               <div class="selected_item">All</div>
@@ -113,21 +115,31 @@
               d="M14.1922 15.6064C13.0236 16.4816 11.5723 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10C17 11.5723 16.4816 13.0236 15.6064 14.1922L19.7071 18.2929C20.0976 18.6834 20.0976 19.3166 19.7071 19.7071C19.3166 20.0976 18.6834 20.0976 18.2929 19.7071L14.1922 15.6064ZM15 10C15 12.7614 12.7614 15 10 15C7.23858 15 5 12.7614 5 10C5 7.23858 7.23858 5 10 5C12.7614 5 15 7.23858 15 10Z"
               fill="#727C84" />
           </svg>
-          <cos-input placeholder="{{'LAYOUTS.MAIN.PLACEHOLDER_SEARCH_TOPICS_USERS_GROUPS' | translate}}">
-            <input type="text" [(ngModel)]="searchInput" (ngModelChange)="doSearch(searchInput)">
+          <cos-input placeholder="{{'VIEWS.MY_GROUPS.PLACEHOLDER_SEARCH' | translate}}">
+            <input type="text" [(ngModel)]="searchInput" (ngModelChange)="doSearch(searchInput)" placeholder="{{'VIEWS.MY_GROUPS.PLACEHOLDER_SEARCH' | translate}}">
           </cos-input>
-          <a class="clear_search" translate="COMPONENTS.SEARCH.LNK_CLEAR" (click)="searchInput='';doSearch('')"
+          <a class="clear_search" translate="VIEWS.MY_GROUPS.LNK_CLEAR" (click)="searchInput='';doSearch('')"
             *ngIf="searchInput"></a>
         </div>
       </div>
     </div>
-    <div class="mobile_hidden">
-      <button class="btn_big_secondary"  [ngClass]="moreFilters? 'flip' : ''" (click)="moreFilters = !moreFilters">
+    <div class="filter_control_buttons mobile_hidden">
+      <button class="btn_big_secondary" [ngClass]="moreFilters? 'flip' : ''" (click)="moreFilters = !moreFilters">
         <div class="btn_icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
             xmlns="http://www.w3.org/2000/svg">
             <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
           </svg>
         </div>
+      </button>
+      <button class="btn_big_secondary icon" *ngIf="moreFilters" (click)="doClearFilters()">
+        <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M12.4999 7L12.4999 5.0001C10.7069 5.0001 8.91716 5.68333 7.55013 7.05036C5.05581 9.54468 4.83742 13.4531 6.89495 16.195C7.22643 16.6368 7.23355 17.2664 6.84302 17.657C6.4525 18.0475 5.81399 18.0504 5.46866 17.6194C2.6374 14.0857 2.85982 8.91224 6.13592 5.63614C7.89308 3.87898 10.1981 3.0001 12.4999 3.0001L12.4999 1L16.4999 4L12.4999 7Z"
+            fill="#2C3B47" />
+          <path
+            d="M12.4999 19.0001C14.2929 19.0001 16.0826 18.3169 17.4496 16.9499C19.9439 14.4555 20.1623 10.5471 18.1048 7.80519C17.7733 7.36345 17.7662 6.73377 18.1567 6.34325C18.5473 5.95273 19.1858 5.94982 19.5311 6.38083C22.3624 9.91455 22.1399 15.088 18.8638 18.3641C17.1067 20.1212 14.8016 21.0001 12.4999 21.0001L12.4999 23L8.49988 20L12.4999 17L12.4999 19.0001Z"
+            fill="#2C3B47" />
+        </svg>
       </button>
     </div>
     <div class="dropdown mobile_show" [cosDropdown] [multipleChoice]="true">
@@ -144,8 +156,28 @@
             (click)="mobile_filters.visibility = true">{{(GroupService.params$ | async)?.visibility || 'All'}}</a>
         </div>
         <div class="filter_option">
-          <span translate="VIEWS.MY_TOPICS.FILTER_CATEGORIES"></span><a class="bold"
+          <span translate="VIEWS.MY_GROUPS.FILTER_MY_ENGAGEMENT"></span><a class="bold"
+            (click)="mobile_filters.my_engagement = true">{{'TXT_TOPIC_CATEGORY_ALL' | uppercase |
+            translate}}</a>
+        </div>
+        <div class="filter_option">
+          <span translate="VIEWS.MY_GROUPS.FILTER_CATEGORIES"></span><a class="bold"
             (click)="mobile_filters.category = true">{{'TXT_TOPIC_CATEGORY_ALL' | uppercase |
+            translate}}</a>
+        </div>
+        <div class="filter_option">
+          <span translate="VIEWS.MY_GROUPS.FILTER_ORDER"></span><a class="bold"
+            (click)="mobile_filters.order = true">{{'TXT_TOPIC_CATEGORY_ALL' | uppercase |
+            translate}}</a>
+        </div>
+        <div class="filter_option">
+          <span translate="VIEWS.MY_GROUPS.FILTER_COUNTRY"></span><a class="bold"
+            (click)="mobile_filters.country = true">{{'TXT_TOPIC_CATEGORY_ALL' | uppercase |
+            translate}}</a>
+        </div>
+        <div class="filter_option">
+          <span translate="VIEWS.MY_GROUPS.FILTER_LANGUAGE"></span><a class="bold"
+            (click)="mobile_filters.language = true">{{'TXT_TOPIC_CATEGORY_ALL' | uppercase |
             translate}}</a>
         </div>
         <button (click)="doClearFilters()" class="btn_medium_plain">
@@ -165,8 +197,9 @@
               d="M14.1922 15.6064C13.0236 16.4816 11.5723 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10C17 11.5723 16.4816 13.0236 15.6064 14.1922L19.7071 18.2929C20.0976 18.6834 20.0976 19.3166 19.7071 19.7071C19.3166 20.0976 18.6834 20.0976 18.2929 19.7071L14.1922 15.6064ZM15 10C15 12.7614 12.7614 15 10 15C7.23858 15 5 12.7614 5 10C5 7.23858 7.23858 5 10 5C12.7614 5 15 7.23858 15 10Z"
               fill="#727C84" />
           </svg>
-          <cos-input placeholder="{{'LAYOUTS.MAIN.PLACEHOLDER_SEARCH_TOPICS_USERS_GROUPS' | translate}}">
-            <input type="text" [(ngModel)]="searchInput" (ngModelChange)="doSearch(searchInput)" placeholder="{{'LAYOUTS.MAIN.PLACEHOLDER_SEARCH_TOPICS_USERS_GROUPS' | translate}}">
+          <cos-input placeholder="{{'VIEWS.MY_GROUPS.PLACEHOLDER_SEARCH' | translate}}">
+            <input type="text" [(ngModel)]="searchInput" (ngModelChange)="doSearch(searchInput)"
+              placeholder="{{'VIEWS.MY_GROUPS.PLACEHOLDER_SEARCH' | translate}}">
           </cos-input>
         </div>
       </div>
@@ -179,7 +212,7 @@
         </label>
 
         <label class="checkbox" *ngFor="let item of visibility" [routerLink]="['./']"
-        [queryParams]="{visibility: item}">
+          [queryParams]="{visibility: item}">
           <span [translate]="'TXT_TOPIC_STATUS_'+item | uppercase"></span>
           <input type="radio" name="status">
           <span class="checkmark"></span>
@@ -209,6 +242,78 @@
         </label>
 
         <button class="btn_medium_secondary" (click)="mobile_filters.category= false;">Apply</button>
+      </div>
+      <div class="options button_options" *ngIf="mobile_filters.my_engagement">
+        <label class="checkbox">
+          <span>My most recent activity</span>
+          <input type="radio" name="engagement">
+          <span class="checkmark"></span>
+        </label>
+        <label class="checkbox">
+          <span>Groups I created</span>
+          <input type="radio" name="engagement">
+          <span class="checkmark"></span>
+        </label>
+        <label class="checkbox">
+          <span>Groups with pending requests</span>
+          <input type="radio" name="engagement">
+          <span class="checkmark"></span>
+        </label>
+        <button class="btn_medium_secondary" (click)="mobile_filters.my_engagement = false;">Apply</button>
+      </div>
+      <div class="options button_options" *ngIf="mobile_filters.order">
+        <label class="checkbox">
+          <span>Most recent participant activity</span>
+          <input type="radio" name="order">
+          <span class="checkmark"></span>
+        </label>
+        <label class="checkbox">
+          <span>Most activity</span>
+          <input type="radio" name="order">
+          <span class="checkmark"></span>
+        </label>
+        <label class="checkbox">
+          <span>Most participants</span>
+          <input type="radio" name="order">
+          <span class="checkmark"></span>
+        </label>
+        <label class="checkbox">
+          <span>Most recently created</span>
+          <input type="radio" name="order">
+          <span class="checkmark"></span>
+        </label>
+        <label class="checkbox">
+          <span>Most topics</span>
+          <input type="radio" name="order">
+          <span class="checkmark"></span>
+        </label>
+        <button class="btn_medium_secondary" (click)="mobile_filters.order = false;">Apply</button>
+      </div>
+      <div class="options button_options" *ngIf="mobile_filters.country">
+        <label class="checkbox">
+          <span>Country 1</span>
+          <input type="radio" name="country">
+          <span class="checkmark"></span>
+        </label>
+        <label class="checkbox">
+          <span>Country 2</span>
+          <input type="radio" name="country">
+          <span class="checkmark"></span>
+        </label>
+        <button class="btn_medium_secondary" (click)="mobile_filters.country = false;">Apply</button>
+      </div>
+      <div class="options button_options" *ngIf="mobile_filters.language">
+        <label class="checkbox">
+          <span>Language 1</span>
+          <input type="radio" name="language">
+          <span class="checkmark"></span>
+        </label>
+        <label class="checkbox">
+          <span>Language 2</span>
+          <input type="radio" name="language">
+          <span class="checkmark"></span>
+        </label>
+        <button class="btn_medium_secondary" (click)="mobile_filters.language = false;">Apply</button>
       </div>
     </div>
   </div>

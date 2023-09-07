@@ -75,22 +75,30 @@
     }
   }
 
-  button {
-    transition: transform 0.6s;
-    transform-style: preserve-3d;
-    perspective: 40px;
+  .filter_control_buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 
-    &.flip {
-      transform: rotateX(180deg);
-    }
+    button {
+      width: 40px;
+      height: 40px;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+      perspective: 40px;
 
-    .btn_icon {
-      display: flex;
-      width: 24px;
-      height: 24px;
-      position: absolute;
-      path {
-        fill: none;
+      &.flip {
+        transform: rotateX(180deg);
+      }
+
+      .btn_icon {
+        display: flex;
+        width: 24px;
+        height: 24px;
+
+        path {
+          fill: none;
+        }
       }
     }
   }
@@ -103,15 +111,12 @@
   flex-flow: row wrap;
   @include mixins.mobile {
     justify-content: center;
+    padding: 0 16px;
   }
-}
 
-topicbox {
-  display: flex;
-  flex-direction: column;
-  width: 280px;
-  height: 408px;
-  border-radius: 16px;
-  background-color: var(--color-surfaces);
-  position: relative;
+  topicbox {
+    @include mixins.mobile {
+      width: 100%;
+    }
+  }
 }

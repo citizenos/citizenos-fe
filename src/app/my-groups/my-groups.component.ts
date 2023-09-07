@@ -37,7 +37,11 @@ export class MyGroupsComponent implements OnInit {
   moreFilters = false;
   mobile_filters = {
     visibility: false,
-    category: false
+    my_engagement: false,
+    category: false,
+    order: false,
+    country: false,
+    language: false
   }
 
   constructor(
