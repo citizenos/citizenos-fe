@@ -59,6 +59,10 @@
         @include mixins.tablet {
           min-width: calc(50% - 12px);
         }
+
+        @include mixins.mobile {
+          min-width: 100%;
+        }
       }
 
       .input_area {
@@ -66,29 +70,41 @@
         padding: 0 16px;
         cos-input {
           width: 100%;
+          input {
+            background-color: var(--color-surfaces);
+          }
         }
       }
     }
   }
 
-  button {
-    width: 40px;
-    height: 40px;
-    transition: transform 0.6s;
-    transform-style: preserve-3d;
-    perspective: 40px;
+  .dropdown {
+    width: 100%;
+  }
+  .filter_control_buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 
-    &.flip {
-      transform: rotateX(180deg);
-    }
+    button {
+      width: 40px;
+      height: 40px;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+      perspective: 40px;
 
-    .btn_icon {
-      display: flex;
-      width: 24px;
-      height: 24px;
+      &.flip {
+        transform: rotateX(180deg);
+      }
 
-      path {
-        fill: none;
+      .btn_icon {
+        display: flex;
+        width: 24px;
+        height: 24px;
+
+        path {
+          fill: none;
+        }
       }
     }
   }
@@ -99,4 +115,13 @@
   display: flex;
   gap: 24px;
   flex-flow: row wrap;
+
+  @include mixins.mobile {
+    justify-content: center;
+    padding: 0 16px;
+
+    group-box {
+      width: 100%;
+    }
+  }
 }

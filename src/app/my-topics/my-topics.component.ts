@@ -7,11 +7,24 @@ import { BehaviorSubject, combineLatest, map, of, switchMap } from 'rxjs';
 import { Topic } from '../interfaces/topic';
 import { AppService } from '../services/app.service';
 import { TopicService } from '../services/topic.service';
+import { trigger, state, style } from '@angular/animations';
 
 @Component({
   selector: 'my-topics',
   templateUrl: './my-topics.component.html',
-  styleUrls: ['./my-topics.component.scss']
+  styleUrls: ['./my-topics.component.scss'],
+  animations: [
+    trigger('openClose', [
+      // ...
+      state('open', style({
+        'maxHeight': '300px',
+        transition: '0.2s ease-in-out max-height'
+      })),
+      state('closed', style({
+        'maxHeight': '50px',
+        transition: '0.2s ease-in-out max-height'
+      }))
+  ])]
 })
 export class MyTopicsComponent {
   wWidth = window.innerWidth;

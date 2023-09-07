@@ -18,7 +18,7 @@ import { trigger, state, style } from '@angular/animations';
     trigger('openClose', [
       // ...
       state('open', style({
-        'maxHeight': '300px',
+        'maxHeight': '450px',
         transition: '0.2s ease-in-out max-height'
       })),
       state('closed', style({
@@ -33,6 +33,14 @@ export class GroupsComponent implements OnInit {
   moreFilters = false;
   searchInput = '';
   searchString$ = new BehaviorSubject('');
+  mobile_filters = {
+    visibility: false,
+    my_engagement: false,
+    category: false,
+    order: false,
+    country: false,
+    language: false
+  }
 
   visibility = ['all'].concat(Object.values(this.GroupService.VISIBILITY));
   categories = ['all', 'democracy'];
@@ -40,7 +48,7 @@ export class GroupsComponent implements OnInit {
   constructor(private dialog: MatDialog,
     private route: ActivatedRoute,
     private AuthService: AuthService,
-    private GroupService: GroupService,
+    public GroupService: GroupService,
     public PublicGroupService: PublicGroupService,
     public app:AppService) {
     this.PublicGroupService.reset();
@@ -82,4 +90,6 @@ export class GroupsComponent implements OnInit {
     this.allGroups$ = [];
     this.PublicGroupService.doOrder(orderBy, order)
   }
+
+  doClearFilters() {}
 }

@@ -239,6 +239,11 @@
       "HEADER_IDEATION": "{{value}} ideas gathered"
     },
     "PUBLIC_TOPICS": {
+      "HEADER": "Public topics",
+      "FILTER_VISIBILITY": "@:VIEWS.MY_TOPICS.FILTER_VISIBILITY",
+      "FILTER_CATEGORIES": "@:VIEWS.MY_TOPICS.FILTER_CATEGORIES",
+      "PLACEHOLDER_SEARCH":"@:VIEWS.MY_TOPICS.PLACEHOLDER_SEARCH_TOPIC",
+      "BTN_RESET_FILTERS": "@:BTN_RESET_FILTER",
       "LBL_FILTER": "@:LNK_FILTER"
     },
     "GROUP_ADD_TOPICS_DIALOG": {
@@ -1108,13 +1113,18 @@
       "HEADER": "My groups",
       "BTN_GLOBAL_ACTIVITIES": "Global activities",
       "SHOW_PER_PAGE": "Show per page",
+      "LBL_FILTER": "@:LNK_FILTER",
+      "FILTER_ALL": "All",
       "FILTER_VISIBILITY": "Visibility",
       "FILTER_MY_ENGAGEMENT": "My engagement",
       "FILTER_CATEGORIES": "Category",
       "FILTER_ORDER": "Order",
       "FILTER_COUNTRY": "Country",
       "FILTER_LANGUAGE": "Language",
-      "FILTER_SEARCH": "Search"
+      "FILTER_SEARCH": "Search",
+      "PLACEHOLDER_SEARCH_TOPIC": "Search for a topic",
+      "FILTER_SEARCH_LNK_CLEAR": "@:LNK_CLEAR",
+      "PLACEHOLDER_SEARCH": "Search groups"
     },
     "MY_TOPICS": {
       "HEADER": "My topics",
@@ -1604,7 +1614,16 @@
     },
     "PUBLIC_GROUPS": {
       "TITLE": "Public groups",
+      "LBL_FILTER": "@:LNK_FILTER",
+      "FILTER_VISIBILITY": "@:VIEWS.MY_GROUPS.FILTER_VISIBILITY",
+      "FILTER_MY_ENGAGEMENT": "@:VIEWS.MY_GROUPS.FILTER_MY_ENGAGEMENT",
+      "FILTER_CATEGORIES": "@:VIEWS.MY_GROUPS.FILTER_CATEGORIES",
+      "FILTER_ORDER": "@:VIEWS.MY_GROUPS.FILTER_ORDER",
+      "FILTER_COUNTRY": "@:VIEWS.MY_GROUPS.FILTER_COUNTRY",
+      "FILTER_LANGUAGE": "@:VIEWS.MY_GROUPS.FILTER_LANGUAGE",
       "BTN_JOIN_GROUP": "@:VIEWS.PUBLIC_GROUP.BTN_JOIN_GROUP",
+      "PLACEHOLDER_SEARCH": "@:VIEWS.MY_GROUPS.PLACEHOLDER_SEARCH",
+      "LNK_CLEAR": "@:LNK_CLEAR",
       "BTN_LEAVE_GROUP": "Leave group",
       "BTN_VIEW_GROUP": "View group",
       "ORDER_TITLE_ASC": "Order groups A-Z",

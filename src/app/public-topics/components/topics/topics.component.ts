@@ -90,6 +90,7 @@ export class TopicsComponent implements OnInit {
   }
 
   setCategory(category: string) {
+    console.log(category)
     this.topicFilters.category = category ;
     if (category && category === 'all') {
       category = '';
