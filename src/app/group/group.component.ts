@@ -60,7 +60,19 @@ export class GroupComponent implements OnInit {
   users$: Observable<User[] | any[]> = of([]);
   showNoEngagements = false;
   moreFilters = false;
+  public FILTERS_ALL = 'all';
+  topicFilters = {
+    category: this.FILTERS_ALL,
+    status: this.FILTERS_ALL,
+    engagements: this.FILTERS_ALL
+  };
 
+  mobile_filters = {
+    type: false,
+    my_engagements: false,
+    category: false,
+    status: false,
+  }
   searchTopicsInput = '';
   searchTopicString$ = new BehaviorSubject('');
 
@@ -138,6 +150,10 @@ export class GroupComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  doClearFilters () {
+
   }
 
   shareGroupDialog(group: Group) {
