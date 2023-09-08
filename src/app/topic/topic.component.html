@@ -12,14 +12,14 @@
     </div>
     <div id="buttons_area">
       <div id="activities_button_wrap">
-        <activities-button *ngIf="auth.loggedIn$"></activities-button> <!-- add [topicId]="topic.id"-->
+        <activities-button *ngIf="auth.loggedIn$ | async"></activities-button> <!-- add [topicId]="topic.id"-->
       </div>
-      <button id="join_button" *ngIf="!topic.permission.level" class="btn_medium_close"
+      <button id="join_button" *ngIf="!topic.permission.level && (auth.loggedIn$ | async)" class="btn_medium_close"
         translate="VIEWS.TOPIC.BTN_JOIN"></button>
-      <button id="leave_button" (click)="leaveTopic(topic)" *ngIf="topic.permission.level" class="btn_medium_close"
+      <button id="leave_button" (click)="leaveTopic(topic)" *ngIf="topic.permission.level && (auth.loggedIn$ | async)" class="btn_medium_close"
         translate="VIEWS.TOPIC.BTN_LEAVE"></button>
 
-      <button class="btn_medium_close icon" (click)="togglePin(topic)">
+      <button class="btn_medium_close icon" (click)="togglePin(topic)" *ngIf="(auth.loggedIn$ | async)">
         <svg *ngIf="!topic.pinned" width="24" height="24" viewBox="0 0 24 24" fill="none"
           xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd"
@@ -42,7 +42,7 @@
           </svg>
         </button>
         <div class="options">
-          <button class="option" (click)="togglePin(topic)">
+          <button class="option" (click)="togglePin(topic)" *ngIf="(auth.loggedIn$ | async)">
             <div>
               <svg *ngIf="!topic.pinned" width="24" height="24" viewBox="0 0 24 24" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
@@ -59,7 +59,7 @@
             </div>
             <span translate="COMPONENTS.TOPIC.OPTION_FAVORITE"></span>
           </button>
-          <button class="option" (click)="inviteMembers(topic)">
+          <button class="option" (click)="inviteMembers(topic)" *ngIf="(auth.loggedIn$ | async)">
             <div>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -73,7 +73,7 @@
             </div>
             <span translate="COMPONENTS.TOPIC.OPTION_INVITE_CO_EDITOR"></span>
           </button>
-          <button class="option">
+          <button class="option" *ngIf="(auth.loggedIn$ | async)">
             <div>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -83,7 +83,7 @@
             </div>
             <span translate="COMPONENTS.TOPIC.OPTION_INVITE_EDIT_TOPIC"></span>
           </button>
-          <button class="option" (click)="duplicateTopic(topic)">
+          <button class="option" (click)="duplicateTopic(topic)" *ngIf="(auth.loggedIn$ | async)">
             <div>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M2 5H11V14H2V5Z" fill="#2C3B47" />
@@ -92,7 +92,7 @@
             </div>
             <span translate="COMPONENTS.TOPIC.OPTION_DUPLICATE_TOPIC"></span>
           </button>
-          <button class="option">
+          <button class="option" *ngIf="(auth.loggedIn$ | async)">
             <div>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M1 13C1 14 2 14 2 14H10C10 14 11 14 11 13C11 12 10 9 6 9C2 9 1 12 1 13Z" fill="#2C3B47" />
@@ -116,7 +116,7 @@
               </svg>
             </div><span translate="COMPONENTS.TOPIC.OPTION_REPORT_TOPIC"></span>
           </button>
-          <button class="option error_text">
+          <button class="option error_text" *ngIf="(auth.loggedIn$ | async)">
             <div><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd"
                   d="M10 3H6V4H10V3ZM11 4V3C11 2.44772 10.5523 2 10 2H6C5.44772 2 5 2.44772 5 3V4H4H2.5C2.22386 4 2 4.22386 2 4.5C2 4.77614 2.22386 5 2.5 5H4V13C4 13.5523 4.44772 14 5 14H11C11.5523 14 12 13.5523 12 13V5H13.5C13.7761 5 14 4.77614 14 4.5C14 4.22386 13.7761 4 13.5 4H12H11ZM7 7H6V11H7V7ZM10 7H9V11H10V7Z"

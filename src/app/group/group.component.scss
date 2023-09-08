@@ -211,6 +211,7 @@
 
         h2 {
           margin: 0;
+          line-height: initial;
         }
         @include mixins.tablet {
           vertical-align: middle;
@@ -454,6 +455,10 @@
   padding: 16px;
   gap: 16px;
   min-height: 80px;
+
+  .dropdown {
+    width: 100%;
+  }
 
   #options_area {
     width: 100%;

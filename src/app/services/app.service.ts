@@ -91,6 +91,8 @@ export class AppService {
     .subscribe({
       next: (done) => {
         console.log('SUCCESS', done);
+        this.AuthService.status().pipe(take(1)).subscribe();
+        this.router.navigate(['/']);
       },
       error: (err) => {
         console.log('ERROR', err);
