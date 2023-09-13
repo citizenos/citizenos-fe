@@ -226,7 +226,6 @@
           display: flex;
           gap: 8px;
 
-
           .dropdown_input {
             max-width: 160px;
           }
@@ -237,7 +236,6 @@
               max-width: 100%;
             }
           }
-
         }
 
         .rule_input {
@@ -318,6 +316,47 @@
 
         .filter_section {
           align-self: baseline;
+        }
+      }
+    }
+
+    .create_content_block {
+      display: flex;
+      flex-direction: column;
+      border-radius: 8px;
+      padding: 16px;
+      border-left: 8px solid;
+      background-color: var(--color-surfaces);
+
+      .block_title_wrap {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+
+        .block_title {
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 600;
+          line-height: 24px; /* 150% */
+        }
+      }
+
+      &.discussion {
+        border-left-color: var(--color-scrollbar);
+      }
+
+      .block_content {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding: 8px;
+        gap: 16px;
+
+        .block_section {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
         }
       }
     }
