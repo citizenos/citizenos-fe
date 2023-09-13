@@ -414,6 +414,12 @@ html {
   }
 }
 
+.vertical_line_separator {
+  width: 1px;
+  margin: 8px 0;
+  background-color: var(--color-border);
+}
+
 .line_separator {
   height: 1px;
   width: 100%;

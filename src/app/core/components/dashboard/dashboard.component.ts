@@ -1,20 +1,14 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { AppService } from 'src/app/services/app.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserTopicService } from 'src/app/services/user-topic.service';
 import { PublicTopicService } from 'src/app/services/public-topic.service';
-import { ActivityFeedComponent } from '../activity-feed/activity-feed.component';
 import { TranslateService } from '@ngx-translate/core';
-import { ActivityService } from 'src/app/services/activity.service';
 
 import { GroupService } from 'src/app/services/group.service';
-import { of, tap, Subject, Observable } from 'rxjs';
+import { of, tap, Observable } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { Group } from 'src/app/interfaces/group';
-import { GroupCreateComponent } from 'src/app/group/components/group-create/group-create.component';
-import { MatDialog } from '@angular/material/dialog';
-import { TopicCreateComponent } from 'src/app/topic/components/topic-create/topic-create.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -28,11 +22,9 @@ export class DashboardComponent {
   showNoEngagements = false;
 
   constructor(
-    private dialog: MatDialog,
     public auth: AuthService,
     public app: AppService,
     public translate: TranslateService,
-    private route: ActivatedRoute,
     private UserTopicService: UserTopicService,
     private PublicTopicService: PublicTopicService,
     private GroupService: GroupService,
