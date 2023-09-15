@@ -172,7 +172,7 @@
       <div class="link_wrap" *ngIf="argument.replies.rows.length" (click)="showReplies = !showReplies">
         <div class="table_cell">
           <div *ngIf="!showReplies" class="blue_link bold" id="{{argument.id}}_replies" translate="VIEWS.TOPICS_TOPICID.LNK_ARGUMENT_SHOW_REPLIES"
-            [translateParams]="{count: argument.replies.rows.length}"></div>
+            [translateParams]="{count: argument.replies.count}"></div>
           <div *ngIf="showReplies" class="blue_link bold" translate="VIEWS.TOPICS_TOPICID.LNK_ARGUMENT_HIDE_REPLIES">
           </div>
         </div>
