@@ -168,7 +168,7 @@ export class TopicArgumentService extends ItemsListService {
             argument.replies.rows.forEach((reply: Argument) => this.ArgumentIds.push(reply.id))
           }
         })
-        return { rows: res.data.rows, countTotal: res.data.count.total || 0 }
+        return { rows: res.data.rows, countTotal: (res.data.count.total - res.data.count.reply) || 0 }
       }),
       distinct(),
       catchError(() => EMPTY)
