@@ -16,7 +16,7 @@ export class TopicNotificationSettingsComponent implements OnInit {
   private supportedTabs = ['general'];
   public tabSelected = 'general';
 
-  public topic?: Observable<Topic>;
+  public topic$?: Observable<Topic>;
   public settings: any;
   preferences: any = {
     Topic: false,
@@ -38,10 +38,9 @@ export class TopicNotificationSettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.topic = this.Topic.get(this.data.topicId).pipe(map((res: any) => res.data));
+    this.topic$ = this.Topic.get(this.data.topicId);
     this.settings = this.TopicNotificationService.get({ topicId: this.topicId }).pipe(
       tap((settings: any) => {
-        console.log(settings)
         this.allowNotifications = settings.allowNotifications;
         this.preferences = Object.assign(this.preferences, settings.preferences);
         this.settings = Object.assign(this.settings, settings);

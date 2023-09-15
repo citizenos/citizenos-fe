@@ -1,5 +1,5 @@
 <!-- LIGHTBOX SKELETON -->
-<div id="root_lightbox" class="full_screen">
+<div id="root_lightbox" class="full_screen" *ngIf="topic$ | async as topic">
 
   <div id="lightbox" class="wide_lightbox with_title_description with_header_menu">
     <div id="lightbox_wrap">
@@ -8,7 +8,7 @@
 
         <div id="lightbox_header_text">
           <div class="title" translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_TITLE"></div>
-          <div class="title_description" translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_TITLE_DESCRIPTION" [translateParams]="{topicTitle: (topic | async)?.title}"></div>
+          <div class="title_description" translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_TITLE_DESCRIPTION" [translateParams]="{topicTitle: topic.title}"></div>
         </div>
 
         <div id="lightbox_close" class="ngdialog-close" mat-dialog-close>
