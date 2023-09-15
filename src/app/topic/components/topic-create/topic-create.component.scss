@@ -64,7 +64,7 @@
   padding: 8px 16px;
 
   button {
-    gap:0;
+    gap: 0;
   }
 }
 
@@ -76,5 +76,47 @@
     font-style: normal;
     font-weight: 400;
     line-height: 16px; /* 133.333% */
+  }
+}
+
+#add_attachment {
+  width: 1px;
+  height: 1px;
+  position: absolute;
+  z-index: -1;
+  padding: 0;
+}
+
+.dropdown {
+  .button_options {
+    button {
+      justify-content: flex-start;
+    }
+  }
+}
+
+.attachments_wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  .attachment {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+    align-self: stretch;
+    border-radius: 40px;
+    background-color: var(--color-background);
+
+    .attachment_name_input {
+      border: none;
+      padding: 0;
+      width: 100%;
+      color: var(--color-link);
+      background: var(--color-background);
+    }
   }
 }

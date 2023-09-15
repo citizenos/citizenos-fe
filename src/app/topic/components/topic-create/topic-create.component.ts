@@ -48,7 +48,7 @@ import { UploadService } from 'src/app/services/upload.service';
 export class TopicCreateComponent implements OnInit {
 
   @ViewChild('imageUpload') fileInput?: ElementRef;
-  @ViewChild('fileUpload') attachmentInput?: ElementRef;
+  @ViewChild('attachmentInput') attachmentInput?: ElementRef;
 
   languages$: { [key: string]: any } = this.config.get('language').list;
   titleLimit = 100;
@@ -67,6 +67,10 @@ export class TopicCreateComponent implements OnInit {
     categories: <string[]>[]
   };
 
+/*TODO - handle these below*/
+  attachments = <any[]>[];
+  tags = <any[]>[];
+/**/
   VISIBILITY = this.TopicService.VISIBILITY;
   CATEGORIES = Object.keys(this.TopicService.CATEGORIES);
   errors?: any;
@@ -113,6 +117,7 @@ export class TopicCreateComponent implements OnInit {
         return fragment
       }
       ));
+   // app.createNewTopic();
   }
   ngOnInit(): void {
   }
@@ -182,7 +187,7 @@ export class TopicCreateComponent implements OnInit {
   }
 
   createTopic () {
-
+    this.app.createNewTopic(this.topic.title, this.topic.visibility);
   }
 
   triggerUpload() {
@@ -194,6 +199,7 @@ export class TopicCreateComponent implements OnInit {
       .dropboxSelect()
       .then((attachment) => {
         if (attachment) {
+          this.attachments.push(attachment);
      //     this.doSaveAttachment(attachment);
         }
       });
@@ -204,6 +210,7 @@ export class TopicCreateComponent implements OnInit {
       .oneDriveSelect()
       .then((attachment) => {
         if (attachment) {
+          this.attachments.push(attachment);
         //  this.doSaveAttachment(attachment);
         }
       });
@@ -214,13 +221,14 @@ export class TopicCreateComponent implements OnInit {
       .googleDriveSelect()
       .then((attachment) => {
         if (attachment) {
+          this.attachments.push(attachment);
          // this.doSaveAttachment(attachment);
         }
       });
   };
 
   attachmentUpload(): void {
-    const files = this.fileInput?.nativeElement.files;
+    const files = this.attachmentInput?.nativeElement.files;
     for (let i = 0; i < files.length; i++) {
       const attachment = {
         name: files[i].name,
@@ -229,15 +237,31 @@ export class TopicCreateComponent implements OnInit {
         size: files[i].size,
         file: files[i]
       };
-
+      console.log(attachment);
       if (attachment.size > 50000000) {
         this.Notification.addError('MSG_ERROR_ATTACHMENT_SIZE_OVER_LIMIT');
       } else if (this.Upload.ALLOWED_FILE_TYPES.indexOf(attachment.type.toLowerCase()) === -1) {
         const fileTypeError = this.translate.instant('MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED', { allowedFileTypes: this.Upload.ALLOWED_FILE_TYPES.toString() });
         this.Notification.addError(fileTypeError);
       } else {
+        this.attachments.push(attachment);
        // this.doSaveAttachment(attachment);
       }
     }
+  }
+
+  removeAttachment (attachment: any) {
+    this.attachments.splice(this.attachments.indexOf(attachment), 1);
+  }
+
+  addTag(e: Event) {
+    const tag = (e.target as HTMLInputElement).value;
+    if (tag)
+      this.tags.push(tag);
+      (e.target as HTMLInputElement).value = '';
+  }
+
+  removeTag (tag: string) {
+    this.tags.splice(this.tags.indexOf(tag), 1);
   }
 }
