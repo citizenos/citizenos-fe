@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { tap, of, take } from 'rxjs';
+import { tap, map, of, take, switchMap } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { Argument } from 'src/app/interfaces/argument';
 import { AuthService } from 'src/app/services/auth.service';
@@ -25,7 +25,30 @@ export class TopicArgumentsComponent implements OnInit {
     private route: ActivatedRoute,
     private app: AppService,
     public TopicArgumentService: TopicArgumentService) {
-    this.arguments$ = this.TopicArgumentService.loadItems().pipe(tap(() => {
+    this.arguments$ = this.TopicArgumentService.loadItems().pipe(
+      map((res:any[]) => {
+        let results = res.concat([]);
+        const countTree = (parentNode: any, currentNode: any, counter: number) => {counter
+          if (currentNode.replies.rows.length > 0) {
+            if (parentNode !== currentNode) {
+              counter += currentNode.replies.count;
+            }
+            currentNode.replies.rows.forEach((reply: any) => {
+              counter = countTree(parentNode, reply, counter);
+            });
+
+            return counter;
+          }
+          return counter;
+        };
+
+        results.forEach((row: any,) => {
+          row.replies.count = countTree(row, row, row.replies.count);
+        });
+
+        return res;
+      }),
+      tap(() => {
       this.route.queryParams.pipe(take(1), tap((params) => {
         setTimeout(() => {
           if (params['argumentId']) {
@@ -33,7 +56,7 @@ export class TopicArgumentsComponent implements OnInit {
           }
         });
       })).subscribe();
-    }));
+    }))
   }
 
   ngOnInit(): void {
