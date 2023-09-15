@@ -344,6 +344,13 @@
 
       &.discussion {
         border-left-color: var(--color-scrollbar);
+
+        &.active {
+          border-bottom: 2px solid var(--color-info);
+          border-left: 8px solid var(--color-info);
+
+          color: var(--color-discussion);
+        }
       }
 
       .block_content {

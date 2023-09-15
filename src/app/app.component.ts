@@ -24,7 +24,7 @@ export class AppComponent {
   constructor(private router: Router, @Inject(DOCUMENT) private document: Document, private title: Title, public translate: TranslateService, private config: ConfigService, public app: AppService) {
     console.log(environment.production);
     const languageConf = config.get('language');
-    translate.addLangs(Object.keys(languageConf.list));
+    translate.addLangs(Object.keys(languageConf.list).concat('dbg'));
     translate.setDefaultLang(languageConf.default);
     translate.onTranslationChange.pipe(
       tap((event) => { this.title.setTitle(translate.instant('META_DEFAULT_TITLE')); })
