@@ -9,6 +9,13 @@
   right: 0;
   z-index: 4;
 
+  @include mixins_n_extends.desktop {
+    &.fixed {
+      position: fixed;
+      left: 190px;
+    }
+  }
+
   @include mixins_n_extends.tablet {
     background: vars.$medium_black;
     display: table;
@@ -21,7 +28,7 @@
   .header_button {
     display: none;
     @include mixins_n_extends.tablet {
-      display: table;
+      display: none;
     }
   }
 
