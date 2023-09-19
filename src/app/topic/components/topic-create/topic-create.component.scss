@@ -120,3 +120,32 @@
     }
   }
 }
+
+#topic_groups_list, .row_header {
+  .row_cell {
+    &:first-child {
+      min-width: 45%;
+    }
+  }
+}
+
+#help_wrap {
+  flex-direction: column;
+  gap: 16px;
+
+  #invite_collaborators {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 40px;
+    padding: 24px;
+    background-color: var(--color-surfaces);
+    text-align: center;
+
+    button {
+      margin-top: 16px;
+    }
+  }
+}

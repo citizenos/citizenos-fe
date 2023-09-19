@@ -3,7 +3,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { of, map } from 'rxjs';
+import { of, map, Observable } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { AppService } from 'src/app/services/app.service';
 import { ConfigService } from 'src/app/services/config.service';
@@ -13,6 +13,10 @@ import { TopicAttachmentService } from 'src/app/services/topic-attachment.servic
 import { TopicInviteUserService } from 'src/app/services/topic-invite-user.service';
 import { TopicService } from 'src/app/services/topic.service';
 import { UploadService } from 'src/app/services/upload.service';
+import { GroupService } from 'src/app/services/group.service';
+import { Group } from 'src/app/interfaces/group';
+import { GroupMemberTopicService } from 'src/app/services/group-member-topic.service';
+import { TopicInviteDialogComponent } from '../topic-invite/topic-invite.component';
 
 @Component({
   selector: 'app-topic-create',
@@ -53,7 +57,8 @@ export class TopicCreateComponent implements OnInit {
   languages$: { [key: string]: any } = this.config.get('language').list;
   titleLimit = 100;
   introLimit = 500;
-
+  groups$: Observable<Group[] | any[]> = of([]);
+  topicGroups = <Group[]>[];
   topic: Topic = <Topic>{
     title: '',
     intro: '',
@@ -101,6 +106,8 @@ export class TopicCreateComponent implements OnInit {
     private Upload: UploadService,
     public translate: TranslateService,
     private Notification: NotificationService,
+    public GroupService: GroupService,
+    public GroupMemberTopicService: GroupMemberTopicService,
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,
@@ -109,6 +116,7 @@ export class TopicCreateComponent implements OnInit {
     private TopicInviteUserService: TopicInviteUserService,
     private config: ConfigService) {
     this.app.darkNav = true;
+    this.groups$ = this.GroupService.loadItems();
     this.tabSelected = this.route.fragment.pipe(
       map((fragment) => {
         if (!fragment) {
@@ -263,5 +271,21 @@ export class TopicCreateComponent implements OnInit {
 
   removeTag (tag: string) {
     this.tags.splice(this.tags.indexOf(tag), 1);
+  }
+
+  addGroup(group: Group) {
+    this.topicGroups.push(group);
+  }
+
+  inviteMembers() {
+    const inviteDialog = this.dialog.open(TopicInviteDialogComponent, { data: { topic: this.topic } });
+    inviteDialog.afterClosed().subscribe({
+      next: (res) => {
+     //   this.NotificationService.addSuccess('');
+      },
+      error: (error) => {
+       // this.NotificationService.addError(error);
+      }
+    })
   }
 }
