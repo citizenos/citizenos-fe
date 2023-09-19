@@ -29,7 +29,7 @@
   <div class="clearer"></div>
 </div>
 
-<div class="alert_argument" *ngIf="showDeleteReason" (click)="showDeleteReason = !showDeleteReason">
+<div class="alert_argument" *ngIf="showDeleteReason">
   <span [innerHTML]="'VIEWS.TOPICS_TOPICID.ARGUMENT_FOUND_INAPPRIOPRIATE_BY' | translate:{usersFullName: argument.deletedBy.name}"></span><span
     *ngIf="argument.deletedReasonType || argument.deletedReasonText">:</span>
   <b *ngIf="argument.deletedReasonType">{{('TXT_REPORT_TYPES_' + argument.deletedReasonType | uppercase) |
