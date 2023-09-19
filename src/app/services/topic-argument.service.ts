@@ -25,7 +25,7 @@ export class TopicArgumentService extends ItemsListService {
   public ARGUMENT_TYPES_MAXLENGTH = <any>{
     'pro': 2048,
     'con': 2048,
-    'poi': 500,
+    'poi': 2048,
     'reply': 2048
   };
 
