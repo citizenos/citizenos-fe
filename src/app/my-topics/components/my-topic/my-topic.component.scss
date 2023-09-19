@@ -477,7 +477,6 @@
         .pretend_td:nth-last-of-type(1),
         .pretend_th:nth-last-of-type(1) {
           text-align: center;
-          display: table-row;
           text-decoration: none;
           cursor: default;
           @media (max-width: 1280px) {
