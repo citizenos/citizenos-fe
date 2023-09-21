@@ -1,9 +1,9 @@
 import { trigger, state, style } from '@angular/animations';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { of, map, Observable } from 'rxjs';
+import { of, map, Observable, take, pipe } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { AppService } from 'src/app/services/app.service';
 import { ConfigService } from 'src/app/services/config.service';
@@ -17,6 +17,9 @@ import { GroupService } from 'src/app/services/group.service';
 import { Group } from 'src/app/interfaces/group';
 import { GroupMemberTopicService } from 'src/app/services/group-member-topic.service';
 import { TopicInviteDialogComponent } from '../topic-invite/topic-invite.component';
+import { TopicParticipantsDialogComponent } from '../topic-participants/topic-participants.component';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-topic-create',
@@ -47,7 +50,7 @@ import { TopicInviteDialogComponent } from '../topic-invite/topic-invite.compone
         'maxHeight': '80px',
         transition: '0.2s ease-in-out max-height'
       }))
-  ])]
+    ])]
 })
 export class TopicCreateComponent implements OnInit {
 
@@ -72,10 +75,10 @@ export class TopicCreateComponent implements OnInit {
     categories: <string[]>[]
   };
 
-/*TODO - handle these below*/
+  /*TODO - handle these below*/
   attachments = <any[]>[];
   tags = <any[]>[];
-/**/
+  /**/
   VISIBILITY = this.TopicService.VISIBILITY;
   CATEGORIES = Object.keys(this.TopicService.CATEGORIES);
   errors?: any;
@@ -83,7 +86,7 @@ export class TopicCreateComponent implements OnInit {
   imageFile?: any;
   tabSelected;
   showHelp = false;
-  tabs = ['info', 'settings', 'add_topics', 'invite'];
+  tabs = ['info', 'settings', 'preview'];
   block = {
     attachments: false,
     headerImage: false,
@@ -100,6 +103,8 @@ export class TopicCreateComponent implements OnInit {
   maxUsers = 550;
   private EMAIL_SEPARATOR_REGEXP = /[;,\s]/ig;
 
+  readMore = false;
+
   constructor(
     private app: AppService,
     public TopicService: TopicService,
@@ -114,6 +119,7 @@ export class TopicCreateComponent implements OnInit {
     private Search: SearchService,
     private TopicAttachmentService: TopicAttachmentService,
     private TopicInviteUserService: TopicInviteUserService,
+    @Inject(DomSanitizer) private sanitizer: DomSanitizer,
     private config: ConfigService) {
     this.app.darkNav = true;
     this.groups$ = this.GroupService.loadItems();
@@ -125,7 +131,28 @@ export class TopicCreateComponent implements OnInit {
         return fragment
       }
       ));
-   // app.createNewTopic();
+    // app.createNewTopic();
+    this.route.params.pipe(
+      map((params) => {
+        console.log(params)
+        if (params['topicId']) {
+          return this.TopicService.get(params['topicId'])
+        }
+        return null;
+      })
+      , take(1)
+    ).subscribe({
+      next: (topic) => {
+        if (topic) {
+          topic.pipe(take(1)).subscribe({
+            next: (data) => {
+              Object.assign(this.topic, data);
+              this.topic.padUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.topic.padUrl);
+            }
+          })
+        }
+      }
+    })
   }
   ngOnInit(): void {
   }
@@ -186,6 +213,30 @@ export class TopicCreateComponent implements OnInit {
     this.tmpImageUrl = undefined;
   }
 
+  deleteTopic() {
+    /*this.TopicService.doDeleteTopic(topic, [this.Translate.currentLang, 'my', 'topics']);*/
+    const deleteDialog = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        level: 'delete',
+        heading: 'MODALS.TOPIC_DELETE_CONFIRM_HEADING',
+        title: 'MODALS.TOPIC_DELETE_CONFIRM_TXT_ARE_YOU_SURE',
+        description: 'MODALS.TOPIC_DELETE_CONFIRM_TXT_NO_UNDO',
+        points: ['MODALS.TOPIC_DELETE_CONFIRM_TXT_TOPIC_DELETED', 'MODALS.TOPIC_DELETE_CONFIRM_TXT_DISCUSSION_DELETED', 'MODALS.TOPIC_DELETE_CONFIRM_TXT_TOPIC_REMOVED_FROM_GROUPS'],
+        confirmBtn: 'MODALS.TOPIC_DELETE_CONFIRM_YES',
+        closeBtn: 'MODALS.TOPIC_DELETE_CONFIRM_NO'
+      }
+    });
+    deleteDialog.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.TopicService.delete(this.topic)
+          .pipe(take(1))
+          .subscribe(() => {
+            this.router.navigate(['my', 'topics']);
+          })
+      }
+    });
+  };
+
   chooseCategory(category: string) {
     if (this.topic.categories && this.topic.categories.indexOf(category) > -1) {
       this.topic.categories.splice(this.topic.categories.indexOf(category), 1);
@@ -194,8 +245,31 @@ export class TopicCreateComponent implements OnInit {
     }
   }
 
-  createTopic () {
-    this.app.createNewTopic(this.topic.title, this.topic.visibility);
+  sanitizeURL() {
+    return this.topic.padUrl;
+  }
+  createTopic() {
+    this.topic.description = '<html><head></head><body></body></html>';
+    console.log(this.topic);
+    this.TopicService.save(this.topic)
+      .pipe(take(1))
+      .subscribe({
+        next: (topic: Topic) => {
+          Object.assign(this.topic, topic);
+          this.router.navigate([topic.id], { relativeTo: this.route });
+        },
+        error: (error: any) => {
+          console.log(error);
+        }
+      })
+    /*this.app.createNewTopic(this.topic.title, this.topic.visibility)
+    .pipe(take(1))
+    .subscribe({
+      next: (topic:Topic) => {
+        console.log('CREATEd', topic)
+      }
+    })
+    .unsubscribe();*/
   }
 
   triggerUpload() {
@@ -208,7 +282,7 @@ export class TopicCreateComponent implements OnInit {
       .then((attachment) => {
         if (attachment) {
           this.attachments.push(attachment);
-     //     this.doSaveAttachment(attachment);
+          //     this.doSaveAttachment(attachment);
         }
       });
   };
@@ -219,7 +293,7 @@ export class TopicCreateComponent implements OnInit {
       .then((attachment) => {
         if (attachment) {
           this.attachments.push(attachment);
-        //  this.doSaveAttachment(attachment);
+          //  this.doSaveAttachment(attachment);
         }
       });
   };
@@ -230,7 +304,7 @@ export class TopicCreateComponent implements OnInit {
       .then((attachment) => {
         if (attachment) {
           this.attachments.push(attachment);
-         // this.doSaveAttachment(attachment);
+          // this.doSaveAttachment(attachment);
         }
       });
   };
@@ -253,12 +327,12 @@ export class TopicCreateComponent implements OnInit {
         this.Notification.addError(fileTypeError);
       } else {
         this.attachments.push(attachment);
-       // this.doSaveAttachment(attachment);
+        // this.doSaveAttachment(attachment);
       }
     }
   }
 
-  removeAttachment (attachment: any) {
+  removeAttachment(attachment: any) {
     this.attachments.splice(this.attachments.indexOf(attachment), 1);
   }
 
@@ -266,10 +340,10 @@ export class TopicCreateComponent implements OnInit {
     const tag = (e.target as HTMLInputElement).value;
     if (tag)
       this.tags.push(tag);
-      (e.target as HTMLInputElement).value = '';
+    (e.target as HTMLInputElement).value = '';
   }
 
-  removeTag (tag: string) {
+  removeTag(tag: string) {
     this.tags.splice(this.tags.indexOf(tag), 1);
   }
 
@@ -280,11 +354,25 @@ export class TopicCreateComponent implements OnInit {
   inviteMembers() {
     const inviteDialog = this.dialog.open(TopicInviteDialogComponent, { data: { topic: this.topic } });
     inviteDialog.afterClosed().subscribe({
-      next: (res) => {
-     //   this.NotificationService.addSuccess('');
+      next: (inviteUsers) => {
+        console.log(inviteUsers);
+        this.topic.members.users = inviteUsers;
+        //   this.NotificationService.addSuccess('');
       },
       error: (error) => {
-       // this.NotificationService.addError(error);
+        // this.NotificationService.addError(error);
+      }
+    })
+  }
+
+  manageMembers() {
+    const manageDialog = this.dialog.open(TopicParticipantsDialogComponent, { data: { topic: this.topic } });
+    manageDialog.afterClosed().subscribe({
+      next: (res) => {
+        console.log('MANAGED', res);
+      },
+      error: (error) => {
+        console.log('ERROR', error);
       }
     })
   }

@@ -24,7 +24,7 @@ export interface Topic {
   members: any,
   voteId:	string | null,
   comments: any,
-  padUrl: string,
+  padUrl: any,
   pinned?: boolean | null,
   imageUrl: string | null,
   report?: {
