@@ -121,10 +121,84 @@
   }
 }
 
-#topic_groups_list, .row_header {
+#topic_groups_list,
+.row_header {
   .row_cell {
     &:first-child {
       min-width: 45%;
+    }
+  }
+}
+
+.topic_content_wrap {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: 16px;
+  background-color: var(--color-surfaces);
+
+  .info_bar {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    padding: 16px;
+    background-color: var(--color-info-background);
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+
+  .topic_image {
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    display: flex;
+    max-height: 324px;
+    width: 100%;
+    overflow: hidden;
+    img {
+      width: 100%;
+      object-fit: cover;
+      aspect-ratio: 1;
+    }
+  }
+  .topic_title {
+    display: flex;
+    padding: 8px 16px;
+  }
+
+  .topic_intro {
+    display: flex;
+    padding: 8px 16px;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 26px; /* 162.5% */
+  }
+
+  .topic_content {
+    display: flex;
+    flex-direction: column;
+    padding: 8px 16px;
+    position: relative;
+
+    .button_wrap {
+      display: flex;
+      position: absolute;
+      bottom: -21px;
+      align-self: center;
+      justify-self: center;
+      button {
+        path {
+          fill: none;
+        }
+        &:hover {
+          path {
+            stroke: var(--color-surfaces);
+          }
+        }
+      }
     }
   }
 }
@@ -139,13 +213,51 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
-    border-radius: 40px;
-    padding: 24px;
+    border-radius: 16px;
+    padding: 16px;
     background-color: var(--color-surfaces);
     text-align: center;
 
+    &.empty {
+      padding: 24px;
+    }
+
     button {
       margin-top: 16px;
+    }
+  }
+
+  .topic_editors_header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+
+    .title {
+      font-weight: bold;
+    }
+  }
+
+  .topic_members_list_wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+
+    .topic_member {
+      display: flex;
+      justify-content: flex-start;
+      gap: 8px;
+      align-items: center;
+
+      .profile_image_wrap {
+        width: 24px;
+        height: 24px;
+
+        .profile_image {
+          width: 24px;
+          height: 24px;
+        }
+      }
     }
   }
 }

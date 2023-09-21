@@ -15,7 +15,10 @@ import { TopicSettingsDialogComponent } from './components/topic-settings/topic-
 import { TopicComponent } from './topic.component';
 
 const routes: Routes = [
-  { path: 'create', component: TopicCreateComponent },
+  { path: 'create', children: [
+    {path: '', component: TopicCreateComponent},
+    {path: ':topicId', component: TopicCreateComponent}
+  ] },
   { path: ':topicId/invites/users/:inviteId', component: TopicInvitationDialogComponent },
   {
     path: ':topicId', component: TopicComponent, children: [

@@ -97,6 +97,7 @@ export class TopicInviteComponent implements OnInit {
   }
 
   addTopicMember(member?: any) {
+    console.log(member);
     if (this.members.length >= this.maxUsers) {
       this.Notification.addError('MSG_ERROR_INVITE_MEMBER_COUNT_OVER_LIMIT');
       return;
@@ -286,6 +287,8 @@ export class TopicInviteDialogComponent {
     const topicMemberUsersToInvite = <any[]>[];
     this.members.forEach((member: any) => {
       topicMemberUsersToInvite.push({
+        name: member.name,
+        imageUrl: member.imageUrl,
         userId: member.userId || member.id,
         level: member.level,
         inviteMessage: this.data.topic.inviteMessage
@@ -293,12 +296,16 @@ export class TopicInviteDialogComponent {
     });
 
     if (topicMemberUsersToInvite.length) {
-      this.TopicInviteUser.save(this.data.topic.id, topicMemberUsersToInvite)
-        .pipe(take(1))
-        .subscribe(res => {
-          console.log('RESULT', res);
-          this.dialog.close()
-        })
+      if (this.data.topic.id) {
+        this.TopicInviteUser.save(this.data.topic.id, topicMemberUsersToInvite)
+          .pipe(take(1))
+          .subscribe(res => {
+            console.log('RESULT', res);
+            this.dialog.close()
+          })
+      } else {
+        this.dialog.close(topicMemberUsersToInvite);
+      }
     } else {
       this.dialog.close();
     }
