@@ -22,74 +22,181 @@
     </div>
   </div>
   <div class="vote_content">
-    <ng-container *ngIf="vote.type === 'regular'">
-      <div class="vote_info">
-        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="24" cy="24" r="24" fill="#98DAA2" />
-          <rect x="18" y="26" width="12" height="12" rx="1" fill="#F1FAF3" />
-          <path fill-rule="evenodd" clip-rule="evenodd"
-            d="M19.1992 32.1455L22.6278 35.6004L28.7992 29.3816L27.8324 28.4004L22.6278 33.6449L20.1661 31.1712L19.1992 32.1455Z"
-            fill="#5AB467" />
-          <rect x="18" y="10" width="12" height="12" rx="1" fill="#F1FAF3" />
-          <path fill-rule="evenodd" clip-rule="evenodd"
-            d="M20 16.1209L22.8571 19L28 13.8177L27.1943 13L22.8571 17.3704L20.8057 15.309L20 16.1209Z"
-            fill="#5AB467" />
-        </svg>
-        <span translate="COMPONENTS.TOPIC_VOTE_CREATE.PREVIEW_VOTE_TYPE_REGULAR"></span>
-      </div>
-    </ng-container>
-    <ng-container *ngIf="vote.type === 'multiple'">
-      <div class="vote_info">
-        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="24" cy="24" r="24" fill="#98DAA2" />
-          <rect x="18" y="26" width="12" height="12" rx="1" fill="#F1FAF3" />
-          <path fill-rule="evenodd" clip-rule="evenodd"
-            d="M19.1992 32.1455L22.6278 35.6004L28.7992 29.3816L27.8324 28.4004L22.6278 33.6449L20.1661 31.1712L19.1992 32.1455Z"
-            fill="#5AB467" />
-          <rect x="18" y="10" width="12" height="12" rx="1" fill="#F1FAF3" />
-          <path fill-rule="evenodd" clip-rule="evenodd"
-            d="M20 16.1209L22.8571 19L28 13.8177L27.1943 13L22.8571 17.3704L20.8057 15.309L20 16.1209Z"
-            fill="#5AB467" />
-        </svg>
-        <span translate="COMPONENTS.TOPIC_VOTE_CREATE.PREVIEW_VOTE_TYPE_MULTIPLE"
-          [translateParams]="{maxOptions: vote.maxChoices}"></span>
-      </div>
-    </ng-container>
-    <div class="vote_options">
-      <div class="vote_option radio_wrap" [attr.disabled]="!canVote()" [ngClass]="{'selected': option.selected}"
-        *ngFor="let option of vote.options.rows" (click)="selectOption(option)">
-        <div class="radio_text_wrap">
-          <div class="radio_lable_wrap">
-            <label class="checkbox"><span
-                translate="{{'COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_' + option.value  | uppercase}}"
-                [translateParams]="{default: option.value}"></span>
-              <input type="checkbox" [checked]="option.selected" (click)="selectOption(option)"/>
-              <span class="checkmark"></span>
-            </label>
+    <ng-container *ngIf="!userHasVoted || editVote">
+      <ng-container *ngIf="vote.type === 'regular'">
+        <div class="vote_info">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="24" cy="24" r="24" fill="#98DAA2" />
+            <rect x="18" y="26" width="12" height="12" rx="1" fill="#F1FAF3" />
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M19.1992 32.1455L22.6278 35.6004L28.7992 29.3816L27.8324 28.4004L22.6278 33.6449L20.1661 31.1712L19.1992 32.1455Z"
+              fill="#5AB467" />
+            <rect x="18" y="10" width="12" height="12" rx="1" fill="#F1FAF3" />
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M20 16.1209L22.8571 19L28 13.8177L27.1943 13L22.8571 17.3704L20.8057 15.309L20 16.1209Z"
+              fill="#5AB467" />
+          </svg>
+          <span translate="COMPONENTS.TOPIC_VOTE_CREATE.PREVIEW_VOTE_TYPE_REGULAR"></span>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="vote.type === 'multiple'">
+        <div class="vote_info">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="24" cy="24" r="24" fill="#98DAA2" />
+            <rect x="18" y="26" width="12" height="12" rx="1" fill="#F1FAF3" />
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M19.1992 32.1455L22.6278 35.6004L28.7992 29.3816L27.8324 28.4004L22.6278 33.6449L20.1661 31.1712L19.1992 32.1455Z"
+              fill="#5AB467" />
+            <rect x="18" y="10" width="12" height="12" rx="1" fill="#F1FAF3" />
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M20 16.1209L22.8571 19L28 13.8177L27.1943 13L22.8571 17.3704L20.8057 15.309L20 16.1209Z"
+              fill="#5AB467" />
+          </svg>
+          <span translate="COMPONENTS.TOPIC_VOTE_CREATE.PREVIEW_VOTE_TYPE_MULTIPLE"
+            [translateParams]="{maxOptions: vote.maxChoices}"></span>
+        </div>
+      </ng-container>
+      <div class="vote_options">
+        <div class="vote_option radio_wrap" [attr.disabled]="!canVote()" [ngClass]="{'selected': option.selected}"
+          *ngFor="let option of vote.options.rows" (click)="selectOption(option)">
+          <div class="radio_text_wrap">
+            <div class="radio_lable_wrap">
+              <label class="checkbox"><span
+                  translate="{{'COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_' + option.value  | uppercase}}"
+                  [translateParams]="{default: option.value}"></span>
+                <input type="checkbox" [checked]="option.selected" (click)="selectOption(option)" />
+                <span class="checkmark"></span>
+              </label>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="line_separator vote"></div>
-    <div class="vote_buttons_wrap">
-      <button class="btn_medium_close" [ngClass]="vote.delegation ? 'active' : ''"
-        *ngIf="(canDelegate() && vote.authType !== VOTE_AUTH_TYPES.hard)" (click)="delegate()">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M18.3432 7.92286L19.0634 2L13.1505 2.72143L15.1001 4.67429L7.72208 12.0647L9.12918 13.4742L16.5072 6.08375L18.3432 7.92286Z"
-            fill="#2C3B47" />
-          <path d="M9.92821 21L20 10.9113L18.5929 9.50181L9.93524 18.174L5.4071 13.6524L4 15.0618L9.92821 21Z"
-            fill="#2C3B47" />
-        </svg>
+      <div class="line_separator vote"></div>
+      <div class="vote_buttons_wrap">
+        <button class="btn_medium_close" [ngClass]="vote.delegation ? 'active' : ''"
+          *ngIf="(canDelegate() && vote.authType !== VOTE_AUTH_TYPES.hard)" (click)="delegate()">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M18.3432 7.92286L19.0634 2L13.1505 2.72143L15.1001 4.67429L7.72208 12.0647L9.12918 13.4742L16.5072 6.08375L18.3432 7.92286Z"
+              fill="#2C3B47" />
+            <path d="M9.92821 21L20 10.9113L18.5929 9.50181L9.93524 18.174L5.4071 13.6524L4 15.0618L9.92821 21Z"
+              fill="#2C3B47" />
+          </svg>
 
-        <span class="bold" translate="VIEWS.TOPICS_TOPICID.VOTE_HEADING_DELEGATE"></span>
-      </button>
-      <ng-container *ngIf="!vote.delegation || vote.delegation && canSubmit()">
-        <button class="btn_medium_submit bold" [cosDisabled]="!canSubmit()" (click)="doVote()"
-          translate="VIEWS.TOPICS_TOPICID.VOTE_SUBMIT">
+          <span class="bold" translate="VIEWS.TOPICS_TOPICID.VOTE_HEADING_DELEGATE"></span>
         </button>
-      </ng-container>
-    </div>
+        <ng-container *ngIf="!vote.delegation || vote.delegation && canSubmit()">
+          <button class="btn_medium_submit bold" [cosDisabled]="!canSubmit()" (click)="doVote()"
+            translate="VIEWS.TOPICS_TOPICID.VOTE_SUBMIT">
+          </button>
+        </ng-container>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="userHasVoted && !editVote">
+      <div class="vote_info">
+        <div>
+          <div class="bold">Your has been registered</div>
+          <div>Thank you for your vote. You can still change your mind and your vote by choosing another option before
+            the voting has ended.</div>
+          <a (click)="editVote=true">Edit vote</a>
+        </div>
+      </div>
+      <div class="vote_options">
+        <div class="bold">Your chosen options</div>
+        <div class="vote_delegation">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="40" height="40" rx="20" fill="#5AB467" />
+            <path
+              d="M26.3432 15.9229L27.0634 10L21.1505 10.7214L23.1001 12.6743L15.7221 20.0647L17.1292 21.4742L24.5072 14.0838L26.3432 15.9229Z"
+              fill="white" />
+            <path d="M17.9282 29L28 18.9113L26.5929 17.5018L17.9352 26.174L13.4071 21.6524L12 23.0618L17.9282 29Z"
+              fill="white" />
+          </svg>
+          <div class="delegation_text_wrap">
+            <div class="delegation_row">
+              <div class="bold" translate="VIEWS.TOPICS_TOPICID.VOTE_DELEGATED_TO"></div>
+              <div class="profile_image_wrap">
+                <img class="profile_image" *ngIf="vote.delegation.imageUrl" [src]="vote.delegation.imageUrl">
+                <div class="profile_image_filler" *ngIf="!vote.delegation.imageUrl">
+                  <cos-initials class="table_cell" *ngIf="vote.delegation.name" [name]="vote.delegation.name">
+                  </cos-initials>
+                </div>
+
+                <div class="bold">{{vote.delegation.name}}</div>
+              </div>
+            </div>
+            <div>You will see what they voted on when the voting has ended.</div>
+          </div>
+          <button class="btn_medium_close bold" (click)="doRevokeDelegation()"
+            translate="VIEWS.TOPICS_TOPICID.VOTE_REVOKE_DELEGATION"></button>
+        </div>
+
+        <!--div-- class="delegation_information" *ngIf="vote.delegation">
+          <div class="delegation_title" translate="VIEWS.TOPICS_TOPICID.VOTE_DELEGATED_TO"></div>
+          <div class="delegations">
+
+            <div class="table_cell">
+              <div class="profile_image_wrapper dark">
+                <div class="account_picture">
+                  <img *ngIf="vote.delegation.imageUrl" [src]="vote.delegation.imageUrl">
+                  <div *ngIf="!vote.delegation.imageUrl" class="profile_image_filler">
+                    <cos-initials class="table_cell" [name]="vote.delegation.name" initial-limit="1"></cos-initials>
+                    <div class="profile_circle"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="name_wrap">
+                <div class="table_cell">
+                  <div class="blue_link bold">{{vote.delegation.name}}</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="table_cell">
+              <div class="blue_button" (click)="doRevokeDelegation()"
+                translate="VIEWS.TOPICS_TOPICID.VOTE_REVOKE_DELEGATION"></div>
+            </div>
+          </div>
+        </!--div-->
+
+        <ng-container *ngFor="let option of vote.options.rows">
+          <div class="vote_option radio_wrap selected" *ngIf="option.selected">
+            <div class="radio_text_wrap">
+              <div class="radio_lable_wrap">
+                <label class="checkbox"><span
+                    translate="{{'COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_' + option.value  | uppercase}}"
+                    [translateParams]="{default: option.value}"></span>
+                  <input type="checkbox" [checked]="option.selected" />
+                  <span class="checkmark"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      <div class="vote_options">
+        <div class="bold">Options you didn’t choose</div>
+        <ng-container *ngFor="let option of vote.options.rows">
+          <div class="vote_option radio_wrap" *ngIf="!option.selected">
+            <div class="radio_text_wrap">
+              <div class="radio_lable_wrap">
+                <label class="checkbox"><span
+                    translate="{{'COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_' + option.value  | uppercase}}"
+                    [translateParams]="{default: option.value}"></span>
+                  <input type="checkbox" [checked]="option.selected" />
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929Z"
+                      fill="#727C84" />
+                  </svg>
+
+                </label>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </ng-container>
   </div>
 </div>
 
