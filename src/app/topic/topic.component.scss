@@ -188,22 +188,33 @@
           display: flex;
           flex-direction: column;
           padding: 8px 16px;
-          position: relative;
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
 
-          .button_wrap {
-            display: flex;
+          div {
+            position: relative;
+            font-weight: 400;
+            font-size: 15px !important;
+            line-height: 30px !important;
+          }
+        }
+        .button_wrap {
+          display: flex;
+          //   position: absolute;
+          bottom: -21px;
+          align-self: center;
+          justify-self: center;
+          button {
+            margin-top: -21px;
             position: absolute;
-            bottom: -21px;
-            align-self: center;
-            justify-self: center;
-            button {
+            path {
+              fill: none;
+            }
+            &:hover {
               path {
-                fill: none;
-              }
-              &:hover {
-                path {
-                  stroke: var(--color-surfaces);
-                }
+                stroke: var(--color-surfaces);
               }
             }
           }
