@@ -63,7 +63,7 @@
             <label class="checkbox"><span
                 translate="{{'COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_' + option.value  | uppercase}}"
                 [translateParams]="{default: option.value}"></span>
-              <input type="checkbox" [checked]="option.selected"/>
+              <input type="checkbox" [checked]="option.selected" (click)="selectOption(option)"/>
               <span class="checkmark"></span>
             </label>
           </div>
@@ -73,7 +73,7 @@
     <div class="line_separator vote"></div>
     <div class="vote_buttons_wrap">
       <button class="btn_medium_close" [ngClass]="vote.delegation ? 'active' : ''"
-        *ngIf="(canDelegate() && vote.authType !== VOTE_AUTH_TYPES.hard)">
+        *ngIf="(canDelegate() && vote.authType !== VOTE_AUTH_TYPES.hard)" (click)="delegate()">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M18.3432 7.92286L19.0634 2L13.1505 2.72143L15.1001 4.67429L7.72208 12.0647L9.12918 13.4742L16.5072 6.08375L18.3432 7.92286Z"

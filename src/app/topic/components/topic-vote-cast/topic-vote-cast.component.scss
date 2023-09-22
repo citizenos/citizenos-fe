@@ -59,11 +59,23 @@
           gap: 16px;
         }
 
+        .checkmark {
+          background-color: var(--color-surfaces);
+          border: 1px solid var(--color-voting-disabled);
+
+          &::after {
+            display: none;
+          }
+        }
+
         &.selected {
           background-color: var(--color-voting-disabled);
 
           .checkmark {
             background-color: var(--color-voting);
+          }
+          .checkmark::after {
+            display: block;
           }
         }
       }
