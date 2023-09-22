@@ -134,7 +134,7 @@ export class TopicVoteCastComponent implements OnInit {
     return this.TopicVoteService.hasVoteEnded(this.topic, this.vote);
   };
 
-  doDelegate() {
+  delegate() {
     if (!this.vote.delegation) {
       const delegateDialog = this.dialog
         .open(TopicVoteDelegateComponent, {
@@ -196,7 +196,6 @@ export class TopicVoteCastComponent implements OnInit {
     const isSelected = selected.find((item: any) => {
       if (item.id === option.id) return item;
     });
-
     if (selected.length >= this.vote.maxChoices && !isSelected) return;
     option.selected = !option.selected;
     return;
