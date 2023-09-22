@@ -210,7 +210,7 @@
         <post-argument *ngIf="showArgumentsTablet || wWidth > 1024" [topicId]="topic.id"></post-argument>
       </ng-container>
       <ng-container *ngIf="tabSelected === 'voting'">
-        <div class="topic_voting">
+        <div class="topic_voting" *ngIf="!topic.voteId">
           <ng-container *ngIf="!topic.voteId">
             <div class="no_voting_yet">
               <svg width="96" height="90" viewBox="0 0 96 90" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -247,6 +247,9 @@
             </div>
           </ng-container>
         </div>
+        <ng-container *ngIf="topic.voteId && (vote$ | async) as vote">
+          <topic-vote-cast [topic]="topic" [vote]="vote"></topic-vote-cast>
+        </ng-container>
       </ng-container>
     </div>
     <div class="content_area_right" *ngIf="!showArgumentsTablet">
