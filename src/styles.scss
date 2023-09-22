@@ -419,6 +419,10 @@ html {
   width: 100%;
   background: var(--color-border);
   display: flex;
+
+  &.vote {
+    background:var(--color-dialog-voting-contrast);
+  }
 }
 
 .row {

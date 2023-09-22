@@ -1,4 +1,99 @@
-<div class="vote_casting_header">
+<div class="vote_wrap">
+  <div class="vote_header">
+    <div class="header_division">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M16 0C7.168 0 0 7.168 0 16C0 24.832 7.168 32 16 32C24.832 32 32 24.832 32 16C32 7.168 24.832 0 16 0ZM12.8889 24L25.3333 11.6491L23 9.33333L12.8889 19.3684L9 15.5088L6.66667 17.8246L12.8889 24Z"
+          fill="#5AB467" />
+      </svg>
+      <div class="vote_question">{{vote.question}} ASdas dasdsa das </div>
+    </div>
+    <div class="header_division">
+      <div class="vote_deadline">{{vote.endsAt}}16.03.2023</div>
+      <div class="setting_button">
+        <button>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M14 6C14 4.9 13.1 4 12 4C10.9 4 10 4.9 10 6C10 7.1 10.9 8 12 8C13.1 8 14 7.1 14 6ZM14 18C14 16.9 13.1 16 12 16C10.9 16 10 16.9 10 18C10 19.1 10.9 20 12 20C13.1 20 14 19.1 14 18ZM12 10C13.1 10 14 10.9 14 12C14 13.1 13.1 14 12 14C10.9 14 10 13.1 10 12C10 10.9 10.9 10 12 10Z"
+              fill="#2C3B47" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="vote_content">
+    <ng-container *ngIf="vote.type === 'regular'">
+      <div class="vote_info">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="24" cy="24" r="24" fill="#98DAA2" />
+          <rect x="18" y="26" width="12" height="12" rx="1" fill="#F1FAF3" />
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M19.1992 32.1455L22.6278 35.6004L28.7992 29.3816L27.8324 28.4004L22.6278 33.6449L20.1661 31.1712L19.1992 32.1455Z"
+            fill="#5AB467" />
+          <rect x="18" y="10" width="12" height="12" rx="1" fill="#F1FAF3" />
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M20 16.1209L22.8571 19L28 13.8177L27.1943 13L22.8571 17.3704L20.8057 15.309L20 16.1209Z"
+            fill="#5AB467" />
+        </svg>
+        <span translate="COMPONENTS.TOPIC_VOTE_CREATE.PREVIEW_VOTE_TYPE_REGULAR"></span>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="vote.type === 'multiple'">
+      <div class="vote_info">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="24" cy="24" r="24" fill="#98DAA2" />
+          <rect x="18" y="26" width="12" height="12" rx="1" fill="#F1FAF3" />
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M19.1992 32.1455L22.6278 35.6004L28.7992 29.3816L27.8324 28.4004L22.6278 33.6449L20.1661 31.1712L19.1992 32.1455Z"
+            fill="#5AB467" />
+          <rect x="18" y="10" width="12" height="12" rx="1" fill="#F1FAF3" />
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M20 16.1209L22.8571 19L28 13.8177L27.1943 13L22.8571 17.3704L20.8057 15.309L20 16.1209Z"
+            fill="#5AB467" />
+        </svg>
+        <span translate="COMPONENTS.TOPIC_VOTE_CREATE.PREVIEW_VOTE_TYPE_MULTIPLE"
+          [translateParams]="{maxOptions: vote.maxChoices}"></span>
+      </div>
+    </ng-container>
+    <div class="vote_options">
+      <div class="vote_option radio_wrap" [attr.disabled]="!canVote()" [ngClass]="{'selected': option.selected}"
+        *ngFor="let option of vote.options.rows" (click)="selectOption(option)">
+        <div class="radio_text_wrap">
+          <div class="radio_lable_wrap">
+            <label class="checkbox"><span
+                translate="{{'COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_' + option.value  | uppercase}}"
+                [translateParams]="{default: option.value}"></span>
+              <input type="checkbox" [checked]="option.selected"/>
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="line_separator vote"></div>
+    <div class="vote_buttons_wrap">
+      <button class="btn_medium_close" [ngClass]="vote.delegation ? 'active' : ''"
+        *ngIf="(canDelegate() && vote.authType !== VOTE_AUTH_TYPES.hard)">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M18.3432 7.92286L19.0634 2L13.1505 2.72143L15.1001 4.67429L7.72208 12.0647L9.12918 13.4742L16.5072 6.08375L18.3432 7.92286Z"
+            fill="#2C3B47" />
+          <path d="M9.92821 21L20 10.9113L18.5929 9.50181L9.93524 18.174L5.4071 13.6524L4 15.0618L9.92821 21Z"
+            fill="#2C3B47" />
+        </svg>
+
+        <span class="bold" translate="VIEWS.TOPICS_TOPICID.VOTE_HEADING_DELEGATE"></span>
+      </button>
+      <ng-container *ngIf="!vote.delegation || vote.delegation && canSubmit()">
+        <button class="btn_medium_submit bold" [cosDisabled]="!canSubmit()" (click)="doVote()"
+          translate="VIEWS.TOPICS_TOPICID.VOTE_SUBMIT">
+        </button>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<!--div class="vote_casting_header">
   <div class="vote_casting_header_section">
     <div class="table_cell bold vote_casting_description" *ngIf="!hasVoteEndedExpired() && !hasVoteEnded()"
       translate="VIEWS.TOPICS_TOPICID.VOTE_CAST_YOUR_VOTE"></div>
@@ -13,7 +108,7 @@
     </div>
   </div>
   <div class="clearer"></div>
-</div>
+</!--div>
 
 <div class="line lightest_line"></div>
 
@@ -86,7 +181,7 @@
     <div class="table_cell right_side" [translateParams]="{default: option.value}"
       translate="{{'VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_' + option.value  | uppercase}}"></div>
   </div>
-  <!--'VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_' + option.value | linky | uppercase}} translate-default="{{option.value}}pip-->
+  <!--'VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_' + option.value | linky | uppercase}} translate-default="{{option.value}}pip>
 
 </div>
 
@@ -106,7 +201,7 @@
 
         <div class="table_cell">
           <div class="profile_image_wrapper dark">
-            <!--div class="profile_moon sprite sprite-icon-certified-fb2x"></div-->
+            <!--div class="profile_moon sprite sprite-icon-certified-fb2x"></div->
             <div class="account_picture">
               <img *ngIf="vote.delegation.imageUrl" [src]="vote.delegation.imageUrl">
               <div *ngIf="!vote.delegation.imageUrl" class="profile_image_filler">
@@ -131,8 +226,8 @@
 
   </div>
 <div class="line lightest_line multiplechoice" *ngIf="!hasVoteEnded()"></div>
-<div class="vote_multiple_submit_section" *ngIf="!hasVoteEnded()">
+<div-- class="vote_multiple_submit_section" *ngIf="!hasVoteEnded()">
   <div class="table_cell" *ngIf="!vote.delegation || vote.delegation && canSubmit()">
     <button class="blue_button" [cosDisabled]="!canSubmit()" (click)="doVote()" translate="VIEWS.TOPICS_TOPICID.VOTE_SUBMIT"></button>
   </div>
-</div>
+</div-->
