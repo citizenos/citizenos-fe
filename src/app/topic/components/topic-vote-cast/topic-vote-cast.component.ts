@@ -25,6 +25,7 @@ export class TopicVoteCastComponent implements OnInit {
   VOTE_TYPES = this.TopicVoteService.VOTE_TYPES;
   VOTE_AUTH_TYPES = this.TopicVoteService.VOTE_AUTH_TYPES;
   userHasVoted: boolean = false;
+  editVote: boolean = false;
 
   constructor(
     public app: AppService,
@@ -37,6 +38,14 @@ export class TopicVoteCastComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.vote.options.rows.forEach((option: any) => {
+      if (option.selected) {
+        this.userHasVoted = true;
+      }
+    })
+    if (this.vote.delegation) {
+      this.userHasVoted = true;
+    }
   }
 
   canVote() {
@@ -47,14 +56,6 @@ export class TopicVoteCastComponent implements OnInit {
   canDelegate() {
     return this.TopicVoteService.canDelegate(this.topic);
   }
-
-  isRadio(vote: any, option: any) {
-    if (option.value === 'Neutral' || option.value === 'Veto') return true;
-    if (vote.type === 'regular' || vote.maxChoices === 1) return true;
-
-    return false;
-  };
-
 
   canSubmit() {
     if (!this.vote.options || !Array.isArray(this.vote.options.rows)) return false;
@@ -119,6 +120,8 @@ export class TopicVoteCastComponent implements OnInit {
             });
             this.Notification.removeAll();
             this.Notification.addSuccess('VIEWS.TOPICS_TOPICID.MSG_VOTE_REGISTERED');
+            this.editVote = false;
+            this.userHasVoted = true;
           }, error: (err) => {
             console.error(err);
           }
@@ -144,6 +147,7 @@ export class TopicVoteCastComponent implements OnInit {
         });
     }
   };
+
   doRevokeDelegation() {
     const revokeDialog = this.dialog
       .open(
