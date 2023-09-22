@@ -102,6 +102,7 @@ mat-dialog-container {
     }
     &.voting {
       background-color: var(--color-argument-pro-light);
+      color: var(--color-success);
     }
 
     .header_with_icon {
