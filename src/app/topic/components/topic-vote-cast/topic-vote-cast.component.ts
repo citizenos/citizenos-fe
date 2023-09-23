@@ -153,11 +153,19 @@ export class TopicVoteCastComponent implements OnInit {
       .open(
         ConfirmDialogComponent, {
         data: {
-          level: 'delete',
+          level: 'voting',
           heading: 'MODALS.TOPIC_VOTE_REVOKE_DELEGATION_CONFIRM_HEADING',
-          title: 'MODALS.TOPIC_VOTE_REVOKE_DELEGATION_CONFIRM_TXT_ARE_YOU_SURE',
+          description: 'MODALS.TOPIC_VOTE_REVOKE_DELEGATION_CONFIRM_TXT_ARE_YOU_SURE',
           confirmBtn: 'MODALS.TOPIC_VOTE_REVOKE_DELEGATION_CONFIRM_YES',
-          closeBtn: 'MODALS.TOPIC_VOTE_REVOKE_DELEGATION_CONFIRM_NO'
+          closeBtn: 'MODALS.TOPIC_VOTE_REVOKE_DELEGATION_CONFIRM_NO',
+          svg: `<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M26.3432 15.9229L27.0634 10L21.1505 10.7214L23.1001 12.6743L15.7221 20.0647L17.1292 21.4742L24.5072 14.0838L26.3432 15.9229Z" fill="#5AB467"/>
+          <path d="M17.9282 29L28 18.9113L26.5929 17.5018L17.9352 26.174L13.4071 21.6524L12 23.0618L17.9282 29Z" fill="#5AB467"/>
+          <path d="M27 27L32 32" stroke="#5AB467" stroke-width="4" stroke-linecap="square"/>
+          <path d="M8 8L13 13" stroke="#5AB467" stroke-width="4" stroke-linecap="square"/>
+          <rect x="2" y="2" width="36" height="36" rx="18" stroke="#5AB467" stroke-width="4"/>
+          </svg>
+          `
         }
       });
 
@@ -204,4 +212,13 @@ export class TopicVoteCastComponent implements OnInit {
     option.selected = !option.selected;
     return;
   };
+
+  voteGraphDasharray () {
+    let val = 2 * 3.14 * 20;
+    return `${val}px`;
+  }
+  voteGraphDashOffset (pecentage: number) {
+    let val = (2 * 3.14 * 20) * ((100-pecentage)/100);
+    return `${val}px`;
+  }
 }
