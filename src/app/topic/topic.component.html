@@ -132,7 +132,7 @@
   </div>
 
   <div class="topic_tabs" *ngIf="tabSelected$ | async as tabSelected;">
-    <a class="topic_tab" [ngClass]="tabSelected=== 'discussion' ? 'active' : ''" router>
+    <a class="topic_tab" [ngClass]="tabSelected=== 'discussion' ? 'active' : ''" [routerLink]="['./']" fragment="discussion">
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="32" height="32" rx="16" fill="#1168A8" />
         <path
@@ -153,7 +153,7 @@
       </svg>
       <span class="tab_text" translate="COMPONENTS.TOPIC.TAB_IDEATION"></span>
     </a>
-    <a class="topic_tab" [ngClass]="tabSelected=== 'voting' ? 'active' : ''">
+    <a class="topic_tab" [ngClass]="tabSelected=== 'voting' ? 'active' : ''" [routerLink]="['./']" fragment="voting">
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="32" height="32" rx="16" fill="#98DAA2" />
         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -559,7 +559,7 @@
       </svg>
     </div>
     <a class="topic_tab discussion" [ngClass]="showArgumentsTablet? 'active' : ''"
-      (click)="showArgumentsTablet = !showArgumentsTablet">
+      (click)="showArgumentsTablet = !showArgumentsTablet" [routerLink]="['./']" fragment="discussion">
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="32" height="32" rx="16" fill="#1168A8" />
         <path
@@ -571,7 +571,7 @@
       </svg>
       <span class="tab_text" translate="COMPONENTS.TOPIC.TAB_DISCUSSION"></span>
     </a>
-    <a class="topic_tab" [ngClass]="tabSelected=== 'settings' ? 'active' : ''">
+    <a class="topic_tab" [ngClass]="tabSelected=== 'ideation' ? 'active' : ''">
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="32" height="32" rx="16" fill="#EFE08A" />
         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -580,7 +580,7 @@
       </svg>
       <span class="tab_text" translate="COMPONENTS.TOPIC.TAB_IDEATION"></span>
     </a>
-    <a class="topic_tab" [ngClass]="tabSelected=== 'add_topics' ? 'active' : ''">
+    <a class="topic_tab" [ngClass]="tabSelected=== 'voting' ? 'active' : ''" [routerLink]="['./']" fragment="voting">
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="32" height="32" rx="16" fill="#98DAA2" />
         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -589,7 +589,7 @@
       </svg>
       <span class="tab_text" translate="COMPONENTS.TOPIC.TAB_VOTING"></span>
     </a>
-    <a class="topic_tab" [ngClass]="tabSelected=== 'invite' ? 'active' : ''">
+    <a class="topic_tab" [ngClass]="tabSelected=== 'followUp' ? 'active' : ''">
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="32" height="32" rx="16" fill="#E3A8CC" />
         <rect x="4" y="4" width="24" height="24" rx="12" fill="#E3A8CC" />
