@@ -105,6 +105,10 @@ mat-dialog-container {
       color: var(--color-success);
     }
 
+    &.follow_up {
+      background-color: var(--color-dialog-follow-up);
+    }
+
     .header_with_icon {
       margin-top: 24px;
       display: flex;
@@ -221,6 +225,10 @@ mat-dialog-container {
         background-color: var(--color-argument-pro-light);
       }
 
+      &.follow_up {
+        background-color: var(--color-dialog-follow-up);
+      }
+
       &.success {
         background-color: var(--color-success-background);
       }
@@ -301,6 +309,10 @@ mat-dialog-container {
     gap: 8px;
     background-color: var(--color-dialog);
 
+    &.follow_up {
+      background-color: var(--color-dialog-follow-up);
+    }
+
     .dialog_tab {
       color: var(--color-text);
       display: flex;
@@ -310,6 +322,10 @@ mat-dialog-container {
 
       &.success {
         background-color: var(--color-success-background);
+      }
+
+      &.follow_up {
+        background-color: var(--color-dialog-follow-up-contrast);
       }
 
       .tab_text {
