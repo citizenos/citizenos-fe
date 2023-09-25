@@ -27,6 +27,7 @@ import { TopicInviteDialogComponent } from './components/topic-invite/topic-invi
 import { TopicParticipantsComponent } from './components/topic-participants/topic-participants.component';
 import { DuplicateTopicDialogComponent } from './components/duplicate-topic-dialog/duplicate-topic-dialog.component';
 import { TopicVoteCreateDialogComponent } from './components/topic-vote-create/topic-vote-create.component';
+import { TopicFollowUpCreateDialogComponent } from './components/topic-follow-up-create-dialog/topic-follow-up-create-dialog.component';
 
 @Component({
   selector: 'topic',
@@ -319,4 +320,16 @@ export class TopicComponent implements OnInit {
       topic: topic
     }})
   }
+
+  canSendToFollowUp(topic: Topic) {
+    return true;
+    return this.TopicService.canSendToFollowUp(topic);
+  }
+
+  sendToFollowUp(topic: Topic, stateSuccess?: string) {
+    this.dialog.open(TopicFollowUpCreateDialogComponent, {data: {
+      topic: topic
+    }})
+  };
+
 }
