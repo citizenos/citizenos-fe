@@ -1,0 +1,135 @@
+<div class="overlay" mat-dialog-close></div>
+<div class="dialog">
+  <div class="dialog_header follow_up">
+    <div class="header_text">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="40" height="40" rx="20" fill="#DA7AB1" />
+        <rect x="10" y="10" width="20" height="20" rx="10" fill="white" />
+        <path
+          d="M21.5777 16.2745L21.3333 15H15.8333V25.8333H17.0555V21.3725H20.4777L20.7221 22.6471H24.9999V16.2745H21.5777Z"
+          fill="#DA7AB1" />
+      </svg>
+      <h4 class="title" translate="COMPONENTS.TOPIC_FOLLOW_UP_CREATE.DIALOG_HEADING"></h4>
+    </div>
+    <div class="dialog_close">
+      <button class="btn_dialog_close icon" mat-dialog-close>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289Z"
+            fill="#2C3B47" />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="dialog_tabs_wrap follow_up">
+    <a class="dialog_tab follow_up mobile_hidden" *ngFor="let tab of tabs"
+      [ngClass]="(tabActive === tab+1)? 'active' :''" (click)="tabActive=tab+1">
+      <span class="tab_number">{{tab+1}}</span>
+      <span class="tab_text">{{tab+1}}.
+        <span [translate]="'COMPONENTS.TOPIC_FOLLOW_UP_CREATE.DIALOG_TAB_'+(tab+1)"></span>
+      </span>
+    </a>
+    <div class="dropdown mobile_show" [cosDropdown]>
+      <div class="selection">
+        <div class="selected_item" [translate]="'COMPONENTS.TOPIC_FOLLOW_UP_CREATE.DIALOG_TAB_'+tabActive"> </div>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+        </svg>
+
+      </div>
+      <div class="options">
+        <div class="option" *ngFor="let tab of tabs" (click)="tabActive = tab+1">
+          <span class="tab_number">{{tab+1}}. <span
+              [translate]="'COMPONENTS.TOPIC_FOLLOW_UP_CREATE.DIALOG_TAB_'+(tab+1)"></span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="dialog_content">
+    <ng-container *ngIf="tabActive === 1">
+      <div class="introduction_wrap">
+        <div class="intro_heading">
+          <span translate="COMPONENTS.TOPIC_FOLLOW_UP_CREATE.DIALOG_TAB_INTRODUCTION_ARE_YOU_SURE"></span>
+          <span translate="COMPONENTS.TOPIC_FOLLOW_UP_CREATE.DIALOG_TAB_INTRODUCTION_KEEP_IN_MIND"></span>
+        </div>
+        <div class="dialog_info">
+          <div class="row"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path d="M17 7L7 17" stroke="#2C3B47" stroke-width="2" />
+              <path d="M7 7L17 17" stroke="#2C3B47" stroke-width="2" />
+            </svg>
+            <span translate="COMPONENTS.TOPIC_FOLLOW_UP_CREATE.DIALOG_TAB_INTRODUCTION_ITEM_1"></span>
+          </div>
+          <div class="row"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path d="M9.38602 14.8088L17.5256 6L19 7.59558L9.38602 18L5 13.2534L6.47436 11.6578L9.38602 14.8088Z"
+                fill="#2C3B47" />
+            </svg>
+            <span translate="COMPONENTS.TOPIC_FOLLOW_UP_CREATE.DIALOG_TAB_INTRODUCTION_ITEM_2"></span>
+          </div>
+          <div class="row"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path d="M9.38602 14.8088L17.5256 6L19 7.59558L9.38602 18L5 13.2534L6.47436 11.6578L9.38602 14.8088Z"
+                fill="#2C3B47" />
+            </svg>
+            <span translate="COMPONENTS.TOPIC_FOLLOW_UP_CREATE.DIALOG_TAB_INTRODUCTION_ITEM_3"></span>
+          </div>
+        </div>
+        <div class="dialog_info_wrap">
+          <div class="dialog_info follow_up">
+            <div class="row">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="24" height="24" rx="4" fill="#DA7AB1" />
+                <path
+                  d="M13.75 6.5C13.75 7.32843 13.0784 8 12.25 8C11.4216 8 10.75 7.32843 10.75 6.5C10.75 5.67157 11.4216 5 12.25 5C13.0784 5 13.75 5.67157 13.75 6.5Z"
+                  fill="white" />
+                <path
+                  d="M10.2099 10.0623L13.6449 9.63184L12.1434 16.6893C12.0369 17.1993 12.1869 17.4888 12.5994 17.4888C12.8904 17.4888 13.3284 17.3838 13.6284 17.1198L13.4964 17.7438C13.0659 18.2628 12.1164 18.6408 11.2989 18.6408C10.2444 18.6408 9.79593 18.0078 10.0869 16.6623L11.1939 11.4603C11.2899 11.0208 11.2029 10.8618 10.7619 10.7568L10.0869 10.6323L10.2099 10.0623Z"
+                  fill="white" />
+              </svg>
+              <span translate="COMPONENTS.TOPIC_FOLLOW_UP_CREATE.DIALOG_TAB_INTRODUCTION_INFO"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="tabActive === 2">
+      <div id="form_area">
+        <div class="content_section">
+          <div class="section_content_wrap">
+            <div class="bold" translate="COMPONENTS.TOPIC_FOLLOW_UP_CREATE.FOLLOW_UP_TITLE_HEADING"></div>
+            <div class="section_content_description">
+              <cos-input
+                placeholder="{{'COMPONENTS.TOPIC_FOLLOW_UP_CREATE.FOLLOW_UP_TITLE_HEADING_PLACEHOLDER' | translate}}">
+                <input id="groupName"
+                  [placeholder]="'COMPONENTS.TOPIC_FOLLOW_UP_CREATE.FOLLOW_UP_TITLE_HEADING_PLACEHOLDER' | translate"
+                  [(ngModel)]="title">
+              </cos-input>
+            </div>
+          </div>
+        </div>
+        <div class="content_section">
+          <div class="section_content_wrap">
+            <h3>2. <span translate="COMPONENTS.TOPIC_FOLLOW_UP_CREATE.SELECT_VOTING_SYSTEM"></span></h3>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="dialog_footer with_buttons">
+    <a mat-dialog-close translate="COMPONENTS.TOPIC_FOLLOW_UP_CREATE.LNK_CANCEL"></a>
+    <div class="button_row">
+      <button *ngIf="tabActive > 1" class="btn_medium_submit_ghost icon mobile_hidden"
+        (click)="tabActive = tabActive - 1;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M10.4533 17.6874C10.8529 18.1042 11.5009 18.1042 11.9006 17.6874C12.3003 17.2705 12.3003 16.5947 11.9006 16.1779L8.91837 13L19 13C19.5652 13 20 12.5892 20 11.9997C20 11.4103 19.5652 11.0176 19 11.0176L8.91837 11.0176L11.9006 7.8221C12.3003 7.40527 12.3003 6.72945 11.9006 6.31262C11.5009 5.89579 10.8529 5.89579 10.4533 6.31262L5 12L10.4533 17.6874Z"
+            fill="#2C3B47" />
+        </svg>
+      </button>
+      <button class="btn_medium_submit" (click)="tabNext()">{{((this.tabActive <
+          2)? "COMPONENTS.TOPIC_FOLLOW_UP_CREATE.BTN_CONTINUE" : "COMPONENTS.TOPIC_FOLLOW_UP_CREATE.BTN_START_VOTE" ) |
+          translate }}</button>
+    </div>
+  </div>
+</div>
