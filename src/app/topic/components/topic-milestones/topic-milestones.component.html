@@ -1,4 +1,183 @@
-<div class="voting_platform_wrap create_a_milestone_wrap print_never" *ngIf="canDelete()">
+<div class="follow_up_wrap">
+  <div class="follow_up_header">
+    <div class="header_division">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="32" height="32" rx="16" fill="#DA7AB1" />
+        <path
+          d="M18.5246 10.0392L18.1335 8H9.3335V25.3333H11.2891V18.1961H16.7646L17.1557 20.2353H24.0002V10.0392H18.5246Z"
+          fill="white" />
+      </svg>
+      <div class="follow_up_title" translate="VIEWS.TOPICS_TOPICID.ADD_MILESTONES_CREATE_A_MILESTONE"></div>
+    </div>
+    <div class="header_division">
+      <div class="follow_up_deadline">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M8 2C7.44772 2 7 2.44772 7 3V4H6C4.89543 4 4 4.89543 4 6V18C4 19.1046 4.89543 20 6 20H18C19.1046 20 20 19.1046 20 18V6C20 4.89543 19.1046 4 18 4H17V3C17 2.44772 16.5523 2 16 2C15.4477 2 15 2.44772 15 3V4H9V3C9 2.44772 8.55228 2 8 2ZM6 8H18V18H6V8ZM9 6V5H7V6H9ZM17 5V6H15V5H17ZM11.0332 9.55428C11.0152 9.25392 11.2438 9 11.5322 9H12.4678C12.7562 9 12.9848 9.25392 12.9668 9.55428L12.5293 13.5108C12.5128 13.7858 12.2943 14 12.0303 14H11.9697C11.7057 14 11.4872 13.7858 11.4707 13.5108L11.0332 9.55428ZM13 15.9565C13 16.5328 12.5523 17 12 17C11.4477 17 11 16.5328 11 15.9565C11 15.3802 11.4477 14.913 12 14.913C12.5523 14.913 13 15.3802 13 15.9565Z"
+            fill="#2C3B47" />
+        </svg>
+        <span class="bold"></span>
+      </div>
+      <div class="setting_button">
+        <button>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M14 6C14 4.9 13.1 4 12 4C10.9 4 10 4.9 10 6C10 7.1 10.9 8 12 8C13.1 8 14 7.1 14 6ZM14 18C14 16.9 13.1 16 12 16C10.9 16 10 16.9 10 18C10 19.1 10.9 20 12 20C13.1 20 14 19.1 14 18ZM12 10C13.1 10 14 10.9 14 12C14 13.1 13.1 14 12 14C10.9 14 10 13.1 10 12C10 10.9 10.9 10 12 10Z"
+              fill="#2C3B47" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="follow_up_content">
+    <div class="milestone" *ngFor="let evt of topicEvents | async; let $index = index">
+      <div class="milestone_header">
+        <div class="title_wrap">
+          <div class="circle">{{$index+1}}</div>
+          <div class="title_text_area">
+            <div class="title_description" translate="VIEWS.TOPICS_TOPICID.ADD_MILESTONES_MILESTONE"
+              [translateParams]="{number: countTotal.value - $index}"></div>
+            <div class="title" [innerHtml]="evt.subject"></div>
+          </div>
+        </div>
+        <div class="button_wrap">
+          <div class="milestone_date">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M8 2C7.44772 2 7 2.44772 7 3V4H6C4.89543 4 4 4.89543 4 6V18C4 19.1046 4.89543 20 6 20H18C19.1046 20 20 19.1046 20 18V6C20 4.89543 19.1046 4 18 4H17V3C17 2.44772 16.5523 2 16 2C15.4477 2 15 2.44772 15 3V4H9V3C9 2.44772 8.55228 2 8 2ZM6 8H18V18H6V8ZM9 6V5H7V6H9ZM17 5V6H15V5H17ZM11.0332 9.55428C11.0152 9.25392 11.2438 9 11.5322 9H12.4678C12.7562 9 12.9848 9.25392 12.9668 9.55428L12.5293 13.5108C12.5128 13.7858 12.2943 14 12.0303 14H11.9697C11.7057 14 11.4872 13.7858 11.4707 13.5108L11.0332 9.55428ZM13 15.9565C13 16.5328 12.5523 17 12 17C11.4477 17 11 16.5328 11 15.9565C11 15.3802 11.4477 14.913 12 14.913C12.5523 14.913 13 15.3802 13 15.9565Z"
+                fill="#2C3B47" />
+            </svg>
+            <span class="bold">{{evt.createdAt | amTimeAgo }}</span>
+          </div>
+          <div class="dropdown button_dropdown" [cosDropdown]>
+            <button class="btn_medium_close icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M14 6C14 4.9 13.1 4 12 4C10.9 4 10 4.9 10 6C10 7.1 10.9 8 12 8C13.1 8 14 7.1 14 6ZM14 18C14 16.9 13.1 16 12 16C10.9 16 10 16.9 10 18C10 19.1 10.9 20 12 20C13.1 20 14 19.1 14 18ZM12 10C13.1 10 14 10.9 14 12C14 13.1 13.1 14 12 14C10.9 14 10 13.1 10 12C10 10.9 10.9 10 12 10Z"
+                  fill="#2C3B47" />
+              </svg>
+            </button>
+            <div class="options">
+              <div class="option">
+                <div><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M8.8143 4.18517L11.8147 7.18569L5.29947 13.7012L2.62438 13.9965C2.26626 14.0361 1.96369 13.7333 2.00354 13.3752L2.30118 10.6981L8.8143 4.18517ZM13.6704 3.73845L12.2616 2.3296C11.8222 1.89013 11.1095 1.89013 10.67 2.3296L9.34467 3.65501L12.3451 6.65553L13.6704 5.33011C14.1099 4.89042 14.1099 4.17791 13.6704 3.73845Z"
+                      fill="#2C3B47" />
+                  </svg>
+                </div><span>Edit details</span>
+              </div>
+              <div class="line_separator"></div>
+              <button class="option error_text" (click)="deleteEvent(evt)">
+                <div>
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M10 3H6V4H10V3ZM11 4V3C11 2.44772 10.5523 2 10 2H6C5.44772 2 5 2.44772 5 3V4H4H2.5C2.22386 4 2 4.22386 2 4.5C2 4.77614 2.22386 5 2.5 5H4V13C4 13.5523 4.44772 14 5 14H11C11.5523 14 12 13.5523 12 13V5H13.5C13.7761 5 14 4.77614 14 4.5C14 4.22386 13.7761 4 13.5 4H12H11ZM7 7H6V11H7V7ZM10 7H9V11H10V7Z"
+                      fill="#EF4025" />
+                  </svg>
+                </div><span>Remove milestone</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="section_content">
+        <div class="milestone_description_text" [innerHtml]="evt.text | linky"></div>
+      </div>
+    </div>
+    <div class="milestone" *ngIf="canDelete()">
+      <div class="milestone_header">
+        <div class="title_wrap">
+          <div class="circle">{{countTotal.value+1}}</div>
+          <h3>Milestone</h3>
+        </div>
+      </div>
+      <div class="section_content">
+        <div class="heading">Milestone title</div>
+        <cos-input [placeholder]="'VIEWS.TOPICS_TOPICID.ADD_MILESTONES_PLACEHOLDER_SUBJECT' | translate">
+          <input id="create_milestone_title" [(ngModel)]="event.subject" [ngClass]="{'error_input': errors?.subject}"
+            translate [placeholder]="'VIEWS.TOPICS_TOPICID.ADD_MILESTONES_PLACEHOLDER_SUBJECT' | translate"
+            class="gray_borders" [maxlength]="maxLengthSubject" required>
+          <label for="create_milestone_title" class="error_label" *ngIf="errors?.subject">
+            <div class="table_cell">
+              <div class="icon_notification_error_small"></div>
+              <span translate="{{errors.subject}}"></span>
+            </div>
+          </label>
+        </cos-input>
+        <div class="heading">Milestone content</div>
+        <cos-input [placeholder]="'VIEWS.TOPICS_TOPICID.ADD_MILESTONES_PLACEHOLDER_TEXT' | translate">
+          <textarea id="create_milestone_textarea" class="gray_borders" [ngClass]="{'error_input': errors?.text}"
+            [(ngModel)]="event.text" [placeholder]="'VIEWS.TOPICS_TOPICID.ADD_MILESTONES_PLACEHOLDER_TEXT' | translate"
+            [maxlength]="maxLengthText" required></textarea>
+
+          <label for="create_milestone_textarea" class="error_label" *ngIf="errors?.text">
+            <div class="table_cell">
+              <div class="icon_notification_error_small"></div>
+              <span translate="{{errors.text}}"></span>
+            </div>
+          </label>
+        </cos-input>
+
+      </div>
+    </div>
+
+    <div class="section_buttons">
+
+      <!--div id="add_section_wrap">
+        <button class="btn_medium_plain bold">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12 16C11.4711 16 11.0423 15.5712 11.0423 15.0423L11.0423 12.9577H8.95775C8.4288 12.9577 8 12.5289 8 12C8 11.4711 8.4288 11.0423 8.95775 11.0423H11.0423V8.95775C11.0423 8.4288 11.4711 8 12 8C12.5289 8 12.9577 8.4288 12.9577 8.95775V11.0423L15.0423 11.0423C15.5712 11.0423 16 11.4711 16 12C16 12.5289 15.5712 12.9577 15.0423 12.9577H12.9577V15.0423C12.9577 15.5712 12.5289 16 12 16Z"
+              fill="#2C3B47" />
+          </svg>
+          <span>Add</span>
+        </button>
+        <div class="vertical_line_separator"></div>
+        <button class="btn_medium_plain icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M4.5 6C4.5 5.58579 4.83579 5.25 5.25 5.25L18.75 5.25C19.1642 5.25 19.5 5.58579 19.5 6C19.5 6.41421 19.1642 6.75 18.75 6.75L5.25 6.75C4.83579 6.75 4.5 6.41421 4.5 6Z"
+              fill="#2C3B47" />
+            <path
+              d="M4.5 9C4.5 8.58579 4.83579 8.25 5.25 8.25L18.75 8.25C19.1642 8.25 19.5 8.58579 19.5 9C19.5 9.41421 19.1642 9.75 18.75 9.75L5.25 9.75C4.83579 9.75 4.5 9.41421 4.5 9Z"
+              fill="#2C3B47" />
+            <path
+              d="M5.25 11.25C4.83579 11.25 4.5 11.5858 4.5 12C4.5 12.4142 4.83579 12.75 5.25 12.75L18.75 12.75C19.1642 12.75 19.5 12.4142 19.5 12C19.5 11.5858 19.1642 11.25 18.75 11.25L5.25 11.25Z"
+              fill="#2C3B47" />
+            <path
+              d="M4.5 15C4.5 14.5858 4.83579 14.25 5.25 14.25L18.75 14.25C19.1642 14.25 19.5 14.5858 19.5 15C19.5 15.4142 19.1642 15.75 18.75 15.75L5.25 15.75C4.83579 15.75 4.5 15.4142 4.5 15Z"
+              fill="#2C3B47" />
+            <path
+              d="M5.25 17.25C4.83579 17.25 4.5 17.5858 4.5 18C4.5 18.4142 4.83579 18.75 5.25 18.75H12.75C13.1642 18.75 13.5 18.4142 13.5 18C13.5 17.5858 13.1642 17.25 12.75 17.25H5.25Z"
+              fill="#2C3B47" />
+          </svg>
+
+        </button>
+        <button class="btn_medium_plain icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M12.5382 7.03922L12.1471 5L7 5L7 11.1961L14.084 11.1961L14.4751 13.2353H17.6667V7.03922L12.5382 7.03922ZM19.6667 5.03922V15.2353H12.8222L12.4311 13.1961L6.95556 13.1961L6.95556 20.3333H5L5 3L13.8 3L14.1911 5.03922H19.6667Z"
+              fill="#2C3B47" />
+          </svg>
+
+        </button>
+        <button class="btn_medium_plain icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M13.1034 4.82745L5.86207 12.0688C5.29074 12.6402 5.29074 13.5665 5.86207 14.1378V14.1378C6.4334 14.7091 7.35971 14.7091 7.93103 14.1378L15.8621 6.20676C17.0047 5.0641 17.0047 3.21149 15.8621 2.06883V2.06883C14.7194 0.926172 12.8668 0.926172 11.7241 2.06883L3.10345 10.6895C1.38946 12.4035 1.38946 15.1824 3.10345 16.8964V16.8964C4.81743 18.6104 7.59636 18.6104 9.31034 16.8964L17.2414 8.96538"
+              stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </button>
+      </!--div-->
+      <button class="btn_medium_submit bold" translate="VIEWS.TOPICS_TOPICID.ADD_MILESTONES_ADD_MILESTONE"
+        (click)="submitEvent()">
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!--div class="voting_platform_wrap create_a_milestone_wrap print_never" *ngIf="canDelete()">
 
   <div class="vote_casting_header">
     <div class="vote_casting_header_section">
@@ -42,10 +221,10 @@
 
   </div>
 
-</div>
+</!--div>
 
 
-<div class="milestones_in_descriptions_wrap">
+<div-- class="milestones_in_descriptions_wrap">
   <div class="milestone_description" *ngFor="let evt of topicEvents | async; let $index = index">
     <div class="milestone_description_header">
       <div class="table_cell">
@@ -79,4 +258,4 @@
       <div class="milestone_description_text" [innerHtml]="evt.text | linky"></div>
     </div>
   </div>
-</div>
+</div-->

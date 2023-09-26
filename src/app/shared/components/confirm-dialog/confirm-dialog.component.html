@@ -2,10 +2,10 @@
 <div class="overlay" mat-dialog-close></div>
 <div class="dialog">
   <div class="dialog_header"
-    [ngClass]="{'warning': data.level === 'warn', 'error': data.level === 'delete', 'info': data.level === 'info'}">
+    [ngClass]="{'warning': data.level === 'warn', 'error': data.level === 'delete', 'info': data.level === 'info', 'voting': data.level === 'voting'}">
     <div class="header_with_icon">
       <div class="icon_notification">
-        <ng-container *ngIf="['warn', 'delete'].indexOf(data.level) > -1">
+        <ng-container *ngIf="['warn', 'delete'].indexOf(data.level) > -1 && !data.svg">
           <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="40" height="40" rx="20" fill="#F39129" />
             <path
@@ -16,7 +16,7 @@
               fill="white" />
           </svg>
         </ng-container>
-        <ng-container *ngIf="data.level === 'info'">
+        <ng-container *ngIf="data.level === 'info' && !data.svg">
           <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="40" height="40" rx="20" fill="#F39129" />
             <path
@@ -27,6 +27,7 @@
               fill="white" />
           </svg>
         </ng-container>
+        <div *ngIf="svg" [innerHtml]="svg"></div>
       </div>
       <h4 class="title" translate="{{data.heading}}"></h4>
     </div>

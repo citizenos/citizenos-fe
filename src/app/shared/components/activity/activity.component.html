@@ -8,7 +8,7 @@
   </ng-container>
   <div class="activity_header">
     <div class="activity_icon" [ngClass]="('icon_feature_'+activity.values.className)"></div>
-    <div class="date" [innerHtml]="activity.updatedAt | amDateFormat : 'L LT'"></div>
+    <div class="date" [innerHtml]="activity.updatedAt | date:'YYYY-MM-dd HH:mm'"></div>
   </div>
   <div class="activity_content">
     <div class="grouped" *ngIf="keyCounter(activitygroup.values) > 1">

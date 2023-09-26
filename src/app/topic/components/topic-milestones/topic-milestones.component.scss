@@ -1,163 +1,166 @@
-@use "vars";
-@use "mixins_n_extends";
+@use "mixins";
 
-.voting_platform_wrap {
-  padding: 20px;
-  position: relative;
-  background: vars.$white;
-  margin: 40px 60px 22px;
-  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1);
+.follow_up_wrap {
+  background-color: var(--color-dialog-follow-up);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  margin-bottom: 20px;
 
-  @media (max-width: 767px) {
-    margin: 16px 0 16px;
+  .follow_up_header {
+    display: flex;
+    width: 100%;
+    padding: 12px 16px;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--color-dialog-follow-up-contrast);
+    border-radius: 16px 16px 0px 0px;
+
+    .header_division {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+    .follow_up_title {
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 24px; /* 133.333% */
+    }
+    .follow_up_deadline {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
   }
 
-  &.create_a_milestone_wrap {
-    padding: 20px;
+  .follow_up_content {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    gap: 16px;
 
-    input,
-    textarea {
+    .milestone {
       width: 100%;
-      box-sizing: border-box;
-      padding: 12px 10px;
-      font-size: 13px;
-    }
+      display: flex;
+      flex-direction: column;
+      padding: 8px;
+      display: flex;
+      background-color: var(--color-surfaces);
+      border-radius: 8px;
+      gap: 16px;
 
-    input {
-      margin-top: 20px;
-    }
+      .milestone_header {
+        display: flex;
+        justify-content: space-between;
 
-    textarea {
-      margin-top: 10px;
-      height: 150px;
-      display: block;
-    }
+        .title_wrap {
+          display: flex;
+          gap: 16px;
+          align-items: center;
+          justify-content: flex-start;
 
-    label {
-      margin-bottom: 20px;
-    }
+          .circle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--color-dialog-follow-up);
+            color: var(--color-dialog-follow-up-contrast);
+            width: 40px;
+            height: 40px;
+            border-radius: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 24px;
+          }
+          .title_text_area {
+            display: flex;
+            flex-direction: column;
 
-    .blue_button {
-      margin-top: 15px;
-    }
-
-    .voting_platform_section:last-child {
-      padding: 0;
-
-      .blue_button {
-        height: 60px;
-        font-size: 20px;
-        display: table;
-        width: 100%;
-      }
-    }
-  }
-}
-.milestones_in_descriptions_wrap {
-  margin-bottom: 60px;
-
-  @media (max-width: 760px) {
-    margin-bottom: 50px;
-  }
-  @media (max-width: 425px) {
-    margin-bottom: 40px;
-  }
-
-  .milestone_description {
-    margin-top: 40px;
-    @media (max-width: 760px) {
-      margin-top: 30px;
-    }
-
-    .milestone_description_header {
-      height: 28px;
-      display: table;
-      margin-left: 21px;
-      margin-bottom: 5px;
-      padding-right: 20px;
-
-      @media (max-width: 760px) {
-        margin-left: 39px;
-      }
-
-      @media (max-width: 425px) {
-        margin-left: 19px;
-      }
-
-      @media print {
-        margin-left: 0;
-      }
-
-      .milestone_number {
-        font-size: 13px;
-        font-weight: vars.$bold;
-        line-height: 18px;
-        margin-left: 12px;
-        color: vars.$deep_sky_blue;
-        @media (max-width: 760px) {
-          margin-left: 7px;
+            .title_description {
+              font-size: 13px;
+              font-style: normal;
+              font-weight: 400;
+              line-height: 16px;
+            }
+            .title {
+              font-size: 18px;
+              font-style: normal;
+              font-weight: 600;
+              line-height: 24px;
+            }
+          }
         }
-        @media (max-width: 425px) {
-          margin-left: 3px;
+        .button_wrap {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 24px;
+
+          .milestone_date {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+          }
+
+          .button_dropdown {
+            background-color: initial;
+
+            .options {
+              right: 0;
+
+              .option {
+                width: max-content;
+                gap: 8px;
+              }
+            }
+          }
         }
       }
 
-      .v_line {
-        background: vars.$medium_black;
-        height: 15px;
-        width: 1px;
-        opacity: 0.7;
-        margin: 1px 10px 0;
-      }
+      .section_content {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
 
-      .milestone_date {
-        font-size: 13px;
-        opacity: 0.7;
-      }
-
-      .blue_link {
-        font-size: 13px;
+        .heading {
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 600;
+          line-height: 24px;
+          margin-top: 8px;
+        }
       }
     }
 
-    .milestone_description_content {
-      padding: 0 60px;
-      @media (max-width: 760px) {
-        padding: 0 40px;
+    .section_buttons {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      position: relative;
+      width: 100%;
+      height: 56px;
+
+      .btn_medium_submit {
+        position: absolute;
+        right: 8px;
+        bottom: 0;
       }
-      @media (max-width: 425px) {
-        padding: 0 20px;
-      }
+    }
 
-      .milestone_description_title {
-        font-size: 36px;
-        font-weight: vars.$bold;
-        line-height: 40px;
-        margin-bottom: 19px;
-        word-break: break-word;
+    #add_section_wrap {
+      display: flex;
+      background-color: var(--color-surfaces);
+      border-radius: 40px;
+      max-width: max-content;
+      gap: 8px;
+      padding: 8px 16px;
 
-        @media (max-width: 760px) {
-          font-size: 26px;
-          line-height: 34px;
-          margin-bottom: 10px;
-        }
-        @media (max-width: 425px) {
-          font-size: 22px;
-          line-height: 28px;
-        }
-      }
-
-      .milestone_description_text {
-        font-size: 16px;
-        line-height: 28px;
-        font-family: "Noto Sans", sans-serif;
-        word-break: break-word;
-        white-space: pre-line;
-
-        @media (max-width: 760px) {
-          font-size: 15px;
-          line-height: 25px;
-        }
+      button {
+        gap: 0;
       }
     }
   }
