@@ -3,7 +3,7 @@ import {Vote} from './vote';
 export interface Topic {
   authors: any[],
   id:	string,
-  title: string,
+  title: string | null,
   intro: string,
   description: string,
   status: string,

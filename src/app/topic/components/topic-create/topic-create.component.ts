@@ -1,9 +1,9 @@
 import { trigger, state, style } from '@angular/animations';
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild, SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { of, map, Observable, take, pipe } from 'rxjs';
+import { of, map, Observable, take, pipe, takeWhile } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { AppService } from 'src/app/services/app.service';
 import { ConfigService } from 'src/app/services/config.service';
@@ -20,6 +20,7 @@ import { TopicInviteDialogComponent } from '../topic-invite/topic-invite.compone
 import { TopicParticipantsDialogComponent } from '../topic-participants/topic-participants.component';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
+import { Attachment } from 'src/app/interfaces/attachment';
 
 @Component({
   selector: 'app-topic-create',
@@ -61,9 +62,11 @@ export class TopicCreateComponent implements OnInit {
   titleLimit = 100;
   introLimit = 500;
   groups$: Observable<Group[] | any[]> = of([]);
+  topicAttachments$ = of(<Attachment[] | any[]>[]);
+
   topicGroups = <Group[]>[];
   topic: Topic = <Topic>{
-    title: '',
+    title: null,
     intro: '',
     description: '',
     imageUrl: '',
@@ -134,11 +137,10 @@ export class TopicCreateComponent implements OnInit {
     // app.createNewTopic();
     this.route.params.pipe(
       map((params) => {
-        console.log(params)
         if (params['topicId']) {
           return this.TopicService.get(params['topicId'])
         }
-        return null;
+        return this.createTopic();
       })
       , take(1)
     ).subscribe({
@@ -148,8 +150,21 @@ export class TopicCreateComponent implements OnInit {
             next: (data) => {
               Object.assign(this.topic, data);
               this.topic.padUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.topic.padUrl);
+
+              this.TopicAttachmentService.setParam('topicId', this.topic.id);
+              this.topicAttachments$ = this.TopicAttachmentService.loadItems().pipe(
+                map((attachments) => {
+                  this.attachments = [];
+                  attachments.forEach((item) => {
+                    this.attachments.push(item);
+                  })
+                  return attachments;
+                })
+              );
             }
           })
+
+
         }
       }
     })
@@ -250,7 +265,6 @@ export class TopicCreateComponent implements OnInit {
   }
   createTopic() {
     this.topic.description = '<html><head></head><body></body></html>';
-    console.log(this.topic);
     this.TopicService.save(this.topic)
       .pipe(take(1))
       .subscribe({
@@ -276,13 +290,16 @@ export class TopicCreateComponent implements OnInit {
     this.attachmentInput?.nativeElement.click();
   };
 
+  updateTopic() {
+    return this.TopicService.patch(this.topic).pipe(take(1)).subscribe();
+  }
+
   dropboxSelect() {
     this.TopicAttachmentService
       .dropboxSelect()
       .then((attachment) => {
         if (attachment) {
-          this.attachments.push(attachment);
-          //     this.doSaveAttachment(attachment);
+          this.doSaveAttachment(attachment);
         }
       });
   };
@@ -292,8 +309,7 @@ export class TopicCreateComponent implements OnInit {
       .oneDriveSelect()
       .then((attachment) => {
         if (attachment) {
-          this.attachments.push(attachment);
-          //  this.doSaveAttachment(attachment);
+          this.doSaveAttachment(attachment);
         }
       });
   };
@@ -303,8 +319,7 @@ export class TopicCreateComponent implements OnInit {
       .googleDriveSelect()
       .then((attachment) => {
         if (attachment) {
-          this.attachments.push(attachment);
-          // this.doSaveAttachment(attachment);
+          this.doSaveAttachment(attachment);
         }
       });
   };
@@ -319,19 +334,60 @@ export class TopicCreateComponent implements OnInit {
         size: files[i].size,
         file: files[i]
       };
-      console.log(attachment);
       if (attachment.size > 50000000) {
         this.Notification.addError('MSG_ERROR_ATTACHMENT_SIZE_OVER_LIMIT');
       } else if (this.Upload.ALLOWED_FILE_TYPES.indexOf(attachment.type.toLowerCase()) === -1) {
         const fileTypeError = this.translate.instant('MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED', { allowedFileTypes: this.Upload.ALLOWED_FILE_TYPES.toString() });
         this.Notification.addError(fileTypeError);
       } else {
-        this.attachments.push(attachment);
-        // this.doSaveAttachment(attachment);
+    //    this.attachments.push(attachment);
+        this.doSaveAttachment(attachment);
       }
     }
   }
 
+  doSaveAttachment(attachment: any) {
+    attachment.topicId = this.topic.id;
+    if (attachment.file) {
+      this.Upload.topicAttachment(this.topic.id, attachment)
+        .pipe(takeWhile((e) => !e.link, true))
+        .subscribe({
+          next: (result) => {
+            if (result.link)
+              this.attachments.push(result);
+          },
+          error: (res) => {
+            if (res.errors) {
+              const keys = Object.keys(res.errors);
+              keys.forEach((key) => {
+                this.Notification.addError(res.errors[key]);
+              });
+            } else if (res.status && res.status.message) {
+              this.Notification.addError(res.status.message);
+            } else {
+              this.Notification.addError(res.message);
+            }
+          }
+        });
+    }
+    else if (attachment.id) {
+      this.TopicAttachmentService.update(attachment).pipe(take(1)).subscribe(() => {
+   //     this.attachments.push(attachment);
+      });
+    } else {
+      this.TopicAttachmentService.save(attachment).pipe(take(1)).subscribe({
+        next: (result) => {
+          if (result.id) {
+            attachment = result
+            this.attachments.push(attachment);
+          }
+        },
+        error: (res) => {
+          console.error(res);
+        }
+      });
+    }
+  };
   removeAttachment(attachment: any) {
     this.attachments.splice(this.attachments.indexOf(attachment), 1);
   }

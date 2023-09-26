@@ -111,7 +111,7 @@ export class TopicService {
   }
 
   patch(data: any) {
-    const updateFields = ['visibility', 'status', 'categories', 'endsAt', 'hashtag'];
+    const updateFields = ['title', 'visibility', 'status', 'categories', 'endsAt', 'hashtag'];
     const sendData: any = {};
 
     updateFields.forEach((field) => {
