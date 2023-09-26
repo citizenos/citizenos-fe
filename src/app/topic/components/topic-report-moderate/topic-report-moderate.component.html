@@ -19,7 +19,7 @@
         <div class="confirm_description_wrap">
           <div class="confirm_description">
             <div class="confirm_description_under_text">
-              <i>
+              <i *ngIf="topic.title">
                 {{topic.title | cosEllipsis}}
               </i>
             </div>
