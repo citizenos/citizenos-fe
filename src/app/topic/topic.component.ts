@@ -1,3 +1,4 @@
+import { TopicEventService } from './../services/topic-event.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { TopicMemberGroupService } from 'src/app/services/topic-member-group.service';
 import { Component, OnInit, Inject } from '@angular/core';
@@ -56,28 +57,20 @@ export class TopicComponent implements OnInit {
   showTags = false;
   readMore = false;
   showArgumentsTablet = (window.innerWidth <= 1024);
-  tabSelected$:Observable<string>;
+  tabSelected$: Observable<string>;
   //new end
   topic$; // decorate the property with @Input()
-  // groups$: Observable<Group[]>;
+  groups$: Observable<Group[]>;
   vote$?: Observable<Vote>;
   topicId$: Observable<string> = of('');
-  editMode$;
-  showInfoEdit = false;
+  events$?: Observable<any>;
 
-  showVoteCreateForm = false;
-  showVoteCast = false;
-  viewFollowup = false;
-  hideTopicContent = false;
   topicSocialMentions = [];
   activeCommentSection = 'arguments';
   wWidth: number = window.innerWidth;
   topicSettings = false;
   topicAttachments$ = of(<Attachment[] | any[]>[]);
-  ATTACHMENT_SOURCES = this.TopicAttachmentService.SOURCES;
   STATUSES = this.TopicService.STATUSES;
-  VOTE_TYPES = this.TopicVoteService.VOTE_TYPES;
-  routerSubscription: Subscription;
 
   constructor(
     @Inject(TranslateService) public translate: TranslateService,
@@ -94,45 +87,18 @@ export class TopicComponent implements OnInit {
     public TopicAttachmentService: TopicAttachmentService,
     public TopicArgumentService: TopicArgumentService,
     private TopicVoteService: TopicVoteService,
+    public TopicEventService: TopicEventService,
     @Inject(DomSanitizer) private sanitizer: DomSanitizer,
     public app: AppService
   ) {
-    console.log(window.innerWidth >=1024)
     this.app.darkNav = true;
 
     this.tabSelected$ = this.route.fragment.pipe(
       map((value) => {
         return value || 'discussion';
       })
-    )
-    this.routerSubscription = this.route.url.pipe(
-      tap((url) => {
-        console.log('URL', url)
-        this.showVoteCreateForm = false;
-        this.showVoteCast = false;
-        this.viewFollowup = false;
-        if (this.router.url.indexOf('votes/create') > -1) {
-          console.log('showVoteCreateForm')
-          this.showVoteCreateForm = true;
-        } else {
-          this.showVoteCreateForm = false;
-        }
-        if (this.router.url.indexOf('followup') > -1) {
-          this.viewFollowup = true;
-        }
-        if (this.router.url.indexOf('votes/') > -1 && !this.showVoteCreateForm) {
-          this.showVoteCast = true;
-        }
-      })
-    ).subscribe();
-
-
-    this.editMode$ = this.route.queryParams.pipe(
-      map((params: any) => {
-        this.app.editMode = !!params.editMode;
-        return !!params.editMode
-      })
     );
+
     this.topicId$ = this.route.params.pipe(
       switchMap((params) => {
         return of(params['topicId']);
@@ -150,12 +116,12 @@ export class TopicComponent implements OnInit {
           // Not nice, but I guess the problem starts with the 2 views using same controller. Ideally they should have a parent controller and extend that with their specific functionality
           this.dialog.closeAll();
           this.doShowReportOverlay(topic);
-          this.hideTopicContent = true;
         }
         if (topic.voteId) {
-          this.showVoteCreateForm = false;
-          this.showVoteCast = true;
           this.vote$ = this.TopicVoteService.get({ topicId: topic.id, voteId: topic.voteId });
+        }
+        if (topic.status === this.TopicService.STATUSES.followUp) {
+          this.events$ = TopicEventService.getItems({topicId: topic.id});
         }
         const padURL = new URL(topic.padUrl);
         if (padURL.searchParams.get('lang') !== this.translate.currentLang) {
@@ -166,13 +132,13 @@ export class TopicComponent implements OnInit {
         return topic;
       })
     );
-    //needs implementation
-    /*   this.groups$ = this.route.params.pipe(
-         switchMap((params) => {
-           this.TopicMemberGroupService.setParam('topicId', params['topicId']);
-           return this.TopicMemberGroupService.loadItems();
-         })
-       );*/
+    //needs API implementation
+    this.groups$ = this.route.params.pipe(
+      switchMap((params) => {
+        this.TopicMemberGroupService.setParam('topicId', params['topicId']);
+        return this.TopicMemberGroupService.loadItems();
+      })
+    );
 
     this.topicAttachments$ = this.topicId$.pipe(
       switchMap((topicId: string) => {
@@ -183,7 +149,6 @@ export class TopicComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.routerSubscription.unsubscribe();
   }
 
   leaveTopic(topic: Topic) {
@@ -224,10 +189,6 @@ export class TopicComponent implements OnInit {
     return this.Location.currentUrl();
   }
 
-  hideInfoEdit() {
-    this.showInfoEdit = false;
-  };
-
   togglePin(topic: Topic) {
     this.TopicService.togglePin(topic);
   }
@@ -240,10 +201,6 @@ export class TopicComponent implements OnInit {
     })
 
     reportDialog.afterClosed().subscribe((confirm) => {
-      if (confirm) {
-        return this.hideTopicContent = false;
-      }
-
       return this.router.navigate(['/']);
     })
   };
@@ -272,7 +229,7 @@ export class TopicComponent implements OnInit {
     const inviteDialog = this.dialog.open(TopicInviteDialogComponent, { data: { topic } });
     inviteDialog.afterClosed().subscribe({
       next: (res) => {
-     //   this.NotificationService.addSuccess('');
+        //   this.NotificationService.addSuccess('');
       },
       error: (error) => {
         this.NotificationService.addError(error);
@@ -284,7 +241,7 @@ export class TopicComponent implements OnInit {
     const participantsDialog = this.dialog.open(TopicParticipantsComponent, { data: { topic } });
     participantsDialog.afterClosed().subscribe({
       next: (res) => {
-     //   this.NotificationService.addSuccess('');
+        //   this.NotificationService.addSuccess('');
       },
       error: (error) => {
         this.NotificationService.addError(error);
@@ -316,20 +273,23 @@ export class TopicComponent implements OnInit {
   };
 
   startVote(topic: Topic) {
-    this.dialog.open(TopicVoteCreateDialogComponent, {data: {
-      topic: topic
-    }})
+    this.dialog.open(TopicVoteCreateDialogComponent, {
+      data: {
+        topic: topic
+      }
+    })
   }
 
   canSendToFollowUp(topic: Topic) {
-    return true;
     return this.TopicService.canSendToFollowUp(topic);
   }
 
   sendToFollowUp(topic: Topic, stateSuccess?: string) {
-    this.dialog.open(TopicFollowUpCreateDialogComponent, {data: {
-      topic: topic
-    }})
+    this.dialog.open(TopicFollowUpCreateDialogComponent, {
+      data: {
+        topic: topic
+      }
+    })
   };
 
 }

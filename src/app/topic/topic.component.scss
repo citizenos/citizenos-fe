@@ -434,6 +434,12 @@
                 width: 50%;
                 background-color: var(--color-voting-disabled);
               }
+              .follow_up {
+                height: 4px;
+                display: flex;
+                width: 50%;
+                background-color: var(--color-dialog-follow-up-contrast);
+              }
             }
           }
         }
