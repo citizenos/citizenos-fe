@@ -1,85 +1,115 @@
-<div id="root_lightbox">
-  <div id="lightbox" class="id_signing">
-    <div id="lightbox_wrap">
-
-      <div id="lightbox_header">
-
-        <div id="lightbox_header_text">
-          <div class="title" translate="MODALS.TOPIC_VOTE_SIGN_SMARTID_HEADING"></div>
-          <div class="title_description">{{topic.title}}</div>
-        </div>
-
-        <div id="lightbox_close" mat-dialog-close>
-          <div class="table_cell">
-            <div class="sprite sprite-btn-popup-close2x">
-            </div>
-          </div>
-        </div>
-
-        <div class="clearer"></div>
-
-        <div class="voting_tag_padding">
-          <span *ngIf="options.length === 1" translate="MODALS.TOPIC_VOTE_SIGN_TXT_VOTING_FOR" [translateParams]="{optionSelected: options[0]}"></span>
-          <div class="voting_tag" *ngFor="let option of options">
-            <div class="table_cell">
-              <span class="bold" [innerHtml]="getOptionValueText(option.value) | linky"></span> <!--translate-default="{{option.value | linky}}"-->
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="lightbox_content">
-        <form name="signSmartIdForm" [formGroup]="signForm" novalidate>
-          <div class="sign_in_section sid">
-            <div class="sprite_big sprite sprite-smart-i-d2x"></div>
-            <div *ngIf="isLoading && !challengeID" class="loader_wrap">
-              <div class="loader"></div>
-            </div>
-            <div *ngIf="!challengeID && !isLoading">
-              <input *ngIf="!isLoading" id="countryCode" formControlName="countryCode" [maxlength]="2"
-              [ngClass]="{error_input: signForm.errors && signForm.errors['countryCode']}" [placeholder]="'MODALS.TOPIC_VOTE_SIGN_SMARTID_PLACEHOLDER_COUNTRY_CODE' | translate"
-              (focus)="wWidth > 1024" pattern="^[A-Z]{2}$" required>
-
-              <!--label for="countryCode" class="error_label"
-                ng-if="formSmartIdSign.countryCode.$error.pattern && formSmartIdSign.countryCode.$touched">
-                <div class="table_cell">
-                  <div class="icon_notification_error_small"></div>
-                  <span translate="MODALS.TOPIC_VOTE_SIGN_SMARTID_ERROR_COUNTRY_CODE"></span>
-                </div>
-              </!--label-->
-              <input *ngIf="!isLoading" formControlName="pid" name="pid" type="text"
-              inputmode="numeric" [placeholder]="'MODALS.TOPIC_VOTE_SIGN_SMARTID_PLACEHOLDER_PID' | translate" ngModel pattern="/^[0-9]{11}$/"
-              required>
-              <!--input id="pid" name="pid" type="text" inputmode="numeric" ng-model="$ctrl.TopicVoteService.pid"
-                placeholder="{{'MODALS.TOPIC_VOTE_SIGN_SMARTID_PLACEHOLDER_PID' | translate}}"
-                ng-class="{'error_input': formSmartIdSign.pid.$touched}" required>
-              <label-- for="pid" class="error_label" ng-if="formSmartIdSign.pid.$touched">
-                <div class="table_cell">
-                  <div class="icon_notification_error_small"></div>
-                  <span translate="MODALS.TOPIC_VOTE_SIGN_SMARTID_ERROR_PID">Invalid personal identification code</span>
-                </div>
-              </label-->
-            </div>
-
-            <div *ngIf="challengeID">
-              <div class="code" translate="MODALS.TOPIC_VOTE_SIGN_SMARTID_TXT_CONTROL_CODE"
-                [translateParams]="{code: challengeID}"></div>
-              <div class="code_text" translate="MODALS.TOPIC_VOTE_SIGN_SMARTID_TXT_CHECK_CONTROL_CODE"></div>
-              <div class="loader_wrap">
-                <div class="loader"></div>
-              </div>
-            </div>
-            <button type="submit" (click)="doSignWithSmartId()"
-              [disabled]="isLoading" class="blue_button"
-              translate="MODALS.TOPIC_VOTE_SIGN_SMARTID_BTN_SIGN"></button><!--formSmartIdSign.$invalid-->
-          </div>
-        </form>
-      </div>
-
+<div class="overlay" mat-dialog-close></div>
+<div class="dialog">
+  <div class="dialog_header voting">
+    <div class="header_text">
+      <h4 class="title" translate="MODALS.TOPIC_VOTE_SIGN_SMARTID_HEADING"></h4>
+    </div>
+    <div class="dialog_close">
+      <button class="btn_dialog_close" mat-dialog-close>
+        <div class="icon_mobile_close"></div>
+      </button>
     </div>
   </div>
+  <div class="dialog_content">
+    <div class="vote_options">
+      <span *ngIf="options.length === 1" translate="MODALS.TOPIC_VOTE_SIGN_TXT_VOTING_FOR"
+        [translateParams]="{optionSelected: options[0]}"></span>
+      <ng-container *ngFor="let option of options">
+        <div class="vote_option radio_wrap selected" *ngIf="option.selected">
+          <div class="radio_text_wrap">
+            <div class="radio_lable_wrap">
+              <label class="checkbox"><span
+                  translate="{{'COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_' + option.value  | uppercase}}"
+                  [translateParams]="{default: option.value}"></span>
+                <input type="checkbox" [checked]="option.selected" />
+                <span class="checkmark"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <div class="form_wrap">
+      <form name="loginSmartIdForm" [formGroup]="signForm" novalidate>
 
-  <div id="close_lightbox" mat-dialog-close>
+        <div *ngIf="isLoading && !challengeID" class="loader_wrap">
+          <div class="loader"></div>
+        </div>
+        <ng-container *ngIf="!challengeID && !isLoading">
+          <cos-input placeholder="{{'MODALS.TOPIC_VOTE_SIGN_SMARTID_PLACEHOLDER_COUNTRY_CODE' | translate}}">
+            <input id="countryCode" formControlName="countryCode" type="text" [maxlength]="2"
+              [placeholder]="'MODALS.TOPIC_VOTE_SIGN_SMARTID_PLACEHOLDER_COUNTRY_CODE' | translate"
+              [ngClass]="{'error_input': signForm.controls['countryCode'].errors && signForm.controls['countryCode'].errors['pattern'] && signForm.touched}"
+              pattern="^[A-Z]{2}$" required>
+            <label for="pid" class="error_label"
+              *ngIf="signForm.controls['countryCode'].errors && signForm.controls['countryCode'].errors['pattern'] && signForm.touched">
+              <div class="table_cell">
+                <div class="icon_notification_error_small"></div>
+                <span translate="MODALS.TOPIC_VOTE_SIGN_SMARTID_ERROR_COUNTRY_CODE"></span>
+              </div>
+            </label>
+          </cos-input>
+          <cos-input placeholder="{{'MODALS.TOPIC_VOTE_SIGN_SMARTID_PLACEHOLDER_PID' | translate}}">
+            <input id="pid" formControlName="pid" type="text" inputmode="numeric"
+              [placeholder]="'MODALS.TOPIC_VOTE_SIGN_SMARTID_PLACEHOLDER_PID' | translate"
+              [ngClass]="{'error_input': signForm.controls['pid'].errors && signForm.controls['pid'].errors['pattern'] && signForm.touched}">
+            <label for="pid" class="error_label"
+              *ngIf="signForm.controls['pid'].errors && signForm.controls['pid'].errors['pattern'] && signForm.touched">
+              <div class="table_cell">
+                <div class="icon_notification_error_small"></div>
+                <span translate="MODALS.TOPIC_VOTE_SIGN_SMARTID_ERROR_PID"></span>
+              </div>
+            </label>
+          </cos-input>
+        </ng-container>
+        <svg width="82" height="20" viewBox="0 0 82 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M12.4667 6.39959C12.4667 6.79959 12.1555 7.1107 11.7555 7.1107C11.3555 7.1107 11.0444 6.79959 11.0444 6.39959C11.0444 5.99959 11.3555 5.68848 11.7555 5.68848C12.1555 5.68848 12.4667 5.99959 12.4667 6.39959Z"
+            fill="#00AFAA" />
+          <path
+            d="M15.4443 18.1333C15.2665 18.1333 15.0888 18.0444 14.9777 17.9111C14.7999 17.6666 14.8443 17.3111 15.0888 17.1111C17.3332 15.4666 18.6665 12.8444 18.6665 10.0666C18.6888 5.26662 14.7554 1.33329 9.91099 1.33329C9.48877 1.33329 9.06655 1.35551 8.64432 1.42218V13.7777C8.64432 14.0888 8.39988 14.3333 8.06655 14.3333C7.75544 14.3333 7.48877 14.0888 7.48877 13.7777V0.93329C7.48877 0.666623 7.68877 0.422179 7.95544 0.377734C8.59988 0.244401 9.24432 0.177734 9.91099 0.177734C15.3777 0.177734 19.8221 4.59996 19.8221 10.0444C19.8221 13.1777 18.311 16.1555 15.7777 18C15.6665 18.1111 15.5554 18.1333 15.4443 18.1333Z"
+            fill="#00AFAA" />
+          <path
+            d="M9.91111 19.9555C4.44444 19.9555 0 15.5111 0 10.0889C0 6.95554 1.51111 3.97776 4.04444 2.13332C4.31111 1.93332 4.66667 1.99998 4.84444 2.24443C5.02222 2.48887 4.97778 2.84443 4.73333 3.04443C2.46667 4.66665 1.13333 7.31109 1.13333 10.0889C1.13333 14.9111 5.06667 18.8222 9.91111 18.8222C10.3333 18.8222 10.7556 18.8 11.1778 18.7333V10.6222C11.1778 10.3111 11.4222 10.0666 11.7556 10.0666C12.0667 10.0666 12.3333 10.3111 12.3333 10.6222V19.2C12.3333 19.4667 12.1333 19.7111 11.8667 19.7555C11.2222 19.8889 10.5778 19.9555 9.91111 19.9555Z"
+            fill="#00AFAA" />
+          <path
+            d="M24.4443 11.5411H25.7894C25.8811 12.3096 26.1868 12.9552 27.4708 12.9552C28.2962 12.9552 28.9076 12.4941 28.9076 11.787C28.9076 11.0799 28.5713 10.834 27.3179 10.6188C25.5143 10.3729 24.6278 9.81949 24.6278 8.40535C24.6278 7.17566 25.6977 6.22266 27.2568 6.22266C28.877 6.22266 29.8553 6.96047 30.0081 8.43609H28.7242C28.5713 7.6368 28.1433 7.29863 27.2568 7.29863C26.4008 7.29863 25.9423 7.69828 25.9423 8.28238C25.9423 8.89723 26.1868 9.20465 27.5014 9.3891C29.2744 9.63504 30.2221 10.1577 30.2221 11.664C30.2221 12.9859 29.1216 14.0004 27.4402 14.0004C25.4226 14.0004 24.5666 12.9859 24.4443 11.5411Z"
+            fill="#00AFAA" />
+          <path
+            d="M33.1111 6.22266H35.0247L37.0308 11.5128L39.0061 6.22266H40.8889V14.0004H39.4691V8.112L37.1852 14.0004H36.7222L34.3765 8.112V14.0004H33.1111V6.22266Z"
+            fill="#00AFAA" />
+          <path d="M62.3771 7.35626H60.2222V6.22266H65.9999V7.35626H63.845V14.0004H62.3771V7.35626Z" fill="#00AFAA" />
+          <rect x="66.2222" y="10" width="2.88889" height="1.11111" fill="#00AFAA" />
+          <path
+            d="M50.4444 14.0004L47.8642 6.22266H45.9449L43.3333 14.0004H44.7177L46.8259 7.38775L47.8957 10.7571H46.9517L46.6056 11.8907H48.2418L48.934 14.0004H50.4444Z"
+            fill="#00AFAA" />
+          <rect x="71.1111" y="6.22266" width="1.33333" height="7.77778" fill="#00AFAA" />
+          <path
+            d="M78.054 6.22266H75.7776V14.0004H77.1738V12.8668V7.35626H77.9933C79.7537 7.35626 80.5125 8.36391 80.5125 10.0328V10.1273C80.5125 11.5758 79.9359 12.5205 78.7521 12.7724V13.9689C80.9375 13.717 81.9998 12.2056 81.9998 10.1273V10.0328C81.9695 7.76562 80.6947 6.22266 78.054 6.22266Z"
+            fill="#00AFAA" />
+          <path
+            d="M56.2654 10.6626C57.2443 10.4107 58.0022 9.78091 58.0022 8.58433V8.52135C58.0022 6.9469 56.8022 6.22266 55.0654 6.22266H52.4443V14.0004H53.897V7.35626H55.0654C56.0128 7.35626 56.5496 7.67115 56.5496 8.55284V8.58433C56.5496 9.40304 56.0443 9.8124 55.0654 9.8124H54.8128V10.8515L56.8654 14.0004H58.4443L56.2654 10.6626Z"
+            fill="#00AFAA" />
+        </svg>
+
+        <div *ngIf="challengeID">
+          <div class="code" translate="MODALS.TOPIC_VOTE_SIGN_SMARTID_TXT_CONTROL_CODE"
+            [translateParams]="{code: challengeID}">
+          </div>
+          <div class="code_text" translate="MODALS.TOPIC_VOTE_SIGN_SMARTID_TXT_CHECK_CONTROL_CODE"></div>
+          <div class="loader_wrap">
+            <div class="loader"></div>
+          </div>
+        </div>
+        <button id="submit_button" type="submit" (click)="doSignWithSmartId()"
+          [disabled]="isLoading || signForm.invalid" class="btn_big_submit">
+          <span translate="MODALS.TOPIC_VOTE_SIGN_SMARTID_BTN_SIGN"></span>
+        </button>
+
+      </form>
+    </div>
+
   </div>
-
+  <div class="dialog_footer">
+  </div>
 </div>

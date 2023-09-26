@@ -27,6 +27,7 @@ export class TopicMilestonesComponent implements OnInit {
   constructor(private dialog: MatDialog, private TopicEventService: TopicEventService, private TopicService: TopicService) {
     this.topicEvents = this.TopicEventService.loadItems();
     this.countTotal = this.TopicEventService.countTotal$;
+    console.log('MILESTONES')
   }
 
   ngOnInit(): void {
@@ -58,6 +59,7 @@ export class TopicMilestonesComponent implements OnInit {
     event.topicId = this.topic.id;
     const deleteDialog = this.dialog.open(ConfirmDialogComponent, {
       data: {
+        level: 'delete',
         heading: 'MODALS.TOPIC_EVENT_DELETE_CONFIRM_HEADING',
         title: 'MODALS.TOPIC_EVENT_DELETE_CONFIRM_TXT_ARE_YOU_SURE',
         description: event.subject,

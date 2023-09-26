@@ -1,0 +1,48 @@
+@use 'mixins';
+
+.dialog {
+  max-width: 560px;
+
+  .dialog_info {
+    text-align: center;
+
+    #input_area {
+      width: 100%;
+    }
+
+    .search_dropdown_item {
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+      padding: 8px;
+      justify-content: space-between;
+      border-radius: 5px;
+      width: 100%;
+      &.active {
+        background-color: var(--color-surface-contrast);
+      }
+
+      .item_text_wrap {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        vertical-align: middle;
+      }
+
+      @include mixins.mobile {
+        flex-direction: column;
+      }
+    }
+  }
+  .row_list {
+    width: 100%;
+    background-color: var(--color-argument-pro-medium);
+    justify-content: space-between;
+    padding: 8px;
+    border-radius: 8px;
+  }
+
+  .dialog_footer {
+    flex-direction: column;
+  }
+}
