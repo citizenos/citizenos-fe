@@ -136,6 +136,7 @@ mat-dialog-container {
 
   .dialog_content {
     width: 100%;
+    max-width: 560px;
     display: flex;
     flex-direction: column;
     background-color: var(--color-dialog-background);

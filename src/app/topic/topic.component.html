@@ -145,7 +145,7 @@
       </svg>
       <span class="tab_text" translate="COMPONENTS.TOPIC.TAB_DISCUSSION"></span>
     </a>
-    <a class="topic_tab" [ngClass]="tabSelected=== 'ideation' ? 'active' : ''">
+    <!--a class="topic_tab" [ngClass]="tabSelected=== 'ideation' ? 'active' : ''">
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="32" height="32" rx="16" fill="#EFE08A" />
         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -153,7 +153,7 @@
           fill="white" />
       </svg>
       <span class="tab_text" translate="COMPONENTS.TOPIC.TAB_IDEATION"></span>
-    </a>
+    </!--a-->
     <a class="topic_tab" [ngClass]="tabSelected=== 'voting' ? 'active' : ''" [routerLink]="['./']" fragment="voting">
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="32" height="32" rx="16" fill="#98DAA2" />
@@ -546,7 +546,7 @@
           </div>
         </div>
       </div>
-      <div class="state_item empty ideation">
+      <!--div class="state_item empty ideation">
         <div class="icon_wrap">
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="32" height="32" rx="16" fill="#EFE08A" />
@@ -567,7 +567,7 @@
               fill="#2C3B47" />
           </svg>
         </div>
-      </div>
+      </!--div-->
       <div class="state_item vote" [ngClass]="{'empty': !topic.voteId}">
         <ng-container *ngIf="!topic.voteId">
           <div class="icon_wrap">
@@ -577,7 +577,10 @@
                 fill="white" />
             </svg>
           </div>
-          <div class="state_item_text" translate="COMPONENTS.TOPIC.STATE_ITEM_NO_VOTING"></div>
+          <div class="state_item_text">
+            <button class="btn_medium_plain"
+              translate="COMPONENTS.TOPIC.STATE_ITEM_NO_VOTING"></button>
+          </div>
           <div class="info_icon">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -691,7 +694,7 @@
       </svg>
       <span class="tab_text" translate="COMPONENTS.TOPIC.TAB_DISCUSSION"></span>
     </a>
-    <a class="topic_tab" [ngClass]="tabSelected=== 'ideation' ? 'active' : ''">
+    <!--a class="topic_tab" [ngClass]="tabSelected=== 'ideation' ? 'active' : ''">
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="32" height="32" rx="16" fill="#EFE08A" />
         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -699,7 +702,7 @@
           fill="white" />
       </svg>
       <span class="tab_text" translate="COMPONENTS.TOPIC.TAB_IDEATION"></span>
-    </a>
+    </!--a-->
     <a class="topic_tab" [ngClass]="tabSelected=== 'voting' ? 'active' : ''" [routerLink]="['./']" fragment="voting">
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="32" height="32" rx="16" fill="#98DAA2" />
