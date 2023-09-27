@@ -156,7 +156,7 @@
 
           <div class="create_content_block discussion" [ngClass]="{'active': block.description}"
             [@openClose]="block.description ? 'open' : 'closed'">
-            <div class="block_title_wrap" (click)="block.description = true; (!topic.padUrl)? createTopic(): '' ">
+            <div class="block_title_wrap" (click)="block.description = true;">
               <div class="block_title">Document</div>
               <div class="counter_wrap">
                 <div class="char_counter">{{topic.intro.length}}/{{introLimit}}</div>
@@ -601,7 +601,7 @@
                 fill="#2C3B47" />
             </svg>
           </button>
-          <button class="btn_big_submit" (click)="(tabSelected!=='preview')? nextTab(tabSelected) : createTopic()">
+          <button class="btn_big_submit" (click)="(tabSelected!=='preview')? nextTab(tabSelected) : updateTopic()">
             <span class="btn_text"
               [translate]="(tabSelected!=='preview')? 'VIEWS.TOPIC_CREATE.FOOTER_BTN_CONTINUE': 'VIEWS.TOPIC_CREATE.FOOTER_BTN_CREATE'"></span>
             <svg id="continue_btn" width="24" height="24" viewBox="0 0 24 24" fill="none"
