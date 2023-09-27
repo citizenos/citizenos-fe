@@ -85,7 +85,7 @@
       <div class="left_row">
 
         <div class="input_with_icon clickable" *ngFor="let option of vote.options; let $index = index">
-          <input id="{{'voteOption' + $index}}" class="gray_borders" [(ngModel)]="option.value"
+          <input id="{{'voteOption' + $index}}" class="gray_borders" [(ngModel)]="option.value" [maxlength]="200"
             [ngClass]="{'error_input': option.value && errors?.value}"
             placeholder="{{'VIEWS.TOPICS_TOPICID.PLACEHOLDER_ENTER_A_POSSIBLE_ANSWER' | translate}}">
           <div class="icon_table" [ngClass]="{'error': option.value && errors?.value}">
