@@ -623,3 +623,67 @@ cos-toggle {
   z-index: 9999;
   background-color: rgba(0, 0, 0, 0.5);
 }
+
+.notification_inline {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  padding: 16px;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  position: relative;
+  background-color: var(--color-surfaces);
+  border-radius: 16px;
+
+  &.error {
+    background-color: var(--color-error-background);
+  }
+
+  &.info {
+    background-color: var(--color-info-background);
+  }
+
+  &.warning {
+    background-color: var(--color-warn-background);
+  }
+
+  &.success {
+    background-color: var(--color-success-background);
+  }
+
+  @include mixins.mobile {
+    flex-direction: column;
+    width: auto;
+    margin: 0px 16px 16px 16px;
+  }
+
+  .btn_medium_nav {
+    position: absolute;
+    float: right;
+    right: 16px;
+    top: 16px;
+  }
+
+  .message {
+    width: calc(100% - 77px);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+
+    .title {
+      font-size: 16px;
+      line-height: 16px;
+      font-weight: 700;
+    }
+  }
+  .icon_notification {
+    @include mixins.mobile {
+      svg {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+}
