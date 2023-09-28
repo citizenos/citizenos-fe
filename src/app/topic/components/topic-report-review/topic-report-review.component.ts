@@ -6,6 +6,7 @@ import { TopicReportFormData } from '../topic-report-form/topic-report-form.comp
 import { switchMap, take } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { TopicService } from 'src/app/services/topic.service';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-topic-report-review',
   templateUrl: './topic-report-review.component.html',
@@ -14,10 +15,14 @@ import { TopicService } from 'src/app/services/topic.service';
 export class TopicReportReviewComponent implements OnInit {
   reportTypes = Object.keys(this.TopicReportService.TYPES);
   topic!: Topic;
-  text = '';
 
   isLoading = false;
   errors = <any>null;
+
+  review = new UntypedFormGroup({
+    text: new UntypedFormControl('', Validators.required),
+  });
+
   constructor(@Inject(MAT_DIALOG_DATA) public data: TopicReportFormData, private dialog: MatDialog, private TopicReportService: TopicReportService) {
     this.topic = data.topic;
   }
@@ -26,15 +31,14 @@ export class TopicReportReviewComponent implements OnInit {
   }
 
   doReview() {
-    console.log(this.text);
     this.isLoading = true;
-
+    if (!this.review.value.text) return;
     this.TopicReportService
       .review(
         {
           topicId: this.topic.id,
           id: this.topic.report?.id,
-          text: this.text
+          text: this.review.value.text
         }
       ).pipe(take(1))
       .subscribe({

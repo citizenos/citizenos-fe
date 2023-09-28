@@ -78,7 +78,6 @@ export class TopicReportFormComponent implements OnInit {
 export class TopicReportFormDialogComponent implements OnInit {
 
   constructor(dialog: MatDialog, router: Router, route: ActivatedRoute, TopicService: TopicService) {
-    console.log('TOPICREPORTDIALOG')
     route.params.pipe(switchMap((params) => {
       return TopicService.get(params['topicId']);
     })).pipe(take(1))
