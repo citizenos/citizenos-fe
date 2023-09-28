@@ -218,7 +218,6 @@ textarea {
       justify-content: space-between;
       background-color: var(--color-background);
       border-radius: 16px;
-
     }
 
     .input_area {
@@ -264,7 +263,8 @@ textarea {
         background-color: initial;
         color: var(--color-link);
 
-        path, circle {
+        path,
+        circle {
           fill: var(--color-link);
         }
       }
@@ -315,25 +315,25 @@ textarea {
 
 .mobile_hidden {
   @include mixins.mobile {
-    display: none!important;
+    display: none !important;
   }
 }
 .mobile_show {
-  display: none!important;
+  display: none !important;
   @include mixins.mobile {
-    display: flex!important;
+    display: flex !important;
   }
 }
 .tablet_hidden {
   @include mixins.tablet {
-    display: none!important;
+    display: none !important;
   }
 }
 
 .tablet_show {
-  display: none!important;
+  display: none !important;
   @include mixins.tablet {
-    display: flex!important;
+    display: flex !important;
   }
 }
 
@@ -428,7 +428,7 @@ html {
   display: flex;
 
   &.vote {
-    background:var(--color-dialog-voting-contrast);
+    background: var(--color-dialog-voting-contrast);
   }
 }
 
@@ -481,7 +481,8 @@ cos-input {
     display: flex;
     flex-direction: column;
 
-    input, textarea {
+    input,
+    textarea {
       position: relative;
 
       &.with_value {
@@ -502,7 +503,6 @@ cos-input {
 cos-toggle {
   width: max-content;
 }
-
 
 .form_wrap {
   display: flex;
@@ -686,4 +686,90 @@ cos-toggle {
       }
     }
   }
+}
+
+.blur {
+  filter: blur(1rem);
+}
+
+.tour_overlay {
+  @extend %all_zero;
+  position: fixed;
+  cursor: pointer;
+  z-index: 12;
+  backdrop-filter: blur(2px);
+}
+
+.tour_box {
+  display: flex;
+  flex-direction: column;
+  z-index: 999999999999;
+  border-radius: 8px;
+  background: var(--color-text);
+  padding: 16px;
+  gap: 16px;
+  position: absolute;
+  right: -410px;
+  width: 400px;
+  /* Shadow/Heavy */
+  box-shadow: 0px 8px 20px 0px rgba(220, 231, 240, 0.3),
+    0px 12px 16px 0px rgba(50, 85, 112, 0.1);
+
+  .tour_header,
+  .tour_footer {
+    display: flex;
+    justify-content: space-between;
+    color: var(--color-scrollbar-thumb);
+    a {
+      color: var(--color-scrollbar-thumb);
+
+      &.skip {
+        color: var(--color-error-background);
+      }
+    }
+
+    .nav_items_wrap {
+      display:flex;
+      gap: 8px;
+
+      .nav_item {
+        width: 8px;
+        height: 8px;
+        border-radius: 8px;
+        background-color: var(--color-argument-info);
+
+        &.active {
+          background-color: var(--color-scrollbar-thumb);
+        }
+      }
+    }
+  }
+
+  .tour_content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    text-align: left;
+    gap: 8px;
+
+    .title {
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 24px; /* 133.333% */
+    }
+
+    .description {
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 20px; /* 142.857% */
+    }
+  }
+}
+
+.tour_item {
+  position: relative;
+  z-index: 999999999999;
 }

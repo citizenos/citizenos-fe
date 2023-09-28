@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { TopicService } from 'src/app/services/topic.service';
 import { PublicTopicService } from 'src/app/services/public-topic.service';
@@ -8,7 +8,6 @@ import { GroupService } from 'src/app/services/group.service';
 import { of, Subject, Observable } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { Group } from 'src/app/interfaces/group';
-import { GroupCreateComponent } from 'src/app/group/components/group-create/group-create.component';
 import { MatDialog } from '@angular/material/dialog';
 import { TopicCreateComponent } from 'src/app/topic/components/topic-create/topic-create.component';
 import { AppService } from 'src/app/services/app.service';
@@ -32,7 +31,6 @@ export class HomeComponent implements OnInit {
     private dialog: MatDialog,
     private AuthService: AuthService,
     public app: AppService,
-    private route: ActivatedRoute,
     private location: LocationService,
     private router: Router,
     private Topic: TopicService,
