@@ -39,6 +39,6 @@ export class TopicFollowUpCreateDialogComponent {
     return this.TopicService.changeState(this.topic, 'followUp', this.route.toString());
   }
   tabNext () {
-    (this.tabActive < 4)? this.tabActive = this.tabActive+1 : this.startFollowUp();
+    (this.tabActive < this.tabs.length)? this.tabActive = this.tabActive+1 : this.startFollowUp();
   }
 }

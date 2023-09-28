@@ -606,7 +606,7 @@
             </svg>
           </div>
           <div class="state_item_text">
-            <button class="btn_medium_plain" translate="COMPONENTS.TOPIC.STATE_ITEM_NO_VOTING"></button>
+            <button class="btn_medium_plain" translate="COMPONENTS.TOPIC.STATE_ITEM_NO_VOTING" (click)="startVote(topic)"></button>
           </div>
           <div class="info_icon">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -655,7 +655,8 @@
                 fill="white" />
             </svg>
           </div>
-          <div class="state_item_text"><button class="btn_medium_plain"
+          <div class="state_item_text">
+            <button class="btn_medium_plain" (click)="sendToFollowUp(topic)"
               translate="COMPONENTS.TOPIC.STATE_ITEM_ADD_FOLLOW_UP"></button></div>
           <div class="info_icon">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

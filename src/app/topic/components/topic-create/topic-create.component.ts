@@ -294,6 +294,11 @@ export class TopicCreateComponent implements OnInit {
     return this.TopicService.patch(this.topic).pipe(take(1)).subscribe();
   }
 
+  publish() {
+    this.updateTopic();
+    this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
+  }
+
   dropboxSelect() {
     this.TopicAttachmentService
       .dropboxSelect()

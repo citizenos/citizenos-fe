@@ -1,11 +1,10 @@
-.image_cell{
-  width: 50px;
-  .profile_image_wrapper {
-    padding: 0;
-    margin: 5px 0px;
-  }
-}
+.button_options {
+  &.options {
+    right: 0;
 
-.user_cell {
-  text-align: left;
+    .option {
+      width: max-content;
+      gap: 8px;
+    }
+  }
 }

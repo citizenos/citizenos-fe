@@ -34,7 +34,6 @@ import { TopicVoteSignEsteidComponent } from './components/topic-vote-sign-estei
 import { TopicVoteSignSmartidComponent } from './components/topic-vote-sign-smartid/topic-vote-sign-smartid.component';
 import { ArgumentReportComponent } from './components/argument-report/argument-report.component';
 import { ArgumentReportModerateComponent, ArgumentReportModerateDialogComponent } from './components/argument-report-moderate/argument-report-moderate.component';
-import { BigGraphComponent } from './components/big-graph/big-graph.component';
 import { RegularGraphComponent } from './components/regular-graph/regular-graph.component';
 import { TopicJoinComponent } from './components/topic-join/topic-join.component';
 import { TopicInvitationComponent } from './components/topic-invitation/topic-invitation.component';
@@ -82,7 +81,6 @@ import { TopicFollowUpCreateDialogComponent } from './components/topic-follow-up
     ArgumentReportModerateComponent,
     ArgumentReportModerateDialogComponent,
     VoteClosedComponent,
-    BigGraphComponent,
     RegularGraphComponent,
     TopicJoinComponent,
     TopicInvitationComponent,
@@ -102,8 +100,7 @@ import { TopicFollowUpCreateDialogComponent } from './components/topic-follow-up
     TranslateModule,
   ],
   exports: [
-    VoteClosedComponent,
-    BigGraphComponent
+    VoteClosedComponent
   ]
 })
 export class TopicModule { }

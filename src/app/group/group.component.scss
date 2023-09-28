@@ -339,8 +339,8 @@
         }
       }
 
-
-      #extra_info_left, #extra_info_right {
+      #extra_info_left,
+      #extra_info_right {
         display: flex;
         flex-direction: column;
         gap: 20px;
@@ -360,7 +360,6 @@
           max-width: 100%;
         }
       }
-
 
       #rule_items_wrap {
         display: flex;
