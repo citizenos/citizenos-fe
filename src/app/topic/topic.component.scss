@@ -3,6 +3,10 @@
 .page_content {
   gap: 24px;
 
+  &.reported {
+    filter: blur(1.5rem);
+  }
+
   @include mixins.tablet {
     margin: 60px 0;
     padding: 8px;

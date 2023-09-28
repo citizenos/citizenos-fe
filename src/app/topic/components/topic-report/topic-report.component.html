@@ -1,64 +1,72 @@
-<!-- LIGHTBOX SKELETON -->
-<div id="root_lightbox">
-  <div id="lightbox" class="id_signing delete_topic wide_lightbox">
-    <div id="lightbox_wrap">
-
-      <div id="lightbox_header">
-
-
-        <div id="lightbox_header_text">
-          <div class="title" translate="MODALS.TOPIC_REPORT_REPORTID_HEADING_2"></div>
-        </div>
-
-        <div class="line lightest_line"></div>
-
+<div class="overlay" mat-dialog-close></div>
+<div class="dialog">
+  <div class="dialog_header warning">
+    <div class="header_with_icon">
+      <div class="icon_notification">
+        <ng-container>
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="40" height="40" rx="20" fill="#F39129" />
+            <path
+              d="M19.0645 8C18.4876 8 18.0304 8.48668 18.0664 9.06238L18.9414 23.0624C18.9743 23.5894 19.4114 24 19.9395 24H20.0605C20.5886 24 21.0257 23.5894 21.0586 23.0624L21.9336 9.06238C21.9696 8.48668 21.5124 8 20.9355 8H19.0645Z"
+              fill="white" />
+            <path
+              d="M20 31C21.1046 31 22 30.1046 22 29C22 27.8954 21.1046 27 20 27C18.8954 27 18 27.8954 18 29C18 30.1046 18.8954 31 20 31Z"
+              fill="white" />
+          </svg>
+        </ng-container>
       </div>
-
-
-      <div class="lightbox_content">
-
-        <div class="second_header">
-
-          <div class="sprite sprite-icon-delete-topic2x"></div>
-          <div class="delete_title" translate="MODALS.TOPIC_REPORT_REPORTID_HEADING"></div>
-          <div class="delete_title" translate="MODALS.TOPIC_REPORT_REPORTID_HEADING_2"></div>
-
-        </div>
-
-        <div class="line_wrap">
-          <div class="line lightest_line"></div>
-        </div>
-
-        <div id="delete_info_wrap">
-          <h3 translate="MODALS.TOPIC_REPORT_REPORTID_HEADING_REASON"></h3>
-          <div class="text-block">
-            <h4 translate="TXT_REPORT_TYPES_{{topic.report?.moderatedReasonType || topic.report?.type | uppercase}}">
-              {{topic.report?.moderatedReasonType || topic.report?.type}}</h4>
-            {{topic.report?.moderatedReasonText || topic.report?.text}}
-          </div>
-
-          <h3 translate="MODALS.TOPIC_REPORT_REPORTID_HEADING_CURRENT_STATUS"></h3>
-          <div class="text-block">
-            <h4 translate="MODALS.TOPIC_REPORT_REPORTID_TXT_STATUS_WAITING_FOR_UPDATE_AND_REVIEW"></h4>
-            <span [innerHTML]="'MODALS.TOPIC_REPORT_REPORTID_TXT_FIND_MORE_DETAILS' | translate"></span><!--<a href="https://app.citizenos.com/en/topics/ac8b66a4-ca56-4d02-8406-5e19da73d7ce">here</a>.-->
-          </div>
-
-          <div class="delete_info_button_wrap">
-
-            <div class="table_cell">
-              <div class="blue_button no" mat-dialog-close translate="MODALS.TOPIC_REPORT_REPORTID_BTN_NO"></div>
-            </div>
-
-            <div class="table_cell">
-              <div class="blue_button yes" mat-dialog-close="true" translate="MODALS.TOPIC_REPORT_REPORTID_BTN_YES"></div>
-            </div>
-
-          </div>
-        </div>
-
-      </div>
-
+      <h4 class="title" translate="MODALS.TOPIC_REPORT_REPORTID_HEADING"></h4>
+    </div>
+    <div class="dialog_close">
+      <button class="btn_dialog_close" mat-dialog-close>
+        <div class="icon_mobile_close"></div>
+      </button>
     </div>
   </div>
+  <div class="dialog_content">
+    <div class="dialog_info_wrap">
+      <div class="dialog_info row">
+        <div translate="MODALS.TOPIC_REPORT_REPORTID_HEADING_2"></div>
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M7 4C7 3.44772 7.44772 3 8 3H18.1716C18.4368 3 18.6911 3.10536 18.8787 3.29289L24.7071 9.12132L25.4142 8.41421L24.7071 9.12132C24.8946 9.30886 25 9.56321 25 9.82843V28C25 28.5523 24.5523 29 24 29H8C7.44772 29 7 28.5523 7 28V4Z"
+            fill="white" stroke="#2C3B47" stroke-width="2" />
+          <path d="M17 2.5L25.5 11H18C17.4477 11 17 10.5523 17 10V2.5Z" fill="#2C3B47" />
+          <rect x="11" y="18" width="10" height="1" rx="0.5" fill="#4D5C6A" />
+          <rect x="11" y="15" width="10" height="1" rx="0.5" fill="#4D5C6A" />
+          <rect x="11" y="21" width="10" height="1" rx="0.5" fill="#4D5C6A" />
+          <rect x="11" y="24" width="6" height="1" rx="0.5" fill="#4D5C6A" />
+        </svg>
+        <div class="bold" [innerHTML]="topic.title"></div>
+      </div>
+    </div>
 
+    <div class="dialog_info_wrap">
+      <div class="dialog_info">
+        <div class="dialog_info_header">
+          <div translate="MODALS.TOPIC_REPORT_REPORTID_HEADING_REASON"></div>
+          <div class="bold" translate="TXT_REPORT_TYPES_{{topic.report?.moderatedReasonType || topic.report?.type | uppercase}}"></div>
+        </div>
+        <div class="dialog_info_content">{{topic.report?.moderatedReasonText || topic.report?.text}}</div>
+      </div>
+    </div>
+    <div class="dialog_info_wrap">
+      <div class="dialog_info">
+        <div class="dialog_info_header">
+          <div translate="MODALS.TOPIC_REPORT_REPORTID_HEADING_CURRENT_STATUS"></div>
+          <div class="bold" translate="MODALS.TOPIC_REPORT_REPORTID_TXT_STATUS_WAITING_FOR_UPDATE_AND_REVIEW"></div>
+        </div>
+        <div class="dialog_info_content" [innerHTML]="'MODALS.TOPIC_REPORT_REPORTID_TXT_FIND_MORE_DETAILS' | translate">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="dialog_content">
+    <div class="button_wrap">
+      <button class="btn_big_submit" mat-dialog-close="true" translate="MODALS.TOPIC_REPORT_REPORTID_BTN_YES"></button>
+      <a mat-dialog-close translate="MODALS.TOPIC_REPORT_REPORTID_BTN_NO"></a>
+    </div>
+  </div>
+  <div class="dialog_footer">
+  </div>
 </div>
