@@ -4,7 +4,7 @@ import { Topic } from 'src/app/interfaces/topic';
 import { TopicReportService } from 'src/app/services/topic-report.service';
 import { TopicReportFormData } from '../topic-report-form/topic-report-form.component';
 import { switchMap, take } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TopicService } from 'src/app/services/topic.service';
 @Component({
   selector: 'app-topic-report-resolve',
@@ -15,7 +15,8 @@ export class TopicReportResolveComponent implements OnInit {
   topic!: Topic;
   isLoading = false;
   errors = <any>null;
-  constructor(@Inject(MAT_DIALOG_DATA) public data: TopicReportFormData, private dialog: MatDialog, private TopicReportService: TopicReportService) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: TopicReportFormData, private dialog: MatDialog, private TopicReportService: TopicReportService,
+  private router: Router) {
     this.topic = data.topic;
   }
 
@@ -34,6 +35,7 @@ export class TopicReportResolveComponent implements OnInit {
       .subscribe({
         next: () => {
           this.dialog.closeAll();
+          this.router.navigate(['/', 'topic', this.topic.id])
         },
         error: (res) => {
           this.isLoading = false;
