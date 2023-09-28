@@ -71,6 +71,7 @@ export class TopicComponent implements OnInit {
   topicSettings = false;
   topicAttachments$ = of(<Attachment[] | any[]>[]);
   STATUSES = this.TopicService.STATUSES;
+  hideTopicContent = false;
 
   constructor(
     @Inject(TranslateService) public translate: TranslateService,
@@ -115,6 +116,7 @@ export class TopicComponent implements OnInit {
           // NOTE: Well.. all views that are under the topics/view/votes/view would trigger doble overlays which we don't want
           // Not nice, but I guess the problem starts with the 2 views using same controller. Ideally they should have a parent controller and extend that with their specific functionality
           this.dialog.closeAll();
+          this.hideTopicContent = true;
           this.doShowReportOverlay(topic);
         }
         if (topic.voteId) {
@@ -201,6 +203,10 @@ export class TopicComponent implements OnInit {
     })
 
     reportDialog.afterClosed().subscribe((confirm) => {
+      if (confirm) {
+        return this.hideTopicContent = false;
+      }
+
       return this.router.navigate(['/']);
     })
   };

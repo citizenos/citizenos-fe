@@ -1,4 +1,4 @@
-<div class="page_content" *ngIf="topic$ | async as topic;">
+<div class="page_content" *ngIf="topic$ | async as topic;" [ngClass]="{'reported': hideTopicContent}">
   <div id="page_header">
     <div id="user_info_area">
       <button class="btn_medium_close icon" [routerLink]="['/', translate.currentLang, 'my', 'topics']"><svg width="24"
