@@ -51,6 +51,6 @@
     </svg>
     <div [innerHTML]="'VIEWS.HOME.FEATURE_'+feature+'_FOOTER_INFO' | uppercase | translate"></div>
   </div>
-  <button [ngClass]="'btn_medium_'+feature"
+  <button [ngClass]="'btn_medium_'+feature" (click)="btnClick()"
     [innerHTML]="'VIEWS.HOME.FEATURE_'+feature+'_FOOTER_BTN' | uppercase | translate"></button>
 </div>

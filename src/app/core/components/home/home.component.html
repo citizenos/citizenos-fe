@@ -448,7 +448,7 @@
 
   <div id="features_wrap">
     <feature-box class="feature_box" feature="discussion" [items]="4"></feature-box>
-    <feature-box class="feature_box" feature="ideation" [items]="4"></feature-box>
+    <!--feature-box class="feature_box" feature="ideation" [items]="4"></!--feature-box-->
     <feature-box class="feature_box" feature="voting" [items]="4"></feature-box>
   </div>
   <div id="feature_group">
@@ -617,7 +617,7 @@
         </div>
       </div>
       <div id="button_area">
-        <button class="btn_big_submit" translate="VIEWS.HOME.MISSION_BOX_SIGN_UP"
+        <button *ngIf="!isLoggedIn()" class="btn_big_submit" translate="VIEWS.HOME.MISSION_BOX_SIGN_UP"
           [routerLink]="['/', translate.currentLang, 'account', 'signup']"></button>
         <a class="btn_big_submit_ghost" target="_blank" href="https://citizenos.com/about-us/" translate="VIEWS.HOME.MISSION_BOX_LEARN_MORE"></a>
       </div>

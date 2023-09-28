@@ -55,6 +55,7 @@ import { PageHeaderComponent } from '../core/components/page-header/page-header.
 import { ActivitiesButtonComponent } from './components/activities-button/activities-button.component';
 import { MobileFiltersDirective, MobileFilterDirective } from '../directives/mobile-filters.directive';
 import { CosCalenderComponent } from './cos-calender/cos-calender.component';
+import { TourComponent } from './components/tour/tour.component';
 @NgModule({
   declarations: [
     ActivityComponent,
@@ -104,7 +105,8 @@ import { CosCalenderComponent } from './cos-calender/cos-calender.component';
     ActivitiesButtonComponent,
     MobileFiltersDirective,
     MobileFilterDirective,
-    CosCalenderComponent
+    CosCalenderComponent,
+    TourComponent
   ],
   imports: [
     RouterModule,

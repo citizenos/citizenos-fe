@@ -1,4 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
+import { Component, Input, inject } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'feature-box',
@@ -10,6 +12,9 @@ export class FeatureBoxComponent {
   @Input() items!: number;
   @Input() icon!: string;
 
+  router = inject(Router);
+  translate = inject(TranslateService);
+
   itemsList () {
     let items = [];
     let i = 0;
@@ -18,5 +23,11 @@ export class FeatureBoxComponent {
       i++;
     }
     return items;
+  }
+
+  btnClick () {
+    if (this.feature === 'discussion') {
+      this.router.navigate(['/', this.translate.currentLang, 'topics', 'create'])
+    }
   }
 }
