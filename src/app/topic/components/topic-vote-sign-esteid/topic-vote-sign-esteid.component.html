@@ -55,7 +55,11 @@
                 [ngClass]="{'error_input': (mobiilIdForm.controls['phoneNumber'].errors && mobiilIdForm.controls['phoneNumber'].errors['pattern'] && mobiilIdForm.touched)}">
               <label for="phone" class="error_label"
                 *ngIf="mobiilIdForm.controls['phoneNumber'].errors && mobiilIdForm.controls['phoneNumber'].errors['pattern']  && mobiilIdForm.touched">
-                <div class="icon_notification_error_small"></div>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M8.89438 1.78863C8.52586 1.05158 7.47405 1.05158 7.10553 1.78863L0.723562 14.5526C0.391112 15.2175 0.874608 15.9998 1.61799 15.9998H14.3819C15.1253 15.9998 15.6088 15.2175 15.2763 14.5526L8.89438 1.78863ZM6.99996 6.99977C6.99996 6.44749 7.44767 5.99977 7.99996 5.99977C8.55224 5.99977 8.99996 6.44749 8.99996 6.99977V9.99977C8.99996 10.5521 8.55224 10.9998 7.99996 10.9998C7.44767 10.9998 6.99996 10.5521 6.99996 9.99977V6.99977ZM6.99996 12.9998C6.99996 12.4475 7.44767 11.9998 7.99996 11.9998C8.55224 11.9998 8.99996 12.4475 8.99996 12.9998C8.99996 13.5521 8.55224 13.9998 7.99996 13.9998C7.44767 13.9998 6.99996 13.5521 6.99996 12.9998Z"
+                    fill="#EF4025" />
+                </svg>
                 <span translate="MODALS.TOPIC_VOTE_SIGN_ESTEID_ERROR_PHONE"></span>
               </label>
             </cos-input>
@@ -65,7 +69,11 @@
                 [ngClass]="{'error_input': mobiilIdForm.controls['pid'].errors && mobiilIdForm.controls['pid'].errors['pattern']  && mobiilIdForm.touched}">
               <label for="pid" class="error_label"
                 *ngIf="mobiilIdForm.controls['pid'].errors && mobiilIdForm.controls['pid'].errors['pattern'] && mobiilIdForm.touched">
-                <div class="icon_notification_error_small"></div>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M8.89438 1.78863C8.52586 1.05158 7.47405 1.05158 7.10553 1.78863L0.723562 14.5526C0.391112 15.2175 0.874608 15.9998 1.61799 15.9998H14.3819C15.1253 15.9998 15.6088 15.2175 15.2763 14.5526L8.89438 1.78863ZM6.99996 6.99977C6.99996 6.44749 7.44767 5.99977 7.99996 5.99977C8.55224 5.99977 8.99996 6.44749 8.99996 6.99977V9.99977C8.99996 10.5521 8.55224 10.9998 7.99996 10.9998C7.44767 10.9998 6.99996 10.5521 6.99996 9.99977V6.99977ZM6.99996 12.9998C6.99996 12.4475 7.44767 11.9998 7.99996 11.9998C8.55224 11.9998 8.99996 12.4475 8.99996 12.9998C8.99996 13.5521 8.55224 13.9998 7.99996 13.9998C7.44767 13.9998 6.99996 13.5521 6.99996 12.9998Z"
+                    fill="#EF4025" />
+                </svg>
                 <span translate="MODALS.TOPIC_VOTE_SIGN_ESTEID_ERROR_PID"></span>
               </label>
             </cos-input>
@@ -115,118 +123,3 @@
   <div class="dialog_footer">
   </div>
 </div>
-
-<!-- LIGHTBOX SKELETON >
-<div id="root_lightbox">
-  <div id="lightbox" class="id_signing wide_lightbox with_title_description">
-    <div id="lightbox_wrap">
-
-      <div id="lightbox_header">
-
-        <div id="lightbox_header_text">
-          <div class="title" translate="MODALS.TOPIC_VOTE_SIGN_ESTEID_HEADING"></div>
-          <div class="title_description">{{topic.title}}</div>
-        </div>
-
-        <div id="lightbox_close" mat-dialog-close="">
-          <div class="table_cell">
-            <div class="sprite sprite-btn-popup-close2x">
-            </div>
-          </div>
-        </div>
-
-        <div class="clearer"></div>
-
-        <div class="voting_tag_padding">
-          <span *ngIf="options.length === 1" translate="MODALS.TOPIC_VOTE_SIGN_TXT_VOTING_FOR"
-            [translateParams]="{optionSelected: options[0]}"></span>
-          <div class="voting_tag" *ngFor="let option of options">
-            <div class="table_cell">
-              <span class="bold"
-                [innerHtml]="getOptionValueText(option.value)| linky"></span>
-              <!--translate-default="{{option.value | linky}}"->
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="line lightest_line"></div>
-
-      <div class="lightbox_content">
-
-        <div class="v_line lightest_line"></div>
-
-        <div class="sign_in_section">
-          <form name="formMobileSign" novalidate>
-            <div class="sprite_big sprite sprite-mobiil-i-d2x"></div>
-            <input id="phone" name="phoneNumber" type="tel" [(ngModel)]="phoneNumber" #phoneNumberInput="ngModel"
-              ngModel [placeholder]="'MODALS.TOPIC_VOTE_SIGN_ESTEID_PLACEHOLDER_PHONE' | translate"
-              (focus)="wWidth > 1024"
-              [ngClass]="{'error_input': (phoneNumberInput.errors && phoneNumberInput.errors['pattern'] && phoneNumberInput.touched)}"
-              pattern="^\+?[0-9\s-]{7,}$" required>
-            <label for="phoneNumber"
-              *ngIf="phoneNumberInput.errors && phoneNumberInput.errors['pattern'] && phoneNumberInput.touched"
-              class="error_label">
-              <div class="table_cell">
-                <div class="icon_notification_error_small"></div>
-                <span translate="MODALS.TOPIC_VOTE_SIGN_ESTEID_ERROR_PHONE"></span>
-              </div>
-            </label>
-            <input #pidInput="ngModel" name="pid" type="text" inputmode="numeric" [(ngModel)]="pid"
-              ngModel [placeholder]="'MODALS.TOPIC_VOTE_SIGN_ESTEID_PLACEHOLDER_PID' | translate"
-              [ngClass]="{'error_input': pidInput.errors && pidInput.errors['pattern'] && pidInput.touched}"
-              pattern="^[0-9]{11}$" required>
-            <label class="error_label" for="pid"
-              *ngIf="pidInput.errors && pidInput.errors['pattern'] && pidInput.touched">
-              <div class="table_cell">
-                <div class="icon_notification_error_small"></div>
-                <span translate="MODALS.TOPIC_VOTE_SIGN_ESTEID_ERROR_PID"></span>
-              </div>
-            </label>
-            <div *ngIf="isLoading && challengeID" class="code"
-              translate="MODALS.TOPIC_VOTE_SIGN_ESTEID_TXT_CONTROL_CODE" [translateParams]="{code: challengeID}"></div>
-            <div *ngIf="isLoading && challengeID" class="code_text"
-              translate="MODALS.TOPIC_VOTE_SIGN_ESTEID_TXT_CHECK_CONTROL_CODE"></div>
-            <div *ngIf="isLoading" class="loader_wrap">
-              <div class="loader"></div>
-            </div>
-            <button *ngIf="wWidth <= 550" class="blue_button" (click)="doSignWithMobile()"
-              translate="MODALS.TOPIC_VOTE_SIGN_ESTEID_BTN_SIGN_MID"></button><!--[attr.disabled]="formMobileSign.$invalid || isLoading || TopicVoteService.isLoadingIdCard"->
-          </form>
-        </div>
-
-        <div class="v_line lightest_line"></div>
-
-        <div class="line_wrap">
-          <div class="line lightest_line"></div>
-        </div>
-
-        <div class="sign_in_section">
-          <div class="sprite_big sprite sprite-i-d-kaart2x"></div>
-          <div class="sprite_big sprite sprite-img-idkaart2x"></div>
-          <button *ngIf="wWidth <= 550" class="blue_button a" [disabled]="isLoadingIdCard || isLoading"
-            (click)="doSignWithCard()" translate="MODALS.TOPIC_VOTE_SIGN_ESTEID_BTN_SIGN_CARD"></button>
-        </div>
-
-        <div class="clearer"></div>
-
-        <div *ngIf="wWidth > 550" class="sign_in_section">
-          <button class="blue_button" (click)="doSignWithMobile()" [disabled]="isLoading || isLoadingIdCard"
-            translate="MODALS.TOPIC_VOTE_SIGN_ESTEID_BTN_SIGN_MID"></button>
-        </div>
-        <div *ngIf="wWidth > 550" class="sign_in_section">
-          <button class="blue_button" [disabled]="isLoadingIdCard || isLoading" (click)="doSignWithCard()"
-            translate="MODALS.TOPIC_VOTE_SIGN_ESTEID_BTN_SIGN_CARD"></button>
-        </div>
-
-        <div class="clearer"></div>
-
-      </div>
-
-    </div>
-  </div>
-
-  <div id="close_lightbox" ng-click="app.closeThisDialog($event)"></div>
-
-</div-->
