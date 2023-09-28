@@ -1,28 +1,15 @@
 <div class="big_graph">
-  <div class="long_text_holder">
-    <div class="long_text" [ngClass]="(option.value) ? 'active' : ''" *ngFor="let option of sortedOptions; index as i; trackBy: trackByFn;">
-      <span
-        translate="{{'VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_' + i | linky | uppercase}}"
+  <ng-container *ngFor="let option of sortedOptions; index as i; trackBy: trackByFn;">
+    <div class="graph_item">
+      <div class="graph_bar" [ngClass]="option.winner ? 'active' : ''" [style.width]="getVoteValuePercentage(option.voteCount)">
+      </div>
+      <div class="grap_item_info">
+        <span class="bold">{{option.voteCount || 0}}</span>
+        <span>•</span>
+        <span translate="{{'VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_' + i | linky | uppercase}}"
         [translateParams]="{default: (option.value | linky)}"></span>
-    </div>
-  </div>
-
-  <div class="graph_wrap">
-    <div class="graph_row" [ngClass]="option.value.winner ? 'active' : ''" *ngFor="let option of options.rows; index as i; trackBy: trackByFn;">
-      <!-- TODO: Maybe there is a better solution for translation fallback in the tooltip text? -->
-      <div class="graph_row_fill" [style.width]="getVoteValuePercentage(option.voteCount)"
-        [tooltip]="''">
-        <div class="graph_row_text_wrap">
-          <div class="table_cell">
-            <div class="graph_row_text">
-              <span class="bold">{{option.voteCount || 0}}</span><span class="bold bullet"
-                *ngIf="option.selected">•</span><span class="bold" *ngIf="option.selected"
-                translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_YOUR_VOTE"></span><!--span class="bold" ng-if="option.delegated" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_YOUR_VOTE_DELEGATED" translate-values="{userName: vote.delegation.name}">Your vote delegated to </span-->
-            </div>
-          </div>
-        </div>
+        <div class="your_vote" *ngIf="option.selected" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_YOUR_VOTE"></div>
       </div>
     </div>
-
-  </div>
+  </ng-container>
 </div>

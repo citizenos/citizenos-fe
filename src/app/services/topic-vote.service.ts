@@ -130,7 +130,7 @@ export class TopicVoteService {
   };
 
   hasVoteEndedExpired(topic: Topic, vote: Vote) {
-    return [this.STATUSES.followUp, this.STATUSES.closed].indexOf(topic.status) < 0 && vote.endsAt && new Date() > new Date(vote.endsAt);
+    return [this.STATUSES.followUp, this.STATUSES.closed].indexOf(topic.status) > -1 || vote.endsAt && new Date() > new Date(vote.endsAt);
   };
 
   canVote(topic: Topic) {

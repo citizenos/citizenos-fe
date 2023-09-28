@@ -28,6 +28,7 @@ import { TopicMemberGroupComponent } from '../topic/components/topic-member-grou
 import { TopicMemberInviteComponent } from '../topic/components/topic-member-invite/topic-member-invite.component';
 import { TopicMemberInviteDeleteComponent } from '../topic/components/topic-member-invite-delete/topic-member-invite-delete.component';
 import { TopicVoteCastComponent } from '../topic/components/topic-vote-cast/topic-vote-cast.component';
+import { BigGraphComponent } from '../topic/components/big-graph/big-graph.component';
 import { TopicSettingsComponent, TopicSettingsDialogComponent } from '../topic/components/topic-settings/topic-settings.component';
 
 import { GroupInviteComponent, GroupInviteDialogComponent } from '../group/components/group-invite/group-invite.component';
@@ -56,9 +57,11 @@ import { ActivitiesButtonComponent } from './components/activities-button/activi
 import { MobileFiltersDirective, MobileFilterDirective } from '../directives/mobile-filters.directive';
 import { CosCalenderComponent } from './cos-calender/cos-calender.component';
 import { TourComponent } from './components/tour/tour.component';
+
 @NgModule({
   declarations: [
     ActivityComponent,
+    BigGraphComponent,
     ConfirmDialogComponent,
     CosDropdownDirective,
     CosEllipsisPipe,
@@ -122,6 +125,7 @@ import { TourComponent } from './components/tour/tour.component';
   ],
    exports: [
     ActivityComponent,
+    BigGraphComponent,
     ConfirmDialogComponent,
     CosDropdownDirective,
     CosEllipsisPipe,

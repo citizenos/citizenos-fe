@@ -3,7 +3,6 @@ import { RouterModule, Router, Routes, UrlSegment } from '@angular/router';
 import { GroupCreateComponent } from '../group/components/group-create/group-create.component';
 import { GroupSettingsDialogComponent } from '../group/components/group-settings/group-settings.component';
 import { MyGroupsComponent } from './my-groups.component';
-import { GroupListComponent } from './components/group-list/group-list.component';
 
 const routes: Routes = [
   { path: 'create', component: GroupCreateComponent },
@@ -11,7 +10,6 @@ const routes: Routes = [
     path: '', component: MyGroupsComponent, children: [
       {
         path: ':groupId', children: [
-          { path: '', component: GroupListComponent },
           {
             path: 'settings', children: [
               { path: '', component: GroupSettingsDialogComponent }

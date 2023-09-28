@@ -403,4 +403,34 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
     (this.tabActive < 4)? this.tabActive = this.tabActive+1 : this.createVote()
     if (this.tabActive === 3) this.addPosAbsolute = true;
   }
+
+  override createVote() {
+    this.Notification.removeAll();
+
+    if (!this.reminder) {
+      this.vote.reminderTime = this.vote.reminderTime = null;
+    }
+
+    if (this.deadline) {
+      this.vote.endsAt = this.deadline
+    }
+    this.TopicVoteService.save(this.vote)
+      .pipe(take(1))
+      .subscribe({
+        next: (vote) => {
+          this.TopicService.reloadTopic();
+          this.router.navigate(['/topics', this.topic.id], {fragment: 'voting'});
+          this.route.url.pipe(take(1)).subscribe();
+          this.dialog.closeAll();
+        },
+        error: (res) => {
+          console.debug('createVote() ERR', res, res.errors, this.vote.options);
+          this.errors = res.errors;
+          Object.values(this.errors).forEach((message) => {
+            if (typeof message === 'string')
+              this.Notification.addError(message);
+          });
+        }
+      });
+  };
 }
