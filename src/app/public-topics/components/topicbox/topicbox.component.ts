@@ -1,3 +1,4 @@
+import { TopicEventService } from './../../../services/topic-event.service';
 import { Router } from '@angular/router';
 import { TopicService } from 'src/app/services/topic.service';
 import { TopicVoteService } from 'src/app/services/topic-vote.service';
@@ -16,8 +17,9 @@ export class TopicboxComponent implements OnInit {
   @Input() topic = <Topic>{}; // decorate the property with @Input()
   catClass = "varia";
   vote$?: Observable<Vote>;
+  milestones$?: Observable<any[]>;
   vote?: Vote;
-  constructor(private TopicService: TopicService, private TopicVoteService: TopicVoteService, private router: Router) {
+  constructor(private TopicService: TopicService, private TopicVoteService: TopicVoteService, private router: Router, private TopicEventService: TopicEventService) {
   }
 
   ngOnInit(): void {
@@ -29,6 +31,10 @@ export class TopicboxComponent implements OnInit {
       this.vote$ = this.TopicVoteService.get({topicId: this.topic.id, voteId: this.topic.voteId}).pipe(
         tap((vote) => this.vote = vote)
       );
+    }
+    if (this.topic.status === this.TopicService.STATUSES.followUp) {
+      this.TopicEventService.setParam('topicId', this.topic.id);
+      this.milestones$ = this.TopicEventService.loadItems();
     }
   }
 

@@ -13,7 +13,6 @@ export class ActivityFeedComponent implements OnInit {
   activities$ = of(<any[]>[]);
 
   constructor(public ActivityService: ActivityService, @Inject(MAT_DIALOG_DATA) private data: any) {
-
   }
 
   filterActivities(filter: string) {
@@ -22,12 +21,14 @@ export class ActivityFeedComponent implements OnInit {
     this.ActivityService.setParam('include', filter)
   }
   ngOnInit(): void {
+    this.ActivityService.reset();
     if (this.data?.groupId) {
       this.ActivityService.setParam('groupId', this.data.groupId);
-    } else if (this.data?.topicId) {
+    }
+    if (this.data?.topicId) {
+      console.log(this.data.topicId)
       this.ActivityService.setParam('topicId', this.data.topicId);
     }
-    this.ActivityService.reset();
     this.activities$ = this.ActivityService.loadItems().pipe(
       tap((res: any) => {
         if (res.length) {

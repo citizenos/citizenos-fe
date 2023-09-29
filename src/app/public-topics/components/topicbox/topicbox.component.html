@@ -1,6 +1,6 @@
 <a (click)="goToView()" class="topic">
   <div class="topic_header"
-    [ngClass]="{'discussion': topic.status === 'inProgress', 'voting': topic.status === 'voting', 'follow-up': topic.status === 'followUp'}">
+    [ngClass]="{'discussion': topic.status === 'inProgress', 'voting': topic.status === 'voting', 'follow_up': topic.status === 'followUp'}">
     <div class="progress" [ngStyle]="{'width.%': getProgress()}">
       <div class="header_content">
         <ng-container *ngIf="topic.status==='inProgress'">
@@ -34,7 +34,7 @@
               fill="#DA7AB1" />
           </svg>
           <div class="bold" translate="COMPONENTS.TOPICBOX.HEADER_FOLLOW_UP"
-            [translateParams]="{target: topic.members.users.count}"></div>
+            [translateParams]="{value: (milestones$ | async)?.length}"></div>
         </ng-container>
         <ng-container *ngIf="topic.status==='closed'">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

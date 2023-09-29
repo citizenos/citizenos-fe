@@ -1184,6 +1184,7 @@
     },
     "GROUP": {
       "HEADING_BACK_TO_MY_GROUPS": "Back to my groups",
+      "HEADING_BACK_TO_PUBLIC_GROUPS": "Back to public groups",
       "BTN_JOIN": "Join group",
       "BTN_OPTION_INVITE": "Invite members",
       "BTN_OPTION_ADD_TOPICS": "Add topics",
@@ -1264,6 +1265,7 @@
     },
     "TOPIC": {
       "HEADING_BACK_TO_MY_TOPICS": "Back to my topics",
+      "HEADING_BACK_TO_PUBLIC_TOPICS": "Back to public topics",
       "BTN_JOIN": "Join topic",
       "BTN_LEAVE": "Leave topic"
     },

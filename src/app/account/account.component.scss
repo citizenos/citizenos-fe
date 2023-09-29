@@ -24,6 +24,9 @@
     justify-content: flex-start;
     background-color: var(--color-surfaces);
 
+    app-login {
+      display: contents;
+    }
     @include mixins.tablet {
       width: 100%;
       height: auto;
