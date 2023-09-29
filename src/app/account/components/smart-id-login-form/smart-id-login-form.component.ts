@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Input, Inject } from '@angular/core';
 import { catchError, interval, of, switchMap, take, takeWhile } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'smart-id-login-form',
@@ -10,6 +11,8 @@ import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms
   styleUrls: ['./smart-id-login-form.component.scss']
 })
 export class SmartIdLoginFormComponent {
+  @Input() redirectSuccess?: any;
+
   smartIdForm = new UntypedFormGroup({
     pid: new UntypedFormControl('', Validators.compose([Validators.pattern(/^[0-9]{11}$/), Validators.required])),
     countryCode: new UntypedFormControl('', Validators.compose([Validators.pattern(/^[A-Z]{2}$/), Validators.required]))
@@ -18,9 +21,17 @@ export class SmartIdLoginFormComponent {
   countryCode = 'EE';
   challengeID?: number | null;
   isLoading = false;
-  constructor(private AuthService: AuthService, private dialog: MatDialog) { }
+  constructor(private AuthService: AuthService, private dialog: MatDialog, @Inject(ActivatedRoute) private route: ActivatedRoute, private router: Router) {
+    console.log(this.redirectSuccess);
+
+  }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(value => {
+      console.log(this.redirectSuccess);
+      this.redirectSuccess = this.redirectSuccess || value['redirectSuccess'];
+    }
+  )
   }
 
   authSmartId() {
@@ -73,6 +84,13 @@ export class SmartIdLoginFormComponent {
           this.challengeID = null;
           this.AuthService.status().pipe(take(1)).subscribe();
           this.dialog.closeAll();
+          if (this.redirectSuccess) {
+            if (typeof this.redirectSuccess === 'string') {
+              this.router.navigateByUrl(this.redirectSuccess);
+            }
+          } else {
+            window.location.reload();
+          }
         }
       });
   };

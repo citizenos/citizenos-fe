@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { catchError, interval, map, of, switchMap, take, takeWhile } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { MatDialog } from '@angular/material/dialog';
 import { NotificationService } from 'src/app/services/notification.service';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 declare let hwcrypto: any;
 
 @Component({
@@ -13,6 +14,7 @@ declare let hwcrypto: any;
   styleUrls: ['./est-id-login-form.component.scss']
 })
 export class EstIdLoginFormComponent {
+  @Input() redirectSuccess?: any;
   config: any;
   mobiilIdForm = new UntypedFormGroup({
     pid: new UntypedFormControl('', Validators.compose([Validators.pattern(/^[0-9]{11}$/), Validators.required])),
@@ -24,9 +26,16 @@ export class EstIdLoginFormComponent {
   authMethodsAvailable;
   wWidth = window.innerWidth;
 
-  constructor(cosConfig: ConfigService, private AuthService: AuthService, private Notification: NotificationService, private dialog: MatDialog) {
+  constructor(cosConfig: ConfigService, private AuthService: AuthService, private Notification: NotificationService,
+    private router: Router,
+    private dialog: MatDialog,
+    private route: ActivatedRoute) {
     this.config = cosConfig.get('features');
     this.authMethodsAvailable = Object.assign({}, this.config.authentication);
+    console.log(this.redirectSuccess)
+    this.route.queryParams.subscribe(value => {
+      this.redirectSuccess = this.redirectSuccess || value['redirectSuccess'];
+    });
   }
 
   authMobiilId() {
@@ -110,6 +119,13 @@ export class EstIdLoginFormComponent {
         this.challengeID = null;
         this.AuthService.status().pipe(take(1)).subscribe();
         this.dialog.closeAll();
+        if (this.redirectSuccess) {
+          if (typeof this.redirectSuccess === 'string') {
+            this.router.navigateByUrl(this.redirectSuccess);
+          }
+        } else {
+          window.location.reload();
+        }
       });
   };
 }

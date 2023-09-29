@@ -504,6 +504,10 @@ cos-toggle {
   width: max-content;
 }
 
+app-login, login-form, app-smart-id-login, smart-id-login-form, app-est-id-login, est-id-login-form {
+  width: 100%;
+  max-width: 400px;
+}
 .form_wrap {
   display: flex;
   flex-direction: column;
@@ -511,7 +515,7 @@ cos-toggle {
   gap: 16px;
 
   form {
-    min-width: 400px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;

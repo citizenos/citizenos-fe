@@ -62,9 +62,8 @@ export class AppService {
     });
   };
 
-  doShowLogin() {
-    this.dialog.closeAll();
-    this.dialog.open(LoginDialogComponent);
+  doShowLogin(redirectSuccess?: string) {
+    this.dialog.open(LoginDialogComponent, {data: {redirectSuccess}});
   }
 
   doShowRegister(email?: string) {

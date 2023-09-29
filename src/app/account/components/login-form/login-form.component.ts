@@ -7,8 +7,8 @@ import { LocationService } from 'src/app/services/location.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
-import { EstIdLoginComponent } from '../est-id-login/est-id-login.component';
-import { SmartIdLoginComponent } from '../smart-id-login/smart-id-login.component';
+import { EstIdLoginDialogComponent } from '../est-id-login/est-id-login.component';
+import { SmartIdLoginDialogComponent } from '../smart-id-login/smart-id-login.component';
 import { RegisterDialogComponent } from '../register/register.component';
 import { PasswordForgotComponent } from '../password-forgot/password-forgot.component';
 import { take } from 'rxjs';
@@ -147,7 +147,12 @@ export class LoginFormComponent {
            return window.location.href = this.Location.getAbsoluteUrlApi('/api/auth/openid/authorize');
        } else {*/
       if (this.redirectSuccess) {
-        window.location.href = this.redirectSuccess;
+        if (typeof this.redirectSuccess === 'string') {
+          this.router.navigateByUrl(this.redirectSuccess);
+        } else {
+
+          this.router.navigate(this.redirectSuccess);
+        }
       } else {
         window.location.reload();
       }
@@ -176,7 +181,11 @@ export class LoginFormComponent {
    * Login with Estonian ID-Card
    */
   doLoginEsteId() {
-    this.router.navigate(['estid'], { relativeTo: this.route })
+    if (this.router.url.indexOf('account/login') > -1) {
+      return this.router.navigate(['estid'], { relativeTo: this.route })
+    }
+    console.log(this.redirectSuccess);
+    return this.dialog.open(EstIdLoginDialogComponent, { data: { redirectSuccess: this.redirectSuccess } });
     /*
     this.dialog.open(EstIdLoginComponent, {});*/
   };
@@ -185,9 +194,11 @@ export class LoginFormComponent {
    * Login with Smart-ID
    */
   doLoginSmartId() {
-    this.router.navigate(['smartid'], { relativeTo: this.route })
-  /*  console.log('doLoginSmartId')
-    this.dialog.open(SmartIdLoginComponent);*/
+    if (this.router.url.indexOf('account/login') > -1) {
+      return this.router.navigate(['smartid'], { relativeTo: this.route })
+    }
+    console.log('doLoginSmartId', this.redirectSuccess)
+    return this.dialog.open(SmartIdLoginDialogComponent, { data: { redirectSuccess: this.redirectSuccess } });
   };
 
   /**

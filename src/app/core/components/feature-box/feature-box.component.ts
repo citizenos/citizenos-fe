@@ -1,6 +1,8 @@
 import { Router } from '@angular/router';
 import { Component, Input, inject } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { AuthService } from 'src/app/services/auth.service';
+import { AppService } from 'src/app/services/app.service';
 
 @Component({
   selector: 'feature-box',
@@ -12,6 +14,8 @@ export class FeatureBoxComponent {
   @Input() items!: number;
   @Input() icon!: string;
 
+  private app = inject(AppService);
+  private auth = inject(AuthService);
   router = inject(Router);
   translate = inject(TranslateService);
 
@@ -27,6 +31,10 @@ export class FeatureBoxComponent {
 
   btnClick () {
     if (this.feature === 'discussion') {
+      if (!this.auth.loggedIn$.value) {
+        console.log(this.router.createUrlTree(['/', this.translate.currentLang, 'topics', 'create']).toString())
+        return this.app.doShowLogin(this.router.createUrlTree(['/', this.translate.currentLang, 'topics', 'create']).toString());
+      }
       this.router.navigate(['/', this.translate.currentLang, 'topics', 'create'])
     }
   }

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { tap } from 'rxjs';
+import { catchError, tap, of } from 'rxjs';
 import { ActivityService } from 'src/app/services/activity.service';
 import { AppService } from 'src/app/services/app.service';
 
@@ -17,13 +17,21 @@ export class ActivitiesButtonComponent {
     public app: AppService,
     private ActivityService: ActivityService
   ) {
-
+    console.log(this.topicId);
   }
 
   ngOnInit(): void {
     this.unreadActivitiesCount$ = this.ActivityService.getUnreadActivities({groupId: this.groupId, topicId: this.topicId}).pipe(tap((count: number) => {
       this.newActivities = 0;
       if (count) this.newActivities = count
+    }),
+    catchError((error:any) => {
+      console.error('unreadActivitiesCount$ error', error);
+      if (error.status === 404) {
+        this.newActivities = 0;
+        return of(0);
+      }
+      return error
     }));
   }
 }
