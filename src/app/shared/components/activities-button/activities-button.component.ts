@@ -1,7 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { catchError, tap, of } from 'rxjs';
+import { catchError, tap, map, of, Observable, switchMap } from 'rxjs';
 import { ActivityService } from 'src/app/services/activity.service';
 import { AppService } from 'src/app/services/app.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'activities-button',
@@ -11,27 +12,20 @@ import { AppService } from 'src/app/services/app.service';
 export class ActivitiesButtonComponent {
   @Input() groupId?:string;
   @Input() topicId?:string;
-  newActivities: number = 0;
-  unreadActivitiesCount$: any;
+  unreadActivitiesCount$: Observable<number> = of(0);
   constructor(
     public app: AppService,
-    private ActivityService: ActivityService
-  ) {
-    console.log(this.topicId);
-  }
+    private ActivityService: ActivityService,
+    private auth:AuthService
+  ) {}
 
   ngOnInit(): void {
-    this.unreadActivitiesCount$ = this.ActivityService.getUnreadActivities({groupId: this.groupId, topicId: this.topicId}).pipe(tap((count: number) => {
-      this.newActivities = 0;
-      if (count) this.newActivities = count
-    }),
-    catchError((error:any) => {
-      console.error('unreadActivitiesCount$ error', error);
-      if (error.status === 404) {
-        this.newActivities = 0;
-        return of(0);
+    this.unreadActivitiesCount$ = this.auth.loggedIn$.pipe((switchMap((loggedIn) => {
+      console.log(loggedIn)
+      if (loggedIn) {
+        return this.ActivityService.getUnreadActivities({groupId: this.groupId, topicId: this.topicId});
       }
-      return error
-    }));
+      return of(0);
+    })));
   }
 }

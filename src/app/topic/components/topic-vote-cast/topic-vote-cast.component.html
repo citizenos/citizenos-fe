@@ -6,7 +6,7 @@
           d="M16 0C7.168 0 0 7.168 0 16C0 24.832 7.168 32 16 32C24.832 32 32 24.832 32 16C32 7.168 24.832 0 16 0ZM12.8889 24L25.3333 11.6491L23 9.33333L12.8889 19.3684L9 15.5088L6.66667 17.8246L12.8889 24Z"
           fill="#5AB467" />
       </svg>
-      <div class="vote_question">{{vote.question}} ASdas dasdsa das </div>
+      <div class="vote_question">{{vote.description}}</div>
     </div>
     <div class="header_division">
       <div class="vote_deadline">
@@ -228,7 +228,7 @@
               <span>Edit your vote</span>
             </a>
             <a [href]="vote.downloads.bdocVote"
-              *ngIf="vote.authType === VOTE_AUTH_TYPES.hard && vote.downloads.bdocVote" download>
+              *ngIf="vote.authType === VOTE_AUTH_TYPES.hard && vote.downloads?.bdocVote" download>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0_335_42956)">
                   <path

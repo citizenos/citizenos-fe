@@ -57,6 +57,7 @@ export class TopicComponent implements OnInit {
   showTags = false;
   readMore = false;
   showArgumentsTablet = (window.innerWidth <= 1024);
+  showVoteTablet = (window.innerWidth <= 1024);
   tabSelected$: Observable<string>;
   //new end
   topic$; // decorate the property with @Input()

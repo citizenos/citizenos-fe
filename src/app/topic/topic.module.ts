@@ -42,6 +42,7 @@ import { TopicVoteDelegateComponent } from './components/topic-vote-delegate/top
 import { DuplicateTopicDialogComponent } from './components/duplicate-topic-dialog/duplicate-topic-dialog.component';
 import { ArgumentWhyDialogComponent } from './components/argument-why-dialog/argument-why-dialog.component';
 import { TopicFollowUpCreateDialogComponent } from './components/topic-follow-up-create-dialog/topic-follow-up-create-dialog.component';
+import { VoteCreateComponent } from '../voting/components/vote-create/vote-create.component';
 
 @NgModule({
   declarations: [
@@ -88,7 +89,8 @@ import { TopicFollowUpCreateDialogComponent } from './components/topic-follow-up
     TopicVoteDelegateComponent,
     DuplicateTopicDialogComponent,
     ArgumentWhyDialogComponent,
-    TopicFollowUpCreateDialogComponent
+    TopicFollowUpCreateDialogComponent,
+    VoteCreateComponent
   ],
   imports: [
     LinkyModule,

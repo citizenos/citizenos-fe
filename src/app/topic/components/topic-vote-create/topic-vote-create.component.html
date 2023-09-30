@@ -1,423 +1,301 @@
-<div class="voting_create_wrap">
-  <div class="voting_tabs_wrap">
-    <div class="tab">
-      <span class="tab_number">1</span>
-      <span class="tab_text">1.Introduction</span>
+<div class="create_content">
+  <div class="create_content_section">
+    <div class="number_wrap">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="16" height="16" rx="8" fill="white" />
+        <path
+          d="M12.6558 9.32812C11.2233 8.52002 9.79067 7.71195 8.35815 6.90385C8.47123 7.10587 8.5843 7.30788 8.71632 7.4916V7.47328C8.71632 7.2345 8.58432 6.99582 8.35815 6.88553C6.92564 6.07743 5.49303 5.26936 4.06051 4.46126C3.26884 4.02046 2.55253 5.21426 3.3442 5.65493C4.77672 6.46303 6.20933 7.2711 7.64185 8.0792C7.52877 7.87718 7.41569 7.67517 7.28368 7.49145V7.50977C7.28368 7.74856 7.41569 7.98723 7.64185 8.09752C9.07436 8.90563 10.507 9.71369 11.9395 10.5218C12.7312 10.9626 13.4475 9.76892 12.6558 9.32812Z"
+          fill="#EF4025" />
+        <path
+          d="M8.71632 7.4916L8.71634 2.66112C8.71634 1.77963 7.30264 1.77963 7.30264 2.66112V7.49117C7.30264 8.3728 8.71632 8.37323 8.71632 7.4916Z"
+          fill="#EF4025" />
+        <path
+          d="M8.71627 12.3388V7.50873C8.71627 6.62723 7.30257 6.62723 7.30257 7.50873V12.3388C7.30257 13.2204 8.71627 13.2204 8.71627 12.3388Z"
+          fill="#EF4025" />
+        <path
+          d="M4.06051 10.5208C6.92563 8.90464 9.7907 7.28856 12.6558 5.69076C13.4475 5.24996 12.7311 4.05625 11.9395 4.49708C9.07435 6.11326 6.20929 7.72933 3.3442 9.32714C2.55253 9.76783 3.26886 10.9615 4.06051 10.5208Z"
+          fill="#EF4025" />
+      </svg>
+      <div>1</div>
     </div>
-    <div class="tab">
-      <span>2</span>
-    </div>
-    <div class="tab"></div>
-    <div class="tab"></div>
-  </div>
-</div>
-<!--div class="voting_platform_wrap">
-  <div class="platform_description" translate="VIEWS.TOPICS_TOPICID.VOTE_HEADING_CREATE"></div>
-  <div class="voting_platform_section">
-    <div class="line lightest_line"></div>
-    <div class="voting_platform_section_title" translate="VIEWS.TOPICS_TOPICID.VOTE_HEADING_STEP1"></div>
-
-    <div class="voting_platform_buttons_wrap">
-
-      <div class="table_cell" (click)="setVoteType(type)" *ngFor="let type of voteTypes">
-        <div class="voting_platform_radio_wrap" [ngClass]="vote.type == type? 'active' : ''">
-          <div class="check"></div>
-          <input class="voting_platform_radio" type="radio" (checked)="vote.type==type" name="{{'voteType'+type}}" />
-        </div>
-        <div class="voting_platform_button" [ngClass]="vote.type == type? 'active' : ''">
-          <div class="table_cell">
-            <div class="button_title">{{('VIEWS.TOPICS_TOPICID.VOTE_BTN_TYPE_'+type) | uppercase | translate}}</div>
-            <div class="button_description">{{'VIEWS.TOPICS_TOPICID.VOTE_BTN_TYPE_'+type+'_EXPLANATION' | uppercase |
-              translate}}</div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="clearer"></div>
-
-  </div>
-
-  <div class="line lightest_line"></div>
-
-  <div class="voting_platform_section" *ngIf="vote.type">
-    <div class="voting_platform_section_title" translate="VIEWS.TOPICS_TOPICID.VOTE_HEADING_STEP2"></div>
-
-    <!-- regular >
-    <div class="define_answers_wrap" *ngIf="vote.type == 'regular'">
-      <div class="table_cell">
-        <div class="table">
-          <div class="table_cell">
-            <div class="gray_toggle_box">
-              <div class="table_cell" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_YES"></div>
-              <div class="table_cell">
-                <cos-toggle [cosToggleTextOn]="('TOGGLE_ON' | translate)"
-                  [cosToggleTextOff]="('TOGGLE_OFF' | translate)" [(model)]="vote.options[0].enabled"></cos-toggle>
-              </div>
-            </div>
-          </div>
-          <div class="table_cell">
-            <div class="gray_toggle_box">
-              <div class="table_cell" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_NO"></div>
-              <div class="table_cell">
-                <cos-toggle [cosToggleTextOn]="('TOGGLE_ON' | translate)"
-                  [cosToggleTextOff]="('TOGGLE_OFF' | translate)" [(model)]="vote.options[1].enabled"></cos-toggle>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="table_cell">
-        <div class="table">
-          <div class="table_cell">
-            <div class="gray_toggle_box">
-              <div class="table_cell" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_NEUTRAL"></div>
-              <div class="table_cell">
-                <cos-toggle [cosToggleTextOn]="('TOGGLE_ON' | translate)"
-                  [cosToggleTextOff]="('TOGGLE_OFF' | translate)" [(model)]="extraOptions.neutral.enabled"></cos-toggle>
-              </div>
-            </div>
-          </div>
-          <div class="table_cell">
-            <div class="gray_toggle_box">
-              <div class="table_cell" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_VETO"></div>
-              <div class="table_cell">
-                <cos-toggle [cosToggleTextOn]="('TOGGLE_ON' | translate)"
-                  [cosToggleTextOff]="('TOGGLE_OFF' | translate)" [(model)]="extraOptions.veto.enabled"></cos-toggle>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- multiplechoice >
-    <div class="double_cell_layout section_padding" *ngIf="vote.type == 'multiple'">
-      <div class="left_row">
-
-        <div class="input_with_icon clickable" *ngFor="let option of vote.options; let $index = index">
-          <input id="{{'voteOption' + $index}}" class="gray_borders" [(ngModel)]="option.value"
-            [ngClass]="{'error_input': option.value && errors?.value}"
-            placeholder="{{'VIEWS.TOPICS_TOPICID.PLACEHOLDER_ENTER_A_POSSIBLE_ANSWER' | translate}}">
-          <div class="icon_table" [ngClass]="{'error': option.value && errors?.value}">
-            <div class="icon_cell" (click)="removeOption($index)">
-              <div class="sprite sprite-inputfield-icon-delete2x"></div>
-            </div>
-          </div>
-          <label for="{{'voteOption' + $index}}" class="error_label" *ngIf="option.value && errors?.value">
-            <div class="table_cell">
-              <div class="icon_notification_error_small"></div>
-              <span translate="{{errors.value}}"></span>
-            </div>
-          </label>
-        </div>
-
-        <div class="blue_button" (click)="addOption()" translate="VIEWS.TOPICS_TOPICID.VOTE_BTB_ADD_OPTION"></div>
-      </div>
-      <div class="right_row add_bottom_borders">
-
-        <div class="gray_toggle_box">
-          <div class="table_cell" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_NEUTRAL"></div>
-          <div class="table_cell">
-            <cos-toggle [cosToggleTextOn]="('TOGGLE_ON' | translate)" [cosToggleTextOff]="('TOGGLE_OFF' | translate)"
-              [(model)]="extraOptions.neutral.enabled"></cos-toggle>
-          </div>
-        </div>
-
-        <div class="gray_toggle_box">
-          <div class="table_cell" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_OPTION_VETO"></div>
-          <div class="table_cell">
-            <cos-toggle [cosToggleTextOn]="('TOGGLE_ON' | translate)" [cosToggleTextOff]="('TOGGLE_OFF' | translate)"
-              [(model)]="extraOptions.veto.enabled"></cos-toggle>
-          </div>
-        </div>
-
+    <div class="section_content_wrap">
+      <h3 translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_VOTING_QUESTION"></h3>
+      <div translate="COMPONENTS.TOPIC_VOTE_CREATE.VOTE_QUESTION_HEADING"></div>
+      <div class="row_wrap">
+        <cos-input placeholder="{{'COMPONENTS.TOPIC_VOTE_CREATE.VOTE_QUESTION_PLACEHOLDER' | translate}}">
+          <input id="groupName" [placeholder]="'COMPONENTS.TOPIC_VOTE_CREATE.VOTE_QUESTION_PLACEHOLDER' | translate"
+            [(ngModel)]="vote.description">
+        </cos-input>
       </div>
     </div>
   </div>
 
-  <div class="line lightest_line" *ngIf="vote.type == 'multiple'"></div>
-  <div class="voting_platform_section" *ngIf="vote.type == 'multiple'">
-    <div class="voting_platform_section_title" translate="VIEWS.TOPICS_TOPICID.VOTE_HEADING_STEP_DEFINE_OPTION_COUNT">
+  <div class="create_content_section">
+    <div class="number_wrap">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="16" height="16" rx="8" fill="white" />
+        <path
+          d="M12.6558 9.32812C11.2233 8.52002 9.79067 7.71195 8.35815 6.90385C8.47123 7.10587 8.5843 7.30788 8.71632 7.4916V7.47328C8.71632 7.2345 8.58432 6.99582 8.35815 6.88553C6.92564 6.07743 5.49303 5.26936 4.06051 4.46126C3.26884 4.02046 2.55253 5.21426 3.3442 5.65493C4.77672 6.46303 6.20933 7.2711 7.64185 8.0792C7.52877 7.87718 7.41569 7.67517 7.28368 7.49145V7.50977C7.28368 7.74856 7.41569 7.98723 7.64185 8.09752C9.07436 8.90563 10.507 9.71369 11.9395 10.5218C12.7312 10.9626 13.4475 9.76892 12.6558 9.32812Z"
+          fill="#EF4025" />
+        <path
+          d="M8.71632 7.4916L8.71634 2.66112C8.71634 1.77963 7.30264 1.77963 7.30264 2.66112V7.49117C7.30264 8.3728 8.71632 8.37323 8.71632 7.4916Z"
+          fill="#EF4025" />
+        <path
+          d="M8.71627 12.3388V7.50873C8.71627 6.62723 7.30257 6.62723 7.30257 7.50873V12.3388C7.30257 13.2204 8.71627 13.2204 8.71627 12.3388Z"
+          fill="#EF4025" />
+        <path
+          d="M4.06051 10.5208C6.92563 8.90464 9.7907 7.28856 12.6558 5.69076C13.4475 5.24996 12.7311 4.05625 11.9395 4.49708C9.07435 6.11326 6.20929 7.72933 3.3442 9.32714C2.55253 9.76783 3.26886 10.9615 4.06051 10.5208Z"
+          fill="#EF4025" />
+      </svg>
+      <div>2</div>
     </div>
-    <div class="vote_options_count_wrap">
-      <p translate="VIEWS.TOPICS_TOPICID.VOTE_TXT_DESCRIPTION_CHOICE_RANGE"></p>
-      <div class="options_selector_wrapper">
-        <div class="voting_platform_section_title" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_MIN_CHOICES"></div>
-        <div class="options_count_input_wrap">
-          <div class="gray_button options_count_input_subtract" (click)="optionsCountDown('min')">-</div>
-          <input class="options_count_input" type="number" [min]="1" [(ngModel)]="vote.minChoices" />
-          <div class="gray_button options_count_input_add" (click)="optionsCountUp('min')">+</div>
-        </div>
-      </div>
-      <div class="options_selector_wrapper">
-        <div class="voting_platform_section_title" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_MAX_CHOICES"></div>
-        <div class="options_count_input_wrap">
-          <div class="gray_button options_count_input_subtract" (click)="optionsCountDown()">-</div>
-          <input class="options_count_input" type="number" [min]="1" [(ngModel)]="vote.maxChoices" />
-          <div class="gray_button options_count_input_add" (click)="optionsCountUp()">+</div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-  <div class="line lightest_line" *ngIf="vote.type"></div>
-  <div class="voting_platform_section" *ngIf="vote.type">
-    <div class="voting_platform_section_title" translate="VIEWS.TOPICS_TOPICID.VOTE_HEADING_STEP3"
-      [translateParams]="{stepNum: getStepNum(3)}"></div>
-
-    <div class="double_cell_layout ten_px_margin_between section_padding">
-      <div class="left_row add_bottom_borders">
-        <div class="gray_toggle_box">
-          <div class="table_cell">
-            <div class="toggle_box_title" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_AUTH_HARD_ID"></div>
-            <div class="toggle_box_description" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_AUTH_HARD_ID_EXPLANATION"></div>
-            <div class="toggle_box_icons">
-              <div class="icon_wrapper">
-                <div class="sprite sprite-id-kaart-small2x"></div>
+    <div class="section_content_wrap">
+      <h3 translate="COMPONENTS.TOPIC_VOTE_CREATE.SELECT_VOTING_SYSTEM"></h3>
+      <div translate="COMPONENTS.TOPIC_VOTE_CREATE.SELECT_VOTING_SYSTEM"></div>
+      <div class="radio_wrap" (click)="setVoteType(type)" *ngFor="let type of voteTypes"
+        [ngClass]="vote.type == type? 'selected': ''">
+        <div class="radio_text_wrap">
+          <div class="radio_lable_wrap">
+            <label class="radio_box">
+              <input type="radio" [checked]="vote.type == type">
+              <span class="radio"></span>
+              <div class="radio_lable" [translate]="('COMPONENTS.TOPIC_VOTE_CREATE.OPTION_VOTING_'+type).toUpperCase()">
               </div>
-              <div class="icon_wrapper">
-                <div class="sprite sprite-mobiil-id-small2x"></div>
-              </div>
-              <div class="icon_wrapper">
-                <div class="sprite sprite-smart-id-small2x"></div>
-              </div>
-            </div>
+            </label>
           </div>
-          <div class="table_cell">
-            <cos-toggle [value]="VOTE_AUTH_TYPES.hard" [offValue]="VOTE_AUTH_TYPES.soft" [cosToggleTextOn]="('TOGGLE_ON' | translate)"
-            [cosToggleTextOff]="('TOGGLE_OFF' | translate)"
-              [(model)]="vote.authType"></cos-toggle>
-          </div>
+          <div class="radio_description"
+            [translate]="('COMPONENTS.TOPIC_VOTE_CREATE.OPTION_VOTING_'+type+'_DESC').toUpperCase()"></div>
         </div>
-      </div>
-      <div class="right_row add_bottom_borders">
-
-        <div class="gray_toggle_box">
-          <div class="table_cell">
-            <div class="toggle_box_title" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_DELEGATION"></div>
-            <div class="toggle_box_description" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_DELEGATION_EXPLANATION"></div>
-          </div>
-          <div class="table_cell">
-            <cos-toggle [attr.disabled]="(vote.authType == VOTE_AUTH_TYPES.hard)"  [cosToggleTextOn]="('TOGGLE_ON' | translate)"
-            [cosToggleTextOff]="('TOGGLE_OFF' | translate)"
-              [(model)]="vote.delegationIsAllowed"></cos-toggle>
-          </div>
-        </div>
-
-        <div class="gray_toggle_box" *ngIf="(vote.authType == VOTE_AUTH_TYPES.hard)">
-          <div class="toggle_box_warning">
-            <div class="icon_notification_error_small"></div>
-            <span translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_NOTICE_DELEGATION_DISABLED_FOR_HARD_ID"></span>
-          </div>
-        </div>
-
       </div>
     </div>
   </div>
-
-
-  <div class="line lightest_line" *ngIf="vote.type"></div>
-
-  <div class="voting_platform_section" *ngIf="vote.type">
-    <div class="voting_platform_section_title" translate="VIEWS.TOPICS_TOPICID.VOTE_HEADING_STEP4"
-      [translateParams]="{stepNum: getStepNum(4)}"></div>
-    <div class="voting_platform_section_description" translate="VIEWS.TOPICS_TOPICID.VOTE_HEADING_STEP4_DESCRIPTION">
+  <div class="create_content_section">
+    <div class="number_wrap">
+      <div>3</div>
     </div>
-    <div class="double_cell_layout ten_px_margin_between margin_betwen_boxes ten_px_padding">
-      <div class="left_row add_bottom_borders">
-        <div class="gray_toggle_box">
-          <div class="table_cell">
-            <div class="toggle_box_title" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_DEADLINE"></div>
+    <div class="section_content_wrap">
+      <h3 translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_SET_UP_VOTING_RIGHTS"></h3>
+      <div translate="COMPONENTS.TOPIC_VOTE_CREATE.SELECT_VOTING_SYSTEM"></div>
+      <div class="radio_wrap" [ngClass]="(vote.authType === VOTE_AUTH_TYPES.hard)? 'selected': ''"
+        (click)="(vote.authType !== VOTE_AUTH_TYPES.hard)? vote.authType=VOTE_AUTH_TYPES.hard : vote.authType=VOTE_AUTH_TYPES.soft">
+        <div class="radio_text_wrap">
+          <div class="radio_lable_wrap">
+            <label class="checkbox" (click)="vote.authType = VOTE_AUTH_TYPES.hard"
+              [ngClass]="vote.authType === VOTE_AUTH_TYPES.hard ? 'selected': ''">
+              <span class="bold" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_AUTH_HARD_ID"></span>
+              <input type="checkbox" [checked]="vote.authType === VOTE_AUTH_TYPES.hard" />
+              <span class="checkmark"></span>
+            </label>
           </div>
-          <div class="table_cell">
-            <cos-toggle [cosToggleTextOn]="('TOGGLE_ON' | translate)" [cosToggleTextOff]="('TOGGLE_OFF' | translate)"
-              (click)="toggleDeadline()"></cos-toggle><!--cos-toggle-datepicker-toggle="true">
+          <div class="radio_description">
+            <span translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_AUTH_HARD_ID_DESC"></span>
+            <div class="id_icons_wrap">
+              <svg width="76" height="22" viewBox="0 0 76 22" fill="none" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g style="mix-blend-mode:multiply">
+                  <rect width="76" height="22" fill="url(#pattern0)" />
+                </g>
+                <defs>
+                  <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+                    <use xlink:href="#image0_6469_4980" transform="scale(0.00909091 0.03125)" />
+                  </pattern>
+                  <image id="image0_6469_4980" width="110" height="32"
+                    xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAG4AAAAgCAYAAADzCU3nAAAABGdBTUEAALGOfPtRkwAACH1JREFUaAXtW3tQlNcV/+2y4CoqgqDig2x5aAiiMWkUbRPjk5hxYlqZmLaa6R8dFUenpnUKHVPbpiZqyiStmUkwTaeTsbGa0SSmakaRRMcGYpqIEQkqIKDiijyF5bXPnnPX+/ntsssujDHL9Dtw+c4959xzL+d899xzz4IOBC6XK4Ue26ktpDaSmgahZ4E2WtJxark6na5CR06bQp3PqY2ipkHoW6CVlpjBjjtAyI9Df73aClUWeJ8dd4sIWnhUWWUQoBZ2nGsQLFRbopcF9F59rTtILKA5bpA4ynuZmuO8LRKg35kzDdycDdWwHnxZ4N35P/cYZW6zQrfhhGiHzzch7aX/Cnz9exW4UN+p8HhQ/OYi0d9RcMVDR6CO5rhAFvLL10NHXwJ0t58+ZHV6HehbEfM2uJrnY7hfkpac+DVNaDMMwS6vrJZvDW743thIDDN6Du3stqO6vkOKIO2+KAVXIw23enCztVuQfOlhhrcuOd6XTqkvktZjonV5j1ePqaH1ddA6x4wyIi5qiFTbr2fXtkzA6YBx/btwfHMCtk/+BkP6IoQ/laPoae60Y8aOL2F3uPDR6qnYebIOxy+2YHNmApalx2Jm3hlEGHSo/kMGluaXouSaBYez0/H8gUqcJbzllR8quvwhntb3J0X0qXklCvfDn6VgWcYEpc9Iwdl6PP1uhUJzvf64gjNy+mITcvZX4uSNLg/6mvRo5C5LVozOTH4B1POpB+TOisPvsqYoL87RknqsOnAZrCd/9XQhqh6vXsf2g5XYVdqC3csTsfLxBLXaoHFXq1nIujpb4Kj4HK62m7CXn/RwXDu9HFea3S9nOZ1ph+ica+60CefNSYzCdXp5JRy70AwbOfj89Q4UV7ehx+6UrD6fQTtOreXjc429HPfP4htqEQ+88Ot6LHy7XKGxkZs67Nh/uV0YsrC6BAUbZ3g4TwqzLMOFhm7h9O2nGxA11IDc5Vypu/dg/M0h2nEu6EdPwJBn/gRn+0boIz2jyyTa0Ze2zIKL5EyjjVicGo1W+n0njx2GTqsTf346CYbbh9v1rXPQ3GETcgumRKO9yx7UL9Vvx80dN1QY+1V6q2S45HDFTshKHCGe6pk57K3d696JzH8ne7oyjkPXor+UoNJiB+8GuWPU49W0tW99LeauaXK/zWq5e4U7iveJUKlfvB7Om1VwnP0YrqSZCEubryzB6nTizVPXYSfH5SychE8rWvFFbTsyTCPw0++PxaYFkxTZvxebUXfLKuQOlTWhzNyJnVnJCt8f4p3k+JNT6E/c765FF1Pok1BU3ijQhxOGS5LyLKWzkR3DsOlJk+I07vOZ9KvHxjMqHMJODnWwndoN22d74Gysga3gTYFbP9jqsey6Vite+/QqXj95DUfLm7Fm7yWB//qDKg857uR+dFmRW7evQuC9hHwQ+r3j5k2NBU6Ycby0EQumjxUqZZh8JJmcSjw1VJjvJCyzpoxWswT+2ANEO3JF4Hw2qZMJJvIuY5ChMnm4ARsyTYL2XfwIf3SVe8fFmhC+KBv6OBP0tOPUMGFUBJ6fN0nsuMzUGOx6drLYcfMnu196tWzej5JQ29wDlntjRYrYcWq+P7zfjpPG31/Wgm2klXeJDJPjKLbfbeBkQg1ZadHgDPK7grDZK8QZhwgj9GOSgNk/6XXGRej1yH50vDjj4oaHizNuZsIIxESG91r2MzPi0EXnHss9RRnnvOTgos6ALMCZHScJnClaboe3lbPH9VrU3SCc3zRDqOF58o7UiHmLay04sXnW3VDvoUOeoZLoK/vsfmWpYBs3vkehchccZYXQxUzE0Jwjchiu0nVn8ounRX/3c6n4JWXTnFUmxhpR9fsMRY6R+7ZQZkpPlvvFnosiq1Rnwh7Cqk6/zzgeu5DeDIYzl2+JkMn4nFQ3jXE1xEcPUbqcjHhDpdmikPh+5Q0cOrnxTl87f6Jg85XCly7vsd9GXzcqHrqRY6AbFo2wlAyBG1Lnekw1giJCQowR4+mumEqZ5NKpowW+JLX3UfGDpChFLpOyTx4TDAxox00zuWP1vjMNIkXnTJMvtPJirZ5YyjJtV0ENtq1MU9gcZl8rvCb6UofC9IFcoruOhG8jXHIGmy8n8PMc+tujCsdAYZObN8QMM6D2j3d21jur7ldEKOFEvcUq+vEjI3CKrkESDq5Ol2jA54Acx05Sp/4rHorzOxHLvvFkAtZRAsLhtbLhKyyjuM73Fel4HrzDTwoskxN572NZvtsNtPLB49/+zIz/XPI8O72LACznC7jAzGDc9G84ivbAVvQv6BMfhnHNPxRxLjKPp+Ixw+Hsacj5sArnKUnbMHci1tHZl7r1C8HjkDjhhSK6kFuF3Nq9F3G1pQfBhMoBOY5nZeNzUsKw5CF3dik6Pn5kL0kUVHYej5HjmMhZYv6zKSIU+hgqrglqOjvt1efu7Fo1L1icQ613BWdDZnBJQbBz+JLjz6z7Opvo2hc0BF1klrVKma5zmJO1yb5o6pXwRf1cTSvM9FYxpMRHIp3OL3mRl7Jq3ZLGT1+1zYHUKtU6Je5Lt+TdqyfXOLnkxSE0EATtuECK/l/4XS9SIkJF5iEb98NRegz2wrcQlr4YEcu3KCZopILDAy+dhoO20BGqFOUVXsEnFJpfeMKErAdj8eD2LxEepseNl+dg3s6zOFdnwV+zUrDykb4jlzIBIX3tXLWcht+2gKujBa4u+hPHng646qsE7qz7xsM+vGsaLDa6AthhbuvBV1fbBc6F5PZuh8Dr290JCn8awHJVjV0eOgJ1tB0XyEIhytd2XIg6JtCyNMcFslCI8tlx/DfpGgwuC1jYcccH15q11ZIFjnFywvWYYmq9P3PQbBSKFmilRc3W07/sXCCEC2vvU3OXQgjRIOQswL5hH2Wwz/4HhG59HS2ik/0AAAAASUVORK5CYII=" />
+                </defs>
+              </svg>
+              <svg width="71" height="22" viewBox="0 0 71 22" fill="none" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g style="mix-blend-mode:multiply">
+                  <rect width="71" height="22" fill="url(#pattern0)" />
+                </g>
+                <defs>
+                  <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+                    <use xlink:href="#image0_6469_4982" transform="scale(0.00961538 0.03125)" />
+                  </pattern>
+                  <image id="image0_6469_4982" width="104" height="32"
+                    xlink:href="data:image/png;base64,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" />
+                </defs>
+              </svg>
+              <svg width="83" height="20" viewBox="0 0 83 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12.4671 6.40008C12.4671 6.80008 12.156 7.11119 11.756 7.11119C11.356 7.11119 11.0449 6.80008 11.0449 6.40008C11.0449 6.00008 11.356 5.68896 11.756 5.68896C12.156 5.68896 12.4671 6.00008 12.4671 6.40008Z"
+                  fill="#00AFAA" />
+                <path
+                  d="M15.4438 18.1333C15.2661 18.1333 15.0883 18.0444 14.9772 17.9111C14.7994 17.6666 14.8438 17.3111 15.0883 17.1111C17.3327 15.4666 18.6661 12.8444 18.6661 10.0666C18.6883 5.26662 14.7549 1.33329 9.9105 1.33329C9.48828 1.33329 9.06606 1.35551 8.64384 1.42218V13.7777C8.64384 14.0888 8.39939 14.3333 8.06606 14.3333C7.75495 14.3333 7.48828 14.0888 7.48828 13.7777V0.93329C7.48828 0.666623 7.68828 0.422179 7.95495 0.377734C8.59939 0.244401 9.24384 0.177734 9.9105 0.177734C15.3772 0.177734 19.8216 4.59996 19.8216 10.0444C19.8216 13.1777 18.3105 16.1555 15.7772 18C15.6661 18.1111 15.5549 18.1333 15.4438 18.1333Z"
+                  fill="#00AFAA" />
+                <path
+                  d="M9.91111 19.9555C4.44444 19.9555 0 15.5111 0 10.0889C0 6.95554 1.51111 3.97776 4.04444 2.13332C4.31111 1.93332 4.66667 1.99998 4.84444 2.24443C5.02222 2.48887 4.97778 2.84443 4.73333 3.04443C2.46667 4.66665 1.13333 7.31109 1.13333 10.0889C1.13333 14.9111 5.06667 18.8222 9.91111 18.8222C10.3333 18.8222 10.7556 18.8 11.1778 18.7333V10.6222C11.1778 10.3111 11.4222 10.0666 11.7556 10.0666C12.0667 10.0666 12.3333 10.3111 12.3333 10.6222V19.2C12.3333 19.4667 12.1333 19.7111 11.8667 19.7555C11.2222 19.8889 10.5778 19.9555 9.91111 19.9555Z"
+                  fill="#00AFAA" />
+                <path
+                  d="M24.4453 11.5406H25.7904C25.8821 12.3091 26.1878 12.9547 27.4718 12.9547C28.2972 12.9547 28.9086 12.4936 28.9086 11.7865C28.9086 11.0794 28.5723 10.8335 27.3189 10.6183C25.5153 10.3724 24.6287 9.81901 24.6287 8.40486C24.6287 7.17518 25.6987 6.22217 27.2578 6.22217C28.878 6.22217 29.8562 6.95998 30.0091 8.43561H28.7251C28.5723 7.63631 28.1443 7.29815 27.2578 7.29815C26.4018 7.29815 25.9433 7.69779 25.9433 8.2819C25.9433 8.89674 26.1878 9.20416 27.5023 9.38862C29.2754 9.63455 30.2231 10.1572 30.2231 11.6635C30.2231 12.9855 29.1226 13.9999 27.4412 13.9999C25.4236 13.9999 24.5676 12.9855 24.4453 11.5406Z"
+                  fill="#00AFAA" />
+                <path
+                  d="M33.1113 6.22217H35.0249L37.0311 11.5123L39.0064 6.22217H40.8891V13.9999H39.4694V8.11151L37.1854 13.9999H36.7224L34.3768 8.11151V13.9999H33.1113V6.22217Z"
+                  fill="#00AFAA" />
+                <path d="M62.3776 7.35577H60.2227V6.22217H66.0004V7.35577H63.8455V13.9999H62.3776V7.35577Z"
+                  fill="#00AFAA" />
+                <rect x="66.2227" y="10" width="2.88889" height="1.11111" fill="#00AFAA" />
+                <path
+                  d="M50.4451 13.9999L47.865 6.22217H45.9456L43.334 13.9999H44.7184L46.8266 7.38726L47.8964 10.7566H46.9525L46.6064 11.8902H48.2425L48.9348 13.9999H50.4451Z"
+                  fill="#00AFAA" />
+                <rect x="71.1113" y="6.22217" width="1.33333" height="7.77778" fill="#00AFAA" />
+                <path
+                  d="M78.0557 6.22217H75.7793V13.9999H77.1755V12.8663V7.35577H77.995C79.7554 7.35577 80.5143 8.36342 80.5143 10.0323V10.1268C80.5143 11.5753 79.9376 12.52 78.7538 12.7719V13.9685C80.9392 13.7165 82.0015 12.2051 82.0015 10.1268V10.0323C81.9712 7.76513 80.6964 6.22217 78.0557 6.22217Z"
+                  fill="#00AFAA" />
+                <path
+                  d="M56.2664 10.6621C57.2453 10.4102 58.0032 9.78042 58.0032 8.58384V8.52086C58.0032 6.94641 56.8032 6.22217 55.0664 6.22217H52.4453V13.9999H53.8979V7.35577H55.0664C56.0137 7.35577 56.5506 7.67066 56.5506 8.55235V8.58384C56.5506 9.40255 56.0453 9.81191 55.0664 9.81191H54.8137V10.851L56.8664 13.9999H58.4453L56.2664 10.6621Z"
+                  fill="#00AFAA" />
+              </svg>
+            </div>
           </div>
         </div>
-        <div class="picker_content" [ngClass]="deadline ? 'active' : ''" *ngIf="deadline">
-          <div class="bubble_content">
+      </div>
+      <div class="radio_wrap" [ngClass]="vote.delegationIsAllowed? 'selected': ''">
+        <div class="radio_text_wrap">
+          <div class="radio_lable_wrap">
+            <label class="checkbox" [ngClass]="vote.delegationIsAllowed? 'selected': ''">
+              <span class="bold" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_DELEGATION"></span>
+              <input type="checkbox" [(ngModel)]="vote.delegationIsAllowed" />
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="radio_description" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_DELEGATION_DESC"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="create_content_section">
+    <div class="number_wrap">
+      <div>4</div>
+    </div>
+    <div class="section_content_wrap">
+      <h3 translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_CHOOSE_VOTING_END"></h3>
+      <div translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_CHOOSE_VOTING_END_DESC"></div>
+      <div class="radio_wrap date_selector" [ngClass]="deadline ? 'selected': ''">
+        <div class="radio_text_wrap date_selector">
+          <div class="radio_lable_wrap">
+            <label class="checkbox">
+              <span class="deadline" *ngIf="deadline">{{deadline | amTimeAgo}}</span>
+              <span class="bold" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_DEADLINE"></span>
+              <input type="checkbox" [checked]="deadline" (click)="toggleDeadline()" />
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="radio_description">
+            <span translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_DEADLINE_DESC"></span>
 
-            <div class="bubble_section">
-
-              <div class="bubble_description">
-                <div class="picker_deadline_date">
-                  {{getDeadline() | date:'yyyy-MM-dd HH:mm Z'}}
-                </div>
-                <!--div class="picker_days_left" translate="VIEWS.TOPICS_TOPICID.VOTE_TXT_DEADLINE_CALENDAR_DAYS_LEFT"
-                  [translateParams]="{numberOfDaysLeft: numberOfDaysLeft}">
-                </!--div>
-                <div class="picker_days_left">{{deadline | amTimeAgo}}</div>
-                <div class="clearer"></div>
-              </div>
-            </div>
-            <div class="double_cell_layout">
-              <div class="left_row gray_toggle_box">
-                <div class="set_vote_time_wrap">
-                  <div class="toggle_box_title" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_SET_TIME"></div>
-                  <div class="input_row">
+            <ng-container *ngIf="deadline">
+              <div class="deadline_wrap">
+                <div class="date_row">
+                  <div class="bold date_row_title" translate="COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_LBL_TIME">
+                  </div>
+                  <div class="input_wrap">
                     <input class="time_input" [(ngModel)]="endsAt.h" (change)="formatTime(endsAt.h); setEndsAtTime()"
-                      type="number" [min]="minHours()" max="{{HCount}}" step="1" /><span class="time_separator">:</span><input
-                      type="number" class="time_input" [min]="minMinutes()" max="59" step="5" [(ngModel)]="endsAt.min"
-                      (change)="formatTime(endsAt.min);setEndsAtTime()" />
+                      type="number" [min]="minHours()" max="{{HCount}}" step="1" />
+                    <span class="time_separator">:</span>
+                    <input type="number" class="time_input" [min]="minMinutes()" max="59" step="5"
+                      [(ngModel)]="endsAt.min" (change)="formatTime(endsAt.min);setEndsAtTime()" />
 
-                    <div [cosDropdown] class="classic_dropdown">
 
-                      <div class="dropdown_selection">
-                        <div class="dropdown_text">
-                          {{'VIEWS.TOPICS_TOPICID.VOTE_SETTING_TIME_OPTION_'+endsAt.timeFormat |
-                          uppercase | translate}}
+                    <div class="dropdown" [cosDropdown]>
+                      <div class="selection">
+                        <div class="selected_item">
+                          {{'COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_TIME_OPTION_'+endsAt.timeFormat | uppercase |
+                          translate}}</div>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+
+                      </div>
+                      <div class="options">
+                        <div class="option" translate="COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_TIME_OPTION_24"
+                          (click)="endsAt.timeFormat = 24; setTimeFormat()">
                         </div>
-
-                        <div class="arrow_holder">
-                          <div class="table_cell">
-                            <div class="sprite sprite-icon-dropdown-arrowdown2x"></div>
-
-                            <div class="v_line"></div>
-                          </div>
+                        <div class="option" translate="COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_TIME_OPTION_AM"
+                          (click)="endsAt.timeFormat = 'AM'; setTimeFormat()">
+                        </div>
+                        <div class="option" translate="COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_TIME_OPTION_PM"
+                          (click)="endsAt.timeFormat = 'PM'; setTimeFormat()">
                         </div>
                       </div>
 
-                      <div class="dropdown">
-
-                        <div class="dropdown_item">
-
-                          <div class="item_names_wrap">
-                            <div class="item_name" translate="VIEWS.TOPICS_TOPICID.VOTE_SETTING_TIME_OPTION_24"
-                              (click)="endsAt.timeFormat = 24; setTimeFormat()">
-                            </div>
-                            <div class="item_name" translate="VIEWS.TOPICS_TOPICID.VOTE_SETTING_TIME_OPTION_AM"
-                              (click)="endsAt.timeFormat = 'AM'; setTimeFormat()">
-                            </div>
-                            <div class="item_name" translate="VIEWS.TOPICS_TOPICID.VOTE_SETTING_TIME_OPTION_PM"
-                              (click)="endsAt.timeFormat = 'PM'; setTimeFormat()">
-                            </div>
-                          </div>
-
-                          <div class="clearer"></div>
-                        </div>
-
-                      </div>
                     </div>
                   </div>
                 </div>
-                <div class="set_vote_timezone_wrap">
-                  <div class="toggle_box_title" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_SET_TIMEZONE"></div>
-                  <div class="input_row">
-                    <div [cosDropdown] class="classic_dropdown timezone_dropdown">
-
-                      <div class="dropdown_selection">
-                        <div class="dropdown_text">
+                <div class="date_row">
+                  <div class="date_row_title bold" translate="COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_LBL_TIMEZONE">
+                  </div>
+                  <div class="input_wrap">
+                    <div class="dropdown" [cosDropdown]>
+                      <div class="selection">
+                        <div class="selected_item">
                           {{getTimeZoneName(endsAt.timezone)}}
                         </div>
-
-                        <div class="arrow_holder">
-                          <div class="table_cell">
-                            <div class="sprite sprite-icon-dropdown-arrowdown2x"></div>
-
-                            <div class="v_line"></div>
-                          </div>
-                        </div>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
+                        </svg>
                       </div>
-
-                      <div class="dropdown">
-
-                        <div class="dropdown_item" [ngClass]="zone === endsAt.timezone ? 'bold' : ''"
-                          *ngFor="let zone of timezones">
-                          <div class="item_names_wrap">
-                            <div class="item_name" (click)="endsAt.timezone = zone.value;setEndsAtTime()">
-                              {{zone.name}}
-                            </div>
-                          </div>
-                          <!--div class="item_props">
-                                                      404 topics
-                                                  </div
-                          <div class="clearer"></div>
+                      <div class="options">
+                        <div class="option" *ngFor="let zone of timezones"
+                          [ngClass]="zone === endsAt.timezone ? 'bold' : ''"
+                          (click)="endsAt.timezone = zone.value;setEndsAtTime();">
+                          {{zone.name}}
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="right_row gray_toggle_box">
-                <div class="toggle_box_title datepicker_title" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_SET_DATE"></div>
-                <!--datepicker></!--datepicker->
-                <mat-calendar class="date_picker_wrap" [minDate]="datePickerMin" [(selected)]="endsAt.date" (click)="setEndsAtTime()"></mat-calendar>
-                <!--div (click)="setEndsAtTime()" class="date_picker_wrap" date-picker="endsAt.date"
-                  min-date="datePickerMin" max-view="date" min-view="date"
-                  template="/views/directives/date_picker.html"></!--div->
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="double_cell_layout ten_px_margin_between margin_betwen_boxes section_padding"
-      *ngIf="deadline && isVisibleReminderOption(reminderOptions[0])">
-      <div class="left_row">
-        <div class="gray_toggle_box">
-          <div class="table_cell">
-            <div class="toggle_box_title" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_SET_VOTE_REMINDER"></div>
-            <div class="toggle_box_description" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_SET_VOTE_REMINDER_EXPLANATION">
-            </div>
-            <div class="table_cell" *ngIf="reminder">
-              <div [cosDropdown] class="classic_dropdown">
-                <div class="dropdown_selection">
-                  <div class="dropdown_text">{{selectedReminderOption()}}</div>
-
-                  <div class="arrow_holder">
-                    <div class="table_cell">
-                      <div class="sprite sprite-icon-dropdown-arrowdown2x"></div>
-
-                      <div class="v_line"></div>
+                <cos-calender [minDate]="datePickerMin" [(date)]="endsAt.date" (click)="setEndsAtTime()"></cos-calender>
+                <div class="reminder_wrap">
+                  <label class="checkbox" [ngClass]="reminder ? 'selected': ''">
+                    <span class="bold"
+                      translate="COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_LBL_OPTION_SET_VOTE_REMINDER"></span>
+                    <input type="checkbox" [(ngModel)]="reminder" />
+                    <span class="checkmark"></span>
+                  </label>
+                  <div translate="COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_LBL_OPTION_SET_VOTE_REMINDER_DESC"></div>
+                  <div class="dropdown" [cosDropdown] *ngIf="reminderOptions.length">
+                    <div class="selection">
+                      <div class="selected_item">
+                        {{selectedReminderOption()}}
+                      </div>
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
+                      </svg>
                     </div>
+                    <div class="options">
+                      <ng-container *ngFor="let option of reminderOptions">
+                        <div class="option" (click)="setVoteReminder(option)">
+                          {{'OPTION_' + option.value
+                          + '_'+
+                          option.unit.toUpperCase() | translate}}
+                        </div>
+                      </ng-container>
+                    </div>
+
                   </div>
                 </div>
-                <div class="dropdown">
-                  <ng-container *ngFor="let option of reminderOptions">
-                    <div class="dropdown_item" *ngIf="isVisibleReminderOption(option)">
-                      <div class="item_name" (click)="setVoteReminder(option)">{{'OPTION_' + option.value + '_'+
-                        option.unit.toUpperCase() | translate}}</div>
-                    </div>
-                  </ng-container>
-                </div>
               </div>
-            </div>
-          </div>
-          <div class="table_cell">
-            <cos-toggle [cosToggleTextOn]="('TOGGLE_ON' | translate)" [cosToggleTextOff]="('TOGGLE_OFF' | translate)"
-              [(model)]="reminder"></cos-toggle>
+            </ng-container>
           </div>
         </div>
       </div>
-    </div>
-    <div class="double_cell_layout ten_px_margin_between margin_betwen_boxes section_padding">
-      <div class="left_row">
-        <div class="gray_toggle_box">
-          <div class="table_cell">
-            <div class="toggle_box_title" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_ALL_VOTES_ARE_IN"></div>
-            <div class="toggle_box_description" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_ALL_VOTES_ARE_IN_EXPLANATION"></div>
+
+      <div class="radio_wrap" (click)="vote.autoClose[0].enabled = !vote.autoClose[0].enabled"
+        [ngClass]="vote.autoClose[0].enabled ? 'selected': ''">
+        <div class="radio_text_wrap">
+          <div class="radio_lable_wrap">
+            <label class="checkbox" [ngClass]="vote.delegationIsAllowed? 'selected': ''">
+              <span class="bold" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_ALL_VOTES_ARE_IN"></span>
+              <input type="checkbox" [(ngModel)]="vote.autoClose[0].enabled" />
+              <span class="checkmark"></span>
+            </label>
           </div>
-          <div class="table_cell">
-            <cos-toggle [cosToggleTextOn]="('TOGGLE_ON' | translate)" [cosToggleTextOff]="('TOGGLE_OFF' | translate)"
-              [(model)]="vote.autoClose[0].enabled"></cos-toggle>
+          <div class="radio_description" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_ALL_VOTES_ARE_IN_DESC">
+
           </div>
         </div>
       </div>
     </div>
   </div>
-
-  <div class="line lightest_line" *ngIf="vote.type"></div>
-
-  <div class="voting_platform_section" *ngIf="vote.type">
-
-    <div class="blue_button aqua_marine_background black_text" (click)="createVote()">
-      <div class="table_cell" translate="VIEWS.TOPICS_TOPICID.VOTE_BTN_CREATE_VOTE"></div>
-    </div>
-
-  </div>
-
-
-</!--div-->
+</div>
