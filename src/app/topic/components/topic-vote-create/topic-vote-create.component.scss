@@ -13,6 +13,16 @@
   }
 }
 
+.radio_text_wrap {
+  width: 100%;
+
+  .vote_options_wrap {
+    .radio_wrap {
+      background-color: var(--color-surfaces);
+    }
+  }
+}
+
 .input_area {
 
   input {

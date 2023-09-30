@@ -143,7 +143,7 @@
         <div class="content_section">
           <div class="section_content_wrap">
             <h3>1. <span translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_DEFINE_VOTE_ANSWERS"></span></h3>
-            <div class="vote_options_wrap" *ngIf="vote.type == 'regular'">
+            <div class="vote_options_wrap" *ngIf="vote.type == VOTE_TYPES.regular">
               <div class="radio_wrap" [ngClass]="vote.options[0].enabled? 'selected': ''"
                 (click)="vote.options[0].enabled = !vote.options[0].enabled">
                 <div class="radio_text_wrap">

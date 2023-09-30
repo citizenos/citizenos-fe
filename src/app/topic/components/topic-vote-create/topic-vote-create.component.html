@@ -52,19 +52,154 @@
     <div class="section_content_wrap">
       <h3 translate="COMPONENTS.TOPIC_VOTE_CREATE.SELECT_VOTING_SYSTEM"></h3>
       <div translate="COMPONENTS.TOPIC_VOTE_CREATE.SELECT_VOTING_SYSTEM"></div>
-      <div class="radio_wrap" (click)="setVoteType(type)" *ngFor="let type of voteTypes"
-        [ngClass]="vote.type == type? 'selected': ''">
+      <div class="radio_wrap" (click)="setVoteType(VOTE_TYPES.regular)"
+        [ngClass]="vote.type === VOTE_TYPES.regular? 'selected': ''">
         <div class="radio_text_wrap">
           <div class="radio_lable_wrap">
             <label class="radio_box">
-              <input type="radio" [checked]="vote.type == type">
+              <input type="radio" [checked]="vote.type === VOTE_TYPES.regular">
               <span class="radio"></span>
-              <div class="radio_lable" [translate]="('COMPONENTS.TOPIC_VOTE_CREATE.OPTION_VOTING_'+type).toUpperCase()">
+              <div class="radio_lable"
+                [translate]="('COMPONENTS.TOPIC_VOTE_CREATE.OPTION_VOTING_'+VOTE_TYPES.regular).toUpperCase()">
               </div>
             </label>
           </div>
           <div class="radio_description"
-            [translate]="('COMPONENTS.TOPIC_VOTE_CREATE.OPTION_VOTING_'+type+'_DESC').toUpperCase()"></div>
+            [translate]="('COMPONENTS.TOPIC_VOTE_CREATE.OPTION_VOTING_'+VOTE_TYPES.regular+'_DESC').toUpperCase()">
+          </div>
+          <ng-container *ngIf="vote.type===VOTE_TYPES.regular">
+            <div class="vote_options_wrap">
+              <div class="radio_wrap" [ngClass]="vote.options[0].enabled? 'selected': ''"
+                (click)="vote.options[0].enabled = !vote.options[0].enabled">
+                <div class="radio_text_wrap">
+                  <div class="radio_lable_wrap">
+                    <label class="checkbox"><span class="bold"
+                        translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_YES"></span>
+                      <input type="checkbox" [(ngModel)]="vote.options[0].enabled" />
+                      <span class="checkmark"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="radio_wrap" [ngClass]="vote.options[1].enabled? 'selected': ''"
+                (click)="vote.options[1].enabled = !vote.options[1].enabled">
+                <div class="radio_text_wrap">
+                  <div class="radio_lable_wrap">
+                    <label class="checkbox"><span class="bold"
+                        translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_NO"></span>
+                      <input type="checkbox" [(ngModel)]="vote.options[1].enabled" />
+                      <span class="checkmark"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="radio_wrap" [ngClass]="extraOptions.neutral.enabled? 'selected': ''"
+                (click)="extraOptions.neutral.enabled = !extraOptions.neutral.enabled;">
+                <div class="radio_text_wrap">
+                  <div class="radio_lable_wrap">
+                    <label class="checkbox"><span class="bold"
+                        translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_NEUTRAL"></span>
+                      <input type="checkbox" [(ngModel)]="extraOptions.neutral.enabled" />
+                      <span class="checkmark"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="radio_wrap" [ngClass]="extraOptions.veto.enabled? 'selected': ''"
+                (click)="extraOptions.veto.enabled = !extraOptions.veto.enabled;">
+                <div class="radio_text_wrap">
+                  <div class="radio_lable_wrap">
+                    <label class="checkbox"><span class="bold"
+                        translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_VETO"></span>
+                      <input type="checkbox" [(ngModel)]="extraOptions.veto.enabled" />
+                      <span class="checkmark"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+      <div class="radio_wrap" (click)="setVoteType(VOTE_TYPES.multiple)"
+        [ngClass]="vote.type === VOTE_TYPES.multiple? 'selected': ''">
+        <div class="radio_text_wrap">
+          <div class="radio_lable_wrap">
+            <label class="radio_box">
+              <input type="radio" [checked]="vote.type === VOTE_TYPES.multiple">
+              <span class="radio"></span>
+              <div class="radio_lable"
+                [translate]="('COMPONENTS.TOPIC_VOTE_CREATE.OPTION_VOTING_'+VOTE_TYPES.multiple).toUpperCase()">
+              </div>
+            </label>
+          </div>
+          <div class="radio_description"
+            [translate]="('COMPONENTS.TOPIC_VOTE_CREATE.OPTION_VOTING_'+VOTE_TYPES.multiple+'_DESC').toUpperCase()">
+          </div>
+          <ng-container *ngIf="vote.type===VOTE_TYPES.multiple">
+            <div class="vote_options_wrap">
+              <div class="input_area" *ngFor="let option of vote.options; let $index = index">
+                <cos-input placeholder="{{'VIEWS.TOPICS_TOPICID.PLACEHOLDER_ENTER_A_POSSIBLE_ANSWER' | translate}}"
+                  *ngIf="displayOptInput(option)">
+                  <input placeholder="{{'VIEWS.TOPICS_TOPICID.PLACEHOLDER_ENTER_A_POSSIBLE_ANSWER' | translate}}"
+                    id="{{'voteOption' + $index}}" [(ngModel)]="option.value"
+                    [ngClass]="{'error_input': option.value && errors?.value}" />
+                  <label for="{{'voteOption' + $index}}" class="error_label" *ngIf="option.value && errors?.value">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M8.89438 1.78863C8.52586 1.05158 7.47405 1.05158 7.10553 1.78863L0.723562 14.5526C0.391112 15.2175 0.874608 15.9998 1.61799 15.9998H14.3819C15.1253 15.9998 15.6088 15.2175 15.2763 14.5526L8.89438 1.78863ZM6.99996 6.99977C6.99996 6.44749 7.44767 5.99977 7.99996 5.99977C8.55224 5.99977 8.99996 6.44749 8.99996 6.99977V9.99977C8.99996 10.5521 8.55224 10.9998 7.99996 10.9998C7.44767 10.9998 6.99996 10.5521 6.99996 9.99977V6.99977ZM6.99996 12.9998C6.99996 12.4475 7.44767 11.9998 7.99996 11.9998C8.55224 11.9998 8.99996 12.4475 8.99996 12.9998C8.99996 13.5521 8.55224 13.9998 7.99996 13.9998C7.44767 13.9998 6.99996 13.5521 6.99996 12.9998Z"
+                        fill="#EF4025" />
+                    </svg>
+                    <span translate="{{errors.value}}"></span>
+                  </label>
+                </cos-input>
+                <button (click)="removeOption($index)">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 6.00016H7.33333L7.33333 11.3335H6L6 6.00016Z" fill="#2C3B47" />
+                    <path d="M10 6.00016H8.66667L8.66667 11.3335H10L10 6.00016Z" fill="#2C3B47" />
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M11.3333 3.3335V2.66683C11.3333 1.93045 10.7364 1.3335 10 1.3335L6 1.3335C5.26362 1.3335 4.66667 1.93045 4.66667 2.66683V3.3335L2.66667 3.3335C2.29848 3.3335 2 3.63198 2 4.00016C2 4.36835 2.29848 4.66683 2.66667 4.66683H3.33333L3.33333 12.0002C3.33333 13.1048 4.22877 14.0002 5.33333 14.0002L10.6667 14.0002C11.7713 14.0002 12.6667 13.1048 12.6667 12.0002L12.6667 4.66683H13.3333C13.7015 4.66683 14 4.36835 14 4.00016C14 3.63198 13.7015 3.3335 13.3333 3.3335H11.3333ZM10 2.66683L6 2.66683V3.3335L10 3.3335V2.66683ZM11.3333 4.66683L4.66667 4.66683L4.66667 12.0002C4.66667 12.3684 4.96515 12.6668 5.33333 12.6668L10.6667 12.6668C11.0349 12.6668 11.3333 12.3684 11.3333 12.0002L11.3333 4.66683Z"
+                      fill="#2C3B47" />
+                  </svg>
+                </button>
+              </div>
+              <button class="btn_medium_plain" (click)="addOption()"><svg width="16" height="16" viewBox="0 0 16 16"
+                  fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M8 16C7.47105 16 7.04225 15.5712 7.04225 15.0423L7.04225 8.95775L0.957747 8.95775C0.428798 8.95775 0 8.52895 0 8C0 7.47105 0.428798 7.04225 0.957747 7.04225L7.04225 7.04225L7.04225 0.957747C7.04225 0.428798 7.47105 0 8 0C8.52895 0 8.95775 0.428798 8.95775 0.957747L8.95775 7.04225L15.0423 7.04225C15.5712 7.04225 16 7.47105 16 8C16 8.52895 15.5712 8.95775 15.0423 8.95775H8.95775V15.0423C8.95775 15.5712 8.52895 16 8 16Z"
+                    fill="#2C3B47" />
+                </svg>
+                <span translate="COMPONENTS.TOPIC_VOTE_CREATE.BTN_ADD_OPTION"></span>
+              </button>
+
+              <div class="description_text" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_CAN_ADD_EXTRA_OPTIONS"></div>
+              <div class="radio_wrap" [ngClass]="extraOptions.neutral.enabled? 'selected': ''"
+                (click)="extraOptions.neutral.enabled = !extraOptions.neutral.enabled;">
+                <div class="radio_text_wrap">
+                  <div class="radio_lable_wrap">
+                    <label class="checkbox"><span class="bold"
+                        translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_NEUTRAL"></span>
+                      <input type="checkbox" [(ngModel)]="extraOptions.neutral.enabled" />
+                      <span class="checkmark"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="radio_wrap" [ngClass]="extraOptions.veto.enabled? 'selected': ''"
+                (click)="extraOptions.veto.enabled = !extraOptions.veto.enabled;">
+                <div class="radio_text_wrap">
+                  <div class="radio_lable_wrap">
+                    <label class="checkbox"><span class="bold"
+                        translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_VETO"></span>
+                      <input type="checkbox" [(ngModel)]="extraOptions.veto.enabled" />
+                      <span class="checkmark"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
         </div>
       </div>
     </div>
