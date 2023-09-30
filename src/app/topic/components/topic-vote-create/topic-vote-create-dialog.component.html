@@ -104,7 +104,7 @@
               <cos-input placeholder="{{'COMPONENTS.TOPIC_VOTE_CREATE.VOTE_QUESTION_PLACEHOLDER' | translate}}">
                 <input id="groupName"
                   [placeholder]="'COMPONENTS.TOPIC_VOTE_CREATE.VOTE_QUESTION_PLACEHOLDER' | translate"
-                  [(ngModel)]="vote.question">
+                  [(ngModel)]="vote.description">
               </cos-input>
             </div>
           </div>
@@ -136,7 +136,7 @@
       <div class="dialog_info_wrap">
         <div class="dialog_info voting">
           <span translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_VOTING_QUESTION"></span>
-          <span class="bold">{{vote.question}}</span>
+          <span class="bold">{{vote.description}}</span>
         </div>
       </div>
       <div id="form_area">
@@ -543,7 +543,7 @@
       <div class="dialog_info_wrap">
         <div class="dialog_info voting">
           <span translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_VOTING_QUESTION"></span>
-          <span class="bold">{{vote.question}}</span>
+          <span class="bold">{{vote.description}}</span>
         </div>
       </div>
       <div class="dialog_info_wrap">

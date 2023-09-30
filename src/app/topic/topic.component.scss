@@ -250,6 +250,14 @@
 
         &.voting {
           background-color: var(--color-argument-pro-light);
+
+          @include mixins.tablet {
+            display: none;
+
+            &.show {
+              display: flex;
+            }
+          }
         }
 
         &.follow_up {

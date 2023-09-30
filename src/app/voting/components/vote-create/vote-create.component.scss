@@ -1,4 +1,4 @@
-@use "mixins";
+@use 'mixins';
 .page_content {
   gap: 24px;
   padding: 16px 24px 0px 24px;
@@ -11,11 +11,9 @@
     padding: 0;
   }
 }
-
 #create_tabs .create_tab {
   padding: 28px 40px;
 }
-
 #image_upload_input {
   width: 1px;
   height: 1px;
@@ -220,58 +218,4 @@
 #help_wrap {
   flex-direction: column;
   gap: 16px;
-
-  #invite_collaborators {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    border-radius: 16px;
-    padding: 16px;
-    background-color: var(--color-surfaces);
-    text-align: center;
-
-    &.empty {
-      padding: 24px;
-    }
-
-    button {
-      margin-top: 16px;
-    }
-  }
-
-  .topic_editors_header {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-
-    .title {
-      font-weight: bold;
-    }
-  }
-
-  .topic_members_list_wrap {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    width: 100%;
-
-    .topic_member {
-      display: flex;
-      justify-content: flex-start;
-      gap: 8px;
-      align-items: center;
-
-      .profile_image_wrap {
-        width: 24px;
-        height: 24px;
-
-        .profile_image {
-          width: 24px;
-          height: 24px;
-        }
-      }
-    }
-  }
 }

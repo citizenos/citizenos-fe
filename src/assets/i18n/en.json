@@ -1182,6 +1182,13 @@
       "NOTIFICATION_SUCCESS_TITLE": "Successfully created topic",
       "NOTIFICATION_SUCCESS_MESSAGE": "Congratulations! Keep in mind you can always manage the topic via the topic actions."
     },
+    "VOTE_CREATE": {
+      "HEADING": "Create a voting topic",
+      "CREATE_TAB_1": "Compose",
+      "CREATE_TAB_2": "Settings",
+      "CREATE_TAB_3": "Voting system",
+      "CREATE_TAB_4": "Preview"
+    },
     "GROUP": {
       "HEADING_BACK_TO_MY_GROUPS": "Back to my groups",
       "HEADING_BACK_TO_PUBLIC_GROUPS": "Back to public groups",

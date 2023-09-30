@@ -56,6 +56,7 @@ export class TopicVoteCreateComponent implements OnInit {
     optionsMin: 2
   };
   public vote = {
+    description: <string>'',
     topicId: <string>'',
     options: <any>[],
     delegationIsAllowed: false,
@@ -372,19 +373,6 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
 
   @HostBinding('class.pos_dialog_fixed') addPosAbsolute: boolean = false;
 
-  override vote = {
-    question: <string>'',
-    topicId: <string>'',
-    options: <any>[],
-    delegationIsAllowed: false,
-    type: '',
-    authType: '',
-    maxChoices: <number>1,
-    minChoices: <number>1,
-    reminderTime: <Date | null>null,
-    autoClose: <any[]>this.CONF.autoClose,
-    endsAt: <Date | null>null
-  };
   private dialog = inject(MatDialog);
   private data = inject(MAT_DIALOG_DATA);
 
