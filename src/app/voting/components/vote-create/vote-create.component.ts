@@ -1,16 +1,14 @@
 import { trigger, state, style } from '@angular/animations';
-import { Component, ElementRef, Inject, OnInit, ViewChild, SimpleChanges } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { of, map, Observable, take, pipe, takeWhile } from 'rxjs';
+import { of, map, Observable, take, takeWhile } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { AppService } from 'src/app/services/app.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { NotificationService } from 'src/app/services/notification.service';
-import { SearchService } from 'src/app/services/search.service';
 import { TopicAttachmentService } from 'src/app/services/topic-attachment.service';
-import { TopicInviteUserService } from 'src/app/services/topic-invite-user.service';
 import { TopicService } from 'src/app/services/topic.service';
 import { UploadService } from 'src/app/services/upload.service';
 import { GroupService } from 'src/app/services/group.service';
@@ -21,6 +19,8 @@ import { TopicParticipantsDialogComponent } from 'src/app/topic/components/topic
 import { DomSanitizer } from '@angular/platform-browser';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { Attachment } from 'src/app/interfaces/attachment';
+import { TopicVoteCreateComponent } from 'src/app/topic/components/topic-vote-create/topic-vote-create.component';
+import { TopicVoteService } from 'src/app/services/topic-vote.service';
 
 @Component({
   selector: 'app-vote-create',
@@ -57,6 +57,7 @@ export class VoteCreateComponent implements OnInit {
 
   @ViewChild('imageUpload') fileInput?: ElementRef;
   @ViewChild('attachmentInput') attachmentInput?: ElementRef;
+  @ViewChild('vote_create_form') voteCreateForm?: TopicVoteCreateComponent;
 
   languages$: { [key: string]: any } = this.config.get('language').list;
   titleLimit = 100;
@@ -76,6 +77,20 @@ export class VoteCreateComponent implements OnInit {
     },
     visibility: this.TopicService.VISIBILITY.private,
     categories: <string[]>[]
+  };
+
+  public vote = {
+    description: <string>'',
+    topicId: <string>'',
+    options: <any>[],
+    delegationIsAllowed: false,
+    type: '',
+    authType: '',
+    maxChoices: <number>1,
+    minChoices: <number>1,
+    reminderTime: <Date | null>null,
+    autoClose: <any[]>[],
+    endsAt: <Date | null>null
   };
 
   /*TODO - handle these below*/
@@ -98,13 +113,7 @@ export class VoteCreateComponent implements OnInit {
     description: false
   }
 
-  searchStringUser = '';
-  searchResultUsers$ = of(<any>[]);
-  invalid = <any[]>[];
   members = <any[]>[];
-  groupLevel = 'read';
-  maxUsers = 550;
-  private EMAIL_SEPARATOR_REGEXP = /[;,\s]/ig;
 
   readMore = false;
 
@@ -119,9 +128,8 @@ export class VoteCreateComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,
-    private Search: SearchService,
     private TopicAttachmentService: TopicAttachmentService,
-    private TopicInviteUserService: TopicInviteUserService,
+    private TopicVoteService: TopicVoteService,
     @Inject(DomSanitizer) private sanitizer: DomSanitizer,
     private config: ConfigService) {
     this.app.darkNav = true;
@@ -188,6 +196,10 @@ export class VoteCreateComponent implements OnInit {
   nextTab(tab: string | void) {
     if (tab) {
       const tabIndex = this.tabs.indexOf(tab);
+      if (tabIndex === 2) {
+        if (this.voteCreateForm)
+          this.voteCreateForm.saveVoteSettings();
+      }
       if (tabIndex > -1 && tabIndex < 3) {
         this.selectTab(this.tabs[tabIndex + 1]);
       }
@@ -296,7 +308,7 @@ export class VoteCreateComponent implements OnInit {
 
   publish() {
     this.updateTopic();
-    this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
+    this.createVote();
   }
 
   dropboxSelect() {
@@ -345,7 +357,7 @@ export class VoteCreateComponent implements OnInit {
         const fileTypeError = this.translate.instant('MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED', { allowedFileTypes: this.Upload.ALLOWED_FILE_TYPES.toString() });
         this.Notification.addError(fileTypeError);
       } else {
-    //    this.attachments.push(attachment);
+        //    this.attachments.push(attachment);
         this.doSaveAttachment(attachment);
       }
     }
@@ -377,7 +389,7 @@ export class VoteCreateComponent implements OnInit {
     }
     else if (attachment.id) {
       this.TopicAttachmentService.update(attachment).pipe(take(1)).subscribe(() => {
-   //     this.attachments.push(attachment);
+        //     this.attachments.push(attachment);
       });
     } else {
       this.TopicAttachmentService.save(attachment).pipe(take(1)).subscribe({
@@ -436,5 +448,32 @@ export class VoteCreateComponent implements OnInit {
         console.log('ERROR', error);
       }
     })
+  }
+
+  saveVoteSettings(vote?: any) {
+    if (vote) {
+      console.log(this.vote)
+      this.vote = vote;
+    }
+  }
+
+  createVote() {
+    this.TopicVoteService.save(this.vote)
+      .pipe(take(1))
+      .subscribe({
+        next: (vote) => {
+          this.TopicService.reloadTopic();
+          this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id], {fragment: 'voting'});
+          this.route.url.pipe(take(1)).subscribe();
+        },
+        error: (res) => {
+          console.debug('createVote() ERR', res, res.errors, this.vote.options);
+          this.errors = res.errors;
+          Object.values(this.errors).forEach((message) => {
+            if (typeof message === 'string')
+              this.Notification.addError(message);
+          });
+        }
+      });
   }
 }

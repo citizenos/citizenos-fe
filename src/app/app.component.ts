@@ -42,7 +42,10 @@ export class AppComponent {
           if (translate.currentLang !== langParam && translate.getLangs().indexOf(langParam) === -1) {
             g.unshift(translate.currentLang || translate.getBrowserLang() || translate.getDefaultLang());
             this.router.navigate(g, { queryParams: parsedUrl.queryParams, fragment: parsedUrl.fragment || undefined });
-          } else if (translate.currentLang !== langParam) {
+          } else if (langParam === 'dbg') {
+        //    translate.parser.debug =
+          }
+          else if (translate.currentLang !== langParam) {
             translate.use(langParam);
             moment.locale(langParam);
           }
