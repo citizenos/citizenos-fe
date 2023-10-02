@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, HostListener } from '@angular/core';
 import { Router, PRIMARY_OUTLET, Event, NavigationStart } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Title } from "@angular/platform-browser";
@@ -9,6 +9,7 @@ import { takeUntil, Subject, tap, map } from 'rxjs';
 import * as moment from 'moment';
 import { DOCUMENT } from '@angular/common';
 import { environment } from 'src/environments/environment';
+import { NgxTranslateDebugService } from 'ngx-translate-debug';
 
 @Component({
   selector: 'app-root',
@@ -21,10 +22,27 @@ export class AppComponent {
   wWidth: number = window.innerWidth;
   destroy$ = new Subject<boolean>();
 
-  constructor(private router: Router, @Inject(DOCUMENT) private document: Document, private title: Title, public translate: TranslateService, private config: ConfigService, public app: AppService) {
-    console.log(environment.production);
+  private keysPressed = <string[]>[];
+  @HostListener('window:keydown', ['$event'])
+  handleKeyDownEvent(event: KeyboardEvent) {
+    if (this.keysPressed.indexOf(event.key) === -1) this.keysPressed.push(event.key);
+    console.log(this.keysPressed.toString())
+    if (this.keysPressed.toString() === 'Control,Alt,Shift,T') this.translateDebug.toggleDebug();
+  }
+  @HostListener('window:keyup', ['$event'])
+  handleKeyUpEvent(event: KeyboardEvent) {
+    if (this.keysPressed.indexOf(event.key) > -1) this.keysPressed.splice(this.keysPressed.indexOf(event.key), 1);
+  }
+
+  constructor(
+    private router: Router,
+    @Inject(DOCUMENT) private document: Document,
+    private title: Title,
+    public translate: TranslateService,
+    private config: ConfigService,
+    private translateDebug: NgxTranslateDebugService,
+    public app: AppService) {
     const languageConf = config.get('language');
-    translate.addLangs(Object.keys(languageConf.list).concat('dbg'));
     translate.setDefaultLang(languageConf.default);
     translate.onTranslationChange.pipe(
       tap((event) => { this.title.setTitle(translate.instant('META_DEFAULT_TITLE')); })
@@ -42,12 +60,12 @@ export class AppComponent {
           if (translate.currentLang !== langParam && translate.getLangs().indexOf(langParam) === -1) {
             g.unshift(translate.currentLang || translate.getBrowserLang() || translate.getDefaultLang());
             this.router.navigate(g, { queryParams: parsedUrl.queryParams, fragment: parsedUrl.fragment || undefined });
-          } else if (langParam === 'dbg') {
-        //    translate.parser.debug =
           }
           else if (translate.currentLang !== langParam) {
-            translate.use(langParam);
-            moment.locale(langParam);
+            if (!this.translateDebug.isDebugMode) {
+              translate.use(langParam);
+              moment.locale(langParam);
+            }
           }
         }
       });

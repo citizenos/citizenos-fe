@@ -19,7 +19,8 @@ import { NavComponent } from './core/components/nav/nav.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './core/components/home/home.component';
 import { } from '@ngx-translate/core';
-import { CosTranslateDebugParser, JSONPointerCompiler, CosMissingTranslationHandler, createTranslateLoader } from './TranslateHandlers';
+import { JSONPointerCompiler, CosMissingTranslationHandler, createTranslateLoader } from './TranslateHandlers';
+import { NgxTranslateDebugParser } from 'ngx-translate-debug';
 import { LanguageSelectComponent } from './core/components/language-select/language-select.component';
 import { NotificationComponent } from './core/components/notification/notification.component';
 import { ActivityFeedComponent } from './core/components/activity-feed/activity-feed.component';
@@ -71,7 +72,7 @@ export function appInitializerFactory(translate: TranslateService) {
         useFactory: (createTranslateLoader),
         deps: [HttpClient]
       },
-      parser: { provide: TranslateParser, useClass: CosTranslateDebugParser },
+      parser: { provide: TranslateParser, useClass:  NgxTranslateDebugParser },
       missingTranslationHandler: { provide: MissingTranslationHandler, useClass: CosMissingTranslationHandler },
       compiler: { provide: TranslateCompiler, useClass: JSONPointerCompiler },
     }),
