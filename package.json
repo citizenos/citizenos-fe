@@ -38,6 +38,7 @@
     "moment": "^2.29.4",
     "ngx-linky": "^4.0.0",
     "ngx-moment": "^6.0.2",
+    "ngx-translate-debug": "^0.1.4",
     "prerender-node": "3.7.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.5.2",
