@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Inject, inject, HostBinding } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, Inject, inject, HostBinding } from '@angular/core';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicService } from 'src/app/services/topic.service';
 import { TopicVoteService } from 'src/app/services/topic-vote.service';
@@ -14,6 +14,8 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class TopicVoteCreateComponent implements OnInit {
   @Input() topic!: Topic;
+  @Output() saveVote = new EventEmitter();
+
   VOTE_TYPES = this.TopicVoteService.VOTE_TYPES;
   voteTypes = Object.keys(this.VOTE_TYPES);
   VOTE_AUTH_TYPES = this.TopicVoteService.VOTE_AUTH_TYPES;
@@ -272,6 +274,20 @@ export class TopicVoteCreateComponent implements OnInit {
 
   };
 
+  saveVoteSettings() {
+    if (this.saveVote) {
+      this.filterOptions();
+      if (!this.reminder) {
+        this.vote.reminderTime = this.vote.reminderTime = null;
+      }
+
+      if (this.deadline) {
+        this.vote.endsAt = this.deadline
+      }
+      this.saveVote.emit(this.vote);
+    }
+  }
+
   selectedReminderOption() {
     let voteDeadline = new Date(this.deadline);
     let reminder = new Date(this.vote.reminderTime || '');
@@ -328,11 +344,12 @@ export class TopicVoteCreateComponent implements OnInit {
     });
   }
 
-  displayOptInput (option: any) {
+  displayOptInput(option: any) {
     return (Object.keys(this.extraOptions).indexOf(option.value) === -1)
   }
 
   createVote() {
+    this.filterOptions();
     this.Notification.removeAll();
 
     if (!this.reminder) {
@@ -384,11 +401,11 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
     }
   }
 
-  tabNext () {
+  tabNext() {
     this.addPosAbsolute = false;
     if (this.tabActive === 2 && !this.vote.type) return;
     if (this.tabActive >= 3) this.filterOptions();
-    (this.tabActive < 4)? this.tabActive = this.tabActive+1 : this.createVote()
+    (this.tabActive < 4) ? this.tabActive = this.tabActive + 1 : this.createVote()
     if (this.tabActive === 3) this.addPosAbsolute = true;
   }
 
@@ -407,7 +424,7 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
       .subscribe({
         next: (vote) => {
           this.TopicService.reloadTopic();
-          this.router.navigate(['/topics', this.topic.id], {fragment: 'voting'});
+          this.router.navigate(['/topics', this.topic.id], { fragment: 'voting' });
           this.route.url.pipe(take(1)).subscribe();
           this.dialog.closeAll();
         },

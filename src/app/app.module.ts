@@ -4,8 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS, HttpClientXsrfModule } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material/dialog';
-import { TranslateModule, TranslateLoader, TranslateCompiler, MissingTranslationHandler, TranslateService } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateModule, TranslateLoader, TranslateCompiler, MissingTranslationHandler, TranslateService, TranslateParser } from '@ngx-translate/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { MomentModule } from 'ngx-moment';
@@ -19,13 +18,8 @@ import { HelpComponent } from './core/components/help/help.component';
 import { NavComponent } from './core/components/nav/nav.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './core/components/home/home.component';
-
-export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-}
-
 import { } from '@ngx-translate/core';
-import { JSONPointerCompiler, CosMissingTranslationHandler } from './TranslateHandlers';
+import { CosTranslateDebugParser, JSONPointerCompiler, CosMissingTranslationHandler, createTranslateLoader } from './TranslateHandlers';
 import { LanguageSelectComponent } from './core/components/language-select/language-select.component';
 import { NotificationComponent } from './core/components/notification/notification.component';
 import { ActivityFeedComponent } from './core/components/activity-feed/activity-feed.component';
@@ -77,6 +71,7 @@ export function appInitializerFactory(translate: TranslateService) {
         useFactory: (createTranslateLoader),
         deps: [HttpClient]
       },
+      parser: { provide: TranslateParser, useClass: CosTranslateDebugParser },
       missingTranslationHandler: { provide: MissingTranslationHandler, useClass: CosMissingTranslationHandler },
       compiler: { provide: TranslateCompiler, useClass: JSONPointerCompiler },
     }),
