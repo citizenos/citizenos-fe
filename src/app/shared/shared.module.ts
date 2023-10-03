@@ -57,6 +57,7 @@ import { ActivitiesButtonComponent } from './components/activities-button/activi
 import { MobileFiltersDirective, MobileFilterDirective } from '../directives/mobile-filters.directive';
 import { CosCalenderComponent } from './cos-calender/cos-calender.component';
 import { TourComponent } from './components/tour/tour.component';
+import { TourItemDirective, TourItemTemplateComponent } from '../directives/tour-item.directive';
 
 @NgModule({
   declarations: [
@@ -109,7 +110,9 @@ import { TourComponent } from './components/tour/tour.component';
     MobileFiltersDirective,
     MobileFilterDirective,
     CosCalenderComponent,
-    TourComponent
+    TourComponent,
+    TourItemDirective,
+    TourItemTemplateComponent
   ],
   imports: [
     RouterModule,
@@ -176,7 +179,10 @@ import { TourComponent } from './components/tour/tour.component';
     ActivitiesButtonComponent,
     MobileFiltersDirective,
     MobileFilterDirective,
-    CosCalenderComponent
+    CosCalenderComponent,
+    TourComponent,
+    TourItemDirective,
+    TourItemTemplateComponent
    ]
 })
 export class SharedModule { }

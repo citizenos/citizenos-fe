@@ -77,6 +77,11 @@
     "MSG_REQUEST_SENT": "Your help request has been sent!"
   },
   "COMPONENTS": {
+    "TOUR": {
+      "LNK_SKIP": "Skip",
+      "LNK_BACK": "Back",
+      "LNK_NEXT": "Next"
+    },
     "COS_CALENDAR": {
       "MONTHS": {
         "0": "January",

@@ -48,7 +48,7 @@
         translate="DEFAULT.NAV.BTN_REGISTER"></button> <!--(click)="doShowRegister()" [-->
     </ng-template>
     <ng-template #loggedIn>
-      <button class="btn_big_submit" (click)="app.showCreateMenu()">
+      <button class="btn_big_submit" (click)="app.showCreateMenu()" [TourItem]="{tourid: 'dashboard', index: 1}">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M12 20C11.4711 20 11.0423 19.5712 11.0423 19.0423V12.9577H4.95775C4.4288 12.9577 4 12.5289 4 12C4 11.4711 4.4288 11.0423 4.95775 11.0423H11.0423V4.95775C11.0423 4.4288 11.4711 4 12 4C12.5289 4 12.9577 4.4288 12.9577 4.95775V11.0423H19.0423C19.5712 11.0423 20 11.4711 20 12C20 12.5289 19.5712 12.9577 19.0423 12.9577H12.9577V19.0423C12.9577 19.5712 12.5289 20 12 20Z"
@@ -57,53 +57,63 @@
         <span translate="DEFAULT.NAV.BTN_CREATE"></span>
       </button>
 
-      <a class="btn_small_nav" [routerLink]="['/', translate.currentLang, 'dashboard']" routerLinkActive="active">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M4 13H6V9H10V13H12V6.34043L8 3.02128L4 6.34043V13ZM3.9375 14C3.67708 14 3.45573 13.9007 3.27344 13.7021C3.09115 13.5035 3 13.2624 3 12.9787V6.34043C3 6.18156 3.03385 6.02837 3.10156 5.88085C3.16927 5.73333 3.26042 5.61418 3.375 5.5234L7.4375 2.20426C7.52083 2.13617 7.60938 2.08511 7.70312 2.05106C7.79688 2.01702 7.89583 2 8 2C8.10417 2 8.20312 2.01702 8.29688 2.05106C8.39062 2.08511 8.47917 2.13617 8.5625 2.20426L12.625 5.5234C12.7396 5.61418 12.8307 5.73333 12.8984 5.88085C12.9661 6.02837 13 6.18156 13 6.34043V12.9787C13 13.2624 12.9089 13.5035 12.7266 13.7021C12.5443 13.9007 12.3229 14 12.0625 14H9V10H7V14H3.9375Z" />
-        </svg>
-        <span class="bold" translate="DEFAULT.NAV.LNK_DASHBOARD"></span>
-      </a>
-      <div class="line_separator_tablet"></div>
-      <a class="btn_small_nav" [routerLink]="['/', translate.currentLang, 'my', 'topics']">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" clip-rule="evenodd"
-            d="M13 6L9.49999 2H4C3.44771 2 3 2.44577 3 2.99806L3.00005 12.8182C3.00005 13.4682 3.5737 14 4.15265 14H11.9474C12.5263 14 13 13.4682 13 12.8182V6ZM9.00005 3V6H11.5L9.00005 3ZM8.00005 3H4L4.00005 12.8182C4.00005 12.8431 4.01186 12.8916 4.06376 12.9431C4.08823 12.9674 4.11374 12.9837 4.13404 12.9928C4.14588 12.998 4.15308 12.9996 4.15534 13H11.9317C11.9347 12.9975 11.9389 12.9936 11.9441 12.9877C11.9698 12.9589 12 12.9009 12 12.8182V7H8.00005V3Z" />
-        </svg>
-        <span class="bold" translate="DEFAULT.NAV.LNK_MY_TOPICS"></span>
-      </a>
-      <div class="line_separator_tablet"></div>
-      <div class="sub_items">
-        <a class="btn_small_nav" [routerLink]="['/', translate.currentLang, 'my', 'topics']"
-          [queryParams]="{filter: 'inProgress'}">
-          <div class="nav_bubble bg_discussion">3</div><span translate="DEFAULT.NAV.LNK_IN_DISCUSSION"></span>
+      <tour-item-template [data]="{tourid: 'dashboard', index: 1}" [title]="'DEFAULT.NAV.BTN_CREATE' | translate">
+        <div>Description text ITEM 1</div>
+      </tour-item-template>
+
+      <div class="nav_items_wrap" [TourItem]="{tourid: 'dashboard', index: 2}">
+        <tour-item-template [data]="{tourid: 'dashboard', index: 2}" [title]="'DEFAULT.NAV.LNK_DASHBOARD' | translate">
+          <div>Description text ITEM 2</div>
+        </tour-item-template>
+
+        <a class="btn_small_nav" [routerLink]="['/', translate.currentLang, 'dashboard']" routerLinkActive="active">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M4 13H6V9H10V13H12V6.34043L8 3.02128L4 6.34043V13ZM3.9375 14C3.67708 14 3.45573 13.9007 3.27344 13.7021C3.09115 13.5035 3 13.2624 3 12.9787V6.34043C3 6.18156 3.03385 6.02837 3.10156 5.88085C3.16927 5.73333 3.26042 5.61418 3.375 5.5234L7.4375 2.20426C7.52083 2.13617 7.60938 2.08511 7.70312 2.05106C7.79688 2.01702 7.89583 2 8 2C8.10417 2 8.20312 2.01702 8.29688 2.05106C8.39062 2.08511 8.47917 2.13617 8.5625 2.20426L12.625 5.5234C12.7396 5.61418 12.8307 5.73333 12.8984 5.88085C12.9661 6.02837 13 6.18156 13 6.34043V12.9787C13 13.2624 12.9089 13.5035 12.7266 13.7021C12.5443 13.9007 12.3229 14 12.0625 14H9V10H7V14H3.9375Z" />
+          </svg>
+          <span class="bold" translate="DEFAULT.NAV.LNK_DASHBOARD"></span>
         </a>
-        <a class="btn_small_nav" [routerLink]="['/', translate.currentLang, 'my', 'topics']"
-          [queryParams]="{filter: 'ideation'}">
-          <div class="nav_bubble bg_ideation">3</div><span translate="DEFAULT.NAV.LNK_IN_IDEATION"></span>
+        <div class="line_separator_tablet"></div>
+        <a class="btn_small_nav" [routerLink]="['/', translate.currentLang, 'my', 'topics']">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M13 6L9.49999 2H4C3.44771 2 3 2.44577 3 2.99806L3.00005 12.8182C3.00005 13.4682 3.5737 14 4.15265 14H11.9474C12.5263 14 13 13.4682 13 12.8182V6ZM9.00005 3V6H11.5L9.00005 3ZM8.00005 3H4L4.00005 12.8182C4.00005 12.8431 4.01186 12.8916 4.06376 12.9431C4.08823 12.9674 4.11374 12.9837 4.13404 12.9928C4.14588 12.998 4.15308 12.9996 4.15534 13H11.9317C11.9347 12.9975 11.9389 12.9936 11.9441 12.9877C11.9698 12.9589 12 12.9009 12 12.8182V7H8.00005V3Z" />
+          </svg>
+          <span class="bold" translate="DEFAULT.NAV.LNK_MY_TOPICS"></span>
         </a>
-        <a class="btn_small_nav" [routerLink]="['/', translate.currentLang, 'my', 'topics']"
-          [queryParams]="{filter: 'voting'}">
-          <div class="nav_bubble bg_voting">3</div><span translate="DEFAULT.NAV.LNK_IN_VOTING"></span>
-        </a>
-        <a class="btn_small_nav" [routerLink]="['/', translate.currentLang, 'my', 'topics']"
-          [queryParams]="{filter: 'followUp'}">
-          <div class="nav_bubble bg_follow_up">351</div><span translate="DEFAULT.NAV.LNK_IN_FOLLOW_UP"></span>
+        <div class="line_separator_tablet"></div>
+        <div class="sub_items">
+          <a class="btn_small_nav" [routerLink]="['/', translate.currentLang, 'my', 'topics']"
+            [queryParams]="{filter: 'inProgress'}">
+            <div class="nav_bubble bg_discussion">3</div><span translate="DEFAULT.NAV.LNK_IN_DISCUSSION"></span>
+          </a>
+          <a class="btn_small_nav" [routerLink]="['/', translate.currentLang, 'my', 'topics']"
+            [queryParams]="{filter: 'ideation'}">
+            <div class="nav_bubble bg_ideation">3</div><span translate="DEFAULT.NAV.LNK_IN_IDEATION"></span>
+          </a>
+          <a class="btn_small_nav" [routerLink]="['/', translate.currentLang, 'my', 'topics']"
+            [queryParams]="{filter: 'voting'}">
+            <div class="nav_bubble bg_voting">3</div><span translate="DEFAULT.NAV.LNK_IN_VOTING"></span>
+          </a>
+          <a class="btn_small_nav" [routerLink]="['/', translate.currentLang, 'my', 'topics']"
+            [queryParams]="{filter: 'followUp'}">
+            <div class="nav_bubble bg_follow_up">351</div><span translate="DEFAULT.NAV.LNK_IN_FOLLOW_UP"></span>
+          </a>
+        </div>
+        <div class="line_separator_tablet"></div>
+        <a class="btn_small_nav" [routerLink]="['/', translate.currentLang, 'my', 'groups']" routerLinkActive="active">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M10 5C10 6.65685 8.65685 8 7 8C5.34315 8 4 6.65685 4 5C4 3.34315 5.34315 2 7 2C8.65685 2 10 3.34315 10 5ZM9 5C9 6.10457 8.10457 7 7 7C5.89543 7 5 6.10457 5 5C5 3.89543 5.89543 3 7 3C8.10457 3 9 3.89543 9 5Z" />
+            <path
+              d="M11 3C11.9054 3 13 3.65118 13 5C13 6.34882 11.9054 7 11 7V8C12.2946 8 14 7.05118 14 5C14 2.94882 12.2946 2 11 2V3Z" />
+            <path d="M12 9H12.5C13.8807 9 15 10.1193 15 11.5V14H14V11.5C14 10.6716 13.3284 10 12.5 10H12V9Z" />
+            <path
+              d="M5.5 9C4.11929 9 3 10.1193 3 11.5V14H4V11.5C4 10.6716 4.67157 10 5.5 10H8.5C9.32843 10 10 10.6716 10 11.5V14H11V11.5C11 10.1193 9.88071 9 8.5 9H5.5Z" />
+          </svg>
+          <span class="bold" translate="DEFAULT.NAV.LNK_MY_GROUPS"></span>
         </a>
       </div>
-      <div class="line_separator_tablet"></div>
-      <a class="btn_small_nav" [routerLink]="['/', translate.currentLang, 'my', 'groups']" routerLinkActive="active">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" clip-rule="evenodd"
-            d="M10 5C10 6.65685 8.65685 8 7 8C5.34315 8 4 6.65685 4 5C4 3.34315 5.34315 2 7 2C8.65685 2 10 3.34315 10 5ZM9 5C9 6.10457 8.10457 7 7 7C5.89543 7 5 6.10457 5 5C5 3.89543 5.89543 3 7 3C8.10457 3 9 3.89543 9 5Z" />
-          <path
-            d="M11 3C11.9054 3 13 3.65118 13 5C13 6.34882 11.9054 7 11 7V8C12.2946 8 14 7.05118 14 5C14 2.94882 12.2946 2 11 2V3Z" />
-          <path d="M12 9H12.5C13.8807 9 15 10.1193 15 11.5V14H14V11.5C14 10.6716 13.3284 10 12.5 10H12V9Z" />
-          <path
-            d="M5.5 9C4.11929 9 3 10.1193 3 11.5V14H4V11.5C4 10.6716 4.67157 10 5.5 10H8.5C9.32843 10 10 10.6716 10 11.5V14H11V11.5C11 10.1193 9.88071 9 8.5 9H5.5Z" />
-        </svg>
-        <span class="bold" translate="DEFAULT.NAV.LNK_MY_GROUPS"></span>
-      </a>
       <div class="line_separator_tablet"></div>
     </ng-template>
     <div class="line_separator"></div>

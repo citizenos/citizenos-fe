@@ -1,25 +1,26 @@
-<div class="tour_overlay"></div>
-<div class="tour_box">
+<div class="tour_box" #tourBox [ngClass]="(showItem$ | async)? '': 'hidden'" [style.left]="left" [style.top]="top">
   <div class="tour_header">
-    <div>Dashboard tour</div>
+    <div>{{title}}</div>
     <div>
-      <a class="skip">Skip</a>
+      <a class="skip" (click)="closeTour($event)" translate="COMPONENTS.TOUR.LNK_SKIP"></a>
     </div>
   </div>
   <div class="tour_content">
-    <div class="title">Create actions</div>
-    <div class="description">At any point in time you’re able to create a new topic, start gathering ideas,
-      propose a new vote or create a new group.
+    <div class="title">{{title}}</div>
+    <div class="description" #tourContent>
     </div>
   </div>
   <div class="tour_footer">
-    <div class="nav_items_wrap">
-      <div class="nav_item"></div>
-      <div class="nav_item"></div>
-      <div class="nav_item active"></div>
-      <div class="nav_item"></div>
-      <div class="nav_item"></div>
-    </div>
-    <a>Next</a>
+    <ng-container *ngIf="items$ | async as items">
+      <div class="nav_items_wrap">
+        <div class="nav_item" *ngFor="let item of items" [ngClass]="{active: isActive(item)}"></div>
+      </div>
+      <div class="nav_links_wrap">
+        <a *ngIf="activeIndex() > 1" (click)="prevItem($event)" translate="COMPONENTS.TOUR.LNK_BACK"></a>
+        <a *ngIf="items.length > 1" (click)="nextItem($event)" translate="COMPONENTS.TOUR.LNK_NEXT"></a>
+      </div>
+    </ng-container>
   </div>
 </div>
+<ng-container *ngIf="templateSubscription | async"></ng-container>
+<ng-container *ngIf="setPosition() | async"></ng-container>

@@ -1,3 +1,4 @@
+import { TourService } from './../../../services/tour.service';
 import { Component } from '@angular/core';
 import { AppService } from 'src/app/services/app.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -28,7 +29,8 @@ export class DashboardComponent {
     private UserTopicService: UserTopicService,
     private PublicTopicService: PublicTopicService,
     private GroupService: GroupService,
-    ) {
+    private TourService: TourService
+  ) {
     this.groups$ = this.GroupService.loadItems().pipe(
       tap((groups) => console.log(groups))
     );
@@ -44,5 +46,13 @@ export class DashboardComponent {
 
   trackByTopic(index: number, element: any) {
     return element.id;
+  }
+
+  ngAfterViewInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    setTimeout(() => {
+      this.TourService.show('dashboard', 1);
+    });
   }
 }

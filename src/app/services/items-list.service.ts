@@ -45,7 +45,6 @@ export abstract class ItemsListService {
   };
 
   loadMore() {
-    console.log(this.hasMore$.value);
     if (this.hasMore$.value === true) {
       const page = this.page$.value;
       this.loadPage(page + 1);
@@ -74,7 +73,6 @@ export abstract class ItemsListService {
 
   setParam(param: string, value: any) {
     const curparams = this.params$.value;
-    console.log(curparams);
     if (Object.keys(curparams).indexOf(param) > -1) {
 
       curparams[param] = value;
