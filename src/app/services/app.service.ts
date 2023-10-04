@@ -27,6 +27,7 @@ export class AppService {
   showSearch = false;
   editMode = false;
   darkNav = false;
+  showActivities = false;
   searchAllowed = true;
 
   showSearchResults = false;
@@ -57,9 +58,15 @@ export class AppService {
 
   doShowActivityModal(params?: any) {
     this.dialog.closeAll();
-    this.dialog.open(ActivityFeedComponent, {
+    const activitiesDialog = this.dialog.open(ActivityFeedComponent, {
       data: params
     });
+    this.showActivities = true;
+    activitiesDialog.afterClosed().subscribe({
+      next: () => {
+        this.showActivities = false;
+      }
+    })
   };
 
   doShowLogin(redirectSuccess?: string) {
