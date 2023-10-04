@@ -8,7 +8,6 @@ mat-dialog-container {
     align-self: flex-start;
   }
 }
-
 .cdk-overlay-container {
   z-index: 999;
 
@@ -23,6 +22,8 @@ mat-dialog-container {
     --mdc-dialog-container-shape,
     var(--mdc-shape-medium, 16px)
   ) !important;
+
+  --mdc-dialog-container-shape: 16px;
 }
 
 .cdk-global-overlay-wrapper {

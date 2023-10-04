@@ -16,6 +16,7 @@ export class TourComponent {
   items$: Observable<any[]> = of([]);
   showItem$: Observable<any> = of(false);
   itemTemplate$: Observable<any> = of('');
+  tourId$: Observable<string> = of('');
   templateSubscription: Observable<any>;
   constructor(private tourEl: ElementRef, private TourService: TourService, private renderer: Renderer2) {
     this.templateSubscription = combineLatest([this.TourService.getTemplate(), this.TourService.showTour]).pipe(
@@ -25,6 +26,7 @@ export class TourComponent {
         }
         return of(elem);
       }));
+    this.tourId$ = this.TourService.activeTour;
   }
 
   ngOnInit(): void {
@@ -42,7 +44,7 @@ export class TourComponent {
   }
   setContent(ctemp: any) {
     if (this.contentEl) {
-      this.contentEl.nativeElement.replaceChildren(ctemp);
+      this.contentEl.nativeElement.replaceChildren(...ctemp);
     }
   }
   /*setPosition () {
@@ -56,19 +58,30 @@ export class TourComponent {
   setPosition() {
     return combineLatest([this.TourService.getActiveItem(), this.TourService.showTour]).pipe(map(([item, isVisible]) => {
       if (item && isVisible) {
+        console.log(item.position)
         const itemEl = item.element.nativeElement;
         const itemRect = itemEl.getBoundingClientRect();
-        const tourBox =  this.tourBox.nativeElement;
+        const tourBox = this.tourBox.nativeElement;
         const tourBoxElementRect = tourBox.getBoundingClientRect();
-    //    console.log(tourBoxElementRect);
+        //    console.log(tourBoxElementRect);
         this.renderer.setStyle(tourBox, 'top', `${itemRect.top}px`);
-        if ((itemRect.right + tourBox.width ) < window.innerWidth) {
-          this.renderer.setStyle(tourBox, 'left', `${itemRect.right + tourBox.width}px`);
-        } else {
-          this.renderer.setStyle(tourBox, 'right', `${itemRect.right + tourBox.width}px`);
+        switch (item.position) {
+          case 'right':
+            //   this.renderer.removeStyle(tourBox, 'right');
+            this.renderer.setStyle(tourBox, 'left', `${itemRect.right}px`);
+            break;
+          case 'left':
+            console.log(`${itemRect.left + tourBoxElementRect.width}px`)
+            //     this.renderer.removeStyle(tourBox, 'right');
+            console.log(itemRect);
+            this.renderer.setStyle(tourBox, 'left', `${itemRect.left - tourBoxElementRect.width}px`);
+            break;
+          case 'top':
+            this.renderer.setStyle(tourBox, 'top', `${itemRect.top - tourBoxElementRect.height}px`);
+            break;
+          default:
+            this.renderer.setStyle(tourBox, 'left', `${itemRect.right}px`);
         }
-      /*  this.renderer.setStyle(tourBox, 'left', '0px');
-        this.renderer.setStyle(tourBox, 'right', 'auto');*/
       }
       return of([item, isVisible]);
     }));

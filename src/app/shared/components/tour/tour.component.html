@@ -1,14 +1,11 @@
 <div class="tour_box" #tourBox [ngClass]="(showItem$ | async)? '': 'hidden'" [style.left]="left" [style.top]="top">
   <div class="tour_header">
-    <div>{{title}}</div>
+    <div>{{'COMPONENTS.TOUR.HEADING_'+(tourId$ | async) | uppercase | translate}}</div>
     <div>
       <a class="skip" (click)="closeTour($event)" translate="COMPONENTS.TOUR.LNK_SKIP"></a>
     </div>
   </div>
-  <div class="tour_content">
-    <div class="title">{{title}}</div>
-    <div class="description" #tourContent>
-    </div>
+  <div class="tour_content" #tourContent>
   </div>
   <div class="tour_footer">
     <ng-container *ngIf="items$ | async as items">
@@ -22,5 +19,6 @@
     </ng-container>
   </div>
 </div>
+
 <ng-container *ngIf="templateSubscription | async"></ng-container>
 <ng-container *ngIf="setPosition() | async"></ng-container>

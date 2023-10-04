@@ -4,7 +4,7 @@ import { Directive, Component, ElementRef, Input, ViewChild } from '@angular/cor
 
 @Component({
   selector: 'tour-item-template',
-  template: '<div #template><ng-content></ng-content></div>',
+  template: '<div #template><ng-content></ng-content></div>'
 })
 export class TourItemTemplateComponent {
   @Input('data') data?: any;
@@ -15,9 +15,10 @@ export class TourItemTemplateComponent {
   ngOnInit(): void {
   }
   ngAfterViewInit() {
-    const template = this.template?.nativeElement.children[0];
+    const template = this.template?.nativeElement.children;
+    console.log(template);
     this.TourService.addTemplate(this.data.tourid, this.data.index, template);
-    this.template?.nativeElement.remove();
+    this.template?.nativeElement.classList.add('hidden');
   }
 }
 
@@ -30,7 +31,7 @@ export class TourItemDirective {
   }
 
   ngOnInit(): void {
-    this.TourService.register(this.data.tourid, { index: this.data.index, element: this.el, position: this.el.nativeElement.getBoundingClientRect() });
+    this.TourService.register(this.data.tourid, { index: this.data.index, element: this.el, position: this.data.position });
 
   }
 }

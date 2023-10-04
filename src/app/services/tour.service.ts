@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, switchMap, combineLatest, of, tap } from 'rxjs';
+import { BehaviorSubject, switchMap, combineLatest, of, tap, take } from 'rxjs';
 
 export interface TourItem {
   index: number,
@@ -35,15 +35,16 @@ export class TourService {
   }
 
   addTemplate(id: string, index: number, template: any) {
+    const templateData = Object.assign([], template);
     if (!this.templates[id]) {
-      return this.templates[id] = [{ index, template }];
+      return this.templates[id] = [{ index, template: templateData }];
     }
 
     const item = this.templates[id].find((item: any) => {
       return item.index === index;
     });
     if (!item) {
-      return this.templates[id].push({ index, template });
+      return this.templates[id].push({ index, template: templateData });
     }
   }
 
@@ -93,30 +94,36 @@ export class TourService {
     document.querySelectorAll('.tour_overlay').forEach((overlay) => {
       overlay.remove();
     });
+    document.querySelectorAll('.tour_item').forEach((item) => {
+      item.classList.remove('tour_item');
+    });
     this.showTour.next(false);
     this.activeTour.next('');
     this.activeItem.next(0);
   }
 
   next() {
-    const currentIndex = this.activeItem.value;
-    const nextItem = this.items[this.activeTour.value].find((item: any) => {
-      return item.index === currentIndex + 1;
-    });
-    if (!nextItem) return this.hide();
+    combineLatest([this.activeTour, this.activeItem]).pipe(take(1)).subscribe({
+      next: ([tourId, index]) => {
+        const nextItem = this.items[tourId].find((item: any) => {
+          return item.index === index + 1;
+        });
+        if (!nextItem) return this.hide();
 
-    this.activeItem.next(this.activeItem.value + 1);
+        this.activeItem.next(this.activeItem.value + 1);
+      },
+      error: (err) => {
+        console.log(err)
+      }
+    })
   }
 
   previous() {
-    const currentIndex = this.activeItem.value;
-    if (currentIndex > 1) {
-      const nextItem = this.items[this.activeTour.value].find((item: any) => {
-        return item.index === currentIndex - 1;
-      });
-    }
-
-    this.activeItem.next(this.activeItem.value - 1);
+    this.activeItem.pipe(take(1)).subscribe({
+      next: (index) => {
+        this.activeItem.next(index - 1);
+      }
+    });
   }
 
   getActiveItem() {

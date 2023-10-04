@@ -35,6 +35,7 @@ import { CreateComponent } from './core/components/create/create.component';
 import { AccessibilityMenuComponent } from './core/components/accessibility-menu/accessibility-menu.component';
 import { DashboardComponent } from './core/components/dashboard/dashboard.component';
 import { FeatureBoxComponent } from './core/components/feature-box/feature-box.component';
+import { OnboardingComponent } from './core/components/onboarding/onboarding.component';
 
 /*Needs update to also properly load config */
 export function appInitializerFactory(translate: TranslateService) {
@@ -61,7 +62,8 @@ export function appInitializerFactory(translate: TranslateService) {
     CreateComponent,
     AccessibilityMenuComponent,
     DashboardComponent,
-    FeatureBoxComponent
+    FeatureBoxComponent,
+    OnboardingComponent
   ],
   imports: [
     BrowserModule,
@@ -72,7 +74,7 @@ export function appInitializerFactory(translate: TranslateService) {
         useFactory: (createTranslateLoader),
         deps: [HttpClient]
       },
-      parser: { provide: TranslateParser, useClass:  NgxTranslateDebugParser },
+      parser: { provide: TranslateParser, useClass: NgxTranslateDebugParser },
       missingTranslationHandler: { provide: MissingTranslationHandler, useClass: CosMissingTranslationHandler },
       compiler: { provide: TranslateCompiler, useClass: JSONPointerCompiler },
     }),
