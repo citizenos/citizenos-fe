@@ -12,6 +12,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class ActivitiesButtonComponent {
   @Input() groupId?:string;
   @Input() topicId?:string;
+  count = 0;
   unreadActivitiesCount$: Observable<number> = of(0);
   constructor(
     public app: AppService,
@@ -21,11 +22,13 @@ export class ActivitiesButtonComponent {
 
   ngOnInit(): void {
     this.unreadActivitiesCount$ = this.auth.loggedIn$.pipe((switchMap((loggedIn) => {
-      console.log(loggedIn)
       if (loggedIn) {
         return this.ActivityService.getUnreadActivities({groupId: this.groupId, topicId: this.topicId});
       }
       return of(0);
-    })));
+    })),
+    tap((count) => {
+      this.count = count;
+    }));
   }
 }

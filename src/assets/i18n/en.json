@@ -77,10 +77,31 @@
     "MSG_REQUEST_SENT": "Your help request has been sent!"
   },
   "COMPONENTS": {
+    "ONBOARDING": {
+      "HELLO": "Hey {{name}}",
+      "TITLE_WELCOME": "Welcome to Citizen OS!",
+      "DESCRIPTION": "Since this is your first time on the Citizen OS dashboard, we recommend you take the walkthrough tour so you can get to know the new bits & pieces.",
+      "TAKE_A_TOUR": "The walkthrough only takes a couple minutes.",
+      "BTN_SUBMIT": "Take the tour",
+      "BTN_CANCEL": "Skip"
+    },
     "TOUR": {
       "LNK_SKIP": "Skip",
       "LNK_BACK": "Back",
-      "LNK_NEXT": "Next"
+      "LNK_NEXT": "Next",
+      "HEADING_DASHBOARD": "Dashboard tour",
+      "DASHBOARD_STEP_1_TITLE": "Create actions",
+      "DASHBOARD_STEP_1_DESC": "At any point in time you’re able to create a new topic, start gathering ideas, propose a new vote or create a new group.",
+      "DASHBOARD_STEP_2_TITLE": "Main menu",
+      "DASHBOARD_STEP_2_DESC": "The main menu serves as your main navigation through Citizen OS. You have quick links here to all your topics based on their current phase, ie. discussion, idea gathering, etc.",
+      "DASHBOARD_STEP_2_DESC2": "You can also access different languages and support from here.",
+      "DASHBOARD_STEP_3_TITLE": "Activity feed",
+      "DASHBOARD_STEP_3_DESC": "New activity on a topic you’re involved in will be indicated here. You can open and close the activity feed whenever you want.",
+      "DASHBOARD_STEP_3_DESC2": "When there has been new activity since you last visited, we will open up the activity feed by default.",
+      "DASHBOARD_STEP_4_TITLE": "Search",
+      "DASHBOARD_STEP_4_DESC": "Looking for a topic or a group? The search will guide you there.",
+      "DASHBOARD_STEP_4_DESC2": "The search is aware of whether you are in a topic or not. If you’re not then it will search across the website.",
+      "DASHBOARD_STEP_4_DESC3": "If you’re in a topic it will only search within that topic."
     },
     "COS_CALENDAR": {
       "MONTHS": {

@@ -1,4 +1,5 @@
-import { TourService } from './../../../services/tour.service';
+import { OnboardingComponent } from './../onboarding/onboarding.component';
+import { MatDialog } from '@angular/material/dialog';
 import { Component } from '@angular/core';
 import { AppService } from 'src/app/services/app.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -29,7 +30,7 @@ export class DashboardComponent {
     private UserTopicService: UserTopicService,
     private PublicTopicService: PublicTopicService,
     private GroupService: GroupService,
-    private TourService: TourService
+    private dialog: MatDialog
   ) {
     this.groups$ = this.GroupService.loadItems().pipe(
       tap((groups) => console.log(groups))
@@ -52,7 +53,7 @@ export class DashboardComponent {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     setTimeout(() => {
-      this.TourService.show('dashboard', 1);
+      this.dialog.open(OnboardingComponent);
     });
   }
 }
