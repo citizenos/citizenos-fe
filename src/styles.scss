@@ -723,6 +723,30 @@ tour-item-template {
   &.hidden {
     display: none;
   }
+
+  &.left_arrow {
+    &::before {
+    border-right: 6px solid var(--color-text);
+    right: 100%;
+    }
+  }
+
+  &.right_arrow {
+    &::before {
+      border-left: 6px solid var(--color-text);
+      left: 100%;
+      }
+  }
+  &::before {
+    border-bottom: 6px solid transparent;
+    border-top: 6px solid transparent;
+    content: '';
+    height: 0;
+    margin-top: -6px;
+    position: absolute;
+    top: 16px;
+    width: 0;
+  }
   .tour_header,
   .tour_footer {
     display: flex;

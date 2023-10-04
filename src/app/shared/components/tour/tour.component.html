@@ -10,7 +10,7 @@
   <div class="tour_footer">
     <ng-container *ngIf="items$ | async as items">
       <div class="nav_items_wrap">
-        <div class="nav_item" *ngFor="let item of items" [ngClass]="{active: isActive(item)}"></div>
+        <div class="nav_item" *ngFor="let item of sort(items)" [ngClass]="{active: isActive(item)}"></div>
       </div>
       <div class="nav_links_wrap">
         <a *ngIf="activeIndex() > 1" (click)="prevItem($event)" translate="COMPONENTS.TOUR.LNK_BACK"></a>

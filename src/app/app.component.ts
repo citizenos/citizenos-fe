@@ -8,7 +8,6 @@ import { ConfigService } from './services/config.service';
 import { takeUntil, Subject, tap, map } from 'rxjs';
 import * as moment from 'moment';
 import { DOCUMENT } from '@angular/common';
-import { environment } from 'src/environments/environment';
 import { NgxTranslateDebugService } from 'ngx-translate-debug';
 
 @Component({

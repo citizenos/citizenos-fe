@@ -67,17 +67,17 @@ export class TourComponent {
         this.renderer.setStyle(tourBox, 'top', `${itemRect.top}px`);
         switch (item.position) {
           case 'right':
-            //   this.renderer.removeStyle(tourBox, 'right');
-            this.renderer.setStyle(tourBox, 'left', `${itemRect.right}px`);
+            tourBox.classList.remove('right_arrow');
+            tourBox.classList.add('left_arrow');
+            this.renderer.setStyle(tourBox, 'left', `${itemRect.right + 20}px`);
             break;
           case 'left':
-            console.log(`${itemRect.left + tourBoxElementRect.width}px`)
-            //     this.renderer.removeStyle(tourBox, 'right');
-            console.log(itemRect);
-            this.renderer.setStyle(tourBox, 'left', `${itemRect.left - tourBoxElementRect.width}px`);
+            tourBox.classList.remove('left_arrow');
+            tourBox.classList.add('right_arrow');
+            this.renderer.setStyle(tourBox, 'left', `${itemRect.left - tourBoxElementRect.width - 20}px`);
             break;
           case 'top':
-            this.renderer.setStyle(tourBox, 'top', `${itemRect.top - tourBoxElementRect.height}px`);
+            this.renderer.setStyle(tourBox, 'top', `${itemRect.top - tourBoxElementRect.height - 20}px`);
             break;
           default:
             this.renderer.setStyle(tourBox, 'left', `${itemRect.right}px`);
@@ -108,5 +108,19 @@ export class TourComponent {
 
   activeIndex() {
     return this.TourService.activeItem.value;
+  }
+
+  sort(items:any[]) {
+    function sortFunc(a:any, b:any) {
+      if ( a.index < b.index ){
+        return -1;
+      }
+      if ( a.index > b.index ){
+        return 1;
+      }
+      return 0;
+    }
+
+    return items.sort(sortFunc);
   }
 }
