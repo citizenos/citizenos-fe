@@ -7,7 +7,7 @@
   </ng-container>
 </div>
 <div id="buttons_area">
-  <button id="show_search" class="btn_medium_close icon" (click)="app.showSearch = !app.showSearch"
+  <button id="show_search" class="btn_medium_close icon" [ngClass]="{'hidden': app.showSearch}" (click)="app.showSearch = !app.showSearch"
     [TourItem]="{tourid: 'dashboard', index: 4, position: 'left'}">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path fill-rule="evenodd" clip-rule="evenodd"
@@ -25,5 +25,5 @@
     <div class="description" translate="COMPONENTS.TOUR.DASHBOARD_STEP_4_DESC2"></div>
     <div class="description" translate="COMPONENTS.TOUR.DASHBOARD_STEP_4_DESC3"></div>
   </tour-item-template>
-  <activities-button [TourItem]="{tourid: 'dashboard', index: 3, position: 'left'}"></activities-button>
+  <activities-button></activities-button>
 </div>

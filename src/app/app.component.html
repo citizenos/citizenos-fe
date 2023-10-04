@@ -8,7 +8,7 @@
       <notification></notification>
     </div>
     <!-- SEARCH AREA -->
-    <div id="search_wrap" *ngIf="app.showSearch">
+    <div id="search_wrap" *ngIf="app.showSearch" [TourItem]="{tourid: 'dashboard', index: 4, position: 'left'}">
       <search></search>
     </div>
   </div>
@@ -16,6 +16,16 @@
   <div id="content" [ngClass]="!displaySearch() ? 'content_no_padding' : ''">
     <!-- ROUTES CONTENT -->
     <app-tour></app-tour>
+    <tour-item-template [data]="{tourid: 'dashboard', index: 1}">
+      <div class="title" translate="COMPONENTS.TOUR.DASHBOARD_STEP_1_TITLE"></div>
+      <div class="description" translate="COMPONENTS.TOUR.DASHBOARD_STEP_1_DESC"></div>
+    </tour-item-template>
+    <tour-item-template [data]="{tourid: 'dashboard', index: 2}">
+      <div class="title" translate="COMPONENTS.TOUR.DASHBOARD_STEP_2_TITLE"></div>
+      <div class="description" translate="COMPONENTS.TOUR.DASHBOARD_STEP_2_DESC"></div>
+      <div class="description" translate="COMPONENTS.TOUR.DASHBOARD_STEP_2_DESC2"></div>
+    </tour-item-template>
+
     <router-outlet id="view"></router-outlet>
   </div>
   <!-- MOBILE NAV -->

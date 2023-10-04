@@ -21,6 +21,7 @@ import { TopicParticipantsDialogComponent } from '../topic-participants/topic-pa
 import { DomSanitizer } from '@angular/platform-browser';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { Attachment } from 'src/app/interfaces/attachment';
+import { InviteEditorsComponent } from '../invite-editors/invite-editors.component';
 
 @Component({
   selector: 'app-topic-create',
@@ -434,6 +435,19 @@ export class TopicCreateComponent implements OnInit {
       },
       error: (error) => {
         console.log('ERROR', error);
+      }
+    })
+  }
+
+  inviteEditors () {
+    const inviteDialog = this.dialog.open(InviteEditorsComponent, { data: { topic: this.topic } });
+    inviteDialog.afterClosed().subscribe({
+      next: (inviteUsers) => {
+        console.log(inviteUsers);
+        this.topic.members.users = inviteUsers;
+      },
+      error: (error) => {
+        // this.NotificationService.addError(error);
       }
     })
   }
