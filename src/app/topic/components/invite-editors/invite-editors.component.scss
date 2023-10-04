@@ -1,0 +1,78 @@
+@use "mixins";
+
+.dropdown {
+  min-width: 160px;
+}
+
+.row_list {
+  .row_cell {
+    a {
+      min-width: 200px;
+    }
+    .dropdown {
+      @include mixins.mobile {
+        width: calc(100% - 40px);
+      }
+    }
+  }
+
+  .remove_item_mobile {
+    @include mixins.mobile {
+      top: auto !important;
+      bottom: 12px !important;
+      right: 8px !important;
+      background-color: initial !important;
+    }
+  }
+}
+
+.character_limit {
+  font-size: 12px;
+  width: 100%;
+  text-align: right;
+
+  span {
+    font-size: 12px;
+  }
+}
+.profile_image_wrapper {
+  padding: 0;
+  margin: 5px 0px;
+}
+
+.row_list {
+  .row_cell {
+    a {
+      min-width: 200px;
+    }
+  }
+  .row_cell_dialog {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+
+    .cell_title {
+      display: flex;
+      width: 100%;
+      padding: 8px;
+    }
+
+    .action_items {
+      display: flex;
+      gap: 8px;
+      padding: 8px 0;
+      justify-content: space-between;
+      width: 100%;
+
+      .dropdown {
+        width: 100%;
+      }
+    }
+  }
+}
+
+#search_wrap, .row_list {
+  margin-bottom: 16px;
+}

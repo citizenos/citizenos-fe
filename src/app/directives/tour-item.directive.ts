@@ -31,7 +31,7 @@ export class TourItemDirective {
   }
 
   ngOnInit(): void {
-    this.TourService.register(this.data.tourid, { index: this.data.index, element: this.el, position: this.data.position });
+    this.TourService.register(this.data.tourid, this.data.index, this.el, this.data.position);
 
   }
 }

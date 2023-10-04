@@ -47,19 +47,15 @@ export class TourComponent {
       this.contentEl.nativeElement.replaceChildren(...ctemp);
     }
   }
-  /*setPosition () {
-    const elemPos = item.element.nativeElement.getBoundingClientRect();
-    const posLeft = elemPos.left + elemPos.width;
-    const posRight = elemPos.right + elemPos.width;
-    this.top = `${elemPos.top}px`;
-    this.left = `${posLeft}px`;
-  }*/
 
   setPosition() {
     return combineLatest([this.TourService.getActiveItem(), this.TourService.showTour]).pipe(map(([item, isVisible]) => {
       if (item && isVisible) {
-        console.log(item.position)
-        const itemEl = item.element.nativeElement;
+        let itemEl = item.elements[0].nativeElement;
+        const style = window.getComputedStyle(itemEl);
+        if ((itemEl.offsetParent === null || style.display === 'none')&& item.elements.length > 1) {
+          itemEl = item.elements[1].nativeElement;
+        }
         const itemRect = itemEl.getBoundingClientRect();
         const tourBox = this.tourBox.nativeElement;
         const tourBoxElementRect = tourBox.getBoundingClientRect();
@@ -110,12 +106,12 @@ export class TourComponent {
     return this.TourService.activeItem.value;
   }
 
-  sort(items:any[]) {
-    function sortFunc(a:any, b:any) {
-      if ( a.index < b.index ){
+  sort(items: any[]) {
+    function sortFunc(a: any, b: any) {
+      if (a.index < b.index) {
         return -1;
       }
-      if ( a.index > b.index ){
+      if (a.index > b.index) {
         return 1;
       }
       return 0;
@@ -123,4 +119,5 @@ export class TourComponent {
 
     return items.sort(sortFunc);
   }
+
 }

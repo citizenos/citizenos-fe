@@ -43,6 +43,7 @@ import { DuplicateTopicDialogComponent } from './components/duplicate-topic-dial
 import { ArgumentWhyDialogComponent } from './components/argument-why-dialog/argument-why-dialog.component';
 import { TopicFollowUpCreateDialogComponent } from './components/topic-follow-up-create-dialog/topic-follow-up-create-dialog.component';
 import { VoteCreateComponent } from '../voting/components/vote-create/vote-create.component';
+import { InviteEditorsComponent } from './components/invite-editors/invite-editors.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +91,8 @@ import { VoteCreateComponent } from '../voting/components/vote-create/vote-creat
     DuplicateTopicDialogComponent,
     ArgumentWhyDialogComponent,
     TopicFollowUpCreateDialogComponent,
-    VoteCreateComponent
+    VoteCreateComponent,
+    InviteEditorsComponent
   ],
   imports: [
     LinkyModule,

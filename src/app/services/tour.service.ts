@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
+import { ElementRef, Injectable } from '@angular/core';
 import { BehaviorSubject, switchMap, combineLatest, of, tap, take } from 'rxjs';
 
 export interface TourItem {
   index: number,
-  element: any
+  elements: any[],
+  position: string
 }
 
 @Injectable({
@@ -22,15 +23,19 @@ export class TourService {
     this.overlay.classList.add('tour_overlay');
   }
 
-  register(id: string, data: any) {
+  register(id: string, index: number, element: ElementRef, position: string) {
     if (!(this.items[id])) {
-      return this.items[id] = [data];
+      return this.items[id] = [{index, elements: <any[]>[element] , position}];
     }
     const item = this.items[id].find((item: TourItem) => {
-      return item.index === data.index;
+      return item.index === index;
     });
+
     if (!item) {
-      return this.items[id].push(data);
+      console.log('REGISTER', item);
+      return this.items[id].push({index, elements: <any[]>[element] , position});
+    } else {
+      item.elements.push(element);
     }
   }
 
@@ -60,10 +65,12 @@ export class TourService {
             let item;
             if (this.items && this.items[tourId]) {
               item = this.items[tourId].find((item: TourItem) => {
-                item.element.nativeElement.classList.remove('tour_item');
-                if (item.index === itemId) {
-                  item.element.nativeElement.classList.add('tour_item');
-                }
+                item.elements?.forEach((element) => {
+                  element.nativeElement.classList.remove('tour_item');
+                  if (item.index === itemId) {
+                    element.nativeElement.classList.add('tour_item');
+                  }
+                })
               });
             }
             return of(templateItem.template);
@@ -103,14 +110,15 @@ export class TourService {
   }
 
   next() {
+    console.log(this.items);
     combineLatest([this.activeTour, this.activeItem]).pipe(take(1)).subscribe({
       next: ([tourId, index]) => {
         const nextItem = this.items[tourId].find((item: any) => {
           return item.index === index + 1;
         });
         if (!nextItem) return this.hide();
-
-        this.activeItem.next(this.activeItem.value + 1);
+        console.log(index)
+        this.activeItem.next(index + 1);
       },
       error: (err) => {
         console.log(err)
