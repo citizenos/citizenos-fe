@@ -44,8 +44,9 @@ export class GroupInviteUserService extends ItemsListService {
 
   query(params: { [key: string]: any }) {
     let path = this.Location.getAbsoluteUrlApi('/api/users/self/groups/:groupId/invites/users', params);
+    const queryParams = Object.fromEntries(Object.entries(params).filter((i) => i[1] !== null));
 
-    return this.http.get<any>(path, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
+    return this.http.get<any>(path, { withCredentials: true, params: queryParams, responseType: 'json', observe: 'body' }).pipe(
       map((res) => {
         return res.data;
       })
