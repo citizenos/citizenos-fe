@@ -186,4 +186,10 @@ export class MyGroupComponent implements OnInit {
   doToggleMemberTopicList () {
     this.topicList = !this.topicList;
   }
+
+  triggerSearchInvites () {
+    setTimeout(() => {
+      this.GroupInviteUserService.setParam('search', this.GroupInviteUserService.params.search)
+    })
+  }
 }
