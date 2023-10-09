@@ -389,7 +389,7 @@
     <div class="container_header second_header" *ngIf="inviteListSearch">
       <div class="table_cell">
         <input [placeholder]="'VIEWS.MY_GROUPS_GROUPID.PLACEHOLDER_NAME_PERMISSION' | translate"
-          (ngModelChange)="GroupInviteUserService.setParam('search', GroupInviteUserService.params.search)"
+          (ngModelChange)="triggerSearchInvites()"
           [(ngModel)]="GroupInviteUserService.params.search">
       </div>
       <div class="table_cell">
