@@ -148,7 +148,7 @@
             </div>
             <div class="settings_cell">
               <cos-toggle [cosToggleTextOn]="('TOGGLE_ON' | translate)" [cosToggleTextOff]="('TOGGLE_OFF' | translate)"
-                [model]="reminder"></cos-toggle> <!--(click)="topic.vote.reminder = !topic.vote.reminder"-->
+                [(model)]="reminder"></cos-toggle> <!--(click)="topic.vote.reminder = !topic.vote.reminder"-->
             </div>
           </div>
           <div class="line lightest_line" *ngIf="canEdit()"></div>
