@@ -47,6 +47,9 @@ export class TopicSettingsComponent implements OnInit {
         .pipe(take(1))
         .subscribe((vote) => {
           this.topic.vote = vote;
+          if (vote.reminderTime && !vote.reminderSent) {
+            this.reminder = true;
+          }
         })
     }
     TopicMemberGroupService.setParam('topicId', data.topic.id);
@@ -153,7 +156,8 @@ export class TopicSettingsComponent implements OnInit {
 
   setVoteReminder(time: any) {
     if (this.topic.vote) {
-      let reminderTime = new Date();
+      const deadline = this.topic.vote.endsAt || new Date();
+      let reminderTime = new Date(deadline);
       switch (time.unit) {
         case 'weeks':
           reminderTime.setDate(reminderTime.getDate() - (time.value * 7));
@@ -188,7 +192,7 @@ export class TopicSettingsComponent implements OnInit {
   }
 
   doEditVoteDeadline(deadline?: any) {
-    const vote: any = { topicId: this.topic.id, voteId: this.topic.voteId };
+    const vote: any = { topicId: this.topic.id, voteId: this.topic.voteId, reminderTime: this.topic.vote?.reminderTime };
     if (deadline) {
       vote.endsAt = deadline;
     }
@@ -239,7 +243,27 @@ export class TopicSettingsComponent implements OnInit {
     if (topic.endsAt && topic.endsAt === topic.endsAt) { //Remove endsAt field so that topics with endsAt value set could be updated if endsAt is not changed
       delete topic.endsAt;
     }
-
+    if (topic.vote.reminderTime && !topic.vote.reminderSent && this.reminder === false) {
+      const vote: any = { topicId: this.topic.id, voteId: this.topic.voteId, reminderTime: null };
+      this.TopicVoteService
+        .update(vote)
+        .pipe(take(1))
+        .subscribe({
+          next: (voteValue) => {
+            if (this.topic.vote) {
+              this.topic.vote.endsAt = voteValue.endsAt;
+            }
+            if (voteValue.reminderTime && !voteValue.reminderSent) {
+              this.reminder = true;
+            } else {
+              this.reminder = false;
+            }
+          },
+          error: (err) => {
+            console.error(err);
+          }
+        });
+    }
     this.TopicService.update(topic)
       .pipe(take(1))
       .subscribe({

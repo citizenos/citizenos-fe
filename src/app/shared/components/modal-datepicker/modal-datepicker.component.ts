@@ -61,7 +61,7 @@ export class ModalDatepickerComponent implements OnInit {
   datePickerMin = new Date();
 
   constructor(private dialog: MatDialogRef<ModalDatepickerComponent>, @Inject(MAT_DIALOG_DATA) data: DatepickerModalData, private TopicVoteService:TopicVoteService) {
-    this.date = data.date;
+    this.date = data.date || new Date();
     this.topic = data.topic;
     this.setFormValues();
   }
