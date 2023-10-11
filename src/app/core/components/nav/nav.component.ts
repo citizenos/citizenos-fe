@@ -10,6 +10,7 @@ import { ActivityFeedComponent } from '../activity-feed/activity-feed.component'
 import { AppService } from 'src/app/services/app.service';
 import { ActivityService } from 'src/app/services/activity.service';
 import { tap, take } from 'rxjs';
+import { Router } from '@angular/router';
 @Component({
   selector: 'nav',
   templateUrl: './nav.component.html',
@@ -22,6 +23,7 @@ export class NavComponent implements OnInit {
   newActivities: number = 0;
   constructor(private Location: LocationService,
     public translate: TranslateService,
+    private router: Router,
     public config: ConfigService,
     public auth: AuthService, public dialog: MatDialog,
     private app: AppService,
@@ -59,6 +61,7 @@ export class NavComponent implements OnInit {
     .subscribe({
       next: (done) => {
         console.log('SUCCESS', done);
+        this.router.navigate(['/']);
       },
       error: (err) => {
         console.log('ERROR', err);
