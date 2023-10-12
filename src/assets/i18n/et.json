@@ -16,7 +16,7 @@
   "TXT_TOPIC_STATUS_FOLLOWUP": "elluviimisel",
   "TXT_TOPIC_STATUS_CLOSED": "suletud",
   "TXT_TOPIC_STATUS_MODERATED": "modereeritud",
-  "TXT_TOPIC_LEVELS_ADMIN": "haldamine",
+  "TXT_TOPIC_LEVELS_ADMIN": "haldaja",
   "TXT_TOPIC_LEVELS_EDIT": "toimetaja",
   "TXT_TOPIC_LEVELS_READ": "osaleja",
   "TXT_TOPIC_LEVELS_NONE": "ükski",
