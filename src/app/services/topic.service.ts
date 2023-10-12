@@ -170,6 +170,10 @@ export class TopicService {
     );
   }
 
+  download(topicId: string) {
+    return this.Location.getAbsoluteUrlApi('/api/topics/:topicId/download', { topicId });
+  }
+
   togglePin(topic: Topic) {
     if (!topic.pinned) {
       return this.addToPinned(topic.id).pipe(take(1)).subscribe(() => {
