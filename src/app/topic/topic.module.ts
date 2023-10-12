@@ -44,6 +44,8 @@ import { ArgumentWhyDialogComponent } from './components/argument-why-dialog/arg
 import { TopicFollowUpCreateDialogComponent } from './components/topic-follow-up-create-dialog/topic-follow-up-create-dialog.component';
 import { VoteCreateComponent } from '../voting/components/vote-create/vote-create.component';
 import { InviteEditorsComponent } from './components/invite-editors/invite-editors.component';
+import { TopicEditComponent } from './components/topic-edit/topic-edit.component';
+import { TopicFormComponent } from './components/topic-form/topic-form.component';
 
 @NgModule({
   declarations: [
@@ -92,7 +94,9 @@ import { InviteEditorsComponent } from './components/invite-editors/invite-edito
     ArgumentWhyDialogComponent,
     TopicFollowUpCreateDialogComponent,
     VoteCreateComponent,
-    InviteEditorsComponent
+    InviteEditorsComponent,
+    TopicEditComponent,
+    TopicFormComponent
   ],
   imports: [
     LinkyModule,

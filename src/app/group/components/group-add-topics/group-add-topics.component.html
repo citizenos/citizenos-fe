@@ -102,7 +102,7 @@
             <div class="row_cell">
               <div class="cell_title" translate="COMPONENTS.GROUP_ADD_TOPICS.HEADING_GROUP_PERMISSIONS"></div>
               <div class="dropdown" [cosDropdown]
-                [cosDisabled]="TopicService.canUpdate(topic) && group?.visibility !== GroupService.VISIBILITY.public">
+                [cosDisabled]="TopicService.canUpdate(topic) && group.visibility !== GroupService.VISIBILITY.public">
                 <div class="selection">
                   <div class="selected_item">{{'TXT_TOPIC_LEVELS_' + (topic.permission.level) |
                     uppercase | translate}}</div>
@@ -141,7 +141,7 @@
               <div class="cell_title" translate="COMPONENTS.GROUP_ADD_TOPICS.HEADING_GROUP_PERMISSIONS"></div>
               <div class="action_items">
                 <div class="dropdown" [cosDropdown]
-                  [cosDisabled]="TopicService.canUpdate(topic) && group?.visibility !== GroupService.VISIBILITY.public">
+                  [cosDisabled]="TopicService.canUpdate(topic) && group.visibility !== GroupService.VISIBILITY.public">
                   <div class="selection">
                     <div class="selected_item">{{'TXT_TOPIC_LEVELS_' + (topic.permission.level) |
                       uppercase | translate}}</div>

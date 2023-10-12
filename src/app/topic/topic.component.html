@@ -85,7 +85,7 @@
             </div>
             <span translate="COMPONENTS.TOPIC.OPTION_INVITE_CO_EDITOR"></span>
           </button>
-          <button class="option" *ngIf="(auth.loggedIn$ | async)">
+          <button class="option" *ngIf="(auth.loggedIn$ | async)" [routerLink]="['/','topics', 'edit', topic.id]">
             <div>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -93,7 +93,7 @@
                   fill="#2C3B47" />
               </svg>
             </div>
-            <span translate="COMPONENTS.TOPIC.OPTION_INVITE_EDIT_TOPIC"></span>
+            <span translate="COMPONENTS.TOPIC.OPTION_EDIT_TOPIC"></span>
           </button>
           <button class="option" (click)="duplicateTopic(topic)" *ngIf="(auth.loggedIn$ | async)">
             <div>
