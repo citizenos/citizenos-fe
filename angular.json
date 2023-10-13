@@ -32,7 +32,12 @@
             ],
             "styles": [
               "src/assets/styles/easyMDE.min.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              {
+                "input": "src/assets/styles/etherpad.scss",
+                "inject": false,
+                "bundleName": "etherpad"
+              }
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
@@ -118,7 +123,12 @@
             ],
             "styles": [
               "src/assets/styles/easyMDE.min.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              {
+                "input": "src/assets/styles/etherpad.scss",
+                "inject": false,
+                "bundleName": "etherpad"
+              }
             ],
             "scripts": []
           }

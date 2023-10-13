@@ -103,6 +103,7 @@ export class TopicFormComponent {
       }
       ));
   }
+
   selectTab(tab: string) {
     this.router.navigate([], { fragment: tab });
   }
@@ -199,7 +200,7 @@ export class TopicFormComponent {
   }
 
   sanitizeURL() {
-    return this.topic.padUrl;
+    return this.sanitizer.bypassSecurityTrustResourceUrl(this.topic.padUrl);
   }
 
   chooseCategory(category: string) {
