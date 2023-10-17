@@ -7,7 +7,7 @@
           d="M18.5246 10.0392L18.1335 8H9.3335V25.3333H11.2891V18.1961H16.7646L17.1557 20.2353H24.0002V10.0392H18.5246Z"
           fill="white" />
       </svg>
-      <div class="follow_up_title" translate="VIEWS.TOPICS_TOPICID.ADD_MILESTONES_CREATE_A_MILESTONE"></div>
+      <div class="follow_up_title" translate="COMPONENTS.TOPIC_MILESTONES.CREATE_A_MILESTONE"></div>
     </div>
     <div class="header_division">
       <div class="follow_up_deadline">
@@ -35,7 +35,7 @@
         <div class="title_wrap">
           <div class="circle">{{$index+1}}</div>
           <div class="title_text_area">
-            <div class="title_description" translate="VIEWS.TOPICS_TOPICID.ADD_MILESTONES_MILESTONE"
+            <div class="title_description" translate="COMPONENTS.TOPIC_MILESTONES.MILESTONE_TITLE"
               [translateParams]="{number: countTotal.value - $index}"></div>
             <div class="title" [innerHtml]="evt.subject"></div>
           </div>
@@ -58,14 +58,14 @@
               </svg>
             </button>
             <div class="options">
-              <div class="option">
+              <button class="option">
                 <div><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M8.8143 4.18517L11.8147 7.18569L5.29947 13.7012L2.62438 13.9965C2.26626 14.0361 1.96369 13.7333 2.00354 13.3752L2.30118 10.6981L8.8143 4.18517ZM13.6704 3.73845L12.2616 2.3296C11.8222 1.89013 11.1095 1.89013 10.67 2.3296L9.34467 3.65501L12.3451 6.65553L13.6704 5.33011C14.1099 4.89042 14.1099 4.17791 13.6704 3.73845Z"
                       fill="#2C3B47" />
                   </svg>
-                </div><span>Edit details</span>
-              </div>
+                </div><span translate="COMPONENTS.TOPIC_MILESTONES.OPT_EDIT_DETAILS"></span>
+              </button>
               <div class="line_separator"></div>
               <button class="option error_text" (click)="deleteEvent(evt)">
                 <div>
@@ -74,7 +74,7 @@
                       d="M10 3H6V4H10V3ZM11 4V3C11 2.44772 10.5523 2 10 2H6C5.44772 2 5 2.44772 5 3V4H4H2.5C2.22386 4 2 4.22386 2 4.5C2 4.77614 2.22386 5 2.5 5H4V13C4 13.5523 4.44772 14 5 14H11C11.5523 14 12 13.5523 12 13V5H13.5C13.7761 5 14 4.77614 14 4.5C14 4.22386 13.7761 4 13.5 4H12H11ZM7 7H6V11H7V7ZM10 7H9V11H10V7Z"
                       fill="#EF4025" />
                   </svg>
-                </div><span>Remove milestone</span>
+                </div><span translate="COMPONENTS.TOPIC_MILESTONES.OPT_REMOVE_MILESTONE"></span>
               </button>
             </div>
           </div>
@@ -88,14 +88,14 @@
       <div class="milestone_header">
         <div class="title_wrap">
           <div class="circle">{{countTotal.value+1}}</div>
-          <h3>Milestone</h3>
+          <h3 translate="COMPONENTS.TOPIC_MILESTONES.HEADING_MILESTONE"></h3>
         </div>
       </div>
       <div class="section_content">
-        <div class="heading">Milestone title</div>
-        <cos-input [placeholder]="'VIEWS.TOPICS_TOPICID.ADD_MILESTONES_PLACEHOLDER_SUBJECT' | translate">
+        <div class="heading" translate="COMPONENTS.TOPIC_MILESTONES.HEADING_MILESTONE_TITLE"></div>
+        <cos-input [placeholder]="'COMPONENTS.TOPIC_MILESTONES.PLACEHOLDER_SUBJECT' | translate">
           <input id="create_milestone_title" [(ngModel)]="event.subject" [ngClass]="{'error_input': errors?.subject}"
-            translate [placeholder]="'VIEWS.TOPICS_TOPICID.ADD_MILESTONES_PLACEHOLDER_SUBJECT' | translate"
+            translate [placeholder]="'COMPONENTS.TOPIC_MILESTONES.PLACEHOLDER_SUBJECT' | translate"
             class="gray_borders" [maxlength]="maxLengthSubject" required>
           <label for="create_milestone_title" class="error_label" *ngIf="errors?.subject">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -106,7 +106,7 @@
             <span translate="{{errors.subject}}"></span>
           </label>
         </cos-input>
-        <div class="heading">Milestone content</div>
+        <div class="heading" translate="COMPONENTS.TOPIC_MILESTONES.HEADING_MILESTONE_CONTENT"></div>
         <cos-input [placeholder]="'VIEWS.TOPICS_TOPICID.ADD_MILESTONES_PLACEHOLDER_TEXT' | translate">
           <textarea id="create_milestone_textarea" class="gray_borders" [ngClass]="{'error_input': errors?.text}"
             [(ngModel)]="event.text" [placeholder]="'VIEWS.TOPICS_TOPICID.ADD_MILESTONES_PLACEHOLDER_TEXT' | translate"
@@ -173,7 +173,7 @@
           </svg>
         </button>
       </!--div-->
-      <button class="btn_medium_submit bold" translate="VIEWS.TOPICS_TOPICID.ADD_MILESTONES_ADD_MILESTONE"
+      <button class="btn_medium_submit bold" translate="COMPONENTS.TOPIC_MILESTONES.ADD_MILESTONE"
         (click)="submitEvent()">
       </button>
     </div>
