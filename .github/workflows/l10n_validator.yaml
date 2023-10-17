@@ -1,15 +1,16 @@
 name: Validate JSON
 
 on:
-  pull_request:
-    types: [closed]
+  push:
     branches:
-      - master
+      - redesign
 jobs:
-  verify-json-validation:
+  github_action_json_lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - name: Validate JSON
-        uses: OrRosenblatt/validate-json-action@0.1.0
-          INPUT_JSONS: /src/assets/i18n/en.json
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: Validate JSON
+      uses: ilmartyrk/github-action-json-lint@33b75f20d2bdc10e36082322be93cc775978ea9a
+      with:
+        path-to-file: 'src/assets/i18n/en.json'
