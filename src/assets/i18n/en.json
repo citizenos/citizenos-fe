@@ -4,7 +4,7 @@
   "META_DEFAULT_KEYWORDS": "e-decisionmaking, e-governance, e-democracy, democracy, direct democracy, liquid democracy",
   "BTN_YES": "YES",
   "BTN_NO": "NO",
-  "BTN_CLOSE": "Close",
+  "BTN_CLOSE": "Closet",
   "DROPDOWN_BTN_SELECT": "Select",
   "BTN_CONTINUE": "Continue",
   "LNK_FILTER": "filter",
@@ -12,7 +12,7 @@
   "LNK_CANCEL": "Cancel",
   "BTN_APPLY": "Apply",
   "LNK_DIRECT_LINK": "direct link",
-  "LNK_CLEAR": "Clear",
+  "LNK_CLEAR": "Clear"
   "TOGGLE_ON": "On",
   "TOGGLE_OFF": "Off",
   "BTN_BULK_ACTIONS": "Bulk actions",
