@@ -25,7 +25,10 @@
                 <span *ngIf="topicFilters.status === 'pinned'"> {{'VIEWS.MY_TOPICS.FILTERS.TOPICS_PINNED' | translate}}</span>
                 <span *ngIf="topicFilters.status === 'showModerated'"> {{'VIEWS.MY_TOPICS.FILTERS.TOPICS_MODERATED' | translate}}</span>
               </div>
-              <div class="icon_arrow_down_black"></div>
+              <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </div>
             </div>
             <div class="options">
               <div class="option check">
@@ -68,7 +71,10 @@
                 <span translate="VIEWS.MY_TOPICS.FILTERS.TOPICS_I_HAVE_NOT_VOTED" *ngIf="topicFilters.engagements === 'hasNotVoted'"></span>
                 <span translate="VIEWS.MY_TOPICS.FILTERS.TOPICS_I_CREATED" *ngIf="topicFilters.engagements === 'iCreated'"></span>
               </div>
-              <div class="icon_arrow_down_black"></div>
+              <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </div>
             </div>
             <div class="options">
               <div class="option" translate="VIEWS.MY_TOPICS.FILTERS.TOPICS_I_HAVE_VOTED" (click)="setFilter('hasVoted')"></div>
@@ -81,7 +87,10 @@
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
               <div class="selected_item">{{'TXT_TOPIC_CATEGORY_' + topicFilters.category | uppercase | translate}}</div>
-              <div class="icon_arrow_down_black"></div>
+              <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </div>
             </div>
             <div class="options">
               <div class="option" (click)="setCategory('all');" translate="TXT_TOPIC_CATEGORY_ALL"></div>
@@ -95,7 +104,10 @@
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
               <div class="selected_item">All</div>
-              <div class="icon_arrow_down_black"></div>
+              <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </div>
             </div>
             <div class="options">
               <div class="option">Most recent participant activity</div>
@@ -112,7 +124,10 @@
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
               <div class="selected_item">All</div>
-              <div class="icon_arrow_down_black"></div>
+              <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </div>
             </div>
             <div class="options">
               <div class="option" *ngFor="let item of []">
@@ -125,7 +140,10 @@
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
               <div class="selected_item">All</div>
-              <div class="icon_arrow_down_black"></div>
+              <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </div>
             </div>
             <div class="options">
               <div class="option" *ngFor="let item of []">

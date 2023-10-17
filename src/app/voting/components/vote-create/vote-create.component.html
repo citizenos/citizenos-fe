@@ -46,7 +46,7 @@
         <ng-container *ngIf="tabSelected==='info'">
           <div class="create_content_block discussion" [@openClose]="block.headerImage ? 'open' : 'closed'">
             <div class="block_title_wrap" (click)="block.headerImage = true">
-              <div class="block_title">Header image</div>
+              <div class="block_title" translate="VIEWS.VOTE_CREATE.TITLE_HEADER_IMAGE"></div>
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                 *ngIf="!block.headerImage">
                 <path
@@ -56,7 +56,7 @@
               </svg>
               <button *ngIf="block.headerImage && !tmpImageUrl" class="btn_medium_close bold"
                 (click)="block.headerImage = !block.headerImage">
-                <span>Cancel</span>
+                <span translate="VIEWS.VOTE_CREATE.HEADER_IMAGE_BTN_CANCEL"></span>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M5.29311 17.2929C4.90258 17.6834 4.90258 18.3166 5.29311 18.7071C5.68363 19.0976 6.3168 19.0976 6.70732 18.7071L12.0002 13.4142L17.2931 18.7071C17.6836 19.0976 18.3168 19.0976 18.7073 18.7071C19.0978 18.3166 19.0978 17.6834 18.7073 17.2929L13.4144 12L18.7073 6.70711C19.0978 6.31658 19.0978 5.68342 18.7073 5.29289C18.3168 4.90237 17.6836 4.90237 17.2931 5.29289L12.0002 10.5858L6.70732 5.29289C6.3168 4.90237 5.68363 4.90237 5.29311 5.29289C4.90258 5.68342 4.90258 6.31658 5.29311 6.70711L10.586 12L5.29311 17.2929Z"
@@ -65,7 +65,7 @@
               </button>
               <button class="btn_medium_close bold" *ngIf="block.headerImage && tmpImageUrl"
                 (click)="deleteTopicImage()">
-                <span>Remove</span>
+                <span translate="VIEWS.VOTE_CREATE.HEADER_IMAGE_BTN_REMOVE"></span>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M9 9H11V17H9L9 9Z" fill="#1168A8" />
                   <path d="M15 9H13V17H15V9Z" fill="#1168A8" />
@@ -78,9 +78,9 @@
             <ng-container *ngIf="block.headerImage">
               <div class="block_content">
                 <div class="block_section" *ngIf="!tmpImageUrl">
-                  <div>Upload your own image</div>
+                  <div translate="VIEWS.VOTE_CREATE.HEADER_IMAGE_UPLOAD_DESC"></div>
                   <input id="image_upload_input" type="file" #imageUpload (change)="fileUpload()" />
-                  <button class="btn_medium_secondary" (click)="uploadImage()">Choose a file</button>
+                  <button class="btn_medium_secondary" (click)="uploadImage()" translate="VIEWS.VOTE_CREATE.HEADER_IMAGE_UPLOAD_BTN"></button>
                 </div>
                 <div id="topic_image" class="block_section" *ngIf="tmpImageUrl">
                   <img [src]="tmpImageUrl" />
@@ -92,7 +92,7 @@
           <div class="create_content_block discussion" [ngClass]="{'active': block.title}"
             [@openClose]="block.title ? 'open' : 'closed'">
             <div class="block_title_wrap" (click)="block.title = true">
-              <div class="block_title">Title</div>
+              <div class="block_title" translate="VIEWS.VOTE_CREATE.TITLE_HEADING"></div>
               <div class="counter_wrap">
                 <div class="char_counter">{{topic.title?.length}}/{{titleLimit}}</div>
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -122,7 +122,7 @@
           <div class="create_content_block discussion" [ngClass]="{'active': block.intro}"
             [@openClose]="block.intro ? 'open' : 'closed'">
             <div class="block_title_wrap" (click)="block.intro = true">
-              <div class="block_title">Intro</div>
+              <div class="block_title" translate="VIEWS.VOTE_CREATE.TITLE_INTRO"></div>
               <div class="counter_wrap">
                 <div class="char_counter">{{topic.intro.length}}/{{introLimit}}</div>
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -152,7 +152,7 @@
           <div class="create_content_block discussion" [ngClass]="{'active': block.description}"
             [@openClose]="block.description ? 'open' : 'closed'">
             <div class="block_title_wrap" (click)="block.description = true;">
-              <div class="block_title">Document</div>
+              <div class="block_title" translate="VIEWS.VOTE_CREATE.TITLE_DESCRIPTION"></div>
               <div class="counter_wrap">
                 <div class="char_counter">{{topic.intro.length}}/{{introLimit}}</div>
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -180,10 +180,11 @@
               </div>
             </ng-container>
           </div>
-          <ng-container *ngIf="topicAttachments$ | async"></ng-container>
-          <div class="create_content_block discussion" [@openClose]="block.attachments ? 'open' : 'closed'">
+          <topic-attachments [topic]="topic"></topic-attachments>
+          <!--ng-container *ngIf="topicAttachments$ | async"></!--ng-container>
+          <div-- class="create_content_block discussion" [@openClose]="block.attachments ? 'open' : 'closed'">
             <div class="block_title_wrap" (click)="block.attachments = true">
-              <div class="block_title">Attachments</div>
+              <div class="block_title" translate="VIEWS.VOTE_CREATE.TITLE_DESCRIPTION">Attachments</div>
               <div class="dropdown button_dropdown" [cosDropdown]>
                 <button class="btn_medium_plain icon">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -256,7 +257,7 @@
                 </div>
               </div>
             </ng-container>
-          </div>
+          </div-->
 
           <div id="add_section_wrap">
             <button class="btn_medium_plain bold">
@@ -265,7 +266,7 @@
                   d="M12 16C11.4711 16 11.0423 15.5712 11.0423 15.0423L11.0423 12.9577H8.95775C8.4288 12.9577 8 12.5289 8 12C8 11.4711 8.4288 11.0423 8.95775 11.0423H11.0423V8.95775C11.0423 8.4288 11.4711 8 12 8C12.5289 8 12.9577 8.4288 12.9577 8.95775V11.0423L15.0423 11.0423C15.5712 11.0423 16 11.4711 16 12C16 12.5289 15.5712 12.9577 15.0423 12.9577H12.9577V15.0423C12.9577 15.5712 12.5289 16 12 16Z"
                   fill="#2C3B47" />
               </svg>
-              <span>Add</span>
+              <span translate="VIEWS.VOTE_CREATE.BTN_SECTION_ADD"></span>
             </button>
             <div class="vertical_line_separator"></div>
             <button class="btn_medium_plain icon">
@@ -319,8 +320,8 @@
               <div>1</div>
             </div>
             <div class="section_content_wrap">
-              <h3 translate="VIEWS.TOPIC_CREATE.SETTINGS_HEADING_VISIBILITY"></h3>
-              <div translate="VIEWS.TOPIC_CREATE.SETTINGS_VISIBILITY_DESC"></div>
+              <h3 translate="VIEWS.VOTE_CREATE.SETTINGS_HEADING_VISIBILITY"></h3>
+              <div translate="VIEWS.VOTE_CREATE.SETTINGS_VISIBILITY_DESC"></div>
 
               <div class="row_wrap">
                 <div class="radio_wrap" (click)="topic.visibility = VISIBILITY.private"
@@ -331,15 +332,12 @@
                         <input type="radio" [checked]="topic.visibility === VISIBILITY.private" name="contrast"
                           value="default">
                         <span class="radio"></span>
-                        <div class="radio_lable" translate="VIEWS.TOPIC_CREATE.SETTINGS_VISIBILITY_PRIVATE">
+                        <div class="radio_lable" translate="VIEWS.VOTE_CREATE.SETTINGS_VISIBILITY_PRIVATE">
                         </div>
                       </label>
                     </div>
-                    <div class="radio_description" translate="VIEWS.TOPIC_CREATE.SETTINGS_VISIBILITY_PRIVATE_DESC">
+                    <div class="radio_description" translate="VIEWS.VOTE_CREATE.SETTINGS_VISIBILITY_PRIVATE_DESC">
                     </div>
-                  </div>
-                  <div class="radio_icon">
-                    <div class="icon_contrast_default"></div>
                   </div>
                 </div>
                 <div class="radio_wrap" (click)="topic.visibility = VISIBILITY.public"
@@ -350,14 +348,11 @@
                         <input type="radio" [checked]="topic.visibility == VISIBILITY.public" name="contrast"
                           value="default">
                         <span class="radio"></span>
-                        <div class="radio_lable" translate="VIEWS.TOPIC_CREATE.SETTINGS_VISIBILITY_PUBLIC">
+                        <div class="radio_lable" translate="VIEWS.VOTE_CREATE.SETTINGS_VISIBILITY_PUBLIC">
                         </div>
                       </label>
                     </div>
-                    <div class="radio_description" translate="VIEWS.TOPIC_CREATE.SETTINGS_VISIBILITY_PUBLIC_DESC"></div>
-                  </div>
-                  <div class="radio_icon">
-                    <div class="icon_contrast_default"></div>
+                    <div class="radio_description" translate="VIEWS.VOTE_CREATE.SETTINGS_VISIBILITY_PUBLIC_DESC"></div>
                   </div>
                 </div>
               </div>
@@ -368,11 +363,11 @@
               <div>2</div>
             </div>
             <div class="section_content_wrap">
-              <h3 translate="VIEWS.TOPIC_CREATE.SETTINGS_HEADING_CATEGORY_AND_LOCALITY"></h3>
-              <div translate="VIEWS.TOPIC_CREATE.SETTINGS_CATEGORY_SELECT_DESC"></div>
+              <h3 translate="VIEWS.VOTE_CREATE.SETTINGS_HEADING_CATEGORY_AND_LOCALITY"></h3>
+              <div translate="VIEWS.VOTE_CREATE.SETTINGS_CATEGORY_SELECT_DESC"></div>
               <div class="dropdown" [cosDropdown]>
                 <div class="selection">
-                  <div class="selected_item" translate="VIEWS.TOPIC_CREATE.SETTINGS_CATEGORY_SELECT"></div>
+                  <div class="selected_item" translate="VIEWS.VOTE_CREATE.SETTINGS_CATEGORY_SELECT"></div>
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
                   </svg>
@@ -394,13 +389,13 @@
 
                 </a>
               </div>
-              <h3 translate="VIEWS.TOPIC_CREATE.SETTINGS_HEADING_LOCALITY"></h3>
-              <div translate="VIEWS.TOPIC_CREATE.SETTINGS_LOCALITY_SELECT_DESC"></div>
+              <h3 translate="VIEWS.VOTE_CREATE.SETTINGS_HEADING_LOCALITY"></h3>
+              <div translate="VIEWS.VOTE_CREATE.SETTINGS_LOCALITY_SELECT_DESC"></div>
               <div class="row_wrap">
                 <div class="dropdown" [cosDropdown]>
                   <div class="selection">
                     <div class="selected_item">
-                      <span *ngIf="!topic.country" translate="VIEWS.TOPIC_CREATE.SETTINGS_COUNTRY_SELECT"></span>
+                      <span *ngIf="!topic.country" translate="VIEWS.VOTE_CREATE.SETTINGS_COUNTRY_SELECT"></span>
                       <span *ngIf="topic.country">{{topic.country}}</span>
                     </div>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -417,7 +412,7 @@
                 <div class="dropdown" [cosDropdown]>
                   <div class="selection">
                     <div class="selected_item">
-                      <span *ngIf="!topic.language" translate="VIEWS.TOPIC_CREATE.SETTINGS_LANGUAGE_SELECT"></span>
+                      <span *ngIf="!topic.language" translate="VIEWS.VOTE_CREATE.SETTINGS_LANGUAGE_SELECT"></span>
                       <span *ngIf="topic.language">{{topic.language}}</span>
                     </div>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -434,12 +429,12 @@
               </div>
             </div>
           </div>
-          <div class="create_content_section">
+          <!--div class="create_content_section">
             <div class="number_wrap">
               <div>3</div>
             </div>
             <div class="section_content_wrap">
-              <h3 translate="VIEWS.TOPIC_CREATE.SETTINGS_HEADING_TOPIC_TAGS"></h3>
+              <h3 translate="VIEWS.VOTE_CREATE.SETTINGS_HEADING_TOPIC_TAGS"></h3>
               <div translate="VIEWS.TOPIC_CREATE.SETTINGS_TOPIC_TAGS_DESC"></div>
               <cos-input [placeholder]="'VIEWS.TOPIC_CREATE.SETTINGS_TOPIC_TAG_INPUT_PLACEHOLDER' | translate">
                 <input type="text" (click)="addTag($event)" />
@@ -456,17 +451,17 @@
                 </a>
               </div>
             </div>
-          </div>
+          </!--div-->
           <div class="create_content_section">
             <div class="number_wrap">
-              <div>4</div>
+              <div>3</div>
             </div>
             <div class="section_content_wrap">
-              <h3 translate="VIEWS.TOPIC_CREATE.SETTINGS_HEADING_ADD_TO_GROUP"></h3>
-              <div translate="VIEWS.TOPIC_CREATE.SETTINGS_ADD_TO_GROUP_DESC"></div>
+              <h3 translate="VIEWS.VOTE_CREATE.SETTINGS_HEADING_ADD_TO_GROUP"></h3>
+              <div translate="VIEWS.VOTE_CREATE.SETTINGS_ADD_TO_GROUP_DESC"></div>
               <div class="dropdown" [cosDropdown]>
                 <div class="selection">
-                  <div class="selected_item" translate="VIEWS.TOPIC_CREATE.SETTINGS_GROUP_SELECT">
+                  <div class="selected_item" translate="VIEWS.VOTE_CREATE.SETTINGS_GROUP_SELECT">
                   </div>
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
@@ -480,22 +475,22 @@
               </div>
               <div id="topic_members_list_wrap" class="table_section">
                 <div class="row_header" *ngIf="topicGroups.length">
-                  <div class="row_cell"><a translate="COMPONENTS.GROUP_ADD_TOPICS.HEADING_TITLE"></a></div>
-                  <div class="row_cell" translate="COMPONENTS.GROUP_ADD_TOPICS.HEADING_GROUP_PERMISSIONS"></div>
-                  <div class="row_cell mobile_hide" translate="COMPONENTS.GROUP_ADD_TOPICS.HEADING_ACTIONS"></div>
+                  <div class="row_cell"><a translate="VIEWS.VOTE_CREATE.MEMBER_GROUP_HEADING_TITLE"></a></div>
+                  <div class="row_cell" translate="VIEWS.VOTE_CREATE.MEMBER_GROUP_HEADING_GROUP_PERMISSIONS"></div>
+                  <div class="row_cell mobile_hide" translate="VIEWS.VOTE_CREATE.MEMBER_GROUP_HEADING_ACTIONS"></div>
                 </div>
                 <ng-container *ngFor="let group of topicGroups; index as i;">
                   <div id="topic_groups_list" class="row_list">
                     <ng-container>
                       <div class="row_cell">
-                        <div class="cell_title" translate="COMPONENTS.GROUP_ADD_TOPICS.HEADING_TITLE"></div>
+                        <div class="cell_title" translate="VIEWS.VOTE_CREATE.MEMBER_GROUP_HEADING_TITLE"></div>
                         <a target='_blank' [routerLink]="['/', translate.currentLang, 'my', 'groups', group.id]"
                           class="member_topic_title">
                           {{group.name}}
                         </a>
                       </div>
                       <div class="row_cell">
-                        <div class="cell_title" translate="COMPONENTS.GROUP_ADD_TOPICS.HEADING_GROUP_PERMISSIONS"></div>
+                        <div class="cell_title" translate="VIEWS.VOTE_CREATE.MEMBER_GROUP_HEADING_GROUP_PERMISSIONS"></div>
                         <div class="dropdown" [cosDropdown]>
                           <div class="selection">
                             <div class="selected_item">{{'TXT_TOPIC_LEVELS_' + (group.permission?.level) |
@@ -548,9 +543,7 @@
                   d="M10.4017 9.9218L13.6993 9.48627L12.2579 16.6261C12.1556 17.1421 12.2996 17.4349 12.6956 17.4349C12.975 17.4349 13.3955 17.3287 13.6835 17.0616L13.5568 17.6929C13.1435 18.218 12.232 18.6004 11.4472 18.6004C10.4348 18.6004 10.0043 17.96 10.2836 16.5988L11.3464 11.3361C11.4385 10.8915 11.355 10.7306 10.9316 10.6244L10.2836 10.4984L10.4017 9.9218Z"
                   fill="white" />
               </svg>
-              <span>
-                You can still edit your topic text now or later (but not after voting has started).
-              </span>
+              <span translate="VIEWS.VOTE_CREATE.PREVIEW_INFO"></span>
             </div>
             <div class="topic_image">
               <img
@@ -572,8 +565,8 @@
                     xmlns="http://www.w3.org/2000/svg">
                     <path d="M17 15L12 10L7 15" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
                   </svg>
-                  <span *ngIf="!readMore" translate="COMPONENTS.TOPIC.BTN_READ_MORE"></span>
-                  <span *ngIf="readMore" translate="COMPONENTS.TOPIC.BTN_READ_LESS"></span>
+                  <span *ngIf="!readMore" translate="VIEWS.VOTE_CREATE.BTN_READ_MORE"></span>
+                  <span *ngIf="readMore" translate="VIEWS.VOTE_CREATE.BTN_READ_LESS"></span>
                 </button>
               </div>
             </div>
@@ -623,7 +616,7 @@
                       d="M20 16.1209L22.8571 19L28 13.8177L27.1943 13L22.8571 17.3704L20.8057 15.309L20 16.1209Z"
                       fill="#5AB467" />
                   </svg>
-                  <span translate="COMPONENTS.TOPIC_VOTE_CREATE.PREVIEW_VOTE_TYPE_REGULAR"></span>
+                  <span translate="VIEWS.VOTE_CREATE.PREVIEW_VOTE_TYPE_REGULAR"></span>
                 </div>
               </ng-container>
               <ng-container *ngIf="vote.type === 'multiple'">
@@ -639,7 +632,7 @@
                       d="M20 16.1209L22.8571 19L28 13.8177L27.1943 13L22.8571 17.3704L20.8057 15.309L20 16.1209Z"
                       fill="#5AB467" />
                   </svg>
-                  <span translate="VIEWS.TOPICS_TOPICID.TXT_YOU_CAN_CHOOSE_OPTIONS"
+                  <span translate="VIEWS.VOTE_CREATE.TXT_YOU_CAN_CHOOSE_OPTIONS"
                     [translateParams]="{maxChoices: vote.maxChoices}"></span>
                 </div>
               </ng-container>
@@ -649,7 +642,7 @@
                   <div class="radio_text_wrap">
                     <div class="radio_lable_wrap">
                       <label class="checkbox"><span
-                          translate="{{'COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_' + option.value  | uppercase}}"
+                          translate="{{'VIEWS.VOTE_CREATE.LBL_OPTION_' + option.value  | uppercase}}"
                           [translateParams]="{default: option.value}"></span>
                         <input type="checkbox" [checked]="option.selected"/>
                         <span class="checkmark"></span>
@@ -669,7 +662,7 @@
                       fill="#2C3B47" />
                   </svg>
 
-                  <span class="bold" translate="VIEWS.TOPICS_TOPICID.VOTE_HEADING_DELEGATE"></span>
+                  <span class="bold" translate="VIEWS.VOTE_CREATE.VOTE_HEADING_DELEGATE"></span>
                 </button>
               </div>
             </div>
@@ -699,7 +692,7 @@
           </button>
           <button class="btn_big_submit" (click)="(tabSelected!=='preview')? nextTab(tabSelected) : publish()">
             <span class="btn_text"
-              [translate]="(tabSelected!=='preview')? 'VIEWS.TOPIC_CREATE.FOOTER_BTN_CONTINUE': 'VIEWS.TOPIC_CREATE.FOOTER_BTN_CREATE'"></span>
+              [translate]="(tabSelected!=='preview')? 'VIEWS.VOTE_CREATE.FOOTER_BTN_CONTINUE': 'VIEWS.VOTE_CREATE.FOOTER_BTN_CREATE'"></span>
             <svg id="continue_btn" width="24" height="24" viewBox="0 0 24 24" fill="none"
               xmlns="http://www.w3.org/2000/svg">
               <path
@@ -822,16 +815,16 @@
         </div>
         <div id="help_text_wrap" (click)="showHelp = !showHelp">
           <ng-container *ngIf="tabSelected !=='preview'">
-            <h3 translate="VIEWS.TOPIC_CREATE.HELP_HEADING"></h3>
+            <h3 translate="VIEWS.VOTE_CREATE.HELP_HEADING"></h3>
             <div class="description_text">
-              <div translate="VIEWS.TOPIC_CREATE.HELP_DESCRIPTION"></div>
-              <a translate="VIEWS.TOPIC_CREATE.HELP_LNK_LEARN_MORE"></a>
+              <div translate="VIEWS.VOTE_CREATE.HELP_DESCRIPTION"></div>
+              <a translate="VIEWS.VOTE_CREATE.HELP_LNK_LEARN_MORE"></a>
             </div>
           </ng-container>
           <ng-container *ngIf="tabSelected ==='preview'">
-            <h3 translate="VIEWS.TOPIC_CREATE.HELP_HEADING"></h3>
+            <h3 translate="VIEWS.VOTE_CREATE.HELP_HEADING"></h3>
             <div class="description_text">
-              <div translate="VIEWS.TOPIC_CREATE.HELP_DESCRIPTION"></div>
+              <div translate="VIEWS.VOTE_CREATE.HELP_DESCRIPTION"></div>
               <div class="items_list">
                 <div class="item">
                   <div>
@@ -841,7 +834,7 @@
                         fill="#4D5C6A" />
                     </svg>
                   </div>
-                  <span>Share & invite participants</span>
+                  <span translate="VIEWS.VOTE_CREATE.HELP_ITEM_SHARE_AND_INVITE"></span>
                 </div>
                 <div class="item">
                   <div>
@@ -854,7 +847,7 @@
                         fill="#1168A8" />
                     </svg>
                   </div>
-                  <span>Engage in a pro/con discussion</span>
+                  <span translate="VIEWS.VOTE_CREATE.HELP_ITEM_ENGAGE_IN_DISCUSSION"></span>
                 </div>
                 <div class="item">
                   <div>
@@ -864,16 +857,16 @@
                         fill="#E4B722" />
                     </svg>
                   </div>
-                  <span>Add ideation to start gathering ideas</span>
+                  <span translate="VIEWS.VOTE_CREATE.HELP_ITEM_ADD_IDEATION"></span>
                 </div>
-                <div class="item">
+                <!--div class="item">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd"
                       d="M12 0C5.376 0 0 5.376 0 12C0 18.624 5.376 24 12 24C18.624 24 24 18.624 24 12C24 5.376 18.624 0 12 0ZM9.66667 18L19 8.73684L17.25 7L9.66667 14.5263L6.75 11.6316L5 13.3684L9.66667 18Z"
                       fill="#5AB467" />
                   </svg>
-                  <span>Add voting to start collecting votes</span>
-                </div>
+                  <span translate="VIEWS.VOTE_CREATE.HELP_ITEM_ADD_VOTING"></span>
+                </!--div-->
                 <div class="item">
                   <div>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -882,10 +875,10 @@
                         fill="white" />
                     </svg>
                   </div>
-                  <span>Add follow-up to keep participants up to date on any progress.</span>
+                  <span translate="VIEWS.VOTE_CREATE.HELP_ITEM_ADD_FOLLOW_UP"></span>
                 </div>
               </div>
-              <a translate="VIEWS.TOPIC_CREATE.HELP_LNK_LEARN_MORE"></a>
+              <a translate="VIEWS.VOTE_CREATE.HELP_LNK_LEARN_MORE"></a>
             </div>
           </ng-container>
         </div>

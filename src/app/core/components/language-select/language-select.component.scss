@@ -1,5 +1,4 @@
-@use "vars";
-@use "mixins_n_extends";
+@use "mixins";
 
 .language_list {
   display: flex;
@@ -9,7 +8,7 @@
   width: 560px;
   padding: 16px;
 
-  @include mixins_n_extends.mobile {
+  @include mixins.mobile {
     width: 100%;
     padding: 16px;
   }
@@ -45,7 +44,7 @@
     flex-grow: 2;
   }
 
-  @include mixins_n_extends.mobile {
+  @include mixins.mobile {
     flex-direction: column;
     text-align: center;
     :nth-child(3) {

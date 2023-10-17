@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Router, Routes, UrlSegment } from '@angular/router';
 import { GroupCreateComponent } from '../group/components/group-create/group-create.component';
-import { GroupSettingsDialogComponent } from '../group/components/group-settings/group-settings.component';
 import { MyGroupsComponent } from './my-groups.component';
 
 const routes: Routes = [
@@ -12,7 +11,6 @@ const routes: Routes = [
         path: ':groupId', children: [
           {
             path: 'settings', children: [
-              { path: '', component: GroupSettingsDialogComponent }
             ]
           },
           /*{

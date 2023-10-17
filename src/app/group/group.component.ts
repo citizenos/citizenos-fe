@@ -13,7 +13,6 @@ import { AuthService } from '../services/auth.service';
 import { GroupInviteDialogComponent } from './components/group-invite/group-invite.component';
 import { AppService } from '../services/app.service';
 import { GroupMemberTopicService } from '../services/group-member-topic.service';
-import { CreateGroupTopicComponent } from './components/create-group-topic/create-group-topic.component';
 import { GroupAddTopicsDialogComponent } from './components/group-add-topics/group-add-topics.component';
 import { TranslateService } from '@ngx-translate/core';
 import { trigger, state, style } from '@angular/animations';
@@ -216,14 +215,6 @@ export class GroupComponent implements OnInit {
           .subscribe((res) => {
             this.router.navigate(['../'], { relativeTo: this.route });
           })
-      }
-    });
-  }
-
-  createTopicDialog(group: Group) {
-    this.dialog.open(CreateGroupTopicComponent, {
-      data: {
-        group: group
       }
     });
   }

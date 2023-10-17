@@ -34,9 +34,7 @@ import { TopicSettingsComponent, TopicSettingsDialogComponent } from '../topic/c
 import { GroupInviteComponent, GroupInviteDialogComponent } from '../group/components/group-invite/group-invite.component';
 import { GroupMemberTopicComponent } from '../group/components/group-member-topic/group-member-topic.component';
 import { GroupMemberUserComponent } from '../group/components/group-member-user/group-member-user.component';
-import { GroupSettingsComponent, GroupSettingsDialogComponent } from '../group/components/group-settings/group-settings.component';
 import { GroupShareComponent } from '../group/components/group-share/group-share.component';
-import { CreateGroupTopicComponent } from '../group/components/create-group-topic/create-group-topic.component';
 import { GroupAddTopicsComponent, GroupAddTopicsDialogComponent } from '../group/components/group-add-topics/group-add-topics.component';
 
 import { MarkdownDirective } from '../directives/markdown.directive';
@@ -74,10 +72,7 @@ import { TourItemDirective, TourItemTemplateComponent } from '../directives/tour
     GroupInviteDialogComponent,
     GroupMemberTopicComponent,
     GroupMemberUserComponent,
-    GroupSettingsComponent,
-    GroupSettingsDialogComponent,
     GroupShareComponent,
-    CreateGroupTopicComponent,
     GroupAddTopicsComponent,
     GroupAddTopicsDialogComponent,
     GroupInviteUserComponent,
@@ -140,10 +135,7 @@ import { TourItemDirective, TourItemTemplateComponent } from '../directives/tour
     GroupInviteDialogComponent,
     GroupMemberTopicComponent,
     GroupMemberUserComponent,
-    GroupSettingsComponent,
-    GroupSettingsDialogComponent,
     GroupShareComponent,
-    CreateGroupTopicComponent,
     GroupAddTopicsComponent,
     GroupAddTopicsDialogComponent,
     GroupInviteUserComponent,
