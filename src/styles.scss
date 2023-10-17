@@ -1,5 +1,3 @@
-@forward "icons";
-@forward "icons_new";
 @forward "buttons_new";
 @forward "illustrations";
 @forward "create_views";
@@ -631,7 +629,7 @@ app-login, login-form, app-smart-id-login, smart-id-login-form, app-est-id-login
 .notification_inline {
   display: flex;
   flex-direction: row;
-  align-items: start;
+  align-items: flex-start;
   padding: 16px;
   align-items: center;
   gap: 16px;
@@ -694,6 +692,10 @@ app-login, login-form, app-smart-id-login, smart-id-login-form, app-est-id-login
 
 .blur {
   filter: blur(1rem);
+}
+
+.bold {
+  font-weight: bold;
 }
 
 .tour_overlay {

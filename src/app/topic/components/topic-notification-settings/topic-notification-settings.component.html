@@ -5,15 +5,28 @@
       <h4 class="title" translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_TITLE"></h4>
     </div>
     <div class="dialog_close">
-      <button class="btn_dialog_close" mat-dialog-close>
-        <div class="icon_mobile_close"></div>
+      <button class="btn_dialog_close icon" mat-dialog-close>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M7.72152 6.29537C7.3277 5.90154 6.68919 5.90154 6.29537 6.29537C5.90154 6.68919 5.90154 7.3277 6.29537 7.72153L10.5738 12L6.29541 16.2785C5.90159 16.6723 5.90159 17.3108 6.29541 17.7046C6.68923 18.0985 7.32774 18.0985 7.72156 17.7046L12 13.4262L16.2784 17.7046C16.6723 18.0985 17.3108 18.0985 17.7046 17.7046C18.0984 17.3108 18.0984 16.6723 17.7046 16.2785L13.4262 12L17.7046 7.72153C18.0985 7.3277 18.0985 6.68919 17.7046 6.29537C17.3108 5.90154 16.6723 5.90154 16.2785 6.29537L12 10.5739L7.72152 6.29537Z"
+            fill="#2C3B47" />
+        </svg>
       </button>
     </div>
   </div>
   <div class="dialog_info_wrap">
     <div class="dialog_info">
       <div class="info_row">
-        <div class="icon_mobile_topics_detail"></div>
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M7 4C7 3.44772 7.44772 3 8 3H18.1716C18.4368 3 18.6911 3.10536 18.8787 3.29289L24.7071 9.12132L25.4142 8.41421L24.7071 9.12132C24.8946 9.30886 25 9.56321 25 9.82843V28C25 28.5523 24.5523 29 24 29H8C7.44772 29 7 28.5523 7 28V4Z"
+            fill="white" stroke="#2C3B47" stroke-width="2" />
+          <path d="M17 2.5L25.5 11H18C17.4477 11 17 10.5523 17 10V2.5Z" fill="#2C3B47" />
+          <rect x="11" y="18" width="10" height="1" rx="0.5" fill="#4D5C6A" />
+          <rect x="11" y="15" width="10" height="1" rx="0.5" fill="#4D5C6A" />
+          <rect x="11" y="21" width="10" height="1" rx="0.5" fill="#4D5C6A" />
+          <rect x="11" y="24" width="6" height="1" rx="0.5" fill="#4D5C6A" />
+        </svg>
         <div class="bold" [innerHTML]="topic.title"></div>
       </div>
     </div>
@@ -27,7 +40,7 @@
       </div>
     </div>
   </div>
-  <div class="dialog_content"  *ngIf="settings | async as settings">
+  <div class="dialog_content" *ngIf="settings | async as settings">
     <div class="bold" translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_LBL_NOTIFY_ME_ABOUT"></div>
     <label class="checkbox"><span translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_LBL_ALL_ACTIONS"></span>
       <input type="checkbox" [checked]="allChecked()" (click)="toggleAllNotifications()">

@@ -26,6 +26,7 @@ export abstract class ItemsListService {
   }
 
   doOrder(orderBy: string, order?: string) {
+    order = order || 'asc';
     this.page$.next(1);
     const orderparams = this.params$.value;
     orderparams.orderBy = orderBy;

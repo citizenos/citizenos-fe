@@ -225,6 +225,11 @@
         display: flex;
         align-items: center;
 
+        a {
+          display: flex;
+          align-items: center;
+        }
+
         @include mixins.mobile {
           width: 100%;
         }

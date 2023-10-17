@@ -10,9 +10,6 @@ import { SharedModule } from '../shared/shared.module';
 import { TopicArgumentsComponent } from './components/topic-arguments/topic-arguments.component';
 import { ArgumentComponent } from './components/argument/argument.component';
 import { TopicNotificationSettingsComponent } from './components/topic-notification-settings/topic-notification-settings.component';
-import { VoteClosedComponent } from './components/vote-closed/vote-closed.component';
-import { TopicTabsComponent } from './components/topic-tabs/topic-tabs.component';
-import { TopicSidepanelComponent } from './components/topic-sidepanel/topic-sidepanel.component';
 import { PostArgumentComponent } from './components/post-argument/post-argument.component';
 import { ArgumentEditComponent } from './components/argument-edits/argument-edits.component';
 import { EditArgumentComponent } from './components/edit-argument/edit-argument.component';
@@ -28,13 +25,11 @@ import { TopicReportModerateComponent, TopicReportModerateDialogComponent } from
 import { TopicReportReviewComponent, TopicReportReviewDialogComponent } from './components/topic-report-review/topic-report-review.component';
 import { TopicReportResolveComponent, TopicReportResolveDialogComponent } from './components/topic-report-resolve/topic-report-resolve.component';
 import { TopicCreateComponent } from './components/topic-create/topic-create.component';
-import { TopicSocialMentionsComponent } from './components/topic-social-mentions/topic-social-mentions.component';
 import { TopicVoteSignComponent } from './components/topic-vote-sign/topic-vote-sign.component';
 import { TopicVoteSignEsteidComponent } from './components/topic-vote-sign-esteid/topic-vote-sign-esteid.component';
 import { TopicVoteSignSmartidComponent } from './components/topic-vote-sign-smartid/topic-vote-sign-smartid.component';
 import { ArgumentReportComponent } from './components/argument-report/argument-report.component';
 import { ArgumentReportModerateComponent, ArgumentReportModerateDialogComponent } from './components/argument-report-moderate/argument-report-moderate.component';
-import { RegularGraphComponent } from './components/regular-graph/regular-graph.component';
 import { TopicJoinComponent } from './components/topic-join/topic-join.component';
 import { TopicInvitationComponent } from './components/topic-invitation/topic-invitation.component';
 import { TopicReportComponent } from './components/topic-report/topic-report.component';
@@ -53,8 +48,6 @@ import { TopicFormComponent } from './components/topic-form/topic-form.component
     TopicArgumentsComponent,
     ArgumentComponent,
     TopicNotificationSettingsComponent,
-    TopicTabsComponent,
-    TopicSidepanelComponent,
     PostArgumentComponent,
     ArgumentEditComponent,
     EditArgumentComponent,
@@ -77,15 +70,12 @@ import { TopicFormComponent } from './components/topic-form/topic-form.component
     TopicReportResolveDialogComponent,
     TopicReportResolveComponent,
     TopicCreateComponent,
-    TopicSocialMentionsComponent,
     TopicVoteSignComponent,
     TopicVoteSignEsteidComponent,
     TopicVoteSignSmartidComponent,
     ArgumentReportComponent,
     ArgumentReportModerateComponent,
     ArgumentReportModerateDialogComponent,
-    VoteClosedComponent,
-    RegularGraphComponent,
     TopicJoinComponent,
     TopicInvitationComponent,
     TopicReportComponent,
@@ -107,8 +97,6 @@ import { TopicFormComponent } from './components/topic-form/topic-form.component
     TopicRoutingModule,
     TranslateModule,
   ],
-  exports: [
-    VoteClosedComponent
-  ]
+  exports: []
 })
 export class TopicModule { }
