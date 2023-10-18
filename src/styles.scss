@@ -186,7 +186,7 @@ textarea {
     gap: 8px;
     padding: 16px 8px;
     overflow-y: auto;
-
+    max-height: 300px;
     &.filter_options {
       padding: 16px 8px;
     }
