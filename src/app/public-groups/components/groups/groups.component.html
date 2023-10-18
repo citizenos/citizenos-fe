@@ -232,16 +232,16 @@
           <span translate="VIEWS.PUBLIC_GROUPS.FILTERS.VISIBILITY"></span><a class="bold"
             (click)="mobile_filters.visibility = true">{{(GroupService.params$ | async)?.visibility || 'All'}}</a>
         </div>
-        <div class="filter_option">
+        <!--div class="filter_option">
           <span translate="VIEWS.PUBLIC_GROUPS.FILTERS.MY_ENGAGEMENT"></span><a class="bold"
             (click)="mobile_filters.my_engagement = true">{{'TXT_TOPIC_CATEGORY_ALL' | uppercase |
             translate}}</a>
-        </div>
-        <div class="filter_option">
+        </!--div-->
+        <!--div class="filter_option">
           <span translate="VIEWS.PUBLIC_GROUPS.FILTERS.CATEGORIES"></span><a class="bold"
             (click)="mobile_filters.category = true">{{'TXT_TOPIC_CATEGORY_ALL' | uppercase |
             translate}}</a>
-        </div>
+        </!--div-->
         <div class="filter_option">
           <span translate="VIEWS.PUBLIC_GROUPS.FILTERS.ORDER"></span><a class="bold"
             (click)="mobile_filters.order = true">{{'TXT_TOPIC_CATEGORY_ALL' | uppercase |
@@ -295,17 +295,13 @@
           <span class="checkmark"></span>
         </label>
 
-        <div class="option" [routerLink]="['./']" [queryParams]="{pinned: 'true'}">
-          Pinned
-        </div>
+        <div class="option" [routerLink]="['./']" [queryParams]="{pinned: 'true'}" translate="VIEWS.PUBLIC_GROUPS.FILTERS.PINNED"></div>
 
-        <div class="option" [routerLink]="['./']" [queryParams]="{moderated: 'true'}">
-          Moderated
-        </div>
+        <div class="option" [routerLink]="['./']" [queryParams]="{moderated: 'true'}" translate="VIEWS.PUBLIC_GROUPS.FILTERS.MODERATED"></div>
         <button class="btn_medium_secondary" (click)="mobile_filters.visibility= false;" translate="BTN_APPLY"></button>
       </div>
       <div class="overlay" *ngIf="mobile_filters.visibility || mobile_filters.category"></div>
-      <div class="options button_options" *ngIf="mobile_filters.category">
+      <!--div class="options button_options" *ngIf="mobile_filters.category">
         <label class="checkbox">
           <span translate="TXT_TOPIC_CATEGORY_ALL"></span>
           <input type="radio" name="category">
@@ -319,8 +315,8 @@
         </label>
 
         <button class="btn_medium_secondary" (click)="mobile_filters.category= false;" translate="BTN_APPLY"></button>
-      </div>
-      <div class="options button_options" *ngIf="mobile_filters.my_engagement">
+      </!--div-->
+      <!--div class="options button_options" *ngIf="mobile_filters.my_engagement">
         <label class="checkbox">
           <span>My most recent activity</span>
           <input type="radio" name="engagement">
@@ -337,7 +333,7 @@
           <span class="checkmark"></span>
         </label>
         <button class="btn_medium_secondary" (click)="mobile_filters.my_engagement = false;" translate="BTN_APPLY"></button>
-      </div>
+      </!--div-->
       <div class="options button_options" *ngIf="mobile_filters.order">
         <label class="checkbox">
           <span translate="VIEWS.PUBLIC_GROUPS.FILTERS.ORDER_RECENT_ACTIVITY"></span>
