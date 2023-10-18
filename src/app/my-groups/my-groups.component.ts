@@ -6,6 +6,8 @@ import { Group } from 'src/app/interfaces/group';
 import { GroupService } from 'src/app/services/group.service';
 import { AppService } from '../services/app.service';
 import { AuthService } from '../services/auth.service';
+import { countries } from '../services/country.service';
+import { languages } from '../services/language.service';
 import { state, style, trigger } from '@angular/animations';
 
 @Component({
@@ -31,6 +33,8 @@ export class MyGroupsComponent implements OnInit {
   groups$: Observable<Group[] | any[]> = of([]);
   allGroups$: Group[] = [];
   visibility = ['all'].concat(Object.values(this.GroupService.VISIBILITY));
+  countries = countries;
+  languages = languages;
   categories = ['all', 'democracy'];
   searchInput = '';
   searchString$ = new BehaviorSubject('');
@@ -97,4 +101,11 @@ export class MyGroupsComponent implements OnInit {
     return false;
   }
 
+  setCountry (country: string) {
+
+  }
+
+  setLanguage (language: string) {
+
+  }
 }

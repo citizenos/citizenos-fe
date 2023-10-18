@@ -8,6 +8,8 @@ import { Topic } from '../interfaces/topic';
 import { AppService } from '../services/app.service';
 import { TopicService } from '../services/topic.service';
 import { trigger, state, style } from '@angular/animations';
+import { countries } from '../services/country.service';
+import { languages } from '../services/language.service';
 
 @Component({
   selector: 'my-topics',
@@ -51,6 +53,9 @@ export class MyTopicsComponent {
   categories$ = Object.keys(this.Topic.CATEGORIES);
 
   statuses$ = Object.keys(this.Topic.STATUSES);
+  countries = countries;
+  languages = languages;
+
   /*public topicFilters = [
     {
       id: 'all',
@@ -242,4 +247,11 @@ export class MyTopicsComponent {
     this.setCategory(this.FILTERS_ALL);
   }
 
+  setCountry (country: string) {
+
+  }
+
+  setLanguage (language: string) {
+
+  }
 }
