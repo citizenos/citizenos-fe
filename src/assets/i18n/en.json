@@ -312,7 +312,8 @@
       "HEADER_DISCUSSION": "Arguments: {{value}}",
       "HEADER_VOTING": "{{value}} of {{target}} votes",
       "HEADER_FOLLOW_UP": "{{value}} events",
-      "HEADER_IDEATION": "{{value}} ideas gathered"
+      "HEADER_IDEATION": "{{value}} ideas gathered",
+      "HEADER_CLOSED": "Closed topic"
     },
     "PUBLIC_TOPICS": {
       "HEADER": "Public topics",

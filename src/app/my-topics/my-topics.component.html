@@ -161,7 +161,7 @@
           <cos-input placeholder="{{'VIEWS.MY_TOPICS.PLACEHOLDER_SEARCH_TOPIC' | translate}}">
             <input type="text" [(ngModel)]="searchInput" (ngModelChange)="doSearch(searchInput)" [placeholder]="'VIEWS.MY_TOPICS.PLACEHOLDER_SEARCH_TOPIC' | translate">
           </cos-input>
-          <a class="clear_search" translate="VIEWS.MY_TOPICS..LNK_CLEAR" (click)="searchInput='';doSearch('')"
+          <a class="clear_search" translate="VIEWS.MY_TOPICS.LNK_CLEAR" (click)="searchInput='';doSearch('')"
             *ngIf="searchInput"></a>
         </div>
       </div>
