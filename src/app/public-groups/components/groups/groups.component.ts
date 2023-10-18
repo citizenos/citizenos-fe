@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { of, switchMap, map, BehaviorSubject, combineLatest } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { GroupService } from 'src/app/services/group.service';
+import { countries } from 'src/app/services/country.service';
+import { languages } from 'src/app/services/language.service';
 import { PublicGroupService } from 'src/app/services/public-group.service';
 import { GroupCreateComponent } from 'src/app/group/components/group-create/group-create.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -42,9 +44,14 @@ export class GroupsComponent implements OnInit {
     language: false
   }
 
-  visibility = ['all'].concat(Object.values(this.GroupService.VISIBILITY));
+  visibility = ['all'];
   categories = ['all', 'democracy'];
-
+  countries = countries;
+  languages = languages;
+  filters = {
+    country: 'all',
+    language: 'all'
+  }
   constructor(private dialog: MatDialog,
     private route: ActivatedRoute,
     private AuthService: AuthService,
@@ -91,5 +98,18 @@ export class GroupsComponent implements OnInit {
     this.PublicGroupService.doOrder(orderBy, order)
   }
 
-  doClearFilters() {}
+  doClearFilters() {
+    this.filters = {
+      country: 'all',
+      language: 'all'
+    }
+  }
+  /*TODO add functionalities*/
+  setCountry (country: string) {
+    this.filters.country = country;
+  }
+
+  setLanguage(language: string) {
+    this.filters.language = language;
+  }
 }
