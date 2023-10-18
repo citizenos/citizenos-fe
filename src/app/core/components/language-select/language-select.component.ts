@@ -22,8 +22,8 @@ export class LanguageSelectComponent implements OnInit {
     const parsedUrl = this.router.parseUrl(this.router.url);
     const outlet = parsedUrl.root.children[PRIMARY_OUTLET];
 
-    const g = outlet?.segments.map(seg => seg.path) || [''];
-    g[0] = lang;
+    let g = outlet?.segments.map(seg => seg.path) || [''];
+    g.splice(0, 1);
     this.router.navigate(g, { queryParams: parsedUrl.queryParams, fragment: parsedUrl.fragment || undefined });
     this.dialogRef.close();
   }

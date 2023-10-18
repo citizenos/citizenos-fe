@@ -32,16 +32,33 @@
                 [queryParams]="{visibility: item}">
                 {{item}}
               </div>
-              <div class="option" [routerLink]="['./']" [queryParams]="{pinned: 'true'}">
-                Pinned
-              </div>
-              <div class="option" [routerLink]="['./']" [queryParams]="{moderated: 'true'}">
-                Moderated
-              </div>
+              <div class="option" [routerLink]="['./']" [queryParams]="{pinned: 'true'}"
+                translate="VIEWS.MY_GROUPS.FILTER_PINNED"></div>
+              <div class="option" [routerLink]="['./']" [queryParams]="{moderated: 'true'}"
+                translate="VIEWS.MY_GROUPS.FILTER_MODERATED"></div>
             </div>
           </div>
         </cos-input>
-        <cos-input [placeholder]="'VIEWS.MY_GROUPS.FILTER_MY_ENGAGEMENT' | translate" class="dropdown_input">
+
+        <cos-input [placeholder]="'VIEWS.MY_GROUPS.FILTER_ORDER' | translate" class="dropdown_input">
+          <div class="dropdown" [cosDropdown]>
+            <div class="selection">
+              <div class="selected_item">{{'VIEWS.MY_GROUPS.ORDER_ALL' | translate}}</div>
+              <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </div>
+            </div>
+            <div class="options">
+              <div class="option" translate="VIEWS.MY_GROUPS.ORDER_RECENT_ACTIVITY"></div>
+              <div class="option" translate="VIEWS.MY_GROUPS.MOST_ACTIVITIES"></div>
+              <div class="option" translate="VIEWS.MY_GROUPS.MOST_PARTICIPANTS"></div>
+              <div class="option" translate="VIEWS.MY_GROUPS.MOST_RECENT"></div>
+              <div class="option" translate="VIEWS.MY_GROUPS.MOST_TOPICS"></div>
+            </div>
+          </div>
+        </cos-input>
+        <!--cos-input [placeholder]="'VIEWS.MY_GROUPS.FILTER_MY_ENGAGEMENT' | translate" class="dropdown_input">
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
               <div class="selected_item">All</div>
@@ -56,10 +73,10 @@
               <div class="option">Groups with pending requests</div>
             </div>
           </div>
-        </cos-input>
+        </!--cos-input-->
       </div>
       <div class="options_row" *ngIf="moreFilters">
-        <cos-input [placeholder]="'VIEWS.MY_GROUPS.FILTER_CATEGORIES' | translate" class="dropdown_input">
+        <!--cos-input [placeholder]="'VIEWS.MY_GROUPS.FILTER_CATEGORIES' | translate" class="dropdown_input">
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
               <div class="selected_item">All</div>
@@ -74,39 +91,19 @@
               </div>
             </div>
           </div>
-        </cos-input>
-        <cos-input [placeholder]="'VIEWS.MY_GROUPS.FILTER_ORDER' | translate" class="dropdown_input" >
-          <div class="dropdown" [cosDropdown]>
-            <div class="selection">
-              <div class="selected_item">All</div>
-              <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
-                </svg>
-              </div>
-            </div>
-            <div class="options">
-              <div class="option">Most recent participant activity</div>
-              <div class="option">Most activity</div>
-              <div class="option">Most participants</div>
-              <div class="option">Most recently created</div>
-              <div class="option">Most topics</div>
-            </div>
-          </div>
-        </cos-input>
-      </div>
-      <div class="options_row" *ngIf="moreFilters">
+        </!--cos-input-->
         <cos-input [placeholder]="'VIEWS.MY_GROUPS.FILTER_COUNTRY' | translate" class="dropdown_input">
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
-              <div class="selected_item">All</div>
+              <div class="selected_item">{{'VIEWS.MY_GROUPS.ORDER_ALL' | translate}}</div>
               <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
                 </svg>
               </div>
             </div>
             <div class="options">
-              <div class="option" *ngFor="let item of visibility">
-                {{item}}
+              <div class="option" *ngFor="let country of countries" (click)="setCountry(country.name)">
+                {{country.name}}
               </div>
             </div>
           </div>
@@ -114,19 +111,22 @@
         <cos-input [placeholder]="'VIEWS.MY_GROUPS.FILTER_LANGUAGE' | translate" class="dropdown_input">
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
-              <div class="selected_item">All</div>
+              <div class="selected_item">{{'VIEWS.MY_GROUPS.ORDER_ALL' | translate}}</div>
               <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
                 </svg>
               </div>
             </div>
             <div class="options">
-              <div class="option" *ngFor="let item of visibility">
-                {{item}}
+              <div class="option" *ngFor="let language of languages" (click)="setLanguage(language.name)">
+                {{language.name}}
               </div>
             </div>
           </div>
         </cos-input>
+
+      </div>
+      <div class="options_row" *ngIf="moreFilters">
         <div class="input_area">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -134,10 +134,11 @@
               fill="#727C84" />
           </svg>
           <cos-input placeholder="{{'VIEWS.MY_GROUPS.PLACEHOLDER_SEARCH' | translate}}">
-            <input type="text" [(ngModel)]="searchInput" (ngModelChange)="doSearch(searchInput)" placeholder="{{'VIEWS.MY_GROUPS.PLACEHOLDER_SEARCH' | translate}}">
+            <input type="text" [(ngModel)]="searchInput" (ngModelChange)="doSearch(searchInput)"
+              placeholder="{{'VIEWS.MY_GROUPS.PLACEHOLDER_SEARCH' | translate}}">
           </cos-input>
-          <a class="clear_search" translate="VIEWS.MY_GROUPS.LNK_CLEAR" (click)="searchInput='';doSearch('')"
-            *ngIf="searchInput"></a>
+          <a class="clear_search" translate="VIEWS.MY_GROUPS.FILTER_SEARCH_LNK_CLEAR"
+            (click)="searchInput='';doSearch('')" *ngIf="searchInput"></a>
         </div>
       </div>
     </div>
@@ -207,7 +208,7 @@
               d="M12.4999 19.0001C14.2929 19.0001 16.0826 18.3169 17.4496 16.9499C19.9439 14.4555 20.1623 10.5471 18.1048 7.80519C17.7733 7.36345 17.7662 6.73377 18.1567 6.34325C18.5473 5.95273 19.1858 5.94982 19.5311 6.38083C22.3624 9.91455 22.1399 15.088 18.8638 18.3641C17.1067 20.1212 14.8016 21.0001 12.4999 21.0001L12.4999 23L8.49988 20L12.4999 17L12.4999 19.0001Z"
               fill="#2C3B47" />
           </svg>
-          <span>Reset filter</span>
+          <span translate="VIEWS.MY_GROUPS.BTN_RESET_FILTER"></span>
         </button>
         <div class="input_area">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -236,17 +237,17 @@
           <span class="checkmark"></span>
         </label>
 
-        <div class="option" [routerLink]="['./']" [queryParams]="{pinned: 'true'}">
-          Pinned
+        <div class="option" [routerLink]="['./']" [queryParams]="{pinned: 'true'}"
+          translate="VIEWS.MY_GROUPS.FILTER_PINNED">
         </div>
 
-        <div class="option" [routerLink]="['./']" [queryParams]="{moderated: 'true'}">
-          Moderated
+        <div class="option" [routerLink]="['./']" [queryParams]="{moderated: 'true'}"
+          translate="VIEWS.MY_GROUPS.FILTER_MODERATED">
         </div>
         <button class="btn_medium_secondary" (click)="mobile_filters.visibility= false;">Apply</button>
       </div>
       <div class="overlay" *ngIf="mobile_filters.visibility || mobile_filters.category"></div>
-      <div class="options button_options" *ngIf="mobile_filters.category">
+      <!--div class="options button_options" *ngIf="mobile_filters.category">
         <label class="checkbox">
           <span translate="TXT_TOPIC_CATEGORY_ALL"></span>
           <input type="radio" name="category">
@@ -260,8 +261,8 @@
         </label>
 
         <button class="btn_medium_secondary" (click)="mobile_filters.category= false;">Apply</button>
-      </div>
-      <div class="options button_options" *ngIf="mobile_filters.my_engagement">
+      </!--div-->
+      <!--div class="options button_options" *ngIf="mobile_filters.my_engagement">
         <label class="checkbox">
           <span>My most recent activity</span>
           <input type="radio" name="engagement">
@@ -278,56 +279,46 @@
           <span class="checkmark"></span>
         </label>
         <button class="btn_medium_secondary" (click)="mobile_filters.my_engagement = false;">Apply</button>
-      </div>
+      </!--div-->
       <div class="options button_options" *ngIf="mobile_filters.order">
         <label class="checkbox">
-          <span>Most recent participant activity</span>
+          <span translate="VIEWS.MY_GROUPS.ORDER_RECENT_ACTIVITY"></span>
           <input type="radio" name="order">
           <span class="checkmark"></span>
         </label>
         <label class="checkbox">
-          <span>Most activity</span>
+          <span translate="VIEWS.MY_GROUPS.MOST_ACTIVITIES"></span>
           <input type="radio" name="order">
           <span class="checkmark"></span>
         </label>
         <label class="checkbox">
-          <span>Most participants</span>
+          <span translate="VIEWS.MY_GROUPS.MOST_PARTICIPANTS"></span>
           <input type="radio" name="order">
           <span class="checkmark"></span>
         </label>
         <label class="checkbox">
-          <span>Most recently created</span>
+          <span translate="VIEWS.MY_GROUPS.MOST_RECENT"></span>
           <input type="radio" name="order">
           <span class="checkmark"></span>
         </label>
         <label class="checkbox">
-          <span>Most topics</span>
+          <span translate="VIEWS.MY_GROUPS.MOST_TOPICS"></span>
           <input type="radio" name="order">
           <span class="checkmark"></span>
         </label>
         <button class="btn_medium_secondary" (click)="mobile_filters.order = false;">Apply</button>
       </div>
       <div class="options button_options" *ngIf="mobile_filters.country">
-        <label class="checkbox">
-          <span>Country 1</span>
-          <input type="radio" name="country">
-          <span class="checkmark"></span>
-        </label>
-        <label class="checkbox">
-          <span>Country 2</span>
+        <label class="checkbox" *ngFor="let country of countries" (click)="setCountry(country.name)">
+          <span>{{country.name}}</span>
           <input type="radio" name="country">
           <span class="checkmark"></span>
         </label>
         <button class="btn_medium_secondary" (click)="mobile_filters.country = false;">Apply</button>
       </div>
       <div class="options button_options" *ngIf="mobile_filters.language">
-        <label class="checkbox">
-          <span>Language 1</span>
-          <input type="radio" name="language">
-          <span class="checkmark"></span>
-        </label>
-        <label class="checkbox">
-          <span>Language 2</span>
+        <label class="checkbox" *ngFor="let language of languages" (click)="setLanguage(language.name)">
+          <span>{{language.name}}</span>
           <input type="radio" name="language">
           <span class="checkmark"></span>
         </label>
