@@ -9,7 +9,7 @@
             fill="#2C3B47" />
         </svg>
       </button>
-      <h3 [innerHTML]="'VIEWS.TOPIC.HEADING_BACK_TO_PUBLIC_TOPICS'| translate"></h3>
+      <h3 [innerHTML]="'VIEWS.TOPICS_TOPICID.HEADING_BACK_TO_PUBLIC_TOPICS'| translate"></h3>
     </ng-container>
       <ng-container *ngIf="auth.loggedIn$.value">
         <button class="btn_medium_close icon" [routerLink]="['/', translate.currentLang, 'my', 'topics']"><svg
@@ -19,7 +19,7 @@
               fill="#2C3B47" />
           </svg>
         </button>
-        <h3 [innerHTML]="'VIEWS.TOPIC.HEADING_BACK_TO_MY_TOPICS'| translate"></h3>
+        <h3 [innerHTML]="'VIEWS.TOPICS_TOPICID.HEADING_BACK_TO_MY_TOPICS'| translate"></h3>
       </ng-container>
     </div>
     <div id="buttons_area">
@@ -27,9 +27,9 @@
         <activities-button *ngIf="auth.loggedIn$ | async" [topicId]="topic.id"></activities-button> <!-- add [topicId]="topic.id"-->
       </div>
       <button id="join_button" *ngIf="!topic.permission.level && (auth.loggedIn$ | async)" class="btn_medium_close"
-        translate="VIEWS.TOPIC.BTN_JOIN"></button>
+        translate="VIEWS.TOPICS_TOPICID.BTN_JOIN"></button>
       <button id="leave_button" (click)="leaveTopic(topic)" *ngIf="topic.permission.level && (auth.loggedIn$ | async)"
-        class="btn_medium_close" translate="VIEWS.TOPIC.BTN_LEAVE"></button>
+        class="btn_medium_close" translate="VIEWS.TOPICS_TOPICID.BTN_LEAVE"></button>
 
       <button class="btn_medium_close icon" (click)="togglePin(topic)" *ngIf="(auth.loggedIn$ | async)">
         <svg *ngIf="!topic.pinned" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -543,7 +543,7 @@
         <div class="info_items_wrap">
           <div class="info_header">
             <div class="info_title" translate="VIEWS.TOPICS_TOPICID.SECTION_PARTICIPANTS_HEADING"></div>
-            <a class="members_link" (click)="manageParticipants(topic)"></a>
+            <a class="members_link" (click)="manageParticipants(topic)" translate="VIEWS.TOPICS_TOPICID.LNK_MANAGE"></a>
           </div>
           <div class="participants_count_wrap">
             <div class="participants_count">{{topic.members.users.count}}</div>

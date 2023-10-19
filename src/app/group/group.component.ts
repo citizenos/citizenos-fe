@@ -10,6 +10,7 @@ import { GroupJoinService } from 'src/app/services/group-join.service';
 import { Group } from 'src/app/interfaces/group';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { AuthService } from '../services/auth.service';
+import { TopicService } from '../services/topic.service';
 import { GroupInviteDialogComponent } from './components/group-invite/group-invite.component';
 import { AppService } from '../services/app.service';
 import { GroupMemberTopicService } from '../services/group-member-topic.service';
@@ -60,6 +61,7 @@ export class GroupComponent implements OnInit {
   users$: Observable<User[] | any[]> = of([]);
   showNoEngagements = false;
   moreFilters = false;
+  topicStatuses = Object.keys(this.TopicService.STATUSES);
   public FILTERS_ALL = 'all';
   topicFilters = {
     category: this.FILTERS_ALL,
@@ -85,6 +87,7 @@ export class GroupComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     public translate: TranslateService,
+    public TopicService: TopicService,
     public GroupMemberUserService: GroupMemberUserService,
     public auth: AuthService,
     public app: AppService,

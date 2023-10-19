@@ -14,13 +14,13 @@
       </span>
       <span>
         <span *ngIf="invite.user.email || invite.user.phoneNumber"> • </span>
-        <span translate="VIEWS.MY_TOPICS_TOPICID.TXT_INVITE_PENDING"></span>
+        <span translate="COMPONENTS.TOPIC_MEMBER_INVITE.INVITE_PENDING"></span>
       </span>
     </div>
     <div class="via">
-      <span *ngIf="invite.expiresAt" translate="VIEWS.PUBLIC_GROUP.INIVTE_EXPIRES"
+      <span *ngIf="invite.expiresAt" translate="COMPONENTS.TOPIC_MEMBER_INVITE.INIVTE_EXPIRES"
         [translateParams]="{expiresAt: (invite.expiresAt | amTimeAgo)}"></span>
-      <span *ngIf="invite.expiresAt < now()" class="red_text" translate="VIEWS.PUBLIC_GROUP.INVITE_EXPIRED"></span>
+      <span *ngIf="invite.expiresAt < now()" class="red_text" translate="COMPONENTS.TOPIC_MEMBER_INVITE.INVITE_EXPIRED"></span>
     </div>
   </div>
 </div>
@@ -43,7 +43,7 @@
       </svg>
     </button>
     <div class="options">
-      <div class="option" (click)="doDeleteInviteUser()">Remove user</div>
+      <div class="option" (click)="doDeleteInviteUser()" translate="COMPONENTS.TOPIC_MEMBER_INVITE.OPT_REMOVE_USER"></div>
     </div>
   </div>
   <!--div class="dropdown" [cosDropdown]>

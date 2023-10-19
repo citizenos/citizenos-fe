@@ -45,7 +45,7 @@
       <textarea cosmarkdown name="text"
         cosmarkdowntranslatecharacterstatuskey="COMPONENTS.POST_ARGUMENT.ARGUMENT_TYPE_CHARACTER_LIMIT" id="argument_text"
         [(item)]="text" class="gray_borders" (itemChange)="updateText($event)"
-        [placeholder]="('VIEWS.TOPICS_TOPICID.PLACEHOLDER_EXPLAIN_YOUR_ARGUMENT' | translate)"
+        [placeholder]="('COMPONENTS.POST_ARGUMENT.PLACEHOLDER_EXPLAIN_YOUR_ARGUMENT' | translate)"
         [ngClass]="{'error_input': errors?.text}" [limit]="argumentMaxLength()" required></textarea>
       <label for="argument_text" class="error_label" *ngIf="errors?.text">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

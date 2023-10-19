@@ -13,6 +13,17 @@
   }
 }
 
-topic-member-user, topic-member-group, topic-member-invite {
+topic-member-user,
+topic-member-group,
+topic-member-invite {
   display: contents;
+}
+
+.dropdown {
+  &.dropdown_active {
+    .options {
+      position: fixed;
+      width: max-content;
+    }
+  }
 }

@@ -4,6 +4,13 @@
     .options {
       min-width: 160px;
     }
+
+    &.dropdown_active {
+      .options {
+        position: fixed;
+        width: max-content;
+      }
+    }
   }
   .button_dropdown {
     min-width: initial;
