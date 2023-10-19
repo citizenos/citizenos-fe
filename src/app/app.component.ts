@@ -26,6 +26,7 @@ export class AppComponent {
   handleKeyDownEvent(event: KeyboardEvent) {
     if (this.keysPressed.indexOf(event.key) === -1) this.keysPressed.push(event.key);
     console.log(this.keysPressed.toString())
+    console.log(this.translateDebug)
     if (this.keysPressed.toString() === 'Control,Alt,Shift,T') this.translateDebug.toggleDebug();
   }
   @HostListener('window:keyup', ['$event'])

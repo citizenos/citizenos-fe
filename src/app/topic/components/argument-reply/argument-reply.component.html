@@ -2,13 +2,13 @@
   <ng-container *ngIf="AuthService.loggedIn$ | async; then loggedIn;"></ng-container>
   <ng-template #loggedIn>
     <div>
-      <h3 class="text-center" translate-compile>Add your reply</h3>
+      <h3 class="text-center" translate="COMPONENTS.ARGUMENT_REPLY.HEADING"></h3>
     </div>
     <form name="argumentReply">
       <cos-input
-        placeholder="{{'COMPONENTS.POST_ARGUMENT.SUBJECT_CHARACTERS_LEFT' | translate:{chars: reply.subject.length, charsLeft: ARGUMENT_SUBJECT_MAXLENGTH} }}">
+        placeholder="{{'COMPONENTS.ARGUMENT_REPLY.SUBJECT_CHARACTERS_LEFT' | translate:{chars: reply.subject.length, charsLeft: ARGUMENT_SUBJECT_MAXLENGTH} }}">
         <input id="argument_subject" name="subject" [(ngModel)]="reply.subject"
-          placeholder="{{'COMPONENTS.POST_ARGUMENT.PLACEHOLDER_ADD_SUBJECT_TO_ARGUMENT' | translate:{chars: reply.subject.length, charsLeft: ARGUMENT_SUBJECT_MAXLENGTH} }}"
+          placeholder="{{'COMPONENTS.ARGUMENT_REPLY.PLACEHOLDER_ADD_SUBJECT_TO_ARGUMENT' | translate:{chars: reply.subject.length, charsLeft: ARGUMENT_SUBJECT_MAXLENGTH} }}"
           class="gray_borders" [ngClass]="{'error_input': errors?.subject}"
           [attr.maxlength]="ARGUMENT_SUBJECT_MAXLENGTH" required>
         <label for="argument_subject" class="error_label" *ngIf="errors?.subject">
@@ -20,9 +20,9 @@
           <span translate="{{errors.subject}}"></span>
         </label>
       </cos-input>
-      <textarea cosmarkdown cosmarkdowntranslatecharacterstatuskey="VIEWS.TOPICS_TOPICID.COMMENT_TYPE_CHARACTER_LIMIT"
+      <textarea cosmarkdown cosmarkdowntranslatecharacterstatuskey="COMPONENTS.ARGUMENT_REPLY.CHARACTER_LIMIT"
         id="argument_reply_text" [(item)]="reply.text" class="gray_borders" [ngClass]="{'error_input': errors?.text}"
-        placeholder="{{'VIEWS.TOPICS_TOPICID.PLACEHOLDER_WRITE_REPLY_HERE' | translate}}"
+        placeholder="{{'COMPONENTS.ARGUMENT_REPLY.PLACEHOLDER_WRITE_REPLY_HERE' | translate}}"
         [limit]="ARGUMENT_TYPES_MAXLENGTH['reply']"></textarea><!--(keyup)="argumentTextLengthCheck(form, form.text)"-->
       <label for="argument_reply_text" class="error_label" *ngIf="errors?.text">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -33,7 +33,7 @@
         <span translate="{{errors?.text}}"></span>
       </label>
       <div class="btn_medium_submit bold" (click)="saveReply()"
-        translate="VIEWS.TOPICS_TOPICID.BTN_ARGUMENT_POST_REPLY">
+        translate="COMPONENTS.ARGUMENT_REPLY.BTN_POST_REPLY">
       </div>
     </form>
   </ng-template>

@@ -12,7 +12,6 @@ import { TopicReportFormDialogComponent } from './components/topic-report-form/t
 import { TopicReportModerateDialogComponent } from './components/topic-report-moderate/topic-report-moderate.component';
 import { TopicReportResolveDialogComponent } from './components/topic-report-resolve/topic-report-resolve.component';
 import { TopicReportReviewDialogComponent } from './components/topic-report-review/topic-report-review.component';
-import { TopicSettingsDialogComponent } from './components/topic-settings/topic-settings.component';
 import { TopicComponent } from './topic.component';
 import { VoteCreateComponent } from '../voting/components/vote-create/vote-create.component';
 
@@ -53,7 +52,7 @@ const routes: Routes = [
           }
         ]
       },
-      { path: 'settings', component: TopicSettingsDialogComponent },
+      { path: 'settings', component: TopicEditComponent },
       { path: 'files', component: TopicAttachmentsDialogComponent },
       { path: 'participants', component: TopicParticipantsDialogComponent },
       { path: 'report', component: TopicReportFormDialogComponent },

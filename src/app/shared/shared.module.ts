@@ -29,10 +29,8 @@ import { TopicMemberInviteComponent } from '../topic/components/topic-member-inv
 import { TopicMemberInviteDeleteComponent } from '../topic/components/topic-member-invite-delete/topic-member-invite-delete.component';
 import { TopicVoteCastComponent } from '../topic/components/topic-vote-cast/topic-vote-cast.component';
 import { BigGraphComponent } from '../topic/components/big-graph/big-graph.component';
-import { TopicSettingsComponent, TopicSettingsDialogComponent } from '../topic/components/topic-settings/topic-settings.component';
 
 import { GroupInviteComponent, GroupInviteDialogComponent } from '../group/components/group-invite/group-invite.component';
-import { GroupMemberTopicComponent } from '../group/components/group-member-topic/group-member-topic.component';
 import { GroupMemberUserComponent } from '../group/components/group-member-user/group-member-user.component';
 import { GroupShareComponent } from '../group/components/group-share/group-share.component';
 import { GroupAddTopicsComponent, GroupAddTopicsDialogComponent } from '../group/components/group-add-topics/group-add-topics.component';
@@ -40,9 +38,7 @@ import { GroupAddTopicsComponent, GroupAddTopicsDialogComponent } from '../group
 import { MarkdownDirective } from '../directives/markdown.directive';
 import { MarkdownPipe } from '../services/markdown.service';
 import { CosEllipsisPipe } from './pipes/cos-ellipsis.pipe';
-import { ModalDatepickerComponent } from './components/modal-datepicker/modal-datepicker.component';
 import { MatNativeDateModule } from '@angular/material/core';
-import { GroupInviteUserComponent } from '../group/components/group-invite-user/group-invite-user.component';
 import { CheckHeightDirective } from '../directives/check-height.directive';
 import { EtherpadDirective } from '../directives/etherpad.directive';
 import { CosInputComponent } from './components/cos-input/cos-input.component';
@@ -53,7 +49,7 @@ import { DragndropDirective } from '../directives/dragndrop.directive';
 import { PageHeaderComponent } from '../core/components/page-header/page-header.component';
 import { ActivitiesButtonComponent } from './components/activities-button/activities-button.component';
 import { MobileFiltersDirective, MobileFilterDirective } from '../directives/mobile-filters.directive';
-import { CosCalenderComponent } from './cos-calender/cos-calender.component';
+import { CosCalenderComponent } from './components/cos-calender/cos-calender.component';
 import { TourComponent } from './components/tour/tour.component';
 import { TourItemDirective, TourItemTemplateComponent } from '../directives/tour-item.directive';
 
@@ -70,12 +66,10 @@ import { TourItemDirective, TourItemTemplateComponent } from '../directives/tour
     EtherpadDirective,
     GroupInviteComponent,
     GroupInviteDialogComponent,
-    GroupMemberTopicComponent,
     GroupMemberUserComponent,
     GroupShareComponent,
     GroupAddTopicsComponent,
     GroupAddTopicsDialogComponent,
-    GroupInviteUserComponent,
     MarkdownDirective,
     MarkdownPipe,
     PublicgroupboxComponent,
@@ -85,14 +79,11 @@ import { TourItemDirective, TourItemTemplateComponent } from '../directives/tour
     TopicMemberInviteDeleteComponent,
     TopicMemberUserComponent,
     TopicMemberGroupComponent,
-    TopicSettingsComponent,
-    TopicSettingsDialogComponent,
     TopicVoteCastComponent,
     TopicboxComponent,
     TypeaheadComponent,
     TypeaheadItem,
     TypeaheadSelect,
-    ModalDatepickerComponent,
     CheckHeightDirective,
     CosInputComponent,
     HtmlDirective,
@@ -133,12 +124,10 @@ import { TourItemDirective, TourItemTemplateComponent } from '../directives/tour
     EtherpadDirective,
     GroupInviteComponent,
     GroupInviteDialogComponent,
-    GroupMemberTopicComponent,
     GroupMemberUserComponent,
     GroupShareComponent,
     GroupAddTopicsComponent,
     GroupAddTopicsDialogComponent,
-    GroupInviteUserComponent,
     MarkdownDirective,
     MarkdownPipe,
     MatDialogModule,
@@ -154,8 +143,6 @@ import { TourItemDirective, TourItemTemplateComponent } from '../directives/tour
     TopicMemberInviteDeleteComponent,
     TopicMemberUserComponent,
     TopicMemberGroupComponent,
-    TopicSettingsComponent,
-    TopicSettingsDialogComponent,
     TopicVoteCastComponent,
     TypeaheadComponent,
     TypeaheadItem,

@@ -54,6 +54,9 @@
             </svg>
             <span translate="COMPONENTS.ARGUMENT.OPTION_REPORT"></span>
           </div>
+          <div class="option" *ngIf="isEdited()" (click)="argument.showEdits = !argument.showEdits">
+            <span translate="VIEWS.TOPICS_TOPICID.ARGUMENT_LNK_VIEW_PREVIOUS_VERSIONS"></span>
+          </div>
           <div *ngIf="canEdit()" class="option error_text" (click)="doShowDeleteArgument()">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd"
@@ -72,6 +75,7 @@
       <div class="argument_body" [innerHTML]="argument.text | markdown"></div>
     </ng-container>
     <argument-deleted *ngIf="argument.deletedAt" [argument]="argument" (showDeletedArgument)="showArgument($event)"></argument-deleted>
+    <argument-edits *ngIf="argument.showEdits && isEdited()" [topicId]="topicId" [argument]="argument"></argument-edits>
   </div>
   <div class="argument_footer">
     <div class="footer_left">

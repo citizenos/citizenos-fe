@@ -12,7 +12,7 @@
       <span>{{member.email}} {{member.phoneNumber}}</span>
     </div>
     <div class="row_cell">
-      <div translate="VIEWS.PUBLIC_GROUP.LNK_LAST_ACTIVITY"></div>
+      <div translate="COMPONENTS.GROUP_MEMBER_USER.LAST_ACTIVITY"></div>
       <div [innerText]="member.latestActivity | date : 'yyyy-MM-dd HH:mm'">12.02.2015 21:40</div>
     </div>
     <ng-container *ngIf="app.showMobile()">
@@ -43,7 +43,7 @@
           <div class="mobile_overlay"></div>
           <div class="options button_options">
             <div class="mobile_header">
-              <h3 translate="COMPONENTS.GROUP_INVITE.BTN_BULK_ACTIONS"></h3>
+              <h3 translate="COMPONENTS.GROUP_MEMBER_USER.BTN_BULK_ACTIONS"></h3>
               <button><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M5.29314 17.2929C4.90261 17.6834 4.90261 18.3166 5.29314 18.7071C5.68366 19.0976 6.31683 19.0976 6.70735 18.7071L12.0002 13.4142L17.2931 18.7071C17.6837 19.0976 18.3168 19.0976 18.7074 18.7071C19.0979 18.3166 19.0979 17.6834 18.7074 17.2929L13.4145 12L18.7074 6.70711C19.0979 6.31658 19.0979 5.68342 18.7074 5.29289C18.3168 4.90237 17.6837 4.90237 17.2931 5.29289L12.0002 10.5858L6.70735 5.29289C6.31683 4.90237 5.68366 4.90237 5.29314 5.29289C4.90261 5.68342 4.90261 6.31658 5.29314 6.70711L10.586 12L5.29314 17.2929Z"
@@ -68,7 +68,7 @@
                   d="M10 3H6V4H10V3ZM11 4V3C11 2.44772 10.5523 2 10 2H6C5.44772 2 5 2.44772 5 3V4H4H2.5C2.22386 4 2 4.22386 2 4.5C2 4.77614 2.22386 5 2.5 5H4V13C4 13.5523 4.44772 14 5 14H11C11.5523 14 12 13.5523 12 13V5H13.5C13.7761 5 14 4.77614 14 4.5C14 4.22386 13.7761 4 13.5 4H12H11ZM7 7H6V11H7V7ZM10 7H9V11H10V7Z"
                   fill="#EF4025" />
               </svg>
-              <span class="error_text" translate="VIEWS.PUBLIC_GROUP.LBL_REMOVE"></span>
+              <span class="error_text" translate="COMPONENTS.GROUP_MEMBER_USER.BTN_REMOVE"></span>
             </button>
           </div>
         </div>

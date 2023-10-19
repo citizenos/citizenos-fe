@@ -298,7 +298,7 @@
                   </clipPath>
                 </defs>
               </svg>
-              <div class="description_heading">There is no voting system yet</div>
+              <div class="description_heading" translate="VIEWS.TOPICS_TOPICID.NO_VOTING_HEADING"></div>
               <div class="button">
                 <button class="btn_medium_submit" (click)="startVote(topic)">
                   <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -307,15 +307,15 @@
                       fill="white" />
                   </svg>
 
-                  <span>Add a voting system</span></button>
+                  <span translate="VIEWS.TOPICS_TOPICID.NO_VOTING_BTN_ADD"></span></button>
               </div>
               <div class="no_feature_description">
                 <div class="description_text">
-                  <div class="description_heading">How voting works</div>
-                  <div>By adding a voting system to your topic, you have a final opportunity to gather what participants
-                    want to do. You can set up different types of voting, based on your needs.
+                  <div class="description_heading" translate="VIEWS.TOPICS_TOPICID.NO_VOTING_DESC_HEADING"></div>
+                  <div>
+                    <span translate="VIEWS.TOPICS_TOPICID.NO_VOTING_DESC_BEFORE"></span>
                     <br>
-                    <br>After voting has finished, you can download the results as a file to take forward.
+                    <br><span translate="VIEWS.TOPICS_TOPICID.NO_VOTING_DESC_AFTER"></span>
                   </div>
                 </div>
                 <div class="description_video">
@@ -378,7 +378,7 @@
                   </clipPath>
                 </defs>
               </svg>
-              <div class="description_heading">There is no follow up system yet</div>
+              <div class="description_heading" translate="VIEWS.TOPICS_TOPICID.NO_VOTING_HEADING"></div>
               <div class="button">
                 <button class="btn_medium_submit" (click)="sendToFollowUp(topic)" *ngIf="canSendToFollowUp(topic)">
                   <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -386,16 +386,15 @@
                       d="M12.5 20C11.9711 20 11.5423 19.5712 11.5423 19.0423L11.5423 12.9577L5.45775 12.9577C4.9288 12.9577 4.5 12.5289 4.5 12C4.5 11.4711 4.9288 11.0423 5.45775 11.0423H11.5423V4.95775C11.5423 4.4288 11.9711 4 12.5 4C13.0289 4 13.4577 4.4288 13.4577 4.95775L13.4577 11.0423L19.5423 11.0423C20.0712 11.0423 20.5 11.4711 20.5 12C20.5 12.5289 20.0712 12.9577 19.5423 12.9577H13.4577V19.0423C13.4577 19.5712 13.0289 20 12.5 20Z"
                       fill="white" />
                   </svg>
-                  <span>Add a follow-up system</span>
+                  <span translate="VIEWS.TOPICS_TOPICID.NO_FOLLOW_BTN_ADD"></span>
                 </button>
               </div>
               <div class="no_feature_description">
                 <div class="description_text">
-                  <div class="description_heading">How voting works</div>
-                  <div>By adding a voting system to your topic, you have a final opportunity to gather what participants
-                    want to do. You can set up different types of voting, based on your needs.
+                  <div class="description_heading" translate="VIEWS.TOPICS_TOPICID.NO_FOLLOW_DESC_HEADING"></div>
+                  <div><span translate="VIEWS.TOPICS_TOPICID.NO_FOLLOW_DESC_BEFORE"></span>
                     <br>
-                    <br>After voting has finished, you can download the results as a file to take forward.
+                    <br><span translate="VIEWS.TOPICS_TOPICID.NO_FOLLOW_DESC_AFTER"></span>
                   </div>
                 </div>
                 <div class="description_video">
@@ -772,279 +771,3 @@
   </div>
 </div>
 <router-outlet></router-outlet>
-<!--div id="topics_admin_root" *ngIf="topic$ | async as topic;">
-
-  <topic-timeline  [topic]="topic"></topic-timeline>
-
-  <div class="content_wrap">
-
-    <topic-tabs [topicId]="topic.id" [voteId]="topic.voteId || topic.vote?.id" [status]="topic.status"></topic-tabs>
-
-    <div class="content">
-      <div class="main_panel">
-        <div class="info_bar_wrap" *ngIf="(editMode$ | async) && showInfoEdit && TopicService.canEditDescription(topic)">
-          <div class="info_bar bar_blue info_bar_show">
-            <div class="info_icon">
-              <div class="sprite sprite-icon-notification-info2x"></div>
-            </div>
-
-            <div class="info_bar_text">
-              <div class="info_row">
-                <span translate="VIEWS.TOPICS_TOPICID.TAB_INFO_TXT_EDIT"></span>
-              </div>
-            </div>
-
-            <div class="info_icon" (click)="hideInfoEdit()">
-              <div class="sprite sprite-icon-closemenu2x"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="info_bar_wrap"
-          *ngIf="TopicService.canEdit(topic) && (topic.status === TopicService.STATUSES.voting) ">
-          <!--&& !('topics.view.votes' | includedByState)>
-          <div class="info_bar bar_green info_bar_show">
-            <div class="info_icon">
-              <div class="sprite sprite-icon-notification-check2x"></div>
-            </div>
-
-            <div class="info_bar_text">
-              <div class="info_row">
-                <span translate="VIEWS.TOPICS_TOPICID.TAB_INFO_TXT_VOTE"></span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Show this in 2 cases - topic has been moderated OR topic has been reported && User is a moderator -->
-<!-- topic.report.type is returned for Moderators only -->
-<!-- topic.report.moderatedReasonType is returned in case Topic has been moderated >
-        <div class="info_bar_wrap"
-          *ngIf="topic.report && (topic.report.moderatedReasonType || (topic.report.type && !topic.report.moderatedReasonType))">
-          <div class="info_bar bar_red info_bar_show">
-            <div class="info_icon">
-              <div class="sprite sprite-icon-notification-info2x"></div>
-            </div>
-
-            <div class="info_bar_text">
-              <div class="info_row">
-                <span translate="VIEWS.TOPICS_TOPICID.TAB_INFO_TXT_REPORTED"></span>&nbsp;<a
-                  (click)="doShowReportOverlay(topic); $event.preventDefault()" href="#"
-                  translate="VIEWS.TOPICS_TOPICID.TAB_INFO_LNK_VIEW_REPORT_DETAILS"></a>
-                <span *ngIf="topic.report.type && !topic.report.moderatedReasonType">&nbsp;<a
-                    [routerLink]="['reports', topic.report.id, 'moderate']"
-                    translate="VIEWS.TOPICS_TOPICID.TAB_INFO_LNK_MODERATE"></a></span>
-                <span *ngIf="topic.report.type">&nbsp;<a [routerLink]="['reports', topic.report.id, 'resolve']"
-                    translate="VIEWS.TOPICS_TOPICID.TAB_INFO_LNK_RESOLVE"></a></span>
-                <span *ngIf="TopicService.canEdit(topic) && topic.report.moderatedReasonType">&nbsp;<a
-                    [routerLink]="['reports', topic.report.id, 'review']"
-                    translate="VIEWS.TOPICS_TOPICID.TAB_INFO_LNK_SUBMIT_FOR_REVIEW"></a></span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="main_content_wrap" (click)="topicSettings = false">
-
-          <!-- Create a milestone >
-          <topic-milestones *ngIf="viewFollowup && TopicService.canEdit(topic)" [topic]="topic"></topic-milestones>
-
-          <!-- Cast your vote container>
-          <ng-container *ngIf="showVoteCast && topic.voteId && (vote$ | async) as vote">
-            <div class="voting_platform_wrap vote_casting_wrap">
-              <topic-vote-cast [topic]="topic" [vote]="vote"></topic-vote-cast>
-
-              <!-- Statistics graph start >
-              <vote-closed [topic]="topic" [vote]="vote" *ngIf="hasVoteEndedExpired(topic, vote) || hasVoteEnded(topic, vote)"></vote-closed>
-
-              <!-- Regular graph >
-              <regular-graph *ngIf="vote.type === VOTE_TYPES.regular && (hasVoteEndedExpired(topic, vote) || hasVoteEnded(topic, vote))" [options]="vote.options"></regular-graph>
-
-              <!-- Big graph >
-              <big-graph
-                [options]="vote.options" *ngIf="vote.type === VOTE_TYPES.multiple && (hasVoteEndedExpired(topic, vote) || hasVoteEnded(topic, vote))"></big-graph>
-              <!-- Statistics graph end >
-            </div>
-          </ng-container>
-
-          <topic-vote-create *ngIf="showVoteCreateForm" [topic]="topic"></topic-vote-create>
-
-
-          <div class="iframe_content_wrap" *ngIf="!viewFollowup">
-
-            <div class="topic_info print_never" *ngIf="!(editMode$ | async)">
-              <div class="container_visibility">
-                <div class="ff_table_fix"
-                  [tooltip]="('TOOLTIP_TOPIC_VISIBILITY_'+topic.visibility | uppercase) | translate">
-                  <div class="table_cell">
-                    <div class="sprite"
-                      [ngClass]="{'sprite-icon-public-topic': !TopicService.isPrivate(topic), 'sprite-icon-private-topic': TopicService.isPrivate(topic)}">
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!--REPORT topic>
-              <div class="container_report" *ngIf="topic.visibility === TopicService.VISIBILITY.public && !topic.report" [routerLink]="['/topics', topic.id, 'report']">
-                <div class="ff_table_fix" [tooltip]="('TOOLTIP_REPORT_TOPIC'| translate)">
-                  <div class="table_cell" >
-                    <div class="sprite sprite-icon-exclamation2x-white"></div>
-                    <div class="red_bg"></div>
-                  </div>
-                </div>
-              </div>
-              <div class="container_pin " [ngClass]="topic.pinned ? 'pinned' : ''" (click)="togglePin(topic)">
-                <div class="ff_table_fix" [tooltip]="('TOOLTIP_PIN_TOPIC'| translate)">
-                  <div class="table_cell">
-                    <div class="sprite sprite-icon-favourite2x-white"></div>
-                    <div class="yellow_bg"></div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="more_info_button" (click)="more_info_button = !more_info_button">
-
-                <div class="table_cell">
-                  <div class="more_info_button_text_wrap">
-                    <div class="arrow_down_wrap">
-                      <div class="arrow_down_blue sprite sprite-dropdown-arrowdown-blue2x"></div>
-                    </div>
-                    <span translate="VIEWS.TOPICS_TOPICID.LNK_TOPIC_DETAILS"></span>
-                  </div>
-                  <div class="more_info_attachment_wrap">
-                    <div class="more_info_attachment_icon sprite sprite-icon-attachment"></div>
-                    <span class="more_info_attachment_count">{{(TopicAttachmentService.countTotal$ | async)}}</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="info_sections_wrap" *ngIf="wWidth > 767"> <!--|| app.more_info_button>
-                <div class="info_section">
-                  <div class="info_section_title">
-                    <span translate="VIEWS.TOPICS_TOPICID.LBL_CATEGORIES"></span>
-                  </div>
-                  <div class="info_section_content">
-                    <span *ngFor="let category of topic.categories; let $last = last;">
-                      <span
-                        translate="{{'TXT_TOPIC_CATEGORY_' + category | uppercase}}"></span><!--translate-default="{{category}}">
-                      <span *ngIf="!$last" class="info_section_separator"> | </span>
-                    </span>
-                    <span *ngIf="!topic.categories.length">
-                      <span *ngIf="!TopicService.canEdit(topic)"
-                        translate="VIEWS.TOPICS_TOPICID.LBL_NO_CATEGORIES"></span>
-                      <span *ngIf="TopicService.canEdit(topic)" class="blue_link" [routerLink]="['settings']"
-                        [queryParams]="{tab: 'categories'}" translate="VIEWS.TOPICS_TOPICID.LNK_ADD_CATEGORIES"></span>
-                    </span>
-                  </div>
-                </div>
-                <div class="info_section">
-                  <div class="info_section_title">
-                    <span translate="VIEWS.TOPICS_TOPICID.LBL_AUTHORS" [translateParams]="{topic: {creator: {name: ''}}}"></span>
-                  </div>
-                  <div class="info_section_content">
-                    <ng-container *ngFor="let author of topic.authors; let $last = last;">
-                      <span class="blue_link">{{author.name}}
-                        <span *ngIf="!$last" class="info_section_separator"> | </span>
-                      </span>
-                    </ng-container>
-                  </div>
-                </div>
-                <div class="info_section">
-                  <div class="info_section_title">
-                    <span translate="VIEWS.TOPICS_TOPICID.LBL_ACTIVITY"></span>
-                  </div>
-                  <div class="info_section_content">
-                    <span class="blue_link" (click)="activeCommentSection= 'arguments'"
-                      translate="VIEWS.TOPICS_TOPICID.LNK_ARGUMENTS_COUNT"
-                      [translateParams]="{count: TopicArgumentService.count.value.total || 0}"></span><!--; scroll('arguments')>
-                    <span class="info_section_separator"> | </span>
-                    <span class="blue_link" (click)="activeCommentSection= 'socialMentions'"
-                      translate="VIEWS.TOPICS_TOPICID.LNK_MENTIONS_COUNT"
-                      [translateParams]="{mentionsCount: (topicSocialMentions.length ||0)}"></span><!--; scroll('socialMentions')>
-                    <span *ngIf="!topic.hashtag && TopicService.canEdit(topic)" class="info_section_separator"> |
-                    </span>
-                    <span class="blue_link" *ngIf="!topic.hashtag && TopicService.canEdit(topic)"
-                      [routerLink]="['settings']" [queryParams]="{tab: 'settings'}"
-                      translate="VIEWS.TOPICS_TOPICID.LNK_MENTIONS_COUNT_ADD_HASHTAG"></!--span>
-                    <span *ngIf="topic.hashtag" class="black_text" [innerText]="('#'+topic.hashtag)"> </span>
-                  </div>
-                </div>
-                <div class="info_section" *ngIf="wWidth < 767">
-                  <div class="info_section_title">
-                    <span translate="VIEWS.TOPICS_TOPICID.LBL_ATTACHMENTS"></span>
-                  </div>
-                  <div class="info_section_content">
-                    <div class="blue_link" *ngFor="let attachment of topicAttachments$ | async">
-                      <a *ngIf="attachment.source === ATTACHMENT_SOURCES.upload"
-                        class="blue_link info_section_attachment"
-                        (click)="$event.preventDefault(); downloadAttachment(topic.id, attachment);"
-                        href="{{attachment.link}}">{{attachment.name}}<span
-                          class="btn blue_button file_type">.{{attachment.type}}</span></a>
-                      <a *ngIf="attachment.source !== ATTACHMENT_SOURCES.upload"
-                        class="blue_link info_section_attachment" target="_blank"
-                        href="{{attachment.link}}">{{attachment.name}} <span
-                          class="btn blue_button file_type">{{attachment.type}}</span></a>
-                    </div>
-                    <div *ngIf="TopicService.canEdit(topic)" [routerLink]="['files']"
-                      class="blue_link info_section_add_attachments"
-                      translate="VIEWS.TOPICS_TOPICID.LNK_ADD_MANAGE_FILES">
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="line lightest_line"></div>
-            </div>
-
-            <div id="topic_content_area" class="topic_content">
-              <iframe [cosEtherpad]="''" *ngIf="!hideTopicContent && TopicService.canEdit(topic) && (editMode$ | async)"
-                frameborder="0" scrolling="no" [ngClass]="{hidden: !topic.padUrl || viewFollowup}"
-                [src]="sanitizeURL(topic.padUrl)" width="100%" height="600"></iframe>
-              <div id="topic_read_content" htmlwrap *ngIf="!hideTopicContent && !(editMode$ | async)" [innerHtml]="topic.description"></div>
-              <h1 *ngIf="hideTopicContent"><i>Topic content has been hidden due to violation of community guidelines</i>
-              </h1>
-            </div>
-
-          </div>
-
-          <div class="comments_section print_never">
-            <div class="tabs_wrap">
-              <div (click)="activeCommentSection= 'arguments'" class="tab"
-                [ngClass]="activeCommentSection== 'arguments' || activeCommentSection== undefined ? 'active':''">
-                <div class="table_cell" translate="VIEWS.TOPICS_TOPICID.LBL_TAB_ARGUMENTS"></div>
-              </div>
-              <!--div (click)="activeCommentSection= 'socialMentions'" class="tab"
-                [ngClass]="activeCommentSection== 'socialMentions' ? 'active':''">
-                <div class="table_cell" translate="VIEWS.TOPICS_TOPICID.LBL_TAB_MENTIONS"></div>
-              </!--div>
-            </div>
-            <div class="clearer"></div>
-            <div class="comments_content">
-              <topic-arguments #arguments [topic]="topic"
-                *ngIf="activeCommentSection == 'arguments'"></topic-arguments>
-              <!--topic-social-mentions [topic]="topic" #socialMentions
-                *ngIf="activeCommentSection=='socialMentions'"></!--topic-social-mentions>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
-      <topic-sidepanel class="side_panel print_never" [topic]="topic" [attachments]="topicAttachments$"
-        *ngIf="wWidth > 1024 || app.topicsSettings"></topic-sidepanel>
-    </div>
-
-  </div>
-
-  <div class="side_panel_background">
-  </div>
-
-  <router-outlet></router-outlet>
-
-  <div class="print_footer" *ngIf="topic">
-    <div class="qr_code" *ngIf="currentUrl()">
-          <qrcode [qrdata]="currentUrl()" [width]="210" [version]="12" [errorCorrectionLevel]="'L'" download class="qr_img"></qrcode>
-      </div>
-    <span [innerHtml]="'VIEWS.TOPICS_TOPICID.TXT_QR_CODE_FOOTER_SCAN_CODE' | translate:{topicTitle: topic.title}"></span>
-    <a [href]="currentUrl()">{{currentUrl()}}</a>
-  </div>
-</div-->

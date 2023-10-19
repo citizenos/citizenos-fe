@@ -18,6 +18,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { trigger, state, style } from '@angular/animations';
 import { Topic } from '../interfaces/topic';
 import { User } from '../interfaces/user';
+import { GroupJoinComponent } from './components/group-join/group-join.component';
 @Component({
   selector: 'group',
   templateUrl: './group.component.html',
@@ -228,15 +229,9 @@ export class GroupComponent implements OnInit {
   }
 
   joinGroup(group: Group) {
-    const joinDialog = this.dialog.open(ConfirmDialogComponent, {
+    const joinDialog = this.dialog.open(GroupJoinComponent, {
       data: {
-        level: 'info',
-        heading: 'MODALS.GROUP_JOIN_CONFIRM_HEADING',
-        title: 'MODALS.GROUP_JOIN_CONFIRM_TXT_ARE_YOU_SURE',
-        description: 'MODALS.GROUP_JOIN_CONFIRM_TXT_DESC',
-        points: ['MODALS.GROUP_JOIN_CONFIRM_TXT_POINT1', 'MODALS.GROUP_JOIN_CONFIRM_TXT_POINT2', 'MODALS.GROUP_JOIN_CONFIRM_TXT_POINT3'],
-        confirmBtn: 'MODALS.GROUP_JOIN_CONFIRM_BTN_YES',
-        closeBtn: 'MODALS.GROUP_JOIN_CONFIRM_BTN_NO'
+        group: group
       }
     })/*.openConfirm({
         template: '/views/modals/group_join_confirm.html',
