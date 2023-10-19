@@ -13,6 +13,8 @@ import { GroupMemberTopicService } from 'src/app/services/group-member-topic.ser
 import { NotificationService } from 'src/app/services/notification.service';
 import { GroupInviteUserService } from 'src/app/services/group-invite-user.service';
 import { AppService } from 'src/app/services/app.service';
+import { countries } from 'src/app/services/country.service';
+import { languages } from 'src/app/services/language.service';
 
 @Component({
   selector: 'group-create-component',
@@ -22,7 +24,8 @@ import { AppService } from 'src/app/services/app.service';
 export class GroupCreateComponent implements OnInit {
   @ViewChild('imageUpload') fileInput?: ElementRef;
 
-  languages$: { [key: string]: any } = this.config.get('language').list;
+  countries = countries;
+  languages = languages;
   group: Group = <Group>{
     name: '',
     description: '',

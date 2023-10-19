@@ -81,8 +81,7 @@
                   <span translate="{{errors?.description}}"></span>
                 </label>
               </cos-input>
-              <div translate="VIEWS.GROUP_CREATE.INFO_SETTINGS_CHOOSE_IMAGE_DESC">Add a group description (max 250
-                characters)
+              <div translate="VIEWS.GROUP_CREATE.INFO_SETTINGS_CHOOSE_IMAGE_DESC">
               </div>
               <div id="image_input_area" dragndrop (fileDropped)="fileDroped($event)"
                 *ngIf="!group.imageUrl && !tmpImageUrl">
@@ -96,7 +95,7 @@
                   <img [src]="group.imageUrl || tmpImageUrl" />
                 </div>
                 <a class="icon_link" (click)="deleteGroupImage()">
-                  <span class="bold">Remove</span>
+                  <span class="bold" translate="VIEWS.GROUP_CREATE.INFO_SETTINGS_BTN_REMOVE_IMAGE"></span>
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M9 9H11V17H9L9 9Z" fill="#1168A8" />
                     <path d="M15 9H13V17H15V9Z" fill="#1168A8" />
@@ -274,9 +273,9 @@
                     </svg>
                   </div>
                   <div class="options">
-                    <div class="option" *ngFor="let language of languages$ | keyvalue;"
-                      (click)="group.country = language.value">
-                      {{language.value}}
+                    <div class="option" *ngFor="let country of countries"
+                      (click)="group.country = country.name">
+                      {{country.name}}
                     </div>
                   </div>
                 </div>
@@ -291,9 +290,9 @@
                     </svg>
                   </div>
                   <div class="options">
-                    <div class="option" *ngFor="let language of languages$ | keyvalue;"
-                      (click)="group.language = language.value">
-                      {{language.value}}
+                    <div class="option" *ngFor="let language of languages"
+                      (click)="group.language = language.name">
+                      {{language.name}}
                     </div>
                   </div>
                 </div>

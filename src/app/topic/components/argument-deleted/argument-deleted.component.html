@@ -9,10 +9,11 @@
         d="M20 31C21.1046 31 22 30.1046 22 29C22 27.8954 21.1046 27 20 27C18.8954 27 18 27.8954 18 29C18 30.1046 18.8954 31 20 31Z"
         fill="white" />
     </svg>
-    <div class="bold">This content was hidden by the admin</div>
+    <div class="bold" translate="VIEWS.TOPICS_TOPICID.ARGUMENT_FOUND_INAPPRIOPRIATE_BY"
+      [translateParams]="{usersFullName: argument.deletedBy.name}"></div>
     <div class="buttons_wrap">
-      <a (click)="showReason()">Why?</a>
-      <a (click)="showArgument()">View anyway</a>
+      <a (click)="showReason()" translate="VIEWS.TOPICS_TOPICID.ARGUMENT_WHY"></a>
+      <a (click)="showArgument()" translate="VIEWS.TOPICS_TOPICID.ARGUMENT_VIEW_ARGUMENT_ANYWAY"></a>
     </div>
   </div>
 </div>

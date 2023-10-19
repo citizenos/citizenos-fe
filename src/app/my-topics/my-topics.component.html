@@ -21,9 +21,12 @@
           <div class="dropdown" [cosDropdown] [multipleChoice]="true">
             <div class="selection">
               <div class="selected_item">
-                <span *ngIf="topicFilters.status !=='pinned' && topicFilters.status !== 'showModerated'"> {{'TXT_TOPIC_STATUS_' + topicFilters.status | uppercase | translate}}</span>
-                <span *ngIf="topicFilters.status === 'pinned'"> {{'VIEWS.MY_TOPICS.FILTERS.TOPICS_PINNED' | translate}}</span>
-                <span *ngIf="topicFilters.status === 'showModerated'"> {{'VIEWS.MY_TOPICS.FILTERS.TOPICS_MODERATED' | translate}}</span>
+                <span *ngIf="topicFilters.status !=='pinned' && topicFilters.status !== 'showModerated'">
+                  {{'TXT_TOPIC_STATUS_' + topicFilters.status | uppercase | translate}}</span>
+                <span *ngIf="topicFilters.status === 'pinned'"> {{'VIEWS.MY_TOPICS.FILTERS.TOPICS_PINNED' |
+                  translate}}</span>
+                <span *ngIf="topicFilters.status === 'showModerated'"> {{'VIEWS.MY_TOPICS.FILTERS.TOPICS_MODERATED' |
+                  translate}}</span>
               </div>
               <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
@@ -34,28 +37,29 @@
               <div class="option check">
                 <label class="checkbox">
                   <span translate="VIEWS.MY_TOPICS.FILTER_ALL"></span>
-                  <input type="checkbox" [checked]="topicFilters.status === 'all'" (click)="setStatus('all');" >
+                  <input type="checkbox" [checked]="topicFilters.status === 'all'" (click)="setStatus('all');">
                   <span class="checkmark"></span>
                 </label>
               </div>
-              <div class="option check"  *ngFor="let status of statuses$">
+              <div class="option check" *ngFor="let status of statuses$">
                 <label class="checkbox">
                   <span [translate]="'TXT_TOPIC_STATUS_' + status | uppercase"></span>
-                  <input type="checkbox" [checked]="topicFilters.status === status" (click)="setStatus(status);" >
+                  <input type="checkbox" [checked]="topicFilters.status === status" (click)="setStatus(status);">
                   <span class="checkmark"></span>
                 </label>
               </div>
               <div class="option check">
                 <label class="checkbox">
                   <span translate="VIEWS.MY_TOPICS.FILTERS.TOPICS_PINNED"></span>
-                  <input type="checkbox" [checked]="topicFilters.status ==='pinned'" (click)="setStatus('pinned');" >
+                  <input type="checkbox" [checked]="topicFilters.status ==='pinned'" (click)="setStatus('pinned');">
                   <span class="checkmark"></span>
                 </label>
               </div>
               <div class="option check">
                 <label class="checkbox">
                   <span translate="VIEWS.MY_TOPICS.FILTERS.TOPICS_MODERATED"></span>
-                  <input type="checkbox" [checked]="topicFilters.status ==='showModerated'" (click)="setStatus('showModerated');" >
+                  <input type="checkbox" [checked]="topicFilters.status ==='showModerated'"
+                    (click)="setStatus('showModerated');">
                   <span class="checkmark"></span>
                 </label>
               </div>
@@ -67,9 +71,12 @@
             <div class="selection">
               <div class="selected_item">
                 <span translate="TXT_TOPIC_STATUS_ALL" *ngIf="topicFilters.engagements === 'all'"></span>
-                <span translate="VIEWS.MY_TOPICS.FILTERS.TOPICS_I_HAVE_VOTED" *ngIf="topicFilters.engagements === 'hasVoted'"></span>
-                <span translate="VIEWS.MY_TOPICS.FILTERS.TOPICS_I_HAVE_NOT_VOTED" *ngIf="topicFilters.engagements === 'hasNotVoted'"></span>
-                <span translate="VIEWS.MY_TOPICS.FILTERS.TOPICS_I_CREATED" *ngIf="topicFilters.engagements === 'iCreated'"></span>
+                <span translate="VIEWS.MY_TOPICS.FILTERS.TOPICS_I_HAVE_VOTED"
+                  *ngIf="topicFilters.engagements === 'hasVoted'"></span>
+                <span translate="VIEWS.MY_TOPICS.FILTERS.TOPICS_I_HAVE_NOT_VOTED"
+                  *ngIf="topicFilters.engagements === 'hasNotVoted'"></span>
+                <span translate="VIEWS.MY_TOPICS.FILTERS.TOPICS_I_CREATED"
+                  *ngIf="topicFilters.engagements === 'iCreated'"></span>
               </div>
               <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
@@ -77,13 +84,16 @@
               </div>
             </div>
             <div class="options">
-              <div class="option" translate="VIEWS.MY_TOPICS.FILTERS.TOPICS_I_HAVE_VOTED" (click)="setFilter('hasVoted')"></div>
-              <div class="option" translate="VIEWS.MY_TOPICS.FILTERS.TOPICS_I_HAVE_NOT_VOTED" (click)="setFilter('hasNotVoted')"></div>
-              <div class="option" translate="VIEWS.MY_TOPICS.FILTERS.TOPICS_I_CREATED" (click)="setFilter('iCreated')"></div>
+              <div class="option" translate="VIEWS.MY_TOPICS.FILTERS.TOPICS_I_HAVE_VOTED"
+                (click)="setFilter('hasVoted')"></div>
+              <div class="option" translate="VIEWS.MY_TOPICS.FILTERS.TOPICS_I_HAVE_NOT_VOTED"
+                (click)="setFilter('hasNotVoted')"></div>
+              <div class="option" translate="VIEWS.MY_TOPICS.FILTERS.TOPICS_I_CREATED" (click)="setFilter('iCreated')">
+              </div>
             </div>
           </div>
         </cos-input>
-        <cos-input [placeholder]="'VIEWS.MY_TOPICS.FILTER_CATEGORIES' | translate" class="dropdown_input tablet_hidden" >
+        <cos-input [placeholder]="'VIEWS.MY_TOPICS.FILTER_CATEGORIES' | translate" class="dropdown_input tablet_hidden">
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
               <div class="selected_item">{{'TXT_TOPIC_CATEGORY_' + topicFilters.category | uppercase | translate}}</div>
@@ -159,7 +169,8 @@
               fill="#727C84" />
           </svg>
           <cos-input placeholder="{{'VIEWS.MY_TOPICS.PLACEHOLDER_SEARCH_TOPIC' | translate}}">
-            <input type="text" [(ngModel)]="searchInput" (ngModelChange)="doSearch(searchInput)" [placeholder]="'VIEWS.MY_TOPICS.PLACEHOLDER_SEARCH_TOPIC' | translate">
+            <input type="text" [(ngModel)]="searchInput" (ngModelChange)="doSearch(searchInput)"
+              [placeholder]="'VIEWS.MY_TOPICS.PLACEHOLDER_SEARCH_TOPIC' | translate">
           </cos-input>
           <a class="clear_search" translate="VIEWS.MY_TOPICS.LNK_CLEAR" (click)="searchInput='';doSearch('')"
             *ngIf="searchInput"></a>
@@ -221,8 +232,9 @@
               d="M14.1922 15.6064C13.0236 16.4816 11.5723 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10C17 11.5723 16.4816 13.0236 15.6064 14.1922L19.7071 18.2929C20.0976 18.6834 20.0976 19.3166 19.7071 19.7071C19.3166 20.0976 18.6834 20.0976 18.2929 19.7071L14.1922 15.6064ZM15 10C15 12.7614 12.7614 15 10 15C7.23858 15 5 12.7614 5 10C5 7.23858 7.23858 5 10 5C12.7614 5 15 7.23858 15 10Z"
               fill="#727C84" />
           </svg>
-          <cos-input placeholder="{{'LAYOUTS.MAIN.PLACEHOLDER_SEARCH_TOPICS_USERS_GROUPS' | translate}}">
-            <input type="text" [(ngModel)]="searchInput" (ngModelChange)="doSearch(searchInput)" placeholder="{{'LAYOUTS.MAIN.PLACEHOLDER_SEARCH_TOPICS_USERS_GROUPS' | translate}}">
+          <cos-input placeholder="{{'VIEWS.MY_TOPICS.PLACEHOLDER_SEARCH_TOPIC' | translate}}">
+            <input type="text" [(ngModel)]="searchInput" (ngModelChange)="doSearch(searchInput)"
+              placeholder="{{'VIEWS.MY_TOPICS.PLACEHOLDER_SEARCH_TOPIC' | translate}}">
           </cos-input>
         </div>
       </div>
@@ -239,7 +251,8 @@
           <input type="radio" name="status">
           <span class="checkmark"></span>
         </label>
-        <button class="btn_medium_secondary" (click)="mobile_filters.status= false;">Apply</button>
+        <button class="btn_medium_secondary" (click)="mobile_filters.status= false;"
+          translate="VIEWS.MY_TOPICS.BTN_APPLY"></button>
       </div>
       <div class="overlay" *ngIf="mobile_filters.category || mobile_filters.status"></div>
       <div class="options button_options" *ngIf="mobile_filters.category">
@@ -255,7 +268,8 @@
           <span class="checkmark"></span>
         </label>
 
-        <button class="btn_medium_secondary" (click)="mobile_filters.category= false;">Apply</button>
+        <button class="btn_medium_secondary" (click)="mobile_filters.category= false;"
+          translate="VIEWS.MY_TOPICS.BTN_APPLY"></button>
       </div>
     </div>
   </div>

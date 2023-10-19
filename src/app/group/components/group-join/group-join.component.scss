@@ -1,3 +1,8 @@
+@use "mixins";
+
+.dialog {
+  max-width: 560px;
+}
 
 #group_image_wrap {
   display: flex;
