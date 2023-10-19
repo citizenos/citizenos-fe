@@ -156,9 +156,9 @@
                     fill="#1168A8" />
                 </svg>
               </div>
-              <div class="info_number">1234</div>
+              <div class="info_number">{{group.members.topics.count}}</div>
             </div>
-            <div class="info_item">
+            <!--div class="info_item">
               <div>
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" clip-rule="evenodd"
@@ -167,7 +167,7 @@
                 </svg>
               </div>
               <div class="info_number">1234</div>
-            </div>
+            </!--div-->
             <div class="info_item">
               <div>
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -176,7 +176,7 @@
                     fill="#5AB467" />
                 </svg>
               </div>
-              <div class="info_number">1234</div>
+              <div class="info_number">{{group.members.topics.count}}</div>
             </div>
           </div>
         </div>
@@ -222,8 +222,8 @@
               <span>First and foremost don’t be rude or a troll. You will be removed from the group immediately.</span>
             </div>
           </div>
-          <b translate="VIEWS.GROUP.TAGS"></b>
-          <div id="tag_items_wrap">
+          <!--b translate="VIEWS.GROUP.TAGS"></!--b>
+          <div-- id="tag_items_wrap">
             <div class="tag_item">Tag</div>
             <div class="tag_item">Tag long</div>
             <div class="tag_item">Tag long</div>
@@ -231,11 +231,11 @@
             <div class="tag_item">Tag long</div>
             <div class="tag_item">Tag long</div>
             <div class="tag_item">Tag long</div>
-          </div>
+          </div-->
         </div>
         <div id="extra_info_right">
           <div id="group_extra_info_wrap">
-            <b>Info</b>
+            <b translate="VIEWS.GROUP.HEADING_INFO"></b>
             <div class="info_items_wrap">
               <div class="info_item">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -276,15 +276,10 @@
                 <a>{{group.contact}}</a>
               </div>
             </div>
-            <b translate="VIEWS.GROUP.CATEGORIES"></b>
-            <div id="categories_wrap">
+            <!--b translate="VIEWS.GROUP.CATEGORIES"></!--b>
+            <div-- id="categories_wrap">
               <div class="category">asdasdasd,</div>
-              <div class="category">asdasdasd,</div>
-              <div class="category">asdasdasd,</div>
-              <div class="category">asdasdasd,</div>
-              <div class="category">asdasdasd,</div>
-              <div class="category">asdasdasd</div>
-            </div>
+            </div-->
           </div>
         </div>
       </div>
@@ -350,7 +345,7 @@
               </div>
             </div>
           </cos-input>
-          <cos-input [placeholder]="'VIEWS.GROUP.TOPICS_FILTER_MY_ENGAGEMENT' | translate" class="dropdown_input">
+          <!--cos-input [placeholder]="'VIEWS.GROUP.TOPICS_FILTER_MY_ENGAGEMENT' | translate" class="dropdown_input">
             <div class="dropdown" [cosDropdown]>
               <div class="selection">
                 <div class="selected_item">All</div>
@@ -365,7 +360,7 @@
                 <div class="option">Groups with pending requests</div>
               </div>
             </div>
-          </cos-input>
+          </!--cos-input-->
           <cos-input [placeholder]="'VIEWS.GROUP.TOPICS_FILTER_STATUS' | translate"
             class="dropdown_input tablet_hidden">
             <div class="dropdown" [cosDropdown]>
@@ -377,8 +372,8 @@
               </div>
               </div>
               <div class="options">
-                <div class="option" *ngFor="let item of []">
-                  {{item}}
+                <div class="option" *ngFor="let item of topicStatuses">
+                  {{'TXT_TOPIC_STATUS_' + item | uppercase | translate}}
                 </div>
               </div>
             </div>

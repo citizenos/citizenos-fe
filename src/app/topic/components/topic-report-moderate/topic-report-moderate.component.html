@@ -51,7 +51,7 @@
 
 
       <form [formGroup]="moderate" id="form_area">
-        <cos-input [placeholder]="'COMPONENTS.REPORT_TOPIC.LABLE_REASON' | translate">
+        <cos-input [placeholder]="'MODALS.TOPIC_REPORT_MODERATE_LABEL_REASON' | translate">
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
               <div class="selected_item" [translate]="'TXT_MODERATION_TYPES_' + moderate.value.type.toUpperCase()">
@@ -90,7 +90,7 @@
                 fill="#EF4025" />
             </svg>
             <div class="error_text">
-              <span translate="COMPONENTS.REPORT_TOPIC.ERROR_TEXT"></span>
+              <span translate="MODALS.TOPIC_REPORT_MODERATE_ERROR_TEXT"></span>
             </div>
           </label>
         </cos-input>
