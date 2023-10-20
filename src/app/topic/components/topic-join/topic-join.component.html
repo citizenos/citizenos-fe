@@ -13,7 +13,7 @@
             fill="white" />
         </svg>
       </div>
-      <h4 class="title" translate="COMPONENTS.GROUP_JOIN.HEADING"></h4>
+      <h4 class="title" translate="COMPONENTS.TOPIC_JOIN.HEADING"></h4>
     </div>
     <div class="dialog_close">
       <button class="btn_dialog_close icon" mat-dialog-close>
@@ -29,42 +29,55 @@
     <div class="dialog_info_wrap">
       <div class="dialog_info row">
         <div class="delete_info_button_wrap">
-          <div class="delete_info_text" translate="COMPONENTS.GROUP_JOIN.MESSAGE_MAIN"></div>
+          <div class="delete_info_text" translate="COMPONENTS.TOPIC_JOIN.MESSAGE_MAIN"></div>
         </div>
         <div class="profile_image_wrap">
-          <img class="profile_image" *ngIf="group.imageUrl" [src]="group.imageUrl">
-          <div class="profile_image_filler" *ngIf="!group.imageUrl">
-            <cos-initials *ngIf="group.name" [name]="group.name" [initialLimit]="1">
+          <img class="profile_image" *ngIf="topic.imageUrl" [src]="topic.imageUrl">
+          <div class="profile_image_filler" *ngIf="!topic.imageUrl">
+            <cos-initials *ngIf="topic.title" [name]="topic.title" [initialLimit]="1">
             </cos-initials >
           </div>
         </div>
-        <div class="bold" [innerHTML]="group.name"></div>
+
+        <div class="bold" [innerHTML]="topic.title"></div>
       </div>
     </div>
   </div>
-  <ng-container *ngIf="group.rules && group.rules.length">
-    <div class="dialog_content">
-      <div class="info_row" translate="COMPONENTS.GROUP_JOIN.MESSAGE_DESCRIPTION"></div>
-    </div>
-    <div class="dialog_content">
-      <div class="dialog_info_wrap">
-        <div class="dialog_info">
-          <div class="info_heading bold" translate="COMPONENTS.GROUP_JOIN.HEADING_RULES"></div>
-          <div class="row" *ngFor="let rule of group.rules">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M9.38602 14.8088L17.5256 6L19 7.59558L9.38602 18L5 13.2534L6.47436 11.6578L9.38602 14.8088Z"
-                fill="#2C3B47" />
-            </svg>
-            <span>{{rule}}</span>
-          </div>
+  <div class="dialog_content">
+    <div class="info_row" translate="COMPONENTS.TOPIC_JOIN.MESSAGE_DESCRIPTION"></div>
+  </div>
+  <div class="dialog_content">
+    <div class="dialog_info_wrap">
+      <div class="dialog_info">
+        <div class="info_heading bold" translate="COMPONENTS.TOPIC_JOIN.HEADING_WHAT_CAN_YOU_DO"></div>
+        <div class="row">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9.38602 14.8088L17.5256 6L19 7.59558L9.38602 18L5 13.2534L6.47436 11.6578L9.38602 14.8088Z"
+              fill="#2C3B47" />
+          </svg>
+          <span translate="COMPONENTS.TOPIC_JOIN.ITEM_PARTICIPATE"></span>
+        </div>
+        <div class="row">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9.38602 14.8088L17.5256 6L19 7.59558L9.38602 18L5 13.2534L6.47436 11.6578L9.38602 14.8088Z"
+              fill="#2C3B47" />
+          </svg>
+          <span translate="COMPONENTS.TOPIC_JOIN.ITEM_NOTIFICATIONS"></span>
+        </div>
+        <div class="row">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9.38602 14.8088L17.5256 6L19 7.59558L9.38602 18L5 13.2534L6.47436 11.6578L9.38602 14.8088Z"
+              fill="#2C3B47" />
+          </svg>
+          <span translate="COMPONENTS.TOPIC_JOIN.ITEM_REQUEST_EDIT"></span>
         </div>
       </div>
     </div>
-  </ng-container>
+  </div>
   <div class="dialog_content">
     <div class="button_wrap">
-      <button class="btn_big_submit" [mat-dialog-close]="true" translate="COMPONENTS.GROUP_JOIN.BTN_JOIN"></button>
-      <a mat-dialog-close translate="COMPONENTS.GROUP_JOIN.LNK_CANCEL"></a>
+      <button class="btn_big_submit" [mat-dialog-close]="true" translate="COMPONENTS.TOPIC_JOIN.BTN_JOIN"></button>
+      <a mat-dialog-close translate="COMPONENTS.TOPIC_JOIN.LNK_CANCEL"></a>
     </div>
   </div>
   <div class="dialog_footer">

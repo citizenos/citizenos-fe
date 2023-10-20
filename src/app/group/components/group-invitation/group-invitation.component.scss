@@ -1,24 +1,6 @@
-
-#group_image_wrap {
-  display: flex;
-  max-width: 40px;
-  align-items: top;
-
-  .group_circle {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 40px;
-    background-color: var(--color-surface-contrast);
-  }
-
-  img {
-    width: 40px;
-    height: 40px;
-    border-radius: 40px;
-    aspect-ratio: 1;
-    object-fit: cover;
-  }
+.dialog  {
+  max-width: 560px;
+}
+.profile_image_filler {
+  height: 40px;
 }

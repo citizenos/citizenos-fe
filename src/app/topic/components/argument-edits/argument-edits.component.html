@@ -1,20 +1,15 @@
-<div id="{{argument.id + '_v' + item.key}}" class="argument" [ngClass]="'is_' + item.value['type']" *ngFor="let item of argument.edits | keyvalue">
+<div id="{{argument.id + '_v' + item.key}}" class="argument_edit" [ngClass]="'is_' + item.value['type']" *ngFor="let item of argument.edits | keyvalue">
   <div class="argument_header">
     <div class="argument_header_widget">
       <div class="table_cell" [title]="item.value.createdAt | date : 'L LT'">
         {{item.value.createdAt | date}}
       </div>
     </div>
-    <div class="line_wrap">
-      <div class="table_cell">
-        <div class="v_line"></div>
-      </div>
-    </div>
     <div class="argument_header_widget">
       <div class="table_cell">
         <a href="#" (click)="copyArgumentLink($event, item.key)"><span
-            translate="LNK_DIRECT_LINK"></span><input class="comment_link_input"
-            id="comment_link_input_{{argument.id + '_v'+item.key}}" value="" /></a>
+            translate="LNK_DIRECT_LINK"></span>
+        </a>
       </div>
     </div>
     <div class="clearer"></div>
@@ -25,4 +20,4 @@
   <div class="argument_text_wrap">
     <div class="argument_text italic" [innerHtml]="item.value.text"></div>
   </div>
-</div><p></p>
+</div>

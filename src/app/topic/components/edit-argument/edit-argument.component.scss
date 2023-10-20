@@ -1,0 +1,170 @@
+@use "mixins";
+
+#create_argument_footer_menu {
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--color-surfaces);
+  border-radius: 16px 16px 0 0;
+  width: inherit;
+  z-index: 9999;
+  padding: 12px 16px;
+  position: fixed;
+  bottom: 0;
+  align-items: center;
+  max-width: calc(100% - 560px);
+  width: 100%;
+
+  @include mixins.tablet {
+    max-width: 100%;
+    display: none;
+  }
+
+  .footer_title {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px; /* 150% */
+  }
+}
+
+#create_argument_tablet_btn {
+  display: none;
+  @include mixins.tablet {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: -52px;
+    margin-right: -8px;
+
+    button {
+      svg {
+        position: absolute;
+      }
+    }
+  }
+
+  @include mixins.mobile {
+    margin-top: -30px;
+    margin-bottom: 0;
+    margin-right: 0;
+  }
+}
+
+#create_argument_footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--color-surfaces);
+  border-radius: 16px 16px 0 0;
+  max-width: calc(100% - 566px);
+  width: 100%;
+  max-height: 0;
+  padding: 0;
+  z-index: 9999;
+  // padding: 12px 16px;
+  position: fixed;
+  left: 224px;
+  bottom: 0;
+
+  @include mixins.tablet {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 9999999;
+    max-width: 100%;
+  }
+
+  #buttons_row {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+
+    .btn_big_submit_ghost {
+      display: flex;
+      gap: 8px;
+      width: max-content;
+    }
+
+    .close_button {
+      width: 40px;
+      svg {
+        position: absolute;
+        display: flex;
+      }
+    }
+
+    .btn_big_submit {
+      #continue_btn {
+        display: none;
+      }
+      @include mixins.mobile {
+        width: 40px;
+        max-width: 40px;
+
+        .btn_text {
+          display: none;
+        }
+
+        #continue_btn {
+          display: flex;
+          position: absolute;
+        }
+      }
+    }
+
+    #navigate_create {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+}
+
+#post_argument_form_wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+
+  .form_header {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px; /* 150% */
+  }
+
+  #argument_form {
+    display: flex;
+    gap: 16px;
+    flex-direction: column;
+
+    #type_select_wrap {
+      display: flex;
+      gap: 16px;
+
+      .type_item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        padding: 8px;
+        vertical-align: middle;
+        &.pro {
+          background-color: var(--color-argument-pro-light);
+        }
+        &.con {
+          background-color: var(--color-argument-con-light);
+        }
+        &.poi {
+          background-color: var(--color-argument-info-light);
+        }
+      }
+    }
+  }
+}
+
+#create_footer {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+}

@@ -11,13 +11,10 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
   templateUrl: './group-join.component.html',
   styleUrls: ['./group-join.component.scss']
 })
-export class GroupJoinComponent implements OnInit {
+export class GroupJoinComponent {
   group: Group;
-  constructor(private router: Router, @Inject(MAT_DIALOG_DATA) data: any, private Location: LocationService, private GroupJoinService: GroupJoinService) {
+  constructor(@Inject(MAT_DIALOG_DATA) data: any) {
     this.group = data.group;
-  }
-
-  ngOnInit(): void {
   }
 
 }

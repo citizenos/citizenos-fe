@@ -185,8 +185,8 @@
         <div id="extra_info_left">
           <b translate="VIEWS.GROUP.RULES_OF_CONDUCT"></b>
           <div id="rule_items_wrap">
-            <div class="rule_item"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
+            <div class="rule_item" *ngFor="let rule of group.rules"><svg width="24" height="24" viewBox="0 0 24 24"
+                fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect x="4" y="4" width="16" height="16" rx="8" fill="#F39129" />
                 <path
                   d="M11.626 7.2002C11.3952 7.2002 11.2124 7.39487 11.2268 7.62515L11.5768 13.2251C11.5899 13.436 11.7648 13.6002 11.976 13.6002H12.0244C12.2356 13.6002 12.4105 13.436 12.4236 13.2251L12.7736 7.62515C12.788 7.39487 12.6051 7.2002 12.3744 7.2002H11.626Z"
@@ -195,31 +195,7 @@
                   d="M12.0002 16.4002C12.442 16.4002 12.8002 16.042 12.8002 15.6002C12.8002 15.1584 12.442 14.8002 12.0002 14.8002C11.5584 14.8002 11.2002 15.1584 11.2002 15.6002C11.2002 16.042 11.5584 16.4002 12.0002 16.4002Z"
                   fill="white" />
               </svg>
-              <span>First and foremost don’t be rude or a troll. You will be removed from the group immediately.</span>
-            </div>
-            <div class="rule_item"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <rect x="4" y="4" width="16" height="16" rx="8" fill="#F39129" />
-                <path
-                  d="M11.626 7.2002C11.3952 7.2002 11.2124 7.39487 11.2268 7.62515L11.5768 13.2251C11.5899 13.436 11.7648 13.6002 11.976 13.6002H12.0244C12.2356 13.6002 12.4105 13.436 12.4236 13.2251L12.7736 7.62515C12.788 7.39487 12.6051 7.2002 12.3744 7.2002H11.626Z"
-                  fill="white" />
-                <path
-                  d="M12.0002 16.4002C12.442 16.4002 12.8002 16.042 12.8002 15.6002C12.8002 15.1584 12.442 14.8002 12.0002 14.8002C11.5584 14.8002 11.2002 15.1584 11.2002 15.6002C11.2002 16.042 11.5584 16.4002 12.0002 16.4002Z"
-                  fill="white" />
-              </svg>
-              <span>First and foremost don’t be rude or a troll. You will be removed from the group immediately.</span>
-            </div>
-            <div class="rule_item"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <rect x="4" y="4" width="16" height="16" rx="8" fill="#F39129" />
-                <path
-                  d="M11.626 7.2002C11.3952 7.2002 11.2124 7.39487 11.2268 7.62515L11.5768 13.2251C11.5899 13.436 11.7648 13.6002 11.976 13.6002H12.0244C12.2356 13.6002 12.4105 13.436 12.4236 13.2251L12.7736 7.62515C12.788 7.39487 12.6051 7.2002 12.3744 7.2002H11.626Z"
-                  fill="white" />
-                <path
-                  d="M12.0002 16.4002C12.442 16.4002 12.8002 16.042 12.8002 15.6002C12.8002 15.1584 12.442 14.8002 12.0002 14.8002C11.5584 14.8002 11.2002 15.1584 11.2002 15.6002C11.2002 16.042 11.5584 16.4002 12.0002 16.4002Z"
-                  fill="white" />
-              </svg>
-              <span>First and foremost don’t be rude or a troll. You will be removed from the group immediately.</span>
+              <span>{{rule}}</span>
             </div>
           </div>
           <!--b translate="VIEWS.GROUP.TAGS"></!--b>
@@ -326,22 +302,20 @@
           <cos-input [placeholder]="'VIEWS.GROUP.TOPICS_FILTER_TYPE' | translate" class="dropdown_input">
             <div class="dropdown" [cosDropdown]>
               <div class="selection">
-                <div class="selected_item">{{'All'}}</div>
+                <div class="selected_item">{{'VIEWS.GROUP.FILTER_ALL' | translate}}</div>
                 <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
-                </svg>
-              </div>
+                    <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                  </svg>
+                </div>
               </div>
               <div class="options">
                 <div class="option" *ngFor="let item of []" [routerLink]="['./']" [queryParams]="{visibility: item}">
                   {{item}}
                 </div>
-                <div class="option" [routerLink]="['./']" [queryParams]="{pinned: 'true'}">
-                  Pinned
-                </div>
-                <div class="option" [routerLink]="['./']" [queryParams]="{moderated: 'true'}">
-                  Moderated
-                </div>
+                <div class="option" [routerLink]="['./']" [queryParams]="{pinned: 'true'}"
+                  translate="VIEWS.GROUP.FILTER_PINNED"></div>
+                <div class="option" [routerLink]="['./']" [queryParams]="{moderated: 'true'}"
+                  translate="VIEWS.GROUP.FILTER_MODERATED"></div>
               </div>
             </div>
           </cos-input>
@@ -365,11 +339,11 @@
             class="dropdown_input tablet_hidden">
             <div class="dropdown" [cosDropdown]>
               <div class="selection">
-                <div class="selected_item">All</div>
+                <div class="selected_item">{{'VIEWS.GROUP.TOPICS_FILTERS_ORDER_ALL' | translate}}</div>
                 <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
-                </svg>
-              </div>
+                    <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                  </svg>
+                </div>
               </div>
               <div class="options">
                 <div class="option" *ngFor="let item of topicStatuses">
@@ -381,17 +355,18 @@
           <cos-input [placeholder]="'VIEWS.GROUP.TOPICS_FILTER_ORDER' | translate" class="dropdown_input tablet_hidden">
             <div class="dropdown" [cosDropdown]>
               <div class="selection">
-                <div class="selected_item">All</div>
+                <div class="selected_item">{{'VIEWS.GROUP.TOPICS_FILTERS_ORDER_ALL' | translate}}</div>
                 <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
-                </svg>
-              </div>
+                    <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                  </svg>
+                </div>
               </div>
               <div class="options">
-                <div class="option">Most recent participant activity</div>
-                <div class="option">Most participant activities</div>
-                <div class="option">Most participants</div>
-                <div class="option">Most recently created</div>
+                <div class="option" translate="VIEWS.GROUP.TOPICS_FILTERS_ORDER_ALL"></div>
+                <div class="option" translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_RECENT_ACTIVITY"></div>
+                <div class="option" translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_ACTIVITIES"></div>
+                <div class="option" translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_PARTICIPANTS"></div>
+                <div class="option" translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_RECENT"></div>
               </div>
             </div>
           </cos-input>
@@ -400,11 +375,11 @@
           <cos-input [placeholder]="'VIEWS.GROUP.TOPICS_FILTER_STATUS' | translate" class="dropdown_input">
             <div class="dropdown" [cosDropdown]>
               <div class="selection">
-                <div class="selected_item">All</div>
+                <div class="selected_item">{{'VIEWS.GROUP.TOPICS_FILTERS_ORDER_ALL' | translate}}</div>
                 <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
-                </svg>
-              </div>
+                    <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                  </svg>
+                </div>
               </div>
               <div class="options">
                 <div class="option" *ngFor="let item of []">
@@ -416,23 +391,24 @@
           <cos-input [placeholder]="'VIEWS.GROUP.TOPICS_FILTER_ORDER' | translate" class="dropdown_input">
             <div class="dropdown" [cosDropdown]>
               <div class="selection">
-                <div class="selected_item">All</div>
+                <div class="selected_item">{{'VIEWS.GROUP.TOPICS_FILTERS_ORDER_ALL' | translate}}</div>
                 <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
-                </svg>
-              </div>
+                    <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                  </svg>
+                </div>
               </div>
               <div class="options">
-                <div class="option">Most recent participant activity</div>
-                <div class="option">Most participant activities</div>
-                <div class="option">Most participants</div>
-                <div class="option">Most recently created</div>
+                <div class="option" translate="VIEWS.GROUP.TOPICS_FILTERS_ORDER_ALL"></div>
+                <div class="option" translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_RECENT_ACTIVITY"></div>
+                <div class="option" translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_ACTIVITIES"></div>
+                <div class="option" translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_PARTICIPANTS"></div>
+                <div class="option" translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_RECENT"></div>
               </div>
             </div>
           </cos-input>
         </div>
         <div class="options_row" *ngIf="moreFilters">
-          <cos-input [placeholder]="'VIEWS.GROUP.TOPICS_FILTER_TAGS' | translate" class="dropdown_input">
+          <!--cos-input [placeholder]="'VIEWS.GROUP.TOPICS_FILTER_TAGS' | translate" class="dropdown_input">
             <div class="dropdown" [cosDropdown]>
               <div class="selection">
                 <div class="selected_item">All</div>
@@ -447,19 +423,19 @@
                 </div>
               </div>
             </div>
-          </cos-input>
+          </!--cos-input-->
           <cos-input [placeholder]="'VIEWS.GROUP.TOPICS_FILTER_COUNTRY' | translate" class="dropdown_input">
             <div class="dropdown" [cosDropdown]>
               <div class="selection">
-                <div class="selected_item">All</div>
+                <div class="selected_item">{{'VIEWS.GROUP.TOPICS_FILTERS_ORDER_ALL' | translate}}</div>
                 <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
-                </svg>
-              </div>
+                    <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                  </svg>
+                </div>
               </div>
               <div class="options">
-                <div class="option" *ngFor="let item of []">
-                  {{item}}
+                <div class="option" *ngFor="let country of countries">
+                  {{country.name}}
                 </div>
               </div>
             </div>
@@ -467,20 +443,20 @@
           <cos-input [placeholder]="'VIEWS.GROUP.TOPICS_FILTER_LANGUAGE' | translate" class="dropdown_input">
             <div class="dropdown" [cosDropdown]>
               <div class="selection">
-                <div class="selected_item">All</div>
+                <div class="selected_item">{{'VIEWS.GROUP.TOPICS_FILTERS_ORDER_ALL' | translate}}</div>
                 <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
-                </svg>
-              </div>
+                    <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                  </svg>
+                </div>
               </div>
               <div class="options">
-                <div class="option" *ngFor="let item of []">
-                  {{item}}
+                <div class="option" *ngFor="let language of languages">
+                  {{language.name}}
                 </div>
               </div>
             </div>
           </cos-input>
-          <cos-input [placeholder]="'VIEWS.GROUP.TOPICS_FILTER_CATEGORY' | translate" class="dropdown_input">
+          <!--cos-input [placeholder]="'VIEWS.GROUP.TOPICS_FILTER_CATEGORY' | translate" class="dropdown_input">
             <div class="dropdown" [cosDropdown]>
               <div class="selection">
                 <div class="selected_item">All</div>
@@ -495,7 +471,7 @@
                 </div>
               </div>
             </div>
-          </cos-input>
+          </cos-input -->
           <div class="input_area">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd"
@@ -506,8 +482,8 @@
               <input placeholder="{{'VIEWS.GROUP.PLACEHOLDER_SEARCH_TOPICS' | translate}}" type="text"
                 [(ngModel)]="searchTopicsInput" (ngModelChange)="searchTopics(searchTopicsInput)">
             </cos-input>
-            <a class="clear_search" translate="COMPONENTS.SEARCH.LNK_CLEAR"
-              (click)="searchTopicsInput='';searchTopics('')" *ngIf="searchTopicsInput"></a>
+            <a class="clear_search" translate="VIEWS.GROUP.LNK_CLEAR" (click)="searchTopicsInput='';searchTopics('')"
+              *ngIf="searchTopicsInput"></a>
           </div>
         </div>
       </div>
@@ -534,7 +510,7 @@
       </div>
       <div class="dropdown mobile_show" [cosDropdown] [multipleChoice]="true">
         <div class="selection">
-          <div class="selected_item" translate="COMPONENTS.PUBLIC_TOPICS.LBL_FILTER"> </div>
+          <div class="selected_item" translate="VIEWS.GROUP.LBL_FILTER"> </div>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
           </svg>
@@ -546,11 +522,11 @@
               (click)="mobile_filters.status = true">{{'TXT_TOPIC_STATUS_'+topicFilters.status | uppercase |
               translate}}</a>
           </div>
-          <div class="filter_option">
+          <!--div class="filter_option">
             <span translate="VIEWS.MY_TOPICS.FILTER_CATEGORIES"></span><a class="bold"
               (click)="mobile_filters.category = true">{{'TXT_TOPIC_CATEGORY_'+topicFilters.category | uppercase |
               translate}}</a>
-          </div>
+          </!--div-->
           <button (click)="doClearFilters()" class="btn_medium_plain">
             <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -560,7 +536,7 @@
                 d="M12.4999 19.0001C14.2929 19.0001 16.0826 18.3169 17.4496 16.9499C19.9439 14.4555 20.1623 10.5471 18.1048 7.80519C17.7733 7.36345 17.7662 6.73377 18.1567 6.34325C18.5473 5.95273 19.1858 5.94982 19.5311 6.38083C22.3624 9.91455 22.1399 15.088 18.8638 18.3641C17.1067 20.1212 14.8016 21.0001 12.4999 21.0001L12.4999 23L8.49988 20L12.4999 17L12.4999 19.0001Z"
                 fill="#2C3B47" />
             </svg>
-            <span>Reset filter</span>
+            <span translate="VIEWS.GROUP.BTN_RESET_FILTER"></span>
           </button>
           <div class="input_area">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -568,11 +544,11 @@
                 d="M14.1922 15.6064C13.0236 16.4816 11.5723 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10C17 11.5723 16.4816 13.0236 15.6064 14.1922L19.7071 18.2929C20.0976 18.6834 20.0976 19.3166 19.7071 19.7071C19.3166 20.0976 18.6834 20.0976 18.2929 19.7071L14.1922 15.6064ZM15 10C15 12.7614 12.7614 15 10 15C7.23858 15 5 12.7614 5 10C5 7.23858 7.23858 5 10 5C12.7614 5 15 7.23858 15 10Z"
                 fill="#727C84" />
             </svg>
-            <cos-input placeholder="{{'LAYOUTS.MAIN.PLACEHOLDER_SEARCH_TOPICS_USERS_GROUPS' | translate}}">
+            <cos-input placeholder="{{'VIEWS.GROUP.PLACEHOLDER_SEARCH_TOPICS' | translate}}">
               <input type="text" [(ngModel)]="searchTopicsInput" (ngModelChange)="searchTopics(searchTopicsInput)"
-                placeholder="{{'LAYOUTS.MAIN.PLACEHOLDER_SEARCH_TOPICS_USERS_GROUPS' | translate}}">
+                placeholder="{{'VIEWS.MAIN.PLACEHOLDER_SEARCH_TOPICS' | translate}}">
             </cos-input>
-            <a class="clear_search" translate="COMPONENTS.SEARCH.LNK_CLEAR"
+            <a class="clear_search" translate="VIEWS.GROUP.LNK_CLEAR"
               (click)="searchTopicsInput='';searchTopics('')" *ngIf="searchTopicsInput"></a>
 
           </div>
@@ -630,7 +606,7 @@
               [ngModelOptions]="{standalone: true, updateOn:'change'}" (ngModelChange)="searchUsers(searchUsersInput)">
           </cos-input>
         </div>
-        <cos-input [placeholder]="'VIEWS.ACCOUNT.SHOW_PER_PAGE' | translate" class="dropdown_input">
+        <cos-input [placeholder]="'VIEWS.GROUP.SHOW_PER_PAGE' | translate" class="dropdown_input">
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
               <div class="selected_item">{{(GroupMemberUserService.params$ | async)?.limit}}</div>
@@ -689,7 +665,7 @@
                     d="M5.66347 6.9425L11.8106 1L13.4526 2.58741L12.3579 3.64569L14 5.2331L11.2632 7.87953L9.62116 6.29212L7.30631 8.52991C7.73255 9.32272 7.85142 10.2368 7.64144 11.1069C7.43146 11.977 6.90649 12.7458 6.16136 13.2745C5.41623 13.8031 4.50009 14.0567 3.57846 13.9894C2.65683 13.9221 1.7905 13.5383 1.13598 12.9075C0.481132 12.2754 0.0821563 11.4375 0.0113533 10.5456C-0.0594497 9.65365 0.202605 8.7667 0.750029 8.04547C1.29745 7.32424 2.09403 6.81645 2.9954 6.61411C3.89677 6.41177 4.8433 6.52827 5.66347 6.9425ZM4.96747 11.3193C5.11536 11.1812 5.23332 11.016 5.31447 10.8334C5.39562 10.6508 5.43833 10.4544 5.44012 10.2556C5.4419 10.0569 5.40273 9.85978 5.32487 9.67582C5.24702 9.49186 5.13205 9.32474 4.98666 9.18419C4.84128 9.04365 4.6684 8.9325 4.47811 8.85724C4.28782 8.78198 4.08393 8.74411 3.87833 8.74583C3.67274 8.74756 3.46956 8.78885 3.28065 8.8673C3.09174 8.94575 2.92088 9.05978 2.77805 9.20275C2.496 9.48506 2.33993 9.86316 2.34346 10.2556C2.34698 10.6481 2.50983 11.0235 2.79691 11.3011C3.08399 11.5786 3.47235 11.736 3.87833 11.7394C4.28431 11.7428 4.67544 11.592 4.96747 11.3193Z"
                     fill="#2C3B47" />
                 </svg>
-                <span [innerHtml]="'COMPONENTS.GROUP_INVITE.BULK_OPT_SET_ALL_RIGHTS' | translate:{level: level}"></span>
+                <span [innerHtml]="'VIEWS.GROUP.BULK_OPT_SET_ALL_RIGHTS' | translate:{level: level}"></span>
               </div>
               <div class="line_separator"></div>
             </ng-container>
@@ -699,7 +675,7 @@
                   d="M10 3H6V4H10V3ZM11 4V3C11 2.44772 10.5523 2 10 2H6C5.44772 2 5 2.44772 5 3V4H4H2.5C2.22386 4 2 4.22386 2 4.5C2 4.77614 2.22386 5 2.5 5H4V13C4 13.5523 4.44772 14 5 14H11C11.5523 14 12 13.5523 12 13V5H13.5C13.7761 5 14 4.77614 14 4.5C14 4.22386 13.7761 4 13.5 4H12H11ZM7 7H6V11H7V7ZM10 7H9V11H10V7Z"
                   fill="#EF4025" />
               </svg>
-              <span class="error_text" translate="COMPONENTS.GROUP_INVITE.BULK_OPT_REMOVE_ALL"></span>
+              <span class="error_text" translate="VIEWS.GROUP.BULK_OPT_REMOVE_ALL"></span>
             </div>
           </div>
         </div>

@@ -105,6 +105,12 @@ export class GroupInvitationDialogComponent implements OnInit {
                 invite: groupInvite
               }
             });
+
+            invitationDialog.afterClosed().subscribe({
+              next: () => {
+                router.navigate(['/']);
+              }
+            })
         }
       }
     })

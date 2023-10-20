@@ -4,18 +4,33 @@ import { TopicArgumentService } from 'src/app/services/topic-argument.service';
 import { AppService } from 'src/app/services/app.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { take } from 'rxjs';
+import { trigger, state, style } from '@angular/animations';
 
 @Component({
   selector: 'edit-argument',
   templateUrl: './edit-argument.component.html',
-  styleUrls: ['./edit-argument.component.scss']
+  styleUrls: ['./edit-argument.component.scss'],
+  animations: [
+    trigger('openSlide', [
+      // ...
+      state('open', style({
+        padding: '12px 16px',
+        'maxHeight': 'initial',
+        transition: '0.2s ease-in-out max-height'
+      })),
+      state('closed', style({
+        padding: '0',
+        'maxHeight': '0',
+        transition: '0.2s ease-in-out max-height'
+      }))
+  ])]
 })
 export class EditArgumentComponent implements OnInit {
 
   @Input() topicId!: string;
   @Input() argument!: Argument;
   @Output() showEdit = new EventEmitter<boolean | null>();
-  public ARGUMENT_TYPES = Object.keys(this.TopicArgumentService.ARGUMENT_TYPES);
+  public ARGUMENT_TYPES = Object.keys(this.TopicArgumentService.ARGUMENT_TYPES).filter((key) => key != 'reply');
   public ARGUMENT_TYPES_MAXLENGTH = this.TopicArgumentService.ARGUMENT_TYPES_MAXLENGTH;
   public ARGUMENT_SUBJECT_MAXLENGTH = this.TopicArgumentService.ARGUMENT_SUBJECT_MAXLENGTH;
 
