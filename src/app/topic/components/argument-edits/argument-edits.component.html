@@ -1,23 +1,15 @@
-<div id="{{argument.id + '_v' + item.key}}" class="argument_edit" [ngClass]="'is_' + item.value['type']" *ngFor="let item of argument.edits | keyvalue">
+<div id="{{argument.id + '_v' + item.key}}" class="argument_edit" [ngClass]="'is_' + item.value['type']"
+  *ngFor="let item of argument.edits | keyvalue">
   <div class="argument_header">
-    <div class="argument_header_widget">
-      <div class="table_cell" [title]="item.value.createdAt | date : 'L LT'">
-        {{item.value.createdAt | date}}
-      </div>
-    </div>
-    <div class="argument_header_widget">
-      <div class="table_cell">
-        <a href="#" (click)="copyArgumentLink($event, item.key)"><span
-            translate="LNK_DIRECT_LINK"></span>
-        </a>
-      </div>
-    </div>
-    <div class="clearer"></div>
+    <span>{{item.value.createdAt | date : 'yyyy-MM-dd HH:mm'}}</span>
+    <a href="#" (click)="copyArgumentLink($event, item.key)"><span translate="LNK_DIRECT_LINK"></span></a>
   </div>
-  <div class="argument_title" *ngIf="item.value.subject">
-    {{item.value.subject}}
-  </div>
-  <div class="argument_text_wrap">
-    <div class="argument_text italic" [innerHtml]="item.value.text"></div>
+  <div class="argument_content">
+    <div class="argument_subject" *ngIf="item.value.subject">
+      {{item.value.subject}}
+    </div>
+
+    <div class="argument_body" [innerHtml]="item.value.text">
+    </div>
   </div>
 </div>
