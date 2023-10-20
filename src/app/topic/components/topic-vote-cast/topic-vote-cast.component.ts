@@ -213,12 +213,22 @@ export class TopicVoteCastComponent implements OnInit {
     return;
   };
 
-  voteGraphDasharray () {
+  voteGraphDasharray() {
     let val = 2 * 3.14 * 20;
     return `${val}px`;
   }
-  voteGraphDashOffset (pecentage: number) {
-    let val = (2 * 3.14 * 20) * ((100-pecentage)/100);
+  voteGraphDashOffset(pecentage: number) {
+    let val = (2 * 3.14 * 20) * ((100 - pecentage) / 100);
     return `${val}px`;
   }
+
+  downloadContainer(includeCSV?: boolean) {
+    let url = this.vote.downloads.bdocFinal;
+    if (!url) return;
+    if (includeCSV) {
+      url += '&include[]=csv';
+    }
+    console.log(url);
+    window.location.href = url;
+  };
 }

@@ -26,9 +26,9 @@
       <div id="activities_button_wrap">
         <activities-button *ngIf="auth.loggedIn$ | async" [topicId]="topic.id"></activities-button> <!-- add [topicId]="topic.id"-->
       </div>
-      <button id="join_button" *ngIf="!topic.permission.level && (auth.loggedIn$ | async)" class="btn_medium_close"
+      <button id="join_button" (click)="joinTopic(topic)" *ngIf="(!topic.permission.level || topic.permission.level === 'none') && (auth.loggedIn$ | async)" class="btn_medium_close"
         translate="VIEWS.TOPICS_TOPICID.BTN_JOIN"></button>
-      <button id="leave_button" (click)="leaveTopic(topic)" *ngIf="topic.permission.level && (auth.loggedIn$ | async)"
+      <button id="leave_button" (click)="leaveTopic(topic)" *ngIf="(topic.permission.level && topic.permission.level !== 'none') && (auth.loggedIn$ | async)"
         class="btn_medium_close" translate="VIEWS.TOPICS_TOPICID.BTN_LEAVE"></button>
 
       <button class="btn_medium_close icon" (click)="togglePin(topic)" *ngIf="(auth.loggedIn$ | async)">

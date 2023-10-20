@@ -1,7 +1,7 @@
 
 <button class="btn_medium_activity bold" (click)="app.doShowActivityModal({topicId, groupId})" [ngClass]="{'hidden': app.showActivities}" [TourItem]="{tourid: 'dashboard', index: 3, position: 'left'}">
   <span *ngIf="!groupId && !topicId" translate="VIEWS.DASHBOARD.BTN_GLOBAL_ACTIVITIES"></span>
-  <span *ngIf="groupId" translate="VIEWS.GROUPS.BTN_ACTIVITIES"></span>
+  <span *ngIf="groupId" translate="VIEWS.GROUP.BTN_ACTIVITIES"></span>
   <span *ngIf="topicId" translate="VIEWS.TOPICS_TOPICID.BTN_ACTIVITIES"></span>
   <ng-container *ngIf="(unreadActivitiesCount$ | async) then unread; else noUnread">
   </ng-container>

@@ -29,6 +29,8 @@ import { TopicParticipantsComponent } from './components/topic-participants/topi
 import { DuplicateTopicDialogComponent } from './components/duplicate-topic-dialog/duplicate-topic-dialog.component';
 import { TopicVoteCreateDialogComponent } from './components/topic-vote-create/topic-vote-create.component';
 import { TopicFollowUpCreateDialogComponent } from './components/topic-follow-up-create-dialog/topic-follow-up-create-dialog.component';
+import { TopicJoinComponent } from './components/topic-join/topic-join.component';
+import { TopicJoinService } from 'src/app/services/topic-join.service';
 
 @Component({
   selector: 'topic',
@@ -87,6 +89,7 @@ export class TopicComponent implements OnInit {
     private TopicMemberUserService: TopicMemberUserService,
     private TopicMemberGroupService: TopicMemberGroupService,
     public TopicAttachmentService: TopicAttachmentService,
+    private TopicJoinService: TopicJoinService,
     public TopicArgumentService: TopicArgumentService,
     private TopicVoteService: TopicVoteService,
     public TopicEventService: TopicEventService,
@@ -152,6 +155,33 @@ export class TopicComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
+  }
+
+  joinTopic(topic: Topic) {
+    const joinDialog = this.dialog.open(TopicJoinComponent, {
+      data: {
+        topic: topic
+      }
+    })/*.openConfirm({
+        template: '/views/modals/group_join_confirm.html',
+        closeByEscape: false
+    })*/
+    joinDialog.afterClosed().subscribe((res) => {
+      if (res === true) {
+        this.TopicJoinService
+          .join(topic.join.token).pipe(take(1)).subscribe(
+            {
+              next: (res) => {
+                topic.permission.level = res.userLevel;
+              },
+              error: (err) => {
+                console.error('Failed to join Topic', err)
+              }
+            }
+          )
+      }
+
+    });
   }
 
   leaveTopic(topic: Topic) {

@@ -140,9 +140,9 @@
           <ng-container *ngIf="vote.type===VOTE_TYPES.multiple">
             <div class="vote_options_wrap">
               <div class="input_area" *ngFor="let option of vote.options; let $index = index">
-                <cos-input placeholder="{{'VIEWS.TOPICS_TOPICID.PLACEHOLDER_ENTER_A_POSSIBLE_ANSWER' | translate}}"
+                <cos-input placeholder="{{'COMPONENTS.TOPIC_VOTE_CREATE.PLACEHOLDER_ENTER_A_POSSIBLE_ANSWER' | translate}}"
                   *ngIf="displayOptInput(option)">
-                  <input placeholder="{{'VIEWS.TOPICS_TOPICID.PLACEHOLDER_ENTER_A_POSSIBLE_ANSWER' | translate}}"
+                  <input placeholder="{{'COMPONENTS.TOPIC_VOTE_CREATE.PLACEHOLDER_ENTER_A_POSSIBLE_ANSWER' | translate}}"
                     id="{{'voteOption' + $index}}" [(ngModel)]="option.value"
                     [ngClass]="{'error_input': option.value && errors?.value}" />
                   <label for="{{'voteOption' + $index}}" class="error_label" *ngIf="option.value && errors?.value">

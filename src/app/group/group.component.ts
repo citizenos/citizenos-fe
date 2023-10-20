@@ -20,6 +20,9 @@ import { trigger, state, style } from '@angular/animations';
 import { Topic } from '../interfaces/topic';
 import { User } from '../interfaces/user';
 import { GroupJoinComponent } from './components/group-join/group-join.component';
+import { countries } from '../services/country.service';
+import { languages } from '../services/language.service';
+
 @Component({
   selector: 'group',
   templateUrl: './group.component.html',
@@ -62,6 +65,8 @@ export class GroupComponent implements OnInit {
   showNoEngagements = false;
   moreFilters = false;
   topicStatuses = Object.keys(this.TopicService.STATUSES);
+  countries = countries;
+  languages = languages;
   public FILTERS_ALL = 'all';
   topicFilters = {
     category: this.FILTERS_ALL,
