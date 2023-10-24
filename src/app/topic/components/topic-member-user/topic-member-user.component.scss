@@ -7,8 +7,9 @@
 
     &.dropdown_active {
       .options {
-        position: fixed;
         width: max-content;
+        position: fixed;
+        margin-top: 35px;
       }
     }
   }

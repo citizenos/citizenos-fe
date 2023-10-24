@@ -1,5 +1,8 @@
 @use "mixins";
 
+.line_separator {
+  margin: 8px 0;
+}
 .section_heading {
   font-size: 14px;
   font-weight: bold;
