@@ -95,11 +95,11 @@
     "ACTIVITY_FEED": {
       "HEADING": "@:DEFAULT.NAV.LNK_ACTIVITY",
       "PLACEHOLDER_FILTER": "Show",
-      "FILTER_ALL": "All activities",
-      "FILTER_USERTOPICS": "Activities related to my topics",
-      "FILTER_USERGROUPS": "Activities related to my groups",
-      "FILTER_USER": "Activities related to user",
-      "FILTER_SELF": "My activities"
+      "FILTER_ALL": "All activity",
+      "FILTER_USERTOPICS": "Activity related to my topics",
+      "FILTER_USERGROUPS": "Activity related to my groups",
+      "FILTER_USER": "Activity related to user",
+      "FILTER_SELF": "My activity"
     },
     "ARGUMENT": {
       "OPTION_EDIT": "edit",
@@ -1273,7 +1273,7 @@
     "DASHBOARD": {
       "HEADER_WELCOME": "Welcome back to your dashboard <a href=\"/account\">{{user.name}}</a>",
       "TITLE_LATEST_ACHIEVEMENT": "Latest achievement",
-      "BTN_GLOBAL_ACTIVITIES": "Global activities",
+      "BTN_GLOBAL_ACTIVITIES": "Global activity",
       "HAVENT_ENGAGED_TOPICS_HEADING": "You haven’t engaged in any topics yet",
       "HAVENT_ENGAGED_TOPICS_DESCRIPTION": "Engage in topics by joining in discussions and voting. Or create your own topics and invite participants so they can share their thoughts.",
       "HAVENT_ENGAGED_BTN_CREATE": "Create a topic",
