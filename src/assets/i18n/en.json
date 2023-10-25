@@ -493,7 +493,7 @@
       "INVITE_PENDING": "@:VIEWS.MY_TOPICS_TOPICID.TXT_INVITE_PENDING",
       "INIVTE_EXPIRES": "@:VIEWS.PUBLIC_GROUP.INIVTE_EXPIRES",
       "INVITE_EXPIRED": "@:VIEWS.PUBLIC_GROUP.INVITE_EXPIRED",
-      "OPT_REMOVE_USER": "Retract invite"
+      "OPT_REMOVE_USER": "Delete invite"
     },
     "TOPIC_MEMBER_USER": {
       "OPT_REMOVE_USER": "@:MODALS.GROUP_MEMBER_USER_DELETE_CONFIRM_HEADING"
@@ -693,9 +693,9 @@
       "OPT_REMOVE_USER": ""
     },
     "TOPIC_INVITE_USER_DELETE": {
-      "HEADING": "Retract invitation",
-      "MESSAGE_MAIN": "You are retracting the invitation of: ",
-      "MESSAGE_DESCRIPTION": "This person has not yet accepted the invitation and is not yet taking part in the topic. Removing them will result in retracting the invitation. You cannot undo this action.",
+      "HEADING": "Delete invitation",
+      "MESSAGE_MAIN": "You are deleting the invitation of: ",
+      "MESSAGE_DESCRIPTION": "This person has not yet accepted the invitation and is not yet taking part in the topic. Removing them will result in deleting the invitation. You cannot undo this action.",
       "MESSAGE_PENDING_COUNT": "This person has {{count}} pending invitations!",
       "SELECT_HEADING": "Please select what you want to do:",
       "OPTION_1": "Revoke only the last invitation",
