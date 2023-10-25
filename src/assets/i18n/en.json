@@ -260,7 +260,7 @@
       "HEADING_WHAT_CAN_YOU_DO": "What you can do once you join a topic",
       "ITEM_PARTICIPATE": "Participate in discussions and voting",
       "ITEM_NOTIFICATIONS": "Receive notifications of activity within the topic",
-      "ITEM_REQUEST_EDIT": "Request to become a co-editor",
+      "ITEM_REQUEST_EDIT": "Request to become a co-creator",
       "BTN_JOIN": "@:VIEWS.GROUP.BTN_JOIN",
       "LNK_CANCEL": "@:LNK_CANCEL"
     },
@@ -444,7 +444,7 @@
       "TOPIC_STEP_2_LBL_FAVOURITE": "Favourite",
       "TOPIC_STEP_2_DESC_FAVOURITE": "Add or remove this topic to or from your favourites.",
       "TOPIC_STEP_2_LBL_More": "More",
-      "TOPIC_STEP_2_DESC_MORE": "If you need to edit, invite a co-editor or close a topic, this is the place.",
+      "TOPIC_STEP_2_DESC_MORE": "If you need to edit, invite a co-creator or close a topic, this is the place.",
       "TOPIC_STEP_3_TITLE": "Information",
       "TOPIC_STEP_3_DESC": "This houses all the relevant topic info you might need. Is it public or private? Who published it and when?",
       "TOPIC_STEP_3_DESC2": "Here you can see the social media hashtag used. Clicking on it reveals the social media mentions.",
