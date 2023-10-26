@@ -458,7 +458,7 @@
       "TOPIC_STEP_6_DESC2": "By default, we will keep this collapsed, but you can expand it at any time to read the entire text.",
       "TOPIC_STEP_7_TITLE": "Topic discussion",
       "TOPIC_STEP_7_DESC": "The main discussion will take place here. Anyone can post a pro or con argument, or provide some additional informational.",
-      "TOPIC_STEP_7_DESC2": "Other participants can agree or disagree with the arguments."
+      "TOPIC_STEP_7_DESC2": "Other participants can agree or disagree with the arguments, and post replies or reactions."
     },
     "TOPIC_INVITE": {
       "HEADING": "@:COMPONENTS.GROUP_INVITE.HEADING",
