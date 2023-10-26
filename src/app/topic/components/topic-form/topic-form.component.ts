@@ -8,7 +8,6 @@ import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog
 import { MatDialog } from '@angular/material/dialog';
 import { GroupService } from 'src/app/services/group.service';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ConfigService } from 'src/app/services/config.service';
 import { Group } from 'src/app/interfaces/group';
 import { TranslateService } from '@ngx-translate/core';
 import { GroupMemberTopicService } from 'src/app/services/group-member-topic.service';
@@ -16,7 +15,8 @@ import { TopicParticipantsDialogComponent } from '../topic-participants/topic-pa
 import { InviteEditorsComponent } from '../invite-editors/invite-editors.component';
 import { NotificationService } from 'src/app/services/notification.service';
 import { TopicInviteDialogComponent } from '../topic-invite/topic-invite.component';
-
+import { countries } from 'src/app/services/country.service';
+import { languages } from 'src/app/services/language.service';
 @Component({
   selector: 'topic-form',
   templateUrl: './topic-form.component.html',
@@ -73,13 +73,14 @@ export class TopicFormComponent {
 
   VISIBILITY = this.TopicService.VISIBILITY;
   CATEGORIES = Object.keys(this.TopicService.CATEGORIES);
-  languages$: { [key: string]: any } = this.config.get('language').list;
   groups$: Observable<Group[] | any[]> = of([]);
   topicGroups = <Group[]>[];
 
   readMore = false;
 
   showHelp = false;
+  languages = languages;
+  countries = countries;
 
   constructor(
     private dialog: MatDialog,
@@ -90,8 +91,7 @@ export class TopicFormComponent {
     public GroupService: GroupService,
     public GroupMemberTopicService: GroupMemberTopicService,
     public translate: TranslateService,
-    @Inject(DomSanitizer) private sanitizer: DomSanitizer,
-    private config: ConfigService,
+    @Inject(DomSanitizer) private sanitizer: DomSanitizer
   ) {
     this.groups$ = this.GroupService.loadItems();
     this.tabSelected = this.route.fragment.pipe(

@@ -131,7 +131,7 @@
             </div>
             <ng-container *ngIf="block.intro || topic.intro">
               <div class="block_content">
-                <textarea id="intro_input" placeholder="..." [(ngModel)]="topic.intro"
+                <textarea id="intro_input" placeholder="..." [(ngModel)]="topic.intro" (change)="updateTopic()"
                   [maxlength]="introLimit"></textarea>
               </div>
             </ng-container>
@@ -314,9 +314,9 @@
                     </svg>
                   </div>
                   <div class="options">
-                    <div class="option" *ngFor="let language of languages$ | keyvalue;"
-                      (click)="topic.country = language.value">
-                      {{language.value}}
+                    <div class="option" *ngFor="let country of countries;"
+                      (click)="topic.country = country.name;">
+                      {{country.name}}
                     </div>
                   </div>
                 </div>
@@ -331,9 +331,9 @@
                     </svg>
                   </div>
                   <div class="options">
-                    <div class="option" *ngFor="let language of languages$ | keyvalue;"
-                      (click)="topic.language = language.value">
-                      {{language.value}}
+                    <div class="option" *ngFor="let language of languages;"
+                      (click)="topic.language = language.name">
+                      {{language.name}}
                     </div>
                   </div>
                 </div>

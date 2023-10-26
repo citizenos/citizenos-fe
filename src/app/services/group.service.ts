@@ -91,7 +91,7 @@ export class GroupService extends ItemsListService {
   }
 
   update(data: any) {
-    const allowedFields = ['name', 'description', 'imageUrl'];
+    const allowedFields = ['name', 'description', 'country', 'language', 'rules', 'contact', 'imageUrl'];
     const sendData: any = {};
     allowedFields.forEach((key) => {
       sendData[key] = data[key] || null;

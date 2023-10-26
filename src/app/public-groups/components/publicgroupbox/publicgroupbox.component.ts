@@ -8,6 +8,7 @@ import { GroupJoinService } from 'src/app/services/group-join.service';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { LoginDialogComponent } from 'src/app/account/components/login/login.component';
 import { take } from 'rxjs';
+import { GroupJoinComponent } from 'src/app/group/components/group-join/group-join.component';
 
 @Component({
   selector: 'public-group-box',
@@ -21,14 +22,49 @@ export class PublicgroupboxComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  viewGroup () {
+  viewGroup() {
     this.router.navigate(['/groups', this.group.id]);
   }
 
-  joinGroup () {
+  joinGroup() {
     if (!this.Auth.loggedIn$.value) {
       const loginDialog = this.dialog.open(LoginDialogComponent, {
-        data: {redirectSuccess: ['/groups', this.group.id]}
+        data: { redirectSuccess: ['/groups', this.group.id] }
+      });
+      loginDialog.afterClosed().subscribe(result => {
+        console.log(`Login result: ${result}`);
+      });
+    } else {
+      const joinDialog = this.dialog.open(GroupJoinComponent, {
+        data: {
+          group: this.group
+        }
+      })/*.openConfirm({
+        template: '/views/modals/group_join_confirm.html',
+        closeByEscape: false
+    })*/
+      joinDialog.afterClosed().subscribe((res) => {
+        if (res === true) {
+          this.GroupJoinService
+            .join(this.group.join.token).pipe(take(1)).subscribe(
+              {
+                next: (res) => {
+                  this.group.userLevel = res.userLevel;
+                },
+                error: (err) => {
+                  console.error('Failed to join Topic', err)
+                }
+              }
+            )
+        }
+      });
+    }
+  }
+/*
+  joinGroup() {
+    if (!this.Auth.loggedIn$.value) {
+      const loginDialog = this.dialog.open(LoginDialogComponent, {
+        data: { redirectSuccess: ['/groups', this.group.id] }
       });
       loginDialog.afterClosed().subscribe(result => {
         console.log(`Login result: ${result}`);
@@ -62,5 +98,5 @@ export class PublicgroupboxComponent implements OnInit {
         }
       });
     }
-  }
+  }*/
 }

@@ -138,7 +138,7 @@
 
               <cos-input class="rule_input"
                 placeholder="{{'VIEWS.GROUP_CREATE.INFO_SETTINGS_RULES_OF_CONDUCT_RULE' | translate:{number: index+1} }}"
-                *ngFor="let rule of group.rules; let index = index">
+                *ngFor="let rule of rules; let index = index">
                 <input
                   [placeholder]="'VIEWS.GROUP_CREATE.INFO_SETTINGS_RULES_OF_CONDUCT_RULE' | translate: {number: index+1}"
                   [(ngModel)]="rule.rule">

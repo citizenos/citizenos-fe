@@ -93,7 +93,7 @@ export class TopicService {
   }
 
   update(data: any) {
-    const updateFields = ['visibility', 'status', 'categories', 'endsAt', 'hashtag'];
+    const updateFields = ['visibility', 'status', 'categories', 'endsAt', 'hashtag', 'title', 'intro', 'contact', 'country', 'language'];
     const sendData: any = {};
 
     updateFields.forEach((field) => {
@@ -111,7 +111,7 @@ export class TopicService {
   }
 
   patch(data: any) {
-    const updateFields = ['title', 'visibility', 'status', 'categories', 'endsAt', 'hashtag'];
+    const updateFields = ['title', 'visibility', 'status', 'categories', 'endsAt', 'hashtag', 'intro', 'contact', 'country', 'language'];
     const sendData: any = {};
 
     updateFields.forEach((field) => {

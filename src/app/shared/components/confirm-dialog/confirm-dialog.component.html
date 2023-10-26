@@ -43,31 +43,33 @@
   <div class="dialog_content">
     <div class="info_row" translate="{{data.description}}"></div>
   </div>
-  <div class="dialog_info_wrap" *ngIf="data.sections">
-    <!--Sections with h3-->
-    <ng-container *ngFor="let section of data.sections">
-      <h3 translate="{{section.heading}}"></h3>
-      <div class="delete_info_text_wrap">
-        <div class="delete_info" *ngFor="let point of section.points">
-          <div class="sprite sprite-checkmark2x"></div>
-          <div class="delete_info_text" translate="{{point}}"></div>
-        </div>
-      </div>
-    </ng-container>
-    <!--Sections with h3 end-->
-    <div class="dialog_info" *ngIf="data.info || data.points">
-      <div class="delete_info_button_wrap" *ngIf="data.info">
-        <div class="delete_info_text" translate="{{data.info}}"></div>
-      </div>
-      <ng-container *ngFor="let point of data.points">
-        <div>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M9.38602 14.8088L17.5256 6L19 7.59558L9.38602 18L5 13.2534L6.47436 11.6578L9.38602 14.8088Z"
-              fill="#2C3B47" />
-          </svg>
-          <div class="delete_info_text" translate="{{point}}"></div>
+  <div class="dialog_content" *ngIf="data.sections || data.info || data.points?.length">
+    <div class="dialog_info_wrap">
+      <!--Sections with h3-->
+      <ng-container *ngFor="let section of data.sections">
+        <h3 translate="{{section.heading}}"></h3>
+        <div class="delete_info_text_wrap">
+          <div class="delete_info" *ngFor="let point of section.points">
+            <div class="sprite sprite-checkmark2x"></div>
+            <div class="delete_info_text" translate="{{point}}"></div>
+          </div>
         </div>
       </ng-container>
+      <!--Sections with h3 end-->
+      <div class="dialog_info" *ngIf="data.info || data.points?.length">
+        <div class="delete_info_button_wrap" *ngIf="data.info">
+          <div class="delete_info_text" translate="{{data.info}}"></div>
+        </div>
+        <ng-container *ngFor="let point of data.points">
+          <div>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9.38602 14.8088L17.5256 6L19 7.59558L9.38602 18L5 13.2534L6.47436 11.6578L9.38602 14.8088Z"
+                fill="#2C3B47" />
+            </svg>
+            <div class="delete_info_text" translate="{{point}}"></div>
+          </div>
+        </ng-container>
+      </div>
     </div>
   </div>
   <div class="dialog_content">

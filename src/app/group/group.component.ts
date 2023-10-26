@@ -22,6 +22,7 @@ import { User } from '../interfaces/user';
 import { GroupJoinComponent } from './components/group-join/group-join.component';
 import { countries } from '../services/country.service';
 import { languages } from '../services/language.service';
+import { GroupSettingsComponent } from './components/group-settings/group-settings.component';
 
 @Component({
   selector: 'group',
@@ -200,8 +201,22 @@ export class GroupComponent implements OnInit {
     });
   }
 
-  showSettings() {
-    this.router.navigate(['settings'], { relativeTo: this.route });
+  showSettings(group: Group) {
+    const settingsDialog = this.dialog.open(GroupSettingsComponent, {
+      data: {
+        group
+      }
+    });
+
+    settingsDialog.afterClosed().subscribe(result => {
+      if (result === true) {
+       /* this.GroupService.delete(group)
+          .pipe(take(1))
+          .subscribe((res) => {
+            this.router.navigate(['../'], { relativeTo: this.route });
+          })*/
+      }
+    });
   }
 
   deleteGroup(group: Group) {

@@ -36,15 +36,17 @@ export class GroupCreateComponent implements OnInit {
     },
     visibility: this.GroupService.VISIBILITY.private,
     contact: null,
-    rules: [
-      { rule: '' },
-      { rule: '' },
-      { rule: '' }
-    ],
+    rules: <string[]>[],
     language: null,
     country: null,
     categories: <string[]>[]
   };
+
+  rules = [
+    { rule: '' },
+    { rule: '' },
+    { rule: '' }
+  ];
 
   VISIBILITY = this.GroupService.VISIBILITY;
   CATEGORIES = Object.keys(this.TopicService.CATEGORIES);
@@ -118,11 +120,11 @@ export class GroupCreateComponent implements OnInit {
   }
 
   removeRule(index: number) {
-    this.group.rules?.splice(index, 1);
+    this.rules?.splice(index, 1);
   }
 
   addRule() {
-    this.group.rules?.push({ rule: '' });
+    this.rules?.push({ rule: '' });
   }
 
   ngOnInit(): void {
@@ -164,8 +166,9 @@ export class GroupCreateComponent implements OnInit {
 
   createGroup() {
     this.errors = null;
-
-    this.GroupService.save(this.group).pipe(take(1))
+    const saveGroup = Object.assign({}, this.group);
+    saveGroup['rules'] = this.rules?.map(rule => rule.rule);
+    this.GroupService.save(saveGroup).pipe(take(1))
       .subscribe({
         next: (group) => {
           this.group = Object.assign(this.group, group);
