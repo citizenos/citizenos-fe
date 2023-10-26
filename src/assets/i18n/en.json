@@ -2059,8 +2059,8 @@
       "NO_FOLLOW_UP_HEADING": "There is no follow-up system yet",
       "NO_FOLLOW_BTN_ADD": "Add a follow-up system",
       "NO_FOLLOW_DESC_HEADING": "How follow-up works",
-      "NO_FOLLOW_DESC_BEFORE": "By adding a voting system to your topic, you have a final opportunity to gather what participants want to decide. You can set up different types of voting, depending on your needs.",
-      "NO_FOLLOW_DESC_AFTER": "After voting has finished, you can download the results files to take the decision forward."
+      "NO_FOLLOW_DESC_BEFORE": "Follow-up is the last phase of a topic. After a decision has been made, it's important to keep participants up-to-date with the next steps.",
+      "NO_FOLLOW_DESC_AFTER": "Here you can post what will happen as a result of the decisions made, and details of any progress or outcomes."
     },
     "VOTE_CREATE": {
       "HEADING": "Create a voting topic",
