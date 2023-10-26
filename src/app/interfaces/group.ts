@@ -17,7 +17,7 @@ export interface Group {
   language: string | null,
   country: string | null,
   categories: string[] | null,
-  rules: any[] | null,
+  rules: string[],
   contact: string | null,
   inviteMessage: string | null | undefined //optional field while creating groups
 }
