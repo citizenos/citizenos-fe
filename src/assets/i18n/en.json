@@ -38,6 +38,7 @@
   "TXT_REPORT_TYPES_SPAM": "Contains spam or is unrelated to topic",
   "TXT_REPORT_TYPES_HATE": "Contains hate speech",
   "TXT_REPORT_TYPES_NETIQUETTE": "Infringes (n)etiquette",
+  "TXT_REPORT_TYPES_OTHER": "Other",
   "TXT_REPORT_TYPES_DUPLICATE": "Is a duplicate",
   "TXT_MODERATION_TYPES_NULL": "Select a reason for moderating",
   "TXT_MODERATION_TYPES_ABUSE": "@:TXT_REPORT_TYPES_ABUSE",

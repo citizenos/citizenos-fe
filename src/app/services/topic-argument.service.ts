@@ -34,8 +34,8 @@ export class TopicArgumentService extends ItemsListService {
     obscene: 'obscene', // contains obscene language
     spam: 'spam', // contains spam or is unrelated to topic
     hate: 'hate', // contains hate speech
-    netiquette: 'netiquette', // infringes (n)etiquette
-    duplicate: 'duplicate' // duplicate
+    duplicate: 'duplicate', // duplicate
+    other: 'other'
   };
 
   public ARGUMENT_ORDER_BY = {
