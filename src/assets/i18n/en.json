@@ -334,7 +334,7 @@
     "ONBOARDING": {
       "HELLO": "Hey {{name}}",
       "TITLE_WELCOME": "Welcome to Citizen OS!",
-      "DESCRIPTION": "As this is your first time on the Citizen OS dashboard, we recommend you take the walkthrough tour so you can get to know the new bits & pieces.",
+      "DESCRIPTION": "As this is your first time on the Citizen OS dashboard, we recommend you take the walkthrough tour so you can get to know the platform better.",
       "TAKE_A_TOUR": "The walkthrough only takes a couple of minutes.",
       "BTN_SUBMIT": "Take the tour",
       "BTN_CANCEL": "Skip"
@@ -427,7 +427,7 @@
       "HEADING_RESULTS_IN": "Search results in: <b>{{context}}</b>",
       "LNK_VIEW_MORE_RESULTS": "View more results",
       "TXT_OOPS_NO_RESULTS": "Oops, we couldn’t find any results matching your search :(",
-      "TXT_MAYBE_TYPO": "Maybe you have a typo in your search?"
+      "TXT_MAYBE_TYPO": "Maybe there's a typo in your search?"
     },
     "TOUR": {
       "LNK_SKIP": "Skip",
@@ -436,13 +436,13 @@
       "LNK_FINISH": "Finish",
       "HEADING_DASHBOARD": "Dashboard tour",
       "DASHBOARD_STEP_1_TITLE": "Create actions",
-      "DASHBOARD_STEP_1_DESC": "At any point in time you’re able to create a new topic, start gathering ideas, propose a new vote or create a new group.",
+      "DASHBOARD_STEP_1_DESC": "You can always create a new topic, start gathering ideas, propose a new vote or create a new group.",
       "DASHBOARD_STEP_2_TITLE": "Main menu",
-      "DASHBOARD_STEP_2_DESC": "The main menu serves as your main navigation through the platform. You have quick links here to all your topics based on their current phase, ie. discussion, idea gathering, etc.",
+      "DASHBOARD_STEP_2_DESC": "The main menu serves as your main navigation through the platform. There are quick links to all your topics based on their current phase, ie. discussion, idea gathering, etc.",
       "DASHBOARD_STEP_2_DESC2": "You can also access different languages and support from here.",
       "DASHBOARD_STEP_3_TITLE": "Activity feed",
-      "DASHBOARD_STEP_3_DESC": "New activity on a topic you’re involved in will be indicated here. You can open and close the activity feed whenever you want.",
-      "DASHBOARD_STEP_3_DESC2": "When there has been new activity since you last visited, we will open up the activity feed by default.",
+      "DASHBOARD_STEP_3_DESC": "New activity within a topic you’re involved in will be indicated here. You can open and close the activity feed whenever you want.",
+      "DASHBOARD_STEP_3_DESC2": "If there has been new activity since you last visited, the activity feed will be open by default.",
       "DASHBOARD_STEP_4_TITLE": "@:DEFAULT.NAV_MOBILE.BTN_SEARCH",
       "DASHBOARD_STEP_4_DESC": "Looking for a topic or a group? Search for it here.",
       "DASHBOARD_STEP_4_DESC2": "The search is aware of whether you are in a topic or not. If you’re not, it will search across the platform.",
@@ -497,7 +497,7 @@
       "PLACEHOLDER_SEARCH": "@:DEFAULT.NAV_MOBILE.BTN_SEARCH",
       "SHOW_PER_PAGE": "@:VIEWS.ACCOUNT.SHOW_PER_PAGE",
       "NO_INVITES_HEADING": "@:COMPONENTS.GROUP_INVITE.NO_INVITES_HEADING",
-      "NO_INVITES_DESC": "Invite people to your topic to hit the ground running. This is not mandatory and you can always invite people later.",
+      "NO_INVITES_DESC": "Kickstart your group by inviting people. This is not mandatory and you can always invite them later.",
       "INVALID_EMAILS_HEADER": "@:COMPONENTS.GROUP_INVITE.INVALID_EMAILS_HEADER",
       "SELECT_TO_ADD": "@:COMPONENTS.GROUP_ADD_TOPICS.SELECT_TO_ADD",
       "NAME": "@:COMPONENTS.GROUP_INVITE.NAME",
