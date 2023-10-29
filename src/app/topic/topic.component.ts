@@ -222,8 +222,8 @@ export class TopicComponent implements OnInit {
     return this.Location.currentUrl();
   }
 
-  togglePin(topic: Topic) {
-    this.TopicService.togglePin(topic);
+  toggleFavourite(topic: Topic) {
+    this.TopicService.toggleFavourite(topic);
   }
 
   doShowReportOverlay(topic: Topic) {

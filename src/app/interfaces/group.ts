@@ -19,6 +19,7 @@ export interface Group {
   categories: string[] | null,
   rules: string[],
   contact: string | null,
+  favourite?: boolean | null,
   inviteMessage: string | null | undefined //optional field while creating groups
 }
 

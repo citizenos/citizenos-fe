@@ -154,16 +154,16 @@ export class TopicService {
       .pipe(map(res => res.data));
   };
 
-  addToPinned(topicId: string) {
-    const path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/pin', { topicId: topicId });
+  addToFavourites(topicId: string) {
+    const path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/favourite', { topicId: topicId });
 
     return this.http.post<ApiResponse>(path, {}, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
       map(res => res.data)
     );
   }
 
-  removeFromPinned(topicId: string) {
-    const path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/pin', { topicId: topicId });
+  removeFromFavourites(topicId: string) {
+    const path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/favourite', { topicId: topicId });
 
     return this.http.delete<ApiResponse>(path, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
       map(res => res.data)
@@ -174,14 +174,14 @@ export class TopicService {
     return this.Location.getAbsoluteUrlApi('/api/topics/:topicId/download', { topicId });
   }
 
-  togglePin(topic: Topic) {
-    if (!topic.pinned) {
-      return this.addToPinned(topic.id).pipe(take(1)).subscribe(() => {
-        topic.pinned = true;
+  toggleFavourite(topic: Topic) {
+    if (!topic.favourite) {
+      return this.addToFavourites(topic.id).pipe(take(1)).subscribe(() => {
+        topic.favourite = true;
       });
     } else {
-      return this.removeFromPinned(topic.id).pipe(take(1)).subscribe(() => {
-        topic.pinned = false;
+      return this.removeFromFavourites(topic.id).pipe(take(1)).subscribe(() => {
+        topic.favourite = false;
       });
     }
   };

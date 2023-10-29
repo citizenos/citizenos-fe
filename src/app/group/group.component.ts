@@ -278,6 +278,10 @@ export class GroupComponent implements OnInit {
     });
   }
 
+  toggleFavourite(group: Group) {
+    this.GroupService.toggleFavourite(group);
+  }
+
   canUpdate(group: Group) {
     return this.GroupService.canUpdate(group);
   }

@@ -277,8 +277,8 @@ export class ActivityService extends ItemsListService {
 
     if (activity.data.type === 'Accept' || activity.data.type === 'Invite' || (activity.data.type === 'Add' && activity.data.actor.type === 'User' && activity.data.object['@type'] === 'User' && activity.data.target['@type'] === 'Group')) { // Last condition if for Group invites
       return 'invite';
-    } else if (['Topic', 'TopicMemberUser', 'Attachment', 'TopicPin'].indexOf(dataobject['@type']) > -1 || activity.data.target && activity.data.target['@type'] === ' Topic') {
-      return 'discuss';
+    } else if (['Topic', 'TopicMemberUser', 'Attachment', 'TopicFavourite'].indexOf(dataobject['@type']) > -1 || activity.data.target && activity.data.target['@type'] === ' Topic') {
+      return 'discussion';
     } else if (['Group'].indexOf(dataobject['@type']) > -1 || dataobject.groupName) {
       return 'group';
     } else if (['Vote', 'VoteList', 'VoteUserContainer', 'VoteFinalContainer', 'VoteOption', 'VoteDelegation'].indexOf(dataobject['@type']) > -1) {

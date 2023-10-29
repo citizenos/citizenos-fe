@@ -20,7 +20,7 @@ export class UserTopicService extends ItemsListService {
     visibility: <string | null>null,
     hasVoted: <boolean | null | string>null,
     creatorId: <string | null>null,
-    pinned: <boolean | null | string> null,
+    favourite: <boolean | null | string> null,
   });
 
   params$ = new BehaviorSubject(Object.assign({}, this.params));
