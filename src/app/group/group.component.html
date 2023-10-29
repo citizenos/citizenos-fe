@@ -29,8 +29,15 @@
         translate="VIEWS.GROUP.BTN_LEAVE" (click)="leaveGroup()"></button>
 
       <activities-button *ngIf="(auth.loggedIn$ | async)"></activities-button>
-      <button class="btn_medium_close icon" *ngIf="(auth.loggedIn$ | async)">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <button class="btn_medium_close icon" (click)="toggleFavourite(group)" *ngIf="(auth.loggedIn$ | async)">
+        <svg *ngIf="!group.favourite" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M14.645 8.35942L11.9999 3L9.3549 8.35942L3.44043 9.21885L7.72018 13.3906L6.70987 19.2812L11.9999 16.5L17.29 19.2812L16.2797 13.3906L20.5594 9.21885L14.645 8.35942ZM16.2615 10.6153L13.3168 10.1874L11.9999 7.5191L10.683 10.1874L7.73835 10.6153L9.86914 12.6923L9.36613 15.6251L11.9999 14.2404L14.6337 15.6251L14.1307 12.6923L16.2615 10.6153Z"
+            fill="#2C3B47" />
+        </svg>
+        <svg *ngIf="group.favourite" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          xmlns="http://www.w3.org/2000/svg">
           <path
             d="M12 3L14.645 8.35942L20.5595 9.21885L16.2798 13.3906L17.2901 19.2812L12 16.5L6.70993 19.2812L7.72025 13.3906L3.44049 9.21885L9.35497 8.35942L12 3Z"
             fill="#2C3B47" />
@@ -45,6 +52,24 @@
           </svg>
         </button>
         <div class="options">
+          <button class="option" (click)="toggleFavourite(group)" *ngIf="(auth.loggedIn$ | async)">
+            <div>
+              <svg *ngIf="!group.favourite" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M14.645 8.35942L11.9999 3L9.3549 8.35942L3.44043 9.21885L7.72018 13.3906L6.70987 19.2812L11.9999 16.5L17.29 19.2812L16.2797 13.3906L20.5594 9.21885L14.645 8.35942ZM16.2615 10.6153L13.3168 10.1874L11.9999 7.5191L10.683 10.1874L7.73835 10.6153L9.86914 12.6923L9.36613 15.6251L11.9999 14.2404L14.6337 15.6251L14.1307 12.6923L16.2615 10.6153Z"
+                  fill="#2C3B47" />
+              </svg>
+              <svg *ngIf="group.favourite" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12 3L14.645 8.35942L20.5595 9.21885L16.2798 13.3906L17.2901 19.2812L12 16.5L6.70993 19.2812L7.72025 13.3906L3.44049 9.21885L9.35497 8.35942L12 3Z"
+                  fill="#2C3B47" />
+              </svg>
+            </div>
+            <span *ngIf="!group.favourite" translate="VIEWS.GROUP.BTN_OPTION_FAVOURITE"></span>
+            <span *ngIf="group.favourite" translate="VIEWS.GROUP.BTN_OPTION_UNFAVOURITE"></span>
+          </button>
           <div class="option" (click)="shareGroupDialog(group)">
             <div><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -320,8 +345,8 @@
                 <div class="option" *ngFor="let item of []" [routerLink]="['./']" [queryParams]="{visibility: item}">
                   {{item}}
                 </div>
-                <div class="option" [routerLink]="['./']" [queryParams]="{pinned: 'true'}"
-                  translate="VIEWS.GROUP.FILTER_PINNED"></div>
+                <div class="option" [routerLink]="['./']" [queryParams]="{favourite: 'true'}"
+                  translate="VIEWS.GROUP.FILTER_FAVOURITED"></div>
                 <div class="option" [routerLink]="['./']" [queryParams]="{moderated: 'true'}"
                   translate="VIEWS.GROUP.FILTER_MODERATED"></div>
               </div>

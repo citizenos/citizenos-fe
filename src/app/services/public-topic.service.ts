@@ -19,7 +19,7 @@ export class PublicTopicService extends ItemsListService {
     visibility: <string | null>null,
     hasVoted: <boolean | string | null>null,
     creatorId: <string | null>null,
-    pinned: <boolean | string | null>null,
+    favourite: <boolean | string | null>null,
   });
   params$ = new BehaviorSubject(this.params);
   STATUSES = <string[]>['inProgress', // Being worked on

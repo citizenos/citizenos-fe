@@ -29,8 +29,8 @@
             </div>
             <div class="options">
               <div class="option check">
-                <label class="checkbox" [routerLink]="['./']" [queryParams]="{pinned: 'true'}">
-                  <span translate="VIEWS.PUBLIC_GROUPS.FILTERS.PINNED"></span>
+                <label class="checkbox" [routerLink]="['./']" [queryParams]="{favourite: 'true'}">
+                  <span translate="VIEWS.PUBLIC_GROUPS.FILTERS.FAVOURITED"></span>
                   <input type="checkbox">
                   <span class="checkmark"></span>
                 </label>
@@ -295,7 +295,7 @@
           <span class="checkmark"></span>
         </label>
 
-        <div class="option" [routerLink]="['./']" [queryParams]="{pinned: 'true'}" translate="VIEWS.PUBLIC_GROUPS.FILTERS.PINNED"></div>
+        <div class="option" [routerLink]="['./']" [queryParams]="{favourite: 'true'}" translate="VIEWS.PUBLIC_GROUPS.FILTERS.FAVOURITED"></div>
 
         <div class="option" [routerLink]="['./']" [queryParams]="{moderated: 'true'}" translate="VIEWS.PUBLIC_GROUPS.FILTERS.MODERATED"></div>
         <button class="btn_medium_secondary" (click)="mobile_filters.visibility= false;" translate="BTN_APPLY"></button>

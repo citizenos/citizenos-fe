@@ -32,8 +32,8 @@
                 [queryParams]="{visibility: item}">
                 {{item}}
               </div>
-              <div class="option" [routerLink]="['./']" [queryParams]="{pinned: 'true'}"
-                translate="VIEWS.MY_GROUPS.FILTER_PINNED"></div>
+              <div class="option" [routerLink]="['./']" [queryParams]="{favourite: 'true'}"
+                translate="VIEWS.MY_GROUPS.FILTER_FAVOURITED"></div>
               <div class="option" [routerLink]="['./']" [queryParams]="{moderated: 'true'}"
                 translate="VIEWS.MY_GROUPS.FILTER_MODERATED"></div>
             </div>
@@ -237,8 +237,8 @@
           <span class="checkmark"></span>
         </label>
 
-        <div class="option" [routerLink]="['./']" [queryParams]="{pinned: 'true'}"
-          translate="VIEWS.MY_GROUPS.FILTER_PINNED">
+        <div class="option" [routerLink]="['./']" [queryParams]="{favourite: 'true'}"
+          translate="VIEWS.MY_GROUPS.FILTER_FAVOURITED">
         </div>
 
         <div class="option" [routerLink]="['./']" [queryParams]="{moderated: 'true'}"

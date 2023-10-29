@@ -21,9 +21,9 @@
           <div class="dropdown" [cosDropdown] [multipleChoice]="true">
             <div class="selection">
               <div class="selected_item">
-                <span *ngIf="topicFilters.status !=='pinned' && topicFilters.status !== 'showModerated'">
+                <span *ngIf="topicFilters.status !=='favourite' && topicFilters.status !== 'showModerated'">
                   {{'TXT_TOPIC_STATUS_' + topicFilters.status | uppercase | translate}}</span>
-                <span *ngIf="topicFilters.status === 'pinned'"> {{'VIEWS.MY_TOPICS.FILTERS.TOPICS_PINNED' |
+                <span *ngIf="topicFilters.status === 'favourite'"> {{'VIEWS.MY_TOPICS.FILTERS.TOPICS_FAVOURITED' |
                   translate}}</span>
                 <span *ngIf="topicFilters.status === 'showModerated'"> {{'VIEWS.MY_TOPICS.FILTERS.TOPICS_MODERATED' |
                   translate}}</span>
@@ -50,8 +50,8 @@
               </div>
               <div class="option check">
                 <label class="checkbox">
-                  <span translate="VIEWS.MY_TOPICS.FILTERS.TOPICS_PINNED"></span>
-                  <input type="checkbox" [checked]="topicFilters.status ==='pinned'" (click)="setStatus('pinned');">
+                  <span translate="VIEWS.MY_TOPICS.FILTERS.TOPICS_FAVOURITED"></span>
+                  <input type="checkbox" [checked]="topicFilters.status ==='favourite'" (click)="setStatus('favourite');">
                   <span class="checkmark"></span>
                 </label>
               </div>

@@ -31,14 +31,14 @@
       <button id="leave_button" (click)="leaveTopic(topic)" *ngIf="(topic.permission.level && topic.permission.level !== 'none') && (auth.loggedIn$ | async)"
         class="btn_medium_close" translate="VIEWS.TOPICS_TOPICID.BTN_LEAVE"></button>
 
-      <button class="btn_medium_close icon" (click)="togglePin(topic)" *ngIf="(auth.loggedIn$ | async)">
-        <svg *ngIf="!topic.pinned" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      <button class="btn_medium_close icon" (click)="toggleFavourite(topic)" *ngIf="(auth.loggedIn$ | async)">
+        <svg *ngIf="!topic.favourite" width="24" height="24" viewBox="0 0 24 24" fill="none"
           xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd"
             d="M14.645 8.35942L11.9999 3L9.3549 8.35942L3.44043 9.21885L7.72018 13.3906L6.70987 19.2812L11.9999 16.5L17.29 19.2812L16.2797 13.3906L20.5594 9.21885L14.645 8.35942ZM16.2615 10.6153L13.3168 10.1874L11.9999 7.5191L10.683 10.1874L7.73835 10.6153L9.86914 12.6923L9.36613 15.6251L11.9999 14.2404L14.6337 15.6251L14.1307 12.6923L16.2615 10.6153Z"
             fill="#2C3B47" />
         </svg>
-        <svg *ngIf="topic.pinned" width="24" height="24" viewBox="0 0 24 24" fill="none"
+        <svg *ngIf="topic.favourite" width="24" height="24" viewBox="0 0 24 24" fill="none"
           xmlns="http://www.w3.org/2000/svg">
           <path
             d="M12 3L14.645 8.35942L20.5595 9.21885L16.2798 13.3906L17.2901 19.2812L12 16.5L6.70993 19.2812L7.72025 13.3906L3.44049 9.21885L9.35497 8.35942L12 3Z"
@@ -54,22 +54,23 @@
           </svg>
         </button>
         <div class="options">
-          <button class="option" (click)="togglePin(topic)" *ngIf="(auth.loggedIn$ | async)">
+          <button class="option" (click)="toggleFavourite(topic)" *ngIf="(auth.loggedIn$ | async)">
             <div>
-              <svg *ngIf="!topic.pinned" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              <svg *ngIf="!topic.favourite" width="24" height="24" viewBox="0 0 24 24" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd"
                   d="M14.645 8.35942L11.9999 3L9.3549 8.35942L3.44043 9.21885L7.72018 13.3906L6.70987 19.2812L11.9999 16.5L17.29 19.2812L16.2797 13.3906L20.5594 9.21885L14.645 8.35942ZM16.2615 10.6153L13.3168 10.1874L11.9999 7.5191L10.683 10.1874L7.73835 10.6153L9.86914 12.6923L9.36613 15.6251L11.9999 14.2404L14.6337 15.6251L14.1307 12.6923L16.2615 10.6153Z"
                   fill="#2C3B47" />
               </svg>
-              <svg *ngIf="topic.pinned" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              <svg *ngIf="topic.favourite" width="24" height="24" viewBox="0 0 24 24" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M12 3L14.645 8.35942L20.5595 9.21885L16.2798 13.3906L17.2901 19.2812L12 16.5L6.70993 19.2812L7.72025 13.3906L3.44049 9.21885L9.35497 8.35942L12 3Z"
                   fill="#2C3B47" />
               </svg>
             </div>
-            <span translate="VIEWS.TOPICS_TOPICID.OPTION_FAVORITE"></span>
+            <span *ngIf="!topic.favourite" translate="VIEWS.TOPICS_TOPICID.OPTION_FAVOURITE"></span>
+            <span *ngIf="topic.favourite" translate="VIEWS.TOPICS_TOPICID.OPTION_UNFAVOURITE"></span>
           </button>
           <button class="option" (click)="inviteMembers(topic)" *ngIf="(auth.loggedIn$ | async)">
             <div>

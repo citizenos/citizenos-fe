@@ -154,10 +154,10 @@ export class MyTopicsComponent {
     }
     this.allTopics$ = [];
     this.UserTopicService.setParam('offset',0)
-    this.UserTopicService.setParam('pinned', null)
+    this.UserTopicService.setParam('favourite', null)
     this.UserTopicService.setParam('showModerated', null)
-    if (status === 'pinned') {
-      this.UserTopicService.setParam('pinned', true)
+    if (status === 'favourite') {
+      this.UserTopicService.setParam('favourite', true)
     } else if (status === 'showModerated') {
       this.UserTopicService.setParam('showModerated', true)
     } else {

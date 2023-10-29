@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, map, exhaustMap, catchError, shareReplay } from 'rxjs';
+import { Observable, BehaviorSubject, map, exhaustMap, catchError, shareReplay, take } from 'rxjs';
 import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { Group } from 'src/app/interfaces/group';
 import { LocationService } from './location.service';
@@ -127,6 +127,34 @@ export class GroupService extends ItemsListService {
       })
     );
   }
+
+  addToFavourites(groupId: string) {
+    const path = this.Location.getAbsoluteUrlApi('/api/users/self/groups/:groupId/favourite', { groupId: groupId });
+
+    return this.http.post<ApiResponse>(path, {}, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
+      map(res => res.data)
+    );
+  }
+
+  removeFromFavourites(groupId: string) {
+    const path = this.Location.getAbsoluteUrlApi('/api/users/self/groups/:groupId/favourite', { groupId: groupId });
+
+    return this.http.delete<ApiResponse>(path, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
+      map(res => res.data)
+    );
+  }
+
+  toggleFavourite(group: Group) {
+    if (!group.favourite) {
+      return this.addToFavourites(group.id).pipe(take(1)).subscribe(() => {
+        group.favourite = true;
+      });
+    } else {
+      return this.removeFromFavourites(group.id).pipe(take(1)).subscribe(() => {
+        group.favourite = false;
+      });
+    }
+  };
 
   uploadGroupImage(file: File, groupId: string) {
     const path = this.Location.getAbsoluteUrlApi('/api/users/self/groups/:groupId/upload')
