@@ -681,7 +681,7 @@
       "BTN_GENERATE_QR_CODE": "@:COMPONENTS.GROUP_SHARE.GENERATE_QR_CODE"
     },
     "TOPIC_ARGUMENTS": {
-      "TITLE": "{{count}} Arguments",
+      "TITLE": "Arguments: {{count}}",
       "BTN_ADD_YOUR_ARGUMENT": "Add your argument",
       "GRAPH_TITLE": "Discussion sentiment",
       "GRAPH_LEGEND_PRO": "Pro",
@@ -724,7 +724,7 @@
       "HEADING": "Delete invitation",
       "MESSAGE_MAIN": "You are deleting the invitation of: ",
       "MESSAGE_DESCRIPTION": "This person has not yet accepted the invitation and is not yet taking part in the topic. Removing them will result in deleting the invitation. You cannot undo this action.",
-      "MESSAGE_PENDING_COUNT": "This person has {{count}} pending invitations!",
+      "MESSAGE_PENDING_COUNT": "This person has pending invitations: {{count}}",
       "SELECT_HEADING": "Please select what you want to do:",
       "OPTION_1": "Revoke only the last invitation",
       "OPTION_2": "Revoke all invitations",
