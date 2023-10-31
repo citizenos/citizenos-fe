@@ -51,29 +51,57 @@ export class TourComponent {
   setPosition() {
     return combineLatest([this.TourService.getActiveItem(), this.TourService.showTour]).pipe(map(([item, isVisible]) => {
       if (item && isVisible) {
-        let itemEl = item.elements[0].nativeElement;
-        const style = window.getComputedStyle(itemEl);
-        if ((itemEl.offsetParent === null || style.display === 'none')&& item.elements.length > 1) {
-          itemEl = item.elements[1].nativeElement;
+        function checkItemEl(item: any, offset: number): any {
+          let element = item.elements[offset]?.nativeElement;
+          if (!element) {
+            element = item.elements[offset - 1]?.nativeElement;
+          }
+          const style = window.getComputedStyle(element);
+
+          console.log('ELEMENT', element, style.display, element.offsetParent)
+          if (element && (style.display === 'none') && item.elements.length > 1) {
+            element = checkItemEl(item, offset + 1);
+          }
+          return element;
         }
+
+        let offset = 0;
+        let itemEl = checkItemEl(item, offset);
+        if (!itemEl) return of([item, isVisible]);
         const itemRect = itemEl.getBoundingClientRect();
         const tourBox = this.tourBox.nativeElement;
         const tourBoxElementRect = tourBox.getBoundingClientRect();
-        //    console.log(tourBoxElementRect);
         this.renderer.setStyle(tourBox, 'top', `${itemRect.top}px`);
         switch (item.position) {
           case 'right':
+            tourBox.classList.remove('top_arrow');
+            tourBox.classList.remove('bottom_arrow');
             tourBox.classList.remove('right_arrow');
             tourBox.classList.add('left_arrow');
             this.renderer.setStyle(tourBox, 'left', `${itemRect.right + 20}px`);
             break;
           case 'left':
+            tourBox.classList.remove('top_arrow');
+            tourBox.classList.remove('bottom_arrow');
             tourBox.classList.remove('left_arrow');
             tourBox.classList.add('right_arrow');
             this.renderer.setStyle(tourBox, 'left', `${itemRect.left - tourBoxElementRect.width - 20}px`);
             break;
           case 'top':
+            tourBox.classList.remove('right_arrow');
+            tourBox.classList.remove('left_arrow');
+            tourBox.classList.remove('bottom_arrow');
+            tourBox.classList.add('top_arrow');
+            this.renderer.setStyle(tourBox, 'left', `${itemRect.left + (itemRect.width / 2) - 200}px`);
             this.renderer.setStyle(tourBox, 'top', `${itemRect.top - tourBoxElementRect.height - 20}px`);
+            break;
+          case 'bottom':
+            tourBox.classList.remove('top_arrow');
+            tourBox.classList.remove('right_arrow');
+            tourBox.classList.remove('left_arrow');
+            tourBox.classList.add('bottom_arrow');
+            this.renderer.setStyle(tourBox, 'left', `${itemRect.left + (itemRect.width / 2) - 200}px`);
+            this.renderer.setStyle(tourBox, 'top', `${itemRect.bottom + 20}px`);
             break;
           default:
             this.renderer.setStyle(tourBox, 'left', `${itemRect.right}px`);

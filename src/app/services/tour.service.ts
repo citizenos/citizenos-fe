@@ -32,10 +32,19 @@ export class TourService {
     });
 
     if (!item) {
-      console.log('REGISTER', item);
       return this.items[id].push({index, elements: <any[]>[element] , position});
     } else {
-      item.elements.push(element);
+      let added = false;
+      item.elements.forEach((el: any, index: number)=> {
+        if (el.nativeElement.id === element.nativeElement.id) {
+          item.elements.splice(index, 1, element);
+          added = true;
+        }
+      });
+
+      if (!added) {
+        item.elements.push(element);
+      }
     }
   }
 
@@ -110,14 +119,12 @@ export class TourService {
   }
 
   next() {
-    console.log(this.items);
     combineLatest([this.activeTour, this.activeItem]).pipe(take(1)).subscribe({
       next: ([tourId, index]) => {
         const nextItem = this.items[tourId].find((item: any) => {
           return item.index === index + 1;
         });
         if (!nextItem) return this.hide();
-        console.log(index)
         this.activeItem.next(index + 1);
       },
       error: (err) => {

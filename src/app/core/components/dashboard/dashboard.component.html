@@ -205,44 +205,98 @@
         [routerLink]="['/', translate.currentLang, 'public', 'groups']"></button>
     </div>
   </div>
-  <div class="dashboard_section">
-    <div class="section_header">
-      <h4 translate="VIEWS.DASHBOARD.MY_TOPICS_HEADER"></h4><a class="view_more_link"
-        [routerLink]="['/', translate.currentLang, 'my', 'topics']"><span
-          translate="VIEWS.DASHBOARD.MY_TOPICS_LNK_VIEW_ALL"></span><svg width="24" height="24" viewBox="0 0 24 24"
-          fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M15 12V14L19 11.5L15 9V11H6V12H15Z" />
-        </svg>
-      </a>
+  <ng-container *ngIf="showPublic">
+    <ng-container *ngIf="publictopics$ | async; let topics;">
+      <div class="dashboard_section" [TourItem]="{tourid: 'dashboard', index: 5, position: 'bottom'}">
+        <tour-item-template [data]="{tourid: 'dashboard', index: 5}">
+          <div class="title" translate="COMPONENTS.TOUR.DASHBOARD_STEP_5_TITLE"></div>
+          <div class="description" translate="COMPONENTS.TOUR.DASHBOARD_STEP_5_DESC"></div>
+          <div class="description" translate="COMPONENTS.TOUR.DASHBOARD_STEP_5_DESC2"></div>
+        </tour-item-template>
+        <div class="section_header">
+          <h4 translate="VIEWS.HOME.PUBLIC_TOPICS_TITLE"></h4>
+          <a class="view_more_link" [routerLink]="['/', translate.currentLang, 'public', 'topics']"><span
+              translate="VIEWS.HOME.BTN_VIEW_ALL_TOPICS"></span><svg width="24" height="24" viewBox="0 0 24 24"
+              fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15 12V14L19 11.5L15 9V11H6V12H15Z" />
+            </svg>
+          </a>
+        </div>
+        <div class="section_content">
+          <topicbox [topic]="topic" *ngFor="let topic of topics; trackBy: trackByTopic" [ngClass]="topic.categories">
+          </topicbox>
+        </div>
+
+        <div class="view_more_button btn_medium_submit" [routerLink]="['/public/topics']"
+          translate="VIEWS.HOME.BTN_VIEW_ALL_TOPICS">
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="publicgroups$ | async as groups;">
+      <div class="dashboard_section" [TourItem]="{tourid: 'dashboard', index: 6, position: 'bottom'}">
+        <tour-item-template [data]="{tourid: 'dashboard', index: 6}">
+          <div class="title" translate="COMPONENTS.TOUR.DASHBOARD_STEP_6_TITLE"></div>
+          <div class="description" translate="COMPONENTS.TOUR.DASHBOARD_STEP_6_DESC"></div>
+        </tour-item-template>
+        <div class="section_header">
+          <h4 translate="VIEWS.HOME.PUBLIC_GROUPS_TITLE"></h4>
+          <a class="view_more_link" [routerLink]="['/', translate.currentLang, 'public', 'groups']"><span
+              translate="VIEWS.HOME.BTN_VIEW_ALL_GROUPS"></span><svg width="24" height="24" viewBox="0 0 24 24"
+              fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15 12V14L19 11.5L15 9V11H6V12H15Z" />
+            </svg>
+          </a>
+        </div>
+        <div class="section_content">
+          <public-group-box [group]="group" *ngFor="let group of groups; trackBy: trackByTopic"></public-group-box>
+        </div>
+
+        <button class="view_more_button btn_medium_submit" [routerLink]="['/public/groups']"
+          translate="VIEWS.HOME.BTN_VIEW_ALL_GROUPS">
+        </button>
+      </div>
+    </ng-container>
+  </ng-container>
+  <ng-container *ngIf="!showPublic">
+    <div class="dashboard_section">
+      <div class="section_header">
+        <h4 translate="VIEWS.DASHBOARD.MY_TOPICS_HEADER"></h4>
+        <a class="view_more_link" [routerLink]="['/', translate.currentLang, 'my', 'topics']"><span
+            translate="VIEWS.DASHBOARD.MY_TOPICS_LNK_VIEW_ALL"></span><svg width="24" height="24" viewBox="0 0 24 24"
+            fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 12V14L19 11.5L15 9V11H6V12H15Z" />
+          </svg>
+        </a>
+      </div>
+      <div class="section_content">
+        <ng-container *ngIf="topics$ | async as topics;">
+          <topicbox [topic]="topic" *ngFor="let topic of topics; trackBy: trackByTopic" [ngClass]="topic.categories">
+          </topicbox>
+        </ng-container>
+      </div>
+      <button class="view_more_button btn_big_submit" [routerLink]="['/', translate.currentLang, 'my', 'topics']"
+        translate="VIEWS.DASHBOARD.MY_TOPICS_LNK_VIEW_ALL"></button>
     </div>
-    <div class="section_content">
-      <ng-container *ngIf="topics$ | async as topics;">
-        <topicbox [topic]="topic" *ngFor="let topic of topics; trackBy: trackByTopic" [ngClass]="topic.categories">
-        </topicbox>
-      </ng-container>
+    <div class="dashboard_section">
+      <div class="section_header">
+        <h4 translate="VIEWS.DASHBOARD.MY_GROUPS_HEADER"></h4><a class="view_more_link"
+          [routerLink]="['/', translate.currentLang, 'my', 'groups']"><span
+            translate="VIEWS.DASHBOARD.MY_GROUPS_LNK_VIEW_ALL"></span><svg width="24" height="24" viewBox="0 0 24 24"
+            fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 12V14L19 11.5L15 9V11H6V12H15Z" />
+          </svg>
+        </a>
+      </div>
+      <div class="section_content">
+        <ng-container *ngIf="groups$ | async as groups;">
+          <group-box [group]="group" *ngFor="let group of groups; trackBy: trackByTopic">
+          </group-box>
+        </ng-container>
+      </div>
+      <button class="view_more_button btn_big_submit" [routerLink]="['/', translate.currentLang, 'my', 'groups']"
+        translate="VIEWS.DASHBOARD.MY_GROUPS_LNK_VIEW_ALL"></button>
     </div>
-    <button class="view_more_button btn_big_submit" [routerLink]="['/', translate.currentLang, 'my', 'topics']"
-      translate="VIEWS.DASHBOARD.MY_TOPICS_LNK_VIEW_ALL"></button>
-  </div>
-  <div class="dashboard_section">
-    <div class="section_header">
-      <h4 translate="VIEWS.DASHBOARD.MY_GROUPS_HEADER"></h4><a class="view_more_link"
-        [routerLink]="['/', translate.currentLang, 'my', 'groups']"><span
-          translate="VIEWS.DASHBOARD.MY_GROUPS_LNK_VIEW_ALL"></span><svg width="24" height="24" viewBox="0 0 24 24"
-          fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M15 12V14L19 11.5L15 9V11H6V12H15Z" />
-        </svg>
-      </a>
-    </div>
-    <div class="section_content">
-      <ng-container *ngIf="groups$ | async as groups;">
-        <group-box [group]="group" *ngFor="let group of groups; trackBy: trackByTopic">
-        </group-box>
-      </ng-container>
-    </div>
-    <button class="view_more_button btn_big_submit" [routerLink]="['/', translate.currentLang, 'my', 'groups']"
-      translate="VIEWS.DASHBOARD.MY_GROUPS_LNK_VIEW_ALL"></button>
-  </div>
+  </ng-container>
   <div class="dashboard_section_row news_section">
     <div id="news">
       <div class="section_header">

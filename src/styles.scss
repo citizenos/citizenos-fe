@@ -134,9 +134,9 @@ a {
 }
 
 activity {
-em {
-  color: var(--color-link)!important;
-}
+  em {
+    color: var(--color-link) !important;
+  }
 }
 
 input,
@@ -508,7 +508,12 @@ cos-toggle {
   width: max-content;
 }
 
-app-login, login-form, app-smart-id-login, smart-id-login-form, app-est-id-login, est-id-login-form {
+app-login,
+login-form,
+app-smart-id-login,
+smart-id-login-form,
+app-est-id-login,
+est-id-login-form {
   width: 100%;
   max-width: 400px;
 }
@@ -734,8 +739,10 @@ tour-item-template {
 
   &.left_arrow {
     &::before {
-    border-right: 6px solid var(--color-text);
-    right: 100%;
+      border-right: 6px solid var(--color-text);
+      right: 100%;
+      top: 16px;
+      margin-top: -6px;
     }
   }
 
@@ -743,16 +750,35 @@ tour-item-template {
     &::before {
       border-left: 6px solid var(--color-text);
       left: 100%;
-      }
+      top: 16px;
+      margin-top: -6px;
+    }
+  }
+  &.top_arrow {
+    &::before {
+      border-top: 6px solid var(--color-text);
+      border-right: 6px solid transparent;
+      border-left: 6px solid transparent;
+      top: 100%;
+      left: 50%;
+    }
+  }
+
+  &.bottom_arrow {
+    &::before {
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-bottom: 6px solid var(--color-text);
+      bottom: 100%;
+      left: 50%;
+    }
   }
   &::before {
     border-bottom: 6px solid transparent;
     border-top: 6px solid transparent;
-    content: '';
+    content: "";
     height: 0;
-    margin-top: -6px;
     position: absolute;
-    top: 16px;
     width: 0;
   }
   .tour_header,

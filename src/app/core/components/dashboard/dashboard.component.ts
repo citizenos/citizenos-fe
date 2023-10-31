@@ -5,6 +5,7 @@ import { AppService } from 'src/app/services/app.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserTopicService } from 'src/app/services/user-topic.service';
 import { PublicTopicService } from 'src/app/services/public-topic.service';
+import { PublicGroupService } from 'src/app/services/public-group.service';
 import { TranslateService } from '@ngx-translate/core';
 
 import { GroupService } from 'src/app/services/group.service';
@@ -21,7 +22,10 @@ export class DashboardComponent {
   groups$: Observable<Group[] | any[]> = of([]);
   topics$: Observable<Topic[] | any[]> = of([]);
   publictopics$: Observable<Topic[] | any[]> = of([]);
+  publicgroups$: Observable<Group[] | any[]> = of([]);
   showNoEngagements = false;
+
+  showPublic = true;
 
   constructor(
     public auth: AuthService,
@@ -29,6 +33,7 @@ export class DashboardComponent {
     public translate: TranslateService,
     private UserTopicService: UserTopicService,
     private PublicTopicService: PublicTopicService,
+    private PublicGroupService: PublicGroupService,
     private GroupService: GroupService,
     private dialog: MatDialog
   ) {
@@ -38,11 +43,13 @@ export class DashboardComponent {
     this.topics$ = this.UserTopicService.loadItems().pipe(
       tap((topics) => {
         if (topics.length === 0) {
+          this.showPublic = true;
           this.showNoEngagements = true;
         }
       })
     );
     this.publictopics$ = this.PublicTopicService.loadItems();
+    this.publicgroups$ = this.PublicGroupService.loadItems();
   }
 
   trackByTopic(index: number, element: any) {
