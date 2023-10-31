@@ -31,6 +31,7 @@ import { TopicVoteCreateDialogComponent } from './components/topic-vote-create/t
 import { TopicFollowUpCreateDialogComponent } from './components/topic-follow-up-create-dialog/topic-follow-up-create-dialog.component';
 import { TopicJoinComponent } from './components/topic-join/topic-join.component';
 import { TopicJoinService } from 'src/app/services/topic-join.service';
+import { TourService } from 'src/app/services/tour.service';
 
 @Component({
   selector: 'topic',
@@ -93,6 +94,7 @@ export class TopicComponent implements OnInit {
     public TopicArgumentService: TopicArgumentService,
     private TopicVoteService: TopicVoteService,
     public TopicEventService: TopicEventService,
+    private TourService: TourService,
     @Inject(DomSanitizer) private sanitizer: DomSanitizer,
     public app: AppService
   ) {
@@ -224,6 +226,11 @@ export class TopicComponent implements OnInit {
 
   toggleFavourite(topic: Topic) {
     this.TopicService.toggleFavourite(topic);
+  }
+
+  takeTour() {
+    window.scrollTo(0, 0);
+    this.TourService.show('topic', 1);
   }
 
   doShowReportOverlay(topic: Topic) {

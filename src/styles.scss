@@ -841,13 +841,38 @@ tour-item-template {
       font-weight: 400;
       line-height: 20px; /* 142.857% */
       color: var(--color-surfaces);
+      align-items: center;
+      vertical-align: middle;
+
+      span {
+        padding-right: 4px;
+        font-family: Noto Sans;
+        font-size: 14px;
+        font-style: normal;
+        line-height: 16px;
+      }
+      .icon {
+        vertical-align: middle;
+      }
+      .discussion_text {
+        font-weight: 600;
+        color: var(--color-scrollbar-thumb);
+      }
+      .vote_text {
+        font-weight: 600;
+        color: var(--color-voting-disabled);
+      }
+      .follow_up_text {
+        font-weight: 600;
+        color: var(--color-follow-up-disabled);
+      }
     }
   }
 }
 
 .tour_item {
   position: relative;
-  z-index: 999999999999!important;
+  z-index: 999999999999 !important;
 }
 
 .vote_wrap {

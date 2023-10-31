@@ -78,8 +78,8 @@ export class TourComponent {
             tourBox.classList.remove('bottom_arrow');
             tourBox.classList.remove('right_arrow');
             tourBox.classList.add('left_arrow');
-            this.renderer.setStyle(arrowEl, 'right', `initial`);
-            this.renderer.setStyle(arrowEl, 'left', '50%');
+            this.renderer.setStyle(arrowEl, 'right', `100%`);
+            this.renderer.setStyle(arrowEl, 'left', 'initial');
             this.renderer.setStyle(tourBox, 'left', `${itemRect.right + 20}px`);
             break;
           case 'left':
@@ -88,7 +88,7 @@ export class TourComponent {
             tourBox.classList.remove('left_arrow');
             tourBox.classList.add('right_arrow');
             this.renderer.setStyle(arrowEl, 'right', `initial`);
-            this.renderer.setStyle(arrowEl, 'left', '50%');
+            this.renderer.setStyle(arrowEl, 'left', '100%');
             this.renderer.setStyle(tourBox, 'left', `${itemRect.left - tourBoxElementRect.width - 20}px`);
             break;
           case 'top':
