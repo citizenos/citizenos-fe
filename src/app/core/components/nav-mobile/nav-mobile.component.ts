@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { PRIMARY_OUTLET, Router, ActivatedRoute, UrlSegment } from '@angular/router';
+import { Component, OnInit, ViewEncapsulation, HostBinding } from '@angular/core';
+import { PRIMARY_OUTLET, Router, ActivatedRoute } from '@angular/router';
 import { AppService } from 'src/app/services/app.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { TopicService } from 'src/app/services/topic.service';
 import { Topic } from 'src/app/interfaces/topic';
 import { TranslateService } from '@ngx-translate/core';
+import { TourService } from 'src/app/services/tour.service';
 
 @Component({
   selector: 'nav-mobile',
@@ -13,8 +14,9 @@ import { TranslateService } from '@ngx-translate/core';
   encapsulation: ViewEncapsulation.None
 })
 export class NavMobileComponent implements OnInit {
+  addPosAbsolute = this.TourService.showTour;
 
-  constructor(public translate: TranslateService, public app: AppService, private Auth: AuthService, private TopicService: TopicService, private router: Router, private route: ActivatedRoute) {
+  constructor(public translate: TranslateService, public app: AppService, private Auth: AuthService, private TopicService: TopicService, private router: Router, private route: ActivatedRoute, private TourService: TourService) {
   }
 
   canEdit(topic: Topic) {

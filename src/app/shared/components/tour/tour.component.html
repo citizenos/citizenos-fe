@@ -1,4 +1,5 @@
 <div class="tour_box" #tourBox [ngClass]="(showItem$ | async)? '': 'hidden'" [style.left]="left" [style.top]="top">
+  <div class="arrow"></div>
   <div class="tour_header">
     <div>{{'COMPONENTS.TOUR.HEADING_'+(tourId$ | async) | uppercase | translate}}</div>
     <div>

@@ -733,12 +733,15 @@ tour-item-template {
   box-shadow: 0px 8px 20px 0px rgba(220, 231, 240, 0.3),
     0px 12px 16px 0px rgba(50, 85, 112, 0.1);
 
+  @include mixins.mobile {
+    width: 100%;
+  }
   &.hidden {
     display: none;
   }
 
   &.left_arrow {
-    &::before {
+    .arrow {
       border-right: 6px solid var(--color-text);
       right: 100%;
       top: 16px;
@@ -747,7 +750,7 @@ tour-item-template {
   }
 
   &.right_arrow {
-    &::before {
+    .arrow {
       border-left: 6px solid var(--color-text);
       left: 100%;
       top: 16px;
@@ -755,7 +758,7 @@ tour-item-template {
     }
   }
   &.top_arrow {
-    &::before {
+    .arrow {
       border-top: 6px solid var(--color-text);
       border-right: 6px solid transparent;
       border-left: 6px solid transparent;
@@ -765,7 +768,7 @@ tour-item-template {
   }
 
   &.bottom_arrow {
-    &::before {
+    .arrow {
       border-left: 6px solid transparent;
       border-right: 6px solid transparent;
       border-bottom: 6px solid var(--color-text);
@@ -773,7 +776,7 @@ tour-item-template {
       left: 50%;
     }
   }
-  &::before {
+  .arrow {
     border-bottom: 6px solid transparent;
     border-top: 6px solid transparent;
     content: "";
@@ -844,7 +847,7 @@ tour-item-template {
 
 .tour_item {
   position: relative;
-  z-index: 999999999999;
+  z-index: 999999999999!important;
 }
 
 .vote_wrap {

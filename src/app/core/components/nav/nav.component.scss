@@ -31,6 +31,15 @@
       right: 8px;
     }
   }
+
+  &.pos_absolute {
+    position: absolute;
+    z-index: unset;
+
+    #button_area {
+      position: absolute;
+    }
+  }
 }
 .nav {
   /* Auto layout */
