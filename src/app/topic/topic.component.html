@@ -234,7 +234,7 @@
           <img
             [src]="topic.imageUrl || 'https://hips.hearstapps.com/hmg-prod/images/champagne-beach-espiritu-santo-island-vanuatu-royalty-free-image-1655672510.jpg?crop=1.00xw:0.755xh;0,0.173xh&resize=1200:*'">
         </div>
-        <div id="topic_text_wrap" [TourItem]="{tourid: 'topic', index: 6, position: 'top'}">
+        <div id="topic_text_wrap" [TourItem]="{tourid: 'topic', index: 6, position: ((wWidth <= 1024)? 'bottom': 'top')}">
           <div class="topic_title">
             <h1 [innerHTML]="topic.title"></h1>
           </div>
@@ -425,7 +425,7 @@
       </ng-container>
     </div>
     <div class="content_area_right" *ngIf="!showArgumentsTablet">
-      <div class="info_section" [TourItem]="{tourid: 'topic', index: 3, position: 'left'}">
+      <div class="info_section" [TourItem]="{tourid: 'topic', index: 3, position: ((wWidth <= 1024)? 'bottom': 'left')}">
         <div class="topic_visibility">
           <ng-container *ngIf="topic.visibility === TopicService.VISIBILITY.private">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -547,7 +547,7 @@
           </!--div-->
         </div>
       </div>
-      <div class="info_section" [TourItem]="{tourid: 'topic', index: 4, position: 'left'}">
+      <div class="info_section" [TourItem]="{tourid: 'topic', index: 4, position: ((wWidth <= 1024)? 'bottom': 'left')}">
         <div class="info_items_wrap">
           <div class="info_header">
             <div class="info_title" translate="VIEWS.TOPICS_TOPICID.SECTION_PARTICIPANTS_HEADING"></div>
@@ -561,7 +561,7 @@
           </button>
         </div>
       </div>
-      <div class="state_items_wrap" [TourItem]="{tourid: 'topic', index: 5, position: 'left'}">
+      <div class="state_items_wrap" [TourItem]="{tourid: 'topic', index: 5, position: ((wWidth <= 1024)? 'bottom': 'left')}">
         <div class="state_item discussion">
           <div class="item_header">
             <div class="item_title" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_DISCUSSION_HEADING"></div>
@@ -740,7 +740,7 @@
       </div>
     </div>
   </div>
-  <div class="topic_tabs tablet" *ngIf="tabSelected$ | async as tabSelected;">
+  <div id="tabs_tablet" class="topic_tabs tablet" *ngIf="tabSelected$ | async as tabSelected;" [TourItem]="{tourid: 'topic', index: 1, position: 'top'}">
     <div class="topic_tab">
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path

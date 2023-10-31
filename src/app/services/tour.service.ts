@@ -25,25 +25,25 @@ export class TourService {
 
   register(id: string, index: number, element: ElementRef, position: string) {
     if (!(this.items[id])) {
-      return this.items[id] = [{index, elements: <any[]>[element] , position}];
+      return this.items[id] = [{index, elements: <any[]>[{el: element, position}]}];
     }
     const item = this.items[id].find((item: TourItem) => {
       return item.index === index;
     });
 
     if (!item) {
-      return this.items[id].push({index, elements: <any[]>[element] , position});
+      return this.items[id].push({index, elements: <any[]>[{el: element, position}] , position});
     } else {
       let added = false;
-      item.elements.forEach((el: any, index: number)=> {
-        if (el.nativeElement.id === element.nativeElement.id) {
-          item.elements.splice(index, 1, element);
+      item.elements.forEach((elem: any, index: number)=> {
+        if (elem.el.nativeElement.id === element.nativeElement.id) {
+          item.elements.splice(index, 1, {el: element, position});
           added = true;
         }
       });
 
       if (!added) {
-        item.elements.push(element);
+        item.elements.push({el: element, position});
       }
     }
   }
@@ -75,9 +75,9 @@ export class TourService {
             if (this.items && this.items[tourId]) {
               item = this.items[tourId].find((item: TourItem) => {
                 item.elements?.forEach((element) => {
-                  element.nativeElement.classList.remove('tour_item');
+                  element.el.nativeElement.classList.remove('tour_item');
                   if (item.index === itemId) {
-                    element.nativeElement.classList.add('tour_item');
+                    element.el.nativeElement.classList.add('tour_item');
                   }
                 })
               });
