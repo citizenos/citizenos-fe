@@ -99,12 +99,12 @@
     @include mixins.tablet {
       gap: 0;
     }
-    button {
-      margin-bottom: 16px;
 
-      @include mixins.tablet {
-        margin-bottom: 24px;
-      }
+    .big_button_wrap {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      gap: 8px;
     }
 
     .line_separator {

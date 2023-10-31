@@ -706,7 +706,7 @@ est-id-login-form {
 }
 
 .bold {
-  font-weight: bold;
+  font-weight: 600;
 }
 
 .tour_overlay {
@@ -952,7 +952,7 @@ tour-item-template {
 
       .vote_option {
         background-color: var(--color-surfaces);
-        font-weight: bold;
+        font-weight: 600;
         .checkbox {
           gap: 16px;
         }

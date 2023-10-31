@@ -415,7 +415,7 @@ $button-styles: (
     padding: 8px 0;
 
     span {
-      font-weight: bold;
+      font-weight: 600;
     }
     .icon_active {
       display: none;
@@ -434,7 +434,7 @@ $button-styles: (
       padding: 12px 16px;
 
       a {
-        font-weight: bold;
+        font-weight: 600;
       }
       &.selected {
         .filter_options {
@@ -456,7 +456,7 @@ $button-styles: (
         padding: 16px;
 
         .option {
-          font-weight: bold;
+          font-weight: 600;
           padding: 8px;
         }
       }

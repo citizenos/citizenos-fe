@@ -8,7 +8,7 @@
   </div>
 </ng-template>
 <ng-template #loggedIn>
-  <div id="tablet_nav">
+  <div id="tablet_nav" [TourItem]="{tourid: 'dashboard', index: 2, position: 'top'}">
     <a class="btn_medium_nav icon" [routerLink]="['/', translate.currentLang, 'dashboard']" routerLinkActive="active">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -38,14 +38,21 @@
           fill="#2C3B47" />
       </svg>
     </a>
-    <a class="btn_nav_create icon" (click)="app.showCreateMenu()" [TourItem]="{tourid: 'dashboard', index: 1, position: 'top'}">
-      <svg *ngIf="!app.createMenu" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="40" height="40" rx="20" fill="#2C3B47"/>
-        <path d="M20 28C19.4711 28 19.0423 27.5712 19.0423 27.0423L19.0423 20.9577H12.9577C12.4288 20.9577 12 20.5289 12 20C12 19.4711 12.4288 19.0423 12.9577 19.0423H19.0423V12.9577C19.0423 12.4288 19.4711 12 20 12C20.5289 12 20.9577 12.4288 20.9577 12.9577V19.0423L27.0423 19.0423C27.5712 19.0423 28 19.4711 28 20C28 20.5289 27.5712 20.9577 27.0423 20.9577H20.9577V27.0423C20.9577 27.5712 20.5289 28 20 28Z" fill="white"/>
+    <a id="tablet_create" class="btn_nav_create icon" (click)="app.showCreateMenu()"
+      [TourItem]="{tourid: 'dashboard', index: 1, position: 'top'}">
+      <svg *ngIf="!app.createMenu" width="40" height="40" viewBox="0 0 40 40" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <rect width="40" height="40" rx="20" fill="#2C3B47" />
+        <path
+          d="M20 28C19.4711 28 19.0423 27.5712 19.0423 27.0423L19.0423 20.9577H12.9577C12.4288 20.9577 12 20.5289 12 20C12 19.4711 12.4288 19.0423 12.9577 19.0423H19.0423V12.9577C19.0423 12.4288 19.4711 12 20 12C20.5289 12 20.9577 12.4288 20.9577 12.9577V19.0423L27.0423 19.0423C27.5712 19.0423 28 19.4711 28 20C28 20.5289 27.5712 20.9577 27.0423 20.9577H20.9577V27.0423C20.9577 27.5712 20.5289 28 20 28Z"
+          fill="white" />
       </svg>
-      <svg *ngIf="app.createMenu" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" >
-        <rect width="40" height="40" rx="20" fill="#2C3B47"/>
-        <path d="M20 28C19.4711 28 19.0423 27.5712 19.0423 27.0423L19.0423 20.9577H12.9577C12.4288 20.9577 12 20.5289 12 20C12 19.4711 12.4288 19.0423 12.9577 19.0423H19.0423V12.9577C19.0423 12.4288 19.4711 12 20 12C20.5289 12 20.9577 12.4288 20.9577 12.9577V19.0423L27.0423 19.0423C27.5712 19.0423 28 19.4711 28 20C28 20.5289 27.5712 20.9577 27.0423 20.9577H20.9577V27.0423C20.9577 27.5712 20.5289 28 20 28Z" fill="white"/>
+      <svg *ngIf="app.createMenu" width="40" height="40" viewBox="0 0 40 40" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <rect width="40" height="40" rx="20" fill="#2C3B47" />
+        <path
+          d="M20 28C19.4711 28 19.0423 27.5712 19.0423 27.0423L19.0423 20.9577H12.9577C12.4288 20.9577 12 20.5289 12 20C12 19.4711 12.4288 19.0423 12.9577 19.0423H19.0423V12.9577C19.0423 12.4288 19.4711 12 20 12C20.5289 12 20.9577 12.4288 20.9577 12.9577V19.0423L27.0423 19.0423C27.5712 19.0423 28 19.4711 28 20C28 20.5289 27.5712 20.9577 27.0423 20.9577H20.9577V27.0423C20.9577 27.5712 20.5289 28 20 28Z"
+          fill="white" />
       </svg>
     </a>
     <a class="btn_medium_nav icon" [routerLink]="['/', translate.currentLang, 'public', 'topics']">
@@ -101,7 +108,7 @@
       </!--svg-->
     </a>
   </div>
-  <div id="mobile_nav">
+  <div id="mobile_nav" [TourItem]="{tourid: 'dashboard', index: 2, position: 'top'}">
     <a class="btn_medium_nav icon" [routerLink]="['/', translate.currentLang, 'dashboard']" routerLinkActive="active">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -117,8 +124,21 @@
         <path fill-rule="evenodd" clip-rule="evenodd" d="M11 5H13V10H18V12H11V5Z" fill="#2C3B47" />
       </svg>
     </a>
-    <a class="btn_nav_create icon" (click)="app.showCreateMenu()">
-      <div [ngClass]="(app.createMenu)? 'icon_mobile_create_close': 'icon_mobile_create'"></div>
+    <a id="mobile_create" class="btn_nav_create icon" (click)="app.showCreateMenu()" [TourItem]="{tourid: 'dashboard', index: 1, position: 'top'}">
+      <svg *ngIf="!app.createMenu" width="40" height="40" viewBox="0 0 40 40" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <rect width="40" height="40" rx="20" fill="#2C3B47" />
+        <path
+          d="M20 28C19.4711 28 19.0423 27.5712 19.0423 27.0423L19.0423 20.9577H12.9577C12.4288 20.9577 12 20.5289 12 20C12 19.4711 12.4288 19.0423 12.9577 19.0423H19.0423V12.9577C19.0423 12.4288 19.4711 12 20 12C20.5289 12 20.9577 12.4288 20.9577 12.9577V19.0423L27.0423 19.0423C27.5712 19.0423 28 19.4711 28 20C28 20.5289 27.5712 20.9577 27.0423 20.9577H20.9577V27.0423C20.9577 27.5712 20.5289 28 20 28Z"
+          fill="white" />
+      </svg>
+      <svg *ngIf="app.createMenu" width="40" height="40" viewBox="0 0 40 40" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <rect width="40" height="40" rx="20" fill="#2C3B47" />
+        <path
+          d="M20 28C19.4711 28 19.0423 27.5712 19.0423 27.0423L19.0423 20.9577H12.9577C12.4288 20.9577 12 20.5289 12 20C12 19.4711 12.4288 19.0423 12.9577 19.0423H19.0423V12.9577C19.0423 12.4288 19.4711 12 20 12C20.5289 12 20.9577 12.4288 20.9577 12.9577V19.0423L27.0423 19.0423C27.5712 19.0423 28 19.4711 28 20C28 20.5289 27.5712 20.9577 27.0423 20.9577H20.9577V27.0423C20.9577 27.5712 20.5289 28 20 28Z"
+          fill="white" />
+      </svg>
     </a>
     <a class="btn_medium_nav icon" [routerLink]="['/', translate.currentLang, 'my', 'groups']">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -52,7 +52,7 @@
         align-items: center;
         gap: 8px;
         padding: 8px;
-        font-weight: bold;
+        font-weight: 600;
 
         @include mixins.mobile {
           flex-direction: row;
