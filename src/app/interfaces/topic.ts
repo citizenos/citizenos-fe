@@ -4,7 +4,7 @@ export interface Topic {
   authors: any[],
   id:	string,
   title: string | null,
-  intro: string,
+  intro: string | null,
   description: string,
   status: string,
   visibility:	string,

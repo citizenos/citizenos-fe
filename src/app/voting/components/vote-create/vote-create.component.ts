@@ -68,7 +68,7 @@ export class VoteCreateComponent implements OnInit {
   topicGroups = <Group[]>[];
   topic: Topic = <Topic>{
     title: null,
-    intro: '',
+    intro: null,
     description: '',
     imageUrl: '',
     members: {
