@@ -14,7 +14,11 @@
       </div>
       <div class="nav_links_wrap">
         <a *ngIf="activeIndex() > 1" (click)="prevItem($event)" translate="COMPONENTS.TOUR.LNK_BACK"></a>
-        <a *ngIf="items.length > 1" (click)="nextItem($event)" translate="COMPONENTS.TOUR.LNK_NEXT"></a>
+        <a *ngIf="items.length > 1" (click)="nextItem($event)">
+          <span *ngIf="activeIndex() !== items.length" translate="COMPONENTS.TOUR.LNK_NEXT"></span>
+          <span *ngIf="activeIndex() === items.length" translate="COMPONENTS.TOUR.LNK_FINISH"></span>
+        </a>
+
       </div>
     </ng-container>
   </div>

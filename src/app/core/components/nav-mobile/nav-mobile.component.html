@@ -9,14 +9,14 @@
 </ng-template>
 <ng-template #loggedIn>
   <div id="tablet_nav">
-    <a class="btn_medium_nav" [routerLink]="['/', translate.currentLang, 'dashboard']" routerLinkActive="active">
+    <a class="btn_medium_nav icon" [routerLink]="['/', translate.currentLang, 'dashboard']" routerLinkActive="active">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd"
           d="M10.8375 3.60105C11.5329 3.10434 12.4671 3.10434 13.1625 3.60105L19.1625 7.88676C19.6881 8.26219 20 8.86833 20 9.51423V18.9996C20 20.1042 19.1046 20.9996 18 20.9996H13V14.9996H11V20.9996H6C4.89543 20.9996 4 20.1042 4 18.9996V9.51423C4 8.86833 4.31193 8.26219 4.83752 7.88676L10.8375 3.60105ZM18 9.51423L12 5.22852L6 9.51423V18.9996H9V12.9996H15V18.9996H18V9.51423Z"
           fill="#2C3B47" />
       </svg>
     </a>
-    <a class="btn_medium_nav">
+    <a class="btn_medium_nav icon">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd"
           d="M6 19H18V10.139L13.0577 5L6 5V19ZM6 3C4.89543 3 4 3.89543 4 5V19C4 20.1046 4.89543 21 6 21H18C19.1046 21 20 20.1046 20 19V10.139C20 9.62207 19.7999 9.12522 19.4415 8.75264L14.4992 3.61364C14.1222 3.22157 13.6017 3 13.0577 3H6Z"
@@ -24,7 +24,7 @@
         <path fill-rule="evenodd" clip-rule="evenodd" d="M11 5H13V10H18V12H11V5Z" fill="#2C3B47" />
       </svg>
     </a>
-    <a class="btn_medium_nav" [routerLink]="['/', translate.currentLang, 'my', 'groups']">
+    <a class="btn_medium_nav icon" [routerLink]="['/', translate.currentLang, 'my', 'groups']">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd"
           d="M14 7C14 9.76142 11.7614 12 9 12C6.23858 12 4 9.76142 4 7C4 4.23858 6.23858 2 9 2C11.7614 2 14 4.23858 14 7ZM12 7C12 8.65685 10.6569 10 9 10C7.34315 10 6 8.65685 6 7C6 5.34315 7.34315 4 9 4C10.6569 4 12 5.34315 12 7Z"
@@ -38,10 +38,17 @@
           fill="#2C3B47" />
       </svg>
     </a>
-    <a class="btn_nav_create" (click)="app.showCreateMenu()">
-      <div [ngClass]="(app.createMenu)? 'icon_mobile_create_close': 'icon_mobile_create'"></div>
+    <a class="btn_nav_create icon" (click)="app.showCreateMenu()" [TourItem]="{tourid: 'dashboard', index: 1, position: 'top'}">
+      <svg *ngIf="!app.createMenu" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="40" height="40" rx="20" fill="#2C3B47"/>
+        <path d="M20 28C19.4711 28 19.0423 27.5712 19.0423 27.0423L19.0423 20.9577H12.9577C12.4288 20.9577 12 20.5289 12 20C12 19.4711 12.4288 19.0423 12.9577 19.0423H19.0423V12.9577C19.0423 12.4288 19.4711 12 20 12C20.5289 12 20.9577 12.4288 20.9577 12.9577V19.0423L27.0423 19.0423C27.5712 19.0423 28 19.4711 28 20C28 20.5289 27.5712 20.9577 27.0423 20.9577H20.9577V27.0423C20.9577 27.5712 20.5289 28 20 28Z" fill="white"/>
+      </svg>
+      <svg *ngIf="app.createMenu" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" >
+        <rect width="40" height="40" rx="20" fill="#2C3B47"/>
+        <path d="M20 28C19.4711 28 19.0423 27.5712 19.0423 27.0423L19.0423 20.9577H12.9577C12.4288 20.9577 12 20.5289 12 20C12 19.4711 12.4288 19.0423 12.9577 19.0423H19.0423V12.9577C19.0423 12.4288 19.4711 12 20 12C20.5289 12 20.9577 12.4288 20.9577 12.9577V19.0423L27.0423 19.0423C27.5712 19.0423 28 19.4711 28 20C28 20.5289 27.5712 20.9577 27.0423 20.9577H20.9577V27.0423C20.9577 27.5712 20.5289 28 20 28Z" fill="white"/>
+      </svg>
     </a>
-    <a class="btn_medium_nav" [routerLink]="['/', translate.currentLang, 'public', 'topics']">
+    <a class="btn_medium_nav icon" [routerLink]="['/', translate.currentLang, 'public', 'topics']">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="12" cy="12" r="9" stroke="#2C3B47" stroke-width="2" />
         <path
@@ -53,7 +60,7 @@
           fill="#2C3B47" />
       </svg>
     </a>
-    <a class="btn_medium_nav" [routerLink]="['/', translate.currentLang, 'public', 'groups']">
+    <a class="btn_medium_nav icon" [routerLink]="['/', translate.currentLang, 'public', 'groups']">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g clip-path="url(#clip0_1034_98590)">
           <circle cx="12" cy="12" r="4" stroke="#2C3B47" stroke-width="2" />
@@ -73,7 +80,7 @@
         </defs>
       </svg>
     </a>
-    <a class="btn_medium_nav btn_notifications" (click)="app.doShowActivityModal()">
+    <a class="btn_medium_nav btn_notifications icon" (click)="app.doShowActivityModal()">
       <svg width="30" height="31" viewBox="0 0 30 31" fill="none" xmlns="http://www.w3.org/2000/svg">
         <style>
           text {
@@ -95,14 +102,14 @@
     </a>
   </div>
   <div id="mobile_nav">
-    <a class="btn_medium_nav" [routerLink]="['/', translate.currentLang, 'dashboard']" routerLinkActive="active">
+    <a class="btn_medium_nav icon" [routerLink]="['/', translate.currentLang, 'dashboard']" routerLinkActive="active">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd"
           d="M10.8375 3.60105C11.5329 3.10434 12.4671 3.10434 13.1625 3.60105L19.1625 7.88676C19.6881 8.26219 20 8.86833 20 9.51423V18.9996C20 20.1042 19.1046 20.9996 18 20.9996H13V14.9996H11V20.9996H6C4.89543 20.9996 4 20.1042 4 18.9996V9.51423C4 8.86833 4.31193 8.26219 4.83752 7.88676L10.8375 3.60105ZM18 9.51423L12 5.22852L6 9.51423V18.9996H9V12.9996H15V18.9996H18V9.51423Z"
           fill="#2C3B47" />
       </svg>
     </a>
-    <a class="btn_medium_nav">
+    <a class="btn_medium_nav icon">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd"
           d="M6 19H18V10.139L13.0577 5L6 5V19ZM6 3C4.89543 3 4 3.89543 4 5V19C4 20.1046 4.89543 21 6 21H18C19.1046 21 20 20.1046 20 19V10.139C20 9.62207 19.7999 9.12522 19.4415 8.75264L14.4992 3.61364C14.1222 3.22157 13.6017 3 13.0577 3H6Z"
@@ -110,10 +117,10 @@
         <path fill-rule="evenodd" clip-rule="evenodd" d="M11 5H13V10H18V12H11V5Z" fill="#2C3B47" />
       </svg>
     </a>
-    <a class="btn_nav_create" (click)="app.showCreateMenu()">
+    <a class="btn_nav_create icon" (click)="app.showCreateMenu()">
       <div [ngClass]="(app.createMenu)? 'icon_mobile_create_close': 'icon_mobile_create'"></div>
     </a>
-    <a class="btn_medium_nav" [routerLink]="['/', translate.currentLang, 'my', 'groups']">
+    <a class="btn_medium_nav icon" [routerLink]="['/', translate.currentLang, 'my', 'groups']">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd"
           d="M14 7C14 9.76142 11.7614 12 9 12C6.23858 12 4 9.76142 4 7C4 4.23858 6.23858 2 9 2C11.7614 2 14 4.23858 14 7ZM12 7C12 8.65685 10.6569 10 9 10C7.34315 10 6 8.65685 6 7C6 5.34315 7.34315 4 9 4C10.6569 4 12 5.34315 12 7Z"
@@ -127,7 +134,7 @@
           fill="#2C3B47" />
       </svg>
     </a>
-    <a class="btn_medium_nav">
+    <a class="btn_medium_nav icon">
       <svg width="30" height="31" viewBox="0 0 30 31" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M10.1148 10.5947C8.90606 10.9722 7.82864 11.7055 7.0227 12.7085C6.08431 13.8764 5.57162 15.3382 5.57143 16.8464C5.57143 17.8912 5.23103 21.5697 4.30255 23.9997C3.95506 24.909 3.52521 25.6435 3 25.9997H10C10 26.5301 10.2107 27.0388 10.5858 27.4139C10.9609 27.7889 11.4696 27.9997 12 27.9997C12.5304 27.9997 13.0391 27.7889 13.4142 27.4139C13.7893 27.0388 14 26.5301 14 25.9997H21C20.4748 25.6435 20.0449 24.909 19.6975 23.9997C19.2164 22.7408 18.8932 21.1467 18.6935 19.7574C17.9626 19.6015 17.2586 19.3729 16.5894 19.0797C16.6874 19.9331 16.8327 20.9088 17.0324 21.8756C17.1767 22.5741 17.3562 23.3027 17.5795 23.9997H6.42045C6.64383 23.3027 6.82333 22.5741 6.96759 21.8756C7.39259 19.8179 7.57139 17.7198 7.57143 16.8464C7.57162 15.7905 7.93083 14.7713 8.58177 13.9612C9.11165 13.3018 9.80724 12.8146 10.584 12.5456C10.3707 11.9188 10.2124 11.2666 10.1148 10.5947Z"
