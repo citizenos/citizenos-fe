@@ -268,7 +268,7 @@ $bold: 700;
     color: $medium_black;
     margin: 20px 0;
     line-height: 135%;
-    font-weight: bold;
+    font-weight: 600;
   }
 
   h1 *,
@@ -280,7 +280,7 @@ $bold: 700;
     font-family: "Noto Sans", sans-serif;
     margin: 20px 0;
     line-height: 135%;
-    font-weight: bold;
+    font-weight: 600;
   }
   h1 {
     font-size: 46px;
@@ -363,7 +363,7 @@ $bold: 700;
 
   b,
   b * {
-    font-weight: bold;
+    font-weight: 600;
   }
 
   code * {
@@ -859,7 +859,7 @@ $bold: 700;
         color: #252525;
         font-family: "Noto Sans";
         font-size: 16px;
-        font-weight: bold;
+        font-weight: 600;
         line-height: 20px;
       }
       .reply-comment-suggest-to,
@@ -896,7 +896,7 @@ $bold: 700;
     color: #ffffff;
     font-family: "Noto Sans";
     font-size: 14px;
-    font-weight: bold;
+    font-weight: 600;
     line-height: 20px;
     text-align: center;
     margin: 20px 0;
@@ -947,7 +947,7 @@ $bold: 700;
             color: #252525;
             font-family: "Noto Sans";
             font-size: 16px;
-            font-weight: bold;
+            font-weight: 600;
             line-height: 20px;
             margin: 0 20px 0 0;
             padding: 0;
@@ -994,7 +994,7 @@ $bold: 700;
             color: #ffffff;
             font-family: "Noto Sans";
             font-size: 14px;
-            font-weight: bold;
+            font-weight: 600;
             line-height: 20px;
             text-align: center;
             display: inline-block;
@@ -1044,7 +1044,7 @@ $bold: 700;
         }
         .comment-options-button--icon:before {
           content: "⋮";
-          font-weight: bold;
+          font-weight: 600;
         }
         .comment-options-button--icon:after {
           height: 15px;
@@ -1150,7 +1150,7 @@ $bold: 700;
           color: #252525;
           font-family: "Noto Sans";
           font-size: 16px;
-          font-weight: bold;
+          font-weight: 600;
           line-height: 20px;
           margin: 0 20px 0 0;
           padding: 0;
@@ -1181,7 +1181,7 @@ $bold: 700;
         color: #252525;
         font-family: "Noto Sans";
         font-size: 16px;
-        font-weight: bold;
+        font-weight: 600;
         line-height: 20px;
         margin: 0 20px 0 0;
         padding: 0;
@@ -1220,7 +1220,7 @@ $bold: 700;
           color: #ffffff;
           font-family: "Noto Sans";
           font-size: 14px;
-          font-weight: bold;
+          font-weight: 600;
           line-height: 20px;
           text-align: center;
           display: inline-block !important;
@@ -1246,7 +1246,7 @@ $bold: 700;
           color: #252525;
           font-family: "Noto Sans";
           font-size: 16px;
-          font-weight: bold;
+          font-weight: 600;
           line-height: 20px;
           margin: 0 20px 0 0;
           padding: 0;
@@ -1336,7 +1336,7 @@ $bold: 700;
           color: #ffffff;
           font-family: "Noto Sans";
           font-size: 14px;
-          font-weight: bold;
+          font-weight: 600;
           line-height: 20px;
           text-align: center;
           padding: 0 20px;
@@ -1382,7 +1382,7 @@ $bold: 700;
         color: #252525;
         font-family: "Noto Sans";
         font-size: 16px;
-        font-weight: bold;
+        font-weight: 600;
         line-height: 20px;
       }
 
@@ -1433,7 +1433,7 @@ $bold: 700;
         line-height: 30px;
         vertical-align: middle;
         display: inline-block;
-        font-weight: bold;
+        font-weight: 600;
       }
     }
 
@@ -1446,7 +1446,7 @@ $bold: 700;
         color: #252525;
         font-family: "Noto Sans";
         font-size: 16px;
-        font-weight: bold;
+        font-weight: 600;
         line-height: 20px;
         margin: 20px 20px 20px 0;
         padding: 0;
@@ -1507,7 +1507,7 @@ $bold: 700;
         color: #ffffff;
         font-family: "Noto Sans";
         font-size: 14px;
-        font-weight: bold;
+        font-weight: 600;
         line-height: 20px;
         text-align: center;
         margin-left: 20px;
@@ -1581,7 +1581,7 @@ button,
     border-radius: 4px;
     font-family: "Noto Sans";
     font-size: 14px;
-    font-weight: bold;
+    font-weight: 600;
     line-height: 20px;
     text-align: center;
     padding: 5px;

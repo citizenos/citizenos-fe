@@ -57,9 +57,9 @@ export class TourComponent {
             element = item.elements[offset - 1]?.nativeElement;
           }
           const style = window.getComputedStyle(element);
-
-          console.log('ELEMENT', element, style.display, element.offsetParent)
-          if (element && (style.display === 'none') && item.elements.length > 1) {
+          const visible = !!( element.offsetWidth || element.offsetHeight || element.getClientRects().length );
+          console.log('VISIBILE', visible, item.elements)
+          if (element && (style.display === 'none' || !visible) && item.elements.length > 1) {
             element = checkItemEl(item, offset + 1);
           }
           return element;
@@ -67,6 +67,7 @@ export class TourComponent {
 
         let offset = 0;
         let itemEl = checkItemEl(item, offset);
+        console.log(itemEl);
         if (!itemEl) return of([item, isVisible]);
         const itemRect = itemEl.getBoundingClientRect();
         const tourBox = this.tourBox.nativeElement;
