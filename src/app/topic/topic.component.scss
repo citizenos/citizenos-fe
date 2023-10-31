@@ -184,6 +184,12 @@
             aspect-ratio: 1;
           }
         }
+
+        #topic_text_wrap {
+          display: flex;
+          flex-direction: column;
+        }
+
         .topic_title {
           display: flex;
           padding: 8px 16px;
@@ -338,6 +344,12 @@
       }
       @include mixins.mobile {
         padding: 8px;
+      }
+
+      .state_items_wrap {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
       }
 
       .state_item {
@@ -605,5 +617,63 @@
         }
       }
     }
+  }
+  .tutorial {
+      display: flex;
+      flex-direction: column;
+      border-radius: 8px;
+      background: var(--color-text);
+      padding: 16px;
+      gap: 16px;
+      width: 100%;
+      /* Shadow/Heavy */
+      box-shadow: 0px 8px 20px 0px rgba(220, 231, 240, 0.3),
+        0px 12px 16px 0px rgba(50, 85, 112, 0.1);
+
+  .tutorial_header {
+    display: flex;
+    color: var(--color-scrollbar-thumb);
+  }
+
+  .tutorial_footer {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    color: var(--color-scrollbar-thumb);
+    align-items: center;
+    gap: 16px;
+
+    button {
+      width: 100%;
+      background-color: var(--color-border-active);
+    }
+    a {
+      color: var(--color-error-background)
+    }
+  }
+  .tutorial_content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    text-align: left;
+    gap: 8px;
+
+    .title span {
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 24px; /* 133.333% */
+      color: var(--color-surfaces);
+    }
+
+    .description {
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 20px; /* 142.857% */
+      color: var(--color-surfaces);
+    }
+  }
   }
 }

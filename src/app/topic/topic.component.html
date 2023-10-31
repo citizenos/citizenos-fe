@@ -2,15 +2,15 @@
   <div id="page_header">
     <div id="user_info_area">
       <ng-container *ngIf="!auth.loggedIn$.value">
-      <button [routerLink]="['/', translate.currentLang, 'public', 'topics']"><svg
-          width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M10.4533 17.6874C10.8529 18.1042 11.5009 18.1042 11.9006 17.6874C12.3003 17.2705 12.3003 16.5947 11.9006 16.1779L8.91837 13L19 13C19.5652 13 20 12.5892 20 11.9997C20 11.4103 19.5652 11.0176 19 11.0176L8.91837 11.0176L11.9006 7.8221C12.3003 7.40527 12.3003 6.72945 11.9006 6.31262C11.5009 5.89579 10.8529 5.89579 10.4533 6.31262L5 12L10.4533 17.6874Z"
-            fill="#2C3B47" />
-        </svg>
-      </button>
-      <h3 [innerHTML]="'VIEWS.TOPICS_TOPICID.HEADING_BACK_TO_PUBLIC_TOPICS'| translate"></h3>
-    </ng-container>
+        <button [routerLink]="['/', translate.currentLang, 'public', 'topics']"><svg width="24" height="24"
+            viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M10.4533 17.6874C10.8529 18.1042 11.5009 18.1042 11.9006 17.6874C12.3003 17.2705 12.3003 16.5947 11.9006 16.1779L8.91837 13L19 13C19.5652 13 20 12.5892 20 11.9997C20 11.4103 19.5652 11.0176 19 11.0176L8.91837 11.0176L11.9006 7.8221C12.3003 7.40527 12.3003 6.72945 11.9006 6.31262C11.5009 5.89579 10.8529 5.89579 10.4533 6.31262L5 12L10.4533 17.6874Z"
+              fill="#2C3B47" />
+          </svg>
+        </button>
+        <h3 [innerHTML]="'VIEWS.TOPICS_TOPICID.HEADING_BACK_TO_PUBLIC_TOPICS'| translate"></h3>
+      </ng-container>
       <ng-container *ngIf="auth.loggedIn$.value">
         <button class="btn_medium_close icon" [routerLink]="['/', translate.currentLang, 'my', 'topics']"><svg
             width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -24,11 +24,14 @@
     </div>
     <div id="buttons_area">
       <div id="activities_button_wrap">
-        <activities-button *ngIf="auth.loggedIn$ | async" [topicId]="topic.id"></activities-button> <!-- add [topicId]="topic.id"-->
+        <activities-button *ngIf="auth.loggedIn$ | async" [topicId]="topic.id"></activities-button>
+        <!-- add [topicId]="topic.id"-->
       </div>
-      <button id="join_button" (click)="joinTopic(topic)" *ngIf="(!topic.permission.level || topic.permission.level === 'none') && (auth.loggedIn$ | async)" class="btn_medium_close"
-        translate="VIEWS.TOPICS_TOPICID.BTN_JOIN"></button>
-      <button id="leave_button" (click)="leaveTopic(topic)" *ngIf="(topic.permission.level && topic.permission.level !== 'none') && (auth.loggedIn$ | async)"
+      <button id="join_button" (click)="joinTopic(topic)"
+        *ngIf="(!topic.permission.level || topic.permission.level === 'none') && (auth.loggedIn$ | async)"
+        class="btn_medium_close" translate="VIEWS.TOPICS_TOPICID.BTN_JOIN"></button>
+      <button id="leave_button" (click)="leaveTopic(topic)"
+        *ngIf="(topic.permission.level && topic.permission.level !== 'none') && (auth.loggedIn$ | async)"
         class="btn_medium_close" translate="VIEWS.TOPICS_TOPICID.BTN_LEAVE"></button>
 
       <button class="btn_medium_close icon" (click)="toggleFavourite(topic)" *ngIf="(auth.loggedIn$ | async)">
@@ -45,7 +48,7 @@
             fill="#2C3B47" />
         </svg>
       </button>
-      <div class="dropdown button_dropdown" [cosDropdown]>
+      <div class="dropdown button_dropdown" [cosDropdown] [TourItem]="{tourid: 'topic', index: 2, position: 'left'}">
         <button class="btn_medium_close icon">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -144,7 +147,8 @@
     </div>
   </div>
 
-  <div class="topic_tabs" *ngIf="tabSelected$ | async as tabSelected;">
+  <div id="topic_tabs" class="topic_tabs" *ngIf="tabSelected$ | async as tabSelected;"
+    [TourItem]="{tourid: 'topic', index: 1, position: 'bottom'}">
     <a class="topic_tab" [ngClass]="tabSelected=== 'discussion' ? 'active' : ''" [routerLink]="['./']"
       fragment="discussion">
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -188,7 +192,8 @@
       <span class="tab_text" translate="VIEWS.TOPICS_TOPICID.TAB_FOLLOW_UP"></span>
     </a>
     <div id="activities_button_wrap">
-      <activities-button *ngIf="auth.loggedIn$" [topicId]="topic.id"></activities-button> <!-- add [topicId]="topic.id"-->
+      <activities-button *ngIf="auth.loggedIn$" [topicId]="topic.id"></activities-button>
+      <!-- add [topicId]="topic.id"-->
     </div>
   </div>
 
@@ -229,11 +234,13 @@
           <img
             [src]="topic.imageUrl || 'https://hips.hearstapps.com/hmg-prod/images/champagne-beach-espiritu-santo-island-vanuatu-royalty-free-image-1655672510.jpg?crop=1.00xw:0.755xh;0,0.173xh&resize=1200:*'">
         </div>
-        <div class="topic_title">
-          <h1 [innerHTML]="topic.title"></h1>
-        </div>
-        <div class="topic_intro" [innerHTML]="topic.intro"></div>
-        <div class="topic_content" [innerHTML]="topic.description">
+        <div id="topic_text_wrap" [TourItem]="{tourid: 'topic', index: 6, position: 'top'}">
+          <div class="topic_title">
+            <h1 [innerHTML]="topic.title"></h1>
+          </div>
+          <div class="topic_intro" [innerHTML]="topic.intro"></div>
+          <div class="topic_content" [innerHTML]="topic.description">
+          </div>
         </div>
         <div class="button_wrap">
           <button class="btn_medium_secondary" (click)="readMore=!readMore">
@@ -251,8 +258,8 @@
         </div>
       </div>
       <ng-container *ngIf="tabSelected === 'discussion'">
-        <topic-arguments class="topic_arguments" #arguments [topic]="topic"
-          [ngClass]="showArgumentsTablet? 'show': ''"></topic-arguments>
+        <topic-arguments class="topic_arguments" #arguments [topic]="topic" [ngClass]="showArgumentsTablet? 'show': ''"
+          [TourItem]="{tourid: 'topic', index: 7, position: 'top'}"></topic-arguments>
 
         <post-argument *ngIf="showArgumentsTablet || wWidth > 1024" [topicId]="topic.id"></post-argument>
       </ng-container>
@@ -333,7 +340,8 @@
           </ng-container>
         </div>
         <ng-container *ngIf="topic.voteId && (vote$ | async) as vote">
-          <topic-vote-cast class="topic_feature_section voting" [ngClass]="showVoteTablet? 'show': ''" [topic]="topic" [vote]="vote"></topic-vote-cast>
+          <topic-vote-cast class="topic_feature_section voting" [ngClass]="showVoteTablet? 'show': ''" [topic]="topic"
+            [vote]="vote"></topic-vote-cast>
         </ng-container>
       </ng-container>
       <ng-container *ngIf="tabSelected === 'followUp'">
@@ -417,7 +425,7 @@
       </ng-container>
     </div>
     <div class="content_area_right" *ngIf="!showArgumentsTablet">
-      <div class="info_section">
+      <div class="info_section" [TourItem]="{tourid: 'topic', index: 3, position: 'left'}">
         <div class="topic_visibility">
           <ng-container *ngIf="topic.visibility === TopicService.VISIBILITY.private">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -539,7 +547,7 @@
           </!--div-->
         </div>
       </div>
-      <div class="info_section">
+      <div class="info_section" [TourItem]="{tourid: 'topic', index: 4, position: 'left'}">
         <div class="info_items_wrap">
           <div class="info_header">
             <div class="info_title" translate="VIEWS.TOPICS_TOPICID.SECTION_PARTICIPANTS_HEADING"></div>
@@ -553,41 +561,44 @@
           </button>
         </div>
       </div>
-      <div class="state_item discussion">
-        <div class="item_header">
-          <div class="item_title" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_DISCUSSION_HEADING"></div>
-          <div class="item_title" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_DISCUSSION_CONTRIBUTION"
-            [translateParams]="{count: TopicArgumentService.count.value.total}"></div>
-        </div>
-        <div class="item_content">
-          <div class="graph_wrap">
-            <div class="legend">
-              <div class="legend_item pro">
-                <div class="dot"></div>
-                <div class="bold" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_CONTRIBUTION_PRO"></div>
-                <span>{{TopicArgumentService.count.value.pro}}</span>
+      <div class="state_items_wrap" [TourItem]="{tourid: 'topic', index: 5, position: 'left'}">
+        <div class="state_item discussion">
+          <div class="item_header">
+            <div class="item_title" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_DISCUSSION_HEADING"></div>
+            <div class="item_title" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_DISCUSSION_CONTRIBUTION"
+              [translateParams]="{count: TopicArgumentService.count.value.total}"></div>
+          </div>
+          <div class="item_content">
+            <div class="graph_wrap">
+              <div class="legend">
+                <div class="legend_item pro">
+                  <div class="dot"></div>
+                  <div class="bold" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_CONTRIBUTION_PRO"></div>
+                  <span>{{TopicArgumentService.count.value.pro}}</span>
+                </div>
+                <div class="legend_item con">
+                  <div class="dot"></div>
+                  <div class="bold" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_CONTRIBUTION_CON"></div>
+                  <span>{{TopicArgumentService.count.value.con}}</span>
+                </div>
+                <div class="legend_item">
+                  <div class="dot"></div>
+                  <div class="bold" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_CONTRIBUTION_INFO"></div>
+                  <span>{{TopicArgumentService.count.value.poi}}</span>
+                </div>
               </div>
-              <div class="legend_item con">
-                <div class="dot"></div>
-                <div class="bold" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_CONTRIBUTION_CON"></div>
-                <span>{{TopicArgumentService.count.value.con}}</span>
-              </div>
-              <div class="legend_item">
-                <div class="dot"></div>
-                <div class="bold" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_CONTRIBUTION_INFO"></div>
-                <span>{{TopicArgumentService.count.value.poi}}</span>
-              </div>
-            </div>
-            <div class="graph">
-              <div class="arguments_pro" [style.width.%]="getArgumentPercentage(TopicArgumentService.count.value.pro)">
-              </div>
-              <div class="arguments_con" [style.width.%]="getArgumentPercentage(TopicArgumentService.count.value.con)">
+              <div class="graph">
+                <div class="arguments_pro"
+                  [style.width.%]="getArgumentPercentage(TopicArgumentService.count.value.pro)">
+                </div>
+                <div class="arguments_con"
+                  [style.width.%]="getArgumentPercentage(TopicArgumentService.count.value.con)">
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <!--div class="state_item empty ideation">
+        <!--div class="state_item empty ideation">
         <div class="icon_wrap">
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="32" height="32" rx="16" fill="#EFE08A" />
@@ -609,105 +620,123 @@
           </svg>
         </div>
       </!--div-->
-      <div class="state_item vote" [ngClass]="{'empty': !topic.voteId}">
-        <ng-container *ngIf="!topic.voteId">
-          <div class="icon_wrap">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" clip-rule="evenodd"
-                d="M8 0C3.584 0 0 3.584 0 8C0 12.416 3.584 16 8 16C12.416 16 16 12.416 16 8C16 3.584 12.416 0 8 0ZM6.44444 12L12.6667 5.82456L11.5 4.66667L6.44444 9.68421L4.5 7.75439L3.33333 8.91228L6.44444 12Z"
-                fill="white" />
-            </svg>
-          </div>
-          <div class="state_item_text">
-            <button class="btn_medium_plain" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_NO_VOTING"
-              (click)="startVote(topic)"></button>
-          </div>
-          <div class="info_icon">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M9.75 2.5C9.75 3.32843 9.07843 4 8.25 4C7.42157 4 6.75 3.32843 6.75 2.5C6.75 1.67157 7.42157 1 8.25 1C9.07843 1 9.75 1.67157 9.75 2.5Z"
-                fill="#2C3B47" />
-              <path
-                d="M6.20993 6.06234L9.64493 5.63184L8.14343 12.6893C8.03693 13.1993 8.18693 13.4888 8.59943 13.4888C8.89043 13.4888 9.32843 13.3838 9.62843 13.1198L9.49643 13.7438C9.06593 14.2628 8.11643 14.6408 7.29893 14.6408C6.24443 14.6408 5.79593 14.0078 6.08693 12.6623L7.19393 7.46034C7.28993 7.02084 7.20293 6.86184 6.76193 6.75684L6.08693 6.63234L6.20993 6.06234Z"
-                fill="#2C3B47" />
-            </svg>
-          </div>
-        </ng-container>
-        <ng-container *ngIf="(vote$ | async) as vote">
-          <div class="item_header">
-            <div class="item_title_with_description">
-              <span translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_VOTING_HEADING"></span>
-              <div class="description">
-                <span class="votes_number">{{vote.votersCount || 0}}</span>
-                <span translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_VOTING_VOTES_NEEDED"></span>
-              </div>
+        <div class="state_item vote" [ngClass]="{'empty': !topic.voteId}">
+          <ng-container *ngIf="!topic.voteId">
+            <div class="icon_wrap">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M8 0C3.584 0 0 3.584 0 8C0 12.416 3.584 16 8 16C12.416 16 16 12.416 16 8C16 3.584 12.416 0 8 0ZM6.44444 12L12.6667 5.82456L11.5 4.66667L6.44444 9.68421L4.5 7.75439L3.33333 8.91228L6.44444 12Z"
+                  fill="white" />
+              </svg>
             </div>
-            <div class="item_title" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_VOTING_STATUS_ACTIVE"></div>
-          </div>
-          <div class="item_content">
-            <div class="graph_wrap">
-              <div class="legend">
-                <div class="bold" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_VOTING_VOTES_COLLECTED"></div>
-                <div><span class="bold">{{vote.votersCount || 0}}</span> / <span>{{topic.members.users.count}}</span>
+            <div class="state_item_text">
+              <button class="btn_medium_plain" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_NO_VOTING"
+                (click)="startVote(topic)"></button>
+            </div>
+            <div class="info_icon">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M9.75 2.5C9.75 3.32843 9.07843 4 8.25 4C7.42157 4 6.75 3.32843 6.75 2.5C6.75 1.67157 7.42157 1 8.25 1C9.07843 1 9.75 1.67157 9.75 2.5Z"
+                  fill="#2C3B47" />
+                <path
+                  d="M6.20993 6.06234L9.64493 5.63184L8.14343 12.6893C8.03693 13.1993 8.18693 13.4888 8.59943 13.4888C8.89043 13.4888 9.32843 13.3838 9.62843 13.1198L9.49643 13.7438C9.06593 14.2628 8.11643 14.6408 7.29893 14.6408C6.24443 14.6408 5.79593 14.0078 6.08693 12.6623L7.19393 7.46034C7.28993 7.02084 7.20293 6.86184 6.76193 6.75684L6.08693 6.63234L6.20993 6.06234Z"
+                  fill="#2C3B47" />
+              </svg>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="(vote$ | async) as vote">
+            <div class="item_header">
+              <div class="item_title_with_description">
+                <span translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_VOTING_HEADING"></span>
+                <div class="description">
+                  <span class="votes_number">{{vote.votersCount || 0}}</span>
+                  <span translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_VOTING_VOTES_NEEDED"></span>
                 </div>
               </div>
-              <div class="graph">
-                <div class="votes" [style.width.%]="((vote.votersCount || 0)/topic.members.users.count)*100">
+              <div class="item_title" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_VOTING_STATUS_ACTIVE"></div>
+            </div>
+            <div class="item_content">
+              <div class="graph_wrap">
+                <div class="legend">
+                  <div class="bold" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_VOTING_VOTES_COLLECTED"></div>
+                  <div><span class="bold">{{vote.votersCount || 0}}</span> / <span>{{topic.members.users.count}}</span>
+                  </div>
+                </div>
+                <div class="graph">
+                  <div class="votes" [style.width.%]="((vote.votersCount || 0)/topic.members.users.count)*100">
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </ng-container>
+          </ng-container>
+        </div>
+        <div class="state_item follow-up" [ngClass]="{'empty': topic.status !== STATUSES.followUp}">
+          <ng-container *ngIf="topic.status !== STATUSES.followUp">
+            <div class="icon_wrap">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="32" height="32" rx="16" fill="#E3A8CC" />
+                <rect x="4" y="4" width="24" height="24" rx="12" fill="#E3A8CC" />
+                <path d="M17.8933 11.5294L17.6 10H11V23H12.4667V17.6471H16.5733L16.8667 19.1765H22V11.5294H17.8933Z"
+                  fill="white" />
+              </svg>
+            </div>
+            <div class="state_item_text">
+              <button class="btn_medium_plain" (click)="sendToFollowUp(topic)"
+                translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_ADD_FOLLOW_UP"></button>
+            </div>
+            <div class="info_icon">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M9.75 2.5C9.75 3.32843 9.07843 4 8.25 4C7.42157 4 6.75 3.32843 6.75 2.5C6.75 1.67157 7.42157 1 8.25 1C9.07843 1 9.75 1.67157 9.75 2.5Z"
+                  fill="#2C3B47" />
+                <path
+                  d="M6.20993 6.06234L9.64493 5.63184L8.14343 12.6893C8.03693 13.1993 8.18693 13.4888 8.59943 13.4888C8.89043 13.4888 9.32843 13.3838 9.62843 13.1198L9.49643 13.7438C9.06593 14.2628 8.11643 14.6408 7.29893 14.6408C6.24443 14.6408 5.79593 14.0078 6.08693 12.6623L7.19393 7.46034C7.28993 7.02084 7.20293 6.86184 6.76193 6.75684L6.08693 6.63234L6.20993 6.06234Z"
+                  fill="#2C3B47" />
+              </svg>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="topic.status === STATUSES.followUp && (events$ | async) as events">
+            <div class="item_header">
+              <div class="item_title_with_description">
+                <span translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_FOLLOW_UP_HEADING"></span>
+                <div class="description">
+                  <span translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_FOLLOW_UP_DEADLINE"></span> {{topic.endsAt |
+                  date:'YYYY-MM-dd HH:mm'}}
+                </div>
+              </div>
+            </div>
+            <div class="item_content">
+              <div class="graph_wrap">
+                <div class="legend">
+                  <div class="bold" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_FOLLOW_UP_MILESTONE"></div>
+                  <div><span class="bold">{{events.rows.length || 0}}</span> / <span>{{events.rows.length}}</span>
+                  </div>
+                </div>
+                <div class="graph">
+                  <div class="follow_up" [style.width.%]="((events.rows.length || 0)/events.rows.length)*100">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
       </div>
-      <div class="state_item follow-up" [ngClass]="{'empty': topic.status !== STATUSES.followUp}">
-        <ng-container *ngIf="topic.status !== STATUSES.followUp">
-          <div class="icon_wrap">
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect width="32" height="32" rx="16" fill="#E3A8CC" />
-              <rect x="4" y="4" width="24" height="24" rx="12" fill="#E3A8CC" />
-              <path d="M17.8933 11.5294L17.6 10H11V23H12.4667V17.6471H16.5733L16.8667 19.1765H22V11.5294H17.8933Z"
-                fill="white" />
-            </svg>
+      <div class="tutorial">
+        <div class="tutorial_header">
+          <span translate="VIEWS.TOPICS_TOPICID.TUTORIAL_HEADING"></span>
+        </div>
+        <div class="tutorial_content">
+          <div class="title">
+            <span translate="VIEWS.TOPICS_TOPICID.TUTORIAL_TITLE"></span>
+            <span>🎉</span>
           </div>
-          <div class="state_item_text">
-            <button class="btn_medium_plain" (click)="sendToFollowUp(topic)"
-              translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_ADD_FOLLOW_UP"></button>
-          </div>
-          <div class="info_icon">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M9.75 2.5C9.75 3.32843 9.07843 4 8.25 4C7.42157 4 6.75 3.32843 6.75 2.5C6.75 1.67157 7.42157 1 8.25 1C9.07843 1 9.75 1.67157 9.75 2.5Z"
-                fill="#2C3B47" />
-              <path
-                d="M6.20993 6.06234L9.64493 5.63184L8.14343 12.6893C8.03693 13.1993 8.18693 13.4888 8.59943 13.4888C8.89043 13.4888 9.32843 13.3838 9.62843 13.1198L9.49643 13.7438C9.06593 14.2628 8.11643 14.6408 7.29893 14.6408C6.24443 14.6408 5.79593 14.0078 6.08693 12.6623L7.19393 7.46034C7.28993 7.02084 7.20293 6.86184 6.76193 6.75684L6.08693 6.63234L6.20993 6.06234Z"
-                fill="#2C3B47" />
-            </svg>
-          </div>
-        </ng-container>
-        <ng-container *ngIf="topic.status === STATUSES.followUp && (events$ | async) as events">
-          <div class="item_header">
-            <div class="item_title_with_description">
-              <span translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_FOLLOW_UP_HEADING"></span>
-              <div class="description">
-                <span translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_FOLLOW_UP_DEADLINE"></span> {{topic.endsAt |
-                date:'YYYY-MM-dd HH:mm'}}
-              </div>
-            </div>
-          </div>
-          <div class="item_content">
-            <div class="graph_wrap">
-              <div class="legend">
-                <div class="bold" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_FOLLOW_UP_MILESTONE"></div>
-                <div><span class="bold">{{events.rows.length || 0}}</span> / <span>{{events.rows.length}}</span>
-                </div>
-              </div>
-              <div class="graph">
-                <div class="follow_up" [style.width.%]="((events.rows.length || 0)/events.rows.length)*100">
-                </div>
-              </div>
-            </div>
-          </div>
-        </ng-container>
+          <div class="description" translate="VIEWS.TOPICS_TOPICID.TUTORIAL_DESC"></div>
+        </div>
+        <div class="tutorial_footer">
+          <button class="btn_medium_submit" translate="VIEWS.TOPICS_TOPICID.TUTORIAL_BTN_TAKE_THE_TOUR"
+            (click)="takeTour()"></button>
+          <a translate="VIEWS.TOPICS_TOPICID.TUTORIAL_BTN_SKIP"></a>
+        </div>
       </div>
     </div>
   </div>
@@ -746,7 +775,8 @@
       </svg>
       <span class="tab_text" translate="VIEWS.TOPICS_TOPICID.TAB_IDEATION"></span>
     </!--a-->
-    <a class="topic_tab" [ngClass]="tabSelected=== 'voting' ? 'active' : ''" [routerLink]="['./']" fragment="voting" (click)="showVoteTablet = !showVoteTablet">
+    <a class="topic_tab" [ngClass]="tabSelected=== 'voting' ? 'active' : ''" [routerLink]="['./']" fragment="voting"
+      (click)="showVoteTablet = !showVoteTablet">
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="32" height="32" rx="16" fill="#98DAA2" />
         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -766,7 +796,8 @@
       <span class="tab_text" translate="VIEWS.TOPICS_TOPICID.TAB_FOLLOW_UP"></span>
     </a>
     <div id="activities_button_wrap">
-      <activities-button *ngIf="auth.loggedIn$" [topicId]="topic.id"></activities-button> <!-- add [topicId]="topic.id"-->
+      <activities-button *ngIf="auth.loggedIn$" [topicId]="topic.id"></activities-button>
+      <!-- add [topicId]="topic.id"-->
     </div>
   </div>
 </div>
