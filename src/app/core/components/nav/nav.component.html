@@ -1,4 +1,4 @@
-<div class="nav_mobile" [ngClass]="app.darkNav? 'dark_backround': ''">
+<div class="nav_mobile" [ngClass]="{'pos_absolute': addPosAbsolute | async, 'dark_backround': app.darkNav}">
   <div class="logo_wrap">
     <a routerLink="/">
       <svg width="152" height="28" viewBox="0 0 152 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -88,7 +88,7 @@
     </a>
   </div>
   <div id="button_area">
-    <a *ngIf="app.searchAllowed" class="btn_medium_close icon" (click)="app.showSearch = !app.showSearch">
+    <a id="show_mobile_search" *ngIf="app.searchAllowed" class="btn_medium_close icon" (click)="app.showSearch = !app.showSearch" [TourItem]="{tourid: 'dashboard', index: 4, position: 'bottom'}">
       <svg *ngIf="!app.showSearch" width="24" height="24" viewBox="0 0 24 24" fill="none"
         xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -221,7 +221,7 @@
     </ng-template>
     <ng-template #loggedIn>
       <div class="big_button_wrap">
-        <button class="btn_big_submit" (click)="app.showCreateMenu()"
+        <button id="create_button" class="btn_big_submit" (click)="app.showCreateMenu()"
           [TourItem]="{tourid: 'dashboard', index: 1, position: 'right'}">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -231,7 +231,7 @@
           <span translate="DEFAULT.NAV.BTN_CREATE"></span>
         </button>
       </div>
-      <div class="nav_items_wrap" [TourItem]="{tourid: 'dashboard', index: 2, position: 'right'}">
+      <div id="nav_main" class="nav_items_wrap" [TourItem]="{tourid: 'dashboard', index: 2, position: 'right'}">
         <a class="btn_small_nav" [routerLink]="['/', translate.currentLang, 'dashboard']" routerLinkActive="active">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
