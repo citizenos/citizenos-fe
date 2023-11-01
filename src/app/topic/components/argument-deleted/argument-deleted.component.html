@@ -9,8 +9,7 @@
         d="M20 31C21.1046 31 22 30.1046 22 29C22 27.8954 21.1046 27 20 27C18.8954 27 18 27.8954 18 29C18 30.1046 18.8954 31 20 31Z"
         fill="white" />
     </svg>
-    <div class="bold" translate="VIEWS.TOPICS_TOPICID.ARGUMENT_FOUND_INAPPRIOPRIATE_BY"
-      [translateParams]="{usersFullName: argument.deletedBy.name}"></div>
+    <div class="bold" [innerHtml]="'VIEWS.TOPICS_TOPICID.ARGUMENT_FOUND_INAPPRIOPRIATE_BY' | translate:{usersFullName: argument.deletedBy.name}"></div>
     <div class="buttons_wrap">
       <a (click)="showReason()" translate="VIEWS.TOPICS_TOPICID.ARGUMENT_WHY"></a>
       <a (click)="showArgument()" translate="VIEWS.TOPICS_TOPICID.ARGUMENT_VIEW_ARGUMENT_ANYWAY"></a>
