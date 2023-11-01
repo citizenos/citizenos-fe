@@ -118,14 +118,14 @@
           </div>
           <div class="line lightest_line" *ngIf="canEdit()"></div>
 
-          <div class="settings_section" *ngIf="canSendToFollowUp() && canEdit()">
+          <div class="settings_section" *ngIf="canSendToFollowUp() && canEdit() && topic.vote?.endsAt">
             <div class="settings_cell">
               <div class="setting_title" translate="MODALS.TOPIC_SETTINGS_LBL_REMINDER"></div>
               <div class="setting_description">
                 <span translate="MODALS.TOPIC_SETTINGS_LBL_REMINDER_EXT"></span>
                 <div [cosDropdown] class="classic_dropdown reminder_dropdown" *ngIf="reminder">
                   <div class="dropdown_selection">
-                    <div class="dropdown_text">{{selectedReminderOption()}}</div>
+                    <div class="dropdown_text">{{selectedReminderOption() || ('MODALS.TOPIC_SETTINGS_LBL_REMINDER' | translate)}}</div>
 
                     <div class="arrow_holder">
                       <div class="table_cell">
