@@ -41,6 +41,7 @@ export class AppComponent {
     private translateDebug: NgxTranslateDebugService,
     public app: AppService) {
     const languageConf = config.get('language');
+    translate.addLangs(Object.keys(languageConf.list));
     translate.setDefaultLang(languageConf.default);
     translate.onTranslationChange.pipe(
       tap((event) => { this.title.setTitle(translate.instant('META_DEFAULT_TITLE')); })
@@ -94,4 +95,3 @@ export class AppComponent {
     return true;
   };
 }
-
