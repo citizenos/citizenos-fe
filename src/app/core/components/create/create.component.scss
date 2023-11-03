@@ -130,3 +130,10 @@
     }
   }
 }
+
+#close_dialog {
+  @extend %all_zero;
+  position: fixed;
+  cursor: pointer;
+  z-index: 1;
+}

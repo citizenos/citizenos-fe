@@ -16,7 +16,6 @@ export class TourItemTemplateComponent {
   }
   ngAfterViewInit() {
     const template = this.template?.nativeElement.children;
-    console.log(template);
     this.TourService.addTemplate(this.data.tourid, this.data.index, template);
     this.template?.nativeElement.classList.add('hidden');
   }
