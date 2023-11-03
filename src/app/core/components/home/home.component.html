@@ -3,25 +3,25 @@
 
   <div id="lets_decide_section">
     <div id="text_area">
-      <h1 translate="VIEWS.HOME.STATS_HEADING"></h1>
+      <div class="main_heading" translate="VIEWS.HOME.STATS_HEADING"></div>
       <div id="description" translate="VIEWS.HOME.STATS_DESCRIPTION"></div>
       <div class="bold" translate="VIEWS.HOME.STATS_COS_HAS_ENABLED"></div>
       <div id="stats_wrap" *ngIf="stats$ | async as stats">
         <div class="stats_box discussion">
           <div class="number">{{stats.topicsCreated}}</div>
-          <div translate="VIEWS.HOME.STATS_DISCUSSIONS"></div>
+          <div class="label" translate="VIEWS.HOME.STATS_DISCUSSIONS"></div>
         </div>
         <div class="stats_box ideation">
           <div class="number">{{stats.groupsCreated}}</div>
-          <div translate="VIEWS.HOME.STATS_GROUPS"></div>
+          <div class="label" translate="VIEWS.HOME.STATS_GROUPS"></div>
         </div>
         <div class="stats_box votes">
           <div class="number">{{stats.votesCast}}</div>
-          <div translate="VIEWS.HOME.STATS_VOTES"></div>
+          <div class="label" translate="VIEWS.HOME.STATS_VOTES"></div>
         </div>
         <div class="stats_box participants">
           <div class="number">{{stats.usersCreated}}</div>
-          <div translate="VIEWS.HOME.STATS_USERS"></div>
+          <div class="label" translate="VIEWS.HOME.STATS_USERS"></div>
         </div>
       </div>
     </div>
@@ -490,11 +490,12 @@
       <a translate="VIEWS.HOME.FEATURE_GROUP_LNK" [routerLink]="['/', translate.currentLang, 'public', 'groups']"></a>
     </div>
   </div>
+</div>
   <ng-container *ngIf="topics$ | async; let topics;">
     <div class="home_items_section topics_section">
       <div class="section_header">
-        <h2 translate="VIEWS.HOME.PUBLIC_TOPICS_TITLE"></h2>
-        <div translate="VIEWS.HOME.PUBLIC_TOPICS_DESCRIPTION"></div>
+        <div class="medium_heading" translate="VIEWS.HOME.PUBLIC_TOPICS_TITLE"></div>
+        <div class="section_description" translate="VIEWS.HOME.PUBLIC_TOPICS_DESCRIPTION"></div>
       </div>
       <div class="section_content">
         <topicbox [topic]="topic" *ngFor="let topic of topics; trackBy: trackByTopic" [ngClass]="topic.categories">
@@ -509,8 +510,8 @@
   <ng-container *ngIf="groups$ | async as groups;">
     <div class="home_items_section groups_section">
       <div class="section_header">
-        <h2 translate="VIEWS.HOME.PUBLIC_GROUPS_TITLE"></h2>
-        <div translate="VIEWS.HOME.PUBLIC_GROUPS_DESCRIPTION"></div>
+        <div class="medium_heading" translate="VIEWS.HOME.PUBLIC_GROUPS_TITLE"></div>
+        <div class="section_description" translate="VIEWS.HOME.PUBLIC_GROUPS_DESCRIPTION"></div>
       </div>
       <div class="section_content">
         <public-group-box [group]="group" *ngFor="let group of groups; trackBy: trackByTopic"></public-group-box>
@@ -612,8 +613,7 @@
     <div id="content">
       <div id="text_area">
         <div class="heading" translate="VIEWS.HOME.MISSION_BOX_HEADING"></div>
-        <div class="description">
-          <span translate="VIEWS.HOME.MISSION_BOX_DESC"></span>
+        <div class="description" translate="VIEWS.HOME.MISSION_BOX_DESC">
         </div>
       </div>
       <div id="button_area">
@@ -623,4 +623,3 @@
       </div>
     </div>
   </div>
-</div>

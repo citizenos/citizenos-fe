@@ -35,6 +35,7 @@
   background-color: var(--color-surfaces);
   justify-content: space-between;
   width: 100%;
+  position: relative;
 
   @include mixins.mobile {
     flex-direction: column-reverse;
@@ -49,9 +50,15 @@
     z-index: 9;
 
     #description {
+      font-size: 16px;
+      line-height: 24px;
       width: 90%;
     }
 
+    .bold {
+      font-size: 16px;
+      line-height: 24px;
+    }
     @include mixins.tablet {
       max-width: 400px;
       padding: 24px 16px;
@@ -88,10 +95,13 @@
 
         .number {
           font-weight: 600;
-          font-size: 14px;
-          line-height: 16px;
+          font-size: 18px;
+          line-height: 24px;
         }
-
+        .label {
+          font-size: 16px;
+          line-height: 24px;
+        }
         @include mixins.tablet {
           padding: 16px;
           justify-content: flex-start;
@@ -136,9 +146,11 @@
   #illustration {
     display: flex;
     background-color: var(--color-secondary);
-    border-radius: 320px 0px 0px 320px;
+    border-radius: 320px 16px 16px 320px;
     position: absolute;
-    right: 24px;
+    right: 0;
+    height: 100%;
+    align-items: flex-end;
 
     @include mixins.tablet {
       overflow: hidden;
@@ -264,10 +276,6 @@
     background-color: var(--color-dialog-contrast);
   }
 
-  &.groups_section {
-    padding-bottom: 0;
-  }
-
   .section_header {
     display: flex;
     flex-direction: column;
@@ -275,6 +283,13 @@
     width: 100%;
     justify-content: center;
     align-items: center;
+
+    .section_description {
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 24px;
+    }
   }
   .section_content {
     display: flex;
@@ -354,6 +369,10 @@
       .description {
         display: flex;
         gap: 16px;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 24px;
       }
     }
 
@@ -362,7 +381,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 16px;
+      gap: 8px;
       min-width: 200px;
 
       @include mixins.tablet {
@@ -373,7 +392,8 @@
         flex-direction: column;
       }
 
-      button, a {
+      button,
+      a {
         width: 100%;
       }
     }
