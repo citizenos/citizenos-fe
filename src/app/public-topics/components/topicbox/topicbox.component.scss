@@ -84,14 +84,23 @@
     padding: 24px;
     color: var(--color-text);
 
+    .topic_title {
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 24px;
+    }
     .date {
-      color: var(--color-text);
+      color: var(--color-border-active);
       font-size: 13px;
       line-height: 16px;
     }
   }
   .topic_content {
     padding-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 
     .icon_area {
       display: flex;
@@ -144,7 +153,7 @@
     }
     .data_wrap {
       display: flex;
-      padding: 8px 0;
+      padding: 16px 0 0 0;
       justify-content: space-between;
       .participants_count {
         display: flex;
@@ -152,6 +161,10 @@
         align-items: center;
         font-size: 13px;
         line-height: 16px;
+
+        span {
+          color: var(--color-border-active);
+        }
       }
       .last_edit {
         display: flex;

@@ -30,12 +30,12 @@
             d="M4 11.63C4 9.99356 5.19391 8.66699 6.66667 8.66699H9.33333C10.8061 8.66699 12 9.99356 12 11.63V15.3337H4V11.63Z"
             fill="#2C3B47" />
         </svg>
-        <span>{{group.members?.users?.count || 1}}</span>
+        <span class="members_count_text">{{group.members?.users?.count || 1}}</span>
       </div>
     </div>
   </div>
   <div class="group_content">
-    <h3 [innerText]="group.name"></h3>
+    <div class="group_title" [innerText]="group.name"></div>
     <div class="group_description" [innerText]="group.description"></div>
   </div>
   <div class="group_info_area">

@@ -50,6 +50,10 @@
         padding: 4px;
         background-color: var(--color-surface-contrast);
         border-radius: 8px;
+
+        .members_count_text {
+          color: var(--color-border-active);
+        }
       }
     }
   }
@@ -61,9 +65,19 @@
     height: 120px;
     padding-right: 16px;
 
+    .group_title {
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 24px;
+    }
+
     .group_description {
       display: flex;
+      color: var(--color-border-active);
       overflow: hidden;
+      font-size: 14px;
+      line-height: 20px;
     }
   }
   .group_info_area {
@@ -86,6 +100,9 @@
 
       path: {
         color: initial;
+      }
+      .bold {
+        color: var(--color-border-active);
       }
     }
   }

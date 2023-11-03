@@ -113,12 +113,13 @@
       display: flex;
       align-items: center;
       flex-direction: column;
+      padding-bottom: 8px;
       gap: 8px;
     }
 
     .line_separator {
-      margin-top: 24px;
-      margin-bottom: 24px;
+      margin-top: 8px;
+      margin-bottom: 8px;
       width: 160px;
       height: 1px;
 
