@@ -154,9 +154,14 @@
           display: flex;
           flex-direction: column;
           gap: 8px;
+
           .date {
             font-size: 13px;
             line-height: 16px;
+          }
+          a {
+            font-size: 16px;
+            line-height: 24px;
           }
         }
       }
@@ -176,10 +181,17 @@
       padding: 24px 16px;
       gap: 24px;
 
+      #title {
+        font-size: 16px;
+        line-height: 24px;
+        font-weight: 600;
+      }
+
       .help_items_wrap {
         display: flex;
         flex-direction: column;
         width: 100%;
+        gap: 24px;
       }
 
       @include mixins.tablet {
@@ -356,6 +368,11 @@
     }
     #subscribe_illustration {
       display: flex;
+
+      svg {
+        width: 100%;
+        height: 100%;
+      }
     }
   }
 }

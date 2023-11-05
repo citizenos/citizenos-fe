@@ -222,7 +222,7 @@
     </ng-template>
     <ng-template #loggedIn>
       <div class="big_button_wrap">
-        <button id="create_button" class="btn_big_submit" (click)="app.showCreateMenu()"
+        <button id="create_button" class="btn_big_submit" [ngClass]="{'active': this.app.createMenu}" (click)="app.showCreateMenu()"
           [TourItem]="{tourid: 'dashboard', index: 1, position: 'right'}">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path

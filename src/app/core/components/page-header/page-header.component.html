@@ -3,7 +3,7 @@
     <div class="profile_photo">
       <img [src]="user.imageUrl">
     </div>
-    <h3 [innerHTML]="'VIEWS.DASHBOARD.HEADER_WELCOME'| translate: {user:user}"></h3>
+    <div class="small_heading" [innerHTML]="'VIEWS.DASHBOARD.HEADER_WELCOME'| translate: {user:user}"></div>
   </ng-container>
 </div>
 <div id="buttons_area">
@@ -15,15 +15,5 @@
         fill="#727C84" />
     </svg>
   </button>
-  <tour-item-template [data]="{tourid: 'dashboard', index: 3}">
-    <div class="title" translate="COMPONENTS.TOUR.DASHBOARD_STEP_3_TITLE"></div>
-    <div class="description" translate="COMPONENTS.TOUR.DASHBOARD_STEP_3_DESC"></div>
-  </tour-item-template>
-  <tour-item-template [data]="{tourid: 'dashboard', index: 4}">
-    <div class="title" translate="COMPONENTS.TOUR.DASHBOARD_STEP_4_TITLE"></div>
-    <div class="description" translate="COMPONENTS.TOUR.DASHBOARD_STEP_4_DESC"></div>
-    <div class="description" translate="COMPONENTS.TOUR.DASHBOARD_STEP_4_DESC2"></div>
-    <div class="description" translate="COMPONENTS.TOUR.DASHBOARD_STEP_4_DESC3"></div>
-  </tour-item-template>
   <activities-button></activities-button>
 </div>

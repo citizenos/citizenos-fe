@@ -1,5 +1,8 @@
 @use "mixins";
 
+#notification_wrap {
+  padding: 0 24px;
+}
 #content_root {
   display: flex;
   flex-direction: column;

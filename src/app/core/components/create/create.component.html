@@ -1,5 +1,6 @@
 <div id="create_menu">
-  <div class="create_menu_item" [routerLink]="['/', translate.currentLang, 'topics', 'create']" routerLinkActive="active" mat-dialog-close>
+  <div class="create_menu_item" [routerLink]="['/', translate.currentLang, 'topics', 'create']"
+    routerLinkActive="active" mat-dialog-close>
     <div class="icon_wrap">
       <div class="icon_create_discussion">
       </div>
@@ -8,7 +9,11 @@
       <div class="item_title" translate="COMPONENTS.CREATE.TITLE_DISCUSSION"></div>
       <div class="item_description" translate="COMPONENTS.CREATE.DESC_DISCUSSION"></div>
     </div>
-    <div class="icon_item icon_arrow_right"></div>
+    <div class="icon_item icon_arrow_right">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 7L15 12L10 17" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+      </svg>
+    </div>
   </div>
 
   <!--div class="create_menu_item">
@@ -23,7 +28,8 @@
     <div class="icon_item icon_arrow_right"></div>
   </div-->
 
-  <div class="create_menu_item" [routerLink]="['/', translate.currentLang, 'topics', 'vote', 'create']" routerLinkActive="active" mat-dialog-close>
+  <div class="create_menu_item" [routerLink]="['/', translate.currentLang, 'topics', 'vote', 'create']"
+    routerLinkActive="active" mat-dialog-close>
     <div class="icon_wrap">
       <div class="icon_create_voting">
       </div>
@@ -32,12 +38,17 @@
       <div class="item_title" translate="COMPONENTS.CREATE.TITLE_VOTE"></div>
       <div class="item_description" translate="COMPONENTS.CREATE.DESC_VOTE"></div>
     </div>
-    <div class="icon_item icon_arrow_right"></div>
+    <div class="icon_item icon_arrow_right">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 7L15 12L10 17" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+      </svg>
+    </div>
   </div>
 
   <div class="line_separator"></div>
 
-  <div class="create_menu_item" [routerLink]="['/', translate.currentLang, 'my', 'groups', 'create']" routerLinkActive="active" mat-dialog-close>
+  <div class="create_menu_item" [routerLink]="['/', translate.currentLang, 'my', 'groups', 'create']"
+    routerLinkActive="active" mat-dialog-close>
     <div class="icon_wrap">
       <div class="icon_create_group">
       </div>
@@ -46,7 +57,11 @@
       <div class="item_title" translate="COMPONENTS.CREATE.TITLE_GROUP"></div>
       <div class="item_description" translate="COMPONENTS.CREATE.DESC_GROUP"></div>
     </div>
-    <div class="icon_item icon_arrow_right"></div>
+    <div class="icon_item icon_arrow_right">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 7L15 12L10 17" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+      </svg>
+    </div>
   </div>
 </div>
 

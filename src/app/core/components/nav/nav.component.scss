@@ -54,6 +54,7 @@
   top: 0;
   background: var(--color-surfaces);
 
+
   .btn_small_nav {
     min-width: 160px;
     justify-content: normal;
@@ -62,6 +63,11 @@
   .btn_big_submit,
   .btn_big_submit_ghost {
     min-width: 160px;
+    span {
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 32px;
+    }
   }
 
   @include mixins.tablet {

@@ -1,18 +1,38 @@
+import { style, transition, trigger, animate, state } from '@angular/animations';
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { map, tap, of } from 'rxjs';
 import { ActivityService } from 'src/app/services/activity.service'
 @Component({
   selector: 'activity-feed',
   templateUrl: './activity-feed.component.html',
-  styleUrls: ['./activity-feed.component.scss']
+  styleUrls: ['./activity-feed.component.scss'],
+  animations: [
+    trigger('openClose', [
+      state('open', style({
+        right: 0,
+      })),
+      state('closed', style({
+        right: '-300px'
+      })),
+      transition('* => closed', [
+        animate('1s')
+      ]),
+      transition('* => open', [
+        animate('1s')
+      ]),
+    ]),
+  ]
 })
 export class ActivityFeedComponent implements OnInit {
   unreadActivitiesCount = 0;
   allActivities$: any[] = [];
   activities$ = of(<any[]>[]);
-
-  constructor(public ActivityService: ActivityService, @Inject(MAT_DIALOG_DATA) private data: any) {
+  show = false;
+  constructor(public ActivityService: ActivityService, @Inject(MAT_DIALOG_DATA) private data: any, private dialogRef: MatDialogRef<ActivityFeedComponent>) {
+    setTimeout(() => {
+      this.show = true
+    });
   }
 
   filterActivities(filter: string) {
@@ -52,5 +72,11 @@ export class ActivityFeedComponent implements OnInit {
     if ((event.target.scrollTop + event.target.offsetHeight) >= event.target.scrollHeight) {
       this.ActivityService.loadMore();
     }
+  }
+  close () {
+    this.show = false;
+    setTimeout(() => {
+      this.dialogRef.close();
+    }, 500)
   }
 }
