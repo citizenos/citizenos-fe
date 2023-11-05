@@ -8,6 +8,8 @@ import { UserService } from 'src/app/services/user.service';
 import { EstIdLoginDialogComponent } from '../est-id-login/est-id-login.component';
 import { SmartIdLoginDialogComponent } from '../smart-id-login/smart-id-login.component';
 import { LocationService } from 'src/app/services/location.service';
+import { TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -29,7 +31,8 @@ export class LoginComponent {
     @Inject(Router) private router: Router,
     private UserService: UserService,
     @Inject(ActivatedRoute) private route: ActivatedRoute,
-    private Auth: AuthService) {
+    private Auth: AuthService,
+    private translate: TranslateService) {
     this.authMethodsAvailable = this.config.get('features').authentication;
   }
 
@@ -175,7 +178,7 @@ export class LoginComponent {
       }
     );
 
-    const redirectSuccess = this.redirectSuccess || this.Location.currentUrl(); // Final url to land after successful login
+    const redirectSuccess = this.redirectSuccess || this.Location.getAbsoluteUrl(`${this.translate.currentLang}/dashboard`); // Final url to land after successful login
 
     const loginWindow = this.popupCenter(url, 'CitizenOS Partner Login', 470, 500);
 
@@ -232,8 +235,9 @@ export class LoginDialogComponent extends LoginComponent{
     router: Router,
     UserService: UserService,
     route: ActivatedRoute,
-    Auth: AuthService) {
-    super(dialog, Location, config, router, UserService, route, Auth);
+    Auth: AuthService,
+    translate: TranslateService) {
+    super(dialog, Location, config, router, UserService, route, Auth, translate);
     console.log('LOGINDIALOG', this.data)
     this.authMethodsAvailable = config.get('features').authentication;
     console.log(this.authMethodsAvailable)

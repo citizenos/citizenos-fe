@@ -143,7 +143,10 @@ export class AppService {
   showCreateMenu() {
     console.log('showCreateMenu')
     if (!this.createMenu) {
-      this.dialog.open(CreateComponent);
+      const createDialog = this.dialog.open(CreateComponent);
+      createDialog.afterClosed().subscribe(() => {
+        this.createMenu = false;
+      })
     }
     this.createMenu = !this.createMenu;
   }

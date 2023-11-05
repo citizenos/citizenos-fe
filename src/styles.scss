@@ -103,6 +103,20 @@
   line-height: 32px;
 }
 
+.small_heading {
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+
+  a {
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+  }
+}
+
 a {
   text-decoration: none;
   color: var(--color-link);

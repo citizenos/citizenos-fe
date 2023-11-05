@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { PasswordForgotComponent } from '../password-forgot/password-forgot.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'login-form',
@@ -27,6 +28,7 @@ export class LoginFormComponent {
     private Location: LocationService,
     private Notification: NotificationService,
     @Inject(Router) private router: Router,
+    private translate: TranslateService,
     private Auth: AuthService) {
   }
 
@@ -37,7 +39,11 @@ export class LoginFormComponent {
     this.isFormEmailProvided = !!this.form.get('email');
     this.linkRegister = this.Location.getAbsoluteUrl('/account/signup');
     if (this.Auth.loggedIn$.value) {
-      window.location = this.redirectSuccess || '/';
+      if (this.redirectSuccess) {
+        this.router.navigateByUrl(this.redirectSuccess)
+      } else {
+        this.router.navigate(['/dashboard'])
+      }
     }
   }
 

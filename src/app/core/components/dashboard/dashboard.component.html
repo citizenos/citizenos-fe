@@ -208,11 +208,7 @@
   <ng-container *ngIf="showPublic">
     <ng-container *ngIf="publictopics$ | async; let topics;">
       <div class="dashboard_section" [TourItem]="{tourid: 'dashboard', index: 5, position: 'bottom'}">
-        <tour-item-template [data]="{tourid: 'dashboard', index: 5}">
-          <div class="title" translate="COMPONENTS.TOUR.DASHBOARD_STEP_5_TITLE"></div>
-          <div class="description" translate="COMPONENTS.TOUR.DASHBOARD_STEP_5_DESC"></div>
-          <div class="description" translate="COMPONENTS.TOUR.DASHBOARD_STEP_5_DESC2"></div>
-        </tour-item-template>
+
         <div class="section_header">
           <h4 translate="VIEWS.HOME.PUBLIC_TOPICS_TITLE"></h4>
           <a class="view_more_link" [routerLink]="['/', translate.currentLang, 'public', 'topics']"><span
@@ -234,10 +230,6 @@
     </ng-container>
     <ng-container *ngIf="publicgroups$ | async as groups;">
       <div class="dashboard_section" [TourItem]="{tourid: 'dashboard', index: 6, position: 'bottom'}">
-        <tour-item-template [data]="{tourid: 'dashboard', index: 6}">
-          <div class="title" translate="COMPONENTS.TOUR.DASHBOARD_STEP_6_TITLE"></div>
-          <div class="description" translate="COMPONENTS.TOUR.DASHBOARD_STEP_6_DESC"></div>
-        </tour-item-template>
         <div class="section_header">
           <h4 translate="VIEWS.HOME.PUBLIC_GROUPS_TITLE"></h4>
           <a class="view_more_link" [routerLink]="['/', translate.currentLang, 'public', 'groups']"><span
@@ -319,7 +311,7 @@
       </div>
     </div>
     <div id="help_us">
-      <div class="bold" translate="VIEWS.DASHBOARD.HELP_US_HEADER"></div>
+      <div id="title" translate="VIEWS.DASHBOARD.HELP_US_HEADER"></div>
       <div class="help_items_wrap">
         <div class="help_item">
           <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">

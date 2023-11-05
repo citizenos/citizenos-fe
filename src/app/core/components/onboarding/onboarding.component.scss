@@ -28,12 +28,25 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    color: var(--color-border-active, #4D5C6A);
+    color: var(--color-border-active, #4d5c6a);
     font-family: Noto Sans;
     font-size: 16px;
     font-style: normal;
     line-height: 24px;
     gap: 24px;
+    padding: 24px;
+
+    &:last-child {
+      padding: 0 24px 24px 24px;
+    }
+    .title_wrap {
+      padding-top: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      justify-content: center;
+      align-items: center;
+    }
 
     #hello {
       color: var(--color-border-active);
@@ -54,7 +67,14 @@
       font-size: 24px;
       font-style: normal;
       font-weight: 600;
-      line-height: 32px; /* 133.333% */
+      line-height: 32px;
+    }
+
+    .content {
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 24px;
     }
   }
 }
