@@ -125,7 +125,7 @@
       "BTN_CANCEL": "@:LNK_CANCEL"
     },
     "ARGUMENT_REPORT_MODERATE": {
-      "HEADING": "Moderate argument",
+      "HEADING": "Moderovať argument",
       "MESSAGE_MAIN": "Participant wrote:",
       "LABLE_REASON": "@:COMPONENTS.ARGUMENT_REPORT.LABLE_REASON",
       "PLACEHOLDER_REPORT_TEXT": "@:MODALS.TOPIC_ARGUMENT_REPORT_PLACEHOLDER_REPORT_TEXT",
