@@ -126,16 +126,16 @@
     },
     "ARGUMENT_REPORT_MODERATE": {
       "HEADING": "Moderovať argument",
-      "MESSAGE_MAIN": "Participant wrote:",
+      "MESSAGE_MAIN": "Učastník/čka napísal/a:",
       "LABLE_REASON": "@:COMPONENTS.ARGUMENT_REPORT.LABLE_REASON",
       "PLACEHOLDER_REPORT_TEXT": "@:MODALS.TOPIC_ARGUMENT_REPORT_PLACEHOLDER_REPORT_TEXT",
-      "ARE_YOU_SURE": "Are you sure you want to hide this argument? You cannot undo this action.",
+      "ARE_YOU_SURE": "Určite chcete tento argument skryť? Tento krok sa nedá vrátiť späť.",
       "ERROR_TEXT": "@:MSG_ERROR_POST_API_TOPICS_COMMENTS_REPORTS_40000_TEXT",
-      "BTN_SUBMIT": "Yes, hide this argument",
+      "BTN_SUBMIT": "Áno, skryť tento argument",
       "BTN_CANCEL": "@:MODALS.TOPIC_ARGUMENT_REPORT_BTN_NO"
     },
     "ARGUMENT_REPLY": {
-      "HEADING": "Add your reply",
+      "HEADING": "Pridať odpoveď",
       "SUBJECT_CHARACTERS_LEFT": "@:COMPONENTS.POST_ARGUMENT.SUBJECT_CHARACTERS_LEFT",
       "PLACEHOLDER_ADD_SUBJECT_TO_ARGUMENT": "@:COMPONENTS.POST_ARGUMENT.PLACEHOLDER_ADD_SUBJECT_TO_ARGUMENT",
       "CHARACTER_LIMIT": "@:VIEWS.TOPICS_TOPICID.COMMENT_TYPE_CHARACTER_LIMIT",
@@ -143,36 +143,36 @@
       "BTN_POST_REPLY": "@:VIEWS.TOPICS_TOPICID.BTN_ARGUMENT_POST_REPLY"
     },
     "ARGUMENT_WHY": {
-      "HEADING": "Why is this content hidden?",
-      "MESSAGE_MAIN": "The admin chose to hide this content. You can review the reason below."
+      "HEADING": "Prečo je tento obsah skrytý?",
+      "MESSAGE_MAIN": "Admin sa rozhodol tento obsah skryť. Nižšie si môžete pozrieť dôvody."
     },
     "COS_CALENDAR": {
       "MONTHS": {
-        "0": "January",
-        "1": "February",
-        "2": "March",
-        "3": "April",
-        "4": "May",
-        "5": "June",
-        "6": "July",
+        "0": "Január",
+        "1": "Február",
+        "2": "Marec",
+        "3": "Apríl",
+        "4": "Máj",
+        "5": "Jún",
+        "6": "Júl",
         "7": "August",
         "8": "September",
-        "9": "October",
+        "9": "Október",
         "10": "November",
         "11": "December"
       },
       "WEEKDAYS": {
-        "1": "Monday",
-        "2": "Tuesday",
-        "3": "Wednesday",
-        "4": "Thursday",
-        "5": "Friday",
-        "6": "Saturday",
-        "7": "Sunday"
+        "1": "Pondelok",
+        "2": "Utorok",
+        "3": "Streda",
+        "4": "Štvrtok",
+        "5": "Piatok",
+        "6": "Sobota",
+        "7": "Nedeľa"
       }
     },
     "CREATE": {
-      "TITLE_DISCUSSION": "Discussion topic",
+      "TITLE_DISCUSSION": "Téma diskusie",
       "DESC_DISCUSSION": "Choose this if you want to encourage a discussion before potentially moving to ideation, voting and/or follow-up.",
       "TITLE_IDEATION": "Ideation topic",
       "DESC_IDEATION": "Choose this if you want to gather ideas before potentially moving to voting and/or follow-up. No pro/con discussion available.",
