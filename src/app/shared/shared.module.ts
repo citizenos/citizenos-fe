@@ -52,6 +52,7 @@ import { MobileFiltersDirective, MobileFilterDirective } from '../directives/mob
 import { CosCalenderComponent } from './components/cos-calender/cos-calender.component';
 import { TourComponent } from './components/tour/tour.component';
 import { TourItemDirective, TourItemTemplateComponent } from '../directives/tour-item.directive';
+import { InterruptDialogComponent } from './components/interrupt-dialog/interrupt-dialog.component';
 
 @NgModule({
   declarations: [
@@ -98,7 +99,8 @@ import { TourItemDirective, TourItemTemplateComponent } from '../directives/tour
     CosCalenderComponent,
     TourComponent,
     TourItemDirective,
-    TourItemTemplateComponent
+    TourItemTemplateComponent,
+    InterruptDialogComponent
   ],
   imports: [
     RouterModule,

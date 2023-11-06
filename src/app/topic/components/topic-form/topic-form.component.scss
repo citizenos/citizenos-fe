@@ -125,8 +125,11 @@
   gap: 8px;
   padding: 8px 16px;
 
-  button {
+  .label {
     gap: 0;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
   }
 }
 

@@ -6,10 +6,28 @@ import { ConfigService } from 'src/app/services/config.service';
 import { SearchService } from 'src/app/services/search.service';
 import { TranslateService } from '@ngx-translate/core';
 import { debounceTime, distinctUntilChanged, of, take } from 'rxjs';
+import { style, transition, trigger, animate, state } from '@angular/animations';
+
 @Component({
   selector: 'search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+  styleUrls: ['./search.component.scss'],
+  animations: [
+    trigger('openClose', [
+      state('open', style({
+        right: 0,
+      })),
+      state('closed', style({
+        right: '-300px'
+      })),
+      transition('* => closed', [
+        animate('1s')
+      ]),
+      transition('* => open', [
+        animate('1s')
+      ]),
+    ]),
+  ]
 })
 export class SearchComponent implements OnInit {
   noResults = true;

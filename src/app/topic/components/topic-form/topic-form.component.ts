@@ -17,6 +17,7 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { TopicInviteDialogComponent } from '../topic-invite/topic-invite.component';
 import { countries } from 'src/app/services/country.service';
 import { languages } from 'src/app/services/language.service';
+import { InterruptDialogComponent } from 'src/app/shared/components/interrupt-dialog/interrupt-dialog.component';
 @Component({
   selector: 'topic-form',
   templateUrl: './topic-form.component.html',
@@ -263,5 +264,20 @@ export class TopicFormComponent {
 
   removeTag(tag: string) {
     this.tags.splice(this.tags.indexOf(tag), 1);
+  }
+  cancel () {
+    const confirmDialog = this.dialog.open(InterruptDialogComponent);
+
+    confirmDialog.afterClosed().subscribe(result => {
+      if (result === true) {
+        /*this.TopicService.delete({ id: this.topic.id })
+          .pipe(take(1))
+          .subscribe(() => {
+            this.router.navigate(['dashboard']);
+          })*/
+          this.router.navigate(['dashboard']);
+      }
+    });
+    //[routerLink]="['/', translate.currentLang, 'topics', topic.id]"
   }
 }

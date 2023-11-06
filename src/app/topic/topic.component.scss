@@ -218,11 +218,10 @@
           line-height: 30px !important;
         }
         .button_wrap {
+          position: relative;
           display: flex;
-          //   position: absolute;
-          bottom: -21px;
-          align-self: center;
-          justify-self: center;
+          width: 100%;
+          justify-content: center;
           button {
             margin-top: -21px;
             position: absolute;
@@ -286,52 +285,6 @@
           &.show {
             display: flex;
           }*/
-        }
-        .no_feature_yet {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 16px;
-
-          .description_heading {
-            width: 100%;
-            text-align: center;
-            font-size: 24px;
-            font-style: normal;
-            font-weight: 600;
-            line-height: 32px; /* 133.333% */
-
-            @include mixins.mobile {
-              font-size: 18px;
-              font-style: normal;
-              font-weight: 600;
-              line-height: 24px;
-            }
-          }
-
-          .no_feature_description {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            gap: 16px;
-
-            .description_text {
-              display: flex;
-              flex-direction: column;
-              gap: 16px;
-            }
-
-            .description_heading {
-              text-align: start;
-              font-size: 16px;
-              font-style: normal;
-              font-weight: 600;
-              line-height: 24px;
-            }
-            @include mixins.mobile {
-              flex-direction: column;
-            }
-          }
         }
       }
     }
@@ -621,61 +574,64 @@
     }
   }
   .tutorial {
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px 8px 0 0;
+    background: var(--color-text);
+    padding: 16px;
+    gap: 16px;
+    width: 100%;
+    position: fixed;
+    width: 288px;
+    /* Shadow/Heavy */
+    box-shadow: 0px 8px 20px 0px rgba(220, 231, 240, 0.3),
+      0px 12px 16px 0px rgba(50, 85, 112, 0.1);
+    transition: bottom 0.5s;
+
+    .tutorial_header {
+      display: flex;
+      color: var(--color-scrollbar-thumb);
+    }
+
+    .tutorial_footer {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+      color: var(--color-scrollbar-thumb);
+      align-items: center;
+      gap: 16px;
+
+      button {
+        width: 100%;
+        background-color: var(--color-border-active);
+      }
+      a {
+        color: var(--color-error-background);
+      }
+    }
+    .tutorial_content {
       display: flex;
       flex-direction: column;
-      border-radius: 8px;
-      background: var(--color-text);
-      padding: 16px;
-      gap: 16px;
-      width: 100%;
-      /* Shadow/Heavy */
-      box-shadow: 0px 8px 20px 0px rgba(220, 231, 240, 0.3),
-        0px 12px 16px 0px rgba(50, 85, 112, 0.1);
+      align-items: flex-start;
+      justify-content: space-between;
+      text-align: left;
+      gap: 8px;
 
-  .tutorial_header {
-    display: flex;
-    color: var(--color-scrollbar-thumb);
-  }
+      .title span {
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 24px; /* 133.333% */
+        color: var(--color-surfaces);
+      }
 
-  .tutorial_footer {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-    color: var(--color-scrollbar-thumb);
-    align-items: center;
-    gap: 16px;
-
-    button {
-      width: 100%;
-      background-color: var(--color-border-active);
+      .description {
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 20px; /* 142.857% */
+        color: var(--color-surfaces);
+      }
     }
-    a {
-      color: var(--color-error-background)
-    }
-  }
-  .tutorial_content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-between;
-    text-align: left;
-    gap: 8px;
-
-    .title span {
-      font-size: 18px;
-      font-style: normal;
-      font-weight: 600;
-      line-height: 24px; /* 133.333% */
-      color: var(--color-surfaces);
-    }
-
-    .description {
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 20px; /* 142.857% */
-      color: var(--color-surfaces);
-    }
-  }
   }
 }

@@ -42,8 +42,8 @@
                 <rect x="4" y="4" width="16" height="16" rx="1" stroke="#2C3B47" stroke-width="2" />
               </svg>
               <button *ngIf="block.headerImage && !tmpImageUrl" class="btn_medium_close bold"
-                (click)="block.headerImage = !block.headerImage">
-                <span translate="VIEWS.TOPIC_CREATE.HEADER_IMAGE_BTN_CANCEL"></span>
+                (click)="block.headerImage = !block.headerImage;$event.stopPropagation();">
+                <span class="link" translate="VIEWS.TOPIC_CREATE.HEADER_IMAGE_BTN_CANCEL"></span>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M5.29311 17.2929C4.90258 17.6834 4.90258 18.3166 5.29311 18.7071C5.68363 19.0976 6.3168 19.0976 6.70732 18.7071L12.0002 13.4142L17.2931 18.7071C17.6836 19.0976 18.3168 19.0976 18.7073 18.7071C19.0978 18.3166 19.0978 17.6834 18.7073 17.2929L13.4144 12L18.7073 6.70711C19.0978 6.31658 19.0978 5.68342 18.7073 5.29289C18.3168 4.90237 17.6836 4.90237 17.2931 5.29289L12.0002 10.5858L6.70732 5.29289C6.3168 4.90237 5.68363 4.90237 5.29311 5.29289C4.90258 5.68342 4.90258 6.31658 5.29311 6.70711L10.586 12L5.29311 17.2929Z"
@@ -52,7 +52,7 @@
               </button>
               <button class="btn_medium_close bold" *ngIf="block.headerImage && tmpImageUrl"
                 (click)="deleteTopicImage()">
-                <span translate="VIEWS.TOPIC_CREATE.HEADER_IMAGE_BTN_REMOVE"></span>
+                <span class="link" translate="VIEWS.TOPIC_CREATE.HEADER_IMAGE_BTN_REMOVE"></span>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M9 9H11V17H9L9 9Z" fill="#1168A8" />
                   <path d="M15 9H13V17H15V9Z" fill="#1168A8" />
@@ -63,11 +63,11 @@
               </button>
             </div>
             <ng-container *ngIf="block.headerImage">
-              <div class="block_content">
+              <div class="block_content image_content">
                 <div class="block_section" *ngIf="!tmpImageUrl">
-                  <div translate="VIEWS.TOPIC_CREATE.HEADER_IMAGE_UPLOAD_DESC"></div>
+                  <div class="bold" translate="VIEWS.TOPIC_CREATE.HEADER_IMAGE_UPLOAD_DESC"></div>
                   <input id="image_upload_input" type="file" #imageUpload (change)="fileUpload()" />
-                  <button class="btn_medium_secondary" (click)="uploadImage()"
+                  <button id="image_upload_button" class="btn_medium_secondary" (click)="uploadImage()"
                     translate="VIEWS.TOPIC_CREATE.HEADER_IMAGE_UPLOAD_BTN"></button>
                 </div>
                 <div id="topic_image" class="block_section" *ngIf="tmpImageUrl">
@@ -171,14 +171,14 @@
           <topic-attachments [topic]="topic"></topic-attachments>
 
           <div id="add_section_wrap">
-            <button class="btn_medium_plain bold">
+            <a class="label">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M12 16C11.4711 16 11.0423 15.5712 11.0423 15.0423L11.0423 12.9577H8.95775C8.4288 12.9577 8 12.5289 8 12C8 11.4711 8.4288 11.0423 8.95775 11.0423H11.0423V8.95775C11.0423 8.4288 11.4711 8 12 8C12.5289 8 12.9577 8.4288 12.9577 8.95775V11.0423L15.0423 11.0423C15.5712 11.0423 16 11.4711 16 12C16 12.5289 15.5712 12.9577 15.0423 12.9577H12.9577V15.0423C12.9577 15.5712 12.5289 16 12 16Z"
                   fill="#2C3B47" />
               </svg>
               <span translate="VIEWS.TOPIC_CREATE.BTN_SECTION_ADD"></span>
-            </button>
+            </a>
             <div class="vertical_line_separator"></div>
             <button class="btn_medium_plain icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -453,8 +453,7 @@
               <span translate="VIEWS.TOPIC_CREATE.PREVIEW_INFO"></span>
             </div>
             <div class="topic_image">
-              <img
-                [src]="topic.imageUrl || 'https://hips.hearstapps.com/hmg-prod/images/champagne-beach-espiritu-santo-island-vanuatu-royalty-free-image-1655672510.jpg?crop=1.00xw:0.755xh;0,0.173xh&resize=1200:*'">
+              <img *ngIf="topic.imageUrl" [src]="topic.imageUrl">
             </div>
             <div class="topic_title">
               <div class="main_heading" [innerHTML]="topic.title"></div>
@@ -485,7 +484,7 @@
       </div>
       <div id="create_footer">
         <div id="close_create">
-          <button class="btn_big_submit_ghost" [routerLink]="['/', translate.currentLang, 'topics', topic.id]">
+          <button class="btn_big_submit_ghost" (click)="cancel()">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M5.29311 17.2929C4.90258 17.6834 4.90258 18.3166 5.29311 18.7071C5.68363 19.0976 6.3168 19.0976 6.70732 18.7071L12.0002 13.4142L17.2931 18.7071C17.6836 19.0976 18.3168 19.0976 18.7073 18.7071C19.0978 18.3166 19.0978 17.6834 18.7073 17.2929L13.4144 12L18.7073 6.70711C19.0978 6.31658 19.0978 5.68342 18.7073 5.29289C18.3168 4.90237 17.6836 4.90237 17.2931 5.29289L12.0002 10.5858L6.70732 5.29289C6.3168 4.90237 5.68363 4.90237 5.29311 5.29289C4.90258 5.68342 4.90258 6.31658 5.29311 6.70711L10.586 12L5.29311 17.2929Z"

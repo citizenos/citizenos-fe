@@ -19,6 +19,12 @@
   .vote_options_wrap {
     .radio_wrap {
       background-color: var(--color-surfaces);
+      border-color: var(--color-dialog-voting-contrast);
+      &.selected {
+        background-color: var(--color-argument-pro-light);
+        border: none;
+        padding: 17px;
+      }
     }
   }
 }
@@ -75,7 +81,6 @@
 
 .radio_wrap {
   padding: 16px;
-  border: 2px solid var(--color-argument-pro-light);
   border-radius: 8px;
 
   &.selected {

@@ -133,6 +133,7 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+    padding-bottom: 52px;
 
     .create_content_section {
       display: flex;
@@ -378,6 +379,21 @@
           display: flex;
           justify-content: space-between;
         }
+
+        &.image_content {
+          padding: 16px;
+          background-color: var(--color-surface-contrast);
+          vertical-align: middle;
+          align-items: center;
+
+          .block_section {
+            align-items: center;
+
+            #image_upload_button {
+              padding: 8px 24px;
+            }
+          }
+        }
       }
     }
   }
@@ -598,7 +614,9 @@
   padding: 12px 16px;
   position: fixed;
   bottom: 0;
-  width: calc(100% - 584px);
+  width: calc(100% - 568px);
+  box-shadow: 0px -8px 20px 0px rgba(220, 231, 240, 0.1),
+    0px -12px 16px 0px rgba(50, 85, 112, 0.04);
 
   @include mixins.tablet {
     position: fixed;

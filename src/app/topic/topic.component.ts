@@ -21,7 +21,7 @@ import { Attachment } from 'src/app/interfaces/attachment';
 import { Vote } from '../interfaces/vote';
 import { Group } from '../interfaces/group';
 import { TopicReportComponent } from './components/topic-report/topic-report.component';
-import { trigger, state, style } from '@angular/animations';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 import { ConfirmDialogComponent } from '../shared/components/confirm-dialog/confirm-dialog.component';
 import { TopicMemberUserService } from '../services/topic-member-user.service';
 import { TopicInviteDialogComponent } from './components/topic-invite/topic-invite.component';
@@ -49,6 +49,20 @@ import { TourService } from 'src/app/services/tour.service';
         transition: '0.3s ease-in-out max-height'
       }))
     ]),
+    trigger('showTutorial', [
+      state('open', style({
+        bottom: 0,
+      })),
+      state('closed', style({
+        bottom: '-300px'
+      })),
+      transition('* => closed', [
+        animate('1s')
+      ]),
+      transition('* => open', [
+        animate('1s')
+      ]),
+    ]),
   ]
 })
 
@@ -62,6 +76,7 @@ export class TopicComponent implements OnInit {
   showArgumentsTablet = (window.innerWidth <= 1024);
   showVoteTablet = (window.innerWidth <= 1024);
   tabSelected$: Observable<string>;
+  showTutorial = false;
   //new end
   topic$; // decorate the property with @Input()
   groups$: Observable<Group[]>;
@@ -137,6 +152,9 @@ export class TopicComponent implements OnInit {
         }
         padURL.searchParams.set('theme', 'default');
         topic.padUrl = padURL.href; // Change of PAD URL here has to be before $sce.trustAsResourceUrl($scope.topic.padUrl);
+        setTimeout(()=> {
+          this.showTutorial = true;
+        }, 500);
         return topic;
       })
     );
