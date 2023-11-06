@@ -48,6 +48,7 @@ export class TopicArgumentsComponent implements OnInit {
 
   doAddArgument() {
     if (this.Auth.loggedIn$.value) {
+      this.app.addArgument.next(true);
       this.postArgumentEl?.nativeElement.scrollIntoView();
       this.focusArgumentSubject = true;
     } else {

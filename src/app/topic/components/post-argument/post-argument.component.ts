@@ -16,18 +16,17 @@ import { TopicArgumentService } from 'src/app/services/topic-argument.service';
       state('open', style({
         padding: '12px 16px',
         'maxHeight': 'initial',
-        transition: '0.2s ease-in-out max-height'
+        transition: '0.5s ease-in-out max-height'
       })),
       state('closed', style({
         padding: '0',
         'maxHeight': '0',
-        transition: '0.2s ease-in-out max-height'
+        transition: '0.5s ease-in-out max-height'
       }))
   ])]
 })
 export class PostArgumentComponent implements OnInit {
   @Input() topicId!: string;
-  addArgument = false;
   wWidth = window.innerWidth;
   focusArgumentSubject = false;
   subject = <string>'';
@@ -61,6 +60,13 @@ export class PostArgumentComponent implements OnInit {
     this.text = text;
   }
 
+  addNewArgument() {
+    this.app.addArgument.next(true);
+  }
+
+  close () {
+    this.app.addArgument.next(false);
+  }
   postArgument() {
     const argument = {
       parentVersion: 0,
@@ -77,6 +83,7 @@ export class PostArgumentComponent implements OnInit {
           this.subject = '';
           this.text = '';
           this.TopicArgumentService.reset();
+          this.app.addArgument.next(false);
           this.router.navigate(
             [],
             {

@@ -1,4 +1,4 @@
-<div id="search">
+<div id="search" [@openClose]="app.showSearch? 'open' : 'closed'">
   <h3 translate="COMPONENTS.SEARCH.TITLE"></h3>
   <button class="btn_medium_close icon" (click)="app.showSearch = false">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

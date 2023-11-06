@@ -545,8 +545,7 @@
               <span translate="VIEWS.VOTE_CREATE.PREVIEW_INFO"></span>
             </div>
             <div class="topic_image">
-              <img
-                [src]="topic.imageUrl || 'https://hips.hearstapps.com/hmg-prod/images/champagne-beach-espiritu-santo-island-vanuatu-royalty-free-image-1655672510.jpg?crop=1.00xw:0.755xh;0,0.173xh&resize=1200:*'">
+              <img *ngIf="topic.imageUrl" [src]="topic.imageUrl">
             </div>
             <div class="topic_title">
               <div class="main_heading" [innerHTML]="topic.title"></div>

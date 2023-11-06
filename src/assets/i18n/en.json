@@ -695,7 +695,12 @@
       "FILTER_TYPE_REPLY": "Replies",
       "FILTER_ARGUMENT_ORDER_BY_DEFAULT": "Default",
       "FILTER_ARGUMENT_ORDER_BY_DATE": "Date",
-      "FILTER_ARGUMENT_ORDER_BY_POPULARITY": "Popularity"
+      "FILTER_ARGUMENT_ORDER_BY_POPULARITY": "Popularity",
+      "NO_ARGUMENTS_HEADING": "There is no discussion yet",
+      "NO_ARGUMENTS_BTN_ADD": "Add argument",
+      "NO_ARGUMENTS_DESC_HEADING": "How discussions work",
+      "NO_ARGUMENTS_DESC_BEFORE": "In discussions, participants can add their (pro or con) argument and other participants can reply to these. Additionally the participants can (dis)like arguments and the general discussion sentiment is visually shown.",
+      "NO_ARGUMENTS_DESC_AFTER": "Arguments can be favourited or recognised as including proof."
     },
     "TOPIC_INVITE_EDITORS": {
       "HEADING": "Invite co-creators",
@@ -1150,7 +1155,12 @@
     "GIVE_FEEDBACK_BTN_SUBMIT": "Submit",
     "GIVE_FEEDBACK_TITLE_THANK_YOU": "Thank you for sharing!",
     "GIVE_FEEDBACK_TEXT_THANK_YOU": "Thank you so much for sharing with us. If you agreed to chat more, we'll be in touch soon! For any queries or feedback in the future, please submit a Help Request or User Feedback via our Help Centre.",
-    "GIVE_FEEDBACK_BTN_CLOSE": "@:BTN_CLOSE"
+    "GIVE_FEEDBACK_BTN_CLOSE": "@:BTN_CLOSE",
+    "INTERRUPT_HEADING": "Interrupt process",
+    "INTERRUPT_ARE_YOU_SURE": "Doing this will interrupt your current process. Are you sure you want to proceed?",
+    "INTERRUPT_DESC": "We will automatically save a draft of your topic and your current process. You can pick it up again and finish it whenever you want.",
+    "INTERRUPT_BTN_CANCEL": "@:LNK_CANCEL",
+    "INTERRUPT_BTN_SUBMIT": "@:MODALS.INTERRUPT_HEADING"
   },
   "TXT_TOPIC_CATEGORY_ALL": "every category",
   "TXT_TOPIC_CATEGORY_CITIZENOS": "Citizen OS",

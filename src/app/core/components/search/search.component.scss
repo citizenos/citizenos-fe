@@ -21,6 +21,7 @@
   background-color: var(--color-background);
   z-index: 98;
   padding: 16px;
+  transition: right 0.5s;
 
   @include mixins.tablet {
     width: 100%;

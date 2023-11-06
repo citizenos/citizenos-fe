@@ -29,7 +29,7 @@ export class AppService {
   darkNav = false;
   showActivities = false;
   searchAllowed = true;
-
+  addArgument = new BehaviorSubject(false);
   showSearchResults = false;
   showSearchFiltersMobile = false; //remove after UI update
   showHelp = new BehaviorSubject(false);
