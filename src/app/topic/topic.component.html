@@ -752,23 +752,6 @@
           </ng-container>
         </div>
       </div>
-      <div class="tutorial" [@showTutorial]="showTutorial? 'open': 'closed'">
-        <div class="tutorial_header">
-          <span translate="VIEWS.TOPICS_TOPICID.TUTORIAL_HEADING"></span>
-        </div>
-        <div class="tutorial_content">
-          <div class="title">
-            <span translate="VIEWS.TOPICS_TOPICID.TUTORIAL_TITLE"></span>
-            <span>🎉</span>
-          </div>
-          <div class="description" translate="VIEWS.TOPICS_TOPICID.TUTORIAL_DESC"></div>
-        </div>
-        <div class="tutorial_footer">
-          <button class="btn_medium_submit" translate="VIEWS.TOPICS_TOPICID.TUTORIAL_BTN_TAKE_THE_TOUR"
-            (click)="takeTour()"></button>
-          <a translate="VIEWS.TOPICS_TOPICID.TUTORIAL_BTN_SKIP" (click)="showTutorial=false;"></a>
-        </div>
-      </div>
     </div>
   </div>
   <div id="tabs_tablet" class="topic_tabs tablet" *ngIf="tabSelected$ | async as tabSelected;"
@@ -830,6 +813,23 @@
     <div id="activities_button_wrap">
       <activities-button *ngIf="auth.loggedIn$" [topicId]="topic.id"></activities-button>
       <!-- add [topicId]="topic.id"-->
+    </div>
+  </div>
+  <div class="tutorial" [@showTutorial]="showTutorial? 'open': 'closed'">
+    <div class="tutorial_header">
+      <span translate="VIEWS.TOPICS_TOPICID.TUTORIAL_HEADING"></span>
+    </div>
+    <div class="tutorial_content">
+      <div class="title">
+        <span translate="VIEWS.TOPICS_TOPICID.TUTORIAL_TITLE"></span>
+        <span>🎉</span>
+      </div>
+      <div class="description" translate="VIEWS.TOPICS_TOPICID.TUTORIAL_DESC"></div>
+    </div>
+    <div class="tutorial_footer">
+      <button class="btn_medium_submit" translate="VIEWS.TOPICS_TOPICID.TUTORIAL_BTN_TAKE_THE_TOUR"
+        (click)="takeTour()"></button>
+      <a translate="VIEWS.TOPICS_TOPICID.TUTORIAL_BTN_SKIP" (click)="showTutorial=false;"></a>
     </div>
   </div>
 </div>

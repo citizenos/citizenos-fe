@@ -1,9 +1,10 @@
 import { Component, Inject, HostListener } from '@angular/core';
-import { Router, PRIMARY_OUTLET, Event, NavigationStart } from '@angular/router';
+import { Router, PRIMARY_OUTLET, Event, NavigationStart, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { Title } from "@angular/platform-browser";
+import { Title, Meta, MetaDefinition } from '@angular/platform-browser';
 
 import { AppService } from './services/app.service';
+import { LocationService } from './services/location.service';
 import { ConfigService } from './services/config.service';
 import { takeUntil, Subject, tap, map } from 'rxjs';
 import * as moment from 'moment';
@@ -36,16 +37,16 @@ export class AppComponent {
     private router: Router,
     @Inject(DOCUMENT) private document: Document,
     private title: Title,
+    private Meta: Meta,
     public translate: TranslateService,
     private config: ConfigService,
+    private Location: LocationService,
     private translateDebug: NgxTranslateDebugService,
     public app: AppService) {
     const languageConf = config.get('language');
     translate.addLangs(Object.keys(languageConf.list));
     translate.setDefaultLang(languageConf.default);
-    translate.onTranslationChange.pipe(
-      tap((event) => { this.title.setTitle(translate.instant('META_DEFAULT_TITLE')); })
-    );
+    this.setDefaultMetaInfo();
     this.router.events.pipe(takeUntil(this.destroy$)).subscribe
       ((event: Event) => {
         if (event && event instanceof NavigationStart) {
@@ -66,6 +67,11 @@ export class AppComponent {
               moment.locale(langParam);
             }
           }
+        }
+        if (event && event instanceof NavigationEnd) {
+          console.log(event);
+          this.createRelUrls(event.url);
+          this.app.setPageTitle();
         }
       });
     /* Change body class if accessibility settings are changed */
@@ -93,5 +99,64 @@ export class AppComponent {
     let langParam = g[0];
     if (langParam === this.translate.currentLang && g[0] === 'topics') return false;
     return true;
+  };
+
+
+  setDefaultMetaInfo() {
+    this.title.setTitle(this.translate.instant('META_DEFAULT_TITLE'));
+    const tags = <MetaDefinition[]>[
+      {
+        rel: 'shortcut icon',
+        href: this.Location.getAbsoluteUrl('/assets/imgs/favicon.ico'),
+        type: 'image/x-icon'
+      },
+      {
+        name: 'keywords',
+        content: this.translate.instant('META_DEFAULT_KEYWORDS')
+      },
+      {
+        name: 'description',
+        content: this.translate.instant('META_DEFAULT_DESCRIPTION')
+      },
+      {
+        property: 'og:title',
+        content: this.translate.instant('META_DEFAULT_TITLE')
+      },
+      {
+        property: 'og:image',
+        content: this.Location.getAbsoluteUrl('/assets/imgs/logo_dark_seo.jpg'),
+      },
+      {
+        property: 'og:description',
+        content: this.translate.instant('META_DEFAULT_DESCRIPTION')
+      },
+      {
+        property: 'og:url',
+        content: this.Location.currentUrl()
+      },
+      {
+        property: 'og:site_name',
+        content: 'CitizenOS.com'
+      },
+    ]
+
+    this.Meta.addTags(tags);
+  };
+
+  createRelUrls(url: string) {
+    this.translate.getLangs().forEach((language) => {
+      const urlItem = url.split('/');
+      urlItem[1] = language;
+      let link: HTMLLinkElement = this.document.createElement('link');
+      const linkTags = this.document.querySelectorAll(`link[hreflang=${language}]`);
+      if (linkTags.length) {
+        link = <HTMLLinkElement>linkTags[0];
+      } else {
+        this.document.head.appendChild(link);
+      }
+      link.setAttribute('rel', 'alternate');
+      link.setAttribute('hreflang', language);
+      link.setAttribute('href', this.Location.getAbsoluteUrl(urlItem.join('/')));
+    });
   };
 }

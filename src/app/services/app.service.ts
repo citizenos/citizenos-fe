@@ -11,12 +11,14 @@ import { LocationService } from 'src/app/services/location.service';
 import { GroupMemberTopicService } from './group-member-topic.service';
 import { Router } from '@angular/router';
 import { LoginDialogComponent } from '../account/components/login/login.component';
-import { RegisterComponent, RegisterDialogComponent } from '../account/components/register/register.component';
+import { RegisterDialogComponent } from '../account/components/register/register.component';
 import { CreateComponent } from 'src/app/core/components/create/create.component';
 import { ActivityFeedComponent } from '../core/components/activity-feed/activity-feed.component';
-import { LoginComponent } from '../account/components/login/login.component';
 import { HttpClient } from '@angular/common/http';
 import { ApiResponse } from '../interfaces/apiResponse';
+import { Title, Meta, MetaDefinition } from '@angular/platform-browser';
+import { TranslateService } from '@ngx-translate/core';
+
 declare let hwcrypto: any;
 
 @Injectable({
@@ -44,6 +46,9 @@ export class AppService {
   });
 
   constructor(private dialog: MatDialog,
+    private Title: Title,
+    private Meta: Meta,
+    private translate: TranslateService,
     public config: ConfigService,
     private Location: LocationService,
     private TopicService: TopicService,
@@ -176,4 +181,12 @@ export class AppService {
       map(res => res.data)
     );
   };
+
+  setPageTitle (title?:string) {
+    this.Title.setTitle(title || this.translate.instant('META_DEFAULT_TITLE'));
+    this.Meta.addTag({
+      property: 'og:title',
+      content: this.translate.instant(title || 'META_DEFAULT_TITLE')
+    });
+  }
 }
