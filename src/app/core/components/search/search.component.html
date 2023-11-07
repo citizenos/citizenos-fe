@@ -1,4 +1,4 @@
-<div id="search" [@openClose]="app.showSearch? 'open' : 'closed'">
+<div id="search" [@openClose]="(app.showSearch)? 'open' : 'closed'">
   <h3 translate="COMPONENTS.SEARCH.TITLE"></h3>
   <button class="btn_medium_close icon" (click)="app.showSearch = false">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -52,7 +52,7 @@
   </div>
 
 </div>
-<div class="overlay"></div>
+<div class="overlay" *ngIf="app.showSearch"></div>
 <!--div id="search_area_wrap">
   <div id="donate_wrap" *ngIf="!app.showSearchResults">
     <div class="donate_item" id="donate_icon"></div>
