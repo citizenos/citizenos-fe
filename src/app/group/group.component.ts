@@ -58,6 +58,7 @@ import { GroupSettingsComponent } from './components/group-settings/group-settin
 export class GroupComponent implements OnInit {
   group$;
   groupId: string = '';
+  groupTitle: string = '';
   tabSelected;
   wWidth: number = window.innerWidth;
   moreInfo = false;
@@ -124,6 +125,8 @@ export class GroupComponent implements OnInit {
         GroupMemberUserService.setParam('groupId', this.groupId);
         return this.GroupService.loadGroup(params['groupId']).pipe(
           tap((group) => {
+            this.groupTitle = group.name;
+            this.app.setPageTitle(group.name);
             this.app.group.next(group);
           }),
           catchError((err: any) => {
@@ -138,6 +141,7 @@ export class GroupComponent implements OnInit {
 
     this.tabSelected = this.route.fragment.pipe(
       map((fragment) => {
+        this.app.setPageTitle(this.groupTitle);
         if (!fragment) {
           return this.selectTab('topics')
         }

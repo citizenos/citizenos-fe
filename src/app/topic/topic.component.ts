@@ -32,6 +32,7 @@ import { TopicJoinComponent } from './components/topic-join/topic-join.component
 import { TopicReportReasonComponent } from './components/topic-report-reason/topic-report-reason.component';
 import { TopicJoinService } from 'src/app/services/topic-join.service';
 import { TourService } from 'src/app/services/tour.service';
+import { Title, Meta, MetaDefinition } from '@angular/platform-browser';
 
 @Component({
   selector: 'topic',
@@ -77,6 +78,7 @@ export class TopicComponent implements OnInit {
   showVoteTablet = (window.innerWidth <= 1024);
   tabSelected$: Observable<string>;
   showTutorial = false;
+  topicTitle:string = '';
   //new end
   topic$; // decorate the property with @Input()
   groups$: Observable<Group[]>;
@@ -117,6 +119,7 @@ export class TopicComponent implements OnInit {
 
     this.tabSelected$ = this.route.fragment.pipe(
       map((value) => {
+        this.app.setPageTitle(this.topicTitle || 'META_DEFAULT_TITLE');
         return value || 'discussion';
       })
     );
@@ -131,8 +134,10 @@ export class TopicComponent implements OnInit {
         return this.TopicService.loadTopic(params['topicId']);
       }),
       tap((topic: Topic) => {
+        this.app.setPageTitle(topic.title || 'META_DEFAULT_TITLE');
         topic.description = topic.description.replace(/href="/gi, 'target="_blank" href="');
         this.app.topic = topic;
+        this.topicTitle = topic.title || '';
         if (topic.report && topic.report.moderatedReasonType) {
           // NOTE: Well.. all views that are under the topics/view/votes/view would trigger doble overlays which we don't want
           // Not nice, but I guess the problem starts with the 2 views using same controller. Ideally they should have a parent controller and extend that with their specific functionality
