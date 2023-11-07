@@ -540,11 +540,23 @@
       #help_text_wrap {
         flex-direction: column;
         align-items: initial;
+        gap: 8px;
+
+        .title {
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 600;
+          line-height: 24px;
+        }
 
         .description_text {
           display: flex;
           text-align: left;
           align-items: initial;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 20px;
         }
 
         svg {
@@ -563,7 +575,14 @@
   text-align: center;
   gap: 8px;
 
-  .description_text {
+  .title {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+  }
+
+  .description_text, .description_text_wide {
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -572,18 +591,28 @@
       display: flex;
       flex-direction: column;
       width: 100%;
-      gap: 8px;
+      gap: 24px;
 
       .item {
         display: flex;
         width: 100%;
         gap: 8px;
         justify-content: flex-start;
-        align-items: center;
+        align-items: flex-start;
         text-align: left;
+
+        .item_text {
+          font-size: 14px;
+          line-height: 20px;
+        }
       }
     }
   }
+
+  .description_text_wide {
+    gap: 24px;
+  }
+
   @include mixins.tablet {
     text-align: left;
     align-items: initial;

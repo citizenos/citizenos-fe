@@ -9,6 +9,9 @@
   gap: 8px;
   position: relative;
 
+  &:hover {
+    box-shadow: 0 0 8px 0 #727c84;
+  }
   .group_header {
     display: flex;
     flex-direction: row;

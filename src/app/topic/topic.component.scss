@@ -304,7 +304,7 @@
       .state_items_wrap {
         display: flex;
         flex-direction: column;
-        gap: 16px;
+        gap: 8px;
       }
 
       .state_item {
@@ -317,8 +317,28 @@
         width: 100%;
         align-items: center;
         padding: 16px;
-        gap: 24px;
+        gap: 16px;
 
+        .state_item_text {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+
+          .item_heading {
+            padding: 0;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 16px;
+            justify-content: flex-start;
+          }
+
+          .item_description {
+            font-size: 13px;
+            font-style: normal;
+            line-height: 16px;
+          }
+        }
         .item_header {
           width: 100%;
           display: flex;

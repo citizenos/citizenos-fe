@@ -5,7 +5,7 @@
   position: fixed;
   cursor: pointer;
   z-index: 12;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(44,59,71, 0.8);
   @include mixins.mobile {
     display: none;
   }

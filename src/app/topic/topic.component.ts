@@ -54,7 +54,7 @@ import { TourService } from 'src/app/services/tour.service';
         bottom: 0,
       })),
       state('closed', style({
-        bottom: '-300px'
+        bottom: '-325px'
       })),
       transition('* => closed', [
         animate('1s')

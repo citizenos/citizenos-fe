@@ -80,7 +80,8 @@
                 <div class="block_section" *ngIf="!tmpImageUrl">
                   <div translate="VIEWS.VOTE_CREATE.HEADER_IMAGE_UPLOAD_DESC"></div>
                   <input id="image_upload_input" type="file" #imageUpload (change)="fileUpload()" />
-                  <button class="btn_medium_secondary" (click)="uploadImage()" translate="VIEWS.VOTE_CREATE.HEADER_IMAGE_UPLOAD_BTN"></button>
+                  <button class="btn_medium_secondary" (click)="uploadImage()"
+                    translate="VIEWS.VOTE_CREATE.HEADER_IMAGE_UPLOAD_BTN"></button>
                 </div>
                 <div id="topic_image" class="block_section" *ngIf="tmpImageUrl">
                   <img [src]="tmpImageUrl" />
@@ -489,7 +490,8 @@
                         </a>
                       </div>
                       <div class="row_cell">
-                        <div class="cell_title" translate="VIEWS.VOTE_CREATE.MEMBER_GROUP_HEADING_GROUP_PERMISSIONS"></div>
+                        <div class="cell_title" translate="VIEWS.VOTE_CREATE.MEMBER_GROUP_HEADING_GROUP_PERMISSIONS">
+                        </div>
                         <div class="dropdown" [cosDropdown]>
                           <div class="selection">
                             <div class="selected_item">{{'TXT_TOPIC_LEVELS_' + (group.permission?.level) |
@@ -635,14 +637,14 @@
                 </div>
               </ng-container>
               <div class="vote_options">
-                <div class="vote_option radio_wrap"
-                  [ngClass]="{'selected': option.selected}" *ngFor="let option of vote.options">
+                <div class="vote_option radio_wrap" [ngClass]="{'selected': option.selected}"
+                  *ngFor="let option of vote.options">
                   <div class="radio_text_wrap">
                     <div class="radio_lable_wrap">
                       <label class="checkbox"><span
                           translate="{{'VIEWS.VOTE_CREATE.LBL_OPTION_' + option.value  | uppercase}}"
                           [translateParams]="{default: option.value}"></span>
-                        <input type="checkbox" [checked]="option.selected"/>
+                        <input type="checkbox" [checked]="option.selected" />
                         <span class="checkmark"></span>
                       </label>
                     </div>
@@ -651,7 +653,7 @@
               </div>
               <div class="line_separator vote"></div>
               <div class="vote_buttons_wrap">
-                <button class="btn_medium_close" [ngClass]="vote.delegationIsAllowed ? 'active' : ''" >
+                <button class="btn_medium_close" *ngIf="vote.delegationIsAllowed">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M18.3432 7.92286L19.0634 2L13.1505 2.72143L15.1001 4.67429L7.72208 12.0647L9.12918 13.4742L16.5072 6.08375L18.3432 7.92286Z"
@@ -813,16 +815,16 @@
         </div>
         <div id="help_text_wrap" (click)="showHelp = !showHelp">
           <ng-container *ngIf="tabSelected !=='preview'">
-            <h3 translate="VIEWS.VOTE_CREATE.HELP_HEADING"></h3>
+            <div class="title" translate="VIEWS.VOTE_CREATE.HELP_HEADING"></div>
             <div class="description_text">
               <div translate="VIEWS.VOTE_CREATE.HELP_DESCRIPTION"></div>
               <a translate="VIEWS.VOTE_CREATE.HELP_LNK_LEARN_MORE"></a>
             </div>
           </ng-container>
           <ng-container *ngIf="tabSelected ==='preview'">
-            <h3 translate="VIEWS.VOTE_CREATE.HELP_HEADING"></h3>
-            <div class="description_text">
-              <div translate="VIEWS.VOTE_CREATE.HELP_DESCRIPTION"></div>
+            <div class="title" translate="VIEWS.VOTE_CREATE.HELP_NEXT_HEADING"></div>
+            <div class="description_text_wide">
+              <div translate="VIEWS.VOTE_CREATE.HELP_NEXT_DESCRIPTION"></div>
               <div class="items_list">
                 <div class="item">
                   <div>
@@ -832,7 +834,7 @@
                         fill="#4D5C6A" />
                     </svg>
                   </div>
-                  <span translate="VIEWS.VOTE_CREATE.HELP_ITEM_SHARE_AND_INVITE"></span>
+                  <span class="item_text" translate="VIEWS.VOTE_CREATE.HELP_ITEM_SHARE_AND_INVITE"></span>
                 </div>
                 <div class="item">
                   <div>
@@ -845,7 +847,7 @@
                         fill="#1168A8" />
                     </svg>
                   </div>
-                  <span translate="VIEWS.VOTE_CREATE.HELP_ITEM_ENGAGE_IN_DISCUSSION"></span>
+                  <span class="item_text" translate="VIEWS.VOTE_CREATE.HELP_ITEM_ENGAGE_IN_DISCUSSION"></span>
                 </div>
                 <div class="item">
                   <div>
@@ -855,7 +857,7 @@
                         fill="#E4B722" />
                     </svg>
                   </div>
-                  <span translate="VIEWS.VOTE_CREATE.HELP_ITEM_ADD_IDEATION"></span>
+                  <span class="item_text" translate="VIEWS.VOTE_CREATE.HELP_ITEM_ADD_IDEATION"></span>
                 </div>
                 <!--div class="item">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
