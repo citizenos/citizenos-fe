@@ -39,7 +39,6 @@ export class AddEmailComponent implements OnInit {
     this.errors = null;
 
     if (this.form.value.email) {
-      console.log(this.user.name, this.form.value.email)
       this.UserService
         .update(this.user.name, this.form.value.email)
         .pipe(take(1))

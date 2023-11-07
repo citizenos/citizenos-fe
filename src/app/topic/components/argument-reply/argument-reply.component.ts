@@ -53,7 +53,6 @@ export class ArgumentReplyComponent implements OnInit {
       .save(reply)
       .pipe(take(1))
       .subscribe((reply) => {
-        console.log(reply)
         this.TopicArgumentService.reset();
         /* return this.$state.go(
            this.$state.current.name,

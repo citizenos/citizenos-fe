@@ -273,8 +273,6 @@ export class GroupInviteDialogComponent {
 
   doInviteMembers() {
     // Users
-    console.log('DO invite', this.data.group.members.users);
-
     const groupMemberUsersToInvite = <any[]>[];
     this.data.group.members.users.forEach((member: any) => {
       groupMemberUsersToInvite.push({

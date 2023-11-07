@@ -32,7 +32,6 @@ export class FeatureBoxComponent {
   btnClick () {
     if (this.feature === 'discussion') {
       if (!this.auth.loggedIn$.value) {
-        console.log(this.router.createUrlTree(['/', this.translate.currentLang, 'topics', 'create']).toString())
         return this.app.doShowLogin(this.router.createUrlTree(['/', this.translate.currentLang, 'topics', 'create']).toString());
       }
       this.router.navigate(['/', this.translate.currentLang, 'topics', 'create'])

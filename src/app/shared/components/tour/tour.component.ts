@@ -60,7 +60,6 @@ export class TourComponent {
           const style = window.getComputedStyle(elNode);
           const visible = !!( elNode.offsetWidth || elNode.offsetHeight || elNode.getClientRects().length );
 
-         // console.log(element, visible, style.display)
           if (elNode && (style.display === 'none' || !visible) && item.elements.length > 1) {
             element = checkItemEl(item, offset + 1);
           }

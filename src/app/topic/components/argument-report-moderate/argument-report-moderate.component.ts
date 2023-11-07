@@ -30,7 +30,6 @@ export class ArgumentReportModerateComponent implements OnInit {
     this.reportId = data.report.id;
     this.token = data.token;
     this.report.patchValue(data.report); //Object.assign({}, data.report);
-    console.log(this.report.value.type);
   }
 
   ngOnInit(): void {
@@ -63,7 +62,6 @@ export class ArgumentReportModerateDialogComponent {
   commentId = '';
   token = '';
   constructor(dialog: MatDialog, route: ActivatedRoute, TopicArgumentService: TopicArgumentService) {
-    console.log('DIALOG MODERAET')
     /*TODO resove queryParam token */
     combineLatest([route.params, route.queryParams]).pipe(
       switchMap(([params, queryParams]) => {
@@ -80,11 +78,10 @@ export class ArgumentReportModerateDialogComponent {
       take(1)
     ).subscribe({
       next: (report) => {
-        console.log(report);
         dialog.open(ArgumentReportModerateComponent, { data: { report, topicId: this.topicId , commentId: this.commentId, token: this.token } });
       },
       error: (err) => {
-        console.log(err.message || err.status.message);
+        console.error(err.message || err.status.message);
       }
     });
 

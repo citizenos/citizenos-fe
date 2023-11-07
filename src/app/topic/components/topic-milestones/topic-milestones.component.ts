@@ -27,7 +27,6 @@ export class TopicMilestonesComponent implements OnInit {
   constructor(private dialog: MatDialog, private TopicEventService: TopicEventService, private TopicService: TopicService) {
     this.topicEvents = this.TopicEventService.loadItems();
     this.countTotal = this.TopicEventService.countTotal$;
-    console.log('MILESTONES')
   }
 
   ngOnInit(): void {
@@ -36,7 +35,6 @@ export class TopicMilestonesComponent implements OnInit {
   }
 
   submitEvent() {
-    console.log(this.event)
     this.TopicEventService
       .save(this.event)
       .pipe(take(1))

@@ -732,6 +732,54 @@ est-id-login-form {
   font-weight: 600;
 }
 
+.moderated_topic {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  z-index: 1;
+
+  .notification {
+    display: flex;
+    background-color: var(--color-surfaces);
+    flex-direction: column;
+    border-radius: 8px;
+    padding: 24px;
+    align-items: center;
+    gap: 16px;
+    z-index: 2;
+
+    .notification_title {
+      text-align: center;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 16px;
+      color: var(--color-text);
+    }
+
+    .notification_links {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+
+      a {
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 16px; /* 114.286% */
+      }
+    }
+  }
+}
+
 .tour_overlay {
   @extend %all_zero;
   position: fixed;

@@ -22,13 +22,11 @@ export class SmartIdLoginFormComponent {
   challengeID?: number | null;
   isLoading = false;
   constructor(private AuthService: AuthService, private dialog: MatDialog, @Inject(ActivatedRoute) private route: ActivatedRoute, private router: Router) {
-    console.log(this.redirectSuccess);
 
   }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(value => {
-      console.log(this.redirectSuccess);
       this.redirectSuccess = this.redirectSuccess || value['redirectSuccess'];
     }
   )

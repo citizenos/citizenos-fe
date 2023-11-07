@@ -74,7 +74,6 @@ export class HomeComponent implements OnInit {
     const createGroupTree = ['/', this.translate.currentLang,'my','groups','create'];
     const tree = this.router.createUrlTree(createGroupTree);
 
-    console.log(this.router.serializeUrl(tree));
     if (!this.AuthService.loggedIn$.value) {
 
       const redirectSuccess = this.location.getAbsoluteUrl(this.router.serializeUrl(tree).toString());

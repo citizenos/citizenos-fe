@@ -11,7 +11,6 @@ export class AccessibilityMenuComponent {
   constructor (public app: AppService) {}
 
   setContrast (contrast: string) {
-    console.log('setContrast', contrast)
     const accessibilityClasses = this.app.accessibility.value;
     accessibilityClasses.contrast = contrast;
     this.app.accessibility.next(accessibilityClasses);

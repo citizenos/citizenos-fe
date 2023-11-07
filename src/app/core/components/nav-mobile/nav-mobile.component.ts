@@ -37,7 +37,6 @@ export class NavMobileComponent implements OnInit {
     } else {
       params['editMode'] = true;
     }
-    console.log('PARAMS', params)
     this.router.navigate(['topics', this.app.topic?.id], { queryParams: params });
   }
 

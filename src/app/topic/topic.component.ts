@@ -20,7 +20,6 @@ import { Topic } from 'src/app/interfaces/topic';
 import { Attachment } from 'src/app/interfaces/attachment';
 import { Vote } from '../interfaces/vote';
 import { Group } from '../interfaces/group';
-import { TopicReportComponent } from './components/topic-report/topic-report.component';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { ConfirmDialogComponent } from '../shared/components/confirm-dialog/confirm-dialog.component';
 import { TopicMemberUserService } from '../services/topic-member-user.service';
@@ -30,6 +29,7 @@ import { DuplicateTopicDialogComponent } from './components/duplicate-topic-dial
 import { TopicVoteCreateDialogComponent } from './components/topic-vote-create/topic-vote-create.component';
 import { TopicFollowUpCreateDialogComponent } from './components/topic-follow-up-create-dialog/topic-follow-up-create-dialog.component';
 import { TopicJoinComponent } from './components/topic-join/topic-join.component';
+import { TopicReportReasonComponent } from './components/topic-report-reason/topic-report-reason.component';
 import { TopicJoinService } from 'src/app/services/topic-join.service';
 import { TourService } from 'src/app/services/tour.service';
 
@@ -138,7 +138,6 @@ export class TopicComponent implements OnInit {
           // Not nice, but I guess the problem starts with the 2 views using same controller. Ideally they should have a parent controller and extend that with their specific functionality
           this.dialog.closeAll();
           this.hideTopicContent = true;
-          this.doShowReportOverlay(topic);
         }
         if (topic.voteId) {
           this.vote$ = this.TopicVoteService.get({ topicId: topic.id, voteId: topic.voteId });
@@ -175,6 +174,14 @@ export class TopicComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
+  }
+
+  reportReasonDialog (topic: Topic) {
+    this.dialog.open(TopicReportReasonComponent, {
+      data: {
+        report: topic.report
+      }
+    })
   }
 
   joinTopic(topic: Topic) {
@@ -250,22 +257,6 @@ export class TopicComponent implements OnInit {
     window.scrollTo(0, 0);
     this.TourService.show('topic', 1);
   }
-
-  doShowReportOverlay(topic: Topic) {
-    const reportDialog = this.dialog.open(TopicReportComponent, {
-      data: {
-        topic: topic
-      }
-    })
-
-    reportDialog.afterClosed().subscribe((confirm) => {
-      if (confirm) {
-        return this.hideTopicContent = false;
-      }
-
-      return this.router.navigate(['/']);
-    })
-  };
 
   scroll(el: HTMLElement) {
     el.scrollIntoView();

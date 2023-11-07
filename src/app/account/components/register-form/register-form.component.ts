@@ -44,7 +44,6 @@ export class RegisterFormComponent {
 
   doSignUp() {
     const formData = this.signUpForm.value;
-    console.log('signup', formData);
     if (!formData.agreeToTerms) {
       this.errors = {
         terms: 'MSG_ERROR_NEED_TO_AGREE_TERMS'

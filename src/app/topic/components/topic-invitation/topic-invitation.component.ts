@@ -70,7 +70,6 @@ export class TopicInvitationComponent implements OnInit {
     }
   };
   ngOnInit(): void {
-    console.log(this.data);
   }
 
 }

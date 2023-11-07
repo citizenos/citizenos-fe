@@ -52,12 +52,17 @@ export class TopicReportResolveComponent implements OnInit {
 })
 export class TopicReportResolveDialogComponent implements OnInit {
 
-  constructor(dialog: MatDialog, route: ActivatedRoute, TopicService: TopicService) {
+  constructor(dialog: MatDialog, router: Router, route: ActivatedRoute, TopicService: TopicService) {
     route.params.pipe(switchMap((params) => {
       return TopicService.get(params['topicId']);
     })).pipe(take(1))
       .subscribe((topic) => {
-        dialog.open(TopicReportResolveComponent, { data: { topic } });
+        const reportDialog = dialog.open(TopicReportResolveComponent, { data: { topic } });
+
+        reportDialog.afterClosed().subscribe(() => {
+          TopicService.reloadTopic();
+          router.navigate(['../../../'], {relativeTo: route});
+        })
       })
 
   }

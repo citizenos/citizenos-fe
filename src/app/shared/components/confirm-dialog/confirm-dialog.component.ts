@@ -24,7 +24,6 @@ export class ConfirmDialogComponent implements OnInit {
 
   svg?:any;
   constructor (public dialogRef: MatDialogRef<ConfirmDialogComponent>, @Inject(MAT_DIALOG_DATA) public data:ConfirmDialogData, private sanitized: DomSanitizer) {
-    console.log(data.points)
     if (!data.level) data.level = 'warn';
     if (data.svg) {
       this.svg = this.sanitized.bypassSecurityTrustHtml(data.svg);

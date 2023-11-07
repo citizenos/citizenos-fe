@@ -30,7 +30,6 @@ export class GroupboxComponent implements OnInit {
     if (!this.Auth.loggedIn$.value) {
       const loginDialog = this.dialog.open(LoginDialogComponent);
       loginDialog.afterClosed().subscribe(result => {
-        console.log(`Login result: ${result}`);
       });
     } else {
 

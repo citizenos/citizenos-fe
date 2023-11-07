@@ -81,7 +81,6 @@ export class TopicCreateComponent implements OnInit {
     .pipe(take(1))
     .subscribe({
       next: (topic:Topic) => {
-        console.log('CREATEd', topic)
       }
     })
     .unsubscribe();*/

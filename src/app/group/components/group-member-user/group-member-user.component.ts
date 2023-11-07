@@ -46,7 +46,6 @@ export class GroupMemberUserComponent implements OnInit {
             return error;
           }))
           .subscribe((res) => {
-            console.log('RES', res)
           })
       }
     }

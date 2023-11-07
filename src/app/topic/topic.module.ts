@@ -32,7 +32,6 @@ import { ArgumentReportComponent } from './components/argument-report/argument-r
 import { ArgumentReportModerateComponent, ArgumentReportModerateDialogComponent } from './components/argument-report-moderate/argument-report-moderate.component';
 import { TopicJoinComponent } from './components/topic-join/topic-join.component';
 import { TopicInvitationComponent } from './components/topic-invitation/topic-invitation.component';
-import { TopicReportComponent } from './components/topic-report/topic-report.component';
 import { TopicVoteDelegateComponent } from './components/topic-vote-delegate/topic-vote-delegate.component';
 import { DuplicateTopicDialogComponent } from './components/duplicate-topic-dialog/duplicate-topic-dialog.component';
 import { ArgumentWhyDialogComponent } from './components/argument-why-dialog/argument-why-dialog.component';
@@ -41,6 +40,7 @@ import { VoteCreateComponent } from '../voting/components/vote-create/vote-creat
 import { InviteEditorsComponent } from './components/invite-editors/invite-editors.component';
 import { TopicEditComponent } from './components/topic-edit/topic-edit.component';
 import { TopicFormComponent } from './components/topic-form/topic-form.component';
+import { TopicReportReasonComponent } from './components/topic-report-reason/topic-report-reason.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +78,6 @@ import { TopicFormComponent } from './components/topic-form/topic-form.component
     ArgumentReportModerateDialogComponent,
     TopicJoinComponent,
     TopicInvitationComponent,
-    TopicReportComponent,
     TopicVoteDelegateComponent,
     DuplicateTopicDialogComponent,
     ArgumentWhyDialogComponent,
@@ -86,7 +85,8 @@ import { TopicFormComponent } from './components/topic-form/topic-form.component
     VoteCreateComponent,
     InviteEditorsComponent,
     TopicEditComponent,
-    TopicFormComponent
+    TopicFormComponent,
+    TopicReportReasonComponent
   ],
   imports: [
     LinkyModule,

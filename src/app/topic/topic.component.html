@@ -1,4 +1,4 @@
-<div class="page_content" *ngIf="topic$ | async as topic;" [ngClass]="{'reported': hideTopicContent}">
+<div class="page_content" *ngIf="topic$ | async as topic;">
   <div id="page_header">
     <div id="user_info_area">
       <ng-container *ngIf="!auth.loggedIn$.value">
@@ -200,7 +200,7 @@
   <div class="topic_content_area_wrap">
     <div class="content_area_left" *ngIf="tabSelected$ | async as tabSelected;">
       <ng-container
-        *ngIf="topic.report && (topic.report.moderatedReasonType || (topic.report.type && !topic.report.moderatedReasonType))">
+        *ngIf="topic.report && ((topic.report.moderatedReasonType && TopicService.canEdit(topic)) || (!TopicService.canEdit(topic) && topic.report.type) || !topic.report.moderatedReasonType)">
         <div class="notification_inline error">
           <div class="icon_notification">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -212,9 +212,6 @@
           </div>
           <div class="message">
             <div class="content">
-              <span translate="VIEWS.TOPICS_TOPICID.TAB_INFO_TXT_REPORTED"></span>&nbsp;<a
-                (click)="doShowReportOverlay(topic); $event.preventDefault()" href="#"
-                translate="VIEWS.TOPICS_TOPICID.TAB_INFO_LNK_VIEW_REPORT_DETAILS"></a>
               <span *ngIf="topic.report.type && !topic.report.moderatedReasonType">&nbsp;<a
                   [routerLink]="['reports', topic.report.id, 'moderate']"
                   translate="VIEWS.TOPICS_TOPICID.TAB_INFO_LNK_MODERATE"></a></span>
@@ -230,6 +227,26 @@
       </ng-container>
 
       <div class="topic_content_wrap">
+        <div class="moderated_topic" *ngIf="hideTopicContent">
+          <div class="notification">
+            <div>
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="40" height="40" rx="20" fill="#F39129" />
+                <path
+                  d="M19.0645 8C18.4876 8 18.0304 8.48668 18.0664 9.06238L18.9414 23.0624C18.9743 23.5894 19.4114 24 19.9395 24H20.0605C20.5886 24 21.0257 23.5894 21.0586 23.0624L21.9336 9.06238C21.9696 8.48668 21.5124 8 20.9355 8H19.0645Z"
+                  fill="white" />
+                <path
+                  d="M20 31C21.1046 31 22 30.1046 22 29C22 27.8954 21.1046 27 20 27C18.8954 27 18 27.8954 18 29C18 30.1046 18.8954 31 20 31Z"
+                  fill="white" />
+              </svg>
+            </div>
+            <div class="notification_title" translate="COMPONENTS.TOPICBOX.NOTIFICATION_TITLE"></div>
+            <div class="notification_links">
+              <a translate="COMPONENTS.TOPICBOX.NOTIFICATION_LNK_WHY" (click)="reportReasonDialog(topic)"></a>
+              <a translate="COMPONENTS.TOPICBOX.NOTIFICATION_LNK_VIEW" (click)="hideTopicContent=false"></a>
+            </div>
+          </div>
+        </div>
         <div class="topic_image">
           <img *ngIf="topic.imageUrl" [src]="topic.imageUrl">
         </div>

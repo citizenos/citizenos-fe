@@ -256,7 +256,6 @@ export class TopicVoteCreateComponent implements OnInit {
   setReminderOptions() {
     this.reminderOptions = [];
     this.reminderOptionsList.forEach((item: any) => {
-      console.log(item);
       let timeItem = new Date(this.deadline);
       switch (item.unit) {
         case 'weeks':
@@ -338,7 +337,6 @@ export class TopicVoteCreateComponent implements OnInit {
         this.vote.options.push({ value: option.value });
       }
     }
-    console.log(this.vote.options)
     this.vote.options = this.vote.options.filter((option: any) => {
       return !!option.value
     });

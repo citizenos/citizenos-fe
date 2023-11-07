@@ -37,9 +37,7 @@ export class DashboardComponent {
     private GroupService: GroupService,
     private dialog: MatDialog
   ) {
-    this.groups$ = this.GroupService.loadItems().pipe(
-      tap((groups) => console.log(groups))
-    );
+    this.groups$ = this.GroupService.loadItems();
     this.topics$ = this.UserTopicService.loadItems().pipe(
       tap((topics) => {
         if (topics.length === 0) {

@@ -1,4 +1,24 @@
-<a (click)="goToView()" class="topic">
+<a (click)="(!topic.report)? goToView(): ''" class="topic" [ngClass]="{'moderated': topic.report}">
+  <div class="moderated_topic" *ngIf="topic.report">
+    <div class="notification">
+      <div>
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="40" height="40" rx="20" fill="#F39129" />
+          <path
+            d="M19.0645 8C18.4876 8 18.0304 8.48668 18.0664 9.06238L18.9414 23.0624C18.9743 23.5894 19.4114 24 19.9395 24H20.0605C20.5886 24 21.0257 23.5894 21.0586 23.0624L21.9336 9.06238C21.9696 8.48668 21.5124 8 20.9355 8H19.0645Z"
+            fill="white" />
+          <path
+            d="M20 31C21.1046 31 22 30.1046 22 29C22 27.8954 21.1046 27 20 27C18.8954 27 18 27.8954 18 29C18 30.1046 18.8954 31 20 31Z"
+            fill="white" />
+        </svg>
+      </div>
+      <div class="notification_title" translate="COMPONENTS.TOPICBOX.NOTIFICATION_TITLE"></div>
+      <div class="notification_links">
+        <a translate="COMPONENTS.TOPICBOX.NOTIFICATION_LNK_WHY"></a>
+        <a translate="COMPONENTS.TOPICBOX.NOTIFICATION_LNK_VIEW" (click)="goToView()"></a>
+      </div>
+    </div>
+  </div>
   <div class="topic_header"
     [ngClass]="{'discussion': topic.status === 'inProgress', 'voting': topic.status === 'voting', 'follow_up': topic.status === 'followUp'}">
     <div class="progress" [ngStyle]="{'width.%': getProgress()}">
@@ -71,8 +91,10 @@
       <div class="topic_icon" *ngIf="topic.favourite">
         <div class="clipped">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 3L14.645 8.35942L20.5595 9.21885L16.2798 13.3906L17.2901 19.2812L12 16.5L6.70993 19.2812L7.72025 13.3906L3.44049 9.21885L9.35497 8.35942L12 3Z" fill="#2C3B47"/>
-            </svg>
+            <path
+              d="M12 3L14.645 8.35942L20.5595 9.21885L16.2798 13.3906L17.2901 19.2812L12 16.5L6.70993 19.2812L7.72025 13.3906L3.44049 9.21885L9.35497 8.35942L12 3Z"
+              fill="#2C3B47" />
+          </svg>
         </div>
       </div>
       <div class="topic_icon" *ngIf="topic.visibility === 'private'">

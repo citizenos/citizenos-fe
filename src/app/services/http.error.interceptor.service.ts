@@ -37,13 +37,12 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           else {
             errorMsg = response.message;
             console.error(`Server side error:', ${errorMsg} `);
-            console.log(response.error)
+            console.log('Error object', response.error)
             if (response.url?.match(this.API_REQUEST_JOIN) && response.status === 404) {
               return throwError(() => response.error);
             }
 
             if (response.status === 404) {
-              console.log(request.url);
             //  this.app.doShowLogin(this.Location.getAbsoluteUrl(window.location.pathname) + window.location.search);
               if (request.url === '/api/topics') {
                 this.Router.navigate(['/error/404'], { queryParams: { redirectSuccess: this.Location.getAbsoluteUrl(window.location.pathname) + window.location.search } });

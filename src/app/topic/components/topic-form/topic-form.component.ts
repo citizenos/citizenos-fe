@@ -221,10 +221,9 @@ export class TopicFormComponent {
     const manageDialog = this.dialog.open(TopicParticipantsDialogComponent, { data: { topic: this.topic } });
     manageDialog.afterClosed().subscribe({
       next: (res) => {
-        console.log('MANAGED', res);
       },
       error: (error) => {
-        console.log('ERROR', error);
+        console.error('ERROR MANAGE MEMBERS', error);
       }
     })
   }
@@ -233,7 +232,6 @@ export class TopicFormComponent {
     const inviteDialog = this.dialog.open(InviteEditorsComponent, { data: { topic: this.topic } });
     inviteDialog.afterClosed().subscribe({
       next: (inviteUsers) => {
-        console.log(inviteUsers);
         this.topic.members.users = inviteUsers;
       },
       error: (error) => {
