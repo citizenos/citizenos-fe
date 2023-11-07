@@ -130,7 +130,7 @@ export class LoginComponent {
     if (this.router.url.indexOf('account/login') > -1) {
       return this.router.navigate(['estid'], { relativeTo: this.route })
     }
-    console.log(this.redirectSuccess);
+
     return this.dialog.open(EstIdLoginDialogComponent, { data: { redirectSuccess: this.redirectSuccess } });
     /*
     this.dialog.open(EstIdLoginComponent, {});*/
@@ -143,7 +143,6 @@ export class LoginComponent {
     if (this.router.url.indexOf('account/login') > -1) {
       return this.router.navigate(['smartid'], { relativeTo: this.route })
     }
-    console.log('doLoginSmartId', this.redirectSuccess)
     return this.dialog.open(SmartIdLoginDialogComponent, { data: { redirectSuccess: this.redirectSuccess } });
   };
 
@@ -238,9 +237,7 @@ export class LoginDialogComponent extends LoginComponent{
     Auth: AuthService,
     translate: TranslateService) {
     super(dialog, Location, config, router, UserService, route, Auth, translate);
-    console.log('LOGINDIALOG', this.data)
-    this.authMethodsAvailable = config.get('features').authentication;
-    console.log(this.authMethodsAvailable)
+    this.authMethodsAvailable = config.get('features').authentication;    console.log(this.authMethodsAvailable)
     this.authSubscriber = Auth.loggedIn$.subscribe({
       next: (value) => {
         if (value) {

@@ -285,14 +285,13 @@ export class VoteCreateComponent implements OnInit {
           this.router.navigate([topic.id], { relativeTo: this.route });
         },
         error: (error: any) => {
-          console.log(error);
+          console.error('Vote create error: ',error);
         }
       })
     /*this.app.createNewTopic(this.topic.title, this.topic.visibility)
     .pipe(take(1))
     .subscribe({
       next: (topic:Topic) => {
-        console.log('CREATEd', topic)
       }
     })
     .unsubscribe();*/
@@ -428,7 +427,6 @@ export class VoteCreateComponent implements OnInit {
     const inviteDialog = this.dialog.open(TopicInviteDialogComponent, { data: { topic: this.topic } });
     inviteDialog.afterClosed().subscribe({
       next: (inviteUsers) => {
-        console.log(inviteUsers);
         this.topic.members.users = inviteUsers;
         //   this.NotificationService.addSuccess('');
       },
@@ -442,17 +440,15 @@ export class VoteCreateComponent implements OnInit {
     const manageDialog = this.dialog.open(TopicParticipantsDialogComponent, { data: { topic: this.topic } });
     manageDialog.afterClosed().subscribe({
       next: (res) => {
-        console.log('MANAGED', res);
       },
       error: (error) => {
-        console.log('ERROR', error);
+        console.error('Manage members error:', error);
       }
     })
   }
 
   saveVoteSettings(vote?: any) {
     if (vote) {
-      console.log(this.vote)
       this.vote = vote;
     }
   }

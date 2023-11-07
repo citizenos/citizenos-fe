@@ -46,7 +46,6 @@ export class ActivityFeedComponent implements OnInit {
       this.ActivityService.setParam('groupId', this.data.groupId);
     }
     if (this.data?.topicId) {
-      console.log(this.data.topicId)
       this.ActivityService.setParam('topicId', this.data.topicId);
     }
     this.activities$ = this.ActivityService.loadItems().pipe(

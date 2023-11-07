@@ -172,11 +172,17 @@
         width: 100%;
         border-radius: 16px;
         background-color: var(--color-surfaces);
+        position: relative;
 
+        .moderated_topic {
+          background: rgba(255, 255, 255, 0.90);
+          backdrop-filter: blur(16px);
+        }
         .topic_image {
           border-top-left-radius: 16px;
           border-top-right-radius: 16px;
           display: flex;
+          min-height: 60px;
           max-height: 324px;
           width: 100%;
           overflow: hidden;
@@ -222,6 +228,7 @@
           display: flex;
           width: 100%;
           justify-content: center;
+          z-index: 3;
           button {
             margin-top: -21px;
             position: absolute;

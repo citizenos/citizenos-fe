@@ -4,7 +4,7 @@ import { Topic } from 'src/app/interfaces/topic';
 import { TopicReportService } from 'src/app/services/topic-report.service';
 import { TopicReportFormData } from '../topic-report-form/topic-report-form.component';
 import { switchMap, take } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TopicService } from 'src/app/services/topic.service';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 @Component({
@@ -57,12 +57,16 @@ export class TopicReportReviewComponent implements OnInit {
 })
 export class TopicReportReviewDialogComponent implements OnInit {
 
-  constructor(dialog: MatDialog, route: ActivatedRoute, TopicService: TopicService) {
+  constructor(dialog: MatDialog, router: Router, route: ActivatedRoute, TopicService: TopicService) {
     route.params.pipe(switchMap((params) => {
       return TopicService.get(params['topicId']);
     })).pipe(take(1))
       .subscribe((topic) => {
-        dialog.open(TopicReportReviewComponent, { data: { topic } });
+        const reportDialog = dialog.open(TopicReportReviewComponent, { data: { topic } });
+        reportDialog.afterClosed().subscribe(() => {
+          TopicService.reloadTopic();
+          router.navigate(['../../../'], {relativeTo: route});
+        })
       })
 
   }

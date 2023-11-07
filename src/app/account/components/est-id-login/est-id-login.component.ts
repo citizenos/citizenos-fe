@@ -18,6 +18,6 @@ export class EstIdLoginComponent {
 export class EstIdLoginDialogComponent {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data:any) {
-    console.log(data);
+
   }
 }

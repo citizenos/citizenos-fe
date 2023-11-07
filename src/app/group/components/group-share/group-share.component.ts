@@ -106,10 +106,8 @@ export class GroupShareComponent implements OnInit {
   };
 
   generateJoinUrl() {
-    console.log(this.joinUrl,this.GroupService.canShare(this.group))
     if (this.join.token && this.GroupService.canShare(this.group)) {
       this.joinUrl = this.Location.getAbsoluteUrl('/groups/join/' + this.join.token);
-      console.log(this.joinUrl)
     }
   };
 

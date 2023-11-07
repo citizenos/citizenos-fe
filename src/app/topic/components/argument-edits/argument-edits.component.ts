@@ -17,7 +17,6 @@ export class ArgumentEditComponent implements OnInit {
   constructor(private TopicArgumentService: TopicArgumentService, private Notification: NotificationService, private Location: LocationService, private Translate: TranslateService) { }
 
   ngOnInit(): void {
-    console.log(this.argument.edits);
   }
 
 

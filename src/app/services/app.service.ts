@@ -96,12 +96,11 @@ export class AppService {
     .pipe(take(1))
     .subscribe({
       next: (done) => {
-        console.log('SUCCESS', done);
         this.AuthService.status().pipe(take(1)).subscribe();
         this.router.navigate(['/']);
       },
       error: (err) => {
-        console.log('ERROR', err);
+        console.error('LOGOUT ERROR', err);
       }
     });
   }
@@ -141,7 +140,6 @@ export class AppService {
 
 
   showCreateMenu() {
-    console.log('showCreateMenu')
     if (!this.createMenu) {
       const createDialog = this.dialog.open(CreateComponent);
       createDialog.afterClosed().subscribe(() => {

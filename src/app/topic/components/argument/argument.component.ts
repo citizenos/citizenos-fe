@@ -75,7 +75,6 @@ export class ArgumentComponent implements OnInit {
     this.argumentEditMode();
   }
   doShowDeleteArgument() {
-    console.log('show delete argument')
     const deleteArgument = this.dialog.open(ConfirmDialogComponent, {
       data: {
         level: 'delete',

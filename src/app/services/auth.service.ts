@@ -34,7 +34,6 @@ export class AuthService {
     }))
   }
   reloadUser(): void {
-    console.log('reloadUser')
     this.loadUser$.next();
   }
 

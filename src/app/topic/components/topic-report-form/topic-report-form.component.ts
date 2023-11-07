@@ -44,17 +44,15 @@ export class TopicReportFormComponent implements OnInit {
     this.isLoading = true;
     this.report.value.topicId = this.data.topic.id;
     const report = this.report.value;
-    console.log('REPORT', report)
     this.TopicReportService
       .save(report)
       .pipe(take(1))
       .subscribe({
         next: (report) => {
-          console.log(report);
           this.dialog.close();
         },
         error: (error) => {
-          console.log('ERROR', error)
+          console.error('ERROR REPORT', error)
           this.dialog.close();
         }
       }
@@ -82,11 +80,12 @@ export class TopicReportFormDialogComponent implements OnInit {
       return TopicService.get(params['topicId']);
     })).pipe(take(1))
       .subscribe((topic) => {
-        console.log(topic);
         const reportDialog = dialog.open(TopicReportFormComponent, { data: { topic } });
-        reportDialog.afterClosed().subscribe(() => router.navigate(['../'], {relativeTo: route}))
-
-      })
+        reportDialog.afterClosed().subscribe(() => {
+          TopicService.reloadTopic();
+          router.navigate(['../'], { relativeTo: route })
+        });
+      });
 
   }
 

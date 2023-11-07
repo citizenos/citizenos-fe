@@ -97,7 +97,6 @@ export class TopicInviteComponent implements OnInit {
   }
 
   addTopicMember(member?: any) {
-    console.log(member);
     if (this.members.length >= this.maxUsers) {
       this.Notification.addError('MSG_ERROR_INVITE_MEMBER_COUNT_OVER_LIMIT');
       return;
@@ -143,7 +142,6 @@ export class TopicInviteComponent implements OnInit {
   };
 
   addTopicMemberUser(member?: any): void {
-    console.log(member)
     if (member) {
       if (this.members && this.members.find((m: TopicMemberUser) => m.id === member.id)) {
         // Ignore duplicates
@@ -177,12 +175,10 @@ export class TopicInviteComponent implements OnInit {
 
         filtered.sort().forEach((email) => {
           email = email.trim();
-          console.log('email', email)
           if (this.members.length >= this.maxUsers) {
             return this.Notification.addError('MSG_ERROR_INVITE_MEMBER_COUNT_OVER_LIMIT');
           }
           if (!this.members.find((member: TopicMemberUser) => member['userId'] === email)) {
-            console.log(email)
             this.members.push({
               userId: email,
               name: email,
@@ -279,11 +275,6 @@ export class TopicInviteDialogComponent {
   }
 
   doInviteMembers() {
-    console.log(this.dialog)
-    console.log(this.data);
-    // Users
-    console.log('DO invite', this.members);
-
     const topicMemberUsersToInvite = <any[]>[];
     this.members.forEach((member: any) => {
       topicMemberUsersToInvite.push({
@@ -300,7 +291,6 @@ export class TopicInviteDialogComponent {
         this.TopicInviteUser.save(this.data.topic.id, topicMemberUsersToInvite)
           .pipe(take(1))
           .subscribe(res => {
-            console.log('RESULT', res);
             this.dialog.close()
           })
       } else {

@@ -228,7 +228,6 @@ export class TopicVoteCastComponent implements OnInit {
     if (includeCSV) {
       url += '&include[]=csv';
     }
-    console.log(url);
     window.location.href = url;
   };
 }

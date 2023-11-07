@@ -80,8 +80,6 @@ export class GroupAddTopicsComponent implements OnInit {
   addGroupMemberTopic(topic: Topic) {
     this.searchStringTopic = '';
     this.searchResults$ = of([]);
-    console.log(topic);
-    console.log(this.group.members.topics)
     if (!topic || !topic.id || !topic.title) {
       return false;
     }
@@ -130,7 +128,7 @@ export class GroupAddTopicsComponent implements OnInit {
           error: (errorResponse) => {
             if (errorResponse && errorResponse.errors) {
               this.errors = errorResponse.errors;
-              console.log(errorResponse.errors);
+              console.error(errorResponse.errors);
             }
           }
         })
@@ -202,7 +200,7 @@ export class GroupAddTopicsDialogComponent {
           },
           error: (errorResponse) => {
             if (errorResponse && errorResponse.errors) {
-              console.log(errorResponse.errors);
+              console.error(errorResponse.errors);
             }
 
       this.dialog.close();

@@ -59,10 +59,9 @@ export class NavComponent implements OnInit {
     .pipe(take(1))
     .subscribe({
       next: (done) => {
-        console.log('SUCCESS', done);
       },
       error: (err) => {
-        console.log('ERROR', err);
+        console.error('LOGOUT ERROR', err);
       }
     });
   }

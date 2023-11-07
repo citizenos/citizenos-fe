@@ -32,7 +32,6 @@ export class EstIdLoginFormComponent {
     private route: ActivatedRoute) {
     this.config = cosConfig.get('features');
     this.authMethodsAvailable = Object.assign({}, this.config.authentication);
-    console.log(this.redirectSuccess)
     this.route.queryParams.subscribe(value => {
       this.redirectSuccess = this.redirectSuccess || value['redirectSuccess'];
     });

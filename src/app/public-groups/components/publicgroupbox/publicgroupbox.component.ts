@@ -32,7 +32,6 @@ export class PublicgroupboxComponent implements OnInit {
         data: { redirectSuccess: ['/groups', this.group.id] }
       });
       loginDialog.afterClosed().subscribe(result => {
-        console.log(`Login result: ${result}`);
       });
     } else {
       const joinDialog = this.dialog.open(GroupJoinComponent, {

@@ -128,7 +128,7 @@ export class TourService {
         this.activeItem.next(index + 1);
       },
       error: (err) => {
-        console.log(err)
+        console.error(err)
       }
     })
   }

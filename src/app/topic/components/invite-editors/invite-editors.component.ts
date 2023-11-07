@@ -96,7 +96,6 @@ export class InviteEditorsComponent {
   }
 
   addTopicMember(member?: any) {
-    console.log(member, this.members);
     if (this.members.length >= this.maxUsers) {
       this.Notification.addError('MSG_ERROR_INVITE_MEMBER_COUNT_OVER_LIMIT');
       return;
@@ -108,10 +107,8 @@ export class InviteEditorsComponent {
       return this.addTopicMemberUser();
     }
     if (member.hasOwnProperty('company')) {
-      console.log('HERE');
       return this.addTopicMemberUser(member);
     }
-    console.log('nothing');
   };
 
   addCorrectedEmail(email: string, key: string) {
@@ -181,12 +178,10 @@ export class InviteEditorsComponent {
 
         filtered.sort().forEach((email) => {
           email = email.trim();
-          console.log('email', email)
           if (this.members.length >= this.maxUsers) {
             return this.Notification.addError('MSG_ERROR_INVITE_MEMBER_COUNT_OVER_LIMIT');
           }
           if (!this.members.find((member: TopicMemberUser) => member['userId'] === email)) {
-            console.log(email)
             this.members.push({
               userId: email,
               name: email,
@@ -237,15 +232,14 @@ export class InviteEditorsComponent {
         .pipe(take(1))
         .subscribe({
           next: (res: any) => {
-            console.log(res)
-          this.TopicService.reloadTopic();
-          this.dialog.close(membersToSave);
-          this.Notification.addSuccess('Invites sent');
-        },
-        error: (err) => {
-          this.Notification.addError(err.message || err);
-        }
-      })
+            this.TopicService.reloadTopic();
+            this.dialog.close(membersToSave);
+            this.Notification.addSuccess('Invites sent');
+          },
+          error: (err) => {
+            this.Notification.addError(err.message || err);
+          }
+        })
     }
   }
 

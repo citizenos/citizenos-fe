@@ -59,7 +59,6 @@ export class MyGroupsComponent implements OnInit {
 
     this.groups$ = combineLatest([this.route.queryParams, this.searchString$]).pipe(
       switchMap(([queryParams, search]) => {
-        console.log(search);
         GroupService.reset();
         if (search) {
           GroupService.setParam('search', search);

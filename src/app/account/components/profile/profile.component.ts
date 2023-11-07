@@ -196,7 +196,6 @@ export class ProfileComponent {
             }
           },
           error: (res: any) => {
-            console.log('ERROR', res)
             if (res.status.message === 'Invalid password')
               this.errors = { password: res.status.message }
             return of({ error: res.status })
