@@ -16,16 +16,12 @@ import { style, transition, trigger, animate, state } from '@angular/animations'
     trigger('openClose', [
       state('open', style({
         right: 0,
+        visibility: 'visible'
       })),
       state('closed', style({
-        right: '-300px'
-      })),
-      transition('* => closed', [
-        animate('1s')
-      ]),
-      transition('* => open', [
-        animate('1s')
-      ]),
+        right: '-300px',
+        visibility: 'hidden'
+      }))
     ]),
   ]
 })
