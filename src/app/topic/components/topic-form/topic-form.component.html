@@ -314,8 +314,7 @@
                     </svg>
                   </div>
                   <div class="options">
-                    <div class="option" *ngFor="let country of countries;"
-                      (click)="topic.country = country.name;">
+                    <div class="option" *ngFor="let country of countries;" (click)="topic.country = country.name;">
                       {{country.name}}
                     </div>
                   </div>
@@ -331,8 +330,7 @@
                     </svg>
                   </div>
                   <div class="options">
-                    <div class="option" *ngFor="let language of languages;"
-                      (click)="topic.language = language.name">
+                    <div class="option" *ngFor="let language of languages;" (click)="topic.language = language.name">
                       {{language.name}}
                     </div>
                   </div>
@@ -698,14 +696,17 @@
 
         </div>
         <div id="help_text_wrap" (click)="showHelp = !showHelp">
-
-          <h3 translate="VIEWS.TOPIC_CREATE.HELP_HEADING"></h3>
-          <div class="description_text">
-            <div translate="VIEWS.TOPIC_CREATE.HELP_DESCRIPTION"></div>
-            <ng-container *ngIf="tabSelected !=='preview'">
+          <ng-container *ngIf="tabSelected !=='preview'">
+            <div class="title" translate="VIEWS.TOPIC_CREATE.HELP_HEADING"></div>
+            <div class="description_text">
+              <div translate="VIEWS.TOPIC_CREATE.HELP_DESCRIPTION"></div>
               <a translate="VIEWS.TOPIC_CREATE.HELP_LNK_LEARN_MORE"></a>
-            </ng-container>
-            <ng-container *ngIf="tabSelected ==='preview'">
+            </div>
+          </ng-container>
+          <ng-container *ngIf="tabSelected ==='preview'">
+            <div class="title" translate="VIEWS.TOPIC_CREATE.HELP_NEXT_HEADING"></div>
+            <div class="description_text_wide">
+              <div translate="VIEWS.TOPIC_CREATE.HELP_NEXT_DESCRIPTION"></div>
               <div class="items_list">
                 <div class="item">
                   <div>
@@ -715,7 +716,7 @@
                         fill="#4D5C6A" />
                     </svg>
                   </div>
-                  <span translate="VIEWS.TOPIC_CREATE.HELP_ITEM_SHARE_AND_INVITE"></span>
+                  <span class="item_text" translate="VIEWS.TOPIC_CREATE.HELP_ITEM_SHARE_AND_INVITE"></span>
                 </div>
                 <div class="item">
                   <div>
@@ -728,7 +729,7 @@
                         fill="#1168A8" />
                     </svg>
                   </div>
-                  <span translate="VIEWS.TOPIC_CREATE.HELP_ITEM_ENGAGE_IN_DISCUSSION"></span>
+                  <span class="item_text" translate="VIEWS.TOPIC_CREATE.HELP_ITEM_ENGAGE_IN_DISCUSSION"></span>
                 </div>
                 <div class="item">
                   <div>
@@ -738,7 +739,7 @@
                         fill="#E4B722" />
                     </svg>
                   </div>
-                  <span translate="VIEWS.TOPIC_CREATE.HELP_ITEM_ADD_IDEATION"></span>
+                  <span class="item_text" translate="VIEWS.TOPIC_CREATE.HELP_ITEM_ADD_IDEATION"></span>
                 </div>
                 <div class="item">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -746,7 +747,7 @@
                       d="M12 0C5.376 0 0 5.376 0 12C0 18.624 5.376 24 12 24C18.624 24 24 18.624 24 12C24 5.376 18.624 0 12 0ZM9.66667 18L19 8.73684L17.25 7L9.66667 14.5263L6.75 11.6316L5 13.3684L9.66667 18Z"
                       fill="#5AB467" />
                   </svg>
-                  <span translate="VIEWS.TOPIC_CREATE.HELP_ITEM_ADD_VOTING"></span>
+                  <span class="item_text" translate="VIEWS.TOPIC_CREATE.HELP_ITEM_ADD_VOTING"></span>
                 </div>
                 <div class="item">
                   <div>
@@ -756,12 +757,12 @@
                         fill="white" />
                     </svg>
                   </div>
-                  <span translate="VIEWS.TOPIC_CREATE.HELP_ITEM_ADD_FOLLOW_UP"></span>
+                  <span class="item_text" translate="VIEWS.TOPIC_CREATE.HELP_ITEM_ADD_FOLLOW_UP"></span>
                 </div>
               </div>
               <a translate="VIEWS.TOPIC_CREATE.HELP_LNK_LEARN_MORE"></a>
-            </ng-container>
-          </div>
+            </div>
+          </ng-container>
         </div>
       </div>
     </div>
