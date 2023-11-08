@@ -27,6 +27,7 @@ declare let hwcrypto: any;
 export class AppService {
   showNav = false;
   showSearch = false;
+  navMobileAbsolute = false;
   editMode = false;
   darkNav = false;
   showActivities = false;

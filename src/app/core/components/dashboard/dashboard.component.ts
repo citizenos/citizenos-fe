@@ -58,7 +58,9 @@ export class DashboardComponent {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     setTimeout(() => {
-      this.dialog.open(OnboardingComponent);
+      const onBoarding = this.dialog.open(OnboardingComponent);
+      this.app.navMobileAbsolute = true;
+      onBoarding.afterClosed().subscribe(() => this.app.navMobileAbsolute = false);
     });
   }
 }

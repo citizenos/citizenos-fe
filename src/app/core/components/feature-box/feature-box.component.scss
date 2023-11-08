@@ -1,60 +1,74 @@
-  .feature_box_header {
-    padding: 16px 24px 0 24px;
-    display: flex;
-  }
-  .feature_box_content {
+@use "mixins";
+
+.feature_box_header {
+  padding: 16px 24px 0 24px;
+  display: flex;
+}
+.feature_box_content {
+  padding: 0px 24px 8px 24px;
+
+  @include mixins.mobile {
     padding: 0px 24px 16px 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    .feature_heading {
-      font-weight: 600;
-      font-size: 24px;
-      line-height: 32px;
-
-      &.discussion {
-        color: var(--color-discussion);
-      }
-
-      &.ideation {
-        color: var(--color-ideation);
-      }
-
-      &.voting {
-        color: var(--color-voting);
-      }
-    }
-    .feature_description_item {
-      align-items: center;
-      vertical-align: middle;
-      display: flex;
-      gap: 8px;
-    }
   }
 
-  .feature_box_footer {
-    bottom: 0;
-    height: 160px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    padding: 24px;
-    justify-content: space-between;
-
-    .footer_text {
-      display: flex;
-      gap: 16px;
-    }
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  .feature_heading {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 32px;
 
     &.discussion {
-      background-color: var(--color-dialog-contrast);
+      color: var(--color-discussion);
     }
 
     &.ideation {
-      background-color: var(--color-dialog-ideation);
+      color: var(--color-ideation);
     }
 
     &.voting {
-      background-color: var(--color-dialog-voting);
+      color: var(--color-voting);
     }
   }
+  .feature_description_item {
+    align-items: flex-start;
+    vertical-align: middle;
+    display: flex;
+    gap: 8px;
+
+    span {
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 20px;
+    }
+  }
+}
+
+.feature_box_footer {
+  bottom: 0;
+  height: 160px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 14px 16px 24px;
+  justify-content: space-between;
+
+  .footer_text {
+    display: flex;
+    gap: 16px;
+  }
+
+  &.discussion {
+    background-color: var(--color-dialog-contrast);
+  }
+
+  &.ideation {
+    background-color: var(--color-dialog-ideation);
+  }
+
+  &.voting {
+    background-color: var(--color-dialog-voting);
+  }
+}

@@ -1,3 +1,4 @@
+@use "mixins";
 
 #register_wrap {
   display: flex;
@@ -7,6 +8,14 @@
   padding: 40px;
   max-width: 400px;
 
+  .description {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: center;
+  }
+
   a {
     width: max-content;
   }
@@ -14,5 +23,16 @@
   .main_heading,
   p {
     text-align: center;
+  }
+
+  @include mixins.mobile {
+    padding: 24px 16px;
+    max-width: 100%;
+    .main_heading {
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 24px;
+    }
   }
 }

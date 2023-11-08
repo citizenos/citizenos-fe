@@ -1,4 +1,4 @@
-<div class="nav_mobile" [ngClass]="{'pos_absolute': addPosAbsolute | async, 'dark_backround': app.darkNav}">
+<div class="nav_mobile" [ngClass]="{'pos_absolute': ((this.TourService.showTour | async) || app.navMobileAbsolute), 'dark_backround': app.darkNav}">
   <div class="logo_wrap">
     <a routerLink="/">
       <svg width="152" height="28" viewBox="0 0 152 28" fill="none" xmlns="http://www.w3.org/2000/svg">

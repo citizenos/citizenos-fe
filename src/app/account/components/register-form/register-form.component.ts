@@ -43,6 +43,14 @@ export class RegisterFormComponent {
   ngOnInit(): void {
   }
 
+  agreeToTerms () {
+    this.signUpForm.controls['agreeToTerms'].setValue(!this.signUpForm.value.agreeToTerms);
+  }
+
+  allowSearch () {
+    this.signUpForm.controls['showInSearch'].setValue(!this.signUpForm.value.showInSearch);
+  }
+
   doSignUp() {
     const formData = this.signUpForm.value;
     if (!formData.agreeToTerms) {

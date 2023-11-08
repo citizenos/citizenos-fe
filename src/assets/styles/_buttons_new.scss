@@ -13,6 +13,10 @@
   font-weight: 600;
   font-size: 16px;
   line-height: 32px;
+  span {
+    font-size: 16px;
+    line-height: 32px;
+  }
 }
 
 %btn_medium {
@@ -23,6 +27,12 @@
   min-width: 40px;
   border-radius: 40px;
   font-weight: 600;
+  font-size: 14px;
+  line-height: 16px;
+  span {
+    font-size: 14px;
+    line-height: 16px;
+  }
 }
 
 %btn_small {
@@ -32,6 +42,12 @@
   min-height: 32px;
   min-width: 32px;
   border-radius: 32px;
+  font-size: 14px;
+  line-height: 16px;
+  span {
+    font-size: 14px;
+    line-height: 16px;
+  }
 }
 
 button,

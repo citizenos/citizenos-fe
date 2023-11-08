@@ -19,14 +19,13 @@ import { take } from 'rxjs';
 })
 export class NavComponent implements OnInit {
   wWidth = window.innerWidth;
-  addPosAbsolute = this.TourService.showTour;
 
   constructor(private Location: LocationService,
     public translate: TranslateService,
     public config: ConfigService,
     public auth: AuthService, public dialog: MatDialog,
     public app: AppService,
-    private TourService: TourService
+    public TourService: TourService
   ) {
   }
 

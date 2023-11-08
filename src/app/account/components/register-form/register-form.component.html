@@ -51,20 +51,27 @@
         <div translate="{{errors.password}}"></div>
       </label>
     </div>
-    <label class="checkbox">
-      <div><span translate="COMPONENTS.REGISTER_FORM.LBL_TERMS_AND_CONDITIONS_DESCRIPTION"></span>
+    <div class="checbox_wrap">
+      <label class="checkbox">
+        <input type="checkbox" formControlName="agreeToTerms" value="true">
+        <span class="checkmark"></span>
+      </label>
+      <div class="checbox_description">
+        <span translate="COMPONENTS.REGISTER_FORM.LBL_TERMS_AND_CONDITIONS_DESCRIPTION" (click)="agreeToTerms()"></span>
         <a class="bold" [href]="config.termsOfUse" target="_blank"
           translate="COMPONENTS.REGISTER_FORM.PRIVACY_POLICY_LNK_TERMS_OF_USE"></a>
         <a class="bold" [href]="config.privacyPolicy" target="_blank"
           translate="COMPONENTS.REGISTER_FORM.PRIVACY_POLICY_LNK_PRIVACY_POLICY"></a>
       </div>
-      <input type="checkbox" formControlName="agreeToTerms" value="true">
-      <span class="checkmark"></span>
-    </label>
-    <label class="checkbox"><span translate="COMPONENTS.REGISTER_FORM.LBL_SHOW_IN_SEARCH_DESCRIPTION"></span>
-      <input type="checkbox" formControlName="showInSearch">
-      <span class="checkmark"></span>
-    </label>
+    </div>
+    <div class="checbox_wrap">
+      <label class="checkbox">
+        <input type="checkbox" formControlName="showInSearch">
+        <span class="checkmark"></span>
+      </label>
+      <div class="checbox_description"><span translate="COMPONENTS.REGISTER_FORM.LBL_SHOW_IN_SEARCH_DESCRIPTION"
+          (click)="allowSearch()"></span></div>
+    </div>
 
     <button id="register_button" type="submit" (click)="doSignUp()" [disabled]="signUpForm.invalid"
       class="btn_big_submit" translate="COMPONENTS.REGISTER_FORM.BTN_SAVE"></button>
