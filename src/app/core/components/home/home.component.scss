@@ -12,6 +12,7 @@
   }
 
   @include mixins.mobile {
+    gap: 16px;
     padding: 60px 8px 8px 8px;
   }
 
@@ -80,6 +81,7 @@
       @include mixins.mobile {
         flex-direction: column;
         width: 100%;
+        gap: 8px;
       }
       .stats_box {
         display: flex;
@@ -193,12 +195,15 @@
     flex-direction: column;
     justify-content: space-between;
     gap: 24px;
-    min-height: 480px;
     border-radius: 16px;
     background-color: var(--color-surfaces);
     width: 100%;
     position: relative;
     overflow: hidden;
+
+    @include mixins.mobile {
+      gap: 16px;
+    }
   }
 }
 
@@ -212,7 +217,9 @@
   justify-content: space-between;
 
   @include mixins.mobile {
+    padding: 24px 16px;
     flex-direction: column;
+    gap: 24px;
   }
 
   #illustration {
@@ -272,6 +279,10 @@
   gap: 40px;
   padding: 56px 24px;
 
+  @include mixins.mobile {
+    padding: 40px 16px;
+    gap: 24px;
+  }
   &.topics_section {
     background-color: var(--color-dialog-contrast);
   }
@@ -289,6 +300,7 @@
       font-style: normal;
       font-weight: 400;
       line-height: 24px;
+      text-align: center;
     }
   }
   .section_content {
@@ -296,6 +308,11 @@
     gap: 16px;
     overflow-x: auto;
     padding: 24px 0;
+
+    @include mixins.mobile {
+      padding: 0;
+      flex-direction: column;
+    }
 
     &::-webkit-scrollbar {
       width: 4px;
@@ -317,6 +334,13 @@
     a {
       padding: 0 24px;
       font-weight: 600;
+
+      &:hover {
+        color: var(--btn-submit-text);
+      }
+      @include mixins.mobile {
+        width: 100%;
+      }
     }
   }
 }

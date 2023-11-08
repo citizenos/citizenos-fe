@@ -1,3 +1,4 @@
+@use "mixins";
 
 #login_wrap {
   display: flex;
@@ -6,8 +7,20 @@
   padding: 40px 0;
   width: 100%;
   max-width: 400px;
-  .main_heading, p {
+  .main_heading,
+  p {
     text-align: center;
+  }
+
+  @include mixins.mobile {
+    padding: 24px 16px;
+
+    .main_heading {
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 24px; /* 133.333% */
+    }
   }
 }
 
@@ -28,6 +41,5 @@
     justify-content: center;
     vertical-align: middle;
     border-radius: 48px;
-
   }
 }

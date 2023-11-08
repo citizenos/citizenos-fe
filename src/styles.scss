@@ -166,7 +166,7 @@ activity {
 input,
 .dropdown,
 textarea {
-  padding: 14px;
+  padding: 16px;
   background: var(--color-surfaces);
   border: 1px solid var(--color-border);
   border-radius: 8px;
@@ -180,6 +180,10 @@ textarea {
   &.error {
     border: 1px solid var(--color-error);
   }
+}
+
+input {
+  height: 48px;
 }
 
 .dropdown {
@@ -553,6 +557,10 @@ est-id-login-form {
     align-items: center;
     gap: 16px;
 
+    @include mixins.mobile {
+      gap: 24px;
+    }
+
     input,
     button,
     cos-input {
@@ -805,7 +813,10 @@ tour-item-template {
     0px 12px 16px 0px rgba(50, 85, 112, 0.1);
 
   @include mixins.mobile {
-    width: 100%;
+    width: auto;
+    min-width: 80%;
+    margin-left: 16px;
+    margin-right: 16px;
   }
   &.hidden {
     display: none;

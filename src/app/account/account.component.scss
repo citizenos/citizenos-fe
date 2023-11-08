@@ -13,6 +13,8 @@
   @include mixins.tablet {
     flex-direction: column;
     overflow-y: scroll;
+    height: 100%;
+    background-color: var(--color-surfaces);
   }
 
   .account_page_section {
