@@ -23,6 +23,16 @@ import { InterruptDialogComponent } from 'src/app/shared/components/interrupt-di
   templateUrl: './topic-form.component.html',
   styleUrls: ['./topic-form.component.scss'],
   animations: [
+    trigger('readMore', [
+      state('open', style({
+        maxHeight: '100%',
+        transition: '0.1s max-height'
+      })),
+      state('closed', style({
+        maxHeight: '320px',
+        transition: '0.1s max-height'
+      }))
+    ]),
     trigger('openClose', [
       // ...
       state('open', style({
@@ -50,6 +60,16 @@ import { InterruptDialogComponent } from 'src/app/shared/components/interrupt-di
     ])]
 })
 export class TopicFormComponent {
+  topicText?: ElementRef
+  readMoreButton = false;
+  @ViewChild('topicText') set content(content: ElementRef) {
+    if (content) { // initially setter gets called with undefined
+      this.topicText = content;
+      if (content.nativeElement.offsetHeight > 200) {
+        this.readMoreButton = true;
+      }
+    }
+  }
   @ViewChild('imageUpload') fileInput?: ElementRef;
   @Input() topic!: Topic;
   topicUrl = <SafeResourceUrl>'';
@@ -123,6 +143,8 @@ export class TopicFormComponent {
       const tabIndex = this.tabs.indexOf(tab);
       if (tabIndex > -1 && tabIndex < 3) {
         this.selectTab(this.tabs[tabIndex + 1]);
+      } else {
+        this.TopicService.reloadTopic();
       }
     }
   }

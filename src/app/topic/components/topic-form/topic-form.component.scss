@@ -58,7 +58,6 @@
   height: max-content;
 }
 
-
 #help_wrap {
   flex-direction: column;
   gap: 16px;
@@ -174,10 +173,16 @@
     width: 100%;
   }
 
+  #topic_text_wrap {
+    display: flex;
+    flex-direction: column;
+  }
+
   .topic_image {
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
     display: flex;
+    min-height: 60px;
     max-height: 324px;
     width: 100%;
     overflow: hidden;
@@ -205,22 +210,32 @@
     display: flex;
     flex-direction: column;
     padding: 8px 16px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
     position: relative;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 30px;
+    margin-bottom: 36px;
+  }
 
-    .button_wrap {
-      display: flex;
+  .button_wrap {
+    position: relative;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    z-index: 3;
+    button {
+      margin-top: -21px;
       position: absolute;
-      bottom: -21px;
-      align-self: center;
-      justify-self: center;
-      button {
+      path {
+        fill: none;
+      }
+      &:hover {
         path {
-          fill: none;
-        }
-        &:hover {
-          path {
-            stroke: var(--color-surfaces);
-          }
+          stroke: var(--color-surfaces);
         }
       }
     }
