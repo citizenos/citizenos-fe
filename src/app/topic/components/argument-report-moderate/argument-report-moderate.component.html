@@ -27,12 +27,13 @@
       </a>
     </div>
   </div>
-  <div class="dialog_info_wrap">
-    <div class="dialog_info">
+  <div class="dialog_content">
+    <div class="dialog_info_wrap">
+      <div class="dialog_info">
         <div class="delete_info_text bold" translate="COMPONENTS.ARGUMENT_REPORT_MODERATE.MESSAGE_MAIN"></div>
         <div class="delete_info_text italic" *ngIf="argument.subject" [innerHtml]="argument.subject"></div>
         <div class="delete_info_text italic" *ngIf="argument.text" [innerHtml]="argument.text"></div>
-      <!--div class="profile_image_wrap">
+        <!--div class="profile_image_wrap">
         <img class="profile_image" *ngIf="argument.creator.imageUrl" [src]="argument.creator.imageUrl">
         <div class="profile_image_filler" *ngIf="!argument.creator.imageUrl">
           <cos-initials *ngIf="argument.creator.name" [name]="argument.creator.name">
@@ -40,9 +41,8 @@
         </div>
       </!--div>
       <div-- class="bold" [innerHTML]="argument.creator.name"></div-->
+      </div>
     </div>
-  </div>
-  <div class="dialog_content">
     <form [formGroup]="report">
       <cos-input [placeholder]="'COMPONENTS.ARGUMENT_REPORT_MODERATE.LABLE_REASON' | translate">
         <div class="dropdown" [cosDropdown]>
@@ -79,16 +79,16 @@
         </label>
       </cos-input>
     </form>
-  </div>
-  <div class="dialog_info_wrap">
-    <div class="dialog_info">
+    <div class="dialog_info_wrap">
+      <div class="dialog_info">
         <div class="delete_info_text bold" translate="COMPONENTS.ARGUMENT_REPORT_MODERATE.ARE_YOU_SURE"></div>
+      </div>
     </div>
   </div>
   <div class="dialog_content">
     <div class="button_wrap">
-      <button class="btn_big_submit" [disabled]="report.invalid" translate="COMPONENTS.ARGUMENT_REPORT_MODERATE.BTN_SUBMIT"
-        (click)="doModerate()"></button>
+      <button class="btn_big_submit" [disabled]="report.invalid"
+        translate="COMPONENTS.ARGUMENT_REPORT_MODERATE.BTN_SUBMIT" (click)="doModerate()"></button>
       <a mat-dialog-close translate="COMPONENTS.ARGUMENT_REPORT_MODERATE.BTN_CANCEL"></a>
     </div>
   </div>
