@@ -1,13 +1,13 @@
 import { trigger, state, style } from '@angular/animations';
 import { Component, Inject, ViewChild, ElementRef, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, of, switchMap, take, Observable } from 'rxjs';
+import { map, of, take, Observable } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicService } from 'src/app/services/topic.service';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { GroupService } from 'src/app/services/group.service';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Group } from 'src/app/interfaces/group';
 import { TranslateService } from '@ngx-translate/core';
 import { GroupMemberTopicService } from 'src/app/services/group-member-topic.service';
@@ -52,7 +52,7 @@ import { InterruptDialogComponent } from 'src/app/shared/components/interrupt-di
 export class TopicFormComponent {
   @ViewChild('imageUpload') fileInput?: ElementRef;
   @Input() topic!: Topic;
-
+  topicUrl = <SafeResourceUrl>'';
   tabSelected;
   tabs = ['info', 'settings', 'preview'];
 
@@ -103,6 +103,15 @@ export class TopicFormComponent {
         return fragment
       }
       ));
+  }
+
+  ngOnInit() {
+    this.topicUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+      this.topic.padUrl)
+  }
+
+  sanitizeURL(): SafeResourceUrl {
+    return this.topicUrl;
   }
 
   selectTab(tab: string) {
@@ -200,10 +209,6 @@ export class TopicFormComponent {
     this.inviteMembers();
   }
 
-  sanitizeURL() {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(this.topic.padUrl);
-  }
-
   chooseCategory(category: string) {
     if (this.topic.categories && this.topic.categories.indexOf(category) > -1) {
       this.topic.categories.splice(this.topic.categories.indexOf(category), 1);
@@ -263,7 +268,7 @@ export class TopicFormComponent {
   removeTag(tag: string) {
     this.tags.splice(this.tags.indexOf(tag), 1);
   }
-  cancel () {
+  cancel() {
     const confirmDialog = this.dialog.open(InterruptDialogComponent);
 
     confirmDialog.afterClosed().subscribe(result => {
@@ -273,7 +278,7 @@ export class TopicFormComponent {
           .subscribe(() => {
             this.router.navigate(['dashboard']);
           })*/
-          this.router.navigate(['dashboard']);
+        this.router.navigate(['dashboard']);
       }
     });
     //[routerLink]="['/', translate.currentLang, 'topics', topic.id]"

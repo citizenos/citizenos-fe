@@ -69,7 +69,6 @@ export class AppComponent {
           }
         }
         if (event && event instanceof NavigationEnd) {
-          console.log(event);
           this.createRelUrls(event.url);
           this.app.setPageTitle();
         }
