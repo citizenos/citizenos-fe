@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TopicArgumentService } from 'src/app/services/topic-argument.service';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Argument } from 'src/app/interfaces/argument';
@@ -23,7 +23,7 @@ export class ArgumentReportModerateComponent implements OnInit {
     text: new UntypedFormControl('', Validators.required),
   });
   errors?: any;
-  constructor(@Inject(MAT_DIALOG_DATA) data: any, private TopicArgumentService: TopicArgumentService) {
+  constructor(@Inject(MAT_DIALOG_DATA) data: any, private TopicArgumentService: TopicArgumentService, private dialog: MatDialog) {
     this.argument = data.argument || data.report.comment;
     this.topicId = data.topicId;
     this.commentId = data.commentId;
@@ -46,8 +46,13 @@ export class ArgumentReportModerateComponent implements OnInit {
     }
     this.TopicArgumentService.moderate(data).pipe(take(1))
       .subscribe({
-        next: () => { },
-        error: () => { }
+        next: () => {
+          this.dialog.closeAll();
+        },
+        error: (err) => {
+          console.error(err);
+          this.dialog.closeAll();
+        }
       })
   };
 
@@ -61,7 +66,7 @@ export class ArgumentReportModerateDialogComponent {
   topicId = '';
   commentId = '';
   token = '';
-  constructor(dialog: MatDialog, route: ActivatedRoute, TopicArgumentService: TopicArgumentService) {
+  constructor(dialog: MatDialog, route: ActivatedRoute, router: Router, TopicArgumentService: TopicArgumentService) {
     /*TODO resove queryParam token */
     combineLatest([route.params, route.queryParams]).pipe(
       switchMap(([params, queryParams]) => {
@@ -78,7 +83,10 @@ export class ArgumentReportModerateDialogComponent {
       take(1)
     ).subscribe({
       next: (report) => {
-        dialog.open(ArgumentReportModerateComponent, { data: { report, topicId: this.topicId , commentId: this.commentId, token: this.token } });
+        const reportDialog = dialog.open(ArgumentReportModerateComponent, { data: { report, topicId: this.topicId , commentId: this.commentId, token: this.token } });
+        reportDialog.afterClosed().subscribe(() => {
+          router.navigate(['../../../../../'], {relativeTo: route});
+        })
       },
       error: (err) => {
         console.error(err.message || err.status.message);

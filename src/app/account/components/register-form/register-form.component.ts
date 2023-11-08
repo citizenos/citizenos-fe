@@ -5,6 +5,7 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { MatDialog } from '@angular/material/dialog';
 import { take } from 'rxjs';
 import { UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'register-form',
@@ -28,7 +29,7 @@ export class RegisterFormComponent {
   errors = <any>{};
   termsVersion: number;
   redirectSuccess?:string = '';
-  constructor(private dialog: MatDialog, ConfigService: ConfigService, private AuthService: AuthService, private Notification: NotificationService) {
+  constructor(private dialog: MatDialog, ConfigService: ConfigService, private AuthService: AuthService, private Notification: NotificationService, private router: Router) {
     this.config = ConfigService.get('legal');
     this.termsVersion = this.config.termsVersion;
     /*if (data.email) {
@@ -75,8 +76,10 @@ export class RegisterFormComponent {
             if (response.data && response.redirectSuccess) {
               window.location.href = response.redirectSuccess;
             } else {
-              this.Notification.addInfo('MSG_INFO_CHECK_EMAIL_TO_VERIFY_YOUR_ACCOUNT');
+              this.router.navigate(['/']);
             }
+
+            this.Notification.addInfo('MSG_INFO_CHECK_EMAIL_TO_VERIFY_YOUR_ACCOUNT');
           },
           error: (res) => {
             this.errors = res.errors;
