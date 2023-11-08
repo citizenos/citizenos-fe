@@ -453,26 +453,28 @@
             <div class="topic_image">
               <img *ngIf="topic.imageUrl" [src]="topic.imageUrl">
             </div>
-            <div class="topic_title">
-              <div class="main_heading" [innerHTML]="topic.title"></div>
-            </div>
-            <div class="topic_intro" [innerHTML]="topic.intro">
-            </div>
-            <div class="topic_content">
-              <div [innerHTML]="topic.description"></div>
-              <div class="button_wrap"><button class="btn_medium_secondary" (click)="readMore=!readMore">
-                  <svg *ngIf="!readMore" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path d="M17 10L12 15L7 10" stroke="#1168A8" stroke-width="2" stroke-linecap="round" />
-                  </svg>
-                  <svg *ngIf="readMore" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path d="M17 15L12 10L7 15" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
-                  </svg>
-                  <span *ngIf="!readMore" translate="VIEWS.TOPIC_CREATE.BTN_READ_MORE"></span>
-                  <span *ngIf="readMore" translate="VIEWS.TOPIC_CREATE.BTN_READ_LESS"></span>
-                </button>
+            <div id="topic_text_wrap" #topicText [@readMore]="readMore? 'open' : 'closed'">
+              <div class="topic_title">
+                <div class="main_heading" [innerHTML]="topic.title"></div>
               </div>
+              <div class="topic_intro" [innerHTML]="topic.intro">
+              </div>
+              <div class="topic_content" [innerHTML]="topic.description">
+              </div>
+            </div>
+            <div class="button_wrap" *ngIf="readMoreButton">
+              <button class="btn_medium_secondary" (click)="readMore=!readMore">
+                <svg *ngIf="!readMore" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17 10L12 15L7 10" stroke="#1168A8" stroke-width="2" stroke-linecap="round" />
+                </svg>
+                <svg *ngIf="readMore" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17 15L12 10L7 15" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                </svg>
+                <span *ngIf="!readMore" translate="VIEWS.TOPIC_CREATE.BTN_READ_MORE"></span>
+                <span *ngIf="readMore" translate="VIEWS.TOPIC_CREATE.BTN_READ_LESS"></span>
+              </button>
             </div>
           </div>
         </ng-container>

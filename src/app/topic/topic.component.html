@@ -257,8 +257,7 @@
             <div class="main_heading" [innerHTML]="topic.title"></div>
           </div>
           <div class="topic_intro" [innerHTML]="topic.intro"></div>
-          <div class="topic_content" [innerHTML]="topic.description">
-          </div>
+          <div class="topic_content" [innerHTML]="topic.description"></div>
         </div>
         <div class="button_wrap" *ngIf="readMoreButton">
           <button class="btn_medium_secondary" (click)="readMore=!readMore">

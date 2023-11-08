@@ -41,11 +41,11 @@ import { TourService } from 'src/app/services/tour.service';
     trigger('readMore', [
       state('open', style({
         maxHeight: '100%',
-        transition: '0.3s ease-in-out max-height'
+        transition: '0.1s max-height'
       })),
       state('closed', style({
         maxHeight: '320px',
-        transition: '0.3s ease-in-out max-height'
+        transition: '0.1s max-height'
       }))
     ]),
     trigger('openClose', [
