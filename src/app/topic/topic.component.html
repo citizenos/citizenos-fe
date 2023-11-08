@@ -200,7 +200,7 @@
   <div class="topic_content_area_wrap">
     <div class="content_area_left" *ngIf="tabSelected$ | async as tabSelected;">
       <ng-container
-        *ngIf="topic.report && ((topic.report.moderatedReasonType && TopicService.canEdit(topic)) || (!TopicService.canEdit(topic) && topic.report.type) || !topic.report.moderatedReasonType)">
+        *ngIf="topic.report && ((topic.report?.type && !topic.report?.moderatedReasonType) || (topic.report?.type) || (TopicService.canEdit(topic) && topic.report?.moderatedReasonType))">
         <div class="notification_inline error">
           <div class="icon_notification">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -250,8 +250,9 @@
         <div class="topic_image">
           <img *ngIf="topic.imageUrl" [src]="topic.imageUrl">
         </div>
-        <div id="topic_text_wrap"
-          [TourItem]="{tourid: 'topic', index: 6, position: ((wWidth <= 1024)? 'bottom': 'top')}">
+        <div id="topic_text_wrap" #topicText
+          [TourItem]="{tourid: 'topic', index: 6, position: ((wWidth <= 1024)? 'bottom': 'top')}"
+          [@readMore]="readMore? 'open' : 'closed'">
           <div class="topic_title">
             <div class="main_heading" [innerHTML]="topic.title"></div>
           </div>
@@ -259,7 +260,7 @@
           <div class="topic_content" [innerHTML]="topic.description">
           </div>
         </div>
-        <div class="button_wrap">
+        <div class="button_wrap" *ngIf="readMoreButton">
           <button class="btn_medium_secondary" (click)="readMore=!readMore">
             <svg *ngIf="!readMore" width="24" height="24" viewBox="0 0 24 24" fill="none"
               xmlns="http://www.w3.org/2000/svg">

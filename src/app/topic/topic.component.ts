@@ -1,9 +1,9 @@
 import { TopicEventService } from './../services/topic-event.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { TopicMemberGroupService } from 'src/app/services/topic-member-group.service';
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap, of, map, tap, Observable, Subscription, take } from 'rxjs';
+import { switchMap, of, map, tap, Observable, take } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -32,13 +32,22 @@ import { TopicJoinComponent } from './components/topic-join/topic-join.component
 import { TopicReportReasonComponent } from './components/topic-report-reason/topic-report-reason.component';
 import { TopicJoinService } from 'src/app/services/topic-join.service';
 import { TourService } from 'src/app/services/tour.service';
-import { Title, Meta, MetaDefinition } from '@angular/platform-browser';
 
 @Component({
   selector: 'topic',
   templateUrl: './topic.component.html',
   styleUrls: ['./topic.component.scss'],
   animations: [
+    trigger('readMore', [
+      state('open', style({
+        maxHeight: '100%',
+        transition: '0.3s ease-in-out max-height'
+      })),
+      state('closed', style({
+        maxHeight: '320px',
+        transition: '0.3s ease-in-out max-height'
+      }))
+    ]),
     trigger('openClose', [
       state('open', style({
         minHeight: '100%',
@@ -69,6 +78,16 @@ import { Title, Meta, MetaDefinition } from '@angular/platform-browser';
 
 export class TopicComponent implements OnInit {
   //new
+  topicText?: ElementRef
+  readMoreButton = false;
+  @ViewChild('topicText') set content(content: ElementRef) {
+    if (content) { // initially setter gets called with undefined
+      this.topicText = content;
+      if (content.nativeElement.offsetHeight > 200) {
+        this.readMoreButton = true;
+      }
+    }
+  }
   showCategories = false;
   showAttachments = false;
   showGroups = false;
@@ -78,7 +97,7 @@ export class TopicComponent implements OnInit {
   showVoteTablet = (window.innerWidth <= 1024);
   tabSelected$: Observable<string>;
   showTutorial = false;
-  topicTitle:string = '';
+  topicTitle: string = '';
   //new end
   topic$; // decorate the property with @Input()
   groups$: Observable<Group[]>;
@@ -148,7 +167,7 @@ export class TopicComponent implements OnInit {
           this.vote$ = this.TopicVoteService.get({ topicId: topic.id, voteId: topic.voteId });
         }
         if (topic.status === this.TopicService.STATUSES.followUp) {
-          this.events$ = TopicEventService.getItems({topicId: topic.id});
+          this.events$ = TopicEventService.getItems({ topicId: topic.id });
         }
         const padURL = new URL(topic.padUrl);
         if (padURL.searchParams.get('lang') !== this.translate.currentLang) {
@@ -156,7 +175,7 @@ export class TopicComponent implements OnInit {
         }
         padURL.searchParams.set('theme', 'default');
         topic.padUrl = padURL.href; // Change of PAD URL here has to be before $sce.trustAsResourceUrl($scope.topic.padUrl);
-        setTimeout(()=> {
+        setTimeout(() => {
           this.showTutorial = true;
         }, 500);
         return topic;
@@ -181,7 +200,7 @@ export class TopicComponent implements OnInit {
   ngOnDestroy(): void {
   }
 
-  reportReasonDialog (topic: Topic) {
+  reportReasonDialog(topic: Topic) {
     this.dialog.open(TopicReportReasonComponent, {
       data: {
         report: topic.report
@@ -248,6 +267,11 @@ export class TopicComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log('ngOnInit', this.topicText)
+  }
+
+  ngAfterViewInit(): void {
+    console.log('ngAfterViewInit', this.topicText)
   }
 
   currentUrl() {
