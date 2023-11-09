@@ -21,23 +21,17 @@
   border-radius: 16px;
 
   @include mixins.tablet {
-    bottom: 60px;
+    bottom: 72px;
     left: 50%;
     transform: translateX(-50%);
     right: auto;
     top: auto;
     justify-content: space-around;
-    border-radius: 16px;
   }
 
   @include mixins.mobile {
-    padding: 16px 0;
     bottom: 56px;
-    transform: initial;
-    left: 0;
-    top: auto;
     width: 100%;
-    justify-content: space-evenly;
     border-radius: 16px 16px 0 0;
   }
 
@@ -50,7 +44,7 @@
 
     @include mixins.mobile {
       width: 100%;
-      justify-content: center;
+      justify-content: space-between;
     }
 
     &:hover {
@@ -136,4 +130,8 @@
   position: fixed;
   cursor: pointer;
   z-index: 1;
+
+  @include mixins.tablet {
+    background-color: rgba(44, 59, 71, 0.8);
+  }
 }

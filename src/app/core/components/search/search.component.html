@@ -16,7 +16,8 @@
       </svg>
     </div>
     <cos-input placeholder="{{'LAYOUTS.MAIN.PLACEHOLDER_SEARCH_TOPICS_USERS_GROUPS' | translate}}">
-      <input type="text" [(ngModel)]="searchInput" (ngModelChange)="doSearch(searchInput)">
+      <ng-container *ngIf="isVisibleSearch()"></ng-container>
+        <input #searchInputField type="text" [(ngModel)]="searchInput" (ngModelChange)="doSearch(searchInput)">
     </cos-input>
     <a class="clear_search" (click)="searchInput=''; doSearch(searchInput);" *ngIf="searchInput"
       translate="COMPONENTS.SEARCH.LNK_CLEAR"></a>

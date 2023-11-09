@@ -59,8 +59,8 @@ export class DashboardComponent {
     //Add 'implements OnInit' to the class.
     setTimeout(() => {
       const onBoarding = this.dialog.open(OnboardingComponent);
-      this.app.navMobileAbsolute = true;
-      onBoarding.afterClosed().subscribe(() => this.app.navMobileAbsolute = false);
+      this.app.mobileTutorial = true;
+      onBoarding.afterClosed().subscribe(() => this.app.mobileTutorial = false);
     });
   }
 }

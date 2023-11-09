@@ -12,6 +12,12 @@
   width: -webkit-fill-available;
   min-height: 100%;
   background-color: var(--color-background);
+
+  &.no_scroll {
+    overflow: hidden;
+    height: 100%;
+  }
+
   @include mixins.tablet {
     left: 0;
   }

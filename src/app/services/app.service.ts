@@ -27,7 +27,7 @@ declare let hwcrypto: any;
 export class AppService {
   showNav = false;
   showSearch = false;
-  navMobileAbsolute = false;
+  mobileTutorial = false;
   editMode = false;
   darkNav = false;
   showActivities = false;
@@ -151,7 +151,10 @@ export class AppService {
       createDialog.afterClosed().subscribe(() => {
         this.createMenu = false;
       })
+    } else {
+      this.dialog.closeAll();
     }
+
     this.createMenu = !this.createMenu;
   }
 

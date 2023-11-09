@@ -1,6 +1,6 @@
 import { Observable, of, tap, take, combineLatest, switchMap, map } from 'rxjs';
 import { TourService } from 'src/app/services/tour.service';
-import { Component, ElementRef, Input, ViewChild, Renderer2 } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild, Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'app-tour',
@@ -13,6 +13,10 @@ export class TourComponent {
   public left = '';
   @ViewChild('tourBox') tourBox!: ElementRef;
   @ViewChild('tourContent') contentEl!: ElementRef;
+  @HostListener('window:keydown', ['$event'])
+  handleKeyDownEvent(event: KeyboardEvent) {
+    if (event.key.toString() === 'Escape') this.TourService.hide();
+  }
   items$: Observable<any[]> = of([]);
   showItem$: Observable<any> = of(false);
   itemTemplate$: Observable<any> = of('');
@@ -58,7 +62,7 @@ export class TourComponent {
           }
           const elNode = element.el.nativeElement;
           const style = window.getComputedStyle(elNode);
-          const visible = !!( elNode.offsetWidth || elNode.offsetHeight || elNode.getClientRects().length );
+          const visible = !!(elNode.offsetWidth || elNode.offsetHeight || elNode.getClientRects().length);
 
           if (elNode && (style.display === 'none' || !visible) && item.elements.length > 1) {
             element = checkItemEl(item, offset + 1);
@@ -76,6 +80,22 @@ export class TourComponent {
         const arrowEl = tourBox.children[0];
         this.renderer.setStyle(tourBox, 'top', `${itemRect.top}px`);
         let left = 0;
+        const setPositionLeft = (itemRect: any, tourBox: any, tourBoxElementRect: any, arrowEl: any) => {
+          let left = itemRect.left + (itemRect.width / 2) - (tourBoxElementRect.width /2);
+          this.renderer.setStyle(arrowEl, 'right', null);
+          this.renderer.setStyle(arrowEl, 'left', 'calc(50% - 5px)');
+          if (left + tourBoxElementRect.width + 20 > window.innerWidth) {
+            this.renderer.setStyle(tourBox, 'left', `initial`);
+            this.renderer.setStyle(tourBox, 'right', '16px');
+            this.renderer.setStyle(arrowEl, 'left', 'initial');
+            this.renderer.setStyle(arrowEl, 'right', `${(window.innerWidth - 37- itemRect.right + (itemRect.width / 2))}px`);
+          } else if (left < 0) {
+            left = 0;
+            this.renderer.setStyle(tourBox, 'left', `${left}px`);
+          } else {
+            this.renderer.setStyle(tourBox, 'left', `${left}px`);
+          }
+        }
         switch (itemEl.position) {
           case 'right':
             tourBox.classList.remove('top_arrow');
@@ -109,17 +129,7 @@ export class TourComponent {
             tourBox.classList.remove('left_arrow');
             tourBox.classList.remove('bottom_arrow');
             tourBox.classList.add('top_arrow');
-            left = itemRect.left + (itemRect.width / 2) - 200;
-            this.renderer.setStyle(arrowEl, 'right', null);
-            this.renderer.setStyle(arrowEl, 'left', '50%');
-            if (left + tourBoxElementRect.width > window.innerWidth) {
-              left = left - (left + tourBoxElementRect.width - window.innerWidth) - 20;
-              this.renderer.setStyle(arrowEl, 'right', `${(window.innerWidth - 20 - itemRect.right + (itemRect.width/2) )}px`);
-              this.renderer.setStyle(arrowEl, 'left', 'initial');
-            } else if (left < 0) {
-              left = 0;
-            }
-            this.renderer.setStyle(tourBox, 'left', `${left}px`);
+            setPositionLeft(itemRect, tourBox, tourBoxElementRect, arrowEl);
             this.renderer.setStyle(tourBox, 'top', `${itemRect.top - tourBoxElementRect.height - 20}px`);
             break;
           case 'bottom':
@@ -127,17 +137,7 @@ export class TourComponent {
             tourBox.classList.remove('right_arrow');
             tourBox.classList.remove('left_arrow');
             tourBox.classList.add('bottom_arrow');
-            left = itemRect.left + (itemRect.width / 2) - 200;
-            this.renderer.setStyle(arrowEl, 'right', null);
-            this.renderer.setStyle(arrowEl, 'left', '50%');
-            if (left + tourBoxElementRect.width > window.innerWidth) {
-              left = left - (left + tourBoxElementRect.width - window.innerWidth) - 20;
-              this.renderer.setStyle(arrowEl, 'left', 'initial');
-              this.renderer.setStyle(arrowEl, 'right', `${(window.innerWidth - 20 - itemRect.right + (itemRect.width/2))}px`);
-            } else if (left < 0) {
-              left = 0;
-            }
-            this.renderer.setStyle(tourBox, 'left', `${left}px`);
+            setPositionLeft(itemRect, tourBox, tourBoxElementRect, arrowEl);
             this.renderer.setStyle(tourBox, 'top', `${itemRect.bottom + 20}px`);
             break;
           default:

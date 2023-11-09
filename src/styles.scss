@@ -49,6 +49,10 @@
     flex-direction: row;
     justify-content: space-between;
 
+    @include mixins.tablet {
+      background-color: var(--color-surfaces);
+    }
+
     #user_info_area {
       display: flex;
       flex-direction: row;
@@ -813,10 +817,7 @@ tour-item-template {
     0px 12px 16px 0px rgba(50, 85, 112, 0.1);
 
   @include mixins.mobile {
-    width: auto;
-    min-width: 80%;
-    margin-left: 16px;
-    margin-right: 16px;
+    width: calc(100% - 32px);
   }
   &.hidden {
     display: none;
