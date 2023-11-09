@@ -5,7 +5,7 @@
   position: fixed;
   cursor: pointer;
   z-index: 12;
-  background-color: rgba(44,59,71, 0.8);
+  background-color: rgba(44, 59, 71, 0.8);
   @include mixins.mobile {
     display: none;
   }
@@ -35,7 +35,7 @@
     padding: 0 8px;
 
     @include mixins.tablet {
-      background-color: var(--color-surfaces);
+      background-color: var(--color-background);
       border: none;
       border-radius: 0;
     }
@@ -48,9 +48,9 @@
       @include mixins.tablet {
         width: 100%;
         border: none;
-        background-color: var(--color-surfaces);
+        background-color: var(--color-background);
         input {
-          background-color: var(--color-surfaces);
+          background-color: var(--color-background);
         }
       }
 

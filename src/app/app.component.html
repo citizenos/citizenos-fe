@@ -2,10 +2,10 @@
 <!-- NAV -->
 <nav *ngIf="translate.currentLang"></nav>
 <!-- CONTENT -->
-<div id="content_root" *ngIf="translate.currentLang">
+<div id="content_root" *ngIf="translate.currentLang" [ngClass]="{'no_scroll': (app.createMenu && wWidth <= 1024)}">
   <div id="content_header">
     <!-- SEARCH AREA -->
-    <div id="search_wrap" [TourItem]="{tourid: 'dashboard', index: 4, position: 'left'}">
+    <div id="search_wrap" [TourItem]="{tourid: 'dashboard', index: 4, position: 'left'}" [ngClass]="{'hidden': !app.showSearch}">
       <search></search>
     </div>
   </div>
@@ -22,4 +22,4 @@
   <ng-container *ngIf="app.wWidth <= 1024">
     <nav-mobile></nav-mobile>
   </ng-container>
-  <app-help></app-help>
+  <app-help *ngIf="!app.mobileTutorial"></app-help>

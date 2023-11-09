@@ -54,7 +54,6 @@
   top: 0;
   background: var(--color-surfaces);
 
-
   .btn_small_nav {
     min-width: 160px;
     justify-content: normal;
@@ -74,13 +73,14 @@
     transition: width 2s, height 4s;
     height: max-content;
     position: absolute;
-    width: 320px;
+    width: 100%;
+    max-width: 320px;
     .btn_small_nav {
-      min-width: 272px;
+      min-width: 100%;
     }
     .btn_big_submit,
     .btn_big_submit_ghost {
-      min-width: 272px;
+      min-width: 100%;
     }
 
     display: none;
@@ -113,6 +113,7 @@
     width: 100%;
     @include mixins.tablet {
       gap: 0;
+      padding: 8px 16px;
     }
 
     .big_button_wrap {
@@ -121,8 +122,15 @@
       flex-direction: column;
       padding-bottom: 8px;
       gap: 8px;
-    }
+      width: 100%;
 
+      @include mixins.tablet {
+        padding-bottom: 24px;
+      }
+    }
+    #nav_main {
+      width: 100%;
+    }
     .line_separator {
       margin-top: 8px;
       margin-bottom: 8px;
@@ -139,7 +147,7 @@
       width: calc(100% - 30px);
       background: var(--color-border);
       display: none;
-      margin: 8px 0 8px 30px ;
+      margin: 8px 0 8px 30px;
       @include mixins.tablet {
         display: flex;
       }
@@ -151,6 +159,7 @@
 
       @include mixins.tablet {
         width: 100%;
+        padding-left: 40px;
       }
     }
   }
@@ -163,7 +172,7 @@
     flex-grow: 2;
     justify-content: center;
     gap: 16px;
-    padding: 32px;
+    padding: 32px 0;
 
     .nav_footer {
       display: flex;
@@ -178,19 +187,17 @@
         width: 16px;
         height: 16px;
 
-        div {
-          background-size: 16px 16px;
+        svg {
           width: 16px;
           height: 16px;
         }
 
         @include mixins.tablet {
-          width: 32px;
-          height: 32px;
-          div {
-            background-size: 32px 32px;
-            width: 32px;
-            height: 32px;
+          width: 40px;
+          height: 40px;
+          svg {
+            width: 40px;
+            height: 40px;
           }
         }
       }
@@ -208,6 +215,10 @@
       align-items: center;
       justify-content: center;
       padding-bottom: 24px;
+
+      @include mixins.tablet {
+        font-size: 16px;
+      }
     }
   }
 }

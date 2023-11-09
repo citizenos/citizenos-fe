@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppService } from 'src/app/services/app.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -26,6 +26,12 @@ import { style, transition, trigger, animate, state } from '@angular/animations'
   ]
 })
 export class SearchComponent implements OnInit {
+  searchInputField! : ElementRef;
+  @ViewChild("searchInputField") set content(content: ElementRef) {
+    if (content) { // initially setter gets called with undefined
+      this.searchInputField = content;
+    }
+  }
   noResults = true;
   viewMoreInProgress = false;
   moreStr: string = '';
@@ -49,6 +55,18 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  isVisibleSearch() {
+    if (this.app.showSearch) {
+      setTimeout(() => {
+        this.searchInputField.nativeElement.focus();
+      },300);
+    } else if (this.searchInput !== '') {
+      this.searchInput = '';
+      this.doSearch('');
+    }
+    return this.app.showSearch;
   }
 
   doSearch(str: string | null) {
@@ -127,12 +145,6 @@ export class SearchComponent implements OnInit {
       }
     }
     return;
-  };
-
-  closeSearchArea() {
-    this.app.showSearchResults = false;
-    // this.searchInput = null;
-    this.app.showSearch = false;
   };
 
   viewMoreResults(context: string, model: string) {

@@ -1,0 +1,23 @@
+@use "mixins";
+
+#user_info_area {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  align-items: center;
+}
+
+#buttons_area {
+  @include mixins.tablet {
+    display: none;
+  }
+
+  display: flex;
+  gap: 16px;
+  align-items: center;
+
+  #show_search {
+    width: 40px;
+    height: 40px;
+  }
+}

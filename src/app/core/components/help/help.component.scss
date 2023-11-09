@@ -87,6 +87,10 @@
   right: 20px;
   bottom: 20px;
 
+  @include mixins.tablet {
+    bottom: 68px;
+  }
+
   &:hover {
     cursor: pointer;
   }

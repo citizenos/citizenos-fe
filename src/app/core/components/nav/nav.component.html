@@ -1,4 +1,4 @@
-<div class="nav_mobile" [ngClass]="{'pos_absolute': ((this.TourService.showTour | async) || app.navMobileAbsolute), 'dark_backround': app.darkNav}">
+<div class="nav_mobile" [ngClass]="{'pos_absolute': ((this.TourService.showTour | async) || app.mobileTutorial), 'dark_backround': app.darkNav}">
   <div class="logo_wrap">
     <a routerLink="/">
       <svg width="152" height="28" viewBox="0 0 152 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -89,7 +89,7 @@
   </div>
   <div id="button_area">
     <a id="show_mobile_search" *ngIf="app.searchAllowed" class="btn_medium_close icon"
-      (click)="app.showSearch = !app.showSearch" [TourItem]="{tourid: 'dashboard', index: 4, position: 'bottom'}">
+      (click)="app.showSearch = !app.showSearch">
       <svg *ngIf="!app.showSearch" width="24" height="24" viewBox="0 0 24 24" fill="none"
         xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -104,7 +104,7 @@
       </svg>
 
     </a>
-    <a class="btn_medium_close icon" (click)="app.showNav = !app.showNav">
+    <a class="btn_medium_close icon" (click)="app.showNav = !app.showNav" [TourItem]="{tourid: 'dashboard_mobile', index: 3, position: 'bottom'}">
       <svg *ngIf="!app.showNav" width="24" height="24" viewBox="0 0 24 24" fill="none"
         xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -404,11 +404,10 @@
             d="M7.98471 3C5.23242 3 3 5.29466 3 8.1237C3 10.3869 4.43731 12.3044 6.3945 12.9959C6.63914 13.0274 6.73089 12.8702 6.73089 12.7445C6.73089 12.6187 6.73089 12.3044 6.73089 11.8643C5.35474 12.1787 5.04893 11.1728 5.04893 11.1728C4.83486 10.5755 4.49847 10.4184 4.49847 10.4184C4.03976 10.104 4.52905 10.104 4.52905 10.104C5.01835 10.1355 5.29358 10.6384 5.29358 10.6384C5.75229 11.4242 6.45566 11.2042 6.73089 11.0785C6.76147 10.7327 6.91437 10.5127 7.0367 10.3869C5.93578 10.2612 4.7737 9.82112 4.7737 7.8408C4.7737 7.27499 4.95719 6.83492 5.29358 6.45771C5.263 6.36341 5.07951 5.82904 5.35474 5.1375C5.35474 5.1375 5.78287 5.01176 6.73089 5.67187C7.12844 5.54613 7.55657 5.5147 7.98471 5.5147C8.41284 5.5147 8.84098 5.57757 9.23853 5.67187C10.1865 5.01176 10.6147 5.1375 10.6147 5.1375C10.8899 5.82904 10.7064 6.36341 10.6758 6.48915C10.9817 6.83492 11.1957 7.30642 11.1957 7.87223C11.1957 9.85256 10.0336 10.2612 8.93272 10.3869C9.11621 10.5441 9.26911 10.8584 9.26911 11.3299C9.26911 12.0215 9.26911 12.5559 9.26911 12.7445C9.26911 12.8702 9.36086 13.0274 9.6055 12.9959C11.5933 12.3044 13 10.3869 13 8.1237C12.9694 5.29466 10.737 3 7.98471 3Z"
             fill="white" />
         </svg>
-
       </a>
     </div>
     <div class="footer_hashtag_wrap">
-      <div class="footer_hashtag">#citizenos</div>
+      #citizenos
     </div>
   </div>
 </div>

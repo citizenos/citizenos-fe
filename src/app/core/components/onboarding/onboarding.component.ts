@@ -8,12 +8,15 @@ import { TourService } from 'src/app/services/tour.service';
   styleUrls: ['./onboarding.component.scss']
 })
 export class OnboardingComponent {
-
   constructor(private TourService: TourService, public auth: AuthService) {
 
   }
 
   takeTour() {
-    this.TourService.show('dashboard', 1);
+    let tour = 'dashboard';
+    if (window.innerWidth <= 1024) {
+      tour = 'dashboard_mobile';
+    }
+    this.TourService.show(tour, 1);
   }
 }

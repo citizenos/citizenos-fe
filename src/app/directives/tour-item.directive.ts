@@ -30,7 +30,22 @@ export class TourItemDirective {
   }
 
   ngOnInit(): void {
-    this.TourService.register(this.data.tourid, this.data.index, this.el, this.data.position);
+    if (Array.isArray(this.data.tourid)) {
+      this.data.tourid.forEach((id:string, index: number) => {
+        this.TourService.register(id, getValue(this.data.index, index), this.el, getValue(this.data.position, index));
+      });
+    } else {
+      this.TourService.register(this.data.tourid, this.data.index, this.el, this.data.position);
+    }
 
+    function getValue (item: any, index: number) {
+      if (Array.isArray(item)) {
+        if (item[index])
+          return item[index];
+        return item[0];
+      }
+
+      return item;
+    }
   }
 }
