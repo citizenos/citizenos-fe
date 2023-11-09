@@ -817,7 +817,7 @@ tour-item-template {
     0px 12px 16px 0px rgba(50, 85, 112, 0.1);
 
   @include mixins.mobile {
-    width: calc(100% - 32px);
+    width: calc(100% - 16px);
   }
   &.hidden {
     display: none;

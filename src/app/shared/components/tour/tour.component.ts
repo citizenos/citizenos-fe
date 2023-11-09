@@ -86,9 +86,10 @@ export class TourComponent {
           this.renderer.setStyle(arrowEl, 'left', 'calc(50% - 5px)');
           if (left + tourBoxElementRect.width + 20 > window.innerWidth) {
             this.renderer.setStyle(tourBox, 'left', `initial`);
-            this.renderer.setStyle(tourBox, 'right', '16px');
+            this.renderer.setStyle(tourBox, 'right', '8px');
             this.renderer.setStyle(arrowEl, 'left', 'initial');
-            this.renderer.setStyle(arrowEl, 'right', `${(window.innerWidth - 37- itemRect.right + (itemRect.width / 2))}px`);
+            let right = tourBoxElementRect.right - 8 - itemRect.right + (itemRect.width / 2);
+            this.renderer.setStyle(arrowEl, 'right', `${right}px`);
           } else if (left < 0) {
             left = 0;
             this.renderer.setStyle(tourBox, 'left', `${left}px`);
