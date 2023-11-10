@@ -1,7 +1,33 @@
 @use "mixins";
 
-#create_tabs .create_tab {
-  padding: 28px 40px;
+#create_tabs {
+  @include mixins.tablet {
+    gap: 40px;
+  }
+
+  @include mixins.mobile {
+    gap: 0;
+  }
+
+  .create_tab {
+    @include mixins.mobile {
+      padding: 12px 16px;
+    }
+    &.tablet_tab {
+      border-radius: 8px 8px 0 0;
+      padding: 12px 8px;
+      background-color: var(--color-scrollbar);
+      @include mixins.mobile {
+        padding: 12px 16px;
+      }
+    }
+  }
+}
+
+#editors_tablet {
+  background-color: var(--color-scrollbar);
+  border-radius: 0 0 16px 16px;
+  margin-top: -24px;
 }
 
 #image_upload_input {
@@ -58,29 +84,44 @@
   height: max-content;
 }
 
+#create_footer {
+  #close_create,
+  #buttons_wrap,
+  #navigate_create {
+    flex: 3 3 0;
+  }
+  #buttons_wrap {
+    justify-content: center;
+  }
+
+  #navigate_create {
+    justify-content: flex-end;
+  }
+}
+
+.invite_collaborators {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 16px;
+  padding: 16px;
+  background-color: var(--color-surfaces);
+  text-align: center;
+
+  &.empty {
+    padding: 24px;
+  }
+
+  button {
+    margin-top: 16px;
+  }
+}
+
 #help_wrap {
   flex-direction: column;
   gap: 16px;
-
-  #invite_collaborators {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    border-radius: 16px;
-    padding: 16px;
-    background-color: var(--color-surfaces);
-    text-align: center;
-
-    &.empty {
-      padding: 24px;
-    }
-
-    button {
-      margin-top: 16px;
-    }
-  }
 
   .topic_editors_header {
     display: flex;

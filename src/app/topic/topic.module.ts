@@ -41,6 +41,7 @@ import { InviteEditorsComponent } from './components/invite-editors/invite-edito
 import { TopicEditComponent } from './components/topic-edit/topic-edit.component';
 import { TopicFormComponent } from './components/topic-form/topic-form.component';
 import { TopicReportReasonComponent } from './components/topic-report-reason/topic-report-reason.component';
+import { TopicTourDialogComponent } from './components/topic-tour-dialog/topic-tour-dialog.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +87,8 @@ import { TopicReportReasonComponent } from './components/topic-report-reason/top
     InviteEditorsComponent,
     TopicEditComponent,
     TopicFormComponent,
-    TopicReportReasonComponent
+    TopicReportReasonComponent,
+    TopicTourDialogComponent
   ],
   imports: [
     LinkyModule,

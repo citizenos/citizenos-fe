@@ -416,7 +416,7 @@ $button-styles: (
   background-color: var(--color-surfaces);
   border-radius: 8px;
   flex-direction: column;
-  padding: 8px 16px;
+  padding: 0 8px;
 
   &.active {
     .filter_items {

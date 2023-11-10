@@ -74,7 +74,6 @@
     background-color: var(--color-surfaces);
     width: 100%;
     border-radius: 16px;
-    height: 72px;
     padding: 0px 16px;
 
     @include mixins.tablet {
@@ -255,10 +254,16 @@
 
         @include mixins.tablet {
           display: none;
+          margin-bottom: 0px;
+          padding: 16px;
 
           &.show {
             display: flex;
           }
+        }
+
+        @include mixins.mobile {
+          padding: 16px 0;
         }
       }
 

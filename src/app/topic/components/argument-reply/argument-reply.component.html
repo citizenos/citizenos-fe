@@ -2,7 +2,7 @@
   <ng-container *ngIf="AuthService.loggedIn$ | async; then loggedIn;"></ng-container>
   <ng-template #loggedIn>
     <div>
-      <h3 class="text-center" translate="COMPONENTS.ARGUMENT_REPLY.HEADING"></h3>
+      <div class="small_heading" class="text-center" translate="COMPONENTS.ARGUMENT_REPLY.HEADING"></div>
     </div>
     <form name="argumentReply">
       <cos-input

@@ -9,7 +9,7 @@
               fill="#2C3B47" />
           </svg>
         </button>
-        <h3 [innerHTML]="'VIEWS.TOPICS_TOPICID.HEADING_BACK_TO_PUBLIC_TOPICS'| translate"></h3>
+        <div class="small_heading mobile_hidden" [innerHTML]="'VIEWS.TOPICS_TOPICID.HEADING_BACK_TO_PUBLIC_TOPICS'| translate"></div>
       </ng-container>
       <ng-container *ngIf="auth.loggedIn$.value">
         <button class="btn_medium_close icon" [routerLink]="['/', translate.currentLang, 'my', 'topics']"><svg
@@ -19,7 +19,7 @@
               fill="#2C3B47" />
           </svg>
         </button>
-        <h3 [innerHTML]="'VIEWS.TOPICS_TOPICID.HEADING_BACK_TO_MY_TOPICS'| translate"></h3>
+        <div class="small_heading mobile_hidden" [innerHTML]="'VIEWS.TOPICS_TOPICID.HEADING_BACK_TO_MY_TOPICS'| translate"></div>
       </ng-container>
     </div>
     <div id="buttons_area">

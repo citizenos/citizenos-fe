@@ -6,7 +6,7 @@
         d="M20 10C14.48 10 10 14.48 10 20C10 25.52 14.48 30 20 30C25.52 30 30 25.52 30 20C30 14.48 25.52 10 20 10ZM18.0556 25L25.8333 17.2807L24.375 15.8333L18.0556 22.1053L15.625 19.693L14.1667 21.1404L18.0556 25Z"
         fill="white" />
     </svg>
-    <h3 translate="VIEWS.VOTE_CREATE.HEADING"></h3>
+    <div class="small_heading" translate="VIEWS.VOTE_CREATE.HEADING"></div>
   </div>
   <div id="create_tabs">
     <a class="create_tab" [ngClass]="tabSelected=== 'info' ? 'active' : ''" (click)="selectTab('info')">1.<span
@@ -320,7 +320,7 @@
               <div>1</div>
             </div>
             <div class="section_content_wrap">
-              <h3 translate="VIEWS.VOTE_CREATE.SETTINGS_HEADING_VISIBILITY"></h3>
+              <div class="small_heading" translate="VIEWS.VOTE_CREATE.SETTINGS_HEADING_VISIBILITY"></div>
               <div translate="VIEWS.VOTE_CREATE.SETTINGS_VISIBILITY_DESC"></div>
 
               <div class="row_wrap">
@@ -363,7 +363,7 @@
               <div>2</div>
             </div>
             <div class="section_content_wrap">
-              <h3 translate="VIEWS.VOTE_CREATE.SETTINGS_HEADING_CATEGORY_AND_LOCALITY"></h3>
+              <div class="small_heading" translate="VIEWS.VOTE_CREATE.SETTINGS_HEADING_CATEGORY_AND_LOCALITY"></div>
               <div translate="VIEWS.VOTE_CREATE.SETTINGS_CATEGORY_SELECT_DESC"></div>
               <div class="dropdown" [cosDropdown]>
                 <div class="selection">
@@ -389,7 +389,7 @@
 
                 </a>
               </div>
-              <h3 translate="VIEWS.VOTE_CREATE.SETTINGS_HEADING_LOCALITY"></h3>
+              <div class="small_heading" translate="VIEWS.VOTE_CREATE.SETTINGS_HEADING_LOCALITY"></div>
               <div translate="VIEWS.VOTE_CREATE.SETTINGS_LOCALITY_SELECT_DESC"></div>
               <div class="row_wrap">
                 <div class="dropdown" [cosDropdown]>
@@ -434,7 +434,7 @@
               <div>3</div>
             </div>
             <div class="section_content_wrap">
-              <h3 translate="VIEWS.VOTE_CREATE.SETTINGS_HEADING_TOPIC_TAGS"></h3>
+              <div class="small_heading" translate="VIEWS.VOTE_CREATE.SETTINGS_HEADING_TOPIC_TAGS"></div>
               <div translate="VIEWS.TOPIC_CREATE.SETTINGS_TOPIC_TAGS_DESC"></div>
               <cos-input [placeholder]="'VIEWS.TOPIC_CREATE.SETTINGS_TOPIC_TAG_INPUT_PLACEHOLDER' | translate">
                 <input type="text" (click)="addTag($event)" />
@@ -457,7 +457,7 @@
               <div>3</div>
             </div>
             <div class="section_content_wrap">
-              <h3 translate="VIEWS.VOTE_CREATE.SETTINGS_HEADING_ADD_TO_GROUP"></h3>
+              <div class="small_heading" translate="VIEWS.VOTE_CREATE.SETTINGS_HEADING_ADD_TO_GROUP"></div>
               <div translate="VIEWS.VOTE_CREATE.SETTINGS_ADD_TO_GROUP_DESC"></div>
               <div class="dropdown" [cosDropdown]>
                 <div class="selection">

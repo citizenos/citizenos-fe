@@ -2,77 +2,113 @@
 
 .dropdown {
   min-width: 160px;
+
+  .options {
+    position: fixed;
+    min-width: 160px;
+    width: max-content;
+  }
 }
 
+#search_wrap,
 .row_list {
-  .row_cell {
-    a {
-      min-width: 200px;
-    }
-    .dropdown {
-      @include mixins.mobile {
-        width: calc(100% - 40px);
-      }
-    }
-  }
-
-  .remove_item_mobile {
-    @include mixins.mobile {
-      top: auto !important;
-      bottom: 12px !important;
-      right: 8px !important;
-      background-color: initial !important;
-    }
-  }
+  margin-bottom: 16px;
 }
-
-.character_limit {
-  font-size: 12px;
+#topic_members_list_wrap {
+  gap: 16px;
+}
+.container {
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  text-align: right;
+  vertical-align: middle;
+  align-items: center;
+  gap: 8px;
 
-  span {
-    font-size: 12px;
-  }
-}
-.profile_image_wrapper {
-  padding: 0;
-  margin: 5px 0px;
-}
-
-.row_list {
-  .row_cell {
-    a {
-      min-width: 200px;
-    }
-  }
-  .row_cell_dialog {
+  .row {
     display: flex;
-    gap: 8px;
     width: 100%;
-    justify-content: space-between;
     align-items: center;
+    padding: 8px 16px;
+    position: relative;
+    border-radius: 8px;
 
     .cell_title {
-      display: flex;
-      width: 100%;
-      padding: 8px;
-    }
-
-    .action_items {
-      display: flex;
-      gap: 8px;
-      padding: 8px 0;
-      justify-content: space-between;
-      width: 100%;
-
-      .dropdown {
+      display: none;
+      @include mixins.mobile {
+        display: flex;
         width: 100%;
       }
     }
-  }
-}
 
-#search_wrap, .row_list {
-  margin-bottom: 16px;
+    @include mixins.mobile {
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    &.header_row {
+      padding: 12px 16px;
+
+      @include mixins.mobile {
+        display: none;
+      }
+    }
+
+    &:nth-child(even) {
+      background-color: var(--color-surface-contrast);
+    }
+    .name,
+    .level,
+    .actions {
+      display: flex;
+      @include mixins.mobile {
+        gap: 8px;
+        justify-content: flex-start;
+        width: 100%;
+      }
+    }
+
+    .name {
+      flex: 4 4 0;
+      text-align: start;
+      justify-content: flex-start;
+      flex-direction: row;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .level {
+      flex: 4 4 0;
+      justify-content: center;
+
+      .level_heading,
+      .dropdown {
+        flex: 2 2 0;
+      }
+      .button_heading {
+        justify-content: center;
+        flex: 2 2 0;
+        display: flex;
+      }
+
+      button {
+        flex: 1 1 0;
+      }
+
+      @include mixins.mobile {
+        width: 100%;
+        justify-content: space-between;
+        flex: initial;
+        gap: 8px;
+        .dropdown {
+          flex: initial;
+          width: 100%;
+        }
+        button {
+          flex: initial;
+          width: 32px;
+        }
+      }
+    }
+  }
 }
