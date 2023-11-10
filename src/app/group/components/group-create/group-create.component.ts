@@ -167,11 +167,9 @@ export class GroupCreateComponent implements OnInit {
   createGroup() {
     this.errors = null;
     const saveGroup = Object.assign({}, this.group);
-    saveGroup['rules'] = this.rules?.map(rule => rule.rule);
-    this.GroupService.save(saveGroup).pipe(take(1))
-      .subscribe({
-        next: (group) => {
-          this.group = Object.assign(this.group, group);
+    saveGroup['rules'] = this.rules?.map(rule => rule.rule).filter((rule) => !!rule);
+    const afterCreate = (group: Group) => {
+      this.group = Object.assign(this.group, group);
           if (this.imageFile) {
             this.GroupService
               .uploadGroupImage(this.imageFile, this.group.id).pipe(
@@ -202,6 +200,26 @@ export class GroupCreateComponent implements OnInit {
           this.doInviteMembers();
           this.doAddTopics();
           this.Notification.addSuccess('VIEWS.GROUP_CREATE.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.GROUP_CREATE.NOTIFICATION_SUCCESS_TITLE');
+    }
+    if (!this.group.id) {
+    this.GroupService.save(saveGroup).pipe(take(1))
+    .subscribe({
+      next: (group) => {
+        this.group = Object.assign(this.group, group);
+        afterCreate(group);
+      },
+      error: (errorResponse) => {
+        if (errorResponse && errorResponse.errors) {
+          this.errors = errorResponse.errors;
+        }
+      }
+    });
+    } else {
+      this.GroupService.update(saveGroup).pipe(take(1))
+      .subscribe({
+        next: (group) => {
+          this.group = Object.assign(this.group, group);
+          afterCreate(group);
         },
         error: (errorResponse) => {
           if (errorResponse && errorResponse.errors) {
@@ -209,6 +227,7 @@ export class GroupCreateComponent implements OnInit {
           }
         }
       });
+    }
   }
 
   doInviteMembers() {

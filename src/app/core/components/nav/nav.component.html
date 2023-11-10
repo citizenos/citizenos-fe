@@ -120,7 +120,7 @@
     </a>
   </div>
 </div>
-
+<ng-container *ngIf="wWidth <=1024 && isNavVisible()"></ng-container>
 <div class="nav" [ngClass]="app.showNav ? 'nav_is_open' : ''">
   <div class="logo_wrap">
     <a routerLink="/">

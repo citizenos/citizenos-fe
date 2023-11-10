@@ -15,7 +15,7 @@
     background: var(--color-surfaces);
 
     &.dark_backround {
-      background: var(--color-surface-contrast);
+      background: var(--color-background);
     }
 
     .logo_wrap {
@@ -50,6 +50,7 @@
   position: absolute;
   width: 200px;
   min-height: 100%;
+  padding: 0 20px;
   left: 0;
   top: 0;
   background: var(--color-surfaces);
@@ -72,9 +73,10 @@
   @include mixins.tablet {
     transition: width 2s, height 4s;
     height: max-content;
+    padding: 0 16px;
     position: absolute;
     width: 100%;
-    max-width: 320px;
+    max-width: 288px;
     .btn_small_nav {
       min-width: 100%;
     }
@@ -87,6 +89,10 @@
     &.nav_is_open {
       display: flex;
     }
+  }
+
+  @include mixins.mobile {
+    max-width: 100%;
   }
   &.nav_is_open {
     padding-top: 56px;
@@ -113,7 +119,7 @@
     width: 100%;
     @include mixins.tablet {
       gap: 0;
-      padding: 8px 16px;
+      padding: 8px 0;
     }
 
     .big_button_wrap {

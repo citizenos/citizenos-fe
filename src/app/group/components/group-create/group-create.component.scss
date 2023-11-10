@@ -6,6 +6,7 @@
 
   @include mixins.tablet {
     margin: 60px 0;
+    padding: 8px 16px 0 16px;
   }
 
   @include mixins.mobile {
@@ -23,4 +24,12 @@
 #help_wrap {
   flex-direction: column;
   gap: 16px;
+
+  a {
+    padding-top: 8px;
+  }
+}
+
+#continue_button {
+
 }

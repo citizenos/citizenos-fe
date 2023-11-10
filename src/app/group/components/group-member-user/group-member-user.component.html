@@ -1,6 +1,6 @@
 <ng-container *ngIf="member">
-  <div class="row_list">
-    <div class="row_cell image_cell">
+  <div class="row">
+    <div class="name">
       <div class="profile_image_wrap">
         <img class="profile_image" *ngIf="member.imageUrl" [src]="member.imageUrl">
         <div class="profile_image_filler" *ngIf="!member.imageUrl">
@@ -8,30 +8,14 @@
           </cos-initials>
         </div>
       </div>
-      <a class="blue_link" [innerHtml]>{{member.name}}</a>
-      <span>{{member.email}} {{member.phoneNumber}}</span>
-    </div>
-    <div class="row_cell">
-      <div translate="COMPONENTS.GROUP_MEMBER_USER.LAST_ACTIVITY"></div>
-      <div [innerText]="member.latestActivity | date : 'yyyy-MM-dd HH:mm'">12.02.2015 21:40</div>
-    </div>
-    <ng-container *ngIf="app.showMobile()">
-      <div class="row_cell_row">
-        <span>{{ 'TXT_TOPIC_LEVELS_'+member.level | uppercase | translate }}</span>
-        <button>
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" clip-rule="evenodd"
-              d="M17.3335 12.0003C17.3335 11.267 16.7335 10.667 16.0002 10.667C15.2668 10.667 14.6668 11.267 14.6668 12.0003C14.6668 12.7337 15.2668 13.3337 16.0002 13.3337C16.7335 13.3337 17.3335 12.7337 17.3335 12.0003ZM17.3335 20.0003C17.3335 19.267 16.7335 18.667 16.0002 18.667C15.2668 18.667 14.6668 19.267 14.6668 20.0003C14.6668 20.7337 15.2668 21.3337 16.0002 21.3337C16.7335 21.3337 17.3335 20.7337 17.3335 20.0003ZM16.0002 14.667C16.7335 14.667 17.3335 15.267 17.3335 16.0003C17.3335 16.7337 16.7335 17.3337 16.0002 17.3337C15.2668 17.3337 14.6668 16.7337 14.6668 16.0003C14.6668 15.267 15.2668 14.667 16.0002 14.667Z"
-              fill="#2C3B47" />
-          </svg>
-        </button>
+      <div class="member_name_wrap">
+        <div class="bold" [innerHtml]>{{member.name}}</div>
+        <div class="member_info">{{member.email}} {{member.phoneNumber}}</div>
       </div>
-    </ng-container>
-    <ng-container *ngIf="!app.showMobile()">
-      <div class="row_cell">
-        {{ 'TXT_TOPIC_LEVELS_'+member.level | uppercase | translate }}
-      </div>
-      <div class="row_cell">
+    </div>
+    <div class="level">
+      <span [translate]="'TXT_TOPIC_LEVELS_' + member.level | uppercase"></span>
+      <div class="button_wrap">
         <div class="dropdown" [cosDropdown]>
           <button class="btn_medium_plain icon">
             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -73,6 +57,6 @@
           </div>
         </div>
       </div>
-    </ng-container>
+    </div>
   </div>
 </ng-container>

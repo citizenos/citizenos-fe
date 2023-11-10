@@ -32,6 +32,12 @@ export class NavComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  isNavVisible () {
+    if (this.app.showNav) {
+      window.scrollTo(0, 0);
+    }
+  }
+
   displayEmpoweredIcon() {
     if (!/citizenos\.com/.test(this.Location.getBaseUrl())) {
       return true;
