@@ -77,7 +77,7 @@ export class TopicFormComponent {
   tabs = ['info', 'settings', 'preview'];
 
   tags = <string[]>[];
-
+  showManageEditors = false;
   block = {
     attachments: false,
     headerImage: false,

@@ -4,9 +4,18 @@
   flex-direction: column;
   gap: 24px;
 
+  @include mixins.mobile {
+    gap: 8px;
+  }
   .arguments_header {
     display: flex;
     justify-content: space-between;
+
+    @include mixins.mobile {
+      padding: 0 16px;
+      flex-direction: column;
+      gap: 16px;
+    }
 
     .title {
       font-size: 18px;
@@ -39,10 +48,18 @@
   flex-direction: column;
   gap: 24px;
 
+  @include mixins.mobile {
+    width: calc(100% - 32px);
+    justify-self: center;
+    align-self: center;
+  }
   .graph_header {
     display: flex;
     justify-content: space-between;
 
+    @include mixins.mobile {
+      flex-direction: column;
+    }
     .graph_title {
       font-size: 16px;
       font-style: normal;
@@ -104,6 +121,13 @@
   display: flex;
   justify-content: space-between;
   gap: 16px;
+
+  @include mixins.mobile {
+    width: calc(100% - 32px);
+    justify-self: center;
+    align-self: center;
+  }
+
   .dropdown_input {
     width: 100%;
   }
@@ -123,6 +147,9 @@
   gap: 16px;
   position: relative;
 
+  @include mixins.mobile {
+    padding-top: 8px;
+  }
 
   argument {
     display: contents;

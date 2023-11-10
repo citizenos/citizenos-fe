@@ -78,6 +78,13 @@
   <div class="image">
     <div class="image_overlay"></div>
     <img *ngIf="topic.imageUrl" [src]="topic.imageUrl">
+    <div class="no_image" *ngIf="!topic.imageUrl">
+      <svg width="37" height="41" viewBox="0 0 37 41" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M29.307 5.5918C30.9953 5.5918 32.3766 7.08292 32.3766 8.90541V32.1007C32.3766 33.9232 30.9953 35.4143 29.307 35.4143H7.81962C6.13133 35.4143 4.75 33.9232 4.75 32.1007V8.90541C4.75 7.08292 6.13133 5.5918 7.81962 5.5918H29.307ZM17.0285 27.9752L13.1915 22.9882L7.81962 30.4439H29.307L22.4003 20.503L17.0285 27.9752Z"
+          fill="#4D5C6A" />
+      </svg>
+    </div>
   </div>
   <div class="topic_content">
     <div class="icon_area">

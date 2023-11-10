@@ -387,7 +387,7 @@
 </div>
 <div class="vote_casting_overlay"
   *ngIf="vote.authType === VOTE_AUTH_TYPES.soft && !hasVoteEnded() && !(AuthService.loggedIn$ | async)">
-  <h3 (click)="app.doShowLogin()" [innerHtml]="'VIEWS.TOPICS_TOPICID.LOG_IN_TO_PARTICIPATE' | translate"></h3>
+  <div class="small_heading" (click)="app.doShowLogin()" [innerHtml]="'VIEWS.TOPICS_TOPICID.LOG_IN_TO_PARTICIPATE' | translate"></div>
 </div>
 <div class="voting_platform_buttons" *ngIf="!hasVoteEnded()">
 

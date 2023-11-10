@@ -47,7 +47,7 @@
     <div class="dialog_info_wrap">
       <!--Sections with h3-->
       <ng-container *ngFor="let section of data.sections">
-        <h3 translate="{{section.heading}}"></h3>
+        <div class="small_heading" translate="{{section.heading}}"></div>
         <div class="delete_info_text_wrap">
           <div class="delete_info" *ngFor="let point of section.points">
             <div class="sprite sprite-checkmark2x"></div>

@@ -144,7 +144,6 @@ export class InviteEditorsComponent {
   };
 
   addTopicMemberUser(member?: any): void {
-    console.log('ADD TOPIC MEMBER', member)
     if (member) {
       if (this.members && this.members.find((m: TopicMemberUser) => m.id === member.id)) {
         // Ignore duplicates
@@ -170,12 +169,10 @@ export class InviteEditorsComponent {
         } else if (email.trim().length) {
           this.invalid.push(email.trim());
         }
-
         return;
       });
 
       if (filtered.length) {
-
         filtered.sort().forEach((email) => {
           email = email.trim();
           if (this.members.length >= this.maxUsers) {
@@ -190,9 +187,12 @@ export class InviteEditorsComponent {
             this.orderMembers();
           }
         });
+        this.searchStringUser = '';
+        this.searchResultUsers$ = of([]);
       }
 
       this.searchStringUser = '';
+      this.searchResultUsers$ = of([]);
     }
   };
 
