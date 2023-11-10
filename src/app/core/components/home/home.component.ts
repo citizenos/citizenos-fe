@@ -53,11 +53,15 @@ export class HomeComponent implements OnInit {
     this.PublicGroupService.reset();
 
     const topicsParams = this.PublicTopicService.params$.value;
+    const groupsParams = this.PublicGroupService.params$.value;
     topicsParams.limit = 8;
+    groupsParams.limit = 8;
+    if (window.innerWidth < 560) {
+      topicsParams.limit = 3;
+      groupsParams.limit = 3;
+    }
     this.PublicTopicService.params$.next(topicsParams);
     this.topics$ = this.PublicTopicService.loadItems();
-    const groupsParams = this.PublicGroupService.params$.value;
-    groupsParams.limit = 8;
     this.PublicGroupService.params$.next(groupsParams);
     this.groups$ = this.PublicGroupService.loadItems();
   }

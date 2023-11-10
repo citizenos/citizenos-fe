@@ -83,6 +83,10 @@
     background-color: var(--color-surfaces);
     padding: 24px;
     gap: 16px;
+
+    @include mixins.mobile {
+      padding: 16px;
+    }
   }
 }
 

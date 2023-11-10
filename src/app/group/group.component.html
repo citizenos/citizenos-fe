@@ -9,7 +9,7 @@
               fill="#2C3B47" />
           </svg>
         </button>
-        <h3 [innerHTML]="'VIEWS.GROUP.HEADING_BACK_TO_PUBLIC_GROUPS'| translate"></h3>
+        <div class="small_heading" [innerHTML]="'VIEWS.GROUP.HEADING_BACK_TO_PUBLIC_GROUPS'| translate"></div>
       </ng-container>
       <ng-container *ngIf="auth.loggedIn$.value">
         <button class="btn_medium_close icon" [routerLink]="['/', translate.currentLang, 'my', 'groups']"><svg
@@ -19,7 +19,7 @@
               fill="#2C3B47" />
           </svg>
         </button>
-        <h3 [innerHTML]="'VIEWS.GROUP.HEADING_BACK_TO_MY_GROUPS'| translate"></h3>
+        <div class="small_heading" [innerHTML]="'VIEWS.GROUP.HEADING_BACK_TO_MY_GROUPS'| translate"></div>
       </ng-container>
     </div>
     <div id="buttons_area">
@@ -216,7 +216,7 @@
       </div>
       <div id="group_extra_info" [ngClass]=" {'open': moreInfo}">
         <div id="extra_info_left">
-          <b translate="VIEWS.GROUP.RULES_OF_CONDUCT"></b>
+          <div class="bold" translate="VIEWS.GROUP.RULES_OF_CONDUCT"></div>
           <div id="rule_items_wrap">
             <div class="rule_item" *ngFor="let rule of group.rules"><svg width="24" height="24" viewBox="0 0 24 24"
                 fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -244,7 +244,7 @@
         </div>
         <div id="extra_info_right">
           <div id="group_extra_info_wrap">
-            <b translate="VIEWS.GROUP.HEADING_INFO"></b>
+            <div class="bold" translate="VIEWS.GROUP.HEADING_INFO"></div>
             <div class="info_items_wrap">
               <div class="info_item">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -295,8 +295,8 @@
       <div class="line_separator"></div>
     </div>
     <a id="view_more" (click)="moreInfo = !moreInfo">
-      <b *ngIf="!moreInfo" translate="VIEWS.GROUP.LNK_MORE_INFO"></b>
-      <b *ngIf="moreInfo" translate="VIEWS.GROUP.LNK_CLOSE_INFO"></b>
+      <div class="bold" *ngIf="!moreInfo" translate="VIEWS.GROUP.LNK_MORE_INFO"></div>
+      <div class="bold" *ngIf="moreInfo" translate="VIEWS.GROUP.LNK_CLOSE_INFO"></div>
       <svg *ngIf="!moreInfo" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M17 10L12 15L7 10" stroke="#1168A8" stroke-width="2" stroke-linecap="round" />
       </svg>
@@ -579,7 +579,7 @@
             </svg>
             <cos-input placeholder="{{'VIEWS.GROUP.PLACEHOLDER_SEARCH_TOPICS' | translate}}">
               <input type="text" [(ngModel)]="searchTopicsInput" (ngModelChange)="searchTopics(searchTopicsInput)"
-                placeholder="{{'VIEWS.MAIN.PLACEHOLDER_SEARCH_TOPICS' | translate}}">
+                placeholder="{{'VIEWS.GROUP.PLACEHOLDER_SEARCH_TOPICS' | translate}}">
             </cos-input>
             <a class="clear_search" translate="VIEWS.GROUP.LNK_CLEAR" (click)="searchTopicsInput='';searchTopics('')"
               *ngIf="searchTopicsInput"></a>
@@ -656,17 +656,15 @@
           </div>
         </cos-input>
       </div>
-      <div class="table_section">
-        <div class="row_header" *ngIf="!app.showMobile()">
-          <div class="row_cell"><a (click)="GroupMemberUserService.doOrder('title')"><span
-                translate="VIEWS.GROUP.MEMBERS_TABLE_HEADER_NAME"></span>
-              <div
-                [ngClass]="{'icon_general_arrow_small_down': (GroupMemberUserService.params$ | async)?.order ==='desc', 'icon_general_arrow_small_up': (GroupMemberUserService.params$ | async)?.order ==='asc'}">
-              </div>
-            </a></div>
-          <div class="row_cell" translate="VIEWS.GROUP.MEMBERS_TABLE_HEADER_LAST_ACTIVITY"></div>
-          <div class="row_cell" translate="VIEWS.GROUP.MEMBERS_TABLE_HEADER_PERMISSIONS"></div>
-          <div class="row_cell" translate="VIEWS.GROUP.MEMBERS_TABLE_HEADER_ACTIONS"></div>
+
+      <div class="container">
+        <div class="row header_row">
+          <div class="name"><a translate="COMPONENTS.GROUP_INVITE.NAME"></a></div>
+          <div class="level">
+            <div class="level_heading" translate="COMPONENTS.GROUP_INVITE.ROLE"></div>
+
+            <div class="button_heading" translate="COMPONENTS.GROUP_INVITE.ACTIONS"></div>
+          </div>
         </div>
         <group-member-user [member]="user" [group]="group" *ngFor="let user of users$ | async"></group-member-user>
       </div>
@@ -683,7 +681,7 @@
           <div class="mobile_overlay"></div>
           <div class="options button_options">
             <div class="mobile_header">
-              <h3 translate="VIEW.GROUP.BTN_BULK_ACTIONS"></h3>
+              <div class="small_heading" translate="VIEW.GROUP.BTN_BULK_ACTIONS"></div>
               <button><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M5.29314 17.2929C4.90261 17.6834 4.90261 18.3166 5.29314 18.7071C5.68366 19.0976 6.31683 19.0976 6.70735 18.7071L12.0002 13.4142L17.2931 18.7071C17.6837 19.0976 18.3168 19.0976 18.7074 18.7071C19.0979 18.3166 19.0979 17.6834 18.7074 17.2929L13.4145 12L18.7074 6.70711C19.0979 6.31658 19.0979 5.68342 18.7074 5.29289C18.3168 4.90237 17.6837 4.90237 17.2931 5.29289L12.0002 10.5858L6.70735 5.29289C6.31683 4.90237 5.68366 4.90237 5.29314 5.29289C4.90261 5.68342 4.90261 6.31658 5.29314 6.70711L10.586 12L5.29314 17.2929Z"

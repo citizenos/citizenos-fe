@@ -75,7 +75,7 @@
             *ngIf="!group.imageUrl && !tmpImageUrl">
             <div class="bold" translate="COMPONENTS.GROUP_SETTINGS.INFO_SETTINGS_LBL_DROP_IMAGE"></div>
             <input type="file" #imageUpload (change)="fileUpload()" />
-            <button class="btn_big_secondary" (click)="uploadImage()"
+            <button class="btn_medium_secondary" (click)="uploadImage()"
               translate="COMPONENTS.GROUP_SETTINGS.INFO_SETTINGS_BTN_CHOOSE_IMAGE"></button>
           </div>
           <div id="image_area" *ngIf="group.imageUrl || tmpImageUrl">
@@ -135,7 +135,7 @@
               </svg>
             </button>
           </cos-input>
-          <button class="btn_big_secondary add_rule" (click)="addRule()">
+          <button class="btn_medium_secondary add_rule" (click)="addRule()">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M12 20C11.4711 20 11.0423 19.5712 11.0423 19.0423L11.0423 12.9577L4.95775 12.9577C4.4288 12.9577 4 12.5289 4 12C4 11.4711 4.4288 11.0423 4.95775 11.0423H11.0423V4.95775C11.0423 4.4288 11.4711 4 12 4C12.5289 4 12.9577 4.4288 12.9577 4.95775L12.9577 11.0423L19.0423 11.0423C19.5712 11.0423 20 11.4711 20 12C20 12.5289 19.5712 12.9577 19.0423 12.9577H12.9577V19.0423C12.9577 19.5712 12.5289 20 12 20Z"

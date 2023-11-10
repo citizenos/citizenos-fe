@@ -57,7 +57,7 @@
           <a (click)="triggerUploadImage()" translate="VIEWS.ACCOUNT.UPLOAD_AVATAR"></a>
         </div>
         <div id="profile_data_area">
-          <h3 translate="VIEWS.ACCOUNT.HEADING_ACCOUNT_DETAILS"></h3>
+          <div class="small_heading" translate="VIEWS.ACCOUNT.HEADING_ACCOUNT_DETAILS"></div>
           <form id="profile_form" name="myAccountForm" *ngIf="user | async as user">
             <cos-input placeholder="{{'VIEWS.ACCOUNT.PLACEHOLDER_NAME' | translate}}">
               <input id="name" name="name" [(ngModel)]="form.name"
@@ -138,7 +138,7 @@
                 translate="VIEWS.ACCOUNT.BTN_SAVE"></button>
             </div>
           </form>
-          <h3 translate="VIEWS.ACCOUNT.TAB_PREFERENCES"></h3>
+          <div class="small_heading" translate="VIEWS.ACCOUNT.TAB_PREFERENCES"></div>
           <div class="prefrence_box">
             <div class="preference_title bold" translate="VIEWS.ACCOUNT.LBL_SHOW_IN_SEARCH"></div>
             <div class="preference_description" translate="VIEWS.ACCOUNT.LBL_SHOW_IN_SEARCH_DESCRIPTION">
@@ -168,7 +168,7 @@
     </ng-container>
     <ng-container *ngIf="(tabSelected | async) === 'notifications'">
       <div class="profile_area_section">
-        <h3 class="section_title" translate="VIEWS.ACCOUNT.HEADING_MANAGE_UPDATES"></h3>
+        <div class="small_heading section_title" translate="VIEWS.ACCOUNT.HEADING_MANAGE_UPDATES"></div>
         <div class="section_description" translate="VIEWS.ACCOUNT.DESCRIPTION_MANAGE_UPDATES"></div>
         <cos-input [placeholder]="'VIEWS.ACCOUNT.PLACEHOLDER_SET_PERIOD' | uppercase | translate">
           <div class="dropdown" [cosDropdown]>
@@ -188,7 +188,7 @@
         </cos-input>
       </div>
       <div class="profile_area_section">
-        <h3 translate="VIEWS.ACCOUNT.NOTIFICATIONS_HEADING"></h3>
+        <div class="small_heading" translate="VIEWS.ACCOUNT.NOTIFICATIONS_HEADING"></div>
         <div class="filter_section">
           <div class="input_area">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -38,7 +38,7 @@
   @include mixins.mobile {
     flex-direction: column;
     position: fixed;
-    width: auto;
+    width: calc(100% - 32px);
     margin: 0px 16px 16px 16px;
   }
 

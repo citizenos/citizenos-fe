@@ -7,7 +7,7 @@
   align-items: center;
 
   @include mixins.tablet {
-    padding: 12px;
+    padding: 8px;
     background-color: var(--color-surfaces);
     border-radius: 16px 16px 0 0;
   }
@@ -23,8 +23,11 @@
   @include mixins.tablet {
     border-radius: 0;
     margin-top: -16px;
+    padding: 0 8px;
   }
-
+  @include mixins.mobile {
+    justify-content: space-between;
+  }
   .create_tab {
     padding: 28px 56px;
     color: var(--color-text);
@@ -61,9 +64,10 @@
   width: 100%;
   min-height: 100%;
   gap: 32px;
-  margin-bottom: 60px;
+  margin-bottom: 24px;
 
   @include mixins.tablet {
+    gap: 8px;
     flex-direction: column;
   }
 
@@ -133,7 +137,6 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
-    padding-bottom: 52px;
 
     .create_content_section {
       display: flex;
@@ -145,7 +148,7 @@
       gap: 16px;
 
       @include mixins.mobile {
-        padding: 12px;
+        padding: 16px;
       }
 
       .number_wrap {
@@ -159,10 +162,6 @@
         border-radius: 20px;
         background-color: var(--color-secondary);
         font-weight: 600;
-
-        @include mixins.tablet {
-          position: absolute;
-        }
 
         svg {
           position: absolute;
@@ -481,13 +480,10 @@
   min-width: 288px;
   @include mixins.tablet {
     width: 100%;
-    margin-bottom: 72px;
   }
 
   .help_illustration {
     display: flex;
-    width: 80px;
-    height: 80px;
 
     @include mixins.mobile {
       display: none;
@@ -507,6 +503,7 @@
 
     @include mixins.mobile {
       display: flex;
+      align-self: flex-start;
     }
   }
 }
@@ -526,14 +523,12 @@
   @include mixins.tablet {
     max-width: 100%;
     flex-direction: row;
-    margin-bottom: 96px;
   }
 
   @include mixins.mobile {
     width: 100%;
     justify-content: flex-start;
     padding: 8px;
-    margin-bottom: 84px;
     cursor: pointer;
 
     &.show {
@@ -559,6 +554,10 @@
           line-height: 20px;
         }
 
+        a {
+          display: flex;
+        }
+
         svg {
           display: none;
         }
@@ -576,10 +575,22 @@
   gap: 8px;
 
   .title {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
     font-size: 16px;
     font-style: normal;
     font-weight: 600;
     line-height: 24px;
+
+    .mobile_icon {
+      display: none;
+
+      @include mixins.mobile {
+        display: flex;
+      }
+    }
   }
 
   .description_text, .description_text_wide {
@@ -624,7 +635,7 @@
     justify-content: space-between;
     width: 100%;
 
-    .description_text {
+    .description_text, a {
       display: none;
     }
 
@@ -653,6 +664,10 @@
     left: 0;
     z-index: 9999999;
     width: 100%;
+
+    button, .btn_big_submit_ghost {
+      max-height: 40px;
+    }
   }
 
   div {
@@ -662,9 +677,10 @@
 
   .btn_big_submit_ghost {
     width: 40px;
-    max-width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
     display: flex;
-    padding: 0;
 
     svg {
       display: flex;
@@ -673,11 +689,11 @@
   }
 
   .btn_big_submit {
+    height: 40px;
     #continue_btn {
       display: none;
     }
     @include mixins.mobile {
-      width: 40px;
       max-width: 40px;
 
       .btn_text {

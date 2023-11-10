@@ -2,6 +2,9 @@
 
 #notification_wrap {
   padding: 0 24px;
+  @include mixins.mobile {
+    padding: 0 16px;
+  }
 }
 #content_root {
   display: flex;

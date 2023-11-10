@@ -1,5 +1,5 @@
 <div id="search" [@openClose]="(app.showSearch)? 'open' : 'closed'">
-  <h3 translate="COMPONENTS.SEARCH.TITLE"></h3>
+  <div class="small_heading" translate="COMPONENTS.SEARCH.TITLE"></div>
   <button class="btn_medium_close icon" (click)="app.showSearch = false">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
@@ -25,7 +25,7 @@
   <div id="start_search" *ngIf="!app.showSearchResults">
     <div class="illustration_search"></div>
     <div id="text_wrap">
-      <h3 translate="COMPONENTS.SEARCH.HEADING_START_SEARCH"></h3>
+      <div class="small_heading" translate="COMPONENTS.SEARCH.HEADING_START_SEARCH"></div>
       <div translate="COMPONENTS.SEARCH.DESC_START_SEARCH"></div>
     </div>
   </div>
