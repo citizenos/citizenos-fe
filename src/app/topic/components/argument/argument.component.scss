@@ -1,4 +1,5 @@
 @use "mixins";
+
 .argument_wrap {
   display: flex;
   flex-direction: column;
@@ -55,6 +56,19 @@
   .argument_header {
     display: flex;
     justify-content: space-between;
+
+    @include mixins.mobile {
+      flex-direction: column;
+      gap: 8px;
+      .header_left,
+      .header_right {
+        width: 100%;
+        justify-content: space-between;
+        .separator {
+          display: none;
+        }
+      }
+    }
 
     .header_left,
     .header_right {
