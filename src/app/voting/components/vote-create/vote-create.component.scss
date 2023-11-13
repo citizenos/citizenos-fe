@@ -60,6 +60,45 @@
   }
 }
 
+#help_wrap {
+  flex-direction: column;
+  gap: 16px;
+
+  .topic_editors_header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+
+    .title {
+      font-weight: 600;
+    }
+  }
+
+  .topic_members_list_wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+
+    .topic_member {
+      display: flex;
+      justify-content: flex-start;
+      gap: 8px;
+      align-items: center;
+
+      .profile_image_wrap {
+        width: 24px;
+        height: 24px;
+
+        .profile_image {
+          width: 24px;
+          height: 24px;
+        }
+      }
+    }
+  }
+}
+
 #image_upload_input {
   width: 1px;
   height: 1px;

@@ -1,11 +1,13 @@
 <div class="vote_wrap">
   <div class="vote_header">
     <div class="header_division">
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd" clip-rule="evenodd"
-          d="M16 0C7.168 0 0 7.168 0 16C0 24.832 7.168 32 16 32C24.832 32 32 24.832 32 16C32 7.168 24.832 0 16 0ZM12.8889 24L25.3333 11.6491L23 9.33333L12.8889 19.3684L9 15.5088L6.66667 17.8246L12.8889 24Z"
-          fill="#5AB467" />
-      </svg>
+      <div class="icon_vote">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M16 0C7.168 0 0 7.168 0 16C0 24.832 7.168 32 16 32C24.832 32 32 24.832 32 16C32 7.168 24.832 0 16 0ZM12.8889 24L25.3333 11.6491L23 9.33333L12.8889 19.3684L9 15.5088L6.66667 17.8246L12.8889 24Z"
+            fill="#5AB467" />
+        </svg>
+      </div>
       <div class="vote_question">{{vote.description}}</div>
     </div>
     <div class="header_division">
@@ -130,6 +132,25 @@
               <span translate="COMPONENTS.TOPIC_VOTE_CAST.BTN_DOWNLOAD_USER_BDOC"></span></a>
           </div>
         </div>
+        <div class="vote_graph_wrap mobile_hidden">
+          <div id="vote_graph">
+            <svg width="48" height="48" viewBox="0 0 48 48" style="transform: rotate(-90deg)">
+              <circle id="graph_background" r="20" cx="24" cy="24" fill="transparent" stroke="#e0e0e0"
+                stroke-width="5px">
+              </circle>
+              <circle id="graph_bar" r="20" cx="24" cy="24" fill="transparent" stroke="#60e6a8" stroke-width="5px"
+                [attr.stroke-dasharray]="voteGraphDasharray()"
+                [attr.stroke-dashoffset]="voteGraphDashOffset(((vote.votersCount || 0)/topic.members.users.count)*100)">
+              </circle>
+            </svg>
+          </div>
+          <div class="text_area">
+            <div>{{vote.votersCount || 0}} / {{topic.members.users.count}} <span
+                translate="COMPONENTS.TOPIC_VOTE_CAST.VOTE_VOTES_COUNTED"></span></div>
+          </div>
+        </div>
+      </div>
+      <div class="vote_result_info mobile_show">
         <div class="vote_graph_wrap">
           <div id="vote_graph">
             <svg width="48" height="48" viewBox="0 0 48 48" style="transform: rotate(-90deg)">
@@ -192,6 +213,7 @@
           </div>
         </ng-container>
       </div>
+      <div class="line_separator vote mobile_show"></div>
       <div class="vote_options">
         <div class="bold" translate="COMPONENTS.TOPIC_VOTE_CAST.LBL_OPTIONS_YOU_DIDNT_CHOOSE"></div>
         <ng-container *ngFor="let option of vote.options.rows">
@@ -295,6 +317,26 @@
             </a>
           </div>
         </div>
+        <div class="vote_graph_wrap mobile_hidden">
+          <div id="vote_graph">
+            <svg width="48" height="48" viewBox="0 0 48 48" style="transform: rotate(-90deg)">
+              <circle id="graph_background" r="20" cx="24" cy="24" fill="transparent" stroke="#e0e0e0"
+                stroke-width="5px">
+              </circle>
+              <circle id="graph_bar" r="20" cx="24" cy="24" fill="transparent" stroke="#60e6a8" stroke-width="5px"
+                [attr.stroke-dasharray]="voteGraphDasharray()"
+                [attr.stroke-dashoffset]="voteGraphDashOffset(((vote.votersCount || 0)/topic.members.users.count)*100)">
+              </circle>
+            </svg>
+          </div>
+          <div class="text_area">
+            <div>{{vote.votersCount || 0}} / {{topic.members.users.count}} <span
+                translate="COMPONENTS.TOPIC_VOTE_CAST.VOTE_VOTES_COUNTED"></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="vote_result_info">
         <div class="vote_graph_wrap">
           <div id="vote_graph">
             <svg width="48" height="48" viewBox="0 0 48 48" style="transform: rotate(-90deg)">

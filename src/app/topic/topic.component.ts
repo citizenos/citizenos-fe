@@ -94,8 +94,10 @@ export class TopicComponent implements OnInit {
   showGroups = false;
   showTags = false;
   readMore = false;
+  tabTablet = '';
   showArgumentsTablet = (window.innerWidth <= 1024);
   showVoteTablet = (window.innerWidth <= 1024);
+  showFollowUpTablet = (window.innerWidth <= 1024);
   tabSelected$: Observable<string>;
   showTutorial = false;
   topicTitle: string = '';

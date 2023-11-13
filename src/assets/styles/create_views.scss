@@ -58,6 +58,25 @@
   }
 }
 
+.number_wrap {
+  width: 40px;
+  min-width: 40px;
+  height: 40px;
+  justify-content: center;
+  position: relative;
+  align-items: center;
+  display: flex;
+  border-radius: 20px;
+  background-color: var(--color-secondary);
+  font-weight: 600;
+
+  svg {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+}
+
 #create_content_wrap {
   display: flex;
   flex-direction: row;
@@ -151,30 +170,17 @@
         padding: 16px;
       }
 
-      .number_wrap {
-        width: 40px;
-        min-width: 40px;
-        height: 40px;
-        justify-content: center;
-        position: relative;
-        align-items: center;
-        display: flex;
-        border-radius: 20px;
-        background-color: var(--color-secondary);
-        font-weight: 600;
-
-        svg {
-          position: absolute;
-          top: 0;
-          right: 0;
-        }
-      }
-
       .section_content_wrap {
         display: flex;
         flex-direction: column;
         gap: 16px;
         width: 100%;
+
+        .header_wrap {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
 
         cos-input,
         input,
@@ -571,7 +577,21 @@
     }
   }
 }
+.dropdown {
+  &.dropdown_active {
+    .options {
+      display: flex;
+      min-width: 100%;
+      max-width: 100%;
+    }
 
+    .option {
+      @include mixins.mobile {
+        max-width: 100%;
+      }
+    }
+  }
+}
 #help_text_wrap,
 #help_text_wrap_preview {
   display: flex;
@@ -585,11 +605,19 @@
     display: flex;
     width: 100%;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     font-size: 16px;
     font-style: normal;
     font-weight: 600;
     line-height: 24px;
+
+    @include mixins.tablet {
+      justify-content: flex-start;
+    }
+
+    @include mixins.mobile {
+      justify-content: space-between;
+    }
 
     span {
       font-size: 16px;
@@ -733,7 +761,6 @@
       display: none;
     }
     @include mixins.mobile {
-
       .btn_text {
         display: none;
       }
