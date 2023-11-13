@@ -1208,3 +1208,16 @@ tour-item-template {
     }
   }
 }
+
+
+.EasyMDEContainer {
+  @include mixins.mobile {
+    .editor-statusbar {
+      display: none;
+    }
+
+    .CodeMirror-scroll {
+      max-height: 250px;
+    }
+  }
+}

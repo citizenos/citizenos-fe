@@ -14,7 +14,7 @@ import { TopicArgumentService } from 'src/app/services/topic-argument.service';
     trigger('openSlide', [
       // ...
       state('open', style({
-        padding: '12px 16px',
+        padding: '12px 16px 0 12px',
         'maxHeight': 'initial',
         transition: '0.5s ease-in-out max-height'
       })),

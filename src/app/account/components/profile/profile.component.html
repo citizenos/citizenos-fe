@@ -49,7 +49,7 @@
             </a>
             <img id="profile_image" *ngIf="tmpImageUrl || form.imageUrl" [src]="tmpImageUrl || form.imageUrl">
             <div class="profile_image_filler" *ngIf="!form.imageUrl && !tmpImageUrl">
-              <cos-initials class="table_cell" *ngIf="form.name" [name]="form.name">
+              <cos-initials *ngIf="form.name" [name]="form.name">
               </cos-initials>
             </div>
           </div>

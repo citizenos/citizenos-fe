@@ -57,6 +57,39 @@
     display: flex;
     justify-content: space-between;
 
+    .author_wrap {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+
+      .image_wrap {
+        width: 32px;
+        height: 32px;
+        display: flex;
+
+        .profile_image {
+          width: 32px;
+          height: 32px;
+          display: flex;
+          border-radius: 32px;
+          aspect-ratio: 1;
+          object-fit: cover;
+        }
+
+        .profile_image_filler {
+          width: 100%;
+          background-color: var(--color-surfaces);
+          border-radius: 32px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cos-initials {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+
     @include mixins.mobile {
       flex-direction: column;
       gap: 8px;

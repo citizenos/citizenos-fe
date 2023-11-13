@@ -16,17 +16,31 @@ import { Group } from 'src/app/interfaces/group';
 import { GroupMemberTopicService } from 'src/app/services/group-member-topic.service';
 import { TopicInviteDialogComponent } from 'src/app/topic/components/topic-invite/topic-invite.component';
 import { TopicParticipantsDialogComponent } from 'src/app/topic/components/topic-participants/topic-participants.component';
+import { InviteEditorsComponent } from 'src/app/topic/components/invite-editors/invite-editors.component';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { Attachment } from 'src/app/interfaces/attachment';
 import { TopicVoteCreateComponent } from 'src/app/topic/components/topic-vote-create/topic-vote-create.component';
 import { TopicVoteService } from 'src/app/services/topic-vote.service';
+import { countries } from 'src/app/services/country.service';
+import { languages } from 'src/app/services/language.service';
+import { InterruptDialogComponent } from 'src/app/shared/components/interrupt-dialog/interrupt-dialog.component';
 
 @Component({
   selector: 'app-vote-create',
   templateUrl: './vote-create.component.html',
   styleUrls: ['./vote-create.component.scss'],
   animations: [
+    trigger('readMore', [
+      state('open', style({
+        maxHeight: '100%',
+        transition: '0.1s max-height'
+      })),
+      state('closed', style({
+        maxHeight: '320px',
+        transition: '0.1s max-height'
+      }))
+    ]),
     trigger('openClose', [
       // ...
       state('open', style({
@@ -54,7 +68,16 @@ import { TopicVoteService } from 'src/app/services/topic-vote.service';
     ])]
 })
 export class VoteCreateComponent implements OnInit {
-
+  topicText?: ElementRef
+  readMoreButton = false;
+  @ViewChild('topicText') set content(content: ElementRef) {
+    if (content) { // initially setter gets called with undefined
+      this.topicText = content;
+      if (content.nativeElement.offsetHeight > 200) {
+        this.readMoreButton = true;
+      }
+    }
+  }
   @ViewChild('imageUpload') fileInput?: ElementRef;
   @ViewChild('attachmentInput') attachmentInput?: ElementRef;
   @ViewChild('vote_create_form') voteCreateForm?: TopicVoteCreateComponent;
@@ -96,9 +119,12 @@ export class VoteCreateComponent implements OnInit {
   /*TODO - handle these below*/
   attachments = <any[]>[];
   tags = <any[]>[];
+  showManageEditors = false;
   /**/
   VISIBILITY = this.TopicService.VISIBILITY;
   CATEGORIES = Object.keys(this.TopicService.CATEGORIES);
+  languages = languages;
+  countries = countries;
   errors?: any;
   tmpImageUrl?: string;
   imageFile?: any;
@@ -263,6 +289,10 @@ export class VoteCreateComponent implements OnInit {
       }
     });
   };
+
+  topicDownload() {
+    return this.TopicService.download(this.topic.id);
+  }
 
   chooseCategory(category: string) {
     if (this.topic.categories && this.topic.categories.indexOf(category) > -1) {
@@ -447,6 +477,18 @@ export class VoteCreateComponent implements OnInit {
     })
   }
 
+  inviteEditors() {
+    const inviteDialog = this.dialog.open(InviteEditorsComponent, { data: { topic: this.topic } });
+    inviteDialog.afterClosed().subscribe({
+      next: (inviteUsers) => {
+        this.topic.members.users = inviteUsers;
+      },
+      error: (error) => {
+        // this.NotificationService.addError(error);
+      }
+    })
+  }
+
   saveVoteSettings(vote?: any) {
     if (vote) {
       this.vote = vote;
@@ -471,5 +513,21 @@ export class VoteCreateComponent implements OnInit {
           });
         }
       });
+  }
+
+  cancel() {
+    const confirmDialog = this.dialog.open(InterruptDialogComponent);
+
+    confirmDialog.afterClosed().subscribe(result => {
+      if (result === true) {
+        /*this.TopicService.delete({ id: this.topic.id })
+          .pipe(take(1))
+          .subscribe(() => {
+            this.router.navigate(['dashboard']);
+          })*/
+        this.router.navigate(['dashboard']);
+      }
+    });
+    //[routerLink]="['/', translate.currentLang, 'topics', topic.id]"
   }
 }
