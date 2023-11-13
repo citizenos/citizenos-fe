@@ -72,6 +72,11 @@ export class MarkdownDirective implements OnDestroy {
     initialValue: this.item
   };
   constructor(private el: ElementRef, private Translate: TranslateService, markdown: MarkdownService) {
+
+    if (window.innerWidth < 560) {
+      this.config['minHeight'] = '100px';
+    }
+
     this.easymde = new EasyMDE(this.config);
     this.easymde.codemirror.on('beforeChange', (cm: any, change: any) => {
       const maxLength = cm.getOption('maxLength') || this.limit;

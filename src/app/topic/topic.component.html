@@ -790,7 +790,7 @@
       </svg>
       <span class="tab_text" translate="VIEWS.TOPICS_TOPICID.TAB_IDEATION"></span>
     </!--a-->
-    <a class="topic_tab" [ngClass]="tabSelected=== 'voting' ? 'active' : ''" [routerLink]="['./']" fragment="voting"
+    <a class="topic_tab voting" [ngClass]="tabSelected=== 'voting' ? 'active' : ''" [routerLink]="['./']" fragment="voting"
       (click)="showVoteTablet = !showVoteTablet">
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="32" height="32" rx="16" fill="#98DAA2" />
@@ -800,7 +800,7 @@
       </svg>
       <span class="tab_text" translate="VIEWS.TOPICS_TOPICID.TAB_VOTING"></span>
     </a>
-    <a class="topic_tab" [ngClass]="tabSelected=== 'followUp' ? 'active' : ''" [routerLink]="['./']"
+    <a class="topic_tab follow_up" [ngClass]="tabSelected=== 'followUp' ? 'active' : ''" [routerLink]="['./']"
       fragment="followUp">
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="32" height="32" rx="16" fill="#E3A8CC" />

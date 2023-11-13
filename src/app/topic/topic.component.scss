@@ -102,6 +102,16 @@
               fill: var(--color-discussion);
             }
           }
+          &.voting.active {
+            background-color: var(--color-voting);
+            border-bottom: 2px solid var(--color-link);
+            rect {
+              fill: var(--color-dialog-voting-contrast);
+            }
+            path {
+              fill: var(--color-voting);
+            }
+          }
         }
       }
     }

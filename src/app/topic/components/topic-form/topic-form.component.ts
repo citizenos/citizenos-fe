@@ -290,6 +290,7 @@ export class TopicFormComponent {
   removeTag(tag: string) {
     this.tags.splice(this.tags.indexOf(tag), 1);
   }
+
   cancel() {
     const confirmDialog = this.dialog.open(InterruptDialogComponent);
 

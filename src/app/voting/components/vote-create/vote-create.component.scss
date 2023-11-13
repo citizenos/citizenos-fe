@@ -2,7 +2,29 @@
 .page_content {
   gap: 24px;
   padding: 16px 24px 0px 24px;
+#create_tabs {
+  @include mixins.tablet {
+    gap: 40px;
+  }
 
+  @include mixins.mobile {
+    gap: 0;
+  }
+
+  .create_tab {
+    @include mixins.mobile {
+      padding: 12px 16px;
+    }
+    &.tablet_tab {
+      border-radius: 8px 8px 0 0;
+      padding: 12px 8px;
+      background-color: var(--color-scrollbar);
+      @include mixins.mobile {
+        padding: 12px 16px;
+      }
+    }
+  }
+}
   @include mixins.tablet {
     margin: 60px 0;
   }
@@ -11,9 +33,33 @@
     padding: 0;
   }
 }
-#create_tabs .create_tab {
-  padding: 28px 40px;
+
+#editors_tablet {
+  background-color: var(--color-scrollbar);
+  border-radius: 0 0 16px 16px;
+  margin-top: -24px;
 }
+
+.invite_collaborators {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 16px;
+  padding: 16px;
+  background-color: var(--color-surfaces);
+  text-align: center;
+
+  &.empty {
+    padding: 24px;
+  }
+
+  button {
+    margin-top: 16px;
+  }
+}
+
 #image_upload_input {
   width: 1px;
   height: 1px;
@@ -25,6 +71,7 @@
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
   display: flex;
+  min-height: 60px;
   max-height: 324px;
   width: 100%;
   overflow: hidden;
@@ -163,6 +210,11 @@
     width: 100%;
   }
 
+  #topic_text_wrap {
+    display: flex;
+    flex-direction: column;
+  }
+
   .topic_image {
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
@@ -195,29 +247,34 @@
     display: flex;
     flex-direction: column;
     padding: 8px 16px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
     position: relative;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 30px;
+    margin-bottom: 36px;
+  }
 
-    .button_wrap {
-      display: flex;
+  .button_wrap {
+    position: relative;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    z-index: 3;
+    button {
+      margin-top: -21px;
       position: absolute;
-      bottom: -21px;
-      align-self: center;
-      justify-self: center;
-      button {
+      path {
+        fill: none;
+      }
+      &:hover {
         path {
-          fill: none;
-        }
-        &:hover {
-          path {
-            stroke: var(--color-surfaces);
-          }
+          stroke: var(--color-surfaces);
         }
       }
     }
   }
-}
-
-#help_wrap {
-  flex-direction: column;
-  gap: 16px;
 }

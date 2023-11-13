@@ -78,27 +78,11 @@
     justify-content: space-between;
     align-items: center;
 
-    .btn_big_submit_ghost {
-      display: flex;
-      gap: 8px;
-      width: max-content;
-    }
-
-    .close_button {
-      width: 40px;
-      svg {
-        position: absolute;
-        display: flex;
-      }
-    }
-
-    .btn_big_submit {
+    .btn_medium_submit {
       #continue_btn {
         display: none;
       }
       @include mixins.mobile {
-        width: 40px;
-        max-width: 40px;
 
         .btn_text {
           display: none;
@@ -115,6 +99,16 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      background-color: var(--color-surfaces);
+      @include mixins.mobile {
+        padding: 8px;
+      }
+
+      #chars_left {
+        @include mixins.mobile {
+          display: none;
+        }
+      }
     }
   }
 }
@@ -132,6 +126,11 @@
     line-height: 24px; /* 150% */
   }
 
+  #subject_counter{
+    @include mixins.mobile {
+      display: none;
+    }
+  }
   #argument_form {
     display: flex;
     gap: 16px;
@@ -141,6 +140,11 @@
       display: flex;
       gap: 16px;
 
+      @include mixins.mobile {
+        flex-direction: column;
+        gap: 8px;
+      }
+
       .type_item {
         display: flex;
         align-items: center;
@@ -148,6 +152,10 @@
         border-radius: 8px;
         padding: 8px;
         vertical-align: middle;
+
+        @include mixins.mobile {
+          justify-content: flex-start;
+        }
         &.pro {
           background-color: var(--color-argument-pro-light);
         }

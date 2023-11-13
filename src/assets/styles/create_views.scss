@@ -719,11 +719,7 @@
     gap: 16px;
   }
 
-  .btn_big_submit_ghost {
-    width: 40px;
-    height: 40px;
-    min-width: 40px;
-    min-height: 40px;
+  .btn_medium_submit_ghost {
     display: flex;
 
     svg {
@@ -732,13 +728,11 @@
     }
   }
 
-  .btn_big_submit {
-    height: 40px;
+  .btn_medium_submit {
     #continue_btn {
       display: none;
     }
     @include mixins.mobile {
-      max-width: 40px;
 
       .btn_text {
         display: none;

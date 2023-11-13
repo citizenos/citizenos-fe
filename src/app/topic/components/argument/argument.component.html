@@ -1,11 +1,17 @@
 <div class="argument_wrap" [ngClass]="argument.type" id="{{argument.id + '_v' + (argument.edits.length-1)}}">
   <div class="argument_header">
     <div class="header_left">
-      <div class="image_wrap">
-        <img>
-      </div>
-      <div class="author_name">
-        {{argument.creator.name}}
+      <div class="author_wrap">
+        <div class="image_wrap">
+          <img class="profile_image" *ngIf="argument.creator.imageUrl" [src]="argument.creator.imageUrl">
+          <div class="profile_image_filler" *ngIf="!argument.creator.imageUrl">
+            <cos-initials *ngIf="argument.creator.name" [name]="argument.creator.name">
+            </cos-initials>
+          </div>
+        </div>
+        <div class="author_name">
+          {{argument.creator.name}}
+        </div>
       </div>
       <div class="separator">|</div>
       <div class="favourite">
@@ -74,9 +80,12 @@
       <div class="argument_subject" [innerHTML]="argument.subject"></div>
       <div class="argument_body" [innerHTML]="argument.text | markdown"></div>
     </ng-container>
-    <edit-argument *ngIf="showEdit" [argument]="argument" [topicId]="topicId" (showEdit)="toggleEdit($event)"></edit-argument>
-    <argument-deleted *ngIf="argument.deletedAt" [argument]="argument" (showDeletedArgument)="showArgument($event)"></argument-deleted>
-    <argument-edits class="argument_wrap reply" *ngIf="argument.showEdits && isEdited()" [topicId]="topicId" [argument]="argument"></argument-edits>
+    <edit-argument *ngIf="showEdit" [argument]="argument" [topicId]="topicId"
+      (showEdit)="toggleEdit($event)"></edit-argument>
+    <argument-deleted *ngIf="argument.deletedAt" [argument]="argument"
+      (showDeletedArgument)="showArgument($event)"></argument-deleted>
+    <argument-edits class="argument_wrap reply" *ngIf="argument.showEdits && isEdited()" [topicId]="topicId"
+      [argument]="argument"></argument-edits>
   </div>
   <div class="argument_footer">
     <div class="footer_left">
@@ -125,13 +134,15 @@
     </div>
     <div class="footer_right">
       <a *ngIf="!showReplies && argument.replies.rows.length" id="{{argument.id}}_replies"
-        translate="COMPONENTS.ARGUMENT.LNK_SHOW_REPLIES"
-        [translateParams]="{count: argument.replies.rows.length}" (click)="showReplies = !showReplies"></a>
-      <a *ngIf="showReplies" (click)="showReplies = !showReplies"
-        translate="COMPONENTS.ARGUMENT.LNK_HIDE_REPLIES">
+        translate="COMPONENTS.ARGUMENT.LNK_SHOW_REPLIES" [translateParams]="{count: argument.replies.rows.length}"
+        (click)="showReplies = !showReplies"></a>
+      <a *ngIf="showReplies" (click)="showReplies = !showReplies" translate="COMPONENTS.ARGUMENT.LNK_HIDE_REPLIES">
       </a>
-      <button class="btn_reply_argument" (click)="showReply=!showReply"
-        translate="COMPONENTS.ARGUMENT.BTN_REPLY"></button>
+      <ng-container *ngIf="Auth.loggedIn$ | async">
+        <a class="mobile_show" translate="COMPONENTS.ARGUMENT.BTN_REPLY" (click)="showReply=!showReply"></a>
+        <button class="btn_reply_argument mobile_hidden" (click)="showReply=!showReply"
+          translate="COMPONENTS.ARGUMENT.BTN_REPLY"></button>
+      </ng-container>
     </div>
   </div>
   <argument-reply *ngIf="showReply" [argument]="argument" [topicId]="topicId"></argument-reply>
