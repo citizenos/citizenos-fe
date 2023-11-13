@@ -425,7 +425,7 @@
       "HEADING_SEARCH_RESULTS": "Global search results",
       "HEADING_RESULTS_IN": "Search results in: <b>{{context}}</b>",
       "LNK_VIEW_MORE_RESULTS": "View more results",
-      "TXT_OOPS_NO_RESULTS": "Oops, we couldn’t find any results matching your search :(",
+      "TXT_OOPS_NO_RESULTS": "We couldn’t find any results matching your search :(",
       "TXT_MAYBE_TYPO": "Maybe there's a typo in your search?"
     },
     "TOUR": {
@@ -437,7 +437,7 @@
       "DASHBOARD_STEP_1_TITLE": "Create actions",
       "DASHBOARD_STEP_1_DESC": "You can always create a new topic, start gathering ideas, propose a new vote or create a new group.",
       "DASHBOARD_STEP_2_TITLE": "Main menu",
-      "DASHBOARD_STEP_2_DESC": "The main menu serves as your main navigation through the platform. There are quick links to all your topics based on their current phase, ie. discussion, idea gathering, etc.",
+      "DASHBOARD_STEP_2_DESC": "The main menu serves as your main navigation through the platform. There are quick links to all your topics based on their current phase, i.e. discussion, idea gathering, etc.",
       "DASHBOARD_STEP_2_DESC2": "You can also access different languages and support from here.",
       "DASHBOARD_STEP_3_TITLE": "Activity feed",
       "DASHBOARD_STEP_3_DESC": "New activity within a topic you’re involved in will be indicated here. You can open and close the activity feed whenever you want.",
@@ -1277,7 +1277,7 @@
     "SEARCH": {
       "HEADING_RESULTS_IN": "Search results in: <b>{{context}}</b>",
       "LNK_VIEW_MORE_RESULTS": "View more results",
-      "TXT_OOPS_NO_RESULTS": "Oops, we couldn’t find any results matching your search :(",
+      "TXT_OOPS_NO_RESULTS": "We couldn’t find any results matching your search :(",
       "TXT_MAYBE_TYPO": "Maybe you have a typo in your search?"
     },
     "WIDGET": {
@@ -2520,7 +2520,7 @@
   "MSG_ERROR_GET_API_USERS_TOPICS_VOTES_STATUS_50001": "@:MSG_ERROR_GET_API_TOPICS_VOTES_STATUS_50001",
   "MSG_ERROR_GET_API_USERS_TOPICS_INVITES_USERS_41001": "Sorry, the topic invite has been deleted.",
   "MSG_ERROR_GET_API_USERS_TOPICS_INVITES_USERS_41002_HEADING": "Invitation expired",
-  "MSG_ERROR_GET_API_USERS_TOPICS_INVITES_USERS_41002": "Oops! This invitation has expired. We apologise for the inconvenience. You may try requesting access to this topic again.",
+  "MSG_ERROR_GET_API_USERS_TOPICS_INVITES_USERS_41002": "This invitation has expired. Apologies for the inconvenience. You may try requesting access to this topic again.",
   "MSG_ERROR_POST_API_USERS_TOPICS_EVENTS_40000_TEXT": "Text field cannot be empty.",
   "MSG_ERROR_HWCRYPTO_USER_CANCEL": "You have cancelled the login process.",
   "MSG_ERROR_HWCRYPTO_NO_CERTIFICATES": "No card in reader. Check if the ID-card is inserted correctly into the reader. The latest ID-cards have a chip on the back of the card.",
@@ -2530,7 +2530,7 @@
   "MSG_ERROR_DELETE_API_USERS_GROUPS_MEMBERS_USERS_40000": "You cannot leave this group as you are the last admin member of this group. Please assign a new admin to be able to leave.",
   "MSG_ERROR_GET_API_USERS_GROUPS_INVITES_USERS_41001": "Sorry, the group invite has been deleted.",
   "MSG_ERROR_GET_API_USERS_GROUPS_INVITES_USERS_41002_HEADING": "Invitation expired",
-  "MSG_ERROR_GET_API_USERS_GROUPS_INVITES_USERS_41002": "Oops! This invitation has expired. We apologise for the inconvenience. You may try requesting access to this group again.",
+  "MSG_ERROR_GET_API_USERS_GROUPS_INVITES_USERS_41002": "This invitation has expired. Apologies for the inconvenience. You may try requesting access to this group again.",
   "MSG_ERROR_DELETE_API_USERS_TOPICS_MEMBERS_USERS_40010": "You cannot delete the last participant with admin permissions. Assign a new admin to be able to delete the participant.",
   "MSG_ERROR_PUT_API_USERS_TOPICS_MEMBERS_USERS_40000": "You cannot remove admin permissions from the last admin participant. Please assign admin permissions to another participant to change the permissions of the current one.",
   "MSG_ERROR_40300": "You don't have the necessary permissions to complete the operation.",
