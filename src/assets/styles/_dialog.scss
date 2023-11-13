@@ -81,6 +81,9 @@ mat-dialog-container {
     background-color: var(--color-dialog);
     justify-content: space-between;
 
+    @include mixins.mobile {
+      border-radius: 16px 16px 0 0;
+    }
     &.error {
       background-color: var(--color-error-background);
       color: var(--color-error);

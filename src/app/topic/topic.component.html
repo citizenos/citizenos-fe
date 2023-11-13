@@ -275,12 +275,12 @@
         </div>
       </div>
       <ng-container *ngIf="tabSelected === 'discussion'">
-        <topic-arguments class="topic_arguments" #arguments [topic]="topic" [ngClass]="showArgumentsTablet? 'show': ''"
+        <topic-arguments class="topic_arguments" #arguments [topic]="topic" [ngClass]="(tabTablet==='arguments')? 'show': ''"
           [TourItem]="{tourid: 'topic', index: 7, position: 'top'}"></topic-arguments>
-        <post-argument *ngIf="showArgumentsTablet || wWidth > 1024" [topicId]="topic.id"></post-argument>
+        <post-argument *ngIf="(tabTablet==='arguments') || wWidth > 1024" [topicId]="topic.id"></post-argument>
       </ng-container>
       <ng-container *ngIf="tabSelected === 'voting'">
-        <div class="topic_feature_section voting" *ngIf="!topic.voteId" [ngClass]="showVoteTablet? 'show': ''">
+        <div class="topic_feature_section voting" *ngIf="!topic.voteId" [ngClass]="(tabTablet === 'vote')? 'show': ''">
           <ng-container *ngIf="!topic.voteId">
             <div class="no_feature_yet">
               <svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -356,13 +356,13 @@
           </ng-container>
         </div>
         <ng-container *ngIf="topic.voteId && (vote$ | async) as vote">
-          <topic-vote-cast class="topic_feature_section voting" [ngClass]="showVoteTablet? 'show': ''" [topic]="topic"
+          <topic-vote-cast class="topic_feature_section voting" [ngClass]="(tabTablet === 'vote')? 'show': ''" [topic]="topic"
             [vote]="vote"></topic-vote-cast>
         </ng-container>
       </ng-container>
       <ng-container *ngIf="tabSelected === 'followUp'">
         <ng-container *ngIf="topic.status !== 'followUp'">
-          <div class="topic_feature_section follow_up">
+          <div class="topic_feature_section follow_up" [ngClass]="(tabTablet === 'followUp')? 'show': ''">
             <div class="no_feature_yet">
               <svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0_7696_17198)">
@@ -436,11 +436,11 @@
           </div>
         </ng-container>
         <ng-container *ngIf="topic.status === 'followUp'">
-          <topic-milestones [topic]="topic"></topic-milestones>
+          <topic-milestones [topic]="topic" [ngClass]="(tabTablet === 'followUp')? 'show': ''"></topic-milestones>
         </ng-container>
       </ng-container>
     </div>
-    <div class="content_area_right" *ngIf="!showArgumentsTablet">
+    <div class="content_area_right" *ngIf="!tabTablet" >
       <div class="info_section"
         [TourItem]="{tourid: 'topic', index: 3, position: ((wWidth <= 1024)? 'bottom': 'left')}">
         <div class="topic_visibility">
@@ -756,7 +756,7 @@
   </div>
   <div id="tabs_tablet" class="topic_tabs tablet" *ngIf="tabSelected$ | async as tabSelected;"
     [TourItem]="{tourid: 'topic_mobile', index: 1, position: 'top'}">
-    <div class="topic_tab">
+    <a class="topic_tab" (click)="(tabTablet = '')">
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M7 4C7 3.44772 7.44772 3 8 3H18.1716C18.4368 3 18.6911 3.10536 18.8787 3.29289L24.7071 9.12132L25.4142 8.41421L24.7071 9.12132C24.8946 9.30886 25 9.56321 25 9.82843V28C25 28.5523 24.5523 29 24 29H8C7.44772 29 7 28.5523 7 28V4Z"
@@ -767,9 +767,9 @@
         <rect x="11" y="21" width="10" height="1" rx="0.5" fill="#4D5C6A" />
         <rect x="11" y="24" width="6" height="1" rx="0.5" fill="#4D5C6A" />
       </svg>
-    </div>
-    <a class="topic_tab discussion" [ngClass]="showArgumentsTablet? 'active' : ''"
-      (click)="showArgumentsTablet = !showArgumentsTablet" [routerLink]="['./']" fragment="discussion">
+    </a>
+    <a class="topic_tab discussion" [ngClass]="(tabTablet==='arguments')? 'active' : ''"
+      (click)="tabTablet='arguments'" [routerLink]="['./']" fragment="discussion">
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="32" height="32" rx="16" fill="#1168A8" />
         <path
@@ -791,7 +791,7 @@
       <span class="tab_text" translate="VIEWS.TOPICS_TOPICID.TAB_IDEATION"></span>
     </!--a-->
     <a class="topic_tab voting" [ngClass]="tabSelected=== 'voting' ? 'active' : ''" [routerLink]="['./']" fragment="voting"
-      (click)="showVoteTablet = !showVoteTablet">
+      (click)="tabTablet='vote'">
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="32" height="32" rx="16" fill="#98DAA2" />
         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -801,7 +801,7 @@
       <span class="tab_text" translate="VIEWS.TOPICS_TOPICID.TAB_VOTING"></span>
     </a>
     <a class="topic_tab follow_up" [ngClass]="tabSelected=== 'followUp' ? 'active' : ''" [routerLink]="['./']"
-      fragment="followUp">
+      fragment="followUp" (click)="tabTablet='followUp'">
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="32" height="32" rx="16" fill="#E3A8CC" />
         <rect x="4" y="4" width="24" height="24" rx="12" fill="#E3A8CC" />
