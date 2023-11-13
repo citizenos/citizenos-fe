@@ -1,5 +1,5 @@
 <div class="page_content" *ngIf="topic$ | async as topic;">
-  <div id="page_header">
+  <div id="page_header" [TourItem]="{tourid: 'topic_mobile', index: 2, position: 'bottom'}">
     <div id="user_info_area">
       <ng-container *ngIf="!auth.loggedIn$.value">
         <button [routerLink]="['/', translate.currentLang, 'public', 'topics']"><svg width="24" height="24"
@@ -755,7 +755,7 @@
     </div>
   </div>
   <div id="tabs_tablet" class="topic_tabs tablet" *ngIf="tabSelected$ | async as tabSelected;"
-    [TourItem]="{tourid: 'topic', index: 1, position: 'top'}">
+    [TourItem]="{tourid: 'topic_mobile', index: 1, position: 'top'}">
     <div class="topic_tab">
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path

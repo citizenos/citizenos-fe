@@ -179,7 +179,7 @@ export class TopicComponent implements OnInit {
         setTimeout(() => {
           if (window.innerWidth <560) {
             this.showTutorial = false;
-      /*      const tourDialog = this.dialog.open(TopicTourDialogComponent);
+          /*  const tourDialog = this.dialog.open(TopicTourDialogComponent);
             tourDialog.afterClosed().subscribe((res) => {
               if (res) {
                 this.takeTour();
@@ -295,7 +295,11 @@ export class TopicComponent implements OnInit {
 
   takeTour() {
     window.scrollTo(0, 0);
-    this.TourService.show('topic', 1);
+    let tourName = 'tour';
+    if (window.innerWidth <= 1024) {
+      tourName = 'topic_mobile';
+    }
+    this.TourService.show(tourName, 1);
   }
 
   scroll(el: HTMLElement) {
