@@ -64,10 +64,18 @@
   @include mixins.mobile {
     display: none;
   }
+
+  &.hidden {
+    display: none;
+  }
 }
 
 #mobile_nav {
   @include mixins.mobile {
     display: flex;
+  }
+
+  &.hidden {
+    display: none;
   }
 }

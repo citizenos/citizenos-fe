@@ -27,6 +27,13 @@
       }
     }
 
+    .dropdown {
+      .options {
+        position: absolute;
+        width: max-content;
+        min-width: max-content;
+      }
+    }
     activities-button {
       display: none;
     }
@@ -126,6 +133,9 @@
       }
     }
 
+    &.hidden {
+      display: none;
+    }
     .topic_tab {
       display: flex;
       align-items: center;

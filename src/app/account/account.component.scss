@@ -9,6 +9,8 @@
   height: 100%;
   z-index: 999;
   flex-direction: row;
+  overflow: auto;
+  background-color: var(--color-surfaces);
 
   @include mixins.tablet {
     flex-direction: column;
@@ -25,7 +27,6 @@
     align-items: center;
     justify-content: flex-start;
     background-color: var(--color-surfaces);
-
     app-login {
       display: contents;
     }
