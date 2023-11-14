@@ -1,16 +1,37 @@
 @use "mixins";
 
+@include mixins.mobile {
+  .dialog_tabs_wrap {
+    padding-bottom: 16px;
+  }
+  .dropdown {
+    width: 100%;
+  }
+}
 #topic_members_list_wrap {
   gap: 16px;
 }
-#topic_members_filters {
+.topic_members_filters {
   display: flex;
   flex-direction: row;
   gap: 16px;
 
+  @include mixins.mobile {
+    flex-direction: column;
+  }
   .dropdown {
     min-width: 160px;
+
+    .options {
+      min-width: max-content;
+      max-width: max-content;
+    }
   }
+}
+
+.row_list_wrap {
+  display: flex;
+  flex-direction: column;
 }
 
 topic-member-user,

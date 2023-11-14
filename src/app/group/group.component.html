@@ -292,7 +292,7 @@
           </div>
         </div>
       </div>
-      <div class="line_separator"></div>
+      <div class="line_separator" *ngIf="moreInfo"></div>
     </div>
     <a id="view_more" (click)="moreInfo = !moreInfo">
       <div class="bold" *ngIf="!moreInfo" translate="VIEWS.GROUP.LNK_MORE_INFO"></div>

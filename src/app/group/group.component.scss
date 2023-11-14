@@ -16,6 +16,14 @@
   #page_header {
     padding: 16px 0 0 0;
 
+    .dropdown {
+      .options {
+        position: absolute;
+        width: max-content;
+        min-width: max-content;
+      }
+    }
+
     activities-button {
       display: none;
     }
@@ -293,6 +301,7 @@
         #info_items_wrap {
           display: flex;
           gap: 16px;
+          justify-content: flex-end;
 
           @include mixins.tablet {
             justify-content: center;

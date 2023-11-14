@@ -27,9 +27,9 @@
           {{'MODALS.TOPIC_MEMBERS_TAB_'+activeTab | uppercase | translate}}
         </div>
         <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
-                </svg>
-              </div>
+            <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </div>
       </div>
       <div class="options">
         <div class="option" (click)="activeTab = 'participants'" translate="MODALS.TOPIC_MEMBERS_TAB_PARTICIPANTS">
@@ -45,7 +45,7 @@
     <ng-container *ngIf="activeTab === 'participants'">
       <div class="content_section">
         <div id="topic_members_list_wrap" class="section_content_wrap table_section">
-          <div id="topic_members_filters">
+          <div class="topic_members_filters">
             <cos-input [placeholder]="('MODALS.TOPIC_MEMBERS_PLACEHOLDER_NAME_PERMISSION' | translate)">
               <input [placeholder]="('MODALS.TOPIC_MEMBERS_PLACEHOLDER_NAME_PERMISSION' | translate)"
                 (ngModelChange)="TopicMemberUserService.setParam('search', TopicMemberUserService.params.search)"
@@ -59,8 +59,10 @@
                 </svg>
               </div>
               <div class="options">
-                <div class="option" (click)="TopicMemberUserService.doOrder('name', 'asc')" translate="MODALS.TOPIC_MEMBERS_ORDER_BY_NAME_ASC"></div>
-                <div class="option" (click)="TopicMemberUserService.doOrder('name', 'desc')" translate="MODALS.TOPIC_MEMBERS_ORDER_BY_NAME_DESC"></div>
+                <div class="option" (click)="TopicMemberUserService.doOrder('name', 'asc')"
+                  translate="MODALS.TOPIC_MEMBERS_ORDER_BY_NAME_ASC"></div>
+                <div class="option" (click)="TopicMemberUserService.doOrder('name', 'desc')"
+                  translate="MODALS.TOPIC_MEMBERS_ORDER_BY_NAME_DESC"></div>
                 <div class="option" (click)="TopicMemberUserService.doOrder('level', 'asc')">
                   <span translate="MODALS.TOPIC_MEMBERS_ORDER_BY_LEVEL"></span>
                   <div>
@@ -84,11 +86,11 @@
           </div>
           <div class="line_separator"></div>
           <ng-container *ngIf="memberUsers$ | async as memberUsers">
-            <div class="row_list">
-              <ng-container *ngFor="let user of memberUsers; index as i;">
-                <topic-member-user *ngFor="let user of memberUsers" [member]="user" [topic]="topic"></topic-member-user>
-              </ng-container>
-            </div>
+            <ng-container *ngFor="let user of memberUsers; index as i;">
+              <div class="row_list">
+                <topic-member-user [member]="user" [topic]="topic"></topic-member-user>
+              </div>
+            </ng-container>
             <div class="line_separator"></div>
             <div id="footer_buttons">
               <div class="dropdown" [cosDropdown]>
@@ -114,7 +116,7 @@
     <ng-container *ngIf="activeTab === 'groups'">
       <div class="content_section">
         <div id="topic_members_list_wrap" class="section_content_wrap table_section">
-          <div id="topic_members_filters">
+          <div class="topic_members_filters">
             <cos-input [placeholder]="('MODALS.TOPIC_MEMBERS_PLACEHOLDER_NAME_PERMISSION' | translate)">
               <input [placeholder]="'MODALS.TOPIC_MEMBERS_PLACEHOLDER_TOPIC_TITLE_PERMISSION' | translate"
                 (change)="TopicMemberGroupService.setParam('search', TopicMemberGroupService.params.search)"
@@ -128,8 +130,10 @@
                 </svg>
               </div>
               <div class="options">
-                <div class="option" (click)="TopicMemberGroupService.doOrder('name', 'asc')" translate="MODALS.TOPIC_MEMBERS_ORDER_BY_NAME_ASC"></div>
-                <div class="option" (click)="TopicMemberGroupService.doOrder('name', 'desc')" translate="MODALS.TOPIC_MEMBERS_ORDER_BY_NAME_DESC"></div>
+                <div class="option" (click)="TopicMemberGroupService.doOrder('name', 'asc')"
+                  translate="MODALS.TOPIC_MEMBERS_ORDER_BY_NAME_ASC"></div>
+                <div class="option" (click)="TopicMemberGroupService.doOrder('name', 'desc')"
+                  translate="MODALS.TOPIC_MEMBERS_ORDER_BY_NAME_DESC"></div>
                 <div class="option" (click)="TopicMemberGroupService.doOrder('level', 'asc')">
                   <span translate="MODALS.TOPIC_MEMBERS_ORDER_BY_LEVEL"></span>
                   <div>
@@ -152,12 +156,11 @@
           </div>
           <div class="line_separator"></div>
           <ng-container *ngIf="memberGroups$ | async as memberGroups">
-            <div class="row_list">
-              <ng-container *ngFor="let group of memberGroups; index as i;">
-                <topic-member-group [topic]="topic" [group]="group"
-                  *ngFor="let group of memberGroups"></topic-member-group>
-              </ng-container>
-            </div>
+            <ng-container *ngFor="let group of memberGroups; index as i;">
+              <div class="row_list">
+                <topic-member-group [topic]="topic" [group]="group"></topic-member-group>
+              </div>
+            </ng-container>
             <div class="line_separator"></div>
             <div id="footer_buttons">
               <div class="dropdown" [cosDropdown]>
@@ -182,7 +185,7 @@
     <ng-container *ngIf="activeTab === 'invited'">
       <div class="content_section">
         <div id="topic_members_list_wrap" class="section_content_wrap table_section">
-          <div id="topic_members_filters">
+          <div class="topic_members_filters">
             <cos-input [placeholder]="('MODALS.TOPIC_MEMBERS_PLACEHOLDER_NAME_PERMISSION' | translate)">
               <input [placeholder]="'MODALS.TOPIC_MEMBERS_PLACEHOLDER_TOPIC_TITLE_PERMISSION' | translate"
                 (change)="TopicInviteUserService.setParam('search', TopicInviteUserService.params.search)"
@@ -196,8 +199,10 @@
                 </svg>
               </div>
               <div class="options">
-                <div class="option" (click)="TopicInviteUserService.doOrder('name', 'asc')" translate="MODALS.TOPIC_MEMBERS_ORDER_BY_NAME_ASC"></div>
-                <div class="option" (click)="TopicInviteUserService.doOrder('name', 'desc')" translate="MODALS.TOPIC_MEMBERS_ORDER_BY_NAME_DESC"></div>
+                <div class="option" (click)="TopicInviteUserService.doOrder('name', 'asc')"
+                  translate="MODALS.TOPIC_MEMBERS_ORDER_BY_NAME_ASC"></div>
+                <div class="option" (click)="TopicInviteUserService.doOrder('name', 'desc')"
+                  translate="MODALS.TOPIC_MEMBERS_ORDER_BY_NAME_DESC"></div>
                 <div class="option" (click)="TopicInviteUserService.doOrder('level', 'asc')">
                   <span translate="MODALS.TOPIC_MEMBERS_ORDER_BY_LEVEL"></span>
                   <div>
@@ -220,12 +225,11 @@
           </div>
           <div class="line_separator"></div>
           <ng-container *ngIf="memberInvites$ | async as memberInvites">
-            <div class="row_list">
-              <ng-container *ngFor="let group of memberInvites; index as i;">
-                <topic-member-invite *ngFor="let invite of memberInvites" [invite]="invite"
-                  [topic]="topic"></topic-member-invite>
-              </ng-container>
-            </div>
+            <ng-container *ngFor="let invite of memberInvites; index as i;">
+              <div class="row_list">
+                <topic-member-invite [invite]="invite" [topic]="topic"></topic-member-invite>
+              </div>
+            </ng-container>
 
             <div class="line_separator"></div>
             <div id="footer_buttons">

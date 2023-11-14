@@ -1,5 +1,10 @@
 .dialog_content {
-  padding-top: 0;
+  gap: 16px;
+  padding-top: 24px;
+
+  &.button_content {
+    padding-top: 16px;
+  }
   form {
     display: flex;
     flex-direction: column;
