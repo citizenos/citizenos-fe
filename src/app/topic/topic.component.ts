@@ -221,6 +221,10 @@ export class TopicComponent implements OnInit {
     })
   }
 
+  dialogsOpen() {
+    return this.dialog.openDialogs.length;
+  }
+
   joinTopic(topic: Topic) {
     const joinDialog = this.dialog.open(TopicJoinComponent, {
       data: {

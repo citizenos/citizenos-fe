@@ -754,7 +754,7 @@
       </div>
     </div>
   </div>
-  <div id="tabs_tablet" class="topic_tabs tablet" *ngIf="tabSelected$ | async as tabSelected;"
+  <div id="tabs_tablet" class="topic_tabs tablet" *ngIf="tabSelected$ | async as tabSelected;" [ngClass]="{'hidden': dialogsOpen()}"
     [TourItem]="{tourid: 'topic_mobile', index: 1, position: 'top'}">
     <a class="topic_tab" (click)="(tabTablet = '')">
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">

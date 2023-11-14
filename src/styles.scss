@@ -996,6 +996,10 @@ tour-item-template {
         .icon_vote {
           display: none;
         }
+
+        .setting_button {
+          justify-self: flex-end;
+        }
       }
     }
     .vote_question {
@@ -1162,6 +1166,27 @@ tour-item-template {
   background-color: var(--color-voting-disabled);
   position: relative;
 
+  @include mixins.tablet {
+    padding: 16px;
+    justify-content: space-between;
+  }
+
+  @include mixins.mobile {
+    flex-direction: column;
+    padding: 16px;
+    gap: 8px;
+
+    .icon_delegation {
+      position: absolute;
+      right: 8px;
+      top: 8px;
+    }
+
+    button {
+      width: 100%;
+    }
+  }
+
   .delegation_text_wrap {
     display: flex;
     flex-direction: column;
@@ -1171,7 +1196,11 @@ tour-item-template {
       display: flex;
       align-items: center;
       gap: 16px;
-
+      @include mixins.tablet {
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+      }
       .bold {
         font-size: 16px;
         font-style: normal;
@@ -1190,10 +1219,6 @@ tour-item-template {
         }
       }
     }
-  }
-  .btn_medium_close {
-    position: absolute;
-    right: 24px;
   }
 }
 

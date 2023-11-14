@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, HostBinding } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { PRIMARY_OUTLET, Router, ActivatedRoute } from '@angular/router';
 import { AppService } from 'src/app/services/app.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -6,6 +6,7 @@ import { TopicService } from 'src/app/services/topic.service';
 import { Topic } from 'src/app/interfaces/topic';
 import { TranslateService } from '@ngx-translate/core';
 import { TourService } from 'src/app/services/tour.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'nav-mobile',
@@ -16,7 +17,16 @@ import { TourService } from 'src/app/services/tour.service';
 export class NavMobileComponent implements OnInit {
   addPosAbsolute = this.TourService.showTour;
 
-  constructor(public translate: TranslateService, public app: AppService, private Auth: AuthService, private TopicService: TopicService, private router: Router, private route: ActivatedRoute, private TourService: TourService) {
+  constructor(
+    public translate: TranslateService,
+    public app: AppService,
+    private Auth: AuthService,
+    private TopicService: TopicService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private TourService: TourService,
+    private dialog: MatDialog
+    ) {
   }
 
   canEdit(topic: Topic) {
@@ -67,5 +77,9 @@ export class NavMobileComponent implements OnInit {
     });
 
     return item === path;
+  }
+
+  dialogsOpen() {
+    return this.dialog.openDialogs.length;
   }
 }
