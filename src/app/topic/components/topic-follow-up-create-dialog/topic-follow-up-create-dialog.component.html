@@ -21,7 +21,7 @@
       </a>
     </div>
   </div>
-  <div class="dialog_tabs_wrap follow_up">
+  <!--div class="dialog_tabs_wrap follow_up">
     <a class="dialog_tab follow_up mobile_hidden" *ngFor="let tab of tabs"
       [ngClass]="(tabActive === tab+1)? 'active' :''" (click)="tabActive=tab+1">
       <span class="tab_number">{{tab+1}}</span>
@@ -44,9 +44,9 @@
         </div>
       </div>
     </div>
-  </div>
+  </!--div-->
   <div class="dialog_content">
-    <ng-container *ngIf="tabActive === 1">
+    <ng-container > <!--*ngIf="tabActive === 1"-->
       <div class="introduction_wrap">
         <div class="intro_heading">
           <span translate="COMPONENTS.TOPIC_FOLLOW_UP_CREATE.DIALOG_TAB_INTRODUCTION_ARE_YOU_SURE"></span>
@@ -110,7 +110,10 @@
         </div>
         <div class="content_section">
           <div class="section_content_wrap">
-            <div class="small_heading">2. <span translate="COMPONENTS.TOPIC_FOLLOW_UP_CREATE.SELECT_VOTING_SYSTEM"></span></div>
+            <div class="small_heading" translate="COMPONENTS.TOPIC_FOLLOW_UP_CREATE.LBL_OPTION_DEADLINE"></div>
+            <cos-input [placeholder]="'COMPONENTS.TOPIC_FOLLOW_UP_CREATE.PLACHOLDER_DEADLINE' | translate">
+              <input [placeholder]="'COMPONENTS.TOPIC_FOLLOW_UP_CREATE.PLACHOLDER_DEADLINE' | translate"/>
+            </cos-input>
           </div>
         </div>
       </div>
@@ -119,16 +122,18 @@
   <div class="dialog_footer with_buttons">
     <a mat-dialog-close translate="COMPONENTS.TOPIC_FOLLOW_UP_CREATE.LNK_CANCEL"></a>
     <div class="button_row">
-      <button *ngIf="tabActive > 1" class="btn_medium_submit_ghost icon mobile_hidden"
+      <!--button *ngIf="tabActive > 1" class="btn_medium_submit_ghost icon mobile_hidden"
         (click)="tabActive = tabActive - 1;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
           xmlns="http://www.w3.org/2000/svg">
           <path
             d="M10.4533 17.6874C10.8529 18.1042 11.5009 18.1042 11.9006 17.6874C12.3003 17.2705 12.3003 16.5947 11.9006 16.1779L8.91837 13L19 13C19.5652 13 20 12.5892 20 11.9997C20 11.4103 19.5652 11.0176 19 11.0176L8.91837 11.0176L11.9006 7.8221C12.3003 7.40527 12.3003 6.72945 11.9006 6.31262C11.5009 5.89579 10.8529 5.89579 10.4533 6.31262L5 12L10.4533 17.6874Z"
             fill="#2C3B47" />
         </svg>
-      </button>
-      <button class="btn_medium_submit" (click)="tabNext()">{{((this.tabActive <
+      </!--button-->
+      <!--button class="btn_medium_submit" (click)="tabNext()">{{((this.tabActive <
           2)? "COMPONENTS.TOPIC_FOLLOW_UP_CREATE.BTN_CONTINUE" : "COMPONENTS.TOPIC_FOLLOW_UP_CREATE.BTN_START_VOTE" ) |
+          translate }}</button-->
+      <button class="btn_medium_submit" (click)="startFollowUp()">{{"COMPONENTS.TOPIC_FOLLOW_UP_CREATE.BTN_START_FOLLOW_UP" |
           translate }}</button>
     </div>
   </div>

@@ -94,7 +94,7 @@
         .topic_tab {
           &.discussion.active {
             background-color: var(--color-discussion);
-            border-bottom: 2px solid var(--color-link);
+            border-bottom: 2px solid var(--color-discussion);
             rect {
               fill: var(--color-scrollbar);
             }
@@ -104,12 +104,22 @@
           }
           &.voting.active {
             background-color: var(--color-voting);
-            border-bottom: 2px solid var(--color-link);
+            border-bottom: 2px solid var(--color-voting);
             rect {
               fill: var(--color-dialog-voting-contrast);
             }
             path {
               fill: var(--color-voting);
+            }
+          }
+          &.follow_up.active {
+            background-color: var(--color-follow-up);
+            border-bottom: 2px solid var(--color-follow-up);
+            rect {
+              fill: var(--color-dialog-follow-up);
+            }
+            path {
+              fill: var(--color-follow-up);
             }
           }
         }

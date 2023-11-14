@@ -9,7 +9,7 @@
       </svg>
       <div class="follow_up_title" translate="COMPONENTS.TOPIC_MILESTONES.CREATE_A_MILESTONE"></div>
     </div>
-    <div class="header_division">
+    <!--div class="header_division">
       <div class="follow_up_deadline">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd"
@@ -27,14 +27,14 @@
           </svg>
         </button>
       </div>
-    </div>
+    </!--div-->
   </div>
   <div class="follow_up_content">
     <div class="milestone" *ngFor="let evt of topicEvents | async; let $index = index">
       <div class="milestone_header">
         <div class="title_wrap">
           <div class="circle">{{$index+1}}</div>
-          <div class="title_text_area">
+          <div class="title_text_area mobile_hidden">
             <div class="title_description" translate="COMPONENTS.TOPIC_MILESTONES.MILESTONE_TITLE"
               [translateParams]="{number: countTotal.value - $index}"></div>
             <div class="title" [innerHtml]="evt.subject"></div>
@@ -81,6 +81,11 @@
         </div>
       </div>
       <div class="section_content">
+        <div class="title_text_area mobile_show">
+          <div class="title_description" translate="COMPONENTS.TOPIC_MILESTONES.MILESTONE_TITLE"
+            [translateParams]="{number: countTotal.value - $index}"></div>
+          <div class="title small_heading" [innerHtml]="evt.subject"></div>
+        </div>
         <div class="milestone_description_text" [innerHtml]="evt.text | linky"></div>
       </div>
     </div>
@@ -95,8 +100,8 @@
         <div class="heading" translate="COMPONENTS.TOPIC_MILESTONES.HEADING_MILESTONE_TITLE"></div>
         <cos-input [placeholder]="'COMPONENTS.TOPIC_MILESTONES.PLACEHOLDER_SUBJECT' | translate">
           <input id="create_milestone_title" [(ngModel)]="event.subject" [ngClass]="{'error_input': errors?.subject}"
-            translate [placeholder]="'COMPONENTS.TOPIC_MILESTONES.PLACEHOLDER_SUBJECT' | translate"
-            class="gray_borders" [maxlength]="maxLengthSubject" required>
+            translate [placeholder]="'COMPONENTS.TOPIC_MILESTONES.PLACEHOLDER_SUBJECT' | translate" class="gray_borders"
+            [maxlength]="maxLengthSubject" required>
           <label for="create_milestone_title" class="error_label" *ngIf="errors?.subject">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd"

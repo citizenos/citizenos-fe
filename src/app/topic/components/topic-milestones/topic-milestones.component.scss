@@ -51,10 +51,16 @@
       border-radius: 8px;
       gap: 16px;
 
+      @include mixins.mobile {
+        padding: 24px 16px;
+      }
       .milestone_header {
         display: flex;
         justify-content: space-between;
-
+        /*   @include mixins.mobile {
+          flex-direction: column;
+          gap: 8px;
+        }*/
         .title_wrap {
           display: flex;
           gap: 16px;
@@ -66,7 +72,7 @@
             align-items: center;
             justify-content: center;
             background-color: var(--color-dialog-follow-up);
-            color: var(--color-dialog-follow-up-contrast);
+            color: var(--color-follow-up);
             width: 40px;
             height: 40px;
             border-radius: 20px;
@@ -85,6 +91,7 @@
               font-style: normal;
               font-weight: 400;
               line-height: 16px;
+              color: var(--color-border-active);
             }
             .title {
               font-size: 18px;
@@ -111,7 +118,11 @@
 
             .options {
               right: 0;
-
+              @include mixins.mobile {
+                position: absolute;
+                width: max-content;
+                max-width: max-content;
+              }
               .option {
                 width: max-content;
                 gap: 8px;
@@ -126,6 +137,22 @@
         flex-direction: column;
         gap: 8px;
 
+        @include mixins.mobile {
+          gap: 16px;
+        }
+
+        .title_text_area {
+          .title_description {
+            font-size: 13px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 16px;
+            color: var(--color-border-active);
+          }
+          display: flex;
+          flex-direction: column;
+        }
+
         .heading {
           font-size: 16px;
           font-style: normal;
@@ -138,16 +165,16 @@
 
     .section_buttons {
       display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
+      justify-content: flex-end;
+      align-items: center;
       position: relative;
       width: 100%;
       height: 56px;
 
       .btn_medium_submit {
-        position: absolute;
-        right: 8px;
-        bottom: 0;
+        @include mixins.mobile {
+          width: 100%;
+        }
       }
     }
 
