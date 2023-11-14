@@ -144,6 +144,10 @@ mat-dialog-container {
     background-color: var(--color-dialog-background);
     padding: 16px;
 
+    &.button_content {
+      gap: 0;
+    }
+
     &.no_padding {
       padding: 0;
     }

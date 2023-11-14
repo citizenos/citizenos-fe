@@ -569,7 +569,7 @@
         <div class="info_items_wrap">
           <div class="info_header">
             <div class="info_title" translate="VIEWS.TOPICS_TOPICID.SECTION_PARTICIPANTS_HEADING"></div>
-            <a class="members_link" (click)="manageParticipants(topic)" translate="VIEWS.TOPICS_TOPICID.LNK_MANAGE"></a>
+            <a class="members_link" (click)="manageParticipants(topic)" translate="VIEWS.TOPICS_TOPICID.LNK_MANAGE" *ngIf="canUpdate(topic)"></a>
           </div>
           <div class="participants_count_wrap">
             <div class="participants_count">{{topic.members.users.count}}</div>

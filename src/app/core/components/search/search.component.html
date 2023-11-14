@@ -1,12 +1,14 @@
 <div id="search" [@openClose]="(app.showSearch)? 'open' : 'closed'">
-  <div class="small_heading" translate="COMPONENTS.SEARCH.TITLE"></div>
-  <button class="btn_medium_close icon" (click)="app.showSearch = false">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path
-        d="M6.70686 5.29289C6.31634 4.90237 5.68317 4.90237 5.29265 5.29289C4.90212 5.68342 4.90212 6.31658 5.29265 6.70711L10.5855 12L5.29265 17.2929C4.90212 17.6834 4.90212 18.3166 5.29265 18.7071C5.68317 19.0976 6.31634 19.0976 6.70686 18.7071L11.9998 13.4142L17.2926 18.7071C17.6832 19.0976 18.3163 19.0976 18.7069 18.7071C19.0974 18.3166 19.0974 17.6834 18.7069 17.2929L13.414 12L18.7069 6.70711C19.0974 6.31658 19.0974 5.68342 18.7069 5.29289C18.3163 4.90237 17.6832 4.90237 17.2926 5.29289L11.9998 10.5858L6.70686 5.29289Z"
-        fill="#2C3B47" />
-    </svg>
-  </button>
+  <div class="search_header">
+    <div class="small_heading" translate="COMPONENTS.SEARCH.TITLE"></div>
+    <button class="btn_medium_close icon" (click)="app.showSearch = false">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M6.70686 5.29289C6.31634 4.90237 5.68317 4.90237 5.29265 5.29289C4.90212 5.68342 4.90212 6.31658 5.29265 6.70711L10.5855 12L5.29265 17.2929C4.90212 17.6834 4.90212 18.3166 5.29265 18.7071C5.68317 19.0976 6.31634 19.0976 6.70686 18.7071L11.9998 13.4142L17.2926 18.7071C17.6832 19.0976 18.3163 19.0976 18.7069 18.7071C19.0974 18.3166 19.0974 17.6834 18.7069 17.2929L13.414 12L18.7069 6.70711C19.0974 6.31658 19.0974 5.68342 18.7069 5.29289C18.3163 4.90237 17.6832 4.90237 17.2926 5.29289L11.9998 10.5858L6.70686 5.29289Z"
+          fill="#2C3B47" />
+      </svg>
+    </button>
+  </div>
   <div class="input_area">
     <div>
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -17,7 +19,7 @@
     </div>
     <cos-input placeholder="{{'LAYOUTS.MAIN.PLACEHOLDER_SEARCH_TOPICS_USERS_GROUPS' | translate}}">
       <ng-container *ngIf="isVisibleSearch()"></ng-container>
-        <input #searchInputField type="text" [(ngModel)]="searchInput" (ngModelChange)="doSearch(searchInput)">
+      <input #searchInputField type="text" [(ngModel)]="searchInput" (ngModelChange)="doSearch(searchInput)">
     </cos-input>
     <a class="clear_search" (click)="searchInput=''; doSearch(searchInput);" *ngIf="searchInput"
       translate="COMPONENTS.SEARCH.LNK_CLEAR"></a>

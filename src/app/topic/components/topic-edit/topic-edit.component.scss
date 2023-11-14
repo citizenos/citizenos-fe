@@ -2,7 +2,8 @@
 .page_content {
   gap: 24px;
   padding: 16px 24px 0px 24px;
-
+  margin-bottom: 60px;
+  min-height: 100%;
   @include mixins.tablet {
     margin: 60px 0;
   }

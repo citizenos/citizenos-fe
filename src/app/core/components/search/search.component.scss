@@ -23,10 +23,17 @@
   padding: 16px;
   transition: visibility 0s, right 0.5s;
 
+  .search_header {
+    display: flex;
+    padding-bottom: 16px;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
   @include mixins.tablet {
     width: 100%;
     background-color: var(--color-surfaces);
-    padding: 32px 0;
+    padding: 56px 0;
   }
 
   .input_area {
@@ -68,13 +75,6 @@
     a {
       margin-right: 16px;
     }
-  }
-
-  .btn_medium_close {
-    position: absolute;
-    float: right;
-    right: 16px;
-    top: 16px;
   }
 
   #start_search {
