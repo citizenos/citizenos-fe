@@ -143,7 +143,7 @@
     },
     "ARGUMENT_WHY": {
       "HEADING": "Why is this content hidden?",
-      "MESSAGE_MAIN": "The admin chose to hide this content. You can review the reason below."
+      "MESSAGE_MAIN": "A moderator chose to hide this content. You can review the reason below."
     },
     "COS_CALENDAR": {
       "MONTHS": {
@@ -183,7 +183,7 @@
     "DUPLICATE_TOPIC": {
       "HEADING": "Duplicate topic",
       "MESSAGE_MAIN": "You are duplicating",
-      "MESSAGE_DESCRIPTION": "Are you sure you want to duplicate the topic? This will create a new private topic in draft.",
+      "MESSAGE_DESCRIPTION": "Are you sure you want to duplicate the topic? This will create a new private topic.",
       "HEADING_WILL_BE_DUPLICATED": "This content will be duplicated",
       "WILL_BE_DUPLICATED_1": "Topic content as it is right now (including images, footnotes, comments, mini-votes)",
       "WILL_BE_DUPLICATED_2": "All attachments",
@@ -456,7 +456,7 @@
       "DASHBOARD_MOBILE_STEP_1_DESC": "@:COMPONENTS.TOUR.DASHBOARD_STEP_1_DESC",
       "DASHBOARD_MOBILE_STEP_2_TITLE": "Bottom menu",
       "DASHBOARD_MOBILE_STEP_2_LBL_DASHBOARD": "Dashboard:",
-      "DASHBOARD_MOBILE_STEP_2_LBL_DASHBOARD_DESC": "Awaiting a text about the dashboard - pending.",
+      "DASHBOARD_MOBILE_STEP_2_LBL_DASHBOARD_DESC": "This is your overview and portal to all parts of the platform - create, browse, engage, and more.",
       "DASHBOARD_MOBILE_STEP_2_LBL_MY_TOPICS": "My topics:",
       "DASHBOARD_MOBILE_STEP_2_LBL_MY_TOPICS_DESC": "Here you can find the topics you created or are involved in.",
       "DASHBOARD_MOBILE_STEP_2_LBL_MY_GROUPS": "My groups:",
@@ -686,7 +686,7 @@
       "HEADER_FOLLOW_UP": "{{value}} events",
       "HEADER_IDEATION": "{{value}} ideas gathered",
       "HEADER_CLOSED": "Closed topic",
-      "NOTIFICATION_TITLE": "This topic was hidden by an admin",
+      "NOTIFICATION_TITLE": "This topic was hidden by a moderator",
       "NOTIFICATION_LNK_WHY":"@:VIEWS.TOPICS_TOPICID.ARGUMENT_WHY",
       "NOTIFICATION_LNK_VIEW":"View anyway"
     },
@@ -720,7 +720,7 @@
       "NO_ARGUMENTS_HEADING": "There is no discussion yet",
       "NO_ARGUMENTS_BTN_ADD": "Add argument",
       "NO_ARGUMENTS_DESC_HEADING": "How discussions work",
-      "NO_ARGUMENTS_DESC_BEFORE": "In discussions, participants can add their (pro or con) argument and other participants can reply to these. Additionally the participants can (dis)like arguments and the general discussion sentiment is visually shown.",
+      "NO_ARGUMENTS_DESC_BEFORE": "In discussions, participants can add pro or con arguments, and other participants can reply or react to these. The general sentiment of the discussion is shown visually.",
       "NO_ARGUMENTS_DESC_AFTER": "Arguments can be favourited or recognised as including proof."
     },
     "TOPIC_INVITE_EDITORS": {
@@ -865,7 +865,7 @@
     "TOPIC_REPORT_REPORTID_RESOLVE_BTN_NO": "@:MODALS.TOPIC_REPORT_REPORTID_REVIEW_BTN_NO",
     "TOPIC_REPORT_REPORTID_RESOLVE_BTN_YES": "Yes, mark as resolved",
     "TOPIC_REPORT_REASON_HEADING": "Why is this topic hidden?",
-    "TOPIC_REPORT_REASON_DESCRIPTION": "The admin chose to hide this content. You can review the reason below.",
+    "TOPIC_REPORT_REASON_DESCRIPTION": "A moderator chose to hide this content. You can review the reason below.",
     "TOPIC_ARGUMENT_REPORT_HEADING": "Report argument",
     "TOPIC_ARGUMENT_REPORT_DESCRIPTION": "Argument by participant {{usersFullName}}",
     "TOPIC_ARGUMENT_REPORT_LABEL_REASON": "Reason for reporting",
@@ -1181,7 +1181,7 @@
     "GIVE_FEEDBACK_BTN_CLOSE": "@:BTN_CLOSE",
     "INTERRUPT_HEADING": "Interrupt process",
     "INTERRUPT_ARE_YOU_SURE": "Doing this will interrupt your current process. Are you sure you want to proceed?",
-    "INTERRUPT_DESC": "We will automatically save a draft of your topic and your current process. You can pick it up again and finish it whenever you want.",
+    "INTERRUPT_DESC": "Any progress won't be saved.",
     "INTERRUPT_BTN_CANCEL": "@:LNK_CANCEL",
     "INTERRUPT_BTN_SUBMIT": "@:MODALS.INTERRUPT_HEADING"
   },
