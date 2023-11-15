@@ -323,7 +323,7 @@
                 </defs>
               </svg>
               <div class="description_heading" translate="VIEWS.TOPICS_TOPICID.NO_VOTING_HEADING"></div>
-              <div class="button">
+              <div class="button" *ngIf="TopicService.canDelete(topic)">
                 <button class="btn_medium_submit" (click)="startVote(topic)">
                   <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -404,7 +404,7 @@
                 </defs>
               </svg>
               <div class="description_heading" translate="VIEWS.TOPICS_TOPICID.NO_VOTING_HEADING"></div>
-              <div class="button">
+              <div class="button" *ngIf="TopicService.canDelete(topic)">
                 <button class="btn_medium_submit" (click)="sendToFollowUp(topic)" >
                   <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
