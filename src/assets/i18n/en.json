@@ -261,7 +261,7 @@
       "ITEM_PARTICIPATE": "Participate in discussions and voting",
       "ITEM_NOTIFICATIONS": "Receive notifications of activity within the topic",
       "ITEM_REQUEST_EDIT": "Request to become a co-creator",
-      "BTN_JOIN": "@:VIEWS.GROUP.BTN_JOIN",
+      "BTN_JOIN": "@:VIEWS.TOPICS_TOPICID.BTN_JOIN",
       "LNK_CANCEL": "@:LNK_CANCEL"
     },
     "GROUP_MEMBER_USER": {
