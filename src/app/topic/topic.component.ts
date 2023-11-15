@@ -225,6 +225,9 @@ export class TopicComponent implements OnInit {
     return this.dialog.openDialogs.length;
   }
 
+  deleteTopic(topic: Topic) {
+    this.TopicService.doDeleteTopic(topic, ['my', 'topics']);
+  }
   joinTopic(topic: Topic) {
     const joinDialog = this.dialog.open(TopicJoinComponent, {
       data: {
