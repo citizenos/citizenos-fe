@@ -15,7 +15,7 @@
     </div>
     <div class="level">
       <span [translate]="'TXT_TOPIC_LEVELS_' + member.level | uppercase"></span>
-      <div class="button_wrap">
+      <div class="button_wrap" *ngIf="canUpdate()">
         <div class="dropdown" [cosDropdown]>
           <button class="btn_medium_plain icon">
             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
