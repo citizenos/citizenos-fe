@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { LocationService } from 'src/app/services/location.service';
 import { AppService } from 'src/app/services/app.service';
 import { TourService } from 'src/app/services/tour.service';
+import { TopicService } from 'src/app/services/topic.service';
 import { take } from 'rxjs';
 @Component({
   selector: 'nav',
@@ -19,12 +20,13 @@ import { take } from 'rxjs';
 })
 export class NavComponent implements OnInit {
   wWidth = window.innerWidth;
-
+  topicsCount$ = this.TopicService.count();
   constructor(private Location: LocationService,
     public translate: TranslateService,
     public config: ConfigService,
     public auth: AuthService, public dialog: MatDialog,
     public app: AppService,
+    private TopicService: TopicService,
     public TourService: TourService
   ) {
   }

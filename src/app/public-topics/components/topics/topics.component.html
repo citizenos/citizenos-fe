@@ -18,10 +18,10 @@
   <div id="page_filters_wrap">
     <div id="options_area" [@openClose]="moreFilters ? 'open' : 'closed'" class="mobile_hidden">
       <div class="options_row">
-        <cos-input [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_VISIBILITY' | translate" class="dropdown_input">
+        <cos-input [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_STATUS' | translate" class="dropdown_input">
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
-              <div class="selected_item">{{'TXT_TOPIC_STATUS_'+topicFilters.status | uppercase |
+              <div class="selected_item">{{((topicFilters.status === 'showModerated')? 'COMPONENTS.PUBLIC_TOPICS.FILTER_TOPICS_MODERATED' : 'TXT_TOPIC_STATUS_'+topicFilters.status) | uppercase |
                 translate}}</div>
               <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
@@ -30,6 +30,8 @@
             </div>
             <div class="options">
               <div class="option" (click)="setStatus('all');" translate="TXT_TOPIC_STATUS_ALL"></div>
+              <div class="option" (click)="setStatus('showModerated');"
+                translate="COMPONENTS.PUBLIC_TOPICS.FILTER_TOPICS_MODERATED"></div>
               <div class="option" *ngFor="let status of statuses$" (click)="setStatus(status);">
                 {{'TXT_TOPIC_STATUS_' + status | uppercase | translate}}
               </div>
@@ -151,7 +153,8 @@
               fill="#727C84" />
           </svg>
           <cos-input placeholder="{{'COMPONENTS.PUBLIC_TOPICS.PLACEHOLDER_SEARCH' | translate}}">
-            <input type="text" [(ngModel)]="searchInput" (ngModelChange)="doSearch(searchInput)" [placeholder]="'COMPONENTS.PUBLIC_TOPICS.PLACEHOLDER_SEARCH' | translate">
+            <input type="text" [(ngModel)]="searchInput" (ngModelChange)="doSearch(searchInput)"
+              [placeholder]="'COMPONENTS.PUBLIC_TOPICS.PLACEHOLDER_SEARCH' | translate">
           </cos-input>
           <a class="clear_search" translate="COMPONENTS.PUBLIC_TOPICS.LNK_CLEAR" (click)="searchInput='';doSearch('')"
             *ngIf="searchInput"></a>
@@ -226,9 +229,13 @@
           <input type="radio" name="status">
           <span class="checkmark"></span>
         </label>
-
         <label class="checkbox" *ngFor="let status of statuses$" (click)="setStatus(status);">
           <span [translate]="'TXT_TOPIC_STATUS_'+status | uppercase"></span>
+          <input type="radio" name="status">
+          <span class="checkmark"></span>
+        </label>
+        <label class="checkbox" (click)="setStatus('showModerated');">
+          <span translate="COMPONENTS.PUBLIC_TOPICS.FILTER_TOPICS_MODERATED"></span>
           <input type="radio" name="status">
           <span class="checkmark"></span>
         </label>

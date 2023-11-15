@@ -22,7 +22,7 @@ import { AuthService } from 'src/app/services/auth.service';
         'maxHeight': '50px',
         transition: '0.2s ease-in-out max-height'
       }))
-  ])]
+    ])]
 })
 export class TopicsComponent implements OnInit {
 
@@ -30,9 +30,10 @@ export class TopicsComponent implements OnInit {
   moreFilters = false;
   searchInput = '';
   searchString$ = new BehaviorSubject('');
-  topics$ = of(<Topic[]| any[]>[]);
+  topics$ = of(<Topic[] | any[]>[]);
   //new
   public FILTERS_ALL = 'all';
+
   topicFilters = {
     category: this.FILTERS_ALL,
     status: this.FILTERS_ALL
@@ -80,22 +81,28 @@ export class TopicsComponent implements OnInit {
   }
 
   setStatus(status: string) {
-    this.topicFilters.status = status;
+    this.PublicTopicService.setParam('showModerated', null)
     if (status && status === 'all') {
       status = '';
     }
     this.allTopics$ = [];
-    this.PublicTopicService.setParam('offset',0)
-    this.PublicTopicService.setParam('statuses', [status]);
+    this.PublicTopicService.setParam('offset', 0)
+    if (status === 'showModerated') {
+      this.topicFilters.status = 'showModerated';
+      this.PublicTopicService.setParam('showModerated', true)
+    } else {
+      this.topicFilters.status = status || 'all';
+      this.PublicTopicService.setParam('statuses', [status]);
+    }
   }
 
   setCategory(category: string) {
-    this.topicFilters.category = category ;
+    this.topicFilters.category = category;
     if (category && category === 'all') {
       category = '';
     }
     this.allTopics$ = [];
-    this.PublicTopicService.setParam('offset',0)
+    this.PublicTopicService.setParam('offset', 0)
     this.PublicTopicService.setParam('categories', [category]);
   }
 
