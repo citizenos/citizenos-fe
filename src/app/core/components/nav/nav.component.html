@@ -249,22 +249,23 @@
           <span class="bold" translate="DEFAULT.NAV.LNK_MY_TOPICS"></span>
         </a>
         <div class="line_separator_tablet"></div>
-        <div class="sub_items">
+        <div class="sub_items" *ngIf="topicsCount$ | async as topicsCount">
+
           <a class="btn_small_nav" [routerLink]="['/', translate.currentLang, 'my', 'topics']"
             [queryParams]="{filter: 'inProgress'}">
-            <div class="nav_bubble bg_discussion">3</div><span translate="DEFAULT.NAV.LNK_IN_DISCUSSION"></span>
+            <div class="nav_bubble bg_discussion">{{topicsCount.inProgress}}</div><span translate="DEFAULT.NAV.LNK_IN_DISCUSSION"></span>
           </a>
-          <a class="btn_small_nav" [routerLink]="['/', translate.currentLang, 'my', 'topics']"
+          <!--a class="btn_small_nav" [routerLink]="['/', translate.currentLang, 'my', 'topics']"
             [queryParams]="{filter: 'ideation'}">
-            <div class="nav_bubble bg_ideation">3</div><span translate="DEFAULT.NAV.LNK_IN_IDEATION"></span>
-          </a>
+            <div class="nav_bubble bg_ideation">{{topicsCount.ideation}}</div><span translate="DEFAULT.NAV.LNK_IN_IDEATION"></span>
+          </!--a-->
           <a class="btn_small_nav" [routerLink]="['/', translate.currentLang, 'my', 'topics']"
             [queryParams]="{filter: 'voting'}">
-            <div class="nav_bubble bg_voting">3</div><span translate="DEFAULT.NAV.LNK_IN_VOTING"></span>
+            <div class="nav_bubble bg_voting">{{topicsCount.voting}}</div><span translate="DEFAULT.NAV.LNK_IN_VOTING"></span>
           </a>
           <a class="btn_small_nav" [routerLink]="['/', translate.currentLang, 'my', 'topics']"
             [queryParams]="{filter: 'followUp'}">
-            <div class="nav_bubble bg_follow_up">351</div><span translate="DEFAULT.NAV.LNK_IN_FOLLOW_UP"></span>
+            <div class="nav_bubble bg_follow_up">{{topicsCount.followUp}}</div><span translate="DEFAULT.NAV.LNK_IN_FOLLOW_UP"></span>
           </a>
         </div>
         <div class="line_separator_tablet"></div>

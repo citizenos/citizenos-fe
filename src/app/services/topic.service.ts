@@ -84,6 +84,13 @@ export class TopicService {
       }))
   }
 
+  count() {
+    const path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/count');
+
+    return this.http.get<ApiResponse>(path, { withCredentials: true, observe: 'body', responseType: 'json' })
+      .pipe(map(res => res.data));
+  }
+
   save(data: any) {
     let path = this.Location.getAbsoluteUrlApi('/api/users/self/topics')
 
