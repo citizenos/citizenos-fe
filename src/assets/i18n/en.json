@@ -333,7 +333,7 @@
     "ONBOARDING": {
       "HELLO": "Hey {{name}}",
       "TITLE_WELCOME": "Welcome to Citizen OS!",
-      "DESCRIPTION": "As this is your first time on the Citizen OS dashboard, we recommend you take the walkthrough tour so you can get to know the platform better.",
+      "DESCRIPTION": "As this is your first time on the Citizen OS dashboard, we recommend you take the walkthrough tour to get to know the platform better.",
       "TAKE_A_TOUR": "The walkthrough only takes a couple of minutes.",
       "BTN_SUBMIT": "Take the tour",
       "BTN_CANCEL": "Skip"
