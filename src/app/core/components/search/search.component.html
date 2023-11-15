@@ -38,17 +38,20 @@
         <ng-container
           *ngIf="searchResults[context] && searchResults[context][model] && searchResults[context][model].count">
 
-          <div class="category bold">{{'LBL_CONTEXT_' + context + '_' + model | uppercase | translate}}</div>
+          <div class="result_group_wrap">
+            <div class="category bold">{{'LBL_CONTEXT_' + context + '_' + model | uppercase | translate}}</div>
 
-          <a (click)="goToView(row, context)" class="blue_link result_link"
-            *ngFor="let row of searchResults[context][model].rows">
-            {{row.name || row.title}}</a>
-          <ng-container *ngIf="searchResults[context][model].count > searchResults[context][model].rows.length"
-            class="result_links" [typeaheadItem]="{id:'viewMore', model, context}" [noClose]="true">
-            <a class="more_results" (click)="goToView({id:'viewMore', context, model}, context)"
-              translate="COMPONENTS.SEARCH.LNK_VIEW_MORE_RESULTS">
-            </a>
-          </ng-container>
+            <a (click)="goToView(row, context)" class="blue_link result_link"
+              *ngFor="let row of searchResults[context][model].rows">
+              {{row.name || row.title}}</a>
+            <ng-container *ngIf="searchResults[context][model].count > searchResults[context][model].rows.length"
+              class="result_links">
+              <a class="more_results" (click)="goToView({id:'viewMore', context, model}, context)"
+                translate="COMPONENTS.SEARCH.LNK_VIEW_MORE_RESULTS">
+              </a>
+            </ng-container>
+
+          </div>
         </ng-container>
       </ng-container>
     </ng-container>
