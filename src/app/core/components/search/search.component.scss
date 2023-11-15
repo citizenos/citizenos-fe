@@ -98,10 +98,20 @@
   #results_area {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 24px;
 
     @include mixins.tablet {
       padding: 16px;
+    }
+
+    .result_group_wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+
+      .category {
+        text-transform: capitalize;
+      }
     }
   }
 }
