@@ -14,6 +14,7 @@ export class TypeaheadItem implements OnDestroy {
   ngOnDestroy(): void {
   }
   ngAfterViewInit() {
+    console.log(this.typeaheadItem)
     if (this.noClose) this.typeaheadItem.noClose = true;
     this.typeahead.registerElement(this.typeaheadItem);
   }
@@ -75,7 +76,9 @@ export class TypeaheadComponent implements OnInit {
 
   @HostListener('keyup', ['$event']) keyup(e: any) {
     if (e.keyCode === 13) { // ENTER
+      console.log(this.itemList);
       if (!this.selectLimit || (this.term && (this.selectLimit <= this.term.length)) || (this.itemList && this.itemList.length)) {
+
         this.selectActive();
       } else {
         this.doEnterAction();
@@ -137,8 +140,13 @@ export class TypeaheadComponent implements OnInit {
 
   doEnterAction() {
     this.itemList = [];
-    if (this.enterAction)
+    console.log('ENTER');
+
+    if (this.enterAction) {
       this.enterAction.emit({ text: this.term, limit: true });
+    } else {
+      this.selectActive();
+    }
   };
 
   doSelect(item: any) {
