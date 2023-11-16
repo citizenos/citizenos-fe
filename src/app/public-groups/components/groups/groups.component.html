@@ -18,7 +18,7 @@
   <div id="page_filters_wrap">
     <div id="options_area" [@openClose]="moreFilters ? 'open' : 'closed'" class="mobile_hidden">
       <div class="options_row">
-        <cos-input [placeholder]="'VIEWS.PUBLIC_GROUPS.FILTERS.VISIBILITY' | translate" class="dropdown_input">
+        <!--cos-input [placeholder]="'VIEWS.PUBLIC_GROUPS.FILTERS.VISIBILITY' | translate" class="dropdown_input">
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
               <div class="selected_item">{{('VIEWS.PUBLIC_GROUPS.FILTERS.' + visibility | uppercase) || 'VIEWS.PUBLIC_GROUPS.FILTERS.ALL' | translate}}</div>
@@ -44,7 +44,7 @@
               </div>
             </div>
           </div>
-        </cos-input>
+        </!--cos-input-->
         <!--cos-input [placeholder]="'VIEWS.PUBLIC_GROUPS.FILTERS.MY_ENGAGEMENT' | translate"
           class="dropdown_input mobile_hidden" *ngIf="loggedIn()">
           <div class="dropdown" [cosDropdown]>
@@ -82,14 +82,16 @@
         <cos-input [placeholder]="'VIEWS.PUBLIC_GROUPS.FILTERS.ORDER' | translate" class="dropdown_input tablet_hidden">
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
-              <div class="selected_item">{{('VIEWS.PUBLIC_GROUPS.FILTERS.ORDER_' + visibility | uppercase) || 'VIEWS.PUBLIC_GROUPS.FILTERS.ALL' | translate}}</div>
+              <div class="selected_item">{{('VIEWS.PUBLIC_GROUPS.FILTERS.ORDER_' + visibility | uppercase) ||
+                'VIEWS.PUBLIC_GROUPS.FILTERS.ALL' | translate}}</div>
               <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
                 </svg>
               </div>
             </div>
             <div class="options">
-              <div class="option" translate="VIEWS.PUBLIC_GROUPS.FILTERS.ORDER_RECENT_ACTIVITY"></div>
+              <div class="option" translate="VIEWS.PUBLIC_GROUPS.FILTERS.ORDER_RECENT_ACTIVITY"
+                (click)="doOrder('activity', 'desc')"></div>
               <div class="option" translate="VIEWS.PUBLIC_GROUPS.FILTERS.MOST_ACTIVITIES"></div>
               <div class="option" translate="VIEWS.PUBLIC_GROUPS.FILTERS.MOST_PARTICIPANTS"></div>
               <div class="option" translate="VIEWS.PUBLIC_GROUPS.FILTERS.MOST_RECENT"></div>
@@ -137,7 +139,8 @@
         <cos-input [placeholder]="'VIEWS.PUBLIC_GROUPS.FILTERS.ORDER' | translate" class="dropdown_input">
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
-              <div class="selected_item">{{('VIEWS.PUBLIC_GROUPS.FILTERS.ORDER_' + visibility | uppercase) || 'VIEWS.PUBLIC_GROUPS.FILTERS.ALL' | translate}}</div>
+              <div class="selected_item">{{('VIEWS.PUBLIC_GROUPS.FILTERS.ORDER_' + visibility | uppercase) ||
+                'VIEWS.PUBLIC_GROUPS.FILTERS.ALL' | translate}}</div>
               <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
                 </svg>
@@ -154,7 +157,7 @@
         </cos-input>
       </div>
       <div class="options_row" *ngIf="moreFilters" [@openClose]="moreFilters ? 'open' : 'closed'">
-        <cos-input [placeholder]="'VIEWS.PUBLIC_GROUPS.FILTERS.COUNTRY' | translate" class="dropdown_input">
+        <!--cos-input-- [placeholder]="'VIEWS.PUBLIC_GROUPS.FILTERS.COUNTRY' | translate" class="dropdown_input">
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
               <div class="selected_item">{{filters.country}}</div>
@@ -169,7 +172,18 @@
               </div>
             </div>
           </div>
-        </cos-input>
+        </!--cos-input-->
+        <typeahead id="input_area" class="dropdown" activeClass="dropdown_active" [term]="countrySearch" (search)="searchCountry($event)"
+          (select)="setCountry($event)" (enterAction)="setCountry($event)"
+          [placeholder]="'VIEWS.PUBLIC_GROUPS.FILTERS.COUNTRY' | translate">
+          <ng-container *ngIf="countries$ | async as countries">
+            <div class="options" [ngClass]="{'active': !countries.length}">
+              <div class="option" *ngFor="let country of countries$ | async" [typeaheadSelect]="country.name" >
+                <div class="item_text_wrap">{{country.name}}</div>
+              </div>
+            </div>
+          </ng-container>
+        </typeahead>
         <cos-input [placeholder]="'VIEWS.PUBLIC_GROUPS.FILTERS.LANGUAGE' | translate" class="dropdown_input">
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
@@ -193,7 +207,8 @@
               fill="#727C84" />
           </svg>
           <cos-input placeholder="{{'VIEWS.PUBLIC_GROUPS.PLACEHOLDER_SEARCH' | translate}}">
-            <input type="text" [(ngModel)]="searchInput" (ngModelChange)="doSearch(searchInput)" [placeholder]="'VIEWS.PUBLIC_GROUPS.PLACEHOLDER_SEARCH' | translate">
+            <input type="text" [(ngModel)]="searchInput" (ngModelChange)="doSearch(searchInput)"
+              [placeholder]="'VIEWS.PUBLIC_GROUPS.PLACEHOLDER_SEARCH' | translate">
           </cos-input>
           <a class="clear_search" translate="VIEWS.PUBLIC_GROUPS.LNK_CLEAR" (click)="searchInput='';doSearch('')"
             *ngIf="searchInput"></a>
@@ -295,9 +310,11 @@
           <span class="checkmark"></span>
         </label>
 
-        <div class="option" [routerLink]="['./']" [queryParams]="{favourite: 'true'}" translate="VIEWS.PUBLIC_GROUPS.FILTERS.FAVOURITED"></div>
+        <div class="option" [routerLink]="['./']" [queryParams]="{favourite: 'true'}"
+          translate="VIEWS.PUBLIC_GROUPS.FILTERS.FAVOURITED"></div>
 
-        <div class="option" [routerLink]="['./']" [queryParams]="{moderated: 'true'}" translate="VIEWS.PUBLIC_GROUPS.FILTERS.MODERATED"></div>
+        <div class="option" [routerLink]="['./']" [queryParams]="{moderated: 'true'}"
+          translate="VIEWS.PUBLIC_GROUPS.FILTERS.MODERATED"></div>
         <button class="btn_medium_secondary" (click)="mobile_filters.visibility= false;" translate="BTN_APPLY"></button>
       </div>
       <div class="overlay" *ngIf="mobile_filters.visibility || mobile_filters.category"></div>
@@ -382,8 +399,16 @@
   </div>
   <div class="groups_content">
     <ng-container *ngIf="groups$ | async as groups;">
-      <group-box [group]="group" *ngFor="let group of groups">
-      </group-box>
+      <ng-container *ngFor="let group of groups">
+        <ng-container *ngIf="!group.userLevel">
+          <public-group-box [group]="group">
+          </public-group-box>
+        </ng-container>
+        <ng-container *ngIf="group.userLevel">
+          <group-box [group]="group">
+          </group-box>
+        </ng-container>
+      </ng-container>
     </ng-container>
   </div>
 </div>

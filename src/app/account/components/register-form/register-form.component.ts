@@ -31,7 +31,8 @@ export class RegisterFormComponent {
   redirectSuccess?:string = '';
   constructor(private dialog: MatDialog, ConfigService: ConfigService, private AuthService: AuthService, private Notification: NotificationService, private router: Router) {
     this.config = ConfigService.get('legal');
-    this.termsVersion = this.config.termsVersion;
+    this.termsVersion = this.config.version;
+    console.log(this.config);
     /*if (data.email) {
       this.signUpForm.patchValue({'email': data.email});
     }

@@ -17,6 +17,8 @@ export class UserTopicService extends ItemsListService {
     title: <string | null>null,
     prefix: <string | null>null,
     userId: <string | null>null,
+    country: <string | null> null,
+    language: <string | null> null,
     visibility: <string | null>null,
     hasVoted: <boolean | null | string>null,
     creatorId: <string | null>null,

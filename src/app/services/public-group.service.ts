@@ -12,6 +12,9 @@ import { ItemsListService } from './items-list.service';
 export class PublicGroupService extends ItemsListService {
   params = Object.assign(this.defaultParams, {
     groupId: <string | null>null,
+    name: <string | null>null,
+    country: <string | null>null,
+    language: <string | null>null,
     showModerated: <boolean>false,
     favourite: <boolean | string | null>null,
     limit: 8

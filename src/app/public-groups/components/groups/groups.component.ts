@@ -11,6 +11,7 @@ import { GroupCreateComponent } from 'src/app/group/components/group-create/grou
 import { MatDialog } from '@angular/material/dialog';
 import { AppService } from 'src/app/services/app.service';
 import { trigger, state, style } from '@angular/animations';
+import { Country } from 'src/app/interfaces/country';
 
 @Component({
   selector: 'app-groups',
@@ -27,7 +28,7 @@ import { trigger, state, style } from '@angular/animations';
         'maxHeight': '50px',
         transition: '0.2s ease-in-out max-height'
       }))
-  ])]
+    ])]
 })
 export class GroupsComponent implements OnInit {
   allGroups$: Group[] = [];
@@ -46,7 +47,12 @@ export class GroupsComponent implements OnInit {
 
   visibility = ['all'];
   categories = ['all', 'democracy'];
+  countrySearch = '';
+  countrySearch$ = new BehaviorSubject('');
   countries = countries;
+  countries$ = of(<Country[]>[]);
+  countryFocus = false;
+
   languages = languages;
   filters = {
     country: 'all',
@@ -57,23 +63,37 @@ export class GroupsComponent implements OnInit {
     private AuthService: AuthService,
     public GroupService: GroupService,
     public PublicGroupService: PublicGroupService,
-    public app:AppService) {
+    public app: AppService) {
     this.PublicGroupService.reset();
     this.groups$ = combineLatest([this.route.queryParams, this.searchString$]).pipe(
       switchMap(([queryParams, search]) => {
         console.log(search);
         PublicGroupService.reset();
         if (search) {
-          PublicGroupService.setParam('search', search);
+          PublicGroupService.setParam('name', search);
         }
         Object.entries(queryParams).forEach((param) => {
           PublicGroupService.setParam(param[0], param[1]);
         })
         return PublicGroupService.loadItems();
-      }
+      }), map(
+        (newgroups: any) => {
+          this.allGroups$ = this.allGroups$.concat(newgroups);
+          return this.allGroups$;
+        }
       ));
+
+    this.countries$ = this.countrySearch$.pipe(switchMap((string) => {
+      const countries = this.countries.filter((country) => country.name.toLowerCase().indexOf(string) > -1);
+
+      return [countries];
+    }));
+
   }
 
+  searchCountry(event: any) {
+    this.countrySearch$.next(event);
+  }
   loggedIn() {
     return this.AuthService.loggedIn$.value;
   }
@@ -103,13 +123,25 @@ export class GroupsComponent implements OnInit {
       country: 'all',
       language: 'all'
     }
+    this.searchInput = '';
+    this.searchString$.next('');
   }
   /*TODO add functionalities*/
-  setCountry (country: string) {
+  setCountry(country: string) {
+    console.log(country);
+    this.countrySearch = country;
+    this.allGroups$ = [];
     this.filters.country = country;
+    this.PublicGroupService.setParam('offset', 0)
+    this.PublicGroupService.setParam('country', country);
+    this.PublicGroupService.loadItems();
   }
 
   setLanguage(language: string) {
+    this.allGroups$ = [];
     this.filters.language = language;
+    this.PublicGroupService.setParam('offset', 0)
+    this.PublicGroupService.setParam('language', language);
+    this.PublicGroupService.loadItems();
   }
 }

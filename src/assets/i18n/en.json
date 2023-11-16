@@ -1665,7 +1665,8 @@
         "TOPICS_MODERATED": "Hidden by admin"
       },
       "BTN_RESET_FILTER": "@:BTN_RESET_FILTER",
-      "BTN_APPLY": "@:BTN_APPLY"
+      "BTN_APPLY": "@:BTN_APPLY",
+      "LNK_CLEAR": "@:LNK_CLEAR"
     },
     "MY_TOPICS_TOPICID": {
       "HEADING_GENERAL_INFORMATION": "General information",
