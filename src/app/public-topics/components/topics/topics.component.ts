@@ -62,7 +62,8 @@ export class TopicsComponent implements OnInit {
       switchMap(([queryParams, search]) => {
         PublicTopicService.reset();
         if (search) {
-          PublicTopicService.setParam('search', search);
+          this.allTopics$ = [];
+          PublicTopicService.setParam('title', search);
         }
         Object.entries(queryParams).forEach((param) => {
           PublicTopicService.setParam(param[0], param[1]);

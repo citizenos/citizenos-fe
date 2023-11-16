@@ -1,4 +1,4 @@
-import { HostBinding, Component, ElementRef, Directive, OnInit, OnDestroy, Input, Output, HostListener, EventEmitter, forwardRef, Inject } from '@angular/core';
+import { HostBinding, Component, ElementRef, Directive, OnInit, OnDestroy, Input, Output, HostListener, EventEmitter, forwardRef, Inject, ViewChild } from '@angular/core';
 
 @Directive({ selector: '[typeaheadItem]' })
 export class TypeaheadItem implements OnDestroy {
@@ -42,14 +42,16 @@ export class TypeaheadComponent implements OnInit {
   @Input() term: string | undefined | null = null;
   @Input() placeholder: string | undefined;
   @Input() label: string | undefined;
+  @Input() activeClass: string | undefined;
   @Output() select = new EventEmitter<any | null>();
   @Output() search = new EventEmitter<string | null>();
+  @ViewChild('input') searchInput?: ElementRef;
 
   hide = false;
   active: any;
   itemList: any[] = [];
   focused: boolean = false;
-  constructor() {
+  constructor(private _el: ElementRef) {
   }
 
   registerElement(el: any) {
@@ -59,12 +61,16 @@ export class TypeaheadComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  @HostListener('focus') focus() {
+  focus() {
+    this._el.nativeElement.classList.add(this.activeClass || 'active');
     this.focused = true;
   };
 
-  @HostListener('blur') blur() {
-    this.focused = false;
+  blur() {
+    setTimeout(() => {
+      this._el.nativeElement.classList.remove(this.activeClass || 'active');
+      this.focused = false;
+    }, 200);
   };
 
   @HostListener('keyup', ['$event']) keyup(e: any) {

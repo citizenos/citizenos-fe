@@ -8,7 +8,8 @@
         fill="#727C84" />
     </svg>
   </div>
-  <input name="term" [(ngModel)]="term" (ngModelChange)="query()" type="text" autocomplete="off"
+  <input #input name="term" [(ngModel)]="term" (ngModelChange)="query()" type="text" autocomplete="off"
+  (focus)="focus()" (blur)="blur()"
     [placeholder]="placeholder" autofocus />
   <a (click)="doEnterAction()" translate="COMPONENTS.TYPEAHEAD.PRESS_ENTER_TO_ADD"></a>
 </div>

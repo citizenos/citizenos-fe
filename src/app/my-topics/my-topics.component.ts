@@ -129,6 +129,7 @@ export class MyTopicsComponent {
         switchMap(([queryParams, search]) => {
           UserTopicService.reset();
           if (search) {
+            this.allTopics$ = [];
             UserTopicService.setParam('search', search);
           }
           Object.entries(queryParams).forEach((param) => {
@@ -183,7 +184,7 @@ export class MyTopicsComponent {
     if (filter ===  'hasVoted') {
       this.UserTopicService.setParam(filter, true);
     } else if (filter ===  'hasNotVoted') {
-      this.UserTopicService.setParam(filter, false);
+      this.UserTopicService.setParam('hasVoted', false);
     } else if (filter === 'iCreated') {
       this.UserTopicService.setParam('creatorId', this.auth.user.value.id);
     }
@@ -247,11 +248,16 @@ export class MyTopicsComponent {
     this.setCategory(this.FILTERS_ALL);
   }
 
-  setCountry (country: string) {
-
+  setCountry (country?: string) {
+    if (!country)
+      country = undefined;
+    console.log('COUNTRY', country)
+    this.UserTopicService.setParam('country', country);
   }
 
-  setLanguage (language: string) {
-
+  setLanguage (language?: string) {
+    if (!language)
+      language = undefined;
+    this.UserTopicService.setParam('language', language);
   }
 }
