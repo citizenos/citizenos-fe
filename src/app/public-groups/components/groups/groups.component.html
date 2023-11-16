@@ -173,14 +173,16 @@
             </div>
           </div>
         </!--cos-input-->
-        <typeahead id="input_area" class="dropdown" activeClass="dropdown_active" [term]="countrySearch" (search)="searchCountry($event)"
-          (select)="setCountry($event)" (enterAction)="setCountry($event)"
+        <typeahead id="input_area" class="dropdown" activeClass="dropdown_active" [term]="countrySearch"
+          (search)="searchCountry($event)" (select)="setCountry($event)"
           [placeholder]="'VIEWS.PUBLIC_GROUPS.FILTERS.COUNTRY' | translate">
           <ng-container *ngIf="countries$ | async as countries">
             <div class="options" [ngClass]="{'active': !countries.length}">
-              <div class="option" *ngFor="let country of countries$ | async" [typeaheadSelect]="country.name" >
-                <div class="item_text_wrap">{{country.name}}</div>
-              </div>
+              <ng-container *ngIf="countries$ | async as listCountry">
+                <div class="option" [typeaheadItem]="country.name" *ngFor="let country of listCountry">
+                  <div class="item_text_wrap" [typeaheadSelect]="country.name">{{country.name}}</div>
+                </div>
+              </ng-container>
             </div>
           </ng-container>
         </typeahead>
