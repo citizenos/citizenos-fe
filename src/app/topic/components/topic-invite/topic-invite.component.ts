@@ -107,6 +107,10 @@ export class TopicInviteComponent implements OnInit {
     if (member.hasOwnProperty('company')) {
       return this.addTopicMemberUser(member);
     }
+    if(isEmail(member.email) && member.email === member.userId) {
+      return this.addTopicMemberUser();
+    }
+    this.search('');
   };
 
   addCorrectedEmail(email: string, key: string) {
@@ -223,12 +227,14 @@ export class TopicInviteComponent implements OnInit {
     });
 
     if (topicMemberUsersToSave.length) {
+      console.log('SAVE MEMBERS')
       membersToSave['users'] = this.TopicInviteUser.save(this.topic.id, topicMemberUsersToSave)
     }
     if (Object.keys(membersToSave).length) {
       forkJoin(membersToSave)
         .pipe(take(1))
         .subscribe((res: any) => {
+          console.log('SAVEd MEMBERS', membersToSave, res)
           this.TopicService.reloadTopic();
         })
     }
