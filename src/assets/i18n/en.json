@@ -395,7 +395,7 @@
     },
     "REGISTER_FORM": {
       "HEADING": "Register a free account",
-      "HEADING_DESCRIPTION": "Create an account to get free unlimited access to the Citizen OS platform",
+      "HEADING_DESCRIPTION": "Free for everybody and for always! No ads, no sale of data, no hidden costs",
       "PLACEHOLDER_NAME": "@:VIEWS.ACCOUNT.PLACEHOLDER_NAME",
       "PLACEHOLDER_COMPANY": "@:VIEWS.ACCOUNT.PLACEHOLDER_COMPANY",
       "PLACEHOLDER_EMAIL": "@:COMPONENTS.LOGIN_FORM.LOGIN_PLACEHOLDER_EMAIL",
@@ -2135,7 +2135,7 @@
       "NO_FOLLOW_DESC_AFTER": "Describe, what will happen as a result of the made decisions, adding details of any progress or outcomes.",
       "TUTORIAL_HEADING": "@:COMPONENTS.TOUR.HEADING_TOPIC",
       "TUTORIAL_TITLE": "Welcome to your topic",
-      "TUTORIAL_DESC": "We have made big improvements in Citizen OS 2.0 and if you have a few minutes, we’d like to guide you through some of the changes. This way you get a head start of knowledge!",
+      "TUTORIAL_DESC": "We've made big improvements to the way topics work! Got a minute? We’d love to guide you through the changes.",
       "TUTORIAL_BTN_TAKE_THE_TOUR": "@:COMPONENTS.ONBOARDING.BTN_SUBMIT",
       "TUTORIAL_BTN_SKIP": "@:COMPONENTS.ONBOARDING.BTN_CANCEL"
     },
