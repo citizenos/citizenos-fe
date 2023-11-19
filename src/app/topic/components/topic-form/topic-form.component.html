@@ -128,7 +128,7 @@
                   fill="#2C3B47" />
                 <rect x="4" y="4" width="16" height="16" rx="1" stroke="#2C3B47" stroke-width="2" />
               </svg>
-              <button *ngIf="block.headerImage && !tmpImageUrl" class="btn_medium_close bold"
+              <button *ngIf="block.headerImage && (!topic.imageUrl || !tmpImageUrl)" class="btn_medium_close bold"
                 (click)="block.headerImage = !block.headerImage;$event.stopPropagation();">
                 <span class="link" translate="VIEWS.TOPIC_CREATE.HEADER_IMAGE_BTN_CANCEL"></span>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -137,7 +137,7 @@
                     fill="#1168A8" />
                 </svg>
               </button>
-              <button class="btn_medium_close bold" *ngIf="block.headerImage && tmpImageUrl"
+              <button class="btn_medium_close bold" *ngIf="block.headerImage && (topic.imageUrl || tmpImageUrl)"
                 (click)="deleteTopicImage()">
                 <span class="link" translate="VIEWS.TOPIC_CREATE.HEADER_IMAGE_BTN_REMOVE"></span>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -151,14 +151,14 @@
             </div>
             <ng-container *ngIf="block.headerImage">
               <div class="block_content image_content">
-                <div class="block_section" *ngIf="!tmpImageUrl">
+                <div class="block_section" *ngIf="!(topic.imageUrl || tmpImageUrl)">
                   <div class="bold" translate="VIEWS.TOPIC_CREATE.HEADER_IMAGE_UPLOAD_DESC"></div>
                   <input id="image_upload_input" type="file" #imageUpload (change)="fileUpload()" />
                   <button id="image_upload_button" class="btn_medium_secondary" (click)="uploadImage()"
                     translate="VIEWS.TOPIC_CREATE.HEADER_IMAGE_UPLOAD_BTN"></button>
                 </div>
-                <div id="topic_image" class="block_section" *ngIf="tmpImageUrl">
-                  <img [src]="tmpImageUrl" />
+                <div id="topic_image" class="block_section" *ngIf="(topic.imageUrl || tmpImageUrl)">
+                  <img [src]="(topic.imageUrl || tmpImageUrl)" />
                 </div>
               </div>
             </ng-container>

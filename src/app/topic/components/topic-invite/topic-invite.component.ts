@@ -227,14 +227,12 @@ export class TopicInviteComponent implements OnInit {
     });
 
     if (topicMemberUsersToSave.length) {
-      console.log('SAVE MEMBERS')
       membersToSave['users'] = this.TopicInviteUser.save(this.topic.id, topicMemberUsersToSave)
     }
     if (Object.keys(membersToSave).length) {
       forkJoin(membersToSave)
         .pipe(take(1))
         .subscribe((res: any) => {
-          console.log('SAVEd MEMBERS', membersToSave, res)
           this.TopicService.reloadTopic();
         })
     }
