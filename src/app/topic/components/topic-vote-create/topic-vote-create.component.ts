@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input, Inject, inject, HostBinding } from '@angular/core';
 import { Topic } from 'src/app/interfaces/topic';
+import { Vote } from 'src/app/interfaces/vote';
 import { TopicService } from 'src/app/services/topic.service';
 import { TopicVoteService } from 'src/app/services/topic-vote.service';
 import { NotificationService } from 'src/app/services/notification.service';
@@ -14,6 +15,7 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class TopicVoteCreateComponent implements OnInit {
   @Input() topic!: Topic;
+  @Input() vote!: any;
   @Output() saveVote = new EventEmitter();
 
   VOTE_TYPES = this.TopicVoteService.VOTE_TYPES;
@@ -57,7 +59,10 @@ export class TopicVoteCreateComponent implements OnInit {
     optionsMax: 10,
     optionsMin: 2
   };
-  public vote = {
+
+  topicId = '';
+
+  public voteDefault = {
     description: <string>'',
     topicId: <string>'',
     options: <any>[],
@@ -67,7 +72,10 @@ export class TopicVoteCreateComponent implements OnInit {
     maxChoices: <number>1,
     minChoices: <number>1,
     reminderTime: <Date | null>null,
-    autoClose: <any[]>this.CONF.autoClose,
+    autoClose: <any[]> [{
+      value: 'allMembersVoted',
+      enabled: false
+    }],
     endsAt: <Date | null>null
   };
   deadline = <any>null;
@@ -103,10 +111,12 @@ export class TopicVoteCreateComponent implements OnInit {
     public router: Router
   ) {
     this.setTimeZones();
+    this.vote = this.vote || this.voteDefault;
+
   }
 
   ngOnInit(): void {
-    this.vote.topicId = this.topic.id;
+    this.topicId = this.topic.id;
     if (this.topic.voteId) {
       this.router.navigate(['/topics', this.topic.id, 'votes', this.topic.voteId]);
     }
@@ -357,7 +367,9 @@ export class TopicVoteCreateComponent implements OnInit {
     if (this.deadline) {
       this.vote.endsAt = this.deadline
     }
-    this.TopicVoteService.save(this.vote)
+    const saveVote:any = Object.assign({topicId: this.topicId}, this.vote);
+    saveVote.autoClose = this.CONF.autoClose;
+    this.TopicVoteService.save(saveVote)
       .pipe(take(1))
       .subscribe({
         next: (vote) => {
@@ -393,7 +405,7 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
 
   override ngOnInit(): void {
     this.topic = this.data.topic;
-    this.vote.topicId = this.topic.id;
+    this.topicId = this.topic.id;
     if (this.topic.voteId) {
       this.router.navigate(['/topics', this.topic.id, 'votes', this.topic.voteId]);
     }
@@ -417,7 +429,9 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
     if (this.deadline) {
       this.vote.endsAt = this.deadline
     }
-    this.TopicVoteService.save(this.vote)
+    const saveVote:any = Object.assign({topicId: this.topicId}, this.vote);
+    saveVote.autoClose = this.CONF.autoClose;
+    this.TopicVoteService.save(saveVote)
       .pipe(take(1))
       .subscribe({
         next: (vote) => {

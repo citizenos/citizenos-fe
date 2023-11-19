@@ -468,13 +468,13 @@
         </div>
       </div>
 
-      <div class="radio_wrap" (click)="vote.autoClose[0].enabled = !vote.autoClose[0].enabled"
-        [ngClass]="vote.autoClose[0].enabled ? 'selected': ''">
+      <div class="radio_wrap" (click)="CONF.autoClose[0].enabled = !CONF.autoClose[0].enabled"
+        [ngClass]="CONF.autoClose[0].enabled ? 'selected': ''">
         <div class="radio_text_wrap">
           <div class="radio_lable_wrap">
             <label class="checkbox" [ngClass]="vote.delegationIsAllowed? 'selected': ''">
               <span class="bold" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_ALL_VOTES_ARE_IN"></span>
-              <input type="checkbox" [(ngModel)]="vote.autoClose[0].enabled" />
+              <input type="checkbox" [(ngModel)]="CONF.autoClose[0].enabled" />
               <span class="checkmark"></span>
             </label>
           </div>

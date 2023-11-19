@@ -163,14 +163,14 @@
             </div>
             <ng-container *ngIf="block.headerImage">
               <div class="block_content image_content">
-                <div class="block_section" *ngIf="!tmpImageUrl">
+                <div class="block_section" *ngIf="!(topic.imageUrl || tmpImageUrl)">
                   <div class="bold" translate="VIEWS.VOTE_CREATE.HEADER_IMAGE_UPLOAD_DESC"></div>
                   <input id="image_upload_input" type="file" #imageUpload (change)="fileUpload()" />
                   <button id="image_upload_button" class="btn_medium_secondary" (click)="uploadImage()"
                     translate="VIEWS.VOTE_CREATE.HEADER_IMAGE_UPLOAD_BTN"></button>
                 </div>
-                <div id="topic_image" class="block_section" *ngIf="tmpImageUrl">
-                  <img [src]="tmpImageUrl" />
+                <div id="topic_image" class="block_section" *ngIf="(topic.imageUrl || tmpImageUrl)">
+                  <img [src]="(topic.imageUrl || tmpImageUrl)" />
                 </div>
               </div>
             </ng-container>
@@ -567,7 +567,7 @@
           </div>
         </ng-container>
         <ng-container *ngIf="tabSelected==='voting_system'">
-          <topic-vote-create #vote_create_form [topic]="topic"
+          <topic-vote-create #vote_create_form [topic]="topic" [vote]="vote"
             (saveVote)="saveVoteSettings($event)"></topic-vote-create>
         </ng-container>
         <ng-container *ngIf="tabSelected==='preview'">
