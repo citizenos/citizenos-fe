@@ -53,4 +53,10 @@ export class UploadService {
 
     return this.upload(path, attachment.file, attachment);
   }
+
+  uploadTopicImage(data: any, file: File) {
+    const path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/upload', { topicId: data.id || data.topicId });
+
+    return this.upload(path, file);
+  };
 }

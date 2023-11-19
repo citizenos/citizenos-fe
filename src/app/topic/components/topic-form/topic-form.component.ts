@@ -1,7 +1,7 @@
 import { trigger, state, style } from '@angular/animations';
 import { Component, Inject, ViewChild, ElementRef, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, of, take, Observable } from 'rxjs';
+import { map, of, take, Observable, takeWhile } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicService } from 'src/app/services/topic.service';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
@@ -18,6 +18,7 @@ import { TopicInviteDialogComponent } from '../topic-invite/topic-invite.compone
 import { countries } from 'src/app/services/country.service';
 import { languages } from 'src/app/services/language.service';
 import { InterruptDialogComponent } from 'src/app/shared/components/interrupt-dialog/interrupt-dialog.component';
+import { UploadService } from 'src/app/services/upload.service';
 @Component({
   selector: 'topic-form',
   templateUrl: './topic-form.component.html',
@@ -107,6 +108,7 @@ export class TopicFormComponent {
     private dialog: MatDialog,
     private route: ActivatedRoute,
     private router: Router,
+    private UploadService: UploadService,
     private Notification: NotificationService,
     public TopicService: TopicService,
     public GroupService: GroupService,
@@ -158,6 +160,21 @@ export class TopicFormComponent {
     }
   }
 
+  saveImage() {
+    if (this.imageFile) {
+      this.UploadService
+        .uploadTopicImage({topicId: this.topic.id}, this.imageFile).pipe(
+          takeWhile((e) => !e.link)
+        )
+        .subscribe((res: any) => {
+          console.log(res.data, res.link);
+          if (res.link) {
+            this.topic.imageUrl = res.link;
+          }
+        });
+    }
+  }
+
   fileUpload() {
     const files = this.fileInput?.nativeElement.files;
     this.imageFile = files[0];
@@ -168,6 +185,7 @@ export class TopicFormComponent {
       };
     })();
     reader.readAsDataURL(files[0]);
+    this.saveImage();
   }
 
   fileDroped(files: any) {
@@ -179,9 +197,21 @@ export class TopicFormComponent {
       };
     })();
     reader.readAsDataURL(files[0]);
+    this.saveImage();
   }
+
   uploadImage() {
     this.fileInput?.nativeElement.click();
+  };
+
+  deleteUserImage() {
+    if (this.fileInput) {
+      this.fileInput.nativeElement.value = null;
+    }
+    if (this.topic.imageUrl) {
+      this.topic.imageUrl = null;
+      this.updateTopic();
+    }
   };
 
   deleteTopicImage() {
