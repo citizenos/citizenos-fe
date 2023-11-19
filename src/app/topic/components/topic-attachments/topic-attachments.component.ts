@@ -228,6 +228,12 @@ export class TopicAttachmentsComponent implements OnInit {
   };
   removeAttachment(attachment: any) {
     this.attachments.splice(this.attachments.indexOf(attachment), 1);
+    if (attachment.id) {
+      this.TopicAttachmentService.delete({
+        attachmentId: attachment.id,
+        topicId: this.topic.id
+      }).pipe(take(1)).subscribe();
+    }
   }
 }
 
