@@ -1331,7 +1331,7 @@
       "BTN_BULK_ACTIONS": "@:BTN_BULK_ACTIONS"
     },
     "DASHBOARD": {
-      "HEADER_WELCOME": "Welcome back to your dashboard <a href=\"/account\">{{user.name}}</a>",
+      "HEADER_WELCOME": "Welcome back to your dashboard, <a href=\"/account\">{{user.name}}</a>",
       "TITLE_LATEST_ACHIEVEMENT": "Latest achievement",
       "BTN_GLOBAL_ACTIVITIES": "Global activity",
       "HAVENT_ENGAGED_TOPICS_HEADING": "You haven’t engaged in any topics yet",
