@@ -8,7 +8,6 @@ import { Topic } from 'src/app/interfaces/topic';
 import { AppService } from 'src/app/services/app.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { NotificationService } from 'src/app/services/notification.service';
-import { TopicAttachmentService } from 'src/app/services/topic-attachment.service';
 import { TopicService } from 'src/app/services/topic.service';
 import { UploadService } from 'src/app/services/upload.service';
 import { GroupService } from 'src/app/services/group.service';
@@ -19,7 +18,6 @@ import { TopicParticipantsDialogComponent } from 'src/app/topic/components/topic
 import { InviteEditorsComponent } from 'src/app/topic/components/invite-editors/invite-editors.component';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
-import { Attachment } from 'src/app/interfaces/attachment';
 import { TopicVoteCreateComponent } from 'src/app/topic/components/topic-vote-create/topic-vote-create.component';
 import { TopicVoteService } from 'src/app/services/topic-vote.service';
 import { countries } from 'src/app/services/country.service';
@@ -86,10 +84,10 @@ export class VoteCreateComponent implements OnInit {
   titleLimit = 100;
   introLimit = 500;
   groups$: Observable<Group[] | any[]> = of([]);
-  topicAttachments$ = of(<Attachment[] | any[]>[]);
 
   topicGroups = <Group[]>[];
   topic: Topic = <Topic>{
+    id: '',
     title: null,
     intro: null,
     description: '',
@@ -103,21 +101,26 @@ export class VoteCreateComponent implements OnInit {
   };
 
   public vote = {
-    description: <string>'',
-    topicId: <string>'',
-    options: <any>[],
+    createdAt: '',
+    id: '',
+    reminderSent: null,
+    votersCount: 0,
+    description: '',
+    options: <any[]>[],
     delegationIsAllowed: false,
     type: '',
     authType: '',
     maxChoices: <number>1,
     minChoices: <number>1,
-    reminderTime: <Date | null>null,
-    autoClose: <any[]>[],
-    endsAt: <Date | null>null
+    reminderTime: null,
+    autoClose: [{
+      value: 'allMembersVoted',
+      enabled: false
+    }],
+    endsAt: null
   };
 
   /*TODO - handle these below*/
-  attachments = <any[]>[];
   tags = <any[]>[];
   showManageEditors = false;
   /**/
@@ -132,7 +135,6 @@ export class VoteCreateComponent implements OnInit {
   showHelp = false;
   tabs = ['info', 'settings', 'voting_system', 'preview'];
   block = {
-    attachments: false,
     headerImage: false,
     title: false,
     intro: false,
@@ -154,7 +156,6 @@ export class VoteCreateComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,
-    private TopicAttachmentService: TopicAttachmentService,
     private TopicVoteService: TopicVoteService,
     @Inject(DomSanitizer) private sanitizer: DomSanitizer,
     private config: ConfigService) {
@@ -184,17 +185,6 @@ export class VoteCreateComponent implements OnInit {
             next: (data) => {
               Object.assign(this.topic, data);
               this.topic.padUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.topic.padUrl);
-
-              this.TopicAttachmentService.setParam('topicId', this.topic.id);
-              this.topicAttachments$ = this.TopicAttachmentService.loadItems().pipe(
-                map((attachments) => {
-                  this.attachments = [];
-                  attachments.forEach((item) => {
-                    this.attachments.push(item);
-                  })
-                  return attachments;
-                })
-              );
             }
           })
 
@@ -232,6 +222,21 @@ export class VoteCreateComponent implements OnInit {
     }
   }
 
+  saveImage() {
+    if (this.imageFile) {
+      this.Upload
+        .uploadTopicImage({topicId: this.topic.id}, this.imageFile).pipe(
+          takeWhile((e) => !e.link)
+        )
+        .subscribe((res: any) => {
+          console.log(res.data, res.link);
+          if (res.link) {
+            this.topic.imageUrl = res.link;
+          }
+        });
+    }
+  }
+
   fileUpload() {
     const files = this.fileInput?.nativeElement.files;
     this.imageFile = files[0];
@@ -242,6 +247,7 @@ export class VoteCreateComponent implements OnInit {
       };
     })();
     reader.readAsDataURL(files[0]);
+    this.saveImage();
   }
 
   fileDroped(files: any) {
@@ -253,6 +259,7 @@ export class VoteCreateComponent implements OnInit {
       };
     })();
     reader.readAsDataURL(files[0]);
+    this.saveImage();
   }
   uploadImage() {
     this.fileInput?.nativeElement.click();
@@ -340,104 +347,6 @@ export class VoteCreateComponent implements OnInit {
     this.createVote();
   }
 
-  dropboxSelect() {
-    this.TopicAttachmentService
-      .dropboxSelect()
-      .then((attachment) => {
-        if (attachment) {
-          this.doSaveAttachment(attachment);
-        }
-      });
-  };
-
-  oneDriveSelect() {
-    this.TopicAttachmentService
-      .oneDriveSelect()
-      .then((attachment) => {
-        if (attachment) {
-          this.doSaveAttachment(attachment);
-        }
-      });
-  };
-
-  googleDriveSelect() {
-    this.TopicAttachmentService
-      .googleDriveSelect()
-      .then((attachment) => {
-        if (attachment) {
-          this.doSaveAttachment(attachment);
-        }
-      });
-  };
-
-  attachmentUpload(): void {
-    const files = this.attachmentInput?.nativeElement.files;
-    for (let i = 0; i < files.length; i++) {
-      const attachment = {
-        name: files[i].name,
-        type: files[i].name.split('.').pop(),
-        source: 'upload',
-        size: files[i].size,
-        file: files[i]
-      };
-      if (attachment.size > 50000000) {
-        this.Notification.addError('MSG_ERROR_ATTACHMENT_SIZE_OVER_LIMIT');
-      } else if (this.Upload.ALLOWED_FILE_TYPES.indexOf(attachment.type.toLowerCase()) === -1) {
-        const fileTypeError = this.translate.instant('MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED', { allowedFileTypes: this.Upload.ALLOWED_FILE_TYPES.toString() });
-        this.Notification.addError(fileTypeError);
-      } else {
-        //    this.attachments.push(attachment);
-        this.doSaveAttachment(attachment);
-      }
-    }
-  }
-
-  doSaveAttachment(attachment: any) {
-    attachment.topicId = this.topic.id;
-    if (attachment.file) {
-      this.Upload.topicAttachment(this.topic.id, attachment)
-        .pipe(takeWhile((e) => !e.link, true))
-        .subscribe({
-          next: (result) => {
-            if (result.link)
-              this.attachments.push(result);
-          },
-          error: (res) => {
-            if (res.errors) {
-              const keys = Object.keys(res.errors);
-              keys.forEach((key) => {
-                this.Notification.addError(res.errors[key]);
-              });
-            } else if (res.status && res.status.message) {
-              this.Notification.addError(res.status.message);
-            } else {
-              this.Notification.addError(res.message);
-            }
-          }
-        });
-    }
-    else if (attachment.id) {
-      this.TopicAttachmentService.update(attachment).pipe(take(1)).subscribe(() => {
-        //     this.attachments.push(attachment);
-      });
-    } else {
-      this.TopicAttachmentService.save(attachment).pipe(take(1)).subscribe({
-        next: (result) => {
-          if (result.id) {
-            attachment = result
-            this.attachments.push(attachment);
-          }
-        },
-        error: (res) => {
-          console.error(res);
-        }
-      });
-    }
-  };
-  removeAttachment(attachment: any) {
-    this.attachments.splice(this.attachments.indexOf(attachment), 1);
-  }
-
   addTag(e: Event) {
     const tag = (e.target as HTMLInputElement).value;
     if (tag)
@@ -496,7 +405,10 @@ export class VoteCreateComponent implements OnInit {
   }
 
   createVote() {
-    this.TopicVoteService.save(this.vote)
+    console.log(this.topic);
+    const saveVote:any = Object.assign({topicId: this.topic.id}, this.vote);
+    console.log(saveVote);
+    this.TopicVoteService.save(saveVote)
       .pipe(take(1))
       .subscribe({
         next: (vote) => {

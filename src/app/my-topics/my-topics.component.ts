@@ -133,6 +133,9 @@ export class MyTopicsComponent {
             UserTopicService.setParam('search', search);
           }
           Object.entries(queryParams).forEach((param) => {
+            if(param[0] === 'status') {
+              this.setStatus(param[1]);
+            }
             UserTopicService.setParam(param[0], param[1]);
           })
           return UserTopicService.loadItems();
