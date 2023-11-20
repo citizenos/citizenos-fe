@@ -128,7 +128,6 @@ export class GroupsComponent implements OnInit {
   }
   /*TODO add functionalities*/
   setCountry(country: string) {
-    console.log(country);
     this.countrySearch = country;
     this.allGroups$ = [];
     this.filters.country = country;
@@ -143,5 +142,10 @@ export class GroupsComponent implements OnInit {
     this.PublicGroupService.setParam('offset', 0)
     this.PublicGroupService.setParam('language', language);
     this.PublicGroupService.loadItems();
+  }
+
+  loadPage(page: any) {
+    this.allGroups$ = [];
+    this.PublicGroupService.loadPage(page);
   }
 }

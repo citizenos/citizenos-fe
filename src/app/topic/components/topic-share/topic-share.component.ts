@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { take } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
@@ -15,6 +15,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class TopicShareComponent implements OnInit {
   @Input() topic!: Topic;
+  @ViewChild('linkInput') linkInput!: ElementRef;
   join = {
     level: <string | null>this.TopicService.LEVELS.read,
     token: <string | null>null
@@ -22,6 +23,7 @@ export class TopicShareComponent implements OnInit {
   joinUrl = ''
   LEVELS = Object.keys(this.TopicService.LEVELS);
   showQR = false;
+  copySuccess = false;
   constructor(
     private Auth: AuthService,
     private dialog: MatDialog,
@@ -83,11 +85,15 @@ export class TopicShareComponent implements OnInit {
   };
 
   copyInviteLink() {
-    const urlInputElement = document.getElementById('url_invite_topic_input') as HTMLInputElement || null;
+    const urlInputElement = this.linkInput.nativeElement as HTMLInputElement || null;
     urlInputElement.focus();
     urlInputElement.select();
     urlInputElement.setSelectionRange(0, 99999);
     document.execCommand('copy');
+    this.copySuccess = true;
+    setTimeout(() => {
+      this.copySuccess = false;
+    },500)
   };
 
   generateJoinUrl() {

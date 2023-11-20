@@ -111,10 +111,10 @@ export class TopicsComponent implements OnInit {
   }
 
   loadPage(page: any) {
-    console.log(page);
     this.allTopics$ = [];
     this.PublicTopicService.loadPage(page);
   }
+
   doClearFilters() {
     this.setStatus(this.FILTERS_ALL);
     this.setCategory(this.FILTERS_ALL);
