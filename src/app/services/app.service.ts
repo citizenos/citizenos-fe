@@ -25,6 +25,7 @@ export class AppService {
   topic: Topic | undefined;
   topicsSettings = false;
   wWidth = window.innerWidth;
+  redesignNotification = true;
 
   constructor(private dialog: MatDialog, public config: ConfigService, private TopicService: TopicService, private GroupMemberTopicService: GroupMemberTopicService, private router: Router) { }
 
@@ -91,5 +92,13 @@ export class AppService {
         console.error(err.message, 'Unknown error from HWCrypto library', err);
         return errorKeyPrefix + 'TECHNICAL_ERROR';
     }
+  };
+
+  closeRedesignNotification () {
+    this.redesignNotification = false;
+  };
+
+  displayRedesignNotification () {
+    return this.redesignNotification;
   };
 }
