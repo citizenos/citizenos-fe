@@ -30,10 +30,11 @@
 #create_argument_tablet_btn {
   display: none;
   @include mixins.tablet {
+    position: fixed;
     display: flex;
     justify-content: flex-end;
-    margin-top: -52px;
-    margin-right: -8px;
+    bottom: 64px;
+    right: 8px;
 
     button {
       svg {
@@ -58,18 +59,23 @@
   max-width: calc(100% - 566px);
   width: 100%;
   max-height: 0;
-  padding: 0;
+  padding: 16px;
   z-index: 999;
   // padding: 12px 16px;
   position: fixed;
   bottom: 0;
+  gap: 16px;
 
   @include mixins.tablet {
     position: fixed;
     bottom: 0;
     left: 0;
+    gap: 8px;
     z-index: 9999999;
     max-width: 100%;
+  }
+  @include mixins.mobile {;
+    padding: 8px;
   }
 
   #buttons_row {
@@ -100,9 +106,6 @@
       align-items: center;
       gap: 8px;
       background-color: var(--color-surfaces);
-      @include mixins.mobile {
-        padding: 8px;
-      }
 
       #chars_left {
         @include mixins.mobile {

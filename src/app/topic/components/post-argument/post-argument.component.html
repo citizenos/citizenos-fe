@@ -5,6 +5,7 @@
       </svg>
   </button>
 </div>
+<div class="overlay tablet_show" *ngIf="(app.addArgument | async)"></div>
 <div id="create_argument_footer_menu">
   <div class="footer_title" translate="COMPONENTS.POST_ARGUMENT.FOOTER_MENU_TITLE"></div>
   <button class="btn_big_submit" (click)="addNewArgument();">
