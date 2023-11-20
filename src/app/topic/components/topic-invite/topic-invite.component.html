@@ -7,7 +7,7 @@
         [(ngModel)]="inviteMessage" [maxlength]="inviteMessageMaxLength"></textarea>
     </cos-input>
     <div class="character_limit"><span
-        translate="COMPONENTS.TOPIC_INVITE.CHARACTER_LIMIT"></span>{{inviteMessage?.length || 0
+        translate="COMPONENTS.TOPIC_INVITE.CHARACTER_LIMIT"></span> {{inviteMessage?.length || 0
       }}/{{inviteMessageMaxLength}}</div>
     <div id="search_wrap">
       <typeahead id="input_area" [term]="searchStringUser" (search)="search($event)"
