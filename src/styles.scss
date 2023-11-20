@@ -592,12 +592,26 @@ est-id-login-form {
 .profile_photo {
   width: 40px;
   height: 40px;
+  display: flex;
   border-radius: 40px;
-  img {
+
+  img{
     width: inherit;
     border-radius: 40px;
     aspect-ratio: 1;
     object-fit: cover;
+  }
+
+  .profile_image_filler {
+    width: 100%;
+    background-color: var(--color-surfaces);
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cos-initials {
+      font-size: 14px;
+    }
   }
 }
 
