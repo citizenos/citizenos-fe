@@ -81,14 +81,14 @@
   "COMPONENTS": {
     "ACCESSIBILITY": {
       "MODAL_HEADING": "@:DEFAULT.NAV.LNK_ACCESSIBILITY",
-      "HEADING_CONTRAST": "Contrast",
-      "OPT_CONTRAST_DEFAULT": "Default",
-      "OPT_CONTRAST_HIGH": "High contrast",
-      "HEADING_TEXT_SIZE": "Text size",
+      "HEADING_CONTRAST": "Kontrastsus",
+      "OPT_CONTRAST_DEFAULT": "Vaikimisi",
+      "OPT_CONTRAST_HIGH": "Kõrge kontrastsus",
+      "HEADING_TEXT_SIZE": "Teksti suurus",
       "OPT_TEXT_SIZE_DEFAULT": "@:COMPONENTS.ACCESSIBILITY.OPT_CONTRAST_DEFAULT",
-      "OPT_TEXT_SIZE_LARGE": "Large",
-      "OPT_TEXT_SIZE_EXTRA_LARGE": "Extra large",
-      "HEADING_HAVING_ISSUES": "Still need help?",
+      "OPT_TEXT_SIZE_LARGE": "Suur",
+      "OPT_TEXT_SIZE_EXTRA_LARGE": "Ülisuur",
+      "HEADING_HAVING_ISSUES": "Vajad endiselt abi?",
       "READ_STATEMENT": "Read our accessibility statement",
       "CONTACT_US": "Contact us"
     },
