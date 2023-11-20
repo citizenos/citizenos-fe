@@ -521,6 +521,7 @@
         }
 
         &.discussion {
+          cursor: pointer;
           border-color: var(--color-discussion);
           .icon_wrap {
             background-color: var(--color-discussion);

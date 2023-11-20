@@ -581,7 +581,7 @@
       </div>
       <div class="state_items_wrap"
         [TourItem]="{tourid: 'topic', index: 5, position: ((wWidth <= 1024)? 'bottom': 'left')}">
-        <div class="state_item discussion">
+        <div class="state_item discussion" (click)="tabTablet='arguments'">
           <div class="item_header">
             <div class="item_title" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_DISCUSSION_HEADING"></div>
             <div class="item_title" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_DISCUSSION_CONTRIBUTION"
