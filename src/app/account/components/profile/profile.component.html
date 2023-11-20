@@ -35,7 +35,7 @@
   </div>
   <div id="profile_area_wrap">
     <ng-container *ngIf="(tabSelected | async) === 'profile'">
-      <div id="profile_settings" class="profile_area_section">
+      <div id="profile_settings" class="profile_area_section" *ngIf="user | async as user">
         <div id="profile_image_area">
           <div id="profile_image_wrap">
             <a id="remove_profile_image" (click)="deleteUserImage()" *ngIf="tmpImageUrl || form.imageUrl">
@@ -58,7 +58,7 @@
         </div>
         <div id="profile_data_area">
           <div class="small_heading" translate="VIEWS.ACCOUNT.HEADING_ACCOUNT_DETAILS"></div>
-          <form id="profile_form" name="myAccountForm" *ngIf="user | async as user">
+          <form id="profile_form" name="myAccountForm">
             <cos-input placeholder="{{'VIEWS.ACCOUNT.PLACEHOLDER_NAME' | translate}}">
               <input id="name" name="name" [(ngModel)]="form.name"
                 placeholder="{{'VIEWS.ACCOUNT.PLACEHOLDER_NAME' | translate}}" [ngClass]="{'error_input': errors.name}"
