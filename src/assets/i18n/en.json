@@ -1928,7 +1928,7 @@
       "BTN_DOWNLOAD_FINAL_BDOC": "Download signed file (BDOC)",
       "FINAL_OPTION_WITHOUT_CSV": "Machine-readable file (Äriregister)",
       "FINAL_OPTION_WITH_CSV": "Human-readable file (Riigikogu, KOV)",
-      "BTN_DOWNLOAD_FINAL_ZIP": "Download vote results (ZIP)",
+      "BTN_DOWNLOAD_FINAL_ZIP": "Download voting results (ZIP)",
       "VOTE_HEADING_CREATE": "Create a voting platform",
       "VOTE_HEADING_STEP1": "Step 1: Choose voting type",
       "VOTE_BTN_TYPE_REGULAR": "Regular",
