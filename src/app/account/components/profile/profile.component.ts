@@ -82,6 +82,7 @@ export class ProfileComponent {
             }
           }
           this.form = Object.assign(this.form, user);
+
           return user
         })
       );
@@ -110,9 +111,7 @@ export class ProfileComponent {
   }
 
   ngOnInit(): void {
-
   }
-
   selectTab(tab: string) {
     this.router.navigate([], { fragment: tab })
   }
@@ -203,16 +202,56 @@ export class ProfileComponent {
         })
     };
   };
+  /*
+    function drawImageScaled(img, ctx) {
+      var canvas = ctx.canvas ;
+      var hRatio = canvas.width  / img.width    ;
+      var vRatio =  canvas.height / img.height  ;
+      var ratio  = Math.min ( hRatio, vRatio );
+      var centerShift_x = ( canvas.width - img.width*ratio ) / 2;
+      var centerShift_y = ( canvas.height - img.height*ratio ) / 2;
+      ctx.clearRect(0,0,canvas.width, canvas.height);
+      ctx.drawImage(img, 0,0, img.width, img.height,
+                         centerShift_x,centerShift_y,img.width*ratio, img.height*ratio);
+   }*/
+
+  resizeImage(imageURL: any): Promise<any> {
+    return new Promise((resolve) => {
+      const image = new Image();
+      image.onload = function () {
+        const canvas = document.createElement('canvas');
+        canvas.width = 320;
+        canvas.height = 320;
+        const ctx = canvas.getContext('2d');
+        if (ctx != null) {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(image, 0, 0, image.width, image.height,
+            0, 0, 320, 320);
+        }
+        var data = canvas.toDataURL('image/jpeg', 1);
+        canvas.toBlob((blob) => {
+          if (blob) {
+            const file = new File([blob], 'profileimage.jpg', { type: "image/jpeg" });
+            canvas.remove();
+            resolve({ file: file, imageUrl: data });
+          }
+        }, 'image/jpeg');
+
+      };
+      image.src = imageURL;
+    });
+  }
 
   fileUpload() {
     const files = this.fileInput?.nativeElement.files;
     this.imageFile = files[0];
     const reader = new FileReader();
-    reader.onload = (() => {
-      return (e: any) => {
-        this.tmpImageUrl = e.target.result;
-      };
-    })();
+    reader.onload = async () => {
+      await this.resizeImage(reader.result as string).then((res: any) => {
+        this.tmpImageUrl = res.imageUrl;
+        this.imageFile = res.file;
+      });
+    };
     reader.readAsDataURL(files[0]);
   };
 
