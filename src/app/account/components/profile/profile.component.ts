@@ -184,6 +184,7 @@ export class ProfileComponent {
         .pipe(take(1))
         .subscribe({
           next: (res: any) => {
+            this.Notification.removeAll();
             this.Notification.addSuccess('COMPONENTS.NOTIFICATION.TITLE_SUCCESS');
             if (res.data) {
               const values = Object.assign({}, this.form, res.data);
