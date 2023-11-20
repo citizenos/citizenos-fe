@@ -103,6 +103,7 @@ export class TopicFormComponent {
   showHelp = false;
   languages = languages;
   countries = countries;
+  downloadUrl = '';
 
   constructor(
     private dialog: MatDialog,
@@ -128,8 +129,8 @@ export class TopicFormComponent {
   }
 
   ngOnInit() {
-    this.topicUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-      this.topic.padUrl)
+    this.topicUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.topic.padUrl);
+    this.downloadUrl = this.TopicService.download(this.topic.id);
   }
 
   sanitizeURL(): SafeResourceUrl {
@@ -220,10 +221,6 @@ export class TopicFormComponent {
     }
     this.imageFile = null;
     this.tmpImageUrl = undefined;
-  }
-
-  topicDownload(topicId: string) {
-    return this.TopicService.download(topicId);
   }
 
   deleteTopic(topicId: string) {
