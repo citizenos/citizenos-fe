@@ -1,7 +1,11 @@
 <div id="user_info_area">
   <ng-container *ngIf="auth.user$ | async as user">
     <div class="profile_photo">
-      <img [src]="user.imageUrl">
+      <img *ngIf="user.imageUrl" [src]="user.imageUrl">
+          <div class="profile_image_filler" *ngIf="!user.imageUrl">
+            <cos-initials *ngIf="user.name" [name]="user.name">
+            </cos-initials>
+          </div>
     </div>
     <div class="small_heading"><span class="small_heading" [innerHTML]="'VIEWS.DASHBOARD.HEADER_WELCOME'| translate: {user:user}"></span><span class="small_heading">🥳</span></div>
   </ng-container>
