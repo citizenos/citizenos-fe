@@ -165,12 +165,18 @@ export class TopicFormComponent {
     if (this.imageFile) {
       this.UploadService
         .uploadTopicImage({topicId: this.topic.id}, this.imageFile).pipe(
-          takeWhile((e) => !e.link)
+          takeWhile((res: any) => {
+            return (!res.link)
+          }, true)
         )
-        .subscribe((res: any) => {
-          console.log(res.data, res.link);
-          if (res.link) {
-            this.topic.imageUrl = res.link;
+        .subscribe({
+          next: (res: any) => {
+            if (res.link) {
+              this.topic.imageUrl = res.link;
+            }
+          },
+          error: (err: any) => {
+            console.log('ERROR', err);
           }
         });
     }
@@ -205,7 +211,7 @@ export class TopicFormComponent {
     this.fileInput?.nativeElement.click();
   };
 
-  deleteUserImage() {
+  deleteTopicImage() {
     if (this.fileInput) {
       this.fileInput.nativeElement.value = null;
     }
@@ -214,14 +220,6 @@ export class TopicFormComponent {
       this.updateTopic();
     }
   };
-
-  deleteTopicImage() {
-    if (this.fileInput) {
-      this.fileInput.nativeElement.value = null;
-    }
-    this.imageFile = null;
-    this.tmpImageUrl = undefined;
-  }
 
   deleteTopic(topicId: string) {
     /*this.TopicService.doDeleteTopic(topic, [this.Translate.currentLang, 'my', 'topics']);*/
@@ -253,6 +251,7 @@ export class TopicFormComponent {
 
   publish() {
     this.updateTopic();
+    this.TopicService.reloadTopic();
     this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
     this.Notification.addSuccess('Congratulations on your new topic! Now it’s time to get peopple engaged. Invite participants below or you can also invite them later.', 'Topic successfully published');
     this.inviteMembers();
