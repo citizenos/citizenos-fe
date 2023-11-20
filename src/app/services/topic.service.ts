@@ -248,8 +248,9 @@ export class TopicService {
               }
               this.reloadTopic();
               if (state === 'followUp') {
-                this.router.navigate(['/topics', topic.id, 'followup'])
+                this.router.navigate(['/topics', topic.id], {fragment:'followUp'})
               }
+              this.dialog.closeAll();
             }, error: (res) => {
               console.error(res);
             }
