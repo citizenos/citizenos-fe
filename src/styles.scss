@@ -1313,3 +1313,11 @@ tour-item-template {
     }
   }
 }
+
+.pagination_wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  width: 100%;
+}

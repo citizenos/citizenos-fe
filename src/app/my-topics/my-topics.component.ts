@@ -263,4 +263,9 @@ export class MyTopicsComponent {
       language = undefined;
     this.UserTopicService.setParam('language', language);
   }
+
+  loadPage(page: any) {
+    this.allTopics$ = [];
+    this.UserTopicService.loadPage(page);
+  }
 }

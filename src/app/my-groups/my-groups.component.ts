@@ -48,6 +48,11 @@ export class MyGroupsComponent implements OnInit {
     language: false
   }
 
+  filters = {
+    country: 'all',
+    language: 'all'
+  }
+
   constructor(
     public app: AppService,
     public auth: AuthService,
@@ -71,8 +76,13 @@ export class MyGroupsComponent implements OnInit {
       ));
   }
 
-  doClearFilters () {
-
+  doClearFilters() {
+    this.filters = {
+      country: 'all',
+      language: 'all'
+    }
+    this.searchInput = '';
+    this.searchString$.next('');
   }
 
   doSearch(search: string) {
@@ -100,11 +110,25 @@ export class MyGroupsComponent implements OnInit {
     return false;
   }
 
-  setCountry (country: string) {
-
+  setCountry(country: string) {
+ //   this.countrySearch = country;
+    this.allGroups$ = [];
+    this.filters.country = country;
+    this.GroupService.setParam('offset', 0)
+    this.GroupService.setParam('country', country);
+    this.GroupService.loadItems();
   }
 
-  setLanguage (language: string) {
+  setLanguage(language: string) {
+    this.allGroups$ = [];
+    this.filters.language = language;
+    this.GroupService.setParam('offset', 0)
+    this.GroupService.setParam('language', language);
+    this.GroupService.loadItems();
+  }
 
+  loadPage(page: any) {
+    this.allGroups$ = [];
+    this.GroupService.loadPage(page);
   }
 }

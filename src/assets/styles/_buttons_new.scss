@@ -126,6 +126,11 @@ $button-styles: (
     background: var(--color-argument-pro-light),
     color: var(--color-voting),
   ),
+  pagination: (
+    background: var(--color-surfaces),
+    hover: var(--color-scrollbar),
+    hover-color: var(--color-link),
+  ),
   plain: (
     hover: var(--color-scrollbar),
   ),

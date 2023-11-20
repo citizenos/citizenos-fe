@@ -266,4 +266,9 @@
       <topicbox [topic]="topic" *ngFor="let topic of topics; trackBy: trackByFn;"></topicbox>
     </ng-container>
   </div>
+  <div class="pagination_wrap">
+    <cos-pagination (select)="loadPage($event)"
+    [totalPages]="(PublicTopicService.totalPages$ | async) || 0"
+    [page]="(PublicTopicService.page$ | async) || 0"></cos-pagination>
+  </div>
 </div>

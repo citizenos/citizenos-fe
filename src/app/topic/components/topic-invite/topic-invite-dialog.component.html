@@ -47,7 +47,7 @@
       <topic-share [topic]="data.topic"></topic-share>
     </ng-container>
   </div>
-  <div class="dialog_footer with_buttons">
+  <div class="dialog_footer with_buttons" *ngIf="activeTab === 'invite'">
     <div></div>
     <div class="button_row">
       <a mat-dialog-close translate="COMPONENTS.TOPIC_INVITE_DIALOG.LNK_CANCEL"></a>
