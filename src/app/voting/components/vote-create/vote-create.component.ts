@@ -226,12 +226,18 @@ export class VoteCreateComponent implements OnInit {
     if (this.imageFile) {
       this.Upload
         .uploadTopicImage({topicId: this.topic.id}, this.imageFile).pipe(
-          takeWhile((e) => !e.link)
+          takeWhile((res: any) => {
+            return (!res.link)
+          }, true)
         )
-        .subscribe((res: any) => {
-          console.log(res.data, res.link);
-          if (res.link) {
-            this.topic.imageUrl = res.link;
+        .subscribe({
+          next: (res: any) => {
+            if (res.link) {
+              this.topic.imageUrl = res.link;
+            }
+          },
+          error: (err: any) => {
+            console.log('ERROR', err);
           }
         });
     }
@@ -269,9 +275,11 @@ export class VoteCreateComponent implements OnInit {
     if (this.fileInput) {
       this.fileInput.nativeElement.value = null;
     }
-    this.imageFile = null;
-    this.tmpImageUrl = undefined;
-  }
+    if (this.topic.imageUrl) {
+      this.topic.imageUrl = null;
+      this.updateTopic();
+    }
+  };
 
   deleteTopic() {
     /*this.TopicService.doDeleteTopic(topic, [this.Translate.currentLang, 'my', 'topics']);*/
@@ -345,6 +353,7 @@ export class VoteCreateComponent implements OnInit {
   publish() {
     this.updateTopic();
     this.createVote();
+    this.TopicService.reloadTopic();
   }
 
   addTag(e: Event) {
