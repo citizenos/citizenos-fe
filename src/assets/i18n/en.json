@@ -600,7 +600,7 @@
     },
     "TOPIC_VOTE_CREATE": {
       "DIALOG_HEADING": "Start topic vote",
-      "DIALOG_TAB_1": "Introducion",
+      "DIALOG_TAB_1": "Introduction",
       "DIALOG_TAB_2": "Voting system",
       "DIALOG_TAB_3": "Settings",
       "DIALOG_TAB_4": "Preview",
