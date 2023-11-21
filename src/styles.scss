@@ -97,6 +97,22 @@
   line-height: var(--line-heigth);
 }
 
+.large, .extra_large {
+  * {
+    font-size: var(--font-size) !important;
+    line-height: var(--line-heigth)!important;
+  }
+
+  .nav {
+    width: 250px!important;;
+  }
+
+  #content_root {
+    left: 250px!important;
+    width: calc(100% - 250px)!important;
+  }
+}
+
 .main_heading {
   font-size: 28px;
   font-style: normal;
