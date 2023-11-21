@@ -395,7 +395,7 @@
     },
     "REGISTER_FORM": {
       "HEADING": "Register a free account",
-      "HEADING_DESCRIPTION": "Free for everybody and for always! No ads, no sale of data, no hidden costs",
+      "HEADING_DESCRIPTION": "Create your free account today! No ads, no sale of data, no hidden costs",
       "PLACEHOLDER_NAME": "@:VIEWS.ACCOUNT.PLACEHOLDER_NAME",
       "PLACEHOLDER_COMPANY": "@:VIEWS.ACCOUNT.PLACEHOLDER_COMPANY",
       "PLACEHOLDER_EMAIL": "@:COMPONENTS.LOGIN_FORM.LOGIN_PLACEHOLDER_EMAIL",
