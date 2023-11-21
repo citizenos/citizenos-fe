@@ -15,7 +15,7 @@
         [placeholder]="'COMPONENTS.TOPIC_INVITE.PLACEHOLDER_SEARCH' | translate">
         <ng-container *ngIf="searchResultUsers$ | async as searchResults">
           <div class="search_area_wrap" [ngClass]="{hidden: !searchResults.length}">
-            <div class="search_dropdown_item" [typeaheadItem]="user" *ngFor="let user of searchResults">
+            <div class="search_dropdown_item" [typeaheadItem]="user" *ngFor="let user of searchResults" (click)="addTopicMember(user)">
               <div class="item_text_wrap">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" clip-rule="evenodd"

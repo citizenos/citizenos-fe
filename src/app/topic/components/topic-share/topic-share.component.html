@@ -42,7 +42,7 @@
     <qrcode [qrdata]="joinUrl || ''" [width]="120" [version]="4" [errorCorrectionLevel]="'L'"></qrcode>
   </div>
   <div *ngIf="!showQR">
-    <button class="btn_medium_secondary bold" (click)="showQR = true" *ngIf="canUpdate()"
+    <button class="btn_medium_secondary bold" (click)="showQR = true"
       translate="COMPONENTS.TOPIC_SHARE.BTN_GENERATE_QR_CODE">
     </button>
   </div>

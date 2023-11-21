@@ -97,6 +97,7 @@ export class TopicInviteComponent implements OnInit {
   }
 
   addTopicMember(member?: any) {
+    this.searchResultUsers$ = of([]);
     if (this.members.length >= this.maxUsers) {
       this.Notification.addError('MSG_ERROR_INVITE_MEMBER_COUNT_OVER_LIMIT');
       return;
@@ -276,6 +277,13 @@ export class TopicInviteDialogComponent {
   activeTab = 'invite';
   members = [];
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, @Inject(MatDialogRef) private dialog: MatDialogRef<TopicInviteDialogComponent>, private TopicInviteUser: TopicInviteUserService) {
+    if (!this.canInvite()) {
+      this.activeTab = 'share';
+    }
+  }
+
+  canInvite() {
+    return this.TopicInviteUser.canInvite(this.data.topic);
   }
 
   doInviteMembers() {
