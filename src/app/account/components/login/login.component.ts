@@ -196,6 +196,7 @@ export class LoginComponent {
             .status()
             .subscribe((user) => {
               if (user) {
+                console.log('HERE')
                 window.location.href = redirectSuccess;
               }
             });
