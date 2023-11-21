@@ -1,7 +1,7 @@
 import { TopicEventService } from './../services/topic-event.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { TopicMemberGroupService } from 'src/app/services/topic-member-group.service';
-import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, of, map, tap, Observable, take } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
@@ -87,6 +87,7 @@ export class TopicComponent implements OnInit {
       if (content.nativeElement.offsetHeight > 200) {
         this.readMoreButton = true;
       }
+      this.cd.detectChanges();
     }
   }
   showCategories = false;
@@ -134,6 +135,7 @@ export class TopicComponent implements OnInit {
     private TopicVoteService: TopicVoteService,
     public TopicEventService: TopicEventService,
     private TourService: TourService,
+    private cd: ChangeDetectorRef,
     @Inject(DomSanitizer) private sanitizer: DomSanitizer,
     public app: AppService
   ) {

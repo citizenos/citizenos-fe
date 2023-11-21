@@ -1,7 +1,7 @@
 import { trigger, state, style } from '@angular/animations';
-import { Component, Inject, ViewChild, ElementRef, Input } from '@angular/core';
+import { Component, Inject, ViewChild, ElementRef, Input, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, of, take, Observable, takeWhile } from 'rxjs';
+import { map, of, take, BehaviorSubject, Observable, takeWhile } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicService } from 'src/app/services/topic.service';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
@@ -10,7 +10,7 @@ import { GroupService } from 'src/app/services/group.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Group } from 'src/app/interfaces/group';
 import { TranslateService } from '@ngx-translate/core';
-import { GroupMemberTopicService } from 'src/app/services/group-member-topic.service';
+import { TopicMemberGroupService } from 'src/app/services/topic-member-group.service';
 import { TopicParticipantsDialogComponent } from '../topic-participants/topic-participants.component';
 import { InviteEditorsComponent } from '../invite-editors/invite-editors.component';
 import { NotificationService } from 'src/app/services/notification.service';
@@ -62,13 +62,14 @@ import { UploadService } from 'src/app/services/upload.service';
 })
 export class TopicFormComponent {
   topicText?: ElementRef
-  readMoreButton = false;
+  readMoreButton = new BehaviorSubject(false);
   @ViewChild('topicText') set content(content: ElementRef) {
     if (content) { // initially setter gets called with undefined
       this.topicText = content;
       if (content.nativeElement.offsetHeight > 200) {
-        this.readMoreButton = true;
+        this.readMoreButton.next(true);
       }
+      this.cd.detectChanges();
     }
   }
   @ViewChild('imageUpload') fileInput?: ElementRef;
@@ -113,8 +114,9 @@ export class TopicFormComponent {
     private Notification: NotificationService,
     public TopicService: TopicService,
     public GroupService: GroupService,
-    public GroupMemberTopicService: GroupMemberTopicService,
+    public TopicMemberGroupService: TopicMemberGroupService,
     public translate: TranslateService,
+    private cd: ChangeDetectorRef,
     @Inject(DomSanitizer) private sanitizer: DomSanitizer
   ) {
     this.groups$ = this.GroupService.loadItems();
@@ -251,6 +253,13 @@ export class TopicFormComponent {
 
   publish() {
     this.updateTopic();
+    this.topicGroups.forEach((group) => {
+      this.TopicMemberGroupService.save({
+        groupId: group.id,
+        topicId: this.topic.id,
+        level: group.permission?.level || this.TopicMemberGroupService.LEVELS.read
+      }).pipe(take(1)).subscribe();
+    });
     this.TopicService.reloadTopic();
     this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
     this.Notification.addSuccess('Congratulations on your new topic! Now it’s time to get peopple engaged. Invite participants below or you can also invite them later.', 'Topic successfully published');
@@ -266,6 +275,7 @@ export class TopicFormComponent {
   }
 
   addGroup(group: Group) {
+    console.log(group);
     this.topicGroups.push(group);
   }
 
@@ -331,5 +341,10 @@ export class TopicFormComponent {
       }
     });
     //[routerLink]="['/', translate.currentLang, 'topics', topic.id]"
+  }
+
+  setGroupLevel(group: Group, level: string) {
+    if (!group.permission) group.permission = {level};
+    group.permission.level = level;
   }
 }

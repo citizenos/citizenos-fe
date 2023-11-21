@@ -12,6 +12,13 @@ import { AuthService } from './auth.service';
 export class TopicMemberGroupService extends ItemsListService {
   params = Object.assign({ topicId: <string>'' }, this.defaultParams);
   params$ = new BehaviorSubject(this.params);
+
+  public LEVELS = {
+    read: 'read',
+    edit: 'edit',
+    admin: 'admin'
+  };
+
   constructor(private Location: LocationService, private http: HttpClient, private Auth: AuthService) {
     super();
     this.items$ = this.loadItems();

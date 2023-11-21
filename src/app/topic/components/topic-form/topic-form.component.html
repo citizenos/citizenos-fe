@@ -527,8 +527,8 @@
                             </svg>
                           </div>
                           <div class="options">
-                            <div class="option" *ngFor="let level of GroupMemberTopicService.LEVELS | keyvalue"
-                              (click)="topic.permission.level = level.value">
+                            <div class="option" *ngFor="let level of TopicMemberGroupService.LEVELS | keyvalue"
+                              (click)="setGroupLevel(group, level.value)">
                               {{'TXT_TOPIC_LEVELS_' + level.value | uppercase | translate}}
                             </div>
                           </div>
@@ -579,7 +579,7 @@
               <div class="topic_content" [innerHTML]="topic.description">
               </div>
             </div>
-            <div class="button_wrap" *ngIf="readMoreButton">
+            <div class="button_wrap" *ngIf="readMoreButton | async">
               <button class="btn_medium_secondary" (click)="readMore=!readMore">
                 <svg *ngIf="!readMore" width="24" height="24" viewBox="0 0 24 24" fill="none"
                   xmlns="http://www.w3.org/2000/svg">
