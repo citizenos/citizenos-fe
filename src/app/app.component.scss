@@ -110,18 +110,21 @@
   align-items: center;
   bottom: 0;
   padding: 20px 25px 20px 25px;
+  gap: 25px;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+    gap: 16px;
+    padding: 8px;
+  }
+  @media (max-width: 560px) {
+    flex-direction: column;
+  }
 
   #raa_logo_wrapper {
-      display: table-cell;
-      padding-right: 25px;
       white-space: nowrap;
       text-align: center;
       vertical-align: middle;
-
-      @media (max-width: 1024px) {
-          width: 100%;
-          display: inline-block;
-      }
 
       .raa_logo_container {
           display: inline-block;
@@ -132,12 +135,11 @@
   }
 
   #raa_content_wrapper{
-      width: calc(100% - 290px);
-      display: table-cell;
+      width: calc(100%);
 
       @media (max-width: 1024px) {
-          width: 100%;
-          display: inline-block;
+        width: calc(100% - 32px);
+        margin-left: -16px;
       }
 
       #notification_title {
@@ -147,7 +149,7 @@
           font-weight: bold;
           line-height: 22px;
 
-          @media (max-width: 1024px) {
+          @media (max-width: 560px) {
               text-align: center;
           }
       }
@@ -157,7 +159,7 @@
           font-family: "Open Sans";
           font-size: 14px;
           line-height: 19px;
-          @media (max-width: 1024px) {
+          @media (max-width: 560px) {
               text-align: center;
           }
       }
@@ -167,10 +169,11 @@
       display: table-cell;
       vertical-align: middle;
       width: 190px;
-      margin-top: 25px;
+      padding: 16px;
 
-      @media (max-width: 1024px) {
-          width: 100%;
+      @media (max-width: 560px) {
+          width: calc(100% - 32px);
+          margin-left: -16px;
           display: inline-block;
       }
   }
