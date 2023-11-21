@@ -104,7 +104,14 @@
   }
 
   .nav {
-    width: 250px!important;;
+    width: 250px!important;
+    @include mixins.tablet {
+      width: 288px!important;
+    }
+
+    @include mixins.mobile {
+      width: 100%!important;
+    }
   }
 
   #content_root {
