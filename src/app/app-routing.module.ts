@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes, ExtraOptions, UrlSegment } from '@angular/router';
 import { HomeComponent } from './core/components/home/home.component';
 import { DashboardComponent } from './core/components/dashboard/dashboard.component';
+import { AppComponent } from './app.component';
 import { AuthGuard } from './auth/auth.guard';
 import { PageNotFoundComponent } from './core/components/page-not-found/page-not-found.component';
 import { PageUnauthorizedComponent } from './core/components/page-unauthorized/page-unauthorized.component';
@@ -12,6 +13,7 @@ const options: ExtraOptions = {
 };
 
 const routes: Routes = [
+  {path: '', component: AppComponent},
   {
     path: ':lang', resolve: { user: authResolver },
     children: [

@@ -51,6 +51,7 @@ export class AppComponent {
     this.setDefaultMetaInfo();
     this.router.events.pipe(takeUntil(this.destroy$)).subscribe
       ((event: Event) => {
+        //console.log(event);
         if (event && event instanceof NavigationStart) {
           this.Notification.removeAll(); //Remove all notifications on navigating away
           app.showNav = false;

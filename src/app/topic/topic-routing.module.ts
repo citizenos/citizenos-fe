@@ -14,16 +14,17 @@ import { TopicReportResolveDialogComponent } from './components/topic-report-res
 import { TopicReportReviewDialogComponent } from './components/topic-report-review/topic-report-review.component';
 import { TopicComponent } from './topic.component';
 import { VoteCreateComponent } from '../voting/components/vote-create/vote-create.component';
+import { AuthGuard } from 'src/app/auth/auth.guard';
 
 const routes: Routes = [
   {
-    path: 'create', children: [
+    path: 'create', canActivate: [AuthGuard], children: [
       { path: '', component: TopicCreateComponent },
       { path: ':topicId', component: TopicCreateComponent }
     ]
   },
   {
-    path: 'edit', children: [
+    path: 'edit', canActivate: [AuthGuard], children: [
       { path: ':topicId', component: TopicEditComponent }
     ]
   },
@@ -44,7 +45,7 @@ const routes: Routes = [
       { path: 'followup', children: [] },
       {
         path: 'votes', children: [
-          { path: 'create', children: [] },
+          { path: 'create', canActivate: [AuthGuard], children: [] },
           {
             path: ':voteId', children: [
               { path: 'followup', children: [] },
@@ -52,7 +53,7 @@ const routes: Routes = [
           }
         ]
       },
-      { path: 'settings', component: TopicEditComponent },
+      { path: 'settings', canActivate: [AuthGuard], component: TopicEditComponent },
       { path: 'files', component: TopicAttachmentsDialogComponent },
       { path: 'participants', component: TopicParticipantsDialogComponent },
       { path: 'report', component: TopicReportFormDialogComponent },
