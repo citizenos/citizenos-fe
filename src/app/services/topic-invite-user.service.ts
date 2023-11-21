@@ -4,6 +4,8 @@ import { LocationService } from './location.service';
 import { Observable, BehaviorSubject, map } from 'rxjs';
 import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { ItemsListService } from './items-list.service';
+import { TopicService } from './topic.service';
+import { Topic } from '../interfaces/topic';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,7 @@ import { ItemsListService } from './items-list.service';
 export class TopicInviteUserService extends ItemsListService {
   params = Object.assign({ topicId: <string>'' }, this.defaultParams);
   params$ = new BehaviorSubject(this.params);
-  constructor(private Location: LocationService, private http: HttpClient) {
+  constructor(private Location: LocationService, private http: HttpClient, private TopicService: TopicService) {
     super();
     this.items$ = this.loadItems();
   }
@@ -75,5 +77,9 @@ export class TopicInviteUserService extends ItemsListService {
     return this.http.post<ApiResponse>(path, data, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
       map(res => res.data)
     );
+  }
+
+  canInvite (topic: Topic) {
+    return this.TopicService.canDelete(topic);
   }
 }
