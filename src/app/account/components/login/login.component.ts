@@ -41,6 +41,7 @@ export class LoginComponent {
       this.userConnections = value['userConnections'];
       this.email = value['email'];
       this.redirectSuccess = this.redirectSuccess || value['redirectSuccess'];
+      console.log(this.redirectSuccess);
       if (value['userId']) {
         this.UserService.listUserConnections(value['userId'])
           .pipe(take(1))
@@ -245,8 +246,11 @@ export class LoginDialogComponent extends LoginComponent{
         }
       }
     });
-  }
 
+    if (this.data.redirectSuccess) {
+      this.redirectSuccess = this.data.redirectSuccess;
+    }
+  }
   ngOnDestroy(): void {
     this.authSubscriber.unsubscribe();
   }
