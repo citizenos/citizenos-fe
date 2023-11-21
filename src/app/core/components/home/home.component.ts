@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
   stats$ = this.app.stats();
   constructor(
     private dialog: MatDialog,
-    private AuthService: AuthService,
+    public auth: AuthService,
     public app: AppService,
     private location: LocationService,
     private router: Router,
@@ -44,11 +44,10 @@ export class HomeComponent implements OnInit {
     return element.id;
   }
 
-  isLoggedIn() {
-    return this.AuthService.loggedIn$.value;
-  }
-
   ngOnInit(): void {
+    if (this.auth.loggedIn$.value) {
+      this.router.navigate(['/dashboard']);
+    }
     this.PublicTopicService.reset();
     this.PublicGroupService.reset();
 
@@ -78,7 +77,7 @@ export class HomeComponent implements OnInit {
     const createGroupTree = ['/', this.translate.currentLang,'my','groups','create'];
     const tree = this.router.createUrlTree(createGroupTree);
 
-    if (!this.AuthService.loggedIn$.value) {
+    if (!this.auth.loggedIn$.value) {
 
       const redirectSuccess = this.location.getAbsoluteUrl(this.router.serializeUrl(tree).toString());
       this.app.doShowLogin(redirectSuccess);

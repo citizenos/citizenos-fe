@@ -1,6 +1,7 @@
 import { Router } from '@angular/router';
 import { Component, Input, inject } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { LocationService } from 'src/app/services/location.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { AppService } from 'src/app/services/app.service';
 
@@ -16,6 +17,8 @@ export class FeatureBoxComponent {
 
   private app = inject(AppService);
   private auth = inject(AuthService);
+  private Location = inject(LocationService);
+
   router = inject(Router);
   translate = inject(TranslateService);
 
@@ -32,9 +35,15 @@ export class FeatureBoxComponent {
   btnClick () {
     if (this.feature === 'discussion') {
       if (!this.auth.loggedIn$.value) {
-        return this.app.doShowLogin(this.router.createUrlTree(['/', this.translate.currentLang, 'topics', 'create']).toString());
+        return this.app.doShowLogin(this.Location.getAbsoluteUrl(this.router.createUrlTree(['/', this.translate.currentLang, 'topics', 'create']).toString()));
       }
       this.router.navigate(['/', this.translate.currentLang, 'topics', 'create'])
+    }
+    if (this.feature === 'voting') {
+      if (!this.auth.loggedIn$.value) {
+        return this.app.doShowLogin(this.Location.getAbsoluteUrl(this.router.createUrlTree(['/', this.translate.currentLang, 'topics', 'vote', 'create']).toString()));
+      }
+      this.router.navigate(['/', this.translate.currentLang, 'topics', 'vote', 'create'])
     }
   }
 }

@@ -76,6 +76,7 @@ export class AppService {
   };
 
   doShowLogin(redirectSuccess?: string) {
+    console.log(redirectSuccess)
     this.dialog.open(LoginDialogComponent, {data: {redirectSuccess}});
   }
 

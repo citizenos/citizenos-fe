@@ -5,6 +5,7 @@ import { Title, Meta, MetaDefinition } from '@angular/platform-browser';
 
 import { AppService } from './services/app.service';
 import { LocationService } from './services/location.service';
+import { NotificationService } from './services/notification.service';
 import { ConfigService } from './services/config.service';
 import { takeUntil, Subject, tap, map } from 'rxjs';
 import * as moment from 'moment';
@@ -41,6 +42,7 @@ export class AppComponent {
     public translate: TranslateService,
     private config: ConfigService,
     private Location: LocationService,
+    private Notification: NotificationService,
     private translateDebug: NgxTranslateDebugService,
     public app: AppService) {
     const languageConf = config.get('language');
@@ -50,6 +52,7 @@ export class AppComponent {
     this.router.events.pipe(takeUntil(this.destroy$)).subscribe
       ((event: Event) => {
         if (event && event instanceof NavigationStart) {
+          this.Notification.removeAll(); //Remove all notifications on navigating away
           app.showNav = false;
           app.topic = undefined;
           const parsedUrl = router.parseUrl(event.url);
