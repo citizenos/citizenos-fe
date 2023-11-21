@@ -10,7 +10,7 @@ import { User } from '../interfaces/user';
 import { MatDialog } from '@angular/material/dialog';
 import { PrivacyPolicyComponent } from '../account/components/privacy-policy/privacy-policy.component';
 import { AddEmailComponent } from '../account/components/add-email/add-email.component';
-import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -111,9 +111,7 @@ export class AuthService {
       switchMap((res: any) => {
         const user = res.data;
         if (!user.termsVersion || user.termsVersion !== this.config.get('legal').version) {
-          const tosDialog = this.dialog.open(PrivacyPolicyComponent, {
-            data: { user }
-          });
+         return of(user);
         } else if (!user.email) {
           const emailDialog = this.dialog.open(AddEmailComponent, {
             data: { user }

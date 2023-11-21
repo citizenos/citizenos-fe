@@ -34,6 +34,11 @@ export class LoginComponent {
     private Auth: AuthService,
     private translate: TranslateService) {
     this.authMethodsAvailable = this.config.get('features').authentication;
+    this.Auth.user$?.pipe(take(1)).subscribe((user) => {
+      if (user) {
+        this.router.navigate(['/']);
+      }
+    });
   }
 
   ngOnInit() {
@@ -186,6 +191,7 @@ export class LoginComponent {
         if (loginWindow?.closed) {
           clearInterval(popupCheck);
           window.focus();
+          console.log('HERE', redirectSuccess);
           this.Auth
             .status()
             .subscribe((user) => {

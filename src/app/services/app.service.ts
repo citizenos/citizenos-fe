@@ -103,7 +103,9 @@ export class AppService {
     .subscribe({
       next: (done) => {
         this.AuthService.status().pipe(take(1)).subscribe();
-        this.router.navigate(['/']);
+        setTimeout(() => {
+          this.router.navigate(['/']);
+        });
       },
       error: (err) => {
         console.error('LOGOUT ERROR', err);
