@@ -1,17 +1,13 @@
 @use "mixins";
 
 #create_tabs {
-  @include mixins.tablet {
-    gap: 40px;
-  }
-
-  @include mixins.mobile {
-    gap: 0;
-  }
-
   .create_tab {
-    @include mixins.mobile {
-      padding: 12px 16px;
+    display: flex;
+    @include mixins.tablet {
+      flex-grow: 1;
+      padding: 12px;
+      text-align: center;
+      justify-content: center;
     }
     &.tablet_tab {
       border-radius: 8px 8px 0 0;
