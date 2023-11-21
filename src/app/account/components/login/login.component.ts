@@ -249,8 +249,6 @@ export class LoginDialogComponent extends LoginComponent{
     if (this.data.redirectSuccess) {
       this.redirectSuccess = this.data.redirectSuccess;
     }
-
-    console.log(this.currentMethod);
   }
 
   ngOnDestroy(): void {
