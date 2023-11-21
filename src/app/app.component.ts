@@ -3,6 +3,8 @@ import { Router, PRIMARY_OUTLET, Event, NavigationStart, NavigationEnd } from '@
 import { TranslateService } from '@ngx-translate/core';
 import { Title, Meta, MetaDefinition } from '@angular/platform-browser';
 
+import { MatDialog } from '@angular/material/dialog';
+import { AuthService} from './services/auth.service';
 import { AppService } from './services/app.service';
 import { LocationService } from './services/location.service';
 import { NotificationService } from './services/notification.service';
@@ -11,6 +13,7 @@ import { takeUntil, Subject, tap, map } from 'rxjs';
 import * as moment from 'moment';
 import { DOCUMENT } from '@angular/common';
 import { NgxTranslateDebugService } from 'ngx-translate-debug';
+import { PrivacyPolicyComponent } from 'src/app/account/components/privacy-policy/privacy-policy.component';
 
 @Component({
   selector: 'app-root',
@@ -43,6 +46,8 @@ export class AppComponent {
     private config: ConfigService,
     private Location: LocationService,
     private Notification: NotificationService,
+    private auth: AuthService,
+    private dialog: MatDialog,
     private translateDebug: NgxTranslateDebugService,
     public app: AppService) {
     const languageConf = config.get('language');
@@ -88,6 +93,14 @@ export class AppComponent {
         }
       })
     ).subscribe();
+    this.auth.user$?.pipe(tap((user) => {
+      console.log('user', user)
+      if (user && !user.termsVersion || user.termsVersion !== this.config.get('legal').version) {
+        const tosDialog = this.dialog.open(PrivacyPolicyComponent, {
+          data: { user }
+        });
+      }
+    })).subscribe();
   }
 
   ngOnDestroy(): void {
