@@ -41,7 +41,6 @@ export class LoginComponent {
       this.userConnections = value['userConnections'];
       this.email = value['email'];
       this.redirectSuccess = this.redirectSuccess || value['redirectSuccess'];
-      console.log(this.redirectSuccess);
       if (value['userId']) {
         this.UserService.listUserConnections(value['userId'])
           .pipe(take(1))
@@ -238,7 +237,7 @@ export class LoginDialogComponent extends LoginComponent{
     Auth: AuthService,
     translate: TranslateService) {
     super(dialog, Location, config, router, UserService, route, Auth, translate);
-    this.authMethodsAvailable = config.get('features').authentication;    console.log(this.authMethodsAvailable)
+    this.authMethodsAvailable = config.get('features').authentication;
     this.authSubscriber = Auth.loggedIn$.subscribe({
       next: (value) => {
         if (value) {
@@ -250,7 +249,10 @@ export class LoginDialogComponent extends LoginComponent{
     if (this.data.redirectSuccess) {
       this.redirectSuccess = this.data.redirectSuccess;
     }
+
+    console.log(this.currentMethod);
   }
+
   ngOnDestroy(): void {
     this.authSubscriber.unsubscribe();
   }
