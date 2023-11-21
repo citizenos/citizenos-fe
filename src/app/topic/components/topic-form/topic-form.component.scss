@@ -1,9 +1,22 @@
 @use "mixins";
 
 #create_tabs {
+  @include mixins.tablet {
+    gap: 40px;
+  }
+
+  @include mixins.mobile {
+    gap: 0;
+  }
   .create_tab {
     display: flex;
     @include mixins.tablet {
+      width: 72px;
+      padding: 16px 12px;
+      text-align: center;
+      justify-content: center;
+    }
+    @include mixins.mobile {
       flex-grow: 1;
       padding: 12px;
       text-align: center;
@@ -15,6 +28,30 @@
       background-color: var(--color-scrollbar);
       @include mixins.mobile {
         padding: 12px 16px;
+      }
+    }
+    &.invite_users_tab {
+      padding: 12px 16px;
+      font-weight: 600;
+      display: flex;
+      gap: 8px;
+      flex-grow: 0;
+      margin-left: 8px;
+      position: relative;
+
+      &:after {
+        content: "";
+        height: 8px;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        background: linear-gradient(180deg, #d7e9f8 0%, #c1d8eb 100%);
+      }
+      &.active {
+        border-bottom: none;
+        &:after {
+          display: none;
+        }
       }
     }
   }

@@ -6,7 +6,7 @@
         class="tab_text" translate="VIEWS.TOPIC_CREATE.CREATE_TAB_2"></span></a>
     <a class="create_tab" [ngClass]="tabSelected=== 'preview' ? 'active' : ''" (click)="selectTab('preview')">3.<span
         class="tab_text" translate="VIEWS.TOPIC_CREATE.CREATE_TAB_3"></span></a>
-    <a class="create_tab tablet_tab tablet_show" (click)="showManageEditors = !showManageEditors">
+    <a class="create_tab tablet_tab tablet_show invite_users_tab" (click)="showManageEditors = !showManageEditors" [ngClass]="{'active': showManageEditors}">
       <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M13.9071 4.09259L15.4073 5.59285L12.1497 8.85059L10.8122 8.99825C10.6331 9.01806 10.4818 8.86665 10.5018 8.68758L10.6506 7.34905L13.9071 4.09259ZM16.3352 3.86922L15.6308 3.1648C15.4111 2.94507 15.0547 2.94507 14.835 3.1648L14.1723 3.8275L15.6725 5.32776L16.3352 4.66506C16.5549 4.44521 16.5549 4.08895 16.3352 3.86922Z"
