@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from 'src/app/core/components/home/home.component';
-import { AuthGuard } from '../auth/auth.guard';
+import { AuthGuard, AuthGuardLogin } from '../auth/auth.guard';
 import { AccountComponent } from './account.component';
 import { LoginComponent } from './components/login/login.component';
 import { PasswordResetComponent } from './components/password-reset/password-reset.component';
@@ -14,7 +14,7 @@ import { EstIdLoginComponent } from './components/est-id-login/est-id-login.comp
 const routes: Routes = [
   { path: '', canActivate: [AuthGuard], component: ProfileComponent },
   {
-    path: '', component: AccountComponent, children: [
+    path: '', canActivate: [AuthGuardLogin], component: AccountComponent, children: [
       { path: 'login', component: LoginComponent },
       { path: 'login/smartid', component: SmartIdLoginComponent },
       { path: 'login/estid', component: EstIdLoginComponent },

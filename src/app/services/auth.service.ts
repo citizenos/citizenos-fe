@@ -8,8 +8,6 @@ import { LocationService } from './location.service';
 import { NotificationService } from './notification.service';
 import { User } from '../interfaces/user';
 import { MatDialog } from '@angular/material/dialog';
-import { PrivacyPolicyComponent } from '../account/components/privacy-policy/privacy-policy.component';
-import { AddEmailComponent } from '../account/components/add-email/add-email.component';
 import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot, Router } from '@angular/router';
 
 @Injectable({
@@ -19,7 +17,7 @@ export class AuthService {
   private loadUser$ = new BehaviorSubject<void>(undefined);
   public user$: Observable<User> | null;
   public loggedIn$ = new BehaviorSubject(false);
-  public user = new BehaviorSubject({ id: null });
+  public user = new BehaviorSubject({ id: <string|null>null });
 
   constructor(private dialog: MatDialog, private Location: LocationService, private http: HttpClient, private Notification: NotificationService, private config: ConfigService) {
     this.user$ = this.loadUser$.pipe(
@@ -110,19 +108,14 @@ export class AuthService {
     return this.user$ = this.http.get<User>(path, { withCredentials: true, observe: 'body' }).pipe(
       switchMap((res: any) => {
         const user = res.data;
-        if (!user.termsVersion || user.termsVersion !== this.config.get('legal').version) {
+        if (!user.termsVersion || user.termsVersion !== this.config.get('legal').version || !user.email) {
          return of(user);
-        } else if (!user.email) {
-          const emailDialog = this.dialog.open(AddEmailComponent, {
-            data: { user }
-          });
         } else {
           user.loggedIn = true;
           this.user.next({ id: user.id });
           this.loggedIn$.next(true);
           return of(user);
         }
-        return of();
       }),
       catchError(res => {
         if (res.error) {

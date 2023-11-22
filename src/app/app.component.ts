@@ -14,7 +14,7 @@ import * as moment from 'moment';
 import { DOCUMENT } from '@angular/common';
 import { NgxTranslateDebugService } from 'ngx-translate-debug';
 import { PrivacyPolicyComponent } from 'src/app/account/components/privacy-policy/privacy-policy.component';
-
+import { AddEmailComponent } from 'src/app/account/components/add-email/add-email.component';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -98,6 +98,16 @@ export class AppComponent {
         const tosDialog = this.dialog.open(PrivacyPolicyComponent, {
           data: { user }
         });
+      }
+      if (!user.email) {
+        const emailDialog = this.dialog.open(AddEmailComponent, {
+          data: { user }
+        });
+        emailDialog.afterClosed().subscribe(() => {
+          user.loggedIn = true;
+          this.auth.user.next({ id: user.id });
+          this.auth.loggedIn$.next(true);
+        })
       }
     })).subscribe();
   }
