@@ -37,17 +37,8 @@
                 <div class="search_area_wrap" [ngClass]="{hidden: !searchResults.length}">
                   <div class="search_dropdown_item" [typeaheadItem]="user" *ngFor="let user of searchResults" (click)="addTopicMember(user)">
                     <div class="item_text_wrap">
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                          d="M7.83808 1.33398C8.36851 1.33398 8.87722 1.5447 9.25229 1.91977L12.7474 5.41487C13.1225 5.78994 13.3332 6.29865 13.3332 6.82908V13.1858C13.3332 14.0007 12.6932 14.6673 11.9109 14.6673H4.08161C3.29939 14.6673 2.6665 14.0007 2.6665 13.1858L2.67362 2.81547C2.67362 2.00065 3.3065 1.33398 4.08873 1.33398H7.83808ZM12.3251 6.3259C12.4511 6.45189 12.3618 6.66732 12.1837 6.66732H8.99984C8.44755 6.66732 7.99984 6.2196 7.99984 5.66732V2.48349C7.99984 2.30531 8.21527 2.21608 8.34126 2.34207L12.3251 6.3259Z"
-                          fill="#2C3B47" />
-                      </svg>
-
                       <b>{{user.name}}</b>
                     </div>
-                    <a class="submit_link" (click)="addTopicMember(user)"
-                      translate="COMPONENTS.TOPIC_INVITE_EDITORS.SELECT_TO_ADD">
-                    </a>
                   </div>
                 </div>
               </ng-container>
