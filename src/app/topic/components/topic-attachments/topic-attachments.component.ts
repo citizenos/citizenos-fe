@@ -195,7 +195,7 @@ export class TopicAttachmentsComponent implements OnInit {
               this.attachments.push(result);
           },
           error: (res) => {
-            if (res.errors) {
+         /*   if (res.errors) {
               const keys = Object.keys(res.errors);
               keys.forEach((key) => {
                 this.Notification.addError(res.errors[key]);
@@ -204,7 +204,7 @@ export class TopicAttachmentsComponent implements OnInit {
               this.Notification.addError(res.status.message);
             } else {
               this.Notification.addError(res.message);
-            }
+            }*/
           }
         });
     }
