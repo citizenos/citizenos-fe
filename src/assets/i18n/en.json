@@ -115,7 +115,7 @@
       "ARGUMENT_LNK_REPORT": "@:VIEWS.TOPICS_TOPICID.ARGUMENT_LNK_REPORT"
     },
     "ARGUMENT_REPORT": {
-      "HEADING": "Report participant to admin",
+      "HEADING": "Report argument to admin",
       "MESSAGE_MAIN": "You are reporting",
       "LABLE_REASON": "Reason for reporting *",
       "PLACEHOLDER_REPORT_TEXT": "Explain, why you found this argument inappropriate...",
