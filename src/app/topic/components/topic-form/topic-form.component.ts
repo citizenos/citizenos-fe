@@ -283,7 +283,6 @@ export class TopicFormComponent {
   }
 
   addGroup(group: Group) {
-    console.log(group);
     this.topicGroups.push(group);
   }
 

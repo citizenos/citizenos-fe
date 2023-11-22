@@ -18,7 +18,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     return next.handle(request)
       .pipe(
         tap((response) => {
-          console.log('RESPONSE', response)
           const undefinedUrlParams = request.url.match(/(\/):+\w+/gi);
           if (undefinedUrlParams?.length) {
             throw new Error(`Undefined URL params: ${undefinedUrlParams.join(',')}`);
@@ -37,7 +36,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           }
           else {
             errorMsg = response.message;
-            console.log(response);
             console.error(`Server side error:', ${errorMsg} `);
             console.log('Error object', response.error)
             if (response.url?.match(this.API_REQUEST_JOIN) && response.status === 404) {
