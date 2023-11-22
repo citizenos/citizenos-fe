@@ -128,7 +128,7 @@
                   fill="#2C3B47" />
                 <rect x="4" y="4" width="16" height="16" rx="1" stroke="#2C3B47" stroke-width="2" />
               </svg>
-              <button *ngIf="block.headerImage && (!topic.imageUrl || !tmpImageUrl)" class="btn_medium_close bold"
+              <button *ngIf="block.headerImage && (!topic.imageUrl && !tmpImageUrl)" class="btn_medium_close bold"
                 (click)="block.headerImage = !block.headerImage;$event.stopPropagation();">
                 <span class="link" translate="VIEWS.TOPIC_CREATE.HEADER_IMAGE_BTN_CANCEL"></span>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -156,6 +156,18 @@
                   <input id="image_upload_input" type="file" #imageUpload (change)="fileUpload()" />
                   <button id="image_upload_button" class="btn_medium_secondary" (click)="uploadImage()"
                     translate="VIEWS.TOPIC_CREATE.HEADER_IMAGE_UPLOAD_BTN"></button>
+                </div>
+                <div class="inline_notification error" *ngIf="error?.image">
+                  <div class="icon_notification">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect width="24" height="24" rx="12" fill="#EF4025" />
+                      <path
+                        d="M16.3753 6.77583C16.6097 6.54152 16.9896 6.54152 17.2239 6.77583C17.4582 7.01015 17.4582 7.39005 17.2239 7.62436L12.8481 12.0001L17.2239 16.3758C17.4582 16.6101 17.4582 16.99 17.2239 17.2244C16.9896 17.4587 16.6097 17.4587 16.3753 17.2244L11.9996 12.8486L7.62387 17.2244C7.38956 17.4587 7.00966 17.4587 6.77535 17.2244C6.54103 16.99 6.54103 16.6101 6.77535 16.3758L11.1511 12.0001L6.77535 7.62436C6.54103 7.39005 6.54103 7.01015 6.77535 6.77583C7.00966 6.54152 7.38956 6.54152 7.62387 6.77583L11.9996 11.1516L16.3753 6.77583Z"
+                        fill="white" stroke="white" stroke-linecap="round" />
+                    </svg>
+                  </div>
+                  <div [innerHtml]="error.image">
+                  </div>
                 </div>
                 <div id="topic_image" class="block_section" *ngIf="(topic.imageUrl || tmpImageUrl)">
                   <img [src]="(topic.imageUrl || tmpImageUrl)" />

@@ -2527,6 +2527,8 @@
   "MSG_ERROR_NETWORK_PROBLEMS": "Network issues, please check your internet connection.",
   "MSG_ERROR_ATTACHMENT_SIZE_OVER_LIMIT": "Attachment is too big. Maximum allowed size is 50MB.",
   "MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED": "File type is not allowed. Allowed types are: {{allowedFileTypes}}",
+  "MSG_ERROR_FILE_TYPE_NOT_ALLOWED" :"@:MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED",
+  "MSG_ERROR_FILE_TOO_LARGE": "File is too large. Maximum allowed size is {{allowedFileSize}}",
   "MSG_ERROR_POST_API_USERS_TOPICS_ATTACHMENTS_40000_LINK": "Attachment link is undefined!",
   "MSG_ERROR_POST_API_USERS_TOPICS_ATTACHMENTS_40000_NAME": "Attachment name is undefined!",
   "MSG_ERROR_PASSWORD_MISMATCH": "Passwords do not match. Please try again.",

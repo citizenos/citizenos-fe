@@ -105,7 +105,7 @@ export class TopicFormComponent {
   languages = languages;
   countries = countries;
   downloadUrl = '';
-
+  error:any;
   constructor(
     private dialog: MatDialog,
     private route: ActivatedRoute,
@@ -185,16 +185,23 @@ export class TopicFormComponent {
   }
 
   fileUpload() {
+    const allowedTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/svg+xml'];
     const files = this.fileInput?.nativeElement.files;
-    this.imageFile = files[0];
-    const reader = new FileReader();
-    reader.onload = (() => {
-      return (e: any) => {
-        this.tmpImageUrl = e.target.result;
-      };
-    })();
-    reader.readAsDataURL(files[0]);
-    this.saveImage();
+    if (allowedTypes.indexOf(files[0].type) < 0) {
+      this.error = {image: this.translate.instant('MSG_ERROR_FILE_TYPE_NOT_ALLOWED', {allowedFileTypes: allowedTypes.toString()})};
+      setTimeout(() => {
+        delete this.error.image;
+      }, 5000)
+    } else if (files[0].size  > 5000000) {
+      this.error = {image: this.translate.instant('MSG_ERROR_FILE_TOO_LARGE', {allowedFileSize: '5MB'})};
+
+      setTimeout(() => {
+        delete this.error.image;
+      }, 5000)
+    } else {
+      this.imageFile = files[0];
+      return this.saveImage();
+    }
   }
 
   fileDroped(files: any) {
@@ -219,6 +226,7 @@ export class TopicFormComponent {
     }
     if (this.topic.imageUrl) {
       this.topic.imageUrl = null;
+      this.tmpImageUrl = undefined;
       this.updateTopic();
     }
   };
