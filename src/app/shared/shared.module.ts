@@ -9,7 +9,6 @@ import { GroupboxComponent } from '../my-groups/components/groupbox/groupbox.com
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 import { TranslateModule } from '@ngx-translate/core';
-import { TooltipDirective } from '../directives/tooltip';
 import { CosDropdownDirective } from '../directives/cos-dropdown.directive';
 
 import { MatDialogModule } from '@angular/material/dialog';
@@ -53,6 +52,7 @@ import { CosCalenderComponent } from './components/cos-calender/cos-calender.com
 import { TourComponent } from './components/tour/tour.component';
 import { TourItemDirective, TourItemTemplateComponent } from '../directives/tour-item.directive';
 import { InterruptDialogComponent } from './components/interrupt-dialog/interrupt-dialog.component';
+import { TooltipComponent} from './components/tooltip/tooltip.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +75,6 @@ import { InterruptDialogComponent } from './components/interrupt-dialog/interrup
     MarkdownPipe,
     PublicgroupboxComponent,
     SocialshareDirective,
-    TooltipDirective,
     TopicMemberInviteComponent,
     TopicMemberInviteDeleteComponent,
     TopicMemberUserComponent,
@@ -100,7 +99,8 @@ import { InterruptDialogComponent } from './components/interrupt-dialog/interrup
     TourComponent,
     TourItemDirective,
     TourItemTemplateComponent,
-    InterruptDialogComponent
+    InterruptDialogComponent,
+    TooltipComponent
   ],
   imports: [
     RouterModule,
@@ -139,7 +139,6 @@ import { InterruptDialogComponent } from './components/interrupt-dialog/interrup
     PublicgroupboxComponent,
     QRCodeModule,
     SocialshareDirective,
-    TooltipDirective,
     TopicboxComponent,
     TopicMemberInviteComponent,
     TopicMemberInviteDeleteComponent,
@@ -163,7 +162,8 @@ import { InterruptDialogComponent } from './components/interrupt-dialog/interrup
     CosCalenderComponent,
     TourComponent,
     TourItemDirective,
-    TourItemTemplateComponent
+    TourItemTemplateComponent,
+    TooltipComponent
    ]
 })
 export class SharedModule { }
