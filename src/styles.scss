@@ -509,10 +509,14 @@ html {
 .inline_notification {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+  width: 100%;
   gap: 16px;
   padding: 16px;
   border-radius: 8px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
 
   &.error {
     background-color: var(--color-error-background);

@@ -18,6 +18,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     return next.handle(request)
       .pipe(
         tap((response) => {
+          console.log('RESPONSE', response)
           const undefinedUrlParams = request.url.match(/(\/):+\w+/gi);
           if (undefinedUrlParams?.length) {
             throw new Error(`Undefined URL params: ${undefinedUrlParams.join(',')}`);
@@ -36,6 +37,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           }
           else {
             errorMsg = response.message;
+            console.log(response);
             console.error(`Server side error:', ${errorMsg} `);
             console.log('Error object', response.error)
             if (response.url?.match(this.API_REQUEST_JOIN) && response.status === 404) {
@@ -58,7 +60,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             //    this.Router.navigate(['/account/login'], { queryParams: { redirectSuccess: this.Location.getAbsoluteUrl(window.location.pathname) + window.location.search } });
               }
 
-              this.Notification.addError(response.error.message || response.error.status?.message);
+              this.Notification.addError(response.error.status?.message || response.error.message);
               return throwError(() => response.error);
             }
           }
@@ -156,7 +158,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     const translationKeyFallback = GENERAL_ERROR_FALLBACK_KEY_PATTERN
       .replace(':statusCode', statusCode);
     // The key exists/*
-
     if (translationKey !== this.translate.instant(translationKey, {}) && errorResponse.status) {
       errorResponse.error.status.message = translationKey;
       if (translationKeyHeading !== this.translate.instant(translationKeyHeading, {})) {
@@ -168,10 +169,11 @@ export class HttpErrorInterceptor implements HttpInterceptor {
       }
       // Use fallback to generic error
     } else if (translationKeyFallback !== this.translate.instant(translationKeyFallback, {})) {
-      if (errorResponse.error.status) {
-        errorResponse.error.status.message = translationKeyFallback;
+      if (errorResponse.error.status && errorResponse.error.status.message) {
+        this.Notification.addError(errorResponse.error.status.message);
+      } else {
+        this.Notification.addError(translationKeyFallback);
       }
-      this.Notification.addError(translationKeyFallback);
     } else {
       console.warn('cosHttpApiErrorInterceptor.generalErrorToKey', 'No translation for', translationKey, translationKeyFallback, errorResponse);
       this.Notification.addError(errorResponse.error?.status?.message ? errorResponse.error.status.message + ' *' : errorResponse.status + ' - ' + errorResponse.message + ' *');
