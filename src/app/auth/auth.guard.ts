@@ -18,3 +18,20 @@ export class AuthGuard  {
   }
 
 }
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthGuardLogin  {
+  constructor(private AuthService: AuthService, private router: Router) { }
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+      console.log(this.AuthService.loggedIn$.value)
+    if(this.AuthService.loggedIn$.value) {
+      return this.router.parseUrl('/');
+    }
+    return true;
+  }
+
+}
