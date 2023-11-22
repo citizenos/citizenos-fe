@@ -10,6 +10,7 @@ export class AuthGuard  {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+      console.log(this.AuthService.loggedIn$.value)
     if(!this.AuthService.loggedIn$.value) {
       return this.router.parseUrl('/');
     }

@@ -97,26 +97,27 @@
   line-height: var(--line-heigth);
 }
 
-.large, .extra_large {
+.large,
+.extra_large {
   * {
     font-size: var(--font-size) !important;
-    line-height: var(--line-heigth)!important;
+    line-height: var(--line-heigth) !important;
   }
 
   .nav {
-    width: 250px!important;
+    width: 250px !important;
     @include mixins.tablet {
-      width: 288px!important;
+      width: 288px !important;
     }
 
     @include mixins.mobile {
-      width: 100%!important;
+      width: 100% !important;
     }
   }
 
   #content_root {
-    left: 250px!important;
-    width: calc(100% - 250px)!important;
+    left: 250px !important;
+    width: calc(100% - 250px) !important;
   }
 }
 
@@ -618,7 +619,7 @@ est-id-login-form {
   display: flex;
   border-radius: 40px;
 
-  img{
+  img {
     width: inherit;
     border-radius: 40px;
     aspect-ratio: 1;
@@ -1343,4 +1344,70 @@ tour-item-template {
   align-items: center;
   padding: 8px;
   width: 100%;
+}
+
+.tooltip {
+  display: inline-block;
+  margin-left: 6px;
+  height: 24px;
+  position: relative;
+  svg {
+    position: relative;
+    top: 2px;
+  }
+  .arrow {
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid var(--color-text);
+    left: 2px;
+    bottom: -2px;
+    position: absolute;
+  }
+  .tooltip_container {
+    position:relative;
+    margin-top: 7px;
+
+    @include mixins.mobile {
+      width: calc(100% - 16px);
+      left: 0;
+      margin-left: 0;
+    }
+
+    .tooltip_box {
+      display: flex;
+      flex-direction: column;
+      z-index: 999999999999;
+      border-radius: 8px;
+      background: var(--color-text);
+      padding: 16px;
+      gap: 16px;
+      max-width: 400px;
+      position: absolute;
+      width: max-content;
+      /* Shadow/Heavy */
+      box-shadow: 0px 8px 20px 0px rgba(220, 231, 240, 0.3),
+        0px 12px 16px 0px rgba(50, 85, 112, 0.1);
+
+      .tooltip_content {
+        .content_description {
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 20px; /* 142.857% */
+          color: var(--color-surfaces);
+          align-items: flex-start;
+          vertical-align: middle;
+          text-align: left;
+        }
+      }
+      .tooltip_footer {
+        a {
+          color: var(--color-scrollbar-thumb);
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+      }
+    }
+  }
 }

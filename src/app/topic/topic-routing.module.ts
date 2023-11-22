@@ -31,7 +31,7 @@ const routes: Routes = [
   {
     path: 'vote', children: [
       {
-        path: 'create', children: [
+        path: 'create', canActivate: [AuthGuard], children: [
           { path: '', component: VoteCreateComponent },
           { path: ':topicId', component: VoteCreateComponent }
         ]
