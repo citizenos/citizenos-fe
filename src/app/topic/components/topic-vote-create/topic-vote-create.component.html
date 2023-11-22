@@ -246,9 +246,67 @@
       </div>
     </div>
   </div>
-  <div class="create_content_section">
+  <div class="create_content_section" *ngIf="vote.type === 'multiple'">
     <div class="number_wrap mobile_hidden">
       <div>3</div>
+    </div>
+    <div class="section_content_wrap">
+      <div class="header_wrap">
+        <div class="number_wrap mobile_show">
+          <div>3</div>
+        </div>
+        <div class="small_heading" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_SET_UP_VOTING_RIGHTS"></div>
+      </div>
+      <div translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_CHOOSE_VOTING_END_DESC"></div>
+      <div class="vote_options_wrap">
+        <div class="input_area min_max_options">
+          <label class="bold" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_MIN_CHOICES"></label>
+          <div class="options_count_input_wrap">
+            <button class="btn_medium_voting_light icon" (click)="optionsCountDown('min')"><svg width="12" height="2"
+                viewBox="0 0 12 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0L11 0C11.5523 0 12 0.447715 12 1C12 1.55228 11.5523 2 11 2L1 2Z"
+                  fill="#5AB467" />
+              </svg>
+            </button>
+            <input class="options_count_input" type="number" [min]="1" [max]="vote.options.length"
+              [(ngModel)]="vote.minChoices" />
+            <button class="btn_medium_voting_light icon" (click)="optionsCountUp('min')">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M8 16C7.47105 16 7.04225 15.5712 7.04225 15.0423L7.04225 8.95775L0.957747 8.95775C0.428798 8.95775 0 8.52895 0 8C0 7.47105 0.428798 7.04225 0.957747 7.04225L7.04225 7.04225L7.04225 0.957747C7.04225 0.428798 7.47105 0 8 0C8.52895 0 8.95775 0.428798 8.95775 0.957747L8.95775 7.04225L15.0423 7.04225C15.5712 7.04225 16 7.47105 16 8C16 8.52895 15.5712 8.95775 15.0423 8.95775H8.95775V15.0423C8.95775 15.5712 8.52895 16 8 16Z"
+                  fill="#5AB467" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="input_area min_max_options">
+          <label class="bold" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_MAX_CHOICES"></label>
+          <div class="options_count_input_wrap">
+            <button class="btn_medium_voting_light icon" (click)="optionsCountDown()">
+              <svg width="12" height="2" viewBox="0 0 12 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0L11 0C11.5523 0 12 0.447715 12 1C12 1.55228 11.5523 2 11 2L1 2Z"
+                  fill="#5AB467" />
+              </svg>
+            </button>
+            <input class="options_count_input" type="number" [min]="1" [max]="vote.options.length"
+              [(ngModel)]="vote.maxChoices" />
+            <button class="btn_medium_voting_light icon" (click)="optionsCountUp()">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M8 16C7.47105 16 7.04225 15.5712 7.04225 15.0423L7.04225 8.95775L0.957747 8.95775C0.428798 8.95775 0 8.52895 0 8C0 7.47105 0.428798 7.04225 0.957747 7.04225L7.04225 7.04225L7.04225 0.957747C7.04225 0.428798 7.47105 0 8 0C8.52895 0 8.95775 0.428798 8.95775 0.957747L8.95775 7.04225L15.0423 7.04225C15.5712 7.04225 16 7.47105 16 8C16 8.52895 15.5712 8.95775 15.0423 8.95775H8.95775V15.0423C8.95775 15.5712 8.52895 16 8 16Z"
+                  fill="#5AB467" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="create_content_section">
+    <div class="number_wrap mobile_hidden">
+      <div>{{(vote.type === 'multiple')? 4: 3}}</div>
     </div>
     <div class="section_content_wrap">
       <div class="header_wrap">
@@ -348,7 +406,7 @@
   </div>
   <div class="create_content_section">
     <div class="number_wrap mobile_hidden">
-      <div>4</div>
+      <div>{{(vote.type === 'multiple')? 5: 4}}</div>
     </div>
     <div class="section_content_wrap">
       <div class="header_wrap">
