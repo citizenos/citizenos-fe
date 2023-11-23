@@ -1,4 +1,4 @@
-import { Component, Inject, HostListener } from '@angular/core';
+import { Component, Inject, HostListener, ChangeDetectorRef } from '@angular/core';
 import { Router, PRIMARY_OUTLET, Event, NavigationStart, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Title, Meta, MetaDefinition } from '@angular/platform-browser';
@@ -44,6 +44,7 @@ export class AppComponent {
     private Meta: Meta,
     public translate: TranslateService,
     private config: ConfigService,
+    private changeDetection: ChangeDetectorRef,
     private Location: LocationService,
     private Notification: NotificationService,
     private auth: AuthService,
@@ -93,13 +94,26 @@ export class AppComponent {
         }
       })
     ).subscribe();
+    //
     this.auth.user$?.pipe(tap((user) => {
-      if (user && !user.termsVersion || user.termsVersion !== this.config.get('legal').version) {
+      if (user && (!user.termsVersion || user.termsVersion !== this.config.get('legal').version)) {
         const tosDialog = this.dialog.open(PrivacyPolicyComponent, {
           data: { user }
         });
-      }
-      if (!user.email) {
+        tosDialog.afterClosed().subscribe(() => {
+          if (!user.email) {
+            const emailDialog = this.dialog.open(AddEmailComponent, {
+              data: { user }
+            });
+            emailDialog.afterClosed().subscribe(() => {
+              user.loggedIn = true;
+              this.auth.user.next({ id: user.id });
+              this.auth.loggedIn$.next(true);
+              window.location.reload();
+            })
+          }
+        });
+      } else if (user && !user.email) {
         const emailDialog = this.dialog.open(AddEmailComponent, {
           data: { user }
         });
@@ -107,6 +121,7 @@ export class AppComponent {
           user.loggedIn = true;
           this.auth.user.next({ id: user.id });
           this.auth.loggedIn$.next(true);
+          window.location.reload();
         })
       }
     })).subscribe();
