@@ -114,24 +114,21 @@ export class EstIdLoginFormComponent {
       takeWhile((res: any,) => {
         return (res.status?.code === 20001)
       }, true),
-      map(res => res.data),
-      catchError((error) => {
-        console.error('ERROR', error);
-        this.isLoading = false;
-        this.challengeID = null;
-        return of(error);
-      })).subscribe((response) => {
+      map(res => res.data)).subscribe({next: (response) => {
         this.isLoading = false;
         this.challengeID = null;
         this.AuthService.status().pipe(take(1)).subscribe();
-        this.dialog.closeAll();
+     /*   this.dialog.closeAll();
         if (this.redirectSuccess) {
           if (typeof this.redirectSuccess === 'string') {
             this.router.navigateByUrl(this.redirectSuccess);
           }
         } else {
           window.location.reload();
-        }
-      });
+        }*/
+      },error: (err) => {
+        this.isLoading = false;
+        this.challengeID = null;
+      }});
   };
 }
