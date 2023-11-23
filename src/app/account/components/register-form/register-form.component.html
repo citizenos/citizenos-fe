@@ -38,30 +38,42 @@
       <input id="password_confirm" formControlName="passwordConfirm" type="password"
         [placeholder]="'COMPONENTS.REGISTER_FORM.PLACEHOLDER_PASSWORD_CONFIRM' | translate"
         [ngClass]="{'error_input': errors.password}" [maxlength]="64" required>
-      <label for="password_confirm" class="inline_notification error" *ngIf="errors.password">
+      <label for="password_confirm" class="error_label" *ngIf="errors.password">
         <div class="icon_notification">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="24" height="24" rx="12" fill="#EF4025" />
-            <path
-              d="M16.3753 6.77583C16.6097 6.54152 16.9896 6.54152 17.2239 6.77583C17.4582 7.01015 17.4582 7.39005 17.2239 7.62436L12.8481 12.0001L17.2239 16.3758C17.4582 16.6101 17.4582 16.99 17.2239 17.2244C16.9896 17.4587 16.6097 17.4587 16.3753 17.2244L11.9996 12.8486L7.62387 17.2244C7.38956 17.4587 7.00966 17.4587 6.77535 17.2244C6.54103 16.99 6.54103 16.6101 6.77535 16.3758L11.1511 12.0001L6.77535 7.62436C6.54103 7.39005 6.54103 7.01015 6.77535 6.77583C7.00966 6.54152 7.38956 6.54152 7.62387 6.77583L11.9996 11.1516L16.3753 6.77583Z"
-              fill="white" stroke="white" stroke-linecap="round" />
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M8.89438 1.78863C8.52586 1.05158 7.47405 1.05158 7.10553 1.78863L0.723562 14.5526C0.391112 15.2175 0.874608 15.9998 1.61799 15.9998H14.3819C15.1253 15.9998 15.6088 15.2175 15.2763 14.5526L8.89438 1.78863ZM6.99996 6.99977C6.99996 6.44749 7.44767 5.99977 7.99996 5.99977C8.55224 5.99977 8.99996 6.44749 8.99996 6.99977V9.99977C8.99996 10.5521 8.55224 10.9998 7.99996 10.9998C7.44767 10.9998 6.99996 10.5521 6.99996 9.99977V6.99977ZM6.99996 12.9998C6.99996 12.4475 7.44767 11.9998 7.99996 11.9998C8.55224 11.9998 8.99996 12.4475 8.99996 12.9998C8.99996 13.5521 8.55224 13.9998 7.99996 13.9998C7.44767 13.9998 6.99996 13.5521 6.99996 12.9998Z"
+              fill="#EF4025" />
           </svg>
         </div>
-
         <div translate="{{errors.password}}"></div>
       </label>
     </div>
     <div class="checbox_wrap">
-      <label class="checkbox">
-        <input type="checkbox" formControlName="agreeToTerms" value="true">
+      <label class="checkbox" [ngClass]="{error: errors.terms}">
+        <input id="agreeToTerms" type="checkbox" formControlName="agreeToTerms" value="true">
         <span class="checkmark"></span>
       </label>
+
       <div class="checbox_description">
+
         <span translate="COMPONENTS.REGISTER_FORM.LBL_TERMS_AND_CONDITIONS_DESCRIPTION" (click)="agreeToTerms()"></span>
         <a class="bold" [href]="config.termsOfUse" target="_blank"
           translate="COMPONENTS.REGISTER_FORM.PRIVACY_POLICY_LNK_TERMS_OF_USE"></a>
         <a class="bold" [href]="config.privacyPolicy" target="_blank"
           translate="COMPONENTS.REGISTER_FORM.PRIVACY_POLICY_LNK_PRIVACY_POLICY"></a>
+
+        <label for="agreeToTerms" class="error_label" *ngIf="errors.terms">
+          <div class="icon_notification">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M8.89438 1.78863C8.52586 1.05158 7.47405 1.05158 7.10553 1.78863L0.723562 14.5526C0.391112 15.2175 0.874608 15.9998 1.61799 15.9998H14.3819C15.1253 15.9998 15.6088 15.2175 15.2763 14.5526L8.89438 1.78863ZM6.99996 6.99977C6.99996 6.44749 7.44767 5.99977 7.99996 5.99977C8.55224 5.99977 8.99996 6.44749 8.99996 6.99977V9.99977C8.99996 10.5521 8.55224 10.9998 7.99996 10.9998C7.44767 10.9998 6.99996 10.5521 6.99996 9.99977V6.99977ZM6.99996 12.9998C6.99996 12.4475 7.44767 11.9998 7.99996 11.9998C8.55224 11.9998 8.99996 12.4475 8.99996 12.9998C8.99996 13.5521 8.55224 13.9998 7.99996 13.9998C7.44767 13.9998 6.99996 13.5521 6.99996 12.9998Z"
+                fill="#EF4025" />
+            </svg>
+          </div>
+
+          <div translate="{{errors.terms}}"></div>
+        </label>
       </div>
     </div>
     <div class="checbox_wrap">
@@ -73,8 +85,8 @@
           (click)="allowSearch()"></span></div>
     </div>
 
-    <button id="register_button" type="submit" (click)="doSignUp()" [disabled]="signUpForm.invalid"
-      class="btn_big_submit" translate="COMPONENTS.REGISTER_FORM.BTN_SAVE"></button>
+    <button id="register_button" type="submit" (click)="doSignUp()" class="btn_big_submit"
+      translate="COMPONENTS.REGISTER_FORM.BTN_SAVE"></button>
 
     <a [routerLink]="['/account/login']" translate="COMPONENTS.REGISTER_FORM.HAVE_AN_ACCOUNT"></a>
   </form>
