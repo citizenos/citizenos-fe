@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ConfigService } from 'src/app/services/config.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { MatDialog } from '@angular/material/dialog';
 import { take } from 'rxjs';
 import { UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'register-form',
@@ -13,6 +13,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./register-form.component.scss']
 })
 export class RegisterFormComponent {
+  @Input() redirectSuccess?: any;
+  @Input() email?: string;
   config: any;
   signUpForm = new UntypedFormGroup({
     name: new UntypedFormControl('', Validators.required),
@@ -28,20 +30,15 @@ export class RegisterFormComponent {
   wWidth = window.innerWidth;
   errors = <any>{};
   termsVersion: number;
-  redirectSuccess?:string = '';
   constructor(private dialog: MatDialog, ConfigService: ConfigService, private AuthService: AuthService, private Notification: NotificationService, private router: Router) {
     this.config = ConfigService.get('legal');
     this.termsVersion = this.config.version;
-    console.log(this.config);
-    /*if (data.email) {
-      this.signUpForm.patchValue({'email': data.email});
-    }
-    if (data.redirectSuccess) {
-      this.redirectSuccess = data.redirectSuccess;
-    }*/
   }
 
   ngOnInit(): void {
+    if (this.email) {
+      this.signUpForm.patchValue({'email': this.email});
+    }
   }
 
   agreeToTerms () {
@@ -84,6 +81,8 @@ export class RegisterFormComponent {
             this.dialog.closeAll(); // Close all dialogs, including the one open now...
             if (response.data && response.redirectSuccess) {
               window.location.href = response.redirectSuccess;
+            } else if (this.redirectSuccess) {
+              window.location.href = this.redirectSuccess;
             } else {
               this.router.navigate(['/']);
             }
