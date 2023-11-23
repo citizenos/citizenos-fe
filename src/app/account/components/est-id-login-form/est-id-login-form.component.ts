@@ -118,14 +118,14 @@ export class EstIdLoginFormComponent {
         this.isLoading = false;
         this.challengeID = null;
         this.AuthService.status().pipe(take(1)).subscribe();
-     /*   this.dialog.closeAll();
+        this.dialog.closeAll();
         if (this.redirectSuccess) {
           if (typeof this.redirectSuccess === 'string') {
             this.router.navigateByUrl(this.redirectSuccess);
           }
         } else {
           window.location.reload();
-        }*/
+        }
       },error: (err) => {
         this.isLoading = false;
         this.challengeID = null;
