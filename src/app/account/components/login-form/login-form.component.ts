@@ -36,6 +36,7 @@ export class LoginFormComponent {
     if (this.email) {
       this.form.patchValue({'email': this.email});
     }
+    console.log(this.redirectSuccess);
     this.isFormEmailProvided = !!this.form.get('email');
     this.linkRegister = this.Location.getAbsoluteUrl('/account/signup');
     if (this.Auth.loggedIn$.value) {
@@ -56,8 +57,9 @@ export class LoginFormComponent {
            return window.location.href = this.Location.getAbsoluteUrlApi('/api/auth/openid/authorize');
        } else {*/
       if (this.redirectSuccess) {
+        console.log('SUCCESS', this.redirectSuccess);
         if (typeof this.redirectSuccess === 'string') {
-          this.router.navigateByUrl(this.redirectSuccess);
+          window.location.href = this.redirectSuccess;
         } else {
 
           this.router.navigate(this.redirectSuccess);
