@@ -29,7 +29,7 @@ export class SmartIdLoginFormComponent {
     this.route.queryParams.subscribe(value => {
       this.redirectSuccess = this.redirectSuccess || value['redirectSuccess'];
     }
-  )
+    )
   }
 
   authSmartId() {
@@ -70,25 +70,25 @@ export class SmartIdLoginFormComponent {
     authResult.pipe(
       takeWhile((res: any,) => {
         return (!res || res.status?.code === 20001)
-      }, true),
-      catchError((error) => {
-        console.error('ERROR', error);
-        this.isLoading = false;
-        this.challengeID = null;
-        return of(error);
-      })).subscribe((response) => {
-        if (response) {
+      }, true)).subscribe({
+        next: (response) => {
+          if (response) {
+            this.isLoading = false;
+            this.challengeID = null;
+            this.AuthService.status().pipe(take(1)).subscribe();
+            this.dialog.closeAll();
+            if (this.redirectSuccess) {
+              if (typeof this.redirectSuccess === 'string') {
+                this.router.navigateByUrl(this.redirectSuccess);
+              }
+            } else {
+              window.location.reload();
+            }
+          }
+        }, error: (err) => {
           this.isLoading = false;
           this.challengeID = null;
-          this.AuthService.status().pipe(take(1)).subscribe();
-          this.dialog.closeAll();
-          if (this.redirectSuccess) {
-            if (typeof this.redirectSuccess === 'string') {
-              this.router.navigateByUrl(this.redirectSuccess);
-            }
-          } else {
-            window.location.reload();
-          }
+          console.error(err);
         }
       });
   };
