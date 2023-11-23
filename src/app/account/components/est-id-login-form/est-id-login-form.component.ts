@@ -79,6 +79,13 @@ export class EstIdLoginFormComponent {
 
             this.AuthService.status().pipe(take(1)).subscribe();
             this.dialog.closeAll();
+            if (this.redirectSuccess) {
+              if (typeof this.redirectSuccess === 'string') {
+                this.router.navigateByUrl(this.redirectSuccess);
+              }
+            } else {
+              window.location.reload();
+            }
           },
           error: (res) => {
             this.isLoadingIdCard = false;

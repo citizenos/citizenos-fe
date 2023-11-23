@@ -164,7 +164,8 @@ export class AuthService {
   idCardInit() {
     return this.http.get<ApiResponse>(this.config.get('features').authentication.idCard.url, { withCredentials: true, responseType: 'json', observe: 'body' })
       .pipe(
-        map(res => res.data)
+        map(res => res.data),
+        tap(res => console.log(res))
       );
   };
   loginIdCard(userId?: string) {
