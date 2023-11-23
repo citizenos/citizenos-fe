@@ -24,12 +24,13 @@ export class TopicInvitationComponent implements OnInit {
 
   doAccept() {
     // 3. The invited User is NOT logged in - https://github.com/citizenos/citizenos-fe/issues/112#issuecomment-541674320
+    console.log(this.Auth.loggedIn$.value, this.invite.user)
     if (!this.Auth.loggedIn$.value) {
       const currentUrl = this.Location.currentUrl();
       if (!this.invite.user.isRegistered) {
         // The invited User is not registered, the User has been created by the system - https://github.com/citizenos/citizenos-fe/issues/773
-        this.dialog.open(RegisterComponent, {
-          data: {
+        this.router.navigate(['/account','signup'], {
+          queryParams: {
             userId: this.invite.user.id,
             redirectSuccess: currentUrl,
             email: this.invite.user.email
@@ -116,8 +117,10 @@ export class TopicInvitationDialogComponent implements OnInit {
             });
 
             invitationDialog.afterClosed().subscribe({
-              next: () => {
-                router.navigate(['/']);
+              next: (res) => {
+                if (res===true) {
+                  router.navigate(['/']);
+                }
               }
             })
         }

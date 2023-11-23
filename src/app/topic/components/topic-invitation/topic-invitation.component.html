@@ -32,11 +32,17 @@
         <div class="delete_info_button_wrap">
           <div class="delete_info_text" translate="MODALS.TOPIC_INVITE_VIEW_MESSAGE_MAIN"></div>
           <div class="profile_image_wrap">
-            <div class="profile_image" *ngIf="invite.topic.imageUrl"><img [src]="invite.topic.imageUrl" /></div>
-            <div class="profile_image_filler">
-              <cos-initials *ngIf="!invite.topic.imageUrl && invite.topic.title" [name]="invite.topic.title"
-              [initialLimit]="1"></cos-initials>
-            </div>
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M7 4C7 3.44772 7.44772 3 8 3H18.1716C18.4368 3 18.6911 3.10536 18.8787 3.29289L24.7071 9.12132L25.4142 8.41421L24.7071 9.12132C24.8946 9.30886 25 9.56321 25 9.82843V28C25 28.5523 24.5523 29 24 29H8C7.44772 29 7 28.5523 7 28V4Z"
+                fill="white" stroke="#2C3B47" stroke-width="2" />
+              <path d="M17 2.5L25.5 11H18C17.4477 11 17 10.5523 17 10V2.5Z" fill="#2C3B47" />
+              <rect x="11" y="18" width="10" height="1" rx="0.5" fill="#4D5C6A" />
+              <rect x="11" y="15" width="10" height="1" rx="0.5" fill="#4D5C6A" />
+              <rect x="11" y="21" width="10" height="1" rx="0.5" fill="#4D5C6A" />
+              <rect x="11" y="24" width="6" height="1" rx="0.5" fill="#4D5C6A" />
+            </svg>
+
           </div>
 
           <div class="bold" [innerHTML]="invite.topic.title"></div>
@@ -71,31 +77,39 @@
   </div>
   <div class="dialog_content" *ngIf="!invite.user.isRegistered">
     <div class="dialog_info_wrap">
-      <div class="row" translate="MODALS.TOPIC_INVITE_VIEW_TXT_COMPLETE_ACCOUNT"
-        [translateParams]="{email: invite.user.email}"></div>
+      <div [innerHTML]="'MODALS.TOPIC_INVITE_VIEW_TXT_COMPLETE_ACCOUNT' | translate:{email: invite.user.email}"></div>
     </div>
   </div>
   <div class="dialog_content" *ngIf="invite.user.isRegistered">
     <div class="dialog_info_wrap">
       <div class="dialog_info">
         <div class="row">
-          <b translate="MODALS.TOPIC_INVITE_VIEW_BTN_LOGIN_AS" [translateParams]="{email: invite.user.email}"></b>
+          <b [innerHTML]="'MODALS.TOPIC_INVITE_VIEW_BTN_LOGIN_AS' | translate:{email: invite.user.email}"></b>
         </div>
       </div>
     </div>
   </div>
 
   <div class="dialog_content">
-    <div class="info_row">
-      <span class="medium_black_seven" translate="MODALS.TOPIC_INVITE_VIEW_LBL_ADDITIONAL_ACTIONS"> </span>
-      <a [href]="config.about" translate="MODALS.TOPIC_INVITE_VIEW_LNK_LEARN_MORE"></a>
+    <div class="dialog_info_wrap">
+      <div class="dialog_info row">
+        <div>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="24" height="24" rx="4" fill="#1168a8"></rect>
+          <path d="M13.75 6.5C13.75 7.32843 13.0784 8 12.25 8C11.4216 8 10.75 7.32843 10.75 6.5C10.75 5.67157 11.4216 5 12.25 5C13.0784 5 13.75 5.67157 13.75 6.5Z" fill="white"></path>
+          <path d="M10.2099 10.0623L13.6449 9.63184L12.1434 16.6893C12.0369 17.1993 12.1869 17.4888 12.5994 17.4888C12.8904 17.4888 13.3284 17.3838 13.6284 17.1198L13.4964 17.7438C13.0659 18.2628 12.1164 18.6408 11.2989 18.6408C10.2444 18.6408 9.79593 18.0078 10.0869 16.6623L11.1939 11.4603C11.2899 11.0208 11.2029 10.8618 10.7619 10.7568L10.0869 10.6323L10.2099 10.0623Z" fill="white"></path>
+          </svg>
+        </div>
+        <span translate="MODALS.TOPIC_INVITE_VIEW_LBL_ADDITIONAL_ACTIONS"> </span>
+        <a [href]="config.about" translate="MODALS.TOPIC_INVITE_VIEW_LNK_LEARN_MORE"></a>
+      </div>
     </div>
   </div>
   <div class="dialog_footer with_buttons">
     <div></div>
     <div class="button_row">
-      <a mat-dialog-close translate="MODALS.TOPIC_INVITE_VIEW_LNK_CANCEL"></a>
-      <button class="btn_medium_submit" (click)="doAccept()">
+      <a [mat-dialog-close]="true" translate="MODALS.TOPIC_INVITE_VIEW_LNK_CANCEL"></a>
+      <button class="btn_medium_submit" mat-dialog-close (click)="doAccept()">
         <span *ngIf="invite.user.isRegistered" translate="MODALS.TOPIC_INVITE_VIEW_BTN_GO_TO_LOGIN"></span>
         <span *ngIf="!invite.user.isRegistered" translate="MODALS.TOPIC_INVITE_VIEW_BTN_COMPLETE_ACCOUNT"></span>
       </button>
