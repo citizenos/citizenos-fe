@@ -38,6 +38,9 @@ export class TopicArgumentsComponent implements OnInit {
     }));
   }
 
+  ngOnDestroy(): void {
+    this.app.addArgument.next(false);
+  }
   ngOnInit(): void {
     this.TopicArgumentService.setParam('topicId', this.topic.id)
   }
