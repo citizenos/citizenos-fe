@@ -2019,6 +2019,7 @@
       "ARGUMENT_WHY": "Why?",
       "ARGUMENT_VIEW_ARGUMENT_ANYWAY": "View argument anyway",
       "ARGUMENT_FOUND_INAPPRIOPRIATE_BY": "This argument was found inappropriate by user <b>{{usersFullName}}</b>",
+      "ARGUMENT_CREATOR_REMOVED_ARGUMENT": "This argument was removed by argument creator",
       "ARGUMENT_READ_CODE_OF_CONDUCT": "Read our <a class=\"underlined_link\" href=\"{{codeOfConduct}}\">code of conduct</a> for more information",
       "ARGUMENT_LAST_EDITED": "Last edited: {{edittime}}",
       "PLACEHOLDER_EDIT_REPLY": "Edit your reply here...",

@@ -12,6 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class ArgumentDeletedComponent implements OnInit {
   @Input() argument!: Argument;
   @Output() showDeletedArgument = new EventEmitter();
+  isArgumentVisible = false;
   constructor(public config: ConfigService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -22,6 +23,7 @@ export class ArgumentDeletedComponent implements OnInit {
   }
 
   showArgument () {
+    this.isArgumentVisible = true;
     this.showDeletedArgument.emit(true);
   }
 
