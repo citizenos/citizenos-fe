@@ -71,6 +71,7 @@ export class ImageEditorComponent {
 
   @HostListener('wheel', ['$event'])
   onMouseWheel(event: WheelEvent) {
+    event.preventDefault();
     const delta = Math.sign(event.deltaY);
     const context = this.canvas.getContext('2d');
     if (context) {
