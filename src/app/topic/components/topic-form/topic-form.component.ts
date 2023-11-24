@@ -146,10 +146,13 @@ export class TopicFormComponent {
   nextTab(tab: string | void) {
     if (tab) {
       const tabIndex = this.tabs.indexOf(tab);
-      if (tabIndex > -1 && tabIndex < 3) {
+      if (tabIndex > -1 && tabIndex < 2) {
         this.selectTab(this.tabs[tabIndex + 1]);
-      } else {
-        this.TopicService.reloadTopic();
+      }
+      if (tabIndex+1 === 2) {
+        setTimeout(() => {
+          this.TopicService.reloadTopic();
+        })
       }
     }
   }
@@ -321,6 +324,15 @@ export class TopicFormComponent {
         // this.NotificationService.addError(error);
       }
     })
+  }
+
+  setCountry(country: string) {
+    this.topic.country = country;
+    this.updateTopic();
+  }
+  setLanguage(language: string) {
+    this.topic.language = language;
+    this.updateTopic();
   }
 
   addTag(e: Event) {

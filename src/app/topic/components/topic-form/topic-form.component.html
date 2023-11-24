@@ -438,7 +438,7 @@
                     </svg>
                   </div>
                   <div class="options">
-                    <div class="option" *ngFor="let country of countries;" (click)="topic.country = country.name;">
+                    <div class="option" *ngFor="let country of countries;" (click)="setCountry(country.name)">
                       {{country.name}}
                     </div>
                   </div>
@@ -454,7 +454,7 @@
                     </svg>
                   </div>
                   <div class="options">
-                    <div class="option" *ngFor="let language of languages;" (click)="topic.language = language.name">
+                    <div class="option" *ngFor="let language of languages;" (click)="setLanguage(language.name)">
                       {{language.name}}
                     </div>
                   </div>

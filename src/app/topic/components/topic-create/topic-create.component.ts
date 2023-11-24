@@ -57,7 +57,7 @@ export class TopicCreateComponent implements OnInit {
     this.topic$ = this.route.params.pipe(
       switchMap((params) => {
         if (params['topicId']) {
-          return this.TopicService.get(params['topicId'])
+          return this.TopicService.loadTopic(params['topicId'])
         }
         return this.createTopic();
       })
