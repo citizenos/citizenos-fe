@@ -22,8 +22,8 @@ export class GroupSettingsComponent {
   rules = <any[]>[];
   VISIBILITY = this.GroupService.VISIBILITY;
   errors?: any;
-  tmpImageUrl?: string;
   imageFile?: any;
+  uploadedImage?: any;
 
   constructor(
     private dialog: MatDialog,
@@ -55,36 +55,26 @@ export class GroupSettingsComponent {
 
   fileUpload() {
     const files = this.fileInput?.nativeElement.files;
-    this.imageFile = files[0];
-    const reader = new FileReader();
-    reader.onload = (() => {
-      return (e: any) => {
-        this.tmpImageUrl = e.target.result;
-      };
-    })();
-    reader.readAsDataURL(files[0]);
+    this.uploadedImage = files[0];
   }
 
   fileDroped(files: any) {
-    this.imageFile = files[0];
-    const reader = new FileReader();
-    reader.onload = (() => {
-      return (e: any) => {
-        this.tmpImageUrl = e.target.result;
-      };
-    })();
-    reader.readAsDataURL(files[0]);
+    this.uploadedImage = files[0];
   }
   uploadImage() {
     this.fileInput?.nativeElement.click();
   };
+
+  imageChange(image: any) {
+    this.imageFile = image;
+  }
 
   deleteGroupImage() {
     if (this.fileInput) {
       this.fileInput.nativeElement.value = null;
     }
     this.group.imageUrl = null;
-    this.tmpImageUrl = undefined;
+    this.uploadedImage = null;
     this.imageFile = null;
   };
 

@@ -53,6 +53,7 @@ import { TourComponent } from './components/tour/tour.component';
 import { TourItemDirective, TourItemTemplateComponent } from '../directives/tour-item.directive';
 import { InterruptDialogComponent } from './components/interrupt-dialog/interrupt-dialog.component';
 import { TooltipComponent} from './components/tooltip/tooltip.component';
+import { ImageEditorComponent } from './components/image-editor/image-editor.component';
 
 @NgModule({
   declarations: [
@@ -100,7 +101,8 @@ import { TooltipComponent} from './components/tooltip/tooltip.component';
     TourItemDirective,
     TourItemTemplateComponent,
     InterruptDialogComponent,
-    TooltipComponent
+    TooltipComponent,
+    ImageEditorComponent
   ],
   imports: [
     RouterModule,
@@ -163,7 +165,8 @@ import { TooltipComponent} from './components/tooltip/tooltip.component';
     TourComponent,
     TourItemDirective,
     TourItemTemplateComponent,
-    TooltipComponent
+    TooltipComponent,
+    ImageEditorComponent
    ]
 })
 export class SharedModule { }

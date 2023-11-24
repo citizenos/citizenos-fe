@@ -41,7 +41,7 @@ export class ProfileComponent {
   };
   public settings: any;
   public imageFile?: any;
-  public tmpImageUrl?: any;
+  public uploadedImage?: any;
 
   wWidth = window.innerWidth;
   errors: any = {};
@@ -176,46 +176,35 @@ export class ProfileComponent {
         .subscribe((res: any) => {
           if (res.link) {
             this.form.imageUrl = res.link;
+            this.imageFile = null;
+            this.uploadedImage = null;
           }
         });
-    } else {
-      this.User
-        .update(this.form.name, this.form.email, this.form.password, this.form.company, this.form.imageUrl, this.form.preferences, undefined, user?.termsVersion || undefined, this.form.newPassword)
-        .pipe(take(1))
-        .subscribe({
-          next: (res: any) => {
-            this.Notification.removeAll();
-            this.Notification.addSuccess('COMPONENTS.NOTIFICATION.TITLE_SUCCESS');
-            if (res.data) {
-              const values = Object.assign({}, this.form, res.data);
-              if (user.email !== this.form.email) {
-                this.Notification.addInfo('MSG_INFO_CHECK_EMAIL_TO_VERIFY_YOUR_NEW_EMAIL_ADDRESS');
-              }
-              this.Auth.reloadUser();
-              this.dialog.closeAll(); // Close all dialogs, including the one open now...u
+    }
+    this.User
+      .update(this.form.name, this.form.email, this.form.password, this.form.company, undefined, this.form.preferences, undefined, user?.termsVersion || undefined, this.form.newPassword)
+      .pipe(take(1))
+      .subscribe({
+        next: (res: any) => {
+          this.Notification.removeAll();
+          this.Notification.addSuccess('COMPONENTS.NOTIFICATION.TITLE_SUCCESS');
+          if (res.data) {
+            const values = Object.assign({}, this.form, res.data);
+            if (user.email !== this.form.email) {
+              this.Notification.addInfo('MSG_INFO_CHECK_EMAIL_TO_VERIFY_YOUR_NEW_EMAIL_ADDRESS');
             }
-          },
-          error: (res: any) => {
-            if (res.status.message === 'Invalid password')
-              this.errors = { password: res.status.message }
-            return of({ error: res.status })
+            this.Auth.reloadUser();
+            this.dialog.closeAll(); // Close all dialogs, including the one open now...u
           }
-        })
-    };
-  };
-  /*
-    function drawImageScaled(img, ctx) {
-      var canvas = ctx.canvas ;
-      var hRatio = canvas.width  / img.width    ;
-      var vRatio =  canvas.height / img.height  ;
-      var ratio  = Math.min ( hRatio, vRatio );
-      var centerShift_x = ( canvas.width - img.width*ratio ) / 2;
-      var centerShift_y = ( canvas.height - img.height*ratio ) / 2;
-      ctx.clearRect(0,0,canvas.width, canvas.height);
-      ctx.drawImage(img, 0,0, img.width, img.height,
-                         centerShift_x,centerShift_y,img.width*ratio, img.height*ratio);
-   }*/
+        },
+        error: (res: any) => {
+          if (res.status.message === 'Invalid password')
+            this.errors = { password: res.status.message }
+          return of({ error: res.status })
+        }
+      });
 
+  };
   resizeImage(imageURL: any): Promise<any> {
     return new Promise((resolve) => {
       const image = new Image();
@@ -245,19 +234,15 @@ export class ProfileComponent {
 
   fileUpload() {
     const files = this.fileInput?.nativeElement.files;
-    this.imageFile = files[0];
-    const reader = new FileReader();
-    reader.onload = async () => {
-      await this.resizeImage(reader.result as string).then((res: any) => {
-        this.tmpImageUrl = res.imageUrl;
-        this.imageFile = res.file;
-      });
-    };
-    reader.readAsDataURL(files[0]);
+    this.uploadedImage = files[0];
   };
 
   triggerUploadImage() {
     this.fileInput?.nativeElement.click();
+  };
+
+  imageChange(image: any) {
+    this.imageFile = image;
   };
 
   deleteUserImage() {
@@ -272,8 +257,8 @@ export class ProfileComponent {
         next: (res) => {
           //    angular.extend(this.user, res.data);
           this.form.imageUrl = '';
-          this.form.imageUrl = this.tmpImageUrl = null;
           this.imageFile = null;
+          this.uploadedImage = null;
         },
         error: (res) => console.error(res)
       })
