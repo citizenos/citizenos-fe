@@ -87,7 +87,7 @@ export class VoteCreateComponent implements OnInit {
 
   topicGroups = <Group[]>[];
   topic$: Observable<Topic>;
-  topic:any;
+  topic: any;
   public vote = {
     createdAt: '',
     id: '',
@@ -172,29 +172,29 @@ export class VoteCreateComponent implements OnInit {
         return this.createTopic();
       })
     );
-/*
-    this.route.params.pipe(
-      map((params) => {
-        if (params['topicId']) {
-          return this.TopicService.loadTopic(params['topicId'])
-        }
-        return this.createTopic();
-      })
-      , take(1)
-    ).subscribe({
-      next: (topic) => {
-        if (topic) {
-          topic.pipe(take(1)).subscribe({
-            next: (data) => {
-              Object.assign(this.topic, data);
-              this.topic.padUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.topic.padUrl);
+    /*
+        this.route.params.pipe(
+          map((params) => {
+            if (params['topicId']) {
+              return this.TopicService.loadTopic(params['topicId'])
             }
+            return this.createTopic();
           })
+          , take(1)
+        ).subscribe({
+          next: (topic) => {
+            if (topic) {
+              topic.pipe(take(1)).subscribe({
+                next: (data) => {
+                  Object.assign(this.topic, data);
+                  this.topic.padUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.topic.padUrl);
+                }
+              })
 
 
-        }
-      }
-    })*/
+            }
+          }
+        })*/
   }
   ngOnInit(): void {
   }
@@ -215,15 +215,15 @@ export class VoteCreateComponent implements OnInit {
   nextTab(tab: string | void) {
     if (tab) {
       const tabIndex = this.tabs.indexOf(tab);
+      if (tabIndex === 1) {
+        this.updateTopic();
+      }
       if (tabIndex === 2) {
         if (this.voteCreateForm)
           this.voteCreateForm.saveVoteSettings();
       }
-      if (tabIndex+1 === 2) {
-        this.updateTopic();
-        setTimeout(() => {
-          this.TopicService.reloadTopic();
-        }, 200);
+      if (tabIndex + 1 === 3) {
+        this.TopicService.reloadTopic();
       }
       if (tabIndex > -1 && tabIndex < 3) {
         this.selectTab(this.tabs[tabIndex + 1]);
@@ -234,7 +234,7 @@ export class VoteCreateComponent implements OnInit {
   saveImage() {
     if (this.imageFile) {
       this.Upload
-        .uploadTopicImage({topicId: this.topic.id}, this.imageFile).pipe(
+        .uploadTopicImage({ topicId: this.topic.id }, this.imageFile).pipe(
           takeWhile((res: any) => {
             return (!res.link)
           }, true)
@@ -256,12 +256,12 @@ export class VoteCreateComponent implements OnInit {
     const allowedTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/svg+xml'];
     const files = this.fileInput?.nativeElement.files;
     if (allowedTypes.indexOf(files[0].type) < 0) {
-      this.errors = {image: this.translate.instant('MSG_ERROR_FILE_TYPE_NOT_ALLOWED', {allowedFileTypes: allowedTypes.toString()})};
+      this.errors = { image: this.translate.instant('MSG_ERROR_FILE_TYPE_NOT_ALLOWED', { allowedFileTypes: allowedTypes.toString() }) };
       setTimeout(() => {
         delete this.errors.image;
       }, 5000)
-    } else if (files[0].size  > 5000000) {
-      this.errors = {image: this.translate.instant('MSG_ERROR_FILE_TOO_LARGE', {allowedFileSize: '5MB'})};
+    } else if (files[0].size > 5000000) {
+      this.errors = { image: this.translate.instant('MSG_ERROR_FILE_TOO_LARGE', { allowedFileSize: '5MB' }) };
 
       setTimeout(() => {
         delete this.errors.image;
@@ -439,14 +439,14 @@ export class VoteCreateComponent implements OnInit {
 
   createVote() {
     console.log(this.topic);
-    const saveVote:any = Object.assign({topicId: this.topic.id}, this.vote);
+    const saveVote: any = Object.assign({ topicId: this.topic.id }, this.vote);
     console.log(saveVote);
     this.TopicVoteService.save(saveVote)
       .pipe(take(1))
       .subscribe({
         next: (vote) => {
           this.TopicService.reloadTopic();
-          this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id], {fragment: 'voting'});
+          this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id], { fragment: 'voting' });
           this.route.url.pipe(take(1)).subscribe();
         },
         error: (res) => {
