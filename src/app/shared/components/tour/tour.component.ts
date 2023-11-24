@@ -118,24 +118,32 @@ export class TourComponent {
             tourBox.scrollIntoView();
             break;
           case 'top':
+            left = itemRect.left + itemRect.width / 2 - tourBoxElementRect.width / 2;
+            if (left + tourBoxElementRect.width > window.innerWidth) {
+              left = 8;
+            }
             arrowEl.classList.remove('right_arrow');
             arrowEl.classList.remove('left_arrow');
             arrowEl.classList.remove('bottom_arrow');
             arrowEl.classList.add('top_arrow');
             this.renderer.setStyle(arrowEl, 'left', `${itemRect.left + itemRect.width / 2}px`);
             this.renderer.setStyle(arrowEl, 'top', `${itemOffsetTop - 12}px`);
-            this.renderer.setStyle(tourBox, 'left', `${itemOffsetLeft + itemRect.width / 2 - tourBoxElementRect.width / 2}px`);
+            this.renderer.setStyle(tourBox, 'left', `${left}px`);
             this.renderer.setStyle(tourBox, 'top', `${itemOffsetTop - tourBoxElementRect.height - 12}px`);
             tourBox.scrollIntoView();
             break;
           case 'bottom':
+            left = itemRect.left + itemRect.width / 2 - tourBoxElementRect.width / 2;
+            if (left + tourBoxElementRect.width > window.innerWidth) {
+              left = 8;
+            }
             arrowEl.classList.remove('top_arrow');
             arrowEl.classList.remove('right_arrow');
             arrowEl.classList.remove('left_arrow');
             arrowEl.classList.add('bottom_arrow');
             this.renderer.setStyle(arrowEl, 'left', `${itemRect.left + itemRect.width / 2}px`);
             this.renderer.setStyle(arrowEl, 'top', `${itemOffsetBottom + 6}px`);
-            this.renderer.setStyle(tourBox, 'left', `${itemRect.left + itemRect.width / 2 - tourBoxElementRect.width / 2}px`);
+            this.renderer.setStyle(tourBox, 'left', `${left}px`);
             this.renderer.setStyle(tourBox, 'top', `${itemOffsetBottom + 18}px`);
             itemEl.el.nativeElement.scrollIntoView();
             break;
