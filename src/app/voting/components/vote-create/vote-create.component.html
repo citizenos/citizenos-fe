@@ -1,3 +1,4 @@
+<ng-container *ngIf="topic$ | async as topic">
 <div class="page_content" *ngIf="tabSelected | async  as tabSelected">
   <div id="create_heading">
     <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -18,7 +19,8 @@
         translate="VIEWS.VOTE_CREATE.CREATE_TAB_3"></span></a>
     <a class="create_tab" [ngClass]="tabSelected=== 'preview' ? 'active' : ''" (click)="selectTab('preview')">4.<span
         class="tab_text" translate="VIEWS.VOTE_CREATE.CREATE_TAB_4"></span></a>
-    <a class="create_tab tablet_tab tablet_show invite_users_tab" (click)="showManageEditors = !showManageEditors" [ngClass]="{'active': showManageEditors}">
+    <a class="create_tab tablet_tab tablet_show invite_users_tab" (click)="showManageEditors = !showManageEditors"
+      [ngClass]="{'active': showManageEditors}">
       <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M13.9071 4.09259L15.4073 5.59285L12.1497 8.85059L10.8122 8.99825C10.6331 9.01806 10.4818 8.86665 10.5018 8.68758L10.6506 7.34905L13.9071 4.09259ZM16.3352 3.86922L15.6308 3.1648C15.4111 2.94507 15.0547 2.94507 14.835 3.1648L14.1723 3.8275L15.6725 5.32776L16.3352 4.66506C16.5549 4.44521 16.5549 4.08895 16.3352 3.86922Z"
@@ -278,8 +280,9 @@
               </div>
             </ng-container>
           </div>
-          <topic-attachments [topic]="topic"></topic-attachments>
-
+          <ng-container *ngIf="topic.id" >
+            <topic-attachments [topic]="topic"></topic-attachments>
+          </ng-container>
           <!--div id="add_section_wrap">
             <a class="label">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -450,7 +453,7 @@
                     </svg>
                   </div>
                   <div class="options">
-                    <div class="option" *ngFor="let country of countries" (click)="topic.country = country.name">
+                    <div class="option" *ngFor="let country of countries" (click)="setCountry(country.name)">
                       {{country.name}}
                     </div>
                   </div>
@@ -466,7 +469,7 @@
                     </svg>
                   </div>
                   <div class="options">
-                    <div class="option" *ngFor="let language of languages" (click)="topic.language = language.name">
+                    <div class="option" *ngFor="let language of languages" (click)="setLanguage(language.name)">
                       {{language.name}}
                     </div>
                   </div>
@@ -1098,3 +1101,4 @@
 
   </div>
 </div>
+</ng-container>

@@ -3,7 +3,7 @@ import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { of, map, Observable, take, takeWhile } from 'rxjs';
+import { of, map, tap, Observable, take, switchMap, takeWhile } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { AppService } from 'src/app/services/app.service';
 import { ConfigService } from 'src/app/services/config.service';
@@ -86,20 +86,8 @@ export class VoteCreateComponent implements OnInit {
   groups$: Observable<Group[] | any[]> = of([]);
 
   topicGroups = <Group[]>[];
-  topic: Topic = <Topic>{
-    id: '',
-    title: null,
-    intro: null,
-    description: '',
-    imageUrl: '',
-    members: {
-      users: <any[]>[],
-      topics: <Topic[]>[]
-    },
-    visibility: this.TopicService.VISIBILITY.private,
-    categories: <string[]>[]
-  };
-
+  topic$: Observable<Topic>;
+  topic:any;
   public vote = {
     createdAt: '',
     id: '',
@@ -170,10 +158,25 @@ export class VoteCreateComponent implements OnInit {
       }
       ));
     // app.createNewTopic();
+
+
+    this.topic$ = this.route.params.pipe(
+      switchMap((params) => {
+        if (params['topicId']) {
+          return this.TopicService.loadTopic(params['topicId']).pipe(map((topic) => {
+            topic.padUrl = this.sanitizer.bypassSecurityTrustResourceUrl(topic.padUrl);
+            this.topic = topic;
+            return topic;
+          }));
+        }
+        return this.createTopic();
+      })
+    );
+/*
     this.route.params.pipe(
       map((params) => {
         if (params['topicId']) {
-          return this.TopicService.get(params['topicId'])
+          return this.TopicService.loadTopic(params['topicId'])
         }
         return this.createTopic();
       })
@@ -191,7 +194,7 @@ export class VoteCreateComponent implements OnInit {
 
         }
       }
-    })
+    })*/
   }
   ngOnInit(): void {
   }
@@ -215,6 +218,9 @@ export class VoteCreateComponent implements OnInit {
       if (tabIndex === 2) {
         if (this.voteCreateForm)
           this.voteCreateForm.saveVoteSettings();
+      }
+      if (tabIndex+1 === 2) {
+        this.TopicService.reloadTopic();
       }
       if (tabIndex > -1 && tabIndex < 3) {
         this.selectTab(this.tabs[tabIndex + 1]);
@@ -329,18 +335,16 @@ export class VoteCreateComponent implements OnInit {
     return this.topic.padUrl;
   }
   createTopic() {
-    this.topic.description = '<html><head></head><body></body></html>';
-    this.TopicService.save(this.topic)
-      .pipe(take(1))
-      .subscribe({
-        next: (topic: Topic) => {
-          Object.assign(this.topic, topic);
+    const topic = {
+      description: '<html><head></head><body></body></html>',
+      visbility: this.TopicService.VISIBILITY.private
+    };
+
+    return this.TopicService.save(topic)
+      .pipe(take(1),
+        tap((topic: Topic) => {
           this.router.navigate([topic.id], { relativeTo: this.route });
-        },
-        error: (error: any) => {
-          console.error('Vote create error: ',error);
-        }
-      })
+        }));
     /*this.app.createNewTopic(this.topic.title, this.topic.visibility)
     .pipe(take(1))
     .subscribe({
@@ -353,6 +357,15 @@ export class VoteCreateComponent implements OnInit {
   triggerUpload() {
     this.attachmentInput?.nativeElement.click();
   };
+
+  setCountry(country: string) {
+    this.topic.country = country;
+    this.updateTopic();
+  }
+  setLanguage(language: string) {
+    this.topic.language = language;
+    this.updateTopic();
+  }
 
   updateTopic() {
     return this.TopicService.patch(this.topic).pipe(take(1)).subscribe();
