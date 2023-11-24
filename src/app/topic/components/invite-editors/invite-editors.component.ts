@@ -234,10 +234,11 @@ export class InviteEditorsComponent {
           next: (res: any) => {
             this.TopicService.reloadTopic();
             this.dialog.close(membersToSave);
-            this.Notification.addSuccess('Invites sent');
+            this.Notification.addSuccess('COMPONENTS.TOPIC_INVITE_EDITORS.MSG_INVITES_SENT');
           },
           error: (err) => {
-            this.Notification.addError(err.message || err);
+            console.error(err);
+           /// this.Notification.addError(err.message || err);
           }
         })
     }

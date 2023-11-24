@@ -742,7 +742,8 @@
       "BULK_OPT_SET_ALL_RIGHTS": "@:COMPONENTS.GROUP_INVITE.BULK_OPT_SET_ALL_RIGHTS",
       "BULK_OPT_REMOVE_ALL": "@:COMPONENTS.GROUP_INVITE.BULK_OPT_REMOVE_ALL",
       "LNK_CANCEL": "@:LNK_CANCEL",
-      "BTN_SAVE": "@:MODALS.TOPIC_SETTINGS_BTN_SEND_INVITES"
+      "BTN_SAVE": "@:MODALS.TOPIC_SETTINGS_BTN_SEND_INVITES",
+      "MSG_INVITES_SENT": "Invites sent"
     },
     "TOPIC_INVITE_USER": {
       "OPT_REMOVE_USER": ""
@@ -1883,7 +1884,9 @@
       "HELP_ITEM_ENGAGE_IN_DISCUSSION": "Engage in a pro/con discussion",
       "HELP_ITEM_ADD_IDEATION": "Add ideation to start gathering ideas",
       "HELP_ITEM_ADD_VOTING": "Add voting to start collecting votes",
-      "HELP_ITEM_ADD_FOLLOW_UP": "Add follow-up to keep participants up to date on any progress made."
+      "HELP_ITEM_ADD_FOLLOW_UP": "Add follow-up to keep participants up to date on any progress made.",
+      "NOTIFICATION_SUCCESS_TITLE": "Topic successfully published",
+      "NOTIFICATION_SUCCESS_MESSAGE": "Congratulations on your new topic! Now it’s time to get people engaged. Invite participants below or you can also invite them later."
     },
     "TOPIC_EDIT": {
       "HEADING": "Edit topic",
