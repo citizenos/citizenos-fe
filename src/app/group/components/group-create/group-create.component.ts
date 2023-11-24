@@ -51,7 +51,7 @@ export class GroupCreateComponent implements OnInit {
   VISIBILITY = this.GroupService.VISIBILITY;
   CATEGORIES = Object.keys(this.TopicService.CATEGORIES);
   errors?: any;
-  tmpImageUrl?: string;
+  uploadedImage?: any;
   imageFile?: any;
   tabSelected;
   showHelp = false;
@@ -132,25 +132,11 @@ export class GroupCreateComponent implements OnInit {
 
   fileUpload() {
     const files = this.fileInput?.nativeElement.files;
-    this.imageFile = files[0];
-    const reader = new FileReader();
-    reader.onload = (() => {
-      return (e: any) => {
-        this.tmpImageUrl = e.target.result;
-      };
-    })();
-    reader.readAsDataURL(files[0]);
+    this.uploadedImage = files[0];
   }
 
   fileDroped(files: any) {
-    this.imageFile = files[0];
-    const reader = new FileReader();
-    reader.onload = (() => {
-      return (e: any) => {
-        this.tmpImageUrl = e.target.result;
-      };
-    })();
-    reader.readAsDataURL(files[0]);
+    this.uploadedImage = files[0];
   }
   uploadImage() {
     this.fileInput?.nativeElement.click();
@@ -160,8 +146,12 @@ export class GroupCreateComponent implements OnInit {
     if (this.fileInput) {
       this.fileInput.nativeElement.value = null;
     }
+    this.uploadedImage = null;
     this.imageFile = null;
-    this.tmpImageUrl = undefined;
+  }
+
+  imageChange(image: any) {
+    this.imageFile = image;
   }
 
   createGroup() {

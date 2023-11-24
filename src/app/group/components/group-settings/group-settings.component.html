@@ -72,16 +72,24 @@
           <div translate="COMPONENTS.GROUP_SETTINGS.INFO_SETTINGS_CHOOSE_IMAGE_DESC">
           </div>
           <div id="image_input_area" dragndrop (fileDropped)="fileDroped($event)"
-            *ngIf="!group.imageUrl && !tmpImageUrl">
+            *ngIf="!group.imageUrl && !uploadedImage">
             <div class="bold" translate="COMPONENTS.GROUP_SETTINGS.INFO_SETTINGS_LBL_DROP_IMAGE"></div>
             <input type="file" #imageUpload (change)="fileUpload()" />
             <button class="btn_medium_secondary" (click)="uploadImage()"
               translate="COMPONENTS.GROUP_SETTINGS.INFO_SETTINGS_BTN_CHOOSE_IMAGE"></button>
           </div>
-          <div id="image_area" *ngIf="group.imageUrl || tmpImageUrl">
-            <div id="image_wrap">
-              <img [src]="group.imageUrl || tmpImageUrl" />
-            </div>
+          <div id="image_area" *ngIf="group.imageUrl || uploadedImage">
+            <ng-container *ngIf="uploadedImage">
+              <div id="image_wrap">
+                <image-editor [width]="80" [heigth]="80" [file]="uploadedImage"
+                  (item)="imageChange($event)"></image-editor>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="group.imageUrl">
+              <div id="image_wrap">
+                <img [src]="group.imageUrl" />
+              </div>
+            </ng-container>
             <a class="icon_link" (click)="deleteGroupImage()">
               <span class="bold" translate="COMPONENTS.GROUP_SETTINGS.INFO_SETTINGS_BTN_REMOVE_IMAGE"></span>
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
