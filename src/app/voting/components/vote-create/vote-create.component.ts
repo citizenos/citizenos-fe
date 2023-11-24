@@ -220,7 +220,10 @@ export class VoteCreateComponent implements OnInit {
           this.voteCreateForm.saveVoteSettings();
       }
       if (tabIndex+1 === 2) {
-        this.TopicService.reloadTopic();
+        this.updateTopic();
+        setTimeout(() => {
+          this.TopicService.reloadTopic();
+        }, 200);
       }
       if (tabIndex > -1 && tabIndex < 3) {
         this.selectTab(this.tabs[tabIndex + 1]);
