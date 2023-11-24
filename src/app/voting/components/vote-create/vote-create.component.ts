@@ -376,6 +376,13 @@ export class VoteCreateComponent implements OnInit {
 
   publish() {
     this.updateTopic();
+    this.topicGroups.forEach((group) => {
+      this.GroupMemberTopicService.save({
+        groupId: group.id,
+        topicId: this.topic.id,
+        level: group.permission?.level || this.GroupMemberTopicService.LEVELS.read
+      }).pipe(take(1)).subscribe();
+    });
     this.createVote();
     this.TopicService.reloadTopic();
   }
@@ -474,5 +481,10 @@ export class VoteCreateComponent implements OnInit {
       }
     });
     //[routerLink]="['/', translate.currentLang, 'topics', topic.id]"
+  }
+
+  setGroupLevel(group: Group, level: string) {
+    if (!group.permission) group.permission = {level};
+    group.permission.level = level;
   }
 }
