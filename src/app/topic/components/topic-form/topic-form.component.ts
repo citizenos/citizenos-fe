@@ -273,7 +273,7 @@ export class TopicFormComponent {
     });
     this.TopicService.reloadTopic();
     this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
-    this.Notification.addSuccess('Congratulations on your new topic! Now it’s time to get peopple engaged. Invite participants below or you can also invite them later.', 'Topic successfully published');
+    this.Notification.addSuccess('VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_TITLE');
     this.inviteMembers();
   }
 
