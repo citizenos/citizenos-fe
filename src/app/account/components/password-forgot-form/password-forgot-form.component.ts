@@ -24,6 +24,7 @@ export class PasswordForgotFormComponent {
     this.errors = null;
 
     const success = () => {
+      this.Notification.removeAll();
       this.Notification.addInfo('MSG_INFO_PASSWORD_RECOVERY_EMAIL_SENT');
     };
 
