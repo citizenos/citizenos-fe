@@ -242,8 +242,8 @@
               <div>2</div>
             </div>
             <div class="section_content_wrap">
-              <div class="small_heading" translate="VIEWS.GROUP_CREATE.SETTINGS_HEADING_CATEGORY_AND_LOCALITY"></div>
-              <div translate="VIEWS.GROUP_CREATE.SETTINGS_CATEGORY_SELECT_DESC"></div>
+              <!--div class="small_heading" translate="VIEWS.GROUP_CREATE.SETTINGS_HEADING_CATEGORY_AND_LOCALITY"></!--div-->
+              <!--div translate="VIEWS.GROUP_CREATE.SETTINGS_CATEGORY_SELECT_DESC"></!--div>
               <div class="dropdown" [cosDropdown]>
                 <div class="selection">
                   <div class="selected_item" translate="VIEWS.GROUP_CREATE.SETTINGS_CATEGORY_SELECT"></div>
@@ -257,7 +257,7 @@
                   </div>
                 </div>
               </div>
-              <div id="category_selection">
+              <div-- id="category_selection">
                 <a class="category_item" *ngFor="let category of group.categories" (click)="chooseCategory(category)">
                   <span>{{'TXT_TOPIC_CATEGORY_' + category | uppercase | translate}}</span>
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -267,7 +267,7 @@
                   </svg>
 
                 </a>
-              </div>
+              </div-->
               <div class="small_heading" translate="VIEWS.GROUP_CREATE.SETTINGS_HEADING_LOCALITY"></div>
               <div translate="VIEWS.GROUP_CREATE.SETTINGS_LOCALITY_SELECT_DESC"></div>
               <div class="row_wrap">
