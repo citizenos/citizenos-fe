@@ -404,6 +404,7 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
   private data = inject(MAT_DIALOG_DATA);
 
   override ngOnInit(): void {
+    console.log(this.data.topic);
     this.topic = this.data.topic;
     this.topicId = this.topic.id;
     if (this.topic.voteId) {
@@ -429,7 +430,7 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
     if (this.deadline) {
       this.vote.endsAt = this.deadline
     }
-    const saveVote:any = Object.assign({topicId: this.topicId}, this.vote);
+    const saveVote:any = Object.assign(this.vote, {topicId: this.topicId || this.topic.id});
     saveVote.autoClose = this.CONF.autoClose;
     this.TopicVoteService.save(saveVote)
       .pipe(take(1))
