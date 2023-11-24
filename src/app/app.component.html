@@ -15,7 +15,6 @@
       <notification></notification>
     </div>
     <!-- ROUTES CONTENT -->
-    <app-tour></app-tour>
     <router-outlet id="view"></router-outlet>
   </div>
   <!-- MOBILE NAV -->
@@ -23,3 +22,6 @@
     <nav-mobile></nav-mobile>
   </ng-container>
   <app-help *ngIf="!app.mobileTutorial"></app-help>
+</div>
+
+<app-tour></app-tour>
