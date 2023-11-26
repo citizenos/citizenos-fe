@@ -115,7 +115,7 @@
       "ARGUMENT_LNK_REPORT": "@:VIEWS.TOPICS_TOPICID.ARGUMENT_LNK_REPORT"
     },
     "ARGUMENT_REPORT": {
-      "HEADING": "Nahlásiť účastníka adminovi",
+      "HEADING": "Nahlásiť argument adminovi",
       "MESSAGE_MAIN": "Nahlasujete",
       "LABLE_REASON": "Dôvody nahlásenia adminovi *",
       "PLACEHOLDER_REPORT_TEXT": "Vysvetlite, prečo považujete tento argument za nevhodný...",
@@ -143,7 +143,7 @@
     },
     "ARGUMENT_WHY": {
       "HEADING": "Prečo je tento obsah skrytý?",
-      "MESSAGE_MAIN": "A moderator chose to hide this content. You can review the reason below."
+      "MESSAGE_MAIN": "Admin sa rozhodol tento obsah skryť. Nižšie si môžete pozrieť dôvody."
     },
     "COS_CALENDAR": {
       "MONTHS": {
@@ -175,7 +175,7 @@
       "DESC_DISCUSSION": "Túto možnosť zvoľte, ak chcete podporiť diskusiu pred prípadným prechodom k nápadom, hlasovaniu a/alebo následným opatreniam.",
       "TITLE_IDEATION": "Téma nápadov",
       "DESC_IDEATION": "Túto možnosť vyberte, ak chcete zhromaždiť nápady pred prípadným prechodom k hlasovaniu a/alebo následným opatreniam. Nie je k dispozícii diskusia pre/proti.",
-      "TITLE_VOTE": "Voting topic",
+      "TITLE_VOTE": "Téma hlasovania",
       "DESC_VOTE": "Túto možnosť vyberte, ak chcete zbierať hlasy ľudí pred prípadným prechodom k ďalším krokom. Nie je k dispozícii žiadna diskusia pre/proti alebo ideová analýza.",
       "TITLE_GROUP": "Skupina",
       "DESC_GROUP": "Vytvorte skupinu, do ktorej môžete pozvať ľudí patriacich do rovnakej organizácie, klubu, lokality atď."
@@ -183,7 +183,7 @@
     "DUPLICATE_TOPIC": {
       "HEADING": "Duplikovať tému",
       "MESSAGE_MAIN": "Duplikujete",
-      "MESSAGE_DESCRIPTION": "Are you sure you want to duplicate the topic? This will create a new private topic.",
+      "MESSAGE_DESCRIPTION": "Ste si istí, že chcete duplikovať tému? Vytvorí sa nová súkromná téma.",
       "HEADING_WILL_BE_DUPLICATED": "Tento obsah sa bude duplikovať",
       "WILL_BE_DUPLICATED_1": "Obsah témy taký, aký je práve teraz (vrátane obrázkov, poznámok pod čiarou, komentárov, mini-hlasovania)",
       "WILL_BE_DUPLICATED_2": "Všetky prílohy",
@@ -233,34 +233,34 @@
       "SELECT_TO_ADD": "@:COMPONENTS.GROUP_ADD_TOPICS.SELECT_TO_ADD",
       "NAME": "Meno",
       "ROLE": "Rola",
-      "ACTIONS": "Actions",
+      "ACTIONS": "Akcie",
       "BTN_BULK_ACTIONS": "@:BTN_BULK_ACTIONS",
-      "BULK_OPT_SET_ALL_RIGHTS": "Set all permissions to <b>{{level}}</b>",
-      "BULK_OPT_REMOVE_ALL": "Remove all"
+      "BULK_OPT_SET_ALL_RIGHTS": "Nastaviť všetky povolenia na <b>{{level}}</b>",
+      "BULK_OPT_REMOVE_ALL": "Odstrániť všetko"
     },
     "GROUP_INVITE_DIALOG": {
-      "HEADING": "Invite and share",
-      "TAB_INVITE": "Invite participants",
-      "TAB_SHARE": "Generate link / QR",
-      "LNK_CANCEL": "Invite later",
-      "BTN_SAVE": "Send invites"
+      "HEADING": "Pozvať & zdieľať",
+      "TAB_INVITE": "Pozvať účastníkov",
+      "TAB_SHARE": "Vytvoriť odkaz / QR kód",
+      "LNK_CANCEL": "Pozvať neskôr",
+      "BTN_SAVE": "Poslať pozvánky"
     },
     "GROUP_JOIN": {
-      "HEADING": "Join group",
-      "MESSAGE_MAIN": "You want to join",
-      "MESSAGE_DESCRIPTION": "This group has set rules of conduct. Please read and follow them so everyone has a great experience.",
+      "HEADING": "Pridať sa k skupine",
+      "MESSAGE_MAIN": "Chcete sa pridať",
+      "MESSAGE_DESCRIPTION": "Táto skupina má nastavené pravidlá správania. Prosím, prečítajte si ich a dodržiavajte ich, aby každý mal skvelý zážitok.",
       "HEADING_RULES": "@:VIEWS.GROUP.RULES_OF_CONDUCT",
       "BTN_JOIN": "@:VIEWS.GROUP.BTN_JOIN",
       "LNK_CANCEL": "@:LNK_CANCEL"
     },
     "TOPIC_JOIN": {
-      "HEADING": "Join topic",
-      "MESSAGE_MAIN": "You want to join",
-      "MESSAGE_DESCRIPTION": "Are you sure you want to join the topic? See the explanation below for what this means. You can always easily leave a topic if you want to.",
-      "HEADING_WHAT_CAN_YOU_DO": "What you can do once you join a topic",
-      "ITEM_PARTICIPATE": "Participate in discussions and voting",
-      "ITEM_NOTIFICATIONS": "Receive notifications of activity within the topic",
-      "ITEM_REQUEST_EDIT": "Request to become a co-creator",
+      "HEADING": "Pridať sa k téme",
+      "MESSAGE_MAIN": "Chcete sa pridať k",
+      "MESSAGE_DESCRIPTION": "Určite sa chcete pridať do témy? Čo to znamená, si pozrite v nasledujúcom vysvetlení. Ak chcete, vždy môžete tému ľahko opustiť.",
+      "HEADING_WHAT_CAN_YOU_DO": "Čo môžete robiť, akonáhle sa pridáte do témy",
+      "ITEM_PARTICIPATE": "Zúčastňovať sa debát a hlasovania",
+      "ITEM_NOTIFICATIONS": "Dostávať upozornenia na aktivity v rámci témy",
+      "ITEM_REQUEST_EDIT": "Požiadať o možnosť stať sa spolutvorcom",
       "BTN_JOIN": "@:VIEWS.TOPICS_TOPICID.BTN_JOIN",
       "LNK_CANCEL": "@:LNK_CANCEL"
     },
@@ -270,7 +270,7 @@
       "BTN_REMOVE": "@:VIEWS.PUBLIC_GROUP.LBL_REMOVE"
     },
     "GROUP_SETTINGS": {
-      "HEADING": "Edit group",
+      "HEADING": "Upravovať skupinu",
       "TAB_INFO": "@:VIEWS.GROUP_CREATE.CREATE_TAB_1",
       "TAB_SETTINGS": "@:VIEWS.GROUP_CREATE.CREATE_TAB_2",
       "INFO_SETTINGS_HEADING_GENERAL_INFO": "@:VIEWS.GROUP_CREATE.INFO_SETTINGS_HEADING_GENERAL_INFO",
@@ -297,53 +297,53 @@
       "BTN_SAVE": "@:DIRECTIVES.COS_MODAL.BTN_SAVE"
     },
     "GROUP_SHARE": {
-      "GENERATE_LINK": "Generate access link",
-      "PLACEHOLDER_CREATE_NEW_LINK": "Generate a link to share",
-      "COPY_LINK": "Copy link",
-      "GENERATE_QR_CODE": "Generate QR code",
-      "GENERATE_QR_CODE_DESCRIPTION": "Generate a QR code that people can scan to come straight to the topic. You can add the QR code to digital or physical comms, and display it wherever the right people will see it.",
-      "GENERATE_QR_CODE_PRINT": "To save the QR code as a PDF, open it up and use the \"print as PDF\" functionality.",
+      "GENERATE_LINK": "Vygenerovať prístupový odkaz",
+      "PLACEHOLDER_CREATE_NEW_LINK": "Vygenerovať odkaz na zdieľanie",
+      "COPY_LINK": "Kopírovať odkaz",
+      "GENERATE_QR_CODE": "Vygenerovať QR kód",
+      "GENERATE_QR_CODE_DESCRIPTION": "Vytvorte kód QR, ktorý môžu ľudia naskenovať a dostať sa priamo k téme. Kód QR môžete pridať do digitálnych alebo fyzických komunikátorov a zobraziť ho všade tam, kde ho uvidia správni ľudia.",
+      "GENERATE_QR_CODE_PRINT": "Ak chcete kód QR uložiť ako súbor PDF, otvorte ho a použite funkciu \"vytlačiť ako PDF\".",
       "BTN_GENERATE_QR_CODE": "@:COMPONENTS.GROUP_SHARE.GENERATE_QR_CODE"
     },
     "LOGIN_FORM": {
-      "LOGIN_OR": "or",
-      "LOGIN_LNK_NO_ACCOUNT_REGISTER": "No account? Sign up now",
-      "LOGIN_LNK_FORGOT_PASSWORD": "Forgot password?",
+      "LOGIN_OR": "alebo",
+      "LOGIN_LNK_NO_ACCOUNT_REGISTER": "Nemáte účet? Zaregistrujte sa",
+      "LOGIN_LNK_FORGOT_PASSWORD": "Zabudli ste heslo?",
       "LOGIN_PLACEHOLDER_EMAIL": "Email",
-      "LOGIN_PLACEHOLDER_PASSWORD": "Password",
-      "LOGIN_BTN_LOGIN": "Log in"
+      "LOGIN_PLACEHOLDER_PASSWORD": "Heslo",
+      "LOGIN_BTN_LOGIN": "Prihlásiť sa"
     },
     "LOGIN_SMART_ID_FORM": {
       "LOGIN_SMARTID_HEADING": "@:COMPONENTS.LOGIN_SMART_ID_FORM.LOGIN_SMARTID_BTN_AUTHENTICATE_SID",
-      "LOGIN_SMARTID_PLACEHOLDER_COUNTRY_CODE": "Two-letter country code",
-      "LOGIN_SMARTID_ERROR_COUNTRY_CODE": "Invalid country code",
+      "LOGIN_SMARTID_PLACEHOLDER_COUNTRY_CODE": "Dvojpísmenný kód krajiny",
+      "LOGIN_SMARTID_ERROR_COUNTRY_CODE": "Neplatný kód krajiny",
       "LOGIN_SMARTID_PLACEHOLDER_PID": "@:MODALS.LOGIN_ESTEID_PLACEHOLDER_PID",
       "LOGIN_SMARTID_ERROR_PID": "@:MODALS.LOGIN_ESTEID_ERROR_PID",
       "LOGIN_SMARTID_TXT_CONTROL_CODE": "@:MODALS.LOGIN_ESTEID_TXT_CONTROL_CODE",
-      "LOGIN_SMARTID_TXT_CHECK_CONTROL_CODE": "Make sure the control code matches with the one displayed on your phone, and enter Smart-ID PIN1.",
+      "LOGIN_SMARTID_TXT_CHECK_CONTROL_CODE": "Uistite sa, že kontrolný kód sa zhoduje s kódom na displeji mobilu a zadajte PIN1 Smart-ID. (Toto sa nevzťahuje na Slovenských užívateľov!).",
       "LOGIN_SMARTID_BTN_LOG_IN_SID": "@:MODALS.LOGIN_BTN_LOGIN_SMARTID",
-      "LOGIN_SMARTID_BTN_AUTHENTICATE_SID": "Authenticate with Smart-ID"
+      "LOGIN_SMARTID_BTN_AUTHENTICATE_SID": "Overte pomocou Smart-ID"
     },
     "NOTIFICATION": {
-      "TITLE_ERROR": "Error!",
+      "TITLE_ERROR": "Chyba!",
       "TITLE_INFO": "Info!",
-      "TITLE_SUCCESS": "Success!",
-      "TITLE_WARNING": "Warning!"
+      "TITLE_SUCCESS": "Hotovo!",
+      "TITLE_WARNING": "Upozornenie!"
     },
     "ONBOARDING": {
-      "HELLO": "Hey {{name}}",
-      "TITLE_WELCOME": "Welcome to Citizen OS!",
-      "DESCRIPTION": "As this is your first time on the Citizen OS dashboard, we recommend you take the walkthrough tour to get to know the platform better.",
-      "TAKE_A_TOUR": "The walkthrough only takes a couple of minutes.",
-      "BTN_SUBMIT": "Take the tour",
-      "BTN_CANCEL": "Skip"
+      "HELLO": "Hej {{name}}",
+      "TITLE_WELCOME": "Vitajte na Citizen OS!",
+      "DESCRIPTION": "Keďže ste na ovládacom paneli Citizen OS prvýkrát, odporúčame vám absolvovať prehliadku, aby ste sa s platformou lepšie zoznámili.",
+      "TAKE_A_TOUR": "Prehliadka zaberie len pár minút.",
+      "BTN_SUBMIT": "Absolvujte prehliadku",
+      "BTN_CANCEL": "Preskočiť"
     },
     "PASSWORD_FORGOT": {
       "PLACEHOLDER_EMAIL": "@:COMPONENTS.LOGIN_FORM.LOGIN_PLACEHOLDER_EMAIL",
-      "SEND_RESET": "Send reset code"
+      "SEND_RESET": "Poslať obnovovací kód"
     },
     "PASSWORD_RESET": {
-      "PASSWORD_RESET_HEADING": "Reset your account password",
+      "PASSWORD_RESET_HEADING": "Obnovte si heslo k účtu",
       "PASSWORD_RESET_LBL_EMAIL": "Account email:",
       "PASSWORD_RESET_PLACEHOLDER_PASSWORD": "@:COMPONENTS.LOGIN_FORM.LOGIN_PLACEHOLDER_PASSWORD",
       "PASSWORD_RESET_PLACEHOLDER_PASSWORD_CONFIRM": "@:VIEWS.ACCOUNT.PLACEHOLDER_PASSWORD_CONFIRM",
@@ -395,7 +395,7 @@
     },
     "REGISTER_FORM": {
       "HEADING": "Register a free account",
-      "HEADING_DESCRIPTION": "Free for everybody and for always! No ads, no sale of data, no hidden costs",
+      "HEADING_DESCRIPTION": "Create your free account today! No ads, no sale of data, no hidden costs",
       "PLACEHOLDER_NAME": "@:VIEWS.ACCOUNT.PLACEHOLDER_NAME",
       "PLACEHOLDER_COMPANY": "@:VIEWS.ACCOUNT.PLACEHOLDER_COMPANY",
       "PLACEHOLDER_EMAIL": "@:COMPONENTS.LOGIN_FORM.LOGIN_PLACEHOLDER_EMAIL",
@@ -527,7 +527,7 @@
       "TOPIC_MOBILE_STEP_2_DESC_MORE": "@:COMPONENTS.TOUR.TOPIC_STEP_2_DESC_MORE"
     },
     "TOPIC_INVITE": {
-      "HEADING": "@:COMPONENTS.GROUP_INVITE.HEADING",
+      "HEADING": "Invite people to the topic",
       "MESSAGE_DESC": "@:MODALS.TOPIC_INVITE_LBL_OPTIONAL_MESSAGE",
       "MESSAGE_PLACEHOLDER": "@:COMPONENTS.GROUP_INVITE.MESSAGE_PLACEHOLDER",
       "CHARACTER_LIMIT": "@:COMPONENTS.GROUP_INVITE.CHARACTER_LIMIT",
@@ -696,6 +696,7 @@
       "GENERATE_LINK": "@:COMPONENTS.GROUP_SHARE.GENERATE_LINK",
       "PLACEHOLDER_CREATE_NEW_LINK": "@:COMPONENTS.GROUP_SHARE.PLACEHOLDER_CREATE_NEW_LINK",
       "COPY_LINK": "@:COMPONENTS.GROUP_SHARE.COPY_LINK",
+      "MSG_LINK_COPIED": "@:VIEWS.TOPICS_TOPICID.ARGUMENT_LNK_COPIED",
       "GENERATE_QR_CODE": "@:COMPONENTS.GROUP_SHARE.GENERATE_QR_CODE",
       "GENERATE_QR_CODE_DESCRIPTION": "@:COMPONENTS.GROUP_SHARE.GENERATE_QR_CODE_DESCRIPTION",
       "GENERATE_QR_CODE_PRINT": "@:COMPONENTS.GROUP_SHARE.GENERATE_QR_CODE_PRINT",
@@ -741,7 +742,8 @@
       "BULK_OPT_SET_ALL_RIGHTS": "@:COMPONENTS.GROUP_INVITE.BULK_OPT_SET_ALL_RIGHTS",
       "BULK_OPT_REMOVE_ALL": "@:COMPONENTS.GROUP_INVITE.BULK_OPT_REMOVE_ALL",
       "LNK_CANCEL": "@:LNK_CANCEL",
-      "BTN_SAVE": "@:MODALS.TOPIC_SETTINGS_BTN_SEND_INVITES"
+      "BTN_SAVE": "@:MODALS.TOPIC_SETTINGS_BTN_SEND_INVITES",
+      "MSG_INVITES_SENT": "Invites sent"
     },
     "TOPIC_INVITE_USER": {
       "OPT_REMOVE_USER": ""
@@ -1816,8 +1818,10 @@
     },
     "REGISTER": {
       "BTN_BACK": "@:VIEWS.LOGIN.BTN_BACK",
-      "REGISTER_TITLE": "Sign up to Citizen OS",
-      "REGISTER_DESCRIPTION": "Create an account to get free unlimited access to the Citizen OS platform"
+      "REGISTER_TITLE": "@:COMPONENTS.REGISTER_FORM.HEADING",
+      "REGISTER_DESCRIPTION": "@:COMPONENTS.REGISTER_FORM.HEADING_DESCRIPTION",
+      "TOOLTIP_DESCRIPTION": "Wondering what the catch is? There isn't one! We're a non-profit with a mission to empower as many people as possible to participate in respectful, meaningful discussions on the issues that matter to them. We run off donations and grants from long-term funders – which means no fees, no sale of your data, no strings attached!",
+      "TOOLTIP_LNK_ABOUT": "Read more on our About page"
     },
     "SMART_ID_LOGIN": {
       "BTN_BACK": "@:VIEWS.PASSWORD_FORGOT.BTN_BACK"
@@ -1880,7 +1884,9 @@
       "HELP_ITEM_ENGAGE_IN_DISCUSSION": "Engage in a pro/con discussion",
       "HELP_ITEM_ADD_IDEATION": "Add ideation to start gathering ideas",
       "HELP_ITEM_ADD_VOTING": "Add voting to start collecting votes",
-      "HELP_ITEM_ADD_FOLLOW_UP": "Add follow-up to keep participants up to date on any progress made."
+      "HELP_ITEM_ADD_FOLLOW_UP": "Add follow-up to keep participants up to date on any progress made.",
+      "NOTIFICATION_SUCCESS_TITLE": "Topic successfully published",
+      "NOTIFICATION_SUCCESS_MESSAGE": "Congratulations on your new topic! Now it’s time to get people engaged. Invite participants below or you can also invite them later."
     },
     "TOPIC_EDIT": {
       "HEADING": "Edit topic",
@@ -2013,6 +2019,7 @@
       "ARGUMENT_WHY": "Prečo?",
       "ARGUMENT_VIEW_ARGUMENT_ANYWAY": "Aj tak zobraziť argument",
       "ARGUMENT_FOUND_INAPPRIOPRIATE_BY": "Podľa užívateľa <b>{{usersFullName}}</b> je tento argument nevhodný",
+      "ARGUMENT_CREATOR_REMOVED_ARGUMENT": "This argument was removed by argument creator",
       "ARGUMENT_READ_CODE_OF_CONDUCT": "Pre viac informácií si prečítajte náš <a class=\"underlined_link\" href=\"{{codeOfConduct}}\">kódex správania</a>",
       "ARGUMENT_LAST_EDITED": "Naposledy upravené: {{edittime}}",
       "PLACEHOLDER_EDIT_REPLY": "Svoju odpoveď upravte tu...",
@@ -2524,6 +2531,8 @@
   "MSG_ERROR_NETWORK_PROBLEMS": "Problémy siete, skontrolujte prosím svoje internetové pripojenie.",
   "MSG_ERROR_ATTACHMENT_SIZE_OVER_LIMIT": "Attachment is too big. Maximum allowed size is 50MB.",
   "MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED": "File type is not allowed. Allowed types are: {{allowedFileTypes}}",
+  "MSG_ERROR_FILE_TYPE_NOT_ALLOWED": "@:MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED",
+  "MSG_ERROR_FILE_TOO_LARGE": "File is too large. Maximum allowed size is {{allowedFileSize}}",
   "MSG_ERROR_POST_API_USERS_TOPICS_ATTACHMENTS_40000_LINK": "Odkaz prílohy nie je definovaný!",
   "MSG_ERROR_POST_API_USERS_TOPICS_ATTACHMENTS_40000_NAME": "Názov prílohy nie je zadefinovaný!",
   "MSG_ERROR_PASSWORD_MISMATCH": "Passwords do not match. Please try again.",
