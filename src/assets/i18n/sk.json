@@ -241,26 +241,26 @@
     "GROUP_INVITE_DIALOG": {
       "HEADING": "Pozvať & zdieľať",
       "TAB_INVITE": "Pozvať účastníkov",
-      "TAB_SHARE": "Generate link / QR",
-      "LNK_CANCEL": "Invite later",
-      "BTN_SAVE": "Send invites"
+      "TAB_SHARE": "Vytvoriť odkaz / QR kód",
+      "LNK_CANCEL": "Pozvať neskôr",
+      "BTN_SAVE": "Poslať pozvánky"
     },
     "GROUP_JOIN": {
-      "HEADING": "Join group",
-      "MESSAGE_MAIN": "You want to join",
-      "MESSAGE_DESCRIPTION": "This group has set rules of conduct. Please read and follow them so everyone has a great experience.",
+      "HEADING": "Pridať sa k skupine",
+      "MESSAGE_MAIN": "Chcete sa pridať",
+      "MESSAGE_DESCRIPTION": "Táto skupina má nastavené pravidlá správania. Prosím, prečítajte si ich a dodržiavajte ich, aby každý mal skvelý zážitok.",
       "HEADING_RULES": "@:VIEWS.GROUP.RULES_OF_CONDUCT",
       "BTN_JOIN": "@:VIEWS.GROUP.BTN_JOIN",
       "LNK_CANCEL": "@:LNK_CANCEL"
     },
     "TOPIC_JOIN": {
-      "HEADING": "Join topic",
-      "MESSAGE_MAIN": "You want to join",
-      "MESSAGE_DESCRIPTION": "Are you sure you want to join the topic? See the explanation below for what this means. You can always easily leave a topic if you want to.",
-      "HEADING_WHAT_CAN_YOU_DO": "What you can do once you join a topic",
-      "ITEM_PARTICIPATE": "Participate in discussions and voting",
-      "ITEM_NOTIFICATIONS": "Receive notifications of activity within the topic",
-      "ITEM_REQUEST_EDIT": "Request to become a co-creator",
+      "HEADING": "Pridať sa k téme",
+      "MESSAGE_MAIN": "Chcete sa pridať k",
+      "MESSAGE_DESCRIPTION": "Určite sa chcete pridať do témy? Čo to znamená, si pozrite v nasledujúcom vysvetlení. Ak chcete, vždy môžete tému ľahko opustiť.",
+      "HEADING_WHAT_CAN_YOU_DO": "Čo môžete robiť, akonáhle sa pridáte do témy",
+      "ITEM_PARTICIPATE": "Zúčastňovať sa debát a hlasovania",
+      "ITEM_NOTIFICATIONS": "Dostávať upozornenia na aktivity v rámci témy",
+      "ITEM_REQUEST_EDIT": "Požiadať o možnosť stať sa spolutvorcom",
       "BTN_JOIN": "@:VIEWS.TOPICS_TOPICID.BTN_JOIN",
       "LNK_CANCEL": "@:LNK_CANCEL"
     },
@@ -270,7 +270,7 @@
       "BTN_REMOVE": "@:VIEWS.PUBLIC_GROUP.LBL_REMOVE"
     },
     "GROUP_SETTINGS": {
-      "HEADING": "Edit group",
+      "HEADING": "Upravovať skupinu",
       "TAB_INFO": "@:VIEWS.GROUP_CREATE.CREATE_TAB_1",
       "TAB_SETTINGS": "@:VIEWS.GROUP_CREATE.CREATE_TAB_2",
       "INFO_SETTINGS_HEADING_GENERAL_INFO": "@:VIEWS.GROUP_CREATE.INFO_SETTINGS_HEADING_GENERAL_INFO",
@@ -297,53 +297,53 @@
       "BTN_SAVE": "@:DIRECTIVES.COS_MODAL.BTN_SAVE"
     },
     "GROUP_SHARE": {
-      "GENERATE_LINK": "Generate access link",
-      "PLACEHOLDER_CREATE_NEW_LINK": "Generate a link to share",
-      "COPY_LINK": "Copy link",
-      "GENERATE_QR_CODE": "Generate QR code",
-      "GENERATE_QR_CODE_DESCRIPTION": "Generate a QR code that people can scan to come straight to the topic. You can add the QR code to digital or physical comms, and display it wherever the right people will see it.",
-      "GENERATE_QR_CODE_PRINT": "To save the QR code as a PDF, open it up and use the \"print as PDF\" functionality.",
+      "GENERATE_LINK": "Vygenerovať prístupový odkaz",
+      "PLACEHOLDER_CREATE_NEW_LINK": "Vygenerovať odkaz na zdieľanie",
+      "COPY_LINK": "Kopírovať odkaz",
+      "GENERATE_QR_CODE": "Vygenerovať QR kód",
+      "GENERATE_QR_CODE_DESCRIPTION": "Vytvorte kód QR, ktorý môžu ľudia naskenovať a dostať sa priamo k téme. Kód QR môžete pridať do digitálnych alebo fyzických komunikátorov a zobraziť ho všade tam, kde ho uvidia správni ľudia.",
+      "GENERATE_QR_CODE_PRINT": "Ak chcete kód QR uložiť ako súbor PDF, otvorte ho a použite funkciu \"vytlačiť ako PDF\".",
       "BTN_GENERATE_QR_CODE": "@:COMPONENTS.GROUP_SHARE.GENERATE_QR_CODE"
     },
     "LOGIN_FORM": {
-      "LOGIN_OR": "or",
-      "LOGIN_LNK_NO_ACCOUNT_REGISTER": "No account? Sign up now",
-      "LOGIN_LNK_FORGOT_PASSWORD": "Forgot password?",
+      "LOGIN_OR": "alebo",
+      "LOGIN_LNK_NO_ACCOUNT_REGISTER": "Nemáte účet? Zaregistrujte sa",
+      "LOGIN_LNK_FORGOT_PASSWORD": "Zabudli ste heslo?",
       "LOGIN_PLACEHOLDER_EMAIL": "Email",
-      "LOGIN_PLACEHOLDER_PASSWORD": "Password",
-      "LOGIN_BTN_LOGIN": "Log in"
+      "LOGIN_PLACEHOLDER_PASSWORD": "Heslo",
+      "LOGIN_BTN_LOGIN": "Prihlásiť sa"
     },
     "LOGIN_SMART_ID_FORM": {
       "LOGIN_SMARTID_HEADING": "@:COMPONENTS.LOGIN_SMART_ID_FORM.LOGIN_SMARTID_BTN_AUTHENTICATE_SID",
-      "LOGIN_SMARTID_PLACEHOLDER_COUNTRY_CODE": "Two-letter country code",
-      "LOGIN_SMARTID_ERROR_COUNTRY_CODE": "Invalid country code",
+      "LOGIN_SMARTID_PLACEHOLDER_COUNTRY_CODE": "Dvojpísmenný kód krajiny",
+      "LOGIN_SMARTID_ERROR_COUNTRY_CODE": "Neplatný kód krajiny",
       "LOGIN_SMARTID_PLACEHOLDER_PID": "@:MODALS.LOGIN_ESTEID_PLACEHOLDER_PID",
       "LOGIN_SMARTID_ERROR_PID": "@:MODALS.LOGIN_ESTEID_ERROR_PID",
       "LOGIN_SMARTID_TXT_CONTROL_CODE": "@:MODALS.LOGIN_ESTEID_TXT_CONTROL_CODE",
-      "LOGIN_SMARTID_TXT_CHECK_CONTROL_CODE": "Make sure the control code matches with the one displayed on your phone, and enter Smart-ID PIN1.",
+      "LOGIN_SMARTID_TXT_CHECK_CONTROL_CODE": "Uistite sa, že kontrolný kód sa zhoduje s kódom na displeji mobilu a zadajte PIN1 Smart-ID. (Toto sa nevzťahuje na Slovenských užívateľov!).",
       "LOGIN_SMARTID_BTN_LOG_IN_SID": "@:MODALS.LOGIN_BTN_LOGIN_SMARTID",
-      "LOGIN_SMARTID_BTN_AUTHENTICATE_SID": "Authenticate with Smart-ID"
+      "LOGIN_SMARTID_BTN_AUTHENTICATE_SID": "Overte pomocou Smart-ID"
     },
     "NOTIFICATION": {
-      "TITLE_ERROR": "Error!",
+      "TITLE_ERROR": "Chyba!",
       "TITLE_INFO": "Info!",
-      "TITLE_SUCCESS": "Success!",
-      "TITLE_WARNING": "Warning!"
+      "TITLE_SUCCESS": "Hotovo!",
+      "TITLE_WARNING": "Upozornenie!"
     },
     "ONBOARDING": {
-      "HELLO": "Hey {{name}}",
-      "TITLE_WELCOME": "Welcome to Citizen OS!",
-      "DESCRIPTION": "As this is your first time on the Citizen OS dashboard, we recommend you take the walkthrough tour to get to know the platform better.",
-      "TAKE_A_TOUR": "The walkthrough only takes a couple of minutes.",
-      "BTN_SUBMIT": "Take the tour",
-      "BTN_CANCEL": "Skip"
+      "HELLO": "Hej {{name}}",
+      "TITLE_WELCOME": "Vitajte na Citizen OS!",
+      "DESCRIPTION": "Keďže ste na ovládacom paneli Citizen OS prvýkrát, odporúčame vám absolvovať prehliadku, aby ste sa s platformou lepšie zoznámili.",
+      "TAKE_A_TOUR": "Prehliadka zaberie len pár minút.",
+      "BTN_SUBMIT": "Absolvujte prehliadku",
+      "BTN_CANCEL": "Preskočiť"
     },
     "PASSWORD_FORGOT": {
       "PLACEHOLDER_EMAIL": "@:COMPONENTS.LOGIN_FORM.LOGIN_PLACEHOLDER_EMAIL",
-      "SEND_RESET": "Send reset code"
+      "SEND_RESET": "Poslať obnovovací kód"
     },
     "PASSWORD_RESET": {
-      "PASSWORD_RESET_HEADING": "Reset your account password",
+      "PASSWORD_RESET_HEADING": "Obnovte si heslo k účtu",
       "PASSWORD_RESET_LBL_EMAIL": "Account email:",
       "PASSWORD_RESET_PLACEHOLDER_PASSWORD": "@:COMPONENTS.LOGIN_FORM.LOGIN_PLACEHOLDER_PASSWORD",
       "PASSWORD_RESET_PLACEHOLDER_PASSWORD_CONFIRM": "@:VIEWS.ACCOUNT.PLACEHOLDER_PASSWORD_CONFIRM",
