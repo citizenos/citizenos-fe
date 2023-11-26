@@ -115,7 +115,7 @@
       "ARGUMENT_LNK_REPORT": "@:VIEWS.TOPICS_TOPICID.ARGUMENT_LNK_REPORT"
     },
     "ARGUMENT_REPORT": {
-      "HEADING": "Report argument to admin",
+      "HEADING": "Nahlásiť argument adminovi",
       "MESSAGE_MAIN": "Nahlasujete",
       "LABLE_REASON": "Dôvody nahlásenia adminovi *",
       "PLACEHOLDER_REPORT_TEXT": "Vysvetlite, prečo považujete tento argument za nevhodný...",
@@ -143,7 +143,7 @@
     },
     "ARGUMENT_WHY": {
       "HEADING": "Prečo je tento obsah skrytý?",
-      "MESSAGE_MAIN": "A moderator chose to hide this content. You can review the reason below."
+      "MESSAGE_MAIN": "Admin sa rozhodol tento obsah skryť. Nižšie si môžete pozrieť dôvody."
     },
     "COS_CALENDAR": {
       "MONTHS": {
@@ -175,7 +175,7 @@
       "DESC_DISCUSSION": "Túto možnosť zvoľte, ak chcete podporiť diskusiu pred prípadným prechodom k nápadom, hlasovaniu a/alebo následným opatreniam.",
       "TITLE_IDEATION": "Téma nápadov",
       "DESC_IDEATION": "Túto možnosť vyberte, ak chcete zhromaždiť nápady pred prípadným prechodom k hlasovaniu a/alebo následným opatreniam. Nie je k dispozícii diskusia pre/proti.",
-      "TITLE_VOTE": "Voting topic",
+      "TITLE_VOTE": "Téma hlasovania",
       "DESC_VOTE": "Túto možnosť vyberte, ak chcete zbierať hlasy ľudí pred prípadným prechodom k ďalším krokom. Nie je k dispozícii žiadna diskusia pre/proti alebo ideová analýza.",
       "TITLE_GROUP": "Skupina",
       "DESC_GROUP": "Vytvorte skupinu, do ktorej môžete pozvať ľudí patriacich do rovnakej organizácie, klubu, lokality atď."
@@ -183,7 +183,7 @@
     "DUPLICATE_TOPIC": {
       "HEADING": "Duplikovať tému",
       "MESSAGE_MAIN": "Duplikujete",
-      "MESSAGE_DESCRIPTION": "Are you sure you want to duplicate the topic? This will create a new private topic.",
+      "MESSAGE_DESCRIPTION": "Ste si istí, že chcete duplikovať tému? Vytvorí sa nová súkromná téma.",
       "HEADING_WILL_BE_DUPLICATED": "Tento obsah sa bude duplikovať",
       "WILL_BE_DUPLICATED_1": "Obsah témy taký, aký je práve teraz (vrátane obrázkov, poznámok pod čiarou, komentárov, mini-hlasovania)",
       "WILL_BE_DUPLICATED_2": "Všetky prílohy",
@@ -233,14 +233,14 @@
       "SELECT_TO_ADD": "@:COMPONENTS.GROUP_ADD_TOPICS.SELECT_TO_ADD",
       "NAME": "Meno",
       "ROLE": "Rola",
-      "ACTIONS": "Actions",
+      "ACTIONS": "Akcie",
       "BTN_BULK_ACTIONS": "@:BTN_BULK_ACTIONS",
-      "BULK_OPT_SET_ALL_RIGHTS": "Set all permissions to <b>{{level}}</b>",
-      "BULK_OPT_REMOVE_ALL": "Remove all"
+      "BULK_OPT_SET_ALL_RIGHTS": "Nastaviť všetky povolenia na <b>{{level}}</b>",
+      "BULK_OPT_REMOVE_ALL": "Odstrániť všetko"
     },
     "GROUP_INVITE_DIALOG": {
-      "HEADING": "Invite and share",
-      "TAB_INVITE": "Invite participants",
+      "HEADING": "Pozvať & zdieľať",
+      "TAB_INVITE": "Pozvať účastníkov",
       "TAB_SHARE": "Generate link / QR",
       "LNK_CANCEL": "Invite later",
       "BTN_SAVE": "Send invites"
