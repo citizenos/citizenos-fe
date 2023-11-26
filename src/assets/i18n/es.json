@@ -115,7 +115,7 @@
       "ARGUMENT_LNK_REPORT": "@:VIEWS.TOPICS_TOPICID.ARGUMENT_LNK_REPORT"
     },
     "ARGUMENT_REPORT": {
-      "HEADING": "Report participant to admin",
+      "HEADING": "Report argument to admin",
       "MESSAGE_MAIN": "You are reporting",
       "LABLE_REASON": "Reason for reporting *",
       "PLACEHOLDER_REPORT_TEXT": "Explain, why you found this argument inappropriate...",
@@ -395,7 +395,7 @@
     },
     "REGISTER_FORM": {
       "HEADING": "Register a free account",
-      "HEADING_DESCRIPTION": "Free for everybody and for always! No ads, no sale of data, no hidden costs",
+      "HEADING_DESCRIPTION": "Create your free account today! No ads, no sale of data, no hidden costs",
       "PLACEHOLDER_NAME": "@:VIEWS.ACCOUNT.PLACEHOLDER_NAME",
       "PLACEHOLDER_COMPANY": "@:VIEWS.ACCOUNT.PLACEHOLDER_COMPANY",
       "PLACEHOLDER_EMAIL": "@:COMPONENTS.LOGIN_FORM.LOGIN_PLACEHOLDER_EMAIL",
@@ -527,7 +527,7 @@
       "TOPIC_MOBILE_STEP_2_DESC_MORE": "@:COMPONENTS.TOUR.TOPIC_STEP_2_DESC_MORE"
     },
     "TOPIC_INVITE": {
-      "HEADING": "@:COMPONENTS.GROUP_INVITE.HEADING",
+      "HEADING": "Invite people to the topic",
       "MESSAGE_DESC": "@:MODALS.TOPIC_INVITE_LBL_OPTIONAL_MESSAGE",
       "MESSAGE_PLACEHOLDER": "@:COMPONENTS.GROUP_INVITE.MESSAGE_PLACEHOLDER",
       "CHARACTER_LIMIT": "@:COMPONENTS.GROUP_INVITE.CHARACTER_LIMIT",
@@ -696,6 +696,7 @@
       "GENERATE_LINK": "@:COMPONENTS.GROUP_SHARE.GENERATE_LINK",
       "PLACEHOLDER_CREATE_NEW_LINK": "@:COMPONENTS.GROUP_SHARE.PLACEHOLDER_CREATE_NEW_LINK",
       "COPY_LINK": "@:COMPONENTS.GROUP_SHARE.COPY_LINK",
+      "MSG_LINK_COPIED": "@:VIEWS.TOPICS_TOPICID.ARGUMENT_LNK_COPIED",
       "GENERATE_QR_CODE": "@:COMPONENTS.GROUP_SHARE.GENERATE_QR_CODE",
       "GENERATE_QR_CODE_DESCRIPTION": "@:COMPONENTS.GROUP_SHARE.GENERATE_QR_CODE_DESCRIPTION",
       "GENERATE_QR_CODE_PRINT": "@:COMPONENTS.GROUP_SHARE.GENERATE_QR_CODE_PRINT",
@@ -741,7 +742,8 @@
       "BULK_OPT_SET_ALL_RIGHTS": "@:COMPONENTS.GROUP_INVITE.BULK_OPT_SET_ALL_RIGHTS",
       "BULK_OPT_REMOVE_ALL": "@:COMPONENTS.GROUP_INVITE.BULK_OPT_REMOVE_ALL",
       "LNK_CANCEL": "@:LNK_CANCEL",
-      "BTN_SAVE": "@:MODALS.TOPIC_SETTINGS_BTN_SEND_INVITES"
+      "BTN_SAVE": "@:MODALS.TOPIC_SETTINGS_BTN_SEND_INVITES",
+      "MSG_INVITES_SENT": "Invites sent"
     },
     "TOPIC_INVITE_USER": {
       "OPT_REMOVE_USER": ""
@@ -1816,8 +1818,10 @@
     },
     "REGISTER": {
       "BTN_BACK": "@:VIEWS.LOGIN.BTN_BACK",
-      "REGISTER_TITLE": "Sign up to Citizen OS",
-      "REGISTER_DESCRIPTION": "Create an account to get free unlimited access to the Citizen OS platform"
+      "REGISTER_TITLE": "@:COMPONENTS.REGISTER_FORM.HEADING",
+      "REGISTER_DESCRIPTION": "@:COMPONENTS.REGISTER_FORM.HEADING_DESCRIPTION",
+      "TOOLTIP_DESCRIPTION": "Wondering what the catch is? There isn't one! We're a non-profit with a mission to empower as many people as possible to participate in respectful, meaningful discussions on the issues that matter to them. We run off donations and grants from long-term funders – which means no fees, no sale of your data, no strings attached!",
+      "TOOLTIP_LNK_ABOUT": "Read more on our About page"
     },
     "SMART_ID_LOGIN": {
       "BTN_BACK": "@:VIEWS.PASSWORD_FORGOT.BTN_BACK"
@@ -1880,7 +1884,9 @@
       "HELP_ITEM_ENGAGE_IN_DISCUSSION": "Engage in a pro/con discussion",
       "HELP_ITEM_ADD_IDEATION": "Add ideation to start gathering ideas",
       "HELP_ITEM_ADD_VOTING": "Add voting to start collecting votes",
-      "HELP_ITEM_ADD_FOLLOW_UP": "Add follow-up to keep participants up to date on any progress made."
+      "HELP_ITEM_ADD_FOLLOW_UP": "Add follow-up to keep participants up to date on any progress made.",
+      "NOTIFICATION_SUCCESS_TITLE": "Topic successfully published",
+      "NOTIFICATION_SUCCESS_MESSAGE": "Congratulations on your new topic! Now it’s time to get people engaged. Invite participants below or you can also invite them later."
     },
     "TOPIC_EDIT": {
       "HEADING": "Edit topic",
@@ -2013,6 +2019,7 @@
       "ARGUMENT_WHY": "¿Por qué?",
       "ARGUMENT_VIEW_ARGUMENT_ANYWAY": "Ver argumento de todos modos",
       "ARGUMENT_FOUND_INAPPRIOPRIATE_BY": "El usuario <b>{{usersFullName}}</b> determinó que este argumento era inadecuado",
+      "ARGUMENT_CREATOR_REMOVED_ARGUMENT": "This argument was removed by argument creator",
       "ARGUMENT_READ_CODE_OF_CONDUCT": "Para obtener más información, consulte nuestro <a class=\"underlined_link\" href=\"{{codeOfConduct}}\">Código de conducta</a>.",
       "ARGUMENT_LAST_EDITED": "Editado por última vez a las {{edittime}}",
       "PLACEHOLDER_EDIT_REPLY": "Edite la respuesta aquí…",
@@ -2524,6 +2531,8 @@
   "MSG_ERROR_NETWORK_PROBLEMS": "Problemas de red, compruebe su conexión a Internet.",
   "MSG_ERROR_ATTACHMENT_SIZE_OVER_LIMIT": "Attachment is too big. Maximum allowed size is 50MB.",
   "MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED": "File type is not allowed. Allowed types are: {{allowedFileTypes}}",
+  "MSG_ERROR_FILE_TYPE_NOT_ALLOWED": "@:MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED",
+  "MSG_ERROR_FILE_TOO_LARGE": "File is too large. Maximum allowed size is {{allowedFileSize}}",
   "MSG_ERROR_POST_API_USERS_TOPICS_ATTACHMENTS_40000_LINK": "No se definió el enlace del adjunto.",
   "MSG_ERROR_POST_API_USERS_TOPICS_ATTACHMENTS_40000_NAME": "No se especificó el nombre del adjunto.",
   "MSG_ERROR_PASSWORD_MISMATCH": "Passwords do not match. Please try again.",
