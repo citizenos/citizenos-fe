@@ -74,11 +74,11 @@
         </div>
       </div>
       <div id="raa_content_wrapper">
-        <div id="notification_title">Our app is going through a major redesign</div>
-        <div id="notification_text">We are proud to anounce that our app is going through major redesing. Redesigned app will be launched in the beginning of the new year!</div>
+        <div id="notification_title" translate="MSG_REDESIGN_TITLE"></div>
+        <div id="notification_text" [innerHtml]="'MSG_REDESIGN_CONTENT' | translate"></div>
       </div>
       <div id="raa_close_wrapper">
-        <div class="blue_button" (click)="app.closeRedesignNotification()" class="blue_button">Tuult tiibadesse</div>
+        <div class="blue_button" (click)="app.closeRedesignNotification()" class="blue_button" translate="MSG_REDESIGN_BTN_CLOSE"></div>
       </div>
     </div>
   </div>
