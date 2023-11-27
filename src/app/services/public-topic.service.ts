@@ -15,6 +15,8 @@ export class PublicTopicService extends ItemsListService {
     statuses: <Array<string> | string | null>null,
     include: <Array<string> | string | null>null,
     categories: <Array<string> | string | null>null,
+    country: <Array<string> | string | null>null,
+    language: <Array<string> | string | null>null,
     title: <string | null>null,
     visibility: <string | null>null,
     hasVoted: <boolean | string | null>null,

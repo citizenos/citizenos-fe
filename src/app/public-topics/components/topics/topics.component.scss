@@ -62,6 +62,10 @@
         @include mixins.tablet {
           min-width: calc(50% - 12px);
         }
+
+        &.dropdown {
+          width: calc(50% - 12px);
+        }
       }
 
       .input_area {
