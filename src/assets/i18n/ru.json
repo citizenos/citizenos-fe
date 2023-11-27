@@ -1,7 +1,7 @@
 {
-  "MSG_REDESIGN_TITLE": "We’re redesigning our platform!",
-  "MSG_REDESIGN_CONTENT": "In early 2024, we’ll be starting to roll out a new and improved Citizen OS! Any questions, concerns, or to offer your help as a beta tester, contact Sara on <a href=\"mailto:support@citizenos.com\">support@citizenos.com</a>",
-  "MSG_REDESIGN_BTN_CLOSE": "OK, got it",
+  "MSG_REDESIGN_TITLE": "Мы обновляем нашу платформу!",
+  "MSG_REDESIGN_CONTENT": "В начале 2024 года мы начнем внедрение новой, улучшенной платформы Citizen OS! По всем вопросам, связанным с обновлением, или чтобы предложить свою помощь в качестве бета-тестера, обращайтесь к Саре по адресу <a href=\"mailto:support@citizenos.com\">support@citizenos.com</a>",
+  "MSG_REDESIGN_BTN_CLOSE": "Хорошо, понятно",
   "META_DEFAULT_TITLE": "Citizen OS - платформа, позволяющая различным сообществам принимать решения онлайн.",
   "META_DEFAULT_DESCRIPTION": "Citizen OS - можно выразить свое мнение и проголосовать по вопросу, когда невозможно собраться всем вместе в одном месте, а голос каждого столь важен.",
   "META_DEFAULT_KEYWORDS": "э-демократия, э-решения, э-голосование",
@@ -650,7 +650,7 @@
       "LBL_OPTION_ALL_VOTES_ARE_IN_DESC": "Когда все участники в теме проголосовали, система голосования закроется.",
       "PREVIEW_HEADER": "Предварительный просмотр параметров голосования",
       "PREVIEW_VOTE_TYPE_MULTIPLE": "Голосование со множеством вариантов. Максимальное количество опций, которые вы можете выбрать: {{maxOptions}}.",
-      "PREVIEW_VOTE_TYPE_REGULAR": "This is a single selection vote",
+      "PREVIEW_VOTE_TYPE_REGULAR": "Это голосование за один вариант",
       "LNK_CANCEL": "@:LNK_CANCEL",
       "BTN_CONTINUE": "@:BTN_CONTINUE",
       "BTN_START_VOTE": "Начать голосование по теме"
@@ -680,7 +680,7 @@
       "LBL_OPTION_ALL_VOTES_ARE_IN_DESC": "Когда все участники в теме проголосовали, система голосования закроется.",
       "PREVIEW_HEADER": "Предварительный просмотр параметров голосования",
       "PREVIEW_VOTE_TYPE_MULTIPLE": "Голосование со множеством вариантов. Максимальное количество опций, которые вы можете выбрать: {{maxOptions}}.",
-      "PREVIEW_VOTE_TYPE_REGULAR": "This is a single selection voting",
+      "PREVIEW_VOTE_TYPE_REGULAR": "Это голосование за один вариант",
       "LNK_CANCEL": "@:LNK_CANCEL",
       "BTN_CONTINUE": "@:BTN_CONTINUE",
       "BTN_START_FOLLOW_UP": "Начать стадию применения решения по теме"
@@ -1393,7 +1393,7 @@
       "FEATURE_VOTING_ITEM_4": "Доступны разные системы голосования: со множеством вариантов, с собственными вариантами и т.д.",
       "FEATURE_VOTING_FOOTER_INFO": "After collecting votes you can move the topic into follow-up.",
       "FEATURE_VOTING_FOOTER_BTN": "Создать тему голосования",
-      "FEATURE_GROUP_HEADING": "Groups – harnessing the power of the people",
+      "FEATURE_GROUP_HEADING": "Группы – использование силы народа",
       "FEATURE_GROUP_DESC_ITEM_1": "Invite people into a group to give them easy access to relevant topics",
       "FEATURE_GROUP_DESC_ITEM_2": "Join a public or private group that deals with topics of your interest",
       "FEATURE_GROUP_DESC_ITEM_3": "Enjoy quicker sharing or unsharing of topics, a group space containing all topics shared to those users, and easier rights administration.",
