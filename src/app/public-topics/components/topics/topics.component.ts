@@ -7,6 +7,11 @@ import { switchMap, map, of, Subject, BehaviorSubject, combineLatest, } from 'rx
 import { Topic } from 'src/app/interfaces/topic';
 import { trigger, state, style } from '@angular/animations';
 import { AuthService } from 'src/app/services/auth.service';
+import { countries } from 'src/app/services/country.service';
+import { languages } from 'src/app/services/language.service';
+import { Country } from 'src/app/interfaces/country';
+import { Language } from 'src/app/interfaces/language';
+
 @Component({
   selector: 'public-topics',
   templateUrl: './topics.component.html',
@@ -33,15 +38,29 @@ export class TopicsComponent implements OnInit {
   topics$ = of(<Topic[] | any[]>[]);
   //new
   public FILTERS_ALL = 'all';
+  countrySearch = '';
+  countrySearch$ = new BehaviorSubject('');
+  countries = countries;
+  countries$ = of(<Country[]>[]);
+  countryFocus = false;
 
+  languageSearch = '';
+  languageSearch$ = new BehaviorSubject('');
+  languages = languages;
+  languages$ = of(<Language[]>[]);
+  languageFocus = false;
   topicFilters = {
     category: this.FILTERS_ALL,
-    status: this.FILTERS_ALL
+    status: this.FILTERS_ALL,
+    country: this.FILTERS_ALL,
+    language: this.FILTERS_ALL
   };
 
-  mobile_filters = {
+  mobileFilters = {
     category: false,
     status: false,
+    country: false,
+    language: false,
   }
 
   tabSelected = 'categories';
@@ -61,8 +80,8 @@ export class TopicsComponent implements OnInit {
     this.topics$ = combineLatest([this.route.queryParams, this.searchString$]).pipe(
       switchMap(([queryParams, search]) => {
         PublicTopicService.reset();
+        this.allTopics$ = [];
         if (search) {
-          this.allTopics$ = [];
           PublicTopicService.setParam('title', search);
         }
         Object.entries(queryParams).forEach((param) => {
@@ -75,6 +94,24 @@ export class TopicsComponent implements OnInit {
           return this.allTopics$;
         }
       ));
+      this.countries$ = this.countrySearch$.pipe(switchMap((string) => {
+        const countries = this.countries.filter((country) => country.name.toLowerCase().indexOf(string.toLowerCase()) > -1);
+
+        return [countries];
+      }));
+      this.languages$ = this.languageSearch$.pipe(switchMap((string) => {
+        const languages = this.languages.filter((language) => language.name.toLowerCase().indexOf(string.toLowerCase()) > -1);
+
+        return [languages];
+      }));
+  }
+
+  searchCountry(event: any) {
+    this.countrySearch$.next(event);
+  }
+
+  searchLanguage(event: any) {
+    this.languageSearch$.next(event);
   }
 
   trackByFn(index: number, element: any) {
@@ -107,6 +144,34 @@ export class TopicsComponent implements OnInit {
     this.PublicTopicService.setParam('categories', [category]);
   }
 
+  /*TODO add functionalities*/
+  setCountry(country: string) {
+    if (typeof country !== 'string') {
+      country = '';
+    }
+
+    this.countrySearch$.next(country);
+    this.countrySearch = country;
+    this.allTopics$ = [];
+    this.topicFilters.country = country;
+    this.PublicTopicService.setParam('offset', 0);
+    this.PublicTopicService.setParam('country', country);
+    this.PublicTopicService.loadItems();
+  }
+
+  setLanguage(language: string) {
+    if (typeof language !== 'string') {
+      language = '';
+    }
+    this.languageSearch$.next(language);
+    this.languageSearch = language;
+    this.allTopics$ = [];
+    this.topicFilters.language = language;
+    this.PublicTopicService.setParam('offset', 0)
+    this.PublicTopicService.setParam('language', language || null);
+    this.PublicTopicService.loadItems();
+  }
+
   ngOnInit(): void {
   }
 
@@ -118,6 +183,10 @@ export class TopicsComponent implements OnInit {
   doClearFilters() {
     this.setStatus(this.FILTERS_ALL);
     this.setCategory(this.FILTERS_ALL);
+    this.setCountry('');
+    this.topicFilters.country = this.FILTERS_ALL;
+    this.topicFilters.language = this.FILTERS_ALL;
+
   }
 
   ngOnDestroy(): void {
@@ -125,7 +194,7 @@ export class TopicsComponent implements OnInit {
   }
 
   isFilterApplied() {
-    return this.topicFilters.category !== this.FILTERS_ALL || this.topicFilters.status !== this.FILTERS_ALL;
+    return this.topicFilters.category !== this.FILTERS_ALL || this.topicFilters.status !== this.FILTERS_ALL || this.topicFilters.country !== '' || this.topicFilters.country !== '';
   };
 
   //mew
