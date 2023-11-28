@@ -18,7 +18,7 @@
         <a *ngIf="!isArgumentVisible" (click)="showArgument()" translate="VIEWS.TOPICS_TOPICID.ARGUMENT_VIEW_ARGUMENT_ANYWAY"></a>
       </div>
     </ng-container>
-    <ng-container *ngIf="argument.deletedBy.id === argument.creator.id ">
+    <ng-container *ngIf="argument.deletedBy.id === argument.creator.id && !argument.deletedReasonType && !argument.deletedReasonText">
       <div class="bold"
       [innerHtml]="'VIEWS.TOPICS_TOPICID.ARGUMENT_CREATOR_REMOVED_ARGUMENT' | translate">
     </div>

@@ -5,7 +5,7 @@ import { Topic } from 'src/app/interfaces/topic';
 import { TopicReportService } from 'src/app/services/topic-report.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TopicService } from 'src/app/services/topic.service';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { Validators, FormBuilder } from '@angular/forms';
 export interface TopicReportFormData {
   topic: Topic
 }
@@ -17,33 +17,39 @@ export interface TopicReportFormData {
 export class TopicReportFormComponent implements OnInit {
   reportTypes = Object.keys(this.TopicReportService.TYPES);
   topic!: Topic;
-  report = new UntypedFormGroup({
-    type: new UntypedFormControl(this.reportTypes[0], Validators.required),
-    text: new UntypedFormControl('', Validators.required),
-    topicId: new UntypedFormControl('')
-  });
-  /*report = {
-    type: this.reportTypes[0],
-    text: '',
-    topicId: ''
-  };*/
+  report: any;
 
   isLoading = false;
   errors = <any>null;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: TopicReportFormData, @Inject(MatDialogRef) private dialog: MatDialogRef<TopicReportFormComponent>, private TopicReportService: TopicReportService) {
+  constructor(formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: TopicReportFormData, @Inject(MatDialogRef) private dialog: MatDialogRef<TopicReportFormComponent>, private TopicReportService: TopicReportService) {
     this.topic = data.topic;
+    this.report = formBuilder.group({
+      type: [this.reportTypes[0], Validators.compose([Validators.required])],
+      text: [null, Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(2024)])]
+    });
   }
 
   ngOnInit(): void {
-    this.report.value.topicId = this.data.topic.id;
+  }
+
+  changeText(event:any) {
+    const text = this.report.value.text;
+    if (text.length > 0 && text.length < 2024 ) {
+      return this.errors = null;
+    }
+    return this.errors = {textlength: true}
+  }
+
+  changeType(type: string) {
+    this.report.patchValue({ 'type': type });
   }
 
   doReport() {
     this.errors = null;
     this.isLoading = true;
-    this.report.value.topicId = this.data.topic.id;
-    const report = this.report.value;
+    const report = Object.assign({topicId: this.data.topic.id}, this.report.value);
+
     this.TopicReportService
       .save(report)
       .pipe(take(1))

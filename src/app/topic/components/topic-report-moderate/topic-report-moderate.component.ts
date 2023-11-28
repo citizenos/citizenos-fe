@@ -44,6 +44,18 @@ export class TopicReportModerateComponent implements OnInit {
 
   }
 
+  changeText(event:any) {
+    const text = this.moderate.value.text;
+    if (text.length > 0 && text.length < 2024 ) {
+      return this.errors = null;
+    }
+    return this.errors = {textlength: true}
+  }
+
+  changeType(type: string) {
+    this.moderate.patchValue({ 'type': type });
+  }
+
   doModerate() {
     this.errors = null;
     this.isLoading = true;
