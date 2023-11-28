@@ -858,7 +858,7 @@
     "TOPIC_REPORT_MODERATE_BTN_YES": "Yes, hide this topic",
     "TOPIC_REPORT_MODERATE_ERROR_TEXT": "@:MSG_ERROR_POST_API_TOPICS_COMMENTS_REPORTS_40000_TEXT",
     "TOPIC_REPORT_REPORTID_REVIEW_HEADING": "Submit topic for review",
-    "TOPIC_REPORT_REPORTID_SUBMITING_FOR_REVIEW": "You are submitting topic for review",
+    "TOPIC_REPORT_REPORTID_SUBMITING_FOR_REVIEW": "You are submitting this topic for review",
     "TOPIC_REPORT_REPORTID_REVIEW_PLACEHOLDER_REPORT_TEXT": "Explain why you think this topic meets the community standards...",
     "TOPIC_REPORT_REPORTID_REVIEW_PLACEHOLDER_REPORT_TEXT_ERROR": "Explanation text must be between 10 and 4000 characters",
     "TOPIC_REPORT_REPORTID_REVIEW_TXT_ARE_YOU_SURE": "Are you sure you want to send this topic for review?",
