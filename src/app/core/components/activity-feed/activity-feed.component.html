@@ -1,4 +1,4 @@
-<div class="overlay"></div>
+<div class="overlay" (click)="close()"></div>
 <div id="activity_feed" [TourItem]="{tourid: 'dashboard', index: 3, position: 'left'}" [@openClose]="show? 'open' : 'closed'">
   <div class="small_heading" translate="COMPONENTS.ACTIVITY_FEED.HEADING"></div>
   <a class="btn_medium_close icon" (click)="close()">

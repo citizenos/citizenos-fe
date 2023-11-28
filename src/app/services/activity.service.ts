@@ -667,7 +667,7 @@ export class ActivityService extends ItemsListService {
     } else if (object['@type'] === 'Vote' || object['@type'] === 'VoteList' && target && target['@type'] === 'Topic') {
       state = state.concat(['topics', target.topicId || target.id, 'votes', object.voteId || object.id]);
     } else if (object['@type'] === 'Group' || object['@type'] === 'TopicMemberGroup') {
-      state = state.concat(['my', 'groups', object.id || object.groupId])
+      state = state.concat(['groups', object.id || object.groupId])
     } else if (object['@type'] === 'Vote' || object['@type'] === 'VoteFinalContainer') {
       state = state.concat(['topics', object.topicId || object.id, 'votes', object.voteId || object.id]);
     } else if (target && (target['@type'] === 'Topic' || target.topicId)) {
@@ -675,7 +675,7 @@ export class ActivityService extends ItemsListService {
     }
 
     if (target && target['@type'] === 'Group') {
-      state = state.concat(['my', 'groups', target.id]);
+      state = [this.$translate.currentLang, 'groups', target.id];
     }
     if (state[1] !== 'topics' && origin && origin['@type'] === 'Topic') {
       state = state.concat(['topics', origin.id]);
@@ -684,6 +684,9 @@ export class ActivityService extends ItemsListService {
     if (state.length) {
       if (hash) {
         params.fragment = hash;
+      }
+      if (state.length > 3) {
+        state = state.slice(0, 3);
       }
       this.router.navigate(state, params);
     }
