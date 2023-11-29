@@ -289,21 +289,20 @@
           <span class="checkmark"></span>
         </label>
 
-        <label class="checkbox" *ngFor="let item of visibility" [routerLink]="['./']"
-          [queryParams]="{visibility: item}">
-          <span [translate]="'TXT_TOPIC_STATUS_'+item | uppercase"></span>
+        <label class="checkbox" *ngFor="let item of visibility" (click)="mobileFilters.visibility = {visibility: item}">
+          <span [translate]="'TXT_GROUP_VISIBILITY_'+item | uppercase"></span>
           <input type="radio" name="status">
           <span class="checkmark"></span>
         </label>
 
-        <div class="option" [routerLink]="['./']" [queryParams]="{favourite: 'true'}"
+        <div class="option" (click)="mobileFilters.visibility = {favourite: 'true'}"
           translate="VIEWS.MY_GROUPS.FILTER_FAVOURITED">
         </div>
 
-        <div class="option" [routerLink]="['./']" [queryParams]="{moderated: 'true'}"
+        <div class="option" (click)="mobileFilters.visibility = {moderated: 'true'}"
           translate="VIEWS.MY_GROUPS.FILTER_MODERATED">
         </div>
-        <button class="btn_medium_secondary" (click)="mobileFilters.visibility= false;">Apply</button>
+        <button class="btn_medium_secondary" [routerLink]="['./']" [queryParams]="mobileFilters.visibility" (click)="mobileFilters.visibility= false;" translate="BTN_APPLY"></button>
       </div>
       <div class="overlay" *ngIf="showMobileOverlay()"></div>
       <!--div class="options button_options" *ngIf="mobileFilters.category">
@@ -365,7 +364,7 @@
           <input type="radio" name="order">
           <span class="checkmark"></span>
         </label>
-        <button class="btn_medium_secondary" (click)="mobileFilters.order = false;">Apply</button>
+        <button class="btn_medium_secondary" (click)="mobileFilters.order = false;" translate="BTN_APPLY"></button>
       </div>
       <div class="options button_options" *ngIf="mobileFilters.country">
         <typeahead class="dropdown dropdown_input" activeClass="dropdown_active" [term]="countrySearch"

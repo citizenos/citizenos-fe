@@ -279,19 +279,17 @@
           <span class="checkmark"></span>
         </label>
 
-        <label class="checkbox" *ngFor="let item of visibility" [routerLink]="['./']"
-          [queryParams]="{visibility: item}">
-          <span [translate]="'TXT_TOPIC_STATUS_'+item | uppercase"></span>
+        <label class="checkbox" *ngFor="let item of visibility" (click)="mobileFilters.visibility = {visibility: item}">
+          <span [translate]="'TXT_TOPIC_VISIBILITY_'+item | uppercase"></span>
           <input type="radio" name="status">
           <span class="checkmark"></span>
         </label>
 
-        <div class="option" [routerLink]="['./']" [queryParams]="{favourite: 'true'}"
+        <div class="option" (click)="mobileFilters.visibility = {favourite: 'true'}"
           translate="VIEWS.PUBLIC_GROUPS.FILTERS.FAVOURITED"></div>
 
-        <div class="option" [routerLink]="['./']" [queryParams]="{moderated: 'true'}"
-          translate="VIEWS.PUBLIC_GROUPS.FILTERS.MODERATED"></div>
-        <button class="btn_medium_secondary" (click)="mobileFilters.visibility= false;" translate="BTN_APPLY"></button>
+        <div class="option" (click)="mobileFilters.visibility = {moderated: 'true'}" translate="VIEWS.PUBLIC_GROUPS.FILTERS.MODERATED"></div>
+        <button class="btn_medium_secondary" [routerLink]="['./']" [queryParams]="mobileFilters.visibility" (click)="mobileFilters.visibility= false;" translate="BTN_APPLY"></button>
       </div>
       <div class="overlay" *ngIf="showMobileOverlay()"></div>
       <!--div class="options button_options" *ngIf="mobileFilters.category">
@@ -369,19 +367,19 @@
             </div>
           </ng-container-->
         </typeahead>
-        <label class="checkbox">
+        <label class="checkbox" (click)="mobileFilters.country = ''">
           <span translate="TXT_TOPIC_STATUS_ALL"></span>
           <input type="radio" name="country">
           <span class="checkmark"></span>
         </label>
         <ng-container *ngIf="countries$ | async as countries">
-          <label class="checkbox" *ngFor="let country of countries" (click)="setCountry(country.name);">
+          <label class="checkbox" *ngFor="let country of countries" (click)="mobileFilters.country = country.name">
             <span>{{country.name}}</span>
             <input type="radio" name="country">
             <span class="checkmark"></span>
           </label>
         </ng-container>
-        <button class="btn_medium_secondary" (click)="mobileFilters.country= false;"
+        <button class="btn_medium_secondary" (click)="setCountry(mobileFilters.country);mobileFilters.country= false;"
           translate="BTN_APPLY"></button>
       </div>
       <div class="options button_options" *ngIf="mobileFilters.language">
@@ -398,19 +396,19 @@
             </div>
           </ng-container-->
         </typeahead>
-        <label class="checkbox">
+        <label class="checkbox" (click)="mobileFilters.language = ''">
           <span translate="TXT_TOPIC_STATUS_ALL"></span>
           <input type="radio" name="language">
           <span class="checkmark"></span>
         </label>
         <ng-container *ngIf="languages$ | async as languages">
-          <label class="checkbox" *ngFor="let language of languages" (click)="setLanguage(language.name);">
+          <label class="checkbox" *ngFor="let language of languages" (click)="mobileFilters.language = language.name">
             <span>{{language.name}}</span>
             <input type="radio" name="language">
             <span class="checkmark"></span>
           </label>
         </ng-container>
-        <button class="btn_medium_secondary" (click)="mobileFilters.language= false;"
+        <button class="btn_medium_secondary" (click)="setLanguage(mobileFilters.language);mobileFilters.language= false;"
           translate="BTN_APPLY"></button>
       </div>
       <!--div class="options button_options" *ngIf="mobileFilters.country">

@@ -47,9 +47,10 @@ export class MyTopicsComponent {
     engagements: this.FILTERS_ALL,
     language: this.FILTERS_ALL
   };
-  mobileFilters = {
+  mobileFilters:any = {
     category: false,
     status: false,
+    engagements: false,
     country: false,
     language: false,
   }
@@ -174,7 +175,7 @@ export class MyTopicsComponent {
 
       showMobileOverlay () {
         const filtersShow = Object.entries(this.mobileFilters).find(([key, value]) => {
-          return value === true;
+          return !!value;
         })
         if (filtersShow) return true;
 

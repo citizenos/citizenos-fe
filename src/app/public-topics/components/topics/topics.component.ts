@@ -56,7 +56,7 @@ export class TopicsComponent implements OnInit {
     language: this.FILTERS_ALL
   };
 
-  mobileFilters = {
+  mobileFilters:any = {
     category: false,
     status: false,
     country: false,
