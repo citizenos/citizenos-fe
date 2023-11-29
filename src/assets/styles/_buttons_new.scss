@@ -357,6 +357,11 @@ $button-styles: (
   flex-direction: row-reverse;
   flex-wrap: wrap;
 
+  span {
+    @include mixins.mobile {
+      max-width: calc(100vw - 90px);
+    }
+  }
   input {
     position: absolute !important;
     opacity: 0;
