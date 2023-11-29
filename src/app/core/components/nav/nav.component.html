@@ -234,6 +234,51 @@
           <span translate="DEFAULT.NAV.BTN_CREATE"></span>
         </button>
       </div>
+      <div class="line_separator"></div>
+      <ng-container *ngIf="auth.user$ | async as user">
+        <div id="profile_item_wrap">
+          <div class="profile_photo">
+            <img *ngIf="user.imageUrl" [src]="user.imageUrl">
+            <div class="profile_image_filler" *ngIf="!user.imageUrl">
+              <cos-initials *ngIf="user.name" [name]="user.name">
+              </cos-initials>
+            </div>
+          </div>
+          <div id="profile_text_wrap">
+            <div class="user_name">{{user.name}}</div>
+            <div id="profile_dropdown" class="dropdown" [cosDropdown]>
+              <div class="selection link">
+                  <span translate="DEFAULT.NAV.LNK_MY_ACCOUNT"></span>
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 8L8 11L11 8" stroke="#1168A8" stroke-linecap="round" />
+                  </svg>
+              </div>
+              <div class="options">
+                <div class="option" [routerLink]="['/', translate.currentLang, 'account']" routerLinkActive="active">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11 1.5H4.5C3.39543 1.5 2.5 2.39543 2.5 3.5V12.5C2.5 13.6046 3.39543 14.5 4.5 14.5H11"
+                      stroke="#2C3B47" />
+                    <path d="M5 8H14" stroke="#2C3B47" />
+                    <path d="M11 5L14 8L11 11" stroke="#2C3B47" />
+                  </svg>
+                  <span translate="DEFAULT.NAV.OPT_ACCOUNT_DETAILS"></span>
+                </div>
+                <div class="line_separator_options"></div>
+                <div class="option" (click)="app.logout()">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M3.485 11.9375C4.22 11.4242 4.94917 11.0304 5.6725 10.7562C6.39583 10.4821 7.17167 10.345 8 10.345C8.82833 10.345 9.60708 10.4821 10.3362 10.7562C11.0654 11.0304 11.7975 11.4242 12.5325 11.9375C13.0458 11.3075 13.4104 10.6717 13.6263 10.03C13.8421 9.38833 13.95 8.71167 13.95 8C13.95 6.30833 13.3812 4.89375 12.2437 3.75625C11.1062 2.61875 9.69167 2.05 8 2.05C6.30833 2.05 4.89375 2.61875 3.75625 3.75625C2.61875 4.89375 2.05 6.30833 2.05 8C2.05 8.71167 2.16083 9.38833 2.3825 10.03C2.60417 10.6717 2.97167 11.3075 3.485 11.9375ZM8 8.525C7.32333 8.525 6.75458 8.29458 6.29375 7.83375C5.83292 7.37292 5.6025 6.80417 5.6025 6.1275C5.6025 5.45083 5.83292 4.88208 6.29375 4.42125C6.75458 3.96042 7.32333 3.73 8 3.73C8.67667 3.73 9.24542 3.96042 9.70625 4.42125C10.1671 4.88208 10.3975 5.45083 10.3975 6.1275C10.3975 6.80417 10.1671 7.37292 9.70625 7.83375C9.24542 8.29458 8.67667 8.525 8 8.525ZM8 15C7.04333 15 6.13917 14.8162 5.2875 14.4487C4.43583 14.0812 3.69208 13.5796 3.05625 12.9437C2.42042 12.3079 1.91875 11.5642 1.55125 10.7125C1.18375 9.86083 1 8.95667 1 8C1 7.03167 1.18375 6.12458 1.55125 5.27875C1.91875 4.43292 2.42042 3.69208 3.05625 3.05625C3.69208 2.42042 4.43583 1.91875 5.2875 1.55125C6.13917 1.18375 7.04333 1 8 1C8.96833 1 9.87542 1.18375 10.7212 1.55125C11.5671 1.91875 12.3079 2.42042 12.9437 3.05625C13.5796 3.69208 14.0812 4.43292 14.4487 5.27875C14.8162 6.12458 15 7.03167 15 8C15 8.95667 14.8162 9.86083 14.4487 10.7125C14.0812 11.5642 13.5796 12.3079 12.9437 12.9437C12.3079 13.5796 11.5671 14.0812 10.7212 14.4487C9.87542 14.8162 8.96833 15 8 15ZM8 13.95C8.64167 13.95 9.26875 13.8567 9.88125 13.67C10.4937 13.4833 11.0975 13.1567 11.6925 12.69C11.0975 12.27 10.4908 11.9492 9.8725 11.7275C9.25417 11.5058 8.63 11.395 8 11.395C7.37 11.395 6.74583 11.5058 6.1275 11.7275C5.50917 11.9492 4.9025 12.27 4.3075 12.69C4.9025 13.1567 5.50625 13.4833 6.11875 13.67C6.73125 13.8567 7.35833 13.95 8 13.95ZM8 7.475C8.39667 7.475 8.72042 7.34958 8.97125 7.09875C9.22208 6.84792 9.3475 6.52417 9.3475 6.1275C9.3475 5.73083 9.22208 5.40708 8.97125 5.15625C8.72042 4.90542 8.39667 4.78 8 4.78C7.60333 4.78 7.27958 4.90542 7.02875 5.15625C6.77792 5.40708 6.6525 5.73083 6.6525 6.1275C6.6525 6.52417 6.77792 6.84792 7.02875 7.09875C7.27958 7.34958 7.60333 7.475 8 7.475Z"
+                      fill="#2C3B47" />
+                  </svg>
+                  <span translate="DEFAULT.NAV.LNK_LOG_OUT"></span>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <div class="line_separator"></div>
       <div id="nav_main" class="nav_items_wrap" [TourItem]="{tourid: 'dashboard', index: 2, position: 'right'}">
         <a class="btn_small_nav" [routerLink]="['/', translate.currentLang, 'dashboard']" routerLinkActive="active">
           <div>
