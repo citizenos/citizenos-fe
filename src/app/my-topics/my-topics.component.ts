@@ -10,6 +10,8 @@ import { TopicService } from '../services/topic.service';
 import { trigger, state, style } from '@angular/animations';
 import { countries } from '../services/country.service';
 import { languages } from '../services/language.service';
+import { Country } from 'src/app/interfaces/country';
+import { Language } from 'src/app/interfaces/language';
 
 @Component({
   selector: 'my-topics',
@@ -41,20 +43,32 @@ export class MyTopicsComponent {
   topicFilters = {
     category: this.FILTERS_ALL,
     status: this.FILTERS_ALL,
-    engagements: this.FILTERS_ALL
+    country: this.FILTERS_ALL,
+    engagements: this.FILTERS_ALL,
+    language: this.FILTERS_ALL
   };
-
-  mobile_filters = {
+  mobileFilters = {
     category: false,
     status: false,
+    country: false,
+    language: false,
   }
 
   tabSelected = 'categories';
   categories$ = Object.keys(this.Topic.CATEGORIES);
 
   statuses$ = Object.keys(this.Topic.STATUSES);
+  countrySearch = '';
+  countrySearch$ = new BehaviorSubject('');
   countries = countries;
+  countries$ = of(<Country[]>[]);
+  countryFocus = false;
+
+  languageSearch = '';
+  languageSearch$ = new BehaviorSubject('');
   languages = languages;
+  languages$ = of(<Language[]>[]);
+  languageFocus = false;
 
   /*public topicFilters = [
     {
@@ -128,8 +142,8 @@ export class MyTopicsComponent {
       this.topics$ = combineLatest([this.route.queryParams, this.searchString$]).pipe(
         switchMap(([queryParams, search]) => {
           UserTopicService.reset();
+          this.allTopics$ = [];
           if (search) {
-            this.allTopics$ = [];
             UserTopicService.setParam('search', search);
           }
           Object.entries(queryParams).forEach((param) => {
@@ -145,10 +159,38 @@ export class MyTopicsComponent {
             return this.allTopics$;
           }
         ));
-  }
+        this.countries$ = this.countrySearch$.pipe(switchMap((string) => {
+          const countries = this.countries.filter((country) => country.name.toLowerCase().indexOf(string.toLowerCase()) > -1);
+
+          return [countries];
+        }));
+
+        this.languages$ = this.languageSearch$.pipe(switchMap((string) => {
+          const languages = this.languages.filter((language) => language.name.toLowerCase().indexOf(string.toLowerCase()) > -1);
+
+          return [languages];
+        }));
+      }
+
+      showMobileOverlay () {
+        const filtersShow = Object.entries(this.mobileFilters).find(([key, value]) => {
+          return value === true;
+        })
+        if (filtersShow) return true;
+
+        return false;
+      }
 
   doSearch(search: string) {
     this.searchString$.next(search);
+  }
+
+  searchCountry(event: any) {
+    this.countrySearch$.next(event);
+  }
+
+  searchLanguage(event: any) {
+    this.languageSearch$.next(event);
   }
 
   setStatus(status: string) {
@@ -249,19 +291,37 @@ export class MyTopicsComponent {
   doClearFilters() {
     this.setStatus(this.FILTERS_ALL);
     this.setCategory(this.FILTERS_ALL);
+    this.setCountry('');
+    this.setLanguage('');
+    this.topicFilters.country = this.FILTERS_ALL;
+    this.topicFilters.language = this.FILTERS_ALL;
   }
 
-  setCountry (country?: string) {
-    if (!country)
-      country = undefined;
-    console.log('COUNTRY', country)
+  setCountry(country: string) {
+    if (typeof country !== 'string') {
+      country = '';
+    }
+
+    this.countrySearch$.next(country);
+    this.countrySearch = country;
+    this.allTopics$ = [];
+    this.topicFilters.country = country;
+    this.UserTopicService.setParam('offset', 0);
     this.UserTopicService.setParam('country', country);
+    this.UserTopicService.loadItems();
   }
 
-  setLanguage (language?: string) {
-    if (!language)
-      language = undefined;
-    this.UserTopicService.setParam('language', language);
+  setLanguage(language: string) {
+    if (typeof language !== 'string') {
+      language = '';
+    }
+    this.languageSearch$.next(language);
+    this.languageSearch = language;
+    this.allTopics$ = [];
+    this.topicFilters.language = language;
+    this.UserTopicService.setParam('offset', 0)
+    this.UserTopicService.setParam('language', language || null);
+    this.UserTopicService.loadItems();
   }
 
   loadPage(page: any) {

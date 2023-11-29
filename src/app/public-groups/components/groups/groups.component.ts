@@ -12,6 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AppService } from 'src/app/services/app.service';
 import { trigger, state, style } from '@angular/animations';
 import { Country } from 'src/app/interfaces/country';
+import { Language } from 'src/app/interfaces/language';
 
 @Component({
   selector: 'app-groups',
@@ -36,7 +37,7 @@ export class GroupsComponent implements OnInit {
   moreFilters = false;
   searchInput = '';
   searchString$ = new BehaviorSubject('');
-  mobile_filters = {
+  mobileFilters = {
     visibility: false,
     my_engagement: false,
     category: false,
@@ -53,11 +54,23 @@ export class GroupsComponent implements OnInit {
   countries$ = of(<Country[]>[]);
   countryFocus = false;
 
+  languageSearch = '';
+  languageSearch$ = new BehaviorSubject('');
   languages = languages;
+  languages$ = of(<Language[]>[]);
+  languageFocus = false;
+  /*topicFilters = {
+    category: this.FILTERS_ALL,
+    status: this.FILTERS_ALL,
+    country: this.FILTERS_ALL,
+    language: this.FILTERS_ALL
+  };*/
+
   filters = {
     country: 'all',
     language: 'all'
   }
+
   constructor(private dialog: MatDialog,
     private route: ActivatedRoute,
     private AuthService: AuthService,
@@ -67,8 +80,8 @@ export class GroupsComponent implements OnInit {
     this.PublicGroupService.reset();
     this.groups$ = combineLatest([this.route.queryParams, this.searchString$]).pipe(
       switchMap(([queryParams, search]) => {
-        console.log(search);
         PublicGroupService.reset();
+        this.allGroups$ = [];
         if (search) {
           PublicGroupService.setParam('name', search);
         }
@@ -84,9 +97,15 @@ export class GroupsComponent implements OnInit {
       ));
 
     this.countries$ = this.countrySearch$.pipe(switchMap((string) => {
-      const countries = this.countries.filter((country) => country.name.toLowerCase().indexOf(string) > -1);
+      const countries = this.countries.filter((country) => country.name.toLowerCase().indexOf(string.toLowerCase()) > -1);
 
       return [countries];
+    }));
+
+    this.languages$ = this.languageSearch$.pipe(switchMap((string) => {
+      const languages = this.languages.filter((language) => language.name.toLowerCase().indexOf(string.toLowerCase()) > -1);
+
+      return [languages];
     }));
 
   }
@@ -94,6 +113,11 @@ export class GroupsComponent implements OnInit {
   searchCountry(event: any) {
     this.countrySearch$.next(event);
   }
+
+  searchLanguage(event: any) {
+    this.languageSearch$.next(event);
+  }
+
   loggedIn() {
     return this.AuthService.loggedIn$.value;
   }
@@ -118,6 +142,15 @@ export class GroupsComponent implements OnInit {
     this.PublicGroupService.doOrder(orderBy, order)
   }
 
+  showMobileOverlay () {
+    const filtersShow = Object.entries(this.mobileFilters).find(([key, value]) => {
+      return value === true;
+    })
+    if (filtersShow) return true;
+
+    return false;
+  }
+
   doClearFilters() {
     this.filters = {
       country: 'all',
@@ -125,22 +158,36 @@ export class GroupsComponent implements OnInit {
     }
     this.searchInput = '';
     this.searchString$.next('');
+    this.setLanguage('');
+    this.setLanguage('');
+    this.languageSearch = '';
+    this.countrySearch = '';
   }
   /*TODO add functionalities*/
   setCountry(country: string) {
+    if (typeof country !== 'string') {
+      country = '';
+    }
+
+    this.countrySearch$.next(country);
     this.countrySearch = country;
     this.allGroups$ = [];
     this.filters.country = country;
-    this.PublicGroupService.setParam('offset', 0)
+    this.PublicGroupService.setParam('offset', 0);
     this.PublicGroupService.setParam('country', country);
     this.PublicGroupService.loadItems();
   }
 
   setLanguage(language: string) {
+    if (typeof language !== 'string') {
+      language = '';
+    }
+    this.languageSearch$.next(language);
+    this.languageSearch = language;
     this.allGroups$ = [];
     this.filters.language = language;
     this.PublicGroupService.setParam('offset', 0)
-    this.PublicGroupService.setParam('language', language);
+    this.PublicGroupService.setParam('language', language || null);
     this.PublicGroupService.loadItems();
   }
 
