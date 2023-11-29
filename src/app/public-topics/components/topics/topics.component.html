@@ -21,7 +21,9 @@
         <cos-input [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_STATUS' | translate" class="dropdown_input">
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
-              <div class="selected_item">{{((topicFilters.status === 'showModerated')? 'COMPONENTS.PUBLIC_TOPICS.FILTER_TOPICS_MODERATED' : 'TXT_TOPIC_STATUS_'+topicFilters.status) | uppercase |
+              <div class="selected_item">{{((topicFilters.status === 'showModerated')?
+                'COMPONENTS.PUBLIC_TOPICS.FILTER_TOPICS_MODERATED' : 'TXT_TOPIC_STATUS_'+topicFilters.status) |
+                uppercase |
                 translate}}</div>
               <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
@@ -54,8 +56,7 @@
             </div>
           </div>
         </!--cos-input-->
-        <cos-input [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_CATEGORIES' | translate"
-          class="dropdown_input">
+        <cos-input [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_CATEGORIES' | translate" class="dropdown_input">
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
               <div class="selected_item">{{'TXT_TOPIC_CATEGORY_'+topicFilters.category | uppercase |
@@ -80,7 +81,8 @@
             <div class="options" [ngClass]="{'active': !countries.length}">
               <ng-container *ngIf="countries$ | async as listCountry">
                 <div class="option" (click)="setCountry('');" translate="TXT_TOPIC_STATUS_ALL"></div>
-                <div class="option" [typeaheadItem]="country.name" *ngFor="let country of listCountry" (click)="setCountry(country.name)">
+                <div class="option" [typeaheadItem]="country.name" *ngFor="let country of listCountry"
+                  (click)="setCountry(country.name)">
                   <div class="item_text_wrap">{{country.name}}</div>
                 </div>
               </ng-container>
@@ -110,7 +112,8 @@
             <div class="options" [ngClass]="{'active': !languages.length}">
               <ng-container *ngIf="languages$ | async as listLanguage">
                 <div class="option" (click)="setLanguage('');" translate="TXT_TOPIC_STATUS_ALL"></div>
-                <div class="option" [typeaheadItem]="language.name" *ngFor="let language of listLanguage" (click)="setLanguage(language.name)">
+                <div class="option" [typeaheadItem]="language.name" *ngFor="let language of listLanguage"
+                  (click)="setLanguage(language.name)">
                   <div class="item_text_wrap">{{language.name}}</div>
                 </div>
               </ng-container>
@@ -144,7 +147,8 @@
             <div class="options" [ngClass]="{'active': !countries.length}">
               <ng-container *ngIf="countries$ | async as listCountry">
                 <div class="option" (click)="setCountry('');" translate="TXT_TOPIC_STATUS_ALL"></div>
-                <div class="option" [typeaheadItem]="country.name" *ngFor="let country of listCountry" (click)="setCountry(country.name)">
+                <div class="option" [typeaheadItem]="country.name" *ngFor="let country of listCountry"
+                  (click)="setCountry(country.name)">
                   <div class="item_text_wrap">{{country.name}}</div>
                 </div>
               </ng-container>
@@ -158,7 +162,8 @@
             <div class="options" [ngClass]="{'active': !languages.length}">
               <ng-container *ngIf="languages$ | async as listLanguage">
                 <div class="option" (click)="setLanguage('');" translate="TXT_TOPIC_STATUS_ALL"></div>
-                <div class="option" [typeaheadItem]="language.name" *ngFor="let language of listLanguage" (click)="setLanguage(language.name)">
+                <div class="option" [typeaheadItem]="language.name" *ngFor="let language of listLanguage"
+                  (click)="setLanguage(language.name)">
                   <div class="item_text_wrap">{{language.name}}</div>
                 </div>
               </ng-container>
@@ -271,7 +276,7 @@
         <button class="btn_medium_secondary" (click)="mobileFilters.status= false;"
           translate="COMPONENTS.PUBLIC_TOPICS.BTN_APPLY"></button>
       </div>
-      <div class="overlay" *ngIf="mobileFilters.category || mobileFilters.status || mobileFilters.country || mobileFilters.language"></div>
+      <div class="overlay" *ngIf="showMobileOverlay()"></div>
       <div class="options button_options" *ngIf="mobileFilters.category">
         <label class="checkbox">
           <span translate="TXT_TOPIC_CATEGORY_ALL"></span>
@@ -290,18 +295,7 @@
       </div>
       <div class="options button_options" *ngIf="mobileFilters.country">
         <typeahead class="dropdown dropdown_input" activeClass="dropdown_active" [term]="countrySearch"
-          (search)="searchCountry($event)"
-          [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_COUNTRY' | translate">
-          <!--ng-container *ngIf="countries$ | async as countries">
-            <div class="options" [ngClass]="{'active': !countries.length}">
-              <ng-container *ngIf="countries$ | async as listCountry">
-                <div class="option" (click)="setCountry('');" translate="TXT_TOPIC_STATUS_ALL"></div>
-                <div class="option" [typeaheadItem]="country.name" *ngFor="let country of listCountry" (click)="setCountry(country.name)">
-                  <div class="item_text_wrap">{{country.name}}</div>
-                </div>
-              </ng-container>
-            </div>
-          </ng-container-->
+          (search)="searchCountry($event)" [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_COUNTRY' | translate">
         </typeahead>
         <label class="checkbox">
           <span translate="TXT_TOPIC_STATUS_ALL"></span>
@@ -309,29 +303,18 @@
           <span class="checkmark"></span>
         </label>
         <ng-container *ngIf="countries$ | async as countries">
-        <label class="checkbox" *ngFor="let country of countries" (click)="setCountry(country.name);">
-          <span>{{country.name}}</span>
-          <input type="radio" name="country">
-          <span class="checkmark"></span>
-        </label>
-      </ng-container>
+          <label class="checkbox" *ngFor="let country of countries" (click)="setCountry(country.name);">
+            <span>{{country.name}}</span>
+            <input type="radio" name="country">
+            <span class="checkmark"></span>
+          </label>
+        </ng-container>
         <button class="btn_medium_secondary" (click)="mobileFilters.country= false;"
           translate="COMPONENTS.PUBLIC_TOPICS.BTN_APPLY"></button>
       </div>
       <div class="options button_options" *ngIf="mobileFilters.language">
         <typeahead class="dropdown dropdown_input" activeClass="dropdown_active" [term]="languageSearch"
-          (search)="searchLanguage($event)"
-          [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_LANGUAEG' | translate">
-          <!--ng-container *ngIf="countries$ | async as countries">
-            <div class="options" [ngClass]="{'active': !countries.length}">
-              <ng-container *ngIf="countries$ | async as listCountry">
-                <div class="option" (click)="setCountry('');" translate="TXT_TOPIC_STATUS_ALL"></div>
-                <div class="option" [typeaheadItem]="country.name" *ngFor="let country of listCountry" (click)="setCountry(country.name)">
-                  <div class="item_text_wrap">{{country.name}}</div>
-                </div>
-              </ng-container>
-            </div>
-          </ng-container-->
+          (search)="searchLanguage($event)" [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_LANGUAEG' | translate">
         </typeahead>
         <label class="checkbox">
           <span translate="TXT_TOPIC_STATUS_ALL"></span>
@@ -339,12 +322,12 @@
           <span class="checkmark"></span>
         </label>
         <ng-container *ngIf="languages$ | async as languages">
-        <label class="checkbox" *ngFor="let language of languages" (click)="setLanguage(language.name);">
-          <span>{{language.name}}</span>
-          <input type="radio" name="language">
-          <span class="checkmark"></span>
-        </label>
-      </ng-container>
+          <label class="checkbox" *ngFor="let language of languages" (click)="setLanguage(language.name);">
+            <span>{{language.name}}</span>
+            <input type="radio" name="language">
+            <span class="checkmark"></span>
+          </label>
+        </ng-container>
         <button class="btn_medium_secondary" (click)="mobileFilters.language= false;"
           translate="COMPONENTS.PUBLIC_TOPICS.BTN_APPLY"></button>
       </div>
@@ -356,8 +339,7 @@
     </ng-container>
   </div>
   <div class="pagination_wrap">
-    <cos-pagination (select)="loadPage($event)"
-    [totalPages]="(PublicTopicService.totalPages$ | async) || 0"
-    [page]="(PublicTopicService.page$ | async) || 0"></cos-pagination>
+    <cos-pagination (select)="loadPage($event)" [totalPages]="(PublicTopicService.totalPages$ | async) || 0"
+      [page]="(PublicTopicService.page$ | async) || 0"></cos-pagination>
   </div>
 </div>

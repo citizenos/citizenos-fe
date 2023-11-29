@@ -144,7 +144,6 @@ export class TopicsComponent implements OnInit {
     this.PublicTopicService.setParam('categories', [category]);
   }
 
-  /*TODO add functionalities*/
   setCountry(country: string) {
     if (typeof country !== 'string') {
       country = '';
@@ -180,10 +179,20 @@ export class TopicsComponent implements OnInit {
     this.PublicTopicService.loadPage(page);
   }
 
+  showMobileOverlay () {
+    const filtersShow = Object.entries(this.mobileFilters).find(([key, value]) => {
+      return value === true;
+    })
+    if (filtersShow) return true;
+
+    return false;
+  }
+
   doClearFilters() {
     this.setStatus(this.FILTERS_ALL);
     this.setCategory(this.FILTERS_ALL);
     this.setCountry('');
+    this.setLanguage('');
     this.topicFilters.country = this.FILTERS_ALL;
     this.topicFilters.language = this.FILTERS_ALL;
 

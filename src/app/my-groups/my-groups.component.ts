@@ -9,6 +9,8 @@ import { AuthService } from '../services/auth.service';
 import { countries } from '../services/country.service';
 import { languages } from '../services/language.service';
 import { state, style, trigger } from '@angular/animations';
+import { Country } from 'src/app/interfaces/country';
+import { Language } from 'src/app/interfaces/language';
 
 @Component({
   selector: 'my-groups',
@@ -25,7 +27,7 @@ import { state, style, trigger } from '@angular/animations';
         'maxHeight': '50px',
         transition: '0.2s ease-in-out max-height'
       }))
-  ])]
+    ])]
 })
 export class MyGroupsComponent implements OnInit {
   public wWidth = window.innerWidth;
@@ -33,13 +35,23 @@ export class MyGroupsComponent implements OnInit {
   groups$: Observable<Group[] | any[]> = of([]);
   allGroups$: Group[] = [];
   visibility = ['all'].concat(Object.values(this.GroupService.VISIBILITY));
+  countrySearch = '';
+  countrySearch$ = new BehaviorSubject('');
   countries = countries;
+  countries$ = of(<Country[]>[]);
+  countryFocus = false;
+
+  languageSearch = '';
+  languageSearch$ = new BehaviorSubject('');
   languages = languages;
+  languages$ = of(<Language[]>[]);
+  languageFocus = false;
+
   categories = ['all', 'democracy'];
   searchInput = '';
   searchString$ = new BehaviorSubject('');
   moreFilters = false;
-  mobile_filters = {
+  mobileFilters = {
     visibility: false,
     my_engagement: false,
     category: false,
@@ -60,7 +72,7 @@ export class MyGroupsComponent implements OnInit {
     public GroupService: GroupService,
     private router: Router,
     TranslateService: TranslateService,
-    ) {
+  ) {
 
     this.groups$ = combineLatest([this.route.queryParams, this.searchString$]).pipe(
       switchMap(([queryParams, search]) => {
@@ -74,6 +86,26 @@ export class MyGroupsComponent implements OnInit {
         return GroupService.loadItems();
       }
       ));
+    this.countries$ = this.countrySearch$.pipe(switchMap((string) => {
+      const countries = this.countries.filter((country) => country.name.toLowerCase().indexOf(string.toLowerCase()) > -1);
+
+      return [countries];
+    }));
+
+    this.languages$ = this.languageSearch$.pipe(switchMap((string) => {
+      const languages = this.languages.filter((language) => language.name.toLowerCase().indexOf(string.toLowerCase()) > -1);
+
+      return [languages];
+    }));
+  }
+
+  showMobileOverlay () {
+    const filtersShow = Object.entries(this.mobileFilters).find(([key, value]) => {
+      return value === true;
+    })
+    if (filtersShow) return true;
+
+    return false;
   }
 
   doClearFilters() {
@@ -83,6 +115,10 @@ export class MyGroupsComponent implements OnInit {
     }
     this.searchInput = '';
     this.searchString$.next('');
+    this.setCountry('');
+    this.setLanguage('');
+    this.languageSearch = '';
+    this.countrySearch = '';
   }
 
   doSearch(search: string) {
@@ -110,23 +146,40 @@ export class MyGroupsComponent implements OnInit {
     return false;
   }
 
+  searchCountry(event: any) {
+    this.countrySearch$.next(event);
+  }
+
+  searchLanguage(event: any) {
+    this.languageSearch$.next(event);
+  }
+
   setCountry(country: string) {
- //   this.countrySearch = country;
+    if (typeof country !== 'string') {
+      country = '';
+    }
+
+    this.countrySearch$.next(country);
+    this.countrySearch = country;
     this.allGroups$ = [];
     this.filters.country = country;
-    this.GroupService.setParam('offset', 0)
+    this.GroupService.setParam('offset', 0);
     this.GroupService.setParam('country', country);
     this.GroupService.loadItems();
   }
 
   setLanguage(language: string) {
+    if (typeof language !== 'string') {
+      language = '';
+    }
+    this.languageSearch$.next(language);
+    this.languageSearch = language;
     this.allGroups$ = [];
     this.filters.language = language;
     this.GroupService.setParam('offset', 0)
-    this.GroupService.setParam('language', language);
+    this.GroupService.setParam('language', language || null);
     this.GroupService.loadItems();
   }
-
   loadPage(page: any) {
     this.allGroups$ = [];
     this.GroupService.loadPage(page);
