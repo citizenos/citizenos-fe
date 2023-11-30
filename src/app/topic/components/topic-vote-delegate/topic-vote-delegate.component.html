@@ -25,57 +25,58 @@
   </div>
 
   <div class="dialog_content">
-    <div class="dialog_info_wrap">
-      <div class="dialog_info" translate="MODALS.TOPIC_VOTE_DELEGATE_LBL_SEARCH_MEMBERS"></div>
-      <div class="dialog_info">
-        <div id="search_wrap">
-          <typeahead id="input_area" [term]="searchStringUser" (search)="search($event)" (select)="addUser($event)"
-            (enterAction)="addUser($event)"
-            [placeholder]="'MODALS.TOPIC_VOTE_DELEGATE_PLACEHOLDER_SEARCH_BY_NAME' | translate">
-            <ng-container *ngIf="searchResultUsers$ | async as searchResults">
-              <div class="search_area_wrap" [ngClass]="{hidden: !searchResults.length}">
-                <div class="search_dropdown_item" [typeaheadItem]="user" *ngFor="let user of searchResults" (click)="addUser(user)">
-                  <div class="item_text_wrap">
-                    <b>{{user.name}}</b>
-                  </div>
+    <div class="dialog_info" translate="MODALS.TOPIC_VOTE_DELEGATE_LBL_SEARCH_MEMBERS"></div>
+    <div class="dialog_info">
+      <div id="search_wrap">
+        <typeahead id="input_area" [term]="searchStringUser" (search)="search($event)" (select)="addUser($event)"
+          (enterAction)="addUser($event)"
+          [placeholder]="'MODALS.TOPIC_VOTE_DELEGATE_PLACEHOLDER_SEARCH_BY_NAME' | translate">
+          <ng-container *ngIf="searchResultUsers$ | async as searchResults">
+            <div class="search_area_wrap" [ngClass]="{hidden: !searchResults.length}">
+              <div class="search_dropdown_item" [typeaheadItem]="user" *ngFor="let user of searchResults"
+                (click)="addUser(user)">
+                <div class="item_text_wrap">
+                  <b>{{user.name}}</b>
                 </div>
               </div>
-            </ng-container>
-          </typeahead>
-        </div>
-        <div *ngIf="delegateUser">
-          <div class="row_list">
-            <div class="row_cell_dialog image_cell">
-              <div class="profile_image_wrap">
-                <img class="profile_image" *ngIf="delegateUser.imageUrl" [src]="delegateUser.imageUrl">
-                <div class="profile_image_filler" *ngIf="!delegateUser.imageUrl">
-                  <cos-initials class="table_cell" *ngIf="delegateUser.name" [name]="delegateUser.name">
-                  </cos-initials>
-                </div>
+            </div>
+          </ng-container>
+        </typeahead>
+      </div>
+      <div *ngIf="delegateUser">
+        <div class="row_list">
+          <div class="row_cell_dialog image_cell">
+            <div class="profile_image_wrap">
+              <img class="profile_image" *ngIf="delegateUser.imageUrl" [src]="delegateUser.imageUrl">
+              <div class="profile_image_filler" *ngIf="!delegateUser.imageUrl">
+                <cos-initials class="table_cell" *ngIf="delegateUser.name" [name]="delegateUser.name">
+                </cos-initials>
               </div>
-              <a class="cell_title">
-                {{delegateUser.name}}
-              </a>
             </div>
-            <div class="row_cell_dialog">
-              <button (click)="doRemoveDelegateUser()">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M9 9H11V17H9L9 9Z" fill="#2C3B47" />
-                  <path d="M15 9H13V17H15V9Z" fill="#2C3B47" />
-                  <path fill-rule="evenodd" clip-rule="evenodd"
-                    d="M17 5V4C17 2.89543 16.1046 2 15 2L9 2C7.89543 2 7 2.89543 7 4L7 5H4C3.44772 5 3 5.44772 3 6C3 6.55228 3.44772 7 4 7H5L5 18C5 19.6569 6.34315 21 8 21L16 21C17.6569 21 19 19.6569 19 18L19 7H20C20.5523 7 21 6.55228 21 6C21 5.44772 20.5523 5 20 5L17 5ZM15 4L9 4V5L15 5V4ZM17 7L7 7L7 18C7 18.5523 7.44772 19 8 19L16 19C16.5523 19 17 18.5523 17 18V7Z"
-                    fill="#2C3B47" />
-                </svg>
-              </button>
-            </div>
+            <span>
+              {{delegateUser.name}}
+            </span>
+          </div>
+          <div class="row_cell_dialog">
+            <button (click)="doRemoveDelegateUser()">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 9H11V17H9L9 9Z" fill="#2C3B47" />
+                <path d="M15 9H13V17H15V9Z" fill="#2C3B47" />
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M17 5V4C17 2.89543 16.1046 2 15 2L9 2C7.89543 2 7 2.89543 7 4L7 5H4C3.44772 5 3 5.44772 3 6C3 6.55228 3.44772 7 4 7H5L5 18C5 19.6569 6.34315 21 8 21L16 21C17.6569 21 19 19.6569 19 18L19 7H20C20.5523 7 21 6.55228 21 6C21 5.44772 20.5523 5 20 5L17 5ZM15 4L9 4V5L15 5V4ZM17 7L7 7L7 18C7 18.5523 7.44772 19 8 19L16 19C16.5523 19 17 18.5523 17 18V7Z"
+                  fill="#2C3B47" />
+              </svg>
+            </button>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="dialog_footer with_buttons">
-    <button class="btn_medium_submit" (click)="doSaveDelegate()" *ngIf="delegateUser"
-      translate="MODALS.TOPIC_VOTE_DELEGATE_BTN_DELEGATE" mat-dialog-close></button>
-    <a mat-dialog-close translate="COMPONENTS.TOPIC_VOTE_CREATE.LNK_CANCEL"></a>
+  <div class="dialog_content button_content">
+    <div class="button_wrap">
+      <button class="btn_medium_submit" (click)="doSaveDelegate()" *ngIf="delegateUser"
+        translate="MODALS.TOPIC_VOTE_DELEGATE_BTN_DELEGATE" mat-dialog-close></button>
+      <a mat-dialog-close translate="COMPONENTS.TOPIC_VOTE_CREATE.LNK_CANCEL"></a>
+    </div>
   </div>
 </div>

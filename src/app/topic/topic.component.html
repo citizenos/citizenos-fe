@@ -9,7 +9,8 @@
               fill="#2C3B47" />
           </svg>
         </button>
-        <div class="small_heading mobile_hidden" [innerHTML]="'VIEWS.TOPICS_TOPICID.HEADING_BACK_TO_PUBLIC_TOPICS'| translate"></div>
+        <div class="small_heading mobile_hidden"
+          [innerHTML]="'VIEWS.TOPICS_TOPICID.HEADING_BACK_TO_PUBLIC_TOPICS'| translate"></div>
       </ng-container>
       <ng-container *ngIf="auth.loggedIn$.value">
         <button class="btn_medium_close icon" [routerLink]="['/', translate.currentLang, 'my', 'topics']"><svg
@@ -19,7 +20,8 @@
               fill="#2C3B47" />
           </svg>
         </button>
-        <div class="small_heading mobile_hidden" [innerHTML]="'VIEWS.TOPICS_TOPICID.HEADING_BACK_TO_MY_TOPICS'| translate"></div>
+        <div class="small_heading mobile_hidden"
+          [innerHTML]="'VIEWS.TOPICS_TOPICID.HEADING_BACK_TO_MY_TOPICS'| translate"></div>
       </ng-container>
     </div>
     <div id="buttons_area">
@@ -75,7 +77,8 @@
             <span *ngIf="!topic.favourite" translate="VIEWS.TOPICS_TOPICID.OPTION_FAVOURITE"></span>
             <span *ngIf="topic.favourite" translate="VIEWS.TOPICS_TOPICID.OPTION_UNFAVOURITE"></span>
           </button>
-          <button class="option" (click)="inviteMembers(topic)" *ngIf="(auth.loggedIn$ | async) && TopicService.canEdit(topic)">
+          <button class="option" (click)="inviteMembers(topic)"
+            *ngIf="(auth.loggedIn$ | async) && TopicService.canEdit(topic)">
             <div>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -89,7 +92,8 @@
             </div>
             <span translate="VIEWS.TOPICS_TOPICID.OPTION_INVITE_CO_EDITOR"></span>
           </button>
-          <button class="option" *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic)" [routerLink]="['/','topics', 'edit', topic.id]">
+          <button class="option" *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic)"
+            [routerLink]="['/','topics', 'edit', topic.id]">
             <div>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -99,7 +103,8 @@
             </div>
             <span translate="VIEWS.TOPICS_TOPICID.OPTION_EDIT_TOPIC"></span>
           </button>
-          <button class="option" (click)="duplicateTopic(topic)" *ngIf="(auth.loggedIn$ | async) && TopicService.canEdit(topic)">
+          <button class="option" (click)="duplicateTopic(topic)"
+            *ngIf="(auth.loggedIn$ | async) && TopicService.canEdit(topic)">
             <div>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M2 5H11V14H2V5Z" fill="#2C3B47" />
@@ -132,7 +137,8 @@
               </svg>
             </div><span translate="VIEWS.TOPICS_TOPICID.OPTION_REPORT_TOPIC"></span>
           </button>
-          <button class="option error_text" *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic)" (click)="deleteTopic(topic);">
+          <button class="option error_text" *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic)"
+            (click)="deleteTopic(topic);">
             <div><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd"
                   d="M10 3H6V4H10V3ZM11 4V3C11 2.44772 10.5523 2 10 2H6C5.44772 2 5 2.44772 5 3V4H4H2.5C2.22386 4 2 4.22386 2 4.5C2 4.77614 2.22386 5 2.5 5H4V13C4 13.5523 4.44772 14 5 14H11C11.5523 14 12 13.5523 12 13V5H13.5C13.7761 5 14 4.77614 14 4.5C14 4.22386 13.7761 4 13.5 4H12H11ZM7 7H6V11H7V7ZM10 7H9V11H10V7Z"
@@ -201,25 +207,66 @@
     <div class="content_area_left" *ngIf="tabSelected$ | async as tabSelected;">
       <ng-container
         *ngIf="topic.report && ((topic.report?.type && !topic.report?.moderatedReasonType) || (topic.report?.type) || (TopicService.canEdit(topic) && topic.report?.moderatedReasonType))">
-        <div class="notification_inline error">
+        <div class="notification_inline warning">
           <div class="icon_notification">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect width="24" height="24" rx="12" fill="#EF4025" />
+              <rect width="24" height="24" rx="12" fill="#F39129" />
               <path
-                d="M16.3753 6.77583C16.6097 6.54152 16.9896 6.54152 17.2239 6.77583C17.4582 7.01015 17.4582 7.39005 17.2239 7.62436L12.8481 12.0001L17.2239 16.3758C17.4582 16.6101 17.4582 16.99 17.2239 17.2244C16.9896 17.4587 16.6097 17.4587 16.3753 17.2244L11.9996 12.8486L7.62387 17.2244C7.38956 17.4587 7.00966 17.4587 6.77535 17.2244C6.54103 16.99 6.54103 16.6101 6.77535 16.3758L11.1511 12.0001L6.77535 7.62436C6.54103 7.39005 6.54103 7.01015 6.77535 6.77583C7.00966 6.54152 7.38956 6.54152 7.62387 6.77583L11.9996 11.1516L16.3753 6.77583Z"
-                fill="white" stroke="white" stroke-linecap="round" />
+                d="M11.4395 4.7998C11.0934 4.7998 10.819 5.09181 10.8406 5.43723L11.3656 13.8372C11.3854 14.1535 11.6476 14.3998 11.9645 14.3998H12.0371C12.3539 14.3998 12.6162 14.1535 12.6359 13.8372L13.1609 5.43723C13.1825 5.09181 12.9082 4.7998 12.5621 4.7998H11.4395Z"
+                fill="white" />
+              <path
+                d="M12.0008 18.5998C12.6635 18.5998 13.2008 18.0625 13.2008 17.3998C13.2008 16.7371 12.6635 16.1998 12.0008 16.1998C11.338 16.1998 10.8008 16.7371 10.8008 17.3998C10.8008 18.0625 11.338 18.5998 12.0008 18.5998Z"
+                fill="white" />
             </svg>
           </div>
           <div class="message">
+
+            <div class="title" translate="VIEWS.TOPICS_TOPICID.HEADING_REPORTED">
+            </div>
             <div class="content">
-              <span *ngIf="topic.report.type && !topic.report.moderatedReasonType">&nbsp;<a
-                  [routerLink]="['reports', topic.report.id, 'moderate']"
-                  translate="VIEWS.TOPICS_TOPICID.TAB_INFO_LNK_MODERATE"></a></span>
-              <span *ngIf="topic.report.type">&nbsp;<a [routerLink]="['reports', topic.report.id, 'resolve']"
-                  translate="VIEWS.TOPICS_TOPICID.TAB_INFO_LNK_RESOLVE"></a></span>
-              <span *ngIf="TopicService.canEdit(topic) && topic.report.moderatedReasonType">&nbsp;<a
-                  [routerLink]="['reports', topic.report.id, 'review']"
-                  translate="VIEWS.TOPICS_TOPICID.TAB_INFO_LNK_SUBMIT_FOR_REVIEW"></a></span>
+              <div class="content_description" translate="VIEWS.TOPICS_TOPICID.DESCRIPTION_REPORTED"></div>
+              <div class="content_items_wrap">
+                <div class="content_item" *ngIf="topic.report.type && !topic.report.moderatedReasonType">
+                  <a [routerLink]="['reports', topic.report.id, 'moderate']">
+                    <div>
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15 12V14L19 11.5L15 9V11H6V12H15Z" fill="#1168A8" />
+                      </svg>
+                    </div>
+                    <span translate="VIEWS.TOPICS_TOPICID.TAB_INFO_LNK_MODERATE"></span>
+                  </a>
+                </div>
+                <div class="content_item">
+                  <a (click)="reportReasonDialog(topic)">
+                    <div>
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15 12V14L19 11.5L15 9V11H6V12H15Z" fill="#1168A8" />
+                      </svg>
+                    </div>
+                    <span translate="VIEWS.TOPICS_TOPICID.TAB_INFO_LNK_VIEW_REPORT_DETAILS" ></span>
+                  </a>
+                </div>
+                <div class="content_item" *ngIf="topic.report.type">
+                  <a [routerLink]="['reports', topic.report.id, 'resolve']">
+                    <div>
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15 12V14L19 11.5L15 9V11H6V12H15Z" fill="#1168A8" />
+                      </svg>
+                    </div>
+                    <span translate="VIEWS.TOPICS_TOPICID.TAB_INFO_LNK_RESOLVE"></span>
+                  </a>
+                </div>
+                <div class="content_item" *ngIf="TopicService.canEdit(topic) && topic.report.moderatedReasonType">
+                  <a [routerLink]="['reports', topic.report.id, 'review']">
+                    <div>
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15 12V14L19 11.5L15 9V11H6V12H15Z" fill="#1168A8" />
+                      </svg>
+                    </div>
+                    <span translate="VIEWS.TOPICS_TOPICID.TAB_INFO_LNK_SUBMIT_FOR_REVIEW"></span>
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -275,7 +322,8 @@
         </div>
       </div>
       <ng-container *ngIf="tabSelected === 'discussion'">
-        <topic-arguments class="topic_arguments" #arguments [topic]="topic" [ngClass]="(tabTablet==='arguments')? 'show': ''"
+        <topic-arguments class="topic_arguments" #arguments [topic]="topic"
+          [ngClass]="(tabTablet==='arguments')? 'show': ''"
           [TourItem]="{tourid: 'topic', index: 7, position: 'top'}"></topic-arguments>
         <post-argument *ngIf="(tabTablet==='arguments') || wWidth > 1024" [topicId]="topic.id"></post-argument>
       </ng-container>
@@ -356,8 +404,8 @@
           </ng-container>
         </div>
         <ng-container *ngIf="topic.voteId && (vote$ | async) as vote">
-          <topic-vote-cast class="topic_feature_section voting" [ngClass]="(tabTablet === 'vote')? 'show': ''" [topic]="topic"
-            [vote]="vote"></topic-vote-cast>
+          <topic-vote-cast class="topic_feature_section voting" [ngClass]="(tabTablet === 'vote')? 'show': ''"
+            [topic]="topic" [vote]="vote"></topic-vote-cast>
         </ng-container>
       </ng-container>
       <ng-container *ngIf="tabSelected === 'followUp'">
@@ -405,7 +453,7 @@
               </svg>
               <div class="description_heading" translate="VIEWS.TOPICS_TOPICID.NO_FOLLOW_UP_HEADING"></div>
               <div class="button" *ngIf="TopicService.canDelete(topic)">
-                <button class="btn_medium_submit" (click)="sendToFollowUp(topic)" >
+                <button class="btn_medium_submit" (click)="sendToFollowUp(topic)">
                   <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M12.5 20C11.9711 20 11.5423 19.5712 11.5423 19.0423L11.5423 12.9577L5.45775 12.9577C4.9288 12.9577 4.5 12.5289 4.5 12C4.5 11.4711 4.9288 11.0423 5.45775 11.0423H11.5423V4.95775C11.5423 4.4288 11.9711 4 12.5 4C13.0289 4 13.4577 4.4288 13.4577 4.95775L13.4577 11.0423L19.5423 11.0423C20.0712 11.0423 20.5 11.4711 20.5 12C20.5 12.5289 20.0712 12.9577 19.5423 12.9577H13.4577V19.0423C13.4577 19.5712 13.0289 20 12.5 20Z"
@@ -440,7 +488,7 @@
         </ng-container>
       </ng-container>
     </div>
-    <div class="content_area_right" *ngIf="!tabTablet" >
+    <div class="content_area_right" *ngIf="!tabTablet">
       <div class="info_section"
         [TourItem]="{tourid: 'topic', index: 3, position: ((wWidth <= 1024)? 'bottom': 'left')}">
         <div class="topic_visibility">
@@ -569,7 +617,8 @@
         <div class="info_items_wrap">
           <div class="info_header">
             <div class="info_title" translate="VIEWS.TOPICS_TOPICID.SECTION_PARTICIPANTS_HEADING"></div>
-            <a class="members_link" (click)="manageParticipants(topic)" translate="VIEWS.TOPICS_TOPICID.LNK_MANAGE" *ngIf="canUpdate(topic)"></a>
+            <a class="members_link" (click)="manageParticipants(topic)" translate="VIEWS.TOPICS_TOPICID.LNK_MANAGE"
+              *ngIf="canUpdate(topic)"></a>
           </div>
           <div class="participants_count_wrap">
             <div class="participants_count">{{topic.members.users.count}}</div>
@@ -754,8 +803,8 @@
       </div>
     </div>
   </div>
-  <div id="tabs_tablet" class="topic_tabs tablet" *ngIf="tabSelected$ | async as tabSelected;" [ngClass]="{'hidden': dialogsOpen()}"
-    [TourItem]="{tourid: 'topic_mobile', index: 1, position: 'top'}">
+  <div id="tabs_tablet" class="topic_tabs tablet" *ngIf="tabSelected$ | async as tabSelected;"
+    [ngClass]="{'hidden': dialogsOpen()}" [TourItem]="{tourid: 'topic_mobile', index: 1, position: 'top'}">
     <a class="topic_tab" (click)="(tabTablet = '')">
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
@@ -768,8 +817,8 @@
         <rect x="11" y="24" width="6" height="1" rx="0.5" fill="#4D5C6A" />
       </svg>
     </a>
-    <a class="topic_tab discussion" [ngClass]="(tabTablet==='arguments')? 'active' : ''"
-      (click)="tabTablet='arguments'" [routerLink]="['./']" fragment="discussion">
+    <a class="topic_tab discussion" [ngClass]="(tabTablet==='arguments')? 'active' : ''" (click)="tabTablet='arguments'"
+      [routerLink]="['./']" fragment="discussion">
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="32" height="32" rx="16" fill="#1168A8" />
         <path
@@ -790,8 +839,8 @@
       </svg>
       <span class="tab_text" translate="VIEWS.TOPICS_TOPICID.TAB_IDEATION"></span>
     </!--a-->
-    <a class="topic_tab voting" [ngClass]="tabSelected=== 'voting' ? 'active' : ''" [routerLink]="['./']" fragment="voting"
-      (click)="tabTablet='vote'">
+    <a class="topic_tab voting" [ngClass]="tabSelected=== 'voting' ? 'active' : ''" [routerLink]="['./']"
+      fragment="voting" (click)="tabTablet='vote'">
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="32" height="32" rx="16" fill="#98DAA2" />
         <path fill-rule="evenodd" clip-rule="evenodd"

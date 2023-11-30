@@ -1,8 +1,12 @@
-@use 'mixins';
+@use "mixins";
 
 .dialog {
   max-width: 560px;
 
+  .dialog_content {
+    padding: 24px;
+    gap: 32px;
+  }
   .dialog_info {
     text-align: center;
 
@@ -35,14 +39,49 @@
     }
   }
   .row_list {
+    display: flex;
     width: 100%;
+    margin-top: 8px;
     background-color: var(--color-argument-pro-medium);
     justify-content: space-between;
     padding: 8px;
     border-radius: 8px;
+    .row_cell {
+      a {
+        min-width: 200px;
+      }
+    }
+    .row_cell_dialog {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+
+      .cell_title {
+        display: flex;
+        width: 100%;
+        padding: 8px;
+      }
+
+      .action_items {
+        display: flex;
+        gap: 8px;
+        padding: 8px 0;
+        justify-content: space-between;
+        width: 100%;
+
+        .dropdown {
+          width: 100%;
+        }
+      }
+    }
   }
 
-  .dialog_footer {
-    flex-direction: column;
+  .button_content {
+    padding-top: 8px;
   }
+
+  .profile_image_filler {
+    width: 40px;
+  }
+
 }

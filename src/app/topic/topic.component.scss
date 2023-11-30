@@ -12,15 +12,27 @@
     padding: 8px;
     gap: 16px;
     padding-bottom: 60px;
+
+    .notification_inline {
+      border-radius: 0;
+      margin-bottom: -32px;
+    }
   }
 
   @include mixins.mobile {
     padding: 0;
+    .notification_inline {
+      width: 100%;
+      margin: 0 0 -32px 0;
+    }
   }
 
   #page_header {
     padding: 16px 0 0 0;
 
+    @include mixins.tablet {
+      margin-bottom: -16px!important;
+    }
     @include mixins.mobile {
       h3 {
         display: none;
@@ -203,6 +215,9 @@
         background-color: var(--color-surfaces);
         position: relative;
 
+        @include mixins.tablet {
+          border-radius: 0 0 16px 16px;
+        }
         .moderated_topic {
           background: rgba(255, 255, 255, 0.9);
           backdrop-filter: blur(16px);
