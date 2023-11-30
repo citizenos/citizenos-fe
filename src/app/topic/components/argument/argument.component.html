@@ -13,7 +13,7 @@
           {{argument.creator.name}}
         </div>
       </div>
-      <div class="separator">|</div>
+      <!--div class="separator">|</!--div>
       <div class="favourite">
         <button>
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -22,7 +22,7 @@
               fill="#2C3B47" />
           </svg>
         </button>
-      </div>
+      </div -->
     </div>
     <div class="header_right">
       <div class="created_at">{{argument.createdAt | date : 'yyyy-MM-dd HH:mm'}}</div>
@@ -133,8 +133,8 @@
       </div>
     </div>
     <div class="footer_right">
-      <a *ngIf="!showReplies && argument.replies.rows.length" id="{{argument.id}}_replies"
-        translate="COMPONENTS.ARGUMENT.LNK_SHOW_REPLIES" [translateParams]="{count: argument.replies.rows.length}"
+      <a class="btn_ghost_reply_argument" *ngIf="!showReplies && argument.replies.rows.length" id="{{argument.id}}_replies"
+        translate="COMPONENTS.ARGUMENT.LNK_SHOW_REPLIES" [translateParams]="{count: argument.replies.count}"
         (click)="showReplies = !showReplies"></a>
       <a *ngIf="showReplies" (click)="showReplies = !showReplies" translate="COMPONENTS.ARGUMENT.LNK_HIDE_REPLIES">
       </a>
@@ -145,7 +145,7 @@
       </ng-container>
     </div>
   </div>
-  <argument-reply *ngIf="showReply" [argument]="argument" [topicId]="topicId"></argument-reply>
+  <argument-reply *ngIf="showReply" [(showReply)]="showReply" [argument]="argument" [topicId]="topicId"></argument-reply>
   <ng-container *ngIf="showReplies">
     <div class="replies_wrap">
       <ng-container *ngFor="let reply of argument.replies.rows">

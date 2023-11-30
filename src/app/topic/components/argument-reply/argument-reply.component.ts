@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { take, map } from 'rxjs';
 import { Argument } from 'src/app/interfaces/argument';
 import { AuthService } from 'src/app/services/auth.service';
@@ -11,7 +11,8 @@ import { TopicArgumentService } from 'src/app/services/topic-argument.service';
 export class ArgumentReplyComponent implements OnInit {
   @Input() argument!: Argument;
   @Input() topicId!: string;
-
+  @Input() showReply!: boolean;
+  @Output() showReplyChange = new EventEmitter<boolean>();
   public reply = {
     subject: '',
     type: 'reply',
@@ -64,4 +65,7 @@ export class ArgumentReplyComponent implements OnInit {
      }*/
   };
 
+  close () {
+    this.showReplyChange.emit(false);
+  }
 }
