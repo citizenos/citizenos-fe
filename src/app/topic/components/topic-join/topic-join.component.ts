@@ -34,7 +34,11 @@ export class TopicTokenJoinComponent {
       take(1)
     ).subscribe({
       next: (topic) => {
-        console.log(topic);
+        if (topic.id) {
+          router.navigate(['topics', topic.id]);
+        } else {
+          router.navigate(['dashboard']);
+        }
         const joinDialog = dialog.open(TopicJoinComponent, {
           data: {
             topic: topic
@@ -64,7 +68,34 @@ export class TopicTokenJoinComponent {
         });
       },
       error: (err) => {
-        console.error(err);
+        console.log(err);
+       /* const joinDialog = dialog.open(TopicJoinComponent, {
+          data: {
+            topic: {id: '', title: ''}
+          }
+        });
+        joinDialog.afterClosed().subscribe((confirm) => {
+          if (confirm === true) {
+            TopicJoinService.join(this.token).pipe(
+              take(1)
+            ).subscribe({
+              next: (topic) => {
+                router.navigate(['topics', topic.id]);
+              },
+              error: (res) => {
+                const status = res.status;
+                if (status.code === 40100) { // Unauthorized
+                  const currentUrl = Location.currentUrl();
+                  router.navigate(['/account/login'], { queryParams: { redirectSuccess: currentUrl } });
+                } else if (status.code === 40001) { // Matching token not found.
+                  router.navigate(['/']);
+                } else {
+                  router.navigate(['/404']);
+                }
+              }
+            })
+          }
+        });*/
         /*TopicJoinService.join(this.token).pipe(take(1))
           .subscribe({
             next: (topic) => {

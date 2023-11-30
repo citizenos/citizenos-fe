@@ -144,6 +144,7 @@ export class TopicFormComponent {
   }
 
   nextTab(tab: string | void) {
+    this.updateTopic();
     if (tab) {
       const tabIndex = this.tabs.indexOf(tab);
       if (tabIndex > -1 && tabIndex < 2) {

@@ -50,11 +50,11 @@
               </div>
             </div>
             <div class="options">
-              <div class="option" translate="VIEWS.MY_GROUPS.ORDER_RECENT_ACTIVITY"></div>
-              <div class="option" translate="VIEWS.MY_GROUPS.MOST_ACTIVITIES"></div>
-              <div class="option" translate="VIEWS.MY_GROUPS.MOST_PARTICIPANTS"></div>
-              <div class="option" translate="VIEWS.MY_GROUPS.MOST_RECENT"></div>
-              <div class="option" translate="VIEWS.MY_GROUPS.MOST_TOPICS"></div>
+              <div class="option" translate="VIEWS.MY_GROUPS.ORDER_RECENT_ACTIVITY" (click)="doOrder('activity', 'desc')"></div>
+              <div class="option" translate="VIEWS.MY_GROUPS.MOST_ACTIVITIES" (click)="doOrder('activityCount', 'desc')"></div>
+              <div class="option" translate="VIEWS.MY_GROUPS.MOST_PARTICIPANTS" (click)="doOrder('memberCount', 'desc')"></div>
+              <div class="option" translate="VIEWS.MY_GROUPS.MOST_RECENT" (click)="doOrder('createdAt', 'desc')"></div>
+              <div class="option" translate="VIEWS.MY_GROUPS.MOST_TOPICS" (click)="doOrder('topicCount', 'desc')"></div>
             </div>
           </div>
         </cos-input>
@@ -338,33 +338,34 @@
         </label>
         <button class="btn_medium_secondary" (click)="mobileFilters.my_engagement = false;">Apply</button>
       </!--div-->
+
       <div class="options button_options" *ngIf="mobileFilters.order">
-        <label class="checkbox">
+        <label class="checkbox" (click)="mobileFilters.order = 'activity'">
           <span translate="VIEWS.MY_GROUPS.ORDER_RECENT_ACTIVITY"></span>
           <input type="radio" name="order">
           <span class="checkmark"></span>
         </label>
-        <label class="checkbox">
-          <span translate="VIEWS.MY_GROUPS.MOST_ACTIVITIES"></span>
+        <label class="checkbox" (click)="mobileFilters.order = 'activityCount'">
+          <span translate="VIEWS.MY_GROUPS.MOST_ACTIVITIES" ></span>
           <input type="radio" name="order">
           <span class="checkmark"></span>
         </label>
-        <label class="checkbox">
+        <label class="checkbox" (click)="mobileFilters.order = 'memberCount'">
           <span translate="VIEWS.MY_GROUPS.MOST_PARTICIPANTS"></span>
           <input type="radio" name="order">
           <span class="checkmark"></span>
         </label>
-        <label class="checkbox">
+        <label class="checkbox" (click)="mobileFilters.order = 'createdAt'">
           <span translate="VIEWS.MY_GROUPS.MOST_RECENT"></span>
           <input type="radio" name="order">
           <span class="checkmark"></span>
         </label>
-        <label class="checkbox">
+        <label class="checkbox" (click)="mobileFilters.order = 'topicCount'">
           <span translate="VIEWS.MY_GROUPS.MOST_TOPICS"></span>
           <input type="radio" name="order">
           <span class="checkmark"></span>
         </label>
-        <button class="btn_medium_secondary" (click)="mobileFilters.order = false;" translate="BTN_APPLY"></button>
+        <button class="btn_medium_secondary" (click)="doOrder(mobileFilters.order, 'desc'); mobileFilters.order = false;" translate="BTN_APPLY"></button>
       </div>
       <div class="options button_options" *ngIf="mobileFilters.country">
         <typeahead class="dropdown dropdown_input" activeClass="dropdown_active" [term]="countrySearch"

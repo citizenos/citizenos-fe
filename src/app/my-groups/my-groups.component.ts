@@ -125,6 +125,11 @@ export class MyGroupsComponent implements OnInit {
     this.searchString$.next(search);
   }
 
+  doOrder(orderBy: string, order: string) {
+    this.allGroups$ = [];
+    this.GroupService.doOrder(orderBy, order)
+  }
+
   ngOnInit(): void {
   }
 
