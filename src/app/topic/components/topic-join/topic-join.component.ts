@@ -34,7 +34,7 @@ export class TopicTokenJoinComponent {
       take(1)
     ).subscribe({
       next: (topic) => {
-        router.navigate(['topics', topic.id]);
+        console.log(topic);
         const joinDialog = dialog.open(TopicJoinComponent, {
           data: {
             topic: topic

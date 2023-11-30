@@ -6,7 +6,7 @@ import { TopicAttachmentsDialogComponent } from './components/topic-attachments/
 import { TopicCreateComponent } from './components/topic-create/topic-create.component';
 import { TopicEditComponent } from './components/topic-edit/topic-edit.component';
 import { TopicInvitationDialogComponent } from './components/topic-invitation/topic-invitation.component';
-import { TopicJoinComponent } from './components/topic-join/topic-join.component';
+import { TopicTokenJoinComponent } from './components/topic-join/topic-join.component';
 import { TopicParticipantsDialogComponent } from './components/topic-participants/topic-participants.component';
 import { TopicReportFormDialogComponent } from './components/topic-report-form/topic-report-form.component';
 import { TopicReportModerateDialogComponent } from './components/topic-report-moderate/topic-report-moderate.component';
@@ -63,7 +63,7 @@ const routes: Routes = [
       { path: 'comments/:commentId/reports/:reportId/moderate', component: ArgumentReportModerateDialogComponent },
     ]
   },
-  { path: 'join/:token', component: TopicJoinComponent },//https://dev.citizenos.com:3001/topics/join/XwBvIs29gwrH
+  { path: 'join/:token', component: TopicTokenJoinComponent },//https://dev.citizenos.com:3001/topics/join/XwBvIs29gwrH
   { path: '', component: TopicComponent },
 
 ];
