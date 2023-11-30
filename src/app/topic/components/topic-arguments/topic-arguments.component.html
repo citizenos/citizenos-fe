@@ -55,22 +55,15 @@
               <span translate="COMPONENTS.TOPIC_ARGUMENTS.FILTER_ARGUMENT_TYPE"></span>
               <a translate="COMPONENTS.TOPIC_ARGUMENTS.FILTER_TYPE_ALL"></a>
               <div class="filter_options">
-                <div class="option check">
-                  <label class="checkbox">
-                    <span translate="COMPONENTS.TOPIC_ARGUMENTS.FILTER_TYPE_ALL"></span>
-                    <input type="checkbox">
+                <div class="option check" *ngFor="let item of argumentTypes">
+                  <label class="checkbox" *ngIf="item.type !== 'reply'">
+                    <span [translate]="'COMPONENTS.TOPIC_ARGUMENTS.FILTER_TYPE_'+ item.type.toUpperCase()"></span>
+                    <input type="checkbox" [(ngModel)]="item.checked" (ngModelChange)="filterArguments();">
                     <span class="checkmark"></span>
                   </label>
                 </div>
-                <div class="option check" *ngFor="let type of argumentTypes">
-                  <label class="checkbox">
-                    <span [translate]="'COMPONENTS.TOPIC_ARGUMENTS.FILTER_TYPE_'+ type.toUpperCase()"></span>
-                    <input type="checkbox">
-                    <span class="checkmark"></span>
-                  </label>
-                </div>
-                <button class="btn_medium_secondary bold filter_apply_btn">
-                  Apply
+                <button class="btn_medium_secondary bold filter_apply_btn" translate="BTN_APPLY">
+
                 </button>
               </div>
             </div>
@@ -103,17 +96,10 @@
               </div>
             </div>
             <div class="options">
-              <div class="option check">
-                <label class="checkbox">
-                  <span translate="COMPONENTS.TOPIC_ARGUMENTS.FILTER_TYPE_ALL"></span>
-                  <input type="checkbox">
-                  <span class="checkmark"></span>
-                </label>
-              </div>
-              <div class="option check" *ngFor="let type of argumentTypes">
-                <label class="checkbox">
-                  <span [translate]="'COMPONENTS.TOPIC_ARGUMENTS.FILTER_TYPE_'+ type.toUpperCase()"></span>
-                  <input type="checkbox">
+              <div class="option check" *ngFor="let item of argumentTypes">
+                <label class="checkbox" *ngIf="item.type !== 'reply'">
+                  <span [translate]="'COMPONENTS.TOPIC_ARGUMENTS.FILTER_TYPE_'+ item.type.toUpperCase()"></span>
+                  <input type="checkbox" [(ngModel)]="item.checked" (change)="filterArguments();">
                   <span class="checkmark"></span>
                 </label>
               </div>

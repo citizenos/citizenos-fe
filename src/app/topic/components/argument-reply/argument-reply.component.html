@@ -5,7 +5,7 @@
       <div class="small_heading" class="text-center" translate="COMPONENTS.ARGUMENT_REPLY.HEADING"></div>
     </div>
     <form name="argumentReply">
-      <cos-input
+      <!--cos-input
         placeholder="{{'COMPONENTS.ARGUMENT_REPLY.SUBJECT_CHARACTERS_LEFT' | translate:{chars: reply.subject.length, charsLeft: ARGUMENT_SUBJECT_MAXLENGTH} }}">
         <input id="argument_subject" name="subject" [(ngModel)]="reply.subject"
           placeholder="{{'COMPONENTS.ARGUMENT_REPLY.PLACEHOLDER_ADD_SUBJECT_TO_ARGUMENT' | translate:{chars: reply.subject.length, charsLeft: ARGUMENT_SUBJECT_MAXLENGTH} }}"
@@ -19,7 +19,7 @@
           </svg>
           <span translate="{{errors.subject}}"></span>
         </label>
-      </cos-input>
+      </!--cos-input-->
       <textarea cosmarkdown cosmarkdowntranslatecharacterstatuskey="COMPONENTS.ARGUMENT_REPLY.CHARACTER_LIMIT"
         id="argument_reply_text" [(item)]="reply.text" class="gray_borders" [ngClass]="{'error_input': errors?.text}"
         placeholder="{{'COMPONENTS.ARGUMENT_REPLY.PLACEHOLDER_WRITE_REPLY_HERE' | translate}}"
@@ -32,8 +32,20 @@
         </svg>
         <span translate="{{errors?.text}}"></span>
       </label>
-      <div class="btn_medium_submit bold" (click)="saveReply()"
-        translate="COMPONENTS.ARGUMENT_REPLY.BTN_POST_REPLY">
+      <div class="buttons_wrap">
+        <div>
+          <button class="btn_medium_submit_ghost icon close_button" (click)="close()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M5.29311 17.2929C4.90258 17.6834 4.90258 18.3166 5.29311 18.7071C5.68363 19.0976 6.3168 19.0976 6.70732 18.7071L12.0002 13.4142L17.2931 18.7071C17.6836 19.0976 18.3168 19.0976 18.7073 18.7071C19.0978 18.3166 19.0978 17.6834 18.7073 17.2929L13.4144 12L18.7073 6.70711C19.0978 6.31658 19.0978 5.68342 18.7073 5.29289C18.3168 4.90237 17.6836 4.90237 17.2931 5.29289L12.0002 10.5858L6.70732 5.29289C6.3168 4.90237 5.68363 4.90237 5.29311 5.29289C4.90258 5.68342 4.90258 6.31658 5.29311 6.70711L10.586 12L5.29311 17.2929Z"
+                fill="#2C3B47" />
+            </svg>
+          </button>
+        </div>
+        <div>
+          <div class="btn_medium_submit bold" (click)="saveReply()" translate="COMPONENTS.ARGUMENT_REPLY.BTN_POST_REPLY">
+          </div>
+        </div>
       </div>
     </form>
   </ng-template>

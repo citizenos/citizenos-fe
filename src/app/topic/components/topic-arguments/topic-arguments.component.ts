@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation, Input, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { tap, of, take } from 'rxjs';
+import { tap, of, map, take } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { Argument } from 'src/app/interfaces/argument';
 import { AuthService } from 'src/app/services/auth.service';
@@ -17,7 +17,9 @@ export class TopicArgumentsComponent implements OnInit {
   @Input() topic!: Topic;
   @ViewChild('post_argument_wrap') postArgumentEl?: ElementRef;
   wWidth = window.innerWidth;
-  argumentTypes = Object.keys(this.TopicArgumentService.ARGUMENT_TYPES);
+  argumentTypes = Object.keys(this.TopicArgumentService.ARGUMENT_TYPES).map((type: string) => {
+    return {type: type, checked: false}
+  });
   arguments$ = of(<Argument[] | any[]>[]);
   orderByOptions = Object.keys(this.TopicArgumentService.ARGUMENT_ORDER_BY);
   focusArgumentSubject = false;
@@ -26,16 +28,40 @@ export class TopicArgumentsComponent implements OnInit {
     @Inject(ActivatedRoute) private route: ActivatedRoute,
     private app: AppService,
     public TopicArgumentService: TopicArgumentService) {
-      this.TopicArgumentService.setParam('limit', 5);
-    this.arguments$ = this.TopicArgumentService.loadItems().pipe(tap(() => {
-      this.route.queryParams.pipe(take(1), tap((params) => {
-        setTimeout(() => {
-          if (params['argumentId']) {
-            this.goToArgument(params['argumentId'], null);
+    this.TopicArgumentService.setParam('limit', 5);
+    this.arguments$ = this.TopicArgumentService.loadItems().pipe(
+      map((res: any[]) => {
+        let results = res.concat([]);
+        const countTree = (parentNode: any, currentNode: any, counter: number) => {
+          counter
+          if (currentNode.replies.rows.length > 0) {
+            if (parentNode !== currentNode) {
+              counter += currentNode.replies.count;
+            }
+            currentNode.replies.rows.forEach((reply: any) => {
+              counter = countTree(parentNode, reply, counter);
+            });
+
+            return counter;
           }
+          return counter;
+        };
+
+        results.forEach((row: any,) => {
+          row.replies.count = countTree(row, row, row.replies.count);
         });
-      })).subscribe();
-    }));
+        console.log('RES', res)
+        return res;
+      }),
+      tap(() => {
+        this.route.queryParams.pipe(take(1), tap((params) => {
+          setTimeout(() => {
+            if (params['argumentId']) {
+              this.goToArgument(params['argumentId'], null);
+            }
+          });
+        })).subscribe();
+      }));
   }
 
   ngOnDestroy(): void {
@@ -45,8 +71,12 @@ export class TopicArgumentsComponent implements OnInit {
     this.TopicArgumentService.setParam('topicId', this.topic.id)
   }
 
-  getArgumentPercentage (count: number) {
-    return count/(this.TopicArgumentService.count.value.pro + this.TopicArgumentService.count.value.con) * 100 || 0;
+  filterArguments() {
+    const types = this.argumentTypes.filter((item:any) => item.checked).map(item => item.type);
+    this.TopicArgumentService.setParam('types', types);
+  }
+  getArgumentPercentage(count: number) {
+    return count / (this.TopicArgumentService.count.value.pro + this.TopicArgumentService.count.value.con) * 100 || 0;
   }
 
   doAddArgument() {

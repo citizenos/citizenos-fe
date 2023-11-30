@@ -48,6 +48,7 @@ export class TopicArgumentService extends ItemsListService {
   params = {
     topicId: <string | null>null,
     orderBy: <string>this.ARGUMENT_ORDER_BY.date,
+    types: <string | string[] | null>null,
     sortOrder: <string | null>null,
     offset: <number>0,
     limit: <number>8,
