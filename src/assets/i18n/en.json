@@ -240,7 +240,7 @@
     },
     "GROUP_INVITE_DIALOG": {
       "HEADING": "Invite and share",
-      "TAB_INVITE": "Invite participants",
+      "TAB_INVITE": "Invite members",
       "TAB_SHARE": "Generate link / QR",
       "LNK_CANCEL": "Invite later",
       "BTN_SAVE": "Send invites"
@@ -1511,7 +1511,7 @@
       "INFO_SETTINGS_BTN_CHOOSE_IMAGE": "Choose image",
       "INFO_SETTINGS_BTN_REMOVE_IMAGE": "@:VIEWS.TOPIC_CREATE.HEADER_IMAGE_BTN_REMOVE",
       "INFO_SETTINGS_HEADING_CONTACT_EMAIL": "Contact email",
-      "INFO_SETTINGS_INPUT_CONTACT_EMAIL_DESC": "This email will be visible to participants – and everyone if it’s a public group.",
+      "INFO_SETTINGS_INPUT_CONTACT_EMAIL_DESC": "This email will be visible to members – and everyone if it’s a public group.",
       "INFO_SETTINGS_INPUT_CONTACT_EMAIL": "Email",
       "INFO_SETTINGS_HEADING_RULES_OF_CONDUCT": "Rules of conduct",
       "INFO_SETTINGS_RULES_OF_CONDUCT_DESC": "Add rules of conduct, to avoid any bad experiences. E.g. use a certain language, or no hatespeech.",
@@ -1529,7 +1529,7 @@
       "FOOTER_BTN_CONTINUE": "@:BTN_CONTINUE",
       "FOOTER_BTN_CREATE": "Create group and send invites",
       "SETTINGS_HEADING_LOCALITY": "Country & language",
-      "SETTINGS_LOCALITY_SELECT_DESC": "You can assign a country and language to this group, to make it easier for local participants to find.",
+      "SETTINGS_LOCALITY_SELECT_DESC": "You can assign a country and language to this group, to make it easier for local people to find.",
       "SETTINGS_COUNTRY_SELECT": "Choose a country",
       "SETTINGS_LANGUAGE_SELECT": "Choose a language",
       "HELP_HEADING": "Did you know?",
