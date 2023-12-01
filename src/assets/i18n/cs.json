@@ -127,17 +127,17 @@
       "BTN_CANCEL": "@:LNK_CANCEL"
     },
     "ARGUMENT_REPORT_MODERATE": {
-      "HEADING": "Moderate argument",
+      "HEADING": "Moderovat argument",
       "MESSAGE_MAIN": "Uživatel napsal:",
       "LABLE_REASON": "@:COMPONENTS.ARGUMENT_REPORT.LABLE_REASON",
       "PLACEHOLDER_REPORT_TEXT": "@:MODALS.TOPIC_ARGUMENT_REPORT_PLACEHOLDER_REPORT_TEXT",
-      "ARE_YOU_SURE": "Are you sure you want to hide this argument? You cannot undo this action.",
+      "ARE_YOU_SURE": "Opravdu chcete skrýt tento argument? Tuto akci nelze vrátit zpět.",
       "ERROR_TEXT": "@:MSG_ERROR_POST_API_TOPICS_COMMENTS_REPORTS_40000_TEXT",
-      "BTN_SUBMIT": "Yes, hide this argument",
+      "BTN_SUBMIT": "Ano, skrýt tento argument",
       "BTN_CANCEL": "@:MODALS.TOPIC_ARGUMENT_REPORT_BTN_NO"
     },
     "ARGUMENT_REPLY": {
-      "HEADING": "Add your reply",
+      "HEADING": "Přidejte svou odpověď",
       "SUBJECT_CHARACTERS_LEFT": "@:COMPONENTS.POST_ARGUMENT.SUBJECT_CHARACTERS_LEFT",
       "PLACEHOLDER_ADD_SUBJECT_TO_ARGUMENT": "@:COMPONENTS.POST_ARGUMENT.PLACEHOLDER_ADD_SUBJECT_TO_ARGUMENT",
       "CHARACTER_LIMIT": "@:VIEWS.TOPICS_TOPICID.COMMENT_TYPE_CHARACTER_LIMIT",
@@ -145,8 +145,8 @@
       "BTN_POST_REPLY": "@:VIEWS.TOPICS_TOPICID.BTN_ARGUMENT_POST_REPLY"
     },
     "ARGUMENT_WHY": {
-      "HEADING": "Why is this content hidden?",
-      "MESSAGE_MAIN": "A moderator chose to hide this content. You can review the reason below."
+      "HEADING": "Proč je tento obsah skrytý?",
+      "MESSAGE_MAIN": "Moderátor se rozhodl skrýt tento obsah. Můžete zkontrolovat důvod níže."
     },
     "COS_CALENDAR": {
       "MONTHS": {
@@ -185,7 +185,7 @@
     },
     "DUPLICATE_TOPIC": {
       "HEADING": "Duplikovat téma",
-      "MESSAGE_MAIN": "You are duplicating",
+      "MESSAGE_MAIN": "Duplikujete",
       "MESSAGE_DESCRIPTION": "Are you sure you want to duplicate the topic? This will create a new private topic.",
       "HEADING_WILL_BE_DUPLICATED": "This content will be duplicated",
       "WILL_BE_DUPLICATED_1": "Topic content as it is right now (including images, footnotes, comments, mini-votes)",
