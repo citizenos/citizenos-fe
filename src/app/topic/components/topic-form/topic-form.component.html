@@ -375,7 +375,7 @@
                   <div class="radio_text_wrap">
                     <div class="radio_lable_wrap">
                       <label class="radio_box">
-                        <input type="radio" [checked]="topic.visibility == VISIBILITY.public" name="contrast"
+                        <input type="radio" [checked]="topic.visibility === VISIBILITY.public" name="contrast"
                           value="default">
                         <span class="radio"></span>
                         <div class="radio_lable" translate="VIEWS.TOPIC_CREATE.SETTINGS_VISIBILITY_PUBLIC">
