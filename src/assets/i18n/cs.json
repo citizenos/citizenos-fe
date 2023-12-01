@@ -150,41 +150,41 @@
     },
     "COS_CALENDAR": {
       "MONTHS": {
-        "0": "January",
-        "1": "February",
-        "2": "March",
-        "3": "April",
-        "4": "May",
-        "5": "June",
-        "6": "July",
-        "7": "August",
-        "8": "September",
-        "9": "October",
-        "10": "November",
-        "11": "December"
+        "0": "Leden",
+        "1": "Únor",
+        "2": "Březen",
+        "3": "Duben",
+        "4": "Květen",
+        "5": "Červen",
+        "6": "Červenec",
+        "7": "Srpen",
+        "8": "Září",
+        "9": "Říjen",
+        "10": "Listopad",
+        "11": "Prosinec"
       },
       "WEEKDAYS": {
-        "1": "Monday",
-        "2": "Tuesday",
-        "3": "Wednesday",
-        "4": "Thursday",
-        "5": "Friday",
-        "6": "Saturday",
-        "7": "Sunday"
+        "1": "Pondělí",
+        "2": "Úterý",
+        "3": "Středa",
+        "4": "Čtvrtek",
+        "5": "Pátek",
+        "6": "Sobota",
+        "7": "Neděle"
       }
     },
     "CREATE": {
-      "TITLE_DISCUSSION": "Discussion topic",
-      "DESC_DISCUSSION": "Choose this if you want to encourage a discussion before potentially moving to ideation, voting and/or follow-up.",
+      "TITLE_DISCUSSION": "Diskusní téma",
+      "DESC_DISCUSSION": "Vyberte tuto možnost, pokud chcete podpořit diskuzi před možným přechodem na myšlenku, hlasováním nebo navazováním na ni.",
       "TITLE_IDEATION": "Ideation topic",
-      "DESC_IDEATION": "Choose this if you want to gather ideas before potentially moving to voting and/or follow-up. No pro/con discussion available.",
-      "TITLE_VOTE": "Voting topic",
-      "DESC_VOTE": "Choose this if you want to collect people’s votes before potentially moving to follow-up. No pro/con discussion or ideation available.",
-      "TITLE_GROUP": "Group",
-      "DESC_GROUP": "Create a group to which you can invite people belonging to the same organisation, club, location, etc."
+      "DESC_IDEATION": "Vyberte tuto možnost, pokud chcete shromáždit nápady před případným přesunutím k hlasování a/nebo následným hlasováním. Žádná diskuze pro/proti není k dispozici.",
+      "TITLE_VOTE": "Téma hlasování",
+      "DESC_VOTE": "Toto zvolte, pokud chcete shromáždit hlasy lidí před tím, než se budete moci přesunout do následných kroků. Žádná diskuze pro/proti ani idealizace nejsou k dispozici.",
+      "TITLE_GROUP": "Skupina",
+      "DESC_GROUP": "Vytvořte skupinu, do které můžete pozvat lidi, kteří patří do stejné organizace, klubu, místa atd."
     },
     "DUPLICATE_TOPIC": {
-      "HEADING": "Duplicate topic",
+      "HEADING": "Duplikovat téma",
       "MESSAGE_MAIN": "You are duplicating",
       "MESSAGE_DESCRIPTION": "Are you sure you want to duplicate the topic? This will create a new private topic.",
       "HEADING_WILL_BE_DUPLICATED": "This content will be duplicated",
@@ -204,7 +204,7 @@
     "GROUP_ADD_TOPICS_DIALOG": {
       "HEADING": "Přidat témata do skupiny",
       "LNK_CANCEL": "@:LNK_CANCEL",
-      "BTN_SAVE": "Add topics to group"
+      "BTN_SAVE": "Přidat témata do skupiny"
     },
     "GROUP_ADD_TOPICS": {
       "HEADING": "Find and add topics to the group",
@@ -258,7 +258,7 @@
     },
     "TOPIC_JOIN": {
       "HEADING": "Join topic",
-      "MESSAGE_MAIN": "You want to join",
+      "MESSAGE_MAIN": "Chcete se připojit",
       "MESSAGE_DESCRIPTION": "Are you sure you want to join the topic? See the explanation below for what this means. You can always easily leave a topic if you want to.",
       "HEADING_WHAT_CAN_YOU_DO": "What you can do once you join a topic",
       "ITEM_PARTICIPATE": "Participate in discussions and voting",
@@ -273,7 +273,7 @@
       "BTN_REMOVE": "@:VIEWS.PUBLIC_GROUP.LBL_REMOVE"
     },
     "GROUP_SETTINGS": {
-      "HEADING": "Edit group",
+      "HEADING": "Upravit skupinu",
       "TAB_INFO": "@:VIEWS.GROUP_CREATE.CREATE_TAB_1",
       "TAB_SETTINGS": "@:VIEWS.GROUP_CREATE.CREATE_TAB_2",
       "INFO_SETTINGS_HEADING_GENERAL_INFO": "@:VIEWS.GROUP_CREATE.INFO_SETTINGS_HEADING_GENERAL_INFO",
@@ -300,62 +300,62 @@
       "BTN_SAVE": "@:DIRECTIVES.COS_MODAL.BTN_SAVE"
     },
     "GROUP_SHARE": {
-      "GENERATE_LINK": "Generate access link",
-      "PLACEHOLDER_CREATE_NEW_LINK": "Generate a link to share",
-      "COPY_LINK": "Copy link",
+      "GENERATE_LINK": "Vygenerovat přístupový odkaz",
+      "PLACEHOLDER_CREATE_NEW_LINK": "Vygenerovat odkaz ke sdílení",
+      "COPY_LINK": "Zkopírovat odkaz",
       "GENERATE_QR_CODE": "Generate QR code",
       "GENERATE_QR_CODE_DESCRIPTION": "Generate a QR code that people can scan to come straight to the topic. You can add the QR code to digital or physical comms, and display it wherever the right people will see it.",
       "GENERATE_QR_CODE_PRINT": "To save the QR code as a PDF, open it up and use the \"print as PDF\" functionality.",
       "BTN_GENERATE_QR_CODE": "@:COMPONENTS.GROUP_SHARE.GENERATE_QR_CODE"
     },
     "LOGIN_FORM": {
-      "LOGIN_OR": "or",
-      "LOGIN_LNK_NO_ACCOUNT_REGISTER": "No account? Sign up now",
-      "LOGIN_LNK_FORGOT_PASSWORD": "Forgot password?",
-      "LOGIN_PLACEHOLDER_EMAIL": "Email",
-      "LOGIN_PLACEHOLDER_PASSWORD": "Password",
-      "LOGIN_BTN_LOGIN": "Log in"
+      "LOGIN_OR": "nebo",
+      "LOGIN_LNK_NO_ACCOUNT_REGISTER": "Nemáte účet? Zaregistrujte se",
+      "LOGIN_LNK_FORGOT_PASSWORD": "Zapomněli jste heslo?",
+      "LOGIN_PLACEHOLDER_EMAIL": "E-mail",
+      "LOGIN_PLACEHOLDER_PASSWORD": "Heslo",
+      "LOGIN_BTN_LOGIN": "Přihlásit se"
     },
     "LOGIN_SMART_ID_FORM": {
       "LOGIN_SMARTID_HEADING": "@:COMPONENTS.LOGIN_SMART_ID_FORM.LOGIN_SMARTID_BTN_AUTHENTICATE_SID",
-      "LOGIN_SMARTID_PLACEHOLDER_COUNTRY_CODE": "Two-letter country code",
-      "LOGIN_SMARTID_ERROR_COUNTRY_CODE": "Invalid country code",
+      "LOGIN_SMARTID_PLACEHOLDER_COUNTRY_CODE": "Dvoupísmenný kód země",
+      "LOGIN_SMARTID_ERROR_COUNTRY_CODE": "Neplatný kód země",
       "LOGIN_SMARTID_PLACEHOLDER_PID": "@:MODALS.LOGIN_ESTEID_PLACEHOLDER_PID",
       "LOGIN_SMARTID_ERROR_PID": "@:MODALS.LOGIN_ESTEID_ERROR_PID",
       "LOGIN_SMARTID_TXT_CONTROL_CODE": "@:MODALS.LOGIN_ESTEID_TXT_CONTROL_CODE",
-      "LOGIN_SMARTID_TXT_CHECK_CONTROL_CODE": "Make sure the control code matches with the one displayed on your phone, and enter Smart-ID PIN1.",
+      "LOGIN_SMARTID_TXT_CHECK_CONTROL_CODE": "Ujistěte se, že kontrolní kód odpovídá kódu zobrazenému na vašem telefonu a zadejte kód Smart-ID.",
       "LOGIN_SMARTID_BTN_LOG_IN_SID": "@:MODALS.LOGIN_BTN_LOGIN_SMARTID",
-      "LOGIN_SMARTID_BTN_AUTHENTICATE_SID": "Authenticate with Smart-ID"
+      "LOGIN_SMARTID_BTN_AUTHENTICATE_SID": "Ověření pomocí Smart-ID"
     },
     "NOTIFICATION": {
-      "TITLE_ERROR": "Error!",
-      "TITLE_INFO": "Info!",
-      "TITLE_SUCCESS": "Success!",
-      "TITLE_WARNING": "Warning!"
+      "TITLE_ERROR": "Chyba!",
+      "TITLE_INFO": "Informace!",
+      "TITLE_SUCCESS": "Úspěch!",
+      "TITLE_WARNING": "Upozornění!"
     },
     "ONBOARDING": {
-      "HELLO": "Hey {{name}}",
-      "TITLE_WELCOME": "Welcome to Citizen OS!",
-      "DESCRIPTION": "As this is your first time on the Citizen OS dashboard, we recommend you take the walkthrough tour to get to know the platform better.",
-      "TAKE_A_TOUR": "The walkthrough only takes a couple of minutes.",
-      "BTN_SUBMIT": "Take the tour",
-      "BTN_CANCEL": "Skip"
+      "HELLO": "Ahoj {{name}}",
+      "TITLE_WELCOME": "Vítejte v Citizen OS!",
+      "DESCRIPTION": "Vzhledem k tomu, že je toto poprvé na nástěnce Citizen OS, doporučujeme vám vzít průvodce a dozvědět se lépe o platformě.",
+      "TAKE_A_TOUR": "Průvodce trvá pouze několik minut.",
+      "BTN_SUBMIT": "Prohlédnout",
+      "BTN_CANCEL": "Přeskočit"
     },
     "PASSWORD_FORGOT": {
       "PLACEHOLDER_EMAIL": "@:COMPONENTS.LOGIN_FORM.LOGIN_PLACEHOLDER_EMAIL",
-      "SEND_RESET": "Send reset code"
+      "SEND_RESET": "Poslat kód pro obnovení"
     },
     "PASSWORD_RESET": {
-      "PASSWORD_RESET_HEADING": "Reset your account password",
-      "PASSWORD_RESET_LBL_EMAIL": "Account email:",
+      "PASSWORD_RESET_HEADING": "Obnovit heslo k účtu",
+      "PASSWORD_RESET_LBL_EMAIL": "E-mail účtu:",
       "PASSWORD_RESET_PLACEHOLDER_PASSWORD": "@:COMPONENTS.LOGIN_FORM.LOGIN_PLACEHOLDER_PASSWORD",
       "PASSWORD_RESET_PLACEHOLDER_PASSWORD_CONFIRM": "@:VIEWS.ACCOUNT.PLACEHOLDER_PASSWORD_CONFIRM",
-      "PASSWORD_RESET_BTN_RESET_PASSWORD": "Reset your password",
+      "PASSWORD_RESET_BTN_RESET_PASSWORD": "Resetovat heslo",
       "PASSWORD_RESET_LNK_CANCEL": "@:LNK_CANCEL"
     },
     "EDIT_ARGUMENT": {
       "FOOTER_MENU_TITLE": "@:COMPONENTS.POST_ARGUMENT.FOOTER_MENU_TITLE",
-      "EDIT_YOUR_ARGUMENT": "Edit your argument",
+      "EDIT_YOUR_ARGUMENT": "Upravit váš argument",
       "FOOTER_FORM_TITLE": "@:COMPONENTS.POST_ARGUMENT.FOOTER_FORM_TITLE",
       "FOOTER_FORM_ARGUMENT_TYPE_TITLE": "@:COMPONENTS.POST_ARGUMENT.FOOTER_FORM_ARGUMENT_TYPE_TITLE",
       "ARGUMENT_TYPE_SELECT_OPTION_PRO": "@:COMPONENTS.POST_ARGUMENT.ARGUMENT_TYPE_SELECT_OPTION_PRO",
@@ -370,23 +370,23 @@
       "BTN_ARGUMENT_POST": "@:COMPONENTS.EDIT_ARGUMENT.EDIT_YOUR_ARGUMENT"
     },
     "POST_ARGUMENT": {
-      "FOOTER_MENU_TITLE": "Join discussion",
-      "FOOTER_MENU_BTN_ADD_ARGUMENT": "Add your argument",
-      "FOOTER_FORM_TITLE": "Join the discussion",
+      "FOOTER_MENU_TITLE": "Připojit se k diskuzi",
+      "FOOTER_MENU_BTN_ADD_ARGUMENT": "Přidejte svůj argument",
+      "FOOTER_FORM_TITLE": "Připojte se k diskuzi",
       "FOOTER_FORM_ARGUMENT_TYPE_TITLE": "Select type of argument",
       "ARGUMENT_TYPE_SELECT_OPTION_PRO": "Pro argument",
-      "ARGUMENT_TYPE_SELECT_OPTION_CON": "Con argument",
-      "ARGUMENT_TYPE_SELECT_OPTION_POI": "Informational",
-      "PLACEHOLDER_ADD_SUBJECT_TO_ARGUMENT": "Make your main statement here",
-      "SUBJECT_CHARACTERS_LEFT": "Characters left: {{chars}}/{{charsLeft}}",
-      "ARGUMENT_TYPE_CHARACTER_LIMIT": "Character limit: {{numberOfCharacters}}",
+      "ARGUMENT_TYPE_SELECT_OPTION_CON": "Proti argument",
+      "ARGUMENT_TYPE_SELECT_OPTION_POI": "Informační",
+      "PLACEHOLDER_ADD_SUBJECT_TO_ARGUMENT": "Zde napište své hlavní prohlášení",
+      "SUBJECT_CHARACTERS_LEFT": "Zbývající znaky: {{chars}}/{{charsLeft}}",
+      "ARGUMENT_TYPE_CHARACTER_LIMIT": "Limit znaků: {{numberOfCharacters}}",
       "CHARACTER_LIMIT": "@:COMPONENTS.GROUP_INVITE.CHARACTER_LIMIT",
       "PLACEHOLDER_EXPLAIN_YOUR_ARGUMENT": "@:VIEWS.TOPICS_TOPICID.PLACEHOLDER_EXPLAIN_YOUR_ARGUMENT",
-      "BTN_ADD_IMAGE": "Add image",
+      "BTN_ADD_IMAGE": "Přidat obrázek",
       "BTN_ARGUMENT_POST": "@:COMPONENTS.POST_ARGUMENT.FOOTER_MENU_BTN_ADD_ARGUMENT"
     },
     "PUBLIC_TOPICS": {
-      "HEADER": "Public topics",
+      "HEADER": "Veřejná témata",
       "FILTER_STATUS": "@:VIEWS.MY_TOPICS.FILTER_STATUS",
       "FILTER_TOPICS_MODERATED": "@:VIEWS.MY_TOPICS.FILTERS.TOPICS_MODERATED",
       "FILTER_VISIBILITY": "@:VIEWS.MY_TOPICS.FILTER_VISIBILITY",
@@ -464,16 +464,16 @@
       "DASHBOARD_MOBILE_STEP_2_LBL_DASHBOARD_DESC": "This is your central hub and portal to all parts of the platform - create, browse, engage, and more.",
       "DASHBOARD_MOBILE_STEP_2_LBL_MY_TOPICS": "My topics:",
       "DASHBOARD_MOBILE_STEP_2_LBL_MY_TOPICS_DESC": "Here you can find the topics you created or are involved in.",
-      "DASHBOARD_MOBILE_STEP_2_LBL_MY_GROUPS": "My groups:",
-      "DASHBOARD_MOBILE_STEP_2_LBL_MY_GROUPS_DESC": "Here you can find the groups you started or are a member of.",
-      "DASHBOARD_MOBILE_STEP_2_LBL_ACTIVITY_FEED": "Activity feed:",
-      "DASHBOARD_MOBILE_STEP_2_LBL_ACTIVITY_FEED_DESC": "New activity on your topics and groups will be shown here.",
-      "DASHBOARD_MOBILE_STEP_3_TITLE": "Top menu",
-      "DASHBOARD_MOBILE_STEP_3_DESC": "The top menu is always accessible for navigation, and topic or group creation. Quickly find pages like Dashboard, My Topics, My Groups, Public Topics and Public Groups.",
-      "HEADING_TOPIC": "Topic tour",
-      "TOPIC_STEP_1_TITLE": "Topic phases",
-      "TOPIC_STEP_1_DESC": "Your topic can have different phases.",
-      "TOPIC_STEP_1_LBL_DISCUSSION": "Discussion:",
+      "DASHBOARD_MOBILE_STEP_2_LBL_MY_GROUPS": "Moje skupiny:",
+      "DASHBOARD_MOBILE_STEP_2_LBL_MY_GROUPS_DESC": "Zde najdete skupiny, které jste založil, nebo jste členem.",
+      "DASHBOARD_MOBILE_STEP_2_LBL_ACTIVITY_FEED": "Infokanál aktivity:",
+      "DASHBOARD_MOBILE_STEP_2_LBL_ACTIVITY_FEED_DESC": "Zde se zobrazí nová aktivita ve vašich tématech a skupinách.",
+      "DASHBOARD_MOBILE_STEP_3_TITLE": "Horní menu",
+      "DASHBOARD_MOBILE_STEP_3_DESC": "Horní menu je vždy dostupné pro navigaci a téma nebo vytváření skupiny. Rychle najdete stránky jako nástěnka, Moje témata, Moje skupiny, veřejné témata a veřejné skupiny.",
+      "HEADING_TOPIC": "Prohlídka tématu",
+      "TOPIC_STEP_1_TITLE": "Fáze témat",
+      "TOPIC_STEP_1_DESC": "Téma může mít různé fáze.",
+      "TOPIC_STEP_1_LBL_DISCUSSION": "Diskuse:",
       "TOPIC_STEP_1_DESC_DISCUSSION": "In this phase, the main idea is to hold a constructive discussion using pro and con arguments.",
       "TOPIC_STEP_1_LBL_IDEATION": "Ideation:",
       "TOPIC_STEP_1_DESC_IDEATION": "A topic can have an ideation phase, in which anyone can share their ideas on how to tackle the issue at hand.",
@@ -1410,7 +1410,7 @@
       "LNK_SHOW": "Zobrazit",
       "MISSION_BOX_HEADING": "The Citizen OS mission",
       "MISSION_BOX_DESC": "To empower as many people as possible to participate in respectful, meaningful discussions. We aim to facilitate collective decisions on issues that directly affect people’s wellbeing.",
-      "MISSION_BOX_SIGN_UP": "Sign up",
+      "MISSION_BOX_SIGN_UP": "Zaregistrovat se",
       "MISSION_BOX_LEARN_MORE": "Learn more",
       "LNK_CLEAR_FILTERS": "Vymazat filtry",
       "LBL_FILTER_THE_TOPICS": "Filtrovat témata",
