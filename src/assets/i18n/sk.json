@@ -854,7 +854,7 @@
     "TOPIC_REPORT_MODERATE_PLACEHOLDER_REPORT_TEXT": "Vysvetlite, prečo je podľa vás táto téma nevhodná...",
     "TOPIC_REPORT_MODERATE_TXT_ARE_YOU_SURE": "Určite chcete túto tému skryť?",
     "TOPIC_REPORT_MODERATE_BTN_NO": "@:MODALS.TOPIC_ARGUMENT_REPORT_BTN_NO",
-    "TOPIC_REPORT_MODERATE_BTN_YES": "Yes, hide this topic",
+    "TOPIC_REPORT_MODERATE_BTN_YES": "Ano, skryť túto tému",
     "TOPIC_REPORT_MODERATE_ERROR_TEXT": "@:MSG_ERROR_POST_API_TOPICS_COMMENTS_REPORTS_40000_TEXT",
     "TOPIC_REPORT_REPORTID_REVIEW_HEADING": "Predložiť tému k preskúmaniu",
     "TOPIC_REPORT_REPORTID_SUBMITING_FOR_REVIEW": "You are submitting topic for review",
