@@ -1869,7 +1869,7 @@
       "GROUPS_LIST_TITLE": "@:VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_NAME",
       "HEADING_GROUP_PERMISSIONS": "@:COMPONENTS.GROUP_ADD_TOPICS.HEADING_GROUP_PERMISSIONS",
       "HEADING_ACTIONS": "@:COMPONENTS.GROUP_ADD_TOPICS.HEADING_ACTIONS",
-      "PREVIEW_INFO": "This is a preview of your topic! You can keep editing it now, save it as draft, or publish it. You can always edit your topic after publishing, unless you start a vote – then the topic description gets locked.",
+      "PREVIEW_INFO": "This is a preview of your topic! You can edit your topic text now or later (unless you start a vote – then the topic description gets locked).",
       "BTN_READ_MORE": "@:VIEWS.TOPICS_TOPICID.BTN_READ_MORE",
       "BTN_READ_LESS": "@:VIEWS.TOPICS_TOPICID.BTN_READ_LESS",
       "FOOTER_BTN_CONTINUE": "@:BTN_CONTINUE",
