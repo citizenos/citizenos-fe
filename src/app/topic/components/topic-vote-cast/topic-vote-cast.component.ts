@@ -9,6 +9,7 @@ import { VoteDelegationService } from 'src/app/services/vote-delegation.service'
 import { MatDialog } from '@angular/material/dialog';
 import { take } from 'rxjs';
 import { TopicVoteSignComponent } from '../topic-vote-sign/topic-vote-sign.component';
+import { TopicVoteDeadlineComponent } from '../topic-vote-deadline/topic-vote-deadline.component';
 import { TopicVoteDelegateComponent } from '../topic-vote-delegate/topic-vote-delegate.component';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 @Component({
@@ -129,6 +130,13 @@ export class TopicVoteCastComponent implements OnInit {
     }
   }
 
+  editDeadline () {
+    const voteDeadlineDialog = this.dialog.open(TopicVoteDeadlineComponent, {
+      data: {
+      vote: this.vote,
+      topic: this.topic
+    }});
+  }
   hasVoteEndedExpired() {
     return this.TopicVoteService.hasVoteEndedExpired(this.topic, this.vote);
   };

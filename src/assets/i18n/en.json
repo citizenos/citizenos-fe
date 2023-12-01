@@ -599,7 +599,8 @@
       "LBL_OPTIONS_YOU_DIDNT_CHOOSE": "Options you didn’t choose",
       "FINAL_OPTION_WITHOUT_CSV": "@:VIEWS.TOPICS_TOPICID.FINAL_OPTION_WITHOUT_CSV",
       "FINAL_OPTION_WITH_CSV": "@:VIEWS.TOPICS_TOPICID.FINAL_OPTION_WITH_CSV",
-      "BTN_DOWNLOAD_FINAL_ZIP": "@:VIEWS.TOPICS_TOPICID.BTN_DOWNLOAD_FINAL_ZIP"
+      "BTN_DOWNLOAD_FINAL_ZIP": "@:VIEWS.TOPICS_TOPICID.BTN_DOWNLOAD_FINAL_ZIP",
+      "OPT_EDIT_DEADLINE": "@:MODALS.TOPIC_SETTINGS_BTN_EDIT_DEADLINE"
     },
     "TOPIC_VOTE_CREATE": {
       "DIALOG_HEADING": "Start topic voting",
@@ -654,6 +655,23 @@
       "LNK_CANCEL": "@:LNK_CANCEL",
       "BTN_CONTINUE": "@:BTN_CONTINUE",
       "BTN_START_VOTE": "Start topic voting"
+    },
+
+    "TOPIC_VOTE_DEADLINE": {
+      "DIALOG_HEADING": "Edit voting deadline",
+      "LBL_EDIT_VOTING_DEADLINE": "Edit voting deadline",
+      "LBL_EDIT_VOTING_DEADLINE_DESC": "You can choose or edit the voting deadline.",
+      "LBL_OPTION_DEADLINE": "Deadline",
+      "LBL_OPTION_DEADLINE_DESC": "When the set date is reached, the voting is closed.",
+      "DEADLINE_LBL_TIME": "Time",
+      "DEADLINE_TIME_OPTION_24": "24h clock",
+      "DEADLINE_TIME_OPTION_AM": "AM",
+      "DEADLINE_TIME_OPTION_PM": "PM",
+      "DEADLINE_LBL_TIMEZONE": "Timezone",
+      "DEADLINE_LBL_OPTION_SET_VOTE_REMINDER": "Set automatic reminder",
+      "DEADLINE_LBL_OPTION_SET_VOTE_REMINDER_DESC": "You can set an automatic reminder email for participants, to be sent out before the voting closes",
+      "LNK_CANCEL": "@:LNK_CANCEL",
+      "BTN_SAVE": "@:DIRECTIVES.COS_MODAL.BTN_SAVE"
     },
     "TOPIC_FOLLOW_UP_CREATE": {
       "DIALOG_HEADING": "Start topic follow-up",

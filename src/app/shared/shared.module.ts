@@ -54,6 +54,7 @@ import { TourItemDirective, TourItemTemplateComponent } from '../directives/tour
 import { InterruptDialogComponent } from './components/interrupt-dialog/interrupt-dialog.component';
 import { TooltipComponent} from './components/tooltip/tooltip.component';
 import { ImageEditorComponent } from './components/image-editor/image-editor.component';
+import { TopicVoteDeadlineComponent } from '../topic/components/topic-vote-deadline/topic-vote-deadline.component';
 
 @NgModule({
   declarations: [
@@ -102,7 +103,8 @@ import { ImageEditorComponent } from './components/image-editor/image-editor.com
     TourItemTemplateComponent,
     InterruptDialogComponent,
     TooltipComponent,
-    ImageEditorComponent
+    ImageEditorComponent,
+    TopicVoteDeadlineComponent
   ],
   imports: [
     RouterModule,

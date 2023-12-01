@@ -21,7 +21,7 @@
           <span class="bold">{{vote.endsAt | amTimeAgo}}</span>
         </ng-container>
       </div>
-      <div class="setting_button">
+      <div class="setting_button dropdown button_dropdown" [cosDropdown]>
         <button>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -29,6 +29,9 @@
               fill="#2C3B47" />
           </svg>
         </button>
+        <div class="options">
+          <div class="option" (click)="editDeadline()" translate="COMPONENTS.TOPIC_VOTE_CAST.OPT_EDIT_DEADLINE"></div>
+        </div>
       </div>
     </div>
   </div>
