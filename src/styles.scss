@@ -311,7 +311,6 @@ input {
 
   .button_options {
     border-radius: 8px;
-    padding: 16px;
 
     .mobile_header {
       display: none;
@@ -1336,6 +1335,9 @@ tour-item-template {
 }
 
 .EasyMDEContainer {
+  border:  1px solid var(--color-border);
+  border-radius: 8px;
+
   @include mixins.mobile {
     .editor-statusbar {
       display: none;
@@ -1344,6 +1346,13 @@ tour-item-template {
     .CodeMirror-scroll {
       max-height: 250px;
     }
+  }
+  .editor-toolbar {
+    border: none;
+  }
+  .CodeMirror {
+    height: 150px;
+    border: none;
   }
 }
 

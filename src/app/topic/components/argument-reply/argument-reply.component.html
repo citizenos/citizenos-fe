@@ -1,8 +1,8 @@
-<div class="reply_wrap">
+<div class="reply_wrap" [ngClass]="argument.type">
   <ng-container *ngIf="AuthService.loggedIn$ | async; then loggedIn;"></ng-container>
   <ng-template #loggedIn>
     <div>
-      <div class="small_heading" class="text-center" translate="COMPONENTS.ARGUMENT_REPLY.HEADING"></div>
+      <div class="heading" translate="COMPONENTS.ARGUMENT_REPLY.HEADING"></div>
     </div>
     <form name="argumentReply">
       <!--cos-input
