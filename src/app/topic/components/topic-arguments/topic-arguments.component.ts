@@ -29,26 +29,40 @@ export class TopicArgumentsComponent implements OnInit {
     private app: AppService,
     public TopicArgumentService: TopicArgumentService) {
     this.TopicArgumentService.setParam('limit', 5);
+
+    /*
+    const result = res.data.data;
+  /*  const flattenTree  = (parentNode, currentNode) => {
+        if (currentNode.replies.rows.length > 0) {
+            if (parentNode !== currentNode) {
+                parentNode.replies.rows = parentNode.replies.rows.concat(currentNode.replies.rows);
+            }
+            currentNode.replies.rows.forEach(function (reply, i) {
+                flattenTree(parentNode, reply);
+            });
+        }
+    };
+
+    result.rows.forEach((row, k) => {
+        flattenTree(row, row);
+    });
+    /**/
     this.arguments$ = this.TopicArgumentService.loadItems().pipe(
       map((res: any[]) => {
         let results = res.concat([]);
-        const countTree = (parentNode: any, currentNode: any, counter: number) => {
-          counter
+        const countTree = (parentNode: any, currentNode: any) => {
           if (currentNode.replies.rows.length > 0) {
             if (parentNode !== currentNode) {
-              counter += currentNode.replies.count;
+              parentNode.replies.rows = parentNode.replies.rows.concat(currentNode.replies.rows);
             }
             currentNode.replies.rows.forEach((reply: any) => {
-              counter = countTree(parentNode, reply, counter);
+              countTree(parentNode, reply);
             });
-
-            return counter;
           }
-          return counter;
         };
 
         results.forEach((row: any,) => {
-          row.replies.count = countTree(row, row, row.replies.count);
+          row.replies.count = countTree(row, row);
         });
         console.log('RES', res)
         return res;

@@ -1,5 +1,16 @@
 @use "mixins";
 
+argument-reply{
+  display: contents;
+}
+
+.argument {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
 .argument_wrap {
   display: flex;
   flex-direction: column;
