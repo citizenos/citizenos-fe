@@ -74,6 +74,7 @@ export class TopicFormComponent {
   }
   @ViewChild('imageUpload') fileInput?: ElementRef;
   @Input() topic!: Topic;
+  @Input() isnew?: boolean = true;
   topicUrl = <SafeResourceUrl>'';
   tabSelected;
   tabs = ['info', 'settings', 'preview'];
@@ -280,8 +281,11 @@ export class TopicFormComponent {
     });
     this.TopicService.reloadTopic();
     this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
-    this.Notification.addSuccess('VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_TITLE');
-    this.inviteMembers();
+
+    if (this.isnew) {
+      this.Notification.addSuccess('VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_TITLE');
+      this.inviteMembers();
+    }
   }
 
   chooseCategory(category: string) {

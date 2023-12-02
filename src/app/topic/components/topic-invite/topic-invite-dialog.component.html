@@ -40,7 +40,7 @@
   <div class="dialog_content">
     <ng-container *ngIf="activeTab === 'invite' && canInvite()">
       <div id="form_area">
-        <topic-invite class="create_content" [dialog]="true" [topic]="data.topic" [members]="members"></topic-invite>
+        <topic-invite class="create_content" [dialog]="true" [(inviteMessage)]="inviteMessage" [topic]="data.topic" [members]="members"></topic-invite>
       </div>
     </ng-container>
     <ng-container *ngIf="activeTab === 'share'">
