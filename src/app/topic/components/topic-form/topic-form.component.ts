@@ -328,11 +328,8 @@ export class TopicFormComponent {
     const inviteDialog = this.dialog.open(TopicInviteDialogComponent, { data: { topic: this.topic } });
     inviteDialog.afterClosed().subscribe({
       next: (inviteUsers) => {
-        this.topic.members.users = inviteUsers;
-        //   this.NotificationService.addSuccess('');
       },
       error: (error) => {
-        // this.NotificationService.addError(error);
       }
     })
   }
