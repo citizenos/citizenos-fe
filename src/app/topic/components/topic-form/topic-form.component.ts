@@ -134,6 +134,11 @@ export class TopicFormComponent {
     this.topicUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.topic.padUrl);
     this.downloadUrl = this.TopicService.download(this.topic.id);
     console.log(this.topic);
+    Object.keys(this.block).forEach((blockname) => {
+      const temp = this.topic[blockname as keyof Topic];
+      if (temp)
+        this.block[blockname as keyof typeof this.block] = true;
+    });
   }
 
   sanitizeURL(): SafeResourceUrl {

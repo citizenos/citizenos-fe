@@ -77,6 +77,9 @@ export class TopicAttachmentsComponent implements OnInit {
         attachments.forEach((item) => {
           this.attachments.push(item);
         })
+        if (attachments.length) {
+          this.blockAttachments = true;
+        }
         return attachments;
       })
     );
