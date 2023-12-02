@@ -6,7 +6,8 @@
         class="tab_text" translate="VIEWS.TOPIC_CREATE.CREATE_TAB_2"></span></a>
     <a class="create_tab" [ngClass]="tabSelected=== 'preview' ? 'active' : ''" (click)="selectTab('preview')">3.<span
         class="tab_text" translate="VIEWS.TOPIC_CREATE.CREATE_TAB_3"></span></a>
-    <a class="create_tab tablet_tab tablet_show invite_users_tab" (click)="showManageEditors = !showManageEditors" [ngClass]="{'active': showManageEditors}">
+    <a class="create_tab tablet_tab tablet_show invite_users_tab" (click)="showManageEditors = !showManageEditors"
+      [ngClass]="{'active': showManageEditors}">
       <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M13.9071 4.09259L15.4073 5.59285L12.1497 8.85059L10.8122 8.99825C10.6331 9.01806 10.4818 8.86665 10.5018 8.68758L10.6506 7.34905L13.9071 4.09259ZM16.3352 3.86922L15.6308 3.1648C15.4111 2.94507 15.0547 2.94507 14.835 3.1648L14.1723 3.8275L15.6725 5.32776L16.3352 4.66506C16.5549 4.44521 16.5549 4.08895 16.3352 3.86922Z"
@@ -359,8 +360,8 @@
                   <div class="radio_text_wrap">
                     <div class="radio_lable_wrap">
                       <label class="radio_box">
-                        <input type="radio" [checked]="topic.visibility === VISIBILITY.private" name="contrast"
-                          value="default">
+                        <input type="radio" [checked]="topic.visibility === VISIBILITY.private"
+                          [(ngModel)]="topic.visibility" name="visibility" (change)="updateTopic();" value="private">
                         <span class="radio"></span>
                         <div class="radio_lable" translate="VIEWS.TOPIC_CREATE.SETTINGS_VISIBILITY_PRIVATE">
                         </div>
@@ -375,8 +376,8 @@
                   <div class="radio_text_wrap">
                     <div class="radio_lable_wrap">
                       <label class="radio_box">
-                        <input type="radio" [checked]="topic.visibility === VISIBILITY.public" name="contrast"
-                          value="default">
+                        <input type="radio" [checked]="topic.visibility === VISIBILITY.public"
+                          [(ngModel)]="topic.visibility" name="visibility" (change)="updateTopic();" value="public">
                         <span class="radio"></span>
                         <div class="radio_lable" translate="VIEWS.TOPIC_CREATE.SETTINGS_VISIBILITY_PUBLIC">
                         </div>
@@ -568,15 +569,17 @@
         <ng-container *ngIf="tabSelected==='preview'">
           <div class="topic_content_wrap">
             <div class="info_bar">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="24" height="24" rx="12" fill="#5C9CD0" />
-                <path
-                  d="M13.8002 6.91789C13.8002 7.75599 13.1555 8.4354 12.3602 8.4354C11.5649 8.4354 10.8002 7.75599 10.8002 6.91789C10.8002 6.0798 11.5649 5.40039 12.3602 5.40039C13.1555 5.40039 13.8002 6.0798 13.8002 6.91789Z"
-                  fill="white" />
-                <path
-                  d="M10.4017 9.9218L13.6993 9.48627L12.2579 16.6261C12.1556 17.1421 12.2996 17.4349 12.6956 17.4349C12.975 17.4349 13.3955 17.3287 13.6835 17.0616L13.5568 17.6929C13.1435 18.218 12.232 18.6004 11.4472 18.6004C10.4348 18.6004 10.0043 17.96 10.2836 16.5988L11.3464 11.3361C11.4385 10.8915 11.355 10.7306 10.9316 10.6244L10.2836 10.4984L10.4017 9.9218Z"
-                  fill="white" />
-              </svg>
+              <div>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="24" height="24" rx="12" fill="#5C9CD0" />
+                  <path
+                    d="M13.8002 6.91789C13.8002 7.75599 13.1555 8.4354 12.3602 8.4354C11.5649 8.4354 10.8002 7.75599 10.8002 6.91789C10.8002 6.0798 11.5649 5.40039 12.3602 5.40039C13.1555 5.40039 13.8002 6.0798 13.8002 6.91789Z"
+                    fill="white" />
+                  <path
+                    d="M10.4017 9.9218L13.6993 9.48627L12.2579 16.6261C12.1556 17.1421 12.2996 17.4349 12.6956 17.4349C12.975 17.4349 13.3955 17.3287 13.6835 17.0616L13.5568 17.6929C13.1435 18.218 12.232 18.6004 11.4472 18.6004C10.4348 18.6004 10.0043 17.96 10.2836 16.5988L11.3464 11.3361C11.4385 10.8915 11.355 10.7306 10.9316 10.6244L10.2836 10.4984L10.4017 9.9218Z"
+                    fill="white" />
+                </svg>
+              </div>
               <span translate="VIEWS.TOPIC_CREATE.PREVIEW_INFO"></span>
             </div>
             <div class="topic_image">
