@@ -209,6 +209,7 @@ export class TopicInviteComponent implements OnInit {
       forkJoin(topicMemberUsersToSave)
         .pipe(take(1))
         .subscribe((res: any) => {
+          this.Notification.addSuccess('COMPONENTS.TOPIC_INVITE.MSG_INVITES_SENT');
           this.TopicService.reloadTopic();
         })
     }
@@ -252,7 +253,7 @@ export class TopicInviteDialogComponent {
   activeTab = 'invite';
   members = [];
   public inviteMessage = '';
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, @Inject(MatDialogRef) private dialog: MatDialogRef<TopicInviteDialogComponent>, private TopicInviteUser: TopicInviteUserService) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, @Inject(MatDialogRef) private dialog: MatDialogRef<TopicInviteDialogComponent>, private TopicInviteUser: TopicInviteUserService, private Notification: NotificationService) {
     if (!this.canInvite()) {
       this.activeTab = 'share';
     }
@@ -279,6 +280,7 @@ export class TopicInviteDialogComponent {
         this.TopicInviteUser.save(this.data.topic.id, topicMemberUsersToInvite)
           .pipe(take(1))
           .subscribe(res => {
+            this.Notification.addSuccess('COMPONENTS.TOPIC_INVITE_DIALOG.MSG_INVITES_SENT');
             this.dialog.close()
           })
       } else {
