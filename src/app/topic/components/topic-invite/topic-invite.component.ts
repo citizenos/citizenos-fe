@@ -1,18 +1,16 @@
-import { Component, OnInit, Inject, Input } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, OnInit, Inject, Input, Output, EventEmitter } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { isEmail } from 'validator';
-import { take, of, switchMap, forkJoin, combineLatest, Subscription } from 'rxjs';
+import { take, of, switchMap, forkJoin, Observable } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicService } from 'src/app/services/topic.service';
-import { TopicMemberGroup } from 'src/app/interfaces/group';
 import { TopicMemberUser } from 'src/app/interfaces/user';
 import { NotificationService } from 'src/app/services/notification.service';
 import { SearchService } from 'src/app/services/search.service';
 import { TopicJoinService } from 'src/app/services/topic-join.service';
 import { TopicMemberUserService } from 'src/app/services/topic-member-user.service';
-import { TopicMemberGroupService } from 'src/app/services/topic-member-group.service';
 import { TopicInviteUserService } from 'src/app/services/topic-invite-user.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 export interface TopicInviteData {
   topic: Topic
 };
@@ -26,9 +24,8 @@ export class TopicInviteComponent implements OnInit {
   @Input() dialog?= false;
   @Input() topic!: Topic;
   @Input() members = <any[]>[];
-
-  inviteMessage = <string | null>null;
-
+  @Input() inviteMessage?: string;
+  @Output() inviteMessageChange = new EventEmitter<string>();
   public inviteMessageMaxLength = 1000;
 
   public tabs = [
@@ -61,7 +58,6 @@ export class TopicInviteComponent implements OnInit {
   constructor(
     @Inject(ActivatedRoute) private route: ActivatedRoute,
     public TopicMemberUser: TopicMemberUserService,
-    private TopicMemberGroup: TopicMemberGroupService,
     public TopicService: TopicService,
     public TopicJoin: TopicJoinService,
     public Search: SearchService,
@@ -77,7 +73,12 @@ export class TopicInviteComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onMessageChange() {
+    this.inviteMessageChange.emit(this.inviteMessage);
+  }
+
   search(str: any): void {
+    this.searchResultUsers$ = of([]);
     if (str && str.length >= 2) {
       this.searchStringUser = str;
       this.searchResultUsers$ = this.Search
@@ -91,13 +92,12 @@ export class TopicInviteComponent implements OnInit {
             }
             return of(response.results.public.users.rows);
           }));
-    } else {
-      this.searchResultUsers$ = of([]);
     }
   }
 
   addTopicMember(member?: any) {
     this.searchResultUsers$ = of([]);
+    this.search('');
     if (this.members.length >= this.maxUsers) {
       this.Notification.addError('MSG_ERROR_INVITE_MEMBER_COUNT_OVER_LIMIT');
       return;
@@ -108,10 +108,9 @@ export class TopicInviteComponent implements OnInit {
     if (member.hasOwnProperty('company')) {
       return this.addTopicMemberUser(member);
     }
-    if(isEmail(member.email) && member.email === member.userId) {
+    if (isEmail(member.email) && member.email === member.userId) {
       return this.addTopicMemberUser();
     }
-    this.search('');
   };
 
   addCorrectedEmail(email: string, key: string) {
@@ -131,41 +130,25 @@ export class TopicInviteComponent implements OnInit {
     this.invalid.splice(parseInt(key), 1);
   };
 
-  orderMembers() {
-    const compare = (a: any, b: any) => {
-      const property = 'name';
-      return (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
-    };
-    const users = this.members.filter((member: TopicMemberUser) => {
-      return !!member.id;
-    }).sort(compare);
-    const emails = this.members.filter((member: TopicMemberUser) => {
-      return member.userId === member.name;
-    }).sort(compare);
-
-    this.members = users.concat(emails);
-  };
-
   addTopicMemberUser(member?: any): void {
+    this.searchResultUsers$ = of([]);
+    this.search('');
     if (member) {
       if (this.members && this.members.find((m: TopicMemberUser) => m.id === member.id)) {
         // Ignore duplicates
-        this.searchStringUser = '';
-        this.searchResultUsers$ = of([]);
       } else {
         const memberClone = Object.assign({}, member);
         memberClone.userId = member.userId;
         memberClone.level = this.topicLevel;
         this.members.push(memberClone);
-        this.searchResultUsers$ = of([]);
-
-        this.orderMembers();
       }
     } else {
       if (!this.searchStringUser) return;
 
       // Assume e-mail was entered.
       const emails = this.searchStringUser.replace(this.EMAIL_SEPARATOR_REGEXP, ',').split(',');
+
+      this.searchStringUser = ''
       const filtered = emails.filter((email) => {
         if (isEmail(email.trim())) {
           return email.trim();
@@ -189,12 +172,9 @@ export class TopicInviteComponent implements OnInit {
               name: email,
               level: this.topicLevel
             });
-            this.orderMembers();
           }
         });
       }
-
-      this.searchStringUser = '';
     }
   };
 
@@ -215,23 +195,18 @@ export class TopicInviteComponent implements OnInit {
 
   doSaveTopic() {
     // Users
-    const topicMemberUsersToSave = <any[]>[];
-    //request
-    const membersToSave = <any>{};
+    const topicMemberUsersToSave = <Array<Observable<any[]>>>[];
     this.members.forEach((member: TopicMemberUser) => {
-      topicMemberUsersToSave.push({
+      topicMemberUsersToSave.push(this.TopicInviteUser.save(this.topic.id, {
         userId: member.userId || member.id,
         inviteMessage: this.inviteMessage,
         level: member.level
-      })
+      }))
 
     });
 
     if (topicMemberUsersToSave.length) {
-      membersToSave['users'] = this.TopicInviteUser.save(this.topic.id, topicMemberUsersToSave)
-    }
-    if (Object.keys(membersToSave).length) {
-      forkJoin(membersToSave)
+      forkJoin(topicMemberUsersToSave)
         .pipe(take(1))
         .subscribe((res: any) => {
           this.TopicService.reloadTopic();
@@ -276,6 +251,7 @@ export class TopicInviteComponent implements OnInit {
 export class TopicInviteDialogComponent {
   activeTab = 'invite';
   members = [];
+  public inviteMessage = '';
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, @Inject(MatDialogRef) private dialog: MatDialogRef<TopicInviteDialogComponent>, private TopicInviteUser: TopicInviteUserService) {
     if (!this.canInvite()) {
       this.activeTab = 'share';
@@ -294,7 +270,7 @@ export class TopicInviteDialogComponent {
         imageUrl: member.imageUrl,
         userId: member.userId || member.id,
         level: member.level,
-        inviteMessage: this.data.topic.inviteMessage
+        inviteMessage: this.inviteMessage
       })
     });
 

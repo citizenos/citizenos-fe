@@ -4,7 +4,7 @@
     <div class="section_content_description" translate="COMPONENTS.TOPIC_INVITE.MESSAGE_DESC"></div>
     <cos-input [placeholder]="'COMPONENTS.TOPIC_INVITE.MESSAGE_PLACEHOLDER' | translate">
       <textarea id="topicDescription" [placeholder]="'COMPONENTS.TOPIC_INVITE.MESSAGE_PLACEHOLDER' | translate" rows="5"
-        [(ngModel)]="inviteMessage" [maxlength]="inviteMessageMaxLength"></textarea>
+        [(ngModel)]="inviteMessage" [maxlength]="inviteMessageMaxLength" (change)="onMessageChange()"></textarea>
     </cos-input>
     <div class="character_limit"><span
         translate="COMPONENTS.TOPIC_INVITE.CHARACTER_LIMIT"></span> {{inviteMessage?.length || 0
