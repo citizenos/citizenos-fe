@@ -50,7 +50,7 @@
   <div class="dialog_footer with_buttons" *ngIf="activeTab === 'invite'">
     <div></div>
     <div class="button_row">
-      <a mat-dialog-close translate="COMPONENTS.TOPIC_INVITE_DIALOG.LNK_CANCEL"></a>
+      <a mat-dialog-close (click)="Notification.removeAll()" translate="COMPONENTS.TOPIC_INVITE_DIALOG.LNK_CANCEL"></a>
       <button class="btn_medium_submit" translate="COMPONENTS.TOPIC_INVITE_DIALOG.BTN_SAVE"
         (click)="doInviteMembers()"></button>
     </div>
