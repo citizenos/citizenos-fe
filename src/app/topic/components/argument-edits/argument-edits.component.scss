@@ -1,5 +1,41 @@
+
+.edits_wrap {
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+
+  .edits_header {
+    display: flex;
+    border-radius: 8px 8px 0 0 ;
+    padding: 8px 16px;
+    justify-content: space-between;
+    align-items: center;
+    vertical-align: middle;
+  }
+  &.pro {
+    background-color: var(--color-argument-pro-medium);
+  }
+
+  &.con {
+    background-color: var(--color-argument-con-medium);
+  }
+  .edits_content {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-surfaces);
+    border-radius: 0 0 8px 8px;
+    gap: 16px;
+  }
+}
 .argument_edit{
   display: flex;
   flex-direction: column;
   background-color: var(--color-surfaces);
+  .argument_header {
+    .date_wrap {
+      display: flex;
+      gap: 8px;;
+    }
+  }
 }

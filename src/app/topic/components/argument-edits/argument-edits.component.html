@@ -1,15 +1,32 @@
-<div id="{{argument.id + '_v' + item.key}}" class="argument_edit" [ngClass]="'is_' + item.value['type']"
-  *ngFor="let item of argument.edits | keyvalue">
-  <div class="argument_header">
-    <span>{{item.value.createdAt | date : 'yyyy-MM-dd HH:mm'}}</span>
-    <a href="#" (click)="copyArgumentLink($event, item.key)"><span translate="LNK_DIRECT_LINK"></span></a>
+<div class="edits_wrap" [ngClass]="argument.type">
+  <div class="edits_header">
+    <div class="small_heading" translate="COMPONENTS.ARGUMENT_EDITS.HEADING"></div>
+    <a translate="COMPONENTS.ARGUMENT_EDITS.LNK_HIDE_EDITS" (click)="argument.showEdits = false;"></a>
   </div>
-  <div class="argument_content">
-    <div class="argument_subject" *ngIf="item.value.subject">
-      {{item.value.subject}}
-    </div>
+  <div class="edits_content">
+    <div id="{{argument.id + '_v' + item.key}}" class="argument_edit" [ngClass]="'is_' + item.value['type']"
+      *ngFor="let item of argument.edits | keyvalue">
+      <div class="argument_header">
+        <div class="date_wrap">
+          <div>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M8.8143 4.18517L11.8147 7.18569L5.29947 13.7012L2.62438 13.9965C2.26626 14.0361 1.96369 13.7333 2.00354 13.3752L2.30118 10.6981L8.8143 4.18517ZM13.6704 3.73845L12.2616 2.3296C11.8222 1.89013 11.1095 1.89013 10.67 2.3296L9.34467 3.65501L12.3451 6.65553L13.6704 5.33011C14.1099 4.89042 14.1099 4.17791 13.6704 3.73845Z"
+                fill="#4D5C6A" />
+            </svg>
+          </div>
+          <span>{{item.value.createdAt | date : 'yyyy-MM-dd HH:mm'}}</span>
+        </div>
+        <a (click)="$event.stopPropagation(); copyArgumentLink($event, item.key)"><span translate="LNK_DIRECT_LINK"></span></a>
+      </div>
+      <div class="argument_content">
+        <div class="argument_subject" *ngIf="item.value.subject">
+          {{item.value.subject}}
+        </div>
 
-    <div class="argument_body" [innerHtml]="item.value.text">
+        <div class="argument_body" [innerHtml]="item.value.text">
+        </div>
+      </div>
     </div>
   </div>
 </div>

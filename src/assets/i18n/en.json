@@ -114,6 +114,10 @@
       "ARGUMENT_LNK_COPIED": "@:VIEWS.TOPICS_TOPICID.ARGUMENT_LNK_COPIED",
       "ARGUMENT_LNK_REPORT": "@:VIEWS.TOPICS_TOPICID.ARGUMENT_LNK_REPORT"
     },
+    "ARGUMENT_EDITS": {
+      "HEADING": "Argument edits",
+      "LNK_HIDE_EDITS": "Hide edits"
+    },
     "ARGUMENT_REPORT": {
       "HEADING": "Report argument to admin",
       "MESSAGE_MAIN": "You are reporting",
@@ -656,7 +660,6 @@
       "BTN_CONTINUE": "@:BTN_CONTINUE",
       "BTN_START_VOTE": "Start topic voting"
     },
-
     "TOPIC_VOTE_DEADLINE": {
       "DIALOG_HEADING": "Edit voting deadline",
       "LBL_EDIT_VOTING_DEADLINE": "Edit voting deadline",
@@ -710,8 +713,8 @@
       "HEADER_IDEATION": "{{value}} ideas gathered",
       "HEADER_CLOSED": "Closed topic",
       "NOTIFICATION_TITLE": "This topic was hidden by a moderator",
-      "NOTIFICATION_LNK_WHY":"@:VIEWS.TOPICS_TOPICID.ARGUMENT_WHY",
-      "NOTIFICATION_LNK_VIEW":"View anyway"
+      "NOTIFICATION_LNK_WHY": "@:VIEWS.TOPICS_TOPICID.ARGUMENT_WHY",
+      "NOTIFICATION_LNK_VIEW": "View anyway"
     },
     "TOPIC_SHARE": {
       "GENERATE_LINK": "@:COMPONENTS.GROUP_SHARE.GENERATE_LINK",
@@ -2556,7 +2559,7 @@
   "MSG_ERROR_NETWORK_PROBLEMS": "Network issues, please check your internet connection.",
   "MSG_ERROR_ATTACHMENT_SIZE_OVER_LIMIT": "Attachment is too big. Maximum allowed size is 50MB.",
   "MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED": "File type is not allowed. Allowed types are: {{allowedFileTypes}}",
-  "MSG_ERROR_FILE_TYPE_NOT_ALLOWED" :"@:MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED",
+  "MSG_ERROR_FILE_TYPE_NOT_ALLOWED": "@:MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED",
   "MSG_ERROR_FILE_TOO_LARGE": "File is too large. Maximum allowed size is {{allowedFileSize}}",
   "MSG_ERROR_POST_API_USERS_TOPICS_ATTACHMENTS_40000_LINK": "Attachment link is undefined!",
   "MSG_ERROR_POST_API_USERS_TOPICS_ATTACHMENTS_40000_NAME": "Attachment name is undefined!",
