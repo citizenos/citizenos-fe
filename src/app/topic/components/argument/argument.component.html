@@ -85,7 +85,7 @@
         (showEdit)="toggleEdit($event)"></edit-argument>
       <argument-deleted *ngIf="argument.deletedAt" [argument]="argument"
         (showDeletedArgument)="showArgument($event)"></argument-deleted>
-      <argument-edits class="argument_wrap reply" *ngIf="argument.showEdits && isEdited()" [topicId]="topicId"
+      <argument-edits *ngIf="argument.showEdits && isEdited()" [topicId]="topicId"
         [argument]="argument"></argument-edits>
     </div>
     <div class="argument_footer">

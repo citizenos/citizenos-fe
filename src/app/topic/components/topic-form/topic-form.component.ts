@@ -133,6 +133,7 @@ export class TopicFormComponent {
   ngOnInit() {
     this.topicUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.topic.padUrl);
     this.downloadUrl = this.TopicService.download(this.topic.id);
+    console.log(this.topic);
   }
 
   sanitizeURL(): SafeResourceUrl {
