@@ -47,13 +47,13 @@ export class ImageEditorComponent {
     if (this.file) {
       this.image.src = URL.createObjectURL(this.file);
       this.image.onload = () => {
-        console.log(this.image.width);
         if (context) {
-          const scaleX = 300 / this.image.width;
-          const scaleY = 300 / this.image.height;
-          this.imageWidth = this.image.width * scaleX;
-          this.imageHeight = this.image.height * scaleY;
-          context.drawImage(this.image, 0, 0, this.imageWidth, this.imageHeight);
+          const scaleX = (this.canvasWidth || 320) / this.image.width;
+          const scaleY = (this.canvasHeight || 320) / this.image.height;
+          this.imageWidth = this.image.width;
+          this.imageHeight = this.image.height;
+          context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+          context.drawImage(this.image, 0, 0, this.imageWidth, this.imageHeight, 0, 0, this.canvasWidth, this.canvasHeight);
         }
       };
     }
@@ -65,7 +65,7 @@ export class ImageEditorComponent {
   draw() {
     const context = this.canvas.getContext('2d');
     context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    context.drawImage(this.image, this.startX, this.startY, this.imageWidth * this.scale, this.imageHeight * this.scale);
+    context.drawImage(this.image, this.startX, this.startY, this.imageWidth, this.imageHeight,0, 0, this.canvasWidth, this.canvasHeight);
     this.outPutImage();
   }
 

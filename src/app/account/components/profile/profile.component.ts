@@ -42,6 +42,7 @@ export class ProfileComponent {
   public settings: any;
   public imageFile?: any;
   public uploadedImage?: any;
+  public tmpImageUrl?: any;
 
   wWidth = window.innerWidth;
   errors: any = {};
