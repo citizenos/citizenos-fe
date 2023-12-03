@@ -151,6 +151,7 @@ export class TopicFormComponent {
   }
 
   nextTab(tab: string | void) {
+    window.scrollTo(0,0);
     this.updateTopic();
     if (tab) {
       const tabIndex = this.tabs.indexOf(tab);
@@ -166,6 +167,7 @@ export class TopicFormComponent {
   }
 
   previousTab(tab: string | void) {
+    window.scrollTo(0,0);
     if (tab) {
       const tabIndex = this.tabs.indexOf(tab);
       if (tabIndex > 0) {

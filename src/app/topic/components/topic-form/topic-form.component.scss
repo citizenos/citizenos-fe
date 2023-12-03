@@ -315,3 +315,25 @@
     }
   }
 }
+.topic_arguments {
+  background-color: var(--color-scrollbar);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  margin-bottom: 90px;
+
+  @include mixins.tablet {
+    display: none;
+    margin-bottom: 0px;
+    padding: 16px;
+
+    &.show {
+      display: flex;
+    }
+  }
+
+  @include mixins.mobile {
+    padding: 16px 0;
+  }
+}
