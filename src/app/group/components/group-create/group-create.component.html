@@ -93,8 +93,10 @@
               <div id="image_area" *ngIf="group.imageUrl || uploadedImage">
                 <ng-container *ngIf="uploadedImage">
                   <div id="image_wrap">
-                    <image-editor [width]="80" [heigth]="80" [file]="uploadedImage"
-                      (item)="imageChange($event)"></image-editor>
+                    <!--image-editor [width]="80" [heigth]="80" [file]="uploadedImage"
+                      (item)="imageChange($event)"></!--image-editor-->
+
+                      <img [src]="group.imageUrl || tmpImageUrl" />
                   </div>
                 </ng-container>
                 <ng-container *ngIf="group.imageUrl">
