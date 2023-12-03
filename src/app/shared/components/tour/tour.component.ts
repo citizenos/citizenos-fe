@@ -100,7 +100,7 @@ export class TourComponent {
             this.renderer.setStyle(arrowEl, 'top', `${itemOffsetTop + itemRect.height / 2}px`);
             this.renderer.setStyle(tourBox, 'left', `${left}px`);
 
-            tourBox.scrollIntoView();
+      //      tourBox.scrollIntoView();
             break;
           case 'left':
             arrowEl.classList.remove('top_arrow');
@@ -111,11 +111,14 @@ export class TourComponent {
             if (left < 0) {
               left = 0;
             }
+            if (itemOffsetTop + tourBoxElementRect.height < itemOffsetTop + itemRect.height / 2) {
+              this.renderer.setStyle(tourBox, 'top', `${itemOffsetTop + (tourBoxElementRect.height/2)}px`);
+            }
             this.renderer.setStyle(arrowEl, 'left', `${itemRect.left - 6}px`);
             this.renderer.setStyle(arrowEl, 'top', `${itemOffsetTop + itemRect.height / 2}px`);
             this.renderer.setStyle(tourBox, 'left', `${left}px`);
 
-            tourBox.scrollIntoView();
+     //       tourBox.scrollIntoView();
             break;
           case 'top':
             left = itemRect.left + itemRect.width / 2 - tourBoxElementRect.width / 2;
@@ -130,7 +133,7 @@ export class TourComponent {
             this.renderer.setStyle(arrowEl, 'top', `${itemOffsetTop - 12}px`);
             this.renderer.setStyle(tourBox, 'left', `${left}px`);
             this.renderer.setStyle(tourBox, 'top', `${itemOffsetTop - tourBoxElementRect.height - 12}px`);
-            tourBox.scrollIntoView();
+//tourBox.scrollIntoView();
             break;
           case 'bottom':
             left = itemRect.left + itemRect.width / 2 - tourBoxElementRect.width / 2;
@@ -145,7 +148,7 @@ export class TourComponent {
             this.renderer.setStyle(arrowEl, 'top', `${itemOffsetBottom + 6}px`);
             this.renderer.setStyle(tourBox, 'left', `${left}px`);
             this.renderer.setStyle(tourBox, 'top', `${itemOffsetBottom + 18}px`);
-            itemEl.el.nativeElement.scrollIntoView();
+         //   itemEl.el.nativeElement.scrollIntoView();
             break;
           default:
             this.renderer.setStyle(arrowEl, 'left', `${itemRect.right + 6}px`);

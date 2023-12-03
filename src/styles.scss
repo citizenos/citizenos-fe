@@ -892,7 +892,17 @@ est-id-login-form {
   position: fixed;
   cursor: pointer;
   z-index: 12;
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(4px);
+}
+
+.tour_overlay::after {
+  @extend %all_zero;
+  content: "";
+  position: fixed;
+  cursor: pointer;
+  z-index: 12;
+  background: var(--color-surfaces);
+  opacity: 0.5;
 }
 tour-item-template {
   display: contents;
@@ -904,6 +914,7 @@ tour-item-template {
   border-radius: 8px;
   background: var(--color-text);
   padding: 16px;
+  transition: all .5s ease-in-out;
   gap: 16px;
   position: absolute;
   width: 400px;
@@ -1007,6 +1018,7 @@ tour-item-template {
 .tour_item {
   position: relative;
   z-index: 999999999999 !important;
+  box-shadow: 0px 8px 20px 0px rgba(220, 231, 240, 0.30), 0px 12px 16px 0px rgba(50, 85, 112, 0.10);
 }
 
 .vote_wrap {

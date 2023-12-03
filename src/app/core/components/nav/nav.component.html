@@ -212,7 +212,7 @@
       </svg>
     </a>
   </div>
-  <div class="nav_inside">
+  <div class="nav_inside" [TourItem]="{tourid: 'dashboard', index: 2, position: 'right'}">
     <ng-container *ngIf="auth.user$ | async; then loggedIn; else loggedOut"></ng-container>
     <ng-template #loggedOut>
       <div class="big_button_wrap">
@@ -282,7 +282,7 @@
         <div class="line_separator_tablet"></div>
         <div class="line_separator"></div>
       </ng-container>
-      <div id="nav_main" class="nav_items_wrap" [TourItem]="{tourid: 'dashboard', index: 2, position: 'right'}">
+      <div id="nav_main" class="nav_items_wrap">
         <a class="btn_small_nav" [routerLink]="['/', translate.currentLang, 'dashboard']" routerLinkActive="active">
           <div>
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
