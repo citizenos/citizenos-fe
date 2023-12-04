@@ -1192,7 +1192,7 @@
     "INTERRUPT_BTN_CANCEL": "@:LNK_CANCEL",
     "INTERRUPT_BTN_SUBMIT": "@:MODALS.INTERRUPT_HEADING"
   },
-  "TXT_TOPIC_CATEGORY_ALL": "alle Kategorien",
+  "TXT_TOPIC_CATEGORY_ALL": "All",
   "TXT_TOPIC_CATEGORY_CITIZENOS": "Citizen OS",
   "TXT_TOPIC_CATEGORY_BIOTOOPIA": "Biotoopia",
   "TXT_TOPIC_CATEGORY_OPINIONFESTIVAL": "Opinion Festival",
@@ -1323,7 +1323,7 @@
       "TABLE_HEADER_NOTIFICATIONS": "@:VIEWS.ACCOUNT.TAB_NOTIFICATIONS",
       "PLACEHOLDER_SEARCH": "@:VIEWS.MY_TOPICS.PLACEHOLDER_SEARCH_TOPIC",
       "LNK_CLEAR": "@:LNK_CLEAR",
-      "NOTIFICATIONS_HEADING": "Manage topic notification",
+      "NOTIFICATIONS_HEADING": "Manage topic notifications",
       "HEADING_MANAGE_UPDATES": "Manage email updates",
       "DESCRIPTION_MANAGE_UPDATES": "Engagement updates and analytics will be sent via email every defined period",
       "PLACEHOLDER_SET_PERIOD": "Set period",
