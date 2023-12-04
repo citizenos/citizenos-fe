@@ -1192,7 +1192,7 @@
     "INTERRUPT_BTN_CANCEL": "@:LNK_CANCEL",
     "INTERRUPT_BTN_SUBMIT": "@:MODALS.INTERRUPT_HEADING"
   },
-  "TXT_TOPIC_CATEGORY_ALL": "Все существующие",
+  "TXT_TOPIC_CATEGORY_ALL": "All",
   "TXT_TOPIC_CATEGORY_CITIZENOS": "Citizen OS",
   "TXT_TOPIC_CATEGORY_BIOTOOPIA": "Biotoopia",
   "TXT_TOPIC_CATEGORY_OPINIONFESTIVAL": "Фестиваль мнений",
@@ -1323,7 +1323,7 @@
       "TABLE_HEADER_NOTIFICATIONS": "@:VIEWS.ACCOUNT.TAB_NOTIFICATIONS",
       "PLACEHOLDER_SEARCH": "@:VIEWS.MY_TOPICS.PLACEHOLDER_SEARCH_TOPIC",
       "LNK_CLEAR": "@:LNK_CLEAR",
-      "NOTIFICATIONS_HEADING": "Настройка уведомлений по теме",
+      "NOTIFICATIONS_HEADING": "Manage topic notifications",
       "HEADING_MANAGE_UPDATES": "Управление уведомлениями по эл. почте",
       "DESCRIPTION_MANAGE_UPDATES": "Обновления и аналитика участия будут отправляться по электронной почте каждый определенный период",
       "PLACEHOLDER_SET_PERIOD": "Установить период",
