@@ -20,6 +20,7 @@ export class TopicShareComponent implements OnInit {
     level: <string | null>this.TopicService.LEVELS.read,
     token: <string | null>null
   };
+  joinDisabled = true;
   joinUrl = ''
   LEVELS = Object.keys(this.TopicService.LEVELS);
   showQR = false;
@@ -85,14 +86,18 @@ export class TopicShareComponent implements OnInit {
   };
 
   copyInviteLink() {
-    const urlInputElement = this.linkInput.nativeElement as HTMLInputElement || null;
-    urlInputElement.focus();
-    urlInputElement.select();
-    urlInputElement.setSelectionRange(0, 99999);
-    document.execCommand('copy');
-    this.copySuccess = true;
+    this.joinDisabled = false;
+    setTimeout(() => {
+      const urlInputElement = this.linkInput.nativeElement as HTMLInputElement || null;
+      urlInputElement.focus();
+      urlInputElement.select();
+      urlInputElement.setSelectionRange(0, 99999);
+      document.execCommand('copy');
+      this.copySuccess = true;
+    });
     setTimeout(() => {
       this.copySuccess = false;
+      this.joinDisabled = true;
     },500)
   };
 

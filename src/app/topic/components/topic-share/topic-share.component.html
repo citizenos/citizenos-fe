@@ -1,7 +1,7 @@
 <div class="section_heading" translate="COMPONENTS.TOPIC_SHARE.GENERATE_LINK"></div>
 <div class="share_wrap">
   <div class="input_area">
-    <input id="invite_group_url_input" #linkInput [value]="joinUrl" [disabled]="true"
+    <input id="invite_group_url_input" #linkInput [value]="joinUrl" [disabled]="joinDisabled"
       [placeholder]="'COMPONENTS.TOPIC_SHARE.PLACEHOLDER_CREATE_NEW_LINK' | translate">
     <button id="reload" (click)="generateTokenJoin()" *ngIf="canUpdate()">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
