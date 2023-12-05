@@ -4,6 +4,13 @@
   min-width: 160px;
 }
 
+.button_options {
+  position: fixed;
+  max-width: max-content!important;
+  .option {
+    max-width: max-content;
+  }
+}
 .row_list {
   .row_cell {
     a {
