@@ -12,6 +12,8 @@ import { TopicVoteSignComponent } from '../topic-vote-sign/topic-vote-sign.compo
 import { TopicVoteDeadlineComponent } from '../topic-vote-deadline/topic-vote-deadline.component';
 import { TopicVoteDelegateComponent } from '../topic-vote-delegate/topic-vote-delegate.component';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
+import { TopicVoteReminderDialog } from 'src/app/topic/components/topic-vote-reminder-dialog/topic-vote-reminder-dialog.component';
+
 @Component({
   selector: 'topic-vote-cast',
   templateUrl: './topic-vote-cast.component.html',
@@ -156,8 +158,20 @@ export class TopicVoteCastComponent implements OnInit {
   }
 
   sendVoteReminder () {
-    this.vote.reminderTime = new Date();
-    this.saveVote();
+    const voteReminderDialog = this.dialog.open(TopicVoteReminderDialog, {
+      data: {
+        topic: this.topic,
+        vote: this.vote
+      }
+    });
+    voteReminderDialog.afterClosed().subscribe({
+      next: (send) => {
+        if (send) {
+          this.vote.reminderTime = new Date();
+          this.saveVote();
+        }
+      }
+    })
   }
 
   editDeadline () {

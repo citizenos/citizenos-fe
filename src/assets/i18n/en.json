@@ -789,6 +789,11 @@
       "BTN_SUBMIT": "Revoke invitation",
       "BTN_CANCEL": "@:LNK_CANCEL"
     },
+    "TOPIC_VOTE_REMINDER": {
+      "DIALOG_HEADING": "Send reminder to vote",
+      "DIALOG_DESCRIPTION": "If you want, you can send a reminder e-mail to the people who haven’t voted yet.",
+      "REMINDER_PREVIEW_DESC": "This is a preview of how the reminder e-mail looks like."
+    },
     "TYPEAHEAD": {
       "PRESS_ENTER_TO_ADD": "Press enter to add"
     }
