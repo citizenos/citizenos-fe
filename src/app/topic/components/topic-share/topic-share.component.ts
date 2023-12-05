@@ -99,6 +99,8 @@ export class TopicShareComponent implements OnInit {
   generateJoinUrl() {
     if (this.join.token && this.TopicService.canShare(this.topic)) {
       this.joinUrl = this.Location.getAbsoluteUrl('/topics/join/' + this.join.token);
+    } else {
+      this.joinUrl = this.Location.getAbsoluteUrl('/topics/' + this.topic.id);
     }
   };
 }
