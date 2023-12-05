@@ -530,7 +530,7 @@
       "TOPIC_MOBILE_STEP_2_DESC_MORE": "@:COMPONENTS.TOUR.TOPIC_STEP_2_DESC_MORE"
     },
     "TOPIC_INVITE": {
-      "HEADING": "Invite people to the topic",
+      "HEADING": "Pozvat lidi do tématu",
       "MESSAGE_DESC": "@:MODALS.TOPIC_INVITE_LBL_OPTIONAL_MESSAGE",
       "MESSAGE_PLACEHOLDER": "@:COMPONENTS.GROUP_INVITE.MESSAGE_PLACEHOLDER",
       "CHARACTER_LIMIT": "@:COMPONENTS.GROUP_INVITE.CHARACTER_LIMIT",
@@ -538,7 +538,7 @@
       "PLACEHOLDER_SEARCH": "@:DEFAULT.NAV_MOBILE.BTN_SEARCH",
       "SHOW_PER_PAGE": "@:VIEWS.ACCOUNT.SHOW_PER_PAGE",
       "NO_INVITES_HEADING": "@:COMPONENTS.GROUP_INVITE.NO_INVITES_HEADING",
-      "NO_INVITES_DESC": "Kickstart your group by inviting people. This is not mandatory and you can always invite them later.",
+      "NO_INVITES_DESC": "Rozjeďte svou skupinu pozváním lidí. Toto není povinné a můžete je vždy pozvat později.",
       "INVALID_EMAILS_HEADER": "@:COMPONENTS.GROUP_INVITE.INVALID_EMAILS_HEADER",
       "SELECT_TO_ADD": "@:COMPONENTS.GROUP_ADD_TOPICS.SELECT_TO_ADD",
       "NAME": "@:COMPONENTS.GROUP_INVITE.NAME",
@@ -569,10 +569,10 @@
     },
     "TOPIC_MILESTONES": {
       "CREATE_A_MILESTONE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_CREATE_A_MILESTONE",
-      "OPT_EDIT_DETAILS": "Edit details",
-      "OPT_REMOVE_MILESTONE": "Remove milestone",
+      "OPT_EDIT_DETAILS": "Upravit detaily",
+      "OPT_REMOVE_MILESTONE": "Odstranit milník",
       "PLACEHOLDER_SUBJECT": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_PLACEHOLDER_SUBJECT",
-      "HEADING_MILESTONE_CONTENT": "Milestone content",
+      "HEADING_MILESTONE_CONTENT": "Obsah milníku",
       "ADD_MILESTONE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_ADD_MILESTONE",
       "HEADING_MILESTONE": "Milestone",
       "HEADING_MILESTONE_TITLE": "Milestone title",
