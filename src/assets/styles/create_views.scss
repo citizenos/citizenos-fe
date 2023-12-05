@@ -439,6 +439,7 @@
         justify-content: space-between;
         border-radius: 5px;
         cursor: pointer;
+        width: 100%;
 
         &.active {
           background-color: var(--color-surface-contrast);
