@@ -404,7 +404,7 @@
           </ng-container>
         </div>
         <ng-container *ngIf="topic.voteId && (vote$ | async) as vote">
-          <topic-vote-cast class="topic_feature_section voting" [ngClass]="(tabTablet === 'vote')? 'show': ''"
+          <topic-vote-cast [ngClass]="(tabTablet === 'vote')? 'show': ''"
             [topic]="topic" [vote]="vote"></topic-vote-cast>
         </ng-container>
       </ng-container>
