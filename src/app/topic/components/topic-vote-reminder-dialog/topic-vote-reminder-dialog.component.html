@@ -1,0 +1,43 @@
+<div class="overlay" mat-dialog-close></div>
+<div class="dialog">
+  <div class="dialog_header voting">
+    <div class="header_text">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="40" height="40" rx="20" fill="#5AB467" />
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M20 10C14.48 10 10 14.48 10 20C10 25.52 14.48 30 20 30C25.52 30 30 25.52 30 20C30 14.48 25.52 10 20 10ZM18.0556 25L25.8333 17.2807L24.375 15.8333L18.0556 22.1053L15.625 19.693L14.1667 21.1404L18.0556 25Z"
+          fill="white" />
+      </svg>
+      <h4 class="title" translate="COMPONENTS.TOPIC_VOTE_REMINDER.DIALOG_HEADING"></h4>
+    </div>
+    <div class="dialog_close">
+      <a class="btn_dialog_close icon" mat-dialog-close>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M7.72152 6.29537C7.3277 5.90154 6.68919 5.90154 6.29537 6.29537C5.90154 6.68919 5.90154 7.3277 6.29537 7.72153L10.5738 12L6.29541 16.2785C5.90159 16.6723 5.90159 17.3108 6.29541 17.7046C6.68923 18.0985 7.32774 18.0985 7.72156 17.7046L12 13.4262L16.2784 17.7046C16.6723 18.0985 17.3108 18.0985 17.7046 17.7046C18.0984 17.3108 18.0984 16.6723 17.7046 16.2785L13.4262 12L17.7046 7.72153C18.0985 7.3277 18.0985 6.68919 17.7046 6.29537C17.3108 5.90154 16.6723 5.90154 16.2785 6.29537L12 10.5739L7.72152 6.29537Z"
+            fill="#2C3B47" />
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="dialog_content">
+    <div translate="COMPONENTS.TOPIC_VOTE_REMINDER.DIALOG_DESCRIPTION"></div>
+    <div class="line_separator"></div>
+    <div translate="COMPONENTS.TOPIC_VOTE_REMINDER.REMINDER_PREVIEW_DESC"></div>
+  </div>
+  <div class="dialog_footer with_buttons">
+    <a mat-dialog-close translate="COMPONENTS.TOPIC_VOTE_DEADLINE.LNK_CANCEL"></a>
+    <div class="button_row">
+      <!--button *ngIf="tabActive > 1" class="btn_medium_submit_ghost icon mobile_hidden"
+        (click)="tabActive = tabActive - 1; (tabActive !==3)? addPosAbsolute = false: addPosAbsolute=true;"><svg
+          width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M10.4533 17.6874C10.8529 18.1042 11.5009 18.1042 11.9006 17.6874C12.3003 17.2705 12.3003 16.5947 11.9006 16.1779L8.91837 13L19 13C19.5652 13 20 12.5892 20 11.9997C20 11.4103 19.5652 11.0176 19 11.0176L8.91837 11.0176L11.9006 7.8221C12.3003 7.40527 12.3003 6.72945 11.9006 6.31262C11.5009 5.89579 10.8529 5.89579 10.4533 6.31262L5 12L10.4533 17.6874Z"
+            fill="#2C3B47" />
+        </svg>
+      </!--button-->
+      <button class="btn_medium_submit" [mat-dialog-close]="true" translate="COMPONENTS.TOPIC_VOTE_DEADLINE.BTN_SAVE"></button>
+    </div>
+  </div>
+</div>
