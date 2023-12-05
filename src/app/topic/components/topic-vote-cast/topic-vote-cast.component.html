@@ -31,12 +31,14 @@
         </button>
         <div class="options">
           <div class="option" (click)="editDeadline()" translate="COMPONENTS.TOPIC_VOTE_CAST.OPT_EDIT_DEADLINE"></div>
+          <div class="option" (click)="closeVoting()" translate="COMPONENTS.TOPIC_VOTE_CAST.OPT_CLOSE_VOTING"></div>
+          <div *ngIf="!vote.reminderSent" class="option" (click)="sendVoteReminder()" translate="COMPONENTS.TOPIC_VOTE_CAST.OPT_SEND_VOTE_REMINDER"></div>
         </div>
       </div>
     </div>
   </div>
   <div class="vote_content">
-    <ng-container *ngIf="!userHasVoted || editVote">
+    <ng-container *ngIf="(!userHasVoted || editVote) && !hasVoteEndedExpired()">
       <ng-container *ngIf="vote.type === 'regular'">
         <div class="vote_info">
           <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -106,7 +108,7 @@
         </ng-container>
       </div>
     </ng-container>
-    <ng-container *ngIf="userHasVoted && !editVote && !hasVoteEndedExpired()">
+    <ng-container *ngIf="(userHasVoted || !editVote) && !hasVoteEndedExpired()">
       <div class="vote_result_info">
         <div class="text_area">
           <div class="bold" translate="COMPONENTS.TOPIC_VOTE_CAST.HEADING_VOTE_REGISTERED"></div>
@@ -248,8 +250,8 @@
     <ng-container *ngIf="hasVoteEndedExpired()">
       <div class="vote_result_info">
         <div class="text_area">
-          <div class="bold" translate="COMPONENTS.TOPIC_VOTE_CAST.HEADING_VOTE_REGISTERED"></div>
-          <div translate="COMPONENTS.TOPIC_VOTE_CAST.VOTE_TXT_VOTE_REGISTERED"></div>
+          <div class="bold" translate="COMPONENTS.TOPIC_VOTE_CAST.HEADING_VOTE_ENDED"></div>
+          <div translate="COMPONENTS.TOPIC_VOTE_CAST.VOTE_TXT_VOTE_ENDED"></div>
           <div class="links_wrap">
             <a [href]="vote.downloads.bdocVote"
               *ngIf="vote.authType === VOTE_AUTH_TYPES.hard && vote.downloads?.bdocVote" download>
@@ -344,7 +346,7 @@
         </div>
       </div>
 
-      <div class="vote_result_info">
+      <div class="vote_result_info" *ngIf="!hasVoteEndedExpired()">
         <div class="vote_graph_wrap">
           <div id="vote_graph">
             <svg width="48" height="48" viewBox="0 0 48 48" style="transform: rotate(-90deg)">

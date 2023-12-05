@@ -130,6 +130,36 @@ export class TopicVoteCastComponent implements OnInit {
     }
   }
 
+  saveVote () {
+    const saveVote:any = Object.assign(this.vote, {topicId: this.topic.id});
+    this.TopicVoteService.update(saveVote)
+      .pipe(take(1))
+      .subscribe({
+        next: (vote) => {
+          this.vote = vote;
+          console.log(vote);
+          this.TopicService.reloadTopic();
+          this.dialog.closeAll();
+        },
+        error: (res) => {
+          console.debug('closeVoting() ERR', res, res.errors, this.vote.options);
+          Object.values(res).forEach((message) => {
+            if (typeof message === 'string')
+              this.Notification.addError(message);
+          });
+        }
+      });
+  }
+  closeVoting() {
+    this.vote.endsAt = new Date();
+    this.saveVote();
+  }
+
+  sendVoteReminder () {
+    this.vote.reminderTime = new Date();
+    this.saveVote();
+  }
+
   editDeadline () {
     const voteDeadlineDialog = this.dialog.open(TopicVoteDeadlineComponent, {
       data: {
