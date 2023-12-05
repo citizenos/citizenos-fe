@@ -1,6 +1,39 @@
 .dialog  {
   max-width: 560px;
 }
-.profile_image_filler {
-  height: 40px;
+.profile_image_wrap{
+  width: auto;
+}
+
+.dialog_content {
+  gap: 8px;
+  padding: 24px;
+  gap: 24px;
+}
+.dialog_info_wrap {
+  gap: 8px;
+  .dialog_info_heading {
+    justify-self: flex-start;
+    align-self: flex-start;
+  }
+  .dialog_info {
+    padding: 16px;
+    gap: 16px;
+
+    .dialog_info_content {
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-start;
+      width: 100%;
+    }
+  }
+}
+
+.notification_inline {
+  margin: 16px 0;
+  .message {
+    width: 100%;
+  }
 }

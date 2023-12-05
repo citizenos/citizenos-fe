@@ -1,7 +1,7 @@
 @use "mixins";
 
 mat-dialog-container {
-  display: flex!important;
+  display: flex !important;
 
   .mdc-dialog__container {
     height: max-content;
@@ -178,7 +178,7 @@ mat-dialog-container {
 
       .content_section {
         .section_content_wrap {
-          .icon_padding{
+          .icon_padding {
             padding: 8px 16px;
           }
         }
@@ -186,6 +186,13 @@ mat-dialog-container {
     }
   }
 
+  .dialog_info_heading {
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 16px; /* 123.077% */
+    color: var(--color-border-active);
+  }
   .dialog_info_wrap {
     display: flex;
     flex-direction: column;
