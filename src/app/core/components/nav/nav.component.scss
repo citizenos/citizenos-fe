@@ -64,6 +64,21 @@
     display: flex;
     gap: 12px;
     width: 100%;
+    flex-direction: row;
+    @include mixins.tablet {
+      cursor: pointer;
+      flex-direction: row;
+      padding: 16px;
+      justify-content: flex-start;
+      align-items: center;
+      background-color: var(--color-surface-contrast);
+      border-radius: 16px;
+      margin-bottom: 24px;
+
+      .options {
+        left: 0;
+      }
+    }
   }
 
   #profile_text_wrap {
