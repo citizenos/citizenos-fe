@@ -82,9 +82,7 @@ export class TourComponent {
         const tourBox = this.tourBox.nativeElement;
         const tourBoxElementRect = tourBox.getBoundingClientRect();
         const arrowEl = this.arrow.nativeElement;
-        this.renderer.setStyle(tourBox, 'top', `${itemOffsetTop}px`);
         let left = 0;
-
         switch (itemEl.position) {
           case 'right':
             arrowEl.classList.remove('top_arrow');
@@ -97,7 +95,9 @@ export class TourComponent {
               left = 0;
             }
             if (itemOffsetTop + tourBoxElementRect.height < itemOffsetTop + itemRect.height / 2) {
-              this.renderer.setStyle(tourBox, 'top', `${itemOffsetTop + (tourBoxElementRect.height/2)}px`);
+              this.renderer.setStyle(tourBox, 'top', `${itemOffsetTop + itemRect.height/2 - (tourBoxElementRect.height/2)}px`);
+            } else {
+              this.renderer.setStyle(tourBox, 'top', `${itemOffsetTop}px`);
             }
             this.renderer.setStyle(arrowEl, 'left', `${itemRect.right + 6}px`);
             this.renderer.setStyle(arrowEl, 'top', `${itemOffsetTop + itemRect.height / 2}px`);
@@ -115,7 +115,9 @@ export class TourComponent {
               left = 0;
             }
             if (itemOffsetTop + tourBoxElementRect.height < itemOffsetTop + itemRect.height / 2) {
-              this.renderer.setStyle(tourBox, 'top', `${itemOffsetTop + (tourBoxElementRect.height/2)}px`);
+              this.renderer.setStyle(tourBox, 'top', `${itemOffsetTop + itemRect.height/2 - (tourBoxElementRect.height/2)}px`);
+            } else {
+              this.renderer.setStyle(tourBox, 'top', `${itemOffsetTop}px`);
             }
             this.renderer.setStyle(arrowEl, 'left', `${itemRect.left - 6}px`);
             this.renderer.setStyle(arrowEl, 'top', `${itemOffsetTop + itemRect.height / 2}px`);
@@ -132,6 +134,8 @@ export class TourComponent {
             arrowEl.classList.remove('left_arrow');
             arrowEl.classList.remove('bottom_arrow');
             arrowEl.classList.add('top_arrow');
+
+            this.renderer.setStyle(tourBox, 'top', `${itemOffsetTop}px`);
             this.renderer.setStyle(arrowEl, 'left', `${itemRect.left + itemRect.width / 2}px`);
             this.renderer.setStyle(arrowEl, 'top', `${itemOffsetTop - 12}px`);
             this.renderer.setStyle(tourBox, 'left', `${left}px`);
@@ -147,6 +151,7 @@ export class TourComponent {
             arrowEl.classList.remove('right_arrow');
             arrowEl.classList.remove('left_arrow');
             arrowEl.classList.add('bottom_arrow');
+            this.renderer.setStyle(tourBox, 'top', `${itemOffsetTop}px`);
             this.renderer.setStyle(arrowEl, 'left', `${itemRect.left + itemRect.width / 2}px`);
             this.renderer.setStyle(arrowEl, 'top', `${itemOffsetBottom + 6}px`);
             this.renderer.setStyle(tourBox, 'left', `${left}px`);
@@ -154,11 +159,26 @@ export class TourComponent {
          //   itemEl.el.nativeElement.scrollIntoView();
             break;
           default:
+            this.renderer.setStyle(tourBox, 'top', `${itemOffsetTop}px`);
             this.renderer.setStyle(arrowEl, 'left', `${itemRect.right + 6}px`);
             this.renderer.setStyle(arrowEl, 'top', `${itemOffsetTop + itemRect.height / 2}px`);
             this.renderer.setStyle(tourBox, 'left', `${left}px`);
         }
+        const elementIsVisibleInViewport = (el: any, partiallyVisible = false) => {
+          const { top, left, bottom, right } = el.getBoundingClientRect();
+          const { innerHeight, innerWidth } = window;
+          return partiallyVisible
+            ? ((top > 0 && top < innerHeight) ||
+                (bottom > 0 && bottom < innerHeight)) &&
+                ((left > 0 && left < innerWidth) || (right > 0 && right < innerWidth))
+            : top >= 0 && left >= 0 && bottom <= innerHeight && right <= innerWidth;
+        };
 
+        // e.g. 100x100 viewport and a 10x10px element at position {top: -1, left: 0, bottom: 9, right: 10}
+
+        if(item.index === 1 && !elementIsVisibleInViewport(tourBox)) {
+          tourBox.scrollIntoView();
+        }
       }
       return of([item, isVisible]);
     }));

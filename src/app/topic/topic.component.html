@@ -555,7 +555,7 @@
               <a class="info_title" (click)="showAttachments = !showAttachments">
                 <div><span translate="VIEWS.TOPICS_TOPICID.SECTION_INFO_TITLE_ATTACHMENTS"></span> <span>
                     ({{attachments.length}})</span></div>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg *ngIf="!showAttachments" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
                   <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
                 </svg>
               </a>

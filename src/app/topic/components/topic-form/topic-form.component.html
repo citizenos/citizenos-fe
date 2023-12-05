@@ -741,7 +741,7 @@
         <button class="btn_medium_secondary bold" (click)="inviteEditors()"
           translate="VIEWS.TOPIC_CREATE.BTN_INVITE_CO_EDITORS"></button>
       </div>
-      <div class="create_help" [ngClass]="showHelp? 'show': ''">
+      <div *ngIf="isnew" class="create_help" [ngClass]="showHelp? 'show': ''">
         <div class="help_illustration_wide">
           <svg width="160" height="86" viewBox="0 0 160 86" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0_7537_35289)">

@@ -137,7 +137,7 @@
         <a class="btn_ghost_reply_argument" *ngIf="argument.type !== 'reply' && !showReplies && argument.replies.rows.length"
           id="{{argument.id}}_replies" translate="COMPONENTS.ARGUMENT.LNK_SHOW_REPLIES"
           [translateParams]="{count: argument.replies.rows.length}" (click)="showReplies = !showReplies"></a>
-        <a *ngIf="showReplies" (click)="showReplies = !showReplies" translate="COMPONENTS.ARGUMENT.LNK_HIDE_REPLIES">
+        <a class="btn_ghost_reply_argument" *ngIf="showReplies" (click)="showReplies = !showReplies" translate="COMPONENTS.ARGUMENT.LNK_HIDE_REPLIES">
         </a>
         <ng-container *ngIf="Auth.loggedIn$ | async">
           <a class="mobile_show" translate="COMPONENTS.ARGUMENT.BTN_REPLY" (click)="showReply=!showReply"></a>

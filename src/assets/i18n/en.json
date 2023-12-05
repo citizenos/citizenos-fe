@@ -1918,7 +1918,9 @@
     },
     "TOPIC_EDIT": {
       "HEADING": "Edit topic",
-      "CREATE_TAB_1": "Write"
+      "CREATE_TAB_1": "Write",
+      "NOTIFICATION_SUCCESS_TITLE": "Topic successfully updated",
+      "NOTIFICATION_SUCCESS_MESSAGE": "You have successfully updated your topic!"
     },
     "TOPICS_TOPICID": {
       "BTN_ACTIVITIES": "Topic activity",
