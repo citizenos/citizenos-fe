@@ -2,7 +2,7 @@
   "name": "citizenos-fe",
   "version": "0.0.0",
   "scripts": {
-    "dev": "node ./prebuild.js && ng serve",
+    "dev": "node ./prebuild.js && ng serve --host",
     "ng": "ng",
     "start": "node ./index.js",
     "build": "node ./prebuild.js && ng build",

@@ -9,6 +9,7 @@ import { ConfigService } from './config.service';
 })
 export class UploadService {
   public ALLOWED_FILE_TYPES = this.config.get('attachments').upload.allowedFileTypes;
+  public ALLOWED_FILE_SIZE = this.config.get('attachments').upload.allowedFileSize;
   constructor(private http: HttpClient, private Location: LocationService, private config: ConfigService) { }
 
   upload(path: string, file: File, data?: any): Observable<HttpEvent<any> | any> {

@@ -175,9 +175,10 @@ export class TopicAttachmentsComponent implements OnInit {
         size: files[i].size,
         file: files[i]
       };
-      if (attachment.size > 50000000) {
+
+      if (attachment.size > this.Upload.ALLOWED_FILE_SIZE) {
         this.Notification.addError('MSG_ERROR_ATTACHMENT_SIZE_OVER_LIMIT');
-      } else if (this.Upload.ALLOWED_FILE_TYPES.indexOf(attachment.type.toLowerCase()) === -1) {
+      } else if (this.Upload.ALLOWED_FILE_TYPES.indexOf(files[i].type) === -1) {
         const fileTypeError = this.Translate.instant('MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED', { allowedFileTypes: this.Upload.ALLOWED_FILE_TYPES.toString() });
         this.Notification.addError(fileTypeError);
       } else {
