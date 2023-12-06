@@ -17,6 +17,7 @@
   "TOGGLE_OFF": "Off",
   "BTN_BULK_ACTIONS": "Bulk actions",
   "TXT_TOPIC_STATUS_ALL": "all",
+  "TXT_TOPIC_STATUS_DRAFT": "draft",
   "TXT_TOPIC_STATUS_INPROGRESS": "in progress",
   "TXT_TOPIC_STATUS_VOTING": "in voting",
   "TXT_TOPIC_STATUS_FOLLOWUP": "in follow-up",
@@ -713,6 +714,7 @@
       "BTN_START_FOLLOW_UP": "Start topic follow-up"
     },
     "TOPICBOX": {
+      "HEADER_DRAFT": "Draft",
       "HEADER_DISCUSSION": "Arguments: {{value}}",
       "HEADER_VOTING": "{{value}} of {{target}} votes",
       "HEADER_FOLLOW_UP": "{{value}} events",

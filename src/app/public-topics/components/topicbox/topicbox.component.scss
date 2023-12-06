@@ -61,6 +61,21 @@
       }
     }
 
+    &.draft {
+      background-color: var(--color-border);
+
+      .progress {
+        background-color: var(--color-border);
+        width: 100%;
+        .header_content {
+          color: var(--color-text);
+          path {
+            fill: var(--color-text);
+          }
+        }
+      }
+    }
+
     &.discussion {
       background-color: var(--color-discussion);
 
