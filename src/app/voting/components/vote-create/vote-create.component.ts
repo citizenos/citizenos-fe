@@ -384,6 +384,8 @@ export class VoteCreateComponent implements OnInit {
       }).pipe(take(1)).subscribe();
     });
     this.createVote();
+    this.topic.status = this.TopicService.STATUSES.voting;
+    this.updateTopic();
     this.TopicService.reloadTopic();
   }
 

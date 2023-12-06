@@ -792,7 +792,17 @@
     "TOPIC_VOTE_REMINDER": {
       "DIALOG_HEADING": "Send reminder to vote",
       "DIALOG_DESCRIPTION": "If you want, you can send a reminder e-mail to the people who haven’t voted yet.",
-      "REMINDER_PREVIEW_DESC": "This is a preview of how the reminder e-mail looks like."
+      "REMINDER_PREVIEW_DESC": "This is a preview of how the reminder e-mail looks like.",
+      "PREVIEW_EMAIL_HEADING": "A vote reminder for",
+      "PREVIEW_EMAIL_GREETING": "Hi {{userName}}",
+      "PREVIEW_EMAIL_TEXT_WARN": "The vote deadline is coming close!",
+      "PREVIEW_EMAIL_VOTE_VOTES_COLLECTED": "Votes collected: {{voteCount}}/{{userCount}}",
+      "PREVIEW_EMAIL_VOTE_DEADLINE": "Deadline: {{deadline}}",
+      "PREVIEW_EMAIL_TEXT_DAYS_LEFT": "You have only {{daysLeft}} days left to cast your vote.",
+      "PREVIEW_EMAIL_BTN_CAST_VOTE": "@:VIEWS.TOPICS_TOPICID.VOTE_CAST_YOUR_VOTE",
+      "PREVIEW_EMAIL_ATTENTION": "Please note: You must log in using the same email address ({{email}}) to access this topic.",
+      "BTN_SEND_REMINDER": "Send reminder e-mail",
+      "LNK_CANCEL":"@:LNK_CANCEL"
     },
     "TYPEAHEAD": {
       "PRESS_ENTER_TO_ADD": "Press enter to add"

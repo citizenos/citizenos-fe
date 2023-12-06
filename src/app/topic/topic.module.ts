@@ -42,7 +42,7 @@ import { TopicEditComponent } from './components/topic-edit/topic-edit.component
 import { TopicFormComponent } from './components/topic-form/topic-form.component';
 import { TopicReportReasonComponent } from './components/topic-report-reason/topic-report-reason.component';
 import { TopicTourDialogComponent } from './components/topic-tour-dialog/topic-tour-dialog.component';
-import { TopicVoteReminderDialogComponent } from './components/topic-vote-reminder-dialog/topic-vote-reminder-dialog.component';
+import { TopicVoteReminderDialog } from './components/topic-vote-reminder-dialog/topic-vote-reminder-dialog.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +90,7 @@ import { TopicVoteReminderDialogComponent } from './components/topic-vote-remind
     TopicFormComponent,
     TopicReportReasonComponent,
     TopicTourDialogComponent,
-    TopicVoteReminderDialogComponent
+    TopicVoteReminderDialog
   ],
   imports: [
     LinkyModule,

@@ -1,14 +1,8 @@
 <div class="overlay" mat-dialog-close></div>
-<div class="dialog">
+<div class="dialog" *ngIf="user$ | async as user">
   <div class="dialog_header voting">
     <div class="header_text">
-      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="40" height="40" rx="20" fill="#5AB467" />
-        <path fill-rule="evenodd" clip-rule="evenodd"
-          d="M20 10C14.48 10 10 14.48 10 20C10 25.52 14.48 30 20 30C25.52 30 30 25.52 30 20C30 14.48 25.52 10 20 10ZM18.0556 25L25.8333 17.2807L24.375 15.8333L18.0556 22.1053L15.625 19.693L14.1667 21.1404L18.0556 25Z"
-          fill="white" />
-      </svg>
-      <h4 class="title" translate="COMPONENTS.TOPIC_VOTE_REMINDER.DIALOG_HEADING"></h4>
+      <div class="small_heading" translate="COMPONENTS.TOPIC_VOTE_REMINDER.DIALOG_HEADING"></div>
     </div>
     <div class="dialog_close">
       <a class="btn_dialog_close icon" mat-dialog-close>
@@ -22,22 +16,58 @@
   </div>
 
   <div class="dialog_content">
-    <div translate="COMPONENTS.TOPIC_VOTE_REMINDER.DIALOG_DESCRIPTION"></div>
-    <div class="line_separator"></div>
-    <div translate="COMPONENTS.TOPIC_VOTE_REMINDER.REMINDER_PREVIEW_DESC"></div>
-  </div>
-  <div class="dialog_footer with_buttons">
-    <a mat-dialog-close translate="COMPONENTS.TOPIC_VOTE_DEADLINE.LNK_CANCEL"></a>
-    <div class="button_row">
-      <!--button *ngIf="tabActive > 1" class="btn_medium_submit_ghost icon mobile_hidden"
-        (click)="tabActive = tabActive - 1; (tabActive !==3)? addPosAbsolute = false: addPosAbsolute=true;"><svg
-          width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M10.4533 17.6874C10.8529 18.1042 11.5009 18.1042 11.9006 17.6874C12.3003 17.2705 12.3003 16.5947 11.9006 16.1779L8.91837 13L19 13C19.5652 13 20 12.5892 20 11.9997C20 11.4103 19.5652 11.0176 19 11.0176L8.91837 11.0176L11.9006 7.8221C12.3003 7.40527 12.3003 6.72945 11.9006 6.31262C11.5009 5.89579 10.8529 5.89579 10.4533 6.31262L5 12L10.4533 17.6874Z"
-            fill="#2C3B47" />
-        </svg>
-      </!--button-->
-      <button class="btn_medium_submit" [mat-dialog-close]="true" translate="COMPONENTS.TOPIC_VOTE_DEADLINE.BTN_SAVE"></button>
+    <div class="text_wrap">
+      <div class="content_description" translate="COMPONENTS.TOPIC_VOTE_REMINDER.DIALOG_DESCRIPTION"></div>
+      <div class="line_separator"></div>
+      <div translate="COMPONENTS.TOPIC_VOTE_REMINDER.REMINDER_PREVIEW_DESC"></div>
+    </div>
+    <div class="email_preview_wrap">
+      <div class="email_preview">
+        <div class="email_header">
+          <div class="email_title_desc" translate="COMPONENTS.TOPIC_VOTE_REMINDER.PREVIEW_EMAIL_HEADING"></div>
+          <div class="email_title" [innerHTML]="topic.title"></div>
+        </div>
+        <div class="email_body">
+          <div class="text_area">
+            <span translate="COMPONENTS.TOPIC_VOTE_REMINDER.PREVIEW_EMAIL_GREETING"
+              [translateParams]="{userName: user.name}"></span>
+            <div><span translate="COMPONENTS.TOPIC_VOTE_REMINDER.PREVIEW_EMAIL_TEXT_WARN"></span><b *ngIf="vote.endsAt"
+                translate="COMPONENTS.TOPIC_VOTE_REMINDER.PREVIEW_EMAIL_TEXT_DAYS_LEFT"
+                [translateParams]="{daysLeft: (vote.endsAt | amDifference:today:'days')}"></b></div>
+          </div>
+          <div class="vote_info_wrap">
+            <div class="vote_icon">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M16 0C7.168 0 0 7.168 0 16C0 24.832 7.168 32 16 32C24.832 32 32 24.832 32 16C32 7.168 24.832 0 16 0ZM12.8889 24L25.3333 11.6491L23 9.33333L12.8889 19.3684L9 15.5088L6.66667 17.8246L12.8889 24Z"
+                  fill="#5AB467" />
+              </svg>
+            </div>
+            <div class="vote_info_text">
+              <b translate="COMPONENTS.TOPIC_VOTE_REMINDER.PREVIEW_EMAIL_VOTE_VOTES_COLLECTED"
+                [translateParams]="{voteCount: (vote.votersCount || 0) , userCount: (topic.members.users.count || 0)}"></b>
+              <span  *ngIf="vote.endsAt" translate="COMPONENTS.TOPIC_VOTE_REMINDER.PREVIEW_EMAIL_VOTE_DEADLINE"
+                [translateParams]="{deadline: (vote.endsAt | date: 'YYYY-MM-dd hh:mm')}"></span>
+            </div>
+          </div>
+          <div class="button_wrap">
+            <div class="btn_medium_submit" translate="COMPONENTS.TOPIC_VOTE_REMINDER.PREVIEW_EMAIL_BTN_CAST_VOTE"></div>
+          </div>
+          <div class="text_area">
+            <div class="line_separator"></div>
+            <span translate="COMPONENTS.TOPIC_VOTE_REMINDER.PREVIEW_EMAIL_ATTENTION"
+              [translateParams]="{email: user.email}"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="button_wrap">
+      <button class="btn_medium_secondary" [mat-dialog-close]="true"
+        translate="COMPONENTS.TOPIC_VOTE_REMINDER.BTN_SEND_REMINDER"></button>
+
+      <a mat-dialog-close translate="COMPONENTS.TOPIC_VOTE_REMINDER.LNK_CANCEL"></a>
     </div>
   </div>
+
 </div>

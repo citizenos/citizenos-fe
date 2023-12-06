@@ -69,6 +69,7 @@ export class TopicCreateComponent implements OnInit {
   createTopic() {
     const topic = {
       description: '<html><head></head><body></body></html>',
+      status: this.TopicService.STATUSES.draft,
       visbility: this.TopicService.VISIBILITY.private
     };
 
