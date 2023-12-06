@@ -446,7 +446,7 @@
       "DASHBOARD_STEP_1_TITLE": "Create actions",
       "DASHBOARD_STEP_1_DESC": "You can always create a new topic, start gathering ideas, propose a new voting or create a new group.",
       "DASHBOARD_STEP_2_TITLE": "Main menu",
-      "DASHBOARD_STEP_2_DESC": "The main menu serves as your main navigation through the platform. There are quick links to all your topics based on their current phase, i.e. discussion, idea gathering, etc.",
+      "DASHBOARD_STEP_2_DESC": "The main menu serves as your main navigation through the platform. There are quick links to all your topics based on their current phase, i.e. discussion, voting, or follow-up.",
       "DASHBOARD_STEP_2_DESC2": "You can also access different languages and support from here.",
       "DASHBOARD_STEP_3_TITLE": "Activity feed",
       "DASHBOARD_STEP_3_DESC": "New activity within a topic you’re involved in will be indicated here. You can open and close the activity feed whenever you want.",
