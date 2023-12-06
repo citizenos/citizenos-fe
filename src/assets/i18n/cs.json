@@ -574,8 +574,8 @@
       "PLACEHOLDER_SUBJECT": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_PLACEHOLDER_SUBJECT",
       "HEADING_MILESTONE_CONTENT": "Obsah milníku",
       "ADD_MILESTONE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_ADD_MILESTONE",
-      "HEADING_MILESTONE": "Milestone",
-      "HEADING_MILESTONE_TITLE": "Milestone title",
+      "HEADING_MILESTONE": "Milník",
+      "HEADING_MILESTONE_TITLE": "Název milníku",
       "MILESTONE_TITLE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_MILESTONE"
     },
     "TOPIC_VOTE_CAST": {
@@ -589,10 +589,10 @@
       "VOTE_SUBMIT": "@:VIEWS.TOPICS_TOPICID.VOTE_SUBMIT",
       "HEADING_VOTE_REGISTERED": "@:VIEWS.TOPICS_TOPICID.HEADING_VOTE_REGISTERED",
       "VOTE_TXT_VOTE_REGISTERED": "@:VIEWS.TOPICS_TOPICID.VOTE_TXT_VOTE_REGISTERED",
-      "LNK_EDIT_VOTE": "Edit your vote",
+      "LNK_EDIT_VOTE": "Upravte svůj hlas",
       "BTN_DOWNLOAD_USER_BDOC": "@:VIEWS.TOPICS_TOPICID.BTN_DOWNLOAD_USER_BDOC",
       "VOTE_VOTES_COUNTED": "@:VIEWS.TOPICS_TOPICID.VOTE_VOTES_COUNTED",
-      "LBL_YOUR_CHOSE_OPTIONS": "Your chosen options",
+      "LBL_YOUR_CHOSE_OPTIONS": "Vybrané možnosti",
       "VOTE_DELEGATED_TO": "@:VIEWS.TOPICS_TOPICID.VOTE_DELEGATED_TO",
       "INFO_YOU_WILL_SEE_WHO_VOTED": "You will see what they voted on when the voting has ended.",
       "VOTE_REVOKE_DELEGATION": "@:VIEWS.TOPICS_TOPICID.VOTE_REVOKE_DELEGATION",
@@ -602,10 +602,10 @@
       "BTN_DOWNLOAD_FINAL_ZIP": "@:VIEWS.TOPICS_TOPICID.BTN_DOWNLOAD_FINAL_ZIP"
     },
     "TOPIC_VOTE_CREATE": {
-      "DIALOG_HEADING": "Start topic voting",
-      "DIALOG_TAB_1": "Introduction",
-      "DIALOG_TAB_2": "Voting system",
-      "DIALOG_TAB_3": "Settings",
+      "DIALOG_HEADING": "Zahájit hlasování o tématu",
+      "DIALOG_TAB_1": "Úvod",
+      "DIALOG_TAB_2": "Systém hlasování",
+      "DIALOG_TAB_3": "Nastavení",
       "DIALOG_TAB_4": "Preview",
       "DIALOG_TAB_INTRODUCTION_ARE_YOU_SURE": "Are you sure you want to start the topic voting?",
       "DIALOG_TAB_INTRODUCTION_KEEP_IN_MIND": "Things to keep in mind:",
