@@ -359,7 +359,7 @@
   </div>
   <div class="topics_content">
     <ng-container *ngIf="topics$ | async as topics;">
-      <topicbox [topic]="topic" *ngFor="let topic of topics; trackBy: trackByFn;"></topicbox>
+      <topicbox [topic]="topic" *ngFor="let topic of topics;"></topicbox>
     </ng-container>
   </div>
   <div class="pagination_wrap">

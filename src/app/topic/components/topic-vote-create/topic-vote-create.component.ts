@@ -435,13 +435,13 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
     this.TopicVoteService.save(saveVote)
       .pipe(take(1))
       .subscribe({
-        next: (vote) => {
+        next: () => {
           this.TopicService.reloadTopic();
           this.router.navigate(['/topics', this.topic.id], { fragment: 'voting' });
           this.route.url.pipe(take(1)).subscribe();
           this.dialog.closeAll();
         },
-        error: (res) => {
+        error: (res:any) => {
           console.debug('createVote() ERR', res, res.errors, this.vote.options);
           this.errors = res.errors;
           Object.values(this.errors).forEach((message) => {

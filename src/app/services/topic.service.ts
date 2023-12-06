@@ -43,6 +43,7 @@ export class TopicService {
   };
 
   public STATUSES = <any>{
+    draft: 'draft',
     inProgress: 'inProgress', // Being worked on
     voting: 'voting', // Is being voted which means the Topic is locked and cannot be edited.
     followUp: 'followUp', // Done editing Topic and executing on the follow up plan.

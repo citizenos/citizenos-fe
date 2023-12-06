@@ -51,6 +51,10 @@ export class TopicVoteCastComponent implements OnInit {
     }
   }
 
+  canUpdate() {
+    return this.TopicService.canUpdate(this.topic);
+  }
+
   canVote() {
     this.topic.vote = this.vote;
     return this.TopicVoteService.canVote(this.topic);
@@ -166,6 +170,7 @@ export class TopicVoteCastComponent implements OnInit {
     });
     voteReminderDialog.afterClosed().subscribe({
       next: (send) => {
+        console.log(send);
         if (send) {
           this.vote.reminderTime = new Date();
           this.saveVote();

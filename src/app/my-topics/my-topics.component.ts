@@ -71,66 +71,6 @@ export class MyTopicsComponent {
   languages$ = of(<Language[]>[]);
   languageFocus = false;
 
-  /*public topicFilters = [
-    {
-      id: 'all',
-      name: 'VIEWS.MY.FILTERS.SHOW_ALL_MY_TOPICS'
-    },
-    {
-      name: 'VIEWS.MY.FILTERS.SHOW_ONLY',
-      children: [
-        {
-          id: 'public',
-          name: 'VIEWS.MY.FILTERS.MY_PUBLIC_TOPICS'
-        },
-        {
-          id: 'private',
-          name: 'VIEWS.MY.FILTERS.MY_PRIVATE_TOPICS'
-        },
-        {
-          id: 'haveVoted',
-          name: 'VIEWS.MY.FILTERS.TOPICS_I_HAVE_VOTED'
-        },
-        {
-          id: 'haveNotVoted',
-          name: 'VIEWS.MY.FILTERS.TOPICS_I_HAVE_NOT_VOTED'
-        },
-        {
-          id: 'iCreated',
-          name: 'VIEWS.MY.FILTERS.TOPICS_I_CREATED'
-        },
-        {
-          id: 'inProgress',
-          name: 'VIEWS.MY.FILTERS.TOPICS_IN_PROGRESS'
-        },
-        {
-          id: 'voting',
-          name: 'VIEWS.MY.FILTERS.TOPICS_IN_VOTING'
-        },
-        {
-          id: 'followUp',
-          name: 'VIEWS.MY.FILTERS.TOPICS_IN_FOLLOW_UP'
-        },
-        {
-          id: 'closed',
-          name: 'VIEWS.MY.FILTERS.TOPICS_CLOSED'
-        },
-        {
-          id: 'pinnedTopics',
-          name: 'VIEWS.MY.FILTERS.TOPICS_PINNED'
-        },
-        {
-          id: 'showModerated',
-          name: 'VIEWS.MY.FILTERS.TOPICS_MODERATED'
-        }
-      ]
-    },
-    {
-      id: 'grouped',
-      name: 'VIEWS.MY.FILTERS.TOPICS_ORDERED_BY_GROUPS'
-    }
-  ];*/
-
   constructor(
     public Topic: TopicService,
     public UserTopicService: UserTopicService,
@@ -156,6 +96,7 @@ export class MyTopicsComponent {
           return UserTopicService.loadItems();
         }), map(
           (newtopics: any) => {
+            console.log('NEWtopics', newtopics);
             this.allTopics$ = this.allTopics$.concat(newtopics);
             return this.allTopics$;
           }
