@@ -787,8 +787,8 @@ est-id-login-form {
     }
 
     .content {
-      display:flex;
-      flex-direction:column;
+      display: flex;
+      flex-direction: column;
       gap: 8px;
 
       .content_description {
@@ -816,7 +816,6 @@ est-id-login-form {
         }
       }
     }
-
   }
   .icon_notification {
     display: flex;
@@ -914,7 +913,7 @@ tour-item-template {
   border-radius: 8px;
   background: var(--color-text);
   padding: 16px;
-  transition: all .5s ease-in-out;
+  transition: all 0.5s ease-in-out;
   gap: 16px;
   position: absolute;
   width: 400px;
@@ -1018,7 +1017,8 @@ tour-item-template {
 .tour_item {
   position: relative;
   z-index: 999999999999 !important;
-  box-shadow: 0px 8px 20px 0px rgba(220, 231, 240, 0.30), 0px 12px 16px 0px rgba(50, 85, 112, 0.10);
+  box-shadow: 0px 8px 20px 0px rgba(220, 231, 240, 0.3),
+    0px 12px 16px 0px rgba(50, 85, 112, 0.1);
 }
 
 .vote_wrap {
@@ -1347,7 +1347,7 @@ tour-item-template {
 }
 
 .EasyMDEContainer {
-  border:  1px solid var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
 
   @include mixins.mobile {
@@ -1378,13 +1378,16 @@ tour-item-template {
 
 .tooltip {
   display: inline-block;
-  margin-left: 6px;
+  margin-left: 3px;
   height: 24px;
   position: relative;
-  svg {
-    position: relative;
-    top: 2px;
+  .tooltip_icon  {
+    svg {
+      position: relative;
+      top: 3px;
+    }
   }
+
   .arrow {
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
@@ -1419,6 +1422,20 @@ tour-item-template {
         0px 12px 16px 0px rgba(50, 85, 112, 0.1);
 
       .tooltip_content {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+
+        .content_title {
+          align-self: flex-start;
+          justify-self: flex-start;
+          font-size: 18px;
+          font-style: normal;
+          font-weight: 600;
+          line-height: 24px; /* 133.333% */
+          color: var(--color-surfaces);
+        }
         .content_description {
           font-size: 14px;
           font-style: normal;
@@ -1434,6 +1451,7 @@ tour-item-template {
         a {
           color: var(--color-scrollbar-thumb);
           display: flex;
+          font-weight: 600;
           align-items: center;
           gap: 8px;
         }
