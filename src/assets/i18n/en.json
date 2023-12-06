@@ -1501,6 +1501,7 @@
       "BTN_OPTION_ADD_TOPICS": "Add topics",
       "BTN_OPTION_REPORT": "Report to admin",
       "BTN_OPTION_LEAVE": "Leave group",
+      "BTN_OPTION_DELETE": "@:MODALS.GROUP_DELETE_CONFIRM_HEADING",
       "BTN_LEAVE": "Leave group",
       "RULES_OF_CONDUCT": "Rules of conduct",
       "TAGS": "Tags",

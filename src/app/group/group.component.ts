@@ -241,7 +241,7 @@ export class GroupComponent implements OnInit {
         this.GroupService.delete(group)
           .pipe(take(1))
           .subscribe((res) => {
-            this.router.navigate(['../'], { relativeTo: this.route });
+            this.router.navigate([this.translate.currentLang, 'my', 'groups']);
           })
       }
     });
