@@ -1875,6 +1875,7 @@
       "BTN_BACK": "@:VIEWS.LOGIN.BTN_BACK",
       "REGISTER_TITLE": "@:COMPONENTS.REGISTER_FORM.HEADING",
       "REGISTER_DESCRIPTION": "@:COMPONENTS.REGISTER_FORM.HEADING_DESCRIPTION",
+      "TOOLTIP_TITLE": "Free, really?",
       "TOOLTIP_DESCRIPTION": "Wondering what the catch is? There isn't one! We're a non-profit with a mission to empower as many people as possible to participate in respectful, meaningful discussions on the issues that matter to them. We run off donations and grants from long-term funders – which means no fees, no sale of your data, no strings attached!",
       "TOOLTIP_LNK_ABOUT": "Read more on our About page"
     },
