@@ -765,7 +765,7 @@
                 fill="#2C3B47" />
             </svg>
           </button>
-          <button class="btn_medium_submit icon" (click)="(tabSelected!=='preview')? nextTab(tabSelected) : publish()">
+          <button class="btn_medium_submit icon" (click)="nextTab(tabSelected)">
             <span class="btn_text mobile_hidden"
               [translate]="(tabSelected!=='preview')? 'VIEWS.VOTE_CREATE.FOOTER_BTN_CONTINUE': 'VIEWS.VOTE_CREATE.FOOTER_BTN_CREATE'"></span>
             <svg class="mobile_show" id="continue_btn" width="24" height="24" viewBox="0 0 24 24" fill="none"

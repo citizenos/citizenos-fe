@@ -36,6 +36,12 @@ const routes: Routes = [
           { path: ':topicId', component: VoteCreateComponent }
         ]
       },
+      {
+        path: 'edit', canActivate: [AuthGuard], children: [
+          { path: '', component: VoteCreateComponent },
+          { path: ':topicId', component: VoteCreateComponent }
+        ]
+      }
     ]
   },
   { path: ':topicId/invites/users/:inviteId', component: TopicInvitationDialogComponent },
