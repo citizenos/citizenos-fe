@@ -153,7 +153,9 @@
           </div>
           <div class="text_area">
             <div>{{vote.votersCount || 0}} / {{topic.members.users.count}} <span
-                translate="COMPONENTS.TOPIC_VOTE_CAST.VOTE_VOTES_COUNTED"></span></div>
+                translate="COMPONENTS.TOPIC_VOTE_CAST.VOTE_VOTES_COUNTED"></span>
+            </div>
+            <a *ngIf="canUpdate() && !vote.reminderSent" (click)="sendVoteReminder()" translate="COMPONENTS.TOPIC_VOTE_CAST.OPT_SEND_VOTE_REMINDER"></a>
           </div>
         </div>
       </div>
