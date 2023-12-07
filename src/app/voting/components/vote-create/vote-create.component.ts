@@ -1,5 +1,5 @@
 import { trigger, state, style } from '@angular/animations';
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -135,6 +135,7 @@ export class VoteCreateComponent implements OnInit {
 
   constructor(
     private app: AppService,
+    private cd: ChangeDetectorRef,
     public TopicService: TopicService,
     private Upload: UploadService,
     public translate: TranslateService,
@@ -166,6 +167,16 @@ export class VoteCreateComponent implements OnInit {
           return this.TopicService.loadTopic(params['topicId']).pipe(map((topic) => {
             topic.padUrl = this.sanitizer.bypassSecurityTrustResourceUrl(topic.padUrl);
             this.topic = topic;
+            if (topic.voteId) {
+              this.TopicVoteService.get({topicId: topic.id, voteId: topic.voteId}).pipe(take(1)).subscribe({
+                next: (vote) => {
+                  this.vote = vote;
+                  console.log(this.vote);
+                  this.vote.options = vote.options.rows;
+                  this.cd.detectChanges();
+                }
+              })
+            }
             return topic;
           }));
         }
@@ -200,6 +211,7 @@ export class VoteCreateComponent implements OnInit {
   }
 
   selectTab(tab: string) {
+    console.log(tab);
     this.router.navigate([], { fragment: tab });
   }
 
@@ -213,17 +225,26 @@ export class VoteCreateComponent implements OnInit {
   }
 
   nextTab(tab: string | void) {
+    console.log('NEXT', tab);
     if (tab) {
       const tabIndex = this.tabs.indexOf(tab);
+      console.log(tabIndex)
       if (tabIndex === 1) {
         this.updateTopic();
       }
       if (tabIndex === 2) {
-        if (this.voteCreateForm)
-          this.voteCreateForm.saveVoteSettings();
+        if (!this.vote.id) {
+          console.log('CREAET')
+          this.createVote();
+        } else {
+          console.log('UPDATE')
+          this.updateVote();
+        }
+      /*  if (this.voteCreateForm)
+          this.voteCreateForm.saveVoteSettings();*/
       }
       if (tabIndex + 1 === 3) {
-        this.TopicService.reloadTopic();
+   //     this.TopicService.reloadTopic();
       }
       if (tabIndex > -1 && tabIndex < 3) {
         this.selectTab(this.tabs[tabIndex + 1]);
@@ -338,6 +359,7 @@ export class VoteCreateComponent implements OnInit {
     return this.topic.padUrl;
   }
   createTopic() {
+    console.log('CREATE TOPIC');
     const topic = {
       description: '<html><head></head><body></body></html>',
       visbility: this.TopicService.VISIBILITY.private
@@ -371,9 +393,14 @@ export class VoteCreateComponent implements OnInit {
   }
 
   updateTopic() {
+    console.log('UPDATE TOPIC');
     return this.TopicService.patch(this.topic).pipe(take(1)).subscribe();
   }
-
+  updateVote() {
+    console.log('UPDATE VOTE');
+    const updateVote = Object.assign({topicId: this.topic.id}, this.vote);
+    return this.TopicVoteService.update(updateVote).pipe(take(1)).subscribe();
+  }
   publish() {
     this.updateTopic();
     this.topicGroups.forEach((group) => {
@@ -447,16 +474,15 @@ export class VoteCreateComponent implements OnInit {
   }
 
   createVote() {
-    console.log(this.topic);
-    const saveVote: any = Object.assign({ topicId: this.topic.id }, this.vote);
-    console.log(saveVote);
-    this.TopicVoteService.save(saveVote)
+    const createVote: any = Object.assign({ topicId: this.topic.id }, this.vote);
+    this.TopicVoteService.save(createVote)
       .pipe(take(1))
       .subscribe({
         next: (vote) => {
-          this.TopicService.reloadTopic();
-          this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id], { fragment: 'voting' });
-          this.route.url.pipe(take(1)).subscribe();
+       //   this.TopicService.reloadTopic();
+          this.vote = vote;
+     //     this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id], { fragment: 'voting' });
+    //      this.route.url.pipe(take(1)).subscribe();
         },
         error: (res) => {
           console.debug('createVote() ERR', res, res.errors, this.vote.options);

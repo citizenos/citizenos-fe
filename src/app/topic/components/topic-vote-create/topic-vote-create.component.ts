@@ -112,14 +112,15 @@ export class TopicVoteCreateComponent implements OnInit {
   ) {
     this.setTimeZones();
     this.vote = this.vote || this.voteDefault;
+    console.log(this.vote);
 
   }
 
   ngOnInit(): void {
     this.topicId = this.topic.id;
-    if (this.topic.voteId) {
+  /*  if (this.topic.voteId) {
       this.router.navigate(['/topics', this.topic.id, 'votes', this.topic.voteId]);
-    }
+    }*/
   }
 
   private setTimeZones() {
@@ -356,6 +357,12 @@ export class TopicVoteCreateComponent implements OnInit {
     return (Object.keys(this.extraOptions).indexOf(option.value) === -1)
   }
 
+  updateVote() {
+    console.log('UPDATE VOTE');
+    const updateVote = Object.assign({topicId: this.topic.id}, this.vote);
+    return this.TopicVoteService.update(updateVote).pipe(take(1)).subscribe();
+  }
+
   createVote() {
     this.filterOptions();
     this.Notification.removeAll();
@@ -374,8 +381,8 @@ export class TopicVoteCreateComponent implements OnInit {
       .subscribe({
         next: (vote) => {
           this.TopicService.reloadTopic();
-          this.router.navigate(['/topics', this.topic.id, 'votes', vote.id]);
-          this.route.url.pipe(take(1)).subscribe();
+        /*  this.router.navigate(['/topics', this.topic.id, 'votes', vote.id]);
+          this.route.url.pipe(take(1)).subscribe();*/
         },
         error: (res) => {
           console.debug('createVote() ERR', res, res.errors, this.vote.options);
