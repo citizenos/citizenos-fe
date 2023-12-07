@@ -223,7 +223,7 @@ export class ActivityService extends ItemsListService {
 
     if (activity.data.object) {
       this.getActivityUsers(activity, values);
-      values['topicTitle'] = this.getActivityTopicTitle(activity);
+      values['topicTitle'] = this.getActivityTopicTitle(activity) || "";
       values['className'] = this.getActivityClassName(activity);
       values['description'] = this.getActivityDescription(activity);
       values['groupName'] = this.getActivityGroupName(activity);
@@ -276,6 +276,7 @@ export class ActivityService extends ItemsListService {
     const dataobject = this.getActivityObject(activity);
 
     if (activity.data.type === 'Accept' || activity.data.type === 'Invite' || (activity.data.type === 'Add' && activity.data.actor.type === 'User' && activity.data.object['@type'] === 'User' && activity.data.target['@type'] === 'Group')) { // Last condition if for Group invites
+      console.log(activity)
       return 'invite';
     } else if (['Topic', 'TopicMemberUser', 'Attachment', 'TopicFavourite'].indexOf(dataobject['@type']) > -1 || activity.data.target && activity.data.target['@type'] === ' Topic') {
       return 'discussion';
@@ -674,10 +675,12 @@ export class ActivityService extends ItemsListService {
       state = state.concat(['topics', target.topicId || target.id]);
     }
 
-    if (target && target['@type'] === 'Group') {
+    if (target && target['@type'] === 'Group' && activityType !== 'Invite') {
       state = [this.$translate.currentLang, 'groups', target.id];
     }
-    if (state[1] !== 'topics' && origin && origin['@type'] === 'Topic') {
+
+    console.log()
+    if (state[1] !== 'topics' && origin && origin['@type'] === 'Topic' && activityType !== 'Invite') {
       state = state.concat(['topics', origin.id]);
     }
 
@@ -685,7 +688,7 @@ export class ActivityService extends ItemsListService {
       if (hash) {
         params.fragment = hash;
       }
-      if (state.length > 3) {
+      if (state.length > 3 && activityType !== 'Invite') {
         state = state.slice(0, 3);
       }
       this.router.navigate(state, params);

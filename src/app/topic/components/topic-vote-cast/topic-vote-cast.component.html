@@ -108,7 +108,7 @@
         </ng-container>
       </div>
     </ng-container>
-    <ng-container *ngIf="(userHasVoted || !editVote) && !hasVoteEndedExpired()">
+    <ng-container *ngIf="(userHasVoted && !editVote) && !hasVoteEndedExpired()">
       <div class="vote_result_info">
         <div class="text_area">
           <div class="bold" translate="COMPONENTS.TOPIC_VOTE_CAST.HEADING_VOTE_REGISTERED"></div>
@@ -249,7 +249,7 @@
         </ng-container>
       </div>
     </ng-container>
-    <ng-container *ngIf="hasVoteEndedExpired()">
+    <ng-container *ngIf="hasVoteEndedExpired() &&(!userHasVoted || !editVote)">
       <div class="vote_result_info">
         <div class="text_area">
           <div class="bold" translate="COMPONENTS.TOPIC_VOTE_CAST.HEADING_VOTE_ENDED"></div>
