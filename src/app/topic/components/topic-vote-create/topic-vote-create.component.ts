@@ -111,16 +111,14 @@ export class TopicVoteCreateComponent implements OnInit {
     public router: Router
   ) {
     this.setTimeZones();
-    this.vote = this.vote || this.voteDefault;
-    console.log(this.vote);
+
 
   }
 
   ngOnInit(): void {
     this.topicId = this.topic.id;
-  /*  if (this.topic.voteId) {
-      this.router.navigate(['/topics', this.topic.id, 'votes', this.topic.voteId]);
-    }*/
+  //  this.vote = this.vote || this.voteDefault;
+    console.log(this.vote);
   }
 
   private setTimeZones() {
