@@ -767,6 +767,8 @@
                 fill="#2C3B47" />
             </svg>
           </button>
+          <button *ngIf="tabSelected === 'preview' && topic.status === TopicService.STATUSES.draft" class="btn_medium_secondary" (click)="saveAsDraft()" translate="VIEWS.VOTE_CREATE.FOOTER_BTN_SAVE_AS_DRAFT">
+          </button>
           <button class="btn_medium_submit icon" (click)="nextTab(tabSelected)">
             <span class="btn_text mobile_hidden"
               [translate]="(tabSelected!=='preview')? 'VIEWS.VOTE_CREATE.FOOTER_BTN_CONTINUE': 'VIEWS.VOTE_CREATE.FOOTER_BTN_CREATE'"></span>

@@ -272,6 +272,15 @@ export class TopicFormComponent {
     return this.TopicService.patch(this.topic).pipe(take(1)).subscribe();
   }
 
+  saveAsDraft() {
+    if (this.topic.status === this.TopicService.STATUSES.draft) {
+      this.TopicService.patch(this.topic).pipe(take(1)).subscribe({
+        next: () => {
+          this.router.navigate(['my', 'topics']);
+        }
+      });
+    }
+  }
   publish() {
     this.updateTopic();
     this.topicGroups.forEach((group) => {
