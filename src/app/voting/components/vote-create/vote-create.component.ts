@@ -171,7 +171,6 @@ export class VoteCreateComponent implements OnInit {
               this.TopicVoteService.get({topicId: topic.id, voteId: topic.voteId}).pipe(take(1)).subscribe({
                 next: (vote) => {
                   this.vote = vote;
-                  console.log(this.vote);
                   this.vote.options = vote.options.rows;
                   this.cd.detectChanges();
                 }
@@ -481,6 +480,7 @@ export class VoteCreateComponent implements OnInit {
         next: (vote) => {
        //   this.TopicService.reloadTopic();
           this.vote = vote;
+          this.vote.options = vote.options.rows;
      //     this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id], { fragment: 'voting' });
     //      this.route.url.pipe(take(1)).subscribe();
         },
