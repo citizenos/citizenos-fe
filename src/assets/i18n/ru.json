@@ -20,6 +20,7 @@
   "TOGGLE_OFF": "Выкл",
   "BTN_BULK_ACTIONS": "Массовые действия",
   "TXT_TOPIC_STATUS_ALL": "все",
+  "TXT_TOPIC_STATUS_DRAFT": "draft",
   "TXT_TOPIC_STATUS_INPROGRESS": "создается",
   "TXT_TOPIC_STATUS_VOTING": "на голосовании",
   "TXT_TOPIC_STATUS_FOLLOWUP": "в стадии применения решения",
@@ -117,6 +118,10 @@
       "ARGUMENT_LNK_COPIED": "@:VIEWS.TOPICS_TOPICID.ARGUMENT_LNK_COPIED",
       "ARGUMENT_LNK_REPORT": "@:VIEWS.TOPICS_TOPICID.ARGUMENT_LNK_REPORT"
     },
+    "ARGUMENT_EDITS": {
+      "HEADING": "Argument edits",
+      "LNK_HIDE_EDITS": "Hide edits"
+    },
     "ARGUMENT_REPORT": {
       "HEADING": "Пожаловаться администратору на аргумент",
       "MESSAGE_MAIN": "Вы жалуетесь",
@@ -175,11 +180,11 @@
     },
     "CREATE": {
       "TITLE_DISCUSSION": "Тема для обсуждения",
-      "DESC_DISCUSSION": "Выберите этот вариант, если хотите инициировать обсуждение, прежде чем потенциально перейти к мозговому штурму, голосованию и/или стадии применения решения.",
+      "DESC_DISCUSSION": "Choose this if you want to encourage a discussion before potentially moving to voting and/or follow-up.",
       "TITLE_IDEATION": "Тема для сбора идей/мозгового штурма",
       "DESC_IDEATION": "Выберите этот вариант, если хотите собрать идеи перед возможным переходом к голосованию и/или к стадии применения решения. Обсуждение \"за/против\" не предусмотрено.",
       "TITLE_VOTE": "Тема для голосования",
-      "DESC_VOTE": "Выберите эту опцию, если вы хотите собрать голоса людей перед тем, как перейти к следующему шагу. Никаких дискуссий или идей не доступно.",
+      "DESC_VOTE": "Choose this if you want to collect people’s votes before potentially moving to follow-up. No pro/con discussion available.",
       "TITLE_GROUP": "Группа",
       "DESC_GROUP": "Создайте группу, в которую вы можете пригласить людей, принадлежащих к той же организации, клубу, местоположению и т. д."
     },
@@ -390,9 +395,12 @@
       "FILTER_STATUS": "@:VIEWS.MY_TOPICS.FILTER_STATUS",
       "FILTER_TOPICS_MODERATED": "@:VIEWS.MY_TOPICS.FILTERS.TOPICS_MODERATED",
       "FILTER_VISIBILITY": "@:VIEWS.MY_TOPICS.FILTER_VISIBILITY",
+      "FILTER_COUNTRY": "@:VIEWS.MY_GROUPS.FILTER_COUNTRY",
+      "FILTER_LANGUAGE": "@:VIEWS.MY_GROUPS.FILTER_LANGUAGE",
       "FILTER_CATEGORIES": "@:VIEWS.MY_TOPICS.FILTER_CATEGORIES",
       "PLACEHOLDER_SEARCH": "@:VIEWS.MY_TOPICS.PLACEHOLDER_SEARCH_TOPIC",
       "BTN_RESET_FILTERS": "@:BTN_RESET_FILTER",
+      "BTN_APPLY": "@:BTN_APPLY",
       "LNK_CLEAR": "@:LNK_CLEAR",
       "LBL_FILTER": "@:LNK_FILTER"
     },
@@ -407,7 +415,7 @@
       "LBL_SHOW_IN_SEARCH": "@:VIEWS.ACCOUNT.LBL_SHOW_IN_SEARCH",
       "LBL_SHOW_IN_SEARCH_DESCRIPTION": "@:VIEWS.ACCOUNT.LBL_SHOW_IN_SEARCH_DESCRIPTION",
       "LBL_TERMS_AND_CONDITIONS": "@:MODALS.PRIVACY_POLICY_HEADING",
-      "LBL_TERMS_AND_CONDITIONS_DESCRIPTION": "@:MODALS.PRIVACY_POLICY_DESCRIPTION",
+      "LBL_TERMS_AND_CONDITIONS_DESCRIPTION": "I have read and agree to the Terms of Use and Privacy Policy.",
       "PRIVACY_POLICY_LNK_TERMS_OF_USE": "@:MODALS.PRIVACY_POLICY_LNK_TERMS_OF_USE",
       "PRIVACY_POLICY_LNK_PRIVACY_POLICY": "@:MODALS.PRIVACY_POLICY_LNK_PRIVACY_POLICY",
       "BTN_SAVE": "Регистрация",
@@ -545,15 +553,17 @@
       "ROLE": "@:COMPONENTS.GROUP_INVITE.ROLE",
       "ACTIONS": "@:COMPONENTS.GROUP_INVITE.ACTIONS",
       "BTN_BULK_ACTIONS": "@:BTN_BULK_ACTIONS",
-      "BULK_OPT_SET_ALL_RIGHTS": "@:COMPONENTS.GROUP_INVITE.HEADING",
-      "BULK_OPT_REMOVE_ALL": "@:COMPONENTS.GROUP_INVITE.HEADING"
+      "BULK_OPT_SET_ALL_RIGHTS": "@:COMPONENTS.GROUP_INVITE.BULK_OPT_SET_ALL_RIGHTS",
+      "BULK_OPT_REMOVE_ALL": "@:COMPONENTS.GROUP_INVITE.BULK_OPT_REMOVE_ALL",
+      "MSG_INVITES_SENT": "@:COMPONENTS.TOPIC_INVITE_EDITORS.MSG_INVITES_SENT"
     },
     "TOPIC_INVITE_DIALOG": {
       "HEADING": "@:COMPONENTS.GROUP_INVITE_DIALOG.HEADING",
       "TAB_INVITE": "@:COMPONENTS.GROUP_INVITE_DIALOG.TAB_INVITE",
       "TAB_SHARE": "@:COMPONENTS.GROUP_INVITE_DIALOG.TAB_SHARE",
       "LNK_CANCEL": "@:COMPONENTS.GROUP_INVITE_DIALOG.LNK_CANCEL",
-      "BTN_SAVE": "@:COMPONENTS.GROUP_INVITE_DIALOG.BTN_SAVE"
+      "BTN_SAVE": "@:COMPONENTS.GROUP_INVITE_DIALOG.BTN_SAVE",
+      "MSG_INVITES_SENT": "@:COMPONENTS.TOPIC_INVITE_EDITORS.MSG_INVITES_SENT"
     },
     "TOPIC_MEMBER_GROUP": {
       "OPT_REMOVE_GROUP": "Удалить группу"
@@ -589,6 +599,8 @@
       "VOTE_SUBMIT": "@:VIEWS.TOPICS_TOPICID.VOTE_SUBMIT",
       "HEADING_VOTE_REGISTERED": "@:VIEWS.TOPICS_TOPICID.HEADING_VOTE_REGISTERED",
       "VOTE_TXT_VOTE_REGISTERED": "@:VIEWS.TOPICS_TOPICID.VOTE_TXT_VOTE_REGISTERED",
+      "HEADING_VOTE_ENDED": "Vote has ended",
+      "VOTE_TXT_VOTE_ENDED": "Everyone has cast their votes. You can now download the full document.",
       "LNK_EDIT_VOTE": "Редактировать свой голос",
       "BTN_DOWNLOAD_USER_BDOC": "@:VIEWS.TOPICS_TOPICID.BTN_DOWNLOAD_USER_BDOC",
       "VOTE_VOTES_COUNTED": "@:VIEWS.TOPICS_TOPICID.VOTE_VOTES_COUNTED",
@@ -599,7 +611,10 @@
       "LBL_OPTIONS_YOU_DIDNT_CHOOSE": "Опции, которые вы не выбрали",
       "FINAL_OPTION_WITHOUT_CSV": "@:VIEWS.TOPICS_TOPICID.FINAL_OPTION_WITHOUT_CSV",
       "FINAL_OPTION_WITH_CSV": "@:VIEWS.TOPICS_TOPICID.FINAL_OPTION_WITH_CSV",
-      "BTN_DOWNLOAD_FINAL_ZIP": "@:VIEWS.TOPICS_TOPICID.BTN_DOWNLOAD_FINAL_ZIP"
+      "BTN_DOWNLOAD_FINAL_ZIP": "@:VIEWS.TOPICS_TOPICID.BTN_DOWNLOAD_FINAL_ZIP",
+      "OPT_EDIT_DEADLINE": "@:MODALS.TOPIC_SETTINGS_BTN_EDIT_DEADLINE",
+      "OPT_CLOSE_VOTING": "Close voting",
+      "OPT_SEND_VOTE_REMINDER": "Send vote reminder"
     },
     "TOPIC_VOTE_CREATE": {
       "DIALOG_HEADING": "Начать голосование по теме",
@@ -655,6 +670,22 @@
       "BTN_CONTINUE": "@:BTN_CONTINUE",
       "BTN_START_VOTE": "Начать голосование по теме"
     },
+    "TOPIC_VOTE_DEADLINE": {
+      "DIALOG_HEADING": "Edit voting deadline",
+      "LBL_EDIT_VOTING_DEADLINE": "Edit voting deadline",
+      "LBL_EDIT_VOTING_DEADLINE_DESC": "You can choose or edit the voting deadline.",
+      "LBL_OPTION_DEADLINE": "Deadline",
+      "LBL_OPTION_DEADLINE_DESC": "When the set date is reached, the voting is closed.",
+      "DEADLINE_LBL_TIME": "Time",
+      "DEADLINE_TIME_OPTION_24": "24h clock",
+      "DEADLINE_TIME_OPTION_AM": "AM",
+      "DEADLINE_TIME_OPTION_PM": "PM",
+      "DEADLINE_LBL_TIMEZONE": "Timezone",
+      "DEADLINE_LBL_OPTION_SET_VOTE_REMINDER": "Set automatic reminder",
+      "DEADLINE_LBL_OPTION_SET_VOTE_REMINDER_DESC": "You can set an automatic reminder email for participants, to be sent out before the voting closes",
+      "LNK_CANCEL": "@:LNK_CANCEL",
+      "BTN_SAVE": "@:DIRECTIVES.COS_MODAL.BTN_SAVE"
+    },
     "TOPIC_FOLLOW_UP_CREATE": {
       "DIALOG_HEADING": "Начать стадию применения решения по теме",
       "DIALOG_TAB_1": "Введение",
@@ -686,6 +717,7 @@
       "BTN_START_FOLLOW_UP": "Начать стадию применения решения по теме"
     },
     "TOPICBOX": {
+      "HEADER_DRAFT": "Draft",
       "HEADER_DISCUSSION": "Аргументов: {{value}}",
       "HEADER_VOTING": "Голосов: {{value}} из {{target}}",
       "HEADER_FOLLOW_UP": "Событий: {{value}}",
@@ -761,6 +793,21 @@
       "OPTION_2": "Отозвать все приглашения",
       "BTN_SUBMIT": "Отозвать приглашение",
       "BTN_CANCEL": "@:LNK_CANCEL"
+    },
+    "TOPIC_VOTE_REMINDER": {
+      "DIALOG_HEADING": "Send reminder to vote",
+      "DIALOG_DESCRIPTION": "If you want, you can send a reminder e-mail to the people who haven’t voted yet.",
+      "REMINDER_PREVIEW_DESC": "This is a preview of how the reminder e-mail looks like.",
+      "PREVIEW_EMAIL_HEADING": "A vote reminder for",
+      "PREVIEW_EMAIL_GREETING": "Hi {{userName}}",
+      "PREVIEW_EMAIL_TEXT_WARN": "The vote deadline is coming close!",
+      "PREVIEW_EMAIL_VOTE_VOTES_COLLECTED": "Votes collected: {{voteCount}}/{{userCount}}",
+      "PREVIEW_EMAIL_VOTE_DEADLINE": "Deadline: {{deadline}}",
+      "PREVIEW_EMAIL_TEXT_DAYS_LEFT": "You have only {{daysLeft}} days left to cast your vote.",
+      "PREVIEW_EMAIL_BTN_CAST_VOTE": "@:VIEWS.TOPICS_TOPICID.VOTE_CAST_YOUR_VOTE",
+      "PREVIEW_EMAIL_ATTENTION": "Please note: You must log in using the same email address ({{email}}) to access this topic.",
+      "BTN_SEND_REMINDER": "Send reminder e-mail",
+      "LNK_CANCEL": "@:LNK_CANCEL"
     },
     "TYPEAHEAD": {
       "PRESS_ENTER_TO_ADD": "Для добавления нажмите \"Ввод\""
@@ -849,6 +896,7 @@
     "TOPIC_REPORT_REPORTID_BTN_NO": "Нет, вернуться обратно",
     "TOPIC_REPORT_REPORTID_BTN_YES": "Да, все равно прочитать",
     "TOPIC_REPORT_MODERATE_HEADING": "Модерировать тему",
+    "TOPIC_REPORT_MODERATE_MOERATING_TOPIC": "You are moderating topic",
     "TOPIC_REPORT_MODERATE_LABEL_REASON": "Причина модерирования",
     "TOPIC_REPORT_MODERATE_LABEL_REASON_REQUIRED": "@:MODALS.TOPIC_ARGUMENT_REPORT_LABEL_REASON_REQUIRED",
     "TOPIC_REPORT_MODERATE_PLACEHOLDER_REPORT_TEXT": "Объясните, почему вы считаете эту тему неуместной...",
@@ -1061,14 +1109,19 @@
     "TOPIC_EVENT_DELETE_CONFIRM_BTN_NO": "@:BTN_NO",
     "TOPIC_EVENT_DELETE_CONFIRM_BTN_YES": "@:BTN_YES",
     "TOPIC_INVITE_VIEW_HEADING": "Приглашение в тему",
-    "TOPIC_INVITE_VIEW_MESSAGE_MAIN": "@:COMPONENTS.TOPIC_JOIN.MESSAGE_MAIN",
+    "TOPIC_INVITE_VIEW_MESSAGE_MAIN": "You have been invited to join",
+    "TOPIC_INVITE_VIEW_HEADING_INVITATION_DETAILS": "Invitation details",
     "TOPIC_INVITE_VIEW_LBL_TOPIC_TITLE": "Название темы:",
     "TOPIC_INVITE_VIEW_LBL_INVITED_BY": "Приглашение от:",
     "TOPIC_INVITE_VIEW_LBL_INVITATION_SENT_TO": "Приглашение отправлено:",
     "TOPIC_INVITE_VIEW_LBL_TOPIC_LEVEL": "Выдать права:",
     "TOPIC_INVITE_VIEW_TXT_COMPLETE_ACCOUNT": "<b>Внимание!</b> Вы должны завершить создание учетной записи с эл. почтой {{email}} для доступа к этой теме",
     "TOPIC_INVITE_VIEW_BTN_LOGIN_AS": "Для доступа к этой теме, пожалуйста, войдите в систему с помощью {{email}}",
-    "TOPIC_INVITE_VIEW_BTN_GO_TO_LOGIN": "@:MODALS.LOGIN_BTN_LOGIN",
+    "TOPIC_INVITE_VIEW_HEADING_AFTER_JOIN": "What you can do once you join a topic",
+    "TOPIC_INVITE_VIEW_AFTER_JOIN_ITEM_1": "Participate in discussions and voting",
+    "TOPIC_INVITE_VIEW_AFTER_JOIN_ITEM_2": "Receive notifications of activity within the topic",
+    "TOPIC_INVITE_VIEW_AFTER_JOIN_ITEM_3": "Request to become a co-editor",
+    "TOPIC_INVITE_VIEW_BTN_GO_TO_LOGIN": "Log in to join topic",
     "TOPIC_INVITE_VIEW_BTN_COMPLETE_ACCOUNT": "Создать учетную запись",
     "TOPIC_INVITE_VIEW_BTN_ACCEPT": "@:MODALS.PRIVACY_POLICY_BTN_ACCEPT",
     "TOPIC_INVITE_VIEW_LBL_ADDITIONAL_ACTIONS": "Вы также можете:",
@@ -1115,7 +1168,7 @@
     "TOPIC_MEMBERS_ORDER_BY": "@:VIEWS.MY_TOPICS_TOPICID.LBL_ORDER_BY",
     "TOPIC_MEMBERS_ORDER_BY_NAME_ASC": "@:VIEWS.PUBLIC_GROUP.ORDER_NAME_ASC",
     "TOPIC_MEMBERS_ORDER_BY_NAME_DESC": "@:VIEWS.PUBLIC_GROUP.ORDER_NAME_DESC",
-    "TOPIC_MEMBERS_ORDER_BY_LEVEL": "Сортировать по уровню",
+    "TOPIC_MEMBERS_ORDER_BY_LEVEL": "Order by role",
     "TOPIC_MEMBERS_BTN_BULK_ACTIONS": "@:COMPONENTS.GROUP_INVITE.BTN_BULK_ACTIONS",
     "TOPIC_MEMBERS_LBL_ORDER_BY": "@:VIEWS.MY_TOPICS_TOPICID.LBL_ORDER_BY",
     "TOPIC_MEMBERS_LNK_PROFILE": "@:VIEWS.MY_TOPICS_TOPICID.LNK_PROFILE",
@@ -1233,7 +1286,8 @@
       "BTN_CREATE": "Создать",
       "LNK_DASHBOARD": "Dashboard",
       "LNK_LOG_IN_REGISTER": "Вход или регистрация в Citizen OS",
-      "LNK_MY_ACCOUNT": "@:VIEWS.ACCOUNT.HEADING",
+      "LNK_MY_ACCOUNT": "My profile",
+      "OPT_ACCOUNT_DETAILS": "Account details",
       "HEADING_TOPICS": "Темы",
       "LNK_CREATE_TOPICS": "Создать тему",
       "LNK_MY_TOPICS": "Мои темы",
@@ -1452,6 +1506,7 @@
       "BTN_OPTION_ADD_TOPICS": "Добавить темы",
       "BTN_OPTION_REPORT": "Пожаловаться администратору",
       "BTN_OPTION_LEAVE": "Покинуть группу",
+      "BTN_OPTION_DELETE": "@:MODALS.GROUP_DELETE_CONFIRM_HEADING",
       "BTN_LEAVE": "Покинуть группу",
       "RULES_OF_CONDUCT": "Правила поведения",
       "TAGS": "Теги",
@@ -1893,7 +1948,9 @@
     },
     "TOPIC_EDIT": {
       "HEADING": "Изменить тему",
-      "CREATE_TAB_1": "Написать"
+      "CREATE_TAB_1": "Написать",
+      "NOTIFICATION_SUCCESS_TITLE": "Topic successfully updated",
+      "NOTIFICATION_SUCCESS_MESSAGE": "You have successfully updated your topic!"
     },
     "TOPICS_TOPICID": {
       "BTN_ACTIVITIES": "Обновления по теме",
@@ -1903,13 +1960,15 @@
       "TAB_INFO_TITLE_DRAW_WHAT_NOW": "Вот что вы можете сделать:",
       "TAB_INFO_TXT_DRAW_WHAT_NOW": "Возможно, решение можно будет принять в формате оффлайн: например, команда, участники которой расположены рядом, могут подбросить монетку, чтобы выбрать одну из двух победивших сторон. Кроме того, если у вас есть голоса, которые не относятся ни к одной из победивших сторон, вы можете запустить голосование только между двумя победившими сторонами. Тогда вам нужно будет самим определить условия равенства баллов для следующей ситуации в ничью: бросок монеты, победитель по умолчанию (победитель в статусе «Кво»), или назначить человека, чей голос будет решающим.",
       "TAB_INFO_TXT_REPORTED": "Эта тема помечена, как неуместная.",
+      "HEADING_REPORTED": "@:VIEWS.TOPICS_TOPICID.TAB_INFO_TXT_REPORTED",
+      "DESCRIPTION_REPORTED": "Since you’re a moderator of this topic, there are several actions you can take:",
       "TAB_INFO_LNK_VIEW_REPORT_DETAILS": "Просмотреть детали",
-      "TAB_INFO_LNK_MODERATE": "Модерировать",
+      "TAB_INFO_LNK_MODERATE": "Hide this topic if you agree with why it was reported",
       "HEADING_BACK_TO_MY_TOPICS": "Вернуться к моим темам",
       "HEADING_BACK_TO_PUBLIC_TOPICS": "Вернуться к публичным темам",
       "BTN_JOIN": "Присоединиться к теме",
       "BTN_LEAVE": "Покинуть тему",
-      "TAB_INFO_LNK_RESOLVE": "Отметить как разрешенное",
+      "TAB_INFO_LNK_RESOLVE": "Mark as resolved if the topic (again) conforms to the Citizen OS Rules of Conduct",
       "LNK_MANAGE": "@:VIEWS.TOPIC_CREATE.CO_EDITORS_LNK_MANAGE",
       "TAB_INFO_LNK_SUBMIT_FOR_REVIEW": "@:VIEWS.TOPICS_TOPICID.NAV_BTN_SUBMIT_FOR_REVIEW",
       "ADD_MILESTONES_CREATE_A_MILESTONE": "Создать обновление",
