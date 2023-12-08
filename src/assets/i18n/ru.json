@@ -20,7 +20,7 @@
   "TOGGLE_OFF": "Выкл",
   "BTN_BULK_ACTIONS": "Массовые действия",
   "TXT_TOPIC_STATUS_ALL": "все",
-  "TXT_TOPIC_STATUS_DRAFT": "draft",
+  "TXT_TOPIC_STATUS_DRAFT": "черновик",
   "TXT_TOPIC_STATUS_INPROGRESS": "создается",
   "TXT_TOPIC_STATUS_VOTING": "на голосовании",
   "TXT_TOPIC_STATUS_FOLLOWUP": "в стадии применения решения",
@@ -119,8 +119,8 @@
       "ARGUMENT_LNK_REPORT": "@:VIEWS.TOPICS_TOPICID.ARGUMENT_LNK_REPORT"
     },
     "ARGUMENT_EDITS": {
-      "HEADING": "Argument edits",
-      "LNK_HIDE_EDITS": "Hide edits"
+      "HEADING": "Правки аргумента",
+      "LNK_HIDE_EDITS": "Скрыть правки"
     },
     "ARGUMENT_REPORT": {
       "HEADING": "Пожаловаться администратору на аргумент",
@@ -180,11 +180,11 @@
     },
     "CREATE": {
       "TITLE_DISCUSSION": "Тема для обсуждения",
-      "DESC_DISCUSSION": "Choose this if you want to encourage a discussion before potentially moving to voting and/or follow-up.",
+      "DESC_DISCUSSION": "Выберите этот вариант, если хотите инициировать обсуждение, прежде чем потенциально перейти к голосованию и/или стадии применения решения.",
       "TITLE_IDEATION": "Тема для сбора идей/мозгового штурма",
       "DESC_IDEATION": "Выберите этот вариант, если хотите собрать идеи перед возможным переходом к голосованию и/или к стадии применения решения. Обсуждение \"за/против\" не предусмотрено.",
       "TITLE_VOTE": "Тема для голосования",
-      "DESC_VOTE": "Choose this if you want to collect people’s votes before potentially moving to follow-up. No pro/con discussion available.",
+      "DESC_VOTE": "Выберите этот вариант, если хотите собрать голоса, прежде чем потенциально перейти к стадии применения решения. Обсуждение \"за/против\" не предусмотрено.",
       "TITLE_GROUP": "Группа",
       "DESC_GROUP": "Создайте группу, в которую вы можете пригласить людей, принадлежащих к той же организации, клубу, местоположению и т. д."
     },
@@ -415,7 +415,7 @@
       "LBL_SHOW_IN_SEARCH": "@:VIEWS.ACCOUNT.LBL_SHOW_IN_SEARCH",
       "LBL_SHOW_IN_SEARCH_DESCRIPTION": "@:VIEWS.ACCOUNT.LBL_SHOW_IN_SEARCH_DESCRIPTION",
       "LBL_TERMS_AND_CONDITIONS": "@:MODALS.PRIVACY_POLICY_HEADING",
-      "LBL_TERMS_AND_CONDITIONS_DESCRIPTION": "I have read and agree to the Terms of Use and Privacy Policy.",
+      "LBL_TERMS_AND_CONDITIONS_DESCRIPTION": "Я прочитал и согласен с Условиями использования и Политикой конфиденциальности.",
       "PRIVACY_POLICY_LNK_TERMS_OF_USE": "@:MODALS.PRIVACY_POLICY_LNK_TERMS_OF_USE",
       "PRIVACY_POLICY_LNK_PRIVACY_POLICY": "@:MODALS.PRIVACY_POLICY_LNK_PRIVACY_POLICY",
       "BTN_SAVE": "Регистрация",
@@ -599,7 +599,7 @@
       "VOTE_SUBMIT": "@:VIEWS.TOPICS_TOPICID.VOTE_SUBMIT",
       "HEADING_VOTE_REGISTERED": "@:VIEWS.TOPICS_TOPICID.HEADING_VOTE_REGISTERED",
       "VOTE_TXT_VOTE_REGISTERED": "@:VIEWS.TOPICS_TOPICID.VOTE_TXT_VOTE_REGISTERED",
-      "HEADING_VOTE_ENDED": "Vote has ended",
+      "HEADING_VOTE_ENDED": "Голосование завершено",
       "VOTE_TXT_VOTE_ENDED": "Everyone has cast their votes. You can now download the full document.",
       "LNK_EDIT_VOTE": "Редактировать свой голос",
       "BTN_DOWNLOAD_USER_BDOC": "@:VIEWS.TOPICS_TOPICID.BTN_DOWNLOAD_USER_BDOC",
@@ -613,7 +613,7 @@
       "FINAL_OPTION_WITH_CSV": "@:VIEWS.TOPICS_TOPICID.FINAL_OPTION_WITH_CSV",
       "BTN_DOWNLOAD_FINAL_ZIP": "@:VIEWS.TOPICS_TOPICID.BTN_DOWNLOAD_FINAL_ZIP",
       "OPT_EDIT_DEADLINE": "@:MODALS.TOPIC_SETTINGS_BTN_EDIT_DEADLINE",
-      "OPT_CLOSE_VOTING": "Close voting",
+      "OPT_CLOSE_VOTING": "Закрыть голосование",
       "OPT_SEND_VOTE_REMINDER": "Send vote reminder"
     },
     "TOPIC_VOTE_CREATE": {
