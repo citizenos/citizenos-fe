@@ -309,7 +309,7 @@
       "COPY_LINK": "Copy link",
       "GENERATE_QR_CODE": "Generate QR code",
       "GENERATE_QR_CODE_DESCRIPTION": "Generate a QR code that people can scan to come straight to the topic. You can add the QR code to digital or physical comms, and display it wherever the right people will see it.",
-      "GENERATE_QR_CODE_PRINT": "To save the QR code as a PDF, open it up and use the \"print as PDF\" functionality.",
+      "GENERATE_QR_CODE_PRINT": "To save the QR code, right click then choose 'Save image'.",
       "BTN_GENERATE_QR_CODE": "@:COMPONENTS.GROUP_SHARE.GENERATE_QR_CODE"
     },
     "LOGIN_FORM": {
