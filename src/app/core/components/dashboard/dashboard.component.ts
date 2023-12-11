@@ -40,6 +40,7 @@ export class DashboardComponent {
     this.groups$ = this.GroupService.loadItems();
     this.topics$ = this.UserTopicService.loadItems().pipe(
       tap((topics) => {
+        console.log(topics.length)
         if (topics.length === 0) {
           this.showPublic = true;
           this.showNoEngagements = true;
