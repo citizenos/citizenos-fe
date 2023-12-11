@@ -7,7 +7,7 @@
         d="M20 10C14.48 10 10 14.48 10 20C10 25.52 14.48 30 20 30C25.52 30 30 25.52 30 20C30 14.48 25.52 10 20 10ZM18.0556 25L25.8333 17.2807L24.375 15.8333L18.0556 22.1053L15.625 19.693L14.1667 21.1404L18.0556 25Z"
         fill="white" />
     </svg>
-    <div class="small_heading" translate="VIEWS.VOTE_CREATE.HEADING"></div>
+    <div class="small_heading" [translate]="(isnew)? 'VIEWS.VOTE_CREATE.HEADING' : 'VIEWS.VOTE_EDIT.HEADING'"></div>
   </div>
   <div id="create_tabs">
     <a class="create_tab" [ngClass]="tabSelected=== 'info' ? 'active' : ''" (click)="selectTab('info')">1.<span
@@ -857,7 +857,7 @@
         <button class="btn_medium_secondary bold" (click)="inviteEditors()"
           translate="VIEWS.TOPIC_CREATE.BTN_INVITE_CO_EDITORS"></button>
       </div>
-      <div class="create_help" [ngClass]="showHelp? 'show': ''">
+      <div class="create_help" *ngIf="isnew" [ngClass]="showHelp? 'show': ''">
         <div class="help_illustration_wide">
           <svg width="160" height="86" viewBox="0 0 160 86" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0_7537_35289)">
@@ -1057,17 +1057,12 @@
                 <div class="item">
                   <div>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M21.0001 14.6452C21.0362 14.5931 21.0709 14.5392 21.1065 14.4886C22.0131 13.1412 22.4982 11.5545 22.5001 9.93047C22.5151 5.27578 18.5879 1.5 13.7316 1.5C9.49602 1.5 5.96258 4.38234 5.13477 8.20875C5.01058 8.77584 4.94772 9.35463 4.94727 9.93516C4.94727 14.5945 8.72352 18.4716 13.5798 18.4716C14.3518 18.4716 15.392 18.2395 15.9624 18.083C16.5329 17.9264 17.0982 17.7197 17.2445 17.6639C17.3907 17.6081 17.6195 17.5509 17.8018 17.6034L21.4309 18.6525C21.4628 18.6619 21.4966 18.6627 21.5289 18.6547C21.5612 18.6467 21.5908 18.6303 21.6147 18.6071C21.6385 18.5839 21.6558 18.5548 21.6647 18.5228C21.6736 18.4907 21.6737 18.4569 21.6652 18.4247L20.8346 15.2611C20.777 15.0267 20.7695 14.9827 21.0001 14.6452Z"
-                        fill="#1168A8" />
-                      <path
-                        d="M14.6504 19.472C14.2896 19.5297 13.9253 19.5618 13.5601 19.5681C11.5711 19.5681 9.69287 19.0431 8.16943 18.0587C7.19492 17.4606 6.349 16.6747 5.68083 15.7469C4.45833 14.1264 3.79177 12.0667 3.79177 9.91138C3.79177 9.76467 3.79693 9.62357 3.80208 9.48201C3.80394 9.44026 3.7929 9.39895 3.77045 9.3637C3.748 9.32845 3.71525 9.30097 3.67663 9.28499C3.63802 9.26901 3.59542 9.26531 3.55463 9.2744C3.51384 9.28348 3.47683 9.30491 3.44865 9.33576C2.32624 10.5638 1.64773 12.1326 1.52147 13.7915C1.39521 15.4504 1.82848 17.1038 2.75208 18.4876C2.86787 18.6644 2.93349 18.8008 2.91333 18.8917L2.25287 22.2789C2.24677 22.3111 2.24923 22.3443 2.25999 22.3753C2.27075 22.4063 2.28945 22.4339 2.3142 22.4554C2.33896 22.4768 2.36892 22.4915 2.40109 22.4978C2.43326 22.504 2.46652 22.5018 2.49755 22.4912L5.68505 21.355C5.78171 21.3168 5.88497 21.298 5.98889 21.2998C6.09282 21.3015 6.19537 21.3238 6.29068 21.3653C7.24458 21.7403 8.29974 21.9709 9.3549 21.9709C11.3859 21.9776 13.3423 21.2059 14.8219 19.8147C14.8525 19.7849 14.8728 19.7462 14.8799 19.7041C14.8869 19.662 14.8805 19.6188 14.8614 19.5806C14.8423 19.5425 14.8115 19.5114 14.7736 19.4919C14.7357 19.4724 14.6925 19.4654 14.6504 19.472Z"
-                        fill="#1168A8" />
-                    </svg>
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M12 0C5.376 0 0 5.376 0 12C0 18.624 5.376 24 12 24C18.624 24 24 18.624 24 12C24 5.376 18.624 0 12 0ZM9.66667 18L19 8.73684L17.25 7L9.66667 14.5263L6.75 11.6316L5 13.3684L9.66667 18Z" fill="#5AB467"/>
+                      </svg>
                   </div>
-                  <span class="item_text" translate="VIEWS.VOTE_CREATE.HELP_ITEM_ENGAGE_IN_DISCUSSION"></span>
+                  <span class="item_text" translate="VIEWS.VOTE_CREATE.HELP_ITEM_START_COLLECTING_VOTES"></span>
                 </div>
-                <div class="item">
+                <!--div class="item">
                   <div>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path fill-rule="evenodd" clip-rule="evenodd"
@@ -1076,7 +1071,7 @@
                     </svg>
                   </div>
                   <span class="item_text" translate="VIEWS.VOTE_CREATE.HELP_ITEM_ADD_IDEATION"></span>
-                </div>
+                </!--div-->
                 <!--div class="item">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd"

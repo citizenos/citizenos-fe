@@ -132,6 +132,7 @@ export class VoteCreateComponent implements OnInit {
   members = <any[]>[];
 
   readMore = false;
+  isnew = true;
 
   constructor(
     private app: AppService,
@@ -159,8 +160,9 @@ export class VoteCreateComponent implements OnInit {
       }
       ));
     // app.createNewTopic();
-
-
+    if(this.router.url.indexOf('/edit/') > -1) {
+      this.isnew = false;
+    }
     this.topic$ = this.route.params.pipe(
       switchMap((params) => {
         if (params['topicId']) {
@@ -172,6 +174,10 @@ export class VoteCreateComponent implements OnInit {
                 next: (vote) => {
                   this.vote = vote;
                   this.vote.options = vote.options.rows;
+                  this.vote.options.forEach((option) => {
+                    option.enabled = true;
+                  })
+                  console.log(this.vote.options);
                   this.cd.detectChanges();
                 }
               })
@@ -210,7 +216,6 @@ export class VoteCreateComponent implements OnInit {
   }
 
   selectTab(tab: string) {
-    console.log(tab);
     this.router.navigate([], { fragment: tab });
   }
 
@@ -224,19 +229,16 @@ export class VoteCreateComponent implements OnInit {
   }
 
   nextTab(tab: string | void) {
-    console.log('NEXT', tab);
     if (tab) {
       const tabIndex = this.tabs.indexOf(tab);
-      console.log(tabIndex)
       if (tabIndex === 1) {
         this.updateTopic();
       }
+
       if (tabIndex === 2) {
         if (!this.vote.id) {
-          console.log('CREAET')
           this.createVote();
         } else {
-          console.log('UPDATE')
           this.updateVote();
         }
       /*  if (this.voteCreateForm)
@@ -358,7 +360,6 @@ export class VoteCreateComponent implements OnInit {
     return this.topic.padUrl;
   }
   createTopic() {
-    console.log('CREATE TOPIC');
     const topic = {
       description: '<html><head></head><body></body></html>',
       visbility: this.TopicService.VISIBILITY.private
@@ -392,11 +393,9 @@ export class VoteCreateComponent implements OnInit {
   }
 
   updateTopic() {
-    console.log('UPDATE TOPIC');
     return this.TopicService.patch(this.topic).pipe(take(1)).subscribe();
   }
   updateVote() {
-    console.log('UPDATE VOTE');
     const updateVote = Object.assign({topicId: this.topic.id}, this.vote);
     return this.TopicVoteService.update(updateVote).pipe(take(1)).subscribe();
   }
