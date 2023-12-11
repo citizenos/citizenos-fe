@@ -29,6 +29,7 @@ export class ActivityFeedComponent implements OnInit {
   allActivities$: any[] = [];
   activities$ = of(<any[]>[]);
   show = false;
+  feedType = 'global';
   constructor(public ActivityService: ActivityService, @Inject(MAT_DIALOG_DATA) private data: any, private dialogRef: MatDialogRef<ActivityFeedComponent>) {
     setTimeout(() => {
       this.show = true
@@ -43,9 +44,11 @@ export class ActivityFeedComponent implements OnInit {
   ngOnInit(): void {
     this.ActivityService.reset();
     if (this.data?.groupId) {
+      this.feedType = 'group';
       this.ActivityService.setParam('groupId', this.data.groupId);
     }
     if (this.data?.topicId) {
+      this.feedType = 'topic';
       this.ActivityService.setParam('topicId', this.data.topicId);
     }
     this.activities$ = this.ActivityService.loadItems().pipe(

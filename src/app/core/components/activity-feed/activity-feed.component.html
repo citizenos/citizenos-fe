@@ -1,6 +1,6 @@
 <div class="overlay" (click)="close()"></div>
 <div id="activity_feed" [TourItem]="{tourid: 'dashboard', index: 3, position: 'left'}" [@openClose]="show? 'open' : 'closed'">
-  <div class="small_heading" translate="COMPONENTS.ACTIVITY_FEED.HEADING"></div>
+  <div class="small_heading" [translate]="'COMPONENTS.ACTIVITY_FEED.HEADING_'+feedType | uppercase"></div>
   <a class="btn_medium_close icon" (click)="close()">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path

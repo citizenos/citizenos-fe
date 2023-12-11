@@ -94,7 +94,9 @@
       "CONTACT_US": "Contact us"
     },
     "ACTIVITY_FEED": {
-      "HEADING": "@:DEFAULT.NAV.LNK_ACTIVITY",
+      "HEADING_GLOBAL": "Global activity",
+      "HEADING_GROUP": "@:VIEWS.GROUP.BTN_ACTIVITIES",
+      "HEADING_TOPIC": "@:VIEWS.TOPICS_TOPICID.BTN_ACTIVITIES",
       "PLACEHOLDER_FILTER": "Show",
       "FILTER_ALL": "All activity",
       "FILTER_USERTOPICS": "Activity related to my topics",
@@ -1920,7 +1922,7 @@
       "GROUPS_LIST_TITLE": "@:VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_NAME",
       "HEADING_GROUP_PERMISSIONS": "@:COMPONENTS.GROUP_ADD_TOPICS.HEADING_GROUP_PERMISSIONS",
       "HEADING_ACTIONS": "@:COMPONENTS.GROUP_ADD_TOPICS.HEADING_ACTIONS",
-      "PREVIEW_INFO": "You can edit your topic text now or later (but not after voting has started).",
+      "PREVIEW_INFO": "<b>This is a preview of your topic!</b> You can still edit your topic at any point during the discussion phase.",
       "BTN_READ_MORE": "@:VIEWS.TOPICS_TOPICID.BTN_READ_MORE",
       "BTN_READ_LESS": "@:VIEWS.TOPICS_TOPICID.BTN_READ_LESS",
       "FOOTER_BTN_CONTINUE": "@:BTN_CONTINUE",

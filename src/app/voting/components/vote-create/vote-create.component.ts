@@ -400,6 +400,12 @@ export class VoteCreateComponent implements OnInit {
     const updateVote = Object.assign({topicId: this.topic.id}, this.vote);
     return this.TopicVoteService.update(updateVote).pipe(take(1)).subscribe();
   }
+
+  saveAsDraft () {
+    this.updateTopic();
+    this.updateVote();
+    this.router.navigate(['my', 'topics']);
+  }
   publish() {
     this.updateTopic();
     this.topicGroups.forEach((group) => {

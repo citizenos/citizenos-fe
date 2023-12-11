@@ -43,7 +43,15 @@ export class TopicboxComponent implements OnInit {
   }
 
   goToView() {
-    this.router.navigate(['topics', this.topic.id]);
+    let urlArray = ['topics', this.topic.id];
+    if(this.topic.status === this.TopicService.STATUSES.draft && this.TopicService.canDelete(this.topic)) {
+      urlArray = ['topics', 'edit', this.topic.id];
+      if (this.topic.voteId) {
+        urlArray = ['topics', 'vote', 'edit', this.topic.id];
+      }
+    }
+
+    this.router.navigate(urlArray);
   }
 
   getProgress () {
