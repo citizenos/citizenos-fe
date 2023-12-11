@@ -11,6 +11,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Group } from 'src/app/interfaces/group';
 import { TranslateService } from '@ngx-translate/core';
 import { TopicMemberGroupService } from 'src/app/services/topic-member-group.service';
+import { TopicInviteUserService } from 'src/app/services/topic-invite-user.service';
 import { TopicParticipantsDialogComponent } from '../topic-participants/topic-participants.component';
 import { InviteEditorsComponent } from '../invite-editors/invite-editors.component';
 import { NotificationService } from 'src/app/services/notification.service';
@@ -98,6 +99,7 @@ export class TopicFormComponent {
   VISIBILITY = this.TopicService.VISIBILITY;
   CATEGORIES = Object.keys(this.TopicService.CATEGORIES);
   groups$: Observable<Group[] | any[]> = of([]);
+  invites$: Observable<any[]> = of([]);
   topicGroups = <Group[]>[];
 
   readMore = false;
@@ -116,6 +118,7 @@ export class TopicFormComponent {
     public TopicService: TopicService,
     public GroupService: GroupService,
     public TopicMemberGroupService: TopicMemberGroupService,
+    public TopicInviteUserService: TopicInviteUserService,
     public translate: TranslateService,
     private cd: ChangeDetectorRef,
     @Inject(DomSanitizer) private sanitizer: DomSanitizer
@@ -140,6 +143,10 @@ export class TopicFormComponent {
       if (temp)
         this.block[blockname as keyof typeof this.block] = true;
     });
+    if (this.topic.id) {
+      this.TopicInviteUserService.setParam('topicId', this.topic.id);
+      this.invites$ = this.TopicInviteUserService.loadItems();
+    }
   }
 
   sanitizeURL(): SafeResourceUrl {
