@@ -1,7 +1,6 @@
 <div class="content_section">
   <div class="section_content_wrap">
-    <div class="small_heading" translate="COMPONENTS.TOPIC_INVITE.HEADING"></div>
-    <div class="section_content_description" translate="COMPONENTS.TOPIC_INVITE.MESSAGE_DESC"></div>
+    <div class="section_content_description bold" translate="COMPONENTS.TOPIC_INVITE.MESSAGE_DESC"></div>
     <cos-input [placeholder]="'COMPONENTS.TOPIC_INVITE.MESSAGE_PLACEHOLDER' | translate">
       <textarea id="topicDescription" [placeholder]="'COMPONENTS.TOPIC_INVITE.MESSAGE_PLACEHOLDER' | translate" rows="5"
         [(ngModel)]="inviteMessage" [maxlength]="inviteMessageMaxLength" (change)="onMessageChange()"></textarea>
@@ -9,6 +8,7 @@
     <div class="character_limit"><span
         translate="COMPONENTS.TOPIC_INVITE.CHARACTER_LIMIT"></span> {{inviteMessage?.length || 0
       }}/{{inviteMessageMaxLength}}</div>
+    <div class="section_content_description bold" translate="COMPONENTS.TOPIC_INVITE.EMAIL_DESC"></div>
     <div id="search_wrap">
       <typeahead id="input_area" [term]="searchStringUser" (search)="search($event)"
         (select)="addTopicMember($event)" (enterAction)="addTopicMember($event)"
