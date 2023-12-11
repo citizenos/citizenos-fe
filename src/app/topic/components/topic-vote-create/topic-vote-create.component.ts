@@ -137,7 +137,8 @@ export class TopicVoteCreateComponent implements OnInit {
   setVoteType(voteType: string) {
     if (voteType == this.VOTE_TYPES.multiple) {
       this.vote.type = voteType;
-      this.vote.options = this.CONF.defaultOptions.multiple;
+      if (!this.vote.options)
+        this.vote.options = this.CONF.defaultOptions.multiple;
       this.vote.maxChoices = 1;
     } else {
       this.vote.type = this.VOTE_TYPES.regular;
