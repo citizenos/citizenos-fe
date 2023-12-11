@@ -9,6 +9,7 @@
 
   @include mixins.mobile {
     padding: 0;
+    gap: 16px;
   }
 
   topic-form {
