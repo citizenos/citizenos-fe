@@ -282,6 +282,7 @@ export class TopicFormComponent {
     }
   }
   publish() {
+    this.topic.status = this.TopicService.STATUSES.inProgress;
     this.updateTopic();
     this.topicGroups.forEach((group) => {
       this.TopicMemberGroupService.save({

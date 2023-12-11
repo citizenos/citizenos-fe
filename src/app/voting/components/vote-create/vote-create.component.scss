@@ -276,7 +276,7 @@
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
     padding: 16px;
-    background-color: var(--color-info-background);
+    background-color: var(--color-warn-background);
     position: absolute;
     top: 0;
     width: 100%;
@@ -347,6 +347,23 @@
           stroke: var(--color-surfaces);
         }
       }
+    }
+  }
+}
+.no_feature_yet {
+  padding: 24px 32px 32px 32px;
+  background-color: var(--color-secondary);
+  border-radius: 16px;
+  margin-top: 24px;
+}
+
+.btn_medium_submit {
+  &.disabled {
+    opacity: 0.5;
+
+    &:hover {
+      background: var(--btn-submit);
+      cursor:default;
     }
   }
 }
