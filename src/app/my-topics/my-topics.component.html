@@ -295,46 +295,6 @@
           <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
         </svg>
       </div>
-
-      <!--
-        <cos-input [placeholder]="'VIEWS.MY_TOPICS.FILTER_TOPIC_TYPE' | translate" class="dropdown_input">
-          <div class="dropdown" [cosDropdown]>
-            <div class="selection">
-              <div class="selected_item">
-                <span *ngIf="topicFilters.visibility === this.FILTERS_ALL && topicFilters.status === this.FILTERS_ALL" translate="VIEWS.MY_TOPICS.FILTER_ALL"></span>
-                <ng-container *ngIf="UserTopicService.params$ | async as params">
-                  <span *ngIf="params.visibility === 'public'" translate="VIEWS.MY_TOPICS.FILTERS.MY_PUBLIC_TOPICS"></span>
-                  <span *ngIf="params.visibility === 'private'" translate="VIEWS.MY_TOPICS.FILTERS.MY_PRIVATE_TOPICS"></span>
-                </ng-container>
-                <span *ngIf="topicFilters.status === 'favourite'"> {{'VIEWS.MY_TOPICS.FILTERS.TOPICS_FAVOURITED' |
-                  translate}}</span>
-                <span *ngIf="topicFilters.status === 'showModerated'"> {{'VIEWS.MY_TOPICS.FILTERS.TOPICS_MODERATED' |
-                  translate}}</span>
-              </div>
-              <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
-                </svg>
-              </div>
-            </div>
-            <div class="options">
-              <div class="option" translate="VIEWS.MY_TOPICS.FILTER_ALL"
-                (click)="setVisibility('all');setStatus('all');">
-              </div>
-              <div class="option" translate="VIEWS.MY_TOPICS.FILTERS.MY_PUBLIC_TOPICS"
-                (click)="setVisibility(Topic.VISIBILITY.public)">
-              </div>
-              <div class="option" translate="VIEWS.MY_TOPICS.FILTERS.MY_PRIVATE_TOPICS"
-                (click)="setVisibility(Topic.VISIBILITY.private)">
-              </div>
-              <div class="option" translate="VIEWS.MY_TOPICS.FILTERS.TOPICS_MODERATED"
-                (click)="setStatus('showModerated');"></div>
-              <div class="option" translate="VIEWS.MY_TOPICS.FILTERS.TOPICS_FAVOURITED"
-                (click)="setStatus('favourite');">
-              </div>
-            </div>
-          </div>
-        </cos-input>
-      -->
       <div class="options filter_options">
         <div class="filter_option">
           <span translate="VIEWS.MY_TOPICS.FILTER_TOPIC_TYPE"></span><a class="bold"
@@ -352,40 +312,6 @@
               translate}}</span>
           </a>
         </div>
-        <!--
-          <cos-input [placeholder]="'VIEWS.MY_TOPICS.FILTER_STATUS' | translate" class="dropdown_input tablet_hidden">
-          <div class="dropdown" [cosDropdown] [multipleChoice]="true">
-            <div class="selection">
-              <div class="selected_item" [translate]="'TXT_TOPIC_STATUS_' + topicFilters.status | uppercase">
-
-              </div>
-              <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
-                </svg>
-              </div>
-            </div>
-            <div class="options">
-              <div class="option check">
-                <label class="checkbox">
-                  <span translate="VIEWS.MY_TOPICS.FILTER_ALL"></span>
-                  <input type="checkbox" [checked]="topicFilters.status === 'all'" (click)="setStatus('all');">
-                  <span class="checkmark"></span>
-                </label>
-              </div>
-              <div class="option check" *ngFor="let status of statuses$">
-                <label class="checkbox">
-                  <span [translate]="'TXT_TOPIC_STATUS_' + status | uppercase"></span>
-                  <input type="checkbox" [checked]="topicFilters.status === status" (click)="setStatus(status);">
-                  <span class="checkmark"></span>
-                </label>
-              </div>
-            </div>
-          </div>
-        </cos-input>
-        -->
-
-        <!--
-        -->
         <div class="filter_option">
           <span translate="VIEWS.MY_TOPICS.FILTER_MY_ENGAGEMENT"></span><a class="bold"
             (click)="mobileFilters.engagements = true">
@@ -406,11 +332,14 @@
         </div>
         <div class="filter_option">
           <span translate="VIEWS.MY_TOPICS.FILTER_COUNTRY"></span><a class="bold"
-            (click)="mobileFilters.country = true">{{topicFilters.country| translate}}</a>
+            (click)="mobileFilters.country = true">{{(this.topicFilters.country && this.topicFilters.country !== 'all')?
+            this.topicFilters.country : 'VIEWS.MY_TOPICS.FILTER_ALL' | translate}}</a>
         </div>
         <div class="filter_option">
           <span translate="VIEWS.MY_TOPICS.FILTER_LANGUAGE"></span><a class="bold"
-            (click)="mobileFilters.language = true">{{topicFilters.language | translate}}</a>
+            (click)="mobileFilters.language = true">
+            {{(this.topicFilters.language && this.topicFilters.language !== 'all')?
+            this.topicFilters.language : 'VIEWS.MY_TOPICS.FILTER_ALL' | translate}}</a>
         </div>
 
         <button (click)="doClearFilters()" class="btn_medium_plain">
@@ -515,7 +444,7 @@
           (search)="searchCountry($event)" [placeholder]="'VIEWS.MY_TOPICS.FILTER_COUNTRY' | translate">
         </typeahead>
         <label class="checkbox">
-          <span translate="TXT_TOPIC_STATUS_ALL"></span>
+          <span translate="VIEWS.MY_TOPICS.FILTER_ALL"></span>
           <input type="radio" name="country">
           <span class="checkmark"></span>
         </label>
@@ -531,10 +460,10 @@
       </div>
       <div class="options button_options" *ngIf="mobileFilters.language">
         <typeahead class="dropdown dropdown_input" activeClass="dropdown_active" [term]="languageSearch"
-          (search)="searchLanguage($event)" [placeholder]="'VIEWS.MY_TOPICS.FILTER_LANGUAEG' | translate">
+          (search)="searchLanguage($event)" [placeholder]="'VIEWS.MY_TOPICS.FILTER_LANGUAGE' | translate">
         </typeahead>
         <label class="checkbox">
-          <span translate="TXT_TOPIC_STATUS_ALL"></span>
+          <span translate="VIEWS.MY_TOPICS.FILTER_ALL"></span>
           <input type="radio" name="language">
           <span class="checkmark"></span>
         </label>
