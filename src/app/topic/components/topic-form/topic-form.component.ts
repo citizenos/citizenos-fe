@@ -349,6 +349,7 @@ export class TopicFormComponent {
     const inviteDialog = this.dialog.open(TopicInviteDialogComponent, { data: { topic: this.topic } });
     inviteDialog.afterClosed().subscribe({
       next: (inviteUsers) => {
+        this.Notification.removeAll();
       },
       error: (error) => {
       }
