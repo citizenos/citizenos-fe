@@ -2,6 +2,7 @@ import { Component, OnInit, Inject, ChangeDetectorRef } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { NotificationService } from 'src/app/services/notification.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'notification',
@@ -10,10 +11,17 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class NotificationComponent implements OnInit {
   showTestingEnvNotification: boolean = false;
-  constructor(public notifications: NotificationService, @Inject(DOCUMENT) private document: any, private changeDetection: ChangeDetectorRef, private sanitizer: DomSanitizer,) { }
+  constructor(
+    public notifications: NotificationService,
+    @Inject(DOCUMENT) private document: any,
+    private changeDetection: ChangeDetectorRef,
+    private sanitizer: DomSanitizer,
+    private dialogs: MatDialog
+  ) { }
 
   ngOnInit(): void {
     this.showTestingEnvNotification = (this.document.location.hostname === 'test.app.citizenos.com');
+    console.log(this.dialogs);
     this.changeDetection.detectChanges();
   }
 
