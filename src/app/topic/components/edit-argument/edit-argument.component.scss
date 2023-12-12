@@ -7,7 +7,7 @@
   border-radius: 16px 16px 0 0;
   width: inherit;
   z-index: 9999;
-  padding: 12px 16px;
+  padding: 16px;
   position: fixed;
   bottom: 0;
   align-items: center;
@@ -58,19 +58,24 @@
   max-width: calc(100% - 566px);
   width: 100%;
   max-height: 0;
-  padding: 0;
+  padding: 16px;
   z-index: 9999;
   // padding: 12px 16px;
   position: fixed;
   left: 224px;
   bottom: 0;
+  gap: 16px;
 
   @include mixins.tablet {
     position: fixed;
     bottom: 0;
     left: 0;
+    gap: 8px;
     z-index: 9999999;
     max-width: 100%;
+  }
+  @include mixins.mobile {;
+    padding: 8px;
   }
 
   #buttons_row {
@@ -79,7 +84,7 @@
     justify-content: space-between;
     align-items: center;
 
-    .btn_big_submit_ghost {
+    .btn_medium_submit_ghost {
       display: flex;
       gap: 8px;
       width: max-content;
@@ -93,7 +98,7 @@
       }
     }
 
-    .btn_big_submit {
+    .btn_medium_submit {
       #continue_btn {
         display: none;
       }
@@ -116,6 +121,13 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      background-color: var(--color-surfaces);
+
+      #chars_left {
+        @include mixins.mobile {
+          display: none;
+        }
+      }
     }
   }
 }
@@ -133,6 +145,11 @@
     line-height: 24px; /* 150% */
   }
 
+  #subject_counter{
+    @include mixins.mobile {
+      display: none;
+    }
+  }
   #argument_form {
     display: flex;
     gap: 16px;
@@ -142,6 +159,11 @@
       display: flex;
       gap: 16px;
 
+      @include mixins.mobile {
+        flex-direction: column;
+        gap: 8px;
+      }
+
       .type_item {
         display: flex;
         align-items: center;
@@ -149,6 +171,10 @@
         border-radius: 8px;
         padding: 8px;
         vertical-align: middle;
+
+        @include mixins.mobile {
+          justify-content: flex-start;
+        }
         &.pro {
           background-color: var(--color-argument-pro-light);
         }

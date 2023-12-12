@@ -7,11 +7,11 @@
   border-radius: 16px 16px 0 0;
   width: inherit;
   z-index: 999;
-  padding: 12px 16px;
+  padding: 16px;
   position: fixed;
   bottom: 0;
   align-items: center;
-  max-width: calc(100% - 560px);
+  max-width: calc(100% - 567px);
   width: 100%;
 
   @include mixins.tablet {
@@ -56,7 +56,7 @@
   justify-content: space-between;
   background-color: var(--color-surfaces);
   border-radius: 16px 16px 0 0;
-  max-width: calc(100% - 566px);
+  max-width: calc(100% - 567px);
   width: 100%;
   max-height: 0;
   padding: 16px;
