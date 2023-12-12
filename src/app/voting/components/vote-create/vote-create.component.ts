@@ -160,7 +160,7 @@ export class VoteCreateComponent implements OnInit {
       }
       ));
     // app.createNewTopic();
-    if(this.router.url.indexOf('/edit/') > -1) {
+    if (this.router.url.indexOf('/edit/') > -1) {
       this.isnew = false;
     }
     this.topic$ = this.route.params.pipe(
@@ -170,14 +170,13 @@ export class VoteCreateComponent implements OnInit {
             topic.padUrl = this.sanitizer.bypassSecurityTrustResourceUrl(topic.padUrl);
             this.topic = topic;
             if (topic.voteId) {
-              this.TopicVoteService.get({topicId: topic.id, voteId: topic.voteId}).pipe(take(1)).subscribe({
+              this.TopicVoteService.get({ topicId: topic.id, voteId: topic.voteId }).pipe(take(1)).subscribe({
                 next: (vote) => {
                   this.vote = vote;
                   this.vote.options = vote.options.rows;
                   this.vote.options.forEach((option) => {
                     option.enabled = true;
-                  })
-                  console.log(this.vote.options);
+                  });
                   this.cd.detectChanges();
                 }
               })
@@ -241,11 +240,11 @@ export class VoteCreateComponent implements OnInit {
         } else {
           this.updateVote();
         }
-      /*  if (this.voteCreateForm)
-          this.voteCreateForm.saveVoteSettings();*/
+        /*  if (this.voteCreateForm)
+            this.voteCreateForm.saveVoteSettings();*/
       }
       if (tabIndex + 1 === 3) {
-   //     this.TopicService.reloadTopic();
+        //     this.TopicService.reloadTopic();
       }
       if (tabIndex > -1 && tabIndex < 3) {
         this.selectTab(this.tabs[tabIndex + 1]);
@@ -370,13 +369,6 @@ export class VoteCreateComponent implements OnInit {
         tap((topic: Topic) => {
           this.router.navigate([topic.id], { relativeTo: this.route });
         }));
-    /*this.app.createNewTopic(this.topic.title, this.topic.visibility)
-    .pipe(take(1))
-    .subscribe({
-      next: (topic:Topic) => {
-      }
-    })
-    .unsubscribe();*/
   }
 
   triggerUpload() {
@@ -396,11 +388,11 @@ export class VoteCreateComponent implements OnInit {
     return this.TopicService.patch(this.topic).pipe(take(1)).subscribe();
   }
   updateVote() {
-    const updateVote = Object.assign({topicId: this.topic.id}, this.vote);
+    const updateVote = Object.assign({ topicId: this.topic.id }, this.vote);
     return this.TopicVoteService.update(updateVote).pipe(take(1)).subscribe();
   }
 
-  saveAsDraft () {
+  saveAsDraft() {
     this.updateTopic();
     this.updateVote();
     this.router.navigate(['my', 'topics']);
@@ -414,10 +406,11 @@ export class VoteCreateComponent implements OnInit {
         level: group.permission?.level || this.GroupMemberTopicService.LEVELS.read
       }).pipe(take(1)).subscribe();
     });
-    this.createVote();
+    this.updateVote();
     this.topic.status = this.TopicService.STATUSES.voting;
     this.updateTopic();
     this.TopicService.reloadTopic();
+    this.router.navigate(['topics', this.topic.id], {fragment: 'voting'});
   }
 
   addTag(e: Event) {
@@ -483,11 +476,11 @@ export class VoteCreateComponent implements OnInit {
       .pipe(take(1))
       .subscribe({
         next: (vote) => {
-       //   this.TopicService.reloadTopic();
+          //   this.TopicService.reloadTopic();
           this.vote = vote;
           this.vote.options = vote.options.rows;
-     //     this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id], { fragment: 'voting' });
-    //      this.route.url.pipe(take(1)).subscribe();
+          //     this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id], { fragment: 'voting' });
+          //      this.route.url.pipe(take(1)).subscribe();
         },
         error: (res) => {
           console.debug('createVote() ERR', res, res.errors, this.vote.options);
@@ -517,7 +510,7 @@ export class VoteCreateComponent implements OnInit {
   }
 
   setGroupLevel(group: Group, level: string) {
-    if (!group.permission) group.permission = {level};
+    if (!group.permission) group.permission = { level };
     group.permission.level = level;
   }
 }

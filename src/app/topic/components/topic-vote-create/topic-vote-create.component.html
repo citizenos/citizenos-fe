@@ -110,7 +110,7 @@
           <ng-container *ngIf="vote.type===VOTE_TYPES.regular">
             <div class="vote_options_wrap">
               <div class="radio_wrap" [ngClass]="vote.options[0].enabled? 'selected': ''"
-                (click)="vote.options[0].enabled = !vote.options[0].enabled">
+                (click)="vote.options[0].enabled = !vote.options[0].enabled; $event.stopPropagation();filterOptions();">
                 <div class="radio_text_wrap">
                   <div class="radio_lable_wrap">
                     <label class="checkbox"><span class="bold"
@@ -122,7 +122,7 @@
                 </div>
               </div>
               <div class="radio_wrap" [ngClass]="vote.options[1].enabled? 'selected': ''"
-                (click)="vote.options[1].enabled = !vote.options[1].enabled">
+                (click)="vote.options[1].enabled = !vote.options[1].enabled; $event.stopPropagation();filterOptions();">
                 <div class="radio_text_wrap">
                   <div class="radio_lable_wrap">
                     <label class="checkbox"><span class="bold"
@@ -135,7 +135,7 @@
               </div>
 
               <div class="radio_wrap" [ngClass]="extraOptions.neutral.enabled? 'selected': ''"
-                (click)="extraOptions.neutral.enabled = !extraOptions.neutral.enabled;">
+                (click)="extraOptions.neutral.enabled = !extraOptions.neutral.enabled; $event.stopPropagation();filterOptions();">
                 <div class="radio_text_wrap">
                   <div class="radio_lable_wrap">
                     <label class="checkbox"><span class="bold"
@@ -147,7 +147,7 @@
                 </div>
               </div>
               <div class="radio_wrap" [ngClass]="extraOptions.veto.enabled? 'selected': ''"
-                (click)="extraOptions.veto.enabled = !extraOptions.veto.enabled;">
+                (click)="extraOptions.veto.enabled = !extraOptions.veto.enabled; $event.stopPropagation();filterOptions();">
                 <div class="radio_text_wrap">
                   <div class="radio_lable_wrap">
                     <label class="checkbox"><span class="bold"
@@ -217,7 +217,7 @@
 
               <div class="description_text" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_CAN_ADD_EXTRA_OPTIONS"></div>
               <div class="radio_wrap" [ngClass]="extraOptions.neutral.enabled? 'selected': ''"
-                (click)="extraOptions.neutral.enabled = !extraOptions.neutral.enabled;">
+                (click)="extraOptions.neutral.enabled = !extraOptions.neutral.enabled; $event.stopPropagation();filterOptions();">
                 <div class="radio_text_wrap">
                   <div class="radio_lable_wrap">
                     <label class="checkbox"><span class="bold"
@@ -229,7 +229,7 @@
                 </div>
               </div>
               <div class="radio_wrap" [ngClass]="extraOptions.veto.enabled? 'selected': ''"
-                (click)="extraOptions.veto.enabled = !extraOptions.veto.enabled;">
+                (click)="extraOptions.veto.enabled = !extraOptions.veto.enabled; $event.stopPropagation();filterOptions();">
                 <div class="radio_text_wrap">
                   <div class="radio_lable_wrap">
                     <label class="checkbox"><span class="bold"
