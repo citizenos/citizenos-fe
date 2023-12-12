@@ -19,6 +19,14 @@
   border-bottom-left-radius: 16px;
   border-bottom-right-radius: 16px;
 
+  &.narrow {
+    width: 560px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    position: fixed;
+  }
   &.error {
     border-color: var(--color-error-background);
   }
