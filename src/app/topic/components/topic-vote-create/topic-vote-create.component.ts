@@ -118,10 +118,7 @@ export class TopicVoteCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.topicId = this.topic.id;
-  //  this.vote = this.vote || this.voteDefault;
-    console.log(this.vote);
     this.vote.options.forEach((opt: any) => {
-      console.log(opt.value);
       if (opt.value === 'Neutral') {
         this.extraOptions.neutral.enabled = true;
       } else if (opt.value === 'Veto') {
@@ -145,7 +142,6 @@ export class TopicVoteCreateComponent implements OnInit {
   };
 
   setVoteType(voteType: string) {
-    console.log('set type', voteType);
     if (voteType == this.VOTE_TYPES.multiple) {
       this.vote.type = voteType;
       if (!this.vote.options)
@@ -368,7 +364,6 @@ export class TopicVoteCreateComponent implements OnInit {
   }
 
   updateVote() {
-    console.log('UPDATE VOTE');
     this.filterOptions();
     const updateVote = Object.assign({topicId: this.topic.id}, this.vote);
     return this.TopicVoteService.update(updateVote).pipe(take(1)).subscribe();
@@ -422,7 +417,6 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
   private data = inject(MAT_DIALOG_DATA);
 
   override ngOnInit(): void {
-    console.log(this.data.topic);
     this.topic = this.data.topic;
     this.topicId = this.topic.id;
     if (this.topic.voteId) {
@@ -450,6 +444,10 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
     }
     const saveVote:any = Object.assign(this.vote, {topicId: this.topicId || this.topic.id});
     saveVote.autoClose = this.CONF.autoClose;
+    if (!saveVote.description) {
+      this.Notification.addError('VIEWS.VOTE_CREATE.ERROR_MISSING_QUESTION');
+      return;
+    }
     this.TopicVoteService.save(saveVote)
       .pipe(take(1))
       .subscribe({

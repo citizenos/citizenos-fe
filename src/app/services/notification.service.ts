@@ -56,6 +56,7 @@ export class NotificationService {
   };
 
   addError(message: string,  title?: string) {
+    console.log(message);
     this.add(this.levels['ERROR'], message, title);
   };
 

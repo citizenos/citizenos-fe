@@ -235,6 +235,15 @@ export class VoteCreateComponent implements OnInit {
       }
 
       if (tabIndex === 2) {
+        if (!this.vote.description) {
+          this.Notification.removeAll();
+          this.Notification.addError('VIEWS.VOTE_CREATE.ERROR_MISSING_QUESTION');
+          return;
+        } else if (this.vote.options.length < 2) {
+          this.Notification.removeAll();
+          this.Notification.addError('VIEWS.VOTE_CREATE.ERROR_AT_LEAST_TWO_OPTIONS_REQUIRED');
+          return;
+        }
         if (!this.vote.id) {
           this.createVote();
         } else {
@@ -389,6 +398,10 @@ export class VoteCreateComponent implements OnInit {
   }
   updateVote() {
     const updateVote = Object.assign({ topicId: this.topic.id }, this.vote);
+    const options = updateVote.options.map((opt) => {
+      return {value: opt.value, voteId: opt.voteId, id: opt.id};
+    })
+    updateVote.options = options;
     return this.TopicVoteService.update(updateVote).pipe(take(1)).subscribe();
   }
 
@@ -483,6 +496,7 @@ export class VoteCreateComponent implements OnInit {
           //      this.route.url.pipe(take(1)).subscribe();
         },
         error: (res) => {
+          this.nextTab('voting_system');
           console.debug('createVote() ERR', res, res.errors, this.vote.options);
           this.errors = res.errors;
           Object.values(this.errors).forEach((message) => {
