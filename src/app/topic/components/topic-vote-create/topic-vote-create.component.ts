@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input, Inject, inject, HostBinding } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, Inject, inject, HostBinding, ChangeDetectorRef } from '@angular/core';
 import { Topic } from 'src/app/interfaces/topic';
 import { Vote } from 'src/app/interfaces/vote';
 import { TopicService } from 'src/app/services/topic.service';
@@ -104,6 +104,7 @@ export class TopicVoteCreateComponent implements OnInit {
   reminderOptions = <any[]>[];
   constructor(
     public TopicService: TopicService,
+    private cd: ChangeDetectorRef,
     public TopicVoteService: TopicVoteService,
     public Translate: TranslateService,
     public Notification: NotificationService,
@@ -119,6 +120,15 @@ export class TopicVoteCreateComponent implements OnInit {
     this.topicId = this.topic.id;
   //  this.vote = this.vote || this.voteDefault;
     console.log(this.vote);
+    this.vote.options.forEach((opt: any) => {
+      console.log(opt.value);
+      if (opt.value === 'Neutral') {
+        this.extraOptions.neutral.enabled = true;
+      } else if (opt.value === 'Veto') {
+        this.extraOptions.veto.enabled = true;
+      }
+      this.cd.detectChanges();
+    })
   }
 
   private setTimeZones() {
@@ -135,6 +145,7 @@ export class TopicVoteCreateComponent implements OnInit {
   };
 
   setVoteType(voteType: string) {
+    console.log('set type', voteType);
     if (voteType == this.VOTE_TYPES.multiple) {
       this.vote.type = voteType;
       if (!this.vote.options)
@@ -358,6 +369,7 @@ export class TopicVoteCreateComponent implements OnInit {
 
   updateVote() {
     console.log('UPDATE VOTE');
+    this.filterOptions();
     const updateVote = Object.assign({topicId: this.topic.id}, this.vote);
     return this.TopicVoteService.update(updateVote).pipe(take(1)).subscribe();
   }
