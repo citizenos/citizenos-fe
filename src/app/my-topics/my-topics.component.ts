@@ -28,26 +28,28 @@ import { Language } from 'src/app/interfaces/language';
         'maxHeight': '50px',
         transition: '0.2s ease-in-out max-height'
       }))
-  ])]
+    ])]
 })
 export class MyTopicsComponent {
   wWidth = window.innerWidth;
   moreFilters = false;
   searchInput = '';
   searchString$ = new BehaviorSubject('');
-  topics$ = of(<Topic[]| any[]>[]);
+  topics$ = of(<Topic[] | any[]>[]);
 
   allTopics$: Topic[] = [];
   topicId = <string | null>null;
   public FILTERS_ALL = 'all';
   topicFilters = {
+    visibility: this.FILTERS_ALL,
     category: this.FILTERS_ALL,
     status: this.FILTERS_ALL,
     country: this.FILTERS_ALL,
     engagements: this.FILTERS_ALL,
     language: this.FILTERS_ALL
   };
-  mobileFilters:any = {
+  mobileFilters: any = {
+    type: false,
     category: false,
     status: false,
     engagements: false,
@@ -79,49 +81,49 @@ export class MyTopicsComponent {
     public auth: AuthService,
     public app: AppService,
     @Inject(TranslateService) public translate: TranslateService
-    ) {
-      this.topics$ = combineLatest([this.route.queryParams, this.searchString$]).pipe(
-        switchMap(([queryParams, search]) => {
-          UserTopicService.reset();
-          this.allTopics$ = [];
-          if (search) {
-            UserTopicService.setParam('search', search);
+  ) {
+    this.topics$ = combineLatest([this.route.queryParams, this.searchString$]).pipe(
+      switchMap(([queryParams, search]) => {
+        UserTopicService.reset();
+        this.allTopics$ = [];
+        if (search) {
+          UserTopicService.setParam('search', search);
+        }
+        Object.entries(queryParams).forEach((param) => {
+          if (param[0] === 'status') {
+            this.setStatus(param[1]);
           }
-          Object.entries(queryParams).forEach((param) => {
-            if(param[0] === 'status') {
-              this.setStatus(param[1]);
-            }
-            UserTopicService.setParam(param[0], param[1]);
-          })
-          return UserTopicService.loadItems();
-        }), map(
-          (newtopics: any) => {
-            console.log('NEWtopics', newtopics);
-            this.allTopics$ = this.allTopics$.concat(newtopics);
-            return this.allTopics$;
-          }
-        ));
-        this.countries$ = this.countrySearch$.pipe(switchMap((string) => {
-          const countries = this.countries.filter((country) => country.name.toLowerCase().indexOf(string.toLowerCase()) > -1);
-
-          return [countries];
-        }));
-
-        this.languages$ = this.languageSearch$.pipe(switchMap((string) => {
-          const languages = this.languages.filter((language) => language.name.toLowerCase().indexOf(string.toLowerCase()) > -1);
-
-          return [languages];
-        }));
-      }
-
-      showMobileOverlay () {
-        const filtersShow = Object.entries(this.mobileFilters).find(([key, value]) => {
-          return !!value;
+          UserTopicService.setParam(param[0], param[1]);
         })
-        if (filtersShow) return true;
+        return UserTopicService.loadItems();
+      }), map(
+        (newtopics: any) => {
+          console.log('NEWtopics', newtopics);
+          this.allTopics$ = this.allTopics$.concat(newtopics);
+          return this.allTopics$;
+        }
+      ));
+    this.countries$ = this.countrySearch$.pipe(switchMap((string) => {
+      const countries = this.countries.filter((country) => country.name.toLowerCase().indexOf(string.toLowerCase()) > -1);
 
-        return false;
-      }
+      return [countries];
+    }));
+
+    this.languages$ = this.languageSearch$.pipe(switchMap((string) => {
+      const languages = this.languages.filter((language) => language.name.toLowerCase().indexOf(string.toLowerCase()) > -1);
+
+      return [languages];
+    }));
+  }
+
+  showMobileOverlay() {
+    const filtersShow = Object.entries(this.mobileFilters).find(([key, value]) => {
+      return !!value;
+    })
+    if (filtersShow) return true;
+
+    return false;
+  }
 
   doSearch(search: string) {
     this.searchString$.next(search);
@@ -135,15 +137,22 @@ export class MyTopicsComponent {
     this.languageSearch$.next(event);
   }
 
+  orderBy(orderBy: string) {
+    this.allTopics$ = [];
+    this.UserTopicService.setParam('orderBy', orderBy);
+    this.UserTopicService.setParam('order', 'desc');
+  }
+
   setStatus(status: string) {
     this.topicFilters.status = status;
-    if (status && status === 'all') {
+    if (status && (status === 'all' || ['favourite', 'showModerated'].indexOf(status) === -1)) {
       status = '';
+    } else {
+      this.setVisibility('all');
     }
     this.allTopics$ = [];
-    this.UserTopicService.setParam('offset',0)
-    this.UserTopicService.setParam('favourite', null)
-    this.UserTopicService.setParam('showModerated', null)
+    this.UserTopicService.setParam('offset', 0)
+
     if (status === 'favourite') {
       this.UserTopicService.setParam('favourite', true)
     } else if (status === 'showModerated') {
@@ -153,24 +162,37 @@ export class MyTopicsComponent {
     }
   }
 
+  setVisibility(visibility: string) {
+    this.topicFilters.visibility = visibility;
+    if (visibility && (visibility === 'all' || Object.keys(this.Topic.VISIBILITY).indexOf(visibility) === -1)) {
+      visibility = '';
+    } else {
+      this.setStatus('all');
+    }
+    this.allTopics$ = [];
+    this.UserTopicService.setParam('favourite', null)
+    this.UserTopicService.setParam('showModerated', null)
+    this.UserTopicService.setParam('visibility', visibility);
+  }
+
   setCategory(category: string) {
-    this.topicFilters.category = category ;
+    this.topicFilters.category = category;
     if (category && category === 'all') {
       category = '';
     }
     this.allTopics$ = [];
-    this.UserTopicService.setParam('offset',0)
+    this.UserTopicService.setParam('offset', 0)
     this.UserTopicService.setParam('categories', [category]);
   }
 
-  setFilter (filter: string) {
+  setFilter(filter: string) {
     this.allTopics$ = [];
     this.topicFilters.engagements = filter;
     this.UserTopicService.setParam('hasVoted', null);
     this.UserTopicService.setParam('creatorId', null);
-    if (filter ===  'hasVoted') {
+    if (filter === 'hasVoted') {
       this.UserTopicService.setParam(filter, true);
-    } else if (filter ===  'hasNotVoted') {
+    } else if (filter === 'hasNotVoted') {
       this.UserTopicService.setParam('hasVoted', false);
     } else if (filter === 'iCreated') {
       this.UserTopicService.setParam('creatorId', this.auth.user.value.id);
@@ -180,50 +202,6 @@ export class MyTopicsComponent {
   trackByFn(index: number, element: any) {
     return element.id;
   }
-
-/*
-  private setFilter(filter: string) {
-    let param = '';
-    let value;
-    if (this.UserTopicService.STATUSES.indexOf(filter) > -1) {
-      param = 'statuses'; value = [filter];
-    } else if (this.UserTopicService.VISIBILITY.indexOf(filter) > -1) {
-      param = 'visibility'; value = filter;
-    } else {
-      switch (filter) {
-        case 'all':
-          break;
-        case 'haveVoted':
-          param = 'hasVoted'; value = true;
-          break;
-        case 'haveNotVoted':
-          param = 'hasVoted'; value = false;
-          break;
-        case 'iCreated':
-          param = 'creatorId'; value = this.auth.user.value.id;
-          break;
-        case 'pinnedTopics':
-          param = 'pinned'; value = true;
-          break;
-        case 'showModerated':
-          param = 'showModerated'; value = true;
-          break;
-      };
-    }
-    this.topicFilters.forEach((topicFilter) => {
-      if (topicFilter.id === filter) {
-        this.filters.selected = topicFilter;
-      } else if (topicFilter.children) {
-        topicFilter.children.forEach((childFilter) => {
-          if (childFilter.id === filter) {
-            this.filters.selected = childFilter;
-          }
-        })
-      }
-    });
-
-    this.UserTopicService.setParam(param, value);
-  }*/
 
   onSelect(id: string) {
     // this.UserTopicService.filterTopics(id);

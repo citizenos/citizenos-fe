@@ -806,7 +806,7 @@
       "PREVIEW_EMAIL_BTN_CAST_VOTE": "@:VIEWS.TOPICS_TOPICID.VOTE_CAST_YOUR_VOTE",
       "PREVIEW_EMAIL_ATTENTION": "Please note: You must log in using the same email address ({{email}}) to access this topic.",
       "BTN_SEND_REMINDER": "Send reminder e-mail",
-      "LNK_CANCEL":"@:LNK_CANCEL"
+      "LNK_CANCEL": "@:LNK_CANCEL"
     },
     "TYPEAHEAD": {
       "PRESS_ENTER_TO_ADD": "Press enter to add"
@@ -1697,6 +1697,7 @@
       "SHOW_PER_PAGE": "@:VIEWS.ACCOUNT.SHOW_PER_PAGE",
       "LBL_FILTER": "@:COMPONENTS.PUBLIC_TOPICS.LBL_FILTER",
       "FILTER_ALL": "@:VIEWS.MY_GROUPS.FILTER_ALL",
+      "FILTER_TOPIC_TYPE": "Topic type",
       "FILTER_VISIBILITY": "Visibility",
       "FILTER_STATUS": "Status",
       "FILTER_MY_ENGAGEMENT": "@:VIEWS.GROUP.TOPICS_FILTER_MY_ENGAGEMENT",
@@ -1721,7 +1722,11 @@
         "TOPICS_IN_FOLLOW_UP": "Topics in follow-up",
         "TOPICS_CLOSED": "Closed topics",
         "TOPICS_FAVOURITED": "Favourited topics",
-        "TOPICS_MODERATED": "Hidden by admin"
+        "TOPICS_MODERATED": "Hidden by admin",
+        "ORDER_RECENT_ACTIVITY": "@:VIEWS.PUBLIC_GROUPS.FILTERS.ORDER_RECENT_ACTIVITY",
+        "ORDER_MOST_ACTIVITIES": "@:VIEWS.PUBLIC_GROUPS.FILTERS.MOST_ACTIVITIES",
+        "ORDER_MOST_PARTICIPANTS": "@:VIEWS.PUBLIC_GROUPS.FILTERS.MOST_PARTICIPANTS",
+        "ORDER_MOST_RECENT": "@:VIEWS.PUBLIC_GROUPS.FILTERS.MOST_RECENT"
       },
       "BTN_RESET_FILTER": "@:BTN_RESET_FILTER",
       "BTN_APPLY": "@:BTN_APPLY",
