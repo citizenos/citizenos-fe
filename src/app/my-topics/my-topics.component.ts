@@ -98,7 +98,6 @@ export class MyTopicsComponent {
         return UserTopicService.loadItems();
       }), map(
         (newtopics: any) => {
-          console.log('NEWtopics', newtopics);
           this.allTopics$ = this.allTopics$.concat(newtopics);
           return this.allTopics$;
         }
@@ -145,7 +144,6 @@ export class MyTopicsComponent {
 
   setStatus(status: string) {
     this.topicFilters.status = status;
-    console.log(status);
     if (status && (status === 'all' || Object.keys(this.Topic.VISIBILITY).indexOf(status) > -1)) {
       status = '';
     } else {
