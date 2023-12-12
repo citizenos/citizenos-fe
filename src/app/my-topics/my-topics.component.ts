@@ -145,11 +145,13 @@ export class MyTopicsComponent {
 
   setStatus(status: string) {
     this.topicFilters.status = status;
-    if (status && (status === 'all' || ['favourite', 'showModerated'].indexOf(status) === -1)) {
+    console.log(status);
+    if (status && (status === 'all' || Object.keys(this.Topic.VISIBILITY).indexOf(status) > -1)) {
       status = '';
     } else {
       this.setVisibility('all');
     }
+
     this.allTopics$ = [];
     this.UserTopicService.setParam('offset', 0)
 
