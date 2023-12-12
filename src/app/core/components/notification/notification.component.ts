@@ -21,8 +21,11 @@ export class NotificationComponent implements OnInit {
 
   ngOnInit(): void {
     this.showTestingEnvNotification = (this.document.location.hostname === 'test.app.citizenos.com');
-    console.log(this.dialogs);
     this.changeDetection.detectChanges();
+  }
+
+  getOpenDialogsLength() {
+    return this.dialogs.openDialogs.length;
   }
 
   trackByIndex(index: number): number {
