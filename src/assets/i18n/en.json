@@ -1890,7 +1890,7 @@
       "BTN_BACK": "@:VIEWS.PASSWORD_FORGOT.BTN_BACK"
     },
     "TOPIC_CREATE": {
-      "HEADING": "Create a topic",
+      "HEADING": "Create a discussion topic",
       "CREATE_TAB_1": "Compose",
       "CREATE_TAB_2": "Settings",
       "CREATE_TAB_3": "Preview",
