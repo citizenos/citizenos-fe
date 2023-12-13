@@ -93,7 +93,7 @@
       "OPT_TEXT_SIZE_LARGE": "Suur",
       "OPT_TEXT_SIZE_EXTRA_LARGE": "Ülisuur",
       "HEADING_HAVING_ISSUES": "Vajad endiselt abi?",
-      "READ_STATEMENT": "Read our accessibility statement",
+      "READ_STATEMENT": "Tutvu meie ligipääsetavuse põhimõtetega",
       "CONTACT_US": "Võta meiega ühendust"
     },
     "ACTIVITY_FEED": {
@@ -119,16 +119,16 @@
       "ARGUMENT_LNK_REPORT": "@:VIEWS.TOPICS_TOPICID.ARGUMENT_LNK_REPORT"
     },
     "ARGUMENT_EDITS": {
-      "HEADING": "Argument edits",
-      "LNK_HIDE_EDITS": "Hide edits"
+      "HEADING": "Muudetud argumendid",
+      "LNK_HIDE_EDITS": "Peida muudatused"
     },
     "ARGUMENT_REPORT": {
-      "HEADING": "Report argument to admin",
-      "MESSAGE_MAIN": "You are reporting",
-      "LABLE_REASON": "Reason for reporting *",
+      "HEADING": "Raporteeri argument administraarorile",
+      "MESSAGE_MAIN": "Raporteerid",
+      "LABLE_REASON": "Raporteerimise põhjus *",
       "PLACEHOLDER_REPORT_TEXT": "Selgita, miks see argument ei sobi...",
       "ERROR_TEXT": "@:MSG_ERROR_POST_API_TOPICS_COMMENTS_REPORTS_40000_TEXT",
-      "BTN_SUBMIT": "Report to admin",
+      "BTN_SUBMIT": "Raporteeri administraatorile",
       "BTN_CANCEL": "@:LNK_CANCEL"
     },
     "ARGUMENT_REPORT_MODERATE": {
@@ -151,46 +151,46 @@
     },
     "ARGUMENT_WHY": {
       "HEADING": "Miks on see sisu peidetud?",
-      "MESSAGE_MAIN": "A moderator chose to hide this content. You can review the reason below."
+      "MESSAGE_MAIN": "Moderaator otsustas selle sisu peita. Vaata põhjust allpool."
     },
     "COS_CALENDAR": {
       "MONTHS": {
-        "0": "January",
-        "1": "February",
-        "2": "March",
-        "3": "April",
-        "4": "May",
-        "5": "June",
-        "6": "July",
+        "0": "Jaanuar",
+        "1": "Veebruar",
+        "2": "Märts",
+        "3": "Aprill",
+        "4": "Mai",
+        "5": "Juuni",
+        "6": "Juuli",
         "7": "August",
         "8": "September",
-        "9": "October",
+        "9": "Oktoober",
         "10": "November",
-        "11": "December"
+        "11": "Detsember"
       },
       "WEEKDAYS": {
-        "1": "Monday",
-        "2": "Tuesday",
-        "3": "Wednesday",
-        "4": "Thursday",
-        "5": "Friday",
-        "6": "Saturday",
-        "7": "Sunday"
+        "1": "Esmaspäev",
+        "2": "Teisipäev",
+        "3": "Kolmapäev",
+        "4": "Neljapäev",
+        "5": "Reede",
+        "6": "Laupäev",
+        "7": "Pühapäev"
       }
     },
     "CREATE": {
-      "TITLE_DISCUSSION": "Discussion topic",
-      "DESC_DISCUSSION": "Choose this if you want to encourage a discussion before potentially moving to voting and/or follow-up.",
-      "TITLE_IDEATION": "Ideation topic",
-      "DESC_IDEATION": "Choose this if you want to gather ideas before potentially moving to voting and/or follow-up. No pro/con discussion available.",
-      "TITLE_VOTE": "Voting topic",
-      "DESC_VOTE": "Choose this if you want to collect people’s votes before potentially moving to follow-up. No pro/con discussion available.",
-      "TITLE_GROUP": "Group",
-      "DESC_GROUP": "Create a group to which you can invite people belonging to the same organisation, club, location, etc."
+      "TITLE_DISCUSSION": "Arutelu",
+      "DESC_DISCUSSION": "Vali see, kui soovid algatada arutelu ja saata see hiljem hääletuse ja/või elluviimise faasi.",
+      "TITLE_IDEATION": "Ideekorje",
+      "DESC_IDEATION": "Vali see, kui soovid algatada ideekorjet ja saata see hiljem hääletuse ja/või elluviimise faasi. Siin ei toimu poolt- ja vastuargumentidega arutelu.",
+      "TITLE_VOTE": "Hääletus",
+      "DESC_VOTE": "Vali see, kui soovid teema üle hääletada ja saata see hiljem elluviimise faasi. Siin ei toimu poolt- ja vastuargumentidega arutelu.",
+      "TITLE_GROUP": "Grupp",
+      "DESC_GROUP": "Loo grupp, kuhu saad kutsuda inimesi oma organisatsioonist, kogukonnast, klubist või mujalt."
     },
     "DUPLICATE_TOPIC": {
-      "HEADING": "Duplicate topic",
-      "MESSAGE_MAIN": "You are duplicating",
+      "HEADING": "Tee teemast koopia",
+      "MESSAGE_MAIN": "Teed koopiat",
       "MESSAGE_DESCRIPTION": "Are you sure you want to duplicate the topic? This will create a new private topic.",
       "HEADING_WILL_BE_DUPLICATED": "This content will be duplicated",
       "WILL_BE_DUPLICATED_1": "Topic content as it is right now (including images, footnotes, comments, mini-votes)",
