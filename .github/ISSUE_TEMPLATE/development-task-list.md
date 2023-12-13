@@ -13,6 +13,7 @@ assignees: ''
 Categories: 
 - DB - dashboard
 - AF - activity feed
+- Login
 - Topic
 - Voting
 - Group
