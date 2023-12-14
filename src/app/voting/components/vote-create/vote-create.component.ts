@@ -170,6 +170,19 @@ export class VoteCreateComponent implements OnInit {
       switchMap((params) => {
         if (params['topicId']) {
           return this.TopicService.loadTopic(params['topicId']).pipe(map((topic) => {
+              console.log(this.TopicService.canEditDescription(<Topic>topic))
+              if (!this.TopicService.canEditDescription(<Topic>topic)) {
+                const infoDialog = this.dialog.open(ConfirmDialogComponent, {
+                  data: {
+                    level: 'info',
+                    heading: 'MODALS.USER_DELETE_CONFIRM_HEADING',
+                    title: 'MODALS.USER_DELETE_CONFIRM_TXT_ARE_YOU_SURE',
+                    description: 'MODALS.USER_DELETE_CONFIRM_TXT_NO_UNDO',
+                    points: ['MODALS.USER_DELETE_CONFIRM_TXT_USER_DELETED', 'MODALS.USER_DELETE_CONFIRM_TXT_KEEP_DATA_ANONYMOUSLY'],
+                    confirmBtn: 'MODALS.USER_DELETE_CONFIRM_YES'
+                  }
+                });
+              }
             topic.padUrl = this.sanitizer.bypassSecurityTrustResourceUrl(topic.padUrl);
             this.topic = topic;
             if (topic.voteId) {
