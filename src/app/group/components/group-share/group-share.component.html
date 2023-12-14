@@ -17,6 +17,21 @@
   <button class="btn_medium_secondary bold" (click)="copyInviteLink()" translate="COMPONENTS.GROUP_SHARE.COPY_LINK"></button>
 </div>
 
+<div class="notification_inline success" *ngIf="copySuccess">
+  <div class="icon_notification">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="24" height="24" rx="12" fill="#5AB467" />
+      <path fill-rule="evenodd" clip-rule="evenodd"
+        d="M18.9849 6.13908C19.2395 6.35122 19.2739 6.72956 19.0617 6.98413L10.0617 17.7841C9.94734 17.9214 9.77773 18.0005 9.59905 18C9.42038 17.9995 9.25123 17.9194 9.13764 17.7814L4.93764 12.6814C4.72699 12.4256 4.76358 12.0475 5.01937 11.8369C5.27517 11.6262 5.6533 11.6628 5.86396 11.9186L9.60353 16.4595L18.1399 6.2159C18.352 5.96134 18.7303 5.92694 18.9849 6.13908Z"
+        fill="white" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+  </div>
+  <div class="message">
+    <div class="content">
+      <span translate="COMPONENTS.TOPIC_SHARE.MSG_LINK_COPIED"></span>
+    </div>
+  </div>
+</div>
 <div class="line_separator"></div>
 <div class="info_section">
   <div class="section_heading" translate="COMPONENTS.GROUP_SHARE.GENERATE_QR_CODE"></div>
