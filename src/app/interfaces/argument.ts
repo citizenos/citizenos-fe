@@ -23,7 +23,15 @@ export interface Argument {
   edits: any[],
   parent: {
     id: string,
-    version: number
+    version: number,
+    creator?: {
+      id: string,
+      name: string,
+      company: string | null,
+      email: string | null,
+      imageUrl: string | null,
+      phoneNumber: string | null,
+    },
   },
   replies: any,
   report: {

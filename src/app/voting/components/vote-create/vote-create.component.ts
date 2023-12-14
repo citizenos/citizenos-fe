@@ -13,6 +13,7 @@ import { UploadService } from 'src/app/services/upload.service';
 import { GroupService } from 'src/app/services/group.service';
 import { Group } from 'src/app/interfaces/group';
 import { GroupMemberTopicService } from 'src/app/services/group-member-topic.service';
+import { TopicInviteUserService } from 'src/app/services/topic-invite-user.service';
 import { TopicInviteDialogComponent } from 'src/app/topic/components/topic-invite/topic-invite.component';
 import { TopicParticipantsDialogComponent } from 'src/app/topic/components/topic-participants/topic-participants.component';
 import { InviteEditorsComponent } from 'src/app/topic/components/invite-editors/invite-editors.component';
@@ -84,6 +85,7 @@ export class VoteCreateComponent implements OnInit {
   titleLimit = 100;
   introLimit = 500;
   groups$: Observable<Group[] | any[]> = of([]);
+  invites$: Observable<any[]> = of([]);
 
   topicGroups = <Group[]>[];
   topic$: Observable<Topic>;
@@ -143,6 +145,7 @@ export class VoteCreateComponent implements OnInit {
     private Notification: NotificationService,
     public GroupService: GroupService,
     public GroupMemberTopicService: GroupMemberTopicService,
+    public TopicInviteUserService: TopicInviteUserService,
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,
@@ -212,6 +215,10 @@ export class VoteCreateComponent implements OnInit {
         })*/
   }
   ngOnInit(): void {
+    if (this.topic.id) {
+      this.TopicInviteUserService.setParam('topicId', this.topic.id);
+      this.invites$ = this.TopicInviteUserService.loadItems();
+    }
   }
 
   selectTab(tab: string) {
