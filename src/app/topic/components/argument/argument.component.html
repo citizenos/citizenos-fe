@@ -79,7 +79,7 @@
     <div class="argument_content">
       <ng-container *ngIf="isVisible()">
         <div class="argument_subject" [innerHTML]="argument.subject"></div>
-        <div class="argument_body" [innerHTML]="argument.text | markdown"></div>
+        <div class="argument_body" #argumentBody [innerHTML]="argument.text | markdown"></div>
       </ng-container>
       <edit-argument *ngIf="showEdit" [argument]="argument" [topicId]="topicId"
         (showEdit)="toggleEdit($event)"></edit-argument>
@@ -150,7 +150,7 @@
       <div class="replies_wrap">
         <ng-container *ngFor="let reply of argument.replies.rows">
           <div class="reply_container">
-            <button class="reply_referer" (click)="goToParentArgument()">
+            <button class="reply_referer" (click)="goToParentArgument(reply)">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M16 8L8 -3.64568e-07L3.35421e-07 8L5 8C5 12.4184 9.47701 16 15 16C15.273 16 15.543 15.992 15.81 15.9744C12.95 14.768 11 12.3664 11 9.6L11 8L16 8Z"

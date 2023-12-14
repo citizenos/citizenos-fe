@@ -29,42 +29,31 @@ export class TopicArgumentsComponent implements OnInit {
     private app: AppService,
     public TopicArgumentService: TopicArgumentService) {
     this.TopicArgumentService.setParam('limit', 5);
-
-    /*
-    const result = res.data.data;
-  /*  const flattenTree  = (parentNode, currentNode) => {
-        if (currentNode.replies.rows.length > 0) {
-            if (parentNode !== currentNode) {
-                parentNode.replies.rows = parentNode.replies.rows.concat(currentNode.replies.rows);
-            }
-            currentNode.replies.rows.forEach(function (reply, i) {
-                flattenTree(parentNode, reply);
-            });
-        }
-    };
-
-    result.rows.forEach((row, k) => {
-        flattenTree(row, row);
-    });
-    /**/
     this.arguments$ = this.TopicArgumentService.loadItems().pipe(
       map((res: any[]) => {
         let results = res.concat([]);
+        const argArray = <any[]>[];
         const countTree = (parentNode: any, currentNode: any) => {
           if (currentNode.replies.rows.length > 0) {
             if (parentNode !== currentNode) {
               parentNode.replies.rows = parentNode.replies.rows.concat(currentNode.replies.rows);
             }
             currentNode.replies.rows.forEach((reply: any) => {
+              argArray.push(reply);
               countTree(parentNode, reply);
             });
+          }
+          if (currentNode.type === this.TopicArgumentService.ARGUMENT_TYPES.reply) {
+            const parent = argArray.find((arg) => arg.id === currentNode.parent.id);
+            currentNode.parent = Object.assign(currentNode.parent, parent);
           }
         };
 
         results.forEach((row: any,) => {
+          argArray.push(row);
           row.replies.count = countTree(row, row);
         });
-        console.log('RES', res)
+
         return res;
       }),
       tap(() => {
@@ -141,7 +130,6 @@ export class TopicArgumentsComponent implements OnInit {
     }
   }
   goToArgument(argumentIdWithVersion: string, $event: any) {
-
     if (!argumentIdWithVersion || argumentIdWithVersion.indexOf(this.TopicArgumentService.ARGUMENT_VERSION_SEPARATOR) < 0) {
       console.error('Invalid input for this.goToComment. Expecting UUIDv4 comment ID with version. For example: "604670eb-27b4-48d0-b19b-b6cf6bde33b2_v0"', argumentIdWithVersion);
       return;
@@ -149,7 +137,12 @@ export class TopicArgumentsComponent implements OnInit {
     let commentElement: HTMLElement | null = document.getElementById(argumentIdWithVersion);
     // The referenced comment was found on the page displayed
     if (commentElement) {
-      this.scrollTo(commentElement)
+      this.scrollTo(commentElement);
+      commentElement.classList.add('highlight');
+      setTimeout(() => {
+        if (commentElement)
+          commentElement.classList.remove('highlight');
+      }, 2000);
     } else {
       // The referenced comment was NOT found on the page displayed.
       // That means either:

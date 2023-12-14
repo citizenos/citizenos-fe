@@ -17,6 +17,7 @@ argument-reply{
   border-radius: 8px;
   padding: 16px;
   width: 85%;
+  max-width: 680px;
   gap: 16px;
 
   &.pro {
@@ -215,6 +216,7 @@ argument-reply{
     }
   }
   .replies_wrap {
+    padding-left: 22px;
     display: flex;
     flex-direction: column;
     gap: 8px;

@@ -96,13 +96,17 @@
 }
 
 #editors_select_mobile {
-  display: flex;
+  display: none;
   padding: 8px;
   justify-content: space-between;
   align-items: center;
   background-color: var(--color-scrollbar);
   border-radius: 16px;
   gap: 16px;
+
+  @include mixins.mobile {
+    display: flex;
+  }
   &.open {
     border-radius: 16px 16px 0 0;
   }
