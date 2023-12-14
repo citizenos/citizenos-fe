@@ -20,7 +20,7 @@
   "TOGGLE_OFF": "Vypnuto",
   "BTN_BULK_ACTIONS": "Hromadné akce",
   "TXT_TOPIC_STATUS_ALL": "vše",
-  "TXT_TOPIC_STATUS_DRAFT": "draft",
+  "TXT_TOPIC_STATUS_DRAFT": "koncept",
   "TXT_TOPIC_STATUS_INPROGRESS": "probíhá",
   "TXT_TOPIC_STATUS_VOTING": "při hlasování",
   "TXT_TOPIC_STATUS_FOLLOWUP": "v následných krocích",
@@ -119,8 +119,8 @@
       "ARGUMENT_LNK_REPORT": "@:VIEWS.TOPICS_TOPICID.ARGUMENT_LNK_REPORT"
     },
     "ARGUMENT_EDITS": {
-      "HEADING": "Argument edits",
-      "LNK_HIDE_EDITS": "Hide edits"
+      "HEADING": "Úpravy argumentů",
+      "LNK_HIDE_EDITS": "Skrýt úpravy"
     },
     "ARGUMENT_REPORT": {
       "HEADING": "Nahlásit argument správci",
@@ -485,15 +485,15 @@
       "TOPIC_STEP_1_DESC_DISCUSSION": "In this phase, the main idea is to hold a constructive discussion using pro and con arguments.",
       "TOPIC_STEP_1_LBL_IDEATION": "Ideation:",
       "TOPIC_STEP_1_DESC_IDEATION": "A topic can have an ideation phase, in which anyone can share their ideas on how to tackle the issue at hand.",
-      "TOPIC_STEP_1_LBL_VOTE": "Voting:",
+      "TOPIC_STEP_1_LBL_VOTE": "Hlasování:",
       "TOPIC_STEP_1_DESC_VOTE": "When there’s a need for a clear representation of where participants lean, you can hold a vote.",
-      "TOPIC_STEP_1_LBL_FOLLOW_UP": "Follow-up:",
+      "TOPIC_STEP_1_LBL_FOLLOW_UP": "Následný krok:",
       "TOPIC_STEP_1_DESC_FOLLOW_UP": "Po přijetí rozhodnutí nabízí následná fáze způsob, jak udržet účastníky aktuální s dalšími kroky.",
       "TOPIC_STEP_2_TITLE": "Topic actions",
       "TOPIC_STEP_2_DESC": "In each topic you can perform specific actions.",
-      "TOPIC_STEP_2_LBL_SEARCH": "Search",
+      "TOPIC_STEP_2_LBL_SEARCH": "Hledat",
       "TOPIC_STEP_2_DESC_SEARCH": "Najděte cokoliv v rámci samotného tématu a rychle na toto klíčové slovo přeskočte.",
-      "TOPIC_STEP_2_LBL_ACTIVITY_FEED": "Activity feed",
+      "TOPIC_STEP_2_LBL_ACTIVITY_FEED": "Infokanál aktivity",
       "TOPIC_STEP_2_DESC_ACTIVITY_FEED": "Check out what happened while you were away with the topic's activity feed.",
       "TOPIC_STEP_2_LBL_FAVOURITE": "Favourite",
       "TOPIC_STEP_2_DESC_FAVOURITE": "Add or remove this topic to or from your favourites.",
