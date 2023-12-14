@@ -641,11 +641,57 @@
           }
 
           .participants_count_wrap {
+            display:flex;
+            justify-content: space-between;
+
             .participants_count {
               font-size: 40px;
               font-style: normal;
               font-weight: 600;
               line-height: 40px;
+            }
+
+            .avatars_wrap {
+              display:flex;
+
+              .avatar {
+                display:flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 40px;
+                width: 40px;
+                height: 40px;
+                border: 2px solid #F8FAFC;
+                margin-left: -10px;
+                background-color: var(--color-secondary);
+                font-size: 10px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: 16px;
+
+                &:first-child {
+                  margin-left: 0;
+                }
+                img {
+                  border: 2px solid #F8FAFC;
+                  width: inherit;
+                  border-radius: 40px;
+                  aspect-ratio: 1;
+                  object-fit: cover;
+                }
+                .profile_image_filler {
+                  width: 100%;
+                  height: 100%;
+                  background-color: var(--color-surfaces);
+                  border-radius: 40px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  cos-initials {
+                    font-size: 14px;
+                  }
+                }
+              }
             }
           }
         }
