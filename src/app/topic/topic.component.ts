@@ -326,7 +326,10 @@ export class TopicComponent implements OnInit {
   }
 
   downloadAttachment(topicId: string, attachment: Attachment) {
-    return this.Upload.download(topicId, attachment.id, this.auth.user.value.id || '');
+    if (attachment.source === this.TopicAttachmentService.SOURCES.upload) {
+      return this.Upload.download(topicId, attachment.id, this.auth.user.value.id || '');
+    }
+    return window.open(attachment.link, '_blank');
   };
 
   hasVoteEndedExpired(topic: Topic, vote: Vote) {
