@@ -1,6 +1,6 @@
 @use "mixins";
 
-argument-reply{
+argument-reply {
   display: contents;
 }
 
@@ -172,11 +172,18 @@ argument-reply{
       font-size: 16px;
       font-style: normal;
       font-weight: 600;
-      line-height: 24px; /* 150% */
+      line-height: 24px;
     }
     .argument_body {
       display: flex;
       flex-direction: column;
+      font-size: 14px;
+      line-height: 20px;
+
+      * {
+        font-size: 14px;
+        line-height: 20px;
+      }
     }
   }
   .argument_footer {
@@ -203,7 +210,8 @@ argument-reply{
         }
       }
 
-      .btn_reply_argument, .btn_ghost_reply_argument {
+      .btn_reply_argument,
+      .btn_ghost_reply_argument {
         display: flex;
         height: 32px;
         padding: 8px 24px;
