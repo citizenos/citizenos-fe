@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Group } from 'src/app/interfaces/group';
+import { LocationService } from 'src/app/services/location.service';
 import { GroupJoinService } from 'src/app/services/group-join.service';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { LoginDialogComponent } from 'src/app/account/components/login/login.component';
@@ -17,7 +18,7 @@ import { GroupJoinComponent } from 'src/app/group/components/group-join/group-jo
 })
 export class PublicgroupboxComponent implements OnInit {
   @Input() group = <Group>{}; // decorate the property with @Input()
-  constructor(private dialog: MatDialog, private route: ActivatedRoute, private router: Router, private GroupJoinService: GroupJoinService, private Auth: AuthService) { }
+  constructor(private Location: LocationService, private dialog: MatDialog, private route: ActivatedRoute, private router: Router, private GroupJoinService: GroupJoinService, private Auth: AuthService) { }
 
   ngOnInit(): void {
   }
@@ -28,8 +29,11 @@ export class PublicgroupboxComponent implements OnInit {
 
   joinGroup() {
     if (!this.Auth.loggedIn$.value) {
+      const tree = this.router.createUrlTree(['/groups', this.group.id]);
+
+      const redirectSuccess = this.Location.getAbsoluteUrl(this.router.serializeUrl(tree).toString());
       const loginDialog = this.dialog.open(LoginDialogComponent, {
-        data: { redirectSuccess: ['/groups', this.group.id] }
+        data: { redirectSuccess: redirectSuccess }
       });
       loginDialog.afterClosed().subscribe(result => {
       });
