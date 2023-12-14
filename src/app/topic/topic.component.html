@@ -633,8 +633,23 @@
           </div>
           <div class="participants_count_wrap">
             <div class="participants_count">{{topic.members.users.count}}</div>
+            <div class="avatars_wrap" *ngIf="members$ | async as members">
+              <ng-container *ngFor="let index  of [0, 1, 2];">
+                <div class="avatar" *ngIf="members[index]">
+                  <img *ngIf="members[index].imageUrl" [src]="members[index].imageUrl" />
+                  <div class="profile_image_filler" *ngIf="!members[index].imageUrl">
+                    <cos-initials *ngIf="members[index].name" [name]="members[index].name">
+                    </cos-initials>
+                  </div>
+                </div>
+              </ng-container>
+
+              <div class="avatar" *ngIf="members.length > 3">
+                + {{topic.members.users.count - 3}}
+              </div>
+            </div>
           </div>
-          <button class="btn_medium_secondary bold" (click)="inviteMembers(topic)"
+          <button *ngIf="TopicService.canDelete(topic)" class="btn_medium_secondary bold" (click)="inviteMembers(topic)"
             translate="VIEWS.TOPICS_TOPICID.SECTION_PARTICIPANTS_BTN_SHARE">
           </button>
         </div>

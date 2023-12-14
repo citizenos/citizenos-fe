@@ -108,6 +108,7 @@ export class TopicComponent implements OnInit {
   vote$?: Observable<Vote>;
   topicId$: Observable<string> = of('');
   events$?: Observable<any>;
+  members$: Observable<any[]>;
 
   topicSocialMentions = [];
   activeCommentSection = 'arguments';
@@ -205,6 +206,12 @@ export class TopicComponent implements OnInit {
       })
     );
 
+    this.members$ = this.route.params.pipe(
+      switchMap((params) => {
+        this.TopicMemberUserService.setParam('topicId', params['topicId']);
+        return this.TopicMemberUserService.loadItems();
+      })
+    );
     this.topicAttachments$ = this.topicId$.pipe(
       switchMap((topicId: string) => {
         this.TopicAttachmentService.setParam('topicId', topicId);
@@ -294,7 +301,6 @@ export class TopicComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    console.log('ngAfterViewInit', this.topicText)
   }
 
   currentUrl() {
