@@ -2,7 +2,7 @@
 <div class="dialog">
   <div class="dialog_header">
     <div class="header_text">
-      <h4 class="title" translate="COMPONENTS.TOPIC_INVITE_DIALOG.HEADING"></h4>
+      <h4 class="title" translate="COMPONENTS.GROUP_INVITE_DIALOG.HEADING"></h4>
     </div>
     <div class="dialog_close">
       <a class="btn_dialog_close icon" mat-dialog-close>
@@ -16,13 +16,13 @@
   </div>
   <div class="dialog_tabs_wrap">
     <a *ngIf="canInvite()" class="dialog_tab mobile_hidden" [ngClass]="{'active': activeTab ==='invite'}" (click)="activeTab = 'invite'"
-      translate="COMPONENTS.TOPIC_INVITE_DIALOG.TAB_INVITE"></a>
+      translate="COMPONENTS.GROUP_INVITE_DIALOG.TAB_INVITE"></a>
     <a class="dialog_tab mobile_hidden" [ngClass]="{'active': activeTab ==='share'}" (click)="activeTab = 'share'"
-      translate="COMPONENTS.TOPIC_INVITE_DIALOG.TAB_SHARE"></a>
+      translate="COMPONENTS.GROUP_INVITE_DIALOG.TAB_SHARE"></a>
     <div class="dropdown mobile_show" [cosDropdown]>
       <div class="selection">
         <div class="selected_item">
-          {{'COMPONENTS.TOPIC_INVITE_DIALOG.TAB_'+activeTab | uppercase | translate}}
+          {{'COMPONENTS.GROUP_INVITE_DIALOG.TAB_'+activeTab | uppercase | translate}}
         </div>
         <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
@@ -30,9 +30,9 @@
               </div>
       </div>
       <div class="options">
-        <div class="option" (click)="activeTab = 'invite'" translate="COMPONENTS.TOPIC_INVITE_DIALOG.TAB_INVITE">
+        <div class="option" (click)="activeTab = 'invite'" translate="COMPONENTS.GROUP_INVITE_DIALOG.TAB_INVITE">
         </div>
-        <div class="option" (click)="activeTab = 'share'" translate="COMPONENTS.TOPIC_INVITE_DIALOG.TAB_SHARE">
+        <div class="option" (click)="activeTab = 'share'" translate="COMPONENTS.GROUP_INVITE_DIALOG.TAB_SHARE">
         </div>
       </div>
     </div>
@@ -40,18 +40,18 @@
   <div class="dialog_content">
     <ng-container *ngIf="activeTab === 'invite' && canInvite()">
       <div id="form_area">
-        <topic-invite class="create_content" [dialog]="true" [(inviteMessage)]="inviteMessage" [topic]="data.topic" [members]="members"></topic-invite>
+        <group-invite class="create_content" [dialog]="true" [(inviteMessage)]="inviteMessage" [group]="data.group"></group-invite>
       </div>
     </ng-container>
     <ng-container *ngIf="activeTab === 'share'">
-      <topic-share [topic]="data.topic"></topic-share>
+      <group-share [group]="data.group"></group-share>
     </ng-container>
   </div>
   <div class="dialog_footer with_buttons" *ngIf="activeTab === 'invite'">
     <div></div>
     <div class="button_row">
-      <a mat-dialog-close (click)="Notification.removeAll()" translate="COMPONENTS.TOPIC_INVITE_DIALOG.LNK_CANCEL"></a>
-      <button class="btn_medium_submit" translate="COMPONENTS.TOPIC_INVITE_DIALOG.BTN_SAVE"
+      <a mat-dialog-close (click)="Notification.removeAll()" translate="COMPONENTS.GROUP_INVITE_DIALOG.LNK_CANCEL"></a>
+      <button class="btn_medium_submit" translate="COMPONENTS.GROUP_INVITE_DIALOG.BTN_SAVE"
         (click)="doInviteMembers()"></button>
     </div>
   </div>

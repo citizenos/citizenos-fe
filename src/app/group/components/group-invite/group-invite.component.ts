@@ -1,5 +1,5 @@
 import { GroupInviteUserService } from 'src/app/services/group-invite-user.service';
-import { Component, OnInit, Input, Inject } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, Inject } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { isEmail } from 'validator';
 import { take, of, switchMap, BehaviorSubject } from 'rxjs';
@@ -18,7 +18,8 @@ import { NotificationService } from 'src/app/services/notification.service';
 export class GroupInviteComponent implements OnInit {
   @Input() group!: Group;
   @Input() dialog = false;
-  inviteMessage = <string | null>null;
+  @Input() inviteMessage?: string;
+  @Output() inviteMessageChange = new EventEmitter<string>();
 
   inviteMessageMaxLength = 250;
 
@@ -63,6 +64,10 @@ export class GroupInviteComponent implements OnInit {
     if (this.group.members.users.count || !this.group.members.users) {
       this.group.members.users = [];
     }
+  }
+
+  onMessageChange() {
+    this.inviteMessageChange.emit(this.inviteMessage);
   }
 
   doSaveGroup() {
