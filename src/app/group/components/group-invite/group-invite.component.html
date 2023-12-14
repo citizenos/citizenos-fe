@@ -1,7 +1,6 @@
 <div class="content_section">
   <div class="section_content_wrap">
-    <div class="small_heading" translate="COMPONENTS.GROUP_INVITE.HEADING"></div>
-    <div translate="COMPONENTS.GROUP_INVITE.MESSAGE_DESC"></div>
+    <div class="section_content_description bold" translate="COMPONENTS.GROUP_INVITE.MESSAGE_DESC"></div>
     <cos-input [placeholder]="'COMPONENTS.GROUP_INVITE.MESSAGE_PLACEHOLDER' | translate">
       <textarea id="groupDescription" [placeholder]="'COMPONENTS.GROUP_INVITE.MESSAGE_PLACEHOLDER' | translate" rows="5"
         [(ngModel)]="group.inviteMessage" [maxlength]="inviteMessageMaxLength" (change)="onMessageChange()"></textarea>
@@ -9,6 +8,7 @@
     <div class="character_limit"><span
         translate="COMPONENTS.GROUP_INVITE.CHARACTER_LIMIT"></span>{{group.inviteMessage?.length || 0
       }}/{{inviteMessageMaxLength}}</div>
+    <div class="section_content_description bold" translate="COMPONENTS.GROUP_INVITE.EMAIL_DESC"></div>
     <div id="search_wrap">
       <typeahead id="input_area" [term]="searchStringUser" (search)="search($event)"
         (select)="addGroupMemberUser($event)" (enterAction)="addGroupMemberUser($event)"
