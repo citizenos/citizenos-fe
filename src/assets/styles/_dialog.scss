@@ -58,6 +58,8 @@ mat-dialog-container {
   z-index: 9999;
   position: relative;
   min-width: 560px;
+  border-radius: 16px;
+  overflow: hidden;
 
   @include mixins.mobile {
     min-width: initial;

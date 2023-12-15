@@ -2,6 +2,12 @@
 
 .dialog {
   max-width: 560px;
+
+  .dialog_content {
+    padding: 24px;
+    gap: 24px;
+  }
+
   #image_input_area {
     display: flex;
     flex-direction: column;

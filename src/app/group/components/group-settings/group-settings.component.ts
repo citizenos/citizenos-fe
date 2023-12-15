@@ -24,6 +24,7 @@ export class GroupSettingsComponent {
   errors?: any;
   imageFile?: any;
   uploadedImage?: any;
+  public tmpImageUrl?: any;
 
   constructor(
     private dialog: MatDialog,
@@ -56,6 +57,40 @@ export class GroupSettingsComponent {
   fileUpload() {
     const files = this.fileInput?.nativeElement.files;
     this.uploadedImage = files[0];
+    const reader = new FileReader();
+    reader.onload = async () => {
+      await this.resizeImage(reader.result as string).then((res: any) => {
+        this.tmpImageUrl = res.imageUrl;
+        this.imageFile = res.file;
+      });
+    };
+    reader.readAsDataURL(files[0]);
+  }
+
+  resizeImage(imageURL: any): Promise<any> {
+    return new Promise((resolve) => {
+      const image = new Image();
+      image.onload = function () {
+        const canvas = document.createElement('canvas');
+        canvas.width = 320;
+        canvas.height = 320;
+        const ctx = canvas.getContext('2d');
+        if (ctx != null) {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(image, 0, 0, image.width, image.height,
+            0, 0, 320, 320);
+        }
+        var data = canvas.toDataURL('image/jpeg', 1);
+        canvas.toBlob((blob) => {
+          if (blob) {
+            const file = new File([blob], 'profileimage.jpg', { type: "image/jpeg" });
+            canvas.remove();
+            resolve({ file: file, imageUrl: data });
+          }
+        }, 'image/jpeg');
+      };
+      image.src = imageURL;
+    });
   }
 
   fileDroped(files: any) {
