@@ -15,7 +15,8 @@
         [placeholder]="'COMPONENTS.GROUP_INVITE.PLACEHOLDER_SEARCH' | translate">
         <ng-container *ngIf="searchResultUsers$ | async as searchResults">
           <div class="search_area_wrap" [ngClass]="{hidden: !searchResults.length}">
-            <div class="search_dropdown_item" [typeaheadItem]="user" *ngFor="let user of searchResults" (click)="addGroupMemberUser(user)">
+            <div class="search_dropdown_item" [typeaheadItem]="user" *ngFor="let user of searchResults"
+              (click)="addGroupMemberUser(user)">
               <div class="item_text_wrap">
                 <b>{{user.name}}</b>
               </div>
@@ -71,8 +72,8 @@
     </div>
   </div>
 </div>
-<div id="group_members_list" class="content_section">
-  <div id="topic_members_list_wrap" class="section_content_wrap table_section">
+<div class="content_section">
+  <div id="group_members_list_wrap" class="section_content_wrap table_section">
     <ng-container *ngIf="group.members?.users.length === 0">
       <div class="no_items">
         <svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -128,43 +129,43 @@
       </div>
       <ng-container *ngFor="let user of group.members.users; index as i;">
         <div class="row_list" *ngIf="isOnPage(i, membersPage)">
-            <div class="row_cell">
-              <div class="profile_image_wrap">
-                <img class="profile_image" *ngIf="user.imageUrl" [src]="user.imageUrl">
-                <div class="profile_image_filler" *ngIf="!user.imageUrl">
-                  <cos-initials class="table_cell" *ngIf="user.name" [name]="user.name">
-                  </cos-initials>
-                </div>
-              </div>
-              <a class="user_name" [innerHtml]>{{user.name}}</a>
-            </div>
-            <div class="row_cell">
-              <div class="dropdown" [cosDropdown]>
-                <div class="selection">
-                  <div class="selected_item">{{'TXT_TOPIC_LEVELS_' + (user.level) |
-                    uppercase | translate}}</div>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
-                  </svg>
-                </div>
-                <div class="options">
-                  <div class="option" *ngFor="let level of LEVELS | keyvalue" (click)="user.level = level.value">
-                    {{'TXT_TOPIC_LEVELS_' + level.value | uppercase | translate}}
-                  </div>
-                </div>
+          <div class="row_cell">
+            <div class="profile_image_wrap">
+              <img class="profile_image" *ngIf="user.imageUrl" [src]="user.imageUrl">
+              <div class="profile_image_filler" *ngIf="!user.imageUrl">
+                <cos-initials class="table_cell" *ngIf="user.name" [name]="user.name">
+                </cos-initials>
               </div>
             </div>
-            <div class="row_cell remove_item_mobile">
-              <button (click)="removeGroupMemberUser(user)">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M6 6.00065H7.33333L7.33333 11.334H6L6 6.00065Z" fill="#2C3B47" />
-                  <path d="M10 6.00065H8.66667L8.66667 11.334H10L10 6.00065Z" fill="#2C3B47" />
-                  <path fill-rule="evenodd" clip-rule="evenodd"
-                    d="M11.3333 3.33398V2.66732C11.3333 1.93094 10.7364 1.33398 10 1.33398L6 1.33398C5.26362 1.33398 4.66667 1.93094 4.66667 2.66732V3.33398L2.66667 3.33398C2.29848 3.33398 2 3.63246 2 4.00065C2 4.36884 2.29848 4.66732 2.66667 4.66732H3.33333L3.33333 12.0007C3.33333 13.1053 4.22877 14.0007 5.33333 14.0007L10.6667 14.0007C11.7713 14.0007 12.6667 13.1053 12.6667 12.0007L12.6667 4.66732H13.3333C13.7015 4.66732 14 4.36884 14 4.00065C14 3.63246 13.7015 3.33398 13.3333 3.33398H11.3333ZM10 2.66732L6 2.66732V3.33398L10 3.33398V2.66732ZM11.3333 4.66732L4.66667 4.66732L4.66667 12.0007C4.66667 12.3689 4.96515 12.6673 5.33333 12.6673L10.6667 12.6673C11.0349 12.6673 11.3333 12.3689 11.3333 12.0007L11.3333 4.66732Z"
-                    fill="#2C3B47" />
+            <a class="user_name" [innerHtml]>{{user.name}}</a>
+          </div>
+          <div class="row_cell">
+            <div class="dropdown" [cosDropdown]>
+              <div class="selection">
+                <div class="selected_item">{{'TXT_TOPIC_LEVELS_' + (user.level) |
+                  uppercase | translate}}</div>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
                 </svg>
-              </button>
+              </div>
+              <div class="options">
+                <div class="option" *ngFor="let level of LEVELS | keyvalue" (click)="user.level = level.value">
+                  {{'TXT_TOPIC_LEVELS_' + level.value | uppercase | translate}}
+                </div>
+              </div>
             </div>
+          </div>
+          <div class="row_cell remove_item_mobile">
+            <button (click)="removeGroupMemberUser(user)">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 6.00065H7.33333L7.33333 11.334H6L6 6.00065Z" fill="#2C3B47" />
+                <path d="M10 6.00065H8.66667L8.66667 11.334H10L10 6.00065Z" fill="#2C3B47" />
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M11.3333 3.33398V2.66732C11.3333 1.93094 10.7364 1.33398 10 1.33398L6 1.33398C5.26362 1.33398 4.66667 1.93094 4.66667 2.66732V3.33398L2.66667 3.33398C2.29848 3.33398 2 3.63246 2 4.00065C2 4.36884 2.29848 4.66732 2.66667 4.66732H3.33333L3.33333 12.0007C3.33333 13.1053 4.22877 14.0007 5.33333 14.0007L10.6667 14.0007C11.7713 14.0007 12.6667 13.1053 12.6667 12.0007L12.6667 4.66732H13.3333C13.7015 4.66732 14 4.36884 14 4.00065C14 3.63246 13.7015 3.33398 13.3333 3.33398H11.3333ZM10 2.66732L6 2.66732V3.33398L10 3.33398V2.66732ZM11.3333 4.66732L4.66667 4.66732L4.66667 12.0007C4.66667 12.3689 4.96515 12.6673 5.33333 12.6673L10.6667 12.6673C11.0349 12.6673 11.3333 12.3689 11.3333 12.0007L11.3333 4.66732Z"
+                  fill="#2C3B47" />
+              </svg>
+            </button>
+          </div>
         </div>
       </ng-container>
       <div id="footer_buttons">
@@ -195,7 +196,8 @@
                     d="M5.66347 6.9425L11.8106 1L13.4526 2.58741L12.3579 3.64569L14 5.2331L11.2632 7.87953L9.62116 6.29212L7.30631 8.52991C7.73255 9.32272 7.85142 10.2368 7.64144 11.1069C7.43146 11.977 6.90649 12.7458 6.16136 13.2745C5.41623 13.8031 4.50009 14.0567 3.57846 13.9894C2.65683 13.9221 1.7905 13.5383 1.13598 12.9075C0.481132 12.2754 0.0821563 11.4375 0.0113533 10.5456C-0.0594497 9.65365 0.202605 8.7667 0.750029 8.04547C1.29745 7.32424 2.09403 6.81645 2.9954 6.61411C3.89677 6.41177 4.8433 6.52827 5.66347 6.9425ZM4.96747 11.3193C5.11536 11.1812 5.23332 11.016 5.31447 10.8334C5.39562 10.6508 5.43833 10.4544 5.44012 10.2556C5.4419 10.0569 5.40273 9.85978 5.32487 9.67582C5.24702 9.49186 5.13205 9.32474 4.98666 9.18419C4.84128 9.04365 4.6684 8.9325 4.47811 8.85724C4.28782 8.78198 4.08393 8.74411 3.87833 8.74583C3.67274 8.74756 3.46956 8.78885 3.28065 8.8673C3.09174 8.94575 2.92088 9.05978 2.77805 9.20275C2.496 9.48506 2.33993 9.86316 2.34346 10.2556C2.34698 10.6481 2.50983 11.0235 2.79691 11.3011C3.08399 11.5786 3.47235 11.736 3.87833 11.7394C4.28431 11.7428 4.67544 11.592 4.96747 11.3193Z"
                     fill="#2C3B47" />
                 </svg>
-                <span [innerHtml]="'COMPONENTS.GROUP_INVITE.BULK_OPT_SET_ALL_RIGHTS' | translate:{level: ('TXT_GROUP_LEVELS_'+level | uppercase | translate)}"></span>
+                <span
+                  [innerHtml]="'COMPONENTS.GROUP_INVITE.BULK_OPT_SET_ALL_RIGHTS' | translate:{level: ('TXT_GROUP_LEVELS_'+level | uppercase | translate)}"></span>
               </div>
               <div class="line_separator"></div>
             </ng-container>

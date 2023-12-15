@@ -4,34 +4,13 @@
   min-width: 160px;
 }
 
-#group_members_list {
-  padding: 24px;
-}
-#topic_members_list_wrap {
-  .no_items {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-
-    .text_wrap {
-      max-width: 560px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-
-      .text {
-        font-size: 14px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 20px; /* 142.857% */
-      }
-    }
+.button_options {
+  position: fixed;
+  max-width: max-content!important;
+  .option {
+    max-width: max-content;
   }
 }
-
 .row_list {
   .row_cell {
     a {
@@ -68,6 +47,29 @@
   margin: 5px 0px;
 }
 
+.no_items {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+
+  .text_wrap {
+    max-width: 560px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .text {
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 20px; /* 142.857% */
+    }
+  }
+}
+
 .row_list {
   .row_cell {
     a {
@@ -100,98 +102,7 @@
     }
   }
 }
-.container {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  vertical-align: middle;
-  align-items: center;
-  gap: 8px;
 
-  .row {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    padding: 8px 16px;
-    position: relative;
-    border-radius: 8px;
-
-    .cell_title {
-      display: none;
-      @include mixins.mobile {
-        display: flex;
-        width: 100%;
-      }
-    }
-
-    @include mixins.mobile {
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    &.header_row {
-      padding: 12px 16px;
-
-      @include mixins.mobile {
-        display: none;
-      }
-    }
-
-    &:nth-child(even) {
-      background-color: var(--color-surface-contrast);
-    }
-    .name,
-    .level,
-    .actions {
-      display: flex;
-      @include mixins.mobile {
-        gap: 8px;
-        justify-content: flex-start;
-        width: 100%;
-      }
-    }
-
-    .name {
-      flex: 5 5 0;
-      text-align: start;
-      justify-content: flex-start;
-      flex-direction: row;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .level {
-      flex: 3 3 0;
-      justify-content: center;
-
-      .level_heading, .dropdown {
-        flex: 2 2 0;
-      }
-      .button_heading {
-        justify-content: center;
-        flex: 1 1 0;
-        display: flex;
-      }
-
-      button {
-        flex: 1 1 0;
-      }
-
-      @include mixins.mobile {
-        width: 100%;
-        justify-content: space-between;
-        flex: initial;
-        gap: 8px;
-        .dropdown {
-          flex: initial;
-          width: 100%;
-        }
-        button {
-          flex: initial;
-          width: 32px;
-        }
-      }
-    }
-
-  }
+#search_wrap, .row_list {
+  margin-bottom: 16px;
 }
