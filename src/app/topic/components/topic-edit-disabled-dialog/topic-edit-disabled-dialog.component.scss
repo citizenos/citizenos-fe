@@ -1,0 +1,29 @@
+.dialog {
+  max-width: 560px;
+
+  .header_with_icon {
+    gap: 16px;
+    padding-bottom: 24px;
+  }
+
+  .dialog_content {
+    gap: 24px;
+  }
+
+  .dialog_info {
+    background-color: var(--color-argument-info-light);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    padding: 16px;
+    gap: 16px;
+
+    .bold {
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 16px;
+    }
+  }
+}
