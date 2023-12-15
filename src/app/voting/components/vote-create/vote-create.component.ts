@@ -24,6 +24,7 @@ import { TopicVoteService } from 'src/app/services/topic-vote.service';
 import { countries } from 'src/app/services/country.service';
 import { languages } from 'src/app/services/language.service';
 import { InterruptDialogComponent } from 'src/app/shared/components/interrupt-dialog/interrupt-dialog.component';
+import { TopicEditDisabledDialogComponent } from 'src/app/topic/components/topic-edit-disabled-dialog/topic-edit-disabled-dialog.component';
 
 @Component({
   selector: 'app-vote-create',
@@ -170,17 +171,10 @@ export class VoteCreateComponent implements OnInit {
       switchMap((params) => {
         if (params['topicId']) {
           return this.TopicService.loadTopic(params['topicId']).pipe(map((topic) => {
-              console.log(this.TopicService.canEditDescription(<Topic>topic))
               if (!this.TopicService.canEditDescription(<Topic>topic)) {
-                const infoDialog = this.dialog.open(ConfirmDialogComponent, {
-                  data: {
-                    level: 'info',
-                    heading: 'MODALS.USER_DELETE_CONFIRM_HEADING',
-                    title: 'MODALS.USER_DELETE_CONFIRM_TXT_ARE_YOU_SURE',
-                    description: 'MODALS.USER_DELETE_CONFIRM_TXT_NO_UNDO',
-                    points: ['MODALS.USER_DELETE_CONFIRM_TXT_USER_DELETED', 'MODALS.USER_DELETE_CONFIRM_TXT_KEEP_DATA_ANONYMOUSLY'],
-                    confirmBtn: 'MODALS.USER_DELETE_CONFIRM_YES'
-                  }
+                const infoDialog = this.dialog.open(TopicEditDisabledDialogComponent);
+                infoDialog.afterClosed().subscribe(() => {
+                  this.selectTab('settings')
                 });
               }
             topic.padUrl = this.sanitizer.bypassSecurityTrustResourceUrl(topic.padUrl);

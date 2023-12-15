@@ -43,6 +43,7 @@ import { TopicFormComponent } from './components/topic-form/topic-form.component
 import { TopicReportReasonComponent } from './components/topic-report-reason/topic-report-reason.component';
 import { TopicTourDialogComponent } from './components/topic-tour-dialog/topic-tour-dialog.component';
 import { TopicVoteReminderDialog } from './components/topic-vote-reminder-dialog/topic-vote-reminder-dialog.component';
+import { TopicEditDisabledDialogComponent } from './components/topic-edit-disabled-dialog/topic-edit-disabled-dialog.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +91,8 @@ import { TopicVoteReminderDialog } from './components/topic-vote-reminder-dialog
     TopicFormComponent,
     TopicReportReasonComponent,
     TopicTourDialogComponent,
-    TopicVoteReminderDialog
+    TopicVoteReminderDialog,
+    TopicEditDisabledDialogComponent
   ],
   imports: [
     LinkyModule,

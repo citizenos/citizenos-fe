@@ -345,6 +345,7 @@ export class TopicComponent implements OnInit {
   };
 
   inviteMembers(topic: Topic) {
+    console.log('INVITE');
     const inviteDialog = this.dialog.open(TopicInviteDialogComponent, { data: { topic } });
     inviteDialog.afterClosed().subscribe({
       next: (res) => {

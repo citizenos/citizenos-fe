@@ -307,6 +307,7 @@
       "GENERATE_LINK": "Generate access link",
       "PLACEHOLDER_CREATE_NEW_LINK": "Generate a link to share",
       "COPY_LINK": "Copy link",
+      "MSG_LINK_COPIED": "@:COMPONENTS.TOPIC_SHARE.MSG_LINK_COPIED",
       "GENERATE_QR_CODE": "Generate QR code",
       "GENERATE_QR_CODE_DESCRIPTION": "Generate a QR code that people can scan to come straight to the topic. You can add the QR code to digital or physical comms, and display it wherever the right people will see it.",
       "GENERATE_QR_CODE_PRINT": "To save the QR code, right click then choose 'Save image'.",
@@ -813,6 +814,13 @@
     }
   },
   "MODALS": {
+    "TOPIC_EDIT_DISABLED_HEADING": "Editing topic content is not longer available",
+    "TOPIC_EDIT_DISABLED_DESCRIPTION": "This topic text has been locked and is no longer editable",
+    "TOPIC_EDIT_DISABLED_WHY": "Why?",
+    "TOPIC_EDIT_DISABLED_WHY_DESCRIPTION": "When a voting or follow-up gets started, the topic text serves as the single source of truth. By locking it, we can ensure that there's full transparency of participants to know what they're voting on or what next steps are.",
+    "TOPIC_EDIT_DISABLED_INFO": "You can still edit settings",
+    "TOPIC_EDIT_DISABLED_BTN_SETTINGS": "View settings",
+    "TOPIC_EDIT_DISABLED_LNK_CANCEL": "@:LNK_CANCEL",
     "GROUP_DELETE_CONFIRM_HEADING": "Delete group",
     "GROUP_DELETE_CONFIRM_TXT_ARE_YOU_SURE": "Are you sure you want to delete this group?",
     "GROUP_DELETE_CONFIRM_TXT_NO_UNDO": "@:MODALS.TOPIC_CLOSE_CONFIRM_TXT_NO_UNDO",

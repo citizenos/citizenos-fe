@@ -460,7 +460,10 @@ html {
   }
 
   h4 {
-    font-size: 1.17em;
+    font-size: 18px;
+font-style: normal;
+font-weight: 600;
+line-height: 24px; /* 133.333% */
   }
 
   h5 {
@@ -892,6 +895,10 @@ est-id-login-form {
   cursor: pointer;
   z-index: 12;
   backdrop-filter: blur(4px);
+}
+
+.disabled {
+  opacity: 0.5;
 }
 
 .tour_overlay::after {

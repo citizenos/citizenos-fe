@@ -113,11 +113,13 @@ export class TopicVoteCreateComponent implements OnInit {
   ) {
     this.setTimeZones();
 
-
   }
 
   ngOnInit(): void {
     this.topicId = this.topic.id;
+    if (!this.topic.voteId && !this.vote) {
+      this.vote = Object.assign({}, this.voteDefault);
+    }
     this.vote.options.forEach((opt: any) => {
       if (opt.value === 'Neutral') {
         this.extraOptions.neutral.enabled = true;
@@ -419,8 +421,12 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
   override ngOnInit(): void {
     this.topic = this.data.topic;
     this.topicId = this.topic.id;
+
     if (this.topic.voteId) {
       this.router.navigate(['/topics', this.topic.id, 'votes', this.topic.voteId]);
+    }
+    if (!this.topic.voteId && !this.vote) {
+      this.vote = Object.assign({}, this.voteDefault);
     }
   }
 

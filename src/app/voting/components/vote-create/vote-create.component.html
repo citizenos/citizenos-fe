@@ -210,6 +210,7 @@
                   <rect x="4" y="4" width="16" height="16" rx="1" stroke="#2C3B47" stroke-width="2" />
                 </svg>
                 <button *ngIf="block.headerImage && (!topic.imageUrl && !tmpImageUrl)" class="btn_medium_close bold"
+                  [disabled]="!TopicService.canEditDescription(topic)" [ngClass]="{'disabled': !TopicService.canEditDescription(topic)}"
                   (click)="block.headerImage = !block.headerImage;$event.stopPropagation();">
                   <span class="link" translate="VIEWS.VOTE_CREATE.HEADER_IMAGE_BTN_CANCEL"></span>
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -219,7 +220,7 @@
                   </svg>
                 </button>
                 <button class="btn_medium_close bold" *ngIf="block.headerImage && (topic.imageUrl || tmpImageUrl)"
-                  (click)="deleteTopicImage()">
+                  (click)="deleteTopicImage()" [disabled]="!TopicService.canEditDescription(topic)" [ngClass]="{'disabled': !TopicService.canEditDescription(topic)}">
                   <span class="link" translate="VIEWS.VOTE_CREATE.HEADER_IMAGE_BTN_REMOVE"></span>
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M9 9H11V17H9L9 9Z" fill="#1168A8" />
@@ -234,9 +235,11 @@
                 <div class="block_content image_content">
                   <div class="block_section" *ngIf="!(topic.imageUrl || tmpImageUrl)">
                     <div class="bold" translate="VIEWS.VOTE_CREATE.HEADER_IMAGE_UPLOAD_DESC"></div>
-                    <input id="image_upload_input" type="file" #imageUpload (change)="fileUpload()" />
+                    <input id="image_upload_input" type="file" #imageUpload (change)="fileUpload()"
+                      [disabled]="!TopicService.canEditDescription(topic)" [ngClass]="{'disabled': !TopicService.canEditDescription(topic)}"/>
                     <button id="image_upload_button" class="btn_medium_secondary" (click)="uploadImage()"
-                      translate="VIEWS.VOTE_CREATE.HEADER_IMAGE_UPLOAD_BTN"></button>
+                      translate="VIEWS.VOTE_CREATE.HEADER_IMAGE_UPLOAD_BTN"
+                      [disabled]="!TopicService.canEditDescription(topic)" [ngClass]="{'disabled': !TopicService.canEditDescription(topic)}"></button>
                   </div>
                   <div class="inline_notification error" *ngIf="errors?.image">
                     <div class="icon_notification">
@@ -282,7 +285,8 @@
               <ng-container *ngIf="block.title || topic.title">
                 <div class="block_content">
                   <input id="title_input" #topicTitle placeholder="..." [(ngModel)]="topic.title"
-                    (change)="updateTopic()" [maxlength]="titleLimit" />
+                    (change)="updateTopic()" [maxlength]="titleLimit"
+                    [disabled]="!TopicService.canEditDescription(topic)" [ngClass]="{'disabled': !TopicService.canEditDescription(topic)}"/>
                 </div>
               </ng-container>
             </div>
@@ -312,7 +316,7 @@
               <ng-container *ngIf="block.intro || topic.intro">
                 <div class="block_content">
                   <textarea id="intro_input" placeholder="..." [(ngModel)]="topic.intro" (change)="updateTopic()"
-                    [maxlength]="introLimit"></textarea>
+                    [maxlength]="introLimit" [disabled]="!TopicService.canEditDescription(topic)" [ngClass]="{'disabled': !TopicService.canEditDescription(topic)}"></textarea>
                 </div>
               </ng-container>
             </div>
@@ -339,12 +343,20 @@
                 </div>
               </div>
               <ng-container *ngIf="block.description">
-                <div class="block_content">
-                  <!--textarea id="description_input" placeholder="..." [(ngModel)]="topic.description"
+                <ng-container *ngIf="TopicService.canEditDescription(topic)">
+                  <div class="block_content">
+                    <!--textarea id="description_input" placeholder="..." [(ngModel)]="topic.description"
                 [maxlength]="introLimit"></!--textarea-->
-                  <iframe cosEtherpad frameborder="0" scrolling="no" [ngClass]="{hidden: !topic.padUrl}"
-                    [src]="sanitizeURL()" width="100%" height="600"></iframe>
-                </div>
+                    <iframe cosEtherpad frameborder="0" scrolling="no" [ngClass]="{hidden: !topic.padUrl}"
+                      [src]="sanitizeURL()" width="100%" height="600"></iframe>
+
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="!TopicService.canEditDescription(topic)">
+                  <div class="block_content" [innerHTML]="topic.description" [ngClass]="{'disabled': !TopicService.canEditDescription(topic)}">
+
+                  </div>
+                </ng-container>
               </ng-container>
             </div>
             <ng-container *ngIf="topic.id">
