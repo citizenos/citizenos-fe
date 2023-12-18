@@ -222,7 +222,7 @@ export class VoteCreateComponent implements OnInit {
         })*/
   }
   ngOnInit(): void {
-    if (this.topic.id) {
+    if (this.topic?.id) {
       this.TopicInviteUserService.setParam('topicId', this.topic.id);
       this.invites$ = this.TopicInviteUserService.loadItems();
     }
@@ -493,6 +493,7 @@ export class VoteCreateComponent implements OnInit {
 
   saveVoteSettings(vote?: any) {
     if (vote) {
+      console.log(vote);
       this.vote = vote;
     }
   }

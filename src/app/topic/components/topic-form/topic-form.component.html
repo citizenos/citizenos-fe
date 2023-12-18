@@ -70,7 +70,9 @@
   </div>
   <div id="editors_wrap">
     <ng-container *ngIf="invites$ | async as invites"></ng-container>
-    <div id="editors_select_mobile" (click)="showManageEditors = !showManageEditors" [ngClass]="{'open': showManageEditors}">
+    <ng-container *ngIf="members$ | async as members"></ng-container>
+    <div id="editors_select_mobile" (click)="showManageEditors = !showManageEditors"
+      [ngClass]="{'open': showManageEditors}">
       <div id="text_wrap">
         <div>
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -193,6 +195,9 @@
           <a (click)="manageMembers()" translate="VIEWS.TOPIC_CREATE.CO_EDITORS_LNK_MANAGE"></a>
         </div>
         <div class="topic_members_list_wrap">
+          <div class="topic_member">
+            <div class="bold">Joined</div>
+          </div>
           <div class="topic_member" *ngFor="let member of topic.members.users">
             <div class="profile_image_wrap">
               <img class="profile_image" [src]="member.imageUrl">
@@ -201,6 +206,20 @@
             <span>{{member.name}}</span>
           </div>
         </div>
+        <ng-container *ngIf="invites$ | async as invites">
+          <div class="topic_members_list_wrap" *ngIf="invites.length">
+            <div class="topic_member">
+              <div class="bold">Invited</div>
+            </div>
+            <div class="topic_member" *ngFor="let invite of invites">
+              <div class="profile_image_wrap">
+                <img class="profile_image" [src]="invite.user.imageUrl">
+              </div>
+
+              <span>{{invite.user.name}}</span>
+            </div>
+          </div>
+        </ng-container>
       </ng-container>
 
       <button class="btn_medium_secondary bold" (click)="inviteEditors()"
@@ -773,8 +792,6 @@
             </div>
           </div>
         </ng-container>
-        <!--group-add-topics id="group_add_topics" [group]="group" *ngIf="tabSelected==='add_topics'"></!--group-add-topics-->
-        <!--group-invite id="group_invite" *ngIf="tabSelected==='invite'" [group]="group"></!--group-invite-->
 
       </div>
       <div id="create_footer">
@@ -833,7 +850,7 @@
       </div>
     </div>
     <div id="help_wrap">
-      <div class="invite_collaborators tablet_hidden" [ngClass]="{'empty': !topic.members.users.length}">
+      <div class="invite_collaborators tablet_hidden" [ngClass]="{'empty': !topic.members.users.length || topic.members.users.length === 1}">
         <ng-container *ngIf="!topic.members.users.length">
           <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="80" height="80" rx="40" fill="#EBF4FB" />
@@ -894,6 +911,9 @@
             <a (click)="manageMembers()" translate="VIEWS.TOPIC_CREATE.CO_EDITORS_LNK_MANAGE"></a>
           </div>
           <div class="topic_members_list_wrap">
+            <div class="topic_member">
+              <div class="bold">Joined</div>
+            </div>
             <div class="topic_member" *ngFor="let member of topic.members.users">
               <div class="profile_image_wrap">
                 <img class="profile_image" [src]="member.imageUrl">
@@ -902,6 +922,24 @@
               <span>{{member.name}}</span>
             </div>
           </div>
+          <ng-container *ngIf="invites$ | async as invites">
+            <div class="topic_members_list_wrap" *ngIf="invites.length">
+              <div class="topic_member">
+                <div class="bold">Invited</div>
+              </div>
+              <div class="topic_member disabled" *ngFor="let invite of invites">
+                <div class="profile_image_wrap">
+                  <img class="profile_image" *ngIf="!invite.user.imageUrl" [src]="invite.user.imageUrl">
+                  <div class="profile_image_filler" *ngIf="!invite.user.imageUrl">
+                    <cos-initials *ngIf="invite.user.name" [name]="invite.user.name">
+                    </cos-initials>
+                  </div>
+                </div>
+
+                <span>{{invite.user.name}}</span>
+              </div>
+            </div>
+          </ng-container>
         </ng-container>
 
         <button class="btn_medium_secondary bold" (click)="inviteEditors()"
