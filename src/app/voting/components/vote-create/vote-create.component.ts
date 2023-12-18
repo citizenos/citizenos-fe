@@ -158,11 +158,17 @@ export class VoteCreateComponent implements OnInit {
     this.tabSelected = this.route.fragment.pipe(
       map((fragment) => {
         if (!fragment) {
-          return this.selectTab('info')
+          return this.selectTab('info');
         }
         return fragment
-      }
-      ));
+      }), tap((fragment) => {
+        if (fragment === 'info' && !this.TopicService.canEditDescription(<Topic>this.topic)) {
+          const infoDialog = this.dialog.open(TopicEditDisabledDialogComponent);
+          infoDialog.afterClosed().subscribe(() => {
+            this.selectTab('settings')
+          });
+        }
+      }));
     // app.createNewTopic();
     if (this.router.url.indexOf('/edit/') > -1) {
       this.isnew = false;
@@ -171,12 +177,6 @@ export class VoteCreateComponent implements OnInit {
       switchMap((params) => {
         if (params['topicId']) {
           return this.TopicService.loadTopic(params['topicId']).pipe(map((topic) => {
-              if (!this.TopicService.canEditDescription(<Topic>topic)) {
-                const infoDialog = this.dialog.open(TopicEditDisabledDialogComponent);
-                infoDialog.afterClosed().subscribe(() => {
-                  this.selectTab('settings')
-                });
-              }
             topic.padUrl = this.sanitizer.bypassSecurityTrustResourceUrl(topic.padUrl);
             this.topic = topic;
             if (topic.voteId) {
