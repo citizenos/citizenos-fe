@@ -307,30 +307,19 @@
         </a>
       </div>
       <div class="news_items_wrap">
-        <div class="news_item">
-          <div class="news_image">
+
+        <ng-container *ngIf="news$ | async as news">
+
+        <a [href]="news[i].link" class="news_item" *ngFor="let i of [0, 1 , 2]">
+          <div class="news_image" *ngIf="news[i].imageUrl">
+            <img [src]="news[i].imageUrl"/>
           </div>
           <div class="news_text">
-            <div class="date">YYYY-MM-DD</div>
-            <a class="bold">Our New Government Partnership for Youth E-engagement in Indonesia</a>
+            <div class="date" [innerHtml]="news[i].pubDate | date: 'YYYY-MM-dd hh:mm'"></div>
+            <a class="bold" [innerHtml]="news[i].title"></a>
           </div>
-        </div>
-        <div class="news_item">
-          <div class="news_image">
-          </div>
-          <div class="news_text">
-            <div class="date">YYYY-MM-DD</div>
-            <a class="bold">Our New Government Partnership for Youth E-engagement in Indonesia</a>
-          </div>
-        </div>
-        <div class="news_item">
-          <div class="news_image">
-          </div>
-          <div class="news_text">
-            <div class="date">YYYY-MM-DD</div>
-            <a class="bold">Our New Government Partnership for Youth E-engagement in Indonesia</a>
-          </div>
-        </div>
+        </a>
+      </ng-container>
       </div>
     </div>
 

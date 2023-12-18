@@ -200,6 +200,7 @@
             height: 88px;
             border-radius: 8px;
             background-color: var(--color-surface-contrast);
+            overflow: hidden;
 
             @include mixins.mobile {
               width: 100%;
