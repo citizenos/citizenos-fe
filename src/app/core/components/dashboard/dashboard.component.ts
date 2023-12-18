@@ -9,9 +9,11 @@ import { PublicGroupService } from 'src/app/services/public-group.service';
 import { TranslateService } from '@ngx-translate/core';
 
 import { GroupService } from 'src/app/services/group.service';
-import { of, tap, Observable } from 'rxjs';
+import { NewsService } from 'src/app/services/news.service';
+import { of, tap, Observable, map } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { Group } from 'src/app/interfaces/group';
+import { News } from 'src/app/interfaces/news';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,6 +25,8 @@ export class DashboardComponent {
   topics$: Observable<Topic[] | any[]> = of([]);
   publictopics$: Observable<Topic[] | any[]> = of([]);
   publicgroups$: Observable<Group[] | any[]> = of([]);
+
+  news$: Observable<News[] | any[]> = of([]);
   showNoEngagements = false;
 
   showPublic = true;
@@ -35,9 +39,24 @@ export class DashboardComponent {
     private PublicTopicService: PublicTopicService,
     private PublicGroupService: PublicGroupService,
     private GroupService: GroupService,
+    private NewsService: NewsService,
     private dialog: MatDialog
   ) {
     this.groups$ = this.GroupService.loadItems();
+    this.news$ = this.NewsService.get().pipe(
+      map((news) => {
+        news.forEach((item:News) => {
+          var elem = document.createElement('div');
+          elem.innerHTML = item.content;
+          const img = elem.querySelector('img');
+          if (img) {
+            item.imageUrl = img.src;
+          }
+        });
+
+        return news;
+      })
+    );
     this.topics$ = this.UserTopicService.loadItems().pipe(
       tap((topics) => {
         console.log(topics.length)
