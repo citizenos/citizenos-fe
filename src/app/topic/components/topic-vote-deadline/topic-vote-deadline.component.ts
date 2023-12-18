@@ -45,7 +45,10 @@ export class TopicVoteDeadlineComponent {
     if (data && data.vote) {
       this.vote = data.vote;
       if (data.vote.endsAt) {
+        const deadline = new Date(data.vote.endsAt);
         this.endsAt.date = data.vote.endsAt;
+        this.endsAt.min = deadline.getMinutes();
+        this.endsAt.h = deadline.getHours();
         this.setEndsAtTime();
       }
     }
