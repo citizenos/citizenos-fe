@@ -1,4 +1,7 @@
 {
+  "MSG_REDESIGN_TITLE": "Prerábame našu platformu!",
+  "MSG_REDESIGN_CONTENT": "Začiatkom roka 2024 začneme zavádzať nový a vylepšený Citizen OS! Ak máte akékoľvek otázky, obavy alebo chcete ponúknuť svoju pomoc ako beta tester, kontaktujte Saru na adrese <a href=\"mailto:support@citizenos.com\">support@citizenos.com</a>",
+  "MSG_REDESIGN_BTN_CLOSE": "OK, rozumiem",
   "META_DEFAULT_TITLE": "Citizen OS - platforma pre elektronické rozhodovanie komunít.",
   "META_DEFAULT_DESCRIPTION": "Citizen OS umožňuje skupinám viesť participatívnu diskusiu a hlasovanie, keď nie je možnosť stretnúť sa naraz naživo či v online priestore.",
   "META_DEFAULT_KEYWORDS": "e-rozhodovanie, e-vládnutie, e-demokracia, demokracia, priama demokracia, tekutá demokracia",

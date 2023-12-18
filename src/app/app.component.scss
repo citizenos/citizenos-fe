@@ -101,3 +101,102 @@
     -webkit-transform: translateZ(0);
   }
 }
+
+#raa_notification {
+  background: #f1f7fc;
+  position: fixed;
+  display: flex;
+  width: calc(100% - 235px);
+  align-items: center;
+  bottom: 0;
+  padding: 20px 25px 20px 25px;
+  gap: 25px;
+
+  @media (max-width: 1024px) {
+    width: calc(100% - 16px);
+    gap: 16px;
+    padding: 8px;
+  }
+  @media (max-width: 560px) {
+    flex-direction: column;
+    width:calc(100% - 16px);
+  }
+
+  #raa_logo_wrapper {
+      white-space: nowrap;
+      text-align: center;
+      vertical-align: middle;
+
+      .raa_logo_container {
+          display: flex;
+          height: 100%;
+          vertical-align: middle;
+      }
+
+  }
+
+  #raa_content_wrapper{
+      width: calc(100%);
+      gap: 8px;
+      display: flex;
+      flex-direction: column;
+
+      #notification_title {
+          color: #313131;
+          font-family: "Open Sans";
+          font-size: 16px;
+          font-weight: bold;
+          line-height: 22px;
+
+          @media (max-width: 560px) {
+              text-align: center;
+          }
+      }
+
+      #notification_text {
+          color: #313131;
+          font-family: "Open Sans";
+          font-size: 14px;
+          line-height: 19px;
+          @media (max-width: 560px) {
+              text-align: center;
+          }
+      }
+  }
+
+  #raa_close_wrapper{
+      display: flex;
+      align-items: center;
+      width: 380px;
+      justify-content: center;
+
+      button {
+        font-family: "Noto Sans";
+        background-color: #2c3b47;
+        padding: 0px 32px;
+        max-height: 40px;
+        min-height: 40px;
+        min-width: max-content;
+        border-radius: 40px;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 16px;
+        background: #2c3b47;
+        color: #fff;
+        border: none;
+        &:hover {
+          background: #1168a8;
+        }
+      }
+
+      @media (max-width: 1024px) {
+        justify-content: flex-start;
+      }
+
+      @media (max-width: 560px) {
+          width: 100%;
+          justify-content: center;
+          align-items: center;
+      }
+  }
+}
