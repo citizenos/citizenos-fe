@@ -313,7 +313,7 @@
       "MSG_LINK_COPIED": "@:COMPONENTS.TOPIC_SHARE.MSG_LINK_COPIED",
       "GENERATE_QR_CODE": "Создать QR-код",
       "GENERATE_QR_CODE_DESCRIPTION": "Сгенерировать QR-код, который люди смогут отсканировать, чтобы сразу перейти к теме. Вы можете добавлять QR-код в онлайн- или оффлайн-коммуникацию и отображать его везде, где его смогут увидеть важные для Вас люди.",
-      "GENERATE_QR_CODE_PRINT": "To save the QR code, right click then choose 'Save image'.",
+      "GENERATE_QR_CODE_PRINT": "Чтобы сохранить QR-код, щелкните правой кнопкой мыши и выберите «Сохранить изображение».",
       "BTN_GENERATE_QR_CODE": "@:COMPONENTS.GROUP_SHARE.GENERATE_QR_CODE"
     },
     "LOGIN_FORM": {
@@ -364,7 +364,7 @@
     "EDIT_ARGUMENT": {
       "FOOTER_MENU_TITLE": "@:COMPONENTS.POST_ARGUMENT.FOOTER_MENU_TITLE",
       "EDIT_YOUR_ARGUMENT": "Редактировать свой аргумент",
-      "FOOTER_FORM_TITLE": "Edit your argument",
+      "FOOTER_FORM_TITLE": "Редактировать аргумент",
       "FOOTER_FORM_ARGUMENT_TYPE_TITLE": "@:COMPONENTS.POST_ARGUMENT.FOOTER_FORM_ARGUMENT_TYPE_TITLE",
       "ARGUMENT_TYPE_SELECT_OPTION_PRO": "@:COMPONENTS.POST_ARGUMENT.ARGUMENT_TYPE_SELECT_OPTION_PRO",
       "ARGUMENT_TYPE_SELECT_OPTION_CON": "@:COMPONENTS.POST_ARGUMENT.ARGUMENT_TYPE_SELECT_OPTION_CON",
@@ -451,7 +451,7 @@
       "LNK_FINISH": "Закончить",
       "HEADING_DASHBOARD": "Dashboard tour",
       "DASHBOARD_STEP_1_TITLE": "Действуйте",
-      "DASHBOARD_STEP_1_DESC": "Quickly create a new discussion topic or voting topic, or set up a new group.",
+      "DASHBOARD_STEP_1_DESC": "Создайте новую тему для обсуждения или голосования или создайте новую группу.",
       "DASHBOARD_STEP_2_TITLE": "Главное меню",
       "DASHBOARD_STEP_2_DESC": "The main menu serves as your main navigation through the platform. There are quick links to all your topics based on their current phase, i.e. discussion, voting, or follow-up, as well as to any groups you're a member of.",
       "DASHBOARD_STEP_2_DESC2": "You can also access your profile, change the language, or go to the Help Centre.",
@@ -483,7 +483,7 @@
       "DASHBOARD_MOBILE_STEP_3_DESC": "The top menu is always accessible for navigation, and topic or group creation. Quickly find pages like Dashboard, My Topics, My Groups, Public Topics and Public Groups.",
       "HEADING_TOPIC": "Тур по теме",
       "TOPIC_STEP_1_TITLE": "Этапы темы",
-      "TOPIC_STEP_1_DESC": "A topic can have different phases.",
+      "TOPIC_STEP_1_DESC": "У вашей темы могут быть различные фазы.",
       "TOPIC_STEP_1_LBL_DISCUSSION": "Обсуждение:",
       "TOPIC_STEP_1_DESC_DISCUSSION": "На этом этапе основная идея заключается в проведении конструктивного обсуждения с использованием аргументов за и против.",
       "TOPIC_STEP_1_LBL_IDEATION": "Сбор идей:",
