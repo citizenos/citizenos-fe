@@ -310,7 +310,7 @@
 
         <ng-container *ngIf="news$ | async as news">
 
-        <a [href]="news[i].link" class="news_item" *ngFor="let i of [0, 1 , 2]">
+        <a [href]="news[i].link" class="news_item" *ngFor="let i of [0,1,2,3]">
           <div class="news_image" *ngIf="news[i].imageUrl">
             <img [src]="news[i].imageUrl"/>
           </div>

@@ -44,7 +44,8 @@
       <div class="row_wrap">
         <cos-input placeholder="{{'COMPONENTS.TOPIC_VOTE_CREATE.VOTE_QUESTION_PLACEHOLDER' | translate}}">
           <input id="groupName" [placeholder]="'COMPONENTS.TOPIC_VOTE_CREATE.VOTE_QUESTION_PLACEHOLDER' | translate"
-            [(ngModel)]="vote.description">
+            [(ngModel)]="vote.description" [disabled]="!TopicService.canEditDescription(topic)"
+            [ngClass]="{disabled: !TopicService.canEditDescription(topic)}">
         </cos-input>
       </div>
     </div>
@@ -93,11 +94,13 @@
       </div>
       <div translate="COMPONENTS.TOPIC_VOTE_CREATE.SELECT_VOTING_SYSTEM"></div>
       <div class="radio_wrap" (click)="setVoteType(VOTE_TYPES.regular)"
-        [ngClass]="vote.type === VOTE_TYPES.regular? 'selected': ''">
+        [ngClass]="{selected: vote.type === VOTE_TYPES.regular, disabled: !TopicService.canEditDescription(topic)}">
         <div class="radio_text_wrap">
           <div class="radio_lable_wrap">
             <label class="radio_box">
-              <input type="radio" [checked]="vote.type === VOTE_TYPES.regular">
+              <input type="radio" [checked]="vote.type === VOTE_TYPES.regular"
+                [disabled]="!TopicService.canEditDescription(topic)"
+                [ngClass]="{disabled: !TopicService.canEditDescription(topic)}">
               <span class="radio"></span>
               <div class="radio_lable"
                 [translate]="('COMPONENTS.TOPIC_VOTE_CREATE.OPTION_VOTING_'+VOTE_TYPES.regular).toUpperCase()">
@@ -109,32 +112,37 @@
           </div>
           <ng-container *ngIf="vote.type===VOTE_TYPES.regular">
             <div class="vote_options_wrap">
-              <div class="radio_wrap" [ngClass]="vote.options[0].enabled? 'selected': ''"
+              <div class="radio_wrap"
+                [ngClass]="{selected: vote.options[0].enabled, disabled: !TopicService.canEditDescription(topic)}"
                 (click)="vote.options[0].enabled = !vote.options[0].enabled; $event.stopPropagation();filterOptions();">
                 <div class="radio_text_wrap">
                   <div class="radio_lable_wrap">
                     <label class="checkbox"><span class="bold"
                         translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_YES"></span>
-                      <input type="checkbox" [(ngModel)]="vote.options[0].enabled" />
+                      <input type="checkbox" [(ngModel)]="vote.options[0].enabled"
+                        [disabled]="!TopicService.canEditDescription(topic)" />
                       <span class="checkmark"></span>
                     </label>
                   </div>
                 </div>
               </div>
-              <div class="radio_wrap" [ngClass]="vote.options[1].enabled? 'selected': ''"
+              <div class="radio_wrap"
+                [ngClass]="{selected: vote.options[1].enabled, disabled: !TopicService.canEditDescription(topic)}"
                 (click)="vote.options[1].enabled = !vote.options[1].enabled; $event.stopPropagation();filterOptions();">
                 <div class="radio_text_wrap">
                   <div class="radio_lable_wrap">
                     <label class="checkbox"><span class="bold"
                         translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_NO"></span>
-                      <input type="checkbox" [(ngModel)]="vote.options[1].enabled" />
+                      <input type="checkbox" [(ngModel)]="vote.options[1].enabled"
+                        [disabled]="!TopicService.canEditDescription(topic)" />
                       <span class="checkmark"></span>
                     </label>
                   </div>
                 </div>
               </div>
 
-              <div class="radio_wrap" [ngClass]="extraOptions.neutral.enabled? 'selected': ''"
+              <div class="radio_wrap"
+                [ngClass]="{selected: extraOptions.neutral.enabled, disabled: !TopicService.canEditDescription(topic)}"
                 (click)="extraOptions.neutral.enabled = !extraOptions.neutral.enabled; $event.stopPropagation();filterOptions();">
                 <div class="radio_text_wrap">
                   <div class="radio_lable_wrap">
@@ -146,7 +154,8 @@
                   </div>
                 </div>
               </div>
-              <div class="radio_wrap" [ngClass]="extraOptions.veto.enabled? 'selected': ''"
+              <div class="radio_wrap"
+                [ngClass]=" {selected: extraOptions.veto.enabled, disabled: !TopicService.canEditDescription(topic) }"
                 (click)="extraOptions.veto.enabled = !extraOptions.veto.enabled; $event.stopPropagation();filterOptions();">
                 <div class="radio_text_wrap">
                   <div class="radio_lable_wrap">
@@ -163,11 +172,11 @@
         </div>
       </div>
       <div class="radio_wrap" (click)="setVoteType(VOTE_TYPES.multiple)"
-        [ngClass]="vote.type === VOTE_TYPES.multiple? 'selected': ''">
+        [ngClass]="{selected: vote.type === VOTE_TYPES.multiple, disabled: !TopicService.canEditDescription(topic) }">
         <div class="radio_text_wrap">
           <div class="radio_lable_wrap">
             <label class="radio_box">
-              <input type="radio" [checked]="vote.type === VOTE_TYPES.multiple">
+              <input type="radio" [checked]="vote.type === VOTE_TYPES.multiple" [disabled]="!TopicService.canEditDescription(topic)">
               <span class="radio"></span>
               <div class="radio_lable"
                 [translate]="('COMPONENTS.TOPIC_VOTE_CREATE.OPTION_VOTING_'+VOTE_TYPES.multiple).toUpperCase()">
@@ -255,10 +264,10 @@
         <div class="number_wrap mobile_show">
           <div>3</div>
         </div>
-        <div class="small_heading" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_SET_UP_VOTING_RIGHTS"></div>
+        <div class="small_heading" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_MIN_MAX"></div>
       </div>
-      <div translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_CHOOSE_VOTING_END_DESC"></div>
-      <div class="vote_options_wrap">
+      <div translate="COMPONENTS.TOPIC_VOTE_CREATE.VOTE_TXT_DESCRIPTION_CHOICE_RANGE"></div>
+      <div class="vote_options_wrap" [ngClass]="{disabled: !TopicService.canEditDescription(topic)}">
         <div class="input_area min_max_options">
           <label class="bold" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_MIN_CHOICES"></label>
           <div class="options_count_input_wrap">
@@ -316,14 +325,14 @@
         <div class="small_heading" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_SET_UP_VOTING_RIGHTS"></div>
       </div>
       <div translate="COMPONENTS.TOPIC_VOTE_CREATE.SELECT_VOTING_SYSTEM"></div>
-      <div class="radio_wrap" [ngClass]="(vote.authType === VOTE_AUTH_TYPES.hard)? 'selected': ''"
+      <div class="radio_wrap" [ngClass]="{selected: vote.authType === VOTE_AUTH_TYPES.hard, disabled: !TopicService.canEditDescription(topic)}"
         (click)="(vote.authType !== VOTE_AUTH_TYPES.hard)? vote.authType=VOTE_AUTH_TYPES.hard : vote.authType=VOTE_AUTH_TYPES.soft">
         <div class="radio_text_wrap">
           <div class="radio_lable_wrap">
             <label class="checkbox" (click)="vote.authType = VOTE_AUTH_TYPES.hard"
-              [ngClass]="vote.authType === VOTE_AUTH_TYPES.hard ? 'selected': ''">
+              [ngClass]="{selected: vote.authType === VOTE_AUTH_TYPES.hard}">
               <span class="bold" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_AUTH_HARD_ID"></span>
-              <input type="checkbox" [checked]="vote.authType === VOTE_AUTH_TYPES.hard" />
+              <input type="checkbox" [checked]="vote.authType === VOTE_AUTH_TYPES.hard" [disabled]="!TopicService.canEditDescription(topic)"/>
               <span class="checkmark"></span>
             </label>
           </div>
@@ -390,12 +399,12 @@
           </div>
         </div>
       </div>
-      <div class="radio_wrap" [ngClass]="vote.delegationIsAllowed? 'selected': ''">
+      <div class="radio_wrap" [ngClass]="{seleced: vote.delegationIsAllowed, disabled: !TopicService.canEditDescription(topic)}">
         <div class="radio_text_wrap">
           <div class="radio_lable_wrap">
-            <label class="checkbox" [ngClass]="vote.delegationIsAllowed? 'selected': ''">
+            <label class="checkbox" [ngClass]="{selected: vote.delegationIsAllowed}">
               <span class="bold" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_DELEGATION"></span>
-              <input type="checkbox" [(ngModel)]="vote.delegationIsAllowed" />
+              <input type="checkbox" [(ngModel)]="vote.delegationIsAllowed" [disabled]="!TopicService.canEditDescription(topic)"/>
               <span class="checkmark"></span>
             </label>
           </div>
@@ -416,7 +425,7 @@
         <div class="small_heading" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_CHOOSE_VOTING_END"></div>
       </div>
       <div translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_CHOOSE_VOTING_END_DESC"></div>
-      <div class="radio_wrap date_selector" [ngClass]="deadline ? 'selected': ''">
+      <div class="radio_wrap date_selector" [ngClass]="{selected: deadline}">
         <div class="radio_text_wrap date_selector">
           <div class="radio_lable_wrap">
             <label class="checkbox">

@@ -1,7 +1,7 @@
 import { trigger, state, style } from '@angular/animations';
 import { Component, Inject, ViewChild, ElementRef, Input, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, of, take, BehaviorSubject, Observable, takeWhile } from 'rxjs';
+import { map, tap, of, take, BehaviorSubject, Observable, takeWhile } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicService } from 'src/app/services/topic.service';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
@@ -11,6 +11,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Group } from 'src/app/interfaces/group';
 import { TranslateService } from '@ngx-translate/core';
 import { TopicMemberGroupService } from 'src/app/services/topic-member-group.service';
+import { TopicMemberUserService } from 'src/app/services/topic-member-user.service';
 import { TopicInviteUserService } from 'src/app/services/topic-invite-user.service';
 import { TopicParticipantsDialogComponent } from '../topic-participants/topic-participants.component';
 import { InviteEditorsComponent } from '../invite-editors/invite-editors.component';
@@ -99,6 +100,7 @@ export class TopicFormComponent {
   VISIBILITY = this.TopicService.VISIBILITY;
   CATEGORIES = Object.keys(this.TopicService.CATEGORIES);
   groups$: Observable<Group[] | any[]> = of([]);
+  members$: Observable<any[] | any[]> = of([]);
   invites$: Observable<any[]> = of([]);
   topicGroups = <Group[]>[];
 
@@ -118,6 +120,7 @@ export class TopicFormComponent {
     public TopicService: TopicService,
     public GroupService: GroupService,
     public TopicMemberGroupService: TopicMemberGroupService,
+    public TopicMemberUserService: TopicMemberUserService,
     public TopicInviteUserService: TopicInviteUserService,
     public translate: TranslateService,
     private cd: ChangeDetectorRef,
@@ -145,7 +148,15 @@ export class TopicFormComponent {
     });
     if (this.topic.id) {
       this.TopicInviteUserService.setParam('topicId', this.topic.id);
-      this.invites$ = this.TopicInviteUserService.loadItems();
+      this.invites$ = this.TopicInviteUserService.loadItems().pipe(
+        tap((invites) => console.log(invites))
+      );
+      this.TopicMemberUserService.setParam('topicId', this.topic.id);
+      this.members$ = this.TopicMemberUserService.loadItems().pipe(
+        tap((members) => {
+          this.topic.members.users = members;
+        })
+      );
     }
   }
 

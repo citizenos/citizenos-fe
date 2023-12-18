@@ -21,7 +21,11 @@ export class CosCalenderComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.date) {
+      console.log(this.date);
       this.selectedDate = new Date(this.date);
+      this.day = this.selectedDate.getDay();
+      this.month = this.selectedDate.getMonth();
+      this.year = this.selectedDate.getFullYear();
     }
     this.generateCalendar(new Date().getFullYear(), new Date().getMonth());
   }

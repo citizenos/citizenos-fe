@@ -264,10 +264,10 @@
 
         <div class="content_section" *ngIf="vote.type === 'multiple'">
           <div class="section_content_wrap">
-            <div class="small_heading">2. <span translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_SET_UP_VOTING_RIGHTS"></span></div>
-            <div translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_CHOOSE_VOTING_END_DESC"></div>
+            <div class="small_heading">2. <span translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_MIN_MAX"></span></div>
+            <div translate="COMPONENTS.TOPIC_VOTE_CREATE.VOTE_TXT_DESCRIPTION_CHOICE_RANGE"></div>
             <div class="input_area min_max_options">
-              <label class="bold" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_MIN_CHOICES"></label>
+              <label class="bold" translate="COMPONENTS.TOPIC_VOTE_CREATE.VOTE_LBL_MIN_CHOICES"></label>
               <div class="options_count_input_wrap">
                 <button class="btn_medium_voting_light icon" (click)="optionsCountDown('min')"><svg width="12"
                     height="2" viewBox="0 0 12 2" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -288,7 +288,7 @@
               </div>
             </div>
             <div class="input_area min_max_options">
-              <label class="bold" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_MAX_CHOICES"></label>
+              <label class="bold" translate="COMPONENTS.TOPIC_VOTE_CREATE.VOTE_LBL_MAX_CHOICES"></label>
               <div class="options_count_input_wrap">
                 <button class="btn_medium_voting_light icon" (click)="optionsCountDown()">
                   <svg width="12" height="2" viewBox="0 0 12 2" fill="none" xmlns="http://www.w3.org/2000/svg">

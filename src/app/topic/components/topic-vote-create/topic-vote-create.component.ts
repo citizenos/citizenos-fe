@@ -120,6 +120,13 @@ export class TopicVoteCreateComponent implements OnInit {
     if (!this.topic.voteId && !this.vote) {
       this.vote = Object.assign({}, this.voteDefault);
     }
+
+    if (this.vote.endsAt) {
+      this.deadline = new Date(this.vote.endsAt);
+      this.endsAt.date = this.deadline;
+      this.endsAt.min = this.deadline.getMinutes();
+      this.endsAt.h = this.deadline.getHours();
+    }
     this.vote.options.forEach((opt: any) => {
       if (opt.value === 'Neutral') {
         this.extraOptions.neutral.enabled = true;
@@ -144,6 +151,7 @@ export class TopicVoteCreateComponent implements OnInit {
   };
 
   setVoteType(voteType: string) {
+    if (!this.TopicService.canEditDescription(this.topic)) return;
     if (voteType == this.VOTE_TYPES.multiple) {
       this.vote.type = voteType;
       if (!this.vote.options)
@@ -237,6 +245,7 @@ export class TopicVoteCreateComponent implements OnInit {
     if (this.endsAt.timeFormat === 'PM') { hour += 12; }
     this.deadline.setHours(hour - (this.endsAt.timezone - (this.deadline.getTimezoneOffset() / -60)));
     this.deadline.setMinutes(this.endsAt.min);
+    this.vote.endsAt = this.deadline;
     this.daysToVoteEnd();
 
     this.setReminderOptions();
@@ -302,6 +311,7 @@ export class TopicVoteCreateComponent implements OnInit {
       if (this.deadline) {
         this.vote.endsAt = this.deadline
       }
+      console.log(this.vote);
       this.saveVote.emit(this.vote);
     }
   }
@@ -368,6 +378,10 @@ export class TopicVoteCreateComponent implements OnInit {
   updateVote() {
     this.filterOptions();
     const updateVote = Object.assign({topicId: this.topic.id}, this.vote);
+    console.log('DEADLINE', this.deadline);
+    if (this.deadline) {
+      updateVote.endsAt = this.deadline;
+    }
     return this.TopicVoteService.update(updateVote).pipe(take(1)).subscribe();
   }
 
@@ -380,7 +394,7 @@ export class TopicVoteCreateComponent implements OnInit {
     }
 
     if (this.deadline) {
-      this.vote.endsAt = this.deadline
+      this.vote.endsAt = this.deadline;
     }
     const saveVote:any = Object.assign({topicId: this.topicId}, this.vote);
     saveVote.autoClose = this.CONF.autoClose;
