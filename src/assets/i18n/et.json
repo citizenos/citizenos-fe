@@ -97,7 +97,7 @@
       "CONTACT_US": "Võta meiega ühendust"
     },
     "ACTIVITY_FEED": {
-      "HEADING_GLOBAL": "Global activity",
+      "HEADING_GLOBAL": "Kõik toimingud",
       "HEADING_GROUP": "@:VIEWS.GROUP.BTN_ACTIVITIES",
       "HEADING_TOPIC": "@:VIEWS.TOPICS_TOPICID.BTN_ACTIVITIES",
       "PLACEHOLDER_FILTER": "Kuva",
@@ -186,7 +186,7 @@
       "TITLE_IDEATION": "Ideekorje",
       "DESC_IDEATION": "Vali see, kui soovid algatada ideekorjet ja saata see hiljem hääletuse ja/või elluviimise faasi. Siin ei toimu poolt- ja vastuargumentidega arutelu.",
       "TITLE_VOTE": "Hääletus",
-      "DESC_VOTE": "Choose this if you want to collect people’s votes before potentially moving to follow-up.",
+      "DESC_VOTE": "Vali see, kui soovid teema üle hääletada ja saata see hiljem elluviimise faasi. Siin ei toimu poolt- ja vastuargumentidega arutelu.",
       "TITLE_GROUP": "Grupp",
       "DESC_GROUP": "Loo grupp, kuhu saad kutsuda inimesi oma organisatsioonist, kogukonnast, klubist või mujalt."
     },
@@ -245,15 +245,15 @@
       "ROLE": "Õigused",
       "ACTIONS": "Tegevused",
       "BTN_BULK_ACTIONS": "@:BTN_BULK_ACTIONS",
-      "BULK_OPT_SET_ALL_RIGHTS": "Määra kõikide õigused <b>{{level}}</b>",
-      "BULK_OPT_REMOVE_ALL": "Remove all"
+      "BULK_OPT_SET_ALL_RIGHTS": "Määra kõigi õigused <b>{{level}}</b>",
+      "BULK_OPT_REMOVE_ALL": "Eemalda kõik"
     },
     "GROUP_INVITE_DIALOG": {
-      "HEADING": "Invite and share",
-      "TAB_INVITE": "Invite members",
-      "TAB_SHARE": "Generate link / QR",
-      "LNK_CANCEL": "Invite later",
-      "BTN_SAVE": "Send invites"
+      "HEADING": "Kutsu ja jaga",
+      "TAB_INVITE": "Kutsu liikmeid",
+      "TAB_SHARE": "Loo link / QR kood",
+      "LNK_CANCEL": "Kutsu hiljem",
+      "BTN_SAVE": "Saada kutsed"
     },
     "GROUP_JOIN": {
       "HEADING": "Join group",
