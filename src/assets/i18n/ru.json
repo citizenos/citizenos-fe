@@ -97,7 +97,7 @@
       "CONTACT_US": "Свяжитесь с нами"
     },
     "ACTIVITY_FEED": {
-      "HEADING_GLOBAL": "Global activity",
+      "HEADING_GLOBAL": "Общая активность",
       "HEADING_GROUP": "@:VIEWS.GROUP.BTN_ACTIVITIES",
       "HEADING_TOPIC": "@:VIEWS.TOPICS_TOPICID.BTN_ACTIVITIES",
       "PLACEHOLDER_FILTER": "Показать",
@@ -186,7 +186,7 @@
       "TITLE_IDEATION": "Тема для сбора идей/мозгового штурма",
       "DESC_IDEATION": "Выберите этот вариант, если хотите собрать идеи перед возможным переходом к голосованию и/или к стадии применения решения. Обсуждение \"за/против\" не предусмотрено.",
       "TITLE_VOTE": "Тема для голосования",
-      "DESC_VOTE": "Choose this if you want to collect people’s votes before potentially moving to follow-up.",
+      "DESC_VOTE": "Выберите этот вариант, если хотите собрать голоса, прежде чем потенциально перейти к стадии применения решения.",
       "TITLE_GROUP": "Группа",
       "DESC_GROUP": "Создайте группу, в которую вы можете пригласить людей, принадлежащих к той же организации, клубу, местоположению и т. д."
     },
@@ -250,7 +250,7 @@
     },
     "GROUP_INVITE_DIALOG": {
       "HEADING": "Пригласить и поделиться",
-      "TAB_INVITE": "Invite members",
+      "TAB_INVITE": "Пригласить участников",
       "TAB_SHARE": "Создать ссылку / QR код",
       "LNK_CANCEL": "Пригласить позже",
       "BTN_SAVE": "Отправить приглашения"
