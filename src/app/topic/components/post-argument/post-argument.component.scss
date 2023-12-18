@@ -11,8 +11,8 @@
   position: fixed;
   bottom: 0;
   align-items: center;
-  max-width: calc(100% - 567px);
-  width: 100%;
+  max-width: 872px;
+  width: calc(100% - 567px);
 
   @include mixins.tablet {
     max-width: 100%;
@@ -56,8 +56,8 @@
   justify-content: space-between;
   background-color: var(--color-surfaces);
   border-radius: 16px 16px 0 0;
-  max-width: calc(100% - 567px);
-  width: 100%;
+  max-width: 872px;
+  width: calc(100% - 567px);
   max-height: 0;
   padding: 16px;
   z-index: 999;
@@ -73,7 +73,9 @@
     gap: 8px;
     z-index: 9999999;
     max-width: 100%;
+    width: 100%;
   }
+
   @include mixins.mobile {;
     padding: 8px;
   }
