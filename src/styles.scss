@@ -721,6 +721,12 @@ est-id-login-form {
     cos-initials {
       font-size: 24px;
     }
+
+    &.small {
+      cos-initials {
+        font-size: 16px;
+      }
+    }
   }
 }
 .pos_dialog_fixed {

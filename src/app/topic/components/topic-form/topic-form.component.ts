@@ -1,7 +1,7 @@
 import { trigger, state, style } from '@angular/animations';
 import { Component, Inject, ViewChild, ElementRef, Input, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, tap, of, take, BehaviorSubject, Observable, takeWhile } from 'rxjs';
+import { map, tap, of, take, BehaviorSubject, Observable, takeWhile, switchMap } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicService } from 'src/app/services/topic.service';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
@@ -100,7 +100,9 @@ export class TopicFormComponent {
   VISIBILITY = this.TopicService.VISIBILITY;
   CATEGORIES = Object.keys(this.TopicService.CATEGORIES);
   groups$: Observable<Group[] | any[]> = of([]);
+  private loadMembers$ = new BehaviorSubject<void>(undefined);
   members$: Observable<any[] | any[]> = of([]);
+  private loadInvite$ = new BehaviorSubject<void>(undefined);
   invites$: Observable<any[]> = of([]);
   topicGroups = <Group[]>[];
 
@@ -148,13 +150,16 @@ export class TopicFormComponent {
     });
     if (this.topic.id) {
       this.TopicInviteUserService.setParam('topicId', this.topic.id);
-      this.invites$ = this.TopicInviteUserService.loadItems().pipe(
-        tap((invites) => console.log(invites))
+      this.invites$ = this.loadInvite$.pipe(
+        tap(()=>console.log('LOAD INVITES')),
+        switchMap(() => {console.log('EXCHAUST'); return this.TopicInviteUserService.loadItems()})
       );
       this.TopicMemberUserService.setParam('topicId', this.topic.id);
-      this.members$ = this.TopicMemberUserService.loadItems().pipe(
+      this.members$ = this.loadMembers$.pipe(
+        switchMap(() => this.TopicMemberUserService.loadItems()),
         tap((members) => {
           this.topic.members.users = members;
+          return members;
         })
       );
     }
@@ -348,7 +353,8 @@ export class TopicFormComponent {
     const inviteDialog = this.dialog.open(InviteEditorsComponent, { data: { topic: this.topic } });
     inviteDialog.afterClosed().subscribe({
       next: (inviteUsers) => {
-        this.topic.members.users = inviteUsers;
+        console.log('INVITE SENT')
+        this.loadInvite$.next();
       },
       error: (error) => {
         // this.NotificationService.addError(error);
@@ -360,6 +366,7 @@ export class TopicFormComponent {
     const inviteDialog = this.dialog.open(TopicInviteDialogComponent, { data: { topic: this.topic } });
     inviteDialog.afterClosed().subscribe({
       next: (inviteUsers) => {
+        this.loadInvite$.next();
         this.Notification.removeAll();
       },
       error: (error) => {

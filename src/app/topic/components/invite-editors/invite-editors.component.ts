@@ -233,7 +233,7 @@ export class InviteEditorsComponent {
         .subscribe({
           next: (res: any) => {
             this.TopicService.reloadTopic();
-            this.dialog.close(membersToSave);
+            this.dialog.close(res);
             this.Notification.addSuccess('COMPONENTS.TOPIC_INVITE_EDITORS.MSG_INVITES_SENT');
           },
           error: (err) => {
