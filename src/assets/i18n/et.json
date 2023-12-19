@@ -219,7 +219,7 @@
       "PLACEHOLDER_SEARCH": "@:VIEWS.MY_TOPICS.PLACEHOLDER_SEARCH_TOPIC",
       "SHOW_PER_PAGE": "@:VIEWS.ACCOUNT.SHOW_PER_PAGE",
       "NO_TOPICS_HEADING": "Sa ei ole veel ühtegi teemat lisanud",
-      "NO_TOPICS_DESC": "Add topics to your group to incentivise members to engage with them. This is not mandatory and you can always add topics later.",
+      "NO_TOPICS_DESC": "Lisa teemad gruppi, et grupi liikmeid motiveerida osalema. Teemad võib aga gruppi lisada ka hiljem.",
       "SELECT_TO_ADD": "Vali, et lisada gruppi",
       "HEADING_TITLE": "Pealkiri",
       "HEADING_PARTICIPANTS": "Osalejad",
@@ -257,20 +257,20 @@
     },
     "GROUP_JOIN": {
       "HEADING": "Liitu grupiga",
-      "MESSAGE_MAIN": "You want to join",
-      "MESSAGE_DESCRIPTION": "This group has set rules of conduct. Please read and follow them so everyone has a great experience.",
+      "MESSAGE_MAIN": "Sa soovid liituda",
+      "MESSAGE_DESCRIPTION": "Selles grupis on seatud käitumisreeglid. Palun loe need läbi ning pea neist kinni, et kõik saaksid hea kogemuse osalemisest.",
       "HEADING_RULES": "@:VIEWS.GROUP.RULES_OF_CONDUCT",
       "BTN_JOIN": "@:VIEWS.GROUP.BTN_JOIN",
       "LNK_CANCEL": "@:LNK_CANCEL"
     },
     "TOPIC_JOIN": {
-      "HEADING": "Join topic",
-      "MESSAGE_MAIN": "You want to join",
-      "MESSAGE_DESCRIPTION": "Are you sure you want to join the topic? See the explanation below for what this means. You can always easily leave a topic if you want to.",
-      "HEADING_WHAT_CAN_YOU_DO": "What you can do once you join a topic",
-      "ITEM_PARTICIPATE": "Participate in discussions and voting",
-      "ITEM_NOTIFICATIONS": "Receive notifications of activity within the topic",
-      "ITEM_REQUEST_EDIT": "Request to become a co-creator",
+      "HEADING": "Liitu aruteluga",
+      "MESSAGE_MAIN": "Sa soovid liituda",
+      "MESSAGE_DESCRIPTION": "Kas oled kindel, et soovid teemaga liituda? Loe täpsemat selgitust allpool. Sa võid soovi korral teemast alati lahkuda.",
+      "HEADING_WHAT_CAN_YOU_DO": "Mida saad teha, kui oled teemaga liitunud",
+      "ITEM_PARTICIPATE": "Osaleda aruteludes ja hääletustel",
+      "ITEM_NOTIFICATIONS": "Saada teavitusi selle teemaga seotud toimingute kohta",
+      "ITEM_REQUEST_EDIT": "Taotleda teema kaasloojaks saamist",
       "BTN_JOIN": "@:VIEWS.TOPICS_TOPICID.BTN_JOIN",
       "LNK_CANCEL": "@:LNK_CANCEL"
     },
@@ -280,7 +280,7 @@
       "BTN_REMOVE": "@:VIEWS.PUBLIC_GROUP.LBL_REMOVE"
     },
     "GROUP_SETTINGS": {
-      "HEADING": "Edit group",
+      "HEADING": "Muuda gruppi",
       "TAB_INFO": "@:VIEWS.GROUP_CREATE.CREATE_TAB_1",
       "TAB_SETTINGS": "@:VIEWS.GROUP_CREATE.CREATE_TAB_2",
       "INFO_SETTINGS_HEADING_GENERAL_INFO": "@:VIEWS.GROUP_CREATE.INFO_SETTINGS_HEADING_GENERAL_INFO",
@@ -307,64 +307,64 @@
       "BTN_SAVE": "@:DIRECTIVES.COS_MODAL.BTN_SAVE"
     },
     "GROUP_SHARE": {
-      "GENERATE_LINK": "Generate access link",
-      "PLACEHOLDER_CREATE_NEW_LINK": "Generate a link to share",
-      "COPY_LINK": "Copy link",
+      "GENERATE_LINK": "Loo link",
+      "PLACEHOLDER_CREATE_NEW_LINK": "Jagamiseks loo link",
+      "COPY_LINK": "Kopeeri link",
       "MSG_LINK_COPIED": "@:COMPONENTS.TOPIC_SHARE.MSG_LINK_COPIED",
-      "GENERATE_QR_CODE": "Generate QR code",
-      "GENERATE_QR_CODE_DESCRIPTION": "Generate a QR code that people can scan to come straight to the topic. You can add the QR code to digital or physical comms, and display it wherever the right people will see it.",
-      "GENERATE_QR_CODE_PRINT": "To save the QR code, right click then choose 'Save image'.",
+      "GENERATE_QR_CODE": "Loo QR kood",
+      "GENERATE_QR_CODE_DESCRIPTION": "Loo QR kood, mille kaudu pääsevad inimesed otse teemasse. QR koodi saate lisada nii füüsilistele kui digitaalsetele infomaterjalidele ning kuvada seda kohtades, kus õigetel inimestel on sellele ligipääs.",
+      "GENERATE_QR_CODE_PRINT": "QR koodi salvestamiseks tehke parem klõps ning valige \"Salvesta pilt\".",
       "BTN_GENERATE_QR_CODE": "@:COMPONENTS.GROUP_SHARE.GENERATE_QR_CODE"
     },
     "LOGIN_FORM": {
-      "LOGIN_OR": "or",
-      "LOGIN_LNK_NO_ACCOUNT_REGISTER": "No account? Sign up now",
-      "LOGIN_LNK_FORGOT_PASSWORD": "Forgot password?",
-      "LOGIN_PLACEHOLDER_EMAIL": "Email",
-      "LOGIN_PLACEHOLDER_PASSWORD": "Password",
-      "LOGIN_BTN_LOGIN": "Log in"
+      "LOGIN_OR": "või",
+      "LOGIN_LNK_NO_ACCOUNT_REGISTER": "Kas sul pole kontot? Registreeru kohe",
+      "LOGIN_LNK_FORGOT_PASSWORD": "Unustasid salasõna?",
+      "LOGIN_PLACEHOLDER_EMAIL": "E-post",
+      "LOGIN_PLACEHOLDER_PASSWORD": "Salasõna",
+      "LOGIN_BTN_LOGIN": "Logi sisse"
     },
     "LOGIN_SMART_ID_FORM": {
       "LOGIN_SMARTID_HEADING": "@:COMPONENTS.LOGIN_SMART_ID_FORM.LOGIN_SMARTID_BTN_AUTHENTICATE_SID",
-      "LOGIN_SMARTID_PLACEHOLDER_COUNTRY_CODE": "Two-letter country code",
-      "LOGIN_SMARTID_ERROR_COUNTRY_CODE": "Invalid country code",
+      "LOGIN_SMARTID_PLACEHOLDER_COUNTRY_CODE": "Kahetäheline riigikood",
+      "LOGIN_SMARTID_ERROR_COUNTRY_CODE": "Viga riigikoodis",
       "LOGIN_SMARTID_PLACEHOLDER_PID": "@:MODALS.LOGIN_ESTEID_PLACEHOLDER_PID",
       "LOGIN_SMARTID_ERROR_PID": "@:MODALS.LOGIN_ESTEID_ERROR_PID",
       "LOGIN_SMARTID_TXT_CONTROL_CODE": "@:MODALS.LOGIN_ESTEID_TXT_CONTROL_CODE",
-      "LOGIN_SMARTID_TXT_CHECK_CONTROL_CODE": "Make sure the control code matches with the one displayed on your phone, and enter Smart-ID PIN1.",
+      "LOGIN_SMARTID_TXT_CHECK_CONTROL_CODE": "Veendu, et kontrollkood kattub telefoni ekraanil olevaga enne, kui sisestad Smart-ID PIN1.",
       "LOGIN_SMARTID_BTN_LOG_IN_SID": "@:MODALS.LOGIN_BTN_LOGIN_SMARTID",
-      "LOGIN_SMARTID_BTN_AUTHENTICATE_SID": "Authenticate with Smart-ID"
+      "LOGIN_SMARTID_BTN_AUTHENTICATE_SID": "Tuvasta end Smart-ID'ga"
     },
     "NOTIFICATION": {
-      "TITLE_ERROR": "Error!",
+      "TITLE_ERROR": "Viga!",
       "TITLE_INFO": "Info!",
-      "TITLE_SUCCESS": "Success!",
-      "TITLE_WARNING": "Warning!"
+      "TITLE_SUCCESS": "Korras!",
+      "TITLE_WARNING": "Hoiatus!"
     },
     "ONBOARDING": {
-      "HELLO": "Hey {{name}}",
-      "TITLE_WELCOME": "Welcome to Citizen OS!",
-      "DESCRIPTION": "As this is your first time on the newly redesigned Citizen OS dashboard, we recommend you take the walkthrough tour to get to know the platform better.",
-      "TAKE_A_TOUR": "The walkthrough only takes a couple of minutes.",
-      "BTN_SUBMIT": "Take the tour",
-      "BTN_CANCEL": "Skip"
+      "HELLO": "Tere {{name}}",
+      "TITLE_WELCOME": "Tere tulemast Citizen OS-i!",
+      "DESCRIPTION": "Kuna oled esimest korda värskelt ümber kujundatud Citizen OS-i töölaual, siis soovitame sul platvormi paremaks tundma õppimiseks läbi teha ringkäik.",
+      "TAKE_A_TOUR": "Ringkäik võtab aega vaid paar minutit.",
+      "BTN_SUBMIT": "Tee ringkäik",
+      "BTN_CANCEL": "Jäta vahele"
     },
     "PASSWORD_FORGOT": {
       "PLACEHOLDER_EMAIL": "@:COMPONENTS.LOGIN_FORM.LOGIN_PLACEHOLDER_EMAIL",
-      "SEND_RESET": "Send reset code"
+      "SEND_RESET": "Saada muutmiskood"
     },
     "PASSWORD_RESET": {
-      "PASSWORD_RESET_HEADING": "Reset your account password",
-      "PASSWORD_RESET_LBL_EMAIL": "Account email:",
+      "PASSWORD_RESET_HEADING": "Taasta oma Citizen OS konto parool",
+      "PASSWORD_RESET_LBL_EMAIL": "E-posti aadress:",
       "PASSWORD_RESET_PLACEHOLDER_PASSWORD": "@:COMPONENTS.LOGIN_FORM.LOGIN_PLACEHOLDER_PASSWORD",
       "PASSWORD_RESET_PLACEHOLDER_PASSWORD_CONFIRM": "@:VIEWS.ACCOUNT.PLACEHOLDER_PASSWORD_CONFIRM",
-      "PASSWORD_RESET_BTN_RESET_PASSWORD": "Reset your password",
+      "PASSWORD_RESET_BTN_RESET_PASSWORD": "Muuda oma salasõna",
       "PASSWORD_RESET_LNK_CANCEL": "@:LNK_CANCEL"
     },
     "EDIT_ARGUMENT": {
       "FOOTER_MENU_TITLE": "@:COMPONENTS.POST_ARGUMENT.FOOTER_MENU_TITLE",
-      "EDIT_YOUR_ARGUMENT": "Edit your argument",
-      "FOOTER_FORM_TITLE": "Edit your argument",
+      "EDIT_YOUR_ARGUMENT": "Muuda oma argumenti",
+      "FOOTER_FORM_TITLE": "Muuda oma argumenti",
       "FOOTER_FORM_ARGUMENT_TYPE_TITLE": "@:COMPONENTS.POST_ARGUMENT.FOOTER_FORM_ARGUMENT_TYPE_TITLE",
       "ARGUMENT_TYPE_SELECT_OPTION_PRO": "@:COMPONENTS.POST_ARGUMENT.ARGUMENT_TYPE_SELECT_OPTION_PRO",
       "ARGUMENT_TYPE_SELECT_OPTION_CON": "@:COMPONENTS.POST_ARGUMENT.ARGUMENT_TYPE_SELECT_OPTION_CON",
@@ -378,23 +378,23 @@
       "BTN_ARGUMENT_POST": "@:COMPONENTS.EDIT_ARGUMENT.EDIT_YOUR_ARGUMENT"
     },
     "POST_ARGUMENT": {
-      "FOOTER_MENU_TITLE": "Join discussion",
-      "FOOTER_MENU_BTN_ADD_ARGUMENT": "Add your argument",
-      "FOOTER_FORM_TITLE": "Join the discussion",
-      "FOOTER_FORM_ARGUMENT_TYPE_TITLE": "Select type of argument",
-      "ARGUMENT_TYPE_SELECT_OPTION_PRO": "Pro argument",
-      "ARGUMENT_TYPE_SELECT_OPTION_CON": "Con argument",
-      "ARGUMENT_TYPE_SELECT_OPTION_POI": "Informational",
-      "PLACEHOLDER_ADD_SUBJECT_TO_ARGUMENT": "Make your main statement here",
-      "SUBJECT_CHARACTERS_LEFT": "Characters left: {{chars}}/{{charsLeft}}",
-      "ARGUMENT_TYPE_CHARACTER_LIMIT": "Character limit: {{numberOfCharacters}}",
+      "FOOTER_MENU_TITLE": "Liitu aruteluga",
+      "FOOTER_MENU_BTN_ADD_ARGUMENT": "Lisa oma argument",
+      "FOOTER_FORM_TITLE": "Liitu aruteluga",
+      "FOOTER_FORM_ARGUMENT_TYPE_TITLE": "Vali argumenditüüp",
+      "ARGUMENT_TYPE_SELECT_OPTION_PRO": "Poolt argument",
+      "ARGUMENT_TYPE_SELECT_OPTION_CON": "Vastu argument",
+      "ARGUMENT_TYPE_SELECT_OPTION_POI": "Informatiivne",
+      "PLACEHOLDER_ADD_SUBJECT_TO_ARGUMENT": "Mis on sinu väide?",
+      "SUBJECT_CHARACTERS_LEFT": "Tähemärke on jäänud: {{chars}}{{charsLeft}}",
+      "ARGUMENT_TYPE_CHARACTER_LIMIT": "Tähemärgipiirang: {{numberOfCharacters}}",
       "CHARACTER_LIMIT": "@:COMPONENTS.GROUP_INVITE.CHARACTER_LIMIT",
       "PLACEHOLDER_EXPLAIN_YOUR_ARGUMENT": "@:VIEWS.TOPICS_TOPICID.PLACEHOLDER_EXPLAIN_YOUR_ARGUMENT",
-      "BTN_ADD_IMAGE": "Add image",
+      "BTN_ADD_IMAGE": "Lisa pilt",
       "BTN_ARGUMENT_POST": "@:COMPONENTS.POST_ARGUMENT.FOOTER_MENU_BTN_ADD_ARGUMENT"
     },
     "PUBLIC_TOPICS": {
-      "HEADER": "Public topics",
+      "HEADER": "Avalikud teemad",
       "FILTER_STATUS": "@:VIEWS.MY_TOPICS.FILTER_STATUS",
       "FILTER_TOPICS_MODERATED": "@:VIEWS.MY_TOPICS.FILTERS.TOPICS_MODERATED",
       "FILTER_VISIBILITY": "@:VIEWS.MY_TOPICS.FILTER_VISIBILITY",
@@ -408,8 +408,8 @@
       "LBL_FILTER": "@:LNK_FILTER"
     },
     "REGISTER_FORM": {
-      "HEADING": "Register a free account",
-      "HEADING_DESCRIPTION": "Create your free account today! No ads, no sale of data, no hidden costs",
+      "HEADING": "Uue konto registreerimine",
+      "HEADING_DESCRIPTION": "Loo uus konto! Ei mingeid reklaame, andmete edasimüümist ega varjatud kulusid",
       "PLACEHOLDER_NAME": "@:VIEWS.ACCOUNT.PLACEHOLDER_NAME",
       "PLACEHOLDER_COMPANY": "@:VIEWS.ACCOUNT.PLACEHOLDER_COMPANY",
       "PLACEHOLDER_EMAIL": "@:COMPONENTS.LOGIN_FORM.LOGIN_PLACEHOLDER_EMAIL",
@@ -418,27 +418,27 @@
       "LBL_SHOW_IN_SEARCH": "@:VIEWS.ACCOUNT.LBL_SHOW_IN_SEARCH",
       "LBL_SHOW_IN_SEARCH_DESCRIPTION": "@:VIEWS.ACCOUNT.LBL_SHOW_IN_SEARCH_DESCRIPTION",
       "LBL_TERMS_AND_CONDITIONS": "@:MODALS.PRIVACY_POLICY_HEADING",
-      "LBL_TERMS_AND_CONDITIONS_DESCRIPTION": "I have read and agree to the Terms of Use and Privacy Policy.",
+      "LBL_TERMS_AND_CONDITIONS_DESCRIPTION": "Olen tutvunud ja nõustun kasutustingimuste ning privaatsuspoliitikaga.",
       "PRIVACY_POLICY_LNK_TERMS_OF_USE": "@:MODALS.PRIVACY_POLICY_LNK_TERMS_OF_USE",
       "PRIVACY_POLICY_LNK_PRIVACY_POLICY": "@:MODALS.PRIVACY_POLICY_LNK_PRIVACY_POLICY",
-      "BTN_SAVE": "Sign up",
-      "HAVE_AN_ACCOUNT": "Have an account? Log in now"
+      "BTN_SAVE": "Liitu",
+      "HAVE_AN_ACCOUNT": "Sul juba on konto? Logi sisse"
     },
     "REPORT_TOPIC": {
-      "HEADING": "Report topic",
+      "HEADING": "Teavita sobimatust teemast",
       "MESSAGE_MAIN": "@:COMPONENTS.ARGUMENT_REPORT.MESSAGE_MAIN",
       "LABLE_REASON": "@:COMPONENTS.ARGUMENT_REPORT.LABLE_REASON",
-      "PLACEHOLDER_REPORT_TEXT": "Explain, why you found this argument inappropriate...",
+      "PLACEHOLDER_REPORT_TEXT": "Selgita, miks see argument on ebasobiv...",
       "ERROR_TEXT": "@:MSG_ERROR_POST_API_TOPICS_COMMENTS_REPORTS_40000_TEXT",
-      "BTN_SUBMIT": "Report to admin",
+      "BTN_SUBMIT": "Raporteeri administraatorile",
       "BTN_CANCEL": "@:LNK_CANCEL"
     },
     "SEARCH": {
       "LNK_CLEAR": "@:LNK_CLEAR",
-      "TITLE": "Global search",
-      "HEADING_START_SEARCH": "Start your search here",
-      "DESC_START_SEARCH": "You can search topics, groups and categories.",
-      "HEADING_SEARCH_RESULTS": "Global search results",
+      "TITLE": "Üldine otsing",
+      "HEADING_START_SEARCH": "Alusta otsingut siit",
+      "DESC_START_SEARCH": "Otsi teemasid, gruppe ja kategooriaid.",
+      "HEADING_SEARCH_RESULTS": "Otsingu tulemused",
       "HEADING_RESULTS_IN": "Search results in: <b>{{context}}</b>",
       "LNK_VIEW_MORE_RESULTS": "View more results",
       "TXT_OOPS_NO_RESULTS": "We couldn’t find any results matching your search :(",
