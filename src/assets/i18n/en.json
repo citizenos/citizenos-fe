@@ -1948,6 +1948,8 @@
       "WRITE_TOGETHER_DESC": "Collaborate on the topic description by inviting co-creators.",
       "CO_EDITORS_TITLE": "Co-creators",
       "CO_EDITORS_LNK_MANAGE": "Manage",
+      "CO_EDITORS_LBL_JOINED": "Joined",
+      "CO_EDITORS_LBL_INVITED": "Invited",
       "BTN_INVITE_CO_EDITORS": "Invite co-creators",
       "HELP_HEADING": "Did you know?",
       "HELP_DESCRIPTION": "Creating a discussion topic allows the participants to use pro & con arguments, which can help you shape the next phases of the topic.",

@@ -3,7 +3,7 @@ import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectorRef } f
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { of, map, tap, Observable, take, switchMap, takeWhile } from 'rxjs';
+import { of, map, tap, Observable, take, switchMap, takeWhile, BehaviorSubject } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { AppService } from 'src/app/services/app.service';
 import { ConfigService } from 'src/app/services/config.service';
@@ -14,6 +14,7 @@ import { GroupService } from 'src/app/services/group.service';
 import { Group } from 'src/app/interfaces/group';
 import { GroupMemberTopicService } from 'src/app/services/group-member-topic.service';
 import { TopicInviteUserService } from 'src/app/services/topic-invite-user.service';
+import { TopicMemberUserService } from 'src/app/services/topic-member-user.service';
 import { TopicInviteDialogComponent } from 'src/app/topic/components/topic-invite/topic-invite.component';
 import { TopicParticipantsDialogComponent } from 'src/app/topic/components/topic-participants/topic-participants.component';
 import { InviteEditorsComponent } from 'src/app/topic/components/invite-editors/invite-editors.component';
@@ -86,6 +87,9 @@ export class VoteCreateComponent implements OnInit {
   titleLimit = 100;
   introLimit = 500;
   groups$: Observable<Group[] | any[]> = of([]);
+  private loadMembers$ = new BehaviorSubject<void>(undefined);
+  members$: Observable<any[] | any[]> = of([]);
+  private loadInvite$ = new BehaviorSubject<void>(undefined);
   invites$: Observable<any[]> = of([]);
 
   topicGroups = <Group[]>[];
@@ -146,6 +150,7 @@ export class VoteCreateComponent implements OnInit {
     private Notification: NotificationService,
     public GroupService: GroupService,
     public GroupMemberTopicService: GroupMemberTopicService,
+    public TopicMemberUserService: TopicMemberUserService,
     public TopicInviteUserService: TopicInviteUserService,
     private router: Router,
     private route: ActivatedRoute,
@@ -179,6 +184,22 @@ export class VoteCreateComponent implements OnInit {
           return this.TopicService.loadTopic(params['topicId']).pipe(map((topic) => {
             topic.padUrl = this.sanitizer.bypassSecurityTrustResourceUrl(topic.padUrl);
             this.topic = topic;
+            if (this.topic.id) {
+              this.TopicInviteUserService.setParam('topicId', this.topic.id);
+              this.invites$ = this.loadInvite$.pipe(
+                tap(()=>console.log('LOAD INVITES')),
+                switchMap(() => this.TopicInviteUserService.loadItems())
+              );
+              this.TopicMemberUserService.setParam('topicId', this.topic.id);
+              this.members$ = this.loadMembers$.pipe(
+                switchMap(() => this.TopicMemberUserService.loadItems()),
+                tap((members) => {
+                  console.log('MEMBERS', members);
+                  this.topic.members.users = members;
+                  return members;
+                })
+              );
+            }
             if (topic.voteId) {
               this.TopicVoteService.get({ topicId: topic.id, voteId: topic.voteId }).pipe(take(1)).subscribe({
                 next: (vote) => {
@@ -222,10 +243,6 @@ export class VoteCreateComponent implements OnInit {
         })*/
   }
   ngOnInit(): void {
-    if (this.topic?.id) {
-      this.TopicInviteUserService.setParam('topicId', this.topic.id);
-      this.invites$ = this.TopicInviteUserService.loadItems();
-    }
   }
 
   selectTab(tab: string) {
@@ -459,7 +476,7 @@ export class VoteCreateComponent implements OnInit {
     const inviteDialog = this.dialog.open(TopicInviteDialogComponent, { data: { topic: this.topic } });
     inviteDialog.afterClosed().subscribe({
       next: (inviteUsers) => {
-        this.topic.members.users = inviteUsers;
+        this.loadMembers$.next();
         //   this.NotificationService.addSuccess('');
       },
       error: (error) => {
@@ -483,7 +500,7 @@ export class VoteCreateComponent implements OnInit {
     const inviteDialog = this.dialog.open(InviteEditorsComponent, { data: { topic: this.topic } });
     inviteDialog.afterClosed().subscribe({
       next: (inviteUsers) => {
-        this.topic.members.users = inviteUsers;
+        this.loadInvite$.next();
       },
       error: (error) => {
         // this.NotificationService.addError(error);

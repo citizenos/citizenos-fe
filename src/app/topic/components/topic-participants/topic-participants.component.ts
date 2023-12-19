@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicMemberUserService } from 'src/app/services/topic-member-user.service';
 import { TopicInviteUserService } from 'src/app/services/topic-invite-user.service';
@@ -96,16 +96,24 @@ export class TopicParticipantsComponent implements OnInit {
 })
 export class TopicParticipantsDialogComponent implements OnInit {
 
-  constructor(dialog: MatDialog, router: Router, route: ActivatedRoute, TopicService: TopicService) {
+  constructor(dialog: MatDialog, router: Router, route: ActivatedRoute, TopicService: TopicService, @Inject(MAT_DIALOG_DATA) data: any, curDialog: MatDialogRef<TopicParticipantsDialogComponent>) {
+    if (data.topic) {
+      const manageDialog = dialog.open(TopicParticipantsComponent, { data: { topic: data.topic } });
+      manageDialog.afterClosed().subscribe(() => {
+        curDialog.close();
+      })
+    } else {
     route.params.pipe(switchMap((params) => {
       return TopicService.get(params['topicId']);
     })).pipe(take(1))
       .subscribe((topic) => {
         const manageDialog = dialog.open(TopicParticipantsComponent, { data: { topic } });
         manageDialog.afterClosed().subscribe(() => {
+          curDialog.close();
           router.navigate(['../'], { relativeTo: route });
         })
       })
+    }
 
   }
 
