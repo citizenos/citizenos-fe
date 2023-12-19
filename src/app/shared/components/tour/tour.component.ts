@@ -176,8 +176,8 @@ export class TourComponent {
 
         // e.g. 100x100 viewport and a 10x10px element at position {top: -1, left: 0, bottom: 9, right: 10}
 
-        if(item.index === 1 && !elementIsVisibleInViewport(tourBox)) {
-          tourBox.scrollIntoView();
+        if(!elementIsVisibleInViewport(tourBox)) {
+          tourBox.scrollIntoView({ block: "center", inline: "center" });
         }
       }
       return of([item, isVisible]);
