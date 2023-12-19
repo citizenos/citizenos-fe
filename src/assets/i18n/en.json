@@ -231,7 +231,7 @@
       "MESSAGE_DESC": "@:MODALS.TOPIC_INVITE_LBL_OPTIONAL_MESSAGE",
       "MESSAGE_PLACEHOLDER": "Write your message here",
       "CHARACTER_LIMIT": "Character limit:",
-      "EMAIL_DESC": "Invite people via their username or email address",
+      "EMAIL_DESC": "Invite people via their name or email address",
       "PLACEHOLDER_SEARCH": "@:DEFAULT.NAV_MOBILE.BTN_SEARCH",
       "SHOW_PER_PAGE": "@:VIEWS.ACCOUNT.SHOW_PER_PAGE",
       "NO_INVITES_HEADING": "You haven’t invited anyone yet",
