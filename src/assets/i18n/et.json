@@ -256,7 +256,7 @@
       "BTN_SAVE": "Saada kutsed"
     },
     "GROUP_JOIN": {
-      "HEADING": "Join group",
+      "HEADING": "Liitu grupiga",
       "MESSAGE_MAIN": "You want to join",
       "MESSAGE_DESCRIPTION": "This group has set rules of conduct. Please read and follow them so everyone has a great experience.",
       "HEADING_RULES": "@:VIEWS.GROUP.RULES_OF_CONDUCT",
