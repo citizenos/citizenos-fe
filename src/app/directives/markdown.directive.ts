@@ -15,6 +15,7 @@ export class MarkdownDirective implements OnDestroy {
   easymde;
 
   config: any = {
+    spellChecker: false,
     placeholder: this.el.nativeElement.attributes.getNamedItem('placeholder')?.value,
     toolbar: [
       {
