@@ -33,6 +33,7 @@ import { TopicJoinComponent } from './components/topic-join/topic-join.component
 import { TopicReportReasonComponent } from './components/topic-report-reason/topic-report-reason.component';
 import { TopicJoinService } from 'src/app/services/topic-join.service';
 import { TourService } from 'src/app/services/tour.service';
+import { InviteEditorsComponent } from './components/invite-editors/invite-editors.component';
 
 @Component({
   selector: 'topic',
@@ -343,6 +344,18 @@ export class TopicComponent implements OnInit {
 
     return vote && vote.endsAt && new Date() > new Date(vote.endsAt);
   };
+
+  inviteEditors(topic: Topic) {
+    const inviteDialog = this.dialog.open(InviteEditorsComponent, { data: { topic: topic } });
+    inviteDialog.afterClosed().subscribe({
+      next: (inviteUsers) => {
+     //   this.loadInvite$.next();
+      },
+      error: (error) => {
+        this.NotificationService.addError(error);
+      }
+    })
+  }
 
   inviteMembers(topic: Topic) {
     console.log('INVITE');

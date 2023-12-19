@@ -77,7 +77,7 @@
             <span *ngIf="!topic.favourite" translate="VIEWS.TOPICS_TOPICID.OPTION_FAVOURITE"></span>
             <span *ngIf="topic.favourite" translate="VIEWS.TOPICS_TOPICID.OPTION_UNFAVOURITE"></span>
           </button>
-          <button class="option" (click)="inviteMembers(topic)"
+          <button class="option" (click)="inviteEditors(topic)"
             *ngIf="(auth.loggedIn$ | async) && TopicService.canEdit(topic)">
             <div>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
