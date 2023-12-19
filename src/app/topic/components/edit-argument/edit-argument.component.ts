@@ -52,6 +52,7 @@ export class EditArgumentComponent implements OnInit {
     return this.ARGUMENT_TYPES_MAXLENGTH[this.edit.type] || this.ARGUMENT_TYPES_MAXLENGTH.pro;
   }
   updateArgument() {
+    console.log('UPDATE', this.edit);
     if (this.edit.type !== this.argument.type || this.argument.subject !== this.edit.subject || this.argument.text !== this.edit.text) {
       this.TopicArgumentService.update(this.edit)
         .pipe(take(1))
@@ -95,8 +96,7 @@ export class EditArgumentComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    this.edit = Object.assign(this.edit, this.argument);
-    this.edit.topicId = this.topicId;
+    this.edit = Object.assign(this.edit, {id: this.argument.id, subject: this.argument.subject, text: this.argument.text, type: this.argument.type, topicId: this.topicId});
   }
 
 }
