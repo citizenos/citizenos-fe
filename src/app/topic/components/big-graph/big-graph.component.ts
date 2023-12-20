@@ -42,4 +42,12 @@ export class BigGraphComponent implements OnInit {
   trackByFn(index: number, element: any) {
     return element.key;
   }
+
+  getOptionLetter(index:any) {
+    if (index < 26) {
+      return String.fromCharCode(65 + parseInt(index));
+    } else {
+      return String.fromCharCode(65 + Math.floor(parseInt(index) / 26) - 1) + (String.fromCharCode(65 + parseInt(index) % 26))
+    }
+  };
 }
