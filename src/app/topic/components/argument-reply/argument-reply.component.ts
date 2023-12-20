@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { take, map } from 'rxjs';
 import { Argument } from 'src/app/interfaces/argument';
+import { AppService } from 'src/app/services/app.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { TopicArgumentService } from 'src/app/services/topic-argument.service';
 @Component({

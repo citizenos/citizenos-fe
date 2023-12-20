@@ -12,6 +12,7 @@ import { AppService } from 'src/app/services/app.service';
 import { TourService } from 'src/app/services/tour.service';
 import { TopicService } from 'src/app/services/topic.service';
 import { take } from 'rxjs';
+import { Router } from '@angular/router';
 @Component({
   selector: 'nav',
   templateUrl: './nav.component.html',
@@ -23,6 +24,7 @@ export class NavComponent implements OnInit {
   topicsCount$ = this.TopicService.count();
   constructor(private Location: LocationService,
     public translate: TranslateService,
+    private router: Router,
     public config: ConfigService,
     public auth: AuthService, public dialog: MatDialog,
     public app: AppService,
@@ -66,6 +68,8 @@ export class NavComponent implements OnInit {
     .pipe(take(1))
     .subscribe({
       next: (done) => {
+        console.log('SUCCESS', done);
+        this.router.navigate(['/']);
       },
       error: (err) => {
         console.error('LOGOUT ERROR', err);

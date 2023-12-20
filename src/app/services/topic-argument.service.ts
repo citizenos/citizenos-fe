@@ -133,11 +133,9 @@ export class TopicArgumentService extends ItemsListService {
 
   getReport(data: any) {
     const path = this.Location.getAbsoluteUrlApi('/api/topics/:topicId/comments/:commentId/reports/:reportId', data);
-
     const headers = {
       'Authorization': 'Bearer ' + data.token
     };
-
     return this.http.get<ApiResponse>(path, { headers, withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
       map(res => res.data)
     );

@@ -6,11 +6,31 @@ labels: ''
 assignees: ''
 
 ---
+**Add a category to ticket heading for easier sorting**
 
-Development tasks:
+(*Example of a heading: AF: broken variables in a status*)
+
+Categories: 
+- DB - dashboard
+- AF - activity feed
+- Login
+- Topic
+- Voting
+- Group
+- IS - invite & share
+- MP - manage participants
+- Profile
+- Accessibility
+- Search
+- Filter
+- Tour
+- Emails
+- MISC
+
+**Development tasks:**
 - [ ] item
 
-Administrative tasks:
+**Administrative tasks:**
 
 - [ ] Update CHANGELOG files
 - [ ] Inform marketing of new feature(s)
