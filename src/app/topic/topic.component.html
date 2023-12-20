@@ -36,7 +36,7 @@
         *ngIf="(topic.permission.level && topic.permission.level !== 'none') && (auth.loggedIn$ | async)"
         class="btn_medium_close" translate="VIEWS.TOPICS_TOPICID.BTN_LEAVE"></button>
 
-      <button class="btn_medium_close icon" (click)="toggleFavourite(topic)" *ngIf="(auth.loggedIn$ | async)">
+      <div class="btn_medium_close icon" *ngIf="(auth.loggedIn$ | async)">
         <svg *ngIf="!topic.favourite" width="24" height="24" viewBox="0 0 24 24" fill="none"
           xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd"
@@ -49,7 +49,7 @@
             d="M12 3L14.645 8.35942L20.5595 9.21885L16.2798 13.3906L17.2901 19.2812L12 16.5L6.70993 19.2812L7.72025 13.3906L3.44049 9.21885L9.35497 8.35942L12 3Z"
             fill="#2C3B47" />
         </svg>
-      </button>
+      </div>
       <div class="dropdown button_dropdown" [cosDropdown] [TourItem]="{tourid: 'topic', index: 2, position: 'left'}">
         <button class="btn_medium_close icon">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -78,7 +78,7 @@
             <span *ngIf="topic.favourite" translate="VIEWS.TOPICS_TOPICID.OPTION_UNFAVOURITE"></span>
           </button>
           <button class="option" (click)="inviteEditors(topic)"
-            *ngIf="(auth.loggedIn$ | async) && TopicService.canEdit(topic)">
+            *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic)">
             <div>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -92,7 +92,7 @@
             </div>
             <span translate="VIEWS.TOPICS_TOPICID.OPTION_INVITE_CO_EDITOR"></span>
           </button>
-          <button class="option" *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic) && !topic.voteId"
+          <button class="option" *ngIf="(auth.loggedIn$ | async) && TopicService.canEdit(topic) && !topic.voteId"
             [routerLink]="['/','topics', 'edit', topic.id]">
             <div>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -103,7 +103,7 @@
             </div>
             <span translate="VIEWS.TOPICS_TOPICID.OPTION_EDIT_TOPIC"></span>
           </button>
-          <button class="option" *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic) && topic.voteId"
+          <button class="option" *ngIf="(auth.loggedIn$ | async) && TopicService.canEdit(topic) && topic.voteId && topic.status === TopicService.STATUSES.draft"
             [routerLink]="['/','topics', 'vote', 'edit', topic.id]">
             <div>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -115,7 +115,7 @@
             <span translate="VIEWS.TOPICS_TOPICID.OPTION_EDIT_TOPIC"></span>
           </button>
           <button class="option" (click)="duplicateTopic(topic)"
-            *ngIf="(auth.loggedIn$ | async) && TopicService.canEdit(topic)">
+            *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic)">
             <div>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M2 5H11V14H2V5Z" fill="#2C3B47" />

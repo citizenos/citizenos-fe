@@ -21,6 +21,7 @@ import { countries } from 'src/app/services/country.service';
 import { languages } from 'src/app/services/language.service';
 import { InterruptDialogComponent } from 'src/app/shared/components/interrupt-dialog/interrupt-dialog.component';
 import { UploadService } from 'src/app/services/upload.service';
+import { TopicSettingsDisabledDialogComponent } from '../topic-settings-disabled-dialog/topic-settings-disabled-dialog.component';
 @Component({
   selector: 'topic-form',
   templateUrl: './topic-form.component.html',
@@ -136,7 +137,14 @@ export class TopicFormComponent {
         }
         return fragment
       }
-      ));
+      ), tap((fragment) => {
+        if (fragment === 'settings' && !this.TopicService.canDelete(<Topic>this.topic)) {
+          const infoDialog = this.dialog.open(TopicSettingsDisabledDialogComponent);
+          infoDialog.afterClosed().subscribe(() => {
+            this.selectTab('info')
+          });
+        }
+      }));
   }
 
   ngOnInit() {
