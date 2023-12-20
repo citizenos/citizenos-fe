@@ -905,6 +905,8 @@ est-id-login-form {
 
 .disabled {
   opacity: 0.5;
+  pointer-events: none;
+  cursor: default;
 }
 
 .tour_overlay::after {
