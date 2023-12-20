@@ -1,342 +1,231 @@
+@use "mixins";
 
-  @use 'vars';
-  .topic {
-    height: 300px;
-    margin: 0 0 10px 10px;
-    float: left;
-    display: block;
-    background: vars.$category_varia;
-    color: vars.$black;
-    transition: transform .1s;
-    cursor: pointer;
-
-    .topic_wrap {
-        padding: 19px 20px 0 20px;
-        box-sizing: border-box;
-        overflow: hidden;
-    }
-
-    width: 12%;
-
-    @media (max-width: 2480px) {
-        width: 24%;
-    }
-
-    @media (max-width: 1350px) {
-        width: calc(50% - 15px);
-    }
-
-    @media (max-width: 667px) {
-        height: 160px;
-        overflow: hidden;
-    }
-
-    @media (max-width: 667px) {
-
-        &:nth-child(2n+1), &:nth-child(2n), &:nth-child(1) {
-            margin-left: 0;
-        }
-
-        margin-left: 0;
-        width: 100%;
-        float: none;
-
-    }
-
-    .text_area {
-        width: 261px;
-    }
-
-    .top {
-        margin-bottom: 10px;
-
-        .date {
-            float: left;
-        }
-
-        .author {
-            float: right;
-            max-width: 70%;
-        }
-    }
-
-    .line {
-        margin: 0px 0 12px 0;
-        background: vars.$black;
-    }
-
-    .line::before {
-        content: '\00a0';
-        position: relative;
-        display: block;
-        bottom: 2em;
-        height: 2em;
-        background: linear-gradient(to bottom, rgba(vars.$category_varia, 0), vars.$category_varia);
-    }
-
-    .text_small {
-        font-size: 13px;
-        color: inherit;
-        font-weight: inherit;
-
-        &.categories {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        @media (max-width: 667px) {
-            width: 100%;
-        }
-
-        * {
-            font-size: inherit;
-            color: inherit;
-            font-weight: inherit;
-        }
-    }
-
-    .main_text {
-        height: 207px;
-        overflow: hidden;
-
-        .text_small {
-            margin-top: 10px;
-        }
-    }
-
-    .text_big {
-        font-size: 26px;
-        font-weight: vars.$bold;
-        line-height: 1.23;
-
-        @media (max-width: 667px) {
-            font-size: 18px;
-            line-height: 24px;
-        }
-    }
-
+.topic {
+  display: flex;
+  flex-direction: column;
+  width: 280px;
+  height: 408px;
+  border-radius: 16px;
+  background-color: var(--color-surfaces);
+  position: relative;
+  transition: box-shadow 0.3s ease-in-out;
+  &.moderated {
     &:hover {
-        transform: scale(1.015);
-        box-shadow: 0 0 8px 0 vars.$dark_gray;
-    }
-
-    &.citizenos {
-        background: vars.$citizenos_background;
-
-        .line::before {
-            background-image: linear-gradient(to bottom, rgba(vars.$citizenos_background, 0), vars.$citizenos_background);
+      .image {
+        .image_overlay {
+          display: none;
         }
+      }
+    }
+  }
+
+  &:hover {
+    box-shadow: 0px 8px 20px 0px rgba(220, 231, 240, 0.30), 0px 12px 16px 0px rgba(50, 85, 112, 0.10);
+    .image {
+      .image_overlay {
+        display: flex;
+        visibility: visible;
+        opacity: 0.4;
+      }
+    }
+  }
+
+  @include mixins.mobile {
+    width: 100%;
+    min-width: 250px;
+  }
+
+  .topic_header {
+    position: relative;
+    display: flex;
+    border-radius: 16px 16px 0 0;
+    height: 40px;
+    width: 100%;
+    align-items: center;
+    overflow: hidden;
+
+    .progress {
+      position: relative;
+      display: flex;
+      height: 40px;
+      align-items: center;
+
+      .header_content {
+        display: flex;
+        position: absolute;
+        width: 280px;
+        padding: 12px;
+        gap: 8px;
+        align-items: center;
+        color: var(--color-surfaces);
+      }
     }
 
-    &.eurochangemakers {
-        background: vars.$eurochangemakers_background;
+    &.draft {
+      background-color: var(--color-border);
 
-        .line::before {
-            background-image: linear-gradient(to bottom, rgba(vars.$eurochangemakers_background, 0), vars.$eurochangemakers_background);
+      .progress {
+        background-color: var(--color-border);
+        width: 100%;
+        .header_content {
+          color: var(--color-text);
+          path {
+            fill: var(--color-text);
+          }
         }
+      }
     }
 
-    &.opinionfestival {
-        background: vars.$opinionfestival_background;
+    &.discussion {
+      background-color: var(--color-discussion);
 
-        .line::before {
-            background-image: linear-gradient(to bottom, rgba(vars.$opinionfestival_background, 0), vars.$opinionfestival_background);
+      .progress {
+        background-color: var(--color-discussion);
+        width: 100%;
+      }
+    }
+
+    &.voting {
+      background-color: var(--color-voting-disabled);
+      .progress {
+        background-color: var(--color-voting);
+      }
+    }
+    &.follow_up {
+      background-color: var(--color-follow-up-disabled);
+      .progress {
+        background-color: var(--color-follow-up);
+      }
+    }
+
+    path {
+      fill: var(--color-surfaces);
+    }
+  }
+
+  .image {
+    display: flex;
+    width: 100%;
+    height: 168px;
+    position: relative;
+
+    .no_image {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--color-border);
+    }
+    .image_overlay {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      background-color: rgba(17, 104, 168);
+      visibility: hidden;
+      opacity: 0;
+      transition: visibility 0s, opacity 0.2s linear;
+    }
+    img {
+      width: inherit;
+      aspect-ratio: 1;
+      object-fit: cover;
+    }
+  }
+  .topic_content,
+  .topic_footer {
+    position: relative;
+    padding: 24px;
+    color: var(--color-text);
+
+    .topic_title {
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 24px;
+    }
+    .date {
+      color: var(--color-border-active);
+      font-size: 13px;
+      line-height: 16px;
+    }
+  }
+  .topic_content {
+    padding-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .icon_area {
+      display: flex;
+      align-items: flex-end;
+      position: absolute;
+      right: 4px;
+      top: -20px;
+      path {
+        fill: var(--color-text);
+      }
+      .svg {
+        position: absolute;
+        width: 0;
+        height: 0;
+      }
+
+      .topic_icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 56px;
+        height: 40px;
+
+        .clipped {
+          width: 100%;
+          height: 40px;
+          background: var(--color-surfaces);
+          background-size: cover;
+          -webkit-clip-path: url(#my-clip-path);
+          clip-path: url(#my-clip-path);
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
+      }
     }
+  }
 
-    &.biotoopia {
-        background: vars.$biotoopia_background;
+  .topic_footer {
+    padding-top: 0;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 
-        .line::before {
-            background-image: linear-gradient(to bottom, rgba(vars.$biotoopia_background, 0), vars.$biotoopia_background);
+    color: var(--color-text);
+    path {
+      fill: var(--color-text);
+    }
+    .data_wrap {
+      display: flex;
+      padding: 16px 0 0 0;
+      justify-content: space-between;
+      .participants_count {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        font-size: 13px;
+        line-height: 16px;
+
+        span {
+          color: var(--color-border-active);
         }
+      }
+      .last_edit {
+        display: flex;
+        gap: 8px;
+      }
     }
-
-    &.politics {
-        background: vars.$category_politics;
-
-        .line::before {
-            background-image: linear-gradient(to bottom, rgba(vars.$category_politics, 0), vars.$category_politics);
-        }
-    }
-
-    &.taxes {
-        background: vars.$category_taxes;
-
-        .line::before {
-            background-image: linear-gradient(to bottom, rgba(vars.$category_taxes, 0), vars.$category_taxes);
-        }
-    }
-
-    &.defense {
-        background: vars.$category_defense;
-
-        .line::before {
-            background-image: linear-gradient(to bottom, rgba(vars.$category_defense, 0), vars.$category_defense);
-        }
-    }
-
-    &.environment, &.keepitcleanplan, &.thirtyfourislandproject {
-        background: vars.$category_environment; // #00b23b
-        .line::before {
-            background-image: linear-gradient(to bottom, rgba(vars.$category_environment, 0), vars.$category_environment);
-        }
-    }
-
-    &.thirtyfourislandproject {
-        background: vars.$thirtyfourislandproject_background;
-        .line::before {
-            background-image: linear-gradient(to bottom, rgba(vars.$thirtyfourislandproject_background, 0), vars.$thirtyfourislandproject_background);
-        }
-    }
-
-    &.hacktivistcommunity {
-        background: vars.$hacktivist_community_background;
-
-        .line::before {
-            background-image: linear-gradient(to bottom, rgba(vars.$hacktivist_community_background, 0), vars.$hacktivist_community_background);
-        }
-    }
-
-    &.thetwelvemovie {
-        background: vars.$thetwelvemovie_background;
-
-        .line::before {
-            background-image: linear-gradient(to bottom, rgba(vars.$thetwelvemovie_background, 0), vars.$thetwelvemovie_background);
-        }
-    }
-
-    &.agriculture {
-        background: vars.$category_agriculture;
-
-        .line::before {
-            background-image: linear-gradient(to bottom, rgba(vars.$category_agriculture, 0), vars.$category_agriculture);
-        }
-    }
-
-    &.culture {
-        background: vars.$category_culture;
-
-        .line::before {
-            background-image: linear-gradient(to bottom, rgba(vars.$category_culture, 0), vars.$category_culture);
-        }
-    }
-
-    &.communities {
-        background: vars.$category_communities;
-
-        .line::before {
-            background-image: linear-gradient(to bottom, rgba(vars.$category_communities, 0), vars.$category_communities);
-        }
-    }
-
-    &.integration {
-        background: vars.$category_integration;
-
-        .line::before {
-            background-image: linear-gradient(to bottom, rgba(vars.$category_integration, 0), vars.$category_integration);
-        }
-    }
-
-    &.politics,
-    &.taxes,
-    &.defense,
-    &.environment,
-    &.keepitcleanplan,
-    &.agriculture,
-    &.culture,
-    &.communities,
-    &.thetwelvemovie,
-    &.eurochangemakers,
-    &.biotoopia,
-    &.integration {
-        color: vars.$white;
-
-        .line {
-            background: vars.$white;
-        }
-    }
-
-    &.business {
-        background: vars.$category_business;
-
-        .line::before {
-            background-image: linear-gradient(to bottom, rgba(vars.$category_business, 0), vars.$category_business);
-        }
-    }
-
-    &.work {
-        background: vars.$category_work;
-
-        .line::before {
-            background-image: linear-gradient(to bottom, rgba(vars.$category_work, 0), vars.$category_work);
-        }
-    }
-
-    &.transport {
-        background: vars.$category_transport;
-
-        .line::before {
-            background-image: linear-gradient(to bottom, rgba(vars.$category_transport, 0), vars.$category_transport);
-        }
-    }
-
-    &.health {
-        background: vars.$category_health;
-
-        .line::before {
-            background-image: linear-gradient(to bottom, rgba(vars.$category_health, 0), vars.$category_health);
-        }
-    }
-
-    &.education {
-        background: vars.$category_education;
-
-        .line::before {
-            background-image: linear-gradient(to bottom, rgba(vars.$category_education, 0), vars.$category_education);
-        }
-    }
-
-    &.society {
-        background: vars.$category_society;
-
-        .line::before {
-            background-image: linear-gradient(to bottom, rgba(vars.$category_society, 0), vars.$category_society);
-        }
-    }
-
-    &.varia {
-        background: vars.$category_varia;
-
-        .line::before {
-            background-image: linear-gradient(to bottom, rgba(vars.$category_varia, 0), vars.$category_varia);
-        }
-    }
-
-    &.eestijazziarengusuunad {
-        background: vars.$eestijazziarengusuunad_background;
-
-        .line::before {
-            background-image: linear-gradient(to bottom, rgba(vars.$eestijazziarengusuunad_background, 0), vars.$eestijazziarengusuunad_background);
-        }
-    }
-
-    &.business,
-    &.work,
-    &.transport,
-    &.health,
-    &.education,
-    &.society,
-    &.varia,
-    &.eestijazziarengusuunad,
-    &.citizenos,
-    &.hacktivistcommunity {
-        color: vars.$black;
-
-        .line {
-            background: vars.$black;
-        }
-    }
-
+  }
 }

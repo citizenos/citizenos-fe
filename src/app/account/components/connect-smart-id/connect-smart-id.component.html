@@ -1,71 +1,22 @@
-<!-- LIGHTBOX SKELETON -->
-<div id="root_lightbox">
-  <div id="lightbox" class="id_signing">
-    <div id="lightbox_wrap">
-
-      <div id="lightbox_header">
-
-        <div id="lightbox_header_text">
-          <span translate="MODALS.LOGIN_SMARTID_HEADING"></span>
-        </div>
-
-        <div id="lightbox_close" mat-dialog-close>
-          <div class="table_cell">
-            <div class="sprite sprite-btn-popup-close2x">
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="lightbox_content">
-        <form name="loginSmartIdForm" novalidate>
-          <div class="sign_in_section sid">
-            <div class="sprite_big sprite sprite-smart-i-d2x"></div>
-            <div *ngIf="isLoading && !challengeID" class="loader_wrap">
-              <div class="loader"></div>
-            </div>
-            <div *ngIf="!challengeID && !isLoading">
-              <input id="countryCode" name="countryCode" type="text" [(ngModel)]="countryCode" [maxlength]="2" #countryInput="ngModel"
-                [placeholder]="'MODALS.LOGIN_SMARTID_PLACEHOLDER_COUNTRY_CODE' | translate"
-                [ngClass]="{'error_input': countryInput.errors && countryInput.errors['pattern'] && countryInput.touched}"
-                pattern="^[A-Z]{2}$" required>
-              <label for="pid" class="error_label"
-                *ngIf="countryInput.errors && countryInput.errors['pattern'] && countryInput.touched">
-                <div class="table_cell">
-                  <div class="sprite sprite-icon-inputfield-error2x"></div>
-                  <span translate="MODALS.LOGIN_SMARTID_ERROR_COUNTRY_CODE"></span>
-                </div>
-              </label>
-              <input id="pid" name="pid" type="text" inputmode="numeric" [(ngModel)]="pid" #pidInput="ngModel"
-                [placeholder]="'MODALS.LOGIN_SMARTID_PLACEHOLDER_PID' | translate" ngModel
-                [ngClass]="{'error_input': pidInput.errors && pidInput.errors['pattern'] &&pidInput.touched}" pattern="^[0-9]{11}$" required>
-              <label for="pid" class="error_label" *ngIf="pidInput.errors && pidInput.errors['pattern'] && pidInput.touched">
-                <div class="table_cell">
-                  <div class="sprite sprite-icon-inputfield-error2x"></div>
-                  <span translate="MODALS.LOGIN_SMARTID_ERROR_PID"></span>
-                </div>
-              </label>
-            </div>
-
-            <div *ngIf="challengeID">
-              <div class="code" translate="MODALS.LOGIN_SMARTID_TXT_CONTROL_CODE"
-                [translateParams]="{code: challengeID}"></div>
-              <div class="code_text" translate="MODALS.LOGIN_SMARTID_TXT_CHECK_CONTROL_CODE"></div>
-              <div class="loader_wrap">
-                <div class="loader"></div>
-              </div>
-            </div>
-            <button type="submit" (click)="authSmartId()" [disabled]="isLoading"
-              class="blue_button" translate="MODALS.LOGIN_SMARTID_BTN_AUTHENTICATE_SID"></button>
-          </div>
-        </form>
-      </div>
-
+<div class="overlay" mat-dialog-close></div>
+<div class="dialog">
+  <div class="dialog_header">
+    <div class="header_text">
+      <h4 class="title" translate="MODALS.ADD_EID_BTN_CONNECT_SMART_ID"></h4>
+    </div>
+    <div class="dialog_close">
+      <a class="btn_dialog_close icon" mat-dialog-close>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289Z"
+            fill="#2C3B47" />
+        </svg>
+      </a>
     </div>
   </div>
-
-  <div id="close_lightbox" mat-dialog-close>
+  <div class="dialog_content">
+    <smart-id-login-form></smart-id-login-form>
   </div>
-
+  <div class="dialog_footer">
+  </div>
 </div>

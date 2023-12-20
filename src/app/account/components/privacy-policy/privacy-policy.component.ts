@@ -52,9 +52,9 @@ export class PrivacyPolicyComponent implements OnInit {
         this.UserService.deleteUser().pipe(take(1)).subscribe(() => {
           this.dialog.closeAll();
         })
-      }
       this.AuthService.logout().pipe(take(1)).subscribe();
       this.router.navigate(['/']);
+      }
     });
   };
 
@@ -75,8 +75,7 @@ export class PrivacyPolicyComponent implements OnInit {
                 });
 
                 if (filtered.length) {
-                    //this.$window.location.href = this.$stateParams.redirectSuccess || '/';
-                    this.router.navigate(['/']);
+                    this.router.navigate(['/dashboard']);
                 } else if (window.navigator.languages.indexOf('et') > -1) {
                     const addEidDialog = this.dialog.open(AddEidComponent, {
                       data: {
@@ -86,11 +85,10 @@ export class PrivacyPolicyComponent implements OnInit {
 
 
                     addEidDialog.afterClosed().subscribe(() => {
-                        //this.$window.location.href = this.$stateParams.redirectSuccess || '/';;
+                      this.router.navigate(['/dashboard'], { onSameUrlNavigation: 'reload'});
                     });
                 } else {
-                  /*  this.ngDialog.closeAll();
-                    this.$window.location.href = this.$stateParams.redirectSuccess || '/';;*/
+                  this.router.navigate(['/dashboard']);
                 }
               });
           })

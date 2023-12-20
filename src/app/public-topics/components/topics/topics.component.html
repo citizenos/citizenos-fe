@@ -1,248 +1,345 @@
-<div id="home_root">
+<div class="page_content">
+  <div id="page_header">
+    <div id="user_info_area">
+      <div class="small_heading" [innerHTML]="'COMPONENTS.PUBLIC_TOPICS.HEADER'| translate"></div>
+    </div>
+    <div id="buttons_area">
+      <button id="show_search" class="btn_medium_close icon" (click)="app.showSearch = !app.showSearch">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M14.1922 15.6064C13.0236 16.4816 11.5723 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10C17 11.5723 16.4816 13.0236 15.6064 14.1922L19.7071 18.2929C20.0976 18.6834 20.0976 19.3166 19.7071 19.7071C19.3166 20.0976 18.6834 20.0976 18.2929 19.7071L14.1922 15.6064ZM15 10C15 12.7614 12.7614 15 10 15C7.23858 15 5 12.7614 5 10C5 7.23858 7.23858 5 10 5C12.7614 5 15 7.23858 15 10Z"
+            fill="#727C84" />
+        </svg>
+      </button>
 
-  <!-- FILTER AREA DESKTOP -->
-  <div *ngIf="wWidth > 767" id="filter_bar_desktop">
-
-    <form>
-
-      <div id="bar_top">
-        <div class="bar_text" translate="VIEWS.HOME.HEADINGS_SHOW_ME_TOPICS_ABOUT"></div>
-        <div [cosDropdown] class="bar_select">
-
-          <div class="select_text">
-            {{'TXT_TOPIC_CATEGORY_' + topicFilters.category | uppercase | translate}}
-            <div class="icon_holder">
-              <div class="table_cell">
-                <div class="sprite sprite-dropdown-arrowdown-big2x"></div>
+      <activities-button *ngIf="auth.loggedIn$ | async"></activities-button>
+    </div>
+  </div>
+  <div id="page_filters_wrap">
+    <div id="options_area" [@openClose]="moreFilters ? 'open' : 'closed'" class="mobile_hidden">
+      <div class="options_row">
+        <cos-input [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_STATUS' | translate" class="dropdown_input">
+          <div class="dropdown" [cosDropdown]>
+            <div class="selection">
+              <div class="selected_item">{{((topicFilters.status === 'showModerated')?
+                'COMPONENTS.PUBLIC_TOPICS.FILTER_TOPICS_MODERATED' : 'TXT_TOPIC_STATUS_'+topicFilters.status) |
+                uppercase |
+                translate}}</div>
+              <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                </svg>
               </div>
             </div>
-          </div>
-
-          <div class="animated_bg_bar">
-          </div>
-
-          <div class="dropdown big_drop">
-            <div class="line lightest_line"></div>
-            <div class="dropdown_item" (click)="setCategory('all');">
-              <div class="item_name" translate="TXT_TOPIC_CATEGORY_ALL">
-              </div>
-              <div class="clearer"></div>
-            </div>
-            <div class="dropdown_item" *ngFor="let category of categories$" (click)="setCategory(category);"
-              [ngClass]="category === topicFilters.category ? 'bold' : ''">
-              <div class="item_name">
-                {{'TXT_TOPIC_CATEGORY_' + category | uppercase | translate}}
-              </div>
-              <!--div class="item_props">
-                        404 topics
-                    </div-->
-              <div class="clearer"></div>
-            </div>
-
-          </div>
-        </div>
-
-        <!--div class="bar_select">
-              <select class="bar_select dropdown big_drop" formControlName="category" (change)="setCategory()">
-                  <option [ngValue]="'all'">{{'TXT_TOPIC_CATEGORY_ALL' | translate}}</option>
-                  <option class="dropdown_item" [ngValue]="category" *ngFor="let category of categories$" [ngClass]="category === (topicFilters.get('category')?.value) ? 'bold' : ''">
-                      {{'TXT_TOPIC_CATEGORY_' + category | uppercase | translate}}
-                  </option>
-              </select>
-            </!--div-->
-      </div>
-
-
-      <div id="bar_bottom">
-
-        <!-- TODO: Implement orderBy -->
-        <!--div [cosDropdown] class="bar_section">
-              <div class="bar_text">
-                  Order by
-              </div>
-              <div class="bar_select">
-                  time
-                  <div class="icon_holder">
-                      <div class="table_cell">
-                          <div class="sprite sprite-dropdown-arrowdown-small2x"></div>
-                      </div>
-                  </div>
-              </div>
-
-              <div class="dropdown">
-                  <div class="line lightest_line"></div>
-
-                  <div class="dropdown_item" *ngFor=[ngClass]="key == 0 ? 'bold' : ''" *ngFor="(key, n) in ['time','popularity','size']">
-                      <div class="item_name">
-                          {{n}}
-                      </div>
-                      <div class="clearer"></div>
-                  </div>
-              </div>
-
-          </div-->
-        <div [cosDropdown] class="bar_section">
-          <div class="bar_text" translate="VIEWS.HOME.LNK_SHOW"></div>
-          <div class="bar_select">
-            {{'TXT_TOPIC_STATUS_' + topicFilters.status | uppercase | translate}}
-            <div class="icon_holder">
-              <div class="table_cell">
-                <div class="sprite sprite-dropdown-arrowdown-small2x"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="dropdown">
-            <div class="line lightest_line"></div>
-            <div class="dropdown_item" (click)="setStatus('all');">
-              <div class="item_name" translate="TXT_TOPIC_STATUS_ALL"></div>
-              <div class="clearer"></div>
-            </div>
-
-            <div class="dropdown_item" *ngFor="let status of statuses$" (click)="setStatus(status);"
-              [ngClass]="status === topicFilters.status ? 'bold' : ''">
-              <div class="item_name">
+            <div class="options">
+              <div class="option" (click)="setStatus('all');" translate="TXT_TOPIC_STATUS_ALL"></div>
+              <div class="option" (click)="setStatus('showModerated');"
+                translate="COMPONENTS.PUBLIC_TOPICS.FILTER_TOPICS_MODERATED"></div>
+              <div class="option" *ngFor="let status of statuses$" (click)="setStatus(status);">
                 {{'TXT_TOPIC_STATUS_' + status | uppercase | translate}}
               </div>
-              <div class="clearer"></div>
             </div>
           </div>
-
-        </div>
-        <span
-          *ngIf="(topicFilters.category) !== FILTERS_ALL || (topicFilters.status) !== FILTERS_ALL">
-          <div class="line_holder">
-            <div class="v_line dark_gray_background">
+        </cos-input>
+        <!--cos-input [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_MY_ENGAGEMENT' | translate" class="dropdown_input">
+          <div class="dropdown" [cosDropdown]>
+            <div class="selection">
+              <div class="selected_item">All</div>
+              <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </div>
+            </div>
+            <div class="options">
+              <div class="option">My most recent activity</div>
+              <div class="option">Groups I created</div>
+              <div class="option">Groups with pending requests</div>
             </div>
           </div>
-          <div class="blue_link" (click)="doClearFilters()" translate="VIEWS.HOME.LNK_CLEAR_FILTERS"></div>
-        </span>
-
+        </!--cos-input-->
+        <cos-input [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_CATEGORIES' | translate" class="dropdown_input">
+          <div class="dropdown" [cosDropdown]>
+            <div class="selection">
+              <div class="selected_item">{{'TXT_TOPIC_CATEGORY_'+topicFilters.category | uppercase |
+                translate}}</div>
+              <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </div>
+            </div>
+            <div class="options">
+              <div class="option" (click)="setCategory('all');" translate="TXT_TOPIC_CATEGORY_ALL"></div>
+              <div class="option" *ngFor="let category of categories$" (click)="setCategory(category);">
+                {{'TXT_TOPIC_CATEGORY_' + category | uppercase | translate}}
+              </div>
+            </div>
+          </div>
+        </cos-input>
+        <typeahead id="input_area" class="dropdown tablet_hidden" activeClass="dropdown_active" [term]="countrySearch"
+          (search)="searchCountry($event)" (select)="setCountry($event)"
+          [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_COUNTRY' | translate">
+          <ng-container *ngIf="countries$ | async as countries">
+            <div class="options" [ngClass]="{'active': !countries.length}">
+              <ng-container *ngIf="countries$ | async as listCountry">
+                <div class="option" (click)="setCountry('');" translate="TXT_TOPIC_STATUS_ALL"></div>
+                <div class="option" [typeaheadItem]="country.name" *ngFor="let country of listCountry"
+                  (click)="setCountry(country.name)">
+                  <div class="item_text_wrap">{{country.name}}</div>
+                </div>
+              </ng-container>
+            </div>
+          </ng-container>
+        </typeahead>
+        <!--cos-input [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_COUNTRY' | translate" class="dropdown_input">
+          <div class="dropdown" [cosDropdown]>
+            <div class="selection">
+              <div class="selected_item">All</div>
+              <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </div>
+            </div>
+            <div class="options">
+              <div class="option" *ngFor="let item of []">
+                {{item}}
+              </div>
+            </div>
+          </div>
+        </cos-input-->
+        <typeahead id="input_area" class="dropdown tablet_hidden" activeClass="dropdown_active" [term]="languageSearch"
+          (search)="searchLanguage($event)" (select)="setLanguage($event)"
+          [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_LANGUAGE' | translate">
+          <ng-container *ngIf="languages$ | async as languages">
+            <div class="options" [ngClass]="{'active': !languages.length}">
+              <ng-container *ngIf="languages$ | async as listLanguage">
+                <div class="option" (click)="setLanguage('');" translate="TXT_TOPIC_STATUS_ALL"></div>
+                <div class="option" [typeaheadItem]="language.name" *ngFor="let language of listLanguage"
+                  (click)="setLanguage(language.name)">
+                  <div class="item_text_wrap">{{language.name}}</div>
+                </div>
+              </ng-container>
+            </div>
+          </ng-container>
+        </typeahead>
+        <!--cos-input [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_ORDER' | translate" class="dropdown_input">
+          <div class="dropdown" [cosDropdown]>
+            <div class="selection">
+              <div class="selected_item">All</div>
+              <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </div>
+            </div>
+            <div class="options">
+              <div class="option">Most recent participant activity</div>
+              <div class="option">Most activity</div>
+              <div class="option">Most participants</div>
+              <div class="option">Most recently created</div>
+              <div class="option">Most topics</div>
+            </div>
+          </div>
+        </!--cos-input-->
       </div>
-
-    </form>
-  </div>
-
-
-  <!-- FILTER AREA MOBILE -->
-  <div *ngIf="app.wWidth <= 767" id="filter_bar_mobile">
-
-    <div class="filter_topics" *ngIf="!app.showSearchFiltersMobile && !isFilterApplied()"
-      (click)="app.showSearchFiltersMobile = true">
-      <div class="table_cell" translate="VIEWS.HOME.LBL_FILTER_THE_TOPICS"></div>
+      <div class="options_row tablet_show" *ngIf="moreFilters" [@openClose]="moreFilters ? 'open' : 'closed'">
+        <typeahead id="input_area" class="dropdown dropdown_input" activeClass="dropdown_active" [term]="countrySearch"
+          (search)="searchCountry($event)" (select)="setCountry($event)"
+          [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_COUNTRY' | translate">
+          <ng-container *ngIf="countries$ | async as countries">
+            <div class="options" [ngClass]="{'active': !countries.length}">
+              <ng-container *ngIf="countries$ | async as listCountry">
+                <div class="option" (click)="setCountry('');" translate="TXT_TOPIC_STATUS_ALL"></div>
+                <div class="option" [typeaheadItem]="country.name" *ngFor="let country of listCountry"
+                  (click)="setCountry(country.name)">
+                  <div class="item_text_wrap">{{country.name}}</div>
+                </div>
+              </ng-container>
+            </div>
+          </ng-container>
+        </typeahead>
+        <typeahead id="input_area" class="dropdown dropdown_input" activeClass="dropdown_active" [term]="languageSearch"
+          (search)="searchLanguage($event)" (select)="setLanguage($event)"
+          [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_LANGUAGE' | translate">
+          <ng-container *ngIf="languages$ | async as languages">
+            <div class="options" [ngClass]="{'active': !languages.length}">
+              <ng-container *ngIf="languages$ | async as listLanguage">
+                <div class="option" (click)="setLanguage('');" translate="TXT_TOPIC_STATUS_ALL"></div>
+                <div class="option" [typeaheadItem]="language.name" *ngFor="let language of listLanguage"
+                  (click)="setLanguage(language.name)">
+                  <div class="item_text_wrap">{{language.name}}</div>
+                </div>
+              </ng-container>
+            </div>
+          </ng-container>
+        </typeahead>
+      </div>
+      <div class="options_row" *ngIf="moreFilters" [@openClose]="moreFilters ? 'open' : 'closed'">
+        <div class="input_area">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M14.1922 15.6064C13.0236 16.4816 11.5723 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10C17 11.5723 16.4816 13.0236 15.6064 14.1922L19.7071 18.2929C20.0976 18.6834 20.0976 19.3166 19.7071 19.7071C19.3166 20.0976 18.6834 20.0976 18.2929 19.7071L14.1922 15.6064ZM15 10C15 12.7614 12.7614 15 10 15C7.23858 15 5 12.7614 5 10C5 7.23858 7.23858 5 10 5C12.7614 5 15 7.23858 15 10Z"
+              fill="#727C84" />
+          </svg>
+          <cos-input placeholder="{{'COMPONENTS.PUBLIC_TOPICS.PLACEHOLDER_SEARCH' | translate}}">
+            <input type="text" [(ngModel)]="searchInput" (ngModelChange)="doSearch(searchInput)"
+              [placeholder]="'COMPONENTS.PUBLIC_TOPICS.PLACEHOLDER_SEARCH' | translate">
+          </cos-input>
+          <a class="clear_search" translate="COMPONENTS.PUBLIC_TOPICS.LNK_CLEAR" (click)="searchInput='';doSearch('')"
+            *ngIf="searchInput"></a>
+        </div>
+      </div>
     </div>
-
-    <div class="filter_topics edit" *ngIf="!app.showSearchFiltersMobile && isFilterApplied()">
-      <div class="filter_topics_top">
-        <div class="blue_link" (click)="app.showSearchFiltersMobile = true" translate="VIEWS.HOME.LNK_EDIT_FILTER">
+    <div class="filter_control_buttons mobile_hidden">
+      <button class="btn_big_secondary" [ngClass]="moreFilters? 'flip' : ''" (click)="moreFilters = !moreFilters">
+        <div class="btn_icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+          </svg>
         </div>
-        <div class="blue_link" (click)="doClearFilters()" translate="VIEWS.HOME.LNK_CLEAR_FILTERS"></div>
-      </div>
-      <div class="line lightest_line"></div>
-      <div class="filter_topics_bottom">
-        <div class="filter_text"><span translate="VIEWS.HOME.LBL_CATEGORY"></span> {{'TXT_TOPIC_CATEGORY_' +
-          (topicFilters.category) | uppercase | translate}}</div>
-        <div class="filter_text"><span translate="VIEWS.HOME.LBL_STATUS"></span> {{'TXT_TOPIC_STATUS_' +
-          (topicFilters.status) | uppercase | translate}}</div>
-      </div>
+      </button>
+      <button class="btn_big_secondary icon" *ngIf="moreFilters" (click)="doClearFilters()">
+        <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M12.4999 7L12.4999 5.0001C10.7069 5.0001 8.91716 5.68333 7.55013 7.05036C5.05581 9.54468 4.83742 13.4531 6.89495 16.195C7.22643 16.6368 7.23355 17.2664 6.84302 17.657C6.4525 18.0475 5.81399 18.0504 5.46866 17.6194C2.6374 14.0857 2.85982 8.91224 6.13592 5.63614C7.89308 3.87898 10.1981 3.0001 12.4999 3.0001L12.4999 1L16.4999 4L12.4999 7Z"
+            fill="#2C3B47" />
+          <path
+            d="M12.4999 19.0001C14.2929 19.0001 16.0826 18.3169 17.4496 16.9499C19.9439 14.4555 20.1623 10.5471 18.1048 7.80519C17.7733 7.36345 17.7662 6.73377 18.1567 6.34325C18.5473 5.95273 19.1858 5.94982 19.5311 6.38083C22.3624 9.91455 22.1399 15.088 18.8638 18.3641C17.1067 20.1212 14.8016 21.0001 12.4999 21.0001L12.4999 23L8.49988 20L12.4999 17L12.4999 19.0001Z"
+            fill="#2C3B47" />
+        </svg>
+      </button>
     </div>
-
-    <div id="fi_area" *ngIf="app.showSearchFiltersMobile">
-
-      <div id="fi_top">
-        <div id="fi_header">
-          <div id="fi_header_text" translate="VIEWS.HOME.LBL_FILTER_THE_TOPICS"></div>
-          <div id="close_fi" (click)="app.showSearchFiltersMobile = false">
-            <div class="table_cell">
-              <div class="sprite sprite-btn-popup-close2x"></div>
-            </div>
-          </div>
-        </div>
-        <div id="fi_nav">
-
-          <div class="fi_nav_button" (click)="tabSelected = 'categories'">
-            <div class="fi_button_text" [ngClass]="tabSelected === 'categories' ? 'selected' : ''"
-              translate="VIEWS.HOME.BTN_CATEGORY"></div>
-            <div class="line blue_background" [ngClass]="tabSelected === 'categories' ? 'selected' :  ''"></div>
-          </div>
-
-          <!--div class="fi_nav_button" (click)="app.filterTabOrder = true">
-                      <div class="fi_button_text">ORDER</div>
-                      <div class="line blue_background"></div>
-                  </div-->
-
-          <div class="fi_nav_button">
-            <div class="fi_button_text" [ngClass]="tabSelected === 'statuses' ? 'selected' : ''"
-              (click)="tabSelected = 'statuses'" translate="VIEWS.HOME.BTN_STATUS"></div>
-            <div class="line blue_background" [ngClass]="tabSelected === 'statuses' ? 'selected' : ''"></div>
-          </div>
-
-        </div>
-        <div class="clearer"></div>
+    <div class="dropdown mobile_show" [cosDropdown] [multipleChoice]="true">
+      <div class="selection">
+        <div class="selected_item" translate="COMPONENTS.PUBLIC_TOPICS.LBL_FILTER"> </div>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+        </svg>
       </div>
 
-      <div class="line lightest_line"></div>
+      <div class="options filter_options">
+        <div class="filter_option">
+          <span translate="COMPONENTS.PUBLIC_TOPICS.FILTER_VISIBILITY"></span><a class="bold"
+            (click)="mobileFilters.status = true">{{'TXT_TOPIC_STATUS_'+topicFilters.status | uppercase |
+            translate}}</a>
+        </div>
+        <div class="filter_option">
+          <span translate="COMPONENTS.PUBLIC_TOPICS.FILTER_CATEGORIES"></span><a class="bold"
+            (click)="mobileFilters.category = true">{{'TXT_TOPIC_CATEGORY_'+topicFilters.category | uppercase |
+            translate}}</a>
+        </div>
+        <div class="filter_option">
+          <span translate="COMPONENTS.PUBLIC_TOPICS.FILTER_COUNTRY"></span><a class="bold"
+            (click)="mobileFilters.country = true">{{topicFilters.country| translate}}</a>
+        </div>
+        <div class="filter_option">
+          <span translate="COMPONENTS.PUBLIC_TOPICS.FILTER_LANGUAGE"></span><a class="bold"
+            (click)="mobileFilters.language = true">{{topicFilters.language | translate}}</a>
+        </div>
+        <button (click)="doClearFilters()" class="btn_medium_plain">
+          <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12.4999 7L12.4999 5.0001C10.7069 5.0001 8.91716 5.68333 7.55013 7.05036C5.05581 9.54468 4.83742 13.4531 6.89495 16.195C7.22643 16.6368 7.23355 17.2664 6.84302 17.657C6.4525 18.0475 5.81399 18.0504 5.46866 17.6194C2.6374 14.0857 2.85982 8.91224 6.13592 5.63614C7.89308 3.87898 10.1981 3.0001 12.4999 3.0001L12.4999 1L16.4999 4L12.4999 7Z"
+              fill="#2C3B47" />
+            <path
+              d="M12.4999 19.0001C14.2929 19.0001 16.0826 18.3169 17.4496 16.9499C19.9439 14.4555 20.1623 10.5471 18.1048 7.80519C17.7733 7.36345 17.7662 6.73377 18.1567 6.34325C18.5473 5.95273 19.1858 5.94982 19.5311 6.38083C22.3624 9.91455 22.1399 15.088 18.8638 18.3641C17.1067 20.1212 14.8016 21.0001 12.4999 21.0001L12.4999 23L8.49988 20L12.4999 17L12.4999 19.0001Z"
+              fill="#2C3B47" />
+          </svg>
+          <span translate="COMPONENTS.PUBLIC_TOPICS.BTN_RESET_FILTERS"></span>
+        </button>
+        <div class="input_area">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M14.1922 15.6064C13.0236 16.4816 11.5723 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10C17 11.5723 16.4816 13.0236 15.6064 14.1922L19.7071 18.2929C20.0976 18.6834 20.0976 19.3166 19.7071 19.7071C19.3166 20.0976 18.6834 20.0976 18.2929 19.7071L14.1922 15.6064ZM15 10C15 12.7614 12.7614 15 10 15C7.23858 15 5 12.7614 5 10C5 7.23858 7.23858 5 10 5C12.7614 5 15 7.23858 15 10Z"
+              fill="#727C84" />
+          </svg>
+          <cos-input [placeholder]="'COMPONENTS.PUBLIC_TOPICS.PLACEHOLDER_SEARCH' | translate">
+            <input type="text" [(ngModel)]="searchInput" (ngModelChange)="doSearch(searchInput)"
+              [placeholder]="'COMPONENTS.PUBLIC_TOPICS.PLACEHOLDER_SEARCH' | translate">
+          </cos-input>
+        </div>
+      </div>
 
-      <div id="fi_selection_area">
-        <ng-container *ngIf="tabSelected === 'categories'">
-          <a  class="fi_link" *ngFor="let category of categories$"
-          (click)="setCategory(category)"
-          [ngClass]="category === topicFilters.category ? 'bold' : ''">
-          <span>
-            {{'TXT_TOPIC_CATEGORY_' + category | uppercase | translate}}
-          </span>
-        </a>
+      <div class="options button_options" *ngIf="mobileFilters.status">
+        <label class="checkbox" (click)="mobileFilters.status = 'all';">
+          <span translate="TXT_TOPIC_STATUS_ALL"></span>
+          <input type="radio" name="status">
+          <span class="checkmark"></span>
+        </label>
+        <label class="checkbox" *ngFor="let status of statuses$" (click)="mobileFilters.status = status">
+          <span [translate]="'TXT_TOPIC_STATUS_'+status | uppercase"></span>
+          <input type="radio" name="status">
+          <span class="checkmark"></span>
+        </label>
+        <label class="checkbox" (click)="mobileFilters.status = 'showModerated';">
+          <span translate="COMPONENTS.PUBLIC_TOPICS.FILTER_TOPICS_MODERATED"></span>
+          <input type="radio" name="status">
+          <span class="checkmark"></span>
+        </label>
+        <button class="btn_medium_secondary" (click)="setStatus(mobileFilters.status);mobileFilters.status= false;"
+          translate="COMPONENTS.PUBLIC_TOPICS.BTN_APPLY"></button>
+      </div>
+      <div class="overlay" *ngIf="showMobileOverlay()"></div>
+      <div class="options button_options" *ngIf="mobileFilters.category">
+        <label class="checkbox">
+          <span translate="TXT_TOPIC_CATEGORY_ALL"></span>
+          <input type="radio" name="category">
+          <span class="checkmark"></span>
+        </label>
+
+        <label class="checkbox" *ngFor="let category of categories$" (click)=" mobileFilters.category = category">
+          <span [translate]="'TXT_TOPIC_CATEGORY_'+category | uppercase"></span>
+          <input type="radio" name="category">
+          <span class="checkmark"></span>
+        </label>
+
+        <button class="btn_medium_secondary" (click)="setCategory(mobileFilters.category);mobileFilters.category= false;"
+          translate="COMPONENTS.PUBLIC_TOPICS.BTN_APPLY"></button>
+      </div>
+      <div class="options button_options" *ngIf="mobileFilters.country">
+        <typeahead class="dropdown dropdown_input" activeClass="dropdown_active" [term]="countrySearch"
+          (search)="searchCountry($event)" [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_COUNTRY' | translate">
+        </typeahead>
+        <label class="checkbox" (click)="mobileFilters.country = 'all'">
+          <span translate="TXT_TOPIC_STATUS_ALL"></span>
+          <input type="radio" name="country">
+          <span class="checkmark"></span>
+        </label>
+        <ng-container *ngIf="countries$ | async as countries">
+          <label class="checkbox" *ngFor="let country of countries" (click)="mobileFilters.country = country.name">
+            <span>{{country.name}}</span>
+            <input type="radio" name="country">
+            <span class="checkmark"></span>
+          </label>
         </ng-container>
-        <ng-container *ngIf="tabSelected === 'statuses'">
-          <a  class="fi_link" *ngFor="let status of statuses$"
-          (click)="setStatus(status)"
-          [ngClass]="status === topicFilters.status ? 'bold' : ''">
-          <span>
-            {{'TXT_TOPIC_STATUS_' + status | uppercase | translate}}
-          </span>
-        </a>
+        <button class="btn_medium_secondary" (click)="setCountry(mobileFilters.country);mobileFilters.country= false;"
+          translate="COMPONENTS.PUBLIC_TOPICS.BTN_APPLY"></button>
+      </div>
+      <div class="options button_options" *ngIf="mobileFilters.language">
+        <typeahead class="dropdown dropdown_input" activeClass="dropdown_active" [term]="languageSearch"
+          (search)="searchLanguage($event)" [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_LANGUAEG' | translate">
+        </typeahead>
+        <label class="checkbox" (click)="mobileFilters.language = 'all'">
+          <span translate="TXT_TOPIC_STATUS_ALL"></span>
+          <input type="radio" name="language">
+          <span class="checkmark"></span>
+        </label>
+        <ng-container *ngIf="languages$ | async as languages">
+          <label class="checkbox" *ngFor="let language of languages" (click)="mobileFilters.language = language.name;">
+            <span>{{language.name}}</span>
+            <input type="radio" name="language">
+            <span class="checkmark"></span>
+          </label>
         </ng-container>
-      </div>
-
-      <div class="fi_submit">
-        <div class="blue_button" (click)="app.showSearchFiltersMobile = false" translate="VIEWS.HOME.BTN_SUBMIT_FILTER"></div>
-      </div>
-
-    </div>
-
-  </div>
-
-  <!-- TOPICS AREA -->
-  <div id="topics_area" [ngClass]="{'no_results': !(PublicTopicService.countTotal$ | async)}">
-    <div class="table" *ngIf="(PublicTopicService.countTotal$ | async) === 0"> <!---->
-      <div class="no_results v_align_cell">
-        <div class="no_results_icon_wrap">
-          <div class="sprite sprite-icon-no-results2x"></div>
-        </div>
-        <div class="title_area">
-          <h3 translate="VIEWS.HOME.HEADING_NO_RESUTS"></h3>
-          <p translate="VIEWS.HOME.HEADING_GET_STARTED"></p>
-        </div>
-
-        <div class="button_area">
-
-          <div class="big_button" [routerLink]="['/topics/create']">
-            <div class="button_cell">
-              <div class="topic_text" translate="VIEWS.HOME.BTN_CREATING_A_NEW_TOPIC"></div>
-            </div>
-          </div>
-
-        </div>
+        <button class="btn_medium_secondary" (click)="setLanguage(mobileFilters.language);mobileFilters.language= false;"
+          translate="COMPONENTS.PUBLIC_TOPICS.BTN_APPLY"></button>
       </div>
     </div>
-    <topicbox [topic]="topic" *ngFor="let topic of topics$ | async; trackBy: trackByFn;"></topicbox>
-
-    <div class="clearer"></div>
   </div>
-
-  <div id="blue_button_wrap" (click)="PublicTopicService.loadMore();" *ngIf="(PublicTopicService.hasMore$ | async)">
-    <div class="blue_button" translate="VIEWS.HOME.BTN_LOAD_MORE_TOPICS"></div>
-    <!-- [ngClass]="isTopicListLoading ? 'disabled': ''" -->
+  <div class="topics_content">
+    <ng-container *ngIf="topics$ | async as topics;">
+      <topicbox [topic]="topic" *ngFor="let topic of topics; trackBy: trackByFn;"></topicbox>
+    </ng-container>
   </div>
-
+  <div class="pagination_wrap">
+    <cos-pagination (select)="loadPage($event)" [totalPages]="(PublicTopicService.totalPages$ | async) || 0"
+      [page]="(PublicTopicService.page$ | async) || 0"></cos-pagination>
+  </div>
 </div>

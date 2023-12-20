@@ -1,0 +1,21 @@
+
+.pagination {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+button {
+  width: 40px;
+  height: 40px;
+  transition: background-color 0.2s linear;
+
+  &.btn_pagination {
+    display: flex;
+
+    div {
+      position: absolute;
+    }
+  }
+}

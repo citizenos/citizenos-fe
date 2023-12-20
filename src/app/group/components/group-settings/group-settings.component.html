@@ -1,155 +1,202 @@
-<!-- LIGHTBOX SKELETON -->
-<div id="root_lightbox" class="full_screen" *ngIf="group">
-  <div id="lightbox" class="wide_lightbox with_header_menu" [ngClass]="group.id ? 'with_title_description' : ''">
-
-    <div id="lightbox_wrap">
-
-      <div id="lightbox_header">
-
-        <div id="lightbox_header_text">
-          <div class="title" translate="MODALS.GROUP_CREATE_SETTINGS_HEADING_EDIT"></div>
-          <div class="title_description" *ngIf="group.id">{{group.name}}</div>
+<div class="overlay" mat-dialog-close></div>
+<div class="dialog">
+  <div class="dialog_header">
+    <div class="header_text">
+      <h4 class="title" translate="COMPONENTS.GROUP_SETTINGS.HEADING"></h4>
+    </div>
+    <div class="dialog_close">
+      <a class="btn_dialog_close icon" mat-dialog-close>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M7.72152 6.29537C7.3277 5.90154 6.68919 5.90154 6.29537 6.29537C5.90154 6.68919 5.90154 7.3277 6.29537 7.72153L10.5738 12L6.29541 16.2785C5.90159 16.6723 5.90159 17.3108 6.29541 17.7046C6.68923 18.0985 7.32774 18.0985 7.72156 17.7046L12 13.4262L16.2784 17.7046C16.6723 18.0985 17.3108 18.0985 17.7046 17.7046C18.0984 17.3108 18.0984 16.6723 17.7046 16.2785L13.4262 12L17.7046 7.72153C18.0985 7.3277 18.0985 6.68919 17.7046 6.29537C17.3108 5.90154 16.6723 5.90154 16.2785 6.29537L12 10.5739L7.72152 6.29537Z"
+            fill="#2C3B47" />
+        </svg>
+      </a>
+    </div>
+  </div>
+  <div class="dialog_tabs_wrap">
+    <a class="dialog_tab mobile_hidden" [ngClass]="{'active': activeTab ==='info'}" (click)="selectTab('info')"
+      translate="COMPONENTS.GROUP_SETTINGS.TAB_INFO"></a>
+    <a class="dialog_tab mobile_hidden" [ngClass]="{'active': activeTab ==='settings'}" (click)="selectTab('settings')"
+      translate="COMPONENTS.GROUP_SETTINGS.TAB_SETTINGS"></a>
+    <div class="dropdown mobile_show" [cosDropdown]>
+      <div class="selection">
+        <div class="selected_item">
+          {{'COMPONENTS.GROUP_SETTINGS.TAB_'+activeTab | uppercase | translate}}
         </div>
-
-        <div id="lightbox_close" class="ngdialog-close" mat-dialog-close>
-          <div class="table_cell ngdialog-close">
-            <div class="sprite sprite-btn-popup-close2x ngdialog-close">
-            </div>
-          </div>
+        <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+          </svg>
         </div>
-
-        <div class="clearer"></div>
       </div>
-
-      <div class="line lightest_line"></div>
-
-      <!-- SETTINGS -->
-      <div class="lightbox_content settings_section_wrap">
-
-        <div class="lightbox_section">
-          <div class="settings_section full_width" *ngIf="isVisible('name')">
-            <div class="settings_cell">
-              <div class="setting_title" translate="MODALS.GROUP_CREATE_SETTINGS_LBL_GROUP_NAME"></div>
-              <div class="setting_description" translate="MODALS.GROUP_CREATE_SETTINGS_LBL_GROUP_NAME_EXP"></div>
-
-              <input id="groupName" class="full_width" [cosDisabled]="!GroupService.canUpdate(group)"
-                placeholder="{{'MODALS.GROUP_CREATE_SETTINGS_PLACEHOLDER_GROUP_NAME' | translate}}"
-                [(ngModel)]="group.name" [ngClass]="{'error_input': errors?.name}">
-              <label for="groupName" class="error_label" *ngIf="errors?.name">
-                <div class="table_cell">
-                  <div class="sprite sprite-icon-inputfield-error2x"></div>
-                  <span translate="{{errors?.name}}"></span>
-                </div>
-              </label>
-            </div>
-          </div>
-
-          <div class="line lightest_line" *ngIf="isVisible('name')"></div>
-
-          <div class="settings_section full_width" *ngIf="isVisible('description')">
-            <div class="settings_cell">
-              <div class="setting_title" translate="MODALS.GROUP_CREATE_SETTINGS_LBL_GROUP_DESCRIPTION"></div>
-              <div class="setting_description" translate="MODALS.GROUP_CREATE_SETTINGS_LBL_GROUP_DESCRIPTION_EXP"
-                [translateParams]="{max: 500}"></div>
-              <textarea id="groupDescription" [cosDisabled]="!GroupService.canUpdate(group)"
-                placeholder="{{'MODALS.GROUP_CREATE_SETTINGS_PLACEHOLDER_GROUP_DESCRIPTION' | translate}}"
-                [(ngModel)]="group.description" [ngClass]="{'error_input': errors?.description}"></textarea>
-              <label for="groupDescription" class="error_label" *ngIf="errors?.description">
-                <div class="table_cell">
-                  <div class="sprite sprite-icon-inputfield-error2x"></div>
-                  <span translate="{{errors?.description}}"></span>
-                </div>
-              </label>
-            </div>
-          </div>
-
-          <div class="line lightest_line" *ngIf="isVisible('description')"></div>
-
-          <div class="settings_section group_image" *ngIf="isVisible('image') && GroupService.canUpdate(group)">
-
-            <div class="settings_cell">
-              <div class="setting_title">
-                Group image
-              </div>
-              <div class="button_holder">
-                <input type="file" #imageUpload id="group_image_upload" class="image_item" (change)="fileUpload()"/>
-                <div class="gray_button" (click)="triggerUploadImage()"
-                  translate="MODALS.GROUP_CREATE_SETTINGS_BTN_UPLOAD_IMAGE"></div>
-                <div class="pink_button red_text" *ngIf="group.imageUrl || tmpImageUrl" (click)="deleteGroupImage()">
-                  <span>{{('MODALS.GROUP_CREATE_SETTINGS_BTN_REMOVE_IMAGE' | translate)}}</span>
-                  <span class="icon icon_delete"></span></div>
-              </div>
-            </div>
-            <div class="clearer"></div>
-
-            <div class="settings_cell profile_image_wrapper">
-              <div class="account_picture">
-                <img *ngIf="group.imageUrl || tmpImageUrl" [src]="group.imageUrl || tmpImageUrl">
-                <div class="profile_image_filler" *ngIf="!group.imageUrl ||  !tmpImageUrl">
-                  <cos-initials class="table_cell" *ngIf="group.name" [name]="group.name"></cos-initials>
-                  <div class="profile_circle"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="line lightest_line" *ngIf="isVisible('visibility')"></div>
-
-          <div class="settings_section" *ngIf="isVisible('visibility')">
-            <div class="settings_cell">
-              <div class="setting_title" translate="MODALS.GROUP_CREATE_SETTINGS_HEADING_GROUP_VISIBILITY"></div>
-              <div class="setting_description" translate="MODALS.GROUP_CREATE_SETTINGS_DESC_GROUP_VISIBILITY">ONLY
-                PEOPLE YOU INVITE WILL BE ABLE TO JOIN THE TOPIC</div>
-              <div class="radio_input_wrap">
-                <label class="checkcontainer">
-                  <input type="radio" class="vote_option_radio"
-                    (click)="group.visibility = GroupService.VISIBILITY.private"
-                    ng-checked="group.visibility === GroupService.VISIBILITY.private">
-                  <span class="option_radio" translate="MODALS.GROUP_CREATE_SETTINGS_LBL_PRIVATE">Private</span>
-                </label>
-              </div>
-              <div class="radio_input_wrap">
-                <label class="checkcontainer">
-                  <input type="radio" class="vote_option_radio"
-                    (click)="group.visibility = GroupService.VISIBILITY.public"
-                    ng-checked="group.visibility === GroupService.VISIBILITY.public">
-                  <span class="option_radio" translate="MODALS.GROUP_CREATE_SETTINGS_LBL_PUBLIC">Public</span>
-                </label>
-              </div>
-            </div>
-          </div>
-
-          <div class="line lightest_line" *ngIf="isVisible('visibility')"></div>
-
-          <div class="settings_section" *ngIf="isVisible('delete')">
-            <div class="settings_cell">
-              <div class="setting_title" translate="MODALS.GROUP_CREATE_SETTINGS_LBL_DELETE_GROUP">Delete group</div>
-              <div class="setting_description" translate="MODALS.GROUP_CREATE_SETTINGS_LBL_DELETE_GROUP_EXP">DELETING A
-                GROUP CAN NOT BE UNDONE. BE SURE TO BE REALLY SURE ABOUT THIS.</div>
-            </div>
-            <div class="settings_cell">
-              <div class="blue_button yes" (click)="doDeleteGroup()"
-                translate="MODALS.GROUP_CREATE_SETTINGS_BTN_DELETE_GROUP">Delete group</div>
-            </div>
-          </div>
-
-
+      <div class="options">
+        <div class="option" (click)="selectTab('info')" translate="COMPONENTS.GROUP_SETTINGS.TAB_INFO">
         </div>
-
-      </div>
-
-      <div class="lightbox_footer">
-
-        <div class="line lightest_line"></div>
-        <div class="blue_button_wrap">
-          <div class="blue_button" *ngIf="GroupService.canUpdate(group)" (click)="doSaveGroup()"
-            translate="MODALS.GROUP_CREATE_SETTINGS_BTN_SAVE_GROUP"></div>
+        <div class="option" (click)="selectTab('settings')" translate="COMPONENTS.GROUP_SETTINGS.TAB_SETTINGS">
         </div>
       </div>
     </div>
-
   </div>
+  <div class="dialog_content">
+    <ng-container *ngIf="activeTab==='info'">
+      <div class="content_section">
+        <div class="section_content_wrap">
+          <div translate="COMPONENTS.GROUP_SETTINGS.INFO_SETTINGS_INPUT_NAME_DESC"></div>
+          <cos-input placeholder="{{'COMPONENTS.GROUP_SETTINGS.INFO_SETTINGS_INPUT_NAME' | translate}}">
+            <input id="groupName" [placeholder]="'COMPONENTS.GROUP_SETTINGS.INFO_SETTINGS_INPUT_NAME' | translate"
+              [(ngModel)]="group.name" [ngClass]="{'error_input': errors?.name}">
+            <label for="groupName" class="error_label" *ngIf="errors?.name">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M8.89438 1.78863C8.52586 1.05158 7.47405 1.05158 7.10553 1.78863L0.723562 14.5526C0.391112 15.2175 0.874608 15.9998 1.61799 15.9998H14.3819C15.1253 15.9998 15.6088 15.2175 15.2763 14.5526L8.89438 1.78863ZM6.99996 6.99977C6.99996 6.44749 7.44767 5.99977 7.99996 5.99977C8.55224 5.99977 8.99996 6.44749 8.99996 6.99977V9.99977C8.99996 10.5521 8.55224 10.9998 7.99996 10.9998C7.44767 10.9998 6.99996 10.5521 6.99996 9.99977V6.99977ZM6.99996 12.9998C6.99996 12.4475 7.44767 11.9998 7.99996 11.9998C8.55224 11.9998 8.99996 12.4475 8.99996 12.9998C8.99996 13.5521 8.55224 13.9998 7.99996 13.9998C7.44767 13.9998 6.99996 13.5521 6.99996 12.9998Z"
+                  fill="#EF4025" />
+              </svg>
+              <span translate="{{errors?.name}}"></span>
+            </label>
+          </cos-input>
+          <div translate="COMPONENTS.GROUP_SETTINGS.INFO_SETTINGS_INPUT_DESCRIPTION_DESC"></div>
+          <cos-input placeholder="{{'COMPONENTS.GROUP_SETTINGS.INFO_SETTINGS_INPUT_DESCRIPTION' | translate}}">
+            <textarea id="groupDescription"
+              [placeholder]="'COMPONENTS.GROUP_SETTINGS.INFO_SETTINGS_INPUT_DESCRIPTION' | translate" rows="5"
+              [(ngModel)]="group.description" [ngClass]="{'error_input': errors?.description}"
+              [maxlength]="250"></textarea>
+            <label for="groupDescription" class="error_label" *ngIf="errors?.description">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M8.89438 1.78863C8.52586 1.05158 7.47405 1.05158 7.10553 1.78863L0.723562 14.5526C0.391112 15.2175 0.874608 15.9998 1.61799 15.9998H14.3819C15.1253 15.9998 15.6088 15.2175 15.2763 14.5526L8.89438 1.78863ZM6.99996 6.99977C6.99996 6.44749 7.44767 5.99977 7.99996 5.99977C8.55224 5.99977 8.99996 6.44749 8.99996 6.99977V9.99977C8.99996 10.5521 8.55224 10.9998 7.99996 10.9998C7.44767 10.9998 6.99996 10.5521 6.99996 9.99977V6.99977ZM6.99996 12.9998C6.99996 12.4475 7.44767 11.9998 7.99996 11.9998C8.55224 11.9998 8.99996 12.4475 8.99996 12.9998C8.99996 13.5521 8.55224 13.9998 7.99996 13.9998C7.44767 13.9998 6.99996 13.5521 6.99996 12.9998Z"
+                  fill="#EF4025" />
+              </svg>
+              <span translate="{{errors?.description}}"></span>
+            </label>
+          </cos-input>
+          <div translate="COMPONENTS.GROUP_SETTINGS.INFO_SETTINGS_CHOOSE_IMAGE_DESC">
+          </div>
+          <div id="image_input_area" dragndrop (fileDropped)="fileDroped($event)"
+            *ngIf="!group.imageUrl && !uploadedImage">
+            <div class="bold" translate="COMPONENTS.GROUP_SETTINGS.INFO_SETTINGS_LBL_DROP_IMAGE"></div>
+            <input type="file" #imageUpload (change)="fileUpload()" />
+            <button class="btn_medium_secondary" (click)="uploadImage()"
+              translate="COMPONENTS.GROUP_SETTINGS.INFO_SETTINGS_BTN_CHOOSE_IMAGE"></button>
+          </div>
+          <div id="image_area" *ngIf="group.imageUrl || uploadedImage">
+            <ng-container *ngIf="uploadedImage">
+              <div id="image_wrap">
+                <image-editor [width]="80" [heigth]="80" [file]="uploadedImage"
+                  (item)="imageChange($event)"></image-editor>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="group.imageUrl">
+              <div id="image_wrap">
+                <img [src]="group.imageUrl" />
+              </div>
+            </ng-container>
+            <a class="icon_link" (click)="deleteGroupImage()">
+              <span class="bold" translate="COMPONENTS.GROUP_SETTINGS.INFO_SETTINGS_BTN_REMOVE_IMAGE"></span>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 9H11V17H9L9 9Z" fill="#1168A8" />
+                <path d="M15 9H13V17H15V9Z" fill="#1168A8" />
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M17 5V4C17 2.89543 16.1046 2 15 2L9 2C7.89543 2 7 2.89543 7 4L7 5H4C3.44772 5 3 5.44772 3 6C3 6.55228 3.44772 7 4 7H5L5 18C5 19.6569 6.34315 21 8 21L16 21C17.6569 21 19 19.6569 19 18L19 7H20C20.5523 7 21 6.55228 21 6C21 5.44772 20.5523 5 20 5L17 5ZM15 4L9 4V5L15 5V4ZM17 7L7 7L7 18C7 18.5523 7.44772 19 8 19L16 19C16.5523 19 17 18.5523 17 18V7Z"
+                  fill="#1168A8" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="content_section">
+        <div class="section_content_wrap">
+          <div class="small_heading" translate="COMPONENTS.GROUP_SETTINGS.INFO_SETTINGS_HEADING_CONTACT_EMAIL"></div>
+          <div translate="COMPONENTS.GROUP_SETTINGS.INFO_SETTINGS_INPUT_CONTACT_EMAIL_DESC"></div>
+          <cos-input placeholder="{{'COMPONENTS.GROUP_SETTINGS.INFO_SETTINGS_INPUT_CONTACT_EMAIL' | translate}}">
+            <input id="groupName"
+              [placeholder]="'COMPONENTS.GROUP_SETTINGS.INFO_SETTINGS_INPUT_CONTACT_EMAIL' | translate"
+              [(ngModel)]="group.contact" [ngClass]="{'error_input': errors?.name}">
+            <label for="groupName" class="error_label" *ngIf="errors?.name">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M8.89438 1.78863C8.52586 1.05158 7.47405 1.05158 7.10553 1.78863L0.723562 14.5526C0.391112 15.2175 0.874608 15.9998 1.61799 15.9998H14.3819C15.1253 15.9998 15.6088 15.2175 15.2763 14.5526L8.89438 1.78863ZM6.99996 6.99977C6.99996 6.44749 7.44767 5.99977 7.99996 5.99977C8.55224 5.99977 8.99996 6.44749 8.99996 6.99977V9.99977C8.99996 10.5521 8.55224 10.9998 7.99996 10.9998C7.44767 10.9998 6.99996 10.5521 6.99996 9.99977V6.99977ZM6.99996 12.9998C6.99996 12.4475 7.44767 11.9998 7.99996 11.9998C8.55224 11.9998 8.99996 12.4475 8.99996 12.9998C8.99996 13.5521 8.55224 13.9998 7.99996 13.9998C7.44767 13.9998 6.99996 13.5521 6.99996 12.9998Z"
+                  fill="#EF4025" />
+              </svg>
+              <span translate="{{errors?.name}}"></span>
+            </label>
+          </cos-input>
+        </div>
+      </div>
+      <div class="content_section">
+        <div class="section_content_wrap">
+          <div class="small_heading" translate="COMPONENTS.GROUP_SETTINGS.INFO_SETTINGS_HEADING_RULES_OF_CONDUCT"></div>
+          <div translate="COMPONENTS.GROUP_SETTINGS.INFO_SETTINGS_RULES_OF_CONDUCT_DESC"></div>
 
-  <div id="close_lightbox" class="ngdialog-close" mat-dialog-close></div>
-
+          <cos-input class="rule_input"
+            placeholder="{{'COMPONENTS.GROUP_SETTINGS.INFO_SETTINGS_RULES_OF_CONDUCT_RULE' | translate:{number: index+1} }}"
+            *ngFor="let rule of rules; let index = index">
+            <input
+              [placeholder]="'COMPONENTS.GROUP_SETTINGS.INFO_SETTINGS_RULES_OF_CONDUCT_RULE' | translate: {number: index+1}"
+              [(ngModel)]="rule.rule">
+            <button (click)="removeRule(index)">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 6.00065H7.33333L7.33333 11.334H6L6 6.00065Z" fill="#2C3B47" />
+                <path d="M10 6.00065H8.66667L8.66667 11.334H10L10 6.00065Z" fill="#2C3B47" />
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M11.3333 3.33398V2.66732C11.3333 1.93094 10.7364 1.33398 10 1.33398L6 1.33398C5.26362 1.33398 4.66667 1.93094 4.66667 2.66732V3.33398L2.66667 3.33398C2.29848 3.33398 2 3.63246 2 4.00065C2 4.36884 2.29848 4.66732 2.66667 4.66732H3.33333L3.33333 12.0007C3.33333 13.1053 4.22877 14.0007 5.33333 14.0007L10.6667 14.0007C11.7713 14.0007 12.6667 13.1053 12.6667 12.0007L12.6667 4.66732H13.3333C13.7015 4.66732 14 4.36884 14 4.00065C14 3.63246 13.7015 3.33398 13.3333 3.33398H11.3333ZM10 2.66732L6 2.66732V3.33398L10 3.33398V2.66732ZM11.3333 4.66732L4.66667 4.66732L4.66667 12.0007C4.66667 12.3689 4.96515 12.6673 5.33333 12.6673L10.6667 12.6673C11.0349 12.6673 11.3333 12.3689 11.3333 12.0007L11.3333 4.66732Z"
+                  fill="#2C3B47" />
+              </svg>
+            </button>
+          </cos-input>
+          <button class="btn_medium_secondary add_rule" (click)="addRule()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 20C11.4711 20 11.0423 19.5712 11.0423 19.0423L11.0423 12.9577L4.95775 12.9577C4.4288 12.9577 4 12.5289 4 12C4 11.4711 4.4288 11.0423 4.95775 11.0423H11.0423V4.95775C11.0423 4.4288 11.4711 4 12 4C12.5289 4 12.9577 4.4288 12.9577 4.95775L12.9577 11.0423L19.0423 11.0423C19.5712 11.0423 20 11.4711 20 12C20 12.5289 19.5712 12.9577 19.0423 12.9577H12.9577V19.0423C12.9577 19.5712 12.5289 20 12 20Z"
+                fill="#1168A8" />
+            </svg>
+            <span translate="COMPONENTS.GROUP_SETTINGS.INFO_SETTINGS_BTN_ADD_NEW_RULE"></span>
+          </button>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="activeTab==='settings'">
+      <div class="content_section">
+        <div class="section_content_wrap">
+          <div  translate="COMPONENTS.GROUP_SETTINGS.SETTINGS_HEADING_LOCALITY"></div>
+          <div translate="COMPONENTS.GROUP_SETTINGS.SETTINGS_LOCALITY_SELECT_DESC"></div>
+          <div class="dropdown" [cosDropdown]>
+            <div class="selection">
+              <div class="selected_item">
+                <span *ngIf="!group.country" translate="COMPONENTS.GROUP_SETTINGS.SETTINGS_COUNTRY_SELECT"></span>
+                <span *ngIf="group.country">{{group.country}}</span>
+              </div>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </div>
+            <div class="options">
+              <div class="option" *ngFor="let country of countries" (click)="group.country = country.name">
+                {{country.name}}
+              </div>
+            </div>
+          </div>
+          <div class="dropdown" [cosDropdown]>
+            <div class="selection">
+              <div class="selected_item">
+                <span *ngIf="!group.language" translate="COMPONENTS.GROUP_SETTINGS.SETTINGS_LANGUAGE_SELECT"></span>
+                <span *ngIf="group.language">{{group.language}}</span>
+              </div>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </div>
+            <div class="options">
+              <div class="option" *ngFor="let language of languages" (click)="group.language = language.name">
+                {{language.name}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="dialog_footer with_buttons">
+    <a mat-dialog-close translate="COMPONENTS.GROUP_SETTINGS.LNK_CANCEL"></a>
+    <button class="btn_medium_submit" translate="COMPONENTS.GROUP_SETTINGS.BTN_SAVE" (click)="save()"></button>
+  </div>
 </div>

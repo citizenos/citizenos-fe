@@ -2,7 +2,7 @@
   "name": "citizenos-fe",
   "version": "0.0.0",
   "scripts": {
-    "dev": "node ./prebuild.js && ng serve",
+    "dev": "node ./prebuild.js && ng serve --host",
     "ng": "ng",
     "start": "node ./index.js",
     "build": "node ./prebuild.js && ng build",
@@ -11,16 +11,16 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^16.0.3",
-    "@angular/cdk": "^16.0.2",
-    "@angular/common": "^16.0.3",
-    "@angular/compiler": "^16.0.3",
-    "@angular/core": "^16.0.3",
-    "@angular/forms": "^16.0.3",
-    "@angular/material": "^16.0.2",
-    "@angular/platform-browser": "^16.0.3",
-    "@angular/platform-browser-dynamic": "^16.0.3",
-    "@angular/router": "^16.0.3",
+    "@angular/animations": "^16.1.5",
+    "@angular/cdk": "^16.1.5",
+    "@angular/common": "^16.1.5",
+    "@angular/compiler": "^16.1.5",
+    "@angular/core": "^16.1.5",
+    "@angular/forms": "^16.1.5",
+    "@angular/material": "^16.1.5",
+    "@angular/platform-browser": "^16.1.5",
+    "@angular/platform-browser-dynamic": "^16.1.5",
+    "@angular/router": "^16.1.5",
     "@ngx-loading-bar/core": "^6.0.2",
     "@ngx-loading-bar/http-client": "^6.0.2",
     "@ngx-translate/core": "^15.0.0",
@@ -38,16 +38,18 @@
     "moment": "^2.29.4",
     "ngx-linky": "^4.0.0",
     "ngx-moment": "^6.0.2",
+    "ngx-translate-debug": "^0.1.4",
     "prerender-node": "3.7.0",
     "rxjs": "~7.8.0",
+    "timers": "^0.1.1",
     "tslib": "^2.5.2",
     "validator": "^13.7.0",
     "zone.js": "~0.13.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^16.0.3",
-    "@angular/cli": "^16.0.3",
-    "@angular/compiler-cli": "^16.0.3",
+    "@angular-devkit/build-angular": "^16.1.4",
+    "@angular/cli": "^16.1.4",
+    "@angular/compiler-cli": "^16.1.5",
     "@types/jasmine": "~4.3.2",
     "@types/node": "^20.2.5",
     "jasmine-core": "~4.5.0",
@@ -61,5 +63,9 @@
   },
   "browser": {
     "hwcrypto-js": true
+  },
+  "engines": {
+    "node": "18.15.0",
+    "npm": "9.5.0"
   }
 }

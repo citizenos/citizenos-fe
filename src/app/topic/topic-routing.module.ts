@@ -4,42 +4,72 @@ import { TopicInviteDialogComponent } from 'src/app/topic/components/topic-invit
 import { ArgumentReportModerateDialogComponent } from './components/argument-report-moderate/argument-report-moderate.component';
 import { TopicAttachmentsDialogComponent } from './components/topic-attachments/topic-attachments.component';
 import { TopicCreateComponent } from './components/topic-create/topic-create.component';
+import { TopicEditComponent } from './components/topic-edit/topic-edit.component';
 import { TopicInvitationDialogComponent } from './components/topic-invitation/topic-invitation.component';
-import { TopicJoinComponent } from './components/topic-join/topic-join.component';
+import { TopicTokenJoinComponent } from './components/topic-join/topic-join.component';
 import { TopicParticipantsDialogComponent } from './components/topic-participants/topic-participants.component';
 import { TopicReportFormDialogComponent } from './components/topic-report-form/topic-report-form.component';
 import { TopicReportModerateDialogComponent } from './components/topic-report-moderate/topic-report-moderate.component';
 import { TopicReportResolveDialogComponent } from './components/topic-report-resolve/topic-report-resolve.component';
 import { TopicReportReviewDialogComponent } from './components/topic-report-review/topic-report-review.component';
-import { TopicSettingsDialogComponent } from './components/topic-settings/topic-settings.component';
 import { TopicComponent } from './topic.component';
+import { VoteCreateComponent } from '../voting/components/vote-create/vote-create.component';
+import { AuthGuard } from 'src/app/auth/auth.guard';
 
 const routes: Routes = [
-  { path: 'create', component: TopicCreateComponent },
+  {
+    path: 'create', canActivate: [AuthGuard], children: [
+      { path: '', component: TopicCreateComponent },
+      { path: ':topicId', component: TopicCreateComponent }
+    ]
+  },
+  {
+    path: 'edit', canActivate: [AuthGuard], children: [
+      { path: ':topicId', component: TopicEditComponent }
+    ]
+  },
+  {
+    path: 'vote', children: [
+      {
+        path: 'create', canActivate: [AuthGuard], children: [
+          { path: '', component: VoteCreateComponent },
+          { path: ':topicId', component: VoteCreateComponent }
+        ]
+      },
+      {
+        path: 'edit', canActivate: [AuthGuard], children: [
+          { path: '', component: VoteCreateComponent },
+          { path: ':topicId', component: VoteCreateComponent }
+        ]
+      }
+    ]
+  },
   { path: ':topicId/invites/users/:inviteId', component: TopicInvitationDialogComponent },
   {
     path: ':topicId', component: TopicComponent, children: [
       { path: 'invite', component: TopicInviteDialogComponent },
-      { path: 'followup', children: []},
+      { path: 'followup', children: [] },
       {
         path: 'votes', children: [
-          { path: 'create', children: []},
-          { path: ':voteId', children: [
-            { path: 'followup' , children: []},
-          ]}
+          { path: 'create', canActivate: [AuthGuard], children: [] },
+          {
+            path: ':voteId', children: [
+              { path: 'followup', children: [] },
+            ]
+          }
         ]
       },
-      { path: 'settings', component: TopicSettingsDialogComponent },
+      { path: 'settings', canActivate: [AuthGuard], component: TopicEditComponent },
       { path: 'files', component: TopicAttachmentsDialogComponent },
       { path: 'participants', component: TopicParticipantsDialogComponent },
       { path: 'report', component: TopicReportFormDialogComponent },
       { path: 'reports/:reportId/moderate', component: TopicReportModerateDialogComponent },
       { path: 'reports/:reportId/review', component: TopicReportReviewDialogComponent },
       { path: 'reports/:reportId/resolve', component: TopicReportResolveDialogComponent },
-      { path: 'comments/:commentId/reports/:reportId/moderate', component: ArgumentReportModerateDialogComponent},
+      { path: 'comments/:commentId/reports/:reportId/moderate', component: ArgumentReportModerateDialogComponent },
     ]
   },
-  {path: 'join/:token', component: TopicJoinComponent},//https://dev.citizenos.com:3001/topics/join/XwBvIs29gwrH
+  { path: 'join/:token', component: TopicTokenJoinComponent },//https://dev.citizenos.com:3001/topics/join/XwBvIs29gwrH
   { path: '', component: TopicComponent },
 
 ];

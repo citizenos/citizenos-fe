@@ -1,262 +1,162 @@
-@use 'vars';
-@use 'mixins_n_extends';
-
-.arguments_header {
-  padding-top: 20px;
-  @media (max-width: 621px) {
-      padding: 20px 20px 0;
-  }
-
-  .number_of_arguments {
-      font-size: 24px;
-      font-weight: vars.$bold;
-      float: left;
-      @media (max-width: 1500px) {
-          float: none;
-      }
-  }
-
-  .arguments_data {
-      .data_item {
-          font-size: 13px;
-          font-weight: vars.$bold;
-          opacity: 0.7;
-      }
-
-      .data_left {
-          float: left;
-          margin-top: 12px;
-
-          .data_item {
-              float: left;
-              margin-left: 10px;
-
-              &:first-child {
-                  @media (max-width: 1500px) {
-                      margin-left: 0;
-                  }
-              }
-          }
-      }
-
-      .data_right {
-          float: right;
-          margin-top: 9px;
-          @media (max-width: 1200px) {
-              width: 100%;
-          }
-          @include mixins_n_extends.tablet {
-              width: auto;
-          }
-          @media (max-width: 621px) {
-              width: 100%;
-          }
-
-          .borderless_dropdown {
-              margin-right: 9px;
-              margin-top: -3px;;
-              display: inline-block;
-              min-width: 90px;
-              @media (max-width: 1200px) {
-                  float: right;
-                  margin-top: -33px;
-                  margin-right: 0;
-              }
-              @include mixins_n_extends.tablet {
-                  float: none;
-                  margin-top: -3px;
-                  margin-right: 9px;
-              }
-              @media (max-width: 621px) {
-                  float: right;
-                  margin-top: -33px;
-                  margin-right: 0;
-              }
-          }
-
-          .blue_button {
-              float: right;
-              margin-top: -3px;
-              margin-bottom: 20px;
-              padding-left: 20px;
-              padding-right: 20px;
-              border-radius: 4px;
-              @media (max-width: 1200px) {
-                  float: none;
-                  margin-top: 7px;
-              }
-              @include mixins_n_extends.tablet {
-                  float: right;
-                  margin-top: -3px;
-              }
-              @media (max-width: 621px) {
-                  float: none;
-                  margin-top: 7px;
-              }
-          }
-      }
-  }
-}
+@use "mixins";
 .arguments_wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 
-  .arguments_content {
-      padding: 41px 0 50px;
-
-      @media (max-width: 621px) {
-          padding-top: 20px;
-      }
-
-      .comment_link_input {
-          z-index: -999;
-          position: absolute;
-          width: 1px;
-          height: 1px;
-          border: none;
-      }
-
-
-
+  @include mixins.mobile {
+    gap: 8px;
   }
+  .arguments_header {
+    display: flex;
+    justify-content: space-between;
 
-  .post_argument_wrap {
-      background: #F6F6F6;
-      padding: 20px;
-      position: relative;
-      margin-bottom: 20px;
-
-      input, textarea {
-          width: 100%;
-          box-sizing: border-box;
-          padding: 6px 10px;
-      }
-
-      input {
-          margin: 0 0 10px;
-
-          &.error_input {
-              margin: 19px 0 0;
-          }
-      }
-
-      textarea {
-          height: 100px;
-          margin-bottom: 15px;
-
-          &.error_input {
-              margin-bottom: 0;
-          }
-      }
-
-      .classic_dropdown {
-          margin-bottom: 8px;
-
-          .dropdown {
-              .dropdown_item {
-                  &.is_pro {
-                      border-left: 2px solid vars.$nature_green;
-                  }
-
-                  &.is_con {
-                      border-left: 2px solid vars.$pinky_red;
-                  }
-
-                  &.is_poi {
-                      border-left: 2px solid vars.$light_blue;
-                  }
-              }
-
-              &.with_description {
-                  .is_pro {
-                      background-color: vars.$nature_green_light;
-                  }
-
-                  .is_con {
-                      background-color: vars.$pinky_red_light;
-                  }
-
-                  .is_poi {
-                      background-color: vars.$light_blue_light;
-                  }
-              }
-          }
-      }
-
-      .post_argument_overlay {
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: rgba(255, 255, 255, 0.5);
-          z-index: 2;
-          text-align: center;
-          padding: 2em;
-      }
-
-      .error_label {
-          margin-bottom: 10px;
-      }
-
-      .nature_green_button {
-          float: left;
-      }
-
-      .pinky_red_button {
-          float: right;
-      }
-
-      .light_blue_button {
-          float: left;
-      }
-
-      @media (max-width: 621px) {
-          .nature_green_button, .pinky_red_button {
-              float: none;
-          }
-
-          .pinky_red_button {
-              margin-top: 10px;
-          }
-      }
-  }
-
-}
-.comments_section {
-    margin-top: 60px;
-
-    .tabs_wrap {
-        padding: 0 60px;
-        @media (max-width: 767px) {
-            padding: 0 20px;
-        }
-
-        .tab {
-            font-weight: vars.$bold;
-            background: vars.$lightest_gray;
-            float: left;
-            display: table;
-            height: 44px;
-            padding: 0 20px;
-
-            &:not(:last-child) {
-                margin-right: 10px;
-            }
-
-            font-size: 14px;
-            cursor: pointer;
-            color: vars.$text_gray;
-
-            &:hover {
-                background: vars.$another_gray;
-                @include mixins_n_extends.tablet {
-                    background: vars.$lightest_gray;
-                }
-            }
-        }
-
-        .tab.active {
-            background: vars.$white;
-        }
-
+    @include mixins.mobile {
+      padding: 0 16px;
+      flex-direction: column;
+      gap: 16px;
     }
+
+    .title {
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 24px; /* 133.333% */
+    }
+
+    button {
+      padding: 8px 16px;
+      font-weight: 600;
+    }
+  }
+
+  .pagination {
+    button {
+      background-color: var(--color-surfaces);
+      &:hover, &.active  {
+        background-color: initial;
+      }
+    }
+  }
+}
+
+.argument_graph_wrap {
+  background-color: var(--color-surfaces);
+  padding: 16px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  @include mixins.mobile {
+    width: calc(100% - 32px);
+    justify-self: center;
+    align-self: center;
+  }
+  .graph_header {
+    display: flex;
+    justify-content: space-between;
+
+    @include mixins.mobile {
+      flex-direction: column;
+    }
+    .graph_title {
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 24px; /* 150% */
+    }
+    .legend {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      gap: 24px;
+      .dot {
+        height: 8px;
+        width: 8px;
+        background-color: var(--color-argument-info);
+        border-radius: 50%;
+      }
+
+      .legend_item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        &.pro {
+          .dot {
+            background-color: var(--color-argument-pro);
+          }
+        }
+        &.con {
+          .dot {
+            background-color: var(--color-argument-con);
+          }
+        }
+      }
+    }
+  }
+
+  .argument_graph {
+    display: flex;
+    width: 100%;
+    gap: 4px;
+
+    .arguments_pro {
+      height: 4px;
+      display: flex;
+      width: 50%;
+      background-color: var(--color-argument-pro);
+    }
+
+    .arguments_con {
+      height: 4px;
+      display: flex;
+      width: 50%;
+      background-color: var(--color-argument-con);
+    }
+  }
+}
+.arguments_filters {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+
+  @include mixins.mobile {
+    width: calc(100% - 32px);
+    justify-self: center;
+    align-self: center;
+  }
+
+  .dropdown_input {
+    width: 100%;
+  }
+
+  .dropdown {
+    .options {
+      position: absolute;
+      width: 100%;
+    }
+  }
+}
+
+#arguments {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 16px;
+  position: relative;
+
+  @include mixins.mobile {
+    padding-top: 8px;
+  }
+
+  argument {
+    display: contents;
+  }
+}
+
+.pagination_wrap {
+  justify-content: center;
+  display: flex;
 }

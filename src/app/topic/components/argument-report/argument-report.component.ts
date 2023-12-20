@@ -3,6 +3,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { TopicArgumentService } from 'src/app/services/topic-argument.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { take } from 'rxjs';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-argument-report',
@@ -14,28 +15,29 @@ export class ArgumentReportComponent implements OnInit {
   reportTypes = Object.keys(this.TopicArgumentService.ARGUMENT_REPORT_TYPES);
   errors?:any;
 
-  report = {
-    type: this.reportTypes[0],
-    text: '',
-    topicId: '',
-    commentId: ''
-  }
+  report = new UntypedFormGroup({
+    type: new UntypedFormControl(this.reportTypes[0], Validators.required),
+    text: new UntypedFormControl('', Validators.required),
+    topicId: new UntypedFormControl(''),
+    commentId: new UntypedFormControl(''),
+  });
   constructor(
     private dialogRef: MatDialogRef<ArgumentReportComponent>,
-    @Inject(MAT_DIALOG_DATA) data: any,
+    @Inject(MAT_DIALOG_DATA) private data: any,
     private TopicArgumentService: TopicArgumentService
     ) {
     this.argument = data.argument;
-    this.report.commentId = data.argument.id;
-    this.report.topicId = data.topicId;
+    this.report.value.commentId = data.argument.id;
+    this.report.value.topicId = data.topicId;
   }
 
   ngOnInit(): void {
   }
 
   doReport() {
-    console.log(this.report)
-    this.TopicArgumentService.report(this.report).pipe(take(1))
+    this.report.value.commentId = this.data.argument.id;
+    this.report.value.topicId = this.data.topicId;
+    this.TopicArgumentService.report(this.report.value).pipe(take(1))
     .subscribe({
       next: () => {
         this.dialogRef.close();

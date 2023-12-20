@@ -1,0 +1,41 @@
+#register_inputs_wrap {
+  gap: 8px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+
+  input {
+    width: 100%;
+  }
+}
+
+.checbox_wrap {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+
+  .checbox_description {
+    display: flex;
+    flex-direction: column;
+    span,
+    a {
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 20px; /* 142.857% */
+      cursor: pointer;
+    }
+  }
+}
+/*
+.checkbox {
+  flex-direction: column;
+
+  .checkmark {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+}
+*/

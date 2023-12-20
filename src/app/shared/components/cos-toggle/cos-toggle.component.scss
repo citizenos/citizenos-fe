@@ -1,0 +1,37 @@
+.toggle_wrap {
+  display: flex;
+  position: relative;
+  gap: 16px;
+
+  .toggle_widget {
+    display: flex;
+    position: relative;
+    padding: 0 2px;
+    width: 32px;
+    height: 16px;
+    border-radius: 24px;
+    align-items: center;
+
+    .toggle_circle {
+      width: 12px;
+      height: 12px;
+      border-radius: 6px;
+      background-color: var(--color-surfaces);
+      transition: all 150ms ease-out;
+    }
+
+    &.on {
+      background-color: var(--color-success);
+      margin-left: 2px;
+
+      .toggle_circle {
+        position: absolute;
+        margin-left: 16px;
+      }
+    }
+
+    &.off {
+      background-color: var(--color-error);
+    }
+  }
+}

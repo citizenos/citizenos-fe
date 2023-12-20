@@ -1,28 +1,11 @@
-#lightbox {
-  width: 600px;
-  .confirm_description_wrap {
-    width: 100%;
-
-    .confirm_description {
-      width: 100%;
-      font-size: 14px;
-      padding: 0 20px 20px 20px;
-
-      .confirm_description_under_text {
-        margin-top: 6px;
-      }
-    }
-  }
-
-  .lightbox_section {
-    padding: 20px!important;
-    border-top: none!important;
-
-    textarea {
-      height: 100px;
-    }
-    textarea, .classic_dropdown {
-      margin: 10px 0 0 0 ;
-    }
+.profile_image_filler  {
+  height: 40px;
+}
+.dialog_content {
+  gap: 16px;
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
   }
 }

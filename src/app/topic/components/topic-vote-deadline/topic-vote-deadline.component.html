@@ -1,0 +1,164 @@
+<div class="overlay" mat-dialog-close></div>
+<div class="dialog">
+  <div class="dialog_header voting">
+    <div class="header_text">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="40" height="40" rx="20" fill="#5AB467" />
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M20 10C14.48 10 10 14.48 10 20C10 25.52 14.48 30 20 30C25.52 30 30 25.52 30 20C30 14.48 25.52 10 20 10ZM18.0556 25L25.8333 17.2807L24.375 15.8333L18.0556 22.1053L15.625 19.693L14.1667 21.1404L18.0556 25Z"
+          fill="white" />
+      </svg>
+      <h4 class="title" translate="COMPONENTS.TOPIC_VOTE_DEADLINE.DIALOG_HEADING"></h4>
+    </div>
+    <div class="dialog_close">
+      <a class="btn_dialog_close icon" mat-dialog-close>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M7.72152 6.29537C7.3277 5.90154 6.68919 5.90154 6.29537 6.29537C5.90154 6.68919 5.90154 7.3277 6.29537 7.72153L10.5738 12L6.29541 16.2785C5.90159 16.6723 5.90159 17.3108 6.29541 17.7046C6.68923 18.0985 7.32774 18.0985 7.72156 17.7046L12 13.4262L16.2784 17.7046C16.6723 18.0985 17.3108 18.0985 17.7046 17.7046C18.0984 17.3108 18.0984 16.6723 17.7046 16.2785L13.4262 12L17.7046 7.72153C18.0985 7.3277 18.0985 6.68919 17.7046 6.29537C17.3108 5.90154 16.6723 5.90154 16.2785 6.29537L12 10.5739L7.72152 6.29537Z"
+            fill="#2C3B47" />
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="dialog_content">
+    <ng-container>
+      <div id="form_area">
+        <div class="content_section">
+          <div class="section_content_wrap">
+            <div class="small_heading" translate="COMPONENTS.TOPIC_VOTE_DEADLINE.LBL_EDIT_VOTING_DEADLINE"></div>
+            <div translate="COMPONENTS.TOPIC_VOTE_DEADLINE.LBL_EDIT_VOTING_DEADLINE_DESC"></div>
+            <div class="radio_wrap date_selector" [ngClass]="deadline ? 'selected': ''">
+              <div class="radio_text_wrap date_selector">
+                <div class="radio_lable_wrap">
+                  <label class="checkbox">
+                    <span class="deadline" *ngIf="deadline">{{deadline | amTimeAgo}}</span>
+                    <span class="bold" translate="COMPONENTS.TOPIC_VOTE_DEADLINE.LBL_OPTION_DEADLINE"></span>
+                    <input type="checkbox" [checked]="deadline" (click)="toggleDeadline()" />
+                    <span class="checkmark"></span>
+                  </label>
+                </div>
+                <div class="radio_description">
+                  <span translate="COMPONENTS.TOPIC_VOTE_DEADLINE.LBL_OPTION_DEADLINE_DESC"></span>
+
+                  <ng-container *ngIf="deadline">
+                    <div class="deadline_wrap">
+                      <div class="date_row">
+                        <div class="bold date_row_title" translate="COMPONENTS.TOPIC_VOTE_DEADLINE.DEADLINE_LBL_TIME">
+                        </div>
+                        <div class="input_wrap">
+                          <input class="time_input" [(ngModel)]="endsAt.h"
+                            (change)="formatTime(endsAt.h); setEndsAtTime()" type="number" [min]="minHours()"
+                            max="{{HCount}}" step="1" />
+                          <span class="time_separator">:</span>
+                          <input type="number" class="time_input" [min]="minMinutes()" max="59" step="5"
+                            [(ngModel)]="endsAt.min" (change)="formatTime(endsAt.min);setEndsAtTime()" />
+
+
+                          <div class="dropdown" [cosDropdown]>
+                            <div class="selection">
+                              <div class="selected_item">
+                                {{'COMPONENTS.TOPIC_VOTE_DEADLINE.DEADLINE_TIME_OPTION_'+endsAt.timeFormat | uppercase |
+                                translate}}</div>
+                              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
+                              </svg>
+
+                            </div>
+                            <div class="options">
+                              <div class="option" translate="COMPONENTS.TOPIC_VOTE_DEADLINE.DEADLINE_TIME_OPTION_24"
+                                (click)="endsAt.timeFormat = 24; setTimeFormat()">
+                              </div>
+                              <div class="option" translate="COMPONENTS.TOPIC_VOTE_DEADLINE.DEADLINE_TIME_OPTION_AM"
+                                (click)="endsAt.timeFormat = 'AM'; setTimeFormat()">
+                              </div>
+                              <div class="option" translate="COMPONENTS.TOPIC_VOTE_DEADLINE.DEADLINE_TIME_OPTION_PM"
+                                (click)="endsAt.timeFormat = 'PM'; setTimeFormat()">
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                      <div class="date_row">
+                        <div class="date_row_title bold" translate="COMPONENTS.TOPIC_VOTE_DEADLINE.DEADLINE_LBL_TIMEZONE">
+                        </div>
+                        <div class="input_wrap">
+                          <div class="dropdown" [cosDropdown]>
+                            <div class="selection">
+                              <div class="selected_item">
+                                {{getTimeZoneName(endsAt.timezone)}}
+                              </div>
+                              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
+                              </svg>
+                            </div>
+                            <div class="options">
+                              <div class="option" *ngFor="let zone of timezones"
+                                [ngClass]="zone === endsAt.timezone ? 'bold' : ''"
+                                (click)="endsAt.timezone = zone.value;setEndsAtTime();">
+                                {{zone.name}}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <cos-calender [minDate]="datePickerMin" [(date)]="endsAt.date"
+                        (click)="setEndsAtTime()"></cos-calender>
+                      <div class="reminder_wrap">
+                        <label class="checkbox" [ngClass]="reminder ? 'selected': ''">
+                          <span class="bold"
+                            translate="COMPONENTS.TOPIC_VOTE_DEADLINE.DEADLINE_LBL_OPTION_SET_VOTE_REMINDER"></span>
+                          <input type="checkbox" [(ngModel)]="reminder" />
+                          <span class="checkmark"></span>
+                        </label>
+                        <div translate="COMPONENTS.TOPIC_VOTE_DEADLINE.DEADLINE_LBL_OPTION_SET_VOTE_REMINDER_DESC"></div>
+                        <div class="dropdown" [cosDropdown] *ngIf="reminderOptions.length">
+                          <div class="selection">
+                            <div class="selected_item">
+                              {{selectedReminderOption()}}
+                            </div>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
+                            </svg>
+                          </div>
+                          <div class="options">
+                            <ng-container *ngFor="let option of reminderOptions">
+                              <div class="option" (click)="setVoteReminder(option)">
+                                {{'OPTION_' + option.value
+                                + '_'+
+                                option.unit.toUpperCase() | translate}}
+                              </div>
+                            </ng-container>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="dialog_footer with_buttons">
+    <a mat-dialog-close translate="COMPONENTS.TOPIC_VOTE_DEADLINE.LNK_CANCEL"></a>
+    <div class="button_row">
+      <!--button *ngIf="tabActive > 1" class="btn_medium_submit_ghost icon mobile_hidden"
+        (click)="tabActive = tabActive - 1; (tabActive !==3)? addPosAbsolute = false: addPosAbsolute=true;"><svg
+          width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M10.4533 17.6874C10.8529 18.1042 11.5009 18.1042 11.9006 17.6874C12.3003 17.2705 12.3003 16.5947 11.9006 16.1779L8.91837 13L19 13C19.5652 13 20 12.5892 20 11.9997C20 11.4103 19.5652 11.0176 19 11.0176L8.91837 11.0176L11.9006 7.8221C12.3003 7.40527 12.3003 6.72945 11.9006 6.31262C11.5009 5.89579 10.8529 5.89579 10.4533 6.31262L5 12L10.4533 17.6874Z"
+            fill="#2C3B47" />
+        </svg>
+      </!--button-->
+      <button class="btn_medium_submit" (click)="saveVoteSettings()">{{ "COMPONENTS.TOPIC_VOTE_DEADLINE.BTN_SAVE"  | translate }}</button>
+    </div>
+  </div>
+</div>

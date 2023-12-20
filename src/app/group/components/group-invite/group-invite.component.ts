@@ -1,6 +1,6 @@
 import { GroupInviteUserService } from 'src/app/services/group-invite-user.service';
-import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, OnInit, Input, Output, EventEmitter, Inject } from '@angular/core';
+import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { isEmail } from 'validator';
 import { take, of, switchMap, BehaviorSubject } from 'rxjs';
 import { Group } from 'src/app/interfaces/group';
@@ -10,21 +10,18 @@ import { GroupService } from 'src/app/services/group.service';
 import { SearchService } from 'src/app/services/search.service';
 import { NotificationService } from 'src/app/services/notification.service';
 
-export interface GroupInviteData {
-  group: Group
-};
-
 @Component({
-  selector: 'app-group-invite',
+  selector: 'group-invite',
   templateUrl: './group-invite.component.html',
   styleUrls: ['./group-invite.component.scss']
 })
 export class GroupInviteComponent implements OnInit {
-  group: Group;
+  @Input() group!: Group;
+  @Input() dialog = false;
+  @Input() inviteMessage?: string;
+  @Output() inviteMessageChange = new EventEmitter<string>();
 
-  inviteMessage = <string | null>null;
-
-  inviteMessageMaxLength = 1000;
+  inviteMessageMaxLength = 250;
 
   tabs = [
     {
@@ -43,45 +40,40 @@ export class GroupInviteComponent implements OnInit {
   maxUsers = 550;
 
   membersPage = 1;
-  itemsPerPage = 10;
+  itemsPerPage = 5;
   memberGroups = ['users', 'emails'];
 
   invalid = <any[]>[];
-  members = <any[]>[];
-  groupLevel = 'read';
+  LEVELS = this.GroupMemberUser.LEVELS;
+
+  groupLevel = this.LEVELS[0];
 
   tabSelected = 'users';
   private EMAIL_SEPARATOR_REGEXP = /[;,\s]/ig;
-  LEVELS = this.GroupMemberUser.LEVELS;
 
-  constructor(private dialog: MatDialog,
-    private dialogRef: MatDialogRef<GroupInviteComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: GroupInviteData,
+  constructor(
     private GroupMemberUser: GroupMemberUserService,
     private GroupService: GroupService,
     private GroupJoin: GroupJoinService,
     private Search: SearchService,
     private Notification: NotificationService,
     private GroupInviteUser: GroupInviteUserService,
-  ) {
-    this.group = data.group;
-  }
+  ) { }
 
   ngOnInit(): void {
+    if (this.group.members.users.count || !this.group.members.users) {
+      this.group.members.users = [];
+    }
   }
 
-  loadPage(pageNr: number) {
-    this.membersPage = pageNr;
-  };
-
-  totalPages(items:any) {
-    return Math.ceil(items.length / this.itemsPerPage);
-  };
+  onMessageChange() {
+    this.inviteMessageChange.emit(this.inviteMessage);
+  }
 
   doSaveGroup() {
     // Users
     const groupMemberUsersToInvite = <any[]>[];
-    this.members.forEach((member) => {
+    this.group.members.users.forEach((member: any) => {
       groupMemberUsersToInvite.push({
         userId: member.userId || member.id,
         level: member.level,
@@ -93,17 +85,24 @@ export class GroupInviteComponent implements OnInit {
       this.GroupInviteUser.save({ groupId: this.group.id }, groupMemberUsersToInvite)
         .pipe(take(1))
         .subscribe(res => {
-          this.dialogRef.close();
         })
     }
 
   }
 
-  updateGroupLevel(level: string) {
+  updateAllLevels(level: string) {
     this.groupLevel = level;
-    this.members.forEach((item) => {
+    this.group.members.users.forEach((item: any) => {
       item.level = level;
     });
+  };
+
+  loadPage(pageNr: number) {
+    this.membersPage = pageNr;
+  };
+
+  totalPages(items: any) {
+    return Math.ceil(items.length / this.itemsPerPage);
   };
 
   orderMembers() {
@@ -111,20 +110,19 @@ export class GroupInviteComponent implements OnInit {
       const property = 'name';
       return (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
     };
-    const users = this.members.filter((member) => {
+    const users = this.group.members.users.filter((member: any) => {
       return !!member.id;
     }).sort(compare);
-    const emails = this.members.filter((member) => {
+    const emails = this.group.members.users.filter((member: any) => {
       return member.userId === member.name;
     }).sort(compare);
 
-    this.members = users.concat(emails);
+    this.group.members.users = users.concat(emails);
   };
 
   addGroupMemberUser(member?: any): void {
-    console.log(member);
     if (member) {
-      if (this.members && this.members.find((m) => m.id === member.id)) {
+      if (this.group.members.users && this.group.members.users.find((m: any) => m.userId === member.userId)) {
         // Ignore duplicates
         this.searchStringUser = '';
         this.searchResultUsers$ = of([]);
@@ -132,7 +130,7 @@ export class GroupInviteComponent implements OnInit {
         const memberClone = Object.assign({}, member);
         memberClone.userId = member.userId;
         memberClone.level = this.groupLevel;
-        this.members.push(memberClone);
+        this.group.members.users.push(memberClone);
         this.searchResultUsers$ = of([]);
 
         this.orderMembers();
@@ -155,11 +153,11 @@ export class GroupInviteComponent implements OnInit {
       if (filtered.length) {
         filtered.sort().forEach((email) => {
           email = email.trim();
-          if (this.members.length >= this.maxUsers) {
+          if (this.group.members.users.length >= this.maxUsers) {
             return this.Notification.addError('MSG_ERROR_INVITE_MEMBER_COUNT_OVER_LIMIT');
           }
-          if (!this.members.find((member) => member['userId'] === email)) {
-            this.members.push({
+          if (!this.group.members.users.find((member: any) => member['userId'] === email)) {
+            this.group.members.users.push({
               userId: email,
               name: email,
               level: this.groupLevel
@@ -183,7 +181,7 @@ export class GroupInviteComponent implements OnInit {
             this.resultCount = response.results.public.users.count;
             if (!this.resultCount && isEmail(str)) {
               this.resultCount = 1;
-              return of([{email: str, name: str, userId: str}]);
+              return of([{ email: str, name: str, userId: str }]);
             }
             return of(response.results.public.users.rows);
           }));
@@ -198,8 +196,8 @@ export class GroupInviteComponent implements OnInit {
 
   addCorrectedEmail(email: string, key: string) {
     if (isEmail(email.trim())) {
-      if (!this.members.find((member) => member.userId === email)) {
-        this.members.push({
+      if (!this.group.members.users.find((member: any) => member.userId === email)) {
+        this.group.members.users.push({
           userId: email,
           name: email,
           level: this.groupLevel
@@ -210,19 +208,19 @@ export class GroupInviteComponent implements OnInit {
   };
 
   removeAllMembers() {
-    this.members = []
+    this.group.members.users = []
   };
 
   itemsExist(type: string) {
     let exists = false;
     let i = (this.membersPage * this.itemsPerPage) - this.itemsPerPage;
-    for (i; i < this.members.length && i < (this.membersPage * this.itemsPerPage); i++) {
+    for (i; i < this.group.members.users.length && i < (this.membersPage * this.itemsPerPage); i++) {
       if (type === 'users') {
-        if (this.members[i].id) {
+        if (this.group.members.users[i].id) {
           exists = true;
           break;
         }
-      } else if (this.members[i].userId === this.members[i].name) {
+      } else if (this.group.members.users[i].userId === this.group.members.users[i].name) {
         exists = true;
         break;
       }
@@ -244,12 +242,13 @@ export class GroupInviteComponent implements OnInit {
     return item.userId !== item.name;
   };
 
-  doRemoveMemberUser(member: any) {
-    this.members.splice(this.members.indexOf(member), 1);
+  removeGroupMemberUser(member: any) {
+    this.group.members.users.splice(this.group.members.users.indexOf(member), 1);
+    this.membersPage = 1;
   };
 
   updateGroupMemberUserLevel(member: any, level: string) {
-    this.members[this.members.indexOf(member)].level = level;
+    this.group.members.users[this.group.members.users.indexOf(member)].level = level;
   };
 
   getExpiresAt() {
@@ -258,11 +257,45 @@ export class GroupInviteComponent implements OnInit {
     return time;
   }
 
-  canShare () {
+  canShare() {
     return this.GroupService.canShare(this.group);
   }
 
-  canUpdate () {
+  canUpdate() {
     return this.GroupService.canUpdate(this.group);
+  }
+}
+
+@Component({
+  templateUrl: './group-invite-dialog.component.html',
+  styleUrls: ['./group-invite-dialog.component.scss']
+})
+export class GroupInviteDialogComponent {
+  activeTab = 'invite';
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialogRef<GroupInviteDialogComponent>, private GroupInviteUser: GroupInviteUserService,) {
+  }
+
+  doInviteMembers() {
+    // Users
+    const groupMemberUsersToInvite = <any[]>[];
+    this.data.group.members.users.forEach((member: any) => {
+      groupMemberUsersToInvite.push({
+        userId: member.userId || member.id,
+        level: member.level,
+        inviteMessage: this.data.group.inviteMessage
+      })
+    });
+
+    if (groupMemberUsersToInvite.length) {
+      this.GroupInviteUser.save({ groupId: this.data.group.id }, groupMemberUsersToInvite)
+        .pipe(take(1))
+        .subscribe(res => {
+          this.dialog.close()
+        })
+    } else {
+      this.dialog.close();
+    }
+
   }
 }

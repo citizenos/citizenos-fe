@@ -1,0 +1,26 @@
+@use "mixins";
+
+.accessibility_options_wrap {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  width: 560px;
+  padding: 16px;
+  gap: 8px;
+
+  h4 {
+    margin-bottom: 8px;
+    margin-top: 8px;
+  }
+
+  @include mixins.tablet {
+    width: auto;
+    max-width: 560px;
+  }
+}
+
+
+.text_default {
+  font-size: 14px;
+  line-height: 16px;
+}

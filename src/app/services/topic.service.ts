@@ -8,6 +8,7 @@ import { AuthService } from './auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { Router } from '@angular/router';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -42,6 +43,7 @@ export class TopicService {
   };
 
   public STATUSES = <any>{
+    draft: 'draft',
     inProgress: 'inProgress', // Being worked on
     voting: 'voting', // Is being voted which means the Topic is locked and cannot be edited.
     followUp: 'followUp', // Done editing Topic and executing on the follow up plan.
@@ -59,9 +61,10 @@ export class TopicService {
     admin: 'admin'
   };
   CATEGORIES_COUNT_MAX = 3;
-  constructor(private dialog: MatDialog, private Location: LocationService, private http: HttpClient, private Auth: AuthService, private router: Router) { }
 
   private loadTopic$ = new BehaviorSubject<void>(undefined);
+
+  constructor(private dialog: MatDialog, private Location: LocationService, private http: HttpClient, private Auth: AuthService, private router: Router) { }
 
   loadTopic(id: string, params?: { [key: string]: string | boolean }) {
     return this.loadTopic$.pipe(
@@ -83,6 +86,13 @@ export class TopicService {
       }))
   }
 
+  count() {
+    const path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/count');
+
+    return this.http.get<ApiResponse>(path, { withCredentials: true, observe: 'body', responseType: 'json' })
+      .pipe(map(res => res.data));
+  }
+
   save(data: any) {
     let path = this.Location.getAbsoluteUrlApi('/api/users/self/topics')
 
@@ -92,7 +102,7 @@ export class TopicService {
   }
 
   update(data: any) {
-    const updateFields = ['visibility', 'status', 'categories', 'endsAt', 'hashtag'];
+    const updateFields = ['visibility', 'status', 'categories', 'endsAt', 'hashtag', 'imageUrl', 'title', 'intro', 'contact', 'country', 'language'];
     const sendData: any = {};
 
     updateFields.forEach((field) => {
@@ -110,7 +120,7 @@ export class TopicService {
   }
 
   patch(data: any) {
-    const updateFields = ['visibility', 'status', 'categories', 'endsAt', 'hashtag'];
+    const updateFields = ['title', 'visibility', 'status', 'categories', 'endsAt', 'hashtag','imageUrl', 'intro', 'contact', 'country', 'language'];
     const sendData: any = {};
 
     updateFields.forEach((field) => {
@@ -153,30 +163,34 @@ export class TopicService {
       .pipe(map(res => res.data));
   };
 
-  addToPinned(topicId: string) {
-    const path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/pin', { topicId: topicId });
+  addToFavourites(topicId: string) {
+    const path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/favourite', { topicId: topicId });
 
     return this.http.post<ApiResponse>(path, {}, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
       map(res => res.data)
     );
   }
 
-  removeFromPinned(topicId: string) {
-    const path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/pin', { topicId: topicId });
+  removeFromFavourites(topicId: string) {
+    const path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/favourite', { topicId: topicId });
 
     return this.http.delete<ApiResponse>(path, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
       map(res => res.data)
     );
   }
 
-  togglePin(topic: Topic) {
-    if (!topic.pinned) {
-      return this.addToPinned(topic.id).pipe(take(1)).subscribe(() => {
-        topic.pinned = true;
+  download(topicId: string) {
+    return this.Location.getAbsoluteUrlApi('/api/topics/:topicId/download', { topicId });
+  }
+
+  toggleFavourite(topic: Topic) {
+    if (!topic.favourite) {
+      return this.addToFavourites(topic.id).pipe(take(1)).subscribe(() => {
+        topic.favourite = true;
       });
     } else {
-      return this.removeFromPinned(topic.id).pipe(take(1)).subscribe(() => {
-        topic.pinned = false;
+      return this.removeFromFavourites(topic.id).pipe(take(1)).subscribe(() => {
+        topic.favourite = false;
       });
     }
   };
@@ -235,8 +249,9 @@ export class TopicService {
               }
               this.reloadTopic();
               if (state === 'followUp') {
-                this.router.navigate(['/topics', topic.id, 'followup'])
+                this.router.navigate(['/topics', topic.id], {fragment:'followUp'})
               }
+              this.dialog.closeAll();
             }, error: (res) => {
               console.error(res);
             }
@@ -263,7 +278,7 @@ export class TopicService {
    *
    */
   canEditDescription(topic: Topic) {
-    return this.canEdit(topic) && topic.status === this.STATUSES.inProgress;
+    return this.canEdit(topic) && topic.status === this.STATUSES.inProgress || topic.status === this.STATUSES.draft;
   };
 
   canDelete(topic: Topic) {

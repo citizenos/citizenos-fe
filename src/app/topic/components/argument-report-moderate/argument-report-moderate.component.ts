@@ -4,6 +4,7 @@ import { TopicArgumentService } from 'src/app/services/topic-argument.service';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Argument } from 'src/app/interfaces/argument';
 import { switchMap, take, combineLatest } from 'rxjs';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-argument-report-moderate',
@@ -13,41 +14,46 @@ import { switchMap, take, combineLatest } from 'rxjs';
 export class ArgumentReportModerateComponent implements OnInit {
   argument!: Argument;
   reportTypes = Object.keys(this.TopicArgumentService.ARGUMENT_REPORT_TYPES);
-  topicId!: string;
-  token!: string;
-  report: any = {
-    type: '',
-    text: ''
-  };
+  topicId = '';
+  commentId = '';
+  reportId = '';
+  token = '';
+  report = new UntypedFormGroup({
+    type: new UntypedFormControl(this.reportTypes[0], Validators.required),
+    text: new UntypedFormControl('', Validators.required),
+  });
   errors?: any;
   constructor(@Inject(MAT_DIALOG_DATA) data: any, private TopicArgumentService: TopicArgumentService, private dialog: MatDialog) {
-    this.token = data.token;
-    this.argument = data.argument;
+    this.argument = data.argument || data.report.comment;
     this.topicId = data.topicId;
-    this.report = data.report;
+    this.commentId = data.commentId;
+    this.reportId = data.report.id;
+    this.token = data.token;
+    this.report.patchValue(data.report); //Object.assign({}, data.report);
   }
 
   ngOnInit(): void {
   }
 
   doModerate() {
-/*TODO resove data */
+    /*TODO resove data */
     const data = {
       token: this.token,
       topicId: this.topicId,
       commentId: this.argument.id,
-      reportId: this.report.id,
-      report: this.report
+      reportId: this.reportId,
+      report: this.report.value
     }
     this.TopicArgumentService.moderate(data).pipe(take(1))
-    .subscribe({
-      next:() => {
-        this.dialog.closeAll();
-      },
-      error: (err) => {
-        console.log(err);
-      }
-    })
+      .subscribe({
+        next: () => {
+          this.dialog.closeAll();
+        },
+        error: (err) => {
+          console.error(err);
+          this.dialog.closeAll();
+        }
+      })
   };
 
 }
@@ -57,27 +63,36 @@ export class ArgumentReportModerateComponent implements OnInit {
   template: '',
 })
 export class ArgumentReportModerateDialogComponent {
-  topicId: string = '';
-  token: string = '';
-  constructor(dialog: MatDialog, router: Router, route: ActivatedRoute, TopicArgumentService: TopicArgumentService) {
+  topicId = '';
+  commentId = '';
+  token = '';
+  constructor(dialog: MatDialog, route: ActivatedRoute, router: Router, TopicArgumentService: TopicArgumentService) {
     /*TODO resove queryParam token */
-    combineLatest([route.params, route.queryParams]).pipe(switchMap(([params, query]) => {
-      this.topicId = params['topicId'];
-      this.token = query['token'];
+    combineLatest([route.params, route.queryParams]).pipe(
+      switchMap(([params, queryParams]) => {
+        this.topicId = params['topicId'];
+        this.commentId = params['commentId'];
+        this.token = queryParams['token'];
         return TopicArgumentService.getReport({
           topicId: params['topicId'],
           commentId: params['commentId'],
           reportId: params['reportId'],
-          token: query['token']
-      });
-    })).pipe(take(1))
-      .subscribe((report) => {
-        const reportDialog = dialog.open(ArgumentReportModerateComponent, { data: { report: report, argument: report.comment, topicId: this.topicId, token: this.token } });
-
-        reportDialog.afterClosed().subscribe((confirm) => {
-          return router.navigate(['/']);
+          token: queryParams['token']
+        });
+      }),
+      take(1)
+    ).subscribe({
+      next: (report) => {
+        const reportDialog = dialog.open(ArgumentReportModerateComponent, { data: { report, topicId: this.topicId , commentId: this.commentId, token: this.token } });
+        reportDialog.afterClosed().subscribe(() => {
+          router.navigate(['../../../../../'], {relativeTo: route});
         })
-      });
+      },
+      error: (err) => {
+        console.error(err.message || err.status.message);
+      }
+    });
+
   }
 
 }

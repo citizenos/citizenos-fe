@@ -1,4 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 import {  TranslateCompiler, MissingTranslationHandler } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 export class JSONPointerCompiler extends TranslateCompiler {
 
@@ -33,9 +39,14 @@ export class JSONPointerCompiler extends TranslateCompiler {
       }
       if (typeof currentTranslations[key] === 'string') {
         if (currentTranslations[key].includes("@:")) {
-
           let replacementProperty = this.getDescendantPropertyValue(masterLanguageFile, currentTranslations[key].substring(2));
-          let i = 0
+          let i = 0;
+
+          if (!replacementProperty) {
+            //Incase invalid referer or missing translation
+            console.error('Missing translation: ', currentTranslations[key])
+          }
+
           while (replacementProperty.includes("@:")) {
             i++;
             const tryProp = replacementProperty;
@@ -46,7 +57,11 @@ export class JSONPointerCompiler extends TranslateCompiler {
               break
             };
           }
-          currentTranslations[key] = replacementProperty;
+          if (replacementProperty) {
+            currentTranslations[key] = replacementProperty;
+          } else {
+            currentTranslations[key] = currentTranslations[key];
+          }
         }
       }
     });

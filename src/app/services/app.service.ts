@@ -1,14 +1,24 @@
+import { AuthService } from './auth.service';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { BehaviorSubject, take } from 'rxjs';
+import { BehaviorSubject, map, take } from 'rxjs';
 import { Group } from '../interfaces/group';
 import { Topic } from '../interfaces/topic';
 import { TopicNotificationSettingsComponent } from '../topic/components/topic-notification-settings/topic-notification-settings.component';
 import { ConfigService } from './config.service';
 import { TopicService } from './topic.service';
+import { LocationService } from 'src/app/services/location.service';
 import { GroupMemberTopicService } from './group-member-topic.service';
 import { Router } from '@angular/router';
-import { LoginComponent } from '../account/components/login/login.component';
+import { LoginDialogComponent } from '../account/components/login/login.component';
+import { RegisterDialogComponent } from '../account/components/register/register.component';
+import { CreateComponent } from 'src/app/core/components/create/create.component';
+import { ActivityFeedComponent } from '../core/components/activity-feed/activity-feed.component';
+import { HttpClient } from '@angular/common/http';
+import { ApiResponse } from '../interfaces/apiResponse';
+import { Title, Meta, MetaDefinition } from '@angular/platform-browser';
+import { TranslateService } from '@ngx-translate/core';
+
 declare let hwcrypto: any;
 
 @Injectable({
@@ -16,22 +26,67 @@ declare let hwcrypto: any;
 })
 export class AppService {
   showNav = false;
-  showSearch=false;
+  showSearch = false;
+  mobileTutorial = false;
   editMode = false;
+  darkNav = false;
+  showActivities = false;
+  searchAllowed = true;
+  addArgument = new BehaviorSubject(false);
   showSearchResults = false;
-  showSearchFiltersMobile = false;
+  showSearchFiltersMobile = false; //remove after UI update
   showHelp = new BehaviorSubject(false);
   group = new BehaviorSubject<Group | undefined>(undefined);
   topic: Topic | undefined;
   topicsSettings = false;
   wWidth = window.innerWidth;
-  redesignNotification = true;
+  createMenu = false;
+  accessibility = new BehaviorSubject({
+    contrast: 'default',
+    text: ''
+  });
 
-  constructor(private dialog: MatDialog, public config: ConfigService, private TopicService: TopicService, private GroupMemberTopicService: GroupMemberTopicService, private router: Router) { }
+  constructor(private dialog: MatDialog,
+    private Title: Title,
+    private Meta: Meta,
+    private translate: TranslateService,
+    public config: ConfigService,
+    private Location: LocationService,
+    private TopicService: TopicService,
+    private GroupMemberTopicService: GroupMemberTopicService,
+    private router: Router,
+    private AuthService: AuthService,
+    private http: HttpClient) { }
 
-  doShowLogin() {
+  showMobile () {
+    return window.innerWidth <= 560;
+  }
+
+  doShowActivityModal(params?: any) {
     this.dialog.closeAll();
-    this.dialog.open(LoginComponent);
+    const activitiesDialog = this.dialog.open(ActivityFeedComponent, {
+      data: params
+    });
+    this.showActivities = true;
+    activitiesDialog.afterClosed().subscribe({
+      next: () => {
+        this.showActivities = false;
+      }
+    })
+  };
+
+  doShowLogin(redirectSuccess?: string) {
+    this.dialog.open(LoginDialogComponent, {data: {redirectSuccess}});
+  }
+
+  doShowRegister(email?: string) {
+    this.dialog.closeAll();
+    this.dialog.open(RegisterDialogComponent, {
+      data: {
+        email: email,
+        redirectSuccess: this.Location.currentUrl()
+      }
+    })
   }
 
   doShowTopicNotificationSettings(topicId: string) {
@@ -41,6 +96,22 @@ export class AppService {
   isTouchDevice() {
     return (('ontouchstart' in window) || (navigator.maxTouchPoints > 0));
   };
+
+  logout() {
+    this.AuthService.logout()
+    .pipe(take(1))
+    .subscribe({
+      next: (done) => {
+        this.AuthService.status().pipe(take(1)).subscribe();
+        setTimeout(() => {
+          this.router.navigate(['/']);
+        });
+      },
+      error: (err) => {
+        console.error('LOGOUT ERROR', err);
+      }
+    });
+  }
 
   createNewTopic(title?: string, visibility?: string, groupId?: string, groupLevel?: string) {
     const topic = <any>{};
@@ -65,17 +136,32 @@ export class AppService {
             .save(member)
             .pipe(take(1)).
             subscribe(() => {
-              this.router.navigate(['/topics', topic.id], { queryParams: { editMode: true } })
+              //this.router.navigate(['/topics', topic.id], { queryParams: { editMode: true } })
+              return topic;
             });
         } else {
-          this.router.navigate(['/topics', topic.id], { queryParams: { editMode: true } })
+          //this.router.navigate(['/topics', topic.id], { queryParams: { editMode: true } })
+          return topic;
         }
       });
   }
 
+
+  showCreateMenu() {
+    if (!this.createMenu) {
+      const createDialog = this.dialog.open(CreateComponent);
+      createDialog.afterClosed().subscribe(() => {
+        this.createMenu = false;
+      })
+    } else {
+      this.dialog.closeAll();
+    }
+
+    this.createMenu = !this.createMenu;
+  }
+
   hwCryptoErrorToTranslationKey(err: any) {
     const errorKeyPrefix = 'MSG_ERROR_HWCRYPTO_';
-
     switch (err.message) {
       case hwcrypto.NO_CERTIFICATES:
       case hwcrypto.USER_CANCEL:
@@ -94,11 +180,19 @@ export class AppService {
     }
   };
 
-  closeRedesignNotification () {
-    this.redesignNotification = false;
+  stats() {
+    const path = this.Location.getAbsoluteUrlApi('/api/stats');
+
+    return this.http.get<ApiResponse>(path, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
+      map(res => res.data)
+    );
   };
 
-  displayRedesignNotification () {
-    return this.redesignNotification;
-  };
+  setPageTitle (title?:string) {
+    this.Title.setTitle(title || this.translate.instant('META_DEFAULT_TITLE'));
+    this.Meta.addTag({
+      property: 'og:title',
+      content: this.translate.instant(title || 'META_DEFAULT_TITLE')
+    });
+  }
 }

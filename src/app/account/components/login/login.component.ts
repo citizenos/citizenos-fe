@@ -1,62 +1,51 @@
+import { Component, Inject, inject, Input } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription, take } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
-import { UserService } from 'src/app/services/user.service';
-import { Component, OnInit, Inject } from '@angular/core';
 import { ConfigService } from 'src/app/services/config.service';
-import { NotificationService } from 'src/app/services/notification.service';
+import { UserService } from 'src/app/services/user.service';
+import { EstIdLoginDialogComponent } from '../est-id-login/est-id-login.component';
+import { SmartIdLoginDialogComponent } from '../smart-id-login/smart-id-login.component';
 import { LocationService } from 'src/app/services/location.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
-import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
-import { EstIdLoginComponent } from '../est-id-login/est-id-login.component';
-import { SmartIdLoginComponent } from '../smart-id-login/smart-id-login.component';
-import { RegisterComponent } from '../register/register.component';
-import { PasswordForgotComponent } from '../password-forgot/password-forgot.component';
-import { take } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
+  @Input() redirectSuccess?: any;
   userConnections?: any;
-  redirectSuccess?: any;
   authMethodsAvailable: any;
-  isFormEmailProvided: any;
-  linkRegister: any;
-  form = new UntypedFormGroup({
-    email: new UntypedFormControl(),
-    password: new UntypedFormControl(),
-  });
-  errors: any;
 
   LOGIN_PARTNERS = {
     facebook: 'facebook',
     google: 'google'
   };
-
+  email?: string;
   constructor(public dialog: MatDialog,
     private Location: LocationService,
-    private Notification: NotificationService,
     private config: ConfigService,
     @Inject(Router) private router: Router,
     private UserService: UserService,
     @Inject(ActivatedRoute) private route: ActivatedRoute,
-    private Auth: AuthService) {
+    private Auth: AuthService,
+    private translate: TranslateService) {
+    this.authMethodsAvailable = this.config.get('features').authentication;
+    this.Auth.user$?.pipe(take(1)).subscribe((user) => {
+      if (user) {
+        this.router.navigate(['/']);
+      }
+    });
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.route.queryParams.subscribe(value => {
-      this.form.patchValue({ 'email': value['email'] });
       this.userConnections = value['userConnections'];
-      this.redirectSuccess = value['redirectSuccess'];
-      try {
-        const parsedUrl = new URL(this.redirectSuccess);
-        this.redirectSuccess = (parsedUrl.origin === window.location.origin) ? this.redirectSuccess : false;
-      } catch (error) {
-        this.redirectSuccess = false;
-      }
-
+      this.email = value['email'];
+      this.redirectSuccess = this.redirectSuccess || value['redirectSuccess'];
       if (value['userId']) {
         this.UserService.listUserConnections(value['userId'])
           .pipe(take(1))
@@ -100,13 +89,6 @@ export class LoginComponent implements OnInit {
         });
       }
     });
-
-    this.authMethodsAvailable = this.config.get('features').authentication;
-    this.isFormEmailProvided = !!this.form.get('email');
-    this.linkRegister = this.Location.getAbsoluteUrl('/account/signup');
-    if (this.Auth.loggedIn$.value) {
-      window.location = this.redirectSuccess || '/';
-    }
   }
 
   popupCenter(url: string, title: string, w: number, h: number) {
@@ -146,62 +128,29 @@ export class LoginComponent implements OnInit {
     return newWindow;
   };
 
-  doLogin() {
-    //  this.$log.debug('LoginFormCtrl.doLogin()');
-
-    this.errors = null;
-    const success = (response: any) => {
-      /* if (this.$state.is('partners.consent') || this.$state.is('partners.login')) {
-           return window.location.href = this.Location.getAbsoluteUrlApi('/api/auth/openid/authorize');
-       } else {*/
-      if (this.redirectSuccess) {
-        window.location.href = this.redirectSuccess;
-      } else {
-        window.location.reload();
-      }
-      //    }
-    };
-
-    this.Auth
-      .login(this.form.get('email')?.value, this.form.value.password)
-      .subscribe({
-        next: success, error: (error) => {
-          const status = error.status;
-
-          switch (status.code) {
-            case 40001: // Account does not exist
-              this.Notification.removeAll();
-              this.errors = { accoundDoesNotExist: true };
-              break;
-            default:
-              this.errors = error.data?.errors || error;
-          }
-        }
-      });
-  };
-
   /**
    * Login with Estonian ID-Card
    */
   doLoginEsteId() {
-    this.dialog.open(EstIdLoginComponent, {});
+    if (this.router.url.indexOf('account/login') > -1) {
+      return this.router.navigate(['estid'], { relativeTo: this.route })
+    }
+
+    return this.dialog.open(EstIdLoginDialogComponent, { data: { redirectSuccess: this.redirectSuccess } });
+    /*
+    this.dialog.open(EstIdLoginComponent, {});*/
   };
 
   /**
    * Login with Smart-ID
    */
   doLoginSmartId() {
-    this.dialog.open(SmartIdLoginComponent);
+    if (this.router.url.indexOf('account/login') > -1) {
+      return this.router.navigate(['smartid'], { relativeTo: this.route })
+    }
+    return this.dialog.open(SmartIdLoginDialogComponent, { data: { redirectSuccess: this.redirectSuccess } });
   };
 
-  /**
-   * Password reset
-   */
-  doResetPassword() {
-    this.dialog.open(PasswordForgotComponent, {
-      data: {}
-    })
-  };
 
   doLoginPartner(partnerId?: string) {
     // All /widgets/* require pop-up login flow as they are in the iframe
@@ -233,7 +182,7 @@ export class LoginComponent implements OnInit {
       }
     );
 
-    const redirectSuccess = this.redirectSuccess || this.Location.currentUrl(); // Final url to land after successful login
+    const redirectSuccess = this.redirectSuccess || this.Location.getAbsoluteUrl(`${this.translate.currentLang}/dashboard`); // Final url to land after successful login
 
     const loginWindow = this.popupCenter(url, 'CitizenOS Partner Login', 470, 500);
 
@@ -242,10 +191,12 @@ export class LoginComponent implements OnInit {
         if (loginWindow?.closed) {
           clearInterval(popupCheck);
           window.focus();
+          console.log('HERE', redirectSuccess);
           this.Auth
             .status()
             .subscribe((user) => {
               if (user) {
+                console.log('HERE')
                 window.location.href = redirectSuccess;
               }
             });
@@ -271,29 +222,43 @@ export class LoginComponent implements OnInit {
     window.location.href = url;
   };
 
-  register() {
-    this.dialog.open(RegisterComponent, {
-      data: {
-        email: this.form.value.email,
-        redirectSuccess: this.Location.currentUrl()
-      }
-    })
-  }
 }
 
+
 @Component({
-  template: ''
+  templateUrl: './login-dialog.component.html',
+  styleUrls: ['./login-dialog.component.scss']
 })
-export class LoginDialogComponent {
-  constructor(private dialog: MatDialog, private router: Router) {
-    this.openDialog();
-  }
-  openDialog(): void {
-    const dialogRef = this.dialog.open(LoginComponent);
-    dialogRef.afterClosed().subscribe(result => {
-      if (this.router.url.indexOf('login') > -1) {
-        this.router.navigate(['/']);
+export class LoginDialogComponent extends LoginComponent{
+  private authSubscriber: Subscription;
+
+  data:any = inject(MAT_DIALOG_DATA);
+  logindialog:any = inject(MatDialogRef<LoginDialogComponent>);
+  currentMethod = 'email';
+  constructor(dialog: MatDialog,
+    Location: LocationService,
+    config: ConfigService,
+    router: Router,
+    UserService: UserService,
+    route: ActivatedRoute,
+    Auth: AuthService,
+    translate: TranslateService) {
+    super(dialog, Location, config, router, UserService, route, Auth, translate);
+    this.authMethodsAvailable = config.get('features').authentication;
+    this.authSubscriber = Auth.loggedIn$.subscribe({
+      next: (value) => {
+        if (value) {
+          this.logindialog.close()
+        }
       }
     });
+
+    if (this.data.redirectSuccess) {
+      this.redirectSuccess = this.data.redirectSuccess;
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.authSubscriber.unsubscribe();
   }
 }

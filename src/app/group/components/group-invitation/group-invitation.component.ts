@@ -31,15 +31,14 @@ export class GroupInvitationComponent implements OnInit {
         const currentUrl = this.Location.currentUrl();
         if (!this.invite.user.isRegistered) {
             // The invited User is not registered, the User has been created by the system - https://github.com/citizenos/citizenos-fe/issues/773
-            this.dialog.open(RegisterComponent,  {
-              data: {
-                userId: this.invite.user.id,
+            this.router.navigate(['/account','signup'], {
+              queryParams: {
                 redirectSuccess: currentUrl,
                 email: this.invite.user.email
               }
             });
         } else {
-          this.router.navigate(['/account/login'], {queryParams: {
+          this.router.navigate(['/account','login'], {queryParams: {
             userId: this.invite.user.id,
             redirectSuccess: currentUrl,
             email: this.invite.user.email
@@ -54,7 +53,7 @@ export class GroupInvitationComponent implements OnInit {
             .pipe(take(1))
             .subscribe(() => {
               const currentUrl = this.Location.currentUrl();
-              this.router.navigate(['/account/login'], {queryParams: {
+              this.router.navigate(['/account','login'], {queryParams: {
                 userId: this.invite.user.id,
                 redirectSuccess: currentUrl,
                 email: this.invite.user.email
@@ -92,7 +91,7 @@ export class GroupInvitationDialogComponent implements OnInit {
             .pipe(take(1))
             .subscribe({
               next: () => {
-                router.navigate(['/my/groups', groupInvite.groupId])
+                router.navigate(['groups', groupInvite.groupId])
               },
               error: (err) => {
                 console.error('Invite error', err)
@@ -105,6 +104,14 @@ export class GroupInvitationDialogComponent implements OnInit {
                 invite: groupInvite
               }
             });
+
+            invitationDialog.afterClosed().subscribe({
+              next: (res) => {
+                if (res===true) {
+                  router.navigate(['/']);
+                }
+              }
+            })
         }
       }
     })

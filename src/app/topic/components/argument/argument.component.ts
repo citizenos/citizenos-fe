@@ -19,6 +19,7 @@ import { ArgumentReportComponent } from '../argument-report/argument-report.comp
   encapsulation: ViewEncapsulation.None
 })
 export class ArgumentComponent implements OnInit {
+  @ViewChild('argumentBody') argumentBody!: ElementRef;
   @Input() argument!: Argument;
   @Input() root?: Argument;
   @Input() topicId!: string;
@@ -46,6 +47,15 @@ export class ArgumentComponent implements OnInit {
     this.isReply = this.argument.type === 'reply';
   }
 
+  ngAfterViewInit() {
+    if (this.isReply) {
+      const argBody = this.argumentBody.nativeElement;
+      const authorName = document.createElement('b');
+      authorName.innerText = (this.argument.parent.creator?.name || '') + ' ';
+      argBody.firstChild.prepend(authorName);
+    }
+  }
+
   isEdited() {
     return this.argument.edits.length > 1;
   };
@@ -58,6 +68,9 @@ export class ArgumentComponent implements OnInit {
     return (!this.argument.deletedAt && !this.showDeletedArgument) || (this.argument.deletedAt && this.showDeletedArgument);
   };
 
+  showArgument (value: boolean) {
+    this.showDeletedArgument = value;
+  }
   argumentEditMode() {
     /* this.editSubject = this.argument.subject;
      this.editText = this.argument.text;
@@ -72,7 +85,6 @@ export class ArgumentComponent implements OnInit {
     this.argumentEditMode();
   }
   doShowDeleteArgument() {
-    console.log('show delete argument')
     const deleteArgument = this.dialog.open(ConfirmDialogComponent, {
       data: {
         level: 'delete',
@@ -164,11 +176,29 @@ export class ArgumentComponent implements OnInit {
     return '';
   };
 
-  goToParentArgument() {
-    if (!this.argument.parent.id || !this.argument.parent.hasOwnProperty('version')) {
+  goToParentArgument(reply: Argument) {
+    if (!reply.parent.id || !reply.parent.hasOwnProperty('version')) {
       return;
     }
-    const argumentIdWithVersion = this.TopicArgumentService.getArgumentIdWithVersion(this.argument.parent.id, this.argument.parent.version);
-    this.router.navigate([], {queryParams: {argumentId: argumentIdWithVersion}});
+
+    const argumentIdWithVersion = this.TopicArgumentService.getArgumentIdWithVersion(reply.parent.id, reply.parent.version);
+    /*this.router.navigate([], {queryParams: {argumentId: argumentIdWithVersion}});*/
+    let commentElement: HTMLElement | null = document.getElementById(argumentIdWithVersion);
+    // The referenced comment was found on the page displayed
+    if (commentElement) {
+      this.scrollTo(commentElement);
+    }
   };
+
+  private scrollTo(argumentEl: HTMLElement | null) {
+    if (argumentEl) {
+      const bodyEl: HTMLElement | null = argumentEl.querySelector('.argument_body');
+      if (bodyEl)
+        bodyEl.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+      argumentEl.classList.add('highlight');
+      setTimeout(() => {
+        argumentEl?.classList.remove('highlight');
+      }, 2000);
+    }
+  }
 }

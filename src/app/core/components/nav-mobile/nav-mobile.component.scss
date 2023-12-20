@@ -1,185 +1,81 @@
-@use "vars";
-@use "mixins_n_extends";
+@use "mixins";
 
-.logo_area {
-  width: 190px;
-  height: 60px;
-  background: vars.$dark_black;
-  display: inline-block;
-  cursor: pointer;
-
-  @include mixins_n_extends.tablet {
-    background: none;
-    position: absolute;
-    left: 0;
-  }
-
-  @media (max-width: "750px") {
-    width: 59px;
-  }
-
-  .logo {
-    margin-top: 16px;
-    margin-bottom: 16px;
-    @media (max-width: "750px") {
-      width: 28px;
-    }
-  }
-}
-
-.logo {
-  margin: 0 auto;
-}
-
-.nav_is_open {
-  right: 0;
-  width: vars.$nav_t_width;
-}
-
-.header_button_wrap {
-  display: block;
-  right: 0;
-  position: absolute;
-  height: 60px;
-  width: max-content;
-}
-
-.line_holder {
-  height: 30px;
-  text-align: center;
-  vertical-align: middle;
-  position: relative;
-  display: inline-block;
-
-  .v_line {
-    height: 30px;
-    width: 1px;
-    float: left;
-  }
-}
-
-.header_button {
-  min-width: 53px;
-  width: auto;
-  height: 100%;
-  position: relative;
-  text-align: center;
-  color: vars.$white;
-  font-weight: bold;
-  font-size: 14px;
-  display: inline-table;
-  vertical-align: middle;
-  cursor: pointer;
-  padding: 0;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.45);
-
-  .header_button_text {
-    display: inline-block;
-    margin-left:20px;
-    vertical-align: middle;
-  }
-
-  .header_button_content {
-    display: table-cell;
-    vertical-align: middle;
-    height: 60px;
-    padding: 0 20px;
-  }
-
-  .header_button_icon {
-    .sprite {
-      display: inline-block;
-      margin: 0 auto;
-      top: 45%;
-      transform: translateY(-65%);
-    }
-  }
-  @include mixins_n_extends.mobile {
-    .header_button_text {
-      display: none;
-    }
-    .first_holder {
-      width: 2px;
-    }
-
-    &:last-child {
-      .header_button_text {
-        display: inline-block;
-      }
-    }
-  }
-
-  .header_button_icon {
-    width: auto;
-  }
-
-  .sprite {
-    display: inline-block;
-    vertical-align: middle;
-    position: relative;
-  }
-
-}
-
-/* SEARCH BAR (search area styles in content.scss) */
-
-#m_search_bar {
-  display: inline-block;
-  height: 60px;
+#mobile_login {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  padding: 0 16px;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: var(--color-surfaces);
+  height: 56px;
   width: 100%;
-  position: relative;
+  border-radius: 16px 16px 0px 0px;
+  z-index: 9;
 
-  #m_search_icon,
-  #m_search_close {
-    position: absolute;
-    height: 60px;
-    width: 32px;
-    display: inline-block;
-    z-index: 6;
-
-    .sprite {
-      margin: 0 auto;
-    }
+  button {
+    font-weight: 600;
+    width: 100%;
+  }
+}
+.btn_notifications {
+  circle {
+    stroke: var(--color-surfaces);
+  }
+  text {
+    font-size: 10px;
   }
 
-  #m_search_close {
-    right: 0;
-    cursor: pointer;
-  }
-
-  #m_search_bar_wrap {
-    @extend %table_cell;
-
-    input {
-      border-radius: 15px;
-      border: none;
-      height: 30px;
-      padding: 0 34px 1px 34px;
-      box-sizing: border-box;
-      width: 100%;
-
-      &:focus {
-        outline: none;
-      }
-    }
-
-    #search_input_placeholder {
-      border-radius: 15px;
-      border: none;
-      height: 30px;
-      padding: 0 34px 1px 34px;
-      box-sizing: border-box;
-      width: 100%;
-      background: vars.$medium_black;
+  &:hover {
+    circle {
+      stroke: var(--color-surfaces);
     }
   }
 }
 
-.navOpen {
-  padding-right: vars.$nav_t_width;
-  right: vars.$nav_t_width;
-  @include mixins_n_extends.mobile {
-    right: 0;
-    margin-left: -(vars.$nav_t_width);
+#tablet_nav,
+#mobile_nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  display: none;
+  flex-direction: row;
+  background-color: var(--color-surfaces);
+  align-items: center;
+  justify-content: space-evenly;
+  height: 56px;
+  width: 100%;
+  z-index: 9999;
+
+  &.pos_absolute {
+    position: absolute;
+    z-index: unset;
+  }
+}
+
+#tablet_nav {
+  @include mixins.tablet {
+    display: flex;
+  }
+
+  @include mixins.mobile {
+    display: none;
+  }
+
+  &.hidden {
+    display: none;
+  }
+}
+
+#mobile_nav {
+  @include mixins.mobile {
+    display: flex;
+  }
+
+  &.hidden {
+    display: none;
   }
 }

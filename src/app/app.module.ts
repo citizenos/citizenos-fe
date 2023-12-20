@@ -1,10 +1,10 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS, HttpClientXsrfModule } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material/dialog';
-import { TranslateModule, TranslateLoader, TranslateCompiler, MissingTranslationHandler, TranslateService } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateModule, TranslateLoader, TranslateCompiler, MissingTranslationHandler, TranslateService, TranslateParser } from '@ngx-translate/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { MomentModule } from 'ngx-moment';
@@ -18,24 +18,24 @@ import { HelpComponent } from './core/components/help/help.component';
 import { NavComponent } from './core/components/nav/nav.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './core/components/home/home.component';
-
-export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-}
-
 import { } from '@ngx-translate/core';
-import { JSONPointerCompiler, CosMissingTranslationHandler } from './TranslateHandlers';
+import { JSONPointerCompiler, CosMissingTranslationHandler, createTranslateLoader } from './TranslateHandlers';
+import { NgxTranslateDebugParser } from 'ngx-translate-debug';
 import { LanguageSelectComponent } from './core/components/language-select/language-select.component';
 import { NotificationComponent } from './core/components/notification/notification.component';
 import { ActivityFeedComponent } from './core/components/activity-feed/activity-feed.component';
 import { SharedModule } from './shared/shared.module';
 import { HttpErrorInterceptor } from './services/http.error.interceptor.service';
-import { EstIdLoginComponent } from './account/components/est-id-login/est-id-login.component';
 import { SearchComponent } from './core/components/search/search.component';
 import { PageNotFoundComponent } from './core/components/page-not-found/page-not-found.component';
 import { PageUnauthorizedComponent } from './core/components/page-unauthorized/page-unauthorized.component';
 import { NavMobileComponent } from './core/components/nav-mobile/nav-mobile.component';
 import { FeedbackComponent } from './core/components/feedback/feedback.component';
+import { CreateComponent } from './core/components/create/create.component';
+import { AccessibilityMenuComponent } from './core/components/accessibility-menu/accessibility-menu.component';
+import { DashboardComponent } from './core/components/dashboard/dashboard.component';
+import { FeatureBoxComponent } from './core/components/feature-box/feature-box.component';
+import { OnboardingComponent } from './core/components/onboarding/onboarding.component';
 
 /*Needs update to also properly load config */
 export function appInitializerFactory(translate: TranslateService) {
@@ -54,21 +54,27 @@ export function appInitializerFactory(translate: TranslateService) {
     LanguageSelectComponent,
     NotificationComponent,
     ActivityFeedComponent,
-    EstIdLoginComponent,
     SearchComponent,
     PageNotFoundComponent,
     PageUnauthorizedComponent,
     NavMobileComponent,
     FeedbackComponent,
+    CreateComponent,
+    AccessibilityMenuComponent,
+    DashboardComponent,
+    FeatureBoxComponent,
+    OnboardingComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
         useFactory: (createTranslateLoader),
         deps: [HttpClient]
       },
+      parser: { provide: TranslateParser, useClass: NgxTranslateDebugParser },
       missingTranslationHandler: { provide: MissingTranslationHandler, useClass: CosMissingTranslationHandler },
       compiler: { provide: TranslateCompiler, useClass: JSONPointerCompiler },
     }),

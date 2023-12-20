@@ -5,7 +5,7 @@ import { AuthService } from './auth.service';
 import { LocationService } from './location.service';
 import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { Argument } from 'src/app/interfaces/argument';
-import { Observable, BehaviorSubject, map, distinct, catchError, EMPTY } from 'rxjs';
+import { Observable, BehaviorSubject, map, distinct, catchError, EMPTY, combineLatest, switchMap } from 'rxjs';
 import { ItemsListService } from './items-list.service';
 @Injectable({
   providedIn: 'root'
@@ -25,7 +25,7 @@ export class TopicArgumentService extends ItemsListService {
   public ARGUMENT_TYPES_MAXLENGTH = <any>{
     'pro': 2048,
     'con': 2048,
-    'poi': 500,
+    'poi': 2048,
     'reply': 2048
   };
 
@@ -34,8 +34,8 @@ export class TopicArgumentService extends ItemsListService {
     obscene: 'obscene', // contains obscene language
     spam: 'spam', // contains spam or is unrelated to topic
     hate: 'hate', // contains hate speech
-    netiquette: 'netiquette', // infringes (n)etiquette
-    duplicate: 'duplicate' // duplicate
+    duplicate: 'duplicate', // duplicate
+    other: 'other'
   };
 
   public ARGUMENT_ORDER_BY = {
@@ -48,6 +48,7 @@ export class TopicArgumentService extends ItemsListService {
   params = {
     topicId: <string | null>null,
     orderBy: <string>this.ARGUMENT_ORDER_BY.date,
+    types: <string | string[] | null>null,
     sortOrder: <string | null>null,
     offset: <number>0,
     limit: <number>8,

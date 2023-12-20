@@ -12,7 +12,7 @@ import { Topic } from 'src/app/interfaces/topic';
   styleUrls: ['./topic-notification-settings.component.scss']
 })
 export class TopicNotificationSettingsComponent implements OnInit {
-  @Input() topicId?: string;
+  @Input() topicId!: string;
   private supportedTabs = ['general'];
   public tabSelected = 'general';
 
@@ -35,10 +35,11 @@ export class TopicNotificationSettingsComponent implements OnInit {
     private dialog: MatDialog) {
     if (data.topicId)
       this.topicId = data.topicId;
+
+    this.topic$ = this.Topic.get(this.data.topicId);
   }
 
   ngOnInit(): void {
-    this.topic$ = this.Topic.get(this.data.topicId);
     this.settings = this.TopicNotificationService.get({ topicId: this.topicId }).pipe(
       tap((settings: any) => {
         this.allowNotifications = settings.allowNotifications;

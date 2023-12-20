@@ -42,7 +42,7 @@ export class TopicMemberUserComponent implements OnInit {
     return this.fields?.indexOf(field) > -1
   }
 
-  doUpdateMemberUser(level: string) {
+  doUpdateMemberUser(level: any) {
     if (this.member.level !== level) {
       const oldLevel = this.member.level;
       this.member.level = level;
@@ -64,7 +64,7 @@ export class TopicMemberUserComponent implements OnInit {
       data: {
         level: 'delete',
         heading: 'MODALS.TOPIC_MEMBER_USER_DELETE_CONFIRM_HEADING',
-        title: 'MODALS.TOPIC_MEMBER_USER_DELETE_CONFIRM_TXT_ARE_YOU_SURE',
+        description: 'MODALS.TOPIC_MEMBER_USER_DELETE_CONFIRM_TXT_ARE_YOU_SURE',
         confirmBtn: 'MODALS.TOPIC_MEMBER_USER_DELETE_CONFIRM_YES',
         closeBtn: 'MODALS.TOPIC_MEMBER_USER_DELETE_CONFIRM_NO'
       }
@@ -86,7 +86,7 @@ export class TopicMemberUserComponent implements OnInit {
       data: {
         level: 'delete',
         heading: 'MODALS.TOPIC_MEMBER_USER_LEAVE_CONFIRM_HEADING',
-        title: 'MODALS.TOPIC_MEMBER_USER_LEAVE_CONFIRM_TXT_ARE_YOU_SURE',
+        description: 'MODALS.TOPIC_MEMBER_USER_LEAVE_CONFIRM_TXT_ARE_YOU_SURE',
         points: ['MODALS.TOPIC_MEMBER_USER_LEAVE_CONFIRM_TXT_LEAVING_TOPIC_DESC'],
         confirmBtn: 'MODALS.TOPIC_MEMBER_USER_LEAVE_CONFIRM_BTN_YES',
         closeBtn: 'MODALS.TOPIC_MEMBER_USER_LEAVE_CONFIRM_BTN_NO'
