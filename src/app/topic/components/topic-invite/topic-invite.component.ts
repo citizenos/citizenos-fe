@@ -1,18 +1,16 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, OnInit, Inject, Input, Output, EventEmitter } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { isEmail } from 'validator';
-import { take, of, switchMap, forkJoin, combineLatest, Subscription } from 'rxjs';
+import { take, of, switchMap, forkJoin, Observable } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicService } from 'src/app/services/topic.service';
-import { TopicMemberGroup } from 'src/app/interfaces/group';
 import { TopicMemberUser } from 'src/app/interfaces/user';
 import { NotificationService } from 'src/app/services/notification.service';
 import { SearchService } from 'src/app/services/search.service';
 import { TopicJoinService } from 'src/app/services/topic-join.service';
 import { TopicMemberUserService } from 'src/app/services/topic-member-user.service';
-import { TopicMemberGroupService } from 'src/app/services/topic-member-group.service';
 import { TopicInviteUserService } from 'src/app/services/topic-invite-user.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 export interface TopicInviteData {
   topic: Topic
 };
@@ -23,10 +21,11 @@ export interface TopicInviteData {
   styleUrls: ['./topic-invite.component.scss']
 })
 export class TopicInviteComponent implements OnInit {
-  topic: Topic;
-
-  inviteMessage = <string | null>null;
-
+  @Input() dialog?= false;
+  @Input() topic!: Topic;
+  @Input() members = <any[]>[];
+  @Input() inviteMessage?: string;
+  @Output() inviteMessageChange = new EventEmitter<string>();
   public inviteMessageMaxLength = 1000;
 
   public tabs = [
@@ -46,31 +45,25 @@ export class TopicInviteComponent implements OnInit {
 
   public membersPage = 1;
   public itemsPerPage = 10;
-  public memberGroups = ['groups', 'users'];
 
   public invalid = <any[]>[];
-  public members = <any[]>[];
-  public groupLevel = 'read';
+  public LEVELS = Object.keys(this.TopicService.LEVELS);
+  public topicLevel = this.LEVELS[0];;
 
   public tabSelected = 'invite';
-  public searchString = '';
+  public searchStringUser = '';
   public searchResults$ = of({ users: <any[]>[], groups: <any[]>[], emails: <any[]>[], combined: <any[]>[] });
   private EMAIL_SEPARATOR_REGEXP = /[;,\s]/ig;
-  public topicLevels = Object.keys(this.TopicService.LEVELS);
 
-  constructor(private dialog: MatDialog,
-    private route: ActivatedRoute,
-    public dialogRef: MatDialogRef<TopicInviteComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: TopicInviteData,
+  constructor(
+    @Inject(ActivatedRoute) private route: ActivatedRoute,
     public TopicMemberUser: TopicMemberUserService,
-    private TopicMemberGroup: TopicMemberGroupService,
     public TopicService: TopicService,
     public TopicJoin: TopicJoinService,
     public Search: SearchService,
     private Notification: NotificationService,
     private TopicInviteUser: TopicInviteUserService,
   ) {
-    this.topic = data.topic;
     const urlSnap = this.route.snapshot;
     if (urlSnap.queryParams['tab']) {
       this.tabSelected = urlSnap.queryParams['tab'];
@@ -80,68 +73,31 @@ export class TopicInviteComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  /* search(str: any): void {
-     if (str && str.length >= 2) {
-       this.searchString = str;
-       this.searchResultUsers$ = this.Search
-         .searchUsers(str)
-         .pipe(
-           switchMap((response) => {
-             this.resultCount = response.results.public.users.count;
-             return of(response.results.public.users.rows);
-           }));
-     } else {
-       this.searchResultUsers$ = of([]);
-     }
-   }*/
+  onMessageChange() {
+    this.inviteMessageChange.emit(this.inviteMessage);
+  }
+
   search(str: any): void {
+    this.searchResultUsers$ = of([]);
     if (str && str.length >= 2) {
-      this.searchString = str;
-      if (str.match(this.EMAIL_SEPARATOR_REGEXP)) {
-        this.resultCount = 0;
-        this.searchResults$ = of(Object.assign({}, { users: [], groups: [], emails: [], combined: [str] }));
-      } else {
-        this.searchResults$ = combineLatest([
-          this.Search.search(str, { include: ['my.group'] }),
-          this.Search.searchUsers(str)
-        ]).pipe(
-          switchMap(([groupsSearch, usersSearch]) => {
-            const results = { users: <any[]>[], groups: <any[]>[], emails: <any[]>[], combined: <any[]>[] };
-            if (usersSearch.results.public.users.rows.length) {
-              usersSearch.results.public.users.rows.forEach((user: any) => {
-                results.users.push(user);
-              });
-            } else if (isEmail(str)) {
-              results.emails.push(this.searchString);
+      this.searchStringUser = str;
+      this.searchResultUsers$ = this.Search
+        .searchUsers(str)
+        .pipe(
+          switchMap((response) => {
+            this.resultCount = response.results.public.users.count;
+            if (!this.resultCount && isEmail(str)) {
+              this.resultCount = 1;
+              return of([{ email: str, name: str, userId: str }]);
             }
-            if (groupsSearch.results.my.groups.rows.length) {
-              groupsSearch.results.my.groups.rows.forEach((group: any) => {
-                results.groups.push(group);
-              });
-            }
-            results.combined = results.users.concat(results.groups).concat(results.emails);
-            this.resultCount = results.combined.length;
-
-            return of(results);
-          })
-        )
-
-
-        /*   .then((groupresponse) => {
-
-               .then((userrespons) => {
-             this.searchResults$ = angular.merge({}, { users: [], groups: [], emails: [], combined: [] });
-
-             this.searchResults$.combined = this.searchResults$.users.concat(this.searchResults$.groups).concat(this.searchResults$.emails);
-           });
-           });*/
-      }
-    } else {
-      this.resultCount = 0;
-      this.searchResults$ = of(Object.assign({}, { users: [], groups: [], emails: [], combined: [] }));
+            return of(response.results.public.users.rows);
+          }));
     }
-  };
+  }
+
   addTopicMember(member?: any) {
+    this.searchResultUsers$ = of([]);
+    this.search('');
     if (this.members.length >= this.maxUsers) {
       this.Notification.addError('MSG_ERROR_INVITE_MEMBER_COUNT_OVER_LIMIT');
       return;
@@ -151,36 +107,19 @@ export class TopicInviteComponent implements OnInit {
     }
     if (member.hasOwnProperty('company')) {
       return this.addTopicMemberUser(member);
-    } else {
-      return this.addTopicMemberGroup(member);
     }
-  };
-
-  addTopicMemberGroup(group: any) {
-    this.searchString = '';
-    //this.searchResults = angular.merge({}, { users: [], groups: [], emails: [], combined: [] });
-
-    if (group && group.id && group.name) {
-      const member = this.members.find((m) => m.id === group.id)
-
-      if (!member) {
-        const memberClone = Object.assign({}, group);
-        memberClone.groupId = group.id;
-        memberClone.level = this.groupLevel;
-
-        this.members.push(memberClone);
-        this.orderMembers();
-      }
+    if (isEmail(member.email) && member.email === member.userId) {
+      return this.addTopicMemberUser();
     }
   };
 
   addCorrectedEmail(email: string, key: string) {
     if (isEmail(email.trim())) {
-      if (!this.members.find((member) => member.userId === email)) {
+      if (!this.members.find((member: TopicMemberUser) => member.userId === email)) {
         this.members.push({
           userId: email,
           name: email,
-          level: this.groupLevel
+          level: this.topicLevel
         });
       }
       this.invalid.splice(parseInt(key), 1);
@@ -191,41 +130,25 @@ export class TopicInviteComponent implements OnInit {
     this.invalid.splice(parseInt(key), 1);
   };
 
-  orderMembers() {
-    const compare = (a: any, b: any) => {
-      const property = 'name';
-      return (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
-    };
-    const users = this.members.filter((member) => {
-      return !!member.id;
-    }).sort(compare);
-    const emails = this.members.filter((member) => {
-      return member.userId === member.name;
-    }).sort(compare);
-
-    this.members = users.concat(emails);
-  };
-
   addTopicMemberUser(member?: any): void {
+    this.searchResultUsers$ = of([]);
+    this.search('');
     if (member) {
-      if (this.members && this.members.find((m) => m.id === member.id)) {
+      if (this.members && this.members.find((m: TopicMemberUser) => m.id === member.id)) {
         // Ignore duplicates
-        this.searchString = '';
-        this.searchResultUsers$ = of([]);
       } else {
         const memberClone = Object.assign({}, member);
         memberClone.userId = member.userId;
-        memberClone.level = this.groupLevel;
+        memberClone.level = this.topicLevel;
         this.members.push(memberClone);
-        this.searchResultUsers$ = of([]);
-
-        this.orderMembers();
       }
     } else {
-      if (!this.searchString) return;
+      if (!this.searchStringUser) return;
 
       // Assume e-mail was entered.
-      const emails = this.searchString.replace(this.EMAIL_SEPARATOR_REGEXP, ',').split(',');
+      const emails = this.searchStringUser.replace(this.EMAIL_SEPARATOR_REGEXP, ',').split(',');
+
+      this.searchStringUser = ''
       const filtered = emails.filter((email) => {
         if (isEmail(email.trim())) {
           return email.trim();
@@ -237,33 +160,31 @@ export class TopicInviteComponent implements OnInit {
       });
 
       if (filtered.length) {
+
         filtered.sort().forEach((email) => {
           email = email.trim();
           if (this.members.length >= this.maxUsers) {
             return this.Notification.addError('MSG_ERROR_INVITE_MEMBER_COUNT_OVER_LIMIT');
           }
-          if (!this.members.find((member) => member['userId'] === email)) {
+          if (!this.members.find((member: TopicMemberUser) => member['userId'] === email)) {
             this.members.push({
               userId: email,
               name: email,
-              level: this.groupLevel
+              level: this.topicLevel
             });
-            this.orderMembers();
           }
         });
       }
-
-      this.searchString = '';
     }
   };
 
-  updateGroupLevel(level: string) {
-    this.groupLevel = level;
-    this.members.forEach((item) => {
+  updateAllMemberLevels(level: string) {
+    this.topicLevel = level;
+    this.members.forEach((item: TopicMemberUser) => {
       item.level = level;
     });
   };
-  doRemoveMemberUser(member: TopicMemberUser) {
+  removeTopicMemberUser(member: TopicMemberUser) {
     this.members.splice(this.members.indexOf(member), 1);
   };
 
@@ -271,46 +192,24 @@ export class TopicInviteComponent implements OnInit {
     this.members[this.members.indexOf(member)].level = level;
   };
 
-  removeTopicMemberGroup(group: TopicMemberGroup) {
-    this.members.splice(this.members.indexOf(group), 1);
-  };
-
-  updateTopicMemberGroupLevel(group: TopicMemberGroup, level: string) {
-    this.members[this.members.indexOf(group)].level = level;
-  };
 
   doSaveTopic() {
     // Users
-    const topicMemberUsersToSave = <any[]>[];
-    //request
-    const membersToSave = <any>{};
-    this.members.forEach((member) => {
-      if (member.groupId) {
-        member = {
-          groupId: member.groupId,
-          topicId: this.topic.id,
-          level: member.level
-        };
+    const topicMemberUsersToSave = <Array<Observable<any[]>>>[];
+    this.members.forEach((member: TopicMemberUser) => {
+      topicMemberUsersToSave.push(this.TopicInviteUser.save(this.topic.id, {
+        userId: member.userId || member.id,
+        inviteMessage: this.inviteMessage,
+        level: member.level
+      }))
 
-        membersToSave[member.groupId] = this.TopicMemberGroup.save(member);
-      } else {
-        topicMemberUsersToSave.push({
-          userId: member.userId || member.id,
-          inviteMessage: this.inviteMessage,
-          level: member.level
-        })
-      }
     });
 
     if (topicMemberUsersToSave.length) {
-      membersToSave['users'] = this.TopicInviteUser.save(this.topic.id, topicMemberUsersToSave)
-    }
-    if (Object.keys(membersToSave).length) {
-      forkJoin(membersToSave)
+      forkJoin(topicMemberUsersToSave)
         .pipe(take(1))
-        .subscribe((res:any) => {
-          this.dialogRef.close();
-          this.TopicMemberGroup.reset();
+        .subscribe((res: any) => {
+          this.Notification.addSuccess('COMPONENTS.TOPIC_INVITE.MSG_INVITES_SENT');
           this.TopicService.reloadTopic();
         })
     }
@@ -326,76 +225,73 @@ export class TopicInviteComponent implements OnInit {
     this.members = [];
   };
 
-  itemsExist(type: any) {
-    let exists = false;
-    let i = (this.membersPage * this.itemsPerPage) - this.itemsPerPage;
-    for (i; i < this.members.length && i < (this.membersPage * this.itemsPerPage); i++) {
-      if (type === 'groups') {
-        if (this.members[i].groupId) {
-          exists = true;
-          break;
-        }
-      } else if (!this.members[i].groupId) {
-        exists = true;
-        break;
-      }
-
-    }
-
-    return exists;
-  };
-
 
   isOnPage(index: number, page: number) {
     const endIndex = page * this.itemsPerPage;
     return (index >= (endIndex - this.itemsPerPage) && index < endIndex);
   };
 
-  isInGroup(item: any, group: any) {
-    if (group === 'groups') {
-      return !!item.groupId;
-    } else {
-      return !item.groupId;
-    }
-  };
-
   loadPage(pageNr: number) {
     this.membersPage = pageNr;
   };
-
-  totalPages() {
-    return Math.ceil(this.members.length / this.itemsPerPage);
+  /*
+    totalPages() {
+      return Math.ceil(this.members.length / this.itemsPerPage);
+    };*/
+  totalPages(items: any) {
+    return Math.ceil(items.length / this.itemsPerPage);
   };
 }
 
 
 @Component({
   selector: 'topic-invite-dialog',
-  template: '',
+  templateUrl: './topic-invite-dialog.component.html',
+  styleUrls: ['./topic-invite-dialog.component.scss']
 })
-export class TopicInviteDialogComponent implements OnInit {
-  subscriber: Subscription;
-
-  ngOnDestroy(): void {
-    //Called once, before the instance is destroyed.
-    //Add 'implements OnDestroy' to the class.
-      this.subscriber.unsubscribe();
+export class TopicInviteDialogComponent {
+  activeTab = 'invite';
+  members = [];
+  public inviteMessage = '';
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, @Inject(MatDialogRef) private dialog: MatDialogRef<TopicInviteDialogComponent>, private TopicInviteUser: TopicInviteUserService, public Notification: NotificationService) {
+    if (!this.canInvite()) {
+      this.activeTab = 'share';
+    }
   }
-  constructor(private dialog: MatDialog, private TopicService: TopicService, private route: ActivatedRoute, private router: Router) {
-    console.log('TopicInviteDialogComponent')
-    this.subscriber = this.route.params.pipe(
-      switchMap((params) => {
-        return this.TopicService.get(params['topicId']);
-      }),
-    ).subscribe((topic:any) => {
-      const inviteDialog = this.dialog.open(TopicInviteComponent, { data: { topic } });
-      inviteDialog.afterClosed().subscribe((res)=> {
-        this.router.navigate(['..'], {relativeTo: this.route});
+
+  canInvite() {
+    return this.TopicInviteUser.canInvite(this.data.topic);
+  }
+
+  doInviteMembers() {
+    const topicMemberUsersToInvite = <any[]>[];
+    this.members.forEach((member: any) => {
+      topicMemberUsersToInvite.push({
+        name: member.name,
+        imageUrl: member.imageUrl,
+        userId: member.userId || member.id,
+        level: member.level,
+        inviteMessage: this.inviteMessage
       })
-    })
-  }
+    });
 
-  ngOnInit(): void {
-  }
+    if (topicMemberUsersToInvite.length) {
+      if (this.data.topic.id) {
+        this.TopicInviteUser.save(this.data.topic.id, topicMemberUsersToInvite)
+          .pipe(take(1))
+          .subscribe(res => {
+            this.Notification.removeAll();
+            this.Notification.addSuccess('COMPONENTS.TOPIC_INVITE_DIALOG.MSG_INVITES_SENT');
+            this.dialog.close()
+          })
+      } else {
+        this.dialog.close(topicMemberUsersToInvite);
+      }
+    } else {
+      this.Notification.removeAll();
+      this.dialog.close();
+    }
 
+  }
 }
+

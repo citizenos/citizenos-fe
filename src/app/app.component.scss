@@ -1,202 +1,56 @@
-@use "mixins_n_extends";
-@use "vars";
+@use "mixins";
 
-#search_area {
-  position: absolute;
-  overflow: hidden;
-  top: 0;
-  right: 0;
-  left: 190px;
-  height: 60px;
-  text-align: left;
-  font-size: 14px;
-  transition: all 220ms ease-out;
-
-  @include mixins_n_extends.tablet {
-      right: 136px;
-  }
-
-  @media (max-width: 750px) {
-      left: 62px;
-  }
-
-  @media (max-width: 340px) {
-      right: 70px;
-  }
-
-  @media  print {
-      display: none;
+#notification_wrap {
+  padding: 0 24px;
+  @include mixins.mobile {
+    padding: 0 16px;
   }
 }
+#content_root {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 200px;
+  width: calc(100% - 200px);
+  min-height: 100%;
+  background-color: var(--color-background);
 
-/* SEARCH AREA (Search bar styles in nav.scss) */
-#search_area_close {
-  position: fixed;
-  top: 60px;
-  left: 190px;
-  right: 0;
-  bottom: 0;
-  z-index: 1;
-  @include mixins_n_extends.tablet {
+  &.no_scroll {
+    overflow: hidden;
+    height: 100%;
+  }
+
+  @include mixins.tablet {
+    width: 100%;
     left: 0;
   }
-}
 
+  #content_header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-evenly;
+    position: relative;
 
-#mobile_header {
-  height: 60px;
-  background: vars.$medium_black;
-  z-index: 4;
-  padding-right: 138px;
-  padding-left: 190px;
-  left: 0;
-  right: 0;
+    #notification_wrap {
+      width: 100%;
+    }
 
-  position: fixed;
-  width: 100%;
-  box-sizing: border-box;
-
-  @include mixins_n_extends.mobile {
-    padding-left: 60px;
+    #search_wrap {
+      min-width: 300px;
+      margin-left: 16px;
+    }
   }
 
-  @media (max-width: "340px") {
-    padding-right: 73px;
-  }
-}
-
-
-
-.nav {
-  width: vars.$nav_d_width;
-  height: 100%;
-  background: vars.$medium_black;
-  color: vars.$transparent_white;
-  font-size: 13px;
-  position: fixed;
-  z-index: 10;
-  overflow-y: auto;
-  overflow-x: hidden;
-  &.nav_is_open {
-    right: 0;
-    width: vars.$nav_t_width;
-  }
-  .dark_line {
-    margin-top: 16px;
-  }
-
-  .logo {
-    margin-top: 20px;
-  }
-
-  @include mixins_n_extends.tablet {
-    right: -(vars.$nav_t_width);
-    transition: all 220ms cubic-bezier(0.45, 0.78, 0, 1);
-    overflow-y: visible;
-    overflow-x: hidden;
-    padding-bottom: 60px;
-    box-sizing: border-box;
-    top: 60px;
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
-  }
-}
-
-#raa_notification {
-  background: #f1f7fc;
-  position: fixed;
-  display: flex;
-  width: calc(100% - 235px);
-  align-items: center;
-  bottom: 0;
-  padding: 20px 25px 20px 25px;
-  gap: 25px;
-
-  @media (max-width: 1024px) {
-    width: calc(100% - 16px);
-    gap: 16px;
-    padding: 8px;
-  }
-  @media (max-width: 560px) {
+  #content {
+    width: 100%;
+    min-height: 100%;
     flex-direction: column;
-    width:calc(100% - 16px);
-  }
+    position: relative;
 
-  #raa_logo_wrapper {
-      white-space: nowrap;
-      text-align: center;
-      vertical-align: middle;
-
-      .raa_logo_container {
-          display: flex;
-          height: 100%;
-          vertical-align: middle;
-      }
-
-  }
-
-  #raa_content_wrapper{
-      width: calc(100%);
-      gap: 8px;
-      display: flex;
-      flex-direction: column;
-
-      #notification_title {
-          color: #313131;
-          font-family: "Open Sans";
-          font-size: 16px;
-          font-weight: bold;
-          line-height: 22px;
-
-          @media (max-width: 560px) {
-              text-align: center;
-          }
-      }
-
-      #notification_text {
-          color: #313131;
-          font-family: "Open Sans";
-          font-size: 14px;
-          line-height: 19px;
-          @media (max-width: 560px) {
-              text-align: center;
-          }
-      }
-  }
-
-  #raa_close_wrapper{
-      display: flex;
-      align-items: center;
-      width: 380px;
-      justify-content: center;
-
-      button {
-        font-family: "Noto Sans";
-        background-color: #2c3b47;
-        padding: 0px 32px;
-        max-height: 40px;
-        min-height: 40px;
-        min-width: max-content;
-        border-radius: 40px;
-        font-weight: 600;
-        font-size: 14px;
-        line-height: 16px;
-        background: #2c3b47;
-        color: #fff;
-        border: none;
-        &:hover {
-          background: #1168a8;
-        }
-      }
-
-      @media (max-width: 1024px) {
-        justify-content: flex-start;
-      }
-
-      @media (max-width: 560px) {
-          width: 100%;
-          justify-content: center;
-          align-items: center;
-      }
+    #view {
+      width: 100%;
+    }
   }
 }

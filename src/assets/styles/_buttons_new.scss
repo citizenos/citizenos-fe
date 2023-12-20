@@ -1,0 +1,506 @@
+@use "mixins";
+
+%btn_big {
+  padding: 8px 24px;
+  font-weight: 600;
+  gap: 8px;
+  line-height: 32px;
+  max-height: 48px;
+  min-height: 48px;
+  min-width: 48px;
+  border: none;
+  border-radius: 48px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 32px;
+  span {
+    font-size: 16px;
+    line-height: 32px;
+  }
+}
+
+%btn_medium {
+  padding: 0px 16px;
+  gap: 16px;
+  max-height: 40px;
+  min-height: 40px;
+  min-width: 40px;
+  border-radius: 40px;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 16px;
+  span {
+    font-size: 14px;
+    line-height: 16px;
+  }
+}
+
+%btn_small {
+  padding: 0px 8px;
+  gap: 8px;
+  max-height: 32px;
+  min-height: 32px;
+  min-width: 32px;
+  border-radius: 32px;
+  font-size: 14px;
+  line-height: 16px;
+  span {
+    font-size: 14px;
+    line-height: 16px;
+  }
+}
+
+button,
+%btn_big,
+%btn_medium,
+%btn_small {
+  background: none;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  display: flex;
+  flex-direction: row;
+  font-family: "Noto Sans";
+  font-style: normal;
+  cursor: pointer;
+  color: var(--color-text);
+  border-color: var(--color-text);
+}
+
+//list of different buttons
+$buttons: (big, medium, small);
+//list of color themes for different buttons
+$button-styles: (
+  submit: (
+    background: var(--btn-submit),
+    color: var(--btn-submit-text),
+    border: none,
+    hover: var(--btn-submit-hover),
+  ),
+  submit_ghost: (
+    background: none,
+    color: var(--btn-submit),
+    border: 2px solid var(--btn-submit),
+    hover: none,
+    hover-color: var(--btn-submit-hover),
+    hover-border: 2px solid var(--btn-submit-hover),
+  ),
+  secondary: (
+    background: var(--color-secondary),
+    color: var(--color-link),
+    hover: var(--btn-submit-hover),
+    hover-color: var(--color-surfaces),
+  ),
+  close: (
+    background: var(--color-surfaces),
+    hover: var(--color-dialog-contrast),
+  ),
+  nav: (
+    background: none,
+    color: var(--color-text),
+    hover: var(--color-background),
+    hover-color: var(--color-link),
+  ),
+  activity: (
+    background: var(--color-warn-background),
+    hover: var(--color-info-background),
+  ),
+  activity_new: (
+    background: var(--color-warn),
+    color: var(--color-surfaces),
+    hover: var(--color-info),
+  ),
+  discussion: (
+    background: var(--color-discussion),
+    color: var(--color-surfaces),
+  ),
+  ideation: (
+    background: var(--color-ideation),
+    color: var(--color-surfaces),
+  ),
+  voting: (
+    background: var(--color-voting),
+    color: var(--color-surfaces),
+  ),
+  voting_light: (
+    background: var(--color-argument-pro-light),
+    color: var(--color-voting),
+  ),
+  pagination: (
+    background: var(--color-surfaces),
+    hover: var(--color-scrollbar),
+    hover-color: var(--color-link),
+  ),
+  plain: (
+    hover: var(--color-scrollbar),
+  ),
+);
+
+@mixin button_styles($theme-map) {
+  @each $section, $map in $theme-map {
+    @each $button in $buttons {
+      .btn_#{$button}_#{$section} {
+        @extend %btn_#{$button};
+        background: map-get($map, background);
+        border: map-get($map, border);
+        color: map-get($map, color);
+        path {
+          fill: map-get($map, color);
+        }
+        circle {
+          stroke: map-get($map, color);
+        }
+        span {
+          color: map-get($map, color);
+        }
+
+        &.icon {
+          svg {
+            position: absolute;
+          }
+        }
+        &:hover,
+        &.active {
+          background: map-get($map, hover);
+          border: map-get($map, hover-border);
+          color: map-get($map, hover-color);
+
+          span {
+            color: map-get($map, hover-color);
+          }
+          path {
+            fill: map-get($map, hover-color);
+          }
+          circle {
+            stroke: map-get($map, hover-color);
+          }
+        }
+      }
+    }
+  }
+}
+
+@include button_styles($button-styles);
+
+/*account back*/
+.btn_medium_light {
+  @extend %btn_medium;
+  padding: 8px 16px;
+  justify-content: center;
+  background-color: var(--color-background);
+
+  &:hover,
+  &.active {
+    color: var(--color-link);
+    background-color: var(--color-background);
+
+    path {
+      fill: var(--color-link);
+    }
+
+    circle {
+      stroke: var(--color-link);
+    }
+  }
+}
+
+.btn_medium_activity_new {
+  margin-right: -16px;
+}
+
+.btn_nav_create {
+  justify-content: center;
+  width: 40px;
+  border-radius: 40px;
+}
+
+.btn_dialog_close {
+  border: none;
+  background: none;
+  border-radius: 50vh;
+  height: 48px;
+  width: 48px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+
+  &:focus,
+  &:hover {
+    border: none;
+  }
+}
+
+.radio_wrap {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  justify-content: space-between;
+  padding: 16px;
+  gap: 8px;
+  background-origin: padding-box;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  &:focus,
+  &:hover,
+  &.active {
+    background: var(--color-background);
+  }
+
+  .radio_text_wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .radio_lable_wrap {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .radio_description {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+  }
+
+  .radio_icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.radio_box {
+  display: flex;
+  position: relative;
+  padding-left: 35px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  height: 24px;
+  vertical-align: middle;
+  align-items: center;
+
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+
+  .radio_lable {
+    font-size: var(--font-size);
+    line-height: 16px;
+    font-weight: 600;
+  }
+}
+
+.radio {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 24px;
+  width: 24px;
+  background-color: var(--color-surfaces);
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+
+  &:after {
+    content: "";
+    position: absolute;
+    display: none;
+    top: 6px;
+    left: 6px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: white;
+  }
+}
+
+.radio_box:hover input ~ .radio {
+  background-color: var(--input-checkbox-background-default);
+  border: 1px solid var(--input-checkbox-border-default);
+}
+
+.radio_box input:checked ~ .radio {
+  background-color: var(--input-checkbox-background-default);
+  border: 1px solid var(--input-checkbox-border-default);
+}
+
+.radio_box input:checked ~ .radio_wrap {
+  background-color: var(--input-checkbox-background-default);
+  border: 1px solid var(--input-checkbox-border-default);
+}
+
+.radio_box input:checked ~ .radio:after {
+  display: block;
+}
+
+/* Customize the label (the container) */
+.checkbox {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  min-height: 24px;
+  flex-direction: row-reverse;
+  flex-wrap: wrap;
+
+  span {
+    @include mixins.mobile {
+      max-width: calc(100vw - 90px);
+    }
+  }
+  input {
+    position: absolute !important;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  label {
+    display: flex;
+    align-content: center;
+
+    span {
+      display: flex;
+      align-content: center;
+    }
+  }
+  /* Create a custom checkbox */
+  .checkmark {
+    height: 24px;
+    width: 24px;
+    min-width: 24px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+
+    &:after {
+      content: "";
+      position: relative;
+      display: none;
+      left: 8px;
+      top: 4px;
+      width: 4px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 3px 3px 0;
+      -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+  }
+
+  &.error {
+    .checkmark {
+      border: 1px solid var(--color-error);
+    }
+  }
+}
+
+/* On mouse-over, add a grey background color */
+.checkbox:hover input ~ .checkmark {
+  background-color: var(--input-checkbox-background-default);
+  border-color: var(--input-checkbox-border-default);
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkbox input:checked ~ .checkmark {
+  background-color: var(--input-checkbox-background-default);
+  border: 1px solid var(--input-checkbox-border-default);
+}
+/* Show the checkmark when checked */
+.checkbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.mobile_filters {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  background-color: var(--color-surfaces);
+  border-radius: 8px;
+  flex-direction: column;
+  padding: 0 8px;
+
+  &.active {
+    .filter_items {
+      display: flex;
+    }
+
+    .selector {
+      .icon_active {
+        display: flex;
+      }
+
+      .icon {
+        display: none;
+      }
+    }
+  }
+  .selector {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+
+    span {
+      font-weight: 600;
+    }
+    .icon_active {
+      display: none;
+    }
+  }
+  .filter_items {
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+
+    .filter {
+      display: flex;
+      justify-content: space-between;
+      background-color: var(--color-surface-contrast);
+      border-radius: 8px;
+      padding: 12px 16px;
+
+      a {
+        font-weight: 600;
+      }
+      &.selected {
+        .filter_options {
+          display: flex;
+        }
+      }
+      .filter_options {
+        width: 100%;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        background-color: var(--color-surfaces);
+        display: none;
+        flex-direction: column;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        gap: 8px;
+        z-index: 99999999;
+        padding: 16px;
+
+        .option {
+          font-weight: 600;
+          padding: 8px;
+        }
+      }
+    }
+  }
+}

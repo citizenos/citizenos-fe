@@ -18,8 +18,8 @@ export class TopicReportService extends ItemsListService{
     obscene: 'obscene', // contains obscene language
     spam: 'spam', // contains spam or is unrelated to topic
     hate: 'hate', // contains hate speech
-    netiquette: 'netiquette', // infringes (n)etiquette
-    duplicate: 'duplicate' // duplicate
+    duplicate: 'duplicate', // duplicate,
+    other: 'other'
   };
 
   constructor(private Location: LocationService, private http: HttpClient, private Auth: AuthService) {

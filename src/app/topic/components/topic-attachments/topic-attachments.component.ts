@@ -1,8 +1,8 @@
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
-import { Component, Inject, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, Inject, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
-import { take, takeWhile, switchMap } from 'rxjs';
+import { take, takeWhile, switchMap, of, map } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { AppService } from 'src/app/services/app.service';
 import { NotificationService } from 'src/app/services/notification.service';
@@ -10,38 +10,80 @@ import { TopicAttachmentService } from 'src/app/services/topic-attachment.servic
 import { UploadService } from 'src/app/services/upload.service';
 import { TopicService } from 'src/app/services/topic.service';
 import { ActivatedRoute, Router } from '@angular/router';
-export interface AttachmentData {
-  topic: Topic
-};
+import { Attachment } from 'src/app/interfaces/attachment';
+import { trigger, state, style } from '@angular/animations';
 
 @Component({
-  selector: 'app-topic-attachments',
+  selector: 'topic-attachments',
   templateUrl: './topic-attachments.component.html',
-  styleUrls: ['./topic-attachments.component.scss']
+  styleUrls: ['./topic-attachments.component.scss'],
+  animations: [
+    trigger('openClose', [
+      // ...
+      state('open', style({
+        minHeight: 'min-content',
+        maxHeight: 'min-content',
+        transition: '0.2s ease-in-out max-height'
+      })),
+      state('closed', style({
+        overflowY: 'hidden',
+        transition: '0.2s ease-in-out max-height'
+      }))
+    ]),
+    trigger('openSlide', [
+      // ...
+      state('open', style({
+        minHeight: 'auto',
+        'maxHeight': '400px',
+        transition: '0.2s ease-in-out max-height'
+      })),
+      state('closed', style({
+        minHeight: '80px',
+        'maxHeight': '80px',
+        transition: '0.2s ease-in-out max-height'
+      }))
+    ])]
 })
 export class TopicAttachmentsComponent implements OnInit {
-  @ViewChild('fileUpload') fileInput?: ElementRef;
-  public topic!: Topic;
+  @ViewChild('attachmentInput') attachmentInput?: ElementRef;
+  blockAttachments = false;
+  @Input() topic!: Topic;
   public form = {
     files: <any[]>[],
     uploadfiles: <any[]>[]
   };
   private saveInProgress = false;
   config: any;
+
+  topicAttachments$ = of(<Attachment[] | any[]>[]);
+  attachments = <any[]>[];
+
   constructor(
     private dialog: MatDialog,
     public app: AppService,
-    @Inject(MAT_DIALOG_DATA) public data: AttachmentData,
     public TopicService: TopicService,
     private TopicAttachmentService: TopicAttachmentService,
     private Notification: NotificationService,
     private Translate: TranslateService,
     private Upload: UploadService) {
-    this.topic = data.topic;
     this.config = app.config.get('attachments');
   }
 
   ngOnInit(): void {
+    this.TopicAttachmentService.setParam('topicId', this.topic.id);
+    this.topicAttachments$ = this.TopicAttachmentService.loadItems().pipe(
+      map((attachments) => {
+        this.attachments = [];
+        attachments.forEach((item) => {
+          this.attachments.push(item);
+        })
+        if (attachments.length) {
+          this.blockAttachments = true;
+        }
+        return attachments;
+      })
+    );
+
     this.TopicAttachmentService
       .query({ topicId: this.topic.id })
       .pipe(take(1)).subscribe((files: any) => {
@@ -49,107 +91,13 @@ export class TopicAttachmentsComponent implements OnInit {
       });
   }
 
-  attachmentUpload(): void {
-    const files = this.fileInput?.nativeElement.files;
-    for (let i = 0; i < files.length; i++) {
-      const attachment = {
-        name: files[i].name,
-        type: files[i].name.split('.').pop(),
-        source: 'upload',
-        size: files[i].size,
-        file: files[i]
-      };
-
-      if (attachment.size > 50000000) {
-        this.Notification.addError('MSG_ERROR_ATTACHMENT_SIZE_OVER_LIMIT');
-      } else if (this.Upload.ALLOWED_FILE_TYPES.indexOf(attachment.type.toLowerCase()) === -1) {
-        const fileTypeError = this.Translate.instant('MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED', { allowedFileTypes: this.Upload.ALLOWED_FILE_TYPES.toString() });
-        this.Notification.addError(fileTypeError);
-      } else {
-        this.doSaveAttachment(attachment);
-      }
-    }
-  }
 
   triggerUpload() {
-    this.fileInput?.nativeElement.click();
-  };
-
-  dropboxSelect() {
-    this.TopicAttachmentService
-      .dropboxSelect()
-      .then((attachment) => {
-        if (attachment) {
-          this.doSaveAttachment(attachment);
-        }
-      });
-  };
-
-  oneDriveSelect() {
-    this.TopicAttachmentService
-      .oneDriveSelect()
-      .then((attachment) => {
-        if (attachment) {
-          this.doSaveAttachment(attachment);
-        }
-      });
-  };
-
-  googleDriveSelect() {
-    this.TopicAttachmentService
-      .googleDriveSelect()
-      .then((attachment) => {
-        if (attachment) {
-          this.doSaveAttachment(attachment);
-        }
-      });
+    this.attachmentInput?.nativeElement.click();
   };
 
   appendAttachment(attachment: any) {
     this.doSaveAttachment(attachment);
-  };
-
-  doSaveAttachment(attachment: any) {
-    attachment.topicId = this.topic.id;
-    if (attachment.file) {
-      this.Upload.topicAttachment(this.topic.id, attachment)
-        .pipe(takeWhile((e) => !e.link, true))
-        .subscribe({
-          next: (result) => {
-            if (result.link)
-              this.form.files.push(result);
-          },
-          error: (res) => {
-            if (res.errors) {
-              const keys = Object.keys(res.errors);
-              keys.forEach((key) => {
-                this.Notification.addError(res.errors[key]);
-              });
-            } else if (res.status && res.status.message) {
-              this.Notification.addError(res.status.message);
-            } else {
-              this.Notification.addError(res.message);
-            }
-          }
-        });
-    }
-    else if (attachment.id) {
-         this.TopicAttachmentService.update(attachment).pipe(take(1)).subscribe(() => {
-          this.form.files.push(attachment);
-         });
-    } else {
-         this.TopicAttachmentService.save(attachment).pipe(take(1)).subscribe({
-          next: (result) => {
-            if (result.id) {
-              attachment = result
-              this.form.files.push(attachment);
-            }
-          },
-          error: (res) => {
-            console.error(res);
-          }
-         });
-    }
   };
 
   editAttachment(attachment: any, index: number) {
@@ -185,6 +133,112 @@ export class TopicAttachmentsComponent implements OnInit {
       }
     });
   };
+
+
+  dropboxSelect() {
+    this.TopicAttachmentService
+      .dropboxSelect()
+      .then((attachment) => {
+        if (attachment) {
+          this.doSaveAttachment(attachment);
+        }
+      });
+  };
+
+  oneDriveSelect() {
+    this.TopicAttachmentService
+      .oneDriveSelect()
+      .then((attachment) => {
+        if (attachment) {
+          this.doSaveAttachment(attachment);
+        }
+      });
+  };
+
+  googleDriveSelect() {
+    this.TopicAttachmentService
+      .googleDriveSelect()
+      .then((attachment) => {
+        if (attachment) {
+          this.doSaveAttachment(attachment);
+        }
+      });
+  };
+
+  attachmentUpload(): void {
+    const files = this.attachmentInput?.nativeElement.files;
+    for (let i = 0; i < files.length; i++) {
+      const attachment = {
+        name: files[i].name,
+        type: files[i].name.split('.').pop(),
+        source: 'upload',
+        size: files[i].size,
+        file: files[i]
+      };
+
+      if (attachment.size > this.Upload.ALLOWED_FILE_SIZE) {
+        this.Notification.addError('MSG_ERROR_ATTACHMENT_SIZE_OVER_LIMIT');
+      } else if (this.Upload.ALLOWED_FILE_TYPES.indexOf(files[i].type) === -1) {
+        const fileTypeError = this.Translate.instant('MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED', { allowedFileTypes: this.Upload.ALLOWED_FILE_TYPES.toString() });
+        this.Notification.addError(fileTypeError);
+      } else {
+        //    this.attachments.push(attachment);
+        this.doSaveAttachment(attachment);
+      }
+    }
+  }
+
+  doSaveAttachment(attachment: any) {
+    attachment.topicId = this.topic.id;
+    if (attachment.file) {
+      this.Upload.topicAttachment(this.topic.id, attachment)
+        .pipe(takeWhile((e) => !e.link, true))
+        .subscribe({
+          next: (result) => {
+            if (result.link)
+              this.attachments.push(result);
+          },
+          error: (res) => {
+         /*   if (res.errors) {
+              const keys = Object.keys(res.errors);
+              keys.forEach((key) => {
+                this.Notification.addError(res.errors[key]);
+              });
+            } else if (res.status && res.status.message) {
+              this.Notification.addError(res.status.message);
+            } else {
+              this.Notification.addError(res.message);
+            }*/
+          }
+        });
+    }
+    else if (attachment.id) {
+      this.TopicAttachmentService.update(attachment).pipe(take(1)).subscribe(() => {
+        //     this.attachments.push(attachment);
+      });
+    } else {
+      this.TopicAttachmentService.save(attachment).pipe(take(1)).subscribe({
+        next: (result) => {
+          if (result.id) {
+            attachment = result
+            this.attachments.push(attachment);
+          }
+        },
+        error: (res) => {
+          console.error(res);
+        }
+      });
+    }
+  };
+  removeAttachment(attachment: any) {
+    this.attachments.splice(this.attachments.indexOf(attachment), 1);
+    if (attachment.id) {
+      this.TopicAttachmentService.delete({
+        attachmentId: attachment.id,
+        topicId: this.topic.id
+      }).pipe(take(1)).subscribe();
+    }
+  }
 }
 
 @Component({
@@ -192,7 +246,7 @@ export class TopicAttachmentsComponent implements OnInit {
   template: '',
 })
 export class TopicAttachmentsDialogComponent implements OnInit {
-  private topicId:string = '';
+  private topicId: string = '';
   constructor(dialog: MatDialog, router: Router, route: ActivatedRoute, TopicService: TopicService, TopicAttachmentService: TopicAttachmentService) {
     route.params.pipe(
       switchMap((params) => {
@@ -201,14 +255,16 @@ export class TopicAttachmentsDialogComponent implements OnInit {
       })
     ).pipe(take(1)).subscribe((topic) => {
       const attachmentsDialog = dialog.open(
-        TopicAttachmentsComponent, {data: {
-        topic
-      }});
+        TopicAttachmentsComponent, {
+        data: {
+          topic
+        }
+      });
 
       attachmentsDialog.afterClosed().subscribe(() => {
         TopicAttachmentService.reset();
         TopicAttachmentService.params['topicId'] = this.topicId;
-        router.navigate(['../'], {relativeTo: route})
+        router.navigate(['../'], { relativeTo: route })
       })
     });
   }

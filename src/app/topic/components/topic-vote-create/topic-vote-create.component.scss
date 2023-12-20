@@ -1,435 +1,176 @@
-@use "vars";
 
-.voting_platform_wrap {
-  position: relative;
-  background: vars.$white;
-  margin: 40px 60px 22px;
-  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1);
-
-  @media (max-width: 767px) {
-    margin: 16px 0 16px;
+.vote_options_wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  .radio_wrap {
+    width: calc(50% - 8px);
   }
 
-  .platform_description {
-    font-size: 13px;
-    font-weight: vars.$bold;
-    padding: 10px 20px 0;
-    @media (max-width: 670px) {
-      padding-top: 21px;
-    }
+  .description_text,
+  .input_area {
+    width: 100%;
   }
+}
 
-  .voting_platform_section {
-    padding: 10px 20px 0;
+.radio_text_wrap {
+  width: 100%;
 
-    &:last-child {
-      padding: 20px;
-
-      .blue_button {
-        height: 60px;
-        font-size: 20px;
-        display: table;
-        width: 100%;
-      }
-    }
-
-    .voting_platform_section_title {
-      font-size: 16px;
-      font-weight: vars.$bold;
-      margin: 20px 0;
-      @media (max-width: 670px) {
-        margin-bottom: 13px;
-      }
-    }
-
-    .voting_platform_section_description {
-      padding-bottom: 20px;
-      font-size: 14px;
-    }
-
-    @mixin buttons_in_rows {
-      margin-bottom: 20px;
-      & > .table_cell {
-        padding: 0 !important;
-        display: table;
-        box-sizing: border-box;
-
-        &:not(:last-child) {
-          margin-bottom: 10px;
-        }
-      }
-    }
-
-    .voting_platform_buttons_wrap {
-      display: table;
-      width: 100%;
-      margin-bottom: 40px;
-      @media (max-width: 1550px) {
-        @include buttons_in_rows;
-      }
-
-      @media (max-width: 1024px) {
-        & > .table_cell {
-          padding: 0 !important;
-          display: table-cell;
-          box-sizing: border-box;
-
-          &:not(:last-child) {
-            margin-bottom: 0;
-          }
-        }
-      }
-
-      @media (max-width: 670px) {
-        @include buttons_in_rows;
-      }
-
-      .table_cell {
-        width: 50%;
-
-        &:first-child {
-          padding-right: 10px;
-        }
-
-        &:last-child {
-          padding-left: 10px;
-        }
-
-        @media (max-width: 1550px) {
-          width: 100%;
-          padding: 5px;
-        }
-
-        @media (max-width: 1024px) {
-          width: 50%;
-          &:first-child {
-            padding-right: 10px !important;
-          }
-          &:last-child {
-            padding-left: 10px !important;
-          }
-        }
-
-        @media (max-width: 670px) {
-          width: 100%;
-          &:first-child {
-            padding-right: 0 !important;
-          }
-          &:last-child {
-            padding-left: 0 !important;
-          }
-        }
-      }
-
-      .voting_platform_radio_wrap {
-        height: 100px;
-        position: relative;
-        margin-bottom: -100px;
-        height: 100px;
-        width: 40px;
-        border-right: 1px solid vars.$lightest_gray;
-
-        &.active {
-          background: vars.$aqua_marine_border;
-          border-right: none;
-
-          .check {
-            border: 1px solid vars.$aqua_marine_border;
-            background: vars.$white;
-          }
-
-          .check::before {
-            background: vars.$aqua_marine_border;
-          }
-        }
-
-        .check {
-          display: block;
-          position: absolute;
-          border: 1px solid vars.$lightest_gray;
-          border-radius: 100%;
-          z-index: 5;
-          transition: border 0.25s linear;
-          -webkit-transition: border 0.25s linear;
-          width: 20px;
-          height: 20px;
-          bottom: 0;
-          top: 0;
-          margin-bottom: auto;
-          margin-top: auto;
-          margin-left: 10px;
-        }
-
-        .check:before {
-          display: block;
-          position: absolute;
-          content: "";
-          border-radius: 100%;
-          height: 15px;
-          width: 15px;
-          top: 5px;
-          left: 5px;
-          margin: auto;
-          transition: background 0.25s linear;
-          -webkit-transition: background 0.25s linear;
-
-          &:checked {
-            color: vars.$aqua_marine_border;
-          }
-        }
-
-        .check::before {
-          display: block;
-          position: absolute;
-          content: "";
-          border-radius: 100%;
-          height: 10px;
-          width: 10px;
-          top: 5px;
-          left: 5px;
-          margin: auto;
-          transition: background 0.25s linear;
-          -webkit-transition: background 0.25s linear;
-        }
-      }
-
-      .voting_platform_button {
-        width: 100%;
-        height: 100px;
-        border: 2px solid vars.$lightest_gray;
-        box-sizing: border-box;
-        border-radius: 4px;
-        float: left;
-        display: table;
-        text-align: center;
-        cursor: pointer;
-
-        color-adjust: exact;
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-
-        &:not(.active):hover {
-          background: vars.$medium_gray;
-          cursor: initial;
-        }
-
-        .button_title {
-          font-size: 26px;
-          font-weight: vars.$bold;
-        }
-
-        .button_description {
-          font-size: 13px;
-        }
-
-        &.active {
-          border: 2px solid vars.$aqua_marine_border;
-          background: vars.$aqua_marine;
-        }
-      }
-    }
-
-    .define_answers_wrap {
-      display: table;
-      width: 100%;
-      padding-bottom: 40px;
-      @media (max-width: 1550px) {
-        padding-bottom: 20px;
-      }
-
-      & > .table_cell:first-child {
-        width: 50%;
-
-        & .table > .table_cell {
-          width: 50%;
-          border-right: 1px solid vars.$lightest_gray;
-        }
-      }
-
-      & > .table_cell:last-child {
-        width: 50%;
-
-        & .table > .table_cell {
-          width: 50%;
-
-          &:not(:last-child) {
-            border-right: 1px solid vars.$lightest_gray;
-          }
-        }
-      }
-
-      @media (max-width: 1550px) {
-        & > .table_cell {
-          display: block !important;
-          width: 100% !important;
-        }
-        & > .table_cell:first-child {
-          border-bottom: 1px solid vars.$lightest_gray;
-
-          & .table > .table_cell:last-child {
-            border-right: none;
-          }
-        }
-      }
-
-      @media (max-width: 470px) {
-        & > .table_cell > .table > .table_cell {
-          display: block !important;
-          width: 100% !important;
-          border-right: none !important;
-
-          &:not(:last-child) {
-            border-bottom: 1px solid vars.$lightest_gray;
-          }
-        }
-      }
-    }
-
-    .double_cell_layout {
-      display: table;
-      width: 100%;
-
-      &.ten_px_margin_between {
-        .right_row {
-          @media (max-width: 600px) {
-            margin-top: 10px;
-          }
-        }
-      }
-
-      &.margin_betwen_boxes {
-        .gray_toggle_box:not(:first-child) {
-          margin-top: 20px;
-          @media (max-width: 600px) {
-            margin-top: 10px;
-          }
-        }
-      }
-
-      &.ten_px_padding {
-        padding-bottom: 10px;
-      }
-
-      &.section_padding {
-        padding-bottom: 20px;
-      }
-
-      @media (max-width: 1200px) {
-        padding-bottom: 20px;
-      }
-
-      .left_row,
-      .right_row {
-        display: table-cell;
-        vertical-align: top;
-        width: 50%;
-        @media (max-width: 1200px) {
-          display: table-row;
-          width: 100%;
-
-          .datepicker_title,
-          .date_picker_wrap {
-            margin-left: 20px;
-          }
-        }
-        @media (max-width: 1024px) {
-          display: table-row;
-          vertical-align: top;
-          width: 50%;
-        }
-        @media (max-width: 600px) {
-          display: table-row;
-          width: 100%;
-        }
-      }
-
-      .left_row {
-        padding-right: 10px;
-        @media (max-width: 1200px) {
-          padding: 0;
-        }
-        @media (max-width: 1024px) {
-          padding-right: 10px;
-        }
-        @media (max-width: 600px) {
-          padding: 0;
-        }
-
-        .icon_cell {
-          display: table-cell;
-          width: 33%;
-
-          .icon_wrapper {
-            padding-top: 10px;
-            width: min-content;
-            margin-left: auto;
-            margin-right: auto;
-            left: 0;
-            right: 0;
-          }
-        }
-      }
-
-      .right_row {
-        padding-left: 10px;
-        @media (max-width: 1200px) {
-          margin-top: 20px;
-          padding: 0;
-        }
-        @media (max-width: 1024px) {
-          padding-left: 10px;
-        }
-        @media (max-width: 600px) {
-          margin-top: 20px;
-          padding: 0;
-        }
-      }
-    }
-
-    .vote_options_count_wrap {
-      width: 100%;
-      clear: both;
-      padding-bottom: 33px;
-
-      .options_selector_wrapper {
-        display: inline-block;
-        width: 49%;
-      }
-
-      .options_count_input_wrap {
-        width: 100%;
-
-        .options_count_input {
-          height: 41px;
-          width: calc(100% - 110px);
-          border: 1px solid vars.$lightest_gray;
-          border-radius: 4px;
-          vertical-align: middle;
-          -webkit-appearance: textfield;
-          appearance: textfield;
-          -moz-appearance: textfield;
-          text-align: center;
-        }
-
-        .options_count_input::-webkit-inner-spin-button {
-          -webkit-appearance: none;
-          margin: 0;
-        }
-
-        .options_count_input_subtract,
-        .options_count_input_add {
-          width: 45px;
-          height: 45px;
-          display: inline-block;
-          vertical-align: middle;
-          font-size: 30px;
-          line-height: 30px;
-          color: #666666;
-          background-color: vars.$light_gray;
-          border: solid 1px vars.$lightest_gray;
-          font-weight: bold;
-        }
+  .vote_options_wrap {
+    .radio_wrap {
+      background-color: var(--color-surfaces);
+      border-color: var(--color-dialog-voting-contrast);
+      &.selected {
+        background-color: var(--color-argument-pro-light);
+        border: none;
+        padding: 17px;
       }
     }
   }
+}
+
+.input_area {
+
+  input {
+    background-color: var(--color-surfaces);
+  }
+  button {
+    width: max-content;
+    padding: 8px 16px;
+  }
+  &.min_max_options {
+    justify-content: space-between;
+    padding: 8px 8px 8px 16px;
+  }
+
+  .options_count_input_wrap {
+    display: flex;
+    gap: 8px;
+    justify-self: flex-end;
+    align-self: flex-end;
+    vertical-align: middle;
+    align-items: center;
+
+    .options_count_input {
+      display: flex;
+      max-width: 64px;
+      padding: 16px;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+      text-align: center;
+      border-radius: 8px;
+      border: 1px solid var(--color-border);
+      -moz-appearance: textfield;
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+    }
+  }
+}
+
+.dropdown.mobile_show {
+  width: 100%;
+
+  .selection {
+    padding: 8px 16px;
+  }
+}
+
+.radio_wrap {
+  padding: 16px;
+  border-radius: 8px;
+
+  &.selected {
+    background-color: var(--color-argument-pro-light);
+  }
+}
+
+.date_selector {
+  width: 100%;
+
+  .checkbox {
+    width: 100%;
+
+    .deadline {
+      position: absolute;
+      right: 0;
+    }
+  }
+}
+
+.deadline_wrap {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 16px;
+
+  .date_row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    vertical-align: middle;
+    gap: 24px;
+
+    .date_row_title {
+      min-width: 25%;
+    }
+
+    .input_wrap {
+      flex-grow: 2;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      justify-content: flex-end;
+
+      .time_input {
+        max-width: max-content;
+      }
+
+      .dropdown {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.reminder_wrap {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-argument-pro-medium);
+  padding: 16px;
+  gap: 8px;
+
+  .dropdown {
+    width: 100%;
+  }
+}
+
+.dialog_info_wrap {
+  .dialog_info {
+    .dialog_info_header {
+      display: flex;
+      background-color: var(--color-argument-pro-medium);
+    }
+
+    .dialog_info_content {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-start;
+      width: 100%;
+
+      .radio_wrap {
+        width: 100%;
+        background-color: var(--color-surfaces);
+      }
+    }
+  }
+}
+
+.id_icons_wrap{
+  display: flex;
+  justify-content: space-around;
 }

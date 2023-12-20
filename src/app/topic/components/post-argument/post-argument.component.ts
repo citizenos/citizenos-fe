@@ -1,5 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { trigger, state, style } from '@angular/animations';
+import { Component, OnInit, Input, Inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { take } from 'rxjs';
 import { AppService } from 'src/app/services/app.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -7,7 +9,20 @@ import { TopicArgumentService } from 'src/app/services/topic-argument.service';
 @Component({
   selector: 'post-argument',
   templateUrl: './post-argument.component.html',
-  styleUrls: ['./post-argument.component.scss']
+  styleUrls: ['./post-argument.component.scss'],
+  animations: [
+    trigger('openSlide', [
+      // ...
+      state('open', style({
+        'maxHeight': 'initial',
+        transition: '0.5s ease-in-out max-height'
+      })),
+      state('closed', style({
+        padding: '0',
+        'maxHeight': '0',
+        transition: '0.5s ease-in-out max-height'
+      }))
+  ])]
 })
 export class PostArgumentComponent implements OnInit {
   @Input() topicId!: string;
@@ -21,7 +36,13 @@ export class PostArgumentComponent implements OnInit {
   ARGUMENT_TYPES_MAXLENGTH = this.TopicArgumentService.ARGUMENT_TYPES_MAXLENGTH;
   ARGUMENT_SUBJECT_MAXLENGTH = this.TopicArgumentService.ARGUMENT_SUBJECT_MAXLENGTH;
   private COMMENT_VERSION_SEPARATOR = '_v';
-  constructor(public app: AppService, private AuthService: AuthService, public TopicArgumentService: TopicArgumentService, private route: ActivatedRoute, private router: Router) { }
+  constructor(
+    public app: AppService,
+    private AuthService: AuthService,
+    public TopicArgumentService: TopicArgumentService,
+    @Inject(ActivatedRoute) private route: ActivatedRoute,
+    @Inject(TranslateService) public translate: TranslateService,
+    @Inject(Router) private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -38,6 +59,13 @@ export class PostArgumentComponent implements OnInit {
     this.text = text;
   }
 
+  addNewArgument() {
+    this.app.addArgument.next(true);
+  }
+
+  close () {
+    this.app.addArgument.next(false);
+  }
   postArgument() {
     const argument = {
       parentVersion: 0,
@@ -54,6 +82,7 @@ export class PostArgumentComponent implements OnInit {
           this.subject = '';
           this.text = '';
           this.TopicArgumentService.reset();
+          this.app.addArgument.next(false);
           this.router.navigate(
             [],
             {

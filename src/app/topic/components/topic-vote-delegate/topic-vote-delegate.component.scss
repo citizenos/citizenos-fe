@@ -1,0 +1,87 @@
+@use "mixins";
+
+.dialog {
+  max-width: 560px;
+
+  .dialog_content {
+    padding: 24px;
+    gap: 32px;
+  }
+  .dialog_info {
+    text-align: center;
+
+    #input_area {
+      width: 100%;
+    }
+
+    .search_dropdown_item {
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+      padding: 8px;
+      justify-content: space-between;
+      border-radius: 5px;
+      width: 100%;
+      &.active {
+        background-color: var(--color-surface-contrast);
+      }
+
+      .item_text_wrap {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        vertical-align: middle;
+      }
+
+      @include mixins.mobile {
+        flex-direction: column;
+      }
+    }
+  }
+  .row_list {
+    display: flex;
+    width: 100%;
+    margin-top: 8px;
+    background-color: var(--color-argument-pro-medium);
+    justify-content: space-between;
+    padding: 8px;
+    border-radius: 8px;
+    .row_cell {
+      a {
+        min-width: 200px;
+      }
+    }
+    .row_cell_dialog {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+
+      .cell_title {
+        display: flex;
+        width: 100%;
+        padding: 8px;
+      }
+
+      .action_items {
+        display: flex;
+        gap: 8px;
+        padding: 8px 0;
+        justify-content: space-between;
+        width: 100%;
+
+        .dropdown {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .button_content {
+    padding-top: 8px;
+  }
+
+  .profile_image_filler {
+    width: 40px;
+  }
+
+}

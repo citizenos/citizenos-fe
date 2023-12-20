@@ -4,12 +4,14 @@ import { ConfigService } from 'src/app/services/config.service';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageSelectComponent } from '../language-select/language-select.component';
+import { AccessibilityMenuComponent } from '../accessibility-menu/accessibility-menu.component';
+
 import { AuthService } from 'src/app/services/auth.service';
 import { LocationService } from 'src/app/services/location.service';
-import { ActivityFeedComponent } from '../activity-feed/activity-feed.component';
 import { AppService } from 'src/app/services/app.service';
-import { ActivityService } from 'src/app/services/activity.service';
-import { tap, take } from 'rxjs';
+import { TourService } from 'src/app/services/tour.service';
+import { TopicService } from 'src/app/services/topic.service';
+import { take } from 'rxjs';
 import { Router } from '@angular/router';
 @Component({
   selector: 'nav',
@@ -19,23 +21,25 @@ import { Router } from '@angular/router';
 })
 export class NavComponent implements OnInit {
   wWidth = window.innerWidth;
-  unreadActivitiesCount$: any;
-  newActivities: number = 0;
+  topicsCount$ = this.TopicService.count();
   constructor(private Location: LocationService,
     public translate: TranslateService,
     private router: Router,
     public config: ConfigService,
     public auth: AuthService, public dialog: MatDialog,
-    private app: AppService,
-    ActivityService: ActivityService
+    public app: AppService,
+    private TopicService: TopicService,
+    public TourService: TourService
   ) {
-    this.unreadActivitiesCount$ = ActivityService.getUnreadActivities().pipe(tap((count:number) => {
-      this.newActivities = 0;
-      if (count) this.newActivities = count
-    }));
   }
 
   ngOnInit(): void {
+  }
+
+  isNavVisible () {
+    if (this.app.showNav) {
+      window.scrollTo(0, 0);
+    }
   }
 
   displayEmpoweredIcon() {
@@ -55,6 +59,10 @@ export class NavComponent implements OnInit {
     this.app.doShowLogin();
   }
 
+  doShowRegister() {
+    this.app.doShowRegister();
+  }
+
   doLogout() {
     this.auth.logout()
     .pipe(take(1))
@@ -64,7 +72,7 @@ export class NavComponent implements OnInit {
         this.router.navigate(['/']);
       },
       error: (err) => {
-        console.log('ERROR', err);
+        console.error('LOGOUT ERROR', err);
       }
     });
   }
@@ -73,8 +81,8 @@ export class NavComponent implements OnInit {
     this.app.showHelp.next(!curStatus);
   }
 
-  doShowActivityModal() {
+  accessibility() {
     this.dialog.closeAll();
-    this.dialog.open(ActivityFeedComponent);
-  };
+    this.dialog.open(AccessibilityMenuComponent);
+  }
 }

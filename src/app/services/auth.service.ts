@@ -1,17 +1,14 @@
 import { ConfigService } from 'src/app/services/config.service';
 import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { inject, Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse} from '@angular/common/http';
 import { of, BehaviorSubject, Observable, throwError } from 'rxjs';
-import { fromFetch } from 'rxjs/fetch';
 import { switchMap, catchError, tap, take, map, retry, exhaustMap, shareReplay, combineLatestWith } from 'rxjs/operators';
 import { LocationService } from './location.service';
 import { NotificationService } from './notification.service';
 import { User } from '../interfaces/user';
 import { MatDialog } from '@angular/material/dialog';
-import { PrivacyPolicyComponent } from '../account/components/privacy-policy/privacy-policy.component';
-import { AddEmailComponent } from '../account/components/add-email/add-email.component';
-import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +17,7 @@ export class AuthService {
   private loadUser$ = new BehaviorSubject<void>(undefined);
   public user$: Observable<User> | null;
   public loggedIn$ = new BehaviorSubject(false);
-  public user = new BehaviorSubject({ id: null });
+  public user = new BehaviorSubject({ id: <string|null>null });
 
   constructor(private dialog: MatDialog, private Location: LocationService, private http: HttpClient, private Notification: NotificationService, private config: ConfigService) {
     this.user$ = this.loadUser$.pipe(
@@ -35,7 +32,6 @@ export class AuthService {
     }))
   }
   reloadUser(): void {
-    console.log('reloadUser')
     this.loadUser$.next();
   }
 
@@ -112,21 +108,14 @@ export class AuthService {
     return this.user$ = this.http.get<User>(path, { withCredentials: true, observe: 'body' }).pipe(
       switchMap((res: any) => {
         const user = res.data;
-        if (!user.termsVersion || user.termsVersion !== this.config.get('legal').version) {
-          const tosDialog = this.dialog.open(PrivacyPolicyComponent, {
-            data: { user }
-          });
-        } else if (!user.email) {
-          const emailDialog = this.dialog.open(AddEmailComponent, {
-            data: { user }
-          });
+        if (!user.termsVersion || user.termsVersion !== this.config.get('legal').version || !user.email) {
+         return of(user);
         } else {
           user.loggedIn = true;
           this.user.next({ id: user.id });
           this.loggedIn$.next(true);
           return of(user);
         }
-        return of();
       }),
       catchError(res => {
         if (res.error) {
@@ -175,7 +164,8 @@ export class AuthService {
   idCardInit() {
     return this.http.get<ApiResponse>(this.config.get('features').authentication.idCard.url, { withCredentials: true, responseType: 'json', observe: 'body' })
       .pipe(
-        map(res => res.data)
+        map(res => res.data),
+        tap(res => console.log(res))
       );
   };
   loginIdCard(userId?: string) {

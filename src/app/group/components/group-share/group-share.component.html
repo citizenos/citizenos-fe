@@ -1,74 +1,47 @@
-<div class="lightbox_section" *ngIf="group && canShare()">
-  <h3 translate="MODALS.TOPIC_SETTINGS_HEADING_LINK_SHARING"></h3>
-  <div class="share_link">
-    <div class="table_row">
-      <div class="searchbox_with_icon_and_text only_text">
-        <input id="url_invite_group_input" [value]="joinUrl"
-          [placeholder]="'MODALS.GROUP_CREATE_SETTINGS_PLACEHOLDER_CREATE_NEW_LINK' | translate">
-        <div class="regenerate_link not_mobile" (click)="generateTokenJoin()"
-          *ngIf="canUpdate()">
-          <div class="sprite sprite-icon-refresh"></div>
-        </div>
-      </div>
-      <div class="blue_button not_mobile" (click)="copyInviteLink()"
-        translate="MODALS.GROUP_CREATE_SETTINGS_BTN_COPY_LINK"></div>
-    </div>
-    <div class="permissions">
-      <div class="label" translate="MODALS.GROUP_CREATE_SETTINGS_LABEL_DROPDOWN_PERMISSION_DESCRIPTION"></div>
-       <span *ngIf="!canUpdate()" class="bold"> {{('TXT_GROUP_LEVELS_' + join.level |
-        uppercase) | translate}}</span>
-      <div [cosDropdown] class="classic_dropdown" *ngIf="canUpdate()">
-        <div class="dropdown_selection">
-          <div class="dropdown_text">
-            {{('TXT_GROUP_LEVELS_' + join.level | uppercase) | translate}}
-          </div>
+<div class="section_heading" translate="COMPONENTS.GROUP_SHARE.GENERATE_LINK"></div>
+<div class="share_wrap">
+  <div class="input_area">
+    <input id="invite_group_url_input" [value]="joinUrl"
+      [placeholder]="'COMPONENTS.GROUP_SHARE.PLACEHOLDER_CREATE_NEW_LINK' | translate">
+    <button id="reload" (click)="generateTokenJoin()" *ngIf="canUpdate()">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M17 12L18.9999 12C18.9999 10.207 18.3167 8.41728 16.9496 7.05025C14.4553 4.55593 10.5469 4.33754 7.80498 6.39507C7.36324 6.72655 6.73356 6.73367 6.34304 6.34315C5.95252 5.95262 5.94962 5.31411 6.38062 4.96878C9.91434 2.13752 15.0878 2.35994 18.3639 5.63604C20.121 7.3932 20.9999 9.69825 20.9999 12L23 12L20 16L17 12Z"
+          fill="#2C3B47" />
+        <path
+          d="M4.9999 12C4.9999 13.793 5.68312 15.5827 7.05015 16.9497C9.54447 19.4441 13.4529 19.6625 16.1948 17.6049C16.6366 17.2734 17.2662 17.2663 17.6567 17.6569C18.0473 18.0474 18.0502 18.6859 17.6192 19.0312C14.0854 21.8625 8.91203 21.6401 5.63593 18.364C3.87877 16.6068 2.99989 14.3018 2.9999 12H1L4 8L7 12L4.9999 12Z"
+          fill="#2C3B47" />
+      </svg>
+    </button>
+  </div>
+  <button class="btn_medium_secondary bold" (click)="copyInviteLink()" translate="COMPONENTS.GROUP_SHARE.COPY_LINK"></button>
+</div>
 
-          <div class="arrow_holder">
-            <div class="table_cell">
-              <div class="sprite sprite-icon-dropdown-arrowdown2x"></div>
-
-              <div class="v_line"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="dropdown">
-          <div class="dropdown_item" *ngFor="let level of LEVELS">
-            <div class="item_name" (click)="doUpdateJoinToken(level)">
-              {{('TXT_GROUP_LEVELS_' + level | uppercase) | translate}}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="table_row mobile_only">
-      <div class="blue_button" (click)="copyInviteLink()"
-        translate="MODALS.GROUP_CREATE_SETTINGS_BTN_COPY_LINK"></div>
-    </div>
-    <div class="table_row mobile_only">
-      <div class="white_button" (click)="generateTokenJoin()"
-        translate="MODALS.GROUP_CREATE_SETTINGS_LNK_CREATE_NEW_LINK"></div>
+<div class="notification_inline success" *ngIf="copySuccess">
+  <div class="icon_notification">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="24" height="24" rx="12" fill="#5AB467" />
+      <path fill-rule="evenodd" clip-rule="evenodd"
+        d="M18.9849 6.13908C19.2395 6.35122 19.2739 6.72956 19.0617 6.98413L10.0617 17.7841C9.94734 17.9214 9.77773 18.0005 9.59905 18C9.42038 17.9995 9.25123 17.9194 9.13764 17.7814L4.93764 12.6814C4.72699 12.4256 4.76358 12.0475 5.01937 11.8369C5.27517 11.6262 5.6533 11.6628 5.86396 11.9186L9.60353 16.4595L18.1399 6.2159C18.352 5.96134 18.7303 5.92694 18.9849 6.13908Z"
+        fill="white" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+  </div>
+  <div class="message">
+    <div class="content">
+      <span translate="COMPONENTS.GROUP_SHARE.MSG_LINK_COPIED"></span>
     </div>
   </div>
 </div>
-
-<div class="lightbox_section social_sharing" *ngIf="canUpdate()">
-  <h3 translate="MODALS.GROUP_CREATE_SETTINGS_HEADING_SOCIAL_SHARING">Social sharing</h3>
-  <a socialshare sharetext="{{group.name}}" shareprovider="facebook" shareurl="{{joinUrl}}">
-    <div class="sprite sprite-icon-social-facebook-v2"></div>
-  </a>
-  <a socialshare sharetext="{{group.name}}" shareprovider="linkedin" shareurl="{{joinUrl}}">
-    <div class="sprite sprite-icon-social-linkedin-v2"></div>
-  </a>
-  <a socialshare sharetext="{{group.name}}" shareprovider="twitter" shareurl="{{joinUrl}}">
-    <div class="sprite sprite-icon-social-twitter-v2"></div>
-  </a>
-</div>
-
-<div class="lightbox_section" *ngIf="canUpdate()">
-  <h3 translate="MODALS.GROUP_CREATE_SETTINGS_HEADING_QR_SHARING"></h3>
-  <div class="qr_code">
+<div class="line_separator"></div>
+<div class="info_section">
+  <div class="section_heading" translate="COMPONENTS.GROUP_SHARE.GENERATE_QR_CODE"></div>
+  <div *ngIf="!showQR" translate="COMPONENTS.GROUP_SHARE.GENERATE_QR_CODE_DESCRIPTION"></div>
+  <div translate="COMPONENTS.GROUP_SHARE.GENERATE_QR_CODE_PRINT"></div>
+  <div class="qr_code" *ngIf="showQR">
     <qrcode [qrdata]="joinUrl || ''" [width]="120" [version]="4" [errorCorrectionLevel]="'L'"></qrcode>
   </div>
-  <!--a href="#fixme" class="table_cell" translate="MODALS.TOPIC_SETTINGS_LINK_QR_CODE_PDF">Download QR code PDF</a-->
+  <div *ngIf="!showQR">
+    <button class="btn_medium_secondary bold" (click)="showQR = true" *ngIf="canUpdate()" translate="COMPONENTS.GROUP_SHARE.BTN_GENERATE_QR_CODE">
+    </button>
+  </div>
 </div>

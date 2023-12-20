@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicMemberUserService } from 'src/app/services/topic-member-user.service';
 import { TopicInviteUserService } from 'src/app/services/topic-invite-user.service';
@@ -20,8 +20,8 @@ export interface TopicParticipantsData {
 })
 export class TopicParticipantsComponent implements OnInit {
 
-  tabSelected = 'participants';
-  topic:Topic;
+  activeTab = 'participants';
+  topic: Topic;
   memberGroups$ = of(<any[]>[]);
   memberUsers$ = of(<any[]>[]);
   memberInvites$ = of(<any[]>[]);
@@ -33,7 +33,7 @@ export class TopicParticipantsComponent implements OnInit {
     public TopicInviteUserService: TopicInviteUserService,
     public TopicMemberGroupService: TopicMemberGroupService,
     private TopicService: TopicService
-    ) {
+  ) {
     this.topic = data.topic;
     this.memberGroups$ = TopicMemberGroupService.loadItems();
     this.memberUsers$ = TopicMemberUserService.loadItems();
@@ -46,11 +46,7 @@ export class TopicParticipantsComponent implements OnInit {
     this.TopicInviteUserService.setParam('topicId', this.topic.id);
   }
 
-  selectTab(tab: string) {
-    this.tabSelected = tab;
-  }
-
-  canUpdate () {
+  canUpdate() {
     return this.TopicService.canUpdate(this.topic);
   }
 
@@ -67,10 +63,10 @@ export class TopicParticipantsComponent implements OnInit {
     }
   };
 
-  doDeleteMemberUser(member:TopicMemberUser) {
-  /*  if (member.id === this.AuthService.user.value.id) {
-      return this.doLeaveTopic();
-    }*/
+  doDeleteMemberUser(member: TopicMemberUser) {
+    /*  if (member.id === this.AuthService.user.value.id) {
+        return this.doLeaveTopic();
+      }*/
     const deleteUserDialog = this.dialog.open(ConfirmDialogComponent, {
       data: {
         level: 'delete',
@@ -100,16 +96,24 @@ export class TopicParticipantsComponent implements OnInit {
 })
 export class TopicParticipantsDialogComponent implements OnInit {
 
-  constructor(dialog: MatDialog, router: Router, route: ActivatedRoute, TopicService: TopicService) {
+  constructor(dialog: MatDialog, router: Router, route: ActivatedRoute, TopicService: TopicService, @Inject(MAT_DIALOG_DATA) data: any, curDialog: MatDialogRef<TopicParticipantsDialogComponent>) {
+    if (data.topic) {
+      const manageDialog = dialog.open(TopicParticipantsComponent, { data: { topic: data.topic } });
+      manageDialog.afterClosed().subscribe(() => {
+        curDialog.close();
+      })
+    } else {
     route.params.pipe(switchMap((params) => {
       return TopicService.get(params['topicId']);
     })).pipe(take(1))
-    .subscribe((topic) => {
-      const manageDialog = dialog.open(TopicParticipantsComponent, {data: {topic}});
-      manageDialog.afterClosed().subscribe(() => {
-        router.navigate(['../'], {relativeTo: route});
+      .subscribe((topic) => {
+        const manageDialog = dialog.open(TopicParticipantsComponent, { data: { topic } });
+        manageDialog.afterClosed().subscribe(() => {
+          curDialog.close();
+          router.navigate(['../'], { relativeTo: route });
+        })
       })
-    })
+    }
 
   }
 

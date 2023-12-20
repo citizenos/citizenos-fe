@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppService } from 'src/app/services/app.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -6,17 +6,38 @@ import { ConfigService } from 'src/app/services/config.service';
 import { SearchService } from 'src/app/services/search.service';
 import { TranslateService } from '@ngx-translate/core';
 import { debounceTime, distinctUntilChanged, of, take } from 'rxjs';
+import { style, transition, trigger, animate, state } from '@angular/animations';
+
 @Component({
   selector: 'search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+  styleUrls: ['./search.component.scss'],
+  animations: [
+    trigger('openClose', [
+      state('open', style({
+        right: 0,
+        visibility: 'visible'
+      })),
+      state('closed', style({
+        right: '-300px',
+        visibility: 'hidden'
+      }))
+    ]),
+  ]
 })
 export class SearchComponent implements OnInit {
+  searchInputField! : ElementRef;
+  @ViewChild("searchInputField") set content(content: ElementRef) {
+    if (content) { // initially setter gets called with undefined
+      this.searchInputField = content;
+    }
+  }
   noResults = true;
   viewMoreInProgress = false;
   moreStr: string = '';
   config: any;
   lnkDonate: string;
+  searchInput: string = '';
   contexts = ['my', 'public'];
   models = ['groups', 'topics']
   //review
@@ -36,7 +57,23 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  isVisibleSearch() {
+    if (this.app.showSearch) {
+      setTimeout(() => {
+        this.searchInputField.nativeElement.focus();
+      },300);
+    } else if (this.searchInput !== '') {
+      this.searchInput = '';
+      this.doSearch('');
+    }
+    return this.app.showSearch;
+  }
+
   doSearch(str: string | null) {
+    /* if (this.viewMoreInProgress) {
+         return this.form.searchInput = this.moreStr;
+     }
+ */
     this.noResults = true;
 
     if (!str || str.length < 3) {
@@ -47,7 +84,7 @@ export class SearchComponent implements OnInit {
     if (this.AuthService.loggedIn$.value === true) {
       include = ['my.topic', 'my.group', 'public.topic', 'public.group'];
     }
-    this.moreStr = str;
+
     return this.Search
       .search(
         str,
@@ -61,7 +98,6 @@ export class SearchComponent implements OnInit {
           this.searchResults = data.results;
           this.app.showSearchResults = true;
           this.app.showNav = false;
-          this.app.showSearchFiltersMobile = false;
           /*this.searchResults = result.data.data.results;
           */
           let countTotal = 0;
@@ -95,11 +131,13 @@ export class SearchComponent implements OnInit {
       }
 
       if (model == 'topic' && item.id) {
+        this.app.showSearch = false;
         if (this.AuthService.loggedIn$.value === true && context === 'my') {
           this.router.navigate(['my/topics', item.id], { queryParams: { filter: 'all' } });
         }
         return this.router.navigate(['/topics', item.id]);
       } else if (model === 'group' && item.id) {
+        this.app.showSearch = false;
         if (this.AuthService.loggedIn$.value === true && context === 'my') {
           return this.router.navigate(['my/groups', item.id], { queryParams: { filter: 'grouped' } });
         }
@@ -109,16 +147,12 @@ export class SearchComponent implements OnInit {
     return;
   };
 
-  closeSearchArea() {
-    this.app.showSearchResults = false;
-    this.app.showSearch = false;
-  };
-
   viewMoreResults(context: string, model: string) {
     if (this.viewMoreInProgress) {
       return;
     } else {
       this.viewMoreInProgress = true;
+      this.moreStr = this.searchInput;
     }
 
     if (context && model && this.searchResults[context][model].count > this.searchResults[context][model].rows.length - 1) { // -1 because the "viewMore" is added as an item that is not in the actual search result
@@ -128,7 +162,7 @@ export class SearchComponent implements OnInit {
       } else if (model === 'groups') {
         include = context + '.group';
       }
-      console.log(this.moreStr);
+
       this.Search
         .search(
           this.moreStr,

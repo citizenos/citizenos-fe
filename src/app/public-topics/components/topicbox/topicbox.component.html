@@ -1,5 +1,155 @@
-<a (click)="goToView()" class="topic" [ngClass]="catClass">
-  <div class="topic_wrap">
+<a (click)="(!topic.report)? goToView(): ''" class="topic" [ngClass]="{'moderated': topic.report}">
+  <div class="moderated_topic" *ngIf="topic.report">
+    <div class="notification">
+      <div>
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="40" height="40" rx="20" fill="#F39129" />
+          <path
+            d="M19.0645 8C18.4876 8 18.0304 8.48668 18.0664 9.06238L18.9414 23.0624C18.9743 23.5894 19.4114 24 19.9395 24H20.0605C20.5886 24 21.0257 23.5894 21.0586 23.0624L21.9336 9.06238C21.9696 8.48668 21.5124 8 20.9355 8H19.0645Z"
+            fill="white" />
+          <path
+            d="M20 31C21.1046 31 22 30.1046 22 29C22 27.8954 21.1046 27 20 27C18.8954 27 18 27.8954 18 29C18 30.1046 18.8954 31 20 31Z"
+            fill="white" />
+        </svg>
+      </div>
+      <div class="notification_title" translate="COMPONENTS.TOPICBOX.NOTIFICATION_TITLE"></div>
+      <div class="notification_links">
+        <a translate="COMPONENTS.TOPICBOX.NOTIFICATION_LNK_WHY"></a>
+        <a translate="COMPONENTS.TOPICBOX.NOTIFICATION_LNK_VIEW" (click)="goToView()"></a>
+      </div>
+    </div>
+  </div>
+  <div class="topic_header"
+    [ngClass]="{'discussion': topic.status === 'inProgress', 'voting': topic.status === 'voting', 'follow_up': topic.status === 'followUp', 'draft': topic.status === 'draft'}">
+    <div class="progress" [ngStyle]="{'width.%': getProgress()}">
+      <div class="header_content">
+        <ng-container *ngIf="topic.status==='draft'">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8.8143 4.18517L11.8147 7.18569L5.29947 13.7012L2.62438 13.9965C2.26626 14.0361 1.96369 13.7333 2.00354 13.3752L2.30118 10.6981L8.8143 4.18517ZM13.6704 3.73845L12.2616 2.3296C11.8222 1.89013 11.1095 1.89013 10.67 2.3296L9.34467 3.65501L12.3451 6.65553L13.6704 5.33011C14.1099 4.89042 14.1099 4.17791 13.6704 3.73845Z" fill="#2C3B47"/>
+            </svg>
+          <div class="bold" translate="COMPONENTS.TOPICBOX.HEADER_DRAFT"
+            [translateParams]="{value: topic.comments?.count || 0}"></div>
+        </ng-container>
+        <ng-container *ngIf="topic.status==='inProgress'">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M14 9.76344C14.0241 9.72875 14.0472 9.69281 14.071 9.65906C14.6754 8.76079 14.9988 7.70299 15 6.62031C15.01 3.51719 12.3919 1 9.15441 1C6.33066 1 3.97503 2.92156 3.42316 5.4725C3.34037 5.85056 3.29846 6.23642 3.29816 6.62344C3.29816 9.72969 5.81566 12.3144 9.05316 12.3144C9.56784 12.3144 10.2613 12.1597 10.6416 12.0553C11.0219 11.9509 11.3988 11.8131 11.4963 11.7759C11.5938 11.7387 11.7463 11.7006 11.8678 11.7356L14.2872 12.435C14.3085 12.4413 14.3311 12.4418 14.3526 12.4365C14.3741 12.4312 14.3939 12.4202 14.4098 12.4048C14.4257 12.3893 14.4372 12.3699 14.4431 12.3485C14.449 12.3271 14.4491 12.3046 14.4435 12.2831L13.8897 10.1741C13.8513 10.0178 13.8463 9.98844 14 9.76344Z"
+              fill="white" />
+            <path
+              d="M9.76691 12.9809C9.52643 13.0193 9.28353 13.0407 9.04004 13.0449C7.7141 13.0449 6.46191 12.6949 5.44629 12.0387C4.79661 11.6399 4.23267 11.116 3.78722 10.4974C2.97222 9.4171 2.52785 8.04398 2.52785 6.6071C2.52785 6.50929 2.53129 6.41523 2.53472 6.32085C2.53596 6.29302 2.5286 6.26548 2.51363 6.24198C2.49867 6.21848 2.47683 6.20016 2.45109 6.1895C2.42534 6.17885 2.39695 6.17639 2.36975 6.18244C2.34256 6.1885 2.31789 6.20278 2.2991 6.22335C1.55083 7.04207 1.09849 8.08791 1.01431 9.19386C0.930138 10.2998 1.21898 11.4021 1.83472 12.3246C1.91191 12.4424 1.95566 12.5334 1.94222 12.594L1.50191 14.8521C1.49785 14.8736 1.49949 14.8957 1.50666 14.9164C1.51384 14.937 1.5263 14.9554 1.5428 14.9697C1.55931 14.9841 1.57928 14.9938 1.60073 14.998C1.62218 15.0022 1.64435 15.0007 1.66504 14.9937L3.79004 14.2362C3.85448 14.2107 3.92331 14.1982 3.9926 14.1994C4.06188 14.2005 4.13025 14.2154 4.19378 14.243C4.82972 14.493 5.53316 14.6468 6.2366 14.6468C7.5906 14.6512 8.89485 14.1368 9.88129 13.2093C9.90165 13.1894 9.91518 13.1636 9.9199 13.1356C9.92463 13.1075 9.92031 13.0787 9.90758 13.0533C9.89485 13.0278 9.87436 13.0071 9.84907 12.9941C9.82378 12.9811 9.79501 12.9764 9.76691 12.9809Z"
+              fill="white" />
+          </svg>
+          <div class="bold" translate="COMPONENTS.TOPICBOX.HEADER_DISCUSSION"
+            [translateParams]="{value: topic.comments?.count || 0}"></div>
+        </ng-container>
+        <ng-container *ngIf="topic.status==='voting'">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M8 0C3.584 0 0 3.584 0 8C0 12.416 3.584 16 8 16C12.416 16 16 12.416 16 8C16 3.584 12.416 0 8 0ZM6.44444 12L12.6667 5.82456L11.5 4.66667L6.44444 9.68421L4.5 7.75439L3.33333 8.91228L6.44444 12Z"
+              fill="white" />
+          </svg>
+          <ng-container *ngIf="vote$ | async as vote">
+            <div class="bold" translate="COMPONENTS.TOPICBOX.HEADER_VOTING"
+              [translateParams]="{target: topic.members.users.count, value: (vote.votersCount || 0)}"></div>
+          </ng-container>
+        </ng-container>
+        <ng-container *ngIf="topic.status==='followUp'">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="16" height="16" rx="8" fill="white" />
+            <path
+              d="M9.26218 5.01961L9.06663 4H4.66663V12.6667H5.6444V9.09804H8.38218L8.57774 10.1176H12V5.01961H9.26218Z"
+              fill="#DA7AB1" />
+          </svg>
+          <div class="bold" translate="COMPONENTS.TOPICBOX.HEADER_FOLLOW_UP"
+            [translateParams]="{value: (milestones$ | async)?.length}"></div>
+        </ng-container>
+        <ng-container *ngIf="topic.status==='closed'">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M8 0C3.584 0 0 3.584 0 8C0 12.416 3.584 16 8 16C12.416 16 16 12.416 16 8C16 3.584 12.416 0 8 0ZM6.44444 12L12.6667 5.82456L11.5 4.66667L6.44444 9.68421L4.5 7.75439L3.33333 8.91228L6.44444 12Z"
+              fill="white" />
+          </svg>
+          <div class="bold" translate="COMPONENTS.TOPICBOX.HEADER_CLOSED"></div>
+        </ng-container>
+        <ng-container *ngIf="topic.status==='ideation'">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M8 0C3.584 0 0 3.584 0 8C0 12.416 3.584 16 8 16C12.416 16 16 12.416 16 8C16 3.584 12.416 0 8 0ZM6.44444 12L12.6667 5.82456L11.5 4.66667L6.44444 9.68421L4.5 7.75439L3.33333 8.91228L6.44444 12Z"
+              fill="white" />
+          </svg>
+          <div class="bold" translate="COMPONENTS.TOPICBOX.HEADER_IDEATION" [translateParams]="{value: 0}"></div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <div class="image">
+    <div class="image_overlay"></div>
+    <img *ngIf="topic.imageUrl" [src]="topic.imageUrl">
+    <div class="no_image" *ngIf="!topic.imageUrl">
+      <svg width="37" height="41" viewBox="0 0 37 41" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M29.307 5.5918C30.9953 5.5918 32.3766 7.08292 32.3766 8.90541V32.1007C32.3766 33.9232 30.9953 35.4143 29.307 35.4143H7.81962C6.13133 35.4143 4.75 33.9232 4.75 32.1007V8.90541C4.75 7.08292 6.13133 5.5918 7.81962 5.5918H29.307ZM17.0285 27.9752L13.1915 22.9882L7.81962 30.4439H29.307L22.4003 20.503L17.0285 27.9752Z"
+          fill="#4D5C6A" />
+      </svg>
+    </div>
+  </div>
+  <div class="topic_content">
+    <div class="icon_area">
+      <svg class="svg">
+        <clipPath id="my-clip-path" clipPathUnits="objectBoundingBox">
+          <path
+            d="M0.829,0.305 C0.86,0.407,0.921,0.5,1,0.5 V0.5 C0.982,0.753,0.685,1,0.5,1 C0.309,1,0.009,0.765,0,0.5 V0.5 C0.079,0.5,0.14,0.407,0.171,0.305 C0.225,0.126,0.352,0,0.5,0 C0.648,0,0.775,0.126,0.829,0.305">
+          </path>
+        </clipPath>
+      </svg>
+      <div class="topic_icon" *ngIf="topic.favourite">
+        <div class="clipped">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12 3L14.645 8.35942L20.5595 9.21885L16.2798 13.3906L17.2901 19.2812L12 16.5L6.70993 19.2812L7.72025 13.3906L3.44049 9.21885L9.35497 8.35942L12 3Z"
+              fill="#2C3B47" />
+          </svg>
+        </div>
+      </div>
+      <div class="topic_icon" *ngIf="topic.visibility === 'private'">
+        <div class="clipped">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M8 9V7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7V9H17C18.1046 9 19 9.89543 19 11V17C19 18.1046 18.1046 19 17 19H7C5.89543 19 5 18.1046 5 17V11C5 9.89543 5.89543 9 7 9H8ZM14 7V9H10V7C10 5.89543 10.8954 5 12 5C13.1046 5 14 5.89543 14 7ZM11 13C11 12.4477 11.4477 12 12 12C12.5523 12 13 12.4477 13 13V15C13 15.5523 12.5523 16 12 16C11.4477 16 11 15.5523 11 15V13Z"
+              fill="#2C3B47" />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="date">{{topic.updatedAt | date:'YYYY-MM-dd'}}</div>
+    <div class="topic_title" [innerHTML]="topic.title"></div>
+
+  </div>
+  <div class="topic_footer">
+    <div class="line_separator"></div>
+    <div class="data_wrap">
+      <div class="participants_count">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M7.99999 8.00016C9.84094 8.00016 11.3333 6.50778 11.3333 4.66683C11.3333 2.82588 9.84094 1.3335 7.99999 1.3335C6.15904 1.3335 4.66666 2.82588 4.66666 4.66683C4.66666 6.50778 6.15904 8.00016 7.99999 8.00016Z"
+            fill="#2C3B47" />
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M4 11.6295C4 9.99307 5.19391 8.6665 6.66667 8.6665H9.33333C10.8061 8.6665 12 9.99307 12 11.6295V15.3332H4V11.6295Z"
+            fill="#2C3B47" />
+        </svg>
+        <span>{{topic.members.users.count}}</span>
+      </div>
+      <div class="last_edit">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M8.8143 4.18517L11.8147 7.18569L5.29947 13.7012L2.62438 13.9965C2.26626 14.0361 1.96369 13.7333 2.00354 13.3752L2.30118 10.6981L8.8143 4.18517V4.18517ZM13.6704 3.73845L12.2616 2.3296C11.8222 1.89013 11.1095 1.89013 10.67 2.3296L9.34467 3.65501L12.3451 6.65553L13.6704 5.33011C14.1099 4.89042 14.1099 4.17791 13.6704 3.73845V3.73845Z"
+            fill="#2C3B47" />
+        </svg>
+        <span>{{topic.lastActivity | amTimeAgo}}</span>
+      </div>
+    </div>
+  </div>
+  <!--div class="topic_wrap">
       <div class="top text_small">
           <div class="date">{{topic.lastActivity  | date : 'yyyy-MM-dd'}}</div>
           <div class="author">{{topic.creator.name}}</div>
@@ -18,5 +168,5 @@
               <span translate="{{'TXT_TOPIC_CATEGORY_' + category | uppercase}}"></span><span [ngClass]="{hidden: last}">, </span>
           </span>
       </div>
-  </div>
+  </!--div-->
 </a>

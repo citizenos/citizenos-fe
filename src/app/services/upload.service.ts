@@ -9,6 +9,7 @@ import { ConfigService } from './config.service';
 })
 export class UploadService {
   public ALLOWED_FILE_TYPES = this.config.get('attachments').upload.allowedFileTypes;
+  public ALLOWED_FILE_SIZE = this.config.get('attachments').upload.allowedFileSize;
   constructor(private http: HttpClient, private Location: LocationService, private config: ConfigService) { }
 
   upload(path: string, file: File, data?: any): Observable<HttpEvent<any> | any> {
@@ -53,4 +54,10 @@ export class UploadService {
 
     return this.upload(path, attachment.file, attachment);
   }
+
+  uploadTopicImage(data: any, file: File) {
+    const path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/upload', { topicId: data.id || data.topicId });
+
+    return this.upload(path, file);
+  };
 }

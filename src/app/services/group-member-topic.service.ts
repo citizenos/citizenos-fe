@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { LocationService } from './location.service';
-import { BehaviorSubject, map } from 'rxjs';
+import { BehaviorSubject, Observable, map, of, switchMap } from 'rxjs';
 import { ItemsListService } from './items-list.service';
 
 @Injectable({
@@ -66,14 +66,14 @@ export class GroupMemberTopicService extends ItemsListService {
       );
   }
 
-  query(params: { [key: string]: any }) {
+  query(params: { [key: string]: any }): Observable<ApiResponse> {
     let path = this.Location.getAbsoluteUrlApi(
       this.Auth.resolveAuthorizedPath('/groups/:groupId/members/topics')
       , params);
     const queryParams = Object.fromEntries(Object.entries(params).filter((i) => i[1] !== null));
     return this.http.get<ApiResponse>(path, { params: queryParams, withCredentials: true, responseType: 'json', observe: 'body' })
       .pipe(
-        map(res => res.data)
+        switchMap(res => of(res.data))
       );
   }
 

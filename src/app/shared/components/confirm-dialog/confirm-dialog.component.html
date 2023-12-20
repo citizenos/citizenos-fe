@@ -1,89 +1,83 @@
-<!-- LIGHTBOX SKELETON -->
-<div id="root_lightbox">
-  <div id="lightbox" class="confirm wide_lightbox">
-      <div id="lightbox_wrap">
-
-          <div id="lightbox_header">
-
-
-              <div id="lightbox_header_text">
-                  <div class="title" translate="{{data.heading}}"></div>
-              </div>
-
-              <div id="lightbox_close" mat-dialog-close>
-                  <div class="table_cell">
-                      <div class="sprite sprite-btn-popup-close2x">
-                      </div>
-                  </div>
-              </div>
-
-              <div class="line lightest_line"></div>
-
-          </div>
-
-
-          <div class="lightbox_content">
-
-              <div class="second_header">
-
-                  <div [ngClass]="{'sprite-icon-warn-topic2x': data.level === 'warn', 'sprite-icon-delete-topic2x': data.level === 'delete'}" class="sprite"></div>
-                  <div [ngClass]="{'warn_title': data.level === 'warn', 'delete_title': data.level === 'delete'}" translate="{{data.title}}"></div>
-                  <div [ngClass]="{'warn_description': data.level === 'warn', 'delete_description': data.level === 'delete'}" translate="{{data.description}}"></div>
-
-                  <div id="lightbox_close" mat-dialog-close>
-                      <div class="table_cell">
-                          <div class="sprite sprite-btn-popup-close2x">
-                          </div>
-                      </div>
-                  </div>
-
-              </div>
-
-              <div class="line_wrap">
-                  <div class="line lightest_line"></div>
-              </div>
-
-              <div id="delete_info_wrap">
-                  <!--Sections with h3-->
-                  <ng-container *ngFor="let section of data.sections">
-                    <h3 translate="{{section.heading}}">This content will be duplicated</h3>
-                    <div class="delete_info_text_wrap">
-                      <div class="delete_info" *ngFor="let point of section.points">
-                          <div class="sprite sprite-checkmark2x"></div>
-                          <div class="delete_info_text" translate="{{point}}"></div>
-                      </div>
-                  </div>
-                  </ng-container>
-                  <!--Sections with h3 end-->
-                  <div class="delete_info_text_wrap">
-                      <div class="delete_info_button_wrap" *ngIf="data.info">
-                          <div class="delete_info_text" translate="{{data.info}}"></div>
-                      </div>
-                      <div class="delete_info" *ngFor="let point of data.points">
-                          <div class="sprite sprite-checkmark2x"></div>
-                          <div class="delete_info_text" translate="{{point}}"></div>
-                      </div>
-                  </div>
-
-                  <div class="delete_info_button_wrap">
-
-                      <div class="table_cell">
-                          <div class="blue_button no" mat-dialog-close translate="{{data.closeBtn}}"></div>
-                      </div>
-
-                      <div class="table_cell">
-                          <div class="blue_button" [ngClass]="{'yes': data.level === 'delete'}" [mat-dialog-close]="true" translate="{{data.confirmBtn}}"></div>
-                      </div>
-
-                  </div>
-
-              </div>
-
-          </div>
-
+<div class="overlay" mat-dialog-close></div>
+<div class="dialog">
+  <div class="dialog_header"
+    [ngClass]="{'warning': data.level === 'warn', 'error': data.level === 'delete', 'info': data.level === 'info', 'voting': data.level === 'voting'}">
+    <div class="header_with_icon">
+      <div class="icon_notification">
+        <ng-container *ngIf="['warn', 'delete'].indexOf(data.level) > -1 && !data.svg">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="40" height="40" rx="20" fill="#F39129" />
+            <path
+              d="M19.0645 8C18.4876 8 18.0304 8.48668 18.0664 9.06238L18.9414 23.0624C18.9743 23.5894 19.4114 24 19.9395 24H20.0605C20.5886 24 21.0257 23.5894 21.0586 23.0624L21.9336 9.06238C21.9696 8.48668 21.5124 8 20.9355 8H19.0645Z"
+              fill="white" />
+            <path
+              d="M20 31C21.1046 31 22 30.1046 22 29C22 27.8954 21.1046 27 20 27C18.8954 27 18 27.8954 18 29C18 30.1046 18.8954 31 20 31Z"
+              fill="white" />
+          </svg>
+        </ng-container>
+        <ng-container *ngIf="data.level === 'info' && !data.svg">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="40" height="40" rx="20" fill="#F39129" />
+            <path
+              d="M19.0645 8C18.4876 8 18.0304 8.48668 18.0664 9.06238L18.9414 23.0624C18.9743 23.5894 19.4114 24 19.9395 24H20.0605C20.5886 24 21.0257 23.5894 21.0586 23.0624L21.9336 9.06238C21.9696 8.48668 21.5124 8 20.9355 8H19.0645Z"
+              fill="white" />
+            <path
+              d="M20 31C21.1046 31 22 30.1046 22 29C22 27.8954 21.1046 27 20 27C18.8954 27 18 27.8954 18 29C18 30.1046 18.8954 31 20 31Z"
+              fill="white" />
+          </svg>
+        </ng-container>
+        <div *ngIf="svg" [innerHtml]="svg"></div>
       </div>
+      <h4 class="title" translate="{{data.heading}}"></h4>
+    </div>
+    <div class="dialog_close">
+      <a class="btn_dialog_close icon" mat-dialog-close>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M7.72152 6.29537C7.3277 5.90154 6.68919 5.90154 6.29537 6.29537C5.90154 6.68919 5.90154 7.3277 6.29537 7.72153L10.5738 12L6.29541 16.2785C5.90159 16.6723 5.90159 17.3108 6.29541 17.7046C6.68923 18.0985 7.32774 18.0985 7.72156 17.7046L12 13.4262L16.2784 17.7046C16.6723 18.0985 17.3108 18.0985 17.7046 17.7046C18.0984 17.3108 18.0984 16.6723 17.7046 16.2785L13.4262 12L17.7046 7.72153C18.0985 7.3277 18.0985 6.68919 17.7046 6.29537C17.3108 5.90154 16.6723 5.90154 16.2785 6.29537L12 10.5739L7.72152 6.29537Z"
+            fill="#2C3B47" />
+        </svg>
+      </a>
+    </div>
   </div>
-
-  <div id="close_lightbox" mat-dialog-close></div>
-
+  <div class="dialog_content">
+    <div class="info_row" translate="{{data.description}}"></div>
+  </div>
+  <div class="dialog_content" *ngIf="data.sections || data.info || data.points?.length">
+    <div class="dialog_info_wrap">
+      <!--Sections with h3-->
+      <ng-container *ngFor="let section of data.sections">
+        <div class="small_heading" translate="{{section.heading}}"></div>
+        <div class="delete_info_text_wrap">
+          <div class="delete_info" *ngFor="let point of section.points">
+            <div class="sprite sprite-checkmark2x"></div>
+            <div class="delete_info_text" translate="{{point}}"></div>
+          </div>
+        </div>
+      </ng-container>
+      <!--Sections with h3 end-->
+      <div class="dialog_info" *ngIf="data.info || data.points?.length">
+        <div class="delete_info_button_wrap" *ngIf="data.info">
+          <div class="delete_info_text" translate="{{data.info}}"></div>
+        </div>
+        <ng-container *ngFor="let point of data.points">
+          <div>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9.38602 14.8088L17.5256 6L19 7.59558L9.38602 18L5 13.2534L6.47436 11.6578L9.38602 14.8088Z"
+                fill="#2C3B47" />
+            </svg>
+            <div class="delete_info_text" translate="{{point}}"></div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <div class="dialog_content">
+    <div class="button_wrap">
+      <button class="btn_big_submit" [mat-dialog-close]="true" translate="{{data.confirmBtn}}"></button>
+      <a mat-dialog-close translate="{{data.closeBtn}}"></a>
+    </div>
+  </div>
+  <div class="dialog_footer">
+  </div>
 </div>

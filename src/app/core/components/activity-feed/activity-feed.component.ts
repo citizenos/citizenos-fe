@@ -1,18 +1,56 @@
-import { Component, OnInit } from '@angular/core';
+import { style, transition, trigger, animate, state } from '@angular/animations';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { map, tap, of } from 'rxjs';
 import { ActivityService } from 'src/app/services/activity.service'
 @Component({
   selector: 'activity-feed',
   templateUrl: './activity-feed.component.html',
-  styleUrls: ['./activity-feed.component.scss']
+  styleUrls: ['./activity-feed.component.scss'],
+  animations: [
+    trigger('openClose', [
+      state('open', style({
+        right: 0,
+      })),
+      state('closed', style({
+        right: '-300px'
+      })),
+      transition('* => closed', [
+        animate('1s')
+      ]),
+      transition('* => open', [
+        animate('1s')
+      ]),
+    ]),
+  ]
 })
 export class ActivityFeedComponent implements OnInit {
   unreadActivitiesCount = 0;
   allActivities$: any[] = [];
   activities$ = of(<any[]>[]);
+  show = false;
+  feedType = 'global';
+  constructor(public ActivityService: ActivityService, @Inject(MAT_DIALOG_DATA) private data: any, private dialogRef: MatDialogRef<ActivityFeedComponent>) {
+    setTimeout(() => {
+      this.show = true
+    });
+  }
 
-  constructor(public ActivityService: ActivityService) {
+  filterActivities(filter: string) {
+    this.allActivities$ = [];
     this.ActivityService.reset();
+    this.ActivityService.setParam('include', filter)
+  }
+  ngOnInit(): void {
+    this.ActivityService.reset();
+    if (this.data?.groupId) {
+      this.feedType = 'group';
+      this.ActivityService.setParam('groupId', this.data.groupId);
+    }
+    if (this.data?.topicId) {
+      this.feedType = 'topic';
+      this.ActivityService.setParam('topicId', this.data.topicId);
+    }
     this.activities$ = this.ActivityService.loadItems().pipe(
       tap((res: any) => {
         if (res.length) {
@@ -32,17 +70,15 @@ export class ActivityFeedComponent implements OnInit {
       ));
   }
 
-  filterActivities(filter: string) {
-    this.allActivities$ = [];
-    this.ActivityService.reset();
-    this.ActivityService.setParam('include', filter)
-  }
-  ngOnInit(): void {
-  }
-
   loadMore(event: any) {
     if ((event.target.scrollTop + event.target.offsetHeight) >= event.target.scrollHeight) {
       this.ActivityService.loadMore();
     }
+  }
+  close () {
+    this.show = false;
+    setTimeout(() => {
+      this.dialogRef.close();
+    }, 500)
   }
 }

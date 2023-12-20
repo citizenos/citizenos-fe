@@ -1,6 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation, Input } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation, Input, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { tap, map, of, take, switchMap } from 'rxjs';
+import { tap, of, map, take } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { Argument } from 'src/app/interfaces/argument';
 import { AuthService } from 'src/app/services/auth.service';
@@ -16,55 +16,75 @@ import { TopicArgumentService } from 'src/app/services/topic-argument.service';
 export class TopicArgumentsComponent implements OnInit {
   @Input() topic!: Topic;
   @ViewChild('post_argument_wrap') postArgumentEl?: ElementRef;
-
+  wWidth = window.innerWidth;
+  argumentTypes = Object.keys(this.TopicArgumentService.ARGUMENT_TYPES).map((type: string) => {
+    return {type: type, checked: false}
+  });
   arguments$ = of(<Argument[] | any[]>[]);
   orderByOptions = Object.keys(this.TopicArgumentService.ARGUMENT_ORDER_BY);
   focusArgumentSubject = false;
   constructor(
     private Auth: AuthService,
-    private route: ActivatedRoute,
+    @Inject(ActivatedRoute) private route: ActivatedRoute,
     private app: AppService,
     public TopicArgumentService: TopicArgumentService) {
+    this.TopicArgumentService.setParam('limit', 5);
     this.arguments$ = this.TopicArgumentService.loadItems().pipe(
-      map((res:any[]) => {
+      map((res: any[]) => {
         let results = res.concat([]);
-        const countTree = (parentNode: any, currentNode: any, counter: number) => {counter
+        const argArray = <any[]>[];
+        const countTree = (parentNode: any, currentNode: any) => {
           if (currentNode.replies.rows.length > 0) {
             if (parentNode !== currentNode) {
-              counter += currentNode.replies.count;
+              parentNode.replies.rows = parentNode.replies.rows.concat(currentNode.replies.rows);
             }
             currentNode.replies.rows.forEach((reply: any) => {
-              counter = countTree(parentNode, reply, counter);
+              argArray.push(reply);
+              countTree(parentNode, reply);
             });
-
-            return counter;
           }
-          return counter;
+          if (currentNode.type === this.TopicArgumentService.ARGUMENT_TYPES.reply) {
+            const parent = argArray.find((arg) => arg.id === currentNode.parent.id);
+            currentNode.parent = Object.assign(currentNode.parent, parent);
+          }
         };
 
         results.forEach((row: any,) => {
-          row.replies.count = countTree(row, row, row.replies.count);
+          argArray.push(row);
+          row.replies.count = countTree(row, row);
         });
 
         return res;
       }),
       tap(() => {
-      this.route.queryParams.pipe(take(1), tap((params) => {
-        setTimeout(() => {
-          if (params['argumentId']) {
-            this.goToArgument(params['argumentId'], null);
-          }
-        });
-      })).subscribe();
-    }))
+        this.route.queryParams.pipe(take(1), tap((params) => {
+          setTimeout(() => {
+            if (params['argumentId']) {
+              this.goToArgument(params['argumentId'], null);
+            }
+          });
+        })).subscribe();
+      }));
   }
 
+  ngOnDestroy(): void {
+    this.app.addArgument.next(false);
+  }
   ngOnInit(): void {
     this.TopicArgumentService.setParam('topicId', this.topic.id)
   }
 
-  doAddComment() {
+  filterArguments() {
+    const types = this.argumentTypes.filter((item:any) => item.checked).map(item => item.type);
+    this.TopicArgumentService.setParam('types', types);
+  }
+  getArgumentPercentage(count: number) {
+    return count / (this.TopicArgumentService.count.value.pro + this.TopicArgumentService.count.value.con) * 100 || 0;
+  }
+
+  doAddArgument() {
     if (this.Auth.loggedIn$.value) {
+      this.app.addArgument.next(true);
       this.postArgumentEl?.nativeElement.scrollIntoView();
       this.focusArgumentSubject = true;
     } else {
@@ -110,7 +130,6 @@ export class TopicArgumentsComponent implements OnInit {
     }
   }
   goToArgument(argumentIdWithVersion: string, $event: any) {
-
     if (!argumentIdWithVersion || argumentIdWithVersion.indexOf(this.TopicArgumentService.ARGUMENT_VERSION_SEPARATOR) < 0) {
       console.error('Invalid input for this.goToComment. Expecting UUIDv4 comment ID with version. For example: "604670eb-27b4-48d0-b19b-b6cf6bde33b2_v0"', argumentIdWithVersion);
       return;
@@ -118,7 +137,12 @@ export class TopicArgumentsComponent implements OnInit {
     let commentElement: HTMLElement | null = document.getElementById(argumentIdWithVersion);
     // The referenced comment was found on the page displayed
     if (commentElement) {
-      this.scrollTo(commentElement)
+      this.scrollTo(commentElement);
+      commentElement.classList.add('highlight');
+      setTimeout(() => {
+        if (commentElement)
+          commentElement.classList.remove('highlight');
+      }, 2000);
     } else {
       // The referenced comment was NOT found on the page displayed.
       // That means either:

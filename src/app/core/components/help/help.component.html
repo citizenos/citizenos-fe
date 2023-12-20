@@ -1,36 +1,58 @@
-<div>
-  <div id="help_tooltip" *ngIf="helptooltip" [ngClass]="{help_visible: app.showHelp}">
-    <div class="tip_heading" translate="HELP_CENTER_TOOLTIP_HEADING"></div>
-    <div class="tip_desription" translate="HELP_CENTER_TOOLTIP_DESCRIPTION"></div>
-    <div class="help_bubble_icon">
-      <div class="help_icon"></div>
-    </div>
-    <div class="tip_button_wrap"><button class="blue_white_button tip_button" translate="HELP_CENTER_TOOLTIP_BTN_OK"
-        (click)="closeTootlip()"></button></div>
-    <div class="tip-arrow help_visible" [ngClass]="{help_visible: app.showHelp}"></div>
-  </div>
-  <div id="dark_overlay" *ngIf="((app.showHelp | async) || helptooltip)" (click)="toggleHelp()"></div>
+<div id="dark_overlay" *ngIf="((app.showHelp | async) || helptooltip)" (click)="toggleHelp()"></div>
 
-  <div class="help_widget" *ngIf="(app.showHelp | async)">
-    <div class="help_top">
-      <div class="help_back_link" (click)="helpback()">
-        <div class="sprite sprite-icon-help-back"></div>
-      </div>
-      <div class="help_title_text_wrapper">
-        <div class="help_title_text" translate="HELP_WIDGET.HEADER_TITLE"></div>
-      </div>
-      <div id="help_close" (click)="toggleHelp()">
-        <div class="table_cell">
-          <div class="sprite sprite sprite-btn-popup-close2x">
-          </div>
-        </div>
-      </div>
+<div class="help_widget" *ngIf="(app.showHelp | async)">
+  <div class="help_header_wrap">
+    <button class="btn_small_plain" (click)="helpback()">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 2L2 8L8 14" stroke="#2C3B47" stroke-width="2" />
+        <path d="M3 8L15 8" stroke="#2C3B47" stroke-width="2" />
+      </svg>
+    </button>
+    <div class="help_title_text_wrapper">
+      <div class="help_title_text" translate="HELP_WIDGET.HEADER_TITLE"></div>
     </div>
-    <div class="help_content">
-      <iframe id="help_frame" #helpFrame name="help_frame" *ngIf="(app.showHelp| async)" frameborder="0" [src]="urlSafe"
-        width="100%"></iframe>
-    </div>
+    <button class="btn_small_plain icon" (click)="toggleHelp()">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929Z"
+          fill="#2C3B47" />
+      </svg>
+    </button>
   </div>
+  <div class="help_content">
+    <iframe id="help_frame" #helpFrame name="help_frame" *ngIf="(app.showHelp| async)" frameborder="0" [src]="urlSafe"
+      width="100%"></iframe>
+  </div>
+</div>
 
-  <div id="help_bubble" (click)="toggleHelp();"></div>
+<div id="help_bubble" (click)="toggleHelp();">
+  <svg width="76" height="76" viewBox="0 0 76 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <title>icon_bubble_help</title>
+    <g filter="url(#filter0_dd_7017_69077)">
+      <circle cx="38" cy="34" r="30" fill="#1168A8" />
+    </g>
+    <circle cx="38" cy="34" r="16" fill="white" stroke="white" />
+    <path fill-rule="evenodd" clip-rule="evenodd"
+      d="M36.138 38H39.5181V37.222C39.5181 35.2986 43 34.78 43 31.2358C43 28.4479 40.5362 27 38.2557 27C35.5271 27 34 28.7937 34 28.7937L35.9548 31.3222C35.9548 31.3222 36.9118 30.3929 37.8891 30.3929C38.6629 30.3929 39.3348 30.9332 39.3348 31.668C39.3348 33.4833 36.138 34.002 36.138 36.9194V38ZM36 42H40V39H36V42Z"
+      fill="#1168A8" />
+    <defs>
+      <filter id="filter0_dd_7017_69077" x="0" y="0" width="76" height="76" filterUnits="userSpaceOnUse"
+        color-interpolation-filters="sRGB">
+        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+          result="hardAlpha" />
+        <feOffset dy="2" />
+        <feGaussianBlur stdDeviation="2" />
+        <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.14 0" />
+        <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_7017_69077" />
+        <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+          result="hardAlpha" />
+        <feOffset dy="4" />
+        <feGaussianBlur stdDeviation="4" />
+        <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0" />
+        <feBlend mode="normal" in2="effect1_dropShadow_7017_69077" result="effect2_dropShadow_7017_69077" />
+        <feBlend mode="normal" in="SourceGraphic" in2="effect2_dropShadow_7017_69077" result="shape" />
+      </filter>
+    </defs>
+  </svg>
 </div>

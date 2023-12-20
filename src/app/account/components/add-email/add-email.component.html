@@ -1,88 +1,55 @@
-<!-- LIGHTBOX SKELETON -->
-<div id="root_lightbox">
-  <div id="lightbox" class="id_signing delete_topic wide_lightbox my_account_lightbox">
-    <div id="lightbox_wrap">
-      <form [formGroup]="form" >
-        <div id="lightbox_header">
-
-
-          <div id="lightbox_header_text">
-            <div class="title" translate="MODALS.ADD_EMAIL_HEADING"></div>
-          </div>
-
-          <div id="lightbox_close" mat-dialog-close>
-            <div class="table_cell">
-              <div class="sprite sprite-btn-popup-close2x"></div>
-            </div>
-          </div>
-
-          <div class="line lightest_line"></div>
-
-        </div>
-
-
-        <div class="lightbox_content">
-
-          <div class="second_header">
-
-            <div class="sprite sprite-icon-warn-topic2x"></div>
-            <div class="warn_title" translate="MODALS.ADD_EMAIL_HEADING"></div>
-
-            <div id="lightbox_close" mat-dialog-close>
-              <div class="table_cell">
-                <div class="sprite sprite-btn-popup-close2x"></div>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="line_wrap">
-            <div class="line lightest_line"></div>
-          </div>
-
-          <div class="lightbox_section">
-
-            <div class="delete_info_text_wrap">
-              <div>
-                <div class="delete_info_text" translate="MODALS.ADD_EMAIL_DESCRIPTION"></div>
-              </div>
-            </div>
-            <div class="delete_info_text_wrap section_with_padding">
-              <div>
-                <input id="email" formControlName="email" type="email"
-                  placeholder="{{'MODALS.ADD_EMAIL_PLACEHOLDER_EMAIL' | translate}}" (focus)="wWidth > 1024"
-                  [ngClass]="{'error_input': form.controls['email'].errors && form.controls['email'].errors['email']  && form.touched}" [maxlength]="254" required>
-                <label for="email" class="error_label" *ngIf="form.invalid && form.touched">
-                  <div class="table_cell">
-                    <div class="sprite sprite-icon-inputfield-error2x"></div>
-                    <span translate="{{errors?.email}}"></span>
-                  </div>
-                </label>
-              </div>
-            </div>
-            <div class="delete_info_text_wrap section_with_padding">
-              <div>
-                <div class="delete_info_text bold" translate="MODALS.ADD_EMAIL_TXT_VERIFY"></div>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-        <div class="lightbox_footer">
-          <div class="line lightest_line"></div>
-          <div class="lightbox_section">
-            <div class="footer_button_wrap right">
-              <div class="blue_link" translate="MODALS.ADD_EMAIL_LNK_CANCEL" (click)="logout()"></div>
-              <button class="blue_button" (click)="doUpdateProfile()" [disabled]="form.invalid"
-                class="blue_button" translate="MODALS.ADD_EMAIL_LOG_IN"></button>
-            </div>
-          </div>
-        </div>
-      </form>
+<div class="overlay" mat-dialog-close></div>
+<div class="dialog">
+  <div class="dialog_header info">
+    <div class="header_with_icon">
+      <div>
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="40" height="40" rx="20" fill="#1168A8" />
+          <path
+            d="M23 11.5292C23 12.926 21.9255 14.0583 20.6 14.0583C19.2745 14.0583 18 12.926 18 11.5292C18 10.1323 19.2745 9 20.6 9C21.9255 9 23 10.1323 23 11.5292Z"
+            fill="white" />
+          <path
+            d="M17.3359 16.5357L22.8319 15.8098L20.4295 27.7096C20.2591 28.5695 20.4991 29.0576 21.1591 29.0576C21.6247 29.0576 22.3255 28.8806 22.8055 28.4354L22.5943 29.4876C21.9055 30.3626 20.3863 31 19.0783 31C17.3911 31 16.6735 29.9327 17.1391 27.664L18.9103 18.8929C19.0639 18.1518 18.9247 17.8837 18.2191 17.7067L17.1391 17.4968L17.3359 16.5357Z"
+            fill="white" />
+        </svg>
+      </div>
+      <h4 class="title" translate="MODALS.ADD_EMAIL_HEADING"></h4>
+    </div>
+    <div class="dialog_close">
+      <a class="btn_dialog_close icon" mat-dialog-close>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289Z"
+            fill="#2C3B47" />
+        </svg>
+      </a>
     </div>
   </div>
+  <div class="dialog_content">
+    <form [formGroup]="form">
+      <cos-input placeholder="{{'MODALS.ADD_EMAIL_PLACEHOLDER_EMAIL' | translate}}">
+        <input id="email" formControlName="email" type="email"
+          placeholder="{{'MODALS.ADD_EMAIL_PLACEHOLDER_EMAIL' | translate}}" (focus)="wWidth > 1024"
+          [ngClass]="{'error_input': form.touched && form.invalid}"
+          [maxlength]="254">
+        <label for="email" class="error_label" *ngIf="form.invalid && form.touched">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M8.89438 1.78863C8.52586 1.05158 7.47405 1.05158 7.10553 1.78863L0.723562 14.5526C0.391112 15.2175 0.874608 15.9998 1.61799 15.9998H14.3819C15.1253 15.9998 15.6088 15.2175 15.2763 14.5526L8.89438 1.78863ZM6.99996 6.99977C6.99996 6.44749 7.44767 5.99977 7.99996 5.99977C8.55224 5.99977 8.99996 6.44749 8.99996 6.99977V9.99977C8.99996 10.5521 8.55224 10.9998 7.99996 10.9998C7.44767 10.9998 6.99996 10.5521 6.99996 9.99977V6.99977ZM6.99996 12.9998C6.99996 12.4475 7.44767 11.9998 7.99996 11.9998C8.55224 11.9998 8.99996 12.4475 8.99996 12.9998C8.99996 13.5521 8.55224 13.9998 7.99996 13.9998C7.44767 13.9998 6.99996 13.5521 6.99996 12.9998Z"
+              fill="#EF4025" />
+          </svg>
+          <span translate="MODALS.ADD_EMAIL_ERROR_MSG_INVALID"></span>
+        </label>
+      </cos-input>
 
-  <div id="close_lightbox" (click)="logout();" mat-dialog-close></div>
-
+      <div class="delete_info_text bold" translate="MODALS.ADD_EMAIL_TXT_VERIFY"></div>
+    </form>
+    <div class="button_wrap">
+      <button class="btn_big_submit" (click)="doUpdateProfile()" [disabled]="form.invalid"
+        translate="MODALS.ADD_EMAIL_LOG_IN"></button>
+      <a translate="MODALS.ADD_EMAIL_LNK_CANCEL" (click)="logout()"></a>
+    </div>
+    <div class="dialog_footer">
+    </div>
+  </div>
 </div>

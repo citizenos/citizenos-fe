@@ -1,0 +1,63 @@
+.dialog {
+  width: 560px;
+}
+
+.date_selector {
+  width: 100%;
+
+  .checkbox {
+    width: 100%;
+
+    .deadline {
+      position: absolute;
+      right: 0;
+    }
+  }
+}
+
+.deadline_wrap {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 16px;
+
+  .date_row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    vertical-align: middle;
+    gap: 24px;
+
+    .date_row_title {
+      min-width: 25%;
+    }
+
+    .input_wrap {
+      flex-grow: 2;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      justify-content: flex-end;
+
+      .time_input {
+        max-width: max-content;
+      }
+
+      .dropdown {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.reminder_wrap {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-argument-pro-medium);
+  padding: 16px;
+  gap: 8px;
+
+  .dropdown {
+    width: 100%;
+  }
+}

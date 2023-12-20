@@ -6,28 +6,27 @@ import { Directive, ElementRef, Input, HostListener, OnDestroy, Renderer2 } from
 export class CosDropdownDirective implements OnDestroy {
   @Input() cosDropdown: undefined; // The text for the tooltip to display
   @Input() cosDropdownMobile!: any;
-
+  @Input() multipleChoice?: boolean;
   constructor(private elem: ElementRef, private renderer: Renderer2) {
   }
 
-  @HostListener('click')
-  onClick() {
-    const elem = this.elem.nativeElement;
-    if (this.cosDropdownMobile == 'true') {
-      this.renderer.addClass(elem, 'dropdown_active');
+  @HostListener('click', ['$event.target'])
+  onClick(target:any) {
+      const elem = this.elem.nativeElement;
+      if (this.cosDropdownMobile == 'true') {
+        this.renderer.addClass(elem, 'dropdown_active');
 
-      if (elem.classList.contains('dropdown_selector')) {
+        if (elem.classList.contains('dropdown_selector')) {
+          this.renderer.removeClass(elem, 'dropdown_active');
+        }
+      } else if (elem.classList.contains('dropdown_active') && (!this.multipleChoice || target.classList.contains('selection'))) {
         this.renderer.removeClass(elem, 'dropdown_active');
+      } else {
+        this.renderer.addClass(elem, 'dropdown_active');
       }
-    } else if (elem.classList.contains('dropdown_active')) {
-      this.renderer.removeClass(elem, 'dropdown_active');
-    } else {
-      this.renderer.addClass(elem, 'dropdown_active');
-    }
 
-    this.renderer.addClass(elem, 'active_recent');
+      this.renderer.addClass(elem, 'active_recent');
   }
-
   @HostListener('document:click', ['$event'])
   clickout() {
     const elem = this.elem.nativeElement;

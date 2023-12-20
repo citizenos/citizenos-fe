@@ -1,0 +1,39 @@
+.reply_wrap {
+  background-color: var(--color-surfaces);
+  padding: 16px;
+  margin-top: -16px;
+  gap: 16px;
+  display: flex;
+  flex-direction: column;
+
+  .heading {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px; /* 150% */
+  }
+  &.poi,
+  &.reply {
+    border-left: 4px solid var(--color-border);
+    background-color: var(--color-surfaces);
+  }
+  &.poi {
+    background-color: var(--color-argument-info-light);
+  }
+  &.pro {
+    border-left: 4px solid var(--color-voting-disabled);
+    background-color: var(--color-argument-pro-light);
+    width: 85%;
+  }
+  &.con {
+    border-right: 4px solid var(--color-argument-con-medium);
+    background-color: var(--color-argument-con-light);
+    align-self: flex-end;
+    width: 85%;
+  }
+}
+.buttons_wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

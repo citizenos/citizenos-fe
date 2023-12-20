@@ -61,6 +61,7 @@ export class TopicVoteDelegateComponent {
     if (member.id && member !== this.delegateUser) {
       this.delegateUser = member;
     }
+    this.searchResultUsers$ = of([]);
   };
 
   doRemoveDelegateUser() {

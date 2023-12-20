@@ -18,7 +18,9 @@ export class ActivityService extends ItemsListService {
     offset: <number>0,
     limit: <number>10,
     include: <string | null>null,
-    filter: <string | null>null
+    filter: <string | null>null,
+    groupId: <string|undefined> undefined,
+    topicId: <string|undefined> undefined
   };
   public filters = ['all', 'userTopics', 'userGroups', 'user', 'self'];
   params$ = new BehaviorSubject(Object.assign({}, this.params));
@@ -115,10 +117,17 @@ export class ActivityService extends ItemsListService {
   };
 
   query(params: any) {
+    let rootPath = '';
+    console.log(params);
+    if (params.groupId) {
+      rootPath += '/groups/:groupId'
+    } else if (params.topicId) {
+      rootPath += '/topics/:topicId'
+    }
     let path = this.Location.getAbsoluteUrlApi(
       this.Auth.resolveAuthorizedPath(
-        '/activities'
-      ));
+        `${rootPath}/activities`
+      ), params);
 
     return this.http.get(path, { params, withCredentials: true, responseType: 'json', observe: 'body' })
       .pipe(
@@ -126,8 +135,22 @@ export class ActivityService extends ItemsListService {
       );
   };
 
-  getUnreadActivities() {
-    const path = this.Location.getAbsoluteUrlApi('/api/users/self/activities/unread');
+  getUnreadActivities(params?: any) {
+    let path = ''
+    if (params && params.groupId) {
+      path += this.Location.getAbsoluteUrlApi(
+        this.Auth.resolveAuthorizedPath(
+          '/groups/:groupId/activities/unread'
+        ), params);
+    }
+    else if (params && params.topicId) {
+      path += this.Location.getAbsoluteUrlApi(
+        this.Auth.resolveAuthorizedPath(
+          '/topics/:topicId/activities/unread'
+        ), params);
+    } else {
+      path = this.Location.getAbsoluteUrlApi(`/users/self/activities/unread`, params);
+    }
     return this.http.get(path, { withCredentials: true, responseType: 'json', observe: 'body' })
       .pipe(
         map((res: any) => {
@@ -200,7 +223,7 @@ export class ActivityService extends ItemsListService {
 
     if (activity.data.object) {
       this.getActivityUsers(activity, values);
-      values['topicTitle'] = this.getActivityTopicTitle(activity);
+      values['topicTitle'] = this.getActivityTopicTitle(activity) || "";
       values['className'] = this.getActivityClassName(activity);
       values['description'] = this.getActivityDescription(activity);
       values['groupName'] = this.getActivityGroupName(activity);
@@ -253,9 +276,10 @@ export class ActivityService extends ItemsListService {
     const dataobject = this.getActivityObject(activity);
 
     if (activity.data.type === 'Accept' || activity.data.type === 'Invite' || (activity.data.type === 'Add' && activity.data.actor.type === 'User' && activity.data.object['@type'] === 'User' && activity.data.target['@type'] === 'Group')) { // Last condition if for Group invites
+      console.log(activity)
       return 'invite';
-    } else if (['Topic', 'TopicMemberUser', 'Attachment', 'TopicPin'].indexOf(dataobject['@type']) > -1 || activity.data.target && activity.data.target['@type'] === ' Topic') {
-      return 'topic';
+    } else if (['Topic', 'TopicMemberUser', 'Attachment', 'TopicFavourite'].indexOf(dataobject['@type']) > -1 || activity.data.target && activity.data.target['@type'] === ' Topic') {
+      return 'discussion';
     } else if (['Group'].indexOf(dataobject['@type']) > -1 || dataobject.groupName) {
       return 'group';
     } else if (['Vote', 'VoteList', 'VoteUserContainer', 'VoteFinalContainer', 'VoteOption', 'VoteDelegation'].indexOf(dataobject['@type']) > -1) {
@@ -644,23 +668,28 @@ export class ActivityService extends ItemsListService {
     } else if (object['@type'] === 'Vote' || object['@type'] === 'VoteList' && target && target['@type'] === 'Topic') {
       state = state.concat(['topics', target.topicId || target.id, 'votes', object.voteId || object.id]);
     } else if (object['@type'] === 'Group' || object['@type'] === 'TopicMemberGroup') {
-      state = state.concat(['my', 'groups', object.id || object.groupId])
+      state = state.concat(['groups', object.id || object.groupId])
     } else if (object['@type'] === 'Vote' || object['@type'] === 'VoteFinalContainer') {
       state = state.concat(['topics', object.topicId || object.id, 'votes', object.voteId || object.id]);
     } else if (target && (target['@type'] === 'Topic' || target.topicId)) {
       state = state.concat(['topics', target.topicId || target.id]);
     }
 
-    if (target && target['@type'] === 'Group') {
-      state = state.concat(['my', 'groups', target.id]);
+    if (target && target['@type'] === 'Group' && activityType !== 'Invite') {
+      state = [this.$translate.currentLang, 'groups', target.id];
     }
-    if (state[1] !== 'topics' && origin && origin['@type'] === 'Topic') {
+
+    console.log()
+    if (state[1] !== 'topics' && origin && origin['@type'] === 'Topic' && activityType !== 'Invite') {
       state = state.concat(['topics', origin.id]);
     }
 
     if (state.length) {
       if (hash) {
         params.fragment = hash;
+      }
+      if (state.length > 3 && activityType !== 'Invite') {
+        state = state.slice(0, 3);
       }
       this.router.navigate(state, params);
     }

@@ -1,93 +1,73 @@
-<!-- LIGHTBOX SKELETON -->
-<div id="root_lightbox">
-  <div id="lightbox" class="add_eid delete_topic wide_lightbox my_account_lightbox">
-    <div id="lightbox_wrap">
-
-      <div id="lightbox_header">
-
-
-        <div id="lightbox_header_text">
-          <div class="title" translate="MODALS.ADD_EID_HEADING"></div>
-        </div>
-
-        <div id="lightbox_close" mat-dialog-close>
-          <div class="table_cell">
-            <div class="sprite sprite-btn-popup-close2x"></div>
-          </div>
-        </div>
-
-        <div class="line lightest_line"></div>
-
+<div class="overlay" mat-dialog-close></div>
+<div class="dialog">
+  <div class="dialog_header info">
+    <div class="header_with_icon">
+      <div>
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="40" height="40" rx="20" fill="#1168A8" />
+          <path
+            d="M23 11.5292C23 12.926 21.9255 14.0583 20.6 14.0583C19.2745 14.0583 18 12.926 18 11.5292C18 10.1323 19.2745 9 20.6 9C21.9255 9 23 10.1323 23 11.5292Z"
+            fill="white" />
+          <path
+            d="M17.3359 16.5357L22.8319 15.8098L20.4295 27.7096C20.2591 28.5695 20.4991 29.0576 21.1591 29.0576C21.6247 29.0576 22.3255 28.8806 22.8055 28.4354L22.5943 29.4876C21.9055 30.3626 20.3863 31 19.0783 31C17.3911 31 16.6735 29.9327 17.1391 27.664L18.9103 18.8929C19.0639 18.1518 18.9247 17.8837 18.2191 17.7067L17.1391 17.4968L17.3359 16.5357Z"
+            fill="white" />
+        </svg>
       </div>
+      <h4 class="title" translate="MODALS.ADD_EID_HEADING"></h4>
+    </div>
+    <div class="dialog_close">
+      <a class="btn_dialog_close icon" mat-dialog-close>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289Z"
+            fill="#2C3B47" />
+        </svg>
+      </a>
+    </div>
+  </div>
+  <div class="dialog_content">
+    <div class="info_row" translate="MODALS.ADD_EID_DESCRIPTION"></div>
+  </div>
+  <div class="dialog_content">
+    <div class="dialog_info_wrap">
+      <div class="dialog_info">
+        <a *ngIf="authMethodsAvailable.mobiilId || authMethodsAvailable.idCard" (click)="doConnectEsteId()">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="16" fill="#F9FBFD" />
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M14.2173 24H16.0434V22.1176H14.2173V24ZM16.9564 24H18.7825V22.1176H16.9564V24ZM14.2173 21.1765H16.0434V19.2941H14.2173V21.1765ZM16.9564 21.1765H18.7825V19.2941H16.9564V21.1765ZM14.2173 18.3529H16.0434V16.4706H14.2173V18.3529ZM16.9564 18.3529H18.7825V16.4706H16.9564V18.3529ZM14.2173 15.5294H16.0434V13.6471H14.2173V15.5294ZM16.9564 15.5294H18.7825V13.6471H16.9564V15.5294ZM14.2173 12.7059H16.0434V10.8235H14.2173V12.7059ZM16.9564 12.7059H18.7825V10.8235H16.9564V12.7059ZM14.2173 9.88235H16.0434V8H14.2173V9.88235ZM16.9564 9.88235H18.7825V8H16.9564V9.88235ZM22.4347 9.88235H24.2608V8H22.4347V9.88235ZM19.6955 9.88235H21.5216V8H19.6955V9.88235ZM22.4347 12.7059H24.2608V10.8235H22.4347V12.7059ZM25.1738 12.7059H26.9999V10.8235H25.1738V12.7059ZM19.6955 12.7059H21.5216V10.8235H19.6955V12.7059ZM22.4347 15.5294H24.2608V13.6471H22.4347V15.5294ZM25.1738 15.5294H26.9999V13.6471H25.1738V15.5294ZM22.4347 18.3529H24.2608V16.4706H22.4347V18.3529ZM25.1738 18.3529H26.9999V16.4706H25.1738V18.3529ZM19.6955 21.1765H21.5216V19.2941H19.6955V21.1765ZM22.4347 21.1765H24.2608V19.2941H22.4347V21.1765ZM25.1738 21.1765H26.9999V19.2941H25.1738V21.1765ZM19.6955 24H21.5216V22.1176H19.6955V24ZM22.4347 24H24.2608V22.1176H22.4347V24Z"
+              fill="#006CBF" />
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M6 24H7.82609V22.1176H6V24ZM8.73913 24H10.5652V22.1176H8.73913V24ZM6 21.1765H7.82609V19.2941H6V21.1765ZM8.73913 21.1765H10.5652V19.2941H8.73913V21.1765ZM6 18.3529H7.82609V16.4706H6V18.3529ZM8.73913 18.3529H10.5652V16.4706H8.73913V18.3529ZM6 15.5294H7.82609V13.6471H6V15.5294ZM8.73913 15.5294H10.5652V13.6471H8.73913V15.5294ZM6 12.7059H7.82609V10.8235H6V12.7059ZM8.73913 12.7059H10.5652V10.8235H8.73913V12.7059ZM6 9.88235H7.82609V8H6V9.88235ZM8.73913 9.88235H10.5652V8H8.73913V9.88235Z"
+              fill="#F5762D" />
+          </svg>
 
-
-      <div class="lightbox_content">
-
-        <div class="second_header">
-
-          <div class="sprite sprite-icon-warn-topic2x"></div>
-          <div class="warn_title" translate="MODALS.ADD_EID_HEADING"></div>
-
-          <div id="lightbox_close" mat-dialog-close>
-            <div class="table_cell">
-              <div class="sprite sprite-btn-popup-close2x"></div>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="line_wrap">
-          <div class="line lightest_line"></div>
-        </div>
-
-        <div class="lightbox_section">
-
-          <div class="delete_info_text_wrap">
-            <div>
-              <div class="delete_info_text" translate="MODALS.ADD_EID_DESCRIPTION"></div>
-            </div>
-          </div>
-          <div class="delete_info_text_wrap section_with_padding">
-            <div *ngIf="authMethodsAvailable.mobiilId || authMethodsAvailable.idCard" id="id_card"
-              (click)="doConnectEsteId()" class="social_button">
-              <div class="social_icon">
-                <div class="table_cell">
-                  <div class="sprite sprite-login-icon-id2x"></div>
-                </div>
-              </div>
-              <div class="social_text">
-                <div class="table_cell" translate="MODALS.ADD_EID_BTN_CONNECT_ID_CARD_MID"></div>
-              </div>
-            </div>
-
-            <div *ngIf="authMethodsAvailable.smartId" id="smart_id" (click)="doConnectSmartId()" class="social_button">
-              <div class="social_icon">
-                <div class="table_cell">
-                  <div class="sprite sprite-login-icon-smartid2x"></div>
-                </div>
-              </div>
-              <div class="social_text">
-                <div class="table_cell" translate="MODALS.ADD_EID_BTN_CONNECT_SMART_ID"></div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-      <div class="lightbox_footer">
-        <div class="line lightest_line"></div>
-
-        <div class="lightbox_section">
-          <div class="footer_button_wrap right">
-            <div class="blue_link" translate="MODALS.ADD_EID_LNK_BACK" mat-dialog-close></div>
-            <div class="blue_button" mat-dialog-close class="blue_button" translate="MODALS.ADD_EID_BTN_CONTINUE"></div>
-          </div>
-        </div>
+          <span translate="MODALS.ADD_EID_BTN_CONNECT_ID_CARD_MID"></span>
+        </a>
+        <a *ngIf="authMethodsAvailable.smartId" (click)="doConnectSmartId()">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="16" fill="#F9FBFD" />
+            <path
+              d="M18.8363 11.9219C18.8363 12.3668 18.491 12.7129 18.0471 12.7129C17.6031 12.7129 17.2578 12.3668 17.2578 11.9219C17.2578 11.4769 17.6031 11.1309 18.0471 11.1309C18.491 11.1309 18.8363 11.4769 18.8363 11.9219Z"
+              fill="#00AFAA" />
+            <path
+              d="M22.1411 24.973C21.9438 24.973 21.7465 24.8742 21.6232 24.7258C21.4259 24.4539 21.4752 24.0584 21.7465 23.836C24.2375 22.0067 25.7174 19.0899 25.7174 16C25.742 10.6607 21.3765 6.28539 15.9999 6.28539C15.5313 6.28539 15.0626 6.31011 14.594 6.38427V20.1281C14.594 20.4742 14.3227 20.7461 13.9528 20.7461C13.6075 20.7461 13.3115 20.4742 13.3115 20.1281V5.84045C13.3115 5.54382 13.5335 5.27191 13.8295 5.22247C14.5447 5.07416 15.26 5 15.9999 5C22.0671 5 26.9999 9.9191 26.9999 15.9753C26.9999 19.4607 25.3227 22.773 22.5111 24.8247C22.3878 24.9483 22.2644 24.973 22.1411 24.973Z"
+              fill="#00AFAA" />
+            <path
+              d="M16 27.0006C9.93273 27.0006 5 22.0567 5 16.0253C5 12.5399 6.67713 9.22752 9.48879 7.17584C9.78475 6.95337 10.1794 7.02752 10.3767 7.29943C10.574 7.57134 10.5247 7.96685 10.2534 8.18932C7.73767 9.99381 6.25785 12.9354 6.25785 16.0253C6.25785 21.3893 10.6233 25.7399 16 25.7399C16.4686 25.7399 16.9372 25.7152 17.4058 25.641V16.6185C17.4058 16.2725 17.6771 16.0006 18.0471 16.0006C18.3924 16.0006 18.6883 16.2725 18.6883 16.6185V26.1601C18.6883 26.4567 18.4664 26.7286 18.1704 26.7781C17.4552 26.9264 16.7399 27.0006 16 27.0006Z"
+              fill="#00AFAA" />
+          </svg>
+          <span translate="MODALS.ADD_EID_BTN_CONNECT_SMART_ID"></span>
+        </a>
       </div>
     </div>
   </div>
-
-  <div id="close_lightbox" mat-dialog-close></div>
-
+  <div class="dialog_content">
+    <div class="button_wrap">
+      <button class="btn_big_submit" mat-dialog-close translate="MODALS.ADD_EID_BTN_CONTINUE"></button>
+      <a mat-dialog-close translate="MODALS.ADD_EID_LNK_BACK"></a>
+    </div>
+  </div>
+  <div class="dialog_footer">
+  </div>
 </div>

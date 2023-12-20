@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { catchError, interval, map, of, switchMap, take, takeWhile } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
-import { MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -76,4 +76,15 @@ export class SmartIdLoginComponent implements OnInit {
         }
       });
   };
+}
+
+@Component({
+  selector: 'app-smart-id-dialog-login',
+  templateUrl: './smart-id-login-dialog.component.html',
+  styleUrls: ['./smart-id-login-dialog.component.scss']
+})
+export class SmartIdLoginDialogComponent {
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data:any) {
+  }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, map, exhaustMap, catchError, shareReplay } from 'rxjs';
+import { Observable, BehaviorSubject, map, exhaustMap, catchError, shareReplay, take } from 'rxjs';
 import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { Group } from 'src/app/interfaces/group';
 import { LocationService } from './location.service';
@@ -13,7 +13,16 @@ import { ItemsListService } from './items-list.service';
   providedIn: 'root'
 })
 export class GroupService extends ItemsListService {
-  params = Object.assign(this.defaultParams, { groupId: <string | null>null });
+  params = Object.assign(this.defaultParams, {
+    visibility: <string | null>null,
+    groupId: <string | null>null,
+    name: <string | null>null,
+    country: <string | null>null,
+    language: <string | null>null,
+    showModerated: <boolean>false,
+    favourite: <boolean | string | null>null,
+    limit: 8
+  });
   params$ = new BehaviorSubject(this.params);
 
   public VISIBILITY = {
@@ -91,7 +100,7 @@ export class GroupService extends ItemsListService {
   }
 
   update(data: any) {
-    const allowedFields = ['name', 'description', 'imageUrl'];
+    const allowedFields = ['name', 'description', 'country', 'language', 'rules', 'contact', 'imageUrl'];
     const sendData: any = {};
     allowedFields.forEach((key) => {
       sendData[key] = data[key] || null;
@@ -127,6 +136,34 @@ export class GroupService extends ItemsListService {
       })
     );
   }
+
+  addToFavourites(groupId: string) {
+    const path = this.Location.getAbsoluteUrlApi('/api/users/self/groups/:groupId/favourite', { groupId: groupId });
+
+    return this.http.post<ApiResponse>(path, {}, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
+      map(res => res.data)
+    );
+  }
+
+  removeFromFavourites(groupId: string) {
+    const path = this.Location.getAbsoluteUrlApi('/api/users/self/groups/:groupId/favourite', { groupId: groupId });
+
+    return this.http.delete<ApiResponse>(path, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
+      map(res => res.data)
+    );
+  }
+
+  toggleFavourite(group: Group) {
+    if (!group.favourite) {
+      return this.addToFavourites(group.id).pipe(take(1)).subscribe(() => {
+        group.favourite = true;
+      });
+    } else {
+      return this.removeFromFavourites(group.id).pipe(take(1)).subscribe(() => {
+        group.favourite = false;
+      });
+    }
+  };
 
   uploadGroupImage(file: File, groupId: string) {
     const path = this.Location.getAbsoluteUrlApi('/api/users/self/groups/:groupId/upload')

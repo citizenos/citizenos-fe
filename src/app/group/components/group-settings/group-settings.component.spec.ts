@@ -6,14 +6,10 @@ describe('GroupSettingsComponent', () => {
   let component: GroupSettingsComponent;
   let fixture: ComponentFixture<GroupSettingsComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ GroupSettingsComponent ]
-    })
-    .compileComponents();
-  });
-
   beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [GroupSettingsComponent]
+    });
     fixture = TestBed.createComponent(GroupSettingsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
