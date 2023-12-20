@@ -44,6 +44,7 @@ import { TopicReportReasonComponent } from './components/topic-report-reason/top
 import { TopicTourDialogComponent } from './components/topic-tour-dialog/topic-tour-dialog.component';
 import { TopicVoteReminderDialog } from './components/topic-vote-reminder-dialog/topic-vote-reminder-dialog.component';
 import { TopicEditDisabledDialogComponent } from './components/topic-edit-disabled-dialog/topic-edit-disabled-dialog.component';
+import { TopicSettingsDisabledDialogComponent } from './components/topic-settings-disabled-dialog/topic-settings-disabled-dialog.component';
 
 @NgModule({
   declarations: [
@@ -92,7 +93,8 @@ import { TopicEditDisabledDialogComponent } from './components/topic-edit-disabl
     TopicReportReasonComponent,
     TopicTourDialogComponent,
     TopicVoteReminderDialog,
-    TopicEditDisabledDialogComponent
+    TopicEditDisabledDialogComponent,
+    TopicSettingsDisabledDialogComponent
   ],
   imports: [
     LinkyModule,
