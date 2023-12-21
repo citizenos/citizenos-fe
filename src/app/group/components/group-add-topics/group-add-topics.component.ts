@@ -25,7 +25,6 @@ export class GroupAddTopicsComponent implements OnInit {
   resultCount: number = 0;
   searchOrderBy?: string;
   errors?: any;
-
   membersPage = 1;
   itemsPerPage = 5;
 
@@ -166,6 +165,8 @@ export class GroupAddTopicsComponent implements OnInit {
 })
 export class GroupAddTopicsDialogComponent {
     group!: Group;
+
+  noTopicsSelected = false;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialog: MatDialogRef<GroupAddTopicsDialogComponent>,
@@ -206,17 +207,12 @@ export class GroupAddTopicsDialogComponent {
       this.dialog.close();
           }
         })
-    }
-/*
-    if (topicsToAdd.length) {
-      this.GroupMemberTopic.save(groupMemberTopicsToAdd)
-        .pipe(take(1))
-        .subscribe(res => {
-          this.dialog.close()
-        })
     } else {
-      this.dialog.close();
-    }*/
+      this.noTopicsSelected = true;
+      setTimeout(() => {
+        this.noTopicsSelected = false;
+      }, 5000);
+    }
 
   }
 }

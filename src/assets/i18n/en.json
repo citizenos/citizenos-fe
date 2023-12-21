@@ -210,6 +210,7 @@
     },
     "GROUP_ADD_TOPICS_DIALOG": {
       "HEADING": "Add topics to the group",
+      "NO_TOPICS_SELECTED": "You haven't selected any topics to add to the group. Please search for topics with the search field above.",
       "LNK_CANCEL": "@:LNK_CANCEL",
       "BTN_SAVE": "Add topics to group"
     },
@@ -542,6 +543,7 @@
     },
     "TOPIC_ADD_GROUPS_DIALOG": {
       "HEADING": "Add topic to a group",
+      "NO_GROUPS_SELECTED": "You haven't selected any groups to add the topic to. Please search for groups with the search field above.",
       "LNK_CANCEL": "@:LNK_CANCEL",
       "BTN_SAVE": "Add topic to group"
     },

@@ -6,9 +6,23 @@
   }
 }
 #form_area {
+  gap: 0;
   .create_content {
+    margin-bottom: 0;
     .create_content_section {
-      padding: 0;
+      padding: 24px;
+    }
+  }
+
+  .notification_wrap {
+    padding: 0 16px 16px 16px;
+
+    .notification_inline {
+      align-items: center;
+
+      .message {
+        width: 100%;
+      }
     }
   }
 }

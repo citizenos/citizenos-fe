@@ -171,6 +171,7 @@ export class TopicAddGroupsComponent {
 })
 export class TopicAddGroupsDialogComponent {
     topic!: Topic;
+    noGroupsSelected = false;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialog: MatDialogRef<TopicAddGroupsDialogComponent>,
@@ -211,6 +212,11 @@ export class TopicAddGroupsDialogComponent {
       this.dialog.close();
           }
         })
+    } else {
+      this.noGroupsSelected = true;
+      setTimeout(() => {
+        this.noGroupsSelected = false;
+      }, 5000)
     }
 /*
     if (topicsToAdd.length) {
