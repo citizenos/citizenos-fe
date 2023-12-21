@@ -717,7 +717,7 @@
           </svg>
         </div>
       </!--div-->
-        <div class="state_item vote" [ngClass]="{'empty': !topic.voteId}">
+        <div class="state_item vote" [ngClass]="{'empty': !topic.voteId}" (click)="(!topic.voteId)? startVote(topic): ''">
           <ng-container *ngIf="!topic.voteId">
             <div class="icon_wrap">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -728,8 +728,7 @@
             </div>
             <div class="state_item_text">
               <ng-container *ngIf="topic.permission.level === TopicService.LEVELS.admin">
-                <button class="item_heading" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_ADD_VOTING"
-                  (click)="startVote(topic)"></button>
+                <div class="item_heading" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_ADD_VOTING"></div>
                 <div class="item_description" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_ADD_VOTING_DESC"></div>
               </ng-container>
               <ng-container *ngIf="topic.permission.level !== TopicService.LEVELS.admin">
@@ -756,7 +755,7 @@
                   <span translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_VOTING_VOTES_NEEDED"></span>
                 </div>
               </div>
-              <div class="item_title" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_VOTING_STATUS_ACTIVE"></div>
+              <div class="item_title" [translate]="(this.hasVoteEndedExpired(topic, vote))? 'VIEWS.TOPICS_TOPICID.STATE_ITEM_VOTING_STATUS_ACTIVE': 'VIEWS.TOPICS_TOPICID.STATE_ITEM_VOTING_STATUS_ENDED'"></div>
             </div>
             <div class="item_content">
               <div class="graph_wrap">
@@ -773,7 +772,7 @@
             </div>
           </ng-container>
         </div>
-        <div class="state_item follow-up" [ngClass]="{'empty': topic.status !== STATUSES.followUp}">
+        <div class="state_item follow-up" [ngClass]="{'empty': topic.status !== STATUSES.followUp}" (click)="(topic.status !== STATUSES.followUp)? sendToFollowUp(topic): ''">
           <ng-container *ngIf="topic.status !== STATUSES.followUp">
             <div class="icon_wrap">
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -788,8 +787,8 @@
                 <div class="item_heading" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_NO_FOLLOW_UP"></div>
               </ng-container>
               <ng-container *ngIf="topic.permission.level === TopicService.LEVELS.admin">
-                <button class="item_heading" (click)="sendToFollowUp(topic)"
-                  translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_ADD_FOLLOW_UP"></button>
+                <div class="item_heading"
+                  translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_ADD_FOLLOW_UP"></div>
                 <div class="item_description" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_ADD_FOLLOW_UP_DESC"></div>
               </ng-container>
             </div>

@@ -452,5 +452,4 @@ export class TopicComponent implements OnInit {
       }
     })
   };
-
 }

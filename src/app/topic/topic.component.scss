@@ -504,7 +504,7 @@
                 height: 4px;
                 display: flex;
                 width: 50%;
-                background-color: var(--color-voting-disabled);
+                background-color: var(--color-voting);
               }
               .follow_up {
                 height: 4px;
@@ -544,9 +544,16 @@
           }
         }
         &.vote {
-          border-color: var(--color-voting-disabled);
+          border-color: var(--color-voting);
           .icon_wrap {
-            background-color: var(--color-voting-disabled);
+            background-color: var(--color-voting);
+          }
+          &.empty {
+            cursor: pointer;
+            border-color: var(--color-voting-disabled);
+            .icon_wrap {
+              background-color: var(--color-voting-disabled);
+            }
           }
         }
         &.ideation {
@@ -556,9 +563,17 @@
           }
         }
         &.follow-up {
-          border-color: var(--color-follow-up-disabled);
+          border-color: var(--color-follow-up);
           .icon_wrap {
-            background-color: var(--color-follow-up-disabled);
+            background-color: var(--color-follow-up);
+          }
+
+          &.empty {
+            cursor: pointer;
+            border-color: var(--color-follow-up-disabled);
+            .icon_wrap {
+              background-color: var(--color-follow-up-disabled);
+            }
           }
         }
       }
