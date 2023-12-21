@@ -210,6 +210,7 @@
     },
     "GROUP_ADD_TOPICS_DIALOG": {
       "HEADING": "Pridať témy do skupiny",
+      "NO_TOPICS_SELECTED": "You haven't selected any topics to add to the group. Please search for topics with the search field above.",
       "LNK_CANCEL": "@:LNK_CANCEL",
       "BTN_SAVE": "Pridať témy do skupiny"
     },
@@ -542,6 +543,7 @@
     },
     "TOPIC_ADD_GROUPS_DIALOG": {
       "HEADING": "Add topic to a group",
+      "NO_GROUPS_SELECTED": "You haven't selected any groups to add the topic to. Please search for groups with the search field above.",
       "LNK_CANCEL": "@:LNK_CANCEL",
       "BTN_SAVE": "Add topic to group"
     },
@@ -1180,7 +1182,8 @@
     "WIDGETS_HOW_DOES_IT_WORK_HEADING": "@:DEFAULT.WIDGET.BTN_HOW_DOES_IT_WORK",
     "WIDGETS_HOW_DOES_IT_WORK_TEXT": "Môžete sa zúčastniť diskusie tým, že pridáte svoje argumenty",
     "PRIVACY_POLICY_HEADING": "Podmienky používania a politika ochrany osobných údajov",
-    "PRIVACY_POLICY_DESCRIPTION": "Zmenili sme Podmienky používania a politiku ochrany osobných údajov. Podrobne sa s nimi oboznámte a buď ich príjmite, alebo zamietnite. Zamietnutím našich podmienok však nebudete môcť používať našu platformu, takže budete odhlásení a vrátení na domovskú stránku a váš účet zanikne.",
+    "PRIVACY_POLICY_DESCRIPTION": "We've changed our Terms of Use and Privacy Policy! To continue using your account, please take a moment to read and accept them",
+    "PRIVACY_POLICY_DESCRIPTION_NEW_USER": "Thanks for creating an account! Before you continue, please take a moment to read and accept our Terms of Use and Privacy Policy",
     "PRIVACY_POLICY_LNK_TERMS_OF_USE": "Podmienky používania",
     "PRIVACY_POLICY_LNK_PRIVACY_POLICY": "Politika ochrany osobných údajov",
     "PRIVACY_POLICY_BTN_REJECT": "Odmietnuť",
@@ -1188,8 +1191,11 @@
     "USER_DELETE_CONFIRM_HEADING": "Vymazať účet",
     "USER_DELETE_CONFIRM_TXT_ARE_YOU_SURE": "Určite chcete svoj účet vymazať?",
     "USER_DELETE_CONFIRM_TXT_NO_UNDO": "Pamätajte, že tento krok je nezvratný.",
+    "USER_DELETE_CONFIRM_TXT_BY_REJECTING_TERMS": "By rejecting the Terms of Use and Privacy Policy, you can no longer use this account",
+    "USER_DELETE_CONFIRM_TXT_USER_LOGGED_OUT_AND_DELETED": "You'll be logged out and your account will be deleted",
     "USER_DELETE_CONFIRM_TXT_USER_DELETED": "Váš účet bude vymazaný",
-    "USER_DELETE_CONFIRM_TXT_KEEP_DATA_ANONYMOUSLY": "Všetky dáta vytvorené užívateľom budú anonymizované a nebude možné ich obnoviť",
+    "USER_DELETE_CONFIRM_TXT_KEEP_DATA_ANONYMOUSLY": "All your data will be anonymised and won't be recoverable",
+    "USER_DELETE_CONFIRM_TXT_SORRY_TO_SEE_YOU_GO": "We'd be sorry to see you go!",
     "USER_DELETE_CONFIRM_NO": "Nie, tento účet ponechať",
     "USER_DELETE_CONFIRM_YES": "Áno, tento účet vymazať",
     "DUPLICATE_TOPIC_CONFIRM_HEADING": "Ste si istí, že chcete túto tému duplikovať?",
