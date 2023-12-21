@@ -26,7 +26,7 @@ export class TopicMemberUserService extends ItemsListService {
   }
 
   query(params: { [key: string]: any }) {
-    let path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/members/users', params);
+    let path = this.Location.getAbsoluteUrlApi(this.AuthService.resolveAuthorizedPath('/topics/:topicId/members/users'), params);
     const queryParams = Object.fromEntries(Object.entries(params).filter((i) => i[1] !== null));
 
     return this.http.get<ApiResponse>(path, { withCredentials: true, params: queryParams, observe: 'body', responseType: 'json' }).pipe(
