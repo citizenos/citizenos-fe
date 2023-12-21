@@ -441,6 +441,13 @@ export class VoteCreateComponent implements OnInit {
     this.updateVote();
     this.router.navigate(['my', 'topics']);
   }
+
+  edit() {
+    this.updateTopic();
+    this.updateVote();
+    this.router.navigate(['topics', this.topic.id], {fragment: 'voting'});
+  }
+
   publish() {
     this.updateTopic();
     this.topicGroups.forEach((group) => {

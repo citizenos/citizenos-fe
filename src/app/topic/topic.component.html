@@ -104,7 +104,7 @@
             <span translate="VIEWS.TOPICS_TOPICID.OPTION_EDIT_TOPIC"></span>
           </button>
           <button class="option"
-            *ngIf="(auth.loggedIn$ | async) && TopicService.canEdit(topic) && topic.voteId && topic.status === TopicService.STATUSES.draft"
+            *ngIf="(auth.loggedIn$ | async) && topic.voteId && (TopicService.canDelete(topic) || TopicService.canEdit(topic) && topic.status === TopicService.STATUSES.draft)"
             [routerLink]="['/','topics', 'vote', 'edit', topic.id]">
             <div>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

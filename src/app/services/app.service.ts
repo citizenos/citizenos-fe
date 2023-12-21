@@ -189,7 +189,7 @@ export class AppService {
   };
 
   setPageTitle (title?:string) {
-    this.Title.setTitle(title || this.translate.instant('META_DEFAULT_TITLE'));
+    this.Title.setTitle(this.translate.instant(title || 'META_DEFAULT_TITLE'));
     this.Meta.addTag({
       property: 'og:title',
       content: this.translate.instant(title || 'META_DEFAULT_TITLE')
