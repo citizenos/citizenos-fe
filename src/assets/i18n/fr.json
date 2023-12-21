@@ -540,6 +540,27 @@
       "TOPIC_MOBILE_STEP_2_LBL_MORE": "@:COMPONENTS.TOUR.TOPIC_STEP_2_LBL_MORE",
       "TOPIC_MOBILE_STEP_2_DESC_MORE": "@:COMPONENTS.TOUR.TOPIC_STEP_2_DESC_MORE"
     },
+    "TOPIC_ADD_GROUPS_DIALOG": {
+      "HEADING": "Add topic to groups",
+      "LNK_CANCEL": "@:LNK_CANCEL",
+      "BTN_SAVE": "Add topic to groups"
+    },
+    "TOPIC_ADD_GROUPS": {
+      "HEADING": "Find groups to add the topic to",
+      "DESC": "When you add the topic to the groups, all members of these groups will have access to the topic.",
+      "PLACEHOLDER_SEARCH": "Search for a group",
+      "SHOW_PER_PAGE": "@:VIEWS.ACCOUNT.SHOW_PER_PAGE",
+      "NO_TOPICS_HEADING": "You haven’t added any groups yet",
+      "NO_TOPICS_DESC": "Add your topic to groups to incentivise members to engage with the topic. This is not mandatory and you can always add topic to the groups later.",
+      "SELECT_TO_ADD": "Select to add",
+      "HEADING_TITLE": "Name",
+      "HEADING_PARTICIPANTS": "Members",
+      "HEADING_TOPIC_PERMISSIONS": "@:COMPONENTS.GROUP_ADD_TOPICS.HEADING_GROUP_PERMISSIONS",
+      "HEADING_ACTIONS": "Actions",
+      "BTN_BULK_ACTIONS": "@:BTN_BULK_ACTIONS",
+      "BULK_OPT_SET_ALL_RIGHTS": "@:COMPONENTS.GROUP_INVITE.BULK_OPT_SET_ALL_RIGHTS",
+      "BULK_OPT_REMOVE_ALL": "@:COMPONENTS.GROUP_INVITE.BULK_OPT_REMOVE_ALL"
+    },
     "TOPIC_INVITE": {
       "HEADING": "Invite people to the topic",
       "MESSAGE_DESC": "@:MODALS.TOPIC_INVITE_LBL_OPTIONAL_MESSAGE",
@@ -590,6 +611,13 @@
       "HEADING_MILESTONE": "Milestone",
       "HEADING_MILESTONE_TITLE": "Milestone title",
       "MILESTONE_TITLE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_MILESTONE"
+    },
+    "TOPIC_ONBOARDING": {
+      "TITLE": "Topics look (and work) a bit differently since the update",
+      "DESCRIPTION": "@:VIEWS.TOPICS_TOPICID.TUTORIAL_DESC",
+      "TAKE_A_TOUR": "@:COMPONENTS.ONBOARDING.TAKE_A_TOUR",
+      "BTN_SUBMIT": "@:COMPONENTS.ONBOARDING.BTN_SUBMIT",
+      "BTN_CANCEL": "@:COMPONENTS.ONBOARDING.BTN_CANCEL"
     },
     "TOPIC_VOTE_CAST": {
       "PREVIEW_VOTE_TYPE_REGULAR": "@:COMPONENTS.TOPIC_VOTE_CREATE.PREVIEW_VOTE_TYPE_REGULAR",
@@ -1599,7 +1627,8 @@
       "SETTINGS_CATEGORY_SELECT_DESC": "Choose up to 3 categories that fit your topic.",
       "SETTINGS_CATEGORY_SELECT": "Choose a category",
       "FOOTER_BTN_CONTINUE": "@:BTN_CONTINUE",
-      "FOOTER_BTN_CREATE": "Create group and send invites",
+      "FOOTER_BTN_CREATE_AND_INVITE": "Create group and send invites",
+      "FOOTER_BTN_CREATE": "Create group",
       "SETTINGS_HEADING_LOCALITY": "Country & language",
       "SETTINGS_LOCALITY_SELECT_DESC": "You can assign a country and language to this group, to make it easier for local people to find.",
       "SETTINGS_COUNTRY_SELECT": "Choose a country",
