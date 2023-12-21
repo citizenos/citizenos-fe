@@ -2314,6 +2314,7 @@
       "FOOTER_BTN_CONTINUE": "@:BTN_CONTINUE",
       "FOOTER_BTN_SAVE_AS_DRAFT": "@:VIEWS.TOPIC_CREATE.FOOTER_BTN_SAVE_AS_DRAFT",
       "FOOTER_BTN_CREATE": "@:VIEWS.TOPIC_CREATE.FOOTER_BTN_CREATE",
+      "FOOTER_BTN_SAVE_CHANGES": "@:VIEWS.TOPIC_CREATE.FOOTER_BTN_SAVE_CHANGES",
       "HELP_HEADING": "@:VIEWS.TOPIC_CREATE.HELP_HEADING",
       "HELP_DESCRIPTION": "Creating a voting topic allows you to cut straight to the vote. If you'd like a discussion before voting, create a discussion topic then add a voting phase",
       "HELP_LNK_LEARN_MORE": "@:VIEWS.TOPIC_CREATE.HELP_LNK_LEARN_MORE",
