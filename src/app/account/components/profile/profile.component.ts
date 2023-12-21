@@ -236,7 +236,16 @@ export class ProfileComponent {
   fileUpload() {
     const files = this.fileInput?.nativeElement.files;
     this.uploadedImage = files[0];
-  };
+    const reader = new FileReader();
+    reader.onload = async () => {
+      await this.resizeImage(reader.result as string).then((res: any) => {
+        this.tmpImageUrl = res.imageUrl;
+        this.imageFile = res.file;
+      });
+    };
+    reader.readAsDataURL(files[0]);
+
+  }
 
   triggerUploadImage() {
     this.fileInput?.nativeElement.click();
