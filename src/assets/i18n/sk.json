@@ -612,6 +612,13 @@
       "HEADING_MILESTONE_TITLE": "Názov medzníka",
       "MILESTONE_TITLE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_MILESTONE"
     },
+    "TOPIC_ONBOARDING": {
+      "TITLE": "Topics look (and work) a bit differently since the update",
+      "DESCRIPTION": "@:VIEWS.TOPICS_TOPICID.TUTORIAL_DESC",
+      "TAKE_A_TOUR": "@:COMPONENTS.ONBOARDING.TAKE_A_TOUR",
+      "BTN_SUBMIT": "@:COMPONENTS.ONBOARDING.BTN_SUBMIT",
+      "BTN_CANCEL": "@:COMPONENTS.ONBOARDING.BTN_CANCEL"
+    },
     "TOPIC_VOTE_CAST": {
       "PREVIEW_VOTE_TYPE_REGULAR": "@:COMPONENTS.TOPIC_VOTE_CREATE.PREVIEW_VOTE_TYPE_REGULAR",
       "TXT_YOU_CAN_CHOOSE_OPTIONS": "@:VIEWS.TOPICS_TOPICID.TXT_YOU_CAN_CHOOSE_OPTIONS",
@@ -1620,7 +1627,8 @@
       "SETTINGS_CATEGORY_SELECT_DESC": "Choose up to 3 categories that fit your topic.",
       "SETTINGS_CATEGORY_SELECT": "Choose a category",
       "FOOTER_BTN_CONTINUE": "@:BTN_CONTINUE",
-      "FOOTER_BTN_CREATE": "Create group and send invites",
+      "FOOTER_BTN_CREATE_AND_INVITE": "Create group and send invites",
+      "FOOTER_BTN_CREATE": "Create group",
       "SETTINGS_HEADING_LOCALITY": "Country & language",
       "SETTINGS_LOCALITY_SELECT_DESC": "You can assign a country and language to this group, to make it easier for local people to find.",
       "SETTINGS_COUNTRY_SELECT": "Choose a country",
