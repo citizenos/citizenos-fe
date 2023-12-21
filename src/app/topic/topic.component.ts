@@ -87,7 +87,7 @@ export class TopicComponent implements OnInit {
   @ViewChild('topicText') set content(content: ElementRef) {
     if (content) { // initially setter gets called with undefined
       this.topicText = content;
-      if (content.nativeElement.offsetHeight > 200) {
+      if (content.nativeElement.offsetHeight >= 320) {
         this.readMoreButton = true;
       }
       this.cd.detectChanges();

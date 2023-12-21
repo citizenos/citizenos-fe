@@ -69,7 +69,7 @@ export class TopicFormComponent {
   @ViewChild('topicText') set content(content: ElementRef) {
     if (content) { // initially setter gets called with undefined
       this.topicText = content;
-      if (content.nativeElement.offsetHeight > 200) {
+      if (content.nativeElement.offsetHeight >= 320) {
         this.readMoreButton.next(true);
       }
       this.cd.detectChanges();
@@ -150,7 +150,6 @@ export class TopicFormComponent {
   ngOnInit() {
     this.topicUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.topic.padUrl);
     this.downloadUrl = this.TopicService.download(this.topic.id);
-    console.log(this.topic);
     Object.keys(this.block).forEach((blockname) => {
       const temp = this.topic[blockname as keyof Topic];
       if (temp)
@@ -159,8 +158,7 @@ export class TopicFormComponent {
     if (this.topic.id) {
       this.TopicInviteUserService.setParam('topicId', this.topic.id);
       this.invites$ = this.loadInvite$.pipe(
-        tap(()=>console.log('LOAD INVITES')),
-        switchMap(() => {console.log('EXCHAUST'); return this.TopicInviteUserService.loadItems()})
+        switchMap(() => this.TopicInviteUserService.loadItems())
       );
       this.TopicMemberUserService.setParam('topicId', this.topic.id);
       this.members$ = this.loadMembers$.pipe(
@@ -192,7 +190,7 @@ export class TopicFormComponent {
       if (tabIndex+1 === 2) {
         setTimeout(() => {
           this.TopicService.reloadTopic();
-        })
+        }, 200)
       }
     }
   }
@@ -361,7 +359,6 @@ export class TopicFormComponent {
     const inviteDialog = this.dialog.open(InviteEditorsComponent, { data: { topic: this.topic } });
     inviteDialog.afterClosed().subscribe({
       next: (inviteUsers) => {
-        console.log('INVITE SENT')
         this.loadInvite$.next();
       },
       error: (error) => {
