@@ -5,7 +5,7 @@ import { TopicMemberUserService } from 'src/app/services/topic-member-user.servi
 import { TopicInviteUserService } from 'src/app/services/topic-invite-user.service';
 import { TopicMemberGroupService } from 'src/app/services/topic-member-group.service';
 import { TopicService } from 'src/app/services/topic.service';
-import { of, take, switchMap } from 'rxjs';
+import { of, take, tap, switchMap } from 'rxjs';
 import { TopicMemberUser } from 'src/app/interfaces/user';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -24,6 +24,7 @@ export class TopicParticipantsComponent implements OnInit {
   topic: Topic;
   memberGroups$ = of(<any[]>[]);
   memberUsers$ = of(<any[]>[]);
+  memberUsers = <any[]>[];
   memberInvites$ = of(<any[]>[]);
   LEVELS = Object.keys(this.TopicService.LEVELS)
   constructor(
@@ -36,7 +37,9 @@ export class TopicParticipantsComponent implements OnInit {
   ) {
     this.topic = data.topic;
     this.memberGroups$ = TopicMemberGroupService.loadItems();
-    this.memberUsers$ = TopicMemberUserService.loadItems();
+    this.memberUsers$ = TopicMemberUserService.loadItems().pipe(
+      tap((members:any) => this.memberUsers = members)
+    );
     this.memberInvites$ = TopicInviteUserService.loadItems();
   }
 
@@ -49,6 +52,12 @@ export class TopicParticipantsComponent implements OnInit {
   canUpdate() {
     return this.TopicService.canUpdate(this.topic);
   }
+
+  updateAllMemberLevels(level: string) {
+    this.memberUsers.forEach((member: TopicMemberUser) => {
+      this.doUpdateMemberUser(member, level);
+    });
+  };
 
   doUpdateMemberUser(member: TopicMemberUser, level: string) {
     if (member.level !== level) {
