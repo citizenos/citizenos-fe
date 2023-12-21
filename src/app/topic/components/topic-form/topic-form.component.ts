@@ -298,7 +298,7 @@ export class TopicFormComponent {
   };
 
   updateTopic() {
-    return this.TopicService.patch(this.topic).pipe(take(1)).subscribe(() => this.TopicService.reloadTopic(););
+    return this.TopicService.patch(this.topic).pipe(take(1)).subscribe(() => this.TopicService.reloadTopic());
   }
 
   saveAsDraft() {

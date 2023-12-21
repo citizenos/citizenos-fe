@@ -724,7 +724,7 @@
               <div class="topic_image">
                 <img *ngIf="topic.imageUrl" [src]="topic.imageUrl">
               </div>
-              <div id="topic_text_wrap" #topicText [@readMore]="readMore? 'open' : 'clsed'">
+              <div id="topic_text_wrap" #topicText [@readMore]="readMore? 'open' : 'closed'">
                 <div class="topic_title">
                   <div class="main_heading" [innerHTML]="topic.title"></div>
                 </div>

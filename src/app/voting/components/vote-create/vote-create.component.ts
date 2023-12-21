@@ -74,7 +74,7 @@ export class VoteCreateComponent implements OnInit {
   @ViewChild('topicText') set content(content: ElementRef) {
     if (content) { // initially setter gets called with undefined
       this.topicText = content;
-      if (content.nativeElement.offsetHeight > 200) {
+      if (content.nativeElement.offsetHeight >= 320) {
         this.readMoreButton = true;
       }
     }
@@ -284,7 +284,7 @@ export class VoteCreateComponent implements OnInit {
             this.voteCreateForm.saveVoteSettings();*/
       }
       if (tabIndex + 1 === 3) {
-        //     this.TopicService.reloadTopic();
+            this.TopicService.reloadTopic();
       }
       if (tabIndex > -1 && tabIndex < 3) {
         this.selectTab(this.tabs[tabIndex + 1]);
