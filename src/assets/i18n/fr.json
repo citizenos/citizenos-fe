@@ -210,6 +210,7 @@
     },
     "GROUP_ADD_TOPICS_DIALOG": {
       "HEADING": "Add topics to the group",
+      "NO_TOPICS_SELECTED": "You haven't selected any topics to add to the group. Please search for topics with the search field above.",
       "LNK_CANCEL": "@:LNK_CANCEL",
       "BTN_SAVE": "Add topics to group"
     },
@@ -542,6 +543,7 @@
     },
     "TOPIC_ADD_GROUPS_DIALOG": {
       "HEADING": "Add topic to a group",
+      "NO_GROUPS_SELECTED": "You haven't selected any groups to add the topic to. Please search for groups with the search field above.",
       "LNK_CANCEL": "@:LNK_CANCEL",
       "BTN_SAVE": "Add topic to group"
     },
@@ -1180,7 +1182,8 @@
     "WIDGETS_HOW_DOES_IT_WORK_HEADING": "@:DEFAULT.WIDGET.BTN_HOW_DOES_IT_WORK",
     "WIDGETS_HOW_DOES_IT_WORK_TEXT": "Vous pouvez participer à une discussion en ajoutant vos arguments",
     "PRIVACY_POLICY_HEADING": "Conditions d'utilisation & Politique de confidentialité",
-    "PRIVACY_POLICY_DESCRIPTION": "Nous avons modifié nos conditions d'utilisation et notre de politique de confidentialité. Veuillez les examiner attentivement et les accepter ou les rejeter. En rejetant nos conditions, vous ne pourrez pas utiliser notre plateforme, vous serez donc déconnecté, ramené à la page d'accueil et votre compte sera interrompu.",
+    "PRIVACY_POLICY_DESCRIPTION": "We've changed our Terms of Use and Privacy Policy! To continue using your account, please take a moment to read and accept them",
+    "PRIVACY_POLICY_DESCRIPTION_NEW_USER": "Thanks for creating an account! Before you continue, please take a moment to read and accept our Terms of Use and Privacy Policy",
     "PRIVACY_POLICY_LNK_TERMS_OF_USE": "Conditions d'utilisation",
     "PRIVACY_POLICY_LNK_PRIVACY_POLICY": "Politique de confidentialité",
     "PRIVACY_POLICY_BTN_REJECT": "Rejeter",
@@ -1188,8 +1191,11 @@
     "USER_DELETE_CONFIRM_HEADING": "Supprimer le compte",
     "USER_DELETE_CONFIRM_TXT_ARE_YOU_SURE": "Êtes-vous sûr de vouloir supprimer votre compte ?",
     "USER_DELETE_CONFIRM_TXT_NO_UNDO": "Attention, vous ne pourrez pas annuler cette action.",
+    "USER_DELETE_CONFIRM_TXT_BY_REJECTING_TERMS": "By rejecting the Terms of Use and Privacy Policy, you can no longer use this account",
+    "USER_DELETE_CONFIRM_TXT_USER_LOGGED_OUT_AND_DELETED": "You'll be logged out and your account will be deleted",
     "USER_DELETE_CONFIRM_TXT_USER_DELETED": "Votre compte a sera supprimé",
-    "USER_DELETE_CONFIRM_TXT_KEEP_DATA_ANONYMOUSLY": "Toutes les données créées par l'utilisateur seront anonymisées et ne seront pas récupérables",
+    "USER_DELETE_CONFIRM_TXT_KEEP_DATA_ANONYMOUSLY": "All your data will be anonymised and won't be recoverable",
+    "USER_DELETE_CONFIRM_TXT_SORRY_TO_SEE_YOU_GO": "We'd be sorry to see you go!",
     "USER_DELETE_CONFIRM_NO": "Non, conservez ce compte",
     "USER_DELETE_CONFIRM_YES": "Oui, supprimez ce compte",
     "DUPLICATE_TOPIC_CONFIRM_HEADING": "Voulez-vous vraiment dupliquer ce sujet ?",
