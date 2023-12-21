@@ -540,6 +540,27 @@
       "TOPIC_MOBILE_STEP_2_LBL_MORE": "@:COMPONENTS.TOUR.TOPIC_STEP_2_LBL_MORE",
       "TOPIC_MOBILE_STEP_2_DESC_MORE": "@:COMPONENTS.TOUR.TOPIC_STEP_2_DESC_MORE"
     },
+    "TOPIC_ADD_GROUPS_DIALOG": {
+      "HEADING": "Add topic to groups",
+      "LNK_CANCEL": "@:LNK_CANCEL",
+      "BTN_SAVE": "Add topic to groups"
+    },
+    "TOPIC_ADD_GROUPS": {
+      "HEADING": "Find groups to add the topic to",
+      "DESC": "When you add the topic to the groups, all members of these groups will have access to the topic.",
+      "PLACEHOLDER_SEARCH": "Search for a group",
+      "SHOW_PER_PAGE": "@:VIEWS.ACCOUNT.SHOW_PER_PAGE",
+      "NO_TOPICS_HEADING": "You haven’t added any groups yet",
+      "NO_TOPICS_DESC": "Add your topic to groups to incentivise members to engage with the topic. This is not mandatory and you can always add topic to the groups later.",
+      "SELECT_TO_ADD": "Select to add",
+      "HEADING_TITLE": "Name",
+      "HEADING_PARTICIPANTS": "Members",
+      "HEADING_TOPIC_PERMISSIONS": "@:COMPONENTS.GROUP_ADD_TOPICS.HEADING_GROUP_PERMISSIONS",
+      "HEADING_ACTIONS": "Actions",
+      "BTN_BULK_ACTIONS": "@:BTN_BULK_ACTIONS",
+      "BULK_OPT_SET_ALL_RIGHTS": "@:COMPONENTS.GROUP_INVITE.BULK_OPT_SET_ALL_RIGHTS",
+      "BULK_OPT_REMOVE_ALL": "@:COMPONENTS.GROUP_INVITE.BULK_OPT_REMOVE_ALL"
+    },
     "TOPIC_INVITE": {
       "HEADING": "Pozvat lidi do tématu",
       "MESSAGE_DESC": "@:MODALS.TOPIC_INVITE_LBL_OPTIONAL_MESSAGE",
