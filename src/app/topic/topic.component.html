@@ -124,7 +124,7 @@
             </div>
             <span translate="VIEWS.TOPICS_TOPICID.OPTION_DUPLICATE_TOPIC"></span>
           </button>
-          <button class="option" *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic)">
+          <button class="option" *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic)" (click)="addGroupsDialog(topic)">
             <div>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M1 13C1 14 2 14 2 14H10C10 14 11 14 11 13C11 12 10 9 6 9C2 9 1 12 1 13Z" fill="#2C3B47" />
@@ -588,7 +588,7 @@
             <div class="info_items" [@openClose]="showGroups ? 'open' : 'closed'">
               <!--a class="info_item" *ngFor="let group of groups$ | async">{{group.name}}</!--a-->
               <ng-container *ngIf="(groups$ | async) as topicGroups">
-                <a class="info_item" [routerLink]="['/',translate.currentLang, 'groups', group.id]"
+                <a class="info_item" [routerLink]="['/',translate.currentLang, 'groups', group.id]" fragment="topics"
                   *ngFor="let group of topicGroups" [innerHtml]="group.name"></a>
               </ng-container>
             </div>
