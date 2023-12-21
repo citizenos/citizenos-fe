@@ -46,6 +46,7 @@ import { TopicVoteReminderDialog } from './components/topic-vote-reminder-dialog
 import { TopicEditDisabledDialogComponent } from './components/topic-edit-disabled-dialog/topic-edit-disabled-dialog.component';
 import { TopicSettingsDisabledDialogComponent } from './components/topic-settings-disabled-dialog/topic-settings-disabled-dialog.component';
 import { TopicAddGroupsComponent, TopicAddGroupsDialogComponent } from './components/topic-add-groups/topic-add-groups.component';
+import { TopicOnboardingComponent } from './components/topic-onboarding/topic-onboarding.component';
 
 @NgModule({
   declarations: [
@@ -97,7 +98,8 @@ import { TopicAddGroupsComponent, TopicAddGroupsDialogComponent } from './compon
     TopicEditDisabledDialogComponent,
     TopicSettingsDisabledDialogComponent,
     TopicAddGroupsComponent,
-    TopicAddGroupsDialogComponent
+    TopicAddGroupsDialogComponent,
+    TopicOnboardingComponent
   ],
   imports: [
     LinkyModule,
