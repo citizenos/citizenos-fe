@@ -28,7 +28,7 @@ import { TopicParticipantsComponent } from './components/topic-participants/topi
 import { DuplicateTopicDialogComponent } from './components/duplicate-topic-dialog/duplicate-topic-dialog.component';
 import { TopicVoteCreateDialogComponent } from './components/topic-vote-create/topic-vote-create.component';
 import { TopicFollowUpCreateDialogComponent } from './components/topic-follow-up-create-dialog/topic-follow-up-create-dialog.component';
-import { TopicTourDialogComponent } from './components/topic-tour-dialog/topic-tour-dialog.component'
+import { TopicAddGroupsDialogComponent } from './components/topic-add-groups/topic-add-groups.component';
 import { TopicJoinComponent } from './components/topic-join/topic-join.component';
 import { TopicReportReasonComponent } from './components/topic-report-reason/topic-report-reason.component';
 import { TopicJoinService } from 'src/app/services/topic-join.service';
@@ -186,12 +186,6 @@ export class TopicComponent implements OnInit {
         setTimeout(() => {
           if (window.innerWidth <560) {
             this.showTutorial = false;
-          /*  const tourDialog = this.dialog.open(TopicTourDialogComponent);
-            tourDialog.afterClosed().subscribe((res) => {
-              if (res) {
-                this.takeTour();
-              }
-            });*/
           } else {
             this.showTutorial = true;
           }
@@ -344,6 +338,14 @@ export class TopicComponent implements OnInit {
 
     return vote && vote.endsAt && new Date() > new Date(vote.endsAt);
   };
+
+  addGroupsDialog(topic: Topic) {
+    this.dialog.open(TopicAddGroupsDialogComponent, {
+      data: {
+        topic: topic
+      }
+    });
+  }
 
   inviteEditors(topic: Topic) {
     const inviteDialog = this.dialog.open(InviteEditorsComponent, { data: { topic: topic } });
