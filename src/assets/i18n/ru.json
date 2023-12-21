@@ -505,7 +505,7 @@
       "TOPIC_STEP_3_TITLE": "Информация",
       "TOPIC_STEP_3_DESC": "В этом разделе собрана информация о теме. Является ли она публичной или приватной? Кто и когда ее опубликовал?",
       "TOPIC_STEP_3_DESC2": "Здесь вы можете увидеть хэштег, используемый для социальных сетей. Нажатие на него показывает упоминания в социальных сетях.",
-      "TOPIC_STEP_3_DESC3": "You can also view any attachments, check which groups are invited, and see which categories the topic is tagged in.",
+      "TOPIC_STEP_3_DESC3": "Вы также можете просматривать все вложения, проверять приглашенные группы и проверять, к каким категориям относится тема.",
       "TOPIC_STEP_4_TITLE": "Участники",
       "TOPIC_STEP_4_DESC": "Here you can see how many participants are in this topic. Admins can also manage participants permissions, and invite more people.",
       "TOPIC_STEP_5_TITLE": "Фазы темы",
@@ -541,18 +541,18 @@
       "TOPIC_MOBILE_STEP_2_DESC_MORE": "@:COMPONENTS.TOUR.TOPIC_STEP_2_DESC_MORE"
     },
     "TOPIC_ADD_GROUPS_DIALOG": {
-      "HEADING": "Add topic to groups",
+      "HEADING": "Добавить тему в группы",
       "LNK_CANCEL": "@:LNK_CANCEL",
-      "BTN_SAVE": "Add topic to groups"
+      "BTN_SAVE": "Добавить тему в группы"
     },
     "TOPIC_ADD_GROUPS": {
-      "HEADING": "Find groups to add the topic to",
-      "DESC": "When you add the topic to the groups, all members of these groups will have access to the topic.",
-      "PLACEHOLDER_SEARCH": "Search for a group",
+      "HEADING": "Найти группы, в которые добавить тему",
+      "DESC": "Если добавите тему в группы, все участники групп будут иметь доступ к этой теме.",
+      "PLACEHOLDER_SEARCH": "Поиск группы",
       "SHOW_PER_PAGE": "@:VIEWS.ACCOUNT.SHOW_PER_PAGE",
-      "NO_TOPICS_HEADING": "You haven’t added any groups yet",
-      "NO_TOPICS_DESC": "Add your topic to groups to incentivise members to engage with the topic. This is not mandatory and you can always add topic to the groups later.",
-      "SELECT_TO_ADD": "Select to add",
+      "NO_TOPICS_HEADING": "Вы еще не добавили ни одной группы",
+      "NO_TOPICS_DESC": "Добавляйте тему в Ваши группы, чтобы мотивировать пользователей к действию по темам. Это необязательно, и всегда можно добавить тему в группы позже.",
+      "SELECT_TO_ADD": "Выделить для добавления",
       "HEADING_TITLE": "Name",
       "HEADING_PARTICIPANTS": "Members",
       "HEADING_TOPIC_PERMISSIONS": "@:COMPONENTS.GROUP_ADD_TOPICS.HEADING_GROUP_PERMISSIONS",
@@ -611,6 +611,13 @@
       "HEADING_MILESTONE": "Этап",
       "HEADING_MILESTONE_TITLE": "Название этапа",
       "MILESTONE_TITLE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_MILESTONE"
+    },
+    "TOPIC_ONBOARDING": {
+      "TITLE": "Темы выглядят (и работают) немного по-другому со времени обновления",
+      "DESCRIPTION": "@:VIEWS.TOPICS_TOPICID.TUTORIAL_DESC",
+      "TAKE_A_TOUR": "@:COMPONENTS.ONBOARDING.TAKE_A_TOUR",
+      "BTN_SUBMIT": "@:COMPONENTS.ONBOARDING.BTN_SUBMIT",
+      "BTN_CANCEL": "@:COMPONENTS.ONBOARDING.BTN_CANCEL"
     },
     "TOPIC_VOTE_CAST": {
       "PREVIEW_VOTE_TYPE_REGULAR": "@:COMPONENTS.TOPIC_VOTE_CREATE.PREVIEW_VOTE_TYPE_REGULAR",
@@ -1495,10 +1502,10 @@
       "FEATURE_GROUP_LNK": "Просмотреть все публичные группы",
       "HEADING_WELCOME": "Привет, добро пожаловать в Citizen OS!",
       "PUBLIC_GROUPS_TITLE": "Последние публичные группы",
-      "PUBLIC_GROUPS_DESCRIPTION": "Have a sneak peek at some of the most recent public groups available on Citizen OS.",
+      "PUBLIC_GROUPS_DESCRIPTION": "Ознакомьтесь с некоторыми из самых популярных публичных групп на нашей платформе.",
       "BTN_VIEW_ALL_GROUPS": "Просмотреть все публичные группы",
       "PUBLIC_TOPICS_TITLE": "Последние публичные темы",
-      "PUBLIC_TOPICS_DESCRIPTION": "Have a sneak peek at some of the most recent public topics available on Citizen OS.",
+      "PUBLIC_TOPICS_DESCRIPTION": "Ознакомьтесь с некоторыми из самых популярных публичных тем на нашей платформе.",
       "BTN_VIEW_ALL_TOPICS": "Просмотреть все публичные темы",
       "HEADINGS_SHOW_ME_TOPICS_ABOUT": "Показать мне темы из категории",
       "LNK_SHOW": "Со статусом:",
@@ -1620,7 +1627,8 @@
       "SETTINGS_CATEGORY_SELECT_DESC": "Выберите до 3 категорий, которые соответствуют вашей теме.",
       "SETTINGS_CATEGORY_SELECT": "Выбор категории",
       "FOOTER_BTN_CONTINUE": "@:BTN_CONTINUE",
-      "FOOTER_BTN_CREATE": "Создать группу и отправить приглашения",
+      "FOOTER_BTN_CREATE_AND_INVITE": "Создать группу и отправить приглашения",
+      "FOOTER_BTN_CREATE": "Создать группу",
       "SETTINGS_HEADING_LOCALITY": "Страна и язык",
       "SETTINGS_LOCALITY_SELECT_DESC": "Вы можете назначить для этой группы страну и язык, чтобы облегчить поиск местным участникам.",
       "SETTINGS_COUNTRY_SELECT": "Выбрать страну",
