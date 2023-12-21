@@ -894,9 +894,9 @@
     </div>
   </div>
   <div class="tutorial" [@showTutorial]="showTutorial? 'open': 'closed'" [ngClass]="{'hidden': skipTour }">
-    <div class="tutorial_header">
+    <button class="tutorial_header" (click)="showTutorial = !showTutorial">
       <span translate="VIEWS.TOPICS_TOPICID.TUTORIAL_HEADING"></span>
-      <div class="close" (click)="showTutorial = !showTutorial">
+      <div class="close" >
         <svg *ngIf="showTutorial" width="16" height="16" viewBox="0 0 16 16" fill="none"
           xmlns="http://www.w3.org/2000/svg">
           <path
@@ -911,7 +911,7 @@
             fill="#A7D1F3" />
         </svg>
       </div>
-    </div>
+    </button>
     <div class="tutorial_content">
       <div class="title">
         <span translate="VIEWS.TOPICS_TOPICID.TUTORIAL_TITLE"></span>

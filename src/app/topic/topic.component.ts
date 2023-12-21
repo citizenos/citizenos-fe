@@ -34,6 +34,7 @@ import { TopicReportReasonComponent } from './components/topic-report-reason/top
 import { TopicJoinService } from 'src/app/services/topic-join.service';
 import { TourService } from 'src/app/services/tour.service';
 import { InviteEditorsComponent } from './components/invite-editors/invite-editors.component';
+import { TopicOnboardingComponent } from './components/topic-onboarding/topic-onboarding.component';
 
 @Component({
   selector: 'topic',
@@ -74,7 +75,7 @@ import { InviteEditorsComponent } from './components/invite-editors/invite-edito
       transition('* => open', [
         animate('1s')
       ]),
-    ]),
+    ])
   ]
 })
 
@@ -184,13 +185,15 @@ export class TopicComponent implements OnInit {
         }
         padURL.searchParams.set('theme', 'default');
         topic.padUrl = padURL.href; // Change of PAD URL here has to be before $sce.trustAsResourceUrl($scope.topic.padUrl);
-        setTimeout(() => {
-          if (window.innerWidth <560) {
-            this.showTutorial = false;
-          } else {
-            this.showTutorial = true;
-          }
-        }, 500);
+        if (!sessionStorage.getItem('showTutorial')) {
+          setTimeout(() => {
+            if (window.innerWidth <560) {
+              this.showTutorial = false;
+            } else {
+              this.showTutorial = true;
+            }
+          }, 500);
+        }
         return topic;
       })
     );
@@ -217,6 +220,35 @@ export class TopicComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
+  }
+
+  ngOnInit(): void {
+    console.log('ngOnInit', this.topicText)
+  }
+
+  ngAfterViewInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    if (window.innerWidth <= 1024) {
+      this.skipTour = true;
+      setTimeout(() => {
+        this.dialog.closeAll();
+        const onBoarding = this.dialog.open(TopicOnboardingComponent);
+        this.app.mobileTutorial = true;
+        onBoarding.afterClosed().subscribe((skip) => {
+          if (skip) {
+            this.showTutorial = false;
+            this.skipTour = false;
+          }
+          this.app.mobileTutorial = false
+        });
+      });
+    } else {
+      setTimeout(() => {
+        sessionStorage.setItem('showTutorial', 'true');
+        this.showTutorial = false;
+      }, 5000);
+    }
   }
 
   reportReasonDialog(topic: Topic) {
@@ -290,13 +322,6 @@ export class TopicComponent implements OnInit {
 
   sanitizeURL(url: string) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
-  }
-
-  ngOnInit(): void {
-    console.log('ngOnInit', this.topicText)
-  }
-
-  ngAfterViewInit(): void {
   }
 
   currentUrl() {

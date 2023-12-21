@@ -720,7 +720,7 @@
     }
 
     @include mixins.tablet {
-      margin-bottom: 72px;
+      margin-bottom: 57px;
       right: 0;
       left: 0;
       margin-left: auto;
@@ -728,6 +728,7 @@
     }
 
     .tutorial_header {
+      cursor:pointer;
       display: flex;
       color: var(--color-scrollbar-thumb);
       align-items: center;
