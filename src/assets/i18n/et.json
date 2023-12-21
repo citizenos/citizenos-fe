@@ -541,13 +541,13 @@
       "TOPIC_MOBILE_STEP_2_DESC_MORE": "@:COMPONENTS.TOUR.TOPIC_STEP_2_DESC_MORE"
     },
     "TOPIC_ADD_GROUPS_DIALOG": {
-      "HEADING": "Add topic to groups",
+      "HEADING": "Add topic to a group",
       "LNK_CANCEL": "@:LNK_CANCEL",
-      "BTN_SAVE": "Add topic to groups"
+      "BTN_SAVE": "Add topic to group"
     },
     "TOPIC_ADD_GROUPS": {
-      "HEADING": "Find groups to add the topic to",
-      "DESC": "When you add the topic to the groups, all members of these groups will have access to the topic.",
+      "HEADING": "Find a group to add the topic to",
+      "DESC": "When you add a topic to a group, all members of that group will have access to the topic.",
       "PLACEHOLDER_SEARCH": "Search for a group",
       "SHOW_PER_PAGE": "@:VIEWS.ACCOUNT.SHOW_PER_PAGE",
       "NO_TOPICS_HEADING": "You haven’t added any groups yet",
