@@ -541,13 +541,13 @@
       "TOPIC_MOBILE_STEP_2_DESC_MORE": "@:COMPONENTS.TOUR.TOPIC_STEP_2_DESC_MORE"
     },
     "TOPIC_ADD_GROUPS_DIALOG": {
-      "HEADING": "Добавить тему в группы",
+      "HEADING": "Add topic to a group",
       "LNK_CANCEL": "@:LNK_CANCEL",
-      "BTN_SAVE": "Добавить тему в группы"
+      "BTN_SAVE": "Add topic to group"
     },
     "TOPIC_ADD_GROUPS": {
-      "HEADING": "Найти группы, в которые добавить тему",
-      "DESC": "Если добавите тему в группы, все участники групп будут иметь доступ к этой теме.",
+      "HEADING": "Find a group to add the topic to",
+      "DESC": "When you add a topic to a group, all members of that group will have access to the topic.",
       "PLACEHOLDER_SEARCH": "Поиск группы",
       "SHOW_PER_PAGE": "@:VIEWS.ACCOUNT.SHOW_PER_PAGE",
       "NO_TOPICS_HEADING": "Вы еще не добавили ни одной группы",
