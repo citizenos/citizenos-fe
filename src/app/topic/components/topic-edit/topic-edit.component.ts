@@ -23,7 +23,7 @@ export class TopicEditComponent {
   ) {
     this.topic$ = this.route.params.pipe(
       switchMap((params) => {
-        return this.TopicService.get(params['topicId'])
+        return this.TopicService.loadTopic(params['topicId'])
       }),
     )
   }
