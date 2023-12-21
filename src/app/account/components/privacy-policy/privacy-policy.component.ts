@@ -10,7 +10,8 @@ import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog
 import { AddEidComponent } from '../add-eid/add-eid.component';
 
 export interface PrivacyPolicyData {
-  user: User
+  user: User,
+  new?: boolean
 }
 @Component({
   selector: 'app-privacy-policy',
@@ -20,6 +21,7 @@ export interface PrivacyPolicyData {
 export class PrivacyPolicyComponent implements OnInit {
   config: any;
   user!: User;
+  isNew = false;
   constructor(
     @Inject(MAT_DIALOG_DATA) data: PrivacyPolicyData,
     private dialog: MatDialog,
@@ -30,6 +32,8 @@ export class PrivacyPolicyComponent implements OnInit {
   ) {
     this.config = ConfigService.get('legal');
     this.user = data.user;
+    if (data.new)
+      this.isNew = data.new;
   }
 
   ngOnInit(): void {
@@ -39,10 +43,9 @@ export class PrivacyPolicyComponent implements OnInit {
     const confirmReject = this.dialog.open(ConfirmDialogComponent, {
       data: {
         level: 'delete',
-        heading: 'MODALS.USER_DELETE_CONFIRM_HEADING',
-        title: 'MODALS.USER_DELETE_CONFIRM_TXT_ARE_YOU_SURE',
+        heading: 'MODALS.USER_DELETE_CONFIRM_TXT_ARE_YOU_SURE',
         description: 'MODALS.USER_DELETE_CONFIRM_TXT_NO_UNDO',
-        points: ['MODALS.USER_DELETE_CONFIRM_TXT_USER_DELETED', 'MODALS.USER_DELETE_CONFIRM_TXT_KEEP_DATA_ANONYMOUSLY'],
+        points: ['MODALS.USER_DELETE_CONFIRM_TXT_BY_REJECTING_TERMS', 'MODALS.USER_DELETE_CONFIRM_TXT_USER_LOGGED_OUT_AND_DELETED', 'MODALS.USER_DELETE_CONFIRM_TXT_KEEP_DATA_ANONYMOUSLY', 'MODALS.USER_DELETE_CONFIRM_TXT_SORRY_TO_SEE_YOU_GO'],
         confirmBtn: 'MODALS.USER_DELETE_CONFIRM_YES',
         closeBtn: 'MODALS.USER_DELETE_CONFIRM_NO'
       }
