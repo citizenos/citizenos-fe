@@ -66,7 +66,7 @@ import { InviteEditorsComponent } from './components/invite-editors/invite-edito
         bottom: 0,
       })),
       state('closed', style({
-        bottom: '-325px'
+        bottom: '-200px'
       })),
       transition('* => closed', [
         animate('1s')
@@ -82,6 +82,7 @@ export class TopicComponent implements OnInit {
   //new
   topicText?: ElementRef
   readMoreButton = false;
+  skipTour = false;
   @ViewChild('topicText') set content(content: ElementRef) {
     if (content) { // initially setter gets called with undefined
       this.topicText = content;
