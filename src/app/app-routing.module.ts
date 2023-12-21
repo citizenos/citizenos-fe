@@ -9,7 +9,8 @@ import { PageUnauthorizedComponent } from './core/components/page-unauthorized/p
 import { authResolver } from './services/auth.service';
 
 const options: ExtraOptions = {
-  paramsInheritanceStrategy: 'always'
+  paramsInheritanceStrategy: 'always',
+  scrollPositionRestoration: 'enabled'
 };
 
 const routes: Routes = [
