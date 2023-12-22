@@ -18,6 +18,27 @@
   <div id="page_filters_wrap">
     <div id="options_area" [@openClose]="moreFilters ? 'open' : 'closed'" class="mobile_hidden">
       <div class="options_row">
+        <cos-input [placeholder]="'VIEWS.PUBLIC_GROUPS.FILTERS.VISIBILITY' | translate" class="dropdown_input">
+          <div class="dropdown" [cosDropdown]>
+            <div class="selection">
+              <div class="selected_item">{{(GroupService.params$ | async)?.visibility || 'All'}}</div>
+              <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </div>
+            </div>
+            <div class="options">
+              <div class="option" *ngFor="let item of visibility" [routerLink]="['./']"
+                [queryParams]="{visibility: item}">
+                {{'VIEWS.PUBLIC_GROUPS.FILTERS.ALL' | translate}}
+              </div>
+              <div class="option" [routerLink]="['./']" [queryParams]="{favourite: 'true'}"
+                translate="VIEWS.PUBLIC_GROUPS.FILTERS.FAVOURITED"></div>
+              <!--div class="option" [routerLink]="['./']" [queryParams]="{moderated: 'true'}"
+                translate="VIEWS.PUBLIC_GROUPS.FILTER_MODERATED"></!--div-->
+            </div>
+          </div>
+        </cos-input>
         <!--cos-input [placeholder]="'VIEWS.PUBLIC_GROUPS.FILTERS.VISIBILITY' | translate" class="dropdown_input">
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
