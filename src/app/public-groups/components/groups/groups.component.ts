@@ -46,8 +46,7 @@ export class GroupsComponent implements OnInit {
     language: false
   }
 
-  visibility = ['all'];
-  categories = ['all', 'democracy'];
+  visibility = [''];
   countrySearch = '';
   countrySearch$ = new BehaviorSubject('');
   countries = countries;
@@ -67,8 +66,8 @@ export class GroupsComponent implements OnInit {
   };*/
 
   filters = {
-    country: 'all',
-    language: 'all'
+    country: '',
+    language: ''
   }
 
   constructor(private dialog: MatDialog,
@@ -153,9 +152,11 @@ export class GroupsComponent implements OnInit {
 
   doClearFilters() {
     this.filters = {
-      country: 'all',
-      language: 'all'
+      country: '',
+      language: ''
     }
+    this.PublicGroupService.setParam('visibility', null);
+    this.PublicGroupService.setParam('favourite', null);
     this.searchInput = '';
     this.searchString$.next('');
     this.setLanguage('');
