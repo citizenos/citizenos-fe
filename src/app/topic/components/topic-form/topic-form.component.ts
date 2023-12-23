@@ -110,8 +110,12 @@ export class TopicFormComponent {
   readMore = false;
 
   showHelp = false;
-  languages = languages;
-  countries = countries;
+  languages = languages.sort((a: any, b: any) => {
+    return a.name.localeCompare(b.name);
+  });
+  countries = countries.sort((a: any, b: any) => {
+    return a.name.localeCompare(b.name);
+  });
   downloadUrl = '';
   error:any;
   constructor(

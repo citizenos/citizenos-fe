@@ -49,13 +49,17 @@ export class GroupsComponent implements OnInit {
   visibility = [''];
   countrySearch = '';
   countrySearch$ = new BehaviorSubject('');
-  countries = countries;
+  countries = countries.sort((a: any, b: any) => {
+    return a.name.localeCompare(b.name);
+  });
   countries$ = of(<Country[]>[]);
   countryFocus = false;
 
   languageSearch = '';
   languageSearch$ = new BehaviorSubject('');
-  languages = languages;
+  languages = languages.sort((a: any, b: any) => {
+    return a.name.localeCompare(b.name);
+  });
   languages$ = of(<Language[]>[]);
   languageFocus = false;
   /*topicFilters = {

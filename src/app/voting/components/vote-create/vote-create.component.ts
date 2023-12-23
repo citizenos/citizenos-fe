@@ -121,8 +121,12 @@ export class VoteCreateComponent implements OnInit {
   /**/
   VISIBILITY = this.TopicService.VISIBILITY;
   CATEGORIES = Object.keys(this.TopicService.CATEGORIES);
-  languages = languages;
-  countries = countries;
+  languages = languages.sort((a: any, b: any) => {
+    return a.name.localeCompare(b.name);
+  });
+  countries = countries.sort((a: any, b: any) => {
+    return a.name.localeCompare(b.name);
+  });
   errors?: any;
   tmpImageUrl?: string;
   imageFile?: any;
