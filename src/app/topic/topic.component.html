@@ -572,6 +572,10 @@
                   xmlns="http://www.w3.org/2000/svg">
                   <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
                 </svg>
+                <svg *ngIf="showAttachments" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17 15L12 10L7 15" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                </svg>
               </a>
               <div class="info_items" [@openClose]="showAttachments ? 'open' : 'closed'">
                 <a class="info_item" [href]="attachment.link" *ngFor="let attachment of attachments"
@@ -584,9 +588,15 @@
           <div class="info_items_wrap">
             <a class="info_title" (click)="showGroups = !showGroups">
               <span translate="VIEWS.TOPICS_TOPICID.SECTION_INFO_TITLE_GROUPS"></span>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg *ngIf="!showGroups" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
                 <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
               </svg>
+              <svg *ngIf="showGroups" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M17 15L12 10L7 15" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+              </svg>
+
             </a>
             <div class="info_items" [@openClose]="showGroups ? 'open' : 'closed'">
               <!--a class="info_item" *ngFor="let group of groups$ | async">{{group.name}}</!--a-->
@@ -599,9 +609,13 @@
           <div class="info_items_wrap">
             <a class="info_title" (click)="showCategories = !showCategories">
               <span translate="VIEWS.TOPICS_TOPICID.SECTION_INFO_TITLE_CATEGORIES"></span>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg *ngIf="!showCategories" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
               </svg>
+              <svg *ngIf="showCategories" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17 15L12 10L7 15" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                </svg>
             </a>
             <div class="info_items" [@openClose]="showCategories ? 'open' : 'closed'">
               <div class="info_item" *ngFor="let category of topic.categories">{{category}},</div>
@@ -717,7 +731,8 @@
           </svg>
         </div>
       </!--div-->
-        <div class="state_item vote" [ngClass]="{'empty': !topic.voteId}" (click)="(!topic.voteId)? startVote(topic): ''">
+        <div class="state_item vote" [ngClass]="{'empty': !topic.voteId}"
+          (click)="(!topic.voteId)? startVote(topic): ''">
           <ng-container *ngIf="!topic.voteId">
             <div class="icon_wrap">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -755,7 +770,9 @@
                   <span translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_VOTING_VOTES_NEEDED"></span>
                 </div>
               </div>
-              <div class="item_title" [translate]="(this.hasVoteEndedExpired(topic, vote))? 'VIEWS.TOPICS_TOPICID.STATE_ITEM_VOTING_STATUS_ACTIVE': 'VIEWS.TOPICS_TOPICID.STATE_ITEM_VOTING_STATUS_ENDED'"></div>
+              <div class="item_title"
+                [translate]="(this.hasVoteEndedExpired(topic, vote))? 'VIEWS.TOPICS_TOPICID.STATE_ITEM_VOTING_STATUS_ACTIVE': 'VIEWS.TOPICS_TOPICID.STATE_ITEM_VOTING_STATUS_ENDED'">
+              </div>
             </div>
             <div class="item_content">
               <div class="graph_wrap">
@@ -772,7 +789,8 @@
             </div>
           </ng-container>
         </div>
-        <div class="state_item follow-up" [ngClass]="{'empty': topic.status !== STATUSES.followUp}" (click)="(topic.status !== STATUSES.followUp)? sendToFollowUp(topic): ''">
+        <div class="state_item follow-up" [ngClass]="{'empty': topic.status !== STATUSES.followUp}"
+          (click)="(topic.status !== STATUSES.followUp)? sendToFollowUp(topic): ''">
           <ng-container *ngIf="topic.status !== STATUSES.followUp">
             <div class="icon_wrap">
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -787,8 +805,7 @@
                 <div class="item_heading" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_NO_FOLLOW_UP"></div>
               </ng-container>
               <ng-container *ngIf="topic.permission.level === TopicService.LEVELS.admin">
-                <div class="item_heading"
-                  translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_ADD_FOLLOW_UP"></div>
+                <div class="item_heading" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_ADD_FOLLOW_UP"></div>
                 <div class="item_description" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_ADD_FOLLOW_UP_DESC"></div>
               </ng-container>
             </div>
@@ -895,7 +912,7 @@
   <div class="tutorial" [@showTutorial]="showTutorial? 'open': 'closed'" [ngClass]="{'hidden': skipTour }">
     <button class="tutorial_header" (click)="showTutorial = !showTutorial">
       <span translate="VIEWS.TOPICS_TOPICID.TUTORIAL_HEADING"></span>
-      <div class="close" >
+      <div class="close">
         <svg *ngIf="showTutorial" width="16" height="16" viewBox="0 0 16 16" fill="none"
           xmlns="http://www.w3.org/2000/svg">
           <path
