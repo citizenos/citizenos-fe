@@ -67,8 +67,12 @@ export class GroupComponent implements OnInit {
   showNoEngagements = false;
   moreFilters = false;
   topicStatuses = Object.keys(this.TopicService.STATUSES);
-  countries = countries;
-  languages = languages;
+  countries = countries.sort((a: any, b: any) => {
+    return a.name.localeCompare(b.name);
+  });
+  languages = languages.sort((a: any, b: any) => {
+    return a.name.localeCompare(b.name);
+  });
   public FILTERS_ALL = 'all';
   topicFilters = {
     category: this.FILTERS_ALL,

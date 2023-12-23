@@ -14,8 +14,12 @@ import { languages } from 'src/app/services/language.service';
 export class GroupSettingsComponent {
   @ViewChild('imageUpload') fileInput?: ElementRef;
   @HostBinding('class.pos_dialog_fixed') addPosAbsolute: boolean = false;
-  countries = countries;
-  languages = languages;
+  countries = countries.sort((a: any, b: any) => {
+    return a.name.localeCompare(b.name);
+  });
+  languages = languages.sort((a: any, b: any) => {
+    return a.name.localeCompare(b.name);
+  });
 
   activeTab = 'info';
   group: Group;
