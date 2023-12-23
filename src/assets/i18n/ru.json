@@ -97,9 +97,9 @@
       "CONTACT_US": "Свяжитесь с нами"
     },
     "ACTIVITY_FEED": {
-      "HEADING_GLOBAL": "Общая активность",
-      "HEADING_GROUP": "@:VIEWS.GROUP.BTN_ACTIVITIES",
-      "HEADING_TOPIC": "@:VIEWS.TOPICS_TOPICID.BTN_ACTIVITIES",
+      "HEADING_GLOBAL": "Recent activity",
+      "HEADING_GROUP": "This group's activity",
+      "HEADING_TOPIC": "This topic's activity",
       "PLACEHOLDER_FILTER": "Показать",
       "FILTER_ALL": "Вся активность",
       "FILTER_USERTOPICS": "Активность связанная с моими темами",
@@ -1218,7 +1218,7 @@
     "TOPIC_MEMBERS_TAB_GROUPS": "Группы",
     "TOPIC_MEMBERS_TAB_INVITED": "Приглашенные",
     "TOPIC_MEMBERS_PLACEHOLDER_NAME_PERMISSION": "@:VIEWS.MY_TOPICS_TOPICID.PLACEHOLDER_NAME_PERMISSION",
-    "TOPIC_MEMBERS_ORDER_BY": "@:VIEWS.MY_TOPICS_TOPICID.LBL_ORDER_BY",
+    "TOPIC_MEMBERS_ORDER_BY": "@:VIEWS.GROUP.TOPICS_FILTER_ORDER",
     "TOPIC_MEMBERS_ORDER_BY_NAME_ASC": "@:VIEWS.PUBLIC_GROUP.ORDER_NAME_ASC",
     "TOPIC_MEMBERS_ORDER_BY_NAME_DESC": "@:VIEWS.PUBLIC_GROUP.ORDER_NAME_DESC",
     "TOPIC_MEMBERS_ORDER_BY_LEVEL": "Сортировать по роли",
@@ -1445,7 +1445,7 @@
     "DASHBOARD": {
       "HEADER_WELCOME": "Welcome back to your dashboard, <a href=\"/account\">{{user.name}}</a>",
       "TITLE_LATEST_ACHIEVEMENT": "Последнее достижение",
-      "BTN_GLOBAL_ACTIVITIES": "Общая активность",
+      "BTN_GLOBAL_ACTIVITIES": "Recent activity",
       "HAVENT_ENGAGED_TOPICS_HEADING": "Вы еще не участвовали ни в одной теме",
       "HAVENT_ENGAGED_TOPICS_DESCRIPTION": "Участвуйте в темах, присоединяясь к обсуждениям и голосованиям. Или создавайте свои собственные темы и приглашайте участников, чтобы они могли поделиться своими мыслями.",
       "HAVENT_ENGAGED_BTN_CREATE": "Создать тему",
