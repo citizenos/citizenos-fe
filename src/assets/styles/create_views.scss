@@ -383,6 +383,12 @@
         padding: 8px;
         gap: 16px;
 
+
+        &.description {
+          margin-top: -26px;
+          padding: 0;
+        }
+
         .block_section {
           width: 100%;
           display: flex;

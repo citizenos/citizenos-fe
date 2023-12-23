@@ -202,7 +202,7 @@ $bold: 700;
 #editbar {
   background: $base;
   border-bottom: none;
-  width: calc(100% - 200px);
+  width: calc(100% - 220px);
   margin-left: auto;
   margin-right: auto;
   border-radius: 8px;
@@ -252,6 +252,8 @@ $bold: 700;
 #innerdocbody,
 #padcontent {
   background: none;
+  padding-left: 0;
+  padding-right: 0;
   * {
     font-family: "Noto Sans", sans-serif;
     line-height: 175%;
