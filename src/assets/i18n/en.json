@@ -97,9 +97,9 @@
       "CONTACT_US": "Contact us"
     },
     "ACTIVITY_FEED": {
-      "HEADING_GLOBAL": "Global activity",
-      "HEADING_GROUP": "@:VIEWS.GROUP.BTN_ACTIVITIES",
-      "HEADING_TOPIC": "@:VIEWS.TOPICS_TOPICID.BTN_ACTIVITIES",
+      "HEADING_GLOBAL": "Recent activity",
+      "HEADING_GROUP": "This group's activity",
+      "HEADING_TOPIC": "This topic's activity",
       "PLACEHOLDER_FILTER": "Show",
       "FILTER_ALL": "All activity",
       "FILTER_USERTOPICS": "Activity related to my topics",
@@ -1445,7 +1445,7 @@
     "DASHBOARD": {
       "HEADER_WELCOME": "Welcome back to your dashboard, <a href=\"/account\">{{user.name}}</a>",
       "TITLE_LATEST_ACHIEVEMENT": "Latest achievement",
-      "BTN_GLOBAL_ACTIVITIES": "Global activity",
+      "BTN_GLOBAL_ACTIVITIES": "Recent activity",
       "HAVENT_ENGAGED_TOPICS_HEADING": "You haven’t engaged in any topics yet",
       "HAVENT_ENGAGED_TOPICS_DESCRIPTION": "Engage in topics by joining in discussions and voting. Or create your own topics and invite participants so they can share their thoughts.",
       "HAVENT_ENGAGED_BTN_CREATE": "Create a topic",
