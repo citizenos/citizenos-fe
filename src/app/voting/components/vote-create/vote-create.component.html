@@ -379,7 +379,7 @@
               </div>
               <ng-container *ngIf="block.description">
                 <ng-container *ngIf="TopicService.canEditDescription(topic)">
-                  <div class="block_content">
+                  <div class="block_content description">
                     <!--textarea id="description_input" placeholder="..." [(ngModel)]="topic.description"
                 [maxlength]="introLimit"></!--textarea-->
                     <iframe cosEtherpad frameborder="0" scrolling="no" [ngClass]="{hidden: !topic.padUrl}"
