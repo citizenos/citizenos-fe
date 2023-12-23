@@ -188,7 +188,7 @@ export class ProfileComponent {
       .subscribe({
         next: (res: any) => {
           this.Notification.removeAll();
-          this.Notification.addSuccess('COMPONENTS.NOTIFICATION.TITLE_SUCCESS');
+          this.Notification.addSuccess('MSG_SUCCESS_PUT_API_USERS_SELF');
           if (res.data) {
             const values = Object.assign({}, this.form, res.data);
             if (user.email !== this.form.email) {
