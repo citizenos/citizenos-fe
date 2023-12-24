@@ -97,9 +97,9 @@
       "CONTACT_US": "Kontaktuj nás"
     },
     "ACTIVITY_FEED": {
-      "HEADING_GLOBAL": "Recent activity",
-      "HEADING_GROUP": "This group's activity",
-      "HEADING_TOPIC": "This topic's activity",
+      "HEADING_GLOBAL": "Nedávná aktivita",
+      "HEADING_GROUP": "Aktivita této skupiny",
+      "HEADING_TOPIC": "Aktivita tohoto tématu",
       "PLACEHOLDER_FILTER": "Zobrazit",
       "FILTER_ALL": "Všechny aktivity",
       "FILTER_USERTOPICS": "Aktivita související s mými tématy",
@@ -251,7 +251,7 @@
     },
     "GROUP_INVITE_DIALOG": {
       "HEADING": "Pozvat a sdílet",
-      "TAB_INVITE": "Invite members",
+      "TAB_INVITE": "Pozvat členy",
       "TAB_SHARE": "Generate link / QR",
       "LNK_CANCEL": "Pozvat později",
       "BTN_SAVE": "Poslat pozvánky"
@@ -365,7 +365,7 @@
     "EDIT_ARGUMENT": {
       "FOOTER_MENU_TITLE": "@:COMPONENTS.POST_ARGUMENT.FOOTER_MENU_TITLE",
       "EDIT_YOUR_ARGUMENT": "Upravit váš argument",
-      "FOOTER_FORM_TITLE": "Edit your argument",
+      "FOOTER_FORM_TITLE": "Upravit váš argument",
       "FOOTER_FORM_ARGUMENT_TYPE_TITLE": "@:COMPONENTS.POST_ARGUMENT.FOOTER_FORM_ARGUMENT_TYPE_TITLE",
       "ARGUMENT_TYPE_SELECT_OPTION_PRO": "@:COMPONENTS.POST_ARGUMENT.ARGUMENT_TYPE_SELECT_OPTION_PRO",
       "ARGUMENT_TYPE_SELECT_OPTION_CON": "@:COMPONENTS.POST_ARGUMENT.ARGUMENT_TYPE_SELECT_OPTION_CON",
@@ -409,7 +409,7 @@
       "LBL_FILTER": "@:LNK_FILTER"
     },
     "REGISTER_FORM": {
-      "HEADING": "Register a free account",
+      "HEADING": "Registrovat bezplatný účet",
       "HEADING_DESCRIPTION": "Create your free account today! No ads, no sale of data, no hidden costs",
       "PLACEHOLDER_NAME": "@:VIEWS.ACCOUNT.PLACEHOLDER_NAME",
       "PLACEHOLDER_COMPANY": "@:VIEWS.ACCOUNT.PLACEHOLDER_COMPANY",
