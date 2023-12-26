@@ -97,9 +97,9 @@
       "CONTACT_US": "Kontaktujte nás"
     },
     "ACTIVITY_FEED": {
-      "HEADING_GLOBAL": "Global activity",
-      "HEADING_GROUP": "@:VIEWS.GROUP.BTN_ACTIVITIES",
-      "HEADING_TOPIC": "@:VIEWS.TOPICS_TOPICID.BTN_ACTIVITIES",
+      "HEADING_GLOBAL": "Recent activity",
+      "HEADING_GROUP": "This group's activity",
+      "HEADING_TOPIC": "This topic's activity",
       "PLACEHOLDER_FILTER": "Zobraziť",
       "FILTER_ALL": "Všetky aktivity",
       "FILTER_USERTOPICS": "Aktivity súvisiace s mojimi témami",
@@ -210,6 +210,7 @@
     },
     "GROUP_ADD_TOPICS_DIALOG": {
       "HEADING": "Pridať témy do skupiny",
+      "NO_TOPICS_SELECTED": "You haven't selected any topics to add to the group. Please search for topics with the search field above.",
       "LNK_CANCEL": "@:LNK_CANCEL",
       "BTN_SAVE": "Pridať témy do skupiny"
     },
@@ -541,13 +542,14 @@
       "TOPIC_MOBILE_STEP_2_DESC_MORE": "@:COMPONENTS.TOUR.TOPIC_STEP_2_DESC_MORE"
     },
     "TOPIC_ADD_GROUPS_DIALOG": {
-      "HEADING": "Add topic to groups",
+      "HEADING": "Add topic to a group",
+      "NO_GROUPS_SELECTED": "You haven't selected any groups to add the topic to. Please search for groups with the search field above.",
       "LNK_CANCEL": "@:LNK_CANCEL",
-      "BTN_SAVE": "Add topic to groups"
+      "BTN_SAVE": "Add topic to group"
     },
     "TOPIC_ADD_GROUPS": {
-      "HEADING": "Find groups to add the topic to",
-      "DESC": "When you add the topic to the groups, all members of these groups will have access to the topic.",
+      "HEADING": "Find a group to add the topic to",
+      "DESC": "When you add a topic to a group, all members of that group will have access to the topic.",
       "PLACEHOLDER_SEARCH": "Search for a group",
       "SHOW_PER_PAGE": "@:VIEWS.ACCOUNT.SHOW_PER_PAGE",
       "NO_TOPICS_HEADING": "You haven’t added any groups yet",
@@ -611,6 +613,13 @@
       "HEADING_MILESTONE": "Medzník",
       "HEADING_MILESTONE_TITLE": "Názov medzníka",
       "MILESTONE_TITLE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_MILESTONE"
+    },
+    "TOPIC_ONBOARDING": {
+      "TITLE": "Topics look (and work) a bit differently since the update",
+      "DESCRIPTION": "@:VIEWS.TOPICS_TOPICID.TUTORIAL_DESC",
+      "TAKE_A_TOUR": "@:COMPONENTS.ONBOARDING.TAKE_A_TOUR",
+      "BTN_SUBMIT": "@:COMPONENTS.ONBOARDING.BTN_SUBMIT",
+      "BTN_CANCEL": "@:COMPONENTS.ONBOARDING.BTN_CANCEL"
     },
     "TOPIC_VOTE_CAST": {
       "PREVIEW_VOTE_TYPE_REGULAR": "@:COMPONENTS.TOPIC_VOTE_CREATE.PREVIEW_VOTE_TYPE_REGULAR",
@@ -1173,7 +1182,8 @@
     "WIDGETS_HOW_DOES_IT_WORK_HEADING": "@:DEFAULT.WIDGET.BTN_HOW_DOES_IT_WORK",
     "WIDGETS_HOW_DOES_IT_WORK_TEXT": "Môžete sa zúčastniť diskusie tým, že pridáte svoje argumenty",
     "PRIVACY_POLICY_HEADING": "Podmienky používania a politika ochrany osobných údajov",
-    "PRIVACY_POLICY_DESCRIPTION": "Zmenili sme Podmienky používania a politiku ochrany osobných údajov. Podrobne sa s nimi oboznámte a buď ich príjmite, alebo zamietnite. Zamietnutím našich podmienok však nebudete môcť používať našu platformu, takže budete odhlásení a vrátení na domovskú stránku a váš účet zanikne.",
+    "PRIVACY_POLICY_DESCRIPTION": "We've changed our Terms of Use and Privacy Policy! To continue using your account, please take a moment to read and accept them",
+    "PRIVACY_POLICY_DESCRIPTION_NEW_USER": "Thanks for creating an account! Before you continue, please take a moment to read and accept our Terms of Use and Privacy Policy",
     "PRIVACY_POLICY_LNK_TERMS_OF_USE": "Podmienky používania",
     "PRIVACY_POLICY_LNK_PRIVACY_POLICY": "Politika ochrany osobných údajov",
     "PRIVACY_POLICY_BTN_REJECT": "Odmietnuť",
@@ -1181,8 +1191,11 @@
     "USER_DELETE_CONFIRM_HEADING": "Vymazať účet",
     "USER_DELETE_CONFIRM_TXT_ARE_YOU_SURE": "Určite chcete svoj účet vymazať?",
     "USER_DELETE_CONFIRM_TXT_NO_UNDO": "Pamätajte, že tento krok je nezvratný.",
+    "USER_DELETE_CONFIRM_TXT_BY_REJECTING_TERMS": "By rejecting the Terms of Use and Privacy Policy, you can no longer use this account",
+    "USER_DELETE_CONFIRM_TXT_USER_LOGGED_OUT_AND_DELETED": "You'll be logged out and your account will be deleted",
     "USER_DELETE_CONFIRM_TXT_USER_DELETED": "Váš účet bude vymazaný",
-    "USER_DELETE_CONFIRM_TXT_KEEP_DATA_ANONYMOUSLY": "Všetky dáta vytvorené užívateľom budú anonymizované a nebude možné ich obnoviť",
+    "USER_DELETE_CONFIRM_TXT_KEEP_DATA_ANONYMOUSLY": "All your data will be anonymised and won't be recoverable",
+    "USER_DELETE_CONFIRM_TXT_SORRY_TO_SEE_YOU_GO": "We'd be sorry to see you go!",
     "USER_DELETE_CONFIRM_NO": "Nie, tento účet ponechať",
     "USER_DELETE_CONFIRM_YES": "Áno, tento účet vymazať",
     "DUPLICATE_TOPIC_CONFIRM_HEADING": "Ste si istí, že chcete túto tému duplikovať?",
@@ -1205,7 +1218,7 @@
     "TOPIC_MEMBERS_TAB_GROUPS": "Skupiny",
     "TOPIC_MEMBERS_TAB_INVITED": "Pozvaný",
     "TOPIC_MEMBERS_PLACEHOLDER_NAME_PERMISSION": "@:VIEWS.MY_TOPICS_TOPICID.PLACEHOLDER_NAME_PERMISSION",
-    "TOPIC_MEMBERS_ORDER_BY": "@:VIEWS.MY_TOPICS_TOPICID.LBL_ORDER_BY",
+    "TOPIC_MEMBERS_ORDER_BY": "@:VIEWS.GROUP.TOPICS_FILTER_ORDER",
     "TOPIC_MEMBERS_ORDER_BY_NAME_ASC": "@:VIEWS.PUBLIC_GROUP.ORDER_NAME_ASC",
     "TOPIC_MEMBERS_ORDER_BY_NAME_DESC": "@:VIEWS.PUBLIC_GROUP.ORDER_NAME_DESC",
     "TOPIC_MEMBERS_ORDER_BY_LEVEL": "Zoradiť podľa role",
@@ -1432,7 +1445,7 @@
     "DASHBOARD": {
       "HEADER_WELCOME": "Vitajte späť v správcovskom paneli, <a href=\"/account\">{{user.name}}</a>",
       "TITLE_LATEST_ACHIEVEMENT": "Najnovšie úspechy",
-      "BTN_GLOBAL_ACTIVITIES": "Globálna aktivita",
+      "BTN_GLOBAL_ACTIVITIES": "Recent activity",
       "HAVENT_ENGAGED_TOPICS_HEADING": "Ešte ste sa nezapojili do žiadnej témy",
       "HAVENT_ENGAGED_TOPICS_DESCRIPTION": "Angažujte sa v témach zapojením sa do diskusií a hlasovaním. Alebo si vytvorte vlastné témy a pozvite účastníkov, aby sa mohli podeliť o svoje názory.",
       "HAVENT_ENGAGED_BTN_CREATE": "Vytvoriť tému",
@@ -1620,7 +1633,8 @@
       "SETTINGS_CATEGORY_SELECT_DESC": "Choose up to 3 categories that fit your topic.",
       "SETTINGS_CATEGORY_SELECT": "Choose a category",
       "FOOTER_BTN_CONTINUE": "@:BTN_CONTINUE",
-      "FOOTER_BTN_CREATE": "Create group and send invites",
+      "FOOTER_BTN_CREATE_AND_INVITE": "Create group and send invites",
+      "FOOTER_BTN_CREATE": "Create group",
       "SETTINGS_HEADING_LOCALITY": "Country & language",
       "SETTINGS_LOCALITY_SELECT_DESC": "You can assign a country and language to this group, to make it easier for local people to find.",
       "SETTINGS_COUNTRY_SELECT": "Choose a country",
@@ -2218,6 +2232,7 @@
       "SECTION_INFO_TITLE_GROUPS": "Groups",
       "SECTION_INFO_TITLE_CATEGORIES": "Categories",
       "SECTION_INFO_TITLE_TAGS": "Tags",
+      "SECTION_INFO_LBL_NOT_SPECIFIED": "Not specified",
       "SECTION_PARTICIPANTS_HEADING": "Participants",
       "SECTION_PARTICIPANTS_LNK_MANAGE": "Manage",
       "SECTION_PARTICIPANTS_BTN_SHARE": "Invite & share",
@@ -2306,6 +2321,7 @@
       "FOOTER_BTN_CONTINUE": "@:BTN_CONTINUE",
       "FOOTER_BTN_SAVE_AS_DRAFT": "@:VIEWS.TOPIC_CREATE.FOOTER_BTN_SAVE_AS_DRAFT",
       "FOOTER_BTN_CREATE": "@:VIEWS.TOPIC_CREATE.FOOTER_BTN_CREATE",
+      "FOOTER_BTN_SAVE_CHANGES": "@:VIEWS.TOPIC_CREATE.FOOTER_BTN_SAVE_CHANGES",
       "HELP_HEADING": "@:VIEWS.TOPIC_CREATE.HELP_HEADING",
       "HELP_DESCRIPTION": "Creating a voting topic allows you to cut straight to the vote. If you'd like a discussion before voting, create a discussion topic then add a voting phase",
       "HELP_LNK_LEARN_MORE": "@:VIEWS.TOPIC_CREATE.HELP_LNK_LEARN_MORE",
