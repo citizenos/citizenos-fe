@@ -95,6 +95,10 @@
   font-family: "Noto Sans", sans-serif;
   font-size: var(--font-size);
   line-height: var(--line-heigth);
+
+  &:focus-visible {
+    outline: unset;
+  }
 }
 
 .large,
