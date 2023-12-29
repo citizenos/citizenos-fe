@@ -246,7 +246,7 @@
     </div>
     <div class="dropdown mobile_show" [cosDropdown] [multipleChoice]="true">
       <div class="selection">
-        <div class="selected_item" translate="VIEWS.MY_GROUPS.LBL_FILTER"> </div>
+        <div class="selected_item" [innerHTML]="'VIEWS.MY_GROUPS.LBL_FILTER' | translate | titlecase"> </div>
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
         </svg>
