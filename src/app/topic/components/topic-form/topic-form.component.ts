@@ -133,7 +133,11 @@ export class TopicFormComponent {
     private cd: ChangeDetectorRef,
     @Inject(DomSanitizer) private sanitizer: DomSanitizer
   ) {
-    this.groups$ = this.GroupService.loadItems();
+    this.groups$ = this.GroupService.loadItems().pipe(
+      map((groups) => {
+        return groups.filter((g) => g.permission.level === this.TopicMemberGroupService.LEVELS.admin);
+      })
+    );
     this.tabSelected = this.route.fragment.pipe(
       map((fragment) => {
         if (!fragment) {
@@ -347,6 +351,10 @@ export class TopicFormComponent {
     this.topicGroups.push(group);
   }
 
+  removeGroup (group: Group) {
+    const index  =this.topicGroups.findIndex((tg) => tg.id === group.id);
+    this.topicGroups.splice(index, 1);
+  }
 
   manageMembers() {
     const manageDialog = this.dialog.open(TopicParticipantsDialogComponent, { data: { topic: this.topic } });
@@ -422,5 +430,9 @@ export class TopicFormComponent {
   setGroupLevel(group: Group, level: string) {
     if (!group.permission) group.permission = {level};
     group.permission.level = level;
+  }
+
+  isGroupAdded (group: Group) {
+    return this.topicGroups.find((tg:Group) => tg.id ===  group.id);
   }
 }
