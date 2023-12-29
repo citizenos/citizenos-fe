@@ -97,7 +97,7 @@
       "CONTACT_US": "Свяжитесь с нами"
     },
     "ACTIVITY_FEED": {
-      "HEADING_GLOBAL": "Recent activity",
+      "HEADING_GLOBAL": "Последние обновления",
       "HEADING_GROUP": "This group's activity",
       "HEADING_TOPIC": "This topic's activity",
       "PLACEHOLDER_FILTER": "Показать",
@@ -730,6 +730,7 @@
       "DIALOG_TAB_INTRODUCTION_ITEM_1": "Вы больше не сможете (со-)редактировать Ваш документ",
       "DIALOG_TAB_INTRODUCTION_ITEM_2": "Вы все еще сможете приглашать и делиться с участниками",
       "DIALOG_TAB_INTRODUCTION_ITEM_3": "Также можно размещать обновления по этапам выполнения действий в отношении этой темы",
+      "DIALOG_TAB_INTRODUCTION_ITEM_4": "@:MODALS.TOPIC_CLOSE_CONFIRM_TXT_NO_VOTE",
       "DIALOG_TAB_INTRODUCTION_INFO": "Это последний этап темы.",
       "FOLLOW_UP_TITLE_HEADING": "Пожалуйста, добавьте название для обновления по стадии применения решения",
       "FOLLOW_UP_TITLE_HEADING_PLACEHOLDER": "Напишите название вашего обновления",
