@@ -205,15 +205,6 @@ export class TopicService {
 
   changeState(topic: Topic, state: string, stateSuccess?: string) {
     const templates = <any>{
-      followUp: {
-        level: 'delete',
-        heading: 'MODALS.TOPIC_SEND_TO_FOLLOWUP_CONFIRM_HEADING',
-        title: 'MODALS.TOPIC_SEND_TO_FOLLOWUP_CONFIRM_TXT_ARE_YOU_SURE',
-        description: 'MODALS.USER_DELETE_CONFIRM_TXT_NO_UNDO',
-        points: ['MODALS.TOPIC_SEND_TO_FOLLOWUP_CONFIRM_TXT_NO_EDIT', 'MODALS.TOPIC_SEND_TO_FOLLOWUP_CONFIRM_TXT_NO_VOTE'],
-        confirmBtn: 'MODALS.TOPIC_SEND_TO_FOLLOWUP_CONFIRM_BTN_YES',
-        closeBtn: 'MODALS.TOPIC_SEND_TO_FOLLOWUP_CONFIRM_BTN_NO'
-      },
       closed: {
         level: 'delete',
         heading: 'MODALS.TOPIC_CLOSE_CONFIRM_HEADING_CLOSE_TOPIC',
@@ -233,32 +224,34 @@ export class TopicService {
       }
     }
 
-    const confirm = this.dialog.open(ConfirmDialogComponent, {
-      data: templates[state]
-    });
-    confirm.afterClosed().subscribe((res) => {
-      if (res === true) {
-        this.patch({
-          id: topic.id,
-          status: this.STATUSES[state]
-        }).pipe(take(1))
-          .subscribe({
-            next: () => {
-              if (state === 'vote' && !topic.voteId && !topic.vote) {
-                this.router.navigate(['/topics', topic.id, 'votes', 'create'])
+    if (templates[state]) {
+      const confirm = this.dialog.open(ConfirmDialogComponent, {
+        data: templates[state]
+      });
+      confirm.afterClosed().subscribe((res) => {
+        if (res === true) {
+          this.patch({
+            id: topic.id,
+            status: this.STATUSES[state]
+          }).pipe(take(1))
+            .subscribe({
+              next: () => {
+                if (state === 'vote' && !topic.voteId && !topic.vote) {
+                  this.router.navigate(['/topics', topic.id, 'votes', 'create'])
+                }
+                this.reloadTopic();
+                if (state === 'followUp') {
+                  this.router.navigate(['/topics', topic.id], {fragment:'followUp'})
+                }
+                this.dialog.closeAll();
+              }, error: (res) => {
+                console.error(res);
               }
-              this.reloadTopic();
-              if (state === 'followUp') {
-                this.router.navigate(['/topics', topic.id], {fragment:'followUp'})
-              }
-              this.dialog.closeAll();
-            }, error: (res) => {
-              console.error(res);
-            }
-          })
+            })
 
-      }
-    });
+        }
+      });
+    }
   }
   /**
    * Can one edit Topics settings and possibly description (content)?
