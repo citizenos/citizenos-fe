@@ -644,9 +644,11 @@
                   </svg>
                 </div>
                 <div class="options">
-                  <div class="option" *ngFor="let group of groups$ | async;" (click)="addGroup(group)">
-                    {{group.name}}
-                  </div>
+                  <ng-container *ngFor="let group of groups$ | async;">
+                    <div *ngIf="!isGroupAdded(group)" class="option" (click)="addGroup(group)">
+                      {{group.name}}
+                    </div>
+                  </ng-container>
                 </div>
               </div>
               <div id="topic_members_list_wrap" class="table_section">
@@ -685,7 +687,7 @@
                         </div>
                       </div>
                       <div class="row_cell remove_item_mobile">
-                        <button> <!--(click)="removeGroupMemberTopic(topic)"-->
+                        <button (click)="removeGroup(group);">
                           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path d="M6 6.00065H7.33333L7.33333 11.334H6L6 6.00065Z" fill="#2C3B47" />
@@ -862,7 +864,8 @@
             class="btn_medium_secondary" (click)="saveAsDraft()"
             translate="VIEWS.TOPIC_CREATE.FOOTER_BTN_SAVE_AS_DRAFT">
           </button>
-          <button class="btn_medium_submit icon" (click)="(tabSelected!=='preview')? nextTab(tabSelected) : publish()" [ngClass]="{disabled: (tabSelected === 'preview' && !TopicService.canDelete(topic))}">
+          <button class="btn_medium_submit icon" (click)="(tabSelected!=='preview')? nextTab(tabSelected) : publish()"
+            [ngClass]="{disabled: (tabSelected === 'preview' && !TopicService.canDelete(topic))}">
             <span class="btn_text mobile_hidden"
               [translate]="(tabSelected!=='preview')? 'VIEWS.TOPIC_CREATE.FOOTER_BTN_CONTINUE': (topic.status === TopicService.STATUSES.draft)? 'VIEWS.TOPIC_CREATE.FOOTER_BTN_CREATE' : 'VIEWS.TOPIC_CREATE.FOOTER_BTN_SAVE_CHANGES'"></span>
             <svg class="mobile_show" id="continue_btn" width="24" height="24" viewBox="0 0 24 24" fill="none"
