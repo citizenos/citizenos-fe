@@ -82,6 +82,8 @@
         right: 0;
 
         .option {
+          min-width: 100%;
+          justify-content: flex-start;
           width: max-content;
           gap: 8px;
         }
