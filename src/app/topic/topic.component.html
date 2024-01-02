@@ -166,22 +166,22 @@
     </div>
   </div>
 
-  <div id="topic_tabs" class="topic_tabs" *ngIf="tabSelected$ | async as tabSelected;"
-    [TourItem]="{tourid: 'topic', index: 1, position: 'bottom'}">
-    <a class="topic_tab" [ngClass]="tabSelected=== 'discussion' ? 'active' : ''" [routerLink]="['./']"
-      fragment="discussion">
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="32" height="32" rx="16" fill="#1168A8" />
-        <path
-          d="M22 17.7634C22.024 17.7288 22.0472 17.6928 22.0709 17.6591C22.6753 16.7608 22.9987 15.703 23 14.6203C23.01 11.5172 20.3918 9 17.1543 9C14.3306 9 11.975 10.9216 11.4231 13.4725C11.3403 13.8506 11.2984 14.2364 11.2981 14.6234C11.2981 17.7297 13.8156 20.3144 17.0531 20.3144C17.5678 20.3144 18.2612 20.1597 18.6415 20.0553C19.0218 19.9509 19.3987 19.8131 19.4962 19.7759C19.5937 19.7387 19.7462 19.7006 19.8678 19.7356L22.2872 20.435C22.3084 20.4413 22.331 20.4418 22.3525 20.4365C22.3741 20.4312 22.3938 20.4202 22.4097 20.4048C22.4256 20.3893 22.4371 20.3699 22.443 20.3485C22.449 20.3271 22.4491 20.3046 22.4434 20.2831L21.8897 18.1741C21.8512 18.0178 21.8462 17.9884 22 17.7634Z"
-          fill="white" />
-        <path
-          d="M17.7669 20.9804C17.5264 21.0188 17.2835 21.0402 17.04 21.0444C15.7141 21.0444 14.4619 20.6944 13.4463 20.0382C12.7966 19.6394 12.2327 19.1155 11.7872 18.4969C10.9722 17.4166 10.5278 16.0435 10.5278 14.6066C10.5278 14.5088 10.5313 14.4147 10.5347 14.3204C10.536 14.2925 10.5286 14.265 10.5136 14.2415C10.4987 14.218 10.4768 14.1997 10.4511 14.189C10.4253 14.1784 10.3969 14.1759 10.3698 14.182C10.3426 14.188 10.3179 14.2023 10.2991 14.2229C9.55083 15.0416 9.09849 16.0874 9.01431 17.1934C8.93014 18.2993 9.21898 19.4016 9.83472 20.3241C9.91191 20.4419 9.95566 20.5329 9.94222 20.5935L9.50191 22.8516C9.49785 22.8731 9.49949 22.8953 9.50666 22.9159C9.51384 22.9365 9.5263 22.9549 9.5428 22.9693C9.55931 22.9836 9.57928 22.9933 9.60073 22.9975C9.62218 23.0017 9.64435 23.0002 9.66504 22.9932L11.79 22.2357C11.8545 22.2102 11.9233 22.1977 11.9926 22.1989C12.0619 22.2001 12.1302 22.2149 12.1938 22.2426C12.8297 22.4926 13.5332 22.6463 14.2366 22.6463C15.5906 22.6507 16.8949 22.1363 17.8813 21.2088C17.9017 21.1889 17.9152 21.1631 17.9199 21.1351C17.9246 21.107 17.9203 21.0782 17.9076 21.0528C17.8948 21.0274 17.8744 21.0066 17.8491 20.9936C17.8238 20.9806 17.795 20.976 17.7669 20.9804Z"
-          fill="white" />
-      </svg>
-      <span class="tab_text" translate="VIEWS.TOPICS_TOPICID.TAB_DISCUSSION"></span>
-    </a>
-    <!--a class="topic_tab" [ngClass]="tabSelected=== 'ideation' ? 'active' : ''">
+  <div id="topic_tabs" class="topic_tabs" *ngIf="tabSelected$ | async as tabSelected;">
+    <div class="tabs_wrap" [TourItem]="{tourid: 'topic', index: 1, position: 'bottom'}">
+      <a class="topic_tab" [ngClass]="tabSelected=== 'discussion' ? 'active' : ''" [routerLink]="['./']"
+        fragment="discussion">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="32" height="32" rx="16" fill="#1168A8" />
+          <path
+            d="M22 17.7634C22.024 17.7288 22.0472 17.6928 22.0709 17.6591C22.6753 16.7608 22.9987 15.703 23 14.6203C23.01 11.5172 20.3918 9 17.1543 9C14.3306 9 11.975 10.9216 11.4231 13.4725C11.3403 13.8506 11.2984 14.2364 11.2981 14.6234C11.2981 17.7297 13.8156 20.3144 17.0531 20.3144C17.5678 20.3144 18.2612 20.1597 18.6415 20.0553C19.0218 19.9509 19.3987 19.8131 19.4962 19.7759C19.5937 19.7387 19.7462 19.7006 19.8678 19.7356L22.2872 20.435C22.3084 20.4413 22.331 20.4418 22.3525 20.4365C22.3741 20.4312 22.3938 20.4202 22.4097 20.4048C22.4256 20.3893 22.4371 20.3699 22.443 20.3485C22.449 20.3271 22.4491 20.3046 22.4434 20.2831L21.8897 18.1741C21.8512 18.0178 21.8462 17.9884 22 17.7634Z"
+            fill="white" />
+          <path
+            d="M17.7669 20.9804C17.5264 21.0188 17.2835 21.0402 17.04 21.0444C15.7141 21.0444 14.4619 20.6944 13.4463 20.0382C12.7966 19.6394 12.2327 19.1155 11.7872 18.4969C10.9722 17.4166 10.5278 16.0435 10.5278 14.6066C10.5278 14.5088 10.5313 14.4147 10.5347 14.3204C10.536 14.2925 10.5286 14.265 10.5136 14.2415C10.4987 14.218 10.4768 14.1997 10.4511 14.189C10.4253 14.1784 10.3969 14.1759 10.3698 14.182C10.3426 14.188 10.3179 14.2023 10.2991 14.2229C9.55083 15.0416 9.09849 16.0874 9.01431 17.1934C8.93014 18.2993 9.21898 19.4016 9.83472 20.3241C9.91191 20.4419 9.95566 20.5329 9.94222 20.5935L9.50191 22.8516C9.49785 22.8731 9.49949 22.8953 9.50666 22.9159C9.51384 22.9365 9.5263 22.9549 9.5428 22.9693C9.55931 22.9836 9.57928 22.9933 9.60073 22.9975C9.62218 23.0017 9.64435 23.0002 9.66504 22.9932L11.79 22.2357C11.8545 22.2102 11.9233 22.1977 11.9926 22.1989C12.0619 22.2001 12.1302 22.2149 12.1938 22.2426C12.8297 22.4926 13.5332 22.6463 14.2366 22.6463C15.5906 22.6507 16.8949 22.1363 17.8813 21.2088C17.9017 21.1889 17.9152 21.1631 17.9199 21.1351C17.9246 21.107 17.9203 21.0782 17.9076 21.0528C17.8948 21.0274 17.8744 21.0066 17.8491 20.9936C17.8238 20.9806 17.795 20.976 17.7669 20.9804Z"
+            fill="white" />
+        </svg>
+        <span class="tab_text" translate="VIEWS.TOPICS_TOPICID.TAB_DISCUSSION"></span>
+      </a>
+      <!--a class="topic_tab" [ngClass]="tabSelected=== 'ideation' ? 'active' : ''">
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="32" height="32" rx="16" fill="#EFE08A" />
         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -190,26 +190,27 @@
       </svg>
       <span class="tab_text" translate="VIEWS.TOPICS_TOPICID.TAB_IDEATION"></span>
     </!--a-->
-    <a class="topic_tab" [ngClass]="tabSelected=== 'voting' ? 'active' : ''" [routerLink]="['./']" fragment="voting">
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="32" height="32" rx="16" fill="#98DAA2" />
-        <path fill-rule="evenodd" clip-rule="evenodd"
-          d="M16 8C11.584 8 8 11.584 8 16C8 20.416 11.584 24 16 24C20.416 24 24 20.416 24 16C24 11.584 20.416 8 16 8ZM14.4444 20L20.6667 13.8246L19.5 12.6667L14.4444 17.6842L12.5 15.7544L11.3333 16.9123L14.4444 20Z"
-          fill="white" />
-      </svg>
-      <span class="tab_text" translate="VIEWS.TOPICS_TOPICID.TAB_VOTING"></span>
-    </a>
-    <a class="topic_tab" [ngClass]="tabSelected=== 'followUp' ? 'active' : ''" [routerLink]="['./']"
-      fragment="followUp">
-      <!-- (click)="tabSelected='followUp'""-->
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="32" height="32" rx="16" fill="#E3A8CC" />
-        <rect x="4" y="4" width="24" height="24" rx="12" fill="#E3A8CC" />
-        <path d="M17.8933 11.5294L17.6 10H11V23H12.4667V17.6471H16.5733L16.8667 19.1765H22V11.5294H17.8933Z"
-          fill="white" />
-      </svg>
-      <span class="tab_text" translate="VIEWS.TOPICS_TOPICID.TAB_FOLLOW_UP"></span>
-    </a>
+      <a class="topic_tab" [ngClass]="tabSelected=== 'voting' ? 'active' : ''" [routerLink]="['./']" fragment="voting">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="32" height="32" rx="16" fill="#98DAA2" />
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M16 8C11.584 8 8 11.584 8 16C8 20.416 11.584 24 16 24C20.416 24 24 20.416 24 16C24 11.584 20.416 8 16 8ZM14.4444 20L20.6667 13.8246L19.5 12.6667L14.4444 17.6842L12.5 15.7544L11.3333 16.9123L14.4444 20Z"
+            fill="white" />
+        </svg>
+        <span class="tab_text" translate="VIEWS.TOPICS_TOPICID.TAB_VOTING"></span>
+      </a>
+      <a class="topic_tab" [ngClass]="tabSelected=== 'followUp' ? 'active' : ''" [routerLink]="['./']"
+        fragment="followUp">
+        <!-- (click)="tabSelected='followUp'""-->
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="32" height="32" rx="16" fill="#E3A8CC" />
+          <rect x="4" y="4" width="24" height="24" rx="12" fill="#E3A8CC" />
+          <path d="M17.8933 11.5294L17.6 10H11V23H12.4667V17.6471H16.5733L16.8667 19.1765H22V11.5294H17.8933Z"
+            fill="white" />
+        </svg>
+        <span class="tab_text" translate="VIEWS.TOPICS_TOPICID.TAB_FOLLOW_UP"></span>
+      </a>
+    </div>
     <div id="activities_button_wrap">
       <activities-button *ngIf="auth.loggedIn$" [topicId]="topic.id"></activities-button>
       <!-- add [topicId]="topic.id"-->
@@ -609,13 +610,14 @@
           <div class="info_items_wrap">
             <a class="info_title" (click)="showCategories = !showCategories">
               <span translate="VIEWS.TOPICS_TOPICID.SECTION_INFO_TITLE_CATEGORIES"></span>
-              <svg *ngIf="!showCategories" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg *ngIf="!showCategories" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
                 <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
               </svg>
               <svg *ngIf="showCategories" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path d="M17 15L12 10L7 15" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
-                </svg>
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M17 15L12 10L7 15" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+              </svg>
             </a>
             <div class="info_items" [@openClose]="showCategories ? 'open' : 'closed'">
               <div class="info_item" *ngFor="let category of topic.categories">{{category}},</div>
