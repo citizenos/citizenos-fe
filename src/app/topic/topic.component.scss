@@ -150,27 +150,30 @@
     &.hidden {
       display: none;
     }
-    .topic_tab {
+    .tabs_wrap {
       display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 28px 24px;
-      @include mixins.tablet {
-        padding: 12px 38px;
-        width: 100%;
-        justify-content: center;
-      }
-      @include mixins.mobile {
-        padding: 12px;
-      }
-      &.active {
-        color: var(--color-link);
-        border-bottom: 2px solid var(--color-link);
-      }
-
-      .tab_text {
+      .topic_tab {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 28px 24px;
         @include mixins.tablet {
-          display: none;
+          padding: 12px 38px;
+          width: 100%;
+          justify-content: center;
+        }
+        @include mixins.mobile {
+          padding: 12px;
+        }
+        &.active {
+          color: var(--color-link);
+          border-bottom: 2px solid var(--color-link);
+        }
+
+        .tab_text {
+          @include mixins.tablet {
+            display: none;
+          }
         }
       }
     }
