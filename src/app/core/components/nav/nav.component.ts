@@ -22,6 +22,8 @@ import { Router } from '@angular/router';
 export class NavComponent implements OnInit {
   wWidth = window.innerWidth;
   topicsCount$ = this.TopicService.count();
+  showNavCreate = false;
+
   constructor(private Location: LocationService,
     public translate: TranslateService,
     private router: Router,
@@ -84,5 +86,12 @@ export class NavComponent implements OnInit {
   accessibility() {
     this.dialog.closeAll();
     this.dialog.open(AccessibilityMenuComponent);
+  }
+
+  showCreateMenu () {
+    if (window.innerWidth <= 1024) {
+      return this.showNavCreate = !this.showNavCreate;
+    }
+    return this.app.showCreateMenu();
   }
 }

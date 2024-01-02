@@ -8,7 +8,7 @@
   </div>
 </ng-template>
 <ng-template #loggedIn>
-  <div id="tablet_nav" [TourItem]="{tourid: 'dashboard_mobile', index: 2, position: 'top'}" [ngClass]="{'pos_absolute': addPosAbsolute | async, 'hidden': dialogsOpen()}">
+  <div id="tablet_nav" [TourItem]="{tourid: 'dashboard_mobile', index: 2, position: 'top'}" [ngClass]="{'pos_absolute': addPosAbsolute | async, 'hidden': dialogsOpen() && !app.createMenu}">
     <a class="btn_medium_nav icon" [routerLink]="['/', translate.currentLang, 'dashboard']" routerLinkActive="active">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -108,7 +108,7 @@
       </!--svg-->
     </a>
   </div>
-  <div id="mobile_nav" [TourItem]="{tourid: 'dashboard_mobile', index: 2, position: 'top'}" [ngClass]="{'pos_absolute': (addPosAbsolute | async), 'hidden': dialogsOpen()}">
+  <div id="mobile_nav" [TourItem]="{tourid: 'dashboard_mobile', index: 2, position: 'top'}" [ngClass]="{'pos_absolute': (addPosAbsolute | async), 'hidden': dialogsOpen() && !app.createMenu}">
     <a class="btn_medium_nav icon" [routerLink]="['/', translate.currentLang, 'dashboard']" routerLinkActive="active">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd"
