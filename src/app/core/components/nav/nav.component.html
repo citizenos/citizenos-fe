@@ -473,29 +473,6 @@
             <span class="bold" translate="DEFAULT.NAV.LNK_MY_TOPICS"></span>
           </a>
           <div class="line_separator_tablet"></div>
-          <div class="sub_items" *ngIf="topicsCount$ | async as topicsCount">
-
-            <a class="btn_small_nav" [routerLink]="['/', translate.currentLang, 'my', 'topics']"
-              [queryParams]="{status: 'inProgress'}">
-              <div class="nav_bubble bg_discussion">{{topicsCount.inProgress}}</div><span
-                translate="DEFAULT.NAV.LNK_IN_DISCUSSION"></span>
-            </a>
-            <!--a class="btn_small_nav" [routerLink]="['/', translate.currentLang, 'my', 'topics']"
-            [queryParams]="{filter: 'ideation'}">
-            <div class="nav_bubble bg_ideation">{{topicsCount.ideation}}</div><span translate="DEFAULT.NAV.LNK_IN_IDEATION"></span>
-          </!--a-->
-            <a class="btn_small_nav" [routerLink]="['/', translate.currentLang, 'my', 'topics']"
-              [queryParams]="{status: 'voting'}">
-              <div class="nav_bubble bg_voting">{{topicsCount.voting}}</div><span
-                translate="DEFAULT.NAV.LNK_IN_VOTING"></span>
-            </a>
-            <a class="btn_small_nav" [routerLink]="['/', translate.currentLang, 'my', 'topics']"
-              [queryParams]="{status: 'followUp'}">
-              <div class="nav_bubble bg_follow_up">{{topicsCount.followUp}}</div><span
-                translate="DEFAULT.NAV.LNK_IN_FOLLOW_UP"></span>
-            </a>
-          </div>
-          <div class="line_separator_tablet"></div>
           <a class="btn_small_nav" [routerLink]="['/', translate.currentLang, 'my', 'groups']"
             routerLinkActive="active">
             <div>
