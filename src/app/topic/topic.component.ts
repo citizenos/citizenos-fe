@@ -120,7 +120,7 @@ export class TopicComponent implements OnInit {
   topicAttachments$ = of(<Attachment[] | any[]>[]);
   STATUSES = this.TopicService.STATUSES;
   hideTopicContent = false;
-
+  hideDiscussion = false;
   constructor(
     @Inject(TranslateService) public translate: TranslateService,
     @Inject(MatDialog) private dialog: MatDialog,
@@ -147,6 +147,9 @@ export class TopicComponent implements OnInit {
 
     this.tabSelected$ = this.route.fragment.pipe(
       map((value) => {
+        if (this.hideDiscussion === true && value === 'discussion') {
+          value = 'voting';
+        }
         this.app.setPageTitle(this.topicTitle || 'META_DEFAULT_TITLE');
         return value || 'discussion';
       })
@@ -217,6 +220,23 @@ export class TopicComponent implements OnInit {
         return this.TopicAttachmentService.loadItems();
       })
     );
+
+    this.topic$.pipe(
+      switchMap((topic: Topic) => {
+        this.TopicArgumentService.setParam('topicId', topic.id);
+        return this.TopicArgumentService.loadItems().pipe(
+          tap((args) => {
+            if(!args.length && topic.status !== this.TopicService.STATUSES.inProgress) {
+              this.hideDiscussion = true;
+              if (!this.route.snapshot.fragment || this.route.snapshot.fragment === 'discussion') {
+                this.router.navigate([], {fragment: 'voting'});
+              }
+            }
+          })
+        );
+      }),
+      take(1)
+    ).subscribe();
   }
 
   ngOnDestroy(): void {

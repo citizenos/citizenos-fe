@@ -168,7 +168,7 @@
 
   <div id="topic_tabs" class="topic_tabs" *ngIf="tabSelected$ | async as tabSelected;">
     <div class="tabs_wrap" [TourItem]="{tourid: 'topic', index: 1, position: 'bottom'}">
-      <a class="topic_tab" [ngClass]="tabSelected=== 'discussion' ? 'active' : ''" [routerLink]="['./']"
+      <a *ngIf="!hideDiscussion" class="topic_tab" [ngClass]="tabSelected=== 'discussion' ? 'active' : ''" [routerLink]="['./']"
         fragment="discussion">
         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect width="32" height="32" rx="16" fill="#1168A8" />
@@ -675,7 +675,7 @@
       </div>
       <div class="state_items_wrap"
         [TourItem]="{tourid: 'topic', index: 5, position: ((wWidth <= 1024)? 'bottom': 'left')}">
-        <div class="state_item discussion" (click)="tabTablet='arguments'">
+        <div class="state_item discussion" (click)="tabTablet='arguments'" *ngIf="!hideDiscussion">
           <div class="item_header">
             <div class="item_title" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_DISCUSSION_HEADING"></div>
             <div class="item_title" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_DISCUSSION_CONTRIBUTION"
