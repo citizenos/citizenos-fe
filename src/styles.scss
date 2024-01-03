@@ -437,6 +437,10 @@ input {
   }
 }
 
+body {
+  background: var(--color-background);
+};
+
 body,
 html {
   font-family: "Noto Sans", sans-serif;
@@ -467,9 +471,9 @@ html {
 
   h4 {
     font-size: 18px;
-font-style: normal;
-font-weight: 600;
-line-height: 24px; /* 133.333% */
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px; /* 133.333% */
   }
 
   h5 {
