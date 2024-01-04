@@ -555,7 +555,7 @@
       "NO_TOPICS_HEADING": "Вы еще не добавили ни одной группы",
       "NO_TOPICS_DESC": "Добавляйте тему в Ваши группы, чтобы мотивировать пользователей к действию по темам. Это необязательно, и всегда можно добавить тему в группы позже.",
       "SELECT_TO_ADD": "Выделить для добавления",
-      "HEADING_TITLE": "Name",
+      "HEADING_TITLE": "Название",
       "HEADING_PARTICIPANTS": "Members",
       "HEADING_TOPIC_PERMISSIONS": "@:COMPONENTS.GROUP_ADD_TOPICS.HEADING_GROUP_PERMISSIONS",
       "HEADING_ACTIONS": "Actions",
@@ -1446,7 +1446,7 @@
     "DASHBOARD": {
       "HEADER_WELCOME": "Welcome back to your dashboard, <a href=\"/account\">{{user.name}}</a>",
       "TITLE_LATEST_ACHIEVEMENT": "Последнее достижение",
-      "BTN_GLOBAL_ACTIVITIES": "Recent activity",
+      "BTN_GLOBAL_ACTIVITIES": "Последняя активность",
       "HAVENT_ENGAGED_TOPICS_HEADING": "Вы еще не участвовали ни в одной теме",
       "HAVENT_ENGAGED_TOPICS_DESCRIPTION": "Участвуйте в темах, присоединяясь к обсуждениям и голосованиям. Или создавайте свои собственные темы и приглашайте участников, чтобы они могли поделиться своими мыслями.",
       "HAVENT_ENGAGED_BTN_CREATE": "Создать тему",
