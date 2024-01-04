@@ -698,7 +698,7 @@
             </div>
           </ng-container>
           <ng-container *ngIf="tabSelected==='voting_system'">
-            <ng-container *ngIf="topic.voteId && vote.id">
+            <ng-container *ngIf="topic.voteId && vote.id || !topic.voteId && vote.id">
               <topic-vote-create #vote_create_form [topic]="topic" [vote]="vote"
                 (saveVote)="saveVoteSettings($event)"></topic-vote-create>
             </ng-container>
