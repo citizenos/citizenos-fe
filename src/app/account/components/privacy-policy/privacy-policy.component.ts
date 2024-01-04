@@ -66,7 +66,7 @@ export class PrivacyPolicyComponent implements OnInit {
       .updateTermsVersion(this.config.version)
       .pipe(take(1))
       .subscribe((data) => {
-        this.AuthService.status().pipe(take(1))
+        this.AuthService.user$
           .subscribe((user) => {
             this.dialog.closeAll();
             this.UserService

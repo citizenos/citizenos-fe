@@ -95,7 +95,7 @@ export class AppComponent {
       })
     ).subscribe();
     //
-    this.auth.user$?.pipe(tap((user) => {
+    this.auth.user$.pipe(tap((user) => {
       if (user && (!user.termsVersion || user.termsVersion !== this.config.get('legal').version)) {
         const tosDialog = this.dialog.open(PrivacyPolicyComponent, {
           data: { user, new: !user.termsVersion }

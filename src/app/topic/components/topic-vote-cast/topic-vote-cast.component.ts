@@ -143,7 +143,6 @@ export class TopicVoteCastComponent implements OnInit {
       .subscribe({
         next: (vote) => {
           this.vote = vote;
-          console.log(vote);
           this.TopicService.reloadTopic();
           this.dialog.closeAll();
         },
@@ -159,6 +158,12 @@ export class TopicVoteCastComponent implements OnInit {
   closeVoting() {
     this.vote.endsAt = new Date();
     this.saveVote();
+    this.topic.status = this.TopicService.STATUSES.followUp;
+    this.TopicService.patch(this.topic).pipe(take(1)).subscribe({
+      next: () => {
+        this.TopicService.reloadTopic();
+      }
+    });
   }
 
   sendVoteReminder () {

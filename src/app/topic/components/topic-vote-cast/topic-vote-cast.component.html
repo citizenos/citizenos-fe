@@ -32,7 +32,8 @@
         <div class="options">
           <div class="option" (click)="editDeadline()" translate="COMPONENTS.TOPIC_VOTE_CAST.OPT_EDIT_DEADLINE"></div>
           <div class="option" (click)="closeVoting()" translate="COMPONENTS.TOPIC_VOTE_CAST.OPT_CLOSE_VOTING"></div>
-          <div *ngIf="!vote.reminderSent" class="option" (click)="sendVoteReminder()" translate="COMPONENTS.TOPIC_VOTE_CAST.OPT_SEND_VOTE_REMINDER"></div>
+          <div *ngIf="!vote.reminderSent" class="option" (click)="sendVoteReminder()"
+            translate="COMPONENTS.TOPIC_VOTE_CAST.OPT_SEND_VOTE_REMINDER"></div>
         </div>
       </div>
     </div>
@@ -155,7 +156,8 @@
             <div>{{vote.votersCount || 0}} / {{topic.members.users.count}} <span
                 translate="COMPONENTS.TOPIC_VOTE_CAST.VOTE_VOTES_COUNTED"></span>
             </div>
-            <a *ngIf="canUpdate() && !vote.reminderSent" (click)="sendVoteReminder()" translate="COMPONENTS.TOPIC_VOTE_CAST.OPT_SEND_VOTE_REMINDER"></a>
+            <a *ngIf="canUpdate() && !vote.reminderSent" (click)="sendVoteReminder()"
+              translate="COMPONENTS.TOPIC_VOTE_CAST.OPT_SEND_VOTE_REMINDER"></a>
           </div>
         </div>
       </div>
@@ -182,8 +184,7 @@
         <div class="bold" translate="COMPONENTS.TOPIC_VOTE_CAST.LBL_YOUR_CHOSE_OPTIONS"></div>
         <div class="vote_delegation" *ngIf="vote.delegation">
           <div class="icon_delegation">
-            <svg width="40" height="40" viewBox="0 0 40 40" fill="none"
-              xmlns="http://www.w3.org/2000/svg">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect width="40" height="40" rx="20" fill="#5AB467" />
               <path
                 d="M26.3432 15.9229L27.0634 10L21.1505 10.7214L23.1001 12.6743L15.7221 20.0647L17.1292 21.4742L24.5072 14.0838L26.3432 15.9229Z"
@@ -252,8 +253,14 @@
     <ng-container *ngIf="hasVoteEndedExpired() &&(!userHasVoted || !editVote)">
       <div class="vote_result_info">
         <div class="text_area">
-          <div class="bold" translate="COMPONENTS.TOPIC_VOTE_CAST.HEADING_VOTE_ENDED"></div>
-          <div translate="COMPONENTS.TOPIC_VOTE_CAST.VOTE_TXT_VOTE_ENDED"></div>
+          <ng-container *ngIf="vote.downloads?.bdocFinal || vote.downloads?.zipFinal">
+            <div class="bold" translate="COMPONENTS.TOPIC_VOTE_CAST.HEADING_VOTE_ENDED"></div>
+            <div translate="COMPONENTS.TOPIC_VOTE_CAST.VOTE_TXT_VOTE_ENDED"></div>
+          </ng-container>
+          <ng-container *ngIf="!vote.downloads?.bdocFinal && !vote.downloads?.zipFinal">
+            <div class="bold" translate="COMPONENTS.TOPIC_VOTE_CAST.HEADING_VOTE_ENDED_EXPIRED"></div>
+            <div translate="COMPONENTS.TOPIC_VOTE_CAST.VOTE_TXT_VOTE_ENDED_EXPIRED"></div>
+          </ng-container>
           <div class="links_wrap">
             <a [href]="vote.downloads.bdocVote"
               *ngIf="vote.authType === VOTE_AUTH_TYPES.hard && vote.downloads?.bdocVote" download>

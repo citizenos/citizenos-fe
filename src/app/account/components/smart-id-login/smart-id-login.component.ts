@@ -71,7 +71,7 @@ export class SmartIdLoginComponent implements OnInit {
         if (response) {
           this.isLoading = false;
           this.challengeID = null;
-          this.AuthService.status().pipe(take(1)).subscribe();
+          this.AuthService.reloadUser();
           this.dialog.closeAll();
         }
       });
