@@ -129,7 +129,12 @@ mat-dialog-container {
       justify-content: center;
       align-items: center;
       gap: 16px;
+
+      .dialog_close {
+        align-items: center;
+      }
     }
+
     .dialog_close {
       display: flex;
       justify-content: center;
