@@ -102,7 +102,7 @@ export class AppService {
     .pipe(take(1))
     .subscribe({
       next: (done) => {
-        this.AuthService.status().pipe(take(1)).subscribe();
+        this.AuthService.reloadUser();
         setTimeout(() => {
           this.router.navigate(['/']);
         });

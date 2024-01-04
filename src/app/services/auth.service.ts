@@ -15,7 +15,7 @@ import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot, Router } from '
 })
 export class AuthService {
   private loadUser$ = new BehaviorSubject<void>(undefined);
-  public user$: Observable<User> | null;
+  public user$: Observable<User>;
   public loggedIn$ = new BehaviorSubject(false);
   public user = new BehaviorSubject({ id: <string|null>null });
 
@@ -93,7 +93,7 @@ export class AuthService {
       .pipe(
         combineLatestWith(this.http.post(pathLogoutAPI, {}, { withCredentials: true, responseType: 'json', observe: 'body' })),
         map(([res1, res2]) => {
-          this.user$ = null;
+          this.reloadUser();
           this.loggedIn$.next(false);
           return res2;
         }),

@@ -77,7 +77,7 @@ export class EstIdLoginFormComponent {
           next: (authRes) => {
             this.isLoadingIdCard = false;
 
-            this.AuthService.status().pipe(take(1)).subscribe();
+            this.AuthService.reloadUser();
             this.dialog.closeAll();
             if (this.redirectSuccess) {
               if (typeof this.redirectSuccess === 'string') {
@@ -117,7 +117,7 @@ export class EstIdLoginFormComponent {
       map(res => res.data)).subscribe({next: (response) => {
         this.isLoading = false;
         this.challengeID = null;
-        this.AuthService.status().pipe(take(1)).subscribe();
+        this.AuthService.reloadUser();
         this.dialog.closeAll();
         if (this.redirectSuccess) {
           if (typeof this.redirectSuccess === 'string') {
