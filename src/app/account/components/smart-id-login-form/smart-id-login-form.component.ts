@@ -1,7 +1,7 @@
 import { Component, Input, Inject } from '@angular/core';
 import { catchError, interval, of, switchMap, take, takeWhile } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -21,7 +21,7 @@ export class SmartIdLoginFormComponent {
   countryCode = 'EE';
   challengeID?: number | null;
   isLoading = false;
-  constructor(private AuthService: AuthService, private dialog: MatDialog, @Inject(ActivatedRoute) private route: ActivatedRoute, private router: Router) {
+  constructor(private AuthService: AuthService, private dialog: DialogService, @Inject(ActivatedRoute) private route: ActivatedRoute, private router: Router) {
 
   }
 

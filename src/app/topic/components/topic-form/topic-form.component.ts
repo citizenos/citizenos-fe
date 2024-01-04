@@ -5,7 +5,7 @@ import { map, tap, of, take, BehaviorSubject, Observable, takeWhile, switchMap }
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicService } from 'src/app/services/topic.service';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { GroupService } from 'src/app/services/group.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Group } from 'src/app/interfaces/group';
@@ -119,7 +119,7 @@ export class TopicFormComponent {
   downloadUrl = '';
   error:any;
   constructor(
-    private dialog: MatDialog,
+    private dialog: DialogService,
     private route: ActivatedRoute,
     private router: Router,
     private UploadService: UploadService,

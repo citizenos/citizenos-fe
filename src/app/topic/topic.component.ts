@@ -4,7 +4,7 @@ import { TopicMemberGroupService } from 'src/app/services/topic-member-group.ser
 import { Component, OnInit, Inject, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, of, map, tap, Observable, take } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -123,7 +123,7 @@ export class TopicComponent implements OnInit {
   hideDiscussion = false;
   constructor(
     @Inject(TranslateService) public translate: TranslateService,
-    @Inject(MatDialog) private dialog: MatDialog,
+    @Inject(DialogService) private DialogService: DialogService,
     public auth: AuthService,
     public TopicService: TopicService,
     @Inject(Router) private router: Router,
@@ -172,7 +172,7 @@ export class TopicComponent implements OnInit {
         if (topic.report && topic.report.moderatedReasonType) {
           // NOTE: Well.. all views that are under the topics/view/votes/view would trigger doble overlays which we don't want
           // Not nice, but I guess the problem starts with the 2 views using same controller. Ideally they should have a parent controller and extend that with their specific functionality
-          this.dialog.closeAll();
+          this.DialogService.closeAll();
           this.hideTopicContent = true;
         }
         if (topic.voteId) {
@@ -252,8 +252,9 @@ export class TopicComponent implements OnInit {
     if (window.innerWidth <= 1024) {
       this.skipTour = true;
       setTimeout(() => {
-        this.dialog.closeAll();
-        const onBoarding = this.dialog.open(TopicOnboardingComponent);
+        console.log(this.DialogService)
+        this.DialogService.closeAll();
+        const onBoarding = this.DialogService.open(TopicOnboardingComponent);
         this.app.mobileTutorial = true;
         onBoarding.afterClosed().subscribe((skip) => {
           if (skip) {
@@ -272,7 +273,7 @@ export class TopicComponent implements OnInit {
   }
 
   reportReasonDialog(topic: Topic) {
-    this.dialog.open(TopicReportReasonComponent, {
+    this.DialogService.open(TopicReportReasonComponent, {
       data: {
         report: topic.report
       }
@@ -280,14 +281,14 @@ export class TopicComponent implements OnInit {
   }
 
   dialogsOpen() {
-    return this.dialog.openDialogs.length;
+    return this.DialogService.openDialogs.length;
   }
 
   deleteTopic(topic: Topic) {
     this.TopicService.doDeleteTopic(topic, ['my', 'topics']);
   }
   joinTopic(topic: Topic) {
-    const joinDialog = this.dialog.open(TopicJoinComponent, {
+    const joinDialog = this.DialogService.open(TopicJoinComponent, {
       data: {
         topic: topic
       }
@@ -314,7 +315,7 @@ export class TopicComponent implements OnInit {
   }
 
   leaveTopic(topic: Topic) {
-    const leaveDialog = this.dialog.open(ConfirmDialogComponent, {
+    const leaveDialog = this.DialogService.open(ConfirmDialogComponent, {
       data: {
         level: 'delete',
         heading: 'MODALS.TOPIC_MEMBER_USER_LEAVE_CONFIRM_HEADING',
@@ -386,7 +387,7 @@ export class TopicComponent implements OnInit {
   };
 
   addGroupsDialog(topic: Topic) {
-    this.dialog.open(TopicAddGroupsDialogComponent, {
+    this.DialogService.open(TopicAddGroupsDialogComponent, {
       data: {
         topic: topic
       }
@@ -394,7 +395,7 @@ export class TopicComponent implements OnInit {
   }
 
   inviteEditors(topic: Topic) {
-    const inviteDialog = this.dialog.open(InviteEditorsComponent, { data: { topic: topic } });
+    const inviteDialog = this.DialogService.open(InviteEditorsComponent, { data: { topic: topic } });
     inviteDialog.afterClosed().subscribe({
       next: (inviteUsers) => {
      //   this.loadInvite$.next();
@@ -407,7 +408,7 @@ export class TopicComponent implements OnInit {
 
   inviteMembers(topic: Topic) {
     console.log('INVITE');
-    const inviteDialog = this.dialog.open(TopicInviteDialogComponent, { data: { topic } });
+    const inviteDialog = this.DialogService.open(TopicInviteDialogComponent, { data: { topic } });
     inviteDialog.afterClosed().subscribe({
       next: (res) => {
         //   this.NotificationService.addSuccess('');
@@ -419,7 +420,7 @@ export class TopicComponent implements OnInit {
   }
 
   manageParticipants(topic: Topic) {
-    const participantsDialog = this.dialog.open(TopicParticipantsComponent, { data: { topic } });
+    const participantsDialog = this.DialogService.open(TopicParticipantsComponent, { data: { topic } });
     participantsDialog.afterClosed().subscribe({
       next: (res) => {
         //   this.NotificationService.addSuccess('');
@@ -435,7 +436,7 @@ export class TopicComponent implements OnInit {
   }
 
   duplicateTopic(topic: Topic) {
-    const duplicateDialog = this.dialog.open(DuplicateTopicDialogComponent, {
+    const duplicateDialog = this.DialogService.open(DuplicateTopicDialogComponent, {
       data: {
         topic: topic
       }
@@ -454,7 +455,7 @@ export class TopicComponent implements OnInit {
   };
 
   startVote(topic: Topic) {
-    this.dialog.open(TopicVoteCreateDialogComponent, {
+    this.DialogService.open(TopicVoteCreateDialogComponent, {
       data: {
         topic: topic
       }
@@ -466,7 +467,7 @@ export class TopicComponent implements OnInit {
   }
 
   sendToFollowUp(topic: Topic, stateSuccess?: string) {
-    this.dialog.open(TopicFollowUpCreateDialogComponent, {
+    this.DialogService.open(TopicFollowUpCreateDialogComponent, {
       data: {
         topic: topic
       }

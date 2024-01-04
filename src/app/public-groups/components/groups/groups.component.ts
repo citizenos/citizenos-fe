@@ -8,7 +8,7 @@ import { countries } from 'src/app/services/country.service';
 import { languages } from 'src/app/services/language.service';
 import { PublicGroupService } from 'src/app/services/public-group.service';
 import { GroupCreateComponent } from 'src/app/group/components/group-create/group-create.component';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { AppService } from 'src/app/services/app.service';
 import { trigger, state, style } from '@angular/animations';
 import { Country } from 'src/app/interfaces/country';
@@ -74,7 +74,7 @@ export class GroupsComponent implements OnInit {
     language: ''
   }
 
-  constructor(private dialog: MatDialog,
+  constructor(private dialog: DialogService,
     private route: ActivatedRoute,
     private AuthService: AuthService,
     public GroupService: GroupService,

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, Inject } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { forkJoin, map, of, take, takeWhile } from 'rxjs';
@@ -78,7 +78,7 @@ export class GroupCreateComponent implements OnInit {
     private Notification: NotificationService,
     private router: Router,
     private route: ActivatedRoute,
-    private dialog: MatDialog,
+    private dialog: DialogService,
     private Search: SearchService,
     private GroupInviteUser: GroupInviteUserService,
     public GroupMemberTopicService: GroupMemberTopicService,

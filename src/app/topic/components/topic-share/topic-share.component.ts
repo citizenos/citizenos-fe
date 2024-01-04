@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { take } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicService } from 'src/app/services/topic.service';
@@ -27,7 +27,7 @@ export class TopicShareComponent implements OnInit {
   copySuccess = false;
   constructor(
     private Auth: AuthService,
-    private dialog: MatDialog,
+    private dialog: DialogService,
     private TopicService: TopicService,
     private TopicJoinService: TopicJoinService,
     private Location: LocationService) {

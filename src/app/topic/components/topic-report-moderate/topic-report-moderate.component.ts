@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicReportService } from 'src/app/services/topic-report.service';
 import { switchMap, take } from 'rxjs';
@@ -36,7 +36,7 @@ export class TopicReportModerateComponent implements OnInit {
   isLoading = false;
   errors = <any>null;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: TopicReportModerateData, private TopicReportService: TopicReportService, private dialog: MatDialog) {
+  constructor(@Inject(DIALOG_DATA) public data: TopicReportModerateData, private TopicReportService: TopicReportService, private dialog: DialogService) {
     this.topic = data.topic;
   }
 
@@ -82,7 +82,7 @@ export class TopicReportModerateComponent implements OnInit {
 })
 export class TopicReportModerateDialogComponent implements OnInit {
 
-  constructor(dialog: MatDialog, router: Router, route: ActivatedRoute, TopicService: TopicService) {
+  constructor(dialog: DialogService, router: Router, route: ActivatedRoute, TopicService: TopicService) {
     route.params.pipe(switchMap((params) => {
       return TopicService.get(params['topicId']);
     })).pipe(take(1))

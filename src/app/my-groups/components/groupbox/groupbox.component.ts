@@ -1,6 +1,6 @@
 import { AuthService } from 'src/app/services/auth.service';
 import { Component, Input, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { Router } from '@angular/router';
 
 import { Group } from 'src/app/interfaces/group';
@@ -17,7 +17,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class GroupboxComponent implements OnInit {
   @Input() group = <Group>{}; // decorate the property with @Input()
-  constructor(private dialog: MatDialog, private router: Router, private GroupJoinService: GroupJoinService, private Auth: AuthService, public Translate: TranslateService) { }
+  constructor(private dialog: DialogService, private router: Router, private GroupJoinService: GroupJoinService, private Auth: AuthService, public Translate: TranslateService) { }
 
   ngOnInit(): void {
   }

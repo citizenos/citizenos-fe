@@ -1,10 +1,10 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { of, switchMap, take } from 'rxjs';
+import { switchMap, take } from 'rxjs';
 import { GroupJoinService } from 'src/app/services/group-join.service';
 import { LocationService } from 'src/app/services/location.service';
 import { Group } from 'src/app/interfaces/group';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 
 @Component({
   selector: 'app-group-join',
@@ -13,7 +13,7 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class GroupJoinComponent {
   group: Group;
-  constructor(@Inject(MAT_DIALOG_DATA) data: any) {
+  constructor(@Inject(DIALOG_DATA) data: any) {
     this.group = data.group;
   }
 
@@ -25,7 +25,7 @@ export class GroupJoinComponent {
 })
 export class GroupTokenJoinComponent {
   token: string = '';
-  constructor(router: Router, dialog: MatDialog, route: ActivatedRoute, Location: LocationService, GroupJoinService: GroupJoinService) {
+  constructor(router: Router, dialog: DialogService, route: ActivatedRoute, Location: LocationService, GroupJoinService: GroupJoinService) {
     route.params.pipe(
       switchMap((params: any) => {
         this.token = params['token'];

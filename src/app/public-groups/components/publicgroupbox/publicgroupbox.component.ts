@@ -1,6 +1,6 @@
 import { AuthService } from 'src/app/services/auth.service';
 import { Component, Input, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Group } from 'src/app/interfaces/group';
@@ -18,7 +18,7 @@ import { GroupJoinComponent } from 'src/app/group/components/group-join/group-jo
 })
 export class PublicgroupboxComponent implements OnInit {
   @Input() group = <Group>{}; // decorate the property with @Input()
-  constructor(private Location: LocationService, private dialog: MatDialog, private route: ActivatedRoute, private router: Router, private GroupJoinService: GroupJoinService, private Auth: AuthService) { }
+  constructor(private Location: LocationService, private dialog: DialogService, private route: ActivatedRoute, private router: Router, private GroupJoinService: GroupJoinService, private Auth: AuthService) { }
 
   ngOnInit(): void {
   }

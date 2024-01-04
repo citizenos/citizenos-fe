@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { DialogService, DIALOG_DATA, DialogRef } from 'src/app/shared/dialog';
 import { take, switchMap } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicReportService } from 'src/app/services/topic-report.service';
@@ -22,7 +22,7 @@ export class TopicReportFormComponent implements OnInit {
   isLoading = false;
   errors = <any>null;
 
-  constructor(formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: TopicReportFormData, @Inject(MatDialogRef) private dialog: MatDialogRef<TopicReportFormComponent>, private TopicReportService: TopicReportService) {
+  constructor(formBuilder: FormBuilder, @Inject(DIALOG_DATA) public data: TopicReportFormData, @Inject(DialogRef) private dialog: DialogRef<TopicReportFormComponent>, private TopicReportService: TopicReportService) {
     this.topic = data.topic;
     this.report = formBuilder.group({
       type: [this.reportTypes[0], Validators.compose([Validators.required])],
@@ -81,7 +81,7 @@ export class TopicReportFormComponent implements OnInit {
 })
 export class TopicReportFormDialogComponent implements OnInit {
 
-  constructor(dialog: MatDialog, router: Router, route: ActivatedRoute, TopicService: TopicService) {
+  constructor(dialog: DialogService, router: Router, route: ActivatedRoute, TopicService: TopicService) {
     route.params.pipe(switchMap((params) => {
       return TopicService.get(params['topicId']);
     })).pipe(take(1))

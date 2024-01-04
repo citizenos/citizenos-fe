@@ -6,7 +6,7 @@ import { Observable, BehaviorSubject, map, take } from 'rxjs';
 import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { ItemsListService } from './items-list.service';
 import { AuthService } from './auth.service';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { Topic } from '../interfaces/topic';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 
@@ -16,7 +16,7 @@ import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog
 export class TopicMemberUserService extends ItemsListService {
   params = Object.assign({ topicId: <string>'' }, this.defaultParams);
   params$ = new BehaviorSubject(this.params);
-  constructor(private dialog: MatDialog, private Location: LocationService, private http: HttpClient, private AuthService: AuthService, private router: Router) {
+  constructor(private dialog: DialogService, private Location: LocationService, private http: HttpClient, private AuthService: AuthService, private router: Router) {
     super();
     this.items$ = this.loadItems();
   }

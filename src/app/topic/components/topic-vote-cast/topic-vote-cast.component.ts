@@ -6,7 +6,7 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { TopicService } from 'src/app/services/topic.service';
 import { TopicVoteService } from 'src/app/services/topic-vote.service';
 import { VoteDelegationService } from 'src/app/services/vote-delegation.service';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { take } from 'rxjs';
 import { TopicVoteSignComponent } from '../topic-vote-sign/topic-vote-sign.component';
 import { TopicVoteDeadlineComponent } from '../topic-vote-deadline/topic-vote-deadline.component';
@@ -32,7 +32,7 @@ export class TopicVoteCastComponent implements OnInit {
 
   constructor(
     public app: AppService,
-    private dialog: MatDialog,
+    private dialog: DialogService,
     private Notification: NotificationService,
     public AuthService: AuthService,
     private TopicService: TopicService,

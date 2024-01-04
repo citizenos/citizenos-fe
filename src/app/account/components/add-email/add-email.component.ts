@@ -3,7 +3,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { NotificationService } from 'src/app/services/notification.service';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 import { take } from 'rxjs';
 import { User } from 'src/app/interfaces/user';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
@@ -23,8 +23,8 @@ export class AddEmailComponent implements OnInit {
   });
   errors?: any;
   wWidth = window.innerWidth;
-  constructor(@Inject(MAT_DIALOG_DATA) private data: AddEmailData,
-    private dialog: MatDialog,
+  constructor(@Inject(DIALOG_DATA) private data: AddEmailData,
+    private dialog: DialogService,
     private AuthService: AuthService,
     private Notification: NotificationService,
     @Inject(Router) private router: Router,

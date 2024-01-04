@@ -1,6 +1,6 @@
 import { AuthService } from './auth.service';
 import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { BehaviorSubject, map, take } from 'rxjs';
 import { Group } from '../interfaces/group';
 import { Topic } from '../interfaces/topic';
@@ -46,7 +46,7 @@ export class AppService {
     text: ''
   });
 
-  constructor(private dialog: MatDialog,
+  constructor(private dialog: DialogService,
     private Title: Title,
     private Meta: Meta,
     private translate: TranslateService,

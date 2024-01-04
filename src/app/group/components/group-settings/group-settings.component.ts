@@ -1,6 +1,6 @@
 import { Component, Inject, ViewChild, ElementRef, HostBinding } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { switchMap, tap, of, take, takeWhile, catchError, map, Observable, BehaviorSubject } from 'rxjs';
+import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
+import { take, takeWhile } from 'rxjs';
 import { Group } from 'src/app/interfaces/group';
 import { GroupService } from 'src/app/services/group.service';
 import { countries } from 'src/app/services/country.service';
@@ -31,8 +31,8 @@ export class GroupSettingsComponent {
   public tmpImageUrl?: any;
 
   constructor(
-    private dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    private dialog: DialogService,
+    @Inject(DIALOG_DATA) public data: any,
     private GroupService: GroupService
   ) {
     this.group = data.group;

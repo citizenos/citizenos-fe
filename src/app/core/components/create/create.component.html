@@ -1,6 +1,6 @@
 <div id="create_menu">
   <div class="create_menu_item" [routerLink]="['/', translate.currentLang, 'topics', 'create']"
-    routerLinkActive="active" mat-dialog-close>
+    routerLinkActive="active" dialog-close>
     <div class="left_wrap">
       <div class="icon_wrap">
         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -44,7 +44,7 @@
   </div-->
 
   <div class="create_menu_item" [routerLink]="['/', translate.currentLang, 'topics', 'vote', 'create']"
-    routerLinkActive="active" mat-dialog-close>
+    routerLinkActive="active" dialog-close>
     <div class="left_wrap">
       <div class="icon_wrap">
         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -69,7 +69,7 @@
   <div class="line_separator"></div>
 
   <div class="create_menu_item" [routerLink]="['/', translate.currentLang, 'my', 'groups', 'create']"
-    routerLinkActive="active" mat-dialog-close>
+    routerLinkActive="active" dialog-close>
     <div class="left_wrap">
       <div class="icon_wrap">
         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -101,4 +101,4 @@
     </div>
   </div>
 </div>
-<div id="close_dialog" mat-dialog-close></div>
+<div id="close_dialog" dialog-close></div>

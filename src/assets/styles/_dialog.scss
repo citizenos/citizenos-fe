@@ -1,47 +1,15 @@
 @use "mixins";
 
-mat-dialog-container {
-  display: flex !important;
-
-  .mdc-dialog__container {
-    height: max-content;
-    align-self: flex-start;
-  }
-}
 .cdk-overlay-container {
-  z-index: 999;
-
-  .cdk-overlay-pane {
-    max-width: initial !important;
-    position: initial !important;
-  }
+  display: contents;
 }
 
 .mat-mdc-dialog-container .mdc-dialog__surface {
-  border-radius: var(
-    --mdc-dialog-container-shape,
-    var(--mdc-shape-medium, 16px)
-  ) !important;
-
-  --mdc-dialog-container-shape: 16px;
+  display: contents;
 }
 
 .cdk-global-overlay-wrapper {
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  position: fixed;
-  z-index: 11;
-  overflow-y: auto;
-  overflow-x: hidden;
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  display: contents;
 }
 
 .overlay {
@@ -49,17 +17,25 @@ mat-dialog-container {
   position: fixed;
   cursor: pointer;
   z-index: 12;
+  display: block;
+  text-align: center;
 }
+
 .dialog {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-self: center;
+  justify-self: center;
   flex-direction: column;
   z-index: 9999;
   position: relative;
-  min-width: 560px;
+  width: 560px;
+  height: max-content;
   border-radius: 16px;
   overflow: hidden;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
 
   @include mixins.mobile {
     min-width: initial;
@@ -70,7 +46,6 @@ mat-dialog-container {
     left: 0;
     top: 0;
     flex: 1 1;
-    height: 100%;
     justify-content: flex-start;
   }
 

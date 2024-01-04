@@ -8,7 +8,7 @@ import { GroupMemberTopicService } from 'src/app/services/group-member-topic.ser
 import { of, tap, switchMap, take, forkJoin } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { TopicService } from 'src/app/services/topic.service';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { DIALOG_DATA, DialogRef } from 'src/app/shared/dialog';
 @Component({
   selector: 'group-add-topics',
   templateUrl: './group-add-topics.component.html',
@@ -168,8 +168,8 @@ export class GroupAddTopicsDialogComponent {
 
   noTopicsSelected = false;
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private dialog: MatDialogRef<GroupAddTopicsDialogComponent>,
+    @Inject(DIALOG_DATA) public data: any,
+    private dialog: DialogRef<GroupAddTopicsDialogComponent>,
     private GroupService: GroupService,
     private GroupMemberTopic: GroupMemberTopicService
   ) {

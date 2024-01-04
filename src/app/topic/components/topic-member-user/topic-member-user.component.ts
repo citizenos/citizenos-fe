@@ -6,7 +6,7 @@ import { TopicService } from 'src/app/services/topic.service';
 import { TopicMemberUserService } from 'src/app/services/topic-member-user.service';
 import { take } from 'rxjs';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -24,7 +24,7 @@ export class TopicMemberUserComponent implements OnInit {
   userLevels = Object.keys(this.TopicService.LEVELS)
   constructor(
     private AuthService: AuthService,
-    private dialog: MatDialog,
+    private dialog: DialogService,
     private Translate: TranslateService,
     private TopicService: TopicService,
     private TopicMemberUserService: TopicMemberUserService,
