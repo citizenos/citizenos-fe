@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { DialogService, DIALOG_DATA, DialogRef } from 'src/app/shared/dialog';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicMemberUserService } from 'src/app/services/topic-member-user.service';
 import { TopicInviteUserService } from 'src/app/services/topic-invite-user.service';
@@ -28,8 +28,8 @@ export class TopicParticipantsComponent implements OnInit {
   memberInvites$ = of(<any[]>[]);
   LEVELS = Object.keys(this.TopicService.LEVELS)
   constructor(
-    private dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: TopicParticipantsData,
+    private dialog: DialogService,
+    @Inject(DIALOG_DATA) public data: TopicParticipantsData,
     public TopicMemberUserService: TopicMemberUserService,
     public TopicInviteUserService: TopicInviteUserService,
     public TopicMemberGroupService: TopicMemberGroupService,
@@ -105,7 +105,7 @@ export class TopicParticipantsComponent implements OnInit {
 })
 export class TopicParticipantsDialogComponent implements OnInit {
 
-  constructor(dialog: MatDialog, router: Router, route: ActivatedRoute, TopicService: TopicService, @Inject(MAT_DIALOG_DATA) data: any, curDialog: MatDialogRef<TopicParticipantsDialogComponent>) {
+  constructor(dialog: DialogService, router: Router, route: ActivatedRoute, TopicService: TopicService, @Inject(DIALOG_DATA) data: any, curDialog: DialogRef<TopicParticipantsDialogComponent>) {
     if (data.topic) {
       const manageDialog = dialog.open(TopicParticipantsComponent, { data: { topic: data.topic } });
       manageDialog.afterClosed().subscribe(() => {

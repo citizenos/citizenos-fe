@@ -2,7 +2,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, map, tap, take, takeWhile, catchError } from 'rxjs/operators';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { TopicNotificationSettingsComponent } from 'src/app/topic/components/topic-notification-settings/topic-notification-settings.component';
@@ -54,7 +54,7 @@ export class ProfileComponent {
 
   constructor(
     public app: AppService,
-    public dialog: MatDialog,
+    public dialog: DialogService,
     public TopicNotificationService: TopicNotificationService,
     private Notification: NotificationService,
     private User: UserService,

@@ -1,5 +1,5 @@
 import { Component, Input, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DIALOG_DATA } from 'src/app/shared/dialog';
 import { Argument } from 'src/app/interfaces/argument';
 
 @Component({
@@ -10,7 +10,7 @@ import { Argument } from 'src/app/interfaces/argument';
 export class ArgumentWhyDialogComponent {
   @Input() argument!: Argument;
 
-  constructor (@Inject(MAT_DIALOG_DATA) data: any) {
+  constructor (@Inject(DIALOG_DATA) data: any) {
     this.argument = data.argument;
   }
 }

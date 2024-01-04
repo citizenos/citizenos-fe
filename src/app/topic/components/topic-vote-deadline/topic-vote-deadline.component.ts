@@ -1,5 +1,5 @@
 import { Component, Input, Inject, HostBinding } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { DIALOG_DATA, DialogService } from 'src/app/shared/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { take } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
@@ -35,10 +35,10 @@ export class TopicVoteDeadlineComponent {
 
   constructor (
     private Translate: TranslateService,
-    @Inject(MAT_DIALOG_DATA) data: any,
+    @Inject(DIALOG_DATA) data: any,
     private TopicVoteService: TopicVoteService,
     private TopicService: TopicService,
-    private dialog: MatDialog,
+    private dialog: DialogService,
     private Notification: NotificationService
     ) {
     this.setTimeZones();

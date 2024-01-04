@@ -1,5 +1,5 @@
 import { OnboardingComponent } from './../onboarding/onboarding.component';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { Component } from '@angular/core';
 import { AppService } from 'src/app/services/app.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -40,7 +40,7 @@ export class DashboardComponent {
     private PublicGroupService: PublicGroupService,
     private GroupService: GroupService,
     private NewsService: NewsService,
-    private dialog: MatDialog
+    private dialog: DialogService
   ) {
     this.groups$ = this.GroupService.loadItems();
     this.news$ = this.NewsService.get().pipe(

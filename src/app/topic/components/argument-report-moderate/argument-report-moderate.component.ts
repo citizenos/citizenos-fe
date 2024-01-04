@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TopicArgumentService } from 'src/app/services/topic-argument.service';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 import { Argument } from 'src/app/interfaces/argument';
 import { switchMap, take, combineLatest } from 'rxjs';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
@@ -23,7 +23,7 @@ export class ArgumentReportModerateComponent implements OnInit {
     text: new UntypedFormControl('', Validators.required),
   });
   errors?: any;
-  constructor(@Inject(MAT_DIALOG_DATA) data: any, private TopicArgumentService: TopicArgumentService, private dialog: MatDialog) {
+  constructor(@Inject(DIALOG_DATA) data: any, private TopicArgumentService: TopicArgumentService, private dialog: DialogService) {
     this.argument = data.argument || data.report.comment;
     this.topicId = data.topicId;
     this.commentId = data.commentId;
@@ -66,7 +66,7 @@ export class ArgumentReportModerateDialogComponent {
   topicId = '';
   commentId = '';
   token = '';
-  constructor(dialog: MatDialog, route: ActivatedRoute, router: Router, TopicArgumentService: TopicArgumentService) {
+  constructor(dialog: DialogService, route: ActivatedRoute, router: Router, TopicArgumentService: TopicArgumentService) {
     /*TODO resove queryParam token */
     combineLatest([route.params, route.queryParams]).pipe(
       switchMap(([params, queryParams]) => {

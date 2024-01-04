@@ -1,5 +1,8 @@
+import { DIALOG_DATA } from 'src/app/shared/dialog/dialog-tokens';
 import { Component, OnInit, Inject, Input, Output, EventEmitter } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+//import { DialogRef, DIALOG_DATA } from 'src/app/shared/dialog';
+import { DialogService } from 'src/app/shared/dialog/dialog.service';
+import { DialogRef } from 'src/app/shared/dialog/dialog-ref';
 import { isEmail } from 'validator';
 import { take, of, switchMap, forkJoin, Observable } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
@@ -11,6 +14,7 @@ import { TopicJoinService } from 'src/app/services/topic-join.service';
 import { TopicMemberUserService } from 'src/app/services/topic-member-user.service';
 import { TopicInviteUserService } from 'src/app/services/topic-invite-user.service';
 import { ActivatedRoute } from '@angular/router';
+import { TopicOnboardingComponent } from '../topic-onboarding/topic-onboarding.component';
 export interface TopicInviteData {
   topic: Topic
 };
@@ -253,12 +257,19 @@ export class TopicInviteDialogComponent {
   activeTab = 'invite';
   members = [];
   public inviteMessage = '';
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, @Inject(MatDialogRef) private dialog: MatDialogRef<TopicInviteDialogComponent>, private TopicInviteUser: TopicInviteUserService, public Notification: NotificationService) {
+  constructor(private DialogService: DialogService, @Inject(DIALOG_DATA) public data: any, @Inject(DialogRef) private dialog: DialogRef<TopicInviteDialogComponent>, private TopicInviteUser: TopicInviteUserService, public Notification: NotificationService) {
     if (!this.canInvite()) {
       this.activeTab = 'share';
     }
+
+    setTimeout(() =>
+      this.DialogService.open(TopicOnboardingComponent)
+    , 1000)
   }
 
+  close () {
+    this.dialog.close();
+  }
   canInvite() {
     return this.TopicInviteUser.canInvite(this.data.topic);
   }

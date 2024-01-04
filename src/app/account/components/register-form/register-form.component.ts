@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { ConfigService } from 'src/app/services/config.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { NotificationService } from 'src/app/services/notification.service';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { take } from 'rxjs';
 import { UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -30,7 +30,7 @@ export class RegisterFormComponent {
   wWidth = window.innerWidth;
   errors = <any>{};
   termsVersion: number;
-  constructor(private dialog: MatDialog, ConfigService: ConfigService, private AuthService: AuthService, private Notification: NotificationService, private router: Router) {
+  constructor(private dialog: DialogService, ConfigService: ConfigService, private AuthService: AuthService, private Notification: NotificationService, private router: Router) {
     this.config = ConfigService.get('legal');
     this.termsVersion = this.config.version;
   }

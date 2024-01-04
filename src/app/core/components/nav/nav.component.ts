@@ -1,4 +1,4 @@
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { ConfigService } from 'src/app/services/config.service';
 
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
@@ -28,7 +28,8 @@ export class NavComponent implements OnInit {
     public translate: TranslateService,
     private router: Router,
     public config: ConfigService,
-    public auth: AuthService, public dialog: MatDialog,
+    public auth: AuthService,
+    public dialog: DialogService,
     public app: AppService,
     private TopicService: TopicService,
     public TourService: TourService

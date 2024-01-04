@@ -5,7 +5,7 @@ import { LocationService } from './location.service';
 import { Observable, switchMap, map, of, take, BehaviorSubject, exhaustMap, shareReplay } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { AuthService } from './auth.service';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { Router } from '@angular/router';
 
@@ -64,7 +64,7 @@ export class TopicService {
 
   private loadTopic$ = new BehaviorSubject<void>(undefined);
 
-  constructor(private dialog: MatDialog, private Location: LocationService, private http: HttpClient, private Auth: AuthService, private router: Router) { }
+  constructor(private dialog: DialogService, private Location: LocationService, private http: HttpClient, private Auth: AuthService, private router: Router) { }
 
   loadTopic(id: string, params?: { [key: string]: string | boolean }) {
     return this.loadTopic$.pipe(

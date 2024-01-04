@@ -1,6 +1,6 @@
 import { trigger, state, style } from '@angular/animations';
 import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { of, map, tap, Observable, take, switchMap, takeWhile, BehaviorSubject } from 'rxjs';
@@ -158,7 +158,7 @@ export class VoteCreateComponent implements OnInit {
     public TopicInviteUserService: TopicInviteUserService,
     private router: Router,
     private route: ActivatedRoute,
-    private dialog: MatDialog,
+    private dialog: DialogService,
     private TopicVoteService: TopicVoteService,
     @Inject(DomSanitizer) private sanitizer: DomSanitizer,
     private config: ConfigService) {

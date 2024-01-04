@@ -1,6 +1,6 @@
 import { GroupInviteUserService } from 'src/app/services/group-invite-user.service';
 import { Component, OnInit, Input, Output, EventEmitter, Inject } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { DIALOG_DATA, DialogRef } from 'src/app/shared/dialog';
 import { isEmail } from 'validator';
 import { take, of, switchMap, BehaviorSubject } from 'rxjs';
 import { Group } from 'src/app/interfaces/group';
@@ -273,7 +273,7 @@ export class GroupInviteComponent implements OnInit {
 export class GroupInviteDialogComponent {
   activeTab = 'invite';
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialogRef<GroupInviteDialogComponent>, private GroupInviteUser: GroupInviteUserService,) {
+  constructor(@Inject(DIALOG_DATA) public data: any, private dialog: DialogRef<GroupInviteDialogComponent>, private GroupInviteUser: GroupInviteUserService,) {
   }
 
   doInviteMembers() {

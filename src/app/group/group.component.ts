@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, tap, of, take, catchError, map, Observable, BehaviorSubject } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 
 import { GroupMemberUserService } from 'src/app/services/group-member-user.service';
 import { GroupService } from 'src/app/services/group.service';
@@ -92,7 +92,7 @@ export class GroupComponent implements OnInit {
   searchUsersInput = '';
   searchUserString$ = new BehaviorSubject('');
 
-  constructor(public dialog: MatDialog,
+  constructor(public dialog: DialogService,
     private GroupService: GroupService,
     private GroupJoinService: GroupJoinService,
     private route: ActivatedRoute,

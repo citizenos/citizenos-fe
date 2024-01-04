@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { map, of } from 'rxjs';
 import { TopicArgumentService } from 'src/app/services/topic-argument.service';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DIALOG_DATA } from 'src/app/shared/dialog';
 
 export interface ArgumentReactionsData {
   commentId: string,
@@ -21,7 +21,7 @@ export class ArgumentReactionsComponent implements OnInit {
   private itemsPerPage = 10;
   public page = 1;
   public totalPages = 0;
-  constructor(private TopicArgumentService: TopicArgumentService, @Inject(MAT_DIALOG_DATA) public data: ArgumentReactionsData,) {
+  constructor(private TopicArgumentService: TopicArgumentService, @Inject(DIALOG_DATA) public data: ArgumentReactionsData,) {
     this.commentId = data.commentId;
     this.topicId = data.topicId;
   }

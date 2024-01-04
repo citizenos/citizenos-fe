@@ -3,7 +3,7 @@ import { Component, Inject, Input } from '@angular/core';
 import { NotificationService } from 'src/app/services/notification.service';
 import { LocationService } from 'src/app/services/location.service';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { PasswordForgotComponent } from '../password-forgot/password-forgot.component';
 import { TranslateService } from '@ngx-translate/core';
@@ -24,7 +24,7 @@ export class LoginFormComponent {
   });
   errors: any;
 
-  constructor(public dialog: MatDialog,
+  constructor(public dialog: DialogService,
     private Location: LocationService,
     private Notification: NotificationService,
     @Inject(Router) private router: Router,

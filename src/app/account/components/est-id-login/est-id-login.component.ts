@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DIALOG_DATA } from 'src/app/shared/dialog';
 
 @Component({
   selector: 'app-est-id-login',
@@ -17,7 +17,7 @@ export class EstIdLoginComponent {
 })
 export class EstIdLoginDialogComponent {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data:any) {
+  constructor(@Inject(DIALOG_DATA) public data:any) {
 
   }
 }

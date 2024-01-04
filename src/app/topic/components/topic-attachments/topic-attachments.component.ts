@@ -1,6 +1,6 @@
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { Component, Inject, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { take, takeWhile, switchMap, of, map } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
@@ -59,7 +59,7 @@ export class TopicAttachmentsComponent implements OnInit {
   attachments = <any[]>[];
 
   constructor(
-    private dialog: MatDialog,
+    private dialog: DialogService,
     public app: AppService,
     public TopicService: TopicService,
     private TopicAttachmentService: TopicAttachmentService,
@@ -247,7 +247,7 @@ export class TopicAttachmentsComponent implements OnInit {
 })
 export class TopicAttachmentsDialogComponent implements OnInit {
   private topicId: string = '';
-  constructor(dialog: MatDialog, router: Router, route: ActivatedRoute, TopicService: TopicService, TopicAttachmentService: TopicAttachmentService) {
+  constructor(dialog: DialogService, router: Router, route: ActivatedRoute, TopicService: TopicService, TopicAttachmentService: TopicAttachmentService) {
     route.params.pipe(
       switchMap((params) => {
         this.topicId = params['topicId'];

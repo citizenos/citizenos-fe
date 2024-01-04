@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, ChangeDetectorRef } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { NotificationService } from 'src/app/services/notification.service';
 import { DomSanitizer } from '@angular/platform-browser';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 
 @Component({
   selector: 'notification',
@@ -16,7 +16,7 @@ export class NotificationComponent implements OnInit {
     @Inject(DOCUMENT) private document: any,
     private changeDetection: ChangeDetectorRef,
     private sanitizer: DomSanitizer,
-    private dialogs: MatDialog
+    private dialogs: DialogService
   ) { }
 
   ngOnInit(): void {

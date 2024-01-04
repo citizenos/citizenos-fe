@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 import { take } from 'rxjs';
 import { User } from 'src/app/interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
@@ -23,8 +23,8 @@ export class PrivacyPolicyComponent implements OnInit {
   user!: User;
   isNew = false;
   constructor(
-    @Inject(MAT_DIALOG_DATA) data: PrivacyPolicyData,
-    private dialog: MatDialog,
+    @Inject(DIALOG_DATA) data: PrivacyPolicyData,
+    private dialog: DialogService,
     ConfigService: ConfigService,
     private AuthService: AuthService,
     private UserService: UserService,
