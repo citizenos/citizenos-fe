@@ -16,6 +16,9 @@
   min-height: 100%;
   background-color: var(--color-background);
 
+  &.fixed {
+    position: fixed;
+  }
   &.no_scroll {
     overflow: hidden;
     height: 100%;

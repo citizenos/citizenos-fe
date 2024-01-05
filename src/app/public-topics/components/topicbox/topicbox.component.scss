@@ -20,6 +20,7 @@
   }
 
   &:hover {
+    text-decoration: none;
     box-shadow: 0px 8px 20px 0px rgba(220, 231, 240, 0.30), 0px 12px 16px 0px rgba(50, 85, 112, 0.10);
     .image {
       .image_overlay {
@@ -27,6 +28,10 @@
         visibility: visible;
         opacity: 0.4;
       }
+    }
+
+    .topic_title {
+      color: var(--color-link);
     }
   }
 
@@ -118,16 +123,18 @@
       justify-content: center;
       background-color: var(--color-border);
     }
+
     .image_overlay {
-      position: relative;
+      position: absolute;
       width: 100%;
       height: 100%;
-      z-index: 2;
+      z-index: 9;
       background-color: rgba(17, 104, 168);
       visibility: hidden;
       opacity: 0;
       transition: visibility 0s, opacity 0.2s linear;
     }
+
     img {
       width: inherit;
       aspect-ratio: 1;
