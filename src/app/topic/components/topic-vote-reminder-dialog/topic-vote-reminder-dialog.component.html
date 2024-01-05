@@ -1,73 +1,76 @@
 <div class="overlay" dialog-close></div>
-<div class="dialog" *ngIf="user$ | async as user">
-  <div class="dialog_header voting">
-    <div class="header_text">
-      <div class="small_heading" translate="COMPONENTS.TOPIC_VOTE_REMINDER.DIALOG_HEADING"></div>
-      <div class="dialog_close">
-        <a class="btn_dialog_close icon" dialog-close>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M7.72152 6.29537C7.3277 5.90154 6.68919 5.90154 6.29537 6.29537C5.90154 6.68919 5.90154 7.3277 6.29537 7.72153L10.5738 12L6.29541 16.2785C5.90159 16.6723 5.90159 17.3108 6.29541 17.7046C6.68923 18.0985 7.32774 18.0985 7.72156 17.7046L12 13.4262L16.2784 17.7046C16.6723 18.0985 17.3108 18.0985 17.7046 17.7046C18.0984 17.3108 18.0984 16.6723 17.7046 16.2785L13.4262 12L17.7046 7.72153C18.0985 7.3277 18.0985 6.68919 17.7046 6.29537C17.3108 5.90154 16.6723 5.90154 16.2785 6.29537L12 10.5739L7.72152 6.29537Z"
-              fill="#2C3B47" />
-          </svg>
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <div class="dialog_content">
-    <div class="text_wrap">
-      <div class="content_description" translate="COMPONENTS.TOPIC_VOTE_REMINDER.DIALOG_DESCRIPTION"></div>
-      <div class="line_separator"></div>
-      <div translate="COMPONENTS.TOPIC_VOTE_REMINDER.REMINDER_PREVIEW_DESC"></div>
-    </div>
-    <div class="email_preview_wrap">
-      <div class="email_preview">
-        <div class="email_header">
-          <div class="email_title_desc" translate="COMPONENTS.TOPIC_VOTE_REMINDER.PREVIEW_EMAIL_HEADING"></div>
-          <div class="email_title" [innerHTML]="topic.title"></div>
-        </div>
-        <div class="email_body">
-          <div class="text_area">
-            <span translate="COMPONENTS.TOPIC_VOTE_REMINDER.PREVIEW_EMAIL_GREETING"
-              [translateParams]="{userName: user.name}"></span>
-            <div><span translate="COMPONENTS.TOPIC_VOTE_REMINDER.PREVIEW_EMAIL_TEXT_WARN"></span><b *ngIf="vote.endsAt"
-                translate="COMPONENTS.TOPIC_VOTE_REMINDER.PREVIEW_EMAIL_TEXT_DAYS_LEFT"
-                [translateParams]="{daysLeft: (vote.endsAt | amDifference:today:'days')}"></b></div>
-          </div>
-          <div class="vote_info_wrap">
-            <div class="vote_icon">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd"
-                  d="M16 0C7.168 0 0 7.168 0 16C0 24.832 7.168 32 16 32C24.832 32 32 24.832 32 16C32 7.168 24.832 0 16 0ZM12.8889 24L25.3333 11.6491L23 9.33333L12.8889 19.3684L9 15.5088L6.66667 17.8246L12.8889 24Z"
-                  fill="#5AB467" />
-              </svg>
-            </div>
-            <div class="vote_info_text">
-              <b translate="COMPONENTS.TOPIC_VOTE_REMINDER.PREVIEW_EMAIL_VOTE_VOTES_COLLECTED"
-                [translateParams]="{voteCount: (vote.votersCount || 0) , userCount: (topic.members.users.count || 0)}"></b>
-              <span *ngIf="vote.endsAt" translate="COMPONENTS.TOPIC_VOTE_REMINDER.PREVIEW_EMAIL_VOTE_DEADLINE"
-                [translateParams]="{deadline: (vote.endsAt | date: 'YYYY-MM-dd hh:mm')}"></span>
-            </div>
-          </div>
-          <div class="button_wrap">
-            <div class="btn_medium_submit" translate="COMPONENTS.TOPIC_VOTE_REMINDER.PREVIEW_EMAIL_BTN_CAST_VOTE"></div>
-          </div>
-          <div class="text_area">
-            <div class="line_separator"></div>
-            <span translate="COMPONENTS.TOPIC_VOTE_REMINDER.PREVIEW_EMAIL_ATTENTION"
-              [translateParams]="{email: user.email}"></span>
-          </div>
+<div class="dialog_wrap">
+  <div class="dialog" *ngIf="user$ | async as user">
+    <div class="dialog_header voting">
+      <div class="header_text">
+        <div class="small_heading" translate="COMPONENTS.TOPIC_VOTE_REMINDER.DIALOG_HEADING"></div>
+        <div class="dialog_close">
+          <a class="btn_dialog_close icon" dialog-close>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M7.72152 6.29537C7.3277 5.90154 6.68919 5.90154 6.29537 6.29537C5.90154 6.68919 5.90154 7.3277 6.29537 7.72153L10.5738 12L6.29541 16.2785C5.90159 16.6723 5.90159 17.3108 6.29541 17.7046C6.68923 18.0985 7.32774 18.0985 7.72156 17.7046L12 13.4262L16.2784 17.7046C16.6723 18.0985 17.3108 18.0985 17.7046 17.7046C18.0984 17.3108 18.0984 16.6723 17.7046 16.2785L13.4262 12L17.7046 7.72153C18.0985 7.3277 18.0985 6.68919 17.7046 6.29537C17.3108 5.90154 16.6723 5.90154 16.2785 6.29537L12 10.5739L7.72152 6.29537Z"
+                fill="#2C3B47" />
+            </svg>
+          </a>
         </div>
       </div>
     </div>
 
-    <div class="button_wrap">
-      <button class="btn_medium_secondary" [dialog-close]="true"
-        translate="COMPONENTS.TOPIC_VOTE_REMINDER.BTN_SEND_REMINDER"></button>
+    <div class="dialog_content">
+      <div class="text_wrap">
+        <div class="content_description" translate="COMPONENTS.TOPIC_VOTE_REMINDER.DIALOG_DESCRIPTION"></div>
+        <div class="line_separator"></div>
+        <div translate="COMPONENTS.TOPIC_VOTE_REMINDER.REMINDER_PREVIEW_DESC"></div>
+      </div>
+      <div class="email_preview_wrap">
+        <div class="email_preview">
+          <div class="email_header">
+            <div class="email_title_desc" translate="COMPONENTS.TOPIC_VOTE_REMINDER.PREVIEW_EMAIL_HEADING"></div>
+            <div class="email_title" [innerHTML]="topic.title"></div>
+          </div>
+          <div class="email_body">
+            <div class="text_area">
+              <span translate="COMPONENTS.TOPIC_VOTE_REMINDER.PREVIEW_EMAIL_GREETING"
+                [translateParams]="{userName: user.name}"></span>
+              <div><span translate="COMPONENTS.TOPIC_VOTE_REMINDER.PREVIEW_EMAIL_TEXT_WARN"></span><b
+                  *ngIf="vote.endsAt" translate="COMPONENTS.TOPIC_VOTE_REMINDER.PREVIEW_EMAIL_TEXT_DAYS_LEFT"
+                  [translateParams]="{daysLeft: (vote.endsAt | amDifference:today:'days')}"></b></div>
+            </div>
+            <div class="vote_info_wrap">
+              <div class="vote_icon">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M16 0C7.168 0 0 7.168 0 16C0 24.832 7.168 32 16 32C24.832 32 32 24.832 32 16C32 7.168 24.832 0 16 0ZM12.8889 24L25.3333 11.6491L23 9.33333L12.8889 19.3684L9 15.5088L6.66667 17.8246L12.8889 24Z"
+                    fill="#5AB467" />
+                </svg>
+              </div>
+              <div class="vote_info_text">
+                <b translate="COMPONENTS.TOPIC_VOTE_REMINDER.PREVIEW_EMAIL_VOTE_VOTES_COLLECTED"
+                  [translateParams]="{voteCount: (vote.votersCount || 0) , userCount: (topic.members.users.count || 0)}"></b>
+                <span *ngIf="vote.endsAt" translate="COMPONENTS.TOPIC_VOTE_REMINDER.PREVIEW_EMAIL_VOTE_DEADLINE"
+                  [translateParams]="{deadline: (vote.endsAt | date: 'YYYY-MM-dd hh:mm')}"></span>
+              </div>
+            </div>
+            <div class="button_wrap">
+              <div class="btn_medium_submit" translate="COMPONENTS.TOPIC_VOTE_REMINDER.PREVIEW_EMAIL_BTN_CAST_VOTE">
+              </div>
+            </div>
+            <div class="text_area">
+              <div class="line_separator"></div>
+              <span translate="COMPONENTS.TOPIC_VOTE_REMINDER.PREVIEW_EMAIL_ATTENTION"
+                [translateParams]="{email: user.email}"></span>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <a dialog-close translate="COMPONENTS.TOPIC_VOTE_REMINDER.LNK_CANCEL"></a>
+      <div class="button_wrap">
+        <button class="btn_medium_secondary" [dialog-close]="true"
+          translate="COMPONENTS.TOPIC_VOTE_REMINDER.BTN_SEND_REMINDER"></button>
+
+        <a dialog-close translate="COMPONENTS.TOPIC_VOTE_REMINDER.LNK_CANCEL"></a>
+      </div>
     </div>
-  </div>
 
+  </div>
 </div>

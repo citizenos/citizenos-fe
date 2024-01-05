@@ -1,64 +1,66 @@
 <div class="overlay" dialog-close></div>
-<div class="dialog">
-  <div class="dialog_header">
-    <div class="header_text">
-      <h4 class="title" translate="MODALS.TOPIC_COMMENT_REACTIONS_HEADING"></h4>
-      <div class="dialog_close">
-        <a class="btn_dialog_close icon" dialog-close>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M7.72152 6.29537C7.3277 5.90154 6.68919 5.90154 6.29537 6.29537C5.90154 6.68919 5.90154 7.3277 6.29537 7.72153L10.5738 12L6.29541 16.2785C5.90159 16.6723 5.90159 17.3108 6.29541 17.7046C6.68923 18.0985 7.32774 18.0985 7.72156 17.7046L12 13.4262L16.2784 17.7046C16.6723 18.0985 17.3108 18.0985 17.7046 17.7046C18.0984 17.3108 18.0984 16.6723 17.7046 16.2785L13.4262 12L17.7046 7.72153C18.0985 7.3277 18.0985 6.68919 17.7046 6.29537C17.3108 5.90154 16.6723 5.90154 16.2785 6.29537L12 10.5739L7.72152 6.29537Z"
-              fill="#2C3B47" />
-          </svg>
-        </a>
+<div class="dialog_wrap">
+  <div class="dialog">
+    <div class="dialog_header">
+      <div class="header_text">
+        <h4 class="title" translate="MODALS.TOPIC_COMMENT_REACTIONS_HEADING"></h4>
+        <div class="dialog_close">
+          <a class="btn_dialog_close icon" dialog-close>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M7.72152 6.29537C7.3277 5.90154 6.68919 5.90154 6.29537 6.29537C5.90154 6.68919 5.90154 7.3277 6.29537 7.72153L10.5738 12L6.29541 16.2785C5.90159 16.6723 5.90159 17.3108 6.29541 17.7046C6.68923 18.0985 7.32774 18.0985 7.72156 17.7046L12 13.4262L16.2784 17.7046C16.6723 18.0985 17.3108 18.0985 17.7046 17.7046C18.0984 17.3108 18.0984 16.6723 17.7046 16.2785L13.4262 12L17.7046 7.72153C18.0985 7.3277 18.0985 6.68919 17.7046 6.29537C17.3108 5.90154 16.6723 5.90154 16.2785 6.29537L12 10.5739L7.72152 6.29537Z"
+                fill="#2C3B47" />
+            </svg>
+          </a>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="dialog_content">
-    <div class="content_section">
-      <div class="section_content_wrap table_section">
-        <ng-container *ngFor="let member of voteItems| async | keyvalue">
-          <div class="row_list" *ngIf="isOnPage(member.key, page)">
-            <div class="row_cell">
-              <div class="profile_image_wrap">
-                <img class="profile_image" *ngIf="member.value.imageUrl" [src]="member.value.imageUrl">
-                <div class="profile_image_filler" *ngIf="!member.value.imageUrl">
-                  <cos-initials class="table_cell" *ngIf="member.value.name" [name]="member.value.name">
-                  </cos-initials>
+    <div class="dialog_content">
+      <div class="content_section">
+        <div class="section_content_wrap table_section">
+          <ng-container *ngFor="let member of voteItems| async | keyvalue">
+            <div class="row_list" *ngIf="isOnPage(member.key, page)">
+              <div class="row_cell">
+                <div class="profile_image_wrap">
+                  <img class="profile_image" *ngIf="member.value.imageUrl" [src]="member.value.imageUrl">
+                  <div class="profile_image_filler" *ngIf="!member.value.imageUrl">
+                    <cos-initials class="table_cell" *ngIf="member.value.name" [name]="member.value.name">
+                    </cos-initials>
+                  </div>
                 </div>
+                <a class="user_name" [innerHtml]>{{member.value.name}}</a>
               </div>
-              <a class="user_name" [innerHtml]>{{member.value.name}}</a>
-            </div>
-            <div class="row_cell">
-              <svg *ngIf="member.value.vote === 'down'" width="16" height="16" viewBox="0 0 16 16" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M1.33717 10.6949C1.53725 10.8983 1.77068 11 2.03746 11L6.79183 10.9997L6.40844 13.7797C6.36398 13.9944 6.38899 14.2006 6.48347 14.3983C6.57796 14.596 6.71968 14.7514 6.90865 14.8644C7.09762 14.9774 7.29492 15.0198 7.50056 14.9915C7.70621 14.9633 7.88684 14.8701 8.04246 14.7119L12.0177 11V1.99965L4.39093 2C4.13527 2 3.8935 2.08475 3.66563 2.25424C3.43776 2.42373 3.2738 2.62712 3.17376 2.86441L1.07288 7.77966C1.03954 7.85876 1.01207 7.99965 1.01207 7.99965C1.01207 7.99965 0.984535 7.99931 1.01203 8.49965L1.01203 9.98305C1.01203 10.2542 1.13709 10.4915 1.33717 10.6949Z"
-                  fill="#2C3B47" />
-                <path
-                  d="M13.0179 1.99965V11L14.014 10.9997C14.2919 10.9997 14.5259 10.8927 14.7204 10.6949C14.9149 10.4972 15.012 10.2821 15.012 9.99965L15.0122 3.01695C15.0122 2.73446 14.9149 2.49435 14.7204 2.29661C14.5259 2.09887 14.2897 2 14.0118 2L13.0179 1.99965Z"
-                  fill="#2C3B47" />
-              </svg>
+              <div class="row_cell">
+                <svg *ngIf="member.value.vote === 'down'" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M1.33717 10.6949C1.53725 10.8983 1.77068 11 2.03746 11L6.79183 10.9997L6.40844 13.7797C6.36398 13.9944 6.38899 14.2006 6.48347 14.3983C6.57796 14.596 6.71968 14.7514 6.90865 14.8644C7.09762 14.9774 7.29492 15.0198 7.50056 14.9915C7.70621 14.9633 7.88684 14.8701 8.04246 14.7119L12.0177 11V1.99965L4.39093 2C4.13527 2 3.8935 2.08475 3.66563 2.25424C3.43776 2.42373 3.2738 2.62712 3.17376 2.86441L1.07288 7.77966C1.03954 7.85876 1.01207 7.99965 1.01207 7.99965C1.01207 7.99965 0.984535 7.99931 1.01203 8.49965L1.01203 9.98305C1.01203 10.2542 1.13709 10.4915 1.33717 10.6949Z"
+                    fill="#2C3B47" />
+                  <path
+                    d="M13.0179 1.99965V11L14.014 10.9997C14.2919 10.9997 14.5259 10.8927 14.7204 10.6949C14.9149 10.4972 15.012 10.2821 15.012 9.99965L15.0122 3.01695C15.0122 2.73446 14.9149 2.49435 14.7204 2.29661C14.5259 2.09887 14.2897 2 14.0118 2L13.0179 1.99965Z"
+                    fill="#2C3B47" />
+                </svg>
 
-              <svg *ngIf="member.value.vote === 'up'" width="16" height="16" viewBox="0 0 16 16" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M14.675 5.30508C14.475 5.1017 14.2415 5 13.9747 5L9.22038 5.00035L9.60376 2.22034C9.64823 2.00565 9.62322 1.79943 9.52873 1.60169C9.43425 1.40395 9.29252 1.24859 9.10356 1.13559C8.91459 1.0226 8.71728 0.980226 8.51164 1.00847C8.306 1.03672 8.12537 1.12994 7.96975 1.28814L3.99449 5V14.0003L11.6213 14C11.8769 14 12.1187 13.9153 12.3466 13.7458C12.5744 13.5763 12.7384 13.3729 12.8384 13.1356L14.9393 8.22034C14.9727 8.14124 15.0001 8.00035 15.0001 8.00035C15.0001 8.00035 15.0277 8.00069 15.0002 7.50035L15.0002 6.01695C15.0002 5.74576 14.8751 5.50847 14.675 5.30508Z"
-                  fill="#2C3B47" />
-                <path
-                  d="M2.99432 14.0003V5L1.99825 5.00035C1.72036 5.00035 1.48631 5.10734 1.29179 5.30508C1.09726 5.50283 1.00021 5.71786 1.00021 6.00035L1 12.983C1 13.2655 1.09726 13.5056 1.29179 13.7034C1.48631 13.9011 1.72252 14 2.00042 14L2.99432 14.0003Z"
-                  fill="#2C3B47" />
-              </svg>
+                <svg *ngIf="member.value.vote === 'up'" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M14.675 5.30508C14.475 5.1017 14.2415 5 13.9747 5L9.22038 5.00035L9.60376 2.22034C9.64823 2.00565 9.62322 1.79943 9.52873 1.60169C9.43425 1.40395 9.29252 1.24859 9.10356 1.13559C8.91459 1.0226 8.71728 0.980226 8.51164 1.00847C8.306 1.03672 8.12537 1.12994 7.96975 1.28814L3.99449 5V14.0003L11.6213 14C11.8769 14 12.1187 13.9153 12.3466 13.7458C12.5744 13.5763 12.7384 13.3729 12.8384 13.1356L14.9393 8.22034C14.9727 8.14124 15.0001 8.00035 15.0001 8.00035C15.0001 8.00035 15.0277 8.00069 15.0002 7.50035L15.0002 6.01695C15.0002 5.74576 14.8751 5.50847 14.675 5.30508Z"
+                    fill="#2C3B47" />
+                  <path
+                    d="M2.99432 14.0003V5L1.99825 5.00035C1.72036 5.00035 1.48631 5.10734 1.29179 5.30508C1.09726 5.50283 1.00021 5.71786 1.00021 6.00035L1 12.983C1 13.2655 1.09726 13.5056 1.29179 13.7034C1.48631 13.9011 1.72252 14 2.00042 14L2.99432 14.0003Z"
+                    fill="#2C3B47" />
+                </svg>
+              </div>
             </div>
-          </div>
-        </ng-container>
+          </ng-container>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="dialog_content" *ngIf="totalPages > 1">
-    <div class="info_row">
-      <cos-pagination class="pagination" (select)="loadPage($event)" [totalPages]="totalPages"
-        [page]="page"></cos-pagination>
+    <div class="dialog_content" *ngIf="totalPages > 1">
+      <div class="info_row">
+        <cos-pagination class="pagination" (select)="loadPage($event)" [totalPages]="totalPages"
+          [page]="page"></cos-pagination>
+      </div>
     </div>
   </div>
 </div>

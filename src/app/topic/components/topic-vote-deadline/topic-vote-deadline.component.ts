@@ -12,7 +12,6 @@ import { NotificationService } from 'src/app/services/notification.service';
   styleUrls: ['./topic-vote-deadline.component.scss']
 })
 export class TopicVoteDeadlineComponent {
-  @HostBinding('class.pos_dialog_fixed') addPosAbsolute: boolean = true;
   @Input() vote!: any;
   @Input() topic!: Topic;
   deadline = <any>null;

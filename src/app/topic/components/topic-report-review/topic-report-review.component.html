@@ -1,91 +1,93 @@
 <div class="overlay" dialog-close></div>
-<div class="dialog">
-  <div class="dialog_header warning">
-    <div class="header_with_icon">
-      <div class="icon_notification">
-        <ng-container>
-          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="40" height="40" rx="20" fill="#F39129" />
+<div class="dialog_wrap">
+  <div class="dialog">
+    <div class="dialog_header warning">
+      <div class="header_with_icon">
+        <div class="icon_notification">
+          <ng-container>
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="40" height="40" rx="20" fill="#F39129" />
+              <path
+                d="M19.0645 8C18.4876 8 18.0304 8.48668 18.0664 9.06238L18.9414 23.0624C18.9743 23.5894 19.4114 24 19.9395 24H20.0605C20.5886 24 21.0257 23.5894 21.0586 23.0624L21.9336 9.06238C21.9696 8.48668 21.5124 8 20.9355 8H19.0645Z"
+                fill="white" />
+              <path
+                d="M20 31C21.1046 31 22 30.1046 22 29C22 27.8954 21.1046 27 20 27C18.8954 27 18 27.8954 18 29C18 30.1046 18.8954 31 20 31Z"
+                fill="white" />
+            </svg>
+          </ng-container>
+        </div>
+        <h4 class="title" translate="MODALS.TOPIC_REPORT_REPORTID_REVIEW_HEADING"></h4>
+      </div>
+      <div class="dialog_close">
+        <a class="btn_dialog_close icon" dialog-close>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
-              d="M19.0645 8C18.4876 8 18.0304 8.48668 18.0664 9.06238L18.9414 23.0624C18.9743 23.5894 19.4114 24 19.9395 24H20.0605C20.5886 24 21.0257 23.5894 21.0586 23.0624L21.9336 9.06238C21.9696 8.48668 21.5124 8 20.9355 8H19.0645Z"
+              d="M7.72152 6.29537C7.3277 5.90154 6.68919 5.90154 6.29537 6.29537C5.90154 6.68919 5.90154 7.3277 6.29537 7.72153L10.5738 12L6.29541 16.2785C5.90159 16.6723 5.90159 17.3108 6.29541 17.7046C6.68923 18.0985 7.32774 18.0985 7.72156 17.7046L12 13.4262L16.2784 17.7046C16.6723 18.0985 17.3108 18.0985 17.7046 17.7046C18.0984 17.3108 18.0984 16.6723 17.7046 16.2785L13.4262 12L17.7046 7.72153C18.0985 7.3277 18.0985 6.68919 17.7046 6.29537C17.3108 5.90154 16.6723 5.90154 16.2785 6.29537L12 10.5739L7.72152 6.29537Z"
+              fill="#2C3B47" />
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="dialog_content">
+      <div class="dialog_info_wrap">
+        <div class="dialog_info row">
+          <div class="delete_info_button_wrap">
+            <div class="delete_info_text" translate="MODALS.TOPIC_REPORT_REPORTID_SUBMITING_FOR_REVIEW"></div>
+          </div>
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M7 4C7 3.44772 7.44772 3 8 3H18.1716C18.4368 3 18.6911 3.10536 18.8787 3.29289L24.7071 9.12132L25.4142 8.41421L24.7071 9.12132C24.8946 9.30886 25 9.56321 25 9.82843V28C25 28.5523 24.5523 29 24 29H8C7.44772 29 7 28.5523 7 28V4Z"
+              fill="white" stroke="#2C3B47" stroke-width="2" />
+            <path d="M17 2.5L25.5 11H18C17.4477 11 17 10.5523 17 10V2.5Z" fill="#2C3B47" />
+            <rect x="11" y="18" width="10" height="1" rx="0.5" fill="#4D5C6A" />
+            <rect x="11" y="15" width="10" height="1" rx="0.5" fill="#4D5C6A" />
+            <rect x="11" y="21" width="10" height="1" rx="0.5" fill="#4D5C6A" />
+            <rect x="11" y="24" width="6" height="1" rx="0.5" fill="#4D5C6A" />
+          </svg>
+
+          <div class="bold" [innerHTML]="topic.title"></div>
+        </div>
+      </div>
+      <div class="dialog_info_wrap">
+        <form [formGroup]="review" id="form_area">
+          <cos-input [placeholder]="'MODALS.TOPIC_REPORT_REPORTID_REVIEW_PLACEHOLDER_REPORT_TEXT' | translate">
+            <textarea formControlName="text" [ngClass]="{'error_input': review.touched && review.invalid}"
+              [placeholder]="'MODALS.TOPIC_REPORT_REPORTID_REVIEW_PLACEHOLDER_REPORT_TEXT' | translate"
+              [maxlength]="4000"></textarea>
+            <div class="error_label" *ngIf="review.touched && review.invalid">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M8.89438 1.78911C8.52586 1.05207 7.47405 1.05207 7.10553 1.78911L0.723562 14.553C0.391112 15.2179 0.874608 16.0003 1.61799 16.0003H14.3819C15.1253 16.0003 15.6088 15.2179 15.2763 14.553L8.89438 1.78911ZM6.99996 7.00026C6.99996 6.44798 7.44767 6.00026 7.99996 6.00026C8.55224 6.00026 8.99996 6.44798 8.99996 7.00026V10.0003C8.99996 10.5525 8.55224 11.0003 7.99996 11.0003C7.44767 11.0003 6.99996 10.5525 6.99996 10.0003V7.00026ZM6.99996 13.0003C6.99996 12.448 7.44767 12.0003 7.99996 12.0003C8.55224 12.0003 8.99996 12.448 8.99996 13.0003C8.99996 13.5525 8.55224 14.0003 7.99996 14.0003C7.44767 14.0003 6.99996 13.5525 6.99996 13.0003Z"
+                  fill="#EF4025" />
+              </svg>
+              <span translate="MODALS.TOPIC_REPORT_REPORTID_REVIEW_PLACEHOLDER_REPORT_TEXT_ERROR"></span>
+            </div>
+          </cos-input>
+        </form>
+      </div>
+      <div class="dialog_info_wrap">
+        <div class="dialog_info warning row">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="24" height="24" rx="12" fill="#F39129" />
+            <path
+              d="M11.4385 4.7998C11.0924 4.7998 10.8181 5.09181 10.8396 5.43723L11.3646 13.8372C11.3844 14.1535 11.6466 14.3998 11.9635 14.3998H12.0361C12.353 14.3998 12.6152 14.1535 12.635 13.8372L13.16 5.43723C13.1816 5.09181 12.9072 4.7998 12.5611 4.7998H11.4385Z"
               fill="white" />
             <path
-              d="M20 31C21.1046 31 22 30.1046 22 29C22 27.8954 21.1046 27 20 27C18.8954 27 18 27.8954 18 29C18 30.1046 18.8954 31 20 31Z"
+              d="M11.9998 18.5998C12.6625 18.5998 13.1998 18.0625 13.1998 17.3998C13.1998 16.7371 12.6625 16.1998 11.9998 16.1998C11.3371 16.1998 10.7998 16.7371 10.7998 17.3998C10.7998 18.0625 11.3371 18.5998 11.9998 18.5998Z"
               fill="white" />
           </svg>
-        </ng-container>
-      </div>
-      <h4 class="title" translate="MODALS.TOPIC_REPORT_REPORTID_REVIEW_HEADING"></h4>
-    </div>
-    <div class="dialog_close">
-      <a class="btn_dialog_close icon" dialog-close>
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M7.72152 6.29537C7.3277 5.90154 6.68919 5.90154 6.29537 6.29537C5.90154 6.68919 5.90154 7.3277 6.29537 7.72153L10.5738 12L6.29541 16.2785C5.90159 16.6723 5.90159 17.3108 6.29541 17.7046C6.68923 18.0985 7.32774 18.0985 7.72156 17.7046L12 13.4262L16.2784 17.7046C16.6723 18.0985 17.3108 18.0985 17.7046 17.7046C18.0984 17.3108 18.0984 16.6723 17.7046 16.2785L13.4262 12L17.7046 7.72153C18.0985 7.3277 18.0985 6.68919 17.7046 6.29537C17.3108 5.90154 16.6723 5.90154 16.2785 6.29537L12 10.5739L7.72152 6.29537Z"
-            fill="#2C3B47" />
-        </svg>
-      </a>
-    </div>
-  </div>
-  <div class="dialog_content">
-    <div class="dialog_info_wrap">
-      <div class="dialog_info row">
-        <div class="delete_info_button_wrap">
-          <div class="delete_info_text" translate="MODALS.TOPIC_REPORT_REPORTID_SUBMITING_FOR_REVIEW"></div>
+          <span translate="MODALS.TOPIC_REPORT_REPORTID_REVIEW_TXT_ARE_YOU_SURE"></span>
         </div>
-        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M7 4C7 3.44772 7.44772 3 8 3H18.1716C18.4368 3 18.6911 3.10536 18.8787 3.29289L24.7071 9.12132L25.4142 8.41421L24.7071 9.12132C24.8946 9.30886 25 9.56321 25 9.82843V28C25 28.5523 24.5523 29 24 29H8C7.44772 29 7 28.5523 7 28V4Z"
-            fill="white" stroke="#2C3B47" stroke-width="2" />
-          <path d="M17 2.5L25.5 11H18C17.4477 11 17 10.5523 17 10V2.5Z" fill="#2C3B47" />
-          <rect x="11" y="18" width="10" height="1" rx="0.5" fill="#4D5C6A" />
-          <rect x="11" y="15" width="10" height="1" rx="0.5" fill="#4D5C6A" />
-          <rect x="11" y="21" width="10" height="1" rx="0.5" fill="#4D5C6A" />
-          <rect x="11" y="24" width="6" height="1" rx="0.5" fill="#4D5C6A" />
-        </svg>
-
-        <div class="bold" [innerHTML]="topic.title"></div>
       </div>
     </div>
-    <div class="dialog_info_wrap">
-      <form [formGroup]="review" id="form_area">
-        <cos-input [placeholder]="'MODALS.TOPIC_REPORT_REPORTID_REVIEW_PLACEHOLDER_REPORT_TEXT' | translate">
-          <textarea formControlName="text" [ngClass]="{'error_input': review.touched && review.invalid}"
-            [placeholder]="'MODALS.TOPIC_REPORT_REPORTID_REVIEW_PLACEHOLDER_REPORT_TEXT' | translate"
-            [maxlength]="4000"></textarea>
-          <div class="error_label" *ngIf="review.touched && review.invalid">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" clip-rule="evenodd"
-                d="M8.89438 1.78911C8.52586 1.05207 7.47405 1.05207 7.10553 1.78911L0.723562 14.553C0.391112 15.2179 0.874608 16.0003 1.61799 16.0003H14.3819C15.1253 16.0003 15.6088 15.2179 15.2763 14.553L8.89438 1.78911ZM6.99996 7.00026C6.99996 6.44798 7.44767 6.00026 7.99996 6.00026C8.55224 6.00026 8.99996 6.44798 8.99996 7.00026V10.0003C8.99996 10.5525 8.55224 11.0003 7.99996 11.0003C7.44767 11.0003 6.99996 10.5525 6.99996 10.0003V7.00026ZM6.99996 13.0003C6.99996 12.448 7.44767 12.0003 7.99996 12.0003C8.55224 12.0003 8.99996 12.448 8.99996 13.0003C8.99996 13.5525 8.55224 14.0003 7.99996 14.0003C7.44767 14.0003 6.99996 13.5525 6.99996 13.0003Z"
-                fill="#EF4025" />
-            </svg>
-            <span translate="MODALS.TOPIC_REPORT_REPORTID_REVIEW_PLACEHOLDER_REPORT_TEXT_ERROR"></span>
-          </div>
-        </cos-input>
-      </form>
-    </div>
-    <div class="dialog_info_wrap">
-      <div class="dialog_info warning row">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect width="24" height="24" rx="12" fill="#F39129" />
-          <path
-            d="M11.4385 4.7998C11.0924 4.7998 10.8181 5.09181 10.8396 5.43723L11.3646 13.8372C11.3844 14.1535 11.6466 14.3998 11.9635 14.3998H12.0361C12.353 14.3998 12.6152 14.1535 12.635 13.8372L13.16 5.43723C13.1816 5.09181 12.9072 4.7998 12.5611 4.7998H11.4385Z"
-            fill="white" />
-          <path
-            d="M11.9998 18.5998C12.6625 18.5998 13.1998 18.0625 13.1998 17.3998C13.1998 16.7371 12.6625 16.1998 11.9998 16.1998C11.3371 16.1998 10.7998 16.7371 10.7998 17.3998C10.7998 18.0625 11.3371 18.5998 11.9998 18.5998Z"
-            fill="white" />
-        </svg>
-        <span translate="MODALS.TOPIC_REPORT_REPORTID_REVIEW_TXT_ARE_YOU_SURE"></span>
+    <div class="dialog_content">
+      <div class="button_wrap">
+        <button class="btn_big_submit" [disabled]="isLoading" translate="MODALS.TOPIC_REPORT_REPORTID_REVIEW_BTN_YES"
+          (click)="doReview()"></button>
+        <a dialog-close [attr.disabled]="isLoading" translate="MODALS.TOPIC_REPORT_REPORTID_REVIEW_BTN_NO"></a>
       </div>
     </div>
-  </div>
-  <div class="dialog_content">
-    <div class="button_wrap">
-      <button class="btn_big_submit" [disabled]="isLoading" translate="MODALS.TOPIC_REPORT_REPORTID_REVIEW_BTN_YES"
-        (click)="doReview()"></button>
-      <a dialog-close [attr.disabled]="isLoading" translate="MODALS.TOPIC_REPORT_REPORTID_REVIEW_BTN_NO"></a>
+    <div class="dialog_footer">
     </div>
-  </div>
-  <div class="dialog_footer">
   </div>
 </div>

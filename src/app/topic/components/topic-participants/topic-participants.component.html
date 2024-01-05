@@ -1,99 +1,100 @@
 <div class="overlay" dialog-close></div>
-<div class="dialog">
-  <div class="dialog_header">
-    <div class="header_text">
-      <h4 class="title" translate="MODALS.TOPIC_MEMBERS_HEADING"></h4>
-      <div class="dialog_close">
-        <a class="btn_dialog_close icon" dialog-close>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M7.72152 6.29537C7.3277 5.90154 6.68919 5.90154 6.29537 6.29537C5.90154 6.68919 5.90154 7.3277 6.29537 7.72153L10.5738 12L6.29541 16.2785C5.90159 16.6723 5.90159 17.3108 6.29541 17.7046C6.68923 18.0985 7.32774 18.0985 7.72156 17.7046L12 13.4262L16.2784 17.7046C16.6723 18.0985 17.3108 18.0985 17.7046 17.7046C18.0984 17.3108 18.0984 16.6723 17.7046 16.2785L13.4262 12L17.7046 7.72153C18.0985 7.3277 18.0985 6.68919 17.7046 6.29537C17.3108 5.90154 16.6723 5.90154 16.2785 6.29537L12 10.5739L7.72152 6.29537Z"
-              fill="#2C3B47" />
-          </svg>
-        </a>
-      </div>
-    </div>
-  </div>
-  <div class="dialog_tabs_wrap">
-    <a class="dialog_tab mobile_hidden" [ngClass]="{'active': activeTab ==='participants'}"
-      (click)="activeTab = 'participants'" translate="MODALS.TOPIC_MEMBERS_TAB_PARTICIPANTS"></a>
-    <a class="dialog_tab mobile_hidden" [ngClass]="{'active': activeTab ==='groups'}" (click)="activeTab = 'groups'"
-      translate="MODALS.TOPIC_MEMBERS_TAB_GROUPS"></a>
-    <a class="dialog_tab mobile_hidden" [ngClass]="{'active': activeTab ==='invited'}" (click)="activeTab = 'invited'"
-      translate="MODALS.TOPIC_MEMBERS_TAB_INVITED"></a>
-    <div class="dropdown mobile_show" [cosDropdown]>
-      <div class="selection">
-        <div class="selected_item">
-          {{'MODALS.TOPIC_MEMBERS_TAB_'+activeTab | uppercase | translate}}
-        </div>
-        <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
-          </svg>
-        </div>
-      </div>
-      <div class="options">
-        <div class="option" (click)="activeTab = 'participants'" translate="MODALS.TOPIC_MEMBERS_TAB_PARTICIPANTS">
-        </div>
-        <div class="option" (click)="activeTab = 'groups'" translate="MODALS.TOPIC_MEMBERS_TAB_GROUPS">
-        </div>
-        <div class="option" (click)="activeTab = 'invited'" translate="MODALS.TOPIC_MEMBERS_TAB_INVITED">
+<div class="dialog_wrap">
+  <div class="dialog">
+    <div class="dialog_header">
+      <div class="header_text">
+        <h4 class="title" translate="MODALS.TOPIC_MEMBERS_HEADING"></h4>
+        <div class="dialog_close">
+          <a class="btn_dialog_close icon" dialog-close>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M7.72152 6.29537C7.3277 5.90154 6.68919 5.90154 6.29537 6.29537C5.90154 6.68919 5.90154 7.3277 6.29537 7.72153L10.5738 12L6.29541 16.2785C5.90159 16.6723 5.90159 17.3108 6.29541 17.7046C6.68923 18.0985 7.32774 18.0985 7.72156 17.7046L12 13.4262L16.2784 17.7046C16.6723 18.0985 17.3108 18.0985 17.7046 17.7046C18.0984 17.3108 18.0984 16.6723 17.7046 16.2785L13.4262 12L17.7046 7.72153C18.0985 7.3277 18.0985 6.68919 17.7046 6.29537C17.3108 5.90154 16.6723 5.90154 16.2785 6.29537L12 10.5739L7.72152 6.29537Z"
+                fill="#2C3B47" />
+            </svg>
+          </a>
         </div>
       </div>
     </div>
-  </div>
-  <div class="dialog_content">
-    <ng-container *ngIf="activeTab === 'participants'">
-      <div class="content_section">
-        <div id="topic_members_list_wrap" class="section_content_wrap table_section">
-          <div class="topic_members_filters">
-            <cos-input [placeholder]="('MODALS.TOPIC_MEMBERS_PLACEHOLDER_NAME_PERMISSION' | translate)">
-              <input [placeholder]="('MODALS.TOPIC_MEMBERS_PLACEHOLDER_NAME_PERMISSION' | translate)"
-                (ngModelChange)="TopicMemberUserService.setParam('search', TopicMemberUserService.params.search)"
-                [(ngModel)]="TopicMemberUserService.params.search">
-            </cos-input>
-            <div class="dropdown" [cosDropdown]>
-              <div class="selection">
-                <span translate="MODALS.TOPIC_MEMBERS_ORDER_BY"></span>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
-                </svg>
-              </div>
-              <div class="options">
-                <div class="option" (click)="TopicMemberUserService.doOrder('name', 'asc')"
-                  translate="MODALS.TOPIC_MEMBERS_ORDER_BY_NAME_ASC"></div>
-                <div class="option" (click)="TopicMemberUserService.doOrder('name', 'desc')"
-                  translate="MODALS.TOPIC_MEMBERS_ORDER_BY_NAME_DESC"></div>
-                <div class="option" (click)="TopicMemberUserService.doOrder('level', 'asc')">
-                  <span translate="MODALS.TOPIC_MEMBERS_ORDER_BY_LEVEL"></span>
-                  <div>
-                    <svg width="24" height="24" viewBox="0 0 24 24" transform="translate(0, 0) scale(1, -1)" fill="none"
-                      xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 14L10 14L12.5 18L15 14L13 14L13 5L12 5L12 14Z" fill="#2C3B47" />
-                    </svg>
-                  </div>
-                </div>
-                <div class="option" (click)="TopicMemberUserService.doOrder('level', 'desc')">
-                  <span translate="MODALS.TOPIC_MEMBERS_ORDER_BY_LEVEL"></span>
-                  <div>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 14L10 14L12.5 18L15 14L13 14L13 5L12 5L12 14Z" fill="#2C3B47" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-            </div>
-
+    <div class="dialog_tabs_wrap">
+      <a class="dialog_tab mobile_hidden" [ngClass]="{'active': activeTab ==='participants'}"
+        (click)="activeTab = 'participants'" translate="MODALS.TOPIC_MEMBERS_TAB_PARTICIPANTS"></a>
+      <a class="dialog_tab mobile_hidden" [ngClass]="{'active': activeTab ==='groups'}" (click)="activeTab = 'groups'"
+        translate="MODALS.TOPIC_MEMBERS_TAB_GROUPS"></a>
+      <a class="dialog_tab mobile_hidden" [ngClass]="{'active': activeTab ==='invited'}" (click)="activeTab = 'invited'"
+        translate="MODALS.TOPIC_MEMBERS_TAB_INVITED"></a>
+      <div class="dropdown mobile_show" [cosDropdown]>
+        <div class="selection">
+          <div class="selected_item">
+            {{'MODALS.TOPIC_MEMBERS_TAB_'+activeTab | uppercase | translate}}
           </div>
-          <div class="line_separator"></div>
-          <ng-container *ngIf="memberUsers$ | async as memberUsers">
-            <ng-container *ngFor="let user of memberUsers; index as i;">
-              <div class="row_list">
-                <topic-member-user [member]="user" [topic]="topic"></topic-member-user>
+          <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </div>
+        </div>
+        <div class="options">
+          <div class="option" (click)="activeTab = 'participants'" translate="MODALS.TOPIC_MEMBERS_TAB_PARTICIPANTS">
+          </div>
+          <div class="option" (click)="activeTab = 'groups'" translate="MODALS.TOPIC_MEMBERS_TAB_GROUPS">
+          </div>
+          <div class="option" (click)="activeTab = 'invited'" translate="MODALS.TOPIC_MEMBERS_TAB_INVITED">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="dialog_content">
+      <ng-container *ngIf="activeTab === 'participants'">
+        <div class="content_section">
+          <div id="topic_members_list_wrap" class="section_content_wrap table_section">
+            <div class="topic_members_filters">
+              <cos-input [placeholder]="('MODALS.TOPIC_MEMBERS_PLACEHOLDER_NAME_PERMISSION' | translate)">
+                <input [placeholder]="('MODALS.TOPIC_MEMBERS_PLACEHOLDER_NAME_PERMISSION' | translate)"
+                  (ngModelChange)="TopicMemberUserService.setParam('search', TopicMemberUserService.params.search)"
+                  [(ngModel)]="TopicMemberUserService.params.search">
+              </cos-input>
+              <div class="dropdown" [cosDropdown]>
+                <div class="selection">
+                  <span translate="MODALS.TOPIC_MEMBERS_ORDER_BY"></span>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
+                  </svg>
+                </div>
+                <div class="options">
+                  <div class="option" (click)="TopicMemberUserService.doOrder('name', 'asc')"
+                    translate="MODALS.TOPIC_MEMBERS_ORDER_BY_NAME_ASC"></div>
+                  <div class="option" (click)="TopicMemberUserService.doOrder('name', 'desc')"
+                    translate="MODALS.TOPIC_MEMBERS_ORDER_BY_NAME_DESC"></div>
+                  <div class="option" (click)="TopicMemberUserService.doOrder('level', 'asc')">
+                    <span translate="MODALS.TOPIC_MEMBERS_ORDER_BY_LEVEL"></span>
+                    <div>
+                      <svg width="24" height="24" viewBox="0 0 24 24" transform="translate(0, 0) scale(1, -1)"
+                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 14L10 14L12.5 18L15 14L13 14L13 5L12 5L12 14Z" fill="#2C3B47" />
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="option" (click)="TopicMemberUserService.doOrder('level', 'desc')">
+                    <span translate="MODALS.TOPIC_MEMBERS_ORDER_BY_LEVEL"></span>
+                    <div>
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 14L10 14L12.5 18L15 14L13 14L13 5L12 5L12 14Z" fill="#2C3B47" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </ng-container>
+
+            </div>
             <div class="line_separator"></div>
-            <div id="footer_buttons">
-              <!--div class="dropdown" [cosDropdown]>
+            <ng-container *ngIf="memberUsers$ | async as memberUsers">
+              <ng-container *ngFor="let user of memberUsers; index as i;">
+                <div class="row_list">
+                  <topic-member-user [member]="user" [topic]="topic"></topic-member-user>
+                </div>
+              </ng-container>
+              <div class="line_separator"></div>
+              <div id="footer_buttons">
+                <!--div class="dropdown" [cosDropdown]>
                 <button class="btn_medium_secondary"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -134,66 +135,66 @@
                   </div>
                 </div>
               </!--div-->
-              <cos-pagination class="pagination" (select)="TopicMemberUserService.loadPage($event)"
-                [totalPages]="(TopicMemberUserService.totalPages$ | async) || 0"
-                [page]="(TopicMemberUserService.page$ | async) || 0"></cos-pagination>
-            </div>
-          </ng-container>
-        </div>
-      </div>
-
-    </ng-container>
-    <ng-container *ngIf="activeTab === 'groups'">
-      <div class="content_section">
-        <div id="topic_members_list_wrap" class="section_content_wrap table_section">
-          <div class="topic_members_filters">
-            <cos-input [placeholder]="('MODALS.TOPIC_MEMBERS_PLACEHOLDER_NAME_PERMISSION' | translate)">
-              <input [placeholder]="'MODALS.TOPIC_MEMBERS_PLACEHOLDER_TOPIC_TITLE_PERMISSION' | translate"
-                (change)="TopicMemberGroupService.setParam('search', TopicMemberGroupService.params.search)"
-                [(ngModel)]="TopicMemberGroupService.params.search">
-            </cos-input>
-            <div class="dropdown" [cosDropdown]>
-              <div class="selection">
-                <span translate="MODALS.TOPIC_MEMBERS_ORDER_BY"></span>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
-                </svg>
-              </div>
-              <div class="options">
-                <div class="option" (click)="TopicMemberGroupService.doOrder('name', 'asc')"
-                  translate="MODALS.TOPIC_MEMBERS_ORDER_BY_NAME_ASC"></div>
-                <div class="option" (click)="TopicMemberGroupService.doOrder('name', 'desc')"
-                  translate="MODALS.TOPIC_MEMBERS_ORDER_BY_NAME_DESC"></div>
-                <div class="option" (click)="TopicMemberGroupService.doOrder('level', 'asc')">
-                  <span translate="MODALS.TOPIC_MEMBERS_ORDER_BY_LEVEL"></span>
-                  <div>
-                    <svg width="24" height="24" viewBox="0 0 24 24" transform="translate(0, 0) scale(1, -1)" fill="none"
-                      xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 14L10 14L12.5 18L15 14L13 14L13 5L12 5L12 14Z" fill="#2C3B47" />
-                    </svg>
-                  </div>
-                </div>
-                <div class="option" (click)="TopicMemberGroupService.doOrder('level', 'desc')">
-                  <span translate="MODALS.TOPIC_MEMBERS_ORDER_BY_LEVEL"></span>
-                  <div>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 14L10 14L12.5 18L15 14L13 14L13 5L12 5L12 14Z" fill="#2C3B47" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="line_separator"></div>
-          <ng-container *ngIf="memberGroups$ | async as memberGroups">
-            <ng-container *ngFor="let group of memberGroups; index as i;">
-              <div class="row_list">
-                <topic-member-group [topic]="topic" [group]="group"></topic-member-group>
+                <cos-pagination class="pagination" (select)="TopicMemberUserService.loadPage($event)"
+                  [totalPages]="(TopicMemberUserService.totalPages$ | async) || 0"
+                  [page]="(TopicMemberUserService.page$ | async) || 0"></cos-pagination>
               </div>
             </ng-container>
+          </div>
+        </div>
+
+      </ng-container>
+      <ng-container *ngIf="activeTab === 'groups'">
+        <div class="content_section">
+          <div id="topic_members_list_wrap" class="section_content_wrap table_section">
+            <div class="topic_members_filters">
+              <cos-input [placeholder]="('MODALS.TOPIC_MEMBERS_PLACEHOLDER_NAME_PERMISSION' | translate)">
+                <input [placeholder]="'MODALS.TOPIC_MEMBERS_PLACEHOLDER_TOPIC_TITLE_PERMISSION' | translate"
+                  (change)="TopicMemberGroupService.setParam('search', TopicMemberGroupService.params.search)"
+                  [(ngModel)]="TopicMemberGroupService.params.search">
+              </cos-input>
+              <div class="dropdown" [cosDropdown]>
+                <div class="selection">
+                  <span translate="MODALS.TOPIC_MEMBERS_ORDER_BY"></span>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
+                  </svg>
+                </div>
+                <div class="options">
+                  <div class="option" (click)="TopicMemberGroupService.doOrder('name', 'asc')"
+                    translate="MODALS.TOPIC_MEMBERS_ORDER_BY_NAME_ASC"></div>
+                  <div class="option" (click)="TopicMemberGroupService.doOrder('name', 'desc')"
+                    translate="MODALS.TOPIC_MEMBERS_ORDER_BY_NAME_DESC"></div>
+                  <div class="option" (click)="TopicMemberGroupService.doOrder('level', 'asc')">
+                    <span translate="MODALS.TOPIC_MEMBERS_ORDER_BY_LEVEL"></span>
+                    <div>
+                      <svg width="24" height="24" viewBox="0 0 24 24" transform="translate(0, 0) scale(1, -1)"
+                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 14L10 14L12.5 18L15 14L13 14L13 5L12 5L12 14Z" fill="#2C3B47" />
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="option" (click)="TopicMemberGroupService.doOrder('level', 'desc')">
+                    <span translate="MODALS.TOPIC_MEMBERS_ORDER_BY_LEVEL"></span>
+                    <div>
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 14L10 14L12.5 18L15 14L13 14L13 5L12 5L12 14Z" fill="#2C3B47" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div class="line_separator"></div>
-            <div id="footer_buttons">
-              <!--div class="dropdown" [cosDropdown]>
+            <ng-container *ngIf="memberGroups$ | async as memberGroups">
+              <ng-container *ngFor="let group of memberGroups; index as i;">
+                <div class="row_list">
+                  <topic-member-group [topic]="topic" [group]="group"></topic-member-group>
+                </div>
+              </ng-container>
+              <div class="line_separator"></div>
+              <div id="footer_buttons">
+                <!--div class="dropdown" [cosDropdown]>
                 <button class="btn_medium_secondary"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -204,66 +205,66 @@
                 </button>
                 <div class="mobile_overlay"></div>
               </!--div-->
-              <cos-pagination class="pagination" (select)="TopicMemberGroupService.loadPage($event)"
-                [totalPages]="(TopicMemberGroupService.totalPages$ | async) || 0"
-                [page]="(TopicMemberGroupService.page$ | async) || 0"></cos-pagination>
-            </div>
-          </ng-container>
-        </div>
-      </div>
-    </ng-container>
-    <ng-container *ngIf="activeTab === 'invited'">
-      <div class="content_section">
-        <div id="topic_members_list_wrap" class="section_content_wrap table_section">
-          <div class="topic_members_filters">
-            <cos-input [placeholder]="('MODALS.TOPIC_MEMBERS_PLACEHOLDER_NAME_PERMISSION' | translate)">
-              <input [placeholder]="'MODALS.TOPIC_MEMBERS_PLACEHOLDER_TOPIC_TITLE_PERMISSION' | translate"
-                (change)="TopicInviteUserService.setParam('search', TopicInviteUserService.params.search)"
-                [(ngModel)]="TopicInviteUserService.params.search">
-            </cos-input>
-            <div class="dropdown" [cosDropdown]>
-              <div class="selection">
-                <span translate="MODALS.TOPIC_MEMBERS_ORDER_BY"></span>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
-                </svg>
-              </div>
-              <div class="options">
-                <div class="option" (click)="TopicInviteUserService.doOrder('name', 'asc')"
-                  translate="MODALS.TOPIC_MEMBERS_ORDER_BY_NAME_ASC"></div>
-                <div class="option" (click)="TopicInviteUserService.doOrder('name', 'desc')"
-                  translate="MODALS.TOPIC_MEMBERS_ORDER_BY_NAME_DESC"></div>
-                <div class="option" (click)="TopicInviteUserService.doOrder('level', 'asc')">
-                  <span translate="MODALS.TOPIC_MEMBERS_ORDER_BY_LEVEL"></span>
-                  <div>
-                    <svg width="24" height="24" viewBox="0 0 24 24" transform="translate(0, 0) scale(1, -1)" fill="none"
-                      xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 14L10 14L12.5 18L15 14L13 14L13 5L12 5L12 14Z" fill="#2C3B47" />
-                    </svg>
-                  </div>
-                </div>
-                <div class="option" (click)="TopicInviteUserService.doOrder('level', 'desc')">
-                  <span translate="MODALS.TOPIC_MEMBERS_ORDER_BY_LEVEL"></span>
-                  <div>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 14L10 14L12.5 18L15 14L13 14L13 5L12 5L12 14Z" fill="#2C3B47" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="line_separator"></div>
-          <ng-container *ngIf="memberInvites$ | async as memberInvites">
-            <ng-container *ngFor="let invite of memberInvites; index as i;">
-              <div class="row_list">
-                <topic-member-invite [invite]="invite" [topic]="topic"></topic-member-invite>
+                <cos-pagination class="pagination" (select)="TopicMemberGroupService.loadPage($event)"
+                  [totalPages]="(TopicMemberGroupService.totalPages$ | async) || 0"
+                  [page]="(TopicMemberGroupService.page$ | async) || 0"></cos-pagination>
               </div>
             </ng-container>
-
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="activeTab === 'invited'">
+        <div class="content_section">
+          <div id="topic_members_list_wrap" class="section_content_wrap table_section">
+            <div class="topic_members_filters">
+              <cos-input [placeholder]="('MODALS.TOPIC_MEMBERS_PLACEHOLDER_NAME_PERMISSION' | translate)">
+                <input [placeholder]="'MODALS.TOPIC_MEMBERS_PLACEHOLDER_TOPIC_TITLE_PERMISSION' | translate"
+                  (change)="TopicInviteUserService.setParam('search', TopicInviteUserService.params.search)"
+                  [(ngModel)]="TopicInviteUserService.params.search">
+              </cos-input>
+              <div class="dropdown" [cosDropdown]>
+                <div class="selection">
+                  <span translate="MODALS.TOPIC_MEMBERS_ORDER_BY"></span>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
+                  </svg>
+                </div>
+                <div class="options">
+                  <div class="option" (click)="TopicInviteUserService.doOrder('name', 'asc')"
+                    translate="MODALS.TOPIC_MEMBERS_ORDER_BY_NAME_ASC"></div>
+                  <div class="option" (click)="TopicInviteUserService.doOrder('name', 'desc')"
+                    translate="MODALS.TOPIC_MEMBERS_ORDER_BY_NAME_DESC"></div>
+                  <div class="option" (click)="TopicInviteUserService.doOrder('level', 'asc')">
+                    <span translate="MODALS.TOPIC_MEMBERS_ORDER_BY_LEVEL"></span>
+                    <div>
+                      <svg width="24" height="24" viewBox="0 0 24 24" transform="translate(0, 0) scale(1, -1)"
+                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 14L10 14L12.5 18L15 14L13 14L13 5L12 5L12 14Z" fill="#2C3B47" />
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="option" (click)="TopicInviteUserService.doOrder('level', 'desc')">
+                    <span translate="MODALS.TOPIC_MEMBERS_ORDER_BY_LEVEL"></span>
+                    <div>
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 14L10 14L12.5 18L15 14L13 14L13 5L12 5L12 14Z" fill="#2C3B47" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div class="line_separator"></div>
-            <div id="footer_buttons">
-              <!--div class="dropdown" [cosDropdown]>
+            <ng-container *ngIf="memberInvites$ | async as memberInvites">
+              <ng-container *ngFor="let invite of memberInvites; index as i;">
+                <div class="row_list">
+                  <topic-member-invite [invite]="invite" [topic]="topic"></topic-member-invite>
+                </div>
+              </ng-container>
+
+              <div class="line_separator"></div>
+              <div id="footer_buttons">
+                <!--div class="dropdown" [cosDropdown]>
                 <button class="btn_medium_secondary"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -274,13 +275,14 @@
                 </button>
                 <div class="mobile_overlay"></div>
               </!--div-->
-              <cos-pagination class="pagination" (select)="TopicInviteUserService.loadPage($event)"
-                [totalPages]="(TopicInviteUserService.totalPages$ | async) || 0"
-                [page]="(TopicInviteUserService.page$ | async) || 0"></cos-pagination>
-            </div>
-          </ng-container>
+                <cos-pagination class="pagination" (select)="TopicInviteUserService.loadPage($event)"
+                  [totalPages]="(TopicInviteUserService.totalPages$ | async) || 0"
+                  [page]="(TopicInviteUserService.page$ | async) || 0"></cos-pagination>
+              </div>
+            </ng-container>
+          </div>
         </div>
-      </div>
-    </ng-container>
+      </ng-container>
+    </div>
   </div>
 </div>

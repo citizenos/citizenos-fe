@@ -21,7 +21,6 @@ export class DialogCloseDirective {
 
 
   ngOnInit(): void {
-    console.log(this.dialog);
   }
 }
 

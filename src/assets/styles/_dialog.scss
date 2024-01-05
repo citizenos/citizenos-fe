@@ -18,9 +18,21 @@
   cursor: pointer;
   z-index: 12;
   display: block;
+  min-height: 100%;
   text-align: center;
 }
 
+.dialog_wrap {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  padding: 20px 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100%;
+  justify-content: center;
+}
 .dialog {
   display: flex;
   align-self: center;

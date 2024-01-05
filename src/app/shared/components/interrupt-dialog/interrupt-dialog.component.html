@@ -1,8 +1,9 @@
 <div class="overlay" dialog-close></div>
-<div class="dialog">
-  <div class="dialog_header warning">
-    <div class="header_with_icon">
-      <div class="icon_notification">
+<div class="dialog_wrap">
+  <div class="dialog">
+    <div class="dialog_header warning">
+      <div class="header_with_icon">
+        <div class="icon_notification">
           <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="40" height="40" rx="20" fill="#F39129" />
             <path
@@ -12,31 +13,32 @@
               d="M20 31C21.1046 31 22 30.1046 22 29C22 27.8954 21.1046 27 20 27C18.8954 27 18 27.8954 18 29C18 30.1046 18.8954 31 20 31Z"
               fill="white" />
           </svg>
+        </div>
+        <h4 class="title" translate="MODALS.INTERRUPT_HEADING"></h4>
       </div>
-      <h4 class="title" translate="MODALS.INTERRUPT_HEADING"></h4>
+      <div class="dialog_close">
+        <a class="btn_dialog_close icon" dialog-close>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M7.72152 6.29537C7.3277 5.90154 6.68919 5.90154 6.29537 6.29537C5.90154 6.68919 5.90154 7.3277 6.29537 7.72153L10.5738 12L6.29541 16.2785C5.90159 16.6723 5.90159 17.3108 6.29541 17.7046C6.68923 18.0985 7.32774 18.0985 7.72156 17.7046L12 13.4262L16.2784 17.7046C16.6723 18.0985 17.3108 18.0985 17.7046 17.7046C18.0984 17.3108 18.0984 16.6723 17.7046 16.2785L13.4262 12L17.7046 7.72153C18.0985 7.3277 18.0985 6.68919 17.7046 6.29537C17.3108 5.90154 16.6723 5.90154 16.2785 6.29537L12 10.5739L7.72152 6.29537Z"
+              fill="#2C3B47" />
+          </svg>
+        </a>
+      </div>
     </div>
-    <div class="dialog_close">
-      <a class="btn_dialog_close icon" dialog-close>
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M7.72152 6.29537C7.3277 5.90154 6.68919 5.90154 6.29537 6.29537C5.90154 6.68919 5.90154 7.3277 6.29537 7.72153L10.5738 12L6.29541 16.2785C5.90159 16.6723 5.90159 17.3108 6.29541 17.7046C6.68923 18.0985 7.32774 18.0985 7.72156 17.7046L12 13.4262L16.2784 17.7046C16.6723 18.0985 17.3108 18.0985 17.7046 17.7046C18.0984 17.3108 18.0984 16.6723 17.7046 16.2785L13.4262 12L17.7046 7.72153C18.0985 7.3277 18.0985 6.68919 17.7046 6.29537C17.3108 5.90154 16.6723 5.90154 16.2785 6.29537L12 10.5739L7.72152 6.29537Z"
-            fill="#2C3B47" />
-        </svg>
-      </a>
+    <div class="dialog_content">
+      <div class="info_row" translate="MODALS.INTERRUPT_ARE_YOU_SURE"></div>
     </div>
-  </div>
-  <div class="dialog_content">
-    <div class="info_row" translate="MODALS.INTERRUPT_ARE_YOU_SURE"></div>
-  </div>
-  <div class="dialog_content">
-    <div class="info_row" translate="MODALS.INTERRUPT_DESC"></div>
-  </div>
-  <div class="dialog_content">
-    <div class="button_wrap">
-      <button class="btn_big_submit" [dialog-close]="true" translate="MODALS.INTERRUPT_BTN_SUBMIT"></button>
-      <a dialog-close translate="MODALS.INTERRUPT_BTN_CANCEL"></a>
+    <div class="dialog_content">
+      <div class="info_row" translate="MODALS.INTERRUPT_DESC"></div>
     </div>
-  </div>
-  <div class="dialog_footer">
+    <div class="dialog_content">
+      <div class="button_wrap">
+        <button class="btn_big_submit" [dialog-close]="true" translate="MODALS.INTERRUPT_BTN_SUBMIT"></button>
+        <a dialog-close translate="MODALS.INTERRUPT_BTN_CANCEL"></a>
+      </div>
+    </div>
+    <div class="dialog_footer">
+    </div>
   </div>
 </div>
