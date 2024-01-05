@@ -120,7 +120,7 @@ export class TopicService {
   }
 
   patch(data: any) {
-    const updateFields = ['title', 'visibility', 'status', 'categories', 'endsAt', 'hashtag','imageUrl', 'intro', 'contact', 'country', 'language'];
+    const updateFields = ['title', 'visibility', 'status', 'categories', 'endsAt', 'hashtag', 'imageUrl', 'intro', 'contact', 'country', 'language'];
     const sendData: any = {};
 
     updateFields.forEach((field) => {
@@ -241,7 +241,7 @@ export class TopicService {
                 }
                 this.reloadTopic();
                 if (state === 'followUp') {
-                  this.router.navigate(['/topics', topic.id], {fragment:'followUp'})
+                  this.router.navigate(['/topics', topic.id], { fragment: 'followUp' })
                 }
                 this.dialog.closeAll();
               }, error: (res) => {
@@ -251,6 +251,25 @@ export class TopicService {
 
         }
       });
+    } else {
+      this.patch({
+        id: topic.id,
+        status: this.STATUSES[state]
+      }).pipe(take(1))
+        .subscribe({
+          next: () => {
+            if (state === 'vote' && !topic.voteId && !topic.vote) {
+              this.router.navigate(['/topics', topic.id, 'votes', 'create'])
+            }
+            this.reloadTopic();
+            if (state === 'followUp') {
+              this.router.navigate(['/topics', topic.id], { fragment: 'followUp' })
+            }
+            this.dialog.closeAll();
+          }, error: (res) => {
+            console.error(res);
+          }
+        })
     }
   }
   /**
