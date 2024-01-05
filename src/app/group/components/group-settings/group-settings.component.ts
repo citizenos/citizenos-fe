@@ -13,7 +13,6 @@ import { languages } from 'src/app/services/language.service';
 })
 export class GroupSettingsComponent {
   @ViewChild('imageUpload') fileInput?: ElementRef;
-  @HostBinding('class.pos_dialog_fixed') addPosAbsolute: boolean = false;
   countries = countries.sort((a: any, b: any) => {
     return a.name.localeCompare(b.name);
   });
@@ -38,7 +37,6 @@ export class GroupSettingsComponent {
     this.group = data.group;
     this.rules = data.group.rules.map((rule:string) => {return {rule: rule}});
     if (this.activeTab === 'info') {
-      this.addPosAbsolute = true;
     }
   }
 
@@ -47,10 +45,6 @@ export class GroupSettingsComponent {
   }
 
   selectTab(tab: string) {
-    this.addPosAbsolute = false;
-    if (tab === 'info') {
-      this.addPosAbsolute = true;
-    }
     this.activeTab = tab;
   }
 

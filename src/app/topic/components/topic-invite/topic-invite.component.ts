@@ -14,7 +14,6 @@ import { TopicJoinService } from 'src/app/services/topic-join.service';
 import { TopicMemberUserService } from 'src/app/services/topic-member-user.service';
 import { TopicInviteUserService } from 'src/app/services/topic-invite-user.service';
 import { ActivatedRoute } from '@angular/router';
-import { TopicOnboardingComponent } from '../topic-onboarding/topic-onboarding.component';
 export interface TopicInviteData {
   topic: Topic
 };
@@ -261,10 +260,6 @@ export class TopicInviteDialogComponent {
     if (!this.canInvite()) {
       this.activeTab = 'share';
     }
-
-    setTimeout(() =>
-      this.DialogService.open(TopicOnboardingComponent)
-    , 1000)
   }
 
   close () {
