@@ -65,6 +65,7 @@ button,
   cursor: pointer;
   color: var(--color-text);
   border-color: var(--color-text);
+  transition: all 0.2s ease-in-out;
 }
 
 //list of different buttons
@@ -175,6 +176,15 @@ $button-styles: (
             stroke: map-get($map, hover-color);
           }
         }
+
+        &.animate {
+          &:hover {
+            svg {
+              transform: rotate(-180deg);
+              transition: transform 150ms ease;
+            }
+          }
+        }
       }
     }
   }
@@ -212,6 +222,11 @@ $button-styles: (
   justify-content: center;
   width: 40px;
   border-radius: 40px;
+
+  &:hover {
+    transform: rotate(-180);
+    transition: transform 150ms ease-in;
+  }
 }
 
 .btn_dialog_close {

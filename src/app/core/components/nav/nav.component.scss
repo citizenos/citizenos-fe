@@ -46,6 +46,37 @@
 .line_separator_tablet {
   background: var(--color-secondary);
 }
+
+.nav_wrap {
+  position: fixed;
+  height: 100%;
+  width: 200px;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  @include mixins.tablet {
+    position: absolute;
+    width: 288px;
+    right: 0;
+    max-width: 288px;
+  }
+
+  @include mixins.mobile {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  &::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+    background-color: var(--color-scrollbar);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color-scrollbar-thumb);
+    border-radius: 8px;
+  }
+}
 .nav {
   /* Auto layout */
   display: flex;
@@ -59,7 +90,7 @@
   left: 0;
   top: 0;
   background: var(--color-surfaces);
-  transition: all .5s ease-in-out;
+  transition: all 0.5s ease-in-out;
 
   #profile_item_wrap {
     display: flex;
@@ -130,7 +161,12 @@
       }
     }
     .option {
+      color: var(--color-text);
       gap: 8px;
+
+      &:hover {
+        color: var(--color-link);
+      }
     }
   }
   .btn_small_nav {
@@ -145,6 +181,13 @@
       font-weight: 600;
       font-size: 16px;
       line-height: 32px;
+    }
+
+    &:hover {
+      svg {
+        transform: rotate(180deg);
+        transition: transform 150ms ease;
+      }
     }
   }
 
@@ -168,7 +211,7 @@
     &.nav_is_open {
       opacity: 1;
       width: 100%;
-      height: initial;
+      height: max-content;
     }
   }
 
