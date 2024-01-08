@@ -176,7 +176,8 @@
         <div class="radio_text_wrap">
           <div class="radio_lable_wrap">
             <label class="radio_box">
-              <input type="radio" [checked]="vote.type === VOTE_TYPES.multiple" [disabled]="!TopicService.canEditDescription(topic)">
+              <input type="radio" [checked]="vote.type === VOTE_TYPES.multiple"
+                [disabled]="!TopicService.canEditDescription(topic)">
               <span class="radio"></span>
               <div class="radio_lable"
                 [translate]="('COMPONENTS.TOPIC_VOTE_CREATE.OPTION_VOTING_'+VOTE_TYPES.multiple).toUpperCase()">
@@ -215,7 +216,7 @@
                   </svg>
                 </button>
               </div>
-              <button class="btn_medium_plain" (click)="addOption()"><svg width="16" height="16" viewBox="0 0 16 16"
+              <button class="btn_medium_plain animate" (click)="addOption()"><svg width="16" height="16" viewBox="0 0 16 16"
                   fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M8 16C7.47105 16 7.04225 15.5712 7.04225 15.0423L7.04225 8.95775L0.957747 8.95775C0.428798 8.95775 0 8.52895 0 8C0 7.47105 0.428798 7.04225 0.957747 7.04225L7.04225 7.04225L7.04225 0.957747C7.04225 0.428798 7.47105 0 8 0C8.52895 0 8.95775 0.428798 8.95775 0.957747L8.95775 7.04225L15.0423 7.04225C15.5712 7.04225 16 7.47105 16 8C16 8.52895 15.5712 8.95775 15.0423 8.95775H8.95775V15.0423C8.95775 15.5712 8.52895 16 8 16Z"
@@ -325,14 +326,16 @@
         <div class="small_heading" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_SET_UP_VOTING_RIGHTS"></div>
       </div>
       <div translate="COMPONENTS.TOPIC_VOTE_CREATE.SELECT_VOTING_SYSTEM"></div>
-      <div class="radio_wrap" [ngClass]="{selected: vote.authType === VOTE_AUTH_TYPES.hard, disabled: !TopicService.canEditDescription(topic)}"
+      <div class="radio_wrap"
+        [ngClass]="{selected: vote.authType === VOTE_AUTH_TYPES.hard, disabled: !TopicService.canEditDescription(topic)}"
         (click)="(vote.authType !== VOTE_AUTH_TYPES.hard)? vote.authType=VOTE_AUTH_TYPES.hard : vote.authType=VOTE_AUTH_TYPES.soft">
         <div class="radio_text_wrap">
           <div class="radio_lable_wrap">
             <label class="checkbox" (click)="vote.authType = VOTE_AUTH_TYPES.hard"
               [ngClass]="{selected: vote.authType === VOTE_AUTH_TYPES.hard}">
               <span class="bold" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_AUTH_HARD_ID"></span>
-              <input type="checkbox" [checked]="vote.authType === VOTE_AUTH_TYPES.hard" [disabled]="!TopicService.canEditDescription(topic)"/>
+              <input type="checkbox" [checked]="vote.authType === VOTE_AUTH_TYPES.hard"
+                [disabled]="!TopicService.canEditDescription(topic)" />
               <span class="checkmark"></span>
             </label>
           </div>
@@ -399,12 +402,15 @@
           </div>
         </div>
       </div>
-      <div class="radio_wrap" [ngClass]="{seleced: vote.delegationIsAllowed, disabled: !TopicService.canEditDescription(topic)}">
+      <div class="radio_wrap"
+        [ngClass]="{seleced: vote.delegationIsAllowed, disabled: !TopicService.canEditDescription(topic)}"
+        (click)="(TopicService.canEditDescription(topic))? vote.delegationIsAllowed =!vote.delegationIsAllowed: ''">
         <div class="radio_text_wrap">
           <div class="radio_lable_wrap">
             <label class="checkbox" [ngClass]="{selected: vote.delegationIsAllowed}">
               <span class="bold" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_DELEGATION"></span>
-              <input type="checkbox" [(ngModel)]="vote.delegationIsAllowed" [disabled]="!TopicService.canEditDescription(topic)"/>
+              <input type="checkbox" [(ngModel)]="vote.delegationIsAllowed"
+                [disabled]="!TopicService.canEditDescription(topic)" />
               <span class="checkmark"></span>
             </label>
           </div>
@@ -425,13 +431,13 @@
         <div class="small_heading" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_CHOOSE_VOTING_END"></div>
       </div>
       <div translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_CHOOSE_VOTING_END_DESC"></div>
-      <div class="radio_wrap date_selector" [ngClass]="{selected: deadline}">
+      <div class="radio_wrap date_selector" [ngClass]="{selected: deadline}" (click)="toggleDeadline()">
         <div class="radio_text_wrap date_selector">
           <div class="radio_lable_wrap">
             <label class="checkbox">
               <span class="deadline" *ngIf="deadline">{{deadline | amTimeAgo}}</span>
               <span class="bold" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_DEADLINE"></span>
-              <input type="checkbox" [checked]="deadline" (click)="toggleDeadline()" />
+              <input type="checkbox" [checked]="deadline"/>
               <span class="checkmark"></span>
             </label>
           </div>
