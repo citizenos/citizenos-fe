@@ -256,6 +256,8 @@ $button-styles: (
   background-origin: padding-box;
   border: 1px solid var(--color-border);
   border-radius: 8px;
+  cursor: pointer;
+
   &:focus,
   &:hover,
   &.active {

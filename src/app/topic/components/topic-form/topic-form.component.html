@@ -316,7 +316,7 @@
 
           <div class="create_content_block discussion" [ngClass]="{'active': block.title}"
             [@openClose]="block.title ? 'open' : 'closed'">
-            <div class="block_title_wrap" (click)="block.title = true">
+            <div class="block_title_wrap" (click)="showBlockTitle()">
               <div class="block_title" translate="VIEWS.TOPIC_CREATE.TITLE_HEADING"></div>
               <div class="counter_wrap">
                 <div class="char_counter">{{topic.title?.length || 0}}/{{titleLimit}}</div>
@@ -346,7 +346,7 @@
 
           <div class="create_content_block discussion" [ngClass]="{'active': block.intro}"
             [@openClose]="block.intro ? 'open' : 'closed'">
-            <div class="block_title_wrap" (click)="block.intro = true">
+            <div class="block_title_wrap" (click)="showBlockIntro()">
               <div class="block_title" translate="VIEWS.TOPIC_CREATE.TITLE_INTRO"></div>
               <div class="counter_wrap">
                 <div class="char_counter">{{topic.intro?.length || 0}}/{{introLimit}}</div>
@@ -368,7 +368,7 @@
             </div>
             <ng-container *ngIf="block.intro || topic.intro">
               <div class="block_content">
-                <textarea id="intro_input" placeholder="..." [(ngModel)]="topic.intro" (change)="updateTopic()"
+                <textarea id="intro_input" #topicIntro placeholder="..." [(ngModel)]="topic.intro" (change)="updateTopic()"
                   [maxlength]="introLimit"></textarea>
               </div>
             </ng-container>

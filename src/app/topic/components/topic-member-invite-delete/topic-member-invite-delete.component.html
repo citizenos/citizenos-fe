@@ -68,9 +68,9 @@
     <div class="dialog_content">
       <div class="bold" translate="COMPONENTS.TOPIC_INVITE_USER_DELETE.SELECT_HEADING"></div>
       <div class="content_item">
-        <div class="radio_wrap">
+        <div class="radio_wrap" (click)="invitesToDelete = '1'">
           <div class="radio_text_wrap">
-            <div class="radio_lable_wrap" (click)="invitesToDelete = '1'">
+            <div class="radio_lable_wrap">
               <label class="radio_box">
                 <input type="radio" name="invitationcount" value="default" value="1">
                 <span class="radio"></span>
@@ -79,8 +79,8 @@
             </div>
           </div>
         </div>
-        <div class="radio_wrap">
-          <div class="radio_text_wrap" (click)="invitesToDelete = 'all'">
+        <div class="radio_wrap" (click)="invitesToDelete = 'all'">
+          <div class="radio_text_wrap">
             <div class="radio_lable_wrap">
               <label class="radio_box">
                 <input type="radio" name="invitationcount" value="all">

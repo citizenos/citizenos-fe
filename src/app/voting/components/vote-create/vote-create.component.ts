@@ -71,6 +71,8 @@ import { TopicEditDisabledDialogComponent } from 'src/app/topic/components/topic
 export class VoteCreateComponent implements OnInit {
   topicText?: ElementRef
   readMoreButton = false;
+  @ViewChild('topicTitle') titleInput!: ElementRef;
+  @ViewChild('topicIntro') introInput!: ElementRef;
   @ViewChild('topicText') set content(content: ElementRef) {
     if (content) { // initially setter gets called with undefined
       this.topicText = content;
@@ -362,6 +364,21 @@ export class VoteCreateComponent implements OnInit {
       this.updateTopic();
     }
   };
+
+  showBlockTitle () {
+    this.block.title = true;
+    setTimeout(() => {
+      this.titleInput.nativeElement.focus();
+    }, 200);
+  }
+
+  showBlockIntro () {
+    this.block.intro = true;
+    setTimeout(() => {
+      console.log(this.introInput)
+      this.introInput.nativeElement.focus();
+    }, 200);
+  }
 
   deleteTopic() {
     /*this.TopicService.doDeleteTopic(topic, [this.Translate.currentLang, 'my', 'topics']);*/

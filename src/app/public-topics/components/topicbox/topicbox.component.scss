@@ -21,7 +21,8 @@
 
   &:hover {
     text-decoration: none;
-    box-shadow: 0px 8px 20px 0px rgba(220, 231, 240, 0.30), 0px 12px 16px 0px rgba(50, 85, 112, 0.10);
+    box-shadow: 0px 8px 20px 0px rgba(220, 231, 240, 0.3),
+      0px 12px 16px 0px rgba(50, 85, 112, 0.1);
     .image {
       .image_overlay {
         display: flex;
@@ -152,6 +153,15 @@
       font-style: normal;
       font-weight: 600;
       line-height: 24px;
+      overflow: hidden;
+      max-height: 72px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      overflow-wrap: break-word;
+      -webkit-line-clamp: 3;
+      display: block;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
     }
     .date {
       color: var(--color-border-active);
