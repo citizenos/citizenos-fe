@@ -31,7 +31,7 @@
     padding: 16px 0 0 0;
 
     @include mixins.tablet {
-      margin-bottom: -16px!important;
+      margin-bottom: -16px !important;
     }
     @include mixins.mobile {
       h3 {
@@ -662,7 +662,7 @@
           }
 
           .participants_count_wrap {
-            display:flex;
+            display: flex;
             justify-content: space-between;
 
             .participants_count {
@@ -673,16 +673,16 @@
             }
 
             .avatars_wrap {
-              display:flex;
+              display: flex;
 
               .avatar {
-                display:flex;
+                display: flex;
                 justify-content: center;
                 align-items: center;
                 border-radius: 40px;
                 width: 40px;
                 height: 40px;
-                border: 2px solid #F8FAFC;
+                border: 2px solid #f8fafc;
                 margin-left: -10px;
                 background-color: var(--color-secondary);
                 font-size: 10px;
@@ -694,7 +694,7 @@
                   margin-left: 0;
                 }
                 img {
-                  border: 2px solid #F8FAFC;
+                  border: 2px solid #f8fafc;
                   width: inherit;
                   border-radius: 40px;
                   aspect-ratio: 1;
@@ -748,7 +748,7 @@
     }
 
     .tutorial_header {
-      cursor:pointer;
+      cursor: pointer;
       display: flex;
       color: var(--color-scrollbar-thumb);
       align-items: center;

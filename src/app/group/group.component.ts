@@ -210,6 +210,7 @@ export class GroupComponent implements OnInit {
   }
 
   showSettings(group: Group) {
+    console.log('SHOW SETTINGS')
     const settingsDialog = this.dialog.open(GroupSettingsComponent, {
       data: {
         group

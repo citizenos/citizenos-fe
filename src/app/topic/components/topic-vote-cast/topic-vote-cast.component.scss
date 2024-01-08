@@ -7,4 +7,13 @@
 }
 .setting_button {
   background: none;
+  button:first-child {
+    &:hover {
+      svg {
+        path {
+          fill: var(--color-link);
+        }
+      }
+    }
+  }
 }
