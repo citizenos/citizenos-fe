@@ -100,6 +100,17 @@
           fill: none;
         }
       }
+
+      &:hover {
+        .btn_icon {
+          transform: rotate(-360deg);
+          transition: transform 150ms ease;
+          transition-delay: 200ms;
+          path {
+            stroke: var(--color-surfaces);
+          }
+        }
+      }
     }
   }
 }

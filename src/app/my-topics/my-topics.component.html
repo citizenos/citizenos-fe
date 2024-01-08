@@ -89,7 +89,8 @@
         <cos-input [placeholder]="'VIEWS.MY_TOPICS.FILTER_STATUS' | translate" class="dropdown_input tablet_hidden">
           <div class="dropdown" [cosDropdown] [multipleChoice]="true">
             <div class="selection">
-              <div class="selected_item" [innerHtml]="'TXT_TOPIC_STATUS_' + topicFilters.status | uppercase | translate | titlecase">
+              <div class="selected_item"
+                [innerHtml]="'TXT_TOPIC_STATUS_' + topicFilters.status | uppercase | translate | titlecase">
 
               </div>
               <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -154,7 +155,8 @@
         <cos-input [placeholder]="'VIEWS.MY_TOPICS.FILTER_STATUS' | translate" class="dropdown_input">
           <div class="dropdown" [cosDropdown] [multipleChoice]="true">
             <div class="selection">
-              <div class="selected_item" [innerHtml]="'TXT_TOPIC_STATUS_' + topicFilters.status | uppercase | translate | titlecase">
+              <div class="selected_item"
+                [innerHtml]="'TXT_TOPIC_STATUS_' + topicFilters.status | uppercase | translate | titlecase">
 
               </div>
               <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -273,11 +275,12 @@
       <button class="btn_big_secondary" [ngClass]="moreFilters? 'flip' : ''" (click)="moreFilters = !moreFilters">
         <div class="btn_icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
             xmlns="http://www.w3.org/2000/svg">
-            <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+            <path d="M17 10L12 15L7 10" stroke="#1168A8" stroke-width="2" stroke-linecap="round" />
           </svg>
+
         </div>
       </button>
-      <button class="btn_big_secondary icon" *ngIf="moreFilters" (click)="doClearFilters()">
+      <button class="btn_big_secondary animate icon" *ngIf="moreFilters" (click)="doClearFilters()">
         <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M12.4999 7L12.4999 5.0001C10.7069 5.0001 8.91716 5.68333 7.55013 7.05036C5.05581 9.54468 4.83742 13.4531 6.89495 16.195C7.22643 16.6368 7.23355 17.2664 6.84302 17.657C6.4525 18.0475 5.81399 18.0504 5.46866 17.6194C2.6374 14.0857 2.85982 8.91224 6.13592 5.63614C7.89308 3.87898 10.1981 3.0001 12.4999 3.0001L12.4999 1L16.4999 4L12.4999 7Z"

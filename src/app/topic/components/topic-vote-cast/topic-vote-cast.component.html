@@ -31,9 +31,13 @@
         </button>
         <div class="options">
           <div class="option" (click)="editDeadline()" translate="COMPONENTS.TOPIC_VOTE_CAST.OPT_EDIT_DEADLINE"></div>
+          <div class="line_separator"></div>
           <div class="option" (click)="closeVoting()" translate="COMPONENTS.TOPIC_VOTE_CAST.OPT_CLOSE_VOTING"></div>
-          <div *ngIf="!vote.reminderSent" class="option" (click)="sendVoteReminder()"
+          <ng-container *ngIf="!vote.reminderSent">
+          <div class="line_separator"></div>
+          <div  class="option" (click)="sendVoteReminder()"
             translate="COMPONENTS.TOPIC_VOTE_CAST.OPT_SEND_VOTE_REMINDER"></div>
+          </ng-container>
         </div>
       </div>
     </div>
