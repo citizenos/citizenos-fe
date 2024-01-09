@@ -56,9 +56,9 @@
 
   @include mixins.tablet {
     position: absolute;
-    width: 288px;
+    width: 320px;
     right: 0;
-    max-width: 288px;
+    max-width: 320px;
   }
 
   @include mixins.mobile {
@@ -92,6 +92,9 @@
   background: var(--color-surfaces);
   transition: all 0.5s ease-in-out;
 
+  .nav_items_wrap  {
+    width: 100%;
+  }
   #profile_item_wrap {
     display: flex;
     gap: 12px;
@@ -196,7 +199,7 @@
     padding: 0 16px;
     position: absolute;
     width: 0;
-    max-width: 288px;
+    max-width: 320px;
     .btn_small_nav {
       min-width: 100%;
     }
@@ -256,6 +259,14 @@
 
       @include mixins.tablet {
         padding-bottom: 24px;
+      }
+      @include mixins.mobile {
+        flex-direction: row;
+
+        .btn_big_submit {
+          width: 100%;
+          min-width: auto;
+        }
       }
     }
     #nav_main {
@@ -480,6 +491,26 @@
     .icon_item {
       display: flex;
       margin-top: 6px;
+    }
+  }
+}
+
+.btn_small_nav {
+  .accessibility_icon {
+    svg {
+      path {
+        fill: none;
+      }
+    }
+  }
+  &:hover {
+    .accessibility_icon {
+      svg {
+        path {
+          fill: none;
+          stroke: var(--color-link);
+        }
+      }
     }
   }
 }
