@@ -199,4 +199,8 @@ export class AppComponent {
       link.setAttribute('href', this.Location.getAbsoluteUrl(urlItem.join('/')));
     });
   };
+
+  isDialog () {
+    return this.dialog.getOpenDialogs();
+  }
 }

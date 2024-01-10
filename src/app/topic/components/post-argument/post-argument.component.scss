@@ -13,6 +13,7 @@
   align-items: center;
   max-width: 872px;
   width: calc(100% - 567px);
+  box-shadow: 0px -8px 20px 0px rgba(220, 231, 240, 0.10), 0px -12px 16px 0px rgba(50, 85, 112, 0.04);
 
   @include mixins.tablet {
     max-width: 100%;
@@ -58,13 +59,13 @@
   border-radius: 16px 16px 0 0;
   max-width: 872px;
   width: calc(100% - 567px);
-  max-height: 0;
   padding: 16px;
-  z-index: 999;
+  z-index: 99999;
   // padding: 12px 16px;
   position: fixed;
   bottom: 0;
   gap: 16px;
+  box-shadow: 0px -8px 20px 0px rgba(220, 231, 240, 0.10), 0px -12px 16px 0px rgba(50, 85, 112, 0.04);
 
   @include mixins.tablet {
     position: fixed;
@@ -173,4 +174,7 @@
       }
     }
   }
+}
+.overlay {
+  background-color: rgba(44, 59, 71, 0.6);
 }

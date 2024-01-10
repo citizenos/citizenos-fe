@@ -5,8 +5,7 @@
       </svg>
   </button>
 </div>
-<div class="overlay tablet_show" *ngIf="(app.addArgument | async)"></div>
-<div id="create_argument_footer_menu">
+<div id="create_argument_footer_menu"  [@openSlide]="(app.addArgument | async) ? 'closed' : 'open'">
   <div class="footer_title" translate="COMPONENTS.POST_ARGUMENT.FOOTER_MENU_TITLE"></div>
   <button class="btn_medium_submit" (click)="addNewArgument();">
     <span class="btn_text" translate="COMPONENTS.POST_ARGUMENT.FOOTER_MENU_BTN_ADD_ARGUMENT"></span>
@@ -91,3 +90,4 @@
     </div>
   </div>
 </div>
+<div class="overlay" *ngIf="(app.addArgument | async)"></div>

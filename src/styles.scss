@@ -1223,6 +1223,16 @@ tour-item-template {
         border: none;
         box-shadow: 0px 2px 4px 0px rgba(220, 231, 240, 0.3);
 
+        &.voting {
+          &:hover{
+            background-color: var(--color-argument-pro-light);
+
+            .checmark {
+              border-color: initial;
+            }
+          }
+        }
+
         .checkbox {
           gap: 16px;
         }
@@ -1241,6 +1251,7 @@ tour-item-template {
 
           .checkmark {
             background-color: var(--color-voting);
+            border-color: var(--input-checkbox-border-voting);
           }
           .checkmark::after {
             display: block;

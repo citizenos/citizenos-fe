@@ -81,9 +81,24 @@ import { TopicOnboardingComponent } from './components/topic-onboarding/topic-on
 
 export class TopicComponent implements OnInit {
   //new
-  topicText?: ElementRef
   readMoreButton = false;
   skipTour = false;
+  voteEl?: ElementRef;
+  @ViewChild('topicVote') set setVoteEl(content: ElementRef) {
+    if (content) { // initially setter gets called with undefined
+      this.voteEl = content;
+      this.cd.detectChanges();
+    }
+  }
+  followUpEl?: ElementRef;
+  @ViewChild('topicFollowUp') set setFollowUpEl(content: ElementRef) {
+    if (content) { // initially setter gets called with undefined
+      this.followUpEl = content;
+      this.cd.detectChanges();
+    }
+  }
+
+  topicText?: ElementRef;
   @ViewChild('topicText') set content(content: ElementRef) {
     if (content) { // initially setter gets called with undefined
       this.topicText = content;
@@ -151,6 +166,14 @@ export class TopicComponent implements OnInit {
           value = 'voting';
         }
         this.app.setPageTitle(this.topicTitle || 'META_DEFAULT_TITLE');
+        setTimeout(() => {
+          if (value === 'voting') {
+            this.scroll(this.voteEl?.nativeElement);
+          }
+          if (value === 'followUp') {
+            this.scroll(this.followUpEl?.nativeElement);
+          }
+        }, 200);
         return value || 'discussion';
       })
     );
@@ -243,7 +266,6 @@ export class TopicComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('ngOnInit', this.topicText)
   }
 
   ngAfterViewInit(): void {
@@ -252,7 +274,6 @@ export class TopicComponent implements OnInit {
     if (window.innerWidth <= 1024) {
       this.skipTour = true;
       setTimeout(() => {
-        console.log(this.DialogService)
         this.DialogService.closeAll();
         const onBoarding = this.DialogService.open(TopicOnboardingComponent);
         this.app.mobileTutorial = true;
@@ -364,7 +385,7 @@ export class TopicComponent implements OnInit {
   }
 
   scroll(el: HTMLElement) {
-    el.scrollIntoView();
+    el.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
   }
 
   downloadAttachment(topicId: string, attachment: Attachment) {
@@ -407,7 +428,6 @@ export class TopicComponent implements OnInit {
   }
 
   inviteMembers(topic: Topic) {
-    console.log('INVITE');
     const inviteDialog = this.DialogService.open(TopicInviteDialogComponent, { data: { topic } });
     inviteDialog.afterClosed().subscribe({
       next: (res) => {

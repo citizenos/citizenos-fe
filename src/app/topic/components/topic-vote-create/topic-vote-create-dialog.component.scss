@@ -2,6 +2,12 @@
 
 .dialog {
   max-width: 560px;
+
+  .dialog_header {
+    .title {
+      color: var(--color-text);
+    }
+  }
   .dialog_tabs_wrap {
     @include mixins.mobile {
       background-color: var(--color-argument-pro-light);
@@ -27,6 +33,26 @@
         width: 100%;
         flex-direction: column;
         justify-content: center;
+        font-size: 16px;
+        line-height: 24px;
+        span {
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 24px;
+        }
+      }
+    }
+
+    .dialog_info {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      .row {
+        span {
+          line-height: 20px;
+        }
       }
     }
   }
@@ -57,7 +83,6 @@
 }
 
 .input_area {
-
   input {
     background-color: var(--color-surfaces);
   }
@@ -114,6 +139,13 @@
   &.selected {
     background-color: var(--color-argument-pro-light);
   }
+}
+
+.btn_medium_plain {
+  background-color: var(--color-surface-contrast);
+}
+#voting_question_wrap {
+  border-radius: 8px;
 }
 
 .date_selector {
@@ -198,7 +230,7 @@
   }
 }
 
-.id_icons_wrap{
+.id_icons_wrap {
   display: flex;
   justify-content: space-around;
 }

@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { DialogService } from './dialog.service';
 import { DialogCloseDirective, DialogRef } from './dialog-ref';
 
 @NgModule({
@@ -12,7 +11,6 @@ import { DialogCloseDirective, DialogRef } from './dialog-ref';
     DialogCloseDirective
   ],
   providers: [
-    DialogService
   ],
   bootstrap: [
     DialogRef

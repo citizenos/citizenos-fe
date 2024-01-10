@@ -2,7 +2,7 @@
 <!-- NAV -->
 <nav *ngIf="translate.currentLang"></nav>
 <!-- CONTENT -->
-<div id="content_root" *ngIf="translate.currentLang" [ngClass]="{'no_scroll': (app.createMenu && wWidth <= 1024)}">
+<div id="content_root" *ngIf="translate.currentLang" [ngClass]="{'no_scroll': (app.createMenu && wWidth <= 1024), 'fixed': isDialog() | async}">
   <div id="content_header">
     <!-- SEARCH AREA -->
     <div id="search_wrap" [TourItem]="{tourid: 'dashboard', index: 4, position: 'left'}" [ngClass]="{'hidden': !app.showSearch}">

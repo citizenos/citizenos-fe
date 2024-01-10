@@ -156,7 +156,9 @@
         display: flex;
         align-items: center;
         gap: 8px;
-        padding: 28px 24px;
+        padding: 19px 24px;
+        color: var(--color-text);
+
         @include mixins.tablet {
           padding: 12px 38px;
           width: 100%;
@@ -166,8 +168,16 @@
           padding: 12px;
         }
         &.active {
-          color: var(--color-link);
-          border-bottom: 2px solid var(--color-link);
+          font-weight: 600;
+          border-bottom: 2px solid var(--color-discussion);
+
+          &.voting {
+            border-bottom: 2px solid var(--color-voting);
+          }
+
+          &.follow_up {
+            border-bottom: 2px solid var(--color-follow-up);
+          }
         }
 
         .tab_text {
@@ -666,6 +676,12 @@
               display: flex;
               gap: 8px;
               align-items: center;
+            }
+            a.info_item {
+              display: block;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
             }
           }
 
