@@ -78,7 +78,7 @@
         </div>
       </ng-container>
       <div class="vote_options">
-        <div class="vote_option radio_wrap" [attr.disabled]="!canVote()" [ngClass]="{'selected': option.selected}"
+        <div class="vote_option radio_wrap voting" [attr.disabled]="!canVote()" [ngClass]="{'selected': option.selected}"
           *ngFor="let option of vote.options.rows" (click)="selectOption(option)">
           <div class="radio_text_wrap">
             <div class="radio_lable_wrap">

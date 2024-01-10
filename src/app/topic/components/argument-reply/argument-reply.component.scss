@@ -5,6 +5,8 @@
   gap: 16px;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  max-width: 680px;
 
   .heading {
     font-size: 16px;
@@ -16,6 +18,7 @@
   &.reply {
     border-left: 4px solid var(--color-border);
     background-color: var(--color-surfaces);
+    max-width: 100%;
   }
   &.poi {
     background-color: var(--color-argument-info-light);
@@ -23,16 +26,15 @@
   &.pro {
     border-left: 4px solid var(--color-voting-disabled);
     background-color: var(--color-argument-pro-light);
-    width: 85%;
   }
   &.con {
     border-right: 4px solid var(--color-argument-con-medium);
     background-color: var(--color-argument-con-light);
     align-self: flex-end;
-    width: 85%;
   }
 }
 .buttons_wrap {
+  margin-top: 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;

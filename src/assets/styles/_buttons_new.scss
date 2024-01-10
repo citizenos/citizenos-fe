@@ -218,6 +218,13 @@ $button-styles: (
   margin-right: -16px;
 }
 
+.btn_medium_activity {
+  &:hover {
+    .btn_medium_activity_new {
+      background-color: var(--color-info);
+    }
+  }
+}
 .btn_nav_create {
   justify-content: center;
   width: 40px;

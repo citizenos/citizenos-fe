@@ -36,9 +36,8 @@ export class TopicVoteCreateComponent implements OnInit {
         }
       ],
       multiple: [
-        { value: null },
-        { value: null },
-        { value: null }
+        { value: '' },
+        { value: '' }
       ]
     },
     extraOptions: {
@@ -153,7 +152,7 @@ export class TopicVoteCreateComponent implements OnInit {
     if (!this.TopicService.canEditDescription(this.topic)) return;
     if (voteType == this.VOTE_TYPES.multiple) {
       this.vote.type = voteType;
-      if (!this.vote.options)
+      if (!this.vote.options.length)
         this.vote.options = this.CONF.defaultOptions.multiple;
       this.vote.maxChoices = 1;
     } else {
@@ -371,7 +370,7 @@ export class TopicVoteCreateComponent implements OnInit {
   }
 
   displayOptInput(option: any) {
-    return (Object.keys(this.extraOptions).indexOf(option.value) === -1)
+    return (Object.keys(this.extraOptions).indexOf(option.value?.toLowerCase()) === -1)
   }
 
   updateVote() {
@@ -471,6 +470,7 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
           this.TopicService.reloadTopic();
           this.router.navigate(['/topics', this.topic.id], { fragment: 'voting' });
           this.route.url.pipe(take(1)).subscribe();
+          this.Notification.addSuccess('VIEWS.VOTE_CREATE.SUCCESS_VOTE_STARTED');
           this.dialog.closeAll();
         },
         error: (res:any) => {

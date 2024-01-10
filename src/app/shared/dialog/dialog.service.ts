@@ -1,7 +1,7 @@
 import { Overlay, ComponentType } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Injectable, Injector, Directive } from '@angular/core';
-import { take } from 'rxjs';
+import { take, of } from 'rxjs';
 import { DialogRef } from './dialog-ref';
 import { DIALOG_DATA } from './dialog-tokens';
 
@@ -64,6 +64,10 @@ export class DialogService {
         d.close();
       });
     }
+  }
+
+  getOpenDialogs () {
+    return of(this.openDialogs.length);
   }
 }
 

@@ -326,6 +326,10 @@
     gap: 8px;
     background-color: var(--color-dialog);
 
+    &.voting {
+      background-color: var(--color-dialog-voting);
+    }
+
     &.follow_up {
       background-color: var(--color-dialog-follow-up);
     }
@@ -347,10 +351,23 @@
 
       .tab_text {
         display: none;
+        font-size: 13px;
+        line-height: 16px;
+
+        span {
+          font-size: 13px;
+          line-height: 16px;
+        }
+      }
+
+      .tab_number {
+        font-size: 13px;
+        line-height: 16px;
       }
 
       &.active {
         background-color: var(--color-surfaces);
+        box-shadow: 0px 8px 20px 0px rgba(220, 231, 240, 0.30), 0px 12px 16px 0px rgba(50, 85, 112, 0.10);
         font-weight: 600;
 
         .tab_text {
