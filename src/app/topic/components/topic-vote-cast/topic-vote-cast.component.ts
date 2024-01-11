@@ -137,8 +137,8 @@ export class TopicVoteCastComponent implements OnInit {
     }
   }
 
-  saveVote () {
-    const saveVote:any = Object.assign(this.vote, {topicId: this.topic.id});
+  saveVote() {
+    const saveVote: any = Object.assign(this.vote, { topicId: this.topic.id });
     this.TopicVoteService.update(saveVote)
       .pipe(take(1))
       .subscribe({
@@ -167,7 +167,7 @@ export class TopicVoteCastComponent implements OnInit {
     });
   }
 
-  sendVoteReminder () {
+  sendVoteReminder() {
     const voteReminderDialog = this.dialog.open(TopicVoteReminderDialog, {
       data: {
         topic: this.topic,
@@ -185,12 +185,13 @@ export class TopicVoteCastComponent implements OnInit {
     })
   }
 
-  editDeadline () {
+  editDeadline() {
     const voteDeadlineDialog = this.dialog.open(TopicVoteDeadlineComponent, {
       data: {
-      vote: this.vote,
-      topic: this.topic
-    }});
+        vote: this.vote,
+        topic: this.topic
+      }
+    });
   }
 
   hasVoteEndedExpired() {
@@ -254,6 +255,10 @@ export class TopicVoteCastComponent implements OnInit {
   selectOption(option: any) {
     if (!this.canVote()) {
       return false;
+    }
+    if (option.selected) {
+      delete option.selected;
+      return;
     }
     this.vote.options.rows.forEach((opt: any) => {
       if (option.value === 'Neutral' || option.value === 'Veto' || this.vote.maxChoices === 1) {
