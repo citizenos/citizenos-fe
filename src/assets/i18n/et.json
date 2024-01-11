@@ -731,7 +731,7 @@
       "DIALOG_TAB_2": "Settings",
       "DIALOG_TAB_INTRODUCTION_ARE_YOU_SURE": "Are you sure you want to start the topic follow-up?",
       "DIALOG_TAB_INTRODUCTION_KEEP_IN_MIND": "Things to keep in mind:",
-      "DIALOG_TAB_INTRODUCTION_ITEM_1": "You can no longer (co-)edit your document",
+      "DIALOG_TAB_INTRODUCTION_ITEM_1": "You can no longer (co-)edit your topic description",
       "DIALOG_TAB_INTRODUCTION_ITEM_2": "You can still invite and share with participants",
       "DIALOG_TAB_INTRODUCTION_ITEM_3": "You can post milestone updates for actions taken as a result of this topic",
       "DIALOG_TAB_INTRODUCTION_ITEM_4": "@:MODALS.TOPIC_CLOSE_CONFIRM_TXT_NO_VOTE",
@@ -2234,8 +2234,11 @@
       "BTN_READ_LESS": "Read less",
       "SECTION_INFO_TITLE_INFO": "Information",
       "SECTION_INFO_TITLE_ATTACHMENTS": "Attachments",
+      "SECTION_INFO_NO_ATTACHMENTS": "There are currently no attachments for this topic",
       "SECTION_INFO_TITLE_GROUPS": "Groups",
+      "SECTION_INFO_NO_GROUPS": "There are currently no groups for this topic",
       "SECTION_INFO_TITLE_CATEGORIES": "Categories",
+      "SECTION_INFO_NO_CATEGORIES": "There are currently no categories for this topic",
       "SECTION_INFO_TITLE_TAGS": "Tags",
       "SECTION_INFO_LBL_NOT_SPECIFIED": "Not specified",
       "SECTION_PARTICIPANTS_HEADING": "Participants",
@@ -2337,7 +2340,8 @@
       "HELP_ITEM_ADD_IDEATION": "@:VIEWS.TOPIC_CREATE.HELP_ITEM_ADD_IDEATION",
       "HELP_ITEM_ADD_FOLLOW_UP": "@:VIEWS.TOPIC_CREATE.HELP_ITEM_ADD_FOLLOW_UP",
       "ERROR_MISSING_QUESTION": "Voting question is required!",
-      "ERROR_AT_LEAST_TWO_OPTIONS_REQUIRED": "@:MSG_ERROR_POST_API_USERS_TOPICS_VOTES_40001"
+      "ERROR_AT_LEAST_TWO_OPTIONS_REQUIRED": "@:MSG_ERROR_POST_API_USERS_TOPICS_VOTES_40001",
+      "SUCCESS_VOTE_STARTED": "Voting has successf been started"
     },
     "VOTE_EDIT": {
       "HEADING": "Edit voting topic"
