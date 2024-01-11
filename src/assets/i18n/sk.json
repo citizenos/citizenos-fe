@@ -2263,7 +2263,7 @@
       "STATE_ITEM_ADD_FOLLOW_UP_DESC": "Define the next steps",
       "STATE_ITEM_FOLLOW_UP_HEADING": "Follow-up",
       "STATE_ITEM_FOLLOW_UP_DEADLINE": "@:VIEWS.TOPICS_TOPICID.VOTE_LBL_DEADLINE",
-      "STATE_ITEM_FOLLOW_UP_MILESTONE": "@:COMPONENTS.TOPIC_MILESTONES.HEADING_MILESTONE",
+      "STATE_ITEM_FOLLOW_UP_MILESTONE": "Milestones",
       "NO_VOTING_HEADING": "There is no voting system yet",
       "NO_VOTING_BTN_ADD": "Add a voting system",
       "NO_VOTING_DESC_HEADING": "How voting works",
