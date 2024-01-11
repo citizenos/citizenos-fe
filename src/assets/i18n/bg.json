@@ -731,7 +731,7 @@
       "DIALOG_TAB_2": "Settings",
       "DIALOG_TAB_INTRODUCTION_ARE_YOU_SURE": "Are you sure you want to start the topic follow-up?",
       "DIALOG_TAB_INTRODUCTION_KEEP_IN_MIND": "Things to keep in mind:",
-      "DIALOG_TAB_INTRODUCTION_ITEM_1": "You can no longer (co-)edit your document",
+      "DIALOG_TAB_INTRODUCTION_ITEM_1": "You can no longer (co-)edit your topic description",
       "DIALOG_TAB_INTRODUCTION_ITEM_2": "You can still invite and share with participants",
       "DIALOG_TAB_INTRODUCTION_ITEM_3": "You can post milestone updates for actions taken as a result of this topic",
       "DIALOG_TAB_INTRODUCTION_ITEM_4": "@:MODALS.TOPIC_CLOSE_CONFIRM_TXT_NO_VOTE",
