@@ -1,6 +1,6 @@
 {
   "MSG_REDESIGN_TITLE": "Prerábame našu platformu!",
-  "MSG_REDESIGN_CONTENT": "In the coming months, we’ll be starting to roll out a new and improved Citizen OS! Any questions, concerns, or to offer your help as a beta tester, contact Sara on <a href=\"mailto:info@citizenos.com\">info@citizenos.com</a>",
+  "MSG_REDESIGN_CONTENT": "V nasledujúcich mesiacoch začneme zavádzať nový a vylepšený operačný systém Citizen! Ak máte akékoľvek otázky, obavy alebo chcete ponúknuť svoju pomoc ako beta tester, kontaktujte Saru<a href=\"mailto:info@citizenos.com\">info@citizenos.com</a>",
   "MSG_REDESIGN_BTN_CLOSE": "OK, rozumiem",
   "META_DEFAULT_TITLE": "Citizen OS - platforma pre elektronické rozhodovanie komunít.",
   "META_DEFAULT_DESCRIPTION": "Citizen OS umožňuje skupinám viesť participatívnu diskusiu a hlasovanie, keď nie je možnosť stretnúť sa naraz naživo či v online priestore.",
@@ -97,9 +97,9 @@
       "CONTACT_US": "Kontaktujte nás"
     },
     "ACTIVITY_FEED": {
-      "HEADING_GLOBAL": "Recent activity",
-      "HEADING_GROUP": "This group's activity",
-      "HEADING_TOPIC": "This topic's activity",
+      "HEADING_GLOBAL": "Najnovšia aktivita",
+      "HEADING_GROUP": "Aktivita tejto skupiny",
+      "HEADING_TOPIC": "Aktivita v tejto téme",
       "PLACEHOLDER_FILTER": "Zobraziť",
       "FILTER_ALL": "Všetky aktivity",
       "FILTER_USERTOPICS": "Aktivity súvisiace s mojimi témami",
@@ -186,7 +186,7 @@
       "TITLE_IDEATION": "Téma nápadov",
       "DESC_IDEATION": "Túto možnosť vyberte, ak chcete zhromaždiť nápady pred prípadným prechodom k hlasovaniu a/alebo následným opatreniam. Nie je k dispozícii diskusia pre/proti.",
       "TITLE_VOTE": "Téma hlasovania",
-      "DESC_VOTE": "Choose this if you want to collect people’s votes before potentially moving to follow-up. No pro/con discussion available.",
+      "DESC_VOTE": "Túto možnosť vyberte, ak chcete zbierať hlasy ľudí pred prípadným prechodom k monitorovaniu. Nie je k dispozícii žiadna diskusia pre/proti.",
       "TITLE_GROUP": "Skupina",
       "DESC_GROUP": "Vytvorte skupinu, do ktorej môžete pozvať ľudí patriacich do rovnakej organizácie, klubu, lokality atď."
     },
@@ -210,7 +210,7 @@
     },
     "GROUP_ADD_TOPICS_DIALOG": {
       "HEADING": "Pridať témy do skupiny",
-      "NO_TOPICS_SELECTED": "You haven't selected any topics to add to the group. Please search for topics with the search field above.",
+      "NO_TOPICS_SELECTED": "Nevybrali ste žiadne témy, ktoré chcete pridať do skupiny. Vyhľadajte témy pomocou vyhľadávacieho poľa vyššie.",
       "LNK_CANCEL": "@:LNK_CANCEL",
       "BTN_SAVE": "Pridať témy do skupiny"
     },
@@ -235,7 +235,7 @@
       "MESSAGE_DESC": "@:MODALS.TOPIC_INVITE_LBL_OPTIONAL_MESSAGE",
       "MESSAGE_PLACEHOLDER": "Tu napíšte vašu správu",
       "CHARACTER_LIMIT": "Limit počtu znakov:",
-      "EMAIL_DESC": "Invite people via their name or email address",
+      "EMAIL_DESC": "Pozvite užívateľov cez ich meno alebo emailovú adresu",
       "PLACEHOLDER_SEARCH": "@:DEFAULT.NAV_MOBILE.BTN_SEARCH",
       "SHOW_PER_PAGE": "@:VIEWS.ACCOUNT.SHOW_PER_PAGE",
       "NO_INVITES_HEADING": "Ešte ste nikoho nepozvali",
@@ -251,7 +251,7 @@
     },
     "GROUP_INVITE_DIALOG": {
       "HEADING": "Pozvať & zdieľať",
-      "TAB_INVITE": "Invite members",
+      "TAB_INVITE": "Pozvať členov",
       "TAB_SHARE": "Vytvoriť odkaz / QR kód",
       "LNK_CANCEL": "Pozvať neskôr",
       "BTN_SAVE": "Poslať pozvánky"
@@ -314,7 +314,7 @@
       "MSG_LINK_COPIED": "@:COMPONENTS.TOPIC_SHARE.MSG_LINK_COPIED",
       "GENERATE_QR_CODE": "Vygenerovať QR kód",
       "GENERATE_QR_CODE_DESCRIPTION": "Vytvorte kód QR, ktorý môžu ľudia naskenovať a dostať sa priamo k téme. Kód QR môžete pridať do digitálnych alebo fyzických komunikátorov a zobraziť ho všade tam, kde ho uvidia správni ľudia.",
-      "GENERATE_QR_CODE_PRINT": "To save the QR code, right click then choose 'Save image'.",
+      "GENERATE_QR_CODE_PRINT": "Pre uloženie QR kódu kliknite pravým tlačítkom a vyberte \"Uložiť obrázok\".",
       "BTN_GENERATE_QR_CODE": "@:COMPONENTS.GROUP_SHARE.GENERATE_QR_CODE"
     },
     "LOGIN_FORM": {
@@ -345,7 +345,7 @@
     "ONBOARDING": {
       "HELLO": "Hej {{name}}",
       "TITLE_WELCOME": "Vitajte na Citizen OS!",
-      "DESCRIPTION": "As this is your first time on the newly redesigned Citizen OS dashboard, we recommend you take the walkthrough tour to get to know the platform better.",
+      "DESCRIPTION": "Keďže ste na vynovenom ovládacom paneli Citizen OS prvýkrát, odporúčame vám absolvovať prehliadku, aby ste sa s platformou lepšie zoznámili.",
       "TAKE_A_TOUR": "Prehliadka zaberie len pár minút.",
       "BTN_SUBMIT": "Absolvujte prehliadku",
       "BTN_CANCEL": "Preskočiť"
@@ -365,7 +365,7 @@
     "EDIT_ARGUMENT": {
       "FOOTER_MENU_TITLE": "@:COMPONENTS.POST_ARGUMENT.FOOTER_MENU_TITLE",
       "EDIT_YOUR_ARGUMENT": "Upravte svoj argument",
-      "FOOTER_FORM_TITLE": "Edit your argument",
+      "FOOTER_FORM_TITLE": "Upravte svoj argument",
       "FOOTER_FORM_ARGUMENT_TYPE_TITLE": "@:COMPONENTS.POST_ARGUMENT.FOOTER_FORM_ARGUMENT_TYPE_TITLE",
       "ARGUMENT_TYPE_SELECT_OPTION_PRO": "@:COMPONENTS.POST_ARGUMENT.ARGUMENT_TYPE_SELECT_OPTION_PRO",
       "ARGUMENT_TYPE_SELECT_OPTION_CON": "@:COMPONENTS.POST_ARGUMENT.ARGUMENT_TYPE_SELECT_OPTION_CON",
@@ -452,10 +452,10 @@
       "LNK_FINISH": "Dokončiť",
       "HEADING_DASHBOARD": "Prehliadka ovládacieho panela",
       "DASHBOARD_STEP_1_TITLE": "Vytvorte akcie",
-      "DASHBOARD_STEP_1_DESC": "Quickly create a new discussion topic or voting topic, or set up a new group.",
+      "DASHBOARD_STEP_1_DESC": "Rýchlo vytvorte novú diskusnú tému alebo tému hlasovania alebo založte novú skupinu.",
       "DASHBOARD_STEP_2_TITLE": "Hlavná ponuka",
-      "DASHBOARD_STEP_2_DESC": "The main menu serves as your main navigation through the platform. There are quick links to all your topics based on their current phase, i.e. discussion, voting, or follow-up, as well as to any groups you're a member of.",
-      "DASHBOARD_STEP_2_DESC2": "You can also access your profile, change the language, or go to the Help Centre.",
+      "DASHBOARD_STEP_2_DESC": "Hlavné menu slúži ako hlavná navigácia v platforme. Nachádzajú sa tu rýchle odkazy na všetky vaše témy podľa ich aktuálnej fázy, t. j. diskusia, zhromažďovanie nápadov, monitorovania, ako aj do všetkých skupín, ktorých ste členom.",
+      "DASHBOARD_STEP_2_DESC2": "Môžete tiež získať prístup k svojmu profilu, zmeniť jazyk alebo prejsť do centra pomoci.",
       "DASHBOARD_STEP_3_TITLE": "Záznam aktivít",
       "DASHBOARD_STEP_3_DESC": "Find all your new activity here – new arguments, voting updates, follow-up posts and more. You can open and close the activity feed whenever you want.",
       "DASHBOARD_STEP_3_DESC2": "Ak sa od vašej poslednej návštevy objavila nová aktivita, predvolene sa otvorí kanál aktivít.",
@@ -731,7 +731,7 @@
       "DIALOG_TAB_2": "Nastavenia",
       "DIALOG_TAB_INTRODUCTION_ARE_YOU_SURE": "Určite chcete začať sledovať tému?",
       "DIALOG_TAB_INTRODUCTION_KEEP_IN_MIND": "Čo treba mať na mysli:",
-      "DIALOG_TAB_INTRODUCTION_ITEM_1": "Svoj dokument už nemôžete (spolu)upravovať",
+      "DIALOG_TAB_INTRODUCTION_ITEM_1": "You can no longer (co-)edit your topic description",
       "DIALOG_TAB_INTRODUCTION_ITEM_2": "Stále môžete pozývať účastníkov a zdieľať s nimi",
       "DIALOG_TAB_INTRODUCTION_ITEM_3": "Môžete zverejňovať aktualizácie míľnikov pre opatrenia prijaté v dôsledku tejto témy",
       "DIALOG_TAB_INTRODUCTION_ITEM_4": "@:MODALS.TOPIC_CLOSE_CONFIRM_TXT_NO_VOTE",
@@ -2234,8 +2234,11 @@
       "BTN_READ_LESS": "Read less",
       "SECTION_INFO_TITLE_INFO": "Information",
       "SECTION_INFO_TITLE_ATTACHMENTS": "Attachments",
+      "SECTION_INFO_NO_ATTACHMENTS": "There are currently no attachments for this topic",
       "SECTION_INFO_TITLE_GROUPS": "Groups",
+      "SECTION_INFO_NO_GROUPS": "There are currently no groups for this topic",
       "SECTION_INFO_TITLE_CATEGORIES": "Categories",
+      "SECTION_INFO_NO_CATEGORIES": "There are currently no categories for this topic",
       "SECTION_INFO_TITLE_TAGS": "Tags",
       "SECTION_INFO_LBL_NOT_SPECIFIED": "Not specified",
       "SECTION_PARTICIPANTS_HEADING": "Participants",
@@ -2337,7 +2340,8 @@
       "HELP_ITEM_ADD_IDEATION": "@:VIEWS.TOPIC_CREATE.HELP_ITEM_ADD_IDEATION",
       "HELP_ITEM_ADD_FOLLOW_UP": "@:VIEWS.TOPIC_CREATE.HELP_ITEM_ADD_FOLLOW_UP",
       "ERROR_MISSING_QUESTION": "Voting question is required!",
-      "ERROR_AT_LEAST_TWO_OPTIONS_REQUIRED": "@:MSG_ERROR_POST_API_USERS_TOPICS_VOTES_40001"
+      "ERROR_AT_LEAST_TWO_OPTIONS_REQUIRED": "@:MSG_ERROR_POST_API_USERS_TOPICS_VOTES_40001",
+      "SUCCESS_VOTE_STARTED": "Voting has successf been started"
     },
     "VOTE_EDIT": {
       "HEADING": "Edit voting topic"

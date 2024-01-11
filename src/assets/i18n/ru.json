@@ -731,7 +731,7 @@
       "DIALOG_TAB_2": "Настройки",
       "DIALOG_TAB_INTRODUCTION_ARE_YOU_SURE": "Вы уверены, что хотите начать стадию применения решения?",
       "DIALOG_TAB_INTRODUCTION_KEEP_IN_MIND": "Вещи, которые нужно учесть:",
-      "DIALOG_TAB_INTRODUCTION_ITEM_1": "Вы больше не сможете (со-)редактировать Ваш документ",
+      "DIALOG_TAB_INTRODUCTION_ITEM_1": "You can no longer (co-)edit your topic description",
       "DIALOG_TAB_INTRODUCTION_ITEM_2": "Вы все еще сможете приглашать и делиться с участниками",
       "DIALOG_TAB_INTRODUCTION_ITEM_3": "Также можно размещать обновления по этапам выполнения действий в отношении этой темы",
       "DIALOG_TAB_INTRODUCTION_ITEM_4": "@:MODALS.TOPIC_CLOSE_CONFIRM_TXT_NO_VOTE",
@@ -2234,8 +2234,11 @@
       "BTN_READ_LESS": "Свернуть",
       "SECTION_INFO_TITLE_INFO": "Информация",
       "SECTION_INFO_TITLE_ATTACHMENTS": "Приложения",
+      "SECTION_INFO_NO_ATTACHMENTS": "There are currently no attachments for this topic",
       "SECTION_INFO_TITLE_GROUPS": "Группы",
+      "SECTION_INFO_NO_GROUPS": "There are currently no groups for this topic",
       "SECTION_INFO_TITLE_CATEGORIES": "Категории",
+      "SECTION_INFO_NO_CATEGORIES": "There are currently no categories for this topic",
       "SECTION_INFO_TITLE_TAGS": "Теги",
       "SECTION_INFO_LBL_NOT_SPECIFIED": "Не определено",
       "SECTION_PARTICIPANTS_HEADING": "Участники",
@@ -2337,7 +2340,8 @@
       "HELP_ITEM_ADD_IDEATION": "@:VIEWS.TOPIC_CREATE.HELP_ITEM_ADD_IDEATION",
       "HELP_ITEM_ADD_FOLLOW_UP": "@:VIEWS.TOPIC_CREATE.HELP_ITEM_ADD_FOLLOW_UP",
       "ERROR_MISSING_QUESTION": "Voting question is required!",
-      "ERROR_AT_LEAST_TWO_OPTIONS_REQUIRED": "@:MSG_ERROR_POST_API_USERS_TOPICS_VOTES_40001"
+      "ERROR_AT_LEAST_TWO_OPTIONS_REQUIRED": "@:MSG_ERROR_POST_API_USERS_TOPICS_VOTES_40001",
+      "SUCCESS_VOTE_STARTED": "Voting has successf been started"
     },
     "VOTE_EDIT": {
       "HEADING": "Edit voting topic"
