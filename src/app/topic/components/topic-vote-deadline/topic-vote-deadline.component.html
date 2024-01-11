@@ -29,10 +29,10 @@
             <div class="section_content_wrap">
               <div class="small_heading" translate="COMPONENTS.TOPIC_VOTE_DEADLINE.LBL_EDIT_VOTING_DEADLINE"></div>
               <div translate="COMPONENTS.TOPIC_VOTE_DEADLINE.LBL_EDIT_VOTING_DEADLINE_DESC"></div>
-              <div class="radio_wrap date_selector" [ngClass]="deadline ? 'selected': ''"  (click)="toggleDeadline()">
+              <div class="radio_wrap date_selector" [ngClass]="deadline ? 'selected': ''"  (click)="(!deadline)? toggleDeadline(): ''; $event.stopPropagation();">
                 <div class="radio_text_wrap date_selector">
                   <div class="radio_lable_wrap">
-                    <label class="checkbox">
+                    <label class="checkbox" (click)="(deadline)? toggleDeadline(): ''; $event.stopPropagation();">
                       <span class="deadline" *ngIf="deadline">{{deadline | amTimeAgo}}</span>
                       <span class="bold" translate="COMPONENTS.TOPIC_VOTE_DEADLINE.LBL_OPTION_DEADLINE"></span>
                       <input type="checkbox" [checked]="deadline"/>
