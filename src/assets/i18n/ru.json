@@ -731,7 +731,7 @@
       "DIALOG_TAB_2": "Настройки",
       "DIALOG_TAB_INTRODUCTION_ARE_YOU_SURE": "Вы уверены, что хотите начать стадию применения решения?",
       "DIALOG_TAB_INTRODUCTION_KEEP_IN_MIND": "Вещи, которые нужно учесть:",
-      "DIALOG_TAB_INTRODUCTION_ITEM_1": "Вы больше не сможете (со-)редактировать Ваш документ",
+      "DIALOG_TAB_INTRODUCTION_ITEM_1": "You can no longer (co-)edit your topic description",
       "DIALOG_TAB_INTRODUCTION_ITEM_2": "Вы все еще сможете приглашать и делиться с участниками",
       "DIALOG_TAB_INTRODUCTION_ITEM_3": "Также можно размещать обновления по этапам выполнения действий в отношении этой темы",
       "DIALOG_TAB_INTRODUCTION_ITEM_4": "@:MODALS.TOPIC_CLOSE_CONFIRM_TXT_NO_VOTE",
