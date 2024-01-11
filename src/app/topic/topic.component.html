@@ -793,7 +793,7 @@
                 </div>
               </div>
               <div class="item_title"
-                [translate]="(this.hasVoteEndedExpired(topic, vote))? 'VIEWS.TOPICS_TOPICID.STATE_ITEM_VOTING_STATUS_ACTIVE': 'VIEWS.TOPICS_TOPICID.STATE_ITEM_VOTING_STATUS_ENDED'">
+                [translate]="(!this.hasVoteEndedExpired(topic, vote))? 'VIEWS.TOPICS_TOPICID.STATE_ITEM_VOTING_STATUS_ACTIVE': 'VIEWS.TOPICS_TOPICID.STATE_ITEM_VOTING_STATUS_ENDED'">
               </div>
             </div>
             <div class="item_content">
@@ -846,16 +846,48 @@
               <div class="graph_wrap">
                 <div class="legend">
                   <div class="bold" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_FOLLOW_UP_MILESTONE"></div>
-                  <div><span class="bold">{{events.rows.length || 0}}</span> / <span>{{events.rows.length}}</span>
+                  <div><span class="bold">{{events.rows.length}}</span>
                   </div>
                 </div>
-                <div class="graph">
+                <!--div class="graph">
                   <div class="follow_up" [style.width.%]="((events.rows.length || 0)/events.rows.length)*100">
                   </div>
-                </div>
+                </!--div-->
               </div>
             </div>
           </ng-container>
+        </div>
+      </div>
+      <div class="tutorial" [@showTutorial]="showTutorial? 'open': 'closed'" [ngClass]="{'hidden': skipTour }">
+        <button class="tutorial_header" (click)="showTutorial = !showTutorial">
+          <span translate="VIEWS.TOPICS_TOPICID.TUTORIAL_HEADING"></span>
+          <div class="close">
+            <svg *ngIf="showTutorial" width="16" height="16" viewBox="0 0 16 16" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M3.75736 12.2435C3.38334 11.8695 3.38334 11.2631 3.75736 10.8891L6.64554 8.00091L3.75736 5.11272C3.38334 4.7387 3.38334 4.13229 3.75736 3.75827C4.13138 3.38424 4.73779 3.38424 5.11182 3.75827L8 6.64645L10.8882 3.75827C11.2622 3.38424 11.8686 3.38424 12.2426 3.75827C12.6167 4.13229 12.6167 4.7387 12.2426 5.11272L9.35446 8.00091L12.2426 10.8891C12.6167 11.2631 12.6167 11.8695 12.2426 12.2435C11.8686 12.6176 11.2622 12.6176 10.8882 12.2435L8 9.35536L5.11182 12.2435C4.73779 12.6176 4.13138 12.6176 3.75736 12.2435Z"
+                fill="#A7D1F3" />
+            </svg>
+
+            <svg *ngIf="!showTutorial" width="16" height="16" viewBox="0 0 16 16" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M8 14C7.47105 14 7.04225 13.5712 7.04225 13.0423V8.95775H2.95775C2.4288 8.95775 2 8.52895 2 8C2 7.47105 2.4288 7.04225 2.95775 7.04225H7.04225V2.95775C7.04225 2.4288 7.47105 2 8 2C8.52895 2 8.95775 2.4288 8.95775 2.95775V7.04225H13.0423C13.5712 7.04225 14 7.47105 14 8C14 8.52895 13.5712 8.95775 13.0423 8.95775H8.95775V13.0423C8.95775 13.5712 8.52895 14 8 14Z"
+                fill="#A7D1F3" />
+            </svg>
+          </div>
+        </button>
+        <div class="tutorial_content">
+          <div class="title">
+            <span translate="VIEWS.TOPICS_TOPICID.TUTORIAL_TITLE"></span>
+            <span>🎉</span>
+          </div>
+          <div class="description" translate="VIEWS.TOPICS_TOPICID.TUTORIAL_DESC"></div>
+        </div>
+        <div class="tutorial_footer">
+          <button class="btn_medium_submit" translate="VIEWS.TOPICS_TOPICID.TUTORIAL_BTN_TAKE_THE_TOUR"
+            (click)="takeTour()"></button>
+          <a translate="VIEWS.TOPICS_TOPICID.TUTORIAL_BTN_SKIP" (click)="skipTour=true;"></a>
         </div>
       </div>
     </div>
@@ -919,38 +951,6 @@
     <div id="activities_button_wrap">
       <activities-button *ngIf="auth.loggedIn$" [topicId]="topic.id"></activities-button>
       <!-- add [topicId]="topic.id"-->
-    </div>
-  </div>
-  <div class="tutorial" [@showTutorial]="showTutorial? 'open': 'closed'" [ngClass]="{'hidden': skipTour }">
-    <button class="tutorial_header" (click)="showTutorial = !showTutorial">
-      <span translate="VIEWS.TOPICS_TOPICID.TUTORIAL_HEADING"></span>
-      <div class="close">
-        <svg *ngIf="showTutorial" width="16" height="16" viewBox="0 0 16 16" fill="none"
-          xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M3.75736 12.2435C3.38334 11.8695 3.38334 11.2631 3.75736 10.8891L6.64554 8.00091L3.75736 5.11272C3.38334 4.7387 3.38334 4.13229 3.75736 3.75827C4.13138 3.38424 4.73779 3.38424 5.11182 3.75827L8 6.64645L10.8882 3.75827C11.2622 3.38424 11.8686 3.38424 12.2426 3.75827C12.6167 4.13229 12.6167 4.7387 12.2426 5.11272L9.35446 8.00091L12.2426 10.8891C12.6167 11.2631 12.6167 11.8695 12.2426 12.2435C11.8686 12.6176 11.2622 12.6176 10.8882 12.2435L8 9.35536L5.11182 12.2435C4.73779 12.6176 4.13138 12.6176 3.75736 12.2435Z"
-            fill="#A7D1F3" />
-        </svg>
-
-        <svg *ngIf="!showTutorial" width="16" height="16" viewBox="0 0 16 16" fill="none"
-          xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M8 14C7.47105 14 7.04225 13.5712 7.04225 13.0423V8.95775H2.95775C2.4288 8.95775 2 8.52895 2 8C2 7.47105 2.4288 7.04225 2.95775 7.04225H7.04225V2.95775C7.04225 2.4288 7.47105 2 8 2C8.52895 2 8.95775 2.4288 8.95775 2.95775V7.04225H13.0423C13.5712 7.04225 14 7.47105 14 8C14 8.52895 13.5712 8.95775 13.0423 8.95775H8.95775V13.0423C8.95775 13.5712 8.52895 14 8 14Z"
-            fill="#A7D1F3" />
-        </svg>
-      </div>
-    </button>
-    <div class="tutorial_content">
-      <div class="title">
-        <span translate="VIEWS.TOPICS_TOPICID.TUTORIAL_TITLE"></span>
-        <span>🎉</span>
-      </div>
-      <div class="description" translate="VIEWS.TOPICS_TOPICID.TUTORIAL_DESC"></div>
-    </div>
-    <div class="tutorial_footer">
-      <button class="btn_medium_submit" translate="VIEWS.TOPICS_TOPICID.TUTORIAL_BTN_TAKE_THE_TOUR"
-        (click)="takeTour()"></button>
-      <a translate="VIEWS.TOPICS_TOPICID.TUTORIAL_BTN_SKIP" (click)="skipTour=true;"></a>
     </div>
   </div>
 </div>

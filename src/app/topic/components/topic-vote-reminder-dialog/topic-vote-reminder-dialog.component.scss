@@ -18,6 +18,10 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+
+    div {
+      line-height: 20px;
+    }
   }
 
   .button_wrap {
@@ -74,6 +78,10 @@
         display: flex;
         flex-direction: column;
         gap: 16px;
+
+        b {
+          margin-left: 4px;
+        }
       }
 
       .vote_info_wrap {
@@ -86,13 +94,16 @@
 
         .vote_info_text {
           display: flex;
+          flex-direction: column;
           justify-content: space-between;
-          align-items: center;
+          align-items: flex-start;
+          gap: 8px;
         }
       }
 
       .button_wrap {
         width: 100%;
+        padding: 0;
         .btn_medium_submit {
           width: 100%;
         }

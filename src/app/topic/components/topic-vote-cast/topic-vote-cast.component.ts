@@ -104,7 +104,7 @@ export class TopicVoteCastComponent implements OnInit {
             options
           }
         });
-
+      signDialog.afterClosed().subscribe(() => this.TopicService.reloadTopic());
       return;
     } else {
       options.forEach((dOption: any) => {
@@ -120,6 +120,7 @@ export class TopicVoteCastComponent implements OnInit {
               next: (vote) => {
                 this.vote = vote;
                 this.topic.vote = vote;
+                this.TopicService.reloadTopic()
               },
               error: (err) => {
                 console.error(err);
@@ -191,6 +192,7 @@ export class TopicVoteCastComponent implements OnInit {
       topic: this.topic
     }});
   }
+
   hasVoteEndedExpired() {
     return this.TopicVoteService.hasVoteEndedExpired(this.topic, this.vote);
   };
