@@ -32,7 +32,7 @@
             <div class="text_area">
               <span translate="COMPONENTS.TOPIC_VOTE_REMINDER.PREVIEW_EMAIL_GREETING"
                 [translateParams]="{userName: user.name}"></span>
-              <div><span translate="COMPONENTS.TOPIC_VOTE_REMINDER.PREVIEW_EMAIL_TEXT_WARN"></span><b
+              <div><span translate="COMPONENTS.TOPIC_VOTE_REMINDER.PREVIEW_EMAIL_TEXT_WARN"> </span><span> </span><b
                   *ngIf="vote.endsAt" translate="COMPONENTS.TOPIC_VOTE_REMINDER.PREVIEW_EMAIL_TEXT_DAYS_LEFT"
                   [translateParams]="{daysLeft: (vote.endsAt | amDifference:today:'days')}"></b></div>
             </div>

@@ -20,7 +20,7 @@ import { TopicArgumentService } from 'src/app/services/topic-argument.service';
       state('closed', style({
         padding: '0',
         'maxHeight': '0',
-        transition: 'max-height 0.2s ease-in-out',
+        transition: 'all 0.2s ease-in-out',
       }))
   ])]
 })

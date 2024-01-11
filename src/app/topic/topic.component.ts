@@ -213,7 +213,7 @@ export class TopicComponent implements OnInit {
         topic.padUrl = padURL.href; // Change of PAD URL here has to be before $sce.trustAsResourceUrl($scope.topic.padUrl);
         if (!sessionStorage.getItem('showTutorial')) {
           setTimeout(() => {
-            if (window.innerWidth <560) {
+            if (window.innerWidth < 560) {
               this.showTutorial = false;
             } else {
               this.showTutorial = true;
@@ -249,10 +249,10 @@ export class TopicComponent implements OnInit {
         this.TopicArgumentService.setParam('topicId', topic.id);
         return this.TopicArgumentService.loadItems().pipe(
           tap((args) => {
-            if(!args.length && topic.status !== this.TopicService.STATUSES.inProgress) {
+            if (!args.length && topic.status !== this.TopicService.STATUSES.inProgress) {
               this.hideDiscussion = true;
               if (!this.route.snapshot.fragment || this.route.snapshot.fragment === 'discussion') {
-                this.router.navigate([], {fragment: 'voting'});
+                this.router.navigate([], { fragment: 'voting' });
               }
             }
           })
@@ -396,7 +396,7 @@ export class TopicComponent implements OnInit {
   };
 
   hasVoteEndedExpired(topic: Topic, vote: Vote) {
-    return [this.STATUSES.followUp, this.STATUSES.closed].indexOf(topic.status) < 0 && vote && vote.endsAt && new Date() > new Date(vote.endsAt);
+    return this.TopicVoteService.hasVoteEndedExpired(topic, vote);
   };
 
   hasVoteEnded(topic: Topic, vote: Vote) {
@@ -419,7 +419,7 @@ export class TopicComponent implements OnInit {
     const inviteDialog = this.DialogService.open(InviteEditorsComponent, { data: { topic: topic } });
     inviteDialog.afterClosed().subscribe({
       next: (inviteUsers) => {
-     //   this.loadInvite$.next();
+        //   this.loadInvite$.next();
       },
       error: (error) => {
         this.NotificationService.addError(error);
