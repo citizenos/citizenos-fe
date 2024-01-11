@@ -46,6 +46,8 @@ import { trigger, state, style } from '@angular/animations';
 })
 export class TopicAttachmentsComponent implements OnInit {
   @ViewChild('attachmentInput') attachmentInput?: ElementRef;
+  @ViewChild('attachmendDropdown') attachmentDropdown?: ElementRef;
+
   blockAttachments = false;
   @Input() topic!: Topic;
   public form = {
@@ -91,9 +93,14 @@ export class TopicAttachmentsComponent implements OnInit {
       });
   }
 
+  closeDropdown() {
+    document.dispatchEvent(new Event('click'));
+    this.attachmentDropdown?.nativeElement.dispatchEvent(new Event('click'));
+  }
 
   triggerUpload() {
     this.attachmentInput?.nativeElement.click();
+    this.closeDropdown();
   };
 
   appendAttachment(attachment: any) {
@@ -136,6 +143,7 @@ export class TopicAttachmentsComponent implements OnInit {
 
 
   dropboxSelect() {
+    this.closeDropdown();
     this.TopicAttachmentService
       .dropboxSelect()
       .then((attachment) => {
@@ -146,6 +154,7 @@ export class TopicAttachmentsComponent implements OnInit {
   };
 
   oneDriveSelect() {
+    this.closeDropdown();
     this.TopicAttachmentService
       .oneDriveSelect()
       .then((attachment) => {
@@ -156,6 +165,7 @@ export class TopicAttachmentsComponent implements OnInit {
   };
 
   googleDriveSelect() {
+    this.closeDropdown();
     this.TopicAttachmentService
       .googleDriveSelect()
       .then((attachment) => {
