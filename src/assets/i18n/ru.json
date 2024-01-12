@@ -2263,7 +2263,7 @@
       "STATE_ITEM_ADD_FOLLOW_UP_DESC": "Определить следующие шаги",
       "STATE_ITEM_FOLLOW_UP_HEADING": "Стадия применения решения",
       "STATE_ITEM_FOLLOW_UP_DEADLINE": "@:VIEWS.TOPICS_TOPICID.VOTE_LBL_DEADLINE",
-      "STATE_ITEM_FOLLOW_UP_MILESTONE": "@:COMPONENTS.TOPIC_MILESTONES.HEADING_MILESTONE",
+      "STATE_ITEM_FOLLOW_UP_MILESTONE": "Milestones",
       "NO_VOTING_HEADING": "Система голосования еще не добавлена",
       "NO_VOTING_BTN_ADD": "Добавить систему голосования",
       "NO_VOTING_DESC_HEADING": "Как работает голосование",
