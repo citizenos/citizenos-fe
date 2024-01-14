@@ -180,6 +180,12 @@
         "7": "Воскресенье"
       }
     },
+    "CLOSE_VOTING_CONFIRM": {
+      "HEADING": "Close voting",
+      "ARE_YOU_SURE": "Are you sure you want to close this voting? You cannot undo this action.",
+      "CONFIRM_YES": "Yes, close this voting",
+      "CONFIRM_NO": "No, keep the voting open"
+    },
     "CREATE": {
       "TITLE_DISCUSSION": "Тема для обсуждения",
       "DESC_DISCUSSION": "Выберите этот вариант, если хотите инициировать обсуждение, прежде чем потенциально перейти к голосованию и/или стадии применения решения.",
@@ -207,6 +213,19 @@
       "WILL_NOT_BE_DUPLICATED_7": "публикации со стадии применения решения",
       "BTN_SUBMIT": "Дублировать тему",
       "BTN_CANCEL": "@:LNK_CANCEL"
+    },
+    "DOWNLOAD_VOTING_RESULTS": {
+      "HEADING": "Download vote results",
+      "MESSAGE_DESCRIPTION": "Are you sure you want to download the voting results? This will mean the vote is permanently closed.",
+      "MESSAGE_OPTIONS": "Here are some options:",
+      "HEADING_NOT_DOWNLOAD": "Extend the vote deadline",
+      "UPDATE_DEADLINE": "Change the deadline to try and collect more votes. This will keep the vote open, so you won't yet see the results.",
+      "HEADING_DOWNLOAD": "Download the results",
+      "GET_RESULTS": "The vote will be permanently closed.",
+      "FOLLOW_UP": "The topic will be moved into 'Follow-up' phase, so you can post updates on actions taken as a result of the vote.",
+      "BTN_EDIT_DEADLINE": "Edit vote deadline",
+      "BTN_CANCEL": "Don't download results",
+      "BTN_SUBMIT": "Download results"
     },
     "GROUP_ADD_TOPICS_DIALOG": {
       "HEADING": "Добавить темы в группу",
@@ -629,13 +648,14 @@
       "LBL_OPTION_NEUTRAL": "@:COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_NEUTRAL",
       "LBL_OPTION_VETO": "@:COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_VETO",
       "VOTE_HEADING_DELEGATE": "@:VIEWS.TOPICS_TOPICID.VOTE_HEADING_DELEGATE",
+      "LBL_VOTING_ENDED": "@:VIEWS.TOPICS_TOPICID.STATE_ITEM_VOTING_STATUS_ENDED",
       "VOTE_SUBMIT": "@:VIEWS.TOPICS_TOPICID.VOTE_SUBMIT",
       "HEADING_VOTE_REGISTERED": "@:VIEWS.TOPICS_TOPICID.HEADING_VOTE_REGISTERED",
       "VOTE_TXT_VOTE_REGISTERED": "@:VIEWS.TOPICS_TOPICID.VOTE_TXT_VOTE_REGISTERED",
       "HEADING_VOTE_ENDED": "Голосование завершено",
-      "VOTE_TXT_VOTE_ENDED": "Все проголосовали и документ готов к скачиванию.",
+      "VOTE_TXT_VOTE_ENDED": "You can now download the results.",
       "HEADING_VOTE_ENDED_EXPIRED": "Vote deadline has been reached",
-      "VOTE_TXT_VOTE_ENDED_EXPIRED": "Vote deadline has been reached and voting is now closed. To download results start topic follow-up or close the topic.",
+      "VOTE_TXT_VOTE_ENDED_EXPIRED": "Vote deadline has been reached and voting is now closed",
       "LNK_EDIT_VOTE": "Редактировать свой голос",
       "BTN_DOWNLOAD_USER_BDOC": "@:VIEWS.TOPICS_TOPICID.BTN_DOWNLOAD_USER_BDOC",
       "VOTE_VOTES_COUNTED": "@:VIEWS.TOPICS_TOPICID.VOTE_VOTES_COUNTED",
