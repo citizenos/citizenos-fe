@@ -13,6 +13,7 @@ import { TopicVoteDeadlineComponent } from '../topic-vote-deadline/topic-vote-de
 import { TopicVoteDelegateComponent } from '../topic-vote-delegate/topic-vote-delegate.component';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { TopicVoteReminderDialog } from 'src/app/topic/components/topic-vote-reminder-dialog/topic-vote-reminder-dialog.component';
+import { DownloadVoteResultsComponent } from '../download-vote-results/download-vote-results.component';
 
 @Component({
   selector: 'topic-vote-cast',
@@ -157,12 +158,27 @@ export class TopicVoteCastComponent implements OnInit {
       });
   }
   closeVoting() {
-    this.vote.endsAt = new Date();
-    this.saveVote();
-    this.topic.status = this.TopicService.STATUSES.followUp;
-    this.TopicService.patch(this.topic).pipe(take(1)).subscribe({
-      next: () => {
-        this.TopicService.reloadTopic();
+    const closeVoteDialog = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        level: 'warn',
+        heading: 'COMPONENTS.CLOSE_VOTING_CONFIRM.HEADING',
+        description: 'COMPONENTS.CLOSE_VOTING_CONFIRM.ARE_YOU_SURE',
+        confirmBtn: 'COMPONENTS.CLOSE_VOTING_CONFIRM.CONFIRM_YES',
+        closeBtn: 'COMPONENTS.CLOSE_VOTING_CONFIRM.CONFIRM_NO'
+      }
+    });
+    closeVoteDialog.afterClosed().subscribe({
+      next: (value) => {
+        if (value) {
+          this.vote.endsAt = new Date();
+          this.saveVote();
+          this.topic.status = this.TopicService.STATUSES.followUp;
+          this.TopicService.patch(this.topic).pipe(take(1)).subscribe({
+            next: () => {
+              this.TopicService.reloadTopic();
+            }
+          });
+        }
       }
     });
   }
@@ -192,6 +208,9 @@ export class TopicVoteCastComponent implements OnInit {
         topic: this.topic
       }
     });
+  }
+  canEditDeadline () {
+    return this.topic.status === this.TopicService.STATUSES.voting;
   }
 
   hasVoteEndedExpired() {
@@ -299,4 +318,42 @@ export class TopicVoteCastComponent implements OnInit {
     }
     window.location.href = url;
   };
+
+  triggerFinalDownload(type: string, includeCSV?: boolean) {
+    const finalDownloadDialog = this.dialog.open(DownloadVoteResultsComponent);
+    finalDownloadDialog.afterClosed().subscribe({
+      next: (allow: any) => {
+        if (allow === 'deadline') {
+          this.editDeadline();
+        } else if (allow === true) {
+          this.topic.status = this.TopicService.STATUSES.followUp;
+          this.TopicService.patch(this.topic).pipe(take(1)).subscribe({
+            next: () => {
+              this.TopicService.reloadTopic();
+              this.TopicVoteService.loadVote({topicId: this.topic.id, voteId: this.topic.voteId!})
+              .pipe(take(1))
+              .subscribe({
+                next: (vote) => {
+                  let url = ''
+                  if (type === 'zip') {
+                    url = vote.downloads.zipFinal;
+                  } else {
+                    url = vote.downloads.bdocFinal;
+                  }
+                  if (!url) return;
+                  if (includeCSV) {
+                    url += '&include[]=csv';
+                  }
+                  window.location.href = url;
+                }
+              });
+            }
+          });
+        }
+      },
+      error: (err) => {
+
+      }
+    })
+  }
 }

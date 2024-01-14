@@ -199,7 +199,7 @@ export class TopicComponent implements OnInit {
           this.hideTopicContent = true;
         }
         if (topic.voteId) {
-          this.vote$ = this.TopicVoteService.get({ topicId: topic.id, voteId: topic.voteId });
+          this.vote$ = this.TopicVoteService.loadVote({ topicId: topic.id, voteId: topic.voteId });
           this.cd.detectChanges();
         }
         if (topic.status === this.TopicService.STATUSES.followUp) {

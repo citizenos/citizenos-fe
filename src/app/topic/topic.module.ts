@@ -47,6 +47,7 @@ import { TopicEditDisabledDialogComponent } from './components/topic-edit-disabl
 import { TopicSettingsDisabledDialogComponent } from './components/topic-settings-disabled-dialog/topic-settings-disabled-dialog.component';
 import { TopicAddGroupsComponent, TopicAddGroupsDialogComponent } from './components/topic-add-groups/topic-add-groups.component';
 import { TopicOnboardingComponent } from './components/topic-onboarding/topic-onboarding.component';
+import { DownloadVoteResultsComponent } from './components/download-vote-results/download-vote-results.component';
 
 @NgModule({
   declarations: [
@@ -99,7 +100,8 @@ import { TopicOnboardingComponent } from './components/topic-onboarding/topic-on
     TopicSettingsDisabledDialogComponent,
     TopicAddGroupsComponent,
     TopicAddGroupsDialogComponent,
-    TopicOnboardingComponent
+    TopicOnboardingComponent,
+    DownloadVoteResultsComponent
   ],
   imports: [
     LinkyModule,
