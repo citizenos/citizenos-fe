@@ -30,6 +30,7 @@ export class DashboardComponent {
   showNoEngagements = false;
 
   showPublic = true;
+  showCreate = false;
 
   constructor(
     public auth: AuthService,
@@ -59,7 +60,6 @@ export class DashboardComponent {
     );
     this.topics$ = this.UserTopicService.loadItems().pipe(
       tap((topics) => {
-        console.log(topics.length)
         if (topics.length === 0) {
           this.showPublic = true;
           this.showNoEngagements = true;
@@ -83,5 +83,9 @@ export class DashboardComponent {
       this.app.mobileTutorial = true;
       onBoarding.afterClosed().subscribe(() => this.app.mobileTutorial = false);
     });
+  }
+
+  showCreateMenu () {
+    this.showCreate = !this.showCreate;
   }
 }
