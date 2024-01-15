@@ -2,6 +2,9 @@
 
 .nav_mobile {
   display: none;
+  @include mixins.mobile {
+    border-bottom: 2px solid var(--color-background);
+  }
   @include mixins.tablet {
     width: 100%;
     height: 56px;
@@ -263,9 +266,15 @@
       @include mixins.mobile {
         flex-direction: row;
 
-        .btn_big_submit {
+        .btn_big_submit, .btn_big_submit_ghost {
           width: 100%;
           min-width: auto;
+
+          &:hover {
+            svg {
+              transform: rotate(360deg);
+            }
+          }
         }
       }
     }

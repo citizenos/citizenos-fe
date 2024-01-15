@@ -1,5 +1,5 @@
 import { Component, Input, Inject } from '@angular/core';
-import { catchError, interval, of, switchMap, take, takeWhile } from 'rxjs';
+import { Subscriber, Subscription, catchError, interval, of, switchMap, take, takeWhile } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { DialogService } from 'src/app/shared/dialog';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
@@ -15,12 +15,13 @@ export class SmartIdLoginFormComponent {
 
   smartIdForm = new UntypedFormGroup({
     pid: new UntypedFormControl('', Validators.compose([Validators.pattern(/^[0-9]{11}$/), Validators.required])),
-    countryCode: new UntypedFormControl('', Validators.compose([Validators.pattern(/^[A-Z]{2}$/), Validators.required]))
+    countryCode: new UntypedFormControl('EE', Validators.compose([Validators.pattern(/^[A-Z]{2}$/), Validators.required]))
   });
   pid?: string;
   countryCode = 'EE';
   challengeID?: number | null;
   isLoading = false;
+  ccSubscriber?:Subscription;
   constructor(private AuthService: AuthService, private dialog: DialogService, @Inject(ActivatedRoute) private route: ActivatedRoute, private router: Router) {
 
   }
@@ -28,8 +29,18 @@ export class SmartIdLoginFormComponent {
   ngOnInit(): void {
     this.route.queryParams.subscribe(value => {
       this.redirectSuccess = this.redirectSuccess || value['redirectSuccess'];
-    }
-    )
+    });
+    this.ccSubscriber = this.smartIdForm.get('countryCode')?.valueChanges.subscribe(value => {
+      if (value && value !== value.toUpperCase()) {
+        this.smartIdForm.get('countryCode')?.patchValue(value.toUpperCase());
+      }
+   });
+  }
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    this.ccSubscriber?.unsubscribe();
   }
 
   authSmartId() {
@@ -92,4 +103,7 @@ export class SmartIdLoginFormComponent {
         }
       });
   };
+
+  countryCodeChange () {
+  }
 }

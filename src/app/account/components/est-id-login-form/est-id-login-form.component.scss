@@ -8,6 +8,13 @@
   width: 100%;
 }
 
+.input_wrap {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 8px;
+}
+
 .loader {
   font-size: 10px;
   margin: 22px auto;
