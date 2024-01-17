@@ -244,6 +244,38 @@ input {
   flex-direction: column;
   padding: 0;
 
+
+  &.mobile_filters_selection {
+    &.dropdown_active {
+      .selection {
+        svg {
+          transform: rotate(180deg);
+        }
+      }
+    }
+
+    .selection {
+      border: none;
+      font-weight: 600;
+      padding: 8px 16px;
+
+      .selected_item {
+        font-weight: 600;
+      }
+
+      .btn_medium_plain {
+        margin-top: 0;
+      }
+    }
+
+    .options {
+      position: relative;
+      height: max-content;
+      max-height: max-content;
+      margin-top: 0;
+    }
+  }
+
   .selection {
     position: relative;
     cursor: pointer;

@@ -35,6 +35,11 @@
   padding: 16px;
   gap: 16px;
 
+  @include mixins.mobile {
+    margin: 0 8px;
+    padding: 0;
+    width: auto;
+  }
   .dropdown {
     width: 100%;
   }
