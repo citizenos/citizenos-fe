@@ -10,25 +10,27 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./activities-button.component.scss']
 })
 export class ActivitiesButtonComponent {
-  @Input() groupId?:string;
-  @Input() topicId?:string;
-  count = 0;
-  unreadActivitiesCount$: Observable<number> = of(0);
+  @Input() groupId?: string;
+  @Input() topicId?: string;
+  count = <any>0;
+  wWidth = window.innerWidth;
+  unreadActivitiesCount$: Observable<any> = of(0);
   constructor(
     public app: AppService,
     private ActivityService: ActivityService,
-    private auth:AuthService
-  ) {}
-
-  ngOnInit(): void {
-    this.unreadActivitiesCount$ = this.auth.loggedIn$.pipe((switchMap((loggedIn) => {
+    private auth: AuthService
+  ) {
+    this.unreadActivitiesCount$ = this.auth.loggedIn$.pipe(switchMap((loggedIn: any) => {
       if (loggedIn) {
-        return this.ActivityService.getUnreadActivities({groupId: this.groupId, topicId: this.topicId});
+        return this.ActivityService.getUnreadActivities({ groupId: this.groupId, topicId: this.topicId });
       }
       return of(0);
-    })),
+    }),
     tap((count) => {
+      console.log('COUNT', count)
       this.count = count;
     }));
   }
+
+  ngOnInit(): void { }
 }

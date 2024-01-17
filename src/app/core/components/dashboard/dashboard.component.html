@@ -261,7 +261,7 @@
             [routerLink]="['/', translate.currentLang, 'public', 'groups']"></button>
         </div>
       </div>
-      <div class="dashboard_section" [TourItem]="{tourid: 'dashboard', index: 5, position: 'bottom'}">
+      <div class="dashboard_section items_list_section" [TourItem]="{tourid: 'dashboard', index: 5, position: 'bottom'}">
         <div class="section_header">
           <div class="small_heading" translate="VIEWS.DASHBOARD.PUBLIC_TOPICS_HEADER"></div><a class="view_more_link"
             [routerLink]="['/', translate.currentLang, 'public', 'topics']"><span
@@ -282,7 +282,7 @@
       </div>
     </ng-container>
     <ng-container *ngIf="topics.length">
-      <div class="dashboard_section" [TourItem]="{tourid: 'dashboard', index: 5, position: 'bottom'}">
+      <div class="dashboard_section items_list_section" [TourItem]="{tourid: 'dashboard', index: 5, position: 'bottom'}">
         <div class="section_header">
           <div class="small_heading" translate="VIEWS.DASHBOARD.MY_TOPICS_HEADER"></div>
           <a class="view_more_link" [routerLink]="['/', translate.currentLang, 'my', 'topics']"><span
@@ -304,7 +304,7 @@
   <ng-container *ngIf="groups$ | async as groups">
     <ng-container *ngIf="!groups.length">
       <ng-container *ngIf="publicgroups$ | async as groups;">
-        <div class="dashboard_section" [TourItem]="{tourid: 'dashboard', index: 6, position: 'bottom'}">
+        <div class="dashboard_section items_list_section" [TourItem]="{tourid: 'dashboard', index: 6, position: 'bottom'}">
           <div class="section_header">
             <div class="small_heading" translate="VIEWS.HOME.PUBLIC_GROUPS_TITLE"></div>
             <a class="view_more_link" [routerLink]="['/', translate.currentLang, 'public', 'groups']"><span
@@ -325,7 +325,7 @@
       </ng-container>
     </ng-container>
     <ng-container *ngIf="groups.length">
-      <div class="dashboard_section" [TourItem]="{tourid: 'dashboard', index: 6, position: 'bottom'}">
+      <div class="dashboard_section items_list_section" [TourItem]="{tourid: 'dashboard', index: 6, position: 'bottom'}">
         <div class="section_header">
           <div class="small_heading" translate="VIEWS.DASHBOARD.MY_GROUPS_HEADER"></div><a class="view_more_link"
             [routerLink]="['/', translate.currentLang, 'my', 'groups']"><span
@@ -462,7 +462,7 @@
     </div>
   </div>
   <ng-container *ngIf="topics$ | async as topics">
-    <div class="dashboard_section" *ngIf="topics.length"
+    <div class="dashboard_section items_list_section" *ngIf="topics.length"
       [TourItem]="{tourid: 'dashboard', index: 5, position: 'bottom'}">
       <div class="section_header">
         <div class="small_heading" translate="VIEWS.DASHBOARD.PUBLIC_TOPICS_HEADER"></div><a class="view_more_link"
@@ -485,7 +485,7 @@
   </ng-container>
   <ng-container *ngIf="groups$ | async as mygroups">
     <ng-container *ngIf="mygroups.length && (publicgroups$ | async) as groups;">
-      <div class="dashboard_section" [TourItem]="{tourid: 'dashboard', index: 6, position: 'bottom'}">
+      <div class="dashboard_section items_list_section" [TourItem]="{tourid: 'dashboard', index: 6, position: 'bottom'}">
         <div class="section_header">
           <div class="small_heading" translate="VIEWS.HOME.PUBLIC_GROUPS_TITLE"></div>
           <a class="view_more_link" [routerLink]="['/', translate.currentLang, 'public', 'groups']"><span

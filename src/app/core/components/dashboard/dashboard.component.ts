@@ -68,6 +68,7 @@ export class DashboardComponent {
     );
     this.publictopics$ = this.PublicTopicService.loadItems();
     this.publicgroups$ = this.PublicGroupService.loadItems();
+    this.app.mobileNavBox = true;
   }
 
   trackByTopic(index: number, element: any) {
@@ -87,5 +88,9 @@ export class DashboardComponent {
 
   showCreateMenu () {
     this.showCreate = !this.showCreate;
+  }
+
+  ngOnDestroy(): void {
+    this.app.mobileNavBox = false;
   }
 }

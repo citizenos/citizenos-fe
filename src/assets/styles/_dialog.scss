@@ -32,6 +32,9 @@
   width: 100%;
   min-height: 100%;
   justify-content: center;
+  @include mixins.mobile {
+    padding: 0;
+  }
 }
 .dialog {
   display: flex;
@@ -53,12 +56,15 @@
     min-width: initial;
     max-width: 100%;
     width: 100%;
+    position: absolute;
     z-index: 9999999;
-    position: fixed;
+    padding: 0;
     left: 0;
     top: 0;
     flex: 1 1;
-    justify-content: flex-start;
+    background-color: var(--color-surfaces);
+    min-height: 100%;
+    border-radius: 0;
   }
 
   .dialog_header {
@@ -72,7 +78,9 @@
 
     @include mixins.mobile {
       border-radius: 16px 16px 0 0;
+      text-align: center;
     }
+
     &.error {
       background-color: var(--color-error-background);
       color: var(--color-error);
