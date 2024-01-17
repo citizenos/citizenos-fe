@@ -1,93 +1,95 @@
-<div class="overlay" mat-dialog-close></div>
-<div class="dialog">
-  <div class="dialog_header warning">
-    <div class="header_with_icon">
-      <div class="icon_notification">
-        <ng-container>
-          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="40" height="40" rx="20" fill="#F39129" />
-            <path
-              d="M19.0645 8C18.4876 8 18.0304 8.48668 18.0664 9.06238L18.9414 23.0624C18.9743 23.5894 19.4114 24 19.9395 24H20.0605C20.5886 24 21.0257 23.5894 21.0586 23.0624L21.9336 9.06238C21.9696 8.48668 21.5124 8 20.9355 8H19.0645Z"
-              fill="white" />
-            <path
-              d="M20 31C21.1046 31 22 30.1046 22 29C22 27.8954 21.1046 27 20 27C18.8954 27 18 27.8954 18 29C18 30.1046 18.8954 31 20 31Z"
-              fill="white" />
-          </svg>
-        </ng-container>
-      </div>
-      <h4 class="title" translate="COMPONENTS.ARGUMENT_REPORT.HEADING"></h4>
-    </div>
-    <div class="dialog_close">
-      <a class="btn_dialog_close icon" mat-dialog-close>
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M7.72152 6.29537C7.3277 5.90154 6.68919 5.90154 6.29537 6.29537C5.90154 6.68919 5.90154 7.3277 6.29537 7.72153L10.5738 12L6.29541 16.2785C5.90159 16.6723 5.90159 17.3108 6.29541 17.7046C6.68923 18.0985 7.32774 18.0985 7.72156 17.7046L12 13.4262L16.2784 17.7046C16.6723 18.0985 17.3108 18.0985 17.7046 17.7046C18.0984 17.3108 18.0984 16.6723 17.7046 16.2785L13.4262 12L17.7046 7.72153C18.0985 7.3277 18.0985 6.68919 17.7046 6.29537C17.3108 5.90154 16.6723 5.90154 16.2785 6.29537L12 10.5739L7.72152 6.29537Z"
-            fill="#2C3B47" />
-        </svg>
-      </a>
-    </div>
-  </div>
-  <div class="dialog_content">
-    <div class="dialog_info_wrap">
-      <div class="dialog_info row">
-        <div class="delete_info_button_wrap">
-          <div class="delete_info_text" translate="COMPONENTS.ARGUMENT_REPORT.MESSAGE_MAIN"></div>
-        </div>
-        <div class="profile_image_wrap">
-          <img class="profile_image" *ngIf="argument.creator.imageUrl" [src]="argument.creator.imageUrl">
-          <div class="profile_image_filler" *ngIf="!argument.creator.imageUrl">
-            <cos-initials *ngIf="argument.creator.name" [name]="argument.creator.name">
-            </cos-initials>
-          </div>
-        </div>
-        <div class="bold" [innerHTML]="argument.creator.name"></div>
-      </div>
-    </div>
-
-    <form [formGroup]="report">
-      <cos-input [placeholder]="'COMPONENTS.ARGUMENT_REPORT.LABLE_REASON' | translate">
-        <div class="dropdown" [cosDropdown]>
-          <div class="selection">
-            <div class="selected_item" [translate]="'TXT_REPORT_TYPES_' + report.value.type.toUpperCase()">
-            </div>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
+<div class="overlay" dialog-close></div>
+<div class="dialog_wrap">
+  <div class="dialog">
+    <div class="dialog_header warning">
+      <div class="header_with_icon">
+        <div class="icon_notification">
+          <ng-container>
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="40" height="40" rx="20" fill="#F39129" />
+              <path
+                d="M19.0645 8C18.4876 8 18.0304 8.48668 18.0664 9.06238L18.9414 23.0624C18.9743 23.5894 19.4114 24 19.9395 24H20.0605C20.5886 24 21.0257 23.5894 21.0586 23.0624L21.9336 9.06238C21.9696 8.48668 21.5124 8 20.9355 8H19.0645Z"
+                fill="white" />
+              <path
+                d="M20 31C21.1046 31 22 30.1046 22 29C22 27.8954 21.1046 27 20 27C18.8954 27 18 27.8954 18 29C18 30.1046 18.8954 31 20 31Z"
+                fill="white" />
             </svg>
+          </ng-container>
+        </div>
+        <h4 class="title" translate="COMPONENTS.ARGUMENT_REPORT.HEADING"></h4>
+      </div>
+      <div class="dialog_close">
+        <a class="btn_dialog_close icon" dialog-close>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M7.72152 6.29537C7.3277 5.90154 6.68919 5.90154 6.29537 6.29537C5.90154 6.68919 5.90154 7.3277 6.29537 7.72153L10.5738 12L6.29541 16.2785C5.90159 16.6723 5.90159 17.3108 6.29541 17.7046C6.68923 18.0985 7.32774 18.0985 7.72156 17.7046L12 13.4262L16.2784 17.7046C16.6723 18.0985 17.3108 18.0985 17.7046 17.7046C18.0984 17.3108 18.0984 16.6723 17.7046 16.2785L13.4262 12L17.7046 7.72153C18.0985 7.3277 18.0985 6.68919 17.7046 6.29537C17.3108 5.90154 16.6723 5.90154 16.2785 6.29537L12 10.5739L7.72152 6.29537Z"
+              fill="#2C3B47" />
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="dialog_content">
+      <div class="dialog_info_wrap">
+        <div class="dialog_info row">
+          <div class="delete_info_button_wrap">
+            <div class="delete_info_text" translate="COMPONENTS.ARGUMENT_REPORT.MESSAGE_MAIN"></div>
           </div>
-          <div class="options">
-            <div class="option" *ngFor="let type of reportTypes" (click)="report.value.type=type"
-              [translate]="'TXT_REPORT_TYPES_'+ type.toUpperCase()">
+          <div class="profile_image_wrap">
+            <img class="profile_image" *ngIf="argument.creator.imageUrl" [src]="argument.creator.imageUrl">
+            <div class="profile_image_filler" *ngIf="!argument.creator.imageUrl">
+              <cos-initials *ngIf="argument.creator.name" [name]="argument.creator.name">
+              </cos-initials>
             </div>
           </div>
+          <div class="bold" [innerHTML]="argument.creator.name"></div>
         </div>
-      </cos-input>
+      </div>
 
-      <cos-input placeholder="{{'COMPONENTS.ARGUMENT_REPORT.PLACEHOLDER_REPORT_TEXT' | translate}}">
-        <textarea formControlName="text"
-          [ngClass]="{'error_input': report.controls['text'].errors && report.controls['text'].errors['required'] && report.touched}"
-          [placeholder]="'COMPONENTS.ARGUMENT_REPORT.PLACEHOLDER_REPORT_TEXT' | translate" [maxlength]="2048"
-          rows="5"></textarea>
-        <label for="groupDescription" class="error_label"
-          *ngIf="report.controls['text'].errors && report.controls['text'].errors['required'] && report.touched">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" clip-rule="evenodd"
-              d="M8.89438 1.78863C8.52586 1.05158 7.47405 1.05158 7.10553 1.78863L0.723562 14.5526C0.391112 15.2175 0.874608 15.9998 1.61799 15.9998H14.3819C15.1253 15.9998 15.6088 15.2175 15.2763 14.5526L8.89438 1.78863ZM6.99996 6.99977C6.99996 6.44749 7.44767 5.99977 7.99996 5.99977C8.55224 5.99977 8.99996 6.44749 8.99996 6.99977V9.99977C8.99996 10.5521 8.55224 10.9998 7.99996 10.9998C7.44767 10.9998 6.99996 10.5521 6.99996 9.99977V6.99977ZM6.99996 12.9998C6.99996 12.4475 7.44767 11.9998 7.99996 11.9998C8.55224 11.9998 8.99996 12.4475 8.99996 12.9998C8.99996 13.5521 8.55224 13.9998 7.99996 13.9998C7.44767 13.9998 6.99996 13.5521 6.99996 12.9998Z"
-              fill="#EF4025" />
-          </svg>
-          <div class="error_text">
-            <span translate="COMPONENTS.ARGUMENT_REPORT.ERROR_TEXT"></span>
+      <form [formGroup]="report">
+        <cos-input [placeholder]="'COMPONENTS.ARGUMENT_REPORT.LABLE_REASON' | translate">
+          <div class="dropdown" [cosDropdown]>
+            <div class="selection">
+              <div class="selected_item" [translate]="'TXT_REPORT_TYPES_' + report.value.type.toUpperCase()">
+              </div>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </div>
+            <div class="options">
+              <div class="option" *ngFor="let type of reportTypes" (click)="report.value.type=type"
+                [translate]="'TXT_REPORT_TYPES_'+ type.toUpperCase()">
+              </div>
+            </div>
           </div>
-        </label>
-      </cos-input>
-    </form>
-  </div>
-  <div class="dialog_content">
-    <div class="button_wrap">
-      <button class="btn_big_submit" [disabled]="report.invalid" translate="COMPONENTS.ARGUMENT_REPORT.BTN_SUBMIT"
-        (click)="doReport()"></button>
-      <a mat-dialog-close translate="COMPONENTS.ARGUMENT_REPORT.BTN_CANCEL"></a>
+        </cos-input>
+
+        <cos-input placeholder="{{'COMPONENTS.ARGUMENT_REPORT.PLACEHOLDER_REPORT_TEXT' | translate}}">
+          <textarea formControlName="text"
+            [ngClass]="{'error_input': report.controls['text'].errors && report.controls['text'].errors['required'] && report.touched}"
+            [placeholder]="'COMPONENTS.ARGUMENT_REPORT.PLACEHOLDER_REPORT_TEXT' | translate" [maxlength]="2048"
+            rows="5"></textarea>
+          <label for="groupDescription" class="error_label"
+            *ngIf="report.controls['text'].errors && report.controls['text'].errors['required'] && report.touched">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M8.89438 1.78863C8.52586 1.05158 7.47405 1.05158 7.10553 1.78863L0.723562 14.5526C0.391112 15.2175 0.874608 15.9998 1.61799 15.9998H14.3819C15.1253 15.9998 15.6088 15.2175 15.2763 14.5526L8.89438 1.78863ZM6.99996 6.99977C6.99996 6.44749 7.44767 5.99977 7.99996 5.99977C8.55224 5.99977 8.99996 6.44749 8.99996 6.99977V9.99977C8.99996 10.5521 8.55224 10.9998 7.99996 10.9998C7.44767 10.9998 6.99996 10.5521 6.99996 9.99977V6.99977ZM6.99996 12.9998C6.99996 12.4475 7.44767 11.9998 7.99996 11.9998C8.55224 11.9998 8.99996 12.4475 8.99996 12.9998C8.99996 13.5521 8.55224 13.9998 7.99996 13.9998C7.44767 13.9998 6.99996 13.5521 6.99996 12.9998Z"
+                fill="#EF4025" />
+            </svg>
+            <div class="error_text">
+              <span translate="COMPONENTS.ARGUMENT_REPORT.ERROR_TEXT"></span>
+            </div>
+          </label>
+        </cos-input>
+      </form>
     </div>
-  </div>
-  <div class="dialog_footer">
+    <div class="dialog_content">
+      <div class="button_wrap">
+        <button class="btn_big_submit" [disabled]="report.invalid" translate="COMPONENTS.ARGUMENT_REPORT.BTN_SUBMIT"
+          (click)="doReport()"></button>
+        <a dialog-close translate="COMPONENTS.ARGUMENT_REPORT.BTN_CANCEL"></a>
+      </div>
+    </div>
+    <div class="dialog_footer">
+    </div>
   </div>
 </div>

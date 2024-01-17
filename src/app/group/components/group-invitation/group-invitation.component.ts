@@ -1,8 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, take } from 'rxjs';
-import { RegisterComponent } from 'src/app/account/components/register/register.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { LocationService } from 'src/app/services/location.service';
@@ -18,7 +17,7 @@ import { InviteData } from 'src/app/interfaces/dialogdata';
 export class GroupInvitationComponent implements OnInit {
   invite: any;
   config = <any>this.ConfigService.get('links');
-  constructor(private ConfigService: ConfigService, private dialog: MatDialog, @Inject(MAT_DIALOG_DATA) private data: InviteData, private Auth: AuthService, private Location: LocationService, private router: Router) {
+  constructor(private ConfigService: ConfigService, private dialog: DialogService, @Inject(DIALOG_DATA) private data: InviteData, private Auth: AuthService, private Location: LocationService, private router: Router) {
     this.invite = this.data.invite;
   }
 
@@ -72,7 +71,7 @@ export class GroupInvitationComponent implements OnInit {
 export class GroupInvitationDialogComponent implements OnInit {
   inviteId: string = '';
 
-  constructor(Auth: AuthService, dialog: MatDialog, GroupInviteUserService: GroupInviteUserService, route: ActivatedRoute, router: Router, Notification: NotificationService) {
+  constructor(Auth: AuthService, dialog: DialogService, GroupInviteUserService: GroupInviteUserService, route: ActivatedRoute, router: Router, Notification: NotificationService) {
 
     /*LOAD INVITE*/
     route.params.pipe(

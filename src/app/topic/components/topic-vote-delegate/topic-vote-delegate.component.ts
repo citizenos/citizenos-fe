@@ -4,7 +4,7 @@ import { VoteDelegationService } from 'src/app/services/vote-delegation.service'
 import { AuthService } from 'src/app/services/auth.service';
 import { TopicService } from 'src/app/services/topic.service';
 import { NotificationService } from 'src/app/services/notification.service';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DIALOG_DATA } from 'src/app/shared/dialog';
 import { debounceTime, distinctUntilChanged, of, take, switchMap } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { User } from 'src/app/interfaces/user';
@@ -22,7 +22,7 @@ export class TopicVoteDelegateComponent {
   public resultCount = 0;
   public searchStringUser = null;
 
-  constructor(private Translate: TranslateService, @Inject(MAT_DIALOG_DATA) private data: any, private AuthService: AuthService, private TopicMemberUserService: TopicMemberUserService, private NotificationService: NotificationService, private VoteDelegation: VoteDelegationService, private TopicService: TopicService) {
+  constructor(private Translate: TranslateService, @Inject(DIALOG_DATA) private data: any, private AuthService: AuthService, private TopicMemberUserService: TopicMemberUserService, private NotificationService: NotificationService, private VoteDelegation: VoteDelegationService, private TopicService: TopicService) {
     console.debug('TopicVoteDelegateController');
     this.topic = data.topic;
     this.searchResultUsers$ = of([]);

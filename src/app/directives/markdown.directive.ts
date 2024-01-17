@@ -69,6 +69,7 @@ export class MarkdownDirective implements OnDestroy {
         this.updateCharacterCount(el);
       },
     }],
+    minHeight: '100px',
     element: this.el.nativeElement,
     initialValue: this.item
   };

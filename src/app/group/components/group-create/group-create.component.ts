@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, Inject } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { forkJoin, map, of, take, takeWhile } from 'rxjs';
@@ -24,8 +24,12 @@ import { languages } from 'src/app/services/language.service';
 export class GroupCreateComponent implements OnInit {
   @ViewChild('imageUpload') fileInput?: ElementRef;
 
-  countries = countries;
-  languages = languages;
+  countries = countries.sort((a: any, b: any) => {
+    return a.name.localeCompare(b.name);
+  });
+  languages = languages.sort((a: any, b: any) => {
+    return a.name.localeCompare(b.name);
+  });
   group: Group = <Group>{
     name: '',
     description: '',
@@ -74,7 +78,7 @@ export class GroupCreateComponent implements OnInit {
     private Notification: NotificationService,
     private router: Router,
     private route: ActivatedRoute,
-    private dialog: MatDialog,
+    private dialog: DialogService,
     private Search: SearchService,
     private GroupInviteUser: GroupInviteUserService,
     public GroupMemberTopicService: GroupMemberTopicService,
@@ -195,63 +199,63 @@ export class GroupCreateComponent implements OnInit {
     saveGroup['rules'] = this.rules?.map(rule => rule.rule).filter((rule) => !!rule);
     const afterCreate = (group: Group) => {
       this.group = Object.assign(this.group, group);
-          if (this.imageFile) {
-            this.GroupService
-              .uploadGroupImage(this.imageFile, this.group.id).pipe(
-                takeWhile((e) => !e.link, true)
-              )
-              .subscribe((res: any) => {
-                if (res.link) {
-                  this.group.imageUrl = res.link;
+      if (this.imageFile) {
+        this.GroupService
+          .uploadGroupImage(this.imageFile, this.group.id).pipe(
+            takeWhile((e) => !e.link, true)
+          )
+          .subscribe((res: any) => {
+            if (res.link) {
+              this.group.imageUrl = res.link;
 
-                  this.dialog.closeAll();
-                  this.GroupService.reset();
-                  if (group.visibility === this.VISIBILITY.public) {
-                    this.router.navigate(['/groups', group.id]);
-                  } else {
-                    this.router.navigate(['/my', 'groups', group.id]);
-                  }
-                }
-              });
-          } else {
-            this.GroupService.reset();
-            if (group.visibility === this.VISIBILITY.public) {
-              this.router.navigate(['/groups', group.id]);
-            } else {
-              this.router.navigate(['/my', 'groups', group.id]);
+              this.dialog.closeAll();
+              this.GroupService.reset();
+              if (group.visibility === this.VISIBILITY.public) {
+                this.router.navigate(['/groups', group.id]);
+              } else {
+                this.router.navigate(['/my', 'groups', group.id]);
+              }
             }
-          }
-
-          this.doInviteMembers();
-          this.doAddTopics();
-          this.Notification.addSuccess('VIEWS.GROUP_CREATE.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.GROUP_CREATE.NOTIFICATION_SUCCESS_TITLE');
-    }
-    if (!this.group.id) {
-    this.GroupService.save(saveGroup).pipe(take(1))
-    .subscribe({
-      next: (group) => {
-        this.group = Object.assign(this.group, group);
-        afterCreate(group);
-      },
-      error: (errorResponse) => {
-        if (errorResponse && errorResponse.errors) {
-          this.errors = errorResponse.errors;
+          });
+      } else {
+        this.GroupService.reset();
+        if (group.visibility === this.VISIBILITY.public) {
+          this.router.navigate(['/groups', group.id]);
+        } else {
+          this.router.navigate(['/my', 'groups', group.id]);
         }
       }
-    });
+
+      this.doInviteMembers();
+      this.doAddTopics();
+      this.Notification.addSuccess('VIEWS.GROUP_CREATE.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.GROUP_CREATE.NOTIFICATION_SUCCESS_TITLE');
+    }
+    if (!this.group.id) {
+      this.GroupService.save(saveGroup).pipe(take(1))
+        .subscribe({
+          next: (group) => {
+            this.group = Object.assign(this.group, group);
+            afterCreate(group);
+          },
+          error: (errorResponse) => {
+            if (errorResponse && errorResponse.errors) {
+              this.errors = errorResponse.errors;
+            }
+          }
+        });
     } else {
       this.GroupService.update(saveGroup).pipe(take(1))
-      .subscribe({
-        next: (group) => {
-          this.group = Object.assign(this.group, group);
-          afterCreate(group);
-        },
-        error: (errorResponse) => {
-          if (errorResponse && errorResponse.errors) {
-            this.errors = errorResponse.errors;
+        .subscribe({
+          next: (group) => {
+            this.group = Object.assign(this.group, group);
+            afterCreate(group);
+          },
+          error: (errorResponse) => {
+            if (errorResponse && errorResponse.errors) {
+              this.errors = errorResponse.errors;
+            }
           }
-        }
-      });
+        });
     }
   }
 

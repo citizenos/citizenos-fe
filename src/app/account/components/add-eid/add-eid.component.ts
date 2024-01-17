@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { DIALOG_DATA, DialogService } from 'src/app/shared/dialog';
 import { ConfigService } from 'src/app/services/config.service';
 import { ConnectEidComponent } from '../connect-eid/connect-eid.component';
 import { ConnectSmartIdComponent } from '../connect-smart-id/connect-smart-id.component';
@@ -12,7 +12,7 @@ import { ConnectSmartIdComponent } from '../connect-smart-id/connect-smart-id.co
 export class AddEidComponent implements OnInit {
   authMethodsAvailable = this.ConfigService.get('features').authentication;
 
-  constructor(@Inject(MAT_DIALOG_DATA) data: any, private dialog: MatDialog, private ConfigService: ConfigService) { }
+  constructor(@Inject(DIALOG_DATA) data: any, private dialog: DialogService, private ConfigService: ConfigService) { }
 
   ngOnInit(): void {
   }

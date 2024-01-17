@@ -3,7 +3,7 @@ import { Event } from 'src/app/interfaces/event';
 import { Component, OnInit, Input } from '@angular/core';
 import { TopicEventService } from 'src/app/services/topic-event.service';
 import { TopicService } from 'src/app/services/topic.service';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { take, of } from 'rxjs';
 @Component({
@@ -24,7 +24,7 @@ export class TopicMilestonesComponent implements OnInit {
   public countTotal;
   public maxLengthSubject = 128;
   public maxLengthText = 2048;
-  constructor(private dialog: MatDialog, private TopicEventService: TopicEventService, private TopicService: TopicService) {
+  constructor(private dialog: DialogService, private TopicEventService: TopicEventService, private TopicService: TopicService) {
     this.topicEvents = this.TopicEventService.loadItems();
     this.countTotal = this.TopicEventService.countTotal$;
   }

@@ -6,7 +6,7 @@ import { TopicService } from 'src/app/services/topic.service';
 import { Topic } from 'src/app/interfaces/topic';
 import { TranslateService } from '@ngx-translate/core';
 import { TourService } from 'src/app/services/tour.service';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 
 @Component({
   selector: 'nav-mobile',
@@ -25,7 +25,7 @@ export class NavMobileComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private TourService: TourService,
-    private dialog: MatDialog
+    private dialog: DialogService
     ) {
   }
 

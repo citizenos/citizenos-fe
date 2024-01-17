@@ -14,13 +14,13 @@ import { TopicArgumentService } from 'src/app/services/topic-argument.service';
     trigger('openSlide', [
       // ...
       state('open', style({
-        'maxHeight': 'initial',
-        transition: '0.5s ease-in-out max-height'
+        'maxHeight': '100%',
+        transition: 'max-height 0.2s ease-in-out',
       })),
       state('closed', style({
         padding: '0',
         'maxHeight': '0',
-        transition: '0.5s ease-in-out max-height'
+        transition: 'all 0.2s ease-in-out',
       }))
   ])]
 })

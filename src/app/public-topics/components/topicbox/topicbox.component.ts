@@ -50,8 +50,16 @@ export class TopicboxComponent implements OnInit {
         urlArray = ['topics', 'vote', 'edit', this.topic.id];
       }
     }
-
-    this.router.navigate(urlArray);
+    let fragment = 'discussion';
+    if (this.topic.status === this.TopicService.STATUSES.draft) {
+      fragment = 'info';
+    }
+    if (this.topic.status === this.TopicService.STATUSES.voting) {
+      fragment = 'voting';
+    } else if (this.topic.status === this.TopicService.STATUSES.followUp) {
+      fragment = 'followUp';
+    }
+    this.router.navigate(urlArray, {fragment});
   }
 
   getProgress () {

@@ -1,7 +1,11 @@
 .dialog {
   max-width: 560px;
-
   .info_row {
-    justify-content: flex-start;
+    text-align: center;
+  }
+  .dialog_info_wrap {
+    .info_row {
+      justify-content: flex-start;
+    }
   }
 }

@@ -316,7 +316,7 @@
 
           <div class="create_content_block discussion" [ngClass]="{'active': block.title}"
             [@openClose]="block.title ? 'open' : 'closed'">
-            <div class="block_title_wrap" (click)="block.title = true">
+            <div class="block_title_wrap" (click)="showBlockTitle()">
               <div class="block_title" translate="VIEWS.TOPIC_CREATE.TITLE_HEADING"></div>
               <div class="counter_wrap">
                 <div class="char_counter">{{topic.title?.length || 0}}/{{titleLimit}}</div>
@@ -346,7 +346,7 @@
 
           <div class="create_content_block discussion" [ngClass]="{'active': block.intro}"
             [@openClose]="block.intro ? 'open' : 'closed'">
-            <div class="block_title_wrap" (click)="block.intro = true">
+            <div class="block_title_wrap" (click)="showBlockIntro()">
               <div class="block_title" translate="VIEWS.TOPIC_CREATE.TITLE_INTRO"></div>
               <div class="counter_wrap">
                 <div class="char_counter">{{topic.intro?.length || 0}}/{{introLimit}}</div>
@@ -368,7 +368,7 @@
             </div>
             <ng-container *ngIf="block.intro || topic.intro">
               <div class="block_content">
-                <textarea id="intro_input" placeholder="..." [(ngModel)]="topic.intro" (change)="updateTopic()"
+                <textarea id="intro_input" #topicIntro placeholder="..." [(ngModel)]="topic.intro" (change)="updateTopic()"
                   [maxlength]="introLimit"></textarea>
               </div>
             </ng-container>
@@ -396,7 +396,7 @@
               </div>
             </div>
             <ng-container *ngIf="block.description">
-              <div class="block_content">
+              <div class="block_content description">
                 <!--textarea id="description_input" placeholder="..." [(ngModel)]="topic.description"
                 [maxlength]="introLimit"></!--textarea-->
                 <iframe cosEtherpad frameborder="0" scrolling="no" [ngClass]="{hidden: !topic.padUrl}"
@@ -644,9 +644,11 @@
                   </svg>
                 </div>
                 <div class="options">
-                  <div class="option" *ngFor="let group of groups$ | async;" (click)="addGroup(group)">
-                    {{group.name}}
-                  </div>
+                  <ng-container *ngFor="let group of groups$ | async;">
+                    <div *ngIf="!isGroupAdded(group)" class="option" (click)="addGroup(group)">
+                      {{group.name}}
+                    </div>
+                  </ng-container>
                 </div>
               </div>
               <div id="topic_members_list_wrap" class="table_section">
@@ -669,7 +671,7 @@
                         <div class="cell_title" translate="VIEWS.TOPIC_CREATE.HEADING_GROUP_PERMISSIONS"></div>
                         <div class="dropdown" [cosDropdown]>
                           <div class="selection">
-                            <div class="selected_item">{{'TXT_TOPIC_LEVELS_' + (group.permission?.level) |
+                            <div class="selected_item">{{'TXT_TOPIC_LEVELS_' + (group.permission.level) |
                               uppercase | translate}}</div>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                               xmlns="http://www.w3.org/2000/svg">
@@ -685,7 +687,7 @@
                         </div>
                       </div>
                       <div class="row_cell remove_item_mobile">
-                        <button> <!--(click)="removeGroupMemberTopic(topic)"-->
+                        <button (click)="removeGroup(group);">
                           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path d="M6 6.00065H7.33333L7.33333 11.334H6L6 6.00065Z" fill="#2C3B47" />
@@ -739,7 +741,7 @@
                 </svg>
                 <svg *ngIf="readMore" width="24" height="24" viewBox="0 0 24 24" fill="none"
                   xmlns="http://www.w3.org/2000/svg">
-                  <path d="M17 15L12 10L7 15" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                  <path d="M17 15L12 10L7 15" stroke="#1168A8" stroke-width="2" stroke-linecap="round" />
                 </svg>
                 <span *ngIf="!readMore" translate="VIEWS.TOPIC_CREATE.BTN_READ_MORE"></span>
                 <span *ngIf="readMore" translate="VIEWS.TOPIC_CREATE.BTN_READ_LESS"></span>
@@ -862,7 +864,8 @@
             class="btn_medium_secondary" (click)="saveAsDraft()"
             translate="VIEWS.TOPIC_CREATE.FOOTER_BTN_SAVE_AS_DRAFT">
           </button>
-          <button class="btn_medium_submit icon" (click)="(tabSelected!=='preview')? nextTab(tabSelected) : publish()" [ngClass]="{disabled: (tabSelected === 'preview' && !TopicService.canDelete(topic))}">
+          <button class="btn_medium_submit icon" (click)="(tabSelected!=='preview')? nextTab(tabSelected) : publish()"
+            [ngClass]="{disabled: (tabSelected === 'preview' && !TopicService.canDelete(topic))}">
             <span class="btn_text mobile_hidden"
               [translate]="(tabSelected!=='preview')? 'VIEWS.TOPIC_CREATE.FOOTER_BTN_CONTINUE': (topic.status === TopicService.STATUSES.draft)? 'VIEWS.TOPIC_CREATE.FOOTER_BTN_CREATE' : 'VIEWS.TOPIC_CREATE.FOOTER_BTN_SAVE_CHANGES'"></span>
             <svg class="mobile_show" id="continue_btn" width="24" height="24" viewBox="0 0 24 24" fill="none"

@@ -4,7 +4,7 @@
   gap: 24px;
 
   @include mixins.tablet {
-    margin: 60px 0;
+    margin: 56px 0;
     gap: 16px;
 
     #page_header {
@@ -35,6 +35,11 @@
   padding: 16px;
   gap: 16px;
 
+  @include mixins.mobile {
+    margin: 0 8px;
+    padding: 0;
+    width: auto;
+  }
   .dropdown {
     width: 100%;
   }
@@ -98,6 +103,17 @@
 
         path {
           fill: none;
+        }
+      }
+
+      &:hover {
+        .btn_icon {
+          transform: rotate(-360deg);
+          transition: transform 150ms ease;
+          transition-delay: 200ms;
+          path {
+            stroke: var(--color-surfaces);
+          }
         }
       }
     }

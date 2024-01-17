@@ -20,11 +20,10 @@
     max-width: 100%;
   }
 
-  .btn_medium_close {
-    position: absolute;
-    float: right;
-    right: 16px;
-    top: 16px;
+  .feed_heading_wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
   #results_area {

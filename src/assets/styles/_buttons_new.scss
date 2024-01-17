@@ -65,6 +65,7 @@ button,
   cursor: pointer;
   color: var(--color-text);
   border-color: var(--color-text);
+  transition: all 0.2s ease-in-out;
 }
 
 //list of different buttons
@@ -175,6 +176,15 @@ $button-styles: (
             stroke: map-get($map, hover-color);
           }
         }
+
+        &.animate {
+          &:hover {
+            svg {
+              transform: rotate(-180deg);
+              transition: transform 150ms ease;
+            }
+          }
+        }
       }
     }
   }
@@ -208,10 +218,27 @@ $button-styles: (
   margin-right: -16px;
 }
 
+.btn_medium_activity {
+  &:hover {
+    .btn_medium_activity_new {
+      background-color: var(--color-info);
+    }
+  }
+}
 .btn_nav_create {
   justify-content: center;
   width: 40px;
   border-radius: 40px;
+
+  &:hover {
+    transform: rotate(-180);
+    transition: transform 150ms ease-in;
+  }
+}
+
+.btn_small_nav  {
+  gap: 16px;
+  padding: 8px;
 }
 
 .btn_dialog_close {
@@ -241,6 +268,8 @@ $button-styles: (
   background-origin: padding-box;
   border: 1px solid var(--color-border);
   border-radius: 8px;
+  cursor: pointer;
+
   &:focus,
   &:hover,
   &.active {

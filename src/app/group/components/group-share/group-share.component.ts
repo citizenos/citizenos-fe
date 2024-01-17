@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { take } from 'rxjs';
 import { Group } from 'src/app/interfaces/group';
 import { AuthService } from 'src/app/services/auth.service';
@@ -28,7 +28,7 @@ export class GroupShareComponent implements OnInit {
   copySuccess = false;
   constructor(
     private Auth: AuthService,
-    private dialog: MatDialog,
+    private dialog: DialogService,
     private GroupService: GroupService,
     private GroupMemberUser: GroupMemberUserService,
     private GroupJoin: GroupJoinService,

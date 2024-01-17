@@ -9,8 +9,8 @@ import { TopicVoteService } from 'src/app/services/topic-vote.service';
 import { TopicMemberGroupService } from 'src/app/services/topic-member-group.service';
 import { TopicMemberUserService } from 'src/app/services/topic-member-user.service';
 import { take, switchMap } from 'rxjs';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ModalDatepickerComponent } from 'src/app/shared/components/modal-datepicker/modal-datepicker.component';
+import { DIALOG_DATA, DialogRef, DialogService } from 'src/app/shared/dialog';
 export interface TopicSettingsData {
   topic: Topic
 };
@@ -29,8 +29,8 @@ export class TopicSettingsComponent implements OnInit {
   reminderOptions = [{ value: 1, unit: 'days' }, { value: 2, unit: 'days' }, { value: 3, unit: 'days' }, { value: 1, unit: 'weeks' }, { value: 2, unit: 'weeks' }, { value: 1, unit: 'month' }];
   private publicGroups: any;
   constructor(
-    private dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) data: TopicSettingsData,
+    private dialog: DialogService,
+    @Inject(DIALOG_DATA) data: TopicSettingsData,
     private router: Router,
     private route: ActivatedRoute,
     private TopicService: TopicService,
@@ -38,7 +38,7 @@ export class TopicSettingsComponent implements OnInit {
     private TranslateService: TranslateService,
     private TopicVoteService: TopicVoteService,
     private TopicMemberGroupService: TopicMemberGroupService,
-    private dialogRef: MatDialogRef<TopicSettingsComponent>,
+    private dialogRef: DialogRef<TopicSettingsComponent>,
     private TopicMemberUserService: TopicMemberUserService
   ) {
     this.topic = data.topic;
@@ -285,7 +285,7 @@ export class TopicSettingsComponent implements OnInit {
 })
 export class TopicSettingsDialogComponent implements OnInit {
 
-  constructor(dialog: MatDialog, route: ActivatedRoute, router: Router, TopicService: TopicService) {
+  constructor(dialog: DialogService, route: ActivatedRoute, router: Router, TopicService: TopicService) {
     route.params.pipe(
       switchMap((params) => {
         return TopicService.get(params['topicId'])

@@ -1,6 +1,6 @@
 import { Component, Inject, ViewChild, ElementRef, HostBinding } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { switchMap, tap, of, take, takeWhile, catchError, map, Observable, BehaviorSubject } from 'rxjs';
+import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
+import { take, takeWhile } from 'rxjs';
 import { Group } from 'src/app/interfaces/group';
 import { GroupService } from 'src/app/services/group.service';
 import { countries } from 'src/app/services/country.service';
@@ -13,9 +13,12 @@ import { languages } from 'src/app/services/language.service';
 })
 export class GroupSettingsComponent {
   @ViewChild('imageUpload') fileInput?: ElementRef;
-  @HostBinding('class.pos_dialog_fixed') addPosAbsolute: boolean = false;
-  countries = countries;
-  languages = languages;
+  countries = countries.sort((a: any, b: any) => {
+    return a.name.localeCompare(b.name);
+  });
+  languages = languages.sort((a: any, b: any) => {
+    return a.name.localeCompare(b.name);
+  });
 
   activeTab = 'info';
   group: Group;
@@ -27,14 +30,13 @@ export class GroupSettingsComponent {
   public tmpImageUrl?: any;
 
   constructor(
-    private dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    private dialog: DialogService,
+    @Inject(DIALOG_DATA) public data: any,
     private GroupService: GroupService
   ) {
     this.group = data.group;
     this.rules = data.group.rules.map((rule:string) => {return {rule: rule}});
     if (this.activeTab === 'info') {
-      this.addPosAbsolute = true;
     }
   }
 
@@ -43,10 +45,6 @@ export class GroupSettingsComponent {
   }
 
   selectTab(tab: string) {
-    this.addPosAbsolute = false;
-    if (tab === 'info') {
-      this.addPosAbsolute = true;
-    }
     this.activeTab = tab;
   }
 

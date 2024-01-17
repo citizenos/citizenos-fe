@@ -1,82 +1,84 @@
-<div class="overlay" mat-dialog-close></div>
-<div class="dialog">
-  <div class="dialog_header voting">
-    <div class="header_with_icon voting">
-      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="40" height="40" rx="20" fill="#5AB467" />
-        <path
-          d="M26.3432 15.9229L27.0634 10L21.1505 10.7214L23.1001 12.6743L15.7221 20.0647L17.1292 21.4742L24.5072 14.0838L26.3432 15.9229Z"
-          fill="white" />
-        <path d="M17.9282 29L28 18.9113L26.5929 17.5018L17.9352 26.174L13.4071 21.6524L12 23.0618L17.9282 29Z"
-          fill="white" />
-      </svg>
-
-      <h4 class="title" translate="MODALS.TOPIC_VOTE_DELEGATE_HEADING"></h4>
-    </div>
-    <div class="dialog_close">
-      <a class="btn_dialog_close icon" mat-dialog-close>
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<div class="overlay" dialog-close></div>
+<div class="dialog_wrap">
+  <div class="dialog">
+    <div class="dialog_header voting">
+      <div class="header_with_icon voting">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="40" height="40" rx="20" fill="#5AB467" />
           <path
-            d="M7.72152 6.29537C7.3277 5.90154 6.68919 5.90154 6.29537 6.29537C5.90154 6.68919 5.90154 7.3277 6.29537 7.72153L10.5738 12L6.29541 16.2785C5.90159 16.6723 5.90159 17.3108 6.29541 17.7046C6.68923 18.0985 7.32774 18.0985 7.72156 17.7046L12 13.4262L16.2784 17.7046C16.6723 18.0985 17.3108 18.0985 17.7046 17.7046C18.0984 17.3108 18.0984 16.6723 17.7046 16.2785L13.4262 12L17.7046 7.72153C18.0985 7.3277 18.0985 6.68919 17.7046 6.29537C17.3108 5.90154 16.6723 5.90154 16.2785 6.29537L12 10.5739L7.72152 6.29537Z"
-            fill="#2C3B47" />
+            d="M26.3432 15.9229L27.0634 10L21.1505 10.7214L23.1001 12.6743L15.7221 20.0647L17.1292 21.4742L24.5072 14.0838L26.3432 15.9229Z"
+            fill="white" />
+          <path d="M17.9282 29L28 18.9113L26.5929 17.5018L17.9352 26.174L13.4071 21.6524L12 23.0618L17.9282 29Z"
+            fill="white" />
         </svg>
-      </a>
-    </div>
-  </div>
 
-  <div class="dialog_content">
-    <div class="dialog_info" translate="MODALS.TOPIC_VOTE_DELEGATE_LBL_SEARCH_MEMBERS"></div>
-    <div class="dialog_info">
-      <div id="search_wrap">
-        <typeahead id="input_area" [term]="searchStringUser" (search)="search($event)" (select)="addUser($event)"
-          (enterAction)="addUser($event)"
-          [placeholder]="'MODALS.TOPIC_VOTE_DELEGATE_PLACEHOLDER_SEARCH_BY_NAME' | translate">
-          <ng-container *ngIf="searchResultUsers$ | async as searchResults">
-            <div class="search_area_wrap" [ngClass]="{hidden: !searchResults.length}">
-              <div class="search_dropdown_item" [typeaheadItem]="user" *ngFor="let user of searchResults"
-                (click)="addUser(user)">
-                <div class="item_text_wrap">
-                  <b>{{user.name}}</b>
+        <h4 class="title" translate="MODALS.TOPIC_VOTE_DELEGATE_HEADING"></h4>
+      </div>
+      <div class="dialog_close">
+        <a class="btn_dialog_close icon" dialog-close>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M7.72152 6.29537C7.3277 5.90154 6.68919 5.90154 6.29537 6.29537C5.90154 6.68919 5.90154 7.3277 6.29537 7.72153L10.5738 12L6.29541 16.2785C5.90159 16.6723 5.90159 17.3108 6.29541 17.7046C6.68923 18.0985 7.32774 18.0985 7.72156 17.7046L12 13.4262L16.2784 17.7046C16.6723 18.0985 17.3108 18.0985 17.7046 17.7046C18.0984 17.3108 18.0984 16.6723 17.7046 16.2785L13.4262 12L17.7046 7.72153C18.0985 7.3277 18.0985 6.68919 17.7046 6.29537C17.3108 5.90154 16.6723 5.90154 16.2785 6.29537L12 10.5739L7.72152 6.29537Z"
+              fill="#2C3B47" />
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="dialog_content">
+      <div class="dialog_info" translate="MODALS.TOPIC_VOTE_DELEGATE_LBL_SEARCH_MEMBERS"></div>
+      <div class="dialog_info">
+        <div id="search_wrap">
+          <typeahead id="input_area" [term]="searchStringUser" (search)="search($event)" (select)="addUser($event)"
+            (enterAction)="addUser($event)"
+            [placeholder]="'MODALS.TOPIC_VOTE_DELEGATE_PLACEHOLDER_SEARCH_BY_NAME' | translate">
+            <ng-container *ngIf="searchResultUsers$ | async as searchResults">
+              <div class="search_area_wrap" [ngClass]="{hidden: !searchResults.length}">
+                <div class="search_dropdown_item" [typeaheadItem]="user" *ngFor="let user of searchResults"
+                  (click)="addUser(user)">
+                  <div class="item_text_wrap">
+                    <b>{{user.name}}</b>
+                  </div>
                 </div>
               </div>
-            </div>
-          </ng-container>
-        </typeahead>
-      </div>
-      <div *ngIf="delegateUser">
-        <div class="row_list">
-          <div class="row_cell_dialog image_cell">
-            <div class="profile_image_wrap">
-              <img class="profile_image" *ngIf="delegateUser.imageUrl" [src]="delegateUser.imageUrl">
-              <div class="profile_image_filler" *ngIf="!delegateUser.imageUrl">
-                <cos-initials class="table_cell" *ngIf="delegateUser.name" [name]="delegateUser.name">
-                </cos-initials>
+            </ng-container>
+          </typeahead>
+        </div>
+        <div *ngIf="delegateUser">
+          <div class="row_list">
+            <div class="row_cell_dialog image_cell">
+              <div class="profile_image_wrap">
+                <img class="profile_image" *ngIf="delegateUser.imageUrl" [src]="delegateUser.imageUrl">
+                <div class="profile_image_filler" *ngIf="!delegateUser.imageUrl">
+                  <cos-initials class="table_cell" *ngIf="delegateUser.name" [name]="delegateUser.name">
+                  </cos-initials>
+                </div>
               </div>
+              <span>
+                {{delegateUser.name}}
+              </span>
             </div>
-            <span>
-              {{delegateUser.name}}
-            </span>
-          </div>
-          <div class="row_cell_dialog">
-            <button (click)="doRemoveDelegateUser()">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M9 9H11V17H9L9 9Z" fill="#2C3B47" />
-                <path d="M15 9H13V17H15V9Z" fill="#2C3B47" />
-                <path fill-rule="evenodd" clip-rule="evenodd"
-                  d="M17 5V4C17 2.89543 16.1046 2 15 2L9 2C7.89543 2 7 2.89543 7 4L7 5H4C3.44772 5 3 5.44772 3 6C3 6.55228 3.44772 7 4 7H5L5 18C5 19.6569 6.34315 21 8 21L16 21C17.6569 21 19 19.6569 19 18L19 7H20C20.5523 7 21 6.55228 21 6C21 5.44772 20.5523 5 20 5L17 5ZM15 4L9 4V5L15 5V4ZM17 7L7 7L7 18C7 18.5523 7.44772 19 8 19L16 19C16.5523 19 17 18.5523 17 18V7Z"
-                  fill="#2C3B47" />
-              </svg>
-            </button>
+            <div class="row_cell_dialog">
+              <button (click)="doRemoveDelegateUser()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9 9H11V17H9L9 9Z" fill="#2C3B47" />
+                  <path d="M15 9H13V17H15V9Z" fill="#2C3B47" />
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M17 5V4C17 2.89543 16.1046 2 15 2L9 2C7.89543 2 7 2.89543 7 4L7 5H4C3.44772 5 3 5.44772 3 6C3 6.55228 3.44772 7 4 7H5L5 18C5 19.6569 6.34315 21 8 21L16 21C17.6569 21 19 19.6569 19 18L19 7H20C20.5523 7 21 6.55228 21 6C21 5.44772 20.5523 5 20 5L17 5ZM15 4L9 4V5L15 5V4ZM17 7L7 7L7 18C7 18.5523 7.44772 19 8 19L16 19C16.5523 19 17 18.5523 17 18V7Z"
+                    fill="#2C3B47" />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="dialog_content button_content">
-    <div class="button_wrap">
-      <button class="btn_medium_submit" (click)="doSaveDelegate()" *ngIf="delegateUser"
-        translate="MODALS.TOPIC_VOTE_DELEGATE_BTN_DELEGATE" mat-dialog-close></button>
-      <a mat-dialog-close translate="COMPONENTS.TOPIC_VOTE_CREATE.LNK_CANCEL"></a>
+    <div class="dialog_content button_content">
+      <div class="button_wrap">
+        <button class="btn_medium_submit" (click)="doSaveDelegate()" *ngIf="delegateUser"
+          translate="MODALS.TOPIC_VOTE_DELEGATE_BTN_DELEGATE" dialog-close></button>
+        <a dialog-close translate="COMPONENTS.TOPIC_VOTE_CREATE.LNK_CANCEL"></a>
+      </div>
     </div>
   </div>
 </div>

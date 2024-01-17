@@ -1,5 +1,5 @@
 import { OnboardingComponent } from './../onboarding/onboarding.component';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { Component } from '@angular/core';
 import { AppService } from 'src/app/services/app.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -30,6 +30,7 @@ export class DashboardComponent {
   showNoEngagements = false;
 
   showPublic = true;
+  showCreate = false;
 
   constructor(
     public auth: AuthService,
@@ -40,7 +41,7 @@ export class DashboardComponent {
     private PublicGroupService: PublicGroupService,
     private GroupService: GroupService,
     private NewsService: NewsService,
-    private dialog: MatDialog
+    private dialog: DialogService
   ) {
     this.groups$ = this.GroupService.loadItems();
     this.news$ = this.NewsService.get().pipe(
@@ -59,7 +60,6 @@ export class DashboardComponent {
     );
     this.topics$ = this.UserTopicService.loadItems().pipe(
       tap((topics) => {
-        console.log(topics.length)
         if (topics.length === 0) {
           this.showPublic = true;
           this.showNoEngagements = true;
@@ -68,6 +68,7 @@ export class DashboardComponent {
     );
     this.publictopics$ = this.PublicTopicService.loadItems();
     this.publicgroups$ = this.PublicGroupService.loadItems();
+    this.app.mobileNavBox = true;
   }
 
   trackByTopic(index: number, element: any) {
@@ -83,5 +84,13 @@ export class DashboardComponent {
       this.app.mobileTutorial = true;
       onBoarding.afterClosed().subscribe(() => this.app.mobileTutorial = false);
     });
+  }
+
+  showCreateMenu () {
+    this.showCreate = !this.showCreate;
+  }
+
+  ngOnDestroy(): void {
+    this.app.mobileNavBox = false;
   }
 }

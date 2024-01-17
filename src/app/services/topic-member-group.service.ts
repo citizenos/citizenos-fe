@@ -15,7 +15,6 @@ export class TopicMemberGroupService extends ItemsListService {
 
   public LEVELS = {
     read: 'read',
-    edit: 'edit',
     admin: 'admin'
   };
 

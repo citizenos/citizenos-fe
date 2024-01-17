@@ -1,9 +1,9 @@
+import { DialogService } from 'src/app/shared/dialog';
 import { Component, Inject, HostListener, ChangeDetectorRef } from '@angular/core';
 import { Router, PRIMARY_OUTLET, Event, NavigationStart, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Title, Meta, MetaDefinition } from '@angular/platform-browser';
 
-import { MatDialog } from '@angular/material/dialog';
 import { AuthService} from './services/auth.service';
 import { AppService } from './services/app.service';
 import { LocationService } from './services/location.service';
@@ -48,7 +48,7 @@ export class AppComponent {
     private Location: LocationService,
     private Notification: NotificationService,
     private auth: AuthService,
-    private dialog: MatDialog,
+    private dialog: DialogService,
     private translateDebug: NgxTranslateDebugService,
     public app: AppService) {
     const languageConf = config.get('language');
@@ -95,10 +95,10 @@ export class AppComponent {
       })
     ).subscribe();
     //
-    this.auth.user$?.pipe(tap((user) => {
+    this.auth.user$.pipe(tap((user) => {
       if (user && (!user.termsVersion || user.termsVersion !== this.config.get('legal').version)) {
         const tosDialog = this.dialog.open(PrivacyPolicyComponent, {
-          data: { user }
+          data: { user, new: !user.termsVersion }
         });
         tosDialog.afterClosed().subscribe(() => {
           if (!user.email) {
@@ -199,4 +199,8 @@ export class AppComponent {
       link.setAttribute('href', this.Location.getAbsoluteUrl(urlItem.join('/')));
     });
   };
+
+  isDialog () {
+    return this.dialog.getOpenDialogs();
+  }
 }

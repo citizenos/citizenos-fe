@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, Input } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DialogRef, DIALOG_DATA } from 'src/app/shared/dialog';
 import { isEmail } from 'validator';
 import { take, of, switchMap, forkJoin, combineLatest, Subscription } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
@@ -63,8 +63,8 @@ export class InviteEditorsComponent {
     public Search: SearchService,
     private Notification: NotificationService,
     private TopicInviteUser: TopicInviteUserService,
-    @Inject(MAT_DIALOG_DATA) data: any,
-    private dialog: MatDialogRef<InviteEditorsComponent>
+    @Inject(DIALOG_DATA) data: any,
+    private dialog: DialogRef<InviteEditorsComponent>
   ) {
     const urlSnap = this.route.snapshot;
     this.topic = data.topic;

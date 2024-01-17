@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, Observable, tap } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicService } from 'src/app/services/topic.service';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 
 @Component({
   selector: 'app-topic-edit',
@@ -16,14 +16,14 @@ export class TopicEditComponent {
   topic$: Observable<Topic>;
 
   constructor(
-    private dialog: MatDialog,
+    private dialog: DialogService,
     private route: ActivatedRoute,
     private router: Router,
     public TopicService: TopicService
   ) {
     this.topic$ = this.route.params.pipe(
       switchMap((params) => {
-        return this.TopicService.get(params['topicId'])
+        return this.TopicService.loadTopic(params['topicId'])
       }),
     )
   }

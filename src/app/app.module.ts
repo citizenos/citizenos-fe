@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS, HttpClientXsrfModule } from '@angular/common/http';
-import { MatDialogModule } from '@angular/material/dialog';
 import { TranslateModule, TranslateLoader, TranslateCompiler, MissingTranslationHandler, TranslateService, TranslateParser } from '@ngx-translate/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
@@ -89,7 +88,6 @@ export function appInitializerFactory(translate: TranslateService) {
       cookieName: 'XSRF-TOKEN',
       headerName: 'X-CSRF-TOKEN'
     }),
-    MatDialogModule,
     AppRoutingModule,
     NoopAnimationsModule,
     FormsModule,

@@ -5,7 +5,7 @@ import { map, tap, of, take, BehaviorSubject, Observable, takeWhile, switchMap }
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicService } from 'src/app/services/topic.service';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { GroupService } from 'src/app/services/group.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Group } from 'src/app/interfaces/group';
@@ -66,10 +66,12 @@ import { TopicSettingsDisabledDialogComponent } from '../topic-settings-disabled
 export class TopicFormComponent {
   topicText?: ElementRef
   readMoreButton = new BehaviorSubject(false);
+  @ViewChild('topicTitle') titleInput!: ElementRef;
+  @ViewChild('topicIntro') introInput!: ElementRef;
   @ViewChild('topicText') set content(content: ElementRef) {
     if (content) { // initially setter gets called with undefined
       this.topicText = content;
-      if (content.nativeElement.offsetHeight > 200) {
+      if (content.nativeElement.offsetHeight >= 320) {
         this.readMoreButton.next(true);
       }
       this.cd.detectChanges();
@@ -110,12 +112,16 @@ export class TopicFormComponent {
   readMore = false;
 
   showHelp = false;
-  languages = languages;
-  countries = countries;
+  languages = languages.sort((a: any, b: any) => {
+    return a.name.localeCompare(b.name);
+  });
+  countries = countries.sort((a: any, b: any) => {
+    return a.name.localeCompare(b.name);
+  });
   downloadUrl = '';
   error:any;
   constructor(
-    private dialog: MatDialog,
+    private dialog: DialogService,
     private route: ActivatedRoute,
     private router: Router,
     private UploadService: UploadService,
@@ -129,7 +135,11 @@ export class TopicFormComponent {
     private cd: ChangeDetectorRef,
     @Inject(DomSanitizer) private sanitizer: DomSanitizer
   ) {
-    this.groups$ = this.GroupService.loadItems();
+    this.groups$ = this.GroupService.loadItems().pipe(
+      map((groups) => {
+        return groups.filter((g) => g.permission.level === this.TopicMemberGroupService.LEVELS.admin);
+      })
+    );
     this.tabSelected = this.route.fragment.pipe(
       map((fragment) => {
         if (!fragment) {
@@ -150,7 +160,6 @@ export class TopicFormComponent {
   ngOnInit() {
     this.topicUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.topic.padUrl);
     this.downloadUrl = this.TopicService.download(this.topic.id);
-    console.log(this.topic);
     Object.keys(this.block).forEach((blockname) => {
       const temp = this.topic[blockname as keyof Topic];
       if (temp)
@@ -159,8 +168,7 @@ export class TopicFormComponent {
     if (this.topic.id) {
       this.TopicInviteUserService.setParam('topicId', this.topic.id);
       this.invites$ = this.loadInvite$.pipe(
-        tap(()=>console.log('LOAD INVITES')),
-        switchMap(() => {console.log('EXCHAUST'); return this.TopicInviteUserService.loadItems()})
+        switchMap(() => this.TopicInviteUserService.loadItems())
       );
       this.TopicMemberUserService.setParam('topicId', this.topic.id);
       this.members$ = this.loadMembers$.pipe(
@@ -192,7 +200,7 @@ export class TopicFormComponent {
       if (tabIndex+1 === 2) {
         setTimeout(() => {
           this.TopicService.reloadTopic();
-        })
+        }, 200)
       }
     }
   }
@@ -275,6 +283,21 @@ export class TopicFormComponent {
     }
   };
 
+  showBlockTitle () {
+    this.block.title = true;
+    setTimeout(() => {
+      this.titleInput.nativeElement.focus();
+    }, 200);
+  }
+
+  showBlockIntro () {
+    this.block.intro = true;
+    setTimeout(() => {
+      console.log(this.introInput)
+      this.introInput.nativeElement.focus();
+    }, 200);
+  }
+
   deleteTopic(topicId: string) {
     /*this.TopicService.doDeleteTopic(topic, [this.Translate.currentLang, 'my', 'topics']);*/
     const deleteDialog = this.dialog.open(ConfirmDialogComponent, {
@@ -300,7 +323,7 @@ export class TopicFormComponent {
   };
 
   updateTopic() {
-    return this.TopicService.patch(this.topic).pipe(take(1)).subscribe();
+    return this.TopicService.patch(this.topic).pipe(take(1)).subscribe(() => this.TopicService.reloadTopic());
   }
 
   saveAsDraft() {
@@ -345,6 +368,10 @@ export class TopicFormComponent {
     this.topicGroups.push(group);
   }
 
+  removeGroup (group: Group) {
+    const index  =this.topicGroups.findIndex((tg) => tg.id === group.id);
+    this.topicGroups.splice(index, 1);
+  }
 
   manageMembers() {
     const manageDialog = this.dialog.open(TopicParticipantsDialogComponent, { data: { topic: this.topic } });
@@ -361,7 +388,6 @@ export class TopicFormComponent {
     const inviteDialog = this.dialog.open(InviteEditorsComponent, { data: { topic: this.topic } });
     inviteDialog.afterClosed().subscribe({
       next: (inviteUsers) => {
-        console.log('INVITE SENT')
         this.loadInvite$.next();
       },
       error: (error) => {
@@ -421,5 +447,9 @@ export class TopicFormComponent {
   setGroupLevel(group: Group, level: string) {
     if (!group.permission) group.permission = {level};
     group.permission.level = level;
+  }
+
+  isGroupAdded (group: Group) {
+    return this.topicGroups.find((tg:Group) => tg.id ===  group.id);
   }
 }

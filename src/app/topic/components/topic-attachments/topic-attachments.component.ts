@@ -1,6 +1,6 @@
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { Component, Inject, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { take, takeWhile, switchMap, of, map } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
@@ -46,6 +46,8 @@ import { trigger, state, style } from '@angular/animations';
 })
 export class TopicAttachmentsComponent implements OnInit {
   @ViewChild('attachmentInput') attachmentInput?: ElementRef;
+  @ViewChild('attachmendDropdown') attachmentDropdown?: ElementRef;
+
   blockAttachments = false;
   @Input() topic!: Topic;
   public form = {
@@ -59,7 +61,7 @@ export class TopicAttachmentsComponent implements OnInit {
   attachments = <any[]>[];
 
   constructor(
-    private dialog: MatDialog,
+    private dialog: DialogService,
     public app: AppService,
     public TopicService: TopicService,
     private TopicAttachmentService: TopicAttachmentService,
@@ -91,9 +93,14 @@ export class TopicAttachmentsComponent implements OnInit {
       });
   }
 
+  closeDropdown() {
+    document.dispatchEvent(new Event('click'));
+    this.attachmentDropdown?.nativeElement.dispatchEvent(new Event('click'));
+  }
 
   triggerUpload() {
     this.attachmentInput?.nativeElement.click();
+    this.closeDropdown();
   };
 
   appendAttachment(attachment: any) {
@@ -136,6 +143,7 @@ export class TopicAttachmentsComponent implements OnInit {
 
 
   dropboxSelect() {
+    this.closeDropdown();
     this.TopicAttachmentService
       .dropboxSelect()
       .then((attachment) => {
@@ -146,6 +154,7 @@ export class TopicAttachmentsComponent implements OnInit {
   };
 
   oneDriveSelect() {
+    this.closeDropdown();
     this.TopicAttachmentService
       .oneDriveSelect()
       .then((attachment) => {
@@ -156,6 +165,7 @@ export class TopicAttachmentsComponent implements OnInit {
   };
 
   googleDriveSelect() {
+    this.closeDropdown();
     this.TopicAttachmentService
       .googleDriveSelect()
       .then((attachment) => {
@@ -247,7 +257,7 @@ export class TopicAttachmentsComponent implements OnInit {
 })
 export class TopicAttachmentsDialogComponent implements OnInit {
   private topicId: string = '';
-  constructor(dialog: MatDialog, router: Router, route: ActivatedRoute, TopicService: TopicService, TopicAttachmentService: TopicAttachmentService) {
+  constructor(dialog: DialogService, router: Router, route: ActivatedRoute, TopicService: TopicService, TopicAttachmentService: TopicAttachmentService) {
     route.params.pipe(
       switchMap((params) => {
         this.topicId = params['topicId'];

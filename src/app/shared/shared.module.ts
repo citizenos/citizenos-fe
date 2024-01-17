@@ -11,8 +11,6 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
 import { TranslateModule } from '@ngx-translate/core';
 import { CosDropdownDirective } from '../directives/cos-dropdown.directive';
 
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatDatepickerModule} from '@angular/material/datepicker';
 import { TypeaheadComponent, TypeaheadItem, TypeaheadSelect } from './components/typeahead/typeahead.component';
 import { FormsModule } from '@angular/forms';
 import { CosInitialsComponent } from './components/cos-initials/cos-initials.component';
@@ -37,13 +35,13 @@ import { GroupAddTopicsComponent, GroupAddTopicsDialogComponent } from '../group
 import { MarkdownDirective } from '../directives/markdown.directive';
 import { MarkdownPipe } from '../services/markdown.service';
 import { CosEllipsisPipe } from './pipes/cos-ellipsis.pipe';
-import { MatNativeDateModule } from '@angular/material/core';
 import { CheckHeightDirective } from '../directives/check-height.directive';
 import { EtherpadDirective } from '../directives/etherpad.directive';
 import { CosInputComponent } from './components/cos-input/cos-input.component';
 import { HtmlDirective } from '../directives/html.directive';
 import { DownloadDirective } from '../directives/download.directive';
 import { CosDisabledDirective } from '../directives/cos-disabled.directive';
+import { DialogModule } from './dialog/dialog';
 import { DragndropDirective } from '../directives/dragndrop.directive';
 import { PageHeaderComponent } from '../core/components/page-header/page-header.component';
 import { ActivitiesButtonComponent } from './components/activities-button/activities-button.component';
@@ -110,13 +108,11 @@ import { TopicVoteDeadlineComponent } from '../topic/components/topic-vote-deadl
     RouterModule,
     CommonModule,
     FormsModule,
-    MatDialogModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
     MomentModule,
     QRCodeModule,
     TranslateModule,
-    LinkyModule
+    LinkyModule,
+    DialogModule
   ],
    exports: [
     ActivityComponent,
@@ -136,9 +132,6 @@ import { TopicVoteDeadlineComponent } from '../topic/components/topic-vote-deadl
     GroupAddTopicsDialogComponent,
     MarkdownDirective,
     MarkdownPipe,
-    MatDialogModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
     MomentModule,
     PublicgroupboxComponent,
     QRCodeModule,
@@ -168,7 +161,8 @@ import { TopicVoteDeadlineComponent } from '../topic/components/topic-vote-deadl
     TourItemDirective,
     TourItemTemplateComponent,
     TooltipComponent,
-    ImageEditorComponent
+    ImageEditorComponent,
+    DialogModule
    ]
 })
 export class SharedModule { }

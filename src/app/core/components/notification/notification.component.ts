@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, ChangeDetectorRef } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { NotificationService } from 'src/app/services/notification.service';
 import { DomSanitizer } from '@angular/platform-browser';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 
 @Component({
   selector: 'notification',
@@ -16,16 +16,12 @@ export class NotificationComponent implements OnInit {
     @Inject(DOCUMENT) private document: any,
     private changeDetection: ChangeDetectorRef,
     private sanitizer: DomSanitizer,
-    private dialogs: MatDialog
+    private dialogs: DialogService
   ) { }
 
   ngOnInit(): void {
-    this.showTestingEnvNotification = (this.document.location.hostname === 'test.app.citizenos.com');
+    this.showTestingEnvNotification = (this.document.location.hostname === 'dev.citizenos.com');
     this.changeDetection.detectChanges();
-  }
-
-  getOpenDialogsLength() {
-    return this.dialogs.openDialogs.length;
   }
 
   trackByIndex(index: number): number {
@@ -40,5 +36,12 @@ export class NotificationComponent implements OnInit {
         this.notifications.addWarning('PLEASE NOTE! This Citizen OS is a testing environment and is for TESTING ONLY, all data here MAY be deleted at any time! Please visit <a href="https://app.citizenos.com">https://app.citizenos.com</a> for LIVE application.');
       }, 1000)
     }
+  }
+  getNotificationClass(level?: string) {
+    let classList = [level];
+    if (this.dialogs.openDialogs.length) {
+      classList.push('narrow');
+    }
+    return classList;
   }
 }

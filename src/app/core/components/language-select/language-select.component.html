@@ -1,41 +1,43 @@
-<div class="overlay" mat-dialog-close></div>
-<div class="dialog">
-  <div class="dialog_header">
-    <div class="header_text">
-      <h4 class="title" translate="MODALS.LANGUAGES_MODAL_HEADING"></h4>
-    </div>
-    <div class="dialog_close">
-      <a class="btn_dialog_close icon" mat-dialog-close>
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M7.72152 6.29537C7.3277 5.90154 6.68919 5.90154 6.29537 6.29537C5.90154 6.68919 5.90154 7.3277 6.29537 7.72153L10.5738 12L6.29541 16.2785C5.90159 16.6723 5.90159 17.3108 6.29541 17.7046C6.68923 18.0985 7.32774 18.0985 7.72156 17.7046L12 13.4262L16.2784 17.7046C16.6723 18.0985 17.3108 18.0985 17.7046 17.7046C18.0984 17.3108 18.0984 16.6723 17.7046 16.2785L13.4262 12L17.7046 7.72153C18.0985 7.3277 18.0985 6.68919 17.7046 6.29537C17.3108 5.90154 16.6723 5.90154 16.2785 6.29537L12 10.5739L7.72152 6.29537Z"
-            fill="#2C3B47" />
-        </svg>
-      </a>
-    </div>
-  </div>
-  <div class="dialog_content">
-    <div class="language_list">
-      <ng-container *ngFor="let language of languages$ | keyvalue;">
-        <a class="language_item" (click)='doSwitchLanguage(language.key)'>
-          {{language.value}}
-        </a>
-      </ng-container>
-    </div>
-  </div>
-  <div class="dialog_info_wrap">
-    <div id="help_us_box_wrap" class="dialog_info">
-      <a href="https://citizenos.com/get-involved/" target="_blank" class="help_us_box">
-        <div class="illustration_who_politics"></div>
-        <div class="help_us_text" translate="MODALS.LANGUAGES_MODAL_HELP_US_TRANSLATE"></div>
-        <div>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M14.5467 6.31262C14.1471 5.89579 13.4991 5.89579 13.0994 6.31262C12.6997 6.72945 12.6997 7.40527 13.0994 7.8221L16.0816 11H6C5.43478 11 5 11.4108 5 12.0003C5 12.5897 5.43478 12.9824 6 12.9824H16.0816L13.0994 16.1779C12.6997 16.5947 12.6997 17.2705 13.0994 17.6874C13.4991 18.1042 14.1471 18.1042 14.5467 17.6874L20 12L14.5467 6.31262Z"
-              fill="#2C3B47" />
-          </svg>
+<div class="overlay" dialog-close></div>
+<div class="dialog_wrap">
+  <div class="dialog">
+    <div class="dialog_header">
+      <div class="header_text">
+        <h4 class="title" translate="MODALS.LANGUAGES_MODAL_HEADING"></h4>
+        <div class="dialog_close">
+          <a class="btn_dialog_close icon" dialog-close>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M7.72152 6.29537C7.3277 5.90154 6.68919 5.90154 6.29537 6.29537C5.90154 6.68919 5.90154 7.3277 6.29537 7.72153L10.5738 12L6.29541 16.2785C5.90159 16.6723 5.90159 17.3108 6.29541 17.7046C6.68923 18.0985 7.32774 18.0985 7.72156 17.7046L12 13.4262L16.2784 17.7046C16.6723 18.0985 17.3108 18.0985 17.7046 17.7046C18.0984 17.3108 18.0984 16.6723 17.7046 16.2785L13.4262 12L17.7046 7.72153C18.0985 7.3277 18.0985 6.68919 17.7046 6.29537C17.3108 5.90154 16.6723 5.90154 16.2785 6.29537L12 10.5739L7.72152 6.29537Z"
+                fill="#2C3B47" />
+            </svg>
+          </a>
         </div>
-      </a>
+      </div>
+    </div>
+    <div class="dialog_content">
+      <div class="language_list">
+        <ng-container *ngFor="let language of languages$ | keyvalue;">
+          <a class="language_item" (click)='doSwitchLanguage(language.key)'>
+            {{language.value}}
+          </a>
+        </ng-container>
+      </div>
+    </div>
+    <div class="dialog_info_wrap">
+      <div id="help_us_box_wrap" class="dialog_info">
+        <a href="https://citizenos.com/get-involved/" target="_blank" class="help_us_box">
+          <div class="illustration_who_politics"></div>
+          <div class="help_us_text" translate="MODALS.LANGUAGES_MODAL_HELP_US_TRANSLATE"></div>
+          <div>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M14.5467 6.31262C14.1471 5.89579 13.4991 5.89579 13.0994 6.31262C12.6997 6.72945 12.6997 7.40527 13.0994 7.8221L16.0816 11H6C5.43478 11 5 11.4108 5 12.0003C5 12.5897 5.43478 12.9824 6 12.9824H16.0816L13.0994 16.1779C12.6997 16.5947 12.6997 17.2705 13.0994 17.6874C13.4991 18.1042 14.1471 18.1042 14.5467 17.6874L20 12L14.5467 6.31262Z"
+                fill="#2C3B47" />
+            </svg>
+          </div>
+        </a>
+      </div>
     </div>
   </div>
 </div>

@@ -89,6 +89,7 @@
 
   @include mixins.tablet {
     bottom: 120px;
+    display: none;
   }
 
   &:hover {
