@@ -31,7 +31,8 @@
               </div>
             </div>
             <div class="options">
-              <div class="option" (click)="setStatus('all');" [innerHTML]="'TXT_TOPIC_STATUS_ALL' | translate | titlecase"></div>
+              <div class="option" (click)="setStatus('all');"
+                [innerHTML]="'TXT_TOPIC_STATUS_ALL' | translate | titlecase"></div>
               <div class="option" (click)="setStatus('showModerated');"
                 translate="COMPONENTS.PUBLIC_TOPICS.FILTER_TOPICS_MODERATED"></div>
               <div class="option" *ngFor="let status of statuses$" (click)="setStatus(status);">
@@ -80,7 +81,8 @@
           <ng-container *ngIf="countries$ | async as countries">
             <div class="options" [ngClass]="{'active': !countries.length}">
               <ng-container *ngIf="countries$ | async as listCountry">
-                <div class="option" (click)="setCountry('');" [innerHtml]="'TXT_TOPIC_STATUS_ALL' | translate | titlecase"></div>
+                <div class="option" (click)="setCountry('');"
+                  [innerHtml]="'TXT_TOPIC_STATUS_ALL' | translate | titlecase"></div>
                 <div class="option" [typeaheadItem]="country.name" *ngFor="let country of listCountry"
                   (click)="setCountry(country.name)">
                   <div class="item_text_wrap">{{country.name}}</div>
@@ -111,7 +113,8 @@
           <ng-container *ngIf="languages$ | async as languages">
             <div class="options" [ngClass]="{'active': !languages.length}">
               <ng-container *ngIf="languages$ | async as listLanguage">
-                <div class="option" (click)="setLanguage('');" [innerHtml]="'TXT_TOPIC_STATUS_ALL' | translate | titlecase"></div>
+                <div class="option" (click)="setLanguage('');"
+                  [innerHtml]="'TXT_TOPIC_STATUS_ALL' | translate | titlecase"></div>
                 <div class="option" [typeaheadItem]="language.name" *ngFor="let language of listLanguage"
                   (click)="setLanguage(language.name)">
                   <div class="item_text_wrap">{{language.name}}</div>
@@ -146,7 +149,8 @@
           <ng-container *ngIf="countries$ | async as countries">
             <div class="options" [ngClass]="{'active': !countries.length}">
               <ng-container *ngIf="countries$ | async as listCountry">
-                <div class="option" (click)="setCountry('');" [innerHtml]="'TXT_TOPIC_STATUS_ALL' | translate | titlecase"></div>
+                <div class="option" (click)="setCountry('');"
+                  [innerHtml]="'TXT_TOPIC_STATUS_ALL' | translate | titlecase"></div>
                 <div class="option" [typeaheadItem]="country.name" *ngFor="let country of listCountry"
                   (click)="setCountry(country.name)">
                   <div class="item_text_wrap">{{country.name}}</div>
@@ -161,7 +165,8 @@
           <ng-container *ngIf="languages$ | async as languages">
             <div class="options" [ngClass]="{'active': !languages.length}">
               <ng-container *ngIf="languages$ | async as listLanguage">
-                <div class="option" (click)="setLanguage('');" [innerHtml]="'TXT_TOPIC_STATUS_ALL' | translate | titlecase"></div>
+                <div class="option" (click)="setLanguage('');"
+                  [innerHtml]="'TXT_TOPIC_STATUS_ALL' | translate | titlecase"></div>
                 <div class="option" [typeaheadItem]="language.name" *ngFor="let language of listLanguage"
                   (click)="setLanguage(language.name)">
                   <div class="item_text_wrap">{{language.name}}</div>
@@ -206,12 +211,14 @@
         </svg>
       </button>
     </div>
-    <div class="dropdown mobile_show" [cosDropdown] [multipleChoice]="true">
+    <div class="dropdown mobile_filters_selection mobile_show" [ngClass]="{'dropdown_active': mobileFiltersList}">
       <div class="selection">
         <div class="selected_item" [innerHtml]="'COMPONENTS.PUBLIC_TOPICS.LBL_FILTER' | translate | titlecase"> </div>
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
-        </svg>
+        <button class="btn_medium_plain icon" (click)="mobileFiltersList = !mobileFiltersList">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </button>
       </div>
 
       <div class="options filter_options">
@@ -256,7 +263,9 @@
           </cos-input>
         </div>
       </div>
-
+    </div>
+    <div class="overlay" *ngIf="showMobileOverlay()" (click)="closeMobileFilter();"></div>
+    <div class="mobile_filters_wrap" [ngClass]="{'active': showMobileOverlay()}">
       <div class="options button_options" *ngIf="mobileFilters.status">
         <label class="checkbox" (click)="mobileFilters.status = 'all';">
           <span [innerHTML]="'TXT_TOPIC_STATUS_ALL' | translate | titlecase"></span>
@@ -276,7 +285,6 @@
         <button class="btn_medium_secondary" (click)="setStatus(mobileFilters.status);mobileFilters.status= false;"
           translate="COMPONENTS.PUBLIC_TOPICS.BTN_APPLY"></button>
       </div>
-      <div class="overlay" *ngIf="showMobileOverlay()"></div>
       <div class="options button_options" *ngIf="mobileFilters.category">
         <label class="checkbox">
           <span translate="TXT_TOPIC_CATEGORY_ALL"></span>
@@ -290,7 +298,8 @@
           <span class="checkmark"></span>
         </label>
 
-        <button class="btn_medium_secondary" (click)="setCategory(mobileFilters.category);mobileFilters.category= false;"
+        <button class="btn_medium_secondary"
+          (click)="setCategory(mobileFilters.category);mobileFilters.category= false;"
           translate="COMPONENTS.PUBLIC_TOPICS.BTN_APPLY"></button>
       </div>
       <div class="options button_options" *ngIf="mobileFilters.country">
@@ -328,7 +337,8 @@
             <span class="checkmark"></span>
           </label>
         </ng-container>
-        <button class="btn_medium_secondary" (click)="setLanguage(mobileFilters.language);mobileFilters.language= false;"
+        <button class="btn_medium_secondary"
+          (click)="setLanguage(mobileFilters.language);mobileFilters.language= false;"
           translate="COMPONENTS.PUBLIC_TOPICS.BTN_APPLY"></button>
       </div>
     </div>

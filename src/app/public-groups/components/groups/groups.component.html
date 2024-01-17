@@ -236,12 +236,14 @@
         </svg>
       </button>
     </div>
-    <div class="dropdown mobile_show" [cosDropdown] [multipleChoice]="true">
+    <div class="dropdown mobile_show mobile_filters_selection" [ngClass]="{'dropdown_active': mobileFiltersList}">
       <div class="selection">
         <div class="selected_item" [innerHTML]="'VIEWS.PUBLIC_GROUPS.LBL_FILTER' | translate | titlecase"> </div>
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
-        </svg>
+        <button class="btn_medium_plain icon" (click)="mobileFiltersList = !mobileFiltersList">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </button>
       </div>
 
       <div class="options filter_options">
@@ -317,7 +319,9 @@
           </cos-input>
         </div>
       </div>
-
+    </div>
+    <div class="overlay" *ngIf="showMobileOverlay()" (click)="closeMobileFilter()"></div>
+    <div class="mobile_filters_wrap" [ngClass]="{'active': showMobileOverlay()}">
       <div class="options button_options" *ngIf="mobileFilters.visibility">
         <label class="checkbox">
           <span translate="VIEWS.PUBLIC_GROUPS.FILTERS.ALL"></span>
@@ -336,7 +340,6 @@
         <button class="btn_medium_secondary" [routerLink]="['./']" [queryParams]="mobileFilters.visibility"
           (click)="mobileFilters.visibility= false;" translate="BTN_APPLY"></button>
       </div>
-      <div class="overlay" *ngIf="showMobileOverlay()"></div>
       <!--div class="options button_options" *ngIf="mobileFilters.category">
         <label class="checkbox">
           <span translate="TXT_TOPIC_CATEGORY_ALL"></span>

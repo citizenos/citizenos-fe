@@ -45,7 +45,7 @@ export class GroupsComponent implements OnInit {
     country: false,
     language: false
   }
-
+  mobileFiltersList = false;
   visibility = [''];
   countrySearch = '';
   countrySearch$ = new BehaviorSubject('');
@@ -145,9 +145,17 @@ export class GroupsComponent implements OnInit {
     this.PublicGroupService.doOrder(orderBy, order)
   }
 
+  closeMobileFilter () {
+    const filtersShow = Object.entries(this.mobileFilters).find(([key, value]) => {
+      return !!value;
+    })
+    if (filtersShow)
+      this.mobileFilters[filtersShow[0]] = false;
+  }
+
   showMobileOverlay () {
     const filtersShow = Object.entries(this.mobileFilters).find(([key, value]) => {
-      return value === true;
+      return !!value;
     })
     if (filtersShow) return true;
 

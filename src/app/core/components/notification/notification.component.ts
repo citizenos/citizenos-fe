@@ -20,7 +20,7 @@ export class NotificationComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.showTestingEnvNotification = (this.document.location.hostname === 'dev.citizenos.com');
+    this.showTestingEnvNotification = (this.document.location.hostname === 'test.app.citizenos.com');
     this.changeDetection.detectChanges();
   }
 

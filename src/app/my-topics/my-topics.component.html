@@ -291,10 +291,10 @@
         </svg>
       </button>
     </div>
-    <div class="dropdown mobile_filters_selection mobile_show" [cosDropdown] [multipleChoice]="true">
+    <div class="dropdown mobile_filters_selection mobile_show" [ngClass]="{'dropdown_active': mobileFiltersList}">
       <div class="selection">
         <div class="selected_item" [innerHtml]="'VIEWS.MY_TOPICS.LBL_FILTER' | translate | titlecase"></div>
-        <button class="btn_medium_plain icon">
+        <button class="btn_medium_plain icon" (click)="mobileFiltersList= !mobileFiltersList">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
           </svg>
@@ -370,7 +370,10 @@
           </cos-input>
         </div>
       </div>
+    </div>
 
+    <div class="overlay" *ngIf="showMobileOverlay()" (click)="closeMobileFilter()"></div>
+    <div class="mobile_filters_wrap" [ngClass]="{'active': showMobileOverlay()}">
       <div class="options button_options" *ngIf="mobileFilters.type">
         <label class="checkbox" (click)="mobileFilters.type = 'all';">
           <span translate="VIEWS.MY_TOPICS.FILTER_ALL"></span>
@@ -416,7 +419,6 @@
         <button class="btn_medium_secondary" (click)="setStatus(mobileFilters.status);mobileFilters.status= false;"
           translate="VIEWS.MY_TOPICS.BTN_APPLY"></button>
       </div>
-      <div class="overlay" *ngIf="showMobileOverlay()"></div>
       <div class="options button_options" *ngIf="mobileFilters.engagements">
         <label class="checkbox" (click)="mobileFilters.engagements = 'all';">
           <span translate="VIEWS.MY_TOPICS.FILTER_ALL"></span>

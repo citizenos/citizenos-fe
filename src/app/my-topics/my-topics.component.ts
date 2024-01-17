@@ -57,6 +57,8 @@ export class MyTopicsComponent {
     language: false,
   }
 
+  mobileFiltersList = false;
+
   tabSelected = 'categories';
   categories$ = Object.keys(this.Topic.CATEGORIES);
 
@@ -128,6 +130,14 @@ export class MyTopicsComponent {
     return false;
   }
 
+  closeMobileFilter () {
+    const filtersShow = Object.entries(this.mobileFilters).find(([key, value]) => {
+      return !!value;
+    })
+    if (filtersShow)
+      this.mobileFilters[filtersShow[0]] = false;
+  }
+
   doSearch(search: string) {
     this.searchString$.next(search);
   }
@@ -170,7 +180,10 @@ export class MyTopicsComponent {
     this.topicFilters.visibility = visibility;
     if (visibility && (visibility === 'all' || Object.keys(this.Topic.VISIBILITY).indexOf(visibility) === -1)) {
       visibility = '';
-    } else {
+    } else if (['showModerated', 'favourite'].indexOf(visibility)) {
+      this.setStatus(visibility);
+    }
+    else {
       this.setStatus('all');
     }
     this.allTopics$ = [];
