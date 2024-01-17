@@ -561,7 +561,7 @@
       "TOPIC_MOBILE_STEP_2_DESC_MORE": "@:COMPONENTS.TOUR.TOPIC_STEP_2_DESC_MORE"
     },
     "TOPIC_ADD_GROUPS_DIALOG": {
-      "HEADING": "Add topic to a group",
+      "HEADING": "Lisa teema gruppi",
       "NO_GROUPS_SELECTED": "You haven't selected any groups to add the topic to. Please search for groups with the search field above.",
       "LNK_CANCEL": "@:LNK_CANCEL",
       "BTN_SAVE": "Add topic to group"
@@ -569,21 +569,21 @@
     "TOPIC_ADD_GROUPS": {
       "HEADING": "Find a group to add the topic to",
       "DESC": "When you add a topic to a group, all members of that group will have access to the topic.",
-      "PLACEHOLDER_SEARCH": "Search for a group",
+      "PLACEHOLDER_SEARCH": "Otsi gruppi",
       "SHOW_PER_PAGE": "@:VIEWS.ACCOUNT.SHOW_PER_PAGE",
       "NO_TOPICS_HEADING": "You haven’t added any groups yet",
       "NO_TOPICS_DESC": "Add your topic to groups to incentivise members to engage with the topic. This is not mandatory and you can always add topic to the groups later.",
-      "SELECT_TO_ADD": "Select to add",
-      "HEADING_TITLE": "Name",
-      "HEADING_PARTICIPANTS": "Members",
+      "SELECT_TO_ADD": "Vali, et lisada",
+      "HEADING_TITLE": "Nimi",
+      "HEADING_PARTICIPANTS": "Liikmed",
       "HEADING_TOPIC_PERMISSIONS": "@:COMPONENTS.GROUP_ADD_TOPICS.HEADING_GROUP_PERMISSIONS",
-      "HEADING_ACTIONS": "Actions",
+      "HEADING_ACTIONS": "Toimingud",
       "BTN_BULK_ACTIONS": "@:BTN_BULK_ACTIONS",
       "BULK_OPT_SET_ALL_RIGHTS": "@:COMPONENTS.GROUP_INVITE.BULK_OPT_SET_ALL_RIGHTS",
       "BULK_OPT_REMOVE_ALL": "@:COMPONENTS.GROUP_INVITE.BULK_OPT_REMOVE_ALL"
     },
     "TOPIC_INVITE": {
-      "HEADING": "Invite people to the topic",
+      "HEADING": "Kutsu inimesi liituma teemaga",
       "MESSAGE_DESC": "@:MODALS.TOPIC_INVITE_LBL_OPTIONAL_MESSAGE",
       "MESSAGE_PLACEHOLDER": "@:COMPONENTS.GROUP_INVITE.MESSAGE_PLACEHOLDER",
       "CHARACTER_LIMIT": "@:COMPONENTS.GROUP_INVITE.CHARACTER_LIMIT",
@@ -611,20 +611,20 @@
       "MSG_INVITES_SENT": "@:COMPONENTS.TOPIC_INVITE_EDITORS.MSG_INVITES_SENT"
     },
     "TOPIC_MEMBER_GROUP": {
-      "OPT_REMOVE_GROUP": "Remove group"
+      "OPT_REMOVE_GROUP": "Eemalda grupp"
     },
     "TOPIC_MEMBER_INVITE": {
       "INVITE_PENDING": "@:VIEWS.MY_TOPICS_TOPICID.TXT_INVITE_PENDING",
       "INIVTE_EXPIRES": "@:VIEWS.PUBLIC_GROUP.INIVTE_EXPIRES",
       "INVITE_EXPIRED": "@:VIEWS.PUBLIC_GROUP.INVITE_EXPIRED",
-      "OPT_REMOVE_USER": "Delete invite"
+      "OPT_REMOVE_USER": "Kustuta kutse"
     },
     "TOPIC_MEMBER_USER": {
       "OPT_REMOVE_USER": "@:MODALS.GROUP_MEMBER_USER_DELETE_CONFIRM_HEADING"
     },
     "TOPIC_MILESTONES": {
       "CREATE_A_MILESTONE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_CREATE_A_MILESTONE",
-      "OPT_EDIT_DETAILS": "Edit details",
+      "OPT_EDIT_DETAILS": "Muuda andmeid",
       "OPT_REMOVE_MILESTONE": "Remove milestone",
       "PLACEHOLDER_SUBJECT": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_PLACEHOLDER_SUBJECT",
       "HEADING_MILESTONE_CONTENT": "Milestone content",
