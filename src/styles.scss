@@ -50,7 +50,7 @@
     justify-content: space-between;
 
     @include mixins.tablet {
-      background-color: var(--color-surfaces);
+     // background-color: var(--color-surfaces);
     }
 
     #user_info_area {

@@ -3,7 +3,12 @@
 .nav_mobile {
   display: none;
   @include mixins.mobile {
-    border-bottom: 2px solid var(--color-background);
+    border-bottom: 1px solid var(--color-background);
+    border-radius: 0 0 16px 16px;
+
+    &.box {
+      border-radius: 0;
+    }
   }
   @include mixins.tablet {
     width: 100%;
@@ -57,6 +62,9 @@
   overflow-y: auto;
   overflow-x: hidden;
 
+  &.pos_absolute {
+    position: absolute;
+  }
   @include mixins.tablet {
     position: absolute;
     width: 320px;
@@ -97,6 +105,16 @@
 
   .nav_items_wrap  {
     width: 100%;
+
+    @include mixins.tablet {
+      padding: 8px 16px;
+    }
+  }
+
+  #nav_items_constant {
+    @include mixins.tablet {
+      background-color: var(--color-surface-contrast);
+    }
   }
   #profile_item_wrap {
     display: flex;
@@ -111,7 +129,8 @@
       align-items: center;
       background-color: var(--color-surface-contrast);
       border-radius: 16px;
-      margin-bottom: 24px;
+      margin: 0 16px 16px 16px;
+      width: calc(100% - 32px);
 
       .options {
         left: 0;
@@ -199,7 +218,7 @@
 
   @include mixins.tablet {
     height: max-content;
-    padding: 0 16px;
+    padding: 0;
     position: absolute;
     width: 0;
     max-width: 320px;
@@ -261,7 +280,7 @@
       width: 100%;
 
       @include mixins.tablet {
-        padding-bottom: 24px;
+        padding: 16px 16px 24px 16px;
       }
       @include mixins.mobile {
         flex-direction: row;

@@ -7,7 +7,7 @@
   justify-content: space-between;
 
   @include mixins.tablet {
-    margin-top: 57px;
+    margin-top: 56px;
   }
 
   @include mixins.mobile {
@@ -30,7 +30,7 @@
   @include mixins.mobile {
     display: flex;
     gap: 40px;
-    padding: 0 16px;
+    padding: 0;
   }
 
   .view_more_button {
@@ -61,6 +61,7 @@
     }
     @include mixins.mobile {
       display: flex;
+      padding: 0 8px;
       flex-direction: column;
       width: 100%;
     }
@@ -202,6 +203,11 @@
             background-color: var(--color-surface-contrast);
             overflow: hidden;
 
+            img {
+              width: inherit;
+              aspect-ratio: 1;
+              object-fit: cover;
+            }
             @include mixins.mobile {
               width: 100%;
               height: 166px;
@@ -358,6 +364,15 @@
     display: flex;
     flex-direction: column;
 
+    @include mixins.mobile {
+      padding: 0 8px;
+
+      &.items_list_section {
+        .section_content {
+          margin-right: -8px;
+        }
+      }
+    }
     .section_content {
       display: flex;
       flex-direction: row;
@@ -407,6 +422,11 @@
     #subscribe_text_wrap {
       display: flex;
       flex-direction: column;
+
+      #subscribe_form_description {
+        font-size: 16px;
+        line-height: 24px;
+      }
     }
     #subscribe_form_input_wrap {
       display: flex;

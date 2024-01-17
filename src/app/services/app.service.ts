@@ -30,6 +30,7 @@ export class AppService {
   mobileTutorial = false;
   editMode = false;
   darkNav = false;
+  mobileNavBox = false;
   showActivities = false;
   searchAllowed = true;
   addArgument = new BehaviorSubject(false);

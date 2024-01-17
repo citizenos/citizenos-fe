@@ -1,4 +1,4 @@
-import { Observable, of, tap, take, combineLatest, switchMap, map } from 'rxjs';
+import { Observable, of, tap, take, combineLatest, switchMap, map, BehaviorSubject } from 'rxjs';
 import { TourService } from 'src/app/services/tour.service';
 import { Component, ElementRef, HostListener, ViewChild, Renderer2 } from '@angular/core';
 
@@ -136,7 +136,7 @@ export class TourComponent {
             arrowEl.classList.add('top_arrow');
 
             this.renderer.setStyle(tourBox, 'top', `${itemOffsetTop}px`);
-            this.renderer.setStyle(arrowEl, 'left', `${itemRect.left + itemRect.width / 2}px`);
+            this.renderer.setStyle(arrowEl, 'left', `${itemRect.left + itemRect.width / 2 - 6}px`);
             this.renderer.setStyle(arrowEl, 'top', `${itemOffsetTop - 12}px`);
             this.renderer.setStyle(tourBox, 'left', `${left}px`);
             this.renderer.setStyle(tourBox, 'top', `${itemOffsetTop - tourBoxElementRect.height - 12}px`);
@@ -152,7 +152,7 @@ export class TourComponent {
             arrowEl.classList.remove('left_arrow');
             arrowEl.classList.add('bottom_arrow');
             this.renderer.setStyle(tourBox, 'top', `${itemOffsetTop}px`);
-            this.renderer.setStyle(arrowEl, 'left', `${itemRect.left + itemRect.width / 2}px`);
+            this.renderer.setStyle(arrowEl, 'left', `${itemRect.left + itemRect.width / 2 - 6}px`);
             this.renderer.setStyle(arrowEl, 'top', `${itemOffsetBottom + 6}px`);
             this.renderer.setStyle(tourBox, 'left', `${left}px`);
             this.renderer.setStyle(tourBox, 'top', `${itemOffsetBottom + 18}px`);
@@ -176,9 +176,10 @@ export class TourComponent {
 
         // e.g. 100x100 viewport and a 10x10px element at position {top: -1, left: 0, bottom: 9, right: 10}
 
-        if(!elementIsVisibleInViewport(tourBox)) {
-          tourBox.scrollIntoView({ block: "center", inline: "center" });
-        }
+       /* if(!elementIsVisibleInViewport(tourBox)) {
+
+        }*/
+        itemEl.el.nativeElement.scrollIntoView({ block: "center", inline: "center", behavior: "smooth" });
       }
       return of([item, isVisible]);
     }));
