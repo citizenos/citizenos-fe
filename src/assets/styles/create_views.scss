@@ -29,7 +29,7 @@
     justify-content: space-between;
   }
   .create_tab {
-    padding: 28px 56px;
+    padding: 27px 56px;
     color: var(--color-text);
     gap: 8px;
     display: flex;
@@ -130,7 +130,7 @@
     }
     .section_content_wrap {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       background-color: var(--color-surfaces);
       border-radius: 0 0 16px 16px;
       width: 100%;
@@ -166,7 +166,7 @@
       background-color: var(--color-surfaces);
       border-radius: 16px;
       width: 100%;
-      padding: 26px 24px;
+      padding: 24px;
       gap: 16px;
 
       @include mixins.mobile {
@@ -382,6 +382,12 @@
         width: 100%;
         padding: 8px;
         gap: 16px;
+
+
+        &.description {
+          margin-top: -26px;
+          padding: 0;
+        }
 
         .block_section {
           width: 100%;
@@ -723,7 +729,6 @@
 
   #view_more_link {
     display: flex;
-    align-self: flex-start;
   }
 }
 

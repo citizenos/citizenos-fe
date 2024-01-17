@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { ConfigService } from 'src/app/services/config.service';
 import { Router, PRIMARY_OUTLET } from '@angular/router';
-import { MatDialogRef } from '@angular/material/dialog';
+import { DialogRef } from 'src/app/shared/dialog';
 
 @Component({
   selector: 'app-language-select',
@@ -11,7 +11,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class LanguageSelectComponent implements OnInit {
   languages$: { [key: string]: any } = this.config.get('language').list;
-  constructor(public translate: TranslateService, public config: ConfigService, private router: Router, private dialogRef: MatDialogRef<LanguageSelectComponent>,) {
+  constructor(public translate: TranslateService, public config: ConfigService, private router: Router, private dialogRef: DialogRef<LanguageSelectComponent>,) {
   }
 
   ngOnInit(): void {

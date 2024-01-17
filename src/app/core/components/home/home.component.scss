@@ -8,18 +8,18 @@
   gap: 24px;
 
   @include mixins.tablet {
-    padding: 60px 24px 24px 24px;
+    padding: 58px 24px 24px 24px;
   }
 
   @include mixins.mobile {
     gap: 16px;
-    padding: 60px 8px 8px 8px;
+    padding: 58px 8px 16px 8px;
   }
 
   .page_heading {
     display: flex;
     gap: 16px;
-  align-items: center;
+    align-items: center;
     font-weight: 600;
     font-size: 18px;
     line-height: 24px;
@@ -163,7 +163,7 @@
 
     @include mixins.mobile {
       position: relative;
-      border-radius: 0 0px 320px 320px;
+      border-radius: 16px 16px 320px 320px;
       right: 0;
       left: 0;
       align-items: center;
@@ -241,6 +241,7 @@
       font-weight: 600;
       font-size: 24px;
       line-height: 32px;
+      margin-bottom: 8px;
     }
     .description_item {
       display: flex;

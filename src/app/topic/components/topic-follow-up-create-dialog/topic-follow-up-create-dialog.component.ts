@@ -4,7 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { NotificationService } from 'src/app/services/notification.service';
 import { TopicVoteService } from 'src/app/services/topic-vote.service';
 import { TopicService } from 'src/app/services/topic.service';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 import { Topic } from 'src/app/interfaces/topic';
 
 @Component({
@@ -18,8 +18,8 @@ export class TopicFollowUpCreateDialogComponent {
   tabActive = 1;
   title: string = '';
 
-  private dialog = inject(MatDialog);
-  private data = inject(MAT_DIALOG_DATA);
+  private dialog = inject(DialogService);
+  private data = inject(DIALOG_DATA);
 
   constructor (public TopicService: TopicService,
     public TopicVoteService: TopicVoteService,

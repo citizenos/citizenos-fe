@@ -34,20 +34,24 @@ export class MyGroupsComponent implements OnInit {
   groupId = <string | null>null;
   groups$: Observable<Group[] | any[]> = of([]);
   allGroups$: Group[] = [];
-  visibility = ['all'].concat(Object.values(this.GroupService.VISIBILITY));
+  visibility = Object.values(this.GroupService.VISIBILITY);
   countrySearch = '';
   countrySearch$ = new BehaviorSubject('');
-  countries = countries;
+  countries = countries.sort((a: any, b: any) => {
+    return a.name.localeCompare(b.name);
+  });
+
   countries$ = of(<Country[]>[]);
   countryFocus = false;
 
   languageSearch = '';
   languageSearch$ = new BehaviorSubject('');
-  languages = languages;
+  languages = languages.sort((a: any, b: any) => {
+    return a.name.localeCompare(b.name);
+  });
   languages$ = of(<Language[]>[]);
   languageFocus = false;
 
-  categories = ['all', 'democracy'];
   searchInput = '';
   searchString$ = new BehaviorSubject('');
   moreFilters = false;
@@ -61,8 +65,8 @@ export class MyGroupsComponent implements OnInit {
   }
 
   filters = {
-    country: 'all',
-    language: 'all'
+    country: '',
+    language: ''
   }
 
   constructor(
@@ -110,8 +114,8 @@ export class MyGroupsComponent implements OnInit {
 
   doClearFilters() {
     this.filters = {
-      country: 'all',
-      language: 'all'
+      country: '',
+      language: ''
     }
     this.searchInput = '';
     this.searchString$.next('');

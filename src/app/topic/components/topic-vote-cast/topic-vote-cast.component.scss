@@ -5,6 +5,39 @@
     right: 0;
   }
 }
+
+.option {
+  gap: 8px;
+}
+
 .setting_button {
   background: none;
+  button:first-child {
+    &:hover {
+      background-color: var(--color-argument-pro-light);
+      svg {
+        path {
+          fill: var(--color-link);
+        }
+      }
+    }
+  }
+}
+.vote_wrap {
+  .vote_content {
+    gap: 24px;
+  }
+
+  .vote_result_info {
+    .text_area {
+      .links_wrap {
+        margin-top: 16px;
+      }
+    }
+  }
+}
+
+.vote_section_heading {
+  font-weight: 600;
+  margin-bottom: 8px;
 }

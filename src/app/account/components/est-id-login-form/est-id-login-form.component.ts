@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { catchError, interval, map, of, switchMap, take, takeWhile } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { ConfigService } from 'src/app/services/config.service';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { NotificationService } from 'src/app/services/notification.service';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -28,7 +28,7 @@ export class EstIdLoginFormComponent {
 
   constructor(cosConfig: ConfigService, private AuthService: AuthService, private Notification: NotificationService,
     private router: Router,
-    private dialog: MatDialog,
+    private dialog: DialogService,
     private route: ActivatedRoute) {
     this.config = cosConfig.get('features');
     this.authMethodsAvailable = Object.assign({}, this.config.authentication);
@@ -77,7 +77,7 @@ export class EstIdLoginFormComponent {
           next: (authRes) => {
             this.isLoadingIdCard = false;
 
-            this.AuthService.status().pipe(take(1)).subscribe();
+            this.AuthService.reloadUser();
             this.dialog.closeAll();
             if (this.redirectSuccess) {
               if (typeof this.redirectSuccess === 'string') {
@@ -117,7 +117,7 @@ export class EstIdLoginFormComponent {
       map(res => res.data)).subscribe({next: (response) => {
         this.isLoading = false;
         this.challengeID = null;
-        this.AuthService.status().pipe(take(1)).subscribe();
+        this.AuthService.reloadUser();
         this.dialog.closeAll();
         if (this.redirectSuccess) {
           if (typeof this.redirectSuccess === 'string') {

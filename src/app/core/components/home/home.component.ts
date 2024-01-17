@@ -8,7 +8,7 @@ import { GroupService } from 'src/app/services/group.service';
 import { of, Subject, Observable } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { Group } from 'src/app/interfaces/group';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { TopicCreateComponent } from 'src/app/topic/components/topic-create/topic-create.component';
 import { AppService } from 'src/app/services/app.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
   destroy$ = new Subject<boolean>();
   stats$ = this.app.stats();
   constructor(
-    private dialog: MatDialog,
+    private dialog: DialogService,
     public auth: AuthService,
     public app: AppService,
     private location: LocationService,

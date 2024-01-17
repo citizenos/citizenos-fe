@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { catchError, interval, map, of, switchMap, take, takeWhile } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { DIALOG_DATA, DialogService } from 'src/app/shared/dialog';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -18,7 +18,7 @@ export class SmartIdLoginComponent implements OnInit {
   countryCode = 'EE';
   challengeID?: number | null;
   isLoading = false;
-  constructor(private AuthService: AuthService, private dialog: MatDialog) { }
+  constructor(private AuthService: AuthService, private dialog: DialogService) { }
 
   ngOnInit(): void {
   }
@@ -71,7 +71,7 @@ export class SmartIdLoginComponent implements OnInit {
         if (response) {
           this.isLoading = false;
           this.challengeID = null;
-          this.AuthService.status().pipe(take(1)).subscribe();
+          this.AuthService.reloadUser();
           this.dialog.closeAll();
         }
       });
@@ -85,6 +85,6 @@ export class SmartIdLoginComponent implements OnInit {
 })
 export class SmartIdLoginDialogComponent {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data:any) {
+  constructor(@Inject(DIALOG_DATA) public data:any) {
   }
 }

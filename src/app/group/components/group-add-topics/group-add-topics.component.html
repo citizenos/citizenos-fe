@@ -45,7 +45,7 @@
   </div>
 </div>
 <div class="create_content_section"
-  *ngIf="group.members.topics?.length === 0 && !dialog || group.members.topics?.length || dialog">
+  *ngIf="group.members.topics?.length === 0 && !dialog || group.members.topics?.length && dialog">
   <div id="topic_members_list_wrap" class="table_section">
     <ng-container *ngIf="group.members.topics?.length === 0 && !dialog">
       <div class="no_items">

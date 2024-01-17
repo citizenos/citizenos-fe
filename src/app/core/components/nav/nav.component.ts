@@ -1,4 +1,4 @@
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { ConfigService } from 'src/app/services/config.service';
 
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
@@ -22,11 +22,14 @@ import { Router } from '@angular/router';
 export class NavComponent implements OnInit {
   wWidth = window.innerWidth;
   topicsCount$ = this.TopicService.count();
+  showNavCreate = false;
+
   constructor(private Location: LocationService,
     public translate: TranslateService,
     private router: Router,
     public config: ConfigService,
-    public auth: AuthService, public dialog: MatDialog,
+    public auth: AuthService,
+    public dialog: DialogService,
     public app: AppService,
     private TopicService: TopicService,
     public TourService: TourService
@@ -84,5 +87,12 @@ export class NavComponent implements OnInit {
   accessibility() {
     this.dialog.closeAll();
     this.dialog.open(AccessibilityMenuComponent);
+  }
+
+  showCreateMenu () {
+    if (window.innerWidth <= 1024) {
+      return this.showNavCreate = !this.showNavCreate;
+    }
+    return this.app.showCreateMenu();
   }
 }

@@ -24,18 +24,18 @@
               <div class="selected_item">{{((topicFilters.status === 'showModerated')?
                 'COMPONENTS.PUBLIC_TOPICS.FILTER_TOPICS_MODERATED' : 'TXT_TOPIC_STATUS_'+topicFilters.status) |
                 uppercase |
-                translate}}</div>
+                translate | titlecase}}</div>
               <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
                 </svg>
               </div>
             </div>
             <div class="options">
-              <div class="option" (click)="setStatus('all');" translate="TXT_TOPIC_STATUS_ALL"></div>
+              <div class="option" (click)="setStatus('all');" [innerHTML]="'TXT_TOPIC_STATUS_ALL' | translate | titlecase"></div>
               <div class="option" (click)="setStatus('showModerated');"
                 translate="COMPONENTS.PUBLIC_TOPICS.FILTER_TOPICS_MODERATED"></div>
               <div class="option" *ngFor="let status of statuses$" (click)="setStatus(status);">
-                {{'TXT_TOPIC_STATUS_' + status | uppercase | translate}}
+                {{'TXT_TOPIC_STATUS_' + status | uppercase | translate | titlecase}}
               </div>
             </div>
           </div>
@@ -60,7 +60,7 @@
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
               <div class="selected_item">{{'TXT_TOPIC_CATEGORY_'+topicFilters.category | uppercase |
-                translate}}</div>
+                translate | titlecase}}</div>
               <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
                 </svg>
@@ -76,11 +76,11 @@
         </cos-input>
         <typeahead id="input_area" class="dropdown tablet_hidden" activeClass="dropdown_active" [term]="countrySearch"
           (search)="searchCountry($event)" (select)="setCountry($event)"
-          [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_COUNTRY' | translate">
+          [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_COUNTRY' | translate | titlecase">
           <ng-container *ngIf="countries$ | async as countries">
             <div class="options" [ngClass]="{'active': !countries.length}">
               <ng-container *ngIf="countries$ | async as listCountry">
-                <div class="option" (click)="setCountry('');" translate="TXT_TOPIC_STATUS_ALL"></div>
+                <div class="option" (click)="setCountry('');" [innerHtml]="'TXT_TOPIC_STATUS_ALL' | translate | titlecase"></div>
                 <div class="option" [typeaheadItem]="country.name" *ngFor="let country of listCountry"
                   (click)="setCountry(country.name)">
                   <div class="item_text_wrap">{{country.name}}</div>
@@ -107,11 +107,11 @@
         </cos-input-->
         <typeahead id="input_area" class="dropdown tablet_hidden" activeClass="dropdown_active" [term]="languageSearch"
           (search)="searchLanguage($event)" (select)="setLanguage($event)"
-          [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_LANGUAGE' | translate">
+          [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_LANGUAGE' | translate | titlecase">
           <ng-container *ngIf="languages$ | async as languages">
             <div class="options" [ngClass]="{'active': !languages.length}">
               <ng-container *ngIf="languages$ | async as listLanguage">
-                <div class="option" (click)="setLanguage('');" translate="TXT_TOPIC_STATUS_ALL"></div>
+                <div class="option" (click)="setLanguage('');" [innerHtml]="'TXT_TOPIC_STATUS_ALL' | translate | titlecase"></div>
                 <div class="option" [typeaheadItem]="language.name" *ngFor="let language of listLanguage"
                   (click)="setLanguage(language.name)">
                   <div class="item_text_wrap">{{language.name}}</div>
@@ -142,11 +142,11 @@
       <div class="options_row tablet_show" *ngIf="moreFilters" [@openClose]="moreFilters ? 'open' : 'closed'">
         <typeahead id="input_area" class="dropdown dropdown_input" activeClass="dropdown_active" [term]="countrySearch"
           (search)="searchCountry($event)" (select)="setCountry($event)"
-          [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_COUNTRY' | translate">
+          [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_COUNTRY' | translate | titlecase">
           <ng-container *ngIf="countries$ | async as countries">
             <div class="options" [ngClass]="{'active': !countries.length}">
               <ng-container *ngIf="countries$ | async as listCountry">
-                <div class="option" (click)="setCountry('');" translate="TXT_TOPIC_STATUS_ALL"></div>
+                <div class="option" (click)="setCountry('');" [innerHtml]="'TXT_TOPIC_STATUS_ALL' | translate | titlecase"></div>
                 <div class="option" [typeaheadItem]="country.name" *ngFor="let country of listCountry"
                   (click)="setCountry(country.name)">
                   <div class="item_text_wrap">{{country.name}}</div>
@@ -157,11 +157,11 @@
         </typeahead>
         <typeahead id="input_area" class="dropdown dropdown_input" activeClass="dropdown_active" [term]="languageSearch"
           (search)="searchLanguage($event)" (select)="setLanguage($event)"
-          [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_LANGUAGE' | translate">
+          [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_LANGUAGE' | translate | titlecase">
           <ng-container *ngIf="languages$ | async as languages">
             <div class="options" [ngClass]="{'active': !languages.length}">
               <ng-container *ngIf="languages$ | async as listLanguage">
-                <div class="option" (click)="setLanguage('');" translate="TXT_TOPIC_STATUS_ALL"></div>
+                <div class="option" (click)="setLanguage('');" [innerHtml]="'TXT_TOPIC_STATUS_ALL' | translate | titlecase"></div>
                 <div class="option" [typeaheadItem]="language.name" *ngFor="let language of listLanguage"
                   (click)="setLanguage(language.name)">
                   <div class="item_text_wrap">{{language.name}}</div>
@@ -208,7 +208,7 @@
     </div>
     <div class="dropdown mobile_show" [cosDropdown] [multipleChoice]="true">
       <div class="selection">
-        <div class="selected_item" translate="COMPONENTS.PUBLIC_TOPICS.LBL_FILTER"> </div>
+        <div class="selected_item" [innerHtml]="'COMPONENTS.PUBLIC_TOPICS.LBL_FILTER' | translate | titlecase"> </div>
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
         </svg>
@@ -218,20 +218,20 @@
         <div class="filter_option">
           <span translate="COMPONENTS.PUBLIC_TOPICS.FILTER_VISIBILITY"></span><a class="bold"
             (click)="mobileFilters.status = true">{{'TXT_TOPIC_STATUS_'+topicFilters.status | uppercase |
-            translate}}</a>
+            translate | titlecase}}</a>
         </div>
         <div class="filter_option">
           <span translate="COMPONENTS.PUBLIC_TOPICS.FILTER_CATEGORIES"></span><a class="bold"
             (click)="mobileFilters.category = true">{{'TXT_TOPIC_CATEGORY_'+topicFilters.category | uppercase |
-            translate}}</a>
+            translate | titlecase}}</a>
         </div>
         <div class="filter_option">
           <span translate="COMPONENTS.PUBLIC_TOPICS.FILTER_COUNTRY"></span><a class="bold"
-            (click)="mobileFilters.country = true">{{topicFilters.country| translate}}</a>
+            (click)="mobileFilters.country = true">{{topicFilters.country| translate | titlecase}}</a>
         </div>
         <div class="filter_option">
           <span translate="COMPONENTS.PUBLIC_TOPICS.FILTER_LANGUAGE"></span><a class="bold"
-            (click)="mobileFilters.language = true">{{topicFilters.language | translate}}</a>
+            (click)="mobileFilters.language = true">{{topicFilters.language | translate | titlecase}}</a>
         </div>
         <button (click)="doClearFilters()" class="btn_medium_plain">
           <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -259,12 +259,12 @@
 
       <div class="options button_options" *ngIf="mobileFilters.status">
         <label class="checkbox" (click)="mobileFilters.status = 'all';">
-          <span translate="TXT_TOPIC_STATUS_ALL"></span>
+          <span [innerHTML]="'TXT_TOPIC_STATUS_ALL' | translate | titlecase"></span>
           <input type="radio" name="status">
           <span class="checkmark"></span>
         </label>
         <label class="checkbox" *ngFor="let status of statuses$" (click)="mobileFilters.status = status">
-          <span [translate]="'TXT_TOPIC_STATUS_'+status | uppercase"></span>
+          <span [innerHtml]="'TXT_TOPIC_STATUS_'+status | uppercase | translate | titlecase"></span>
           <input type="radio" name="status">
           <span class="checkmark"></span>
         </label>

@@ -1,6 +1,6 @@
 import { AuthService } from './auth.service';
 import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { BehaviorSubject, map, take } from 'rxjs';
 import { Group } from '../interfaces/group';
 import { Topic } from '../interfaces/topic';
@@ -30,6 +30,7 @@ export class AppService {
   mobileTutorial = false;
   editMode = false;
   darkNav = false;
+  mobileNavBox = false;
   showActivities = false;
   searchAllowed = true;
   addArgument = new BehaviorSubject(false);
@@ -46,7 +47,7 @@ export class AppService {
     text: ''
   });
 
-  constructor(private dialog: MatDialog,
+  constructor(private dialog: DialogService,
     private Title: Title,
     private Meta: Meta,
     private translate: TranslateService,
@@ -58,7 +59,7 @@ export class AppService {
     private AuthService: AuthService,
     private http: HttpClient) { }
 
-  showMobile () {
+  showMobile() {
     return window.innerWidth <= 560;
   }
 
@@ -76,7 +77,7 @@ export class AppService {
   };
 
   doShowLogin(redirectSuccess?: string) {
-    this.dialog.open(LoginDialogComponent, {data: {redirectSuccess}});
+    this.dialog.open(LoginDialogComponent, { data: { redirectSuccess } });
   }
 
   doShowRegister(email?: string) {
@@ -99,18 +100,18 @@ export class AppService {
 
   logout() {
     this.AuthService.logout()
-    .pipe(take(1))
-    .subscribe({
-      next: (done) => {
-        this.AuthService.status().pipe(take(1)).subscribe();
-        setTimeout(() => {
-          this.router.navigate(['/']);
-        });
-      },
-      error: (err) => {
-        console.error('LOGOUT ERROR', err);
-      }
-    });
+      .pipe(take(1))
+      .subscribe({
+        next: (done) => {
+          this.AuthService.reloadUser();
+          setTimeout(() => {
+            this.router.navigate(['/']);
+          });
+        },
+        error: (err) => {
+          console.error('LOGOUT ERROR', err);
+        }
+      });
   }
 
   createNewTopic(title?: string, visibility?: string, groupId?: string, groupLevel?: string) {
@@ -151,13 +152,13 @@ export class AppService {
     if (!this.createMenu) {
       const createDialog = this.dialog.open(CreateComponent);
       createDialog.afterClosed().subscribe(() => {
+        this.dialog.closeAll();
         this.createMenu = false;
       })
-    } else {
+      this.createMenu = true;
+    } else if (this.createMenu) {
       this.dialog.closeAll();
     }
-
-    this.createMenu = !this.createMenu;
   }
 
   hwCryptoErrorToTranslationKey(err: any) {
@@ -188,8 +189,8 @@ export class AppService {
     );
   };
 
-  setPageTitle (title?:string) {
-    this.Title.setTitle(title || this.translate.instant('META_DEFAULT_TITLE'));
+  setPageTitle(title?: string) {
+    this.Title.setTitle(this.translate.instant(title || 'META_DEFAULT_TITLE'));
     this.Meta.addTag({
       property: 'og:title',
       content: this.translate.instant(title || 'META_DEFAULT_TITLE')

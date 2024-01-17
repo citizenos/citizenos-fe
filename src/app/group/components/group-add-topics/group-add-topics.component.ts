@@ -8,7 +8,7 @@ import { GroupMemberTopicService } from 'src/app/services/group-member-topic.ser
 import { of, tap, switchMap, take, forkJoin } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { TopicService } from 'src/app/services/topic.service';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { DIALOG_DATA, DialogRef } from 'src/app/shared/dialog';
 @Component({
   selector: 'group-add-topics',
   templateUrl: './group-add-topics.component.html',
@@ -25,7 +25,6 @@ export class GroupAddTopicsComponent implements OnInit {
   resultCount: number = 0;
   searchOrderBy?: string;
   errors?: any;
-
   membersPage = 1;
   itemsPerPage = 5;
 
@@ -166,9 +165,11 @@ export class GroupAddTopicsComponent implements OnInit {
 })
 export class GroupAddTopicsDialogComponent {
     group!: Group;
+
+  noTopicsSelected = false;
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private dialog: MatDialogRef<GroupAddTopicsDialogComponent>,
+    @Inject(DIALOG_DATA) public data: any,
+    private dialog: DialogRef<GroupAddTopicsDialogComponent>,
     private GroupService: GroupService,
     private GroupMemberTopic: GroupMemberTopicService
   ) {
@@ -206,17 +207,12 @@ export class GroupAddTopicsDialogComponent {
       this.dialog.close();
           }
         })
-    }
-/*
-    if (topicsToAdd.length) {
-      this.GroupMemberTopic.save(groupMemberTopicsToAdd)
-        .pipe(take(1))
-        .subscribe(res => {
-          this.dialog.close()
-        })
     } else {
-      this.dialog.close();
-    }*/
+      this.noTopicsSelected = true;
+      setTimeout(() => {
+        this.noTopicsSelected = false;
+      }, 5000);
+    }
 
   }
 }

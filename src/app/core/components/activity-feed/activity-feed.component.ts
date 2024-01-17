@@ -1,6 +1,6 @@
 import { style, transition, trigger, animate, state } from '@angular/animations';
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { DIALOG_DATA, DialogRef } from 'src/app/shared/dialog';
 import { map, tap, of } from 'rxjs';
 import { ActivityService } from 'src/app/services/activity.service'
 @Component({
@@ -30,7 +30,7 @@ export class ActivityFeedComponent implements OnInit {
   activities$ = of(<any[]>[]);
   show = false;
   feedType = 'global';
-  constructor(public ActivityService: ActivityService, @Inject(MAT_DIALOG_DATA) private data: any, private dialogRef: MatDialogRef<ActivityFeedComponent>) {
+  constructor(public ActivityService: ActivityService, @Inject(DIALOG_DATA) private data: any, private dialogRef: DialogRef<ActivityFeedComponent>) {
     setTimeout(() => {
       this.show = true
     });

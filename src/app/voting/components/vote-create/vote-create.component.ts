@@ -1,6 +1,6 @@
 import { trigger, state, style } from '@angular/animations';
 import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { of, map, tap, Observable, take, switchMap, takeWhile, BehaviorSubject } from 'rxjs';
@@ -71,10 +71,12 @@ import { TopicEditDisabledDialogComponent } from 'src/app/topic/components/topic
 export class VoteCreateComponent implements OnInit {
   topicText?: ElementRef
   readMoreButton = false;
+  @ViewChild('topicTitle') titleInput!: ElementRef;
+  @ViewChild('topicIntro') introInput!: ElementRef;
   @ViewChild('topicText') set content(content: ElementRef) {
     if (content) { // initially setter gets called with undefined
       this.topicText = content;
-      if (content.nativeElement.offsetHeight > 200) {
+      if (content.nativeElement.offsetHeight >= 320) {
         this.readMoreButton = true;
       }
     }
@@ -121,8 +123,12 @@ export class VoteCreateComponent implements OnInit {
   /**/
   VISIBILITY = this.TopicService.VISIBILITY;
   CATEGORIES = Object.keys(this.TopicService.CATEGORIES);
-  languages = languages;
-  countries = countries;
+  languages = languages.sort((a: any, b: any) => {
+    return a.name.localeCompare(b.name);
+  });
+  countries = countries.sort((a: any, b: any) => {
+    return a.name.localeCompare(b.name);
+  });
   errors?: any;
   tmpImageUrl?: string;
   imageFile?: any;
@@ -154,7 +160,7 @@ export class VoteCreateComponent implements OnInit {
     public TopicInviteUserService: TopicInviteUserService,
     private router: Router,
     private route: ActivatedRoute,
-    private dialog: MatDialog,
+    private dialog: DialogService,
     private TopicVoteService: TopicVoteService,
     @Inject(DomSanitizer) private sanitizer: DomSanitizer,
     private config: ConfigService) {
@@ -284,7 +290,7 @@ export class VoteCreateComponent implements OnInit {
             this.voteCreateForm.saveVoteSettings();*/
       }
       if (tabIndex + 1 === 3) {
-        //     this.TopicService.reloadTopic();
+            this.TopicService.reloadTopic();
       }
       if (tabIndex > -1 && tabIndex < 3) {
         this.selectTab(this.tabs[tabIndex + 1]);
@@ -358,6 +364,21 @@ export class VoteCreateComponent implements OnInit {
       this.updateTopic();
     }
   };
+
+  showBlockTitle () {
+    this.block.title = true;
+    setTimeout(() => {
+      this.titleInput.nativeElement.focus();
+    }, 200);
+  }
+
+  showBlockIntro () {
+    this.block.intro = true;
+    setTimeout(() => {
+      console.log(this.introInput)
+      this.introInput.nativeElement.focus();
+    }, 200);
+  }
 
   deleteTopic() {
     /*this.TopicService.doDeleteTopic(topic, [this.Translate.currentLang, 'my', 'topics']);*/
@@ -441,6 +462,13 @@ export class VoteCreateComponent implements OnInit {
     this.updateVote();
     this.router.navigate(['my', 'topics']);
   }
+
+  edit() {
+    this.updateTopic();
+    this.updateVote();
+    this.router.navigate(['topics', this.topic.id], {fragment: 'voting'});
+  }
+
   publish() {
     this.updateTopic();
     this.topicGroups.forEach((group) => {

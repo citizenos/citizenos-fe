@@ -4,7 +4,7 @@ import { of, switchMap, take } from 'rxjs';
 import { TopicJoinService } from 'src/app/services/topic-join.service';
 import { LocationService } from 'src/app/services/location.service';
 import { Topic } from 'src/app/interfaces/topic';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 
 @Component({
   selector: 'app-topic-join',
@@ -13,7 +13,7 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class TopicJoinComponent {
   topic: Topic;
-  constructor(@Inject(MAT_DIALOG_DATA) data: any) {
+  constructor(@Inject(DIALOG_DATA) data: any) {
     this.topic = data.topic;
   }
 }
@@ -24,7 +24,7 @@ export class TopicJoinComponent {
 })
 export class TopicTokenJoinComponent {
   token: string = '';
-  constructor(router: Router, dialog: MatDialog, route: ActivatedRoute, Location: LocationService, TopicJoinService: TopicJoinService) {
+  constructor(router: Router, dialog: DialogService, route: ActivatedRoute, Location: LocationService, TopicJoinService: TopicJoinService) {
     route.params.pipe(
       switchMap((params: any) => {
         this.token = params['token'];

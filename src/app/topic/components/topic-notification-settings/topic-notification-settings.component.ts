@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 import { NotificationService } from 'src/app/services/notification.service';
 import { TopicNotificationService } from 'src/app/services/topic-notification.service';
 import { TopicService } from 'src/app/services/topic.service';
@@ -31,8 +31,8 @@ export class TopicNotificationSettingsComponent implements OnInit {
     private TopicNotificationService: TopicNotificationService,
     private Notification: NotificationService,
     private Topic: TopicService,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private dialog: MatDialog) {
+    @Inject(DIALOG_DATA) public data: any,
+    private dialog: DialogService) {
     if (data.topicId)
       this.topicId = data.topicId;
 

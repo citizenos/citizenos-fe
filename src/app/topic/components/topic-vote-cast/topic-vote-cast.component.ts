@@ -6,13 +6,14 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { TopicService } from 'src/app/services/topic.service';
 import { TopicVoteService } from 'src/app/services/topic-vote.service';
 import { VoteDelegationService } from 'src/app/services/vote-delegation.service';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { take } from 'rxjs';
 import { TopicVoteSignComponent } from '../topic-vote-sign/topic-vote-sign.component';
 import { TopicVoteDeadlineComponent } from '../topic-vote-deadline/topic-vote-deadline.component';
 import { TopicVoteDelegateComponent } from '../topic-vote-delegate/topic-vote-delegate.component';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { TopicVoteReminderDialog } from 'src/app/topic/components/topic-vote-reminder-dialog/topic-vote-reminder-dialog.component';
+import { DownloadVoteResultsComponent } from '../download-vote-results/download-vote-results.component';
 
 @Component({
   selector: 'topic-vote-cast',
@@ -32,7 +33,7 @@ export class TopicVoteCastComponent implements OnInit {
 
   constructor(
     public app: AppService,
-    private dialog: MatDialog,
+    private dialog: DialogService,
     private Notification: NotificationService,
     public AuthService: AuthService,
     private TopicService: TopicService,
@@ -104,7 +105,7 @@ export class TopicVoteCastComponent implements OnInit {
             options
           }
         });
-
+      signDialog.afterClosed().subscribe(() => this.TopicService.reloadTopic());
       return;
     } else {
       options.forEach((dOption: any) => {
@@ -120,6 +121,7 @@ export class TopicVoteCastComponent implements OnInit {
               next: (vote) => {
                 this.vote = vote;
                 this.topic.vote = vote;
+                this.TopicService.reloadTopic()
               },
               error: (err) => {
                 console.error(err);
@@ -136,14 +138,13 @@ export class TopicVoteCastComponent implements OnInit {
     }
   }
 
-  saveVote () {
-    const saveVote:any = Object.assign(this.vote, {topicId: this.topic.id});
+  saveVote() {
+    const saveVote: any = Object.assign(this.vote, { topicId: this.topic.id });
     this.TopicVoteService.update(saveVote)
       .pipe(take(1))
       .subscribe({
         next: (vote) => {
           this.vote = vote;
-          console.log(vote);
           this.TopicService.reloadTopic();
           this.dialog.closeAll();
         },
@@ -157,11 +158,32 @@ export class TopicVoteCastComponent implements OnInit {
       });
   }
   closeVoting() {
-    this.vote.endsAt = new Date();
-    this.saveVote();
+    const closeVoteDialog = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        level: 'warn',
+        heading: 'COMPONENTS.CLOSE_VOTING_CONFIRM.HEADING',
+        description: 'COMPONENTS.CLOSE_VOTING_CONFIRM.ARE_YOU_SURE',
+        confirmBtn: 'COMPONENTS.CLOSE_VOTING_CONFIRM.CONFIRM_YES',
+        closeBtn: 'COMPONENTS.CLOSE_VOTING_CONFIRM.CONFIRM_NO'
+      }
+    });
+    closeVoteDialog.afterClosed().subscribe({
+      next: (value) => {
+        if (value) {
+          this.vote.endsAt = new Date();
+          this.saveVote();
+          this.topic.status = this.TopicService.STATUSES.followUp;
+          this.TopicService.patch(this.topic).pipe(take(1)).subscribe({
+            next: () => {
+              this.TopicService.reloadTopic();
+            }
+          });
+        }
+      }
+    });
   }
 
-  sendVoteReminder () {
+  sendVoteReminder() {
     const voteReminderDialog = this.dialog.open(TopicVoteReminderDialog, {
       data: {
         topic: this.topic,
@@ -179,13 +201,18 @@ export class TopicVoteCastComponent implements OnInit {
     })
   }
 
-  editDeadline () {
+  editDeadline() {
     const voteDeadlineDialog = this.dialog.open(TopicVoteDeadlineComponent, {
       data: {
-      vote: this.vote,
-      topic: this.topic
-    }});
+        vote: this.vote,
+        topic: this.topic
+      }
+    });
   }
+  canEditDeadline () {
+    return this.topic.status === this.TopicService.STATUSES.voting;
+  }
+
   hasVoteEndedExpired() {
     return this.TopicVoteService.hasVoteEndedExpired(this.topic, this.vote);
   };
@@ -248,6 +275,10 @@ export class TopicVoteCastComponent implements OnInit {
     if (!this.canVote()) {
       return false;
     }
+    if (option.selected) {
+      delete option.selected;
+      return;
+    }
     this.vote.options.rows.forEach((opt: any) => {
       if (option.value === 'Neutral' || option.value === 'Veto' || this.vote.maxChoices === 1) {
         opt.selected = false;
@@ -287,4 +318,42 @@ export class TopicVoteCastComponent implements OnInit {
     }
     window.location.href = url;
   };
+
+  triggerFinalDownload(type: string, includeCSV?: boolean) {
+    const finalDownloadDialog = this.dialog.open(DownloadVoteResultsComponent);
+    finalDownloadDialog.afterClosed().subscribe({
+      next: (allow: any) => {
+        if (allow === 'deadline') {
+          this.editDeadline();
+        } else if (allow === true) {
+          this.topic.status = this.TopicService.STATUSES.followUp;
+          this.TopicService.patch(this.topic).pipe(take(1)).subscribe({
+            next: () => {
+              this.TopicService.reloadTopic();
+              this.TopicVoteService.loadVote({topicId: this.topic.id, voteId: this.topic.voteId!})
+              .pipe(take(1))
+              .subscribe({
+                next: (vote) => {
+                  let url = ''
+                  if (type === 'zip') {
+                    url = vote.downloads.zipFinal;
+                  } else {
+                    url = vote.downloads.bdocFinal;
+                  }
+                  if (!url) return;
+                  if (includeCSV) {
+                    url += '&include[]=csv';
+                  }
+                  window.location.href = url;
+                }
+              });
+            }
+          });
+        }
+      },
+      error: (err) => {
+
+      }
+    })
+  }
 }

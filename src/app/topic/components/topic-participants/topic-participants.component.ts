@@ -1,11 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { DialogService, DIALOG_DATA, DialogRef } from 'src/app/shared/dialog';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicMemberUserService } from 'src/app/services/topic-member-user.service';
 import { TopicInviteUserService } from 'src/app/services/topic-invite-user.service';
 import { TopicMemberGroupService } from 'src/app/services/topic-member-group.service';
 import { TopicService } from 'src/app/services/topic.service';
-import { of, take, switchMap } from 'rxjs';
+import { of, take, tap, switchMap } from 'rxjs';
 import { TopicMemberUser } from 'src/app/interfaces/user';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -24,11 +24,12 @@ export class TopicParticipantsComponent implements OnInit {
   topic: Topic;
   memberGroups$ = of(<any[]>[]);
   memberUsers$ = of(<any[]>[]);
+  memberUsers = <any[]>[];
   memberInvites$ = of(<any[]>[]);
   LEVELS = Object.keys(this.TopicService.LEVELS)
   constructor(
-    private dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: TopicParticipantsData,
+    private dialog: DialogService,
+    @Inject(DIALOG_DATA) public data: TopicParticipantsData,
     public TopicMemberUserService: TopicMemberUserService,
     public TopicInviteUserService: TopicInviteUserService,
     public TopicMemberGroupService: TopicMemberGroupService,
@@ -36,7 +37,9 @@ export class TopicParticipantsComponent implements OnInit {
   ) {
     this.topic = data.topic;
     this.memberGroups$ = TopicMemberGroupService.loadItems();
-    this.memberUsers$ = TopicMemberUserService.loadItems();
+    this.memberUsers$ = TopicMemberUserService.loadItems().pipe(
+      tap((members:any) => this.memberUsers = members)
+    );
     this.memberInvites$ = TopicInviteUserService.loadItems();
   }
 
@@ -49,6 +52,12 @@ export class TopicParticipantsComponent implements OnInit {
   canUpdate() {
     return this.TopicService.canUpdate(this.topic);
   }
+
+  updateAllMemberLevels(level: string) {
+    this.memberUsers.forEach((member: TopicMemberUser) => {
+      this.doUpdateMemberUser(member, level);
+    });
+  };
 
   doUpdateMemberUser(member: TopicMemberUser, level: string) {
     if (member.level !== level) {
@@ -96,7 +105,7 @@ export class TopicParticipantsComponent implements OnInit {
 })
 export class TopicParticipantsDialogComponent implements OnInit {
 
-  constructor(dialog: MatDialog, router: Router, route: ActivatedRoute, TopicService: TopicService, @Inject(MAT_DIALOG_DATA) data: any, curDialog: MatDialogRef<TopicParticipantsDialogComponent>) {
+  constructor(dialog: DialogService, router: Router, route: ActivatedRoute, TopicService: TopicService, @Inject(DIALOG_DATA) data: any, curDialog: DialogRef<TopicParticipantsDialogComponent>) {
     if (data.topic) {
       const manageDialog = dialog.open(TopicParticipantsComponent, { data: { topic: data.topic } });
       manageDialog.afterClosed().subscribe(() => {

@@ -5,6 +5,9 @@
 .date_selector {
   width: 100%;
 
+  &:hover, &.selected {
+    background-color: var(--color-argument-pro-light);
+  }
   .checkbox {
     width: 100%;
 

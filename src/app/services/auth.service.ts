@@ -7,7 +7,7 @@ import { switchMap, catchError, tap, take, map, retry, exhaustMap, shareReplay, 
 import { LocationService } from './location.service';
 import { NotificationService } from './notification.service';
 import { User } from '../interfaces/user';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot, Router } from '@angular/router';
 
 @Injectable({
@@ -15,11 +15,11 @@ import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot, Router } from '
 })
 export class AuthService {
   private loadUser$ = new BehaviorSubject<void>(undefined);
-  public user$: Observable<User> | null;
+  public user$: Observable<User>;
   public loggedIn$ = new BehaviorSubject(false);
   public user = new BehaviorSubject({ id: <string|null>null });
 
-  constructor(private dialog: MatDialog, private Location: LocationService, private http: HttpClient, private Notification: NotificationService, private config: ConfigService) {
+  constructor(private dialog: DialogService, private Location: LocationService, private http: HttpClient, private Notification: NotificationService, private config: ConfigService) {
     this.user$ = this.loadUser$.pipe(
       exhaustMap(() => this.status()),
       shareReplay()
@@ -93,7 +93,7 @@ export class AuthService {
       .pipe(
         combineLatestWith(this.http.post(pathLogoutAPI, {}, { withCredentials: true, responseType: 'json', observe: 'body' })),
         map(([res1, res2]) => {
-          this.user$ = null;
+          this.reloadUser();
           this.loggedIn$.next(false);
           return res2;
         }),

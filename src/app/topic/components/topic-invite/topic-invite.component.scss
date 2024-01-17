@@ -6,7 +6,7 @@
 
 .button_options {
   position: fixed;
-  max-width: max-content!important;
+  max-width: max-content !important;
   .option {
     max-width: max-content;
   }
@@ -48,6 +48,7 @@
 }
 
 .row_list {
+  margin-bottom: 0;
   .row_cell {
     a {
       min-width: 200px;
@@ -80,6 +81,13 @@
   }
 }
 
-#search_wrap, .row_list {
-  margin-bottom: 16px;
+.inline_notification {
+  margin-top: 16px;
+  margin-bottom: 24px;
+}
+
+#topic_members_list_wrap {
+  .row_list {
+    margin-bottom: 16px;
+  }
 }

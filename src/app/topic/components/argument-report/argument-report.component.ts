@@ -1,7 +1,7 @@
 import { Argument } from 'src/app/interfaces/argument';
 import { Component, OnInit, Inject } from '@angular/core';
 import { TopicArgumentService } from 'src/app/services/topic-argument.service';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { DIALOG_DATA, DialogRef } from 'src/app/shared/dialog';
 import { take } from 'rxjs';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 
@@ -22,8 +22,8 @@ export class ArgumentReportComponent implements OnInit {
     commentId: new UntypedFormControl(''),
   });
   constructor(
-    private dialogRef: MatDialogRef<ArgumentReportComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: any,
+    private dialogRef: DialogRef<ArgumentReportComponent>,
+    @Inject(DIALOG_DATA) private data: any,
     private TopicArgumentService: TopicArgumentService
     ) {
     this.argument = data.argument;

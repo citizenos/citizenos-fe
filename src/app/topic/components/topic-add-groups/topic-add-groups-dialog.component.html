@@ -1,0 +1,51 @@
+<div class="overlay" dialog-close></div>
+<div class="dialog_wrap">
+  <div class="dialog">
+    <div class="dialog_header">
+      <div class="header_text">
+        <h4 class="title" translate="COMPONENTS.TOPIC_ADD_GROUPS_DIALOG.HEADING"></h4>
+        <div class="dialog_close">
+          <a class="btn_dialog_close icon" dialog-close>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M7.72152 6.29537C7.3277 5.90154 6.68919 5.90154 6.29537 6.29537C5.90154 6.68919 5.90154 7.3277 6.29537 7.72153L10.5738 12L6.29541 16.2785C5.90159 16.6723 5.90159 17.3108 6.29541 17.7046C6.68923 18.0985 7.32774 18.0985 7.72156 17.7046L12 13.4262L16.2784 17.7046C16.6723 18.0985 17.3108 18.0985 17.7046 17.7046C18.0984 17.3108 18.0984 16.6723 17.7046 16.2785L13.4262 12L17.7046 7.72153C18.0985 7.3277 18.0985 6.68919 17.7046 6.29537C17.3108 5.90154 16.6723 5.90154 16.2785 6.29537L12 10.5739L7.72152 6.29537Z"
+                fill="#2C3B47" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="dialog_content">
+      <div id="form_area">
+        <topic-add-groups class="create_content" [dialog]="true" [topic]="topic"></topic-add-groups>
+        <div class="notification_wrap" *ngIf="noGroupsSelected">
+          <div class="notification_inline error">
+            <div class="icon_notification">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="24" height="24" rx="12" fill="#EF4025" />
+                <path
+                  d="M16.3753 6.77583C16.6097 6.54152 16.9896 6.54152 17.2239 6.77583C17.4582 7.01015 17.4582 7.39005 17.2239 7.62436L12.8481 12.0001L17.2239 16.3758C17.4582 16.6101 17.4582 16.99 17.2239 17.2244C16.9896 17.4587 16.6097 17.4587 16.3753 17.2244L11.9996 12.8486L7.62387 17.2244C7.38956 17.4587 7.00966 17.4587 6.77535 17.2244C6.54103 16.99 6.54103 16.6101 6.77535 16.3758L11.1511 12.0001L6.77535 7.62436C6.54103 7.39005 6.54103 7.01015 6.77535 6.77583C7.00966 6.54152 7.38956 6.54152 7.62387 6.77583L11.9996 11.1516L16.3753 6.77583Z"
+                  fill="white" stroke="white" stroke-linecap="round" />
+              </svg>
+            </div>
+            <div class="message">
+              <div class="content">
+                <div class="content_description"
+                  [innerHTML]="'COMPONENTS.TOPIC_ADD_GROUPS_DIALOG.NO_GROUPS_SELECTED' | translate"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="dialog_footer with_buttons">
+      <div></div>
+      <div class="button_row">
+        <a dialog-close translate="COMPONENTS.TOPIC_ADD_GROUPS_DIALOG.LNK_CANCEL"></a>
+        <button class="btn_medium_submit" translate="COMPONENTS.TOPIC_ADD_GROUPS_DIALOG.BTN_SAVE"
+          (click)="doInviteMembers()"></button>
+      </div>
+    </div>
+  </div>
+</div>

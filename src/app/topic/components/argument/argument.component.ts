@@ -1,6 +1,6 @@
 import { TranslateService } from '@ngx-translate/core';
 import { Component, Input, OnInit, ViewChild, ViewEncapsulation, ElementRef } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { take } from 'rxjs';
 import { Router } from '@angular/router';
 import { Argument } from 'src/app/interfaces/argument';
@@ -33,7 +33,7 @@ export class ArgumentComponent implements OnInit {
   errors = [];
 
   constructor(
-    public dialog: MatDialog,
+    public dialog: DialogService,
     public config: ConfigService,
     private router: Router,
     public Auth: AuthService,

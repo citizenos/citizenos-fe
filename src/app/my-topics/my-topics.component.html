@@ -89,7 +89,8 @@
         <cos-input [placeholder]="'VIEWS.MY_TOPICS.FILTER_STATUS' | translate" class="dropdown_input tablet_hidden">
           <div class="dropdown" [cosDropdown] [multipleChoice]="true">
             <div class="selection">
-              <div class="selected_item" [translate]="'TXT_TOPIC_STATUS_' + topicFilters.status | uppercase">
+              <div class="selected_item"
+                [innerHtml]="'TXT_TOPIC_STATUS_' + topicFilters.status | uppercase | translate | titlecase">
 
               </div>
               <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -107,7 +108,7 @@
               </div>
               <div class="option check" *ngFor="let status of statuses$">
                 <label class="checkbox">
-                  <span [translate]="'TXT_TOPIC_STATUS_' + status | uppercase"></span>
+                  <span [innerHtml]="'TXT_TOPIC_STATUS_' + status | uppercase | translate | titlecase"></span>
                   <input type="checkbox" [checked]="topicFilters.status === status" (click)="setStatus(status);">
                   <span class="checkmark"></span>
                 </label>
@@ -151,10 +152,11 @@
         </cos-input>
       </div>
       <div class="options_row tablet_show" *ngIf="moreFilters" [@openClose]="moreFilters ? 'open' : 'closed'">
-        <cos-input [placeholder]="'VIEWS.MY_TOPICS.FILTER_STATUS' | translate" class="dropdown_input tablet_hidden">
+        <cos-input [placeholder]="'VIEWS.MY_TOPICS.FILTER_STATUS' | translate" class="dropdown_input">
           <div class="dropdown" [cosDropdown] [multipleChoice]="true">
             <div class="selection">
-              <div class="selected_item" [translate]="'TXT_TOPIC_STATUS_' + topicFilters.status | uppercase">
+              <div class="selected_item"
+                [innerHtml]="'TXT_TOPIC_STATUS_' + topicFilters.status | uppercase | translate | titlecase">
 
               </div>
               <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -172,7 +174,7 @@
               </div>
               <div class="option check" *ngFor="let status of statuses$">
                 <label class="checkbox">
-                  <span [translate]="'TXT_TOPIC_STATUS_' + status | uppercase"></span>
+                  <span [innerHtml]="'TXT_TOPIC_STATUS_' + status | uppercase | translate | titlecase"></span>
                   <input type="checkbox" [checked]="topicFilters.status === status" (click)="setStatus(status);">
                   <span class="checkmark"></span>
                 </label>
@@ -180,7 +182,7 @@
             </div>
           </div>
         </cos-input>
-        <cos-input [placeholder]="'VIEWS.MY_TOPICS.FILTER_ORDER' | translate" class="dropdown_input tablet_hidden">
+        <cos-input [placeholder]="'VIEWS.MY_TOPICS.FILTER_ORDER' | translate" class="dropdown_input">
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
               <div class="selected_item">
@@ -273,11 +275,12 @@
       <button class="btn_big_secondary" [ngClass]="moreFilters? 'flip' : ''" (click)="moreFilters = !moreFilters">
         <div class="btn_icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
             xmlns="http://www.w3.org/2000/svg">
-            <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+            <path d="M17 10L12 15L7 10" stroke="#1168A8" stroke-width="2" stroke-linecap="round" />
           </svg>
+
         </div>
       </button>
-      <button class="btn_big_secondary icon" *ngIf="moreFilters" (click)="doClearFilters()">
+      <button class="btn_big_secondary animate icon" *ngIf="moreFilters" (click)="doClearFilters()">
         <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M12.4999 7L12.4999 5.0001C10.7069 5.0001 8.91716 5.68333 7.55013 7.05036C5.05581 9.54468 4.83742 13.4531 6.89495 16.195C7.22643 16.6368 7.23355 17.2664 6.84302 17.657C6.4525 18.0475 5.81399 18.0504 5.46866 17.6194C2.6374 14.0857 2.85982 8.91224 6.13592 5.63614C7.89308 3.87898 10.1981 3.0001 12.4999 3.0001L12.4999 1L16.4999 4L12.4999 7Z"
@@ -288,12 +291,14 @@
         </svg>
       </button>
     </div>
-    <div class="dropdown mobile_show" [cosDropdown] [multipleChoice]="true">
+    <div class="dropdown mobile_filters_selection mobile_show" [cosDropdown] [multipleChoice]="true">
       <div class="selection">
-        <div class="selected_item" translate="VIEWS.MY_TOPICS.LBL_FILTER"> </div>
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
-        </svg>
+        <div class="selected_item" [innerHtml]="'VIEWS.MY_TOPICS.LBL_FILTER' | translate | titlecase"></div>
+        <button class="btn_medium_plain icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </button>
       </div>
       <div class="options filter_options">
         <div class="filter_option">
@@ -326,7 +331,7 @@
 
         <div class="filter_option">
           <span translate="VIEWS.MY_TOPICS.FILTER_STATUS"></span><a class="bold" (click)="mobileFilters.status = true"
-            [translate]="'TXT_TOPIC_STATUS_' + topicFilters.status | uppercase">
+            [innerHtml]="'TXT_TOPIC_STATUS_' + topicFilters.status | uppercase | translate | titlecase">
 
           </a>
         </div>
@@ -398,13 +403,13 @@
       </div>
       <div class="options button_options" *ngIf="mobileFilters.status">
         <label class="checkbox" (click)="mobileFilters.status = 'all';">
-          <span translate="TXT_TOPIC_STATUS_ALL"></span>
+          <span [innerHtml]="'TXT_TOPIC_STATUS_ALL' | translate | titlecase"></span>
           <input type="radio" name="status">
           <span class="checkmark"></span>
         </label>
 
         <label class="checkbox" *ngFor="let status of statuses$" (click)="mobileFilters.status = status">
-          <span [translate]="'TXT_TOPIC_STATUS_'+status | uppercase"></span>
+          <span [innerHtml]="'TXT_TOPIC_STATUS_' + status | uppercase | translate | titlecase"></span>
           <input type="radio" name="status">
           <span class="checkmark"></span>
         </label>

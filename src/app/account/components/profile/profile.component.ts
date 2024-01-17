@@ -2,7 +2,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, map, tap, take, takeWhile, catchError } from 'rxjs/operators';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { TopicNotificationSettingsComponent } from 'src/app/topic/components/topic-notification-settings/topic-notification-settings.component';
@@ -54,7 +54,7 @@ export class ProfileComponent {
 
   constructor(
     public app: AppService,
-    public dialog: MatDialog,
+    public dialog: DialogService,
     public TopicNotificationService: TopicNotificationService,
     private Notification: NotificationService,
     private User: UserService,
@@ -188,7 +188,7 @@ export class ProfileComponent {
       .subscribe({
         next: (res: any) => {
           this.Notification.removeAll();
-          this.Notification.addSuccess('COMPONENTS.NOTIFICATION.TITLE_SUCCESS');
+          this.Notification.addSuccess('MSG_SUCCESS_PUT_API_USERS_SELF');
           if (res.data) {
             const values = Object.assign({}, this.form, res.data);
             if (user.email !== this.form.email) {
@@ -236,7 +236,16 @@ export class ProfileComponent {
   fileUpload() {
     const files = this.fileInput?.nativeElement.files;
     this.uploadedImage = files[0];
-  };
+    const reader = new FileReader();
+    reader.onload = async () => {
+      await this.resizeImage(reader.result as string).then((res: any) => {
+        this.tmpImageUrl = res.imageUrl;
+        this.imageFile = res.file;
+      });
+    };
+    reader.readAsDataURL(files[0]);
+
+  }
 
   triggerUploadImage() {
     this.fileInput?.nativeElement.click();

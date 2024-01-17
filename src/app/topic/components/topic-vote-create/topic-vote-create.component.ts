@@ -1,13 +1,12 @@
 import { Component, OnInit, Output, EventEmitter, Input, Inject, inject, HostBinding, ChangeDetectorRef } from '@angular/core';
 import { Topic } from 'src/app/interfaces/topic';
-import { Vote } from 'src/app/interfaces/vote';
 import { TopicService } from 'src/app/services/topic.service';
 import { TopicVoteService } from 'src/app/services/topic-vote.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { TranslateService } from '@ngx-translate/core';
 import { take } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 @Component({
   selector: 'topic-vote-create',
   templateUrl: './topic-vote-create.component.html',
@@ -37,9 +36,8 @@ export class TopicVoteCreateComponent implements OnInit {
         }
       ],
       multiple: [
-        { value: null },
-        { value: null },
-        { value: null }
+        { value: '' },
+        { value: '' }
       ]
     },
     extraOptions: {
@@ -154,7 +152,7 @@ export class TopicVoteCreateComponent implements OnInit {
     if (!this.TopicService.canEditDescription(this.topic)) return;
     if (voteType == this.VOTE_TYPES.multiple) {
       this.vote.type = voteType;
-      if (!this.vote.options)
+      if (!this.vote.options.length)
         this.vote.options = this.CONF.defaultOptions.multiple;
       this.vote.maxChoices = 1;
     } else {
@@ -372,7 +370,7 @@ export class TopicVoteCreateComponent implements OnInit {
   }
 
   displayOptInput(option: any) {
-    return (Object.keys(this.extraOptions).indexOf(option.value) === -1)
+    return (Object.keys(this.extraOptions).indexOf(option.value?.toLowerCase()) === -1)
   }
 
   updateVote() {
@@ -427,10 +425,9 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
   tabs = [...Array(4).keys()];
   tabActive = 1;
 
-  @HostBinding('class.pos_dialog_fixed') addPosAbsolute: boolean = false;
 
-  private dialog = inject(MatDialog);
-  private data = inject(MAT_DIALOG_DATA);
+  private dialog = inject(DialogService);
+  private data = inject(DIALOG_DATA);
 
   override ngOnInit(): void {
     this.topic = this.data.topic;
@@ -445,11 +442,9 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
   }
 
   tabNext() {
-    this.addPosAbsolute = false;
     if (this.tabActive === 2 && !this.vote.type) return;
     if (this.tabActive >= 3) this.filterOptions();
     (this.tabActive < 4) ? this.tabActive = this.tabActive + 1 : this.createVote()
-    if (this.tabActive === 3) this.addPosAbsolute = true;
   }
 
   override createVote() {
@@ -475,6 +470,7 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
           this.TopicService.reloadTopic();
           this.router.navigate(['/topics', this.topic.id], { fragment: 'voting' });
           this.route.url.pipe(take(1)).subscribe();
+          this.Notification.addSuccess('VIEWS.VOTE_CREATE.SUCCESS_VOTE_STARTED');
           this.dialog.closeAll();
         },
         error: (res:any) => {

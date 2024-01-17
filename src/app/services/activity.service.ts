@@ -97,7 +97,6 @@ export class ActivityService extends ItemsListService {
       }
     });
     const dataRows = this.activitiesToGroups(parsedResult);
-
     dataRows.forEach((activityGroups: any, groupKey: any) => {
       activityGroups.isNew = '';
       Object.keys(activityGroups.values).forEach((key) => {
@@ -149,13 +148,14 @@ export class ActivityService extends ItemsListService {
           '/topics/:topicId/activities/unread'
         ), params);
     } else {
-      path = this.Location.getAbsoluteUrlApi(`/users/self/activities/unread`, params);
+      path = this.Location.getAbsoluteUrlApi(`/api/users/self/activities/unread`, params);
     }
+    console.log(path);
     return this.http.get(path, { withCredentials: true, responseType: 'json', observe: 'body' })
       .pipe(
         map((res: any) => {
           const data = res.data;
-
+          console.log('DATA', data)
           return data.count;
         }));
   };
@@ -355,6 +355,7 @@ export class ActivityService extends ItemsListService {
   };
 
   getActivityUsers = (activity: any, values: any) => {
+    console.log(activity, values);
     let dataobject = activity.data.object;
     if (Array.isArray(dataobject)) {
       dataobject = dataobject[0];
@@ -547,16 +548,15 @@ export class ActivityService extends ItemsListService {
     // Filter out the final activities
     const final: any = {};
     activities.forEach((activity: any) => {
-      let groupKey: any;
+      final[activity.id] = [activity];
+      /*COMMENTED OUT AS WE DON'T GROUP ACTIVITIES IN THE NEW FEED*/
+      /*let groupKey: any;
       Object.keys(grouped).forEach((key) => {
         if (grouped[key].length > 1 && grouped[key].indexOf(activity.id) > -1) {
-          if (key.indexOf('USERACTIVITYGROUP')) {
-            groupKey = key;
-          } else if (groupKey.indexOf('USERACTIVITYGROUP') === -1) {
-            groupKey = key;
-          }
+          groupKey = key;
         }
       });
+
       if (groupKey) {
         if (!final[groupKey]) {
           final[groupKey] = [activity];
@@ -579,7 +579,7 @@ export class ActivityService extends ItemsListService {
         });
       } else {
         final[activity.id] = [activity];
-      }
+      }*/
     });
     Object.keys(final).forEach((key) => {
       returnActivities.push({ referer: key, values: final[key] });
@@ -679,7 +679,6 @@ export class ActivityService extends ItemsListService {
       state = [this.$translate.currentLang, 'groups', target.id];
     }
 
-    console.log()
     if (state[1] !== 'topics' && origin && origin['@type'] === 'Topic' && activityType !== 'Invite') {
       state = state.concat(['topics', origin.id]);
     }

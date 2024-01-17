@@ -1,5 +1,5 @@
 import { Component, Inject, inject, Input } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { DIALOG_DATA, DialogService, DialogRef } from 'src/app/shared/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, take } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
@@ -25,7 +25,7 @@ export class LoginComponent {
     google: 'google'
   };
   email?: string;
-  constructor(public dialog: MatDialog,
+  constructor(public dialog: DialogService,
     private Location: LocationService,
     private config: ConfigService,
     @Inject(Router) private router: Router,
@@ -34,7 +34,7 @@ export class LoginComponent {
     private Auth: AuthService,
     private translate: TranslateService) {
     this.authMethodsAvailable = this.config.get('features').authentication;
-    this.Auth.user$?.pipe(take(1)).subscribe((user) => {
+    this.Auth.user$.pipe(take(1)).subscribe((user) => {
       if (user) {
         this.router.navigate(['/']);
       }
@@ -192,8 +192,7 @@ export class LoginComponent {
           clearInterval(popupCheck);
           window.focus();
           console.log('HERE', redirectSuccess);
-          this.Auth
-            .status()
+          this.Auth.user$
             .subscribe((user) => {
               if (user) {
                 console.log('HERE')
@@ -232,10 +231,10 @@ export class LoginComponent {
 export class LoginDialogComponent extends LoginComponent{
   private authSubscriber: Subscription;
 
-  data:any = inject(MAT_DIALOG_DATA);
-  logindialog:any = inject(MatDialogRef<LoginDialogComponent>);
+  data:any = inject(DIALOG_DATA);
+  logindialog:any = inject(DialogRef<LoginDialogComponent>);
   currentMethod = 'email';
-  constructor(dialog: MatDialog,
+  constructor(dialog: DialogService,
     Location: LocationService,
     config: ConfigService,
     router: Router,

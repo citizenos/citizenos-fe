@@ -1,103 +1,106 @@
-<div class="overlay" mat-dialog-close></div>
-<div class="dialog">
-  <div class="dialog_header warning">
-    <div class="header_with_icon">
-      <div class="icon_notification">
-        <ng-container>
-          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="40" height="40" rx="20" fill="#F39129" />
+<div class="overlay" dialog-close></div>
+<div class="dialog_wrap">
+  <div class="dialog">
+    <div class="dialog_header warning">
+      <div class="header_with_icon">
+        <div class="icon_notification">
+          <ng-container>
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="40" height="40" rx="20" fill="#F39129" />
+              <path
+                d="M19.0645 8C18.4876 8 18.0304 8.48668 18.0664 9.06238L18.9414 23.0624C18.9743 23.5894 19.4114 24 19.9395 24H20.0605C20.5886 24 21.0257 23.5894 21.0586 23.0624L21.9336 9.06238C21.9696 8.48668 21.5124 8 20.9355 8H19.0645Z"
+                fill="white" />
+              <path
+                d="M20 31C21.1046 31 22 30.1046 22 29C22 27.8954 21.1046 27 20 27C18.8954 27 18 27.8954 18 29C18 30.1046 18.8954 31 20 31Z"
+                fill="white" />
+            </svg>
+          </ng-container>
+        </div>
+        <h4 class="title" translate="COMPONENTS.TOPIC_INVITE_USER_DELETE.HEADING"></h4>
+      </div>
+      <div class="dialog_close">
+        <a class="btn_dialog_close icon" dialog-close>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
-              d="M19.0645 8C18.4876 8 18.0304 8.48668 18.0664 9.06238L18.9414 23.0624C18.9743 23.5894 19.4114 24 19.9395 24H20.0605C20.5886 24 21.0257 23.5894 21.0586 23.0624L21.9336 9.06238C21.9696 8.48668 21.5124 8 20.9355 8H19.0645Z"
+              d="M7.72152 6.29537C7.3277 5.90154 6.68919 5.90154 6.29537 6.29537C5.90154 6.68919 5.90154 7.3277 6.29537 7.72153L10.5738 12L6.29541 16.2785C5.90159 16.6723 5.90159 17.3108 6.29541 17.7046C6.68923 18.0985 7.32774 18.0985 7.72156 17.7046L12 13.4262L16.2784 17.7046C16.6723 18.0985 17.3108 18.0985 17.7046 17.7046C18.0984 17.3108 18.0984 16.6723 17.7046 16.2785L13.4262 12L17.7046 7.72153C18.0985 7.3277 18.0985 6.68919 17.7046 6.29537C17.3108 5.90154 16.6723 5.90154 16.2785 6.29537L12 10.5739L7.72152 6.29537Z"
+              fill="#2C3B47" />
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="dialog_content">
+      <div class="dialog_info_wrap">
+        <div class="dialog_info row">
+          <div class="delete_info_button_wrap">
+            <div class="delete_info_text" translate="COMPONENTS.TOPIC_INVITE_USER_DELETE.MESSAGE_MAIN"></div>
+          </div>
+          <div class="profile_image_wrap">
+            <img class="profile_image" *ngIf="user.imageUrl" [src]="user.imageUrl">
+            <div class="profile_image_filler" *ngIf="!user.imageUrl">
+              <cos-initials *ngIf="user.name" [name]="user.name">
+              </cos-initials>
+            </div>
+          </div>
+          <div class="bold" [innerHTML]="user.name"></div>
+        </div>
+      </div>
+    </div>
+    <div class="dialog_content">
+      <div class="info_row" translate="COMPONENTS.TOPIC_INVITE_USER_DELETE.MESSAGE_DESCRIPTION"></div>
+    </div>
+    <div class="dialog_content">
+      <div class="dialog_info_wrap">
+        <div class="dialog_info warning row">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="24" height="24" rx="12" fill="#F39129" />
+            <path
+              d="M11.4385 4.7998C11.0924 4.7998 10.8181 5.09181 10.8396 5.43723L11.3646 13.8372C11.3844 14.1535 11.6466 14.3998 11.9635 14.3998H12.0361C12.353 14.3998 12.6152 14.1535 12.635 13.8372L13.16 5.43723C13.1816 5.09181 12.9072 4.7998 12.5611 4.7998H11.4385Z"
               fill="white" />
             <path
-              d="M20 31C21.1046 31 22 30.1046 22 29C22 27.8954 21.1046 27 20 27C18.8954 27 18 27.8954 18 29C18 30.1046 18.8954 31 20 31Z"
+              d="M11.9998 18.5998C12.6625 18.5998 13.1998 18.0625 13.1998 17.3998C13.1998 16.7371 12.6625 16.1998 11.9998 16.1998C11.3371 16.1998 10.7998 16.7371 10.7998 17.3998C10.7998 18.0625 11.3371 18.5998 11.9998 18.5998Z"
               fill="white" />
           </svg>
-        </ng-container>
-      </div>
-      <h4 class="title" translate="COMPONENTS.TOPIC_INVITE_USER_DELETE.HEADING"></h4>
-    </div>
-    <div class="dialog_close">
-      <a class="btn_dialog_close icon" mat-dialog-close>
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M7.72152 6.29537C7.3277 5.90154 6.68919 5.90154 6.29537 6.29537C5.90154 6.68919 5.90154 7.3277 6.29537 7.72153L10.5738 12L6.29541 16.2785C5.90159 16.6723 5.90159 17.3108 6.29541 17.7046C6.68923 18.0985 7.32774 18.0985 7.72156 17.7046L12 13.4262L16.2784 17.7046C16.6723 18.0985 17.3108 18.0985 17.7046 17.7046C18.0984 17.3108 18.0984 16.6723 17.7046 16.2785L13.4262 12L17.7046 7.72153C18.0985 7.3277 18.0985 6.68919 17.7046 6.29537C17.3108 5.90154 16.6723 5.90154 16.2785 6.29537L12 10.5739L7.72152 6.29537Z"
-            fill="#2C3B47" />
-        </svg>
-      </a>
-    </div>
-  </div>
-  <div class="dialog_content">
-    <div class="dialog_info_wrap">
-      <div class="dialog_info row">
-        <div class="delete_info_button_wrap">
-          <div class="delete_info_text" translate="COMPONENTS.TOPIC_INVITE_USER_DELETE.MESSAGE_MAIN"></div>
-        </div>
-        <div class="profile_image_wrap">
-          <img class="profile_image" *ngIf="user.imageUrl" [src]="user.imageUrl">
-          <div class="profile_image_filler" *ngIf="!user.imageUrl">
-            <cos-initials *ngIf="user.name" [name]="user.name">
-            </cos-initials>
-          </div>
-        </div>
-        <div class="bold" [innerHTML]="user.name"></div>
-      </div>
-    </div>
-  </div>
-  <div class="dialog_content">
-    <div class="info_row" translate="COMPONENTS.TOPIC_INVITE_USER_DELETE.MESSAGE_DESCRIPTION"></div>
-  </div>
-  <div class="dialog_content">
-    <div class="dialog_info_wrap">
-      <div class="dialog_info warning row">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect width="24" height="24" rx="12" fill="#F39129" />
-          <path
-            d="M11.4385 4.7998C11.0924 4.7998 10.8181 5.09181 10.8396 5.43723L11.3646 13.8372C11.3844 14.1535 11.6466 14.3998 11.9635 14.3998H12.0361C12.353 14.3998 12.6152 14.1535 12.635 13.8372L13.16 5.43723C13.1816 5.09181 12.9072 4.7998 12.5611 4.7998H11.4385Z"
-            fill="white" />
-          <path
-            d="M11.9998 18.5998C12.6625 18.5998 13.1998 18.0625 13.1998 17.3998C13.1998 16.7371 12.6625 16.1998 11.9998 16.1998C11.3371 16.1998 10.7998 16.7371 10.7998 17.3998C10.7998 18.0625 11.3371 18.5998 11.9998 18.5998Z"
-            fill="white" />
-        </svg>
-        <div translate="COMPONENTS.TOPIC_INVITE_USER_DELETE.MESSAGE_PENDING_COUNT" [translateParams]="{count: 1}"></div>
-      </div>
-    </div>
-  </div>
-  <div class="dialog_content">
-    <div class="bold" translate="COMPONENTS.TOPIC_INVITE_USER_DELETE.SELECT_HEADING"></div>
-    <div class="content_item">
-      <div class="radio_wrap">
-        <div class="radio_text_wrap">
-          <div class="radio_lable_wrap" (click)="invitesToDelete = '1'">
-            <label class="radio_box">
-              <input type="radio" name="invitationcount" value="default" value="1">
-              <span class="radio"></span>
-              <div class="radio_lable" translate="COMPONENTS.TOPIC_INVITE_USER_DELETE.OPTION_1"></div>
-            </label>
-          </div>
-        </div>
-      </div>
-      <div class="radio_wrap">
-        <div class="radio_text_wrap" (click)="invitesToDelete = 'all'">
-          <div class="radio_lable_wrap">
-            <label class="radio_box">
-              <input type="radio" name="invitationcount" value="all">
-              <span class="radio"></span>
-              <div class="radio_lable" translate="COMPONENTS.TOPIC_INVITE_USER_DELETE.OPTION_2">
-              </div>
-            </label>
+          <div translate="COMPONENTS.TOPIC_INVITE_USER_DELETE.MESSAGE_PENDING_COUNT" [translateParams]="{count: 1}">
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="dialog_content">
-    <div class="button_wrap">
-      <button class="btn_big_submit" translate="COMPONENTS.TOPIC_INVITE_USER_DELETE.BTN_SUBMIT"
-        (click)="removeInvites()"></button>
-      <a mat-dialog-close translate="COMPONENTS.TOPIC_INVITE_USER_DELETE.BTN_CANCEL"></a>
+    <div class="dialog_content">
+      <div class="bold" translate="COMPONENTS.TOPIC_INVITE_USER_DELETE.SELECT_HEADING"></div>
+      <div class="content_item">
+        <div class="radio_wrap" (click)="invitesToDelete = '1'">
+          <div class="radio_text_wrap">
+            <div class="radio_lable_wrap">
+              <label class="radio_box">
+                <input type="radio" name="invitationcount" value="default" value="1">
+                <span class="radio"></span>
+                <div class="radio_lable" translate="COMPONENTS.TOPIC_INVITE_USER_DELETE.OPTION_1"></div>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="radio_wrap" (click)="invitesToDelete = 'all'">
+          <div class="radio_text_wrap">
+            <div class="radio_lable_wrap">
+              <label class="radio_box">
+                <input type="radio" name="invitationcount" value="all">
+                <span class="radio"></span>
+                <div class="radio_lable" translate="COMPONENTS.TOPIC_INVITE_USER_DELETE.OPTION_2">
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="dialog_footer">
+    <div class="dialog_content">
+      <div class="button_wrap">
+        <button class="btn_big_submit" translate="COMPONENTS.TOPIC_INVITE_USER_DELETE.BTN_SUBMIT"
+          (click)="removeInvites()"></button>
+        <a dialog-close translate="COMPONENTS.TOPIC_INVITE_USER_DELETE.BTN_CANCEL"></a>
+      </div>
+    </div>
+    <div class="dialog_footer">
+    </div>
   </div>
 </div>

@@ -4,7 +4,7 @@
       <div class="small_heading" [innerHTML]="'VIEWS.MY_GROUPS.HEADER'| translate"></div>
     </div>
     <div id="buttons_area">
-      <button id="show_search icon" class="btn_medium_close" (click)="app.showSearch = !app.showSearch">
+      <button id="show_search icon" class="btn_medium_close icon" (click)="app.showSearch = !app.showSearch">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd"
             d="M14.1922 15.6064C13.0236 16.4816 11.5723 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10C17 11.5723 16.4816 13.0236 15.6064 14.1922L19.7071 18.2929C20.0976 18.6834 20.0976 19.3166 19.7071 19.7071C19.3166 20.0976 18.6834 20.0976 18.2929 19.7071L14.1922 15.6064ZM15 10C15 12.7614 12.7614 15 10 15C7.23858 15 5 12.7614 5 10C5 7.23858 7.23858 5 10 5C12.7614 5 15 7.23858 15 10Z"
@@ -21,7 +21,9 @@
         <cos-input [placeholder]="'VIEWS.MY_GROUPS.FILTER_VISIBILITY' | translate" class="dropdown_input">
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
-              <div class="selected_item">{{(GroupService.params$ | async)?.visibility || 'All'}}</div>
+              <div class="selected_item">{{(GroupService.params$ | async)?.visibility || (((GroupService.params$ |
+                async)?.favourite)? 'VIEWS.MY_GROUPS.FILTER_FAVOURITED' : 'VIEWS.MY_GROUPS.FILTER_ALL') | translate}}
+              </div>
               <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
                 </svg>
@@ -34,8 +36,8 @@
               </div>
               <div class="option" [routerLink]="['./']" [queryParams]="{favourite: 'true'}"
                 translate="VIEWS.MY_GROUPS.FILTER_FAVOURITED"></div>
-              <div class="option" [routerLink]="['./']" [queryParams]="{moderated: 'true'}"
-                translate="VIEWS.MY_GROUPS.FILTER_MODERATED"></div>
+              <!--div class="option" [routerLink]="['./']" [queryParams]="{moderated: 'true'}"
+                translate="VIEWS.MY_GROUPS.FILTER_MODERATED"></!--div-->
             </div>
           </div>
         </cos-input>
@@ -43,16 +45,34 @@
         <cos-input [placeholder]="'VIEWS.MY_GROUPS.FILTER_ORDER' | translate" class="dropdown_input">
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
-              <div class="selected_item">{{'VIEWS.MY_GROUPS.ORDER_ALL' | translate}}</div>
+              <div class="selected_item">
+                <ng-container *ngIf="(GroupService.params$ | async)?.orderBy; then orderOptions; else defaultOrder">
+                </ng-container>
+                <ng-template #defaultOrder>
+                  <span> {{'VIEWS.MY_GROUPS.ORDER_ALL' | translate}} </span>
+                </ng-template>
+                <ng-template #orderOptions>
+                  <ng-container *ngIf="(GroupService.params$ | async)?.orderBy as orderBy">
+                    <span *ngIf="orderBy === 'activity'" translate="VIEWS.MY_GROUPS.ORDER_RECENT_ACTIVITY"></span>
+                    <span *ngIf="orderBy === 'activityCount'" translate="VIEWS.MY_GROUPS.MOST_ACTIVITIES"></span>
+                    <span *ngIf="orderBy === 'memberCount'" translate="VIEWS.MY_GROUPS.MOST_PARTICIPANTS"></span>
+                    <span *ngIf="orderBy === 'createdAt'" translate="VIEWS.MY_GROUPS.MOST_RECENT"></span>
+                    <span *ngIf="orderBy === 'topicCount'" translate="VIEWS.MY_GROUPS.MOST_TOPICS"></span>
+                  </ng-container>
+                </ng-template>
+              </div>
               <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
                 </svg>
               </div>
             </div>
             <div class="options">
-              <div class="option" translate="VIEWS.MY_GROUPS.ORDER_RECENT_ACTIVITY" (click)="doOrder('activity', 'desc')"></div>
-              <div class="option" translate="VIEWS.MY_GROUPS.MOST_ACTIVITIES" (click)="doOrder('activityCount', 'desc')"></div>
-              <div class="option" translate="VIEWS.MY_GROUPS.MOST_PARTICIPANTS" (click)="doOrder('memberCount', 'desc')"></div>
+              <div class="option" translate="VIEWS.MY_GROUPS.ORDER_RECENT_ACTIVITY"
+                (click)="doOrder('activity', 'desc')"></div>
+              <div class="option" translate="VIEWS.MY_GROUPS.MOST_ACTIVITIES"
+                (click)="doOrder('activityCount', 'desc')"></div>
+              <div class="option" translate="VIEWS.MY_GROUPS.MOST_PARTICIPANTS"
+                (click)="doOrder('memberCount', 'desc')"></div>
               <div class="option" translate="VIEWS.MY_GROUPS.MOST_RECENT" (click)="doOrder('createdAt', 'desc')"></div>
               <div class="option" translate="VIEWS.MY_GROUPS.MOST_TOPICS" (click)="doOrder('topicCount', 'desc')"></div>
             </div>
@@ -64,7 +84,7 @@
           <ng-container *ngIf="countries$ | async as countries">
             <div class="options" [ngClass]="{'active': !countries.length}">
               <ng-container *ngIf="countries$ | async as listCountry">
-                <div class="option" (click)="setCountry('');" translate="TXT_TOPIC_STATUS_ALL"></div>
+                <div class="option" (click)="setCountry('');" translate="VIEWS.MY_GROUPS.FILTER_ALL"></div>
                 <div class="option" [typeaheadItem]="country.name" *ngFor="let country of listCountry"
                   (click)="setCountry(country.name)">
                   <div class="item_text_wrap">{{country.name}}</div>
@@ -79,7 +99,7 @@
           <ng-container *ngIf="languages$ | async as languages">
             <div class="options" [ngClass]="{'active': !languages.length}">
               <ng-container *ngIf="languages$ | async as listLanguage">
-                <div class="option" (click)="setLanguage('');" translate="TXT_TOPIC_STATUS_ALL"></div>
+                <div class="option" (click)="setLanguage('');" translate="VIEWS.MY_GROUPS.FILTER_ALL"></div>
                 <div class="option" [typeaheadItem]="language.name" *ngFor="let language of listLanguage"
                   (click)="setLanguage(language.name)">
                   <div class="item_text_wrap">{{language.name}}</div>
@@ -112,8 +132,9 @@
           <ng-container *ngIf="countries$ | async as countries">
             <div class="options" [ngClass]="{'active': !countries.length}">
               <ng-container *ngIf="countries$ | async as listCountry">
-                <div class="option" (click)="setCountry('');" translate="TXT_TOPIC_STATUS_ALL"></div>
-                <div class="option" [typeaheadItem]="country.name" *ngFor="let country of listCountry" (click)="setCountry(country.name)">
+                <div class="option" (click)="setCountry('');" translate="VIEWS.MY_GROUPS.FILTER_ALL"></div>
+                <div class="option" [typeaheadItem]="country.name" *ngFor="let country of listCountry"
+                  (click)="setCountry(country.name)">
                   <div class="item_text_wrap">{{country.name}}</div>
                 </div>
               </ng-container>
@@ -126,8 +147,9 @@
           <ng-container *ngIf="languages$ | async as languages">
             <div class="options" [ngClass]="{'active': !languages.length}">
               <ng-container *ngIf="languages$ | async as listLanguage">
-                <div class="option" (click)="setLanguage('');" translate="TXT_TOPIC_STATUS_ALL"></div>
-                <div class="option" [typeaheadItem]="language.name" *ngFor="let language of listLanguage" (click)="setLanguage(language.name)">
+                <div class="option" (click)="setLanguage('');" translate="VIEWS.MY_GROUPS.FILTER_ALL"></div>
+                <div class="option" [typeaheadItem]="language.name" *ngFor="let language of listLanguage"
+                  (click)="setLanguage(language.name)">
                   <div class="item_text_wrap">{{language.name}}</div>
                 </div>
               </ng-container>
@@ -135,8 +157,8 @@
           </ng-container>
         </typeahead>
       </div>
-      <div class="options_row" *ngIf="moreFilters">
-        <!--cos-input [placeholder]="'VIEWS.MY_GROUPS.FILTER_CATEGORIES' | translate" class="dropdown_input">
+      <!--div class="options_row" *ngIf="moreFilters">
+        <cos-input [placeholder]="'VIEWS.MY_GROUPS.FILTER_CATEGORIES' | translate" class="dropdown_input">
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
               <div class="selected_item">All</div>
@@ -169,7 +191,7 @@
             </div>
           </div>
         </!--cos-input--
-        <cos-input-- [placeholder]="'VIEWS.MY_GROUPS.FILTER_LANGUAGE' | translate" class="dropdown_input">
+        <cos-input [placeholder]="'VIEWS.MY_GROUPS.FILTER_LANGUAGE' | translate" class="dropdown_input">
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
               <div class="selected_item">{{'VIEWS.MY_GROUPS.ORDER_ALL' | translate}}</div>
@@ -184,9 +206,9 @@
               </div>
             </div>
           </div>
-        </cos-input-->
+        </cos-input>
 
-      </div>
+      </div-->
       <div class="options_row" *ngIf="moreFilters">
         <div class="input_area">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -205,13 +227,13 @@
     </div>
     <div class="filter_control_buttons mobile_hidden">
       <button class="btn_big_secondary" [ngClass]="moreFilters? 'flip' : ''" (click)="moreFilters = !moreFilters">
-        <div class="btn_icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-            <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+        <div class="btn_icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17 10L12 15L7 10" stroke="#1168A8" stroke-width="2" stroke-linecap="round"/>
           </svg>
+
         </div>
       </button>
-      <button class="btn_big_secondary icon" *ngIf="moreFilters" (click)="doClearFilters()">
+      <button class="btn_big_secondary animate icon" *ngIf="moreFilters" (click)="doClearFilters()">
         <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M12.4999 7L12.4999 5.0001C10.7069 5.0001 8.91716 5.68333 7.55013 7.05036C5.05581 9.54468 4.83742 13.4531 6.89495 16.195C7.22643 16.6368 7.23355 17.2664 6.84302 17.657C6.4525 18.0475 5.81399 18.0504 5.46866 17.6194C2.6374 14.0857 2.85982 8.91224 6.13592 5.63614C7.89308 3.87898 10.1981 3.0001 12.4999 3.0001L12.4999 1L16.4999 4L12.4999 7Z"
@@ -222,18 +244,23 @@
         </svg>
       </button>
     </div>
-    <div class="dropdown mobile_show" [cosDropdown] [multipleChoice]="true">
+    <div class="dropdown mobile_show mobile_filters_selection" [cosDropdown] [multipleChoice]="true">
       <div class="selection">
-        <div class="selected_item" translate="VIEWS.MY_GROUPS.LBL_FILTER"> </div>
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
-        </svg>
+        <div class="selected_item" [innerHTML]="'VIEWS.MY_GROUPS.LBL_FILTER' | translate | titlecase"> </div>
+        <button class="btn_medium_plain icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </button>
       </div>
 
       <div class="options filter_options">
         <div class="filter_option">
           <span translate="VIEWS.MY_GROUPS.FILTER_VISIBILITY"></span><a class="bold"
-            (click)="mobileFilters.visibility = true">{{(GroupService.params$ | async)?.visibility || 'All'}}</a>
+            (click)="mobileFilters.visibility = true">
+            {{(GroupService.params$ | async)?.visibility || (((GroupService.params$ | async)?.favourite)?
+            'VIEWS.MY_GROUPS.FILTER_FAVOURITED' : 'VIEWS.MY_GROUPS.FILTER_ALL') | translate}}
+          </a>
         </div>
         <!--div class="filter_option">
           <span translate="VIEWS.MY_GROUPS.FILTER_MY_ENGAGEMENT"></span><a class="bold"
@@ -247,16 +274,30 @@
         </!--div-->
         <div class="filter_option">
           <span translate="VIEWS.MY_GROUPS.FILTER_ORDER"></span><a class="bold"
-            (click)="mobileFilters.order = true">{{'TXT_TOPIC_CATEGORY_ALL' | uppercase |
-            translate}}</a>
+            (click)="mobileFilters.order = true">
+            <ng-container *ngIf="(GroupService.params$ | async)?.orderBy; then orderOptions; else defaultOrder">
+            </ng-container>
+            <ng-template #defaultOrder>
+              <span> {{'VIEWS.MY_GROUPS.ORDER_ALL' | translate}} </span>
+            </ng-template>
+            <ng-template #orderOptions>
+              <ng-container *ngIf="(GroupService.params$ | async)?.orderBy as orderBy">
+                <span *ngIf="orderBy === 'activity'" translate="VIEWS.MY_GROUPS.ORDER_RECENT_ACTIVITY"></span>
+                <span *ngIf="orderBy === 'activityCount'" translate="VIEWS.MY_GROUPS.MOST_ACTIVITIES"></span>
+                <span *ngIf="orderBy === 'memberCount'" translate="VIEWS.MY_GROUPS.MOST_PARTICIPANTS"></span>
+                <span *ngIf="orderBy === 'createdAt'" translate="VIEWS.MY_GROUPS.MOST_RECENT"></span>
+                <span *ngIf="orderBy === 'topicCount'" translate="VIEWS.MY_GROUPS.MOST_TOPICS"></span>
+              </ng-container>
+            </ng-template>
+          </a>
         </div>
         <div class="filter_option">
           <span translate="VIEWS.MY_GROUPS.FILTER_COUNTRY"></span><a class="bold"
-            (click)="mobileFilters.country = true">{{filters.country | translate}}</a>
+            (click)="mobileFilters.country = true">{{(filters.country) || 'VIEWS.MY_GROUPS.FILTER_ALL' | translate}}</a>
         </div>
         <div class="filter_option">
           <span translate="VIEWS.MY_GROUPS.FILTER_LANGUAGE"></span><a class="bold"
-            (click)="mobileFilters.language = true">{{filters.language | translate}}</a>
+            (click)="mobileFilters.language = true">{{filters.language || 'VIEWS.MY_GROUPS.FILTER_ALL' | translate}}</a>
         </div>
         <button (click)="doClearFilters()" class="btn_medium_plain">
           <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -284,7 +325,7 @@
 
       <div class="options button_options" *ngIf="mobileFilters.visibility">
         <label class="checkbox">
-          <span translate="TXT_TOPIC_STATUS_ALL"></span>
+          <span translate="VIEWS.MY_GROUPS.FILTER_ALL"></span>
           <input type="radio" name="status">
           <span class="checkmark"></span>
         </label>
@@ -294,15 +335,17 @@
           <input type="radio" name="status">
           <span class="checkmark"></span>
         </label>
+        <label class="checkbox" (click)="mobileFilters.visibility = {favourite: 'true'}">
+          <span [translate]="'VIEWS.MY_GROUPS.FILTER_FAVOURITED'"></span>
+          <input type="radio" name="status">
+          <span class="checkmark"></span>
+        </label>
 
-        <div class="option" (click)="mobileFilters.visibility = {favourite: 'true'}"
-          translate="VIEWS.MY_GROUPS.FILTER_FAVOURITED">
-        </div>
-
-        <div class="option" (click)="mobileFilters.visibility = {moderated: 'true'}"
+        <!--div class="option" (click)="mobileFilters.visibility = {moderated: 'true'}"
           translate="VIEWS.MY_GROUPS.FILTER_MODERATED">
-        </div>
-        <button class="btn_medium_secondary" [routerLink]="['./']" [queryParams]="mobileFilters.visibility" (click)="mobileFilters.visibility= false;" translate="BTN_APPLY"></button>
+        </!--div-->
+        <button class="btn_medium_secondary" [routerLink]="['./']" [queryParams]="mobileFilters.visibility"
+          (click)="mobileFilters.visibility= false;" translate="BTN_APPLY"></button>
       </div>
       <div class="overlay" *ngIf="showMobileOverlay()"></div>
       <!--div class="options button_options" *ngIf="mobileFilters.category">
@@ -346,7 +389,7 @@
           <span class="checkmark"></span>
         </label>
         <label class="checkbox" (click)="mobileFilters.order = 'activityCount'">
-          <span translate="VIEWS.MY_GROUPS.MOST_ACTIVITIES" ></span>
+          <span translate="VIEWS.MY_GROUPS.MOST_ACTIVITIES"></span>
           <input type="radio" name="order">
           <span class="checkmark"></span>
         </label>
@@ -365,11 +408,12 @@
           <input type="radio" name="order">
           <span class="checkmark"></span>
         </label>
-        <button class="btn_medium_secondary" (click)="doOrder(mobileFilters.order, 'desc'); mobileFilters.order = false;" translate="BTN_APPLY"></button>
+        <button class="btn_medium_secondary"
+          (click)="doOrder(mobileFilters.order, 'desc'); mobileFilters.order = false;" translate="BTN_APPLY"></button>
       </div>
       <div class="options button_options" *ngIf="mobileFilters.country">
         <typeahead class="dropdown dropdown_input" activeClass="dropdown_active" [term]="countrySearch"
-          (search)="searchCountry($event)" [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_COUNTRY' | translate">
+          (search)="searchCountry($event)" [placeholder]="'VIEWS.MY_GROUPS.FILTER_COUNTRY' | translate">
           <!--ng-container *ngIf="countries$ | async as countries">
             <div class="options" [ngClass]="{'active': !countries.length}">
               <ng-container *ngIf="countries$ | async as listCountry">
@@ -381,24 +425,25 @@
             </div>
           </ng-container-->
         </typeahead>
-        <label class="checkbox">
-          <span translate="TXT_TOPIC_STATUS_ALL"></span>
+        <label class="checkbox" (click)="mobileFilters.country = ' '">
+          <span translate="VIEWS.MY_GROUPS.FILTER_ALL"></span>
           <input type="radio" name="country">
           <span class="checkmark"></span>
         </label>
         <ng-container *ngIf="countries$ | async as countries">
-          <label class="checkbox" *ngFor="let country of countries" (click)="setCountry(country.name);">
+          <label class="checkbox" *ngFor="let country of countries" (click)="mobileFilters.country = country.name;">
             <span>{{country.name}}</span>
             <input type="radio" name="country">
             <span class="checkmark"></span>
           </label>
         </ng-container>
-        <button class="btn_medium_secondary" (click)="mobileFilters.country= false;"
+        <button class="btn_medium_secondary"
+          (click)="setCountry(mobileFilters.country.trim()); mobileFilters.country= false;"
           translate="BTN_APPLY"></button>
       </div>
       <div class="options button_options" *ngIf="mobileFilters.language">
         <typeahead class="dropdown dropdown_input" activeClass="dropdown_active" [term]="languageSearch"
-          (search)="searchLanguage($event)" [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_LANGUAEG' | translate">
+          (search)="searchLanguage($event)" [placeholder]="'VIEWS.MY_GROUPS.FILTER_LANGUAGE' | translate">
           <!--ng-container *ngIf="countries$ | async as countries">
             <div class="options" [ngClass]="{'active': !countries.length}">
               <ng-container *ngIf="countries$ | async as listCountry">
@@ -410,19 +455,20 @@
             </div>
           </ng-container-->
         </typeahead>
-        <label class="checkbox">
-          <span translate="TXT_TOPIC_STATUS_ALL"></span>
+        <label class="checkbox" (click)="mobileFilters.language = ' '">
+          <span translate="VIEWS.MY_GROUPS.FILTER_ALL"></span>
           <input type="radio" name="language">
           <span class="checkmark"></span>
         </label>
         <ng-container *ngIf="languages$ | async as languages">
-          <label class="checkbox" *ngFor="let language of languages" (click)="setLanguage(language.name);">
+          <label class="checkbox" *ngFor="let language of languages" (click)="mobileFilters.language = language.name;">
             <span>{{language.name}}</span>
             <input type="radio" name="language">
             <span class="checkmark"></span>
           </label>
         </ng-container>
-        <button class="btn_medium_secondary" (click)="mobileFilters.language= false;"
+        <button class="btn_medium_secondary"
+          (click)="setLanguage(mobileFilters.language.trim()); mobileFilters.language = false;"
           translate="BTN_APPLY"></button>
       </div>
     </div>

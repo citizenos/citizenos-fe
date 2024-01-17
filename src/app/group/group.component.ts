@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, tap, of, take, catchError, map, Observable, BehaviorSubject } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 
 import { GroupMemberUserService } from 'src/app/services/group-member-user.service';
 import { GroupService } from 'src/app/services/group.service';
@@ -67,8 +67,12 @@ export class GroupComponent implements OnInit {
   showNoEngagements = false;
   moreFilters = false;
   topicStatuses = Object.keys(this.TopicService.STATUSES);
-  countries = countries;
-  languages = languages;
+  countries = countries.sort((a: any, b: any) => {
+    return a.name.localeCompare(b.name);
+  });
+  languages = languages.sort((a: any, b: any) => {
+    return a.name.localeCompare(b.name);
+  });
   public FILTERS_ALL = 'all';
   topicFilters = {
     category: this.FILTERS_ALL,
@@ -88,7 +92,7 @@ export class GroupComponent implements OnInit {
   searchUsersInput = '';
   searchUserString$ = new BehaviorSubject('');
 
-  constructor(public dialog: MatDialog,
+  constructor(public dialog: DialogService,
     private GroupService: GroupService,
     private GroupJoinService: GroupJoinService,
     private route: ActivatedRoute,
@@ -206,6 +210,7 @@ export class GroupComponent implements OnInit {
   }
 
   showSettings(group: Group) {
+    console.log('SHOW SETTINGS')
     const settingsDialog = this.dialog.open(GroupSettingsComponent, {
       data: {
         group

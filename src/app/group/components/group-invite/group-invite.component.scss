@@ -103,6 +103,14 @@
   }
 }
 
-#search_wrap, .row_list {
-  margin-bottom: 16px;
+.inline_notification {
+  margin-top: 16px;
+  margin-bottom: 24px;
+}
+
+
+#group_members_list_wrap {
+  .row_list {
+    margin-bottom: 16px;
+  }
 }
