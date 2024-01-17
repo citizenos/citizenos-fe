@@ -625,12 +625,12 @@
     "TOPIC_MILESTONES": {
       "CREATE_A_MILESTONE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_CREATE_A_MILESTONE",
       "OPT_EDIT_DETAILS": "Изменить детали",
-      "OPT_REMOVE_MILESTONE": "Удалить этап",
+      "OPT_REMOVE_MILESTONE": "Remove update",
       "PLACEHOLDER_SUBJECT": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_PLACEHOLDER_SUBJECT",
-      "HEADING_MILESTONE_CONTENT": "Содержание этапа",
+      "HEADING_MILESTONE_CONTENT": "Content of the update",
       "ADD_MILESTONE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_ADD_MILESTONE",
-      "HEADING_MILESTONE": "Этап",
-      "HEADING_MILESTONE_TITLE": "Название этапа",
+      "HEADING_MILESTONE": "Update",
+      "HEADING_MILESTONE_TITLE": "Title of the update",
       "MILESTONE_TITLE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_MILESTONE"
     },
     "TOPIC_ONBOARDING": {
@@ -753,8 +753,7 @@
       "DIALOG_TAB_INTRODUCTION_KEEP_IN_MIND": "Вещи, которые нужно учесть:",
       "DIALOG_TAB_INTRODUCTION_ITEM_1": "You can no longer (co-)edit your topic description",
       "DIALOG_TAB_INTRODUCTION_ITEM_2": "Вы все еще сможете приглашать и делиться с участниками",
-      "DIALOG_TAB_INTRODUCTION_ITEM_3": "Также можно размещать обновления по этапам выполнения действий в отношении этой темы",
-      "DIALOG_TAB_INTRODUCTION_ITEM_4": "@:MODALS.TOPIC_CLOSE_CONFIRM_TXT_NO_VOTE",
+      "DIALOG_TAB_INTRODUCTION_ITEM_3": "You can post updates for actions taken as a result of this topic",
       "DIALOG_TAB_INTRODUCTION_INFO": "Это последний этап темы.",
       "FOLLOW_UP_TITLE_HEADING": "Пожалуйста, добавьте название для обновления по стадии применения решения",
       "FOLLOW_UP_TITLE_HEADING_PLACEHOLDER": "Напишите название вашего обновления",
