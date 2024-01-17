@@ -66,7 +66,7 @@ export class TopicsComponent implements OnInit {
     country: false,
     language: false,
   }
-
+  mobileFiltersList = false;
   tabSelected = 'categories';
   categories$ = Object.keys(this.Topic.CATEGORIES);
 
@@ -183,9 +183,17 @@ export class TopicsComponent implements OnInit {
     this.PublicTopicService.loadPage(page);
   }
 
+  closeMobileFilter () {
+    const filtersShow = Object.entries(this.mobileFilters).find(([key, value]) => {
+      return !!value;
+    })
+    if (filtersShow)
+      this.mobileFilters[filtersShow[0]] = false;
+  }
+
   showMobileOverlay () {
     const filtersShow = Object.entries(this.mobileFilters).find(([key, value]) => {
-      return value === true;
+      return !!value;
     })
     if (filtersShow) return true;
 

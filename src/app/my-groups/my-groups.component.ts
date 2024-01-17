@@ -63,7 +63,7 @@ export class MyGroupsComponent implements OnInit {
     country: false,
     language: false
   }
-
+  mobileFiltersList = false;
   filters = {
     country: '',
     language: ''
@@ -105,11 +105,19 @@ export class MyGroupsComponent implements OnInit {
 
   showMobileOverlay () {
     const filtersShow = Object.entries(this.mobileFilters).find(([key, value]) => {
-      return value === true;
+      return !!value;
     })
     if (filtersShow) return true;
 
     return false;
+  }
+
+  closeMobileFilter () {
+    const filtersShow = Object.entries(this.mobileFilters).find(([key, value]) => {
+      return !!value;
+    })
+    if (filtersShow)
+      this.mobileFilters[filtersShow[0]] = false;
   }
 
   doClearFilters() {
