@@ -583,12 +583,12 @@
     "TOPIC_MILESTONES": {
       "CREATE_A_MILESTONE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_CREATE_A_MILESTONE",
       "OPT_EDIT_DETAILS": "Edit details",
-      "OPT_REMOVE_MILESTONE": "Remove milestone",
+      "OPT_REMOVE_MILESTONE": "Remove update",
       "PLACEHOLDER_SUBJECT": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_PLACEHOLDER_SUBJECT",
-      "HEADING_MILESTONE_CONTENT": "Milestone content",
+      "HEADING_MILESTONE_CONTENT": "Content of the update",
       "ADD_MILESTONE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_ADD_MILESTONE",
-      "HEADING_MILESTONE": "Milestone",
-      "HEADING_MILESTONE_TITLE": "Milestone title",
+      "HEADING_MILESTONE": "Update",
+      "HEADING_MILESTONE_TITLE": "Title of the update",
       "MILESTONE_TITLE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_MILESTONE"
     },
     "TOPIC_VOTE_CAST": {
@@ -699,7 +699,7 @@
       "DIALOG_TAB_INTRODUCTION_KEEP_IN_MIND": "Things to keep in mind:",
       "DIALOG_TAB_INTRODUCTION_ITEM_1": "You can no longer (co-)edit your document",
       "DIALOG_TAB_INTRODUCTION_ITEM_2": "You can still invite and share with participants",
-      "DIALOG_TAB_INTRODUCTION_ITEM_3": "You can post milestone updates for actions taken as a result of this topic",
+      "DIALOG_TAB_INTRODUCTION_ITEM_3": "You can post updates for actions taken as a result of this topic",
       "DIALOG_TAB_INTRODUCTION_INFO": "This is the last stage of a topic.",
       "FOLLOW_UP_TITLE_HEADING": "Please add a follow-up title",
       "FOLLOW_UP_TITLE_HEADING_PLACEHOLDER": "Write your follow-up title",
