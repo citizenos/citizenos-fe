@@ -45,7 +45,6 @@
 
     @include mixins.mobile {
       width: 100%;
-      justify-content: space-between;
     }
 
     &:hover {
@@ -80,6 +79,10 @@
       width: 255px;
 
       /* Inside auto layout */
+
+      @include mixins.mobile {
+        width: auto;
+      }
 
       .item_title {
         width: 181px;
@@ -117,4 +120,15 @@
   @include mixins.tablet {
     background-color: rgba(44, 59, 71, 0.8);
   }
+}
+#create_close_mobile {
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  height: 56px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
 }
