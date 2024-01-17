@@ -74,6 +74,7 @@
 }
 
 #tablet_nav {
+  box-shadow: 0px -8px 20px 0px rgba(220, 231, 240, 0.10), 0px -12px 16px 0px rgba(50, 85, 112, 0.04);
   @include mixins.tablet {
     display: flex;
   }
@@ -88,6 +89,7 @@
 }
 
 #mobile_nav {
+  box-shadow: 0px -8px 20px 0px rgba(220, 231, 240, 0.10), 0px -12px 16px 0px rgba(50, 85, 112, 0.04);
   @include mixins.mobile {
     display: flex;
   }

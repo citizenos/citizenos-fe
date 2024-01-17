@@ -59,7 +59,7 @@ export class AppService {
     private AuthService: AuthService,
     private http: HttpClient) { }
 
-  showMobile () {
+  showMobile() {
     return window.innerWidth <= 560;
   }
 
@@ -77,7 +77,7 @@ export class AppService {
   };
 
   doShowLogin(redirectSuccess?: string) {
-    this.dialog.open(LoginDialogComponent, {data: {redirectSuccess}});
+    this.dialog.open(LoginDialogComponent, { data: { redirectSuccess } });
   }
 
   doShowRegister(email?: string) {
@@ -100,18 +100,18 @@ export class AppService {
 
   logout() {
     this.AuthService.logout()
-    .pipe(take(1))
-    .subscribe({
-      next: (done) => {
-        this.AuthService.reloadUser();
-        setTimeout(() => {
-          this.router.navigate(['/']);
-        });
-      },
-      error: (err) => {
-        console.error('LOGOUT ERROR', err);
-      }
-    });
+      .pipe(take(1))
+      .subscribe({
+        next: (done) => {
+          this.AuthService.reloadUser();
+          setTimeout(() => {
+            this.router.navigate(['/']);
+          });
+        },
+        error: (err) => {
+          console.error('LOGOUT ERROR', err);
+        }
+      });
   }
 
   createNewTopic(title?: string, visibility?: string, groupId?: string, groupLevel?: string) {
@@ -152,13 +152,13 @@ export class AppService {
     if (!this.createMenu) {
       const createDialog = this.dialog.open(CreateComponent);
       createDialog.afterClosed().subscribe(() => {
+        this.dialog.closeAll();
         this.createMenu = false;
       })
-    } else {
+      this.createMenu = true;
+    } else if (this.createMenu) {
       this.dialog.closeAll();
     }
-
-    this.createMenu = !this.createMenu;
   }
 
   hwCryptoErrorToTranslationKey(err: any) {
@@ -189,7 +189,7 @@ export class AppService {
     );
   };
 
-  setPageTitle (title?:string) {
+  setPageTitle(title?: string) {
     this.Title.setTitle(this.translate.instant(title || 'META_DEFAULT_TITLE'));
     this.Meta.addTag({
       property: 'og:title',

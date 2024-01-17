@@ -101,7 +101,7 @@
   left: 0;
   top: 0;
   background: var(--color-surfaces);
-  transition: all 0.5s ease-in-out;
+  transition: right 0.5s ease-in-out;
 
   .nav_items_wrap  {
     width: 100%;
@@ -231,10 +231,11 @@
     }
     opacity: 0;
     height: 0;
-    left: 0;
+    right: -100%;
     bottom: 0;
     &.nav_is_open {
       opacity: 1;
+      right: 0;
       width: 100%;
       height: max-content;
     }
@@ -245,7 +246,6 @@
   }
   &.nav_is_open {
     padding-top: 56px;
-    padding-bottom: 56px;
     right: 0;
     left: initial;
     z-index: 10;
@@ -387,6 +387,7 @@
 
       @include mixins.tablet {
         font-size: 16px;
+        padding-bottom: 56px;
       }
     }
   }
