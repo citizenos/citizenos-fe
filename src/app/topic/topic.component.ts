@@ -113,6 +113,7 @@ export class TopicComponent implements OnInit {
   showGroups = false;
   showTags = false;
   readMore = false;
+  mobileActions = false;
   tabTablet = '';
   showArgumentsTablet = (window.innerWidth <= 1024);
   showVoteTablet = (window.innerWidth <= 1024);

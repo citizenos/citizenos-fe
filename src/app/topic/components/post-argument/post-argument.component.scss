@@ -77,32 +77,21 @@
     width: 100%;
   }
 
-  @include mixins.mobile {;
-    padding: 8px;
-  }
-
   #buttons_row {
     display: flex;
     width: 100%;
     justify-content: space-between;
     align-items: center;
 
-    .btn_medium_submit {
-      #continue_btn {
+    @include mixins.mobile {
+      .close_button {
         display: none;
       }
-      @include mixins.mobile {
-
-        .btn_text {
-          display: none;
-        }
-
-        #continue_btn {
-          display: flex;
-          position: absolute;
-        }
+      .btn_medium_submit {
+        width: 100%;
       }
     }
+
 
     #navigate_create {
       display: flex;
@@ -110,6 +99,9 @@
       gap: 8px;
       background-color: var(--color-surfaces);
 
+      @include mixins.mobile {
+        width: 100%;
+      }
       #chars_left {
         @include mixins.mobile {
           display: none;
@@ -126,10 +118,18 @@
   width: 100%;
 
   .form_header {
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 24px; /* 150% */
+    span {
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 24px; /* 150% */
+    }
+    @include mixins.mobile {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-direction: row;
+    }
   }
 
   #subject_counter{

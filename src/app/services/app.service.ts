@@ -64,16 +64,20 @@ export class AppService {
   }
 
   doShowActivityModal(params?: any) {
-    this.dialog.closeAll();
-    const activitiesDialog = this.dialog.open(ActivityFeedComponent, {
-      data: params
-    });
-    this.showActivities = true;
-    activitiesDialog.afterClosed().subscribe({
-      next: () => {
-        this.showActivities = false;
-      }
-    })
+    if (this.showMobile()) {
+      this.router.navigate([this.translate.currentLang, 'activity']);
+    } else {
+      this.dialog.closeAll();
+      const activitiesDialog = this.dialog.open(ActivityFeedComponent, {
+        data: params
+      });
+      this.showActivities = true;
+      activitiesDialog.afterClosed().subscribe({
+        next: () => {
+          this.showActivities = false;
+        }
+      })
+    }
   };
 
   doShowLogin(redirectSuccess?: string) {

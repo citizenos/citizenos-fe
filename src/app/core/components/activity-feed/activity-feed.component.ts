@@ -1,5 +1,5 @@
 import { style, transition, trigger, animate, state } from '@angular/animations';
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Input, Inject, inject } from '@angular/core';
 import { DIALOG_DATA, DialogRef } from 'src/app/shared/dialog';
 import { map, tap, of } from 'rxjs';
 import { ActivityService } from 'src/app/services/activity.service'
@@ -30,7 +30,10 @@ export class ActivityFeedComponent implements OnInit {
   activities$ = of(<any[]>[]);
   show = false;
   feedType = 'global';
-  constructor(public ActivityService: ActivityService, @Inject(DIALOG_DATA) private data: any, private dialogRef: DialogRef<ActivityFeedComponent>) {
+  @Input() groupId?: string;
+  @Input() topicId?: string;
+
+  constructor(public ActivityService: ActivityService) {
     setTimeout(() => {
       this.show = true
     });
@@ -43,13 +46,13 @@ export class ActivityFeedComponent implements OnInit {
   }
   ngOnInit(): void {
     this.ActivityService.reset();
-    if (this.data?.groupId) {
+    if (this.groupId) {
       this.feedType = 'group';
-      this.ActivityService.setParam('groupId', this.data.groupId);
+      this.ActivityService.setParam('groupId', this.groupId);
     }
-    if (this.data?.topicId) {
+    if (this.topicId) {
       this.feedType = 'topic';
-      this.ActivityService.setParam('topicId', this.data.topicId);
+      this.ActivityService.setParam('topicId', this.topicId);
     }
     this.activities$ = this.ActivityService.loadItems().pipe(
       tap((res: any) => {
@@ -75,7 +78,22 @@ export class ActivityFeedComponent implements OnInit {
       this.ActivityService.loadMore();
     }
   }
+
   close () {
+    //this.show = false;
+  }
+}
+@Component({
+  selector: 'activity-feed-dialog',
+  templateUrl: './activity-feed-dialog.component.html',
+  styleUrls: ['./activity-feed.component.scss'],
+})
+export class ActivityFeedDialogComponent extends ActivityFeedComponent {
+
+  @Inject(DIALOG_DATA) public data: any;
+  @Inject(DialogRef<ActivityFeedComponent>) private dialogRef!: DialogRef<ActivityFeedComponent>;
+
+ override close () {
     this.show = false;
     setTimeout(() => {
       this.dialogRef.close();

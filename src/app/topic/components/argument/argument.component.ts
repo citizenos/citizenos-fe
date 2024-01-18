@@ -29,8 +29,10 @@ export class ArgumentComponent implements OnInit {
   showReplies = false;
   readMore = false;
   showDeletedArgument = false;
+  mobileActions = false;
   isReply = false;
   errors = [];
+  wWidth = window.innerWidth;
 
   constructor(
     public dialog: DialogService,

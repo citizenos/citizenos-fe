@@ -1641,3 +1641,58 @@ tour-item-template {
     }
   }
 }
+
+.mobile_actions_wrap {
+  position: fixed;
+  bottom: -100%;
+  width: 100%;
+  background-color: var(--color-surfaces);
+  flex-direction: column;
+  padding: 16px;
+  z-index: 9999999;
+  gap: 16px;
+  border-radius: 16px 16px 0px 0px;
+  /* Shadow/Mobile Menu */
+  box-shadow: 0px -8px 20px 0px rgba(220, 231, 240, 0.1),
+    0px -12px 16px 0px rgba(50, 85, 112, 0.04);
+  transition: bottom 0.2s ease-in;
+  &.show {
+    bottom: 0;
+  }
+
+  .heading_wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    span {
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 24px; /* 150% */
+    }
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: 16px;
+
+    .line_separator {
+      background: var(--color-border);
+    }
+    .option {
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 8px;
+
+      .icon_wrap {
+        display: flex;
+      }
+    }
+  }
+}

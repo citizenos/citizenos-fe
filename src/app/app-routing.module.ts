@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes, ExtraOptions, UrlSegment } from '@angular/router';
 import { HomeComponent } from './core/components/home/home.component';
 import { DashboardComponent } from './core/components/dashboard/dashboard.component';
@@ -7,6 +7,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { PageNotFoundComponent } from './core/components/page-not-found/page-not-found.component';
 import { PageUnauthorizedComponent } from './core/components/page-unauthorized/page-unauthorized.component';
 import { authResolver } from './services/auth.service';
+import { ActivityFeedComponent } from './core/components/activity-feed/activity-feed.component';
 
 const options: ExtraOptions = {
   paramsInheritanceStrategy: 'always',
@@ -21,6 +22,7 @@ const routes: Routes = [
       { path: '401', component: PageUnauthorizedComponent },
       { path: '403', component: PageUnauthorizedComponent },
       { path: '404', component: PageNotFoundComponent },
+      { path: 'activity', canActivate: [AuthGuard], component: ActivityFeedComponent },
       { path: 'account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
       { path: 'topics', loadChildren: () => import('./topic/topic.module').then(m => m.TopicModule) },
       { path: 'groups', loadChildren: () => import('./group/group.module').then(m => m.GroupModule) },

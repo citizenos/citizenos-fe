@@ -22,7 +22,7 @@ import { JSONPointerCompiler, CosMissingTranslationHandler, createTranslateLoade
 import { NgxTranslateDebugParser } from 'ngx-translate-debug';
 import { LanguageSelectComponent } from './core/components/language-select/language-select.component';
 import { NotificationComponent } from './core/components/notification/notification.component';
-import { ActivityFeedComponent } from './core/components/activity-feed/activity-feed.component';
+import { ActivityFeedComponent, ActivityFeedDialogComponent } from './core/components/activity-feed/activity-feed.component';
 import { SharedModule } from './shared/shared.module';
 import { HttpErrorInterceptor } from './services/http.error.interceptor.service';
 import { SearchComponent } from './core/components/search/search.component';
@@ -53,6 +53,7 @@ export function appInitializerFactory(translate: TranslateService) {
     LanguageSelectComponent,
     NotificationComponent,
     ActivityFeedComponent,
+    ActivityFeedDialogComponent,
     SearchComponent,
     PageNotFoundComponent,
     PageUnauthorizedComponent,
