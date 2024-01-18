@@ -108,10 +108,12 @@
       "FILTER_SELF": "Minu toimingud"
     },
     "ARGUMENT": {
+      "LBL_ARGUMENT_ACTIONS": "Argument actions",
       "OPTION_EDIT": "muuda",
       "OPTION_REPORT": "teavita",
       "OPTION_DELETE": "kustuta",
       "LNK_SHOW_REPLIES": "Näita vastuseid ({{count}})",
+      "LNK_SHOW_REPLIES_MOBILE": "Replies ({{count}})",
       "LNK_HIDE_REPLIES": "Peida vastused",
       "BTN_REPLY": "Vasta",
       "ARGUMENT_LNK_VIEW_PREVIOUS_VERSIONS": "@:VIEWS.TOPICS_TOPICID.ARGUMENT_LNK_VIEW_PREVIOUS_VERSIONS",
@@ -2297,7 +2299,8 @@
       "TUTORIAL_TITLE": "Welcome to topics",
       "TUTORIAL_DESC": "New to the platform? Or first time since the redesign? We’d love to guide you through how topics work.",
       "TUTORIAL_BTN_TAKE_THE_TOUR": "@:COMPONENTS.ONBOARDING.BTN_SUBMIT",
-      "TUTORIAL_BTN_SKIP": "@:COMPONENTS.ONBOARDING.BTN_CANCEL"
+      "TUTORIAL_BTN_SKIP": "@:COMPONENTS.ONBOARDING.BTN_CANCEL",
+      "LBL_TOPIC_ACTIONS": "Topic actions"
     },
     "VOTE_CREATE": {
       "HEADING": "Create a voting topic",
