@@ -1,3 +1,5 @@
+@use "mixins";
+
 .reply_wrap {
   background-color: var(--color-surfaces);
   padding: 16px;
@@ -5,8 +7,12 @@
   gap: 16px;
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 85%;
   max-width: 680px;
+
+  @include mixins.mobile {
+    width: calc(100% - 16px);
+  }
 
   .heading {
     font-size: 16px;
@@ -19,16 +25,22 @@
     border-left: 4px solid var(--color-border);
     background-color: var(--color-surfaces);
     max-width: 100%;
+    width: calc(100% - 32px);
+    align-self: center;
   }
   &.poi {
     background-color: var(--color-argument-info-light);
+    border-radius: 0 0 8px 8px;
   }
   &.pro {
     border-left: 4px solid var(--color-voting-disabled);
     background-color: var(--color-argument-pro-light);
+
+    border-radius: 0 0 8px 0;
   }
   &.con {
     border-right: 4px solid var(--color-argument-con-medium);
+    border-radius: 0 0 0 8px;
     background-color: var(--color-argument-con-light);
     align-self: flex-end;
   }

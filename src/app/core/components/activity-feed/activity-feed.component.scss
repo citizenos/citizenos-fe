@@ -31,9 +31,6 @@
     flex-direction: column;
     gap: 8px;
 
-    @include mixins.mobile {
-      padding: 16px;
-    }
     activity {
       display: flex;
       flex-direction: column;

@@ -27,7 +27,6 @@ export class ActivitiesButtonComponent {
       return of(0);
     }),
     tap((count) => {
-      console.log('COUNT', count)
       this.count = count;
     }));
   }

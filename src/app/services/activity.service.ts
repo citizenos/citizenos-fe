@@ -150,12 +150,10 @@ export class ActivityService extends ItemsListService {
     } else {
       path = this.Location.getAbsoluteUrlApi(`/api/users/self/activities/unread`, params);
     }
-    console.log(path);
     return this.http.get(path, { withCredentials: true, responseType: 'json', observe: 'body' })
       .pipe(
         map((res: any) => {
           const data = res.data;
-          console.log('DATA', data)
           return data.count;
         }));
   };

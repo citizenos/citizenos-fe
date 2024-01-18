@@ -27,7 +27,14 @@
       </div>
       <div class="header_right">
         <div class="created_at">{{argument.createdAt | date : 'yyyy-MM-dd HH:mm'}}</div>
-        <div class="dropdown" [cosDropdown]>
+        <button class="btn_argument_actions mobile_show" (click)="mobileActions = !mobileActions">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M9.33325 4.00033C9.33325 3.26699 8.73325 2.66699 7.99992 2.66699C7.26659 2.66699 6.66659 3.26699 6.66659 4.00033C6.66659 4.73366 7.26659 5.33366 7.99992 5.33366C8.73325 5.33366 9.33325 4.73366 9.33325 4.00033ZM9.33325 12.0003C9.33325 11.267 8.73325 10.667 7.99992 10.667C7.26659 10.667 6.66659 11.267 6.66659 12.0003C6.66659 12.7337 7.26659 13.3337 7.99992 13.3337C8.73325 13.3337 9.33325 12.7337 9.33325 12.0003ZM7.99992 6.66699C8.73325 6.66699 9.33325 7.26699 9.33325 8.00033C9.33325 8.73366 8.73325 9.33366 7.99992 9.33366C7.26659 9.33366 6.66659 8.73366 6.66659 8.00033C6.66659 7.26699 7.26659 6.66699 7.99992 6.66699Z"
+              fill="#2C3B47" />
+          </svg>
+        </button>
+        <div class="dropdown mobile_hidden" [cosDropdown]>
           <button class="btn_argument_actions">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd"
@@ -134,10 +141,12 @@
         </div>
       </div>
       <div class="footer_right">
-        <button class="btn_ghost_reply_argument" *ngIf="argument.type !== 'reply' && !showReplies && argument.replies.rows.length"
-          id="{{argument.id}}_replies" translate="COMPONENTS.ARGUMENT.LNK_SHOW_REPLIES"
+        <button class="btn_ghost_reply_argument"
+          *ngIf="argument.type !== 'reply' && !showReplies && argument.replies.rows.length" id="{{argument.id}}_replies"
+          [translate]="(wWidth > 560)? 'COMPONENTS.ARGUMENT.LNK_SHOW_REPLIES' : 'COMPONENTS.ARGUMENT.LNK_SHOW_REPLIES_MOBILE'"
           [translateParams]="{count: argument.replies.rows.length}" (click)="showReplies = !showReplies"></button>
-        <button class="btn_ghost_reply_argument" *ngIf="showReplies" (click)="showReplies = !showReplies" translate="COMPONENTS.ARGUMENT.LNK_HIDE_REPLIES">
+        <button class="btn_ghost_reply_argument" *ngIf="showReplies" (click)="showReplies = !showReplies"
+          translate="COMPONENTS.ARGUMENT.LNK_HIDE_REPLIES">
         </button>
         <ng-container *ngIf="Auth.loggedIn$ | async">
           <a class="mobile_show" translate="COMPONENTS.ARGUMENT.BTN_REPLY" (click)="showReply=!showReply"></a>
@@ -166,6 +175,72 @@
 
   <argument-reply *ngIf="showReply" [(showReply)]="showReply" [argument]="argument"
     [topicId]="topicId"></argument-reply>
+</div>
+<div class="overlay" *ngIf="mobileActions" (click)="mobileActions = !mobileActions"></div>
+<div class="mobile_actions_wrap mobile_show" [ngClass]="{'show': mobileActions}">
+  <div class="heading_wrap">
+    <span translate="COMPONENTS.ARGUMENT.LBL_ARGUMENT_ACTIONS"></span>
+    <div id="close_mobile" class="mobile_show">
+      <button class="btn_small_close icon" (click)="mobileActions = !mobileActions">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M5.29311 17.2929C4.90258 17.6834 4.90258 18.3166 5.29311 18.7071C5.68363 19.0976 6.3168 19.0976 6.70732 18.7071L12.0002 13.4142L17.2931 18.7071C17.6836 19.0976 18.3168 19.0976 18.7073 18.7071C19.0978 18.3166 19.0978 17.6834 18.7073 17.2929L13.4144 12L18.7073 6.70711C19.0978 6.31658 19.0978 5.68342 18.7073 5.29289C18.3168 4.90237 17.6836 4.90237 17.2931 5.29289L12.0002 10.5858L6.70732 5.29289C6.3168 4.90237 5.68363 4.90237 5.29311 5.29289C4.90258 5.68342 4.90258 6.31658 5.29311 6.70711L10.586 12L5.29311 17.2929Z"
+            fill="#2C3B47" />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="options button_options">
+    <ng-container *ngIf="canEdit()">
+      <button class="option" (click)="argumentEditMode()">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M8.8143 4.18517L11.8147 7.18569L5.29947 13.7012L2.62438 13.9965C2.26626 14.0361 1.96369 13.7333 2.00354 13.3752L2.30118 10.6981L8.8143 4.18517ZM13.6704 3.73845L12.2616 2.3296C11.8222 1.89013 11.1095 1.89013 10.67 2.3296L9.34467 3.65501L12.3451 6.65553L13.6704 5.33011C14.1099 4.89042 14.1099 4.17791 13.6704 3.73845Z"
+            fill="#2C3B47" />
+        </svg>
+        <span translate="COMPONENTS.ARGUMENT.OPTION_EDIT"></span>
+      </button>
+      <div class="line_separator"></div>
+    </ng-container>
+    <button class="option" (click)="copyArgumentLink($event)">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M8.99965 11.8837L5.30885 9.8302C4.95457 10.1889 4.50411 10.4327 4.01425 10.5306C3.52439 10.6286 3.01706 10.5764 2.55623 10.3807C2.0954 10.1849 1.70169 9.85438 1.42474 9.43072C1.14779 9.00705 1 8.50922 1 8C1 7.49078 1.14779 6.99295 1.42474 6.56929C1.70169 6.14562 2.0954 5.81508 2.55623 5.61934C3.01706 5.4236 3.52439 5.37142 4.01425 5.46938C4.50411 5.56734 4.95457 5.81106 5.30885 6.1698L8.99965 4.11635C8.87306 3.51051 8.96449 2.87843 9.2572 2.3357C9.54992 1.79297 10.0244 1.37586 10.5938 1.16065C11.1632 0.945429 11.7895 0.946489 12.3582 1.16363C12.9269 1.38077 13.4 1.79949 13.6909 2.34321C13.9819 2.88692 14.0712 3.51931 13.9427 4.12472C13.8141 4.73012 13.4763 5.2681 12.9908 5.64027C12.5054 6.01243 11.9049 6.19391 11.2991 6.15153C10.6933 6.10914 10.1226 5.84572 9.69158 5.40943L6.00078 7.46288C6.07441 7.81702 6.07441 8.18298 6.00078 8.53712L9.69158 10.5906C10.1226 10.1543 10.6933 9.89086 11.2991 9.84848C11.9049 9.80609 12.5054 9.98757 12.9908 10.3597C13.4763 10.7319 13.8141 11.2699 13.9427 11.8753C14.0712 12.4807 13.9819 13.1131 13.6909 13.6568C13.4 14.2005 12.9269 14.6192 12.3582 14.8364C11.7895 15.0535 11.1632 15.0546 10.5938 14.8394C10.0244 14.6241 9.54992 14.207 9.2572 13.6643C8.96449 13.1216 8.87306 12.4895 8.99965 11.8837Z"
+          fill="#2C3B47" />
+      </svg>
+      <span translate="LNK_DIRECT_LINK"></span>
+    </button>
+    <ng-container #loggedIn>
+      <div class="line_separator"></div>
+      <button class="option" (click)="doArgumentReport()"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <circle cx="8" cy="8" r="5.5" fill="#2C3B47" stroke="#2C3B47" />
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M4.83552 4.12842L11.8714 11.1643C11.6598 11.4228 11.4228 11.6598 11.1643 11.8714L4.12842 4.83552C4.34 4.57697 4.57697 4.34 4.83552 4.12842Z"
+            fill="white" />
+        </svg>
+        <span translate="COMPONENTS.ARGUMENT.OPTION_REPORT"></span>
+      </button>
+    </ng-container>
+    <ng-container *ngIf="isEdited()">
+
+      <div class="line_separator"></div>
+      <button class="option" (click)="argument.showEdits = !argument.showEdits">
+        <span translate="VIEWS.TOPICS_TOPICID.ARGUMENT_LNK_VIEW_PREVIOUS_VERSIONS"></span>
+      </button>
+    </ng-container>
+    <ng-container *ngIf="canEdit()">
+      <div class="line_separator"></div>
+      <button class="option error_text" (click)="doShowDeleteArgument()">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M10 3H6V4H10V3ZM11 4V3C11 2.44772 10.5523 2 10 2H6C5.44772 2 5 2.44772 5 3V4H4H2.5C2.22386 4 2 4.22386 2 4.5C2 4.77614 2.22386 5 2.5 5H4V13C4 13.5523 4.44772 14 5 14H11C11.5523 14 12 13.5523 12 13V5H13.5C13.7761 5 14 4.77614 14 4.5C14 4.22386 13.7761 4 13.5 4H12H11ZM7 7H6V11H7V7ZM10 7H9V11H10V7Z"
+            fill="#2C3B47" />
+        </svg>
+        <span translate="COMPONENTS.ARGUMENT.OPTION_DELETE"></span>
+      </button>
+    </ng-container>
+  </div>
 </div>
 <!--div class="single_argument" [ngClass]="{'is_reply': isReply}">
   <div id="{{argument.id + '_v' + (argument.edits.length-1)}}" class="argument"
