@@ -108,10 +108,12 @@
       "FILTER_SELF": "Moja aktivita"
     },
     "ARGUMENT": {
+      "LBL_ARGUMENT_ACTIONS": "Argument actions",
       "OPTION_EDIT": "upraviť",
       "OPTION_REPORT": "nahlásiť",
       "OPTION_DELETE": "vymazať",
       "LNK_SHOW_REPLIES": "Ukázať odpovede ({{count}})",
+      "LNK_SHOW_REPLIES_MOBILE": "Replies ({{count}})",
       "LNK_HIDE_REPLIES": "Skryť odpovede",
       "BTN_REPLY": "Odpovedať",
       "ARGUMENT_LNK_VIEW_PREVIOUS_VERSIONS": "@:VIEWS.TOPICS_TOPICID.ARGUMENT_LNK_VIEW_PREVIOUS_VERSIONS",
@@ -625,12 +627,12 @@
     "TOPIC_MILESTONES": {
       "CREATE_A_MILESTONE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_CREATE_A_MILESTONE",
       "OPT_EDIT_DETAILS": "Upraviť podrobnosti",
-      "OPT_REMOVE_MILESTONE": "Odstrániť medzník",
+      "OPT_REMOVE_MILESTONE": "Remove update",
       "PLACEHOLDER_SUBJECT": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_PLACEHOLDER_SUBJECT",
-      "HEADING_MILESTONE_CONTENT": "Obsah medzníka",
+      "HEADING_MILESTONE_CONTENT": "Content of the update",
       "ADD_MILESTONE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_ADD_MILESTONE",
-      "HEADING_MILESTONE": "Medzník",
-      "HEADING_MILESTONE_TITLE": "Názov medzníka",
+      "HEADING_MILESTONE": "Update",
+      "HEADING_MILESTONE_TITLE": "Title of the update",
       "MILESTONE_TITLE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_MILESTONE"
     },
     "TOPIC_ONBOARDING": {
@@ -753,8 +755,7 @@
       "DIALOG_TAB_INTRODUCTION_KEEP_IN_MIND": "Čo treba mať na mysli:",
       "DIALOG_TAB_INTRODUCTION_ITEM_1": "You can no longer (co-)edit your topic description",
       "DIALOG_TAB_INTRODUCTION_ITEM_2": "Stále môžete pozývať účastníkov a zdieľať s nimi",
-      "DIALOG_TAB_INTRODUCTION_ITEM_3": "Môžete zverejňovať aktualizácie míľnikov pre opatrenia prijaté v dôsledku tejto témy",
-      "DIALOG_TAB_INTRODUCTION_ITEM_4": "@:MODALS.TOPIC_CLOSE_CONFIRM_TXT_NO_VOTE",
+      "DIALOG_TAB_INTRODUCTION_ITEM_3": "You can post updates for actions taken as a result of this topic",
       "DIALOG_TAB_INTRODUCTION_INFO": "Toto je posledná fáza témy.",
       "FOLLOW_UP_TITLE_HEADING": "Pridajte prosím názov pre sledovanie témy",
       "FOLLOW_UP_TITLE_HEADING_PLACEHOLDER": "Napíšte názov sledovania témy",
@@ -2298,7 +2299,8 @@
       "TUTORIAL_TITLE": "Welcome to topics",
       "TUTORIAL_DESC": "New to the platform? Or first time since the redesign? We’d love to guide you through how topics work.",
       "TUTORIAL_BTN_TAKE_THE_TOUR": "@:COMPONENTS.ONBOARDING.BTN_SUBMIT",
-      "TUTORIAL_BTN_SKIP": "@:COMPONENTS.ONBOARDING.BTN_CANCEL"
+      "TUTORIAL_BTN_SKIP": "@:COMPONENTS.ONBOARDING.BTN_CANCEL",
+      "LBL_TOPIC_ACTIONS": "Topic actions"
     },
     "VOTE_CREATE": {
       "HEADING": "Create a voting topic",
