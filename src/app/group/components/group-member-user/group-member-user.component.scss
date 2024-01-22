@@ -18,14 +18,14 @@
   padding: 8px 16px;
   position: relative;
   border-radius: 8px;
-
+  background-color: var(--color-surface-contrast);
   @include mixins.mobile {
     flex-direction: column;
     gap: 16px;
   }
 
   &:nth-child(even) {
-    background-color: var(--color-surface-contrast);
+    background-color: var(--color-surfaces);
   }
   .name,
   .level {

@@ -21,6 +21,11 @@
         position: absolute;
         width: max-content;
         min-width: max-content;
+        @include mixins.mobile {
+          position: fixed;
+          width: 100%;
+          min-width: initial;
+        }
       }
     }
 
@@ -76,7 +81,9 @@
       display: flex;
       justify-content: space-between;
       gap: 24px;
-
+      @include mixins.mobile {
+        gap: 8px;
+      }
       cos-input {
         width: inherit;
       }
