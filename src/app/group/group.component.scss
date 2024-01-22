@@ -53,6 +53,10 @@
         }
       }
     }
+
+    @include mixins.mobile {
+      padding: 8px;
+    }
     .button_dropdown {
       background-color: initial;
 
@@ -119,15 +123,24 @@
   position: relative;
   min-height: 180px;
   max-height: 180px;
+  height: 180px;
+  overflow: hidden;
+  transition: max-height 0.2s ease-in;
 
+  &.open {
+    min-height: min-content;
+    max-height: 1000px;
+    height: 100%;
+  }
   @include mixins.tablet {
     border-radius: 0 0 16px 16px;
     min-height: 323px;
-    max-height: initial;
+    max-height: 323px;
+    height: 3230px;
   }
 
   @include mixins.mobile {
-    min-height: 380px;
+    min-height: 393px;
   }
 
   #group_image_wrap {
@@ -161,16 +174,12 @@
     display: flex;
     gap: 16px;
     align-items: center;
-    position: absolute;
+    position: relative;
     bottom: 16px;
-    left: 120px;
-
-    @include mixins.tablet {
-      left: 16px;
-    }
+    margin-top: 8px;
 
     @include mixins.mobile {
-      left: 36%;
+      align-self: center;
     }
   }
 
@@ -179,10 +188,7 @@
     flex-direction: column;
     width: 100%;
     gap: 24px;
-
-    .line_separator {
-      margin: 0 0 42px;
-    }
+    transition: height 0.2s ease-in;
 
     #group_description_wrap {
       display: flex;
@@ -270,7 +276,7 @@
 
       #group_description {
         min-height: 50px;
-        max-height: 50px;
+        max-height: 60px;
         overflow-y: hidden;
 
         &.open {
@@ -323,7 +329,7 @@
             }
 
             @include mixins.mobile {
-              width: 66px;
+              width: 100%;
             }
           }
         }
@@ -363,6 +369,9 @@
         max-width: 368px;
         @include mixins.tablet {
           max-width: 100%;
+        }
+        @include mixins.mobile {
+          min-width: 100%;
         }
       }
 
@@ -457,7 +466,12 @@
   width: 100%;
   padding: 16px;
   gap: 16px;
-  min-height: 80px;
+
+  @include mixins.mobile {
+    margin: 0 8px;
+    padding: 0;
+    width: auto;
+  }
 
   .dropdown {
     width: 100%;
@@ -475,7 +489,10 @@
       gap: 16px;
       width: 100%;
       position: relative;
-      flex-flow: row wrap;
+
+      @include mixins.tablet {
+        flex-flow: row wrap;
+      }
 
       .dropdown_input {
         flex-grow: 1;
@@ -484,6 +501,10 @@
         @include mixins.tablet {
           flex-grow: 2;
           min-width: calc(50% - 12px);
+        }
+
+        &.dropdown {
+          width: calc(50% - 12px);
         }
       }
 
@@ -497,13 +518,12 @@
     }
   }
 
-  #buttons_area {
+  .filter_control_buttons {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 16px;
+
     button {
-      width: 40px;
-      height: 40px;
       transition: transform 0.6s;
       transform-style: preserve-3d;
       perspective: 40px;
@@ -516,7 +536,7 @@
         display: flex;
         width: 24px;
         height: 24px;
-
+        position: absolute;
         path {
           fill: none;
         }
