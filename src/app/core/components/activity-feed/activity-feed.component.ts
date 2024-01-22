@@ -3,6 +3,7 @@ import { Component, OnInit, Input, Inject, inject } from '@angular/core';
 import { DIALOG_DATA, DialogRef } from 'src/app/shared/dialog';
 import { map, tap, of } from 'rxjs';
 import { ActivityService } from 'src/app/services/activity.service'
+import { Location } from '@angular/common';
 @Component({
   selector: 'activity-feed',
   templateUrl: './activity-feed.component.html',
@@ -32,8 +33,8 @@ export class ActivityFeedComponent implements OnInit {
   feedType = 'global';
   @Input() groupId?: string;
   @Input() topicId?: string;
-
-  constructor(public ActivityService: ActivityService) {
+  @Input() modal?: boolean = false;
+  constructor(public ActivityService: ActivityService, private location: Location) {
     setTimeout(() => {
       this.show = true
     });
@@ -81,6 +82,7 @@ export class ActivityFeedComponent implements OnInit {
 
   close () {
     //this.show = false;
+    this.location.back()
   }
 }
 @Component({

@@ -9,7 +9,7 @@
               fill="#2C3B47" />
           </svg>
         </button>
-        <div class="small_heading" [innerHTML]="'VIEWS.GROUP.HEADING_BACK_TO_PUBLIC_GROUPS'| translate"></div>
+        <div class="small_heading mobile_hidden" [innerHTML]="'VIEWS.GROUP.HEADING_BACK_TO_PUBLIC_GROUPS'| translate"></div>
       </ng-container>
       <ng-container *ngIf="auth.loggedIn$.value">
         <button class="btn_medium_close icon" [routerLink]="['/', translate.currentLang, 'my', 'groups']"><svg
@@ -19,7 +19,7 @@
               fill="#2C3B47" />
           </svg>
         </button>
-        <div class="small_heading" [innerHTML]="'VIEWS.GROUP.HEADING_BACK_TO_MY_GROUPS'| translate"></div>
+        <div class="small_heading mobile_hidden" [innerHTML]="'VIEWS.GROUP.HEADING_BACK_TO_MY_GROUPS'| translate"></div>
       </ng-container>
     </div>
     <div id="buttons_area">
@@ -142,7 +142,7 @@
 
     </div>
   </div>
-  <div id="group_info_area" [@openClose]="moreInfo ? 'open' : 'closed'">
+  <div id="group_info_area" [ngClass]="{'open': moreInfo}">
     <div id="group_image_wrap">
       <div class="group_circle">
         <div class="group_icon" *ngIf="group.imageUrl"><img [src]="group.imageUrl" /></div>
@@ -178,6 +178,17 @@
             </div>
           </div>
           <div id="group_description" [ngClass]="moreInfo? 'open': ''" [innerHTML]="group.description"></div>
+          <a id="view_more" class="tablet_hidden" (click)="moreInfo = !moreInfo" *ngIf="!moreInfo">
+            <div class="bold" *ngIf="!moreInfo" translate="VIEWS.GROUP.LNK_MORE_INFO"></div>
+            <div class="bold" *ngIf="moreInfo" translate="VIEWS.GROUP.LNK_CLOSE_INFO"></div>
+            <svg *ngIf="!moreInfo" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M17 10L12 15L7 10" stroke="#1168A8" stroke-width="2" stroke-linecap="round" />
+            </svg>
+            <svg *ngIf="moreInfo" width="24" height="24" viewBox="0 0 24 24" transform="rotate(180)" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path d="M17 10L12 15L7 10" stroke="#1168A8" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </a>
         </div>
         <div id="description_right">
           <activities-button [groupId]="group.id"></activities-button>
@@ -230,6 +241,17 @@
               <div class="info_number">{{group.members.topics.count}}</div>
             </div>
           </div>
+          <a id="view_more" class="tablet_show" (click)="moreInfo = !moreInfo" *ngIf="!moreInfo">
+            <div class="bold" *ngIf="!moreInfo" translate="VIEWS.GROUP.LNK_MORE_INFO"></div>
+            <div class="bold" *ngIf="moreInfo" translate="VIEWS.GROUP.LNK_CLOSE_INFO"></div>
+            <svg *ngIf="!moreInfo" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M17 10L12 15L7 10" stroke="#1168A8" stroke-width="2" stroke-linecap="round" />
+            </svg>
+            <svg *ngIf="moreInfo" width="24" height="24" viewBox="0 0 24 24" transform="rotate(180)" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path d="M17 10L12 15L7 10" stroke="#1168A8" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </a>
         </div>
       </div>
       <div id="group_extra_info" [ngClass]=" {'open': moreInfo}">
@@ -311,18 +333,19 @@
         </div>
       </div>
       <div class="line_separator" *ngIf="moreInfo"></div>
+      <a id="view_more" (click)="moreInfo = !moreInfo" *ngIf="moreInfo">
+        <div class="bold" *ngIf="!moreInfo" translate="VIEWS.GROUP.LNK_MORE_INFO"></div>
+        <div class="bold" *ngIf="moreInfo" translate="VIEWS.GROUP.LNK_CLOSE_INFO"></div>
+        <svg *ngIf="!moreInfo" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17 10L12 15L7 10" stroke="#1168A8" stroke-width="2" stroke-linecap="round" />
+        </svg>
+        <svg *ngIf="moreInfo" width="24" height="24" viewBox="0 0 24 24" transform="rotate(180)" fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <path d="M17 10L12 15L7 10" stroke="#1168A8" stroke-width="2" stroke-linecap="round" />
+        </svg>
+      </a>
     </div>
-    <a id="view_more" (click)="moreInfo = !moreInfo">
-      <div class="bold" *ngIf="!moreInfo" translate="VIEWS.GROUP.LNK_MORE_INFO"></div>
-      <div class="bold" *ngIf="moreInfo" translate="VIEWS.GROUP.LNK_CLOSE_INFO"></div>
-      <svg *ngIf="!moreInfo" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M17 10L12 15L7 10" stroke="#1168A8" stroke-width="2" stroke-linecap="round" />
-      </svg>
-      <svg *ngIf="moreInfo" width="24" height="24" viewBox="0 0 24 24" transform="rotate(180)" fill="none"
-        xmlns="http://www.w3.org/2000/svg">
-        <path d="M17 10L12 15L7 10" stroke="#1168A8" stroke-width="2" stroke-linecap="round" />
-      </svg>
-    </a>
+
   </div>
   <div class="tabs_wrap" *ngIf="tabSelected | async  as tabSelected">
     <div class="tabs_row">
@@ -560,25 +583,36 @@
           </div>
         </button>
       </div>
-      <div class="dropdown mobile_show" [cosDropdown] [multipleChoice]="true">
+      <!--MOBILE_TOPIC_FILTERS-->
+      <div class="dropdown mobile_filters_selection mobile_show" [ngClass]="{'dropdown_active': mobileTopicFiltersList}">
         <div class="selection">
-          <div class="selected_item" translate="VIEWS.GROUP.LBL_FILTER"> </div>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
-          </svg>
+          <div class="selected_item" [innerHtml]="'COMPONENTS.PUBLIC_TOPICS.LBL_FILTER' | translate | titlecase"> </div>
+          <button class="btn_medium_plain icon" (click)="mobileTopicFiltersList = !mobileTopicFiltersList">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </button>
         </div>
 
         <div class="options filter_options">
           <div class="filter_option">
-            <span translate="VIEWS.GROUP.TOPICS_FILTER_TYPE"></span><a class="bold"
-              (click)="mobile_filters.status = true">{{'TXT_TOPIC_STATUS_'+topicFilters.status | uppercase |
-              translate}}</a>
+            <span translate="COMPONENTS.PUBLIC_TOPICS.FILTER_VISIBILITY"></span><a class="bold"
+              (click)="mobileTopicFilters.status = true">{{'TXT_TOPIC_STATUS_'+topicFilters.status | uppercase |
+              translate | titlecase}}</a>
           </div>
           <!--div class="filter_option">
-            <span translate="VIEWS.MY_TOPICS.FILTER_CATEGORIES"></span><a class="bold"
-              (click)="mobile_filters.category = true">{{'TXT_TOPIC_CATEGORY_'+topicFilters.category | uppercase |
-              translate}}</a>
+            <span translate="COMPONENTS.PUBLIC_TOPICS.FILTER_CATEGORIES"></span><a class="bold"
+              (click)="mobileTopicFilters.category = true">{{'TXT_TOPIC_CATEGORY_'+topicFilters.category | uppercase |
+              translate | titlecase}}</a>
           </!--div-->
+          <div class="filter_option">
+            <span translate="COMPONENTS.PUBLIC_TOPICS.FILTER_COUNTRY"></span><a class="bold"
+              (click)="mobileTopicFilters.country = true">{{topicFilters.country| translate | titlecase}}</a>
+          </div>
+          <div class="filter_option">
+            <span translate="COMPONENTS.PUBLIC_TOPICS.FILTER_LANGUAGE"></span><a class="bold"
+              (click)="mobileTopicFilters.language = true">{{topicFilters.language | translate | titlecase}}</a>
+          </div>
           <button (click)="doClearFilters()" class="btn_medium_plain">
             <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -588,7 +622,7 @@
                 d="M12.4999 19.0001C14.2929 19.0001 16.0826 18.3169 17.4496 16.9499C19.9439 14.4555 20.1623 10.5471 18.1048 7.80519C17.7733 7.36345 17.7662 6.73377 18.1567 6.34325C18.5473 5.95273 19.1858 5.94982 19.5311 6.38083C22.3624 9.91455 22.1399 15.088 18.8638 18.3641C17.1067 20.1212 14.8016 21.0001 12.4999 21.0001L12.4999 23L8.49988 20L12.4999 17L12.4999 19.0001Z"
                 fill="#2C3B47" />
             </svg>
-            <span translate="VIEWS.GROUP.BTN_RESET_FILTER"></span>
+            <span translate="COMPONENTS.PUBLIC_TOPICS.BTN_RESET_FILTERS"></span>
           </button>
           <div class="input_area">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -597,46 +631,93 @@
                 fill="#727C84" />
             </svg>
             <cos-input placeholder="{{'VIEWS.GROUP.PLACEHOLDER_SEARCH_TOPICS' | translate}}">
-              <input type="text" [(ngModel)]="searchTopicsInput" (ngModelChange)="searchTopics(searchTopicsInput)"
-                placeholder="{{'VIEWS.GROUP.PLACEHOLDER_SEARCH_TOPICS' | translate}}">
+              <input placeholder="{{'VIEWS.GROUP.PLACEHOLDER_SEARCH_TOPICS' | translate}}" type="text"
+                [(ngModel)]="searchTopicsInput" (ngModelChange)="searchTopics(searchTopicsInput)">
             </cos-input>
             <a class="clear_search" translate="VIEWS.GROUP.LNK_CLEAR" (click)="searchTopicsInput='';searchTopics('')"
               *ngIf="searchTopicsInput"></a>
-
           </div>
         </div>
-
-        <div class="options button_options" *ngIf="mobile_filters.status">
-          <label class="checkbox">
-            <span translate="TXT_TOPIC_STATUS_ALL"></span>
+      </div>
+      <div class="overlay" *ngIf="showMobileOverlay()" (click)="closeMobileFilter();"></div>
+      <div class="mobile_filters_wrap" [ngClass]="{'active': showMobileOverlay()}">
+        <div class="options button_options" *ngIf="mobileTopicFilters.status">
+          <label class="checkbox" (click)="mobileTopicFilters.status = 'all';">
+            <span [innerHTML]="'TXT_TOPIC_STATUS_ALL' | translate | titlecase"></span>
             <input type="radio" name="status">
             <span class="checkmark"></span>
           </label>
-
-          <label class="checkbox" *ngFor="let item of []">
-            <span [translate]="'TXT_TOPIC_STATUS_'+item | uppercase"></span>
+          <label class="checkbox" *ngFor="let status of topicStatuses" (click)="mobileTopicFilters.status = status">
+            <span [innerHtml]="'TXT_TOPIC_STATUS_'+status | uppercase | translate | titlecase"></span>
             <input type="radio" name="status">
             <span class="checkmark"></span>
           </label>
-          <button class="btn_medium_secondary" (click)="mobile_filters.status= false;">Apply</button>
+          <label class="checkbox" (click)="mobileTopicFilters.status = 'showModerated';">
+            <span translate="COMPONENTS.PUBLIC_TOPICS.FILTER_TOPICS_MODERATED"></span>
+            <input type="radio" name="status">
+            <span class="checkmark"></span>
+          </label>
+          <button class="btn_medium_secondary" (click)="setStatus(mobileTopicFilters.status);mobileTopicFilters.status= false;"
+            translate="COMPONENTS.PUBLIC_TOPICS.BTN_APPLY"></button>
         </div>
-        <div class="overlay" *ngIf="mobile_filters.category || mobile_filters.status"></div>
-        <div class="options button_options" *ngIf="mobile_filters.category">
+        <!--div class="options button_options" *ngIf="mobileTopicFilters.category">
           <label class="checkbox">
             <span translate="TXT_TOPIC_CATEGORY_ALL"></span>
             <input type="radio" name="category">
             <span class="checkmark"></span>
           </label>
 
-          <label class="checkbox" *ngFor="let item of []">
-            <span [translate]="'TXT_TOPIC_CATEGORY_'+item | uppercase"></span>
+          <label class="checkbox" *ngFor="let category of categories$" (click)=" mobileTopicFilters.category = category">
+            <span [translate]="'TXT_TOPIC_CATEGORY_'+category | uppercase"></span>
             <input type="radio" name="category">
             <span class="checkmark"></span>
           </label>
 
-          <button class="btn_medium_secondary" (click)="mobile_filters.category= false;">Apply</button>
+          <button class="btn_medium_secondary"
+            (click)="setCategory(mobileTopicFilters.category);mobileTopicFilters.category= false;"
+            translate="COMPONENTS.PUBLIC_TOPICS.BTN_APPLY"></button>
+        </!--div-->
+        <div class="options button_options" *ngIf="mobileTopicFilters.country">
+          <typeahead class="dropdown dropdown_input" activeClass="dropdown_active" [term]="countrySearch"
+            (search)="searchCountry($event)" [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_COUNTRY' | translate">
+          </typeahead>
+          <label class="checkbox" (click)="mobileTopicFilters.country = 'all'">
+            <span translate="TXT_TOPIC_STATUS_ALL"></span>
+            <input type="radio" name="country">
+            <span class="checkmark"></span>
+          </label>
+          <ng-container *ngIf="countries$ | async as countries">
+            <label class="checkbox" *ngFor="let country of countries" (click)="mobileTopicFilters.country = country.name">
+              <span>{{country.name}}</span>
+              <input type="radio" name="country">
+              <span class="checkmark"></span>
+            </label>
+          </ng-container>
+          <button class="btn_medium_secondary" (click)="setCountry(mobileTopicFilters.country);mobileTopicFilters.country= false;"
+            translate="COMPONENTS.PUBLIC_TOPICS.BTN_APPLY"></button>
+        </div>
+        <div class="options button_options" *ngIf="mobileTopicFilters.language">
+          <typeahead class="dropdown dropdown_input" activeClass="dropdown_active" [term]="languageSearch"
+            (search)="searchLanguage($event)" [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_LANGUAEG' | translate">
+          </typeahead>
+          <label class="checkbox" (click)="mobileTopicFilters.language = 'all'">
+            <span translate="TXT_TOPIC_STATUS_ALL"></span>
+            <input type="radio" name="language">
+            <span class="checkmark"></span>
+          </label>
+          <ng-container *ngIf="languages$ | async as languages">
+            <label class="checkbox" *ngFor="let language of languages" (click)="mobileTopicFilters.language = language.name;">
+              <span>{{language.name}}</span>
+              <input type="radio" name="language">
+              <span class="checkmark"></span>
+            </label>
+          </ng-container>
+          <button class="btn_medium_secondary"
+            (click)="setLanguage(mobileTopicFilters.language);mobileTopicFilters.language= false;"
+            translate="COMPONENTS.PUBLIC_TOPICS.BTN_APPLY"></button>
         </div>
       </div>
+      <!--MOBILE_TOPIC_FILTERS_END-->
     </div>
     <div id="topics_area" *ngIf="topics$ | async as topics;">
       <topicbox [topic]="topic" *ngFor="let topic of topics; trackBy: trackByTopic;" [ngClass]="topic.categories">

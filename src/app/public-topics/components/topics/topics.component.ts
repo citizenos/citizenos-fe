@@ -60,7 +60,7 @@ export class TopicsComponent implements OnInit {
     language: this.FILTERS_ALL
   };
 
-  mobileFilters:any = {
+  mobileFilters: any = {
     category: false,
     status: false,
     country: false,
@@ -98,16 +98,16 @@ export class TopicsComponent implements OnInit {
           return this.allTopics$;
         }
       ));
-      this.countries$ = this.countrySearch$.pipe(switchMap((string) => {
-        const countries = this.countries.filter((country) => country.name.toLowerCase().indexOf(string.toLowerCase()) > -1);
+    this.countries$ = this.countrySearch$.pipe(switchMap((string) => {
+      const countries = this.countries.filter((country) => country.name.toLowerCase().indexOf(string.toLowerCase()) > -1);
 
-        return [countries];
-      }));
-      this.languages$ = this.languageSearch$.pipe(switchMap((string) => {
-        const languages = this.languages.filter((language) => language.name.toLowerCase().indexOf(string.toLowerCase()) > -1);
+      return [countries];
+    }));
+    this.languages$ = this.languageSearch$.pipe(switchMap((string) => {
+      const languages = this.languages.filter((language) => language.name.toLowerCase().indexOf(string.toLowerCase()) > -1);
 
-        return [languages];
-      }));
+      return [languages];
+    }));
   }
 
   searchCountry(event: any) {
@@ -183,7 +183,7 @@ export class TopicsComponent implements OnInit {
     this.PublicTopicService.loadPage(page);
   }
 
-  closeMobileFilter () {
+  closeMobileFilter() {
     const filtersShow = Object.entries(this.mobileFilters).find(([key, value]) => {
       return !!value;
     })
@@ -191,7 +191,7 @@ export class TopicsComponent implements OnInit {
       this.mobileFilters[filtersShow[0]] = false;
   }
 
-  showMobileOverlay () {
+  showMobileOverlay() {
     const filtersShow = Object.entries(this.mobileFilters).find(([key, value]) => {
       return !!value;
     })
@@ -207,7 +207,6 @@ export class TopicsComponent implements OnInit {
     this.setLanguage('');
     this.topicFilters.country = this.FILTERS_ALL;
     this.topicFilters.language = this.FILTERS_ALL;
-
   }
 
   ngOnDestroy(): void {

@@ -16,6 +16,11 @@
   gap: 16px;
   transition: right 0.5s;
 
+  &.mobile_page {
+    z-index: 0;
+    top: 60px;
+    height: calc(100% - 120px);
+  }
   @include mixins.mobile {
     max-width: 100%;
   }

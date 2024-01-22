@@ -11,7 +11,15 @@ import { ItemsListService } from './items-list.service';
   providedIn: 'root'
 })
 export class GroupMemberTopicService extends ItemsListService {
-  params = Object.assign(this.defaultParams, { groupId: <string | null>null, visibility: <string | null| undefined>null });
+  params = Object.assign(this.defaultParams, {
+    groupId: <string | null>null,
+    showModerated: <boolean>false,
+    visibility: <string | null| undefined>null,
+    country: <Array<string> | string | null>null,
+    language: <Array<string> | string | null>null,
+    statuses: <Array<string> | string | null>null,
+    title: <string | null>null
+  });
   params$ = new BehaviorSubject(this.params);
   constructor(private http: HttpClient, private Location: LocationService, private Auth: AuthService, private Topic: TopicService) {
     super();
