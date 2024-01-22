@@ -9,7 +9,8 @@
               fill="#2C3B47" />
           </svg>
         </button>
-        <div class="small_heading mobile_hidden" [innerHTML]="'VIEWS.GROUP.HEADING_BACK_TO_PUBLIC_GROUPS'| translate"></div>
+        <div class="small_heading mobile_hidden" [innerHTML]="'VIEWS.GROUP.HEADING_BACK_TO_PUBLIC_GROUPS'| translate">
+        </div>
       </ng-container>
       <ng-container *ngIf="auth.loggedIn$.value">
         <button class="btn_medium_close icon" [routerLink]="['/', translate.currentLang, 'my', 'groups']"><svg
@@ -43,7 +44,7 @@
             fill="#2C3B47" />
         </svg>
       </button>
-      <div class="dropdown button_dropdown" [cosDropdown]>
+      <div class="dropdown button_dropdown mobile_hidden" [cosDropdown]>
         <button class="btn_medium_close icon">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -67,7 +68,8 @@
             <div class="line_separator"></div>
           </ng-container>
           <div class="option" (click)="shareGroupDialog(group)">
-            <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M13.8536 6.14645C13.7598 6.05268 13.6326 6 13.5 6C13.3674 6 13.2402 6.05268 13.1464 6.14645C13.0527 6.24021 13 6.36739 13 6.5V8H11.5C11.3674 8 11.2402 8.05268 11.1464 8.14645C11.0527 8.24021 11 8.36739 11 8.5C11 8.63261 11.0527 8.75979 11.1464 8.85355C11.2402 8.94732 11.3674 9 11.5 9H13V10.5C13 10.6326 13.0527 10.7598 13.1464 10.8536C13.2402 10.9473 13.3674 11 13.5 11C13.6326 11 13.7598 10.9473 13.8536 10.8536C13.9473 10.7598 14 10.6326 14 10.5V9H15.5C15.6326 9 15.7598 8.94732 15.8536 8.85355C15.9473 8.75979 16 8.63261 16 8.5C16 8.36739 15.9473 8.24021 15.8536 8.14645C15.7598 8.05268 15.6326 8 15.5 8H14V6.5C14 6.36739 13.9473 6.24021 13.8536 6.14645Z"
                   fill="#2C3B47" />
@@ -81,7 +83,8 @@
           <div class="line_separator"></div>
           <ng-container *ngIf="(auth.loggedIn$ | async) && canUpdate(group)">
             <div class="option" (click)="addTopicDialog(group)">
-              <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" clip-rule="evenodd"
                     d="M2 3C1.44772 3 1 3.44772 1 4V14C1 14.5523 1.44772 15 2 15H9C9.55228 15 10 14.5523 10 14V6.62081C10 6.3517 9.89153 6.09394 9.69912 5.9058L7.01874 3.28499C6.83189 3.1023 6.58095 3 6.31963 3H2ZM6 4L9 7H6V4Z"
                     fill="#2C3B47" />
@@ -95,7 +98,8 @@
           </ng-container>
           <ng-container *ngIf="canUpdate(group)">
             <div class="option" (click)="showSettings(group)">
-              <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M8.8143 4.18517L11.8147 7.18569L5.29947 13.7012L2.62438 13.9965C2.26626 14.0361 1.96369 13.7333 2.00354 13.3752L2.30118 10.6981L8.8143 4.18517ZM13.6704 3.73845L12.2616 2.3296C11.8222 1.89013 11.1095 1.89013 10.67 2.3296L9.34467 3.65501L12.3451 6.65553L13.6704 5.33011C14.1099 4.89042 14.1099 4.17791 13.6704 3.73845Z"
                     fill="#2C3B47" />
@@ -106,7 +110,8 @@
           </ng-container>
           <ng-container *ngIf="group.userLevel && (auth.loggedIn$ | async)">
             <div class="option" (click)="leaveGroup()">
-              <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M10 12.25V9H6.61392C6.49078 9 6.37268 8.94732 6.28561 8.85355C6.19854 8.75979 6.14962 8.63261 6.14962 8.5C6.14962 8.36739 6.19854 8.24021 6.28561 8.14645C6.37268 8.05268 6.49078 8 6.61392 8H10V3.75C9.99954 3.28602 9.82818 2.84119 9.52353 2.51311C9.21888 2.18503 8.80582 2.0005 8.37497 2H2.62503C2.19418 2.0005 1.78112 2.18503 1.47647 2.51311C1.17182 2.84119 1.00046 3.28602 1 3.75V12.25C1.00046 12.714 1.17182 13.1588 1.47647 13.4869C1.78112 13.815 2.19418 13.9995 2.62503 14H8.37497C8.80582 13.9995 9.21888 13.815 9.52353 13.4869C9.82818 13.1588 9.99954 12.714 10 12.25ZM13.4149 9L11.8863 10.6466C11.8029 10.7411 11.7571 10.867 11.7586 10.9973C11.7602 11.1277 11.8089 11.2523 11.8946 11.3445C11.9802 11.4367 12.0958 11.4892 12.2169 11.4909C12.338 11.4926 12.4549 11.4432 12.5427 11.3534L14.8641 8.85344C14.9511 8.75968 15 8.63255 15 8.5C15 8.36745 14.9511 8.24032 14.8641 8.14656L12.5427 5.64656C12.4549 5.55675 12.338 5.50742 12.2169 5.50909C12.0958 5.51076 11.9802 5.5633 11.8946 5.6555C11.8089 5.7477 11.7602 5.87227 11.7586 6.00265C11.7571 6.13303 11.8029 6.25891 11.8863 6.35344L13.4149 8H10V9H13.4149Z"
                     fill="#2C3B47" />
@@ -129,7 +134,120 @@
           </!--ng-container-->
           <button class="option error_text" *ngIf="(auth.loggedIn$ | async) && canUpdate(group)"
             (click)="deleteGroup(group);">
-            <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M10 3H6V4H10V3ZM11 4V3C11 2.44772 10.5523 2 10 2H6C5.44772 2 5 2.44772 5 3V4H4H2.5C2.22386 4 2 4.22386 2 4.5C2 4.77614 2.22386 5 2.5 5H4V13C4 13.5523 4.44772 14 5 14H11C11.5523 14 12 13.5523 12 13V5H13.5C13.7761 5 14 4.77614 14 4.5C14 4.22386 13.7761 4 13.5 4H12H11ZM7 7H6V11H7V7ZM10 7H9V11H10V7Z"
+                  fill="#2C3B47" />
+              </svg>
+
+            </div><span translate="VIEWS.GROUP.BTN_OPTION_DELETE"></span>
+          </button>
+        </div>
+      </div>
+
+      <div class="dropdown mobile_show" [ngClass]="{'dropdown_active': groupActions}">
+        <button class="btn_medium_close icon" (click)="groupActions = !groupActions">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M14 6C14 4.9 13.1 4 12 4C10.9 4 10 4.9 10 6C10 7.1 10.9 8 12 8C13.1 8 14 7.1 14 6ZM14 18C14 16.9 13.1 16 12 16C10.9 16 10 16.9 10 18C10 19.1 10.9 20 12 20C13.1 20 14 19.1 14 18ZM12 10C13.1 10 14 10.9 14 12C14 13.1 13.1 14 12 14C10.9 14 10 13.1 10 12C10 10.9 10.9 10 12 10Z"
+              fill="#2C3B47" />
+          </svg>
+        </button>
+        <div class="mobile_overlay" (click)="groupActions = false"></div>
+        <div class="options button_options">
+          <div class="mobile_header">
+            <div class="small_heading" translate="COMPONENTS.GROUP_MEMBER_USER.EDIT_MEMBER"></div>
+            <button (click)="groupActions = false"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M5.29314 17.2929C4.90261 17.6834 4.90261 18.3166 5.29314 18.7071C5.68366 19.0976 6.31683 19.0976 6.70735 18.7071L12.0002 13.4142L17.2931 18.7071C17.6837 19.0976 18.3168 19.0976 18.7074 18.7071C19.0979 18.3166 19.0979 17.6834 18.7074 17.2929L13.4145 12L18.7074 6.70711C19.0979 6.31658 19.0979 5.68342 18.7074 5.29289C18.3168 4.90237 17.6837 4.90237 17.2931 5.29289L12.0002 10.5858L6.70735 5.29289C6.31683 4.90237 5.68366 4.90237 5.29314 5.29289C4.90261 5.68342 4.90261 6.31658 5.29314 6.70711L10.586 12L5.29314 17.2929Z"
+                  fill="#2C3B47" />
+              </svg>
+            </button>
+          </div>
+          <ng-container *ngIf="(auth.loggedIn$ | async)">
+            <button class="option" (click)="toggleFavourite(group)">
+              <div class="icon_wrap">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M8 1L10.0572 5.16844L14.6574 5.83688L11.3287 9.08156L12.1145 13.6631L8 11.5L3.8855 13.6631L4.6713 9.08156L1.3426 5.83688L5.94275 5.16844L8 1Z"
+                    fill="#2C3B47" />
+                </svg>
+              </div>
+              <span *ngIf="!group.favourite" translate="VIEWS.GROUP.BTN_OPTION_FAVOURITE"></span>
+              <span *ngIf="group.favourite" translate="VIEWS.GROUP.BTN_OPTION_UNFAVOURITE"></span>
+            </button>
+            <div class="line_separator"></div>
+          </ng-container>
+          <div class="option" (click)="shareGroupDialog(group)">
+            <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M13.8536 6.14645C13.7598 6.05268 13.6326 6 13.5 6C13.3674 6 13.2402 6.05268 13.1464 6.14645C13.0527 6.24021 13 6.36739 13 6.5V8H11.5C11.3674 8 11.2402 8.05268 11.1464 8.14645C11.0527 8.24021 11 8.36739 11 8.5C11 8.63261 11.0527 8.75979 11.1464 8.85355C11.2402 8.94732 11.3674 9 11.5 9H13V10.5C13 10.6326 13.0527 10.7598 13.1464 10.8536C13.2402 10.9473 13.3674 11 13.5 11C13.6326 11 13.7598 10.9473 13.8536 10.8536C13.9473 10.7598 14 10.6326 14 10.5V9H15.5C15.6326 9 15.7598 8.94732 15.8536 8.85355C15.9473 8.75979 16 8.63261 16 8.5C16 8.36739 15.9473 8.24021 15.8536 8.14645C15.7598 8.05268 15.6326 8 15.5 8H14V6.5C14 6.36739 13.9473 6.24021 13.8536 6.14645Z"
+                  fill="#2C3B47" />
+                <path d="M1 14C1 15 2 15 2 15H10C10 15 11 15 11 14C11 13 10 10 6 10C2 10 1 13 1 14Z" fill="#2C3B47" />
+                <path
+                  d="M8.12132 8.12132C7.55871 8.68393 6.79565 9 6 9C5.20435 9 4.44129 8.68393 3.87868 8.12132C3.31607 7.55871 3 6.79565 3 6C3 5.20435 3.31607 4.44129 3.87868 3.87868C4.44129 3.31607 5.20435 3 6 3C6.79565 3 7.55871 3.31607 8.12132 3.87868C8.68393 4.44129 9 5.20435 9 6C9 6.79565 8.68393 7.55871 8.12132 8.12132Z"
+                  fill="#2C3B47" />
+              </svg>
+            </div><span translate="VIEWS.GROUP.BTN_OPTION_INVITE"></span>
+          </div>
+          <div class="line_separator"></div>
+          <ng-container *ngIf="(auth.loggedIn$ | async) && canUpdate(group)">
+            <div class="option" (click)="addTopicDialog(group)">
+              <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M2 3C1.44772 3 1 3.44772 1 4V14C1 14.5523 1.44772 15 2 15H9C9.55228 15 10 14.5523 10 14V6.62081C10 6.3517 9.89153 6.09394 9.69912 5.9058L7.01874 3.28499C6.83189 3.1023 6.58095 3 6.31963 3H2ZM6 4L9 7H6V4Z"
+                    fill="#2C3B47" />
+                  <path
+                    d="M12.8536 1.14645C12.7598 1.05268 12.6326 1 12.5 1C12.3674 1 12.2402 1.05268 12.1464 1.14645C12.0527 1.24021 12 1.36739 12 1.5V3H10.5C10.3674 3 10.2402 3.05268 10.1464 3.14645C10.0527 3.24021 10 3.36739 10 3.5C10 3.63261 10.0527 3.75979 10.1464 3.85355C10.2402 3.94732 10.3674 4 10.5 4H12V5.5C12 5.63261 12.0527 5.75979 12.1464 5.85355C12.2402 5.94732 12.3674 6 12.5 6C12.6326 6 12.7598 5.94732 12.8536 5.85355C12.9473 5.75979 13 5.63261 13 5.5V4H14.5C14.6326 4 14.7598 3.94732 14.8536 3.85355C14.9473 3.75979 15 3.63261 15 3.5C15 3.36739 14.9473 3.24021 14.8536 3.14645C14.7598 3.05268 14.6326 3 14.5 3H13V1.5C13 1.36739 12.9473 1.24021 12.8536 1.14645Z"
+                    fill="#2C3B47" />
+                </svg>
+              </div><span translate="VIEWS.GROUP.BTN_OPTION_ADD_TOPICS"></span>
+            </div>
+            <div class="line_separator"></div>
+          </ng-container>
+          <ng-container *ngIf="canUpdate(group)">
+            <div class="option" (click)="showSettings(group)">
+              <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M8.8143 4.18517L11.8147 7.18569L5.29947 13.7012L2.62438 13.9965C2.26626 14.0361 1.96369 13.7333 2.00354 13.3752L2.30118 10.6981L8.8143 4.18517ZM13.6704 3.73845L12.2616 2.3296C11.8222 1.89013 11.1095 1.89013 10.67 2.3296L9.34467 3.65501L12.3451 6.65553L13.6704 5.33011C14.1099 4.89042 14.1099 4.17791 13.6704 3.73845Z"
+                    fill="#2C3B47" />
+                </svg>
+              </div><span translate="VIEWS.GROUP.BTN_OPTION_EDIT"></span>
+            </div>
+            <div class="line_separator"></div>
+          </ng-container>
+          <ng-container *ngIf="group.userLevel && (auth.loggedIn$ | async)">
+            <div class="option" (click)="leaveGroup()">
+              <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M10 12.25V9H6.61392C6.49078 9 6.37268 8.94732 6.28561 8.85355C6.19854 8.75979 6.14962 8.63261 6.14962 8.5C6.14962 8.36739 6.19854 8.24021 6.28561 8.14645C6.37268 8.05268 6.49078 8 6.61392 8H10V3.75C9.99954 3.28602 9.82818 2.84119 9.52353 2.51311C9.21888 2.18503 8.80582 2.0005 8.37497 2H2.62503C2.19418 2.0005 1.78112 2.18503 1.47647 2.51311C1.17182 2.84119 1.00046 3.28602 1 3.75V12.25C1.00046 12.714 1.17182 13.1588 1.47647 13.4869C1.78112 13.815 2.19418 13.9995 2.62503 14H8.37497C8.80582 13.9995 9.21888 13.815 9.52353 13.4869C9.82818 13.1588 9.99954 12.714 10 12.25ZM13.4149 9L11.8863 10.6466C11.8029 10.7411 11.7571 10.867 11.7586 10.9973C11.7602 11.1277 11.8089 11.2523 11.8946 11.3445C11.9802 11.4367 12.0958 11.4892 12.2169 11.4909C12.338 11.4926 12.4549 11.4432 12.5427 11.3534L14.8641 8.85344C14.9511 8.75968 15 8.63255 15 8.5C15 8.36745 14.9511 8.24032 14.8641 8.14656L12.5427 5.64656C12.4549 5.55675 12.338 5.50742 12.2169 5.50909C12.0958 5.51076 11.9802 5.5633 11.8946 5.6555C11.8089 5.7477 11.7602 5.87227 11.7586 6.00265C11.7571 6.13303 11.8029 6.25891 11.8863 6.35344L13.4149 8H10V9H13.4149Z"
+                    fill="#2C3B47" />
+                </svg>
+              </div><span translate="VIEWS.GROUP.BTN_OPTION_LEAVE"></span>
+            </div>
+            <div class="line_separator"></div>
+          </ng-container>
+          <!--ng-container *ngIf="(auth.loggedIn$ | async)">
+            <div class="option">
+              <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="8" cy="8" r="5.5" fill="#2C3B47" stroke="#2C3B47" />
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M4.83552 4.12891L11.8714 11.1647C11.6598 11.4233 11.4228 11.6603 11.1643 11.8719L4.12842 4.83601C4.34 4.57746 4.57697 4.34049 4.83552 4.12891Z"
+                    fill="white" />
+                </svg>
+              </div><span translate="VIEWS.GROUP.BTN_OPTION_REPORT"></span>
+            </div>
+            <div class="line_separator"></div>
+          </!--ng-container-->
+          <button class="option error_text" *ngIf="(auth.loggedIn$ | async) && canUpdate(group)"
+            (click)="deleteGroup(group);">
+            <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd"
                   d="M10 3H6V4H10V3ZM11 4V3C11 2.44772 10.5523 2 10 2H6C5.44772 2 5 2.44772 5 3V4H4H2.5C2.22386 4 2 4.22386 2 4.5C2 4.77614 2.22386 5 2.5 5H4V13C4 13.5523 4.44772 14 5 14H11C11.5523 14 12 13.5523 12 13V5H13.5C13.7761 5 14 4.77614 14 4.5C14 4.22386 13.7761 4 13.5 4H12H11ZM7 7H6V11H7V7ZM10 7H9V11H10V7Z"
                   fill="#2C3B47" />
@@ -181,7 +299,8 @@
           <a id="view_more" class="tablet_hidden" (click)="moreInfo = !moreInfo" *ngIf="!moreInfo">
             <div class="bold" *ngIf="!moreInfo" translate="VIEWS.GROUP.LNK_MORE_INFO"></div>
             <div class="bold" *ngIf="moreInfo" translate="VIEWS.GROUP.LNK_CLOSE_INFO"></div>
-            <svg *ngIf="!moreInfo" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg *ngIf="!moreInfo" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
               <path d="M17 10L12 15L7 10" stroke="#1168A8" stroke-width="2" stroke-linecap="round" />
             </svg>
             <svg *ngIf="moreInfo" width="24" height="24" viewBox="0 0 24 24" transform="rotate(180)" fill="none"
@@ -244,7 +363,8 @@
           <a id="view_more" class="tablet_show" (click)="moreInfo = !moreInfo" *ngIf="!moreInfo">
             <div class="bold" *ngIf="!moreInfo" translate="VIEWS.GROUP.LNK_MORE_INFO"></div>
             <div class="bold" *ngIf="moreInfo" translate="VIEWS.GROUP.LNK_CLOSE_INFO"></div>
-            <svg *ngIf="!moreInfo" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg *ngIf="!moreInfo" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
               <path d="M17 10L12 15L7 10" stroke="#1168A8" stroke-width="2" stroke-linecap="round" />
             </svg>
             <svg *ngIf="moreInfo" width="24" height="24" viewBox="0 0 24 24" transform="rotate(180)" fill="none"
@@ -336,7 +456,8 @@
       <a id="view_more" (click)="moreInfo = !moreInfo" *ngIf="moreInfo">
         <div class="bold" *ngIf="!moreInfo" translate="VIEWS.GROUP.LNK_MORE_INFO"></div>
         <div class="bold" *ngIf="moreInfo" translate="VIEWS.GROUP.LNK_CLOSE_INFO"></div>
-        <svg *ngIf="!moreInfo" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg *ngIf="!moreInfo" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          xmlns="http://www.w3.org/2000/svg">
           <path d="M17 10L12 15L7 10" stroke="#1168A8" stroke-width="2" stroke-linecap="round" />
         </svg>
         <svg *ngIf="moreInfo" width="24" height="24" viewBox="0 0 24 24" transform="rotate(180)" fill="none"
@@ -354,7 +475,8 @@
       <a class="tab_item" (click)="selectTab('members')" [ngClass]="tabSelected=== 'members' ? 'active' : ''"
         translate="VIEWS.GROUP.TAB_MEMBERS"></a>
     </div>
-    <button class="btn_medium_submit animate" *ngIf="tabSelected === 'topics' && (auth.loggedIn$ | async) && canUpdate(group)"
+    <button class="btn_medium_submit animate"
+      *ngIf="tabSelected === 'topics' && (auth.loggedIn$ | async) && canUpdate(group)"
       (click)="addTopicDialog(group)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
         xmlns="http://www.w3.org/2000/svg">
         <path
@@ -584,7 +706,8 @@
         </button>
       </div>
       <!--MOBILE_TOPIC_FILTERS-->
-      <div class="dropdown mobile_filters_selection mobile_show" [ngClass]="{'dropdown_active': mobileTopicFiltersList}">
+      <div class="dropdown mobile_filters_selection mobile_show"
+        [ngClass]="{'dropdown_active': mobileTopicFiltersList}">
         <div class="selection">
           <div class="selected_item" [innerHtml]="'COMPONENTS.PUBLIC_TOPICS.LBL_FILTER' | translate | titlecase"> </div>
           <button class="btn_medium_plain icon" (click)="mobileTopicFiltersList = !mobileTopicFiltersList">
@@ -657,7 +780,8 @@
             <input type="radio" name="status">
             <span class="checkmark"></span>
           </label>
-          <button class="btn_medium_secondary" (click)="setStatus(mobileTopicFilters.status);mobileTopicFilters.status= false;"
+          <button class="btn_medium_secondary"
+            (click)="setStatus(mobileTopicFilters.status);mobileTopicFilters.status= false;"
             translate="COMPONENTS.PUBLIC_TOPICS.BTN_APPLY"></button>
         </div>
         <!--div class="options button_options" *ngIf="mobileTopicFilters.category">
@@ -687,13 +811,15 @@
             <span class="checkmark"></span>
           </label>
           <ng-container *ngIf="countries$ | async as countries">
-            <label class="checkbox" *ngFor="let country of countries" (click)="mobileTopicFilters.country = country.name">
+            <label class="checkbox" *ngFor="let country of countries"
+              (click)="mobileTopicFilters.country = country.name">
               <span>{{country.name}}</span>
               <input type="radio" name="country">
               <span class="checkmark"></span>
             </label>
           </ng-container>
-          <button class="btn_medium_secondary" (click)="setCountry(mobileTopicFilters.country);mobileTopicFilters.country= false;"
+          <button class="btn_medium_secondary"
+            (click)="setCountry(mobileTopicFilters.country);mobileTopicFilters.country= false;"
             translate="COMPONENTS.PUBLIC_TOPICS.BTN_APPLY"></button>
         </div>
         <div class="options button_options" *ngIf="mobileTopicFilters.language">
@@ -706,7 +832,8 @@
             <span class="checkmark"></span>
           </label>
           <ng-container *ngIf="languages$ | async as languages">
-            <label class="checkbox" *ngFor="let language of languages" (click)="mobileTopicFilters.language = language.name;">
+            <label class="checkbox" *ngFor="let language of languages"
+              (click)="mobileTopicFilters.language = language.name;">
               <span>{{language.name}}</span>
               <input type="radio" name="language">
               <span class="checkmark"></span>
@@ -811,19 +938,6 @@
             </div>
           </div>
         </div>
-        <cos-pagination class="pagination" (select)="GroupMemberUserService.loadPage($event)"
-          [totalPages]="(GroupMemberUserService.totalPages$ | async) || 0"
-          [page]="(GroupMemberUserService.page$ | async) || 0"></cos-pagination>
-      </div>
-      <div class="filter_section">
-        <!--button-- class="btn_big_nav">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M19.1552 13.2702L18.1734 13.0801L18.0352 13.7937L18.6714 14.1453L19.1552 13.2702ZM20.7701 14.1629L20.2863 15.0381L20.2902 15.0402L20.7701 14.1629ZM19.1552 10.7226L18.6714 9.84741L18.0352 10.1991L18.1734 10.9127L19.1552 10.7226ZM20.7701 9.82985L20.2902 8.95252L20.2863 8.95467L20.7701 9.82985ZM20.9786 9.32178L21.9339 9.02611L21.9317 9.01909L21.9294 9.01209L20.9786 9.32178ZM18.905 5.88873L19.6254 5.19517L19.6234 5.19315L18.905 5.88873ZM18.3439 5.80527L18.8277 6.68045L18.8315 6.67836L18.3439 5.80527ZM16.8175 6.64907L16.1482 7.39203L16.6776 7.86902L17.3013 7.52425L16.8175 6.64907ZM14.4241 5.21827H13.4241V5.92276L14.0875 6.15991L14.4241 5.21827ZM14.0678 3.21778L13.8586 4.19567L13.8633 4.19665L14.0678 3.21778ZM9.92811 3.21778L10.1326 4.19666L10.1373 4.19564L9.92811 3.21778ZM9.57176 5.21974L9.90896 6.16117L10.5718 5.92378V5.21974H9.57176ZM7.17851 6.65266L6.69383 7.52735L7.31831 7.87338L7.84839 7.39513L7.17851 6.65266ZM5.65576 5.80889L6.14044 4.93419L6.13567 4.93158L5.65576 5.80889ZM5.09471 5.89236L5.81385 6.58731L5.82147 6.57925L5.09471 5.89236ZM3.02108 9.32541L3.97104 9.63781L3.97217 9.63432L3.02108 9.32541ZM3.22958 9.83348L3.71339 8.95829L3.7095 8.95616L3.22958 9.83348ZM4.84451 10.7262L5.82627 10.9163L5.96444 10.2027L5.32831 9.85104L4.84451 10.7262ZM4.84451 13.2738L5.32831 14.149L5.96444 13.7973L5.82627 13.0837L4.84451 13.2738ZM3.22958 14.1665L3.7095 15.0438L3.71338 15.0417L3.22958 14.1665ZM3.02108 14.6746L2.06579 14.9703L2.06797 14.9773L2.07025 14.9843L3.02108 14.6746ZM5.09471 18.1076L4.37431 18.8012L4.37626 18.8032L5.09471 18.1076ZM5.65576 18.1911L5.17195 17.3159L5.16821 17.318L5.65576 18.1911ZM7.17987 17.3486L7.84956 16.6059L7.32007 16.1284L6.69607 16.4734L7.17987 17.3486ZM9.57555 18.7816H10.5756V18.0772L9.91222 17.84L9.57555 18.7816ZM9.9319 20.7822L10.1411 19.8043L10.1364 19.8034L9.9319 20.7822ZM14.0716 20.7822L13.8671 19.8033L13.8623 19.8044L14.0716 20.7822ZM14.4279 18.7804L14.0908 17.8389L13.4279 18.0763V18.7804H14.4279ZM16.8214 17.3474L17.3052 16.4722L16.6811 16.1272L16.1516 16.6049L16.8214 17.3474ZM18.3477 18.1911L17.8639 19.0663L17.8678 19.0684L18.3477 18.1911ZM18.9088 18.1076L18.1896 17.4127L18.182 17.4208L18.9088 18.1076ZM20.9824 14.6746L21.9335 14.9835L21.9391 14.9661L21.9441 14.9486L20.9824 14.6746ZM18.6714 14.1453L20.2863 15.0381L21.2539 13.2877L19.639 12.395L18.6714 14.1453ZM18.1734 10.9127C18.3121 11.629 18.3121 12.3637 18.1734 13.0801L20.1369 13.4602C20.3243 12.4928 20.3243 11.5 20.1369 10.5325L18.1734 10.9127ZM20.2863 8.95467L18.6714 9.84741L19.639 11.5978L21.2539 10.705L20.2863 8.95467ZM20.0233 9.61746C19.9429 9.35777 20.06 9.07846 20.2902 8.95253L21.25 10.7072C21.8517 10.378 22.1356 9.67773 21.9339 9.02611L20.0233 9.61746ZM18.1846 6.5823C19.0203 7.45037 19.6556 8.48897 20.0278 9.63148L21.9294 9.01209C21.46 7.57074 20.6623 6.27225 19.6254 5.19517L18.1846 6.5823ZM18.8315 6.67836C18.613 6.80035 18.3541 6.75735 18.1865 6.58431L19.6234 5.19315C19.1678 4.72253 18.4387 4.60696 17.8564 4.93217L18.8315 6.67836ZM17.3013 7.52425L18.8277 6.68044L17.8601 4.93009L16.3337 5.77389L17.3013 7.52425ZM14.0875 6.15991C14.8549 6.43422 15.5532 6.85606 16.1482 7.39203L17.4868 5.90611C16.7016 5.19868 15.778 4.6403 14.7607 4.27663L14.0875 6.15991ZM13.4241 3.64237V5.21827H15.4241V3.64237H13.4241ZM13.8633 4.19665C13.6328 4.14851 13.4241 3.93719 13.4241 3.64237H15.4241C15.4241 2.9411 14.9197 2.37414 14.2722 2.2389L13.8633 4.19665ZM10.1373 4.19564C11.3259 3.94134 12.6087 3.9283 13.8586 4.19566L14.2769 2.23989C12.7444 1.91209 11.1764 1.92808 9.71889 2.23991L10.1373 4.19564ZM10.5718 3.64237C10.5718 3.93719 10.3631 4.1485 10.1326 4.19665L9.72366 2.2389C9.07614 2.37414 8.57176 2.94111 8.57176 3.64237H10.5718ZM10.5718 5.21974V3.64237H8.57176V5.21974H10.5718ZM7.84839 7.39513C8.44315 6.85851 9.14152 6.43605 9.90896 6.16117L9.23457 4.27831C8.21716 4.64272 7.29364 5.20192 6.50863 5.91019L7.84839 7.39513ZM5.17109 6.68359L6.69383 7.52735L7.66318 5.77796L6.14043 4.9342L5.17109 6.68359ZM5.82147 6.57925C5.6407 6.77051 5.37251 6.79379 5.17585 6.68621L6.13567 4.93158C5.5675 4.62078 4.83682 4.70937 4.36794 5.20548L5.82147 6.57925ZM3.97217 9.63432C4.34436 8.48842 4.97939 7.45073 5.8138 6.58727L4.37561 5.19745C3.33732 6.27189 2.53939 7.57129 2.06999 9.0165L3.97217 9.63432ZM3.7095 8.95616C3.92506 9.07408 4.06481 9.35267 3.97103 9.63781L2.07113 9.01301C1.84847 9.69009 2.16259 10.3896 2.74967 10.7108L3.7095 8.95616ZM5.32831 9.85104L3.71338 8.9583L2.74578 10.7087L4.3607 11.6014L5.32831 9.85104ZM5.82627 13.0837C5.68758 12.3673 5.68758 11.6327 5.82627 10.9163L3.86274 10.5361C3.67542 11.5036 3.67542 12.4964 3.86274 13.4639L5.82627 13.0837ZM3.71338 15.0417L5.32831 14.149L4.3607 12.3986L2.74578 13.2913L3.71338 15.0417ZM3.97637 14.3789C4.05675 14.6386 3.93969 14.9179 3.7095 15.0438L2.74967 13.2892C2.14796 13.6184 1.86411 14.3186 2.06579 14.9703L3.97637 14.3789ZM5.8151 17.4141C4.97936 16.546 4.34404 15.5074 3.97192 14.3649L2.07025 14.9843C2.5397 16.4256 3.33735 17.7241 4.37431 18.8012L5.8151 17.4141ZM5.16821 17.318C5.38666 17.196 5.64562 17.239 5.81315 17.4121L4.37626 18.8032C4.8319 19.2738 5.56093 19.3894 6.14331 19.0642L5.16821 17.318ZM6.69607 16.4734L5.17196 17.3159L6.13956 19.0663L7.66367 18.2237L6.69607 16.4734ZM9.91222 17.84C9.14401 17.5653 8.44492 17.1428 7.84956 16.6059L6.51018 18.0912C7.29597 18.7998 8.22044 19.3591 9.23889 19.7232L9.91222 17.84ZM10.5756 20.3576V18.7816H8.57555V20.3576H10.5756ZM10.1364 19.8034C10.3669 19.8515 10.5756 20.0628 10.5756 20.3576H8.57555C8.57555 21.0589 9.07993 21.6259 9.72745 21.7611L10.1364 19.8034ZM13.8623 19.8044C12.6738 20.0587 11.391 20.0717 10.1411 19.8043L9.72274 21.7601C11.2553 22.0879 12.8233 22.0719 14.2808 21.7601L13.8623 19.8044ZM13.4279 20.3576C13.4279 20.0628 13.6366 19.8515 13.8671 19.8034L14.276 21.7611C14.9235 21.6259 15.4279 21.0589 15.4279 20.3576H13.4279ZM13.4279 18.7804V20.3576H15.4279V18.7804H13.4279ZM16.1516 16.6049C15.5567 17.1416 14.8583 17.5641 14.0908 17.8389L14.7651 19.7218C15.7826 19.3574 16.7062 18.7982 17.4913 18.0899L16.1516 16.6049ZM18.8315 17.3159L17.3052 16.4722L16.3376 18.2226L17.8639 19.0663L18.8315 17.3159ZM18.182 17.4208C18.3628 17.2295 18.631 17.2062 18.8276 17.3138L17.8678 19.0684C18.436 19.3792 19.1666 19.2906 19.6355 18.7945L18.182 17.4208ZM20.0313 14.3657C19.6591 15.5116 19.0241 16.5493 18.1897 17.4127L19.6279 18.8025C20.6661 17.7281 21.4641 16.4287 21.9335 14.9835L20.0313 14.3657ZM20.2902 15.0402C20.0546 14.9114 19.9532 14.6375 20.0206 14.4006L21.9441 14.9486C22.1253 14.3125 21.857 13.6176 21.25 13.2856L20.2902 15.0402ZM13.7 12C13.7 12.9389 12.9389 13.7 12 13.7V15.7C14.0435 15.7 15.7 14.0435 15.7 12H13.7ZM12 10.3C12.9389 10.3 13.7 11.0611 13.7 12H15.7C15.7 9.95655 14.0435 8.3 12 8.3V10.3ZM10.3 12C10.3 11.0611 11.0611 10.3 12 10.3V8.3C9.95655 8.3 8.3 9.95655 8.3 12H10.3ZM12 13.7C11.0611 13.7 10.3 12.9389 10.3 12H8.3C8.3 14.0435 9.95655 15.7 12 15.7V13.7Z" />
-      </svg>
-      <span>Bulk actions</span>
-    </!--button-->
-        <div></div>
         <cos-pagination class="pagination" (select)="GroupMemberUserService.loadPage($event)"
           [totalPages]="(GroupMemberUserService.totalPages$ | async) || 0"
           [page]="(GroupMemberUserService.page$ | async) || 0"></cos-pagination>

@@ -381,15 +381,11 @@ input {
 
     .mobile_header {
       display: none;
-      position: absolute;
-      width: calC(100% + 2px);
-      left: -1px;
-      top: -40px;
-      margin-bottom: 32px;
+      position: relative;
+      width: 100%;
       background: var(--color-surfaces);
       border-radius: 16px 16px 0 0;
       justify-content: space-between;
-      padding: 16px;
 
       h3 {
         margin: 0 !important;

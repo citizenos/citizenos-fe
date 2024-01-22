@@ -93,7 +93,7 @@ export class GroupComponent implements OnInit {
     language: this.FILTERS_ALL
   };
 
-
+  groupActions = false;
   mobileTopicFiltersList = false;
   /*
     mobileTopicFilters: any = {
@@ -214,8 +214,8 @@ export class GroupComponent implements OnInit {
   showMobileOverlay() {
     const filtersShow = Object.entries(this.mobileTopicFilters).find(([key, value]) => {
       return !!value;
-    })
-    console.log(filtersShow)
+    });
+
     if (filtersShow) return true;
 
     return false;
@@ -333,7 +333,6 @@ export class GroupComponent implements OnInit {
   }
 
   showSettings(group: Group) {
-    console.log('SHOW SETTINGS')
     const settingsDialog = this.dialog.open(GroupSettingsComponent, {
       data: {
         group
