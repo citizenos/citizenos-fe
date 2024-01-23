@@ -160,6 +160,10 @@
     gap: 8px;
     margin-bottom: 60px;
 
+    @include mixins.mobile {
+      margin-bottom: 24px;
+    }
+
     .create_content_section {
       display: flex;
       flex-direction: row;
@@ -284,6 +288,7 @@
 
           @include mixins.mobile {
             flex-direction: column;
+            gap: 8px;
           }
 
           .dropdown {

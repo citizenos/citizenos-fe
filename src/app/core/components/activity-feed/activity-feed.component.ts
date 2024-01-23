@@ -1,6 +1,6 @@
 import { style, transition, trigger, animate, state } from '@angular/animations';
 import { Component, OnInit, Input, Inject, inject } from '@angular/core';
-import { DIALOG_DATA, DialogRef } from 'src/app/shared/dialog';
+import { DIALOG_DATA, DialogRef, DialogService } from 'src/app/shared/dialog';
 import { map, tap, of } from 'rxjs';
 import { ActivityService } from 'src/app/services/activity.service'
 import { Location } from '@angular/common';
@@ -14,7 +14,7 @@ import { Location } from '@angular/common';
         right: 0,
       })),
       state('closed', style({
-        right: '-300px'
+        right: '-100vw'
       })),
       transition('* => closed', [
         animate('1s')
@@ -33,8 +33,8 @@ export class ActivityFeedComponent implements OnInit {
   feedType = 'global';
   @Input() groupId?: string;
   @Input() topicId?: string;
-  @Input() modal?: boolean = false;
-  constructor(public ActivityService: ActivityService, private location: Location) {
+  @Input() modal?: boolean;
+  constructor(public ActivityService: ActivityService, private location: Location, private dialog: DialogService) {
     setTimeout(() => {
       this.show = true
     });
@@ -46,6 +46,7 @@ export class ActivityFeedComponent implements OnInit {
     this.ActivityService.setParam('include', filter)
   }
   ngOnInit(): void {
+    console.log(this.modal);
     this.ActivityService.reset();
     if (this.groupId) {
       this.feedType = 'group';
@@ -81,8 +82,12 @@ export class ActivityFeedComponent implements OnInit {
   }
 
   close () {
-    //this.show = false;
-    this.location.back()
+    this.show = false;
+    if (!this.modal) {
+      this.location.back();
+    } else {
+      this.dialog.closeAll();
+    }
   }
 }
 @Component({
@@ -97,8 +102,5 @@ export class ActivityFeedDialogComponent extends ActivityFeedComponent {
 
  override close () {
     this.show = false;
-    setTimeout(() => {
-      this.dialogRef.close();
-    }, 500)
   }
 }

@@ -162,7 +162,12 @@ export class TopicFormComponent {
     this.downloadUrl = this.TopicService.download(this.topic.id);
     Object.keys(this.block).forEach((blockname) => {
       const temp = this.topic[blockname as keyof Topic];
-      if (temp)
+      if (blockname === 'description') {
+        const el = document.createElement('span');
+        el.innerHTML = temp;
+        if (el.innerText)
+          this.block['description'] = true;
+      } else if (temp)
         this.block[blockname as keyof typeof this.block] = true;
     });
     if (this.topic.id) {
