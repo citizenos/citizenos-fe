@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 import { LoginDialogComponent } from '../account/components/login/login.component';
 import { RegisterDialogComponent } from '../account/components/register/register.component';
 import { CreateComponent } from 'src/app/core/components/create/create.component';
-import { ActivityFeedComponent } from '../core/components/activity-feed/activity-feed.component';
+import { ActivityFeedDialogComponent } from '../core/components/activity-feed/activity-feed.component';
 import { HttpClient } from '@angular/common/http';
 import { ApiResponse } from '../interfaces/apiResponse';
 import { Title, Meta, MetaDefinition } from '@angular/platform-browser';
@@ -64,11 +64,12 @@ export class AppService {
   }
 
   doShowActivityModal(params?: any) {
-    if (this.showMobile()) {
+    console.log(!params.topicId && !params.groupId);
+    if (this.showMobile() && !params.topicId && !params.groupId) {
       this.router.navigate([this.translate.currentLang, 'activity']);
     } else {
       this.dialog.closeAll();
-      const activitiesDialog = this.dialog.open(ActivityFeedComponent, {
+      const activitiesDialog = this.dialog.open(ActivityFeedDialogComponent, {
         data: params
       });
       this.showActivities = true;
