@@ -652,13 +652,13 @@
                 </div>
               </div>
               <div id="topic_members_list_wrap" class="table_section">
-                <div class="row_header" *ngIf="topicGroups.length">
+                <div class="row_header mobile_hidden" *ngIf="topicGroups.length">
                   <div class="row_cell"><a translate="VIEWS.TOPIC_CREATE.GROUPS_LIST_TITLE"></a></div>
                   <div class="row_cell" translate="VIEWS.TOPIC_CREATE.HEADING_GROUP_PERMISSIONS"></div>
                   <div class="row_cell mobile_hide" translate="VIEWS.TOPIC_CREATE.HEADING_ACTIONS"></div>
                 </div>
                 <ng-container *ngFor="let group of topicGroups; index as i;">
-                  <div id="topic_groups_list" class="row_list">
+                  <div class="row_list">
                     <ng-container>
                       <div class="row_cell">
                         <div class="cell_title" translate="VIEWS.TOPIC_CREATE.GROUPS_LIST_TITLE"></div>

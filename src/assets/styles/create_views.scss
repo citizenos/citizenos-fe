@@ -37,6 +37,10 @@
       padding: 12px 38px;
     }
 
+    @include mixins.mobile {
+      padding: 12px 24px;
+    }
+
     &.active {
       border-bottom: 2px solid var(--color-link);
       font-weight: 600;
@@ -157,7 +161,7 @@
   .create_content {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 16px;
     margin-bottom: 60px;
 
     @include mixins.mobile {
@@ -331,6 +335,16 @@
         align-items: center;
         justify-content: center;
         text-align: center;
+
+        .row_list {
+          @include mixins.mobile {
+            gap: 16px;
+
+            .row_cell {
+              padding: 0;
+            }
+          }
+        }
 
         h3 {
           padding: 0;
