@@ -44,8 +44,7 @@
     </div>
   </div>
 </div>
-<div class="create_content_section"
-  *ngIf="group.members.topics?.length === 0 && !dialog || group.members.topics?.length && dialog">
+<div class="create_content_section">
   <div id="topic_members_list_wrap" class="table_section">
     <ng-container *ngIf="group.members.topics?.length === 0 && !dialog">
       <div class="no_items">
@@ -104,6 +103,7 @@
           <div class="actions mobile_hide" translate="COMPONENTS.GROUP_ADD_TOPICS.HEADING_ACTIONS"></div>
         </div>
         <ng-container *ngFor="let topic of group.members.topics; index as i;">
+
           <div class="row" *ngIf="isOnPage(i, membersPage)" [ngClass]="{'dialog_row': dialog}">
             <div class="title">
               <div class="cell_title" translate="COMPONENTS.GROUP_ADD_TOPICS.HEADING_TITLE"></div>

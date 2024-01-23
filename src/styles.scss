@@ -243,6 +243,10 @@ input {
   display: flex;
   flex-direction: column;
   padding: 0;
+
+  @include mixins.mobile {
+    width: 100%;
+  }
   .selection {
     position: relative;
     cursor: pointer;
