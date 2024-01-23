@@ -298,7 +298,7 @@
     },
     "GROUP_MEMBER_USER": {
       "LAST_ACTIVITY": "@:VIEWS.PUBLIC_GROUP.LNK_LAST_ACTIVITY",
-      "SET_MEMBER_PERMISSIONS": "Set permissions to <b>{{level}}</b>",
+      "SET_MEMBER_PERMISSIONS": "Määra ligipääsuõigus tasemele <b>{{level}}</b>",
       "EDIT_MEMBER": "Edit member",
       "BTN_REMOVE": "Remove member"
     },
