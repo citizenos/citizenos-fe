@@ -219,15 +219,15 @@
     "DOWNLOAD_VOTING_RESULTS": {
       "HEADING": "Stiahnuť výsledky hlasovania",
       "MESSAGE_DESCRIPTION": "Určite chcete si stiahnuť výsledky hlasovania? Tým sa hlasovanie natrvalo uzavrie.",
-      "MESSAGE_OPTIONS": "Here are some options:",
-      "HEADING_NOT_DOWNLOAD": "Extend the vote deadline",
-      "UPDATE_DEADLINE": "Change the deadline to try and collect more votes. This will keep the vote open, so you won't yet see the results.",
-      "HEADING_DOWNLOAD": "Download the results",
-      "GET_RESULTS": "The vote will be permanently closed.",
-      "FOLLOW_UP": "The topic will be moved into 'Follow-up' phase, so you can post updates on actions taken as a result of the vote.",
-      "BTN_EDIT_DEADLINE": "Edit vote deadline",
-      "BTN_CANCEL": "Don't download results",
-      "BTN_SUBMIT": "Download results"
+      "MESSAGE_OPTIONS": "Tu sú možnosti:",
+      "HEADING_NOT_DOWNLOAD": "Rozšíriť uzávierku hlasovania",
+      "UPDATE_DEADLINE": "Zmeniť termín a pokúsiť sa získať viac hlasov. Hlasovanie tak zostane otvorené, takže ešte neuvidíte výsledky.",
+      "HEADING_DOWNLOAD": "Stiahnuť výsledky",
+      "GET_RESULTS": "Hlasovanie bude natrvalo uzavreté.",
+      "FOLLOW_UP": "Téma bude presunutá do fázy \"monitorovania\", aby ste mohli zverejňovať aktualizácie opatrení prijatých na základe hlasovania.",
+      "BTN_EDIT_DEADLINE": "Upraviť termín hlasovania",
+      "BTN_CANCEL": "Výsledky nesťahovať",
+      "BTN_SUBMIT": "Stiahnuť výsledky"
     },
     "GROUP_ADD_TOPICS_DIALOG": {
       "HEADING": "Pridať témy do skupiny",
@@ -298,9 +298,9 @@
     },
     "GROUP_MEMBER_USER": {
       "LAST_ACTIVITY": "@:VIEWS.PUBLIC_GROUP.LNK_LAST_ACTIVITY",
-      "SET_MEMBER_PERMISSIONS": "Set permissions to <b>{{level}}</b>",
-      "EDIT_MEMBER": "Edit member",
-      "BTN_REMOVE": "Remove member"
+      "SET_MEMBER_PERMISSIONS": "Nastaviť povolenia na <b>{{level}}</b>",
+      "EDIT_MEMBER": "Editovať člena",
+      "BTN_REMOVE": "Odstrániť člena"
     },
     "GROUP_SETTINGS": {
       "HEADING": "Upravovať skupinu",
@@ -479,14 +479,14 @@
       "DASHBOARD_STEP_2_DESC": "Hlavné menu slúži ako hlavná navigácia v platforme. Nachádzajú sa tu rýchle odkazy na všetky vaše témy podľa ich aktuálnej fázy, t. j. diskusia, zhromažďovanie nápadov, monitorovania, ako aj do všetkých skupín, ktorých ste členom.",
       "DASHBOARD_STEP_2_DESC2": "Môžete tiež získať prístup k svojmu profilu, zmeniť jazyk alebo prejsť do centra pomoci.",
       "DASHBOARD_STEP_3_TITLE": "Záznam aktivít",
-      "DASHBOARD_STEP_3_DESC": "Find all your new activity here – new arguments, voting updates, follow-up posts and more. You can open and close the activity feed whenever you want.",
+      "DASHBOARD_STEP_3_DESC": "Nájdete tu všetky svoje nové aktivity – nové argumenty, aktualizácie hlasovania, následné príspevky a ďalšie. Kedykoľvek chcete, môžete otvoriť a zatvoriť kanál s aktivitami.",
       "DASHBOARD_STEP_3_DESC2": "Ak sa od vašej poslednej návštevy objavila nová aktivita, predvolene sa otvorí kanál aktivít.",
       "DASHBOARD_STEP_4_TITLE": "@:DEFAULT.NAV_MOBILE.BTN_SEARCH",
       "DASHBOARD_STEP_4_DESC": "Hľadáte tému či skupinu? Vyhľadajte ich tu.",
       "DASHBOARD_STEP_4_DESC2": "Vyhľadávanie si uvedomuje, či sa nachádzate v danej téme alebo nie. Ak nie ste, bude vyhľadávať v celej platforme.",
       "DASHBOARD_STEP_4_DESC3": "Ak ste v téme, bude sa vyhľadávať len v rámci tejto témy.",
       "DASHBOARD_STEP_5_TITLE": "Témy",
-      "DASHBOARD_STEP_5_DESC": "Any topics you’re part of will show up on your dashboard, as well as popular public topics you may wish to join.",
+      "DASHBOARD_STEP_5_DESC": "Všetky témy, ktorých ste súčasťou, sa zobrazia na vašom paneli, ako aj populárne verejné témy, ku ktorým sa môžete pripojiť.",
       "DASHBOARD_STEP_5_DESC2": "Keď sa zúčastníte na témach alebo ich vytvoríte, zobrazia sa tu.",
       "DASHBOARD_STEP_6_TITLE": "Skupiny",
       "DASHBOARD_STEP_6_DESC": "Skupiny sú kolektívom ľudí, ktorí majú niečo spoločné. Členovia môžu byť napríklad súčasťou rovnakej organizácie alebo komunity. Alebo majú podobné záujmy alebo ciele.",
@@ -506,7 +506,7 @@
       "DASHBOARD_MOBILE_STEP_3_DESC": "Horné menu je vždy prístupné na navigáciu a vytváranie tém alebo skupín. Rýchlo nájdete stránky, ako sú Ovládací panel, Moje témy, Moje skupiny, Verejné témy a Verejné skupiny.",
       "HEADING_TOPIC": "Prehliadka tém",
       "TOPIC_STEP_1_TITLE": "Fázy témy",
-      "TOPIC_STEP_1_DESC": "A topic can have different phases.",
+      "TOPIC_STEP_1_DESC": "Téma môže mať rozličné fázy.",
       "TOPIC_STEP_1_LBL_DISCUSSION": "Diskusia:",
       "TOPIC_STEP_1_DESC_DISCUSSION": "V tejto fáze je hlavnou myšlienkou viesť konštruktívnu diskusiu s použitím argumentov pre a proti.",
       "TOPIC_STEP_1_LBL_IDEATION": "Ideácia:",
