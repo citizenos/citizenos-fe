@@ -349,8 +349,9 @@
               </div>
               <ng-container *ngIf="block.intro || topic.intro">
                 <div class="block_content">
-                  <textarea id="intro_input" #topicIntro placeholder="..." [(ngModel)]="topic.intro" (change)="updateTopic()"
-                    [maxlength]="introLimit" [disabled]="!TopicService.canEditDescription(topic)"
+                  <textarea id="intro_input" #topicIntro placeholder="..." [(ngModel)]="topic.intro"
+                    (change)="updateTopic()" [maxlength]="introLimit"
+                    [disabled]="!TopicService.canEditDescription(topic)"
                     [ngClass]="{'disabled': !TopicService.canEditDescription(topic)}"></textarea>
                 </div>
               </ng-container>
@@ -710,15 +711,17 @@
           <ng-container *ngIf="tabSelected==='preview'">
             <div class="topic_content_wrap">
               <div class="info_bar">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect width="24" height="24" rx="12" fill="#F39129" />
-                  <path
-                    d="M11.4385 4.80078C11.0924 4.80078 10.8181 5.09279 10.8396 5.43821L11.3646 13.8382C11.3844 14.1544 11.6466 14.4008 11.9635 14.4008H12.0361C12.353 14.4008 12.6152 14.1544 12.635 13.8382L13.16 5.43821C13.1816 5.09279 12.9072 4.80078 12.5611 4.80078H11.4385Z"
-                    fill="white" />
-                  <path
-                    d="M11.9998 18.6008C12.6625 18.6008 13.1998 18.0635 13.1998 17.4008C13.1998 16.738 12.6625 16.2008 11.9998 16.2008C11.3371 16.2008 10.7998 16.738 10.7998 17.4008C10.7998 18.0635 11.3371 18.6008 11.9998 18.6008Z"
-                    fill="white" />
-                </svg>
+                <div>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="24" height="24" rx="12" fill="#F39129" />
+                    <path
+                      d="M11.4385 4.80078C11.0924 4.80078 10.8181 5.09279 10.8396 5.43821L11.3646 13.8382C11.3844 14.1544 11.6466 14.4008 11.9635 14.4008H12.0361C12.353 14.4008 12.6152 14.1544 12.635 13.8382L13.16 5.43821C13.1816 5.09279 12.9072 4.80078 12.5611 4.80078H11.4385Z"
+                      fill="white" />
+                    <path
+                      d="M11.9998 18.6008C12.6625 18.6008 13.1998 18.0635 13.1998 17.4008C13.1998 16.738 12.6625 16.2008 11.9998 16.2008C11.3371 16.2008 10.7998 16.738 10.7998 17.4008C10.7998 18.0635 11.3371 18.6008 11.9998 18.6008Z"
+                      fill="white" />
+                  </svg>
+                </div>
                 <span [innerHtml]="'VIEWS.VOTE_CREATE.PREVIEW_INFO' | translate"></span>
               </div>
               <div class="topic_image">
@@ -851,58 +854,81 @@
 
         </div>
         <div id="create_footer">
-          <div id="close_create">
-            <button class="btn_medium_submit_ghost icon" (click)="cancel()">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M5.29311 17.2929C4.90258 17.6834 4.90258 18.3166 5.29311 18.7071C5.68363 19.0976 6.3168 19.0976 6.70732 18.7071L12.0002 13.4142L17.2931 18.7071C17.6836 19.0976 18.3168 19.0976 18.7073 18.7071C19.0978 18.3166 19.0978 17.6834 18.7073 17.2929L13.4144 12L18.7073 6.70711C19.0978 6.31658 19.0978 5.68342 18.7073 5.29289C18.3168 4.90237 17.6836 4.90237 17.2931 5.29289L12.0002 10.5858L6.70732 5.29289C6.3168 4.90237 5.68363 4.90237 5.29311 5.29289C4.90258 5.68342 4.90258 6.31658 5.29311 6.70711L10.586 12L5.29311 17.2929Z"
-                  fill="#2C3B47" />
-              </svg>
+          <div class="items_row mobile_show" *ngIf="tabSelected === 'preview'">
+            <button *ngIf="topic.status === TopicService.STATUSES.draft" class="btn_medium_secondary"
+              (click)="saveAsDraft()" translate="VIEWS.VOTE_CREATE.FOOTER_BTN_SAVE_AS_DRAFT">
+            </button>
+            <button class="btn_medium_submit publish icon"
+              (click)="(topic.status === TopicService.STATUSES.draft)? publish(): edit();"
+              [ngClass]="{disabled: !TopicService.canDelete(topic)}">
+              <span class="btn_text"
+                [translate]="(topic.status === TopicService.STATUSES.draft)?'VIEWS.VOTE_CREATE.FOOTER_BTN_CREATE': 'VIEWS.VOTE_CREATE.FOOTER_BTN_SAVE_CHANGES'"></span>
             </button>
           </div>
-          <div id="buttons_wrap" class="buttons_wrap tablet_show">
-            <a class="btn_medium_plain icon" [href]="topicDownload()">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd"
-                  d="M12 4C12.5523 4 13 4.44772 13 5L13 12.5858L14.2929 11.2929C14.6834 10.9024 15.3166 10.9024 15.7071 11.2929C16.0976 11.6834 16.0976 12.3166 15.7071 12.7071L12.7071 15.7071C12.3166 16.0976 11.6834 16.0976 11.2929 15.7071L8.29289 12.7071C7.90237 12.3166 7.90237 11.6834 8.29289 11.2929C8.68342 10.9024 9.31658 10.9024 9.70711 11.2929L11 12.5858L11 5C11 4.44772 11.4477 4 12 4ZM5 16C5.55228 16 6 16.4477 6 17V19H18V17C18 16.4477 18.4477 16 19 16C19.5523 16 20 16.4477 20 17V19C20 20.1046 19.1046 21 18 21L6 21C4.89543 21 4 20.1046 4 19L4 17C4 16.4477 4.44772 16 5 16Z"
-                  fill="#2C3B47" />
-              </svg>
-            </a>
-            <button class="btn_medium_plain icon" (click)="deleteTopic()">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M9 9H11V17H9L9 9Z" fill="#2C3B47" />
-                <path d="M15 9H13V17H15V9Z" fill="#2C3B47" />
-                <path fill-rule="evenodd" clip-rule="evenodd"
-                  d="M17 5V4C17 2.89543 16.1046 2 15 2L9 2C7.89543 2 7 2.89543 7 4L7 5H4C3.44772 5 3 5.44772 3 6C3 6.55228 3.44772 7 4 7H5L5 18C5 19.6569 6.34315 21 8 21L16 21C17.6569 21 19 19.6569 19 18L19 7H20C20.5523 7 21 6.55228 21 6C21 5.44772 20.5523 5 20 5L17 5ZM15 4L9 4V5L15 5V4ZM17 7L7 7L7 18C7 18.5523 7.44772 19 8 19L16 19C16.5523 19 17 18.5523 17 18V7Z"
-                  fill="#2C3B47" />
-              </svg>
+          <div class="items_row">
+            <div id="close_create">
+              <button class="btn_medium_submit_ghost icon" (click)="cancel()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M5.29311 17.2929C4.90258 17.6834 4.90258 18.3166 5.29311 18.7071C5.68363 19.0976 6.3168 19.0976 6.70732 18.7071L12.0002 13.4142L17.2931 18.7071C17.6836 19.0976 18.3168 19.0976 18.7073 18.7071C19.0978 18.3166 19.0978 17.6834 18.7073 17.2929L13.4144 12L18.7073 6.70711C19.0978 6.31658 19.0978 5.68342 18.7073 5.29289C18.3168 4.90237 17.6836 4.90237 17.2931 5.29289L12.0002 10.5858L6.70732 5.29289C6.3168 4.90237 5.68363 4.90237 5.29311 5.29289C4.90258 5.68342 4.90258 6.31658 5.29311 6.70711L10.586 12L5.29311 17.2929Z"
+                    fill="#2C3B47" />
+                </svg>
+              </button>
+            </div>
+            <div id="buttons_wrap" class="buttons_wrap tablet_show">
+              <a class="btn_medium_plain icon" [href]="topicDownload()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M12 4C12.5523 4 13 4.44772 13 5L13 12.5858L14.2929 11.2929C14.6834 10.9024 15.3166 10.9024 15.7071 11.2929C16.0976 11.6834 16.0976 12.3166 15.7071 12.7071L12.7071 15.7071C12.3166 16.0976 11.6834 16.0976 11.2929 15.7071L8.29289 12.7071C7.90237 12.3166 7.90237 11.6834 8.29289 11.2929C8.68342 10.9024 9.31658 10.9024 9.70711 11.2929L11 12.5858L11 5C11 4.44772 11.4477 4 12 4ZM5 16C5.55228 16 6 16.4477 6 17V19H18V17C18 16.4477 18.4477 16 19 16C19.5523 16 20 16.4477 20 17V19C20 20.1046 19.1046 21 18 21L6 21C4.89543 21 4 20.1046 4 19L4 17C4 16.4477 4.44772 16 5 16Z"
+                    fill="#2C3B47" />
+                </svg>
+              </a>
+              <button class="btn_medium_plain icon" (click)="deleteTopic()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9 9H11V17H9L9 9Z" fill="#2C3B47" />
+                  <path d="M15 9H13V17H15V9Z" fill="#2C3B47" />
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M17 5V4C17 2.89543 16.1046 2 15 2L9 2C7.89543 2 7 2.89543 7 4L7 5H4C3.44772 5 3 5.44772 3 6C3 6.55228 3.44772 7 4 7H5L5 18C5 19.6569 6.34315 21 8 21L16 21C17.6569 21 19 19.6569 19 18L19 7H20C20.5523 7 21 6.55228 21 6C21 5.44772 20.5523 5 20 5L17 5ZM15 4L9 4V5L15 5V4ZM17 7L7 7L7 18C7 18.5523 7.44772 19 8 19L16 19C16.5523 19 17 18.5523 17 18V7Z"
+                    fill="#2C3B47" />
+                </svg>
 
-            </button>
-          </div>
-          <div id="navigate_create">
-            <button class="btn_medium_submit_ghost icon" *ngIf="tabSelected !== 'info'"
-              (click)="previousTab(tabSelected)">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M10.4533 17.6874C10.8529 18.1042 11.5009 18.1042 11.9006 17.6874C12.3003 17.2705 12.3003 16.5947 11.9006 16.1779L8.91837 13L19 13C19.5652 13 20 12.5892 20 11.9997C20 11.4103 19.5652 11.0176 19 11.0176L8.91837 11.0176L11.9006 7.8221C12.3003 7.40527 12.3003 6.72945 11.9006 6.31262C11.5009 5.89579 10.8529 5.89579 10.4533 6.31262L5 12L10.4533 17.6874Z"
-                  fill="#2C3B47" />
-              </svg>
-            </button>
-            <button *ngIf="tabSelected === 'preview' && topic.status === TopicService.STATUSES.draft"
-              class="btn_medium_secondary" (click)="saveAsDraft()"
-              translate="VIEWS.VOTE_CREATE.FOOTER_BTN_SAVE_AS_DRAFT">
-            </button>
-            <button class="btn_medium_submit icon"
-              (click)="(tabSelected!=='preview')? nextTab(tabSelected): (topic.status === TopicService.STATUSES.draft)? publish(): edit();">
-              <span class="btn_text mobile_hidden"
-                [translate]="(tabSelected!=='preview')? 'VIEWS.VOTE_CREATE.FOOTER_BTN_CONTINUE': (topic.status === TopicService.STATUSES.draft)?'VIEWS.VOTE_CREATE.FOOTER_BTN_CREATE': 'VIEWS.VOTE_CREATE.FOOTER_BTN_SAVE_CHANGES'"></span>
-              <svg class="mobile_show" id="continue_btn" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M14.5467 6.31262C14.1471 5.89579 13.4991 5.89579 13.0994 6.31262C12.6997 6.72945 12.6997 7.40527 13.0994 7.8221L16.0816 11L6 11C5.43478 11 5 11.4108 5 12.0003C5 12.5897 5.43478 12.9824 6 12.9824L16.0816 12.9824L13.0994 16.1779C12.6997 16.5947 12.6997 17.2705 13.0994 17.6874C13.4991 18.1042 14.1471 18.1042 14.5467 17.6874L20 12L14.5467 6.31262Z"
-                  fill="white" />
-              </svg>
-            </button>
+              </button>
+            </div>
+            <div id="navigate_create">
+              <button class="btn_medium_submit_ghost icon" *ngIf="tabSelected !== 'info'"
+                (click)="previousTab(tabSelected)">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M10.4533 17.6874C10.8529 18.1042 11.5009 18.1042 11.9006 17.6874C12.3003 17.2705 12.3003 16.5947 11.9006 16.1779L8.91837 13L19 13C19.5652 13 20 12.5892 20 11.9997C20 11.4103 19.5652 11.0176 19 11.0176L8.91837 11.0176L11.9006 7.8221C12.3003 7.40527 12.3003 6.72945 11.9006 6.31262C11.5009 5.89579 10.8529 5.89579 10.4533 6.31262L5 12L10.4533 17.6874Z"
+                    fill="#2C3B47" />
+                </svg>
+              </button>
+              <button *ngIf="tabSelected === 'preview' && topic.status === TopicService.STATUSES.draft"
+                class="btn_medium_secondary mobile_hidden" (click)="saveAsDraft()"
+                translate="VIEWS.VOTE_CREATE.FOOTER_BTN_SAVE_AS_DRAFT">
+              </button>
+              <button class="btn_medium_submit icon mobile_show" *ngIf="tabSelected!=='preview'"
+                (click)="nextTab(tabSelected)">
+                <svg id="continue_btn" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M14.5467 6.31262C14.1471 5.89579 13.4991 5.89579 13.0994 6.31262C12.6997 6.72945 12.6997 7.40527 13.0994 7.8221L16.0816 11L6 11C5.43478 11 5 11.4108 5 12.0003C5 12.5897 5.43478 12.9824 6 12.9824L16.0816 12.9824L13.0994 16.1779C12.6997 16.5947 12.6997 17.2705 13.0994 17.6874C13.4991 18.1042 14.1471 18.1042 14.5467 17.6874L20 12L14.5467 6.31262Z"
+                    fill="white" />
+                </svg>
+              </button>
+
+              <button class="btn_medium_submit icon mobile_hidden"
+                (click)="(tabSelected!=='preview')? nextTab(tabSelected): (topic.status === TopicService.STATUSES.draft)? publish(): edit();">
+                <span class="btn_text mobile_hidden"
+                  [translate]="(tabSelected!=='preview')? 'VIEWS.VOTE_CREATE.FOOTER_BTN_CONTINUE': (topic.status === TopicService.STATUSES.draft)?'VIEWS.VOTE_CREATE.FOOTER_BTN_CREATE': 'VIEWS.VOTE_CREATE.FOOTER_BTN_SAVE_CHANGES'"></span>
+                <svg class="mobile_show" id="continue_btn" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M14.5467 6.31262C14.1471 5.89579 13.4991 5.89579 13.0994 6.31262C12.6997 6.72945 12.6997 7.40527 13.0994 7.8221L16.0816 11L6 11C5.43478 11 5 11.4108 5 12.0003C5 12.5897 5.43478 12.9824 6 12.9824L16.0816 12.9824L13.0994 16.1779C12.6997 16.5947 12.6997 17.2705 13.0994 17.6874C13.4991 18.1042 14.1471 18.1042 14.5467 17.6874L20 12L14.5467 6.31262Z"
+                    fill="white" />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
       </div>
