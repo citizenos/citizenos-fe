@@ -1143,6 +1143,7 @@ tour-item-template {
 
     @include mixins.mobile {
       flex-direction: column-reverse;
+      gap: 8px;
     }
 
     .header_division {
