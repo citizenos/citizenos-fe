@@ -300,7 +300,7 @@
       "LAST_ACTIVITY": "@:VIEWS.PUBLIC_GROUP.LNK_LAST_ACTIVITY",
       "SET_MEMBER_PERMISSIONS": "Määra ligipääsuõigus tasemele <b>{{level}}</b>",
       "EDIT_MEMBER": "Edit member",
-      "BTN_REMOVE": "Remove member"
+      "BTN_REMOVE": "Eemalda liige"
     },
     "GROUP_SETTINGS": {
       "HEADING": "Muuda gruppi",
