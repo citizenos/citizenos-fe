@@ -108,12 +108,12 @@
       "FILTER_SELF": "Moja aktivita"
     },
     "ARGUMENT": {
-      "LBL_ARGUMENT_ACTIONS": "Argument actions",
+      "LBL_ARGUMENT_ACTIONS": "Akcie s argumentami",
       "OPTION_EDIT": "upraviť",
       "OPTION_REPORT": "nahlásiť",
       "OPTION_DELETE": "vymazať",
       "LNK_SHOW_REPLIES": "Ukázať odpovede ({{count}})",
-      "LNK_SHOW_REPLIES_MOBILE": "Replies ({{count}})",
+      "LNK_SHOW_REPLIES_MOBILE": "Odpovede ({{count}})",
       "LNK_HIDE_REPLIES": "Skryť odpovede",
       "BTN_REPLY": "Odpovedať",
       "ARGUMENT_LNK_VIEW_PREVIOUS_VERSIONS": "@:VIEWS.TOPICS_TOPICID.ARGUMENT_LNK_VIEW_PREVIOUS_VERSIONS",
@@ -183,10 +183,10 @@
       }
     },
     "CLOSE_VOTING_CONFIRM": {
-      "HEADING": "Close voting",
-      "ARE_YOU_SURE": "Are you sure you want to close this voting? You cannot undo this action.",
-      "CONFIRM_YES": "Yes, close this voting",
-      "CONFIRM_NO": "No, keep the voting open"
+      "HEADING": "Uzavrieť hlasovanie",
+      "ARE_YOU_SURE": "Určite chcete toto hlasovanie uzavrieť? Tento krok nie je možné odvolať.",
+      "CONFIRM_YES": "Áno, hlasovanie uzavrieť",
+      "CONFIRM_NO": "Nie, ponechať toto hlasovanie otvorené"
     },
     "CREATE": {
       "TITLE_DISCUSSION": "Téma diskusie",
@@ -217,8 +217,8 @@
       "BTN_CANCEL": "@:LNK_CANCEL"
     },
     "DOWNLOAD_VOTING_RESULTS": {
-      "HEADING": "Download vote results",
-      "MESSAGE_DESCRIPTION": "Are you sure you want to download the voting results? This will mean the vote is permanently closed.",
+      "HEADING": "Stiahnuť výsledky hlasovania",
+      "MESSAGE_DESCRIPTION": "Určite chcete si stiahnuť výsledky hlasovania? Tým sa hlasovanie natrvalo uzavrie.",
       "MESSAGE_OPTIONS": "Here are some options:",
       "HEADING_NOT_DOWNLOAD": "Extend the vote deadline",
       "UPDATE_DEADLINE": "Change the deadline to try and collect more votes. This will keep the vote open, so you won't yet see the results.",
