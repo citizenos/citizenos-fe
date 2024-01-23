@@ -298,8 +298,9 @@
     },
     "GROUP_MEMBER_USER": {
       "LAST_ACTIVITY": "@:VIEWS.PUBLIC_GROUP.LNK_LAST_ACTIVITY",
-      "BTN_BULK_ACTIONS": "@:COMPONENTS.GROUP_INVITE.BTN_BULK_ACTIONS",
-      "BTN_REMOVE": "@:VIEWS.PUBLIC_GROUP.LBL_REMOVE"
+      "SET_MEMBER_PERMISSIONS": "Установить права доступа на уровень <b>{{level}}</b>",
+      "EDIT_MEMBER": "Редактировать участника",
+      "BTN_REMOVE": "Удалить участника"
     },
     "GROUP_SETTINGS": {
       "HEADING": "Редактировать группу",
