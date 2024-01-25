@@ -117,7 +117,6 @@ export class ActivityService extends ItemsListService {
 
   query(params: any) {
     let rootPath = '';
-    console.log(params);
     if (params.groupId) {
       rootPath += '/groups/:groupId'
     } else if (params.topicId) {
@@ -274,7 +273,6 @@ export class ActivityService extends ItemsListService {
     const dataobject = this.getActivityObject(activity);
 
     if (activity.data.type === 'Accept' || activity.data.type === 'Invite' || (activity.data.type === 'Add' && activity.data.actor.type === 'User' && activity.data.object['@type'] === 'User' && activity.data.target['@type'] === 'Group')) { // Last condition if for Group invites
-      console.log(activity)
       return 'invite';
     } else if (['Topic', 'TopicMemberUser', 'Attachment', 'TopicFavourite'].indexOf(dataobject['@type']) > -1 || activity.data.target && activity.data.target['@type'] === ' Topic') {
       return 'discussion';

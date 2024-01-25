@@ -64,7 +64,6 @@ export class AppService {
   }
 
   doShowActivityModal(params?: any) {
-    console.log(!params.topicId && !params.groupId);
     if (this.showMobile() && !params.topicId && !params.groupId) {
       this.router.navigate([this.translate.currentLang, 'activity']);
     } else {
