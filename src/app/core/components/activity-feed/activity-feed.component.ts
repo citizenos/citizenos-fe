@@ -1,5 +1,5 @@
 import { style, transition, trigger, animate, state } from '@angular/animations';
-import { Component, OnInit, Input, Inject, inject } from '@angular/core';
+import { Component, OnInit, Input, inject } from '@angular/core';
 import { DIALOG_DATA, DialogRef, DialogService } from 'src/app/shared/dialog';
 import { map, tap, of } from 'rxjs';
 import { ActivityService } from 'src/app/services/activity.service'
@@ -81,7 +81,7 @@ export class ActivityFeedComponent implements OnInit {
     }
   }
 
-  close () {
+  close() {
     this.show = false;
     if (!this.modal) {
       this.location.back();
@@ -96,11 +96,10 @@ export class ActivityFeedComponent implements OnInit {
   styleUrls: ['./activity-feed.component.scss'],
 })
 export class ActivityFeedDialogComponent extends ActivityFeedComponent {
+  public data:any = inject(DIALOG_DATA);
+  private dialogRef:any = inject(DialogRef<ActivityFeedComponent>);
 
-  @Inject(DIALOG_DATA) public data: any;
-  @Inject(DialogRef<ActivityFeedComponent>) private dialogRef!: DialogRef<ActivityFeedComponent>;
-
- override close () {
+  override close() {
     this.show = false;
   }
 }
