@@ -11,8 +11,8 @@ import { LocationService } from 'src/app/services/location.service';
 import { AppService } from 'src/app/services/app.service';
 import { TourService } from 'src/app/services/tour.service';
 import { TopicService } from 'src/app/services/topic.service';
-import { take } from 'rxjs';
-import { Router } from '@angular/router';
+import { Observable, take, of, switchMap } from 'rxjs';
+import { NavigationEnd, Router } from '@angular/router';
 @Component({
   selector: 'nav',
   templateUrl: './nav.component.html',
@@ -23,7 +23,8 @@ export class NavComponent implements OnInit {
   wWidth = window.innerWidth;
   topicsCount$ = this.TopicService.count();
   showNavCreate = false;
-
+  extraInfo = false;
+  helpExtraInfo$: Observable<boolean>;
   constructor(private Location: LocationService,
     public translate: TranslateService,
     private router: Router,
@@ -34,12 +35,23 @@ export class NavComponent implements OnInit {
     private TopicService: TopicService,
     public TourService: TourService
   ) {
+    this.helpExtraInfo$ = this.router.events.pipe(switchMap((event) => {
+      if (event instanceof NavigationEnd) {
+        this.extraInfo = false;
+        const url = event.url;
+        if (url.indexOf('/topics/') > -1 && url.indexOf('/create/') === -1 && url.indexOf('/edit/') === -1) {
+          this.extraInfo = true;
+        }
+      }
+
+      return of(this.extraInfo);
+    }))
   }
 
   ngOnInit(): void {
   }
 
-  isNavVisible () {
+  isNavVisible() {
     if (this.app.showNav) {
       window.scrollTo(0, 0);
     }
@@ -68,16 +80,16 @@ export class NavComponent implements OnInit {
 
   doLogout() {
     this.auth.logout()
-    .pipe(take(1))
-    .subscribe({
-      next: (done) => {
-        console.log('SUCCESS', done);
-        this.router.navigate(['/']);
-      },
-      error: (err) => {
-        console.error('LOGOUT ERROR', err);
-      }
-    });
+      .pipe(take(1))
+      .subscribe({
+        next: (done) => {
+          console.log('SUCCESS', done);
+          this.router.navigate(['/']);
+        },
+        error: (err) => {
+          console.error('LOGOUT ERROR', err);
+        }
+      });
   }
   toggleHelp() {
     const curStatus = this.app.showHelp.getValue();
@@ -89,7 +101,7 @@ export class NavComponent implements OnInit {
     this.dialog.open(AccessibilityMenuComponent);
   }
 
-  showCreateMenu () {
+  showCreateMenu() {
     if (window.innerWidth <= 1024) {
       return this.showNavCreate = !this.showNavCreate;
     }

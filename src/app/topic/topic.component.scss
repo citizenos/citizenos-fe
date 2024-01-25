@@ -674,6 +674,10 @@
       margin-right: auto;
     }
 
+    @include mixins.mobile {
+      width: 100%;
+    }
+
     .tutorial_header {
       cursor: pointer;
       display: flex;
