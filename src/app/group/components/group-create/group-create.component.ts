@@ -210,25 +210,19 @@ export class GroupCreateComponent implements OnInit {
 
               this.dialog.closeAll();
               this.GroupService.reset();
-              if (group.visibility === this.VISIBILITY.public) {
-                this.router.navigate(['/groups', group.id]);
-              } else {
-                this.router.navigate(['/my', 'groups', group.id]);
-              }
+              this.router.navigate(['/groups', group.id]);
             }
           });
       } else {
         this.GroupService.reset();
-        if (group.visibility === this.VISIBILITY.public) {
-          this.router.navigate(['/groups', group.id]);
-        } else {
-          this.router.navigate(['/my', 'groups', group.id]);
-        }
+        this.router.navigate(['/groups', group.id]);
       }
 
       this.doInviteMembers();
       this.doAddTopics();
-      this.Notification.addSuccess('VIEWS.GROUP_CREATE.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.GROUP_CREATE.NOTIFICATION_SUCCESS_TITLE');
+      setTimeout(() => {
+        this.Notification.addSuccess('VIEWS.GROUP_CREATE.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.GROUP_CREATE.NOTIFICATION_SUCCESS_TITLE');
+      }, 500);
     }
     if (!this.group.id) {
       this.GroupService.save(saveGroup).pipe(take(1))
