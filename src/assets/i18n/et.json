@@ -80,7 +80,10 @@
     "PLACEHOLDER_WRITE_YOUR_MESSAGE": "Sisesta sõnum siia...",
     "BTN_SEND": "Saada",
     "ERROR_INVALID_EMAIL": "@:MSG_ERROR_POST_API_AUTH_SIGNUP_40000_EMAIL",
-    "MSG_REQUEST_SENT": "Sinu abitaotlus on saadetud!"
+    "MSG_REQUEST_SENT": "Sinu abitaotlus on saadetud!",
+    "EXTRA_INFO_TOUR_HEADING": "The page you’re on offers a walkthrough",
+    "EXTRA_INFO_TOUR_DESCRIPTION": "The walkthrough will guide you through the main features and things to do on the page.",
+    "EXTRA_INFO_TOUR_BTN_START": "Start walkthrough"
   },
   "COMPONENTS": {
     "ACCESSIBILITY": {
