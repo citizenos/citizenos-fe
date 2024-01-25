@@ -19,6 +19,22 @@
       </svg>
     </button>
   </div>
+  <div id="mobile_tour_info_wrap" *ngIf="showTourBox">
+    <div class="title_wrap">
+      <div>
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="40" height="40" rx="20" fill="#5C9CD0"/>
+          <path d="M23 11.5292C23 12.926 21.9255 14.0583 20.6 14.0583C19.2745 14.0583 18 12.926 18 11.5292C18 10.1323 19.2745 9 20.6 9C21.9255 9 23 10.1323 23 11.5292Z" fill="white"/>
+          <path d="M17.3359 16.5357L22.8319 15.8098L20.4295 27.7096C20.2591 28.5695 20.4991 29.0576 21.1591 29.0576C21.6247 29.0576 22.3255 28.8806 22.8055 28.4354L22.5943 29.4876C21.9055 30.3626 20.3863 31 19.0783 31C17.3911 31 16.6735 29.9327 17.1391 27.664L18.9103 18.8929C19.0639 18.1518 18.9247 17.8837 18.2191 17.7067L17.1391 17.4968L17.3359 16.5357Z" fill="white"/>
+          </svg>
+      </div>
+      <div class="small_heading">The page you’re on offers a walkthrough</div>
+    </div>
+    <div class="description">
+      The walkthrough will guide you through the main features and things to do on the page.
+    </div>
+    <button (click)="startTour()" class="start_btn">Start walkthrough</button>
+  </div>
   <div class="help_content">
     <iframe id="help_frame" #helpFrame name="help_frame" *ngIf="(app.showHelp| async)" frameborder="0" [src]="urlSafe"
       width="100%"></iframe>
