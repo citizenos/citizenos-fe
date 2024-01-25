@@ -1211,6 +1211,7 @@ tour-item-template {
       display: flex;
       padding: 12px 16px;
       justify-content: space-between;
+      align-items: center;
       background-color: var(--color-argument-pro-medium);
       border-radius: 8px;
 
@@ -1239,7 +1240,7 @@ tour-item-template {
 
       .vote_graph_wrap {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         gap: 16px;
         max-width: 40%;
 

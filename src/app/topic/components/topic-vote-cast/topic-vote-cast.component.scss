@@ -30,6 +30,23 @@
 
   .vote_result_info {
     .text_area {
+      gap: 4px;
+      div {
+        font-size: 14px;
+        line-height: 16px;
+        span,
+        a {
+          font-size: 14px;
+          line-height: 16px;
+        }
+        font-size: 14px;
+        display: flex;
+        gap: 8px;
+      }
+      a {
+        font-size: 14px;
+        line-height: 16px;
+      }
       .links_wrap {
         margin-top: 16px;
       }
