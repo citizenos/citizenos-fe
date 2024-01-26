@@ -1871,14 +1871,3 @@ tour-item-template {
     }
   }
 }
-
-#close_create {
-  @extend %all_zero;
-  position: fixed;
-  cursor: pointer;
-  z-index: 1;
-
-  @include mixins.tablet {
-    background-color: rgba(44, 59, 71, 0.8);
-  }
-}

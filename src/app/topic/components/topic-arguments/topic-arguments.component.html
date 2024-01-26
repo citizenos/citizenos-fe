@@ -1,5 +1,5 @@
 <ng-container *ngIf="arguments$ | async as arguments">
-  <div class="arguments_wrap" *ngIf="arguments.length">
+  <div class="arguments_wrap" *ngIf="arguments.length || filtersSelected">
     <div class="arguments_header">
       <div class="title" translate="COMPONENTS.TOPIC_ARGUMENTS.TITLE"
         [translateParams]="{count: TopicArgumentService.count.value.total}"></div>
@@ -140,7 +140,7 @@
         [page]="(TopicArgumentService.page$ | async) || 0"></cos-pagination>
     </div>
   </div>
-  <div class="no_feature_yet" *ngIf="!arguments.length">
+  <div class="no_feature_yet" *ngIf="!arguments.length && !filtersSelected">
     <svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g clip-path="url(#clip0_7696_17198)">
         <rect width="96" height="96" rx="48" fill="white" />

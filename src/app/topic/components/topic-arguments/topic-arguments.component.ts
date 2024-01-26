@@ -23,6 +23,7 @@ export class TopicArgumentsComponent implements OnInit {
   arguments$ = of(<Argument[] | any[]>[]);
   orderByOptions = Object.keys(this.TopicArgumentService.ARGUMENT_ORDER_BY);
   focusArgumentSubject = false;
+  filtersSelected = false;
   constructor(
     private Auth: AuthService,
     @Inject(ActivatedRoute) private route: ActivatedRoute,
@@ -75,6 +76,7 @@ export class TopicArgumentsComponent implements OnInit {
   }
 
   filterArguments() {
+    this.filtersSelected = true;
     const types = this.argumentTypes.filter((item:any) => item.checked).map(item => item.type);
     this.TopicArgumentService.setParam('types', types);
   }
