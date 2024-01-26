@@ -660,6 +660,7 @@
                   </ng-container>
                 </div>
               </div>
+              <ng-container *ngIf="topicGroups$ | async"></ng-container>
               <div id="topic_members_list_wrap" class="table_section">
                 <div class="row_header mobile_hidden" *ngIf="topicGroups.length">
                   <div class="row_cell"><a translate="VIEWS.TOPIC_CREATE.GROUPS_LIST_TITLE"></a></div>

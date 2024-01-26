@@ -26,9 +26,9 @@
     <div id="buttons_area">
       <button id="join_button" *ngIf="!group.userLevel && (auth.loggedIn$ | async)" class="btn_medium_close"
         translate="VIEWS.GROUP.BTN_JOIN" (click)="joinGroup(group)"></button>
-        <div *ngIf="(group.userLevel)"
-        class="permissions_lable tablet_hidden"
-        [translate]="(group.userLevel !== 'read')? ('TXT_GROUP_LEVELS_' + group.userLevel | uppercase) : 'VIEWS.GROUP.LBL_JOINED'"></div>
+      <div *ngIf="(group.userLevel)" class="permissions_lable tablet_hidden"
+        [translate]="(group.userLevel !== 'read')? ('TXT_GROUP_LEVELS_' + group.userLevel | uppercase) : 'VIEWS.GROUP.LBL_JOINED'">
+      </div>
 
       <activities-button *ngIf="(auth.loggedIn$ | async)"></activities-button>
       <button class="btn_medium_close icon" (click)="toggleFavourite(group)" *ngIf="(auth.loggedIn$ | async)">
@@ -159,7 +159,8 @@
         <div class="options button_options">
           <div class="mobile_header">
             <div class="small_heading" translate="COMPONENTS.GROUP_MEMBER_USER.EDIT_MEMBER"></div>
-            <button (click)="groupActions = false"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <button (click)="groupActions = false"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M5.29314 17.2929C4.90261 17.6834 4.90261 18.3166 5.29314 18.7071C5.68366 19.0976 6.31683 19.0976 6.70735 18.7071L12.0002 13.4142L17.2931 18.7071C17.6837 19.0976 18.3168 19.0976 18.7074 18.7071C19.0979 18.3166 19.0979 17.6834 18.7074 17.2929L13.4145 12L18.7074 6.70711C19.0979 6.31658 19.0979 5.68342 18.7074 5.29289C18.3168 4.90237 17.6837 4.90237 17.2931 5.29289L12.0002 10.5858L6.70735 5.29289C6.31683 4.90237 5.68366 4.90237 5.29314 5.29289C4.90261 5.68342 4.90261 6.31658 5.29314 6.70711L10.586 12L5.29314 17.2929Z"
                   fill="#2C3B47" />
@@ -478,8 +479,7 @@
     </div>
     <div id="create_menu_wrap" [ngClass]="{'hidden': !showCreate}">
       <div id="create_menu">
-        <div class="create_menu_item" [routerLink]="['/', translate.currentLang, 'topics', 'create']"
-          routerLinkActive="active">
+        <div class="create_menu_item" (click)="addNewTopic();">
           <div class="left_wrap">
             <div class="icon_wrap">
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -505,8 +505,7 @@
           </div>
         </div>
 
-        <div class="create_menu_item" [routerLink]="['/', translate.currentLang, 'topics', 'vote', 'create']"
-          routerLinkActive="active">
+        <div class="create_menu_item" (click)="addNewVotingTopic();">
           <div class="left_wrap">
             <div class="icon_wrap">
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -530,22 +529,24 @@
       </div>
       <div id="close_create" (click)="showCreate = false;"></div>
     </div>
-    <button class="btn_medium_submit" (click)="showCreateMenu()" [ngClass]="{active: showCreate}"><svg width="25" height="24" viewBox="0 0 25 24" fill="none"
-        xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M12.5 20C11.9711 20 11.5423 19.5712 11.5423 19.0423L11.5423 12.9577L5.45775 12.9577C4.9288 12.9577 4.5 12.5289 4.5 12C4.5 11.4711 4.9288 11.0423 5.45775 11.0423H11.5423V4.95775C11.5423 4.4288 11.9711 4 12.5 4C13.0289 4 13.4577 4.4288 13.4577 4.95775L13.4577 11.0423L19.5423 11.0423C20.0712 11.0423 20.5 11.4711 20.5 12C20.5 12.5289 20.0712 12.9577 19.5423 12.9577H13.4577V19.0423C13.4577 19.5712 13.0289 20 12.5 20Z"
-          fill="white" />
-      </svg>
-      <span translate="VIEWS.MY_TOPICS.HAVENT_ENGAGED_BTN_CREATE"></span>
-    </button>
-    <button class="btn_medium_submit animate"
-      *ngIf="tabSelected === 'topics' && (auth.loggedIn$ | async) && canUpdate(group)"
-      (click)="addTopicDialog(group)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-        xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M12 20C11.4711 20 11.0423 19.5712 11.0423 19.0423L11.0423 12.9577L4.95775 12.9577C4.4288 12.9577 4 12.5289 4 12C4 11.4711 4.4288 11.0423 4.95775 11.0423H11.0423V4.95775C11.0423 4.4288 11.4711 4 12 4C12.5289 4 12.9577 4.4288 12.9577 4.95775L12.9577 11.0423L19.0423 11.0423C19.5712 11.0423 20 11.4711 20 12C20 12.5289 19.5712 12.9577 19.0423 12.9577H12.9577V19.0423C12.9577 19.5712 12.5289 20 12 20Z"
-          fill="white" />
-      </svg><span translate="VIEWS.GROUP.BTN_ADD_TOPICS"></span></button>
+    <ng-container *ngIf="tabSelected === 'topics' && (auth.loggedIn$ | async) && canUpdate(group)">
+      <button class="btn_medium_submit" (click)="showCreateMenu()" [ngClass]="{active: showCreate}"><svg width="25"
+          height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M12.5 20C11.9711 20 11.5423 19.5712 11.5423 19.0423L11.5423 12.9577L5.45775 12.9577C4.9288 12.9577 4.5 12.5289 4.5 12C4.5 11.4711 4.9288 11.0423 5.45775 11.0423H11.5423V4.95775C11.5423 4.4288 11.9711 4 12.5 4C13.0289 4 13.4577 4.4288 13.4577 4.95775L13.4577 11.0423L19.5423 11.0423C20.0712 11.0423 20.5 11.4711 20.5 12C20.5 12.5289 20.0712 12.9577 19.5423 12.9577H13.4577V19.0423C13.4577 19.5712 13.0289 20 12.5 20Z"
+            fill="white" />
+        </svg>
+        <span translate="VIEWS.MY_TOPICS.HAVENT_ENGAGED_BTN_CREATE"></span>
+      </button>
+      <button class="btn_medium_submit animate"
+        *ngIf="tabSelected === 'topics' && (auth.loggedIn$ | async) && canUpdate(group)"
+        (click)="addTopicDialog(group)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M12 20C11.4711 20 11.0423 19.5712 11.0423 19.0423L11.0423 12.9577L4.95775 12.9577C4.4288 12.9577 4 12.5289 4 12C4 11.4711 4.4288 11.0423 4.95775 11.0423H11.0423V4.95775C11.0423 4.4288 11.4711 4 12 4C12.5289 4 12.9577 4.4288 12.9577 4.95775L12.9577 11.0423L19.0423 11.0423C19.5712 11.0423 20 11.4711 20 12C20 12.5289 19.5712 12.9577 19.0423 12.9577H12.9577V19.0423C12.9577 19.5712 12.5289 20 12 20Z"
+            fill="white" />
+        </svg><span translate="VIEWS.GROUP.BTN_ADD_TOPICS"></span></button>
+    </ng-container>
     <button class="btn_medium_submit animate" *ngIf="tabSelected === 'members' && canUpdate(group)"
       (click)="shareGroupDialog(group)">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

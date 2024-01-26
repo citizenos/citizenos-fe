@@ -118,20 +118,20 @@ export class AppService {
       });
   }
 
-  createNewTopic(title?: string, visibility?: string, groupId?: string, groupLevel?: string) {
+  createNewTopic(groupId?: string, voting?: boolean) {
     const topic = <any>{};
-    if (title) {
-      topic['description'] = '<html><head></head><body><h1>' + title + '</h1></body></html>';
+    const url = ['topics'];
+    if (voting) {
+      url.push('vote');
     }
-    if (visibility === 'public') {
-      topic['visibility'] = this.TopicService.VISIBILITY.public;
-    }
-
+    topic.description = '<html><head></head><body></body></html>';
     this.TopicService.save(topic)
       .pipe(take(1))
       .subscribe((topic) => {
+        console.log(topic);
+        const redirect = url.concat(['create', topic.id])
         if (groupId) {
-          const level = groupLevel || this.GroupMemberTopicService.LEVELS.read;
+          const level = this.GroupMemberTopicService.LEVELS.read;
           const member = {
             groupId: groupId,
             topicId: topic.id,
@@ -141,12 +141,10 @@ export class AppService {
             .save(member)
             .pipe(take(1)).
             subscribe(() => {
-              //this.router.navigate(['/topics', topic.id], { queryParams: { editMode: true } })
-              return topic;
+              this.router.navigate(redirect)
             });
         } else {
-          //this.router.navigate(['/topics', topic.id], { queryParams: { editMode: true } })
-          return topic;
+          this.router.navigate(redirect)
         }
       });
   }
