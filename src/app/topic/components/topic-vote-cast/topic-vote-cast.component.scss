@@ -12,7 +12,12 @@
 
 .setting_button {
   background: none;
+  @include mixins.mobile {
+    max-width: max-content;
+    align-self: flex-end;
+  }
   button:first-child {
+    background-color: var(--color-surfaces);
     &:hover {
       background-color: var(--color-argument-pro-light);
       svg {
@@ -26,9 +31,85 @@
 .vote_wrap {
   .vote_content {
     gap: 24px;
+
+    .vote_info_wrap {
+      display: flex;
+      flex-direction: column;
+      padding: 12px 16px;
+      background-color: var(--color-argument-pro-medium);
+      border-radius: 8px;
+      gap: 16px;
+
+      .line_separator {
+        background-color: var(--color-voting-disabled);
+      }
+      .vote_info_text_wrap {
+        display: flex;
+        justify-content: space-between;
+        gap: 32px;
+
+        .vote_text_left,
+        .vote_text_right {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        .vote_text_left {
+          .text_area {
+            display: flex;
+            flex-direction: column;
+            max-width: 440px;
+            gap: 4px;
+
+            div {
+              font-size: 14px;
+              line-height: 16px;
+              span,
+              a {
+                font-size: 14px;
+                line-height: 16px;
+              }
+              font-size: 14px;
+              display: flex;
+              gap: 8px;
+            }
+            .links_wrap {
+              margin-top: 16px;
+              a {
+                gap: 8px;
+                display: flex;
+                align-items: center;
+              }
+            }
+          }
+        }
+        .vote_text_right {
+          min-width: max-content;
+
+          .text_area {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            div {
+              display: flex;
+              gap: 8px;
+              span {
+                font-size: 14px;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
   .vote_result_info {
+    .vote_info_wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
     .text_area {
       gap: 4px;
       div {
@@ -51,6 +132,25 @@
         margin-top: 16px;
       }
     }
+  }
+}
+
+.vote_graph_wrap {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+
+  #vote_graph {
+    #graph_background {
+      stroke: var(--color-voting-disabled);
+    }
+    #graph_bar {
+      stroke: var(--color-voting);
+    }
+  }
+  .text_area {
+    display: flex;
+    flex-direction: column;
   }
 }
 
