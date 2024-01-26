@@ -1217,6 +1217,7 @@ tour-item-template {
 
       @include mixins.mobile {
         flex-direction: column;
+        padding: 16px;
       }
 
       .text_area {
@@ -1243,6 +1244,11 @@ tour-item-template {
         align-items: flex-start;
         gap: 16px;
         max-width: 40%;
+
+        @include mixins.mobile {
+          gap: 8px;
+          max-width: 100%;
+        }
 
         #vote_graph {
           #graph_background {

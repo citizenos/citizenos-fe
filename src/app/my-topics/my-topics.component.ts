@@ -58,7 +58,7 @@ export class MyTopicsComponent {
   }
 
   mobileFiltersList = false;
-
+  showCreate = false;
   tabSelected = 'categories';
   categories$ = Object.keys(this.Topic.CATEGORIES);
 
@@ -119,6 +119,10 @@ export class MyTopicsComponent {
 
       return [languages];
     }));
+  }
+
+  showCreateMenu () {
+    this.showCreate = !this.showCreate;
   }
 
   showMobileOverlay() {
