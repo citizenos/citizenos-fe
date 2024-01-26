@@ -14,32 +14,36 @@ import { Router } from '@angular/router';
 })
 export class TopicService {
   public CATEGORIES = <any>{
-    biotoopia: 'biotoopia',
-    citizenos: 'citizenos',
-    eestijazziarengusuunad: 'eestijazziarengusuunad', // Special project with http://www.jazz.ee/ - https://github.com/citizenos/citizenos-api/issues/73
-    eurochangemakers: 'eurochangemakers',
-    hacktivistcommunity: 'hacktivistcommunity',
-    opinionfestival: 'opinionfestival',
-    pyln: 'pyln',
-    thetwelvemovie: 'thetwelvemovie',
-    thirtyfourislandproject: 'thirtyfourislandproject',
-    business: 'business', // Business and industry
-    transport: 'transport', // Public transport and road safety
-    taxes: 'taxes', // Taxes and budgeting
-    agriculture: 'agriculture', // Agriculture
-    environment: 'environment', // Environment, animal protection
-    culture: 'culture', // Culture, media and sports
-    health: 'health', // Health care and social care
-    work: 'work', // Work and employment
-    education: 'education', // Education
-    politics: 'politics', // Politics and public administration
-    communities: 'communities', // Communities and urban development
-    defense: 'defense', //  Defense and security
-    integration: 'integration', // Integration and human rights
-    youth: 'youth', //Youth
-    science: 'science', //Science and Technology
-    society: 'society', //Democracy and civil society
-    varia: 'varia' // Varia
+    agriculture: "agriculture",
+    animal_protection: "animal_protection",
+    arts: "arts",
+    business: "business",
+    civil_society: "civil_society",
+    communities: "communities",
+    culture: "culture",
+    defence: "defence",
+    democracy: "democracy",
+    diversity: "diversity",
+    education: "education",
+    entertainment: "entertainment",
+    environment: "environment",
+    equality: "equality",
+    health: "health",
+    human_rights: "human_rights",
+    legal: "legal",
+    media: "media",
+    migration: "migration",
+    politics: "politics",
+    public_transportation: "public_transportation",
+    religion: "religion",
+    science: "science",
+    social_welfare: "social_welfare",
+    sports: "sports",
+    taxes: "taxes",
+    technology: "technology",
+    urban_development: "urban_development",
+    work: "work",
+    youth: "youth",
   };
 
   public STATUSES = <any>{
