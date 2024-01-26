@@ -208,6 +208,14 @@ export class GroupComponent implements OnInit {
     this.showCreate = true;
   }
 
+  addNewTopic () {
+    this.app.createNewTopic(this.groupId);
+  }
+
+  addNewVotingTopic () {
+    this.app.createNewTopic(this.groupId, true);
+  }
+
   closeMobileFilter() {
     const filtersShow = Object.entries(this.mobileTopicFilters).find(([key, value]) => {
       return !!value;

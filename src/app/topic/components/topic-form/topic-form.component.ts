@@ -197,7 +197,14 @@ export class TopicFormComponent {
       this.TopicAttachmentService.setParam('topicId', this.topic.id);
       this.topicAttachments$ = this.TopicAttachmentService.loadItems();
       this.TopicMemberGroupService.setParam('topicId', this.topic.id);
-      this.topicGroups$ = this.TopicMemberGroupService.loadItems();
+      this.topicGroups$ = this.TopicMemberGroupService.loadItems().pipe(
+        tap((groups) => {
+          groups.forEach((group) => {
+            const exists = this.topicGroups.find((mgroup) => mgroup.id === group.id);
+            if (!exists) this.topicGroups.push(group);
+          })
+        })
+      );
     }
   }
 
