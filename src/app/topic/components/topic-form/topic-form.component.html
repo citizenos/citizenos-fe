@@ -290,7 +290,10 @@
             <ng-container *ngIf="block.headerImage">
               <div class="block_content image_content">
                 <div class="block_section" *ngIf="!(topic.imageUrl || tmpImageUrl)">
-                  <div class="bold" translate="VIEWS.TOPIC_CREATE.HEADER_IMAGE_UPLOAD_DESC"></div>
+                  <div>
+                    <div class="bold" translate="VIEWS.TOPIC_CREATE.HEADER_IMAGE_UPLOAD_DESC"></div>
+                    <div translate="VIEWS.TOPIC_CREATE.HEADER_IMAGE_UPLOAD_DESC_TEXT"></div>
+                  </div>
                   <input id="image_upload_input" type="file" #imageUpload (change)="fileUpload()" />
                   <button id="image_upload_button" class="btn_medium_secondary" (click)="uploadImage()"
                     translate="VIEWS.TOPIC_CREATE.HEADER_IMAGE_UPLOAD_BTN"></button>
@@ -986,8 +989,7 @@
               <div class="info_items" [@openClose]="showAttachments ? 'open' : 'closed'">
                 <span *ngIf="!attachments.length" translate="VIEWS.TOPICS_TOPICID.SECTION_INFO_NO_ATTACHMENTS"></span>
                 <a class="info_item" [href]="attachment.link" *ngFor="let attachment of attachments"
-                  (click)="$event.preventDefault();"
-                  [innerHtml]="attachment.name">
+                  (click)="$event.preventDefault();" [innerHtml]="attachment.name">
                 </a>
               </div>
             </ng-container>
@@ -1027,8 +1029,7 @@
               </svg>
             </a>
             <div class="info_items" [@openClose]="showCategories ? 'open' : 'closed'">
-              <span *ngIf="!topic.categories.length"
-                translate="VIEWS.TOPICS_TOPICID.SECTION_INFO_NO_CATEGORIES"></span>
+              <span *ngIf="!topic.categories.length" translate="VIEWS.TOPICS_TOPICID.SECTION_INFO_NO_CATEGORIES"></span>
               <div class="info_item" *ngFor="let category of topic.categories">{{category}},</div>
             </div>
           </div>

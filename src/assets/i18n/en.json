@@ -2008,6 +2008,7 @@
       "HEADER_IMAGE_BTN_CANCEL": "@:LNK_CANCEL",
       "HEADER_IMAGE_BTN_REMOVE": "Remove",
       "HEADER_IMAGE_UPLOAD_DESC": "Upload your own image",
+      "HEADER_IMAGE_UPLOAD_DESC_TEXT": "(Ideally a .jpg file around 1280w x 480h)",
       "HEADER_IMAGE_UPLOAD_BTN": "Choose a file",
       "TITLE_HEADING": "Title",
       "TITLE_INTRO": "Intro",
