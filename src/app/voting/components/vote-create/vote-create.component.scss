@@ -423,3 +423,21 @@
     }
   }
 }
+.setting_button {
+  background: none;
+  @include mixins.mobile {
+    max-width: max-content;
+    align-self: flex-end;
+  }
+  button:first-child {
+    background-color: var(--color-surfaces);
+    &:hover {
+      background-color: var(--color-argument-pro-light);
+      svg {
+        path {
+          fill: var(--color-link);
+        }
+      }
+    }
+  }
+}
