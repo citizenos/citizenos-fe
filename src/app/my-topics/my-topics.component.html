@@ -491,13 +491,6 @@
     <ng-container *ngIf="topics$ | async as topics;">
       <ng-container *ngIf="!topics.length">
         <div class="no_engagements">
-          <button class="btn_medium_close close_box">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M6.70686 5.29314C6.31634 4.90261 5.68317 4.90261 5.29265 5.29314C4.90212 5.68366 4.90212 6.31683 5.29265 6.70735L10.5855 12.0002L5.29265 17.2931C4.90213 17.6837 4.90213 18.3168 5.29265 18.7074C5.68317 19.0979 6.31634 19.0979 6.70686 18.7074L11.9998 13.4145L17.2926 18.7074C17.6832 19.0979 18.3163 19.0979 18.7069 18.7074C19.0974 18.3168 19.0974 17.6837 18.7069 17.2931L13.414 12.0002L18.7069 6.70735C19.0974 6.31683 19.0974 5.68366 18.7069 5.29314C18.3163 4.90261 17.6832 4.90261 17.2926 5.29314L11.9998 10.586L6.70686 5.29314Z"
-                fill="#2C3B47" />
-            </svg>
-          </button>
           <div class="illustration">
             <svg width="96" height="90" viewBox="0 0 96 90" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M60.4741 78.8158L33.9747 81.5569L34.5735 92.5006L60.4741 92.5006L60.4741 78.8158Z"
@@ -532,8 +525,8 @@
             </svg>
           </div>
           <div class="text_wrap">
-            <div class="small_heading" translate="VIEWS.DASHBOARD.HAVENT_ENGAGED_TOPICS_HEADING"></div>
-            <div translate="VIEWS.DASHBOARD.HAVENT_ENGAGED_TOPICS_DESCRIPTION"></div>
+            <div class="small_heading" translate="VIEWS.MY_TOPICS.HAVENT_ENGAGED_TOPICS_HEADING"></div>
+            <div translate="VIEWS.MY_TOPICS.HAVENT_ENGAGED_TOPICS_DESCRIPTION"></div>
           </div>
           <div class="button_wrap">
             <div id="create_menu_wrap" [ngClass]="{'hidden': !showCreate}">
@@ -596,9 +589,9 @@
                   d="M12.5 20C11.9711 20 11.5423 19.5712 11.5423 19.0423L11.5423 12.9577L5.45775 12.9577C4.9288 12.9577 4.5 12.5289 4.5 12C4.5 11.4711 4.9288 11.0423 5.45775 11.0423H11.5423V4.95775C11.5423 4.4288 11.9711 4 12.5 4C13.0289 4 13.4577 4.4288 13.4577 4.95775L13.4577 11.0423L19.5423 11.0423C20.0712 11.0423 20.5 11.4711 20.5 12C20.5 12.5289 20.0712 12.9577 19.5423 12.9577H13.4577V19.0423C13.4577 19.5712 13.0289 20 12.5 20Z"
                   fill="white" />
               </svg>
-              <span translate="VIEWS.DASHBOARD.HAVENT_ENGAGED_BTN_CREATE"></span>
+              <span translate="VIEWS.MY_TOPICS.HAVENT_ENGAGED_BTN_CREATE"></span>
             </button>
-            <button class="btn_medium_submit" translate="VIEWS.DASHBOARD.HAVENT_ENGAGED_BTN_VIEW_PUBLIC_TOPICS"
+            <button class="btn_medium_submit" translate="VIEWS.MY_TOPICS.HAVENT_ENGAGED_BTN_VIEW_PUBLIC_TOPICS"
               [routerLink]="['/', translate.currentLang, 'public', 'topics']"></button>
           </div>
         </div>

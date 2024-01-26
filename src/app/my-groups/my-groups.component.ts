@@ -32,6 +32,7 @@ import { Language } from 'src/app/interfaces/language';
 export class MyGroupsComponent implements OnInit {
   public wWidth = window.innerWidth;
   groupId = <string | null>null;
+  showCreate = false;
   groups$: Observable<Group[] | any[]> = of([]);
   allGroups$: Group[] = [];
   visibility = Object.values(this.GroupService.VISIBILITY);
@@ -75,7 +76,7 @@ export class MyGroupsComponent implements OnInit {
     private route: ActivatedRoute,
     public GroupService: GroupService,
     private router: Router,
-    TranslateService: TranslateService,
+    public translate: TranslateService,
   ) {
 
     this.groups$ = combineLatest([this.route.queryParams, this.searchString$]).pipe(
@@ -101,6 +102,10 @@ export class MyGroupsComponent implements OnInit {
 
       return [languages];
     }));
+  }
+
+  showCreateMenu () {
+    this.showCreate = !this.showCreate;
   }
 
   showMobileOverlay () {
