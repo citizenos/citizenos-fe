@@ -1780,7 +1780,11 @@
       "PLACEHOLDER_SEARCH_TOPIC": "Search for a topic",
       "FILTER_SEARCH_LNK_CLEAR": "@:LNK_CLEAR",
       "PLACEHOLDER_SEARCH": "Search groups",
-      "BTN_RESET_FILTER": "@:BTN_RESET_FILTER"
+      "BTN_RESET_FILTER": "@:BTN_RESET_FILTER",
+      "HAVENT_ENGAGED_GROUPS_HEADING": "You haven’t joined any groups yet",
+      "HAVENT_ENGAGED_GROUPS_DESCRIPTION": "Join groups to discuss relevant topics. Or create your own groups and invite members so they can participate in the related topics",
+      "HAVENT_ENGAGED_BTN_CREATE": "Create a group",
+      "HAVENT_ENGAGED_BTN_VIEW_PUBLIC_GROUPS": "View public groups"
     },
     "MY_TOPICS": {
       "HEADER": "My topics",
@@ -1820,7 +1824,11 @@
       },
       "BTN_RESET_FILTER": "@:BTN_RESET_FILTER",
       "BTN_APPLY": "@:BTN_APPLY",
-      "LNK_CLEAR": "@:LNK_CLEAR"
+      "LNK_CLEAR": "@:LNK_CLEAR",
+      "HAVENT_ENGAGED_TOPICS_HEADING": "@:VIEWS.DASHBOARD.HAVENT_ENGAGED_TOPICS_HEADING",
+      "HAVENT_ENGAGED_TOPICS_DESCRIPTION": "@:VIEWS.DASHBOARD.HAVENT_ENGAGED_TOPICS_DESCRIPTION",
+      "HAVENT_ENGAGED_BTN_CREATE": "@:VIEWS.DASHBOARD.HAVENT_ENGAGED_BTN_CREATE",
+      "HAVENT_ENGAGED_BTN_VIEW_PUBLIC_TOPICS": "@:VIEWS.DASHBOARD.HAVENT_ENGAGED_BTN_VIEW_PUBLIC_TOPICS"
     },
     "MY_TOPICS_TOPICID": {
       "HEADING_GENERAL_INFORMATION": "Загальна інформація",
