@@ -934,7 +934,159 @@
         </div>
       </div>
       <div id="help_wrap">
-        <ng-container *ngIf="(members$ | async) as members">
+        <div class="info_section" *ngIf="tabSelected === 'preview'">
+          <div class="info_items_wrap">
+            <div class="info_header">
+              <div class="info_title bold" translate="VIEWS.TOPICS_TOPICID.SECTION_INFO_TITLE_INFO"></div>
+
+              <div class="dropdown button_dropdown mobile_hidden" [cosDropdown]
+                [TourItem]="{tourid: 'topic', index: 2, position: 'left'}">
+                <a class="members_link" translate="VIEWS.TOPICS_TOPICID.LNK_MANAGE"></a>
+              </div>
+            </div>
+            <div class="info_items open">
+              <div class="info_item">
+                <ng-container *ngIf="topic.visibility === TopicService.VISIBILITY.private">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M4.57143 6.25V4.5C4.57143 2.567 6.10645 1 8 1C9.89355 1 11.4286 2.567 11.4286 4.5V6.25H12.2857C13.2325 6.25 14 7.0335 14 8V13.25C14 14.2165 13.2325 15 12.2857 15H3.71429C2.76751 15 2 14.2165 2 13.25V8C2 7.0335 2.76751 6.25 3.71429 6.25H4.57143ZM9.71429 4.5V6.25H6.28571V4.5C6.28571 3.5335 7.05323 2.75 8 2.75C8.94677 2.75 9.71429 3.5335 9.71429 4.5ZM7.14286 9.75C7.14286 9.26675 7.52661 8.875 8 8.875C8.47339 8.875 8.85714 9.26675 8.85714 9.75V11.5C8.85714 11.9832 8.47339 12.375 8 12.375C7.52661 12.375 7.14286 11.9832 7.14286 11.5V9.75Z"
+                      fill="#2C3B47" />
+                  </svg>
+
+                  <span [translate]="'TXT_TOPIC_VISIBILITY_' + topic.visibility | uppercase"></span>
+                </ng-container>
+                <ng-container *ngIf="topic.visibility === TopicService.VISIBILITY.public">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M5.26621 14.4471C4.85047 14.2675 4.46117 14.0565 4.09829 13.8143C3.71918 13.5612 3.36891 13.2739 3.0475 12.9525C2.4175 12.3225 1.91875 11.5817 1.55125 10.73C1.18375 9.87833 1 8.96833 1 8C1 7.12082 1.15147 6.28972 1.45442 5.50671C1.48514 5.42731 1.51742 5.34841 1.55125 5.27C1.62365 5.10221 1.70115 4.93872 1.78374 4.77953C2.12037 4.13072 2.54162 3.55338 3.0475 3.0475C3.6775 2.4175 4.41833 1.91875 5.27 1.55125C6.12167 1.18375 7.03167 1 8 1C8.41839 1 8.82589 1.0343 9.2225 1.10291C9.69794 1.18515 10.1577 1.31669 10.6019 1.49753C10.6447 1.51498 10.6874 1.53288 10.73 1.55125C11.0428 1.68622 11.3406 1.83888 11.6235 2.00925C12.1109 2.30279 12.5539 2.64887 12.9525 3.0475C13.5825 3.6775 14.0812 4.41833 14.4487 5.27C14.8162 6.12167 15 7.03167 15 8C15 8.96833 14.8162 9.87833 14.4487 10.73C14.0812 11.5817 13.5825 12.3225 12.9525 12.9525C12.8608 13.0442 12.7668 13.1331 12.6705 13.2192C12.4222 13.441 12.1584 13.6444 11.879 13.8294C11.5215 14.066 11.1385 14.2725 10.73 14.4487C9.95127 14.7848 9.12377 14.9672 8.2475 14.996C8.16543 14.9987 8.08293 15 8 15C7.90656 15 7.81366 14.9983 7.72131 14.9949C6.85659 14.9628 6.03948 14.7808 5.27 14.4487C5.26874 14.4482 5.26748 14.4477 5.26621 14.4471ZM7.2475 12.4975C6.83917 12.4975 6.495 12.3458 6.215 12.0425C5.935 11.7392 5.795 11.3833 5.795 10.975V10.205L2.2075 6.6175C2.14917 6.85083 2.10833 7.08125 2.085 7.30875C2.06583 7.49564 2.05454 7.6845 2.05112 7.87533C2.05037 7.91679 2.05 7.95835 2.05 8C2.05 9.51667 2.54292 10.8408 3.52875 11.9725C3.87388 12.3687 4.25011 12.7062 4.65744 12.9852C4.97197 13.2006 5.30506 13.381 5.65669 13.5265C5.84813 13.6057 6.04507 13.6745 6.2475 13.733C6.56713 13.8253 6.90046 13.8918 7.2475 13.9325V12.4975ZM2.5313 5.52709C2.84355 4.84596 3.25157 4.25764 3.75461 3.75461C4.29158 3.21764 4.92572 2.78894 5.66619 2.46942C6.38726 2.15827 7.16182 2 8 2C8.42329 2 8.83036 2.04037 9.2225 2.1204V2.7325C9.2225 2.8864 9.17926 3.00086 9.0677 3.12172C8.97464 3.22253 8.89577 3.255 8.77 3.255H6.2475V5.46H4.025V7.02079L2.5313 5.52709ZM6.00421 9H9.2225V11.975H10.975C11.1023 11.975 11.1824 12.0069 11.2561 12.0638C11.3443 12.132 11.3992 12.2102 11.4337 12.3266L11.5795 12.8188C11.203 13.0971 10.7884 13.3344 10.3338 13.5306C9.68425 13.8109 8.99128 13.9671 8.2475 13.9953V11.4975H7.2475C7.12173 11.4975 7.04286 11.465 6.9498 11.3642C6.83824 11.2434 6.795 11.1289 6.795 10.975V9.79079L6.00421 9ZM10.0583 3.43691C9.99267 3.56531 9.90742 3.68634 9.8025 3.8C9.5225 4.10333 9.17833 4.255 8.77 4.255H7.2475V5.7775C7.2475 5.97583 7.16875 6.13917 7.01125 6.2675C6.85375 6.39583 6.67583 6.46 6.4775 6.46H5.025V8H9.54C9.73833 8 9.90167 8.07583 10.03 8.2275C10.1583 8.37917 10.2225 8.55417 10.2225 8.7525V10.975H10.975C11.2792 10.975 11.5504 11.0552 11.7886 11.2155C11.8153 11.2335 11.8416 11.2525 11.8675 11.2725C12.1242 11.4708 12.2992 11.7275 12.3925 12.0425C12.6492 11.7625 12.8737 11.465 13.0662 11.15C13.0688 11.1458 13.0714 11.1415 13.074 11.1372C13.2631 10.8261 13.4239 10.5008 13.5562 10.1612C13.6904 9.81708 13.7896 9.46417 13.8537 9.1025C13.9179 8.74083 13.95 8.37333 13.95 8C13.95 6.76333 13.6117 5.64042 12.935 4.63125C12.4694 3.93688 11.8961 3.37093 11.2151 2.9334C11.1788 2.91009 11.1423 2.88715 11.1054 2.86457C11.031 2.81907 10.9555 2.77504 10.8786 2.7325C10.704 2.63581 10.523 2.54676 10.3356 2.46535C10.2981 2.4491 10.2604 2.43315 10.2225 2.4175V2.7325C10.2225 2.98783 10.1678 3.22263 10.0583 3.43691Z"
+                      fill="#2C3B47" />
+                  </svg>
+                  <span [translate]="'TXT_TOPIC_VISIBILITY_' + topic.visibility | uppercase"></span>
+                </ng-container>
+              </div>
+              <div class="info_item">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M8.8143 4.18517L11.8147 7.18569L5.29947 13.7012L2.62438 13.9965C2.26626 14.0361 1.96369 13.7333 2.00354 13.3752L2.30118 10.6981L8.8143 4.18517ZM13.6704 3.73845L12.2616 2.3296C11.8222 1.89013 11.1095 1.89013 10.67 2.3296L9.34467 3.65501L12.3451 6.65553L13.6704 5.33011C14.1099 4.89042 14.1099 4.17791 13.6704 3.73845Z"
+                    fill="#2C3B47" />
+                </svg>
+                <span>{{topic.creator.name}}</span>
+              </div>
+              <div class="info_item">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M6 2H4V3H3C2.44772 3 2 3.44771 2 4V13C2 13.5523 2.44772 14 3 14H13C13.5523 14 14 13.5523 14 13V4C14 3.44772 13.5523 3 13 3H12V2H10V3H6V2ZM4 7H6V9H4V7ZM4 10H6V12H4V10ZM9 7H7V9H9V7ZM7 10H9V12H7V10ZM12 7H10V9H12V7ZM10 10H12V12H10V10ZM3 6H13V13H3V6Z"
+                    fill="#2C3B47" />
+                </svg>
+                <span>{{topic.createdAt | date: 'YYYY-MM-dd hh:mm'}}</span>
+              </div>
+              <div class="info_item">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M8 15C8 15 13 10 13 6C13 3.23858 10.7614 1 8 1C5.23858 1 3 3.23858 3 6C3 10 8 15 8 15ZM8 8C9.10457 8 10 7.10457 10 6C10 4.89543 9.10457 4 8 4C6.89543 4 6 4.89543 6 6C6 7.10457 6.89543 8 8 8Z"
+                    fill="#2C3B47" />
+                </svg>
+                <span>{{topic.country || ('VIEWS.TOPICS_TOPICID.SECTION_INFO_LBL_NOT_SPECIFIED' | translate)}}</span>
+              </div>
+              <div class="info_item">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M8 15C7.02 15 6.10417 14.8162 5.2525 14.4487C4.40083 14.0812 3.66 13.5825 3.03 12.9525C2.4 12.3225 1.90417 11.5787 1.5425 10.7212C1.18083 9.86375 1 8.945 1 7.965C1 6.985 1.18083 6.07208 1.5425 5.22625C1.90417 4.38042 2.4 3.6425 3.03 3.0125C3.66 2.3825 4.40083 1.88958 5.2525 1.53375C6.10417 1.17792 7.02 1 8 1C8.98 1 9.89583 1.17792 10.7475 1.53375C11.5992 1.88958 12.34 2.3825 12.97 3.0125C13.6 3.6425 14.0958 4.38042 14.4575 5.22625C14.8192 6.07208 15 6.985 15 7.965C15 8.945 14.8192 9.86375 14.4575 10.7212C14.0958 11.5787 13.6 12.3225 12.97 12.9525C12.34 13.5825 11.5992 14.0812 10.7475 14.4487C9.89583 14.8162 8.98 15 8 15ZM8 13.985C8.40833 13.565 8.74958 13.0837 9.02375 12.5412C9.29792 11.9987 9.5225 11.3542 9.6975 10.6075H6.32C6.48333 11.3075 6.70208 11.9375 6.97625 12.4975C7.25042 13.0575 7.59167 13.5533 8 13.985ZM6.5125 13.775C6.22083 13.3317 5.97 12.8533 5.76 12.34C5.55 11.8267 5.375 11.2492 5.235 10.6075H2.61C3.05333 11.4358 3.56667 12.0863 4.15 12.5588C4.73333 13.0312 5.52083 13.4367 6.5125 13.775ZM9.505 13.7575C10.345 13.4892 11.1004 13.0867 11.7713 12.55C12.4421 12.0133 12.9817 11.3658 13.39 10.6075H10.7825C10.6308 11.2375 10.4529 11.8092 10.2487 12.3225C10.0446 12.8358 9.79667 13.3142 9.505 13.7575ZM2.26 9.5575H5.0425C5.0075 9.2425 4.98708 8.95958 4.98125 8.70875C4.97542 8.45792 4.9725 8.21 4.9725 7.965C4.9725 7.67333 4.97833 7.41375 4.99 7.18625C5.00167 6.95875 5.025 6.705 5.06 6.425H2.26C2.17833 6.705 2.12292 6.95583 2.09375 7.1775C2.06458 7.39917 2.05 7.66167 2.05 7.965C2.05 8.26833 2.06458 8.53958 2.09375 8.77875C2.12292 9.01792 2.17833 9.2775 2.26 9.5575ZM6.1275 9.5575H9.89C9.93667 9.19583 9.96583 8.90125 9.9775 8.67375C9.98917 8.44625 9.995 8.21 9.995 7.965C9.995 7.73167 9.98917 7.50708 9.9775 7.29125C9.96583 7.07542 9.93667 6.78667 9.89 6.425H6.1275C6.08083 6.78667 6.05167 7.07542 6.04 7.29125C6.02833 7.50708 6.0225 7.73167 6.0225 7.965C6.0225 8.21 6.02833 8.44625 6.04 8.67375C6.05167 8.90125 6.08083 9.19583 6.1275 9.5575ZM10.94 9.5575H13.74C13.8217 9.2775 13.8771 9.01792 13.9062 8.77875C13.9354 8.53958 13.95 8.26833 13.95 7.965C13.95 7.66167 13.9354 7.39917 13.9062 7.1775C13.8771 6.95583 13.8217 6.705 13.74 6.425H10.9575C10.9925 6.83333 11.0158 7.14542 11.0275 7.36125C11.0392 7.57708 11.045 7.77833 11.045 7.965C11.045 8.22167 11.0363 8.46375 11.0188 8.69125C11.0013 8.91875 10.975 9.2075 10.94 9.5575ZM10.765 5.375H13.39C13.005 4.57 12.4771 3.89917 11.8062 3.3625C11.1354 2.82583 10.3625 2.44667 9.4875 2.225C9.77917 2.65667 10.0271 3.12333 10.2312 3.625C10.4354 4.12667 10.6133 4.71 10.765 5.375ZM6.32 5.375H9.715C9.58667 4.75667 9.37083 4.15875 9.0675 3.58125C8.76417 3.00375 8.40833 2.49333 8 2.05C7.62667 2.365 7.31167 2.77917 7.055 3.2925C6.79833 3.80583 6.55333 4.5 6.32 5.375ZM2.61 5.375H5.2525C5.38083 4.745 5.54417 4.18208 5.7425 3.68625C5.94083 3.19042 6.19167 2.70917 6.495 2.2425C5.62 2.46417 4.85583 2.8375 4.2025 3.3625C3.54917 3.8875 3.01833 4.55833 2.61 5.375Z"
+                    fill="#2C3B47" />
+                </svg>
+                <span>{{topic.language || ('VIEWS.TOPICS_TOPICID.SECTION_INFO_LBL_NOT_SPECIFIED' | translate)}}</span>
+              </div>
+              <!--div class="info_item">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M14 12V5L8 9.5L2 5V12H14ZM8 8L13.4545 4H2.54545L8 8Z"
+                  fill="#2C3B47" />
+              </svg>
+              <a>{{topic.contact}}</a>
+            </!--div-->
+            </div>
+            <div class="info_items_wrap">
+              <ng-container *ngIf="topicAttachments$ | async as attachments">
+                <a class="info_title" (click)="showAttachments = !showAttachments">
+                  <div><span translate="VIEWS.TOPICS_TOPICID.SECTION_INFO_TITLE_ATTACHMENTS"></span> <span>
+                      ({{attachments.length}})</span></div>
+                  <svg *ngIf="!showAttachments" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                  </svg>
+                  <svg *ngIf="showAttachments" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17 15L12 10L7 15" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                  </svg>
+                </a>
+                <div class="info_items" [@openClose]="showAttachments ? 'open' : 'closed'">
+                  <span *ngIf="!attachments.length" translate="VIEWS.TOPICS_TOPICID.SECTION_INFO_NO_ATTACHMENTS"></span>
+                  <a class="info_item" [href]="attachment.link" *ngFor="let attachment of attachments"
+                    (click)="$event.preventDefault();"
+                    [innerHtml]="attachment.name">
+                  </a>
+                </div>
+              </ng-container>
+            </div>
+            <div class="info_items_wrap">
+              <a class="info_title" (click)="showGroups = !showGroups">
+                <span translate="VIEWS.TOPICS_TOPICID.SECTION_INFO_TITLE_GROUPS"></span>
+                <svg *ngIf="!showGroups" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                </svg>
+                <svg *ngIf="showGroups" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17 15L12 10L7 15" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                </svg>
+
+              </a>
+              <div class="info_items" [@openClose]="showGroups ? 'open' : 'closed'">
+                <!--a class="info_item" *ngFor="let group of groups$ | async">{{group.name}}</!--a-->
+                <ng-container *ngIf="(topicGroups$ | async) as topicGroups">
+                  <span *ngIf="topicGroups" translate="VIEWS.TOPICS_TOPICID.SECTION_INFO_NO_GROUPS"></span>
+                  <a class="info_item" [routerLink]="['/',translate.currentLang, 'groups', group.id]" fragment="topics"
+                    *ngFor="let group of topicGroups" [innerHtml]="group.name"></a>
+                </ng-container>
+              </div>
+            </div>
+            <div class="info_items_wrap">
+              <a class="info_title" (click)="showCategories = !showCategories">
+                <span translate="VIEWS.TOPICS_TOPICID.SECTION_INFO_TITLE_CATEGORIES"></span>
+                <svg *ngIf="!showCategories" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                </svg>
+                <svg *ngIf="showCategories" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17 15L12 10L7 15" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </a>
+              <div class="info_items" [@openClose]="showCategories ? 'open' : 'closed'">
+                <span *ngIf="!topic.categories.length"
+                  translate="VIEWS.TOPICS_TOPICID.SECTION_INFO_NO_CATEGORIES"></span>
+                <div class="info_item" *ngFor="let category of topic.categories">{{category}},</div>
+              </div>
+            </div>
+            <!--div class="info_items_wrap">
+            TODO!
+            <a class="info_title" (click)="showTags = !showTags">
+              <span translate="VIEWS.TOPICS_TOPICID.SECTION_INFO_TITLE_TAGS"></span>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </a>
+            <div class="info_items" [@openClose]="showTags ? 'open' : 'closed'">
+              <div class="info_item">asdasdasd,</div>
+              <div class="info_item">asdasdasd,</div>
+              <div class="info_item">asdasdasd,</div>
+              <div class="info_item">asdasdasd,</div>
+              <div class="info_item">asdasdasd,</div>
+              <div class="info_item">asdasdasd</div>
+            </div>
+          </!--div-->
+          </div>
+        </div>
+        <ng-container *ngIf="tabSelected !== 'preview' && (members$ | async) as members">
           <ng-container *ngIf="(invites$ | async) as invites">
             <div class="invite_collaborators tablet_hidden"
               [ngClass]="{'empty': (!members.length || members.length === 1) && !invites.length}">
