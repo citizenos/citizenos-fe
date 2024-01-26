@@ -31,7 +31,20 @@
 
   #page_header {
     padding: 16px 0 0 0;
-
+    .permissions_lable {
+      display: flex;
+      height: 40px;
+      padding: 8px 24px;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      background-color: var(--color-scrollbar);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 16px;
+      text-transform: capitalize;
+    }
     .dropdown {
       .options {
         position: absolute;

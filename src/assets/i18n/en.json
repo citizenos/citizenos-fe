@@ -1597,6 +1597,7 @@
     "GROUP": {
       "HEADING_BACK_TO_MY_GROUPS": "Back to my groups",
       "HEADING_BACK_TO_PUBLIC_GROUPS": "Back to public groups",
+      "LBL_JOINED": "Joined group",
       "BTN_JOIN": "Join group",
       "BTN_ACTIVITIES": "Group activity",
       "BTN_OPTION_FAVOURITE": "@:VIEWS.TOPICS_TOPICID.OPTION_FAVOURITE",
@@ -2076,6 +2077,7 @@
     },
     "TOPICS_TOPICID": {
       "BTN_ACTIVITIES": "Topic activity",
+      "LBL_JOINED": "Joined topic",
       "TAB_FOLLOW_UP": "Follow-Up",
       "TAB_INFO_TITLE_DRAW": "Looks like your voting process resulted in a draw.",
       "TAB_INFO_DRAW_DESCRIPTION": "Sometimes having several winning options is a good thing, but there are times when you really just need one clear winner.",
