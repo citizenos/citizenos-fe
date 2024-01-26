@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, PRIMARY_OUTLET } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { switchMap, combineLatest, Observable, of, BehaviorSubject } from 'rxjs';
+import { switchMap, combineLatest, Observable, of, BehaviorSubject, tap } from 'rxjs';
 import { Group } from 'src/app/interfaces/group';
 import { GroupService } from 'src/app/services/group.service';
 import { AppService } from '../services/app.service';
@@ -69,7 +69,7 @@ export class MyGroupsComponent implements OnInit {
     country: '',
     language: ''
   }
-
+  filtersSet = false;
   constructor(
     public app: AppService,
     public auth: AuthService,
@@ -90,7 +90,10 @@ export class MyGroupsComponent implements OnInit {
         })
         return GroupService.loadItems();
       }
-      ));
+      ),
+      tap((groups) => {
+        if(groups.length) this.filtersSet = true;
+      }));
     this.countries$ = this.countrySearch$.pipe(switchMap((string) => {
       const countries = this.countries.filter((country) => country.name.toLowerCase().indexOf(string.toLowerCase()) > -1);
 

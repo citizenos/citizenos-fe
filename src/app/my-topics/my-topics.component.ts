@@ -78,6 +78,7 @@ export class MyTopicsComponent {
   });
   languages$ = of(<Language[]>[]);
   languageFocus = false;
+  filtersSet = false;
 
   constructor(
     public Topic: TopicService,
@@ -104,6 +105,9 @@ export class MyTopicsComponent {
         return UserTopicService.loadItems();
       }), map(
         (newtopics: any) => {
+          if (newtopics.length) {
+            this.filtersSet = true;
+          }
           this.allTopics$ = this.allTopics$.concat(newtopics);
           return this.allTopics$;
         }
