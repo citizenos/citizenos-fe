@@ -367,38 +367,38 @@
         <group-add-topics id="group_add_topics" [group]="group" *ngIf="tabSelected==='add_topics'"></group-add-topics>
         <group-invite id="group_invite" *ngIf="tabSelected==='invite'" [group]="group"></group-invite>
 
-      </div>
-      <div id="create_footer">
-        <div class="items_row">
-          <div id="close_create">
-            <button class="btn_medium_submit_ghost icon" [routerLink]="['/', translate.currentLang, 'my', 'groups']">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M5.29311 17.2929C4.90258 17.6834 4.90258 18.3166 5.29311 18.7071C5.68363 19.0976 6.3168 19.0976 6.70732 18.7071L12.0002 13.4142L17.2931 18.7071C17.6836 19.0976 18.3168 19.0976 18.7073 18.7071C19.0978 18.3166 19.0978 17.6834 18.7073 17.2929L13.4144 12L18.7073 6.70711C19.0978 6.31658 19.0978 5.68342 18.7073 5.29289C18.3168 4.90237 17.6836 4.90237 17.2931 5.29289L12.0002 10.5858L6.70732 5.29289C6.3168 4.90237 5.68363 4.90237 5.29311 5.29289C4.90258 5.68342 4.90258 6.31658 5.29311 6.70711L10.586 12L5.29311 17.2929Z"
-                  fill="#2C3B47" />
-              </svg>
-            </button>
-          </div>
-          <div id="navigate_create">
-            <button class="btn_medium_submit_ghost icon" *ngIf="tabSelected !== 'info'"
-              (click)="previousTab(tabSelected)">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M10.4533 17.6874C10.8529 18.1042 11.5009 18.1042 11.9006 17.6874C12.3003 17.2705 12.3003 16.5947 11.9006 16.1779L8.91837 13L19 13C19.5652 13 20 12.5892 20 11.9997C20 11.4103 19.5652 11.0176 19 11.0176L8.91837 11.0176L11.9006 7.8221C12.3003 7.40527 12.3003 6.72945 11.9006 6.31262C11.5009 5.89579 10.8529 5.89579 10.4533 6.31262L5 12L10.4533 17.6874Z"
-                  fill="#2C3B47" />
-              </svg>
-            </button>
-            <button class="btn_medium_submit icon"
-              (click)="(tabSelected!=='invite')? nextTab(tabSelected) : createGroup()">
-              <span class="btn_text mobile_hidden"
-                [translate]="(tabSelected!=='invite')? 'VIEWS.GROUP_CREATE.FOOTER_BTN_CONTINUE': (group.members.users.length)?'VIEWS.GROUP_CREATE.FOOTER_BTN_CREATE_AND_INVITE': 'VIEWS.GROUP_CREATE.FOOTER_BTN_CREATE' "></span>
-              <svg class="mobile_show" id="continue_btn" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M14.5467 6.31262C14.1471 5.89579 13.4991 5.89579 13.0994 6.31262C12.6997 6.72945 12.6997 7.40527 13.0994 7.8221L16.0816 11L6 11C5.43478 11 5 11.4108 5 12.0003C5 12.5897 5.43478 12.9824 6 12.9824L16.0816 12.9824L13.0994 16.1779C12.6997 16.5947 12.6997 17.2705 13.0994 17.6874C13.4991 18.1042 14.1471 18.1042 14.5467 17.6874L20 12L14.5467 6.31262Z"
-                  fill="white" />
-              </svg>
-            </button>
+        <div id="create_footer">
+          <div class="items_row">
+            <div id="close_create">
+              <button class="btn_medium_submit_ghost icon" [routerLink]="['/', translate.currentLang, 'my', 'groups']">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M5.29311 17.2929C4.90258 17.6834 4.90258 18.3166 5.29311 18.7071C5.68363 19.0976 6.3168 19.0976 6.70732 18.7071L12.0002 13.4142L17.2931 18.7071C17.6836 19.0976 18.3168 19.0976 18.7073 18.7071C19.0978 18.3166 19.0978 17.6834 18.7073 17.2929L13.4144 12L18.7073 6.70711C19.0978 6.31658 19.0978 5.68342 18.7073 5.29289C18.3168 4.90237 17.6836 4.90237 17.2931 5.29289L12.0002 10.5858L6.70732 5.29289C6.3168 4.90237 5.68363 4.90237 5.29311 5.29289C4.90258 5.68342 4.90258 6.31658 5.29311 6.70711L10.586 12L5.29311 17.2929Z"
+                    fill="#2C3B47" />
+                </svg>
+              </button>
+            </div>
+            <div id="navigate_create">
+              <button class="btn_medium_submit_ghost icon" *ngIf="tabSelected !== 'info'"
+                (click)="previousTab(tabSelected)">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M10.4533 17.6874C10.8529 18.1042 11.5009 18.1042 11.9006 17.6874C12.3003 17.2705 12.3003 16.5947 11.9006 16.1779L8.91837 13L19 13C19.5652 13 20 12.5892 20 11.9997C20 11.4103 19.5652 11.0176 19 11.0176L8.91837 11.0176L11.9006 7.8221C12.3003 7.40527 12.3003 6.72945 11.9006 6.31262C11.5009 5.89579 10.8529 5.89579 10.4533 6.31262L5 12L10.4533 17.6874Z"
+                    fill="#2C3B47" />
+                </svg>
+              </button>
+              <button class="btn_medium_submit icon"
+                (click)="(tabSelected!=='invite')? nextTab(tabSelected) : createGroup()">
+                <span class="btn_text mobile_hidden"
+                  [translate]="(tabSelected!=='invite')? 'VIEWS.GROUP_CREATE.FOOTER_BTN_CONTINUE': (group.members.users.length)?'VIEWS.GROUP_CREATE.FOOTER_BTN_CREATE_AND_INVITE': 'VIEWS.GROUP_CREATE.FOOTER_BTN_CREATE' "></span>
+                <svg class="mobile_show" id="continue_btn" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M14.5467 6.31262C14.1471 5.89579 13.4991 5.89579 13.0994 6.31262C12.6997 6.72945 12.6997 7.40527 13.0994 7.8221L16.0816 11L6 11C5.43478 11 5 11.4108 5 12.0003C5 12.5897 5.43478 12.9824 6 12.9824L16.0816 12.9824L13.0994 16.1779C12.6997 16.5947 12.6997 17.2705 13.0994 17.6874C13.4991 18.1042 14.1471 18.1042 14.5467 17.6874L20 12L14.5467 6.31262Z"
+                    fill="white" />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
       </div>
