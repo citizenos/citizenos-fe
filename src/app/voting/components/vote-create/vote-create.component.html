@@ -265,7 +265,10 @@
               <ng-container *ngIf="block.headerImage">
                 <div class="block_content image_content">
                   <div class="block_section" *ngIf="!(topic.imageUrl || tmpImageUrl)">
-                    <div class="bold" translate="VIEWS.VOTE_CREATE.HEADER_IMAGE_UPLOAD_DESC"></div>
+                    <div>
+                      <div class="bold" translate="VIEWS.VOTE_CREATE.HEADER_IMAGE_UPLOAD_DESC"></div>
+                      <div translate="VIEWS.VOTE_CREATE.HEADER_IMAGE_UPLOAD_DESC_TEXT"></div>
+                    </div>
                     <input id="image_upload_input" type="file" #imageUpload (change)="fileUpload()"
                       [disabled]="!TopicService.canEditDescription(topic)"
                       [ngClass]="{'disabled': !TopicService.canEditDescription(topic)}" />
@@ -328,7 +331,10 @@
             <div class="create_content_block discussion" [ngClass]="{'active': block.intro}"
               [@openClose]="block.intro ? 'open' : 'closed'">
               <div class="block_title_wrap" (click)="showBlockIntro()">
-                <div class="block_title" translate="VIEWS.VOTE_CREATE.TITLE_INTRO"></div>
+                <div>
+                  <div class="block_title" translate="VIEWS.VOTE_CREATE.TITLE_INTRO"></div>
+                  <div *ngIf="!block.intro" translate="VIEWS.VOTE_CREATE.TITLE_INTRO_TEXT"></div>
+                </div>
                 <div class="counter_wrap">
                   <div class="char_counter">{{topic.intro?.length || 0}}/{{introLimit}}</div>
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -360,7 +366,10 @@
             <div class="create_content_block discussion" [ngClass]="{'active': block.description}"
               [@openClose]="block.description ? 'open' : 'closed'">
               <div class="block_title_wrap" (click)="block.description = true;">
-                <div class="block_title" translate="VIEWS.VOTE_CREATE.TITLE_DESCRIPTION"></div>
+                <div>
+                  <div class="block_title" translate="VIEWS.VOTE_CREATE.TITLE_DESCRIPTION"></div>
+                  <div *ngIf="!block.description" translate="VIEWS.VOTE_CREATE.TITLE_DESCRIPTION_TEXT"></div>
+                </div>
                 <div class="counter_wrap">
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -1021,8 +1030,7 @@
                 <div class="info_items" [@openClose]="showAttachments ? 'open' : 'closed'">
                   <span *ngIf="!attachments.length" translate="VIEWS.TOPICS_TOPICID.SECTION_INFO_NO_ATTACHMENTS"></span>
                   <a class="info_item" [href]="attachment.link" *ngFor="let attachment of attachments"
-                    (click)="$event.preventDefault();"
-                    [innerHtml]="attachment.name">
+                    (click)="$event.preventDefault();" [innerHtml]="attachment.name">
                   </a>
                 </div>
               </ng-container>
