@@ -256,6 +256,7 @@ export class TopicInviteDialogComponent {
   activeTab = 'invite';
   members = [];
   public inviteMessage = '';
+  noUsersSelected = false;
   constructor(private DialogService: DialogService, @Inject(DIALOG_DATA) public data: any, @Inject(DialogRef) private dialog: DialogRef<TopicInviteDialogComponent>, private TopicInviteUser: TopicInviteUserService, public Notification: NotificationService) {
     if (!this.canInvite()) {
       this.activeTab = 'share';
@@ -295,7 +296,8 @@ export class TopicInviteDialogComponent {
       }
     } else {
       this.Notification.removeAll();
-      this.dialog.close();
+      this.noUsersSelected = true;
+      setTimeout(() => this.noUsersSelected = false, 5000)
     }
 
   }

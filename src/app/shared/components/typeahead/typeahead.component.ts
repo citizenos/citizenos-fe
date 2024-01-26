@@ -51,6 +51,7 @@ export class TypeaheadComponent implements OnInit {
   active: any;
   itemList: any[] = [];
   focused: boolean = false;
+  enterLink = false;
   constructor(private _el: ElementRef) {
   }
 
@@ -158,6 +159,10 @@ export class TypeaheadComponent implements OnInit {
   };
 
   query() {
+    this.enterLink = false;
+    if(this.term && (this.term.split(' ').length > 1 || this.term.split(',').length > 1)) {
+      this.enterLink = true;
+    }
     this.hide = false;
     this.itemList = [];
     this.search.emit(this.term);

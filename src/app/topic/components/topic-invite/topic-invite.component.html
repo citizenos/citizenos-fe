@@ -9,6 +9,7 @@
         translate="COMPONENTS.TOPIC_INVITE.CHARACTER_LIMIT"></span> {{inviteMessage?.length || 0
       }}/{{inviteMessageMaxLength}}</div>
     <div class="section_content_description bold" translate="COMPONENTS.TOPIC_INVITE.EMAIL_DESC"></div>
+    <div class="section_content_description" translate="COMPONENTS.TOPIC_INVITE.EMAIL_DESC_LONG"></div>
     <div id="search_wrap">
       <typeahead id="input_area" [term]="searchStringUser" (search)="search($event)"
         (select)="addTopicMember($event)" (enterAction)="addTopicMember($event)"
