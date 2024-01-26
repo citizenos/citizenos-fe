@@ -476,7 +476,7 @@
   </div>
   <div class="groups_content">
     <ng-container *ngIf="groups$ | async as groups;">
-      <ng-container *ngIf="!groups.length">
+      <ng-container *ngIf="!groups.length && !filtersSet">
         <div class="no_engagements">
           <div class="illustration">
             <svg width="96" height="90" viewBox="0 0 96 90" fill="none" xmlns="http://www.w3.org/2000/svg">

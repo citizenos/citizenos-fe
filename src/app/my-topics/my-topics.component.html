@@ -218,6 +218,24 @@
         </cos-input>
       </div>
       <div class="options_row" *ngIf="moreFilters" [@openClose]="moreFilters ? 'open' : 'closed'">
+        <cos-input [placeholder]="'VIEWS.MY_TOPICS.FILTER_CATEGORIES' | translate" class="dropdown_input">
+          <div class="dropdown" [cosDropdown]>
+            <div class="selection">
+              <div class="selected_item">{{'TXT_TOPIC_CATEGORY_'+topicFilters.category | uppercase |
+                translate | titlecase}}</div>
+              <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </div>
+            </div>
+            <div class="options">
+              <div class="option" (click)="setCategory('all');" translate="TXT_TOPIC_CATEGORY_ALL"></div>
+              <div class="option" *ngFor="let category of categories$" (click)="setCategory(category);">
+                {{'TXT_TOPIC_CATEGORY_' + category | uppercase | translate}}
+              </div>
+            </div>
+          </div>
+        </cos-input>
         <cos-input [placeholder]="'VIEWS.MY_TOPICS.FILTER_COUNTRY' | translate" class="dropdown_input">
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
@@ -336,6 +354,11 @@
           </a>
         </div>
         <div class="filter_option">
+          <span translate="VIEWS.MY_TOPICS.FILTER_CATEGORIES"></span><a class="bold"
+            (click)="mobileFilters.category = true">{{(this.topicFilters.category && this.topicFilters.category !== 'all')?
+            this.topicFilters.category : 'VIEWS.MY_TOPICS.FILTER_ALL' | translate}}</a>
+        </div>
+        <div class="filter_option">
           <span translate="VIEWS.MY_TOPICS.FILTER_COUNTRY"></span><a class="bold"
             (click)="mobileFilters.country = true">{{(this.topicFilters.country && this.topicFilters.country !== 'all')?
             this.topicFilters.country : 'VIEWS.MY_TOPICS.FILTER_ALL' | translate}}</a>
@@ -446,6 +469,23 @@
           (click)="setFilter(mobileFilters.engagements);mobileFilters.engagements = false;"
           translate="VIEWS.MY_TOPICS.BTN_APPLY"></button>
       </div>
+      <div class="options button_options" *ngIf="mobileFilters.category">
+        <label class="checkbox">
+          <span translate="TXT_TOPIC_CATEGORY_ALL"></span>
+          <input type="radio" name="category">
+          <span class="checkmark"></span>
+        </label>
+
+        <label class="checkbox" *ngFor="let category of categories$" (click)=" mobileFilters.category = category">
+          <span [translate]="'TXT_TOPIC_CATEGORY_'+category | uppercase"></span>
+          <input type="radio" name="category">
+          <span class="checkmark"></span>
+        </label>
+
+        <button class="btn_medium_secondary"
+          (click)="setCategory(mobileFilters.category);mobileFilters.category= false;"
+          translate="COMPONENTS.PUBLIC_TOPICS.BTN_APPLY"></button>
+      </div>
       <div class="options button_options" *ngIf="mobileFilters.country">
         <typeahead class="dropdown dropdown_input" activeClass="dropdown_active" [term]="countrySearch"
           (search)="searchCountry($event)" [placeholder]="'VIEWS.MY_TOPICS.FILTER_COUNTRY' | translate">
@@ -489,7 +529,7 @@
   </div>
   <div class="topics_content">
     <ng-container *ngIf="topics$ | async as topics;">
-      <ng-container *ngIf="!topics.length">
+      <ng-container *ngIf="!topics.length && !filtersSet">
         <div class="no_engagements">
           <div class="illustration">
             <svg width="96" height="90" viewBox="0 0 96 90" fill="none" xmlns="http://www.w3.org/2000/svg">
