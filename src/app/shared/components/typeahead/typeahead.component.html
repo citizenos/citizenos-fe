@@ -9,8 +9,8 @@
     </svg>
   </div>
   <input #input name="term" [(ngModel)]="term" (ngModelChange)="query()" type="text" autocomplete="off"
-  (focus)="focus()" (blur)="blur()"
-    [placeholder]="placeholder" autofocus />
+    (focus)="focus()" (blur)="blur()" [placeholder]="placeholder" autofocus />
+  <a *ngIf="enterLink" (click)="doEnterAction()" translate="COMPONENTS.TYPEAHEAD.PRESS_ENTER_TO_ADD"></a>
 </div>
 
 <ng-content></ng-content>

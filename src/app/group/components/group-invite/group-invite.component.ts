@@ -272,7 +272,7 @@ export class GroupInviteComponent implements OnInit {
 })
 export class GroupInviteDialogComponent {
   activeTab = 'invite';
-
+  noUsersSelected = false;
   constructor(@Inject(DIALOG_DATA) public data: any, private dialog: DialogRef<GroupInviteDialogComponent>, private GroupInviteUser: GroupInviteUserService,) {
   }
 
@@ -294,7 +294,8 @@ export class GroupInviteDialogComponent {
           this.dialog.close()
         })
     } else {
-      this.dialog.close();
+      this.noUsersSelected = true;
+      setTimeout(() => this.noUsersSelected = false, 5000)
     }
 
   }

@@ -260,6 +260,7 @@
       "MESSAGE_PLACEHOLDER": "Write your message here",
       "CHARACTER_LIMIT": "Character limit:",
       "EMAIL_DESC": "Invite people via their name or email address",
+      "EMAIL_DESC_LONG":"Add up to 50 emails at once, with a space or comma between each",
       "PLACEHOLDER_SEARCH": "@:DEFAULT.NAV_MOBILE.BTN_SEARCH",
       "SHOW_PER_PAGE": "@:VIEWS.ACCOUNT.SHOW_PER_PAGE",
       "NO_INVITES_HEADING": "You haven’t invited anyone yet",
@@ -278,7 +279,8 @@
       "TAB_INVITE": "Invite members",
       "TAB_SHARE": "Generate link / QR",
       "LNK_CANCEL": "Invite later",
-      "BTN_SAVE": "Send invites"
+      "BTN_SAVE": "Send invites",
+      "NO_USERS_SELECTED": "You haven't selected any users to invite to the group. Please search for the users with the search field above or add email addresses."
     },
     "GROUP_JOIN": {
       "HEADING": "Join group",
@@ -594,6 +596,7 @@
       "MESSAGE_PLACEHOLDER": "@:COMPONENTS.GROUP_INVITE.MESSAGE_PLACEHOLDER",
       "CHARACTER_LIMIT": "@:COMPONENTS.GROUP_INVITE.CHARACTER_LIMIT",
       "EMAIL_DESC": "@:COMPONENTS.GROUP_INVITE.EMAIL_DESC",
+      "EMAIL_DESC_LONG":"@:COMPONENTS.GROUP_INVITE.EMAIL_DESC_LONG",
       "PLACEHOLDER_SEARCH": "@:DEFAULT.NAV_MOBILE.BTN_SEARCH",
       "SHOW_PER_PAGE": "@:VIEWS.ACCOUNT.SHOW_PER_PAGE",
       "NO_INVITES_HEADING": "@:COMPONENTS.GROUP_INVITE.NO_INVITES_HEADING",
@@ -614,7 +617,8 @@
       "TAB_SHARE": "@:COMPONENTS.GROUP_INVITE_DIALOG.TAB_SHARE",
       "LNK_CANCEL": "@:COMPONENTS.GROUP_INVITE_DIALOG.LNK_CANCEL",
       "BTN_SAVE": "@:COMPONENTS.GROUP_INVITE_DIALOG.BTN_SAVE",
-      "MSG_INVITES_SENT": "@:COMPONENTS.TOPIC_INVITE_EDITORS.MSG_INVITES_SENT"
+      "MSG_INVITES_SENT": "@:COMPONENTS.TOPIC_INVITE_EDITORS.MSG_INVITES_SENT",
+      "NO_USERS_SELECTED": "You haven't selected any users to invite to the topic. Please search for the users with the search field above or add email addresses."
     },
     "TOPIC_MEMBER_GROUP": {
       "OPT_REMOVE_GROUP": "Remove group"
