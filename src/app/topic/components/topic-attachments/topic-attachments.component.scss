@@ -7,12 +7,20 @@
   padding: 0;
 }
 
+.btn_medium_plain {
+  background-color: var(--color-info-background);
+}
 .dropdown {
   .button_options {
     button {
       justify-content: flex-start;
     }
   }
+}
+
+#title_wrap {
+  justify-content: flex-start!important;
+  gap: 16px;
 }
 
 .attachments_wrap {
@@ -45,5 +53,11 @@
   .options {
     position: absolute;
     bottom: 48px;
+    align-items: center;
+    .option {
+      div {
+        height: 16px;
+      }
+    }
   }
 }

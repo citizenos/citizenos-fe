@@ -116,6 +116,7 @@ export class GroupComponent implements OnInit {
   searchUsersInput = '';
   searchUserString$ = new BehaviorSubject('');
 
+  showCreate = false;
   constructor(public dialog: DialogService,
     private GroupService: GroupService,
     private GroupJoinService: GroupJoinService,
@@ -201,6 +202,10 @@ export class GroupComponent implements OnInit {
 
       return [languages];
     }));
+  }
+
+  showCreateMenu() {
+    this.showCreate = true;
   }
 
   closeMobileFilter() {
