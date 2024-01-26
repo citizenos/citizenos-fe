@@ -30,7 +30,8 @@
         class="btn_medium_close" translate="VIEWS.TOPICS_TOPICID.BTN_JOIN"></button>
 
       <div *ngIf="(!topic.permission.level || topic.permission.level !== 'none')"
-        class="permissions_lable tablet_hidden" [translate]="'TXT_TOPIC_LEVELS_' + topic.permission.level | uppercase">
+        class="permissions_lable tablet_hidden"
+        [translate]="(topic.permission.level !== 'read')? ('TXT_TOPIC_LEVELS_' + topic.permission.level | uppercase) : 'VIEWS.TOPICS_TOPICID.LBL_JOINED'">
       </div>
       <div id="activities_button_wrap">
         <activities-button *ngIf="auth.loggedIn$ | async" [topicId]="topic.id"></activities-button>
@@ -228,8 +229,9 @@
         <div class="topic_image">
           <img *ngIf="topic.imageUrl" [src]="topic.imageUrl">
           <div *ngIf="(!topic.permission.level || topic.permission.level !== 'none')"
-            class="permissions_lable tablet_show"
-            [translate]="'TXT_TOPIC_LEVELS_' + topic.permission.level | uppercase"></div>
+            class="permissions_lable tablet_hidden"
+            [translate]="(topic.permission.level !== 'read')? ('TXT_TOPIC_LEVELS_' + topic.permission.level | uppercase) : 'VIEWS.TOPICS_TOPICID.LBL_JOINED'">
+          </div>
         </div>
         <div id="topic_text_wrap" #topicText
           [TourItem]="{tourid: 'topic', index: 6, position: ((wWidth <= 1024)? 'bottom': 'top')}"

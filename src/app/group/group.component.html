@@ -26,8 +26,9 @@
     <div id="buttons_area">
       <button id="join_button" *ngIf="!group.userLevel && (auth.loggedIn$ | async)" class="btn_medium_close"
         translate="VIEWS.GROUP.BTN_JOIN" (click)="joinGroup(group)"></button>
-      <button id="leave_button" *ngIf="group.userLevel && (auth.loggedIn$ | async)" class="btn_medium_close"
-        translate="VIEWS.GROUP.BTN_LEAVE" (click)="leaveGroup()"></button>
+        <div *ngIf="(group.userLevel)"
+        class="permissions_lable tablet_hidden"
+        [translate]="(group.userLevel !== 'read')? ('TXT_GROUP_LEVELS_' + group.userLevel | uppercase) : 'VIEWS.GROUP.LBL_JOINED'"></div>
 
       <activities-button *ngIf="(auth.loggedIn$ | async)"></activities-button>
       <button class="btn_medium_close icon" (click)="toggleFavourite(group)" *ngIf="(auth.loggedIn$ | async)">
