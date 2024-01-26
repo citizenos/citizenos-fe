@@ -148,7 +148,44 @@
     }
   }
 }
+.filter_control_buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 
+  button {
+    width: 40px;
+    height: 40px;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    perspective: 40px;
+
+    &.flip {
+      transform: rotateX(180deg);
+    }
+
+    .btn_icon {
+      display: flex;
+      width: 24px;
+      height: 24px;
+
+      path {
+        fill: none;
+      }
+    }
+
+    &:hover {
+      .btn_icon {
+        transform: rotate(-360deg);
+        transition: transform 150ms ease;
+        transition-delay: 200ms;
+        path {
+          stroke: var(--color-surfaces);
+        }
+      }
+    }
+  }
+}
 #group_info_area {
   display: flex;
   padding: 16px;

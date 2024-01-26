@@ -1037,7 +1037,7 @@
             </a>
             <div class="info_items" [@openClose]="showCategories ? 'open' : 'closed'">
               <span *ngIf="!topic.categories.length" translate="VIEWS.TOPICS_TOPICID.SECTION_INFO_NO_CATEGORIES"></span>
-              <div class="info_item" *ngFor="let category of topic.categories">{{category}},</div>
+              <div class="info_item" *ngFor="let category of topic.categories">{{'TXT_TOPIC_CATEGORY_'+category | uppercase | translate}}</div>
             </div>
           </div>
           <!--div class="info_items_wrap">
