@@ -92,7 +92,7 @@
         </div>
         <div class="small_heading" translate="COMPONENTS.TOPIC_VOTE_CREATE.SELECT_VOTING_SYSTEM"></div>
       </div>
-      <div translate="COMPONENTS.TOPIC_VOTE_CREATE.SELECT_VOTING_SYSTEM"></div>
+      <div translate="COMPONENTS.TOPIC_VOTE_CREATE.SELECT_VOTING_SYSTEM_DESC"></div>
       <div class="radio_wrap" (click)="setVoteType(VOTE_TYPES.regular)"
         [ngClass]="{selected: vote.type === VOTE_TYPES.regular, disabled: !TopicService.canEditDescription(topic)}">
         <div class="radio_text_wrap">
@@ -216,8 +216,8 @@
                   </svg>
                 </button>
               </div>
-              <button class="btn_medium_plain animate" (click)="addOption()"><svg width="16" height="16" viewBox="0 0 16 16"
-                  fill="none" xmlns="http://www.w3.org/2000/svg">
+              <button class="btn_medium_plain animate" (click)="addOption()"><svg width="16" height="16"
+                  viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M8 16C7.47105 16 7.04225 15.5712 7.04225 15.0423L7.04225 8.95775L0.957747 8.95775C0.428798 8.95775 0 8.52895 0 8C0 7.47105 0.428798 7.04225 0.957747 7.04225L7.04225 7.04225L7.04225 0.957747C7.04225 0.428798 7.47105 0 8 0C8.52895 0 8.95775 0.428798 8.95775 0.957747L8.95775 7.04225L15.0423 7.04225C15.5712 7.04225 16 7.47105 16 8C16 8.52895 15.5712 8.95775 15.0423 8.95775H8.95775V15.0423C8.95775 15.5712 8.52895 16 8 16Z"
                     fill="#2C3B47" />
@@ -316,27 +316,75 @@
   </div>
   <div class="create_content_section">
     <div class="number_wrap mobile_hidden">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="16" height="16" rx="8" fill="white" />
+        <path
+          d="M12.6558 9.32812C11.2233 8.52002 9.79067 7.71195 8.35815 6.90385C8.47123 7.10587 8.5843 7.30788 8.71632 7.4916V7.47328C8.71632 7.2345 8.58432 6.99582 8.35815 6.88553C6.92564 6.07743 5.49303 5.26936 4.06051 4.46126C3.26884 4.02046 2.55253 5.21426 3.3442 5.65493C4.77672 6.46303 6.20933 7.2711 7.64185 8.0792C7.52877 7.87718 7.41569 7.67517 7.28368 7.49145V7.50977C7.28368 7.74856 7.41569 7.98723 7.64185 8.09752C9.07436 8.90563 10.507 9.71369 11.9395 10.5218C12.7312 10.9626 13.4475 9.76892 12.6558 9.32812Z"
+          fill="#EF4025" />
+        <path
+          d="M8.71632 7.4916L8.71634 2.66112C8.71634 1.77963 7.30264 1.77963 7.30264 2.66112V7.49117C7.30264 8.3728 8.71632 8.37323 8.71632 7.4916Z"
+          fill="#EF4025" />
+        <path
+          d="M8.71627 12.3388V7.50873C8.71627 6.62723 7.30257 6.62723 7.30257 7.50873V12.3388C7.30257 13.2204 8.71627 13.2204 8.71627 12.3388Z"
+          fill="#EF4025" />
+        <path
+          d="M4.06051 10.5208C6.92563 8.90464 9.7907 7.28856 12.6558 5.69076C13.4475 5.24996 12.7311 4.05625 11.9395 4.49708C9.07435 6.11326 6.20929 7.72933 3.3442 9.32714C2.55253 9.76783 3.26886 10.9615 4.06051 10.5208Z"
+          fill="#EF4025" />
+      </svg>
       <div>{{(vote.type === 'multiple')? 4: 3}}</div>
     </div>
     <div class="section_content_wrap">
       <div class="header_wrap">
         <div class="number_wrap mobile_show">
-          <div>3</div>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="16" height="16" rx="8" fill="white" />
+            <path
+              d="M12.6558 9.32812C11.2233 8.52002 9.79067 7.71195 8.35815 6.90385C8.47123 7.10587 8.5843 7.30788 8.71632 7.4916V7.47328C8.71632 7.2345 8.58432 6.99582 8.35815 6.88553C6.92564 6.07743 5.49303 5.26936 4.06051 4.46126C3.26884 4.02046 2.55253 5.21426 3.3442 5.65493C4.77672 6.46303 6.20933 7.2711 7.64185 8.0792C7.52877 7.87718 7.41569 7.67517 7.28368 7.49145V7.50977C7.28368 7.74856 7.41569 7.98723 7.64185 8.09752C9.07436 8.90563 10.507 9.71369 11.9395 10.5218C12.7312 10.9626 13.4475 9.76892 12.6558 9.32812Z"
+              fill="#EF4025" />
+            <path
+              d="M8.71632 7.4916L8.71634 2.66112C8.71634 1.77963 7.30264 1.77963 7.30264 2.66112V7.49117C7.30264 8.3728 8.71632 8.37323 8.71632 7.4916Z"
+              fill="#EF4025" />
+            <path
+              d="M8.71627 12.3388V7.50873C8.71627 6.62723 7.30257 6.62723 7.30257 7.50873V12.3388C7.30257 13.2204 8.71627 13.2204 8.71627 12.3388Z"
+              fill="#EF4025" />
+            <path
+              d="M4.06051 10.5208C6.92563 8.90464 9.7907 7.28856 12.6558 5.69076C13.4475 5.24996 12.7311 4.05625 11.9395 4.49708C9.07435 6.11326 6.20929 7.72933 3.3442 9.32714C2.55253 9.76783 3.26886 10.9615 4.06051 10.5208Z"
+              fill="#EF4025" />
+          </svg>
+          <div>{{(vote.type === 'multiple')? 4: 3}}</div>
         </div>
         <div class="small_heading" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_SET_UP_VOTING_RIGHTS"></div>
       </div>
-      <div translate="COMPONENTS.TOPIC_VOTE_CREATE.SELECT_VOTING_SYSTEM"></div>
+      <div translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_SET_UP_VOTING_RIGHTS_DESC"></div>
       <div class="radio_wrap"
-        [ngClass]="{selected: vote.authType === VOTE_AUTH_TYPES.hard, disabled: !TopicService.canEditDescription(topic)}"
-        (click)="(vote.authType !== VOTE_AUTH_TYPES.hard)? vote.authType=VOTE_AUTH_TYPES.hard : vote.authType=VOTE_AUTH_TYPES.soft">
+        [ngClass]="{selected: vote.authType === VOTE_AUTH_TYPES.soft, disabled: !TopicService.canEditDescription(topic)}"
+        (click)="vote.authType=VOTE_AUTH_TYPES.soft">
         <div class="radio_text_wrap">
           <div class="radio_lable_wrap">
-            <label class="checkbox" (click)="vote.authType = VOTE_AUTH_TYPES.hard"
+            <label class="radio_box"
+              [ngClass]="{selected: vote.authType === VOTE_AUTH_TYPES.soft}">
+              <span class="bold" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_AUTH_SOFT_ID"></span>
+              <input type="radio" name="authType" [(ngModel)]="vote.authType" [value]="VOTE_AUTH_TYPES.soft"
+                [disabled]="!TopicService.canEditDescription(topic)" />
+              <span class="radio"></span>
+            </label>
+          </div>
+          <div class="radio_description">
+            <span translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_AUTH_SOFT_ID_DESC"></span>
+          </div>
+        </div>
+      </div>
+      <div class="radio_wrap"
+        [ngClass]="{selected: vote.authType === VOTE_AUTH_TYPES.hard, disabled: !TopicService.canEditDescription(topic)}"
+        (click)="vote.authType=VOTE_AUTH_TYPES.hard">
+        <div class="radio_text_wrap">
+          <div class="radio_lable_wrap">
+            <label class="radio_box" (click)="vote.authType = VOTE_AUTH_TYPES.hard"
               [ngClass]="{selected: vote.authType === VOTE_AUTH_TYPES.hard}">
               <span class="bold" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_AUTH_HARD_ID"></span>
-              <input type="checkbox" [checked]="vote.authType === VOTE_AUTH_TYPES.hard"
+              <input type="radio" name="authType" [(ngModel)]="vote.authType" [value]="VOTE_AUTH_TYPES.hard"
                 [disabled]="!TopicService.canEditDescription(topic)" />
-              <span class="checkmark"></span>
+              <span class="radio"></span>
             </label>
           </div>
           <div class="radio_description">
@@ -402,21 +450,7 @@
           </div>
         </div>
       </div>
-      <div class="radio_wrap"
-        [ngClass]="{seleced: vote.delegationIsAllowed, disabled: !TopicService.canEditDescription(topic)}"
-        (click)="(TopicService.canEditDescription(topic))? vote.delegationIsAllowed =!vote.delegationIsAllowed: ''">
-        <div class="radio_text_wrap">
-          <div class="radio_lable_wrap">
-            <label class="checkbox" [ngClass]="{selected: vote.delegationIsAllowed}">
-              <span class="bold" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_DELEGATION"></span>
-              <input type="checkbox" [(ngModel)]="vote.delegationIsAllowed"
-                [disabled]="!TopicService.canEditDescription(topic)" />
-              <span class="checkmark"></span>
-            </label>
-          </div>
-          <div class="radio_description" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_DELEGATION_DESC"></div>
-        </div>
-      </div>
+
     </div>
   </div>
   <div class="create_content_section">
@@ -428,22 +462,51 @@
         <div class="number_wrap mobile_show">
           <div>4</div>
         </div>
-        <div class="small_heading" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_CHOOSE_VOTING_END"></div>
+        <div class="small_heading" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_VOTE_DELEGATION"></div>
       </div>
-      <div translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_CHOOSE_VOTING_END_DESC"></div>
-      <div class="radio_wrap date_selector" [ngClass]="{selected: deadline}" (click)="(!deadline)? toggleDeadline(): ''; $event.stopPropagation();">
+      <div translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_VOTE_DELEGATION_DESC"></div>
+
+
+      <div class="radio_wrap"
+        [ngClass]="{seleced: vote.delegationIsAllowed, disabled: (!TopicService.canEditDescription(topic) || vote.authType === VOTE_AUTH_TYPES.hard)}"
+        (click)="(TopicService.canEditDescription(topic))? vote.delegationIsAllowed =!vote.delegationIsAllowed: ''">
+        <div class="radio_text_wrap">
+          <div class="radio_lable_wrap">
+            <label class="checkbox" [ngClass]="{selected: vote.delegationIsAllowed}">
+              <span class="bold" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_DELEGATION"></span>
+              <input type="checkbox" [(ngModel)]="vote.delegationIsAllowed"
+                [disabled]="!TopicService.canEditDescription(topic)" />
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="create_content_section">
+    <div class="number_wrap mobile_hidden">
+      <div>{{(vote.type === 'multiple')? 6: 5}}</div>
+    </div>
+    <div class="section_content_wrap">
+      <div class="header_wrap">
+        <div class="number_wrap mobile_show">
+          <div>4</div>
+        </div>
+        <div class="small_heading" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_DEADLINE"></div>
+      </div>
+      <div translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_DEADLINE_DESC"></div>
+      <div class="radio_wrap date_selector" [ngClass]="{selected: deadline}"
+        (click)="toggleDeadline(); $event.stopPropagation();">
         <div class="radio_text_wrap date_selector">
           <div class="radio_lable_wrap">
-            <label class="checkbox" (click)="(deadline)? toggleDeadline(): ''; $event.stopPropagation();">
-              <span class="deadline" *ngIf="deadline">{{deadline | amTimeAgo}}</span>
+            <label class="checkbox">
+              <span class="deadline bold" *ngIf="deadline">{{deadline | date: 'YYYY-MM-dd hh:mm'}}</span>
               <span class="bold" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_DEADLINE"></span>
-              <input type="checkbox" [checked]="deadline"/>
+              <input type="checkbox" [checked]="deadline" />
               <span class="checkmark"></span>
             </label>
           </div>
           <div class="radio_description">
-            <span translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_DEADLINE_DESC"></span>
-
             <ng-container *ngIf="deadline">
               <div class="deadline_wrap">
                 <div class="date_row">
@@ -541,7 +604,7 @@
         </div>
       </div>
 
-      <div class="radio_wrap" (click)="CONF.autoClose[0].enabled = !CONF.autoClose[0].enabled"
+      <!--div class="radio_wrap" (click)="CONF.autoClose[0].enabled = !CONF.autoClose[0].enabled"
         [ngClass]="CONF.autoClose[0].enabled ? 'selected': ''">
         <div class="radio_text_wrap">
           <div class="radio_lable_wrap">
@@ -555,7 +618,7 @@
 
           </div>
         </div>
-      </div>
+      </!--div-->
     </div>
   </div>
 </div>

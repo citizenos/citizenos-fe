@@ -105,6 +105,11 @@
   }
 
   .vote_result_info {
+
+    @include mixins.mobile {
+      align-items: flex-start;
+    }
+
     .vote_info_wrap {
       display: flex;
       align-items: center;

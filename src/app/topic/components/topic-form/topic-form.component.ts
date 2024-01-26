@@ -22,6 +22,9 @@ import { languages } from 'src/app/services/language.service';
 import { InterruptDialogComponent } from 'src/app/shared/components/interrupt-dialog/interrupt-dialog.component';
 import { UploadService } from 'src/app/services/upload.service';
 import { TopicSettingsDisabledDialogComponent } from '../topic-settings-disabled-dialog/topic-settings-disabled-dialog.component';
+import { Attachment } from 'src/app/interfaces/attachment';
+import { TopicAttachmentService } from 'src/app/services/topic-attachment.service';
+
 @Component({
   selector: 'topic-form',
   templateUrl: './topic-form.component.html',
@@ -119,7 +122,14 @@ export class TopicFormComponent {
     return a.name.localeCompare(b.name);
   });
   downloadUrl = '';
-  error:any;
+  error: any;
+
+  showCategories = false;
+  showAttachments = false;
+  showGroups = false;
+  topicAttachments$ = of(<Attachment[] | any[]>[]);
+  topicGroups$ = of(<Group[] | any[]>[])
+
   constructor(
     private dialog: DialogService,
     private route: ActivatedRoute,
@@ -131,6 +141,7 @@ export class TopicFormComponent {
     public TopicMemberGroupService: TopicMemberGroupService,
     public TopicMemberUserService: TopicMemberUserService,
     public TopicInviteUserService: TopicInviteUserService,
+    private TopicAttachmentService: TopicAttachmentService,
     public translate: TranslateService,
     private cd: ChangeDetectorRef,
     @Inject(DomSanitizer) private sanitizer: DomSanitizer
@@ -183,6 +194,10 @@ export class TopicFormComponent {
           return members;
         })
       );
+      this.TopicAttachmentService.setParam('topicId', this.topic.id);
+      this.topicAttachments$ = this.TopicAttachmentService.loadItems();
+      this.TopicMemberGroupService.setParam('topicId', this.topic.id);
+      this.topicGroups$ = this.TopicMemberGroupService.loadItems();
     }
   }
 
@@ -195,14 +210,14 @@ export class TopicFormComponent {
   }
 
   nextTab(tab: string | void) {
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
     this.updateTopic();
     if (tab) {
       const tabIndex = this.tabs.indexOf(tab);
       if (tabIndex > -1 && tabIndex < 2) {
         this.selectTab(this.tabs[tabIndex + 1]);
       }
-      if (tabIndex+1 === 2) {
+      if (tabIndex + 1 === 2) {
         setTimeout(() => {
           this.TopicService.reloadTopic();
         }, 200)
@@ -211,7 +226,7 @@ export class TopicFormComponent {
   }
 
   previousTab(tab: string | void) {
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
     if (tab) {
       const tabIndex = this.tabs.indexOf(tab);
       if (tabIndex > 0) {
@@ -223,7 +238,7 @@ export class TopicFormComponent {
   saveImage() {
     if (this.imageFile) {
       this.UploadService
-        .uploadTopicImage({topicId: this.topic.id}, this.imageFile).pipe(
+        .uploadTopicImage({ topicId: this.topic.id }, this.imageFile).pipe(
           takeWhile((res: any) => {
             return (!res.link)
           }, true)
@@ -245,12 +260,12 @@ export class TopicFormComponent {
     const allowedTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/svg+xml'];
     const files = this.fileInput?.nativeElement.files;
     if (allowedTypes.indexOf(files[0].type) < 0) {
-      this.error = {image: this.translate.instant('MSG_ERROR_FILE_TYPE_NOT_ALLOWED', {allowedFileTypes: allowedTypes.toString()})};
+      this.error = { image: this.translate.instant('MSG_ERROR_FILE_TYPE_NOT_ALLOWED', { allowedFileTypes: allowedTypes.toString() }) };
       setTimeout(() => {
         delete this.error.image;
       }, 5000)
-    } else if (files[0].size  > 5000000) {
-      this.error = {image: this.translate.instant('MSG_ERROR_FILE_TOO_LARGE', {allowedFileSize: '5MB'})};
+    } else if (files[0].size > 5000000) {
+      this.error = { image: this.translate.instant('MSG_ERROR_FILE_TOO_LARGE', { allowedFileSize: '5MB' }) };
 
       setTimeout(() => {
         delete this.error.image;
@@ -288,14 +303,14 @@ export class TopicFormComponent {
     }
   };
 
-  showBlockTitle () {
+  showBlockTitle() {
     this.block.title = true;
     setTimeout(() => {
       this.titleInput.nativeElement.focus();
     }, 200);
   }
 
-  showBlockIntro () {
+  showBlockIntro() {
     this.block.intro = true;
     setTimeout(() => {
       console.log(this.introInput)
@@ -373,8 +388,8 @@ export class TopicFormComponent {
     this.topicGroups.push(group);
   }
 
-  removeGroup (group: Group) {
-    const index  =this.topicGroups.findIndex((tg) => tg.id === group.id);
+  removeGroup(group: Group) {
+    const index = this.topicGroups.findIndex((tg) => tg.id === group.id);
     this.topicGroups.splice(index, 1);
   }
 
@@ -450,11 +465,11 @@ export class TopicFormComponent {
   }
 
   setGroupLevel(group: Group, level: string) {
-    if (!group.permission) group.permission = {level};
+    if (!group.permission) group.permission = { level };
     group.permission.level = level;
   }
 
-  isGroupAdded (group: Group) {
-    return this.topicGroups.find((tg:Group) => tg.id ===  group.id);
+  isGroupAdded(group: Group) {
+    return this.topicGroups.find((tg: Group) => tg.id === group.id);
   }
 }

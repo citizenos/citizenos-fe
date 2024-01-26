@@ -90,7 +90,7 @@
 
 .date_selector {
   width: 100%;
-
+    max-width: 512px;
   .checkbox {
     width: 100%;
 
@@ -145,6 +145,13 @@
 
   .dropdown {
     width: 100%;
+  }
+
+  .checkmark {
+    background-color: var(--color-surfaces);
+  }
+  .checkbox input:checked ~ .checkmark {
+    background-color: var(--input-checkbox-background-default);
   }
 }
 

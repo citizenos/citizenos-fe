@@ -26,6 +26,9 @@ import { countries } from 'src/app/services/country.service';
 import { languages } from 'src/app/services/language.service';
 import { InterruptDialogComponent } from 'src/app/shared/components/interrupt-dialog/interrupt-dialog.component';
 import { TopicEditDisabledDialogComponent } from 'src/app/topic/components/topic-edit-disabled-dialog/topic-edit-disabled-dialog.component';
+import { Attachment } from 'src/app/interfaces/attachment';
+import { TopicAttachmentService } from 'src/app/services/topic-attachment.service';
+import { TopicMemberGroupService } from 'src/app/services/topic-member-group.service';
 
 @Component({
   selector: 'app-vote-create',
@@ -146,7 +149,11 @@ export class VoteCreateComponent implements OnInit {
 
   readMore = false;
   isnew = true;
-
+  showCategories = false;
+  showAttachments = false;
+  showGroups = false;
+  topicAttachments$ = of(<Attachment[] | any[]>[]);
+  topicGroups$ = of(<Group[] | any[]>[])
   constructor(
     private app: AppService,
     private cd: ChangeDetectorRef,
@@ -157,11 +164,13 @@ export class VoteCreateComponent implements OnInit {
     public GroupService: GroupService,
     public GroupMemberTopicService: GroupMemberTopicService,
     public TopicMemberUserService: TopicMemberUserService,
+    private TopicMemberGroupService: TopicMemberGroupService,
     public TopicInviteUserService: TopicInviteUserService,
     private router: Router,
     private route: ActivatedRoute,
     private dialog: DialogService,
     private TopicVoteService: TopicVoteService,
+    private TopicAttachmentService: TopicAttachmentService,
     @Inject(DomSanitizer) private sanitizer: DomSanitizer,
     private config: ConfigService) {
     this.app.darkNav = true;
@@ -205,6 +214,11 @@ export class VoteCreateComponent implements OnInit {
                   return members;
                 })
               );
+
+              this.TopicAttachmentService.setParam('topicId', this.topic.id);
+              this.topicAttachments$ = this.TopicAttachmentService.loadItems();
+              this.TopicMemberGroupService.setParam('topicId', this.topic.id);
+              this.topicGroups$ = this.TopicMemberGroupService.loadItems();
             }
             if (topic.voteId) {
               this.TopicVoteService.get({ topicId: topic.id, voteId: topic.voteId }).pipe(take(1)).subscribe({
