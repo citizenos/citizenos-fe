@@ -227,7 +227,7 @@
       "UPDATE_DEADLINE": "Muuda tähtaega, et koguda rohkem hääli. See jätab hääletuse avatuks nii, et hääletustulemusi ei ole veel näha.",
       "HEADING_DOWNLOAD": "Hääletustulemuste allalaadimine",
       "GET_RESULTS": "Hääletus suletakse jäädavalt.",
-      "FOLLOW_UP": "Teema liigub elluviimise faasi, kus saad postitada teavitusi tegevuste kohta, mis järgnevad hääletamisele.",
+      "FOLLOW_UP": "Teema liigub järeltegevuste faasi, kus saad postitada teavitusi tegevuste kohta, mis järgnevad hääletamisele.",
       "BTN_EDIT_DEADLINE": "Muuda hääletuse tähtaega",
       "BTN_CANCEL": "Ära laadi hääletustulemusi",
       "BTN_SUBMIT": "Hääletustulemuste allalaadimine"
@@ -555,9 +555,9 @@
       "TOPIC_MOBILE_STEP_1_LBL_IDEATION": "@:COMPONENTS.TOUR.TOPIC_STEP_1_LBL_IDEATION",
       "TOPIC_MOBILE_STEP_1_DESC_IDEATION": "Teema võib olla ideekorje faasis, kus igaüks saab jagada oma ideid selle kohta, kuidas käsitletava probleemiga tegeleda.",
       "TOPIC_MOBILE_STEP_1_LBL_VOTE": "@:COMPONENTS.TOUR.TOPIC_STEP_1_LBL_VOTE",
-      "TOPIC_MOBILE_STEP_1_DESC_VOTE": "When there’s a need for a clear representation of where participants lean, you can hold a vote.",
+      "TOPIC_MOBILE_STEP_1_DESC_VOTE": "Selleks, et teada saada, kuhu suunas osalejate arvamused kalduvad, saad korraldada hääletuse.",
       "TOPIC_MOBILE_STEP_1_LBL_FOLLOW_UP": "@:COMPONENTS.TOUR.TOPIC_STEP_1_LBL_FOLLOW_UP",
-      "TOPIC_MOBILE_STEP_1_DESC_FOLLOW_UP": "After a decision has been made, the follow-up phase offers a way to keep participants up-to-date with the next steps.",
+      "TOPIC_MOBILE_STEP_1_DESC_FOLLOW_UP": "Peale otsuse tegemist võimaldab järeltegevuste faas hoida osalejaid kursis järgmiste sammudega.",
       "TOPIC_MOBILE_STEP_2_TITLE": "@:COMPONENTS.TOUR.TOPIC_STEP_2_TITLE",
       "TOPIC_MOBILE_STEP_2_DESC": "@:COMPONENTS.TOUR.TOPIC_STEP_2_DESC",
       "TOPIC_MOBILE_STEP_2_LBL_SEARCH": "@:COMPONENTS.TOUR.TOPIC_STEP_2_LBL_SEARCH",
@@ -571,17 +571,17 @@
     },
     "TOPIC_ADD_GROUPS_DIALOG": {
       "HEADING": "Lisa teema gruppi",
-      "NO_GROUPS_SELECTED": "You haven't selected any groups to add the topic to. Please search for groups with the search field above.",
+      "NO_GROUPS_SELECTED": "Sa ei ole valinud ühtegi gruppi, kuhu teema lisada. Gruppe saad otsida ülaloleval otsinguväljal.",
       "LNK_CANCEL": "@:LNK_CANCEL",
-      "BTN_SAVE": "Add topic to group"
+      "BTN_SAVE": "Lisa teema gruppi"
     },
     "TOPIC_ADD_GROUPS": {
-      "HEADING": "Find a group to add the topic to",
-      "DESC": "When you add a topic to a group, all members of that group will have access to the topic.",
+      "HEADING": "Otsi gruppi, kuhu teema lisada",
+      "DESC": "Peale teema gruppi lisamist on kõikidel grupi liikmetele ligipääs teemasse.",
       "PLACEHOLDER_SEARCH": "Otsi gruppi",
       "SHOW_PER_PAGE": "@:VIEWS.ACCOUNT.SHOW_PER_PAGE",
-      "NO_TOPICS_HEADING": "You haven’t added any groups yet",
-      "NO_TOPICS_DESC": "Add your topic to groups to incentivise members to engage with the topic. This is not mandatory and you can always add topic to the groups later.",
+      "NO_TOPICS_HEADING": "Sa ei ole veel ühtegi gruppi lisanud",
+      "NO_TOPICS_DESC": "Lisa teemad gruppi, et grupi liikmeid motiveerida osalema. See ei ole kohustuslik ja teemad võib gruppi lisada ka hiljem.",
       "SELECT_TO_ADD": "Vali, et lisada",
       "HEADING_TITLE": "Nimi",
       "HEADING_PARTICIPANTS": "Liikmed",
@@ -601,7 +601,7 @@
       "PLACEHOLDER_SEARCH": "@:DEFAULT.NAV_MOBILE.BTN_SEARCH",
       "SHOW_PER_PAGE": "@:VIEWS.ACCOUNT.SHOW_PER_PAGE",
       "NO_INVITES_HEADING": "@:COMPONENTS.GROUP_INVITE.NO_INVITES_HEADING",
-      "NO_INVITES_DESC": "Kickstart your group by inviting people. This is not mandatory and you can always invite them later.",
+      "NO_INVITES_DESC": "Tee grupp aktiivseks ja kutsu liikmeid. See ei ole kohustuslik ja sa võid liikmeid kutsuda ka hiljem.",
       "INVALID_EMAILS_HEADER": "@:COMPONENTS.GROUP_INVITE.INVALID_EMAILS_HEADER",
       "SELECT_TO_ADD": "@:COMPONENTS.GROUP_ADD_TOPICS.SELECT_TO_ADD",
       "NAME": "@:COMPONENTS.GROUP_INVITE.NAME",
@@ -619,7 +619,7 @@
       "LNK_CANCEL": "@:COMPONENTS.GROUP_INVITE_DIALOG.LNK_CANCEL",
       "BTN_SAVE": "@:COMPONENTS.GROUP_INVITE_DIALOG.BTN_SAVE",
       "MSG_INVITES_SENT": "@:COMPONENTS.TOPIC_INVITE_EDITORS.MSG_INVITES_SENT",
-      "NO_USERS_SELECTED": "You haven't selected any users to invite to the topic. Please search for the users with the search field above or add email addresses."
+      "NO_USERS_SELECTED": "Sa ei ole ühtegi kasutajat teemasse kutsunud. Palun otsi kasutajaid alloleva otsinguvälja kaudu või lisa meiliaadressid."
     },
     "TOPIC_MEMBER_GROUP": {
       "OPT_REMOVE_GROUP": "Eemalda grupp"
@@ -2332,7 +2332,7 @@
       "NO_FOLLOW_UP_HEADING": "There is no follow-up system yet",
       "NO_FOLLOW_BTN_ADD": "Add a follow-up system",
       "NO_FOLLOW_DESC_HEADING": "How follow-up works",
-      "NO_FOLLOW_DESC_BEFORE": "Follow-up is the last phase of a topic. After a decision has been made, it's important to keep participants up to date with the next steps.",
+      "NO_FOLLOW_DESC_BEFORE": "Järeltegevuste faas on viimane. Peale otsuse tegemist on oluline hoida osalejaid kursis järgmiste sammudega.",
       "NO_FOLLOW_DESC_AFTER": "Describe, what will happen as a result of the made decisions, adding details of any progress or outcomes.",
       "TUTORIAL_HEADING": "@:COMPONENTS.TOUR.HEADING_TOPIC",
       "TUTORIAL_TITLE": "Welcome to topics",
