@@ -82,8 +82,8 @@
     "ERROR_INVALID_EMAIL": "@:MSG_ERROR_POST_API_AUTH_SIGNUP_40000_EMAIL",
     "MSG_REQUEST_SENT": "Sinu abitaotlus on saadetud!",
     "EXTRA_INFO_TOUR_HEADING": "The page you’re on offers a walkthrough",
-    "EXTRA_INFO_TOUR_DESCRIPTION": "The walkthrough will guide you through the main features and things to do on the page.",
-    "EXTRA_INFO_TOUR_BTN_START": "Start walkthrough"
+    "EXTRA_INFO_TOUR_DESCRIPTION": "Tuur juhatab sind läbi peamiste funktsioonide ja tegevuste, mida sellel lehel on võimalik teha.",
+    "EXTRA_INFO_TOUR_BTN_START": "Alusta tuuriga"
   },
   "COMPONENTS": {
     "ACCESSIBILITY": {
@@ -199,7 +199,7 @@
       "TITLE_VOTE": "Hääletus",
       "DESC_VOTE": "Vali see, kui soovid teema üle hääletada ja saata see hiljem elluviimise faasi. Siin ei toimu poolt- ja vastuargumentidega arutelu.",
       "TITLE_GROUP": "Grupp",
-      "DESC_GROUP": "Create a group to quickly share related topics with a set group of people, or publicly via a URL or QR code."
+      "DESC_GROUP": "Loo grupp, et jagada teemasid grupis olevate inimestega või avalikult URL-i või QR koodi kaudu."
     },
     "DUPLICATE_TOPIC": {
       "HEADING": "Tee teemast koopia",
@@ -260,7 +260,7 @@
       "MESSAGE_PLACEHOLDER": "Kirjuta oma sõnum siia",
       "CHARACTER_LIMIT": "Tähemärgi piirang:",
       "EMAIL_DESC": "Kutsu liikmeid nime või e-posti aadressi kaudu",
-      "EMAIL_DESC_LONG": "Add up to 50 emails at once, with a space or comma between each",
+      "EMAIL_DESC_LONG": "Lisa kuni 50 meiliaadressit ühe korraga, jättes iga meiliaadressi vahele tühiku või koma",
       "PLACEHOLDER_SEARCH": "@:DEFAULT.NAV_MOBILE.BTN_SEARCH",
       "SHOW_PER_PAGE": "@:VIEWS.ACCOUNT.SHOW_PER_PAGE",
       "NO_INVITES_HEADING": "Sa ei ole veel kedagi kutsunud",
@@ -280,7 +280,7 @@
       "TAB_SHARE": "Loo link / QR kood",
       "LNK_CANCEL": "Kutsu hiljem",
       "BTN_SAVE": "Saada kutsed",
-      "NO_USERS_SELECTED": "You haven't selected any users to invite to the group. Please search for the users with the search field above or add email addresses."
+      "NO_USERS_SELECTED": "Sa ei ole ühtegi kasutajat gruppi kutsunud. Palun otsi kasutajaid alloleva otsinguvälja kaudu või lisa meiliaadressid."
     },
     "GROUP_JOIN": {
       "HEADING": "Liitu grupiga",
@@ -304,7 +304,7 @@
     "GROUP_MEMBER_USER": {
       "LAST_ACTIVITY": "@:VIEWS.PUBLIC_GROUP.LNK_LAST_ACTIVITY",
       "SET_MEMBER_PERMISSIONS": "Määra ligipääsuõigus tasemele <b>{{level}}</b>",
-      "EDIT_MEMBER": "Edit member",
+      "EDIT_MEMBER": "Liikmete muutmine",
       "BTN_REMOVE": "Eemalda liige"
     },
     "GROUP_SETTINGS": {
@@ -373,7 +373,7 @@
       "HELLO": "Tere {{name}}",
       "TITLE_WELCOME": "Tere tulemast Citizen OS-i!",
       "DESCRIPTION": "Kuna oled esimest korda värskelt ümber kujundatud Citizen OS-i töölaual, siis soovitame sul platvormi paremaks tundma õppimiseks läbi teha ringkäik.",
-      "TAKE_A_TOUR": "Ringkäik võtab aega vaid paar minutit.",
+      "TAKE_A_TOUR": "Tuur võtab aega vaid paar minutit.",
       "BTN_SUBMIT": "Tee ringkäik",
       "BTN_CANCEL": "Jäta vahele"
     },
