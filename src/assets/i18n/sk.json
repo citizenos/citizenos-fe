@@ -81,9 +81,9 @@
     "BTN_SEND": "Poslať",
     "ERROR_INVALID_EMAIL": "@:MSG_ERROR_POST_API_AUTH_SIGNUP_40000_EMAIL",
     "MSG_REQUEST_SENT": "Vaša žiadosť o pomoc bola odoslaná!",
-    "EXTRA_INFO_TOUR_HEADING": "The page you’re on offers a walkthrough",
-    "EXTRA_INFO_TOUR_DESCRIPTION": "The walkthrough will guide you through the main features and things to do on the page.",
-    "EXTRA_INFO_TOUR_BTN_START": "Start walkthrough"
+    "EXTRA_INFO_TOUR_HEADING": "Stránka, na ktorej sa nachádzate, ponúka prehľad",
+    "EXTRA_INFO_TOUR_DESCRIPTION": "Tento návod vás prevedie hlavnými funkciami a činnosťami na stránke.",
+    "EXTRA_INFO_TOUR_BTN_START": "Spustiť prehľad"
   },
   "COMPONENTS": {
     "ACCESSIBILITY": {
@@ -199,7 +199,7 @@
       "TITLE_VOTE": "Téma hlasovania",
       "DESC_VOTE": "Túto možnosť vyberte, ak chcete zbierať hlasy ľudí pred prípadným prechodom k monitorovaniu. Nie je k dispozícii žiadna diskusia pre/proti.",
       "TITLE_GROUP": "Skupina",
-      "DESC_GROUP": "Create a group to quickly share related topics with a set group of people, or publicly via a URL or QR code."
+      "DESC_GROUP": "Vytvorte skupinu a rýchlo zdieľajte súvisiace témy s určitou skupinou ľudí alebo verejne prostredníctvom adresy URL alebo kódu QR."
     },
     "DUPLICATE_TOPIC": {
       "HEADING": "Duplikovať tému",
@@ -260,7 +260,7 @@
       "MESSAGE_PLACEHOLDER": "Tu napíšte vašu správu",
       "CHARACTER_LIMIT": "Limit počtu znakov:",
       "EMAIL_DESC": "Pozvite užívateľov cez ich meno alebo emailovú adresu",
-      "EMAIL_DESC_LONG": "Add up to 50 emails at once, with a space or comma between each",
+      "EMAIL_DESC_LONG": "Pridajte naraz až do 50 emailov, s medzerou alebo čiarkou medzi nimi",
       "PLACEHOLDER_SEARCH": "@:DEFAULT.NAV_MOBILE.BTN_SEARCH",
       "SHOW_PER_PAGE": "@:VIEWS.ACCOUNT.SHOW_PER_PAGE",
       "NO_INVITES_HEADING": "Ešte ste nikoho nepozvali",
@@ -280,7 +280,7 @@
       "TAB_SHARE": "Vytvoriť odkaz / QR kód",
       "LNK_CANCEL": "Pozvať neskôr",
       "BTN_SAVE": "Poslať pozvánky",
-      "NO_USERS_SELECTED": "You haven't selected any users to invite to the group. Please search for the users with the search field above or add email addresses."
+      "NO_USERS_SELECTED": "Nevybrali ste žiadneho používateľa, ktorého chcete pozvať do skupiny. Vyhľadajte používateľov pomocou vyhľadávacieho poľa vyššie alebo pridajte e-mailové adresy."
     },
     "GROUP_JOIN": {
       "HEADING": "Pridať sa k skupine",
@@ -494,8 +494,8 @@
       "DASHBOARD_STEP_5_DESC": "Všetky témy, ktorých ste súčasťou, sa zobrazia na vašom paneli, ako aj populárne verejné témy, ku ktorým sa môžete pripojiť.",
       "DASHBOARD_STEP_5_DESC2": "Keď sa zúčastníte na témach alebo ich vytvoríte, zobrazia sa tu.",
       "DASHBOARD_STEP_6_TITLE": "Skupiny",
-      "DASHBOARD_STEP_6_DESC": "Groups are a space in which people with something in common can access relevant topics. For example, members could be part of the same organisation or community. Or have similar interests or goals.",
-      "DASHBOARD_STEP_6_DESC2": "Groups allow a set of topics to be shared quickly and easily - either to invited members, or via a public URL or QR code. New topics can be added at any time, to which members get instant access.",
+      "DASHBOARD_STEP_6_DESC": "Skupiny sú priestorom, v ktorom majú ľudia s niečím spoločným prístup k relevantným témam. Členovia môžu byť napríklad súčasťou rovnakej organizácie alebo komunity. Alebo majú podobné záujmy či ciele.",
+      "DASHBOARD_STEP_6_DESC2": "Skupiny umožňujú rýchle a jednoduché zdieľanie súboru tém - buď pozvaným členom, alebo prostredníctvom verejnej adresy URL či kódu QR. Kedykoľvek je možné pridať nové témy, ku ktorým členovia získajú okamžitý prístup.",
       "HEADING_DASHBOARD_MOBILE": "@:COMPONENTS.TOUR.HEADING_DASHBOARD",
       "DASHBOARD_MOBILE_STEP_1_TITLE": "@:COMPONENTS.TOUR.DASHBOARD_STEP_1_TITLE",
       "DASHBOARD_MOBILE_STEP_1_DESC": "@:COMPONENTS.TOUR.DASHBOARD_STEP_1_DESC",
@@ -530,11 +530,11 @@
       "TOPIC_STEP_2_LBL_FAVOURITE": "Obľúbené",
       "TOPIC_STEP_2_DESC_FAVOURITE": "Pridajte túto tému do obľúbených položiek alebo ju z nich odstráňte.",
       "TOPIC_STEP_2_LBL_MORE": "Viac",
-      "TOPIC_STEP_2_DESC_MORE": "Here, topic admins and editors can edit the content and settings, invite co-creators or close a topic.",
+      "TOPIC_STEP_2_DESC_MORE": "Admini témy a redaktori tu môžu upravovať obsah a nastavenia, pozývať spoluautorov alebo môžu tému uzavrieť.",
       "TOPIC_STEP_3_TITLE": "Informácie",
       "TOPIC_STEP_3_DESC": "Všetky relevantné informácie o téme, ktoré môžete potrebovať, sa nachádzajú tu. Je téma verejná alebo súkromná? Kto a kedy ju zverejnil?",
       "TOPIC_STEP_3_DESC2": "Tu si môžete pozrieť použitý hashtag na sociálnych sieťach. Kliknutím naň sa zobrazia zmienky v sociálnych médiách.",
-      "TOPIC_STEP_3_DESC3": "You can also view any attachments, check which groups are invited, and see which categories the topic is tagged in.",
+      "TOPIC_STEP_3_DESC3": "Môžete tiež zobraziť všetky prílohy, skontrolovať, ktoré skupiny sú pozvané, a zistiť, v ktorých kategóriách je téma označená.",
       "TOPIC_STEP_4_TITLE": "Účastníci",
       "TOPIC_STEP_4_DESC": "Here you can see how many participants are in this topic. Admins can also manage participants permissions, and invite more people.",
       "TOPIC_STEP_5_TITLE": "Fázy témy",
