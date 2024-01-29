@@ -1,9 +1,10 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Input, Inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { UntypedFormGroup, UntypedFormControl } from '@angular/forms'
+import { DialogService } from 'src/app/shared/dialog';
 
 @Component({
   selector: 'password-reset-form',
@@ -11,6 +12,7 @@ import { UntypedFormGroup, UntypedFormControl } from '@angular/forms'
   styleUrls: ['./password-reset-form.component.scss']
 })
 export class PasswordResetFormComponent {
+  @Input() modal?:boolean;
   resetForm = new UntypedFormGroup({
     password: new UntypedFormControl(),
     passwordConfirm: new UntypedFormControl(),
@@ -19,7 +21,7 @@ export class PasswordResetFormComponent {
   });
 
   errors: any = {};
-  constructor(private AuthService: AuthService, private route: ActivatedRoute, private Notification: NotificationService, private router: Router) {
+  constructor(private AuthService: AuthService, private route: ActivatedRoute, private Notification: NotificationService, private router: Router, private dialog:DialogService) {
     const params = this.route.snapshot.params;
     const queryParams = this.route.snapshot.queryParams;
     this.resetForm.patchValue({
@@ -58,4 +60,10 @@ export class PasswordResetFormComponent {
         }
       });
   };
+
+  cancel () {
+    if (this.modal) {
+      this.dialog.closeAll();
+    }
+  }
 }

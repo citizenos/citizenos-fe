@@ -60,7 +60,7 @@ argument-reply {
   &.poi {
     background-color: var(--color-argument-info-light);
     align-self: center;
-    width: 100%;
+    width: calc(100% - 32px);
     max-width: 100%;
 
     @include mixins.mobile {

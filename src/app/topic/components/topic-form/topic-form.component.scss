@@ -303,10 +303,13 @@
   }
 }
 
+#form_area {
+  width: calc(100% - 320px);
+}
+
 .topic_content_wrap {
   display: flex;
   flex-direction: column;
-  width: 100%;
   border-radius: 16px;
   background-color: var(--color-surfaces);
 
