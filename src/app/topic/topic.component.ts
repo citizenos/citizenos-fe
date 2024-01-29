@@ -126,7 +126,7 @@ export class TopicComponent implements OnInit {
   groups$: Observable<Group[]>;
   vote$?: Observable<Vote>;
   topicId$: Observable<string> = of('');
-  events$?: Observable<any>;
+  events$?: Observable<any> = of([]);
   members$: Observable<any[]>;
 
   topicSocialMentions = [];
