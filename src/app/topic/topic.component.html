@@ -30,7 +30,7 @@
         class="btn_medium_close" translate="VIEWS.TOPICS_TOPICID.BTN_JOIN"></button>
 
       <div *ngIf="(!topic.permission.level || topic.permission.level !== 'none')"
-        class="permissions_lable tablet_hidden"
+        class="permissions_lable mobile_show"
         [translate]="(topic.permission.level !== 'read')? ('TXT_TOPIC_LEVELS_' + topic.permission.level | uppercase) : 'VIEWS.TOPICS_TOPICID.LBL_JOINED'">
       </div>
       <div id="activities_button_wrap">
