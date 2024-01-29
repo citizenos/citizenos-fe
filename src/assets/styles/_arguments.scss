@@ -1,5 +1,5 @@
 @use "mixins";
-/*
+
 argument-reply {
   display: contents;
 }
@@ -10,9 +10,9 @@ argument-reply {
   flex-direction: column;
   gap: 0;
 }
-*/
+
 .argument_wrap {
- /* display: flex;
+  display: flex;
   flex-direction: column;
   border-radius: 8px;
   width: 85%;
@@ -38,6 +38,7 @@ argument-reply {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     align-self: flex-start;
+    padding-bottom: 16px;
 
     .btn_reply_argument {
       background-color: var(--color-voting-disabled);
@@ -47,6 +48,13 @@ argument-reply {
       border: 2px solid var(--color-voting-disabled);
       color: var(--color-argument-pro-text);
     }
+
+    .replies_wrap {
+      align-items: flex-end;
+      .reply {
+        align-self: flex-end;
+      }
+    }
   }
   &.con {
     background-color: var(--color-argument-con-light);
@@ -54,6 +62,7 @@ argument-reply {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     align-self: flex-end;
+    padding-bottom: 16px;
 
     .btn_reply_argument {
       background-color: var(--color-argument-con-medium);
@@ -64,13 +73,24 @@ argument-reply {
       border: 2px solid var(--color-argument-con-medium);
       color: var(--color-argument-con-text);
     }
+    .replies_wrap {
+      align-items: flex-start;
+
+      .reply {
+        align-self: flex-start;
+      }
+    }
   }
 
   &.poi {
     background-color: var(--color-argument-info-light);
+    border-left: solid 4px var(--color-info);
+    border-right: solid 4px var(--color-info);
     align-self: center;
     width: calc(100% - 32px);
     max-width: 100%;
+    padding-bottom: 16px;
+
     @include mixins.mobile {
       margin: 0 8px;
       width: calc(100% - 32px);
@@ -85,9 +105,23 @@ argument-reply {
       border: 2px solid var(--color-argument-info-medium);
       color: var(--color-argument-info-text);
     }
+
+    .replies_wrap {
+      align-items: flex-end;
+
+      .reply {
+        align-self: flex-end;
+      }
+    }
   }
 
   &.reply {
+
+    &:before {
+      content: " ";
+      border-left: var(--color-argument-pro) 1px solid;
+    }
+    width: 100%;
     .argument_content_wrap {
       background-color: var(--color-surfaces);
       width: 100%;
@@ -246,24 +280,60 @@ argument-reply {
         }
       }
     }
-  }*/
+  }
   .replies_wrap {
     padding-left: 22px;
     display: flex;
     flex-direction: column;
-    gap: 0px;
 
-    &.pro, &.con, &.poi {
-      width: 100%;
-      padding-right: 16px;
-      align-items: flex-end;
-      .reply_container {
-        width: 100%;
+    .reply_container {
+      display: flex;
+      position: relative;
+
+      .reply_referer {
+        height: 48px;
+        width: 32px;
+        border-radius: 0 0 0 8px;
       }
-      .reply {
-        align-self: flex-end;
-        width: 100%
+      .reply_more {
+        position: absolute;
+        height: 100%;
+        width: 1px;
       }
+    }
+    &.pro {
+      .reply_referer {
+        border-left: 1px solid var(--color-voting-disabled);
+        border-bottom: 1px solid var(--color-voting-disabled);
+      }
+      .reply_more {
+        background-color: var(--color-voting-disabled);
+      }
+    }
+    &.con {
+      .reply_referer {
+        border-left: 1px solid var(--color-argument-con-medium);
+        border-bottom: 1px solid var(--color-argument-con-medium);
+      }
+      .reply_more {
+        background-color: var(--color-argument-con-medium);
+      }
+    }
+    &.poi {
+      .argument_wrap {
+        max-width: 100%;
+      }
+      .reply_referer {
+        border-left: 1px solid var(--color-argument-info-medium);
+        border-bottom: 1px solid var(--color-argument-info-medium);
+      }
+      .reply_more {
+        background-color: var(--color-argument-info-medium);
+      }
+    }
+
+    &.reply {
+      margin-top: -16px;
     }
   }
 }

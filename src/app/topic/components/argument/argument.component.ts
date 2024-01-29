@@ -20,13 +20,13 @@ import { ArgumentReportComponent } from '../argument-report/argument-report.comp
 })
 export class ArgumentComponent implements OnInit {
   @ViewChild('argumentBody') argumentBody!: ElementRef;
-  @Input() argument!: Argument;
-  @Input() root?: Argument;
+  @Input() argument!: any;
+  @Input() root?: any;
   @Input() topicId!: string;
+  @Input() showReplies?:boolean = false;
   showEdit = false;
   showEdits = false;
   showReply = false;
-  showReplies = false;
   readMore = false;
   showDeletedArgument = false;
   mobileActions = false;
@@ -47,6 +47,11 @@ export class ArgumentComponent implements OnInit {
 
   ngOnInit(): void {
     this.isReply = this.argument.type === 'reply';
+    if (this.argument.children) {
+      this.argument.children = this.argument.children.sort((b:any, a:any) => {
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      });
+    }
   }
 
   ngAfterViewInit() {
