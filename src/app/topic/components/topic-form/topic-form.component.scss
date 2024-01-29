@@ -305,6 +305,9 @@
 
 #form_area {
   width: calc(100% - 320px);
+  @include mixins.tablet {
+    width: 100%;
+  }
 }
 
 .topic_content_wrap {
