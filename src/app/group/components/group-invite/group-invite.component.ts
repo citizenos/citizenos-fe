@@ -266,6 +266,17 @@ export class GroupInviteComponent implements OnInit {
   }
 }
 
+
+@Component({
+  selector: 'group-create-invite',
+  templateUrl: './group-create-invite.component.html',
+  styleUrls: ['./group-create-invite.component.scss']
+})
+export class GroupCreateInviteComponent extends GroupInviteComponent {
+
+}
+
+
 @Component({
   templateUrl: './group-invite-dialog.component.html',
   styleUrls: ['./group-invite-dialog.component.scss']

@@ -27,7 +27,7 @@ import { TopicMemberInviteDeleteComponent } from '../topic/components/topic-memb
 import { TopicVoteCastComponent } from '../topic/components/topic-vote-cast/topic-vote-cast.component';
 import { BigGraphComponent } from '../topic/components/big-graph/big-graph.component';
 
-import { GroupInviteComponent, GroupInviteDialogComponent } from '../group/components/group-invite/group-invite.component';
+import { GroupInviteComponent, GroupCreateInviteComponent, GroupInviteDialogComponent } from '../group/components/group-invite/group-invite.component';
 import { GroupMemberUserComponent } from '../group/components/group-member-user/group-member-user.component';
 import { GroupShareComponent } from '../group/components/group-share/group-share.component';
 import { GroupAddTopicsComponent, GroupAddTopicsDialogComponent } from '../group/components/group-add-topics/group-add-topics.component';
@@ -66,6 +66,7 @@ import { TopicVoteDeadlineComponent } from '../topic/components/topic-vote-deadl
     CosToggleComponent,
     EtherpadDirective,
     GroupInviteComponent,
+    GroupCreateInviteComponent,
     GroupInviteDialogComponent,
     GroupMemberUserComponent,
     GroupShareComponent,
@@ -125,6 +126,7 @@ import { TopicVoteDeadlineComponent } from '../topic/components/topic-vote-deadl
     CosToggleComponent,
     EtherpadDirective,
     GroupInviteComponent,
+    GroupCreateInviteComponent,
     GroupInviteDialogComponent,
     GroupMemberUserComponent,
     GroupShareComponent,
