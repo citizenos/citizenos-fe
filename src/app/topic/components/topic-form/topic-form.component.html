@@ -352,7 +352,7 @@
             <div class="block_title_wrap" (click)="showBlockIntro()">
               <div>
                 <div class="block_title" translate="VIEWS.TOPIC_CREATE.TITLE_INTRO"></div>
-                <div *ngIf="!block.intro" translate="VIEWS.TOPIC_CREATE.TITLE_INTRO_TEXT"></div>
+                <!--div *ngIf="!block.intro" translate="VIEWS.TOPIC_CREATE.TITLE_INTRO_TEXT"></!--div-->
               </div>
               <div class="counter_wrap">
                 <div class="char_counter">{{topic.intro?.length || 0}}/{{introLimit}}</div>
@@ -385,7 +385,7 @@
             <div class="block_title_wrap" (click)="block.description = true;">
               <div>
                 <div class="block_title" translate="VIEWS.TOPIC_CREATE.TITLE_DESCRIPTION"></div>
-                <div *ngIf="!block.description" translate="VIEWS.TOPIC_CREATE.TITLE_DESCRIPTION_TEXT"></div>
+                <!--div *ngIf="!block.description" translate="VIEWS.TOPIC_CREATE.TITLE_DESCRIPTION_TEXT"></!--div-->
               </div>
               <div class="counter_wrap">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
