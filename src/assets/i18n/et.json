@@ -195,9 +195,9 @@
       "TITLE_DISCUSSION": "Arutelu",
       "DESC_DISCUSSION": "Vali see, kui soovid algatada arutelu ja saata see hiljem hääletuse ja/või elluviimise faasi.",
       "TITLE_IDEATION": "Ideekorje",
-      "DESC_IDEATION": "Vali see, kui soovid algatada ideekorjet ja saata see hiljem hääletuse ja/või elluviimise faasi. Siin ei toimu poolt- ja vastuargumentidega arutelu.",
+      "DESC_IDEATION": "Vali see, kui soovid algatada ideekorjet ja saata see hiljem hääletuse ja/või järeltegevuste faasi. Siin ei toimu poolt- ja vastuargumentidega arutelu.",
       "TITLE_VOTE": "Hääletus",
-      "DESC_VOTE": "Vali see, kui soovid teema üle hääletada ja saata see hiljem elluviimise faasi. Siin ei toimu poolt- ja vastuargumentidega arutelu.",
+      "DESC_VOTE": "Vali see, kui soovid teema üle hääletada ja saata see hiljem järeltegevuste faasi. Siin ei toimu poolt- ja vastuargumentidega arutelu.",
       "TITLE_GROUP": "Grupp",
       "DESC_GROUP": "Loo grupp, et jagada teemasid grupis olevate inimestega või avalikult URL-i või QR koodi kaudu."
     },
@@ -764,13 +764,13 @@
       "DEADLINE_TIME_OPTION_AM": "EL",
       "DEADLINE_TIME_OPTION_PM": "PL",
       "DEADLINE_LBL_TIMEZONE": "Ajavöönd",
-      "DEADLINE_LBL_OPTION_SET_VOTE_REMINDER": "Set automatic reminder",
-      "DEADLINE_LBL_OPTION_SET_VOTE_REMINDER_DESC": "You can set an automatic reminder email for participants, to be sent out before the voting closes",
+      "DEADLINE_LBL_OPTION_SET_VOTE_REMINDER": "Määra automaatne meeldetuletus",
+      "DEADLINE_LBL_OPTION_SET_VOTE_REMINDER_DESC": "Sa võid määrata automaatse meeldetuletuse, mis saadetakse osalejatele välja enne hääletuse lõppemist",
       "LNK_CANCEL": "@:LNK_CANCEL",
       "BTN_SAVE": "@:DIRECTIVES.COS_MODAL.BTN_SAVE"
     },
     "TOPIC_FOLLOW_UP_CREATE": {
-      "DIALOG_HEADING": "Start topic follow-up",
+      "DIALOG_HEADING": "Alusta järeltegevustega",
       "DIALOG_TAB_1": "Introduction",
       "DIALOG_TAB_2": "Settings",
       "DIALOG_TAB_INTRODUCTION_ARE_YOU_SURE": "Are you sure you want to start the topic follow-up?",
