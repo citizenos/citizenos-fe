@@ -199,7 +199,7 @@
       "TITLE_VOTE": "Hääletus",
       "DESC_VOTE": "Vali see, kui soovid teema üle hääletada ja saata see hiljem järeltegevuste faasi. Siin ei toimu poolt- ja vastuargumentidega arutelu.",
       "TITLE_GROUP": "Grupp",
-      "DESC_GROUP": "Loo grupp, et jagada teemasid grupis olevate inimestega või avalikult URL-i või QR koodi kaudu."
+      "DESC_GROUP": "Create a private or public group to invite people with common interests to access relevant topics."
     },
     "DUPLICATE_TOPIC": {
       "HEADING": "Tee teemast koopia",
@@ -1574,7 +1574,7 @@
       "FEATURE_VOTING_FOOTER_BTN": "Create a voting topic",
       "FEATURE_GROUP_HEADING": "Groups – harnessing the power of the people",
       "FEATURE_GROUP_DESC_ITEM_1": "Invite people with a common interest to a group, to give them easy access to relevant topics",
-      "FEATURE_GROUP_DESC_ITEM_2": "Quickly share your group space of related topics via a URL or QR code",
+      "FEATURE_GROUP_DESC_ITEM_2": "Quickly share your group space of related topics via a public link",
       "FEATURE_GROUP_DESC_ITEM_3": "Join a public or private group that deals with topics that interest you",
       "FEATURE_GROUP_BTN": "Create a group",
       "FEATURE_GROUP_LNK": "View all public groups",
@@ -1820,7 +1820,7 @@
       "PLACEHOLDER_SEARCH": "Search groups",
       "BTN_RESET_FILTER": "@:BTN_RESET_FILTER",
       "HAVENT_ENGAGED_GROUPS_HEADING": "You haven’t joined any groups yet",
-      "HAVENT_ENGAGED_GROUPS_DESCRIPTION": "Join groups to engage in related topics. You can also create one yourself - to quickly share related topics with a set group of people, or share them publicly via a URL or QR code.",
+      "HAVENT_ENGAGED_GROUPS_DESCRIPTION": "Join groups to engage in related topics with like-minded people. You can also create one yourself, to allow people with shared interests to access related topics, either via email invite or a public link.",
       "HAVENT_ENGAGED_BTN_CREATE": "Create a group",
       "HAVENT_ENGAGED_BTN_VIEW_PUBLIC_GROUPS": "View public groups"
     },
@@ -2062,7 +2062,7 @@
       "SETTINGS_COUNTRY_SELECT": "@:VIEWS.GROUP_CREATE.SETTINGS_COUNTRY_SELECT",
       "SETTINGS_LANGUAGE_SELECT": "@:VIEWS.GROUP_CREATE.SETTINGS_LANGUAGE_SELECT",
       "SETTINGS_HEADING_ADD_TO_GROUP": "Add to group",
-      "SETTINGS_ADD_TO_GROUP_DESC": "You can add this topic to a group for which you have admin rights, either now or later. All topics in a group are shared with its members, and can be shared via a single URL or QR code too",
+      "SETTINGS_ADD_TO_GROUP_DESC": "You can add this topic to a group for which you have admin rights, either now or later. All topics in a group are shared with its members, and can be shared via the group's public link too.",
       "SETTINGS_GROUP_SELECT": "Choose a group",
       "GROUPS_LIST_TITLE": "@:VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_NAME",
       "HEADING_GROUP_PERMISSIONS": "@:COMPONENTS.GROUP_ADD_TOPICS.HEADING_GROUP_PERMISSIONS",
