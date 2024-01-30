@@ -14,7 +14,9 @@ export class OnboardingComponent {
 
   takeTour() {
     let tour = 'dashboard';
-    if (window.innerWidth <= 1024) {
+    if (window.innerWidth <= 1024 && window.innerWidth > 560) {
+      tour = 'dashboard_tablet';
+    } else if (window.innerWidth < 560) {
       tour = 'dashboard_mobile';
     }
     this.TourService.show(tour, 1);

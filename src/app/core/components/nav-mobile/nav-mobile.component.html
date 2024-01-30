@@ -10,7 +10,7 @@
 <ng-template #loggedIn>
   <div id="mobile_nav_wrap">
     <div id="tour_overlay" *ngIf="addPosAbsolute | async"></div>
-    <div id="tablet_nav" [TourItem]="{tourid: 'dashboard_mobile', index: 2, position: 'top'}"
+    <div id="tablet_nav" [TourItem]="{tourid: 'dashboard_tablet', index: 2, position: 'top'}"
       [ngClass]="{'hidden': dialogsOpen() && !app.createMenu}">
       <a class="btn_medium_nav icon" [routerLink]="['/', translate.currentLang, 'dashboard']" routerLinkActive="active">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -42,7 +42,7 @@
         </svg>
       </a>
       <a id="tablet_create" class="btn_nav_create icon" (click)="app.showCreateMenu()"
-        [TourItem]="{tourid: 'dashboard_mobile', index: 1, position: 'top'}">
+        [TourItem]="{tourid: 'dashboard_tablet', index: 1, position: 'top'}">
         <svg *ngIf="!app.createMenu" width="40" height="40" viewBox="0 0 40 40" fill="none"
           xmlns="http://www.w3.org/2000/svg">
           <rect width="40" height="40" rx="20" fill="#2C3B47" />
