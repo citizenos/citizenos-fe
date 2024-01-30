@@ -467,10 +467,10 @@
       <div translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_VOTE_DELEGATION_DESC"></div>
 
 
-      <div class="radio_wrap"
+      <div class="radio_wrap" (click)="(TopicService.canEditDescription(topic))? toggleDelegation($event): '';$event.stopPropagation();"
         [ngClass]="{seleced: vote.delegationIsAllowed, disabled: (!TopicService.canEditDescription(topic) || vote.authType === VOTE_AUTH_TYPES.hard)}">
         <div class="radio_text_wrap">
-          <div class="radio_lable_wrap" (click)="(TopicService.canEditDescription(topic))? toggleDelegation($event): '';$event.stopPropagation();">
+          <div class="radio_lable_wrap">
             <label class="checkbox" [ngClass]="{selected: vote.delegationIsAllowed}">
               <span class="bold" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_DELEGATION"></span>
               <span class="checkmark"></span>

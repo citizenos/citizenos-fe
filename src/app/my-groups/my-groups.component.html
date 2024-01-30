@@ -516,45 +516,7 @@
             <div translate="VIEWS.MY_GROUPS.HAVENT_ENGAGED_GROUPS_DESCRIPTION"></div>
           </div>
           <div class="button_wrap">
-            <div id="create_menu_wrap" [ngClass]="{'hidden': !showCreate}">
-              <div id="create_menu">
-                <div class="create_menu_item" [routerLink]="['/', translate.currentLang, 'my', 'groups', 'create']"
-                  routerLinkActive="active">
-                  <div class="left_wrap">
-                    <div class="icon_wrap">
-                      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="32" height="32" rx="16" fill="#D7E9F8" />
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                          d="M13.9998 16.0002C15.8408 16.0002 17.3332 14.5078 17.3332 12.6668C17.3332 10.8259 15.8408 9.3335 13.9998 9.3335C12.1589 9.3335 10.6665 10.8259 10.6665 12.6668C10.6665 14.5078 12.1589 16.0002 13.9998 16.0002Z"
-                          fill="#1168A8" />
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                          d="M20 12.6668C20 11.3217 18.9139 10.6668 18 10.6668V9.3335C19.4328 9.3335 21.3333 10.3853 21.3333 12.6668C21.3333 14.9484 19.4328 16.0002 18 16.0002V14.6668C18.9139 14.6668 20 14.0119 20 12.6668Z"
-                          fill="#1168A8" />
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                          d="M18.6665 16.6665H19.3332C20.8059 16.6665 21.9998 17.8604 21.9998 19.3332V22.6665H20.6665V19.3332C20.6665 18.5968 20.0696 17.9998 19.3332 17.9998H18.6665V16.6665Z"
-                          fill="#1168A8" />
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                          d="M10 19.3332C10 17.8604 11.1939 16.6665 12.6667 16.6665H15.3333C16.8061 16.6665 18 17.8604 18 19.3332V22.6665H10V19.3332Z"
-                          fill="#1168A8" />
-                      </svg>
-
-                    </div>
-                    <div class="item_text_wrap">
-                      <div class="item_title" translate="COMPONENTS.CREATE.TITLE_GROUP"></div>
-                      <div class="item_description" translate="COMPONENTS.CREATE.DESC_GROUP"></div>
-                    </div>
-                  </div>
-                  <div class="icon_item icon_arrow_right">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M10 7L15 12L10 17" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
-                    </svg>
-                  </div>
-                </div>
-
-              </div>
-              <div id="close_create" (click)="showCreate = false;"></div>
-            </div>
-            <button class="btn_medium_submit" (click)="showCreateMenu()" [ngClass]="{active: showCreate}"><svg
+            <button class="btn_medium_submit" [routerLink]="['/', translate.currentLang, 'my', 'groups', 'create']" [ngClass]="{active: showCreate}"><svg
                 width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M12.5 20C11.9711 20 11.5423 19.5712 11.5423 19.0423L11.5423 12.9577L5.45775 12.9577C4.9288 12.9577 4.5 12.5289 4.5 12C4.5 11.4711 4.9288 11.0423 5.45775 11.0423H11.5423V4.95775C11.5423 4.4288 11.9711 4 12.5 4C13.0289 4 13.4577 4.4288 13.4577 4.95775L13.4577 11.0423L19.5423 11.0423C20.0712 11.0423 20.5 11.4711 20.5 12C20.5 12.5289 20.0712 12.9577 19.5423 12.9577H13.4577V19.0423C13.4577 19.5712 13.0289 20 12.5 20Z"
