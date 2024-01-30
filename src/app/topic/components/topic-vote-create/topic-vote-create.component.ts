@@ -414,6 +414,15 @@ export class TopicVoteCreateComponent implements OnInit {
         }
       });
   };
+
+  toggleDelegation ($event: any) {
+    if ($event.target.nodeName === "INPUT") {
+      return;
+    }
+
+    return this.vote.delegationIsAllowed =!this.vote.delegationIsAllowed;
+  }
+
 }
 @Component({
   selector: 'topic-vote-create-dialog',

@@ -445,12 +445,12 @@ $button-styles: (
 }
 
 /* When the checkbox is checked, add a blue background */
-.checkbox input:checked ~ .checkmark {
+.checkbox input:checked ~ .checkmark, .checkbox.selected .checkmark {
   background-color: var(--input-checkbox-background-default);
   border: 1px solid var(--input-checkbox-border-default);
 }
 /* Show the checkmark when checked */
-.checkbox input:checked ~ .checkmark:after {
+.checkbox input:checked ~ .checkmark:after, .checkbox.selected .checkmark:after {
   display: block;
 }
 
