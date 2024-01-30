@@ -767,7 +767,7 @@
       "LBL_OPTION_AUTH_HARD_ID": "Tvrdé hlasovanie",
       "LBL_OPTION_AUTH_HARD_ID_DESC": "Hlasujúci budú musieť pri hlasovaní použiť elektronický preukaz totožnosti. Hlasovacie podpisy si môžete stiahnuť na konci.",
       "LBL_VOTE_DELEGATION": "Delegovanie hlasu",
-      "LBL_VOTE_DELEGATION_DESC": "Môžete sa rozhodnúť, že umožníte účastníkom odovzdať svoje hlasovacie právo inej osobe.",
+      "LBL_VOTE_DELEGATION_DESC": "You can opt to enable participants to pass on their voting right to another person. For soft voting only.",
       "LBL_OPTION_DELEGATION": "Enable delegation",
       "LBL_OPTION_DELEGATION_DESC": "Umožnite používateľom odovzdať svoje hlasovacie právo.",
       "LBL_DEADLINE": "Vote deadline",
