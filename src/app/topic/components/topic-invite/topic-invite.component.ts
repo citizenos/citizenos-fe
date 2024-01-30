@@ -99,6 +99,9 @@ export class TopicInviteComponent implements OnInit {
   }
 
   addTopicMember(member?: any) {
+    if (member?.text) {
+      member = member.text
+    }
     this.searchResultUsers$ = of([]);
     this.search('');
     if (this.members.length >= this.maxUsers) {
