@@ -129,6 +129,9 @@ export class TourComponent {
             left = itemRect.left + itemRect.width / 2 - tourBoxElementRect.width / 2;
             if (left + tourBoxElementRect.width > window.innerWidth) {
               left = 8;
+              if (window.innerWidth > 560) {
+                left = itemRect.right - tourBoxElementRect.width;
+              }
             }
             arrowEl.classList.remove('right_arrow');
             arrowEl.classList.remove('left_arrow');
@@ -143,9 +146,12 @@ export class TourComponent {
 //tourBox.scrollIntoView();
             break;
           case 'bottom':
-            left = itemRect.left + itemRect.width / 2 - tourBoxElementRect.width / 2;
+            left = itemRect.left + (itemRect.width / 2) - (tourBoxElementRect.width / 2);
             if (left + tourBoxElementRect.width > window.innerWidth) {
               left = 8;
+              if (window.innerWidth > 560) {
+                left = itemRect.right - tourBoxElementRect.width;
+              }
             }
             arrowEl.classList.remove('top_arrow');
             arrowEl.classList.remove('right_arrow');

@@ -18,25 +18,25 @@
   &.bottom_arrow {
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
-    border-bottom: 6px solid var(--color-text);
+    border-bottom: 6px solid black;
     bottom: 100%;
     left: 50%;
   }
   &.left_arrow {
-      border-right: 6px solid var(--color-text);
+      border-right: 6px solid black;
       right: 100%;
       top: 16px;
       margin-top: -6px;
   }
 
   &.right_arrow {
-      border-left: 6px solid var(--color-text);
+      border-left: 6px solid black;
       left: 100%;
       top: 16px;
       margin-top: -6px;
   }
   &.top_arrow {
-      border-top: 6px solid var(--color-text);
+      border-top: 6px solid black;
       border-right: 6px solid transparent;
       border-left: 6px solid transparent;
       top: 100%;

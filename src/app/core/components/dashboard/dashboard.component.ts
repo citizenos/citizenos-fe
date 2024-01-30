@@ -31,7 +31,7 @@ export class DashboardComponent {
 
   showPublic = true;
   showCreate = false;
-
+  wWidth = window.innerWidth;
   constructor(
     public auth: AuthService,
     public app: AppService,

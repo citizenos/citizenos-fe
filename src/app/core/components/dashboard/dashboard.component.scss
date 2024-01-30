@@ -363,10 +363,11 @@
   padding: 24px 24px 0 24px;
   @include mixins.tablet {
     padding-bottom: 56px;
+    overflow: hidden;
   }
   @include mixins.mobile {
     margin-top: 40px;
-    margin-bottom: 60px;
+    margin-bottom: 56px;
     flex-direction: column;
     padding-bottom: 0;
   }
@@ -398,6 +399,7 @@
       @include mixins.tablet {
         flex-direction: column;
         width: 100%;
+        padding-bottom: 20px;
       }
 
       input {
@@ -418,6 +420,7 @@
   #subscribe_illustration {
     display: flex;
     position: relative;
+
     @include mixins.mobile {
       width: calc(100% + 48px);
       left: -24px;
@@ -427,6 +430,10 @@
     svg {
       width: 100%;
       height: 100%;
+      @include mixins.tablet {
+        width: initial;
+        height: initial;
+      }
     }
   }
 }
