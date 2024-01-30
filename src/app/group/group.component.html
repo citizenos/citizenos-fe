@@ -477,55 +477,79 @@
       <a class="tab_item" (click)="selectTab('members')" [ngClass]="tabSelected=== 'members' ? 'active' : ''"
         translate="VIEWS.GROUP.TAB_MEMBERS"></a>
     </div>
-    <div id="create_menu_wrap" [ngClass]="{'hidden': !showCreate}">
-      <div id="create_menu">
-        <div class="create_menu_item" (click)="addNewTopic();">
-          <div class="left_wrap">
-            <div class="icon_wrap">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="32" height="32" rx="16" fill="#1168A8" />
-                <path
-                  d="M22.0002 17.7634C22.0243 17.7288 22.0474 17.6928 22.0712 17.6591C22.6755 16.7608 22.999 15.703 23.0002 14.6203C23.0102 11.5172 20.3921 9 17.1546 9C14.3308 9 11.9752 10.9216 11.4233 13.4725C11.3406 13.8506 11.2986 14.2364 11.2983 14.6234C11.2983 17.7297 13.8158 20.3144 17.0533 20.3144C17.568 20.3144 18.2615 20.1597 18.6418 20.0553C19.0221 19.9509 19.399 19.8131 19.4965 19.7759C19.594 19.7387 19.7465 19.7006 19.868 19.7356L22.2874 20.435C22.3087 20.4413 22.3312 20.4418 22.3528 20.4365C22.3743 20.4312 22.394 20.4202 22.4099 20.4048C22.4258 20.3893 22.4374 20.3699 22.4433 20.3485C22.4492 20.3271 22.4493 20.3046 22.4437 20.2831L21.8899 18.1741C21.8515 18.0178 21.8465 17.9884 22.0002 17.7634Z"
-                  fill="white" />
-                <path
-                  d="M17.7669 20.9809C17.5264 21.0193 17.2835 21.0407 17.04 21.0449C15.7141 21.0449 14.4619 20.6949 13.4463 20.0387C12.7966 19.6399 12.2327 19.116 11.7872 18.4974C10.9722 17.4171 10.5278 16.044 10.5278 14.6071C10.5278 14.5093 10.5313 14.4152 10.5347 14.3209C10.536 14.293 10.5286 14.2655 10.5136 14.242C10.4987 14.2185 10.4768 14.2002 10.4511 14.1895C10.4253 14.1789 10.3969 14.1764 10.3698 14.1824C10.3426 14.1885 10.3179 14.2028 10.2991 14.2234C9.55083 15.0421 9.09849 16.0879 9.01431 17.1939C8.93014 18.2998 9.21898 19.4021 9.83472 20.3246C9.91191 20.4424 9.95566 20.5334 9.94222 20.594L9.50191 22.8521C9.49785 22.8736 9.49949 22.8957 9.50666 22.9164C9.51384 22.937 9.5263 22.9554 9.5428 22.9697C9.55931 22.9841 9.57928 22.9938 9.60073 22.998C9.62218 23.0022 9.64435 23.0007 9.66504 22.9937L11.79 22.2362C11.8545 22.2107 11.9233 22.1982 11.9926 22.1994C12.0619 22.2005 12.1302 22.2154 12.1938 22.243C12.8297 22.493 13.5332 22.6468 14.2366 22.6468C15.5906 22.6512 16.8949 22.1368 17.8813 21.2093C17.9017 21.1894 17.9152 21.1636 17.9199 21.1356C17.9246 21.1075 17.9203 21.0787 17.9076 21.0533C17.8948 21.0278 17.8744 21.0071 17.8491 20.9941C17.8238 20.9811 17.795 20.9764 17.7669 20.9809Z"
-                  fill="white" />
-              </svg>
+    <div id="create_add_container" [ngClass]="{'hidden': !showCreate}">
+      <div id="create_menu_wrap">
+        <div class="header_wrap">
+          <div class="menu_title" translate="VIEWS.GROUP.TITLE_ADD_OR_CREATE"></div>
+          <button class="btn_medium_close icon tablet_show" (click)="showCreate = false;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289Z"
+                fill="#2C3B47" />
+            </svg>
+          </button>
+        </div>
+        <div id="create_menu">
+          <div class="menu_heading" translate="VIEWS.GROUP.HEADING_CREATE_A_NEW_TOPIC"></div>
+          <div class="line_separator"></div>
+          <div class="create_menu_item" (click)="addNewTopic();">
+            <div class="left_wrap">
+              <div class="icon_wrap">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="32" height="32" rx="16" fill="#1168A8" />
+                  <path
+                    d="M22.0002 17.7634C22.0243 17.7288 22.0474 17.6928 22.0712 17.6591C22.6755 16.7608 22.999 15.703 23.0002 14.6203C23.0102 11.5172 20.3921 9 17.1546 9C14.3308 9 11.9752 10.9216 11.4233 13.4725C11.3406 13.8506 11.2986 14.2364 11.2983 14.6234C11.2983 17.7297 13.8158 20.3144 17.0533 20.3144C17.568 20.3144 18.2615 20.1597 18.6418 20.0553C19.0221 19.9509 19.399 19.8131 19.4965 19.7759C19.594 19.7387 19.7465 19.7006 19.868 19.7356L22.2874 20.435C22.3087 20.4413 22.3312 20.4418 22.3528 20.4365C22.3743 20.4312 22.394 20.4202 22.4099 20.4048C22.4258 20.3893 22.4374 20.3699 22.4433 20.3485C22.4492 20.3271 22.4493 20.3046 22.4437 20.2831L21.8899 18.1741C21.8515 18.0178 21.8465 17.9884 22.0002 17.7634Z"
+                    fill="white" />
+                  <path
+                    d="M17.7669 20.9809C17.5264 21.0193 17.2835 21.0407 17.04 21.0449C15.7141 21.0449 14.4619 20.6949 13.4463 20.0387C12.7966 19.6399 12.2327 19.116 11.7872 18.4974C10.9722 17.4171 10.5278 16.044 10.5278 14.6071C10.5278 14.5093 10.5313 14.4152 10.5347 14.3209C10.536 14.293 10.5286 14.2655 10.5136 14.242C10.4987 14.2185 10.4768 14.2002 10.4511 14.1895C10.4253 14.1789 10.3969 14.1764 10.3698 14.1824C10.3426 14.1885 10.3179 14.2028 10.2991 14.2234C9.55083 15.0421 9.09849 16.0879 9.01431 17.1939C8.93014 18.2998 9.21898 19.4021 9.83472 20.3246C9.91191 20.4424 9.95566 20.5334 9.94222 20.594L9.50191 22.8521C9.49785 22.8736 9.49949 22.8957 9.50666 22.9164C9.51384 22.937 9.5263 22.9554 9.5428 22.9697C9.55931 22.9841 9.57928 22.9938 9.60073 22.998C9.62218 23.0022 9.64435 23.0007 9.66504 22.9937L11.79 22.2362C11.8545 22.2107 11.9233 22.1982 11.9926 22.1994C12.0619 22.2005 12.1302 22.2154 12.1938 22.243C12.8297 22.493 13.5332 22.6468 14.2366 22.6468C15.5906 22.6512 16.8949 22.1368 17.8813 21.2093C17.9017 21.1894 17.9152 21.1636 17.9199 21.1356C17.9246 21.1075 17.9203 21.0787 17.9076 21.0533C17.8948 21.0278 17.8744 21.0071 17.8491 20.9941C17.8238 20.9811 17.795 20.9764 17.7669 20.9809Z"
+                    fill="white" />
+                </svg>
 
+              </div>
+              <div class="item_text_wrap">
+                <div class="item_title" translate="COMPONENTS.CREATE.TITLE_DISCUSSION"></div>
+                <div class="item_description" translate="COMPONENTS.CREATE.DESC_DISCUSSION"></div>
+              </div>
             </div>
-            <div class="item_text_wrap">
-              <div class="item_title" translate="COMPONENTS.CREATE.TITLE_DISCUSSION"></div>
-              <div class="item_description" translate="COMPONENTS.CREATE.DESC_DISCUSSION"></div>
+            <div class="icon_item icon_arrow_right">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 7L15 12L10 17" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+              </svg>
             </div>
           </div>
-          <div class="icon_item icon_arrow_right">
+
+          <div class="create_menu_item" (click)="addNewVotingTopic();">
+            <div class="left_wrap">
+              <div class="icon_wrap">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="32" height="32" rx="16" fill="#5AB467" />
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M16 8C11.584 8 8 11.584 8 16C8 20.416 11.584 24 16 24C20.416 24 24 20.416 24 16C24 11.584 20.416 8 16 8ZM14.4444 20L20.6667 13.8246L19.5 12.6667L14.4444 17.6842L12.5 15.7544L11.3333 16.9123L14.4444 20Z"
+                    fill="white" />
+                </svg>
+              </div>
+              <div class="item_text_wrap">
+                <div class="item_title" translate="COMPONENTS.CREATE.TITLE_VOTE"></div>
+                <div class="item_description" translate="COMPONENTS.CREATE.DESC_VOTE"></div>
+              </div>
+            </div>
+            <div class="icon_item icon_arrow_right">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 7L15 12L10 17" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <button class="create_item" *ngIf="tabSelected === 'topics' && (auth.loggedIn$ | async) && canUpdate(group)"
+          (click)="addTopicDialog(group)">
+          <span class="item_heading" translate="VIEWS.GROUP.BTN_ADD_TOPICS"></span>
+          <div class="icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M10 7L15 12L10 17" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
             </svg>
           </div>
-        </div>
+        </button>
 
-        <div class="create_menu_item" (click)="addNewVotingTopic();">
-          <div class="left_wrap">
-            <div class="icon_wrap">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="32" height="32" rx="16" fill="#5AB467" />
-                <path fill-rule="evenodd" clip-rule="evenodd"
-                  d="M16 8C11.584 8 8 11.584 8 16C8 20.416 11.584 24 16 24C20.416 24 24 20.416 24 16C24 11.584 20.416 8 16 8ZM14.4444 20L20.6667 13.8246L19.5 12.6667L14.4444 17.6842L12.5 15.7544L11.3333 16.9123L14.4444 20Z"
-                  fill="white" />
-              </svg>
-            </div>
-            <div class="item_text_wrap">
-              <div class="item_title" translate="COMPONENTS.CREATE.TITLE_VOTE"></div>
-              <div class="item_description" translate="COMPONENTS.CREATE.DESC_VOTE"></div>
-            </div>
-          </div>
-          <div class="icon_item icon_arrow_right">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M10 7L15 12L10 17" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
-            </svg>
-          </div>
-        </div>
       </div>
       <div id="close_create" (click)="showCreate = false;"></div>
     </div>
@@ -536,16 +560,16 @@
             d="M12.5 20C11.9711 20 11.5423 19.5712 11.5423 19.0423L11.5423 12.9577L5.45775 12.9577C4.9288 12.9577 4.5 12.5289 4.5 12C4.5 11.4711 4.9288 11.0423 5.45775 11.0423H11.5423V4.95775C11.5423 4.4288 11.9711 4 12.5 4C13.0289 4 13.4577 4.4288 13.4577 4.95775L13.4577 11.0423L19.5423 11.0423C20.0712 11.0423 20.5 11.4711 20.5 12C20.5 12.5289 20.0712 12.9577 19.5423 12.9577H13.4577V19.0423C13.4577 19.5712 13.0289 20 12.5 20Z"
             fill="white" />
         </svg>
-        <span translate="VIEWS.MY_TOPICS.HAVENT_ENGAGED_BTN_CREATE"></span>
+        <span translate="VIEWS.GROUP.BTN_ADD_OR_CREATE_TOPICS"></span>
       </button>
-      <button class="btn_medium_submit animate"
+      <!--button class="btn_medium_submit animate"
         *ngIf="tabSelected === 'topics' && (auth.loggedIn$ | async) && canUpdate(group)"
         (click)="addTopicDialog(group)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
           xmlns="http://www.w3.org/2000/svg">
           <path
             d="M12 20C11.4711 20 11.0423 19.5712 11.0423 19.0423L11.0423 12.9577L4.95775 12.9577C4.4288 12.9577 4 12.5289 4 12C4 11.4711 4.4288 11.0423 4.95775 11.0423H11.0423V4.95775C11.0423 4.4288 11.4711 4 12 4C12.5289 4 12.9577 4.4288 12.9577 4.95775L12.9577 11.0423L19.0423 11.0423C19.5712 11.0423 20 11.4711 20 12C20 12.5289 19.5712 12.9577 19.0423 12.9577H12.9577V19.0423C12.9577 19.5712 12.5289 20 12 20Z"
             fill="white" />
-        </svg><span translate="VIEWS.GROUP.BTN_ADD_TOPICS"></span></button>
+        </svg><span translate="VIEWS.GROUP.BTN_ADD_TOPICS"></span></!--button-->
     </ng-container>
     <button class="btn_medium_submit animate" *ngIf="tabSelected === 'members' && canUpdate(group)"
       (click)="shareGroupDialog(group)">
@@ -557,6 +581,14 @@
       <span translate="VIEWS.GROUP.BTN_ADD_MEMBERS"></span></button>
   </div>
   <ng-container *ngIf="(tabSelected | async) === 'topics'">
+    <button class="btn_medium_submit mobile_show" (click)="showCreateMenu()" [ngClass]="{active: showCreate}"><svg
+        width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M12.5 20C11.9711 20 11.5423 19.5712 11.5423 19.0423L11.5423 12.9577L5.45775 12.9577C4.9288 12.9577 4.5 12.5289 4.5 12C4.5 11.4711 4.9288 11.0423 5.45775 11.0423H11.5423V4.95775C11.5423 4.4288 11.9711 4 12.5 4C13.0289 4 13.4577 4.4288 13.4577 4.95775L13.4577 11.0423L19.5423 11.0423C20.0712 11.0423 20.5 11.4711 20.5 12C20.5 12.5289 20.0712 12.9577 19.5423 12.9577H13.4577V19.0423C13.4577 19.5712 13.0289 20 12.5 20Z"
+          fill="white" />
+      </svg>
+      <span translate="VIEWS.GROUP.BTN_ADD_OR_CREATE_TOPICS"></span>
+    </button>
     <div id="topic_list_filters" [@openSlide]="moreFilters ? 'open' : 'closed'">
       <div id="options_area" class="mobile_hidden">
         <div class="options_row">
