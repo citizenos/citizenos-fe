@@ -1430,6 +1430,7 @@
       "LNK_DASHBOARD": "Dashboard",
       "LNK_LOG_IN_REGISTER": "Log in / Register to Citizen OS",
       "LNK_MY_ACCOUNT": "My profile",
+      "LOGGED_IN_AS": "Logged in as",
       "OPT_ACCOUNT_DETAILS": "Account details",
       "HEADING_TOPICS": "Topics",
       "LNK_CREATE_TOPICS": "Create topic",

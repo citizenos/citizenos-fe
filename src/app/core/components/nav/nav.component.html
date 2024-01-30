@@ -522,6 +522,22 @@
                       </svg>
                     </div>
                     <div class="options">
+                      <div id="loggend_in_as_wrap">
+                        <div class="icon_wrap">
+                          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="32" height="32" rx="16" fill="#F9FBFD"/>
+                            <rect x="6.5" y="9.5" width="19" height="13" rx="1.5" fill="#D7E9F8" stroke="#2C3B47"/>
+                            <path d="M7 10L14.6268 17.203C15.3975 17.931 16.6025 17.931 17.3732 17.203L25 10" stroke="#2C3B47"/>
+                            <path d="M25 22L19 16" stroke="#2C3B47"/>
+                            <path d="M7 22L13 16" stroke="#2C3B47"/>
+                            </svg>
+
+                        </div>
+                        <div class="text_wrap">
+                          <div translate="DEFAULT.NAV.LOGGED_IN_AS"></div>
+                          <div class="bold">{{user.email}}</div>
+                        </div>
+                      </div>
                       <div class="option" [routerLink]="['/', translate.currentLang, 'account']" fragment="profile"
                         routerLinkActive="active">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
