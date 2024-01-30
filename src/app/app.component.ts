@@ -59,6 +59,7 @@ export class AppComponent {
       ((event: Event) => {
         //console.log(event);
         if (event && event instanceof NavigationStart) {
+          app.darkNav = false;
           this.Notification.removeAll(); //Remove all notifications on navigating away
           app.showNav = false;
           app.topic = undefined;

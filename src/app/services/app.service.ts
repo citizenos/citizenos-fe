@@ -31,6 +31,7 @@ export class AppService {
   editMode = false;
   darkNav = false;
   mobileNavBox = false;
+  tabletNav = false;
   showActivities = false;
   searchAllowed = true;
   addArgument = new BehaviorSubject(false);

@@ -107,4 +107,11 @@ export class NavComponent implements OnInit {
     }
     return this.app.showCreateMenu();
   }
+
+  toggleNav() {
+    this.app.showNav = !this.app.showNav;
+    if (window.innerWidth <= 1024 && window.innerWidth > 560) {
+      this.app.tabletNav = this.app.showNav;
+    }
+  }
 }
