@@ -128,7 +128,7 @@ export class GroupComponent implements OnInit {
     public auth: AuthService,
     public app: AppService,
     public GroupMemberTopicService: GroupMemberTopicService) {
-
+    this.app.darkNav = true;
     this.users$ = this.GroupMemberUserService.loadItems().pipe(
       tap((topics) => {
         if (topics.length === 0) {

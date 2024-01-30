@@ -1,6 +1,7 @@
 @use "mixins";
 
-.nav_mobile {
+.nav_mobile,
+.nav_header_tablet {
   display: none;
   @include mixins.mobile {
     border-bottom: 1px solid var(--color-background);
@@ -47,6 +48,32 @@
     #button_area {
       position: absolute;
     }
+  }
+}
+
+.nav_header_tablet {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+
+  @include mixins.tablet {
+    display: flex;
+  }
+  @include mixins.mobile {
+    display: none;
+  }
+
+  position: relative;
+  .logo_wrap_tablet {
+    display: flex;
+    height: 28px;
+    @include mixins.tablet {
+      display: flex;
+    }
+  }
+  #button_area {
+    position: relative;
   }
 }
 
@@ -103,7 +130,7 @@
   background: var(--color-surfaces);
   transition: right 0.5s ease-in-out;
 
-  .nav_items_wrap  {
+  .nav_items_wrap {
     width: 100%;
 
     @include mixins.tablet {
@@ -245,10 +272,18 @@
     max-width: 100%;
   }
   &.nav_is_open {
-    padding-top: 56px;
     right: 0;
     left: initial;
     z-index: 10;
+
+    @include mixins.tablet {
+      padding-top: 0;
+      z-index: 9999;
+    }
+    @include mixins.mobile {
+      padding-top: 56px;
+      z-index: 10;
+    }
 
     .logo_wrap {
       display: none;
@@ -268,6 +303,11 @@
     width: 100%;
     @include mixins.tablet {
       gap: 0;
+      padding: 0 0 8px 0;
+    }
+
+    @include mixins.mobile {
+      gap: 0;
       padding: 8px 0;
     }
 
@@ -280,12 +320,16 @@
       width: 100%;
 
       @include mixins.tablet {
-        padding: 16px 16px 24px 16px;
+        padding: 0 16px 24px 16px;
       }
       @include mixins.mobile {
+        padding: 16px 16px 24px 16px;
+      }
+      @include mixins.tablet {
         flex-direction: row;
 
-        .btn_big_submit, .btn_big_submit_ghost {
+        .btn_big_submit,
+        .btn_big_submit_ghost {
           width: 100%;
           min-width: auto;
 
@@ -542,4 +586,15 @@
       }
     }
   }
+}
+
+.nav_overlay {
+  position: fixed;
+  cursor: pointer;
+  z-index: 999;
+  background-color: rgba(44, 59, 71, 0.8);
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
 }

@@ -1146,6 +1146,11 @@ tour-item-template {
     background-color: var(--color-argument-pro-medium);
     border-radius: 16px 16px 0px 0px;
 
+    @include mixins.tablet {
+      .options {
+        right: 0;
+      }
+    }
     @include mixins.mobile {
       flex-direction: column-reverse;
       gap: 8px;
