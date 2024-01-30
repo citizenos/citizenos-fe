@@ -680,11 +680,11 @@
       "HEADING_MILESTONE_CONTENT": "Teavituse sisu",
       "ADD_MILESTONE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_ADD_MILESTONE",
       "HEADING_MILESTONE": "Teavitus",
-      "HEADING_MILESTONE_TITLE": "Title of the update",
+      "HEADING_MILESTONE_TITLE": "Teavituse pealkiri",
       "MILESTONE_TITLE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_MILESTONE"
     },
     "TOPIC_ONBOARDING": {
-      "TITLE": "Topics look (and work) a bit differently since the update",
+      "TITLE": "Teemad näevad välja (ja töötavad) pisut teistmoodi pärast uuendust",
       "DESCRIPTION": "@:VIEWS.TOPICS_TOPICID.TUTORIAL_DESC",
       "TAKE_A_TOUR": "@:COMPONENTS.ONBOARDING.TAKE_A_TOUR",
       "BTN_SUBMIT": "@:COMPONENTS.ONBOARDING.BTN_SUBMIT",
