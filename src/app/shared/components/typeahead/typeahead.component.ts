@@ -133,11 +133,13 @@ export class TypeaheadComponent implements OnInit {
   };
 
   selectActive() {
+    this.enterLink = false;
     if (!this.active) this.active = this.itemList[0];
     this.doSelect(this.active);
   };
 
   doEnterAction() {
+    this.enterLink = false;
     this.itemList = [];
 
     if (this.enterAction) {
@@ -148,6 +150,7 @@ export class TypeaheadComponent implements OnInit {
   };
 
   doSelect(item: any) {
+    this.enterLink = false;
     this.hide = true;
     this.focused = true;
     this.term = '';
