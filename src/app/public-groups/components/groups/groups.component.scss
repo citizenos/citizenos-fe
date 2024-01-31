@@ -122,6 +122,10 @@
   gap: 24px;
   flex-flow: row wrap;
 
+  @include mixins.tablet {
+    gap: 20px;
+  }
+
   @include mixins.mobile {
     justify-content: center;
     padding: 0 16px;

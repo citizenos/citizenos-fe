@@ -21,6 +21,11 @@
       color: var(--color-link);
     }
   }
+
+  @include mixins.tablet {
+    width: 232px;
+  }
+
   @include mixins.mobile {
     min-width: 280px;
     width: 100%;

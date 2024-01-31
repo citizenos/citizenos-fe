@@ -9,6 +9,11 @@
   background-color: var(--color-surfaces);
   position: relative;
   transition: box-shadow 0.3s ease-in-out;
+
+  @include mixins.tablet {
+    width: 232px;
+  }
+
   &.moderated {
     &:hover {
       .image {
