@@ -236,7 +236,7 @@ $button-styles: (
   }
 }
 
-.btn_small_nav  {
+.btn_small_nav {
   gap: 16px;
   padding: 8px;
 }
@@ -297,6 +297,28 @@ $button-styles: (
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  &.voting {
+    &:focus, &:hover {
+      background-color: var(--color-argument-pro-light);
+
+      .checmark, .radio {
+        border-color: initial;
+      }
+    }
+/*
+    &.active, &.selected {
+      background-color: var(--color-voting-disabled);
+
+      .checkmark, .radio {
+        background-color: var(--color-voting);
+        border-color: var(--input-checkbox-border-voting);
+      }
+      .checkmark::after, .radio::after {
+        display: block;
+      }
+    }*/
   }
 }
 
@@ -445,12 +467,14 @@ $button-styles: (
 }
 
 /* When the checkbox is checked, add a blue background */
-.checkbox input:checked ~ .checkmark, .checkbox.selected .checkmark {
+.checkbox input:checked ~ .checkmark,
+.checkbox.selected .checkmark {
   background-color: var(--input-checkbox-background-default);
   border: 1px solid var(--input-checkbox-border-default);
 }
 /* Show the checkmark when checked */
-.checkbox input:checked ~ .checkmark:after, .checkbox.selected .checkmark:after {
+.checkbox input:checked ~ .checkmark:after,
+.checkbox.selected .checkmark:after {
   display: block;
 }
 

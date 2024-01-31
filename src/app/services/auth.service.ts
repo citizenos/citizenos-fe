@@ -123,6 +123,7 @@ export class AuthService {
             this.Notification.addError(res.error.status.message);
           }
         }
+        this.loggedIn$.next(false);
         return of(null);
       }),
       map(res => res)
@@ -202,5 +203,6 @@ export class AuthService {
 
 export const authResolver: ResolveFn<User> =
   (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
-    return inject(AuthService).status();
+    const auth = inject(AuthService);
+    return auth.status();
   };
