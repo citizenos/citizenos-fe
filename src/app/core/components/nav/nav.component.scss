@@ -98,6 +98,7 @@
     width: 320px;
     right: 0;
     max-width: 320px;
+    z-index: initial;
   }
 
   @include mixins.mobile {
@@ -207,6 +208,17 @@
       position: fixed;
       left: 16px;
       width: max-content;
+
+      @include mixins.tablet {
+        right: 16px;
+        left: initial;
+      }
+
+      @include mixins.mobile {
+        left: 16px;
+        right: initial;
+      }
+
       #loggend_in_as_wrap {
         display: flex;
         flex-direction: column;
