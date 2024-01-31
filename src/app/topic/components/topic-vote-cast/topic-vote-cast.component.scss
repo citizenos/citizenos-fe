@@ -76,6 +76,7 @@
             }
             .links_wrap {
               margin-top: 16px;
+              flex-direction: column;
               a {
                 gap: 8px;
                 display: flex;

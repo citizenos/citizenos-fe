@@ -147,8 +147,8 @@
           <ng-container *ngIf="hasVoteEndedExpired() &&(!userHasVoted || !editVote)">
             <div class="text_area">
               <div class="bold" translate="COMPONENTS.TOPIC_VOTE_CAST.HEADING_VOTE_ENDED"></div>
-              <div translate="COMPONENTS.TOPIC_VOTE_CAST.VOTE_TXT_VOTE_ENDED"></div>
-              <div class="links_wrap">
+              <div *ngIf="canUpdate()" translate="COMPONENTS.TOPIC_VOTE_CAST.VOTE_TXT_VOTE_ENDED"></div>
+              <div class="links_wrap"  *ngIf="canUpdate()">
                 <a [href]="vote.downloads.bdocVote"
                   *ngIf="vote.authType === VOTE_AUTH_TYPES.hard && vote.downloads?.bdocVote" download>
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -204,7 +204,7 @@
                   </a>
                 </ng-container>
                 <a *ngIf="vote.authType === VOTE_AUTH_TYPES.soft"
-                  (click)="(!vote.downloads?.zipFinal)? triggerFinalDownload('zip'): $event.stopPropagation();">
+                  (click)="(vote.downloads?.zipFinal)? triggerFinalDownload('zip'): $event.stopPropagation();">
                   <div>
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <g clip-path="url(#clip0_335_42956)">
@@ -292,7 +292,7 @@
           (click)="selectOption(option)">
           <div class="radio_text_wrap">
             <div class="radio_lable_wrap">
-              <label [ngClass]="(vote.maxChoices === 1)? 'radio_box': 'checbox'"><span
+              <label [ngClass]="(vote.maxChoices === 1)? 'radio_box': 'checkbox'"><span
                   translate="{{'COMPONENTS.TOPIC_VOTE_CAST.LBL_OPTION_' + option.value  | uppercase}}"
                   [translateParams]="{default: option.value}"></span>
                 <input type="checkbox" [checked]="option.selected" (click)="selectOption(option)" />
