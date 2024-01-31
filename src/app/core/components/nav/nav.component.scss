@@ -88,6 +88,7 @@
   width: 200px;
   overflow-y: auto;
   overflow-x: hidden;
+  z-index: 1;
 
   &.pos_absolute {
     position: absolute;
@@ -186,7 +187,7 @@
 
   #profile_dropdown {
     border: none;
-
+    position: relative;
     .selection {
       display: flex;
       border: none;
@@ -202,9 +203,10 @@
       border: none;
       margin-top: 16px;
       box-shadow: 0px 8px 20px 0px rgba(220, 231, 240, 0.30), 0px 12px 16px 0px rgba(50, 85, 112, 0.10);
-      left: -60px;
       padding: 0;
-
+      position: fixed;
+      left: 16px;
+      width: max-content;
       #loggend_in_as_wrap {
         display: flex;
         flex-direction: column;
@@ -213,6 +215,8 @@
         padding: 16px;
         gap: 8px;
         position: relative;
+        border-radius: 8px 8px 0 0;
+
         .icon_wrap {
           height: 32px;
         }
