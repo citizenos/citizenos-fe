@@ -292,11 +292,11 @@
           (click)="selectOption(option)">
           <div class="radio_text_wrap">
             <div class="radio_lable_wrap">
-              <label class="checkbox"><span
+              <label [ngClass]="(vote.maxChoices === 1)? 'radio_box': 'checbox'"><span
                   translate="{{'COMPONENTS.TOPIC_VOTE_CAST.LBL_OPTION_' + option.value  | uppercase}}"
                   [translateParams]="{default: option.value}"></span>
                 <input type="checkbox" [checked]="option.selected" (click)="selectOption(option)" />
-                <span class="checkmark"></span>
+                <span [ngClass]="(vote.maxChoices === 1)? 'radio': 'checkmark'"></span>
               </label>
             </div>
           </div>

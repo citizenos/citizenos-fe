@@ -506,7 +506,7 @@
       <ng-container *ngIf="tabSelected === 'followUp'">
         <div class="follow_up_wrap" #topicFollowUp>
           <ng-container *ngIf="events$ | async as events;">
-            <ng-container *ngIf="!events.length">
+            <ng-container *ngIf="!events.length && topic.status !== TopicService.STATUSES.followUp">
               <div class="topic_feature_section follow_up" [ngClass]="(tabTablet === 'followUp')? 'show': ''">
                 <div class="no_feature_yet">
                   <svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1087,8 +1087,10 @@
     </div>
   </div>
   <div id="tabs_tablet" class="topic_tabs tablet tabs_wrap tablet_show" *ngIf="tabSelected$ | async as tabSelected;"
-    [ngClass]="{'hidden': dialogsOpen()}" [TourItem]="{tourid: ['topic_mobile', 'topic_tablet'], index: 1, position: 'top'}">
-    <a class="topic_tab" (click)="(tabTablet = '')" [ngClass]="{'active': !tabTablet}">
+    [ngClass]="{'hidden': dialogsOpen()}"
+    [TourItem]="{tourid: ['topic_mobile', 'topic_tablet'], index: 1, position: 'top'}">
+    <a class="topic_tab" (click)="(tabTablet = '')" [ngClass]="{'active': !tabTablet}" [routerLink]="['./']"
+      fragment="">
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M7 4C7 3.44772 7.44772 3 8 3H18.1716C18.4368 3 18.6911 3.10536 18.8787 3.29289L24.7071 9.12132L25.4142 8.41421L24.7071 9.12132C24.8946 9.30886 25 9.56321 25 9.82843V28C25 28.5523 24.5523 29 24 29H8C7.44772 29 7 28.5523 7 28V4Z"
@@ -1124,8 +1126,16 @@
     </!--a-->
     <a class="topic_tab voting" [ngClass]="{'active': tabTablet==='vote'}" [routerLink]="['./']" fragment="voting"
       (click)="tabTablet='vote'">
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg *ngIf="!topic.voteId && tabSelected !== 'voting'" width="32" height="32" viewBox="0 0 32 32" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
         <rect width="32" height="32" rx="16" fill="#98DAA2" />
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M16 8C11.584 8 8 11.584 8 16C8 20.416 11.584 24 16 24C20.416 24 24 20.416 24 16C24 11.584 20.416 8 16 8ZM14.4444 20L20.6667 13.8246L19.5 12.6667L14.4444 17.6842L12.5 15.7544L11.3333 16.9123L14.4444 20Z"
+          fill="white" />
+      </svg>
+      <svg *ngIf="topic.voteId || tabSelected === 'voting'" width="32" height="32" viewBox="0 0 32 32" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <rect width="32" height="32" rx="16" fill="#5AB467" />
         <path fill-rule="evenodd" clip-rule="evenodd"
           d="M16 8C11.584 8 8 11.584 8 16C8 20.416 11.584 24 16 24C20.416 24 24 20.416 24 16C24 11.584 20.416 8 16 8ZM14.4444 20L20.6667 13.8246L19.5 12.6667L14.4444 17.6842L12.5 15.7544L11.3333 16.9123L14.4444 20Z"
           fill="white" />
@@ -1134,12 +1144,22 @@
     </a>
     <a class="topic_tab follow_up" [ngClass]="{'active': tabTablet=== 'followUp'}" [routerLink]="['./']"
       fragment="followUp" (click)="tabTablet='followUp'">
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="32" height="32" rx="16" fill="#E3A8CC" />
-        <rect x="4" y="4" width="24" height="24" rx="12" fill="#E3A8CC" />
-        <path d="M17.8933 11.5294L17.6 10H11V23H12.4667V17.6471H16.5733L16.8667 19.1765H22V11.5294H17.8933Z"
-          fill="white" />
-      </svg>
+      <svg
+          *ngIf="topic.status !== TopicService.STATUSES.followUp && topic.status !== TopicService.STATUSES.closed && tabSelected !== 'followUp'"
+          width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="32" height="32" rx="16" fill="#E3A8CC" />
+          <rect x="4" y="4" width="24" height="24" rx="12" fill="#E3A8CC" />
+          <path d="M17.8933 11.5294L17.6 10H11V23H12.4667V17.6471H16.5733L16.8667 19.1765H22V11.5294H17.8933Z"
+            fill="white" />
+        </svg>
+        <svg
+          *ngIf="topic.status === TopicService.STATUSES.followUp || topic.status === TopicService.STATUSES.closed || tabSelected === 'followUp'"
+          width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="32" height="32" rx="16" fill="#DA7AB1" />
+          <rect x="4" y="4" width="24" height="24" rx="12" fill="#DA7AB1" />
+          <path d="M17.8933 11.5294L17.6 10H11V23H12.4667V17.6471H16.5733L16.8667 19.1765H22V11.5294H17.8933Z"
+            fill="white" />
+        </svg>
       <span class="tab_text" translate="VIEWS.TOPICS_TOPICID.TAB_FOLLOW_UP"></span>
     </a>
     <div id="activities_button_wrap">
