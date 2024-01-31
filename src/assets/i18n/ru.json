@@ -761,7 +761,7 @@
       "VOTE_LBL_MIN_CHOICES": "@:VIEWS.TOPICS_TOPICID.VOTE_LBL_MIN_CHOICES",
       "VOTE_LBL_MAX_CHOICES": "@:VIEWS.TOPICS_TOPICID.VOTE_LBL_MAX_CHOICES",
       "LBL_SET_UP_VOTING_RIGHTS": "Определите права голоса",
-      "LBL_SET_UP_VOTING_RIGHTS_DESC": "Choose how participants must cast their votes",
+      "LBL_SET_UP_VOTING_RIGHTS_DESC": "Choose how participants must cast their votes.",
       "LBL_OPTION_AUTH_SOFT_ID": "Soft voting",
       "LBL_OPTION_AUTH_SOFT_ID_DESC": "Any logged in person can cast their vote.",
       "LBL_OPTION_AUTH_HARD_ID": "Hard voting",
