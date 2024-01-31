@@ -209,7 +209,7 @@ export class TopicVoteCastComponent implements OnInit {
       }
     });
   }
-  canEditDeadline () {
+  canEditDeadline() {
     return this.topic.status === this.TopicService.STATUSES.voting;
   }
 
@@ -320,6 +320,22 @@ export class TopicVoteCastComponent implements OnInit {
   };
 
   triggerFinalDownload(type: string, includeCSV?: boolean) {
+    let url = ''
+    if (this.vote.downloads?.bdocFinal || this.vote.downloads?.zipFinal) {
+      console.log(type, 'tyüe')
+      if (type === 'zip') {
+        url = this.vote.downloads.zipFinal;
+      } else {
+        url = this.vote.downloads.bdocFinal;
+      }
+      if (!url) return;
+      if (includeCSV) {
+        url += '&include[]=csv';
+      }
+      console.log(url)
+      window.location.href = url;
+      return;
+    }
     const finalDownloadDialog = this.dialog.open(DownloadVoteResultsComponent);
     finalDownloadDialog.afterClosed().subscribe({
       next: (allow: any) => {
@@ -330,23 +346,22 @@ export class TopicVoteCastComponent implements OnInit {
           this.TopicService.patch(this.topic).pipe(take(1)).subscribe({
             next: () => {
               this.TopicService.reloadTopic();
-              this.TopicVoteService.loadVote({topicId: this.topic.id, voteId: this.topic.voteId!})
-              .pipe(take(1))
-              .subscribe({
-                next: (vote) => {
-                  let url = ''
-                  if (type === 'zip') {
-                    url = vote.downloads.zipFinal;
-                  } else {
-                    url = vote.downloads.bdocFinal;
+              this.TopicVoteService.loadVote({ topicId: this.topic.id, voteId: this.topic.voteId! })
+                .pipe(take(1))
+                .subscribe({
+                  next: (vote) => {
+                    if (type === 'zip') {
+                      url = vote.downloads.zipFinal;
+                    } else {
+                      url = vote.downloads.bdocFinal;
+                    }
+                    if (!url) return;
+                    if (includeCSV) {
+                      url += '&include[]=csv';
+                    }
+                    window.location.href = url;
                   }
-                  if (!url) return;
-                  if (includeCSV) {
-                    url += '&include[]=csv';
-                  }
-                  window.location.href = url;
-                }
-              });
+                });
             }
           });
         }
