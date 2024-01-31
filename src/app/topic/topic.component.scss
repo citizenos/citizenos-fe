@@ -699,15 +699,7 @@
     }
 
     @include mixins.tablet {
-      margin-bottom: 57px;
-      right: 0;
-      left: 0;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    @include mixins.mobile {
-      width: 100%;
+      display: none;
     }
 
     .tutorial_header {
@@ -880,6 +872,18 @@
   .tab_text {
     @include mixins.tablet {
       display: none;
+    }
+  }
+}
+
+#tablet_actions {
+  .options {
+    right: 16px;
+    max-width: max-content;
+    max-height: max-content;
+    width: 100%;
+    .option {
+      gap: 8px;
     }
   }
 }
