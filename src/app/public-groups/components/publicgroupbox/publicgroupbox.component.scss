@@ -13,6 +13,10 @@
   transition: box-shadow 0.3s ease-in-out;
 
   @include mixins.mobile {
+    width: 232px;
+  }
+
+  @include mixins.mobile {
     width: 100%;
   }
 
