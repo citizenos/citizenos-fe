@@ -120,6 +120,9 @@
   position: relative;
   justify-content: space-between;
 
+  @include mixins.tablet {
+    max-width: 100%;
+  }
   .error_section {
     display: flex;
     flex-direction: column;
