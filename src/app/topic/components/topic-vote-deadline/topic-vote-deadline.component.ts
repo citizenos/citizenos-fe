@@ -54,6 +54,9 @@ export class TopicVoteDeadlineComponent {
     if (data && data.topic) {
       this.topic = data.topic;
     }
+    if (data.vote.reminderTime) {
+      this.reminder = true;
+    }
   }
   private setTimeZones() {
     let x = -14;
