@@ -43,9 +43,17 @@ export class ArgumentComponent implements OnInit {
     private Notification: NotificationService,
     private Translate: TranslateService,
     public TopicArgumentService: TopicArgumentService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
+    this.argument.replies.count = this.argument.replies.rows?.length || 0;
+    this.argument.replies.rows?.forEach((reply:any) =>{
+      if (reply.children?.length) {
+        this.argument.replies.count += reply.children.length;
+      }
+    })
+
     this.isReply = this.argument.type === 'reply';
     if (this.argument.children) {
       this.argument.children = this.argument.children.sort((b:any, a:any) => {

@@ -146,7 +146,7 @@
             *ngIf="argument.type !== 'reply' && !showReplies && argument.replies.rows.length"
             id="{{argument.id}}_replies"
             [translate]="(wWidth > 560)? 'COMPONENTS.ARGUMENT.LNK_SHOW_REPLIES' : 'COMPONENTS.ARGUMENT.LNK_SHOW_REPLIES_MOBILE'"
-            [translateParams]="{count: argument.replies.rows.length}" (click)="showReplies = !showReplies"></button>
+            [translateParams]="{count: (argument.replies.count)}" (click)="showReplies = !showReplies"></button>
           <button class="btn_ghost_reply_argument" *ngIf="argument.type !== 'reply' && showReplies"
             (click)="showReplies = !showReplies" translate="COMPONENTS.ARGUMENT.LNK_HIDE_REPLIES">
           </button>
