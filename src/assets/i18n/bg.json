@@ -206,7 +206,7 @@
       "MESSAGE_MAIN": "You are duplicating",
       "MESSAGE_DESCRIPTION": "Are you sure you want to duplicate the topic? This will create a new private topic.",
       "HEADING_WILL_BE_DUPLICATED": "This content will be duplicated",
-      "WILL_BE_DUPLICATED_1": "Topic content as it is right now (including images, footnotes, comments, mini-votes)",
+      "WILL_BE_DUPLICATED_1": "Topic content as it is right now (including images, footnotes, comments)",
       "WILL_BE_DUPLICATED_2": "All attachments",
       "HEADING_WILL_NOT_BE_DUPLICATED": "This content will not be duplicated",
       "WILL_NOT_BE_DUPLICATED_1": "settings (public/private, voting systems, hashtags etc.)",
