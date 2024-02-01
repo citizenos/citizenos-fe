@@ -595,20 +595,30 @@
           <cos-input [placeholder]="'VIEWS.GROUP.TOPICS_FILTER_TYPE' | translate" class="dropdown_input">
             <div class="dropdown" [cosDropdown]>
               <div class="selection">
-                <div class="selected_item">{{'VIEWS.GROUP.FILTER_ALL' | translate}}</div>
+                <div class="selected_item">
+                  <span *ngIf="!topicFilters.visibility" translate="VIEWS.GROUP.FILTER_ALL"></span>
+                  <span *ngIf="topicFilters.visibility === 'public'"
+                    translate="VIEWS.MY_TOPICS.FILTERS.MY_PUBLIC_TOPICS"></span>
+                  <span *ngIf="topicFilters.visibility === 'private'"
+                    translate="VIEWS.MY_TOPICS.FILTERS.MY_PRIVATE_TOPICS"></span>
+                  <span *ngIf="topicFilters.visibility === 'favourite'"> {{'VIEWS.MY_TOPICS.FILTERS.TOPICS_FAVOURITED' |
+                    translate}}</span>
+                  <span *ngIf="topicFilters.visibility === 'showModerated'">
+                    {{'VIEWS.MY_TOPICS.FILTERS.TOPICS_MODERATED'
+                    |
+                    translate}}</span>
+
+                </div>
                 <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
                   </svg>
                 </div>
               </div>
               <div class="options">
-                <div class="option" *ngFor="let item of []" [routerLink]="['./']" [queryParams]="{visibility: item}">
-                  {{item}}
+                <div class="option" (click)="setVisibility('favourite')" translate="VIEWS.GROUP.FILTER_FAVOURITED">
                 </div>
-                <div class="option" [routerLink]="['./']" [queryParams]="{favourite: 'true'}"
-                  translate="VIEWS.GROUP.FILTER_FAVOURITED"></div>
-                <div class="option" [routerLink]="['./']" [queryParams]="{moderated: 'true'}"
-                  translate="VIEWS.GROUP.FILTER_MODERATED"></div>
+                <div class="option" (click)="setVisibility('showModerated')" translate="VIEWS.GROUP.FILTER_MODERATED">
+                </div>
               </div>
             </div>
           </cos-input>
@@ -632,15 +642,19 @@
             class="dropdown_input tablet_hidden">
             <div class="dropdown" [cosDropdown]>
               <div class="selection">
-                <div class="selected_item">{{'VIEWS.GROUP.TOPICS_FILTERS_ORDER_ALL' | translate}}</div>
+                <div class="selected_item"
+                [innerHtml]="'TXT_TOPIC_STATUS_' + (topicFilters.status || 'all') | uppercase | translate | titlecase" ></div>
                 <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
                   </svg>
                 </div>
               </div>
               <div class="options">
-                <div class="option" *ngFor="let item of topicStatuses">
-                  {{'TXT_TOPIC_STATUS_' + item | uppercase | translate}}
+                <div class="option" (click)="setStatus('')">
+                  {{'TXT_TOPIC_STATUS_ALL' | translate | titlecase}}
+                </div>
+                <div class="option" *ngFor="let item of topicStatuses" (click)="setStatus(item)">
+                  {{'TXT_TOPIC_STATUS_' + item | uppercase | translate | titlecase}}
                 </div>
               </div>
             </div>
@@ -648,18 +662,28 @@
           <cos-input [placeholder]="'VIEWS.GROUP.TOPICS_FILTER_ORDER' | translate" class="dropdown_input tablet_hidden">
             <div class="dropdown" [cosDropdown]>
               <div class="selection">
-                <div class="selected_item">{{'VIEWS.GROUP.TOPICS_FILTERS_ORDER_ALL' | translate}}</div>
+                <div class="selected_item">
+                  <span translate="VIEWS.GROUP.FILTER_ALL" *ngIf="!topicFilters.orderBy"></span>
+                  <span translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_RECENT_ACTIVITY"
+                    *ngIf="topicFilters.orderBy === 'lastActivity'"></span>
+                  <span translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_ACTIVITIES"
+                    *ngIf="topicFilters.orderBy === 'activity_count'"></span>
+                  <span translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_PARTICIPANTS"
+                    *ngIf="topicFilters.orderBy === 'members_count'"></span>
+                  <span translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_RECENT"
+                    *ngIf="topicFilters.orderBy === 'created'"></span>
+                </div>
                 <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
                   </svg>
                 </div>
               </div>
               <div class="options">
-                <div class="option" translate="VIEWS.GROUP.TOPICS_FILTERS_ORDER_ALL"></div>
-                <div class="option" translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_RECENT_ACTIVITY"></div>
-                <div class="option" translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_ACTIVITIES"></div>
-                <div class="option" translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_PARTICIPANTS"></div>
-                <div class="option" translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_RECENT"></div>
+                <div class="option" translate="VIEWS.GROUP.TOPICS_FILTERS_ORDER_ALL" (click)="orderBy('')"></div>
+                <div class="option" translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_RECENT_ACTIVITY" (click)="orderBy('lastActivity')"></div>
+                <div class="option" translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_ACTIVITIES" (click)="orderBy('activity_count')"></div>
+                <div class="option" translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_PARTICIPANTS" (click)="orderBy('members_count')"></div>
+                <div class="option" translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_RECENT" (click)="orderBy('created')"></div>
               </div>
             </div>
           </cos-input>

@@ -85,14 +85,24 @@ export class GroupComponent implements OnInit {
   });
   languages$ = of(<Language[]>[]);
   public FILTERS_ALL = 'all';
+
   topicFilters = {
-    category: this.FILTERS_ALL,
-    status: this.FILTERS_ALL,
-    engagements: this.FILTERS_ALL,
-    country: this.FILTERS_ALL,
-    language: this.FILTERS_ALL
+    visibility: '',
+    category: '',
+    status: '',
+    country: '',
+    orderBy: '',
+    engagements: '',
+    language: ''
   };
 
+  topicTypeFilter$ = new BehaviorSubject('');
+  engagmentsFilter$ = new BehaviorSubject('');
+  statusFilter$ = new BehaviorSubject('');
+  orderFilter$ = new BehaviorSubject('');
+  categoryFilter$ = new BehaviorSubject('');
+  countryFilter$ = new BehaviorSubject('');
+  languageFilter$ = new BehaviorSubject('');
   groupActions = false;
   mobileTopicFiltersList = false;
   /*
@@ -117,6 +127,7 @@ export class GroupComponent implements OnInit {
   searchUserString$ = new BehaviorSubject('');
 
   showCreate = false;
+  filtersSet = false;
   constructor(public dialog: DialogService,
     private GroupService: GroupService,
     private GroupJoinService: GroupJoinService,
@@ -161,7 +172,66 @@ export class GroupComponent implements OnInit {
       })
     );
 
-    this.topics$ = combineLatest([this.route.queryParams, this.searchTopicString$]).pipe(
+    this.topics$ = combineLatest([this.topicTypeFilter$, this.engagmentsFilter$, this.statusFilter$, this.orderFilter$, this.categoryFilter$, this.countryFilter$, this.languageFilter$, this.searchTopicString$])
+      .pipe(
+        switchMap(([topicTypeFilter, engagmentsFilter, statusFilter, orderFilter, categoryFilter, countryFilter, languageFilter, search]) => {
+          GroupMemberTopicService.reset();
+          GroupMemberTopicService.setParam('groupId', this.groupId);
+          this.allTopics$ = [];
+          if (topicTypeFilter) {
+            if (TopicService.VISIBILITY.indexOf(topicTypeFilter) > -1) {
+              GroupMemberTopicService.setParam('visibility', topicTypeFilter);
+            } else if (['favourite', 'showModerated'].indexOf(topicTypeFilter) > -1) {
+              GroupMemberTopicService.setParam(topicTypeFilter, topicTypeFilter);
+            }
+          }
+
+          if (engagmentsFilter) {
+            if (engagmentsFilter === 'hasVoted') {
+              GroupMemberTopicService.setParam(engagmentsFilter, true);
+            } else if (engagmentsFilter === 'hasNotVoted') {
+              GroupMemberTopicService.setParam('hasVoted', false);
+            } else if (engagmentsFilter === 'iCreated') {
+              GroupMemberTopicService.setParam('creatorId', this.auth.user.value.id);
+            }
+          }
+
+          if (statusFilter) {
+            GroupMemberTopicService.setParam('statuses', [statusFilter]);
+          }
+
+          if (orderFilter) {
+            GroupMemberTopicService.setParam('orderBy', orderFilter);
+            GroupMemberTopicService.setParam('order', 'desc');
+          }
+
+          if (categoryFilter) {
+            GroupMemberTopicService.setParam('categories', [categoryFilter]);
+          }
+
+          if (countryFilter) {
+            GroupMemberTopicService.setParam('country', countryFilter);
+          }
+          if (languageFilter) {
+            GroupMemberTopicService.setParam('language', languageFilter);
+          }
+
+          if (search) {
+            GroupMemberTopicService.setParam('search', search);
+          }
+
+          return GroupMemberTopicService.loadItems();
+        }), map(
+          (newtopics: any) => {
+            if (newtopics.length) {
+              this.filtersSet = true;
+            }
+            this.allTopics$ = this.allTopics$.concat(newtopics);
+            return this.allTopics$;
+          }
+        ));
+
+    /*this.topics$ = combineLatest([this.route.queryParams, this.searchTopicString$]).pipe(
       switchMap(([queryParams, search]) => {
         if (!this.groupId) return [];
         GroupMemberTopicService.reset();
@@ -179,7 +249,7 @@ export class GroupComponent implements OnInit {
           this.allTopics$ = this.allTopics$.concat(newtopics);
           return this.allTopics$;
         }
-      ));
+      ));*/
 
     this.tabSelected = this.route.fragment.pipe(
       map((fragment) => {
@@ -208,11 +278,11 @@ export class GroupComponent implements OnInit {
     this.showCreate = true;
   }
 
-  addNewTopic () {
+  addNewTopic() {
     this.app.createNewTopic(this.groupId);
   }
 
-  addNewVotingTopic () {
+  addNewVotingTopic() {
     this.app.createNewTopic(this.groupId, true);
   }
 
@@ -234,20 +304,23 @@ export class GroupComponent implements OnInit {
     return false;
   }
 
+  setVisibility(visibility: string) {
+    if (visibility === 'all') visibility = '';
+    console.log(visibility)
+    this.topicTypeFilter$.next(visibility);
+    this.topicFilters.visibility = visibility;
+  }
+
+  orderBy(orderBy: string) {
+    if (orderBy === 'all') orderBy = '';
+    this.orderFilter$.next(orderBy);
+    this.topicFilters.orderBy = orderBy;
+  }
+
   setStatus(status: string) {
-    this.GroupMemberTopicService.setParam('showModerated', null)
-    if (status && status === 'all') {
-      status = '';
-    }
-    this.allTopics$ = [];
-    this.GroupMemberTopicService.setParam('offset', 0)
-    if (status === 'showModerated') {
-      this.topicFilters.status = 'showModerated';
-      this.GroupMemberTopicService.setParam('showModerated', true)
-    } else {
-      this.topicFilters.status = status || 'all';
-      this.GroupMemberTopicService.setParam('statuses', [status]);
-    }
+    if (status === 'all') status = '';
+    this.statusFilter$.next(status);
+    this.topicFilters.status = status;
   }
 
   setCountry(country: string) {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, PRIMARY_OUTLET } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { switchMap, combineLatest, Observable, of, BehaviorSubject, tap } from 'rxjs';
+import { switchMap, combineLatest, Observable, of, BehaviorSubject, map } from 'rxjs';
 import { Group } from 'src/app/interfaces/group';
 import { GroupService } from 'src/app/services/group.service';
 import { AppService } from '../services/app.service';
@@ -65,11 +65,25 @@ export class MyGroupsComponent implements OnInit {
     language: false
   }
   mobileFiltersList = false;
-  filters = {
+  filtersSet = false;
+
+  groupFilters = {
+    visibility: '',
+    my_engagement: '',
+    category: '',
+    orderBy: '',
     country: '',
     language: ''
-  }
-  filtersSet = false;
+  };
+
+  visibilityFilter$ = new BehaviorSubject('');
+  engagmentsFilter$ = new BehaviorSubject('');
+  statusFilter$ = new BehaviorSubject('');
+  orderFilter$ = new BehaviorSubject(<any>'');
+  categoryFilter$ = new BehaviorSubject('');
+  countryFilter$ = new BehaviorSubject('');
+  languageFilter$ = new BehaviorSubject('');
+
   constructor(
     public app: AppService,
     public auth: AuthService,
@@ -78,8 +92,65 @@ export class MyGroupsComponent implements OnInit {
     private router: Router,
     public translate: TranslateService,
   ) {
+    this.groups$ = combineLatest([this.visibilityFilter$, this.engagmentsFilter$, this.statusFilter$, this.orderFilter$, this.categoryFilter$, this.countryFilter$, this.languageFilter$, this.searchString$])
+    .pipe(
+      switchMap(([visibilityFilter, engagmentsFilter, statusFilter, orderFilter, categoryFilter, countryFilter, languageFilter, search]) => {
+        GroupService.reset();
+        this.allGroups$ = [];
+        if (visibilityFilter) {
+          if (Object.keys(GroupService.VISIBILITY).indexOf(visibilityFilter) > -1) {
+            GroupService.setParam('visibility', visibilityFilter);
+          } else if (['favourite', 'showModerated'].indexOf(visibilityFilter) > -1) {
+            GroupService.setParam(visibilityFilter, visibilityFilter);
+          }
+        }
 
-    this.groups$ = combineLatest([this.route.queryParams, this.searchString$]).pipe(
+        if (engagmentsFilter) {
+          if (engagmentsFilter === 'hasVoted') {
+            GroupService.setParam(engagmentsFilter, true);
+          } else if (engagmentsFilter === 'hasNotVoted') {
+            GroupService.setParam('hasVoted', false);
+          } else if (engagmentsFilter === 'iCreated') {
+     //       GroupService.setParam('creatorId', this.auth.user.value.id);
+          }
+        }
+
+        if (statusFilter) {
+          GroupService.setParam('statuses', [statusFilter]);
+        }
+
+        if (orderFilter) {
+          GroupService.setParam('orderBy', orderFilter);
+          GroupService.setParam('order', 'desc');
+        }
+
+        if (categoryFilter) {
+          GroupService.setParam('categories', [categoryFilter]);
+        }
+
+        if (countryFilter) {
+          GroupService.setParam('country', countryFilter);
+        }
+        if (languageFilter) {
+          GroupService.setParam('language', languageFilter);
+        }
+
+        if (search) {
+          console.log('SEARCH')
+          GroupService.setParam('search', search);
+        }
+
+        return GroupService.loadItems();
+      }), map(
+        (newGroups: any) => {
+          if (newGroups.length) {
+            this.filtersSet = true;
+          }
+          this.allGroups$ = this.allGroups$.concat(newGroups);
+          return this.allGroups$;
+        }
+      ));
+  /*  this.groups$ = combineLatest([this.route.queryParams, this.searchString$]).pipe(
       switchMap(([queryParams, search]) => {
         GroupService.reset();
         if (search) {
@@ -93,7 +164,7 @@ export class MyGroupsComponent implements OnInit {
       ),
       tap((groups) => {
         if(groups.length) this.filtersSet = true;
-      }));
+      }));*/
     this.countries$ = this.countrySearch$.pipe(switchMap((string) => {
       const countries = this.countries.filter((country) => country.name.toLowerCase().indexOf(string.toLowerCase()) > -1);
 
@@ -129,46 +200,49 @@ export class MyGroupsComponent implements OnInit {
   }
 
   doClearFilters() {
-    this.filters = {
-      country: '',
-      language: ''
-    }
-    this.searchInput = '';
-    this.searchString$.next('');
+    this.setVisibility('');
+    this.orderBy('');
     this.setCountry('');
     this.setLanguage('');
-    this.languageSearch = '';
-    this.countrySearch = '';
+    this.searchInput = '';
+    this.doSearch('');
   }
 
   doSearch(search: string) {
     this.searchString$.next(search);
   }
 
-  doOrder(orderBy: string, order: string) {
-    this.allGroups$ = [];
-    this.GroupService.doOrder(orderBy, order)
+  orderBy(orderBy: string) {
+    if (orderBy === 'all') orderBy = '';
+    this.orderFilter$.next(orderBy);
+    this.groupFilters.orderBy = orderBy;
+  }
+
+  setVisibility (visibility: string) {
+    if (visibility === 'all' || typeof visibility === 'boolean') visibility = '';
+    this.groupFilters.visibility = visibility;
+    this.visibilityFilter$.next(visibility);
+  }
+
+  setCountry(country: string) {
+    if (country === 'all' || typeof country !== 'string') country = '';
+    this.countryFilter$.next(country);
+    this.groupFilters.country = country;
+
+    this.countrySearch$.next(country);
+    this.countrySearch = country;
+  }
+
+  setLanguage(language: string) {
+    if (language === 'all' || typeof language !== 'string') language = '';
+    this.languageFilter$.next(language);
+    this.groupFilters.language = language;
+
+    this.languageSearch$.next(language);
+    this.languageSearch = language;
   }
 
   ngOnInit(): void {
-  }
-
-  onSelect(id: string) {
-    // this.UserTopicService.filterTopics(id);
-    this.router.navigate([], { relativeTo: this.route, queryParams: { filter: id } });
-  }
-
-  menuHidden() {
-    if (window.innerWidth <= 750) {
-      const parsedUrl = this.router.parseUrl(this.router.url);
-      const outlet = parsedUrl.root.children[PRIMARY_OUTLET];
-      const g = outlet?.segments.map(seg => seg.path) || [''];
-      if (g.length === 3 && g[2] === 'groups') return false
-
-      return true;
-    }
-
-    return false;
   }
 
   searchCountry(event: any) {
@@ -179,32 +253,6 @@ export class MyGroupsComponent implements OnInit {
     this.languageSearch$.next(event);
   }
 
-  setCountry(country: string) {
-    if (typeof country !== 'string') {
-      country = '';
-    }
-
-    this.countrySearch$.next(country);
-    this.countrySearch = country;
-    this.allGroups$ = [];
-    this.filters.country = country;
-    this.GroupService.setParam('offset', 0);
-    this.GroupService.setParam('country', country);
-    this.GroupService.loadItems();
-  }
-
-  setLanguage(language: string) {
-    if (typeof language !== 'string') {
-      language = '';
-    }
-    this.languageSearch$.next(language);
-    this.languageSearch = language;
-    this.allGroups$ = [];
-    this.filters.language = language;
-    this.GroupService.setParam('offset', 0)
-    this.GroupService.setParam('language', language || null);
-    this.GroupService.loadItems();
-  }
   loadPage(page: any) {
     this.allGroups$ = [];
     this.GroupService.loadPage(page);

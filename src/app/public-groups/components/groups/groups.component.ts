@@ -41,19 +41,35 @@ export class GroupsComponent implements OnInit {
     visibility: false,
     my_engagement: false,
     category: false,
-    order: false,
+    orderBy: false,
     country: false,
     language: false
   }
+  groupFilters = {
+    visibility: '',
+    my_engagement: '',
+    category: '',
+    orderBy: '',
+    country: '',
+    language: ''
+  };
+
+  visibilityFilter$ = new BehaviorSubject('');
+  engagmentsFilter$ = new BehaviorSubject('');
+  statusFilter$ = new BehaviorSubject('');
+  orderFilter$ = new BehaviorSubject(<any>'');
+  categoryFilter$ = new BehaviorSubject('');
+  countryFilter$ = new BehaviorSubject('');
+  languageFilter$ = new BehaviorSubject('');
+
   mobileFiltersList = false;
-  visibility = [''];
+
   countrySearch = '';
   countrySearch$ = new BehaviorSubject('');
   countries = countries.sort((a: any, b: any) => {
     return a.name.localeCompare(b.name);
   });
   countries$ = of(<Country[]>[]);
-  countryFocus = false;
 
   languageSearch = '';
   languageSearch$ = new BehaviorSubject('');
@@ -61,19 +77,8 @@ export class GroupsComponent implements OnInit {
     return a.name.localeCompare(b.name);
   });
   languages$ = of(<Language[]>[]);
-  languageFocus = false;
-  /*topicFilters = {
-    category: this.FILTERS_ALL,
-    status: this.FILTERS_ALL,
-    country: this.FILTERS_ALL,
-    language: this.FILTERS_ALL
-  };*/
 
-  filters = {
-    country: '',
-    language: ''
-  }
-
+  filtersSet = false;
   constructor(private dialog: DialogService,
     private route: ActivatedRoute,
     private AuthService: AuthService,
@@ -81,23 +86,62 @@ export class GroupsComponent implements OnInit {
     public PublicGroupService: PublicGroupService,
     public app: AppService) {
     this.PublicGroupService.reset();
-    this.groups$ = combineLatest([this.route.queryParams, this.searchString$]).pipe(
-      switchMap(([queryParams, search]) => {
-        PublicGroupService.reset();
-        this.allGroups$ = [];
-        if (search) {
-          PublicGroupService.setParam('name', search);
-        }
-        Object.entries(queryParams).forEach((param) => {
-          PublicGroupService.setParam(param[0], param[1]);
-        })
-        return PublicGroupService.loadItems();
-      }), map(
-        (newgroups: any) => {
-          this.allGroups$ = this.allGroups$.concat(newgroups);
-          return this.allGroups$;
-        }
-      ));
+
+    this.groups$ = combineLatest([this.visibilityFilter$, this.engagmentsFilter$, this.statusFilter$, this.orderFilter$, this.categoryFilter$, this.countryFilter$, this.languageFilter$, this.searchString$])
+      .pipe(
+        switchMap(([visibilityFilter, engagmentsFilter, statusFilter, orderFilter, categoryFilter, countryFilter, languageFilter, search]) => {
+          PublicGroupService.reset();
+          this.allGroups$ = [];
+          if (visibilityFilter) {
+            if (['favourite', 'showModerated'].indexOf(visibilityFilter) > -1) {
+              PublicGroupService.setParam(visibilityFilter, visibilityFilter);
+            }
+          }
+
+          if (engagmentsFilter) {
+            if (engagmentsFilter === 'hasVoted') {
+              PublicGroupService.setParam(engagmentsFilter, true);
+            } else if (engagmentsFilter === 'hasNotVoted') {
+              PublicGroupService.setParam('hasVoted', false);
+            } else if (engagmentsFilter === 'iCreated') {
+       //       PublicGroupService.setParam('creatorId', this.auth.user.value.id);
+            }
+          }
+
+          if (statusFilter) {
+            PublicGroupService.setParam('statuses', [statusFilter]);
+          }
+
+          if (orderFilter) {
+            PublicGroupService.setParam('orderBy', orderFilter);
+            PublicGroupService.setParam('order', 'desc');
+          }
+
+          if (categoryFilter) {
+            PublicGroupService.setParam('categories', [categoryFilter]);
+          }
+
+          if (countryFilter) {
+            PublicGroupService.setParam('country', countryFilter);
+          }
+          if (languageFilter) {
+            PublicGroupService.setParam('language', languageFilter);
+          }
+
+          if (search) {
+            PublicGroupService.setParam('name', search);
+          }
+
+          return PublicGroupService.loadItems();
+        }), map(
+          (newGroups: any) => {
+            if (newGroups.length) {
+              this.filtersSet = true;
+            }
+            this.allGroups$ = this.allGroups$.concat(newGroups);
+            return this.allGroups$;
+          }
+        ));
 
     this.countries$ = this.countrySearch$.pipe(switchMap((string) => {
       const countries = this.countries.filter((country) => country.name.toLowerCase().indexOf(string.toLowerCase()) > -1);
@@ -140,9 +184,10 @@ export class GroupsComponent implements OnInit {
     this.searchString$.next(search);
   }
 
-  doOrder(orderBy: string, order: string) {
-    this.allGroups$ = [];
-    this.PublicGroupService.doOrder(orderBy, order)
+  orderBy(orderBy: string) {
+    if (orderBy === 'all') orderBy = '';
+    this.orderFilter$.next(orderBy);
+    this.groupFilters.orderBy = orderBy;
   }
 
   closeMobileFilter () {
@@ -163,45 +208,36 @@ export class GroupsComponent implements OnInit {
   }
 
   doClearFilters() {
-    this.filters = {
-      country: '',
-      language: ''
-    }
-    this.PublicGroupService.setParam('visibility', null);
-    this.PublicGroupService.setParam('favourite', null);
+    this.setVisibility('');
+    this.orderBy('');
+    this.setCountry('');
+    this.setLanguage('');
     this.searchInput = '';
-    this.searchString$.next('');
-    this.setLanguage('');
-    this.setLanguage('');
-    this.languageSearch = '';
-    this.countrySearch = '';
+    this.doSearch('');
   }
-  /*TODO add functionalities*/
+
+  setVisibility (visibility: string) {
+    if (visibility === 'all' || typeof visibility === 'boolean') visibility = '';
+    this.groupFilters.visibility = visibility;
+    this.visibilityFilter$.next(visibility);
+  }
+
   setCountry(country: string) {
-    if (typeof country !== 'string') {
-      country = '';
-    }
+    if (country === 'all' || typeof country !== 'string') country = '';
+    this.countryFilter$.next(country);
+    this.groupFilters.country = country;
 
     this.countrySearch$.next(country);
     this.countrySearch = country;
-    this.allGroups$ = [];
-    this.filters.country = country;
-    this.PublicGroupService.setParam('offset', 0);
-    this.PublicGroupService.setParam('country', country);
-    this.PublicGroupService.loadItems();
   }
 
   setLanguage(language: string) {
-    if (typeof language !== 'string') {
-      language = '';
-    }
+    if (language === 'all' || typeof language !== 'string') language = '';
+    this.languageFilter$.next(language);
+    this.groupFilters.language = language;
+
     this.languageSearch$.next(language);
     this.languageSearch = language;
-    this.allGroups$ = [];
-    this.filters.language = language;
-    this.PublicGroupService.setParam('offset', 0)
-    this.PublicGroupService.setParam('language', language || null);
-    this.PublicGroupService.loadItems();
   }
 
   loadPage(page: any) {
