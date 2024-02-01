@@ -206,7 +206,7 @@
       "MESSAGE_MAIN": "Вы делаете дубликат",
       "MESSAGE_DESCRIPTION": "Вы уверены, что хотите создать копию темы? Это создаст новую приватную тему.",
       "HEADING_WILL_BE_DUPLICATED": "Этот контент продублируется",
-      "WILL_BE_DUPLICATED_1": "Контент темы на текущий момент (включая изображения, примечания, комментарии, мини-голосования)",
+      "WILL_BE_DUPLICATED_1": "Topic content as it is right now (including images, footnotes, comments)",
       "WILL_BE_DUPLICATED_2": "Все прикрепленные файлы",
       "HEADING_WILL_NOT_BE_DUPLICATED": "Этот контент не будет дублироваться",
       "WILL_NOT_BE_DUPLICATED_1": "настройки (публичность/приватность, голосования, хэштеги и т. д.)",
