@@ -44,7 +44,6 @@ export class TopicsComponent implements OnInit {
     return a.name.localeCompare(b.name);
   });
   countries$ = of(<Country[]>[]);
-  countryFocus = false;
 
   languageSearch = '';
   languageSearch$ = new BehaviorSubject('');
@@ -52,22 +51,27 @@ export class TopicsComponent implements OnInit {
     return a.name.localeCompare(b.name);
   });
   languages$ = of(<Language[]>[]);
-  languageFocus = false;
   topicFilters = {
-    category: this.FILTERS_ALL,
-    status: this.FILTERS_ALL,
-    country: this.FILTERS_ALL,
-    language: this.FILTERS_ALL
+    category: '',
+    orderBy: '',
+    status: '',
+    country: '',
+    language: ''
   };
+  statusFilter$ = new BehaviorSubject('');
+  orderFilter$ = new BehaviorSubject('');
+  categoryFilter$ = new BehaviorSubject('');
+  countryFilter$ = new BehaviorSubject('');
+  languageFilter$ = new BehaviorSubject('');
 
   mobileFilters: any = {
     category: false,
     status: false,
+    orderBy: '',
     country: false,
     language: false,
   }
   mobileFiltersList = false;
-  tabSelected = 'categories';
   categories$ = Object.keys(this.Topic.CATEGORIES);
 
   statuses$ = Object.keys(this.Topic.STATUSES);
@@ -81,7 +85,52 @@ export class TopicsComponent implements OnInit {
     public auth: AuthService,
     public app: AppService) {
     this.PublicTopicService.reset();
-    this.topics$ = combineLatest([this.route.queryParams, this.searchString$]).pipe(
+    this.topics$ = combineLatest([this.statusFilter$, this.orderFilter$, this.categoryFilter$, this.countryFilter$, this.languageFilter$, this.searchString$])
+      .pipe(
+        switchMap(([statusFilter, orderFilter, categoryFilter, countryFilter, languageFilter, search]) => {
+          PublicTopicService.reset();
+          this.allTopics$ = [];
+
+          if (statusFilter) {
+            if (['favourite', 'showModerated'].indexOf(statusFilter) > -1) {
+              PublicTopicService.setParam(statusFilter, statusFilter);
+            } else {
+              PublicTopicService.setParam('statuses', [statusFilter]);
+            }
+          }
+
+          if (orderFilter) {
+            PublicTopicService.setParam('orderBy', orderFilter);
+            PublicTopicService.setParam('order', 'desc');
+          }
+
+          if (categoryFilter) {
+            PublicTopicService.setParam('categories', [categoryFilter]);
+          }
+
+          if (countryFilter) {
+            PublicTopicService.setParam('country', countryFilter);
+          }
+          if (languageFilter) {
+            PublicTopicService.setParam('language', languageFilter);
+          } PublicTopicService
+
+          if (search) {
+            PublicTopicService.setParam('search', search);
+          }
+
+          return PublicTopicService.loadItems();
+        }), map(
+          (newtopics: any) => {
+            if (newtopics.length) {
+              //    this.filtersSet = true;
+            }
+            this.allTopics$ = this.allTopics$.concat(newtopics);
+            return this.allTopics$;
+          }
+        ));
+
+    /*this.topics$ = combineLatest([this.route.queryParams, this.searchString$]).pipe(
       switchMap(([queryParams, search]) => {
         PublicTopicService.reset();
         this.allTopics$ = [];
@@ -97,82 +146,67 @@ export class TopicsComponent implements OnInit {
           this.allTopics$ = this.allTopics$.concat(newtopics);
           return this.allTopics$;
         }
-      ));
+      ));*/
     this.countries$ = this.countrySearch$.pipe(switchMap((string) => {
-      const countries = this.countries.filter((country) => country.name.toLowerCase().indexOf(string.toLowerCase()) > -1);
+      const countries = this.countries.filter((country) => country.name.toLowerCase().indexOf(string?.toLowerCase()) > -1);
 
       return [countries];
     }));
     this.languages$ = this.languageSearch$.pipe(switchMap((string) => {
-      const languages = this.languages.filter((language) => language.name.toLowerCase().indexOf(string.toLowerCase()) > -1);
+      const languages = this.languages.filter((language) => language.name.toLowerCase().indexOf(string?.toLowerCase()) > -1);
 
       return [languages];
     }));
   }
 
   searchCountry(event: any) {
-    this.countrySearch$.next(event);
+    if (typeof event === 'string')
+      this.countrySearch$.next(event);
   }
 
   searchLanguage(event: any) {
-    this.languageSearch$.next(event);
+    if (typeof event === 'string')
+      this.languageSearch$.next(event);
   }
 
   trackByFn(index: number, element: any) {
     return element.id;
   }
 
+  orderBy(orderBy: string) {
+    if (orderBy === 'all') orderBy = '';
+    this.orderFilter$.next(orderBy);
+    this.topicFilters.orderBy = orderBy;
+  }
+
   setStatus(status: string) {
-    this.PublicTopicService.setParam('showModerated', null)
-    if (status && status === 'all') {
-      status = '';
-    }
-    this.allTopics$ = [];
-    this.PublicTopicService.setParam('offset', 0)
-    if (status === 'showModerated') {
-      this.topicFilters.status = 'showModerated';
-      this.PublicTopicService.setParam('showModerated', true)
-    } else {
-      this.topicFilters.status = status || 'all';
-      this.PublicTopicService.setParam('statuses', [status]);
-    }
+    if (status === 'all'|| typeof status === 'boolean') status = '';
+    this.statusFilter$.next(status);
+    this.topicFilters.status = status;
   }
 
   setCategory(category: string) {
+    if (category === 'all' || typeof category === 'boolean') category = '';
+    this.categoryFilter$.next(category);
     this.topicFilters.category = category;
-    if (category && category === 'all') {
-      category = '';
-    }
-    this.allTopics$ = [];
-    this.PublicTopicService.setParam('offset', 0)
-    this.PublicTopicService.setParam('categories', [category]);
   }
 
   setCountry(country: string) {
-    if (typeof country !== 'string') {
-      country = '';
-    }
+    if (country === 'all' || typeof country !== 'string') country = '';
+    this.countryFilter$.next(country);
+    this.topicFilters.country = country;
 
     this.countrySearch$.next(country);
     this.countrySearch = country;
-    this.allTopics$ = [];
-    this.topicFilters.country = country;
-    this.PublicTopicService.setParam('offset', 0);
-    this.PublicTopicService.setParam('country', country);
-    this.PublicTopicService.loadItems();
   }
 
   setLanguage(language: string) {
-    if (typeof language !== 'string') {
-      language = '';
-    }
+    if (language === 'all' || typeof language !== 'string') language = '';
+    this.languageFilter$.next(language);
+    this.topicFilters.language = language;
+
     this.languageSearch$.next(language);
     this.languageSearch = language;
-    this.allTopics$ = [];
-    this.topicFilters.language = language;
-    this.PublicTopicService.setParam('offset', 0)
-    this.PublicTopicService.setParam('language', language || null);
-    this.PublicTopicService.loadItems();
   }
 
   ngOnInit(): void {
@@ -201,12 +235,12 @@ export class TopicsComponent implements OnInit {
   }
 
   doClearFilters() {
-    this.setStatus(this.FILTERS_ALL);
-    this.setCategory(this.FILTERS_ALL);
+    this.setStatus('');
+    this.setCategory('');
     this.setCountry('');
     this.setLanguage('');
-    this.topicFilters.country = this.FILTERS_ALL;
-    this.topicFilters.language = this.FILTERS_ALL;
+    this.searchInput = '';
+    this.doSearch('');
   }
 
   ngOnDestroy(): void {

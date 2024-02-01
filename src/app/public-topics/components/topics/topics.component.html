@@ -21,17 +21,22 @@
         <cos-input [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_STATUS' | translate" class="dropdown_input">
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
-              <div class="selected_item">{{((topicFilters.status === 'showModerated')?
-                'COMPONENTS.PUBLIC_TOPICS.FILTER_TOPICS_MODERATED' : 'TXT_TOPIC_STATUS_'+topicFilters.status) |
-                uppercase |
-                translate | titlecase}}</div>
+              <div class="selected_item">
+                <span *ngIf="topicFilters.status === 'showModerated'"
+                  translate="COMPONENTS.PUBLIC_TOPICS.FILTER_TOPICS_MODERATED"></span>
+                <ng-container *ngIf="topicFilters.status !== 'showModerated'">
+                  <span>
+                    {{('TXT_TOPIC_STATUS_' + (topicFilters.status || 'all')) | uppercase | translate |
+                    titlecase}}</span>
+                </ng-container>
+              </div>
               <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
                 </svg>
               </div>
             </div>
             <div class="options">
-              <div class="option" (click)="setStatus('all');"
+              <div class="option" (click)="setStatus('');"
                 [innerHTML]="'TXT_TOPIC_STATUS_ALL' | translate | titlecase"></div>
               <div class="option" (click)="setStatus('showModerated');"
                 translate="COMPONENTS.PUBLIC_TOPICS.FILTER_TOPICS_MODERATED"></div>
@@ -60,7 +65,7 @@
         <cos-input [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_CATEGORIES' | translate" class="dropdown_input">
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
-              <div class="selected_item">{{'TXT_TOPIC_CATEGORY_'+topicFilters.category | uppercase |
+              <div class="selected_item">{{'TXT_TOPIC_CATEGORY_'+(topicFilters.category || 'all') | uppercase |
                 translate | titlecase}}</div>
               <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
@@ -224,21 +229,23 @@
       <div class="options filter_options">
         <div class="filter_option">
           <span translate="COMPONENTS.PUBLIC_TOPICS.FILTER_VISIBILITY"></span><a class="bold"
-            (click)="mobileFilters.status = true">{{'TXT_TOPIC_STATUS_'+topicFilters.status | uppercase |
+            (click)="mobileFilters.status = true">{{'TXT_TOPIC_STATUS_' + (topicFilters.status || 'all') | uppercase |
             translate | titlecase}}</a>
         </div>
         <div class="filter_option">
           <span translate="COMPONENTS.PUBLIC_TOPICS.FILTER_CATEGORIES"></span><a class="bold"
-            (click)="mobileFilters.category = true">{{'TXT_TOPIC_CATEGORY_'+topicFilters.category | uppercase |
+            (click)="mobileFilters.category = true">{{'TXT_TOPIC_CATEGORY_'+ (topicFilters.category || 'all') | uppercase |
             translate | titlecase}}</a>
         </div>
         <div class="filter_option">
           <span translate="COMPONENTS.PUBLIC_TOPICS.FILTER_COUNTRY"></span><a class="bold"
-            (click)="mobileFilters.country = true">{{topicFilters.country| translate | titlecase}}</a>
+            (click)="mobileFilters.country = true">{{(topicFilters.country)?
+              topicFilters.country : 'VIEWS.MY_TOPICS.FILTER_ALL' | translate}}</a>
         </div>
         <div class="filter_option">
           <span translate="COMPONENTS.PUBLIC_TOPICS.FILTER_LANGUAGE"></span><a class="bold"
-            (click)="mobileFilters.language = true">{{topicFilters.language | translate | titlecase}}</a>
+            (click)="mobileFilters.language = true">{{(topicFilters.language)?
+              topicFilters.language : 'VIEWS.MY_TOPICS.FILTER_ALL' | translate}}</a>
         </div>
         <button (click)="doClearFilters()" class="btn_medium_plain">
           <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -286,7 +293,7 @@
           translate="COMPONENTS.PUBLIC_TOPICS.BTN_APPLY"></button>
       </div>
       <div class="options button_options" *ngIf="mobileFilters.category">
-        <label class="checkbox">
+        <label class="checkbox" (click)=" mobileFilters.category = 'all'">
           <span translate="TXT_TOPIC_CATEGORY_ALL"></span>
           <input type="radio" name="category">
           <span class="checkmark"></span>
