@@ -71,6 +71,10 @@
   height: 56px;
   width: 100%;
   z-index: 9999;
+  display: none;
+  @include mixins.tablet {
+    display: block;
+  }
 }
 
 #tablet_nav {
