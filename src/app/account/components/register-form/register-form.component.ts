@@ -86,10 +86,12 @@ export class RegisterFormComponent {
             } else {
               this.router.navigate(['/']);
             }
-
-            this.Notification.addInfo('MSG_INFO_CHECK_EMAIL_TO_VERIFY_YOUR_ACCOUNT');
+            setTimeout(() => {
+              this.Notification.addInfo('MSG_INFO_CHECK_EMAIL_TO_VERIFY_YOUR_ACCOUNT');
+            });
           },
           error: (res) => {
+            if (res.errors.password) this.Notification.removeAll();
             this.errors = res.errors;
           }
         })
