@@ -291,6 +291,11 @@ input {
       cursor: pointer;
       padding: 0;
       position: relative;
+      max-width: 300px;
+
+      @include mixins.mobile {
+        max-width: initial;
+      }
 
       &.check {
         padding: 8px 8px 0;

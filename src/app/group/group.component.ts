@@ -324,30 +324,21 @@ export class GroupComponent implements OnInit {
   }
 
   setCountry(country: string) {
-    if (typeof country !== 'string') {
-      country = '';
-    }
+    if (country === 'all' || typeof country !== 'string') country = '';
+    this.countryFilter$.next(country);
+    this.topicFilters.country = country;
 
     this.countrySearch$.next(country);
     this.countrySearch = country;
-    this.allTopics$ = [];
-    this.topicFilters.country = country;
-    this.GroupMemberTopicService.setParam('offset', 0);
-    this.GroupMemberTopicService.setParam('country', country);
-    this.GroupMemberTopicService.loadItems();
   }
 
   setLanguage(language: string) {
-    if (typeof language !== 'string') {
-      language = '';
-    }
+    if (language === 'all' || typeof language !== 'string') language = '';
+    this.languageFilter$.next(language);
+    this.topicFilters.language = language;
+
     this.languageSearch$.next(language);
     this.languageSearch = language;
-    this.allTopics$ = [];
-    this.topicFilters.language = language;
-    this.GroupMemberTopicService.setParam('offset', 0)
-    this.GroupMemberTopicService.setParam('language', language || null);
-    this.GroupMemberTopicService.loadItems();
   }
 
   searchCountry(event: any) {

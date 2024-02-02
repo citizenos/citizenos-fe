@@ -62,7 +62,7 @@
             </div>
           </div>
         </!--cos-input-->
-        <cos-input [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_CATEGORIES' | translate" class="dropdown_input">
+        <cos-input [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_CATEGORIES' | translate" class="dropdown_input tablet_hidden">
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
               <div class="selected_item">{{'TXT_TOPIC_CATEGORY_'+(topicFilters.category || 'all') | uppercase |
@@ -80,22 +80,25 @@
             </div>
           </div>
         </cos-input>
-        <typeahead id="input_area" class="dropdown tablet_hidden" activeClass="dropdown_active" [term]="countrySearch"
-          (search)="searchCountry($event)" (select)="setCountry($event)"
-          [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_COUNTRY' | translate | titlecase">
-          <ng-container *ngIf="countries$ | async as countries">
-            <div class="options" [ngClass]="{'active': !countries.length}">
-              <ng-container *ngIf="countries$ | async as listCountry">
-                <div class="option" (click)="setCountry('');"
-                  [innerHtml]="'TXT_TOPIC_STATUS_ALL' | translate | titlecase"></div>
-                <div class="option" [typeaheadItem]="country.name" *ngFor="let country of listCountry"
-                  (click)="setCountry(country.name)">
-                  <div class="item_text_wrap">{{country.name}}</div>
-                </div>
-              </ng-container>
+        <cos-input [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_COUNTRY' | translate" class="dropdown_input tablet_hidden">
+          <div class="dropdown" [cosDropdown]>
+            <div class="selection">
+              <div class="selected_item">{{(topicFilters.country)?
+                this.topicFilters.country : 'COMPONENTS.PUBLIC_TOPICS.FILTER_ALL' | translate}}</div>
+              <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </div>
             </div>
-          </ng-container>
-        </typeahead>
+            <div class="options">
+              <div class="option" (click)="setCountry('')" translate="COMPONENTS.PUBLIC_TOPICS.FILTER_ALL"></div>
+              <div class="option" *ngFor="let country of countries" (click)="setCountry(country.name)">
+                {{country.name}}
+              </div>
+            </div>
+          </div>
+        </cos-input>
+
         <!--cos-input [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_COUNTRY' | translate" class="dropdown_input">
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
@@ -112,22 +115,24 @@
             </div>
           </div>
         </cos-input-->
-        <typeahead id="input_area" class="dropdown tablet_hidden" activeClass="dropdown_active" [term]="languageSearch"
-          (search)="searchLanguage($event)" (select)="setLanguage($event)"
-          [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_LANGUAGE' | translate | titlecase">
-          <ng-container *ngIf="languages$ | async as languages">
-            <div class="options" [ngClass]="{'active': !languages.length}">
-              <ng-container *ngIf="languages$ | async as listLanguage">
-                <div class="option" (click)="setLanguage('');"
-                  [innerHtml]="'TXT_TOPIC_STATUS_ALL' | translate | titlecase"></div>
-                <div class="option" [typeaheadItem]="language.name" *ngFor="let language of listLanguage"
-                  (click)="setLanguage(language.name)">
-                  <div class="item_text_wrap">{{language.name}}</div>
-                </div>
-              </ng-container>
+        <cos-input [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_LANGUAGE' | translate" class="dropdown_input">
+          <div class="dropdown" [cosDropdown]>
+            <div class="selection">
+              <div class="selected_item">{{(topicFilters.language && topicFilters.language !== 'all')?
+                topicFilters.language : 'COMPONENTS.PUBLIC_TOPICS.FILTER_ALL' | translate}}</div>
+              <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </div>
             </div>
-          </ng-container>
-        </typeahead>
+            <div class="options">
+              <div class="option" (click)="setLanguage('')" translate="COMPONENTS.PUBLIC_TOPICS.FILTER_ALL"></div>
+              <div class="option" *ngFor="let language of languages" (click)="setLanguage(language.name)">
+                {{language.name}}
+              </div>
+            </div>
+          </div>
+        </cos-input>
         <!--cos-input [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_ORDER' | translate" class="dropdown_input">
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
@@ -148,38 +153,42 @@
         </!--cos-input-->
       </div>
       <div class="options_row tablet_show" *ngIf="moreFilters" [@openClose]="moreFilters ? 'open' : 'closed'">
-        <typeahead id="input_area" class="dropdown dropdown_input" activeClass="dropdown_active" [term]="countrySearch"
-          (search)="searchCountry($event)" (select)="setCountry($event)"
-          [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_COUNTRY' | translate | titlecase">
-          <ng-container *ngIf="countries$ | async as countries">
-            <div class="options" [ngClass]="{'active': !countries.length}">
-              <ng-container *ngIf="countries$ | async as listCountry">
-                <div class="option" (click)="setCountry('');"
-                  [innerHtml]="'TXT_TOPIC_STATUS_ALL' | translate | titlecase"></div>
-                <div class="option" [typeaheadItem]="country.name" *ngFor="let country of listCountry"
-                  (click)="setCountry(country.name)">
-                  <div class="item_text_wrap">{{country.name}}</div>
-                </div>
-              </ng-container>
+        <cos-input [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_CATEGORIES' | translate" class="dropdown_input">
+          <div class="dropdown" [cosDropdown]>
+            <div class="selection">
+              <div class="selected_item">{{'TXT_TOPIC_CATEGORY_'+(topicFilters.category || 'all') | uppercase |
+                translate | titlecase}}</div>
+              <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </div>
             </div>
-          </ng-container>
-        </typeahead>
-        <typeahead id="input_area" class="dropdown dropdown_input" activeClass="dropdown_active" [term]="languageSearch"
-          (search)="searchLanguage($event)" (select)="setLanguage($event)"
-          [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_LANGUAGE' | translate | titlecase">
-          <ng-container *ngIf="languages$ | async as languages">
-            <div class="options" [ngClass]="{'active': !languages.length}">
-              <ng-container *ngIf="languages$ | async as listLanguage">
-                <div class="option" (click)="setLanguage('');"
-                  [innerHtml]="'TXT_TOPIC_STATUS_ALL' | translate | titlecase"></div>
-                <div class="option" [typeaheadItem]="language.name" *ngFor="let language of listLanguage"
-                  (click)="setLanguage(language.name)">
-                  <div class="item_text_wrap">{{language.name}}</div>
-                </div>
-              </ng-container>
+            <div class="options">
+              <div class="option" (click)="setCategory('all');" translate="TXT_TOPIC_CATEGORY_ALL"></div>
+              <div class="option" *ngFor="let category of categories$" (click)="setCategory(category);">
+                {{'TXT_TOPIC_CATEGORY_' + category | uppercase | translate}}
+              </div>
             </div>
-          </ng-container>
-        </typeahead>
+          </div>
+        </cos-input>
+        <cos-input [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_COUNTRY' | translate" class="dropdown_input">
+          <div class="dropdown" [cosDropdown]>
+            <div class="selection">
+              <div class="selected_item">{{(topicFilters.country)?
+                this.topicFilters.country : 'COMPONENTS.PUBLIC_TOPICS.FILTER_ALL' | translate}}</div>
+              <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </div>
+            </div>
+            <div class="options">
+              <div class="option" (click)="setCountry('')" translate="COMPONENTS.PUBLIC_TOPICS.FILTER_ALL"></div>
+              <div class="option" *ngFor="let country of countries" (click)="setCountry(country.name)">
+                {{country.name}}
+              </div>
+            </div>
+          </div>
+        </cos-input>
       </div>
       <div class="options_row" *ngIf="moreFilters" [@openClose]="moreFilters ? 'open' : 'closed'">
         <div class="input_area">
@@ -310,9 +319,6 @@
           translate="COMPONENTS.PUBLIC_TOPICS.BTN_APPLY"></button>
       </div>
       <div class="options button_options" *ngIf="mobileFilters.country">
-        <typeahead class="dropdown dropdown_input" activeClass="dropdown_active" [term]="countrySearch"
-          (search)="searchCountry($event)" [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_COUNTRY' | translate">
-        </typeahead>
         <label class="checkbox" (click)="mobileFilters.country = 'all'">
           <span translate="TXT_TOPIC_STATUS_ALL"></span>
           <input type="radio" name="country">
@@ -329,9 +335,6 @@
           translate="COMPONENTS.PUBLIC_TOPICS.BTN_APPLY"></button>
       </div>
       <div class="options button_options" *ngIf="mobileFilters.language">
-        <typeahead class="dropdown dropdown_input" activeClass="dropdown_active" [term]="languageSearch"
-          (search)="searchLanguage($event)" [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_LANGUAEG' | translate">
-        </typeahead>
         <label class="checkbox" (click)="mobileFilters.language = 'all'">
           <span translate="TXT_TOPIC_STATUS_ALL"></span>
           <input type="radio" name="language">
