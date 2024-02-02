@@ -581,14 +581,17 @@
       <span translate="VIEWS.GROUP.BTN_ADD_MEMBERS"></span></button>
   </div>
   <ng-container *ngIf="(tabSelected | async) === 'topics'">
-    <button class="btn_medium_submit mobile_show" (click)="showCreateMenu()" [ngClass]="{active: showCreate}"><svg
-        width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M12.5 20C11.9711 20 11.5423 19.5712 11.5423 19.0423L11.5423 12.9577L5.45775 12.9577C4.9288 12.9577 4.5 12.5289 4.5 12C4.5 11.4711 4.9288 11.0423 5.45775 11.0423H11.5423V4.95775C11.5423 4.4288 11.9711 4 12.5 4C13.0289 4 13.4577 4.4288 13.4577 4.95775L13.4577 11.0423L19.5423 11.0423C20.0712 11.0423 20.5 11.4711 20.5 12C20.5 12.5289 20.0712 12.9577 19.5423 12.9577H13.4577V19.0423C13.4577 19.5712 13.0289 20 12.5 20Z"
-          fill="white" />
-      </svg>
-      <span translate="VIEWS.GROUP.BTN_ADD_OR_CREATE_TOPICS"></span>
-    </button>
+    <ng-container *ngIf="(auth.loggedIn$ | async) && canUpdate(group)">
+      <button class="btn_medium_submit mobile_show" (click)="showCreateMenu()" [ngClass]="{active: showCreate}"><svg
+          width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M12.5 20C11.9711 20 11.5423 19.5712 11.5423 19.0423L11.5423 12.9577L5.45775 12.9577C4.9288 12.9577 4.5 12.5289 4.5 12C4.5 11.4711 4.9288 11.0423 5.45775 11.0423H11.5423V4.95775C11.5423 4.4288 11.9711 4 12.5 4C13.0289 4 13.4577 4.4288 13.4577 4.95775L13.4577 11.0423L19.5423 11.0423C20.0712 11.0423 20.5 11.4711 20.5 12C20.5 12.5289 20.0712 12.9577 19.5423 12.9577H13.4577V19.0423C13.4577 19.5712 13.0289 20 12.5 20Z"
+            fill="white" />
+        </svg>
+        <span translate="VIEWS.GROUP.BTN_ADD_OR_CREATE_TOPICS"></span>
+      </button>
+    </ng-container>
+    <!--TOPIC FILTERS-->
     <div id="topic_list_filters" [@openSlide]="moreFilters ? 'open' : 'closed'">
       <div id="options_area" class="mobile_hidden">
         <div class="options_row">
@@ -597,14 +600,11 @@
               <div class="selection">
                 <div class="selected_item">
                   <span *ngIf="!topicFilters.visibility" translate="VIEWS.GROUP.FILTER_ALL"></span>
-                  <span *ngIf="topicFilters.visibility === 'public'"
-                    translate="VIEWS.MY_TOPICS.FILTERS.MY_PUBLIC_TOPICS"></span>
-                  <span *ngIf="topicFilters.visibility === 'private'"
-                    translate="VIEWS.MY_TOPICS.FILTERS.MY_PRIVATE_TOPICS"></span>
-                  <span *ngIf="topicFilters.visibility === 'favourite'"> {{'VIEWS.MY_TOPICS.FILTERS.TOPICS_FAVOURITED' |
+
+                  <span *ngIf="topicFilters.visibility === 'favourite'"> {{'VIEWS.GROUP.FILTER_FAVOURITED' |
                     translate}}</span>
                   <span *ngIf="topicFilters.visibility === 'showModerated'">
-                    {{'VIEWS.MY_TOPICS.FILTERS.TOPICS_MODERATED'
+                    {{'VIEWS.GROUP.FILTER_MODERATED'
                     |
                     translate}}</span>
 
@@ -615,7 +615,10 @@
                 </div>
               </div>
               <div class="options">
-                <div class="option" (click)="setVisibility('favourite')" translate="VIEWS.GROUP.FILTER_FAVOURITED">
+                <div class="option" (click)="setVisibility('')" translate="VIEWS.GROUP.FILTER_ALL">
+                </div>
+                <div *ngIf="(auth.loggedIn$ | async)" class="option" (click)="setVisibility('favourite')"
+                  translate="VIEWS.GROUP.FILTER_FAVOURITED">
                 </div>
                 <div class="option" (click)="setVisibility('showModerated')" translate="VIEWS.GROUP.FILTER_MODERATED">
                 </div>
@@ -639,11 +642,12 @@
             </div>
           </!--cos-input-->
           <cos-input [placeholder]="'VIEWS.GROUP.TOPICS_FILTER_STATUS' | translate"
-            class="dropdown_input tablet_hidden">
+            class="dropdown_input">
             <div class="dropdown" [cosDropdown]>
               <div class="selection">
                 <div class="selected_item"
-                [innerHtml]="'TXT_TOPIC_STATUS_' + (topicFilters.status || 'all') | uppercase | translate | titlecase" ></div>
+                  [innerHtml]="'TXT_TOPIC_STATUS_' + (topicFilters.status || 'all') | uppercase | translate | titlecase">
+                </div>
                 <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
                   </svg>
@@ -667,9 +671,9 @@
                   <span translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_RECENT_ACTIVITY"
                     *ngIf="topicFilters.orderBy === 'lastActivity'"></span>
                   <span translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_ACTIVITIES"
-                    *ngIf="topicFilters.orderBy === 'activity_count'"></span>
+                    *ngIf="topicFilters.orderBy === 'activityCount'"></span>
                   <span translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_PARTICIPANTS"
-                    *ngIf="topicFilters.orderBy === 'members_count'"></span>
+                    *ngIf="topicFilters.orderBy === 'membersCount'"></span>
                   <span translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_RECENT"
                     *ngIf="topicFilters.orderBy === 'created'"></span>
                 </div>
@@ -680,46 +684,66 @@
               </div>
               <div class="options">
                 <div class="option" translate="VIEWS.GROUP.TOPICS_FILTERS_ORDER_ALL" (click)="orderBy('')"></div>
-                <div class="option" translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_RECENT_ACTIVITY" (click)="orderBy('lastActivity')"></div>
-                <div class="option" translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_ACTIVITIES" (click)="orderBy('activity_count')"></div>
-                <div class="option" translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_PARTICIPANTS" (click)="orderBy('members_count')"></div>
-                <div class="option" translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_RECENT" (click)="orderBy('created')"></div>
+                <div class="option" translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_RECENT_ACTIVITY"
+                  (click)="orderBy('lastActivity')"></div>
+                <div class="option" translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_ACTIVITIES"
+                  (click)="orderBy('activityCount')"></div>
+                <div class="option" translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_PARTICIPANTS"
+                  (click)="orderBy('membersCount')"></div>
+                <div class="option" translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_RECENT"
+                  (click)="orderBy('created')"></div>
               </div>
             </div>
           </cos-input>
         </div>
         <div class="options_row tablet_show" *ngIf="moreFilters">
-          <cos-input [placeholder]="'VIEWS.GROUP.TOPICS_FILTER_STATUS' | translate" class="dropdown_input">
-            <div class="dropdown" [cosDropdown]>
-              <div class="selection">
-                <div class="selected_item">{{'VIEWS.GROUP.TOPICS_FILTERS_ORDER_ALL' | translate}}</div>
-                <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
-                  </svg>
-                </div>
-              </div>
-              <div class="options">
-                <div class="option" *ngFor="let item of []">
-                  {{item}}
-                </div>
-              </div>
-            </div>
-          </cos-input>
           <cos-input [placeholder]="'VIEWS.GROUP.TOPICS_FILTER_ORDER' | translate" class="dropdown_input">
             <div class="dropdown" [cosDropdown]>
               <div class="selection">
-                <div class="selected_item">{{'VIEWS.GROUP.TOPICS_FILTERS_ORDER_ALL' | translate}}</div>
+                <div class="selected_item">
+                  <span translate="VIEWS.GROUP.FILTER_ALL" *ngIf="!topicFilters.orderBy"></span>
+                  <span translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_RECENT_ACTIVITY"
+                    *ngIf="topicFilters.orderBy === 'lastActivity'"></span>
+                  <span translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_ACTIVITIES"
+                    *ngIf="topicFilters.orderBy === 'activityCount'"></span>
+                  <span translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_PARTICIPANTS"
+                    *ngIf="topicFilters.orderBy === 'membersCount'"></span>
+                  <span translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_RECENT"
+                    *ngIf="topicFilters.orderBy === 'created'"></span>
+                </div>
                 <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
                   </svg>
                 </div>
               </div>
               <div class="options">
-                <div class="option" translate="VIEWS.GROUP.TOPICS_FILTERS_ORDER_ALL"></div>
-                <div class="option" translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_RECENT_ACTIVITY"></div>
-                <div class="option" translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_ACTIVITIES"></div>
-                <div class="option" translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_PARTICIPANTS"></div>
-                <div class="option" translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_RECENT"></div>
+                <div class="option" translate="VIEWS.GROUP.TOPICS_FILTERS_ORDER_ALL" (click)="orderBy('')"></div>
+                <div class="option" translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_RECENT_ACTIVITY"
+                  (click)="orderBy('lastActivity')"></div>
+                <div class="option" translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_ACTIVITIES"
+                  (click)="orderBy('activityCount')"></div>
+                <div class="option" translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_PARTICIPANTS"
+                  (click)="orderBy('membersCount')"></div>
+                <div class="option" translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_RECENT"
+                  (click)="orderBy('created')"></div>
+              </div>
+            </div>
+          </cos-input>
+          <cos-input [placeholder]="'VIEWS.GROUP.TOPICS_FILTER_COUNTRY' | translate" class="dropdown_input">
+            <div class="dropdown" [cosDropdown]>
+              <div class="selection">
+                <div class="selected_item">{{(topicFilters.country)? topicFilters.country : 'VIEWS.GROUP.FILTER_ALL' |
+                  translate}}</div>
+                <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                  </svg>
+                </div>
+              </div>
+              <div class="options">
+                <div class="option" (click)="setCountry('')" translate="TXT_TOPIC_CATEGORY_ALL"></div>
+                <div class="option" *ngFor="let country of countries" (click)="setCountry(country.name)">
+                  {{country.name}}
+                </div>
               </div>
             </div>
           </cos-input>
@@ -741,17 +765,19 @@
               </div>
             </div>
           </!--cos-input-->
-          <cos-input [placeholder]="'VIEWS.GROUP.TOPICS_FILTER_COUNTRY' | translate" class="dropdown_input">
+          <cos-input [placeholder]="'VIEWS.GROUP.TOPICS_FILTER_COUNTRY' | translate" class="dropdown_input tablet_hidden">
             <div class="dropdown" [cosDropdown]>
               <div class="selection">
-                <div class="selected_item">{{'VIEWS.GROUP.TOPICS_FILTERS_ORDER_ALL' | translate}}</div>
+                <div class="selected_item">{{(topicFilters.country)? topicFilters.country : 'VIEWS.GROUP.FILTER_ALL' |
+                  translate}}</div>
                 <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
                   </svg>
                 </div>
               </div>
               <div class="options">
-                <div class="option" *ngFor="let country of countries">
+                <div class="option" (click)="setCountry('')" translate="TXT_TOPIC_CATEGORY_ALL"></div>
+                <div class="option" *ngFor="let country of countries" (click)="setCountry(country.name)">
                   {{country.name}}
                 </div>
               </div>
@@ -760,14 +786,16 @@
           <cos-input [placeholder]="'VIEWS.GROUP.TOPICS_FILTER_LANGUAGE' | translate" class="dropdown_input">
             <div class="dropdown" [cosDropdown]>
               <div class="selection">
-                <div class="selected_item">{{'VIEWS.GROUP.TOPICS_FILTERS_ORDER_ALL' | translate}}</div>
+                <div class="selected_item">{{(topicFilters.language)? topicFilters.language : 'VIEWS.GROUP.FILTER_ALL' |
+                  translate}}</div>
                 <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
                   </svg>
                 </div>
               </div>
               <div class="options">
-                <div class="option" *ngFor="let language of languages">
+                <div class="option" (click)="setLanguage('')" translate="TXT_TOPIC_CATEGORY_ALL"></div>
+                <div class="option" *ngFor="let language of languages" (click)="setLanguage(language.name)">
                   {{language.name}}
                 </div>
               </div>
@@ -839,9 +867,23 @@
 
         <div class="options filter_options">
           <div class="filter_option">
-            <span translate="COMPONENTS.PUBLIC_TOPICS.FILTER_VISIBILITY"></span><a class="bold"
-              (click)="mobileTopicFilters.status = true">{{'TXT_TOPIC_STATUS_'+topicFilters.status | uppercase |
-              translate | titlecase}}</a>
+            <span translate="VIEWS.GROUP.TOPICS_FILTER_TYPE"></span><a class="bold"
+              (click)="mobileTopicFilters.visibility = true">
+              <span *ngIf="!topicFilters.visibility" translate="VIEWS.GROUP.FILTER_ALL"></span>
+
+              <span *ngIf="topicFilters.visibility === 'favourite'"> {{'VIEWS.GROUP.FILTER_FAVOURITED' |
+                translate}}</span>
+              <span *ngIf="topicFilters.visibility === 'showModerated'">
+                {{'VIEWS.GROUP.FILTER_MODERATED'
+                |
+                translate}}</span>
+            </a>
+          </div>
+          <div class="filter_option">
+            <span translate="VIEWS.GROUP.TOPICS_FILTER_STATUS"></span>
+            <a class="bold" (click)="mobileTopicFilters.status = true"
+                  [innerHtml]="'TXT_TOPIC_STATUS_' + (topicFilters.status || 'all') | uppercase | translate | titlecase">
+          </a>
           </div>
           <!--div class="filter_option">
             <span translate="COMPONENTS.PUBLIC_TOPICS.FILTER_CATEGORIES"></span><a class="bold"
@@ -849,12 +891,27 @@
               translate | titlecase}}</a>
           </!--div-->
           <div class="filter_option">
+            <span translate="VIEWS.GROUP.TOPICS_FILTER_ORDER"></span><a class="bold" (click)="mobileTopicFilters.orderBy = true">
+              <span translate="VIEWS.GROUP.FILTER_ALL" *ngIf="!topicFilters.orderBy"></span>
+              <span translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_RECENT_ACTIVITY"
+                *ngIf="topicFilters.orderBy === 'lastActivity'"></span>
+              <span translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_ACTIVITIES"
+                *ngIf="topicFilters.orderBy === 'activityCount'"></span>
+              <span translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_PARTICIPANTS"
+                *ngIf="topicFilters.orderBy === 'membersCount'"></span>
+              <span translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_RECENT"
+                *ngIf="topicFilters.orderBy === 'created'"></span>
+            </a>
+          </div>
+          <div class="filter_option">
             <span translate="COMPONENTS.PUBLIC_TOPICS.FILTER_COUNTRY"></span><a class="bold"
-              (click)="mobileTopicFilters.country = true">{{topicFilters.country| translate | titlecase}}</a>
+              (click)="mobileTopicFilters.country = true">{{(topicFilters.country)? topicFilters.country : 'VIEWS.GROUP.FILTER_ALL' |
+              translate | titlecase}}</a>
           </div>
           <div class="filter_option">
             <span translate="COMPONENTS.PUBLIC_TOPICS.FILTER_LANGUAGE"></span><a class="bold"
-              (click)="mobileTopicFilters.language = true">{{topicFilters.language | translate | titlecase}}</a>
+              (click)="mobileTopicFilters.language = true">{{(topicFilters.language)? topicFilters.language : 'VIEWS.GROUP.FILTER_ALL' |
+              translate | titlecase}}</a>
           </div>
           <button (click)="doClearFilters()" class="btn_medium_plain">
             <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -884,6 +941,29 @@
       </div>
       <div class="overlay" *ngIf="showMobileOverlay()" (click)="closeMobileFilter();"></div>
       <div class="mobile_filters_wrap" [ngClass]="{'active': showMobileOverlay()}">
+        <div class="options button_options" *ngIf="mobileTopicFilters.visibility">
+          <label class="checkbox" (click)="mobileTopicFilters.visibility = 'all';">
+            <span [innerHTML]="'VIEWS.GROUP.FILTER_ALL' | translate | titlecase"></span>
+            <input type="radio" name="visibility">
+            <span class="checkmark"></span>
+          </label>
+
+          <label class="checkbox" *ngIf="(auth.loggedIn$ | async)"
+            (click)="mobileTopicFilters.visibility = 'favourite';">
+            <span [innerHTML]="'VIEWS.GROUP.FILTER_FAVOURITED' | translate | titlecase"></span>
+            <input type="radio" name="visibility">
+            <span class="checkmark"></span>
+          </label>
+
+          <label class="checkbox" (click)="mobileTopicFilters.visibility = 'showModerated';">
+            <span [innerHTML]="'VIEWS.GROUP.FILTER_MODERATED' | translate | titlecase"></span>
+            <input type="radio" name="visibility">
+            <span class="checkmark"></span>
+          </label>
+          <button class="btn_medium_secondary"
+            (click)="setVisibility(mobileTopicFilters.visibility);mobileTopicFilters.visibility= false;"
+            translate="COMPONENTS.PUBLIC_TOPICS.BTN_APPLY"></button>
+        </div>
         <div class="options button_options" *ngIf="mobileTopicFilters.status">
           <label class="checkbox" (click)="mobileTopicFilters.status = 'all';">
             <span [innerHTML]="'TXT_TOPIC_STATUS_ALL' | translate | titlecase"></span>
@@ -902,6 +982,42 @@
           </label>
           <button class="btn_medium_secondary"
             (click)="setStatus(mobileTopicFilters.status);mobileTopicFilters.status= false;"
+            translate="COMPONENTS.PUBLIC_TOPICS.BTN_APPLY"></button>
+        </div>
+        <div class="options button_options" *ngIf="mobileTopicFilters.orderBy">
+
+          <label class="checkbox" (click)="mobileTopicFilters.orderBy = 'all';">
+            <span [innerHTML]="'VIEWS.GROUP.TOPICS_FILTERS_ORDER_ALL' | translate | titlecase"></span>
+            <input type="radio" name="orderBy">
+            <span class="checkmark"></span>
+          </label>
+
+          <label class="checkbox" (click)="mobileTopicFilters.orderBy = 'lastActivity';">
+            <span [innerHTML]="'VIEWS.GROUP.TOPICS_FILTER_ORDER_RECENT_ACTIVITY' | translate | titlecase"></span>
+            <input type="radio" name="orderBy">
+            <span class="checkmark"></span>
+          </label>
+
+          <label class="checkbox" (click)="mobileTopicFilters.orderBy = 'activityCount';">
+            <span [innerHTML]="'VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_ACTIVITIES' | translate | titlecase"></span>
+            <input type="radio" name="orderBy">
+            <span class="checkmark"></span>
+          </label>
+
+          <label class="checkbox" (click)="mobileTopicFilters.orderBy = 'membersCount';">
+            <span [innerHTML]="'VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_PARTICIPANTS' | translate | titlecase"></span>
+            <input type="radio" name="orderBy">
+            <span class="checkmark"></span>
+          </label>
+
+          <label class="checkbox" (click)="mobileTopicFilters.orderBy = 'created';">
+            <span [innerHTML]="'VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_RECENT' | translate | titlecase"></span>
+            <input type="radio" name="orderBy">
+            <span class="checkmark"></span>
+          </label>
+
+          <button class="btn_medium_secondary"
+            (click)="orderBy(mobileTopicFilters.orderBy);mobileTopicFilters.orderBy= false;"
             translate="COMPONENTS.PUBLIC_TOPICS.BTN_APPLY"></button>
         </div>
         <!--div class="options button_options" *ngIf="mobileTopicFilters.category">

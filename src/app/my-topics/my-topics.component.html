@@ -120,11 +120,11 @@
               <div class="selected_item">
                 <span translate="VIEWS.MY_TOPICS.FILTER_ALL" *ngIf="!topicFilters.orderBy"></span>
                 <span translate="VIEWS.MY_TOPICS.FILTERS.ORDER_RECENT_ACTIVITY"
-                  *ngIf="topicFilters.orderBy === 'activity_time'"></span>
+                  *ngIf="topicFilters.orderBy === 'activityTime'"></span>
                 <span translate="VIEWS.MY_TOPICS.FILTERS.ORDER_MOST_ACTIVITIES"
-                  *ngIf="topicFilters.orderBy === 'activity_count'"></span>
+                  *ngIf="topicFilters.orderBy === 'activityCount'"></span>
                 <span translate="VIEWS.MY_TOPICS.FILTERS.ORDER_MOST_PARTICIPANTS"
-                  *ngIf="topicFilters.orderBy === 'members_count'"></span>
+                  *ngIf="topicFilters.orderBy === 'membersCount'"></span>
                 <span translate="VIEWS.MY_TOPICS.FILTERS.ORDER_MOST_RECENT"
                   *ngIf="topicFilters.orderBy === 'created'"></span>
               </div>
@@ -136,11 +136,11 @@
             <div class="options">
               <div class="option" translate="VIEWS.MY_TOPICS.FILTER_ALL" (click)="orderBy('')"></div>
               <div class="option" translate="VIEWS.MY_TOPICS.FILTERS.ORDER_RECENT_ACTIVITY"
-                (click)="orderBy('activity_time')"></div>
+                (click)="orderBy('activityTime')"></div>
               <div class="option" translate="VIEWS.MY_TOPICS.FILTERS.ORDER_MOST_ACTIVITIES"
-                (click)="orderBy('activity_count')"></div>
+                (click)="orderBy('activityCount')"></div>
               <div class="option" translate="VIEWS.MY_TOPICS.FILTERS.ORDER_MOST_PARTICIPANTS"
-                (click)="orderBy('members_count')"></div>
+                (click)="orderBy('membersCount')"></div>
               <div class="option" translate="VIEWS.MY_TOPICS.FILTERS.ORDER_MOST_RECENT" (click)="orderBy('created')">
               </div>
             </div>
@@ -184,11 +184,11 @@
               <div class="selected_item">
                 <span translate="VIEWS.MY_TOPICS.FILTER_ALL" *ngIf="!topicFilters.orderBy"></span>
                 <span translate="VIEWS.MY_TOPICS.FILTERS.ORDER_RECENT_ACTIVITY"
-                  *ngIf="topicFilters.orderBy === 'activity_time'"></span>
+                  *ngIf="topicFilters.orderBy === 'activityTime'"></span>
                 <span translate="VIEWS.MY_TOPICS.FILTERS.ORDER_MOST_ACTIVITIES"
-                  *ngIf="topicFilters.orderBy === 'activity_count'"></span>
+                  *ngIf="topicFilters.orderBy === 'activityCount'"></span>
                 <span translate="VIEWS.MY_TOPICS.FILTERS.ORDER_MOST_PARTICIPANTS"
-                  *ngIf="topicFilters.orderBy === 'members_count'"></span>
+                  *ngIf="topicFilters.orderBy === 'membersCount'"></span>
                 <span translate="VIEWS.MY_TOPICS.FILTERS.ORDER_MOST_RECENT"
                   *ngIf="topicFilters.orderBy === 'created'"></span>
               </div>
@@ -200,11 +200,11 @@
             <div class="options">
               <div class="option" translate="VIEWS.MY_TOPICS.FILTER_ALL" (click)="orderBy('')"></div>
               <div class="option" translate="VIEWS.MY_TOPICS.FILTERS.ORDER_RECENT_ACTIVITY"
-                (click)="orderBy('activity_time')"></div>
+                (click)="orderBy('activityTime')"></div>
               <div class="option" translate="VIEWS.MY_TOPICS.FILTERS.ORDER_MOST_ACTIVITIES"
-                (click)="orderBy('activity_count')"></div>
+                (click)="orderBy('activityCount')"></div>
               <div class="option" translate="VIEWS.MY_TOPICS.FILTERS.ORDER_MOST_PARTICIPANTS"
-                (click)="orderBy('members_count')"></div>
+                (click)="orderBy('membersCount')"></div>
               <div class="option" translate="VIEWS.MY_TOPICS.FILTERS.ORDER_MOST_RECENT" (click)="orderBy('created')">
               </div>
             </div>
@@ -241,7 +241,7 @@
               </div>
             </div>
             <div class="options">
-              <div class="option" (click)="setCountry('')" translate="TXT_TOPIC_CATEGORY_ALL"></div>
+              <div class="option" (click)="setCountry('')" translate="VIEWS.MY_TOPICS.FILTER_ALL"></div>
               <div class="option" *ngFor="let country of countries" (click)="setCountry(country.name)">
                 {{country.name}}
               </div>
@@ -348,11 +348,11 @@
           <span translate="VIEWS.MY_TOPICS.FILTER_ORDER"></span><a class="bold" (click)="mobileFilters.orderBy = true">
             <span translate="VIEWS.MY_TOPICS.FILTER_ALL" *ngIf="!topicFilters.orderBy"></span>
             <span translate="VIEWS.MY_TOPICS.FILTERS.ORDER_RECENT_ACTIVITY"
-              *ngIf="topicFilters.orderBy === 'activity_time'"></span>
+              *ngIf="topicFilters.orderBy === 'activityTime'"></span>
             <span translate="VIEWS.MY_TOPICS.FILTERS.ORDER_MOST_ACTIVITIES"
-              *ngIf="topicFilters.orderBy === 'activity_count'"></span>
+              *ngIf="topicFilters.orderBy === 'activityCount'"></span>
             <span translate="VIEWS.MY_TOPICS.FILTERS.ORDER_MOST_PARTICIPANTS"
-              *ngIf="topicFilters.orderBy === 'members_count'"></span>
+              *ngIf="topicFilters.orderBy === 'membersCount'"></span>
             <span translate="VIEWS.MY_TOPICS.FILTERS.ORDER_MOST_RECENT"
               *ngIf="topicFilters.orderBy === 'created'"></span>
           </a>
@@ -478,17 +478,17 @@
           <input type="radio" name="type">
           <span class="checkmark"></span>
         </label>
-        <label class="checkbox" (click)="mobileFilters.orderBy = 'activity_time'">
+        <label class="checkbox" (click)="mobileFilters.orderBy = 'activityTime'">
           <span translate="VIEWS.MY_TOPICS.FILTERS.ORDER_RECENT_ACTIVITY"></span>
           <input type="radio" name="type">
           <span class="checkmark"></span>
         </label>
-        <label class="checkbox" (click)="mobileFilters.orderBy = 'activity_count'">
+        <label class="checkbox" (click)="mobileFilters.orderBy = 'activityCount'">
           <span translate="VIEWS.MY_TOPICS.FILTERS.ORDER_MOST_ACTIVITIES"></span>
           <input type="radio" name="type">
           <span class="checkmark"></span>
         </label>
-        <label class="checkbox" (click)="mobileFilters.orderBy = 'members_count'">
+        <label class="checkbox" (click)="mobileFilters.orderBy = 'membersCount'">
           <span translate="VIEWS.MY_TOPICS.FILTERS.ORDER_MOST_PARTICIPANTS"></span>
           <input type="radio" name="type">
           <span class="checkmark"></span>
@@ -520,9 +520,6 @@
           translate="COMPONENTS.PUBLIC_TOPICS.BTN_APPLY"></button>
       </div>
       <div class="options button_options" *ngIf="mobileFilters.country">
-        <typeahead class="dropdown dropdown_input" activeClass="dropdown_active" [term]="countrySearch"
-          (search)="searchCountry($event)" [placeholder]="'VIEWS.MY_TOPICS.FILTER_COUNTRY' | translate">
-        </typeahead>
         <label class="checkbox">
           <span translate="VIEWS.MY_TOPICS.FILTER_ALL"></span>
           <input type="radio" name="country">
@@ -539,9 +536,6 @@
           translate="VIEWS.MY_TOPICS.BTN_APPLY"></button>
       </div>
       <div class="options button_options" *ngIf="mobileFilters.language">
-        <typeahead class="dropdown dropdown_input" activeClass="dropdown_active" [term]="languageSearch"
-          (search)="searchLanguage($event)" [placeholder]="'VIEWS.MY_TOPICS.FILTER_LANGUAGE' | translate">
-        </typeahead>
         <label class="checkbox">
           <span translate="VIEWS.MY_TOPICS.FILTER_ALL"></span>
           <input type="radio" name="language">
