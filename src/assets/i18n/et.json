@@ -206,7 +206,7 @@
       "MESSAGE_MAIN": "Teed koopiat",
       "MESSAGE_DESCRIPTION": "Kas oled kindel, et soovid teemat dubleerida? See loob uue privaatse teema.",
       "HEADING_WILL_BE_DUPLICATED": "See sisu dubleeritakse",
-      "WILL_BE_DUPLICATED_1": "Teema sisu praegusel kujul (koos piltide, allmärkuste, kommentaaride ja minihääletustega)",
+      "WILL_BE_DUPLICATED_1": "Topic content as it is right now (including images, footnotes, comments)",
       "WILL_BE_DUPLICATED_2": "Kõik manused",
       "HEADING_WILL_NOT_BE_DUPLICATED": "Seda sisu ei dubleerita",
       "WILL_NOT_BE_DUPLICATED_1": "seaded (avalik/privaatne, hääletussüsteemid, teemaviited jne)",
