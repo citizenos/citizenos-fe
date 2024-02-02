@@ -202,7 +202,7 @@ export class VoteCreateComponent implements OnInit {
             if (this.topic.id) {
               this.TopicInviteUserService.setParam('topicId', this.topic.id);
               this.invites$ = this.loadInvite$.pipe(
-                tap(()=>console.log('LOAD INVITES')),
+                tap(() => console.log('LOAD INVITES')),
                 switchMap(() => this.TopicInviteUserService.loadItems())
               );
               this.TopicMemberUserService.setParam('topicId', this.topic.id);
@@ -289,7 +289,7 @@ export class VoteCreateComponent implements OnInit {
     if (tab) {
       const tabIndex = this.tabs.indexOf(tab);
       if (tabIndex === 1) {
-        this.updateTopic();
+        this.updateTopic().pipe(take(1)).subscribe();;
       }
 
       if (tabIndex === 2) {
@@ -311,7 +311,7 @@ export class VoteCreateComponent implements OnInit {
             this.voteCreateForm.saveVoteSettings();*/
       }
       if (tabIndex + 1 === 3) {
-            this.TopicService.reloadTopic();
+        this.TopicService.reloadTopic();
       }
       if (tabIndex > -1 && tabIndex < 3) {
         this.selectTab(this.tabs[tabIndex + 1]);
@@ -382,18 +382,18 @@ export class VoteCreateComponent implements OnInit {
     if (this.topic.imageUrl) {
       this.topic.imageUrl = null;
       this.tmpImageUrl = undefined;
-      this.updateTopic();
+      this.updateTopic().pipe(take(1)).subscribe();;
     }
   };
 
-  showBlockTitle () {
+  showBlockTitle() {
     this.block.title = true;
     setTimeout(() => {
       this.titleInput.nativeElement.focus();
     }, 200);
   }
 
-  showBlockIntro () {
+  showBlockIntro() {
     this.block.intro = true;
     setTimeout(() => {
       console.log(this.introInput)
@@ -459,51 +459,55 @@ export class VoteCreateComponent implements OnInit {
 
   setCountry(country: string) {
     this.topic.country = country;
-    this.updateTopic();
+    this.updateTopic().pipe(take(1)).subscribe();;
   }
   setLanguage(language: string) {
     this.topic.language = language;
-    this.updateTopic();
+    this.updateTopic().pipe(take(1)).subscribe();;
   }
 
   updateTopic() {
-    return this.TopicService.patch(this.topic).pipe(take(1)).subscribe();
+    return this.TopicService.patch(this.topic)
   }
   updateVote() {
     const updateVote = Object.assign({ topicId: this.topic.id }, this.vote);
     const options = updateVote.options.map((opt) => {
-      return {value: opt.value, voteId: opt.voteId, id: opt.id};
+      return { value: opt.value, voteId: opt.voteId, id: opt.id };
     })
     updateVote.options = options;
     return this.TopicVoteService.update(updateVote).pipe(take(1)).subscribe();
   }
 
   saveAsDraft() {
-    this.updateTopic();
-    this.updateVote();
-    this.router.navigate(['my', 'topics']);
+    this.updateTopic().pipe(take(1)).subscribe(() => {
+      this.updateVote();
+      this.router.navigate(['my', 'topics']);
+    });
   }
 
   edit() {
-    this.updateTopic();
-    this.updateVote();
-    this.router.navigate(['topics', this.topic.id], {fragment: 'voting'});
+    this.updateTopic().pipe(take(1)).subscribe(() => {
+      this.updateVote();
+      this.router.navigate(['topics', this.topic.id], { fragment: 'voting' });
+    });
   }
 
   publish() {
-    this.updateTopic();
-    this.topicGroups.forEach((group) => {
-      this.GroupMemberTopicService.save({
-        groupId: group.id,
-        topicId: this.topic.id,
-        level: group.permission?.level || this.GroupMemberTopicService.LEVELS.read
-      }).pipe(take(1)).subscribe();
+    this.updateTopic().pipe(take(1)).subscribe(() => {
+      this.topicGroups.forEach((group) => {
+        this.GroupMemberTopicService.save({
+          groupId: group.id,
+          topicId: this.topic.id,
+          level: group.permission?.level || this.GroupMemberTopicService.LEVELS.read
+        }).pipe(take(1)).subscribe();
+      });
+      this.updateVote();
+      this.topic.status = this.TopicService.STATUSES.voting;
+      this.updateTopic().pipe(take(1)).subscribe(() => {
+        this.TopicService.reloadTopic();
+        this.router.navigate(['topics', this.topic.id], { fragment: 'voting' });
+      });
     });
-    this.updateVote();
-    this.topic.status = this.TopicService.STATUSES.voting;
-    this.updateTopic();
-    this.TopicService.reloadTopic();
-    this.router.navigate(['topics', this.topic.id], {fragment: 'voting'});
   }
 
   addTag(e: Event) {

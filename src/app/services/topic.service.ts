@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { LocationService } from './location.service';
-import { Observable, switchMap, map, of, take, BehaviorSubject, exhaustMap, shareReplay } from 'rxjs';
+import { Observable, switchMap, map, tap, of, take, BehaviorSubject, exhaustMap, shareReplay } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { AuthService } from './auth.service';
 import { DialogService } from 'src/app/shared/dialog';
