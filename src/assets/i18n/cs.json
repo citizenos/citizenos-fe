@@ -206,7 +206,7 @@
       "MESSAGE_MAIN": "Duplikujete",
       "MESSAGE_DESCRIPTION": "Opravdu chcete toto téma zkopírovat? Toto vytvoří nové soukromé téma.",
       "HEADING_WILL_BE_DUPLICATED": "Tento obsah bude duplikován",
-      "WILL_BE_DUPLICATED_1": "Téma obsahu, jak je právě teď (včetně obrázků, poznámek, komentářů, mini-hlasování)",
+      "WILL_BE_DUPLICATED_1": "Topic content as it is right now (including images, footnotes, comments)",
       "WILL_BE_DUPLICATED_2": "Všechny přílohy",
       "HEADING_WILL_NOT_BE_DUPLICATED": "Tento obsah nebude duplikován",
       "WILL_NOT_BE_DUPLICATED_1": "nastavení (veřejné/soukromé, hlasovací systémy, hashtagy atd.)",
