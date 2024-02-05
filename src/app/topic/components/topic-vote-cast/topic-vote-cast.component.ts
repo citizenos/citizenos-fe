@@ -310,19 +310,9 @@ export class TopicVoteCastComponent implements OnInit {
     return `${val}px`;
   }
 
-  downloadContainer(includeCSV?: boolean) {
-    let url = this.vote.downloads.bdocFinal;
-    if (!url) return;
-    if (includeCSV) {
-      url += '&include[]=csv';
-    }
-    window.location.href = url;
-  };
-
   triggerFinalDownload(type: string, includeCSV?: boolean) {
     let url = ''
     if (this.vote.downloads?.bdocFinal || this.vote.downloads?.zipFinal) {
-      console.log(type, 'tyüe')
       if (type === 'zip') {
         url = this.vote.downloads.zipFinal;
       } else {
@@ -332,7 +322,6 @@ export class TopicVoteCastComponent implements OnInit {
       if (includeCSV) {
         url += '&include[]=csv';
       }
-      console.log(url)
       window.location.href = url;
       return;
     }
