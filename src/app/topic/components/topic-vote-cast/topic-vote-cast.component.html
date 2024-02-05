@@ -204,7 +204,7 @@
                   </a>
                 </ng-container>
                 <a *ngIf="vote.authType === VOTE_AUTH_TYPES.soft"
-                  (click)="(vote.downloads?.zipFinal)? triggerFinalDownload('zip'): $event.stopPropagation();">
+                  (click)="triggerFinalDownload('zip'); $event.stopPropagation();">
                   <div>
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <g clip-path="url(#clip0_335_42956)">
