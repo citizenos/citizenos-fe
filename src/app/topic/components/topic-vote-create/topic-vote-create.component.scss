@@ -91,6 +91,9 @@
 .date_selector {
   width: 100%;
 
+  &.selected {
+    max-width: 546px;
+  }
   .radio_description {
     max-width: 512px;
   }
