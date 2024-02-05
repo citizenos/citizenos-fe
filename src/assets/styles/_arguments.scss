@@ -86,8 +86,9 @@ argument-reply {
     background-color: var(--color-argument-info-light);
     border-left: solid 4px var(--color-info);
     border-right: solid 4px var(--color-info);
+    border-radius: 0;
     align-self: center;
-    width: calc(100% - 32px);
+    width: 100%;
     max-width: 100%;
     padding-bottom: 16px;
 
