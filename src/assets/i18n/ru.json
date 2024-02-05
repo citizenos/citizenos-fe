@@ -1686,6 +1686,7 @@
       "CATEGORIES": "Категории",
       "LNK_MORE_INFO": "Подробнее",
       "LNK_CLOSE_INFO": "Закрыть информацию",
+      "SECTION_INFO_LBL_NOT_SPECIFIED": "@:VIEWS.TOPICS_TOPICID.SECTION_INFO_LBL_NOT_SPECIFIED",
       "TAB_TOPICS": "Темы",
       "TAB_MEMBERS": "Участники",
       "BTN_ADD_TOPICS": "Add existing topic",
