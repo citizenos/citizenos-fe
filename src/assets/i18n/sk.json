@@ -1686,6 +1686,7 @@
       "CATEGORIES": "Kategórie",
       "LNK_MORE_INFO": "Viac informácií",
       "LNK_CLOSE_INFO": "Zavrieť informácie",
+      "SECTION_INFO_LBL_NOT_SPECIFIED": "@:VIEWS.TOPICS_TOPICID.SECTION_INFO_LBL_NOT_SPECIFIED",
       "TAB_TOPICS": "Témy",
       "TAB_MEMBERS": "Členovia",
       "BTN_ADD_TOPICS": "Add existing topic",
