@@ -1686,6 +1686,7 @@
       "CATEGORIES": "Categories",
       "LNK_MORE_INFO": "More info",
       "LNK_CLOSE_INFO": "Close info",
+      "SECTION_INFO_LBL_NOT_SPECIFIED": "@:VIEWS.TOPICS_TOPICID.SECTION_INFO_LBL_NOT_SPECIFIED",
       "TAB_TOPICS": "Topics",
       "TAB_MEMBERS": "Members",
       "BTN_ADD_TOPICS": "Add existing topic",
