@@ -444,6 +444,7 @@
     },
     "PUBLIC_TOPICS": {
       "HEADER": "Verejné témy",
+      "FILTER_ALL": "@:VIEWS.MY_TOPICS.FILTER_ALL",
       "FILTER_STATUS": "@:VIEWS.MY_TOPICS.FILTER_STATUS",
       "FILTER_TOPICS_MODERATED": "@:VIEWS.MY_TOPICS.FILTERS.TOPICS_MODERATED",
       "FILTER_VISIBILITY": "@:VIEWS.MY_TOPICS.FILTER_VISIBILITY",
@@ -1685,6 +1686,7 @@
       "CATEGORIES": "Kategórie",
       "LNK_MORE_INFO": "Viac informácií",
       "LNK_CLOSE_INFO": "Zavrieť informácie",
+      "SECTION_INFO_LBL_NOT_SPECIFIED": "@:VIEWS.TOPICS_TOPICID.SECTION_INFO_LBL_NOT_SPECIFIED",
       "TAB_TOPICS": "Témy",
       "TAB_MEMBERS": "Členovia",
       "BTN_ADD_TOPICS": "Add existing topic",
