@@ -1536,6 +1536,8 @@
       "TAB_ACCOUNT": "Учетная запись",
       "LBL_SHOW_IN_SEARCH": "Показывать мой профиль в результатах поиска",
       "LBL_SHOW_IN_SEARCH_DESCRIPTION": "Отображать мое имя и адрес электронной почты в результатах поиска, чтобы другие пользователи могли легко приглашать меня в группы и темы",
+      "LBL_DELETE_ACCOUNT": "Delete your account",
+      "LBL_DELETE_ACCOUNT_DESCRIPTION": "When deleting your account all your contributions will stay visible in Citizen OS, but they will not be linked to your account anymore.",
       "BTN_CONNECT_FACEBOOK": "Привязать к учетной записи Facebook",
       "BTN_CONNECT_GOOGLE": "Привязать к учетной записи Google",
       "BTN_CONNECT_ESTEID": "Привязать к ID-карте / Mobiil-ID",
