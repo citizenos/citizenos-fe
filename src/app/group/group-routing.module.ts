@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { GroupTokenJoinComponent } from './components/group-join/group-join.component';
+import { GroupTokenJoinComponent, GroupJoinComponent } from './components/group-join/group-join.component';
 import { GroupInvitationDialogComponent } from './components/group-invitation/group-invitation.component';
 import { GroupComponent } from './group.component';
 
@@ -9,6 +9,7 @@ const routes: Routes = [
   {path: ':groupId/invites/users/:inviteId', component: GroupInvitationDialogComponent},
   {
     path: '', children: [
+      {path: ':groupId/join', component: GroupTokenJoinComponent},
       {
         path: ':groupId', component: GroupComponent, children: []
       },

@@ -49,10 +49,11 @@ export class PublicgroupboxComponent implements OnInit {
       joinDialog.afterClosed().subscribe((res) => {
         if (res === true) {
           this.GroupJoinService
-            .join(this.group.join.token).pipe(take(1)).subscribe(
+            .joinPublic(this.group.id).pipe(take(1)).subscribe(
               {
                 next: (res) => {
                   this.group.userLevel = res.userLevel;
+                  this.router.navigate(['groups', this.group.id]);
                 },
                 error: (err) => {
                   console.error('Failed to join Topic', err)
