@@ -321,10 +321,11 @@ export class TopicComponent implements OnInit {
     joinDialog.afterClosed().subscribe((res) => {
       if (res === true) {
         this.TopicJoinService
-          .join(topic.join.token).pipe(take(1)).subscribe(
+          .joinPublic(topic.id).pipe(take(1)).subscribe(
             {
               next: (res) => {
                 topic.permission.level = res.userLevel;
+                this.TopicService.reloadTopic();
               },
               error: (err) => {
                 console.error('Failed to join Topic', err)

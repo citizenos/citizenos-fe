@@ -471,10 +471,11 @@ export class GroupComponent implements OnInit {
     joinDialog.afterClosed().subscribe((res) => {
       if (res === true) {
         this.GroupJoinService
-          .join(group.join.token).pipe(take(1)).subscribe(
+          .joinPublic(group.id).pipe(take(1)).subscribe(
             {
               next: (res) => {
                 group.userLevel = res.userLevel;
+                this.GroupService.reloadGroup();
               },
               error: (err) => {
                 console.error('Failed to join Topic', err)

@@ -1,22 +1,45 @@
 <div class="section_heading" translate="COMPONENTS.GROUP_SHARE.GENERATE_LINK"></div>
-<div class="share_wrap">
-  <div class="input_area">
-    <input id="invite_group_url_input" [value]="joinUrl"
-      [placeholder]="'COMPONENTS.GROUP_SHARE.PLACEHOLDER_CREATE_NEW_LINK' | translate">
-    <button id="reload" (click)="generateTokenJoin()" *ngIf="canUpdate()">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M17 12L18.9999 12C18.9999 10.207 18.3167 8.41728 16.9496 7.05025C14.4553 4.55593 10.5469 4.33754 7.80498 6.39507C7.36324 6.72655 6.73356 6.73367 6.34304 6.34315C5.95252 5.95262 5.94962 5.31411 6.38062 4.96878C9.91434 2.13752 15.0878 2.35994 18.3639 5.63604C20.121 7.3932 20.9999 9.69825 20.9999 12L23 12L20 16L17 12Z"
-          fill="#2C3B47" />
-        <path
-          d="M4.9999 12C4.9999 13.793 5.68312 15.5827 7.05015 16.9497C9.54447 19.4441 13.4529 19.6625 16.1948 17.6049C16.6366 17.2734 17.2662 17.2663 17.6567 17.6569C18.0473 18.0474 18.0502 18.6859 17.6192 19.0312C14.0854 21.8625 8.91203 21.6401 5.63593 18.364C3.87877 16.6068 2.99989 14.3018 2.9999 12H1L4 8L7 12L4.9999 12Z"
-          fill="#2C3B47" />
-      </svg>
-    </button>
+<div class="token_wrap">
+  <div class="token_settings_wrap">
+    <div class="share_wrap">
+      <div class="input_area">
+        <input id="invite_group_url_input" [value]="joinUrl"
+          [placeholder]="'COMPONENTS.GROUP_SHARE.PLACEHOLDER_CREATE_NEW_LINK' | translate">
+        <button id="reload" (click)="generateTokenJoin()" *ngIf="canUpdate()">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M17 12L18.9999 12C18.9999 10.207 18.3167 8.41728 16.9496 7.05025C14.4553 4.55593 10.5469 4.33754 7.80498 6.39507C7.36324 6.72655 6.73356 6.73367 6.34304 6.34315C5.95252 5.95262 5.94962 5.31411 6.38062 4.96878C9.91434 2.13752 15.0878 2.35994 18.3639 5.63604C20.121 7.3932 20.9999 9.69825 20.9999 12L23 12L20 16L17 12Z"
+              fill="#2C3B47" />
+            <path
+              d="M4.9999 12C4.9999 13.793 5.68312 15.5827 7.05015 16.9497C9.54447 19.4441 13.4529 19.6625 16.1948 17.6049C16.6366 17.2734 17.2662 17.2663 17.6567 17.6569C18.0473 18.0474 18.0502 18.6859 17.6192 19.0312C14.0854 21.8625 8.91203 21.6401 5.63593 18.364C3.87877 16.6068 2.99989 14.3018 2.9999 12H1L4 8L7 12L4.9999 12Z"
+              fill="#2C3B47" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="level_select_wrap">
+      <span class="bold" translate="COMPONENTS.GROUP_SHARE.LBL_ACCESS_LEVEL"></span>
+      <div class="dropdown" [cosDropdown] [ngClass]="{'disabled': !canUpdate()}">
+        <div class="selection">
+          <div class="selected_item">{{'TXT_GROUP_LEVELS_' + (join.level) |
+            uppercase | translate}}</div>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </div>
+        <div class="options">
+          <div class="option" *ngFor="let level of LEVELS" (click)="doUpdateJoinToken(level)">
+            {{'TXT_TOPIC_LEVELS_' + level | uppercase | translate}}
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <button class="btn_medium_secondary bold" (click)="copyInviteLink()" translate="COMPONENTS.GROUP_SHARE.COPY_LINK"></button>
+  <div class="button_wrap">
+    <button class="btn_medium_secondary bold" (click)="copyInviteLink()"
+      translate="COMPONENTS.GROUP_SHARE.COPY_LINK"></button>
+  </div>
 </div>
-
 <div class="notification_inline success" *ngIf="copySuccess">
   <div class="icon_notification">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -38,10 +61,11 @@
   <div *ngIf="!showQR" translate="COMPONENTS.GROUP_SHARE.GENERATE_QR_CODE_DESCRIPTION"></div>
   <div translate="COMPONENTS.GROUP_SHARE.GENERATE_QR_CODE_PRINT"></div>
   <div class="qr_code" *ngIf="showQR">
-    <qrcode [qrdata]="joinUrl || ''" [width]="120" [version]="4" [errorCorrectionLevel]="'L'"></qrcode>
+    <qrcode [qrdata]="joinUrl || ''" [width]="120" [version]="5" [errorCorrectionLevel]="'L'"></qrcode>
   </div>
   <div *ngIf="!showQR">
-    <button class="btn_medium_secondary bold" (click)="showQR = true" *ngIf="canUpdate()" translate="COMPONENTS.GROUP_SHARE.BTN_GENERATE_QR_CODE">
+    <button class="btn_medium_secondary bold" (click)="showQR = true"
+      translate="COMPONENTS.GROUP_SHARE.BTN_GENERATE_QR_CODE">
     </button>
   </div>
 </div>

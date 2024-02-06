@@ -75,7 +75,7 @@
       <span class="bold">{{group.members?.topics.count?.followUp || 0}}</span>
     </div>
   </div>
-  <button *ngIf="!group.userLevel" class="btn_medium_secondary" (click)="joinGroup()"
+  <button *ngIf="!group.userLevel" class="btn_medium_secondary" (click)="joinGroup();$event.stopPropagation();"
     translate="VIEWS.PUBLIC_GROUPS.BTN_JOIN_GROUP">
   </button>
   <button *ngIf="group.userLevel" class="btn_medium_secondary" (click)="viewGroup()"

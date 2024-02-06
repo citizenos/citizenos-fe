@@ -1,3 +1,4 @@
+import { GroupService } from './../../../services/group.service';
 import { Component, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, take } from 'rxjs';
@@ -25,12 +26,16 @@ export class GroupJoinComponent {
 })
 export class GroupTokenJoinComponent {
   token: string = '';
-  constructor(router: Router, dialog: DialogService, route: ActivatedRoute, Location: LocationService, GroupJoinService: GroupJoinService) {
+  constructor(router: Router, dialog: DialogService, route: ActivatedRoute, Location: LocationService, GroupJoinService: GroupJoinService, GroupService: GroupService) {
     route.params.pipe(
       switchMap((params: any) => {
         this.token = params['token'];
-        return GroupJoinService.get(params['token'])
-      }),take(1))
+        if (this.token) {
+          return GroupJoinService.get(this.token)
+        } else {
+          return GroupService.get(params['groupId'])
+        }
+      }), take(1))
       .subscribe({
         next: (group) => {
           const joinDialog = dialog.open(GroupJoinComponent, {
@@ -42,29 +47,51 @@ export class GroupTokenJoinComponent {
 
           joinDialog.afterClosed().subscribe((confirm) => {
             if (confirm === true) {
-              GroupJoinService.join(this.token).pipe(
-                take(1)
-              ).subscribe({
-                next: (group) => {
-                  router.navigate(['/my/groups', group.id]);
-                },
-                error: (res) => {
-                  const status = res.status;
-                  if (status.code === 40100) { // Unauthorized
-                    const currentUrl = Location.currentUrl();
-                    router.navigate(['/account/login'], { queryParams: { redirectSuccess: currentUrl } });
-                  } else if (status.code === 40001) { // Matching token not found.
-                    router.navigate(['/']);
-                  } else {
-                    router.navigate(['/404']);
+              if (this.token) {
+                GroupJoinService.join(this.token).pipe(
+                  take(1)
+                ).subscribe({
+                  next: (group) => {
+                    router.navigate(['/my/groups', group.id]);
+                  },
+                  error: (res) => {
+                    const status = res.status;
+                    if (status.code === 40100) { // Unauthorized
+                      const currentUrl = Location.currentUrl();
+                      router.navigate(['/account/login'], { queryParams: { redirectSuccess: currentUrl } });
+                    } else if (status.code === 40001) { // Matching token not found.
+                      router.navigate(['/']);
+                    } else {
+                      router.navigate(['/404']);
+                    }
                   }
-                }
-              })
+                })
+              } else {
+                GroupJoinService.joinPublic(group.id).pipe(
+                  take(1)
+                ).subscribe({
+                  next: (group) => {
+                    router.navigate(['/my/groups', group.id]);
+                  },
+                  error: (res) => {
+                    const status = res.status;
+                    if (status.code === 40100) { // Unauthorized
+                      const currentUrl = Location.currentUrl();
+                      router.navigate(['/account/login'], { queryParams: { redirectSuccess: currentUrl } });
+                    } else if (status.code === 40001) { // Matching token not found.
+                      router.navigate(['/']);
+                    } else {
+                      router.navigate(['/404']);
+                    }
+                  }
+                })
+              }
             }
           });
         },
         error: (err) => {
           console.error("Group join error", err);
+          if (err.status?.code === 40400) router.navigate(['/404']);
         }
       });
   }

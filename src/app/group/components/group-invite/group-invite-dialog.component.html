@@ -20,7 +20,7 @@
         translate="COMPONENTS.GROUP_INVITE_DIALOG.TAB_INVITE"></a>
       <a class="dialog_tab mobile_hidden" [ngClass]="{'active': activeTab ==='share'}" (click)="activeTab = 'share'"
         translate="COMPONENTS.GROUP_INVITE_DIALOG.TAB_SHARE"></a>
-      <div class="dropdown mobile_show" [cosDropdown]>
+      <div id="mobile_menu" class="dropdown mobile_show" [cosDropdown]>
         <div class="selection">
           <div class="selected_item">
             {{'COMPONENTS.GROUP_INVITE_DIALOG.TAB_'+activeTab | uppercase | translate}}

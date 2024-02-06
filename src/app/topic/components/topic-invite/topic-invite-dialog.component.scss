@@ -20,11 +20,34 @@
   }
 }
 
-.dropdown.mobile_show {
+
+#mobile_menu {
   width: 100%;
   margin-bottom: 16px;
+
+  &.dropdown_active {
+    .selection {
+      border-radius: 8px 8px 0 0;
+      border-bottom: 1px solid var(--color-background);
+    }
+  }
   .selection {
-    padding: 12px 16px;
+    border: none;
+    padding: 8px 16px;
+
+    .selected_item {
+      font-weight: 600;
+    }
+  }
+  .options {
+    margin-top: 0;
+    position: relative;
+
+    .option {
+      &:hover {
+        font-weight: 600;
+      }
+    }
   }
 }
 
