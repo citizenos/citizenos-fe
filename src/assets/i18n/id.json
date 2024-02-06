@@ -360,6 +360,7 @@
       "PLACEHOLDER_CREATE_NEW_LINK": "Generate a link to share",
       "COPY_LINK": "Copy link",
       "MSG_LINK_COPIED": "@:COMPONENTS.TOPIC_SHARE.MSG_LINK_COPIED",
+      "LBL_ACCESS_LEVEL": "Users access level",
       "GENERATE_QR_CODE": "Generate QR code",
       "GENERATE_QR_CODE_DESCRIPTION": "Generate a QR code that people can scan to come straight to the topic. You can add the QR code to digital or physical comms, and display it wherever the right people will see it.",
       "GENERATE_QR_CODE_PRINT": "To save the QR code, right click then choose 'Save image'.",
@@ -876,6 +877,7 @@
     "TOPIC_SHARE": {
       "GENERATE_LINK": "@:COMPONENTS.GROUP_SHARE.GENERATE_LINK",
       "PLACEHOLDER_CREATE_NEW_LINK": "@:COMPONENTS.GROUP_SHARE.PLACEHOLDER_CREATE_NEW_LINK",
+      "LBL_ACCESS_LEVEL": "@:COMPONENTS.GROUP_SHARE.LBL_ACCESS_LEVEL",
       "COPY_LINK": "@:COMPONENTS.GROUP_SHARE.COPY_LINK",
       "MSG_LINK_COPIED": "@:VIEWS.TOPICS_TOPICID.ARGUMENT_LNK_COPIED",
       "GENERATE_QR_CODE": "@:COMPONENTS.GROUP_SHARE.GENERATE_QR_CODE",
