@@ -360,6 +360,7 @@
       "PLACEHOLDER_CREATE_NEW_LINK": "Jagamiseks loo link",
       "COPY_LINK": "Kopeeri link",
       "MSG_LINK_COPIED": "@:COMPONENTS.TOPIC_SHARE.MSG_LINK_COPIED",
+      "LBL_ACCESS_LEVEL": "Users access level",
       "GENERATE_QR_CODE": "Loo QR kood",
       "GENERATE_QR_CODE_DESCRIPTION": "Loo QR kood, mille kaudu pääsevad inimesed otse teemasse. QR koodi saate lisada nii füüsilistele kui digitaalsetele infomaterjalidele ning kuvada seda kohtades, kus õigetel inimestel on sellele ligipääs.",
       "GENERATE_QR_CODE_PRINT": "QR koodi salvestamiseks tehke parem klõps ning valige \"Salvesta pilt\".",
@@ -876,6 +877,7 @@
     "TOPIC_SHARE": {
       "GENERATE_LINK": "@:COMPONENTS.GROUP_SHARE.GENERATE_LINK",
       "PLACEHOLDER_CREATE_NEW_LINK": "@:COMPONENTS.GROUP_SHARE.PLACEHOLDER_CREATE_NEW_LINK",
+      "LBL_ACCESS_LEVEL": "@:COMPONENTS.GROUP_SHARE.LBL_ACCESS_LEVEL",
       "COPY_LINK": "@:COMPONENTS.GROUP_SHARE.COPY_LINK",
       "MSG_LINK_COPIED": "@:VIEWS.TOPICS_TOPICID.ARGUMENT_LNK_COPIED",
       "GENERATE_QR_CODE": "@:COMPONENTS.GROUP_SHARE.GENERATE_QR_CODE",
