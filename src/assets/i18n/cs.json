@@ -1536,6 +1536,8 @@
       "TAB_ACCOUNT": "Account",
       "LBL_SHOW_IN_SEARCH": "Show my profile in search results",
       "LBL_SHOW_IN_SEARCH_DESCRIPTION": "Display my name and email in invite search results so that other people can easily invite me to groups and topics",
+      "LBL_DELETE_ACCOUNT": "Delete your account",
+      "LBL_DELETE_ACCOUNT_DESCRIPTION": "When deleting your account all your contributions will stay visible in Citizen OS, but they will not be linked to your account anymore.",
       "BTN_CONNECT_FACEBOOK": "Connect with Facebook account",
       "BTN_CONNECT_GOOGLE": "Connect with Google account",
       "BTN_CONNECT_ESTEID": "Connect with ID-card / Mobiil-ID",
