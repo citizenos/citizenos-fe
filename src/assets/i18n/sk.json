@@ -1536,6 +1536,8 @@
       "TAB_ACCOUNT": "Účet",
       "LBL_SHOW_IN_SEARCH": "Ukázať môj profil vo výsledkoch vyhľadávania",
       "LBL_SHOW_IN_SEARCH_DESCRIPTION": "Zobraziť moje meno a e-mail vo výsledkoch vyhľadávania pozvánok, aby ma ostatní ľudia mohli ľahko pozvať do skupín a tém",
+      "LBL_DELETE_ACCOUNT": "Delete your account",
+      "LBL_DELETE_ACCOUNT_DESCRIPTION": "When deleting your account all your contributions will stay visible in Citizen OS, but they will not be linked to your account anymore.",
       "BTN_CONNECT_FACEBOOK": "Spojiť sa s účtom Facebooku",
       "BTN_CONNECT_GOOGLE": "Spojiť sa s účtom Google",
       "BTN_CONNECT_ESTEID": "Pripojte sa ID-kartou / Mobiil-ID",
