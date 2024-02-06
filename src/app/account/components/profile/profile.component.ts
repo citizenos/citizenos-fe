@@ -1,11 +1,10 @@
 
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap, map, tap, take, takeWhile, catchError } from 'rxjs/operators';
+import { map, take, takeWhile } from 'rxjs/operators';
 import { DialogService } from 'src/app/shared/dialog';
 
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
-import { TopicNotificationSettingsComponent } from 'src/app/topic/components/topic-notification-settings/topic-notification-settings.component';
 import { AppService } from 'src/app/services/app.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
@@ -14,7 +13,6 @@ import { User } from 'src/app/interfaces/user';
 import { NotificationService } from 'src/app/services/notification.service';
 import { Observable, of } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
-import { PasswordResetDialogComponent } from '../password-reset/password-reset.component';
 
 @Component({
   selector: 'app-profile',
