@@ -164,7 +164,7 @@ export class GroupAddTopicsComponent implements OnInit {
   styleUrls: ['./group-add-topics-dialog.component.scss']
 })
 export class GroupAddTopicsDialogComponent {
-    group!: Group;
+  group!: Group;
 
   noTopicsSelected = false;
   constructor(
@@ -174,6 +174,12 @@ export class GroupAddTopicsDialogComponent {
     private GroupMemberTopic: GroupMemberTopicService
   ) {
     this.group = this.data.group;
+  }
+
+  topicsLength$() {
+    return of(this.group.members.topics.length).pipe(tap((length) => {
+      if (length) { this.noTopicsSelected = false; }
+    }));
   }
 
   doInviteMembers() {
@@ -197,14 +203,14 @@ export class GroupAddTopicsDialogComponent {
             this.GroupService.reloadGroup();
             this.GroupMemberTopic.setParam('groupId', this.group.id);
 
-          this.dialog.close()
+            this.dialog.close()
           },
           error: (errorResponse) => {
             if (errorResponse && errorResponse.errors) {
               console.error(errorResponse.errors);
             }
 
-      this.dialog.close();
+            this.dialog.close();
           }
         })
     } else {
