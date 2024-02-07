@@ -129,7 +129,7 @@ export class GroupComponent implements OnInit {
   showCreate = false;
   filtersSet = false;
   constructor(public dialog: DialogService,
-    private GroupService: GroupService,
+    public GroupService: GroupService,
     private GroupJoinService: GroupJoinService,
     private route: ActivatedRoute,
     private router: Router,
