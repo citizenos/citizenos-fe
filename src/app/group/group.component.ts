@@ -255,7 +255,7 @@ export class GroupComponent implements OnInit {
       map((fragment) => {
         this.app.setPageTitle(this.groupTitle);
         if (!fragment) {
-          return this.selectTab('topics')
+          return 'topics';
         }
         return fragment
       }
