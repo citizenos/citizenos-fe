@@ -18,6 +18,7 @@
     <div class="dialog_content">
       <div id="form_area">
         <group-add-topics class="create_content" [dialog]="true" [group]="group"></group-add-topics>
+        <ng-container *ngIf="topicsLength$() | async"></ng-container>
         <div class="notification_wrap">
           <div class="notification_inline error" *ngIf="noTopicsSelected">
             <div class="icon_notification">
