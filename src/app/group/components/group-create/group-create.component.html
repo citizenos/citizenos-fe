@@ -72,8 +72,9 @@
                   <div>1</div>
                 </div>
                 <div class="small_heading" translate="VIEWS.GROUP_CREATE.INFO_SETTINGS_HEADING_GENERAL_INFO"></div>
+                <div class="mobile_hidden" translate="VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_NAME_DESC"></div>
               </div>
-              <div translate="VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_NAME_DESC"></div>
+              <div class="mobile_show" translate="VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_NAME_DESC"></div>
               <cos-input placeholder="{{'VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_NAME' | translate}}">
                 <input id="groupName" [placeholder]="'VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_NAME' | translate"
                   [(ngModel)]="group.name" [ngClass]="{'error_input': errors?.name}">
@@ -147,8 +148,9 @@
                   <div>2</div>
                 </div>
                 <div class="small_heading" translate="VIEWS.GROUP_CREATE.INFO_SETTINGS_HEADING_CONTACT_EMAIL"></div>
+                <div class="mobile_hidden" translate="VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_CONTACT_EMAIL_DESC"></div>
               </div>
-              <div translate="VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_CONTACT_EMAIL_DESC"></div>
+              <div class="mobile_show" translate="VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_CONTACT_EMAIL_DESC"></div>
               <cos-input placeholder="{{'VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_CONTACT_EMAIL' | translate}}">
                 <input id="groupContact"
                   [placeholder]="'VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_CONTACT_EMAIL' | translate"
@@ -174,8 +176,9 @@
                   <div>3</div>
                 </div>
                 <div class="small_heading" translate="VIEWS.GROUP_CREATE.INFO_SETTINGS_HEADING_RULES_OF_CONDUCT"></div>
+                <div class="mobile_hidden" translate="VIEWS.GROUP_CREATE.INFO_SETTINGS_RULES_OF_CONDUCT_DESC"></div>
               </div>
-              <div translate="VIEWS.GROUP_CREATE.INFO_SETTINGS_RULES_OF_CONDUCT_DESC"></div>
+              <div class="mobile_show" translate="VIEWS.GROUP_CREATE.INFO_SETTINGS_RULES_OF_CONDUCT_DESC"></div>
 
               <cos-input class="rule_input"
                 placeholder="{{'VIEWS.GROUP_CREATE.INFO_SETTINGS_RULES_OF_CONDUCT_RULE' | translate:{number: index+1} }}"
@@ -245,8 +248,9 @@
                   <div>1</div>
                 </div>
                 <div class="small_heading" translate="VIEWS.GROUP_CREATE.SETTINGS_HEADING_VISIBILITY"></div>
+                <div class="mobile_hidden" translate="VIEWS.GROUP_CREATE.SETTINGS_VISIBILITY_DESC"></div>
               </div>
-              <div translate="VIEWS.GROUP_CREATE.SETTINGS_VISIBILITY_DESC"></div>
+              <div class="mobile_show" translate="VIEWS.GROUP_CREATE.SETTINGS_VISIBILITY_DESC"></div>
 
               <div class="row_wrap">
                 <div class="radio_wrap" (click)="group.visibility = VISIBILITY.private"
@@ -325,8 +329,9 @@
                   <div>2</div>
                 </div>
                 <div class="small_heading" translate="VIEWS.GROUP_CREATE.SETTINGS_HEADING_LOCALITY"></div>
+                <div class="mobile_hidden" translate="VIEWS.GROUP_CREATE.SETTINGS_LOCALITY_SELECT_DESC"></div>
               </div>
-              <div translate="VIEWS.GROUP_CREATE.SETTINGS_LOCALITY_SELECT_DESC"></div>
+              <div class="mobile_show" translate="VIEWS.GROUP_CREATE.SETTINGS_LOCALITY_SELECT_DESC"></div>
               <div class="row_wrap">
                 <div class="dropdown" [cosDropdown]>
                   <div class="selection">

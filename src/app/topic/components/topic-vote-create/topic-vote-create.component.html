@@ -39,8 +39,9 @@
           <div>1</div>
         </div>
         <div class="small_heading" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_VOTING_QUESTION"></div>
+        <div class="mobile_hidden" translate="COMPONENTS.TOPIC_VOTE_CREATE.VOTE_QUESTION_HEADING"></div>
       </div>
-      <div translate="COMPONENTS.TOPIC_VOTE_CREATE.VOTE_QUESTION_HEADING"></div>
+      <div class="mobile_show" translate="COMPONENTS.TOPIC_VOTE_CREATE.VOTE_QUESTION_HEADING"></div>
       <div class="row_wrap">
         <cos-input placeholder="{{'COMPONENTS.TOPIC_VOTE_CREATE.VOTE_QUESTION_PLACEHOLDER' | translate}}">
           <input id="groupName" [placeholder]="'COMPONENTS.TOPIC_VOTE_CREATE.VOTE_QUESTION_PLACEHOLDER' | translate"
@@ -91,8 +92,9 @@
           <div>2</div>
         </div>
         <div class="small_heading" translate="COMPONENTS.TOPIC_VOTE_CREATE.SELECT_VOTING_SYSTEM"></div>
+        <div class="mobile_hidden" translate="COMPONENTS.TOPIC_VOTE_CREATE.SELECT_VOTING_SYSTEM_DESC"></div>
       </div>
-      <div translate="COMPONENTS.TOPIC_VOTE_CREATE.SELECT_VOTING_SYSTEM_DESC"></div>
+      <div class="mobile_show" translate="COMPONENTS.TOPIC_VOTE_CREATE.SELECT_VOTING_SYSTEM_DESC"></div>
       <div class="radio_wrap voting" (click)="setVoteType(VOTE_TYPES.regular)"
         [ngClass]="{selected: vote.type === VOTE_TYPES.regular, disabled: !TopicService.canEditDescription(topic)}">
         <div class="radio_text_wrap">
@@ -266,8 +268,9 @@
           <div>3</div>
         </div>
         <div class="small_heading" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_MIN_MAX"></div>
+        <div class="mobile_hidden" translate="COMPONENTS.TOPIC_VOTE_CREATE.VOTE_TXT_DESCRIPTION_CHOICE_RANGE"></div>
       </div>
-      <div translate="COMPONENTS.TOPIC_VOTE_CREATE.VOTE_TXT_DESCRIPTION_CHOICE_RANGE"></div>
+      <div class="mobile_show" translate="COMPONENTS.TOPIC_VOTE_CREATE.VOTE_TXT_DESCRIPTION_CHOICE_RANGE"></div>
       <div class="vote_options_wrap" [ngClass]="{disabled: !TopicService.canEditDescription(topic)}">
         <div class="input_area min_max_options">
           <label class="bold" translate="VIEWS.TOPICS_TOPICID.VOTE_LBL_MIN_CHOICES"></label>
@@ -354,8 +357,9 @@
           <div>{{(vote.type === 'multiple')? 4: 3}}</div>
         </div>
         <div class="small_heading" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_SET_UP_VOTING_RIGHTS"></div>
+        <div class="mobile_hidden" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_SET_UP_VOTING_RIGHTS_DESC"></div>
       </div>
-      <div translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_SET_UP_VOTING_RIGHTS_DESC"></div>
+      <div class="mobile_show" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_SET_UP_VOTING_RIGHTS_DESC"></div>
       <div class="radio_wrap voting"
         [ngClass]="{selected: vote.authType === VOTE_AUTH_TYPES.soft, disabled: !TopicService.canEditDescription(topic)}"
         (click)="vote.authType=VOTE_AUTH_TYPES.soft">
@@ -463,8 +467,9 @@
           <div>4</div>
         </div>
         <div class="small_heading" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_VOTE_DELEGATION"></div>
+        <div class="mobile_hidden" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_VOTE_DELEGATION_DESC"></div>
       </div>
-      <div translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_VOTE_DELEGATION_DESC"></div>
+      <div class="mobile_show" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_VOTE_DELEGATION_DESC"></div>
 
 
       <div class="radio_wrap voting" (click)="(TopicService.canEditDescription(topic))? toggleDelegation($event): '';$event.stopPropagation();"
@@ -490,8 +495,9 @@
           <div>4</div>
         </div>
         <div class="small_heading" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_DEADLINE"></div>
+        <div class="mobile_hidden" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_DEADLINE_DESC"></div>
       </div>
-      <div translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_DEADLINE_DESC"></div>
+      <div class="mobile_show" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_DEADLINE_DESC"></div>
       <div class="radio_wrap voting date_selector" [ngClass]="{selected: deadline}">
         <div class="radio_text_wrap date_selector">
           <div class="radio_lable_wrap" (click)="toggleDeadline();$event.stopPropagation();" >
