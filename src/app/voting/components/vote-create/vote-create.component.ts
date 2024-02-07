@@ -612,4 +612,13 @@ export class VoteCreateComponent implements OnInit {
     if (!group.permission) group.permission = { level };
     group.permission.level = level;
   }
+
+  isGroupAdded(group: Group) {
+    return this.topicGroups.find((tg: Group) => tg.id === group.id);
+  }
+
+  removeGroup(group: Group) {
+    const index = this.topicGroups.findIndex((tg) => tg.id === group.id);
+    this.topicGroups.splice(index, 1);
+  }
 }
