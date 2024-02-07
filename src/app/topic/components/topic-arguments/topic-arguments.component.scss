@@ -10,18 +10,33 @@
   .arguments_header {
     display: flex;
     justify-content: space-between;
-
+    align-items: center;
     @include mixins.mobile {
+      align-items: normal;
       padding: 0 16px;
       flex-direction: column;
       gap: 16px;
     }
 
-    .title {
-      font-size: 18px;
-      font-style: normal;
-      font-weight: 600;
-      line-height: 24px; /* 133.333% */
+    .title_wrap {
+      display: flex;
+      flex-direction: column;
+
+      .title {
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 24px; /* 133.333% */
+      }
+
+      .data_items_wrap {
+        display: flex;
+        gap: 8px;
+        .data_item {
+          display: flex;
+          font-weight: 600;
+        }
+      }
     }
 
     button {
@@ -33,7 +48,8 @@
   .pagination {
     button {
       background-color: var(--color-surfaces);
-      &:hover, &.active  {
+      &:hover,
+      &.active {
         background-color: initial;
       }
     }
