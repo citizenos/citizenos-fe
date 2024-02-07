@@ -183,7 +183,7 @@
             </div>
             <div class="topic_members_list_wrap">
               <div class="topic_member">
-                <div class="bold">Joined</div>
+                <div class="bold" translate="VIEWS.TOPIC_CREATE.CO_EDITORS_LBL_JOINED"></div>
               </div>
               <div class="topic_member" *ngFor="let member of topic.members.users">
                 <div class="profile_image_wrap">
@@ -193,7 +193,7 @@
                 <span>{{member.name}}</span>
               </div>
             </div>
-            <ng-container *ngIf="invites$ | async as invites">
+            <ng-container *ngIf="members$ | async as invites">
               <div class="topic_members_list_wrap">
                 <div class="topic_member">
                   <div class="bold" translate="VIEWS.TOPIC_CREATE.CO_EDITORS_LBL_JOINED"></div>
@@ -1062,8 +1062,8 @@
             </a>
             <div class="info_items" [@openClose]="showGroups ? 'open' : 'closed'">
               <!--a class="info_item" *ngFor="let group of groups$ | async">{{group.name}}</!--a-->
-              <ng-container *ngIf="(topicGroups$ | async) as topicGroups">
-                <span *ngIf="topicGroups" translate="VIEWS.TOPICS_TOPICID.SECTION_INFO_NO_GROUPS"></span>
+              <ng-container>
+                <span *ngIf="!topicGroups.length" translate="VIEWS.TOPICS_TOPICID.SECTION_INFO_NO_GROUPS"></span>
                 <a class="info_item" [routerLink]="['/',translate.currentLang, 'groups', group.id]" fragment="topics"
                   *ngFor="let group of topicGroups" [innerHtml]="group.name"></a>
               </ng-container>

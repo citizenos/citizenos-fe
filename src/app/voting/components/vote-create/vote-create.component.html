@@ -1116,8 +1116,8 @@
               </a>
               <div class="info_items" [@openClose]="showGroups ? 'open' : 'closed'">
                 <!--a class="info_item" *ngFor="let group of groups$ | async">{{group.name}}</!--a-->
-                <ng-container *ngIf="(topicGroups$ | async) as topicGroups">
-                  <span *ngIf="topicGroups" translate="VIEWS.TOPICS_TOPICID.SECTION_INFO_NO_GROUPS"></span>
+                <ng-container *ngIf="topicGroups">
+                  <span *ngIf="!topicGroups.length" translate="VIEWS.TOPICS_TOPICID.SECTION_INFO_NO_GROUPS"></span>
                   <a class="info_item" [routerLink]="['/',translate.currentLang, 'groups', group.id]" fragment="topics"
                     *ngFor="let group of topicGroups" [innerHtml]="group.name"></a>
                 </ng-container>
