@@ -52,7 +52,7 @@ export class GroupTokenJoinComponent {
                   take(1)
                 ).subscribe({
                   next: (group) => {
-                    router.navigate(['/my/groups', group.id]);
+                    router.navigate(['/groups', group.id]);
                   },
                   error: (res) => {
                     const status = res.status;
@@ -71,7 +71,7 @@ export class GroupTokenJoinComponent {
                   take(1)
                 ).subscribe({
                   next: (group) => {
-                    router.navigate(['/my/groups', group.id]);
+                    router.navigate(['/groups', group.id]);
                   },
                   error: (res) => {
                     const status = res.status;

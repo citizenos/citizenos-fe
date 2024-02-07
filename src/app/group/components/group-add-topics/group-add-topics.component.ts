@@ -209,9 +209,6 @@ export class GroupAddTopicsDialogComponent {
         })
     } else {
       this.noTopicsSelected = true;
-      setTimeout(() => {
-        this.noTopicsSelected = false;
-      }, 5000);
     }
 
   }
