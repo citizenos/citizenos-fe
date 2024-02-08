@@ -7,12 +7,12 @@
     <div class="section_content_description" translate="COMPONENTS.GROUP_INVITE.EMAIL_DESC"></div>
     <div id="search_wrap">
       <typeahead id="input_area" [term]="searchStringUser" (search)="search($event)"
-        (select)="addGroupMemberUser($event)" (enterAction)="addGroupMemberUser($event)"
+        (select)="addGroupMember($event)" (enterAction)="addGroupMember($event)"
         [placeholder]="'COMPONENTS.GROUP_INVITE.PLACEHOLDER_SEARCH' | translate">
         <ng-container *ngIf="searchResultUsers$ | async as searchResults">
           <div class="search_area_wrap" [ngClass]="{hidden: !searchResults.length}">
             <div class="search_dropdown_item" [typeaheadItem]="user" *ngFor="let user of searchResults"
-              (click)="addGroupMemberUser(user)">
+              (click)="addGroupMember(user)">
               <div class="item_text_wrap">
                 <b>{{user.name}}</b>
               </div>
