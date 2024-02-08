@@ -29,7 +29,7 @@ export class TopicVoteDeadlineComponent {
   reminder = false;
   reminderOptionsList = [{ value: 1, unit: 'days' }, { value: 2, unit: 'days' }, { value: 3, unit: 'days' }, { value: 1, unit: 'weeks' }, { value: 2, unit: 'weeks' }, { value: 1, unit: 'month' }];
   reminderOptions = <any[]>[];
-
+  isNew = true;
   errors = <any>null;
 
   constructor (
@@ -49,6 +49,7 @@ export class TopicVoteDeadlineComponent {
         this.endsAt.min = deadline.getMinutes();
         this.endsAt.h = deadline.getHours();
         this.setEndsAtTime();
+        this.isNew = false;
       }
     }
     if (data && data.topic) {
