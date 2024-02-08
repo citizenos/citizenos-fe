@@ -1287,6 +1287,7 @@
     "TOPIC_INVITE_VIEW_AFTER_JOIN_ITEM_1": "Zúčastňovať sa debát a hlasovania",
     "TOPIC_INVITE_VIEW_AFTER_JOIN_ITEM_2": "Dostávať upozornenia na aktivity v rámci témy",
     "TOPIC_INVITE_VIEW_AFTER_JOIN_ITEM_3": "Požiadať o možnosť stať sa spolueditorom",
+    "TOPIC_INVITE_VIEW_BTN_JOIN": "@:VIEWS.TOPICS_TOPICID.BTN_JOIN",
     "TOPIC_INVITE_VIEW_BTN_GO_TO_LOGIN": "Pre pridanie sa k téme je potrebné sa prihlásiť",
     "TOPIC_INVITE_VIEW_BTN_COMPLETE_ACCOUNT": "Vytvoriť konto",
     "TOPIC_INVITE_VIEW_BTN_ACCEPT": "@:MODALS.PRIVACY_POLICY_BTN_ACCEPT",
