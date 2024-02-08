@@ -192,7 +192,8 @@ export class TopicVoteCastComponent implements OnInit {
     });
     voteReminderDialog.afterClosed().subscribe({
       next: (send) => {
-        if (send) {
+        console.log(send)
+        if (send===true) {
           this.vote.reminderTime = new Date();
           this.saveVote();
           this.Notification.addSuccess('COMPONENTS.TOPIC_VOTE_CAST.MSG_VOTE_REMINDER_SENT');
