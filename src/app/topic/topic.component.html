@@ -994,13 +994,13 @@
               <div class="graph_wrap">
                 <div class="legend">
                   <div class="bold" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_VOTING_VOTES_COLLECTED"></div>
-                  <div><span class="bold">{{vote.votersCount || 0}}</span> / <span>{{topic.members.users.count}}</span>
+                  <div><span class="bold">{{vote.votersCount || 0}}</span>
                   </div>
                 </div>
-                <div class="graph">
+                <!--div class="graph">
                   <div class="votes" [style.width.%]="((vote.votersCount || 0)/topic.members.users.count)*100">
                   </div>
-                </div>
+                </!--div-->
               </div>
             </div>
           </ng-container>
