@@ -22,6 +22,10 @@ export class TopicInvitationComponent implements OnInit {
     this.invite = data.invite;
   }
 
+  loggedIn () {
+    return this.Auth.loggedIn$.value;
+  }
+
   doAccept() {
     // 3. The invited User is NOT logged in - https://github.com/citizenos/citizenos-fe/issues/112#issuecomment-541674320
     console.log(this.Auth.loggedIn$.value, this.invite.user)
@@ -108,20 +112,29 @@ export class TopicInvitationDialogComponent implements OnInit {
               }
             });
         } else {
-          const invitationDialog = dialog.open(TopicInvitationComponent,
-            {
-              data: {
-                invite: topicInvite
+          const openDialogs = dialog.getOpenDialogs().pipe(take(1)).subscribe({
+            next: (dialogs) => {
+              if (dialogs) {
+                console.log(dialogs);
               }
-            });
 
-            invitationDialog.afterClosed().subscribe({
-              next: (res) => {
-                if (res===true) {
-                  router.navigate(['/']);
-                }
-              }
-            })
+              const invitationDialog = dialog.open(TopicInvitationComponent,
+                {
+                  data: {
+                    invite: topicInvite
+                  }
+                });
+
+                invitationDialog.afterClosed().subscribe({
+                  next: (res) => {
+                    if (res===true) {
+                      router.navigate(['/']);
+                    }
+                  }
+                })
+            }
+          });
+
         }
       },
       error: (err) => {
