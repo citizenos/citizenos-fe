@@ -98,6 +98,10 @@
           justify-content: space-between;
           align-items: flex-start;
           gap: 8px;
+          .info_row {
+            display: flex;
+            gap: 8px;
+          }
         }
       }
 
@@ -109,5 +113,11 @@
         }
       }
     }
+  }
+}
+
+.notification_inline {
+  .message {
+    display: block;
   }
 }

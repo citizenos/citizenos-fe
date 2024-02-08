@@ -32,8 +32,10 @@
 }
 
 .notification_inline {
+  align-items: center;
   margin: 16px 0;
   .message {
     width: 100%;
+    display: block;
   }
 }
