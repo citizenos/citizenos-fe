@@ -241,7 +241,7 @@
             <div class="row_cell" translate="VIEWS.ACCOUNT.TABLE_HEADER_NOTIFICATIONS"></div>
           </div>
           <div class="row_list" *ngFor="let topic of topics$ | async">
-            <div class="row_cell"><a class="blue_link" [innerHtml]>{{topic.title}}</a></div>
+            <div class="row_cell"><a class="blue_link" [routerLink]="['/', translate.currentLang, 'topics', topic.topicId]" target="_blank">{{topic.title}}</a></div>
             <div class="row_cell"><cos-toggle [cosToggleTextOn]="'TOGGLE_ON' | translate"
                 [cosToggleTextOff]="'TOGGLE_OFF' | translate" [model]="topic.allowNotifications"
                 (click)="topic.allowNotifications=!topic.allowNotifications;toggleTopicNotifications(topic)"></cos-toggle>
