@@ -140,6 +140,7 @@ export class TopicVoteCastComponent implements OnInit {
 
   saveVote() {
     const saveVote: any = Object.assign(this.vote, { topicId: this.topic.id });
+    console.log(saveVote);
     this.TopicVoteService.update(saveVote)
       .pipe(take(1))
       .subscribe({

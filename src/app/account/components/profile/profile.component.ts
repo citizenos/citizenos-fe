@@ -13,6 +13,7 @@ import { User } from 'src/app/interfaces/user';
 import { NotificationService } from 'src/app/services/notification.service';
 import { Observable, of } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-profile',
@@ -57,6 +58,7 @@ export class ProfileComponent {
     private Notification: NotificationService,
     private User: UserService,
     private route: ActivatedRoute,
+    public translate: TranslateService,
     private router: Router,
     private Auth: AuthService) {
     this.tabSelected = this.route.fragment.pipe(

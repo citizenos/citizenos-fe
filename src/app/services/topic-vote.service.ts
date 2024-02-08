@@ -147,8 +147,6 @@ export class TopicVoteService {
   };
 
   canVote(topic: Topic) {
-    console.log(topic)
-    console.log(JSON.stringify(topic))
     return topic && topic.vote && ((topic.permission.level !== 'none' || (topic.vote.authType === this.VOTE_AUTH_TYPES.hard && topic.visibility === this.TopicService.VISIBILITY.public)) && topic.status === this.STATUSES.voting);
   };
 
