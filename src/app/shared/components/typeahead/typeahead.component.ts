@@ -141,7 +141,6 @@ export class TypeaheadComponent implements OnInit {
   doEnterAction() {
     this.enterLink = false;
     this.itemList = [];
-
     if (this.enterAction) {
       this.enterAction.emit({ text: this.term, limit: true });
     } else {

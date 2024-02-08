@@ -120,6 +120,27 @@ export class GroupInviteComponent implements OnInit {
     this.group.members.users = users.concat(emails);
   };
 
+  addGroupMember(member?: any) {
+    if (member?.text) {
+      member = member.text
+    }
+    this.searchResultUsers$ = of([]);
+    this.search('');
+    if (this.group.members.length >= this.maxUsers) {
+      this.Notification.addError('MSG_ERROR_INVITE_MEMBER_COUNT_OVER_LIMIT');
+      return;
+    }
+    if (!member || (typeof member === 'string' && (isEmail(member) || member.match(this.EMAIL_SEPARATOR_REGEXP)))) {
+      return this.addGroupMemberUser();
+    }
+    if (member.hasOwnProperty('company')) {
+      return this.addGroupMemberUser(member);
+    }
+    if (isEmail(member.email) && member.email === member.userId) {
+      return this.addGroupMemberUser();
+    }
+  };
+
   addGroupMemberUser(member?: any): void {
     if (member) {
       if (this.group.members.users && this.group.members.users.find((m: any) => m.userId === member.userId)) {
