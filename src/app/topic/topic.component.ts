@@ -84,6 +84,8 @@ export class TopicComponent implements OnInit {
   readMoreButton = false;
   skipTour = false;
   voteEl?: ElementRef;
+
+  @ViewChild('readMoreButton') readMoreEl?: ElementRef;
   @ViewChild('topicVote') set setVoteEl(content: ElementRef) {
     if (content) { // initially setter gets called with undefined
       this.voteEl = content;
@@ -495,4 +497,13 @@ export class TopicComponent implements OnInit {
       }
     })
   };
+
+  toggleReadMore() {
+    this.readMore=!this.readMore;
+    if(!this.readMore) {
+      setTimeout(() => {
+        this.readMoreEl?.nativeElement.scrollIntoView({  behavior: "smooth", block: "center", inline: "nearest" });
+      }, 200);
+    }
+  }
 }
