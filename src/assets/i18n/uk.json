@@ -1287,6 +1287,7 @@
     "TOPIC_INVITE_VIEW_AFTER_JOIN_ITEM_1": "Participate in discussions and voting",
     "TOPIC_INVITE_VIEW_AFTER_JOIN_ITEM_2": "Receive notifications of activity within the topic",
     "TOPIC_INVITE_VIEW_AFTER_JOIN_ITEM_3": "Request to become a co-editor",
+    "TOPIC_INVITE_VIEW_BTN_JOIN": "@:VIEWS.TOPICS_TOPICID.BTN_JOIN",
     "TOPIC_INVITE_VIEW_BTN_GO_TO_LOGIN": "Log in to join topic",
     "TOPIC_INVITE_VIEW_BTN_COMPLETE_ACCOUNT": "Створити обліковий запис",
     "TOPIC_INVITE_VIEW_BTN_ACCEPT": "@:MODALS.PRIVACY_POLICY_BTN_ACCEPT",
