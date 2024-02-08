@@ -929,11 +929,12 @@
           <!--group-invite id="group_invite" *ngIf="tabSelected==='invite'" [group]="group"></!--group-invite-->
 
           <div id="create_footer">
-            <div class="items_row mobile_show" *ngIf="tabSelected === 'preview'">
-              <button *ngIf="topic.status === TopicService.STATUSES.draft" class="btn_medium_secondary"
+            <div id="mobile_action_buttons_row" class="items_row mobile_show" *ngIf="!isnew || tabSelected === 'preview'">
+              <button *ngIf="isnew && topic.status === TopicService.STATUSES.draft" class="btn_medium_secondary"
                 (click)="saveAsDraft()" translate="VIEWS.VOTE_CREATE.FOOTER_BTN_SAVE_AS_DRAFT">
               </button>
-              <button class="btn_medium_submit publish icon"
+              <button *ngIf="!isnew" class="btn_medium_submit icon" (click)="saveChanges()" translate="VIEWS.VOTE_CREATE.FOOTER_BTN_SAVE_CHANGES"></button>
+              <button *ngIf="isnew || topic.status === TopicService.STATUSES.draft" class="btn_medium_submit publish icon"
                 (click)="(topic.status === TopicService.STATUSES.draft)? publish(): edit();"
                 [ngClass]="{disabled: !TopicService.canDelete(topic)}">
                 <span class="btn_text"
@@ -978,7 +979,7 @@
                       fill="#2C3B47" />
                   </svg>
                 </button>
-                <button *ngIf="tabSelected === 'preview' && topic.status === TopicService.STATUSES.draft"
+                <button *ngIf="tabSelected === 'preview' && isnew && topic.status === TopicService.STATUSES.draft"
                   class="btn_medium_secondary mobile_hidden" (click)="saveAsDraft()"
                   translate="VIEWS.VOTE_CREATE.FOOTER_BTN_SAVE_AS_DRAFT">
                 </button>
@@ -991,6 +992,7 @@
                       fill="white" />
                   </svg>
                 </button>
+                <button *ngIf="!isnew" class="btn_medium_secondary icon mobile_hidden" (click)="saveChanges()" translate="VIEWS.VOTE_CREATE.FOOTER_BTN_SAVE_CHANGES"></button>
 
                 <button class="btn_medium_submit icon mobile_hidden"
                   (click)="(tabSelected!=='preview')? nextTab(tabSelected): (topic.status === TopicService.STATUSES.draft)? publish(): edit();">
@@ -1014,9 +1016,7 @@
             <div class="info_header">
               <div class="info_title bold" translate="VIEWS.TOPICS_TOPICID.SECTION_INFO_TITLE_INFO"></div>
 
-              <div class="dropdown button_dropdown mobile_hidden" [cosDropdown]
-                [TourItem]="{tourid: 'topic', index: 2, position: 'left'}">
-                <a class="members_link" translate="VIEWS.TOPICS_TOPICID.LNK_MANAGE"></a>
+              <div class="dropdown button_dropdown mobile_hidden" [cosDropdown]>
               </div>
             </div>
             <div class="info_items open">

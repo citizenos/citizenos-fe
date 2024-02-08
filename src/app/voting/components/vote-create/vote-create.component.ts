@@ -485,6 +485,12 @@ export class VoteCreateComponent implements OnInit {
     });
   }
 
+  saveChanges () {
+    this.updateTopic().pipe(take(1)).subscribe(() => {
+      this.updateVote();
+    });
+  }
+
   edit() {
     this.updateTopic().pipe(take(1)).subscribe(() => {
       this.updateVote();
