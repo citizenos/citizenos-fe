@@ -37,6 +37,7 @@ export class TopicInviteUserService extends ItemsListService {
     return this.http.get<ApiResponse>(path, { params, withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
       map((res) => {
         const data = res.data;
+        console.log('DATA', data);
         data.user.isRegistered = res.status.code !== 20002;
         return data;
       })
