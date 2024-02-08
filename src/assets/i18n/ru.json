@@ -750,7 +750,8 @@
       "OPT_ADD_DEADLINE": "Add deadline",
       "OPT_EDIT_DEADLINE": "@:MODALS.TOPIC_SETTINGS_BTN_EDIT_DEADLINE",
       "OPT_CLOSE_VOTING": "Закрыть голосование",
-      "OPT_SEND_VOTE_REMINDER": "Отправить напоминание о голосовании"
+      "OPT_SEND_VOTE_REMINDER": "Отправить напоминание о голосовании",
+      "MSG_VOTE_REMINDER_SENT": "Vote reminders sent!"
     },
     "TOPIC_VOTE_CREATE": {
       "DIALOG_HEADING": "Начать голосование по теме",
