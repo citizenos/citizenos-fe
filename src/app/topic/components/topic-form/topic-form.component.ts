@@ -364,119 +364,122 @@ export class TopicFormComponent {
   }
   publish() {
     this.topic.status = this.TopicService.STATUSES.inProgress;
-    this.updateTopic();
-    this.topicGroups.forEach((group) => {
-      this.TopicMemberGroupService.save({
-        groupId: group.id,
-        topicId: this.topic.id,
-        level: group.permission?.level || this.TopicMemberGroupService.LEVELS.read
-      }).pipe(take(1)).subscribe();
-    });
-    this.TopicService.reloadTopic();
-    this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
+    this.TopicService.patch(this.topic).pipe(take(1)).subscribe(() => {
+      this.TopicService.reloadTopic();
+      this.topicGroups.forEach((group) => {
+        this.TopicMemberGroupService.save({
+          groupId: group.id,
+          topicId: this.topic.id,
+          level: group.permission?.level || this.TopicMemberGroupService.LEVELS.read
+        }).pipe(take(1)).subscribe();
+      });
+      this.TopicService.reloadTopic();
+      this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
 
-    if (this.isnew) {
-      this.Notification.addSuccess('VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_TITLE');
-      this.inviteMembers();
-    } else {
-      this.Notification.addSuccess('VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE');
-    }
-  }
-
-  chooseCategory(category: string) {
-    if (this.topic.categories && this.topic.categories.indexOf(category) > -1) {
-      this.topic.categories.splice(this.topic.categories.indexOf(category), 1);
-    } else {
-      this.topic.categories?.push(category);
-    }
-  }
-
-  addGroup(group: Group) {
-    this.topicGroups.push(group);
-  }
-
-  removeGroup(group: Group) {
-    const index = this.topicGroups.findIndex((tg) => tg.id === group.id);
-    this.topicGroups.splice(index, 1);
-  }
-
-  manageMembers() {
-    const manageDialog = this.dialog.open(TopicParticipantsDialogComponent, { data: { topic: this.topic } });
-    manageDialog.afterClosed().subscribe({
-      next: (res) => {
-      },
-      error: (error) => {
-        console.error('ERROR MANAGE MEMBERS', error);
-      }
-    })
-  }
-
-  inviteEditors() {
-    const inviteDialog = this.dialog.open(InviteEditorsComponent, { data: { topic: this.topic } });
-    inviteDialog.afterClosed().subscribe({
-      next: (inviteUsers) => {
-        this.loadInvite$.next();
-      },
-      error: (error) => {
-        // this.NotificationService.addError(error);
-      }
-    })
-  }
-
-  inviteMembers() {
-    const inviteDialog = this.dialog.open(TopicInviteDialogComponent, { data: { topic: this.topic } });
-    inviteDialog.afterClosed().subscribe({
-      next: (inviteUsers) => {
-        this.loadInvite$.next();
-        this.Notification.removeAll();
-      },
-      error: (error) => {
-      }
-    })
-  }
-
-  setCountry(country: string) {
-    this.topic.country = country;
-    this.updateTopic();
-  }
-  setLanguage(language: string) {
-    this.topic.language = language;
-    this.updateTopic();
-  }
-
-  addTag(e: Event) {
-    const tag = (e.target as HTMLInputElement).value;
-    if (tag)
-      this.tags.push(tag);
-    (e.target as HTMLInputElement).value = '';
-  }
-
-  removeTag(tag: string) {
-    this.tags.splice(this.tags.indexOf(tag), 1);
-  }
-
-  cancel() {
-    const confirmDialog = this.dialog.open(InterruptDialogComponent);
-
-    confirmDialog.afterClosed().subscribe(result => {
-      if (result === true) {
-        /*this.TopicService.delete({ id: this.topic.id })
-          .pipe(take(1))
-          .subscribe(() => {
-            this.router.navigate(['dashboard']);
-          })*/
-        this.router.navigate(['dashboard']);
+      if (this.isnew) {
+        this.Notification.addSuccess('VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_TITLE');
+        this.inviteMembers();
+      } else {
+        this.Notification.addSuccess('VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE');
       }
     });
-    //[routerLink]="['/', translate.currentLang, 'topics', topic.id]"
   }
 
-  setGroupLevel(group: Group, level: string) {
-    if (!group.permission) group.permission = { level };
-    group.permission.level = level;
-  }
 
-  isGroupAdded(group: Group) {
-    return this.topicGroups.find((tg: Group) => tg.id === group.id);
+chooseCategory(category: string) {
+  if (this.topic.categories && this.topic.categories.indexOf(category) > -1) {
+    this.topic.categories.splice(this.topic.categories.indexOf(category), 1);
+  } else {
+    this.topic.categories?.push(category);
   }
+}
+
+addGroup(group: Group) {
+  this.topicGroups.push(group);
+}
+
+removeGroup(group: Group) {
+  const index = this.topicGroups.findIndex((tg) => tg.id === group.id);
+  this.topicGroups.splice(index, 1);
+}
+
+manageMembers() {
+  const manageDialog = this.dialog.open(TopicParticipantsDialogComponent, { data: { topic: this.topic } });
+  manageDialog.afterClosed().subscribe({
+    next: (res) => {
+    },
+    error: (error) => {
+      console.error('ERROR MANAGE MEMBERS', error);
+    }
+  })
+}
+
+inviteEditors() {
+  const inviteDialog = this.dialog.open(InviteEditorsComponent, { data: { topic: this.topic } });
+  inviteDialog.afterClosed().subscribe({
+    next: (inviteUsers) => {
+      this.loadInvite$.next();
+    },
+    error: (error) => {
+      // this.NotificationService.addError(error);
+    }
+  })
+}
+
+inviteMembers() {
+  const inviteDialog = this.dialog.open(TopicInviteDialogComponent, { data: { topic: this.topic } });
+  inviteDialog.afterClosed().subscribe({
+    next: (inviteUsers) => {
+      this.loadInvite$.next();
+      this.Notification.removeAll();
+    },
+    error: (error) => {
+    }
+  })
+}
+
+setCountry(country: string) {
+  this.topic.country = country;
+  this.updateTopic();
+}
+setLanguage(language: string) {
+  this.topic.language = language;
+  this.updateTopic();
+}
+
+addTag(e: Event) {
+  const tag = (e.target as HTMLInputElement).value;
+  if (tag)
+    this.tags.push(tag);
+  (e.target as HTMLInputElement).value = '';
+}
+
+removeTag(tag: string) {
+  this.tags.splice(this.tags.indexOf(tag), 1);
+}
+
+cancel() {
+  const confirmDialog = this.dialog.open(InterruptDialogComponent);
+
+  confirmDialog.afterClosed().subscribe(result => {
+    if (result === true) {
+      /*this.TopicService.delete({ id: this.topic.id })
+        .pipe(take(1))
+        .subscribe(() => {
+          this.router.navigate(['dashboard']);
+        })*/
+      this.router.navigate(['dashboard']);
+    }
+  });
+  //[routerLink]="['/', translate.currentLang, 'topics', topic.id]"
+}
+
+setGroupLevel(group: Group, level: string) {
+  if (!group.permission) group.permission = { level };
+  group.permission.level = level;
+}
+
+isGroupAdded(group: Group) {
+  return this.topicGroups.find((tg: Group) => tg.id === group.id);
+}
 }
