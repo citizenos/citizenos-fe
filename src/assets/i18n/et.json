@@ -747,6 +747,7 @@
       "FINAL_OPTION_WITHOUT_CSV": "@:VIEWS.TOPICS_TOPICID.FINAL_OPTION_WITHOUT_CSV",
       "FINAL_OPTION_WITH_CSV": "@:VIEWS.TOPICS_TOPICID.FINAL_OPTION_WITH_CSV",
       "BTN_DOWNLOAD_FINAL_ZIP": "@:VIEWS.TOPICS_TOPICID.BTN_DOWNLOAD_FINAL_ZIP",
+      "OPT_ADD_DEADLINE": "Add deadline",
       "OPT_EDIT_DEADLINE": "@:MODALS.TOPIC_SETTINGS_BTN_EDIT_DEADLINE",
       "OPT_CLOSE_VOTING": "Sulge hääletus",
       "OPT_SEND_VOTE_REMINDER": "Saada hääletuse meeldetuletus"
@@ -819,6 +820,7 @@
     },
     "TOPIC_VOTE_DEADLINE": {
       "DIALOG_HEADING": "Edit voting deadline",
+      "DIALOG_HEADING_ADD": "Add voting deadline",
       "LBL_EDIT_VOTING_DEADLINE": "Muuda hääletuse tähtaega",
       "LBL_EDIT_VOTING_DEADLINE_DESC": "Saad valida või muuta hääletamise tähtaega.",
       "LBL_OPTION_DEADLINE": "Tähtaeg",
