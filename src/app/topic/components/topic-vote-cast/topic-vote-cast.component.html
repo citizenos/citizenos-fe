@@ -42,7 +42,8 @@
                       fill="#2C3B47" />
                   </svg>
                 </div>
-                <span translate="COMPONENTS.TOPIC_VOTE_CAST.OPT_EDIT_DEADLINE"></span>
+                <span *ngIf="!vote.endsAt" translate="COMPONENTS.TOPIC_VOTE_CAST.OPT_ADD_DEADLINE"></span>
+                <span *ngIf="vote.endsAt" translate="COMPONENTS.TOPIC_VOTE_CAST.OPT_EDIT_DEADLINE"></span>
               </div>
             </ng-container>
             <ng-container *ngIf="!hasVoteEndedExpired();">
