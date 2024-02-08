@@ -590,18 +590,12 @@
         </div>
         <div class="dialog_info_wrap">
           <div class="dialog_info voting no_padding">
-            <ng-container *ngIf="vote.type === 'regular'">
+            <ng-container *ngIf="vote.maxChoices === 1">
               <div class="dialog_info_header">
                 <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="24" cy="24" r="24" fill="#98DAA2" />
-                  <rect x="18" y="26" width="12" height="12" rx="1" fill="#F1FAF3" />
-                  <path fill-rule="evenodd" clip-rule="evenodd"
-                    d="M19.1992 32.1455L22.6278 35.6004L28.7992 29.3816L27.8324 28.4004L22.6278 33.6449L20.1661 31.1712L19.1992 32.1455Z"
-                    fill="#5AB467" />
-                  <rect x="18" y="10" width="12" height="12" rx="1" fill="#F1FAF3" />
-                  <path fill-rule="evenodd" clip-rule="evenodd"
-                    d="M20 16.1209L22.8571 19L28 13.8177L27.1943 13L22.8571 17.3704L20.8057 15.309L20 16.1209Z"
-                    fill="#5AB467" />
+                  <rect x="12" y="12" width="24" height="24" rx="12" fill="white" />
+                  <rect x="18" y="18" width="12" height="12" rx="6" fill="#5AB467" />
                 </svg>
                 <span translate="COMPONENTS.TOPIC_VOTE_CREATE.PREVIEW_VOTE_TYPE_REGULAR"></span>
               </div>
@@ -619,7 +613,7 @@
               </div>
             </ng-container>
 
-            <ng-container *ngIf="vote.type === 'multiple'">
+            <ng-container *ngIf="vote.maxChoices > 1">
               <div class="dialog_info_header">
                 <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="24" cy="24" r="24" fill="#98DAA2" />
@@ -639,10 +633,10 @@
                 <div class="radio_wrap" *ngFor="let option of vote.options">
                   <div class="radio_text_wrap">
                     <div class="radio_lable_wrap">
-                      <label class="checkbox"><span
+                      <label [ngClass]="(vote.maxChoices === 1)? 'radio_box': 'checkbox'"><span
                           translate="{{'COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_' + option.value  | uppercase}}"
                           [translateParams]="{default: option.value}"></span>
-                        <span class="checkmark"></span>
+                        <span [ngClass]="(vote.maxChoices === 1)? 'radio': 'checkmark'"></span>
                       </label>
                     </div>
                   </div>
