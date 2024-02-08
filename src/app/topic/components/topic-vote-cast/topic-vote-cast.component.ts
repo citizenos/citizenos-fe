@@ -140,7 +140,6 @@ export class TopicVoteCastComponent implements OnInit {
 
   saveVote() {
     const saveVote: any = Object.assign(this.vote, { topicId: this.topic.id });
-    console.log(saveVote);
     this.TopicVoteService.update(saveVote)
       .pipe(take(1))
       .subscribe({
@@ -193,10 +192,10 @@ export class TopicVoteCastComponent implements OnInit {
     });
     voteReminderDialog.afterClosed().subscribe({
       next: (send) => {
-        console.log(send);
         if (send) {
           this.vote.reminderTime = new Date();
           this.saveVote();
+          this.Notification.addSuccess('COMPONENTS.TOPIC_VOTE_CAST.MSG_VOTE_REMINDER_SENT');
         }
       }
     })
