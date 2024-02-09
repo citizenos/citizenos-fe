@@ -735,7 +735,7 @@
                                 </svg>
                               </div>
                               <div class="options">
-                                <div class="option" *ngFor="let level of TopicMemberGroupService.LEVELS | keyvalue"
+                                <div class="option" *ngFor="let level of GroupMemberTopicService.LEVELS | keyvalue"
                                   (click)="setGroupLevel(group, level.value)">
                                   {{'TXT_TOPIC_LEVELS_' + level.value | uppercase | translate}}
                                 </div>

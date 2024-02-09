@@ -528,6 +528,7 @@ export class VoteCreateComponent implements OnInit {
   }
 
   addGroup(group: Group) {
+    group.permission.level = this.GroupMemberTopicService.LEVELS.read;
     this.topicGroups.push(group);
   }
 
