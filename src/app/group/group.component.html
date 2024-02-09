@@ -1230,17 +1230,18 @@
               </div>
               <div id="close_create" (click)="showCreateInContent = false;"></div>
             </div>
-            <button class="btn_medium_submit" (click)="showCreateInContent = true" *ngIf="(auth.loggedIn$ | async) && canUpdate(group)"
-              [ngClass]="{active: showCreateInContent}"><svg width="25" height="24" viewBox="0 0 25 24" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
+            <button class="btn_medium_submit" (click)="showCreateInContent = true"
+              *ngIf="(auth.loggedIn$ | async) && canUpdate(group)" [ngClass]="{active: showCreateInContent}"><svg
+                width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M12.5 20C11.9711 20 11.5423 19.5712 11.5423 19.0423L11.5423 12.9577L5.45775 12.9577C4.9288 12.9577 4.5 12.5289 4.5 12C4.5 11.4711 4.9288 11.0423 5.45775 11.0423H11.5423V4.95775C11.5423 4.4288 11.9711 4 12.5 4C13.0289 4 13.4577 4.4288 13.4577 4.95775L13.4577 11.0423L19.5423 11.0423C20.0712 11.0423 20.5 11.4711 20.5 12C20.5 12.5289 20.0712 12.9577 19.5423 12.9577H13.4577V19.0423C13.4577 19.5712 13.0289 20 12.5 20Z"
                   fill="white" />
               </svg>
               <span translate="VIEWS.GROUP.BTN_ADD_OR_CREATE_TOPICS"></span>
             </button>
-            <a class="btn_medium_secondary" [routerLink]="['/', translate.currentLang, 'public', 'topics']" target="_blank"
-              [ngClass]="{active: showCreateInContent}" translate="VIEWS.GROUP.HAVENT_ENGAGED_BTN_VIEW_PUBLIC_TOPICS">
+            <a class="btn_medium_secondary" [routerLink]="['/', translate.currentLang, 'public', 'topics']"
+              target="_blank" [ngClass]="{active: showCreateInContent}"
+              translate="VIEWS.GROUP.HAVENT_ENGAGED_BTN_VIEW_PUBLIC_TOPICS">
             </a>
           </div>
         </div>
@@ -1274,9 +1275,9 @@
               </div>
             </div>
             <div class="options">
-              <div class="option" (click)="GroupMemberUserService.setParam('limit', 5)">5</div>
-              <div class="option" (click)="GroupMemberUserService.setParam('limit', 10)">10</div>
-              <div class="option" (click)="GroupMemberUserService.setParam('limit', 15)">15</div>
+              <div class="option" (click)="setMemberLimit(5)">5</div>
+              <div class="option" (click)="setMemberLimit(10)">10</div>
+              <div class="option" (click)="setMemberLimit(15)">15</div>
             </div>
           </div>
         </cos-input>
@@ -1291,7 +1292,10 @@
             <div class="button_heading" translate="COMPONENTS.GROUP_INVITE.ACTIONS" *ngIf="canUpdate(group)"></div>
           </div>
         </div>
-        <group-member-user [member]="user" [group]="group" *ngFor="let user of users$ | async"></group-member-user>
+        <ng-container *ngFor="let member of users$ | async">
+          <group-member-user [member]="member" [group]="group" *ngIf="!member.user"></group-member-user>
+          <group-invite-user [invite]="member" [group]="group" *ngIf="member.user"></group-invite-user>
+        </ng-container>
       </div>
       <div class="filter_section">
         <div class="dropdown" [cosDropdown] *ngIf="canUpdate(group)">

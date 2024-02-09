@@ -1,10 +1,10 @@
-
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, tap, of, take, catchError, map, Observable, BehaviorSubject, combineLatest } from 'rxjs';
 import { DialogService } from 'src/app/shared/dialog';
 
 import { GroupMemberUserService } from 'src/app/services/group-member-user.service';
+import { GroupInviteUserService } from './../services/group-invite-user.service';
 import { GroupService } from 'src/app/services/group.service';
 import { GroupJoinService } from 'src/app/services/group-join.service';
 import { Group } from 'src/app/interfaces/group';
@@ -64,9 +64,8 @@ export class GroupComponent implements OnInit {
   moreInfo = false;
   topics$: Observable<Topic[] | any[]> = of([]);
   allTopics$: Topic[] = [];
-
   users$: Observable<User[] | any[]> = of([]);
-  showNoEngagements = false;
+  allMembers$ = <any[]>[];
   moreFilters = false;
   topicStatuses = Object.keys(this.TopicService.STATUSES);
 
@@ -138,16 +137,34 @@ export class GroupComponent implements OnInit {
     public translate: TranslateService,
     public TopicService: TopicService,
     public GroupMemberUserService: GroupMemberUserService,
+    public GroupInviteUserService: GroupInviteUserService,
     public auth: AuthService,
     public app: AppService,
     public GroupMemberTopicService: GroupMemberTopicService) {
     this.app.darkNav = true;
-    this.users$ = this.GroupMemberUserService.loadItems().pipe(
-      tap((topics) => {
-        if (topics.length === 0) {
-          this.showNoEngagements = true;
+    this.users$ = combineLatest([this.searchUserString$, this.GroupInviteUserService.loadMembers$, this.GroupMemberUserService.loadMembers$]).pipe(
+      switchMap(([search]) => {
+        GroupMemberUserService.reset();
+        GroupMemberUserService.setParam('groupId', this.groupId);
+        GroupInviteUserService.reset();
+        GroupInviteUserService.setParam('groupId', this.groupId);
+        this.allMembers$ = [];
+        if (search) {
+          GroupMemberUserService.setParam('search', search);
+          GroupInviteUserService.setParam('search', search);
         }
+        return combineLatest([this.GroupMemberUserService.loadItems(), this.GroupInviteUserService.loadItems()]);
       })
+      ,map(
+        ([members, invited]: any) => {
+          this.allMembers$ = [];
+          if (members.length || invited.length) {
+            this.filtersSet = true;
+          }
+          this.allMembers$ = this.allMembers$.concat(members).concat(invited);
+          return this.allMembers$;
+        }
+      )
     );
 
     this.group$ = this.route.params.pipe<Group>(
@@ -312,6 +329,11 @@ export class GroupComponent implements OnInit {
     return false;
   }
 
+  setMemberLimit (limit:number) {
+    this.GroupMemberUserService.setParam('limit', limit);
+    this.GroupInviteUserService.setParam('limit', limit);
+  }
+
   setVisibility(visibility: string) {
     if (visibility === 'all') visibility = '';
     console.log(visibility)
@@ -385,6 +407,7 @@ export class GroupComponent implements OnInit {
     if (this.app.group) {
       const inviteDialog = this.dialog.open(GroupInviteDialogComponent, { data: { group: group } });
       inviteDialog.afterClosed().subscribe(result => {
+        this.GroupInviteUserService.reloadItems();
       });
     }
   }

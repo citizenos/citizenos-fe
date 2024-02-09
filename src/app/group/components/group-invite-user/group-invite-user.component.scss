@@ -1,0 +1,84 @@
+@use "mixins";
+
+.button_options {
+  &.options {
+    right: 0;
+
+    .option {
+      width: max-content;
+      gap: 8px;
+    }
+  }
+}
+
+.row {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding: 8px 16px;
+  position: relative;
+  border-radius: 8px;
+  background-color: var(--color-surface-contrast);
+  @include mixins.mobile {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &:nth-child(even) {
+    background-color: var(--color-surfaces);
+  }
+  .name,
+  .level {
+    display: flex;
+    @include mixins.mobile {
+      gap: 8px;
+      justify-content: flex-start;
+      width: 100%;
+    }
+  }
+
+  .name {
+    flex: 6 6 0;
+    text-align: start;
+    justify-content: flex-start;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+
+    .member_name_wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+
+      .member_info {
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 16px; /* 123.077% */
+        color: var(--color-argument-info);
+      }
+    }
+  }
+
+  .level {
+    flex: 2 2 0;
+    justify-content: space-between;
+    align-items: center;
+
+    button {
+      flex: 1 1 0;
+    }
+
+    @include mixins.mobile {
+      width: 100%;
+      justify-content: space-between;
+      flex: initial;
+      gap: 8px;
+
+      button {
+        flex: initial;
+        width: 32px;
+      }
+    }
+  }
+}
