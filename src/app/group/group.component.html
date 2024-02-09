@@ -520,7 +520,7 @@
         <div id="create_menu">
           <div class="menu_heading" translate="VIEWS.GROUP.HEADING_CREATE_A_NEW_TOPIC"></div>
           <div class="line_separator"></div>
-          <div class="create_menu_item" (click)="addNewTopic();">
+          <div class="create_menu_item" (click)="addNewTopic();showCreate=false;">
             <div class="left_wrap">
               <div class="icon_wrap">
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -546,7 +546,7 @@
             </div>
           </div>
 
-          <div class="create_menu_item" (click)="addNewVotingTopic();">
+          <div class="create_menu_item" (click)="addNewVotingTopic();showCreate=false;">
             <div class="left_wrap">
               <div class="icon_wrap">
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -569,7 +569,7 @@
           </div>
         </div>
         <button class="create_item" *ngIf="tabSelected === 'topics' && (auth.loggedIn$ | async) && canUpdate(group)"
-          (click)="addTopicDialog(group)">
+          (click)="addTopicDialog(group);showCreate=false;">
           <span class="item_heading" translate="VIEWS.GROUP.BTN_ADD_TOPICS"></span>
           <div class="icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
