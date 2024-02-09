@@ -47,7 +47,7 @@ export class TopicInviteComponent implements OnInit {
   public maxUsers = 550;
 
   public membersPage = 1;
-  public itemsPerPage = 10;
+  public itemsPerPage = 5;
 
   public invalid = <any[]>[];
   public LEVELS = Object.keys(this.TopicService.LEVELS);
