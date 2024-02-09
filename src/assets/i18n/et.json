@@ -328,6 +328,12 @@
       "EDIT_MEMBER": "Liikmete muutmine",
       "BTN_REMOVE": "Eemalda liige"
     },
+    "GROUP_INVITE_USER": {
+      "SET_MEMBER_PERMISSIONS": "@:COMPONENTS.GROUP_MEMBER_USER.SET_MEMBER_PERMISSIONS",
+      "EDIT_MEMBER": "Edit invite",
+      "BTN_REMOVE": "Remove invite",
+      "INVITE_SENT_TO": "Pending invite sent to {{email}}"
+    },
     "GROUP_SETTINGS": {
       "HEADING": "Muuda gruppi",
       "TAB_INFO": "@:VIEWS.GROUP_CREATE.CREATE_TAB_1",
