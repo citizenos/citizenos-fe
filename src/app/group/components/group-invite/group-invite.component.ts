@@ -58,7 +58,7 @@ export class GroupInviteComponent implements OnInit {
     private Search: SearchService,
     private Notification: NotificationService,
     private GroupInviteUser: GroupInviteUserService,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     if (this.group.members.users.count || !this.group.members.users) {
@@ -306,6 +306,11 @@ export class GroupInviteDialogComponent {
   activeTab = 'invite';
   noUsersSelected = false;
   constructor(@Inject(DIALOG_DATA) public data: any, private dialog: DialogRef<GroupInviteDialogComponent>, private GroupInviteUser: GroupInviteUserService,) {
+    this.dialog.afterClosed().subscribe(() => {
+      if (this.data.group.members.users) {
+        this.data.group.members.users = [];
+      }
+    })
   }
 
   doInviteMembers() {
