@@ -413,6 +413,10 @@
         &.description {
           margin-top: -26px;
           padding: 0;
+
+          @include mixins.mobile {
+            margin-top: 0;
+          }
         }
 
         .block_section {
