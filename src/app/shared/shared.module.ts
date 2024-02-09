@@ -29,6 +29,7 @@ import { BigGraphComponent } from '../topic/components/big-graph/big-graph.compo
 
 import { GroupInviteComponent, GroupCreateInviteComponent, GroupInviteDialogComponent } from '../group/components/group-invite/group-invite.component';
 import { GroupMemberUserComponent } from '../group/components/group-member-user/group-member-user.component';
+import { GroupInviteUserComponent } from '../group/components/group-invite-user/group-invite-user.component';
 import { GroupShareComponent } from '../group/components/group-share/group-share.component';
 import { GroupAddTopicsComponent, GroupAddTopicsDialogComponent } from '../group/components/group-add-topics/group-add-topics.component';
 
@@ -69,6 +70,7 @@ import { TopicVoteDeadlineComponent } from '../topic/components/topic-vote-deadl
     GroupCreateInviteComponent,
     GroupInviteDialogComponent,
     GroupMemberUserComponent,
+    GroupInviteUserComponent,
     GroupShareComponent,
     GroupAddTopicsComponent,
     GroupAddTopicsDialogComponent,
@@ -129,6 +131,7 @@ import { TopicVoteDeadlineComponent } from '../topic/components/topic-vote-deadl
     GroupCreateInviteComponent,
     GroupInviteDialogComponent,
     GroupMemberUserComponent,
+    GroupInviteUserComponent,
     GroupShareComponent,
     GroupAddTopicsComponent,
     GroupAddTopicsDialogComponent,
