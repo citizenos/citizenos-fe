@@ -91,3 +91,8 @@
     margin-bottom: 16px;
   }
 }
+#search_wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
