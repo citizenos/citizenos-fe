@@ -24,6 +24,7 @@ import { UploadService } from 'src/app/services/upload.service';
 import { TopicSettingsDisabledDialogComponent } from '../topic-settings-disabled-dialog/topic-settings-disabled-dialog.component';
 import { Attachment } from 'src/app/interfaces/attachment';
 import { TopicAttachmentService } from 'src/app/services/topic-attachment.service';
+import { GroupMemberTopicService } from 'src/app/services/group-member-topic.service';
 
 @Component({
   selector: 'topic-form',
@@ -138,6 +139,7 @@ export class TopicFormComponent {
     private Notification: NotificationService,
     public TopicService: TopicService,
     public GroupService: GroupService,
+    public GroupMemberTopicService: GroupMemberTopicService,
     public TopicMemberGroupService: TopicMemberGroupService,
     public TopicMemberUserService: TopicMemberUserService,
     public TopicInviteUserService: TopicInviteUserService,
@@ -146,11 +148,7 @@ export class TopicFormComponent {
     private cd: ChangeDetectorRef,
     @Inject(DomSanitizer) private sanitizer: DomSanitizer
   ) {
-    this.groups$ = this.GroupService.loadItems().pipe(
-      map((groups) => {
-        return groups.filter((g) => g.permission.level === this.TopicMemberGroupService.LEVELS.admin);
-      })
-    );
+    this.groups$ = this.GroupService.loadItems();
     this.tabSelected = this.route.fragment.pipe(
       map((fragment) => {
         if (!fragment) {
@@ -367,10 +365,10 @@ export class TopicFormComponent {
     this.TopicService.patch(this.topic).pipe(take(1)).subscribe(() => {
       this.TopicService.reloadTopic();
       this.topicGroups.forEach((group) => {
-        this.TopicMemberGroupService.save({
+        this.GroupMemberTopicService.save({
           groupId: group.id,
           topicId: this.topic.id,
-          level: group.permission?.level || this.TopicMemberGroupService.LEVELS.read
+          level: group.permission?.level || this.GroupMemberTopicService.LEVELS.read
         }).pipe(take(1)).subscribe();
       });
       this.TopicService.reloadTopic();
@@ -395,6 +393,7 @@ chooseCategory(category: string) {
 }
 
 addGroup(group: Group) {
+  group.permission.level = this.GroupMemberTopicService.LEVELS.read;
   this.topicGroups.push(group);
 }
 
