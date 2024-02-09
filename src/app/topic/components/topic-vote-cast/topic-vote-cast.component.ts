@@ -196,6 +196,7 @@ export class TopicVoteCastComponent implements OnInit {
         if (send===true) {
           this.vote.reminderTime = new Date();
           this.saveVote();
+          this.TopicVoteService.reloadVote();
           this.Notification.addSuccess('COMPONENTS.TOPIC_VOTE_CAST.MSG_VOTE_REMINDER_SENT');
         }
       }
