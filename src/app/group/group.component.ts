@@ -128,6 +128,7 @@ export class GroupComponent implements OnInit {
 
   showCreate = false;
   filtersSet = false;
+  addTopicsDialogOpen = false;
   constructor(public dialog: DialogService,
     public GroupService: GroupService,
     private GroupJoinService: GroupJoinService,
@@ -175,6 +176,12 @@ export class GroupComponent implements OnInit {
     this.topics$ = combineLatest([this.topicTypeFilter$, this.engagmentsFilter$, this.statusFilter$, this.orderFilter$, this.categoryFilter$, this.countryFilter$, this.languageFilter$, this.searchTopicString$])
       .pipe(
         switchMap(([topicTypeFilter, engagmentsFilter, statusFilter, orderFilter, categoryFilter, countryFilter, languageFilter, search]) => {
+          if (this.addTopicsDialogOpen) {
+            const topics = (<Topic[]>[]).concat(this.allTopics$);
+            this.allTopics$ = [];
+            return topics;
+          }
+
           GroupMemberTopicService.reset();
           GroupMemberTopicService.setParam('groupId', this.groupId);
           this.allTopics$ = [];
@@ -452,11 +459,17 @@ export class GroupComponent implements OnInit {
   }
 
   addTopicDialog(group: Group) {
-    this.dialog.open(GroupAddTopicsDialogComponent, {
+    this.addTopicsDialogOpen = true;
+    const addTopicsDialog = this.dialog.open(GroupAddTopicsDialogComponent, {
       data: {
         group: group
       }
     });
+
+    addTopicsDialog.afterClosed().subscribe(() => {
+      this.addTopicsDialogOpen = false;
+      this.doClearFilters();
+    })
   }
 
   joinGroup(group: Group) {
