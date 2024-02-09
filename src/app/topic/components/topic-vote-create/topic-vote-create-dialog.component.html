@@ -447,7 +447,7 @@
                 <div class="radio_text_wrap date_selector">
                   <div class="radio_lable_wrap" (click)="toggleDeadline(); $event.stopPropagation()">
                     <label class="checkbox" [ngClass]="{selected: deadline}">
-                      <span class="deadline bold" *ngIf="deadline">{{deadline | date: 'YYYY-MM-dd hh:mm'}}</span>
+                      <span class="deadline bold" *ngIf="deadline">{{deadline | date: 'YYYY-MM-dd HH:mm'}}</span>
                       <span class="bold" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_DEADLINE"></span>
                       <span class="checkmark"></span>
                     </label>
