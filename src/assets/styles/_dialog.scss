@@ -46,7 +46,7 @@
   width: 560px;
   height: max-content;
   border-radius: 16px;
-  overflow: hidden;
+ //overflow: hidden;
   margin-left: auto;
   margin-right: auto;
   margin-top: auto;
@@ -74,6 +74,7 @@
     width: 100%;
     min-height: 56px;
     background-color: var(--color-dialog);
+    border-radius: 16px 16px 0 0;
     justify-content: space-between;
 
     @include mixins.mobile {
@@ -301,7 +302,7 @@
     background-color: var(--color-dialog);
     flex-direction: column;
     width: 100%;
-
+    border-radius: 0 0 16px 16px;
     &.with_buttons {
       flex-direction: row;
       justify-content: space-between;
@@ -320,6 +321,10 @@
       .btn_medium_submit {
         padding: 12px 24px;
       }
+    }
+
+    @include mixins.mobile {
+      border-radius: 0;
     }
   }
 
@@ -393,4 +398,9 @@
       }
     }
   }
+}
+
+.search_area_wrap {
+  max-height: 300px;
+  overflow-x: auto;
 }
