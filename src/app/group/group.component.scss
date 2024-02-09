@@ -12,10 +12,10 @@
   @include mixins.mobile {
     padding: 0;
   }
-  #create_add_container {
+  .create_add_container {
     position: relative;
   }
-  #create_menu_wrap {
+  .create_menu_wrap {
     max-width: 320px;
     top: 56px;
     right: -265px;
@@ -29,6 +29,11 @@
     box-shadow: 0px 12px 16px rgba(50, 85, 112, 0.1),
       0px 8px 20px rgba(220, 231, 240, 0.3);
     border-radius: 16px;
+
+    &.top {
+      top: initial;
+      bottom: 56px
+    }
     &.hidden {
       display: none;
     }
