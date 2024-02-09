@@ -124,6 +124,7 @@ export class TopicVoteCreateComponent implements OnInit {
       this.endsAt.date = this.deadline;
       this.endsAt.min = this.deadline.getMinutes();
       this.endsAt.h = this.deadline.getHours();
+  //    this.setEndsAtTime();
     }
     this.vote.options.forEach((opt: any) => {
       if (opt.value === 'Neutral') {
@@ -133,6 +134,10 @@ export class TopicVoteCreateComponent implements OnInit {
       }
       this.cd.detectChanges();
     })
+    if (this.vote.reminderTime) {
+      this.reminder = true;
+      this.setReminderOptions();
+    }
   }
 
   private setTimeZones() {

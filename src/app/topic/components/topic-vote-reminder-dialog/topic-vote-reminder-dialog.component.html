@@ -47,7 +47,7 @@
               <div class="vote_info_text">
                 <div class="info_row"><b translate="COMPONENTS.TOPIC_VOTE_REMINDER.PREVIEW_EMAIL_VOTE_VOTES_COLLECTED"></b> <b>{{vote.votersCount || 0}}</b></div>
                 <span *ngIf="vote.endsAt" translate="COMPONENTS.TOPIC_VOTE_REMINDER.PREVIEW_EMAIL_VOTE_DEADLINE"
-                  [translateParams]="{deadline: (vote.endsAt | date: 'YYYY-MM-dd hh:mm')}"></span>
+                  [translateParams]="{deadline: (vote.endsAt | date: 'YYYY-MM-dd HH:mm')}"></span>
               </div>
             </div>
             <div class="button_wrap">
