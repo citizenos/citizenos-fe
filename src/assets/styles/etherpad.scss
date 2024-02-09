@@ -1,4 +1,6 @@
 /** Main **/
+@use "mixins";
+
 $btn: #2c3b47;
 $error: #ef4025;
 
@@ -207,6 +209,10 @@ $bold: 700;
   margin-right: auto;
   border-radius: 8px;
   padding: 8px 16px;
+
+  @include mixins.mobile {
+    width: 100%;
+  }
 
   ul {
     li {
