@@ -127,6 +127,7 @@ export class GroupComponent implements OnInit {
   searchUserString$ = new BehaviorSubject('');
 
   showCreate = false;
+  showCreateInContent = false;
   filtersSet = false;
   addTopicsDialogOpen = false;
   constructor(public dialog: DialogService,
