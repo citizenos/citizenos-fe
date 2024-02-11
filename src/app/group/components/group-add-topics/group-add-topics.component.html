@@ -107,7 +107,7 @@
           <div class="row" *ngIf="isOnPage(i, membersPage)" [ngClass]="{'dialog_row': dialog}">
             <div class="title">
               <div class="cell_title" translate="COMPONENTS.GROUP_ADD_TOPICS.HEADING_TITLE"></div>
-              <a target='_blank' [routerLink]="['/', translate.currentLang, 'my', 'topics', topic.id]"
+              <a target='_blank' [routerLink]="['/', translate.currentLang, 'topics', topic.id]"
                 class="member_topic_title">
                 {{topic.title}}
               </a>
