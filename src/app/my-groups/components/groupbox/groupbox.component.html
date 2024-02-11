@@ -39,7 +39,7 @@
     <div class="small_heading" [innerText]="group.name"></div>
   </div>
   <div class="group_footer">
-    <div class="group_description"><a (click)="$event.preventDefault()" class="bold" *ngIf="group.members?.topics.count && group.members?.topics.latest" [innerText]="group.members?.topics?.latest.title"  [routerLink]="['/',Translate.currentLang, 'my', 'topics', group.members?.topics?.latest.id]"></a></div>
+    <div class="group_description"><a (click)="$event.preventDefault()" class="bold" *ngIf="group.members?.topics.count && group.members?.topics.latest" [innerText]="group.members?.topics?.latest.title"  [routerLink]="['/',Translate.currentLang, 'topics', group.members?.topics?.latest.id]"></a></div>
     <div class="date" [innerText]="group.createdAt | date: 'YYYY-MM-dd HH:mm'"></div>
   </div>
 </a>
