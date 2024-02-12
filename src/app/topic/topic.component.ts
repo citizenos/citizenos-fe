@@ -3,7 +3,7 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { TopicMemberGroupService } from 'src/app/services/topic-member-group.service';
 import { Component, OnInit, Inject, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap, of, map, tap, Observable, take } from 'rxjs';
+import { switchMap, of, map, tap, Observable, take, catchError } from 'rxjs';
 import { DialogService } from 'src/app/shared/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -224,6 +224,13 @@ export class TopicComponent implements OnInit {
           }, 500);
         }
         return topic;
+      }),
+      catchError((err) => {
+        this.DialogService.closeAll();
+        if (!auth.loggedIn$.value) {
+          app.doShowLogin();
+        }
+        return of(err);
       })
     );
     //needs API implementation

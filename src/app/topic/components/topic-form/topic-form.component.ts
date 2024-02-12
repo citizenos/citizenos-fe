@@ -387,7 +387,7 @@ export class TopicFormComponent {
 chooseCategory(category: string) {
   if (this.topic.categories && this.topic.categories.indexOf(category) > -1) {
     this.topic.categories.splice(this.topic.categories.indexOf(category), 1);
-  } else {
+  } else if (this.topic.categories.length < 3) {
     this.topic.categories?.push(category);
   }
 }
