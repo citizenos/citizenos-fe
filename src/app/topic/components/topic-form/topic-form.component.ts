@@ -8,7 +8,7 @@ import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog
 import { DialogService } from 'src/app/shared/dialog';
 import { GroupService } from 'src/app/services/group.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { Group } from 'src/app/interfaces/group';
+import { Group, TopicMemberGroup } from 'src/app/interfaces/group';
 import { TranslateService } from '@ngx-translate/core';
 import { TopicMemberGroupService } from 'src/app/services/topic-member-group.service';
 import { TopicMemberUserService } from 'src/app/services/topic-member-user.service';
@@ -106,12 +106,12 @@ export class TopicFormComponent {
 
   VISIBILITY = this.TopicService.VISIBILITY;
   CATEGORIES = Object.keys(this.TopicService.CATEGORIES);
-  groups$: Observable<Group[] | any[]> = of([]);
+  groups$: Observable<TopicMemberGroup[] | any[]> = of([]);
   private loadMembers$ = new BehaviorSubject<void>(undefined);
   members$: Observable<any[] | any[]> = of([]);
   private loadInvite$ = new BehaviorSubject<void>(undefined);
   invites$: Observable<any[]> = of([]);
-  topicGroups = <Group[]>[];
+  topicGroups = <TopicMemberGroup[]>[];
 
   readMore = false;
 
@@ -129,7 +129,7 @@ export class TopicFormComponent {
   showAttachments = false;
   showGroups = false;
   topicAttachments$ = of(<Attachment[] | any[]>[]);
-  topicGroups$ = of(<Group[] | any[]>[])
+  topicGroups$ = of(<TopicMemberGroup[] | any[]>[])
 
   constructor(
     private dialog: DialogService,
@@ -197,7 +197,7 @@ export class TopicFormComponent {
       this.TopicMemberGroupService.setParam('topicId', this.topic.id);
       this.topicGroups$ = this.TopicMemberGroupService.loadItems().pipe(
         tap((groups) => {
-          groups.forEach((group) => {
+          groups.forEach((group: any) => {
             const exists = this.topicGroups.find((mgroup) => mgroup.id === group.id);
             if (!exists) this.topicGroups.push(group);
           })
@@ -348,7 +348,18 @@ export class TopicFormComponent {
   };
 
   updateTopic() {
-    return this.TopicService.patch(this.topic).pipe(take(1)).subscribe(() => this.TopicService.reloadTopic());
+    return this.TopicService.patch(this.topic).pipe(take(1)).subscribe(() => {
+      this.topicGroups.forEach((group) => {
+        this.GroupMemberTopicService.save({
+          groupId: group.id,
+          topicId: this.topic.id,
+          level: group.level || this.GroupMemberTopicService.LEVELS.read
+        }).pipe(take(1)).subscribe();
+      });
+
+      this.TopicService.reloadTopic()
+
+    });
   }
 
   saveAsDraft() {
@@ -368,7 +379,7 @@ export class TopicFormComponent {
         this.GroupMemberTopicService.save({
           groupId: group.id,
           topicId: this.topic.id,
-          level: group.permission?.level || this.GroupMemberTopicService.LEVELS.read
+          level: group.level || this.GroupMemberTopicService.LEVELS.read
         }).pipe(take(1)).subscribe();
       });
       this.TopicService.reloadTopic();
@@ -384,101 +395,101 @@ export class TopicFormComponent {
   }
 
 
-chooseCategory(category: string) {
-  if (this.topic.categories && this.topic.categories.indexOf(category) > -1) {
-    this.topic.categories.splice(this.topic.categories.indexOf(category), 1);
-  } else if (this.topic.categories.length < 3) {
-    this.topic.categories?.push(category);
+  chooseCategory(category: string) {
+    if (this.topic.categories && this.topic.categories.indexOf(category) > -1) {
+      this.topic.categories.splice(this.topic.categories.indexOf(category), 1);
+    } else if (this.topic.categories.length < 3) {
+      this.topic.categories?.push(category);
+    }
   }
-}
 
-addGroup(group: Group) {
-  group.permission.level = this.GroupMemberTopicService.LEVELS.read;
-  this.topicGroups.push(group);
-}
+  addGroup(group: TopicMemberGroup) {
+    group.level = this.GroupMemberTopicService.LEVELS.read;
+    this.topicGroups.push(group);
+  }
 
-removeGroup(group: Group) {
-  const index = this.topicGroups.findIndex((tg) => tg.id === group.id);
-  this.topicGroups.splice(index, 1);
-}
+  removeGroup(group: TopicMemberGroup) {
+    const index = this.topicGroups.findIndex((tg) => tg.id === group.id);
+    this.topicGroups.splice(index, 1);
+  }
 
-manageMembers() {
-  const manageDialog = this.dialog.open(TopicParticipantsDialogComponent, { data: { topic: this.topic } });
-  manageDialog.afterClosed().subscribe({
-    next: (res) => {
-    },
-    error: (error) => {
-      console.error('ERROR MANAGE MEMBERS', error);
-    }
-  })
-}
+  manageMembers() {
+    const manageDialog = this.dialog.open(TopicParticipantsDialogComponent, { data: { topic: this.topic } });
+    manageDialog.afterClosed().subscribe({
+      next: (res) => {
+      },
+      error: (error) => {
+        console.error('ERROR MANAGE MEMBERS', error);
+      }
+    })
+  }
 
-inviteEditors() {
-  const inviteDialog = this.dialog.open(InviteEditorsComponent, { data: { topic: this.topic } });
-  inviteDialog.afterClosed().subscribe({
-    next: (inviteUsers) => {
-      this.loadInvite$.next();
-    },
-    error: (error) => {
-      // this.NotificationService.addError(error);
-    }
-  })
-}
+  inviteEditors() {
+    const inviteDialog = this.dialog.open(InviteEditorsComponent, { data: { topic: this.topic } });
+    inviteDialog.afterClosed().subscribe({
+      next: (inviteUsers) => {
+        this.loadInvite$.next();
+      },
+      error: (error) => {
+        // this.NotificationService.addError(error);
+      }
+    })
+  }
 
-inviteMembers() {
-  const inviteDialog = this.dialog.open(TopicInviteDialogComponent, { data: { topic: this.topic } });
-  inviteDialog.afterClosed().subscribe({
-    next: (inviteUsers) => {
-      this.loadInvite$.next();
-      this.Notification.removeAll();
-    },
-    error: (error) => {
-    }
-  })
-}
+  inviteMembers() {
+    const inviteDialog = this.dialog.open(TopicInviteDialogComponent, { data: { topic: this.topic } });
+    inviteDialog.afterClosed().subscribe({
+      next: (inviteUsers) => {
+        this.loadInvite$.next();
+        this.Notification.removeAll();
+      },
+      error: (error) => {
+      }
+    })
+  }
 
-setCountry(country: string) {
-  this.topic.country = country;
-  this.updateTopic();
-}
-setLanguage(language: string) {
-  this.topic.language = language;
-  this.updateTopic();
-}
+  setCountry(country: string) {
+    this.topic.country = country;
+    this.updateTopic();
+  }
+  setLanguage(language: string) {
+    this.topic.language = language;
+    this.updateTopic();
+  }
 
-addTag(e: Event) {
-  const tag = (e.target as HTMLInputElement).value;
-  if (tag)
-    this.tags.push(tag);
-  (e.target as HTMLInputElement).value = '';
-}
+  addTag(e: Event) {
+    const tag = (e.target as HTMLInputElement).value;
+    if (tag)
+      this.tags.push(tag);
+    (e.target as HTMLInputElement).value = '';
+  }
 
-removeTag(tag: string) {
-  this.tags.splice(this.tags.indexOf(tag), 1);
-}
+  removeTag(tag: string) {
+    this.tags.splice(this.tags.indexOf(tag), 1);
+  }
 
-cancel() {
-  const confirmDialog = this.dialog.open(InterruptDialogComponent);
+  cancel() {
+    const confirmDialog = this.dialog.open(InterruptDialogComponent);
 
-  confirmDialog.afterClosed().subscribe(result => {
-    if (result === true) {
-      /*this.TopicService.delete({ id: this.topic.id })
-        .pipe(take(1))
-        .subscribe(() => {
-          this.router.navigate(['dashboard']);
-        })*/
-      this.router.navigate(['dashboard']);
-    }
-  });
-  //[routerLink]="['/', translate.currentLang, 'topics', topic.id]"
-}
+    confirmDialog.afterClosed().subscribe(result => {
+      if (result === true) {
+        /*this.TopicService.delete({ id: this.topic.id })
+          .pipe(take(1))
+          .subscribe(() => {
+            this.router.navigate(['dashboard']);
+          })*/
+        this.router.navigate(['dashboard']);
+      }
+    });
+    //[routerLink]="['/', translate.currentLang, 'topics', topic.id]"
+  }
 
-setGroupLevel(group: Group, level: string) {
-  if (!group.permission) group.permission = { level };
-  group.permission.level = level;
-}
+  setGroupLevel(group: TopicMemberGroup, level: string) {
+    if (!group.level) group.level = level;
+    group.level = level;
+  }
 
-isGroupAdded(group: Group) {
-  return this.topicGroups.find((tg: Group) => tg.id === group.id);
-}
+  isGroupAdded(group: TopicMemberGroup) {
+    return this.topicGroups.find((tg: TopicMemberGroup) => tg.id === group.id);
+  }
 }

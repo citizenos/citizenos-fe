@@ -11,7 +11,7 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { TopicService } from 'src/app/services/topic.service';
 import { UploadService } from 'src/app/services/upload.service';
 import { GroupService } from 'src/app/services/group.service';
-import { Group } from 'src/app/interfaces/group';
+import { Group, TopicMemberGroup } from 'src/app/interfaces/group';
 import { GroupMemberTopicService } from 'src/app/services/group-member-topic.service';
 import { TopicInviteUserService } from 'src/app/services/topic-invite-user.service';
 import { TopicMemberUserService } from 'src/app/services/topic-member-user.service';
@@ -91,13 +91,13 @@ export class VoteCreateComponent implements OnInit {
   languages$: { [key: string]: any } = this.config.get('language').list;
   titleLimit = 100;
   introLimit = 500;
-  groups$: Observable<Group[] | any[]> = of([]);
+  groups$: Observable<TopicMemberGroup[] | any[]> = of([]);
   private loadMembers$ = new BehaviorSubject<void>(undefined);
   members$: Observable<any[] | any[]> = of([]);
   private loadInvite$ = new BehaviorSubject<void>(undefined);
   invites$: Observable<any[]> = of([]);
 
-  topicGroups = <Group[]>[];
+  topicGroups = <TopicMemberGroup[]>[];
   topic$: Observable<Topic>;
   topic: any;
   public vote = {
@@ -153,7 +153,7 @@ export class VoteCreateComponent implements OnInit {
   showAttachments = false;
   showGroups = false;
   topicAttachments$ = of(<Attachment[] | any[]>[]);
-  topicGroups$ = of(<Group[] | any[]>[])
+  topicGroups$ = of(<TopicMemberGroup[] | any[]>[])
   constructor(
     private app: AppService,
     private cd: ChangeDetectorRef,
@@ -220,7 +220,7 @@ export class VoteCreateComponent implements OnInit {
               this.TopicMemberGroupService.setParam('topicId', this.topic.id);
               this.topicGroups$ = this.TopicMemberGroupService.loadItems().pipe(
                 tap((groups) => {
-                  groups.forEach((group) => {
+                  groups.forEach((group:any) => {
                     const exists = this.topicGroups.find((mgroup) => mgroup.id === group.id);
                     if (!exists) this.topicGroups.push(group);
                   })
@@ -480,6 +480,13 @@ export class VoteCreateComponent implements OnInit {
 
   saveAsDraft() {
     this.updateTopic().pipe(take(1)).subscribe(() => {
+      this.topicGroups.forEach((group) => {
+        this.GroupMemberTopicService.save({
+          groupId: group.id,
+          topicId: this.topic.id,
+          level: group.level || this.GroupMemberTopicService.LEVELS.read
+        }).pipe(take(1)).subscribe();
+      });
       this.updateVote();
       this.router.navigate(['my', 'topics']);
     });
@@ -487,6 +494,13 @@ export class VoteCreateComponent implements OnInit {
 
   saveChanges () {
     this.updateTopic().pipe(take(1)).subscribe(() => {
+      this.topicGroups.forEach((group) => {
+        this.GroupMemberTopicService.save({
+          groupId: group.id,
+          topicId: this.topic.id,
+          level: group.level || this.GroupMemberTopicService.LEVELS.read
+        }).pipe(take(1)).subscribe();
+      });
       this.updateVote();
     });
   }
@@ -504,7 +518,7 @@ export class VoteCreateComponent implements OnInit {
         this.GroupMemberTopicService.save({
           groupId: group.id,
           topicId: this.topic.id,
-          level: group.permission?.level || this.GroupMemberTopicService.LEVELS.read
+          level: group.level || this.GroupMemberTopicService.LEVELS.read
         }).pipe(take(1)).subscribe();
       });
       this.updateVote();
@@ -527,8 +541,8 @@ export class VoteCreateComponent implements OnInit {
     this.tags.splice(this.tags.indexOf(tag), 1);
   }
 
-  addGroup(group: Group) {
-    group.permission.level = this.GroupMemberTopicService.LEVELS.read;
+  addGroup(group: TopicMemberGroup) {
+    group.level = this.GroupMemberTopicService.LEVELS.read;
     this.topicGroups.push(group);
   }
 
@@ -615,9 +629,9 @@ export class VoteCreateComponent implements OnInit {
     //[routerLink]="['/', translate.currentLang, 'topics', topic.id]"
   }
 
-  setGroupLevel(group: Group, level: string) {
-    if (!group.permission) group.permission = { level };
-    group.permission.level = level;
+  setGroupLevel(group: TopicMemberGroup, level: string) {
+    if (!group.level) group.level = level;
+    group.level = level;
   }
 
   isGroupAdded(group: Group) {

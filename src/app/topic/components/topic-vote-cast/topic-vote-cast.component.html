@@ -250,7 +250,7 @@
                     (vote.endsAt | date:'YYYY-MM-dd HH:mm') : ('COMPONENTS.TOPIC_VOTE_CAST.NO_DEADLINE' |
                     translate)}}</span>
                 </div>
-                <a *ngIf="canUpdate() && topic.members.users.count > 1 && !vote.reminderSent"
+                <a *ngIf="canUpdate() && !hasVoteEndedExpired() && topic.members.users.count > 1 && !vote.reminderSent"
                   (click)="sendVoteReminder()" translate="COMPONENTS.TOPIC_VOTE_CAST.OPT_SEND_VOTE_REMINDER"></a>
               </div>
             </div>
@@ -284,7 +284,7 @@
                   (vote.endsAt | date:'YYYY-MM-dd HH:mm') : ('COMPONENTS.TOPIC_VOTE_CAST.NO_DEADLINE' |
                   translate)}}</span>
               </div>
-              <a *ngIf="canUpdate() && topic.members.users.count > 1 && !vote.reminderSent" (click)="sendVoteReminder()"
+              <a *ngIf="canUpdate() && !hasVoteEndedExpired() && topic.members.users.count > 1 && !vote.reminderSent" (click)="sendVoteReminder()"
                 translate="COMPONENTS.TOPIC_VOTE_CAST.OPT_SEND_VOTE_REMINDER"></a>
             </div>
           </div>
@@ -349,7 +349,7 @@
                   (vote.endsAt | date:'YYYY-MM-dd HH:mm') : ('COMPONENTS.TOPIC_VOTE_CAST.NO_DEADLINE' |
                   translate)}}</span>
               </div>
-              <a *ngIf="canUpdate() && topic.members.users.count > 1 && !vote.reminderSent" (click)="sendVoteReminder()"
+              <a *ngIf="canUpdate() && !hasVoteEndedExpired() && topic.members.users.count > 1 && !vote.reminderSent" (click)="sendVoteReminder()"
                 translate="COMPONENTS.TOPIC_VOTE_CAST.OPT_SEND_VOTE_REMINDER"></a>
             </div>
           </div>
@@ -449,8 +449,8 @@
                   (vote.endsAt | date:'YYYY-MM-dd HH:mm') : ('COMPONENTS.TOPIC_VOTE_CAST.NO_DEADLINE' |
                   translate)}}</span>
               </div>
-              <a *ngIf="canUpdate() && topic.members.users.count > 1 && !vote.reminderSent" (click)="sendVoteReminder()"
-                translate="COMPONENTS.TOPIC_VOTE_CAST.OPT_SEND_VOTE_REMINDER"></a>
+              <!--a *ngIf="canUpdate() && topic.members.users.count > 1 && !vote.reminderSent" (click)="sendVoteReminder()"
+                translate="COMPONENTS.TOPIC_VOTE_CAST.OPT_SEND_VOTE_REMINDER"></!--a-->
             </div>
           </div>
         </div>
