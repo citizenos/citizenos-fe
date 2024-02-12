@@ -186,10 +186,10 @@
       }
     },
     "CLOSE_VOTING_CONFIRM": {
-      "HEADING": "Close voting",
+      "HEADING": "Ukončit hlasování",
       "ARE_YOU_SURE": "Are you sure you want to close this voting? You cannot undo this action.",
-      "CONFIRM_YES": "Yes, close this voting",
-      "CONFIRM_NO": "No, keep the voting open"
+      "CONFIRM_YES": "Ano, ukončit toto hlasování",
+      "CONFIRM_NO": "Ne, ponechat hlasování otevřené"
     },
     "CREATE": {
       "TITLE_DISCUSSION": "Diskusní téma",
@@ -222,10 +222,10 @@
     "DOWNLOAD_VOTING_RESULTS": {
       "HEADING": "Download vote results",
       "MESSAGE_DESCRIPTION": "Are you sure you want to download the voting results? This will mean the vote is permanently closed.",
-      "MESSAGE_OPTIONS": "Here are some options:",
-      "HEADING_NOT_DOWNLOAD": "Extend the vote deadline",
+      "MESSAGE_OPTIONS": "Zde jsou některé možnosti:",
+      "HEADING_NOT_DOWNLOAD": "Prodloužit termín hlasování",
       "UPDATE_DEADLINE": "Change the deadline to try and collect more votes. This will keep the vote open, so you won't yet see the results.",
-      "HEADING_DOWNLOAD": "Download the results",
+      "HEADING_DOWNLOAD": "Stáhnout výsledky",
       "GET_RESULTS": "The vote will be permanently closed.",
       "FOLLOW_UP": "The topic will be moved into 'Follow-up' phase, so you can post updates on actions taken as a result of the vote.",
       "BTN_EDIT_DEADLINE": "Edit vote deadline",
@@ -327,6 +327,12 @@
       "SET_MEMBER_PERMISSIONS": "Set permissions to <b>{{level}}</b>",
       "EDIT_MEMBER": "Edit member",
       "BTN_REMOVE": "Remove member"
+    },
+    "GROUP_INVITE_USER": {
+      "SET_MEMBER_PERMISSIONS": "@:COMPONENTS.GROUP_MEMBER_USER.SET_MEMBER_PERMISSIONS",
+      "EDIT_MEMBER": "Edit invite",
+      "BTN_REMOVE": "Remove invite",
+      "INVITE_SENT_TO": "Pending invite sent to {{email}}"
     },
     "GROUP_SETTINGS": {
       "HEADING": "Upravit skupinu",
@@ -1704,6 +1710,9 @@
       "SECTION_INFO_LBL_LANGUAGE_NOT_SPECIFIED": "@:VIEWS.TOPICS_TOPICID.SECTION_INFO_LBL_LANGUAGE_NOT_SPECIFIED",
       "TAB_TOPICS": "Topics",
       "TAB_MEMBERS": "Members",
+      "HAVENT_ENGAGED_TOPICS_HEADING": "@:VIEWS.MY_TOPICS.HAVENT_ENGAGED_TOPICS_HEADING",
+      "HAVENT_ENGAGED_TOPICS_DESCRIPTION": "@:VIEWS.MY_TOPICS.HAVENT_ENGAGED_TOPICS_DESCRIPTION",
+      "HAVENT_ENGAGED_BTN_VIEW_PUBLIC_TOPICS": "@:VIEWS.MY_TOPICS.HAVENT_ENGAGED_BTN_VIEW_PUBLIC_TOPICS",
       "BTN_ADD_TOPICS": "Add existing topic",
       "BTN_ADD_MEMBERS": "Add members",
       "TOPICS_FILTER_TYPE": "Topic type",
