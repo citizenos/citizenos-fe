@@ -2706,6 +2706,8 @@
     "ACTIVITY_USER_UPDATE_GROUPMEMBERUSER_NONE": "Užívateľ/ka <em>{{userName}}</em> zrušil/a prístup užívateľa/ky <em>{{userName2}}</em> do skupiny <em>{{groupName}}</em>",
     "ACTIVITY_USER_UPDATE_GROUPMEMBERUSER_NONE_ACTIVITYGROUP": "Užívateľ/ka <em>{{userName}}</em> a <em>{{groupCount}}</em> ďalší zrušili užívateľský prístup do skupiny <em>{{groupName}}</em>",
     "ACTIVITY_USER_UPDATE_GROUPMEMBERUSER_NONE_USERACTIVITYGROUP": "Užívateľ/ka <em>{{userName}}</em> zrušil/a <em>{{groupCount}}</em> užívateľských prístupov do skupiny <em>{{groupName}}</em>",
+    "ACTIVITY_USER_UPDATE_GROUPINVITEUSER:": "@:ACTIVITY_FEED.ACTIVITY_USER_UPDATE_GROUPMEMBERUSER",
+    "ACTIVITY_USER_UPDATE_GROUPINVITEUSER_NONE": "@:ACTIVITY_FEED.ACTIVITY_USER_UPDATE_GROUPMEMBERUSER_NONE",
     "ACTIVITY_USER_CREATE_USERNOTIFICATIONSETTINGS_TOPIC": "Nastavili ste si upozornenia pre tému <em>{{topicTitle}}</em>",
     "ACTIVITY_USER_UPDATE_USERNOTIFICATIONSETTINGS_TOPIC": "Aktualizovali ste nastavenia upozornení pre tému <em>{{topicTitle}}</em>",
     "ACTIVITY_USER_DELETE_USERNOTIFICATIONSETTINGS_TOPIC": "Odstránili ste upozornenia pre tému <em>{{topicTitle}}</em>",
