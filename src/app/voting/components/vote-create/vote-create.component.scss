@@ -42,10 +42,6 @@
         position: relative;
 
         @include mixins.tablet {
-          display: flex;
-        }
-
-        @include mixins.mobile {
           display: none;
         }
 
@@ -92,7 +88,7 @@
   border-radius: 16px;
   gap: 16px;
 
-  @include mixins.mobile {
+  @include mixins.tablet {
     display: flex;
   }
   &.open {

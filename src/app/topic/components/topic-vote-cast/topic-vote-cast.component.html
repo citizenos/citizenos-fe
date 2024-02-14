@@ -258,7 +258,8 @@
         </div>
         <ng-container *ngIf="!hasVoteEndedExpired()">
           <div class="line_separator"></div>
-          <div class="info_text" translate="COMPONENTS.TOPIC_VOTE_CAST.LBL_INFO_RESULTS"></div>
+          <div class="info_text" *ngIf="!canUpdate()" translate="COMPONENTS.TOPIC_VOTE_CAST.LBL_INFO_RESULTS"></div>
+          <div class="info_text" *ngIf="canUpdate()" translate="COMPONENTS.TOPIC_VOTE_CAST.LBL_INFO_RESULTS_ADMIN"></div>
         </ng-container>
       </div>
       <ng-container *ngIf="(!userHasVoted || editVote) && !hasVoteEndedExpired()">
@@ -320,7 +321,7 @@
             <span class="bold" translate="COMPONENTS.TOPIC_VOTE_CAST.VOTE_HEADING_DELEGATE"></span>
           </button>
           <ng-container *ngIf="!vote.delegation || vote.delegation && canSubmit()">
-            <button class="btn_medium_submit bold" [cosDisabled]="!canSubmit()" (click)="doVote()"
+            <button class="btn_medium_submit bold" [ngClass]="{disabled: !canSubmit()}" (click)="doVote()"
               translate="COMPONENTS.TOPIC_VOTE_CAST.VOTE_SUBMIT">
             </button>
           </ng-container>

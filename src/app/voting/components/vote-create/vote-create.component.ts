@@ -583,7 +583,9 @@ export class VoteCreateComponent implements OnInit {
   }
 
   saveVoteSettings(vote?: any) {
+    console.log('SAVE',vote);
     if (vote) {
+      console.log(vote);
       console.log(vote);
       this.vote = vote;
     }

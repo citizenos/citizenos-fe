@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input, Inject, inject, HostBinding, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, Inject, inject, HostBinding, ChangeDetectorRef, enableProdMode } from '@angular/core';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicService } from 'src/app/services/topic.service';
 import { TopicVoteService } from 'src/app/services/topic-vote.service';
@@ -7,6 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { take } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
+import { Vote } from 'src/app/interfaces/vote';
 @Component({
   selector: 'topic-vote-create',
   templateUrl: './topic-vote-create.component.html',
@@ -24,32 +25,6 @@ export class TopicVoteCreateComponent implements OnInit {
   timezones = <any[]>[];
   datePickerMin = new Date();
   public CONF = {
-    defaultOptions: {
-      regular: [
-        {
-          value: 'Yes',
-          enabled: true
-        },
-        {
-          value: 'No',
-          enabled: true
-        }
-      ],
-      multiple: [
-        { value: '' },
-        { value: '' }
-      ]
-    },
-    extraOptions: {
-      neutral: {
-        value: 'Neutral',
-        enabled: false
-      }, // enabled - is the option enabled by default
-      veto: {
-        value: 'Veto',
-        enabled: false
-      }
-    },
     autoClose: [{
       value: 'allMembersVoted',
       enabled: false
@@ -97,6 +72,23 @@ export class TopicVoteCreateComponent implements OnInit {
       enabled: false
     }
   };
+
+  predefinedOptions = <any> {
+    yes: {
+      value: 'Yes',
+      enabled: true
+    },
+    no: {
+      value: 'No',
+      enabled: true
+    }
+  }
+
+  customOptions = [
+    {value: ''},
+    {value: ''},
+    {value: ''},
+  ]
   reminder = false;
   reminderOptionsList = [{ value: 1, unit: 'days' }, { value: 2, unit: 'days' }, { value: 3, unit: 'days' }, { value: 1, unit: 'weeks' }, { value: 2, unit: 'weeks' }, { value: 1, unit: 'month' }];
   reminderOptions = <any[]>[];
@@ -110,14 +102,13 @@ export class TopicVoteCreateComponent implements OnInit {
     public router: Router
   ) {
     this.setTimeZones();
-
   }
 
   ngOnInit(): void {
-    this.topicId = this.topic.id;
-    if (!this.topic.voteId && !this.vote) {
+    if (!this.vote) {
       this.vote = Object.assign({}, this.voteDefault);
     }
+    this.topicId = this.topic.id;
 
     if (this.vote.endsAt) {
       this.deadline = new Date(this.vote.endsAt);
@@ -126,11 +117,27 @@ export class TopicVoteCreateComponent implements OnInit {
       this.endsAt.h = this.deadline.getHours();
   //    this.setEndsAtTime();
     }
+    if (this.vote.type === this.VOTE_TYPES.multiple) {
+      this.customOptions = [];
+    }
     this.vote.options.forEach((opt: any) => {
-      if (opt.value === 'Neutral') {
-        this.extraOptions.neutral.enabled = true;
-      } else if (opt.value === 'Veto') {
-        this.extraOptions.veto.enabled = true;
+      const val = opt.value.toLowerCase();
+
+      switch (val) {
+        case 'yes':
+          this.predefinedOptions.yes.enabled = true;
+          break;
+        case 'no':
+          this.predefinedOptions.no.enabled = true;
+          break;
+        case 'neutral':
+          this.extraOptions.neutral.enabled = true;
+          break;
+        case 'veto':
+          this.extraOptions.veto.enabled = true;
+          break;
+        default:
+          this.customOptions.push(opt);
       }
       this.cd.detectChanges();
     })
@@ -153,17 +160,34 @@ export class TopicVoteCreateComponent implements OnInit {
     }
   };
 
+  toggleOption(option: string) {
+    switch (option.toLowerCase()) {
+      case 'yes':
+        this.predefinedOptions.yes.enabled = !this.predefinedOptions.yes.enabled;
+        break;
+      case 'no':
+        this.predefinedOptions.no.enabled = !this.predefinedOptions.no.enabled;
+        break;
+      case 'neutral':
+        this.extraOptions.neutral.enabled = !this.extraOptions.neutral.enabled;
+        break;
+      case 'veto':
+        this.extraOptions.veto.enabled = !this.extraOptions.veto.enabled;
+        break;
+    }
+    this.filterOptions();
+  }
+
   setVoteType(voteType: string) {
     if (!this.TopicService.canEditDescription(this.topic)) return;
     if (voteType == this.VOTE_TYPES.multiple) {
       this.vote.type = voteType;
       if (!this.vote.options.length)
-        this.vote.options = this.CONF.defaultOptions.multiple;
       this.vote.maxChoices = 1;
     } else {
       this.vote.type = this.VOTE_TYPES.regular;
-      this.vote.options = this.CONF.defaultOptions.regular;
     }
+    this.filterOptions();
   };
 
   addOption() {
@@ -219,6 +243,7 @@ export class TopicVoteCreateComponent implements OnInit {
       this.setEndsAtTime();
     } else {
       this.deadline = null;
+      this.vote.endsAt = this.deadline;
     }
   }
 
@@ -305,6 +330,7 @@ export class TopicVoteCreateComponent implements OnInit {
   };
 
   saveVoteSettings() {
+    console.log('saveVOte');
     if (this.saveVote) {
       this.filterOptions();
       if (!this.reminder) {
@@ -314,7 +340,6 @@ export class TopicVoteCreateComponent implements OnInit {
       if (this.deadline) {
         this.vote.endsAt = this.deadline
       }
-      console.log(this.vote);
       this.saveVote.emit(this.vote);
     }
   }
@@ -360,18 +385,35 @@ export class TopicVoteCreateComponent implements OnInit {
   };
 
   filterOptions() {
-    for (let o in this.extraOptions) {
-      const option = this.extraOptions[o];
-      this.vote.options = this.vote.options.filter((opt: any) => {
-        return opt.value !== option.value;
-      });
-      if (option.enabled) {
-        this.vote.options.push({ value: option.value });
+    let options = [];
+    if (this.vote.type === this.VOTE_TYPES.regular) {
+      this.vote.options = [];
+      for (let o in this.predefinedOptions) {
+        console.log(o);
+        const option = this.predefinedOptions[o];
+        if (option.enabled) {
+          options.push({ value: option.value });
+        }
+
+
+        console.log('OPTS',options)
+      }
+    } else {
+      for (let option in this.customOptions) {
+          options.push(option);
       }
     }
-    this.vote.options = this.vote.options.filter((option: any) => {
+    for (let o in this.extraOptions) {
+      const option = this.extraOptions[o];
+      if (option.enabled) {
+        options.push({ value: option.value });
+      }
+    }
+    options = this.vote.options.filter((option: any) => {
       return !!option.value
     });
+    this.vote.options = Object.assign(this.vote.options, options);
+    console.log('VOTEOPTIONS', options, this.vote.options);
   }
 
   displayOptInput(option: any) {
@@ -379,6 +421,7 @@ export class TopicVoteCreateComponent implements OnInit {
   }
 
   updateVote() {
+    console.log('UPDATE');
     this.filterOptions();
     const updateVote = Object.assign({topicId: this.topic.id}, this.vote);
     console.log('DEADLINE', this.deadline);
@@ -389,6 +432,7 @@ export class TopicVoteCreateComponent implements OnInit {
   }
 
   createVote() {
+    console.log('cREATE');
     this.filterOptions();
     this.Notification.removeAll();
 
@@ -444,14 +488,37 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
   private data = inject(DIALOG_DATA);
 
   override ngOnInit(): void {
+    if (!this.vote) {
+      this.vote = Object.assign({}, this.voteDefault);
+    }
     this.topic = this.data.topic;
     this.topicId = this.topic.id;
 
     if (this.topic.voteId) {
       this.router.navigate(['/topics', this.topic.id, 'votes', this.topic.voteId]);
     }
-    if (!this.topic.voteId && !this.vote) {
-      this.vote = Object.assign({}, this.voteDefault);
+
+    this.vote.options.forEach((opt: any) => {
+      const val = opt.value.toLowerCase();
+
+      switch (val) {
+        case 'yes':
+          this.predefinedOptions.yes.enabled = true;
+          break;
+        case 'no':
+          this.predefinedOptions.no.enabled = true;
+          break;
+        case 'neutral':
+          this.extraOptions.neutral.enabled = true;
+          break;
+        case 'veto':
+          this.extraOptions.veto.enabled = true;
+          break;
+      }
+    })
+    if (this.vote.reminderTime) {
+      this.reminder = true;
+      this.setReminderOptions();
     }
   }
 

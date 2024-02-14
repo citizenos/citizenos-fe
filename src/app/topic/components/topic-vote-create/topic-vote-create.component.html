@@ -115,28 +115,24 @@
           <ng-container *ngIf="vote.type===VOTE_TYPES.regular">
             <div class="vote_options_wrap">
               <div class="radio_wrap"
-                [ngClass]="{selected: vote.options[0].enabled, disabled: !TopicService.canEditDescription(topic)}"
-                (click)="vote.options[0].enabled = !vote.options[0].enabled; $event.stopPropagation();filterOptions();">
+                [ngClass]="{selected: predefinedOptions.yes.enabled, disabled: !TopicService.canEditDescription(topic)}"
+                (click)="toggleOption(predefinedOptions.yes.value);">
                 <div class="radio_text_wrap">
                   <div class="radio_lable_wrap">
-                    <label class="checkbox"><span class="bold"
+                    <label class="checkbox" [ngClass]="{selected: predefinedOptions.yes.enabled}"><span class="bold"
                         translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_YES"></span>
-                      <input type="checkbox" [(ngModel)]="vote.options[0].enabled"
-                        [disabled]="!TopicService.canEditDescription(topic)" />
                       <span class="checkmark"></span>
                     </label>
                   </div>
                 </div>
               </div>
               <div class="radio_wrap"
-                [ngClass]="{selected: vote.options[1].enabled, disabled: !TopicService.canEditDescription(topic)}"
-                (click)="vote.options[1].enabled = !vote.options[1].enabled; $event.stopPropagation();filterOptions();">
+                [ngClass]="{selected: predefinedOptions.no.enabled, disabled: !TopicService.canEditDescription(topic)}"
+                (click)="toggleOption(predefinedOptions.no.value);">
                 <div class="radio_text_wrap">
                   <div class="radio_lable_wrap">
-                    <label class="checkbox"><span class="bold"
+                    <label class="checkbox" [ngClass]="{selected: predefinedOptions.no.enabled}"><span class="bold"
                         translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_NO"></span>
-                      <input type="checkbox" [(ngModel)]="vote.options[1].enabled"
-                        [disabled]="!TopicService.canEditDescription(topic)" />
                       <span class="checkmark"></span>
                     </label>
                   </div>
@@ -145,12 +141,11 @@
 
               <div class="radio_wrap"
                 [ngClass]="{selected: extraOptions.neutral.enabled, disabled: !TopicService.canEditDescription(topic)}"
-                (click)="extraOptions.neutral.enabled = !extraOptions.neutral.enabled; $event.stopPropagation();filterOptions();">
+                (click)="toggleOption(extraOptions.neutral.value)">
                 <div class="radio_text_wrap">
                   <div class="radio_lable_wrap">
-                    <label class="checkbox"><span class="bold"
+                    <label class="checkbox" [ngClass]="{selected: extraOptions.neutral.enabled}"><span class="bold"
                         translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_NEUTRAL"></span>
-                      <input type="checkbox" [(ngModel)]="extraOptions.neutral.enabled" />
                       <span class="checkmark"></span>
                     </label>
                   </div>
@@ -158,12 +153,11 @@
               </div>
               <div class="radio_wrap"
                 [ngClass]=" {selected: extraOptions.veto.enabled, disabled: !TopicService.canEditDescription(topic) }"
-                (click)="extraOptions.veto.enabled = !extraOptions.veto.enabled; $event.stopPropagation();filterOptions();">
+                (click)="toggleOption(extraOptions.veto.value)">
                 <div class="radio_text_wrap">
                   <div class="radio_lable_wrap">
-                    <label class="checkbox"><span class="bold"
+                    <label class="checkbox" [ngClass]="{selected: extraOptions.veto.enabled}"><span class="bold"
                         translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_VETO"></span>
-                      <input type="checkbox" [(ngModel)]="extraOptions.veto.enabled" />
                       <span class="checkmark"></span>
                     </label>
                   </div>
@@ -191,7 +185,7 @@
           </div>
           <ng-container *ngIf="vote.type===VOTE_TYPES.multiple">
             <div class="vote_options_wrap">
-              <div class="input_area" *ngFor="let option of vote.options; let $index = index">
+              <div class="input_area" *ngFor="let option of customOptions; let $index = index">
                 <cos-input
                   placeholder="{{'COMPONENTS.TOPIC_VOTE_CREATE.PLACEHOLDER_ENTER_A_POSSIBLE_ANSWER' | translate}}"
                   *ngIf="displayOptInput(option)">
@@ -228,25 +222,23 @@
               </button>
 
               <div class="description_text" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_CAN_ADD_EXTRA_OPTIONS"></div>
-              <div class="radio_wrap voting" [ngClass]="extraOptions.neutral.enabled? 'selected': ''"
-                (click)="extraOptions.neutral.enabled = !extraOptions.neutral.enabled; $event.stopPropagation();filterOptions();">
+              <div class="radio_wrap voting" [ngClass]="{selected: extraOptions.neutral.enabled}"
+                (click)="toggleOption(extraOptions.neutral.value)">
                 <div class="radio_text_wrap">
                   <div class="radio_lable_wrap">
-                    <label class="checkbox"><span class="bold"
+                    <label class="checkbox" [ngClass]="{selected: extraOptions.neutral.enabled}"><span class="bold"
                         translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_NEUTRAL"></span>
-                      <input type="checkbox" [(ngModel)]="extraOptions.neutral.enabled" />
                       <span class="checkmark"></span>
                     </label>
                   </div>
                 </div>
               </div>
-              <div class="radio_wrap voting" [ngClass]="extraOptions.veto.enabled? 'selected': ''"
-                (click)="extraOptions.veto.enabled = !extraOptions.veto.enabled; $event.stopPropagation();filterOptions();">
+              <div class="radio_wrap voting" [ngClass]="{selected: extraOptions.veto.enabled}"
+                (click)="toggleOption(extraOptions.veto.value)">
                 <div class="radio_text_wrap">
                   <div class="radio_lable_wrap">
-                    <label class="checkbox"><span class="bold"
+                    <label class="checkbox" [ngClass]="{selected: extraOptions.veto.enabled}"><span class="bold"
                         translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_VETO"></span>
-                      <input type="checkbox" [(ngModel)]="extraOptions.veto.enabled" />
                       <span class="checkmark"></span>
                     </label>
                   </div>
@@ -574,7 +566,7 @@
                   </div>
                 </div>
                 <cos-calender [minDate]="datePickerMin" [(date)]="endsAt.date" (click)="setEndsAtTime()"></cos-calender>
-                <div class="reminder_wrap">
+                <div class="reminder_wrap" *ngIf="reminderOptions.length">
                   <label class="checkbox" [ngClass]="reminder ? 'selected': ''">
                     <span class="bold"
                       translate="COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_LBL_OPTION_SET_VOTE_REMINDER"></span>
