@@ -1,3 +1,4 @@
+@use "mixins";
 
 .vote_options_wrap {
   display: flex;
@@ -5,6 +6,14 @@
   gap: 8px;
   .radio_wrap {
     width: calc(50% - 8px);
+
+    @include mixins.mobile {
+      width: 100%;
+    }
+  }
+
+  @include mixins.mobile {
+    flex-direction: column;
   }
 
   .description_text,

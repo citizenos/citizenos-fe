@@ -23,12 +23,13 @@
           <div class="bold date_row_title" translate="COMPONENTS.TOPIC_VOTE_DEADLINE.DEADLINE_LBL_TIME">
           </div>
           <div class="input_wrap">
-            <input class="time_input" [(ngModel)]="endsAt.h" (change)="formatTime(endsAt.h); setEndsAtTime()"
-              type="number" [min]="minHours()" max="{{HCount}}" step="1" />
-            <span class="time_separator">:</span>
-            <input type="number" class="time_input" [min]="minMinutes()" max="59" step="5" [(ngModel)]="endsAt.min"
-              (change)="formatTime(endsAt.min);setEndsAtTime()" />
-
+            <div class="time_wrap">
+              <input class="time_input" [(ngModel)]="endsAt.h" (change)="formatTime(endsAt.h); setEndsAtTime()"
+                type="number" [min]="minHours()" max="{{HCount}}" step="1" />
+              <span class="time_separator">:</span>
+              <input type="number" class="time_input" [min]="minMinutes()" max="59" step="5" [(ngModel)]="endsAt.min"
+                (change)="formatTime(endsAt.min);setEndsAtTime()" />
+            </div>
 
             <div class="dropdown" [cosDropdown]>
               <div class="selection">
@@ -79,7 +80,7 @@
           </div>
         </div>
         <cos-calender [minDate]="datePickerMin" [(date)]="endsAt.date" (click)="setEndsAtTime()"></cos-calender>
-        <div class="reminder_wrap">
+        <div class="reminder_wrap" *ngIf="reminderOptions.length">
           <label class="checkbox" [ngClass]="reminder ? 'selected': ''">
             <span class="bold" translate="COMPONENTS.TOPIC_VOTE_DEADLINE.DEADLINE_LBL_OPTION_SET_VOTE_REMINDER"></span>
             <input type="checkbox" [(ngModel)]="reminder" />

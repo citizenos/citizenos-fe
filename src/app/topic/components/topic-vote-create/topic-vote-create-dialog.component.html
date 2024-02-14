@@ -120,7 +120,47 @@
               <div class="small_heading">2. <span translate="COMPONENTS.TOPIC_VOTE_CREATE.SELECT_VOTING_SYSTEM"></span>
               </div>
               <div translate="COMPONENTS.TOPIC_VOTE_CREATE.SELECT_VOTING_SYSTEM_DESC"></div>
-              <div class="radio_wrap" (click)="setVoteType(type)" *ngFor="let type of voteTypes"
+
+              <div class="radio_wrap voting" (click)="setVoteType(VOTE_TYPES.regular)"
+                [ngClass]="{selected: vote.type === VOTE_TYPES.regular, disabled: !TopicService.canEditDescription(topic)}">
+                <div class="radio_text_wrap">
+                  <div class="radio_lable_wrap">
+                    <label class="radio_box">
+                      <input type="radio" [checked]="vote.type === VOTE_TYPES.regular"
+                        [disabled]="!TopicService.canEditDescription(topic)"
+                        [ngClass]="{disabled: !TopicService.canEditDescription(topic)}">
+                      <span class="radio"></span>
+                      <div class="radio_lable"
+                        [translate]="('COMPONENTS.TOPIC_VOTE_CREATE.OPTION_VOTING_'+VOTE_TYPES.regular).toUpperCase()">
+                      </div>
+                    </label>
+                  </div>
+                  <div class="radio_description"
+                    [translate]="('COMPONENTS.TOPIC_VOTE_CREATE.OPTION_VOTING_'+VOTE_TYPES.regular+'_DESC').toUpperCase()">
+                  </div>
+                </div>
+              </div>
+
+              <div class="radio_wrap voting" (click)="setVoteType(VOTE_TYPES.multiple)"
+                [ngClass]="{selected: vote.type === VOTE_TYPES.multiple, disabled: !TopicService.canEditDescription(topic)}">
+                <div class="radio_text_wrap">
+                  <div class="radio_lable_wrap">
+                    <label class="radio_box">
+                      <input type="radio" [checked]="vote.type === VOTE_TYPES.multiple"
+                        [disabled]="!TopicService.canEditDescription(topic)"
+                        [ngClass]="{disabled: !TopicService.canEditDescription(topic)}">
+                      <span class="radio"></span>
+                      <div class="radio_lable"
+                        [translate]="('COMPONENTS.TOPIC_VOTE_CREATE.OPTION_VOTING_'+VOTE_TYPES.multiple).toUpperCase()">
+                      </div>
+                    </label>
+                  </div>
+                  <div class="radio_description"
+                    [translate]="('COMPONENTS.TOPIC_VOTE_CREATE.OPTION_VOTING_'+VOTE_TYPES.multiple+'_DESC').toUpperCase()">
+                  </div>
+                </div>
+              </div>
+              <!--div class="radio_wrap" (click)="setVoteType(type)" *ngFor="let type of voteTypes"
                 [ngClass]="vote.type == type? 'selected': ''">
                 <div class="radio_text_wrap">
                   <div class="radio_lable_wrap">
@@ -135,7 +175,7 @@
                   <div class="radio_description"
                     [translate]="('COMPONENTS.TOPIC_VOTE_CREATE.OPTION_VOTING_'+type+'_DESC').toUpperCase()"></div>
                 </div>
-              </div>
+              </!--div-->
             </div>
           </div>
         </div>
@@ -527,7 +567,7 @@
                         </div>
                         <cos-calender [minDate]="datePickerMin" [(date)]="endsAt.date"
                           (click)="setEndsAtTime()"></cos-calender>
-                        <div class="reminder_wrap">
+                        <div class="reminder_wrap" *ngIf="reminderOptions.length">
                           <label class="checkbox" [ngClass]="reminder ? 'selected': ''">
                             <span class="bold"
                               translate="COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_LBL_OPTION_SET_VOTE_REMINDER"></span>
@@ -607,7 +647,8 @@
                   <div class="radio_text_wrap">
                     <div class="radio_lable_wrap">
                       <label class="checkbox"><span
-                          translate="{{'COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_' + option.value  | uppercase}}"></span>
+                          translate="{{'COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_' + option.value  | uppercase}}"
+                          [translateParams]="{default: option.value}"></span>
                         <span class="checkmark"></span>
                       </label>
                     </div>
