@@ -194,25 +194,25 @@
                   translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_DEFINE_VOTE_ANSWERS"></span>
               </div>
               <div class="vote_options_wrap" *ngIf="vote.type == VOTE_TYPES.regular">
-                <div class="radio_wrap" [ngClass]="vote.options[0].enabled? 'selected': ''"
-                  (click)="vote.options[0].enabled = !vote.options[0].enabled">
+                <div class="radio_wrap"
+                  [ngClass]="{selected: predefinedOptions.yes.enabled, disabled: !TopicService.canEditDescription(topic)}"
+                  (click)="toggleOption(predefinedOptions.yes.value);">
                   <div class="radio_text_wrap">
                     <div class="radio_lable_wrap">
-                      <label class="checkbox"><span class="bold"
+                      <label class="checkbox" [ngClass]="{selected: predefinedOptions.yes.enabled}"><span class="bold"
                           translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_YES"></span>
-                        <input type="checkbox" [(ngModel)]="vote.options[0].enabled" />
                         <span class="checkmark"></span>
                       </label>
                     </div>
                   </div>
                 </div>
-                <div class="radio_wrap" [ngClass]="vote.options[1].enabled? 'selected': ''"
-                  (click)="vote.options[1].enabled = !vote.options[1].enabled">
+                <div class="radio_wrap"
+                  [ngClass]="{selected: predefinedOptions.no.enabled, disabled: !TopicService.canEditDescription(topic)}"
+                  (click)="toggleOption(predefinedOptions.no.value);">
                   <div class="radio_text_wrap">
                     <div class="radio_lable_wrap">
-                      <label class="checkbox"><span class="bold"
+                      <label class="checkbox" [ngClass]="{selected: predefinedOptions.no.enabled}"><span class="bold"
                           translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_NO"></span>
-                        <input type="checkbox" [(ngModel)]="vote.options[1].enabled" />
                         <span class="checkmark"></span>
                       </label>
                     </div>
@@ -245,7 +245,7 @@
                 </div>
               </div>
               <div class="vote_options_wrap" *ngIf="vote.type === 'multiple'">
-                <ng-container *ngFor="let option of vote.options; let $index = index">
+                <ng-container *ngFor="let option of customOptions; let $index = index">
                   <div class="input_area" *ngIf="displayOptInput(option)">
                     <cos-input
                       placeholder="{{'COMPONENTS.TOPIC_VOTE_CREATE.PLACEHOLDER_ENTER_A_POSSIBLE_ANSWER' | translate}}">
@@ -318,8 +318,8 @@
               <div class="input_area min_max_options">
                 <label class="bold" translate="COMPONENTS.TOPIC_VOTE_CREATE.VOTE_LBL_MIN_CHOICES"></label>
                 <div class="options_count_input_wrap">
-                  <button class="btn_medium_voting_light icon" (click)="optionsCountDown('min')"><svg width="12"
-                      height="2" viewBox="0 0 12 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <button class="btn_medium_voting_light icon" (click)="filterOptions(); optionsCountDown('min')"><svg
+                      width="12" height="2" viewBox="0 0 12 2" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path
                         d="M1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0L11 0C11.5523 0 12 0.447715 12 1C12 1.55228 11.5523 2 11 2L1 2Z"
                         fill="#5AB467" />
@@ -327,7 +327,7 @@
                   </button>
                   <input class="options_count_input" type="number" [min]="1" [max]="vote.options.length"
                     [(ngModel)]="vote.minChoices" />
-                  <button class="btn_medium_voting_light icon" (click)="optionsCountUp('min')">
+                  <button class="btn_medium_voting_light icon" (click)="filterOptions();optionsCountUp('min')">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path
                         d="M8 16C7.47105 16 7.04225 15.5712 7.04225 15.0423L7.04225 8.95775L0.957747 8.95775C0.428798 8.95775 0 8.52895 0 8C0 7.47105 0.428798 7.04225 0.957747 7.04225L7.04225 7.04225L7.04225 0.957747C7.04225 0.428798 7.47105 0 8 0C8.52895 0 8.95775 0.428798 8.95775 0.957747L8.95775 7.04225L15.0423 7.04225C15.5712 7.04225 16 7.47105 16 8C16 8.52895 15.5712 8.95775 15.0423 8.95775H8.95775V15.0423C8.95775 15.5712 8.52895 16 8 16Z"
@@ -339,7 +339,7 @@
               <div class="input_area min_max_options">
                 <label class="bold" translate="COMPONENTS.TOPIC_VOTE_CREATE.VOTE_LBL_MAX_CHOICES"></label>
                 <div class="options_count_input_wrap">
-                  <button class="btn_medium_voting_light icon" (click)="optionsCountDown()">
+                  <button class="btn_medium_voting_light icon" (click)="filterOptions();optionsCountDown()">
                     <svg width="12" height="2" viewBox="0 0 12 2" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path
                         d="M1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0L11 0C11.5523 0 12 0.447715 12 1C12 1.55228 11.5523 2 11 2L1 2Z"
@@ -348,7 +348,7 @@
                   </button>
                   <input class="options_count_input" type="number" [min]="1" [max]="vote.options.length"
                     [(ngModel)]="vote.maxChoices" />
-                  <button class="btn_medium_voting_light icon" (click)="optionsCountUp()">
+                  <button class="btn_medium_voting_light icon" (click)="filterOptions();optionsCountUp()">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path
                         d="M8 16C7.47105 16 7.04225 15.5712 7.04225 15.0423L7.04225 8.95775L0.957747 8.95775C0.428798 8.95775 0 8.52895 0 8C0 7.47105 0.428798 7.04225 0.957747 7.04225L7.04225 7.04225L7.04225 0.957747C7.04225 0.428798 7.47105 0 8 0C8.52895 0 8.95775 0.428798 8.95775 0.957747L8.95775 7.04225L15.0423 7.04225C15.5712 7.04225 16 7.47105 16 8C16 8.52895 15.5712 8.95775 15.0423 8.95775H8.95775V15.0423C8.95775 15.5712 8.52895 16 8 16Z"
@@ -490,9 +490,11 @@
                 <div class="radio_text_wrap date_selector">
                   <div class="radio_lable_wrap" (click)="toggleDeadline(); $event.stopPropagation()">
                     <label class="checkbox" [ngClass]="{selected: deadline}">
-                      <span class="deadline bold" *ngIf="deadline">{{deadline | date: 'YYYY-MM-dd HH:mm'}}</span>
-                      <span class="bold" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_DEADLINE"></span>
                       <span class="checkmark"></span>
+                      <div class="checkbox_text_wrap">
+                        <span class="bold" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_DEADLINE"></span>
+                        <span class="deadline bold" *ngIf="deadline">{{deadline | date: 'YYYY-MM-dd HH:mm'}}</span>
+                      </div>
                     </label>
                   </div>
                   <div class="radio_description">
@@ -504,13 +506,14 @@
                           <div class="bold date_row_title" translate="COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_LBL_TIME">
                           </div>
                           <div class="input_wrap">
-                            <input class="time_input" [(ngModel)]="endsAt.h"
-                              (change)="formatTime(endsAt.h); setEndsAtTime()" type="number" [min]="minHours()"
-                              max="{{HCount}}" step="1" />
-                            <span class="time_separator">:</span>
-                            <input type="number" class="time_input" [min]="minMinutes()" max="59" step="5"
-                              [(ngModel)]="endsAt.min" (change)="formatTime(endsAt.min);setEndsAtTime()" />
-
+                            <div class="time_wrap">
+                              <input class="time_input" [(ngModel)]="endsAt.h"
+                                (change)="formatTime(endsAt.h); setEndsAtTime()" type="number" [min]="minHours()"
+                                max="{{HCount}}" step="1" />
+                              <span class="time_separator">:</span>
+                              <input type="number" class="time_input" [min]="minMinutes()" max="59" step="5"
+                                [(ngModel)]="endsAt.min" (change)="formatTime(endsAt.min);setEndsAtTime()" />
+                            </div>
 
                             <div class="dropdown" [cosDropdown]>
                               <div class="selection">

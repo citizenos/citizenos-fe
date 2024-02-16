@@ -191,11 +191,12 @@ export class TopicVoteCreateComponent implements OnInit {
   };
 
   addOption() {
-    this.vote.options.push({ value: null });
+    this.customOptions.push({ value: '' });
   };
 
   removeOption(key: number) {
-    this.vote.options.splice(key, 1);
+    this.customOptions.splice(key, 1);
+    this.filterOptions();
   };
 
   optionsCountUp(type?: string) {
@@ -330,7 +331,6 @@ export class TopicVoteCreateComponent implements OnInit {
   };
 
   saveVoteSettings() {
-    console.log('saveVOte');
     if (this.saveVote) {
       this.filterOptions();
       if (!this.reminder) {
@@ -385,22 +385,19 @@ export class TopicVoteCreateComponent implements OnInit {
   };
 
   filterOptions() {
+    console.log('FILTER');
     let options = [];
     if (this.vote.type === this.VOTE_TYPES.regular) {
       this.vote.options = [];
       for (let o in this.predefinedOptions) {
-        console.log(o);
         const option = this.predefinedOptions[o];
         if (option.enabled) {
           options.push({ value: option.value });
         }
-
-
-        console.log('OPTS',options)
       }
     } else {
-      for (let option in this.customOptions) {
-          options.push(option);
+      for (let key in this.customOptions) {
+        options.push(this.customOptions[key]);
       }
     }
     for (let o in this.extraOptions) {
@@ -409,11 +406,10 @@ export class TopicVoteCreateComponent implements OnInit {
         options.push({ value: option.value });
       }
     }
-    options = this.vote.options.filter((option: any) => {
+    this.vote.options = Object.assign([], options);
+    this.vote.options = this.vote.options.filter((option: any) => {
       return !!option.value
     });
-    this.vote.options = Object.assign(this.vote.options, options);
-    console.log('VOTEOPTIONS', options, this.vote.options);
   }
 
   displayOptInput(option: any) {
@@ -421,10 +417,8 @@ export class TopicVoteCreateComponent implements OnInit {
   }
 
   updateVote() {
-    console.log('UPDATE');
     this.filterOptions();
     const updateVote = Object.assign({topicId: this.topic.id}, this.vote);
-    console.log('DEADLINE', this.deadline);
     if (this.deadline) {
       updateVote.endsAt = this.deadline;
     }
@@ -432,7 +426,6 @@ export class TopicVoteCreateComponent implements OnInit {
   }
 
   createVote() {
-    console.log('cREATE');
     this.filterOptions();
     this.Notification.removeAll();
 

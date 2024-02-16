@@ -189,7 +189,9 @@
           font-size: 16px;
           line-height: 32px;
           margin-bottom: 36px;
-
+          strong, li, b, i {
+            font-size: 16px;
+          }
           ul,
           ol,
           li {
