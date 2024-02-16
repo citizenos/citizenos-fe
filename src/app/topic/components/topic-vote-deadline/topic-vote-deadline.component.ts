@@ -153,6 +153,18 @@ export class TopicVoteDeadlineComponent {
     this.setEndsAtTime();
   };
 
+  timeFormatDisabled () {
+    const now = new Date();
+    const deadline = new Date(this.deadline);
+    if (new Date(deadline.getFullYear(), deadline.getMonth(), deadline.getDate()).getTime() === new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime()) {
+      if (deadline.getHours() > 12) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   getTimeZoneName(value: number) {
     return (this.timezones.find((item) => { return item.value === value })).name;
   };
