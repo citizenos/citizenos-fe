@@ -51,7 +51,7 @@
                   (click)="endsAt.timeFormat = 24; setTimeFormat()">
                 </div>
                 <div class="option" translate="COMPONENTS.TOPIC_VOTE_DEADLINE.DEADLINE_TIME_OPTION_AM"
-                  (click)="endsAt.timeFormat = 'AM'; setTimeFormat()">
+                  (click)="endsAt.timeFormat = 'AM'; setTimeFormat()" [ngClass]="{disabled: timeFormatDisabled()}">
                 </div>
                 <div class="option" translate="COMPONENTS.TOPIC_VOTE_DEADLINE.DEADLINE_TIME_OPTION_PM"
                   (click)="endsAt.timeFormat = 'PM'; setTimeFormat()">

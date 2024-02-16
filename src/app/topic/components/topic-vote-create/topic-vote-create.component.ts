@@ -295,6 +295,18 @@ export class TopicVoteCreateComponent implements OnInit {
     return val;
   };
 
+  timeFormatDisabled () {
+    const now = new Date();
+    const deadline = new Date(this.deadline);
+    if (new Date(deadline.getFullYear(), deadline.getMonth(), deadline.getDate()).getTime() === new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime()) {
+      if (deadline.getHours() > 12) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   setTimeFormat() {
     this.HCount = 23;
     if (this.endsAt.timeFormat !== 24) {
