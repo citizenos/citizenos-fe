@@ -202,14 +202,12 @@ export class VoteCreateComponent implements OnInit {
             if (this.topic.id) {
               this.TopicInviteUserService.setParam('topicId', this.topic.id);
               this.invites$ = this.loadInvite$.pipe(
-                tap(() => console.log('LOAD INVITES')),
                 switchMap(() => this.TopicInviteUserService.loadItems())
               );
               this.TopicMemberUserService.setParam('topicId', this.topic.id);
               this.members$ = this.loadMembers$.pipe(
                 switchMap(() => this.TopicMemberUserService.loadItems()),
                 tap((members) => {
-                  console.log('MEMBERS', members);
                   this.topic.members.users = members;
                   return members;
                 })
@@ -396,7 +394,6 @@ export class VoteCreateComponent implements OnInit {
   showBlockIntro() {
     this.block.intro = true;
     setTimeout(() => {
-      console.log(this.introInput)
       this.introInput.nativeElement.focus();
     }, 200);
   }
@@ -583,10 +580,7 @@ export class VoteCreateComponent implements OnInit {
   }
 
   saveVoteSettings(vote?: any) {
-    console.log('SAVE',vote);
     if (vote) {
-      console.log(vote);
-      console.log(vote);
       this.vote = vote;
     }
   }

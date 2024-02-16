@@ -368,17 +368,19 @@
   }
 
   .topic_content {
-    display: flex;
-    flex-direction: column;
+    display: block;
     padding: 8px 16px;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
     position: relative;
     font-weight: 400;
-    font-size: 15px;
-    line-height: 30px;
+    font-size: 16px;
+    line-height: 32px;
     margin-bottom: 36px;
+    strong, li, b, i {
+      font-size: 16px;
+    }
   }
 
   .button_wrap {
