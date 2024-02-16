@@ -158,6 +158,7 @@
     .checkbox_text_wrap {
       display: flex;
       justify-content: space-between;
+      width: calc(100% - 40px);
 
       @include mixins.mobile {
         flex-direction: column;

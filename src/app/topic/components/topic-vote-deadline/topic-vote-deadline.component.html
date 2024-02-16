@@ -20,6 +20,10 @@
       <div class="dialog_description" translate="COMPONENTS.TOPIC_VOTE_DEADLINE.LBL_EDIT_VOTING_DEADLINE_DESC"></div>
       <div class="deadline_wrap">
         <div class="date_row">
+          <span class="deadline bold" translate="COMPONENTS.TOPIC_VOTE_DEADLINE.LBL_DEADLINE"></span>
+          <span class="deadline bold" *ngIf="deadline">{{deadline | date: 'YYYY-MM-dd HH:mm'}}</span>
+        </div>
+        <div class="date_row">
           <div class="bold date_row_title" translate="COMPONENTS.TOPIC_VOTE_DEADLINE.DEADLINE_LBL_TIME">
           </div>
           <div class="input_wrap">
