@@ -827,6 +827,7 @@
       "BTN_START_VOTE": "Začať hlasovanie témy"
     },
     "TOPIC_VOTE_DEADLINE": {
+      "LBL_DEADLINE": "@:COMPONENTS.TOPIC_VOTE_CREATE.LBL_DEADLINE",
       "DIALOG_HEADING": "Upraviť termín hlasovania",
       "DIALOG_HEADING_ADD": "Add voting deadline",
       "LBL_EDIT_VOTING_DEADLINE": "Upraviť termín hlasovania",
