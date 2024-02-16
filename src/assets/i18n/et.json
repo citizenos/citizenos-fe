@@ -2706,6 +2706,8 @@
     "ACTIVITY_USER_UPDATE_GROUPMEMBERUSER_NONE": "Kasutaja <em>{{userName}}</em> keelas kasutajal <em>{{userName2}}</em> juurdepääsu grupile \"<em>{{groupName}}</em>\"",
     "ACTIVITY_USER_UPDATE_GROUPMEMBERUSER_NONE_ACTIVITYGROUP": "Kasutaja <em>{{userName}}</em> ja <em>{{groupCount}}</em> teist kasutajat keelasid kasutajate juurdepääsu grupile \"<em>{{groupName}}</em>\"",
     "ACTIVITY_USER_UPDATE_GROUPMEMBERUSER_NONE_USERACTIVITYGROUP": "Kasutaja <em>{{userName}}</em> tühistas grupis \"<em>{{groupName}}</em>\" <em>{{groupCount}}</em> kasutaja õigused",
+    "ACTIVITY_USER_UPDATE_GROUPINVITEUSER:": "@:ACTIVITY_FEED.ACTIVITY_USER_UPDATE_GROUPMEMBERUSER",
+    "ACTIVITY_USER_UPDATE_GROUPINVITEUSER_NONE": "@:ACTIVITY_FEED.ACTIVITY_USER_UPDATE_GROUPMEMBERUSER_NONE",
     "ACTIVITY_USER_CREATE_USERNOTIFICATIONSETTINGS_TOPIC": "Oled seadistanud teema <em>{{topicTitle}}</em> teavitused",
     "ACTIVITY_USER_UPDATE_USERNOTIFICATIONSETTINGS_TOPIC": "Oled uuendanud teema <em>{{topicTitle}}</em> teavituste seadeid",
     "ACTIVITY_USER_DELETE_USERNOTIFICATIONSETTINGS_TOPIC": "Oled tühistanud teemal <em>{{topicTitle}}</em> teavituste saatmist",
