@@ -827,6 +827,7 @@
       "BTN_START_VOTE": "Начать голосование по теме"
     },
     "TOPIC_VOTE_DEADLINE": {
+      "LBL_DEADLINE": "@:COMPONENTS.TOPIC_VOTE_CREATE.LBL_DEADLINE",
       "DIALOG_HEADING": "Редактировать срок голосования",
       "DIALOG_HEADING_ADD": "Add voting deadline",
       "LBL_EDIT_VOTING_DEADLINE": "Редактировать срок голосования",
