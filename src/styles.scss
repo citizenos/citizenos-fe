@@ -602,13 +602,13 @@ html {
   line-height: 32px;
   margin-bottom: 36px;
 
-  ul,
-  ol,
-  li {
+  strong, b, i, em, s, u, ul, ol, li {
     font-size: 16px;
+    line-height: 32px; /* 200% */
+  }
+  ul, ol, li {
     font-style: normal;
     font-weight: 400;
-    line-height: 32px; /* 200% */
   }
 }
 
