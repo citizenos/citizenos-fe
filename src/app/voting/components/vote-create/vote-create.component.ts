@@ -524,6 +524,12 @@ export class VoteCreateComponent implements OnInit {
         this.TopicService.reloadTopic();
         this.router.navigate(['topics', this.topic.id], { fragment: 'voting' });
       });
+      if (this.isnew) {
+        this.Notification.addSuccess('VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_TITLE');
+        this.inviteMembers();
+      } else {
+        this.Notification.addSuccess('VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE');
+      }
     });
   }
 
