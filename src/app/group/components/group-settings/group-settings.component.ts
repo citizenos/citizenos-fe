@@ -27,6 +27,7 @@ export class GroupSettingsComponent {
   errors?: any;
   imageFile?: any;
   uploadedImage?: any;
+  descriptionLength = 500;
   public tmpImageUrl?: any;
 
   constructor(

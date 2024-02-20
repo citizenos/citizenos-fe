@@ -87,12 +87,12 @@
                   <span translate="{{errors?.name}}"></span>
                 </label>
               </cos-input>
-              <div translate="VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_DESCRIPTION_DESC"></div>
-              <cos-input placeholder="{{'VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_DESCRIPTION' | translate}}">
+              <div translate="VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_DESCRIPTION_DESC" [translateParams]="{descriptionLength: descriptionLength}"></div>
+              <cos-input placeholder="{{'VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_DESCRIPTION' }}">
                 <textarea id="groupDescription"
-                  [placeholder]="'VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_DESCRIPTION' | translate" rows="5"
+                  [placeholder]="'VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_DESCRIPTION'" rows="5"
                   [(ngModel)]="group.description" [ngClass]="{'error_input': errors?.description}"
-                  [maxlength]="250"></textarea>
+                  [maxlength]="descriptionLength"></textarea>
                 <label for="groupDescription" class="error_label" *ngIf="errors?.description">
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd"

@@ -68,6 +68,7 @@ export class GroupCreateComponent implements OnInit {
   members = <any[]>[];
   groupLevel = 'read';
   maxUsers = 550;
+  descriptionLength = 500;
   private EMAIL_SEPARATOR_REGEXP = /[;,\s]/ig;
 
   constructor(
