@@ -1,5 +1,5 @@
 import { Argument } from 'src/app/interfaces/argument';
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
 import { TopicArgumentService } from 'src/app/services/topic-argument.service';
 import { DIALOG_DATA, DialogRef } from 'src/app/shared/dialog';
 import { take } from 'rxjs';
@@ -11,6 +11,7 @@ import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms
   styleUrls: ['./argument-report.component.scss']
 })
 export class ArgumentReportComponent implements OnInit {
+  @ViewChild('reportText') reportTextInput!: ElementRef;
   argument!: Argument;
   reportTypes = Object.keys(this.TopicArgumentService.ARGUMENT_REPORT_TYPES);
   errors?:any;
@@ -32,6 +33,10 @@ export class ArgumentReportComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  ngAfterViewInit(): void {
+    this.reportTextInput.nativeElement.focus();
   }
 
   doReport() {
