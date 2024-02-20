@@ -283,6 +283,16 @@ export class VoteCreateComponent implements OnInit {
     }
   }
 
+  isNextDisabled(tabSelected: string | void) {
+    if (tabSelected === 'preview' && !this.TopicService.canDelete(this.topic)) {
+      return true;
+    } else if (!this.topic.title || !this.topic.intro || !this.topic.description) {
+      return true;
+    }
+
+    return false;
+  }
+
   nextTab(tab: string | void) {
     if (tab) {
       const tabIndex = this.tabs.indexOf(tab);

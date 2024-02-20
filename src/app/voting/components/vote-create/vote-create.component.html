@@ -979,7 +979,7 @@
                   class="btn_medium_secondary mobile_hidden" (click)="saveAsDraft()"
                   translate="VIEWS.VOTE_CREATE.FOOTER_BTN_SAVE_AS_DRAFT">
                 </button>
-                <button class="btn_medium_submit icon mobile_show" *ngIf="tabSelected!=='preview'"
+                <button class="btn_medium_submit icon mobile_show" [ngClass]="{disabled: isNextDisabled(tabSelected)}" *ngIf="tabSelected!=='preview'"
                   (click)="nextTab(tabSelected)">
                   <svg id="continue_btn" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
@@ -991,7 +991,7 @@
                 <button *ngIf="!isnew" class="btn_medium_secondary icon mobile_hidden" (click)="saveChanges()"
                   translate="VIEWS.VOTE_CREATE.FOOTER_BTN_SAVE_CHANGES"></button>
 
-                <button class="btn_medium_submit icon mobile_hidden"
+                <button class="btn_medium_submit icon mobile_hidden" [ngClass]="{disabled: isNextDisabled(tabSelected)}"
                   (click)="(tabSelected!=='preview')? nextTab(tabSelected): (topic.status === TopicService.STATUSES.draft)? publish(): edit();">
                   <span class="btn_text mobile_hidden"
                     [translate]="(tabSelected!=='preview')? 'VIEWS.VOTE_CREATE.FOOTER_BTN_CONTINUE': (topic.status === TopicService.STATUSES.draft)?'VIEWS.VOTE_CREATE.FOOTER_BTN_CREATE': 'VIEWS.VOTE_CREATE.FOOTER_BTN_SAVE_CHANGES'"></span>
