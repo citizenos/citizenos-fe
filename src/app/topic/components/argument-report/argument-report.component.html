@@ -64,7 +64,7 @@
         </cos-input>
 
         <cos-input placeholder="{{'COMPONENTS.ARGUMENT_REPORT.PLACEHOLDER_REPORT_TEXT' | translate}}">
-          <textarea formControlName="text"
+          <textarea  #reportText formControlName="text"
             [ngClass]="{'error_input': report.controls['text'].errors && report.controls['text'].errors['required'] && report.touched}"
             [placeholder]="'COMPONENTS.ARGUMENT_REPORT.PLACEHOLDER_REPORT_TEXT' | translate" [maxlength]="2048"
             rows="5"></textarea>
@@ -84,7 +84,7 @@
     </div>
     <div class="dialog_content">
       <div class="button_wrap">
-        <button class="btn_big_submit" [disabled]="report.invalid" translate="COMPONENTS.ARGUMENT_REPORT.BTN_SUBMIT"
+        <button class="btn_big_submit" [ngClass]="{disabled: report.invalid}" translate="COMPONENTS.ARGUMENT_REPORT.BTN_SUBMIT"
           (click)="doReport()"></button>
         <a dialog-close translate="COMPONENTS.ARGUMENT_REPORT.BTN_CANCEL"></a>
       </div>
