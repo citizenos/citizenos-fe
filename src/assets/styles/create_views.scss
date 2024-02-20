@@ -401,6 +401,10 @@
 
           color: var(--color-discussion);
         }
+        &.error {
+          border-color: var(--color-error);
+          color: var(--color-error);
+        }
       }
 
       .block_content {
