@@ -214,7 +214,37 @@ export class TopicFormComponent {
     this.router.navigate([], { fragment: tab });
   }
 
+
+  isNextDisabled(tabSelected: string | void) {
+    if (tabSelected === 'preview' && !this.TopicService.canDelete(this.topic)) {
+      return true;
+    } else if (!this.topic.title || !this.topic.intro || !this.topic.description) {
+      return true;
+    }
+
+    return false;
+  }
+
   nextTab(tab: string | void) {
+    if (tab === 'info') {
+      let invalid = false;
+      if (!this.topic.title) {
+        this.block.title = true;
+        invalid = true;
+        setTimeout(() => {
+          this.titleInput.nativeElement.parentNode.parentNode.classList.add('error');
+        });
+      } if (!this.topic.intro) {
+        this.block.intro = true;
+        invalid = true;
+        setTimeout(() => {
+          this.introInput.nativeElement.parentNode.parentNode.classList.add('error');
+        });
+      }
+      if (invalid) {
+        return
+      }
+    }
     window.scrollTo(0, 0);
     this.updateTopic();
     if (tab) {
@@ -348,6 +378,9 @@ export class TopicFormComponent {
   };
 
   updateTopic() {
+    this.titleInput.nativeElement.parentNode.parentNode.classList.remove('error');
+    this.introInput.nativeElement.parentNode.parentNode.classList.remove('error');
+
     return this.TopicService.patch(this.topic).pipe(take(1)).subscribe(() => {
       this.topicGroups.forEach((group) => {
         this.GroupMemberTopicService.save({
