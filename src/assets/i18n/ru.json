@@ -1756,7 +1756,7 @@
       "INFO_SETTINGS_HEADING_GENERAL_INFO": "Информация о группе",
       "INFO_SETTINGS_INPUT_NAME_DESC": "Используйте понятное и логичное название.",
       "INFO_SETTINGS_INPUT_NAME": "Название",
-      "INFO_SETTINGS_INPUT_DESCRIPTION_DESC": "Добавить описание группы (не более 250 символов)",
+      "INFO_SETTINGS_INPUT_DESCRIPTION_DESC": "Add a group description (max {{descriptionLength}} characters)",
       "INFO_SETTINGS_INPUT_DESCRIPTION": "Описание",
       "INFO_SETTINGS_CHOOSE_IMAGE_DESC": "Загрузите изображение, которое хорошо представляет вашу группу.",
       "INFO_SETTINGS_LBL_DROP_IMAGE": "Перетащите изображение сюда или нажмите кнопку",
