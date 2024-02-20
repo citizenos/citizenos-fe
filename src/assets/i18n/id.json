@@ -1756,7 +1756,7 @@
       "INFO_SETTINGS_HEADING_GENERAL_INFO": "Group Information",
       "INFO_SETTINGS_INPUT_NAME_DESC": "Use a name that’s understandable and logical.",
       "INFO_SETTINGS_INPUT_NAME": "Name",
-      "INFO_SETTINGS_INPUT_DESCRIPTION_DESC": "Add a group description (max 250 characters)",
+      "INFO_SETTINGS_INPUT_DESCRIPTION_DESC": "Add a group description (max {{descriptionLength}} characters)",
       "INFO_SETTINGS_INPUT_DESCRIPTION": "Description",
       "INFO_SETTINGS_CHOOSE_IMAGE_DESC": "Upload an image that represents your group well.",
       "INFO_SETTINGS_LBL_DROP_IMAGE": "Drop the image here or click the button",
