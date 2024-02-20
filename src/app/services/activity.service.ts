@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable } from 'rxjs';
+import { BehaviorSubject, exhaustMap, map, Observable, shareReplay } from 'rxjs';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import * as jsonpatch from 'fast-json-patch';
@@ -24,10 +24,22 @@ export class ActivityService extends ItemsListService {
   };
   public filters = ['all', 'userTopics', 'userGroups', 'user', 'self'];
   params$ = new BehaviorSubject(Object.assign({}, this.params));
+  private loadUnread$ = new BehaviorSubject<void>(undefined);
   lastViewTime = <string | null>null;
   constructor(public Location: LocationService, public Auth: AuthService, public http: HttpClient, public $translate: TranslateService, public router: Router) {
     super();
     this.items$ = this.loadItems();
+  }
+
+  loadUnreadItems(params?: { [key: string]: any }) {
+    return this.loadUnread$.pipe(
+      exhaustMap(() => this.getUnreadActivities(params)),
+      shareReplay()
+    );
+  };
+
+  reloadUnreadItems(): void {
+    this.loadUnread$.next();
   }
 
   getItems(params: any) {
@@ -351,7 +363,6 @@ export class ActivityService extends ItemsListService {
   };
 
   getActivityUsers = (activity: any, values: any) => {
-    console.log(activity, values);
     let dataobject = activity.data.object;
     if (Array.isArray(dataobject)) {
       dataobject = dataobject[0];

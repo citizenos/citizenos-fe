@@ -22,7 +22,7 @@ export class ActivitiesButtonComponent {
   ) {
     this.unreadActivitiesCount$ = this.auth.loggedIn$.pipe(switchMap((loggedIn: any) => {
       if (loggedIn) {
-        return this.ActivityService.getUnreadActivities({ groupId: this.groupId, topicId: this.topicId });
+        return this.ActivityService.loadUnreadItems({ groupId: this.groupId, topicId: this.topicId });
       }
       return of(0);
     }),
