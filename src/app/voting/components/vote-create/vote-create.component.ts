@@ -295,6 +295,25 @@ export class VoteCreateComponent implements OnInit {
 
   nextTab(tab: string | void) {
     if (tab) {
+      if (tab === 'info') {
+        let invalid = false;
+        if (!this.topic.title) {
+          this.block.title = true;
+          invalid = true;
+          setTimeout(() => {
+            this.titleInput?.nativeElement?.parentNode.parentNode.classList.add('error');
+          });
+        } if (!this.topic.intro) {
+          this.block.intro = true;
+          invalid = true;
+          setTimeout(() => {
+            this.introInput?.nativeElement?.parentNode.parentNode.classList.add('error');
+          });
+        }
+        if (invalid) {
+          return
+        }
+      }
       const tabIndex = this.tabs.indexOf(tab);
       if (tabIndex === 1) {
         this.updateTopic().pipe(take(1)).subscribe();;
@@ -474,6 +493,9 @@ export class VoteCreateComponent implements OnInit {
   }
 
   updateTopic() {
+    this.titleInput?.nativeElement?.parentNode.parentNode.classList.remove('error');
+    this.introInput?.nativeElement?.parentNode.parentNode.classList.remove('error');
+
     return this.TopicService.patch(this.topic)
   }
   updateVote() {

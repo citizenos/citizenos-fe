@@ -31,6 +31,22 @@
 .hidden {
   display: none;
 }
+
+#notification_wrap {
+  position: absolute;
+  z-index: 999999;
+  top: 0;
+  padding: 0 24px;
+  width: 100%;
+  padding-left: 224px;
+  @include mixins.tablet {
+    padding-left: 24px;
+  }
+  @include mixins.mobile {
+    padding: 0 16px;
+  }
+}
+
 .main_content {
   display: flex;
   flex-direction: column;
@@ -281,16 +297,16 @@ input {
     box-shadow: 0px 8px 20px 0px rgba(220, 231, 240, 0.3),
       0px 12px 16px 0px rgba(50, 85, 112, 0.1);
 
-      &::-webkit-scrollbar {
-        width: 4px;
-        height: 4px;
-        background-color: var(--color-scrollbar);
-      }
+    &::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+      background-color: var(--color-scrollbar);
+    }
 
-      &::-webkit-scrollbar-thumb {
-        background-color: var(--color-scrollbar-thumb);
-        border-radius: 8px;
-      }
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--color-scrollbar-thumb);
+      border-radius: 8px;
+    }
     &.filter_options {
       padding: 16px 8px;
     }
@@ -365,7 +381,6 @@ input {
       }
 
       .options {
-
         &::-webkit-scrollbar {
           width: 4px;
           height: 4px;
@@ -422,7 +437,6 @@ input {
         background-color: var(--color-scrollbar-thumb);
         border-radius: 8px;
       }
-
     }
   }
   .button_options {
@@ -602,11 +616,21 @@ html {
   line-height: 32px;
   margin-bottom: 36px;
 
-  strong, b, i, em, s, u, ul, ol, li {
+  strong,
+  b,
+  i,
+  em,
+  s,
+  u,
+  ul,
+  ol,
+  li {
     font-size: 16px;
     line-height: 32px; /* 200% */
   }
-  ul, ol, li {
+  ul,
+  ol,
+  li {
     font-style: normal;
     font-weight: 400;
   }
@@ -1329,7 +1353,8 @@ tour-item-template {
           &:hover {
             background-color: var(--color-voting-disabled);
 
-            .checmark, .radio {
+            .checmark,
+            .radio {
               border-color: initial;
             }
           }
@@ -1339,7 +1364,8 @@ tour-item-template {
           gap: 16px;
         }
 
-        .checkmark, .radio {
+        .checkmark,
+        .radio {
           background-color: var(--color-surfaces);
           //    border: 1px solid var(--color-voting-disabled);
 
@@ -1351,11 +1377,13 @@ tour-item-template {
         &.selected {
           background-color: var(--color-voting-disabled);
 
-          .checkmark, .radio {
+          .checkmark,
+          .radio {
             background-color: var(--color-voting);
             border-color: var(--input-checkbox-border-voting);
           }
-          .checkmark::after, .radio::after {
+          .checkmark::after,
+          .radio::after {
             display: block;
           }
         }

@@ -232,13 +232,13 @@ export class TopicFormComponent {
         this.block.title = true;
         invalid = true;
         setTimeout(() => {
-          this.titleInput.nativeElement.parentNode.parentNode.classList.add('error');
+          this.titleInput?.nativeElement?.parentNode.parentNode.classList.add('error');
         });
       } if (!this.topic.intro) {
         this.block.intro = true;
         invalid = true;
         setTimeout(() => {
-          this.introInput.nativeElement.parentNode.parentNode.classList.add('error');
+          this.introInput?.nativeElement?.parentNode.parentNode.classList.add('error');
         });
       }
       if (invalid) {
@@ -378,8 +378,8 @@ export class TopicFormComponent {
   };
 
   updateTopic() {
-    this.titleInput.nativeElement.parentNode.parentNode.classList.remove('error');
-    this.introInput.nativeElement.parentNode.parentNode.classList.remove('error');
+    this.titleInput?.nativeElement?.parentNode.parentNode.classList.remove('error');
+    this.introInput?.nativeElement?.parentNode.parentNode.classList.remove('error');
 
     return this.TopicService.patch(this.topic).pipe(take(1)).subscribe(() => {
       this.topicGroups.forEach((group) => {

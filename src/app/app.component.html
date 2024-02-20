@@ -1,4 +1,7 @@
 <ngx-loading-bar></ngx-loading-bar>
+<div id="notification_wrap">
+  <notification></notification>
+</div>
 <!-- NAV -->
 <nav *ngIf="translate.currentLang"></nav>
 <!-- CONTENT -->
@@ -11,9 +14,6 @@
   </div>
   <!-- CONTENT -->
   <div id="content" [ngClass]="!displaySearch() ? 'content_no_padding' : ''">
-    <div id="notification_wrap">
-      <notification></notification>
-    </div>
     <!-- ROUTES CONTENT -->
     <router-outlet id="view"></router-outlet>
   </div>
