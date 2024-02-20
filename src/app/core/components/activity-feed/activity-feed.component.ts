@@ -1,7 +1,7 @@
 import { style, transition, trigger, animate, state } from '@angular/animations';
 import { Component, OnInit, Input, inject } from '@angular/core';
 import { DIALOG_DATA, DialogRef, DialogService } from 'src/app/shared/dialog';
-import { map, tap, of } from 'rxjs';
+import { map, tap, of, take } from 'rxjs';
 import { ActivityService } from 'src/app/services/activity.service'
 import { Location } from '@angular/common';
 @Component({
@@ -46,7 +46,6 @@ export class ActivityFeedComponent implements OnInit {
     this.ActivityService.setParam('include', filter)
   }
   ngOnInit(): void {
-    console.log(this.modal);
     this.ActivityService.reset();
     if (this.groupId) {
       this.feedType = 'group';
@@ -82,6 +81,7 @@ export class ActivityFeedComponent implements OnInit {
   }
 
   close() {
+    this.ActivityService.reloadUnreadItems();
     this.show = false;
     if (!this.modal) {
       this.location.back();
@@ -101,5 +101,6 @@ export class ActivityFeedDialogComponent extends ActivityFeedComponent {
 
   override close() {
     this.show = false;
+    this.ActivityService.reloadUnreadItems();
   }
 }
