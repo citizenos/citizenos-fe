@@ -88,9 +88,9 @@
                 </label>
               </cos-input>
               <div translate="VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_DESCRIPTION_DESC" [translateParams]="{descriptionLength: descriptionLength}"></div>
-              <cos-input placeholder="{{'VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_DESCRIPTION' }}">
+              <cos-input placeholder="{{'VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_DESCRIPTION' | translate }}">
                 <textarea id="groupDescription"
-                  [placeholder]="'VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_DESCRIPTION'" rows="5"
+                  [placeholder]="'VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_DESCRIPTION' | translate" rows="5"
                   [(ngModel)]="group.description" [ngClass]="{'error_input': errors?.description}"
                   [maxlength]="descriptionLength"></textarea>
                 <label for="groupDescription" class="error_label" *ngIf="errors?.description">

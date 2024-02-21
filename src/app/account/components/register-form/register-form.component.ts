@@ -4,7 +4,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { DialogService } from 'src/app/shared/dialog';
 import { take } from 'rxjs';
-import { UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -37,15 +37,15 @@ export class RegisterFormComponent {
 
   ngOnInit(): void {
     if (this.email) {
-      this.signUpForm.patchValue({'email': this.email});
+      this.signUpForm.patchValue({ 'email': this.email });
     }
   }
 
-  agreeToTerms () {
+  agreeToTerms() {
     this.signUpForm.controls['agreeToTerms'].setValue(!this.signUpForm.value.agreeToTerms);
   }
 
-  allowSearch () {
+  allowSearch() {
     this.signUpForm.controls['showInSearch'].setValue(!this.signUpForm.value.showInSearch);
   }
 
@@ -66,7 +66,7 @@ export class RegisterFormComponent {
     } else {
       this.AuthService
         .signUp({
-          email:formData.email,
+          email: formData.email,
           password: formData.password,
           name: formData.name,
           company: formData.company,
@@ -77,22 +77,18 @@ export class RegisterFormComponent {
           termsVersion: this.termsVersion
         }).pipe(take(1))
         .subscribe({
-          next: (response:any) => {
-            console.log('DIALOG')
+          next: (response: any) => {
             this.dialog.closeAll(); // Close all dialogs, including the one open now...
+            this.Notification.addInfo('MSG_INFO_CHECK_EMAIL_TO_VERIFY_YOUR_ACCOUNT');
             setTimeout(() => {
-              console.log('ADD MESSAGE SUCCESS');
-              this.Notification.addInfo('MSG_INFO_CHECK_EMAIL_TO_VERIFY_YOUR_ACCOUNT');
-            });
-            if (response.data && response.redirectSuccess) {
-              window.location.href = response.redirectSuccess;
-            } else if (this.redirectSuccess) {
-              window.location.href = this.redirectSuccess;
-            } else {
-              this.router.navigate(['/']);
-            }
-
-
+              if (response.data && response.redirectSuccess) {
+                window.location.href = response.redirectSuccess;
+              } else if (this.redirectSuccess) {
+                window.location.href = this.redirectSuccess;
+              } else {
+                this.router.navigate(['/']);
+              }
+            }, 5000);
           },
           error: (res) => {
             if (res.errors.password) this.Notification.removeAll();
