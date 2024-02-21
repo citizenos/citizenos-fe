@@ -199,14 +199,14 @@
       "TITLE_VOTE": "Téma hlasovania",
       "DESC_VOTE": "Túto možnosť vyberte, ak chcete zbierať hlasy ľudí pred prípadným prechodom k monitorovaniu. Nie je k dispozícii žiadna diskusia pre/proti.",
       "TITLE_GROUP": "Skupina",
-      "DESC_GROUP": "Create a private or public group to invite people with common interests to access relevant topics."
+      "DESC_GROUP": "Vytvorte súkromnú alebo verejnú skupinu, do ktorej pozvete ľudí so spoločnými záujmami a umožníte im prístup k relevantným témam."
     },
     "DUPLICATE_TOPIC": {
       "HEADING": "Duplikovať tému",
       "MESSAGE_MAIN": "Duplikujete",
       "MESSAGE_DESCRIPTION": "Ste si istí, že chcete duplikovať tému? Vytvorí sa nová súkromná téma.",
       "HEADING_WILL_BE_DUPLICATED": "Tento obsah sa bude duplikovať",
-      "WILL_BE_DUPLICATED_1": "Topic content as it is right now (including images, footnotes, comments)",
+      "WILL_BE_DUPLICATED_1": "Obsah témy taký, aký je práve teraz (vrátane obrázkov, poznámok pod čiarou, komentárov)",
       "WILL_BE_DUPLICATED_2": "Všetky prílohy",
       "HEADING_WILL_NOT_BE_DUPLICATED": "Tento obsahu nebude duplikovaný",
       "WILL_NOT_BE_DUPLICATED_1": "nastavenia (verejné/súkromné, hlasovacie systémy, heštegy atď.)",
@@ -256,7 +256,7 @@
     },
     "GROUP_CREATE_INVITE": {
       "HEADING": "@:COMPONENTS.GROUP_INVITE.HEADING",
-      "HEADING_DESC": "Invites will be sent when you create the group. You can also invite people later - either via email, URL or a QR-code.",
+      "HEADING_DESC": "Pozvánky budú odoslané pri vytvorení skupiny. Ľudí môžete pozvať aj neskôr - buď prostredníctvom e-mailu, adresy URL alebo kódu QR.",
       "MESSAGE_DESC": "@:COMPONENTS.GROUP_INVITE.MESSAGE_DESC",
       "MESSAGE_PLACEHOLDER": "@:COMPONENTS.GROUP_INVITE.MESSAGE_PLACEHOLDER",
       "CHARACTER_LIMIT": "@:COMPONENTS.GROUP_INVITE.CHARACTER_LIMIT",
@@ -330,9 +330,9 @@
     },
     "GROUP_INVITE_USER": {
       "SET_MEMBER_PERMISSIONS": "@:COMPONENTS.GROUP_MEMBER_USER.SET_MEMBER_PERMISSIONS",
-      "EDIT_MEMBER": "Edit invite",
-      "BTN_REMOVE": "Remove invite",
-      "INVITE_SENT_TO": "Pending invite sent to {{email}}"
+      "EDIT_MEMBER": "Upraviť pozvánku",
+      "BTN_REMOVE": "Odstrániť pozvánku",
+      "INVITE_SENT_TO": "Čakajúca pozvánka odoslaná {{email}}"
     },
     "GROUP_SETTINGS": {
       "HEADING": "Upravovať skupinu",
@@ -366,7 +366,7 @@
       "PLACEHOLDER_CREATE_NEW_LINK": "Vygenerovať odkaz na zdieľanie",
       "COPY_LINK": "Kopírovať odkaz",
       "MSG_LINK_COPIED": "@:COMPONENTS.TOPIC_SHARE.MSG_LINK_COPIED",
-      "LBL_ACCESS_LEVEL": "Users access level",
+      "LBL_ACCESS_LEVEL": "Úroveň prístupu užívateľov",
       "GENERATE_QR_CODE": "Vygenerovať QR kód",
       "GENERATE_QR_CODE_DESCRIPTION": "Vytvorte kód QR, ktorý môžu ľudia naskenovať a dostať sa priamo k téme. Kód QR môžete pridať do digitálnych alebo fyzických komunikátorov a zobraziť ho všade tam, kde ho uvidia správni ľudia.",
       "GENERATE_QR_CODE_PRINT": "Pre uloženie QR kódu kliknite pravým tlačítkom a vyberte \"Uložiť obrázok\".",
@@ -549,7 +549,7 @@
       "DASHBOARD_TABLET_STEP_2_LBL_MY_TOPICS_DESC": "@:COMPONENTS.TOUR.DASHBOARD_MOBILE_STEP_2_LBL_MY_TOPICS_DESC",
       "DASHBOARD_TABLET_STEP_2_LBL_MY_GROUPS": "@:COMPONENTS.TOUR.DASHBOARD_MOBILE_STEP_2_LBL_MY_GROUPS",
       "DASHBOARD_TABLET_STEP_2_LBL_MY_GROUPS_DESC": "@:COMPONENTS.TOUR.DASHBOARD_MOBILE_STEP_2_LBL_MY_GROUPS_DESC",
-      "DASHBOARD_TABLET_STEP_2_LBL_PUBLIC_TOPICS": "Public topics:",
+      "DASHBOARD_TABLET_STEP_2_LBL_PUBLIC_TOPICS": "Verejné témy:",
       "DASHBOARD_TABLET_STEP_2_LBL_PUBLIC_TOPICS_DESC": "Here you can find all the public topics that have been created on our platform.",
       "DASHBOARD_TABLET_STEP_2_LBL_PUBLIC_GROUPS": "Public groups:",
       "DASHBOARD_TABLET_STEP_2_LBL_PUBLIC_GROUPS_DESC": "Here you can find all the public groups that have been created on our platform.",
