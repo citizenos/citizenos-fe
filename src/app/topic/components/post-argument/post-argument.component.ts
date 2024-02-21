@@ -60,7 +60,11 @@ export class PostArgumentComponent implements OnInit {
   }
 
   addNewArgument() {
-    this.app.addArgument.next(true);
+    if (!this.loggedIn()) {
+      this.app.doShowLogin();
+    } else {
+      this.app.addArgument.next(true);
+    }
   }
 
   close () {
