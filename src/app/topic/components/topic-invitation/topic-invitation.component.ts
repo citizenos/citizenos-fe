@@ -35,6 +35,7 @@ export class TopicInvitationComponent implements OnInit {
         // The invited User is not registered, the User has been created by the system - https://github.com/citizenos/citizenos-fe/issues/773
         this.router.navigate(['/account','signup'], {
           queryParams: {
+            inviteId: this.invite.id,
             redirectSuccess: currentUrl,
             email: this.invite.user.email
           }

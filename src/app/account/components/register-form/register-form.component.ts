@@ -15,6 +15,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class RegisterFormComponent {
   @Input() redirectSuccess?: any;
   @Input() email?: string;
+  @Input() inviteId?: string;
   config: any;
   signUpForm = new UntypedFormGroup({
     name: new UntypedFormControl('', Validators.required),
@@ -36,8 +37,12 @@ export class RegisterFormComponent {
   }
 
   ngOnInit(): void {
+    console.log(this.redirectSuccess);
     if (this.email) {
       this.signUpForm.patchValue({ 'email': this.email });
+    }
+    if (this.inviteId) {
+      this.isInviteFlowSignUp = true;
     }
   }
 
@@ -78,8 +83,11 @@ export class RegisterFormComponent {
         }).pipe(take(1))
         .subscribe({
           next: (response: any) => {
+            let delay = 0;
             this.dialog.closeAll(); // Close all dialogs, including the one open now...
-            this.Notification.addInfo('MSG_INFO_CHECK_EMAIL_TO_VERIFY_YOUR_ACCOUNT');
+            if (!this.isInviteFlowSignUp) {
+              this.Notification.addInfo('MSG_INFO_CHECK_EMAIL_TO_VERIFY_YOUR_ACCOUNT');
+            }
             setTimeout(() => {
               if (response.data && response.redirectSuccess) {
                 window.location.href = response.redirectSuccess;
@@ -88,7 +96,7 @@ export class RegisterFormComponent {
               } else {
                 this.router.navigate(['/']);
               }
-            }, 5000);
+            }, 0);
           },
           error: (res) => {
             if (res.errors.password) this.Notification.removeAll();

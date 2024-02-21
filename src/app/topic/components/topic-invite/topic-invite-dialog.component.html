@@ -38,7 +38,7 @@
         </div>
       </div>
     </div>
-    <div class="dialog_content">
+    <div class="dialog_content" [ngClass]="{no_footer: (activeTab === 'share')}">
       <ng-container *ngIf="activeTab === 'invite' && canInvite()">
         <div id="form_area">
           <topic-invite class="create_content" [dialog]="true" [(inviteMessage)]="inviteMessage" [topic]="data.topic"

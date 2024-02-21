@@ -56,7 +56,7 @@
         </div>
       </div>
     </div>
-    <div class="dialog_content" *ngIf="totalPages > 1">
+    <div class="dialog_content no_footer" *ngIf="totalPages > 1">
       <div class="info_row">
         <cos-pagination class="pagination" (select)="loadPage($event)" [totalPages]="totalPages"
           [page]="page"></cos-pagination>
