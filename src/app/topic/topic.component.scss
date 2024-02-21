@@ -878,6 +878,10 @@
 }
 
 #tablet_actions {
+
+  @include mixins.desktop {
+    display: none;
+  }
   .options {
     right: 16px;
     max-width: max-content;
