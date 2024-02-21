@@ -274,7 +274,7 @@
                   fill="#5AB467" />
               </svg>
             </button>
-            <input class="options_count_input" type="number" [min]="1" [max]="vote.options.length"
+            <input class="options_count_input" type="number" [min]="1" [max]="getOptionsLimit()"
               [(ngModel)]="vote.minChoices" />
             <button class="btn_medium_voting_light icon" (click)="filterOptions();optionsCountUp('min')">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -295,7 +295,7 @@
                   fill="#5AB467" />
               </svg>
             </button>
-            <input class="options_count_input" type="number" [min]="1" [max]="vote.options.length"
+            <input class="options_count_input" type="number" [min]="1" [max]="getOptionsLimit()"
               [(ngModel)]="vote.maxChoices" />
             <button class="btn_medium_voting_light icon" (click)="filterOptions();optionsCountUp()">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

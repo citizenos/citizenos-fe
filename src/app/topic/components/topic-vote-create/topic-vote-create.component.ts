@@ -203,12 +203,15 @@ export class TopicVoteCreateComponent implements OnInit {
     const options = this.vote.options.filter((option: any) => {
       return !!option.value;
     });
-    if (type === 'min' && this.vote.minChoices < options.length) {
+    let count = options.length;
+    if (this.extraOptions.neutral.enabled) count = count-1;
+    if (this.extraOptions.veto.enabled) count = count-1;
+    if (type === 'min' && this.vote.minChoices < count) {
       this.vote.minChoices++;
       if (this.vote.minChoices > this.vote.maxChoices) {
         this.vote.maxChoices = this.vote.minChoices;
       }
-    } else if (this.vote.maxChoices < options.length) {
+    } else if (this.vote.maxChoices < count) {
       this.vote.maxChoices++;
     }
   };
@@ -235,6 +238,17 @@ export class TopicVoteCreateComponent implements OnInit {
       this.setEndsAtTime();
     }
     return this.deadline;
+  }
+
+  getOptionsLimit () {
+    let count = this.vote.options.length;
+
+    if (this.extraOptions.neutral.enabled) {count = count-1;}
+    if (this.extraOptions.veto.enabled) {count = count-1;}
+
+    if (this.vote.maxChoices > count && count > 0) this.vote.maxChoices = count;
+    if (this.vote.minChoices > count && count > 0) this.vote.minChoices = count;
+    return count;
   }
 
   toggleDeadline() {
