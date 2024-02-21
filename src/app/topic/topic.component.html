@@ -165,9 +165,9 @@
                 </div>
                 <span translate="VIEWS.TOPICS_TOPICID.OPTION_ADD_TO_GROUP"></span>
               </button>
-              <div class="line_separator"></div>
             </ng-container>
             <ng-container *ngIf="topic.visibility === TopicService.VISIBILITY.public && !topic.report">
+              <div class="line_separator"></div>
               <button class="option" [routerLink]="['/topics', topic.id, 'report']">
                 <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
@@ -616,10 +616,10 @@
                       </div>
                       <span translate="VIEWS.TOPICS_TOPICID.BTN_LEAVE"></span>
                     </button>
-                    <div class="line_separator"></div>
                   </ng-container>
 
                   <ng-container *ngIf="(auth.loggedIn$ | async)">
+                    <div class="line_separator"></div>
                     <button class="option" (click)="toggleFavourite(topic)">
                       <div class="icon_wrap">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -631,9 +631,9 @@
                       <span *ngIf="!topic.favourite" translate="VIEWS.TOPICS_TOPICID.OPTION_FAVOURITE"></span>
                       <span *ngIf="topic.favourite" translate="VIEWS.TOPICS_TOPICID.OPTION_UNFAVOURITE"></span>
                     </button>
-                    <div class="line_separator"></div>
                   </ng-container>
                   <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic)">
+                    <div class="line_separator"></div>
                     <button class="option" (click)="inviteEditors(topic)">
                       <div class="icon_wrap">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -649,9 +649,9 @@
                       </div>
                       <span translate="VIEWS.TOPICS_TOPICID.OPTION_INVITE_CO_EDITOR"></span>
                     </button>
-                    <div class="line_separator"></div>
                   </ng-container>
                   <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canEdit(topic) && !topic.voteId">
+                    <div class="line_separator"></div>
                     <button class="option" [routerLink]="['/','topics', 'edit', topic.id]">
                       <div class="icon_wrap">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -662,10 +662,10 @@
                       </div>
                       <span translate="VIEWS.TOPICS_TOPICID.OPTION_EDIT_TOPIC"></span>
                     </button>
-                    <div class="line_separator"></div>
                   </ng-container>
                   <ng-container
                     *ngIf="(auth.loggedIn$ | async) && topic.voteId && (TopicService.canDelete(topic) || TopicService.canEdit(topic) && topic.status === TopicService.STATUSES.draft)">
+                    <div class="line_separator"></div>
                     <button class="option" [routerLink]="['/','topics', 'vote', 'edit', topic.id]">
                       <div class="icon_wrap">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -676,9 +676,9 @@
                       </div>
                       <span translate="VIEWS.TOPICS_TOPICID.OPTION_EDIT_TOPIC"></span>
                     </button>
-                    <div class="line_separator"></div>
                   </ng-container>
                   <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic)">
+                    <div class="line_separator"></div>
                     <button class="option" (click)="duplicateTopic(topic)">
                       <div class="icon_wrap">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -688,9 +688,9 @@
                       </div>
                       <span translate="VIEWS.TOPICS_TOPICID.OPTION_DUPLICATE_TOPIC"></span>
                     </button>
-                    <div class="line_separator"></div>
                   </ng-container>
                   <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic)">
+                    <div class="line_separator"></div>
                     <button class="option" (click)="addGroupsDialog(topic)">
                       <div class="icon_wrap">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -706,9 +706,9 @@
                       </div>
                       <span translate="VIEWS.TOPICS_TOPICID.OPTION_ADD_TO_GROUP"></span>
                     </button>
-                    <div class="line_separator"></div>
                   </ng-container>
                   <ng-container *ngIf="topic.visibility === TopicService.VISIBILITY.public && !topic.report">
+                    <div class="line_separator"></div>
                     <button class="option" [routerLink]="['/topics', topic.id, 'report']">
                       <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                           xmlns="http://www.w3.org/2000/svg">
@@ -1289,7 +1289,7 @@
           </button>
         </ng-container>
         <ng-container *ngIf="topic.visibility === TopicService.VISIBILITY.public && !topic.report">
-          <div class="line_separator" *ngIf="(auth.loggedIn$ | async)"></div>
+          <div class="line_separator"></div>
           <button class="option" [routerLink]="['/topics', topic.id, 'report']">
             <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
@@ -1301,17 +1301,19 @@
             </div><span translate="VIEWS.TOPICS_TOPICID.OPTION_REPORT_TOPIC"></span>
           </button>
         </ng-container>
-        <button class="option error_text" *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic)"
-          (click)="deleteTopic(topic);">
-          <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-              xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" clip-rule="evenodd"
-                d="M10 3H6V4H10V3ZM11 4V3C11 2.44772 10.5523 2 10 2H6C5.44772 2 5 2.44772 5 3V4H4H2.5C2.22386 4 2 4.22386 2 4.5C2 4.77614 2.22386 5 2.5 5H4V13C4 13.5523 4.44772 14 5 14H11C11.5523 14 12 13.5523 12 13V5H13.5C13.7761 5 14 4.77614 14 4.5C14 4.22386 13.7761 4 13.5 4H12H11ZM7 7H6V11H7V7ZM10 7H9V11H10V7Z"
-                fill="#2C3B47" />
-            </svg>
+        <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic)">
+          <div class="line_separator"></div>
+          <button class="option error_text" (click)="deleteTopic(topic);">
+            <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M10 3H6V4H10V3ZM11 4V3C11 2.44772 10.5523 2 10 2H6C5.44772 2 5 2.44772 5 3V4H4H2.5C2.22386 4 2 4.22386 2 4.5C2 4.77614 2.22386 5 2.5 5H4V13C4 13.5523 4.44772 14 5 14H11C11.5523 14 12 13.5523 12 13V5H13.5C13.7761 5 14 4.77614 14 4.5C14 4.22386 13.7761 4 13.5 4H12H11ZM7 7H6V11H7V7ZM10 7H9V11H10V7Z"
+                  fill="#2C3B47" />
+              </svg>
 
-          </div><span translate="VIEWS.TOPICS_TOPICID.OPTION_DELETE_TOPIC"></span>
-        </button>
+            </div><span translate="VIEWS.TOPICS_TOPICID.OPTION_DELETE_TOPIC"></span>
+          </button>
+        </ng-container>
       </div>
     </div>
   </ng-container>
