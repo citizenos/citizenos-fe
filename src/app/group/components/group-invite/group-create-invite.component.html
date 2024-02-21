@@ -4,7 +4,8 @@
       <div class="heading" translate="COMPONENTS.GROUP_CREATE_INVITE.HEADING"></div>
       <div class="heading_description" translate="COMPONENTS.GROUP_CREATE_INVITE.HEADING_DESC"></div>
     </div>
-    <div class="section_content_description" translate="COMPONENTS.GROUP_INVITE.EMAIL_DESC"></div>
+    <div class="section_content_description bold" translate="COMPONENTS.GROUP_INVITE.EMAIL_DESC"></div>
+    <div class="section_content_description" translate="COMPONENTS.GROUP_INVITE.EMAIL_DESC_LONG"></div>
     <div id="search_wrap">
       <typeahead id="input_area" [term]="searchStringUser" (search)="search($event)"
         (select)="addGroupMember($event)" (enterAction)="addGroupMember($event)"
@@ -21,7 +22,7 @@
         </ng-container>
       </typeahead>
 
-      <div class="section_content_description" translate="COMPONENTS.GROUP_INVITE.MESSAGE_DESC"></div>
+      <div class="section_content_description bold" translate="COMPONENTS.GROUP_INVITE.MESSAGE_DESC"></div>
       <cos-input [placeholder]="'COMPONENTS.GROUP_INVITE.MESSAGE_PLACEHOLDER' | translate">
         <textarea id="groupDescription" [placeholder]="'COMPONENTS.GROUP_INVITE.MESSAGE_PLACEHOLDER' | translate"
           rows="5" [(ngModel)]="group.inviteMessage" [maxlength]="inviteMessageMaxLength"
