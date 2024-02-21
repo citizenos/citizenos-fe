@@ -8,6 +8,7 @@ import { take } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 import { Vote } from 'src/app/interfaces/vote';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 @Component({
   selector: 'topic-vote-create',
   templateUrl: './topic-vote-create.component.html',
@@ -489,6 +490,11 @@ export class TopicVoteCreateComponent implements OnInit {
     }
 
     return this.vote.delegationIsAllowed =!this.vote.delegationIsAllowed;
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.customOptions, event.previousIndex, event.currentIndex);
+    this.filterOptions();
   }
 
 }

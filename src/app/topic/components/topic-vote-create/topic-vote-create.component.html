@@ -184,8 +184,8 @@
             [translate]="('COMPONENTS.TOPIC_VOTE_CREATE.OPTION_VOTING_'+VOTE_TYPES.multiple+'_DESC').toUpperCase()">
           </div>
           <ng-container *ngIf="vote.type===VOTE_TYPES.multiple">
-            <div class="vote_options_wrap">
-              <div class="input_area" *ngFor="let option of customOptions; let $index = index">
+            <div class="vote_options_wrap" cdkDropList (cdkDropListDropped)="drop($event)">
+              <div class="input_area" cdkDrag *ngFor="let option of customOptions; let $index = index">
                 <cos-input
                   placeholder="{{'COMPONENTS.TOPIC_VOTE_CREATE.PLACEHOLDER_ENTER_A_POSSIBLE_ANSWER' | translate}}"
                   *ngIf="displayOptInput(option)">
