@@ -48,6 +48,7 @@ import { TopicSettingsDisabledDialogComponent } from './components/topic-setting
 import { TopicAddGroupsComponent, TopicAddGroupsDialogComponent } from './components/topic-add-groups/topic-add-groups.component';
 import { TopicOnboardingComponent } from './components/topic-onboarding/topic-onboarding.component';
 import { DownloadVoteResultsComponent } from './components/download-vote-results/download-vote-results.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -111,6 +112,7 @@ import { DownloadVoteResultsComponent } from './components/download-vote-results
     SharedModule,
     TopicRoutingModule,
     TranslateModule,
+    DragDropModule
   ],
   exports: []
 })
