@@ -154,6 +154,13 @@
     background-color: var(--color-dialog-background);
     padding: 16px;
 
+    &.no_footer {
+      border-radius: 0 0 16px 16px;
+
+      @include mixins.mobile {
+        border-radius: 0;
+      }
+    }
     &.button_content {
       gap: 0;
     }
