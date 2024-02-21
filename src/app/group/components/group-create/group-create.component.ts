@@ -15,6 +15,7 @@ import { GroupInviteUserService } from 'src/app/services/group-invite-user.servi
 import { AppService } from 'src/app/services/app.service';
 import { countries } from 'src/app/services/country.service';
 import { languages } from 'src/app/services/language.service';
+import { InterruptDialogComponent } from 'src/app/shared/components/interrupt-dialog/interrupt-dialog.component';
 
 @Component({
   selector: 'group-create-component',
@@ -304,5 +305,21 @@ export class GroupCreateComponent implements OnInit {
         })
     }
   };
+
+  cancel() {
+    const confirmDialog = this.dialog.open(InterruptDialogComponent);
+
+    confirmDialog.afterClosed().subscribe(result => {
+      if (result === true) {
+        /*this.TopicService.delete({ id: this.topic.id })
+          .pipe(take(1))
+          .subscribe(() => {
+            this.router.navigate(['dashboard']);
+          })*/
+        this.router.navigate(['/', this.translate.currentLang, 'my', 'groups']);
+      }
+    });
+    //[routerLink]="['/', translate.currentLang, 'topics', topic.id]"
+  }
 }
 
