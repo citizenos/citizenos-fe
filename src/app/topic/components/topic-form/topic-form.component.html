@@ -941,7 +941,7 @@
                     fill="white" />
                 </svg>
               </button>
-              <button *ngIf="!isnew" class="btn_medium_secondary icon mobile_hidden" (click)="updateTopic()"
+              <button *ngIf="!isnew && tabSelected!=='preview'" class="btn_medium_secondary icon mobile_hidden" (click)="updateTopic()"
                 translate="VIEWS.TOPIC_CREATE.FOOTER_BTN_SAVE_CHANGES"></button>
               <button class="btn_medium_submit icon mobile_hidden" (click)="(tabSelected!=='preview' )?
                 nextTab(tabSelected) : publish()"

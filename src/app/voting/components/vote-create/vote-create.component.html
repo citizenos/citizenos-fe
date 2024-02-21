@@ -988,7 +988,7 @@
                       fill="white" />
                   </svg>
                 </button>
-                <button *ngIf="!isnew" class="btn_medium_secondary icon mobile_hidden" (click)="saveChanges()"
+                <button *ngIf="!isnew && tabSelected!=='preview'" class="btn_medium_secondary icon mobile_hidden" (click)="saveChanges()"
                   translate="VIEWS.VOTE_CREATE.FOOTER_BTN_SAVE_CHANGES"></button>
 
                 <button class="btn_medium_submit icon mobile_hidden" [ngClass]="{disabled: isNextDisabled(tabSelected)}"
