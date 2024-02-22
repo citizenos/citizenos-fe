@@ -86,6 +86,7 @@ export class PostArgumentComponent implements OnInit {
           this.subject = '';
           this.text = '';
           this.TopicArgumentService.reset();
+          this.TopicArgumentService.setParam('topicId', this.topicId)
           this.app.addArgument.next(false);
           this.router.navigate(
             [],
