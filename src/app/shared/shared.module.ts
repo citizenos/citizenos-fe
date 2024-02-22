@@ -55,6 +55,8 @@ import { TooltipComponent} from './components/tooltip/tooltip.component';
 import { ImageEditorComponent } from './components/image-editor/image-editor.component';
 import { TopicVoteDeadlineComponent } from '../topic/components/topic-vote-deadline/topic-vote-deadline.component';
 
+import { NotificationComponent } from '../core/components/notification/notification.component';
+
 @NgModule({
   declarations: [
     ActivityComponent,
@@ -105,7 +107,8 @@ import { TopicVoteDeadlineComponent } from '../topic/components/topic-vote-deadl
     InterruptDialogComponent,
     TooltipComponent,
     ImageEditorComponent,
-    TopicVoteDeadlineComponent
+    TopicVoteDeadlineComponent,
+    NotificationComponent
   ],
   imports: [
     RouterModule,
@@ -167,7 +170,8 @@ import { TopicVoteDeadlineComponent } from '../topic/components/topic-vote-deadl
     TourItemTemplateComponent,
     TooltipComponent,
     ImageEditorComponent,
-    DialogModule
+    DialogModule,
+    NotificationComponent
    ]
 })
 export class SharedModule { }

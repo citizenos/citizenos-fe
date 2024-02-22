@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +37,7 @@ export class NotificationService {
     if (this.messages[level].indexOf(message) === -1) {
       this.messages[level].push({message, title});
     }
-    window.scrollTo(0, 0);
+  //  window.scrollTo(0, 0);
   };
 
   removeAll(level?: string) {
