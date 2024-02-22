@@ -2506,7 +2506,7 @@
       "HELP_ITEM_ADD_FOLLOW_UP": "@:VIEWS.TOPIC_CREATE.HELP_ITEM_ADD_FOLLOW_UP",
       "ERROR_MISSING_QUESTION": "Voting question is required!",
       "ERROR_AT_LEAST_TWO_OPTIONS_REQUIRED": "@:MSG_ERROR_POST_API_USERS_TOPICS_VOTES_40001",
-      "SUCCESS_VOTE_STARTED": "Voting has successf been started"
+      "SUCCESS_VOTE_STARTED": "Voting has successfully been started"
     },
     "VOTE_EDIT": {
       "HEADING": "Edit voting topic"
