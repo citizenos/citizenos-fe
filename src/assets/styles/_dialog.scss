@@ -25,8 +25,10 @@
 .dialog_wrap {
   display: flex;
   align-items: center;
+  flex-direction: column;
+  gap: 32px;
   position: absolute;
-  padding: 40px 0;
+  padding: 0 0 40px 0;
   top: 0;
   left: 0;
   width: 100%;
@@ -36,6 +38,24 @@
     padding: 0;
   }
 }
+
+#notification_wrap_dialog {
+  z-index: -9;
+  top: 0;
+  width: 100%;
+  display: flex;
+  height: max-content;
+  left: 0;
+  position: relative;
+
+  notification {
+    display: contents;
+  }
+  .notification_top {
+    position: relative;
+  }
+}
+
 .dialog {
   display: flex;
   align-self: center;

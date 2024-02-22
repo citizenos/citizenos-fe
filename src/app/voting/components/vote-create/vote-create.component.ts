@@ -551,12 +551,14 @@ export class VoteCreateComponent implements OnInit {
         }).pipe(take(1)).subscribe();
       });
       this.updateVote();
+
+      const isDraft = (this.topic.status === this.TopicService.STATUSES.draft);
       this.topic.status = this.TopicService.STATUSES.voting;
       this.updateTopic().pipe(take(1)).subscribe(() => {
         this.TopicService.reloadTopic();
         this.router.navigate(['topics', this.topic.id], { fragment: 'voting' });
       });
-      if (this.isnew) {
+      if (this.isnew || isDraft) {
         this.Notification.addSuccess('VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_TITLE');
         this.inviteMembers();
       } else {

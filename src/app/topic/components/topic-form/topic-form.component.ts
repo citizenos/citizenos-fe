@@ -405,6 +405,7 @@ export class TopicFormComponent {
     }
   }
   publish() {
+    const isDraft = (this.topic.status === this.TopicService.STATUSES.draft);
     this.topic.status = this.TopicService.STATUSES.inProgress;
     this.TopicService.patch(this.topic).pipe(take(1)).subscribe(() => {
       this.TopicService.reloadTopic();
@@ -418,7 +419,7 @@ export class TopicFormComponent {
       this.TopicService.reloadTopic();
       this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
 
-      if (this.isnew) {
+      if (this.isnew || isDraft) {
         this.Notification.addSuccess('VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_TITLE');
         this.inviteMembers();
       } else {
