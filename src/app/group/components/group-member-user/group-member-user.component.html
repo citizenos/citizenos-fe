@@ -15,7 +15,7 @@
     </div>
     <div class="line_separator mobile_show"></div>
     <div class="level">
-      <span [translate]="'TXT_TOPIC_LEVELS_' + member.level | uppercase"></span>
+      <span [translate]="'TXT_GROUP_LEVELS_' + member.level | uppercase"></span>
       <div class="button_wrap" *ngIf="canUpdate()">
         <div class="dropdown" [cosDropdown]>
           <button class="btn_medium_plain icon">
@@ -45,7 +45,7 @@
                       fill="#2C3B47" />
                   </svg>
                 </div>
-                <span [innerHtml]="'COMPONENTS.GROUP_MEMBER_USER.SET_MEMBER_PERMISSIONS' | translate:{level: ('TXT_TOPIC_LEVELS_'+level) | uppercase | translate}"></span>
+                <span [innerHtml]="'COMPONENTS.GROUP_MEMBER_USER.SET_MEMBER_PERMISSIONS' | translate:{level: ('TXT_GROUP_LEVELS_'+level) | uppercase | translate}"></span>
               </button>
               <div class="line_separator"></div>
             </ng-container>

@@ -15,6 +15,7 @@ import { TopicArgumentService } from 'src/app/services/topic-argument.service';
       // ...
       state('open', style({
         'maxHeight': '100%',
+        'overflow-y': 'scroll',
         transition: 'max-height 0.2s ease-in-out',
       })),
       state('closed', style({
@@ -22,7 +23,7 @@ import { TopicArgumentService } from 'src/app/services/topic-argument.service';
         'maxHeight': '0',
         transition: 'all 0.2s ease-in-out',
       }))
-  ])]
+    ])]
 })
 export class PostArgumentComponent implements OnInit {
   @Input() topicId!: string;
@@ -67,7 +68,7 @@ export class PostArgumentComponent implements OnInit {
     }
   }
 
-  close () {
+  close() {
     this.app.addArgument.next(false);
   }
   postArgument() {
