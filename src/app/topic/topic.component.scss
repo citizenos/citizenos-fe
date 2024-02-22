@@ -773,8 +773,11 @@
     left: 0;
     bottom: 0;
     width: 100%;
+    padding: 0;
     justify-content: space-between;
-
+    &.tour_item {
+      position: relative;
+    }
     .topic_tab {
       .active {
         background-color: var(--color-scrollbar);
@@ -844,7 +847,7 @@
     justify-content: center;
   }
   @include mixins.mobile {
-    padding: 12px;
+    padding: 12px 0;
   }
   &.active {
     font-weight: 600;

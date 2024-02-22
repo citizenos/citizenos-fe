@@ -389,8 +389,10 @@ export class TopicComponent implements OnInit {
     this.showTutorial = false;
     window.scrollTo(0, 0);
     let tourName = 'topic';
-    if (window.innerWidth <= 1024) {
+    if (window.innerWidth < 560) {
       tourName = 'topic_mobile';
+    } else if (window.innerWidth <= 1024) {
+      tourName = 'topic_tablet';
     }
     this.TourService.show(tourName, 1);
   }
