@@ -412,7 +412,6 @@ export class TopicVoteCreateComponent implements OnInit {
   };
 
   filterOptions() {
-    console.log('FILTER');
     let options = [];
     if (this.vote.type === this.VOTE_TYPES.regular) {
       this.vote.options = [];
@@ -547,8 +546,15 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
     }
   }
 
+
+  isNextDisabled () {
+    if (this.tabActive === 2 && (!this.vote.type || !this.vote.description)) return true;
+    if (this.tabActive === 3 && (!this.vote.authType || this.vote.options.length < 2)) return true;
+    return false;
+  }
+
   tabNext() {
-    if (this.tabActive === 2 && !this.vote.type) return;
+    if (this.tabActive === 2 && (!this.vote.type || !this.vote.description)) return;
     if (this.tabActive >= 3) this.filterOptions();
     (this.tabActive < 4) ? this.tabActive = this.tabActive + 1 : this.createVote()
   }

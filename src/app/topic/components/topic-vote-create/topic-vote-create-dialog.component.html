@@ -709,7 +709,7 @@
               fill="#2C3B47" />
           </svg>
         </button>
-        <button class="btn_medium_submit" (click)="tabNext()">{{((this.tabActive <
+        <button class="btn_medium_submit" (click)="tabNext()" [ngClass]="{disabled: isNextDisabled()}">{{((this.tabActive <
             4)? "COMPONENTS.TOPIC_VOTE_CREATE.BTN_CONTINUE" : "COMPONENTS.TOPIC_VOTE_CREATE.BTN_START_VOTE" ) |
             translate }}</button>
       </div>
