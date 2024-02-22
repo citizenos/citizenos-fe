@@ -37,7 +37,6 @@ export class RegisterFormComponent {
   }
 
   ngOnInit(): void {
-    console.log(this.redirectSuccess);
     if (this.email) {
       this.signUpForm.patchValue({ 'email': this.email });
     }
