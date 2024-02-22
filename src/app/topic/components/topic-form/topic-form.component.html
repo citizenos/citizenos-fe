@@ -884,7 +884,7 @@
             <button *ngIf="isnew && topic.status === TopicService.STATUSES.draft" class="btn_medium_secondary"
               (click)="saveAsDraft()" translate="VIEWS.TOPIC_CREATE.FOOTER_BTN_SAVE_AS_DRAFT">
             </button>
-            <button *ngIf="!isnew" class="btn_medium_submit icon" (click)="updateTopic()"
+            <button *ngIf="!isnew" class="btn_medium_submit icon" (click)="(tabSelected !== 'preview')? updateTopic(): publish();"
               translate="VIEWS.TOPIC_CREATE.FOOTER_BTN_SAVE_CHANGES"></button>
             <button *ngIf="isnew || topic.status === TopicService.STATUSES.draft" class="btn_medium_submit publish icon"
               (click)="publish()" [ngClass]="{disabled: !TopicService.canDelete(topic)}">
