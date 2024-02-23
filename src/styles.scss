@@ -39,6 +39,10 @@
   padding: 0 24px;
   width: 100%;
   padding-left: 224px;
+
+  &.fixed {
+    position: fixed;
+  }
   @include mixins.tablet {
     padding-left: 24px;
   }

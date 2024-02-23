@@ -1,5 +1,5 @@
 <ngx-loading-bar></ngx-loading-bar>
-<div id="notification_wrap">
+<div id="notification_wrap" [ngClass]="{'fixed': !(isDialog() | async)}">
   <notification></notification>
 </div>
 <!-- NAV -->
@@ -13,7 +13,7 @@
     </div>
   </div>
   <!-- CONTENT -->
-  <div id="content" [ngClass]="!displaySearch() ? 'content_no_padding' : ''">
+  <div id="content" #content [ngClass]="{'content_no_padding': !displaySearch(), 'notifications': hasNotifications()}">
     <!-- ROUTES CONTENT -->
     <router-outlet id="view"></router-outlet>
   </div>
