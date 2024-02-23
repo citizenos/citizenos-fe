@@ -423,7 +423,8 @@ export class TopicVoteCreateComponent implements OnInit {
       }
     } else {
       for (let key in this.customOptions) {
-        options.push(this.customOptions[key]);
+        if (this.customOptions[key].value)
+          options.push(this.customOptions[key]);
       }
     }
     for (let o in this.extraOptions) {
@@ -433,9 +434,7 @@ export class TopicVoteCreateComponent implements OnInit {
       }
     }
     this.vote.options = Object.assign([], options);
-    this.vote.options = this.vote.options.filter((option: any) => {
-      return !!option.value
-    });
+
   }
 
   displayOptInput(option: any) {

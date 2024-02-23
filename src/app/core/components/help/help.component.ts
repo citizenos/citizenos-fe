@@ -49,10 +49,12 @@ export class HelpComponent implements OnInit {
   helpback() {
     try {
       const helpDomain = new URL(this.config.get('helplink') || this.helpUrl);
+      console.log('HELPFRAME', this.helpFrame, this.helpFrame?.nativeElement.contentWindow.postMessage);
       this.helpFrame?.nativeElement.contentWindow.postMessage('back', helpDomain.origin);
     } catch (err) {
-      if (this.helpFrame)
+      if (this.helpFrame) {
         this.helpFrame.nativeElement.src = this.helpFrame.nativeElement.src;
+      }
     }
   }
 
