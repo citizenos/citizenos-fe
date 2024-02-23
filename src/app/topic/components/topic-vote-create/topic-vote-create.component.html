@@ -191,7 +191,7 @@
                   *ngIf="displayOptInput(option)">
                   <input
                     placeholder="{{'COMPONENTS.TOPIC_VOTE_CREATE.PLACEHOLDER_ENTER_A_POSSIBLE_ANSWER' | translate}}"
-                    id="{{'voteOption' + $index}}" [(ngModel)]="option.value"
+                    id="{{'voteOption' + $index}}" [(ngModel)]="option.value" (ngModelChange)="filterOptions()"
                     [ngClass]="{'error_input': option.value && errors?.value}" />
                   <label for="{{'voteOption' + $index}}" class="error_label" *ngIf="option.value && errors?.value">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
