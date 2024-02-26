@@ -1,3 +1,4 @@
+@use "mixins";
 
 #add_attachment {
   width: 1px;
@@ -19,7 +20,7 @@
 }
 
 #title_wrap {
-  justify-content: flex-start!important;
+  justify-content: flex-start !important;
   gap: 16px;
 }
 
@@ -60,4 +61,9 @@
       }
     }
   }
+}
+
+.mobile_actions_wrap {
+  left: 0;
+  z-index: 99999999;
 }
