@@ -2,7 +2,10 @@
 <div class="create_content_block discussion" [@openClose]="blockAttachments ? 'open' : 'closed'">
   <div id="title_wrap" class="block_title_wrap" (click)="blockAttachments = true">
     <div class="block_title" translate="VIEWS.TOPIC_CREATE.TITLE_ATTACHMENTS"></div>
-    <div class="dropdown button_dropdown" #attachmendDropdown [cosDropdown]>
+    <button class="btn_medium_plain icon mobile_show" (click)="mobileActions=true;"
+      translate="VIEWS.TOPIC_CREATE.ATTACHMENTS_BTN_ADD">
+    </button>
+    <div class="dropdown button_dropdown mobile_hidden" #attachmendDropdown [cosDropdown]>
       <button class="btn_medium_plain icon" (click)="blockAttachments=true;"
         translate="VIEWS.TOPIC_CREATE.ATTACHMENTS_BTN_ADD">
       </button>
@@ -46,6 +49,70 @@
         </button>
         <div class="line_separator"></div>
         <button class="option" (click)="googleDriveSelect()">
+          <div>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M0 10.2656L2.6672 14.7992L7.61281 6.41172L4.94561 1.87813L0 10.2656ZM10.204 9.83477H15.5376L10.6672 1.19922H5.33361L10.204 9.83477ZM3.4672 14.5449L6.13361 10.6195H16L13.3336 14.5449H3.4672Z"
+                fill="#2C3B47" />
+            </svg>
+          </div><span translate="VIEWS.TOPIC_CREATE.ATTACHMENTS_BTN_GOOGLE_DRIVE"></span>
+        </button>
+      </div>
+    </div>
+    <div class="overlay" *ngIf="mobileActions" (click)="mobileActions = !mobileActions"></div>
+    <div class="mobile_actions_wrap mobile_show" [ngClass]="{'show': mobileActions}">
+      <div class="heading_wrap">
+        <span translate="VIEWS.TOPICS_TOPICID.LBL_TOPIC_ACTIONS"></span>
+        <div id="close_mobile" class="mobile_show">
+          <button class="btn_small_close icon" (click)="mobileActions = !mobileActions">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M5.29311 17.2929C4.90258 17.6834 4.90258 18.3166 5.29311 18.7071C5.68363 19.0976 6.3168 19.0976 6.70732 18.7071L12.0002 13.4142L17.2931 18.7071C17.6836 19.0976 18.3168 19.0976 18.7073 18.7071C19.0978 18.3166 19.0978 17.6834 18.7073 17.2929L13.4144 12L18.7073 6.70711C19.0978 6.31658 19.0978 5.68342 18.7073 5.29289C18.3168 4.90237 17.6836 4.90237 17.2931 5.29289L12.0002 10.5858L6.70732 5.29289C6.3168 4.90237 5.68363 4.90237 5.29311 5.29289C4.90258 5.68342 4.90258 6.31658 5.29311 6.70711L10.586 12L5.29311 17.2929Z"
+                fill="#2C3B47" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="options">
+        <button class="option" (click)="triggerUpload(); mobileActions=false;">
+          <input type="file" #attachmentInput id="add_attachment" class="image_item" (change)="attachmentUpload()"
+            multiple="true" />
+          <div>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 3V9" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+              <path d="M5 6L8 3L11 6" stroke="#2C3B47" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+              <rect x="3" y="12" width="10" height="2" rx="1" fill="#2C3B47" />
+            </svg>
+          </div><span translate="VIEWS.TOPIC_CREATE.ATTACHMENTS_BTN_UPLOAD"></span>
+        </button>
+        <div class="line_separator"></div>
+        <button class="option" (click)="dropboxSelect();mobileActions=false;">
+          <div>
+            <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M4.8769 1.09375L0.753906 3.68359L4.8769 6.27344L9.00054 3.68359L13.1235 6.27344L17.2465 3.68359L13.1235 1.09375L9.00054 3.68359L4.8769 1.09375Z"
+                fill="#2C3B47" />
+              <path d="M4.8769 11.4532L0.753906 8.86332L4.8769 6.27344L9.00054 8.86332L4.8769 11.4532Z"
+                fill="#2C3B47" />
+              <path d="M9 8.86332L13.123 6.27344L17.2459 8.86332L13.123 11.4532L9 8.86332Z" fill="#2C3B47" />
+              <path d="M9.00059 14.9062L4.87695 12.3164L9.00059 9.72656L13.1235 12.3164L9.00059 14.9062Z"
+                fill="#2C3B47" />
+            </svg>
+          </div><span translate="VIEWS.TOPIC_CREATE.ATTACHMENTS_BTN_DROPBOX"></span>
+        </button>
+        <div class="line_separator"></div>
+        <button class="option" (click)="oneDriveSelect();mobileActions=false;">
+          <div>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M3.28 11.6185C2.96933 11.8098 2.59267 11.9232 2.18933 11.9232C2.17933 11.9232 2.16867 11.9232 2.15867 11.9232H2.16C0.966 11.9178 0 10.9492 0 9.75384C0 9.19651 0.21 8.68851 0.555333 8.30451L0.553333 8.30651C0.898 7.9225 1.37733 7.66517 1.916 7.60984L1.92533 7.60917C1.90733 7.50251 1.89733 7.37984 1.89733 7.25451C1.89733 7.2465 1.89733 7.23917 1.89733 7.23117V7.2325C1.89733 7.22851 1.89733 7.22317 1.89733 7.21784C1.89733 6.48784 2.19533 5.82717 2.67667 5.35117C3.16533 4.87517 3.834 4.58117 4.57133 4.58117C4.58533 4.58117 4.602 4.58051 4.618 4.58051C5.076 4.58051 5.50467 4.70717 5.87133 4.92651L5.86 4.92051C6.17533 4.41251 6.592 3.99584 7.08467 3.69051L7.10067 3.68117C7.59867 3.37984 8.20067 3.20117 8.844 3.20117C9.68667 3.20117 10.458 3.50717 11.052 4.01451L11.0473 4.01051C11.6493 4.51317 12.0713 5.21317 12.2147 6.00984L12.218 6.03051H12.028C12.012 6.02984 11.994 6.02984 11.9753 6.02984C11.7007 6.02984 11.4367 6.07717 11.192 6.16451L11.208 6.15917C10.6113 5.51851 9.76333 5.11917 8.822 5.11917C8.79933 5.11917 8.77733 5.11917 8.75467 5.11984H8.758C8.74867 5.11984 8.73733 5.11984 8.72667 5.11984C8.28533 5.11984 7.86333 5.20051 7.474 5.34784L7.49867 5.33984C6.74733 5.62517 6.13533 6.13384 5.72733 6.7845L5.71867 6.79917C5.54133 7.08451 5.40733 7.4165 5.336 7.77184L5.33267 7.79117C5.07333 7.84451 4.84533 7.9165 4.62867 8.00917L4.652 8.00051C4.30867 8.15917 4.02133 8.38651 3.79667 8.66584L3.79333 8.67051C3.57733 8.91451 3.40667 9.20384 3.29867 9.52251L3.29333 9.53984C3.186 9.84717 3.12333 10.2012 3.12267 10.5692C3.12267 10.5845 3.122 10.6038 3.122 10.6218C3.122 11.0025 3.196 11.3665 3.33 11.6998L3.32333 11.6805L3.282 11.6198L3.28 11.6185ZM14.5113 9.12051C15.562 9.38095 16.0564 9.99895 15.9947 10.9745C15.9329 11.9501 15.3658 12.4994 14.2933 12.6225H5.8C4.39733 12.4376 3.70844 11.7125 3.73333 10.4472C3.756 9.17717 4.46933 8.47784 5.87333 8.35717C5.93333 7.13384 6.79133 6.1265 7.93467 5.84117L7.95333 5.83717C8.18867 5.76384 8.45933 5.72184 8.73933 5.72184C9.692 5.72184 10.5313 6.20851 11.0213 6.94717L11.0273 6.95717C11.28 6.75717 11.6027 6.63651 11.954 6.63651C12.0153 6.63651 12.0753 6.63984 12.1347 6.64717L12.1273 6.64651C12.5427 6.66117 12.9293 6.76651 13.2733 6.94451L13.258 6.93717C13.6527 7.13984 13.97 7.44451 14.1827 7.81717L14.1887 7.82784C14.39 8.19051 14.5087 8.62317 14.5087 9.08384V9.10917V9.10784L14.5113 9.12051Z"
+                fill="#2C3B47" />
+            </svg>
+          </div><span translate="VIEWS.TOPIC_CREATE.ATTACHMENTS_BTN_ONEDRIVE"></span>
+        </button>
+        <div class="line_separator"></div>
+        <button class="option" (click)="googleDriveSelect();mobileActions=false;">
           <div>
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd"

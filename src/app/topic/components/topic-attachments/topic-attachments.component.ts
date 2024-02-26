@@ -59,6 +59,7 @@ export class TopicAttachmentsComponent implements OnInit {
 
   topicAttachments$ = of(<Attachment[] | any[]>[]);
   attachments = <any[]>[];
+  mobileActions = false;
 
   constructor(
     private dialog: DialogService,
