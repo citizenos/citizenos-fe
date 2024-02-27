@@ -82,7 +82,26 @@
   }
 }
 
+.cdk-drag-preview {
+  z-index: 999999 !important;
+}
+
 .input_area {
+  justify-content: space-between;
+  .actions_wrap {
+    display: flex;
+    align-items: center;
+    gap: 8p;
+  }
+
+  .icon_drag {
+    cursor: move;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+  }
   input {
     background-color: var(--color-surfaces);
   }
