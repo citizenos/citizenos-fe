@@ -41,9 +41,9 @@
         </div>
       </div>
       <cos-input
-        placeholder="{{'COMPONENTS.POST_ARGUMENT.SUBJECT_CHARACTERS_LEFT' | translate:{chars: subject.length, charsLeft: ARGUMENT_SUBJECT_MAXLENGTH} }}">
+        placeholder="{{'COMPONENTS.POST_ARGUMENT.PLACEHOLDER_ADD_SUBJECT_TO_ARGUMENT' | translate }}">
         <input id="argument_subject" name="subject" [(ngModel)]="subject"
-          placeholder="{{'COMPONENTS.POST_ARGUMENT.PLACEHOLDER_ADD_SUBJECT_TO_ARGUMENT' | translate:{chars: subject.length, charsLeft: ARGUMENT_SUBJECT_MAXLENGTH} }}"
+          placeholder="{{'COMPONENTS.POST_ARGUMENT.PLACEHOLDER_ADD_SUBJECT_TO_ARGUMENT' | translate }}"
           class="gray_borders" [ngClass]="{'error_input': errors?.subject}" (focus)="focusArgumentSubject"
           [attr.maxlength]="ARGUMENT_SUBJECT_MAXLENGTH" required>
         <label for="argument_subject" class="error_label" *ngIf="errors?.subject">

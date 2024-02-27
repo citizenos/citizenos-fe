@@ -14,9 +14,9 @@
           </label>
         </div>
       </div>
-      <cos-input placeholder="{{'COMPONENTS.EDIT_ARGUMENT.SUBJECT_CHARACTERS_LEFT' | translate:{chars: edit.subject.length, charsLeft: ARGUMENT_SUBJECT_MAXLENGTH} }}" *ngIf="argument.type !== 'reply'">
+      <cos-input placeholder="{{'COMPONENTS.EDIT_ARGUMENT.PLACEHOLDER_ADD_SUBJECT_TO_ARGUMENT' | translate }}" *ngIf="argument.type !== 'reply'">
         <input id="argument_subject" name="subject" [(ngModel)]="edit.subject"
-          placeholder="{{'COMPONENTS.EDIT_ARGUMENT.PLACEHOLDER_ADD_SUBJECT_TO_ARGUMENT' | translate:{chars: edit.subject.length, charsLeft: ARGUMENT_SUBJECT_MAXLENGTH} }}" class="gray_borders"
+          placeholder="{{'COMPONENTS.EDIT_ARGUMENT.PLACEHOLDER_ADD_SUBJECT_TO_ARGUMENT' | translate }}" class="gray_borders"
           [ngClass]="{'error_input': errors?.subject}" [attr.maxlength]="ARGUMENT_SUBJECT_MAXLENGTH" required>
         <label for="argument_subject" class="error_label" *ngIf="errors?.subject">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
