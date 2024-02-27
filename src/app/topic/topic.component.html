@@ -602,7 +602,7 @@
 
               <div class="dropdown button_dropdown tablet_hidden" [cosDropdown]
                 [TourItem]="{tourid: 'topic', index: 2, position: 'left'}">
-                <a class="members_link" translate="VIEWS.TOPICS_TOPICID.LNK_MANAGE"></a>
+                <a class="manage_link" translate="VIEWS.TOPICS_TOPICID.LNK_MANAGE"></a>
                 <div class="options">
                   <ng-container
                     *ngIf="(topic.permission.level && topic.permission.level !== 'none') && (auth.loggedIn$ | async)">
@@ -894,7 +894,7 @@
           <div class="info_items_wrap">
             <div class="info_header">
               <div class="info_title" translate="VIEWS.TOPICS_TOPICID.SECTION_PARTICIPANTS_HEADING"></div>
-              <a class="members_link" (click)="manageParticipants(topic)" translate="VIEWS.TOPICS_TOPICID.LNK_MANAGE"
+              <a class="manage_link" (click)="manageParticipants(topic)" translate="VIEWS.TOPICS_TOPICID.LNK_MANAGE"
                 *ngIf="canUpdate(topic)"></a>
             </div>
             <div class="participants_count_wrap">

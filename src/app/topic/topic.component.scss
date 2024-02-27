@@ -290,6 +290,17 @@
       gap: 16px;
       width: 288px;
 
+      .manage_link {
+        background-color: var(--color-background);
+        padding: 4px 8px;
+        border-radius: 24px;
+        transition: all 0.2s ease-in-out;
+
+        &:hover {
+          background-color: var(--color-link);
+          color: var(--color-surfaces);
+        }
+      }
       @include mixins.tablet {
         width: 100%;
       }
