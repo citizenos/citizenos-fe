@@ -153,7 +153,11 @@ export class GroupComponent implements OnInit {
           GroupMemberUserService.setParam('search', search);
           GroupInviteUserService.setParam('search', search);
         }
-        return combineLatest([this.GroupMemberUserService.loadItems(), this.GroupInviteUserService.loadItems()]);
+        const resolveList = [this.GroupMemberUserService.loadItems()];
+        if (this.auth.loggedIn$.value) {
+          resolveList.push(this.GroupInviteUserService.loadItems())
+        }
+        return combineLatest(resolveList);
       })
       ,map(
         ([members, invited]: any) => {
@@ -161,7 +165,12 @@ export class GroupComponent implements OnInit {
           if (members.length || invited.length) {
             this.filtersSet = true;
           }
-          this.allMembers$ = this.allMembers$.concat(members).concat(invited);
+          if (members) {
+            this.allMembers$ = this.allMembers$.concat(members)
+          }
+          if (invited) {
+            this.allMembers$ = this.allMembers$.concat(invited)
+          }
           return this.allMembers$;
         }
       )
