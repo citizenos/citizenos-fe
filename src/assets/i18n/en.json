@@ -803,7 +803,7 @@
       "LBL_OPTION_AUTH_HARD_ID": "Hard voting",
       "LBL_OPTION_AUTH_HARD_ID_DESC": "Voters will have to use e-ID to cast their vote. Vote signatures can be downloaded at the end.",
       "LBL_VOTE_DELEGATION": "Vote delegation",
-      "LBL_VOTE_DELEGATION_DESC": "You can opt to enable participants to pass on their voting right to another person. For soft voting only.",
+      "LBL_VOTE_DELEGATION_DESC": "Allow users to pass on their voting right. The delegee to won't be informed, but their vote will be counted twice. The delegator won't see how the delegee voted.",
       "LBL_OPTION_DELEGATION": "Enable delegation",
       "LBL_OPTION_DELEGATION_DESC": "Allow users to pass on their voting right.",
       "LBL_DEADLINE": "Vote deadline",
