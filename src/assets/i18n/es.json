@@ -2143,6 +2143,8 @@
       "NO_GROUPS_DESCRIPTION": "Once you’ve joined a group, you can add this topic to it. Don’t worry, you can skip this now and still do it later.",
       "GROUPS_LIST_TITLE": "@:VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_NAME",
       "HEADING_GROUP_PERMISSIONS": "@:COMPONENTS.GROUP_ADD_TOPICS.HEADING_GROUP_PERMISSIONS",
+      "TOOLTIP_GROUP_PERMISSIONS_TITLE": "@:COMPONENTS.GROUP_ADD_TOPICS.HEADING_GROUP_PERMISSIONS",
+      "TOOLTIP_GROUP_PERMISSIONS_CONTENT": "This will give all members of the group the selected level of permissions to the topic, unless you individually assign them a different permissions level from the topic's 'manage participants' section",
       "HEADING_ACTIONS": "@:COMPONENTS.GROUP_ADD_TOPICS.HEADING_ACTIONS",
       "PREVIEW_INFO": "<b>This is a preview of your topic!</b> You can still edit your topic at any point during the discussion phase.",
       "BTN_READ_MORE": "@:VIEWS.TOPICS_TOPICID.BTN_READ_MORE",
