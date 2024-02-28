@@ -259,7 +259,7 @@
         <ng-container *ngIf="!hasVoteEndedExpired()">
           <div class="line_separator"></div>
           <div class="info_text bold" *ngIf="!canUpdate()" translate="COMPONENTS.TOPIC_VOTE_CAST.LBL_INFO_RESULTS"></div>
-          <div class="info_text bold" *ngIf="canUpdate()" translate="COMPONENTS.TOPIC_VOTE_CAST.LBL_INFO_RESULTS_ADMIN"></div>
+          <div class="info_text" *ngIf="canUpdate()" [innerHtml]="'COMPONENTS.TOPIC_VOTE_CAST.LBL_INFO_RESULTS_ADMIN'| translate"></div>
         </ng-container>
       </div>
       <ng-container *ngIf="(!userHasVoted || editVote) && !hasVoteEndedExpired()">
