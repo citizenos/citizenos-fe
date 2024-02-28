@@ -239,7 +239,7 @@
       "BTN_SAVE": "Добавить темы в группу"
     },
     "GROUP_ADD_TOPICS": {
-      "HEADING": "Найти и добавить темы в группу",
+      "HEADING": "Add existing topics for members to access",
       "DESC": "Если добавите тему в группу, все участники группы будут иметь доступ к этой теме.",
       "PLACEHOLDER_SEARCH": "@:VIEWS.MY_TOPICS.PLACEHOLDER_SEARCH_TOPIC",
       "SHOW_PER_PAGE": "@:VIEWS.ACCOUNT.SHOW_PER_PAGE",
