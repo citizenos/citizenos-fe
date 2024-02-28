@@ -239,7 +239,7 @@
       "BTN_SAVE": "Lisa teemad gruppi"
     },
     "GROUP_ADD_TOPICS": {
-      "HEADING": "Otsi ja lisa teemad gruppi",
+      "HEADING": "Add existing topics for members to access",
       "DESC": "Peale teema gruppi lisamist on kõikidel grupi liikmetele ligipääs teemasse.",
       "PLACEHOLDER_SEARCH": "@:VIEWS.MY_TOPICS.PLACEHOLDER_SEARCH_TOPIC",
       "SHOW_PER_PAGE": "@:VIEWS.ACCOUNT.SHOW_PER_PAGE",
