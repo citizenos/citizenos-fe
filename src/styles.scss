@@ -746,6 +746,17 @@ cos-input {
       }
     }
   }
+
+  .view_password {
+    position: absolute;
+    right: 8px;
+    height: 100%;
+    width: 32px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
 }
 
 cos-toggle {
