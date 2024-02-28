@@ -299,6 +299,20 @@
     &:first-child {
       min-width: 45%;
     }
+    &.with_tooltip {
+      gap: 0px;
+      .tooltip {
+        height: initial;
+      }
+    }
+  }
+}
+
+.dropdown {
+  @include mixins.mobile {
+    .options {
+      z-index: 99999999;
+    }
   }
 }
 
@@ -369,7 +383,14 @@
     font-size: 16px;
     line-height: 32px;
     margin-bottom: 36px;
-    strong, ol, li, b, i, em, s, u {
+    strong,
+    ol,
+    li,
+    b,
+    i,
+    em,
+    s,
+    u {
       font-size: 16px;
       line-height: 32px;
     }

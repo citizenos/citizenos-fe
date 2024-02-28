@@ -709,7 +709,14 @@
                   <div id="topic_members_list_wrap" class="table_section">
                     <div class="row_header mobile_hidden" *ngIf="topicGroups.length">
                       <div class="row_cell" translate="VIEWS.TOPIC_CREATE.GROUPS_LIST_TITLE"></div>
-                      <div class="row_cell" translate="VIEWS.TOPIC_CREATE.HEADING_GROUP_PERMISSIONS"></div>
+                      <div class="row_cell with_tooltip" translate="VIEWS.TOPIC_CREATE.HEADING_GROUP_PERMISSIONS">
+                        <div class="tooltip" tooltip>
+                          <div class="content_title" translate="VIEWS.TOPIC_CREATE.TOOLTIP_GROUP_PERMISSIONS_TITLE">
+                          </div>
+                          <div class="content_description"
+                            translate="VIEWS.TOPIC_CREATE.TOOLTIP_GROUP_PERMISSIONS_CONTENT"></div>
+                        </div>
+                      </div>
                       <div class="row_cell mobile_hide" translate="VIEWS.TOPIC_CREATE.HEADING_ACTIONS"></div>
                     </div>
                     <ng-container *ngFor="let group of topicGroups; index as i;">
@@ -723,7 +730,14 @@
                             </a>
                           </div>
                           <div class="row_cell">
-                            <div class="cell_title" translate="VIEWS.TOPIC_CREATE.HEADING_GROUP_PERMISSIONS"></div>
+                            <div class="cell_title" translate="VIEWS.TOPIC_CREATE.HEADING_GROUP_PERMISSIONS">
+                              <div class="tooltip" tooltip>
+                                <div class="content_title"
+                                  translate="VIEWS.TOPIC_CREATE.TOOLTIP_GROUP_PERMISSIONS_TITLE"></div>
+                                <div class="content_description"
+                                  translate="VIEWS.TOPIC_CREATE.TOOLTIP_GROUP_PERMISSIONS_CONTENT"></div>
+                              </div>
+                            </div>
                             <div class="dropdown" [cosDropdown]>
                               <div class="selection">
                                 <div class="selected_item">{{'TXT_TOPIC_LEVELS_' + (group.level) |
@@ -884,7 +898,8 @@
             <button *ngIf="isnew && topic.status === TopicService.STATUSES.draft" class="btn_medium_secondary"
               (click)="saveAsDraft()" translate="VIEWS.TOPIC_CREATE.FOOTER_BTN_SAVE_AS_DRAFT">
             </button>
-            <button *ngIf="!isnew" class="btn_medium_submit icon" (click)="(tabSelected !== 'preview')? updateTopic(): publish();"
+            <button *ngIf="!isnew" class="btn_medium_submit icon"
+              (click)="(tabSelected !== 'preview')? updateTopic(): publish();"
               translate="VIEWS.TOPIC_CREATE.FOOTER_BTN_SAVE_CHANGES"></button>
             <button *ngIf="isnew || topic.status === TopicService.STATUSES.draft" class="btn_medium_submit publish icon"
               (click)="publish()" [ngClass]="{disabled: !TopicService.canDelete(topic)}">
@@ -931,8 +946,7 @@
                 </svg>
               </button>
               <button *ngIf="tabSelected !== 'preview'" class="btn_medium_submit icon mobile_show"
-                (click)="nextTab(tabSelected)"
-                [ngClass]="{disabled: isNextDisabled(tabSelected)}">
+                (click)="nextTab(tabSelected)" [ngClass]="{disabled: isNextDisabled(tabSelected)}">
                 <span class="btn_text mobile_hidden" [translate]="'VIEWS.TOPIC_CREATE.FOOTER_BTN_CONTINUE'"></span>
                 <svg class="mobile_show" id="continue_btn" width="24" height="24" viewBox="0 0 24 24" fill="none"
                   xmlns="http://www.w3.org/2000/svg">
@@ -941,11 +955,10 @@
                     fill="white" />
                 </svg>
               </button>
-              <button *ngIf="!isnew && tabSelected!=='preview'" class="btn_medium_secondary icon mobile_hidden" (click)="updateTopic()"
-                translate="VIEWS.TOPIC_CREATE.FOOTER_BTN_SAVE_CHANGES"></button>
+              <button *ngIf="!isnew && tabSelected!=='preview'" class="btn_medium_secondary icon mobile_hidden"
+                (click)="updateTopic()" translate="VIEWS.TOPIC_CREATE.FOOTER_BTN_SAVE_CHANGES"></button>
               <button class="btn_medium_submit icon mobile_hidden" (click)="(tabSelected!=='preview' )?
-                nextTab(tabSelected) : publish()"
-                [ngClass]="{disabled: isNextDisabled(tabSelected)}">
+                nextTab(tabSelected) : publish()" [ngClass]="{disabled: isNextDisabled(tabSelected)}">
                 <span class="btn_text mobile_hidden"
                   [translate]="(tabSelected!=='preview')? 'VIEWS.TOPIC_CREATE.FOOTER_BTN_CONTINUE': (topic.status === TopicService.STATUSES.draft)? 'VIEWS.TOPIC_CREATE.FOOTER_BTN_CREATE' : 'VIEWS.TOPIC_CREATE.FOOTER_BTN_SAVE_CHANGES'"></span>
                 <svg class="mobile_show" id="continue_btn" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -1018,7 +1031,8 @@
                   d="M8 15C8 15 13 10 13 6C13 3.23858 10.7614 1 8 1C5.23858 1 3 3.23858 3 6C3 10 8 15 8 15ZM8 8C9.10457 8 10 7.10457 10 6C10 4.89543 9.10457 4 8 4C6.89543 4 6 4.89543 6 6C6 7.10457 6.89543 8 8 8Z"
                   fill="#2C3B47" />
               </svg>
-              <span>{{topic.country || ('VIEWS.TOPICS_TOPICID.SECTION_INFO_LBL_COUNTRY_NOT_SPECIFIED' | translate)}}</span>
+              <span>{{topic.country || ('VIEWS.TOPICS_TOPICID.SECTION_INFO_LBL_COUNTRY_NOT_SPECIFIED' |
+                translate)}}</span>
             </div>
             <div class="info_item">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1026,7 +1040,8 @@
                   d="M8 15C7.02 15 6.10417 14.8162 5.2525 14.4487C4.40083 14.0812 3.66 13.5825 3.03 12.9525C2.4 12.3225 1.90417 11.5787 1.5425 10.7212C1.18083 9.86375 1 8.945 1 7.965C1 6.985 1.18083 6.07208 1.5425 5.22625C1.90417 4.38042 2.4 3.6425 3.03 3.0125C3.66 2.3825 4.40083 1.88958 5.2525 1.53375C6.10417 1.17792 7.02 1 8 1C8.98 1 9.89583 1.17792 10.7475 1.53375C11.5992 1.88958 12.34 2.3825 12.97 3.0125C13.6 3.6425 14.0958 4.38042 14.4575 5.22625C14.8192 6.07208 15 6.985 15 7.965C15 8.945 14.8192 9.86375 14.4575 10.7212C14.0958 11.5787 13.6 12.3225 12.97 12.9525C12.34 13.5825 11.5992 14.0812 10.7475 14.4487C9.89583 14.8162 8.98 15 8 15ZM8 13.985C8.40833 13.565 8.74958 13.0837 9.02375 12.5412C9.29792 11.9987 9.5225 11.3542 9.6975 10.6075H6.32C6.48333 11.3075 6.70208 11.9375 6.97625 12.4975C7.25042 13.0575 7.59167 13.5533 8 13.985ZM6.5125 13.775C6.22083 13.3317 5.97 12.8533 5.76 12.34C5.55 11.8267 5.375 11.2492 5.235 10.6075H2.61C3.05333 11.4358 3.56667 12.0863 4.15 12.5588C4.73333 13.0312 5.52083 13.4367 6.5125 13.775ZM9.505 13.7575C10.345 13.4892 11.1004 13.0867 11.7713 12.55C12.4421 12.0133 12.9817 11.3658 13.39 10.6075H10.7825C10.6308 11.2375 10.4529 11.8092 10.2487 12.3225C10.0446 12.8358 9.79667 13.3142 9.505 13.7575ZM2.26 9.5575H5.0425C5.0075 9.2425 4.98708 8.95958 4.98125 8.70875C4.97542 8.45792 4.9725 8.21 4.9725 7.965C4.9725 7.67333 4.97833 7.41375 4.99 7.18625C5.00167 6.95875 5.025 6.705 5.06 6.425H2.26C2.17833 6.705 2.12292 6.95583 2.09375 7.1775C2.06458 7.39917 2.05 7.66167 2.05 7.965C2.05 8.26833 2.06458 8.53958 2.09375 8.77875C2.12292 9.01792 2.17833 9.2775 2.26 9.5575ZM6.1275 9.5575H9.89C9.93667 9.19583 9.96583 8.90125 9.9775 8.67375C9.98917 8.44625 9.995 8.21 9.995 7.965C9.995 7.73167 9.98917 7.50708 9.9775 7.29125C9.96583 7.07542 9.93667 6.78667 9.89 6.425H6.1275C6.08083 6.78667 6.05167 7.07542 6.04 7.29125C6.02833 7.50708 6.0225 7.73167 6.0225 7.965C6.0225 8.21 6.02833 8.44625 6.04 8.67375C6.05167 8.90125 6.08083 9.19583 6.1275 9.5575ZM10.94 9.5575H13.74C13.8217 9.2775 13.8771 9.01792 13.9062 8.77875C13.9354 8.53958 13.95 8.26833 13.95 7.965C13.95 7.66167 13.9354 7.39917 13.9062 7.1775C13.8771 6.95583 13.8217 6.705 13.74 6.425H10.9575C10.9925 6.83333 11.0158 7.14542 11.0275 7.36125C11.0392 7.57708 11.045 7.77833 11.045 7.965C11.045 8.22167 11.0363 8.46375 11.0188 8.69125C11.0013 8.91875 10.975 9.2075 10.94 9.5575ZM10.765 5.375H13.39C13.005 4.57 12.4771 3.89917 11.8062 3.3625C11.1354 2.82583 10.3625 2.44667 9.4875 2.225C9.77917 2.65667 10.0271 3.12333 10.2312 3.625C10.4354 4.12667 10.6133 4.71 10.765 5.375ZM6.32 5.375H9.715C9.58667 4.75667 9.37083 4.15875 9.0675 3.58125C8.76417 3.00375 8.40833 2.49333 8 2.05C7.62667 2.365 7.31167 2.77917 7.055 3.2925C6.79833 3.80583 6.55333 4.5 6.32 5.375ZM2.61 5.375H5.2525C5.38083 4.745 5.54417 4.18208 5.7425 3.68625C5.94083 3.19042 6.19167 2.70917 6.495 2.2425C5.62 2.46417 4.85583 2.8375 4.2025 3.3625C3.54917 3.8875 3.01833 4.55833 2.61 5.375Z"
                   fill="#2C3B47" />
               </svg>
-              <span>{{topic.language || ('VIEWS.TOPICS_TOPICID.SECTION_INFO_LBL_LANGUAGE_NOT_SPECIFIED' | translate)}}</span>
+              <span>{{topic.language || ('VIEWS.TOPICS_TOPICID.SECTION_INFO_LBL_LANGUAGE_NOT_SPECIFIED' |
+                translate)}}</span>
             </div>
             <!--div class="info_item">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
