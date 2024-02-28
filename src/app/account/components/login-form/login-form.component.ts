@@ -17,6 +17,7 @@ export class LoginFormComponent {
   @Input() redirectSuccess?: any;
   @Input() email?: string;
   isFormEmailProvided: any;
+  showPassword = false;
   linkRegister: any;
   form = new UntypedFormGroup({
     email: new UntypedFormControl(),
