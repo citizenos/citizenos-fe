@@ -378,6 +378,8 @@ export class ActivityService extends ItemsListService {
       values.userName2 = activity.data.target.name;
     } else if (activity.data.target && activity.data.target.userName) {
       values.userName2 = activity.data.target.userName;
+    } else if (activity.data.actor && activity.data.actor.type==='Moderator') {
+      values.userName = '';
     }
   };
 
