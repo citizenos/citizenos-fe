@@ -2143,6 +2143,8 @@
       "NO_GROUPS_DESCRIPTION": "Как только вы присоединитесь к группе, вы можете добавить в нее тему. Не волнуйтесь, вы можете пропустить это сейчас и сделать это позже.",
       "GROUPS_LIST_TITLE": "@:VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_NAME",
       "HEADING_GROUP_PERMISSIONS": "@:COMPONENTS.GROUP_ADD_TOPICS.HEADING_GROUP_PERMISSIONS",
+      "TOOLTIP_GROUP_PERMISSIONS_TITLE": "@:COMPONENTS.GROUP_ADD_TOPICS.HEADING_GROUP_PERMISSIONS",
+      "TOOLTIP_GROUP_PERMISSIONS_CONTENT": "This will give all members of the group the selected level of permissions to the topic, unless you individually assign them a different permissions level from the topic's 'manage participants' section",
       "HEADING_ACTIONS": "@:COMPONENTS.GROUP_ADD_TOPICS.HEADING_ACTIONS",
       "PREVIEW_INFO": "<b>Это предварительный просмотр вашей темы.</b> Вы по-прежнему можете редактировать свою тему в любой момент на этапе обсуждения.",
       "BTN_READ_MORE": "@:VIEWS.TOPICS_TOPICID.BTN_READ_MORE",
