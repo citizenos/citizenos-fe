@@ -38,56 +38,61 @@ export class GroupTokenJoinComponent {
       }), take(1))
       .subscribe({
         next: (group) => {
-          const joinDialog = dialog.open(GroupJoinComponent, {
-            data: {
-              group: group,
-              token: this.token
-            }
-          });
+          if (group.userLevel) {
+            router.navigate(['/groups', group.id]);
+          } else {
 
-          joinDialog.afterClosed().subscribe((confirm) => {
-            if (confirm === true) {
-              if (this.token) {
-                GroupJoinService.join(this.token).pipe(
-                  take(1)
-                ).subscribe({
-                  next: (group) => {
-                    router.navigate(['/groups', group.id]);
-                  },
-                  error: (res) => {
-                    const status = res.status;
-                    if (status.code === 40100) { // Unauthorized
-                      const currentUrl = Location.currentUrl();
-                      router.navigate(['/account/login'], { queryParams: { redirectSuccess: currentUrl } });
-                    } else if (status.code === 40001) { // Matching token not found.
-                      router.navigate(['/']);
-                    } else {
-                      router.navigate(['/404']);
-                    }
-                  }
-                })
-              } else {
-                GroupJoinService.joinPublic(group.id).pipe(
-                  take(1)
-                ).subscribe({
-                  next: (group) => {
-                    router.navigate(['/groups', group.id]);
-                  },
-                  error: (res) => {
-                    const status = res.status;
-                    if (status.code === 40100) { // Unauthorized
-                      const currentUrl = Location.currentUrl();
-                      router.navigate(['/account/login'], { queryParams: { redirectSuccess: currentUrl } });
-                    } else if (status.code === 40001) { // Matching token not found.
-                      router.navigate(['/']);
-                    } else {
-                      router.navigate(['/404']);
-                    }
-                  }
-                })
+            const joinDialog = dialog.open(GroupJoinComponent, {
+              data: {
+                group: group,
+                token: this.token
               }
-            }
-          });
+            });
+
+            joinDialog.afterClosed().subscribe((confirm) => {
+              if (confirm === true) {
+                if (this.token) {
+                  GroupJoinService.join(this.token).pipe(
+                    take(1)
+                  ).subscribe({
+                    next: (group) => {
+                      router.navigate(['/groups', group.id]);
+                    },
+                    error: (res) => {
+                      const status = res.status;
+                      if (status.code === 40100) { // Unauthorized
+                        const currentUrl = Location.currentUrl();
+                        router.navigate(['/account/login'], { queryParams: { redirectSuccess: currentUrl } });
+                      } else if (status.code === 40001) { // Matching token not found.
+                        router.navigate(['/']);
+                      } else {
+                        router.navigate(['/404']);
+                      }
+                    }
+                  })
+                } else {
+                  GroupJoinService.joinPublic(group.id).pipe(
+                    take(1)
+                  ).subscribe({
+                    next: (group) => {
+                      router.navigate(['/groups', group.id]);
+                    },
+                    error: (res) => {
+                      const status = res.status;
+                      if (status.code === 40100) { // Unauthorized
+                        const currentUrl = Location.currentUrl();
+                        router.navigate(['/account/login'], { queryParams: { redirectSuccess: currentUrl } });
+                      } else if (status.code === 40001) { // Matching token not found.
+                        router.navigate(['/']);
+                      } else {
+                        router.navigate(['/404']);
+                      }
+                    }
+                  })
+                }
+              }
+            });
+          }
         },
         error: (err) => {
           console.error("Group join error", err);
