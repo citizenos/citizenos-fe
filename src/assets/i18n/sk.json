@@ -976,6 +976,12 @@
     },
     "TYPEAHEAD": {
       "PRESS_ENTER_TO_ADD": "Pridajte stlačením 'enter'"
+    },
+    "VERIFY_EMAIL": {
+      "HEADING": "Verify your account",
+      "DESCRIPTION": "We’ve sent an account verification e-mail to the address",
+      "INFO": "Please follow the instructions in the e-mail to verify your account. Only after doing this you will be able to log in to Citizen OS!",
+      "BTN_OK": "OK, got it!"
     }
   },
   "MODALS": {
@@ -2113,6 +2119,8 @@
       "HEADER_IMAGE_UPLOAD_BTN": "Vybrať súbor",
       "TITLE_HEADING": "Názov",
       "TITLE_INTRO": "Úvod",
+      "TOOLTIP_TOPIC_INTRO_TITLE": "@:VIEWS.TOPIC_CREATE.TITLE_INTRO",
+      "TOOLTIP_TOPIC_INTRO_CONTENT": "The intro to your topic will make it easier for participants to get a quick sense of what they'll get involved with.",
       "TITLE_INTRO_TEXT": "Add a brief introduction or call to action, summarising what the topic is for.",
       "TITLE_DESCRIPTION": "Topic text",
       "TITLE_DESCRIPTION_TEXT": "The main topic content goes here - any instructions, information or context for participants.",
@@ -2457,6 +2465,8 @@
       "HEADER_IMAGE_UPLOAD_DESC_TEXT": "@:VIEWS.TOPIC_CREATE.HEADER_IMAGE_UPLOAD_DESC_TEXT",
       "HEADER_IMAGE_UPLOAD_BTN": "@:VIEWS.TOPIC_CREATE.HEADER_IMAGE_UPLOAD_BTN",
       "TITLE_INTRO": "@:VIEWS.TOPIC_CREATE.TITLE_INTRO",
+      "TOOLTIP_TOPIC_INTRO_TITLE": "@:VIEWS.TOPIC_CREATE.TOOLTIP_TOPIC_INTRO_TITLE",
+      "TOOLTIP_TOPIC_INTRO_CONTENT": "@:VIEWS.TOPIC_CREATE.TOOLTIP_TOPIC_INTRO_CONTENT",
       "TITLE_INTRO_TEXT": "@:VIEWS.TOPIC_CREATE.TITLE_INTRO_TEXT",
       "TITLE_DESCRIPTION": "@:VIEWS.TOPIC_CREATE.TITLE_DESCRIPTION",
       "TITLE_DESCRIPTION_TEXT": "@:VIEWS.TOPIC_CREATE.TITLE_DESCRIPTION_TEXT",
