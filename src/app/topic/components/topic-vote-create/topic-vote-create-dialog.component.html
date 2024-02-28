@@ -65,6 +65,20 @@
             </div>
             <div class="row"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
+                <path d="M17 7L7 17" stroke="#2C3B47" stroke-width="2" />
+                <path d="M7 7L17 17" stroke="#2C3B47" stroke-width="2" />
+              </svg>
+              <span translate="COMPONENTS.TOPIC_VOTE_CREATE.DIALOG_TAB_INTRODUCTION_ITEM_5"></span>
+            </div>
+            <div class="row"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M17 7L7 17" stroke="#2C3B47" stroke-width="2" />
+                <path d="M7 7L17 17" stroke="#2C3B47" stroke-width="2" />
+              </svg>
+              <span translate="COMPONENTS.TOPIC_VOTE_CREATE.DIALOG_TAB_INTRODUCTION_ITEM_6"></span>
+            </div>
+            <div class="row"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
                 <path d="M9.38602 14.8088L17.5256 6L19 7.59558L9.38602 18L5 13.2534L6.47436 11.6578L9.38602 14.8088Z"
                   fill="#2C3B47" />
               </svg>
@@ -643,6 +657,7 @@
       </ng-container>
       <ng-container *ngIf="tabActive === 4">
         <div class="dialog_info_wrap">
+          <div class="vote_info_reminder" [innerHTML]="'COMPONENTS.TOPIC_VOTE_CREATE.PREVIEW_INFO_CHECK' | translate"></div>
           <div class="dialog_info voting">
             <span translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_VOTING_QUESTION"></span>
             <span class="bold">{{vote.description}}</span>
