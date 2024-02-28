@@ -976,6 +976,12 @@
     },
     "TYPEAHEAD": {
       "PRESS_ENTER_TO_ADD": "Press enter to add"
+    },
+    "VERIFY_EMAIL": {
+      "HEADING": "Verify your account",
+      "DESCRIPTION": "We’ve sent an account verification e-mail to the address",
+      "INFO": "Please follow the instructions in the e-mail to verify your account. Only after doing this you will be able to log in to Citizen OS!",
+      "BTN_OK": "OK, got it!"
     }
   },
   "MODALS": {

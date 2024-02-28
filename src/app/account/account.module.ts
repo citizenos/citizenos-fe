@@ -25,6 +25,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { SmartIdLoginFormComponent } from './components/smart-id-login-form/smart-id-login-form.component';
 import { EstIdLoginComponent, EstIdLoginDialogComponent} from './components/est-id-login/est-id-login.component';
 import { EstIdLoginFormComponent } from './components/est-id-login-form/est-id-login-form.component';
+import { VerifyEmailDialogComponent } from './components/verify-email-dialog/verify-email-dialog.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { EstIdLoginFormComponent } from './components/est-id-login-form/est-id-l
     SmartIdLoginFormComponent,
     EstIdLoginComponent,
     EstIdLoginDialogComponent,
-    EstIdLoginFormComponent
+    EstIdLoginFormComponent,
+    VerifyEmailDialogComponent
   ],
   imports: [
     CommonModule,

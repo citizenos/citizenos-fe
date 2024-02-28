@@ -6,6 +6,7 @@ import { DialogService } from 'src/app/shared/dialog';
 import { take } from 'rxjs';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { VerifyEmailDialogComponent } from '../verify-email-dialog/verify-email-dialog.component';
 
 @Component({
   selector: 'register-form',
@@ -85,17 +86,32 @@ export class RegisterFormComponent {
             let delay = 0;
             this.dialog.closeAll(); // Close all dialogs, including the one open now...
             if (!this.isInviteFlowSignUp) {
-              this.Notification.addInfo('MSG_INFO_CHECK_EMAIL_TO_VERIFY_YOUR_ACCOUNT');
+             // this.Notification.addInfo('MSG_INFO_CHECK_EMAIL_TO_VERIFY_YOUR_ACCOUNT');
+              const verifyDialog = this.dialog.open(VerifyEmailDialogComponent, {
+                data: {
+                  email: formData.email
+                }
+              });
+              verifyDialog.afterClosed().subscribe(() => {
+                if (response.data && response.redirectSuccess) {
+                  window.location.href = response.redirectSuccess;
+                } else if (this.redirectSuccess) {
+                  window.location.href = this.redirectSuccess;
+                } else {
+                  this.router.navigate(['/']);
+                }
+              });
+            } else {
+              setTimeout(() => {
+                if (response.data && response.redirectSuccess) {
+                  window.location.href = response.redirectSuccess;
+                } else if (this.redirectSuccess) {
+                  window.location.href = this.redirectSuccess;
+                } else {
+                  this.router.navigate(['/']);
+                }
+              }, 0);
             }
-            setTimeout(() => {
-              if (response.data && response.redirectSuccess) {
-                window.location.href = response.redirectSuccess;
-              } else if (this.redirectSuccess) {
-                window.location.href = this.redirectSuccess;
-              } else {
-                this.router.navigate(['/']);
-              }
-            }, 0);
           },
           error: (res) => {
             if (res.errors.password) this.Notification.removeAll();
