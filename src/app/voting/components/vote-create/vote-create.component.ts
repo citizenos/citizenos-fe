@@ -53,7 +53,6 @@ import { TopicMemberGroupService } from 'src/app/services/topic-member-group.ser
         transition: '0.2s ease-in-out max-height'
       })),
       state('closed', style({
-        overflowY: 'hidden',
         transition: '0.2s ease-in-out max-height'
       }))
     ]),
@@ -286,7 +285,7 @@ export class VoteCreateComponent implements OnInit {
   isNextDisabled(tabSelected: string | void) {
     if (tabSelected === 'preview' && !this.TopicService.canDelete(this.topic)) {
       return true;
-    } else if (!this.topic.title || !this.topic.intro || !this.topic.description) {
+    } else if (!this.topic.title || !this.topic.description) {
       return true;
     }
 
@@ -302,12 +301,6 @@ export class VoteCreateComponent implements OnInit {
           invalid = true;
           setTimeout(() => {
             this.titleInput?.nativeElement?.parentNode.parentNode.classList.add('error');
-          });
-        } if (!this.topic.intro) {
-          this.block.intro = true;
-          invalid = true;
-          setTimeout(() => {
-            this.introInput?.nativeElement?.parentNode.parentNode.classList.add('error');
           });
         }
         if (invalid) {

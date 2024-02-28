@@ -49,7 +49,6 @@ import { GroupMemberTopicService } from 'src/app/services/group-member-topic.ser
         transition: '0.2s ease-in-out max-height'
       })),
       state('closed', style({
-        overflowY: 'hidden',
         transition: '0.2s ease-in-out max-height'
       }))
     ]),
@@ -218,7 +217,7 @@ export class TopicFormComponent {
   isNextDisabled(tabSelected: string | void) {
     if (tabSelected === 'preview' && !this.TopicService.canDelete(this.topic)) {
       return true;
-    } else if (!this.topic.title || !this.topic.intro || !this.topic.description) {
+    } else if (!this.topic.title || !this.topic.description) {
       return true;
     }
 
@@ -233,12 +232,6 @@ export class TopicFormComponent {
         invalid = true;
         setTimeout(() => {
           this.titleInput?.nativeElement?.parentNode.parentNode.classList.add('error');
-        });
-      } if (!this.topic.intro) {
-        this.block.intro = true;
-        invalid = true;
-        setTimeout(() => {
-          this.introInput?.nativeElement?.parentNode.parentNode.classList.add('error');
         });
       }
       if (invalid) {
