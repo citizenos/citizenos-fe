@@ -69,6 +69,7 @@ import { GroupMemberTopicService } from 'src/app/services/group-member-topic.ser
 export class TopicFormComponent {
   topicText?: ElementRef
   readMoreButton = new BehaviorSubject(false);
+  isCreatedFromGroup = false;
   @ViewChild('topicTitle') titleInput!: ElementRef;
   @ViewChild('topicIntro') introInput!: ElementRef;
   @ViewChild('topicText') set content(content: ElementRef) {
@@ -196,6 +197,11 @@ export class TopicFormComponent {
       this.TopicMemberGroupService.setParam('topicId', this.topic.id);
       this.topicGroups$ = this.TopicMemberGroupService.loadItems().pipe(
         tap((groups) => {
+          if (groups.length && this.isnew) {
+            this.topic.visibility = groups[0].visibility;
+            this.isCreatedFromGroup = true;
+            this.updateTopic();
+          }
           groups.forEach((group: any) => {
             const exists = this.topicGroups.find((mgroup) => mgroup.id === group.id);
             if (!exists) this.topicGroups.push(group);

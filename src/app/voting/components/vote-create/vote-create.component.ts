@@ -96,6 +96,7 @@ export class VoteCreateComponent implements OnInit {
   private loadInvite$ = new BehaviorSubject<void>(undefined);
   invites$: Observable<any[]> = of([]);
 
+  isCreatedFromGroup = false;
   topicGroups = <TopicMemberGroup[]>[];
   topic$: Observable<Topic>;
   topic: any;
@@ -217,6 +218,11 @@ export class VoteCreateComponent implements OnInit {
               this.TopicMemberGroupService.setParam('topicId', this.topic.id);
               this.topicGroups$ = this.TopicMemberGroupService.loadItems().pipe(
                 tap((groups) => {
+                  if (groups.length && this.isnew) {
+                    this.topic.visibility = groups[0].visibility;
+                    this.isCreatedFromGroup = true;
+                    this.updateTopic();
+                  }
                   groups.forEach((group:any) => {
                     const exists = this.topicGroups.find((mgroup) => mgroup.id === group.id);
                     if (!exists) this.topicGroups.push(group);
