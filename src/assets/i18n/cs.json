@@ -239,7 +239,7 @@
       "BTN_SAVE": "Přidat témata do skupiny"
     },
     "GROUP_ADD_TOPICS": {
-      "HEADING": "Najít a přidat témata do skupiny",
+      "HEADING": "Add existing topics for members to access",
       "DESC": "Když přidáte téma do skupiny, všichni členové této skupiny budou mít přístup k tématu.",
       "PLACEHOLDER_SEARCH": "@:VIEWS.MY_TOPICS.PLACEHOLDER_SEARCH_TOPIC",
       "SHOW_PER_PAGE": "@:VIEWS.ACCOUNT.SHOW_PER_PAGE",
