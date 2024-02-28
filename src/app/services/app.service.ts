@@ -129,7 +129,6 @@ export class AppService {
     this.TopicService.save(topic)
       .pipe(take(1))
       .subscribe((topic) => {
-        console.log(topic);
         const redirect = url.concat(['create', topic.id])
         if (groupId) {
           const level = this.GroupMemberTopicService.LEVELS.read;
