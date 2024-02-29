@@ -314,7 +314,7 @@
               <div class="title" translate="VIEWS.TOPICS_TOPICID.HEADING_REPORTED">
               </div>
               <div class="content">
-                <div class="content_description" translate="VIEWS.TOPICS_TOPICID.DESCRIPTION_REPORTED"></div>
+                <div class="content_description" [translate]="(TopicService.canEdit(topic))? 'VIEWS.TOPICS_TOPICID.DESCRIPTION_REPORTED_ADMIN' : 'VIEWS.TOPICS_TOPICID.DESCRIPTION_REPORTED'"></div>
                 <div class="content_items_wrap">
                   <div class="content_item" *ngIf="topic.report.type && !topic.report.moderatedReasonType">
                     <a [routerLink]="['reports', topic.report.id, 'moderate']">
