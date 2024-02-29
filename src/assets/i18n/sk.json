@@ -239,7 +239,7 @@
       "BTN_SAVE": "Pridať témy do skupiny"
     },
     "GROUP_ADD_TOPICS": {
-      "HEADING": "Nájsť a pridať témy do skupiny",
+      "HEADING": "Add existing topics for members to access",
       "DESC": "Keď pridáte tému do skupiny, budú mať k nej prístup všetci členovia tejto skupiny.",
       "PLACEHOLDER_SEARCH": "@:VIEWS.MY_TOPICS.PLACEHOLDER_SEARCH_TOPIC",
       "SHOW_PER_PAGE": "@:VIEWS.ACCOUNT.SHOW_PER_PAGE",
@@ -731,7 +731,7 @@
       "VOTE_HEADING_DELEGATE": "@:VIEWS.TOPICS_TOPICID.VOTE_HEADING_DELEGATE",
       "LBL_VOTING_ENDED": "@:VIEWS.TOPICS_TOPICID.STATE_ITEM_VOTING_STATUS_ENDED",
       "LBL_INFO_RESULTS": "Výsledky sa zobrazia po skončení hlasovania.",
-      "LBL_INFO_RESULTS_ADMIN": "Výsledky sa zobrazia, akonáhle sa hlasovanie skončí. Hlasovanie môžete kedykoľvek ukončiť v ponuke Spravovať hlasovanie.",
+      "LBL_INFO_RESULTS_ADMIN": "<b>The results will be shown once the vote ends.</b> You can close the vote at any time in the manage vote menu.",
       "VOTE_SUBMIT": "@:VIEWS.TOPICS_TOPICID.VOTE_SUBMIT",
       "HEADING_VOTE_REGISTERED": "@:VIEWS.TOPICS_TOPICID.HEADING_VOTE_REGISTERED",
       "VOTE_TXT_VOTE_REGISTERED": "@:VIEWS.TOPICS_TOPICID.VOTE_TXT_VOTE_REGISTERED",
@@ -748,7 +748,7 @@
       "VOTE_VOTES_COUNTED": "@:VIEWS.TOPICS_TOPICID.VOTE_VOTES_COUNTED",
       "LBL_YOUR_CHOSE_OPTIONS": "Vaše zvolené možnosti",
       "VOTE_DELEGATED_TO": "@:VIEWS.TOPICS_TOPICID.VOTE_DELEGATED_TO",
-      "INFO_YOU_WILL_SEE_WHO_VOTED": "Po skončení hlasovania uvidíte, o čom hlasovali.",
+      "INFO_DELEGATION_DESCRIPTION": "They won't know they are voting for you. Your vote will be the same as theirs, but you won't see evidence of how they've voted.",
       "VOTE_REVOKE_DELEGATION": "@:VIEWS.TOPICS_TOPICID.VOTE_REVOKE_DELEGATION",
       "LBL_OPTIONS_YOU_DIDNT_CHOOSE": "Možnosti, ktoré ste si nevybrali",
       "FINAL_OPTION_WITHOUT_CSV": "@:VIEWS.TOPICS_TOPICID.FINAL_OPTION_WITHOUT_CSV",
@@ -772,6 +772,8 @@
       "DIALOG_TAB_INTRODUCTION_ITEM_2": "Stále môžete pozývať účastníkov a zdieľať s nimi",
       "DIALOG_TAB_INTRODUCTION_ITEM_3": "Účastníci môžu naďalej pokračovať v diskusii",
       "DIALOG_TAB_INTRODUCTION_ITEM_4": "Účastníci môžu odovzdať svoj hlas",
+      "DIALOG_TAB_INTRODUCTION_ITEM_5": "You can't edit a vote once you have started it",
+      "DIALOG_TAB_INTRODUCTION_ITEM_6": "You can only start one vote per topic",
       "DIALOG_TAB_INTRODUCTION_INFO": "Odtiaľto môžete tému presunúť do monitoringu.",
       "VOTE_QUESTION_HEADING": "Pridajte konkrétnu otázku, o ktorej budú účastníci hlasovať.",
       "VOTE_QUESTION_PLACEHOLDER": "Napíšte hlasovaciu otázku",
@@ -801,7 +803,7 @@
       "LBL_OPTION_AUTH_HARD_ID": "Tvrdé hlasovanie",
       "LBL_OPTION_AUTH_HARD_ID_DESC": "Hlasujúci budú musieť pri hlasovaní použiť elektronický preukaz totožnosti. Hlasovacie podpisy si môžete stiahnuť na konci.",
       "LBL_VOTE_DELEGATION": "Delegovanie hlasu",
-      "LBL_VOTE_DELEGATION_DESC": "You can opt to enable participants to pass on their voting right to another person. For soft voting only.",
+      "LBL_VOTE_DELEGATION_DESC": "Allow users to pass on their voting right. The delegee to won't be informed, but their vote will be counted twice. The delegator won't see how the delegee voted.",
       "LBL_OPTION_DELEGATION": "Enable delegation",
       "LBL_OPTION_DELEGATION_DESC": "Umožnite používateľom odovzdať svoje hlasovacie právo.",
       "LBL_DEADLINE": "Vote deadline",
@@ -820,6 +822,7 @@
       "LBL_OPTION_ALL_VOTES_ARE_IN": "Všetky hlasy sú v",
       "LBL_OPTION_ALL_VOTES_ARE_IN_DESC": "Keď v téme hlasovali všetci používatelia, hlasovací systém sa uzavrie.",
       "PREVIEW_HEADER": "Náhľad možností hlasovania",
+      "PREVIEW_INFO_CHECK": "<b>Check your vote is exactly as you want it!</b> You can't edit or pause a vote once you've started it, and can only start one vote per topic.",
       "PREVIEW_VOTE_TYPE_MULTIPLE": "Ide o hlasovanie s viacnásobným výberom. Maximálne množstvo možností, ktoré si môžete vybrať: {{maxOptions}}.",
       "PREVIEW_VOTE_TYPE_REGULAR": "Toto je hlasovanie s jedným výberom",
       "LNK_CANCEL": "@:LNK_CANCEL",
@@ -976,6 +979,12 @@
     },
     "TYPEAHEAD": {
       "PRESS_ENTER_TO_ADD": "Pridajte stlačením 'enter'"
+    },
+    "VERIFY_EMAIL": {
+      "HEADING": "Verify your account",
+      "DESCRIPTION": "We’ve sent an account verification e-mail to the address",
+      "INFO": "Please follow the instructions in the e-mail to verify your account. Only after doing this you will be able to log in to Citizen OS!",
+      "BTN_OK": "OK, got it!"
     }
   },
   "MODALS": {
@@ -2090,6 +2099,7 @@
     },
     "REGISTER": {
       "BTN_BACK": "@:VIEWS.LOGIN.BTN_BACK",
+      "REGISTER_OR": "@:COMPONENTS.LOGIN_FORM.LOGIN_OR",
       "REGISTER_TITLE": "@:COMPONENTS.REGISTER_FORM.HEADING",
       "REGISTER_DESCRIPTION": "@:COMPONENTS.REGISTER_FORM.HEADING_DESCRIPTION",
       "TOOLTIP_TITLE": "Free, really?",
@@ -2112,6 +2122,8 @@
       "HEADER_IMAGE_UPLOAD_BTN": "Vybrať súbor",
       "TITLE_HEADING": "Názov",
       "TITLE_INTRO": "Úvod",
+      "TOOLTIP_TOPIC_INTRO_TITLE": "@:VIEWS.TOPIC_CREATE.TITLE_INTRO",
+      "TOOLTIP_TOPIC_INTRO_CONTENT": "The intro to your topic will make it easier for participants to get a quick sense of what they'll get involved with.",
       "TITLE_INTRO_TEXT": "Add a brief introduction or call to action, summarising what the topic is for.",
       "TITLE_DESCRIPTION": "Topic text",
       "TITLE_DESCRIPTION_TEXT": "The main topic content goes here - any instructions, information or context for participants.",
@@ -2142,6 +2154,8 @@
       "NO_GROUPS_DESCRIPTION": "Once you’ve joined a group, you can add this topic to it. Don’t worry, you can skip this now and still do it later.",
       "GROUPS_LIST_TITLE": "@:VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_NAME",
       "HEADING_GROUP_PERMISSIONS": "@:COMPONENTS.GROUP_ADD_TOPICS.HEADING_GROUP_PERMISSIONS",
+      "TOOLTIP_GROUP_PERMISSIONS_TITLE": "@:COMPONENTS.GROUP_ADD_TOPICS.HEADING_GROUP_PERMISSIONS",
+      "TOOLTIP_GROUP_PERMISSIONS_CONTENT": "This will give all members of the group the selected level of permissions to the topic, unless you individually assign them a different permissions level from the topic's 'manage participants' section",
       "HEADING_ACTIONS": "@:COMPONENTS.GROUP_ADD_TOPICS.HEADING_ACTIONS",
       "PREVIEW_INFO": "<b>This is a preview of your topic!</b> You can still edit your topic at any point during the discussion phase.",
       "BTN_READ_MORE": "@:VIEWS.TOPICS_TOPICID.BTN_READ_MORE",
@@ -2454,6 +2468,8 @@
       "HEADER_IMAGE_UPLOAD_DESC_TEXT": "@:VIEWS.TOPIC_CREATE.HEADER_IMAGE_UPLOAD_DESC_TEXT",
       "HEADER_IMAGE_UPLOAD_BTN": "@:VIEWS.TOPIC_CREATE.HEADER_IMAGE_UPLOAD_BTN",
       "TITLE_INTRO": "@:VIEWS.TOPIC_CREATE.TITLE_INTRO",
+      "TOOLTIP_TOPIC_INTRO_TITLE": "@:VIEWS.TOPIC_CREATE.TOOLTIP_TOPIC_INTRO_TITLE",
+      "TOOLTIP_TOPIC_INTRO_CONTENT": "@:VIEWS.TOPIC_CREATE.TOOLTIP_TOPIC_INTRO_CONTENT",
       "TITLE_INTRO_TEXT": "@:VIEWS.TOPIC_CREATE.TITLE_INTRO_TEXT",
       "TITLE_DESCRIPTION": "@:VIEWS.TOPIC_CREATE.TITLE_DESCRIPTION",
       "TITLE_DESCRIPTION_TEXT": "@:VIEWS.TOPIC_CREATE.TITLE_DESCRIPTION_TEXT",
