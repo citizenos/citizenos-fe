@@ -2201,6 +2201,7 @@
       "TAB_INFO_TXT_REPORTED": "Эта тема помечена, как неуместная.",
       "HEADING_REPORTED": "@:VIEWS.TOPICS_TOPICID.TAB_INFO_TXT_REPORTED",
       "DESCRIPTION_REPORTED": "Поскольку вы модератор этой темы, есть несколько действий, которые вы можете предпринять:",
+      "DESCRIPTION_REPORTED_ADMIN": "Since you’re an admin/author of this topic, there are several actions you can take:",
       "TAB_INFO_LNK_VIEW_REPORT_DETAILS": "Просмотреть детали",
       "TAB_INFO_LNK_MODERATE": "Скрыть эту тему, если вы согласны с причиной жалобы на нее",
       "HEADING_BACK_TO_MY_TOPICS": "To my topics",
