@@ -2201,6 +2201,7 @@
       "TAB_INFO_TXT_REPORTED": "Topik ini telah dilaporkan.",
       "HEADING_REPORTED": "@:VIEWS.TOPICS_TOPICID.TAB_INFO_TXT_REPORTED",
       "DESCRIPTION_REPORTED": "Since you’re a moderator of this topic, there are several actions you can take:",
+      "DESCRIPTION_REPORTED_ADMIN": "Since you’re an admin/author of this topic, there are several actions you can take:",
       "TAB_INFO_LNK_VIEW_REPORT_DETAILS": "Lihat detail",
       "TAB_INFO_LNK_MODERATE": "Hide this topic if you agree with why it was reported",
       "HEADING_BACK_TO_MY_TOPICS": "To my topics",
