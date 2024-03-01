@@ -4,9 +4,13 @@
   min-width: 160px;
 
   .options {
-    position: fixed;
-    min-width: 160px;
+    position: absolute;
     width: max-content;
+    min-width: max-content;
+
+    &.level_select {
+      min-width: 160px;
+    }
   }
 }
 
