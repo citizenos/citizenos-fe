@@ -330,8 +330,8 @@
     },
     "GROUP_INVITE_USER": {
       "SET_MEMBER_PERMISSIONS": "@:COMPONENTS.GROUP_MEMBER_USER.SET_MEMBER_PERMISSIONS",
-      "EDIT_MEMBER": "Edit invite",
-      "BTN_REMOVE": "Remove invite",
+      "EDIT_MEMBER": "Редактировать приглашение",
+      "BTN_REMOVE": "Удалить приглашение",
       "INVITE_SENT_TO": "Pending invite sent to {{email}}"
     },
     "GROUP_SETTINGS": {
@@ -2155,7 +2155,7 @@
       "GROUPS_LIST_TITLE": "@:VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_NAME",
       "HEADING_GROUP_PERMISSIONS": "@:COMPONENTS.GROUP_ADD_TOPICS.HEADING_GROUP_PERMISSIONS",
       "TOOLTIP_GROUP_PERMISSIONS_TITLE": "@:COMPONENTS.GROUP_ADD_TOPICS.HEADING_GROUP_PERMISSIONS",
-      "TOOLTIP_GROUP_PERMISSIONS_CONTENT": "This will give all members of the group the selected level of permissions to the topic, unless you individually assign them a different permissions level from the topic's 'manage participants' section",
+      "TOOLTIP_GROUP_PERMISSIONS_CONTENT": "Это даст всем членам группы выбранный уровень прав доступа к теме. Вы также можете назначить им другой уровень прав доступа в разделе темы \"Управление участниками\".",
       "HEADING_ACTIONS": "@:COMPONENTS.GROUP_ADD_TOPICS.HEADING_ACTIONS",
       "PREVIEW_INFO": "<b>Это предварительный просмотр вашей темы.</b> Вы по-прежнему можете редактировать свою тему в любой момент на этапе обсуждения.",
       "BTN_READ_MORE": "@:VIEWS.TOPICS_TOPICID.BTN_READ_MORE",
@@ -2201,6 +2201,7 @@
       "TAB_INFO_TXT_REPORTED": "Эта тема помечена, как неуместная.",
       "HEADING_REPORTED": "@:VIEWS.TOPICS_TOPICID.TAB_INFO_TXT_REPORTED",
       "DESCRIPTION_REPORTED": "Поскольку вы модератор этой темы, есть несколько действий, которые вы можете предпринять:",
+      "DESCRIPTION_REPORTED_ADMIN": "Поскольку вы админ/автор этой темы, есть несколько действий, которые вы можете предпринять:",
       "TAB_INFO_LNK_VIEW_REPORT_DETAILS": "Просмотреть детали",
       "TAB_INFO_LNK_MODERATE": "Скрыть эту тему, если вы согласны с причиной жалобы на нее",
       "HEADING_BACK_TO_MY_TOPICS": "To my topics",
