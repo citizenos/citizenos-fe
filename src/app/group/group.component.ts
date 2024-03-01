@@ -213,7 +213,7 @@ export class GroupComponent implements OnInit {
           GroupMemberTopicService.setParam('groupId', this.groupId);
           this.allTopics$ = [];
           if (topicTypeFilter) {
-            if (TopicService.VISIBILITY.indexOf(topicTypeFilter) > -1) {
+            if (TopicService.VISIBILITY[topicTypeFilter]) {
               GroupMemberTopicService.setParam('visibility', topicTypeFilter);
             } else if (['favourite', 'showModerated'].indexOf(topicTypeFilter) > -1) {
               GroupMemberTopicService.setParam(topicTypeFilter, topicTypeFilter);
@@ -404,8 +404,10 @@ export class GroupComponent implements OnInit {
   }
 
   doClearFilters() {
-    this.setStatus(this.FILTERS_ALL);
+    this.setStatus('');
     this.setCountry('');
+    this.orderBy('');
+    this.setVisibility('');
     this.setLanguage('');
     this.topicFilters.country = this.FILTERS_ALL;
     this.topicFilters.language = this.FILTERS_ALL;
