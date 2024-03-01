@@ -170,7 +170,7 @@
                             <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
                           </svg>
                         </div>
-                        <div class="options">
+                        <div class="options level_select">
                           <div class="option" *ngFor="let level of LEVELS | keyvalue"
                             (click)="user.level = level.value">
                             {{'TXT_TOPIC_LEVELS_' + level.value | uppercase | translate}}
