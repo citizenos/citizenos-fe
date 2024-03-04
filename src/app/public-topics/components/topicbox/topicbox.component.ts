@@ -27,7 +27,7 @@ export class TopicboxComponent implements OnInit {
     if (catEntries.length) {
       this.catClass = catEntries[0];
     }
-    if (this.topic.voteId) {
+   /* if (this.topic.voteId) {
       this.vote$ = this.TopicVoteService.get({topicId: this.topic.id, voteId: this.topic.voteId}).pipe(
         tap((vote) => this.vote = vote)
       );
@@ -35,7 +35,7 @@ export class TopicboxComponent implements OnInit {
     if (this.topic.status === this.TopicService.STATUSES.followUp) {
       this.TopicEventService.setParam('topicId', this.topic.id);
       this.milestones$ = this.TopicEventService.loadItems();
-    }
+    }*/
   }
 
   showInfo () {

@@ -1235,6 +1235,10 @@
       <topicbox [topic]="topic" *ngFor="let topic of topics; trackBy: trackByTopic;" [ngClass]="topic.categories">
       </topicbox>
     </div>
+
+    <cos-pagination class="pagination" (select)="GroupMemberTopicService.loadPage($event)"
+      [totalPages]="(GroupMemberTopicService.totalPages$ | async) || 0"
+      [page]="(GroupMemberTopicService.page$ | async) || 0"></cos-pagination>
   </ng-container>
   <ng-container *ngIf="(tabSelected | async) === 'members'">
     <div class="content_section">
