@@ -7,6 +7,7 @@ import { DialogService } from 'src/app/shared/dialog';
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { PasswordForgotComponent } from '../password-forgot/password-forgot.component';
 import { TranslateService } from '@ngx-translate/core';
+import { RegisterDialogComponent } from '../register/register.component';
 
 @Component({
   selector: 'login-form',
@@ -16,6 +17,8 @@ import { TranslateService } from '@ngx-translate/core';
 export class LoginFormComponent {
   @Input() redirectSuccess?: any;
   @Input() email?: string;
+  @Input() isDialog = false;
+
   isFormEmailProvided: any;
   showPassword = false;
   linkRegister: any;
@@ -35,7 +38,7 @@ export class LoginFormComponent {
 
   ngOnInit(): void {
     if (this.email) {
-      this.form.patchValue({'email': this.email});
+      this.form.patchValue({ 'email': this.email });
     }
     console.log(this.redirectSuccess);
     this.isFormEmailProvided = !!this.form.get('email');
@@ -97,4 +100,9 @@ export class LoginFormComponent {
       data: {}
     })
   };
+
+  register() {
+    this.dialog.closeAll();
+    this.router.navigate(['/account/signup']);
+  }
 }

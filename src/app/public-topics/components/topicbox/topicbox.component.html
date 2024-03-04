@@ -20,7 +20,7 @@
     </div>
   </div>
   <div class="topic_header"
-    [ngClass]="{'discussion': topic.status === 'inProgress', 'voting': topic.status === 'voting', 'follow_up': topic.status === 'followUp', 'draft': topic.status === 'draft'}">
+    [ngClass]="{'discussion': topic.status === 'inProgress', 'voting': topic.status === 'voting', 'follow_up': topic.status === 'followUp', 'draft': topic.status === 'draft', 'closed': topic.status === 'closed'}">
     <div class="progress" [ngStyle]="{'width.%': getProgress()}">
       <div class="header_content">
         <ng-container *ngIf="topic.status==='draft'">
