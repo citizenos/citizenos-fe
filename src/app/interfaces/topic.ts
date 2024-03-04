@@ -34,5 +34,6 @@ export interface Topic {
     moderatedReasonType: string | null,
     moderatedReasonText: string | null
   },
+  events: any,
   vote?: Vote
 }

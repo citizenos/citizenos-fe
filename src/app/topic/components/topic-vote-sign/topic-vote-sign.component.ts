@@ -1,3 +1,4 @@
+import { TopicVoteService } from 'src/app/services/topic-vote.service';
 import { Component, OnInit, Inject } from '@angular/core';
 import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 import { Topic } from 'src/app/interfaces/topic';
@@ -15,9 +16,9 @@ export interface TopicVoteSignData {
   styleUrls: ['./topic-vote-sign.component.scss']
 })
 export class TopicVoteSignComponent implements OnInit {
-  topic!:Topic;
+  topic!: Topic;
   options!: any;
-  constructor(private dialog: DialogService, @Inject(DIALOG_DATA) public data: TopicVoteSignData,) {
+  constructor(private dialog: DialogService, @Inject(DIALOG_DATA) public data: TopicVoteSignData, private TopicVoteService: TopicVoteService) {
     this.topic = data.topic;
     this.options = data.options;
   }
@@ -26,22 +27,29 @@ export class TopicVoteSignComponent implements OnInit {
   }
 
   doSignEsteId() {
-    this.dialog
-      .open(TopicVoteSignEsteidComponent,{
+    const signDialog = this.dialog
+      .open(TopicVoteSignEsteidComponent, {
         data: {
           topic: this.topic,
           options: this.options
         }
       });
+
+    signDialog.afterClosed().subscribe(() => {
+      this.TopicVoteService.reloadVote();
+    });
   };
 
   doSignSmartId() {
-    this.dialog
-      .open(TopicVoteSignSmartidComponent,{
+    const signDialog = this.dialog
+      .open(TopicVoteSignSmartidComponent, {
         data: {
           topic: this.topic,
           options: this.options
         }
       });
+    signDialog.afterClosed().subscribe(() => {
+      this.TopicVoteService.reloadVote();
+    });
   };
 }

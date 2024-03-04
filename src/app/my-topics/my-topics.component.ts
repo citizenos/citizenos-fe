@@ -100,6 +100,7 @@ export class MyTopicsComponent {
       .pipe(
         switchMap(([topicTypeFilter, engagmentsFilter, statusFilter, orderFilter, categoryFilter, countryFilter, languageFilter, search]) => {
           UserTopicService.reset();
+       //   UserTopicService.setParam('include', ['vote', 'event']);
           this.allTopics$ = [];
           if (topicTypeFilter) {
             if (UserTopicService.VISIBILITY.indexOf(topicTypeFilter) > -1) {

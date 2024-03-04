@@ -211,6 +211,7 @@ export class GroupComponent implements OnInit {
 
           GroupMemberTopicService.reset();
           GroupMemberTopicService.setParam('groupId', this.groupId);
+          GroupMemberTopicService.setParam('include', ['vote', 'event']);
           this.allTopics$ = [];
           if (topicTypeFilter) {
             if (TopicService.VISIBILITY[topicTypeFilter]) {
