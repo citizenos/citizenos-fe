@@ -105,7 +105,10 @@ export class TopicVoteCastComponent implements OnInit {
             options
           }
         });
-      signDialog.afterClosed().subscribe(() => this.TopicService.reloadTopic());
+      signDialog.afterClosed().subscribe(() => {
+        this.TopicService.reloadTopic()
+        this.TopicVoteService.reloadVote();
+      });
       return;
     } else {
       options.forEach((dOption: any) => {
@@ -122,6 +125,7 @@ export class TopicVoteCastComponent implements OnInit {
                 this.vote = vote;
                 this.topic.vote = vote;
                 this.TopicService.reloadTopic()
+                this.TopicVoteService.reloadVote();
               },
               error: (err) => {
                 console.error(err);

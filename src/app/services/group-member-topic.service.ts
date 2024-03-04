@@ -18,6 +18,7 @@ export class GroupMemberTopicService extends ItemsListService {
     country: <Array<string> | string | null>null,
     language: <Array<string> | string | null>null,
     statuses: <Array<string> | string | null>null,
+    include: <Array<string> | string | null>null,
     favourite: <boolean | null | string> null,
     title: <string | null>null
   });

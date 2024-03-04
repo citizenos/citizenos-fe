@@ -89,6 +89,7 @@ export class TopicsComponent implements OnInit {
       .pipe(
         switchMap(([statusFilter, orderFilter, categoryFilter, countryFilter, languageFilter, search]) => {
           PublicTopicService.reset();
+       //   PublicTopicService.setParam('include', ['vote', 'event']);
           this.allTopics$ = [];
 
           if (statusFilter) {
