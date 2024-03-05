@@ -327,7 +327,7 @@
                   (click)="toggleOption(extraOptions.veto.value)">
                   <div class="radio_text_wrap">
                     <div class="radio_lable_wrap">
-                      <label class="checkbox"><span class="bold"
+                      <label class="checkbox" [ngClass]="{selected: extraOptions.veto.enabled}"><span class="bold"
                           translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_VETO"></span>
                         <span class="checkmark"></span>
                       </label>

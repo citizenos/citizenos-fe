@@ -162,6 +162,7 @@ export class TopicVoteCreateComponent implements OnInit {
   };
 
   toggleOption(option: string) {
+    console.log(option.toLowerCase())
     switch (option.toLowerCase()) {
       case 'yes':
         this.predefinedOptions.yes.enabled = !this.predefinedOptions.yes.enabled;
@@ -173,6 +174,7 @@ export class TopicVoteCreateComponent implements OnInit {
         this.extraOptions.neutral.enabled = !this.extraOptions.neutral.enabled;
         break;
       case 'veto':
+        console.log('CASE veto')
         this.extraOptions.veto.enabled = !this.extraOptions.veto.enabled;
         break;
     }
