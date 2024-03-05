@@ -66,23 +66,26 @@
               <span *ngIf="!group.favourite" translate="VIEWS.GROUP.BTN_OPTION_FAVOURITE"></span>
               <span *ngIf="group.favourite" translate="VIEWS.GROUP.BTN_OPTION_UNFAVOURITE"></span>
             </button>
-            <div class="line_separator"></div>
           </ng-container>
-          <div class="option" (click)="shareGroupDialog(group)">
-            <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M13.8536 6.14645C13.7598 6.05268 13.6326 6 13.5 6C13.3674 6 13.2402 6.05268 13.1464 6.14645C13.0527 6.24021 13 6.36739 13 6.5V8H11.5C11.3674 8 11.2402 8.05268 11.1464 8.14645C11.0527 8.24021 11 8.36739 11 8.5C11 8.63261 11.0527 8.75979 11.1464 8.85355C11.2402 8.94732 11.3674 9 11.5 9H13V10.5C13 10.6326 13.0527 10.7598 13.1464 10.8536C13.2402 10.9473 13.3674 11 13.5 11C13.6326 11 13.7598 10.9473 13.8536 10.8536C13.9473 10.7598 14 10.6326 14 10.5V9H15.5C15.6326 9 15.7598 8.94732 15.8536 8.85355C15.9473 8.75979 16 8.63261 16 8.5C16 8.36739 15.9473 8.24021 15.8536 8.14645C15.7598 8.05268 15.6326 8 15.5 8H14V6.5C14 6.36739 13.9473 6.24021 13.8536 6.14645Z"
-                  fill="#2C3B47" />
-                <path d="M1 14C1 15 2 15 2 15H10C10 15 11 15 11 14C11 13 10 10 6 10C2 10 1 13 1 14Z" fill="#2C3B47" />
-                <path
-                  d="M8.12132 8.12132C7.55871 8.68393 6.79565 9 6 9C5.20435 9 4.44129 8.68393 3.87868 8.12132C3.31607 7.55871 3 6.79565 3 6C3 5.20435 3.31607 4.44129 3.87868 3.87868C4.44129 3.31607 5.20435 3 6 3C6.79565 3 7.55871 3.31607 8.12132 3.87868C8.68393 4.44129 9 5.20435 9 6C9 6.79565 8.68393 7.55871 8.12132 8.12132Z"
-                  fill="#2C3B47" />
-              </svg>
-            </div><span translate="VIEWS.GROUP.BTN_OPTION_INVITE"></span>
-          </div>
-          <div class="line_separator"></div>
+          <ng-container
+            *ngIf="(auth.loggedIn$ | async) && group.visibility === GroupService.VISIBILITY.public || (group.visibility === GroupService.VISIBILITY.private && canUpdate(group))">
+            <div class="line_separator"></div>
+            <div class="option" (click)="shareGroupDialog(group)">
+              <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M13.8536 6.14645C13.7598 6.05268 13.6326 6 13.5 6C13.3674 6 13.2402 6.05268 13.1464 6.14645C13.0527 6.24021 13 6.36739 13 6.5V8H11.5C11.3674 8 11.2402 8.05268 11.1464 8.14645C11.0527 8.24021 11 8.36739 11 8.5C11 8.63261 11.0527 8.75979 11.1464 8.85355C11.2402 8.94732 11.3674 9 11.5 9H13V10.5C13 10.6326 13.0527 10.7598 13.1464 10.8536C13.2402 10.9473 13.3674 11 13.5 11C13.6326 11 13.7598 10.9473 13.8536 10.8536C13.9473 10.7598 14 10.6326 14 10.5V9H15.5C15.6326 9 15.7598 8.94732 15.8536 8.85355C15.9473 8.75979 16 8.63261 16 8.5C16 8.36739 15.9473 8.24021 15.8536 8.14645C15.7598 8.05268 15.6326 8 15.5 8H14V6.5C14 6.36739 13.9473 6.24021 13.8536 6.14645Z"
+                    fill="#2C3B47" />
+                  <path d="M1 14C1 15 2 15 2 15H10C10 15 11 15 11 14C11 13 10 10 6 10C2 10 1 13 1 14Z" fill="#2C3B47" />
+                  <path
+                    d="M8.12132 8.12132C7.55871 8.68393 6.79565 9 6 9C5.20435 9 4.44129 8.68393 3.87868 8.12132C3.31607 7.55871 3 6.79565 3 6C3 5.20435 3.31607 4.44129 3.87868 3.87868C4.44129 3.31607 5.20435 3 6 3C6.79565 3 7.55871 3.31607 8.12132 3.87868C8.68393 4.44129 9 5.20435 9 6C9 6.79565 8.68393 7.55871 8.12132 8.12132Z"
+                    fill="#2C3B47" />
+                </svg>
+              </div><span translate="VIEWS.GROUP.BTN_OPTION_INVITE"></span>
+            </div>
+          </ng-container>
           <ng-container *ngIf="(auth.loggedIn$ | async) && canUpdate(group)">
+            <div class="line_separator"></div>
             <div class="option" (click)="addTopicDialog(group)">
               <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                   xmlns="http://www.w3.org/2000/svg">
@@ -95,9 +98,9 @@
                 </svg>
               </div><span translate="VIEWS.GROUP.BTN_OPTION_ADD_TOPICS"></span>
             </div>
-            <div class="line_separator"></div>
           </ng-container>
           <ng-container *ngIf="canUpdate(group)">
+            <div class="line_separator"></div>
             <div class="option" (click)="showSettings(group)">
               <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                   xmlns="http://www.w3.org/2000/svg">
@@ -107,9 +110,9 @@
                 </svg>
               </div><span translate="VIEWS.GROUP.BTN_OPTION_EDIT"></span>
             </div>
-            <div class="line_separator"></div>
           </ng-container>
           <ng-container *ngIf="group.userLevel && (auth.loggedIn$ | async)">
+            <div class="line_separator"></div>
             <div class="option" (click)="leaveGroup()">
               <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                   xmlns="http://www.w3.org/2000/svg">
@@ -119,7 +122,6 @@
                 </svg>
               </div><span translate="VIEWS.GROUP.BTN_OPTION_LEAVE"></span>
             </div>
-            <div class="line_separator"></div>
           </ng-container>
           <!--ng-container *ngIf="(auth.loggedIn$ | async)">
             <div class="option">
@@ -133,17 +135,20 @@
             </div>
             <div class="line_separator"></div>
           </!--ng-container-->
-          <button class="option error_text" *ngIf="(auth.loggedIn$ | async) && canUpdate(group)"
-            (click)="deleteGroup(group);">
-            <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd"
-                  d="M10 3H6V4H10V3ZM11 4V3C11 2.44772 10.5523 2 10 2H6C5.44772 2 5 2.44772 5 3V4H4H2.5C2.22386 4 2 4.22386 2 4.5C2 4.77614 2.22386 5 2.5 5H4V13C4 13.5523 4.44772 14 5 14H11C11.5523 14 12 13.5523 12 13V5H13.5C13.7761 5 14 4.77614 14 4.5C14 4.22386 13.7761 4 13.5 4H12H11ZM7 7H6V11H7V7ZM10 7H9V11H10V7Z"
-                  fill="#2C3B47" />
-              </svg>
 
-            </div><span translate="VIEWS.GROUP.BTN_OPTION_DELETE"></span>
-          </button>
+          <ng-container *ngIf="(auth.loggedIn$ | async) && canUpdate(group)">
+            <div class="line_separator"></div>
+            <button class="option error_text" (click)="deleteGroup(group);">
+              <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M10 3H6V4H10V3ZM11 4V3C11 2.44772 10.5523 2 10 2H6C5.44772 2 5 2.44772 5 3V4H4H2.5C2.22386 4 2 4.22386 2 4.5C2 4.77614 2.22386 5 2.5 5H4V13C4 13.5523 4.44772 14 5 14H11C11.5523 14 12 13.5523 12 13V5H13.5C13.7761 5 14 4.77614 14 4.5C14 4.22386 13.7761 4 13.5 4H12H11ZM7 7H6V11H7V7ZM10 7H9V11H10V7Z"
+                    fill="#2C3B47" />
+                </svg>
+
+              </div><span translate="VIEWS.GROUP.BTN_OPTION_DELETE"></span>
+            </button>
+          </ng-container>
         </div>
       </div>
 
@@ -179,23 +184,26 @@
               <span *ngIf="!group.favourite" translate="VIEWS.GROUP.BTN_OPTION_FAVOURITE"></span>
               <span *ngIf="group.favourite" translate="VIEWS.GROUP.BTN_OPTION_UNFAVOURITE"></span>
             </button>
-            <div class="line_separator"></div>
           </ng-container>
-          <div class="option" (click)="shareGroupDialog(group)">
-            <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M13.8536 6.14645C13.7598 6.05268 13.6326 6 13.5 6C13.3674 6 13.2402 6.05268 13.1464 6.14645C13.0527 6.24021 13 6.36739 13 6.5V8H11.5C11.3674 8 11.2402 8.05268 11.1464 8.14645C11.0527 8.24021 11 8.36739 11 8.5C11 8.63261 11.0527 8.75979 11.1464 8.85355C11.2402 8.94732 11.3674 9 11.5 9H13V10.5C13 10.6326 13.0527 10.7598 13.1464 10.8536C13.2402 10.9473 13.3674 11 13.5 11C13.6326 11 13.7598 10.9473 13.8536 10.8536C13.9473 10.7598 14 10.6326 14 10.5V9H15.5C15.6326 9 15.7598 8.94732 15.8536 8.85355C15.9473 8.75979 16 8.63261 16 8.5C16 8.36739 15.9473 8.24021 15.8536 8.14645C15.7598 8.05268 15.6326 8 15.5 8H14V6.5C14 6.36739 13.9473 6.24021 13.8536 6.14645Z"
-                  fill="#2C3B47" />
-                <path d="M1 14C1 15 2 15 2 15H10C10 15 11 15 11 14C11 13 10 10 6 10C2 10 1 13 1 14Z" fill="#2C3B47" />
-                <path
-                  d="M8.12132 8.12132C7.55871 8.68393 6.79565 9 6 9C5.20435 9 4.44129 8.68393 3.87868 8.12132C3.31607 7.55871 3 6.79565 3 6C3 5.20435 3.31607 4.44129 3.87868 3.87868C4.44129 3.31607 5.20435 3 6 3C6.79565 3 7.55871 3.31607 8.12132 3.87868C8.68393 4.44129 9 5.20435 9 6C9 6.79565 8.68393 7.55871 8.12132 8.12132Z"
-                  fill="#2C3B47" />
-              </svg>
-            </div><span translate="VIEWS.GROUP.BTN_OPTION_INVITE"></span>
-          </div>
-          <div class="line_separator"></div>
+          <ng-container
+            *ngIf="(auth.loggedIn$ | async) && group.visibility === GroupService.VISIBILITY.public || (group.visibility === GroupService.VISIBILITY.private && canUpdate(group))">
+            <div class="line_separator"></div>
+            <div class="option" (click)="shareGroupDialog(group)">
+              <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M13.8536 6.14645C13.7598 6.05268 13.6326 6 13.5 6C13.3674 6 13.2402 6.05268 13.1464 6.14645C13.0527 6.24021 13 6.36739 13 6.5V8H11.5C11.3674 8 11.2402 8.05268 11.1464 8.14645C11.0527 8.24021 11 8.36739 11 8.5C11 8.63261 11.0527 8.75979 11.1464 8.85355C11.2402 8.94732 11.3674 9 11.5 9H13V10.5C13 10.6326 13.0527 10.7598 13.1464 10.8536C13.2402 10.9473 13.3674 11 13.5 11C13.6326 11 13.7598 10.9473 13.8536 10.8536C13.9473 10.7598 14 10.6326 14 10.5V9H15.5C15.6326 9 15.7598 8.94732 15.8536 8.85355C15.9473 8.75979 16 8.63261 16 8.5C16 8.36739 15.9473 8.24021 15.8536 8.14645C15.7598 8.05268 15.6326 8 15.5 8H14V6.5C14 6.36739 13.9473 6.24021 13.8536 6.14645Z"
+                    fill="#2C3B47" />
+                  <path d="M1 14C1 15 2 15 2 15H10C10 15 11 15 11 14C11 13 10 10 6 10C2 10 1 13 1 14Z" fill="#2C3B47" />
+                  <path
+                    d="M8.12132 8.12132C7.55871 8.68393 6.79565 9 6 9C5.20435 9 4.44129 8.68393 3.87868 8.12132C3.31607 7.55871 3 6.79565 3 6C3 5.20435 3.31607 4.44129 3.87868 3.87868C4.44129 3.31607 5.20435 3 6 3C6.79565 3 7.55871 3.31607 8.12132 3.87868C8.68393 4.44129 9 5.20435 9 6C9 6.79565 8.68393 7.55871 8.12132 8.12132Z"
+                    fill="#2C3B47" />
+                </svg>
+              </div><span translate="VIEWS.GROUP.BTN_OPTION_INVITE"></span>
+            </div>
+          </ng-container>
           <ng-container *ngIf="(auth.loggedIn$ | async) && canUpdate(group)">
+            <div class="line_separator"></div>
             <div class="option" (click)="addTopicDialog(group)">
               <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                   xmlns="http://www.w3.org/2000/svg">
@@ -208,9 +216,9 @@
                 </svg>
               </div><span translate="VIEWS.GROUP.BTN_OPTION_ADD_TOPICS"></span>
             </div>
-            <div class="line_separator"></div>
           </ng-container>
           <ng-container *ngIf="canUpdate(group)">
+            <div class="line_separator"></div>
             <div class="option" (click)="showSettings(group)">
               <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                   xmlns="http://www.w3.org/2000/svg">
@@ -220,9 +228,9 @@
                 </svg>
               </div><span translate="VIEWS.GROUP.BTN_OPTION_EDIT"></span>
             </div>
-            <div class="line_separator"></div>
           </ng-container>
           <ng-container *ngIf="group.userLevel && (auth.loggedIn$ | async)">
+            <div class="line_separator"></div>
             <div class="option" (click)="leaveGroup()">
               <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                   xmlns="http://www.w3.org/2000/svg">
@@ -232,7 +240,6 @@
                 </svg>
               </div><span translate="VIEWS.GROUP.BTN_OPTION_LEAVE"></span>
             </div>
-            <div class="line_separator"></div>
           </ng-container>
           <!--ng-container *ngIf="(auth.loggedIn$ | async)">
             <div class="option">
@@ -246,17 +253,19 @@
             </div>
             <div class="line_separator"></div>
           </!--ng-container-->
-          <button class="option error_text" *ngIf="(auth.loggedIn$ | async) && canUpdate(group)"
-            (click)="deleteGroup(group);">
-            <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd"
-                  d="M10 3H6V4H10V3ZM11 4V3C11 2.44772 10.5523 2 10 2H6C5.44772 2 5 2.44772 5 3V4H4H2.5C2.22386 4 2 4.22386 2 4.5C2 4.77614 2.22386 5 2.5 5H4V13C4 13.5523 4.44772 14 5 14H11C11.5523 14 12 13.5523 12 13V5H13.5C13.7761 5 14 4.77614 14 4.5C14 4.22386 13.7761 4 13.5 4H12H11ZM7 7H6V11H7V7ZM10 7H9V11H10V7Z"
-                  fill="#2C3B47" />
-              </svg>
+          <ng-container *ngIf="(auth.loggedIn$ | async) && canUpdate(group)">
+            <div class="line_separator"></div>
+            <button class="option error_text" (click)="deleteGroup(group);">
+              <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M10 3H6V4H10V3ZM11 4V3C11 2.44772 10.5523 2 10 2H6C5.44772 2 5 2.44772 5 3V4H4H2.5C2.22386 4 2 4.22386 2 4.5C2 4.77614 2.22386 5 2.5 5H4V13C4 13.5523 4.44772 14 5 14H11C11.5523 14 12 13.5523 12 13V5H13.5C13.7761 5 14 4.77614 14 4.5C14 4.22386 13.7761 4 13.5 4H12H11ZM7 7H6V11H7V7ZM10 7H9V11H10V7Z"
+                    fill="#2C3B47" />
+                </svg>
 
-            </div><span translate="VIEWS.GROUP.BTN_OPTION_DELETE"></span>
-          </button>
+              </div><span translate="VIEWS.GROUP.BTN_OPTION_DELETE"></span>
+            </button>
+          </ng-container>
         </div>
       </div>
 
@@ -585,14 +594,17 @@
             fill="white" />
         </svg><span translate="VIEWS.GROUP.BTN_ADD_TOPICS"></span></!--button-->
     </ng-container>
-    <button class="btn_medium_submit animate" *ngIf="tabSelected === 'members' && canUpdate(group)"
-      (click)="shareGroupDialog(group)">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M12 20C11.4711 20 11.0423 19.5712 11.0423 19.0423L11.0423 12.9577L4.95775 12.9577C4.4288 12.9577 4 12.5289 4 12C4 11.4711 4.4288 11.0423 4.95775 11.0423H11.0423V4.95775C11.0423 4.4288 11.4711 4 12 4C12.5289 4 12.9577 4.4288 12.9577 4.95775L12.9577 11.0423L19.0423 11.0423C19.5712 11.0423 20 11.4711 20 12C20 12.5289 19.5712 12.9577 19.0423 12.9577H12.9577V19.0423C12.9577 19.5712 12.5289 20 12 20Z"
-          fill="white" />
-      </svg>
-      <span translate="VIEWS.GROUP.BTN_ADD_MEMBERS"></span></button>
+    <ng-container
+      *ngIf="(auth.loggedIn$ | async) && group.visibility === GroupService.VISIBILITY.public || (group.visibility === GroupService.VISIBILITY.private && canUpdate(group))">
+      <button class="btn_medium_submit animate" *ngIf="tabSelected === 'members' && canUpdate(group)"
+        (click)="shareGroupDialog(group)">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M12 20C11.4711 20 11.0423 19.5712 11.0423 19.0423L11.0423 12.9577L4.95775 12.9577C4.4288 12.9577 4 12.5289 4 12C4 11.4711 4.4288 11.0423 4.95775 11.0423H11.0423V4.95775C11.0423 4.4288 11.4711 4 12 4C12.5289 4 12.9577 4.4288 12.9577 4.95775L12.9577 11.0423L19.0423 11.0423C19.5712 11.0423 20 11.4711 20 12C20 12.5289 19.5712 12.9577 19.0423 12.9577H12.9577V19.0423C12.9577 19.5712 12.5289 20 12 20Z"
+            fill="white" />
+        </svg>
+        <span translate="VIEWS.GROUP.BTN_ADD_MEMBERS"></span></button>
+    </ng-container>
   </div>
   <ng-container *ngIf="(tabSelected | async) === 'topics'">
     <ng-container *ngIf="(auth.loggedIn$ | async) && canUpdate(group)">
