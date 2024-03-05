@@ -77,7 +77,7 @@
         <div class="loader"></div>
       </div>
     </div>
-    <button id="#submit_button" type="submit" (click)="authSmartId()" [disabled]="isLoading || smartIdForm.invalid"
+    <button id="#submit_button" type="submit" (click)="authSmartId()" [ngClass]="{disabled: isLoading || smartIdForm.invalid}"
       class="btn_big_submit" translate="COMPONENTS.LOGIN_SMART_ID_FORM.LOGIN_SMARTID_BTN_AUTHENTICATE_SID"></button>
   </form>
 </div>
