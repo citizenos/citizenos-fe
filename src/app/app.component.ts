@@ -121,11 +121,14 @@ export class AppComponent {
         const emailDialog = this.dialog.open(AddEmailComponent, {
           data: { user }
         });
-        emailDialog.afterClosed().subscribe(() => {
-          user.loggedIn = true;
-          this.auth.user.next({ id: user.id });
-          this.auth.loggedIn$.next(true);
-          window.location.reload();
+        emailDialog.afterClosed().subscribe((loggedIn) => {
+          console.log(loggedIn);
+          if (loggedIn) {
+            user.loggedIn = true;
+            this.auth.user.next({ id: user.id });
+            this.auth.loggedIn$.next(true);
+            window.location.reload();
+          }
         })
       }
     })).subscribe();
