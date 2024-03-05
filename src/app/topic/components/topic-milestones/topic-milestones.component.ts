@@ -62,7 +62,6 @@ export class TopicMilestonesComponent implements OnInit {
   }
 
   editEvent (event:any) {
-    console.log(event);
     event.topicId = this.topic.id;
     this.TopicEventService
       .update(event)
