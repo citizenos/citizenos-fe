@@ -3,7 +3,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { NotificationService } from 'src/app/services/notification.service';
-import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
+import { DialogService, DIALOG_DATA, DialogRef } from 'src/app/shared/dialog';
 import { take } from 'rxjs';
 import { User } from 'src/app/interfaces/user';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
@@ -24,6 +24,7 @@ export class AddEmailComponent implements OnInit {
   errors?: any;
   wWidth = window.innerWidth;
   constructor(@Inject(DIALOG_DATA) private data: AddEmailData,
+    @Inject(DialogRef<AddEmailComponent>) private emailDialog: DialogRef<AddEmailComponent> ,
     private dialog: DialogService,
     private AuthService: AuthService,
     private Notification: NotificationService,
@@ -44,6 +45,7 @@ export class AddEmailComponent implements OnInit {
         .pipe(take(1))
         .subscribe((userData) => {
           this.Notification.addInfo('MSG_INFO_CHECK_EMAIL_TO_VERIFY_YOUR_NEW_EMAIL_ADDRESS');
+          this.emailDialog.close(true);
           this.dialog.closeAll();
         });
     } else {
@@ -59,7 +61,9 @@ export class AddEmailComponent implements OnInit {
         take(1)
       )
       .subscribe(() => {
-        this.router.navigate(['/account/login']);
+        this.emailDialog.close(false);
+        this.dialog.closeAll();
+        this.router.navigate(['account', 'login']);
       });
   }
 }
