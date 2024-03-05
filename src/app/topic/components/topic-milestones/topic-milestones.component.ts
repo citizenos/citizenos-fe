@@ -53,6 +53,27 @@ export class TopicMilestonesComponent implements OnInit {
     return this.TopicService.canDelete(this.topic);
   }
 
+  toggleEditMode(event: any) {
+    if (!event.editMode) {
+      event.editMode = true;
+    } else {
+      event.editMode = !event.editMode;
+    }
+  }
+
+  editEvent (event:any) {
+    console.log(event);
+    event.topicId = this.topic.id;
+    this.TopicEventService
+      .update(event)
+      .pipe(take(1))
+      .subscribe(() => {
+        this.event.subject = '';
+        this.event.text = '';
+        this.TopicEventService.reset();
+      });
+  }
+
   deleteEvent(event: any) {
     event.topicId = this.topic.id;
     const deleteDialog = this.dialog.open(ConfirmDialogComponent, {
