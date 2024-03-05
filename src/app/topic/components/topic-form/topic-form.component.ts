@@ -182,7 +182,8 @@ export class TopicFormComponent {
     if (this.topic.id) {
       this.TopicInviteUserService.setParam('topicId', this.topic.id);
       this.invites$ = this.loadInvite$.pipe(
-        switchMap(() => this.TopicInviteUserService.loadItems())
+        switchMap(() => this.TopicInviteUserService.loadItems()),
+        tap((invites) => {console.log(invites)})
       );
       this.TopicMemberUserService.setParam('topicId', this.topic.id);
       this.members$ = this.loadMembers$.pipe(

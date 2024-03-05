@@ -193,44 +193,25 @@
                 <span>{{member.name}}</span>
               </div>
             </div>
-            <ng-container *ngIf="members$ | async as invites">
-              <div class="topic_members_list_wrap">
-                <div class="topic_member">
-                  <div class="bold" translate="VIEWS.TOPIC_CREATE.CO_EDITORS_LBL_JOINED"></div>
-                </div>
-                <div class="topic_member" *ngFor="let member of members">
-                  <div class="profile_image_wrap">
-                    <img class="profile_image" *ngIf="member.imageUrl" [src]="member.imageUrl">
-                    <div class="profile_image_filler small" *ngIf="!member.imageUrl">
-                      <cos-initials *ngIf="member.name" [name]="member.name">
-                      </cos-initials>
-                    </div>
-                  </div>
-
-                  <span>{{member.name}}</span>
-                </div>
-              </div>
-              <ng-container *ngIf="invites">
-                <div class="topic_members_list_wrap" *ngIf="invites.length">
-                  <div class="topic_member">
-                    <div class="bold" translate="VIEWS.TOPIC_CREATE.CO_EDITORS_LBL_INVITED"></div>
-                  </div>
-                  <div class="topic_member disabled" *ngFor="let invite of invites">
-                    <div class="profile_image_wrap">
-                      <img class="profile_image" *ngIf="invite.user.imageUrl" [src]="invite.user.imageUrl">
-                      <div class="profile_image_filler small" *ngIf="!invite.user.imageUrl">
-                        <cos-initials *ngIf="invite.user.name" [name]="invite.user.name">
-                        </cos-initials>
-                      </div>
-                    </div>
-
-                    <span>{{invite.user.name}}</span>
-                  </div>
-                </div>
-              </ng-container>
-            </ng-container>
           </ng-container>
+          <ng-container *ngIf="invites.length">
+            <div class="topic_members_list_wrap">
+              <div class="topic_member">
+                <div class="bold" translate="VIEWS.TOPIC_CREATE.CO_EDITORS_LBL_INVITED"></div>
+              </div>
+              <div class="topic_member disabled" *ngFor="let invite of invites">
+                <div class="profile_image_wrap">
+                  <img class="profile_image" *ngIf="invite.user.imageUrl" [src]="invite.user.imageUrl">
+                  <div class="profile_image_filler small" *ngIf="!invite.user.imageUrl">
+                    <cos-initials *ngIf="invite.user.name" [name]="invite.user.name">
+                    </cos-initials>
+                  </div>
+                </div>
 
+                <span>{{invite.user.name}}</span>
+              </div>
+            </div>
+          </ng-container>
           <button class="btn_medium_secondary bold" (click)="inviteEditors()"
             translate="VIEWS.TOPIC_CREATE.BTN_INVITE_CO_EDITORS"></button>
         </div>

@@ -73,6 +73,7 @@ export class TopicService {
   loadTopic(id: string, params?: { [key: string]: string | boolean }) {
     return this.loadTopic$.pipe(
       exhaustMap(() => this.get(id, params)),
+      tap((topic) => {console.log(topic)}),
       shareReplay()
     );
   }

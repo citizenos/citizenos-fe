@@ -69,7 +69,7 @@ export class TypeaheadComponent implements OnInit {
 
   blur() {
     setTimeout(() => {
-      this._el.nativeElement.classList.remove(this.activeClass || 'active');
+      this._el?.nativeElement?.classList?.remove(this.activeClass || 'active');
       this.focused = false;
     }, 200);
   };

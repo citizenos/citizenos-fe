@@ -232,7 +232,6 @@ export class InviteEditorsComponent {
         .pipe(take(1))
         .subscribe({
           next: (res: any) => {
-            this.TopicService.reloadTopic();
             this.dialog.close(res);
             this.Notification.addSuccess('COMPONENTS.TOPIC_INVITE_EDITORS.MSG_INVITES_SENT');
           },
