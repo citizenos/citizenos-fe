@@ -409,7 +409,12 @@ export class TopicFormComponent {
   publish() {
     const isDraft = (this.topic.status === this.TopicService.STATUSES.draft);
     this.topic.status = this.TopicService.STATUSES.inProgress;
-    this.TopicService.patch(this.topic).pipe(take(1)).subscribe(() => {
+    const updateTopic = Object.assign({}, this.topic);
+    if (!updateTopic.intro?.length) {
+      updateTopic.intro = null;
+    }
+
+    this.TopicService.patch(updateTopic).pipe(take(1)).subscribe(() => {
       this.TopicService.reloadTopic();
       this.topicGroups.forEach((group) => {
         this.GroupMemberTopicService.save({
