@@ -1199,11 +1199,11 @@
       <div class="options">
         <ng-container *ngIf="(auth.loggedIn$ | async)">
           <ng-container *ngIf="(topic.permission.level && topic.permission.level !== 'none')">
-            <button id="leave_button" (click)="leaveTopic(topic)" class="btn_medium_close"
+            <button id="leave_button" (click)="leaveTopic(topic); mobileActions=false;" class="btn_medium_close"
               translate="VIEWS.TOPICS_TOPICID.BTN_LEAVE"></button>
             <div class="line_separator"></div>
           </ng-container>
-          <button class="option" (click)="toggleFavourite(topic)">
+          <button class="option" (click)="toggleFavourite(topic); mobileActions=false;">
             <div class="icon_wrap">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -1217,7 +1217,7 @@
         </ng-container>
         <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic)">
           <div class="line_separator"></div>
-          <button class="option" (click)="inviteEditors(topic)">
+          <button class="option" (click)="inviteEditors(topic); mobileActions=false;">
             <div class="icon_wrap">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -1261,7 +1261,7 @@
         </ng-container>
         <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic)">
           <div class="line_separator"></div>
-          <button class="option" (click)="duplicateTopic(topic)">
+          <button class="option" (click)="duplicateTopic(topic); mobileActions=false;">
             <div class="icon_wrap">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M2 5H11V14H2V5Z" fill="#2C3B47" />
@@ -1273,7 +1273,7 @@
         </ng-container>
         <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic)">
           <div class="line_separator"></div>
-          <button class="option" (click)="addGroupsDialog(topic)">
+          <button class="option" (click)="addGroupsDialog(topic); mobileActions=false;">
             <div class="icon_wrap">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M1 13C1 14 2 14 2 14H10C10 14 11 14 11 13C11 12 10 9 6 9C2 9 1 12 1 13Z" fill="#2C3B47" />
@@ -1303,7 +1303,7 @@
         </ng-container>
         <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic)">
           <div class="line_separator"></div>
-          <button class="option error_text" (click)="deleteTopic(topic);">
+          <button class="option error_text" (click)="deleteTopic(topic); mobileActions=false;">
             <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd"
