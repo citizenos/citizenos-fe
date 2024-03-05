@@ -38,7 +38,7 @@
       <div id="profile_settings" class="profile_area_section" *ngIf="user | async as user">
         <div id="profile_image_area">
           <div id="profile_image_wrap">
-            <a id="remove_profile_image" (click)="deleteUserImage()" *ngIf="form.imageUrl">
+            <a id="remove_profile_image" (click)="deleteUserImage()" *ngIf="form.imageUrl || uploadedImage">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M9 9H11V17H9V9Z" fill="#ef4025" />
                 <path d="M15 9H13V17H15V9Z" fill="#ef4025" />
