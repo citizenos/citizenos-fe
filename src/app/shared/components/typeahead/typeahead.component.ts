@@ -162,8 +162,12 @@ export class TypeaheadComponent implements OnInit {
 
   query() {
     this.enterLink = false;
-    if(this.term && (this.term.split(' ').length > 1 || this.term.split(',').length > 1)) {
-      this.enterLink = true;
+    if(this.term ) {
+      if(this.term.split(' ').filter((item) => item.length > 1).length > 1) {
+        this.enterLink = true;
+      } else if (this.term.split(',').filter((item) => item.length > 1).length > 1) {
+        this.enterLink = true;
+      }
     }
     this.hide = false;
     this.itemList = [];
