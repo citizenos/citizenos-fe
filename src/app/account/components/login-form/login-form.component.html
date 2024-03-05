@@ -1,4 +1,4 @@
-<form name="loginForm" [formGroup]="form">
+<form name="loginForm" [formGroup]="loginForm">
   <div class="inline_notification error" *ngIf="errors?.accoundDoesNotExist">
     <div class="icon_notification">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -13,21 +13,13 @@
   </div>
   <div class="input_wrap">
     <cos-input placeholder="{{'COMPONENTS.LOGIN_FORM.LOGIN_PLACEHOLDER_EMAIL' | translate}}">
-      <input id="email" formControlName="email" type="email" [ngClass]="{'error_input': errors?.email}"
+      <input id="email" formControlName="email" type="email" [ngClass]="{'error_input': loginForm.controls['email'].errors && loginForm.controls['email'].errors['required'] && loginForm.touched}"
         placeholder="{{'COMPONENTS.LOGIN_FORM.LOGIN_PLACEHOLDER_EMAIL' | translate}}" [maxlength]="254" required>
-      <label for="email" class="error_label" *ngIf="errors?.email">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" clip-rule="evenodd"
-            d="M8.89438 1.78863C8.52586 1.05158 7.47405 1.05158 7.10553 1.78863L0.723562 14.5526C0.391112 15.2175 0.874608 15.9998 1.61799 15.9998H14.3819C15.1253 15.9998 15.6088 15.2175 15.2763 14.5526L8.89438 1.78863ZM6.99996 6.99977C6.99996 6.44749 7.44767 5.99977 7.99996 5.99977C8.55224 5.99977 8.99996 6.44749 8.99996 6.99977V9.99977C8.99996 10.5521 8.55224 10.9998 7.99996 10.9998C7.44767 10.9998 6.99996 10.5521 6.99996 9.99977V6.99977ZM6.99996 12.9998C6.99996 12.4475 7.44767 11.9998 7.99996 11.9998C8.55224 11.9998 8.99996 12.4475 8.99996 12.9998C8.99996 13.5521 8.55224 13.9998 7.99996 13.9998C7.44767 13.9998 6.99996 13.5521 6.99996 12.9998Z"
-            fill="#EF4025" />
-        </svg>
-        <span translate="{{errors.email}}"></span>
-      </label>
     </cos-input>
     <cos-input placeholder="{{'COMPONENTS.LOGIN_FORM.LOGIN_PLACEHOLDER_PASSWORD' | translate}}">
       <input id="password" formControlName="password" [type]="showPassword ? 'text' : 'password'"
         placeholder="{{'COMPONENTS.LOGIN_FORM.LOGIN_PLACEHOLDER_PASSWORD' | translate}}" (focus)="isFormEmailProvided"
-        [ngClass]="{'error_input': errors?.password}" [maxlength]="64" required cos-view-input>
+        [ngClass]="{'error_input': loginForm.controls['password'].errors && loginForm.controls['password'].errors['required'] && loginForm.touched}" [maxlength]="64" required cos-view-input>
       <div class="view_password" (click)="showPassword = !showPassword">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -35,20 +27,12 @@
             fill="#2C3B47" />
         </svg>
       </div>
-      <label for="password" class="error_label" *ngIf="errors?.password">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" clip-rule="evenodd"
-            d="M8.89438 1.78863C8.52586 1.05158 7.47405 1.05158 7.10553 1.78863L0.723562 14.5526C0.391112 15.2175 0.874608 15.9998 1.61799 15.9998H14.3819C15.1253 15.9998 15.6088 15.2175 15.2763 14.5526L8.89438 1.78863ZM6.99996 6.99977C6.99996 6.44749 7.44767 5.99977 7.99996 5.99977C8.55224 5.99977 8.99996 6.44749 8.99996 6.99977V9.99977C8.99996 10.5521 8.55224 10.9998 7.99996 10.9998C7.44767 10.9998 6.99996 10.5521 6.99996 9.99977V6.99977ZM6.99996 12.9998C6.99996 12.4475 7.44767 11.9998 7.99996 11.9998C8.55224 11.9998 8.99996 12.4475 8.99996 12.9998C8.99996 13.5521 8.55224 13.9998 7.99996 13.9998C7.44767 13.9998 6.99996 13.5521 6.99996 12.9998Z"
-            fill="#EF4025" />
-        </svg>
-        <span translate="{{errors.password}}"></span>
-      </label>
     </cos-input>
   </div>
   <div class="link_section">
     <a [routerLink]="['/account/password/forgot']" translate="COMPONENTS.LOGIN_FORM.LOGIN_LNK_FORGOT_PASSWORD"></a>
   </div>
-  <button id="login_button" type="submit" (click)="doLogin()" cos-disabled="loginForm.$invalid" class="btn_big_submit"
+  <button id="login_button" type="submit" (click)="doLogin()" [ngClass]="{disabled:loginForm.invalid}" class="btn_big_submit"
     translate="COMPONENTS.LOGIN_FORM.LOGIN_BTN_LOGIN"></button>
   <a (click)="register()" translate="COMPONENTS.LOGIN_FORM.LOGIN_LNK_NO_ACCOUNT_REGISTER"></a>
 </form>

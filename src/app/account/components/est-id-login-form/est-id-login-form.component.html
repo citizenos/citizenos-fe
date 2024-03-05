@@ -35,7 +35,7 @@
               <span translate="MODALS.LOGIN_ESTEID_ERROR_PHONE"></span>
             </label>
           </cos-input>
-          <cos-input placeholder="{{'MODALS.LOGIN_ESTEID_PLACEHOLDER_PHONE' | translate}}">
+          <cos-input placeholder="{{'MODALS.LOGIN_ESTEID_PLACEHOLDER_PID' | translate}}">
             <input id="pid" formControlName="pid" type="text" inputmode="numeric"
               [placeholder]="'MODALS.LOGIN_ESTEID_PLACEHOLDER_PID' | translate"
               [ngClass]="{'error_input': mobiilIdForm.controls['pid'].errors && mobiilIdForm.controls['pid'].errors['pattern']  && mobiilIdForm.touched}">
@@ -59,7 +59,7 @@
           <div class="loader"></div>
         </div>
       </div>
-      <button type="submit" (click)="authMobiilId()" [disabled]="isLoading || isLoadingIdCard || mobiilIdForm.invalid"
+      <button type="submit" (click)="authMobiilId()" [ngClass]="{disabled: isLoading || isLoadingIdCard || mobiilIdForm.invalid}"
         class="btn_big_submit" translate="MODALS.LOGIN_ESTEID_BTN_AUTHENTICATE_MID"></button>
     </div>
 
@@ -84,7 +84,7 @@
       <div *ngIf="isLoadingIdCard" class="loader_wrap id_card_loader">
         <div class="loader"></div>
       </div>
-      <button (click)="authIdCard()" *ngIf="!isLoadingIdCard" [disabled]="isLoading || isLoadingIdCard"
+      <button (click)="authIdCard()" *ngIf="!isLoadingIdCard" [ngClass]="{disabled: isLoading || isLoadingIdCard}"
         class="btn_big_submit" translate="MODALS.LOGIN_ESTEID_BTN_AUTHENTICATE_ID"></button>
     </div>
   </form>
