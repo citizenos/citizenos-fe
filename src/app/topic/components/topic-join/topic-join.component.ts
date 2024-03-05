@@ -1,5 +1,5 @@
 import { TopicService } from 'src/app/services/topic.service';
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { of, switchMap, take } from 'rxjs';
 import { TopicJoinService } from 'src/app/services/topic-join.service';
@@ -40,10 +40,8 @@ export class TopicTokenJoinComponent {
         take(1)
       ).subscribe({
         next: (topic) => {
-          if (topic.id) {
+          if (topic.id && (topic.permission.level !== 'none' || topic.visibility === TopicService.VISIBILITY.public )) {
             router.navigate(['topics', topic.id]);
-          } else {
-            router.navigate(['dashboard']);
           }
           const joinDialog = dialog.open(TopicJoinComponent, {
             data: {
@@ -57,7 +55,7 @@ export class TopicTokenJoinComponent {
               ).subscribe({
                 next: (topic) => {
                   TopicService.reloadTopic();
-                  location.reload();
+                  router.navigate(['topics', topic.id]);
                 },
                 error: (res) => {
                   const status = res.status;
@@ -71,6 +69,8 @@ export class TopicTokenJoinComponent {
                   }
                 }
               })
+            } else if (topic.visibility !== TopicService.VISIBILITY.public) {
+              router.navigate(['/']);
             }
           });
         },
