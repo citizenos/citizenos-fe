@@ -379,8 +379,11 @@ export class TopicFormComponent {
   updateTopic() {
     this.titleInput?.nativeElement?.parentNode.parentNode.classList.remove('error');
     this.introInput?.nativeElement?.parentNode.parentNode.classList.remove('error');
-
-    return this.TopicService.patch(this.topic).pipe(take(1)).subscribe(() => {
+    const updateTopic = Object.assign({}, this.topic);
+    if (!updateTopic.intro?.length) {
+      updateTopic.intro = null;
+    }
+    return this.TopicService.patch(updateTopic).pipe(take(1)).subscribe(() => {
       this.topicGroups.forEach((group) => {
         this.GroupMemberTopicService.save({
           groupId: group.id,
