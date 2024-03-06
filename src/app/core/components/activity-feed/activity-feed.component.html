@@ -10,7 +10,7 @@
       </svg>
     </a>
   </div>
-  <cos-input [placeholder]="'COMPONENTS.ACTIVITY_FEED.PLACEHOLDER_FILTER' | translate">
+  <cos-input [placeholder]="'COMPONENTS.ACTIVITY_FEED.PLACEHOLDER_FILTER' | translate" *ngIf="!this.groupId && !this.topicId">
     <div class="dropdown" [cosDropdown]>
       <div class="selection">
         <div class="selected_item">{{'COMPONENTS.ACTIVITY_FEED.FILTER_' + ((ActivityService.params$ |
