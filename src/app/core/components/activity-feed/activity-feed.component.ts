@@ -43,6 +43,14 @@ export class ActivityFeedComponent implements OnInit {
   filterActivities(filter: string) {
     this.allActivities$ = [];
     this.ActivityService.reset();
+    if (this.groupId) {
+      this.feedType = 'group';
+      this.ActivityService.setParam('groupId', this.groupId);
+    }
+    if (this.topicId) {
+      this.feedType = 'topic';
+      this.ActivityService.setParam('topicId', this.topicId);
+    }
     this.ActivityService.setParam('include', filter)
   }
   ngOnInit(): void {
