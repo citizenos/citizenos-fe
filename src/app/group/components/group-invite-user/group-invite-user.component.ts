@@ -35,11 +35,11 @@ export class GroupInviteUserComponent {
   }
 
   doUpdateInviteUser(level: string) {
-    if (this.invite && this.invite?.level !== level) {
-      const oldLevel = this.invite.level;
-      this.invite.level = level;
+    if (this.invite.invite && this.invite?.invite.level !== level) {
+      const oldLevel = this.invite.invite.level;
+      this.invite.invite.level = level;
       if (this.group) {
-        const inviteData = Object.assign({groupId: this.group.id, inviteId: this.invite.id}, this.invite)
+        const inviteData = Object.assign({groupId: this.group.id, inviteId: this.invite.invite.id}, this.invite.invite)
         this.GroupInviteUserService
           .update(inviteData)
           .pipe(take(1),

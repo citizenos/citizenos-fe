@@ -9,13 +9,13 @@
         </svg>
       </div>
       <div class="member_name_wrap">
-        <div class="bold" [innerHtml]>{{invite.user.name}}</div>
-        <div class="member_info" *ngIf="canUpdate()" translate="COMPONENTS.GROUP_INVITE_USER.INVITE_SENT_TO" [translateParams]="{email: invite.user.email}"></div>
+        <div class="bold" [innerHtml]>{{invite.name}}</div>
+        <div class="member_info" *ngIf="canUpdate() && invite.email" translate="COMPONENTS.GROUP_INVITE_USER.INVITE_SENT_TO" [translateParams]="{email: invite.email}"></div>
       </div>
     </div>
     <div class="line_separator mobile_show"></div>
     <div class="level">
-      <span [translate]="'TXT_GROUP_LEVELS_' + invite.level | uppercase"></span>
+      <span [translate]="'TXT_GROUP_LEVELS_' + invite.invite.level | uppercase"></span>
       <div class="button_wrap" *ngIf="canUpdate()">
         <div class="dropdown" [cosDropdown]>
           <button class="btn_medium_plain icon">
