@@ -10,7 +10,7 @@ import { ApiResponse } from 'src/app/interfaces/apiResponse';
   providedIn: 'root'
 })
 export class GroupMemberUserService extends ItemsListService {
-  params = Object.assign(this.defaultParams, {groupId: <string | null>null});
+  params = Object.assign(this.defaultParams, {groupId: <string | null>null, include: <Array<string> | string | null>null });
   params$ = new BehaviorSubject(this.params);
   public LEVELS = ['read','admin'];
   public loadMembers$ = new BehaviorSubject<void>(undefined);
