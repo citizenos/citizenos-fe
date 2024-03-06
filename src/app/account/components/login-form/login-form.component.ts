@@ -54,7 +54,7 @@ export class LoginFormComponent {
 
   doLogin() {
     //  this.$log.debug('LoginFormCtrl.doLogin()');
-    if (this.loginForm.value.pid && this.loginForm.value.countryCode) {
+    if (this.loginForm.value.email && this.loginForm.value.password) {
       this.errors = null;
 
       this.Auth

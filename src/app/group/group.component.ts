@@ -146,30 +146,25 @@ export class GroupComponent implements OnInit {
       switchMap(([search]) => {
         GroupMemberUserService.reset();
         GroupMemberUserService.setParam('groupId', this.groupId);
-        GroupInviteUserService.reset();
-        GroupInviteUserService.setParam('groupId', this.groupId);
+        GroupMemberUserService.setParam('include', 'invite');
         this.allMembers$ = [];
         if (search) {
           GroupMemberUserService.setParam('search', search);
-          GroupInviteUserService.setParam('search', search);
         }
         const resolveList = [this.GroupMemberUserService.loadItems()];
         if (this.auth.loggedIn$.value) {
-          resolveList.push(this.GroupInviteUserService.loadItems())
+          GroupMemberUserService.setParam('include', 'invite');
         }
-        return combineLatest(resolveList);
+        return this.GroupMemberUserService.loadItems();
       })
       ,map(
-        ([members, invited]: any) => {
+        (members: any) => {
           this.allMembers$ = [];
-          if (members.length || invited.length) {
+          if (members.length) {
             this.filtersSet = true;
           }
           if (members) {
             this.allMembers$ = this.allMembers$.concat(members)
-          }
-          if (invited) {
-            this.allMembers$ = this.allMembers$.concat(invited)
           }
           return this.allMembers$;
         }
