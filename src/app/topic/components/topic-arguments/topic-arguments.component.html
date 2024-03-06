@@ -4,7 +4,7 @@
       <div class="title_wrap">
         <div class="title" translate="COMPONENTS.TOPIC_ARGUMENTS.TITLE"
           [translateParams]="{count: TopicArgumentService.count.value.total}"></div>
-        <div class="data_items_wrap">
+        <!--div class="data_items_wrap">
           <span class="data_item" translate="COMPONENTS.TOPIC_ARGUMENTS.LBL_ARGUMENTS_COUNT_PRO"
             [translateParams]="{countPro:TopicArgumentService.count.value.pro}"></span>
           <span class="data_item" translate="COMPONENTS.TOPIC_ARGUMENTS.LBL_ARGUMENTS_COUNT_CON"
@@ -13,7 +13,7 @@
             [translateParams]="{countPoi:TopicArgumentService.count.value.poi}"></span>
           <span class="data_item" translate="COMPONENTS.TOPIC_ARGUMENTS.LBL_ARGUMENTS_COUNT_REPLY"
             [translateParams]="{countReplies:TopicArgumentService.count.value.reply}"></span>
-        </div>
+        </!--div-->
       </div>
       <button class="btn_medium_submit" (click)="doAddArgument()"
         translate="COMPONENTS.TOPIC_ARGUMENTS.BTN_ADD_YOUR_ARGUMENT"></button>
@@ -37,6 +37,11 @@
               <div class="dot"></div>
               <div class="bold" translate="COMPONENTS.TOPIC_ARGUMENTS.GRAPH_LEGEND_INFO"></div>
               <span>{{TopicArgumentService.count.value.poi}}</span>
+            </div>
+            <div class="legend_item reply">
+              <div class="dot"></div>
+              <div class="bold" translate="COMPONENTS.TOPIC_ARGUMENTS.GRAPH_LEGEND_REPLIES"></div>
+              <span>{{TopicArgumentService.count.value.reply}}</span>
             </div>
           </div>
         </div>

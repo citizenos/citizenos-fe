@@ -75,6 +75,7 @@
 
     @include mixins.mobile {
       flex-direction: column;
+      gap: 8px;
     }
     .graph_title {
       font-size: 16px;
@@ -99,6 +100,10 @@
         align-items: center;
         gap: 8px;
 
+        @include mixins.mobile {
+          flex-direction: column;
+          gap: 4px;
+        }
         &.pro {
           .dot {
             background-color: var(--color-argument-pro);
@@ -107,6 +112,11 @@
         &.con {
           .dot {
             background-color: var(--color-argument-con);
+          }
+        }
+        &.reply {
+          .dot {
+            background-color: var(--color-border);
           }
         }
       }

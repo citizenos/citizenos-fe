@@ -423,9 +423,8 @@
 
             .legend {
               display: flex;
-              justify-content: space-between;
               width: 100%;
-              gap: 24px;
+              gap: 56px;
               .dot {
                 height: 8px;
                 width: 8px;
@@ -433,6 +432,11 @@
                 border-radius: 50%;
               }
 
+              .legend_row {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+              }
               .legend_item {
                 display: flex;
                 align-items: center;
@@ -446,6 +450,11 @@
                 &.con {
                   .dot {
                     background-color: var(--color-argument-con);
+                  }
+                }
+                &.reply {
+                  .dot {
+                    background-color: var(--color-border);
                   }
                 }
               }

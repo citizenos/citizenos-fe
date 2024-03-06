@@ -314,7 +314,9 @@
               <div class="title" translate="VIEWS.TOPICS_TOPICID.HEADING_REPORTED">
               </div>
               <div class="content">
-                <div class="content_description" [translate]="(TopicService.canEdit(topic))? 'VIEWS.TOPICS_TOPICID.DESCRIPTION_REPORTED_ADMIN' : 'VIEWS.TOPICS_TOPICID.DESCRIPTION_REPORTED'"></div>
+                <div class="content_description"
+                  [translate]="(TopicService.canEdit(topic))? 'VIEWS.TOPICS_TOPICID.DESCRIPTION_REPORTED_ADMIN' : 'VIEWS.TOPICS_TOPICID.DESCRIPTION_REPORTED'">
+                </div>
                 <div class="content_items_wrap">
                   <div class="content_item" *ngIf="topic.report.type && !topic.report.moderatedReasonType">
                     <a [routerLink]="['reports', topic.report.id, 'moderate']">
@@ -932,20 +934,29 @@
             <div class="item_content">
               <div class="graph_wrap">
                 <div class="legend">
-                  <div class="legend_item pro">
-                    <div class="dot"></div>
-                    <div class="bold" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_CONTRIBUTION_PRO"></div>
-                    <span>{{TopicArgumentService.count.value.pro}}</span>
+                  <div class="legend_row">
+                    <div class="legend_item pro">
+                      <div class="dot"></div>
+                      <div class="bold" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_CONTRIBUTION_PRO"></div>
+                      <span>{{TopicArgumentService.count.value.pro}}</span>
+                    </div>
+                    <div class="legend_item">
+                      <div class="dot"></div>
+                      <div class="bold" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_CONTRIBUTION_INFO"></div>
+                      <span>{{TopicArgumentService.count.value.poi}}</span>
+                    </div>
                   </div>
-                  <div class="legend_item con">
-                    <div class="dot"></div>
-                    <div class="bold" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_CONTRIBUTION_CON"></div>
-                    <span>{{TopicArgumentService.count.value.con}}</span>
-                  </div>
-                  <div class="legend_item">
-                    <div class="dot"></div>
-                    <div class="bold" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_CONTRIBUTION_INFO"></div>
-                    <span>{{TopicArgumentService.count.value.poi}}</span>
+                  <div class="legend_row">
+                    <div class="legend_item con">
+                      <div class="dot"></div>
+                      <div class="bold" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_CONTRIBUTION_CON"></div>
+                      <span>{{TopicArgumentService.count.value.con}}</span>
+                    </div>
+                    <div class="legend_item reply">
+                      <div class="dot"></div>
+                      <div class="bold" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_CONTRIBUTION_REPLIES"></div>
+                      <span>{{TopicArgumentService.count.value.poi}}</span>
+                    </div>
                   </div>
                 </div>
                 <div class="graph">
