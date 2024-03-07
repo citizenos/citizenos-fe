@@ -523,6 +523,7 @@
           }
         }
         &.vote {
+          cursor: pointer;
           border-color: var(--color-voting);
           .icon_wrap {
             background-color: var(--color-voting);
@@ -542,6 +543,7 @@
           }
         }
         &.follow-up {
+          cursor: pointer;
           border-color: var(--color-follow-up);
           .icon_wrap {
             background-color: var(--color-follow-up);

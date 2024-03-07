@@ -417,16 +417,16 @@
             </button>
           </div>
         </div>
-        <ng-container *ngIf="tabSelected === 'discussion' || tabTablet === 'arguments'">
+        <ng-container *ngIf="tabSelected === 'discussion' || tabTablet === 'discussion'">
           <topic-arguments class="topic_arguments" #arguments [topic]="topic"
-            [ngClass]="(tabTablet==='arguments')? 'show': ''"
+            [ngClass]="(tabTablet==='discussion')? 'show': ''"
             [TourItem]="{tourid: 'topic', index: 7, position: 'top'}"></topic-arguments>
-          <post-argument *ngIf="(tabTablet==='arguments') || wWidth > 1024" [topicId]="topic.id"></post-argument>
+          <post-argument *ngIf="(tabTablet==='discussion') || wWidth > 1024" [topicId]="topic.id"></post-argument>
         </ng-container>
         <ng-container *ngIf="tabSelected === 'voting'">
           <div class="vote_wrap" #topicVote>
             <div class="topic_feature_section voting" *ngIf="!topic.voteId"
-              [ngClass]="(tabTablet === 'vote')? 'show': ''">
+              [ngClass]="(tabTablet === 'voting')? 'show': ''">
               <ng-container *ngIf="!topic.voteId">
                 <div class="no_feature_yet">
                   <svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -502,8 +502,8 @@
                 </div>
               </ng-container>
             </div>
-            <ng-container *ngIf="topic.voteId && (vote$ | async) as vote">
-              <topic-vote-cast [ngClass]="(tabTablet === 'vote')? 'show': ''" [topic]="topic"
+            <ng-container *ngIf="topic?.voteId && (vote$ | async) as vote">
+              <topic-vote-cast [ngClass]="(tabTablet === 'voting')? 'show': ''" [topic]="topic"
                 [vote]="vote"></topic-vote-cast>
             </ng-container>
           </div>
@@ -595,7 +595,7 @@
           </div>
         </ng-container>
       </div>
-      <div class="content_area_right" *ngIf="!tabTablet">
+      <div class="content_area_right" *ngIf="(wWidth > 1024) || !tabTablet">
         <div class="info_section"
           [TourItem]="{tourid: 'topic', index: 3, position: ((wWidth <= 1024)? 'bottom': 'left')}">
           <div class="info_items_wrap">
@@ -924,7 +924,7 @@
         </div>
         <div class="state_items_wrap"
           [TourItem]="{tourid: 'topic', index: 5, position: ((wWidth <= 1024)? 'bottom': 'left')}">
-          <div class="state_item discussion" (click)="(wWidth <= 1024)? tabTablet='arguments': ''"
+          <div class="state_item discussion" (click)="selectTab('discussion')"
             *ngIf="!hideDiscussion">
             <div class="item_header">
               <div class="item_title" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_DISCUSSION_HEADING"></div>
@@ -983,7 +983,7 @@
         <div class="state_item_text" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_NO_IDEATON"></div>
       </!--div-->
           <div class="state_item vote" [ngClass]="{'empty': !topic.voteId}"
-            (click)="(!topic.voteId && canUpdate(topic))? startVote(topic): ''">
+            (click)="(!topic.voteId && canUpdate(topic))? startVote(topic): selectTab('voting')">
             <ng-container *ngIf="!topic.voteId">
               <div class="icon_wrap">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1031,7 +1031,7 @@
             </ng-container>
           </div>
           <div class="state_item follow-up" [ngClass]="{'empty': topic.status !== STATUSES.followUp}"
-            (click)="(topic.status !== STATUSES.followUp && canUpdate(topic))? sendToFollowUp(topic): ''">
+            (click)="(topic.status !== STATUSES.followUp && canUpdate(topic))? sendToFollowUp(topic): selectTab('followUp')">
             <ng-container *ngIf="topic.status !== STATUSES.followUp">
               <div class="icon_wrap">
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1127,7 +1127,7 @@
           <rect x="11" y="24" width="6" height="1" rx="0.5" fill="#4D5C6A" />
         </svg>
       </a>
-      <a class="topic_tab discussion" [ngClass]="{'active': tabTablet==='arguments'}" (click)="tabTablet='arguments'"
+      <a class="topic_tab discussion" [ngClass]="{'active': tabTablet==='discussion'}" (click)="tabTablet='discussion'"
         [routerLink]="['./']" fragment="discussion">
         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect width="32" height="32" rx="16" fill="#1168A8" />
@@ -1149,8 +1149,8 @@
       </svg>
       <span class="tab_text" translate="VIEWS.TOPICS_TOPICID.TAB_IDEATION"></span>
     </!--a-->
-      <a class="topic_tab voting" [ngClass]="{'active': tabTablet==='vote'}" [routerLink]="['./']" fragment="voting"
-        (click)="tabTablet='vote'">
+      <a class="topic_tab voting" [ngClass]="{'active': tabTablet==='voting'}" [routerLink]="['./']" fragment="voting"
+        (click)="tabTablet='voting'">
         <svg *ngIf="!topic.voteId && tabSelected !== 'voting'" width="32" height="32" viewBox="0 0 32 32" fill="none"
           xmlns="http://www.w3.org/2000/svg">
           <rect width="32" height="32" rx="16" fill="#98DAA2" />
