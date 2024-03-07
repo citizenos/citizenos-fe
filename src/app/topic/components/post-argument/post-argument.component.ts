@@ -15,7 +15,6 @@ import { TopicArgumentService } from 'src/app/services/topic-argument.service';
       // ...
       state('open', style({
         'maxHeight': '100%',
-        'overflow-y': 'scroll',
         transition: 'max-height 0.2s ease-in-out',
       })),
       state('closed', style({

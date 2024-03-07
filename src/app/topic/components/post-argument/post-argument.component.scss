@@ -20,6 +20,10 @@
     display: none;
   }
 
+  @include mixins.mobile {
+    overflow-y: scroll;
+  }
+
   .footer_title {
     font-size: 16px;
     font-style: normal;

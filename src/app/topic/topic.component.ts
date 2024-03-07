@@ -515,4 +515,11 @@ export class TopicComponent implements OnInit {
       }, 200);
     }
   }
+
+  selectTab(tab: string) {
+    this.tabTablet= tab;
+    if (tab === 'vote') tab = 'voting';
+    if (tab === 'arguments') tab = 'discussion';
+    this.router.navigate([], {fragment: tab})
+  }
 }
