@@ -7,20 +7,24 @@
         (select)="addTopicMemberGroup($event)" (enterAction)="addTopicMemberGroup($event)"
         [placeholder]="'COMPONENTS.TOPIC_ADD_GROUPS.PLACEHOLDER_SEARCH' | translate">
         <ng-container *ngIf="searchResults$ | async as searchResults">
-          <div class="search_area_wrap" [ngClass]="{hidden: !searchResults.length}">
-            <div class="search_dropdown_item" [typeaheadItem]="group" *ngFor="let group of searchResults"
-              (click)="addTopicMemberGroup(group)">
-              <div class="item_text_wrap">
-                <div>
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd"
-                      d="M7.83808 1.33398C8.36851 1.33398 8.87722 1.5447 9.25229 1.91977L12.7474 5.41487C13.1225 5.78994 13.3332 6.29865 13.3332 6.82908V13.1858C13.3332 14.0007 12.6932 14.6673 11.9109 14.6673H4.08161C3.29939 14.6673 2.6665 14.0007 2.6665 13.1858L2.67362 2.81547C2.67362 2.00065 3.3065 1.33398 4.08873 1.33398H7.83808ZM12.3251 6.3259C12.4511 6.45189 12.3618 6.66732 12.1837 6.66732H8.99984C8.44755 6.66732 7.99984 6.2196 7.99984 5.66732V2.48349C7.99984 2.30531 8.21527 2.21608 8.34126 2.34207L12.3251 6.3259Z"
-                      fill="#2C3B47" />
-                  </svg>
+          <div id="results_list" class="search_area_wrap" [ngClass]="{hidden: !searchResults.length}">
+            <ng-container *ngFor="let group of searchResults">
+              <div class="search_dropdown_item" [typeaheadItem]="group" (click)="addTopicMemberGroup(group)" [ngClass]="{disabled: isMember(group)}">
+                <div class="item_text_wrap">
+                  <div class="icon">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M7.83808 1.33398C8.36851 1.33398 8.87722 1.5447 9.25229 1.91977L12.7474 5.41487C13.1225 5.78994 13.3332 6.29865 13.3332 6.82908V13.1858C13.3332 14.0007 12.6932 14.6673 11.9109 14.6673H4.08161C3.29939 14.6673 2.6665 14.0007 2.6665 13.1858L2.67362 2.81547C2.67362 2.00065 3.3065 1.33398 4.08873 1.33398H7.83808ZM12.3251 6.3259C12.4511 6.45189 12.3618 6.66732 12.1837 6.66732H8.99984C8.44755 6.66732 7.99984 6.2196 7.99984 5.66732V2.48349C7.99984 2.30531 8.21527 2.21608 8.34126 2.34207L12.3251 6.3259Z"
+                        fill="#2C3B47" />
+                    </svg>
+                  </div>
+                  <div class="text">
+                    <div>{{group.name}}</div>
+                    <div class="member_group" *ngIf="isMember(group)" translate="COMPONENTS.TOPIC_ADD_GROUPS.LBL_ALREADY_ADDED"></div>
+                  </div>
                 </div>
-                <b>{{group.name}}</b>
               </div>
-            </div>
+            </ng-container>
           </div>
         </ng-container>
       </typeahead>
@@ -44,7 +48,8 @@
     </div>
   </div>
 </div>
-<div class="create_content_section" *ngIf="(topic.members.groups?.length === 0 && !dialog) || topic.members.groups?.length">
+<div class="create_content_section"
+  *ngIf="(topic.members.groups?.length === 0 && !dialog) || topic.members.groups?.length">
   <div id="topic_members_list_wrap" class="table_section">
     <ng-container *ngIf="topic.members.groups?.length === 0 && !dialog">
       <div class="no_items">

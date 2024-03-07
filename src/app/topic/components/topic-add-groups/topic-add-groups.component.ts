@@ -26,7 +26,7 @@ export class TopicAddGroupsComponent {
   resultCount: number = 0;
   searchOrderBy?: string;
   errors?: any;
-
+  topicGroups = <Group[]>[];
   membersPage = 1;
   itemsPerPage = 5;
 
@@ -45,11 +45,19 @@ export class TopicAddGroupsComponent {
       this.TopicMemberGroupService.setParam('groupId', this.topic.id);
       this.topic.members.groups = <Group[]>[];
       this.memberGroups$ = this.TopicMemberGroupService.loadItems().pipe(
+        take(1),
         tap((groups) => {
-          this.topic.members.topics = groups;
+          this.topicGroups = groups;
         })
       );
+      this.memberGroups$.subscribe();
     }
+  }
+
+  isMember (group: Group) {
+    const groupFound = this.topicGroups.find((g) => g.id === group.id );
+    if (groupFound) return true;
+    return false;
   }
 
   canUpdate() {
