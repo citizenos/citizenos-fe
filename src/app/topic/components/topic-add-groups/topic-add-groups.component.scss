@@ -7,6 +7,32 @@
   }
 }
 
+#results_list {
+  gap: 8px !important;
+  padding: 16px !important;
+}
+.search_dropdown_item {
+  width: 100%;
+  position: relative;
+  padding: 8px 16px;
+
+  &:hover,
+  &.active {
+    background-color: var(--color-background)!important;
+  }
+  .item_text_wrap {
+    width: 100%;
+  }
+  .icon {
+    display: flex;
+  }
+
+  .text {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+}
 .no_items {
   display: flex;
   flex-direction: column;
