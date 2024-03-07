@@ -34,7 +34,7 @@
           class="permissions_lable tablet_hidden"
           [translate]="(topic.permission.level !== 'read')? ('TXT_TOPIC_LEVELS_' + topic.permission.level | uppercase) : 'VIEWS.TOPICS_TOPICID.LBL_JOINED'">
         </div>
-        <div *ngIf="(auth.loggedIn$ | async)" class="btn_medium_close icon tablet_show">
+        <button *ngIf="(auth.loggedIn$ | async)" class="btn_medium_close icon tablet_show" (click)="toggleFavourite(topic);">
           <svg *ngIf="!topic.favourite" width="40" height="40" viewBox="0 0 40 40" fill="none"
             xmlns="http://www.w3.org/2000/svg">
             <rect width="40" height="40" rx="20" fill="#F1F7FC" />
@@ -50,7 +50,7 @@
               d="M20 11L22.645 16.3594L28.5595 17.2188L24.2798 21.3906L25.2901 27.2812L20 24.5L14.7099 27.2812L15.7202 21.3906L11.4405 17.2188L17.355 16.3594L20 11Z"
               fill="#2C3B47" />
           </svg>
-        </div>
+        </button>
         <div id="activities_button_wrap">
           <activities-button *ngIf="auth.loggedIn$ | async" [topicId]="topic.id"></activities-button>
           <!-- add [topicId]="topic.id"-->
@@ -271,7 +271,7 @@
         </a>
       </div>
       <div id="activities_button_wrap">
-        <div *ngIf="(auth.loggedIn$ | async)" class="btn_medium_close icon">
+        <button *ngIf="(auth.loggedIn$ | async)" class="btn_medium_close icon" (click)="toggleFavourite(topic);">
           <svg *ngIf="!topic.favourite" width="40" height="40" viewBox="0 0 40 40" fill="none"
             xmlns="http://www.w3.org/2000/svg">
             <rect width="40" height="40" rx="20" fill="#F1F7FC" />
@@ -287,7 +287,7 @@
               d="M20 11L22.645 16.3594L28.5595 17.2188L24.2798 21.3906L25.2901 27.2812L20 24.5L14.7099 27.2812L15.7202 21.3906L11.4405 17.2188L17.355 16.3594L20 11Z"
               fill="#2C3B47" />
           </svg>
-        </div>
+        </button>
         <activities-button *ngIf="auth.loggedIn$" [topicId]="topic.id"></activities-button>
         <!-- add [topicId]="topic.id"-->
       </div>
