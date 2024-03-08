@@ -21,7 +21,9 @@
     <div class="dialog_content">
       <div class="content_section">
         <div class="section_content_wrap table_section">
-          <ng-container *ngFor="let member of voteItems| async | keyvalue">
+          <ng-container *ngIf="voteItems| async as members">
+            <div *ngIf="!members.length" translate="MODALS.TOPIC_COMMENT_REACTIONS_NO_REACTIONS_YET"></div>
+          <ng-container *ngFor="let member of members | keyvalue">
             <div class="row_list" *ngIf="isOnPage(member.key, page)">
               <div class="row_cell">
                 <div class="profile_image_wrap">
@@ -56,6 +58,7 @@
               </div>
             </div>
           </ng-container>
+        </ng-container>
         </div>
       </div>
     </div>
