@@ -186,6 +186,7 @@
   margin-left: -8px;
   height: max-content;
 }
+
 #create_footer {
   @include mixins.mobile {
     padding: 0;
@@ -196,6 +197,7 @@
 
   }
 }
+
 #create_footer {
   #close_create,
   #buttons_wrap,
