@@ -375,6 +375,7 @@
         <div id="extra_info_left">
           <div class="bold" translate="VIEWS.GROUP.RULES_OF_CONDUCT"></div>
           <div id="rule_items_wrap">
+            <div class="rule_item" translate="VIEWS.GROUP.LBL_NO_RULES" *ngIf="!group.rules.length"></div>
             <div class="rule_item" *ngFor="let rule of group.rules">
               <div>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
