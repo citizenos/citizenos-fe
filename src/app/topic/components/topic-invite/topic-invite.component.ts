@@ -24,7 +24,7 @@ export interface TopicInviteData {
   styleUrls: ['./topic-invite.component.scss']
 })
 export class TopicInviteComponent implements OnInit {
-  @Input() dialog?= false;
+  @Input() dialog? = false;
   @Input() topic!: Topic;
   @Input() members = <any[]>[];
   @Input() inviteMessage?: string;
@@ -215,8 +215,10 @@ export class TopicInviteComponent implements OnInit {
       forkJoin(topicMemberUsersToSave)
         .pipe(take(1))
         .subscribe((res: any) => {
-          this.Notification.addSuccess('COMPONENTS.TOPIC_INVITE.MSG_INVITES_SENT');
           this.TopicService.reloadTopic();
+          setTimeout(() => {
+            this.Notification.addSuccess('COMPONENTS.TOPIC_INVITE.MSG_INVITES_SENT');
+          }, 500);
         })
     }
   };
@@ -266,7 +268,7 @@ export class TopicInviteDialogComponent {
     }
   }
 
-  close () {
+  close() {
     this.dialog.close();
   }
   canInvite() {
@@ -291,8 +293,10 @@ export class TopicInviteDialogComponent {
           .pipe(take(1))
           .subscribe(res => {
             this.Notification.removeAll();
-            this.Notification.addSuccess('COMPONENTS.TOPIC_INVITE_DIALOG.MSG_INVITES_SENT');
             this.dialog.close()
+            setTimeout(() => {
+              this.Notification.addSuccess('COMPONENTS.TOPIC_INVITE.MSG_INVITES_SENT');
+            }, 500);
           })
       } else {
         this.dialog.close(topicMemberUsersToInvite);
