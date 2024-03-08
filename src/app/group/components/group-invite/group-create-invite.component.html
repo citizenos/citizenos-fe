@@ -32,7 +32,7 @@
           translate="COMPONENTS.GROUP_INVITE.CHARACTER_LIMIT"></span>{{group.inviteMessage?.length || 0
         }}/{{inviteMessageMaxLength}}</div>
 
-      <cos-input *ngIf="totalPages(group.members.users) > 1"
+      <cos-input *ngIf="group.members.users.length > 5"
         [placeholder]="'COMPONENTS.GROUP_INVITE.SHOW_PER_PAGE' | translate" class="dropdown_input">
         <div class="dropdown" [cosDropdown]>
           <div class="selection">
