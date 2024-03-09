@@ -2871,7 +2871,7 @@
   "MSG_ERROR_50000": "Terjadi kesalahan pada sistem kami. Kami mohon maaf. Silahkan coba sekali lagi. Jika kesalahan tetap terjadi, hubungi layanan pelanggan kami.",
   "MSG_ERROR_42900": "Maaf, Anda telah mencapai batas penggunaan wajar dari satu atau lebih API. Coba lagi nanti atau hubungi layanan pelanggan.",
   "MSG_ERROR_NETWORK_PROBLEMS": "Masalah jaringan, tolong periksa koneksi internet Anda.",
-  "MSG_ERROR_ATTACHMENT_SIZE_OVER_LIMIT": "Attachment is too big. Maximum allowed size is 50MB.",
+  "MSG_ERROR_ATTACHMENT_SIZE_OVER_LIMIT": "Attachment is too big. Maximum allowed size is {{allowedFileSize}}.",
   "MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED": "File type is not allowed. Allowed types are: {{allowedFileTypes}}",
   "MSG_ERROR_FILE_TYPE_NOT_ALLOWED": "@:MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED",
   "MSG_ERROR_FILE_TOO_LARGE": "File is too large. Maximum allowed size is {{allowedFileSize}}",
