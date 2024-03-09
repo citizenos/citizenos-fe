@@ -2871,7 +2871,7 @@
   "MSG_ERROR_50000": "In unserem System ging etwas schief. Es tut uns sehr leid! Bitte versuchen Sie es erneut. Wenn der Fehler weiterhin besteht, wenden Sie sich bitte an unseren Kundendienst.",
   "MSG_ERROR_42900": "Entschuldigung, Sie haben das Limit für die faire Verwendung einer oder mehrerer APIs erreicht. Bitte versuchen Sie es später erneut oder kontaktieren Sie den Kundendienst.",
   "MSG_ERROR_NETWORK_PROBLEMS": "Verbindungsfehler. Bitte überprüfen Sie Ihre Internetverbindung.",
-  "MSG_ERROR_ATTACHMENT_SIZE_OVER_LIMIT": "Attachment is too big. Maximum allowed size is 50MB.",
+  "MSG_ERROR_ATTACHMENT_SIZE_OVER_LIMIT": "Attachment is too big. Maximum allowed size is {{allowedFileSize}}.",
   "MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED": "File type is not allowed. Allowed types are: {{allowedFileTypes}}",
   "MSG_ERROR_FILE_TYPE_NOT_ALLOWED": "@:MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED",
   "MSG_ERROR_FILE_TOO_LARGE": "File is too large. Maximum allowed size is {{allowedFileSize}}",
