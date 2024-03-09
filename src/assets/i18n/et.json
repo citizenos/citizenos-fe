@@ -2871,7 +2871,7 @@
   "MSG_ERROR_50000": "Midagi läks meie süsteemis valesti. Palun vabandust! Proovi palun veel kord. Kui viga kordub, võta ühendust kasutajatoega.",
   "MSG_ERROR_42900": "Vabandust, oled ületanud ühe või mitme rakendusliidese (API) mõistliku kasutuse piiri. Palun proovi hiljem uuesti või võta ühendust klienditoega.",
   "MSG_ERROR_NETWORK_PROBLEMS": "Internetiühendus puudub, palun kontrolli ühendust.",
-  "MSG_ERROR_ATTACHMENT_SIZE_OVER_LIMIT": "Attachment is too big. Maximum allowed size is 50MB.",
+  "MSG_ERROR_ATTACHMENT_SIZE_OVER_LIMIT": "Attachment is too big. Maximum allowed size is {{allowedFileSize}}.",
   "MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED": "File type is not allowed. Allowed types are: {{allowedFileTypes}}",
   "MSG_ERROR_FILE_TYPE_NOT_ALLOWED": "@:MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED",
   "MSG_ERROR_FILE_TOO_LARGE": "File is too large. Maximum allowed size is {{allowedFileSize}}",
