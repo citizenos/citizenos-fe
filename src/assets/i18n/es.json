@@ -2871,7 +2871,7 @@
   "MSG_ERROR_50000": "Hubo un problema en el sistema. Lo sentimos. Vuelva a intentarlo una vez más. Si el error persiste, póngase en contacto con el servicio de atención al cliente.",
   "MSG_ERROR_42900": "Se alcanzó el límite de uso razonable de una o más API. Vuelva a intentarlo más tarde o póngase en contacto con el servicio de atención al cliente.",
   "MSG_ERROR_NETWORK_PROBLEMS": "Problemas de red, compruebe su conexión a Internet.",
-  "MSG_ERROR_ATTACHMENT_SIZE_OVER_LIMIT": "Attachment is too big. Maximum allowed size is 50MB.",
+  "MSG_ERROR_ATTACHMENT_SIZE_OVER_LIMIT": "Attachment is too big. Maximum allowed size is {{allowedFileSize}}.",
   "MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED": "File type is not allowed. Allowed types are: {{allowedFileTypes}}",
   "MSG_ERROR_FILE_TYPE_NOT_ALLOWED": "@:MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED",
   "MSG_ERROR_FILE_TOO_LARGE": "File is too large. Maximum allowed size is {{allowedFileSize}}",
