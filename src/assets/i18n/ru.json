@@ -2871,7 +2871,7 @@
   "MSG_ERROR_50000": "В нашей системе что-то пошло не так. Приносим свои извинения! Пожалуйста, попробуйте еще раз. Если ошибка повторится, обратитесь в техническую поддержку.",
   "MSG_ERROR_42900": "Вы достигли лимита свободного пользования одним или несколькими API. Пожалуйста, повторите попытку позже или свяжитесь со службой поддержки.",
   "MSG_ERROR_NETWORK_PROBLEMS": "Отсутствует связь с интернетом - пожалуйста, проверьте связь.",
-  "MSG_ERROR_ATTACHMENT_SIZE_OVER_LIMIT": "Файл слишком велик. Максимально допустимый размер - 50 МБ.",
+  "MSG_ERROR_ATTACHMENT_SIZE_OVER_LIMIT": "Attachment is too big. Maximum allowed size is {{allowedFileSize}}.",
   "MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED": "Тип файла недопустим. Допустимые типы: {{allowedFileTypes}}",
   "MSG_ERROR_FILE_TYPE_NOT_ALLOWED": "@:MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED",
   "MSG_ERROR_FILE_TOO_LARGE": "Файл слишком большой. Максимально допустимый размер - {{allowedFileSize}}",
