@@ -494,8 +494,15 @@ export class VoteCreateComponent implements OnInit {
   updateTopic() {
     this.titleInput?.nativeElement?.parentNode.parentNode.classList.remove('error');
     this.introInput?.nativeElement?.parentNode.parentNode.classList.remove('error');
+    const updateTopic = Object.assign({}, this.topic);
+    if (!updateTopic.intro?.length) {
+      updateTopic.intro = null;
+    }
+    return this.TopicService.patch(updateTopic)
+  }
 
-    return this.TopicService.patch(this.topic)
+  updateField () {
+    this.updateTopic().pipe(take(1)).subscribe();
   }
   updateVote() {
     const updateVote = Object.assign({ topicId: this.topic.id }, this.vote);

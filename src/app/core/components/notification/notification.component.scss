@@ -15,8 +15,11 @@
   left: 0;
   top: 0;
   background-color: var(--color-surfaces);
-  border-bottom-left-radius: 16px;
-  border-bottom-right-radius: 16px;
+
+  &:last-child {
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+  }
 
   &.narrow {
     width: 560px;
