@@ -2871,7 +2871,7 @@
   "MSG_ERROR_50000": "Щось сталося не так в нашій системі. Нам дуже шкода! Будь-ласка, спробуйте ще раз. Якщо помилка не зникне, будь-ласка, зверніться до нашої служби підтримки.",
   "MSG_ERROR_42900": "На жаль, ви досягли ліміту добросовісного використання одного або кількох API. Спробуйте пізніше або зверніться до служби підтримки.",
   "MSG_ERROR_NETWORK_PROBLEMS": "Мережева помилка, будь-ласка, перевірте підключення до Інтернету.",
-  "MSG_ERROR_ATTACHMENT_SIZE_OVER_LIMIT": "Attachment is too big. Maximum allowed size is 50MB.",
+  "MSG_ERROR_ATTACHMENT_SIZE_OVER_LIMIT": "Attachment is too big. Maximum allowed size is {{allowedFileSize}}.",
   "MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED": "File type is not allowed. Allowed types are: {{allowedFileTypes}}",
   "MSG_ERROR_FILE_TYPE_NOT_ALLOWED": "@:MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED",
   "MSG_ERROR_FILE_TOO_LARGE": "File is too large. Maximum allowed size is {{allowedFileSize}}",
