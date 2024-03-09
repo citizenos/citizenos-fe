@@ -2871,7 +2871,7 @@
   "MSG_ERROR_50000": "Něco se pokazilo v našem systému. Je nám velmi líto! Zkuste to prosím ještě jednou. Pokud chyba přetrvává, kontaktujte prosím naši zákaznickou podporu.",
   "MSG_ERROR_42900": "Omlouváme se, dosáhli jste limitu pro správné používání jednoho nebo více API. Zkuste to prosím později nebo kontaktujte zákaznickou podporu.",
   "MSG_ERROR_NETWORK_PROBLEMS": "Problémy se sítí, zkontrolujte připojení k internetu.",
-  "MSG_ERROR_ATTACHMENT_SIZE_OVER_LIMIT": "Attachment is too big. Maximum allowed size is 50MB.",
+  "MSG_ERROR_ATTACHMENT_SIZE_OVER_LIMIT": "Attachment is too big. Maximum allowed size is {{allowedFileSize}}.",
   "MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED": "File type is not allowed. Allowed types are: {{allowedFileTypes}}",
   "MSG_ERROR_FILE_TYPE_NOT_ALLOWED": "@:MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED",
   "MSG_ERROR_FILE_TOO_LARGE": "File is too large. Maximum allowed size is {{allowedFileSize}}",
