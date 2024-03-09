@@ -2871,7 +2871,7 @@
   "MSG_ERROR_50000": "Нещо се обърка в нашата система. Много съжаляваме! Моля, опитайте още веднъж. Ако грешката продължава, моля, свържете се с нашата поддръжка на клиенти.",
   "MSG_ERROR_42900": "За съжаление достигнахте ограничението за честна употреба на един или повече API. Моля, опитайте отново по-късно или се свържете с екипа за поддръжка на клиенти.",
   "MSG_ERROR_NETWORK_PROBLEMS": "Проблеми с мрежата, моля, проверете вашата интернет връзка.",
-  "MSG_ERROR_ATTACHMENT_SIZE_OVER_LIMIT": "Attachment is too big. Maximum allowed size is 50MB.",
+  "MSG_ERROR_ATTACHMENT_SIZE_OVER_LIMIT": "Attachment is too big. Maximum allowed size is {{allowedFileSize}}.",
   "MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED": "File type is not allowed. Allowed types are: {{allowedFileTypes}}",
   "MSG_ERROR_FILE_TYPE_NOT_ALLOWED": "@:MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED",
   "MSG_ERROR_FILE_TOO_LARGE": "File is too large. Maximum allowed size is {{allowedFileSize}}",
