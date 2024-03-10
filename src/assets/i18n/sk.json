@@ -407,6 +407,7 @@
     },
     "PASSWORD_FORGOT": {
       "PLACEHOLDER_EMAIL": "@:COMPONENTS.LOGIN_FORM.LOGIN_PLACEHOLDER_EMAIL",
+      "ERROR_INVALID_EMAIL": "@:MSG_ERROR_POST_API_AUTH_SIGNUP_40000_EMAIL",
       "SEND_RESET": "Poslať obnovovací kód"
     },
     "PASSWORD_RESET": {
@@ -2171,6 +2172,7 @@
       "FOOTER_BTN_CONTINUE": "@:BTN_CONTINUE",
       "FOOTER_BTN_SAVE_AS_DRAFT": "Uložiť ako koncept",
       "FOOTER_BTN_CREATE": "Zverejnite teraz svoju tému",
+      "FOOTER_BTN_SAVE_CHANGES_AND_PUBLISH": "Save changes & publish",
       "FOOTER_BTN_SAVE_CHANGES": "Uložiť zmeny",
       "WRITE_TOGETHER_HEADING": "Píšte spolu!",
       "WRITE_TOGETHER_DESC": "Spolupracujte na texte témy prizvaním spolutvorcov.",
