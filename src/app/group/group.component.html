@@ -45,7 +45,7 @@
             fill="#2C3B47" />
         </svg>
       </button>
-      <div class="dropdown button_dropdown mobile_hidden" [cosDropdown]>
+      <div class="dropdown button_dropdown mobile_hidden" [cosDropdown] *ngIf="auth.loggedIn$.value">
         <button class="btn_medium_close icon">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd"
