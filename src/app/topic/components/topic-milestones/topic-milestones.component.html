@@ -95,7 +95,7 @@
               </svg>
               <span class="bold">{{evt.createdAt | amTimeAgo }}</span>
             </div>
-            <div class="dropdown button_dropdown" [cosDropdown]>
+            <div class="dropdown button_dropdown" [cosDropdown] *ngIf="canDelete()">
               <button class="btn_medium_close icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" clip-rule="evenodd"
@@ -177,7 +177,7 @@
       </div>
     </div>
 
-    <div class="section_buttons">
+    <div class="section_buttons" *ngIf="canDelete()">
 
       <!--div id="add_section_wrap">
         <button class="btn_medium_plain bold">
