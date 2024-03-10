@@ -486,6 +486,20 @@ $bold: 700;
   color: $error;
 }
 
+
+.menu_right {
+  li:last-child{
+    display: none;
+  }
+}
+
+.timeslider {
+  .menu_right {
+    li:last-child{
+      display: flex;
+    }
+  }
+}
 #vote-description-area {
   border: 1px solid var(--grey-500, #e1e7ee);
   border-radius: 8px;
