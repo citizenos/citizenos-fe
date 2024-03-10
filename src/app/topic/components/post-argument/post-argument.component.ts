@@ -1,5 +1,6 @@
 import { trigger, state, style } from '@angular/animations';
 import { Component, OnInit, Input, Inject } from '@angular/core';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { take } from 'rxjs';
@@ -28,10 +29,15 @@ export class PostArgumentComponent implements OnInit {
   @Input() topicId!: string;
   wWidth = window.innerWidth;
   focusArgumentSubject = false;
-  subject = <string>'';
   argumentType = <string>'pro';
-  text = <string>'';
   errors: any;
+
+  text = <string>'';
+  argumentForm = new UntypedFormGroup({
+    subject: new UntypedFormControl('', [Validators.required]),
+    text: new UntypedFormControl('', [Validators.required]),
+  });
+
   ARGUMENT_TYPES = Object.keys(this.TopicArgumentService.ARGUMENT_TYPES).filter((key) => key != 'reply');
   ARGUMENT_TYPES_MAXLENGTH = this.TopicArgumentService.ARGUMENT_TYPES_MAXLENGTH;
   ARGUMENT_SUBJECT_MAXLENGTH = this.TopicArgumentService.ARGUMENT_SUBJECT_MAXLENGTH;
@@ -56,7 +62,7 @@ export class PostArgumentComponent implements OnInit {
   }
 
   updateText(text: any) {
-    this.text = text;
+    this.argumentForm.controls['text'].setValue(text);
   }
 
   addNewArgument() {
@@ -74,8 +80,8 @@ export class PostArgumentComponent implements OnInit {
     const argument = {
       parentVersion: 0,
       type: this.argumentType,
-      subject: this.subject,
-      text: this.text,
+      subject: this.argumentForm.value['subject'],
+      text: this.argumentForm.value['text'] ,
       topicId: this.topicId
     };
     this.TopicArgumentService
@@ -83,8 +89,7 @@ export class PostArgumentComponent implements OnInit {
       .pipe(take(1))
       .subscribe({
         next: (argument) => {
-          this.subject = '';
-          this.text = '';
+          this.argumentForm.reset();
           this.TopicArgumentService.reset();
           this.TopicArgumentService.setParam('topicId', this.topicId)
           this.app.addArgument.next(false);
