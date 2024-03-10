@@ -146,13 +146,12 @@ export class GroupComponent implements OnInit {
       switchMap(([search]) => {
         GroupMemberUserService.reset();
         GroupMemberUserService.setParam('groupId', this.groupId);
-        GroupMemberUserService.setParam('include', 'invite');
         this.allMembers$ = [];
         if (search) {
           GroupMemberUserService.setParam('search', search);
         }
-        const resolveList = [this.GroupMemberUserService.loadItems()];
-        if (this.auth.loggedIn$.value) {
+
+        if (this.auth.loggedIn$.value && this.app.group.value?.userLevel === 'admin') {
           GroupMemberUserService.setParam('include', 'invite');
         }
         return this.GroupMemberUserService.loadItems();
