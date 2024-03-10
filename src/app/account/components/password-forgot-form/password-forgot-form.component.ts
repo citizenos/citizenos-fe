@@ -11,7 +11,7 @@ import { NotificationService } from 'src/app/services/notification.service';
 })
 export class PasswordForgotFormComponent {
   passwordForgotForm = new UntypedFormGroup({
-    email: new UntypedFormControl('', Validators.email)
+    email: new UntypedFormControl('', [Validators.email, Validators.required])
   });
   errors: any;
 
@@ -21,9 +21,9 @@ export class PasswordForgotFormComponent {
   }
 
   doPasswordReset() {
-    this.errors = null;
-
+    if (this.passwordForgotForm.invalid || !this.passwordForgotForm.value['email']) return;
     const success = () => {
+      this.passwordForgotForm.reset();
       this.Notification.removeAll();
       this.Notification.addInfo('MSG_INFO_PASSWORD_RECOVERY_EMAIL_SENT');
     };
