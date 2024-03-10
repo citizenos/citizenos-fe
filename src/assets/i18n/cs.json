@@ -82,8 +82,8 @@
     "ERROR_INVALID_EMAIL": "@:MSG_ERROR_POST_API_AUTH_SIGNUP_40000_EMAIL",
     "MSG_REQUEST_SENT": "Vaše žádost o pomoc byla odeslána!",
     "EXTRA_INFO_TOUR_HEADING": "The page you’re on offers a walkthrough",
-    "EXTRA_INFO_TOUR_DESCRIPTION": "The walkthrough will guide you through the main features and things to do on the page.",
-    "EXTRA_INFO_TOUR_BTN_START": "Start walkthrough"
+    "EXTRA_INFO_TOUR_DESCRIPTION": "Průvodce vás provede hlavními funkcemi a věcmi, které můžete udělat na stránce.",
+    "EXTRA_INFO_TOUR_BTN_START": "Zahájit průvodce"
   },
   "COMPONENTS": {
     "ACCESSIBILITY": {
@@ -663,7 +663,7 @@
       "BTN_BULK_ACTIONS": "@:BTN_BULK_ACTIONS",
       "BULK_OPT_SET_ALL_RIGHTS": "@:COMPONENTS.GROUP_INVITE.BULK_OPT_SET_ALL_RIGHTS",
       "BULK_OPT_REMOVE_ALL": "@:COMPONENTS.GROUP_INVITE.BULK_OPT_REMOVE_ALL",
-      "LBL_ALREADY_ADDED": "Already added"
+      "LBL_ALREADY_ADDED": "Již přidáno"
     },
     "TOPIC_INVITE": {
       "HEADING": "Pozvat lidi do tématu",
@@ -710,12 +710,12 @@
     "TOPIC_MILESTONES": {
       "CREATE_A_MILESTONE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_CREATE_A_MILESTONE",
       "OPT_EDIT_DETAILS": "Upravit detaily",
-      "OPT_REMOVE_MILESTONE": "Remove update",
+      "OPT_REMOVE_MILESTONE": "Odstranit aktualizaci",
       "PLACEHOLDER_SUBJECT": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_PLACEHOLDER_SUBJECT",
-      "HEADING_MILESTONE_CONTENT": "Content of the update",
+      "HEADING_MILESTONE_CONTENT": "Obsah aktualizace",
       "ADD_MILESTONE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_ADD_MILESTONE",
-      "HEADING_MILESTONE": "Update",
-      "HEADING_MILESTONE_TITLE": "Title of the update",
+      "HEADING_MILESTONE": "Aktualizace",
+      "HEADING_MILESTONE_TITLE": "Název aktualizace",
       "MILESTONE_TITLE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_MILESTONE"
     },
     "TOPIC_ONBOARDING": {
@@ -739,7 +739,7 @@
       "VOTE_SUBMIT": "@:VIEWS.TOPICS_TOPICID.VOTE_SUBMIT",
       "HEADING_VOTE_REGISTERED": "@:VIEWS.TOPICS_TOPICID.HEADING_VOTE_REGISTERED",
       "VOTE_TXT_VOTE_REGISTERED": "@:VIEWS.TOPICS_TOPICID.VOTE_TXT_VOTE_REGISTERED",
-      "BTN_VOTE_ACTIONS": "Manage",
+      "BTN_VOTE_ACTIONS": "Spravovat",
       "HEADING_VOTE_ENDED": "Vote has ended",
       "LBL_VOTES": "Votes:",
       "LBL_DEADLINE": "Deadline:",
