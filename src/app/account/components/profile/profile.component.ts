@@ -135,6 +135,8 @@ export class ProfileComponent {
         if (result === true) {
           this.TopicNotificationService
             .delete({ topicId: topic.topicId }).pipe(take(1)).subscribe();
+        } else {
+          topic.allowNotifications=true;
         }
       });
     } else {
