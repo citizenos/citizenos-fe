@@ -82,7 +82,7 @@ export class MarkdownDirective implements OnDestroy {
     this.easymde = new EasyMDE(this.config);
     this.easymde.codemirror.on('beforeChange', (cm: any, change: any) => {
       const maxLength = cm.getOption('maxLength') || this.limit;
-      if (maxLength && change.update) {
+      if (maxLength && change?.update && change?.text.length) {
         let str = change.text.join('\n');
         let delta = str.length - (cm.indexFromPos(change.to) - cm.indexFromPos(change.from));
         if (delta <= 0) {
