@@ -206,7 +206,7 @@ export class TopicComponent implements OnInit {
           this.cd.detectChanges();
         }
         if (topic.status === this.TopicService.STATUSES.followUp) {
-          this.events$ = TopicEventService.getItems({ topicId: topic.id });
+          this.events$ = TopicEventService.getItems({ topicId: topic.id }).pipe(map(events => events.rows) );
         }
         const padURL = new URL(topic.padUrl);
         if (padURL.searchParams.get('lang') !== this.translate.currentLang) {
