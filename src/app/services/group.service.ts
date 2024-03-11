@@ -20,6 +20,7 @@ export class GroupService extends ItemsListService {
     country: <string | null>null,
     language: <string | null>null,
     showModerated: <boolean>false,
+    creatorId: <string | null>null,
     favourite: <boolean | string | null>null,
     limit: 8
   });

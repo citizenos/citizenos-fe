@@ -58,7 +58,7 @@ export class MyGroupsComponent implements OnInit {
   moreFilters = false;
   mobileFilters:any = {
     visibility: false,
-    my_engagement: false,
+    engagements: false,
     category: false,
     order: false,
     country: false,
@@ -69,7 +69,7 @@ export class MyGroupsComponent implements OnInit {
 
   groupFilters = {
     visibility: '',
-    my_engagement: '',
+    engagements: '',
     category: '',
     orderBy: '',
     country: '',
@@ -106,12 +106,8 @@ export class MyGroupsComponent implements OnInit {
         }
 
         if (engagmentsFilter) {
-          if (engagmentsFilter === 'hasVoted') {
-            GroupService.setParam(engagmentsFilter, true);
-          } else if (engagmentsFilter === 'hasNotVoted') {
-            GroupService.setParam('hasVoted', false);
-          } else if (engagmentsFilter === 'iCreated') {
-     //       GroupService.setParam('creatorId', this.auth.user.value.id);
+          if (engagmentsFilter === 'iCreated') {
+            GroupService.setParam('creatorId', this.auth.user.value.id);
           }
         }
 
@@ -206,6 +202,7 @@ export class MyGroupsComponent implements OnInit {
     this.setLanguage('');
     this.searchInput = '';
     this.doSearch('');
+    this.setFilter('');
   }
 
   doSearch(search: string) {
@@ -216,6 +213,12 @@ export class MyGroupsComponent implements OnInit {
     if (orderBy === 'all') orderBy = '';
     this.orderFilter$.next(orderBy);
     this.groupFilters.orderBy = orderBy;
+  }
+
+  setFilter(filter: string) {
+    if (filter === 'all') filter = '';
+    this.engagmentsFilter$.next(filter);
+    this.groupFilters.engagements = filter;
   }
 
   setVisibility (visibility: string) {
