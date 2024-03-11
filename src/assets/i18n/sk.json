@@ -80,6 +80,7 @@
     "PLACEHOLDER_WRITE_YOUR_MESSAGE": "Vaša správa tu...",
     "BTN_SEND": "Poslať",
     "ERROR_INVALID_EMAIL": "@:MSG_ERROR_POST_API_AUTH_SIGNUP_40000_EMAIL",
+    "ERROR_INVALID_MESSAEG": "Message text is missing.",
     "MSG_REQUEST_SENT": "Vaša žiadosť o pomoc bola odoslaná!",
     "EXTRA_INFO_TOUR_HEADING": "Stránka, na ktorej sa nachádzate, ponúka prehľad",
     "EXTRA_INFO_TOUR_DESCRIPTION": "Tento návod vás prevedie hlavnými funkciami a činnosťami na stránke.",
