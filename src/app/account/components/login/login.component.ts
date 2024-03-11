@@ -251,7 +251,7 @@ export class LoginDialogComponent extends LoginComponent{
         }
       }
     });
-
+    console.log(this.data.redirectSuccess);
     if (this.data.redirectSuccess) {
       this.redirectSuccess = this.data.redirectSuccess;
     }
