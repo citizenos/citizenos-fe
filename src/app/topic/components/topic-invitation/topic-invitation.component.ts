@@ -139,12 +139,15 @@ export class TopicInvitationDialogComponent implements OnInit {
         }
       },
       error: (err) => {
-        if (err.status === 404) {
-          Notification.removeAll();
-          Notification.showDialog('MSG_ERROR_GET_API_USERS_TOPICS_INVITES_USERS_41002_HEADING', 'MSG_ERROR_GET_API_USERS_TOPICS_INVITES_USERS_41002');
-          return;
-        }
-        return router.navigate(['/']);
+        router.navigate(['/']);
+        setTimeout(() => {
+          console.log(err)
+          if (err.code === 41002 || err.status?.code === 41002) {
+            Notification.addError('MSG_ERROR_GET_API_USERS_TOPICS_INVITES_USERS_41002', 'MSG_ERROR_GET_API_USERS_TOPICS_INVITES_USERS_41002_HEADING');
+          } else {
+            Notification.addError(err.message || err.status.message);
+          }
+        }, 400);
       }
     })
   }
