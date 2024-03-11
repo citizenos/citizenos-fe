@@ -34,7 +34,7 @@ export class ActivityFeedComponent implements OnInit {
   @Input() groupId?: string;
   @Input() topicId?: string;
   @Input() modal?: boolean;
-  constructor(public ActivityService: ActivityService, private location: Location, private dialog: DialogService) {
+  constructor(public ActivityService: ActivityService, private location: Location, public dialog: DialogService) {
     setTimeout(() => {
       this.show = true
     });
@@ -89,6 +89,7 @@ export class ActivityFeedComponent implements OnInit {
   }
 
   close() {
+    console.log('CLOSE')
     this.ActivityService.reloadUnreadItems();
     this.show = false;
     if (!this.modal) {
@@ -106,9 +107,9 @@ export class ActivityFeedComponent implements OnInit {
 export class ActivityFeedDialogComponent extends ActivityFeedComponent {
   public data:any = inject(DIALOG_DATA);
   private dialogRef:any = inject(DialogRef<ActivityFeedComponent>);
-
   override close() {
     this.show = false;
     this.ActivityService.reloadUnreadItems();
+    this.dialog.closeAll();
   }
 }
