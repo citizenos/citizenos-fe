@@ -20,13 +20,13 @@
       </div>
     </div>
     <div class="dialog_tabs_wrap">
-      <a *ngIf="canInvite()" class="dialog_tab mobile_hidden" [ngClass]="{'active': activeTab ==='invite'}"
+      <a *ngIf="canInvite()" class="dialog_tab" [ngClass]="{'active': activeTab ==='invite'}"
         (click)="activeTab = 'invite'" translate="COMPONENTS.TOPIC_INVITE_DIALOG.TAB_INVITE"></a>
-      <a class="dialog_tab mobile_hidden" [ngClass]="{'active': activeTab ==='share'}" (click)="activeTab = 'share'"
+      <a class="dialog_tab" [ngClass]="{'active': activeTab ==='share'}" (click)="activeTab = 'share'"
         translate="COMPONENTS.TOPIC_INVITE_DIALOG.TAB_SHARE"></a>
-      <div id="mobile_menu" class="dropdown mobile_show" [cosDropdown]>
+      <!--div id="mobile_menu" class="dropdown mobile_show" [cosDropdown]>
         <div class="selection">
-          <div class="selected_item">
+          <div class="selected_item bold"> {{(activeTab === 'invite')? '1': '2'}}.
             {{'COMPONENTS.TOPIC_INVITE_DIALOG.TAB_'+activeTab | uppercase | translate}}
           </div>
           <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -35,12 +35,12 @@
           </div>
         </div>
         <div class="options">
-          <div class="option" (click)="activeTab = 'invite'" translate="COMPONENTS.TOPIC_INVITE_DIALOG.TAB_INVITE">
+          <div class="option" (click)="activeTab = 'invite'">1. <span translate="COMPONENTS.TOPIC_INVITE_DIALOG.TAB_INVITE"></span>
           </div>
-          <div class="option" (click)="activeTab = 'share'" translate="COMPONENTS.TOPIC_INVITE_DIALOG.TAB_SHARE">
+          <div class="option" (click)="activeTab = 'share'">2. <span translate="COMPONENTS.TOPIC_INVITE_DIALOG.TAB_SHARE"></span>
           </div>
         </div>
-      </div>
+      </!--div-->
     </div>
     <div class="dialog_content" [ngClass]="{no_footer: (activeTab === 'share')}">
       <ng-container *ngIf="activeTab === 'invite' && canInvite()">
