@@ -14,10 +14,12 @@ export interface DialogConfig {
 })
 export class DialogService {
   openDialogs = <DialogRef<any>[]>[];
+  scrollPosition = 0;
   constructor(private overlay: Overlay, private injector: Injector) {}
 
   open<T, R = any>(component: ComponentType<T>,  config?: DialogConfig): DialogRef<T, R> {
     // Globally centered position strategy
+    this.scrollPosition = window.scrollY;
     const positionStrategy = this.overlay
       .position()
       .global()
@@ -53,6 +55,9 @@ export class DialogService {
     dialogRef.afterClosed().pipe(take(1)).subscribe(() => {
       const index = this.openDialogs.findIndex((dialog) => dialog.component.name === dialogRef.component.name);
       this.openDialogs.splice(index, 1);
+      setTimeout(() => {
+        window.scrollTo(0, this.scrollPosition);
+      });
     });
 
     return dialogRef;
