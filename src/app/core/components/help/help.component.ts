@@ -23,7 +23,7 @@ export class HelpComponent implements OnInit {
   public showTourBox = false;
 
   helpForm = new UntypedFormGroup({
-    email: new UntypedFormControl('', [Validators.required, Validators.email]),
+    email: new UntypedFormControl(null, Validators.email),
     description: new UntypedFormControl('', Validators.required),
   });
 
@@ -89,7 +89,7 @@ export class HelpComponent implements OnInit {
   sendHelpRequest() {
     if (!this.helpForm.invalid) {
       let path = this.Location.getAbsoluteUrlApi('/api/internal/help');
-      let mailData = Object.assign(this.helpForm.value,{
+      let mailData = Object.assign(this.helpForm.value, {
         userAgent: window.navigator.userAgent,
         // @ts-ignore:next-line
         platform: window.navigator.platform || window.navigator.userAgentData?.platform,
