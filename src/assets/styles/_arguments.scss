@@ -246,6 +246,11 @@ argument-reply {
       gap: 8px;
       align-items: center;
 
+      .button_group {
+        display: flex;
+        flex-direction: row;
+      }
+
       .btn_vote_argument {
         display: flex;
         width: 32px;
