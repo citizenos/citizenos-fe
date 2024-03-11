@@ -9,7 +9,8 @@
         <ng-container *ngIf="searchResults$ | async as searchResults">
           <div id="results_list" class="search_area_wrap" [ngClass]="{hidden: !searchResults.length}">
             <ng-container *ngFor="let group of searchResults">
-              <div class="search_dropdown_item" [typeaheadItem]="group" (click)="addTopicMemberGroup(group)" [ngClass]="{disabled: isMember(group)}">
+              <div class="search_dropdown_item" [typeaheadItem]="group" (click)="addTopicMemberGroup(group)"
+                [ngClass]="{disabled: isMember(group)}">
                 <div class="item_text_wrap">
                   <div class="icon">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -20,7 +21,8 @@
                   </div>
                   <div class="text">
                     <div>{{group.name}}</div>
-                    <div class="member_group" *ngIf="isMember(group)" translate="COMPONENTS.TOPIC_ADD_GROUPS.LBL_ALREADY_ADDED"></div>
+                    <div class="member_group" *ngIf="isMember(group)"
+                      translate="COMPONENTS.TOPIC_ADD_GROUPS.LBL_ALREADY_ADDED"></div>
                   </div>
                 </div>
               </div>
@@ -118,22 +120,35 @@
             </div>
             <ng-container *ngIf="dialog">
               <div class="dialog_wrap_items">
-                <div class="level" translate="COMPONENTS.TOPIC_ADD_GROUPS.HEADING_TOPIC_PERMISSIONS"></div>
+                <div class="level mobile_hidden row" translate="COMPONENTS.TOPIC_ADD_GROUPS.HEADING_TOPIC_PERMISSIONS">
+                  <div class="tooltip" tooltip>
+                    <div class="content_title" translate="COMPONENTS.TOPIC_ADD_GROUPS.TOOLTIP_GROUP_PERMISSIONS_TITLE">
+                    </div>
+                    <div class="content_description"
+                      translate="COMPONENTS.TOPIC_ADD_GROUPS.TOOLTIP_GROUP_PERMISSIONS_CONTENT"></div>
+                  </div>
+                </div>
                 <div class="level">
-                  <div class="cell_title" translate="COMPONENTS.TOPIC_ADD_GROUPS.HEADING_TOPIC_PERMISSIONS"></div>
+                  <div class="cell_title" translate="COMPONENTS.TOPIC_ADD_GROUPS.HEADING_TOPIC_PERMISSIONS">
+                    <div class="tooltip" tooltip>
+                      <div class="content_title" translate="COMPONENTS.TOPIC_ADD_GROUPS.TOOLTIP_GROUP_PERMISSIONS_TITLE">
+                      </div>
+                      <div class="content_description"
+                        translate="COMPONENTS.TOPIC_ADD_GROUPS.TOOLTIP_GROUP_PERMISSIONS_CONTENT"></div>
+                    </div></div>
                   <div class="dropdown" [cosDropdown]
                     [cosDisabled]="GroupService.canUpdate(group) && topic.visibility !== TopicService.VISIBILITY.public">
                     <div class="selection">
-                      <div class="selected_item">{{'TXT_GROUP_LEVELS_' + (group.permission.level) |
+                      <div class="selected_item">{{'TXT_TOPIC_LEVELS_' + (group.permission.level) |
                         uppercase | translate}}</div>
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
                       </svg>
                     </div>
                     <div class="options">
-                      <div class="option" *ngFor="let level of TopicMemberGroupService.LEVELS | keyvalue"
+                      <div class="option" *ngFor="let level of GroupMemberTopicService.LEVELS | keyvalue"
                         (click)="group.permission.level = level.value">
-                        {{'TXT_GROUP_LEVELS_' + level.value | uppercase | translate}}
+                        {{'TXT_TOPIC_LEVELS_' + level.value | uppercase | translate}}
                       </div>
                     </div>
                   </div>

@@ -150,6 +150,9 @@
       flex: 2 2 0;
       justify-content: center;
       text-align: left;
+      &.row {
+        flex-direction: row;
+      }
     }
 
     .actions {
