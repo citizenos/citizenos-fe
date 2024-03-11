@@ -80,6 +80,7 @@
     "PLACEHOLDER_WRITE_YOUR_MESSAGE": "Vaše zpráva zde...",
     "BTN_SEND": "Odeslat",
     "ERROR_INVALID_EMAIL": "@:MSG_ERROR_POST_API_AUTH_SIGNUP_40000_EMAIL",
+    "ERROR_INVALID_MESSAEG": "Message text is missing.",
     "MSG_REQUEST_SENT": "Vaše žádost o pomoc byla odeslána!",
     "EXTRA_INFO_TOUR_HEADING": "The page you’re on offers a walkthrough",
     "EXTRA_INFO_TOUR_DESCRIPTION": "Průvodce vás provede hlavními funkcemi a věcmi, které můžete udělat na stránce.",
