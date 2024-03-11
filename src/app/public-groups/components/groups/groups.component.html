@@ -238,9 +238,9 @@
       </button>
     </div>
     <div class="dropdown mobile_show mobile_filters_selection" [ngClass]="{'dropdown_active': mobileFiltersList}">
-      <div class="selection">
+      <div class="selection" (click)="mobileFiltersList = !mobileFiltersList">
         <div class="selected_item" [innerHTML]="'VIEWS.PUBLIC_GROUPS.LBL_FILTER' | translate | titlecase"> </div>
-        <button class="btn_medium_plain icon" (click)="mobileFiltersList = !mobileFiltersList">
+        <button class="btn_medium_plain icon">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
           </svg>
@@ -398,8 +398,8 @@
           translate="BTN_APPLY"></button>
       </div>
       <div class="options button_options" *ngIf="mobileFilters.country">
-        <!--typeahead class="dropdown dropdown_input" activeClass="dropdown_active" [term]="countrySearch"
-          (search)="searchCountry($event)" [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_COUNTRY' | translate">
+        <typeahead class="dropdown dropdown_input" activeClass="dropdown_active" [term]="countrySearch"
+          (search)="searchCountry($event)" [placeholder]="'VIEWS.PUBLIC_GROUPS.FILTERS.COUNTRY' | translate">
           <!--ng-container *ngIf="countries$ | async as countries">
             <div class="options" [ngClass]="{'active': !countries.length}">
               <ng-container *ngIf="countries$ | async as listCountry">
@@ -409,9 +409,9 @@
                 </div>
               </ng-container>
             </div>
-          </ng-container>
-        </!--typeahead-->
-        <label class="checkbox" (click)="mobileFilters.country = ''">
+          </ng-container-->
+        </typeahead>
+        <label class="checkbox" (click)="mobileFilters.country = 'all'">
           <span translate="VIEWS.PUBLIC_GROUPS.FILTERS.ALL"></span>
           <input type="radio" name="country">
           <span class="checkmark"></span>
@@ -428,8 +428,8 @@
           translate="BTN_APPLY"></button>
       </div>
       <div class="options button_options" *ngIf="mobileFilters.language">
-        <!--typeahead class="dropdown dropdown_input" activeClass="dropdown_active" [term]="languageSearch"
-          (search)="searchLanguage($event)" [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_LANGUAEG' | translate">
+        <typeahead class="dropdown dropdown_input" activeClass="dropdown_active" [term]="languageSearch"
+          (search)="searchLanguage($event)" [placeholder]="'VIEWS.PUBLIC_GROUPS.FILTERS.LANGUAGE' | translate">
           <!--ng-container *ngIf="countries$ | async as countries">
             <div class="options" [ngClass]="{'active': !countries.length}">
               <ng-container *ngIf="countries$ | async as listCountry">
@@ -439,9 +439,9 @@
                 </div>
               </ng-container>
             </div>
-          </ng-container>
-        </!--typeahead-->
-        <label class="checkbox" (click)="mobileFilters.language = ' '">
+          </ng-container-->
+        </typeahead>
+        <label class="checkbox" (click)="mobileFilters.language = 'all'">
           <span translate="VIEWS.PUBLIC_GROUPS.FILTERS.ALL"></span>
           <input type="radio" name="language">
           <span class="checkmark"></span>
