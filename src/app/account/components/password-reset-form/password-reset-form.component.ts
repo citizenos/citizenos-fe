@@ -51,7 +51,9 @@ export class PasswordResetFormComponent {
         next: () => {
           //redirect login
           this.router.navigate(['/account/login'], {queryParams: {email: formValue.email}});
-          this.Notification.addInfo('MSG_INFO_PASSWORD_RESET_SUCCESS');
+          setTimeout(() => {
+            this.Notification.addInfo('MSG_INFO_PASSWORD_RESET_SUCCESS');
+          }, 400);
         },
         error: (res: any) => {
           if (res.errors) { // Field errors
