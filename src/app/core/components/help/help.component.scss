@@ -134,6 +134,9 @@
   background: var(--color-surfaces);
   box-shadow: 0 0 8px 0 #727c84;
 
+  @include mixins.mobile {
+    width: 100%;
+  }
   #mobile_tour_info_wrap {
     display: flex;
     flex-direction: column;
@@ -189,9 +192,38 @@
     width: 360px;
     height: 100vh;
 
+    @include mixins.mobile {
+      width: 100%;
+    }
+
     iframe {
       width: 100%;
       height: 90%;
+    }
+  }
+}
+
+#help_form {
+  display:flex;
+  flex-direction: column;
+  padding: 16px;
+  gap: 16px;
+
+  .help_form_text_wrap {
+    display: flex;
+    gap: 16px;
+    flex-direction: column;
+  }
+
+  .help_form_input_wrap {
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+    width: 100%;
+
+    button {
+      margin-top: 8px;
+      width: 100%;
     }
   }
 }

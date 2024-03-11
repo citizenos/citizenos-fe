@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs';
@@ -17,6 +18,12 @@ export class HelpComponent implements OnInit {
   public helpUrl = 'https://citizenos.com/help?app=true';
   public urlSafe: SafeResourceUrl = 'https://citizenos.com/help?app=true';
   public showTourBox = false;
+
+  helpForm = new UntypedFormGroup({
+    email: new UntypedFormControl('', [Validators.required, Validators.email]),
+    message: new UntypedFormControl('', Validators.required),
+  });
+
   constructor(public sanitizer: DomSanitizer, public app: AppService, private config: ConfigService, private TourService: TourService, private router: Router) {
     this.app.showHelp.pipe(tap((show) => {
       const url = this.router.url;
@@ -65,5 +72,9 @@ export class HelpComponent implements OnInit {
       return this.TourService.show('topic_tablet', 1);
     }
     this.TourService.show('topic_mobile', 1);
+  }
+
+  sendHelpRequest() {
+
   }
 }

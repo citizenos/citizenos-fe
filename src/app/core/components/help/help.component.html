@@ -2,12 +2,13 @@
 
 <div class="help_widget" *ngIf="(app.showHelp | async)">
   <div class="help_header_wrap">
-    <button class="btn_small_plain" (click)="helpback()">
+    <div></div>
+    <!--button class="btn_small_plain" (click)="helpback()">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M8 2L2 8L8 14" stroke="#2C3B47" stroke-width="2" />
         <path d="M3 8L15 8" stroke="#2C3B47" stroke-width="2" />
       </svg>
-    </button>
+    </!--button-->
     <div class="help_title_text_wrapper">
       <div class="help_title_text" translate="HELP_WIDGET.HEADER_TITLE"></div>
     </div>
@@ -23,10 +24,14 @@
     <div class="title_wrap">
       <div>
         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect width="40" height="40" rx="20" fill="#5C9CD0"/>
-          <path d="M23 11.5292C23 12.926 21.9255 14.0583 20.6 14.0583C19.2745 14.0583 18 12.926 18 11.5292C18 10.1323 19.2745 9 20.6 9C21.9255 9 23 10.1323 23 11.5292Z" fill="white"/>
-          <path d="M17.3359 16.5357L22.8319 15.8098L20.4295 27.7096C20.2591 28.5695 20.4991 29.0576 21.1591 29.0576C21.6247 29.0576 22.3255 28.8806 22.8055 28.4354L22.5943 29.4876C21.9055 30.3626 20.3863 31 19.0783 31C17.3911 31 16.6735 29.9327 17.1391 27.664L18.9103 18.8929C19.0639 18.1518 18.9247 17.8837 18.2191 17.7067L17.1391 17.4968L17.3359 16.5357Z" fill="white"/>
-          </svg>
+          <rect width="40" height="40" rx="20" fill="#5C9CD0" />
+          <path
+            d="M23 11.5292C23 12.926 21.9255 14.0583 20.6 14.0583C19.2745 14.0583 18 12.926 18 11.5292C18 10.1323 19.2745 9 20.6 9C21.9255 9 23 10.1323 23 11.5292Z"
+            fill="white" />
+          <path
+            d="M17.3359 16.5357L22.8319 15.8098L20.4295 27.7096C20.2591 28.5695 20.4991 29.0576 21.1591 29.0576C21.6247 29.0576 22.3255 28.8806 22.8055 28.4354L22.5943 29.4876C21.9055 30.3626 20.3863 31 19.0783 31C17.3911 31 16.6735 29.9327 17.1391 27.664L18.9103 18.8929C19.0639 18.1518 18.9247 17.8837 18.2191 17.7067L17.1391 17.4968L17.3359 16.5357Z"
+            fill="white" />
+        </svg>
       </div>
       <div class="small_heading" translate="HELP_WIDGET.EXTRA_INFO_TOUR_HEADING"></div>
     </div>
@@ -34,8 +39,49 @@
     <button (click)="startTour()" class="start_btn" translate="HELP_WIDGET.EXTRA_INFO_TOUR_BTN_START"></button>
   </div>
   <div class="help_content">
-    <iframe id="help_frame" #helpFrame name="help_frame" *ngIf="(app.showHelp| async)" frameborder="0" [src]="urlSafe"
-      width="100%"></iframe>
+    <form id="help_form" *ngIf="(app.showHelp| async)" [formGroup]="helpForm">
+      <div class="help_form_text_wrap">
+        <div class="help_form_heading small_heading" translate="HELP_WIDGET.TITLE"></div>
+        <div class="help_form_heading" translate="HELP_WIDGET.DESCRIPTION"></div>
+      </div>
+      <div class="help_form_input_wrap">
+        <cos-input placeholder="{{'HELP_WIDGET.PLACEHOLDER_WRITE_YOUR_EMAIL' | translate}}">
+          <input id="email" formControlName="email" type="email"
+            [ngClass]="{'error_input': helpForm.controls['email'].errors && helpForm.controls['email'].errors['required'] && helpForm.touched}"
+            placeholder="{{'HELP_WIDGET.PLACEHOLDER_WRITE_YOUR_EMAIL' | translate}}" [maxlength]="254" required>
+          <label for="email" class="error_label"
+            *ngIf="helpForm.controls['email'].errors && helpForm.controls['email'].errors['email'] && helpForm.touched">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M8.89438 1.78863C8.52586 1.05158 7.47405 1.05158 7.10553 1.78863L0.723562 14.5526C0.391112 15.2175 0.874608 15.9998 1.61799 15.9998H14.3819C15.1253 15.9998 15.6088 15.2175 15.2763 14.5526L8.89438 1.78863ZM6.99996 6.99977C6.99996 6.44749 7.44767 5.99977 7.99996 5.99977C8.55224 5.99977 8.99996 6.44749 8.99996 6.99977V9.99977C8.99996 10.5521 8.55224 10.9998 7.99996 10.9998C7.44767 10.9998 6.99996 10.5521 6.99996 9.99977V6.99977ZM6.99996 12.9998C6.99996 12.4475 7.44767 11.9998 7.99996 11.9998C8.55224 11.9998 8.99996 12.4475 8.99996 12.9998C8.99996 13.5521 8.55224 13.9998 7.99996 13.9998C7.44767 13.9998 6.99996 13.5521 6.99996 12.9998Z"
+                fill="#EF4025" />
+            </svg>
+            <span translate="HELP_WIDGET.ERROR_INVALID_EMAIL"></span>
+          </label>
+        </cos-input>
+        <cos-input placeholder="{{'HELP_WIDGET.PLACEHOLDER_WRITE_YOUR_MESSAGE' | translate}}">
+          <textarea formControlName="message"
+            [ngClass]="{'error_input': helpForm.controls['message'].errors && helpForm.controls['message'].errors['required'] && helpForm.touched}"
+            [placeholder]="'HELP_WIDGET.PLACEHOLDER_WRITE_YOUR_MESSAGE' | translate" [maxlength]="2048"
+            rows="5"></textarea>
+          <label for="groupDescription" class="error_label"
+            *ngIf="helpForm.controls['message'].errors && helpForm.controls['message'].errors['required'] && helpForm.touched">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M8.89438 1.78863C8.52586 1.05158 7.47405 1.05158 7.10553 1.78863L0.723562 14.5526C0.391112 15.2175 0.874608 15.9998 1.61799 15.9998H14.3819C15.1253 15.9998 15.6088 15.2175 15.2763 14.5526L8.89438 1.78863ZM6.99996 6.99977C6.99996 6.44749 7.44767 5.99977 7.99996 5.99977C8.55224 5.99977 8.99996 6.44749 8.99996 6.99977V9.99977C8.99996 10.5521 8.55224 10.9998 7.99996 10.9998C7.44767 10.9998 6.99996 10.5521 6.99996 9.99977V6.99977ZM6.99996 12.9998C6.99996 12.4475 7.44767 11.9998 7.99996 11.9998C8.55224 11.9998 8.99996 12.4475 8.99996 12.9998C8.99996 13.5521 8.55224 13.9998 7.99996 13.9998C7.44767 13.9998 6.99996 13.5521 6.99996 12.9998Z"
+                fill="#EF4025" />
+            </svg>
+            <div class="error_text">
+              <span translate="HELP_WIDGET.ERROR_INVALID_MESSAEG"></span>
+            </div>
+          </label>
+        </cos-input>
+        <button type="submit" (click)="sendHelpRequest()" [ngClass]="{disabled:helpForm.invalid}"
+          class="btn_big_submit" translate="HELP_WIDGET.BTN_SEND"></button>
+      </div>
+    </form>
+    <!--frame id="help_frame" #helpFrame name="help_frame" *ngIf="(app.showHelp| async)" frameborder="0" [src]="urlSafe"
+      width="100%"></!--frame-->
   </div>
 </div>
 
