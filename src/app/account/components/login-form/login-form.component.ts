@@ -104,6 +104,10 @@ export class LoginFormComponent {
 
   register() {
     this.dialog.closeAll();
-    this.router.navigate(['/account/signup']);
+    let redirectSuccess = '';
+    if (this.redirectSuccess) {
+      redirectSuccess = this.redirectSuccess
+    }
+    this.router.navigate(['/account/signup'], {queryParams: {redirectSuccess}});
   }
 }
