@@ -108,6 +108,9 @@ export class AuthService {
     return this.user$ = this.http.get<User>(path, { withCredentials: true, observe: 'body' }).pipe(
       switchMap((res: any) => {
         const user = res.data;
+        if (user.imageUrl) {
+          user.imageUrl = user.imageUrl+'#'+new Date().getTime()
+        }
         if (!user.termsVersion || user.termsVersion !== this.config.get('legal').version || !user.email) {
          return of(user);
         } else {
