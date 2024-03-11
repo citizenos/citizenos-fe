@@ -149,12 +149,12 @@ export class TopicsComponent implements OnInit {
         }
       ));*/
     this.countries$ = this.countrySearch$.pipe(switchMap((string) => {
-      const countries = this.countries.filter((country) => country.name.toLowerCase().indexOf(string?.toLowerCase()) > -1);
+      const countries = this.countries.filter((country) => country.name.toLowerCase().indexOf(string?.toLowerCase()) === 0);
 
       return [countries];
     }));
     this.languages$ = this.languageSearch$.pipe(switchMap((string) => {
-      const languages = this.languages.filter((language) => language.name.toLowerCase().indexOf(string?.toLowerCase()) > -1);
+      const languages = this.languages.filter((language) => language.name.toLowerCase().indexOf(string?.toLowerCase()) === 0);
 
       return [languages];
     }));
