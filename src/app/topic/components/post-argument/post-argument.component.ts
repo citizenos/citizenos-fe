@@ -91,6 +91,7 @@ export class PostArgumentComponent implements OnInit {
         next: (argument) => {
           this.argumentForm.reset();
           this.TopicArgumentService.reset();
+          this.text = '';
           this.TopicArgumentService.setParam('topicId', this.topicId)
           this.app.addArgument.next(false);
           this.router.navigate(

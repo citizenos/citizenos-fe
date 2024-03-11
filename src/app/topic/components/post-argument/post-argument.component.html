@@ -56,8 +56,8 @@
         </label>
       </cos-input>
       <div id="subject_counter" translate="COMPONENTS.POST_ARGUMENT.SUBJECT_CHARACTERS_LEFT"
-        [translateParams]="{chars: argumentForm.value['subject'].length, charsLeft: ARGUMENT_SUBJECT_MAXLENGTH}"></div>
-      <textarea cosmarkdown name="text" formControlName="subject"
+        [translateParams]="{chars: argumentForm.value['subject']?.length || 0, charsLeft: ARGUMENT_SUBJECT_MAXLENGTH}"></div>
+      <textarea cosmarkdown name="text" formControlName="text"
         cosmarkdowntranslatecharacterstatuskey="COMPONENTS.POST_ARGUMENT.ARGUMENT_TYPE_CHARACTER_LIMIT"
         id="argument_text" [(item)]="text" class="gray_borders" (itemChange)="updateText($event)"
         [placeholder]="('COMPONENTS.POST_ARGUMENT.PLACEHOLDER_EXPLAIN_YOUR_ARGUMENT' | translate)"
@@ -84,7 +84,7 @@
     </div>
     <div id="navigate_create">
       <div id="chars_left" translate="COMPONENTS.POST_ARGUMENT.ARGUMENT_TYPE_CHARACTER_LIMIT"
-        [translateParams]="{numberOfCharacters: argumentMaxLength() - (argumentForm.value['text'].length || 0)}"></div>
+        [translateParams]="{numberOfCharacters: argumentMaxLength() - (argumentForm.value['text']?.length || 0)}"></div>
       <!--button class="btn_big_submit_ghost">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
