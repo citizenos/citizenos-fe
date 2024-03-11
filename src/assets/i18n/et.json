@@ -80,6 +80,7 @@
     "PLACEHOLDER_WRITE_YOUR_MESSAGE": "Sisesta sõnum siia...",
     "BTN_SEND": "Saada",
     "ERROR_INVALID_EMAIL": "@:MSG_ERROR_POST_API_AUTH_SIGNUP_40000_EMAIL",
+    "ERROR_INVALID_MESSAEG": "Message text is missing.",
     "MSG_REQUEST_SENT": "Sinu abitaotlus on saadetud!",
     "EXTRA_INFO_TOUR_HEADING": "The page you’re on offers a walkthrough",
     "EXTRA_INFO_TOUR_DESCRIPTION": "Tuur juhatab sind läbi peamiste funktsioonide ja tegevuste, mida sellel lehel on võimalik teha.",
