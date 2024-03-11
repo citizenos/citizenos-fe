@@ -14,6 +14,10 @@
       width: 100%;
     }
 
+    .search_area_wrap {
+      position: absolute;
+      width: calc(100% - 48px);
+    }
     .search_dropdown_item {
       display: flex;
       flex-direction: row;
@@ -83,5 +87,4 @@
   .profile_image_filler {
     width: 40px;
   }
-
 }

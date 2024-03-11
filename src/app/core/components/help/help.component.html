@@ -47,8 +47,8 @@
       <div class="help_form_input_wrap">
         <cos-input placeholder="{{'HELP_WIDGET.PLACEHOLDER_WRITE_YOUR_EMAIL' | translate}}">
           <input id="email" formControlName="email" type="email"
-            [ngClass]="{'error_input': helpForm.controls['email'].errors && helpForm.controls['email'].errors['required'] && helpForm.touched}"
-            placeholder="{{'HELP_WIDGET.PLACEHOLDER_WRITE_YOUR_EMAIL' | translate}}" [maxlength]="254" required>
+            [ngClass]="{'error_input': helpForm.controls['email'].errors && helpForm.touched}"
+            placeholder="{{'HELP_WIDGET.PLACEHOLDER_WRITE_YOUR_EMAIL' | translate}}" [maxlength]="254">
           <label for="email" class="error_label"
             *ngIf="helpForm.controls['email'].errors && helpForm.controls['email'].errors['email'] && helpForm.touched">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
