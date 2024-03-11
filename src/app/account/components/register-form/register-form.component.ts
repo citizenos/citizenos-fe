@@ -55,20 +55,22 @@ export class RegisterFormComponent {
   }
 
   doSignUp() {
+    this.errors = {};
     const formData = this.signUpForm.value;
     if (!formData.agreeToTerms) {
       this.errors = {
         terms: 'MSG_ERROR_NEED_TO_AGREE_TERMS'
       }
-      return;
     }
 
     if (formData.password && formData.password !== formData.passwordConfirm) {
-      this.errors = {
+      this.errors = Object.assign(this.errors,{
         password: 'MSG_ERROR_PASSWORD_MISMATCH'
-      };
-      return;
-    } else {
+      });
+    }
+
+    if (this.signUpForm.invalid) return;
+    else {
       this.AuthService
         .signUp({
           email: formData.email,
