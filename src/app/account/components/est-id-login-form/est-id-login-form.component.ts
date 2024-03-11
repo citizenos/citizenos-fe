@@ -6,6 +6,7 @@ import { DialogService } from 'src/app/shared/dialog';
 import { NotificationService } from 'src/app/services/notification.service';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AppService } from 'src/app/services/app.service';
 declare let hwcrypto: any;
 
 @Component({
@@ -26,7 +27,10 @@ export class EstIdLoginFormComponent {
   authMethodsAvailable;
   wWidth = window.innerWidth;
 
-  constructor(cosConfig: ConfigService, private AuthService: AuthService, private Notification: NotificationService,
+  constructor(cosConfig: ConfigService,
+    private AuthService: AuthService,
+    private app: AppService,
+    private Notification: NotificationService,
     private router: Router,
     private dialog: DialogService,
     private route: ActivatedRoute) {
@@ -94,11 +98,13 @@ export class EstIdLoginFormComponent {
         })
       }, (err: any) => {
         this.isLoadingIdCard = false;
-        let message = err.message
-        if (message === 'no_certificates') {
-          message = 'MSG_ERROR_HWCRYPTO_NO_CERTIFICATES';
+        let msg = null;
+        if (err instanceof Error) { //hwcrypto and JS errors
+          msg = this.app.hwCryptoErrorToTranslationKey(err);
+        } else { // API error response
+          msg = err.status.message;
         }
-        this.Notification.addError(message);
+        this.Notification.addError(msg);
       });
   };
 
@@ -114,21 +120,23 @@ export class EstIdLoginFormComponent {
       takeWhile((res: any,) => {
         return (res.status?.code === 20001)
       }, true),
-      map(res => res.data)).subscribe({next: (response) => {
-        this.isLoading = false;
-        this.challengeID = null;
-        this.AuthService.reloadUser();
-        this.dialog.closeAll();
-        if (this.redirectSuccess) {
-          if (typeof this.redirectSuccess === 'string') {
-            this.router.navigateByUrl(this.redirectSuccess);
+      map(res => res.data)).subscribe({
+        next: (response) => {
+          this.isLoading = false;
+          this.challengeID = null;
+          this.AuthService.reloadUser();
+          this.dialog.closeAll();
+          if (this.redirectSuccess) {
+            if (typeof this.redirectSuccess === 'string') {
+              this.router.navigateByUrl(this.redirectSuccess);
+            }
+          } else {
+            window.location.reload();
           }
-        } else {
-          window.location.reload();
+        }, error: (err) => {
+          this.isLoading = false;
+          this.challengeID = null;
         }
-      },error: (err) => {
-        this.isLoading = false;
-        this.challengeID = null;
-      }});
+      });
   };
 }
