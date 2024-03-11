@@ -94,6 +94,7 @@ export class GroupInvitationDialogComponent implements OnInit {
                 router.navigate(['groups', groupInvite.groupId])
               },
               error: (err) => {
+                Notification.addError(err.message || err.status.message);
                 console.error('Invite error', err)
               }
             });
@@ -113,6 +114,17 @@ export class GroupInvitationDialogComponent implements OnInit {
               }
             })
         }
+      },
+      error: (err) => {
+        router.navigate(['/']);
+        setTimeout(() => {
+          console.log(err)
+          if (err.code === 41002 || err.status?.code === 41002) {
+            Notification.addError('MSG_ERROR_GET_API_USERS_GROUPS_INVITES_USERS_41002', 'MSG_ERROR_GET_API_USERS_GROUPS_INVITES_USERS_41002_HEADING');
+          } else {
+            Notification.addError(err.message || err.status.message);
+          }
+        }, 400);
       }
     })
   }
