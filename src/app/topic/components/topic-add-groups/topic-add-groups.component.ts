@@ -5,6 +5,7 @@ import { GroupService } from 'src/app/services/group.service';
 import { AppService } from 'src/app/services/app.service';
 import { SearchService } from 'src/app/services/search.service';
 import { TopicMemberGroupService } from 'src/app/services/topic-member-group.service';
+import { GroupMemberTopicService } from 'src/app/services/group-member-topic.service';
 import { of, tap, switchMap, take, forkJoin } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { TopicService } from 'src/app/services/topic.service';
@@ -36,7 +37,8 @@ export class TopicAddGroupsComponent {
     private app: AppService,
     public translate: TranslateService,
     public TopicService: TopicService,
-    public TopicMemberGroupService: TopicMemberGroupService) {
+    public TopicMemberGroupService: TopicMemberGroupService,
+    public GroupMemberTopicService: GroupMemberTopicService) {
 
   }
 
