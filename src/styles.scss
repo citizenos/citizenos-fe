@@ -1681,6 +1681,7 @@ tour-item-template {
           align-items: flex-start;
           vertical-align: middle;
           text-align: left;
+          word-break: break-all;
         }
       }
       .tooltip_footer {

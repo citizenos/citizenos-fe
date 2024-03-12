@@ -52,7 +52,6 @@
         "application/msword",
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
         "application/digidoc",
-        "application/vnd.etsi.asic-e+zip",
         "application/vnd.oasis.opendocument.text",
         "application/vnd.oasis.opendocument.spreadsheet",
         "image/jpeg",

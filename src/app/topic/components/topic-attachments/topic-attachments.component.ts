@@ -26,7 +26,6 @@ import { trigger, state, style } from '@angular/animations';
         transition: '0.2s ease-in-out max-height'
       })),
       state('closed', style({
-        overflowY: 'hidden',
         transition: '0.2s ease-in-out max-height'
       }))
     ]),
@@ -176,6 +175,13 @@ export class TopicAttachmentsComponent implements OnInit {
       });
   };
 
+  getAllowedFileSize() {
+    return (this.Upload.ALLOWED_FILE_SIZE / 1000 / 1000).toString() + 'MB';
+  }
+
+  getAllowedFileTypes() {
+    return ["txt", "text", "bdoc", "asice", "ddoc", "conf", "def", "list", "log", "in", "ini", "pdf", "doc", "dot", "docx", "odt", "ods", "jpeg", "jpg", "jpe", "png", "rtf", "xls", "xlm", "xla", "xlc", "xlt", "xlw", "xlsx", "ppt", "pps", "pot", "pptx"].join(', ');
+  }
   attachmentUpload(): void {
     const files = this.attachmentInput?.nativeElement.files;
     for (let i = 0; i < files.length; i++) {
@@ -188,10 +194,10 @@ export class TopicAttachmentsComponent implements OnInit {
       };
 
       if (attachment.size > this.Upload.ALLOWED_FILE_SIZE) {
-        const fileTypeError = this.Translate.instant('MSG_ERROR_ATTACHMENT_SIZE_OVER_LIMIT', { allowedFileSize: (this.Upload.ALLOWED_FILE_SIZE / 1000 / 1000).toString() + 'MB' });
+        const fileTypeError = this.Translate.instant('MSG_ERROR_ATTACHMENT_SIZE_OVER_LIMIT', { allowedFileSize: this.getAllowedFileSize() });
         this.Notification.addError(fileTypeError);
       } else if (this.Upload.ALLOWED_FILE_TYPES.indexOf(files[i].type) === -1) {
-        const fileTypeError = this.Translate.instant('MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED', { allowedFileTypes: this.Upload.ALLOWED_FILE_TYPES.toString() });
+        const fileTypeError = this.Translate.instant('MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED', { allowedFileTypes: this.getAllowedFileTypes() });
         this.Notification.addError(fileTypeError);
       } else {
         //    this.attachments.push(attachment);
@@ -211,16 +217,16 @@ export class TopicAttachmentsComponent implements OnInit {
               this.attachments.push(result);
           },
           error: (res) => {
-         /*   if (res.errors) {
-              const keys = Object.keys(res.errors);
-              keys.forEach((key) => {
-                this.Notification.addError(res.errors[key]);
-              });
-            } else if (res.status && res.status.message) {
-              this.Notification.addError(res.status.message);
-            } else {
-              this.Notification.addError(res.message);
-            }*/
+            /*   if (res.errors) {
+                 const keys = Object.keys(res.errors);
+                 keys.forEach((key) => {
+                   this.Notification.addError(res.errors[key]);
+                 });
+               } else if (res.status && res.status.message) {
+                 this.Notification.addError(res.status.message);
+               } else {
+                 this.Notification.addError(res.message);
+               }*/
           }
         });
     }
