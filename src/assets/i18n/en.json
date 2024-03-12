@@ -832,7 +832,7 @@
       "LBL_OPTION_ALL_VOTES_ARE_IN": "All votes are in",
       "LBL_OPTION_ALL_VOTES_ARE_IN_DESC": "When every participant in the topic has voted, the voting system closes.",
       "PREVIEW_HEADER": "Vote options preview",
-      "PREVIEW_INFO_CHECK": "<b>Check your vote is exactly as you want it!</b> You can't edit or pause a vote once you've started it, and can only start one vote per topic.",
+      "PREVIEW_INFO_CHECK": "<b>Please ensure your vote is configured precisely to your preferences!</b> Once initiated, you cannot modify or pause a vote, and you are limited to only one vote per topic.",
       "PREVIEW_VOTE_TYPE_MULTIPLE": "This is a multiple selection voting. The maximum amount of options you can choose: {{maxOptions}}.",
       "PREVIEW_VOTE_TYPE_REGULAR": "This is a single selection vote",
       "LNK_CANCEL": "@:LNK_CANCEL",
