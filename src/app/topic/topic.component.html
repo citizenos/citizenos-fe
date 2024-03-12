@@ -320,7 +320,7 @@
                 <div class="content_items_wrap">
                   <div class="content_item" *ngIf="topic.report.type && !topic.report.moderatedReasonType">
                     <a [routerLink]="['reports', topic.report.id, 'moderate']">
-                      <div>
+                      <div class="icon">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M15 12V14L19 11.5L15 9V11H6V12H15Z" fill="#1168A8" />
                         </svg>
@@ -328,9 +328,9 @@
                       <span translate="VIEWS.TOPICS_TOPICID.TAB_INFO_LNK_MODERATE"></span>
                     </a>
                   </div>
-                  <div class="content_item">
+                  <div class="content_item" *ngIf="topic.report.moderatedReasonType">
                     <a (click)="reportReasonDialog(topic)">
-                      <div>
+                      <div class="icon">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M15 12V14L19 11.5L15 9V11H6V12H15Z" fill="#1168A8" />
                         </svg>
@@ -340,7 +340,7 @@
                   </div>
                   <div class="content_item" *ngIf="topic.report.type">
                     <a [routerLink]="['reports', topic.report.id, 'resolve']">
-                      <div>
+                      <div class="icon">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M15 12V14L19 11.5L15 9V11H6V12H15Z" fill="#1168A8" />
                         </svg>
@@ -350,7 +350,7 @@
                   </div>
                   <div class="content_item" *ngIf="TopicService.canEdit(topic) && topic.report.moderatedReasonType">
                     <a [routerLink]="['reports', topic.report.id, 'review']">
-                      <div>
+                      <div class="icon">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M15 12V14L19 11.5L15 9V11H6V12H15Z" fill="#1168A8" />
                         </svg>

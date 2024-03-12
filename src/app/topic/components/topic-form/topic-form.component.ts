@@ -509,7 +509,7 @@ export class TopicFormComponent {
     this.tags.splice(this.tags.indexOf(tag), 1);
   }
 
-  cancel() {
+  cancel() {/*
     const confirmDialog = this.dialog.open(InterruptDialogComponent);
 
     confirmDialog.afterClosed().subscribe(result => {
@@ -518,11 +518,12 @@ export class TopicFormComponent {
           .pipe(take(1))
           .subscribe(() => {
             this.router.navigate(['dashboard']);
-          })*/
+          })
         this.router.navigate(['dashboard']);
       }
-    });
+    });*/
     //[routerLink]="['/', translate.currentLang, 'topics', topic.id]"
+    this.router.navigate(['dashboard']);
   }
 
   setGroupLevel(group: TopicMemberGroup, level: string) {
