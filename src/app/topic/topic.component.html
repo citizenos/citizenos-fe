@@ -270,7 +270,7 @@
           <span class="tab_text" translate="VIEWS.TOPICS_TOPICID.TAB_FOLLOW_UP"></span>
         </a>
       </div>
-      <div id="activities_button_wrap">
+      <div id="activities_button_wrap" [TourItem]="{tourid: 'topic', index: 8, position: 'left'}">
         <button *ngIf="(auth.loggedIn$ | async)" class="btn_medium_close icon" (click)="toggleFavourite(topic);">
           <svg *ngIf="!topic.favourite" width="40" height="40" viewBox="0 0 40 40" fill="none"
             xmlns="http://www.w3.org/2000/svg">
@@ -1077,7 +1077,7 @@
             </ng-container>
           </div>
         </div>
-        <div class="tutorial" [@showTutorial]="showTutorial? 'open': 'closed'" [ngClass]="{'hidden': skipTour }">
+        <div class="tutorial" [@showTutorial]="showTutorial? 'open': 'closed'" [ngClass]="{'hidden': skipTour }" *ngIf="auth.loggedIn$.value">
           <button class="tutorial_header" (click)="showTutorial = !showTutorial">
             <span translate="VIEWS.TOPICS_TOPICID.TUTORIAL_HEADING"></span>
             <div class="close">

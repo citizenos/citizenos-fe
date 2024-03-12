@@ -14,10 +14,10 @@
         <div class="nav_item" *ngFor="let item of sort(items)" [ngClass]="{active: isActive(item)}"></div>
       </div>
       <div class="nav_links_wrap">
-        <a *ngIf="activeIndex() > 1" (click)="prevItem($event)" translate="COMPONENTS.TOUR.LNK_BACK"></a>
+        <a *ngIf="activeIndex()+1 > 1" (click)="prevItem($event)" translate="COMPONENTS.TOUR.LNK_BACK"></a>
         <a *ngIf="items.length > 1" (click)="nextItem($event)">
-          <span *ngIf="activeIndex() !== items.length" translate="COMPONENTS.TOUR.LNK_NEXT"></span>
-          <span *ngIf="activeIndex() === items.length" translate="COMPONENTS.TOUR.LNK_FINISH"></span>
+          <span *ngIf="activeIndex()+1!== items.length" translate="COMPONENTS.TOUR.LNK_NEXT"></span>
+          <span *ngIf="activeIndex()+1 === items.length" translate="COMPONENTS.TOUR.LNK_FINISH"></span>
         </a>
 
       </div>
@@ -95,8 +95,8 @@
   </div>
 </tour-item-template>
 <tour-item-template [data]="{tourid: 'topic', index: 2}">
-  <div class="title" translate="COMPONENTS.TOUR.TOPIC_STEP_2_TITLE"></div>
-  <div class="description" translate="COMPONENTS.TOUR.TOPIC_STEP_2_DESC"></div>
+  <div class="title" translate="COMPONENTS.TOUR.TOPIC_STEP_2_LBL_MORE"></div>
+  <!--div class="description" translate="COMPONENTS.TOUR.TOPIC_STEP_2_DESC"></!--div-->
   <!--div class="description">
     <span class="icon">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -108,38 +108,16 @@
     <span translate="COMPONENTS.TOUR.TOPIC_STEP_2_LBL_SEARCH"></span><span
       translate="COMPONENTS.TOUR.TOPIC_STEP_2_DESC_SEARCH"></span>
   </!--div-->
-  <div class="description">
-    <span class="icon">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd" clip-rule="evenodd"
-          d="M7.51026 4.15208L7.99816 4.0519L5.52397 6.61575C5.52408 6.03268 5.72386 5.46921 6.08701 5.02057C6.44999 4.57215 6.95328 4.26645 7.51026 4.15208ZM7.99816 4.0519L5.52397 6.61591C5.52395 7.14263 5.41647 8.38799 5.16268 9.60774C5.09067 9.95383 5.00365 10.3141 4.89838 10.6667L11.1019 10.6667C10.9967 10.3141 10.9096 9.95383 10.8376 9.60774C10.5838 8.38786 10.4764 7.14237 10.4764 6.61575C10.4764 5.39159 9.61544 4.3813 8.49215 4.15251L7.99816 4.0519ZM2.66683 12L4.36457 12L6.66683 12C6.66683 12.3536 6.8073 12.6928 7.05735 12.9428C7.3074 13.1929 7.64654 13.3333 8.00016 13.3333C8.35378 13.3333 8.69292 13.1929 8.94297 12.9428C9.19302 12.6928 9.33349 12.3536 9.33349 12L11.6358 12L13.3335 12C12.9924 11.7704 12.7191 11.2734 12.5036 10.6667C11.9972 9.24062 11.8097 7.20822 11.8097 6.61575C11.8097 4.75433 10.4992 3.20059 8.75826 2.846C8.76889 2.73905 8.7572 2.63104 8.72395 2.52892C8.69069 2.42681 8.6366 2.33287 8.56517 2.25316C8.49374 2.17345 8.40656 2.10974 8.30924 2.06613C8.21192 2.02253 8.10663 2 8.00016 2C7.89369 2 7.7884 2.02253 7.69108 2.06613C7.59376 2.10974 7.50658 2.17345 7.43515 2.25316C7.36372 2.33287 7.30963 2.42681 7.27638 2.52892C7.24312 2.63104 7.23143 2.73905 7.24207 2.846C6.3809 3.02284 5.60673 3.4947 5.05065 4.18168C4.49457 4.86867 4.19075 5.72856 4.19064 6.61575C4.19064 7.20822 4.00316 9.24062 3.49669 10.6667C3.2812 11.2734 3.00795 11.7704 2.66683 12Z"
-          fill="white" />
-      </svg>
-    </span>
-    <span class="bold" translate="COMPONENTS.TOUR.TOPIC_STEP_2_LBL_ACTIVITY_FEED"></span><span
-      translate="COMPONENTS.TOUR.TOPIC_STEP_2_DESC_ACTIVITY_FEED"></span>
-  </div>
-  <div class="description">
-    <span class="icon">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd" clip-rule="evenodd"
-          d="M9.76315 5.57295L7.9998 2L6.23644 5.57295L2.29346 6.1459L5.14663 8.92705L4.47308 12.8541L7.9998 11L11.5265 12.8541L10.853 8.92705L13.7061 6.1459L9.76315 5.57295ZM10.8409 7.07688L8.87773 6.79163L7.9998 5.01274L7.12186 6.79163L5.15874 7.07688L6.57927 8.46156L6.24393 10.4167L7.9998 9.49363L9.75567 10.4167L9.42032 8.46156L10.8409 7.07688Z"
-          fill="white" />
-      </svg>
-    </span>
-    <span class="bold" translate="COMPONENTS.TOUR.TOPIC_STEP_2_LBL_FAVOURITE"></span><span
-      translate="COMPONENTS.TOUR.TOPIC_STEP_2_DESC_FAVOURITE"></span>
-  </div>
-  <div class="description">
-    <span class="icon">
+  <div class="description" translate="COMPONENTS.TOUR.TOPIC_STEP_2_DESC_MORE">
+    <!--span class="icon">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd"
           d="M9.3335 4.0013C9.3335 3.26797 8.7335 2.66797 8.00016 2.66797C7.26683 2.66797 6.66683 3.26797 6.66683 4.0013C6.66683 4.73463 7.26683 5.33464 8.00016 5.33464C8.7335 5.33464 9.3335 4.73464 9.3335 4.0013ZM9.3335 12.0013C9.3335 11.268 8.7335 10.668 8.00016 10.668C7.26683 10.668 6.66683 11.268 6.66683 12.0013C6.66683 12.7346 7.26683 13.3346 8.00016 13.3346C8.7335 13.3346 9.3335 12.7346 9.3335 12.0013ZM8.00016 6.66797C8.7335 6.66797 9.3335 7.26797 9.3335 8.0013C9.3335 8.73464 8.7335 9.33463 8.00016 9.33463C7.26683 9.33463 6.66683 8.73464 6.66683 8.0013C6.66683 7.26797 7.26683 6.66797 8.00016 6.66797Z"
           fill="white" />
       </svg>
-    </span>
-    <span class="bold" translate="COMPONENTS.TOUR.TOPIC_STEP_2_LBL_MORE"></span><span
-      translate="COMPONENTS.TOUR.TOPIC_STEP_2_DESC_MORE"></span>
+    </!--span-->
+    <!--span class="bold" translate="COMPONENTS.TOUR.TOPIC_STEP_2_LBL_MORE"></!--span><span--
+      translate="COMPONENTS.TOUR.TOPIC_STEP_2_DESC_MORE"></span-->
   </div>
 </tour-item-template>
 <tour-item-template [data]="{tourid: 'topic', index: 3}">
@@ -166,7 +144,31 @@
   <div class="description" translate="COMPONENTS.TOUR.TOPIC_STEP_7_DESC"></div>
   <div class="description" translate="COMPONENTS.TOUR.TOPIC_STEP_7_DESC2"></div>
 </tour-item-template>
-
+<tour-item-template [data]="{tourid: 'topic', index: 8}">
+<div class="description">
+  <div class="title" translate="COMPONENTS.TOUR.TOPIC_STEP_8_TITLE"></div>
+    <span class="icon">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M7.51026 4.15208L7.99816 4.0519L5.52397 6.61575C5.52408 6.03268 5.72386 5.46921 6.08701 5.02057C6.44999 4.57215 6.95328 4.26645 7.51026 4.15208ZM7.99816 4.0519L5.52397 6.61591C5.52395 7.14263 5.41647 8.38799 5.16268 9.60774C5.09067 9.95383 5.00365 10.3141 4.89838 10.6667L11.1019 10.6667C10.9967 10.3141 10.9096 9.95383 10.8376 9.60774C10.5838 8.38786 10.4764 7.14237 10.4764 6.61575C10.4764 5.39159 9.61544 4.3813 8.49215 4.15251L7.99816 4.0519ZM2.66683 12L4.36457 12L6.66683 12C6.66683 12.3536 6.8073 12.6928 7.05735 12.9428C7.3074 13.1929 7.64654 13.3333 8.00016 13.3333C8.35378 13.3333 8.69292 13.1929 8.94297 12.9428C9.19302 12.6928 9.33349 12.3536 9.33349 12L11.6358 12L13.3335 12C12.9924 11.7704 12.7191 11.2734 12.5036 10.6667C11.9972 9.24062 11.8097 7.20822 11.8097 6.61575C11.8097 4.75433 10.4992 3.20059 8.75826 2.846C8.76889 2.73905 8.7572 2.63104 8.72395 2.52892C8.69069 2.42681 8.6366 2.33287 8.56517 2.25316C8.49374 2.17345 8.40656 2.10974 8.30924 2.06613C8.21192 2.02253 8.10663 2 8.00016 2C7.89369 2 7.7884 2.02253 7.69108 2.06613C7.59376 2.10974 7.50658 2.17345 7.43515 2.25316C7.36372 2.33287 7.30963 2.42681 7.27638 2.52892C7.24312 2.63104 7.23143 2.73905 7.24207 2.846C6.3809 3.02284 5.60673 3.4947 5.05065 4.18168C4.49457 4.86867 4.19075 5.72856 4.19064 6.61575C4.19064 7.20822 4.00316 9.24062 3.49669 10.6667C3.2812 11.2734 3.00795 11.7704 2.66683 12Z"
+          fill="white" />
+      </svg>
+    </span>
+    <span class="bold" translate="COMPONENTS.TOUR.TOPIC_STEP_2_LBL_ACTIVITY_FEED"></span><span
+      translate="COMPONENTS.TOUR.TOPIC_STEP_2_DESC_ACTIVITY_FEED"></span>
+  </div>
+  <div class="description">
+    <span class="icon">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M9.76315 5.57295L7.9998 2L6.23644 5.57295L2.29346 6.1459L5.14663 8.92705L4.47308 12.8541L7.9998 11L11.5265 12.8541L10.853 8.92705L13.7061 6.1459L9.76315 5.57295ZM10.8409 7.07688L8.87773 6.79163L7.9998 5.01274L7.12186 6.79163L5.15874 7.07688L6.57927 8.46156L6.24393 10.4167L7.9998 9.49363L9.75567 10.4167L9.42032 8.46156L10.8409 7.07688Z"
+          fill="white" />
+      </svg>
+    </span>
+    <span class="bold" translate="COMPONENTS.TOUR.TOPIC_STEP_2_LBL_FAVOURITE"></span><span
+      translate="COMPONENTS.TOUR.TOPIC_STEP_2_DESC_FAVOURITE"></span>
+  </div>
+</tour-item-template>
 <tour-item-template [data]="{tourid: 'dashboard_mobile', index: 1}">
   <div class="title" translate="COMPONENTS.TOUR.DASHBOARD_MOBILE_STEP_1_TITLE"></div>
   <div class="description" translate="COMPONENTS.TOUR.DASHBOARD_MOBILE_STEP_1_DESC"></div>
