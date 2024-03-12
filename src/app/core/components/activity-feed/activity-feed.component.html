@@ -1,5 +1,5 @@
 <div id="activity_feed" [TourItem]="{tourid: 'dashboard', index: 3, position: 'left'}"
-  [@openClose]="show? 'open' : 'closed'" [ngClass]="{'mobile_page': !modal}">
+  [@openClose]="show? 'open' : 'closed'" [ngClass]="{'mobile_page': !modal}" (scroll)="loadMore($event)">
   <div class="feed_heading_wrap">
     <div class="small_heading" [translate]="'COMPONENTS.ACTIVITY_FEED.HEADING_'+feedType | uppercase"></div>
     <a class="btn_medium_close icon" (click)="close()" *ngIf="modal">
@@ -27,7 +27,7 @@
       </div>
     </div>
   </cos-input>
-  <div id="results_area" (scroll)="loadMore($event)">
+  <div id="results_area">
     <activity [activitygroup]="item" *ngFor="let item of activities$ | async"></activity>
   </div>
 </div>

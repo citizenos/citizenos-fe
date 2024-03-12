@@ -1,7 +1,7 @@
 import { style, transition, trigger, animate, state } from '@angular/animations';
-import { Component, OnInit, Input, inject } from '@angular/core';
+import { Component, OnInit, Input, inject} from '@angular/core';
 import { DIALOG_DATA, DialogRef, DialogService } from 'src/app/shared/dialog';
-import { map, tap, of, take } from 'rxjs';
+import { map, tap, of } from 'rxjs';
 import { ActivityService } from 'src/app/services/activity.service'
 import { Location } from '@angular/common';
 @Component({
@@ -89,7 +89,8 @@ export class ActivityFeedComponent implements OnInit {
   }
 
   close() {
-    console.log('CLOSE')
+    console.log('cLOSE');
+    this.ActivityService.reset();
     this.ActivityService.reloadUnreadItems();
     this.show = false;
     if (!this.modal) {
@@ -105,10 +106,12 @@ export class ActivityFeedComponent implements OnInit {
   styleUrls: ['./activity-feed.component.scss'],
 })
 export class ActivityFeedDialogComponent extends ActivityFeedComponent {
-  public data:any = inject(DIALOG_DATA);
-  private dialogRef:any = inject(DialogRef<ActivityFeedComponent>);
+  public data: any = inject(DIALOG_DATA);
+  private dialogRef: any = inject(DialogRef<ActivityFeedComponent>);
   override close() {
     this.show = false;
+    console.log('cLOSE');
+    this.ActivityService.reset();
     this.ActivityService.reloadUnreadItems();
     this.dialog.closeAll();
   }
