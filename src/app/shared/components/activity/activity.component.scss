@@ -36,6 +36,10 @@
   .activity_content {
     display: flex;
 
+    .single {
+      max-width: 100%;
+      word-wrap: break-word;
+    }
   }
   .activity_actions {
     display: flex;
