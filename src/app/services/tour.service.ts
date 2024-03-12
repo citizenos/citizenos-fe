@@ -121,11 +121,13 @@ export class TourService {
   next() {
     combineLatest([this.activeTour, this.activeItem]).pipe(take(1)).subscribe({
       next: ([tourId, index]) => {
+        const itemIndexes  = this.items[tourId].map((item: any) => item.index);
+        const curItemIndex = itemIndexes.sort().indexOf(index);
         const nextItem = this.items[tourId].find((item: any) => {
-          return item.index === index + 1;
+          return item.index === itemIndexes[curItemIndex +1];
         });
         if (!nextItem) return this.hide();
-        this.activeItem.next(index + 1);
+        this.activeItem.next(itemIndexes[curItemIndex +1]);
       },
       error: (err) => {
         console.error(err)
@@ -134,9 +136,11 @@ export class TourService {
   }
 
   previous() {
-    this.activeItem.pipe(take(1)).subscribe({
-      next: (index) => {
-        this.activeItem.next(index - 1);
+    combineLatest([this.activeTour, this.activeItem]).pipe(take(1)).subscribe({
+      next: ([tourId, index]) => {
+        const itemIndexes  = this.items[tourId].map((item: any) => item.index);
+        const curItemIndex = itemIndexes.sort().indexOf(index);
+        this.activeItem.next(itemIndexes.sort()[curItemIndex-1]);
       }
     });
   }
