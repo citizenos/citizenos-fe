@@ -236,22 +236,22 @@
                   </div>
                 </div>
 
-                <div class="radio_wrap" [ngClass]="extraOptions.neutral.enabled? 'selected': ''"
+                <div class="radio_wrap" [ngClass]="{selected: extraOptions.neutral.enabled}"
                   (click)="toggleOption(extraOptions.neutral.value)">
                   <div class="radio_text_wrap">
                     <div class="radio_lable_wrap">
-                      <label class="checkbox"><span class="bold"
+                      <label class="checkbox" [ngClass]="{selected: extraOptions.neutral.enabled}"><span class="bold"
                           translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_NEUTRAL"></span>
                         <span class="checkmark"></span>
                       </label>
                     </div>
                   </div>
                 </div>
-                <div class="radio_wrap" [ngClass]="extraOptions.veto.enabled? 'selected': ''"
+                <div class="radio_wrap" [ngClass]="{selected: extraOptions.veto.enabled}"
                   (click)="toggleOption(extraOptions.veto.value)">
                   <div class="radio_text_wrap">
                     <div class="radio_lable_wrap">
-                      <label class="checkbox"><span class="bold"
+                      <label class="checkbox" [ngClass]="{selected: extraOptions.veto.enabled}"><span class="bold"
                           translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_VETO"></span>
                         <span class="checkmark"></span>
                       </label>
