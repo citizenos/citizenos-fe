@@ -159,9 +159,6 @@ export class GroupComponent implements OnInit {
       ,map(
         (members: any) => {
           this.allMembers$ = [];
-          if (members.length) {
-            this.filtersSet = true;
-          }
           if (members) {
             this.allMembers$ = this.allMembers$.concat(members)
           }
@@ -249,12 +246,14 @@ export class GroupComponent implements OnInit {
             GroupMemberTopicService.setParam('search', search);
           }
 
+          if (topicTypeFilter || engagmentsFilter || statusFilter || orderFilter || categoryFilter || countryFilter || languageFilter || search) {
+            this.filtersSet = true;
+          } else {
+            this.filtersSet = false;
+          }
           return GroupMemberTopicService.loadItems();
         }), map(
           (newtopics: any) => {
-            if (newtopics.length) {
-              this.filtersSet = true;
-            }
             this.allTopics$ = this.allTopics$.concat(newtopics);
             return this.allTopics$;
           }
@@ -404,6 +403,7 @@ export class GroupComponent implements OnInit {
     this.orderBy('');
     this.setVisibility('');
     this.setLanguage('');
+    this.filtersSet = false;
     this.topicFilters.country = this.FILTERS_ALL;
     this.topicFilters.language = this.FILTERS_ALL;
 
