@@ -231,16 +231,18 @@ export class VoteCreateComponent implements OnInit {
               );
             }
             if (topic.voteId) {
-              this.TopicVoteService.get({ topicId: topic.id, voteId: topic.voteId }).pipe(take(1)).subscribe({
-                next: (vote) => {
-                  this.vote = vote;
-                  this.vote.options = vote.options.rows;
-                  this.vote.options.forEach((option) => {
-                    option.enabled = true;
-                  });
-                  this.cd.detectChanges();
-                }
-              })
+              setTimeout(() => {
+                this.TopicVoteService.get({ topicId: topic.id, voteId: topic.voteId }).pipe(take(1)).subscribe({
+                  next: (vote) => {
+                    this.vote = vote;
+                    this.vote.options = vote.options.rows;
+                    this.vote.options.forEach((option) => {
+                      option.enabled = true;
+                    });
+                    this.cd.detectChanges();
+                  }
+                });
+              });
             }
             return topic;
           }));
@@ -337,10 +339,13 @@ export class VoteCreateComponent implements OnInit {
             this.voteCreateForm.saveVoteSettings();*/
       }
       if (tabIndex + 1 === 3) {
+        this.voteCreateForm?.filterOptions();
         this.TopicService.reloadTopic();
       }
       if (tabIndex > -1 && tabIndex < 3) {
-        this.selectTab(this.tabs[tabIndex + 1]);
+        setTimeout(() => {
+          this.selectTab(this.tabs[tabIndex + 1]);
+        })
       }
     }
   }
