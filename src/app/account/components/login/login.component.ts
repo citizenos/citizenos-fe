@@ -1,3 +1,4 @@
+import { PlausibleService } from './../../../services/plausible.service';
 import { Component, Inject, inject, Input } from '@angular/core';
 import { DIALOG_DATA, DialogService, DialogRef } from 'src/app/shared/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -32,6 +33,7 @@ export class LoginComponent {
     private UserService: UserService,
     @Inject(ActivatedRoute) private route: ActivatedRoute,
     private Auth: AuthService,
+    private PlausibleService: PlausibleService,
     private translate: TranslateService) {
     this.authMethodsAvailable = this.config.get('features').authentication;
     this.Auth.user$.pipe(take(1)).subscribe((user) => {
@@ -124,7 +126,7 @@ export class LoginComponent {
     if (newWindow?.focus) {
       newWindow.focus();
     }
-
+    this.PlausibleService.post({name: 'User login'});
     return newWindow;
   };
 
@@ -218,6 +220,7 @@ export class LoginComponent {
       const redirectSuccess = this.Location.currentUrl();
       url += '?redirectSuccess=' + redirectSuccess + '?'; // HACK: + '?' avoids digest loop on Angular side for Google callbacks.
     }
+    this.PlausibleService.post({name: 'User login', props: {method: partnerId}});
     window.location.href = url;
   };
 
@@ -241,8 +244,9 @@ export class LoginDialogComponent extends LoginComponent{
     UserService: UserService,
     route: ActivatedRoute,
     Auth: AuthService,
+    PlausibleService: PlausibleService,
     translate: TranslateService) {
-    super(dialog, Location, config, router, UserService, route, Auth, translate);
+    super(dialog, Location, config, router, UserService, route, Auth, PlausibleService, translate);
     this.authMethodsAvailable = config.get('features').authentication;
     this.authSubscriber = Auth.loggedIn$.subscribe({
       next: (value) => {

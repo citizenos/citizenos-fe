@@ -1,3 +1,4 @@
+import { PlausibleService } from './../../../services/plausible.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Component, Inject, Input } from '@angular/core';
 import { NotificationService } from 'src/app/services/notification.service';
@@ -8,6 +9,7 @@ import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms
 import { PasswordForgotComponent } from '../password-forgot/password-forgot.component';
 import { TranslateService } from '@ngx-translate/core';
 import { RegisterDialogComponent } from '../register/register.component';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'login-form',
@@ -33,6 +35,7 @@ export class LoginFormComponent {
     private Notification: NotificationService,
     @Inject(Router) private router: Router,
     private translate: TranslateService,
+    private PlausibleService: PlausibleService,
     private Auth: AuthService) {
   }
 
@@ -64,6 +67,7 @@ export class LoginFormComponent {
             /* if (this.$state.is('partners.consent') || this.$state.is('partners.login')) {
                  return window.location.href = this.Location.getAbsoluteUrlApi('/api/auth/openid/authorize');
              } else {*/
+            this.PlausibleService.post({name: 'User login'});
             if (this.redirectSuccess) {
               console.log('SUCCESS', this.redirectSuccess);
               if (typeof this.redirectSuccess === 'string') {

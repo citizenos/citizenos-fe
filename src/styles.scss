@@ -2000,3 +2000,16 @@ tour-item-template {
     }
   }
 }
+
+.control_code_wrap {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: center;
+  text-align: center;
+
+  .code {
+    font-weight: 600;
+  }
+}
