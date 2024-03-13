@@ -124,6 +124,10 @@
       flex: 2 2 0;
       justify-content: center;
       text-align: left;
+
+      &.with_tooltip {
+        flex-direction: row;
+      }
     }
 
     .actions {
