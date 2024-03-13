@@ -836,7 +836,7 @@
       "PREVIEW_HEADER": "Vote options preview",
       "PREVIEW_INFO_CHECK": "<b>Please ensure your vote is configured precisely to your preferences!</b> Once initiated, you cannot modify or pause a vote, and you are limited to only one vote per topic.",
       "PREVIEW_VOTE_TYPE_MULTIPLE": "This is a multiple selection voting. The maximum amount of options you can choose: {{maxOptions}}.",
-      "PREVIEW_VOTE_TYPE_REGULAR": "This is a single selection vote",
+      "PREVIEW_VOTE_TYPE_REGULAR": "Dies ist eine Abstimmung mit einer Einzelauswahl",
       "LNK_CANCEL": "@:LNK_CANCEL",
       "BTN_CONTINUE": "@:BTN_CONTINUE",
       "BTN_START_VOTE": "Start topic voting"
@@ -862,13 +862,13 @@
     "TOPIC_FOLLOW_UP_CREATE": {
       "DIALOG_HEADING": "Themen-Nachverfolgung starten",
       "DIALOG_TAB_1": "Einführung",
-      "DIALOG_TAB_2": "Settings",
+      "DIALOG_TAB_2": "Einstellungen",
       "DIALOG_TAB_INTRODUCTION_ARE_YOU_SURE": "Sind Sie sicher, dass Sie die Themennachverfolgung starten möchten?",
       "DIALOG_TAB_INTRODUCTION_KEEP_IN_MIND": "Things to keep in mind:",
-      "DIALOG_TAB_INTRODUCTION_ITEM_1": "You can no longer (co-)edit your topic text",
+      "DIALOG_TAB_INTRODUCTION_ITEM_1": "Sie können Ihren Thementext nicht mehr (mit-)bearbeiten",
       "DIALOG_TAB_INTRODUCTION_ITEM_2": "Sie können immer noch Teilnehmer einladen und mit ihnen teilen",
       "DIALOG_TAB_INTRODUCTION_ITEM_3": "Sie können Aktualisierungen für Aktionen veröffentlichen, die als Ergebnis dieses Themas durchgeführt wurden",
-      "DIALOG_TAB_INTRODUCTION_ITEM_4": "Voting in this topic will no longer be possible",
+      "DIALOG_TAB_INTRODUCTION_ITEM_4": "Abstimmungen in diesem Thema sind nicht mehr möglich",
       "DIALOG_TAB_INTRODUCTION_ITEM_5": "Participants can still continue to have a discussion",
       "DIALOG_TAB_INTRODUCTION_INFO": "This is the last stage of a topic.",
       "FOLLOW_UP_TITLE_HEADING": "Geben Sie Ihren Titel zur Nachverfolgung ein",
@@ -1112,9 +1112,9 @@
     "TOPIC_REPORT_REPORTID_SUBMITING_FOR_REVIEW": "You are submitting this topic for review",
     "TOPIC_REPORT_REPORTID_REVIEW_PLACEHOLDER_REPORT_TEXT": "Erklären Sie, warum Sie der Meinung sind, dass dieses Thema nicht den Community-Standards entspricht...",
     "TOPIC_REPORT_REPORTID_REVIEW_PLACEHOLDER_REPORT_TEXT_ERROR": "Explanation text must be between 10 and 4000 characters",
-    "TOPIC_REPORT_REPORTID_REVIEW_TXT_ARE_YOU_SURE": "Are you sure you want to send this topic for review?",
+    "TOPIC_REPORT_REPORTID_REVIEW_TXT_ARE_YOU_SURE": "Sind Sie sicher, dass Sie dieses Thema zur Überprüfung senden möchten?",
     "TOPIC_REPORT_REPORTID_REVIEW_BTN_NO": "@:MODALS.TOPIC_ARGUMENT_REPORT_BTN_NO",
-    "TOPIC_REPORT_REPORTID_REVIEW_BTN_YES": "Yes, send for review",
+    "TOPIC_REPORT_REPORTID_REVIEW_BTN_YES": "Ja, zur Überprüfung senden",
     "TOPIC_REPORT_REPORTID_RESOLVE_HEADING": "@:MODALS.TOPIC_REPORT_REPORTID_HEADING",
     "TOPIC_REPORT_REPORTID_RESOLVE_HEADING_REASON": "@:MODALS.TOPIC_REPORT_REPORTID_HEADING_REASON",
     "TOPIC_REPORT_REPORTID_RESOLVE_HEADING_CURRENT_STATUS": "@:MODALS.TOPIC_REPORT_REPORTID_HEADING_CURRENT_STATUS",
@@ -1209,7 +1209,7 @@
     "TOPIC_SETTINGS_BTN_DELETE_TOPIC": "@:MODALS.TOPIC_SETTINGS_LBL_DELETE_TOPIC",
     "TOPIC_SETTINGS_TXT_ASSIGN_CATEGORIES": "Bis zu 3 Kategorien zuweisen",
     "TOPIC_SETTINGS_TXT_INVITE_USERS_AND_GROUPS": "Invite people and groups via username or email address",
-    "TOPIC_SETTINGS_PLACEHOLDER_INVITE_USERS_AND_GROUPS": "Search by username or email address",
+    "TOPIC_SETTINGS_PLACEHOLDER_INVITE_USERS_AND_GROUPS": "Suche nach Benutzernamen oder E-Mail Adresse",
     "TOPIC_SETTINGS_RESULT_GROUP_USERS": "Mitglieder",
     "TOPIC_SETTINGS_RESULT_GROUP_GROUPS": "Gruppen",
     "TOPIC_SETTINGS_RESULT_GROUP_EMAILS": "E-Mails",
@@ -1314,7 +1314,7 @@
     "TOPIC_EVENT_DELETE_CONFIRM_BTN_YES": "@:BTN_YES",
     "TOPIC_INVITE_VIEW_HEADING": "Themeneinladung",
     "TOPIC_INVITE_VIEW_MESSAGE_MAIN": "You have been invited to join",
-    "TOPIC_INVITE_VIEW_HEADING_INVITATION_DETAILS": "Invitation details",
+    "TOPIC_INVITE_VIEW_HEADING_INVITATION_DETAILS": "Einladungsdetails",
     "TOPIC_INVITE_VIEW_LBL_TOPIC_TITLE": "Thementitel:",
     "TOPIC_INVITE_VIEW_LBL_INVITED_BY": "Eingeladen von:",
     "TOPIC_INVITE_VIEW_LBL_INVITATION_SENT_TO": "Einladung gesendet an:",
@@ -1673,7 +1673,7 @@
       "PUBLIC_GROUPS_DESCRIPTION": "Have a sneak peek at some of the most recent public groups available on Citizen OS.",
       "BTN_VIEW_ALL_GROUPS": "Alle öffentlichen Gruppen anzeigen",
       "PUBLIC_TOPICS_TITLE": "Recent public topics",
-      "PUBLIC_TOPICS_DESCRIPTION": "Have a sneak peek at some of the most recent public topics available on Citizen OS.",
+      "PUBLIC_TOPICS_DESCRIPTION": "Werfen Sie einen Blick auf einige der aktuellen öffentlichen Themen, die derzeit auf Citizen OS verfügbar sind.",
       "BTN_VIEW_ALL_TOPICS": "Alle öffentlichen Themen anzeigen",
       "HEADINGS_SHOW_ME_TOPICS_ABOUT": "Zeige mir Themen über",
       "LNK_SHOW": "Zeigen",
@@ -1801,8 +1801,8 @@
       "SETTINGS_VISIBILITY_DESC": "Legen Sie fest, ob Ihre Gruppe für jeden sichtbar ist, oder nur per Einladung.",
       "SETTINGS_VISIBILITY_PRIVATE": "Privat",
       "SETTINGS_VISIBILITY_PRIVATE_DESC": "Only people with invites can join",
-      "SETTINGS_VISIBILITY_PUBLIC": "Public",
-      "SETTINGS_VISIBILITY_PUBLIC_DESC": "Anyone can join",
+      "SETTINGS_VISIBILITY_PUBLIC": "Öffentlich",
+      "SETTINGS_VISIBILITY_PUBLIC_DESC": "Jeder kann beitreten",
       "SETTINGS_HEADING_CATEGORY_AND_LOCALITY": "Kategorien & Lokalität",
       "SETTINGS_CATEGORY_SELECT_DESC": "Choose up to 3 categories that fit your topic.",
       "SETTINGS_CATEGORY_SELECT": "Choose a category",
@@ -1816,12 +1816,12 @@
       "HELP_HEADING": "Schon gewusst?",
       "HELP_DESCRIPTION": "Creating a group is a great way to give people a sense of belonging to a community, and makes them more likely to engage.",
       "HELP_LNK_LEARN_MORE": "Mehr über Gruppen erfahren",
-      "NOTIFICATION_SUCCESS_TITLE": "Group successfully created",
+      "NOTIFICATION_SUCCESS_TITLE": "Gruppe erfolgreich erstellt",
       "NOTIFICATION_SUCCESS_MESSAGE": "Congratulations! Keep in mind you can always manage the group via the group actions menu."
     },
     "LOGIN": {
       "BTN_BACK": "Zurück zum Dashboard",
-      "LOGIN_TITLE": "Log in to Citizen OS"
+      "LOGIN_TITLE": "Bei Citizen OS anmelden"
     },
     "MY": {
       "LBL_GROUPS_COUNT": "Gruppen: {{count}}",
@@ -1843,7 +1843,7 @@
         "TOPICS_I_HAVE_VOTED": "Themen, über die ich abgestimmt habe",
         "TOPICS_I_HAVE_NOT_VOTED": "Themen, die meine Stimme benötigen",
         "TOPICS_I_CREATED": "Themen, die ich erstellt habe",
-        "TOPICS_ORDERED_BY_GROUPS": "Topics ordered by groups",
+        "TOPICS_ORDERED_BY_GROUPS": "Themen nach Gruppen sortiert",
         "TOPICS_IN_PROGRESS": "Themen in Bearbeitung",
         "TOPICS_IN_VOTING": "Themen in Abstimmung",
         "TOPICS_IN_FOLLOW_UP": "Themen in der Nachverfolgung",
@@ -2042,7 +2042,7 @@
     "PASSWORD_FORGOT": {
       "PASSWORD_FORGOT_TITLE": "Forgot your password?",
       "BTN_BACK": "Back to login",
-      "PASSWORD_FORGOT_DESCRIPTION": "No worries! We can send you a reset link so you can get a new password."
+      "PASSWORD_FORGOT_DESCRIPTION": "Keine Sorgen! Wir können Ihnen einen Link zum Zurücksetzen schicken, damit Sie ein neues Passwort anfordern können."
     },
     "PASSWORD_RESET": {
       "PASSWORD_RESET_TITLE": "@:COMPONENTS.PASSWORD_RESET.PASSWORD_RESET_HEADING",
