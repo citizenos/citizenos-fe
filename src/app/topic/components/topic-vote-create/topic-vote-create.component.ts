@@ -18,6 +18,7 @@ export class TopicVoteCreateComponent implements OnInit {
   @Input() topic!: Topic;
   @Input() vote!: any;
   @Output() saveVote = new EventEmitter();
+  @Output() syncSettings = new EventEmitter();
 
   VOTE_TYPES = this.TopicVoteService.VOTE_TYPES;
   voteTypes = Object.keys(this.VOTE_TYPES);
@@ -162,7 +163,6 @@ export class TopicVoteCreateComponent implements OnInit {
   };
 
   toggleOption(option: string) {
-    console.log(option.toLowerCase())
     switch (option.toLowerCase()) {
       case 'yes':
         this.predefinedOptions.yes.enabled = !this.predefinedOptions.yes.enabled;
@@ -174,7 +174,6 @@ export class TopicVoteCreateComponent implements OnInit {
         this.extraOptions.neutral.enabled = !this.extraOptions.neutral.enabled;
         break;
       case 'veto':
-        console.log('CASE veto')
         this.extraOptions.veto.enabled = !this.extraOptions.veto.enabled;
         break;
     }
@@ -436,7 +435,6 @@ export class TopicVoteCreateComponent implements OnInit {
       }
     }
     this.vote.options = Object.assign([], options);
-
   }
 
   displayOptInput(option: any) {
@@ -557,7 +555,7 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
   tabNext() {
     if (this.tabActive === 2 && (!this.vote.type || !this.vote.description)) return;
     if (this.tabActive >= 3) this.filterOptions();
-    (this.tabActive < 4) ? this.tabActive = this.tabActive + 1 : this.createVote()
+    (this.tabActive < 4) ? setTimeout(() => this.tabActive = this.tabActive + 1) : this.createVote()
   }
 
   override createVote() {
