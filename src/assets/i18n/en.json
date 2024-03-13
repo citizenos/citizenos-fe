@@ -1780,6 +1780,7 @@
       "CREATE_TAB_2": "Settings",
       "CREATE_TAB_3": "Add topics",
       "CREATE_TAB_4": "Invite",
+      "INFO_SETTINGS_HEADING_GENERAL_NAME": "Group name",
       "INFO_SETTINGS_HEADING_GENERAL_INFO": "Group Information",
       "INFO_SETTINGS_INPUT_NAME_DESC": "Use a name that’s understandable and logical.",
       "INFO_SETTINGS_INPUT_NAME": "Name",
