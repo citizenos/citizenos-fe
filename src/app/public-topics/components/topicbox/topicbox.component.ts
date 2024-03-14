@@ -4,7 +4,7 @@ import { TopicService } from 'src/app/services/topic.service';
 import { TopicVoteService } from 'src/app/services/topic-vote.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { Topic } from 'src/app/interfaces/topic';
-import { Observable, tap } from 'rxjs';
+import { Observable, of, tap } from 'rxjs';
 import { Vote } from 'src/app/interfaces/vote';
 
 @Component({
@@ -27,8 +27,8 @@ export class TopicboxComponent implements OnInit {
     if (catEntries.length) {
       this.catClass = catEntries[0];
     }
-    if (this.topic.voteId) {
-      this.vote$ = this.TopicVoteService.get({topicId: this.topic.id, voteId: this.topic.voteId}).pipe(
+    if (this.topic.voteId || this.topic.vote) {
+      this.vote$ = this.TopicVoteService.get({ topicId: this.topic.id, voteId: this.topic.voteId || this.topic.vote?.id }).pipe(
         tap((vote) => this.vote = vote)
       );
     }
@@ -38,13 +38,13 @@ export class TopicboxComponent implements OnInit {
     }
   }
 
-  showInfo () {
+  showInfo() {
     return window.innerWidth > 667;
   }
 
   goToView() {
     let urlArray = ['topics', this.topic.id];
-    if(this.topic.status === this.TopicService.STATUSES.draft && this.TopicService.canDelete(this.topic)) {
+    if (this.topic.status === this.TopicService.STATUSES.draft && this.TopicService.canDelete(this.topic)) {
       urlArray = ['topics', 'edit', this.topic.id];
       if (this.topic.voteId) {
         urlArray = ['topics', 'vote', 'edit', this.topic.id];
@@ -59,15 +59,15 @@ export class TopicboxComponent implements OnInit {
     } else if (this.topic.status === this.TopicService.STATUSES.followUp) {
       fragment = 'followUp';
     }
-    this.router.navigate(urlArray, {fragment});
+    this.router.navigate(urlArray, { fragment });
   }
 
-  getProgress () {
+  getProgress() {
     switch (this.topic.status) {
       case 'inProgress':
-          return 100;
+        return 100;
       case 'voting':
-          return Math.floor(((this.vote?.votersCount || 0) / this.topic.members.users.count) * 100) ;
+        return Math.floor(((this.vote?.votersCount || 0) / this.topic.members.users.count) * 100);
       default:
         return 100;
     }
