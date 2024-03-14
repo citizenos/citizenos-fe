@@ -320,8 +320,7 @@
               </div>
               <ng-container *ngIf="block.title || topic.title">
                 <div class="block_content">
-                  <input id="title_input" #topicTitle placeholder="..." [(ngModel)]="topic.title"
-                    (change)="updateField()" [maxlength]="titleLimit"
+                  <input id="title_input" #topicTitle placeholder="..." [(ngModel)]="topic.title" [maxlength]="titleLimit"
                     [disabled]="!TopicService.canEditDescription(topic)"
                     [ngClass]="{'disabled': !TopicService.canEditDescription(topic)}" />
                 </div>
@@ -348,8 +347,7 @@
               </div>
               <ng-container *ngIf="block.intro || topic.intro">
                 <div class="block_content">
-                  <textarea id="intro_input" #topicIntro placeholder="..." [(ngModel)]="topic.intro"
-                    (change)="updateField()" [maxlength]="introLimit"
+                  <textarea id="intro_input" #topicIntro placeholder="..." [(ngModel)]="topic.intro" [maxlength]="introLimit"
                     [disabled]="!TopicService.canEditDescription(topic)"
                     [ngClass]="{'disabled': !TopicService.canEditDescription(topic)}"></textarea>
                 </div>

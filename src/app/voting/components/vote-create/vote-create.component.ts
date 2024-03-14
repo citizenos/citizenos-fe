@@ -29,6 +29,7 @@ import { TopicEditDisabledDialogComponent } from 'src/app/topic/components/topic
 import { Attachment } from 'src/app/interfaces/attachment';
 import { TopicAttachmentService } from 'src/app/services/topic-attachment.service';
 import { TopicMemberGroupService } from 'src/app/services/topic-member-group.service';
+import { TopicFormComponent } from 'src/app/topic/components/topic-form/topic-form.component';
 
 @Component({
   selector: 'app-vote-create',
@@ -70,36 +71,11 @@ import { TopicMemberGroupService } from 'src/app/services/topic-member-group.ser
       }))
     ])]
 })
-export class VoteCreateComponent implements OnInit {
-  topicText?: ElementRef
-  readMoreButton = false;
-  @ViewChild('topicTitle') titleInput!: ElementRef;
-  @ViewChild('topicIntro') introInput!: ElementRef;
-  @ViewChild('topicText') set content(content: ElementRef) {
-    if (content) { // initially setter gets called with undefined
-      this.topicText = content;
-      if (content.nativeElement.offsetHeight >= 320) {
-        this.readMoreButton = true;
-      }
-    }
-  }
-  @ViewChild('imageUpload') fileInput?: ElementRef;
-  @ViewChild('attachmentInput') attachmentInput?: ElementRef;
+export class VoteCreateComponent extends TopicFormComponent {
   @ViewChild('vote_create_form') voteCreateForm?: TopicVoteCreateComponent;
 
   languages$: { [key: string]: any } = this.config.get('language').list;
-  titleLimit = 100;
-  introLimit = 500;
-  groups$: Observable<TopicMemberGroup[] | any[]> = of([]);
-  private loadMembers$ = new BehaviorSubject<void>(undefined);
-  members$: Observable<any[] | any[]> = of([]);
-  private loadInvite$ = new BehaviorSubject<void>(undefined);
-  invites$: Observable<any[]> = of([]);
 
-  isCreatedFromGroup = false;
-  topicGroups = <TopicMemberGroup[]>[];
-  topic$: Observable<Topic>;
-  topic: any;
   public vote = {
     createdAt: '',
     id: '',
@@ -120,40 +96,11 @@ export class VoteCreateComponent implements OnInit {
     endsAt: null
   };
 
-  /*TODO - handle these below*/
-  tags = <any[]>[];
-  showManageEditors = false;
   /**/
-  VISIBILITY = this.TopicService.VISIBILITY;
-  CATEGORIES = Object.keys(this.TopicService.CATEGORIES);
-  languages = languages.sort((a: any, b: any) => {
-    return a.name.localeCompare(b.name);
-  });
-  countries = countries.sort((a: any, b: any) => {
-    return a.name.localeCompare(b.name);
-  });
   errors?: any;
-  tmpImageUrl?: string;
-  imageFile?: any;
-  tabSelected;
-  showHelp = false;
-  tabs = ['info', 'settings', 'voting_system', 'preview'];
-  block = {
-    headerImage: false,
-    title: false,
-    intro: false,
-    description: false
-  }
-
+  override tabs = ['info', 'settings', 'voting_system', 'preview'];
   members = <any[]>[];
 
-  readMore = false;
-  isnew = true;
-  showCategories = false;
-  showAttachments = false;
-  showGroups = false;
-  topicAttachments$ = of(<Attachment[] | any[]>[]);
-  topicGroups$ = of(<TopicMemberGroup[] | any[]>[])
   constructor(
     private app: AppService,
     private cd: ChangeDetectorRef,
@@ -274,33 +221,8 @@ export class VoteCreateComponent implements OnInit {
           }
         })*/
   }
-  ngOnInit(): void {
-  }
 
-  selectTab(tab: string) {
-    this.router.navigate([], { fragment: tab });
-  }
-
-  previousTab(tab: string | void) {
-    if (tab) {
-      const tabIndex = this.tabs.indexOf(tab);
-      if (tabIndex > 0) {
-        this.selectTab(this.tabs[tabIndex - 1]);
-      }
-    }
-  }
-
-  isNextDisabled(tabSelected: string | void) {
-    if (tabSelected === 'preview' && !this.TopicService.canDelete(this.topic)) {
-      return true;
-    } else if (!this.topic.title || !this.topic.description) {
-      return true;
-    }
-
-    return false;
-  }
-
-  nextTab(tab: string | void) {
+  override nextTab(tab: string | void) {
     if (tab) {
       if (tab === 'info') {
         let invalid = false;
@@ -316,10 +238,6 @@ export class VoteCreateComponent implements OnInit {
         }
       }
       const tabIndex = this.tabs.indexOf(tab);
-      if (tabIndex === 1) {
-        this.updateTopic().pipe(take(1)).subscribe();;
-      }
-
       if (tabIndex === 2) {
         if (!this.vote.description) {
           this.Notification.removeAll();
@@ -340,7 +258,16 @@ export class VoteCreateComponent implements OnInit {
       }
       if (tabIndex + 1 === 3) {
         this.voteCreateForm?.filterOptions();
-        this.TopicService.reloadTopic();
+        setTimeout(() => {
+          this.TopicService.readDescription(this.topic.id).pipe(take(1)).subscribe({
+            next: (topic) => {
+              this.topic.description = topic.description;
+            },
+            error: (err) => {
+              console.error(err)
+            }
+          });
+        }, 200)
       }
       if (tabIndex > -1 && tabIndex < 3) {
         setTimeout(() => {
@@ -350,126 +277,10 @@ export class VoteCreateComponent implements OnInit {
     }
   }
 
-  saveImage() {
-    if (this.imageFile) {
-      this.Upload
-        .uploadTopicImage({ topicId: this.topic.id }, this.imageFile).pipe(
-          takeWhile((res: any) => {
-            return (!res.link)
-          }, true)
-        )
-        .subscribe({
-          next: (res: any) => {
-            if (res.link) {
-              this.topic.imageUrl = res.link;
-            }
-          },
-          error: (err: any) => {
-            console.log('ERROR', err);
-          }
-        });
-    }
-  }
-
-  fileUpload() {
-    const allowedTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/svg+xml'];
-    const files = this.fileInput?.nativeElement.files;
-    if (allowedTypes.indexOf(files[0].type) < 0) {
-      this.errors = { image: this.translate.instant('MSG_ERROR_FILE_TYPE_NOT_ALLOWED', { allowedFileTypes: allowedTypes.toString() }) };
-      setTimeout(() => {
-        delete this.errors.image;
-      }, 5000)
-    } else if (files[0].size > 5000000) {
-      this.errors = { image: this.translate.instant('MSG_ERROR_FILE_TOO_LARGE', { allowedFileSize: '5MB' }) };
-
-      setTimeout(() => {
-        delete this.errors.image;
-      }, 5000)
-    } else {
-      this.imageFile = files[0];
-      return this.saveImage();
-    }
-  }
-
-  fileDroped(files: any) {
-    this.imageFile = files[0];
-    const reader = new FileReader();
-    reader.onload = (() => {
-      return (e: any) => {
-        this.tmpImageUrl = e.target.result;
-      };
-    })();
-    reader.readAsDataURL(files[0]);
-    this.saveImage();
-  }
-  uploadImage() {
-    this.fileInput?.nativeElement.click();
-  };
-
-  deleteTopicImage() {
-    if (this.fileInput) {
-      this.fileInput.nativeElement.value = null;
-    }
-    if (this.topic.imageUrl) {
-      this.topic.imageUrl = null;
-      this.tmpImageUrl = undefined;
-      this.updateTopic().pipe(take(1)).subscribe();;
-    }
-  };
-
-  showBlockTitle() {
-    this.block.title = true;
-    setTimeout(() => {
-      this.titleInput.nativeElement.focus();
-    }, 200);
-  }
-
-  showBlockIntro() {
-    this.block.intro = true;
-    setTimeout(() => {
-      this.introInput.nativeElement.focus();
-    }, 200);
-  }
-
-  deleteTopic() {
-    /*this.TopicService.doDeleteTopic(topic, [this.Translate.currentLang, 'my', 'topics']);*/
-    const deleteDialog = this.dialog.open(ConfirmDialogComponent, {
-      data: {
-        level: 'delete',
-        heading: 'MODALS.TOPIC_DELETE_CONFIRM_HEADING',
-        title: 'MODALS.TOPIC_DELETE_CONFIRM_TXT_ARE_YOU_SURE',
-        description: 'MODALS.TOPIC_DELETE_CONFIRM_TXT_NO_UNDO',
-        points: ['MODALS.TOPIC_DELETE_CONFIRM_TXT_TOPIC_DELETED', 'MODALS.TOPIC_DELETE_CONFIRM_TXT_DISCUSSION_DELETED', 'MODALS.TOPIC_DELETE_CONFIRM_TXT_TOPIC_REMOVED_FROM_GROUPS'],
-        confirmBtn: 'MODALS.TOPIC_DELETE_CONFIRM_YES',
-        closeBtn: 'MODALS.TOPIC_DELETE_CONFIRM_NO'
-      }
-    });
-    deleteDialog.afterClosed().subscribe(result => {
-      if (result === true) {
-        this.TopicService.delete(this.topic)
-          .pipe(take(1))
-          .subscribe(() => {
-            this.router.navigate(['my', 'topics']);
-          })
-      }
-    });
-  };
-
   topicDownload() {
     return this.TopicService.download(this.topic.id);
   }
 
-  chooseCategory(category: string) {
-    if (this.topic.categories && this.topic.categories.indexOf(category) > -1) {
-      this.topic.categories.splice(this.topic.categories.indexOf(category), 1);
-    } else {
-      this.topic.categories?.push(category);
-    }
-  }
-
-  sanitizeURL() {
-    return this.topic.padUrl;
-  }
   createTopic() {
     const topic = {
       description: '<html><head></head><body></body></html>',
@@ -483,18 +294,6 @@ export class VoteCreateComponent implements OnInit {
         }));
   }
 
-  triggerUpload() {
-    this.attachmentInput?.nativeElement.click();
-  };
-
-  setCountry(country: string) {
-    this.topic.country = country;
-    this.updateTopic().pipe(take(1)).subscribe();;
-  }
-  setLanguage(language: string) {
-    this.topic.language = language;
-    this.updateTopic().pipe(take(1)).subscribe();;
-  }
 
   updateTopic() {
     this.titleInput?.nativeElement?.parentNode.parentNode.classList.remove('error');
@@ -506,9 +305,6 @@ export class VoteCreateComponent implements OnInit {
     return this.TopicService.patch(updateTopic)
   }
 
-  updateField () {
-    this.updateTopic().pipe(take(1)).subscribe();
-  }
   updateVote() {
     const updateVote = Object.assign({ topicId: this.topic.id }, this.vote);
     const options = updateVote.options.map((opt) => {
@@ -516,20 +312,6 @@ export class VoteCreateComponent implements OnInit {
     })
     updateVote.options = options;
     return this.TopicVoteService.update(updateVote).pipe(take(1)).subscribe();
-  }
-
-  saveAsDraft() {
-    this.updateTopic().pipe(take(1)).subscribe(() => {
-      this.topicGroups.forEach((group) => {
-        this.GroupMemberTopicService.save({
-          groupId: group.id,
-          topicId: this.topic.id,
-          level: group.level || this.GroupMemberTopicService.LEVELS.read
-        }).pipe(take(1)).subscribe();
-      });
-      this.updateVote();
-      this.router.navigate(['my', 'topics']);
-    });
   }
 
   saveChanges () {
@@ -551,7 +333,7 @@ export class VoteCreateComponent implements OnInit {
       this.router.navigate(['topics', this.topic.id], { fragment: 'voting' });
     });
   }
-
+/*
   publish() {
     this.updateTopic().pipe(take(1)).subscribe(() => {
       this.topicGroups.forEach((group) => {
@@ -576,59 +358,7 @@ export class VoteCreateComponent implements OnInit {
         this.Notification.addSuccess('VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE');
       }
     });
-  }
-
-  addTag(e: Event) {
-    const tag = (e.target as HTMLInputElement).value;
-    if (tag)
-      this.tags.push(tag);
-    (e.target as HTMLInputElement).value = '';
-  }
-
-  removeTag(tag: string) {
-    this.tags.splice(this.tags.indexOf(tag), 1);
-  }
-
-  addGroup(group: TopicMemberGroup) {
-    group.level = this.GroupMemberTopicService.LEVELS.read;
-    this.topicGroups.push(group);
-  }
-
-  inviteMembers() {
-    const inviteDialog = this.dialog.open(TopicInviteDialogComponent, { data: { topic: this.topic } });
-    inviteDialog.afterClosed().subscribe({
-      next: (inviteUsers) => {
-        this.loadMembers$.next();
-        //   this.NotificationService.addSuccess('');
-      },
-      error: (error) => {
-        // this.NotificationService.addError(error);
-      }
-    })
-  }
-
-  manageMembers() {
-    const manageDialog = this.dialog.open(TopicParticipantsDialogComponent, { data: { topic: this.topic } });
-    manageDialog.afterClosed().subscribe({
-      next: (res) => {
-      },
-      error: (error) => {
-        console.error('Manage members error:', error);
-      }
-    })
-  }
-
-  inviteEditors() {
-    const inviteDialog = this.dialog.open(InviteEditorsComponent, { data: { topic: this.topic } });
-    inviteDialog.afterClosed().subscribe({
-      next: (inviteUsers) => {
-        this.loadInvite$.next();
-      },
-      error: (error) => {
-        // this.NotificationService.addError(error);
-      }
-    })
-  }
+  }*/
 
   saveVoteSettings(vote?: any) {
     if (vote) {
@@ -658,35 +388,5 @@ export class VoteCreateComponent implements OnInit {
           });
         }
       });
-  }
-
-  cancel() {
-    const confirmDialog = this.dialog.open(InterruptDialogComponent);
-
-    confirmDialog.afterClosed().subscribe(result => {
-      if (result === true) {
-        /*this.TopicService.delete({ id: this.topic.id })
-          .pipe(take(1))
-          .subscribe(() => {
-            this.router.navigate(['dashboard']);
-          })*/
-        this.router.navigate(['dashboard']);
-      }
-    });
-    //[routerLink]="['/', translate.currentLang, 'topics', topic.id]"
-  }
-
-  setGroupLevel(group: TopicMemberGroup, level: string) {
-    if (!group.level) group.level = level;
-    group.level = level;
-  }
-
-  isGroupAdded(group: Group) {
-    return this.topicGroups.find((tg: Group) => tg.id === group.id);
-  }
-
-  removeGroup(group: Group) {
-    const index = this.topicGroups.findIndex((tg) => tg.id === group.id);
-    this.topicGroups.splice(index, 1);
   }
 }

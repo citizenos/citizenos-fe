@@ -105,6 +105,18 @@ export class TopicService {
     );
   }
 
+  readDescription(id: string, rev?: string): Observable<Topic> {
+    let path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/description', { topicId: id });
+    let params = <any>{};
+    if (rev) {
+      params.rev = rev;
+    }
+    return this.http.get<ApiResponse>(path, { withCredentials: true, params , observe: 'body', responseType: 'json' })
+      .pipe(switchMap((res: any) => {
+        const topic = res.data;
+        return of(topic);
+      }))
+  }
   update(data: any) {
     const updateFields = ['visibility', 'status', 'categories', 'endsAt', 'hashtag', 'imageUrl', 'title', 'intro', 'contact', 'country', 'language'];
     const sendData: any = {};
