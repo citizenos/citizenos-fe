@@ -1605,7 +1605,7 @@ tour-item-template {
     height: 150px;
     border: none;
 
-    .cm-formatting {
+    .cm-formatting-strong, .cm-formatting-em {
       display: none;
     }
   }
