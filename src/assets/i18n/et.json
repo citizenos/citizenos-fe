@@ -2151,6 +2151,7 @@
       "TITLE_DESCRIPTION_TEXT": "Põhiteema sisu tuleb lisada siia – kõik osaliste jaoks mõeldud juhised ning info ja kontekst.",
       "TITLE_ATTACHMENTS": "@:MODALS.TOPIC_ATTACHMENTS_TITLE_FILES",
       "TOOLTIP_ATTACHMENTS_TITLE": "Manuse parameetrid",
+      "TOOLTIP_ATTACHMENTS_DESCRIPTION_LIMIT": "A maximum of {{limit}} files can be attached to one topic.",
       "TOOLTIP_ATTACHMENTS_DESCRIPTION_SIZE": "Maksimaalne lubatud failisuurus on {{allowedFileSize}}. ",
       "TOOLTIP_ATTACHMENTS_DESCRIPTION_TYPES": "Lubatud failitüübid on: {{allowedFileTypes}}",
       "ATTACHMENTS_BTN_ADD": "@:VIEWS.TOPIC_CREATE.BTN_SECTION_ADD",
