@@ -42,7 +42,7 @@ export class TopicReportFormComponent implements OnInit {
   }
 
   changeType(type: string) {
-    this.report.patchValue({ 'type': type });
+    this.report.controls['type'].setValue(type);
   }
 
   doReport() {

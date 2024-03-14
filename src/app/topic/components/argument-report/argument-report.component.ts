@@ -39,6 +39,10 @@ export class ArgumentReportComponent implements OnInit {
     this.reportTextInput.nativeElement.focus();
   }
 
+  selectReportType(type: string) {
+    this.report.controls['type'].setValue(type);
+  }
+
   doReport() {
     this.report.value.commentId = this.data.argument.id;
     this.report.value.topicId = this.data.topicId;

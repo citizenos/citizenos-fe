@@ -3,5 +3,12 @@
 
   .dialog_info_content {
     gap: 3px;
+    &.inline {
+      display: inline-block;
+
+      a, * {
+        display: inline-block;
+      }
+    }
   }
 }

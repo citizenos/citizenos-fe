@@ -55,7 +55,7 @@
         <cos-input [placeholder]="'COMPONENTS.REPORT_TOPIC.LABLE_REASON' | translate">
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
-              <div class="selected_item" [translate]="'TXT_REPORT_TYPES_' + report.value.type?.toUpperCase()">
+              <div class="selected_item" [translate]="'TXT_REPORT_TYPES_' + report.controls['type'].value?.toUpperCase()">
               </div>
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
@@ -71,10 +71,10 @@
 
         <cos-input placeholder="{{'COMPONENTS.REPORT_TOPIC.PLACEHOLDER_REPORT_TEXT' | translate}}">
 
-          <textarea formControlName="text" [ngClass]="{'error_input': errors?.textlength}" (input)="changeText($event)"
+          <textarea formControlName="text" [ngClass]="{'error_input': report.controls['text'].errors && report.controls['text'].errors['required'] && report.controls['text'].touched}" (input)="changeText($event)"
             [placeholder]="'COMPONENTS.REPORT_TOPIC.PLACEHOLDER_REPORT_TEXT' | translate" [maxlength]="2048"
             rows="5"></textarea>
-          <label for="groupDescription" class="error_label" *ngIf="errors?.textlength">
+          <label for="groupDescription" class="error_label" *ngIf="report.controls['text'].errors && report.controls['text'].errors['required'] && report.controls['text'].touched">
 
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd"
@@ -90,7 +90,7 @@
     </div>
     <div class="dialog_content button_content no_footer">
       <div class="button_wrap">
-        <button class="btn_big_submit" [disabled]="report.invalid" translate="COMPONENTS.REPORT_TOPIC.BTN_SUBMIT"
+        <button class="btn_big_submit" [ngClass]="{disabled: report.invalid}" translate="COMPONENTS.REPORT_TOPIC.BTN_SUBMIT"
           (click)="doReport()"></button>
         <a dialog-close translate="COMPONENTS.REPORT_TOPIC.BTN_CANCEL"></a>
       </div>

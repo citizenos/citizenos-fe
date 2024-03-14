@@ -306,7 +306,10 @@ export class TopicComponent implements OnInit {
   reportReasonDialog(topic: Topic) {
     this.DialogService.open(TopicReportReasonComponent, {
       data: {
-        report: topic.report
+        report: {
+          moderatedReasonText: topic.report?.moderatedReasonText || topic.report?.text,
+          moderatedReasonType: topic.report?.moderatedReasonType || topic.report?.type,
+        }
       }
     })
   }

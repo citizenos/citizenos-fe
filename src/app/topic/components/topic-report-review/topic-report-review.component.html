@@ -54,10 +54,10 @@
       <div class="dialog_info_wrap">
         <form [formGroup]="review" id="form_area">
           <cos-input [placeholder]="'MODALS.TOPIC_REPORT_REPORTID_REVIEW_PLACEHOLDER_REPORT_TEXT' | translate">
-            <textarea formControlName="text" [ngClass]="{'error_input': review.touched && review.invalid}"
+            <textarea formControlName="text" [ngClass]="{'error_input': review.controls['text'].invalid && review.controls['text'].touched}"
               [placeholder]="'MODALS.TOPIC_REPORT_REPORTID_REVIEW_PLACEHOLDER_REPORT_TEXT' | translate"
               [maxlength]="4000"></textarea>
-            <div class="error_label" *ngIf="review.touched && review.invalid">
+            <div class="error_label" *ngIf="review.controls['text'].invalid && review.controls['text'].touched">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd"
                   d="M8.89438 1.78911C8.52586 1.05207 7.47405 1.05207 7.10553 1.78911L0.723562 14.553C0.391112 15.2179 0.874608 16.0003 1.61799 16.0003H14.3819C15.1253 16.0003 15.6088 15.2179 15.2763 14.553L8.89438 1.78911ZM6.99996 7.00026C6.99996 6.44798 7.44767 6.00026 7.99996 6.00026C8.55224 6.00026 8.99996 6.44798 8.99996 7.00026V10.0003C8.99996 10.5525 8.55224 11.0003 7.99996 11.0003C7.44767 11.0003 6.99996 10.5525 6.99996 10.0003V7.00026ZM6.99996 13.0003C6.99996 12.448 7.44767 12.0003 7.99996 12.0003C8.55224 12.0003 8.99996 12.448 8.99996 13.0003C8.99996 13.5525 8.55224 14.0003 7.99996 14.0003C7.44767 14.0003 6.99996 13.5525 6.99996 13.0003Z"
@@ -85,7 +85,7 @@
     </div>
     <div class="dialog_content no_footer">
       <div class="button_wrap">
-        <button class="btn_big_submit" [disabled]="isLoading" translate="MODALS.TOPIC_REPORT_REPORTID_REVIEW_BTN_YES"
+        <button class="btn_big_submit" [disabled]="isLoading" [ngClass]="{disabled: review.invalid}" translate="MODALS.TOPIC_REPORT_REPORTID_REVIEW_BTN_YES"
           (click)="doReview()"></button>
         <a dialog-close [attr.disabled]="isLoading" translate="MODALS.TOPIC_REPORT_REPORTID_REVIEW_BTN_NO"></a>
       </div>

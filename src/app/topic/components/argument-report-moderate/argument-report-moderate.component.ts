@@ -5,6 +5,7 @@ import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 import { Argument } from 'src/app/interfaces/argument';
 import { switchMap, take, combineLatest } from 'rxjs';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
+import { TopicService } from 'src/app/services/topic.service';
 
 @Component({
   selector: 'app-argument-report-moderate',
@@ -23,7 +24,7 @@ export class ArgumentReportModerateComponent implements OnInit {
     text: new UntypedFormControl('', Validators.required),
   });
   errors?: any;
-  constructor(@Inject(DIALOG_DATA) data: any, private TopicArgumentService: TopicArgumentService, private dialog: DialogService) {
+  constructor(@Inject(DIALOG_DATA) data: any, private TopicArgumentService: TopicArgumentService, private dialog: DialogService, private TopicService: TopicService) {
     this.argument = data.argument || data.report.comment;
     this.topicId = data.topicId;
     this.commentId = data.commentId;
@@ -33,6 +34,10 @@ export class ArgumentReportModerateComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  selectReportType(type: string) {
+    this.report.controls['type'].setValue(type);
   }
 
   doModerate() {
@@ -47,6 +52,7 @@ export class ArgumentReportModerateComponent implements OnInit {
     this.TopicArgumentService.moderate(data).pipe(take(1))
       .subscribe({
         next: () => {
+          this.TopicArgumentService.reloadArguments();
           this.dialog.closeAll();
         },
         error: (err) => {
@@ -85,7 +91,7 @@ export class ArgumentReportModerateDialogComponent {
       next: (report) => {
         const reportDialog = dialog.open(ArgumentReportModerateComponent, { data: { report, topicId: this.topicId , commentId: this.commentId, token: this.token } });
         reportDialog.afterClosed().subscribe(() => {
-          router.navigate(['../../../../../'], {relativeTo: route});
+          router.navigate(['topics', this.topicId]);
         })
       },
       error: (err) => {
