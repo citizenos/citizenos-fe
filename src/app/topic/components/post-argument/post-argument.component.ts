@@ -62,6 +62,7 @@ export class PostArgumentComponent implements OnInit {
   }
 
   updateText(text: any) {
+    this.argumentForm.controls['text'].markAsTouched();
     this.argumentForm.controls['text'].setValue(text);
   }
 

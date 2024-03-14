@@ -1,5 +1,5 @@
 <div class="form_wrap">
-  <form name="loginSmartIdForm" class="sign_in_section" [formGroup]="smartIdForm" novalidate>
+  <form name="loginSmartIdForm" class="sign_in_section" [formGroup]="smartIdForm">
     <svg width="82" height="20" viewBox="0 0 82 20" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M12.4667 6.39959C12.4667 6.79959 12.1555 7.1107 11.7555 7.1107C11.3555 7.1107 11.0444 6.79959 11.0444 6.39959C11.0444 5.99959 11.3555 5.68848 11.7555 5.68848C12.1555 5.68848 12.4667 5.99959 12.4667 6.39959Z"
@@ -39,10 +39,10 @@
           placeholder="{{'COMPONENTS.LOGIN_SMART_ID_FORM.LOGIN_SMARTID_PLACEHOLDER_COUNTRY_CODE' | translate}}">
           <input id="countryCode" formControlName="countryCode" type="text" [maxlength]="2"
             [placeholder]="'COMPONENTS.LOGIN_SMART_ID_FORM.LOGIN_SMARTID_PLACEHOLDER_COUNTRY_CODE' | translate"
-            [ngClass]="{'error_input': smartIdForm.controls['countryCode'].errors && smartIdForm.controls['countryCode'].errors['pattern'] && smartIdForm.touched}"
+            [ngClass]="{'error_input': smartIdForm.controls['countryCode'].errors && smartIdForm.controls['countryCode'].errors['pattern'] && smartIdForm.controls['countryCode'].touched}"
             pattern="^[A-Z]{2}$" required>
           <label for="pid" class="error_label"
-            *ngIf="smartIdForm.controls['countryCode'].errors && smartIdForm.controls['countryCode'].errors['pattern'] && smartIdForm.touched">
+            *ngIf="smartIdForm.controls['countryCode'].errors && smartIdForm.controls['countryCode'].errors['pattern'] && smartIdForm.controls['countryCode'].touched">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd"
                 d="M8.89438 1.78863C8.52586 1.05158 7.47405 1.05158 7.10553 1.78863L0.723562 14.5526C0.391112 15.2175 0.874608 15.9998 1.61799 15.9998H14.3819C15.1253 15.9998 15.6088 15.2175 15.2763 14.5526L8.89438 1.78863ZM6.99996 6.99977C6.99996 6.44749 7.44767 5.99977 7.99996 5.99977C8.55224 5.99977 8.99996 6.44749 8.99996 6.99977V9.99977C8.99996 10.5521 8.55224 10.9998 7.99996 10.9998C7.44767 10.9998 6.99996 10.5521 6.99996 9.99977V6.99977ZM6.99996 12.9998C6.99996 12.4475 7.44767 11.9998 7.99996 11.9998C8.55224 11.9998 8.99996 12.4475 8.99996 12.9998C8.99996 13.5521 8.55224 13.9998 7.99996 13.9998C7.44767 13.9998 6.99996 13.5521 6.99996 12.9998Z"
@@ -54,9 +54,9 @@
         <cos-input placeholder="{{'COMPONENTS.LOGIN_SMART_ID_FORM.LOGIN_SMARTID_PLACEHOLDER_PID' | translate}}">
           <input id="pid" formControlName="pid" type="text" inputmode="numeric"
             [placeholder]="'COMPONENTS.LOGIN_SMART_ID_FORM.LOGIN_SMARTID_PLACEHOLDER_PID' | translate"
-            [ngClass]="{'error_input': smartIdForm.controls['pid'].errors && smartIdForm.controls['pid'].errors['pattern'] && smartIdForm.touched}">
+            [ngClass]="{'error_input': smartIdForm.controls['pid'].errors && smartIdForm.controls['pid'].errors['pattern'] && smartIdForm.controls['pid'].touched}">
           <label for="pid" class="error_label"
-            *ngIf="smartIdForm.controls['pid'].errors && smartIdForm.controls['pid'].errors['pattern'] && smartIdForm.touched">
+            *ngIf="smartIdForm.controls['pid'].errors && smartIdForm.controls['pid'].errors['pattern'] && smartIdForm.controls['pid'].touched">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd"
                 d="M8.89438 1.78863C8.52586 1.05158 7.47405 1.05158 7.10553 1.78863L0.723562 14.5526C0.391112 15.2175 0.874608 15.9998 1.61799 15.9998H14.3819C15.1253 15.9998 15.6088 15.2175 15.2763 14.5526L8.89438 1.78863ZM6.99996 6.99977C6.99996 6.44749 7.44767 5.99977 7.99996 5.99977C8.55224 5.99977 8.99996 6.44749 8.99996 6.99977V9.99977C8.99996 10.5521 8.55224 10.9998 7.99996 10.9998C7.44767 10.9998 6.99996 10.5521 6.99996 9.99977V6.99977ZM6.99996 12.9998C6.99996 12.4475 7.44767 11.9998 7.99996 11.9998C8.55224 11.9998 8.99996 12.4475 8.99996 12.9998C8.99996 13.5521 8.55224 13.9998 7.99996 13.9998C7.44767 13.9998 6.99996 13.5521 6.99996 12.9998Z"
