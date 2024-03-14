@@ -2151,6 +2151,7 @@
       "TITLE_DESCRIPTION_TEXT": "The main topic content goes here - any instructions, information or context for participants.",
       "TITLE_ATTACHMENTS": "@:MODALS.TOPIC_ATTACHMENTS_TITLE_FILES",
       "TOOLTIP_ATTACHMENTS_TITLE": "Attachment params",
+      "TOOLTIP_ATTACHMENTS_DESCRIPTION_LIMIT": "A maximum of {{limit}} files can be attached to one topic.",
       "TOOLTIP_ATTACHMENTS_DESCRIPTION_SIZE": "Maximum allowed upload size {{allowedFileSize}}. ",
       "TOOLTIP_ATTACHMENTS_DESCRIPTION_TYPES": "Allowed types are: {{allowedFileTypes}}",
       "ATTACHMENTS_BTN_ADD": "@:VIEWS.TOPIC_CREATE.BTN_SECTION_ADD",
