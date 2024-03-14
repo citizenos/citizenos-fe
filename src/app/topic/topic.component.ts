@@ -517,7 +517,10 @@ export class TopicComponent implements OnInit {
   }
 
   selectTab(tab: string) {
-    this.tabTablet= tab;
+    this.tabTablet= '';
+    if (window.innerWidth <= 1024) {
+      this.tabTablet= tab;
+    }
     if (tab === 'vote') tab = 'voting';
     if (tab === 'arguments') tab = 'discussion';
     this.router.navigate([], {fragment: tab})
