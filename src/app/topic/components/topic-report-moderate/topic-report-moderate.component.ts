@@ -53,12 +53,12 @@ export class TopicReportModerateComponent implements OnInit {
   }
 
   changeType(type: string) {
-    this.moderate.patchValue({ 'type': type });
+    this.moderate.controls['type'].setValue(type);
   }
 
   doModerate() {
+    if (this.moderate.invalid) return;
     this.errors = null;
-    this.isLoading = true;
     this.moderate.value.topicId = this.topic.id
     this.moderate.value.id = this.data.topic.report?.id;
     this.TopicReportService
@@ -69,7 +69,6 @@ export class TopicReportModerateComponent implements OnInit {
           this.dialog.closeAll();
         },
         error: (res) => {
-          this.isLoading = false;
           this.errors = res.errors;
         }
       })
@@ -82,15 +81,17 @@ export class TopicReportModerateComponent implements OnInit {
 })
 export class TopicReportModerateDialogComponent implements OnInit {
 
+  topicId!: string;
   constructor(dialog: DialogService, router: Router, route: ActivatedRoute, TopicService: TopicService) {
     route.params.pipe(switchMap((params) => {
+      this.topicId = params['topicId'];
       return TopicService.get(params['topicId']);
     })).pipe(take(1))
       .subscribe((topic) => {
         const reportDialog = dialog.open(TopicReportModerateComponent, { data: { topic } });
         reportDialog.afterClosed().subscribe(() => {
           TopicService.reloadTopic();
-          router.navigate(['../../../'], {relativeTo: route});
+          router.navigate(['topics', this.topicId]);
         })
       })
 

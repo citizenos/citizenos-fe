@@ -30,7 +30,7 @@ export class TopicArgumentsComponent implements OnInit {
     private app: AppService,
     public TopicArgumentService: TopicArgumentService) {
     this.TopicArgumentService.setParam('limit', 5);
-    this.arguments$ = this.TopicArgumentService.loadItems().pipe(
+    this.arguments$ = this.TopicArgumentService.loadArguments().pipe(
       map((res: any[]) => {
         let results = res.concat([]);
         const argArray = <any[]>[];
