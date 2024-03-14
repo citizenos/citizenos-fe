@@ -713,7 +713,10 @@
       "OPT_REMOVE_USER": "Удалить приглашение"
     },
     "TOPIC_MEMBER_USER": {
-      "OPT_REMOVE_USER": "@:MODALS.GROUP_MEMBER_USER_DELETE_CONFIRM_HEADING"
+      "OPT_REMOVE_USER": "@:MODALS.GROUP_MEMBER_USER_DELETE_CONFIRM_HEADING",
+      "LBL_VIA": "@:VIEWS.MY_TOPICS_TOPICID.LBL_VIA",
+      "LBL_INACCESSIBLE_GROUP": "@:VIEWS.MY_TOPICS_TOPICID.LBL_INACCESSIBLE_GROUP",
+      "REMOVE_ERROR_MEMBER_VIA_GROUP": "You cannot remove this topic member as they are a member of the group. If you wish to limit their access to the topic, consider excluding them from the group instead."
     },
     "TOPIC_MILESTONES": {
       "CREATE_A_MILESTONE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_CREATE_A_MILESTONE",
