@@ -6,7 +6,24 @@
       </cos-initials>
     </div>
   </div>
-  <div class="bold" [innerHtml]>{{member.name}}</div>
+  <div class="member_info">
+    <div class="bold user_name">{{member.name}}</div>
+    <div class="via">
+      <span *ngIf="member.email || member.phoneNumber">
+        {{member.email}} {{member.phoneNumber}}
+      </span>
+    </div>
+
+    <div class="via" *ngIf="member.groups.rows.length && !member.levelUser">
+      <span translate="VIEWS.MY_TOPICS_TOPICID.LBL_VIA"></span>
+      <ng-container *ngFor="let group of member.groups.rows; let i = index;">
+        <span *ngIf="i !== 0">,</span>
+        <span *ngIf="group.name" class="blue_link" [routerLink]="['/my/groups/', group.id]"> {{group.name}} </span>
+        <i *ngIf="!group.name" class="disabled" translate="VIEWS.MY_TOPICS_TOPICID.LBL_INACCESSIBLE_GROUP"
+          [translateParams]="{level:('TXT_TOPIC_LEVELS_'+group.level | uppercase | translate)}"></i>
+      </ng-container>
+    </div>
+  </div>
 </div>
 <div class="level">
   <div class="dropdown" [cosDropdown]>
