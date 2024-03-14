@@ -334,7 +334,7 @@
                     fill="#1168A8" />
                 </svg>
               </div>
-              <div class="info_number">{{group.members.topics.count}}</div>
+              <div class="info_number">{{group.members.topics.count.inProgress || 0}}</div>
             </div>
             <!--div class="info_item">
               <div>
@@ -354,7 +354,18 @@
                     fill="#5AB467" />
                 </svg>
               </div>
-              <div class="info_number">{{group.members.topics.count}}</div>
+              <div class="info_number">{{group.members.topics.count.voting || 0}}</div>
+            </div>
+            <div class="info_item">
+              <div>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="16" height="16" rx="8" fill="#DA7AB1" />
+                  <path
+                    d="M9.26255 5.01961L9.06699 4H4.66699V12.6667H5.64477V9.09804H8.38255L8.5781 10.1176H12.0003V5.01961H9.26255Z"
+                    fill="white" />
+                </svg>
+              </div>
+              <div class="info_number">{{group.members.topics.count.followUp || 0}}</div>
             </div>
           </div>
           <a id="view_more" class="tablet_show" (click)="moreInfo = !moreInfo" *ngIf="!moreInfo">
