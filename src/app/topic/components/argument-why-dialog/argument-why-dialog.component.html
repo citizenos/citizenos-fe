@@ -27,15 +27,13 @@
         </a>
       </div>
     </div>
-    <div class="dialog_content" translate="COMPONENTS.ARGUMENT_WHY.MESSAGE_MAIN">
+    <div class="dialog_content no_footer">
       <div class="content_text" translate="COMPONENTS.ARGUMENT_WHY.MESSAGE_MAIN"></div>
       <div class="dialog_info_wrap">
         <div class="dialog_info">
           <div class="bold" [innerHTML]="'TXT_MODERATION_TYPES_' + argument.deletedReasonType | uppercase | translate"></div>
           <div class="text" [innerHTML]="argument.deletedReasonText"></div>
         </div>
-      </div>
-      <div class="dialog_footer">
       </div>
     </div>
   </div>
