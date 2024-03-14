@@ -179,7 +179,7 @@
           <ng-container *ngIf="(members.length > 1) || invites.length">
             <div class="topic_editors_header">
               <div class="title" translate="VIEWS.TOPIC_CREATE.CO_EDITORS_TITLE"></div>
-              <a (click)="manageMembers()" translate="VIEWS.TOPIC_CREATE.CO_EDITORS_LNK_MANAGE"></a>
+              <a (click)="manageMembers()" translate="VIEWS.TOPIC_CREATE.CO_EDITORS_LNK_MANAGE" *ngIf="TopicService.canDelete(topic)"></a>
             </div>
             <div class="topic_members_list_wrap">
               <div class="topic_member">
@@ -213,7 +213,7 @@
             </div>
           </ng-container>
           <button class="btn_medium_secondary bold" (click)="inviteEditors()"
-            translate="VIEWS.TOPIC_CREATE.BTN_INVITE_CO_EDITORS"></button>
+            translate="VIEWS.TOPIC_CREATE.BTN_INVITE_CO_EDITORS" *ngIf="TopicService.canDelete(topic)"></button>
         </div>
 
       </ng-container>
@@ -1173,7 +1173,7 @@
             <ng-container *ngIf="(members.length > 1) || invites.length">
               <div class="topic_editors_header">
                 <div class="title" translate="VIEWS.TOPIC_CREATE.CO_EDITORS_TITLE"></div>
-                <a (click)="manageMembers()" translate="VIEWS.TOPIC_CREATE.CO_EDITORS_LNK_MANAGE"></a>
+                <a (click)="manageMembers()" translate="VIEWS.TOPIC_CREATE.CO_EDITORS_LNK_MANAGE" *ngIf="TopicService.canDelete(topic)"></a>
               </div>
               <div class="topic_members_list_wrap">
                 <div class="topic_member">
@@ -1212,7 +1212,7 @@
             </ng-container>
 
             <button class="btn_medium_secondary bold" (click)="inviteEditors()"
-              translate="VIEWS.TOPIC_CREATE.BTN_INVITE_CO_EDITORS"></button>
+              translate="VIEWS.TOPIC_CREATE.BTN_INVITE_CO_EDITORS" *ngIf="TopicService.canDelete(topic)"></button>
           </div>
         </ng-container>
       </ng-container>
