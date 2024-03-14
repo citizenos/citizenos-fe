@@ -2151,6 +2151,7 @@
       "TITLE_DESCRIPTION_TEXT": "Sem patrí hlavný obsah témy - akékoľvek pokyny, informácie alebo súvislosti pre účastníkov.",
       "TITLE_ATTACHMENTS": "@:MODALS.TOPIC_ATTACHMENTS_TITLE_FILES",
       "TOOLTIP_ATTACHMENTS_TITLE": "Parametre prílohy",
+      "TOOLTIP_ATTACHMENTS_DESCRIPTION_LIMIT": "A maximum of {{limit}} files can be attached to one topic.",
       "TOOLTIP_ATTACHMENTS_DESCRIPTION_SIZE": "Maximálna povolená veľkosť {{allowedFileSize}}. ",
       "TOOLTIP_ATTACHMENTS_DESCRIPTION_TYPES": "Povolené typy sú: {{allowedFileTypes}}",
       "ATTACHMENTS_BTN_ADD": "@:VIEWS.TOPIC_CREATE.BTN_SECTION_ADD",
