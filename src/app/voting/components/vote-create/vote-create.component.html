@@ -42,7 +42,7 @@
               fill="#2C3B47" />
           </svg>
         </button>
-        <button class="btn_medium_plain icon" (click)="deleteTopic()">
+        <button class="btn_medium_plain icon" (click)="deleteTopic(topic.id)">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M9 9H11V17H9L9 9Z" fill="#2C3B47" />
             <path d="M15 9H13V17H15V9Z" fill="#2C3B47" />
@@ -384,7 +384,7 @@
                     <!--textarea id="description_input" placeholder="..." [(ngModel)]="topic.description"
                 [maxlength]="introLimit"></!--textarea-->
                     <iframe cosEtherpad frameborder="0" scrolling="no" [ngClass]="{hidden: !topic.padUrl}"
-                      [src]="sanitizeURL()" width="100%" height="600"></iframe>
+                  [src]="sanitizeURL()" width="100%" height="600"></iframe>
 
                   </div>
                 </ng-container>
@@ -946,7 +946,7 @@
                       fill="#2C3B47" />
                   </svg>
                 </a>
-                <button class="btn_medium_plain icon" (click)="deleteTopic()">
+                <button class="btn_medium_plain icon" (click)="deleteTopic(topic.id)">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M9 9H11V17H9L9 9Z" fill="#2C3B47" />
                     <path d="M15 9H13V17H15V9Z" fill="#2C3B47" />

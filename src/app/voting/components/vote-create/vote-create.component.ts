@@ -75,6 +75,7 @@ export class VoteCreateComponent extends TopicFormComponent {
   @ViewChild('vote_create_form') voteCreateForm?: TopicVoteCreateComponent;
 
   languages$: { [key: string]: any } = this.config.get('language').list;
+  topic$: Observable<Topic>;
 
   public vote = {
     createdAt: '',
@@ -100,29 +101,29 @@ export class VoteCreateComponent extends TopicFormComponent {
   errors?: any;
   override tabs = ['info', 'settings', 'voting_system', 'preview'];
   members = <any[]>[];
-
   constructor(
+    dialog: DialogService,
+    route: ActivatedRoute,
+    router: Router,
+    UploadService: UploadService,
+    Notification: NotificationService,
+    TopicService: TopicService,
+    GroupService: GroupService,
+    GroupMemberTopicService: GroupMemberTopicService,
+    TopicMemberGroupService: TopicMemberGroupService,
+    TopicMemberUserService: TopicMemberUserService,
+    TopicInviteUserService: TopicInviteUserService,
+    TopicAttachmentService: TopicAttachmentService,
+    translate: TranslateService,
+    cd: ChangeDetectorRef,
+    @Inject(DomSanitizer) override sanitizer: DomSanitizer,
     private app: AppService,
-    private cd: ChangeDetectorRef,
-    public TopicService: TopicService,
-    private Upload: UploadService,
-    public translate: TranslateService,
-    private Notification: NotificationService,
-    public GroupService: GroupService,
-    public GroupMemberTopicService: GroupMemberTopicService,
-    public TopicMemberUserService: TopicMemberUserService,
-    private TopicMemberGroupService: TopicMemberGroupService,
-    public TopicInviteUserService: TopicInviteUserService,
-    private router: Router,
-    private route: ActivatedRoute,
-    private dialog: DialogService,
     private TopicVoteService: TopicVoteService,
-    private TopicAttachmentService: TopicAttachmentService,
-    @Inject(DomSanitizer) private sanitizer: DomSanitizer,
     private config: ConfigService) {
+      super(dialog, route, router, UploadService, Notification, TopicService, GroupService, GroupMemberTopicService, TopicMemberGroupService, TopicMemberUserService, TopicInviteUserService, TopicAttachmentService, translate, cd, sanitizer )
     this.app.darkNav = true;
     this.groups$ = this.GroupService.loadItems();
-    this.tabSelected = this.route.fragment.pipe(
+    this.tabSelected = route.fragment.pipe(
       map((fragment) => {
         if (!fragment) {
           return this.selectTab('info');
@@ -130,21 +131,21 @@ export class VoteCreateComponent extends TopicFormComponent {
         return fragment
       }), tap((fragment) => {
         if (fragment === 'info' && !this.TopicService.canEditDescription(<Topic>this.topic)) {
-          const infoDialog = this.dialog.open(TopicEditDisabledDialogComponent);
+          const infoDialog = dialog.open(TopicEditDisabledDialogComponent);
           infoDialog.afterClosed().subscribe(() => {
             this.selectTab('settings')
           });
         }
       }));
     // app.createNewTopic();
-    if (this.router.url.indexOf('/edit/') > -1) {
+    if (router.url.indexOf('/edit/') > -1) {
       this.isnew = false;
     }
-    this.topic$ = this.route.params.pipe(
+    this.topic$ = route.params.pipe(
       switchMap((params) => {
         if (params['topicId']) {
           return this.TopicService.loadTopic(params['topicId']).pipe(map((topic) => {
-            topic.padUrl = this.sanitizer.bypassSecurityTrustResourceUrl(topic.padUrl);
+            this.topicUrl = this.sanitizer.bypassSecurityTrustResourceUrl(topic.padUrl);
             this.topic = topic;
             if (this.topic.id) {
               this.TopicInviteUserService.setParam('topicId', this.topic.id);
@@ -160,8 +161,8 @@ export class VoteCreateComponent extends TopicFormComponent {
                 })
               );
 
-              this.TopicAttachmentService.setParam('topicId', this.topic.id);
-              this.topicAttachments$ = this.TopicAttachmentService.loadItems();
+              TopicAttachmentService.setParam('topicId', this.topic.id);
+              this.topicAttachments$ = TopicAttachmentService.loadItems();
               this.TopicMemberGroupService.setParam('topicId', this.topic.id);
               this.topicGroups$ = this.TopicMemberGroupService.loadItems().pipe(
                 tap((groups) => {
@@ -186,7 +187,7 @@ export class VoteCreateComponent extends TopicFormComponent {
                     this.vote.options.forEach((option) => {
                       option.enabled = true;
                     });
-                    this.cd.detectChanges();
+                    cd.detectChanges();
                   }
                 });
               });
@@ -221,7 +222,9 @@ export class VoteCreateComponent extends TopicFormComponent {
           }
         })*/
   }
+  override ngOnInit(): void {
 
+  }
   override nextTab(tab: string | void) {
     if (tab) {
       if (tab === 'info') {
