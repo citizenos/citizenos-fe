@@ -131,18 +131,7 @@ export class AppService {
       .subscribe((topic) => {
         const redirect = url.concat(['create', topic.id])
         if (groupId) {
-          const level = this.GroupMemberTopicService.LEVELS.read;
-          const member = {
-            groupId: groupId,
-            topicId: topic.id,
-            level: level
-          };
-          this.GroupMemberTopicService
-            .save(member)
-            .pipe(take(1)).
-            subscribe(() => {
-              this.router.navigate(redirect)
-            });
+              this.router.navigate(redirect, {queryParams: {groupId}})
         } else {
           this.router.navigate(redirect)
         }

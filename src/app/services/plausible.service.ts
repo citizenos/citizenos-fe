@@ -25,6 +25,9 @@ export class PlausibleService {
     return this.http.post<ApiResponse>(path, postData, { responseType: 'json', observe: 'body' }).pipe(
       map(res => res.data),
       take(1)
-    ).subscribe();
+    ).subscribe({
+      next: (res) => console.log(res),
+      error: (err) => console.log('Plausible error', err)
+    });
   }
 }
