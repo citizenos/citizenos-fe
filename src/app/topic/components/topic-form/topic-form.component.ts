@@ -108,9 +108,9 @@ export class TopicFormComponent {
   VISIBILITY = this.TopicService.VISIBILITY;
   CATEGORIES = Object.keys(this.TopicService.CATEGORIES);
   groups$: Observable<TopicMemberGroup[] | any[]> = of([]);
-  private loadMembers$ = new BehaviorSubject<void>(undefined);
+  loadMembers$ = new BehaviorSubject<void>(undefined);
   members$: Observable<any[] | any[]> = of([]);
-  private loadInvite$ = new BehaviorSubject<void>(undefined);
+  loadInvite$ = new BehaviorSubject<void>(undefined);
   invites$: Observable<any[]> = of([]);
   topicGroups = <TopicMemberGroup[]>[];
 
@@ -133,21 +133,21 @@ export class TopicFormComponent {
   topicGroups$ = of(<TopicMemberGroup[] | any[]>[])
   memberGroups = <TopicMemberGroup[]>[];
   constructor(
-    private dialog: DialogService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private UploadService: UploadService,
-    private Notification: NotificationService,
+    public dialog: DialogService,
+    public route: ActivatedRoute,
+    public router: Router,
+    public UploadService: UploadService,
+    public Notification: NotificationService,
     public TopicService: TopicService,
     public GroupService: GroupService,
     public GroupMemberTopicService: GroupMemberTopicService,
     public TopicMemberGroupService: TopicMemberGroupService,
     public TopicMemberUserService: TopicMemberUserService,
     public TopicInviteUserService: TopicInviteUserService,
-    private TopicAttachmentService: TopicAttachmentService,
+    public TopicAttachmentService: TopicAttachmentService,
     public translate: TranslateService,
-    private cd: ChangeDetectorRef,
-    @Inject(DomSanitizer) private sanitizer: DomSanitizer
+    public cd: ChangeDetectorRef,
+    @Inject(DomSanitizer) public sanitizer: DomSanitizer
   ) {
     this.groups$ = this.GroupService.loadItems().pipe(tap((groups) => {
       groups.forEach((group: any) => {
@@ -215,6 +215,7 @@ export class TopicFormComponent {
   }
 
   sanitizeURL(): SafeResourceUrl {
+    console.log(this.topicUrl);
     return this.topicUrl;
   }
 
