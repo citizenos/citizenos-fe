@@ -199,7 +199,6 @@ export class GroupComponent implements OnInit {
             this.allTopics$ = [];
             return topics;
           }
-
           GroupMemberTopicService.reset();
           GroupMemberTopicService.setParam('groupId', this.groupId);
           GroupMemberTopicService.setParam('include', ['vote', 'event']);
@@ -254,6 +253,7 @@ export class GroupComponent implements OnInit {
           return GroupMemberTopicService.loadItems();
         }), map(
           (newtopics: any) => {
+            this.allTopics$ = [];
             this.allTopics$ = this.allTopics$.concat(newtopics);
             return this.allTopics$;
           }
