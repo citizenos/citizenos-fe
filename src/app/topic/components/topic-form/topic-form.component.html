@@ -179,7 +179,8 @@
           <ng-container *ngIf="(members.length > 1) || invites.length">
             <div class="topic_editors_header">
               <div class="title" translate="VIEWS.TOPIC_CREATE.CO_EDITORS_TITLE"></div>
-              <a (click)="manageMembers()" translate="VIEWS.TOPIC_CREATE.CO_EDITORS_LNK_MANAGE" *ngIf="TopicService.canDelete(topic)"></a>
+              <a (click)="manageMembers()" translate="VIEWS.TOPIC_CREATE.CO_EDITORS_LNK_MANAGE"
+                *ngIf="TopicService.canDelete(topic)"></a>
             </div>
             <div class="topic_members_list_wrap">
               <div class="topic_member">
@@ -872,8 +873,7 @@
             <button *ngIf="isnew && topic.status === TopicService.STATUSES.draft" class="btn_medium_secondary"
               (click)="saveAsDraft()" translate="VIEWS.TOPIC_CREATE.FOOTER_BTN_SAVE_AS_DRAFT">
             </button>
-            <button *ngIf="!isnew" class="btn_medium_submit icon"
-              (click)="publish();"
+            <button *ngIf="!isnew" class="btn_medium_submit icon" (click)="publish();"
               translate="VIEWS.TOPIC_CREATE.FOOTER_BTN_SAVE_CHANGES_AND_PUBLISH"></button>
             <button *ngIf="isnew || topic.status === TopicService.STATUSES.draft" class="btn_medium_submit publish icon"
               (click)="publish()" [ngClass]="{disabled: !TopicService.canDelete(topic)}">
@@ -920,8 +920,8 @@
                     fill="#2C3B47" />
                 </svg>
               </button>
-              <button class="btn_medium_submit icon mobile_show"
-                (click)="nextTab(tabSelected)" [ngClass]="{disabled: isNextDisabled(tabSelected) || tabSelected === 'preview'}">
+              <button class="btn_medium_submit icon mobile_show" (click)="nextTab(tabSelected)"
+                [ngClass]="{disabled: isNextDisabled(tabSelected) || tabSelected === 'preview'}">
                 <span class="btn_text mobile_hidden" [translate]="'VIEWS.TOPIC_CREATE.FOOTER_BTN_CONTINUE'"></span>
                 <svg class="mobile_show" id="continue_btn" width="24" height="24" viewBox="0 0 24 24" fill="none"
                   xmlns="http://www.w3.org/2000/svg">
@@ -1173,23 +1173,26 @@
             <ng-container *ngIf="(members.length > 1) || invites.length">
               <div class="topic_editors_header">
                 <div class="title" translate="VIEWS.TOPIC_CREATE.CO_EDITORS_TITLE"></div>
-                <a (click)="manageMembers()" translate="VIEWS.TOPIC_CREATE.CO_EDITORS_LNK_MANAGE" *ngIf="TopicService.canDelete(topic)"></a>
+                <a (click)="manageMembers()" translate="VIEWS.TOPIC_CREATE.CO_EDITORS_LNK_MANAGE"
+                  *ngIf="TopicService.canDelete(topic)"></a>
               </div>
               <div class="topic_members_list_wrap">
                 <div class="topic_member">
                   <div class="bold" translate="VIEWS.TOPIC_CREATE.CO_EDITORS_LBL_JOINED"></div>
                 </div>
-                <div class="topic_member" *ngFor="let member of members">
-                  <div class="profile_image_wrap">
-                    <img class="profile_image" *ngIf="member.imageUrl" [src]="member.imageUrl">
-                    <div class="profile_image_filler small" *ngIf="!member.imageUrl">
-                      <cos-initials *ngIf="member.name" [name]="member.name">
-                      </cos-initials>
+                <ng-container *ngFor="let member of members">
+                  <div class="topic_member" *ngIf="member.level === TopicService.LEVELS.edit || member.level === TopicService.LEVELS.admin">
+                    <div class="profile_image_wrap">
+                      <img class="profile_image" *ngIf="member.imageUrl" [src]="member.imageUrl">
+                      <div class="profile_image_filler small" *ngIf="!member.imageUrl">
+                        <cos-initials *ngIf="member.name" [name]="member.name">
+                        </cos-initials>
+                      </div>
                     </div>
-                  </div>
 
-                  <span>{{member.name}}</span>
-                </div>
+                    <span>{{member.name}}</span>
+                  </div>
+                </ng-container>
               </div>
               <ng-container *ngIf="invites">
                 <div class="topic_members_list_wrap" *ngIf="invites.length">
