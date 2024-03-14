@@ -15,11 +15,11 @@
     </div>
 
     <div class="via" *ngIf="member.groups.rows.length && !member.levelUser">
-      <span translate="VIEWS.MY_TOPICS_TOPICID.LBL_VIA"></span>
+      <span translate="COMPONENTS.TOPIC_MEMBER_USER.LBL_VIA"></span>
       <ng-container *ngFor="let group of member.groups.rows; let i = index;">
         <span *ngIf="i !== 0">,</span>
         <span *ngIf="group.name" class="blue_link" [routerLink]="['/my/groups/', group.id]"> {{group.name}} </span>
-        <i *ngIf="!group.name" class="disabled" translate="VIEWS.MY_TOPICS_TOPICID.LBL_INACCESSIBLE_GROUP"
+        <i *ngIf="!group.name" class="disabled" translate="COMPONENTS.TOPIC_MEMBER_USER.LBL_INACCESSIBLE_GROUP"
           [translateParams]="{level:('TXT_TOPIC_LEVELS_'+group.level | uppercase | translate)}"></i>
       </ng-container>
     </div>
