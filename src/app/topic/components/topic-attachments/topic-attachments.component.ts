@@ -180,7 +180,7 @@ export class TopicAttachmentsComponent implements OnInit {
   }
 
   getAllowedFileTypes() {
-    return ["txt", "text", "bdoc", "asice", "ddoc", "conf", "def", "list", "log", "in", "ini", "pdf", "doc", "dot", "docx", "odt", "ods", "jpeg", "jpg", "jpe", "png", "rtf", "xls", "xlm", "xla", "xlc", "xlt", "xlw", "xlsx", "ppt", "pps", "pot", "pptx"].join(', ');
+    return ["txt", "pdf", "doc", "asice", "docx", "ddoc", "bdoc", "odf", "odt", "jpg", "jpeg", "img", "png", "rtf", "xls", "xlsx", "ppt", "pptx", "pps", "xlt"].join(', ');
   }
   attachmentUpload(): void {
     const files = this.attachmentInput?.nativeElement.files;
