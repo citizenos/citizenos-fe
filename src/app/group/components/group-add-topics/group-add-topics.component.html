@@ -100,7 +100,13 @@
         <div class="row header_row" *ngIf="!dialog">
           <div class="title"><a translate="COMPONENTS.GROUP_ADD_TOPICS.HEADING_TITLE"></a></div>
           <div class="participants" translate="COMPONENTS.GROUP_ADD_TOPICS.HEADING_PARTICIPANTS"></div>
-          <div class="level" translate="COMPONENTS.GROUP_ADD_TOPICS.HEADING_GROUP_PERMISSIONS"></div>
+          <div class="level with_tooltip" translate="COMPONENTS.GROUP_ADD_TOPICS.HEADING_GROUP_PERMISSIONS">
+            <div class="tooltip" tooltip>
+              <div class="content_title" translate="COMPONENTS.GROUP_ADD_TOPICS.TOOLTIP_GROUP_PERMISSIONS_TITLE"></div>
+              <div class="content_description" translate="COMPONENTS.GROUP_ADD_TOPICS.TOOLTIP_GROUP_PERMISSIONS_CONTENT">
+              </div>
+            </div>
+          </div>
           <div class="actions mobile_hide" translate="COMPONENTS.GROUP_ADD_TOPICS.HEADING_ACTIONS"></div>
         </div>
         <ng-container *ngFor="let topic of group.members.topics; index as i;">
@@ -166,7 +172,13 @@
                 <span>{{topic.members.users.count}}</span>
               </div>
               <div class="level">
-                <div class="cell_title" translate="COMPONENTS.GROUP_ADD_TOPICS.HEADING_GROUP_PERMISSIONS"></div>
+                <div class="cell_title" translate="COMPONENTS.GROUP_ADD_TOPICS.HEADING_GROUP_PERMISSIONS">
+                  <div class="tooltip" tooltip>
+                    <div class="content_title" translate="COMPONENTS.GROUP_ADD_TOPICS.TOOLTIP_GROUP_PERMISSIONS_TITLE"></div>
+                    <div class="content_description" translate="COMPONENTS.GROUP_ADD_TOPICS.TOOLTIP_GROUP_PERMISSIONS_CONTENT">
+                    </div>
+                  </div>
+                </div>
                 <div class="dropdown" [cosDropdown]
                   [cosDisabled]="TopicService.canUpdate(topic) && group.visibility !== GroupService.VISIBILITY.public">
                   <div class="selection">
