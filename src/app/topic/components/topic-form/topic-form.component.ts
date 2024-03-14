@@ -83,6 +83,7 @@ export class TopicFormComponent {
   }
   @ViewChild('imageUpload') fileInput?: ElementRef;
   @Input() topic!: Topic;
+  @Input() groupId?: string;
   @Input() isnew?: boolean = true;
   topicUrl = <SafeResourceUrl>'';
   tabSelected;
@@ -130,7 +131,7 @@ export class TopicFormComponent {
   showGroups = false;
   topicAttachments$ = of(<Attachment[] | any[]>[]);
   topicGroups$ = of(<TopicMemberGroup[] | any[]>[])
-
+  memberGroups = <TopicMemberGroup[]> [];
   constructor(
     private dialog: DialogService,
     private route: ActivatedRoute,
@@ -148,7 +149,14 @@ export class TopicFormComponent {
     private cd: ChangeDetectorRef,
     @Inject(DomSanitizer) private sanitizer: DomSanitizer
   ) {
-    this.groups$ = this.GroupService.loadItems();
+    this.groups$ = this.GroupService.loadItems().pipe(tap((groups) => {
+      groups.forEach((group: any) => {
+        if (this.groupId && this.groupId === group.id) {
+          const exists = this.topicGroups.find((mgroup) => mgroup.id === group.id);
+          if (!exists) this.addGroup(group);
+        }
+      })
+    }));
     this.tabSelected = this.route.fragment.pipe(
       map((fragment) => {
         if (!fragment) {
@@ -197,11 +205,6 @@ export class TopicFormComponent {
       this.TopicMemberGroupService.setParam('topicId', this.topic.id);
       this.topicGroups$ = this.TopicMemberGroupService.loadItems().pipe(
         tap((groups) => {
-          if (groups.length && this.isnew) {
-            this.topic.visibility = groups[0].visibility;
-            this.isCreatedFromGroup = true;
-            this.updateTopic();
-          }
           groups.forEach((group: any) => {
             const exists = this.topicGroups.find((mgroup) => mgroup.id === group.id);
             if (!exists) this.topicGroups.push(group);
@@ -385,11 +388,7 @@ export class TopicFormComponent {
     }
     return this.TopicService.patch(updateTopic).pipe(take(1)).subscribe(() => {
       this.topicGroups.forEach((group) => {
-        this.GroupMemberTopicService.save({
-          groupId: group.id,
-          topicId: this.topic.id,
-          level: group.level || this.GroupMemberTopicService.LEVELS.read
-        }).pipe(take(1)).subscribe();
+        this.saveMemberGroup(group);
       });
 
       this.TopicService.reloadTopic()
@@ -406,6 +405,14 @@ export class TopicFormComponent {
       });
     }
   }
+  saveMemberGroup(group: any) {
+    this.GroupMemberTopicService.save({
+      groupId: group.id,
+      topicId: this.topic.id,
+      level: group.level || this.GroupMemberTopicService.LEVELS.read
+    }).pipe(take(1)).subscribe();
+  }
+
   publish() {
     const isDraft = (this.topic.status === this.TopicService.STATUSES.draft);
     this.topic.status = this.TopicService.STATUSES.inProgress;
@@ -417,11 +424,7 @@ export class TopicFormComponent {
     this.TopicService.patch(updateTopic).pipe(take(1)).subscribe(() => {
       this.TopicService.reloadTopic();
       this.topicGroups.forEach((group) => {
-        this.GroupMemberTopicService.save({
-          groupId: group.id,
-          topicId: this.topic.id,
-          level: group.level || this.GroupMemberTopicService.LEVELS.read
-        }).pipe(take(1)).subscribe();
+        this.saveMemberGroup(group)
       });
       this.TopicService.reloadTopic();
       this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
@@ -445,8 +448,12 @@ export class TopicFormComponent {
   }
 
   addGroup(group: TopicMemberGroup) {
-    group.level = this.GroupMemberTopicService.LEVELS.read;
-    this.topicGroups.push(group);
+    console.log(this.topicGroups);
+    const exists = this.topicGroups.find((mgroup) => mgroup.id === group.id);
+    if (!exists) {
+      group.level = this.GroupMemberTopicService.LEVELS.read;
+      this.topicGroups.push(group);
+    }
   }
 
   removeGroup(group: TopicMemberGroup) {

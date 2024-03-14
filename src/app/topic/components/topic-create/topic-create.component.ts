@@ -2,7 +2,7 @@ import { trigger, state, style } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable, switchMap, tap, take } from 'rxjs';
+import { Observable, switchMap, tap, take, combineLatest } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { AppService } from 'src/app/services/app.service';
 import { TopicService } from 'src/app/services/topic.service';
@@ -43,6 +43,7 @@ export class TopicCreateComponent implements OnInit {
 
   /**/
   topic$: Observable<Topic>;
+  groupId?: string;
   errors?: any;
 
   constructor(
@@ -54,19 +55,20 @@ export class TopicCreateComponent implements OnInit {
     private route: ActivatedRoute) {
     this.app.darkNav = true;
     // app.createNewTopic();
-    this.topic$ = this.route.params.pipe(
-      switchMap((params) => {
+    this.topic$ = combineLatest([this.route.params, this.route.queryParams]).pipe(
+      switchMap(([params, queryParams]) => {
+        if (queryParams['groupId']) this.groupId = queryParams['groupId'];
         if (params['topicId']) {
           return this.TopicService.loadTopic(params['topicId'])
         }
-        return this.createTopic();
+        return this.createTopic(queryParams);
       })
     );
   }
   ngOnInit(): void {
   }
 
-  createTopic() {
+  createTopic(params?:any) {
     const topic = {
       description: '<html><head></head><body></body></html>',
       status: this.TopicService.STATUSES.draft,
@@ -76,7 +78,7 @@ export class TopicCreateComponent implements OnInit {
     return this.TopicService.save(topic)
       .pipe(take(1),
         tap((topic: Topic) => {
-          this.router.navigate([topic.id], { relativeTo: this.route });
+          this.router.navigate([topic.id], { relativeTo: this.route, queryParams: params});
         }));
     /*this.app.createNewTopic(this.topic.title, this.topic.visibility)
     .pipe(take(1))
