@@ -36,7 +36,7 @@ export class ArgumentReportComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    this.reportTextInput.nativeElement.focus();
+    //this.reportTextInput.nativeElement.focus();
   }
 
   selectReportType(type: string) {

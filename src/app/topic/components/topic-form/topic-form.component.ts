@@ -131,7 +131,7 @@ export class TopicFormComponent {
   showGroups = false;
   topicAttachments$ = of(<Attachment[] | any[]>[]);
   topicGroups$ = of(<TopicMemberGroup[] | any[]>[])
-  memberGroups = <TopicMemberGroup[]> [];
+  memberGroups = <TopicMemberGroup[]>[];
   constructor(
     private dialog: DialogService,
     private route: ActivatedRoute,
@@ -248,15 +248,22 @@ export class TopicFormComponent {
       }
     }
     window.scrollTo(0, 0);
-    this.updateTopic();
     if (tab) {
-      const tabIndex = this.tabs.indexOf(tab);
+      let tabIndex = this.tabs.indexOf(tab);
+      if (tab === 'info' && this.topic.permission.level === this.TopicService.LEVELS.edit) tabIndex = tabIndex + 1;
       if (tabIndex > -1 && tabIndex < 2) {
         this.selectTab(this.tabs[tabIndex + 1]);
       }
       if (tabIndex + 1 === 2) {
         setTimeout(() => {
-          this.TopicService.reloadTopic();
+          this.TopicService.readDescription(this.topic.id).pipe(take(1)).subscribe({
+            next: (topic) => {
+              this.topic.description = topic.description;
+            },
+            error: (err) => {
+              console.error(err)
+            }
+          });
         }, 200)
       }
     }
@@ -273,24 +280,16 @@ export class TopicFormComponent {
   }
 
   saveImage() {
+    console.log('save Image')
     if (this.imageFile) {
-      this.UploadService
+      return this.UploadService
         .uploadTopicImage({ topicId: this.topic.id }, this.imageFile).pipe(
           takeWhile((res: any) => {
             return (!res.link)
           }, true)
-        )
-        .subscribe({
-          next: (res: any) => {
-            if (res.link) {
-              this.topic.imageUrl = res.link;
-            }
-          },
-          error: (err: any) => {
-            console.log('ERROR', err);
-          }
-        });
+        );
     }
+    return of(false);
   }
 
   fileUpload() {
@@ -309,7 +308,13 @@ export class TopicFormComponent {
       }, 5000)
     } else {
       this.imageFile = files[0];
-      return this.saveImage();
+      const reader = new FileReader();
+      reader.onload = (() => {
+        return (e: any) => {
+          this.tmpImageUrl = e.target.result;
+        };
+      })();
+      reader.readAsDataURL(files[0]);
     }
   }
 
@@ -322,7 +327,6 @@ export class TopicFormComponent {
       };
     })();
     reader.readAsDataURL(files[0]);
-    this.saveImage();
   }
 
   uploadImage() {
@@ -336,7 +340,6 @@ export class TopicFormComponent {
     if (this.topic.imageUrl) {
       this.topic.imageUrl = null;
       this.tmpImageUrl = undefined;
-      this.updateTopic();
     }
   };
 
@@ -379,29 +382,35 @@ export class TopicFormComponent {
     });
   };
 
-  updateTopic() {
-    this.titleInput?.nativeElement?.parentNode.parentNode.classList.remove('error');
-    this.introInput?.nativeElement?.parentNode.parentNode.classList.remove('error');
-    const updateTopic = Object.assign({}, this.topic);
-    if (!updateTopic.intro?.length) {
-      updateTopic.intro = null;
-    }
-    return this.TopicService.patch(updateTopic).pipe(take(1)).subscribe(() => {
-      this.topicGroups.forEach((group) => {
-        this.saveMemberGroup(group);
-      });
-
-      this.TopicService.reloadTopic()
-
-    });
-  }
-
   saveAsDraft() {
+    console.log('SAVE AS DRAFT')
     if (this.topic.status === this.TopicService.STATUSES.draft) {
-      this.TopicService.patch(this.topic).pipe(take(1)).subscribe({
-        next: () => {
-          this.router.navigate(['my', 'topics']);
-        }
+      const updateTopic = Object.assign({}, this.topic);
+      if (!updateTopic.intro?.length) {
+        updateTopic.intro = null;
+      }
+
+      this.TopicService.patch(updateTopic).pipe(take(1)).subscribe(() => {
+        this.topicGroups.forEach((group) => {
+          this.saveMemberGroup(group);
+        });
+        this.saveImage()
+          .subscribe({
+            next: (res: any) => {
+              console.log('save IMAEG', res);
+              if (res && !res.link) return;
+              if (res.link) {
+                this.topic.imageUrl = res.link;
+              }
+
+              this.router.navigate(['my', 'topics']);
+              this.Notification.addSuccess('VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE');
+            },
+            error: (err: any) => {
+              console.log('ERROR', err);
+            }
+          });
+
       });
     }
   }
@@ -414,6 +423,7 @@ export class TopicFormComponent {
   }
 
   publish() {
+    this.titleInput?.nativeElement?.parentNode.parentNode.classList.remove('error');
     const isDraft = (this.topic.status === this.TopicService.STATUSES.draft);
     this.topic.status = this.TopicService.STATUSES.inProgress;
     const updateTopic = Object.assign({}, this.topic);
@@ -421,19 +431,34 @@ export class TopicFormComponent {
       updateTopic.intro = null;
     }
 
-    this.TopicService.patch(updateTopic).pipe(take(1)).subscribe(() => {
-      this.TopicService.reloadTopic();
-      this.topicGroups.forEach((group) => {
-        this.saveMemberGroup(group)
-      });
-      this.TopicService.reloadTopic();
-      this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
+    this.TopicService.patch(updateTopic).pipe(take(1)).subscribe({
+      next: () => {
+        console.log('SAVED');
+        this.TopicService.reloadTopic();
+        this.saveImage()
+          .subscribe({
+            next: (res: any) => {
+              if (res && !res.link) return;
 
-      if (this.isnew || isDraft) {
-        this.Notification.addSuccess('VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_TITLE');
-        this.inviteMembers();
-      } else {
-        this.Notification.addSuccess('VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE');
+              this.topicGroups.forEach((group) => {
+                this.saveMemberGroup(group)
+              });
+              this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
+
+              if (this.isnew || isDraft) {
+                this.Notification.addSuccess('VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_TITLE');
+                this.inviteMembers();
+              } else {
+                this.Notification.addSuccess('VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE');
+              }
+            },
+            error: (err) => {
+              console.log('publish error', err)
+            }
+          });
+      },
+      error: (err: any) => {
+        console.log('ERROR', err);
       }
     });
   }
@@ -498,11 +523,9 @@ export class TopicFormComponent {
 
   setCountry(country: string) {
     this.topic.country = country;
-    this.updateTopic();
   }
   setLanguage(language: string) {
     this.topic.language = language;
-    this.updateTopic();
   }
 
   addTag(e: Event) {
@@ -516,21 +539,24 @@ export class TopicFormComponent {
     this.tags.splice(this.tags.indexOf(tag), 1);
   }
 
-  cancel() {/*
+  cancel() {
     const confirmDialog = this.dialog.open(InterruptDialogComponent);
 
     confirmDialog.afterClosed().subscribe(result => {
       if (result === true) {
-        /*this.TopicService.delete({ id: this.topic.id })
-          .pipe(take(1))
-          .subscribe(() => {
-            this.router.navigate(['dashboard']);
-          })
-        this.router.navigate(['dashboard']);
+        if (this.isnew) {
+          this.TopicService.delete({ id: this.topic.id })
+            .pipe(take(1))
+            .subscribe(() => {
+              this.router.navigate(['dashboard']);
+            })
+        } else {
+          this.router.navigate(['dashboard']);
+        }
       }
-    });*/
+    });
     //[routerLink]="['/', translate.currentLang, 'topics', topic.id]"
-    this.router.navigate(['dashboard']);
+    //  this.router.navigate(['dashboard']);
   }
 
   setGroupLevel(group: TopicMemberGroup, level: string) {

@@ -309,7 +309,7 @@
             </div>
             <ng-container *ngIf="block.title || topic.title">
               <div class="block_content">
-                <input id="title_input" #topicTitle placeholder="..." [(ngModel)]="topic.title" (change)="updateTopic()"
+                <input id="title_input" #topicTitle placeholder="..." [(ngModel)]="topic.title"
                   [maxlength]="titleLimit" />
               </div>
             </ng-container>
@@ -336,7 +336,7 @@
             <ng-container *ngIf="block.intro || topic.intro">
               <div class="block_content">
                 <textarea id="intro_input" #topicIntro placeholder="..." [(ngModel)]="topic.intro"
-                  (change)="updateTopic()" [maxlength]="introLimit"></textarea>
+                  [maxlength]="introLimit"></textarea>
               </div>
             </ng-container>
           </div>
@@ -469,7 +469,7 @@
                     <div class="radio_lable_wrap">
                       <label class="radio_box">
                         <input type="radio" [checked]="topic.visibility === VISIBILITY.private"
-                          [(ngModel)]="topic.visibility" name="visibility" (change)="updateTopic();" value="private">
+                          [(ngModel)]="topic.visibility" name="visibility" value="private">
                         <span class="radio"></span>
                         <div class="radio_lable" translate="VIEWS.TOPIC_CREATE.SETTINGS_VISIBILITY_PRIVATE">
                         </div>
@@ -485,7 +485,7 @@
                     <div class="radio_lable_wrap">
                       <label class="radio_box">
                         <input type="radio" [checked]="topic.visibility === VISIBILITY.public"
-                          [(ngModel)]="topic.visibility" name="visibility" (change)="updateTopic();" value="public">
+                          [(ngModel)]="topic.visibility" name="visibility" value="public">
                         <span class="radio"></span>
                         <div class="radio_lable" translate="VIEWS.TOPIC_CREATE.SETTINGS_VISIBILITY_PUBLIC">
                         </div>
@@ -769,7 +769,7 @@
               <span [innerHTML]="'VIEWS.TOPIC_CREATE.PREVIEW_INFO' | translate"></span>
             </div>
             <div class="topic_image">
-              <img *ngIf="topic.imageUrl" [src]="topic.imageUrl">
+              <img *ngIf="(topic.imageUrl || tmpImageUrl)" [src]="(topic.imageUrl || tmpImageUrl)">
             </div>
             <div id="topic_text_wrap" #topicText [@readMore]="readMore? 'open' : 'closed'">
               <div class="topic_title">
@@ -920,6 +920,16 @@
                     fill="#2C3B47" />
                 </svg>
               </button>
+              <button class="btn_medium_submit icon mobile_hidden" (click)="nextTab(tabSelected)" *ngIf="!isnew && topic.status !== TopicService.STATUSES.draft"
+                [ngClass]="{disabled: isNextDisabled(tabSelected) || tabSelected === 'preview'}">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M14.5467 6.31262C14.1471 5.89579 13.4991 5.89579 13.0994 6.31262C12.6997 6.72945 12.6997 7.40527 13.0994 7.8221L16.0816 11L6 11C5.43478 11 5 11.4108 5 12.0003C5 12.5897 5.43478 12.9824 6 12.9824L16.0816 12.9824L13.0994 16.1779C12.6997 16.5947 12.6997 17.2705 13.0994 17.6874C13.4991 18.1042 14.1471 18.1042 14.5467 17.6874L20 12L14.5467 6.31262Z"
+                    fill="white" />
+                </svg>
+              </button>
+
               <button class="btn_medium_submit icon mobile_show" (click)="nextTab(tabSelected)"
                 [ngClass]="{disabled: isNextDisabled(tabSelected) || tabSelected === 'preview'}">
                 <span class="btn_text mobile_hidden" [translate]="'VIEWS.TOPIC_CREATE.FOOTER_BTN_CONTINUE'"></span>
@@ -930,12 +940,13 @@
                     fill="white" />
                 </svg>
               </button>
-              <button *ngIf="!isnew && tabSelected!=='preview'" class="btn_medium_secondary icon mobile_hidden"
-                (click)="updateTopic()" translate="VIEWS.TOPIC_CREATE.FOOTER_BTN_SAVE_CHANGES"></button>
-              <button class="btn_medium_submit icon mobile_hidden" (click)="(tabSelected!=='preview' )?
+              <button *ngIf="topic.status === TopicService.STATUSES.draft" class="btn_medium_secondary"
+                (click)="saveAsDraft()" translate="VIEWS.TOPIC_CREATE.FOOTER_BTN_SAVE_AS_DRAFT" [ngClass]="{disabled: isNextDisabled(tabSelected)}">
+              </button>
+              <button class="btn_medium_submit icon mobile_hidden" (click)="(tabSelected!=='preview' && (topic.status === TopicService.STATUSES.draft) )?
                 nextTab(tabSelected) : publish()" [ngClass]="{disabled: isNextDisabled(tabSelected)}">
                 <span class="btn_text mobile_hidden"
-                  [translate]="(tabSelected!=='preview')? 'VIEWS.TOPIC_CREATE.FOOTER_BTN_CONTINUE': (topic.status === TopicService.STATUSES.draft)? 'VIEWS.TOPIC_CREATE.FOOTER_BTN_CREATE' : 'VIEWS.TOPIC_CREATE.FOOTER_BTN_SAVE_CHANGES'"></span>
+                  [translate]="(tabSelected!=='preview' && topic.status === TopicService.STATUSES.draft)? 'VIEWS.TOPIC_CREATE.FOOTER_BTN_CONTINUE': 'VIEWS.TOPIC_CREATE.FOOTER_BTN_SAVE_CHANGES_AND_PUBLISH'"></span>
                 <svg class="mobile_show" id="continue_btn" width="24" height="24" viewBox="0 0 24 24" fill="none"
                   xmlns="http://www.w3.org/2000/svg">
                   <path
@@ -1181,7 +1192,8 @@
                   <div class="bold" translate="VIEWS.TOPIC_CREATE.CO_EDITORS_LBL_JOINED"></div>
                 </div>
                 <ng-container *ngFor="let member of members">
-                  <div class="topic_member" *ngIf="member.level === TopicService.LEVELS.edit || member.level === TopicService.LEVELS.admin">
+                  <div class="topic_member"
+                    *ngIf="member.level === TopicService.LEVELS.edit || member.level === TopicService.LEVELS.admin">
                     <div class="profile_image_wrap">
                       <img class="profile_image" *ngIf="member.imageUrl" [src]="member.imageUrl">
                       <div class="profile_image_filler small" *ngIf="!member.imageUrl">
