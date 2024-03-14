@@ -582,15 +582,22 @@ html {
   flex-direction: row;
 
   h1 {
-    font-size: 2em;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 32px;
   }
 
   h2 {
     font-size: 1.5em;
+    font-weight: 600;
+    line-height: 32px;
   }
 
   h3 {
     font-size: 1.17em;
+    font-weight: 600;
+    line-height: 32px;
   }
 
   h4 {
@@ -756,7 +763,7 @@ cos-input {
     right: 8px;
     height: 100%;
     width: 32px;
-    display:flex;
+    display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
@@ -1605,7 +1612,8 @@ tour-item-template {
     height: 150px;
     border: none;
 
-    .cm-formatting-strong, .cm-formatting-em {
+    .cm-formatting-strong,
+    .cm-formatting-em {
       display: none;
     }
   }
