@@ -215,7 +215,6 @@ export class TopicFormComponent {
   }
 
   sanitizeURL(): SafeResourceUrl {
-    console.log(this.topicUrl);
     return this.topicUrl;
   }
 
@@ -281,7 +280,6 @@ export class TopicFormComponent {
   }
 
   saveImage() {
-    console.log('save Image')
     if (this.imageFile) {
       return this.UploadService
         .uploadTopicImage({ topicId: this.topic.id }, this.imageFile).pipe(
@@ -354,7 +352,6 @@ export class TopicFormComponent {
   showBlockIntro() {
     this.block.intro = true;
     setTimeout(() => {
-      console.log(this.introInput)
       this.introInput.nativeElement.focus();
     }, 200);
   }
@@ -384,7 +381,6 @@ export class TopicFormComponent {
   };
 
   saveAsDraft() {
-    console.log('SAVE AS DRAFT')
     if (this.topic.status === this.TopicService.STATUSES.draft) {
       const updateTopic = Object.assign({}, this.topic);
       if (!updateTopic.intro?.length) {
@@ -398,7 +394,6 @@ export class TopicFormComponent {
         this.saveImage()
           .subscribe({
             next: (res: any) => {
-              console.log('save IMAEG', res);
               if (res && !res.link) return;
               if (res.link) {
                 this.topic.imageUrl = res.link;
@@ -415,6 +410,7 @@ export class TopicFormComponent {
       });
     }
   }
+
   saveMemberGroup(group: any) {
     this.GroupMemberTopicService.save({
       groupId: group.id,
@@ -434,7 +430,6 @@ export class TopicFormComponent {
 
     this.TopicService.patch(updateTopic).pipe(take(1)).subscribe({
       next: () => {
-        console.log('SAVED');
         this.TopicService.reloadTopic();
         this.saveImage()
           .subscribe({
@@ -474,7 +469,6 @@ export class TopicFormComponent {
   }
 
   addGroup(group: TopicMemberGroup) {
-    console.log(this.topicGroups);
     const exists = this.topicGroups.find((mgroup) => mgroup.id === group.id);
     if (!exists) {
       group.level = this.GroupMemberTopicService.LEVELS.read;
