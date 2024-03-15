@@ -67,9 +67,11 @@ export class RegisterFormComponent {
       this.errors = Object.assign(this.errors,{
         password: 'MSG_ERROR_PASSWORD_MISMATCH'
       });
+      return;
     }
-
-    if (this.signUpForm.invalid) return;
+    if (this.signUpForm.invalid) {
+      return;
+    }
     else {
       this.AuthService
         .signUp({
