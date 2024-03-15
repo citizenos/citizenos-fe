@@ -120,7 +120,7 @@ export class VoteCreateComponent extends TopicFormComponent {
     private app: AppService,
     private TopicVoteService: TopicVoteService,
     private config: ConfigService) {
-      super(dialog, route, router, UploadService, Notification, TopicService, GroupService, GroupMemberTopicService, TopicMemberGroupService, TopicMemberUserService, TopicInviteUserService, TopicAttachmentService, translate, cd, sanitizer )
+    super(dialog, route, router, UploadService, Notification, TopicService, GroupService, GroupMemberTopicService, TopicMemberGroupService, TopicMemberUserService, TopicInviteUserService, TopicAttachmentService, translate, cd, sanitizer)
     this.app.darkNav = true;
     this.groups$ = this.GroupService.loadItems();
     this.tabSelected = route.fragment.pipe(
@@ -169,9 +169,8 @@ export class VoteCreateComponent extends TopicFormComponent {
                   if (groups.length && this.isnew) {
                     this.topic.visibility = groups[0].visibility;
                     this.isCreatedFromGroup = true;
-                    this.updateTopic();
                   }
-                  groups.forEach((group:any) => {
+                  groups.forEach((group: any) => {
                     const exists = this.topicGroups.find((mgroup) => mgroup.id === group.id);
                     if (!exists) this.topicGroups.push(group);
                   })
@@ -251,11 +250,6 @@ export class VoteCreateComponent extends TopicFormComponent {
           this.Notification.addError('VIEWS.VOTE_CREATE.ERROR_AT_LEAST_TWO_OPTIONS_REQUIRED');
           return;
         }
-        if (!this.vote.id) {
-          this.createVote();
-        } else {
-          this.updateVote();
-        }
         /*  if (this.voteCreateForm)
             this.voteCreateForm.saveVoteSettings();*/
       }
@@ -280,10 +274,6 @@ export class VoteCreateComponent extends TopicFormComponent {
     }
   }
 
-  topicDownload() {
-    return this.TopicService.download(this.topic.id);
-  }
-
   createTopic() {
     const topic = {
       description: '<html><head></head><body></body></html>',
@@ -297,71 +287,95 @@ export class VoteCreateComponent extends TopicFormComponent {
         }));
   }
 
+  override saveAsDraft() {
+    if (this.topic.status === this.TopicService.STATUSES.draft) {
+      const updateTopic = Object.assign({}, this.topic);
+      if (!updateTopic.intro?.length) {
+        updateTopic.intro = null;
+      }
 
-  updateTopic() {
+      this.TopicService.patch(updateTopic).pipe(take(1)).subscribe(() => {
+        if (!this.vote.id) {
+          this.createVote();
+        } else {
+          this.updateVote();
+        }
+        this.topicGroups.forEach((group) => {
+          this.saveMemberGroup(group);
+        });
+        this.saveImage()
+          .subscribe({
+            next: (res: any) => {
+              if (res && !res.link) return;
+              if (res.link) {
+                this.topic.imageUrl = res.link;
+              }
+
+              this.router.navigate(['my', 'topics']);
+              this.Notification.addSuccess('VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE');
+            },
+            error: (err: any) => {
+              console.log('ERROR', err);
+            }
+          });
+
+      });
+    }
+  }
+
+  override publish() {
     this.titleInput?.nativeElement?.parentNode.parentNode.classList.remove('error');
-    this.introInput?.nativeElement?.parentNode.parentNode.classList.remove('error');
+    const isDraft = (this.topic.status === this.TopicService.STATUSES.draft);
     const updateTopic = Object.assign({}, this.topic);
     if (!updateTopic.intro?.length) {
       updateTopic.intro = null;
     }
-    return this.TopicService.patch(updateTopic)
-  }
 
-  updateVote() {
-    const updateVote = Object.assign({ topicId: this.topic.id }, this.vote);
-    const options = updateVote.options.map((opt) => {
-      return { value: opt.value, voteId: opt.voteId, id: opt.id };
-    })
-    updateVote.options = options;
-    return this.TopicVoteService.update(updateVote).pipe(take(1)).subscribe();
-  }
-
-  saveChanges () {
-    this.updateTopic().pipe(take(1)).subscribe(() => {
-      this.topicGroups.forEach((group) => {
-        this.GroupMemberTopicService.save({
-          groupId: group.id,
-          topicId: this.topic.id,
-          level: group.level || this.GroupMemberTopicService.LEVELS.read
-        }).pipe(take(1)).subscribe();
-      });
-      this.updateVote();
-    });
-  }
-
-  edit() {
-    this.updateTopic().pipe(take(1)).subscribe(() => {
-      this.updateVote();
-      this.router.navigate(['topics', this.topic.id], { fragment: 'voting' });
-    });
-  }
-/*
-  publish() {
-    this.updateTopic().pipe(take(1)).subscribe(() => {
-      this.topicGroups.forEach((group) => {
-        this.GroupMemberTopicService.save({
-          groupId: group.id,
-          topicId: this.topic.id,
-          level: group.level || this.GroupMemberTopicService.LEVELS.read
-        }).pipe(take(1)).subscribe();
-      });
-      this.updateVote();
-
-      const isDraft = (this.topic.status === this.TopicService.STATUSES.draft);
-      this.topic.status = this.TopicService.STATUSES.voting;
-      this.updateTopic().pipe(take(1)).subscribe(() => {
+    this.TopicService.patch(updateTopic).pipe(take(1)).subscribe({
+      next: () => {
+        console.log('SAVED');
         this.TopicService.reloadTopic();
-        this.router.navigate(['topics', this.topic.id], { fragment: 'voting' });
-      });
-      if (this.isnew || isDraft) {
-        this.Notification.addSuccess('VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_TITLE');
-        this.inviteMembers();
-      } else {
-        this.Notification.addSuccess('VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE');
+        this.saveImage()
+          .subscribe({
+            next: (res: any) => {
+              if (res && !res.link) return;
+
+              this.topicGroups.forEach((group) => {
+                this.saveMemberGroup(group)
+              });
+
+              if (!this.vote.id) {
+                this.createVote();
+              } else {
+                this.updateVote();
+              }
+              updateTopic.status = this.TopicService.STATUSES.voting;
+              this.TopicService.patch(updateTopic).pipe(take(1)).subscribe({
+                next: (res) => {
+                  this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
+                  this.TopicService.reloadTopic();
+                  if (this.isnew || isDraft) {
+                    this.Notification.addSuccess('VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_TITLE');
+                    this.inviteMembers();
+                  } else {
+                    this.Notification.addSuccess('VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE');
+                  }
+                },
+                error: (err) => {
+                  console.log('Update status error', err);
+                }
+              });
+            },
+            error: (err) => {
+              console.log('publish error', err)
+            }
+          });
+      },
+      error: (err: any) => {
+        console.log('ERROR', err);
       }
     });
-  }*/
+  }
 
   saveVoteSettings(vote?: any) {
     if (vote) {
@@ -391,5 +405,15 @@ export class VoteCreateComponent extends TopicFormComponent {
           });
         }
       });
+  }
+
+
+  updateVote() {
+    const updateVote = Object.assign({ topicId: this.topic.id }, this.vote);
+    const options = updateVote.options.map((opt) => {
+      return { value: opt.value, voteId: opt.voteId, id: opt.id };
+    })
+    updateVote.options = options;
+    return this.TopicVoteService.update(updateVote).pipe(take(1)).subscribe();
   }
 }
