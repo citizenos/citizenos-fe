@@ -228,7 +228,8 @@ export class TopicComponent implements OnInit {
       catchError((err) => {
         this.DialogService.closeAll();
         if (!auth.loggedIn$.value) {
-          app.doShowLogin();
+          router.navigate(['404'], {queryParams: {redirectSuccess: window.location.href}})
+          app.doShowLogin(window.location.href)
         }
         return of(err);
       })

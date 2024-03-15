@@ -6,7 +6,6 @@ import { DialogService } from 'src/app/shared/dialog';
 import { NotificationService } from 'src/app/services/notification.service';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AppService } from 'src/app/services/app.service';
 declare let hwcrypto: any;
 
 @Component({
@@ -29,7 +28,6 @@ export class EstIdLoginFormComponent {
 
   constructor(cosConfig: ConfigService,
     private AuthService: AuthService,
-    private app: AppService,
     private Notification: NotificationService,
     private router: Router,
     private dialog: DialogService,
@@ -100,7 +98,7 @@ export class EstIdLoginFormComponent {
         this.isLoadingIdCard = false;
         let msg = null;
         if (err instanceof Error) { //hwcrypto and JS errors
-          msg = this.app.hwCryptoErrorToTranslationKey(err);
+          msg = this.hwCryptoErrorToTranslationKey(err);
         } else { // API error response
           msg = err.status.message;
         }
@@ -138,5 +136,25 @@ export class EstIdLoginFormComponent {
           this.challengeID = null;
         }
       });
+  };
+
+  hwCryptoErrorToTranslationKey(err: any) {
+    const errorKeyPrefix = 'MSG_ERROR_HWCRYPTO_';
+    switch (err.message) {
+      case hwcrypto.NO_CERTIFICATES:
+      case hwcrypto.USER_CANCEL:
+      case hwcrypto.NO_IMPLEMENTATION:
+        return errorKeyPrefix + err.message.toUpperCase();
+        break;
+      case hwcrypto.INVALID_ARGUMENT:
+      case hwcrypto.NOT_ALLOWED:
+      case hwcrypto.TECHNICAL_ERROR:
+        console.error(err.message, 'Technical error from HWCrypto library', err);
+        return errorKeyPrefix + 'TECHNICAL_ERROR';
+        break;
+      default:
+        console.error(err.message, 'Unknown error from HWCrypto library', err);
+        return errorKeyPrefix + 'TECHNICAL_ERROR';
+    }
   };
 }
