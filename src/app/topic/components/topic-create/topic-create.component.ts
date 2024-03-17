@@ -2,11 +2,13 @@ import { trigger, state, style } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable, switchMap, tap, take, combineLatest } from 'rxjs';
+import { Observable, switchMap, tap, take, combineLatest, Subject, BehaviorSubject } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { AppService } from 'src/app/services/app.service';
 import { TopicService } from 'src/app/services/topic.service';
 import { GroupMemberTopicService } from 'src/app/services/group-member-topic.service';
+import { DialogService } from 'src/app/shared/dialog';
+import { BlockNavigationIfChange } from 'src/app/shared/pending-changes.guard';
 
 @Component({
   selector: 'app-topic-create',
@@ -39,12 +41,13 @@ import { GroupMemberTopicService } from 'src/app/services/group-member-topic.ser
       }))
     ])]
 })
-export class TopicCreateComponent implements OnInit {
+export class TopicCreateComponent implements OnInit, BlockNavigationIfChange{
 
   /**/
   topic$: Observable<Topic>;
   groupId?: string;
   errors?: any;
+  hasChanges$ = new BehaviorSubject(<boolean>false);
 
   constructor(
     private app: AppService,
@@ -52,6 +55,7 @@ export class TopicCreateComponent implements OnInit {
     public translate: TranslateService,
     public GroupMemberTopicService: GroupMemberTopicService,
     private router: Router,
+    private Dialog: DialogService,
     private route: ActivatedRoute) {
     this.app.darkNav = true;
     // app.createNewTopic();
@@ -78,6 +82,7 @@ export class TopicCreateComponent implements OnInit {
     return this.TopicService.save(topic)
       .pipe(take(1),
         tap((topic: Topic) => {
+          this.hasChanges$.next(false);
           this.router.navigate([topic.id], { relativeTo: this.route, queryParams: params});
         }));
     /*this.app.createNewTopic(this.topic.title, this.topic.visibility)
