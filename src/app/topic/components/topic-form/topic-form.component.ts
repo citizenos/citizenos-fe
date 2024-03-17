@@ -1,7 +1,7 @@
 import { trigger, state, style } from '@angular/animations';
 import { Component, Inject, ViewChild, ElementRef, Input, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, tap, of, take, BehaviorSubject, Observable, takeWhile, switchMap } from 'rxjs';
+import { map, tap, of, take, BehaviorSubject, Observable, takeWhile, switchMap, Subject } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicService } from 'src/app/services/topic.service';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
@@ -85,6 +85,7 @@ export class TopicFormComponent {
   @Input() topic!: Topic;
   @Input() groupId?: string;
   @Input() isnew?: boolean = true;
+  @Input() hasUnsavedChanges!: Subject<boolean>;
   topicUrl = <SafeResourceUrl>'';
   tabSelected;
   tabs = ['info', 'settings', 'preview'];
@@ -175,6 +176,7 @@ export class TopicFormComponent {
   }
 
   ngOnInit() {
+    this.hasUnsavedChanges.next(true);
     this.topicUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.topic.padUrl);
     this.downloadUrl = this.TopicService.download(this.topic.id);
     Object.keys(this.block).forEach((blockname) => {
@@ -398,7 +400,7 @@ export class TopicFormComponent {
               if (res.link) {
                 this.topic.imageUrl = res.link;
               }
-
+              this.hasUnsavedChanges.next(false);
               this.router.navigate(['my', 'topics']);
               this.Notification.addSuccess('VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE');
             },
@@ -439,6 +441,7 @@ export class TopicFormComponent {
               this.topicGroups.forEach((group) => {
                 this.saveMemberGroup(group)
               });
+              this.hasUnsavedChanges.next(false);
               this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
 
               if (this.isnew || isDraft) {

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, Inject } from '@angular/core'
 import { DialogService } from 'src/app/shared/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { forkJoin, map, of, take, takeWhile } from 'rxjs';
+import { BehaviorSubject, forkJoin, map, of, take, takeWhile } from 'rxjs';
 import { Group } from 'src/app/interfaces/group';
 import { Topic } from 'src/app/interfaces/topic';
 import { ConfigService } from 'src/app/services/config.service';
@@ -16,14 +16,16 @@ import { AppService } from 'src/app/services/app.service';
 import { countries } from 'src/app/services/country.service';
 import { languages } from 'src/app/services/language.service';
 import { InterruptDialogComponent } from 'src/app/shared/components/interrupt-dialog/interrupt-dialog.component';
+import { BlockNavigationIfChange } from 'src/app/shared/pending-changes.guard';
 
 @Component({
   selector: 'group-create-component',
   templateUrl: './group-create.component.html',
   styleUrls: ['./group-create.component.scss']
 })
-export class GroupCreateComponent implements OnInit {
+export class GroupCreateComponent implements OnInit, BlockNavigationIfChange {
   @ViewChild('imageUpload') fileInput?: ElementRef;
+  hasChanges$ = new BehaviorSubject(<boolean>true);
 
   countries = countries.sort((a: any, b: any) => {
     return a.name.localeCompare(b.name);
@@ -208,6 +210,7 @@ export class GroupCreateComponent implements OnInit {
           )
           .subscribe((res: any) => {
             if (res.link) {
+              this.hasChanges$.next(false);
               this.group.imageUrl = res.link;
 
               this.dialog.closeAll();

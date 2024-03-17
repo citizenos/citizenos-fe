@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, mapToCanDeactivate } from '@angular/router';
 import { TopicInviteDialogComponent } from 'src/app/topic/components/topic-invite/topic-invite.component';
 import { ArgumentReportModerateDialogComponent } from './components/argument-report-moderate/argument-report-moderate.component';
 import { TopicAttachmentsDialogComponent } from './components/topic-attachments/topic-attachments.component';
@@ -15,16 +15,17 @@ import { TopicReportReviewDialogComponent } from './components/topic-report-revi
 import { TopicComponent } from './topic.component';
 import { VoteCreateComponent } from '../voting/components/vote-create/vote-create.component';
 import { AuthGuard } from 'src/app/auth/auth.guard';
+import { CanDeactivateBlockNavigationIfChange } from '../shared/pending-changes.guard';
 
 const routes: Routes = [
   {
-    path: 'create', canActivate: [AuthGuard], children: [
-      { path: '', component: TopicCreateComponent },
-      { path: ':topicId', component: TopicCreateComponent }
+    path: 'create', canActivate: [AuthGuard],  children: [
+      { path: '', component: TopicCreateComponent, canDeactivate:[CanDeactivateBlockNavigationIfChange] },
+      { path: ':topicId', component: TopicCreateComponent, canDeactivate:[CanDeactivateBlockNavigationIfChange], }
     ]
   },
   {
-    path: 'edit', canActivate: [AuthGuard], children: [
+    path: 'edit', canActivate: [AuthGuard], canDeactivate:[CanDeactivateBlockNavigationIfChange], children: [
       { path: ':topicId', component: TopicEditComponent }
     ]
   },
