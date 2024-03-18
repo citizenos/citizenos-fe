@@ -2,11 +2,12 @@ import { AuthService } from 'src/app/services/auth.service';
 import { GroupService } from 'src/app/services/group.service';
 import { GroupMemberUserService } from 'src/app/services/group-member-user.service';
 import { Component, OnInit, Input } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { take, catchError } from 'rxjs/operators';
 import { Group } from 'src/app/interfaces/group';
 import { GroupMemberUser } from 'src/app/interfaces/user';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
+import { AppService } from 'src/app/services/app.service';
 
 @Component({
   selector: 'group-member-user',
@@ -18,7 +19,9 @@ export class GroupMemberUserComponent implements OnInit {
   @Input() group: Group | any;
   @Input() fields?: any;
   memberLevels = this.GroupMemberUser.LEVELS;
-  constructor(private dialog: MatDialog, private AuthService: AuthService, private GroupMemberUser: GroupMemberUserService, private GroupService: GroupService) { }
+
+  LEVELS = Object.keys(this.GroupMemberUser.LEVELS);
+  constructor(private dialog: DialogService, public app: AppService, private AuthService: AuthService, private GroupMemberUser: GroupMemberUserService,private GroupService: GroupService) { }
 
   ngOnInit(): void {
   }
@@ -43,7 +46,6 @@ export class GroupMemberUserComponent implements OnInit {
             return error;
           }))
           .subscribe((res) => {
-            console.log('RES', res)
           })
       }
     }

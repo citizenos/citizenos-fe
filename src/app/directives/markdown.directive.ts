@@ -15,6 +15,7 @@ export class MarkdownDirective implements OnDestroy {
   easymde;
 
   config: any = {
+    spellChecker: false,
     placeholder: this.el.nativeElement.attributes.getNamedItem('placeholder')?.value,
     toolbar: [
       {
@@ -68,14 +69,20 @@ export class MarkdownDirective implements OnDestroy {
         this.updateCharacterCount(el);
       },
     }],
+    minHeight: '100px',
     element: this.el.nativeElement,
     initialValue: this.item
   };
   constructor(private el: ElementRef, private Translate: TranslateService, markdown: MarkdownService) {
+
+    if (window.innerWidth < 560) {
+      this.config['minHeight'] = '100px';
+    }
+
     this.easymde = new EasyMDE(this.config);
     this.easymde.codemirror.on('beforeChange', (cm: any, change: any) => {
       const maxLength = cm.getOption('maxLength') || this.limit;
-      if (maxLength && change.update) {
+      if (maxLength && change?.update && change?.text.length) {
         let str = change.text.join('\n');
         let delta = str.length - (cm.indexFromPos(change.to) - cm.indexFromPos(change.from));
         if (delta <= 0) {

@@ -1,276 +1,1332 @@
-<div id="topics_admin_root" *ngIf="topic$ | async as topic;">
-
-  <topic-timeline  [topic]="topic"></topic-timeline>
-
-  <div class="content_wrap">
-
-    <topic-tabs [topicId]="topic.id" [voteId]="topic.voteId || topic.vote?.id" [status]="topic.status"></topic-tabs>
-
-    <div class="content">
-      <div class="main_panel">
-        <div class="info_bar_wrap" *ngIf="(editMode$ | async) && showInfoEdit && TopicService.canEditDescription(topic)">
-          <div class="info_bar bar_blue info_bar_show">
-            <div class="info_icon">
-              <div class="sprite sprite-icon-notification-info2x"></div>
-            </div>
-
-            <div class="info_bar_text">
-              <div class="info_row">
-                <span translate="VIEWS.TOPICS_TOPICID.TAB_INFO_TXT_EDIT"></span>
-              </div>
-            </div>
-
-            <div class="info_icon" (click)="hideInfoEdit()">
-              <div class="sprite sprite-icon-closemenu2x"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="info_bar_wrap"
-          *ngIf="TopicService.canEdit(topic) && (topic.status === TopicService.STATUSES.voting) ">
-          <!--&& !('topics.view.votes' | includedByState)-->
-          <div class="info_bar bar_green info_bar_show">
-            <div class="info_icon">
-              <div class="sprite sprite-icon-notification-check2x"></div>
-            </div>
-
-            <div class="info_bar_text">
-              <div class="info_row">
-                <span translate="VIEWS.TOPICS_TOPICID.TAB_INFO_TXT_VOTE"></span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Show this in 2 cases - topic has been moderated OR topic has been reported && User is a moderator -->
-        <!-- topic.report.type is returned for Moderators only -->
-        <!-- topic.report.moderatedReasonType is returned in case Topic has been moderated -->
-        <div class="info_bar_wrap"
-          *ngIf="topic.report && (topic.report.moderatedReasonType || (topic.report.type && !topic.report.moderatedReasonType))">
-          <div class="info_bar bar_red info_bar_show">
-            <div class="info_icon">
-              <div class="sprite sprite-icon-notification-info2x"></div>
-            </div>
-
-            <div class="info_bar_text">
-              <div class="info_row">
-                <span translate="VIEWS.TOPICS_TOPICID.TAB_INFO_TXT_REPORTED"></span>&nbsp;<a
-                  (click)="doShowReportOverlay(topic); $event.preventDefault()" href="#"
-                  translate="VIEWS.TOPICS_TOPICID.TAB_INFO_LNK_VIEW_REPORT_DETAILS"></a>
-                <span *ngIf="topic.report.type && !topic.report.moderatedReasonType">&nbsp;<a
-                    [routerLink]="['reports', topic.report.id, 'moderate']"
-                    translate="VIEWS.TOPICS_TOPICID.TAB_INFO_LNK_MODERATE"></a></span>
-                <span *ngIf="topic.report.type">&nbsp;<a [routerLink]="['reports', topic.report.id, 'resolve']"
-                    translate="VIEWS.TOPICS_TOPICID.TAB_INFO_LNK_RESOLVE"></a></span>
-                <span *ngIf="TopicService.canEdit(topic) && topic.report.moderatedReasonType">&nbsp;<a
-                    [routerLink]="['reports', topic.report.id, 'review']"
-                    translate="VIEWS.TOPICS_TOPICID.TAB_INFO_LNK_SUBMIT_FOR_REVIEW"></a></span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="main_content_wrap" (click)="topicSettings = false">
-
-          <!-- Create a milestone -->
-          <topic-milestones *ngIf="viewFollowup && TopicService.canEdit(topic)" [topic]="topic"></topic-milestones>
-
-          <!-- Cast your vote container-->
-          <ng-container *ngIf="showVoteCast && topic.voteId && (vote$ | async) as vote">
-            <div class="voting_platform_wrap vote_casting_wrap">
-              <topic-vote-cast [topic]="topic" [vote]="vote"></topic-vote-cast>
-
-              <!-- Statistics graph start -->
-              <vote-closed [topic]="topic" [vote]="vote" *ngIf="hasVoteEndedExpired(topic, vote) || hasVoteEnded(topic, vote)"></vote-closed>
-
-              <!-- Regular graph -->
-              <regular-graph *ngIf="vote.type === VOTE_TYPES.regular && (hasVoteEndedExpired(topic, vote) || hasVoteEnded(topic, vote))" [options]="vote.options"></regular-graph>
-
-              <!-- Big graph -->
-              <big-graph
-                [options]="vote.options" *ngIf="vote.type === VOTE_TYPES.multiple && (hasVoteEndedExpired(topic, vote) || hasVoteEnded(topic, vote))"></big-graph>
-              <!-- Statistics graph end -->
-            </div>
-          </ng-container>
-
-          <topic-vote-create *ngIf="showVoteCreateForm" [topic]="topic"></topic-vote-create>
-
-
-          <div class="iframe_content_wrap" *ngIf="!viewFollowup">
-
-            <div class="topic_info print_never" *ngIf="!(editMode$ | async)">
-              <div class="container_visibility">
-                <div class="ff_table_fix"
-                  [tooltip]="('TOOLTIP_TOPIC_VISIBILITY_'+topic.visibility | uppercase) | translate">
-                  <div class="table_cell">
-                    <div class="sprite"
-                      [ngClass]="{'sprite-icon-public-topic': !TopicService.isPrivate(topic), 'sprite-icon-private-topic': TopicService.isPrivate(topic)}">
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!--REPORT topic-->
-              <div class="container_report" *ngIf="topic.visibility === TopicService.VISIBILITY.public && !topic.report" [routerLink]="['/topics', topic.id, 'report']">
-                <div class="ff_table_fix" [tooltip]="('TOOLTIP_REPORT_TOPIC'| translate)">
-                  <div class="table_cell" >
-                    <div class="sprite sprite-icon-exclamation2x-white"></div>
-                    <div class="red_bg"></div>
-                  </div>
-                </div>
-              </div>
-              <div class="container_pin " [ngClass]="topic.pinned ? 'pinned' : ''" (click)="togglePin(topic)">
-                <div class="ff_table_fix" [tooltip]="('TOOLTIP_PIN_TOPIC'| translate)">
-                  <div class="table_cell">
-                    <div class="sprite sprite-icon-favourite2x-white"></div>
-                    <div class="yellow_bg"></div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="more_info_button" (click)="more_info_button = !more_info_button">
-
-                <div class="table_cell">
-                  <div class="more_info_button_text_wrap">
-                    <div class="arrow_down_wrap">
-                      <div class="arrow_down_blue sprite sprite-dropdown-arrowdown-blue2x"></div>
-                    </div>
-                    <span translate="VIEWS.TOPICS_TOPICID.LNK_TOPIC_DETAILS"></span>
-                  </div>
-                  <div class="more_info_attachment_wrap">
-                    <div class="more_info_attachment_icon sprite sprite-icon-attachment"></div>
-                    <span class="more_info_attachment_count">{{(TopicAttachmentService.countTotal$ | async)}}</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="info_sections_wrap" *ngIf="wWidth > 767"> <!--|| app.more_info_button-->
-                <div class="info_section">
-                  <div class="info_section_title">
-                    <span translate="VIEWS.TOPICS_TOPICID.LBL_CATEGORIES"></span>
-                  </div>
-                  <div class="info_section_content">
-                    <span *ngFor="let category of topic.categories; let $last = last;">
-                      <span
-                        translate="{{'TXT_TOPIC_CATEGORY_' + category | uppercase}}"></span><!--translate-default="{{category}}"-->
-                      <span *ngIf="!$last" class="info_section_separator"> | </span>
-                    </span>
-                    <span *ngIf="!topic.categories?.length">
-                      <span *ngIf="!TopicService.canEdit(topic)"
-                        translate="VIEWS.TOPICS_TOPICID.LBL_NO_CATEGORIES"></span>
-                      <span *ngIf="TopicService.canEdit(topic)" class="blue_link" [routerLink]="['settings']"
-                        [queryParams]="{tab: 'categories'}" translate="VIEWS.TOPICS_TOPICID.LNK_ADD_CATEGORIES"></span>
-                    </span>
-                  </div>
-                </div>
-                <div class="info_section">
-                  <div class="info_section_title">
-                    <span translate="VIEWS.TOPICS_TOPICID.LBL_AUTHORS" [translateParams]="{topic: {creator: {name: ''}}}"></span>
-                  </div>
-                  <div class="info_section_content">
-                    <ng-container *ngFor="let author of topic.authors; let $last = last;">
-                      <span class="blue_link">{{author.name}}
-                        <span *ngIf="!$last" class="info_section_separator"> | </span>
-                      </span>
-                    </ng-container>
-                  </div>
-                </div>
-                <div class="info_section">
-                  <div class="info_section_title">
-                    <span translate="VIEWS.TOPICS_TOPICID.LBL_ACTIVITY"></span>
-                  </div>
-                  <div class="info_section_content">
-                    <span class="blue_link" (click)="activeCommentSection= 'arguments'"
-                      translate="VIEWS.TOPICS_TOPICID.LNK_ARGUMENTS_COUNT"
-                      [translateParams]="{count: TopicArgumentService.count.value.total || 0}"></span><!--; scroll('arguments')-->
-                    <!--span class="info_section_separator"> | </!--span>
-                    <span class="blue_link" (click)="activeCommentSection= 'socialMentions'"
-                      translate="VIEWS.TOPICS_TOPICID.LNK_MENTIONS_COUNT"
-                      [translateParams]="{mentionsCount: (topicSocialMentions.length ||0)}"></!--span--><!--; scroll('socialMentions')-->
-                    <!--span *ngIf="!topic.hashtag && TopicService.canEdit(topic)" class="info_section_separator"> |
-                    </!--span-->
-                    <!--span class="blue_link" *ngIf="!topic.hashtag && TopicService.canEdit(topic)"
-                      [routerLink]="['settings']" [queryParams]="{tab: 'settings'}"
-                      translate="VIEWS.TOPICS_TOPICID.LNK_MENTIONS_COUNT_ADD_HASHTAG"></!--span>
-                    <span-- *ngIf="topic.hashtag" class="black_text" [innerText]="('#'+topic.hashtag)"> </span-->
-                  </div>
-                </div>
-                <div class="info_section" *ngIf="wWidth < 767">
-                  <div class="info_section_title">
-                    <span translate="VIEWS.TOPICS_TOPICID.LBL_ATTACHMENTS"></span>
-                  </div>
-                  <div class="info_section_content">
-                    <div class="blue_link" *ngFor="let attachment of topicAttachments$ | async">
-                      <a *ngIf="attachment.source === ATTACHMENT_SOURCES.upload"
-                        class="blue_link info_section_attachment"
-                        (click)="$event.preventDefault(); downloadAttachment(topic.id, attachment);"
-                        href="{{attachment.link}}">{{attachment.name}}<span
-                          class="btn blue_button file_type">.{{attachment.type}}</span></a>
-                      <a *ngIf="attachment.source !== ATTACHMENT_SOURCES.upload"
-                        class="blue_link info_section_attachment" target="_blank"
-                        href="{{attachment.link}}">{{attachment.name}} <span
-                          class="btn blue_button file_type">{{attachment.type}}</span></a>
-                    </div>
-                    <div *ngIf="TopicService.canEdit(topic)" [routerLink]="['files']"
-                      class="blue_link info_section_add_attachments"
-                      translate="VIEWS.TOPICS_TOPICID.LNK_ADD_MANAGE_FILES">
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="line lightest_line"></div>
-            </div>
-
-            <div id="topic_content_area" class="topic_content">
-              <iframe [cosEtherpad]="''" *ngIf="!hideTopicContent && TopicService.canEdit(topic) && (editMode$ | async)"
-                frameborder="0" scrolling="no" [ngClass]="{hidden: !topic.padUrl || viewFollowup}"
-                [src]="sanitizeURL(topic.padUrl)" width="100%" height="600"></iframe>
-              <div id="topic_read_content" htmlwrap *ngIf="!hideTopicContent && !(editMode$ | async)" [innerHtml]="topic.description"></div>
-              <h1 *ngIf="hideTopicContent"><i>Topic content has been hidden due to violation of community guidelines</i>
-              </h1>
-            </div>
-
-          </div>
-
-          <div class="comments_section print_never">
-            <div class="tabs_wrap">
-              <div (click)="activeCommentSection= 'arguments'" class="tab"
-                [ngClass]="activeCommentSection== 'arguments' || activeCommentSection== undefined ? 'active':''">
-                <div class="table_cell" translate="VIEWS.TOPICS_TOPICID.LBL_TAB_ARGUMENTS"></div>
-              </div>
-              <!--div (click)="activeCommentSection= 'socialMentions'" class="tab"
-                [ngClass]="activeCommentSection== 'socialMentions' ? 'active':''">
-                <div class="table_cell" translate="VIEWS.TOPICS_TOPICID.LBL_TAB_MENTIONS"></div>
-              </!--div-->
-            </div>
-            <div class="clearer"></div>
-            <div class="comments_content">
-              <topic-arguments #arguments [topic]="topic"
-                *ngIf="activeCommentSection == 'arguments'"></topic-arguments>
-              <!--topic-social-mentions [topic]="topic" #socialMentions
-                *ngIf="activeCommentSection=='socialMentions'"></!--topic-social-mentions-->
-            </div>
-          </div>
-
-        </div>
-
+<div class="page_content" *ngIf="topic$ | async as topic;">
+  <ng-container *ngIf="topic.id">
+    <div id="page_header" [TourItem]="{tourid: ['topic_mobile', 'topic_tablet'], index: 2, position: 'bottom'}">
+      <div id="user_info_area">
+        <ng-container *ngIf="!auth.loggedIn$.value">
+          <button [routerLink]="['/', translate.currentLang, 'public', 'topics']"><svg width="24" height="24"
+              viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M10.4533 17.6874C10.8529 18.1042 11.5009 18.1042 11.9006 17.6874C12.3003 17.2705 12.3003 16.5947 11.9006 16.1779L8.91837 13L19 13C19.5652 13 20 12.5892 20 11.9997C20 11.4103 19.5652 11.0176 19 11.0176L8.91837 11.0176L11.9006 7.8221C12.3003 7.40527 12.3003 6.72945 11.9006 6.31262C11.5009 5.89579 10.8529 5.89579 10.4533 6.31262L5 12L10.4533 17.6874Z"
+                fill="#2C3B47" />
+            </svg>
+          </button>
+          <div class="small_heading mobile_hidden"
+            [innerHTML]="'VIEWS.TOPICS_TOPICID.HEADING_BACK_TO_PUBLIC_TOPICS'| translate"></div>
+        </ng-container>
+        <ng-container *ngIf="auth.loggedIn$.value">
+          <button class="btn_medium_close icon" [routerLink]="['/', translate.currentLang, 'my', 'topics']"><svg
+              width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M10.4533 17.6874C10.8529 18.1042 11.5009 18.1042 11.9006 17.6874C12.3003 17.2705 12.3003 16.5947 11.9006 16.1779L8.91837 13L19 13C19.5652 13 20 12.5892 20 11.9997C20 11.4103 19.5652 11.0176 19 11.0176L8.91837 11.0176L11.9006 7.8221C12.3003 7.40527 12.3003 6.72945 11.9006 6.31262C11.5009 5.89579 10.8529 5.89579 10.4533 6.31262L5 12L10.4533 17.6874Z"
+                fill="#2C3B47" />
+            </svg>
+          </button>
+          <div class="small_heading mobile_hidden"
+            [innerHTML]="'VIEWS.TOPICS_TOPICID.HEADING_BACK_TO_MY_TOPICS'| translate"></div>
+        </ng-container>
       </div>
+      <div id="buttons_area">
+        <button id="join_button" (click)="joinTopic(topic)"
+          *ngIf="(!topic.permission.level || topic.permission.level === 'none') && (auth.loggedIn$ | async)"
+          class="btn_medium_close" translate="VIEWS.TOPICS_TOPICID.BTN_JOIN"></button>
 
-      <topic-sidepanel class="side_panel print_never" [topic]="topic" [attachments]="topicAttachments$"
-        *ngIf="wWidth > 1024 || app.topicsSettings"></topic-sidepanel>
+        <div *ngIf="(!topic.permission.level || topic.permission.level !== 'none')"
+          class="permissions_lable tablet_hidden"
+          [translate]="(topic.permission.level !== 'read')? ('TXT_TOPIC_LEVELS_' + topic.permission.level | uppercase) : 'VIEWS.TOPICS_TOPICID.LBL_JOINED'">
+        </div>
+        <button *ngIf="(auth.loggedIn$ | async)" class="btn_medium_close icon tablet_show" (click)="toggleFavourite(topic);">
+          <svg *ngIf="!topic.favourite" width="40" height="40" viewBox="0 0 40 40" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <rect width="40" height="40" rx="20" fill="#F1F7FC" />
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M22.6459 16.3594L20.0009 11L17.3559 16.3594L11.4414 17.2188L15.7212 21.3906L14.7108 27.2812L20.0009 24.5L25.291 27.2812L24.2807 21.3906L28.5604 17.2188L22.6459 16.3594ZM24.2625 18.6153L21.3178 18.1874L20.0009 15.5191L18.684 18.1874L15.7393 18.6153L17.8701 20.6923L17.3671 23.6251L20.0009 22.2404L22.6347 23.6251L22.1317 20.6923L24.2625 18.6153Z"
+              fill="#2C3B47" />
+          </svg>
+
+          <svg *ngIf="topic.favourite" width="40" height="40" viewBox="0 0 40 40" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <rect width="40" height="40" rx="20" fill="#EFE08A" />
+            <path
+              d="M20 11L22.645 16.3594L28.5595 17.2188L24.2798 21.3906L25.2901 27.2812L20 24.5L14.7099 27.2812L15.7202 21.3906L11.4405 17.2188L17.355 16.3594L20 11Z"
+              fill="#2C3B47" />
+          </svg>
+        </button>
+        <div id="activities_button_wrap">
+          <activities-button *ngIf="auth.loggedIn$ | async" [topicId]="topic.id"></activities-button>
+          <!-- add [topicId]="topic.id"-->
+        </div>
+        <div id="tablet_actions" class="dropdown button_dropdown mobile_hidden" [cosDropdown]>
+          <button class="btn_medium_close icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M14 6C14 4.9 13.1 4 12 4C10.9 4 10 4.9 10 6C10 7.1 10.9 8 12 8C13.1 8 14 7.1 14 6ZM14 18C14 16.9 13.1 16 12 16C10.9 16 10 16.9 10 18C10 19.1 10.9 20 12 20C13.1 20 14 19.1 14 18ZM12 10C13.1 10 14 10.9 14 12C14 13.1 13.1 14 12 14C10.9 14 10 13.1 10 12C10 10.9 10.9 10 12 10Z"
+                fill="#2C3B47" />
+            </svg>
+          </button>
+          <div class="options">
+            <ng-container
+              *ngIf="(topic.permission.level && topic.permission.level !== 'none') && (auth.loggedIn$ | async)">
+              <button (click)="leaveTopic(topic)" class="option">
+                <div class="icon_wrap">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M10 12.25V9H6.61392C6.49078 9 6.37268 8.94732 6.28561 8.85355C6.19854 8.75979 6.14962 8.63261 6.14962 8.5C6.14962 8.36739 6.19854 8.24021 6.28561 8.14645C6.37268 8.05268 6.49078 8 6.61392 8H10V3.75C9.99954 3.28602 9.82818 2.84119 9.52353 2.51311C9.21888 2.18503 8.80582 2.0005 8.37497 2H2.62503C2.19418 2.0005 1.78112 2.18503 1.47647 2.51311C1.17182 2.84119 1.00046 3.28602 1 3.75V12.25C1.00046 12.714 1.17182 13.1588 1.47647 13.4869C1.78112 13.815 2.19418 13.9995 2.62503 14H8.37497C8.80582 13.9995 9.21888 13.815 9.52353 13.4869C9.82818 13.1588 9.99954 12.714 10 12.25ZM13.4149 9L11.8863 10.6466C11.8029 10.7411 11.7571 10.867 11.7586 10.9973C11.7602 11.1277 11.8089 11.2523 11.8946 11.3445C11.9802 11.4367 12.0958 11.4892 12.2169 11.4909C12.338 11.4926 12.4549 11.4432 12.5427 11.3534L14.8641 8.85344C14.9511 8.75968 15 8.63255 15 8.5C15 8.36745 14.9511 8.24032 14.8641 8.14656L12.5427 5.64656C12.4549 5.55675 12.338 5.50742 12.2169 5.50909C12.0958 5.51076 11.9802 5.5633 11.8946 5.6555C11.8089 5.7477 11.7602 5.87227 11.7586 6.00265C11.7571 6.13303 11.8029 6.25891 11.8863 6.35344L13.4149 8H10V9H13.4149Z"
+                      fill="#2C3B47" />
+                  </svg>
+                </div>
+                <span translate="VIEWS.TOPICS_TOPICID.BTN_LEAVE"></span>
+              </button>
+              <div class="line_separator"></div>
+            </ng-container>
+
+            <ng-container *ngIf="(auth.loggedIn$ | async)">
+              <button class="option" (click)="toggleFavourite(topic)">
+                <div class="icon_wrap">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M8 1L10.0572 5.16844L14.6574 5.83688L11.3287 9.08156L12.1145 13.6631L8 11.5L3.8855 13.6631L4.6713 9.08156L1.3426 5.83688L5.94275 5.16844L8 1Z"
+                      fill="#2C3B47" />
+                  </svg>
+                </div>
+                <span *ngIf="!topic.favourite" translate="VIEWS.TOPICS_TOPICID.OPTION_FAVOURITE"></span>
+                <span *ngIf="topic.favourite" translate="VIEWS.TOPICS_TOPICID.OPTION_UNFAVOURITE"></span>
+              </button>
+              <div class="line_separator"></div>
+            </ng-container>
+            <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic)">
+              <button class="option" (click)="inviteEditors(topic)">
+                <div class="icon_wrap">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M13.4071 4.09259L14.9073 5.59285L11.6497 8.85059L10.3122 8.99825C10.1331 9.01806 9.98185 8.86665 10.0018 8.68758L10.1506 7.34905L13.4071 4.09259ZM15.8352 3.86922L15.1308 3.1648C14.9111 2.94507 14.5547 2.94507 14.335 3.1648L13.6723 3.8275L15.1725 5.32776L15.8352 4.66506C16.0549 4.44521 16.0549 4.08895 15.8352 3.86922Z"
+                      fill="#2C3B47" />
+                    <path d="M1 14C1 15 2 15 2 15H10C10 15 11 15 11 14C11 13 10 10 6 10C2 10 1 13 1 14Z"
+                      fill="#2C3B47" />
+                    <path
+                      d="M8.12132 8.12132C7.55871 8.68393 6.79565 9 6 9C5.20435 9 4.44129 8.68393 3.87868 8.12132C3.31607 7.55871 3 6.79565 3 6C3 5.20435 3.31607 4.44129 3.87868 3.87868C4.44129 3.31607 5.20435 3 6 3C6.79565 3 7.55871 3.31607 8.12132 3.87868C8.68393 4.44129 9 5.20435 9 6C9 6.79565 8.68393 7.55871 8.12132 8.12132Z"
+                      fill="#2C3B47" />
+                  </svg>
+                </div>
+                <span translate="VIEWS.TOPICS_TOPICID.OPTION_INVITE_CO_EDITOR"></span>
+              </button>
+              <div class="line_separator"></div>
+            </ng-container>
+            <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canEdit(topic) && !topic.voteId">
+              <button class="option" [routerLink]="['/','topics', 'edit', topic.id]">
+                <div class="icon_wrap">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M8.8143 4.18517L11.8147 7.18569L5.29947 13.7012L2.62438 13.9965C2.26626 14.0361 1.96369 13.7333 2.00354 13.3752L2.30118 10.6981L8.8143 4.18517ZM13.6704 3.73845L12.2616 2.3296C11.8222 1.89013 11.1095 1.89013 10.67 2.3296L9.34467 3.65501L12.3451 6.65553L13.6704 5.33011C14.1099 4.89042 14.1099 4.17791 13.6704 3.73845Z"
+                      fill="#2C3B47" />
+                  </svg>
+                </div>
+                <span translate="VIEWS.TOPICS_TOPICID.OPTION_EDIT_TOPIC"></span>
+              </button>
+              <div class="line_separator"></div>
+            </ng-container>
+            <ng-container
+              *ngIf="(auth.loggedIn$ | async) && topic.voteId && (TopicService.canDelete(topic) || TopicService.canEdit(topic) && topic.status === TopicService.STATUSES.draft)">
+              <button class="option" [routerLink]="['/','topics', 'vote', 'edit', topic.id]">
+                <div class="icon_wrap">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M8.8143 4.18517L11.8147 7.18569L5.29947 13.7012L2.62438 13.9965C2.26626 14.0361 1.96369 13.7333 2.00354 13.3752L2.30118 10.6981L8.8143 4.18517ZM13.6704 3.73845L12.2616 2.3296C11.8222 1.89013 11.1095 1.89013 10.67 2.3296L9.34467 3.65501L12.3451 6.65553L13.6704 5.33011C14.1099 4.89042 14.1099 4.17791 13.6704 3.73845Z"
+                      fill="#2C3B47" />
+                  </svg>
+                </div>
+                <span translate="VIEWS.TOPICS_TOPICID.OPTION_EDIT_TOPIC"></span>
+              </button>
+              <div class="line_separator"></div>
+            </ng-container>
+            <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic)">
+              <button class="option" (click)="duplicateTopic(topic)">
+                <div class="icon_wrap">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 5H11V14H2V5Z" fill="#2C3B47" />
+                    <path d="M4 2V4H12V12H14V2H4Z" fill="#2C3B47" />
+                  </svg>
+                </div>
+                <span translate="VIEWS.TOPICS_TOPICID.OPTION_DUPLICATE_TOPIC"></span>
+              </button>
+              <div class="line_separator"></div>
+            </ng-container>
+            <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic)">
+              <button class="option" (click)="addGroupsDialog(topic)">
+                <div class="icon_wrap">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 13C1 14 2 14 2 14H10C10 14 11 14 11 13C11 12 10 9 6 9C2 9 1 12 1 13Z" fill="#2C3B47" />
+                    <path
+                      d="M8.12132 7.12132C7.55871 7.68393 6.79565 8 6 8C5.20435 8 4.44129 7.68393 3.87868 7.12132C3.31607 6.55871 3 5.79565 3 5C3 4.20435 3.31607 3.44129 3.87868 2.87868C4.44129 2.31607 5.20435 2 6 2C6.79565 2 7.55871 2.31607 8.12132 2.87868C8.68393 3.44129 9 4.20435 9 5C9 5.79565 8.68393 6.55871 8.12132 7.12132Z"
+                      fill="#2C3B47" />
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M9.99984 5.00004C9.99984 6.08068 9.57131 7.06124 8.87491 7.78104C9.22902 7.9243 9.61061 8 10 8C10.7956 8 11.5587 7.68393 12.1213 7.12132C12.6839 6.55871 13 5.79565 13 5C13 4.20435 12.6839 3.44129 12.1213 2.87868C11.5587 2.31607 10.7956 2 10 2C9.61059 2 9.22898 2.07571 8.87486 2.21898C9.57129 2.93879 9.99984 3.91937 9.99984 5.00004ZM5 13C5 14 6 14 6 14H10C10 14 11 14 11 13C11 12.1936 10.3496 10.0864 8 9.30092C5.65035 10.0864 5 12.1936 5 13ZM9.66596 9.00716C10.0939 9.29172 10.4565 9.62104 10.7593 9.97421C11.6642 11.03 12 12.2607 12 13C12 13.3681 11.9181 13.7064 11.7564 14H14C14 14 15 14 15 13C15 12 14 9 10 9C9.88624 9 9.77491 9.00243 9.66596 9.00716Z"
+                      fill="#2C3B47" />
+                  </svg>
+                </div>
+                <span translate="VIEWS.TOPICS_TOPICID.OPTION_ADD_TO_GROUP"></span>
+              </button>
+            </ng-container>
+            <ng-container *ngIf="topic.visibility === TopicService.VISIBILITY.public && !topic.report">
+              <div class="line_separator"></div>
+              <button class="option" [routerLink]="['/topics', topic.id, 'report']">
+                <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="8" cy="8" r="5.5" fill="#2C3B47" stroke="#2C3B47" />
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M4.83552 4.12891L11.8714 11.1647C11.6598 11.4233 11.4228 11.6603 11.1643 11.8719L4.12842 4.83601C4.34 4.57746 4.57697 4.34049 4.83552 4.12891Z"
+                      fill="white" />
+                  </svg>
+                </div><span translate="VIEWS.TOPICS_TOPICID.OPTION_REPORT_TOPIC"></span>
+              </button>
+            </ng-container>
+
+            <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic)">
+              <div class="line_separator"></div>
+              <button class="option error_text" (click)="deleteTopic(topic);">
+                <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M10 3H6V4H10V3ZM11 4V3C11 2.44772 10.5523 2 10 2H6C5.44772 2 5 2.44772 5 3V4H4H2.5C2.22386 4 2 4.22386 2 4.5C2 4.77614 2.22386 5 2.5 5H4V13C4 13.5523 4.44772 14 5 14H11C11.5523 14 12 13.5523 12 13V5H13.5C13.7761 5 14 4.77614 14 4.5C14 4.22386 13.7761 4 13.5 4H12H11ZM7 7H6V11H7V7ZM10 7H9V11H10V7Z"
+                      fill="#2C3B47" />
+                  </svg>
+
+                </div><span translate="VIEWS.TOPICS_TOPICID.OPTION_DELETE_TOPIC"></span>
+              </button>
+            </ng-container>
+          </div>
+        </div>
+        <button class="btn_medium_close icon mobile_show" (click)="mobileActions = !mobileActions">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M14 6C14 4.9 13.1 4 12 4C10.9 4 10 4.9 10 6C10 7.1 10.9 8 12 8C13.1 8 14 7.1 14 6ZM14 18C14 16.9 13.1 16 12 16C10.9 16 10 16.9 10 18C10 19.1 10.9 20 12 20C13.1 20 14 19.1 14 18ZM12 10C13.1 10 14 10.9 14 12C14 13.1 13.1 14 12 14C10.9 14 10 13.1 10 12C10 10.9 10.9 10 12 10Z"
+              fill="#2C3B47" />
+          </svg>
+        </button>
+      </div>
     </div>
 
-  </div>
+    <div id="topic_tabs" class="topic_tabs" *ngIf="tabSelected$ | async as tabSelected;">
+      <div class="tabs_wrap discussion" [TourItem]="{tourid: 'topic', index: 1, position: 'bottom'}">
+        <a *ngIf="!hideDiscussion" class="topic_tab" [ngClass]="tabSelected=== 'discussion' ? 'active' : ''"
+          [routerLink]="['./']" fragment="discussion">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="16" fill="#1168A8" />
+            <path
+              d="M22 17.7634C22.024 17.7288 22.0472 17.6928 22.0709 17.6591C22.6753 16.7608 22.9987 15.703 23 14.6203C23.01 11.5172 20.3918 9 17.1543 9C14.3306 9 11.975 10.9216 11.4231 13.4725C11.3403 13.8506 11.2984 14.2364 11.2981 14.6234C11.2981 17.7297 13.8156 20.3144 17.0531 20.3144C17.5678 20.3144 18.2612 20.1597 18.6415 20.0553C19.0218 19.9509 19.3987 19.8131 19.4962 19.7759C19.5937 19.7387 19.7462 19.7006 19.8678 19.7356L22.2872 20.435C22.3084 20.4413 22.331 20.4418 22.3525 20.4365C22.3741 20.4312 22.3938 20.4202 22.4097 20.4048C22.4256 20.3893 22.4371 20.3699 22.443 20.3485C22.449 20.3271 22.4491 20.3046 22.4434 20.2831L21.8897 18.1741C21.8512 18.0178 21.8462 17.9884 22 17.7634Z"
+              fill="white" />
+            <path
+              d="M17.7669 20.9804C17.5264 21.0188 17.2835 21.0402 17.04 21.0444C15.7141 21.0444 14.4619 20.6944 13.4463 20.0382C12.7966 19.6394 12.2327 19.1155 11.7872 18.4969C10.9722 17.4166 10.5278 16.0435 10.5278 14.6066C10.5278 14.5088 10.5313 14.4147 10.5347 14.3204C10.536 14.2925 10.5286 14.265 10.5136 14.2415C10.4987 14.218 10.4768 14.1997 10.4511 14.189C10.4253 14.1784 10.3969 14.1759 10.3698 14.182C10.3426 14.188 10.3179 14.2023 10.2991 14.2229C9.55083 15.0416 9.09849 16.0874 9.01431 17.1934C8.93014 18.2993 9.21898 19.4016 9.83472 20.3241C9.91191 20.4419 9.95566 20.5329 9.94222 20.5935L9.50191 22.8516C9.49785 22.8731 9.49949 22.8953 9.50666 22.9159C9.51384 22.9365 9.5263 22.9549 9.5428 22.9693C9.55931 22.9836 9.57928 22.9933 9.60073 22.9975C9.62218 23.0017 9.64435 23.0002 9.66504 22.9932L11.79 22.2357C11.8545 22.2102 11.9233 22.1977 11.9926 22.1989C12.0619 22.2001 12.1302 22.2149 12.1938 22.2426C12.8297 22.4926 13.5332 22.6463 14.2366 22.6463C15.5906 22.6507 16.8949 22.1363 17.8813 21.2088C17.9017 21.1889 17.9152 21.1631 17.9199 21.1351C17.9246 21.107 17.9203 21.0782 17.9076 21.0528C17.8948 21.0274 17.8744 21.0066 17.8491 20.9936C17.8238 20.9806 17.795 20.976 17.7669 20.9804Z"
+              fill="white" />
+          </svg>
+          <span class="tab_text" translate="VIEWS.TOPICS_TOPICID.TAB_DISCUSSION"></span>
+        </a>
+        <!--a class="topic_tab" [ngClass]="tabSelected=== 'ideation' ? 'active' : ''">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="32" height="32" rx="16" fill="#EFE08A" />
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M22.0001 15.9667C21.6319 15.9667 21.3334 15.6682 21.3334 15.3C21.3334 14.9318 21.6319 14.6333 22.0001 14.6333H22.6668C23.0349 14.6333 23.3334 14.9318 23.3334 15.3C23.3334 15.6682 23.0349 15.9667 22.6668 15.9667H22.0001ZM21.1647 10.138C20.9046 9.87789 20.4828 9.87848 20.2234 10.1393L19.9675 10.3967C19.7091 10.6565 19.7097 11.0763 19.9688 11.3354C20.2289 11.5954 20.6507 11.5949 20.9101 11.334L21.166 11.0767C21.4244 10.8169 21.4238 10.397 21.1647 10.138ZM15.3334 9.3C15.3334 9.66819 15.6319 9.96667 16.0001 9.96667C16.3683 9.96667 16.6667 9.66819 16.6667 9.3V8.66667C16.6667 8.29848 16.3683 8 16.0001 8C15.6319 8 15.3334 8.29848 15.3334 8.66667V9.3ZM10.0001 14.6333C10.3683 14.6333 10.6667 14.9318 10.6667 15.3C10.6667 15.6682 10.3683 15.9667 10.0001 15.9667L9.33341 15.9667C8.96522 15.9667 8.66675 15.6682 8.66675 15.3C8.66675 14.9318 8.96522 14.6333 9.33341 14.6333L10.0001 14.6333ZM11.7821 10.1313C11.5235 9.87122 11.1028 9.87064 10.8434 10.13C10.5841 10.3894 10.5846 10.8101 10.8447 11.0687L11.1055 11.328C11.3641 11.5852 11.7821 11.5846 12.0401 11.3267C12.298 11.0687 12.2986 10.6507 12.0414 10.392L11.7821 10.1313ZM11.8409 15.2612C11.8409 12.8819 13.8871 11.1999 16.001 11.1999C18.1149 11.1999 20.1609 12.8821 20.1609 15.2612C20.1609 16.9416 19.4913 17.8986 18.8812 18.7705C18.4344 19.409 18.0195 20.0019 17.9231 20.7999H14.0831C13.9866 20.0018 13.5708 19.4088 13.1231 18.7702C12.5118 17.8984 11.8409 16.9414 11.8409 15.2612ZM14.0822 22.0819H17.9222V21.4401H14.0822V22.0819ZM14.0822 22.7201H17.9222C17.9222 23.427 17.3491 24.0001 16.6422 24.0001H15.3622C14.6552 24.0001 14.0822 23.427 14.0822 22.7201Z"
+          fill="white" />
+      </svg>
+      <span class="tab_text" translate="VIEWS.TOPICS_TOPICID.TAB_IDEATION"></span>
+    </!--a-->
+        <a class="topic_tab voting" [ngClass]="tabSelected=== 'voting' ? 'active' : ''" [routerLink]="['./']"
+          fragment="voting">
+          <svg *ngIf="!topic.voteId && tabSelected !== 'voting'" width="32" height="32" viewBox="0 0 32 32" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="16" fill="#98DAA2" />
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M16 8C11.584 8 8 11.584 8 16C8 20.416 11.584 24 16 24C20.416 24 24 20.416 24 16C24 11.584 20.416 8 16 8ZM14.4444 20L20.6667 13.8246L19.5 12.6667L14.4444 17.6842L12.5 15.7544L11.3333 16.9123L14.4444 20Z"
+              fill="white" />
+          </svg>
+          <svg *ngIf="topic.voteId || tabSelected === 'voting'" width="32" height="32" viewBox="0 0 32 32" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="16" fill="#5AB467" />
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M16 8C11.584 8 8 11.584 8 16C8 20.416 11.584 24 16 24C20.416 24 24 20.416 24 16C24 11.584 20.416 8 16 8ZM14.4444 20L20.6667 13.8246L19.5 12.6667L14.4444 17.6842L12.5 15.7544L11.3333 16.9123L14.4444 20Z"
+              fill="white" />
+          </svg>
+          <span class="tab_text" translate="VIEWS.TOPICS_TOPICID.TAB_VOTING"></span>
+        </a>
+        <a class="topic_tab follow_up" [ngClass]="tabSelected=== 'followUp' ? 'active' : ''" [routerLink]="['./']"
+          fragment="followUp">
+          <!-- (click)="tabSelected='followUp'""-->
+          <svg
+            *ngIf="topic.status !== TopicService.STATUSES.followUp && topic.status !== TopicService.STATUSES.closed && tabSelected !== 'followUp'"
+            width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="16" fill="#E3A8CC" />
+            <rect x="4" y="4" width="24" height="24" rx="12" fill="#E3A8CC" />
+            <path d="M17.8933 11.5294L17.6 10H11V23H12.4667V17.6471H16.5733L16.8667 19.1765H22V11.5294H17.8933Z"
+              fill="white" />
+          </svg>
+          <svg
+            *ngIf="topic.status === TopicService.STATUSES.followUp || topic.status === TopicService.STATUSES.closed || tabSelected === 'followUp'"
+            width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="16" fill="#DA7AB1" />
+            <rect x="4" y="4" width="24" height="24" rx="12" fill="#DA7AB1" />
+            <path d="M17.8933 11.5294L17.6 10H11V23H12.4667V17.6471H16.5733L16.8667 19.1765H22V11.5294H17.8933Z"
+              fill="white" />
+          </svg>
 
-  <div class="side_panel_background">
-  </div>
-
-  <router-outlet></router-outlet>
-
-  <div class="print_footer" *ngIf="topic">
-    <div class="qr_code" *ngIf="currentUrl()">
-          <qrcode [qrdata]="currentUrl()" [width]="210" [version]="12" [errorCorrectionLevel]="'L'" download class="qr_img"></qrcode>
+          <span class="tab_text" translate="VIEWS.TOPICS_TOPICID.TAB_FOLLOW_UP"></span>
+        </a>
       </div>
-    <span [innerHtml]="'VIEWS.TOPICS_TOPICID.TXT_QR_CODE_FOOTER_SCAN_CODE' | translate:{topicTitle: topic.title}"></span>
-    <a [href]="currentUrl()">{{currentUrl()}}</a>
-  </div>
+      <div id="activities_button_wrap" [TourItem]="{tourid: 'topic', index: 8, position: 'left'}">
+        <button *ngIf="(auth.loggedIn$ | async)" class="btn_medium_close icon" (click)="toggleFavourite(topic);">
+          <svg *ngIf="!topic.favourite" width="40" height="40" viewBox="0 0 40 40" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <rect width="40" height="40" rx="20" fill="#F1F7FC" />
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M22.6459 16.3594L20.0009 11L17.3559 16.3594L11.4414 17.2188L15.7212 21.3906L14.7108 27.2812L20.0009 24.5L25.291 27.2812L24.2807 21.3906L28.5604 17.2188L22.6459 16.3594ZM24.2625 18.6153L21.3178 18.1874L20.0009 15.5191L18.684 18.1874L15.7393 18.6153L17.8701 20.6923L17.3671 23.6251L20.0009 22.2404L22.6347 23.6251L22.1317 20.6923L24.2625 18.6153Z"
+              fill="#2C3B47" />
+          </svg>
+
+          <svg *ngIf="topic.favourite" width="40" height="40" viewBox="0 0 40 40" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <rect width="40" height="40" rx="20" fill="#EFE08A" />
+            <path
+              d="M20 11L22.645 16.3594L28.5595 17.2188L24.2798 21.3906L25.2901 27.2812L20 24.5L14.7099 27.2812L15.7202 21.3906L11.4405 17.2188L17.355 16.3594L20 11Z"
+              fill="#2C3B47" />
+          </svg>
+        </button>
+        <activities-button *ngIf="auth.loggedIn$" [topicId]="topic.id"></activities-button>
+        <!-- add [topicId]="topic.id"-->
+      </div>
+    </div>
+
+    <div class="topic_content_area_wrap">
+      <div class="content_area_left" *ngIf="tabSelected$ | async as tabSelected;">
+        <ng-container
+          *ngIf="topic.report && ((topic.report?.type && !topic.report?.moderatedReasonType) || (topic.report?.type) || (TopicService.canEdit(topic) && topic.report?.moderatedReasonType))">
+          <div class="notification_inline warning">
+            <div class="icon_notification">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="24" height="24" rx="12" fill="#F39129" />
+                <path
+                  d="M11.4395 4.7998C11.0934 4.7998 10.819 5.09181 10.8406 5.43723L11.3656 13.8372C11.3854 14.1535 11.6476 14.3998 11.9645 14.3998H12.0371C12.3539 14.3998 12.6162 14.1535 12.6359 13.8372L13.1609 5.43723C13.1825 5.09181 12.9082 4.7998 12.5621 4.7998H11.4395Z"
+                  fill="white" />
+                <path
+                  d="M12.0008 18.5998C12.6635 18.5998 13.2008 18.0625 13.2008 17.3998C13.2008 16.7371 12.6635 16.1998 12.0008 16.1998C11.338 16.1998 10.8008 16.7371 10.8008 17.3998C10.8008 18.0625 11.338 18.5998 12.0008 18.5998Z"
+                  fill="white" />
+              </svg>
+            </div>
+            <div class="message">
+
+              <div class="title" translate="VIEWS.TOPICS_TOPICID.HEADING_REPORTED">
+              </div>
+              <div class="content">
+                <div class="content_description"
+                  [translate]="(TopicService.canEdit(topic))? 'VIEWS.TOPICS_TOPICID.DESCRIPTION_REPORTED_ADMIN' : 'VIEWS.TOPICS_TOPICID.DESCRIPTION_REPORTED'">
+                </div>
+                <div class="content_items_wrap">
+                  <div class="content_item" *ngIf="topic.report.type && !topic.report.moderatedReasonType">
+                    <a [routerLink]="['reports', topic.report.id, 'moderate']">
+                      <div class="icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M15 12V14L19 11.5L15 9V11H6V12H15Z" fill="#1168A8" />
+                        </svg>
+                      </div>
+                      <span translate="VIEWS.TOPICS_TOPICID.TAB_INFO_LNK_MODERATE"></span>
+                    </a>
+                  </div>
+                  <div class="content_item">
+                    <a (click)="reportReasonDialog(topic)">
+                      <div class="icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M15 12V14L19 11.5L15 9V11H6V12H15Z" fill="#1168A8" />
+                        </svg>
+                      </div>
+                      <span translate="VIEWS.TOPICS_TOPICID.TAB_INFO_LNK_VIEW_REPORT_DETAILS"></span>
+                    </a>
+                  </div>
+                  <div class="content_item" *ngIf="topic.report.type">
+                    <a [routerLink]="['reports', topic.report.id, 'resolve']">
+                      <div class="icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M15 12V14L19 11.5L15 9V11H6V12H15Z" fill="#1168A8" />
+                        </svg>
+                      </div>
+                      <span translate="VIEWS.TOPICS_TOPICID.TAB_INFO_LNK_RESOLVE"></span>
+                    </a>
+                  </div>
+                  <div class="content_item" *ngIf="TopicService.canEdit(topic) && topic.report.moderatedReasonType">
+                    <a [routerLink]="['reports', topic.report.id, 'review']">
+                      <div class="icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M15 12V14L19 11.5L15 9V11H6V12H15Z" fill="#1168A8" />
+                        </svg>
+                      </div>
+                      <span translate="VIEWS.TOPICS_TOPICID.TAB_INFO_LNK_SUBMIT_FOR_REVIEW"></span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </ng-container>
+
+        <div class="topic_content_wrap">
+          <div class="moderated_topic" *ngIf="hideTopicContent">
+            <div class="notification">
+              <div>
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="40" height="40" rx="20" fill="#F39129" />
+                  <path
+                    d="M19.0645 8C18.4876 8 18.0304 8.48668 18.0664 9.06238L18.9414 23.0624C18.9743 23.5894 19.4114 24 19.9395 24H20.0605C20.5886 24 21.0257 23.5894 21.0586 23.0624L21.9336 9.06238C21.9696 8.48668 21.5124 8 20.9355 8H19.0645Z"
+                    fill="white" />
+                  <path
+                    d="M20 31C21.1046 31 22 30.1046 22 29C22 27.8954 21.1046 27 20 27C18.8954 27 18 27.8954 18 29C18 30.1046 18.8954 31 20 31Z"
+                    fill="white" />
+                </svg>
+              </div>
+              <div class="notification_title" translate="COMPONENTS.TOPICBOX.NOTIFICATION_TITLE"></div>
+              <div class="notification_links">
+                <a translate="COMPONENTS.TOPICBOX.NOTIFICATION_LNK_WHY" (click)="reportReasonDialog(topic)"></a>
+                <a translate="COMPONENTS.TOPICBOX.NOTIFICATION_LNK_VIEW" (click)="hideTopicContent=false"></a>
+              </div>
+            </div>
+          </div>
+          <div class="topic_image">
+            <img *ngIf="topic.imageUrl" [src]="topic.imageUrl">
+            <div *ngIf="(!topic.permission.level || topic.permission.level !== 'none')"
+              class="permissions_lable tablet_show"
+              [translate]="(topic.permission.level !== 'read')? ('TXT_TOPIC_LEVELS_' + topic.permission.level | uppercase) : 'VIEWS.TOPICS_TOPICID.LBL_JOINED'">
+            </div>
+          </div>
+          <div id="topic_text_wrap" #topicText
+            [TourItem]="{tourid: 'topic', index: 6, position: ((wWidth <= 1024)? 'bottom': 'top')}"
+            [@readMore]="readMore? 'open' : 'closed'">
+            <div class="topic_title" [ngClass]="{'tablet_tab_open': tabTablet}">
+              <div class="main_heading" [innerHTML]="topic.title"></div>
+            </div>
+            <div *ngIf="topic.intro && !tabTablet" class="topic_intro" [innerHTML]="topic.intro"></div>
+            <div class="topic_content" [innerHTML]="topic.description" *ngIf="!tabTablet"></div>
+          </div>
+          <div class="button_wrap" *ngIf="readMoreButton && !tabTablet">
+            <button class="btn_medium_secondary" #readMoreButton (click)="toggleReadMore()">
+              <svg *ngIf="!readMore" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M17 10L12 15L7 10" stroke="#1168A8" stroke-width="2" stroke-linecap="round" />
+              </svg>
+              <svg *ngIf="readMore" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M17 15L12 10L7 15" stroke="#1168A8" stroke-width="2" stroke-linecap="round" />
+              </svg>
+              <span *ngIf="!readMore" translate="VIEWS.TOPICS_TOPICID.BTN_READ_MORE"></span>
+              <span *ngIf="readMore" translate="VIEWS.TOPICS_TOPICID.BTN_READ_LESS"></span>
+            </button>
+          </div>
+        </div>
+        <ng-container *ngIf="tabSelected === 'discussion' || tabTablet === 'discussion'">
+          <topic-arguments class="topic_arguments" #arguments [topic]="topic"
+            [ngClass]="(tabTablet==='discussion')? 'show': ''"
+            [TourItem]="{tourid: 'topic', index: 7, position: 'top'}"></topic-arguments>
+          <post-argument *ngIf="(tabTablet==='discussion') || wWidth > 1024" [topicId]="topic.id"></post-argument>
+        </ng-container>
+        <ng-container *ngIf="tabSelected === 'voting'">
+          <div class="vote_wrap" #topicVote>
+            <div class="topic_feature_section voting" *ngIf="!topic.voteId"
+              [ngClass]="(tabTablet === 'voting')? 'show': ''">
+              <ng-container *ngIf="!topic.voteId">
+                <div class="no_feature_yet">
+                  <svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_7696_17198)">
+                      <rect width="96" height="96" rx="48" fill="white" />
+                      <path d="M60.4741 84.8165L33.9747 87.5576L34.5735 98.5014L60.4741 98.5014L60.4741 84.8165Z"
+                        fill="#5C9CD0" />
+                      <path
+                        d="M39.426 73.0151C39.5735 75.6403 39.847 80 39.847 80L55.7464 78.1781C55.7464 78.1781 55.0377 71.6809 57.1247 69.2952C57.4164 68.9617 57.734 68.6141 58.0625 68.2546C60.0836 66.0426 62.5181 63.3781 61.9031 60.7461C61.188 57.6862 55.7332 56.5701 55.7332 56.5701L57.5454 38.1548C57.6222 37.3983 57.3872 36.6431 56.8917 36.0541C56.3963 35.4651 55.6807 35.0903 54.9013 35.0116C54.1676 34.9469 53.4359 35.1552 52.8545 35.5942C52.2731 36.0332 51.8854 36.6701 51.7698 37.3759L49.9372 47.3073C49.9372 47.3073 49.2501 44.0056 47.2133 43.8671C45.1764 43.7286 43.9381 45.5234 43.5256 47.9962C42.9343 46.6963 41.9339 46.17 40.9594 46.4954L40.8798 46.2683C40.8798 46.2683 40.8724 46.3611 40.8593 46.5318C39.8666 46.9164 38.7753 47.761 38.8743 50.475C37.9455 49.4105 37.0625 48.7395 36.1955 48.9294L36.1113 48.687C36.1113 48.687 36.1102 48.7806 36.1087 48.9513C35.9414 48.9992 35.7747 49.0798 35.6083 49.1965C34.5519 49.9373 33.9007 53.5686 34.0124 55.5409C34.0291 55.8357 34.0298 56.2681 34.0307 56.79C34.0356 59.7597 34.0454 65.6267 37.0307 65.5227C37.1332 65.8435 37.3363 66.3302 37.5829 66.9211C38.2775 68.5858 39.3171 71.0776 39.426 73.0151Z"
+                        fill="#F8E1B8" />
+                      <path
+                        d="M54.8583 23.9809C53.9701 23.8388 53.0892 23.7882 52.2249 23.8217C51.7301 23.8408 51.3136 23.4511 51.2946 22.9512C51.2756 22.4513 51.6614 22.0304 52.1562 22.0113C53.1366 21.9733 54.1344 22.0309 55.1386 22.1914C56.1429 22.352 57.1095 22.6086 58.0304 22.9506C58.4952 23.1232 58.7334 23.6438 58.5626 24.1134C58.3917 24.583 57.8765 24.8237 57.4117 24.6511C56.5999 24.3495 55.7466 24.1229 54.8583 23.9809Z"
+                        fill="#2C3B47" />
+                      <path
+                        d="M47.5621 23.8584C47.7699 24.3126 47.5739 24.8509 47.1244 25.0608C45.5219 25.8092 44.0768 26.8703 42.8774 28.1791C42.541 28.5462 41.9737 28.5683 41.6103 28.2284C41.247 27.8885 41.2252 27.3153 41.5616 26.9482C42.9202 25.4656 44.5568 24.264 46.372 23.4163C46.8215 23.2063 47.3543 23.4043 47.5621 23.8584Z"
+                        fill="#2C3B47" />
+                      <path
+                        d="M63.1024 26.0916C62.7391 25.7517 62.1718 25.7738 61.8354 26.1409C61.499 26.508 61.5208 27.0811 61.8842 27.421C63.1796 28.6328 64.2298 30.0929 64.9705 31.712C65.1783 32.1661 65.7111 32.3641 66.1606 32.1542C66.6101 31.9442 66.806 31.4059 66.5982 30.9518C65.7592 29.1178 64.5698 27.4643 63.1024 26.0916Z"
+                        fill="#2C3B47" />
+                      <path
+                        d="M39.6036 31.535C40.0684 31.7076 40.3067 32.2282 40.1358 32.6978C39.8374 33.518 39.6131 34.3801 39.4725 35.2776C39.3306 36.1834 39.2808 37.0816 39.3158 37.9627C39.3357 38.4626 38.9507 38.8842 38.456 38.9042C37.9612 38.9243 37.544 38.5354 37.5241 38.0355C37.4844 37.036 37.5409 36.0185 37.7014 34.9944C37.8603 33.9797 38.1142 33.0031 38.4527 32.0727C38.6236 31.6031 39.1389 31.3624 39.6036 31.535Z"
+                        fill="#2C3B47" />
+                      <path
+                        d="M67.9888 36.7958C67.9699 36.2958 67.5534 35.9061 67.0586 35.9253C66.5637 35.9445 66.178 36.3653 66.197 36.8652C66.2301 37.7384 66.18 38.6284 66.0394 39.5259C65.8988 40.4233 65.6745 41.2854 65.3761 42.1056C65.2052 42.5752 65.4435 43.0958 65.9082 43.2684C66.373 43.441 66.8883 43.2003 67.0591 42.7307C67.3977 41.8003 67.6516 40.8237 67.8105 39.8091C67.9695 38.7944 68.0264 37.7863 67.9888 36.7958Z"
+                        fill="#2C3B47" />
+                      <path
+                        d="M63.9015 46.5751C64.2649 46.915 64.2867 47.4881 63.9503 47.8552C62.5917 49.3378 60.9551 50.5394 59.1398 51.3872C58.6903 51.5971 58.1575 51.3991 57.9498 50.945C57.742 50.4909 57.938 49.9526 58.3874 49.7427C59.9899 48.9943 61.4351 47.9332 62.6345 46.6244C62.9709 46.2572 63.5382 46.2352 63.9015 46.5751Z"
+                        fill="#2C3B47" />
+                      <path
+                        d="M38.2749 84.5623C39.1038 84.6439 39.8411 84.0312 39.9218 83.1938C40.0026 82.3564 39.3961 81.6114 38.5673 81.5299C37.7385 81.4483 37.0012 82.061 36.9204 82.8984C36.8397 83.7358 37.4461 84.4807 38.2749 84.5623Z"
+                        fill="#2C3B47" />
+                      <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M39.3799 42.7231C39.8282 42.5107 40.3621 42.7057 40.5723 43.1587C40.6995 43.4328 40.8356 43.7023 40.9803 43.9668C41.8928 42.1943 43.2772 41.2609 45.055 41.3536C45.8337 41.4099 46.649 41.9902 47.1918 42.557L48.3388 35.5884C48.5077 34.595 49.0424 33.7029 49.8354 33.0912C50.6284 32.4795 51.621 32.1936 52.6141 32.2908C53.1427 32.3154 53.6596 32.4573 54.1278 32.7065C54.5961 32.9556 55.0044 33.3058 55.3237 33.7323C55.6743 34.1291 55.9369 34.5969 56.094 35.1046C56.2511 35.6122 56.299 36.148 56.2345 36.6758L54.5393 54.4304C56.3041 54.9858 59.7778 56.4391 60.4789 59.271C61.2199 62.519 58.6208 65.5353 56.4948 67.9009C56.3365 68.0761 56.193 68.2283 56.0495 68.3803C55.9062 68.5323 55.7625 68.6846 55.6043 68.8597C54.4472 70.2178 54.2574 73.6881 54.3615 76.0866L58.0734 75.5942C58.3564 75.5768 58.6291 75.6765 58.8323 75.8717C58.8516 75.9013 58.873 75.9319 58.8951 75.9635C59.0171 76.1378 59.163 76.3462 59.1139 76.6317L59.2153 83.4638L60.1263 83.3543C60.4435 83.3431 60.7523 83.4587 60.9856 83.6762C61.008 83.7089 61.0328 83.7426 61.0585 83.7776C61.2001 83.9702 61.3693 84.2004 61.3218 84.5092L61.1399 99H58.9026L59.0685 85.7694L34.704 88.7339L35.8982 99H33.5586L32.2791 87.8386C32.2604 87.686 32.2729 87.5311 32.3157 87.3834C32.3585 87.2358 32.4308 87.0986 32.528 86.9802C32.6253 86.8619 32.7454 86.7649 32.8812 86.6952C33.0169 86.6255 33.1653 86.5846 33.3173 86.575L33.9625 86.4975L33.2007 79.9546C33.1874 79.8144 33.2019 79.6714 33.2432 79.5345C33.2846 79.3975 33.3519 79.2695 33.4412 79.1583C33.5304 79.0471 33.6396 78.9551 33.7621 78.8879C33.8846 78.8207 34.0177 78.7797 34.1533 78.7675L36.8294 78.4125C36.7459 77.0079 36.5755 74.108 36.4736 72.1497C36.1363 70.1456 35.5629 68.1895 34.7655 66.3231C34.6927 66.0308 34.5795 65.7504 34.4294 65.49C33.911 65.3494 33.4302 65.0936 33.0222 64.7414C31.179 62.8584 31.0624 58.9049 31.0365 55.2704C31.0084 54.9615 30.9987 54.6512 31.0072 54.3411C30.9385 52.7593 31.3415 48.0445 33.0887 46.8986C33.5031 46.5869 34.0001 46.4072 34.5162 46.3824C35.0322 46.3576 35.5439 46.4888 35.9858 46.7592C36.1389 46.131 36.451 45.5538 36.8915 45.0842C37.332 44.6145 37.8857 44.2686 38.4984 44.0804C38.648 44.0227 38.8021 43.9788 38.9586 43.949L38.9487 43.9278C38.7385 43.4748 38.9316 42.9354 39.3799 42.7231ZM55.1673 66.2923L54.2262 67.3482C51.9604 69.4952 51.9137 73.9897 51.8916 76.1168L51.8914 76.1336L38.7375 77.8095C38.6006 76.3155 38.5027 73.8044 38.4395 71.9548C38.0937 69.7024 37.4746 67.5016 36.5964 65.4021C36.5773 65.3589 36.5585 65.3156 36.5402 65.2721C37.1153 65.001 37.7683 64.5255 38.2963 63.7023C38.6022 63.8321 38.9394 63.8758 39.2715 63.8252C39.7997 63.7979 40.3126 63.6408 40.7661 63.3684C41.0105 63.6052 41.2835 63.8113 41.5794 63.9814C42.1433 64.2627 42.7618 64.4145 43.3906 64.4261C44.9796 64.4113 46.0221 63.3688 46.5187 61.3854L50.3439 62.5647C50.6384 62.6454 50.9524 62.6082 51.2205 62.4609C51.4886 62.3136 51.6902 62.0675 51.7832 61.7738C51.834 61.6266 51.8538 61.4703 51.8412 61.3149C51.8287 61.1596 51.7842 61.0086 51.7105 60.8716C51.6367 60.7347 51.5355 60.6148 51.4132 60.5198C51.2909 60.4247 51.1503 60.3565 51.0004 60.3196L43.4882 58.0037C43.215 57.9128 42.9817 57.7284 42.8287 57.4822C42.6757 57.2361 42.6126 56.9437 42.6502 56.6555C42.6688 56.5041 42.7171 56.3579 42.7922 56.2256C42.8674 56.0932 42.9679 55.9773 43.0879 55.8846C43.2079 55.792 43.345 55.7245 43.4912 55.686C43.6373 55.6475 43.7896 55.6389 43.9391 55.6605C44.6868 55.6764 45.4071 55.745 46.0764 55.8086L46.1736 55.8179C46.2504 55.8998 46.3372 55.9723 46.4322 56.0336C46.4841 56.0703 46.5436 56.0945 46.6062 56.1043C46.6688 56.1142 46.7328 56.1094 46.7933 56.0904C47.0578 56.1174 47.3224 56.0531 47.5446 55.9096C49.416 56.014 51.2805 56.2226 53.1295 56.5344C53.343 56.5485 53.5546 56.5023 53.7415 56.4032C55.0597 56.7108 58.2512 57.8063 58.6969 59.7555C59.1667 61.8102 56.9855 64.2818 55.1673 66.2923ZM36.5852 62.0992C36.5134 61.9819 36.4467 61.8611 36.3854 61.7371C35.8436 60.4954 35.9173 54.647 35.9643 50.9176C35.9696 50.499 35.9745 50.107 35.9782 49.7512C34.9984 48.5549 34.5828 48.7293 34.4111 48.8015C34.3994 48.8064 34.3884 48.811 34.3788 48.8144C33.7641 49.2657 33.1424 52.1722 33.1958 54.276C33.1659 54.6144 33.1603 54.9544 33.179 55.2935C33.1861 55.5006 33.1918 55.7446 33.198 56.0157L33.198 56.0167C33.2478 58.1677 33.3375 62.046 34.492 63.1208C34.6104 63.1968 34.7421 63.2482 34.8793 63.2726C34.9454 63.2603 35.0127 63.2538 35.0804 63.2534C35.5032 63.1885 35.8939 62.9867 36.1935 62.6783C36.3579 62.509 36.4901 62.3127 36.5852 62.0992ZM38.4966 60.9095C38.4556 60.8256 38.4136 60.7319 38.3704 60.6275C38.0434 59.8364 38.0969 54.3724 38.1425 49.7276L38.1442 49.5541C38.1522 49.5269 38.159 49.4993 38.1647 49.4714C38.1917 49.3386 38.1918 49.2017 38.1647 49.069C38.1675 46.6002 38.9833 46.256 39.3905 46.2244C39.963 46.0649 40.2759 46.4893 40.5113 46.9486C40.3064 48.911 39.247 59.0755 39.5905 61.2426C39.6064 61.317 39.6243 61.3909 39.6442 61.4641C39.5372 61.5578 39.4055 61.6334 39.2688 61.6242C39.1592 61.6169 39.0532 61.5906 38.9455 61.5169C38.9234 61.4496 38.8953 61.3839 38.8614 61.3207C38.7724 61.1554 38.6469 61.0151 38.4966 60.9095ZM52.749 54.1246L54.4135 36.4854C54.4461 36.0382 54.3101 35.5952 54.0328 35.2451C53.9007 35.0474 53.7222 34.8858 53.5133 34.7747C53.3043 34.6635 53.0715 34.6063 52.8354 34.608C52.3961 34.5679 51.9581 34.697 51.6091 34.9694C51.2601 35.2419 51.0259 35.6375 50.9534 36.077L49.1763 46.1072C49.1824 46.1866 49.1804 46.2666 49.1702 46.346L48.2509 53.6756C49.5934 53.7709 50.9939 53.8797 52.749 54.1246ZM45.9564 53.5313L46.8612 46.2931C46.853 46.2609 46.8463 46.2283 46.841 46.1952C46.601 45.4133 45.9398 43.6403 45.119 43.5872C43.4991 43.5036 42.9341 45.8086 42.7798 46.8545C42.7735 46.8838 42.7662 46.9128 42.7577 46.9414C42.6632 48.0539 42.5434 49.3299 42.4197 50.6489L42.4194 50.6522C42.3207 51.7034 42.2195 52.782 42.1264 53.8272C42.7268 53.4941 43.4158 53.348 44.1052 53.414C44.7004 53.4873 45.2766 53.5074 45.8327 53.5269L45.9564 53.5313ZM41.7432 59.7442C41.7431 60.1882 41.7623 60.5297 41.8059 60.7406C41.8077 60.8398 41.8204 60.9382 41.8434 61.0341C41.8799 61.0868 41.9122 61.1428 41.9399 61.2016C41.9784 61.2836 42.007 61.3693 42.0255 61.4569C42.0919 61.5588 42.172 61.6515 42.2636 61.7321C42.4043 61.8558 42.5691 61.9484 42.7474 62.0037C42.9256 62.0591 43.1134 62.0761 43.2986 62.0536C43.5145 62.0544 44.0195 62.0328 44.3195 60.7074L42.8317 60.2487C42.5995 60.2265 42.3758 60.1499 42.178 60.025C42.0257 59.942 41.8805 59.848 41.7432 59.7442ZM57.1971 83.7062L36.0438 86.2474L35.3425 80.7258L57.0784 77.8425L57.1971 83.7062Z"
+                        fill="#2C3B47" />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_7696_17198">
+                        <rect width="96" height="96" rx="48" fill="white" />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                  <div class="description_heading" translate="VIEWS.TOPICS_TOPICID.NO_VOTING_HEADING"></div>
+                  <div class="button" *ngIf="TopicService.canDelete(topic)">
+                    <button class="btn_medium_submit animate" (click)="startVote(topic)">
+                      <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M12.5 20C11.9711 20 11.5423 19.5712 11.5423 19.0423L11.5423 12.9577L5.45775 12.9577C4.9288 12.9577 4.5 12.5289 4.5 12C4.5 11.4711 4.9288 11.0423 5.45775 11.0423H11.5423V4.95775C11.5423 4.4288 11.9711 4 12.5 4C13.0289 4 13.4577 4.4288 13.4577 4.95775L13.4577 11.0423L19.5423 11.0423C20.0712 11.0423 20.5 11.4711 20.5 12C20.5 12.5289 20.0712 12.9577 19.5423 12.9577H13.4577V19.0423C13.4577 19.5712 13.0289 20 12.5 20Z"
+                          fill="white" />
+                      </svg>
+
+                      <span translate="VIEWS.TOPICS_TOPICID.NO_VOTING_BTN_ADD"></span></button>
+                  </div>
+                  <div class="no_feature_description">
+                    <div class="description_text">
+                      <div class="description_heading" translate="VIEWS.TOPICS_TOPICID.NO_VOTING_DESC_HEADING"></div>
+                      <div>
+                        <span translate="VIEWS.TOPICS_TOPICID.NO_VOTING_DESC_BEFORE"></span>
+                        <br>
+                        <br><span translate="VIEWS.TOPICS_TOPICID.NO_VOTING_DESC_AFTER"></span>
+                      </div>
+                    </div>
+                    <!--div class="description_video">
+                      <svg width="240" height="160" viewBox="0 0 240 160" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <rect width="240" height="160" rx="16" fill="white" />
+                        <rect x="96" y="56" width="48" height="48" rx="24" fill="#FDF0C3" />
+                        <path
+                          d="M115.5 74.3042C115.5 73.5188 116.364 73.04 117.03 73.4562L126.143 79.152C126.77 79.5437 126.77 80.4563 126.143 80.848L117.03 86.5438C116.364 86.96 115.5 86.4812 115.5 85.6958V74.3042Z"
+                          fill="#2C3B47" />
+                      </svg>
+                    </!--div-->
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+            <ng-container *ngIf="topic?.voteId && (vote$ | async) as vote">
+              <topic-vote-cast [ngClass]="(tabTablet === 'voting')? 'show': ''" [topic]="topic"
+                [vote]="vote"></topic-vote-cast>
+            </ng-container>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="tabSelected === 'followUp'">
+          <div class="follow_up_wrap" #topicFollowUp>
+            <ng-container *ngIf="events$ | async as events;">
+              <ng-container
+                *ngIf="(!events.length && !canUpdate(topic)) || topic.status !== TopicService.STATUSES.followUp">
+                <div class="topic_feature_section follow_up" [ngClass]="(tabTablet === 'followUp')? 'show': ''">
+                  <div class="no_feature_yet">
+                    <svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <g clip-path="url(#clip0_7696_17198)">
+                        <rect width="96" height="96" rx="48" fill="white" />
+                        <path d="M60.4741 84.8165L33.9747 87.5576L34.5735 98.5014L60.4741 98.5014L60.4741 84.8165Z"
+                          fill="#5C9CD0" />
+                        <path
+                          d="M39.426 73.0151C39.5735 75.6403 39.847 80 39.847 80L55.7464 78.1781C55.7464 78.1781 55.0377 71.6809 57.1247 69.2952C57.4164 68.9617 57.734 68.6141 58.0625 68.2546C60.0836 66.0426 62.5181 63.3781 61.9031 60.7461C61.188 57.6862 55.7332 56.5701 55.7332 56.5701L57.5454 38.1548C57.6222 37.3983 57.3872 36.6431 56.8917 36.0541C56.3963 35.4651 55.6807 35.0903 54.9013 35.0116C54.1676 34.9469 53.4359 35.1552 52.8545 35.5942C52.2731 36.0332 51.8854 36.6701 51.7698 37.3759L49.9372 47.3073C49.9372 47.3073 49.2501 44.0056 47.2133 43.8671C45.1764 43.7286 43.9381 45.5234 43.5256 47.9962C42.9343 46.6963 41.9339 46.17 40.9594 46.4954L40.8798 46.2683C40.8798 46.2683 40.8724 46.3611 40.8593 46.5318C39.8666 46.9164 38.7753 47.761 38.8743 50.475C37.9455 49.4105 37.0625 48.7395 36.1955 48.9294L36.1113 48.687C36.1113 48.687 36.1102 48.7806 36.1087 48.9513C35.9414 48.9992 35.7747 49.0798 35.6083 49.1965C34.5519 49.9373 33.9007 53.5686 34.0124 55.5409C34.0291 55.8357 34.0298 56.2681 34.0307 56.79C34.0356 59.7597 34.0454 65.6267 37.0307 65.5227C37.1332 65.8435 37.3363 66.3302 37.5829 66.9211C38.2775 68.5858 39.3171 71.0776 39.426 73.0151Z"
+                          fill="#F8E1B8" />
+                        <path
+                          d="M54.8583 23.9809C53.9701 23.8388 53.0892 23.7882 52.2249 23.8217C51.7301 23.8408 51.3136 23.4511 51.2946 22.9512C51.2756 22.4513 51.6614 22.0304 52.1562 22.0113C53.1366 21.9733 54.1344 22.0309 55.1386 22.1914C56.1429 22.352 57.1095 22.6086 58.0304 22.9506C58.4952 23.1232 58.7334 23.6438 58.5626 24.1134C58.3917 24.583 57.8765 24.8237 57.4117 24.6511C56.5999 24.3495 55.7466 24.1229 54.8583 23.9809Z"
+                          fill="#2C3B47" />
+                        <path
+                          d="M47.5621 23.8584C47.7699 24.3126 47.5739 24.8509 47.1244 25.0608C45.5219 25.8092 44.0768 26.8703 42.8774 28.1791C42.541 28.5462 41.9737 28.5683 41.6103 28.2284C41.247 27.8885 41.2252 27.3153 41.5616 26.9482C42.9202 25.4656 44.5568 24.264 46.372 23.4163C46.8215 23.2063 47.3543 23.4043 47.5621 23.8584Z"
+                          fill="#2C3B47" />
+                        <path
+                          d="M63.1024 26.0916C62.7391 25.7517 62.1718 25.7738 61.8354 26.1409C61.499 26.508 61.5208 27.0811 61.8842 27.421C63.1796 28.6328 64.2298 30.0929 64.9705 31.712C65.1783 32.1661 65.7111 32.3641 66.1606 32.1542C66.6101 31.9442 66.806 31.4059 66.5982 30.9518C65.7592 29.1178 64.5698 27.4643 63.1024 26.0916Z"
+                          fill="#2C3B47" />
+                        <path
+                          d="M39.6036 31.535C40.0684 31.7076 40.3067 32.2282 40.1358 32.6978C39.8374 33.518 39.6131 34.3801 39.4725 35.2776C39.3306 36.1834 39.2808 37.0816 39.3158 37.9627C39.3357 38.4626 38.9507 38.8842 38.456 38.9042C37.9612 38.9243 37.544 38.5354 37.5241 38.0355C37.4844 37.036 37.5409 36.0185 37.7014 34.9944C37.8603 33.9797 38.1142 33.0031 38.4527 32.0727C38.6236 31.6031 39.1389 31.3624 39.6036 31.535Z"
+                          fill="#2C3B47" />
+                        <path
+                          d="M67.9888 36.7958C67.9699 36.2958 67.5534 35.9061 67.0586 35.9253C66.5637 35.9445 66.178 36.3653 66.197 36.8652C66.2301 37.7384 66.18 38.6284 66.0394 39.5259C65.8988 40.4233 65.6745 41.2854 65.3761 42.1056C65.2052 42.5752 65.4435 43.0958 65.9082 43.2684C66.373 43.441 66.8883 43.2003 67.0591 42.7307C67.3977 41.8003 67.6516 40.8237 67.8105 39.8091C67.9695 38.7944 68.0264 37.7863 67.9888 36.7958Z"
+                          fill="#2C3B47" />
+                        <path
+                          d="M63.9015 46.5751C64.2649 46.915 64.2867 47.4881 63.9503 47.8552C62.5917 49.3378 60.9551 50.5394 59.1398 51.3872C58.6903 51.5971 58.1575 51.3991 57.9498 50.945C57.742 50.4909 57.938 49.9526 58.3874 49.7427C59.9899 48.9943 61.4351 47.9332 62.6345 46.6244C62.9709 46.2572 63.5382 46.2352 63.9015 46.5751Z"
+                          fill="#2C3B47" />
+                        <path
+                          d="M38.2749 84.5623C39.1038 84.6439 39.8411 84.0312 39.9218 83.1938C40.0026 82.3564 39.3961 81.6114 38.5673 81.5299C37.7385 81.4483 37.0012 82.061 36.9204 82.8984C36.8397 83.7358 37.4461 84.4807 38.2749 84.5623Z"
+                          fill="#2C3B47" />
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                          d="M39.3799 42.7231C39.8282 42.5107 40.3621 42.7057 40.5723 43.1587C40.6995 43.4328 40.8356 43.7023 40.9803 43.9668C41.8928 42.1943 43.2772 41.2609 45.055 41.3536C45.8337 41.4099 46.649 41.9902 47.1918 42.557L48.3388 35.5884C48.5077 34.595 49.0424 33.7029 49.8354 33.0912C50.6284 32.4795 51.621 32.1936 52.6141 32.2908C53.1427 32.3154 53.6596 32.4573 54.1278 32.7065C54.5961 32.9556 55.0044 33.3058 55.3237 33.7323C55.6743 34.1291 55.9369 34.5969 56.094 35.1046C56.2511 35.6122 56.299 36.148 56.2345 36.6758L54.5393 54.4304C56.3041 54.9858 59.7778 56.4391 60.4789 59.271C61.2199 62.519 58.6208 65.5353 56.4948 67.9009C56.3365 68.0761 56.193 68.2283 56.0495 68.3803C55.9062 68.5323 55.7625 68.6846 55.6043 68.8597C54.4472 70.2178 54.2574 73.6881 54.3615 76.0866L58.0734 75.5942C58.3564 75.5768 58.6291 75.6765 58.8323 75.8717C58.8516 75.9013 58.873 75.9319 58.8951 75.9635C59.0171 76.1378 59.163 76.3462 59.1139 76.6317L59.2153 83.4638L60.1263 83.3543C60.4435 83.3431 60.7523 83.4587 60.9856 83.6762C61.008 83.7089 61.0328 83.7426 61.0585 83.7776C61.2001 83.9702 61.3693 84.2004 61.3218 84.5092L61.1399 99H58.9026L59.0685 85.7694L34.704 88.7339L35.8982 99H33.5586L32.2791 87.8386C32.2604 87.686 32.2729 87.5311 32.3157 87.3834C32.3585 87.2358 32.4308 87.0986 32.528 86.9802C32.6253 86.8619 32.7454 86.7649 32.8812 86.6952C33.0169 86.6255 33.1653 86.5846 33.3173 86.575L33.9625 86.4975L33.2007 79.9546C33.1874 79.8144 33.2019 79.6714 33.2432 79.5345C33.2846 79.3975 33.3519 79.2695 33.4412 79.1583C33.5304 79.0471 33.6396 78.9551 33.7621 78.8879C33.8846 78.8207 34.0177 78.7797 34.1533 78.7675L36.8294 78.4125C36.7459 77.0079 36.5755 74.108 36.4736 72.1497C36.1363 70.1456 35.5629 68.1895 34.7655 66.3231C34.6927 66.0308 34.5795 65.7504 34.4294 65.49C33.911 65.3494 33.4302 65.0936 33.0222 64.7414C31.179 62.8584 31.0624 58.9049 31.0365 55.2704C31.0084 54.9615 30.9987 54.6512 31.0072 54.3411C30.9385 52.7593 31.3415 48.0445 33.0887 46.8986C33.5031 46.5869 34.0001 46.4072 34.5162 46.3824C35.0322 46.3576 35.5439 46.4888 35.9858 46.7592C36.1389 46.131 36.451 45.5538 36.8915 45.0842C37.332 44.6145 37.8857 44.2686 38.4984 44.0804C38.648 44.0227 38.8021 43.9788 38.9586 43.949L38.9487 43.9278C38.7385 43.4748 38.9316 42.9354 39.3799 42.7231ZM55.1673 66.2923L54.2262 67.3482C51.9604 69.4952 51.9137 73.9897 51.8916 76.1168L51.8914 76.1336L38.7375 77.8095C38.6006 76.3155 38.5027 73.8044 38.4395 71.9548C38.0937 69.7024 37.4746 67.5016 36.5964 65.4021C36.5773 65.3589 36.5585 65.3156 36.5402 65.2721C37.1153 65.001 37.7683 64.5255 38.2963 63.7023C38.6022 63.8321 38.9394 63.8758 39.2715 63.8252C39.7997 63.7979 40.3126 63.6408 40.7661 63.3684C41.0105 63.6052 41.2835 63.8113 41.5794 63.9814C42.1433 64.2627 42.7618 64.4145 43.3906 64.4261C44.9796 64.4113 46.0221 63.3688 46.5187 61.3854L50.3439 62.5647C50.6384 62.6454 50.9524 62.6082 51.2205 62.4609C51.4886 62.3136 51.6902 62.0675 51.7832 61.7738C51.834 61.6266 51.8538 61.4703 51.8412 61.3149C51.8287 61.1596 51.7842 61.0086 51.7105 60.8716C51.6367 60.7347 51.5355 60.6148 51.4132 60.5198C51.2909 60.4247 51.1503 60.3565 51.0004 60.3196L43.4882 58.0037C43.215 57.9128 42.9817 57.7284 42.8287 57.4822C42.6757 57.2361 42.6126 56.9437 42.6502 56.6555C42.6688 56.5041 42.7171 56.3579 42.7922 56.2256C42.8674 56.0932 42.9679 55.9773 43.0879 55.8846C43.2079 55.792 43.345 55.7245 43.4912 55.686C43.6373 55.6475 43.7896 55.6389 43.9391 55.6605C44.6868 55.6764 45.4071 55.745 46.0764 55.8086L46.1736 55.8179C46.2504 55.8998 46.3372 55.9723 46.4322 56.0336C46.4841 56.0703 46.5436 56.0945 46.6062 56.1043C46.6688 56.1142 46.7328 56.1094 46.7933 56.0904C47.0578 56.1174 47.3224 56.0531 47.5446 55.9096C49.416 56.014 51.2805 56.2226 53.1295 56.5344C53.343 56.5485 53.5546 56.5023 53.7415 56.4032C55.0597 56.7108 58.2512 57.8063 58.6969 59.7555C59.1667 61.8102 56.9855 64.2818 55.1673 66.2923ZM36.5852 62.0992C36.5134 61.9819 36.4467 61.8611 36.3854 61.7371C35.8436 60.4954 35.9173 54.647 35.9643 50.9176C35.9696 50.499 35.9745 50.107 35.9782 49.7512C34.9984 48.5549 34.5828 48.7293 34.4111 48.8015C34.3994 48.8064 34.3884 48.811 34.3788 48.8144C33.7641 49.2657 33.1424 52.1722 33.1958 54.276C33.1659 54.6144 33.1603 54.9544 33.179 55.2935C33.1861 55.5006 33.1918 55.7446 33.198 56.0157L33.198 56.0167C33.2478 58.1677 33.3375 62.046 34.492 63.1208C34.6104 63.1968 34.7421 63.2482 34.8793 63.2726C34.9454 63.2603 35.0127 63.2538 35.0804 63.2534C35.5032 63.1885 35.8939 62.9867 36.1935 62.6783C36.3579 62.509 36.4901 62.3127 36.5852 62.0992ZM38.4966 60.9095C38.4556 60.8256 38.4136 60.7319 38.3704 60.6275C38.0434 59.8364 38.0969 54.3724 38.1425 49.7276L38.1442 49.5541C38.1522 49.5269 38.159 49.4993 38.1647 49.4714C38.1917 49.3386 38.1918 49.2017 38.1647 49.069C38.1675 46.6002 38.9833 46.256 39.3905 46.2244C39.963 46.0649 40.2759 46.4893 40.5113 46.9486C40.3064 48.911 39.247 59.0755 39.5905 61.2426C39.6064 61.317 39.6243 61.3909 39.6442 61.4641C39.5372 61.5578 39.4055 61.6334 39.2688 61.6242C39.1592 61.6169 39.0532 61.5906 38.9455 61.5169C38.9234 61.4496 38.8953 61.3839 38.8614 61.3207C38.7724 61.1554 38.6469 61.0151 38.4966 60.9095ZM52.749 54.1246L54.4135 36.4854C54.4461 36.0382 54.3101 35.5952 54.0328 35.2451C53.9007 35.0474 53.7222 34.8858 53.5133 34.7747C53.3043 34.6635 53.0715 34.6063 52.8354 34.608C52.3961 34.5679 51.9581 34.697 51.6091 34.9694C51.2601 35.2419 51.0259 35.6375 50.9534 36.077L49.1763 46.1072C49.1824 46.1866 49.1804 46.2666 49.1702 46.346L48.2509 53.6756C49.5934 53.7709 50.9939 53.8797 52.749 54.1246ZM45.9564 53.5313L46.8612 46.2931C46.853 46.2609 46.8463 46.2283 46.841 46.1952C46.601 45.4133 45.9398 43.6403 45.119 43.5872C43.4991 43.5036 42.9341 45.8086 42.7798 46.8545C42.7735 46.8838 42.7662 46.9128 42.7577 46.9414C42.6632 48.0539 42.5434 49.3299 42.4197 50.6489L42.4194 50.6522C42.3207 51.7034 42.2195 52.782 42.1264 53.8272C42.7268 53.4941 43.4158 53.348 44.1052 53.414C44.7004 53.4873 45.2766 53.5074 45.8327 53.5269L45.9564 53.5313ZM41.7432 59.7442C41.7431 60.1882 41.7623 60.5297 41.8059 60.7406C41.8077 60.8398 41.8204 60.9382 41.8434 61.0341C41.8799 61.0868 41.9122 61.1428 41.9399 61.2016C41.9784 61.2836 42.007 61.3693 42.0255 61.4569C42.0919 61.5588 42.172 61.6515 42.2636 61.7321C42.4043 61.8558 42.5691 61.9484 42.7474 62.0037C42.9256 62.0591 43.1134 62.0761 43.2986 62.0536C43.5145 62.0544 44.0195 62.0328 44.3195 60.7074L42.8317 60.2487C42.5995 60.2265 42.3758 60.1499 42.178 60.025C42.0257 59.942 41.8805 59.848 41.7432 59.7442ZM57.1971 83.7062L36.0438 86.2474L35.3425 80.7258L57.0784 77.8425L57.1971 83.7062Z"
+                          fill="#2C3B47" />
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_7696_17198">
+                          <rect width="96" height="96" rx="48" fill="white" />
+                        </clipPath>
+                      </defs>
+                    </svg>
+                    <div class="description_heading" translate="VIEWS.TOPICS_TOPICID.NO_FOLLOW_UP_HEADING"></div>
+                    <div class="button" *ngIf="TopicService.canDelete(topic)">
+                      <button class="btn_medium_submit animate" (click)="sendToFollowUp(topic)">
+                        <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M12.5 20C11.9711 20 11.5423 19.5712 11.5423 19.0423L11.5423 12.9577L5.45775 12.9577C4.9288 12.9577 4.5 12.5289 4.5 12C4.5 11.4711 4.9288 11.0423 5.45775 11.0423H11.5423V4.95775C11.5423 4.4288 11.9711 4 12.5 4C13.0289 4 13.4577 4.4288 13.4577 4.95775L13.4577 11.0423L19.5423 11.0423C20.0712 11.0423 20.5 11.4711 20.5 12C20.5 12.5289 20.0712 12.9577 19.5423 12.9577H13.4577V19.0423C13.4577 19.5712 13.0289 20 12.5 20Z"
+                            fill="white" />
+                        </svg>
+                        <span translate="VIEWS.TOPICS_TOPICID.NO_FOLLOW_BTN_ADD"></span>
+                      </button>
+                    </div>
+                    <div class="no_feature_description">
+                      <div class="description_text">
+                        <div class="description_heading" translate="VIEWS.TOPICS_TOPICID.NO_FOLLOW_DESC_HEADING"></div>
+                        <div><span translate="VIEWS.TOPICS_TOPICID.NO_FOLLOW_DESC_BEFORE"></span>
+                          <br>
+                          <br><span translate="VIEWS.TOPICS_TOPICID.NO_FOLLOW_DESC_AFTER"></span>
+                        </div>
+                      </div>
+                      <!--div class="description_video">
+                        <svg width="240" height="160" viewBox="0 0 240 160" fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <rect width="240" height="160" rx="16" fill="white" />
+                          <rect x="96" y="56" width="48" height="48" rx="24" fill="#FDF0C3" />
+                          <path
+                            d="M115.5 74.3042C115.5 73.5188 116.364 73.04 117.03 73.4562L126.143 79.152C126.77 79.5437 126.77 80.4563 126.143 80.848L117.03 86.5438C116.364 86.96 115.5 86.4812 115.5 85.6958V74.3042Z"
+                            fill="#2C3B47" />
+                        </svg>
+                      </!--div-->
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container
+                *ngIf="events.length || (topic.status === TopicService.STATUSES.followUp && canUpdate(topic))">
+                <topic-milestones [topic]="topic" [ngClass]="(tabTablet === 'followUp')? 'show': ''"></topic-milestones>
+              </ng-container>
+            </ng-container>
+          </div>
+        </ng-container>
+      </div>
+      <div class="content_area_right" *ngIf="(wWidth > 1024) || !tabTablet">
+        <div class="info_section"
+          [TourItem]="{tourid: 'topic', index: 3, position: ((wWidth <= 1024)? 'bottom': 'left')}">
+          <div class="info_items_wrap">
+            <div class="info_header">
+              <div class="info_title bold" translate="VIEWS.TOPICS_TOPICID.SECTION_INFO_TITLE_INFO"></div>
+
+              <div class="dropdown button_dropdown tablet_hidden" [cosDropdown]
+                [TourItem]="{tourid: 'topic', index: 2, position: 'left'}">
+                <a class="manage_link" translate="VIEWS.TOPICS_TOPICID.LNK_MANAGE"></a>
+                <div class="options">
+                  <ng-container
+                    *ngIf="(topic.permission.level && topic.permission.level !== 'none') && (auth.loggedIn$ | async)">
+                    <button (click)="leaveTopic(topic)" class="option">
+                      <div class="icon_wrap">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M10 12.25V9H6.61392C6.49078 9 6.37268 8.94732 6.28561 8.85355C6.19854 8.75979 6.14962 8.63261 6.14962 8.5C6.14962 8.36739 6.19854 8.24021 6.28561 8.14645C6.37268 8.05268 6.49078 8 6.61392 8H10V3.75C9.99954 3.28602 9.82818 2.84119 9.52353 2.51311C9.21888 2.18503 8.80582 2.0005 8.37497 2H2.62503C2.19418 2.0005 1.78112 2.18503 1.47647 2.51311C1.17182 2.84119 1.00046 3.28602 1 3.75V12.25C1.00046 12.714 1.17182 13.1588 1.47647 13.4869C1.78112 13.815 2.19418 13.9995 2.62503 14H8.37497C8.80582 13.9995 9.21888 13.815 9.52353 13.4869C9.82818 13.1588 9.99954 12.714 10 12.25ZM13.4149 9L11.8863 10.6466C11.8029 10.7411 11.7571 10.867 11.7586 10.9973C11.7602 11.1277 11.8089 11.2523 11.8946 11.3445C11.9802 11.4367 12.0958 11.4892 12.2169 11.4909C12.338 11.4926 12.4549 11.4432 12.5427 11.3534L14.8641 8.85344C14.9511 8.75968 15 8.63255 15 8.5C15 8.36745 14.9511 8.24032 14.8641 8.14656L12.5427 5.64656C12.4549 5.55675 12.338 5.50742 12.2169 5.50909C12.0958 5.51076 11.9802 5.5633 11.8946 5.6555C11.8089 5.7477 11.7602 5.87227 11.7586 6.00265C11.7571 6.13303 11.8029 6.25891 11.8863 6.35344L13.4149 8H10V9H13.4149Z"
+                            fill="#2C3B47" />
+                        </svg>
+                      </div>
+                      <span translate="VIEWS.TOPICS_TOPICID.BTN_LEAVE"></span>
+                    </button>
+                  </ng-container>
+
+                  <ng-container *ngIf="(auth.loggedIn$ | async)">
+                    <div class="line_separator"></div>
+                    <button class="option" (click)="toggleFavourite(topic)">
+                      <div class="icon_wrap">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M8 1L10.0572 5.16844L14.6574 5.83688L11.3287 9.08156L12.1145 13.6631L8 11.5L3.8855 13.6631L4.6713 9.08156L1.3426 5.83688L5.94275 5.16844L8 1Z"
+                            fill="#2C3B47" />
+                        </svg>
+                      </div>
+                      <span *ngIf="!topic.favourite" translate="VIEWS.TOPICS_TOPICID.OPTION_FAVOURITE"></span>
+                      <span *ngIf="topic.favourite" translate="VIEWS.TOPICS_TOPICID.OPTION_UNFAVOURITE"></span>
+                    </button>
+                  </ng-container>
+                  <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic)">
+                    <div class="line_separator"></div>
+                    <button class="option" (click)="inviteEditors(topic)">
+                      <div class="icon_wrap">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M13.4071 4.09259L14.9073 5.59285L11.6497 8.85059L10.3122 8.99825C10.1331 9.01806 9.98185 8.86665 10.0018 8.68758L10.1506 7.34905L13.4071 4.09259ZM15.8352 3.86922L15.1308 3.1648C14.9111 2.94507 14.5547 2.94507 14.335 3.1648L13.6723 3.8275L15.1725 5.32776L15.8352 4.66506C16.0549 4.44521 16.0549 4.08895 15.8352 3.86922Z"
+                            fill="#2C3B47" />
+                          <path d="M1 14C1 15 2 15 2 15H10C10 15 11 15 11 14C11 13 10 10 6 10C2 10 1 13 1 14Z"
+                            fill="#2C3B47" />
+                          <path
+                            d="M8.12132 8.12132C7.55871 8.68393 6.79565 9 6 9C5.20435 9 4.44129 8.68393 3.87868 8.12132C3.31607 7.55871 3 6.79565 3 6C3 5.20435 3.31607 4.44129 3.87868 3.87868C4.44129 3.31607 5.20435 3 6 3C6.79565 3 7.55871 3.31607 8.12132 3.87868C8.68393 4.44129 9 5.20435 9 6C9 6.79565 8.68393 7.55871 8.12132 8.12132Z"
+                            fill="#2C3B47" />
+                        </svg>
+                      </div>
+                      <span translate="VIEWS.TOPICS_TOPICID.OPTION_INVITE_CO_EDITOR"></span>
+                    </button>
+                  </ng-container>
+                  <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canEdit(topic) && !topic.voteId">
+                    <div class="line_separator"></div>
+                    <button class="option" [routerLink]="['/','topics', 'edit', topic.id]">
+                      <div class="icon_wrap">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M8.8143 4.18517L11.8147 7.18569L5.29947 13.7012L2.62438 13.9965C2.26626 14.0361 1.96369 13.7333 2.00354 13.3752L2.30118 10.6981L8.8143 4.18517ZM13.6704 3.73845L12.2616 2.3296C11.8222 1.89013 11.1095 1.89013 10.67 2.3296L9.34467 3.65501L12.3451 6.65553L13.6704 5.33011C14.1099 4.89042 14.1099 4.17791 13.6704 3.73845Z"
+                            fill="#2C3B47" />
+                        </svg>
+                      </div>
+                      <span translate="VIEWS.TOPICS_TOPICID.OPTION_EDIT_TOPIC"></span>
+                    </button>
+                  </ng-container>
+                  <ng-container
+                    *ngIf="(auth.loggedIn$ | async) && topic.voteId && (TopicService.canDelete(topic) || TopicService.canEdit(topic) && topic.status === TopicService.STATUSES.draft)">
+                    <div class="line_separator"></div>
+                    <button class="option" [routerLink]="['/','topics', 'vote', 'edit', topic.id]">
+                      <div class="icon_wrap">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M8.8143 4.18517L11.8147 7.18569L5.29947 13.7012L2.62438 13.9965C2.26626 14.0361 1.96369 13.7333 2.00354 13.3752L2.30118 10.6981L8.8143 4.18517ZM13.6704 3.73845L12.2616 2.3296C11.8222 1.89013 11.1095 1.89013 10.67 2.3296L9.34467 3.65501L12.3451 6.65553L13.6704 5.33011C14.1099 4.89042 14.1099 4.17791 13.6704 3.73845Z"
+                            fill="#2C3B47" />
+                        </svg>
+                      </div>
+                      <span translate="VIEWS.TOPICS_TOPICID.OPTION_EDIT_TOPIC"></span>
+                    </button>
+                  </ng-container>
+                  <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic)">
+                    <div class="line_separator"></div>
+                    <button class="option" (click)="duplicateTopic(topic)">
+                      <div class="icon_wrap">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M2 5H11V14H2V5Z" fill="#2C3B47" />
+                          <path d="M4 2V4H12V12H14V2H4Z" fill="#2C3B47" />
+                        </svg>
+                      </div>
+                      <span translate="VIEWS.TOPICS_TOPICID.OPTION_DUPLICATE_TOPIC"></span>
+                    </button>
+                  </ng-container>
+                  <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic)">
+                    <div class="line_separator"></div>
+                    <button class="option" (click)="addGroupsDialog(topic)">
+                      <div class="icon_wrap">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M1 13C1 14 2 14 2 14H10C10 14 11 14 11 13C11 12 10 9 6 9C2 9 1 12 1 13Z"
+                            fill="#2C3B47" />
+                          <path
+                            d="M8.12132 7.12132C7.55871 7.68393 6.79565 8 6 8C5.20435 8 4.44129 7.68393 3.87868 7.12132C3.31607 6.55871 3 5.79565 3 5C3 4.20435 3.31607 3.44129 3.87868 2.87868C4.44129 2.31607 5.20435 2 6 2C6.79565 2 7.55871 2.31607 8.12132 2.87868C8.68393 3.44129 9 4.20435 9 5C9 5.79565 8.68393 6.55871 8.12132 7.12132Z"
+                            fill="#2C3B47" />
+                          <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M9.99984 5.00004C9.99984 6.08068 9.57131 7.06124 8.87491 7.78104C9.22902 7.9243 9.61061 8 10 8C10.7956 8 11.5587 7.68393 12.1213 7.12132C12.6839 6.55871 13 5.79565 13 5C13 4.20435 12.6839 3.44129 12.1213 2.87868C11.5587 2.31607 10.7956 2 10 2C9.61059 2 9.22898 2.07571 8.87486 2.21898C9.57129 2.93879 9.99984 3.91937 9.99984 5.00004ZM5 13C5 14 6 14 6 14H10C10 14 11 14 11 13C11 12.1936 10.3496 10.0864 8 9.30092C5.65035 10.0864 5 12.1936 5 13ZM9.66596 9.00716C10.0939 9.29172 10.4565 9.62104 10.7593 9.97421C11.6642 11.03 12 12.2607 12 13C12 13.3681 11.9181 13.7064 11.7564 14H14C14 14 15 14 15 13C15 12 14 9 10 9C9.88624 9 9.77491 9.00243 9.66596 9.00716Z"
+                            fill="#2C3B47" />
+                        </svg>
+                      </div>
+                      <span translate="VIEWS.TOPICS_TOPICID.OPTION_ADD_TO_GROUP"></span>
+                    </button>
+                  </ng-container>
+                  <ng-container *ngIf="topic.visibility === TopicService.VISIBILITY.public && !topic.report">
+                    <div class="line_separator"></div>
+                    <button class="option" [routerLink]="['/topics', topic.id, 'report']">
+                      <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <circle cx="8" cy="8" r="5.5" fill="#2C3B47" stroke="#2C3B47" />
+                          <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M4.83552 4.12891L11.8714 11.1647C11.6598 11.4233 11.4228 11.6603 11.1643 11.8719L4.12842 4.83601C4.34 4.57746 4.57697 4.34049 4.83552 4.12891Z"
+                            fill="white" />
+                        </svg>
+                      </div><span translate="VIEWS.TOPICS_TOPICID.OPTION_REPORT_TOPIC"></span>
+                    </button>
+                  </ng-container>
+
+                  <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic)">
+                    <div class="line_separator"></div>
+                    <button class="option error_text" (click)="deleteTopic(topic);">
+                      <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M10 3H6V4H10V3ZM11 4V3C11 2.44772 10.5523 2 10 2H6C5.44772 2 5 2.44772 5 3V4H4H2.5C2.22386 4 2 4.22386 2 4.5C2 4.77614 2.22386 5 2.5 5H4V13C4 13.5523 4.44772 14 5 14H11C11.5523 14 12 13.5523 12 13V5H13.5C13.7761 5 14 4.77614 14 4.5C14 4.22386 13.7761 4 13.5 4H12H11ZM7 7H6V11H7V7ZM10 7H9V11H10V7Z"
+                            fill="#2C3B47" />
+                        </svg>
+
+                      </div><span translate="VIEWS.TOPICS_TOPICID.OPTION_DELETE_TOPIC"></span>
+                    </button>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+            <div class="info_items open">
+              <div class="info_item">
+                <ng-container *ngIf="topic.visibility === TopicService.VISIBILITY.private">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M4.57143 6.25V4.5C4.57143 2.567 6.10645 1 8 1C9.89355 1 11.4286 2.567 11.4286 4.5V6.25H12.2857C13.2325 6.25 14 7.0335 14 8V13.25C14 14.2165 13.2325 15 12.2857 15H3.71429C2.76751 15 2 14.2165 2 13.25V8C2 7.0335 2.76751 6.25 3.71429 6.25H4.57143ZM9.71429 4.5V6.25H6.28571V4.5C6.28571 3.5335 7.05323 2.75 8 2.75C8.94677 2.75 9.71429 3.5335 9.71429 4.5ZM7.14286 9.75C7.14286 9.26675 7.52661 8.875 8 8.875C8.47339 8.875 8.85714 9.26675 8.85714 9.75V11.5C8.85714 11.9832 8.47339 12.375 8 12.375C7.52661 12.375 7.14286 11.9832 7.14286 11.5V9.75Z"
+                      fill="#2C3B47" />
+                  </svg>
+
+                  <span [translate]="'TXT_TOPIC_VISIBILITY_' + topic.visibility | uppercase"></span>
+                </ng-container>
+                <ng-container *ngIf="topic.visibility === TopicService.VISIBILITY.public">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M5.26621 14.4471C4.85047 14.2675 4.46117 14.0565 4.09829 13.8143C3.71918 13.5612 3.36891 13.2739 3.0475 12.9525C2.4175 12.3225 1.91875 11.5817 1.55125 10.73C1.18375 9.87833 1 8.96833 1 8C1 7.12082 1.15147 6.28972 1.45442 5.50671C1.48514 5.42731 1.51742 5.34841 1.55125 5.27C1.62365 5.10221 1.70115 4.93872 1.78374 4.77953C2.12037 4.13072 2.54162 3.55338 3.0475 3.0475C3.6775 2.4175 4.41833 1.91875 5.27 1.55125C6.12167 1.18375 7.03167 1 8 1C8.41839 1 8.82589 1.0343 9.2225 1.10291C9.69794 1.18515 10.1577 1.31669 10.6019 1.49753C10.6447 1.51498 10.6874 1.53288 10.73 1.55125C11.0428 1.68622 11.3406 1.83888 11.6235 2.00925C12.1109 2.30279 12.5539 2.64887 12.9525 3.0475C13.5825 3.6775 14.0812 4.41833 14.4487 5.27C14.8162 6.12167 15 7.03167 15 8C15 8.96833 14.8162 9.87833 14.4487 10.73C14.0812 11.5817 13.5825 12.3225 12.9525 12.9525C12.8608 13.0442 12.7668 13.1331 12.6705 13.2192C12.4222 13.441 12.1584 13.6444 11.879 13.8294C11.5215 14.066 11.1385 14.2725 10.73 14.4487C9.95127 14.7848 9.12377 14.9672 8.2475 14.996C8.16543 14.9987 8.08293 15 8 15C7.90656 15 7.81366 14.9983 7.72131 14.9949C6.85659 14.9628 6.03948 14.7808 5.27 14.4487C5.26874 14.4482 5.26748 14.4477 5.26621 14.4471ZM7.2475 12.4975C6.83917 12.4975 6.495 12.3458 6.215 12.0425C5.935 11.7392 5.795 11.3833 5.795 10.975V10.205L2.2075 6.6175C2.14917 6.85083 2.10833 7.08125 2.085 7.30875C2.06583 7.49564 2.05454 7.6845 2.05112 7.87533C2.05037 7.91679 2.05 7.95835 2.05 8C2.05 9.51667 2.54292 10.8408 3.52875 11.9725C3.87388 12.3687 4.25011 12.7062 4.65744 12.9852C4.97197 13.2006 5.30506 13.381 5.65669 13.5265C5.84813 13.6057 6.04507 13.6745 6.2475 13.733C6.56713 13.8253 6.90046 13.8918 7.2475 13.9325V12.4975ZM2.5313 5.52709C2.84355 4.84596 3.25157 4.25764 3.75461 3.75461C4.29158 3.21764 4.92572 2.78894 5.66619 2.46942C6.38726 2.15827 7.16182 2 8 2C8.42329 2 8.83036 2.04037 9.2225 2.1204V2.7325C9.2225 2.8864 9.17926 3.00086 9.0677 3.12172C8.97464 3.22253 8.89577 3.255 8.77 3.255H6.2475V5.46H4.025V7.02079L2.5313 5.52709ZM6.00421 9H9.2225V11.975H10.975C11.1023 11.975 11.1824 12.0069 11.2561 12.0638C11.3443 12.132 11.3992 12.2102 11.4337 12.3266L11.5795 12.8188C11.203 13.0971 10.7884 13.3344 10.3338 13.5306C9.68425 13.8109 8.99128 13.9671 8.2475 13.9953V11.4975H7.2475C7.12173 11.4975 7.04286 11.465 6.9498 11.3642C6.83824 11.2434 6.795 11.1289 6.795 10.975V9.79079L6.00421 9ZM10.0583 3.43691C9.99267 3.56531 9.90742 3.68634 9.8025 3.8C9.5225 4.10333 9.17833 4.255 8.77 4.255H7.2475V5.7775C7.2475 5.97583 7.16875 6.13917 7.01125 6.2675C6.85375 6.39583 6.67583 6.46 6.4775 6.46H5.025V8H9.54C9.73833 8 9.90167 8.07583 10.03 8.2275C10.1583 8.37917 10.2225 8.55417 10.2225 8.7525V10.975H10.975C11.2792 10.975 11.5504 11.0552 11.7886 11.2155C11.8153 11.2335 11.8416 11.2525 11.8675 11.2725C12.1242 11.4708 12.2992 11.7275 12.3925 12.0425C12.6492 11.7625 12.8737 11.465 13.0662 11.15C13.0688 11.1458 13.0714 11.1415 13.074 11.1372C13.2631 10.8261 13.4239 10.5008 13.5562 10.1612C13.6904 9.81708 13.7896 9.46417 13.8537 9.1025C13.9179 8.74083 13.95 8.37333 13.95 8C13.95 6.76333 13.6117 5.64042 12.935 4.63125C12.4694 3.93688 11.8961 3.37093 11.2151 2.9334C11.1788 2.91009 11.1423 2.88715 11.1054 2.86457C11.031 2.81907 10.9555 2.77504 10.8786 2.7325C10.704 2.63581 10.523 2.54676 10.3356 2.46535C10.2981 2.4491 10.2604 2.43315 10.2225 2.4175V2.7325C10.2225 2.98783 10.1678 3.22263 10.0583 3.43691Z"
+                      fill="#2C3B47" />
+                  </svg>
+                  <span [translate]="'TXT_TOPIC_VISIBILITY_' + topic.visibility | uppercase"></span>
+                </ng-container>
+              </div>
+              <div class="info_item">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M14.361 10.8893L12.1107 8.63888L7.22589 13.5236L7.00265 15.5314C6.97277 15.8 7.1997 16.0271 7.46828 15.9974L9.4746 15.7759L14.361 10.8893Z"
+                    fill="#2C3B47" />
+                  <path
+                    d="M14.6962 7.2472L15.7528 8.30383C16.0824 8.63343 16.0824 9.16781 15.7528 9.49758L14.7588 10.4916L12.5085 8.24126L13.5025 7.2472C13.8321 6.9176 14.3666 6.9176 14.6962 7.2472Z"
+                    fill="#2C3B47" />
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M6.75368 7C7.56157 7 8.33637 6.68393 8.90764 6.12132C9.4789 5.55871 9.79983 4.79565 9.79983 4C9.79983 3.20435 9.4789 2.44129 8.90764 1.87868C8.33637 1.31607 7.56157 1 6.75368 1C5.94579 1 5.17099 1.31607 4.59972 1.87868C4.02846 2.44129 3.70753 3.20435 3.70753 4C3.70753 4.79565 4.02846 5.55871 4.59972 6.12132C5.17099 6.68393 5.94579 7 6.75368 7ZM2.69214 13C2.69214 13 1.67676 13 1.67676 12C1.67676 11 2.69214 8 6.75368 8C7.99108 8 8.94574 8.27846 9.67508 8.69398L5.36907 13H2.69214Z"
+                    fill="#2C3B47" />
+                </svg>
+
+                <span>{{topic.creator.name}}</span>
+              </div>
+              <div class="info_item">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M6 2H4V3H3C2.44772 3 2 3.44771 2 4V13C2 13.5523 2.44772 14 3 14H13C13.5523 14 14 13.5523 14 13V4C14 3.44772 13.5523 3 13 3H12V2H10V3H6V2ZM4 7H6V9H4V7ZM4 10H6V12H4V10ZM9 7H7V9H9V7ZM7 10H9V12H7V10ZM12 7H10V9H12V7ZM10 10H12V12H10V10ZM3 6H13V13H3V6Z"
+                    fill="#2C3B47" />
+                </svg>
+                <span>{{topic.createdAt | date: 'YYYY-MM-dd HH:mm'}}</span>
+              </div>
+              <div class="info_item">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M8 15C8 15 13 10 13 6C13 3.23858 10.7614 1 8 1C5.23858 1 3 3.23858 3 6C3 10 8 15 8 15ZM8 8C9.10457 8 10 7.10457 10 6C10 4.89543 9.10457 4 8 4C6.89543 4 6 4.89543 6 6C6 7.10457 6.89543 8 8 8Z"
+                    fill="#2C3B47" />
+                </svg>
+                <span>{{topic.country || ('VIEWS.TOPICS_TOPICID.SECTION_INFO_LBL_COUNTRY_NOT_SPECIFIED' |
+                  translate)}}</span>
+              </div>
+              <div class="info_item">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M8 15C7.02 15 6.10417 14.8162 5.2525 14.4487C4.40083 14.0812 3.66 13.5825 3.03 12.9525C2.4 12.3225 1.90417 11.5787 1.5425 10.7212C1.18083 9.86375 1 8.945 1 7.965C1 6.985 1.18083 6.07208 1.5425 5.22625C1.90417 4.38042 2.4 3.6425 3.03 3.0125C3.66 2.3825 4.40083 1.88958 5.2525 1.53375C6.10417 1.17792 7.02 1 8 1C8.98 1 9.89583 1.17792 10.7475 1.53375C11.5992 1.88958 12.34 2.3825 12.97 3.0125C13.6 3.6425 14.0958 4.38042 14.4575 5.22625C14.8192 6.07208 15 6.985 15 7.965C15 8.945 14.8192 9.86375 14.4575 10.7212C14.0958 11.5787 13.6 12.3225 12.97 12.9525C12.34 13.5825 11.5992 14.0812 10.7475 14.4487C9.89583 14.8162 8.98 15 8 15ZM8 13.985C8.40833 13.565 8.74958 13.0837 9.02375 12.5412C9.29792 11.9987 9.5225 11.3542 9.6975 10.6075H6.32C6.48333 11.3075 6.70208 11.9375 6.97625 12.4975C7.25042 13.0575 7.59167 13.5533 8 13.985ZM6.5125 13.775C6.22083 13.3317 5.97 12.8533 5.76 12.34C5.55 11.8267 5.375 11.2492 5.235 10.6075H2.61C3.05333 11.4358 3.56667 12.0863 4.15 12.5588C4.73333 13.0312 5.52083 13.4367 6.5125 13.775ZM9.505 13.7575C10.345 13.4892 11.1004 13.0867 11.7713 12.55C12.4421 12.0133 12.9817 11.3658 13.39 10.6075H10.7825C10.6308 11.2375 10.4529 11.8092 10.2487 12.3225C10.0446 12.8358 9.79667 13.3142 9.505 13.7575ZM2.26 9.5575H5.0425C5.0075 9.2425 4.98708 8.95958 4.98125 8.70875C4.97542 8.45792 4.9725 8.21 4.9725 7.965C4.9725 7.67333 4.97833 7.41375 4.99 7.18625C5.00167 6.95875 5.025 6.705 5.06 6.425H2.26C2.17833 6.705 2.12292 6.95583 2.09375 7.1775C2.06458 7.39917 2.05 7.66167 2.05 7.965C2.05 8.26833 2.06458 8.53958 2.09375 8.77875C2.12292 9.01792 2.17833 9.2775 2.26 9.5575ZM6.1275 9.5575H9.89C9.93667 9.19583 9.96583 8.90125 9.9775 8.67375C9.98917 8.44625 9.995 8.21 9.995 7.965C9.995 7.73167 9.98917 7.50708 9.9775 7.29125C9.96583 7.07542 9.93667 6.78667 9.89 6.425H6.1275C6.08083 6.78667 6.05167 7.07542 6.04 7.29125C6.02833 7.50708 6.0225 7.73167 6.0225 7.965C6.0225 8.21 6.02833 8.44625 6.04 8.67375C6.05167 8.90125 6.08083 9.19583 6.1275 9.5575ZM10.94 9.5575H13.74C13.8217 9.2775 13.8771 9.01792 13.9062 8.77875C13.9354 8.53958 13.95 8.26833 13.95 7.965C13.95 7.66167 13.9354 7.39917 13.9062 7.1775C13.8771 6.95583 13.8217 6.705 13.74 6.425H10.9575C10.9925 6.83333 11.0158 7.14542 11.0275 7.36125C11.0392 7.57708 11.045 7.77833 11.045 7.965C11.045 8.22167 11.0363 8.46375 11.0188 8.69125C11.0013 8.91875 10.975 9.2075 10.94 9.5575ZM10.765 5.375H13.39C13.005 4.57 12.4771 3.89917 11.8062 3.3625C11.1354 2.82583 10.3625 2.44667 9.4875 2.225C9.77917 2.65667 10.0271 3.12333 10.2312 3.625C10.4354 4.12667 10.6133 4.71 10.765 5.375ZM6.32 5.375H9.715C9.58667 4.75667 9.37083 4.15875 9.0675 3.58125C8.76417 3.00375 8.40833 2.49333 8 2.05C7.62667 2.365 7.31167 2.77917 7.055 3.2925C6.79833 3.80583 6.55333 4.5 6.32 5.375ZM2.61 5.375H5.2525C5.38083 4.745 5.54417 4.18208 5.7425 3.68625C5.94083 3.19042 6.19167 2.70917 6.495 2.2425C5.62 2.46417 4.85583 2.8375 4.2025 3.3625C3.54917 3.8875 3.01833 4.55833 2.61 5.375Z"
+                    fill="#2C3B47" />
+                </svg>
+                <span>{{topic.language || ('VIEWS.TOPICS_TOPICID.SECTION_INFO_LBL_LANGUAGE_NOT_SPECIFIED' |
+                  translate)}}</span>
+              </div>
+              <!--div class="info_item">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M14 12V5L8 9.5L2 5V12H14ZM8 8L13.4545 4H2.54545L8 8Z"
+                  fill="#2C3B47" />
+              </svg>
+              <a>{{topic.contact}}</a>
+            </!--div-->
+            </div>
+            <div class="info_items_wrap">
+              <ng-container *ngIf="topicAttachments$ | async as attachments">
+                <a class="info_title" (click)="showAttachments = !showAttachments">
+                  <div><span translate="VIEWS.TOPICS_TOPICID.SECTION_INFO_TITLE_ATTACHMENTS"></span> <span>
+                      ({{attachments.length}})</span></div>
+                  <svg *ngIf="!showAttachments" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                  </svg>
+                  <svg *ngIf="showAttachments" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17 15L12 10L7 15" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                  </svg>
+                </a>
+                <div class="info_items" [@openClose]="showAttachments ? 'open' : 'closed'">
+                  <span *ngIf="!attachments.length" translate="VIEWS.TOPICS_TOPICID.SECTION_INFO_NO_ATTACHMENTS"></span>
+                  <a class="info_item" [href]="attachment.link" *ngFor="let attachment of attachments"
+                    (click)="$event.preventDefault(); downloadAttachment(topic.id, attachment);"
+                    [innerHtml]="attachment.name">
+                  </a>
+                </div>
+              </ng-container>
+            </div>
+            <div class="info_items_wrap">
+              <a class="info_title" (click)="showGroups = !showGroups">
+                <span translate="VIEWS.TOPICS_TOPICID.SECTION_INFO_TITLE_GROUPS"></span>
+                <svg *ngIf="!showGroups" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                </svg>
+                <svg *ngIf="showGroups" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17 15L12 10L7 15" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                </svg>
+
+              </a>
+              <div class="info_items" [@openClose]="showGroups ? 'open' : 'closed'">
+                <!--a class="info_item" *ngFor="let group of groups$ | async">{{group.name}}</!--a-->
+                <ng-container *ngIf="(groups$ | async) as topicGroups">
+                  <span *ngIf="!topicGroups.length" translate="VIEWS.TOPICS_TOPICID.SECTION_INFO_NO_GROUPS"></span>
+                  <a class="info_item" [routerLink]="['/',translate.currentLang, 'groups', group.id]" fragment="topics"
+                    *ngFor="let group of topicGroups" [innerHtml]="group.name"></a>
+                </ng-container>
+              </div>
+            </div>
+            <div class="info_items_wrap">
+              <a class="info_title" (click)="showCategories = !showCategories">
+                <span translate="VIEWS.TOPICS_TOPICID.SECTION_INFO_TITLE_CATEGORIES"></span>
+                <svg *ngIf="!showCategories" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                </svg>
+                <svg *ngIf="showCategories" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17 15L12 10L7 15" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </a>
+              <div class="info_items" [@openClose]="showCategories ? 'open' : 'closed'">
+                <span *ngIf="!topic.categories.length"
+                  translate="VIEWS.TOPICS_TOPICID.SECTION_INFO_NO_CATEGORIES"></span>
+                <div class="info_item" *ngFor="let category of topic.categories">{{'TXT_TOPIC_CATEGORY_'+category |
+                  uppercase | translate:{default: category} }}</div>
+              </div>
+            </div>
+            <!--div class="info_items_wrap">
+            TODO!
+            <a class="info_title" (click)="showTags = !showTags">
+              <span translate="VIEWS.TOPICS_TOPICID.SECTION_INFO_TITLE_TAGS"></span>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </a>
+            <div class="info_items" [@openClose]="showTags ? 'open' : 'closed'">
+              <div class="info_item">asdasdasd,</div>
+              <div class="info_item">asdasdasd,</div>
+              <div class="info_item">asdasdasd,</div>
+              <div class="info_item">asdasdasd,</div>
+              <div class="info_item">asdasdasd,</div>
+              <div class="info_item">asdasdasd</div>
+            </div>
+          </!--div-->
+          </div>
+        </div>
+        <div class="info_section"
+          [TourItem]="{tourid: 'topic', index: 4, position: ((wWidth <= 1024)? 'bottom': 'left')}">
+          <div class="info_items_wrap">
+            <div class="info_header">
+              <div class="info_title" translate="VIEWS.TOPICS_TOPICID.SECTION_PARTICIPANTS_HEADING"></div>
+              <a class="manage_link" (click)="manageParticipants(topic)" translate="VIEWS.TOPICS_TOPICID.LNK_MANAGE"
+                *ngIf="canUpdate(topic)"></a>
+            </div>
+            <div class="participants_count_wrap">
+              <div class="participants_count">{{topic.members.users.count}}</div>
+              <div class="avatars_wrap" *ngIf="members$ | async as members">
+                <ng-container *ngFor="let index  of [0, 1, 2];">
+                  <div class="avatar" *ngIf="members[index]">
+                    <img *ngIf="members[index].imageUrl" [src]="members[index].imageUrl" />
+                    <div class="profile_image_filler" *ngIf="!members[index].imageUrl">
+                      <cos-initials *ngIf="members[index].name" [name]="members[index].name">
+                      </cos-initials>
+                    </div>
+                  </div>
+                </ng-container>
+
+                <div class="avatar" *ngIf="members.length > 3">
+                  + {{topic.members.users.count - 3}}
+                </div>
+              </div>
+            </div>
+            <button *ngIf="TopicService.canDelete(topic)" class="btn_medium_secondary bold"
+              (click)="inviteMembers(topic)" translate="VIEWS.TOPICS_TOPICID.SECTION_PARTICIPANTS_BTN_SHARE">
+            </button>
+          </div>
+        </div>
+        <div class="state_items_wrap"
+          [TourItem]="{tourid: 'topic', index: 5, position: ((wWidth <= 1024)? 'bottom': 'left')}">
+          <div class="state_item discussion" (click)="selectTab('discussion')"
+            *ngIf="!hideDiscussion">
+            <div class="item_header">
+              <div class="item_title" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_DISCUSSION_HEADING"></div>
+              <div class="item_title" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_DISCUSSION_CONTRIBUTION"
+                [translateParams]="{count: TopicArgumentService.count.value.total}"></div>
+            </div>
+            <div class="item_content">
+              <div class="graph_wrap">
+                <div class="legend">
+                  <div class="legend_row">
+                    <div class="legend_item pro">
+                      <div class="dot"></div>
+                      <div class="bold" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_CONTRIBUTION_PRO"></div>
+                      <span>{{TopicArgumentService.count.value.pro}}</span>
+                    </div>
+                    <div class="legend_item">
+                      <div class="dot"></div>
+                      <div class="bold" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_CONTRIBUTION_INFO"></div>
+                      <span>{{TopicArgumentService.count.value.poi}}</span>
+                    </div>
+                  </div>
+                  <div class="legend_row">
+                    <div class="legend_item con">
+                      <div class="dot"></div>
+                      <div class="bold" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_CONTRIBUTION_CON"></div>
+                      <span>{{TopicArgumentService.count.value.con}}</span>
+                    </div>
+                    <div class="legend_item reply">
+                      <div class="dot"></div>
+                      <div class="bold" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_CONTRIBUTION_REPLIES"></div>
+                      <span>{{TopicArgumentService.count.value.reply}}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="graph">
+                  <div class="arguments_pro"
+                    [style.width.%]="getArgumentPercentage(TopicArgumentService.count.value.pro)">
+                  </div>
+                  <div class="arguments_con"
+                    [style.width.%]="getArgumentPercentage(TopicArgumentService.count.value.con)">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--div class="state_item empty ideation">
+        <div class="icon_wrap">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="16" fill="#EFE08A" />
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M22.0001 15.9667C21.6319 15.9667 21.3334 15.6682 21.3334 15.3C21.3334 14.9318 21.6319 14.6333 22.0001 14.6333H22.6668C23.0349 14.6333 23.3334 14.9318 23.3334 15.3C23.3334 15.6682 23.0349 15.9667 22.6668 15.9667H22.0001ZM21.1647 10.138C20.9046 9.87789 20.4828 9.87848 20.2234 10.1393L19.9675 10.3967C19.7091 10.6565 19.7097 11.0763 19.9688 11.3354C20.2289 11.5954 20.6507 11.5949 20.9101 11.334L21.166 11.0767C21.4244 10.8169 21.4238 10.397 21.1647 10.138ZM15.3334 9.3C15.3334 9.66819 15.6319 9.96667 16.0001 9.96667C16.3683 9.96667 16.6667 9.66819 16.6667 9.3V8.66667C16.6667 8.29848 16.3683 8 16.0001 8C15.6319 8 15.3334 8.29848 15.3334 8.66667V9.3ZM10.0001 14.6333C10.3683 14.6333 10.6667 14.9318 10.6667 15.3C10.6667 15.6682 10.3683 15.9667 10.0001 15.9667L9.33341 15.9667C8.96522 15.9667 8.66675 15.6682 8.66675 15.3C8.66675 14.9318 8.96522 14.6333 9.33341 14.6333L10.0001 14.6333ZM11.7821 10.1313C11.5235 9.87122 11.1028 9.87064 10.8434 10.13C10.5841 10.3894 10.5846 10.8101 10.8447 11.0687L11.1055 11.328C11.3641 11.5852 11.7821 11.5846 12.0401 11.3267C12.298 11.0687 12.2986 10.6507 12.0414 10.392L11.7821 10.1313ZM11.8409 15.2612C11.8409 12.8819 13.8871 11.1999 16.001 11.1999C18.1149 11.1999 20.1609 12.8821 20.1609 15.2612C20.1609 16.9416 19.4913 17.8986 18.8812 18.7705C18.4344 19.409 18.0195 20.0019 17.9231 20.7999H14.0831C13.9866 20.0018 13.5708 19.4088 13.1231 18.7702C12.5118 17.8984 11.8409 16.9414 11.8409 15.2612ZM14.0822 22.0819H17.9222V21.4401H14.0822V22.0819ZM14.0822 22.7201H17.9222C17.9222 23.427 17.3491 24.0001 16.6422 24.0001H15.3622C14.6552 24.0001 14.0822 23.427 14.0822 22.7201Z"
+              fill="white" />
+          </svg>
+
+        </div>
+        <div class="state_item_text" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_NO_IDEATON"></div>
+      </!--div-->
+          <div class="state_item vote" [ngClass]="{'empty': !topic.voteId}"
+            (click)="(!topic.voteId && canUpdate(topic))? startVote(topic): selectTab('voting')">
+            <ng-container *ngIf="!topic.voteId">
+              <div class="icon_wrap">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M8 0C3.584 0 0 3.584 0 8C0 12.416 3.584 16 8 16C12.416 16 16 12.416 16 8C16 3.584 12.416 0 8 0ZM6.44444 12L12.6667 5.82456L11.5 4.66667L6.44444 9.68421L4.5 7.75439L3.33333 8.91228L6.44444 12Z"
+                    fill="white" />
+                </svg>
+              </div>
+              <div class="state_item_text">
+                <ng-container *ngIf="topic.permission.level === TopicService.LEVELS.admin">
+                  <div class="item_heading" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_ADD_VOTING"></div>
+                  <div class="item_description" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_ADD_VOTING_DESC"></div>
+                </ng-container>
+                <ng-container *ngIf="topic.permission.level !== TopicService.LEVELS.admin">
+                  <div class="item_heading" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_NO_VOTING"></div>
+                </ng-container>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="(vote$ | async) as vote">
+              <div class="item_header">
+                <div class="item_title_with_description">
+                  <span translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_VOTING_HEADING"></span>
+                  <!--div class="description">
+                    <span class="votes_number">{{vote.votersCount || 0}}</span>
+                    <span translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_VOTING_VOTES_NEEDED"></span>
+                  </!--div-->
+                </div>
+                <div class="item_title"
+                  [translate]="(!this.hasVoteEndedExpired(topic, vote))? 'VIEWS.TOPICS_TOPICID.STATE_ITEM_VOTING_STATUS_ACTIVE': 'VIEWS.TOPICS_TOPICID.STATE_ITEM_VOTING_STATUS_ENDED'">
+                </div>
+              </div>
+              <div class="item_content">
+                <div class="graph_wrap">
+                  <div class="legend">
+                    <div class="bold" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_VOTING_VOTES_COLLECTED"></div>
+                    <div><span class="bold">{{vote.votersCount || 0}}</span>
+                    </div>
+                  </div>
+                  <!--div class="graph">
+                  <div class="votes" [style.width.%]="((vote.votersCount || 0)/topic.members.users.count)*100">
+                  </div>
+                </!--div-->
+                </div>
+              </div>
+            </ng-container>
+          </div>
+          <div class="state_item follow-up" [ngClass]="{'empty': topic.status !== STATUSES.followUp}"
+            (click)="(topic.status !== STATUSES.followUp && canUpdate(topic))? sendToFollowUp(topic): selectTab('followUp')">
+            <ng-container *ngIf="topic.status !== STATUSES.followUp">
+              <div class="icon_wrap">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="32" height="32" rx="16" fill="#E3A8CC" />
+                  <rect x="4" y="4" width="24" height="24" rx="12" fill="#E3A8CC" />
+                  <path d="M17.8933 11.5294L17.6 10H11V23H12.4667V17.6471H16.5733L16.8667 19.1765H22V11.5294H17.8933Z"
+                    fill="white" />
+                </svg>
+              </div>
+              <div class="state_item_text">
+                <ng-container *ngIf="topic.permission.level !== TopicService.LEVELS.admin">
+                  <div class="item_heading" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_NO_FOLLOW_UP"></div>
+                </ng-container>
+                <ng-container *ngIf="topic.permission.level === TopicService.LEVELS.admin">
+                  <div class="item_heading" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_ADD_FOLLOW_UP"></div>
+                  <div class="item_description" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_ADD_FOLLOW_UP_DESC"></div>
+                </ng-container>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="topic.status === STATUSES.followUp && (events$ | async) as events">
+              <div class="item_header">
+                <div class="item_title_with_description">
+                  <span translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_FOLLOW_UP_HEADING"></span>
+                  <div class="description">
+                    <span translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_FOLLOW_UP_DEADLINE"></span> {{topic.endsAt |
+                    date:'YYYY-MM-dd HH:mm'}}
+                  </div>
+                </div>
+              </div>
+              <div class="item_content">
+                <div class="graph_wrap">
+                  <div class="legend">
+                    <div class="bold" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_FOLLOW_UP_MILESTONE"></div>
+                    <div><span class="bold">{{events?.rows?.length}}</span>
+                    </div>
+                  </div>
+                  <!--div class="graph">
+                  <div class="follow_up" [style.width.%]="((events.rows.length || 0)/events.rows.length)*100">
+                  </div>
+                </!--div-->
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="tutorial" [@showTutorial]="showTutorial? 'open': 'closed'" [ngClass]="{'hidden': skipTour }" *ngIf="auth.loggedIn$.value">
+          <button class="tutorial_header" (click)="showTutorial = !showTutorial">
+            <span translate="VIEWS.TOPICS_TOPICID.TUTORIAL_HEADING"></span>
+            <div class="close">
+              <svg *ngIf="showTutorial" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M3.75736 12.2435C3.38334 11.8695 3.38334 11.2631 3.75736 10.8891L6.64554 8.00091L3.75736 5.11272C3.38334 4.7387 3.38334 4.13229 3.75736 3.75827C4.13138 3.38424 4.73779 3.38424 5.11182 3.75827L8 6.64645L10.8882 3.75827C11.2622 3.38424 11.8686 3.38424 12.2426 3.75827C12.6167 4.13229 12.6167 4.7387 12.2426 5.11272L9.35446 8.00091L12.2426 10.8891C12.6167 11.2631 12.6167 11.8695 12.2426 12.2435C11.8686 12.6176 11.2622 12.6176 10.8882 12.2435L8 9.35536L5.11182 12.2435C4.73779 12.6176 4.13138 12.6176 3.75736 12.2435Z"
+                  fill="#A7D1F3" />
+              </svg>
+
+              <svg *ngIf="!showTutorial" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M8 14C7.47105 14 7.04225 13.5712 7.04225 13.0423V8.95775H2.95775C2.4288 8.95775 2 8.52895 2 8C2 7.47105 2.4288 7.04225 2.95775 7.04225H7.04225V2.95775C7.04225 2.4288 7.47105 2 8 2C8.52895 2 8.95775 2.4288 8.95775 2.95775V7.04225H13.0423C13.5712 7.04225 14 7.47105 14 8C14 8.52895 13.5712 8.95775 13.0423 8.95775H8.95775V13.0423C8.95775 13.5712 8.52895 14 8 14Z"
+                  fill="#A7D1F3" />
+              </svg>
+            </div>
+          </button>
+          <div class="tutorial_content">
+            <div class="title">
+              <span translate="VIEWS.TOPICS_TOPICID.TUTORIAL_TITLE"></span>
+              <span>🎉</span>
+            </div>
+            <div class="description" translate="VIEWS.TOPICS_TOPICID.TUTORIAL_DESC"></div>
+          </div>
+          <div class="tutorial_footer">
+            <button class="btn_medium_submit" translate="VIEWS.TOPICS_TOPICID.TUTORIAL_BTN_TAKE_THE_TOUR"
+              (click)="takeTour()"></button>
+            <a translate="VIEWS.TOPICS_TOPICID.TUTORIAL_BTN_SKIP" (click)="skipTour=true;"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="tabs_tablet" class="topic_tabs tablet tabs_wrap tablet_show" *ngIf="tabSelected$ | async as tabSelected;"
+      [ngClass]="{'hidden': dialogsOpen()}"
+      [TourItem]="{tourid: ['topic_mobile', 'topic_tablet'], index: 1, position: 'top'}">
+      <a class="topic_tab" (click)="(tabTablet = '')" [ngClass]="{'active': !tabTablet}" [routerLink]="['./']"
+        fragment="">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M7 4C7 3.44772 7.44772 3 8 3H18.1716C18.4368 3 18.6911 3.10536 18.8787 3.29289L24.7071 9.12132L25.4142 8.41421L24.7071 9.12132C24.8946 9.30886 25 9.56321 25 9.82843V28C25 28.5523 24.5523 29 24 29H8C7.44772 29 7 28.5523 7 28V4Z"
+            fill="white" stroke="#2C3B47" stroke-width="2" />
+          <path d="M17 2.5L25.5 11H18C17.4477 11 17 10.5523 17 10V2.5Z" fill="#2C3B47" />
+          <rect x="11" y="18" width="10" height="1" rx="0.5" fill="#4D5C6A" />
+          <rect x="11" y="15" width="10" height="1" rx="0.5" fill="#4D5C6A" />
+          <rect x="11" y="21" width="10" height="1" rx="0.5" fill="#4D5C6A" />
+          <rect x="11" y="24" width="6" height="1" rx="0.5" fill="#4D5C6A" />
+        </svg>
+      </a>
+      <a class="topic_tab discussion" [ngClass]="{'active': tabTablet==='discussion'}" (click)="tabTablet='discussion'"
+        [routerLink]="['./']" fragment="discussion">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="32" height="32" rx="16" fill="#1168A8" />
+          <path
+            d="M22 17.7634C22.024 17.7288 22.0472 17.6928 22.0709 17.6591C22.6753 16.7608 22.9987 15.703 23 14.6203C23.01 11.5172 20.3918 9 17.1543 9C14.3306 9 11.975 10.9216 11.4231 13.4725C11.3403 13.8506 11.2984 14.2364 11.2981 14.6234C11.2981 17.7297 13.8156 20.3144 17.0531 20.3144C17.5678 20.3144 18.2612 20.1597 18.6415 20.0553C19.0218 19.9509 19.3987 19.8131 19.4962 19.7759C19.5937 19.7387 19.7462 19.7006 19.8678 19.7356L22.2872 20.435C22.3084 20.4413 22.331 20.4418 22.3525 20.4365C22.3741 20.4312 22.3938 20.4202 22.4097 20.4048C22.4256 20.3893 22.4371 20.3699 22.443 20.3485C22.449 20.3271 22.4491 20.3046 22.4434 20.2831L21.8897 18.1741C21.8512 18.0178 21.8462 17.9884 22 17.7634Z"
+            fill="white" />
+          <path
+            d="M17.7669 20.9804C17.5264 21.0188 17.2835 21.0402 17.04 21.0444C15.7141 21.0444 14.4619 20.6944 13.4463 20.0382C12.7966 19.6394 12.2327 19.1155 11.7872 18.4969C10.9722 17.4166 10.5278 16.0435 10.5278 14.6066C10.5278 14.5088 10.5313 14.4147 10.5347 14.3204C10.536 14.2925 10.5286 14.265 10.5136 14.2415C10.4987 14.218 10.4768 14.1997 10.4511 14.189C10.4253 14.1784 10.3969 14.1759 10.3698 14.182C10.3426 14.188 10.3179 14.2023 10.2991 14.2229C9.55083 15.0416 9.09849 16.0874 9.01431 17.1934C8.93014 18.2993 9.21898 19.4016 9.83472 20.3241C9.91191 20.4419 9.95566 20.5329 9.94222 20.5935L9.50191 22.8516C9.49785 22.8731 9.49949 22.8953 9.50666 22.9159C9.51384 22.9365 9.5263 22.9549 9.5428 22.9693C9.55931 22.9836 9.57928 22.9933 9.60073 22.9975C9.62218 23.0017 9.64435 23.0002 9.66504 22.9932L11.79 22.2357C11.8545 22.2102 11.9233 22.1977 11.9926 22.1989C12.0619 22.2001 12.1302 22.2149 12.1938 22.2426C12.8297 22.4926 13.5332 22.6463 14.2366 22.6463C15.5906 22.6507 16.8949 22.1363 17.8813 21.2088C17.9017 21.1889 17.9152 21.1631 17.9199 21.1351C17.9246 21.107 17.9203 21.0782 17.9076 21.0528C17.8948 21.0274 17.8744 21.0066 17.8491 20.9936C17.8238 20.9806 17.795 20.976 17.7669 20.9804Z"
+            fill="white" />
+        </svg>
+        <span class="tab_text" translate="VIEWS.TOPICS_TOPICID.TAB_DISCUSSION"></span>
+      </a>
+      <!--a class="topic_tab" [ngClass]="tabSelected=== 'ideation' ? 'active' : ''">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="32" height="32" rx="16" fill="#EFE08A" />
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M22.0001 15.9667C21.6319 15.9667 21.3334 15.6682 21.3334 15.3C21.3334 14.9318 21.6319 14.6333 22.0001 14.6333H22.6668C23.0349 14.6333 23.3334 14.9318 23.3334 15.3C23.3334 15.6682 23.0349 15.9667 22.6668 15.9667H22.0001ZM21.1647 10.138C20.9046 9.87789 20.4828 9.87848 20.2234 10.1393L19.9675 10.3967C19.7091 10.6565 19.7097 11.0763 19.9688 11.3354C20.2289 11.5954 20.6507 11.5949 20.9101 11.334L21.166 11.0767C21.4244 10.8169 21.4238 10.397 21.1647 10.138ZM15.3334 9.3C15.3334 9.66819 15.6319 9.96667 16.0001 9.96667C16.3683 9.96667 16.6667 9.66819 16.6667 9.3V8.66667C16.6667 8.29848 16.3683 8 16.0001 8C15.6319 8 15.3334 8.29848 15.3334 8.66667V9.3ZM10.0001 14.6333C10.3683 14.6333 10.6667 14.9318 10.6667 15.3C10.6667 15.6682 10.3683 15.9667 10.0001 15.9667L9.33341 15.9667C8.96522 15.9667 8.66675 15.6682 8.66675 15.3C8.66675 14.9318 8.96522 14.6333 9.33341 14.6333L10.0001 14.6333ZM11.7821 10.1313C11.5235 9.87122 11.1028 9.87064 10.8434 10.13C10.5841 10.3894 10.5846 10.8101 10.8447 11.0687L11.1055 11.328C11.3641 11.5852 11.7821 11.5846 12.0401 11.3267C12.298 11.0687 12.2986 10.6507 12.0414 10.392L11.7821 10.1313ZM11.8409 15.2612C11.8409 12.8819 13.8871 11.1999 16.001 11.1999C18.1149 11.1999 20.1609 12.8821 20.1609 15.2612C20.1609 16.9416 19.4913 17.8986 18.8812 18.7705C18.4344 19.409 18.0195 20.0019 17.9231 20.7999H14.0831C13.9866 20.0018 13.5708 19.4088 13.1231 18.7702C12.5118 17.8984 11.8409 16.9414 11.8409 15.2612ZM14.0822 22.0819H17.9222V21.4401H14.0822V22.0819ZM14.0822 22.7201H17.9222C17.9222 23.427 17.3491 24.0001 16.6422 24.0001H15.3622C14.6552 24.0001 14.0822 23.427 14.0822 22.7201Z"
+          fill="white" />
+      </svg>
+      <span class="tab_text" translate="VIEWS.TOPICS_TOPICID.TAB_IDEATION"></span>
+    </!--a-->
+      <a class="topic_tab voting" [ngClass]="{'active': tabTablet==='voting'}" [routerLink]="['./']" fragment="voting"
+        (click)="tabTablet='voting'">
+        <svg *ngIf="!topic.voteId && tabSelected !== 'voting'" width="32" height="32" viewBox="0 0 32 32" fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <rect width="32" height="32" rx="16" fill="#98DAA2" />
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M16 8C11.584 8 8 11.584 8 16C8 20.416 11.584 24 16 24C20.416 24 24 20.416 24 16C24 11.584 20.416 8 16 8ZM14.4444 20L20.6667 13.8246L19.5 12.6667L14.4444 17.6842L12.5 15.7544L11.3333 16.9123L14.4444 20Z"
+            fill="white" />
+        </svg>
+        <svg *ngIf="topic.voteId || tabSelected === 'voting'" width="32" height="32" viewBox="0 0 32 32" fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <rect width="32" height="32" rx="16" fill="#5AB467" />
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M16 8C11.584 8 8 11.584 8 16C8 20.416 11.584 24 16 24C20.416 24 24 20.416 24 16C24 11.584 20.416 8 16 8ZM14.4444 20L20.6667 13.8246L19.5 12.6667L14.4444 17.6842L12.5 15.7544L11.3333 16.9123L14.4444 20Z"
+            fill="white" />
+        </svg>
+        <span class="tab_text" translate="VIEWS.TOPICS_TOPICID.TAB_VOTING"></span>
+      </a>
+      <a class="topic_tab follow_up" [ngClass]="{'active': tabTablet=== 'followUp'}" [routerLink]="['./']"
+        fragment="followUp" (click)="tabTablet='followUp'">
+        <svg
+          *ngIf="topic.status !== TopicService.STATUSES.followUp && topic.status !== TopicService.STATUSES.closed && tabSelected !== 'followUp'"
+          width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="32" height="32" rx="16" fill="#E3A8CC" />
+          <rect x="4" y="4" width="24" height="24" rx="12" fill="#E3A8CC" />
+          <path d="M17.8933 11.5294L17.6 10H11V23H12.4667V17.6471H16.5733L16.8667 19.1765H22V11.5294H17.8933Z"
+            fill="white" />
+        </svg>
+        <svg
+          *ngIf="topic.status === TopicService.STATUSES.followUp || topic.status === TopicService.STATUSES.closed || tabSelected === 'followUp'"
+          width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="32" height="32" rx="16" fill="#DA7AB1" />
+          <rect x="4" y="4" width="24" height="24" rx="12" fill="#DA7AB1" />
+          <path d="M17.8933 11.5294L17.6 10H11V23H12.4667V17.6471H16.5733L16.8667 19.1765H22V11.5294H17.8933Z"
+            fill="white" />
+        </svg>
+        <span class="tab_text" translate="VIEWS.TOPICS_TOPICID.TAB_FOLLOW_UP"></span>
+      </a>
+      <div id="activities_button_wrap">
+        <activities-button *ngIf="auth.loggedIn$" [topicId]="topic.id"></activities-button>
+        <!-- add [topicId]="topic.id"-->
+      </div>
+    </div>
+
+    <div class="overlay" *ngIf="mobileActions" (click)="mobileActions = !mobileActions"></div>
+    <div class="mobile_actions_wrap mobile_show" [ngClass]="{'show': mobileActions}">
+      <div class="heading_wrap">
+        <span translate="VIEWS.TOPICS_TOPICID.LBL_TOPIC_ACTIONS"></span>
+        <div id="close_mobile" class="mobile_show">
+          <button class="btn_small_close icon" (click)="mobileActions = !mobileActions">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M5.29311 17.2929C4.90258 17.6834 4.90258 18.3166 5.29311 18.7071C5.68363 19.0976 6.3168 19.0976 6.70732 18.7071L12.0002 13.4142L17.2931 18.7071C17.6836 19.0976 18.3168 19.0976 18.7073 18.7071C19.0978 18.3166 19.0978 17.6834 18.7073 17.2929L13.4144 12L18.7073 6.70711C19.0978 6.31658 19.0978 5.68342 18.7073 5.29289C18.3168 4.90237 17.6836 4.90237 17.2931 5.29289L12.0002 10.5858L6.70732 5.29289C6.3168 4.90237 5.68363 4.90237 5.29311 5.29289C4.90258 5.68342 4.90258 6.31658 5.29311 6.70711L10.586 12L5.29311 17.2929Z"
+                fill="#2C3B47" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="options">
+        <ng-container *ngIf="(auth.loggedIn$ | async)">
+          <ng-container *ngIf="(topic.permission.level && topic.permission.level !== 'none')">
+            <button id="leave_button" (click)="leaveTopic(topic); mobileActions=false;" class="btn_medium_close"
+              translate="VIEWS.TOPICS_TOPICID.BTN_LEAVE"></button>
+            <div class="line_separator"></div>
+          </ng-container>
+          <button class="option" (click)="toggleFavourite(topic); mobileActions=false;">
+            <div class="icon_wrap">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M8 1L10.0572 5.16844L14.6574 5.83688L11.3287 9.08156L12.1145 13.6631L8 11.5L3.8855 13.6631L4.6713 9.08156L1.3426 5.83688L5.94275 5.16844L8 1Z"
+                  fill="#2C3B47" />
+              </svg>
+            </div>
+            <span *ngIf="!topic.favourite" translate="VIEWS.TOPICS_TOPICID.OPTION_FAVOURITE"></span>
+            <span *ngIf="topic.favourite" translate="VIEWS.TOPICS_TOPICID.OPTION_UNFAVOURITE"></span>
+          </button>
+        </ng-container>
+        <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic)">
+          <div class="line_separator"></div>
+          <button class="option" (click)="inviteEditors(topic); mobileActions=false;">
+            <div class="icon_wrap">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M13.4071 4.09259L14.9073 5.59285L11.6497 8.85059L10.3122 8.99825C10.1331 9.01806 9.98185 8.86665 10.0018 8.68758L10.1506 7.34905L13.4071 4.09259ZM15.8352 3.86922L15.1308 3.1648C14.9111 2.94507 14.5547 2.94507 14.335 3.1648L13.6723 3.8275L15.1725 5.32776L15.8352 4.66506C16.0549 4.44521 16.0549 4.08895 15.8352 3.86922Z"
+                  fill="#2C3B47" />
+                <path d="M1 14C1 15 2 15 2 15H10C10 15 11 15 11 14C11 13 10 10 6 10C2 10 1 13 1 14Z" fill="#2C3B47" />
+                <path
+                  d="M8.12132 8.12132C7.55871 8.68393 6.79565 9 6 9C5.20435 9 4.44129 8.68393 3.87868 8.12132C3.31607 7.55871 3 6.79565 3 6C3 5.20435 3.31607 4.44129 3.87868 3.87868C4.44129 3.31607 5.20435 3 6 3C6.79565 3 7.55871 3.31607 8.12132 3.87868C8.68393 4.44129 9 5.20435 9 6C9 6.79565 8.68393 7.55871 8.12132 8.12132Z"
+                  fill="#2C3B47" />
+              </svg>
+            </div>
+            <span translate="VIEWS.TOPICS_TOPICID.OPTION_INVITE_CO_EDITOR"></span>
+          </button>
+        </ng-container>
+        <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canEdit(topic) && !topic.voteId">
+          <div class="line_separator"></div>
+          <button class="option" [routerLink]="['/','topics', 'edit', topic.id]">
+            <div class="icon_wrap">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M8.8143 4.18517L11.8147 7.18569L5.29947 13.7012L2.62438 13.9965C2.26626 14.0361 1.96369 13.7333 2.00354 13.3752L2.30118 10.6981L8.8143 4.18517ZM13.6704 3.73845L12.2616 2.3296C11.8222 1.89013 11.1095 1.89013 10.67 2.3296L9.34467 3.65501L12.3451 6.65553L13.6704 5.33011C14.1099 4.89042 14.1099 4.17791 13.6704 3.73845Z"
+                  fill="#2C3B47" />
+              </svg>
+            </div>
+            <span translate="VIEWS.TOPICS_TOPICID.OPTION_EDIT_TOPIC"></span>
+          </button>
+        </ng-container>
+        <ng-container
+          *ngIf="(auth.loggedIn$ | async) && topic.voteId && (TopicService.canDelete(topic) || TopicService.canEdit(topic) && topic.status === TopicService.STATUSES.draft)">
+          <div class="line_separator"></div>
+          <button class="option" [routerLink]="['/','topics', 'vote', 'edit', topic.id]">
+            <div class="icon_wrap">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M8.8143 4.18517L11.8147 7.18569L5.29947 13.7012L2.62438 13.9965C2.26626 14.0361 1.96369 13.7333 2.00354 13.3752L2.30118 10.6981L8.8143 4.18517ZM13.6704 3.73845L12.2616 2.3296C11.8222 1.89013 11.1095 1.89013 10.67 2.3296L9.34467 3.65501L12.3451 6.65553L13.6704 5.33011C14.1099 4.89042 14.1099 4.17791 13.6704 3.73845Z"
+                  fill="#2C3B47" />
+              </svg>
+            </div>
+            <span translate="VIEWS.TOPICS_TOPICID.OPTION_EDIT_TOPIC"></span>
+          </button>
+        </ng-container>
+        <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic)">
+          <div class="line_separator"></div>
+          <button class="option" (click)="duplicateTopic(topic); mobileActions=false;">
+            <div class="icon_wrap">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2 5H11V14H2V5Z" fill="#2C3B47" />
+                <path d="M4 2V4H12V12H14V2H4Z" fill="#2C3B47" />
+              </svg>
+            </div>
+            <span translate="VIEWS.TOPICS_TOPICID.OPTION_DUPLICATE_TOPIC"></span>
+          </button>
+        </ng-container>
+        <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic)">
+          <div class="line_separator"></div>
+          <button class="option" (click)="addGroupsDialog(topic); mobileActions=false;">
+            <div class="icon_wrap">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 13C1 14 2 14 2 14H10C10 14 11 14 11 13C11 12 10 9 6 9C2 9 1 12 1 13Z" fill="#2C3B47" />
+                <path
+                  d="M8.12132 7.12132C7.55871 7.68393 6.79565 8 6 8C5.20435 8 4.44129 7.68393 3.87868 7.12132C3.31607 6.55871 3 5.79565 3 5C3 4.20435 3.31607 3.44129 3.87868 2.87868C4.44129 2.31607 5.20435 2 6 2C6.79565 2 7.55871 2.31607 8.12132 2.87868C8.68393 3.44129 9 4.20435 9 5C9 5.79565 8.68393 6.55871 8.12132 7.12132Z"
+                  fill="#2C3B47" />
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M9.99984 5.00004C9.99984 6.08068 9.57131 7.06124 8.87491 7.78104C9.22902 7.9243 9.61061 8 10 8C10.7956 8 11.5587 7.68393 12.1213 7.12132C12.6839 6.55871 13 5.79565 13 5C13 4.20435 12.6839 3.44129 12.1213 2.87868C11.5587 2.31607 10.7956 2 10 2C9.61059 2 9.22898 2.07571 8.87486 2.21898C9.57129 2.93879 9.99984 3.91937 9.99984 5.00004ZM5 13C5 14 6 14 6 14H10C10 14 11 14 11 13C11 12.1936 10.3496 10.0864 8 9.30092C5.65035 10.0864 5 12.1936 5 13ZM9.66596 9.00716C10.0939 9.29172 10.4565 9.62104 10.7593 9.97421C11.6642 11.03 12 12.2607 12 13C12 13.3681 11.9181 13.7064 11.7564 14H14C14 14 15 14 15 13C15 12 14 9 10 9C9.88624 9 9.77491 9.00243 9.66596 9.00716Z"
+                  fill="#2C3B47" />
+              </svg>
+            </div>
+            <span translate="VIEWS.TOPICS_TOPICID.OPTION_ADD_TO_GROUP"></span>
+          </button>
+        </ng-container>
+        <ng-container *ngIf="topic.visibility === TopicService.VISIBILITY.public && !topic.report">
+          <div class="line_separator"></div>
+          <button class="option" [routerLink]="['/topics', topic.id, 'report']">
+            <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <circle cx="8" cy="8" r="5.5" fill="#2C3B47" stroke="#2C3B47" />
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M4.83552 4.12891L11.8714 11.1647C11.6598 11.4233 11.4228 11.6603 11.1643 11.8719L4.12842 4.83601C4.34 4.57746 4.57697 4.34049 4.83552 4.12891Z"
+                  fill="white" />
+              </svg>
+            </div><span translate="VIEWS.TOPICS_TOPICID.OPTION_REPORT_TOPIC"></span>
+          </button>
+        </ng-container>
+        <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic)">
+          <div class="line_separator"></div>
+          <button class="option error_text" (click)="deleteTopic(topic); mobileActions=false;">
+            <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M10 3H6V4H10V3ZM11 4V3C11 2.44772 10.5523 2 10 2H6C5.44772 2 5 2.44772 5 3V4H4H2.5C2.22386 4 2 4.22386 2 4.5C2 4.77614 2.22386 5 2.5 5H4V13C4 13.5523 4.44772 14 5 14H11C11.5523 14 12 13.5523 12 13V5H13.5C13.7761 5 14 4.77614 14 4.5C14 4.22386 13.7761 4 13.5 4H12H11ZM7 7H6V11H7V7ZM10 7H9V11H10V7Z"
+                  fill="#2C3B47" />
+              </svg>
+
+            </div><span translate="VIEWS.TOPICS_TOPICID.OPTION_DELETE_TOPIC"></span>
+          </button>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
 </div>
+<router-outlet></router-outlet>

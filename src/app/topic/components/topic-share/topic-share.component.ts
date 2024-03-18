@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
+import { DialogService } from 'src/app/shared/dialog';
 import { take } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicService } from 'src/app/services/topic.service';
@@ -15,24 +15,29 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class TopicShareComponent implements OnInit {
   @Input() topic!: Topic;
+  @ViewChild('linkInput') linkInput!: ElementRef;
   join = {
     level: <string | null>this.TopicService.LEVELS.read,
     token: <string | null>null
   };
+  joinDisabled = true;
   joinUrl = ''
-  topicLevels = Object.keys(this.TopicService.LEVELS);
+  LEVELS = Object.keys(this.TopicService.LEVELS);
+  showQR = false;
+  copySuccess = false;
   constructor(
     private Auth: AuthService,
-    private dialog: MatDialog,
+    private dialog: DialogService,
     private TopicService: TopicService,
     private TopicJoinService: TopicJoinService,
     private Location: LocationService) {
   }
 
   ngOnInit(): void {
-    if (this.topic.join) {
+   if (this.topic.join) {
       this.join = this.topic.join;
     }
+  //this.join.token = this.topic.join.token;
     this.generateJoinUrl();
   }
 
@@ -81,16 +86,26 @@ export class TopicShareComponent implements OnInit {
   };
 
   copyInviteLink() {
-    const urlInputElement = document.getElementById('url_invite_topic_input') as HTMLInputElement || null;
-    urlInputElement.focus();
-    urlInputElement.select();
-    urlInputElement.setSelectionRange(0, 99999);
-    document.execCommand('copy');
+    this.joinDisabled = false;
+    setTimeout(() => {
+      const urlInputElement = this.linkInput.nativeElement as HTMLInputElement || null;
+      urlInputElement.focus();
+      urlInputElement.select();
+      urlInputElement.setSelectionRange(0, 99999);
+      document.execCommand('copy');
+      this.copySuccess = true;
+    });
+    setTimeout(() => {
+      this.copySuccess = false;
+      this.joinDisabled = true;
+    },500)
   };
 
   generateJoinUrl() {
     if (this.join.token && this.TopicService.canShare(this.topic)) {
       this.joinUrl = this.Location.getAbsoluteUrl('/topics/join/' + this.join.token);
+    } else {
+      this.joinUrl = this.Location.getAbsoluteUrl('/topics/' + this.topic.id);
     }
   };
 }

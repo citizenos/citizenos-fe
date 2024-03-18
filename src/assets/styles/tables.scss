@@ -1,130 +1,131 @@
-@use "vars";
-@use "mixins_n_extends";
-.default_table {
-  display: table;
+@use "mixins";
+
+.table_section {
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  border-collapse: collapse;
-  table-layout: fixed;
-  box-sizing: border-box;
-  tr,
-  .pretend_tr {
-    min-height: 56px;
-    height: 56px;
-    background-color: vars.$white;
+
+  .row_list,
+  .row_header {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    background-color: var(--color-surface-contrast);
+    justify-content: space-between;
+    position: relative;
+    @include mixins.mobile {
+      padding: 8px;
+    }
+
+    .row_cell {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 8px;
+      gap: 16px;
+      align-items: center;
+      min-height: 56px;
+
+      @include mixins.mobile {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+
+        &:last-child {
+          border-top: 1px solid var(--color-border);
+        }
+      }
+      .cell_title {
+        display: none;
+        @include mixins.mobile {
+          display: flex;
+        }
+      }
+
+      a {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+        text-align: left;
+      }
+      &.image_cell {
+        vertical-align: middle;
+        align-items: center;
+        gap: 8px;
+        padding: 8px;
+        font-weight: 600;
+
+        @include mixins.mobile {
+          flex-direction: row;
+          justify-content: flex-start;
+        }
+      }
+      @include mixins.mobile {
+        &.mobile_hide {
+          display: none;
+        }
+        &.remove_item_mobile {
+          position: absolute;
+          top: -8px;
+          right: -8px;
+          background-color: var(--color-surfaces);
+          border-radius: 40px;
+          height: 32px;
+          width: 32px;
+          align-items: center;
+          justify-content: center;
+          min-height: 32px;
+        }
+      }
+    }
+
+    .row_cell_row {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 8px;
+      align-items: center;
+      min-height: 56px;
+
+      &:last-child {
+        border-top: 1px solid var(--color-border);
+      }
+    }
 
     &:nth-child(even) {
-      background-color: vars.$light_gray;
-    }
-
-    &:last-child {
-      background-color: vars.$white;
+      background-color: var(--color-surface-contrast);
     }
   }
 
-  th,
-  .pretend_th {
-    padding: 20px;
-
-    @include mixins_n_extends.mobile {
-      padding: 0px;
+  .row_list {
+    @include mixins.mobile {
+      flex-direction: column;
+      gap: 8px;
+      padding: 16px;
     }
-
-    .icon {
-      vertical-align: baseline;
-    }
-
-    .th_text {
-      width: max-content;
-    }
-  }
-  td,
-  .pretend_td {
-    padding: 0 20px;
-    vertical-align: middle;
-    text-align: right;
-
-    @include mixins_n_extends.mobile {
-      padding: 0px;
-    }
-
-    &:first-child {
-      font-weight: 700;
-      text-align: left;
-    }
-    .toggle_cell {
-      bottom: 14px;
-      position: relative;
-    }
-  }
-
-  .pretend_table_mobile_text {
-    display: none;
   }
 }
 
-table,
-.pretend_table {
-  width: 100%;
-  border-collapse: collapse;
-
-  th,
-  .pretend_th {
-    font-size: 13px;
-    opacity: 0.5;
-    font-weight: vars.$medium;
-    text-decoration: underline;
-    cursor: pointer;
-    border-bottom: 1px solid vars.$lightest_gray;
-    padding: 20px 0 10px 0;
-
-    &:first-child {
-      text-align: left;
+.dialog_content {
+  .row_list {
+    .row_cell {
+      min-height: 40px;
+      padding: 0;
     }
-
-    &:hover {
-      opacity: 1;
+    &:nth-child(even) {
+      background-color: initial;
     }
-
-    .th_text {
-      position: relative;
-      display: inline;
-
-      .sprite {
-        position: absolute;
-        right: -11px;
-        top: 4px;
-      }
+    &:nth-child(odd) {
+      background-color: initial;
     }
   }
 
-  tr,
-  .pretend_tr {
-    min-height: 56px;
-    height: 56px;
-  }
+  #topic_members_list_wrap {
+    gap: 0;
 
-  td,
-  .pretend_td {
-    padding: 0 20px;
-    vertical-align: middle;
-    text-align: right;
-
-    @include mixins_n_extends.mobile {
-      padding: 0px;
+    .row_list {
+      padding: 0;
     }
-
-    &:first-child {
-      font-weight: 700;
-      text-align: left;
-    }
-    .toggle_cell {
-      bottom: 14px;
-      position: relative;
-    }
-  }
-
-  .pretend_table_mobile_text {
-    display: none;
-    opacity: 0.7;
   }
 }

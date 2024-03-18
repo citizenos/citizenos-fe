@@ -1,15 +1,65 @@
-@use "mixins_n_extends";
+@use "mixins";
 
-input {
-  @extend %input_small;
-}
+#register_wrap {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  padding: 40px;
+  max-width: 400px;
 
-input,
-button {
-  &:not(:first-child) {
-    margin-top: 10px;
+  .description {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+
+.icons_wrap {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 24px;
+  justify-content: flex-start;
+
+  @include mixins.mobile {
+    gap: 8px;
+    max-width: 100%;
+  }
+  a.login_icon {
+    cursor: pointer;
+    width: 64px;
+    height: 64px;
+    background-color: #f9fbfd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    border-radius: 48px;
   }
 }
-.settings_cell:first-child {
-  width: 80%;
+
+  a {
+    width: max-content;
+  }
+
+  .main_heading,
+  p {
+    text-align: center;
+  }
+
+  @include mixins.mobile {
+    padding: 24px 16px;
+    max-width: 100%;
+    .main_heading {
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 24px;
+    }
+  }
 }
+

@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicVoteSignData } from '../topic-vote-sign/topic-vote-sign.component';
 import { TopicVoteService } from 'src/app/services/topic-vote.service';
@@ -7,6 +7,7 @@ import { take, interval, takeWhile, switchMap, map, catchError, of } from 'rxjs'
 import { NotificationService } from 'src/app/services/notification.service';
 import { AppService } from 'src/app/services/app.service';
 import { TranslateService } from '@ngx-translate/core';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 declare let hwcrypto: any;
 
 @Component({
@@ -24,8 +25,15 @@ export class TopicVoteSignEsteidComponent implements OnInit {
   wWidth = window.innerWidth;
   isLoadingIdCard = false;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: TopicVoteSignData,
-    private dialog: MatDialog,
+
+  //
+  mobiilIdForm = new UntypedFormGroup({
+    pid: new UntypedFormControl('', Validators.compose([Validators.pattern(/^[0-9]{11}$/), Validators.required])),
+    phoneNumber: new UntypedFormControl('', Validators.compose([Validators.pattern(/^\+?[0-9\s-]{7,}$/), Validators.required]))
+  });
+
+  constructor(@Inject(DIALOG_DATA) public data: TopicVoteSignData,
+    private dialog: DialogService,
     private Notification: NotificationService,
     public TopicVoteService: TopicVoteService,
     private translate: TranslateService,
@@ -41,18 +49,17 @@ export class TopicVoteSignEsteidComponent implements OnInit {
     console.debug('doSignWithMobile()');
 
     this.isLoading = true;
-
-    if (this.phoneNumber?.indexOf('+') !== 0) {
-      this.phoneNumber = '+'+this.phoneNumber;
+    if (this.mobiilIdForm.value.phoneNumber?.indexOf('+') !== 0) {
+      this.mobiilIdForm.value.phoneNumber = '+'+this.mobiilIdForm.value.phoneNumber;
     }
 
     const userVote = {
       voteId: this.topic.voteId,
       topicId: this.topic.id,
       options: this.options,
-      pid: this.pid,
+      pid: this.mobiilIdForm.value.pid,
       certificate: null,
-      phoneNumber: this.phoneNumber
+      phoneNumber: this.mobiilIdForm.value.phoneNumber
     };
 
     this.TopicVoteService.cast(userVote)

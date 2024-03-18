@@ -1,0 +1,21 @@
+.invite_info {
+  display: flex;
+  flex-direction: column;
+
+  .via {
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 16px; /* 123.077% */
+    color: var(--color-argument-info);
+  }
+}
+
+.dropdown {
+  .options {
+    position: fixed;
+    margin-top: 30px;
+    width: max-content;
+    max-width: max-content;
+  }
+}

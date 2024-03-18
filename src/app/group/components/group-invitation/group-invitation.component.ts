@@ -1,8 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, take } from 'rxjs';
-import { RegisterComponent } from 'src/app/account/components/register/register.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { LocationService } from 'src/app/services/location.service';
@@ -18,7 +17,7 @@ import { InviteData } from 'src/app/interfaces/dialogdata';
 export class GroupInvitationComponent implements OnInit {
   invite: any;
   config = <any>this.ConfigService.get('links');
-  constructor(private ConfigService: ConfigService, private dialog: MatDialog, @Inject(MAT_DIALOG_DATA) private data: InviteData, private Auth: AuthService, private Location: LocationService, private router: Router) {
+  constructor(private ConfigService: ConfigService, private dialog: DialogService, @Inject(DIALOG_DATA) private data: InviteData, private Auth: AuthService, private Location: LocationService, private router: Router) {
     this.invite = this.data.invite;
   }
 
@@ -31,15 +30,15 @@ export class GroupInvitationComponent implements OnInit {
         const currentUrl = this.Location.currentUrl();
         if (!this.invite.user.isRegistered) {
             // The invited User is not registered, the User has been created by the system - https://github.com/citizenos/citizenos-fe/issues/773
-            this.dialog.open(RegisterComponent,  {
-              data: {
-                userId: this.invite.user.id,
+            this.router.navigate(['/account','signup'], {
+              queryParams: {
+                inviteId: this.invite.id,
                 redirectSuccess: currentUrl,
                 email: this.invite.user.email
               }
             });
         } else {
-          this.router.navigate(['/account/login'], {queryParams: {
+          this.router.navigate(['/account','login'], {queryParams: {
             userId: this.invite.user.id,
             redirectSuccess: currentUrl,
             email: this.invite.user.email
@@ -54,7 +53,7 @@ export class GroupInvitationComponent implements OnInit {
             .pipe(take(1))
             .subscribe(() => {
               const currentUrl = this.Location.currentUrl();
-              this.router.navigate(['/account/login'], {queryParams: {
+              this.router.navigate(['/account','login'], {queryParams: {
                 userId: this.invite.user.id,
                 redirectSuccess: currentUrl,
                 email: this.invite.user.email
@@ -73,7 +72,7 @@ export class GroupInvitationComponent implements OnInit {
 export class GroupInvitationDialogComponent implements OnInit {
   inviteId: string = '';
 
-  constructor(Auth: AuthService, dialog: MatDialog, GroupInviteUserService: GroupInviteUserService, route: ActivatedRoute, router: Router, Notification: NotificationService) {
+  constructor(Auth: AuthService, dialog: DialogService, GroupInviteUserService: GroupInviteUserService, route: ActivatedRoute, router: Router, Notification: NotificationService) {
 
     /*LOAD INVITE*/
     route.params.pipe(
@@ -92,9 +91,10 @@ export class GroupInvitationDialogComponent implements OnInit {
             .pipe(take(1))
             .subscribe({
               next: () => {
-                router.navigate(['/my/groups', groupInvite.groupId])
+                router.navigate(['groups', groupInvite.groupId])
               },
               error: (err) => {
+                Notification.addError(err.message || err.status.message);
                 console.error('Invite error', err)
               }
             });
@@ -105,7 +105,26 @@ export class GroupInvitationDialogComponent implements OnInit {
                 invite: groupInvite
               }
             });
+
+            invitationDialog.afterClosed().subscribe({
+              next: (res) => {
+                if (res===true) {
+                  router.navigate(['/']);
+                }
+              }
+            })
         }
+      },
+      error: (err) => {
+        router.navigate(['/']);
+        setTimeout(() => {
+          console.log(err)
+          if (err.code === 41002 || err.status?.code === 41002) {
+            Notification.addError('MSG_ERROR_GET_API_USERS_GROUPS_INVITES_USERS_41002', 'MSG_ERROR_GET_API_USERS_GROUPS_INVITES_USERS_41002_HEADING');
+          } else {
+            Notification.addError(err.message || err.status.message);
+          }
+        }, 400);
       }
     })
   }

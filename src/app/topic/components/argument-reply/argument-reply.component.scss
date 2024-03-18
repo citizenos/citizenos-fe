@@ -1,0 +1,61 @@
+@use "mixins";
+
+.reply_wrap {
+  background-color: var(--color-surfaces);
+  padding: 16px;
+  margin-top: -16px;
+  gap: 16px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 680px;
+  position: relative;
+  bottom: -16px;
+
+  .heading {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px; /* 150% */
+  }
+  &.poi,
+  &.reply {
+    border-left: 4px solid var(--color-border);
+    background-color: var(--color-surfaces);
+    max-width: 100%;
+    align-self: center;
+  }
+  &.poi {
+    background-color: var(--color-argument-info-light);
+    border-radius: 0 0 8px 8px;
+    border-right: 4px solid var(--color-border);
+    width: calc(100% + 8px);
+    max-width: none;
+    left: 0;
+  }
+  &.pro {
+    border-left: 4px solid var(--color-voting-disabled);
+    background-color: var(--color-argument-pro-light);
+    left: -4px;
+    border-radius: 0 0 8px 0;
+  }
+  &.con {
+    border-right: 4px solid var(--color-argument-con-medium);
+    border-radius: 0 0 0 8px;
+    background-color: var(--color-argument-con-light);
+    align-self: flex-end;
+    left: initial;
+    right: -4px;
+  }
+
+  &.reply {
+    bottom: 0;
+    left: 0;
+  }
+}
+.buttons_wrap {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

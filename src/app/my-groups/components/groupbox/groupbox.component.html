@@ -1,0 +1,45 @@
+<a class="group" (click)="viewGroup()">
+  <div class="group_header">
+    <div class="image_area">
+      <div class="group_icon" *ngIf="group.imageUrl"><img [src]="group.imageUrl" /></div>
+      <div class="initial_wrap" *ngIf="!group.imageUrl && group.name">
+        <cos-initials class="table_cell" [name]="group.name"
+          [initialLimit]="1"></cos-initials>
+      </div>
+    </div>
+    <div class="info_area">
+      <div class="item" *ngIf="group.visibility === 'private'">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M8 9V7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7V9H17C18.1046 9 19 9.89543 19 11V17C19 18.1046 18.1046 19 17 19H7C5.89543 19 5 18.1046 5 17V11C5 9.89543 5.89543 9 7 9H8ZM14 7V9H10V7C10 5.89543 10.8954 5 12 5C13.1046 5 14 5.89543 14 7ZM11 13C11 12.4477 11.4477 12 12 12C12.5523 12 13 12.4477 13 13V15C13 15.5523 12.5523 16 12 16C11.4477 16 11 15.5523 11 15V13Z"
+            fill="#2C3B47" />
+        </svg>
+      </div>
+      <div class="item" *ngIf="group.favourite">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M12 3L14.645 8.35942L20.5595 9.21885L16.2798 13.3906L17.2901 19.2812L12 16.5L6.70993 19.2812L7.72025 13.3906L3.44049 9.21885L9.35497 8.35942L12 3Z"
+            fill="#2C3B47" />
+        </svg>
+      </div>
+      <div class="item" *ngIf="group">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M8.00002 8.00016C9.84097 8.00016 11.3334 6.50778 11.3334 4.66683C11.3334 2.82588 9.84097 1.3335 8.00002 1.3335C6.15907 1.3335 4.66669 2.82588 4.66669 4.66683C4.66669 6.50778 6.15907 8.00016 8.00002 8.00016Z"
+            fill="#2C3B47" />
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M4 11.63C4 9.99356 5.19391 8.66699 6.66667 8.66699H9.33333C10.8061 8.66699 12 9.99356 12 11.63V15.3337H4V11.63Z"
+            fill="#2C3B47" />
+        </svg>
+        <span>{{group.members?.users?.count || 1}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="group_title">
+    <div class="small_heading" [innerText]="group.name"></div>
+  </div>
+  <div class="group_footer">
+    <div class="group_description"><a (click)="$event.preventDefault()" class="bold" *ngIf="group.members?.topics.count && group.members?.topics.latest" [innerText]="group.members?.topics?.latest.title"  [routerLink]="['/',Translate.currentLang, 'topics', group.members?.topics?.latest.id]"></a></div>
+    <div class="date" [innerText]="group.createdAt | date: 'YYYY-MM-dd HH:mm'"></div>
+  </div>
+</a>

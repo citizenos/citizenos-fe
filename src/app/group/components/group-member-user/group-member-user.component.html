@@ -1,60 +1,65 @@
 <ng-container *ngIf="member">
-  <div class="pretend_td">
-    <div class="profile_image_wrapper dark">
-      <div class="account_picture">
-        <img *ngIf="member.imageUrl" [src]="member.imageUrl">
-        <div *ngIf="!member.imageUrl" class="profile_image_filler">
-          <cos-initials class="table_cell" [name]="member.name"></cos-initials>
-          <div class="profile_circle"></div>
+  <div class="row">
+    <div class="name">
+      <div class="profile_image_wrap">
+        <img class="profile_image" *ngIf="member.imageUrl" [src]="member.imageUrl">
+        <div class="profile_image_filler" *ngIf="!member.imageUrl">
+          <cos-initials class="table_cell" *ngIf="member.name" [name]="member.name">
+          </cos-initials>
         </div>
       </div>
-    </div>
-    <div class="name_wrap">
-      <div class="table_cell">
-        <div [innerText]="member.name">John Smith</div>
-        <div class="via">
-          {{member.email}} {{member.phoneNumber}}
-        </div>
+      <div class="member_name_wrap">
+        <div class="bold" [innerHtml]>{{member.name}}</div>
+        <div class="member_info">{{member.email}} {{member.phoneNumber}}</div>
       </div>
     </div>
-  </div>
-  <div class="pretend_td" *ngIf="isVisibleField('lastActivity')">
-    <div class="pretend_table_mobile_text mobile_label" translate="VIEWS.PUBLIC_GROUP.LNK_LAST_ACTIVITY">
-    </div>
-    <div [innerText]="member.latestActivity | date : 'yyyy-MM-dd HH:mm'">12.02.2015 21:40</div>
-  </div>
-  <div class="pretend_td" *ngIf="isVisibleField('level')">
-    <div class="pretend_table_mobile_text mobile_label" translate="VIEWS.PUBLIC_GROUP.LNK_ROLE"></div>
-    <div [cosDropdown] class="classic_dropdown" *ngIf="this.group && canUpdate()">
-      <div class="dropdown_selection">
-        <div class="dropdown_text">{{'TXT_TOPIC_LEVELS_' + member.level | uppercase | translate}}</div>
-
-        <div class="arrow_holder">
-          <div class="table_cell">
-            <div class="sprite sprite-icon-dropdown-arrowdown2x"></div>
-
-            <div class="v_line"></div>
+    <div class="line_separator mobile_show"></div>
+    <div class="level">
+      <span [translate]="'TXT_GROUP_LEVELS_' + member.level | uppercase"></span>
+      <div class="button_wrap" *ngIf="canUpdate()">
+        <div class="dropdown" [cosDropdown]>
+          <button class="btn_medium_plain icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M17.3335 12.0003C17.3335 11.267 16.7335 10.667 16.0002 10.667C15.2668 10.667 14.6668 11.267 14.6668 12.0003C14.6668 12.7337 15.2668 13.3337 16.0002 13.3337C16.7335 13.3337 17.3335 12.7337 17.3335 12.0003ZM17.3335 20.0003C17.3335 19.267 16.7335 18.667 16.0002 18.667C15.2668 18.667 14.6668 19.267 14.6668 20.0003C14.6668 20.7337 15.2668 21.3337 16.0002 21.3337C16.7335 21.3337 17.3335 20.7337 17.3335 20.0003ZM16.0002 14.667C16.7335 14.667 17.3335 15.267 17.3335 16.0003C17.3335 16.7337 16.7335 17.3337 16.0002 17.3337C15.2668 17.3337 14.6668 16.7337 14.6668 16.0003C14.6668 15.267 15.2668 14.667 16.0002 14.667Z"
+                fill="#2C3B47" />
+            </svg>
+          </button>
+          <div class="mobile_overlay"></div>
+          <div class="options button_options">
+            <div class="mobile_header">
+              <div class="small_heading" translate="COMPONENTS.GROUP_MEMBER_USER.EDIT_MEMBER"></div>
+              <button><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M5.29314 17.2929C4.90261 17.6834 4.90261 18.3166 5.29314 18.7071C5.68366 19.0976 6.31683 19.0976 6.70735 18.7071L12.0002 13.4142L17.2931 18.7071C17.6837 19.0976 18.3168 19.0976 18.7074 18.7071C19.0979 18.3166 19.0979 17.6834 18.7074 17.2929L13.4145 12L18.7074 6.70711C19.0979 6.31658 19.0979 5.68342 18.7074 5.29289C18.3168 4.90237 17.6837 4.90237 17.2931 5.29289L12.0002 10.5858L6.70735 5.29289C6.31683 4.90237 5.68366 4.90237 5.29314 5.29289C4.90261 5.68342 4.90261 6.31658 5.29314 6.70711L10.586 12L5.29314 17.2929Z"
+                    fill="#2C3B47" />
+                </svg>
+              </button>
+            </div>
+            <ng-container *ngFor="let level of memberLevels">
+              <button class="option" (click)="doUpdateMemberUser(level)">
+                <div class="icon_wrap">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M5.66347 6.9425L11.8106 1L13.4526 2.58741L12.3579 3.64569L14 5.2331L11.2632 7.87953L9.62116 6.29212L7.30631 8.52991C7.73255 9.32272 7.85142 10.2368 7.64144 11.1069C7.43146 11.977 6.90649 12.7458 6.16136 13.2745C5.41623 13.8031 4.50009 14.0567 3.57846 13.9894C2.65683 13.9221 1.7905 13.5383 1.13598 12.9075C0.481132 12.2754 0.0821563 11.4375 0.0113533 10.5456C-0.0594497 9.65365 0.202605 8.7667 0.750029 8.04547C1.29745 7.32424 2.09403 6.81645 2.9954 6.61411C3.89677 6.41177 4.8433 6.52827 5.66347 6.9425ZM4.96747 11.3193C5.11536 11.1812 5.23332 11.016 5.31447 10.8334C5.39562 10.6508 5.43833 10.4544 5.44012 10.2556C5.4419 10.0569 5.40273 9.85978 5.32487 9.67582C5.24702 9.49186 5.13205 9.32474 4.98666 9.18419C4.84128 9.04365 4.6684 8.9325 4.47811 8.85724C4.28782 8.78198 4.08393 8.74411 3.87833 8.74583C3.67274 8.74756 3.46956 8.78885 3.28065 8.8673C3.09174 8.94575 2.92088 9.05978 2.77805 9.20275C2.496 9.48506 2.33993 9.86316 2.34346 10.2556C2.34698 10.6481 2.50983 11.0235 2.79691 11.3011C3.08399 11.5786 3.47235 11.736 3.87833 11.7394C4.28431 11.7428 4.67544 11.592 4.96747 11.3193Z"
+                      fill="#2C3B47" />
+                  </svg>
+                </div>
+                <span [innerHtml]="'COMPONENTS.GROUP_MEMBER_USER.SET_MEMBER_PERMISSIONS' | translate:{level: ('TXT_GROUP_LEVELS_'+level) | uppercase | translate}"></span>
+              </button>
+              <div class="line_separator"></div>
+            </ng-container>
+            <button class="option" *ngIf="this.group && canUpdate()" (click)="doDeleteMemberUser()">
+              <div class="icon_wrap">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M10 3H6V4H10V3ZM11 4V3C11 2.44772 10.5523 2 10 2H6C5.44772 2 5 2.44772 5 3V4H4H2.5C2.22386 4 2 4.22386 2 4.5C2 4.77614 2.22386 5 2.5 5H4V13C4 13.5523 4.44772 14 5 14H11C11.5523 14 12 13.5523 12 13V5H13.5C13.7761 5 14 4.77614 14 4.5C14 4.22386 13.7761 4 13.5 4H12H11ZM7 7H6V11H7V7ZM10 7H9V11H10V7Z"
+                    fill="#EF4025" />
+                </svg>
+              </div>
+              <span class="error_text" translate="COMPONENTS.GROUP_MEMBER_USER.BTN_REMOVE"></span>
+            </button>
           </div>
-        </div>
-      </div>
-      <div class="dropdown" *ngIf="this.group && canUpdate()">
-        <div class="dropdown_item" *ngFor="let level of memberLevels">
-          <div class="item_name" (click)="doUpdateMemberUser(level)">{{'TXT_TOPIC_LEVELS_' + level | uppercase |
-            translate}}</div>
-        </div>
-      </div>
-    </div>
-    <div *ngIf="this.group && !canUpdate()">
-      <span class="user_level_text">{{'TXT_TOPIC_LEVELS_' + member.level | uppercase | translate}}</span>
-    </div>
-  </div>
-  <div class="pretend_td recycle_bin_wrap" *ngIf="this.group && canUpdate() && isVisibleField('remove')">
-    <div class="pretend_table_mobile_text mobile_label" translate="VIEWS.PUBLIC_GROUP.LBL_REMOVE"></div>
-    <div class="btn_wrap recycle_bin">
-      <div class="btn" (click)="doDeleteMemberUser()">
-        <div class="table_cell">
-          <div class="sprite desktop_fix sprite-mytopics-icon-deletetopic2x"></div>
-          <div class="sprite mobile_fix sprite-mytopics-icon-deletetopic2x"></div>
         </div>
       </div>
     </div>

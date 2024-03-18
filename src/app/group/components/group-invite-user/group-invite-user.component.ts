@@ -1,58 +1,78 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { forkJoin, take } from 'rxjs';
+import { Component, Input } from '@angular/core';
 import { Group } from 'src/app/interfaces/group';
-import { GroupInviteUserService } from 'src/app/services/group-invite-user.service';
+import { AppService } from 'src/app/services/app.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { GroupService } from 'src/app/services/group.service';
-import { TopicMemberInviteDeleteComponent } from 'src/app/topic/components/topic-member-invite-delete/topic-member-invite-delete.component';
+import { GroupInviteUserService } from 'src/app/services/group-invite-user.service';
+import { DialogService } from 'src/app/shared/dialog';
+import { catchError, take } from 'rxjs';
+import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
+
 @Component({
   selector: 'group-invite-user',
   templateUrl: './group-invite-user.component.html',
   styleUrls: ['./group-invite-user.component.scss']
 })
-export class GroupInviteUserComponent implements OnInit {
+export class GroupInviteUserComponent {
   @Input() invite?: any;
   @Input() group: Group | any;
   @Input() fields?: any;
 
-  constructor(private dialog: MatDialog, private GroupService: GroupService, private GroupInviteUserService: GroupInviteUserService) { }
+  memberLevels = this.GroupInviteUserService.LEVELS;
+
+  LEVELS = Object.keys(this.GroupInviteUserService.LEVELS);
+  constructor(private dialog: DialogService, public app: AppService, private AuthService: AuthService, private GroupInviteUserService: GroupInviteUserService, private GroupService: GroupService) { }
 
   ngOnInit(): void {
   }
-  now() {
-    return new Date();
+
+  isVisibleField(field: string) {
+    return this.fields?.indexOf(field) > -1
   }
+
   canUpdate() {
     return this.GroupService.canUpdate(this.group);
   }
-  doDeleteInviteUser() {
-    const deleteDialog = this.dialog
-      .open(TopicMemberInviteDeleteComponent, {
-        data: {
-          user: this.invite.user
-        }
-      });
-    deleteDialog.afterClosed().subscribe((isAll) => {
-      const promisesToResolve = <any>{};
-      // Delete all
-      if (isAll === 'all') {
-        this.GroupInviteUserService.items$.pipe(take(1))
-          .subscribe((invites) => {
-            invites.forEach((invite: any) => {
-              if (invite.user.id === this.invite.user.id) {
-                promisesToResolve[invite.id] = this.GroupInviteUserService.delete(invite);
-              }
-            });
 
-            forkJoin(promisesToResolve)
-              .pipe(take(1))
-              .subscribe((res: any) => {
-                this.GroupInviteUserService.reset();
-              })
+  doUpdateInviteUser(level: string) {
+    if (this.invite.invite && this.invite?.invite.level !== level) {
+      const oldLevel = this.invite.invite.level;
+      this.invite.invite.level = level;
+      if (this.group) {
+        const inviteData = Object.assign({groupId: this.group.id, inviteId: this.invite.invite.id}, this.invite.invite)
+        this.GroupInviteUserService
+          .update(inviteData)
+          .pipe(take(1),
+            catchError((error) => {
+              this.invite.level = oldLevel
+              return error;
+            }))
+          .subscribe((res) => {
           })
-      } else if (isAll === '1') { // Delete single
-        this.GroupInviteUserService.delete(this.invite).pipe(take(1)).subscribe(res => this.GroupInviteUserService.reset());
       }
-    })
+    }
+  };
+
+  doDeleteInviteUser() {
+    const deleteUserDialog = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        level: 'delete',
+        heading: 'MODALS.TOPIC_MEMBER_USER_DELETE_CONFIRM_HEADING',
+        title: 'MODALS.TOPIC_MEMBER_USER_DELETE_CONFIRM_TXT_ARE_YOU_SURE',
+        confirmBtn: 'MODALS.TOPIC_MEMBER_USER_DELETE_CONFIRM_YES',
+        closeBtn: 'MODALS.TOPIC_MEMBER_USER_DELETE_CONFIRM_NO'
+      }
+    });
+    deleteUserDialog.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.invite.groupId = this.group.id;
+        this.GroupInviteUserService.delete({ groupId: this.group.id, inviteId: this.invite.id })
+          .pipe(take(1))
+          .subscribe(() => {
+            this.GroupService.reloadGroup();
+            this.GroupInviteUserService.reloadItems();
+          });
+      }
+    });
   };
 }

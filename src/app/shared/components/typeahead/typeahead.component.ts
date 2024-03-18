@@ -1,4 +1,4 @@
-import { HostBinding, Component, ElementRef, Directive, OnInit, OnDestroy, Input, Output, HostListener, EventEmitter, forwardRef, Inject } from '@angular/core';
+import { HostBinding, Component, ElementRef, Directive, OnInit, OnDestroy, Input, Output, HostListener, EventEmitter, forwardRef, Inject, ViewChild } from '@angular/core';
 
 @Directive({ selector: '[typeaheadItem]' })
 export class TypeaheadItem implements OnDestroy {
@@ -42,14 +42,17 @@ export class TypeaheadComponent implements OnInit {
   @Input() term: string | undefined | null = null;
   @Input() placeholder: string | undefined;
   @Input() label: string | undefined;
+  @Input() activeClass: string | undefined;
   @Output() select = new EventEmitter<any | null>();
   @Output() search = new EventEmitter<string | null>();
+  @ViewChild('input') searchInput?: ElementRef;
 
   hide = false;
   active: any;
   itemList: any[] = [];
   focused: boolean = false;
-  constructor() {
+  enterLink = false;
+  constructor(private _el: ElementRef) {
   }
 
   registerElement(el: any) {
@@ -59,17 +62,22 @@ export class TypeaheadComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  @HostListener('focus') focus() {
+  focus() {
+    this._el.nativeElement.classList.add(this.activeClass || 'active');
     this.focused = true;
   };
 
-  @HostListener('blur') blur() {
-    this.focused = false;
+  blur() {
+    setTimeout(() => {
+      this._el?.nativeElement?.classList?.remove(this.activeClass || 'active');
+      this.focused = false;
+    }, 200);
   };
 
   @HostListener('keyup', ['$event']) keyup(e: any) {
     if (e.keyCode === 13) { // ENTER
       if (!this.selectLimit || (this.term && (this.selectLimit <= this.term.length)) || (this.itemList && this.itemList.length)) {
+
         this.selectActive();
       } else {
         this.doEnterAction();
@@ -125,17 +133,23 @@ export class TypeaheadComponent implements OnInit {
   };
 
   selectActive() {
+    this.enterLink = false;
     if (!this.active) this.active = this.itemList[0];
     this.doSelect(this.active);
   };
 
   doEnterAction() {
+    this.enterLink = false;
     this.itemList = [];
-    if (this.enterAction)
+    if (this.enterAction) {
       this.enterAction.emit({ text: this.term, limit: true });
+    } else {
+      this.selectActive();
+    }
   };
 
   doSelect(item: any) {
+    this.enterLink = false;
     this.hide = true;
     this.focused = true;
     this.term = '';
@@ -147,6 +161,14 @@ export class TypeaheadComponent implements OnInit {
   };
 
   query() {
+    this.enterLink = false;
+    if(this.term ) {
+      if(this.term.split(' ').filter((item) => item.length > 1).length > 1) {
+        this.enterLink = true;
+      } else if (this.term.split(',').filter((item) => item.length > 1).length > 1) {
+        this.enterLink = true;
+      }
+    }
     this.hide = false;
     this.itemList = [];
     this.search.emit(this.term);

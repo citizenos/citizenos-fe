@@ -1,0 +1,56 @@
+@use "mixins";
+
+.dialog {
+  max-width: 560px;
+  @include mixins.mobile {
+    max-width: initial;
+    width: 100%;
+  }
+  .dialog_content {
+    padding: 24px;
+  }
+}
+#form_area {
+  gap: 0;
+  .create_content {
+    margin-bottom: 0;
+    .create_content_section {
+      padding: 0;
+    }
+  }
+}
+
+
+#mobile_menu {
+  width: 100%;
+  margin-bottom: 16px;
+
+  &.dropdown_active {
+    .selection {
+      border-radius: 8px 8px 0 0;
+      border-bottom: 1px solid var(--color-background);
+    }
+  }
+  .selection {
+    border: none;
+    padding: 8px 16px;
+
+    .selected_item {
+      font-weight: 600;
+    }
+  }
+  .options {
+    margin-top: 0;
+    position: relative;
+
+    .option {
+      &:hover {
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+topic-share {
+  display: contents;
+}

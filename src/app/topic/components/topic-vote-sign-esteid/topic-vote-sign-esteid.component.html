@@ -1,114 +1,134 @@
-<!-- LIGHTBOX SKELETON -->
-<div id="root_lightbox">
-  <div id="lightbox" class="id_signing wide_lightbox with_title_description">
-    <div id="lightbox_wrap">
-
-      <div id="lightbox_header">
-
-        <div id="lightbox_header_text">
-          <div class="title" translate="MODALS.TOPIC_VOTE_SIGN_ESTEID_HEADING"></div>
-          <div class="title_description">{{topic.title}}</div>
+<div class="overlay" dialog-close></div>
+<div class="dialog_wrap">
+  <div id="notification_wrap_dialog">
+    <notification></notification>
+  </div>
+  <div class="dialog">
+    <div class="dialog_header voting">
+      <div class="header_text">
+        <h4 class="title" translate="MODALS.TOPIC_VOTE_SIGN_ESTEID_HEADING"></h4>
+        <div class="dialog_close">
+          <a class="btn_dialog_close icon" dialog-close>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M7.72152 6.29537C7.3277 5.90154 6.68919 5.90154 6.29537 6.29537C5.90154 6.68919 5.90154 7.3277 6.29537 7.72153L10.5738 12L6.29541 16.2785C5.90159 16.6723 5.90159 17.3108 6.29541 17.7046C6.68923 18.0985 7.32774 18.0985 7.72156 17.7046L12 13.4262L16.2784 17.7046C16.6723 18.0985 17.3108 18.0985 17.7046 17.7046C18.0984 17.3108 18.0984 16.6723 17.7046 16.2785L13.4262 12L17.7046 7.72153C18.0985 7.3277 18.0985 6.68919 17.7046 6.29537C17.3108 5.90154 16.6723 5.90154 16.2785 6.29537L12 10.5739L7.72152 6.29537Z"
+                fill="#2C3B47" />
+            </svg>
+          </a>
         </div>
-
-        <div id="lightbox_close" mat-dialog-close="">
-          <div class="table_cell">
-            <div class="sprite sprite-btn-popup-close2x">
-            </div>
-          </div>
-        </div>
-
-        <div class="clearer"></div>
-
-        <div class="voting_tag_padding">
-          <span *ngIf="options.length === 1" translate="MODALS.TOPIC_VOTE_SIGN_TXT_VOTING_FOR"
-            [translateParams]="{optionSelected: options[0]}"></span>
-          <div class="voting_tag" *ngFor="let option of options">
-            <div class="table_cell">
-              <span class="bold"
-                [innerHtml]="getOptionValueText(option.value)| linky"></span>
-              <!--translate-default="{{option.value | linky}}"-->
-            </div>
-          </div>
-        </div>
-
       </div>
-
-      <div class="line lightest_line"></div>
-
-      <div class="lightbox_content">
-
-        <div class="v_line lightest_line"></div>
-
-        <div class="sign_in_section">
-          <form name="formMobileSign" novalidate>
-            <div class="sprite_big sprite sprite-mobiil-i-d2x"></div>
-            <input id="phone" name="phoneNumber" type="tel" [(ngModel)]="phoneNumber" #phoneNumberInput="ngModel"
-              ngModel [placeholder]="'MODALS.TOPIC_VOTE_SIGN_ESTEID_PLACEHOLDER_PHONE' | translate"
-              (focus)="wWidth > 1024"
-              [ngClass]="{'error_input': (phoneNumberInput.errors && phoneNumberInput.errors['pattern'] && phoneNumberInput.touched)}"
-              pattern="^\+?[0-9\s-]{7,}$" required>
-            <label for="phoneNumber"
-              *ngIf="phoneNumberInput.errors && phoneNumberInput.errors['pattern'] && phoneNumberInput.touched"
-              class="error_label">
-              <div class="table_cell">
-                <div class="sprite sprite-icon-inputfield-error2x"></div>
-                <span translate="MODALS.TOPIC_VOTE_SIGN_ESTEID_ERROR_PHONE"></span>
+    </div>
+    <div class="dialog_content no_footer">
+      <div class="vote_options">
+        <span *ngIf="options.length === 1" translate="MODALS.TOPIC_VOTE_SIGN_TXT_VOTING_FOR"
+          [translateParams]="{optionSelected: options[0]}"></span>
+        <ng-container *ngFor="let option of options">
+          <div class="vote_option radio_wrap selected" *ngIf="option.selected">
+            <div class="radio_text_wrap">
+              <div class="radio_lable_wrap">
+                <label class="checkbox"><span
+                    translate="{{'COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_' + option.value  | uppercase}}"
+                    [translateParams]="{default: option.value}"></span>
+                  <input type="checkbox" [checked]="option.selected" />
+                  <span class="checkmark"></span>
+                </label>
               </div>
-            </label>
-            <input #pidInput="ngModel" name="pid" type="text" inputmode="numeric" [(ngModel)]="pid"
-              ngModel [placeholder]="'MODALS.TOPIC_VOTE_SIGN_ESTEID_PLACEHOLDER_PID' | translate"
-              [ngClass]="{'error_input': pidInput.errors && pidInput.errors['pattern'] && pidInput.touched}"
-              pattern="^[0-9]{11}$" required>
-            <label class="error_label" for="pid"
-              *ngIf="pidInput.errors && pidInput.errors['pattern'] && pidInput.touched">
-              <div class="table_cell">
-                <div class="sprite sprite-icon-inputfield-error2x"></div>
-                <span translate="MODALS.TOPIC_VOTE_SIGN_ESTEID_ERROR_PID"></span>
-              </div>
-            </label>
-            <div *ngIf="isLoading && challengeID" class="code"
-              translate="MODALS.TOPIC_VOTE_SIGN_ESTEID_TXT_CONTROL_CODE" [translateParams]="{code: challengeID}"></div>
-            <div *ngIf="isLoading && challengeID" class="code_text"
-              translate="MODALS.TOPIC_VOTE_SIGN_ESTEID_TXT_CHECK_CONTROL_CODE"></div>
-            <div *ngIf="isLoading" class="loader_wrap">
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      <div class="form_wrap">
+        <form name="formMobileSign" [formGroup]="mobiilIdForm" novalidate>
+          <div class="sign_in_section">
+            <svg width="76" height="22" viewBox="0 0 76 22" fill="none" xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink">
+              <g style="mix-blend-mode:multiply">
+                <rect width="76" height="22" fill="url(#pattern0)" />
+              </g>
+              <defs>
+                <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+                  <use xlink:href="#image0_354_45518" transform="scale(0.00909091 0.03125)" />
+                </pattern>
+                <image id="image0_354_45518" width="110" height="32"
+                  xlink:href="data:image/png;base64,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" />
+              </defs>
+            </svg>
+            <div *ngIf="isLoading && !challengeID" class="loader_wrap">
               <div class="loader"></div>
             </div>
-            <button *ngIf="wWidth <= 550" class="blue_button" (click)="doSignWithMobile()"
-              translate="MODALS.TOPIC_VOTE_SIGN_ESTEID_BTN_SIGN_MID"></button><!--[attr.disabled]="formMobileSign.$invalid || isLoading || TopicVoteService.isLoadingIdCard"-->
-          </form>
-        </div>
+            <ng-container *ngIf="!challengeID && !isLoading">
+              <cos-input placeholder="{{'MODALS.TOPIC_VOTE_SIGN_ESTEID_PLACEHOLDER_PHONE' | translate}}">
+                <input id="phone" formControlName="phoneNumber" type="tel"
+                  [placeholder]="'MODALS.TOPIC_VOTE_SIGN_ESTEID_PLACEHOLDER_PHONE' | translate" (focus)="wWidth > 1024"
+                  [ngClass]="{'error_input': (mobiilIdForm.controls['phoneNumber'].errors && mobiilIdForm.controls['phoneNumber'].errors['pattern'] && mobiilIdForm.controls['phoneNumber'].touched)}">
+                <label for="phone" class="error_label"
+                  *ngIf="mobiilIdForm.controls['phoneNumber'].errors && mobiilIdForm.controls['phoneNumber'].errors['pattern']  && mobiilIdForm.controls['phoneNumber'].touched">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M8.89438 1.78863C8.52586 1.05158 7.47405 1.05158 7.10553 1.78863L0.723562 14.5526C0.391112 15.2175 0.874608 15.9998 1.61799 15.9998H14.3819C15.1253 15.9998 15.6088 15.2175 15.2763 14.5526L8.89438 1.78863ZM6.99996 6.99977C6.99996 6.44749 7.44767 5.99977 7.99996 5.99977C8.55224 5.99977 8.99996 6.44749 8.99996 6.99977V9.99977C8.99996 10.5521 8.55224 10.9998 7.99996 10.9998C7.44767 10.9998 6.99996 10.5521 6.99996 9.99977V6.99977ZM6.99996 12.9998C6.99996 12.4475 7.44767 11.9998 7.99996 11.9998C8.55224 11.9998 8.99996 12.4475 8.99996 12.9998C8.99996 13.5521 8.55224 13.9998 7.99996 13.9998C7.44767 13.9998 6.99996 13.5521 6.99996 12.9998Z"
+                      fill="#EF4025" />
+                  </svg>
+                  <span translate="MODALS.TOPIC_VOTE_SIGN_ESTEID_ERROR_PHONE"></span>
+                </label>
+              </cos-input>
+              <cos-input placeholder="{{'MODALS.TOPIC_VOTE_SIGN_ESTEID_PLACEHOLDER_PID' | translate}}">
+                <input id="pid" formControlName="pid" type="text" inputmode="numeric"
+                  [placeholder]="'MODALS.TOPIC_VOTE_SIGN_ESTEID_PLACEHOLDER_PID' | translate"
+                  [ngClass]="{'error_input': mobiilIdForm.controls['pid'].errors && mobiilIdForm.controls['pid'].errors['pattern']  && mobiilIdForm.controls['pid'].touched}">
+                <label for="pid" class="error_label"
+                  *ngIf="mobiilIdForm.controls['pid'].errors && mobiilIdForm.controls['pid'].errors['pattern'] && mobiilIdForm.controls['pid'].touched">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M8.89438 1.78863C8.52586 1.05158 7.47405 1.05158 7.10553 1.78863L0.723562 14.5526C0.391112 15.2175 0.874608 15.9998 1.61799 15.9998H14.3819C15.1253 15.9998 15.6088 15.2175 15.2763 14.5526L8.89438 1.78863ZM6.99996 6.99977C6.99996 6.44749 7.44767 5.99977 7.99996 5.99977C8.55224 5.99977 8.99996 6.44749 8.99996 6.99977V9.99977C8.99996 10.5521 8.55224 10.9998 7.99996 10.9998C7.44767 10.9998 6.99996 10.5521 6.99996 9.99977V6.99977ZM6.99996 12.9998C6.99996 12.4475 7.44767 11.9998 7.99996 11.9998C8.55224 11.9998 8.99996 12.4475 8.99996 12.9998C8.99996 13.5521 8.55224 13.9998 7.99996 13.9998C7.44767 13.9998 6.99996 13.5521 6.99996 12.9998Z"
+                      fill="#EF4025" />
+                  </svg>
+                  <span translate="MODALS.TOPIC_VOTE_SIGN_ESTEID_ERROR_PID"></span>
+                </label>
+              </cos-input>
+            </ng-container>
+            <div class="control_code_wrap" *ngIf="challengeID">
+              <div class="code" translate="MODALS.TOPIC_VOTE_SIGN_ESTEID_TXT_CONTROL_CODE"
+                [translateParams]="{code: challengeID}">
+              </div>
+              <div class="code_text" translate="MODALS.TOPIC_VOTE_SIGN_ESTEID_TXT_CHECK_CONTROL_CODE"></div>
+              <div class="loader_wrap">
+                <div class="loader"></div>
+              </div>
+            </div>
+            <button type="submit" (click)="doSignWithMobile()"
+              [disabled]="isLoading || isLoadingIdCard || mobiilIdForm.invalid" class="btn_big_submit">
+              <span translate="MODALS.TOPIC_VOTE_SIGN_ESTEID_BTN_SIGN_MID"></span>
+            </button>
+          </div>
 
-        <div class="v_line lightest_line"></div>
+          <div class="sign_in_section">
+            <svg width="71" height="22" viewBox="0 0 71 22" fill="none" xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink">
+              <g style="mix-blend-mode:multiply">
+                <rect width="71" height="22" fill="url(#pattern1)" />
+              </g>
+              <defs>
+                <pattern id="pattern1" patternContentUnits="objectBoundingBox" width="1" height="1">
+                  <use xlink:href="#image0_354_45520" transform="scale(0.00961538 0.03125)" />
+                </pattern>
+                <image id="image0_354_45520" width="104" height="32"
+                  xlink:href="data:image/png;base64,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" />
+              </defs>
+            </svg>
 
-        <div class="line_wrap">
-          <div class="line lightest_line"></div>
-        </div>
-
-        <div class="sign_in_section">
-          <div class="sprite_big sprite sprite-i-d-kaart2x"></div>
-          <div class="sprite_big sprite sprite-img-idkaart2x"></div>
-          <button *ngIf="wWidth <= 550" class="blue_button a" [disabled]="isLoadingIdCard || isLoading"
-            (click)="doSignWithCard()" translate="MODALS.TOPIC_VOTE_SIGN_ESTEID_BTN_SIGN_CARD"></button>
-        </div>
-
-        <div class="clearer"></div>
-
-        <div *ngIf="wWidth > 550" class="sign_in_section">
-          <button class="blue_button" (click)="doSignWithMobile()" [disabled]="isLoading || isLoadingIdCard"
-            translate="MODALS.TOPIC_VOTE_SIGN_ESTEID_BTN_SIGN_MID"></button>
-        </div>
-        <div *ngIf="wWidth > 550" class="sign_in_section">
-          <button class="blue_button" [disabled]="isLoadingIdCard || isLoading" (click)="doSignWithCard()"
-            translate="MODALS.TOPIC_VOTE_SIGN_ESTEID_BTN_SIGN_CARD"></button>
-        </div>
-
-        <div class="clearer"></div>
-
+            <div *ngIf="isLoadingIdCard" class="loader_wrap id_card_loader">
+              <div class="loader"></div>
+            </div>
+            <button (click)="doSignWithCard()" *ngIf="!isLoadingIdCard" [disabled]="isLoading || isLoadingIdCard"
+              class="btn_big_submit">
+              <span translate="MODALS.TOPIC_VOTE_SIGN_ESTEID_BTN_SIGN_CARD"></span>
+            </button>
+          </div>
+        </form>
       </div>
 
     </div>
+    <div class="dialog_footer">
+    </div>
   </div>
-
-  <div id="close_lightbox" ng-click="app.closeThisDialog($event)"></div>
-
 </div>

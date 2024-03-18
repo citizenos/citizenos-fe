@@ -1,46 +1,41 @@
-@use "vars";
+.dialog  {
+  max-width: 560px;
+}
+.profile_image_wrap{
+  width: auto;
+}
 
-#lightbox {
-  width: 600px;
-  z-index: 11;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-right: -50%;
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  min-width: 320px;
-
-  #lightbox_header {
-    #lightbox_header_text {
-      font-weight: 700;
-      font-size: 14px;
-    }
+.dialog_content {
+  gap: 8px;
+  padding: 24px;
+  gap: 24px;
+}
+.dialog_info_wrap {
+  gap: 8px;
+  .dialog_info_heading {
+    justify-self: flex-start;
+    align-self: flex-start;
   }
-  #lightbox_wrap {
-    .lightbox_content {
-      .lightbox_section {
-        border-top: none !important;
-        padding: 20px!important;
-      }
-    }
-  }
+  .dialog_info {
+    padding: 16px;
+    gap: 16px;
 
-  table {
-    tr {
-      height: 29px;
-    }
-    td {
-      &:first-child {
-        font-weight: normal;
-      }
+    .dialog_info_content {
       padding: 0;
-      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-start;
+      width: 100%;
     }
   }
+}
 
-  ul {
-    list-style: none;
+.notification_inline {
+  align-items: center;
+  margin: 16px 0;
+  .message {
+    width: 100%;
+    display: block;
   }
 }

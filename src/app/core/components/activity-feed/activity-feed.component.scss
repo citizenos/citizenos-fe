@@ -1,36 +1,45 @@
-#root_lightbox.full_screen {
+@use "mixins";
 
-  .lightbox_content {
-    position: absolute;
-    top: 97px;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    overflow-y: auto !important;
+#activity_feed {
+  position: fixed;
+  top: 0;
+  right: -300px;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-background);
+  z-index: 9999;
+  padding: 16px;
+  height: 100%;
+  width: 100%;
+  max-width: 300px;
+  overflow-y: scroll;
+  gap: 16px;
+  transition: right 0.5s;
+
+  &.mobile_page {
+    z-index: 0;
+    top: 60px;
+    height: calc(100% - 120px);
   }
-  &.left_menu_visible {
-    left: 190px;
-    @media (max-width: 1024px) {
-      left: 0;
-    }
+  @include mixins.mobile {
+    max-width: 100%;
   }
 
-  #lightbox.aligned_left_top {
-    left: 0;
-    top: 0;
-    bottom: 0;
-    margin-right: initial;
-    -webkit-transform: none;
-    -ms-transform: none;
-    transform: none;
-    width: 804px;
-    @media (max-width: 1024px) {
-      width: 100%;
-    }
+  .feed_heading_wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-    #lightbox_wrap #lightbox_header {
-      height: 96px;
-      border-radius: 0;
+  #results_area {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    activity {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
   }
 }

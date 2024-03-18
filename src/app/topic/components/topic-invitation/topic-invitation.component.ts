@@ -1,5 +1,5 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, OnInit, Inject, inject } from '@angular/core';
+import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, take } from 'rxjs';
 import { RegisterComponent } from 'src/app/account/components/register/register.component';
@@ -18,55 +18,63 @@ import { TopicInviteUserService } from 'src/app/services/topic-invite-user.servi
 export class TopicInvitationComponent implements OnInit {
   invite: any;
   config = <any>this.ConfigService.get('links');
-  constructor(private ConfigService: ConfigService, private dialog: MatDialog, @Inject(MAT_DIALOG_DATA) private data: InviteData, private Auth: AuthService, private Location: LocationService, private router: Router) {
+  constructor(private ConfigService: ConfigService, private dialog: DialogService, @Inject(DIALOG_DATA) private data: InviteData, private Auth: AuthService, private Location: LocationService, private router: Router) {
     this.invite = data.invite;
   }
 
+  loggedIn () {
+    return this.Auth.loggedIn$.value;
+  }
+
   doAccept() {
-      // 3. The invited User is NOT logged in - https://github.com/citizenos/citizenos-fe/issues/112#issuecomment-541674320
-      if (!this.Auth.loggedIn$.value) {
+    // 3. The invited User is NOT logged in - https://github.com/citizenos/citizenos-fe/issues/112#issuecomment-541674320
+    console.log(this.Auth.loggedIn$.value, this.invite.user)
+    if (!this.Auth.loggedIn$.value) {
+      const currentUrl = this.Location.currentUrl();
+      if (!this.invite.user.isRegistered) {
+        // The invited User is not registered, the User has been created by the system - https://github.com/citizenos/citizenos-fe/issues/773
+        this.router.navigate(['/account','signup'], {
+          queryParams: {
+            inviteId: this.invite.id,
+            redirectSuccess: currentUrl,
+            email: this.invite.user.email
+          }
+        });
+      } else {
+        this.router.navigate(['/account/login'], {
+          queryParams: {
+            userId: this.invite.user.id,
+            redirectSuccess: currentUrl,
+            email: this.invite.user.email
+          }
+        });
+        /*return $state.go('account/login', {
+            userId: $scope.invite.user.id,
+            redirectSuccess: currentUrl,
+            email: $scope.invite.user.email // HACK: Hidden e-mail from the URL and tracking - https://github.com/citizenos/citizenos-fe/issues/657
+        });*/
+      }
+    }
+
+    // 2. User logged in, but opens an invite NOT meant to that account  - https://github.com/citizenos/citizenos-fe/issues/112#issuecomment-541674320
+    if (this.Auth.loggedIn$.value && this.invite.user.id !== this.Auth.user.value.id) {
+      this.Auth
+        .logout()
+        .pipe(take(1))
+        .subscribe(() => {
           const currentUrl = this.Location.currentUrl();
-          if (!this.invite.user.isRegistered) {
-              // The invited User is not registered, the User has been created by the system - https://github.com/citizenos/citizenos-fe/issues/773
-              this.dialog.open(RegisterComponent,  {
-                data: {
-                  userId: this.invite.user.id,
-                  redirectSuccess: currentUrl,
-                  email: this.invite.user.email
-                }
-              });
-          } else {
-            this.router.navigate(['/account/login'], {queryParams: {
+          this.router.navigate(['/account/login'], {
+            queryParams: {
               userId: this.invite.user.id,
               redirectSuccess: currentUrl,
               email: this.invite.user.email
-            }});
-              /*return $state.go('account/login', {
-                  userId: $scope.invite.user.id,
-                  redirectSuccess: currentUrl,
-                  email: $scope.invite.user.email // HACK: Hidden e-mail from the URL and tracking - https://github.com/citizenos/citizenos-fe/issues/657
-              });*/
-          }
-      }
+            }
+          });
 
-      // 2. User logged in, but opens an invite NOT meant to that account  - https://github.com/citizenos/citizenos-fe/issues/112#issuecomment-541674320
-      if (this.Auth.loggedIn$.value && this.invite.user.id !== this.Auth.user.value.id) {
-          this.Auth
-              .logout()
-              .pipe(take(1))
-              .subscribe(() => {
-                const currentUrl = this.Location.currentUrl();
-                this.router.navigate(['/account/login'], {queryParams: {
-                  userId: this.invite.user.id,
-                  redirectSuccess: currentUrl,
-                  email: this.invite.user.email
-                }});
-
-              });
-      }
+        });
+    }
   };
   ngOnInit(): void {
-    console.log(this.data);
   }
 
 }
@@ -79,7 +87,7 @@ export class TopicInvitationComponent implements OnInit {
 export class TopicInvitationDialogComponent implements OnInit {
   inviteId: string = '';
 
-  constructor(Auth: AuthService, dialog: MatDialog, TopicInviteUserService: TopicInviteUserService, route: ActivatedRoute, router: Router, Notification: NotificationService) {
+  constructor(Auth: AuthService, dialog: DialogService, TopicInviteUserService: TopicInviteUserService, route: ActivatedRoute, router: Router, Notification: NotificationService) {
 
     /*LOAD INVITE*/
     route.params.pipe(
@@ -105,21 +113,41 @@ export class TopicInvitationDialogComponent implements OnInit {
               }
             });
         } else {
-          const invitationDialog = dialog.open(TopicInvitationComponent,
-            {
-              data: {
-                invite: topicInvite
+          const openDialogs = dialog.getOpenDialogs().pipe(take(1)).subscribe({
+            next: (dialogs) => {
+              if (dialogs) {
+                console.log(dialogs);
               }
-            });
+
+              const invitationDialog = dialog.open(TopicInvitationComponent,
+                {
+                  data: {
+                    invite: topicInvite
+                  }
+                });
+
+                invitationDialog.afterClosed().subscribe({
+                  next: (res) => {
+                    if (res===true) {
+                      router.navigate(['/']);
+                    }
+                  }
+                })
+            }
+          });
+
         }
       },
       error: (err) => {
-        if (err.status === 404) {
-          Notification.removeAll();
-          Notification.showDialog('MSG_ERROR_GET_API_USERS_TOPICS_INVITES_USERS_41002_HEADING', 'MSG_ERROR_GET_API_USERS_TOPICS_INVITES_USERS_41002');
-          return;
-        }
-        return router.navigate(['/']);
+        router.navigate(['/']);
+        setTimeout(() => {
+          console.log(err)
+          if (err.code === 41002 || err.status?.code === 41002) {
+            Notification.addError('MSG_ERROR_GET_API_USERS_TOPICS_INVITES_USERS_41002', 'MSG_ERROR_GET_API_USERS_TOPICS_INVITES_USERS_41002_HEADING');
+          } else {
+            Notification.addError(err.message || err.status.message);
+          }
+        }, 400);
       }
     })
   }

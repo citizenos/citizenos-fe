@@ -1,0 +1,13 @@
+<ng-container *ngIf="topic$ | async as topic">
+  <div class="page_content">
+    <div id="create_heading">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8.5 7C8.5 5.61929 9.61929 4.5 11 4.5L23.7929 4.5L31.5 12.2071L31.5 33C31.5 34.3807 30.3807 35.5 29 35.5H11C9.61929 35.5 8.5 34.3807 8.5 33L8.5 7Z" fill="white" stroke="#2C3B47"/>
+        <path d="M20.8143 19.1852L23.8147 22.1857L17.2995 28.7012L14.6244 28.9965C14.2663 29.0361 13.9637 28.7333 14.0035 28.3752L14.3012 25.6981L20.8143 19.1852ZM25.6704 18.7384L24.2616 17.3296C23.8222 16.8901 23.1095 16.8901 22.67 17.3296L21.3447 18.655L24.3451 21.6555L25.6704 20.3301C26.1099 19.8904 26.1099 19.1779 25.6704 18.7384Z" fill="#5C9CD0"/>
+        <path d="M23.5 4.5V12.5L32 12.5" stroke="#2C3B47"/>
+        </svg>
+      <div class="small_heading" translate="VIEWS.TOPIC_EDIT.HEADING"></div>
+    </div>
+    <topic-form [topic]="topic" [isnew]="false" [hasUnsavedChanges]="hasChanges$"></topic-form>
+  </div>
+</ng-container>

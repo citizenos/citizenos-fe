@@ -7,6 +7,7 @@
       "img-src": [
         "*",
         "self",
+        "blob:",
         "data:",
         "https://dev.api.citizenos.com:3003",
         "https://citizenos-test.s3.eu-west-1.amazonaws.com",
@@ -41,6 +42,7 @@
         "https://id.citizenos.com",
         "https://api.citizenos.com",
         "https://stats.citizenos.com",
+        "https://plausible.io",
         "https://sentry.io",
         "https://cdn.jsdelivr.net/",
         "https://graph.microsoft.com"

@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DomSanitizer } from '@angular/platform-browser';
+import { DIALOG_DATA, DialogRef } from 'src/app/shared/dialog';
 
 export interface ConfirmDialogData {
   title: string | null,
@@ -11,6 +12,7 @@ export interface ConfirmDialogData {
   info: string | null,
   description: string | null,
   points: string[] | null,
+  svg: string | null
 }
 
 @Component({
@@ -20,8 +22,12 @@ export interface ConfirmDialogData {
 })
 export class ConfirmDialogComponent implements OnInit {
 
-  constructor (public dialogRef: MatDialogRef<ConfirmDialogComponent>, @Inject(MAT_DIALOG_DATA) public data:ConfirmDialogData) {
+  svg?:any;
+  constructor (@Inject(DIALOG_DATA) public data:ConfirmDialogData, private sanitized: DomSanitizer, dialog: DialogRef<ConfirmDialogComponent>) {
     if (!data.level) data.level = 'warn';
+    if (data.svg) {
+      this.svg = this.sanitized.bypassSecurityTrustHtml(data.svg);
+    }
   }
 
   ngOnInit(): void {

@@ -1,6 +1,6 @@
 import { TranslateService } from '@ngx-translate/core';
 import { Component, Input, OnInit, ViewChild, ViewEncapsulation, ElementRef } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { take } from 'rxjs';
 import { Router } from '@angular/router';
 import { Argument } from 'src/app/interfaces/argument';
@@ -19,20 +19,23 @@ import { ArgumentReportComponent } from '../argument-report/argument-report.comp
   encapsulation: ViewEncapsulation.None
 })
 export class ArgumentComponent implements OnInit {
-  @Input() argument!: Argument;
-  @Input() root?: Argument;
+  @ViewChild('argumentBody') argumentBody!: ElementRef;
+  @Input() argument!: any;
+  @Input() root?: any;
   @Input() topicId!: string;
+  @Input() showReplies?:boolean = false;
   showEdit = false;
   showEdits = false;
   showReply = false;
-  showReplies = false;
   readMore = false;
   showDeletedArgument = false;
+  mobileActions = false;
   isReply = false;
   errors = [];
+  wWidth = window.innerWidth;
 
   constructor(
-    public dialog: MatDialog,
+    public dialog: DialogService,
     public config: ConfigService,
     private router: Router,
     public Auth: AuthService,
@@ -40,10 +43,32 @@ export class ArgumentComponent implements OnInit {
     private Notification: NotificationService,
     private Translate: TranslateService,
     public TopicArgumentService: TopicArgumentService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
+    this.argument.replies.count = this.argument.replies.rows?.length || 0;
+    this.argument.replies.rows?.forEach((reply:any) =>{
+      if (reply.children?.length) {
+        this.argument.replies.count += reply.children.length;
+      }
+    })
+
     this.isReply = this.argument.type === 'reply';
+    if (this.argument.children) {
+      this.argument.children = this.argument.children.sort((b:any, a:any) => {
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      });
+    }
+  }
+
+  ngAfterViewInit() {
+    if (this.isReply) {
+      const argBody = this.argumentBody.nativeElement;
+      const authorName = document.createElement('b');
+      authorName.innerText = (this.argument.parent.creator?.name || '') + ' ';
+      argBody.firstChild.prepend(authorName);
+    }
   }
 
   isEdited() {
@@ -58,6 +83,9 @@ export class ArgumentComponent implements OnInit {
     return (!this.argument.deletedAt && !this.showDeletedArgument) || (this.argument.deletedAt && this.showDeletedArgument);
   };
 
+  showArgument (value: boolean) {
+    this.showDeletedArgument = value;
+  }
   argumentEditMode() {
     /* this.editSubject = this.argument.subject;
      this.editText = this.argument.text;
@@ -72,7 +100,6 @@ export class ArgumentComponent implements OnInit {
     this.argumentEditMode();
   }
   doShowDeleteArgument() {
-    console.log('show delete argument')
     const deleteArgument = this.dialog.open(ConfirmDialogComponent, {
       data: {
         level: 'delete',
@@ -164,11 +191,29 @@ export class ArgumentComponent implements OnInit {
     return '';
   };
 
-  goToParentArgument() {
-    if (!this.argument.parent.id || !this.argument.parent.hasOwnProperty('version')) {
+  goToParentArgument(reply: Argument) {
+    if (!reply.parent.id || !reply.parent.hasOwnProperty('version')) {
       return;
     }
-    const argumentIdWithVersion = this.TopicArgumentService.getArgumentIdWithVersion(this.argument.parent.id, this.argument.parent.version);
-    this.router.navigate([], {queryParams: {argumentId: argumentIdWithVersion}});
+
+    const argumentIdWithVersion = this.TopicArgumentService.getArgumentIdWithVersion(reply.parent.id, reply.parent.version);
+    /*this.router.navigate([], {queryParams: {argumentId: argumentIdWithVersion}});*/
+    let commentElement: HTMLElement | null = document.getElementById(argumentIdWithVersion);
+    // The referenced comment was found on the page displayed
+    if (commentElement) {
+      this.scrollTo(commentElement);
+    }
   };
+
+  private scrollTo(argumentEl: HTMLElement | null) {
+    if (argumentEl) {
+      const bodyEl: HTMLElement | null = argumentEl.querySelector('.argument_body');
+      if (bodyEl)
+        bodyEl.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+      argumentEl.classList.add('highlight');
+      setTimeout(() => {
+        argumentEl?.classList.remove('highlight');
+      }, 2000);
+    }
+  }
 }

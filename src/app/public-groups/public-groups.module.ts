@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GroupsComponent } from './components/groups/groups.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '../shared/shared.module';
 import { PublicGroupsRoutingModule } from './public-groups.router.module';
@@ -13,6 +14,7 @@ import { PublicGroupsRoutingModule } from './public-groups.router.module';
     GroupsComponent
   ],
   imports: [
+    FormsModule,
     CommonModule,
     SharedModule,
     PublicGroupsRoutingModule,

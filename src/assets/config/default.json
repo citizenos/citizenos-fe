@@ -45,7 +45,25 @@
   "attachments": {
     "limit": 10,
     "upload": {
-      "allowedFileTypes": ["asice", "txt", "pdf", "doc", "docx", "ddoc", "bdoc", "odf", "odt", "jpg", "jpeg", "png", "rtf", "xls", "xlsx", "ppt", "pptx", "pps", "xlt"]
+      "allowedFileTypes": [
+        "application/vnd.etsi.asic-e+zip",
+        "text/plain",
+        "application/pdf",
+        "application/msword",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "application/digidoc",
+        "application/vnd.oasis.opendocument.text",
+        "application/vnd.oasis.opendocument.spreadsheet",
+        "image/jpeg",
+        "image/png",
+        "application/rtf",
+        "application/vnd.ms-excel",
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "application/vnd.ms-powerpoint",
+        "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+        "application/xlt"
+      ],
+      "allowedFileSize": 50000000
     },
     "dropbox": {
       "appKey": "lkk7j6f41sfpm5b"

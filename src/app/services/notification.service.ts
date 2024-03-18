@@ -1,20 +1,23 @@
 import { Injectable } from '@angular/core';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService {
-  public levels: any = {
+  public levels: { [key: string]: string } = {
     SUCCESS: 'success',
     INFO: 'info',
-    ERROR: 'error'
+    ERROR: 'error',
+    WARNING: 'warning'
   };
   dialog: any = null;
 
   public messages: any = {
     error: [],
     info: [],
-    success: []
+    success: [],
+    warning: []
   };
 
   constructor() { }
@@ -24,59 +27,65 @@ export class NotificationService {
 
 
   private init = () => {
-      Object.keys(this.levels).forEach((key) => {
-          this.messages[this.levels[key]] = [];
-      });
-      this.dialog = null;
+    Object.keys(this.levels).forEach((key) => {
+      this.messages[this.levels[key]] = [];
+    });
+    this.dialog = null;
   };
 
-  add (level: string, key: string) {
-      if (this.messages[level].indexOf(key) === -1) {
-          this.messages[level].push(key);
-      }
+  add(level: string, message: string, title?: string) {
+    if (this.messages[level].indexOf(message) === -1) {
+      this.messages[level].push({message, title});
+    }
+  //  window.scrollTo(0, 0);
   };
 
-  removeAll (level?: string) {
-      if (level) {
-          this.messages[level] = [];
-      } else {
-          this.init();
-      }
+  removeAll(level?: string) {
+    if (level) {
+      this.messages[level] = [];
+    } else {
+      this.init();
+    }
   };
 
-  addSuccess (key: string) {
-      this.add(this.levels.SUCCESS, key);
+  addSuccess(message: string,  title?: string) {
+    this.add(this.levels['SUCCESS'], message, title);
   };
 
-  addInfo (key: string) {
-      this.add(this.levels.INFO, key);
+  addInfo(message: string,  title?: string) {
+    this.add(this.levels['INFO'], message, title);
   };
 
-  addError (key: string) {
-      this.add(this.levels.ERROR, key);
+  addError(message: string,  title?: string) {
+    console.log(message);
+    this.add(this.levels['ERROR'], message, title);
   };
 
-  showDialog (heading: string, content: string) {
-      this.dialog = {
-          heading: heading,
-          content: content
-      }
+  addWarning(message: string,  title?: string) {
+    this.add(this.levels['WARNING'], message, title);
   };
 
-  inline (text: string, X: number, Y: number) {
-      const el = document.createElement("div");
-      el.className = 'inline-message';
-      el.innerText = text;
-      el.style.left = X + 'px';
-      el.style.top = Y + 'px';
+  showDialog(heading: string, content: string) {
+    this.dialog = {
+      heading: heading,
+      content: content
+    }
+  };
 
-      document.body.appendChild(el);
-      setTimeout(() => {
-          el.classList.add('no-opacity');
-      }, 300);
+  inline(text: string, X: number, Y: number) {
+    const el = document.createElement("div");
+    el.className = 'inline-message';
+    el.innerText = text;
+    el.style.left = X + 'px';
+    el.style.top = Y + 'px';
 
-      setTimeout(() => {
-          el.remove();
-      }, 1000);
+    document.body.appendChild(el);
+    setTimeout(() => {
+      el.classList.add('no-opacity');
+    }, 300);
+
+    setTimeout(() => {
+      el.remove();
+    }, 1000);
   };
 }

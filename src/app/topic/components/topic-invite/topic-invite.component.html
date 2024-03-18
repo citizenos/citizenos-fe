@@ -1,382 +1,207 @@
-<!-- LIGHTBOX SKELETON -->
-<div id="root_lightbox" class="full_screen">
-
-  <div id="lightbox" class="wide_lightbox with_title_description with_header_menu">
-    <div id="lightbox_wrap">
-
-      <div id="lightbox_header">
-
-        <div id="lightbox_header_text">
-          <div class="title" translate="MODALS.TOPIC_INVITE_HEADING"></div>
-          <div class="title_description">{{topic.title}}</div>
-        </div>
-
-        <div id="lightbox_close" class="ngdialog-close" mat-dialog-close>
-          <div class="table_cell ngdialog-close">
-            <div class="sprite sprite-btn-popup-close2x ngdialog-close">
-            </div>
-          </div>
-        </div>
-
-        <div class="clearer"></div>
-
-        <div class="header_row_wrap">
-          <div class="header_row" slide-controller identifier="topicSettingsSlider">
-            <div class="tab_button" (click)="tabSelected = 'invite'"
-              [ngClass]="tabSelected === 'invite' ? 'active' : ''">
-              <div class="tab_buttom_wrap">
-                <div class="tab_button_text" translate="MODALS.TOPIC_INVITE_TAB_INVITE"></div>
-                <div class="blue_bottom_line"></div>
-              </div>
-            </div>
-            <div class="tab_button" (click)="tabSelected = 'share'" [ngClass]="tabSelected === 'share' ? 'active' : ''">
-              <div class="tab_buttom_wrap">
-                <div class="tab_button_text" translate="MODALS.TOPIC_INVITE_TAB_SHARE"></div>
-                <div class="blue_bottom_line"></div>
+<div class="content_section">
+  <div class="section_content_wrap">
+    <div class="section_content_description bold" translate="COMPONENTS.TOPIC_INVITE.MESSAGE_DESC"></div>
+    <cos-input [placeholder]="'COMPONENTS.TOPIC_INVITE.MESSAGE_PLACEHOLDER' | translate">
+      <textarea id="topicDescription" [placeholder]="'COMPONENTS.TOPIC_INVITE.MESSAGE_PLACEHOLDER' | translate" rows="5"
+        [(ngModel)]="inviteMessage" [maxlength]="inviteMessageMaxLength" (change)="onMessageChange()"></textarea>
+    </cos-input>
+    <div class="character_limit"><span
+        translate="COMPONENTS.TOPIC_INVITE.CHARACTER_LIMIT"></span> {{inviteMessage?.length || 0
+      }}/{{inviteMessageMaxLength}}</div>
+    <div class="section_content_description bold" translate="COMPONENTS.TOPIC_INVITE.EMAIL_DESC"></div>
+    <div class="section_content_description" translate="COMPONENTS.TOPIC_INVITE.EMAIL_DESC_LONG"></div>
+    <div id="search_wrap">
+      <typeahead id="input_area" [term]="searchStringUser" (search)="search($event)"
+        (select)="addTopicMember($event)" (enterAction)="addTopicMember($event)"
+        [placeholder]="'COMPONENTS.TOPIC_INVITE.PLACEHOLDER_SEARCH' | translate">
+        <ng-container *ngIf="searchResultUsers$ | async as searchResults">
+          <div class="search_area_wrap" [ngClass]="{hidden: !searchResults.length}">
+            <div class="search_dropdown_item" [typeaheadItem]="user" *ngFor="let user of searchResults" (click)="addTopicMember(user)">
+              <div class="item_text_wrap">
+                <b>{{user.name}}</b>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-
-
-      <div class="line lightest_line"></div>
-      <!-- INVITE USERS -->
-      <div class="lightbox_content settings_section_wrap padding_bottom_zero" *ngIf="tabSelected === 'invite'">
-
-        <div class="lightbox_section">
-          <div class="input_text_margin_bottom" translate="MODALS.TOPIC_INVITE_LBL_OPTIONAL_MESSAGE"></div>
-
-          <textarea id="invite_body" class="gray_borders" [(ngModel)]="inviteMessage"
-            placeholder="{{'MODALS.TOPIC_INVITE_PLACHOLDER_OPTIONAL_MESSAGE' | translate}}"
-            [maxlength]="inviteMessageMaxLength"></textarea>
-          <div class="input_text_margin_bottom" translate="MODALS.TOPIC_INVITE_TXT_INVITE_USERS_AND_GROUPS"></div>
-
-          <div class="searchbox_with_icon_and_text only_text">
-            <div [cosDropdown] [ngClass]="{'search_with_dropdown dropdown_active' : resultCount}">
-              <!--[items]="(searchResults$ | async)?.combined"-->
-            <typeahead id="userSearch" class="auto-complete"  [term]="searchString"
-                (search)="search($event)" (select)="addTopicMember($event)"
-                placeholder="{{'MODALS.TOPIC_INVITE_PLACEHOLDER_INVITE_USERS_AND_GROUPS' | translate}}">
-                <div class="search_area_wrap">
-                  <div class="search_dropdown_area"
-                    [ngClass]="{hidden: !resultCount}">
-                    <div class="search_dropdown_item" *ngIf="(searchResults$ | async)?.users?.length">
-                      <div class="table_cell" translate="MODALS.TOPIC_INVITE_TH_USERS"></div>
-                    </div>
-                    <div class="search_dropdown_item" [typeaheadItem]="user" *ngFor="let user of (searchResults$ | async)?.users">
-                      <div class="table_cell search_item_text">
-                        <b>{{user.name}}</b> {{user.email}}
-                      </div>
-                      <div class="table_cell blue_link">
-                        <span class="submit_link" (click)="addTopicMemberUser(user)"
-                          translate="MODALS.TOPIC_SETTINGS_TXT_PRESS_ENTER_OR_CLICK_TO_ADD"></span>
-                      </div>
-                    </div>
-                    <div class="search_dropdown_item" *ngIf="(searchResults$ | async)?.groups?.length">
-                      <div class="table_cell" translate="MODALS.TOPIC_SETTINGS_TH_GROUPS"></div>
-                    </div>
-                    <div class="search_dropdown_item" [typeaheadItem]="group" *ngFor="let group of (searchResults$ | async)?.groups">
-                      <div class="table_cell search_item_text">
-                        <b>{{group.name}}</b>
-                      </div>
-                      <div class="table_cell blue_link">
-                        <span class="submit_link" (click)="addTopicMemberGroup(group)"
-                          translate="MODALS.TOPIC_SETTINGS_TXT_PRESS_ENTER_TO_ADD"></span>
-                      </div>
-                    </div>
-                    <div class="search_dropdown_item" *ngIf="(searchResults$ | async)?.emails?.length">
-                      <div class="table_cell" translate="MODALS.TOPIC_SETTINGS_RESULT_GROUP_EMAILS"></div>
-                    </div>
-                    <div class="search_dropdown_item" [typeaheadItem]="email" *ngFor="let email of (searchResults$ | async)?.emails">
-                      <div class="table_cell search_item_text">
-                        <b>{{email}}</b>
-                      </div>
-                      <div class="table_cell blue_link">
-                        <span class="submit_link" (click)="addTopicMember(email)"
-                          translate="MODALS.TOPIC_SETTINGS_TXT_PRESS_ENTER_OR_CLICK_TO_ADD"></span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="search_text"
-                  *ngIf="searchString && !resultCount">
-                  <div class="table_cell blue_link" (click)="addTopicMember()"
-                    translate="MODALS.GROUP_CREATE_SETTINGS_TXT_PRESS_ENTER_TO_ADD"></div>
-                </div>
-              </typeahead>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="lightbox_section double_row_list user_list" *ngIf="invalid.length">
-          <div class="category_title">
-            <div class="input_text_margin_bottom  error_label">
-              <div class="sprite sprite-icon-inputfield-error2x"></div>
-              <span translate="MODALS.TOPIC_SETTINGS_ERROR_MSG_INVALID_EMAILS_FOUND"></span>
-            </div>
-          </div>
-          <table>
-            <tr *ngFor="let email of invalid | keyvalue">
-              <td>
-                <input name="invalid" type="text" class="error_input" [(ngModel)]="email.value"
-                  (keypress)="($event.which === 13)? addCorrectedEmail(email.value, email.key) : 0" />
-
-                <div class="mobile_extra_info">
-                  <div class="left">
-                    <div class="light_gray_button" (click)="addCorrectedEmail(email.value, email.key)"
-                      translate="MODALS.TOPIC_SETTINGS_BTN_ADD"></div>
-                  </div>
-
-                  <div class="right">
-                    <div class="btn_wrap recycle_bin white_bg">
-                      <div class="btn" (click)="removeInvalidEmail(email.key)">
-                        <div class="table_cell">
-                          <div class="sprite sprite-mytopics-icon-deletetopic2x"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-
-              <td>
-                <div class="light_gray_button" (click)="addCorrectedEmail(email.value, email.key)"
-                  translate="MODALS.TOPIC_SETTINGS_BTN_ADD"></div>
-              </td>
-              <td>
-                <div class="btn_wrap recycle_bin white_bg">
-                  <div class="btn" (click)="removeInvalidEmail(email.key)">
-                    <div class="table_cell">
-                      <div class="sprite desktop_fix sprite-mytopics-icon-deletetopic2x"></div>
-                      <div class="sprite mobile_fix sprite-mytopics-icon-deletetopic2x"></div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-            </tr>
-          </table>
-        </div>
-        <div class="lightbox_section double_row_list user_list" *ngIf="members.length">
-          <table>
-            <tr *ngIf="members.length > 1">
-              <td><span translate="MODALS.TOPIC_SETTINGS_LBL_CHANGE_ALL"></span>
-                <div class="mobile_extra_info">
-                  <div class="left">
-                    <div [cosDropdown] class="classic_dropdown">
-
-                      <div class="dropdown_selection">
-                        <div class="dropdown_text">
-                          {{'TXT_TOPIC_LEVELS_' + groupLevel | uppercase | translate}}
-                        </div>
-
-                        <div class="arrow_holder">
-                          <div class="table_cell">
-                            <div class="sprite sprite-icon-dropdown-arrowdown2x"></div>
-
-                            <div class="v_line"></div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="dropdown">
-                        <div class="dropdown_item" *ngFor="let level of topicLevels">
-                          <div class="item_name" (click)="updateGroupLevel(level)">
-                            {{'TXT_TOPIC_LEVELS_' + level | uppercase | translate}}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                  </div>
-
-                  <div class="right">
-                    <div class="btn_wrap recycle_bin white_bg">
-                      <div class="btn" (click)="removeAllMembers()">
-                        <div class="table_cell">
-                          <div class="sprite sprite-mytopics-icon-deletetopic2x"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <div [cosDropdown] class="classic_dropdown">
-
-                  <div class="dropdown_selection">
-                    <div class="dropdown_text">
-                      {{'TXT_TOPIC_LEVELS_' + groupLevel | uppercase | translate}}
-                    </div>
-
-                    <div class="arrow_holder">
-                      <div class="table_cell">
-                        <div class="sprite sprite-icon-dropdown-arrowdown2x"></div>
-
-                        <div class="v_line"></div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="dropdown">
-                    <div class="dropdown_item" *ngFor="let level of topicLevels">
-                      <div class="item_name" (click)="updateGroupLevel(level)">
-                        {{'TXT_TOPIC_LEVELS_' + level | uppercase | translate}}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <div class="btn_wrap recycle_bin white_bg">
-                  <div class="btn" (click)="removeAllMembers()">
-                    <div class="table_cell">
-                      <div class="sprite desktop_fix sprite-mytopics-icon-deletetopic2x"></div>
-                      <div class="sprite mobile_fix sprite-mytopics-icon-deletetopic2x"></div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-            </tr>
-          </table>
-          <ng-container *ngFor="let title of memberGroups">
-            <div class="category_title" *ngIf="itemsExist(title)">
-              <div class="table_cell">
-                <span>{{"MODALS.TOPIC_SETTINGS_RESULT_GROUP_" + title | uppercase | translate}}</span>
+        </ng-container>
+      </typeahead>
+      <cos-input *ngIf="totalPages(members) > 1"
+        [placeholder]="'COMPONENTS.TOPIC_INVITE.SHOW_PER_PAGE' | translate" class="dropdown_input">
+        <div class="dropdown" [cosDropdown]>
+          <div class="selection">
+            <div class="selected_item">{{itemsPerPage}}</div>
+            <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                </svg>
               </div>
-            </div>
-
-            <table *ngIf="itemsExist(title)">
-              <ng-container *ngFor="let member of members | keyvalue; index as i;">
-                <tr *ngIf="isOnPage(i, membersPage) && isInGroup(member.value, title)">
-                  <td>
-                    <div class="profile_image_wrapper dark">
-                      <!--div class="profile_moon sprite"></div-->
-                      <div class="account_picture">
-                        <img *ngIf="member.value.imageUrl" [src]="member.value.imageUrl">
-                        <div class="profile_image_filler">
-                          <cos-initials class="table_cell" [name]="member.value.name"></cos-initials>
-                          <div class="profile_circle"></div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="name_wrap">
-                      <div class="table_cell">
-                        <div class="blue_link" (click)="doRemoveMemberUser(member.value)">{{member.value.name}}</div>
-                        <div class="via">{{member.value.company}}</div>
-                        <div class="via" translate="MODALS.TOPIC_SETTINGS_INVITE_EXPIRES"
-                          [translateParams]="{expiresAt: (getExpiresAt() | amTimeAgo)}">
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="mobile_extra_info">
-                      <div class="left">
-                        <div [cosDropdown] class="classic_dropdown">
-
-                          <div class="dropdown_selection">
-                            <div class="dropdown_text">
-                              {{'TXT_TOPIC_LEVELS_' + member.value.level | uppercase | translate}}
-                            </div>
-
-                            <div class="arrow_holder">
-                              <div class="table_cell">
-                                <div class="sprite sprite-icon-dropdown-arrowdown2x"></div>
-
-                                <div class="v_line"></div>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="dropdown">
-                            <div class="dropdown_item" *ngFor="let level of topicLevels">
-                              <div class="item_name"
-                                (click)="updateTopicMemberUserLevel(member.value, level)">
-                                {{'TXT_TOPIC_LEVELS_' + level | uppercase | translate}}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                      </div>
-
-                      <div class="right">
-                        <div class="btn_wrap recycle_bin white_bg">
-                          <div class="btn" (click)="doRemoveMemberUser(member.value)">
-                            <div class="table_cell">
-                              <div class="sprite sprite-mytopics-icon-deletetopic2x"></div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-
-                  <td>
-                    <div [cosDropdown] class="classic_dropdown">
-
-                      <div class="dropdown_selection">
-                        <div class="dropdown_text">
-                          {{'TXT_TOPIC_LEVELS_' + member.value.level | uppercase | translate}}
-                        </div>
-
-                        <div class="arrow_holder">
-                          <div class="table_cell">
-                            <div class="sprite sprite-icon-dropdown-arrowdown2x"></div>
-
-                            <div class="v_line"></div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="dropdown">
-                        <div class="dropdown_item" *ngFor="let level of topicLevels">
-                          <div class="item_name" (click)="updateTopicMemberUserLevel(member.value, level)">
-                            {{'TXT_TOPIC_LEVELS_' + level | uppercase | translate}}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="btn_wrap recycle_bin white_bg">
-                      <div class="btn" (click)="doRemoveMemberUser(member.value)">
-                        <div class="table_cell">
-                          <div class="sprite desktop_fix sprite-mytopics-icon-deletetopic2x"></div>
-                          <div class="sprite mobile_fix sprite-mytopics-icon-deletetopic2x"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              </ng-container>
-            </table>
-          </ng-container>
-          <cos-pagination class="pagination" (select)="loadPage($event)" [totalPages]="totalPages()"
-            [page]="membersPage"></cos-pagination>
+          </div>
+          <div class="options">
+            <div class="option" (click)="itemsPerPage = 5">5</div>
+            <div class="option" (click)="itemsPerPage = 10">10</div>
+            <div class="option" (click)="itemsPerPage = 15">15</div>
+          </div>
         </div>
-
-      </div>
-
-      <!-- SHARE -->
-      <topic-share class="lightbox_content invite_url" *ngIf="tabSelected === 'share'" [topic]="topic"></topic-share>
-
-      <div class="lightbox_footer" *ngIf="TopicService.canEdit(topic) && tabSelected === 'invite'">
-        <div class="line lightest_line"></div>
-        <div class="blue_button_wrap">
-          <div class="blue_button" [cosDisabled]="!members.length" (click)="doSaveTopic()"
-            translate="MODALS.TOPIC_SETTINGS_BTN_SEND_INVITES"></div>
-        </div>
-      </div>
-
+      </cos-input>
     </div>
   </div>
-
-  <div id="close_lightbox" class="ngdialog-close" mat-dialog-close>
+</div>
+<div id="invalid_emails" class="error_section" *ngIf="invalid.length">
+  <div class="inline_notification error">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="24" height="24" rx="12" fill="#EF4025" />
+      <path
+        d="M16.3753 6.77535C16.6097 6.54103 16.9896 6.54103 17.2239 6.77535C17.4582 7.00966 17.4582 7.38956 17.2239 7.62387L12.8481 11.9996L17.2239 16.3753C17.4582 16.6097 17.4582 16.9896 17.2239 17.2239C16.9896 17.4582 16.6097 17.4582 16.3753 17.2239L11.9996 12.8481L7.62387 17.2239C7.38956 17.4582 7.00966 17.4582 6.77535 17.2239C6.54103 16.9896 6.54103 16.6097 6.77535 16.3753L11.1511 11.9996L6.77535 7.62387C6.54103 7.38956 6.54103 7.00966 6.77535 6.77535C7.00966 6.54103 7.38956 6.54103 7.62387 6.77535L11.9996 11.1511L16.3753 6.77535Z"
+        fill="white" stroke="white" stroke-linecap="round" />
+    </svg>
+    <div translate="COMPONENTS.TOPIC_INVITE.INVALID_EMAILS_HEADER"></div>
   </div>
-
+  <div class="section_content_wrap table_section">
+    <div class="row_list" *ngFor="let email of invalid | keyvalue">
+      <div class="row_cell">
+        <input name="invalid" type="text" [(ngModel)]="email.value"
+          (keypress)="($event.which === 13)? addCorrectedEmail(email.value, email.key) : 0" />
+        <button class="remove_button" (click)="removeInvalidEmail(email.key)">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 6.00065H7.33333L7.33333 11.334H6L6 6.00065Z" fill="#2C3B47" />
+            <path d="M10 6.00065H8.66667L8.66667 11.334H10L10 6.00065Z" fill="#2C3B47" />
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M11.3333 3.33398V2.66732C11.3333 1.93094 10.7364 1.33398 10 1.33398L6 1.33398C5.26362 1.33398 4.66667 1.93094 4.66667 2.66732V3.33398L2.66667 3.33398C2.29848 3.33398 2 3.63246 2 4.00065C2 4.36884 2.29848 4.66732 2.66667 4.66732H3.33333L3.33333 12.0007C3.33333 13.1053 4.22877 14.0007 5.33333 14.0007L10.6667 14.0007C11.7713 14.0007 12.6667 13.1053 12.6667 12.0007L12.6667 4.66732H13.3333C13.7015 4.66732 14 4.36884 14 4.00065C14 3.63246 13.7015 3.33398 13.3333 3.33398H11.3333ZM10 2.66732L6 2.66732V3.33398L10 3.33398V2.66732ZM11.3333 4.66732L4.66667 4.66732L4.66667 12.0007C4.66667 12.3689 4.96515 12.6673 5.33333 12.6673L10.6667 12.6673C11.0349 12.6673 11.3333 12.3689 11.3333 12.0007L11.3333 4.66732Z"
+              fill="#2C3B47" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="content_section">
+  <div id="topic_members_list_wrap" class="section_content_wrap table_section">
+    <ng-container *ngIf="members?.length === 0">
+      <svg class="no_results" width="96" height="90" viewBox="0 0 96 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M60.4741 78.8165L33.9747 81.5576L34.5735 92.5014L60.4741 92.5014L60.4741 78.8165Z" fill="#5C9CD0" />
+        <path
+          d="M39.426 67.0151C39.5735 69.6403 39.847 74 39.847 74L55.7464 72.1781C55.7464 72.1781 55.0377 65.6809 57.1247 63.2952C57.4164 62.9617 57.734 62.6141 58.0625 62.2546C60.0836 60.0426 62.5181 57.3781 61.9031 54.7461C61.188 51.6862 55.7332 50.5701 55.7332 50.5701L57.5454 32.1548C57.6222 31.3983 57.3872 30.6431 56.8917 30.0541C56.3963 29.4651 55.6807 29.0903 54.9013 29.0116C54.1676 28.9469 53.4359 29.1552 52.8545 29.5942C52.2731 30.0332 51.8854 30.6701 51.7698 31.3759L49.9372 41.3073C49.9372 41.3073 49.2501 38.0056 47.2133 37.8671C45.1764 37.7286 43.9381 39.5234 43.5256 41.9962C42.9343 40.6963 41.9339 40.17 40.9594 40.4954L40.8798 40.2683C40.8798 40.2683 40.8724 40.3611 40.8593 40.5318C39.8666 40.9164 38.7753 41.761 38.8743 44.475C37.9455 43.4105 37.0625 42.7395 36.1955 42.9294L36.1113 42.687C36.1113 42.687 36.1102 42.7806 36.1087 42.9513C35.9414 42.9992 35.7747 43.0798 35.6083 43.1965C34.5519 43.9373 33.9007 47.5686 34.0124 49.5409C34.0291 49.8357 34.0298 50.2681 34.0307 50.79C34.0356 53.7597 34.0454 59.6267 37.0307 59.5227C37.1332 59.8435 37.3363 60.3302 37.5829 60.9211C38.2775 62.5858 39.3171 65.0776 39.426 67.0151Z"
+          fill="#F8E1B8" />
+        <path
+          d="M54.8583 17.9809C53.9701 17.8388 53.0892 17.7882 52.2249 17.8217C51.7301 17.8408 51.3136 17.4511 51.2946 16.9512C51.2756 16.4513 51.6614 16.0304 52.1562 16.0113C53.1366 15.9733 54.1344 16.0309 55.1386 16.1914C56.1429 16.352 57.1095 16.6086 58.0304 16.9506C58.4952 17.1232 58.7334 17.6438 58.5626 18.1134C58.3917 18.583 57.8765 18.8237 57.4117 18.6511C56.5999 18.3495 55.7466 18.1229 54.8583 17.9809Z"
+          fill="#2C3B47" />
+        <path
+          d="M47.5621 17.8584C47.7699 18.3126 47.5739 18.8509 47.1244 19.0608C45.5219 19.8092 44.0768 20.8703 42.8774 22.1791C42.541 22.5462 41.9737 22.5683 41.6103 22.2284C41.247 21.8885 41.2252 21.3153 41.5616 20.9482C42.9202 19.4656 44.5568 18.264 46.372 17.4163C46.8215 17.2063 47.3543 17.4043 47.5621 17.8584Z"
+          fill="#2C3B47" />
+        <path
+          d="M63.1024 20.0916C62.7391 19.7517 62.1718 19.7738 61.8354 20.1409C61.499 20.508 61.5208 21.0811 61.8842 21.421C63.1796 22.6328 64.2298 24.0929 64.9705 25.712C65.1783 26.1661 65.7111 26.3641 66.1606 26.1542C66.6101 25.9442 66.806 25.4059 66.5982 24.9518C65.7592 23.1178 64.5698 21.4643 63.1024 20.0916Z"
+          fill="#2C3B47" />
+        <path
+          d="M39.6036 25.535C40.0684 25.7076 40.3067 26.2282 40.1358 26.6978C39.8374 27.518 39.6131 28.3801 39.4725 29.2776C39.3306 30.1834 39.2808 31.0816 39.3158 31.9627C39.3357 32.4626 38.9507 32.8842 38.456 32.9042C37.9612 32.9243 37.544 32.5354 37.5241 32.0355C37.4844 31.036 37.5409 30.0185 37.7014 28.9944C37.8603 27.9797 38.1142 27.0031 38.4527 26.0727C38.6236 25.6031 39.1389 25.3624 39.6036 25.535Z"
+          fill="#2C3B47" />
+        <path
+          d="M67.9888 30.7958C67.9699 30.2958 67.5534 29.9061 67.0586 29.9253C66.5637 29.9445 66.178 30.3653 66.197 30.8652C66.2301 31.7384 66.18 32.6284 66.0394 33.5259C65.8988 34.4233 65.6745 35.2854 65.3761 36.1056C65.2052 36.5752 65.4435 37.0958 65.9082 37.2684C66.373 37.441 66.8883 37.2003 67.0591 36.7307C67.3977 35.8003 67.6516 34.8237 67.8105 33.8091C67.9695 32.7944 68.0264 31.7863 67.9888 30.7958Z"
+          fill="#2C3B47" />
+        <path
+          d="M63.9015 40.5751C64.2649 40.915 64.2867 41.4881 63.9503 41.8552C62.5917 43.3378 60.9551 44.5394 59.1398 45.3872C58.6903 45.5971 58.1575 45.3991 57.9498 44.945C57.742 44.4909 57.938 43.9526 58.3874 43.7427C59.9899 42.9943 61.4351 41.9332 62.6345 40.6244C62.9709 40.2572 63.5382 40.2352 63.9015 40.5751Z"
+          fill="#2C3B47" />
+        <path
+          d="M38.2749 78.5623C39.1038 78.6439 39.8411 78.0312 39.9218 77.1938C40.0026 76.3564 39.3961 75.6114 38.5673 75.5299C37.7385 75.4483 37.0012 76.061 36.9204 76.8984C36.8397 77.7358 37.4461 78.4807 38.2749 78.5623Z"
+          fill="#2C3B47" />
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M39.3799 36.7231C39.8282 36.5107 40.3621 36.7057 40.5723 37.1587C40.6995 37.4328 40.8356 37.7023 40.9803 37.9668C41.8928 36.1943 43.2772 35.2609 45.055 35.3536C45.8337 35.4099 46.649 35.9902 47.1918 36.557L48.3388 29.5884C48.5077 28.595 49.0424 27.7029 49.8354 27.0912C50.6284 26.4795 51.621 26.1936 52.6141 26.2908C53.1427 26.3154 53.6596 26.4573 54.1278 26.7065C54.5961 26.9556 55.0044 27.3058 55.3237 27.7323C55.6743 28.1291 55.9369 28.5969 56.094 29.1046C56.2511 29.6122 56.299 30.148 56.2345 30.6758L54.5393 48.4304C56.3041 48.9858 59.7778 50.4391 60.4789 53.271C61.2199 56.519 58.6208 59.5353 56.4948 61.9009C56.3365 62.0761 56.193 62.2283 56.0495 62.3803C55.9062 62.5323 55.7625 62.6846 55.6043 62.8597C54.4472 64.2178 54.2574 67.6881 54.3615 70.0866L58.0734 69.5942C58.3564 69.5768 58.6291 69.6765 58.8323 69.8717C58.8516 69.9013 58.873 69.9319 58.8951 69.9635C59.0171 70.1378 59.163 70.3462 59.1139 70.6317L59.2153 77.4638L60.1263 77.3543C60.4435 77.3431 60.7523 77.4587 60.9856 77.6762C61.008 77.7089 61.0328 77.7426 61.0585 77.7776C61.2001 77.9702 61.3693 78.2004 61.3218 78.5092L61.1399 93H58.9026L59.0685 79.7694L34.704 82.7339L35.8982 93H33.5586L32.2791 81.8386C32.2604 81.686 32.2729 81.5311 32.3157 81.3834C32.3585 81.2358 32.4308 81.0986 32.528 80.9802C32.6253 80.8619 32.7454 80.7649 32.8812 80.6952C33.0169 80.6255 33.1653 80.5846 33.3173 80.575L33.9625 80.4975L33.2007 73.9546C33.1874 73.8144 33.2019 73.6714 33.2432 73.5345C33.2846 73.3975 33.3519 73.2695 33.4412 73.1583C33.5304 73.0471 33.6396 72.9551 33.7621 72.8879C33.8846 72.8207 34.0177 72.7797 34.1533 72.7675L36.8294 72.4125C36.7459 71.0079 36.5755 68.108 36.4736 66.1497C36.1363 64.1456 35.5629 62.1895 34.7655 60.3231C34.6927 60.0308 34.5795 59.7504 34.4294 59.49C33.911 59.3494 33.4302 59.0936 33.0222 58.7414C31.179 56.8584 31.0624 52.9049 31.0365 49.2704C31.0084 48.9615 30.9987 48.6512 31.0072 48.3411C30.9385 46.7593 31.3415 42.0445 33.0887 40.8986C33.5031 40.5869 34.0001 40.4072 34.5162 40.3824C35.0322 40.3576 35.5439 40.4888 35.9858 40.7592C36.1389 40.131 36.451 39.5538 36.8915 39.0842C37.332 38.6145 37.8857 38.2686 38.4984 38.0804C38.648 38.0227 38.8021 37.9788 38.9586 37.949L38.9487 37.9278C38.7385 37.4748 38.9316 36.9354 39.3799 36.7231ZM55.1673 60.2923L54.2262 61.3482C51.9604 63.4952 51.9137 67.9897 51.8916 70.1168L51.8914 70.1336L38.7375 71.8095C38.6006 70.3155 38.5027 67.8044 38.4395 65.9548C38.0937 63.7024 37.4746 61.5016 36.5964 59.4021C36.5773 59.3589 36.5585 59.3156 36.5402 59.2721C37.1153 59.001 37.7683 58.5255 38.2963 57.7023C38.6022 57.8321 38.9394 57.8758 39.2715 57.8252C39.7997 57.7979 40.3126 57.6408 40.7661 57.3684C41.0105 57.6052 41.2835 57.8113 41.5794 57.9814C42.1433 58.2627 42.7618 58.4145 43.3906 58.4261C44.9796 58.4113 46.0221 57.3688 46.5187 55.3854L50.3439 56.5647C50.6384 56.6454 50.9524 56.6082 51.2205 56.4609C51.4886 56.3136 51.6902 56.0675 51.7832 55.7738C51.834 55.6266 51.8538 55.4703 51.8412 55.3149C51.8287 55.1596 51.7842 55.0086 51.7105 54.8716C51.6367 54.7347 51.5355 54.6148 51.4132 54.5198C51.2909 54.4247 51.1503 54.3565 51.0004 54.3196L43.4882 52.0037C43.215 51.9128 42.9817 51.7284 42.8287 51.4822C42.6757 51.2361 42.6126 50.9437 42.6502 50.6555C42.6688 50.5041 42.7171 50.3579 42.7922 50.2256C42.8674 50.0932 42.9679 49.9773 43.0879 49.8846C43.2079 49.792 43.345 49.7245 43.4912 49.686C43.6373 49.6475 43.7896 49.6389 43.9391 49.6605C44.6868 49.6764 45.4071 49.745 46.0764 49.8086L46.1736 49.8179C46.2504 49.8998 46.3372 49.9723 46.4322 50.0336C46.4841 50.0703 46.5436 50.0945 46.6062 50.1043C46.6688 50.1142 46.7328 50.1094 46.7933 50.0904C47.0578 50.1174 47.3224 50.0531 47.5446 49.9096C49.416 50.014 51.2805 50.2226 53.1295 50.5344C53.343 50.5485 53.5546 50.5023 53.7415 50.4032C55.0597 50.7108 58.2512 51.8063 58.6969 53.7555C59.1667 55.8102 56.9855 58.2818 55.1673 60.2923ZM36.5852 56.0992C36.5134 55.9819 36.4467 55.8611 36.3854 55.7371C35.8436 54.4954 35.9173 48.647 35.9643 44.9176C35.9696 44.499 35.9745 44.107 35.9782 43.7512C34.9984 42.5549 34.5828 42.7293 34.4111 42.8015C34.3994 42.8064 34.3884 42.811 34.3788 42.8144C33.7641 43.2657 33.1424 46.1722 33.1958 48.276C33.1659 48.6144 33.1603 48.9544 33.179 49.2935C33.1861 49.5006 33.1918 49.7446 33.198 50.0157L33.198 50.0167C33.2478 52.1677 33.3375 56.046 34.492 57.1208C34.6104 57.1968 34.7421 57.2482 34.8793 57.2726C34.9454 57.2603 35.0127 57.2538 35.0804 57.2534C35.5032 57.1885 35.8939 56.9867 36.1935 56.6783C36.3579 56.509 36.4901 56.3127 36.5852 56.0992ZM38.4966 54.9095C38.4556 54.8256 38.4136 54.7319 38.3704 54.6275C38.0434 53.8364 38.0969 48.3724 38.1425 43.7276L38.1442 43.5541C38.1522 43.5269 38.159 43.4993 38.1647 43.4714C38.1917 43.3386 38.1918 43.2017 38.1647 43.069C38.1675 40.6002 38.9833 40.256 39.3905 40.2244C39.963 40.0649 40.2759 40.4893 40.5113 40.9486C40.3064 42.911 39.247 53.0755 39.5905 55.2426C39.6064 55.317 39.6243 55.3909 39.6442 55.4641C39.5372 55.5578 39.4055 55.6334 39.2688 55.6242C39.1592 55.6169 39.0532 55.5906 38.9455 55.5169C38.9234 55.4496 38.8953 55.3839 38.8614 55.3207C38.7724 55.1554 38.6469 55.0151 38.4966 54.9095ZM52.749 48.1246L54.4135 30.4854C54.4461 30.0382 54.3101 29.5952 54.0328 29.2451C53.9007 29.0474 53.7222 28.8858 53.5133 28.7747C53.3043 28.6635 53.0715 28.6063 52.8354 28.608C52.3961 28.5679 51.9581 28.697 51.6091 28.9694C51.2601 29.2419 51.0259 29.6375 50.9534 30.077L49.1763 40.1072C49.1824 40.1866 49.1804 40.2666 49.1702 40.346L48.2509 47.6756C49.5934 47.7709 50.9939 47.8797 52.749 48.1246ZM45.9564 47.5313L46.8612 40.2931C46.853 40.2609 46.8463 40.2283 46.841 40.1952C46.601 39.4133 45.9398 37.6403 45.119 37.5872C43.4991 37.5036 42.9341 39.8086 42.7798 40.8545C42.7735 40.8838 42.7662 40.9128 42.7577 40.9414C42.6632 42.0539 42.5434 43.3299 42.4197 44.6489L42.4194 44.6522C42.3207 45.7034 42.2195 46.782 42.1264 47.8272C42.7268 47.4941 43.4158 47.348 44.1052 47.414C44.7004 47.4873 45.2766 47.5074 45.8327 47.5269L45.9564 47.5313ZM41.7432 53.7442C41.7431 54.1882 41.7623 54.5297 41.8059 54.7406C41.8077 54.8398 41.8204 54.9382 41.8434 55.0341C41.8799 55.0868 41.9122 55.1428 41.9399 55.2016C41.9784 55.2836 42.007 55.3693 42.0255 55.4569C42.0919 55.5588 42.172 55.6515 42.2636 55.7321C42.4043 55.8558 42.5691 55.9484 42.7474 56.0037C42.9256 56.0591 43.1134 56.0761 43.2986 56.0536C43.5145 56.0544 44.0195 56.0328 44.3195 54.7074L42.8317 54.2487C42.5995 54.2265 42.3758 54.1499 42.178 54.025C42.0257 53.942 41.8805 53.848 41.7432 53.7442ZM57.1971 77.7062L36.0438 80.2474L35.3425 74.7258L57.0784 71.8425L57.1971 77.7062Z"
+          fill="#2C3B47" />
+      </svg>
+      <div class="small_heading no_results" translate="COMPONENTS.TOPIC_INVITE.NO_INVITES_HEADING"></div>
+      <div translate="COMPONENTS.TOPIC_INVITE.NO_INVITES_DESC" class="no_results"></div>
+    </ng-container>
+    <ng-container *ngIf="members?.length">
+      <div class="row_header" *ngIf="!dialog">
+        <div class="row_cell"><a translate="COMPONENTS.TOPIC_INVITE.NAME"></a></div>
+        <div class="row_cell" translate="COMPONENTS.TOPIC_INVITE.ROLE"></div>
+        <div class="row_cell" translate="COMPONENTS.TOPIC_INVITE.ACTIONS"></div>
+      </div>
+      <ng-container *ngFor="let user of members; index as i;">
+        <div class="row_list" *ngIf="isOnPage(i, membersPage)">
+          <ng-container>
+            <div class="row_cell">
+              <div class="profile_image_wrap">
+                <img class="profile_image" *ngIf="user.imageUrl" [src]="user.imageUrl">
+                <div class="profile_image_filler" *ngIf="!user.imageUrl">
+                  <cos-initials class="table_cell" *ngIf="user.name" [name]="user.name">
+                  </cos-initials>
+                </div>
+              </div>
+              <a class="user_name" [innerHtml]>{{user.name}}</a>
+            </div>
+            <div class="row_cell">
+              <div class="dropdown" [cosDropdown]>
+                <div class="selection">
+                  <div class="selected_item">{{'TXT_TOPIC_LEVELS_' + (user.level) |
+                    uppercase | translate}}</div>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
+                  </svg>
+                </div>
+                <div class="options">
+                  <div class="option" *ngFor="let level of LEVELS | keyvalue" (click)="user.level = level.value">
+                    {{'TXT_TOPIC_LEVELS_' + level.value | uppercase | translate}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row_cell remove_item_mobile">
+              <button (click)="removeTopicMemberUser(user)">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6 6.00065H7.33333L7.33333 11.334H6L6 6.00065Z" fill="#2C3B47" />
+                  <path d="M10 6.00065H8.66667L8.66667 11.334H10L10 6.00065Z" fill="#2C3B47" />
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M11.3333 3.33398V2.66732C11.3333 1.93094 10.7364 1.33398 10 1.33398L6 1.33398C5.26362 1.33398 4.66667 1.93094 4.66667 2.66732V3.33398L2.66667 3.33398C2.29848 3.33398 2 3.63246 2 4.00065C2 4.36884 2.29848 4.66732 2.66667 4.66732H3.33333L3.33333 12.0007C3.33333 13.1053 4.22877 14.0007 5.33333 14.0007L10.6667 14.0007C11.7713 14.0007 12.6667 13.1053 12.6667 12.0007L12.6667 4.66732H13.3333C13.7015 4.66732 14 4.36884 14 4.00065C14 3.63246 13.7015 3.33398 13.3333 3.33398H11.3333ZM10 2.66732L6 2.66732V3.33398L10 3.33398V2.66732ZM11.3333 4.66732L4.66667 4.66732L4.66667 12.0007C4.66667 12.3689 4.96515 12.6673 5.33333 12.6673L10.6667 12.6673C11.0349 12.6673 11.3333 12.3689 11.3333 12.0007L11.3333 4.66732Z"
+                    fill="#2C3B47" />
+                </svg>
+              </button>
+            </div>
+          </ng-container>
+        </div>
+      </ng-container>
+      <div id="footer_buttons">
+        <div class="dropdown" [cosDropdown]>
+          <button class="btn_medium_secondary"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M19.1552 13.2702L18.1734 13.0801L18.0352 13.7937L18.6714 14.1453L19.1552 13.2702ZM20.7701 14.1629L20.2863 15.0381L20.2902 15.0402L20.7701 14.1629ZM19.1552 10.7226L18.6714 9.84741L18.0352 10.1991L18.1734 10.9127L19.1552 10.7226ZM20.7701 9.82985L20.2902 8.95252L20.2863 8.95467L20.7701 9.82985ZM20.9786 9.32178L21.9339 9.02611L21.9317 9.01909L21.9294 9.01209L20.9786 9.32178ZM18.905 5.88873L19.6254 5.19517L19.6234 5.19315L18.905 5.88873ZM18.3439 5.80527L18.8277 6.68045L18.8315 6.67836L18.3439 5.80527ZM16.8175 6.64907L16.1482 7.39203L16.6776 7.86902L17.3013 7.52425L16.8175 6.64907ZM14.4241 5.21827H13.4241V5.92276L14.0875 6.15991L14.4241 5.21827ZM14.0678 3.21778L13.8586 4.19567L13.8633 4.19665L14.0678 3.21778ZM9.92811 3.21778L10.1326 4.19666L10.1373 4.19564L9.92811 3.21778ZM9.57176 5.21974L9.90896 6.16117L10.5718 5.92378V5.21974L9.57176 5.21974ZM7.17851 6.65266L6.69383 7.52735L7.31831 7.87338L7.84839 7.39513L7.17851 6.65266ZM5.65576 5.80889L6.14044 4.93419L6.13567 4.93158L5.65576 5.80889ZM5.09471 5.89236L5.81385 6.58731L5.82147 6.57925L5.09471 5.89236ZM3.02108 9.32541L3.97104 9.63781L3.97217 9.63432L3.02108 9.32541ZM3.22958 9.83348L3.71339 8.95829L3.7095 8.95616L3.22958 9.83348ZM4.84451 10.7262L5.82627 10.9163L5.96444 10.2027L5.32831 9.85104L4.84451 10.7262ZM4.84451 13.2738L5.32831 14.149L5.96444 13.7973L5.82627 13.0837L4.84451 13.2738ZM3.22958 14.1665L3.7095 15.0438L3.71338 15.0417L3.22958 14.1665ZM3.02108 14.6746L2.06579 14.9703L2.06797 14.9773L2.07025 14.9843L3.02108 14.6746ZM5.09471 18.1076L4.37431 18.8012L4.37626 18.8032L5.09471 18.1076ZM5.65576 18.1911L5.17195 17.3159L5.16821 17.318L5.65576 18.1911ZM7.17987 17.3486L7.84956 16.6059L7.32007 16.1284L6.69607 16.4734L7.17987 17.3486ZM9.57555 18.7816H10.5756V18.0772L9.91222 17.84L9.57555 18.7816ZM9.9319 20.7822L10.1411 19.8043L10.1364 19.8034L9.9319 20.7822ZM14.0716 20.7822L13.8671 19.8033L13.8623 19.8044L14.0716 20.7822ZM14.4279 18.7804L14.0908 17.8389L13.4279 18.0763V18.7804H14.4279ZM16.8214 17.3474L17.3052 16.4722L16.6811 16.1272L16.1516 16.6049L16.8214 17.3474ZM18.3477 18.1911L17.8639 19.0663L17.8678 19.0684L18.3477 18.1911ZM18.9088 18.1076L18.1896 17.4127L18.182 17.4208L18.9088 18.1076ZM20.9824 14.6746L21.9335 14.9835L21.9391 14.9661L21.9441 14.9486L20.9824 14.6746ZM18.6714 14.1453L20.2863 15.0381L21.2539 13.2877L19.639 12.395L18.6714 14.1453ZM18.1734 10.9127C18.3121 11.629 18.3121 12.3637 18.1734 13.0801L20.1369 13.4602C20.3243 12.4928 20.3243 11.5 20.1369 10.5325L18.1734 10.9127ZM20.2863 8.95467L18.6714 9.84741L19.639 11.5978L21.2539 10.705L20.2863 8.95467ZM20.0233 9.61746C19.9429 9.35777 20.06 9.07846 20.2902 8.95253L21.25 10.7072C21.8517 10.378 22.1356 9.67773 21.9339 9.02611L20.0233 9.61746ZM18.1846 6.5823C19.0203 7.45037 19.6556 8.48897 20.0278 9.63148L21.9294 9.01209C21.46 7.57074 20.6623 6.27225 19.6254 5.19517L18.1846 6.5823ZM18.8315 6.67836C18.613 6.80035 18.3541 6.75735 18.1865 6.58431L19.6234 5.19315C19.1678 4.72253 18.4387 4.60696 17.8564 4.93217L18.8315 6.67836ZM17.3013 7.52425L18.8277 6.68044L17.8601 4.93009L16.3337 5.77389L17.3013 7.52425ZM14.0875 6.15991C14.8549 6.43422 15.5532 6.85606 16.1482 7.39203L17.4868 5.90611C16.7016 5.19868 15.778 4.6403 14.7607 4.27663L14.0875 6.15991ZM13.4241 3.64237V5.21827H15.4241V3.64237H13.4241ZM13.8633 4.19665C13.6328 4.14851 13.4241 3.93719 13.4241 3.64237H15.4241C15.4241 2.9411 14.9197 2.37414 14.2722 2.2389L13.8633 4.19665ZM10.1373 4.19564C11.3259 3.94134 12.6087 3.9283 13.8586 4.19566L14.2769 2.23989C12.7444 1.91209 11.1764 1.92808 9.71889 2.23991L10.1373 4.19564ZM10.5718 3.64237C10.5718 3.93719 10.3631 4.1485 10.1326 4.19665L9.72366 2.2389C9.07614 2.37414 8.57176 2.94111 8.57176 3.64237L10.5718 3.64237ZM10.5718 5.21974V3.64237L8.57176 3.64237V5.21974L10.5718 5.21974ZM7.84839 7.39513C8.44315 6.85851 9.14152 6.43605 9.90896 6.16117L9.23457 4.27831C8.21716 4.64272 7.29364 5.20192 6.50863 5.91019L7.84839 7.39513ZM5.17109 6.68359L6.69383 7.52735L7.66318 5.77796L6.14043 4.9342L5.17109 6.68359ZM5.82147 6.57925C5.6407 6.77051 5.37251 6.79379 5.17585 6.68621L6.13567 4.93158C5.5675 4.62078 4.83682 4.70937 4.36794 5.20548L5.82147 6.57925ZM3.97217 9.63432C4.34436 8.48842 4.97939 7.45073 5.8138 6.58727L4.37561 5.19745C3.33732 6.27189 2.53939 7.57129 2.06999 9.0165L3.97217 9.63432ZM3.7095 8.95616C3.92506 9.07408 4.06481 9.35267 3.97103 9.63781L2.07113 9.01301C1.84847 9.69009 2.16259 10.3896 2.74967 10.7108L3.7095 8.95616ZM5.32831 9.85104L3.71338 8.9583L2.74578 10.7087L4.3607 11.6014L5.32831 9.85104ZM5.82627 13.0837C5.68758 12.3673 5.68758 11.6327 5.82627 10.9163L3.86274 10.5361C3.67542 11.5036 3.67542 12.4964 3.86274 13.4639L5.82627 13.0837ZM3.71338 15.0417L5.32831 14.149L4.3607 12.3986L2.74578 13.2913L3.71338 15.0417ZM3.97637 14.3789C4.05675 14.6386 3.93969 14.9179 3.7095 15.0438L2.74967 13.2892C2.14796 13.6184 1.86411 14.3186 2.06579 14.9703L3.97637 14.3789ZM5.8151 17.4141C4.97936 16.546 4.34404 15.5074 3.97192 14.3649L2.07025 14.9843C2.5397 16.4256 3.33735 17.7241 4.37431 18.8012L5.8151 17.4141ZM5.16821 17.318C5.38666 17.196 5.64562 17.239 5.81315 17.4121L4.37626 18.8032C4.8319 19.2738 5.56093 19.3894 6.14331 19.0642L5.16821 17.318ZM6.69607 16.4734L5.17196 17.3159L6.13956 19.0663L7.66367 18.2237L6.69607 16.4734ZM9.91222 17.84C9.14401 17.5653 8.44492 17.1428 7.84956 16.6059L6.51018 18.0912C7.29597 18.7998 8.22044 19.3591 9.23889 19.7232L9.91222 17.84ZM10.5756 20.3576V18.7816H8.57555V20.3576H10.5756ZM10.1364 19.8034C10.3669 19.8515 10.5756 20.0628 10.5756 20.3576H8.57555C8.57555 21.0589 9.07993 21.6259 9.72745 21.7611L10.1364 19.8034ZM13.8623 19.8044C12.6738 20.0587 11.391 20.0717 10.1411 19.8043L9.72274 21.7601C11.2553 22.0879 12.8233 22.0719 14.2808 21.7601L13.8623 19.8044ZM13.4279 20.3576C13.4279 20.0628 13.6366 19.8515 13.8671 19.8034L14.276 21.7611C14.9235 21.6259 15.4279 21.0589 15.4279 20.3576L13.4279 20.3576ZM13.4279 18.7804L13.4279 20.3576L15.4279 20.3576L15.4279 18.7804H13.4279ZM16.1516 16.6049C15.5567 17.1416 14.8583 17.5641 14.0908 17.8389L14.7651 19.7218C15.7826 19.3574 16.7062 18.7982 17.4913 18.0899L16.1516 16.6049ZM18.8315 17.3159L17.3052 16.4722L16.3376 18.2226L17.8639 19.0663L18.8315 17.3159ZM18.182 17.4208C18.3628 17.2295 18.631 17.2062 18.8276 17.3138L17.8678 19.0684C18.436 19.3792 19.1666 19.2906 19.6355 18.7945L18.182 17.4208ZM20.0313 14.3657C19.6591 15.5116 19.0241 16.5493 18.1897 17.4127L19.6279 18.8025C20.6661 17.7281 21.4641 16.4287 21.9335 14.9835L20.0313 14.3657ZM20.2902 15.0402C20.0546 14.9114 19.9532 14.6375 20.0206 14.4006L21.9441 14.9486C22.1253 14.3125 21.857 13.6176 21.25 13.2856L20.2902 15.0402ZM13.7 12C13.7 12.9389 12.9389 13.7 12 13.7V15.7C14.0435 15.7 15.7 14.0435 15.7 12H13.7ZM12 10.3C12.9389 10.3 13.7 11.0611 13.7 12H15.7C15.7 9.95655 14.0435 8.3 12 8.3L12 10.3ZM10.3 12C10.3 11.0611 11.0611 10.3 12 10.3L12 8.3C9.95655 8.3 8.3 9.95655 8.3 12L10.3 12ZM12 13.7C11.0611 13.7 10.3 12.9389 10.3 12L8.3 12C8.3 14.0435 9.95655 15.7 12 15.7V13.7Z"
+                fill="#1168A8" />
+            </svg>
+            <span class="bold" translate="COMPONENTS.TOPIC_INVITE.BTN_BULK_ACTIONS"></span>
+          </button>
+          <div class="mobile_overlay"></div>
+          <div class="options button_options">
+            <div class="mobile_header">
+              <div class="small_heading" translate="COMPONENTS.TOPIC_INVITE.BTN_BULK_ACTIONS"></div>
+              <button><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M5.29314 17.2929C4.90261 17.6834 4.90261 18.3166 5.29314 18.7071C5.68366 19.0976 6.31683 19.0976 6.70735 18.7071L12.0002 13.4142L17.2931 18.7071C17.6837 19.0976 18.3168 19.0976 18.7074 18.7071C19.0979 18.3166 19.0979 17.6834 18.7074 17.2929L13.4145 12L18.7074 6.70711C19.0979 6.31658 19.0979 5.68342 18.7074 5.29289C18.3168 4.90237 17.6837 4.90237 17.2931 5.29289L12.0002 10.5858L6.70735 5.29289C6.31683 4.90237 5.68366 4.90237 5.29314 5.29289C4.90261 5.68342 4.90261 6.31658 5.29314 6.70711L10.586 12L5.29314 17.2929Z"
+                    fill="#2C3B47" />
+                </svg>
+              </button>
+            </div>
+            <ng-container *ngFor="let level of LEVELS">
+              <div class="option" (click)="updateAllMemberLevels(level);">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M5.66347 6.9425L11.8106 1L13.4526 2.58741L12.3579 3.64569L14 5.2331L11.2632 7.87953L9.62116 6.29212L7.30631 8.52991C7.73255 9.32272 7.85142 10.2368 7.64144 11.1069C7.43146 11.977 6.90649 12.7458 6.16136 13.2745C5.41623 13.8031 4.50009 14.0567 3.57846 13.9894C2.65683 13.9221 1.7905 13.5383 1.13598 12.9075C0.481132 12.2754 0.0821563 11.4375 0.0113533 10.5456C-0.0594497 9.65365 0.202605 8.7667 0.750029 8.04547C1.29745 7.32424 2.09403 6.81645 2.9954 6.61411C3.89677 6.41177 4.8433 6.52827 5.66347 6.9425ZM4.96747 11.3193C5.11536 11.1812 5.23332 11.016 5.31447 10.8334C5.39562 10.6508 5.43833 10.4544 5.44012 10.2556C5.4419 10.0569 5.40273 9.85978 5.32487 9.67582C5.24702 9.49186 5.13205 9.32474 4.98666 9.18419C4.84128 9.04365 4.6684 8.9325 4.47811 8.85724C4.28782 8.78198 4.08393 8.74411 3.87833 8.74583C3.67274 8.74756 3.46956 8.78885 3.28065 8.8673C3.09174 8.94575 2.92088 9.05978 2.77805 9.20275C2.496 9.48506 2.33993 9.86316 2.34346 10.2556C2.34698 10.6481 2.50983 11.0235 2.79691 11.3011C3.08399 11.5786 3.47235 11.736 3.87833 11.7394C4.28431 11.7428 4.67544 11.592 4.96747 11.3193Z"
+                    fill="#2C3B47" />
+                </svg>
+                <span [innerHtml]="'COMPONENTS.TOPIC_INVITE.BULK_OPT_SET_ALL_RIGHTS' | translate:{level: ('TXT_TOPIC_LEVELS_'+level | uppercase | translate)}"></span>
+              </div>
+              <div class="line_separator"></div>
+            </ng-container>
+            <div class="option" (click)="removeAllMembers()">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M10 3H6V4H10V3ZM11 4V3C11 2.44772 10.5523 2 10 2H6C5.44772 2 5 2.44772 5 3V4H4H2.5C2.22386 4 2 4.22386 2 4.5C2 4.77614 2.22386 5 2.5 5H4V13C4 13.5523 4.44772 14 5 14H11C11.5523 14 12 13.5523 12 13V5H13.5C13.7761 5 14 4.77614 14 4.5C14 4.22386 13.7761 4 13.5 4H12H11ZM7 7H6V11H7V7ZM10 7H9V11H10V7Z"
+                  fill="#EF4025" />
+              </svg>
+              <span class="error_text" translate="COMPONENTS.TOPIC_INVITE.BULK_OPT_REMOVE_ALL"></span>
+            </div>
+          </div>
+        </div>
+        <cos-pagination class="pagination" (select)="loadPage($event)" [totalPages]="totalPages(members)"
+          [page]="membersPage"></cos-pagination>
+      </div>
+    </ng-container>
+  </div>
 </div>

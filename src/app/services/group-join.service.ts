@@ -14,8 +14,22 @@ export class GroupJoinService {
 
   constructor(private Location: LocationService, private http: HttpClient, private Notification: NotificationService) { }
 
+  get(token: string) {
+    const path = this.Location.getAbsoluteUrlApi('/api/groups/join/:token', { token });
+    return this.http.get<ApiResponse>(path, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
+      map(res => res.data)
+    );
+  }
+
   join(token: string) {
     const path = this.Location.getAbsoluteUrlApi('/api/groups/join/:token', { token });
+    return this.http.post<ApiResponse>(path, {}, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
+      map(res => res.data)
+    );
+  }
+
+  joinPublic(groupId: string) {
+    const path = this.Location.getAbsoluteUrlApi('/api/users/self/groups/:groupId/join', { groupId });
     return this.http.post<ApiResponse>(path, {}, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
       map(res => res.data)
     );

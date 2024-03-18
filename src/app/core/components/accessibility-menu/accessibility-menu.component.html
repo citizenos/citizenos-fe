@@ -1,0 +1,138 @@
+<div class="overlay" dialog-close></div>
+<div class="dialog_wrap">
+  <div id="notification_wrap_dialog">
+    <notification></notification>
+  </div>
+  <div class="dialog">
+    <div class="dialog_header">
+      <div class="header_text">
+        <h4 class="title" translate="COMPONENTS.ACCESSIBILITY.MODAL_HEADING"></h4>
+        <div class="dialog_close">
+          <a class="btn_dialog_close icon" dialog-close>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M7.72152 6.29537C7.3277 5.90154 6.68919 5.90154 6.29537 6.29537C5.90154 6.68919 5.90154 7.3277 6.29537 7.72153L10.5738 12L6.29541 16.2785C5.90159 16.6723 5.90159 17.3108 6.29541 17.7046C6.68923 18.0985 7.32774 18.0985 7.72156 17.7046L12 13.4262L16.2784 17.7046C16.6723 18.0985 17.3108 18.0985 17.7046 17.7046C18.0984 17.3108 18.0984 16.6723 17.7046 16.2785L13.4262 12L17.7046 7.72153C18.0985 7.3277 18.0985 6.68919 17.7046 6.29537C17.3108 5.90154 16.6723 5.90154 16.2785 6.29537L12 10.5739L7.72152 6.29537Z"
+                fill="#2C3B47" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="dialog_content">
+      <div class="accessibility_options_wrap">
+        <h4 translate="COMPONENTS.ACCESSIBILITY.HEADING_CONTRAST"></h4>
+
+        <div class="radio_wrap" (click)="setContrast('default')">
+          <div class="radio_text_wrap">
+            <div class="radio_lable_wrap">
+              <label class="radio_box">
+                <input type="radio" [checked]="app.accessibility.value.contrast === 'default'" name="contrast"
+                  value="default">
+                <span class="radio"></span>
+                <div class="radio_lable" translate="COMPONENTS.ACCESSIBILITY.OPT_CONTRAST_DEFAULT">
+                </div>
+              </label>
+            </div>
+          </div>
+          <div class="radio_icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="3" y="3" width="9" height="9" fill="#5C9CD0" />
+              <rect x="3" y="12" width="9" height="9" fill="#E9D519" />
+              <rect x="12" y="3" width="9" height="9" fill="#DA7AB1" />
+              <rect x="12" y="12" width="9" height="9" fill="#5AB467" />
+              <rect x="0.5" y="0.5" width="23" height="23" rx="2.5" stroke="#2C3B47" />
+            </svg>
+          </div>
+        </div>
+        <div class="radio_wrap" (click)="setContrast('high_contrast')">
+          <div class="radio_text_wrap">
+            <div class="radio_lable_wrap">
+              <label class="radio_box">
+                <input type="radio" [checked]="app.accessibility.value.contrast === 'high_contrast'" checked="checked"
+                  name="contrast" value="high_contrast">
+                <span class="radio"></span>
+                <div class="radio_lable" translate="COMPONENTS.ACCESSIBILITY.OPT_CONTRAST_HIGH">
+                </div>
+              </label>
+            </div>
+          </div>
+          <div class="radio_icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="3" y="3" width="9" height="18" fill="#2C3B47" />
+              <rect x="12" y="3" width="9" height="18" fill="#FFF500" />
+              <rect x="0.5" y="0.5" width="23" height="23" rx="2.5" stroke="#2C3B47" />
+            </svg>
+          </div>
+        </div>
+        <h4 translate="COMPONENTS.ACCESSIBILITY.HEADING_TEXT_SIZE"></h4>
+
+        <div class="radio_wrap" (click)="setTextSize('')">
+          <div class="radio_text_wrap">
+            <div class="radio_lable_wrap">
+              <label class="radio_box">
+                <input type="radio" [checked]="app.accessibility.value.text === ''" name="textSize" value="">
+                <span class="radio"></span>
+                <div class="radio_lable" translate="COMPONENTS.ACCESSIBILITY.OPT_TEXT_SIZE_DEFAULT">
+                </div>
+              </label>
+            </div>
+          </div>
+          <div class="radio_icon">
+            <div class="icon_text_size text_default">A</div>
+          </div>
+        </div>
+        <div class="radio_wrap" (click)="setTextSize('large')">
+          <div class="radio_text_wrap">
+            <div class="radio_lable_wrap">
+              <label class="radio_box">
+                <input type="radio" [checked]="app.accessibility.value.text === 'large'" name="textSize" value="large">
+                <span class="radio"></span>
+                <div class="radio_lable" translate="COMPONENTS.ACCESSIBILITY.OPT_TEXT_SIZE_LARGE">
+                </div>
+              </label>
+            </div>
+          </div>
+          <div class="radio_icon">
+            <div class="icon_text_size large">A</div>
+          </div>
+        </div>
+        <div class="radio_wrap" (click)="setTextSize('extra_large')">
+          <div class="radio_text_wrap">
+            <div class="radio_lable_wrap">
+              <label class="radio_box">
+                <input type="radio" [checked]="app.accessibility.value.text === 'extra_large'" name="textSize"
+                  value="extra_large">
+                <span class="radio"></span>
+                <div class="radio_lable" translate="COMPONENTS.ACCESSIBILITY.OPT_TEXT_SIZE_EXTRA_LARGE">
+                </div>
+              </label>
+            </div>
+          </div>
+          <div class="radio_icon">
+            <div class="icon_text_size extra_large">A</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="dialog_info_wrap">
+      <div class="dialog_info">
+        <div class="bold" translate="COMPONENTS.ACCESSIBILITY.HEADING_HAVING_ISSUES"></div>
+        <div class="row"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 12V14L19 11.5L15 9V11H6V12H15Z" fill="#2C3B47" />
+          </svg>
+          <a href="https://citizenos.com/contact/" target="_blank" translate="COMPONENTS.ACCESSIBILITY.READ_STATEMENT">
+          </a>
+        </div>
+        <div class="row">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 12V14L19 11.5L15 9V11H6V12H15Z" fill="#2C3B47" />
+          </svg>
+          <a href="https://citizenos.com/contact/" target="_blank" translate="COMPONENTS.ACCESSIBILITY.CONTACT_US">
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="dialog_footer">
+    </div>
+  </div>
+</div>

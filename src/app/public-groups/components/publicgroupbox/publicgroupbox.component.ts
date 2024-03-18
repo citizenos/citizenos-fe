@@ -1,13 +1,15 @@
 import { AuthService } from 'src/app/services/auth.service';
 import { Component, Input, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { DialogService } from 'src/app/shared/dialog';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { Group } from 'src/app/interfaces/group';
+import { LocationService } from 'src/app/services/location.service';
 import { GroupJoinService } from 'src/app/services/group-join.service';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
-import { LoginComponent } from 'src/app/account/components/login/login.component';
+import { LoginDialogComponent } from 'src/app/account/components/login/login.component';
 import { take } from 'rxjs';
+import { GroupJoinComponent } from 'src/app/group/components/group-join/group-join.component';
 
 @Component({
   selector: 'public-group-box',
@@ -16,18 +18,58 @@ import { take } from 'rxjs';
 })
 export class PublicgroupboxComponent implements OnInit {
   @Input() group = <Group>{}; // decorate the property with @Input()
-  constructor(private dialog: MatDialog, private router: Router, private GroupJoinService: GroupJoinService, private Auth: AuthService) { }
+  constructor(private Location: LocationService, private dialog: DialogService, private route: ActivatedRoute, private router: Router, private GroupJoinService: GroupJoinService, private Auth: AuthService) { }
 
   ngOnInit(): void {
   }
 
-  viewGroup () {
+  viewGroup() {
     this.router.navigate(['/groups', this.group.id]);
   }
 
-  joinGroup () {
+  joinGroup() {
     if (!this.Auth.loggedIn$.value) {
-      const loginDialog = this.dialog.open(LoginComponent);
+      const tree = this.router.createUrlTree(['/groups', this.group.id]);
+
+      const redirectSuccess = this.Location.getAbsoluteUrl(this.router.serializeUrl(tree).toString());
+      const loginDialog = this.dialog.open(LoginDialogComponent, {
+        data: { redirectSuccess: redirectSuccess }
+      });
+      loginDialog.afterClosed().subscribe(result => {
+      });
+    } else {
+      const joinDialog = this.dialog.open(GroupJoinComponent, {
+        data: {
+          group: this.group
+        }
+      })/*.openConfirm({
+        template: '/views/modals/group_join_confirm.html',
+        closeByEscape: false
+    })*/
+      joinDialog.afterClosed().subscribe((res) => {
+        if (res === true) {
+          this.GroupJoinService
+            .joinPublic(this.group.id).pipe(take(1)).subscribe(
+              {
+                next: (res) => {
+                  this.group.userLevel = res.userLevel;
+                  this.router.navigate(['groups', this.group.id]);
+                },
+                error: (err) => {
+                  console.error('Failed to join Topic', err)
+                }
+              }
+            )
+        }
+      });
+    }
+  }
+/*
+  joinGroup() {
+    if (!this.Auth.loggedIn$.value) {
+      const loginDialog = this.dialog.open(LoginDialogComponent, {
+        data: { redirectSuccess: ['/groups', this.group.id] }
+      });
       loginDialog.afterClosed().subscribe(result => {
         console.log(`Login result: ${result}`);
       });
@@ -60,5 +102,5 @@ export class PublicgroupboxComponent implements OnInit {
         }
       });
     }
-  }
+  }*/
 }

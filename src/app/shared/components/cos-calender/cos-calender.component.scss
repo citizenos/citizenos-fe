@@ -1,0 +1,60 @@
+/* Add your styling here */
+
+#cos_calendar {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surfaces);
+  padding: 16px;
+  gap: 16px;
+}
+
+.cos_cal_month_selector {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 8px;
+  .text_wrap {
+    font-weight: 600;
+    display: flex;
+    gap: 8px;
+  }
+}
+
+.cos_cal_weekdays, .cos_cal_days {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.cos_cal_weekday,  .cos_cal_day{
+  flex-grow: 1;
+  flex-shrink: 1;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-basis: 0;
+  height: 32px;
+}
+
+.cos_cal_day {
+  .day_item {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.selected {
+  background-color: var(--color-voting-disabled);
+  border-radius: 16px;
+}
+.cos_cal_week {
+  display: flex;
+  width: 100%;
+}
+
+.empty {
+  color: var(--color-border);
+}

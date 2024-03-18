@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DialogRef, DIALOG_DATA } from 'src/app/shared/dialog';
 import { take } from 'rxjs';
 import { TopicVoteService } from 'src/app/services/topic-vote.service';
 import { Topic } from 'src/app/interfaces/topic';
@@ -60,7 +60,7 @@ export class ModalDatepickerComponent implements OnInit {
   cosModalIsDateSelected = false;
   datePickerMin = new Date();
 
-  constructor(private dialog: MatDialogRef<ModalDatepickerComponent>, @Inject(MAT_DIALOG_DATA) data: DatepickerModalData, private TopicVoteService:TopicVoteService) {
+  constructor(private dialog: DialogRef<ModalDatepickerComponent>, @Inject(DIALOG_DATA) data: DatepickerModalData, private TopicVoteService:TopicVoteService) {
     this.date = data.date || new Date();
     this.topic = data.topic;
     this.setFormValues();

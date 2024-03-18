@@ -1,6 +1,62 @@
-<!-- INFO BAR - base.scss -->
+<ng-container *ngFor="let level of notifications.levels | keyvalue">
+  <div class="notification_top" [ngClass]="getNotificationClass(level.value)"
+    *ngFor="let notification of notifications.messages[level.value];trackBy: trackByIndex;">
+    <div class="icon_notification">
+      <ng-container *ngIf="level.value === 'error'">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="40" height="40" rx="20" fill="#EF4025" />
+          <path
+            d="M27.2929 11.2929C27.6834 10.9024 28.3166 10.9024 28.7071 11.2929C29.0976 11.6834 29.0976 12.3166 28.7071 12.7071L21.4142 20L28.7071 27.2929C29.0976 27.6834 29.0976 28.3166 28.7071 28.7071C28.3166 29.0976 27.6834 29.0976 27.2929 28.7071L20 21.4142L12.7071 28.7071C12.3166 29.0976 11.6834 29.0976 11.2929 28.7071C10.9024 28.3166 10.9024 27.6834 11.2929 27.2929L18.5858 20L11.2929 12.7071C10.9024 12.3166 10.9024 11.6834 11.2929 11.2929C11.6834 10.9024 12.3166 10.9024 12.7071 11.2929L20 18.5858L27.2929 11.2929Z"
+            fill="white" stroke="white" stroke-linecap="round" />
+        </svg>
+      </ng-container>
+      <ng-container *ngIf="level.value === 'info'">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="40" height="40" rx="20" fill="#5C9CD0" />
+          <path
+            d="M23 11.5292C23 12.926 21.9255 14.0583 20.6 14.0583C19.2745 14.0583 18 12.926 18 11.5292C18 10.1323 19.2745 9 20.6 9C21.9255 9 23 10.1323 23 11.5292Z"
+            fill="white" />
+          <path
+            d="M17.3359 16.5357L22.8319 15.8098L20.4295 27.7096C20.2591 28.5695 20.4991 29.0576 21.1591 29.0576C21.6247 29.0576 22.3255 28.8806 22.8055 28.4354L22.5943 29.4876C21.9055 30.3626 20.3863 31 19.0783 31C17.3911 31 16.6735 29.9327 17.1391 27.664L18.9103 18.8929C19.0639 18.1518 18.9247 17.8837 18.2191 17.7067L17.1391 17.4968L17.3359 16.5357Z"
+            fill="white" />
+        </svg>
+      </ng-container>
+      <ng-container *ngIf="level.value === 'success'">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="40" height="40" rx="20" fill="#5AB467" />
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M31.6402 10.2318C32.0645 10.5854 32.1218 11.2159 31.7682 11.6402L16.7682 29.6402C16.5776 29.869 16.2949 30.0009 15.9971 30C15.6993 29.9992 15.4174 29.8656 15.2281 29.6357L8.2281 21.1357C7.87701 20.7094 7.938 20.0792 8.36432 19.7281C8.79065 19.377 9.42087 19.438 9.77196 19.8643L16.0046 27.4325L30.2318 10.3598C30.5854 9.93556 31.2159 9.87824 31.6402 10.2318Z"
+            fill="white" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </ng-container>
+      <ng-container *ngIf="level.value === 'warning'">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="40" height="40" rx="20" fill="#F39129" />
+          <path
+            d="M19.0645 8C18.4876 8 18.0304 8.48668 18.0664 9.06238L18.9414 23.0624C18.9743 23.5894 19.4114 24 19.9395 24H20.0605C20.5886 24 21.0257 23.5894 21.0586 23.0624L21.9336 9.06238C21.9696 8.48668 21.5124 8 20.9355 8H19.0645Z"
+            fill="white" />
+          <path
+            d="M20 31C21.1046 31 22 30.1046 22 29C22 27.8954 21.1046 27 20 27C18.8954 27 18 27.8954 18 29C18 30.1046 18.8954 31 20 31Z"
+            fill="white" />
+        </svg>
+      </ng-container>
+    </div>
+    <div class="message">
+      <div class="title" translate="{{notification.title || 'COMPONENTS.NOTIFICATION.TITLE_'+level.key}}"></div>
+      <div class="content" [innerHTML]="notification.message | translate"></div>
+    </div>
+    <button class="btn_medium_nav icon" (click)="notifications.removeAll(level.value)">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289Z"
+          fill="#2C3B47" />
+      </svg>
+    </button>
+  </div>
+</ng-container>
+<!-- INFO BAR - base.scss >
 <div class="info_bar_wrap">
-  <!-- ORANGE MESSAGE for TESTING ENV NOTIFICATION -->
+  <!-- ORANGE MESSAGE for TESTING ENV NOTIFICATION
   <div class="info_bar bar_orange" [ngClass]="{'info_bar_show': showTestingEnvNotification}">
       <div class="info_icon">
           <div class="sprite sprite-icon-notification-error2x"></div>
@@ -15,7 +71,7 @@
       </div>
   </div>
 
-  <!-- RED MESSAGE -->
+  <!-- RED MESSAGE >
   <div class="info_bar bar_red" [ngClass]="{'info_bar_show': notifications.messages[notifications.levels.ERROR]?.length}" >
       <div class="info_icon">
           <div class="sprite sprite-icon-notification-error2x"></div>
@@ -32,7 +88,7 @@
       </div>
   </div>
 
-  <!-- BLUE MESSAGE -->
+  <!-- BLUE MESSAGE>
   <div class="info_bar bar_blue"  [ngClass]="{'info_bar_show': notifications.messages[notifications.levels.INFO].length}">
       <div class="info_icon">
           <div class="sprite sprite-icon-notification-info2x"></div>
@@ -49,7 +105,7 @@
       </div>
   </div>
 
-  <!-- GREEN MESSAGE -->
+  <!-- GREEN MESSAGE>
   <div class="info_bar bar_green" [ngClass]="{'info_bar_show': notifications.messages[notifications.levels.SUCCESS].length}">
       <div class="info_icon">
           <div class="sprite sprite-icon-notification-check2x"></div>
@@ -65,4 +121,4 @@
           <div class="sprite sprite-btn-popup-close-2x-green"></div>
       </div>
   </div>
-</div>
+</div-->

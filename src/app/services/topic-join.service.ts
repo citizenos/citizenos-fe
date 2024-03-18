@@ -28,6 +28,13 @@ export class TopicJoinService {
     );
   }
 
+  joinPublic(topicId: string) {
+    const path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/join', { topicId });
+    return this.http.post<ApiResponse>(path, {}, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
+      map(res => res.data)
+    );
+  }
+
   save(data: any) {
     const path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/join', { topicId: data.topicId });
     return this.http.put<ApiResponse>(path, data, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(

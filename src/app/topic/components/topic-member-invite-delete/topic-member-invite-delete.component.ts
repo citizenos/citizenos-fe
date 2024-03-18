@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DIALOG_DATA, DialogRef } from 'src/app/shared/dialog';
 
 @Component({
   selector: 'app-topic-member-invite-delete',
@@ -8,11 +8,18 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class TopicMemberInviteDeleteComponent implements OnInit {
   user!: any;
-  constructor( @Inject(MAT_DIALOG_DATA) public data:any) {
+  invitesToDelete = <string | null>null;
+  constructor( @Inject(DIALOG_DATA) public data:any, private dialog: DialogRef<TopicMemberInviteDeleteComponent>) {
     this.user=data.user;
   }
 
   ngOnInit(): void {
   }
 
+
+  removeInvites () {
+    if(this.invitesToDelete !== null) {
+      this.dialog.close(this.invitesToDelete);
+    }
+  }
 }
