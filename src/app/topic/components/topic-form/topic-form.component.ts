@@ -422,6 +422,7 @@ export class TopicFormComponent {
   }
 
   publish() {
+    console.log('PUBLSIH')
     this.titleInput?.nativeElement?.parentNode.parentNode.classList.remove('error');
     const isDraft = (this.topic.status === this.TopicService.STATUSES.draft);
     this.topic.status = this.TopicService.STATUSES.inProgress;

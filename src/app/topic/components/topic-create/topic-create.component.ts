@@ -41,7 +41,7 @@ import { BlockNavigationIfChange } from 'src/app/shared/pending-changes.guard';
       }))
     ])]
 })
-export class TopicCreateComponent implements OnInit, BlockNavigationIfChange{
+export class TopicCreateComponent implements OnInit, BlockNavigationIfChange {
 
   /**/
   topic$: Observable<Topic>;
