@@ -142,10 +142,9 @@
 </div>
 <ng-container *ngIf="wWidth <=1024 && isNavVisible()"></ng-container>
 <div class="nav_overlay" *ngIf="app.tabletNav" (click)="toggleNav()"></div>
-<div class="nav_wrap" [ngClass]="{'pos_absolute': ((this.TourService.showTour | async) || app.mobileTutorial)}">
+<div class="nav_wrap" [ngClass]="{'pos_initial': ((this.TourService.showTour | async) || app.mobileTutorial)}">
 
-  <div class="nav" [ngClass]="{'nav_is_open' : app.showNav }"
-    [TourItem]="{tourid: 'dashboard', index: 2, position: 'right'}">
+  <div class="nav">
     <div class="logo_wrap">
       <a routerLink="/">
         <svg width="152" height="28" viewBox="0 0 152 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -356,7 +355,8 @@
         </a>
       </div>
     </div>
-    <div class="nav_inside">
+    <div class="nav_inside" [ngClass]="{'nav_is_open' : app.showNav }"
+    [TourItem]="{tourid: 'dashboard', index: 2, position: 'right'}">
       <ng-container *ngIf="auth.user$ | async; then loggedIn; else loggedOut"></ng-container>
       <ng-template #loggedOut>
         <div class="big_button_wrap">
