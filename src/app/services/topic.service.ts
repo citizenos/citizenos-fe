@@ -135,6 +135,14 @@ export class TopicService {
       );
   }
 
+  revert (topicId: string ,rev: number) {
+    const path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/revert', { topicId: topicId });
+
+    return this.http.post<ApiResponse>(path, {rev: rev}, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
+      map(res => res.data)
+    );
+  }
+
   patch(data: any) {
     const updateFields = ['title', 'visibility', 'status', 'categories', 'endsAt', 'hashtag', 'imageUrl', 'intro', 'contact', 'country', 'language'];
     const sendData: any = {};

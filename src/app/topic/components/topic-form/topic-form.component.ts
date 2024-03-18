@@ -547,15 +547,19 @@ export class TopicFormComponent {
           this.TopicService.delete({ id: this.topic.id })
             .pipe(take(1))
             .subscribe(() => {
+              this.hasUnsavedChanges.next(false);
               this.router.navigate(['dashboard']);
             })
         } else {
-          this.router.navigate(['dashboard']);
+          this.TopicService.revert(this.topic.id, this.topic.revision!)
+            .pipe(take(1))
+            .subscribe(() => {
+              this.hasUnsavedChanges.next(false);
+              this.router.navigate(['dashboard']);
+            })
         }
       }
     });
-    //[routerLink]="['/', translate.currentLang, 'topics', topic.id]"
-    //  this.router.navigate(['dashboard']);
   }
 
   setGroupLevel(group: TopicMemberGroup, level: string) {

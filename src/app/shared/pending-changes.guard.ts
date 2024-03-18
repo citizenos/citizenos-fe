@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 
 export interface BlockNavigationIfChange {
   hasChanges$: BehaviorSubject<boolean>;
+  removeChanges?: () => void;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -18,6 +19,8 @@ export class CanDeactivateBlockNavigationIfChange<T extends BlockNavigationIfCha
           const interuptdialog = this.dialog.open(InterruptDialogComponent);
           interuptdialog.afterClosed().subscribe({next: (result) => {
             if (result === true) {
+              if (component.removeChanges)
+                component.removeChanges();
               observer.next(result);
               observer.complete();
             }

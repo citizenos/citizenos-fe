@@ -1,3 +1,4 @@
+import { CookieService } from 'ngx-cookie-service';
 import { OnboardingComponent } from './../onboarding/onboarding.component';
 import { DialogService } from 'src/app/shared/dialog';
 import { Component } from '@angular/core';
@@ -41,7 +42,8 @@ export class DashboardComponent {
     private PublicGroupService: PublicGroupService,
     private GroupService: GroupService,
     private NewsService: NewsService,
-    private dialog: DialogService
+    private dialog: DialogService,
+    private CookieService: CookieService
   ) {
     this.groups$ = this.GroupService.loadItems();
     this.news$ = this.NewsService.get().pipe(
@@ -78,12 +80,16 @@ export class DashboardComponent {
   ngAfterViewInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-    setTimeout(() => {
-      this.dialog.closeAll();
-      const onBoarding = this.dialog.open(OnboardingComponent);
-      this.app.mobileTutorial = true;
-      onBoarding.afterClosed().subscribe(() => this.app.mobileTutorial = false);
-    });
+    if (!this.CookieService.get('show-dashboard-tour')){
+      setTimeout(() => {
+        this.dialog.closeAll();
+        const onBoarding = this.dialog.open(OnboardingComponent);
+        this.app.mobileTutorial = true;
+        onBoarding.afterClosed().subscribe(() => {
+          this.CookieService.set('show-dashboard-tour', 'true', 36500); this.app.mobileTutorial = false
+        });
+      });
+    }
   }
 
   showCreateMenu () {

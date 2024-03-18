@@ -34,13 +34,13 @@ const routes: Routes = [
       {
         path: 'create', canActivate: [AuthGuard], children: [
           { path: '', component: VoteCreateComponent },
-          { path: ':topicId', component: VoteCreateComponent }
+          { path: ':topicId', component: VoteCreateComponent, canDeactivate:[CanDeactivateBlockNavigationIfChange] }
         ]
       },
       {
         path: 'edit', canActivate: [AuthGuard], children: [
           { path: '', component: VoteCreateComponent },
-          { path: ':topicId', component: VoteCreateComponent }
+          { path: ':topicId', component: VoteCreateComponent, canDeactivate:[CanDeactivateBlockNavigationIfChange]}
         ]
       }
     ]

@@ -35,6 +35,7 @@ import { TopicJoinService } from 'src/app/services/topic-join.service';
 import { TourService } from 'src/app/services/tour.service';
 import { InviteEditorsComponent } from './components/invite-editors/invite-editors.component';
 import { TopicOnboardingComponent } from './components/topic-onboarding/topic-onboarding.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'topic',
@@ -159,10 +160,10 @@ export class TopicComponent implements OnInit {
     private TourService: TourService,
     private cd: ChangeDetectorRef,
     @Inject(DomSanitizer) private sanitizer: DomSanitizer,
-    public app: AppService
+    public app: AppService,
+    private CookieService: CookieService
   ) {
     this.app.darkNav = true;
-
     this.tabSelected$ = this.route.fragment.pipe(
       map((value) => {
         if (this.hideDiscussion === true && value === 'discussion') {
@@ -206,7 +207,7 @@ export class TopicComponent implements OnInit {
           this.cd.detectChanges();
         }
         if (topic.status === this.TopicService.STATUSES.followUp) {
-          this.events$ = TopicEventService.getItems({ topicId: topic.id }).pipe(map(events => events.rows) );
+          this.events$ = TopicEventService.getItems({ topicId: topic.id }).pipe(map(events => events.rows));
         }
         const padURL = new URL(topic.padUrl);
         if (padURL.searchParams.get('lang') !== this.translate.currentLang) {
@@ -214,7 +215,7 @@ export class TopicComponent implements OnInit {
         }
         padURL.searchParams.set('theme', 'default');
         topic.padUrl = padURL.href; // Change of PAD URL here has to be before $sce.trustAsResourceUrl($scope.topic.padUrl);
-        if (!sessionStorage.getItem('showTutorial')) {
+        if (!this.CookieService.get('show-topic-tour')) {
           setTimeout(() => {
             if (window.innerWidth < 560) {
               this.showTutorial = false;
@@ -228,7 +229,7 @@ export class TopicComponent implements OnInit {
       catchError((err) => {
         this.DialogService.closeAll();
         if (!auth.loggedIn$.value) {
-          router.navigate(['404'], {queryParams: {redirectSuccess: window.location.href}})
+          router.navigate(['404'], { queryParams: { redirectSuccess: window.location.href } })
           app.doShowLogin(window.location.href)
         }
         return of(err);
@@ -282,7 +283,7 @@ export class TopicComponent implements OnInit {
   ngAfterViewInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-    if (window.innerWidth <= 1024) {
+    if (window.innerWidth <= 1024 && !this.CookieService.get('show-topic-tour')) {
       this.skipTour = true;
       setTimeout(() => {
         this.DialogService.closeAll();
@@ -294,11 +295,11 @@ export class TopicComponent implements OnInit {
             this.skipTour = false;
           }
           this.app.mobileTutorial = false
+          this.CookieService.set('show-topic-tour', 'true', 36500)
         });
       });
     } else {
       setTimeout(() => {
-        sessionStorage.setItem('showTutorial', 'true');
         this.showTutorial = false;
       }, 5000);
     }
@@ -485,7 +486,7 @@ export class TopicComponent implements OnInit {
           .duplicate(topic)
           .pipe(take(1))
           .subscribe((duplicate) => {
-            this.router.navigate(['/topics','edit', duplicate.id], {replaceUrl: true, onSameUrlNavigation: 'reload'});
+            this.router.navigate(['/topics', 'edit', duplicate.id], { replaceUrl: true, onSameUrlNavigation: 'reload' });
           });
       }
     })
@@ -512,21 +513,21 @@ export class TopicComponent implements OnInit {
   };
 
   toggleReadMore() {
-    this.readMore=!this.readMore;
-    if(!this.readMore) {
+    this.readMore = !this.readMore;
+    if (!this.readMore) {
       setTimeout(() => {
-        this.readMoreEl?.nativeElement.scrollIntoView({  behavior: "smooth", block: "center", inline: "nearest" });
+        this.readMoreEl?.nativeElement.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
       }, 200);
     }
   }
 
   selectTab(tab: string) {
-    this.tabTablet= '';
+    this.tabTablet = '';
     if (window.innerWidth <= 1024) {
-      this.tabTablet= tab;
+      this.tabTablet = tab;
     }
     if (tab === 'vote') tab = 'voting';
     if (tab === 'arguments') tab = 'discussion';
-    this.router.navigate([], {fragment: tab})
+    this.router.navigate([], { fragment: tab })
   }
 }

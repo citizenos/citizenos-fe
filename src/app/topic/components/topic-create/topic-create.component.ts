@@ -45,6 +45,7 @@ export class TopicCreateComponent implements OnInit, BlockNavigationIfChange {
 
   /**/
   topic$: Observable<Topic>;
+  topic?: Topic;
   groupId?: string;
   errors?: any;
   hasChanges$ = new BehaviorSubject(<boolean>false);
@@ -66,7 +67,8 @@ export class TopicCreateComponent implements OnInit, BlockNavigationIfChange {
           return this.TopicService.loadTopic(params['topicId'])
         }
         return this.createTopic(queryParams);
-      })
+      }),
+      tap((topic) => this.topic = topic)
     );
   }
   ngOnInit(): void {
@@ -92,5 +94,10 @@ export class TopicCreateComponent implements OnInit, BlockNavigationIfChange {
       }
     })
     .unsubscribe();*/
+  }
+
+  removeChanges() {
+    if (this.topic)
+      this.TopicService.revert(this.topic.id, this.topic.revision!).pipe(take(1)).subscribe();
   }
 }
