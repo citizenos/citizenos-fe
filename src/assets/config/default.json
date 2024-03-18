@@ -9,14 +9,9 @@
     "default": "en",
     "list": {
       "de": "Deutsch",
-      "bg": "Български",
       "en": "English",
       "et": "Eesti",
-      "fr": "Français",
-      "ru": "Pусский",
-      "uk": "Українська",
-      "es": "Español",
-      "id": "Bahasa Indonesia"
+      "ru": "Pусский"
     },
     "debug": "dbg"
   },
