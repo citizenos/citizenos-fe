@@ -1,20 +1,32 @@
-import { Component, OnInit } from '@angular/core';
-import { PRIMARY_OUTLET, Router, ActivatedRoute, UrlSegment } from '@angular/router';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { PRIMARY_OUTLET, Router, ActivatedRoute } from '@angular/router';
 import { AppService } from 'src/app/services/app.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { TopicService } from 'src/app/services/topic.service';
 import { Topic } from 'src/app/interfaces/topic';
 import { TranslateService } from '@ngx-translate/core';
+import { TourService } from 'src/app/services/tour.service';
+import { DialogService } from 'src/app/shared/dialog';
 
 @Component({
   selector: 'nav-mobile',
   templateUrl: './nav-mobile.component.html',
-  styleUrls: ['./nav-mobile.component.scss']
+  styleUrls: ['./nav-mobile.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class NavMobileComponent implements OnInit {
+  addPosAbsolute = this.TourService.showTour;
 
-  constructor(private translate: TranslateService, public app: AppService, private Auth: AuthService, private TopicService: TopicService, private router: Router, private route: ActivatedRoute) {
-    console.log(app.topic)
+  constructor(
+    public translate: TranslateService,
+    public app: AppService,
+    private Auth: AuthService,
+    private TopicService: TopicService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private TourService: TourService,
+    private dialog: DialogService
+    ) {
   }
 
   canEdit(topic: Topic) {
@@ -24,7 +36,7 @@ export class NavMobileComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  loggedIn() {
+  isLoggedIn() {
     return this.Auth.loggedIn$;
   }
 
@@ -35,7 +47,6 @@ export class NavMobileComponent implements OnInit {
     } else {
       params['editMode'] = true;
     }
-    console.log('PARAMS', params)
     this.router.navigate(['topics', this.app.topic?.id], { queryParams: params });
   }
 
@@ -66,5 +77,9 @@ export class NavMobileComponent implements OnInit {
     });
 
     return item === path;
+  }
+
+  dialogsOpen() {
+    return this.dialog.openDialogs.length;
   }
 }

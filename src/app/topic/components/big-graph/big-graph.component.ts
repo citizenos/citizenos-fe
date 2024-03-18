@@ -36,7 +36,7 @@ export class BigGraphComponent implements OnInit {
 
   getVoteValuePercentage(value:any) {
     if (!this.getVoteCountTotal() || value < 1 || !value) return 0;
-    return value / this.getVoteCountTotal() * 100;
+    return `${(value / this.getVoteCountTotal() * 100)}%`;
   };
 
   trackByFn(index: number, element: any) {

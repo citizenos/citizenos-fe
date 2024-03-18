@@ -1,0 +1,267 @@
+@use "mixins";
+
+.tabs_row {
+  margin-bottom: 40px;
+}
+#tab_dropdown {
+  margin-bottom: 16px;
+}
+
+.page_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+
+  .page_title {
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 32px;
+
+    @include mixins.mobile {
+      font-size: 18px;
+      line-height: 24px;
+    }
+  }
+}
+
+.page_content {
+  @include mixins.mobile {
+    padding: 56px 16px 16px 16px;
+  }
+}
+.content_section {
+  @include mixins.mobile {
+    padding: 0;
+  }
+}
+#profile_area_wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  @include mixins.mobile {
+    padding-bottom: 96px;
+  }
+
+  .profile_area_section {
+    display: flex;
+    flex-direction: column;
+    border-radius: 16px;
+    background-color: var(--color-surfaces);
+    padding: 24px;
+    gap: 16px;
+
+    &#profile_settings {
+      flex-direction: row;
+      padding: 0;
+      @include mixins.mobile {
+        flex-direction: column;
+      }
+    }
+
+    @include mixins.mobile {
+      flex-direction: column;
+    }
+
+    .filter_section {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+
+      cos-input {
+        width: inherit;
+      }
+      .dropdown_input {
+        max-width: 200px;
+      }
+      @include mixins.mobile {
+        flex-direction: column;
+
+        cos-input,
+        .dropdown_input {
+          max-width: 100%;
+          width: 100%;
+        }
+      }
+
+      .input_area {
+        width: 100%;
+        padding: 0px 0px 0px 16px;
+        gap: 0;
+
+        @include mixins.mobile {
+          input,
+          cos-input {
+            width: 100%;
+            background-color: unset;
+          }
+        }
+        cos-input {
+          width: 100%;
+        }
+      }
+    }
+
+    #profile_image_area {
+      display: flex;
+      flex-direction: column;
+      padding: 24px 40px;
+      background-color: var(--color-surface-contrast);
+      border-top-left-radius: 16px;
+      border-bottom-left-radius: 16px;
+      align-items: center;
+
+      #profile_image_input {
+        width: 1px;
+        height: 1px;
+        border: none;
+        z-index: -1;
+      }
+
+      #profile_image_wrap {
+        display: flex;
+        position: relative;
+        width: 160px;
+        height: 160px;
+
+        #remove_profile_image {
+          position: absolute;
+          top: 0;
+          right: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: var(--color-error-background);
+          width: 40px;
+          height: 40px;
+          border-radius: 20px;
+        }
+
+        #profile_image {
+          width: 160px;
+          height: 160px;
+          display: flex;
+          border-radius: 80px;
+          aspect-ratio: 1;
+          object-fit: cover;
+        }
+
+        .profile_image_filler {
+          width: 100%;
+          background-color: var(--color-surfaces);
+          border-radius: 80px;
+          display: flex;
+          align-items: center;
+          overflow: hidden;
+          justify-content: center;
+          cos-initials {
+            font-size: 24px;
+          }
+        }
+      }
+    }
+
+    #profile_data_area {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 24px;
+      width: 100%;
+
+      #profile_form {
+        width: 400px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        @include mixins.tablet {
+          width: 100%;
+          max-width: 400px;
+          button {
+            @include mixins.mobile {
+              width: 100%;
+            }
+          }
+        }
+      }
+
+      .prefrence_box {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+        background-color: var(--color-surface-contrast);
+        padding: 16px;
+
+        cos-toggle {
+          margin-top: 8px;
+        }
+
+        .delete_account {
+          display: flex;
+          align-items: center;
+          gap: 11px;
+          color: var(--color-error);
+
+          a {
+            color: var(--color-error);
+          }
+        }
+      }
+    }
+
+    .row_list,
+    .row_header {
+      display: flex;
+      @include mixins.mobile {
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .row_cell {
+        width: 25%;
+        display: flex;
+        align-items: center;
+
+        a {
+          display: flex;
+          align-items: center;
+        }
+
+        @include mixins.mobile {
+          width: 100%;
+        }
+
+        &:first-child {
+          width: 50%;
+
+          @include mixins.tablet {
+            width: 75%;
+          }
+
+          @include mixins.mobile {
+            width: 100%;
+          }
+        }
+
+        &:nth-child(2) {
+          gap: 16px;
+          align-items: center;
+          justify-content: space-between;
+          width: 50%;
+
+          @include mixins.tablet {
+            width: 25%;
+          }
+
+          @include mixins.mobile {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}

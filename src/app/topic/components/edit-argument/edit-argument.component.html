@@ -1,6 +1,87 @@
-<div class="argument_edit_wrap">
+<div id="create_argument_footer" [@openSlide]="true ? 'open' : 'closed'">
+  <div id="post_argument_form_wrap">
+    <div class="form_header" translate="COMPONENTS.EDIT_ARGUMENT.FOOTER_FORM_TITLE"></div>
+    <form id="argument_form" [attr.disabled]="!AuthService.loggedIn$.value" name="argumentForm">
+      <div id="type_select_wrap" *ngIf="argument.type !== 'reply'">
+        <div class="type_item" translate="COMPONENTS.EDIT_ARGUMENT.FOOTER_FORM_ARGUMENT_TYPE_TITLE"></div>
+        <div class="type_item" [ngClass]="atype" *ngFor="let atype of ARGUMENT_TYPES; let $index = index">
+          <label class="radio_box" (click)="edit.type = atype">
+            <input type="radio" [checked]="edit.type === atype" name="contrast" value="default">
+            <span class="radio"></span>
+            <div class="radio_lable"
+              translate="{{('COMPONENTS.EDIT_ARGUMENT.ARGUMENT_TYPE_SELECT_OPTION_' + atype | uppercase) | translate}}">
+            </div>
+          </label>
+        </div>
+      </div>
+      <cos-input placeholder="{{'COMPONENTS.EDIT_ARGUMENT.PLACEHOLDER_ADD_SUBJECT_TO_ARGUMENT' | translate }}" *ngIf="argument.type !== 'reply'">
+        <input id="argument_subject" name="subject" [(ngModel)]="edit.subject"
+          placeholder="{{'COMPONENTS.EDIT_ARGUMENT.PLACEHOLDER_ADD_SUBJECT_TO_ARGUMENT' | translate }}" class="gray_borders"
+          [ngClass]="{'error_input': errors?.subject}" [attr.maxlength]="ARGUMENT_SUBJECT_MAXLENGTH" required>
+        <label for="argument_subject" class="error_label" *ngIf="errors?.subject">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M8.89438 1.78863C8.52586 1.05158 7.47405 1.05158 7.10553 1.78863L0.723562 14.5526C0.391112 15.2175 0.874608 15.9998 1.61799 15.9998H14.3819C15.1253 15.9998 15.6088 15.2175 15.2763 14.5526L8.89438 1.78863ZM6.99996 6.99977C6.99996 6.44749 7.44767 5.99977 7.99996 5.99977C8.55224 5.99977 8.99996 6.44749 8.99996 6.99977V9.99977C8.99996 10.5521 8.55224 10.9998 7.99996 10.9998C7.44767 10.9998 6.99996 10.5521 6.99996 9.99977V6.99977ZM6.99996 12.9998C6.99996 12.4475 7.44767 11.9998 7.99996 11.9998C8.55224 11.9998 8.99996 12.4475 8.99996 12.9998C8.99996 13.5521 8.55224 13.9998 7.99996 13.9998C7.44767 13.9998 6.99996 13.5521 6.99996 12.9998Z"
+              fill="#EF4025" />
+          </svg>
+            <span translate="{{errors.subject}}"></span>
+        </label>
+      </cos-input>
+      <div *ngIf="argument.type !== 'reply'" id="subject_counter" translate="COMPONENTS.EDIT_ARGUMENT.SUBJECT_CHARACTERS_LEFT" [translateParams]="{chars: edit.subject.length, charsLeft: ARGUMENT_SUBJECT_MAXLENGTH}"></div>
+      <textarea cosmarkdown name="text"
+        cosmarkdowntranslatecharacterstatuskey="COMPONENTS.EDIT_ARGUMENT.ARGUMENT_TYPE_CHARACTER_LIMIT" id="argument_text"
+        [(item)]="edit.text" class="gray_borders" (itemChange)="updateText($event)"
+        [placeholder]="('COMPONENTS.EDIT_ARGUMENT.PLACEHOLDER_EXPLAIN_YOUR_ARGUMENT' | translate)"
+        [ngClass]="{'error_input': errors?.text}" [limit]="argumentMaxLength()" required></textarea>
+      <label for="argument_text" class="error_label" *ngIf="errors?.text">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M8.89438 1.78863C8.52586 1.05158 7.47405 1.05158 7.10553 1.78863L0.723562 14.5526C0.391112 15.2175 0.874608 15.9998 1.61799 15.9998H14.3819C15.1253 15.9998 15.6088 15.2175 15.2763 14.5526L8.89438 1.78863ZM6.99996 6.99977C6.99996 6.44749 7.44767 5.99977 7.99996 5.99977C8.55224 5.99977 8.99996 6.44749 8.99996 6.99977V9.99977C8.99996 10.5521 8.55224 10.9998 7.99996 10.9998C7.44767 10.9998 6.99996 10.5521 6.99996 9.99977V6.99977ZM6.99996 12.9998C6.99996 12.4475 7.44767 11.9998 7.99996 11.9998C8.55224 11.9998 8.99996 12.4475 8.99996 12.9998C8.99996 13.5521 8.55224 13.9998 7.99996 13.9998C7.44767 13.9998 6.99996 13.5521 6.99996 12.9998Z"
+            fill="#EF4025" />
+        </svg>
+          <span translate="{{errors.text}}"></span>
+      </label>
+    </form>
+  </div>
+  <div id="buttons_row">
+    <div id="close_create">
+      <button class="btn_medium_submit_ghost close_button" (click)="argumentEditMode()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M5.29311 17.2929C4.90258 17.6834 4.90258 18.3166 5.29311 18.7071C5.68363 19.0976 6.3168 19.0976 6.70732 18.7071L12.0002 13.4142L17.2931 18.7071C17.6836 19.0976 18.3168 19.0976 18.7073 18.7071C19.0978 18.3166 19.0978 17.6834 18.7073 17.2929L13.4144 12L18.7073 6.70711C19.0978 6.31658 19.0978 5.68342 18.7073 5.29289C18.3168 4.90237 17.6836 4.90237 17.2931 5.29289L12.0002 10.5858L6.70732 5.29289C6.3168 4.90237 5.68363 4.90237 5.29311 5.29289C4.90258 5.68342 4.90258 6.31658 5.29311 6.70711L10.586 12L5.29311 17.2929Z"
+            fill="#2C3B47" />
+        </svg>
+      </button>
+    </div>
+    <div id="navigate_create">
+      <div translate="COMPONENTS.EDIT_ARGUMENT.ARGUMENT_TYPE_CHARACTER_LIMIT" [translateParams]="{numberOfCharacters: argumentMaxLength() - (edit.text.length || 0)}"></div>
+      <!--button class="btn_medium_submit_ghost">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M7.42058 17.0297H16.6588C16.8706 17.0297 17.0206 16.9414 17.1088 16.7649C17.1971 16.5885 17.1794 16.412 17.0559 16.2355L14.5412 12.9002C14.4353 12.7591 14.3029 12.6885 14.1441 12.6885C13.9853 12.6885 13.8618 12.7591 13.7735 12.9002L11.1794 16.262L9.45882 14.0385C9.35293 13.9149 9.22058 13.8532 9.06176 13.8532C8.90293 13.8532 8.7794 13.9238 8.69117 14.0649L7.02352 16.2355C6.89999 16.412 6.88693 16.5885 6.98434 16.7649C7.08105 16.9414 7.22646 17.0297 7.42058 17.0297Z"
+            fill="#2C3B47" />
+          <rect x="4" y="4" width="16" height="16" rx="1" stroke="#2C3B47" stroke-width="2" />
+        </svg>
+        <span translate="COMPONENTS.EDIT_ARGUMENT.BTN_ADD_IMAGE"></span>
+      </!--button-->
+      <button class="btn_medium_submit" (click)="updateArgument()">
+        <span class="btn_text" translate="COMPONENTS.EDIT_ARGUMENT.BTN_ARGUMENT_POST"></span>
+        <svg id="continue_btn" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M14.5467 6.31262C14.1471 5.89579 13.4991 5.89579 13.0994 6.31262C12.6997 6.72945 12.6997 7.40527 13.0994 7.8221L16.0816 11L6 11C5.43478 11 5 11.4108 5 12.0003C5 12.5897 5.43478 12.9824 6 12.9824L16.0816 12.9824L13.0994 16.1779C12.6997 16.5947 12.6997 17.2705 13.0994 17.6874C13.4991 18.1042 14.1471 18.1042 14.5467 17.6874L20 12L14.5467 6.31262Z"
+            fill="white" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+
+<!--div class="argument_edit_wrap">
   <div class="post_argument_overlay" *ngIf="!AuthService.loggedIn$.value">
-    <h3 translate-compile translate="VIEWS.TOPICS_TOPICID.LOG_IN_TO_PARTICIPATE" (click)="app.doShowLogin()"></h3>
+    <div class="small_heading" translate-compile translate="VIEWS.TOPICS_TOPICID.LOG_IN_TO_PARTICIPATE"></div>
   </div>
 
   <form [attr.disabled]="!AuthService.loggedIn$.value" name="postArgument">
@@ -20,58 +101,6 @@
           </div>
         </div>
       </div>
-
-      <div class="dropdown with_description" *ngIf="app.wWidth <= 560">
-        <div>
-          <ng-container *ngFor="let type of ARGUMENT_TYPES; let $index = index;">
-            <div class="dropdown_item" [ngClass]="['item_' + $index, 'is_' + type.toLowerCase()]" *ngIf="type!=='reply'"
-              (click)="edit.type = type">
-              <div class="item_name">
-                {{('VIEWS.TOPICS_TOPICID.COMMENT_TYPE_SELECT_OPTION_' + type | uppercase) | translate}}
-              </div>
-              <div class="item_descriptions">
-                <div class="item_description" [ngClass]="{'active': $index === 0}"
-                  [ngClass]="['item_' + $index, 'is_' + type.toLowerCase()]" (click)="edit.type = type">
-                  <p>{{('VIEWS.TOPICS_TOPICID.COMMENT_TYPE_SELECT_OPTION_DESCRIPTION_' + type) | uppercase | translate}}
-                  </p>
-                  <p class="bold" translate="VIEWS.TOPICS_TOPICID.COMMENT_TYPE_CHARACTER_LIMIT"
-                    [translateParams]="{numberOfCharacters: ARGUMENT_TYPES_MAXLENGTH[type]}"></p>
-                  <button *ngIf="app.isTouchDevice()  && ($index === 0 || edit.type === type)"
-                    class="light_gray_button full_width dropdown_selector {{type}}" (click)="edit.type = type"
-                    translate="DROPDOWN_BTN_SELECT">Select</button>
-                </div>
-              </div>
-            </div>
-          </ng-container>
-        </div>
-      </div>
-
-      <div class="dropdown with_description" *ngIf="app.wWidth > 560">
-        <div class="column">
-          <ng-container *ngFor="let type of ARGUMENT_TYPES; let $index = index">
-            <div class="dropdown_item" [ngClass]="['item_' + $index, 'is_' + type.toLowerCase()]" *ngIf="type !== 'reply'"
-              (click)="edit.type = type">
-              <div class="item_name">
-                {{('VIEWS.TOPICS_TOPICID.COMMENT_TYPE_SELECT_OPTION_' + type | uppercase) | translate}}
-              </div>
-            </div>
-          </ng-container>
-        </div>
-        <div class="column dropdown_item_descriptions">
-          <ng-container *ngFor="let type of ARGUMENT_TYPES; let $index = index">
-            <div class="item_description" *ngIf="type !== 'reply'"
-              [ngClass]="['item_' + $index, 'is_' + type.toLowerCase()]" (click)="edit.type = type">
-              <!-- {active: $index === 0}-->
-              <p>{{('VIEWS.TOPICS_TOPICID.COMMENT_TYPE_SELECT_OPTION_DESCRIPTION_' + type | uppercase) | translate}}</p>
-              <p class="bold" translate="VIEWS.TOPICS_TOPICID.COMMENT_TYPE_CHARACTER_LIMIT"
-                [translateParams]="{numberOfCharacters: ARGUMENT_TYPES_MAXLENGTH[type]}"></p>
-              <button *ngIf="app.isTouchDevice() && ($index === 0 || edit.type === type)"
-                class="light_gray_button full_width dropdown_selector" (click)="edit.type = type"
-                translate="DROPDOWN_BTN_SELECT"></button>
-            </div>
-          </ng-container>
-        </div>
-      </div>
     </div>
 
     <input id="comment_edit_subject" name="subject" [(ngModel)]="edit.subject" *ngIf="edit.type !== 'reply'"
@@ -79,10 +108,12 @@
       [ngClass]="{'error_input': errors?.subject}" [attr.maxlength]="ARGUMENT_SUBJECT_MAXLENGTH" required>
 
     <label for="comment_edit_subject" class="error_label" *ngIf="errors?.subject">
-      <div class="table_cell">
-        <div class="sprite sprite-icon-inputfield-error2x"></div>
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M8.89438 1.78863C8.52586 1.05158 7.47405 1.05158 7.10553 1.78863L0.723562 14.5526C0.391112 15.2175 0.874608 15.9998 1.61799 15.9998H14.3819C15.1253 15.9998 15.6088 15.2175 15.2763 14.5526L8.89438 1.78863ZM6.99996 6.99977C6.99996 6.44749 7.44767 5.99977 7.99996 5.99977C8.55224 5.99977 8.99996 6.44749 8.99996 6.99977V9.99977C8.99996 10.5521 8.55224 10.9998 7.99996 10.9998C7.44767 10.9998 6.99996 10.5521 6.99996 9.99977V6.99977ZM6.99996 12.9998C6.99996 12.4475 7.44767 11.9998 7.99996 11.9998C8.55224 11.9998 8.99996 12.4475 8.99996 12.9998C8.99996 13.5521 8.55224 13.9998 7.99996 13.9998C7.44767 13.9998 6.99996 13.5521 6.99996 12.9998Z"
+          fill="#EF4025" />
+      </svg>
         <span translate="{{errors.subject}}"></span>
-      </div>
     </label>
 
     <textarea cosmarkdown cosmarkdowntranslatecharacterstatuskey="VIEWS.TOPICS_TOPICID.COMMENT_TYPE_CHARACTER_LIMIT"
@@ -91,10 +122,12 @@
       [(item)]="edit.text" [ngClass]="{'error_input': errors?.text}" [limit]="argumentMaxLength()" required></textarea>
 
     <label for="comment_edit" class="error_label" *ngIf="errors?.text">
-      <div class="table_cell">
-        <div class="sprite sprite-icon-inputfield-error2x"></div>
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M8.89438 1.78863C8.52586 1.05158 7.47405 1.05158 7.10553 1.78863L0.723562 14.5526C0.391112 15.2175 0.874608 15.9998 1.61799 15.9998H14.3819C15.1253 15.9998 15.6088 15.2175 15.2763 14.5526L8.89438 1.78863ZM6.99996 6.99977C6.99996 6.44749 7.44767 5.99977 7.99996 5.99977C8.55224 5.99977 8.99996 6.44749 8.99996 6.99977V9.99977C8.99996 10.5521 8.55224 10.9998 7.99996 10.9998C7.44767 10.9998 6.99996 10.5521 6.99996 9.99977V6.99977ZM6.99996 12.9998C6.99996 12.4475 7.44767 11.9998 7.99996 11.9998C8.55224 11.9998 8.99996 12.4475 8.99996 12.9998C8.99996 13.5521 8.55224 13.9998 7.99996 13.9998C7.44767 13.9998 6.99996 13.5521 6.99996 12.9998Z"
+          fill="#EF4025" />
+      </svg>
         <span translate="{{errors.text}}"></span>
-      </div>
     </label>
 
     <div class="argument_footer_with_buttons">
@@ -110,4 +143,4 @@
       </div>
     </div>
   </form>
-</div>
+</!--div -->

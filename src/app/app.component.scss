@@ -1,104 +1,58 @@
-@use "mixins_n_extends";
-@use "vars";
+@use "mixins";
 
-#search_area {
+#content_root {
+  display: flex;
+  flex-direction: column;
   position: absolute;
-  overflow: hidden;
   top: 0;
-  right: 0;
-  left: 190px;
-  height: 60px;
-  text-align: left;
-  font-size: 14px;
-  transition: all 220ms ease-out;
+  left: 200px;
+  width: calc(100% - 200px);
+  min-height: 100%;
+  background-color: var(--color-background);
 
-  @include mixins_n_extends.tablet {
-      right: 136px;
+  &.fixed {
+    position: fixed;
+  }
+  &.no_scroll {
+    overflow: hidden;
+    height: 100%;
   }
 
-  @media (max-width: 750px) {
-      left: 62px;
-  }
-
-  @media (max-width: 340px) {
-      right: 70px;
-  }
-
-  @media  print {
-      display: none;
-  }
-}
-
-/* SEARCH AREA (Search bar styles in nav.scss) */
-#search_area_close {
-  position: fixed;
-  top: 60px;
-  left: 190px;
-  right: 0;
-  bottom: 0;
-  z-index: 1;
-  @include mixins_n_extends.tablet {
+  @include mixins.tablet {
+    width: 100%;
     left: 0;
   }
-}
 
+  #content_header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-evenly;
+    position: relative;
 
-#mobile_header {
-  height: 60px;
-  background: vars.$medium_black;
-  z-index: 4;
-  padding-right: 138px;
-  padding-left: 190px;
-  left: 0;
-  right: 0;
+    #notification_wrap {
+      width: 100%;
+    }
 
-  position: fixed;
-  width: 100%;
-  box-sizing: border-box;
-
-  @include mixins_n_extends.mobile {
-    padding-left: 60px;
+    #search_wrap {
+      min-width: 300px;
+      margin-left: 16px;
+    }
   }
 
-  @media (max-width: "340px") {
-    padding-right: 73px;
-  }
-}
+  #content {
+    width: 100%;
+    min-height: 100%;
+    flex-direction: column;
+    position: relative;
 
+    #view {
+      width: 100%;
+    }
 
-
-.nav {
-  width: vars.$nav_d_width;
-  height: 100%;
-  background: vars.$medium_black;
-  color: vars.$transparent_white;
-  font-size: 13px;
-  position: fixed;
-  z-index: 10;
-  overflow-y: auto;
-  overflow-x: hidden;
-  &.nav_is_open {
-    right: 0;
-    width: vars.$nav_t_width;
-  }
-  .dark_line {
-    margin-top: 16px;
-  }
-
-  .logo {
-    margin-top: 20px;
-  }
-
-  @include mixins_n_extends.tablet {
-    right: -(vars.$nav_t_width);
-    transition: all 220ms cubic-bezier(0.45, 0.78, 0, 1);
-    overflow-y: visible;
-    overflow-x: hidden;
-    padding-bottom: 60px;
-    box-sizing: border-box;
-    top: 60px;
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
+    &.notifications {
+    //  padding-top: 77px;
+    }
   }
 }
 

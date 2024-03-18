@@ -1,0 +1,123 @@
+@use "mixins";
+
+.dialog {
+  max-width: 560px;
+}
+.small_heading {
+  color: var(--color-text);
+}
+.dialog_content {
+  padding: 0 24px;
+
+  @include mixins.mobile {
+    padding: 0 8px;
+  }
+
+  .text_wrap {
+    padding: 24px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    div {
+      line-height: 20px;
+    }
+  }
+
+  .button_wrap {
+    padding: 32px 0;
+  }
+}
+
+.email_preview_wrap {
+  display: flex;
+  padding: 24px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 16px;
+  background: var(--color-surface-contrast);
+
+  .email_preview {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .email_header {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      border-radius: 16px 16px 0px 0px;
+      height: 88px;
+      padding: 16px;
+      background: var(--color-dialog-contrast);
+
+      .email_title_desc {
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 16px;
+        color: var(--color-border-active);
+      }
+      .email_title {
+        font-size: 22px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 24px;
+      }
+    }
+
+    .email_body {
+      width: 100%;
+      display: flex;
+      padding: 32px;
+      background-color: var(--color-surfaces);
+      flex-direction: column;
+      gap: 32px;
+
+      .text_area {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        b {
+          margin-left: 4px;
+        }
+      }
+
+      .vote_info_wrap {
+        background-color: var(--color-dialog-voting);
+        border-radius: 8px;
+        display: flex;
+        gap: 24px;
+        padding: 16px;
+        align-items: center;
+
+        .vote_info_text {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          align-items: flex-start;
+          gap: 8px;
+          .info_row {
+            display: flex;
+            gap: 8px;
+          }
+        }
+      }
+
+      .button_wrap {
+        width: 100%;
+        padding: 0;
+        .btn_medium_submit {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+.notification_inline {
+  .message {
+    display: block;
+  }
+}

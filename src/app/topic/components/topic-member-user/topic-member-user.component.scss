@@ -1,0 +1,76 @@
+@use "mixins";
+
+.name,
+.level,
+.actions {
+  display: flex;
+  @include mixins.mobile {
+    gap: 8px;
+    justify-content: flex-start;
+    width: 100%;
+  }
+}
+
+.member_info {
+  display: flex;
+  flex-direction: column;
+
+  .via {
+    font-size: 13px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 16px; /* 123.077% */
+        color: var(--color-argument-info);
+  }
+}
+
+.name {
+  flex: 5 5 0;
+  text-align: start;
+  justify-content: flex-start;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+}
+
+.level {
+  flex: 3 3 0;
+  justify-content: center;
+  align-items: center;
+
+  .level_heading,
+  .dropdown {
+    flex: 2 2 0;
+
+    &.button_dropdown {
+      align-items: flex-end;
+    }
+    .options {
+      position: fixed;
+      width: max-content;
+      min-width: max-content;
+      max-width: max-content;
+    }
+  }
+  .button_heading {
+    justify-content: center;
+    flex: 1 1 0;
+    display: flex;
+  }
+
+  button {
+    flex: 1 1 0;
+  }
+
+  @include mixins.mobile {
+    width: 100%;
+    justify-content: space-between;
+    flex: initial;
+    gap: 8px;
+
+    button {
+      flex: initial;
+      width: 32px;
+    }
+  }
+}

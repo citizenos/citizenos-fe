@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 import { NotificationService } from 'src/app/services/notification.service';
 import { TopicNotificationService } from 'src/app/services/topic-notification.service';
 import { TopicService } from 'src/app/services/topic.service';
@@ -12,7 +12,7 @@ import { Topic } from 'src/app/interfaces/topic';
   styleUrls: ['./topic-notification-settings.component.scss']
 })
 export class TopicNotificationSettingsComponent implements OnInit {
-  @Input() topicId?: string;
+  @Input() topicId!: string;
   private supportedTabs = ['general'];
   public tabSelected = 'general';
 
@@ -31,14 +31,15 @@ export class TopicNotificationSettingsComponent implements OnInit {
     private TopicNotificationService: TopicNotificationService,
     private Notification: NotificationService,
     private Topic: TopicService,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private dialog: MatDialog) {
+    @Inject(DIALOG_DATA) public data: any,
+    private dialog: DialogService) {
     if (data.topicId)
       this.topicId = data.topicId;
+
+    this.topic$ = this.Topic.get(this.data.topicId);
   }
 
   ngOnInit(): void {
-    this.topic$ = this.Topic.get(this.data.topicId);
     this.settings = this.TopicNotificationService.get({ topicId: this.topicId }).pipe(
       tap((settings: any) => {
         this.allowNotifications = settings.allowNotifications;

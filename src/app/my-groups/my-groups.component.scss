@@ -1,62 +1,149 @@
-@use 'vars';
-@use 'mixins_n_extends';
+@use "mixins";
 
-#topics_root {
-    @extend %default_setup;
+.page_content {
+  gap: 24px;
 
-    .v_line.separator {
-        width: 1px;
-        background: vars.$medium_gray;
-        top: 0;
-        bottom: 0;
-        position: absolute;
+  @include mixins.tablet {
+    margin: 60px 0;
+    gap: 16px;
 
-        @media (max-width: 750px) {
-            display: none;
+    #page_header {
+      margin: 0;
+      padding: 8px 0 0 0;
+
+      h3 {
+        margin: 0;
+      }
+    }
+  }
+
+  @include mixins.mobile {
+    padding: 0;
+
+    #page_header {
+      padding: 16px 8px 0 8px;
+    }
+  }
+}
+
+#page_filters_wrap {
+  display: flex;
+  flex-direction: row;
+  border-radius: 16px;
+  background-color: var(--color-surfaces);
+  width: 100%;
+  padding: 16px;
+  gap: 16px;
+  @include mixins.mobile {
+    margin: 0 8px;
+    padding: 0;
+    width: auto;
+  }
+  #options_area {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    gap: 16px;
+    position: relative;
+
+    .options_row {
+      display: flex;
+      gap: 16px;
+      width: 100%;
+      position: relative;
+
+      @include mixins.tablet {
+        flex-flow: row wrap;
+      }
+
+      .dropdown_input {
+        flex-grow: 1;
+        min-width: calc(25% - 12px);
+
+        @include mixins.tablet {
+          min-width: calc(50% - 12px);
         }
-    }
+      }
 
-    .topics_left .v_line.separator {
-        right: 0;
-    }
-
-    .topics_right .v_line.separator {
-        left: -1px;
-    }
-
-    #topics_wrap {
-        background: vars.$light_gray;
-
-        .container_header {
-            margin-top: 10px;
-            height: 30px;
-            background: vars.$medium_gray;
-            display: table;
-            width: 100%;
-            padding-left: 5px;
-            box-sizing: border-box;
-
-            .header_text {
-                @extend %table_cell;
-                font-size: 13px;
-                padding-left: 5px;
-                cursor: pointer;
-            }
-
-            .blue_link {
-                font-size: 13px;
-            }
-
-            .header_img_wrap {
-                height: 30px;
-                width: 25px;
-                @extend %table_cell;
-                img {
-                    height: 20px;
-                    width: 20px;
-                    display: block;
-                }
-            }
+      .input_area {
+        flex-grow: 2;
+        padding: 0 16px;
+        cos-input {
+          width: 100%;
         }
+      }
     }
+  }
+
+  @include mixins.mobile {
+    .dropdown {
+      width: 100%;
+    }
+  }
+
+  .filter_control_buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    button {
+      width: 40px;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+      perspective: 40px;
+
+      &.flip {
+        transform: rotateX(180deg);
+      }
+
+      .btn_icon {
+        display: flex;
+        width: 24px;
+        height: 24px;
+
+        path {
+          fill: none;
+        }
+      }
+      &:hover {
+        .btn_icon {
+          transform: rotate(-360deg);
+          transition: transform 150ms ease;
+          transition-delay: 200ms;
+          path {
+            stroke: var(--color-surfaces);
+          }
+        }
+      }
+    }
+  }
+}
+
+.groups_content {
+  width: 100%;
+  display: flex;
+  gap: 24px;
+  flex-flow: row wrap;
+
+  @include mixins.tablet {
+    gap: 20px;
+  }
+  @include mixins.mobile {
+    padding: 0 16px;
+    justify-content: center;
+    group-box {
+      width: 100%;
+    }
+  }
+}
+
+#close_create {
+  @extend %all_zero;
+  position: fixed;
+  cursor: pointer;
+  z-index: 1;
+
+  @include mixins.tablet {
+    background-color: rgba(44, 59, 71, 0.8);
+  }
 }

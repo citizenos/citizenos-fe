@@ -4,14 +4,24 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { LocationService } from './location.service';
-import { BehaviorSubject, map } from 'rxjs';
+import { BehaviorSubject, Observable, map, of, switchMap } from 'rxjs';
 import { ItemsListService } from './items-list.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GroupMemberTopicService extends ItemsListService {
-  params = Object.assign(this.defaultParams, { groupId: <string | null>null, visibility: <string | null| undefined>null });
+  params = Object.assign(this.defaultParams, {
+    groupId: <string | null>null,
+    showModerated: <boolean>false,
+    visibility: <string | null| undefined>null,
+    country: <Array<string> | string | null>null,
+    language: <Array<string> | string | null>null,
+    statuses: <Array<string> | string | null>null,
+    include: <Array<string> | string | null>null,
+    favourite: <boolean | null | string> null,
+    title: <string | null>null
+  });
   params$ = new BehaviorSubject(this.params);
   constructor(private http: HttpClient, private Location: LocationService, private Auth: AuthService, private Topic: TopicService) {
     super();
@@ -66,14 +76,14 @@ export class GroupMemberTopicService extends ItemsListService {
       );
   }
 
-  query(params: { [key: string]: any }) {
+  query(params: { [key: string]: any }): Observable<ApiResponse> {
     let path = this.Location.getAbsoluteUrlApi(
       this.Auth.resolveAuthorizedPath('/groups/:groupId/members/topics')
       , params);
     const queryParams = Object.fromEntries(Object.entries(params).filter((i) => i[1] !== null));
     return this.http.get<ApiResponse>(path, { params: queryParams, withCredentials: true, responseType: 'json', observe: 'body' })
       .pipe(
-        map(res => res.data)
+        switchMap(res => of(res.data))
       );
   }
 

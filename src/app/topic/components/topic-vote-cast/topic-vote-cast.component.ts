@@ -6,11 +6,15 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { TopicService } from 'src/app/services/topic.service';
 import { TopicVoteService } from 'src/app/services/topic-vote.service';
 import { VoteDelegationService } from 'src/app/services/vote-delegation.service';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { take } from 'rxjs';
 import { TopicVoteSignComponent } from '../topic-vote-sign/topic-vote-sign.component';
+import { TopicVoteDeadlineComponent } from '../topic-vote-deadline/topic-vote-deadline.component';
 import { TopicVoteDelegateComponent } from '../topic-vote-delegate/topic-vote-delegate.component';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
+import { TopicVoteReminderDialog } from 'src/app/topic/components/topic-vote-reminder-dialog/topic-vote-reminder-dialog.component';
+import { DownloadVoteResultsComponent } from '../download-vote-results/download-vote-results.component';
+
 @Component({
   selector: 'topic-vote-cast',
   templateUrl: './topic-vote-cast.component.html',
@@ -25,10 +29,11 @@ export class TopicVoteCastComponent implements OnInit {
   VOTE_TYPES = this.TopicVoteService.VOTE_TYPES;
   VOTE_AUTH_TYPES = this.TopicVoteService.VOTE_AUTH_TYPES;
   userHasVoted: boolean = false;
+  editVote: boolean = false;
 
   constructor(
     public app: AppService,
-    private dialog: MatDialog,
+    private dialog: DialogService,
     private Notification: NotificationService,
     public AuthService: AuthService,
     private TopicService: TopicService,
@@ -37,6 +42,18 @@ export class TopicVoteCastComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.vote.options.rows.forEach((option: any) => {
+      if (option.selected) {
+        this.userHasVoted = true;
+      }
+    })
+    if (this.vote.delegation) {
+      this.userHasVoted = true;
+    }
+  }
+
+  canUpdate() {
+    return this.TopicService.canUpdate(this.topic);
   }
 
   canVote() {
@@ -47,14 +64,6 @@ export class TopicVoteCastComponent implements OnInit {
   canDelegate() {
     return this.TopicVoteService.canDelegate(this.topic);
   }
-
-  isRadio(vote: any, option: any) {
-    if (option.value === 'Neutral' || option.value === 'Veto') return true;
-    if (vote.type === 'regular' || vote.maxChoices === 1) return true;
-
-    return false;
-  };
-
 
   canSubmit() {
     if (!this.vote.options || !Array.isArray(this.vote.options.rows)) return false;
@@ -96,7 +105,10 @@ export class TopicVoteCastComponent implements OnInit {
             options
           }
         });
-
+      signDialog.afterClosed().subscribe(() => {
+        this.TopicService.reloadTopic()
+        this.TopicVoteService.reloadVote();
+      });
       return;
     } else {
       options.forEach((dOption: any) => {
@@ -112,6 +124,8 @@ export class TopicVoteCastComponent implements OnInit {
               next: (vote) => {
                 this.vote = vote;
                 this.topic.vote = vote;
+                this.TopicService.reloadTopic()
+                this.TopicVoteService.reloadVote();
               },
               error: (err) => {
                 console.error(err);
@@ -119,11 +133,90 @@ export class TopicVoteCastComponent implements OnInit {
             });
             this.Notification.removeAll();
             this.Notification.addSuccess('VIEWS.TOPICS_TOPICID.MSG_VOTE_REGISTERED');
+            this.editVote = false;
+            this.userHasVoted = true;
           }, error: (err) => {
             console.error(err);
           }
         });
     }
+  }
+
+  saveVote() {
+    const saveVote: any = Object.assign(this.vote, { topicId: this.topic.id });
+    this.TopicVoteService.update(saveVote)
+      .pipe(take(1))
+      .subscribe({
+        next: (vote) => {
+          this.vote = vote;
+          this.TopicService.reloadTopic();
+          this.dialog.closeAll();
+        },
+        error: (res) => {
+          console.debug('closeVoting() ERR', res, res.errors, this.vote.options);
+          Object.values(res).forEach((message) => {
+            if (typeof message === 'string')
+              this.Notification.addError(message);
+          });
+        }
+      });
+  }
+  closeVoting() {
+    const closeVoteDialog = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        level: 'warn',
+        heading: 'COMPONENTS.CLOSE_VOTING_CONFIRM.HEADING',
+        description: 'COMPONENTS.CLOSE_VOTING_CONFIRM.ARE_YOU_SURE',
+        confirmBtn: 'COMPONENTS.CLOSE_VOTING_CONFIRM.CONFIRM_YES',
+        closeBtn: 'COMPONENTS.CLOSE_VOTING_CONFIRM.CONFIRM_NO'
+      }
+    });
+    closeVoteDialog.afterClosed().subscribe({
+      next: (value) => {
+        if (value) {
+          this.vote.endsAt = new Date();
+          this.saveVote();
+          this.topic.status = this.TopicService.STATUSES.followUp;
+          this.TopicService.patch(this.topic).pipe(take(1)).subscribe({
+            next: () => {
+              this.TopicService.reloadTopic();
+            }
+          });
+        }
+      }
+    });
+  }
+
+  sendVoteReminder() {
+    const voteReminderDialog = this.dialog.open(TopicVoteReminderDialog, {
+      data: {
+        topic: this.topic,
+        vote: this.vote
+      }
+    });
+    voteReminderDialog.afterClosed().subscribe({
+      next: (send) => {
+        console.log(send)
+        if (send===true) {
+          this.vote.reminderTime = new Date();
+          this.saveVote();
+          this.TopicVoteService.reloadVote();
+          this.Notification.addSuccess('COMPONENTS.TOPIC_VOTE_CAST.MSG_VOTE_REMINDER_SENT');
+        }
+      }
+    })
+  }
+
+  editDeadline() {
+    const voteDeadlineDialog = this.dialog.open(TopicVoteDeadlineComponent, {
+      data: {
+        vote: this.vote,
+        topic: this.topic
+      }
+    });
+  }
+  canEditDeadline() {
+    return this.topic.status === this.TopicService.STATUSES.voting;
   }
 
   hasVoteEndedExpired() {
@@ -134,7 +227,7 @@ export class TopicVoteCastComponent implements OnInit {
     return this.TopicVoteService.hasVoteEnded(this.topic, this.vote);
   };
 
-  doDelegate() {
+  delegate() {
     if (!this.vote.delegation) {
       const delegateDialog = this.dialog
         .open(TopicVoteDelegateComponent, {
@@ -144,16 +237,25 @@ export class TopicVoteCastComponent implements OnInit {
         });
     }
   };
+
   doRevokeDelegation() {
     const revokeDialog = this.dialog
       .open(
         ConfirmDialogComponent, {
         data: {
-          level: 'delete',
+          level: 'voting',
           heading: 'MODALS.TOPIC_VOTE_REVOKE_DELEGATION_CONFIRM_HEADING',
-          title: 'MODALS.TOPIC_VOTE_REVOKE_DELEGATION_CONFIRM_TXT_ARE_YOU_SURE',
+          description: 'MODALS.TOPIC_VOTE_REVOKE_DELEGATION_CONFIRM_TXT_ARE_YOU_SURE',
           confirmBtn: 'MODALS.TOPIC_VOTE_REVOKE_DELEGATION_CONFIRM_YES',
-          closeBtn: 'MODALS.TOPIC_VOTE_REVOKE_DELEGATION_CONFIRM_NO'
+          closeBtn: 'MODALS.TOPIC_VOTE_REVOKE_DELEGATION_CONFIRM_NO',
+          svg: `<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M26.3432 15.9229L27.0634 10L21.1505 10.7214L23.1001 12.6743L15.7221 20.0647L17.1292 21.4742L24.5072 14.0838L26.3432 15.9229Z" fill="#5AB467"/>
+          <path d="M17.9282 29L28 18.9113L26.5929 17.5018L17.9352 26.174L13.4071 21.6524L12 23.0618L17.9282 29Z" fill="#5AB467"/>
+          <path d="M27 27L32 32" stroke="#5AB467" stroke-width="4" stroke-linecap="square"/>
+          <path d="M8 8L13 13" stroke="#5AB467" stroke-width="4" stroke-linecap="square"/>
+          <rect x="2" y="2" width="36" height="36" rx="18" stroke="#5AB467" stroke-width="4"/>
+          </svg>
+          `
         }
       });
 
@@ -179,6 +281,10 @@ export class TopicVoteCastComponent implements OnInit {
     if (!this.canVote()) {
       return false;
     }
+    if (option.selected) {
+      delete option.selected;
+      return;
+    }
     this.vote.options.rows.forEach((opt: any) => {
       if (option.value === 'Neutral' || option.value === 'Veto' || this.vote.maxChoices === 1) {
         opt.selected = false;
@@ -196,9 +302,68 @@ export class TopicVoteCastComponent implements OnInit {
     const isSelected = selected.find((item: any) => {
       if (item.id === option.id) return item;
     });
-
     if (selected.length >= this.vote.maxChoices && !isSelected) return;
     option.selected = !option.selected;
     return;
   };
+
+  voteGraphDasharray() {
+    let val = 2 * 3.14 * 20;
+    return `${val}px`;
+  }
+  voteGraphDashOffset(pecentage: number) {
+    let val = (2 * 3.14 * 20) * ((100 - pecentage) / 100);
+    return `${val}px`;
+  }
+
+  triggerFinalDownload(type: string, includeCSV?: boolean) {
+    let url = ''
+    if (this.vote.downloads?.bdocFinal || this.vote.downloads?.zipFinal) {
+      if (type === 'zip') {
+        url = this.vote.downloads.zipFinal;
+      } else {
+        url = this.vote.downloads.bdocFinal;
+      }
+      if (!url) return;
+      if (includeCSV) {
+        url += '&include[]=csv';
+      }
+      window.location.href = url;
+      return;
+    }
+    const finalDownloadDialog = this.dialog.open(DownloadVoteResultsComponent);
+    finalDownloadDialog.afterClosed().subscribe({
+      next: (allow: any) => {
+        if (allow === 'deadline') {
+          this.editDeadline();
+        } else if (allow === true) {
+          this.topic.status = this.TopicService.STATUSES.followUp;
+          this.TopicService.patch(this.topic).pipe(take(1)).subscribe({
+            next: () => {
+              this.TopicService.reloadTopic();
+              this.TopicVoteService.loadVote({ topicId: this.topic.id, voteId: this.topic.voteId! })
+                .pipe(take(1))
+                .subscribe({
+                  next: (vote) => {
+                    if (type === 'zip') {
+                      url = vote.downloads.zipFinal;
+                    } else {
+                      url = vote.downloads.bdocFinal;
+                    }
+                    if (!url) return;
+                    if (includeCSV) {
+                      url += '&include[]=csv';
+                    }
+                    window.location.href = url;
+                  }
+                });
+            }
+          });
+        }
+      },
+      error: (err) => {
+
+      }
+    })
+  }
 }

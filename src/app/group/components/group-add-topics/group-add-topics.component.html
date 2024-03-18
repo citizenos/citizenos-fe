@@ -1,153 +1,217 @@
-<!-- LIGHTBOX SKELETON -->
-<div id="root_lightbox" class="full_screen">
-
-  <div id="lightbox" class="wide_lightbox with_header_menu" [ngClass]="group.id ? 'with_title_description' : ''">
-
-    <div id="lightbox_wrap">
-
-      <div id="lightbox_header">
-
-        <div id="lightbox_header_text">
-          <div class="title" translate="MODALS.GROUP_ADD_TOPICS_HEADING"></div>
-          <div class="title_description" *ngIf="group.visibility == VISIBILITY.private">
-            {{group.name}}</div>
-          <div class="title_description_register" *ngIf="group.visibility == VISIBILITY.public"
-            translate="MODALS.GROUP_ADD_TOPICS_DESCRIPTION"></div>
-        </div>
-
-        <div id="lightbox_close" class="ngdialog-close" mat-dialog-close>
-          <div class="table_cell ngdialog-close">
-            <div class="sprite sprite-btn-popup-close2x ngdialog-close">
-            </div>
-          </div>
-        </div>
-
-        <div class="clearer"></div>
-      </div>
-
-      <div class="line lightest_line"></div>
-
-      <!-- ADD TOPICS -->
-      <div class="lightbox_content settings_section_wrap padding_bottom_zero">
-        <div class="lightbox_section" *ngIf="canUpdate()">
-          <div class="input_text_margin_bottom" translate="MODALS.GROUP_CREATE_SETTINGS_LBL_ADD_TOPICS"></div>
-          <div [cosDropdown] [ngClass]="{search_with_dropdown : resultCount, dropdown_active : resultCount}">
-            <!--[items]="searchResults$ | async"-->
-            <typeahead class="searchbox_with_icon_and_text auto-complete"
-              [term]="searchStringTopic" (search)="search($event)" (select)="addGroupMemberTopic($event)" (enterAction)="addGroupMemberTopic($event)"
-              [placeholder]="'MODALS.GROUP_CREATE_SETTINGS_PLACEHOLDER_SEARCH_TOPIC' | translate">
-              <div class="search_icon">
-                <div class="table_cell">
-                  <div class="sprite sprite-icon-search-gray-2x"></div>
+<div class="create_content_section" *ngIf="group">
+  <div class="section_content_wrap">
+    <div class="small_heading" translate="COMPONENTS.GROUP_ADD_TOPICS.HEADING" *ngIf="!dialog"></div>
+    <div translate="COMPONENTS.GROUP_ADD_TOPICS.DESC"></div>
+    <div id="search_wrap">
+      <typeahead id="input_area" [term]="searchStringTopic" (search)="search($event)"
+        (select)="addGroupMemberTopic($event)" (enterAction)="addGroupMemberTopic($event)"
+        [placeholder]="'COMPONENTS.GROUP_ADD_TOPICS.PLACEHOLDER_SEARCH' | translate">
+        <ng-container *ngIf="searchResults$ | async as searchResults">
+          <div class="search_area_wrap" [ngClass]="{hidden: !searchResults.length}">
+            <div class="search_dropdown_item" [typeaheadItem]="topic" *ngFor="let topic of searchResults"
+              (click)="addGroupMemberTopic(topic)">
+              <div class="item_text_wrap">
+                <div>
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M7.83808 1.33398C8.36851 1.33398 8.87722 1.5447 9.25229 1.91977L12.7474 5.41487C13.1225 5.78994 13.3332 6.29865 13.3332 6.82908V13.1858C13.3332 14.0007 12.6932 14.6673 11.9109 14.6673H4.08161C3.29939 14.6673 2.6665 14.0007 2.6665 13.1858L2.67362 2.81547C2.67362 2.00065 3.3065 1.33398 4.08873 1.33398H7.83808ZM12.3251 6.3259C12.4511 6.45189 12.3618 6.66732 12.1837 6.66732H8.99984C8.44755 6.66732 7.99984 6.2196 7.99984 5.66732V2.48349C7.99984 2.30531 8.21527 2.21608 8.34126 2.34207L12.3251 6.3259Z"
+                      fill="#2C3B47" />
+                  </svg>
                 </div>
-              </div>
-              <div class="search_text">
-                <div class="table_cell blue_link" translate="MODALS.GROUP_CREATE_SETTINGS_TXT_PRESS_ENTER_TO_ADD"></div>
-              </div>
-              <ng-container *ngIf="searchResults$ | async as searchResults">
-                <div class="search_area_wrap" [ngClass]="{hidden: !searchResults.length}">
-                  <div class="search_dropdown_area">
-                    <div class="search_dropdown_item" [typeaheadItem]="topic" *ngFor="let topic of searchResults">
-                      <div class="table_cell search_item_text">
-                        <b>{{topic.title}}</b>
-                      </div>
-                      <div class="table_cell blue_link">
-                        <span class="submit_link" (click)="addGroupMemberTopic(topic)"
-                          translate="MODALS.GROUP_CREATE_SETTINGS_TXT_PRESS_ENTER_OR_CLICK_TO_ADD"></span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </ng-container>
-            </typeahead>
-          </div>
-        </div>
-        <div class="lightbox_section double_row_list small_header" *ngIf="memberTopics.length">
-          <div class="category_title">
-            <div class="table_cell">
-              Order by:
-              <div class="black_link" (click)="doOrderTopics('title')">
-                <span translate="MODALS.GROUP_CREATE_SETTINGS_TH_TITLE"></span>
-                <div class="sprite sprite-icon-list-ordering2x"
-                  *ngIf="searchOrderBy === 'title' || searchOrderBy === '-title'"
-                  [ngClass]="{desc : searchOrderBy === '-title'}"></div>
-              </div>
-              <div class="black_link" (click)="doOrderTopics('members.users.count')">
-                <span translate="MODALS.GROUP_CREATE_SETTINGS_TH_USERS"></span>
-                <div class="sprite sprite-icon-list-ordering2x"
-                  *ngIf="searchOrderBy === 'members.users.count' || searchOrderBy === '-members.users.count'"
-                  [ngClass]="{desc : searchOrderBy === '-members.users.count'}"></div>
+                <b>{{topic.title}}</b>
               </div>
             </div>
           </div>
-
-          <div class="double_row_item"
-            *ngFor="let topic of memberTopics"><!-- | orderBy: searchOrderBy-->
-            <div class="blue_link">
-              {{topic.title}}
-            </div>
-            <div class="double_row_footer">
-              <div class="left" [innerHtml]="'MODALS.GROUP_CREATE_SETTINGS_TXT_TOPIC_USERS' | translate : { count: topic.members.users.count}"></div>
-              <div class="right">
-                <span class="dropdown_description" translate="MODALS.GROUP_CREATE_SETTINGS_LBL_GROUP_RIGHTS"></span>
-
-                <div class="btn_wrap recycle_bin white_bg">
-                  <div class="btn">
-                    <div class="table_cell" (click)="removeGroupMemberTopic(topic)">
-                      <div class="sprite desktop_fix sprite-mytopics-icon-deletetopic2x"></div>
-                      <div class="sprite mobile_fix sprite-voted-check2x"></div>
-                    </div>
-                  </div>
-                </div>
-
-                <div [cosDropdown] class="classic_dropdown"
-                  *ngIf="group.visibility === VISIBILITY.private">
-                  <div class="dropdown_selection">
-                    <div class="dropdown_text">
-                      {{'TXT_TOPIC_LEVELS_' + topic.permission.level | uppercase | translate}}
-                    </div>
-
-                    <div class="arrow_holder">
-                      <div class="table_cell">
-                        <div class="sprite sprite-icon-dropdown-arrowdown2x"></div>
-
-                        <div class="v_line"></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="dropdown">
-                    <div class="dropdown_item" *ngFor="let level of LEVELS">
-                      <div class="item_name" (click)="updateGroupMemberTopicLevel(topic, level)">
-                        {{'TXT_TOPIC_LEVELS_' + level | uppercase | translate}}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="bold" *ngIf="group.visibility === VISIBILITY.public">
-                  {{'TXT_TOPIC_LEVELS_' + topic.permission.level | uppercase | translate}}
-                </div>
-              </div>
-
-              <div class="clearer"></div>
-
+        </ng-container>
+      </typeahead>
+      <cos-input *ngIf="totalPages(group.members.topics) > 1 && !dialog"
+        [placeholder]="'COMPONENTS.GROUP_ADD_TOPICS.SHOW_PER_PAGE' | translate" class="dropdown_input">
+        <div class="dropdown" [cosDropdown]>
+          <div class="selection">
+            <div class="selected_item">{{itemsPerPage}}</div>
+            <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+              </svg>
             </div>
           </div>
-
+          <div class="options">
+            <div class="option" (click)="itemsPerPage = 5">5</div>
+            <div class="option" (click)="itemsPerPage = 10">10</div>
+            <div class="option" (click)="itemsPerPage = 15">15</div>
+          </div>
         </div>
-      </div>
-
-      <div class="lightbox_footer">
-
-        <div class="line lightest_line"></div>
-        <div class="blue_button_wrap">
-          <div class="blue_button" *ngIf="canUpdate()" (click)="doSaveGroup()"
-            translate="MODALS.GROUP_CREATE_SETTINGS_BTN_SAVE_GROUP"></div>
-        </div>
-      </div>
+      </cos-input>
     </div>
+  </div>
+</div>
+<div class="create_content_section"
+  *ngIf="group.members.topics?.length === 0 && !dialog || group.members.topics?.length > 0">
+  <div id="topic_members_list_wrap" class="table_section">
+    <ng-container *ngIf="group.members.topics?.length === 0 && !dialog">
+      <div class="no_items">
+        <svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g clip-path="url(#clip0_437_52785)">
+            <rect width="96" height="96" rx="48" fill="#F1F7FC" />
+            <path d="M60.4741 84.8165L33.9747 87.5576L34.5735 98.5014L60.4741 98.5014L60.4741 84.8165Z"
+              fill="#5C9CD0" />
+            <path
+              d="M39.426 73.0151C39.5735 75.6403 39.847 80 39.847 80L55.7464 78.1781C55.7464 78.1781 55.0377 71.6809 57.1247 69.2952C57.4164 68.9617 57.734 68.6141 58.0625 68.2546C60.0836 66.0426 62.5181 63.3781 61.9031 60.7461C61.188 57.6862 55.7332 56.5701 55.7332 56.5701L57.5454 38.1548C57.6222 37.3983 57.3872 36.6431 56.8917 36.0541C56.3963 35.4651 55.6807 35.0903 54.9013 35.0116C54.1676 34.9469 53.4359 35.1552 52.8545 35.5942C52.2731 36.0332 51.8854 36.6701 51.7698 37.3759L49.9372 47.3073C49.9372 47.3073 49.2501 44.0056 47.2133 43.8671C45.1764 43.7286 43.9381 45.5234 43.5256 47.9962C42.9343 46.6963 41.9339 46.17 40.9594 46.4954L40.8798 46.2683C40.8798 46.2683 40.8724 46.3611 40.8593 46.5318C39.8666 46.9164 38.7753 47.761 38.8743 50.475C37.9455 49.4105 37.0625 48.7395 36.1955 48.9294L36.1113 48.687C36.1113 48.687 36.1102 48.7806 36.1087 48.9513C35.9414 48.9992 35.7747 49.0798 35.6083 49.1965C34.5519 49.9373 33.9007 53.5686 34.0124 55.5409C34.0291 55.8357 34.0298 56.2681 34.0307 56.79C34.0356 59.7597 34.0454 65.6267 37.0307 65.5227C37.1332 65.8435 37.3363 66.3302 37.5829 66.9211C38.2775 68.5858 39.3171 71.0776 39.426 73.0151Z"
+              fill="#F8E1B8" />
+            <path
+              d="M54.8583 23.9809C53.9701 23.8388 53.0892 23.7882 52.2249 23.8217C51.7301 23.8408 51.3136 23.4511 51.2946 22.9512C51.2756 22.4513 51.6614 22.0304 52.1562 22.0113C53.1366 21.9733 54.1344 22.0309 55.1386 22.1914C56.1429 22.352 57.1095 22.6086 58.0304 22.9506C58.4952 23.1232 58.7334 23.6438 58.5626 24.1134C58.3917 24.583 57.8765 24.8237 57.4117 24.6511C56.5999 24.3495 55.7466 24.1229 54.8583 23.9809Z"
+              fill="#2C3B47" />
+            <path
+              d="M47.5621 23.8584C47.7699 24.3126 47.5739 24.8509 47.1244 25.0608C45.5219 25.8092 44.0768 26.8703 42.8774 28.1791C42.541 28.5462 41.9737 28.5683 41.6103 28.2284C41.247 27.8885 41.2252 27.3153 41.5616 26.9482C42.9202 25.4656 44.5568 24.264 46.372 23.4163C46.8215 23.2063 47.3543 23.4043 47.5621 23.8584Z"
+              fill="#2C3B47" />
+            <path
+              d="M63.1024 26.0916C62.7391 25.7517 62.1718 25.7738 61.8354 26.1409C61.499 26.508 61.5208 27.0811 61.8842 27.421C63.1796 28.6328 64.2298 30.0929 64.9705 31.712C65.1783 32.1661 65.7111 32.3641 66.1606 32.1542C66.6101 31.9442 66.806 31.4059 66.5982 30.9518C65.7592 29.1178 64.5698 27.4643 63.1024 26.0916Z"
+              fill="#2C3B47" />
+            <path
+              d="M39.6036 31.535C40.0684 31.7076 40.3067 32.2282 40.1358 32.6978C39.8374 33.518 39.6131 34.3801 39.4725 35.2776C39.3306 36.1834 39.2808 37.0816 39.3158 37.9627C39.3357 38.4626 38.9507 38.8842 38.456 38.9042C37.9612 38.9243 37.544 38.5354 37.5241 38.0355C37.4844 37.036 37.5409 36.0185 37.7014 34.9944C37.8603 33.9797 38.1142 33.0031 38.4527 32.0727C38.6236 31.6031 39.1389 31.3624 39.6036 31.535Z"
+              fill="#2C3B47" />
+            <path
+              d="M67.9888 36.7958C67.9699 36.2958 67.5534 35.9061 67.0586 35.9253C66.5637 35.9445 66.178 36.3653 66.197 36.8652C66.2301 37.7384 66.18 38.6284 66.0394 39.5259C65.8988 40.4233 65.6745 41.2854 65.3761 42.1056C65.2052 42.5752 65.4435 43.0958 65.9082 43.2684C66.373 43.441 66.8883 43.2003 67.0591 42.7307C67.3977 41.8003 67.6516 40.8237 67.8105 39.8091C67.9695 38.7944 68.0264 37.7863 67.9888 36.7958Z"
+              fill="#2C3B47" />
+            <path
+              d="M63.9015 46.5751C64.2649 46.915 64.2867 47.4881 63.9503 47.8552C62.5917 49.3378 60.9551 50.5394 59.1398 51.3872C58.6903 51.5971 58.1575 51.3991 57.9498 50.945C57.742 50.4909 57.938 49.9526 58.3874 49.7427C59.9899 48.9943 61.4351 47.9332 62.6345 46.6244C62.9709 46.2572 63.5382 46.2352 63.9015 46.5751Z"
+              fill="#2C3B47" />
+            <path
+              d="M38.2749 84.5623C39.1038 84.6439 39.8411 84.0312 39.9218 83.1938C40.0026 82.3564 39.3961 81.6114 38.5673 81.5299C37.7385 81.4483 37.0012 82.061 36.9204 82.8984C36.8397 83.7358 37.4461 84.4807 38.2749 84.5623Z"
+              fill="#2C3B47" />
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M39.3799 42.7231C39.8282 42.5107 40.3621 42.7057 40.5723 43.1587C40.6995 43.4328 40.8356 43.7023 40.9803 43.9668C41.8928 42.1943 43.2772 41.2609 45.055 41.3536C45.8337 41.4099 46.649 41.9902 47.1918 42.557L48.3388 35.5884C48.5077 34.595 49.0424 33.7029 49.8354 33.0912C50.6284 32.4795 51.621 32.1936 52.6141 32.2908C53.1427 32.3154 53.6596 32.4573 54.1278 32.7065C54.5961 32.9556 55.0044 33.3058 55.3237 33.7323C55.6743 34.1291 55.9369 34.5969 56.094 35.1046C56.2511 35.6122 56.299 36.148 56.2345 36.6758L54.5393 54.4304C56.3041 54.9858 59.7778 56.4391 60.4789 59.271C61.2199 62.519 58.6208 65.5353 56.4948 67.9009C56.3365 68.0761 56.193 68.2283 56.0495 68.3803C55.9062 68.5323 55.7625 68.6846 55.6043 68.8597C54.4472 70.2178 54.2574 73.6881 54.3615 76.0866L58.0734 75.5942C58.3564 75.5768 58.6291 75.6765 58.8323 75.8717C58.8516 75.9013 58.873 75.9319 58.8951 75.9635C59.0171 76.1378 59.163 76.3462 59.1139 76.6317L59.2153 83.4638L60.1263 83.3543C60.4435 83.3431 60.7523 83.4587 60.9856 83.6762C61.008 83.7089 61.0328 83.7426 61.0585 83.7776C61.2001 83.9702 61.3693 84.2004 61.3218 84.5092L61.1399 99H58.9026L59.0685 85.7694L34.704 88.7339L35.8982 99H33.5586L32.2791 87.8386C32.2604 87.686 32.2729 87.5311 32.3157 87.3834C32.3585 87.2358 32.4308 87.0986 32.528 86.9802C32.6253 86.8619 32.7454 86.7649 32.8812 86.6952C33.0169 86.6255 33.1653 86.5846 33.3173 86.575L33.9625 86.4975L33.2007 79.9546C33.1874 79.8144 33.2019 79.6714 33.2432 79.5345C33.2846 79.3975 33.3519 79.2695 33.4412 79.1583C33.5304 79.0471 33.6396 78.9551 33.7621 78.8879C33.8846 78.8207 34.0177 78.7797 34.1533 78.7675L36.8294 78.4125C36.7459 77.0079 36.5755 74.108 36.4736 72.1497C36.1363 70.1456 35.5629 68.1895 34.7655 66.3231C34.6927 66.0308 34.5795 65.7504 34.4294 65.49C33.911 65.3494 33.4302 65.0936 33.0222 64.7414C31.179 62.8584 31.0624 58.9049 31.0365 55.2704C31.0084 54.9615 30.9987 54.6512 31.0072 54.3411C30.9385 52.7593 31.3415 48.0445 33.0887 46.8986C33.5031 46.5869 34.0001 46.4072 34.5162 46.3824C35.0322 46.3576 35.5439 46.4888 35.9858 46.7592C36.1389 46.131 36.451 45.5538 36.8915 45.0842C37.332 44.6145 37.8857 44.2686 38.4984 44.0804C38.648 44.0227 38.8021 43.9788 38.9586 43.949L38.9487 43.9278C38.7385 43.4748 38.9316 42.9354 39.3799 42.7231ZM55.1673 66.2923L54.2262 67.3482C51.9604 69.4952 51.9137 73.9897 51.8916 76.1168L51.8914 76.1336L38.7375 77.8095C38.6006 76.3155 38.5027 73.8044 38.4395 71.9548C38.0937 69.7024 37.4746 67.5016 36.5964 65.4021C36.5773 65.3589 36.5585 65.3156 36.5402 65.2721C37.1153 65.001 37.7683 64.5255 38.2963 63.7023C38.6022 63.8321 38.9394 63.8758 39.2715 63.8252C39.7997 63.7979 40.3126 63.6408 40.7661 63.3684C41.0105 63.6052 41.2835 63.8113 41.5794 63.9814C42.1433 64.2627 42.7618 64.4145 43.3906 64.4261C44.9796 64.4113 46.0221 63.3688 46.5187 61.3854L50.3439 62.5647C50.6384 62.6454 50.9524 62.6082 51.2205 62.4609C51.4886 62.3136 51.6902 62.0675 51.7832 61.7738C51.834 61.6266 51.8538 61.4703 51.8412 61.3149C51.8287 61.1596 51.7842 61.0086 51.7105 60.8716C51.6367 60.7347 51.5355 60.6148 51.4132 60.5198C51.2909 60.4247 51.1503 60.3565 51.0004 60.3196L43.4882 58.0037C43.215 57.9128 42.9817 57.7284 42.8287 57.4822C42.6757 57.2361 42.6126 56.9437 42.6502 56.6555C42.6688 56.5041 42.7171 56.3579 42.7922 56.2256C42.8674 56.0932 42.9679 55.9773 43.0879 55.8846C43.2079 55.792 43.345 55.7245 43.4912 55.686C43.6373 55.6475 43.7896 55.6389 43.9391 55.6605C44.6868 55.6764 45.4071 55.745 46.0764 55.8086L46.1736 55.8179C46.2504 55.8998 46.3372 55.9723 46.4322 56.0336C46.4841 56.0703 46.5436 56.0945 46.6062 56.1043C46.6688 56.1142 46.7328 56.1094 46.7933 56.0904C47.0578 56.1174 47.3224 56.0531 47.5446 55.9096C49.416 56.014 51.2805 56.2226 53.1295 56.5344C53.343 56.5485 53.5546 56.5023 53.7415 56.4032C55.0597 56.7108 58.2512 57.8063 58.6969 59.7555C59.1667 61.8102 56.9855 64.2818 55.1673 66.2923ZM36.5852 62.0992C36.5134 61.9819 36.4467 61.8611 36.3854 61.7371C35.8436 60.4954 35.9173 54.647 35.9643 50.9176C35.9696 50.499 35.9745 50.107 35.9782 49.7512C34.9984 48.5549 34.5828 48.7293 34.4111 48.8015C34.3994 48.8064 34.3884 48.811 34.3788 48.8144C33.7641 49.2657 33.1424 52.1722 33.1958 54.276C33.1659 54.6144 33.1603 54.9544 33.179 55.2935C33.1861 55.5006 33.1918 55.7446 33.198 56.0157L33.198 56.0167C33.2478 58.1677 33.3375 62.046 34.492 63.1208C34.6104 63.1968 34.7421 63.2482 34.8793 63.2726C34.9454 63.2603 35.0127 63.2538 35.0804 63.2534C35.5032 63.1885 35.8939 62.9867 36.1935 62.6783C36.3579 62.509 36.4901 62.3127 36.5852 62.0992ZM38.4966 60.9095C38.4556 60.8256 38.4136 60.7319 38.3704 60.6275C38.0434 59.8364 38.0969 54.3724 38.1425 49.7276L38.1442 49.5541C38.1522 49.5269 38.159 49.4993 38.1647 49.4714C38.1917 49.3386 38.1918 49.2017 38.1647 49.069C38.1675 46.6002 38.9833 46.256 39.3905 46.2244C39.963 46.0649 40.2759 46.4893 40.5113 46.9486C40.3064 48.911 39.247 59.0755 39.5905 61.2426C39.6064 61.317 39.6243 61.3909 39.6442 61.4641C39.5372 61.5578 39.4055 61.6334 39.2688 61.6242C39.1592 61.6169 39.0532 61.5906 38.9455 61.5169C38.9234 61.4496 38.8953 61.3839 38.8614 61.3207C38.7724 61.1554 38.6469 61.0151 38.4966 60.9095ZM52.749 54.1246L54.4135 36.4854C54.4461 36.0382 54.3101 35.5952 54.0328 35.2451C53.9007 35.0474 53.7222 34.8858 53.5133 34.7747C53.3043 34.6635 53.0715 34.6063 52.8354 34.608C52.3961 34.5679 51.9581 34.697 51.6091 34.9694C51.2601 35.2419 51.0259 35.6375 50.9534 36.077L49.1763 46.1072C49.1824 46.1866 49.1804 46.2666 49.1702 46.346L48.2509 53.6756C49.5934 53.7709 50.9939 53.8797 52.749 54.1246ZM45.9564 53.5313L46.8612 46.2931C46.853 46.2609 46.8463 46.2283 46.841 46.1952C46.601 45.4133 45.9398 43.6403 45.119 43.5872C43.4991 43.5036 42.9341 45.8086 42.7798 46.8545C42.7735 46.8838 42.7662 46.9128 42.7577 46.9414C42.6632 48.0539 42.5434 49.3299 42.4197 50.6489L42.4194 50.6522C42.3207 51.7034 42.2195 52.782 42.1264 53.8272C42.7268 53.4941 43.4158 53.348 44.1052 53.414C44.7004 53.4873 45.2766 53.5074 45.8327 53.5269L45.9564 53.5313ZM41.7432 59.7442C41.7431 60.1882 41.7623 60.5297 41.8059 60.7406C41.8077 60.8398 41.8204 60.9382 41.8434 61.0341C41.8799 61.0868 41.9122 61.1428 41.9399 61.2016C41.9784 61.2836 42.007 61.3693 42.0255 61.4569C42.0919 61.5588 42.172 61.6515 42.2636 61.7321C42.4043 61.8558 42.5691 61.9484 42.7474 62.0037C42.9256 62.0591 43.1134 62.0761 43.2986 62.0536C43.5145 62.0544 44.0195 62.0328 44.3195 60.7074L42.8317 60.2487C42.5995 60.2265 42.3758 60.1499 42.178 60.025C42.0257 59.942 41.8805 59.848 41.7432 59.7442ZM57.1971 83.7062L36.0438 86.2474L35.3425 80.7258L57.0784 77.8425L57.1971 83.7062Z"
+              fill="#2C3B47" />
+          </g>
+          <defs>
+            <clipPath id="clip0_437_52785">
+              <rect width="96" height="96" rx="48" fill="white" />
+            </clipPath>
+          </defs>
+        </svg>
+
+        <div class="text_wrap">
+          <div class="small_heading" translate="COMPONENTS.GROUP_ADD_TOPICS.NO_TOPICS_HEADING"></div>
+          <div class="text" translate="COMPONENTS.GROUP_ADD_TOPICS.NO_TOPICS_DESC"></div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="group.members.topics?.length">
+      <div class="container" [ngClass]="{'dialog_container': dialog}">
+        <div class="row header_row" *ngIf="!dialog">
+          <div class="title"><a translate="COMPONENTS.GROUP_ADD_TOPICS.HEADING_TITLE"></a></div>
+          <div class="participants" translate="COMPONENTS.GROUP_ADD_TOPICS.HEADING_PARTICIPANTS"></div>
+          <div class="level with_tooltip" translate="COMPONENTS.GROUP_ADD_TOPICS.HEADING_GROUP_PERMISSIONS">
+            <div class="tooltip" tooltip>
+              <div class="content_title" translate="COMPONENTS.GROUP_ADD_TOPICS.TOOLTIP_GROUP_PERMISSIONS_TITLE"></div>
+              <div class="content_description" translate="COMPONENTS.GROUP_ADD_TOPICS.TOOLTIP_GROUP_PERMISSIONS_CONTENT">
+              </div>
+            </div>
+          </div>
+          <div class="actions mobile_hide" translate="COMPONENTS.GROUP_ADD_TOPICS.HEADING_ACTIONS"></div>
+        </div>
+        <ng-container *ngFor="let topic of group.members.topics; index as i;">
+
+          <div class="row" *ngIf="isOnPage(i, membersPage)" [ngClass]="{'dialog_row': dialog}">
+            <div class="title">
+              <div class="cell_title" translate="COMPONENTS.GROUP_ADD_TOPICS.HEADING_TITLE"></div>
+              <a target='_blank' [routerLink]="['/', translate.currentLang, 'topics', topic.id]"
+                class="member_topic_title">
+                {{topic.title}}
+              </a>
+            </div>
+            <ng-container *ngIf="dialog">
+              <div class="dialog_wrap_items">
+                <div class="level mobile_hidden with_tooltip" translate="COMPONENTS.GROUP_ADD_TOPICS.HEADING_GROUP_PERMISSIONS">
+                  <div class="tooltip" tooltip>
+                    <div class="content_title" translate="COMPONENTS.GROUP_ADD_TOPICS.TOOLTIP_GROUP_PERMISSIONS_TITLE"></div>
+                    <div class="content_description" translate="COMPONENTS.GROUP_ADD_TOPICS.TOOLTIP_GROUP_PERMISSIONS_CONTENT">
+                    </div>
+                  </div>
+                </div>
+                <div class="level">
+                  <div class="cell_title" translate="COMPONENTS.GROUP_ADD_TOPICS.HEADING_GROUP_PERMISSIONS">
+                    <div class="tooltip" tooltip>
+                      <div class="content_title" translate="COMPONENTS.GROUP_ADD_TOPICS.TOOLTIP_GROUP_PERMISSIONS_TITLE"></div>
+                      <div class="content_description" translate="COMPONENTS.GROUP_ADD_TOPICS.TOOLTIP_GROUP_PERMISSIONS_CONTENT">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="dropdown" [cosDropdown]
+                    [cosDisabled]="TopicService.canUpdate(topic) && group.visibility !== GroupService.VISIBILITY.public">
+                    <div class="selection">
+                      <div class="selected_item">{{'TXT_TOPIC_LEVELS_' + (topic.permission.level) |
+                        uppercase | translate}}</div>
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
+                      </svg>
+                    </div>
+                    <div class="options">
+                      <div class="option" *ngFor="let level of GroupMemberTopicService.LEVELS | keyvalue"
+                        (click)="topic.permission.level = level.value">
+                        {{'TXT_TOPIC_LEVELS_' + level.value | uppercase | translate}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="actions remove_item_mobile">
+                  <button (click)="removeGroupMemberTopic(topic)">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M6 6.00065H7.33333L7.33333 11.334H6L6 6.00065Z" fill="#2C3B47" />
+                      <path d="M10 6.00065H8.66667L8.66667 11.334H10L10 6.00065Z" fill="#2C3B47" />
+                      <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M11.3333 3.33398V2.66732C11.3333 1.93094 10.7364 1.33398 10 1.33398L6 1.33398C5.26362 1.33398 4.66667 1.93094 4.66667 2.66732V3.33398L2.66667 3.33398C2.29848 3.33398 2 3.63246 2 4.00065C2 4.36884 2.29848 4.66732 2.66667 4.66732H3.33333L3.33333 12.0007C3.33333 13.1053 4.22877 14.0007 5.33333 14.0007L10.6667 14.0007C11.7713 14.0007 12.6667 13.1053 12.6667 12.0007L12.6667 4.66732H13.3333C13.7015 4.66732 14 4.36884 14 4.00065C14 3.63246 13.7015 3.33398 13.3333 3.33398H11.3333ZM10 2.66732L6 2.66732V3.33398L10 3.33398V2.66732ZM11.3333 4.66732L4.66667 4.66732L4.66667 12.0007C4.66667 12.3689 4.96515 12.6673 5.33333 12.6673L10.6667 12.6673C11.0349 12.6673 11.3333 12.3689 11.3333 12.0007L11.3333 4.66732Z"
+                        fill="#2C3B47" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="!dialog">
+              <div class="participants">
+                <div class="cell_title" translate="COMPONENTS.GROUP_ADD_TOPICS.HEADING_PARTICIPANTS"></div>
+                <span>{{topic.members.users.count}}</span>
+              </div>
+              <div class="level">
+                <div class="cell_title" translate="COMPONENTS.GROUP_ADD_TOPICS.HEADING_GROUP_PERMISSIONS">
+                  <div class="tooltip" tooltip>
+                    <div class="content_title" translate="COMPONENTS.GROUP_ADD_TOPICS.TOOLTIP_GROUP_PERMISSIONS_TITLE"></div>
+                    <div class="content_description" translate="COMPONENTS.GROUP_ADD_TOPICS.TOOLTIP_GROUP_PERMISSIONS_CONTENT">
+                    </div>
+                  </div>
+                </div>
+                <div class="dropdown" [cosDropdown]
+                  [cosDisabled]="TopicService.canUpdate(topic) && group.visibility !== GroupService.VISIBILITY.public">
+                  <div class="selection">
+                    <div class="selected_item">{{'TXT_TOPIC_LEVELS_' + (topic.permission.level) |
+                      uppercase | translate}}</div>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                  </div>
+                  <div class="options">
+                    <div class="option" *ngFor="let level of GroupMemberTopicService.LEVELS | keyvalue"
+                      (click)="topic.permission.level = level.value">
+                      {{'TXT_TOPIC_LEVELS_' + level.value | uppercase | translate}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="actions remove_item_mobile">
+                <button (click)="removeGroupMemberTopic(topic)">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 6.00065H7.33333L7.33333 11.334H6L6 6.00065Z" fill="#2C3B47" />
+                    <path d="M10 6.00065H8.66667L8.66667 11.334H10L10 6.00065Z" fill="#2C3B47" />
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M11.3333 3.33398V2.66732C11.3333 1.93094 10.7364 1.33398 10 1.33398L6 1.33398C5.26362 1.33398 4.66667 1.93094 4.66667 2.66732V3.33398L2.66667 3.33398C2.29848 3.33398 2 3.63246 2 4.00065C2 4.36884 2.29848 4.66732 2.66667 4.66732H3.33333L3.33333 12.0007C3.33333 13.1053 4.22877 14.0007 5.33333 14.0007L10.6667 14.0007C11.7713 14.0007 12.6667 13.1053 12.6667 12.0007L12.6667 4.66732H13.3333C13.7015 4.66732 14 4.36884 14 4.00065C14 3.63246 13.7015 3.33398 13.3333 3.33398H11.3333ZM10 2.66732L6 2.66732V3.33398L10 3.33398V2.66732ZM11.3333 4.66732L4.66667 4.66732L4.66667 12.0007C4.66667 12.3689 4.96515 12.6673 5.33333 12.6673L10.6667 12.6673C11.0349 12.6673 11.3333 12.3689 11.3333 12.0007L11.3333 4.66732Z"
+                      fill="#2C3B47" />
+                  </svg>
+                </button>
+              </div>
+            </ng-container>
+          </div>
+        </ng-container>
+      </div>
+    </ng-container>
 
   </div>
-
-  <div id="close_lightbox" class="ngdialog-close" mat-dialog-close></div>
-
 </div>

@@ -1,15 +1,31 @@
-@use "mixins_n_extends";
+@use "mixins";
 
-#lightbox {
+.page_content {
+  gap: 16px;
+  padding: 16px 24px 0px 24px;
 
-  input {
-    @extend %input_small;
+  @include mixins.tablet {
+    margin: 60px 0;
+    padding: 8px 16px 0 16px;
   }
 
-  input,
-  button {
-    &:not(:first-child) {
-      margin-top: 10px;
-    }
+  @include mixins.mobile {
+    padding: 0;
+  }
+}
+
+
+#group_invite, #group_add_topics  {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+#help_wrap {
+  flex-direction: column;
+  gap: 16px;
+
+  a {
+    padding-top: 8px;
   }
 }

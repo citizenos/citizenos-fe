@@ -1,0 +1,48 @@
+@use "mixins";
+
+#create_menu {
+  position: fixed;
+  top: 74px;
+  left: 200px;
+
+  box-shadow: 0px 12px 16px rgba(50, 85, 112, 0.1),
+    0px 8px 20px rgba(220, 231, 240, 0.3);
+  border-radius: 16px;
+
+  @include mixins.tablet {
+    bottom: 72px;
+    left: 50%;
+    transform: translateX(-50%);
+    right: auto;
+    top: auto;
+    justify-content: space-around;
+  }
+
+  @include mixins.mobile {
+    bottom: 56px;
+    width: 100%;
+    border-radius: 16px 16px 0 0;
+  }
+}
+
+#close_dialog {
+  @extend %all_zero;
+  position: fixed;
+  cursor: pointer;
+  z-index: 1;
+
+  @include mixins.tablet {
+    background-color: rgba(44, 59, 71, 0.8);
+  }
+}
+#create_close_mobile {
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  height: 56px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}

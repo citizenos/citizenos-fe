@@ -1,77 +1,33 @@
-<!-- LIGHTBOX SKELETON -->
-<div class="line lightest_line"></div>
-<div id="root_lightbox" class="full_screen left_menu_visible">
-  <div id="lightbox" class="aligned_left_top">
-    <div id="lightbox_wrap">
-
-      <div id="lightbox_header">
-
-        <div id="lightbox_header_text">
-          <div class="title" translate="MODALS.ACTIVITY_MODAL_HEADING"></div>
-          {{ActivityService.params$.value['filter']?.toUpperCase()}}
-          <div [cosDropdown] class="classic_dropdown">
-
-            <div class="dropdown_selection">
-              <div class="dropdown_text medium"
-                translate="ACTIVITY_FEED.FILTER_{{((ActivityService.params$ | async)?.include?.toUpperCase() || 'ALL')}}">
-              </div>
-
-              <div class="arrow_holder">
-                <div class="table_cell">
-                  <div class="sprite sprite-icon-dropdown-arrowdown2x"></div>
-
-                  <div class="v_line"></div>
-                </div>
-              </div>
-            </div>
-            <div class="dropdown">
-
-              <!-- NO CATEGORY -->
-              <div class="dropdown_item" *ngFor="let filter of ActivityService.filters"
-                (click)="filterActivities(filter)">
-                <div class="item_name medium" translate="ACTIVITY_FEED.FILTER_{{filter.toUpperCase()}}">
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        <div id="lightbox_close" mat-dialog-close>
-          <div class="table_cell">
-            <div class="sprite sprite-btn-popup-close2x">
-            </div>
-          </div>
-        </div>
-
+<div id="activity_feed" [TourItem]="{tourid: 'dashboard', index: 3, position: 'left'}"
+  [@openClose]="show? 'open' : 'closed'" [ngClass]="{'mobile_page': !modal}" (scroll)="loadMore($event)">
+  <div class="feed_heading_wrap">
+    <div class="small_heading" [translate]="'COMPONENTS.ACTIVITY_FEED.HEADING_'+feedType | uppercase"></div>
+    <a class="btn_medium_close icon" (click)="close()" *ngIf="modal">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289Z"
+          fill="#2C3B47" />
+      </svg>
+    </a>
+  </div>
+  <cos-input [placeholder]="'COMPONENTS.ACTIVITY_FEED.PLACEHOLDER_FILTER' | translate" *ngIf="!this.groupId && !this.topicId">
+    <div class="dropdown" [cosDropdown]>
+      <div class="selection">
+        <div class="selected_item">{{'COMPONENTS.ACTIVITY_FEED.FILTER_' + ((ActivityService.params$ |
+          async)?.include?.toUpperCase() || 'ALL') | translate}}</div>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+        </svg>
 
       </div>
-
-      <div class="line lightest_line"></div>
-
-
-      <!-- CONFIRM CONTENT -->
-      <div class="lightbox_content" (scroll)="loadMore($event)">
-        <div class="lightbox_section">
-          <div class="activity_wrap modal">
-            <div class="activity_area">
-              <activity [activitygroup]="item" *ngFor="let item of activities$ | async"></activity>
-            </div>
-          </div>
+      <div class="options">
+        <div class="option" *ngFor="let filter of ActivityService.filters" (click)="filterActivities(filter)"
+          translate="COMPONENTS.ACTIVITY_FEED.FILTER_{{filter.toUpperCase()}}">
         </div>
-
       </div>
-
-      <div class=" lightbox_background">
-      </div>
-
-
     </div>
+  </cos-input>
+  <div id="results_area">
+    <activity [activitygroup]="item" *ngFor="let item of activities$ | async"></activity>
   </div>
-
-  <div id="close_lightbox" mat-dialog-close>
-  </div>
-
 </div>

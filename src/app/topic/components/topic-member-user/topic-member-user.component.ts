@@ -6,9 +6,10 @@ import { TopicService } from 'src/app/services/topic.service';
 import { TopicMemberUserService } from 'src/app/services/topic-member-user.service';
 import { take } from 'rxjs';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { NotificationService } from 'src/app/services/notification.service';
 
 
 @Component({
@@ -24,9 +25,10 @@ export class TopicMemberUserComponent implements OnInit {
   userLevels = Object.keys(this.TopicService.LEVELS)
   constructor(
     private AuthService: AuthService,
-    private dialog: MatDialog,
+    private dialog: DialogService,
     private Translate: TranslateService,
     private TopicService: TopicService,
+    private Notification: NotificationService,
     private TopicMemberUserService: TopicMemberUserService,
     private router: Router,
   ) { }
@@ -42,7 +44,7 @@ export class TopicMemberUserComponent implements OnInit {
     return this.fields?.indexOf(field) > -1
   }
 
-  doUpdateMemberUser(level: string) {
+  doUpdateMemberUser(level: any) {
     if (this.member.level !== level) {
       const oldLevel = this.member.level;
       this.member.level = level;
@@ -64,13 +66,16 @@ export class TopicMemberUserComponent implements OnInit {
       data: {
         level: 'delete',
         heading: 'MODALS.TOPIC_MEMBER_USER_DELETE_CONFIRM_HEADING',
-        title: 'MODALS.TOPIC_MEMBER_USER_DELETE_CONFIRM_TXT_ARE_YOU_SURE',
+        description: 'MODALS.TOPIC_MEMBER_USER_DELETE_CONFIRM_TXT_ARE_YOU_SURE',
         confirmBtn: 'MODALS.TOPIC_MEMBER_USER_DELETE_CONFIRM_YES',
         closeBtn: 'MODALS.TOPIC_MEMBER_USER_DELETE_CONFIRM_NO'
       }
     });
     deleteUserDialog.afterClosed().subscribe(result => {
       if (result === true) {
+        if (!this.member.levelUser) {
+          return this.Notification.addError('COMPONENTS.TOPIC_MEMBER_USER.REMOVE_ERROR_MEMBER_VIA_GROUP');
+        }
         this.member.topicId = this.topic.id;
         this.TopicMemberUserService.delete({ topicId: this.topic.id, userId: this.member.userId || this.member.id })
           .pipe(take(1))
@@ -86,7 +91,7 @@ export class TopicMemberUserComponent implements OnInit {
       data: {
         level: 'delete',
         heading: 'MODALS.TOPIC_MEMBER_USER_LEAVE_CONFIRM_HEADING',
-        title: 'MODALS.TOPIC_MEMBER_USER_LEAVE_CONFIRM_TXT_ARE_YOU_SURE',
+        description: 'MODALS.TOPIC_MEMBER_USER_LEAVE_CONFIRM_TXT_ARE_YOU_SURE',
         points: ['MODALS.TOPIC_MEMBER_USER_LEAVE_CONFIRM_TXT_LEAVING_TOPIC_DESC'],
         confirmBtn: 'MODALS.TOPIC_MEMBER_USER_LEAVE_CONFIRM_BTN_YES',
         closeBtn: 'MODALS.TOPIC_MEMBER_USER_LEAVE_CONFIRM_BTN_NO'

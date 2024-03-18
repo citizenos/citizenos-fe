@@ -8,12 +8,19 @@ export interface Group {
   updatedAt: string,
   sourcePartnerId:	string | null,
   sourcePartnerObjectId:	string | null,
-  permission?: {level: string},
+  permission: {level: string},
   creator: any,
   lastActivity: string | null,
   members: any,
   userLevel: string | null,
-  imageUrl: string | null
+  imageUrl: string | null,
+  language: string | null,
+  country: string | null,
+  categories: string[] | null,
+  rules: string[],
+  contact: string | null,
+  favourite?: boolean | null,
+  inviteMessage: string | null | undefined //optional field while creating groups
 }
 
 export interface TopicMemberGroup extends Group {

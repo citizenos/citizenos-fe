@@ -1,16 +1,117 @@
-@use "vars";
-@use "mixins_n_extends";
+@use "mixins";
 
-.lightbox_section {
+.section_heading {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 16px;
+  @include mixins.mobile {
+    margin-top: 8px;
+  }
+}
 
-  input {
-    @extend %input_small;
+.token_wrap {
+  display: flex;
+  gap: 16px;
+  margin: 16px 0 24px 0;
+
+  @include mixins.mobile {
+    flex-direction: column;
   }
 
-  input,
-  button {
-    &:not(:first-child) {
-      margin-top: 10px;
+  .token_settings_wrap {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 8px;
+
+    @include mixins.mobile {
+      gap: 16px;
     }
+  }
+  .button_wrap {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding-top: 6px;
+
+    .btn_medium_secondary {
+      min-width: 120px;
+      padding: 0 24px;
+      @include mixins.mobile {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.share_wrap {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  justify-content: space-between;
+  align-items: center;
+
+  @include mixins.mobile {
+    flex-direction: column;
+
+    .btn_medium_secondary {
+      width: 100%;
+    }
+  }
+
+  .input_area {
+    width: 100%;
+    input {
+      width: 100%;
+      padding: 14px 0px 14px 8px;
+    }
+  }
+}
+
+.level_select_wrap {
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+  border-radius: 8px;
+  padding: 8px 8px 8px 16px;
+  background-color: var(--color-background);
+
+  @include mixins.mobile {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px;
+    gap: 8px;
+  }
+}
+.info_section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+  padding: 0;
+  width: 100%;
+  max-width: 100%;
+
+  .qr_code {
+    img {
+      height: 150px;
+      width: 150px;
+      margin-bottom: 19px;
+    }
+
+    a {
+      font-size: 14px;
+    }
+  }
+  @include mixins.mobile {
+    .btn_medium_secondary {
+      width: 100%;
+    }
+  }
+}
+.notification_inline {
+  @include mixins.mobile {
+    flex-direction: row;
+    margin: 0 0 16px 0;
   }
 }

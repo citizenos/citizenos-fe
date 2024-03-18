@@ -1,0 +1,19 @@
+@use "mixins";
+.page_content {
+  gap: 24px;
+  padding: 16px 24px 0px 24px;
+
+  @include mixins.tablet {
+    margin: 60px 0;
+  }
+
+  @include mixins.mobile {
+    padding: 0;
+    gap: 16px;
+  }
+
+  topic-form {
+    display: contents;
+  }
+}
+

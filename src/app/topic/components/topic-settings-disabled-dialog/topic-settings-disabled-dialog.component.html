@@ -1,0 +1,56 @@
+<div class="overlay"></div>
+<div class="dialog_wrap">
+  <div id="notification_wrap_dialog">
+    <notification></notification>
+  </div>
+  <div class="dialog">
+    <div class="dialog_header">
+      <div class="header_with_icon">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="40" height="40" rx="20" fill="#1168A8" />
+          <path
+            d="M23 11.5292C23 12.926 21.9255 14.0583 20.6 14.0583C19.2745 14.0583 18 12.926 18 11.5292C18 10.1323 19.2745 9 20.6 9C21.9255 9 23 10.1323 23 11.5292Z"
+            fill="white" />
+          <path
+            d="M17.3359 16.5357L22.8319 15.8098L20.4295 27.7096C20.2591 28.5695 20.4991 29.0576 21.1591 29.0576C21.6247 29.0576 22.3255 28.8806 22.8055 28.4354L22.5943 29.4876C21.9055 30.3626 20.3863 31 19.0783 31C17.3911 31 16.6735 29.9327 17.1391 27.664L18.9103 18.8929C19.0639 18.1518 18.9247 17.8837 18.2191 17.7067L17.1391 17.4968L17.3359 16.5357Z"
+            fill="white" />
+        </svg>
+        <div class="small_heading link title" translate="MODALS.TOPIC_SETTINGS_DISABLED_HEADING"></div>
+      </div>
+    </div>
+    <div class="dialog_content no_footer">
+      <div class="delete_info_text" translate="MODALS.TOPIC_SETTINGS_DISABLED_DESCRIPTION"></div>
+      <div class="dialog_info_wrap">
+        <div class="dialog_info">
+          <div class="bold" translate="MODALS.TOPIC_SETTINGS_DISABLED_WHY"></div>
+          <div translate="MODALS.TOPIC_SETTINGS_DISABLED_WHY_DESCRIPTION"></div>
+        </div>
+      </div>
+
+      <div class="notification_inline info">
+        <div class="icon_notification">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="24" height="24" rx="12" fill="#5C9CD0" />
+            <path
+              d="M13.8002 6.91789C13.8002 7.75599 13.1555 8.4354 12.3602 8.4354C11.5649 8.4354 10.8002 7.75599 10.8002 6.91789C10.8002 6.0798 11.5649 5.40039 12.3602 5.40039C13.1555 5.40039 13.8002 6.0798 13.8002 6.91789Z"
+              fill="white" />
+            <path
+              d="M10.4017 9.9218L13.6993 9.48627L12.2579 16.6261C12.1556 17.1421 12.2996 17.4349 12.6956 17.4349C12.975 17.4349 13.3955 17.3287 13.6835 17.0616L13.5568 17.6929C13.1435 18.218 12.232 18.6004 11.4472 18.6004C10.4348 18.6004 10.0043 17.96 10.2836 16.5988L11.3464 11.3361C11.4385 10.8915 11.355 10.7306 10.9316 10.6244L10.2836 10.4984L10.4017 9.9218Z"
+              fill="white" />
+          </svg>
+        </div>
+        <div class="message">
+          <div class="content">
+            <div class="content_description" [innerHTML]="'MODALS.TOPIC_SETTINGS_DISABLED_INFO' | translate"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="button_wrap">
+        <button class="btn_medium_submit" dialog-close translate="MODALS.TOPIC_SETTINGS_DISABLED_BTN_SETTINGS">
+        </button>
+        <!--a [dialog-close]="true" translate="MODALS.TOPIC_SETTINGS_DISABLED_LNK_CANCEL"></!--a-->
+      </div>
+    </div>
+  </div>
+</div>

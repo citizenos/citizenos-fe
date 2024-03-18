@@ -1,70 +1,49 @@
-@use 'mixins_n_extends';
-@use 'vars';
+@use "mixins";
 
-#login_lightbox {
-  input {
-      height: 40px;
-      margin-bottom: 10px;
+#login_wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 40px 0;
+  width: 100%;
+  max-width: 400px;
+  .main_heading,
+  p {
+    text-align: center;
   }
 
-  input {
-    @extend %input_small;
-  }
+  @include mixins.mobile {
+    padding: 24px 16px;
 
-  input,
-  button {
-    &:not(:first-child) {
-      margin-top: 10px;
+    .main_heading {
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 24px; /* 133.333% */
     }
   }
+}
 
-  .link_section {
-      text-align: left;
+.icons_wrap {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 24px;
+  justify-content: flex-start;
+
+  @include mixins.mobile {
+    gap: 8px;
+    max-width: 100%;
   }
-
-  .input_with_icon.clickable {
-      margin-bottom: 0;
-
-      .icon_table:hover {
-          @media (min-width: 1025px) {
-              cursor: pointer;
-              height: 40px;
-              width: 40px;
-              background: inherit;
-              border-radius: 0 4px 4px 0;
-              border-top: 1px solid vars.$lightest_gray;
-              border-right: 1px solid vars.$lightest_gray;
-              border-bottom: 1px solid vars.$lightest_gray;
-          }
-      }
-
-      .icon_table.error:hover {
-          @media (min-width: 1025px) {
-              cursor: pointer;
-              height: 40px;
-              width: 40px;
-              background: inherit;
-              border-radius: 0 4px 4px 0;
-              border-top: 1px solid vars.$pinky_red;
-              border-right: 1px solid vars.$pinky_red;
-              border-bottom: 1px solid vars.$pinky_red;
-          }
-      }
-  }
-
-  .error_no_account {
-      display: table-row;
-      background-color: vars.$old_pink;
-      padding: 10px;
-      font-size: 14px;
-      line-height: 24px;
-
-      .icon_cell {
-          padding: 16px 0px 0px 12px;
-      }
-
-      .table_cell {
-          padding: 12px;
-      }
+  a.login_icon {
+    cursor: pointer;
+    width: 64px;
+    height: 64px;
+    background-color: #f9fbfd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    border-radius: 48px;
   }
 }

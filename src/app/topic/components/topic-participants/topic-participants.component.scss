@@ -1,15 +1,50 @@
-@use "mixins_n_extends";
+@use "mixins";
 
-#lightbox {
-
-  input {
-    @extend %input_small;
+@include mixins.mobile {
+  .dialog_tabs_wrap {
+    padding-bottom: 16px;
   }
+  .dropdown {
+    width: 100%;
+  }
+}
+#topic_members_list_wrap {
+  gap: 16px;
+}
+.topic_members_filters {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
 
-  input,
-  button {
-    &:not(:first-child) {
-      margin-top: 10px;
+  @include mixins.mobile {
+    flex-direction: column;
+  }
+  .dropdown {
+    min-width: 160px;
+
+    .options {
+      min-width: max-content;
+      max-width: max-content;
+    }
+  }
+}
+
+.row_list_wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+topic-member-user,
+topic-member-group,
+topic-member-invite {
+  display: contents;
+}
+
+.dropdown {
+  &.dropdown_active {
+    .options {
+      position: fixed;
+      width: max-content;
     }
   }
 }

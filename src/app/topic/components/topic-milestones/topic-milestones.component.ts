@@ -3,7 +3,7 @@ import { Event } from 'src/app/interfaces/event';
 import { Component, OnInit, Input } from '@angular/core';
 import { TopicEventService } from 'src/app/services/topic-event.service';
 import { TopicService } from 'src/app/services/topic.service';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { take, of } from 'rxjs';
 @Component({
@@ -24,7 +24,7 @@ export class TopicMilestonesComponent implements OnInit {
   public countTotal;
   public maxLengthSubject = 128;
   public maxLengthText = 2048;
-  constructor(private dialog: MatDialog, private TopicEventService: TopicEventService, private TopicService: TopicService) {
+  constructor(private dialog: DialogService, private TopicEventService: TopicEventService, private TopicService: TopicService) {
     this.topicEvents = this.TopicEventService.loadItems();
     this.countTotal = this.TopicEventService.countTotal$;
   }
@@ -35,7 +35,6 @@ export class TopicMilestonesComponent implements OnInit {
   }
 
   submitEvent() {
-    console.log(this.event)
     this.TopicEventService
       .save(this.event)
       .pipe(take(1))
@@ -54,10 +53,31 @@ export class TopicMilestonesComponent implements OnInit {
     return this.TopicService.canDelete(this.topic);
   }
 
+  toggleEditMode(event: any) {
+    if (!event.editMode) {
+      event.editMode = true;
+    } else {
+      event.editMode = !event.editMode;
+    }
+  }
+
+  editEvent (event:any) {
+    event.topicId = this.topic.id;
+    this.TopicEventService
+      .update(event)
+      .pipe(take(1))
+      .subscribe(() => {
+        this.event.subject = '';
+        this.event.text = '';
+        this.TopicEventService.reset();
+      });
+  }
+
   deleteEvent(event: any) {
     event.topicId = this.topic.id;
     const deleteDialog = this.dialog.open(ConfirmDialogComponent, {
       data: {
+        level: 'delete',
         heading: 'MODALS.TOPIC_EVENT_DELETE_CONFIRM_HEADING',
         title: 'MODALS.TOPIC_EVENT_DELETE_CONFIRM_TXT_ARE_YOU_SURE',
         description: event.subject,

@@ -1,0 +1,27 @@
+.deleted_argument_wrap {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .deleted_argument_content_wrap {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-surfaces);
+    border-radius: 8px;
+    gap: 16px;
+    padding: 24px;
+    align-items: center;
+    justify-content: center;
+
+    .buttons_wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      a {
+        font-weight: 600;
+      }
+    }
+  }
+}

@@ -1,23 +1,52 @@
-<div class="post_argument_wrap">
-  <div *ngIf="!(AuthService.loggedIn$ | async)">
-    <h3 class="text-center" (click)="app.doShowLogin()" translate-compile translate="VIEWS.TOPICS_TOPICID.LOG_IN_TO_PARTICIPATE"></h3>
-  </div>
-  <form  *ngIf="AuthService.loggedIn$ | async" name="argumentReply">
-    <textarea cosmarkdown
-      cosmarkdowntranslatecharacterstatuskey="VIEWS.TOPICS_TOPICID.COMMENT_TYPE_CHARACTER_LIMIT"
-      id="argument_reply_text" [(item)]="reply.text" class="gray_borders"
-       [ngClass]="{'error_input': errors?.text}"
-      placeholder="{{'VIEWS.TOPICS_TOPICID.PLACEHOLDER_WRITE_REPLY_HERE' | translate}}"
-      [limit]="ARGUMENT_TYPES_MAXLENGTH['reply']" ></textarea><!--(keyup)="argumentTextLengthCheck(form, form.text)"-->
-    <label for="argument_reply_text" class="error_label" *ngIf="errors?.text">
-      <div class="table_cell">
-        <div class="sprite sprite-icon-inputfield-error2x"></div>
-        <span translate="{{errors?.text}}"></span>
-      </div>
-    </label>
-    <div class="blue_button" (click)="saveReply()"
-      translate="VIEWS.TOPICS_TOPICID.BTN_ARGUMENT_POST_REPLY">
+<div class="reply_wrap" [ngClass]="argument.type">
+  <ng-container *ngIf="AuthService.loggedIn$ | async; then loggedIn;"></ng-container>
+  <ng-template #loggedIn>
+    <div>
+      <div class="heading" translate="COMPONENTS.ARGUMENT_REPLY.HEADING"></div>
     </div>
-    <div class="clearer"></div>
-  </form>
+    <form name="argumentReply">
+      <!--cos-input
+        placeholder="{{'COMPONENTS.ARGUMENT_REPLY.SUBJECT_CHARACTERS_LEFT' | translate:{chars: reply.subject.length, charsLeft: ARGUMENT_SUBJECT_MAXLENGTH} }}">
+        <input id="argument_subject" name="subject" [(ngModel)]="reply.subject"
+          placeholder="{{'COMPONENTS.ARGUMENT_REPLY.PLACEHOLDER_ADD_SUBJECT_TO_ARGUMENT' | translate:{chars: reply.subject.length, charsLeft: ARGUMENT_SUBJECT_MAXLENGTH} }}"
+          class="gray_borders" [ngClass]="{'error_input': errors?.subject}"
+          [attr.maxlength]="ARGUMENT_SUBJECT_MAXLENGTH" required>
+        <label for="argument_subject" class="error_label" *ngIf="errors?.subject">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M8.89438 1.78863C8.52586 1.05158 7.47405 1.05158 7.10553 1.78863L0.723562 14.5526C0.391112 15.2175 0.874608 15.9998 1.61799 15.9998H14.3819C15.1253 15.9998 15.6088 15.2175 15.2763 14.5526L8.89438 1.78863ZM6.99996 6.99977C6.99996 6.44749 7.44767 5.99977 7.99996 5.99977C8.55224 5.99977 8.99996 6.44749 8.99996 6.99977V9.99977C8.99996 10.5521 8.55224 10.9998 7.99996 10.9998C7.44767 10.9998 6.99996 10.5521 6.99996 9.99977V6.99977ZM6.99996 12.9998C6.99996 12.4475 7.44767 11.9998 7.99996 11.9998C8.55224 11.9998 8.99996 12.4475 8.99996 12.9998C8.99996 13.5521 8.55224 13.9998 7.99996 13.9998C7.44767 13.9998 6.99996 13.5521 6.99996 12.9998Z"
+              fill="#EF4025" />
+          </svg>
+          <span translate="{{errors.subject}}"></span>
+        </label>
+      </!--cos-input-->
+      <textarea cosmarkdown cosmarkdowntranslatecharacterstatuskey="COMPONENTS.ARGUMENT_REPLY.CHARACTER_LIMIT"
+        id="argument_reply_text" [(item)]="reply.text" class="gray_borders" [ngClass]="{'error_input': errors?.text}"
+        placeholder="{{'COMPONENTS.ARGUMENT_REPLY.PLACEHOLDER_WRITE_REPLY_HERE' | translate}}"
+        [limit]="ARGUMENT_TYPES_MAXLENGTH['reply']"></textarea><!--(keyup)="argumentTextLengthCheck(form, form.text)"-->
+      <label for="argument_reply_text" class="error_label" *ngIf="errors?.text">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M8.89438 1.78863C8.52586 1.05158 7.47405 1.05158 7.10553 1.78863L0.723562 14.5526C0.391112 15.2175 0.874608 15.9998 1.61799 15.9998H14.3819C15.1253 15.9998 15.6088 15.2175 15.2763 14.5526L8.89438 1.78863ZM6.99996 6.99977C6.99996 6.44749 7.44767 5.99977 7.99996 5.99977C8.55224 5.99977 8.99996 6.44749 8.99996 6.99977V9.99977C8.99996 10.5521 8.55224 10.9998 7.99996 10.9998C7.44767 10.9998 6.99996 10.5521 6.99996 9.99977V6.99977ZM6.99996 12.9998C6.99996 12.4475 7.44767 11.9998 7.99996 11.9998C8.55224 11.9998 8.99996 12.4475 8.99996 12.9998C8.99996 13.5521 8.55224 13.9998 7.99996 13.9998C7.44767 13.9998 6.99996 13.5521 6.99996 12.9998Z"
+            fill="#EF4025" />
+        </svg>
+        <span translate="{{errors?.text}}"></span>
+      </label>
+      <div class="buttons_wrap">
+        <div>
+          <button class="btn_medium_submit_ghost icon close_button" (click)="close()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M5.29311 17.2929C4.90258 17.6834 4.90258 18.3166 5.29311 18.7071C5.68363 19.0976 6.3168 19.0976 6.70732 18.7071L12.0002 13.4142L17.2931 18.7071C17.6836 19.0976 18.3168 19.0976 18.7073 18.7071C19.0978 18.3166 19.0978 17.6834 18.7073 17.2929L13.4144 12L18.7073 6.70711C19.0978 6.31658 19.0978 5.68342 18.7073 5.29289C18.3168 4.90237 17.6836 4.90237 17.2931 5.29289L12.0002 10.5858L6.70732 5.29289C6.3168 4.90237 5.68363 4.90237 5.29311 5.29289C4.90258 5.68342 4.90258 6.31658 5.29311 6.70711L10.586 12L5.29311 17.2929Z"
+                fill="#2C3B47" />
+            </svg>
+          </button>
+        </div>
+        <div>
+          <div class="btn_medium_submit bold" (click)="saveReply()" translate="COMPONENTS.ARGUMENT_REPLY.BTN_POST_REPLY">
+          </div>
+        </div>
+      </div>
+    </form>
+  </ng-template>
 </div>

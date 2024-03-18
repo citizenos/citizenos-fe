@@ -1,6 +1,4 @@
-@use "mixins_n_extends";
-@use "vars";
-
+@use "mixins";
 
 @-ms-keyframes jump {
   0% {
@@ -74,101 +72,13 @@
   }
 }
 
-#help_tooltip {
-  width: 240px;
-  height: 404px;
-  position: absolute;
-  background: #2a2a2a;
-  border-radius: 8px;
-  color: vars.$white;
-  z-index: 999;
-
-  top: auto;
-  bottom: 20px;
-  right: 100px;
-
-  &::before {
-    border-bottom: 10px solid transparent;
-    border-left: 10px solid #2a2a2a;
-    border-top: 10px solid transparent;
-    content: "";
-    height: 0;
-    left: 100%;
-    margin-top: -6px;
-    position: absolute;
-    bottom: 20px;
-    width: 0;
-  }
-
-  &.help_visible {
-    top: 38px;
-    right: 372px;
-    bottom: auto;
-
-    &::before {
-      top: 32px;
-      bottom: auto;
-    }
-  }
-  .tip_heading {
-    font-family: Noto Sans;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 12px;
-    line-height: 16px;
-    letter-spacing: 2px;
-    padding: 16px;
-    text-align: center;
-
-    color: #badcff;
-  }
-
-  .tip_desription {
-    font-family: Noto Sans;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 24px;
-    color: vars.$white;
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-
-  .tip_button_wrap {
-    .tip_button {
-      padding: 10px;
-      width: 90%;
-      background: vars.$dark_black;
-      color: vars.$white;
-      border-radius: 4px;
-      text-align: center;
-      margin-left: auto;
-      margin-right: auto;
-      right: 0;
-      left: 0;
-      position: absolute;
-      font-weight: bold;
-      font-size: 14px;
-    }
-  }
-
-  .help_bubble_icon {
-    padding-top: 24px;
-    padding-bottom: 32px;
-
-    .help_icon {
-      width: 60px;
-      height: 60px;
-      border-radius: 30px;
-      background-color: vars.$deep_sky_blue;
-      background-image: url(./imgs/icon_bubble_help.svg);
-      background-repeat: no-repeat;
-      background-position: center;
-      margin-left: auto;
-      margin-right: auto;
-    }
-  }
+.overlay {
+  @extend %all_zero;
+  position: fixed;
+  cursor: pointer;
+  z-index: 12;
 }
+
 #help_bubble {
   z-index: 999;
   width: 60px;
@@ -176,12 +86,11 @@
   position: fixed;
   right: 20px;
   bottom: 20px;
-  background-color: vars.$deep_sky_blue;
-  background-image: url(./imgs/icon_bubble_help.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  border-radius: 30px;
-  box-shadow: 0 0 8px 0 vars.$dark_gray;
+
+  @include mixins.tablet {
+    bottom: 120px;
+    display: none;
+  }
 
   &:hover {
     cursor: pointer;
@@ -222,50 +131,99 @@
   top: 0px;
   height: 100%;
   border-radius: 4px;
-  background: vars.$white;
-  box-shadow: 0 0 8px 0 vars.$dark_gray;
+  background: var(--color-surfaces);
+  box-shadow: 0 0 8px 0 #727c84;
 
-  #help_close {
-    height: 54px;
-    border-radius: 0 4px;
-    position: absolute;
-    float: none;
-    right: 10px;
-    top: 10px;
+  @include mixins.mobile {
+    width: 100%;
+  }
+  #mobile_tour_info_wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background-color: #f1f7fc;
+    padding: 24px 16px;
+    margin: 16px;
+    .title_wrap {
+      display: flex;
+      gap: 8px;
+
+      .small_heading {
+        font-size: 16px;
+      }
+    }
+    .start_btn {
+      padding: 0px 16px;
+      gap: 16px;
+      max-height: 40px;
+      min-height: 40px;
+      min-width: 40px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 16px;
+      background: var(--btn-submit-hover);
+      color: var(--color-surfaces);
+
+      &:hover {
+        background: var(--color-secondary);
+        color: var(--color-link);
+      }
+    }
+  }
+
+  .help_header_wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+
+    .help_title_text {
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 16px;
+      color: #727c84;
+      text-transform: uppercase;
+    }
   }
 
   .help_content {
     width: 360px;
     height: 100vh;
 
+    @include mixins.mobile {
+      width: 100%;
+    }
+
     iframe {
       width: 100%;
       height: 90%;
     }
   }
+}
 
-  .help_top {
-    border-radius: 4px 4px 0 0;
+#help_form {
+  display:flex;
+  flex-direction: column;
+  padding: 16px;
+  gap: 16px;
+
+  .help_form_text_wrap {
+    display: flex;
+    gap: 16px;
+    flex-direction: column;
+  }
+
+  .help_form_input_wrap {
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
     width: 100%;
 
-    .help_back_link {
-      padding: 10px;
-      position: absolute;
-    }
-
-    .help_title_text_wrapper {
-      padding: 10px 0px;
+    button {
+      margin-top: 8px;
       width: 100%;
-      text-align: center;
-
-      .help_title_text {
-        font-size: 12px;
-        line-height: 16px;
-        font-weight: 700;
-        color: vars.$dark_gray;
-        text-transform: uppercase;
-        letter-spacing:1.6px;
-      }
     }
   }
 }

@@ -1,3 +1,4 @@
+import { AppService } from './app.service';
 import { Injectable } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -11,7 +12,7 @@ import { LocationService } from './location.service';
 export class HttpErrorInterceptor implements HttpInterceptor {
   API_REQUEST_REGEX = /\/api\/(?!auth\/status).*/i; //Filter out status 401 errors
   API_REQUEST_JOIN = /api\/(topics?|groups).\/join/i; //Filter out status 401 errors
-  constructor(private Notification: NotificationService, private translate: TranslateService, private Location: LocationService, private Router: Router) { }
+  constructor(private app: AppService, private Notification: NotificationService, private translate: TranslateService, private Location: LocationService, private Router: Router) { }
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     return next.handle(request)
@@ -36,20 +37,29 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           else {
             errorMsg = response.message;
             console.error(`Server side error:', ${errorMsg} `);
-
+            console.log('Error object', response.error)
             if (response.url?.match(this.API_REQUEST_JOIN) && response.status === 404) {
               return throwError(() => response.error);
             }
 
             if (response.status === 404) {
-              this.Router.navigate(['/error/404'], { queryParams: { redirectSuccess: this.Location.getAbsoluteUrl(window.location.pathname) + window.location.search } });
-              return throwError(() => response.error);
+              //  this.app.doShowLogin(this.Location.getAbsoluteUrl(window.location.pathname) + window.location.search);
+              if (request.url === '/api/topics') {
+                this.Router.navigate(['/error/404'], { queryParams: { redirectSuccess: this.Location.getAbsoluteUrl(window.location.pathname) + window.location.search } });
+              }
+              /*return throwError(() => response.error);*/
             }
 
             if (response.url?.match(this.API_REQUEST_REGEX) && response?.status === 401) {
               // Cannot use $state here due to circular dependencies with $http
-              this.Router.navigate(['/account/login'], { queryParams: { redirectSuccess: this.Location.getAbsoluteUrl(window.location.pathname) + window.location.search } });
+              if (response.error && response.error.status?.message !== 'Unauthorized' || response.error.status?.code !== 40100) { } else {
+                this.app.doShowLogin(this.Location.getAbsoluteUrl(window.location.pathname) + window.location.search);
+                //    this.Router.navigate(['/account/login'], { queryParams: { redirectSuccess: this.Location.getAbsoluteUrl(window.location.pathname) + window.location.search } });
+              }
+              /*
+              this.Notification.addError(response.error.status?.message || response.error.message);
               return throwError(() => response.error);
+              */
             }
           }
 
@@ -91,14 +101,16 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   getGeneralErrorTranslationKey(errorResponse: any | undefined, method: string) {
     const GENERAL_ERROR_KEY_PATTERN = 'MSG_ERROR_:method_:path_:statusCode';
 
-    const url = errorResponse.url;
+    const url = new URL(errorResponse.url).pathname;
     if (!url) {
       return errorResponse.message;
     }
     if (url.indexOf('ep_auth_citizenos') > -1) {
       return errorResponse.message;
     }
-    const path = url.match(this.API_REQUEST_REGEX)[0]
+    const match = url.match(this.API_REQUEST_REGEX);
+    if (match && match[0]) {
+      const path = match[0]
       .replace(/\/self\//g, '_')
       .replace(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/ig, '_')
       .replace(/join\/[a-zA-Z0-9]*/, 'join/token')
@@ -106,13 +118,13 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 
 
     const statusCode = (errorResponse.error.status && errorResponse.error.status.code) ? errorResponse.error.status.code : errorResponse.status;
-
     return GENERAL_ERROR_KEY_PATTERN
       .replace(':method', method)
       .replace(':path', path)
-      .replace(':statusCode', statusCode)
+      .replace(':statusCode', statusCode.toString())
       .replace(/[_]+/g, '_')
       .toUpperCase();
+    }
   };
 
   fieldErrorsToKeys(errorResponse: any | undefined, method: string) {
@@ -140,13 +152,11 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     const GENERAL_ERROR_FALLBACK_KEY_PATTERN = 'MSG_ERROR_:statusCode';
 
     const translationKey = this.getGeneralErrorTranslationKey(errorResponse, method);
-
     const translationKeyHeading = translationKey + '_HEADING'; // Error/info dialog heading key
     const statusCode = (errorResponse.error.status && errorResponse.error.status.code) ? errorResponse.error.status.code : errorResponse.status;
     const translationKeyFallback = GENERAL_ERROR_FALLBACK_KEY_PATTERN
       .replace(':statusCode', statusCode);
     // The key exists/*
-
     if (translationKey !== this.translate.instant(translationKey, {}) && errorResponse.status) {
       errorResponse.error.status.message = translationKey;
       if (translationKeyHeading !== this.translate.instant(translationKeyHeading, {})) {
@@ -158,10 +168,11 @@ export class HttpErrorInterceptor implements HttpInterceptor {
       }
       // Use fallback to generic error
     } else if (translationKeyFallback !== this.translate.instant(translationKeyFallback, {})) {
-      if (errorResponse.error.status) {
-        errorResponse.error.status.message = translationKeyFallback;
+      if (errorResponse.error.status && errorResponse.error.status.message) {
+        this.Notification.addError(errorResponse.error.status.message);
+      } else {
+        this.Notification.addError(translationKeyFallback);
       }
-      this.Notification.addError(translationKeyFallback);
     } else {
       console.warn('cosHttpApiErrorInterceptor.generalErrorToKey', 'No translation for', translationKey, translationKeyFallback, errorResponse);
       this.Notification.addError(errorResponse.error?.status?.message ? errorResponse.error.status.message + ' *' : errorResponse.status + ' - ' + errorResponse.message + ' *');

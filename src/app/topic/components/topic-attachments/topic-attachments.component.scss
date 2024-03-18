@@ -1,72 +1,69 @@
-@use "vars";
-@use "mixins_n_extends";
+@use "mixins";
 
-input {
-  @extend %input_small;
+#add_attachment {
+  width: 1px;
+  height: 1px;
+  position: absolute;
+  z-index: -1;
+  padding: 0;
 }
-input,
-button {
-  &:not(:first-child) {
-    margin-top: 10px;
+
+.btn_medium_plain {
+  background-color: var(--color-info-background);
+}
+.dropdown {
+  .button_options {
+    button {
+      justify-content: flex-start;
+    }
   }
 }
 
-.file_name {
-  width: 100%;
+#title_wrap {
+  justify-content: flex-start !important;
+  gap: 16px;
 }
 
-.file_upload_table {
-  width: 100%;
-  text-align: center;
+.attachments_wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 
-  .file_add_btn_wrap {
-    &:hover {
-      cursor: pointer;
+  .attachment {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+    align-self: stretch;
+    border-radius: 4px;
+    background-color: var(--color-background);
+
+    .attachment_name_input {
+      border: none;
+      padding: 0;
+      width: 100%;
+      color: var(--color-link);
+      background: var(--color-background);
     }
+  }
+}
 
-    .file_add_btn {
-      line-height: 50px;
-    }
-
-    .file_add_btn_description {
-      height: 20px;
-      width: auto;
-      color: vars.$medium_black;
-      font-size: 16px;
-      font-weight: bold;
-      line-height: 20px;
-      text-align: center;
-      margin-top: 15px;
-      @media (max-width: 600px) {
-        width: auto;
+.dropdown {
+  .options {
+    position: absolute;
+    bottom: 48px;
+    align-items: center;
+    .option {
+      div {
+        height: 16px;
       }
     }
   }
-
-  .file_add_cell {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    display: table-cell;
-  }
 }
 
-.file_buttons {
-  width: 25%;
-  .edit_btn {
-    float: right;
-    margin: 0px 15px 0 15px;
-  }
-
-  .recycle_bin {
-    margin: 0 10px 0px 0px;
-    right: 0;
-    float: right;
-  }
-}
-
-#addFile {
-  width: 1px;
-  height: 1px;
-  z-index: -1;
-  position: absolute;
+.mobile_actions_wrap {
+  left: 0;
+  z-index: 99999999;
 }

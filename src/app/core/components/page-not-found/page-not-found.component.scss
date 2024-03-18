@@ -1,0 +1,9 @@
+@use "mixins";
+.no_engagements {
+  background-color: var(--color-background);
+  height: 80vh;
+
+  @include mixins.tablet {
+    padding-top: 60px;
+  }
+}

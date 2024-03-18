@@ -1,0 +1,264 @@
+@use "mixins";
+
+//Main definitions
+$--color-background: --color-background;
+$--color-text: --color-text;
+$--color-surfaces: --color-surfaces;
+$--color-surface-contrast: --color-surface-contrast;
+$--color-on-surfaces: --color-on-surfaces;
+$--color-border: --color-border;
+$--color-border-active: --color-border-active;
+$--color-secondary: --color-secondary;
+$--color-scrollbar: --color-scrollbar;
+$--color-scrollbar-thumb: --color-scrollbar-thumb;
+$--color-link: --color-link;
+$--font-size: --font-size;
+$--line-height: --line-heigth;
+$--color-discussion: --color-discussion;
+$--color-voting: --color-voting;
+$--color-voting-disabled: --color-voting-disabled;
+$--color-ideation: --color-ideation;
+$--color-ideation-disabled: --color-ideation-disabled;
+$--color-follow-up: --color-follow-up;
+$--color-follow-up-disabled: --color-follow-up-disabled;
+$--color-group: --color-group;
+//messages
+$--color-error: --color-error;
+$--color-error-background: --color-error-background;
+$--color-warn: --color-warn;
+$--color-warn-background: --color-warn-background;
+$--color-info: --color-info;
+$--color-info-background: --color-info-background;
+$--color-success: --color-success;
+$--color-success-background: --color-success-background;
+//arguments
+$--color-argument-pro: --color-argument-pro;
+$--color-argument-pro-light: --color-argument-pro-light;
+$--color-argument-pro-medium: --color-argument-pro-medium;
+$--color-argument-pro-text: --color-argument-pro-text;
+$--color-argument-con: --color-argument-con;
+$--color-argument-con-light: --color-argument-con-light;
+$--color-argument-con-medium: --color-argument-con-medium;
+$--color-argument-con-text: --color-argument-con-text;
+$--color-argument-info: --color-argument-info;
+$--color-argument-info-light: --color-argument-info-light;
+$--color-argument-info-medium: --color-argument-info-medium;
+$--color-argument-info-text: --color-argument-info-text;
+//dialogs
+$--color-dialog: --color-dialog;
+$--color-dialog-contrast: --color-dialog-contrast;
+$--color-dialog-background: --color-dialog-background;
+$--color-dialog-text: --color-dialog-text;
+$--color-dialog-ideation: --color-dialog-ideation;
+$--color-dialog-ideation-contrast: --color-dialog-ideation-contrast;
+$--color-dialog-voting: --color-dialog-voting;
+$--color-dialog-voting-contrast: --color-dialog-voting-contrast;
+$--color-dialog-follow-up: --color-dialog-follow-up;
+$--color-dialog-follow-up-contrast: --color-dialog-follow-up-contrast;
+
+//buttons
+$--btn-submit: --btn-submit;
+$--btn-submit-text: --btn-submit-text;
+$--btn-submit-hover: --btn-submit-hover;
+
+//checkboxs
+$--input-checkbox-background-default: --input-checkbox-background-default;
+$--input-checkbox-border-default: --input-checkbox-border-default;
+$--input-checkbox-background-voting: --input-checkbox-background-voting;
+$--input-checkbox-border-voting: --input-checkbox-border-voting;
+// Default theme
+$theme-map-default: (
+  $--color-background: #f1f7fc,
+  //blue 50
+  $--color-text: #2c3b47,
+  //black new
+  $--color-surfaces: #ffffff,
+  //white
+  $--color-surface-contrast: #f9fbfd,
+  //gray 300
+  $--color-on-surfaces: #000,
+  //black
+  $--color-border: #e1e7ee,
+  //gray 500
+  $--color-border-active: #4d5c6a,
+  //gray 700
+  $--color-secondary: #ebf4fb,
+  //blue 100
+  $--color-scrollbar: #D7E9F8,
+  //blue 200
+  $--color-scrollbar-thumb: #A7D1F3,
+  //blue 300
+  $--color-link: #1168a8,
+  //blue 700
+  $--color-discussion: #1168a8,
+  //blue 700
+  $--color-voting: #5ab467,
+  //green 500
+  $--color-voting-disabled: #98daa2,
+  //green 300
+  $--color-ideation: #e4b722,
+  //yellow 700
+  $--color-ideation-disabled: #efe08a,
+  //yellow 100
+  $--color-follow-up: #da7ab1,
+  //purple 500
+  $--color-follow-up-disabled: #e3a8cc,
+  //purple 100
+  $--color-group: #d7e9f8,
+  //blue 200
+  $--input-checkbox-background-default: #5c9cd0,
+  $--input-checkbox-border-default: #1168a8,
+  $--input-checkbox-background-voting: #5ab467,
+  $--input-checkbox-border-voting: #346933,
+  $--font-size: 14px,
+  $--line-height: 20px,
+);
+
+$theme-arguments-default: (
+  $--color-argument-pro-light: #F1FAF3, //green 50,
+  $--color-argument-pro-medium: #E0F5E3, //green 100
+  $--color-argument-pro:#5ab467, //green 500
+  $--color-argument-pro-text: #346933, //green 500
+  $--color-argument-con-light: #FFF1E1, //orange 50
+  $--color-argument-con-medium: #FFD8AE, //orange 200
+  $--color-argument-con:#F39129, //orange 500
+  $--color-argument-con-text: #CD7705, //Orange 900
+  $--color-argument-info-light: #F9FBFD, //green 50,
+  $--color-argument-info-medium: #EBF4FB, //blue 100
+  $--color-argument-info:#727C84,
+  $--color-argument-info-text: #1168A8 //blue 700
+);
+
+$theme-dialog-default: (
+  //dialog colors
+  $--color-dialog: #f1f7fc,
+  //blue 50
+  $--color-dialog-contrast: #d7e9f8,
+  //blue 200
+  $--color-dialog-background: #ffffff,
+  //white
+  $--color-dialog-text: #2c3b47,
+  //black
+  //modals-ideation
+  $--color-dialog-ideation: #fff8e1,
+  //yellow 10
+  $--color-dialog-ideation-contrast: #fdf0c3,
+  //yellow 50
+  //modals-voting
+  $--color-dialog-voting: #f1faf3,
+  //green 50
+  $--color-dialog-voting-contrast: #e0f5e3,
+  //green 100
+  //modals-follow-up
+  $--color-dialog-follow-up: #f4dfec,
+  //purple 50
+  $--color-dialog-follow-up-contrast: #e3a8cc,
+  //purple 100
+);
+
+$theme-messages-default: (
+  $--color-error: #ef4025,
+  $--color-error-background: #ffdfd9,
+  $--color-warn: #f39129,
+  $--color-warn-background: #fff1e1,
+  $--color-info: #5c9cd0,
+  $--color-info-background: #d7e9f8,
+  $--color-success: #5ab467,
+  $--color-success-background: #e0f5e3,
+);
+
+$theme-buttons-default: (
+  $--btn-submit: #2c3b47,
+  $--btn-submit-text: #fff,
+  $--btn-submit-hover: #1168a8,
+);
+
+/*Contrast and other definitions below*/
+
+$theme-map-contrast: (
+  $--color-background: #000,
+  //Accessibility/Yellow
+  $--color-text: #000,
+  //black
+  $--color-surfaces: #fff500,
+  $--color-surface-contrast: #000,
+  $--color-on-surfaces: #000,
+  $--color-border: #000,
+  $--color-secondary: #ebf4fb,
+  //blue 100
+  $--color-scrollbar: #D7E9F8,
+  //blue 200
+  $--color-scrollbar-thumb: #A7D1F3,
+  //blue 300
+  $--color-link: #1168a8,
+  //blue 700
+  $--color-discussion: #1168a8,
+  //blue 700
+  $--color-voting: #5ab467,
+  //green 500
+  $--color-voting-disabled: #98daa2,
+  //green 300
+  $--color-ideation: #e4b722,
+  //yellow 700
+  $--color-ideation-disabled: #efe08a,
+  //yellow 100
+  $--color-follow-up: #da7ab1,
+  //purple 500
+  $--color-follow-up-disabled: #e3a8cc,
+  //purple 100
+  $--color-group: #d7e9f8,
+  //blue 200
+  $--font-size: 14px,
+  $--line-height: 16px,
+);
+
+$theme-dialog-contrast: (
+  //dialog colors
+  $--color-dialog: #fff500,
+  $--color-dialog-contrast: #fff500,
+  $--color-dialog-background: #fff500,
+  $--color-dialog-text: #2c3b47,
+  //black
+  //modals-ideation
+  $--color-dialog-ideation: #fff8e1,
+  //yellow 10
+  $--color-dialog-ideation-contrast: #fdf0c3,
+  //yellow 50
+  //modals-voting
+  $--color-dialog-voting: #f1faf3,
+  //green 50
+  $--color-dialog-voting-contrast: #e0f5e3,
+  //green 100
+  //modals-follow-up
+  $--color-dialog-follow-up: #f4dfec,
+  //purple 50
+  $--color-dialog-follow-up-contrast: #e3a8cc,
+  //purple 100
+);
+
+$theme-messages-contrast: (
+  $--color-error: #ef4025,
+  $--color-error-background: #ffdfd9,
+  $--color-warn: #f39129,
+  $--color-warn-background: #fff1e1,
+  $--color-info: #5c9cd0,
+  $--color-info-background: #d7e9f8,
+  $--color-success: #5ab467,
+  $--color-success-background: #e0f5e3,
+);
+
+$theme-buttons-contrast: (
+  $--btn-submit: #000,
+  $--btn-submit-text: #fff500,
+  $--btn-submit-hover: #1168a8,
+);
+
+$theme-font-large: (
+  $--font-size: 18px,
+  $--line-height: 24px,
+);
+
+$theme-font-extra-large: (
+  $--font-size: 24px,
+  $--line-height: 32px,
+);

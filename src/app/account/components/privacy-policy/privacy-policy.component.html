@@ -1,57 +1,64 @@
-<!-- LIGHTBOX SKELETON -->
-<div id="root_lightbox">
-  <div id="lightbox" class="privacy_policy_lightbox confirm_lightbox">
-    <div id="lightbox_wrap">
-      <div id="lightbox_header">
-
-        <div id="lightbox_header_text">
-          <div class="title" translate="MODALS.PRIVACY_POLICY_HEADING"></div>
+<div class="overlay" dialog-close></div>
+<div class="dialog_wrap">
+  <div id="notification_wrap_dialog">
+    <notification></notification>
+  </div>
+  <div class="dialog">
+    <div class="dialog_header info">
+      <div class="header_with_icon">
+        <div>
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="40" height="40" rx="20" fill="#1168A8" />
+            <path
+              d="M23 11.5292C23 12.926 21.9255 14.0583 20.6 14.0583C19.2745 14.0583 18 12.926 18 11.5292C18 10.1323 19.2745 9 20.6 9C21.9255 9 23 10.1323 23 11.5292Z"
+              fill="white" />
+            <path
+              d="M17.3359 16.5357L22.8319 15.8098L20.4295 27.7096C20.2591 28.5695 20.4991 29.0576 21.1591 29.0576C21.6247 29.0576 22.3255 28.8806 22.8055 28.4354L22.5943 29.4876C21.9055 30.3626 20.3863 31 19.0783 31C17.3911 31 16.6735 29.9327 17.1391 27.664L18.9103 18.8929C19.0639 18.1518 18.9247 17.8837 18.2191 17.7067L17.1391 17.4968L17.3359 16.5357Z"
+              fill="white" />
+          </svg>
         </div>
-
-        <div class="clearer"></div>
-
+        <h4 class="title" translate="MODALS.PRIVACY_POLICY_HEADING"></h4>
       </div>
-
-      <div class="lightbox_content">
-        <div class="content_text" translate="MODALS.PRIVACY_POLICY_DESCRIPTION"></div>
-        <div class="policy_links">
-          <div class="policy_link_wrap">
-            <a class="policy_link" target="_blank" [href]="config.termsOfUse">
-              <div class="section_icon">
-                <div class="table_cell">
-                  <div class="sprite sprite-bullet-arrow-blue2x"></div>
-                </div>
-              </div>
-              <span translate="MODALS.PRIVACY_POLICY_LNK_TERMS_OF_USE"></span>
-            </a>
-          </div>
-          <div class="policy_link_wrap">
-            <a class="policy_link" target="_blank" [href]="config.privacyPolicy">
-              <div class="section_icon">
-                <div class="table_cell">
-                  <div class="sprite sprite-bullet-arrow-blue2x"></div>
-                </div>
-              </div>
-              <span translate="MODALS.PRIVACY_POLICY_LNK_PRIVACY_POLICY"></span>
-            </a>
-          </div>
-        </div>
+      <div class="dialog_close">
+        <a class="btn_dialog_close icon" dialog-close>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M7.72152 6.29537C7.3277 5.90154 6.68919 5.90154 6.29537 6.29537C5.90154 6.68919 5.90154 7.3277 6.29537 7.72153L10.5738 12L6.29541 16.2785C5.90159 16.6723 5.90159 17.3108 6.29541 17.7046C6.68923 18.0985 7.32774 18.0985 7.72156 17.7046L12 13.4262L16.2784 17.7046C16.6723 18.0985 17.3108 18.0985 17.7046 17.7046C18.0984 17.3108 18.0984 16.6723 17.7046 16.2785L13.4262 12L17.7046 7.72153C18.0985 7.3277 18.0985 6.68919 17.7046 6.29537C17.3108 5.90154 16.6723 5.90154 16.2785 6.29537L12 10.5739L7.72152 6.29537Z"
+              fill="#2C3B47" />
+          </svg>
+        </a>
       </div>
-      <div class="lightbox_footer">
-        <div class="line lightest_line"></div>
+    </div>
+    <div class="dialog_content">
+      <div class="info_row"
+        [translate]="(isNew)? 'MODALS.PRIVACY_POLICY_DESCRIPTION_NEW_USER':'MODALS.PRIVACY_POLICY_DESCRIPTION'"></div>
+    </div>
+    <div class="dialog_content">
+      <div class="dialog_info_wrap">
+        <div class="dialog_info">
+          <a class="info_row" target="_blank" [href]="config.termsOfUse">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15 12V14L19 11.5L15 9V11H6V12H15Z" fill="#2C3B47" />
+            </svg>
+            <span translate="MODALS.PRIVACY_POLICY_LNK_TERMS_OF_USE"></span>
+          </a>
+          <a class="info_row" target="_blank" [href]="config.privacyPolicy">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15 12V14L19 11.5L15 9V11H6V12H15Z" fill="#2C3B47" />
+            </svg>
 
-        <div class="lightbox_section">
-          <div class="footer_button_wrap left">
-            <div class="blue_button yes" (click)="reject()"
-              translate="MODALS.PRIVACY_POLICY_BTN_REJECT"></div>
-          </div>
-          <div class="footer_button_wrap right">
-            <div class="blue_button" (click)="accept()"
-              translate="MODALS.PRIVACY_POLICY_BTN_ACCEPT"></div>
-          </div>
+            <span translate="MODALS.PRIVACY_POLICY_LNK_PRIVACY_POLICY"></span>
+          </a>
         </div>
       </div>
     </div>
+    <div class="dialog_content no_footer">
+      <div class="button_wrap">
+        <button class="btn_big_submit" (click)="accept()" translate="MODALS.PRIVACY_POLICY_BTN_ACCEPT"></button>
+        <a (click)="reject()" translate="MODALS.PRIVACY_POLICY_BTN_REJECT"></a>
+      </div>
+    </div>
+    <div class="dialog_footer">
+    </div>
   </div>
-
 </div>

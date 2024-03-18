@@ -1,0 +1,72 @@
+@use "mixins";
+
+.language_list {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  flex-flow: wrap;
+  width: 560px;
+  padding: 16px;
+
+  @include mixins.mobile {
+    width: 100%;
+    padding: 16px;
+  }
+
+  .language_item {
+    cursor: pointer;
+    font-family: "Noto Sans";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    padding: 8px;
+    width: calc(50% - 16px);
+    text-align: left;
+    display: flex;
+    justify-content: flex-start;
+    color: var(--color-link);
+  }
+}
+#help_us_box_wrap {
+  background-color: initial;
+  padding: 16px;
+}
+
+.help_us_box {
+  cursor: pointer;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 8px;
+  background-color: var(--color-surface-contrast);
+
+  .help_us_text {
+    color: var(--color-text);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+  }
+
+  :nth-child(2) {
+    margin-left: 20px;
+    display: flex;
+    flex-grow: 2;
+  }
+
+  @include mixins.mobile {
+    flex-direction: column;
+    text-align: center;
+    :nth-child(3) {
+      display: none;
+    }
+  }
+}
+
+.dialog_info_wrap {
+  border-radius: 0 0 16px 16px;
+}

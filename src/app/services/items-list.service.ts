@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, of, switchMap, map, combineLatest } from 'rxjs';
+import { Group } from '../interfaces/group';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,7 @@ export abstract class ItemsListService {
   }
 
   doOrder(orderBy: string, order?: string) {
+    order = order || 'asc';
     this.page$.next(1);
     const orderparams = this.params$.value;
     orderparams.orderBy = orderBy;
@@ -44,7 +46,6 @@ export abstract class ItemsListService {
   };
 
   loadMore() {
-    console.log(this.hasMore$.value);
     if (this.hasMore$.value === true) {
       const page = this.page$.value;
       this.loadPage(page + 1);
@@ -64,7 +65,7 @@ export abstract class ItemsListService {
         if (this.totalPages$.value === 0 || this.totalPages$.value === this.page$.value) {
           this.hasMore$.next(false);
         }
-        return Array.from(res.rows);
+        return Array.from<Group>(res.rows);
       })
     );
   }

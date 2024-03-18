@@ -1,0 +1,38 @@
+<form name="loginForm" [formGroup]="loginForm">
+  <div class="inline_notification error" *ngIf="errors?.accoundDoesNotExist">
+    <div class="icon_notification">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="24" height="24" rx="12" fill="#EF4025" />
+        <path
+          d="M16.3753 6.77583C16.6097 6.54152 16.9896 6.54152 17.2239 6.77583C17.4582 7.01015 17.4582 7.39005 17.2239 7.62436L12.8481 12.0001L17.2239 16.3758C17.4582 16.6101 17.4582 16.99 17.2239 17.2244C16.9896 17.4587 16.6097 17.4587 16.3753 17.2244L11.9996 12.8486L7.62387 17.2244C7.38956 17.4587 7.00966 17.4587 6.77535 17.2244C6.54103 16.99 6.54103 16.6101 6.77535 16.3758L11.1511 12.0001L6.77535 7.62436C6.54103 7.39005 6.54103 7.01015 6.77535 6.77583C7.00966 6.54152 7.38956 6.54152 7.62387 6.77583L11.9996 11.1516L16.3753 6.77583Z"
+          fill="white" stroke="white" stroke-linecap="round" />
+      </svg>
+    </div>
+    <div [innerHtml]="'MODALS.LOGIN_ERROR_NO_ACCOUNT' | translate: {linkRegister: linkRegister}">
+    </div>
+  </div>
+  <div class="input_wrap">
+    <cos-input placeholder="{{'COMPONENTS.LOGIN_FORM.LOGIN_PLACEHOLDER_EMAIL' | translate}}">
+      <input id="email" formControlName="email" type="email" [ngClass]="{'error_input': loginForm.controls['email'].errors && loginForm.controls['email'].errors['required'] && loginForm.controls['email'].touched}"
+        placeholder="{{'COMPONENTS.LOGIN_FORM.LOGIN_PLACEHOLDER_EMAIL' | translate}}" [maxlength]="254" required>
+    </cos-input>
+    <cos-input placeholder="{{'COMPONENTS.LOGIN_FORM.LOGIN_PLACEHOLDER_PASSWORD' | translate}}">
+      <input id="password" formControlName="password" [type]="showPassword ? 'text' : 'password'"
+        placeholder="{{'COMPONENTS.LOGIN_FORM.LOGIN_PLACEHOLDER_PASSWORD' | translate}}" (focus)="isFormEmailProvided"
+        [ngClass]="{'error_input': loginForm.controls['password'].errors && loginForm.controls['password'].errors['required'] && loginForm.controls['password'].touched}" [maxlength]="64" required cos-view-input>
+      <div class="view_password" (click)="showPassword = !showPassword">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M12 16.075C13.1003 16.075 14.0346 15.679 14.8029 14.887C15.5718 14.0957 15.9563 13.1333 15.9563 12C15.9563 10.8667 15.5718 9.90433 14.8029 9.113C14.0346 8.321 13.1003 7.925 12 7.925C10.8997 7.925 9.96537 8.321 9.19709 9.113C8.42816 9.90433 8.04369 10.8667 8.04369 12C8.04369 13.1333 8.42816 14.0957 9.19709 14.887C9.96537 15.679 10.8997 16.075 12 16.075ZM12 14.7C11.2718 14.7 10.6531 14.4373 10.1437 13.912C9.63366 13.3873 9.37864 12.75 9.37864 12C9.37864 11.25 9.63366 10.6123 10.1437 10.087C10.6531 9.56233 11.2718 9.3 12 9.3C12.7282 9.3 13.3472 9.56233 13.8573 10.087C14.3667 10.6123 14.6214 11.25 14.6214 12C14.6214 12.75 14.3667 13.3873 13.8573 13.912C13.3472 14.4373 12.7282 14.7 12 14.7ZM12 19C9.88026 19 7.9343 18.425 6.16214 17.275C4.39061 16.125 3.0356 14.5667 2.09709 12.6C2.06472 12.5333 2.04045 12.4457 2.02427 12.337C2.00809 12.229 2 12.1167 2 12C2 11.8833 2.00809 11.7707 2.02427 11.662C2.04045 11.554 2.06472 11.4667 2.09709 11.4C3.0356 9.43333 4.39061 7.875 6.16214 6.725C7.9343 5.575 9.88026 5 12 5C14.1197 5 16.0654 5.575 17.8369 6.725C19.6091 7.875 20.9644 9.43333 21.9029 11.4C21.9353 11.4667 21.9595 11.554 21.9757 11.662C21.9919 11.7707 22 11.8833 22 12C22 12.1167 21.9919 12.229 21.9757 12.337C21.9595 12.4457 21.9353 12.5333 21.9029 12.6C20.9644 14.5667 19.6091 16.125 17.8369 17.275C16.0654 18.425 14.1197 19 12 19ZM12 17.5C13.8285 17.5 15.5074 17.004 17.0369 16.012C18.5657 15.0207 19.7346 13.6833 20.5437 12C19.7346 10.3167 18.5657 8.979 17.0369 7.987C15.5074 6.99567 13.8285 6.5 12 6.5C10.1715 6.5 8.49256 6.99567 6.96311 7.987C5.4343 8.979 4.26537 10.3167 3.45631 12C4.26537 13.6833 5.4343 15.0207 6.96311 16.012C8.49256 17.004 10.1715 17.5 12 17.5Z"
+            fill="#2C3B47" />
+        </svg>
+      </div>
+    </cos-input>
+  </div>
+  <div class="link_section">
+    <a [routerLink]="['/account/password/forgot']" translate="COMPONENTS.LOGIN_FORM.LOGIN_LNK_FORGOT_PASSWORD"></a>
+  </div>
+  <button id="login_button" type="submit" (click)="doLogin()" [ngClass]="{disabled:loginForm.invalid}" class="btn_big_submit"
+    translate="COMPONENTS.LOGIN_FORM.LOGIN_BTN_LOGIN"></button>
+  <a (click)="register()" translate="COMPONENTS.LOGIN_FORM.LOGIN_LNK_NO_ACCOUNT_REGISTER"></a>
+</form>

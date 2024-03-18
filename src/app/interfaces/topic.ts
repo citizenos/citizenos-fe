@@ -3,7 +3,8 @@ import {Vote} from './vote';
 export interface Topic {
   authors: any[],
   id:	string,
-  title: string,
+  title: string | null,
+  intro: string | null,
   description: string,
   status: string,
   visibility:	string,
@@ -18,11 +19,13 @@ export interface Topic {
   permission: {level: string, levelGroup?: string},
   creator: any,
   lastActivity: string | null,
+  country: string | null,
+  language: string | null,
   members: any,
   voteId:	string | null,
   comments: any,
-  padUrl: string,
-  pinned?: boolean | null,
+  padUrl: any,
+  favourite?: boolean | null,
   imageUrl: string | null,
   report?: {
     id: string,
@@ -31,5 +34,7 @@ export interface Topic {
     moderatedReasonType: string | null,
     moderatedReasonText: string | null
   },
-  vote?: Vote
+  events: any,
+  vote?: Vote,
+  revision?: number
 }

@@ -1,0 +1,12 @@
+.link_section{
+  display:flex;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.input_wrap {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 8px;
+}

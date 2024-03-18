@@ -1,10 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicReportService } from 'src/app/services/topic-report.service';
 import { TopicReportFormData } from '../topic-report-form/topic-report-form.component';
 import { switchMap, take } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TopicService } from 'src/app/services/topic.service';
 @Component({
   selector: 'app-topic-report-resolve',
@@ -15,7 +15,8 @@ export class TopicReportResolveComponent implements OnInit {
   topic!: Topic;
   isLoading = false;
   errors = <any>null;
-  constructor(@Inject(MAT_DIALOG_DATA) public data: TopicReportFormData, private dialog: MatDialog, private TopicReportService: TopicReportService) {
+  constructor(@Inject(DIALOG_DATA) public data: TopicReportFormData, private dialog: DialogService, private TopicReportService: TopicReportService,
+  private router: Router, private TopicService: TopicService) {
     this.topic = data.topic;
   }
 
@@ -34,6 +35,8 @@ export class TopicReportResolveComponent implements OnInit {
       .subscribe({
         next: () => {
           this.dialog.closeAll();
+          this.TopicService.reloadTopic();
+          this.router.navigate(['/', 'topics', this.topic.id])
         },
         error: (res) => {
           this.isLoading = false;
@@ -50,12 +53,17 @@ export class TopicReportResolveComponent implements OnInit {
 })
 export class TopicReportResolveDialogComponent implements OnInit {
 
-  constructor(dialog: MatDialog, route: ActivatedRoute, TopicService: TopicService) {
+  constructor(dialog: DialogService, router: Router, route: ActivatedRoute, TopicService: TopicService) {
     route.params.pipe(switchMap((params) => {
       return TopicService.get(params['topicId']);
     })).pipe(take(1))
       .subscribe((topic) => {
-        dialog.open(TopicReportResolveComponent, { data: { topic } });
+        const reportDialog = dialog.open(TopicReportResolveComponent, { data: { topic } });
+
+        reportDialog.afterClosed().subscribe(() => {
+          TopicService.reloadTopic();
+          router.navigate(['topics', topic.id], );
+        })
       })
 
   }

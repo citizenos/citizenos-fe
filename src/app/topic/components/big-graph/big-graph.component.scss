@@ -1,93 +1,39 @@
-@use "vars";
-@use "mixins_n_extends";
-
 .big_graph {
-  margin-top: 30px;
-
-  .graph_wrap {
-    margin-top: 30px;
-
-    .graph_row {
-      position: relative;
-      height: 40px;
-      width: 100%;
-      &:not(:last-child) {
-        margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-left: 1px solid var(--color-voting-disabled);
+  padding: 16px;
+  .graph_item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    .graph_bar {
+      height: 24px;
+      background-image: url("data:image/svg+xml,%3Csvg width='100' height='24' viewBox='0 0 100 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3 -1L-23 25' stroke='%2398DAA2'/%3E%3Cpath d='M7 -1L-19 25' stroke='%2398DAA2'/%3E%3Cpath d='M11 -1L-15 25' stroke='%2398DAA2'/%3E%3Cpath d='M15 -1L-11 25' stroke='%2398DAA2'/%3E%3Cpath d='M19 -1L-7 25' stroke='%2398DAA2'/%3E%3Cpath d='M23 -1L-3 25' stroke='%2398DAA2'/%3E%3Cpath d='M27 -1L1 25' stroke='%2398DAA2'/%3E%3Cpath d='M31 -1L5 25' stroke='%2398DAA2'/%3E%3Cpath d='M35 -1L9 25' stroke='%2398DAA2'/%3E%3Cpath d='M39 -1L13 25' stroke='%2398DAA2'/%3E%3Cpath d='M43 -1L17 25' stroke='%2398DAA2'/%3E%3Cpath d='M47 -1L21 25' stroke='%2398DAA2'/%3E%3Cpath d='M51 -1L25 25' stroke='%2398DAA2'/%3E%3Cpath d='M55 -1L29 25' stroke='%2398DAA2'/%3E%3Cpath d='M59 -1L33 25' stroke='%2398DAA2'/%3E%3Cpath d='M63 -1L37 25' stroke='%2398DAA2'/%3E%3Cpath d='M67 -1L41 25' stroke='%2398DAA2'/%3E%3Cpath d='M71 -1L45 25' stroke='%2398DAA2'/%3E%3Cpath d='M75 -1L49 25' stroke='%2398DAA2'/%3E%3Cpath d='M79 -1L53 25' stroke='%2398DAA2'/%3E%3Cpath d='M83 -1L57 25' stroke='%2398DAA2'/%3E%3Cpath d='M87 -1L61 25' stroke='%2398DAA2'/%3E%3Cpath d='M91 -1L65 25' stroke='%2398DAA2'/%3E%3Cpath d='M95 -1L69 25' stroke='%2398DAA2'/%3E%3Cpath d='M99 -1L73 25' stroke='%2398DAA2'/%3E%3Cpath d='M103 -1L77 25' stroke='%2398DAA2'/%3E%3Cpath d='M107 -1L81 25' stroke='%2398DAA2'/%3E%3Cpath d='M111 -1L85 25' stroke='%2398DAA2'/%3E%3Cpath d='M115 -1L89 25' stroke='%2398DAA2'/%3E%3Cpath d='M119 -1L93 25' stroke='%2398DAA2'/%3E%3Cpath d='M123 -1L97 25' stroke='%2398DAA2'/%3E%3C/svg%3E%0A");
+      &.active {
+        background-color: var(--color-voting);
+        background-image: none;
       }
+    }
+    .grap_item_info {
+      display: flex;
+      gap: 8px;
+      align-items: center;
 
-
-      .graph_row_text_wrap {
-        display: table;
-        height: 100%;
-        width: 200px;
-        min-width: 150px;
-        position: absolute;
-      }
-
-      .graph_row_text {
+      .your_vote {
         display: flex;
+        padding: 4px 12px;
+        align-items: flex-start;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 16px;
         gap: 8px;
-        box-sizing: border-box;
-        padding-left: 10px;
-        font-size: 13px;
-        line-height: 15px;
-        text-align: left;
-        word-wrap: break-word;
-        width: 200px;
-        min-width: 150px;
-      }
-
-      .bullet {
-        padding-left: 2px;
-        padding-right: 2px;
-      }
-      .graph_row_fill {
-        background: vars.$side_panel_gray;
-        height: 100%;
-        position: relative;
-        cursor: pointer;
-
-        @media (min-width: 1025px) {
-          &:hover {
-            background: vars.$another_gray;
-          }
-        }
-      }
-
-      &.active {
-        .graph_row_fill {
-          @media (min-width: 1025px) {
-            &:hover {
-              background: vars.$aqua_marine_border_second;
-            }
-          }
-        }
-      }
-    }
-  }
-
-  .long_text_holder {
-    font-size: 14px;
-    @media (max-width: 500px) {
-      padding: 0;
-    }
-
-    .long_text {
-      cursor: pointer;
-      padding: 5px 3px;
-      @media (max-width: 500px) {
-        padding: 5px 5px 0;
-      }
-
-      &.active {
-        color: vars.$aqua_marine_text;
-        font-weight: vars.$bold;
-      }
-
-      @media (min-width: 1025px) {
-        &:hover {
-          background: vars.$side_panel_gray;
-        }
+        background-color: var(--color-surfaces);
+        border-radius: 12px;
+        color: var(--color-argument-pro-text);
       }
     }
   }

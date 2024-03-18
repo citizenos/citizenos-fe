@@ -10,6 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { GroupCreateComponent } from './components/group-create/group-create.component';
 import { GroupJoinComponent } from './components/group-join/group-join.component';
 import { GroupInvitationComponent } from './components/group-invitation/group-invitation.component';
+import { GroupSettingsComponent } from './components/group-settings/group-settings.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { GroupInvitationComponent } from './components/group-invitation/group-in
     GroupComponent,
     GroupCreateComponent,
     GroupJoinComponent,
-    GroupInvitationComponent
+    GroupInvitationComponent,
+    GroupSettingsComponent
   ],
   imports: [
     CommonModule,

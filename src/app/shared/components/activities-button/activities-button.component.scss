@@ -1,0 +1,25 @@
+@use "mixins";
+
+@include mixins.tablet {
+  span {
+    display: none;
+  }
+
+  .btn_medium_nav {
+    div {
+      position: absolute;
+      svg {
+        circle {
+          stroke: initial;
+        }
+        text {
+          font-size: 10px;
+          line-height: 10px;
+          text-align: center;
+          text-anchor: middle;
+          dominant-baseline: middle;
+        }
+      }
+    }
+  }
+}

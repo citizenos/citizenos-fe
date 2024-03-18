@@ -1,0 +1,20 @@
+.cos_input_wrap {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .cos_input_placeholder {
+    display: none;
+    position: absolute;
+    font-size: 12px;
+    line-height: 16px;
+    top: 4px;
+    left: 16px;
+    color: #727C84;
+    z-index: 2;
+
+    &.show {
+      display:flex;
+    }
+  }
+}

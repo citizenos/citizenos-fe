@@ -1,137 +1,148 @@
-import { ActivatedRoute, Router } from '@angular/router';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Inject, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
-import { GroupService } from 'src/app/services/group.service';
-import { GroupInviteUserService } from 'src/app/services/group-invite-user.service';
-import { AppService } from 'src/app/services/app.service';
-import { switchMap, take, takeWhile } from 'rxjs';
-import { UploadService } from 'src/app/services/upload.service';
+import { Component, Inject, ViewChild, ElementRef, HostBinding } from '@angular/core';
+import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
+import { take, takeWhile } from 'rxjs';
 import { Group } from 'src/app/interfaces/group';
+import { GroupService } from 'src/app/services/group.service';
+import { countries } from 'src/app/services/country.service';
+import { languages } from 'src/app/services/language.service';
+
 @Component({
-  selector: 'group-settings',
+  selector: 'app-group-settings',
   templateUrl: './group-settings.component.html',
   styleUrls: ['./group-settings.component.scss']
 })
-export class GroupSettingsComponent implements OnInit {
+export class GroupSettingsComponent {
   @ViewChild('imageUpload') fileInput?: ElementRef;
-  public group!: Group;
-  public imageFile?: any;
+  countries = countries.sort((a: any, b: any) => {
+    return a.name.localeCompare(b.name);
+  });
+  languages = languages.sort((a: any, b: any) => {
+    return a.name.localeCompare(b.name);
+  });
+
+  activeTab = 'info';
+  group: Group;
+  rules = <any[]>[];
+  VISIBILITY = this.GroupService.VISIBILITY;
+  errors?: any;
+  imageFile?: any;
+  uploadedImage?: any;
+  descriptionLength = 500;
   public tmpImageUrl?: any;
-  public errors: any = null;
-  public sectionsVisible = ['name', 'description', 'image', 'leave'];
-  // private sUpload,
+
   constructor(
-    @Inject(MAT_DIALOG_DATA) private data: any,
-    private dialogRef: MatDialogRef<GroupSettingsComponent>,
-    private Route: ActivatedRoute, private dialog: MatDialog,
-    public GroupService: GroupService, private GroupInviteUserService: GroupInviteUserService,
-    private Upload: UploadService,
-    public app: AppService) {
-      this.group = data.group;
+    private dialog: DialogService,
+    @Inject(DIALOG_DATA) public data: any,
+    private GroupService: GroupService
+  ) {
+    this.group = data.group;
+    this.rules = data.group.rules.map((rule:string) => {return {rule: rule}});
+    if (this.activeTab === 'info') {
+    }
   }
 
-  ngOnDestroy() {
-  }
-  ngOnInit(): void {
+  removeRule(index: number) {
+    this.rules?.splice(index, 1);
   }
 
-  isVisible(section: string) {
-    return this.sectionsVisible.indexOf(section) > -1;
-  };
+  selectTab(tab: string) {
+    this.activeTab = tab;
+  }
+
+  addRule() {
+    this.rules?.push({ rule: '' });
+  }
 
   fileUpload() {
     const files = this.fileInput?.nativeElement.files;
-    this.imageFile = files[0];
+    this.uploadedImage = files[0];
     const reader = new FileReader();
-    reader.onload = (() => {
-      return (e: any) => {
-        this.tmpImageUrl = e.target.result;
-      };
-    })();
+    reader.onload = async () => {
+      await this.resizeImage(reader.result as string).then((res: any) => {
+        this.tmpImageUrl = res.imageUrl;
+        this.imageFile = res.file;
+      });
+    };
     reader.readAsDataURL(files[0]);
   }
-  triggerUploadImage() {
+
+  resizeImage(imageURL: any): Promise<any> {
+    return new Promise((resolve) => {
+      const image = new Image();
+      image.onload = function () {
+        const canvas = document.createElement('canvas');
+        canvas.width = 320;
+        canvas.height = 320;
+        const ctx = canvas.getContext('2d');
+        if (ctx != null) {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(image, 0, 0, image.width, image.height,
+            0, 0, 320, 320);
+        }
+        var data = canvas.toDataURL('image/jpeg', 1);
+        canvas.toBlob((blob) => {
+          if (blob) {
+            const file = new File([blob], 'profileimage.jpg', { type: "image/jpeg" });
+            canvas.remove();
+            resolve({ file: file, imageUrl: data });
+          }
+        }, 'image/jpeg');
+      };
+      image.src = imageURL;
+    });
+  }
+
+  fileDroped(files: any) {
+    this.uploadedImage = files[0];
+  }
+  uploadImage() {
     this.fileInput?.nativeElement.click();
   };
+
+  imageChange(image: any) {
+    this.imageFile = image;
+  }
 
   deleteGroupImage() {
     if (this.fileInput) {
       this.fileInput.nativeElement.value = null;
     }
-    this.group.imageUrl = this.tmpImageUrl = null;
+    this.group.imageUrl = null;
+    this.uploadedImage = null;
     this.imageFile = null;
   };
 
-  doSaveGroup() {
-    this.errors = null;
+  save() {
+    const saveGroup = Object.assign({}, this.group);
+    saveGroup.rules = this.rules.map(rule => rule.rule);
 
-    this.GroupService.update(this.group).pipe(
-      take(1)
-    ).subscribe((res) => {
-      if (this.imageFile) {
-        this.GroupService
-          .uploadGroupImage(this.imageFile, this.group.id).pipe(
-            takeWhile((e) => !e.link)
-          )
-          .subscribe((res: any) => {
-            if (res.link) {
-              this.group.imageUrl = res.link;
-            }
-          });
-      }
+    this.GroupService.update(saveGroup).pipe(take(1))
+    .subscribe({
+      next: (group) => {
+        this.group = Object.assign(this.group, group);
+        if (this.imageFile) {
+          this.GroupService
+            .uploadGroupImage(this.imageFile, this.group.id).pipe(
+              takeWhile((e) => !e.link, true)
+            )
+            .subscribe((res: any) => {
+              if (res.link) {
+                this.group.imageUrl = res.link;
 
-      this.dialogRef.close();
-    })
-  };
-
-  doDeleteGroup() {
-    const deleteDialog = this.dialog.open(ConfirmDialogComponent, {
-      data: {
-        heading: 'MODALS.GROUP_DELETE_CONFIRM_HEADING',
-        title: 'MODALS.GROUP_DELETE_CONFIRM_TXT_ARE_YOU_SURE',
-        points: ['MODALS.GROUP_DELETE_CONFIRM_TXT_GROUP_DELETED', 'MODALS.GROUP_DELETE_CONFIRM_TXT_LOSE_ACCESS'],
-        confirmBtn: 'MODALS.GROUP_DELETE_CONFIRM_BTN_YES',
-        closeBtn: 'MODALS.GROUP_DELETE_CONFIRM_BTN_NO'
-      }
-    });
-
-    deleteDialog.afterClosed().subscribe(result => {
-      if (result === true) {
-        this.GroupService.delete(this.group)
-          .pipe(take(1))
-          .subscribe((res) => {
-            console.log(res);
-          })
-      }
-    });
-  };
-}
-
-@Component({
-  selector: 'group-settings-dialog',
-  template: ''
-})
-export class GroupSettingsDialogComponent implements OnInit {
-
-  constructor(dialog: MatDialog, router: Router, route: ActivatedRoute, GroupService: GroupService) {
-    route.params.pipe(
-      switchMap((params) => {
-        return GroupService.get(params['groupId'])
-      })
-    ).pipe(take(1)).subscribe((group) => {
-      const settingsDialog = dialog.open(GroupSettingsComponent, {
-        data: {
-          group
+                this.dialog.closeAll();
+                this.GroupService.reset();
+              }
+            });
+        } else {
+          this.dialog.closeAll();
+          this.GroupService.reset();
         }
-      });
-      settingsDialog.afterClosed().subscribe(() => {
-        router.navigate(['../'], { relativeTo: route })
-      })
+      },
+      error: (errorResponse) => {
+        if (errorResponse && errorResponse.errors) {
+          this.errors = errorResponse.errors;
+        }
+      }
     });
   }
-
-  ngOnInit(): void {
-  }
-
 }
