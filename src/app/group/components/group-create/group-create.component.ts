@@ -219,6 +219,7 @@ export class GroupCreateComponent implements OnInit, BlockNavigationIfChange {
             }
           });
       } else {
+        this.hasChanges$.next(false);
         this.GroupService.reset();
         this.router.navigate(['/groups', group.id]);
       }

@@ -34,6 +34,7 @@ import { AccessibilityMenuComponent } from './core/components/accessibility-menu
 import { DashboardComponent } from './core/components/dashboard/dashboard.component';
 import { FeatureBoxComponent } from './core/components/feature-box/feature-box.component';
 import { OnboardingComponent } from './core/components/onboarding/onboarding.component';
+import { CookieService } from 'ngx-cookie-service';
 
 /*Needs update to also properly load config */
 export function appInitializerFactory(translate: TranslateService) {
@@ -100,6 +101,7 @@ export function appInitializerFactory(translate: TranslateService) {
     MarkdownService,
     MarkdownModule.init(),
     ConfigService,
+    CookieService,
     ConfigModule.init(),
     {
       provide: HTTP_INTERCEPTORS,

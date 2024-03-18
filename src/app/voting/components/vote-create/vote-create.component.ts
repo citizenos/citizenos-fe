@@ -30,6 +30,7 @@ import { Attachment } from 'src/app/interfaces/attachment';
 import { TopicAttachmentService } from 'src/app/services/topic-attachment.service';
 import { TopicMemberGroupService } from 'src/app/services/topic-member-group.service';
 import { TopicFormComponent } from 'src/app/topic/components/topic-form/topic-form.component';
+import { BlockNavigationIfChange } from 'src/app/shared/pending-changes.guard';
 
 @Component({
   selector: 'app-vote-create',
@@ -71,11 +72,12 @@ import { TopicFormComponent } from 'src/app/topic/components/topic-form/topic-fo
       }))
     ])]
 })
-export class VoteCreateComponent extends TopicFormComponent {
+export class VoteCreateComponent extends TopicFormComponent implements BlockNavigationIfChange {
   @ViewChild('vote_create_form') voteCreateForm?: TopicVoteCreateComponent;
 
   languages$: { [key: string]: any } = this.config.get('language').list;
   topic$: Observable<Topic>;
+  hasChanges$ = new BehaviorSubject(<boolean>true);
 
   public vote = {
     createdAt: '',
@@ -311,6 +313,7 @@ export class VoteCreateComponent extends TopicFormComponent {
                 this.topic.imageUrl = res.link;
               }
 
+              this.hasChanges$.next(false);
               this.router.navigate(['my', 'topics']);
               this.Notification.addSuccess('VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE');
             },
@@ -343,7 +346,6 @@ export class VoteCreateComponent extends TopicFormComponent {
               this.topicGroups.forEach((group) => {
                 this.saveMemberGroup(group)
               });
-
               if (!this.vote.id) {
                 this.createVote();
               } else {
@@ -352,6 +354,7 @@ export class VoteCreateComponent extends TopicFormComponent {
               updateTopic.status = this.TopicService.STATUSES.voting;
               this.TopicService.patch(updateTopic).pipe(take(1)).subscribe({
                 next: (res) => {
+                  this.hasChanges$.next(false);
                   this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
                   this.TopicService.reloadTopic();
                   if (this.isnew || isDraft) {
@@ -416,4 +419,11 @@ export class VoteCreateComponent extends TopicFormComponent {
     updateVote.options = options;
     return this.TopicVoteService.update(updateVote).pipe(take(1)).subscribe();
   }
+
+  removeChanges() {
+    console.log(this.topic)
+    if (this.topic)
+      this.TopicService.revert(this.topic.id, this.topic.revision!).pipe(take(1)).subscribe();
+  }
+
 }
