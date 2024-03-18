@@ -555,7 +555,7 @@ export class TopicFormComponent {
             .pipe(take(1))
             .subscribe(() => {
               this.hasUnsavedChanges.next(false);
-              this.router.navigate(['dashboard']);
+              this.router.navigate(['topics', this.topic.id]);
             })
         }
       }
