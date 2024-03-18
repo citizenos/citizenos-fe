@@ -943,7 +943,7 @@
               <button *ngIf="topic.status === TopicService.STATUSES.draft" class="btn_medium_secondary"
                 (click)="saveAsDraft()" translate="VIEWS.TOPIC_CREATE.FOOTER_BTN_SAVE_AS_DRAFT" [ngClass]="{disabled: isNextDisabled(tabSelected)}">
               </button>
-              <button class="btn_medium_submit icon mobile_hidden" (click)="(tabSelected!=='preview' && (topic.status === TopicService.STATUSES.draft) )?
+              <button class="btn_medium_submit icon mobile_hidden" (click)="(tabSelected!=='preview' && isnew)?
                 nextTab(tabSelected) : publish()" [ngClass]="{disabled: isNextDisabled(tabSelected)}">
                 <span class="btn_text mobile_hidden"
                   [translate]="(tabSelected!=='preview' && topic.status === TopicService.STATUSES.draft)? 'VIEWS.TOPIC_CREATE.FOOTER_BTN_CONTINUE': 'VIEWS.TOPIC_CREATE.FOOTER_BTN_SAVE_CHANGES_AND_PUBLISH'"></span>

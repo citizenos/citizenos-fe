@@ -25,8 +25,8 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'edit', canActivate: [AuthGuard], canDeactivate:[CanDeactivateBlockNavigationIfChange], children: [
-      { path: ':topicId', component: TopicEditComponent }
+    path: 'edit', canActivate: [AuthGuard], children: [
+      { path: ':topicId', component: TopicEditComponent, canDeactivate:[CanDeactivateBlockNavigationIfChange] }
     ]
   },
   {
