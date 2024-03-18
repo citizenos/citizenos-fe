@@ -869,19 +869,19 @@
         </ng-container>
 
         <div id="create_footer">
-          <div id="mobile_action_buttons_row" class="items_row mobile_show" *ngIf="!isnew || tabSelected === 'preview'">
-            <button *ngIf="isnew && topic.status === TopicService.STATUSES.draft" class="btn_medium_secondary"
+          <div id="mobile_action_buttons_row" class="items_row tablet_show">
+            <button *ngIf="topic.status === TopicService.STATUSES.draft" class="btn_medium_secondary"
               (click)="saveAsDraft()" translate="VIEWS.TOPIC_CREATE.FOOTER_BTN_SAVE_AS_DRAFT">
             </button>
-            <button *ngIf="!isnew" class="btn_medium_submit icon" (click)="publish();"
+            <button *ngIf="!isnew && topic.status !== TopicService.STATUSES.draft" class="btn_medium_submit icon" (click)="publish();"
               translate="VIEWS.TOPIC_CREATE.FOOTER_BTN_SAVE_CHANGES_AND_PUBLISH"></button>
-            <button *ngIf="isnew || topic.status === TopicService.STATUSES.draft" class="btn_medium_submit publish icon"
+            <button *ngIf="(isnew || topic.status === TopicService.STATUSES.draft) && tabSelected === 'preview'" class="btn_medium_submit publish icon"
               (click)="publish()" [ngClass]="{disabled: !TopicService.canDelete(topic)}">
               <span class="btn_text"
                 [translate]="(topic.status === TopicService.STATUSES.draft)? 'VIEWS.TOPIC_CREATE.FOOTER_BTN_CREATE' : 'VIEWS.TOPIC_CREATE.FOOTER_BTN_SAVE_CHANGES'"></span>
             </button>
           </div>
-          <div class="line_separator mobile_show"></div>
+          <div class="line_separator tablet_show"></div>
           <div class="items_row">
             <div id="close_create">
               <button class="btn_medium_submit_ghost icon" (click)="cancel()">
@@ -920,7 +920,7 @@
                     fill="#2C3B47" />
                 </svg>
               </button>
-              <button class="btn_medium_submit icon mobile_hidden" (click)="nextTab(tabSelected)" *ngIf="!isnew && topic.status !== TopicService.STATUSES.draft"
+              <button class="btn_medium_submit icon tablet_hidden" (click)="nextTab(tabSelected)" *ngIf="!isnew && topic.status !== TopicService.STATUSES.draft"
                 [ngClass]="{disabled: isNextDisabled(tabSelected) || tabSelected === 'preview'}">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                   xmlns="http://www.w3.org/2000/svg">
@@ -930,7 +930,7 @@
                 </svg>
               </button>
 
-              <button class="btn_medium_submit icon mobile_show" (click)="nextTab(tabSelected)"
+              <button class="btn_medium_submit icon tablet_show" (click)="nextTab(tabSelected)"
                 [ngClass]="{disabled: isNextDisabled(tabSelected) || tabSelected === 'preview'}">
                 <span class="btn_text mobile_hidden" [translate]="'VIEWS.TOPIC_CREATE.FOOTER_BTN_CONTINUE'"></span>
                 <svg class="mobile_show" id="continue_btn" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -940,12 +940,12 @@
                     fill="white" />
                 </svg>
               </button>
-              <button *ngIf="topic.status === TopicService.STATUSES.draft" class="btn_medium_secondary"
+              <button *ngIf="topic.status === TopicService.STATUSES.draft" class="btn_medium_secondary tablet_hidden"
                 (click)="saveAsDraft()" translate="VIEWS.TOPIC_CREATE.FOOTER_BTN_SAVE_AS_DRAFT" [ngClass]="{disabled: isNextDisabled(tabSelected)}">
               </button>
-              <button class="btn_medium_submit icon mobile_hidden" (click)="(tabSelected!=='preview' && isnew)?
+              <button class="btn_medium_submit icon tablet_hidden" (click)="(tabSelected!=='preview' && topic.status === TopicService.STATUSES.draft)?
                 nextTab(tabSelected) : publish()" [ngClass]="{disabled: isNextDisabled(tabSelected)}">
-                <span class="btn_text mobile_hidden"
+                <span class="btn_text tablet_hidden"
                   [translate]="(tabSelected!=='preview' && topic.status === TopicService.STATUSES.draft)? 'VIEWS.TOPIC_CREATE.FOOTER_BTN_CONTINUE': 'VIEWS.TOPIC_CREATE.FOOTER_BTN_SAVE_CHANGES_AND_PUBLISH'"></span>
                 <svg class="mobile_show" id="continue_btn" width="24" height="24" viewBox="0 0 24 24" fill="none"
                   xmlns="http://www.w3.org/2000/svg">
