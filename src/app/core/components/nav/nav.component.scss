@@ -227,6 +227,14 @@
         right: initial;
       }
 
+      .logout_option:hover {
+        svg {
+          path {
+            fill:none;
+            stroke:var(--color-link);
+          }
+        }
+      }
       #loggend_in_as_wrap {
         display: flex;
         flex-direction: column;
