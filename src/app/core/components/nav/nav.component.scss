@@ -49,6 +49,10 @@
       position: absolute;
     }
   }
+
+  &.pos_initial {
+    position: initial;
+  }
 }
 
 .nav_header_tablet {
@@ -92,6 +96,10 @@
 
   &.pos_absolute {
     position: absolute;
+  }
+
+  &.pos_initial {
+    position: initial;
   }
   @include mixins.tablet {
     position: absolute;
