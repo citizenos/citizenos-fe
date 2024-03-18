@@ -67,7 +67,7 @@ export class LoginFormComponent {
             /* if (this.$state.is('partners.consent') || this.$state.is('partners.login')) {
                  return window.location.href = this.Location.getAbsoluteUrlApi('/api/auth/openid/authorize');
              } else {*/
-            this.PlausibleService.post({name: 'User login'});
+         //   this.PlausibleService.post({name: 'User login'});
             if (this.redirectSuccess) {
               console.log('SUCCESS', this.redirectSuccess);
               if (typeof this.redirectSuccess === 'string') {
