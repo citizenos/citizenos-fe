@@ -913,18 +913,20 @@
           <!--group-invite id="group_invite" *ngIf="tabSelected==='invite'" [group]="group"></!--group-invite-->
 
           <div id="create_footer">
-            <div id="mobile_action_buttons_row" class="items_row mobile_show"
-              *ngIf="!isnew || tabSelected === 'preview'">
-              <button *ngIf="isnew && topic.status === TopicService.STATUSES.draft" class="btn_medium_secondary"
+            <div id="mobile_action_buttons_row" class="items_row tablet_show">
+              <button *ngIf="topic.status === TopicService.STATUSES.draft" class="btn_medium_secondary"
                 (click)="saveAsDraft()" translate="VIEWS.VOTE_CREATE.FOOTER_BTN_SAVE_AS_DRAFT">
               </button>
-              <button *ngIf="isnew || topic.status === TopicService.STATUSES.draft"
+              <button *ngIf="!isnew && topic.status !== TopicService.STATUSES.draft" class="btn_medium_submit icon" (click)="publish();"
+              translate="VIEWS.VOTE_CREATE.FOOTER_BTN_SAVE_CHANGES_AND_PUBLISH"></button>
+              <button *ngIf="(isnew || topic.status === TopicService.STATUSES.draft) && tabSelected === 'preview'"
                 class="btn_medium_submit publish icon"
                 (click)="publish()"
                 [ngClass]="{disabled: !TopicService.canDelete(topic)}">
                 <span class="btn_text"
                   [translate]="(topic.status === TopicService.STATUSES.draft)?'VIEWS.VOTE_CREATE.FOOTER_BTN_CREATE': 'VIEWS.VOTE_CREATE.FOOTER_BTN_SAVE_CHANGES'"></span>
               </button>
+
             </div>
             <div class="items_row">
               <div id="close_create">
@@ -964,7 +966,7 @@
                       fill="#2C3B47" />
                   </svg>
                 </button>
-                <button class="btn_medium_submit icon mobile_hidden" (click)="nextTab(tabSelected)" *ngIf="!isnew && topic.status !== TopicService.STATUSES.draft"
+                <button class="btn_medium_submit icon tablet_hidden" (click)="nextTab(tabSelected)" *ngIf="!isnew && topic.status !== TopicService.STATUSES.draft"
                   [ngClass]="{disabled: isNextDisabled(tabSelected) || tabSelected === 'preview'}">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
@@ -974,24 +976,24 @@
                   </svg>
                 </button>
 
-                <button class="btn_medium_submit icon mobile_show" (click)="nextTab(tabSelected)"
+                <button class="btn_medium_submit icon tablet_show" (click)="nextTab(tabSelected)"
                   [ngClass]="{disabled: isNextDisabled(tabSelected) || tabSelected === 'preview'}">
-                  <span class="btn_text mobile_hidden" [translate]="'VIEWS.VOTE_CREATE.FOOTER_BTN_CONTINUE'"></span>
-                  <svg class="mobile_show" id="continue_btn" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  <span class="btn_text tablet_hidden" [translate]="'VIEWS.VOTE_CREATE.FOOTER_BTN_CONTINUE'"></span>
+                  <svg class="tablet_show" id="continue_btn" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M14.5467 6.31262C14.1471 5.89579 13.4991 5.89579 13.0994 6.31262C12.6997 6.72945 12.6997 7.40527 13.0994 7.8221L16.0816 11L6 11C5.43478 11 5 11.4108 5 12.0003C5 12.5897 5.43478 12.9824 6 12.9824L16.0816 12.9824L13.0994 16.1779C12.6997 16.5947 12.6997 17.2705 13.0994 17.6874C13.4991 18.1042 14.1471 18.1042 14.5467 17.6874L20 12L14.5467 6.31262Z"
                       fill="white" />
                   </svg>
                 </button>
-                <button *ngIf="topic.status === TopicService.STATUSES.draft" class="btn_medium_secondary"
+                <button *ngIf="topic.status === TopicService.STATUSES.draft" class="btn_medium_secondary tablet_hidden"
                   (click)="saveAsDraft()" translate="VIEWS.VOTE_CREATE.FOOTER_BTN_SAVE_AS_DRAFT" [ngClass]="{disabled: isNextDisabled(tabSelected)}">
                 </button>
-                <button class="btn_medium_submit icon mobile_hidden" (click)="(tabSelected!=='preview' && (topic.status === TopicService.STATUSES.draft) )?
+                <button class="btn_medium_submit icon tablet_hidden" (click)="(tabSelected!=='preview' && topic.status === TopicService.STATUSES.draft)?
                   nextTab(tabSelected) : publish()" [ngClass]="{disabled: isNextDisabled(tabSelected)}">
-                  <span class="btn_text mobile_hidden"
+                  <span class="btn_text tablet_hidden"
                     [translate]="(tabSelected!=='preview' && topic.status === TopicService.STATUSES.draft)? 'VIEWS.VOTE_CREATE.FOOTER_BTN_CONTINUE': 'VIEWS.VOTE_CREATE.FOOTER_BTN_SAVE_CHANGES_AND_PUBLISH'"></span>
-                  <svg class="mobile_show" id="continue_btn" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  <svg class="tablet_show" id="continue_btn" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M14.5467 6.31262C14.1471 5.89579 13.4991 5.89579 13.0994 6.31262C12.6997 6.72945 12.6997 7.40527 13.0994 7.8221L16.0816 11L6 11C5.43478 11 5 11.4108 5 12.0003C5 12.5897 5.43478 12.9824 6 12.9824L16.0816 12.9824L13.0994 16.1779C12.6997 16.5947 12.6997 17.2705 13.0994 17.6874C13.4991 18.1042 14.1471 18.1042 14.5467 17.6874L20 12L14.5467 6.31262Z"
