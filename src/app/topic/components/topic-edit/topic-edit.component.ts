@@ -32,7 +32,6 @@ export class TopicEditComponent implements BlockNavigationIfChange {
     )
   }
   removeChanges() {
-    console.log(this.topic)
     if (this.topic)
       this.TopicService.revert(this.topic.id, this.topic.revision!).pipe(take(1)).subscribe();
   }
