@@ -175,19 +175,19 @@ export class TopicsComponent implements OnInit {
   }
 
   orderBy(orderBy: string) {
-    if (orderBy === 'all') orderBy = '';
+    if (orderBy === 'all' || typeof orderBy !== 'string') orderBy = '';
     this.orderFilter$.next(orderBy);
     this.topicFilters.orderBy = orderBy;
   }
 
   setStatus(status: string) {
-    if (status === 'all'|| typeof status === 'boolean') status = '';
+    if (status === 'all'|| typeof status !== 'string') status = '';
     this.statusFilter$.next(status);
     this.topicFilters.status = status;
   }
 
   setCategory(category: string) {
-    if (category === 'all' || typeof category === 'boolean') category = '';
+    if (category === 'all' || typeof category !== 'string') category = '';
     this.categoryFilter$.next(category);
     this.topicFilters.category = category;
   }
