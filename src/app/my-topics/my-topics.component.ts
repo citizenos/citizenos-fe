@@ -204,7 +204,8 @@ export class MyTopicsComponent {
   }
 
   setStatus(status: string) {
-    if (status === 'all') status = '';
+    console.log(status);
+    if (status === 'all' || status == 'true') status = '';
     this.statusFilter$.next(status);
     this.topicFilters.status = status;
   }

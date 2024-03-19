@@ -709,8 +709,8 @@
                   <span translate="VIEWS.GROUP.FILTER_ALL" *ngIf="!topicFilters.orderBy"></span>
                   <span translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_RECENT_ACTIVITY"
                     *ngIf="topicFilters.orderBy === 'lastActivity'"></span>
-                  <span translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_ACTIVITIES"
-                    *ngIf="topicFilters.orderBy === 'activityCount'"></span>
+                  <!--span-- translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_ACTIVITIES"
+                    *ngIf="topicFilters.orderBy === 'activityCount'"></!--span-->
                   <span translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_PARTICIPANTS"
                     *ngIf="topicFilters.orderBy === 'membersCount'"></span>
                   <span translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_RECENT"
@@ -725,8 +725,8 @@
                 <div class="option" translate="VIEWS.GROUP.TOPICS_FILTERS_ORDER_ALL" (click)="orderBy('')"></div>
                 <div class="option" translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_RECENT_ACTIVITY"
                   (click)="orderBy('lastActivity')"></div>
-                <div class="option" translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_ACTIVITIES"
-                  (click)="orderBy('activityCount')"></div>
+                <!--div-- class="option" translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_ACTIVITIES"
+                  (click)="orderBy('activityCount')"></!--div-->
                 <div class="option" translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_PARTICIPANTS"
                   (click)="orderBy('membersCount')"></div>
                 <div class="option" translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_RECENT"
@@ -759,8 +759,8 @@
                 <div class="option" translate="VIEWS.GROUP.TOPICS_FILTERS_ORDER_ALL" (click)="orderBy('')"></div>
                 <div class="option" translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_RECENT_ACTIVITY"
                   (click)="orderBy('lastActivity')"></div>
-                <div class="option" translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_ACTIVITIES"
-                  (click)="orderBy('activityCount')"></div>
+                <!--div-- class="option" translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_ACTIVITIES"
+                  (click)="orderBy('activityCount')"></!--div-->
                 <div class="option" translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_PARTICIPANTS"
                   (click)="orderBy('membersCount')"></div>
                 <div class="option" translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_RECENT"
@@ -936,8 +936,8 @@
               <span translate="VIEWS.GROUP.FILTER_ALL" *ngIf="!topicFilters.orderBy"></span>
               <span translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_RECENT_ACTIVITY"
                 *ngIf="topicFilters.orderBy === 'lastActivity'"></span>
-              <span translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_ACTIVITIES"
-                *ngIf="topicFilters.orderBy === 'activityCount'"></span>
+              <!--span-- translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_ACTIVITIES"
+                *ngIf="topicFilters.orderBy === 'activityCount'"></!--span-->
               <span translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_PARTICIPANTS"
                 *ngIf="topicFilters.orderBy === 'membersCount'"></span>
               <span translate="VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_RECENT"
@@ -1041,11 +1041,11 @@
             <span class="checkmark"></span>
           </label>
 
-          <label class="checkbox" (click)="mobileTopicFilters.orderBy = 'activityCount';">
+          <!--label class="checkbox" (click)="mobileTopicFilters.orderBy = 'activityCount';">
             <span [innerHTML]="'VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_ACTIVITIES' | translate | titlecase"></span>
             <input type="radio" name="orderBy">
             <span class="checkmark"></span>
-          </label>
+          </!--label-->
 
           <label class="checkbox" (click)="mobileTopicFilters.orderBy = 'membersCount';">
             <span [innerHTML]="'VIEWS.GROUP.TOPICS_FILTER_ORDER_MOST_PARTICIPANTS' | translate | titlecase"></span>
