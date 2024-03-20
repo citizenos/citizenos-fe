@@ -267,6 +267,9 @@ export class TopicComponent implements OnInit {
                 this.router.navigate([], { fragment: 'voting' });
               }
             }
+            if (topic.status === this.TopicService.STATUSES.draft) {
+              this.router.navigate(['topics', 'edit', topic.id]);
+            }
           })
         );
       }),
