@@ -198,43 +198,43 @@ export class MyTopicsComponent {
   }
 
   orderBy(orderBy: string) {
-    if (orderBy === 'all') orderBy = '';
+    if (orderBy === 'all' || typeof orderBy !== 'string') orderBy = '';
     this.orderFilter$.next(orderBy);
     this.topicFilters.orderBy = orderBy;
   }
 
   setStatus(status: string) {
-    if (status === 'all') status = '';
+    if (status === 'all' || typeof status !== 'string') status = '';
     this.statusFilter$.next(status);
     this.topicFilters.status = status;
   }
 
   setVisibility(visibility: string) {
-    if (visibility === 'all') visibility = '';
+    if (visibility === 'all' || typeof visibility !== 'string') visibility = '';
     this.topicTypeFilter$.next(visibility);
     this.topicFilters.visibility = visibility;
   }
 
   setCategory(category: string) {
-    if (category === 'all') category = '';
+    if (category === 'all' || typeof category !== 'string') category = '';
     this.categoryFilter$.next(category);
     this.topicFilters.category = category;
   }
 
   setFilter(filter: string) {
-    if (filter === 'all') filter = '';
+    if (filter === 'all' || typeof filter !== 'string') filter = '';
     this.engagmentsFilter$.next(filter);
     this.topicFilters.engagements = filter;
   }
 
   setCountry(country: string) {
-    if (country === 'all') country = '';
+    if (country === 'all' || typeof country !== 'string') country = '';
     this.countryFilter$.next(country);
     this.topicFilters.country = country;
   }
 
   setLanguage(language: string) {
-    if (language === 'all') language = '';
+    if (language === 'all' || typeof language !== 'string') language = '';
     this.languageFilter$.next(language);
     this.topicFilters.language = language;
   }

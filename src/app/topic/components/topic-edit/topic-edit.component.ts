@@ -33,6 +33,10 @@ export class TopicEditComponent implements BlockNavigationIfChange {
   }
   removeChanges() {
     if (this.topic)
-      this.TopicService.revert(this.topic.id, this.topic.revision!).pipe(take(1)).subscribe();
+      this.TopicService.revert(this.topic.id, this.topic.revision!).pipe(take(1)).subscribe({
+        next: () => {
+          this.TopicService.reloadTopic();
+        }
+      });
   }
 }

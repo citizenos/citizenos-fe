@@ -338,20 +338,20 @@ export class GroupComponent implements OnInit {
   }
 
   setVisibility(visibility: string) {
-    if (visibility === 'all') visibility = '';
+    if (visibility === 'all' || typeof visibility !== 'string') visibility = '';
     console.log(visibility)
     this.topicTypeFilter$.next(visibility);
     this.topicFilters.visibility = visibility;
   }
 
   orderBy(orderBy: string) {
-    if (orderBy === 'all') orderBy = '';
+    if (orderBy === 'all' || typeof orderBy !== 'string') orderBy = '';
     this.orderFilter$.next(orderBy);
     this.topicFilters.orderBy = orderBy;
   }
 
   setStatus(status: string) {
-    if (status === 'all') status = '';
+    if (status === 'all' || typeof status !== 'string') status = '';
     this.statusFilter$.next(status);
     this.topicFilters.status = status;
   }
