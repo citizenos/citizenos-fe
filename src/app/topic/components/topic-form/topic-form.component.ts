@@ -539,27 +539,11 @@ export class TopicFormComponent {
   }
 
   cancel() {
-    const confirmDialog = this.dialog.open(InterruptDialogComponent);
-
-    confirmDialog.afterClosed().subscribe(result => {
-      if (result === true) {
-        if (this.isnew) {
-          this.TopicService.delete({ id: this.topic.id })
-            .pipe(take(1))
-            .subscribe(() => {
-              this.hasUnsavedChanges.next(false);
-              this.router.navigate(['dashboard']);
-            })
-        } else {
-          this.TopicService.revert(this.topic.id, this.topic.revision!)
-            .pipe(take(1))
-            .subscribe(() => {
-              this.hasUnsavedChanges.next(false);
-              this.router.navigate(['topics', this.topic.id]);
-            })
-        }
-      }
-    });
+    if (this.isnew) {
+      this.router.navigate(['dashboard']);
+    } else {
+      this.router.navigate(['topics', this.topic.id]);
+    }
   }
 
   setGroupLevel(group: TopicMemberGroup, level: string) {
