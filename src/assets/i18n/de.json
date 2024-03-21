@@ -2686,6 +2686,7 @@
     "ACTIVITY_USER_DELETE_TOPICEVENT_TOPIC": "Benutzer <em>{{userName}}</em> hat ein Update für das Thema <em>{{topicTitle}}</em> gelöscht",
     "ACTIVITY_USER_DELETE_TOPICEVENT_TOPIC_ACTIVITYGROUP": "Benutzer <em>{{userName}}</em> und <em>{{groupCount}}</em> andere haben ein Update für das Thema <em>{{topicTitle}}</em> gelöscht",
     "ACTIVITY_USER_DELETE_TOPICEVENT_TOPIC_USERACTIVITYGROUP": "Benutzer <em>{{userName}}</em> hat <em>{{groupCount}}</em> Updates für das Thema <em>{{topicTitle}}</em> gelöscht",
+    "ACTIVITY_USER_UPDATE_TOPICEVENT_TOPIC": "User <em>{{userName}}</em> has updated an update on topic <em>{{topicTitle}}</em>",
     "ACTIVITY_USER_ADD_ATTACHMENT_TOPIC": "Benutzer <em>{{userName}}</em> hat eine Anlage <em>{{attachmentName}}</em> dem Thema <em>{{topicTitle}}</em> hinzugefügt",
     "ACTIVITY_USER_ADD_ATTACHMENT_TOPIC_ACTIVITYGROUP": "Benutzer <em>{{userName}}</em> und <em>{{groupCount}}</em> andere haben Anhänge dem Thema <em>{{topicTitle}}</em> hinzugefügt",
     "ACTIVITY_USER_ADD_ATTACHMENT_TOPIC_USERACTIVITYGROUP": "Benutzer <em>{{userName}}</em> hat <em>{{groupCount}}</em> Anhänge dem Thema <em>{{topicTitle}}</em> hinzugefügt",
