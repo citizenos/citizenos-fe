@@ -423,7 +423,9 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
   removeChanges() {
     console.log(this.topic)
     this.TopicService.revert(this.topic.id, this.topic.revision!).pipe(take(1)).subscribe(() => {
-      this.TopicService.reloadTopic();
+      setTimeout(() => {
+        this.TopicService.reloadTopic();
+      }, 200);
     });
   }
 

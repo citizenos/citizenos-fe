@@ -539,7 +539,7 @@ export class TopicFormComponent {
   }
 
   cancel() {
-    if (this.isnew) {
+    if (this.isnew || this.topic.status === this.TopicService.STATUSES.draft) {
       this.router.navigate(['dashboard']);
     } else {
       this.router.navigate(['topics', this.topic.id]);

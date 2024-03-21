@@ -35,7 +35,9 @@ export class TopicEditComponent implements BlockNavigationIfChange {
     if (this.topic)
       this.TopicService.revert(this.topic.id, this.topic.revision!).pipe(take(1)).subscribe({
         next: () => {
-          this.TopicService.reloadTopic();
+          setTimeout(() => {
+            this.TopicService.reloadTopic();
+          }, 200);
         }
       });
   }
