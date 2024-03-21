@@ -373,6 +373,7 @@ export class TopicFormComponent {
     });
     deleteDialog.afterClosed().subscribe(result => {
       if (result === true) {
+        this.hasUnsavedChanges.next(false);
         this.TopicService.delete({ id: topicId })
           .pipe(take(1))
           .subscribe(() => {
