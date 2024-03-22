@@ -36,7 +36,8 @@ export class GroupSettingsComponent {
     private GroupService: GroupService
   ) {
     this.group = data.group;
-    this.rules = data.group.rules.map((rule:string) => {return {rule: rule}});
+    if (data.group.rules)
+      this.rules = data.group.rules.map((rule:string) => {return {rule: rule}});
     if (this.activeTab === 'info') {
     }
   }

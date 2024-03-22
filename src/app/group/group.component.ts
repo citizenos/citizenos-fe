@@ -447,6 +447,7 @@ export class GroupComponent implements OnInit {
   }
 
   showSettings(group: Group) {
+    console.log(group);
     const settingsDialog = this.dialog.open(GroupSettingsComponent, {
       data: {
         group

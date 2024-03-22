@@ -17,6 +17,7 @@ import { countries } from 'src/app/services/country.service';
 import { languages } from 'src/app/services/language.service';
 import { InterruptDialogComponent } from 'src/app/shared/components/interrupt-dialog/interrupt-dialog.component';
 import { BlockNavigationIfChange } from 'src/app/shared/pending-changes.guard';
+import { GroupAddTopicsComponent } from '../group-add-topics/group-add-topics.component';
 
 @Component({
   selector: 'group-create-component',
@@ -25,8 +26,10 @@ import { BlockNavigationIfChange } from 'src/app/shared/pending-changes.guard';
 })
 export class GroupCreateComponent implements OnInit, BlockNavigationIfChange {
   @ViewChild('imageUpload') fileInput?: ElementRef;
-  hasChanges$ = new BehaviorSubject(<boolean>true);
+  @ViewChild(GroupAddTopicsComponent) groupAddTopics!: GroupAddTopicsComponent;
 
+  hasChanges$ = new BehaviorSubject(<boolean>true);
+  topicsToAdd = <Topic[]>[];
   countries = countries.sort((a: any, b: any) => {
     return a.name.localeCompare(b.name);
   });
@@ -39,7 +42,9 @@ export class GroupCreateComponent implements OnInit, BlockNavigationIfChange {
     imageUrl: '',
     members: {
       users: <any[]>[],
-      topics: <Topic[]>[]
+      topics: {
+        rows: <Topic[]>[]
+      }
     },
     visibility: this.GroupService.VISIBILITY.private,
     contact: null,
@@ -99,6 +104,10 @@ export class GroupCreateComponent implements OnInit, BlockNavigationIfChange {
   }
 
   selectTab(tab: string) {
+
+    if (this.groupAddTopics) {
+      this.topicsToAdd = this.groupAddTopics.membersToAdd;
+    }
     this.router.navigate([], { fragment: tab });
   }
 
@@ -283,7 +292,7 @@ export class GroupCreateComponent implements OnInit, BlockNavigationIfChange {
     // Topics
     this.errors = null;
     const topicsToAdd = <any>{};
-    this.group.members.topics.forEach((topic: Topic) => {
+    this.topicsToAdd.forEach((topic: Topic) => {
       const member = {
         groupId: this.group.id,
         topicId: topic.id,

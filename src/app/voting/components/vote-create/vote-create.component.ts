@@ -395,6 +395,9 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
           //   this.TopicService.reloadTopic();
           this.vote = vote;
           this.vote.options = vote.options.rows;
+          if (!this.vote.options) {
+            this.vote.options = [{value: 'Yes'}, {value: 'No'}];
+          }
           //     this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id], { fragment: 'voting' });
           //      this.route.url.pipe(take(1)).subscribe();
         },
