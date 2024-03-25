@@ -76,6 +76,7 @@
     "LINK_FAQ": "Korduma kippuvad küsimused",
     "LINK_HELP_PAGE": "Üksikasjalik juhend",
     "SEND_US_MESSAGE": "Saada meile sõnum",
+    "WANT_A_RESPONCE": "Want a response? Please provide your email",
     "PLACEHOLDER_WRITE_YOUR_EMAIL": "Sinu meiliaadress (valikuline)",
     "PLACEHOLDER_WRITE_YOUR_MESSAGE": "Sisesta sõnum siia...",
     "BTN_SEND": "Saada",
@@ -716,7 +717,7 @@
       "OPT_REMOVE_USER": "@:MODALS.GROUP_MEMBER_USER_DELETE_CONFIRM_HEADING",
       "LBL_VIA": "@:VIEWS.MY_TOPICS_TOPICID.LBL_VIA",
       "LBL_INACCESSIBLE_GROUP": "@:VIEWS.MY_TOPICS_TOPICID.LBL_INACCESSIBLE_GROUP",
-      "REMOVE_ERROR_MEMBER_VIA_GROUP": "You cannot remove this topic member as they are a member of the group. If you wish to limit their access to the topic, consider excluding them from the group instead."
+      "REMOVE_ERROR_MEMBER_VIA_GROUP": "Seda teema liiget ei saa eemaldada, sest ta on grupi liige. Kui soovid tema juurdepääsu teemale piirata, eemalda ta grupist."
     },
     "TOPIC_MILESTONES": {
       "CREATE_A_MILESTONE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_CREATE_A_MILESTONE",
@@ -2151,7 +2152,7 @@
       "TITLE_DESCRIPTION_TEXT": "Põhiteema sisu tuleb lisada siia – kõik osaliste jaoks mõeldud juhised ning info ja kontekst.",
       "TITLE_ATTACHMENTS": "@:MODALS.TOPIC_ATTACHMENTS_TITLE_FILES",
       "TOOLTIP_ATTACHMENTS_TITLE": "Manuse parameetrid",
-      "TOOLTIP_ATTACHMENTS_DESCRIPTION_LIMIT": "A maximum of {{limit}} files can be attached to one topic.",
+      "TOOLTIP_ATTACHMENTS_DESCRIPTION_LIMIT": "Ühele teemale saab manustada kuni {{limit}} faili.",
       "TOOLTIP_ATTACHMENTS_DESCRIPTION_SIZE": "Maksimaalne lubatud failisuurus on {{allowedFileSize}}. ",
       "TOOLTIP_ATTACHMENTS_DESCRIPTION_TYPES": "Lubatud failitüübid on: {{allowedFileTypes}}",
       "ATTACHMENTS_BTN_ADD": "@:VIEWS.TOPIC_CREATE.BTN_SECTION_ADD",
@@ -2170,7 +2171,7 @@
       "SETTINGS_CATEGORY_SELECT_DESC": "@:VIEWS.GROUP_CREATE.SETTINGS_CATEGORY_SELECT_DESC",
       "SETTINGS_CATEGORY_SELECT": "@:VIEWS.GROUP_CREATE.SETTINGS_CATEGORY_SELECT",
       "SETTINGS_HEADING_LOCALITY": "@:VIEWS.GROUP_CREATE.SETTINGS_HEADING_LOCALITY",
-      "SETTINGS_LOCALITY_SELECT_DESC": "You can assign a country and language to this topic, to make it easier for local people to find.",
+      "SETTINGS_LOCALITY_SELECT_DESC": "Saad sellele teemale määrata riigi ja keele, et kohalikel inimestel oleks gruppi hõlpsam leida.",
       "SETTINGS_COUNTRY_SELECT": "@:VIEWS.GROUP_CREATE.SETTINGS_COUNTRY_SELECT",
       "SETTINGS_LANGUAGE_SELECT": "@:VIEWS.GROUP_CREATE.SETTINGS_LANGUAGE_SELECT",
       "SETTINGS_HEADING_ADD_TO_GROUP": "Lisa gruppi",
@@ -2686,6 +2687,7 @@
     "ACTIVITY_USER_DELETE_TOPICEVENT_TOPIC": "Kasutaja <em>{{userName}}</em> kustutas teadaande teemast \"<em>{{topicTitle}}</em>\"",
     "ACTIVITY_USER_DELETE_TOPICEVENT_TOPIC_ACTIVITYGROUP": "Kasutaja <em>{{userName}}</em> ja <em>{{groupCount}}</em> teist kasutajat kustutasid teadaande teemast \"<em>{{topicTitle}}</em>\"",
     "ACTIVITY_USER_DELETE_TOPICEVENT_TOPIC_USERACTIVITYGROUP": "Kasutaja <em>{{userName}}</em> kustutas <em>{{groupCount}}</em> teadaanet teemast <em>{{topicTitle}}</em>",
+    "ACTIVITY_USER_UPDATE_TOPICEVENT_TOPIC": "User <em>{{userName}}</em> has updated an update on topic <em>{{topicTitle}}</em>",
     "ACTIVITY_USER_ADD_ATTACHMENT_TOPIC": "Kasutaja <em>{{userName}}</em> lisas teemasse <em>{{topicTitle}}</em> manuse <em>{{attachmentName}}</em>",
     "ACTIVITY_USER_ADD_ATTACHMENT_TOPIC_ACTIVITYGROUP": "Kasutaja <em>{{userName}}</em> ja <em>{{groupCount}}</em> teist kasutajat lisasid manuseid teemasse \"<em>{{topicTitle}}</em>\"",
     "ACTIVITY_USER_ADD_ATTACHMENT_TOPIC_USERACTIVITYGROUP": "Kasutaja <em>{{userName}}</em> on lisanud teemasse \"<em>{{topicTitle}}</em>\" <em>{{groupCount}}</em> manust",
