@@ -132,7 +132,9 @@ export class TopicFormComponent {
   showGroups = false;
   topicAttachments$ = of(<Attachment[] | any[]>[]);
   topicGroups$ = of(<TopicMemberGroup[] | any[]>[])
-  memberGroups = <TopicMemberGroup[]>[];
+  memberGroups = <Group[]>[];
+  groupsToRemove = <Group[]>[];
+
   constructor(
     public dialog: DialogService,
     public route: ActivatedRoute,
@@ -210,7 +212,9 @@ export class TopicFormComponent {
           groups.forEach((group: any) => {
             const exists = this.topicGroups.find((mgroup) => mgroup.id === group.id);
             if (!exists) this.topicGroups.push(group);
-          })
+          });
+
+          this.memberGroups = groups;
         })
       );
     }
@@ -394,6 +398,11 @@ export class TopicFormComponent {
         this.topicGroups.forEach((group) => {
           this.saveMemberGroup(group);
         });
+        this.groupsToRemove.forEach((group: any) =>  {
+          if (group) {
+            this.TopicMemberGroupService.delete({topicId: this.topic.id, groupId: group.id}).pipe(take(1)).subscribe();
+          }
+        });
         this.saveImage()
           .subscribe({
             next: (res: any) => {
@@ -423,7 +432,6 @@ export class TopicFormComponent {
   }
 
   publish() {
-    console.log('PUBLSIH')
     this.titleInput?.nativeElement?.parentNode.parentNode.classList.remove('error');
     const isDraft = (this.topic.status === this.TopicService.STATUSES.draft);
     this.topic.status = this.TopicService.STATUSES.inProgress;
@@ -442,6 +450,11 @@ export class TopicFormComponent {
 
               this.topicGroups.forEach((group) => {
                 this.saveMemberGroup(group)
+              });
+              this.groupsToRemove.forEach((group: any) =>  {
+                if (group) {
+                  this.TopicMemberGroupService.delete({topicId: this.topic.id, groupId: group.id}).pipe(take(1)).subscribe();
+                }
               });
               this.hasUnsavedChanges.next(false);
               this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
@@ -479,11 +492,19 @@ export class TopicFormComponent {
       group.level = this.GroupMemberTopicService.LEVELS.read;
       this.topicGroups.push(group);
     }
+    const removeListMember = this.groupsToRemove.findIndex((g)=> g.id === group.id);
+    if (removeListMember > -1) {
+      this.groupsToRemove.splice(removeListMember, 1);
+    }
   }
 
   removeGroup(group: TopicMemberGroup) {
     const index = this.topicGroups.findIndex((tg) => tg.id === group.id);
     this.topicGroups.splice(index, 1);
+    const member = this.memberGroups.find((g)=> g.id === group.id);
+    if (member) {
+      this.groupsToRemove.push(member);
+    }
   }
 
   manageMembers() {
