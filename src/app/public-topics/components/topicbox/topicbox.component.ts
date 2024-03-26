@@ -6,6 +6,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Topic } from 'src/app/interfaces/topic';
 import { Observable, of, tap } from 'rxjs';
 import { Vote } from 'src/app/interfaces/vote';
+import { DialogService } from 'src/app/shared/dialog';
+import { TopicReportReasonComponent } from 'src/app/topic/components/topic-report-reason/topic-report-reason.component';
 
 @Component({
   selector: 'topicbox',
@@ -19,7 +21,7 @@ export class TopicboxComponent implements OnInit {
   vote$?: Observable<Vote>;
   milestones$?: Observable<any[]>;
   vote?: Vote;
-  constructor(private TopicService: TopicService, private TopicVoteService: TopicVoteService, private router: Router, private TopicEventService: TopicEventService) {
+  constructor(private TopicService: TopicService, private TopicVoteService: TopicVoteService, private router: Router, private TopicEventService: TopicEventService, private DialogService: DialogService) {
   }
 
   ngOnInit(): void {
@@ -82,5 +84,16 @@ export class TopicboxComponent implements OnInit {
     }
 
     return element.innerHTML;
+  }
+
+  reportReasonDialog() {
+    this.DialogService.open(TopicReportReasonComponent, {
+      data: {
+        report: {
+          moderatedReasonText: this.topic.report?.moderatedReasonText || this.topic.report?.text,
+          moderatedReasonType: this.topic.report?.moderatedReasonType || this.topic.report?.type,
+        }
+      }
+    })
   }
 }
