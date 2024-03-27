@@ -2151,7 +2151,7 @@
       "TITLE_DESCRIPTION": "Thementext",
       "TITLE_DESCRIPTION_TEXT": "Der Inhalt des Hauptthemas wird hier eingefügt – alle Anweisungen, Informationen oder Kontext für die Teilnehmer.",
       "TITLE_ATTACHMENTS": "@:MODALS.TOPIC_ATTACHMENTS_TITLE_FILES",
-      "TOOLTIP_ATTACHMENTS_TITLE": "Anhang-Parameter",
+      "TOOLTIP_ATTACHMENTS_TITLE": "Attachment guidelines",
       "TOOLTIP_ATTACHMENTS_DESCRIPTION_LIMIT": "Es können maximal {{limit}} Dateien an ein Thema angehängt werden.",
       "TOOLTIP_ATTACHMENTS_DESCRIPTION_SIZE": "Maximal zulässige Upload-Größe {{allowedFileSize}}. ",
       "TOOLTIP_ATTACHMENTS_DESCRIPTION_TYPES": "Erlaubte Typen sind: {{allowedFileTypes}}",
