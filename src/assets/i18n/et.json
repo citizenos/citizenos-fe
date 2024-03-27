@@ -2151,7 +2151,7 @@
       "TITLE_DESCRIPTION": "Teema tekst",
       "TITLE_DESCRIPTION_TEXT": "Põhiteema sisu tuleb lisada siia – kõik osaliste jaoks mõeldud juhised ning info ja kontekst.",
       "TITLE_ATTACHMENTS": "@:MODALS.TOPIC_ATTACHMENTS_TITLE_FILES",
-      "TOOLTIP_ATTACHMENTS_TITLE": "Attachment guidelines",
+      "TOOLTIP_ATTACHMENTS_TITLE": "Manuse lisamise juhised",
       "TOOLTIP_ATTACHMENTS_DESCRIPTION_LIMIT": "Ühele teemale saab manustada kuni {{limit}} faili.",
       "TOOLTIP_ATTACHMENTS_DESCRIPTION_SIZE": "Maksimaalne lubatud failisuurus on {{allowedFileSize}}. ",
       "TOOLTIP_ATTACHMENTS_DESCRIPTION_TYPES": "Lubatud failitüübid on: {{allowedFileTypes}}",
