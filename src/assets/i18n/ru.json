@@ -2151,7 +2151,7 @@
       "TITLE_DESCRIPTION": "Текст темы",
       "TITLE_DESCRIPTION_TEXT": "Здесь размещается основное содержание темы - любые инструкции, информация или контекст для участников.",
       "TITLE_ATTACHMENTS": "@:MODALS.TOPIC_ATTACHMENTS_TITLE_FILES",
-      "TOOLTIP_ATTACHMENTS_TITLE": "Параметры вложения",
+      "TOOLTIP_ATTACHMENTS_TITLE": "Attachment guidelines",
       "TOOLTIP_ATTACHMENTS_DESCRIPTION_LIMIT": "Максимальное количество файлов, которое можно прикрепить к теме: {{limit}}.",
       "TOOLTIP_ATTACHMENTS_DESCRIPTION_SIZE": "Максимально допустимый размер загрузки - {{allowedFileSize}}. ",
       "TOOLTIP_ATTACHMENTS_DESCRIPTION_TYPES": "Допустимые типы: {{allowedFileTypes}}",
