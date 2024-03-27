@@ -1,5 +1,5 @@
 import { Topic } from 'src/app/interfaces/topic';
-import { Component, OnInit, Inject, Input } from '@angular/core';
+import { Component, OnInit, Inject, Input, ViewChild } from '@angular/core';
 import { Group } from 'src/app/interfaces/group';
 import { GroupService } from 'src/app/services/group.service';
 import { AppService } from 'src/app/services/app.service';
@@ -17,6 +17,7 @@ import { DIALOG_DATA, DialogRef } from 'src/app/shared/dialog';
 export class GroupAddTopicsComponent implements OnInit {
   @Input() group!: Group;
   @Input() dialog = false;
+  @Input() topicsToAdd? = <Topic[]>[];
   VISIBILITY = this.GroupService.VISIBILITY;
   LEVELS = Object.keys(this.GroupMemberTopicService.LEVELS);
   searchStringTopic?: string;
@@ -27,6 +28,8 @@ export class GroupAddTopicsComponent implements OnInit {
   errors?: any;
   membersPage = 1;
   itemsPerPage = 5;
+
+  public membersToAdd = <Topic[]>[];
 
   constructor(
     private Search: SearchService,
@@ -41,12 +44,19 @@ export class GroupAddTopicsComponent implements OnInit {
   ngOnInit(): void {
     if (this.group && this.group.id) {
       this.GroupMemberTopicService.setParam('groupId', this.group.id);
-      this.group.members.topics = <Topic[]>[];
+      if (!this.group.members.topics?.rows) {
+        if (!this.group.members.topics) this.group.members.topics = {};
+        this.group.members.topics.rows = <Topic[]>[];
+      }
       this.memberTopics$ = this.GroupMemberTopicService.loadItems().pipe(
+        take(1),
         tap((topics) => {
-          this.group.members.topics = topics;
+          this.group.members.topics.rows = topics;
         })
       );
+    }
+    if (this.topicsToAdd) {
+      this.membersToAdd = this.membersToAdd.concat(this.topicsToAdd);
     }
   }
 
@@ -82,20 +92,25 @@ export class GroupAddTopicsComponent implements OnInit {
     if (!topic || !topic.id || !topic.title) {
       return false;
     }
-    const member = this.group.members.topics?.find((o: Topic) => {
+    let member = this.group.members.topics?.rows.find((o: Topic) => {
       return o.id === topic.id;
     });
 
     if (!member) {
+      member = this.membersToAdd.find((o: Topic) => {
+        return o.id === topic.id;
+      });
+    }
+    if(!member) {
       topic.permission.level = this.GroupMemberTopicService.LEVELS.read;
-      if (!this.group.members.topics) this.group.members.topics = <Topic[]>[];
-      this.group.members.topics.push(topic);
+      //  if (!this.group.members.topics?.rows) this.group.members.topics.rows = <Topic[]>[];
+      this.membersToAdd.push(topic);
     }
     return
   };
 
   removeGroupMemberTopic(topic: Topic) {
-    this.group.members.topics.splice(this.group.members.topics.indexOf(topic), 1);
+    this.membersToAdd.splice(this.membersToAdd.indexOf(topic), 1);
   };
 
   updateGroupMemberTopicLevel(topic: Topic, level: string) {
@@ -106,7 +121,7 @@ export class GroupAddTopicsComponent implements OnInit {
     // Topics
     this.errors = null;
     const topicsToAdd = <any>{};
-    this.group.members.topics.forEach((topic: Topic) => {
+    this.membersToAdd.forEach((topic: Topic) => {
       const member = {
         groupId: this.group.id,
         topicId: topic.id,
@@ -148,14 +163,26 @@ export class GroupAddTopicsComponent implements OnInit {
   };
 
   removeAllTopics() {
-    this.group.members.topics = []
+    this.membersToAdd = []
   };
 
   updateAllLevels(level: string) {
-    this.group.members.topics.forEach((topic: any) => {
+    this.membersToAdd.forEach((topic: any) => {
       topic.permission.level = level;
     });
   };
+
+  isMember(topic: Topic) {
+    const prevmember =  this.group.members.topics?.rows.find((o: Topic) => {
+      return o.id === topic.id;
+    });
+    if (!prevmember) {
+      return this.membersToAdd.find((o: Topic) => {
+        return o.id === topic.id;
+      });
+    }
+    return prevmember;
+  }
 }
 
 
@@ -165,7 +192,7 @@ export class GroupAddTopicsComponent implements OnInit {
 })
 export class GroupAddTopicsDialogComponent {
   group!: Group;
-
+  @ViewChild(GroupAddTopicsComponent) groupAddTopics!: GroupAddTopicsComponent;
   noTopicsSelected = false;
   constructor(
     @Inject(DIALOG_DATA) public data: any,
@@ -177,45 +204,56 @@ export class GroupAddTopicsDialogComponent {
   }
 
   topicsLength$() {
-    return of(this.group.members.topics.length).pipe(tap((length) => {
-      if (length) { this.noTopicsSelected = false; }
-    }));
+    if (this.groupAddTopics?.membersToAdd) {
+      return of(this.groupAddTopics.membersToAdd.length).pipe(tap((length) => {
+        if (length) { this.noTopicsSelected = false; }
+      }));
+    } else {
+      return of(0);
+    }
   }
 
   doInviteMembers() {
-    // Users
-    const topicsToAdd = <any>{};
-    this.group.members.topics.forEach((topic: Topic) => {
-      const member = {
-        groupId: this.group.id,
-        topicId: topic.id,
-        level: topic.permission.level
-      };
+    if (this.groupAddTopics.membersToAdd.length) {
 
-      topicsToAdd[member.topicId] = this.GroupMemberTopic.save(member);
-    });
-
-    if (Object.keys(topicsToAdd).length) {
-      forkJoin(topicsToAdd)
-        .pipe(take(1))
-        .subscribe({
-          next: (res: any) => {
-            this.GroupService.reloadGroup();
-            this.GroupMemberTopic.setParam('groupId', this.group.id);
-
-            this.dialog.close()
-          },
-          error: (errorResponse) => {
-            if (errorResponse && errorResponse.errors) {
-              console.error(errorResponse.errors);
-            }
-
-            this.dialog.close();
-          }
-        })
+      this.groupAddTopics.doSaveGroup();
+      this.dialog.close();
     } else {
       this.noTopicsSelected = true;
     }
+    // Users
+    /* const topicsToAdd = <any>{};
+     this.group.members.topics.rows.forEach((topic: Topic) => {
+       const member = {
+         groupId: this.group.id,
+         topicId: topic.id,
+         level: topic.permission.level
+       };
+
+       topicsToAdd[member.topicId] = this.GroupMemberTopic.save(member);
+     });
+
+     if (Object.keys(topicsToAdd).length) {
+       forkJoin(topicsToAdd)
+         .pipe(take(1))
+         .subscribe({
+           next: (res: any) => {
+             this.GroupService.reloadGroup();
+             this.GroupMemberTopic.setParam('groupId', this.group.id);
+
+             this.dialog.close()
+           },
+           error: (errorResponse) => {
+             if (errorResponse && errorResponse.errors) {
+               console.error(errorResponse.errors);
+             }
+
+             this.dialog.close();
+           }
+         })
+     } else {
+       this.noTopicsSelected = true;
+     }*/
 
   }
 }

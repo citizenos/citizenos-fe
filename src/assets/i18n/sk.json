@@ -76,6 +76,7 @@
     "LINK_FAQ": "Často kladené otázky",
     "LINK_HELP_PAGE": "Sprievodca krok za krokom",
     "SEND_US_MESSAGE": "Pošlite nám správu",
+    "WANT_A_RESPONCE": "Chcete dostať odpoveď? Poskytnite prosím svoj email",
     "PLACEHOLDER_WRITE_YOUR_EMAIL": "Vaša e-mailová adresa (voliteľné)",
     "PLACEHOLDER_WRITE_YOUR_MESSAGE": "Vaša správa tu...",
     "BTN_SEND": "Poslať",
@@ -716,7 +717,7 @@
       "OPT_REMOVE_USER": "@:MODALS.GROUP_MEMBER_USER_DELETE_CONFIRM_HEADING",
       "LBL_VIA": "@:VIEWS.MY_TOPICS_TOPICID.LBL_VIA",
       "LBL_INACCESSIBLE_GROUP": "@:VIEWS.MY_TOPICS_TOPICID.LBL_INACCESSIBLE_GROUP",
-      "REMOVE_ERROR_MEMBER_VIA_GROUP": "You cannot remove this topic member as they are a member of the group. If you wish to limit their access to the topic, consider excluding them from the group instead."
+      "REMOVE_ERROR_MEMBER_VIA_GROUP": "Tohto člena témy nemôžete odstrániť, pretože je členom skupiny. Ak chcete obmedziť jeho/jej prístup k téme, zvážte radšej jeho/jej vylúčenie zo skupiny."
     },
     "TOPIC_MILESTONES": {
       "CREATE_A_MILESTONE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_CREATE_A_MILESTONE",
@@ -2151,7 +2152,7 @@
       "TITLE_DESCRIPTION_TEXT": "Sem patrí hlavný obsah témy - akékoľvek pokyny, informácie alebo súvislosti pre účastníkov.",
       "TITLE_ATTACHMENTS": "@:MODALS.TOPIC_ATTACHMENTS_TITLE_FILES",
       "TOOLTIP_ATTACHMENTS_TITLE": "Parametre prílohy",
-      "TOOLTIP_ATTACHMENTS_DESCRIPTION_LIMIT": "A maximum of {{limit}} files can be attached to one topic.",
+      "TOOLTIP_ATTACHMENTS_DESCRIPTION_LIMIT": "K jednej téme môže byť priložených maximálne {{limit}} súborov.",
       "TOOLTIP_ATTACHMENTS_DESCRIPTION_SIZE": "Maximálna povolená veľkosť {{allowedFileSize}}. ",
       "TOOLTIP_ATTACHMENTS_DESCRIPTION_TYPES": "Povolené typy sú: {{allowedFileTypes}}",
       "ATTACHMENTS_BTN_ADD": "@:VIEWS.TOPIC_CREATE.BTN_SECTION_ADD",
@@ -2170,7 +2171,7 @@
       "SETTINGS_CATEGORY_SELECT_DESC": "@:VIEWS.GROUP_CREATE.SETTINGS_CATEGORY_SELECT_DESC",
       "SETTINGS_CATEGORY_SELECT": "@:VIEWS.GROUP_CREATE.SETTINGS_CATEGORY_SELECT",
       "SETTINGS_HEADING_LOCALITY": "@:VIEWS.GROUP_CREATE.SETTINGS_HEADING_LOCALITY",
-      "SETTINGS_LOCALITY_SELECT_DESC": "You can assign a country and language to this topic, to make it easier for local people to find.",
+      "SETTINGS_LOCALITY_SELECT_DESC": "Tejto téme môžete priradiť krajinu a jazyk, aby ju miestni ľudia ľahšie našli.",
       "SETTINGS_COUNTRY_SELECT": "@:VIEWS.GROUP_CREATE.SETTINGS_COUNTRY_SELECT",
       "SETTINGS_LANGUAGE_SELECT": "@:VIEWS.GROUP_CREATE.SETTINGS_LANGUAGE_SELECT",
       "SETTINGS_HEADING_ADD_TO_GROUP": "Pridať do skupiny",
@@ -2686,6 +2687,7 @@
     "ACTIVITY_USER_DELETE_TOPICEVENT_TOPIC": "Užívateľ/ka <em>{{userName}}</em> vymazal/a aktualizáciu z témy <em>{{topicTitle}}</em>",
     "ACTIVITY_USER_DELETE_TOPICEVENT_TOPIC_ACTIVITYGROUP": "Užívateľ/ka <em>{{userName}}</em> a <em>{{groupCount}}</em> ďalší vymazali aktualizáciu z témy <em>{{topicTitle}}</em>",
     "ACTIVITY_USER_DELETE_TOPICEVENT_TOPIC_USERACTIVITYGROUP": "Užívateľ/ka <em>{{userName}}</em> vymazal/a <em>{{groupCount}}</em> aktualizácií z témy <em>{{topicTitle}}</em>",
+    "ACTIVITY_USER_UPDATE_TOPICEVENT_TOPIC": "Užívateľ/ka <em>{{userName}}</em> aktualizoval/a aktualizáciu témy <em>{{topicTitle}}</em>",
     "ACTIVITY_USER_ADD_ATTACHMENT_TOPIC": "Užívateľ/ka <em>{{userName}}</em> pridal/a prílohu <em>{{attachmentName}}</em> do témy <em>{{topicTitle}}</em>",
     "ACTIVITY_USER_ADD_ATTACHMENT_TOPIC_ACTIVITYGROUP": "Užívateľ/ka <em>{{userName}}</em> a <em>{{groupCount}}</em> ďalší pridali prílohy do témy <em>{{topicTitle}}</em>",
     "ACTIVITY_USER_ADD_ATTACHMENT_TOPIC_USERACTIVITYGROUP": "Užívateľ/ka <em>{{userName}}</em> pridal/a <em>{{groupCount}}</em> príloh do témy <em>{{topicTitle}}</em>",
