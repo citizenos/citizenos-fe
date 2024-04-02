@@ -28,7 +28,10 @@ export class GroupRequestTopicService extends ItemsListService {
   }
 
   getItems(params:any) {
-    return this.query(params);
+    return this.loadMembers$.pipe(
+      exhaustMap(() => this.query(params)),
+      shareReplay()
+    );
   }
 
   get(params: any) {

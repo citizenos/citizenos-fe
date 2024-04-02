@@ -26,6 +26,7 @@ import { GroupSettingsComponent } from './components/group-settings/group-settin
 import { Country } from '../interfaces/country';
 import { Language } from '../interfaces/language';
 import { GroupRequestTopicsComponent } from './components/group-request-topics/group-request-topics.component';
+import { TopicRequestsComponent } from './components/topic-requests/topic-requests.component';
 
 @Component({
   selector: 'group',
@@ -508,6 +509,14 @@ export class GroupComponent implements OnInit {
     addTopicsDialog.afterClosed().subscribe(() => {
       this.addTopicsDialogOpen = false;
       this.doClearFilters();
+    })
+  }
+
+  topicRequests (group: Group) {
+    const topicRequestsDialog = this.dialog.open(TopicRequestsComponent, {
+      data: {
+        group: group
+      }
     })
   }
 

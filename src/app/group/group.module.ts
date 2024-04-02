@@ -13,6 +13,7 @@ import { GroupInvitationComponent } from './components/group-invitation/group-in
 import { GroupSettingsComponent } from './components/group-settings/group-settings.component';
 import { GroupRequestTopicsComponent } from './components/group-request-topics/group-request-topics.component';
 import { GroupRequestTopicsHandlerComponent } from './components/group-request-topics-handler/group-request-topics-handler.component';
+import { TopicRequestsComponent } from './components/topic-requests/topic-requests.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { GroupRequestTopicsHandlerComponent } from './components/group-request-t
     GroupInvitationComponent,
     GroupSettingsComponent,
     GroupRequestTopicsComponent,
-    GroupRequestTopicsHandlerComponent
+    GroupRequestTopicsHandlerComponent,
+    TopicRequestsComponent
   ],
   imports: [
     CommonModule,
