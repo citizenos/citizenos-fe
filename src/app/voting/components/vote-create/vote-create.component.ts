@@ -124,7 +124,16 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
     private config: ConfigService) {
     super(dialog, route, router, UploadService, Notification, TopicService, GroupService, GroupMemberTopicService, TopicMemberGroupService, TopicMemberUserService, TopicInviteUserService, TopicAttachmentService, translate, cd, sanitizer)
     this.app.darkNav = true;
-    this.groups$ = this.GroupService.loadItems();
+    this.groups$ = this.GroupService.loadItems().pipe(map((groups) => {
+      groups.forEach((group: any) => {
+        if (this.groupId && this.groupId === group.id) {
+          const exists = this.topicGroups.find((mgroup) => mgroup.id === group.id);
+          if (!exists) this.addGroup(group);
+        }
+      });
+
+      return groups.filter((group) => group.visibility === this.GroupService.VISIBILITY.private || group.permission.level === GroupMemberTopicService.LEVELS.admin);
+    }));
     this.tabSelected = route.fragment.pipe(
       map((fragment) => {
         if (!fragment) {
