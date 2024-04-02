@@ -67,6 +67,23 @@
               <span *ngIf="group.favourite" translate="VIEWS.GROUP.BTN_OPTION_UNFAVOURITE"></span>
             </button>
           </ng-container>
+          <ng-container *ngIf="(auth.loggedIn$ | async) && !canUpdate(group)">
+            <div class="line_separator"></div>
+            <button class="option" (click)="requestAddTopics(group)">
+              <div class="icon_wrap">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M2 3C1.44772 3 1 3.44772 1 4V14C1 14.5523 1.44772 15 2 15H9C9.55228 15 10 14.5523 10 14V6.62081C10 6.3517 9.89153 6.09394 9.69912 5.9058L7.01874 3.28499C6.83189 3.1023 6.58095 3 6.31963 3H2ZM6 4L9 7H6V4Z"
+                    fill="#2C3B47" />
+                  <path
+                    d="M12.8536 1.14645C12.7598 1.05268 12.6326 1 12.5 1C12.3674 1 12.2402 1.05268 12.1464 1.14645C12.0527 1.24021 12 1.36739 12 1.5V3H10.5C10.3674 3 10.2402 3.05268 10.1464 3.14645C10.0527 3.24021 10 3.36739 10 3.5C10 3.63261 10.0527 3.75979 10.1464 3.85355C10.2402 3.94732 10.3674 4 10.5 4H12V5.5C12 5.63261 12.0527 5.75979 12.1464 5.85355C12.2402 5.94732 12.3674 6 12.5 6C12.6326 6 12.7598 5.94732 12.8536 5.85355C12.9473 5.75979 13 5.63261 13 5.5V4H14.5C14.6326 4 14.7598 3.94732 14.8536 3.85355C14.9473 3.75979 15 3.63261 15 3.5C15 3.36739 14.9473 3.24021 14.8536 3.14645C14.7598 3.05268 14.6326 3 14.5 3H13V1.5C13 1.36739 12.9473 1.24021 12.8536 1.14645Z"
+                    fill="#2C3B47" />
+                </svg>
+
+              </div>
+              <span translate="VIEWS.GROUP.BTN_REQUEST_ADD_TOPICS"></span>
+            </button>
+          </ng-container>
           <ng-container
             *ngIf="(auth.loggedIn$ | async) && group.visibility === GroupService.VISIBILITY.public || (group.visibility === GroupService.VISIBILITY.private && canUpdate(group))">
             <div class="line_separator"></div>
