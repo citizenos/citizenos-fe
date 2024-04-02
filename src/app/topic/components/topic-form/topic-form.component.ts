@@ -152,14 +152,17 @@ export class TopicFormComponent {
     public cd: ChangeDetectorRef,
     @Inject(DomSanitizer) public sanitizer: DomSanitizer
   ) {
-    this.groups$ = this.GroupService.loadItems().pipe(tap((groups) => {
+    this.groups$ = this.GroupService.loadItems().pipe(map((groups) => {
       groups.forEach((group: any) => {
         if (this.groupId && this.groupId === group.id) {
           const exists = this.topicGroups.find((mgroup) => mgroup.id === group.id);
           if (!exists) this.addGroup(group);
         }
-      })
+      });
+
+      return groups.filter((group) => group.visibility === this.GroupService.VISIBILITY.private || group.permission.level === GroupMemberTopicService.LEVELS.admin);
     }));
+
     this.tabSelected = this.route.fragment.pipe(
       map((fragment) => {
         if (!fragment) {
@@ -398,9 +401,9 @@ export class TopicFormComponent {
         this.topicGroups.forEach((group) => {
           this.saveMemberGroup(group);
         });
-        this.groupsToRemove.forEach((group: any) =>  {
+        this.groupsToRemove.forEach((group: any) => {
           if (group) {
-            this.TopicMemberGroupService.delete({topicId: this.topic.id, groupId: group.id}).pipe(take(1)).subscribe();
+            this.TopicMemberGroupService.delete({ topicId: this.topic.id, groupId: group.id }).pipe(take(1)).subscribe();
           }
         });
         this.saveImage()
@@ -451,9 +454,9 @@ export class TopicFormComponent {
               this.topicGroups.forEach((group) => {
                 this.saveMemberGroup(group)
               });
-              this.groupsToRemove.forEach((group: any) =>  {
+              this.groupsToRemove.forEach((group: any) => {
                 if (group) {
-                  this.TopicMemberGroupService.delete({topicId: this.topic.id, groupId: group.id}).pipe(take(1)).subscribe();
+                  this.TopicMemberGroupService.delete({ topicId: this.topic.id, groupId: group.id }).pipe(take(1)).subscribe();
                 }
               });
               this.hasUnsavedChanges.next(false);
@@ -492,7 +495,7 @@ export class TopicFormComponent {
       group.level = this.GroupMemberTopicService.LEVELS.read;
       this.topicGroups.push(group);
     }
-    const removeListMember = this.groupsToRemove.findIndex((g)=> g.id === group.id);
+    const removeListMember = this.groupsToRemove.findIndex((g) => g.id === group.id);
     if (removeListMember > -1) {
       this.groupsToRemove.splice(removeListMember, 1);
     }
@@ -501,7 +504,7 @@ export class TopicFormComponent {
   removeGroup(group: TopicMemberGroup) {
     const index = this.topicGroups.findIndex((tg) => tg.id === group.id);
     this.topicGroups.splice(index, 1);
-    const member = this.memberGroups.find((g)=> g.id === group.id);
+    const member = this.memberGroups.find((g) => g.id === group.id);
     if (member) {
       this.groupsToRemove.push(member);
     }
