@@ -25,6 +25,7 @@ import { languages } from '../services/language.service';
 import { GroupSettingsComponent } from './components/group-settings/group-settings.component';
 import { Country } from '../interfaces/country';
 import { Language } from '../interfaces/language';
+import { GroupRequestTopicsComponent } from './components/group-request-topics/group-request-topics.component';
 
 @Component({
   selector: 'group',
@@ -156,7 +157,7 @@ export class GroupComponent implements OnInit {
         }
         return this.GroupMemberUserService.loadItems();
       })
-      ,map(
+      , map(
         (members: any) => {
           this.allMembers$ = [];
           if (members) {
@@ -332,7 +333,7 @@ export class GroupComponent implements OnInit {
     return false;
   }
 
-  setMemberLimit (limit:number) {
+  setMemberLimit(limit: number) {
     this.GroupMemberUserService.setParam('limit', limit);
     this.GroupInviteUserService.setParam('limit', limit);
   }
@@ -446,6 +447,17 @@ export class GroupComponent implements OnInit {
     });
   }
 
+  requestAddTopics(group: Group) {
+    console.log(group);
+    const requestAddTopicsDialog = this.dialog.open(GroupRequestTopicsComponent, {
+      data: {
+        group
+      }
+    });
+
+    requestAddTopicsDialog.afterClosed().subscribe(result => {
+    });
+  }
   showSettings(group: Group) {
     console.log(group);
     const settingsDialog = this.dialog.open(GroupSettingsComponent, {
@@ -456,11 +468,7 @@ export class GroupComponent implements OnInit {
 
     settingsDialog.afterClosed().subscribe(result => {
       if (result === true) {
-        /* this.GroupService.delete(group)
-           .pipe(take(1))
-           .subscribe((res) => {
-             this.router.navigate(['../'], { relativeTo: this.route });
-           })*/
+        this.GroupService.reloadGroup();
       }
     });
   }

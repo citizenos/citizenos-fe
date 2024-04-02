@@ -1,0 +1,142 @@
+<div class="overlay" dialog-close></div>
+<div class="dialog_wrap">
+  <div id="notification_wrap_dialog">
+    <notification></notification>
+  </div>
+  <div class="dialog">
+    <div class="dialog_header">
+      <div class="header_text">
+        <h4 class="title" translate="COMPONENTS.GROUP_REQUEST_ADD_TOPICS_DIALOG.HEADING"></h4>
+        <div class="dialog_close">
+          <a class="btn_dialog_close icon" dialog-close>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M7.72152 6.29537C7.3277 5.90154 6.68919 5.90154 6.29537 6.29537C5.90154 6.68919 5.90154 7.3277 6.29537 7.72153L10.5738 12L6.29541 16.2785C5.90159 16.6723 5.90159 17.3108 6.29541 17.7046C6.68923 18.0985 7.32774 18.0985 7.72156 17.7046L12 13.4262L16.2784 17.7046C16.6723 18.0985 17.3108 18.0985 17.7046 17.7046C18.0984 17.3108 18.0984 16.6723 17.7046 16.2785L13.4262 12L17.7046 7.72153C18.0985 7.3277 18.0985 6.68919 17.7046 6.29537C17.3108 5.90154 16.6723 5.90154 16.2785 6.29537L12 10.5739L7.72152 6.29537Z"
+                fill="#2C3B47" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="dialog_content">
+      <div class="content_section">
+        <div class="section_content_wrap">
+          <div class="section_content_description bold"
+            translate="COMPONENTS.GROUP_REQUEST_ADD_TOPICS_DIALOG.SEARCH_DESC"></div>
+          <div id="search_wrap">
+            <typeahead id="input_area" [term]="searchStringTopic" (search)="search($event)"
+              (select)="addGroupMemberTopic($event)" (enterAction)="addGroupMemberTopic($event)"
+              [placeholder]="'COMPONENTS.GROUP_REQUEST_ADD_TOPICS_DIALOG.PLACEHOLDER_SEARCH' | translate">
+              <ng-container *ngIf="searchResults$ | async as searchResults">
+                <div class="search_area_wrap" [ngClass]="{hidden: !searchResults.length}">
+                  <div class="search_dropdown_item" [typeaheadItem]="topic" *ngFor="let topic of searchResults"
+                    [ngClass]="{disabled: isMember(topic)}" (click)="addGroupMemberTopic(topic)">
+                    <div class="item_text_wrap">
+                      <div>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M7.83808 1.33398C8.36851 1.33398 8.87722 1.5447 9.25229 1.91977L12.7474 5.41487C13.1225 5.78994 13.3332 6.29865 13.3332 6.82908V13.1858C13.3332 14.0007 12.6932 14.6673 11.9109 14.6673H4.08161C3.29939 14.6673 2.6665 14.0007 2.6665 13.1858L2.67362 2.81547C2.67362 2.00065 3.3065 1.33398 4.08873 1.33398H7.83808ZM12.3251 6.3259C12.4511 6.45189 12.3618 6.66732 12.1837 6.66732H8.99984C8.44755 6.66732 7.99984 6.2196 7.99984 5.66732V2.48349C7.99984 2.30531 8.21527 2.21608 8.34126 2.34207L12.3251 6.3259Z"
+                            fill="#2C3B47" />
+                        </svg>
+                      </div>
+                      <b>{{topic.title}}</b>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </typeahead>
+          </div>
+        </div>
+      </div>
+      <div class="create_content_section" *ngIf="membersToAdd.length > 0">
+        <div id="topic_members_list_wrap" class="table_section">
+          <ng-container *ngIf="membersToAdd.length">
+            <div class="container dialog_container">
+              <ng-container *ngFor="let topic of membersToAdd; index as i;">
+
+                <div class="row dialog_row" *ngIf="isOnPage(i, membersPage)">
+                  <div class="title">
+                    <div class="cell_title" translate="COMPONENTS.GROUP_ADD_TOPICS.HEADING_TITLE"></div>
+                    <a target='_blank' [routerLink]="['/', translate.currentLang, 'topics', topic.id]"
+                      class="member_topic_title bold">
+                      {{topic.title}}
+                    </a>
+                  </div>
+                  <div class="dialog_wrap_items">
+                    <div class="level mobile_hidden with_tooltip"
+                      translate="COMPONENTS.GROUP_ADD_TOPICS.HEADING_GROUP_PERMISSIONS">
+                      <div class="tooltip" tooltip>
+                        <div class="content_title"
+                          translate="COMPONENTS.GROUP_ADD_TOPICS.TOOLTIP_GROUP_PERMISSIONS_TITLE"></div>
+                        <div class="content_description"
+                          translate="COMPONENTS.GROUP_ADD_TOPICS.TOOLTIP_GROUP_PERMISSIONS_CONTENT">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="level">
+                      <div class="cell_title" translate="COMPONENTS.GROUP_ADD_TOPICS.HEADING_GROUP_PERMISSIONS">
+                        <div class="tooltip" tooltip>
+                          <div class="content_title"
+                            translate="COMPONENTS.GROUP_ADD_TOPICS.TOOLTIP_GROUP_PERMISSIONS_TITLE"></div>
+                          <div class="content_description"
+                            translate="COMPONENTS.GROUP_ADD_TOPICS.TOOLTIP_GROUP_PERMISSIONS_CONTENT">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="dropdown" [cosDropdown]
+                        [cosDisabled]="TopicService.canUpdate(topic) && group.visibility !== GroupService.VISIBILITY.public">
+                        <div class="selection">
+                          <div class="selected_item">{{'TXT_TOPIC_LEVELS_' + (topic.permission.level) |
+                            uppercase | translate}}</div>
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
+                          </svg>
+                        </div>
+                        <div class="options">
+                          <div class="option" *ngFor="let level of GroupMemberTopicService.LEVELS | keyvalue"
+                            (click)="topic.permission.level = level.value">
+                            {{'TXT_TOPIC_LEVELS_' + level.value | uppercase | translate}}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="actions remove_item_mobile">
+                      <button (click)="removeGroupMemberTopic(topic)">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M6 6.00065H7.33333L7.33333 11.334H6L6 6.00065Z" fill="#2C3B47" />
+                          <path d="M10 6.00065H8.66667L8.66667 11.334H10L10 6.00065Z" fill="#2C3B47" />
+                          <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M11.3333 3.33398V2.66732C11.3333 1.93094 10.7364 1.33398 10 1.33398L6 1.33398C5.26362 1.33398 4.66667 1.93094 4.66667 2.66732V3.33398L2.66667 3.33398C2.29848 3.33398 2 3.63246 2 4.00065C2 4.36884 2.29848 4.66732 2.66667 4.66732H3.33333L3.33333 12.0007C3.33333 13.1053 4.22877 14.0007 5.33333 14.0007L10.6667 14.0007C11.7713 14.0007 12.6667 13.1053 12.6667 12.0007L12.6667 4.66732H13.3333C13.7015 4.66732 14 4.36884 14 4.00065C14 3.63246 13.7015 3.33398 13.3333 3.33398H11.3333ZM10 2.66732L6 2.66732V3.33398L10 3.33398V2.66732ZM11.3333 4.66732L4.66667 4.66732L4.66667 12.0007C4.66667 12.3689 4.96515 12.6673 5.33333 12.6673L10.6667 12.6673C11.0349 12.6673 11.3333 12.3689 11.3333 12.0007L11.3333 4.66732Z"
+                            fill="#2C3B47" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </ng-container>
+
+        </div>
+      </div>
+      <div class="content_section">
+        <div class="section_content_wrap">
+          <div class="section_content_description bold"
+            translate="COMPONENTS.GROUP_REQUEST_ADD_TOPICS_DIALOG.REASON_DESC"></div>
+          <cos-input [placeholder]="'COMPONENTS.GROUP_REQUEST_ADD_TOPICS_DIALOG.REASON_PLACEHOLDER' | translate">
+            <textarea id="groupDescription" [placeholder]="'COMPONENTS.GROUP_REQUEST_ADD_TOPICS_DIALOG.REASON_PLACEHOLDER' | translate"
+              rows="5" [(ngModel)]="message"></textarea>
+          </cos-input>
+        </div>
+      </div>
+    </div>
+    <div class="dialog_footer with_buttons">
+      <div></div>
+      <div class="button_row">
+        <a dialog-close translate="COMPONENTS.GROUP_REQUEST_ADD_TOPICS_DIALOG.LNK_CANCEL"></a>
+        <button class="btn_medium_submit" translate="COMPONENTS.GROUP_REQUEST_ADD_TOPICS_DIALOG.BTN_SAVE" (click)="doRequest()"></button>
+      </div>
+    </div>
+  </div>
+</div>
