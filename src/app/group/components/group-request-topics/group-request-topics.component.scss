@@ -3,6 +3,10 @@
 .dialog {
   max-width: 560px;
   padding: 0;
+
+  .dialog_content {
+    gap: 24px;
+  }
 }
 #form_area {
   gap: 0;
@@ -34,36 +38,46 @@
 }
 
 .search_area_wrap {
-  position: fixed;
+  position: absolute;
+  width: calc(100% - 32px);
+  z-index: 9999;
+  padding: 0;
+}
+
+
+#results_list {
+  gap: 8px !important;
+  padding: 16px !important;
+}
+.search_dropdown_item {
+  width: 100%;
+  position: relative;
+  padding: 8px 16px;
+
+  &:hover,
+  &.active {
+    background-color: var(--color-background)!important;
+  }
+  .item_text_wrap {
+    width: 100%;
+    display: flex;
+    gap: 8px;
+  }
+  .icon {
+    display: flex;
+  }
+
+  .text {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
 }
 
 .dropdown {
   min-width: 160px;
   @include mixins.mobile {
     width: 100%;
-  }
-}
-
-.no_items {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-
-  .text_wrap {
-    max-width: 560px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-
-    .text {
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 20px; /* 142.857% */
-    }
   }
 }
 
