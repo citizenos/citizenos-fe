@@ -340,9 +340,10 @@
     },
     "GROUP_REQUEST_ADD_TOPICS_DIALOG": {
       "HEADING": "Request to add topics to group",
-      "SEARCH_DESC": "Search the topics you want to add to this group",
+      "SEARCH_HEADING":"Search for existing topics you want added to the group",
+      "SEARCH_DESC": "You can request to add any topic for which you are admin",
       "PLACEHOLDER_SEARCH": "@:COMPONENTS.GROUP_INVITE.PLACEHOLDER_SEARCH",
-      "REASON_DESC": "Add a reason why you think these topics should be added to this group",
+      "REASON_DESC": "Add a reason for your request",
       "REASON_PLACEHOLDER": "Write your reason here",
       "LNK_CANCEL":"@:LNK_CANCEL",
       "BTN_SAVE": "Send request"
@@ -751,6 +752,8 @@
       "HEADING": "Topic requests",
       "NO_REQUESTS_HEADING": "There are no requests!",
       "NO_REQUESTS_DESC": "There are no pending requests for topics to be added to this group.",
+      "MSG_ACCEPT_SUCCESS": "Request has been accepted!",
+      "MSG_REJECT_SUCCESS": "Request has been rejected!",
       "BTN_ACCEPT": "Accept",
       "BTN_REJECT": "Reject"
     },
@@ -2803,7 +2806,9 @@
     "ACTIVITY_USERCONNECTION_CONNECTION_NAME_SMARTID": "Smart-ID",
     "ACTIVITY_USERCONNECTION_CONNECTION_NAME_ESTEID": "Estonian ID-card / Mobiil-ID",
     "ACTIVITY_USERCONNECTION_CONNECTION_NAME_CITIZENOS": "Citizen OS",
-    "ACTIVITY_USER_OFFER_TOPIC_GROUP": "User <em>{{userName}}</em> has requested to add <em>{{topicTitle}}</em> to group <em>{{groupName}}</em>"
+    "ACTIVITY_USER_OFFER_TOPIC_GROUP": "User <em>{{userName}}</em> has requested to add <em>{{topicTitle}}</em> to group <em>{{groupName}}</em>",
+    "ACTIVITY_USER_ACCEPT_REQUEST_TOPIC_GROUP": "User <em>{{userName}}</em> has accepted a request to add <em>{{topicTitle}}</em> to group <em>{{groupName}}</em>",
+    "ACTIVITY_USER_REJECT_REQUEST_TOPIC_GROUP": "User <em>{{userName}}</em> has rejected a request to add <em>{{topicTitle}}</em> to group <em>{{groupName}}</em>"
   },
   "MSG_REQUEST_ACCEPTED": "Request has been accepted!",
   "MSG_REQUEST_REJECTED": "Request has been rejected!",
