@@ -5,12 +5,19 @@
 .btn_medium_accept,
 .btn_medium_reject {
   display: flex;
-  height: 32px;
-  padding: 8px 24px;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
+  padding: 0px 16px;
+  gap: 16px;
+  max-height: 40px;
+  min-height: 40px;
+  min-width: 40px;
   border-radius: 40px;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 16px;
+  span {
+    font-size: 14px;
+    line-height: 16px;
+  }
 }
 .btn_medium_accept {
   background-color: var(--color-dialog-voting);
@@ -18,5 +25,33 @@
 }
 .btn_medium_reject {
   background-color: var(--color-warn-background);
-  color: #E79427;
+  color: #e79427;
+}
+
+#topic_request_list_wrap {
+  gap: 16px;
+}
+.row_list {
+  padding: 16px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  .text {
+    font-size: 13px;
+    font-style: italic;
+  }
+}
+.dialog {
+  .dialog_content {
+    .table_section {
+      .no_results {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+      }
+    }
+  }
 }
