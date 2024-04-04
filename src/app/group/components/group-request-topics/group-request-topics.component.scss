@@ -44,7 +44,20 @@
   padding: 0;
 }
 
+.section_content_description {
+  display: flex;
+  flex-direction: column;
 
+  .heading {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+  }
+  span {
+    font-size: 14px;
+    line-height: 20px;
+  }
+}
 #results_list {
   gap: 8px !important;
   padding: 16px !important;

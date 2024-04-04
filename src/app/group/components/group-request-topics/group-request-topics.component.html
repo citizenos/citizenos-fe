@@ -21,8 +21,10 @@
     <div class="dialog_content">
       <div class="content_section">
         <div class="section_content_wrap">
-          <div class="section_content_description bold"
-            translate="COMPONENTS.GROUP_REQUEST_ADD_TOPICS_DIALOG.SEARCH_DESC"></div>
+          <div class="section_content_description">
+            <span class="heading" translate="COMPONENTS.GROUP_REQUEST_ADD_TOPICS_DIALOG.SEARCH_HEADING"></span>
+            <span translate="COMPONENTS.GROUP_REQUEST_ADD_TOPICS_DIALOG.SEARCH_DESC"></span>
+          </div>
           <div id="search_wrap">
             <typeahead id="input_area" [term]="searchStringTopic" (search)="search($event)"
               (select)="addGroupMemberTopic($event)" (enterAction)="addGroupMemberTopic($event)"
@@ -122,11 +124,13 @@
       </div>
       <div class="content_section">
         <div class="section_content_wrap">
-          <div class="section_content_description bold"
-            translate="COMPONENTS.GROUP_REQUEST_ADD_TOPICS_DIALOG.REASON_DESC"></div>
+          <div class="section_content_description">
+            <span class="heading" translate="COMPONENTS.GROUP_REQUEST_ADD_TOPICS_DIALOG.REASON_DESC"></span>
+          </div>
           <cos-input [placeholder]="'COMPONENTS.GROUP_REQUEST_ADD_TOPICS_DIALOG.REASON_PLACEHOLDER' | translate">
-            <textarea id="groupDescription" [placeholder]="'COMPONENTS.GROUP_REQUEST_ADD_TOPICS_DIALOG.REASON_PLACEHOLDER' | translate"
-              rows="5" [(ngModel)]="message"></textarea>
+            <textarea id="groupDescription"
+              [placeholder]="'COMPONENTS.GROUP_REQUEST_ADD_TOPICS_DIALOG.REASON_PLACEHOLDER' | translate" rows="5"
+              [(ngModel)]="message"></textarea>
           </cos-input>
         </div>
       </div>
@@ -135,7 +139,8 @@
       <div></div>
       <div class="button_row">
         <a dialog-close translate="COMPONENTS.GROUP_REQUEST_ADD_TOPICS_DIALOG.LNK_CANCEL"></a>
-        <button class="btn_medium_submit" translate="COMPONENTS.GROUP_REQUEST_ADD_TOPICS_DIALOG.BTN_SAVE" (click)="doRequest()"></button>
+        <button class="btn_medium_submit" translate="COMPONENTS.GROUP_REQUEST_ADD_TOPICS_DIALOG.BTN_SAVE"
+          (click)="doRequest()"></button>
       </div>
     </div>
   </div>
