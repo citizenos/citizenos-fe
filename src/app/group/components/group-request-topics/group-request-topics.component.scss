@@ -114,6 +114,18 @@
       width: 100%;
       align-items: center;
       justify-content: space-between;
+
+      .level:first-child {
+        justify-content: flex-start;
+      }
+
+      .actions {
+        align-items: flex-end;
+        button {
+          width: 40px;
+          height: 40px;
+        }
+      }
     }
     .cell_title {
       display: none;

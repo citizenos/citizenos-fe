@@ -341,7 +341,6 @@ export class GroupComponent implements OnInit {
 
   setVisibility(visibility: string) {
     if (visibility === 'all' || typeof visibility !== 'string') visibility = '';
-    console.log(visibility)
     this.topicTypeFilter$.next(visibility);
     this.topicFilters.visibility = visibility;
   }
@@ -457,6 +456,7 @@ export class GroupComponent implements OnInit {
     });
 
     requestAddTopicsDialog.afterClosed().subscribe(result => {
+      this.GroupMemberTopicService.loadItems();
     });
   }
   showSettings(group: Group) {

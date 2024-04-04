@@ -147,14 +147,18 @@ export class GroupRequestTopicsComponent {
           next: (res: any) => {
             this.GroupService.reloadGroup();
             this.GroupMemberTopicService.setParam('groupId', this.group.id);
+            this.dialog.close();
           },
           error: (errorResponse) => {
             if (errorResponse && errorResponse.errors) {
               this.errors = errorResponse.errors;
               console.error(errorResponse.errors);
             }
+            this.dialog.close();
           }
         })
+    } else {
+      this.dialog.close();
     }
   };
 
