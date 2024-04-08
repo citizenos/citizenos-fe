@@ -343,6 +343,7 @@
       "SEARCH_HEADING":"Search for existing topics you want added to the group",
       "SEARCH_DESC": "You can request to add any topic for which you are admin",
       "PLACEHOLDER_SEARCH": "@:COMPONENTS.GROUP_INVITE.PLACEHOLDER_SEARCH",
+      "MSG_REQUEST_SENT_SUCCESS": "Request has been sent!",
       "REASON_DESC": "Add a reason for your request",
       "REASON_PLACEHOLDER": "Write your reason here",
       "LNK_CANCEL":"@:LNK_CANCEL",
