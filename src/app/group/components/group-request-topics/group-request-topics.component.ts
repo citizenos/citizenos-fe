@@ -1,3 +1,4 @@
+import { NotificationService } from 'src/app/services/notification.service';
 import { Topic } from 'src/app/interfaces/topic';
 import { Component, OnInit, Inject, Input, ViewChild } from '@angular/core';
 import { Group } from 'src/app/interfaces/group';
@@ -40,6 +41,7 @@ export class GroupRequestTopicsComponent {
     public translate: TranslateService,
     public TopicService: TopicService,
     @Inject(DIALOG_DATA) public data: any,
+    private NotificationService: NotificationService,
     private dialog: DialogRef<GroupRequestTopicsComponent>,
     public GroupRequestTopicService: GroupRequestTopicService,
     public GroupMemberTopicService: GroupMemberTopicService
@@ -148,6 +150,7 @@ export class GroupRequestTopicsComponent {
             this.GroupService.reloadGroup();
             this.GroupMemberTopicService.setParam('groupId', this.group.id);
             this.dialog.close();
+            this.NotificationService.addSuccess('COMPONENTS.GROUP_REQUEST_ADD_TOPICS_DIALOG.MSG_REQUEST_SENT_SUCCESS');
           },
           error: (errorResponse) => {
             if (errorResponse && errorResponse.errors) {

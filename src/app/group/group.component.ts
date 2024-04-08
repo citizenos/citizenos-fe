@@ -448,7 +448,6 @@ export class GroupComponent implements OnInit {
   }
 
   requestAddTopics(group: Group) {
-    console.log(group);
     const requestAddTopicsDialog = this.dialog.open(GroupRequestTopicsComponent, {
       data: {
         group
@@ -457,6 +456,8 @@ export class GroupComponent implements OnInit {
 
     requestAddTopicsDialog.afterClosed().subscribe(result => {
       this.GroupMemberTopicService.loadItems();
+      this.topicTypeFilter$.next('private');
+      this.topicTypeFilter$.next('');
     });
   }
   showSettings(group: Group) {
@@ -517,6 +518,9 @@ export class GroupComponent implements OnInit {
       data: {
         group: group
       }
+    });
+    topicRequestsDialog.afterClosed().subscribe(() => {
+      this.doClearFilters();
     })
   }
 
