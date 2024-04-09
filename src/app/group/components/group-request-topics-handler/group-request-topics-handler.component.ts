@@ -1,66 +1,68 @@
+import { LocationService } from 'src/app/services/location.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { combineLatest, map, take } from 'rxjs';
 import { GroupRequestTopicService } from 'src/app/services/group-request-topic.service';
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, UrlTree } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
+import { AppService } from 'src/app/services/app.service';
+import { DialogService } from 'src/app/shared/dialog';
+import { LoginDialogComponent } from 'src/app/account/components/login/login.component';
 
 @Component({
-  selector: 'app-group-request-topics-handler',
-  templateUrl: './group-request-topics-handler.component.html',
-  styleUrls: ['./group-request-topics-handler.component.scss']
+  template: '',
+  selector: 'app-group-request-topics-handler'
 })
 export class GroupRequestTopicsHandlerComponent {
 
-  constructor(router: Router, route: ActivatedRoute, Request: GroupRequestTopicService, NotificationService: NotificationService) {
+  constructor(
+    router: Router,
+    route: ActivatedRoute,
+    Request: GroupRequestTopicService,
+    NotificationService: NotificationService,
+    Auth: AuthService,
+    app: AppService,
+    dialog: DialogService
+  ) {
     combineLatest([route.url, route.params]).pipe((take(1)), map(([url, params]) => {
-      Request.get(params).pipe(take(1)).subscribe((request) => {
-        const curPath = url.join('');
-        if (curPath === 'accept') {
-          if (request.acceptedAt) {
-            router.navigate(['topics', request.topicId]);
-            setTimeout(() => {
-              if (new Date().getTime() - new Date(request.acceptedAt).getTime() > 15000) {
-                NotificationService.addWarning('MSG_REQUEST_ACCEPTED_ALREADY');
-              } else {
-                NotificationService.addSuccess('MSG_REQUEST_ACCEPTED');
-              }
-            }, 1000)
-          } else if (!request.rejectedAt) {
-            Request.accept(request).pipe(take(1)).subscribe(() => {
-              router.navigate(['topics', request.topicId]);
+      const curPath = url.join('');
+      const acceptMessage = 'MSG_REQUEST_ACCEPTED';
+      const rejectMessage = 'MSG_REQUEST_REJECTED';
 
-              setTimeout(() => {
-                NotificationService.addSuccess('MSG_REQUEST_ACCEPTED');
-              }, 1000)
-            });
-          } else {
-            router.navigate(['groups', request.groupId]);
+      Request.get(params).pipe(take(1)).subscribe({
+        next: (request) => {
+          const acceptPath = ['topics', request.topicId];
+          const rejectPath = ['groups', request.groupId];
+          const redirect = (path: any[], message: string) => {
+            router.navigate(path);
             setTimeout(() => {
-              NotificationService.addWarning('MSG_REQUEST_REJECTED_ALREADY');
-            }, 1000);
-          }
-        } else if (curPath === 'reject') {
-          if (request.rejectedAt) {
-            router.navigate(['groups', request.groupId]);
-            setTimeout(() => {
-              if (new Date().getTime() - new Date(request.acceptedAt).getTime() > 15000) {
-                NotificationService.addWarning('MSG_REQUEST_REJECTED_ALREADY');
+              if ((request.acceptedAt || request.rejectAt) && new Date().getTime() - new Date(request.acceptedAt || request.rejectedAt).getTime() > 60000) {
+                NotificationService.addWarning(message + '_ALREADY');
               } else {
-                NotificationService.addSuccess('MSG_REQUEST_REJECTED');
+                NotificationService.addSuccess(message);
               }
             }, 1000)
-          } else if (!request.acceptedAt) {
-            Request.reject(request).pipe(take(1)).subscribe(() => {
-              router.navigate(['groups', request.groupId]);
-              setTimeout(() => {
-                NotificationService.addSuccess('MSG_REQUEST_REJECTED');
-              }, 1000)
+          }
+
+          if (request.acceptedAt) {
+            return redirect(acceptPath, acceptMessage);
+          } else if (request.rejectedAt) {
+            return redirect(rejectPath, rejectMessage);
+          } else if (curPath === 'accept') {
+            Request.accept(request).pipe(take(1)).subscribe(() => {
+              return redirect(acceptPath, acceptMessage);
             });
-          } else {
-            router.navigate(['topics', request.topicId]);
-            setTimeout(() => {
-              NotificationService.addWarning('MSG_REQUEST_ACCEPTED_ALREADY');
-            }, 1000);
+          } else if (curPath === 'reject') {
+            Request.reject(request).pipe(take(1)).subscribe(() => {
+              return redirect(rejectPath, rejectMessage);
+            });
+          }
+        },
+        error: (err) => {
+          if (!Auth.loggedIn$.value) {
+            router.navigate(['groups', params['groupId']]);
+            dialog.closeAll();
+            app.doShowLogin(location.href);
           }
         }
       });
