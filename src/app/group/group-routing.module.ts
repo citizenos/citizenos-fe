@@ -11,7 +11,7 @@ const routes: Routes = [
   {path: 'join/:token', component: GroupTokenJoinComponent},
   {path: ':groupId/invites/users/:inviteId', component: GroupInvitationDialogComponent},
   {
-    path: ':groupId/requests/topics/:requestId', canActivate: [AuthGuard], children: [
+    path: ':groupId/requests/topics/:requestId', children: [
       {path: '', component: GroupRequestTopicsHandlerComponent},
       {path: 'accept', component: GroupRequestTopicsHandlerComponent},
       {path: 'reject', component: GroupRequestTopicsHandlerComponent},
