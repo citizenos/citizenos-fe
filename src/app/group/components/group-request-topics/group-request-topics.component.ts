@@ -189,8 +189,6 @@ export class GroupRequestTopicsComponent {
   };
 
   isMember(topic: Topic) {
-    console.log(topic);
-    console.log(this.group.members.topics?.rows)
     const prevmember = this.group.members.topics?.rows.find((o: Topic) => {
       return o.id === topic.id;
     });
