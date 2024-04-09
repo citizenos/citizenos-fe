@@ -2911,6 +2911,7 @@
   "MSG_ERROR_GET_API_USERS_TOPICS_INVITES_USERS_41002_HEADING": "Invitación caducada",
   "MSG_ERROR_GET_API_USERS_TOPICS_INVITES_USERS_41002": "This invitation has expired. Apologies for the inconvenience. You may try requesting access to this topic again.",
   "MSG_ERROR_POST_API_USERS_TOPICS_EVENTS_40000_TEXT": "Text field cannot be empty.",
+  "MSG_ERROR_POST_API_USERS_GROUPS_REQUESTS_TOPICS_40001": "Your request to add a topic has not been sent. Please try again.",
   "MSG_ERROR_HWCRYPTO_USER_CANCEL": "You have cancelled the login process.",
   "MSG_ERROR_HWCRYPTO_NO_CERTIFICATES": "No card in reader. Check if the ID-card is inserted correctly into the reader. The latest ID-cards have a chip on the back of the card.",
   "MSG_ERROR_HWCRYPTO_NO_IMPLEMENTATION": "La compatibilidad con la firma digital no está instalada. Visite el sitio web installer.id.ee para instalar la compatibilidad.",
