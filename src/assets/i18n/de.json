@@ -2911,6 +2911,7 @@
   "MSG_ERROR_GET_API_USERS_TOPICS_INVITES_USERS_41002_HEADING": "Einladung abgelaufen",
   "MSG_ERROR_GET_API_USERS_TOPICS_INVITES_USERS_41002": "Diese Einladung ist abgelaufen. Wir entschuldigen uns für die Unannehmlichkeiten. Sie können versuchen, erneut Zugriff zu diesem Thema anzufordern.",
   "MSG_ERROR_POST_API_USERS_TOPICS_EVENTS_40000_TEXT": "Das Textfeld kann nicht leer bleiben.",
+  "MSG_ERROR_POST_API_USERS_GROUPS_REQUESTS_TOPICS_40001": "Your request to add a topic has not been sent. Please try again.",
   "MSG_ERROR_HWCRYPTO_USER_CANCEL": "Sie haben den Anmeldevorgang abgebrochen.",
   "MSG_ERROR_HWCRYPTO_NO_CERTIFICATES": "Keine Karte im Lesegerät erkannt. Überprüfen Sie, ob die ID-Karte richtig in das Lesegerät eingelegt ist. Neue ID-Karten haben einen Chip auf der Rückseite.",
   "MSG_ERROR_HWCRYPTO_NO_IMPLEMENTATION": "Digitale Unterschriften werden nicht unterstützt. Bitte besuchen Sie die Website installer.id.ee, um die fehlende Anwendung zu installieren.",
