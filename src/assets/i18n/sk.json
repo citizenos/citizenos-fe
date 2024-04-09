@@ -2911,6 +2911,7 @@
   "MSG_ERROR_GET_API_USERS_TOPICS_INVITES_USERS_41002_HEADING": "Pozvánka vypršala",
   "MSG_ERROR_GET_API_USERS_TOPICS_INVITES_USERS_41002": "Táto pozvánka vypršala. Ospravedlňujeme sa za spôsobené nepríjemnosti. Opäť môžete skúsiť požiadať o prístup k tejto téme.",
   "MSG_ERROR_POST_API_USERS_TOPICS_EVENTS_40000_TEXT": "Textové pole nemôže byť prázdne.",
+  "MSG_ERROR_POST_API_USERS_GROUPS_REQUESTS_TOPICS_40001": "Your request to add a topic has not been sent. Please try again.",
   "MSG_ERROR_HWCRYPTO_USER_CANCEL": "Zrušili ste prihlasovací proces.",
   "MSG_ERROR_HWCRYPTO_NO_CERTIFICATES": "V čítačke nie je karta. Skontrolujte, či je ID-karta správne zasunutá do čítačky. Nové ID-karty majú čip na zadnej strane karty.",
   "MSG_ERROR_HWCRYPTO_NO_IMPLEMENTATION": "Podpora digitálneho podpisovania nie je nainštalovaná. Navštívte prosím webstránku.id.ee pre inštaláciu podpory.",
