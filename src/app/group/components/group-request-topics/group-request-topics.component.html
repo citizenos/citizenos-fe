@@ -18,6 +18,8 @@
         </div>
       </div>
     </div>
+    <ng-container *ngIf="memberTopics$ | async"></ng-container>
+
     <div class="dialog_content">
       <div class="content_section">
         <div class="section_content_wrap">

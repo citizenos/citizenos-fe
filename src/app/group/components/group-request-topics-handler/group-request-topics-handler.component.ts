@@ -1,13 +1,11 @@
-import { LocationService } from 'src/app/services/location.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { combineLatest, map, take } from 'rxjs';
 import { GroupRequestTopicService } from 'src/app/services/group-request-topic.service';
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router, UrlTree } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { AppService } from 'src/app/services/app.service';
 import { DialogService } from 'src/app/shared/dialog';
-import { LoginDialogComponent } from 'src/app/account/components/login/login.component';
 
 @Component({
   template: '',
