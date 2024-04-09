@@ -1,3 +1,4 @@
+import { TopicService } from 'src/app/services/topic.service';
 import { GroupService } from 'src/app/services/group.service';
 import { Observable, map, take } from 'rxjs';
 import { Component, Inject } from '@angular/core';
@@ -14,7 +15,7 @@ import { NotificationService } from 'src/app/services/notification.service';
 export class TopicRequestsComponent {
   group: Group;
   request$: Observable<any[]>;
-  constructor(@Inject(DIALOG_DATA) data: any, public GroupRequestTopicService: GroupRequestTopicService, private GroupService: GroupService, private Notification: NotificationService) {
+  constructor(@Inject(DIALOG_DATA) data: any, public GroupRequestTopicService: GroupRequestTopicService, private GroupService: GroupService, private Notification: NotificationService, public TopicService: TopicService) {
     this.group = data.group;
     this.request$ = GroupRequestTopicService.getItems({groupId: data.group.id}).pipe(map((res) => res.rows));
 

@@ -1,6 +1,8 @@
 .action_buttons_wrap {
   display: flex;
   gap: 16px;
+  justify-content: flex-end;
+  flex-grow: 1;
 }
 .btn_medium_accept,
 .btn_medium_reject {
@@ -36,10 +38,27 @@
   display: flex;
   gap: 8px;
   align-items: center;
+  flex-flow: row;
 
   .text {
     font-size: 13px;
     font-style: italic;
+  }
+
+  .name {
+    flex-grow: 1;
+  }
+  .visibility {
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+
+    .icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 }
 .dialog {
