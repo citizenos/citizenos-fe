@@ -6,6 +6,7 @@ import { Group } from 'src/app/interfaces/group';
 import { DIALOG_DATA } from 'src/app/shared/dialog';
 import { GroupRequestTopicService } from 'src/app/services/group-request-topic.service';
 import { NotificationService } from 'src/app/services/notification.service';
+import { GroupMemberTopicService } from 'src/app/services/group-member-topic.service';
 
 @Component({
   selector: 'app-topic-requests',
@@ -15,7 +16,12 @@ import { NotificationService } from 'src/app/services/notification.service';
 export class TopicRequestsComponent {
   group: Group;
   request$: Observable<any[]>;
-  constructor(@Inject(DIALOG_DATA) data: any, public GroupRequestTopicService: GroupRequestTopicService, private GroupService: GroupService, private Notification: NotificationService, public TopicService: TopicService) {
+  constructor(@Inject(DIALOG_DATA) data: any,
+  public GroupRequestTopicService: GroupRequestTopicService,
+  private GroupService: GroupService,
+  private Notification: NotificationService,
+  public TopicService: TopicService,
+  private GroupMemberTopicService: GroupMemberTopicService) {
     this.group = data.group;
     this.request$ = GroupRequestTopicService.getItems({groupId: data.group.id}).pipe(map((res) => res.rows));
 
@@ -27,6 +33,8 @@ export class TopicRequestsComponent {
       this.Notification.removeAll();
       this.Notification.addSuccess('COMPONENTS.TOPIC_REQUESTS.MSG_ACCEPT_SUCCESS');
       this.GroupRequestTopicService.reloadItems();
+      this.GroupMemberTopicService.reset();
+      this.GroupMemberTopicService.setParam('groupId', this.group.id);
       this.GroupService.reloadGroup();
     });
   }
