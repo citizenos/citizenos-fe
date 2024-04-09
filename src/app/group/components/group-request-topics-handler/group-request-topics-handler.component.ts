@@ -12,10 +12,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class GroupRequestTopicsHandlerComponent {
 
   constructor(router: Router, route: ActivatedRoute, Request: GroupRequestTopicService, NotificationService: NotificationService) {
-    combineLatest([route.url, route.params ]).pipe((take(1)), map(([url, params]) => {
+    combineLatest([route.url, route.params]).pipe((take(1)), map(([url, params]) => {
       Request.get(params).pipe(take(1)).subscribe((request) => {
         const curPath = url.join('');
-        if(curPath === 'accept') {
+        if (curPath === 'accept') {
           if (request.acceptedAt) {
             router.navigate(['topics', request.topicId]);
             setTimeout(() => {
@@ -24,18 +24,20 @@ export class GroupRequestTopicsHandlerComponent {
               } else {
                 NotificationService.addSuccess('MSG_REQUEST_ACCEPTED');
               }
-            })
+            }, 1000)
           } else if (!request.rejectedAt) {
             Request.accept(request).pipe(take(1)).subscribe(() => {
               router.navigate(['topics', request.topicId]);
 
               setTimeout(() => {
                 NotificationService.addSuccess('MSG_REQUEST_ACCEPTED');
-              })
+              }, 1000)
             });
           } else {
             router.navigate(['groups', request.groupId]);
-            NotificationService.addWarning('MSG_REQUEST_REJECTED_ALREADY');
+            setTimeout(() => {
+              NotificationService.addWarning('MSG_REQUEST_REJECTED_ALREADY');
+            }, 1000);
           }
         } else if (curPath === 'reject') {
           if (request.rejectedAt) {
@@ -46,18 +48,19 @@ export class GroupRequestTopicsHandlerComponent {
               } else {
                 NotificationService.addSuccess('MSG_REQUEST_REJECTED');
               }
-
-            })
+            }, 1000)
           } else if (!request.acceptedAt) {
             Request.reject(request).pipe(take(1)).subscribe(() => {
               router.navigate(['groups', request.groupId]);
               setTimeout(() => {
                 NotificationService.addSuccess('MSG_REQUEST_REJECTED');
-              })
+              }, 1000)
             });
           } else {
             router.navigate(['topics', request.topicId]);
-            NotificationService.addWarning('MSG_REQUEST_ACCEPTED_ALREADY');
+            setTimeout(() => {
+              NotificationService.addWarning('MSG_REQUEST_ACCEPTED_ALREADY');
+            }, 1000);
           }
         }
       });
