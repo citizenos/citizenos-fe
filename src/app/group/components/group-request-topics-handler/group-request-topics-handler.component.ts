@@ -19,7 +19,7 @@ export class GroupRequestTopicsHandlerComponent {
           if (request.acceptedAt) {
             router.navigate(['topics', request.topicId]);
             setTimeout(() => {
-              if (new Date().getTime() - new Date(request.acceptedAt).getTime() > 10000) {
+              if (new Date().getTime() - new Date(request.acceptedAt).getTime() > 15000) {
                 NotificationService.addWarning('MSG_REQUEST_ACCEPTED_ALREADY');
               } else {
                 NotificationService.addSuccess('MSG_REQUEST_ACCEPTED');
@@ -43,7 +43,7 @@ export class GroupRequestTopicsHandlerComponent {
           if (request.rejectedAt) {
             router.navigate(['groups', request.groupId]);
             setTimeout(() => {
-              if (new Date().getTime() - new Date(request.acceptedAt).getTime() > 10000) {
+              if (new Date().getTime() - new Date(request.acceptedAt).getTime() > 15000) {
                 NotificationService.addWarning('MSG_REQUEST_REJECTED_ALREADY');
               } else {
                 NotificationService.addSuccess('MSG_REQUEST_REJECTED');

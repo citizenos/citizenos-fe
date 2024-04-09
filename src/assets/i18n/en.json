@@ -753,8 +753,8 @@
       "HEADING": "Topic requests",
       "NO_REQUESTS_HEADING": "There are no requests!",
       "NO_REQUESTS_DESC": "There are no pending requests for topics to be added to this group.",
-      "MSG_ACCEPT_SUCCESS": "Request has been accepted!",
-      "MSG_REJECT_SUCCESS": "Request has been rejected!",
+      "MSG_ACCEPT_SUCCESS": "The topic has been added to the group!",
+      "MSG_REJECT_SUCCESS": "Request to add topic to the group has been rejected!",
       "BTN_ACCEPT": "Accept",
       "BTN_REJECT": "Reject"
     },
