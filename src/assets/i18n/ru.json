@@ -2911,6 +2911,7 @@
   "MSG_ERROR_GET_API_USERS_TOPICS_INVITES_USERS_41002_HEADING": "Срок действия приглашения истек",
   "MSG_ERROR_GET_API_USERS_TOPICS_INVITES_USERS_41002": "Срок действия приглашения истек. Приносим извинения за неудобства. Попробуйте повторно запросить доступ к этой теме.",
   "MSG_ERROR_POST_API_USERS_TOPICS_EVENTS_40000_TEXT": "Текстовое поле не может быть пустым.",
+  "MSG_ERROR_POST_API_USERS_GROUPS_REQUESTS_TOPICS_40001": "Your request to add a topic has not been sent. Please try again.",
   "MSG_ERROR_HWCRYPTO_USER_CANCEL": "Вы прервали процесс входа в систему.",
   "MSG_ERROR_HWCRYPTO_NO_CERTIFICATES": "В считывателе нет карты. Пожалуйста, проверьте, корректно ли вставлена ID-карта в считыватель. Новые ID-карты снабжены чипом с задней стороны.",
   "MSG_ERROR_HWCRYPTO_NO_IMPLEMENTATION": "У Вас не установлено программное обеспечение, необходимое для внесения дигитальной подписи. Чтобы установить его, посетите сайт installer.id.ee.",
