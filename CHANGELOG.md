@@ -1,3 +1,14 @@
+## 2024-04-10 - v1.0.2
+  * Feature: Request to add topics to a group MVP version - https://github.com/citizenos/citizenos-fe/issues/186
+  * FIX issue https://github.com/citizenos/citizenos-fe/issues/963
+  * FIX issue https://github.com/citizenos/citizenos-fe/issues/1073
+  * FIX issue https://github.com/citizenos/citizenos-fe/issues/1080
+  * FIX issue https://github.com/citizenos/citizenos-fe/issues/1081
+  * FIX issue https://github.com/citizenos/citizenos-fe/issues/1083
+  * FIX issue https://github.com/citizenos/citizenos-fe/issues/1084
+  * FIX issue https://github.com/citizenos/citizenos-fe/issues/1092
+  * FIX issue https://github.com/citizenos/citizenos-fe/issues/1096
+
 ## 2024-03-27 - v1.0.1
   * Peformance fix: Removed - vote results from group member topics
   * Performance fix: Remove topic list ordering params that caused performance issues
