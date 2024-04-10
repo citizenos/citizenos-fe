@@ -25,6 +25,8 @@ import { languages } from '../services/language.service';
 import { GroupSettingsComponent } from './components/group-settings/group-settings.component';
 import { Country } from '../interfaces/country';
 import { Language } from '../interfaces/language';
+import { GroupRequestTopicsComponent } from './components/group-request-topics/group-request-topics.component';
+import { TopicRequestsComponent } from './components/topic-requests/topic-requests.component';
 
 @Component({
   selector: 'group',
@@ -156,7 +158,7 @@ export class GroupComponent implements OnInit {
         }
         return this.GroupMemberUserService.loadItems();
       })
-      ,map(
+      , map(
         (members: any) => {
           this.allMembers$ = [];
           if (members) {
@@ -332,14 +334,13 @@ export class GroupComponent implements OnInit {
     return false;
   }
 
-  setMemberLimit (limit:number) {
+  setMemberLimit(limit: number) {
     this.GroupMemberUserService.setParam('limit', limit);
     this.GroupInviteUserService.setParam('limit', limit);
   }
 
   setVisibility(visibility: string) {
     if (visibility === 'all' || typeof visibility !== 'string') visibility = '';
-    console.log(visibility)
     this.topicTypeFilter$.next(visibility);
     this.topicFilters.visibility = visibility;
   }
@@ -446,6 +447,19 @@ export class GroupComponent implements OnInit {
     });
   }
 
+  requestAddTopics(group: Group) {
+    const requestAddTopicsDialog = this.dialog.open(GroupRequestTopicsComponent, {
+      data: {
+        group
+      }
+    });
+
+    requestAddTopicsDialog.afterClosed().subscribe(result => {
+      this.GroupMemberTopicService.loadItems();
+      this.topicTypeFilter$.next('private');
+      this.topicTypeFilter$.next('');
+    });
+  }
   showSettings(group: Group) {
     console.log(group);
     const settingsDialog = this.dialog.open(GroupSettingsComponent, {
@@ -456,11 +470,7 @@ export class GroupComponent implements OnInit {
 
     settingsDialog.afterClosed().subscribe(result => {
       if (result === true) {
-        /* this.GroupService.delete(group)
-           .pipe(take(1))
-           .subscribe((res) => {
-             this.router.navigate(['../'], { relativeTo: this.route });
-           })*/
+        this.GroupService.reloadGroup();
       }
     });
   }
@@ -499,6 +509,17 @@ export class GroupComponent implements OnInit {
 
     addTopicsDialog.afterClosed().subscribe(() => {
       this.addTopicsDialogOpen = false;
+      this.doClearFilters();
+    })
+  }
+
+  topicRequests (group: Group) {
+    const topicRequestsDialog = this.dialog.open(TopicRequestsComponent, {
+      data: {
+        group: group
+      }
+    });
+    topicRequestsDialog.afterClosed().subscribe(() => {
       this.doClearFilters();
     })
   }

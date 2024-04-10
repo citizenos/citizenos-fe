@@ -11,6 +11,9 @@ import { GroupCreateComponent } from './components/group-create/group-create.com
 import { GroupJoinComponent } from './components/group-join/group-join.component';
 import { GroupInvitationComponent } from './components/group-invitation/group-invitation.component';
 import { GroupSettingsComponent } from './components/group-settings/group-settings.component';
+import { GroupRequestTopicsComponent } from './components/group-request-topics/group-request-topics.component';
+import { GroupRequestTopicsHandlerComponent } from './components/group-request-topics-handler/group-request-topics-handler.component';
+import { TopicRequestsComponent } from './components/topic-requests/topic-requests.component';
 
 
 @NgModule({
@@ -19,7 +22,10 @@ import { GroupSettingsComponent } from './components/group-settings/group-settin
     GroupCreateComponent,
     GroupJoinComponent,
     GroupInvitationComponent,
-    GroupSettingsComponent
+    GroupSettingsComponent,
+    GroupRequestTopicsComponent,
+    GroupRequestTopicsHandlerComponent,
+    TopicRequestsComponent
   ],
   imports: [
     CommonModule,
