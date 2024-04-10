@@ -1,4 +1,6 @@
 /** Main **/
+@use "mixins";
+
 $btn: #2c3b47;
 $error: #ef4025;
 
@@ -202,11 +204,15 @@ $bold: 700;
 #editbar {
   background: $base;
   border-bottom: none;
-  width: calc(100% - 200px);
+  width: calc(100% - 220px);
   margin-left: auto;
   margin-right: auto;
   border-radius: 8px;
   padding: 8px 16px;
+
+  @include mixins.mobile {
+    width: 100%;
+  }
 
   ul {
     li {
@@ -252,6 +258,8 @@ $bold: 700;
 #innerdocbody,
 #padcontent {
   background: none;
+  padding-left: 0;
+  padding-right: 0;
   * {
     font-family: "Noto Sans", sans-serif;
     line-height: 175%;
@@ -266,8 +274,6 @@ $bold: 700;
   h6 {
     font-family: "Noto Sans", sans-serif;
     color: $medium_black;
-    margin: 20px 0;
-    line-height: 135%;
     font-weight: 600;
   }
 
@@ -278,56 +284,8 @@ $bold: 700;
   h5 *,
   h6 * {
     font-family: "Noto Sans", sans-serif;
-    margin: 20px 0;
     line-height: 135%;
     font-weight: 600;
-  }
-  h1 {
-    font-size: 46px;
-  }
-
-  h2 {
-    font-size: 40px;
-  }
-
-  h3 {
-    font-size: 34px;
-  }
-
-  h4 {
-    font-size: 28px;
-  }
-
-  h5 {
-    font-size: 22px;
-  }
-
-  h6 {
-    font-size: 16px;
-  }
-
-  h1 * {
-    font-size: 46px;
-  }
-
-  h2 * {
-    font-size: 40px;
-  }
-
-  h3 * {
-    font-size: 34px;
-  }
-
-  h4 * {
-    font-size: 28px;
-  }
-
-  h5 * {
-    font-size: 22px;
-  }
-
-  h6 * {
-    font-size: 16px;
   }
 
   .image {
@@ -337,25 +295,6 @@ $bold: 700;
     }
   }
   /** MOBILE **/
-  @media (max-width: 535px) {
-    h1 * {
-      font-size: 30px;
-    }
-
-    h2 * {
-      font-size: 24px;
-    }
-
-    h3 * {
-      font-size: 18px;
-    }
-
-    h4 *,
-    h5 *,
-    h6 * {
-      font-size: 16px;
-    }
-  }
 
   a {
     color: $color_link;
@@ -478,6 +417,20 @@ $bold: 700;
   color: $error;
 }
 
+
+.menu_right {
+  li:last-child{
+    display: none;
+  }
+}
+
+.timeslider {
+  .menu_right {
+    li:last-child{
+      display: flex;
+    }
+  }
+}
 #vote-description-area {
   border: 1px solid var(--grey-500, #e1e7ee);
   border-radius: 8px;
@@ -690,6 +643,7 @@ $bold: 700;
 .toolbar {
   .menu_left {
     height: 24px !important;
+    gap: 8px 0px;
   }
   .show-more-icon-btn {
     color: $color_link;

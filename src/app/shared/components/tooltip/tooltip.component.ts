@@ -46,6 +46,12 @@ export class TooltipComponent implements OnDestroy {
     if (this.tipContainer.nativeElement.getBoundingClientRect().left < 0) {
       left = left + this.tipContainer.nativeElement.getBoundingClientRect().left;
       this.renderer.setStyle(this.tipContainer.nativeElement, 'left', `-${left}px`);
+    } else {
+      const iconPos = this.toolTipIcon.nativeElement.getBoundingClientRect().left;
+      if (iconPos === containerPosition.left) {
+        this.renderer.setStyle(this.tipContainer.nativeElement, 'left', `-16px`);
+      }
+      //this.renderer.setStyle(this.tipContainer.nativeElement, 'left', `${left}px`);
     }
   }
 }

@@ -1,14 +1,14 @@
 import { trigger, state, style } from '@angular/animations';
 import { Component, Inject, ViewChild, ElementRef, Input, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, tap, of, take, BehaviorSubject, Observable, takeWhile, switchMap } from 'rxjs';
+import { map, tap, of, take, BehaviorSubject, Observable, takeWhile, switchMap, Subject } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicService } from 'src/app/services/topic.service';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { GroupService } from 'src/app/services/group.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { Group } from 'src/app/interfaces/group';
+import { Group, TopicMemberGroup } from 'src/app/interfaces/group';
 import { TranslateService } from '@ngx-translate/core';
 import { TopicMemberGroupService } from 'src/app/services/topic-member-group.service';
 import { TopicMemberUserService } from 'src/app/services/topic-member-user.service';
@@ -22,6 +22,10 @@ import { languages } from 'src/app/services/language.service';
 import { InterruptDialogComponent } from 'src/app/shared/components/interrupt-dialog/interrupt-dialog.component';
 import { UploadService } from 'src/app/services/upload.service';
 import { TopicSettingsDisabledDialogComponent } from '../topic-settings-disabled-dialog/topic-settings-disabled-dialog.component';
+import { Attachment } from 'src/app/interfaces/attachment';
+import { TopicAttachmentService } from 'src/app/services/topic-attachment.service';
+import { GroupMemberTopicService } from 'src/app/services/group-member-topic.service';
+
 @Component({
   selector: 'topic-form',
   templateUrl: './topic-form.component.html',
@@ -45,7 +49,6 @@ import { TopicSettingsDisabledDialogComponent } from '../topic-settings-disabled
         transition: '0.2s ease-in-out max-height'
       })),
       state('closed', style({
-        overflowY: 'hidden',
         transition: '0.2s ease-in-out max-height'
       }))
     ]),
@@ -66,10 +69,13 @@ import { TopicSettingsDisabledDialogComponent } from '../topic-settings-disabled
 export class TopicFormComponent {
   topicText?: ElementRef
   readMoreButton = new BehaviorSubject(false);
+  isCreatedFromGroup = false;
+  @ViewChild('topicTitle') titleInput!: ElementRef;
+  @ViewChild('topicIntro') introInput!: ElementRef;
   @ViewChild('topicText') set content(content: ElementRef) {
     if (content) { // initially setter gets called with undefined
       this.topicText = content;
-      if (content.nativeElement.offsetHeight > 200) {
+      if (content.nativeElement.offsetHeight >= 320) {
         this.readMoreButton.next(true);
       }
       this.cd.detectChanges();
@@ -77,7 +83,9 @@ export class TopicFormComponent {
   }
   @ViewChild('imageUpload') fileInput?: ElementRef;
   @Input() topic!: Topic;
+  @Input() groupId?: string;
   @Input() isnew?: boolean = true;
+  @Input() hasUnsavedChanges!: Subject<boolean>;
   topicUrl = <SafeResourceUrl>'';
   tabSelected;
   tabs = ['info', 'settings', 'preview'];
@@ -100,36 +108,61 @@ export class TopicFormComponent {
 
   VISIBILITY = this.TopicService.VISIBILITY;
   CATEGORIES = Object.keys(this.TopicService.CATEGORIES);
-  groups$: Observable<Group[] | any[]> = of([]);
-  private loadMembers$ = new BehaviorSubject<void>(undefined);
+  groups$: Observable<TopicMemberGroup[] | any[]> = of([]);
+  loadMembers$ = new BehaviorSubject<void>(undefined);
   members$: Observable<any[] | any[]> = of([]);
-  private loadInvite$ = new BehaviorSubject<void>(undefined);
+  loadInvite$ = new BehaviorSubject<void>(undefined);
   invites$: Observable<any[]> = of([]);
-  topicGroups = <Group[]>[];
+  topicGroups = <TopicMemberGroup[]>[];
 
   readMore = false;
 
   showHelp = false;
-  languages = languages;
-  countries = countries;
+  languages = languages.sort((a: any, b: any) => {
+    return a.name.localeCompare(b.name);
+  });
+  countries = countries.sort((a: any, b: any) => {
+    return a.name.localeCompare(b.name);
+  });
   downloadUrl = '';
-  error:any;
+  error: any;
+
+  showCategories = false;
+  showAttachments = false;
+  showGroups = false;
+  topicAttachments$ = of(<Attachment[] | any[]>[]);
+  topicGroups$ = of(<TopicMemberGroup[] | any[]>[])
+  memberGroups = <Group[]>[];
+  groupsToRemove = <Group[]>[];
+
   constructor(
-    private dialog: MatDialog,
-    private route: ActivatedRoute,
-    private router: Router,
-    private UploadService: UploadService,
-    private Notification: NotificationService,
+    public dialog: DialogService,
+    public route: ActivatedRoute,
+    public router: Router,
+    public UploadService: UploadService,
+    public Notification: NotificationService,
     public TopicService: TopicService,
     public GroupService: GroupService,
+    public GroupMemberTopicService: GroupMemberTopicService,
     public TopicMemberGroupService: TopicMemberGroupService,
     public TopicMemberUserService: TopicMemberUserService,
     public TopicInviteUserService: TopicInviteUserService,
+    public TopicAttachmentService: TopicAttachmentService,
     public translate: TranslateService,
-    private cd: ChangeDetectorRef,
-    @Inject(DomSanitizer) private sanitizer: DomSanitizer
+    public cd: ChangeDetectorRef,
+    @Inject(DomSanitizer) public sanitizer: DomSanitizer
   ) {
-    this.groups$ = this.GroupService.loadItems();
+    this.groups$ = this.GroupService.loadItems().pipe(map((groups) => {
+      groups.forEach((group: any) => {
+        if (this.groupId && this.groupId === group.id) {
+          const exists = this.topicGroups.find((mgroup) => mgroup.id === group.id);
+          if (!exists) this.addGroup(group);
+        }
+      });
+
+      return groups.filter((group) => group.visibility === this.GroupService.VISIBILITY.private || group.permission.level === GroupMemberTopicService.LEVELS.admin);
+    }));
+
     this.tabSelected = this.route.fragment.pipe(
       map((fragment) => {
         if (!fragment) {
@@ -148,19 +181,23 @@ export class TopicFormComponent {
   }
 
   ngOnInit() {
+    this.hasUnsavedChanges.next(true);
     this.topicUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.topic.padUrl);
     this.downloadUrl = this.TopicService.download(this.topic.id);
-    console.log(this.topic);
     Object.keys(this.block).forEach((blockname) => {
       const temp = this.topic[blockname as keyof Topic];
-      if (temp)
+      if (blockname === 'description') {
+        const el = document.createElement('span');
+        el.innerHTML = temp;
+        if (el.innerText)
+          this.block['description'] = true;
+      } else if (temp)
         this.block[blockname as keyof typeof this.block] = true;
     });
     if (this.topic.id) {
       this.TopicInviteUserService.setParam('topicId', this.topic.id);
       this.invites$ = this.loadInvite$.pipe(
-        tap(()=>console.log('LOAD INVITES')),
-        switchMap(() => {console.log('EXCHAUST'); return this.TopicInviteUserService.loadItems()})
+        switchMap(() => this.TopicInviteUserService.loadItems())
       );
       this.TopicMemberUserService.setParam('topicId', this.topic.id);
       this.members$ = this.loadMembers$.pipe(
@@ -168,6 +205,19 @@ export class TopicFormComponent {
         tap((members) => {
           this.topic.members.users = members;
           return members;
+        })
+      );
+      this.TopicAttachmentService.setParam('topicId', this.topic.id);
+      this.topicAttachments$ = this.TopicAttachmentService.loadItems();
+      this.TopicMemberGroupService.setParam('topicId', this.topic.id);
+      this.topicGroups$ = this.TopicMemberGroupService.loadItems().pipe(
+        tap((groups) => {
+          groups.forEach((group: any) => {
+            const exists = this.topicGroups.find((mgroup) => mgroup.id === group.id);
+            if (!exists) this.topicGroups.push(group);
+          });
+
+          this.memberGroups = groups;
         })
       );
     }
@@ -181,24 +231,55 @@ export class TopicFormComponent {
     this.router.navigate([], { fragment: tab });
   }
 
+
+  isNextDisabled(tabSelected: string | void) {
+    if (tabSelected === 'preview' && !this.TopicService.canDelete(this.topic)) {
+      return true;
+    } else if (!this.topic.title || !this.topic.description) {
+      return true;
+    }
+
+    return false;
+  }
+
   nextTab(tab: string | void) {
-    window.scrollTo(0,0);
-    this.updateTopic();
+    if (tab === 'info') {
+      let invalid = false;
+      if (!this.topic.title) {
+        this.block.title = true;
+        invalid = true;
+        setTimeout(() => {
+          this.titleInput?.nativeElement?.parentNode.parentNode.classList.add('error');
+        });
+      }
+      if (invalid) {
+        return
+      }
+    }
+    window.scrollTo(0, 0);
     if (tab) {
-      const tabIndex = this.tabs.indexOf(tab);
+      let tabIndex = this.tabs.indexOf(tab);
+      if (tab === 'info' && this.topic.permission.level === this.TopicService.LEVELS.edit) tabIndex = tabIndex + 1;
       if (tabIndex > -1 && tabIndex < 2) {
         this.selectTab(this.tabs[tabIndex + 1]);
       }
-      if (tabIndex+1 === 2) {
+      if (tabIndex + 1 === 2) {
         setTimeout(() => {
-          this.TopicService.reloadTopic();
-        })
+          this.TopicService.readDescription(this.topic.id).pipe(take(1)).subscribe({
+            next: (topic) => {
+              this.topic.description = topic.description;
+            },
+            error: (err) => {
+              console.error(err)
+            }
+          });
+        }, 200)
       }
     }
   }
 
   previousTab(tab: string | void) {
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
     if (tab) {
       const tabIndex = this.tabs.indexOf(tab);
       if (tabIndex > 0) {
@@ -209,42 +290,39 @@ export class TopicFormComponent {
 
   saveImage() {
     if (this.imageFile) {
-      this.UploadService
-        .uploadTopicImage({topicId: this.topic.id}, this.imageFile).pipe(
+      return this.UploadService
+        .uploadTopicImage({ topicId: this.topic.id }, this.imageFile).pipe(
           takeWhile((res: any) => {
             return (!res.link)
           }, true)
-        )
-        .subscribe({
-          next: (res: any) => {
-            if (res.link) {
-              this.topic.imageUrl = res.link;
-            }
-          },
-          error: (err: any) => {
-            console.log('ERROR', err);
-          }
-        });
+        );
     }
+    return of(false);
   }
 
   fileUpload() {
     const allowedTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/svg+xml'];
     const files = this.fileInput?.nativeElement.files;
     if (allowedTypes.indexOf(files[0].type) < 0) {
-      this.error = {image: this.translate.instant('MSG_ERROR_FILE_TYPE_NOT_ALLOWED', {allowedFileTypes: allowedTypes.toString()})};
+      this.error = { image: this.translate.instant('MSG_ERROR_FILE_TYPE_NOT_ALLOWED', { allowedFileTypes: allowedTypes.toString() }) };
       setTimeout(() => {
         delete this.error.image;
       }, 5000)
-    } else if (files[0].size  > 5000000) {
-      this.error = {image: this.translate.instant('MSG_ERROR_FILE_TOO_LARGE', {allowedFileSize: '5MB'})};
+    } else if (files[0].size > 5000000) {
+      this.error = { image: this.translate.instant('MSG_ERROR_FILE_TOO_LARGE', { allowedFileSize: '5MB' }) };
 
       setTimeout(() => {
         delete this.error.image;
       }, 5000)
     } else {
       this.imageFile = files[0];
-      return this.saveImage();
+      const reader = new FileReader();
+      reader.onload = (() => {
+        return (e: any) => {
+          this.tmpImageUrl = e.target.result;
+        };
+      })();
+      reader.readAsDataURL(files[0]);
     }
   }
 
@@ -257,7 +335,6 @@ export class TopicFormComponent {
       };
     })();
     reader.readAsDataURL(files[0]);
-    this.saveImage();
   }
 
   uploadImage() {
@@ -271,9 +348,22 @@ export class TopicFormComponent {
     if (this.topic.imageUrl) {
       this.topic.imageUrl = null;
       this.tmpImageUrl = undefined;
-      this.updateTopic();
     }
   };
+
+  showBlockTitle() {
+    this.block.title = true;
+    setTimeout(() => {
+      this.titleInput.nativeElement.focus();
+    }, 200);
+  }
+
+  showBlockIntro() {
+    this.block.intro = true;
+    setTimeout(() => {
+      this.introInput.nativeElement.focus();
+    }, 200);
+  }
 
   deleteTopic(topicId: string) {
     /*this.TopicService.doDeleteTopic(topic, [this.Translate.currentLang, 'my', 'topics']);*/
@@ -290,6 +380,7 @@ export class TopicFormComponent {
     });
     deleteDialog.afterClosed().subscribe(result => {
       if (result === true) {
+        this.hasUnsavedChanges.next(false);
         this.TopicService.delete({ id: topicId })
           .pipe(take(1))
           .subscribe(() => {
@@ -299,52 +390,125 @@ export class TopicFormComponent {
     });
   };
 
-  updateTopic() {
-    return this.TopicService.patch(this.topic).pipe(take(1)).subscribe();
-  }
-
   saveAsDraft() {
     if (this.topic.status === this.TopicService.STATUSES.draft) {
-      this.TopicService.patch(this.topic).pipe(take(1)).subscribe({
-        next: () => {
-          this.router.navigate(['my', 'topics']);
-        }
+      const updateTopic = Object.assign({}, this.topic);
+      if (!updateTopic.intro?.length) {
+        updateTopic.intro = null;
+      }
+
+      this.TopicService.patch(updateTopic).pipe(take(1)).subscribe(() => {
+        this.topicGroups.forEach((group) => {
+          this.saveMemberGroup(group);
+        });
+        this.groupsToRemove.forEach((group: any) => {
+          if (group) {
+            this.TopicMemberGroupService.delete({ topicId: this.topic.id, groupId: group.id }).pipe(take(1)).subscribe();
+          }
+        });
+        this.saveImage()
+          .subscribe({
+            next: (res: any) => {
+              if (res && !res.link) return;
+              if (res.link) {
+                this.topic.imageUrl = res.link;
+              }
+              this.hasUnsavedChanges.next(false);
+              this.router.navigate(['my', 'topics']);
+              this.Notification.addSuccess('VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE');
+            },
+            error: (err: any) => {
+              console.log('ERROR', err);
+            }
+          });
+
       });
     }
   }
-  publish() {
-    this.topic.status = this.TopicService.STATUSES.inProgress;
-    this.updateTopic();
-    this.topicGroups.forEach((group) => {
-      this.TopicMemberGroupService.save({
-        groupId: group.id,
-        topicId: this.topic.id,
-        level: group.permission?.level || this.TopicMemberGroupService.LEVELS.read
-      }).pipe(take(1)).subscribe();
-    });
-    this.TopicService.reloadTopic();
-    this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
 
-    if (this.isnew) {
-      this.Notification.addSuccess('VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_TITLE');
-      this.inviteMembers();
-    } else {
-      this.Notification.addSuccess('VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE');
-    }
+  saveMemberGroup(group: any) {
+    this.GroupMemberTopicService.save({
+      groupId: group.id,
+      topicId: this.topic.id,
+      level: group.level || this.GroupMemberTopicService.LEVELS.read
+    }).pipe(take(1)).subscribe();
   }
+
+  publish() {
+    this.titleInput?.nativeElement?.parentNode.parentNode.classList.remove('error');
+    const isDraft = (this.topic.status === this.TopicService.STATUSES.draft);
+    this.topic.status = this.TopicService.STATUSES.inProgress;
+    const updateTopic = Object.assign({}, this.topic);
+    if (!updateTopic.intro?.length) {
+      updateTopic.intro = null;
+    }
+
+    this.TopicService.patch(updateTopic).pipe(take(1)).subscribe({
+      next: () => {
+        this.TopicService.reloadTopic();
+        this.saveImage()
+          .subscribe({
+            next: (res: any) => {
+              if (res && !res.link) return;
+
+              this.topicGroups.forEach((group) => {
+                this.saveMemberGroup(group)
+              });
+              this.groupsToRemove.forEach((group: any) => {
+                if (group) {
+                  this.TopicMemberGroupService.delete({ topicId: this.topic.id, groupId: group.id }).pipe(take(1)).subscribe();
+                }
+              });
+              this.hasUnsavedChanges.next(false);
+              this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
+
+              if (this.isnew || isDraft) {
+                this.Notification.addSuccess('VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_TITLE');
+                this.inviteMembers();
+              } else {
+                this.Notification.addSuccess('VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE');
+              }
+            },
+            error: (err) => {
+              console.log('publish error', err)
+            }
+          });
+      },
+      error: (err: any) => {
+        console.log('ERROR', err);
+      }
+    });
+  }
+
 
   chooseCategory(category: string) {
     if (this.topic.categories && this.topic.categories.indexOf(category) > -1) {
       this.topic.categories.splice(this.topic.categories.indexOf(category), 1);
-    } else {
+    } else if (this.topic.categories.length < 3) {
       this.topic.categories?.push(category);
     }
   }
 
-  addGroup(group: Group) {
-    this.topicGroups.push(group);
+  addGroup(group: TopicMemberGroup) {
+    const exists = this.topicGroups.find((mgroup) => mgroup.id === group.id);
+    if (!exists) {
+      group.level = this.GroupMemberTopicService.LEVELS.read;
+      this.topicGroups.push(group);
+    }
+    const removeListMember = this.groupsToRemove.findIndex((g) => g.id === group.id);
+    if (removeListMember > -1) {
+      this.groupsToRemove.splice(removeListMember, 1);
+    }
   }
 
+  removeGroup(group: TopicMemberGroup) {
+    const index = this.topicGroups.findIndex((tg) => tg.id === group.id);
+    this.topicGroups.splice(index, 1);
+    const member = this.memberGroups.find((g) => g.id === group.id);
+    if (member) {
+      this.groupsToRemove.push(member);
+    }
+  }
 
   manageMembers() {
     const manageDialog = this.dialog.open(TopicParticipantsDialogComponent, { data: { topic: this.topic } });
@@ -361,7 +525,6 @@ export class TopicFormComponent {
     const inviteDialog = this.dialog.open(InviteEditorsComponent, { data: { topic: this.topic } });
     inviteDialog.afterClosed().subscribe({
       next: (inviteUsers) => {
-        console.log('INVITE SENT')
         this.loadInvite$.next();
       },
       error: (error) => {
@@ -384,11 +547,9 @@ export class TopicFormComponent {
 
   setCountry(country: string) {
     this.topic.country = country;
-    this.updateTopic();
   }
   setLanguage(language: string) {
     this.topic.language = language;
-    this.updateTopic();
   }
 
   addTag(e: Event) {
@@ -403,23 +564,19 @@ export class TopicFormComponent {
   }
 
   cancel() {
-    const confirmDialog = this.dialog.open(InterruptDialogComponent);
-
-    confirmDialog.afterClosed().subscribe(result => {
-      if (result === true) {
-        /*this.TopicService.delete({ id: this.topic.id })
-          .pipe(take(1))
-          .subscribe(() => {
-            this.router.navigate(['dashboard']);
-          })*/
-        this.router.navigate(['dashboard']);
-      }
-    });
-    //[routerLink]="['/', translate.currentLang, 'topics', topic.id]"
+    if (this.isnew || this.topic.status === this.TopicService.STATUSES.draft) {
+      this.router.navigate(['dashboard']);
+    } else {
+      this.router.navigate(['topics', this.topic.id]);
+    }
   }
 
-  setGroupLevel(group: Group, level: string) {
-    if (!group.permission) group.permission = {level};
-    group.permission.level = level;
+  setGroupLevel(group: TopicMemberGroup, level: string) {
+    if (!group.level) group.level = level;
+    group.level = level;
+  }
+
+  isGroupAdded(group: TopicMemberGroup) {
+    return this.topicGroups.find((tg: TopicMemberGroup) => tg.id === group.id);
   }
 }

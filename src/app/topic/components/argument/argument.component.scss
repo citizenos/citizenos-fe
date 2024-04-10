@@ -1,5 +1,5 @@
 @use "mixins";
-
+/*
 argument-reply {
   display: contents;
 }
@@ -10,15 +10,27 @@ argument-reply {
   flex-direction: column;
   gap: 0;
 }
-
+*/
 .argument_wrap {
-  display: flex;
+ /* display: flex;
   flex-direction: column;
   border-radius: 8px;
-  padding: 16px;
   width: 85%;
   max-width: 680px;
   gap: 16px;
+
+  @include mixins.mobile {
+    width: calc(100% - 16px);
+  }
+
+  .argument_content_wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    border-radius: 8px;
+    padding: 16px;
+  }
 
   &.pro {
     background-color: var(--color-argument-pro-light);
@@ -32,7 +44,7 @@ argument-reply {
       color: var(--color-argument-pro-text);
     }
     .btn_ghost_reply_argument {
-      border: 1px solid var(--color-argument-pro-text);
+      border: 2px solid var(--color-voting-disabled);
       color: var(--color-argument-pro-text);
     }
   }
@@ -49,14 +61,20 @@ argument-reply {
     }
 
     .btn_ghost_reply_argument {
-      border: 1px solid var(--color-argument-con-text);
+      border: 2px solid var(--color-argument-con-medium);
       color: var(--color-argument-con-text);
     }
   }
+
   &.poi {
     background-color: var(--color-argument-info-light);
     align-self: center;
-    width: 100%;
+    width: calc(100% - 32px);
+    max-width: 100%;
+    @include mixins.mobile {
+      margin: 0 8px;
+      width: calc(100% - 32px);
+    }
 
     .btn_reply_argument {
       background-color: var(--color-argument-info-medium);
@@ -64,16 +82,16 @@ argument-reply {
     }
 
     .btn_ghost_reply_argument {
-      border: 1px solid var(--color-argument-info-text);
+      border: 2px solid var(--color-argument-info-medium);
       color: var(--color-argument-info-text);
     }
   }
 
   &.reply {
-    background-color: var(--color-surfaces);
-    align-self: center;
-    width: 100%;
-
+    .argument_content_wrap {
+      background-color: var(--color-surfaces);
+      width: 100%;
+    }
     .btn_reply_argument {
       background-color: var(--color-argument-info-medium);
       color: var(--color-argument-info-text);
@@ -221,21 +239,30 @@ argument-reply {
         border-radius: 40px;
         font-weight: 600;
       }
+
+      .btn_ghost_reply_argument {
+        @include mixins.mobile {
+          padding: 8px;
+        }
+      }
     }
-  }
+  }*/
   .replies_wrap {
     padding-left: 22px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 0px;
 
-    .reply_container {
-      display: flex;
-      gap: 8px;
-
-      .reply_referer {
-        height: 32px;
-        width: 32px;
+    &.pro, &.con, &.poi {
+      width: 100%;
+      padding-right: 16px;
+      align-items: flex-end;
+      .reply_container {
+        width: 100%;
+      }
+      .reply {
+        align-self: flex-end;
+        width: 100%
       }
     }
   }

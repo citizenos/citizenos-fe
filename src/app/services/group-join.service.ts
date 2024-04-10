@@ -28,6 +28,13 @@ export class GroupJoinService {
     );
   }
 
+  joinPublic(groupId: string) {
+    const path = this.Location.getAbsoluteUrlApi('/api/users/self/groups/:groupId/join', { groupId });
+    return this.http.post<ApiResponse>(path, {}, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
+      map(res => res.data)
+    );
+  }
+
   save(data: any) {
     const path = this.Location.getAbsoluteUrlApi('/api/users/self/groups/:groupId/join', { groupId: data.groupId });
     return this.http.put<ApiResponse>(path, data, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(

@@ -16,15 +16,19 @@
   gap: 16px;
   transition: right 0.5s;
 
+  &.mobile_page {
+    z-index: 0;
+    top: 60px;
+    height: calc(100% - 120px);
+  }
   @include mixins.mobile {
     max-width: 100%;
   }
 
-  .btn_medium_close {
-    position: absolute;
-    float: right;
-    right: 16px;
-    top: 16px;
+  .feed_heading_wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
   #results_area {
@@ -32,9 +36,6 @@
     flex-direction: column;
     gap: 8px;
 
-    @include mixins.mobile {
-      padding: 16px;
-    }
     activity {
       display: flex;
       flex-direction: column;

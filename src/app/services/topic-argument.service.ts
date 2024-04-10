@@ -5,7 +5,7 @@ import { AuthService } from './auth.service';
 import { LocationService } from './location.service';
 import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { Argument } from 'src/app/interfaces/argument';
-import { Observable, BehaviorSubject, map, distinct, catchError, EMPTY, combineLatest, switchMap } from 'rxjs';
+import { Observable, BehaviorSubject, map, distinct, catchError, EMPTY, combineLatest, switchMap, exhaustMap, shareReplay } from 'rxjs';
 import { ItemsListService } from './items-list.service';
 @Injectable({
   providedIn: 'root'
@@ -63,11 +63,23 @@ export class TopicArgumentService extends ItemsListService {
     poi: 0,
     reply: 0
   });
+  private loadArguments$ = new BehaviorSubject<void>(undefined);
 
   constructor(private http: HttpClient, private Location: LocationService, private Auth: AuthService) {
     super();
     this.items$ = this.loadItems();
 
+  }
+
+  loadArguments() {
+    return this.loadArguments$.pipe(
+      exhaustMap(() => this.loadItems()),
+      shareReplay()
+    );
+  }
+
+  reloadArguments(): void {
+    this.loadArguments$.next();
   }
 
   save(data: any) {

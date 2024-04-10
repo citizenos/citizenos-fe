@@ -4,7 +4,7 @@ import { TopicService } from 'src/app/services/topic.service';
 import { TopicInviteUserService } from 'src/app/services/topic-invite-user.service';
 import { take, forkJoin } from 'rxjs';
 import { TopicMemberInviteDeleteComponent } from '../topic-member-invite-delete/topic-member-invite-delete.component';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 
 @Component({
   selector: 'topic-member-invite',
@@ -19,7 +19,7 @@ export class TopicMemberInviteComponent implements OnInit {
   constructor(
     public TopicService: TopicService,
     private TopicInviteUserService: TopicInviteUserService,
-    private dialog: MatDialog,
+    private dialog: DialogService,
   ) { }
 
   ngOnInit(): void {

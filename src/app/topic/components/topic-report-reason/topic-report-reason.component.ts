@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DIALOG_DATA } from 'src/app/shared/dialog';
 @Component({
   selector: 'app-topic-report-reason',
   templateUrl: './topic-report-reason.component.html',
@@ -8,7 +8,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class TopicReportReasonComponent {
   report: any;
 
-  constructor (@Inject(MAT_DIALOG_DATA) data: any) {
+  constructor (@Inject(DIALOG_DATA) data: any) {
     this.report = data.report;
   }
 

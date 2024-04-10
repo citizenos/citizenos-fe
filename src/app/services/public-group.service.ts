@@ -11,6 +11,7 @@ import { ItemsListService } from './items-list.service';
 })
 export class PublicGroupService extends ItemsListService {
   params = Object.assign(this.defaultParams, {
+    visibility: <string | null>null,
     groupId: <string | null>null,
     name: <string | null>null,
     country: <string | null>null,
@@ -19,6 +20,7 @@ export class PublicGroupService extends ItemsListService {
     favourite: <boolean | string | null>null,
     limit: 8
   });
+
   params$ = new BehaviorSubject(Object.assign({},this.params));
 
   constructor(private Location: LocationService, private http: HttpClient) {

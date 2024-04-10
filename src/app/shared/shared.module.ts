@@ -11,8 +11,6 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
 import { TranslateModule } from '@ngx-translate/core';
 import { CosDropdownDirective } from '../directives/cos-dropdown.directive';
 
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatDatepickerModule} from '@angular/material/datepicker';
 import { TypeaheadComponent, TypeaheadItem, TypeaheadSelect } from './components/typeahead/typeahead.component';
 import { FormsModule } from '@angular/forms';
 import { CosInitialsComponent } from './components/cos-initials/cos-initials.component';
@@ -29,21 +27,22 @@ import { TopicMemberInviteDeleteComponent } from '../topic/components/topic-memb
 import { TopicVoteCastComponent } from '../topic/components/topic-vote-cast/topic-vote-cast.component';
 import { BigGraphComponent } from '../topic/components/big-graph/big-graph.component';
 
-import { GroupInviteComponent, GroupInviteDialogComponent } from '../group/components/group-invite/group-invite.component';
+import { GroupInviteComponent, GroupCreateInviteComponent, GroupInviteDialogComponent } from '../group/components/group-invite/group-invite.component';
 import { GroupMemberUserComponent } from '../group/components/group-member-user/group-member-user.component';
+import { GroupInviteUserComponent } from '../group/components/group-invite-user/group-invite-user.component';
 import { GroupShareComponent } from '../group/components/group-share/group-share.component';
 import { GroupAddTopicsComponent, GroupAddTopicsDialogComponent } from '../group/components/group-add-topics/group-add-topics.component';
 
 import { MarkdownDirective } from '../directives/markdown.directive';
 import { MarkdownPipe } from '../services/markdown.service';
 import { CosEllipsisPipe } from './pipes/cos-ellipsis.pipe';
-import { MatNativeDateModule } from '@angular/material/core';
 import { CheckHeightDirective } from '../directives/check-height.directive';
 import { EtherpadDirective } from '../directives/etherpad.directive';
 import { CosInputComponent } from './components/cos-input/cos-input.component';
 import { HtmlDirective } from '../directives/html.directive';
 import { DownloadDirective } from '../directives/download.directive';
 import { CosDisabledDirective } from '../directives/cos-disabled.directive';
+import { DialogModule } from './dialog/dialog';
 import { DragndropDirective } from '../directives/dragndrop.directive';
 import { PageHeaderComponent } from '../core/components/page-header/page-header.component';
 import { ActivitiesButtonComponent } from './components/activities-button/activities-button.component';
@@ -55,6 +54,8 @@ import { InterruptDialogComponent } from './components/interrupt-dialog/interrup
 import { TooltipComponent} from './components/tooltip/tooltip.component';
 import { ImageEditorComponent } from './components/image-editor/image-editor.component';
 import { TopicVoteDeadlineComponent } from '../topic/components/topic-vote-deadline/topic-vote-deadline.component';
+
+import { NotificationComponent } from '../core/components/notification/notification.component';
 
 @NgModule({
   declarations: [
@@ -68,8 +69,10 @@ import { TopicVoteDeadlineComponent } from '../topic/components/topic-vote-deadl
     CosToggleComponent,
     EtherpadDirective,
     GroupInviteComponent,
+    GroupCreateInviteComponent,
     GroupInviteDialogComponent,
     GroupMemberUserComponent,
+    GroupInviteUserComponent,
     GroupShareComponent,
     GroupAddTopicsComponent,
     GroupAddTopicsDialogComponent,
@@ -104,19 +107,18 @@ import { TopicVoteDeadlineComponent } from '../topic/components/topic-vote-deadl
     InterruptDialogComponent,
     TooltipComponent,
     ImageEditorComponent,
-    TopicVoteDeadlineComponent
+    TopicVoteDeadlineComponent,
+    NotificationComponent
   ],
   imports: [
     RouterModule,
     CommonModule,
     FormsModule,
-    MatDialogModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
     MomentModule,
     QRCodeModule,
     TranslateModule,
-    LinkyModule
+    LinkyModule,
+    DialogModule
   ],
    exports: [
     ActivityComponent,
@@ -129,16 +131,15 @@ import { TopicVoteDeadlineComponent } from '../topic/components/topic-vote-deadl
     CosToggleComponent,
     EtherpadDirective,
     GroupInviteComponent,
+    GroupCreateInviteComponent,
     GroupInviteDialogComponent,
     GroupMemberUserComponent,
+    GroupInviteUserComponent,
     GroupShareComponent,
     GroupAddTopicsComponent,
     GroupAddTopicsDialogComponent,
     MarkdownDirective,
     MarkdownPipe,
-    MatDialogModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
     MomentModule,
     PublicgroupboxComponent,
     QRCodeModule,
@@ -168,7 +169,9 @@ import { TopicVoteDeadlineComponent } from '../topic/components/topic-vote-deadl
     TourItemDirective,
     TourItemTemplateComponent,
     TooltipComponent,
-    ImageEditorComponent
+    ImageEditorComponent,
+    DialogModule,
+    NotificationComponent
    ]
 })
 export class SharedModule { }

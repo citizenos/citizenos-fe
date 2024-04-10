@@ -1,6 +1,6 @@
 import { GroupInviteUserService } from 'src/app/services/group-invite-user.service';
 import { Component, OnInit, Input, Output, EventEmitter, Inject } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { DIALOG_DATA, DialogRef } from 'src/app/shared/dialog';
 import { isEmail } from 'validator';
 import { take, of, switchMap, BehaviorSubject } from 'rxjs';
 import { Group } from 'src/app/interfaces/group';
@@ -58,7 +58,7 @@ export class GroupInviteComponent implements OnInit {
     private Search: SearchService,
     private Notification: NotificationService,
     private GroupInviteUser: GroupInviteUserService,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     if (this.group.members.users.count || !this.group.members.users) {
@@ -118,6 +118,27 @@ export class GroupInviteComponent implements OnInit {
     }).sort(compare);
 
     this.group.members.users = users.concat(emails);
+  };
+
+  addGroupMember(member?: any) {
+    if (member?.text) {
+      member = member.text
+    }
+    this.searchResultUsers$ = of([]);
+    this.search('');
+    if (this.group.members.length >= this.maxUsers) {
+      this.Notification.addError('MSG_ERROR_INVITE_MEMBER_COUNT_OVER_LIMIT');
+      return;
+    }
+    if (!member || (typeof member === 'string' && (isEmail(member) || member.match(this.EMAIL_SEPARATOR_REGEXP)))) {
+      return this.addGroupMemberUser();
+    }
+    if (member.hasOwnProperty('company')) {
+      return this.addGroupMemberUser(member);
+    }
+    if (isEmail(member.email) && member.email === member.userId) {
+      return this.addGroupMemberUser();
+    }
   };
 
   addGroupMemberUser(member?: any): void {
@@ -266,14 +287,30 @@ export class GroupInviteComponent implements OnInit {
   }
 }
 
+
+@Component({
+  selector: 'group-create-invite',
+  templateUrl: './group-create-invite.component.html',
+  styleUrls: ['./group-create-invite.component.scss']
+})
+export class GroupCreateInviteComponent extends GroupInviteComponent {
+
+}
+
+
 @Component({
   templateUrl: './group-invite-dialog.component.html',
   styleUrls: ['./group-invite-dialog.component.scss']
 })
 export class GroupInviteDialogComponent {
   activeTab = 'invite';
-
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialogRef<GroupInviteDialogComponent>, private GroupInviteUser: GroupInviteUserService,) {
+  noUsersSelected = false;
+  constructor(@Inject(DIALOG_DATA) public data: any, private dialog: DialogRef<GroupInviteDialogComponent>, private GroupInviteUser: GroupInviteUserService,) {
+    this.dialog.afterClosed().subscribe(() => {
+      if (this.data.group.members.users) {
+        this.data.group.members.users = [];
+      }
+    })
   }
 
   doInviteMembers() {
@@ -294,7 +331,8 @@ export class GroupInviteDialogComponent {
           this.dialog.close()
         })
     } else {
-      this.dialog.close();
+      this.noUsersSelected = true;
+      setTimeout(() => this.noUsersSelected = false, 5000)
     }
 
   }

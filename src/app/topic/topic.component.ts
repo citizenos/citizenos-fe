@@ -1,10 +1,11 @@
+import { TopicNotificationSettingsComponent } from './components/topic-notification-settings/topic-notification-settings.component';
 import { TopicEventService } from './../services/topic-event.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { TopicMemberGroupService } from 'src/app/services/topic-member-group.service';
 import { Component, OnInit, Inject, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap, of, map, tap, Observable, take } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
+import { switchMap, of, map, tap, Observable, take, catchError } from 'rxjs';
+import { DialogService } from 'src/app/shared/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -28,12 +29,14 @@ import { TopicParticipantsComponent } from './components/topic-participants/topi
 import { DuplicateTopicDialogComponent } from './components/duplicate-topic-dialog/duplicate-topic-dialog.component';
 import { TopicVoteCreateDialogComponent } from './components/topic-vote-create/topic-vote-create.component';
 import { TopicFollowUpCreateDialogComponent } from './components/topic-follow-up-create-dialog/topic-follow-up-create-dialog.component';
-import { TopicTourDialogComponent } from './components/topic-tour-dialog/topic-tour-dialog.component'
+import { TopicAddGroupsDialogComponent } from './components/topic-add-groups/topic-add-groups.component';
 import { TopicJoinComponent } from './components/topic-join/topic-join.component';
 import { TopicReportReasonComponent } from './components/topic-report-reason/topic-report-reason.component';
 import { TopicJoinService } from 'src/app/services/topic-join.service';
 import { TourService } from 'src/app/services/tour.service';
 import { InviteEditorsComponent } from './components/invite-editors/invite-editors.component';
+import { TopicOnboardingComponent } from './components/topic-onboarding/topic-onboarding.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'topic',
@@ -66,7 +69,7 @@ import { InviteEditorsComponent } from './components/invite-editors/invite-edito
         bottom: 0,
       })),
       state('closed', style({
-        bottom: '-325px'
+        bottom: '-200px'
       })),
       transition('* => closed', [
         animate('1s')
@@ -74,18 +77,36 @@ import { InviteEditorsComponent } from './components/invite-editors/invite-edito
       transition('* => open', [
         animate('1s')
       ]),
-    ]),
+    ])
   ]
 })
 
 export class TopicComponent implements OnInit {
   //new
-  topicText?: ElementRef
   readMoreButton = false;
+  skipTour = false;
+  voteEl?: ElementRef;
+
+  @ViewChild('readMoreButton') readMoreEl?: ElementRef;
+  @ViewChild('topicVote') set setVoteEl(content: ElementRef) {
+    if (content) { // initially setter gets called with undefined
+      this.voteEl = content;
+      this.cd.detectChanges();
+    }
+  }
+  followUpEl?: ElementRef;
+  @ViewChild('topicFollowUp') set setFollowUpEl(content: ElementRef) {
+    if (content) { // initially setter gets called with undefined
+      this.followUpEl = content;
+      this.cd.detectChanges();
+    }
+  }
+
+  topicText?: ElementRef;
   @ViewChild('topicText') set content(content: ElementRef) {
     if (content) { // initially setter gets called with undefined
       this.topicText = content;
-      if (content.nativeElement.offsetHeight > 200) {
+      if (content.nativeElement.offsetHeight >= 320) {
         this.readMoreButton = true;
       }
       this.cd.detectChanges();
@@ -96,6 +117,7 @@ export class TopicComponent implements OnInit {
   showGroups = false;
   showTags = false;
   readMore = false;
+  mobileActions = false;
   tabTablet = '';
   showArgumentsTablet = (window.innerWidth <= 1024);
   showVoteTablet = (window.innerWidth <= 1024);
@@ -108,7 +130,7 @@ export class TopicComponent implements OnInit {
   groups$: Observable<Group[]>;
   vote$?: Observable<Vote>;
   topicId$: Observable<string> = of('');
-  events$?: Observable<any>;
+  events$?: Observable<any> = of([]);
   members$: Observable<any[]>;
 
   topicSocialMentions = [];
@@ -118,10 +140,10 @@ export class TopicComponent implements OnInit {
   topicAttachments$ = of(<Attachment[] | any[]>[]);
   STATUSES = this.TopicService.STATUSES;
   hideTopicContent = false;
-
+  hideDiscussion = false;
   constructor(
     @Inject(TranslateService) public translate: TranslateService,
-    @Inject(MatDialog) private dialog: MatDialog,
+    @Inject(DialogService) private DialogService: DialogService,
     public auth: AuthService,
     public TopicService: TopicService,
     @Inject(Router) private router: Router,
@@ -139,13 +161,24 @@ export class TopicComponent implements OnInit {
     private TourService: TourService,
     private cd: ChangeDetectorRef,
     @Inject(DomSanitizer) private sanitizer: DomSanitizer,
-    public app: AppService
+    public app: AppService,
+    private CookieService: CookieService
   ) {
     this.app.darkNav = true;
-
     this.tabSelected$ = this.route.fragment.pipe(
       map((value) => {
+        if (this.hideDiscussion === true && value === 'discussion') {
+          value = 'voting';
+        }
         this.app.setPageTitle(this.topicTitle || 'META_DEFAULT_TITLE');
+        setTimeout(() => {
+          if (value === 'voting') {
+            this.scroll(this.voteEl?.nativeElement);
+          }
+          if (value === 'followUp') {
+            this.scroll(this.followUpEl?.nativeElement);
+          }
+        }, 200);
         return value || 'discussion';
       })
     );
@@ -167,15 +200,15 @@ export class TopicComponent implements OnInit {
         if (topic.report && topic.report.moderatedReasonType) {
           // NOTE: Well.. all views that are under the topics/view/votes/view would trigger doble overlays which we don't want
           // Not nice, but I guess the problem starts with the 2 views using same controller. Ideally they should have a parent controller and extend that with their specific functionality
-          this.dialog.closeAll();
+          this.DialogService.closeAll();
           this.hideTopicContent = true;
         }
         if (topic.voteId) {
-          this.vote$ = this.TopicVoteService.get({ topicId: topic.id, voteId: topic.voteId });
+          this.vote$ = this.TopicVoteService.loadVote({ topicId: topic.id, voteId: topic.voteId });
           this.cd.detectChanges();
         }
         if (topic.status === this.TopicService.STATUSES.followUp) {
-          this.events$ = TopicEventService.getItems({ topicId: topic.id });
+          this.events$ = TopicEventService.getItems({ topicId: topic.id }).pipe(map(events => events.rows));
         }
         const padURL = new URL(topic.padUrl);
         if (padURL.searchParams.get('lang') !== this.translate.currentLang) {
@@ -183,20 +216,24 @@ export class TopicComponent implements OnInit {
         }
         padURL.searchParams.set('theme', 'default');
         topic.padUrl = padURL.href; // Change of PAD URL here has to be before $sce.trustAsResourceUrl($scope.topic.padUrl);
-        setTimeout(() => {
-          if (window.innerWidth <560) {
-            this.showTutorial = false;
-          /*  const tourDialog = this.dialog.open(TopicTourDialogComponent);
-            tourDialog.afterClosed().subscribe((res) => {
-              if (res) {
-                this.takeTour();
-              }
-            });*/
-          } else {
-            this.showTutorial = true;
-          }
-        }, 500);
+        if (!this.CookieService.get('show-topic-tour')) {
+          setTimeout(() => {
+            if (window.innerWidth < 560) {
+              this.showTutorial = false;
+            } else {
+              this.showTutorial = true;
+            }
+          }, 500);
+        }
         return topic;
+      }),
+      catchError((err) => {
+        this.DialogService.closeAll();
+        if (!auth.loggedIn$.value) {
+          router.navigate(['404'], { queryParams: { redirectSuccess: window.location.href } })
+          app.doShowLogin(window.location.href)
+        }
+        return of(err);
       })
     );
     //needs API implementation
@@ -219,28 +256,83 @@ export class TopicComponent implements OnInit {
         return this.TopicAttachmentService.loadItems();
       })
     );
+
+    this.topic$.pipe(
+      switchMap((topic: Topic) => {
+        this.TopicArgumentService.setParam('topicId', topic.id);
+        return this.TopicArgumentService.loadItems().pipe(
+          tap((args) => {
+            if (!args.length && topic.status !== this.TopicService.STATUSES.inProgress) {
+              this.hideDiscussion = true;
+              if (!this.route.snapshot.fragment || this.route.snapshot.fragment === 'discussion') {
+                this.router.navigate([], { fragment: 'voting', queryParams: this.route.snapshot.queryParams });
+              }
+            }
+            if (topic.status === this.TopicService.STATUSES.draft) {
+              this.router.navigate(['topics', 'edit', topic.id]);
+            }
+
+            if(Object.keys(this.route.snapshot.queryParams).indexOf('notificationSettings') > -1) {
+              this.app.doShowTopicNotificationSettings(topic.id);
+            }
+          })
+        );
+      }),
+      take(1)
+    ).subscribe();
   }
 
   ngOnDestroy(): void {
   }
 
+  ngOnInit(): void {
+  }
+
+  ngAfterViewInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    if (window.innerWidth <= 1024 && !this.CookieService.get('show-topic-tour')) {
+      this.skipTour = true;
+      setTimeout(() => {
+        this.DialogService.closeAll();
+        const onBoarding = this.DialogService.open(TopicOnboardingComponent);
+        this.app.mobileTutorial = true;
+        onBoarding.afterClosed().subscribe((skip) => {
+          if (skip) {
+            this.showTutorial = false;
+            this.skipTour = false;
+          }
+          this.app.mobileTutorial = false
+          this.CookieService.set('show-topic-tour', 'true', 36500)
+        });
+      });
+    } else {
+      setTimeout(() => {
+        this.showTutorial = false;
+      }, 5000);
+    }
+  }
+
   reportReasonDialog(topic: Topic) {
-    this.dialog.open(TopicReportReasonComponent, {
+    this.DialogService.open(TopicReportReasonComponent, {
       data: {
-        report: topic.report
+        report: {
+          moderatedReasonText: topic.report?.moderatedReasonText || topic.report?.text,
+          moderatedReasonType: topic.report?.moderatedReasonType || topic.report?.type,
+        }
       }
     })
   }
 
   dialogsOpen() {
-    return this.dialog.openDialogs.length;
+    return this.DialogService.openDialogs.length;
   }
 
   deleteTopic(topic: Topic) {
     this.TopicService.doDeleteTopic(topic, ['my', 'topics']);
   }
   joinTopic(topic: Topic) {
-    const joinDialog = this.dialog.open(TopicJoinComponent, {
+    const joinDialog = this.DialogService.open(TopicJoinComponent, {
       data: {
         topic: topic
       }
@@ -251,10 +343,11 @@ export class TopicComponent implements OnInit {
     joinDialog.afterClosed().subscribe((res) => {
       if (res === true) {
         this.TopicJoinService
-          .join(topic.join.token).pipe(take(1)).subscribe(
+          .joinPublic(topic.id).pipe(take(1)).subscribe(
             {
               next: (res) => {
                 topic.permission.level = res.userLevel;
+                this.TopicService.reloadTopic();
               },
               error: (err) => {
                 console.error('Failed to join Topic', err)
@@ -267,7 +360,7 @@ export class TopicComponent implements OnInit {
   }
 
   leaveTopic(topic: Topic) {
-    const leaveDialog = this.dialog.open(ConfirmDialogComponent, {
+    const leaveDialog = this.DialogService.open(ConfirmDialogComponent, {
       data: {
         level: 'delete',
         heading: 'MODALS.TOPIC_MEMBER_USER_LEAVE_CONFIRM_HEADING',
@@ -297,13 +390,6 @@ export class TopicComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 
-  ngOnInit(): void {
-    console.log('ngOnInit', this.topicText)
-  }
-
-  ngAfterViewInit(): void {
-  }
-
   currentUrl() {
     return this.Location.currentUrl();
   }
@@ -316,14 +402,16 @@ export class TopicComponent implements OnInit {
     this.showTutorial = false;
     window.scrollTo(0, 0);
     let tourName = 'topic';
-    if (window.innerWidth <= 1024) {
+    if (window.innerWidth < 560) {
       tourName = 'topic_mobile';
+    } else if (window.innerWidth <= 1024) {
+      tourName = 'topic_tablet';
     }
     this.TourService.show(tourName, 1);
   }
 
   scroll(el: HTMLElement) {
-    el.scrollIntoView();
+    el.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
   }
 
   downloadAttachment(topicId: string, attachment: Attachment) {
@@ -334,7 +422,7 @@ export class TopicComponent implements OnInit {
   };
 
   hasVoteEndedExpired(topic: Topic, vote: Vote) {
-    return [this.STATUSES.followUp, this.STATUSES.closed].indexOf(topic.status) < 0 && vote && vote.endsAt && new Date() > new Date(vote.endsAt);
+    return this.TopicVoteService.hasVoteEndedExpired(topic, vote);
   };
 
   hasVoteEnded(topic: Topic, vote: Vote) {
@@ -345,11 +433,19 @@ export class TopicComponent implements OnInit {
     return vote && vote.endsAt && new Date() > new Date(vote.endsAt);
   };
 
+  addGroupsDialog(topic: Topic) {
+    this.DialogService.open(TopicAddGroupsDialogComponent, {
+      data: {
+        topic: topic
+      }
+    });
+  }
+
   inviteEditors(topic: Topic) {
-    const inviteDialog = this.dialog.open(InviteEditorsComponent, { data: { topic: topic } });
+    const inviteDialog = this.DialogService.open(InviteEditorsComponent, { data: { topic: topic } });
     inviteDialog.afterClosed().subscribe({
       next: (inviteUsers) => {
-     //   this.loadInvite$.next();
+        //   this.loadInvite$.next();
       },
       error: (error) => {
         this.NotificationService.addError(error);
@@ -358,8 +454,7 @@ export class TopicComponent implements OnInit {
   }
 
   inviteMembers(topic: Topic) {
-    console.log('INVITE');
-    const inviteDialog = this.dialog.open(TopicInviteDialogComponent, { data: { topic } });
+    const inviteDialog = this.DialogService.open(TopicInviteDialogComponent, { data: { topic } });
     inviteDialog.afterClosed().subscribe({
       next: (res) => {
         //   this.NotificationService.addSuccess('');
@@ -371,7 +466,7 @@ export class TopicComponent implements OnInit {
   }
 
   manageParticipants(topic: Topic) {
-    const participantsDialog = this.dialog.open(TopicParticipantsComponent, { data: { topic } });
+    const participantsDialog = this.DialogService.open(TopicParticipantsComponent, { data: { topic } });
     participantsDialog.afterClosed().subscribe({
       next: (res) => {
         //   this.NotificationService.addSuccess('');
@@ -387,7 +482,7 @@ export class TopicComponent implements OnInit {
   }
 
   duplicateTopic(topic: Topic) {
-    const duplicateDialog = this.dialog.open(DuplicateTopicDialogComponent, {
+    const duplicateDialog = this.DialogService.open(DuplicateTopicDialogComponent, {
       data: {
         topic: topic
       }
@@ -399,14 +494,14 @@ export class TopicComponent implements OnInit {
           .duplicate(topic)
           .pipe(take(1))
           .subscribe((duplicate) => {
-            this.router.navigate(['/topics', duplicate.id]);
+            this.router.navigate(['/topics', 'edit', duplicate.id], { replaceUrl: true, onSameUrlNavigation: 'reload' });
           });
       }
     })
   };
 
   startVote(topic: Topic) {
-    this.dialog.open(TopicVoteCreateDialogComponent, {
+    this.DialogService.open(TopicVoteCreateDialogComponent, {
       data: {
         topic: topic
       }
@@ -418,11 +513,29 @@ export class TopicComponent implements OnInit {
   }
 
   sendToFollowUp(topic: Topic, stateSuccess?: string) {
-    this.dialog.open(TopicFollowUpCreateDialogComponent, {
+    this.DialogService.open(TopicFollowUpCreateDialogComponent, {
       data: {
         topic: topic
       }
     })
   };
 
+  toggleReadMore() {
+    this.readMore = !this.readMore;
+    if (!this.readMore) {
+      setTimeout(() => {
+        this.readMoreEl?.nativeElement.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+      }, 200);
+    }
+  }
+
+  selectTab(tab: string) {
+    this.tabTablet = '';
+    if (window.innerWidth <= 1024) {
+      this.tabTablet = tab;
+    }
+    if (tab === 'vote') tab = 'voting';
+    if (tab === 'arguments') tab = 'discussion';
+    this.router.navigate([], { fragment: tab })
+  }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { take } from 'rxjs';
 import { Group } from 'src/app/interfaces/group';
 import { AuthService } from 'src/app/services/auth.service';
@@ -28,7 +28,7 @@ export class GroupShareComponent implements OnInit {
   copySuccess = false;
   constructor(
     private Auth: AuthService,
-    private dialog: MatDialog,
+    private dialog: DialogService,
     private GroupService: GroupService,
     private GroupMemberUser: GroupMemberUserService,
     private GroupJoin: GroupJoinService,
@@ -37,7 +37,8 @@ export class GroupShareComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.join.token = this.group.join.token;
+    this.join.token = this.group.join?.token;
+    this.join.level = this.group.join?.level || this.GroupMemberUser.LEVELS[0];
     this.generateJoinUrl();
   }
 
@@ -82,6 +83,7 @@ export class GroupShareComponent implements OnInit {
 
     this.GroupJoin.update(groupJoin).pipe(take(1)).subscribe(() => {
       this.join.level = level;
+      this.GroupService.reloadGroup();
     })
   };
 
@@ -111,7 +113,7 @@ export class GroupShareComponent implements OnInit {
     if (this.join.token && this.GroupService.canShare(this.group)) {
       this.joinUrl = this.Location.getAbsoluteUrl('/groups/join/' + this.join.token);
     } else {
-      this.joinUrl = this.Location.getAbsoluteUrl('/groups/' + this.group.id);
+      this.joinUrl = this.Location.getAbsoluteUrl('/groups/' + this.group.id + '/join');
     }
   };
 

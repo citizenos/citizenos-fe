@@ -1,5 +1,6 @@
+import { CookieService } from 'ngx-cookie-service';
 import { OnboardingComponent } from './../onboarding/onboarding.component';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { Component } from '@angular/core';
 import { AppService } from 'src/app/services/app.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -30,7 +31,8 @@ export class DashboardComponent {
   showNoEngagements = false;
 
   showPublic = true;
-
+  showCreate = false;
+  wWidth = window.innerWidth;
   constructor(
     public auth: AuthService,
     public app: AppService,
@@ -40,7 +42,8 @@ export class DashboardComponent {
     private PublicGroupService: PublicGroupService,
     private GroupService: GroupService,
     private NewsService: NewsService,
-    private dialog: MatDialog
+    private dialog: DialogService,
+    private CookieService: CookieService
   ) {
     this.groups$ = this.GroupService.loadItems();
     this.news$ = this.NewsService.get().pipe(
@@ -59,7 +62,6 @@ export class DashboardComponent {
     );
     this.topics$ = this.UserTopicService.loadItems().pipe(
       tap((topics) => {
-        console.log(topics.length)
         if (topics.length === 0) {
           this.showPublic = true;
           this.showNoEngagements = true;
@@ -68,6 +70,7 @@ export class DashboardComponent {
     );
     this.publictopics$ = this.PublicTopicService.loadItems();
     this.publicgroups$ = this.PublicGroupService.loadItems();
+    this.app.mobileNavBox = true;
   }
 
   trackByTopic(index: number, element: any) {
@@ -77,11 +80,23 @@ export class DashboardComponent {
   ngAfterViewInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-    setTimeout(() => {
-      this.dialog.closeAll();
-      const onBoarding = this.dialog.open(OnboardingComponent);
-      this.app.mobileTutorial = true;
-      onBoarding.afterClosed().subscribe(() => this.app.mobileTutorial = false);
-    });
+    if (!this.CookieService.get('show-dashboard-tour')){
+      setTimeout(() => {
+        this.dialog.closeAll();
+        const onBoarding = this.dialog.open(OnboardingComponent);
+        this.app.mobileTutorial = true;
+        onBoarding.afterClosed().subscribe(() => {
+          this.CookieService.set('show-dashboard-tour', 'true', 36500); this.app.mobileTutorial = false
+        });
+      });
+    }
+  }
+
+  showCreateMenu () {
+    this.showCreate = !this.showCreate;
+  }
+
+  ngOnDestroy(): void {
+    this.app.mobileNavBox = false;
   }
 }

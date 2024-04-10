@@ -18,31 +18,40 @@ export class TopicArgumentsComponent implements OnInit {
   @ViewChild('post_argument_wrap') postArgumentEl?: ElementRef;
   wWidth = window.innerWidth;
   argumentTypes = Object.keys(this.TopicArgumentService.ARGUMENT_TYPES).map((type: string) => {
-    return {type: type, checked: false}
+    return { type: type, checked: false }
   });
   arguments$ = of(<Argument[] | any[]>[]);
   orderByOptions = Object.keys(this.TopicArgumentService.ARGUMENT_ORDER_BY);
   focusArgumentSubject = false;
+  filtersSelected = false;
   constructor(
     private Auth: AuthService,
     @Inject(ActivatedRoute) private route: ActivatedRoute,
     private app: AppService,
     public TopicArgumentService: TopicArgumentService) {
     this.TopicArgumentService.setParam('limit', 5);
-    this.arguments$ = this.TopicArgumentService.loadItems().pipe(
+    this.arguments$ = this.TopicArgumentService.loadArguments().pipe(
       map((res: any[]) => {
         let results = res.concat([]);
         const argArray = <any[]>[];
+        let children = <any>{};
+
         const countTree = (parentNode: any, currentNode: any) => {
+          argArray.push(currentNode);
           if (currentNode.replies.rows.length > 0) {
-            if (parentNode !== currentNode) {
-              parentNode.replies.rows = parentNode.replies.rows.concat(currentNode.replies.rows);
-            }
             currentNode.replies.rows.forEach((reply: any) => {
-              argArray.push(reply);
-              countTree(parentNode, reply);
+              if (parentNode.type !== this.TopicArgumentService.ARGUMENT_TYPES.reply) {
+                countTree(reply, reply);
+              } else {
+                countTree(parentNode, reply);
+                const replyClone = Object.assign({}, reply);
+                replyClone.replies = [];
+                if (!parentNode.children) parentNode.children = [];
+                parentNode.children.push(replyClone);
+              }
             });
           }
+          // To have parent comment/reply data
           if (currentNode.type === this.TopicArgumentService.ARGUMENT_TYPES.reply) {
             const parent = argArray.find((arg) => arg.id === currentNode.parent.id);
             currentNode.parent = Object.assign(currentNode.parent, parent);
@@ -50,11 +59,10 @@ export class TopicArgumentsComponent implements OnInit {
         };
 
         results.forEach((row: any,) => {
-          argArray.push(row);
           row.replies.count = countTree(row, row);
         });
 
-        return res;
+        return results;
       }),
       tap(() => {
         this.route.queryParams.pipe(take(1), tap((params) => {
@@ -75,7 +83,8 @@ export class TopicArgumentsComponent implements OnInit {
   }
 
   filterArguments() {
-    const types = this.argumentTypes.filter((item:any) => item.checked).map(item => item.type);
+    this.filtersSelected = true;
+    const types = this.argumentTypes.filter((item: any) => item.checked).map(item => item.type);
     this.TopicArgumentService.setParam('types', types);
   }
   getArgumentPercentage(count: number) {

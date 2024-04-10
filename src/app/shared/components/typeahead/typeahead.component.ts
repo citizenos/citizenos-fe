@@ -51,6 +51,7 @@ export class TypeaheadComponent implements OnInit {
   active: any;
   itemList: any[] = [];
   focused: boolean = false;
+  enterLink = false;
   constructor(private _el: ElementRef) {
   }
 
@@ -68,7 +69,7 @@ export class TypeaheadComponent implements OnInit {
 
   blur() {
     setTimeout(() => {
-      this._el.nativeElement.classList.remove(this.activeClass || 'active');
+      this._el?.nativeElement?.classList?.remove(this.activeClass || 'active');
       this.focused = false;
     }, 200);
   };
@@ -132,13 +133,14 @@ export class TypeaheadComponent implements OnInit {
   };
 
   selectActive() {
+    this.enterLink = false;
     if (!this.active) this.active = this.itemList[0];
     this.doSelect(this.active);
   };
 
   doEnterAction() {
+    this.enterLink = false;
     this.itemList = [];
-
     if (this.enterAction) {
       this.enterAction.emit({ text: this.term, limit: true });
     } else {
@@ -147,6 +149,7 @@ export class TypeaheadComponent implements OnInit {
   };
 
   doSelect(item: any) {
+    this.enterLink = false;
     this.hide = true;
     this.focused = true;
     this.term = '';
@@ -158,6 +161,14 @@ export class TypeaheadComponent implements OnInit {
   };
 
   query() {
+    this.enterLink = false;
+    if(this.term ) {
+      if(this.term.split(' ').filter((item) => item.length > 1).length > 1) {
+        this.enterLink = true;
+      } else if (this.term.split(',').filter((item) => item.length > 1).length > 1) {
+        this.enterLink = true;
+      }
+    }
     this.hide = false;
     this.itemList = [];
     this.search.emit(this.term);

@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { catchError, interval, map, of, switchMap, take, takeWhile } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { ConfigService } from 'src/app/services/config.service';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { NotificationService } from 'src/app/services/notification.service';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -26,9 +26,11 @@ export class EstIdLoginFormComponent {
   authMethodsAvailable;
   wWidth = window.innerWidth;
 
-  constructor(cosConfig: ConfigService, private AuthService: AuthService, private Notification: NotificationService,
+  constructor(cosConfig: ConfigService,
+    private AuthService: AuthService,
+    private Notification: NotificationService,
     private router: Router,
-    private dialog: MatDialog,
+    private dialog: DialogService,
     private route: ActivatedRoute) {
     this.config = cosConfig.get('features');
     this.authMethodsAvailable = Object.assign({}, this.config.authentication);
@@ -77,7 +79,7 @@ export class EstIdLoginFormComponent {
           next: (authRes) => {
             this.isLoadingIdCard = false;
 
-            this.AuthService.status().pipe(take(1)).subscribe();
+            this.AuthService.reloadUser();
             this.dialog.closeAll();
             if (this.redirectSuccess) {
               if (typeof this.redirectSuccess === 'string') {
@@ -94,11 +96,13 @@ export class EstIdLoginFormComponent {
         })
       }, (err: any) => {
         this.isLoadingIdCard = false;
-        let message = err.message
-        if (message === 'no_certificates') {
-          message = 'MSG_ERROR_HWCRYPTO_NO_CERTIFICATES';
+        let msg = null;
+        if (err instanceof Error) { //hwcrypto and JS errors
+          msg = this.hwCryptoErrorToTranslationKey(err);
+        } else { // API error response
+          msg = err.status.message;
         }
-        this.Notification.addError(message);
+        this.Notification.addError(msg);
       });
   };
 
@@ -114,21 +118,43 @@ export class EstIdLoginFormComponent {
       takeWhile((res: any,) => {
         return (res.status?.code === 20001)
       }, true),
-      map(res => res.data)).subscribe({next: (response) => {
-        this.isLoading = false;
-        this.challengeID = null;
-        this.AuthService.status().pipe(take(1)).subscribe();
-        this.dialog.closeAll();
-        if (this.redirectSuccess) {
-          if (typeof this.redirectSuccess === 'string') {
-            this.router.navigateByUrl(this.redirectSuccess);
+      map(res => res.data)).subscribe({
+        next: (response) => {
+          this.isLoading = false;
+          this.challengeID = null;
+          this.AuthService.reloadUser();
+          this.dialog.closeAll();
+          if (this.redirectSuccess) {
+            if (typeof this.redirectSuccess === 'string') {
+              this.router.navigateByUrl(this.redirectSuccess);
+            }
+          } else {
+            window.location.reload();
           }
-        } else {
-          window.location.reload();
+        }, error: (err) => {
+          this.isLoading = false;
+          this.challengeID = null;
         }
-      },error: (err) => {
-        this.isLoading = false;
-        this.challengeID = null;
-      }});
+      });
+  };
+
+  hwCryptoErrorToTranslationKey(err: any) {
+    const errorKeyPrefix = 'MSG_ERROR_HWCRYPTO_';
+    switch (err.message) {
+      case hwcrypto.NO_CERTIFICATES:
+      case hwcrypto.USER_CANCEL:
+      case hwcrypto.NO_IMPLEMENTATION:
+        return errorKeyPrefix + err.message.toUpperCase();
+        break;
+      case hwcrypto.INVALID_ARGUMENT:
+      case hwcrypto.NOT_ALLOWED:
+      case hwcrypto.TECHNICAL_ERROR:
+        console.error(err.message, 'Technical error from HWCrypto library', err);
+        return errorKeyPrefix + 'TECHNICAL_ERROR';
+        break;
+      default:
+        console.error(err.message, 'Unknown error from HWCrypto library', err);
+        return errorKeyPrefix + 'TECHNICAL_ERROR';
+    }
   };
 }

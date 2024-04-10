@@ -1,5 +1,5 @@
 import { Component, Input, Inject, HostBinding } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { DIALOG_DATA, DialogService } from 'src/app/shared/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { take } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
@@ -12,7 +12,6 @@ import { NotificationService } from 'src/app/services/notification.service';
   styleUrls: ['./topic-vote-deadline.component.scss']
 })
 export class TopicVoteDeadlineComponent {
-  @HostBinding('class.pos_dialog_fixed') addPosAbsolute: boolean = true;
   @Input() vote!: any;
   @Input() topic!: Topic;
   deadline = <any>null;
@@ -30,15 +29,15 @@ export class TopicVoteDeadlineComponent {
   reminder = false;
   reminderOptionsList = [{ value: 1, unit: 'days' }, { value: 2, unit: 'days' }, { value: 3, unit: 'days' }, { value: 1, unit: 'weeks' }, { value: 2, unit: 'weeks' }, { value: 1, unit: 'month' }];
   reminderOptions = <any[]>[];
-
+  isNew = true;
   errors = <any>null;
 
   constructor (
     private Translate: TranslateService,
-    @Inject(MAT_DIALOG_DATA) data: any,
+    @Inject(DIALOG_DATA) data: any,
     private TopicVoteService: TopicVoteService,
     private TopicService: TopicService,
-    private dialog: MatDialog,
+    private dialog: DialogService,
     private Notification: NotificationService
     ) {
     this.setTimeZones();
@@ -50,10 +49,14 @@ export class TopicVoteDeadlineComponent {
         this.endsAt.min = deadline.getMinutes();
         this.endsAt.h = deadline.getHours();
         this.setEndsAtTime();
+        this.isNew = false;
       }
     }
     if (data && data.topic) {
       this.topic = data.topic;
+    }
+    if (data.vote.reminderTime) {
+      this.reminder = true;
     }
   }
   private setTimeZones() {
@@ -149,6 +152,18 @@ export class TopicVoteDeadlineComponent {
     }
     this.setEndsAtTime();
   };
+
+  timeFormatDisabled () {
+    const now = new Date();
+    const deadline = new Date(this.deadline);
+    if (new Date(deadline.getFullYear(), deadline.getMonth(), deadline.getDate()).getTime() === new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime()) {
+      if (deadline.getHours() > 12) {
+        return true;
+      }
+    }
+
+    return false;
+  }
 
   getTimeZoneName(value: number) {
     return (this.timezones.find((item) => { return item.value === value })).name;

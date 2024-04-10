@@ -1,11 +1,5 @@
 @use "mixins";
 
-#notification_wrap {
-  padding: 0 24px;
-  @include mixins.mobile {
-    padding: 0 16px;
-  }
-}
 #content_root {
   display: flex;
   flex-direction: column;
@@ -16,6 +10,9 @@
   min-height: 100%;
   background-color: var(--color-background);
 
+  &.fixed {
+    position: fixed;
+  }
   &.no_scroll {
     overflow: hidden;
     height: 100%;
@@ -51,6 +48,10 @@
 
     #view {
       width: 100%;
+    }
+
+    &.notifications {
+    //  padding-top: 77px;
     }
   }
 }

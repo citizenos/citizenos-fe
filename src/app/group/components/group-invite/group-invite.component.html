@@ -9,14 +9,15 @@
         translate="COMPONENTS.GROUP_INVITE.CHARACTER_LIMIT"></span>{{group.inviteMessage?.length || 0
       }}/{{inviteMessageMaxLength}}</div>
     <div class="section_content_description bold" translate="COMPONENTS.GROUP_INVITE.EMAIL_DESC"></div>
+    <div class="section_content_description" translate="COMPONENTS.TOPIC_INVITE.EMAIL_DESC_LONG"></div>
     <div id="search_wrap">
       <typeahead id="input_area" [term]="searchStringUser" (search)="search($event)"
-        (select)="addGroupMemberUser($event)" (enterAction)="addGroupMemberUser($event)"
+        (select)="addGroupMember($event)" (enterAction)="addGroupMember($event)"
         [placeholder]="'COMPONENTS.GROUP_INVITE.PLACEHOLDER_SEARCH' | translate">
         <ng-container *ngIf="searchResultUsers$ | async as searchResults">
           <div class="search_area_wrap" [ngClass]="{hidden: !searchResults.length}">
             <div class="search_dropdown_item" [typeaheadItem]="user" *ngFor="let user of searchResults"
-              (click)="addGroupMemberUser(user)">
+              (click)="addGroupMember(user)">
               <div class="item_text_wrap">
                 <b>{{user.name}}</b>
               </div>
@@ -45,7 +46,7 @@
   </div>
 </div>
 <div class="error_section" *ngIf="invalid.length">
-  <div class="section_header">
+  <div class="inline_notification error">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect width="24" height="24" rx="12" fill="#EF4025" />
       <path
@@ -74,7 +75,7 @@
 </div>
 <div class="content_section">
   <div id="group_members_list_wrap" class="section_content_wrap table_section">
-    <ng-container *ngIf="group.members?.users.length === 0">
+    <ng-container *ngIf="group.members?.users.length === 0 && !dialog">
       <div class="no_items">
         <svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g clip-path="url(#clip0_437_52785)">
@@ -122,7 +123,7 @@
       </div>
     </ng-container>
     <ng-container *ngIf="group.members.users?.length">
-      <div class="row_header" *ngIf="!dialog">
+      <div class="row_header mobile_hidden" *ngIf="!dialog">
         <div class="row_cell"><a translate="COMPONENTS.GROUP_INVITE.NAME"></a></div>
         <div class="row_cell" translate="COMPONENTS.GROUP_INVITE.ROLE"></div>
         <div class="row_cell" translate="COMPONENTS.GROUP_INVITE.ACTIONS"></div>
@@ -137,12 +138,12 @@
                 </cos-initials>
               </div>
             </div>
-            <a class="user_name" [innerHtml]>{{user.name}}</a>
+            <div class="bold" [innerHtml]>{{user.name}}</div>
           </div>
           <div class="row_cell">
             <div class="dropdown" [cosDropdown]>
               <div class="selection">
-                <div class="selected_item">{{'TXT_TOPIC_LEVELS_' + (user.level) |
+                <div class="selected_item">{{'TXT_GROUP_LEVELS_' + (user.level) |
                   uppercase | translate}}</div>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
@@ -150,12 +151,21 @@
               </div>
               <div class="options">
                 <div class="option" *ngFor="let level of LEVELS | keyvalue" (click)="user.level = level.value">
-                  {{'TXT_TOPIC_LEVELS_' + level.value | uppercase | translate}}
+                  {{'TXT_GROUP_LEVELS_' + level.value | uppercase | translate}}
                 </div>
               </div>
             </div>
+            <button (click)="removeGroupMemberUser(user)" class="mobile_show btn_small_plain">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 6.00065H7.33333L7.33333 11.334H6L6 6.00065Z" fill="#2C3B47" />
+                <path d="M10 6.00065H8.66667L8.66667 11.334H10L10 6.00065Z" fill="#2C3B47" />
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M11.3333 3.33398V2.66732C11.3333 1.93094 10.7364 1.33398 10 1.33398L6 1.33398C5.26362 1.33398 4.66667 1.93094 4.66667 2.66732V3.33398L2.66667 3.33398C2.29848 3.33398 2 3.63246 2 4.00065C2 4.36884 2.29848 4.66732 2.66667 4.66732H3.33333L3.33333 12.0007C3.33333 13.1053 4.22877 14.0007 5.33333 14.0007L10.6667 14.0007C11.7713 14.0007 12.6667 13.1053 12.6667 12.0007L12.6667 4.66732H13.3333C13.7015 4.66732 14 4.36884 14 4.00065C14 3.63246 13.7015 3.33398 13.3333 3.33398H11.3333ZM10 2.66732L6 2.66732V3.33398L10 3.33398V2.66732ZM11.3333 4.66732L4.66667 4.66732L4.66667 12.0007C4.66667 12.3689 4.96515 12.6673 5.33333 12.6673L10.6667 12.6673C11.0349 12.6673 11.3333 12.3689 11.3333 12.0007L11.3333 4.66732Z"
+                  fill="#2C3B47" />
+              </svg>
+            </button>
           </div>
-          <div class="row_cell remove_item_mobile">
+          <div class="row_cell mobile_hidden">
             <button (click)="removeGroupMemberUser(user)">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M6 6.00065H7.33333L7.33333 11.334H6L6 6.00065Z" fill="#2C3B47" />

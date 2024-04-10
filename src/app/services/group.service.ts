@@ -16,10 +16,11 @@ export class GroupService extends ItemsListService {
   params = Object.assign(this.defaultParams, {
     visibility: <string | null>null,
     groupId: <string | null>null,
-    name: <string | null>null,
+    search: <string | null>null,
     country: <string | null>null,
     language: <string | null>null,
     showModerated: <boolean>false,
+    creatorId: <string | null>null,
     favourite: <boolean | string | null>null,
     limit: 8
   });

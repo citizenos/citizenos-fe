@@ -111,7 +111,7 @@ $theme-map-default: (
   $--input-checkbox-background-voting: #5ab467,
   $--input-checkbox-border-voting: #346933,
   $--font-size: 14px,
-  $--line-height: 16px,
+  $--line-height: 20px,
 );
 
 $theme-arguments-default: (
@@ -176,7 +176,7 @@ $theme-buttons-default: (
 /*Contrast and other definitions below*/
 
 $theme-map-contrast: (
-  $--color-background: #fff500,
+  $--color-background: #000,
   //Accessibility/Yellow
   $--color-text: #000,
   //black

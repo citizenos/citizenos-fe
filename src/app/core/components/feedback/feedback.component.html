@@ -65,11 +65,11 @@
 
         <div class="lightbox_section">
           <div class="footer_button_wrap right">
-            <div *ngIf="!isSubmitted" class="blue_link ngdialog-close" mat-dialog-close
+            <div *ngIf="!isSubmitted" class="blue_link ngdialog-close" dialog-close
               translate="MODALS.GIVE_FEEDBACK_BTN_CANCEL"></div>
             <div *ngIf="!isSubmitted" class="blue_button" (click)="submitFeedback()" class="blue_button"
               translate="MODALS.GIVE_FEEDBACK_BTN_SUBMIT"></div>
-            <div *ngIf="isSubmitted" class="blue_button ngdialog-close" mat-dialog-close
+            <div *ngIf="isSubmitted" class="blue_button ngdialog-close" dialog-close
               translate="MODALS.GIVE_FEEDBACK_BTN_CLOSE"></div>
           </div>
         </div>
@@ -77,6 +77,6 @@
     </div>
   </div>
 
-  <div id="close_lightbox" class="ngdialog-close" mat-dialog-close></div>
+  <div id="close_lightbox" class="ngdialog-close" dialog-close></div>
 
 </div>

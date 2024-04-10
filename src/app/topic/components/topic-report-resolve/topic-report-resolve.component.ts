@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicReportService } from 'src/app/services/topic-report.service';
 import { TopicReportFormData } from '../topic-report-form/topic-report-form.component';
@@ -15,8 +15,8 @@ export class TopicReportResolveComponent implements OnInit {
   topic!: Topic;
   isLoading = false;
   errors = <any>null;
-  constructor(@Inject(MAT_DIALOG_DATA) public data: TopicReportFormData, private dialog: MatDialog, private TopicReportService: TopicReportService,
-  private router: Router) {
+  constructor(@Inject(DIALOG_DATA) public data: TopicReportFormData, private dialog: DialogService, private TopicReportService: TopicReportService,
+  private router: Router, private TopicService: TopicService) {
     this.topic = data.topic;
   }
 
@@ -35,7 +35,8 @@ export class TopicReportResolveComponent implements OnInit {
       .subscribe({
         next: () => {
           this.dialog.closeAll();
-          this.router.navigate(['/', 'topic', this.topic.id])
+          this.TopicService.reloadTopic();
+          this.router.navigate(['/', 'topics', this.topic.id])
         },
         error: (res) => {
           this.isLoading = false;
@@ -52,7 +53,7 @@ export class TopicReportResolveComponent implements OnInit {
 })
 export class TopicReportResolveDialogComponent implements OnInit {
 
-  constructor(dialog: MatDialog, router: Router, route: ActivatedRoute, TopicService: TopicService) {
+  constructor(dialog: DialogService, router: Router, route: ActivatedRoute, TopicService: TopicService) {
     route.params.pipe(switchMap((params) => {
       return TopicService.get(params['topicId']);
     })).pipe(take(1))
@@ -61,7 +62,7 @@ export class TopicReportResolveDialogComponent implements OnInit {
 
         reportDialog.afterClosed().subscribe(() => {
           TopicService.reloadTopic();
-          router.navigate(['../../../'], {relativeTo: route});
+          router.navigate(['topics', topic.id], );
         })
       })
 

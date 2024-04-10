@@ -38,40 +38,53 @@ export class MyTopicsComponent {
   topics$ = of(<Topic[] | any[]>[]);
 
   allTopics$: Topic[] = [];
-  topicId = <string | null>null;
-  public FILTERS_ALL = 'all';
   topicFilters = {
-    visibility: this.FILTERS_ALL,
-    category: this.FILTERS_ALL,
-    status: this.FILTERS_ALL,
-    country: this.FILTERS_ALL,
-    engagements: this.FILTERS_ALL,
-    language: this.FILTERS_ALL
+    visibility: '',
+    category: '',
+    status: '',
+    country: '',
+    orderBy: '',
+    engagements: '',
+    language: ''
   };
+
+  topicTypeFilter$ = new BehaviorSubject('');
+  engagmentsFilter$ = new BehaviorSubject('');
+  statusFilter$ = new BehaviorSubject('');
+  orderFilter$ = new BehaviorSubject('');
+  categoryFilter$ = new BehaviorSubject('');
+  countryFilter$ = new BehaviorSubject('');
+  languageFilter$ = new BehaviorSubject('');
+
   mobileFilters: any = {
     type: false,
     category: false,
     status: false,
+    orderBy: false,
     engagements: false,
     country: false,
     language: false,
   }
 
-  tabSelected = 'categories';
+  mobileFiltersList = false;
+  showCreate = false;
   categories$ = Object.keys(this.Topic.CATEGORIES);
 
   statuses$ = Object.keys(this.Topic.STATUSES);
   countrySearch = '';
   countrySearch$ = new BehaviorSubject('');
-  countries = countries;
+  countries = countries.sort((a: any, b: any) => {
+    return a.name.localeCompare(b.name);
+  });
   countries$ = of(<Country[]>[]);
-  countryFocus = false;
 
   languageSearch = '';
   languageSearch$ = new BehaviorSubject('');
-  languages = languages;
+  languages = languages.sort((a: any, b: any) => {
+    return a.name.localeCompare(b.name);
+  });
   languages$ = of(<Language[]>[]);
-  languageFocus = false;
+  filtersSet = false;
 
   constructor(
     public Topic: TopicService,
@@ -82,37 +95,81 @@ export class MyTopicsComponent {
     public app: AppService,
     @Inject(TranslateService) public translate: TranslateService
   ) {
-    this.topics$ = combineLatest([this.route.queryParams, this.searchString$]).pipe(
-      switchMap(([queryParams, search]) => {
-        UserTopicService.reset();
-        this.allTopics$ = [];
-        if (search) {
-          UserTopicService.setParam('search', search);
-        }
-        Object.entries(queryParams).forEach((param) => {
-          if (param[0] === 'status') {
-            this.setStatus(param[1]);
+
+    this.topics$ = combineLatest([this.topicTypeFilter$, this.engagmentsFilter$, this.statusFilter$, this.orderFilter$, this.categoryFilter$, this.countryFilter$, this.languageFilter$, this.searchString$])
+      .pipe(
+        switchMap(([topicTypeFilter, engagmentsFilter, statusFilter, orderFilter, categoryFilter, countryFilter, languageFilter, search]) => {
+          UserTopicService.reset();
+       //   UserTopicService.setParam('include', ['vote', 'event']);
+          this.allTopics$ = [];
+          if (topicTypeFilter) {
+            if (UserTopicService.VISIBILITY.indexOf(topicTypeFilter) > -1) {
+              UserTopicService.setParam('visibility', topicTypeFilter);
+            } else if (['favourite', 'showModerated'].indexOf(topicTypeFilter) > -1) {
+              UserTopicService.setParam(topicTypeFilter, topicTypeFilter);
+            }
           }
-          UserTopicService.setParam(param[0], param[1]);
-        })
-        return UserTopicService.loadItems();
-      }), map(
-        (newtopics: any) => {
-          this.allTopics$ = this.allTopics$.concat(newtopics);
-          return this.allTopics$;
-        }
-      ));
+
+          if (engagmentsFilter) {
+            if (engagmentsFilter === 'hasVoted') {
+              UserTopicService.setParam(engagmentsFilter, true);
+            } else if (engagmentsFilter === 'hasNotVoted') {
+              UserTopicService.setParam('hasVoted', false);
+            } else if (engagmentsFilter === 'iCreated') {
+              UserTopicService.setParam('creatorId', this.auth.user.value.id);
+            }
+          }
+
+          if (statusFilter) {
+            UserTopicService.setParam('statuses', [statusFilter]);
+          }
+
+          if (orderFilter) {
+            UserTopicService.setParam('orderBy', orderFilter);
+            UserTopicService.setParam('order', 'desc');
+          }
+
+          if (categoryFilter) {
+            UserTopicService.setParam('categories', [categoryFilter]);
+          }
+
+          if (countryFilter) {
+            UserTopicService.setParam('country', countryFilter);
+          }
+          if (languageFilter) {
+            UserTopicService.setParam('language', languageFilter);
+          }
+
+          if (search) {
+            UserTopicService.setParam('search', search);
+          }
+
+          return UserTopicService.loadItems();
+        }), map(
+          (newtopics: any) => {
+            if (newtopics.length) {
+              this.filtersSet = true;
+            }
+            this.allTopics$ = this.allTopics$.concat(newtopics);
+            return this.allTopics$;
+          }
+        ));
+
     this.countries$ = this.countrySearch$.pipe(switchMap((string) => {
-      const countries = this.countries.filter((country) => country.name.toLowerCase().indexOf(string.toLowerCase()) > -1);
+      const countries = this.countries.filter((country) => country.name.toLowerCase().indexOf(string.toLowerCase()) === 0);
 
       return [countries];
     }));
 
     this.languages$ = this.languageSearch$.pipe(switchMap((string) => {
-      const languages = this.languages.filter((language) => language.name.toLowerCase().indexOf(string.toLowerCase()) > -1);
+      const languages = this.languages.filter((language) => language.name.toLowerCase().indexOf(string.toLowerCase()) === 0);
 
       return [languages];
     }));
+  }
+
+  showCreateMenu() {
+    this.showCreate = !this.showCreate;
   }
 
   showMobileOverlay() {
@@ -124,8 +181,12 @@ export class MyTopicsComponent {
     return false;
   }
 
-  doSearch(search: string) {
-    this.searchString$.next(search);
+  closeMobileFilter() {
+    const filtersShow = Object.entries(this.mobileFilters).find(([key, value]) => {
+      return !!value;
+    })
+    if (filtersShow)
+      this.mobileFilters[filtersShow[0]] = false;
   }
 
   searchCountry(event: any) {
@@ -137,70 +198,49 @@ export class MyTopicsComponent {
   }
 
   orderBy(orderBy: string) {
-    this.allTopics$ = [];
-    this.UserTopicService.setParam('orderBy', orderBy);
-    this.UserTopicService.setParam('order', 'desc');
+    if (orderBy === 'all' || typeof orderBy !== 'string') orderBy = '';
+    this.orderFilter$.next(orderBy);
+    this.topicFilters.orderBy = orderBy;
   }
 
   setStatus(status: string) {
+    if (status === 'all' || typeof status !== 'string') status = '';
+    this.statusFilter$.next(status);
     this.topicFilters.status = status;
-    if (status && (status === 'all' || Object.keys(this.Topic.VISIBILITY).indexOf(status) > -1)) {
-      status = '';
-    } else {
-      this.setVisibility('all');
-    }
-
-    this.allTopics$ = [];
-    this.UserTopicService.setParam('offset', 0)
-
-    if (status === 'favourite') {
-      this.UserTopicService.setParam('favourite', true)
-    } else if (status === 'showModerated') {
-      this.UserTopicService.setParam('showModerated', true)
-    } else {
-      this.UserTopicService.setParam('statuses', [status]);
-    }
   }
 
   setVisibility(visibility: string) {
+    if (visibility === 'all' || typeof visibility !== 'string') visibility = '';
+    this.topicTypeFilter$.next(visibility);
     this.topicFilters.visibility = visibility;
-    if (visibility && (visibility === 'all' || Object.keys(this.Topic.VISIBILITY).indexOf(visibility) === -1)) {
-      visibility = '';
-    } else {
-      this.setStatus('all');
-    }
-    this.allTopics$ = [];
-    this.UserTopicService.setParam('favourite', null)
-    this.UserTopicService.setParam('showModerated', null)
-    this.UserTopicService.setParam('visibility', visibility);
   }
 
   setCategory(category: string) {
+    if (category === 'all' || typeof category !== 'string') category = '';
+    this.categoryFilter$.next(category);
     this.topicFilters.category = category;
-    if (category && category === 'all') {
-      category = '';
-    }
-    this.allTopics$ = [];
-    this.UserTopicService.setParam('offset', 0)
-    this.UserTopicService.setParam('categories', [category]);
   }
 
   setFilter(filter: string) {
-    this.allTopics$ = [];
+    if (filter === 'all' || typeof filter !== 'string') filter = '';
+    this.engagmentsFilter$.next(filter);
     this.topicFilters.engagements = filter;
-    this.UserTopicService.setParam('hasVoted', null);
-    this.UserTopicService.setParam('creatorId', null);
-    if (filter === 'hasVoted') {
-      this.UserTopicService.setParam(filter, true);
-    } else if (filter === 'hasNotVoted') {
-      this.UserTopicService.setParam('hasVoted', false);
-    } else if (filter === 'iCreated') {
-      this.UserTopicService.setParam('creatorId', this.auth.user.value.id);
-    }
   }
 
-  trackByFn(index: number, element: any) {
-    return element.id;
+  setCountry(country: string) {
+    if (country === 'all' || typeof country !== 'string') country = '';
+    this.countryFilter$.next(country);
+    this.topicFilters.country = country;
+  }
+
+  setLanguage(language: string) {
+    if (language === 'all' || typeof language !== 'string') language = '';
+    this.languageFilter$.next(language);
+    this.topicFilters.language = language;
+  }
+
+  doSearch(search: string) {
+    this.searchString$.next(search);
   }
 
   onSelect(id: string) {
@@ -209,39 +249,13 @@ export class MyTopicsComponent {
   }
 
   doClearFilters() {
-    this.setStatus(this.FILTERS_ALL);
-    this.setCategory(this.FILTERS_ALL);
+    this.setVisibility('');
+    this.setFilter('');
+    this.orderBy('');
+    this.setStatus('');
+    this.setCategory('');
     this.setCountry('');
     this.setLanguage('');
-    this.topicFilters.country = this.FILTERS_ALL;
-    this.topicFilters.language = this.FILTERS_ALL;
-  }
-
-  setCountry(country: string) {
-    if (typeof country !== 'string') {
-      country = '';
-    }
-
-    this.countrySearch$.next(country);
-    this.countrySearch = country;
-    this.allTopics$ = [];
-    this.topicFilters.country = country;
-    this.UserTopicService.setParam('offset', 0);
-    this.UserTopicService.setParam('country', country);
-    this.UserTopicService.loadItems();
-  }
-
-  setLanguage(language: string) {
-    if (typeof language !== 'string') {
-      language = '';
-    }
-    this.languageSearch$.next(language);
-    this.languageSearch = language;
-    this.allTopics$ = [];
-    this.topicFilters.language = language;
-    this.UserTopicService.setParam('offset', 0)
-    this.UserTopicService.setParam('language', language || null);
-    this.UserTopicService.loadItems();
   }
 
   loadPage(page: any) {

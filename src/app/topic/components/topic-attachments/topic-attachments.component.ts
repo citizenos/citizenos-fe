@@ -1,6 +1,6 @@
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { Component, Inject, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { take, takeWhile, switchMap, of, map } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
@@ -26,7 +26,6 @@ import { trigger, state, style } from '@angular/animations';
         transition: '0.2s ease-in-out max-height'
       })),
       state('closed', style({
-        overflowY: 'hidden',
         transition: '0.2s ease-in-out max-height'
       }))
     ]),
@@ -46,6 +45,8 @@ import { trigger, state, style } from '@angular/animations';
 })
 export class TopicAttachmentsComponent implements OnInit {
   @ViewChild('attachmentInput') attachmentInput?: ElementRef;
+  @ViewChild('attachmendDropdown') attachmentDropdown?: ElementRef;
+
   blockAttachments = false;
   @Input() topic!: Topic;
   public form = {
@@ -57,9 +58,10 @@ export class TopicAttachmentsComponent implements OnInit {
 
   topicAttachments$ = of(<Attachment[] | any[]>[]);
   attachments = <any[]>[];
+  mobileActions = false;
 
   constructor(
-    private dialog: MatDialog,
+    private dialog: DialogService,
     public app: AppService,
     public TopicService: TopicService,
     private TopicAttachmentService: TopicAttachmentService,
@@ -91,9 +93,14 @@ export class TopicAttachmentsComponent implements OnInit {
       });
   }
 
+  closeDropdown() {
+    document.dispatchEvent(new Event('click'));
+    this.attachmentDropdown?.nativeElement.dispatchEvent(new Event('click'));
+  }
 
   triggerUpload() {
     this.attachmentInput?.nativeElement.click();
+    this.closeDropdown();
   };
 
   appendAttachment(attachment: any) {
@@ -136,6 +143,7 @@ export class TopicAttachmentsComponent implements OnInit {
 
 
   dropboxSelect() {
+    this.closeDropdown();
     this.TopicAttachmentService
       .dropboxSelect()
       .then((attachment) => {
@@ -146,6 +154,7 @@ export class TopicAttachmentsComponent implements OnInit {
   };
 
   oneDriveSelect() {
+    this.closeDropdown();
     this.TopicAttachmentService
       .oneDriveSelect()
       .then((attachment) => {
@@ -156,6 +165,7 @@ export class TopicAttachmentsComponent implements OnInit {
   };
 
   googleDriveSelect() {
+    this.closeDropdown();
     this.TopicAttachmentService
       .googleDriveSelect()
       .then((attachment) => {
@@ -165,6 +175,13 @@ export class TopicAttachmentsComponent implements OnInit {
       });
   };
 
+  getAllowedFileSize() {
+    return (this.Upload.ALLOWED_FILE_SIZE / 1000 / 1000).toString() + 'MB';
+  }
+
+  getAllowedFileTypes() {
+    return ["txt", "pdf", "doc", "asice", "docx", "ddoc", "bdoc", "odf", "odt", "jpg", "jpeg", "img", "png", "rtf", "xls", "xlsx", "ppt", "pptx", "pps", "xlt"].join(', ');
+  }
   attachmentUpload(): void {
     const files = this.attachmentInput?.nativeElement.files;
     for (let i = 0; i < files.length; i++) {
@@ -177,9 +194,10 @@ export class TopicAttachmentsComponent implements OnInit {
       };
 
       if (attachment.size > this.Upload.ALLOWED_FILE_SIZE) {
-        this.Notification.addError('MSG_ERROR_ATTACHMENT_SIZE_OVER_LIMIT');
+        const fileTypeError = this.Translate.instant('MSG_ERROR_ATTACHMENT_SIZE_OVER_LIMIT', { allowedFileSize: this.getAllowedFileSize() });
+        this.Notification.addError(fileTypeError);
       } else if (this.Upload.ALLOWED_FILE_TYPES.indexOf(files[i].type) === -1) {
-        const fileTypeError = this.Translate.instant('MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED', { allowedFileTypes: this.Upload.ALLOWED_FILE_TYPES.toString() });
+        const fileTypeError = this.Translate.instant('MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED', { allowedFileTypes: this.getAllowedFileTypes() });
         this.Notification.addError(fileTypeError);
       } else {
         //    this.attachments.push(attachment);
@@ -199,16 +217,16 @@ export class TopicAttachmentsComponent implements OnInit {
               this.attachments.push(result);
           },
           error: (res) => {
-         /*   if (res.errors) {
-              const keys = Object.keys(res.errors);
-              keys.forEach((key) => {
-                this.Notification.addError(res.errors[key]);
-              });
-            } else if (res.status && res.status.message) {
-              this.Notification.addError(res.status.message);
-            } else {
-              this.Notification.addError(res.message);
-            }*/
+            /*   if (res.errors) {
+                 const keys = Object.keys(res.errors);
+                 keys.forEach((key) => {
+                   this.Notification.addError(res.errors[key]);
+                 });
+               } else if (res.status && res.status.message) {
+                 this.Notification.addError(res.status.message);
+               } else {
+                 this.Notification.addError(res.message);
+               }*/
           }
         });
     }
@@ -247,7 +265,7 @@ export class TopicAttachmentsComponent implements OnInit {
 })
 export class TopicAttachmentsDialogComponent implements OnInit {
   private topicId: string = '';
-  constructor(dialog: MatDialog, router: Router, route: ActivatedRoute, TopicService: TopicService, TopicAttachmentService: TopicAttachmentService) {
+  constructor(dialog: DialogService, router: Router, route: ActivatedRoute, TopicService: TopicService, TopicAttachmentService: TopicAttachmentService) {
     route.params.pipe(
       switchMap((params) => {
         this.topicId = params['topicId'];

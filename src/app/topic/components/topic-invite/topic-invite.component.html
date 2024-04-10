@@ -9,6 +9,7 @@
         translate="COMPONENTS.TOPIC_INVITE.CHARACTER_LIMIT"></span> {{inviteMessage?.length || 0
       }}/{{inviteMessageMaxLength}}</div>
     <div class="section_content_description bold" translate="COMPONENTS.TOPIC_INVITE.EMAIL_DESC"></div>
+    <div class="section_content_description" translate="COMPONENTS.TOPIC_INVITE.EMAIL_DESC_LONG"></div>
     <div id="search_wrap">
       <typeahead id="input_area" [term]="searchStringUser" (search)="search($event)"
         (select)="addTopicMember($event)" (enterAction)="addTopicMember($event)"
@@ -43,8 +44,8 @@
     </div>
   </div>
 </div>
-<div class="error_section" *ngIf="invalid.length">
-  <div class="section_header">
+<div id="invalid_emails" class="error_section" *ngIf="invalid.length">
+  <div class="inline_notification error">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect width="24" height="24" rx="12" fill="#EF4025" />
       <path

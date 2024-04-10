@@ -1,5 +1,6 @@
-import { Observable, of, tap, take, combineLatest, switchMap, map } from 'rxjs';
+import { Observable, of, tap, take, combineLatest, switchMap, map, BehaviorSubject } from 'rxjs';
 import { TourService } from 'src/app/services/tour.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { Component, ElementRef, HostListener, ViewChild, Renderer2 } from '@angular/core';
 
 @Component({
@@ -23,7 +24,8 @@ export class TourComponent {
   itemTemplate$: Observable<any> = of('');
   tourId$: Observable<string> = of('');
   templateSubscription: Observable<any>;
-  constructor(private tourEl: ElementRef, private TourService: TourService, private renderer: Renderer2) {
+  itemIndexes = <number[]>[];
+  constructor(private tourEl: ElementRef, private TourService: TourService, private renderer: Renderer2, private auth: AuthService) {
     this.templateSubscription = combineLatest([this.TourService.getTemplate(), this.TourService.showTour]).pipe(
       switchMap(([elem, isVisible]) => {
         if (isVisible) {
@@ -34,6 +36,10 @@ export class TourComponent {
     this.tourId$ = this.TourService.activeTour;
   }
 
+  loggedIn() {
+    return this.auth.loggedIn$.value;
+  }
+
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
@@ -42,7 +48,9 @@ export class TourComponent {
         const item = this.TourService.getActiveItem();
       }
     }));
-    this.items$ = this.TourService.getItems();
+    this.items$ = this.TourService.getItems().pipe(tap((items) => {
+      this.itemIndexes = items.map((item) => item.index);
+    }));
   }
 
   ngOnDestroy(): void {
@@ -129,6 +137,9 @@ export class TourComponent {
             left = itemRect.left + itemRect.width / 2 - tourBoxElementRect.width / 2;
             if (left + tourBoxElementRect.width > window.innerWidth) {
               left = 8;
+              if (window.innerWidth > 560) {
+                left = itemRect.right - tourBoxElementRect.width;
+              }
             }
             arrowEl.classList.remove('right_arrow');
             arrowEl.classList.remove('left_arrow');
@@ -136,23 +147,26 @@ export class TourComponent {
             arrowEl.classList.add('top_arrow');
 
             this.renderer.setStyle(tourBox, 'top', `${itemOffsetTop}px`);
-            this.renderer.setStyle(arrowEl, 'left', `${itemRect.left + itemRect.width / 2}px`);
+            this.renderer.setStyle(arrowEl, 'left', `${itemRect.left + itemRect.width / 2 - 6}px`);
             this.renderer.setStyle(arrowEl, 'top', `${itemOffsetTop - 12}px`);
             this.renderer.setStyle(tourBox, 'left', `${left}px`);
             this.renderer.setStyle(tourBox, 'top', `${itemOffsetTop - tourBoxElementRect.height - 12}px`);
 //tourBox.scrollIntoView();
             break;
           case 'bottom':
-            left = itemRect.left + itemRect.width / 2 - tourBoxElementRect.width / 2;
+            left = itemRect.left + (itemRect.width / 2) - (tourBoxElementRect.width / 2);
             if (left + tourBoxElementRect.width > window.innerWidth) {
               left = 8;
+              if (window.innerWidth > 560) {
+                left = itemRect.right - tourBoxElementRect.width;
+              }
             }
             arrowEl.classList.remove('top_arrow');
             arrowEl.classList.remove('right_arrow');
             arrowEl.classList.remove('left_arrow');
             arrowEl.classList.add('bottom_arrow');
             this.renderer.setStyle(tourBox, 'top', `${itemOffsetTop}px`);
-            this.renderer.setStyle(arrowEl, 'left', `${itemRect.left + itemRect.width / 2}px`);
+            this.renderer.setStyle(arrowEl, 'left', `${itemRect.left + itemRect.width / 2 - 6}px`);
             this.renderer.setStyle(arrowEl, 'top', `${itemOffsetBottom + 6}px`);
             this.renderer.setStyle(tourBox, 'left', `${left}px`);
             this.renderer.setStyle(tourBox, 'top', `${itemOffsetBottom + 18}px`);
@@ -176,9 +190,10 @@ export class TourComponent {
 
         // e.g. 100x100 viewport and a 10x10px element at position {top: -1, left: 0, bottom: 9, right: 10}
 
-        if(!elementIsVisibleInViewport(tourBox)) {
-          tourBox.scrollIntoView({ block: "center", inline: "center" });
-        }
+       /* if(!elementIsVisibleInViewport(tourBox)) {
+
+        }*/
+        itemEl.el.nativeElement.scrollIntoView({ block: "center", inline: "center", behavior: "smooth" });
       }
       return of([item, isVisible]);
     }));
@@ -204,7 +219,8 @@ export class TourComponent {
   }
 
   activeIndex() {
-    return this.TourService.activeItem.value;
+    const curItemIndex = this.itemIndexes.sort().indexOf(this.TourService.activeItem.value);
+    return curItemIndex;
   }
 
   sort(items: any[]) {

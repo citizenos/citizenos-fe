@@ -13,11 +13,20 @@
   transition: box-shadow 0.3s ease-in-out;
 
   @include mixins.mobile {
+    width: 232px;
+  }
+
+  @include mixins.mobile {
     width: 100%;
   }
 
   &:hover {
     box-shadow: 0px 8px 20px 0px rgba(220, 231, 240, 0.30), 0px 12px 16px 0px rgba(50, 85, 112, 0.10);
+    text-decoration: none;
+    .group_title {
+      color: var(--color-link);
+    }
+
   }
   .group_header {
     display: flex;

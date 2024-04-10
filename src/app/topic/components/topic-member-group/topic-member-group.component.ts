@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { take } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicMemberGroup } from 'src/app/interfaces/group';
@@ -22,7 +22,7 @@ export class TopicMemberGroupComponent implements OnInit {
   groupLevels = Object.keys(this.TopicService.LEVELS);
   wWidth = window.innerWidth
   constructor(
-    private dialog: MatDialog,
+    private dialog: DialogService,
     public TopicService: TopicService,
     private TopicMemberGroupService: TopicMemberGroupService
   ) { }

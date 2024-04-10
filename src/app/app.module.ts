@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS, HttpClientXsrfModule } from '@angular/common/http';
-import { MatDialogModule } from '@angular/material/dialog';
 import { TranslateModule, TranslateLoader, TranslateCompiler, MissingTranslationHandler, TranslateService, TranslateParser } from '@ngx-translate/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
@@ -22,8 +21,7 @@ import { } from '@ngx-translate/core';
 import { JSONPointerCompiler, CosMissingTranslationHandler, createTranslateLoader } from './TranslateHandlers';
 import { NgxTranslateDebugParser } from 'ngx-translate-debug';
 import { LanguageSelectComponent } from './core/components/language-select/language-select.component';
-import { NotificationComponent } from './core/components/notification/notification.component';
-import { ActivityFeedComponent } from './core/components/activity-feed/activity-feed.component';
+import { ActivityFeedComponent, ActivityFeedDialogComponent } from './core/components/activity-feed/activity-feed.component';
 import { SharedModule } from './shared/shared.module';
 import { HttpErrorInterceptor } from './services/http.error.interceptor.service';
 import { SearchComponent } from './core/components/search/search.component';
@@ -36,6 +34,7 @@ import { AccessibilityMenuComponent } from './core/components/accessibility-menu
 import { DashboardComponent } from './core/components/dashboard/dashboard.component';
 import { FeatureBoxComponent } from './core/components/feature-box/feature-box.component';
 import { OnboardingComponent } from './core/components/onboarding/onboarding.component';
+import { CookieService } from 'ngx-cookie-service';
 
 /*Needs update to also properly load config */
 export function appInitializerFactory(translate: TranslateService) {
@@ -52,8 +51,8 @@ export function appInitializerFactory(translate: TranslateService) {
     NavComponent,
     HomeComponent,
     LanguageSelectComponent,
-    NotificationComponent,
     ActivityFeedComponent,
+    ActivityFeedDialogComponent,
     SearchComponent,
     PageNotFoundComponent,
     PageUnauthorizedComponent,
@@ -89,7 +88,6 @@ export function appInitializerFactory(translate: TranslateService) {
       cookieName: 'XSRF-TOKEN',
       headerName: 'X-CSRF-TOKEN'
     }),
-    MatDialogModule,
     AppRoutingModule,
     NoopAnimationsModule,
     FormsModule,
@@ -103,6 +101,7 @@ export function appInitializerFactory(translate: TranslateService) {
     MarkdownService,
     MarkdownModule.init(),
     ConfigService,
+    CookieService,
     ConfigModule.init(),
     {
       provide: HTTP_INTERCEPTORS,

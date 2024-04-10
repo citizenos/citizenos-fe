@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DIALOG_DATA } from 'src/app/shared/dialog';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -12,7 +12,7 @@ export class TopicVoteReminderDialog {
   user$;
   topic;
   today = new Date();
-  constructor(@Inject(MAT_DIALOG_DATA) data: any, Auth: AuthService) {
+  constructor(@Inject(DIALOG_DATA) data: any, Auth: AuthService) {
     this.user$ = Auth.user$;
     this.topic = data.topic;
     this.vote = data.vote;

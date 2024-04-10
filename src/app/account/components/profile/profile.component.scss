@@ -177,9 +177,9 @@
         flex-direction: column;
         gap: 16px;
 
-        @include mixins.mobile {
+        @include mixins.tablet {
           width: 100%;
-
+          max-width: 400px;
           button {
             @include mixins.mobile {
               width: 100%;

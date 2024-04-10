@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable } from 'rxjs';
+import { BehaviorSubject, exhaustMap, map, Observable, shareReplay } from 'rxjs';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import * as jsonpatch from 'fast-json-patch';
@@ -24,10 +24,22 @@ export class ActivityService extends ItemsListService {
   };
   public filters = ['all', 'userTopics', 'userGroups', 'user', 'self'];
   params$ = new BehaviorSubject(Object.assign({}, this.params));
+  private loadUnread$ = new BehaviorSubject<void>(undefined);
   lastViewTime = <string | null>null;
   constructor(public Location: LocationService, public Auth: AuthService, public http: HttpClient, public $translate: TranslateService, public router: Router) {
     super();
     this.items$ = this.loadItems();
+  }
+
+  loadUnreadItems(params?: { [key: string]: any }) {
+    return this.loadUnread$.pipe(
+      exhaustMap(() => this.getUnreadActivities(params)),
+      shareReplay()
+    );
+  };
+
+  reloadUnreadItems(): void {
+    this.loadUnread$.next();
   }
 
   getItems(params: any) {
@@ -97,7 +109,6 @@ export class ActivityService extends ItemsListService {
       }
     });
     const dataRows = this.activitiesToGroups(parsedResult);
-
     dataRows.forEach((activityGroups: any, groupKey: any) => {
       activityGroups.isNew = '';
       Object.keys(activityGroups.values).forEach((key) => {
@@ -118,7 +129,6 @@ export class ActivityService extends ItemsListService {
 
   query(params: any) {
     let rootPath = '';
-    console.log(params);
     if (params.groupId) {
       rootPath += '/groups/:groupId'
     } else if (params.topicId) {
@@ -149,13 +159,12 @@ export class ActivityService extends ItemsListService {
           '/topics/:topicId/activities/unread'
         ), params);
     } else {
-      path = this.Location.getAbsoluteUrlApi(`/users/self/activities/unread`, params);
+      path = this.Location.getAbsoluteUrlApi(`/api/users/self/activities/unread`, params);
     }
     return this.http.get(path, { withCredentials: true, responseType: 'json', observe: 'body' })
       .pipe(
         map((res: any) => {
           const data = res.data;
-
           return data.count;
         }));
   };
@@ -276,7 +285,6 @@ export class ActivityService extends ItemsListService {
     const dataobject = this.getActivityObject(activity);
 
     if (activity.data.type === 'Accept' || activity.data.type === 'Invite' || (activity.data.type === 'Add' && activity.data.actor.type === 'User' && activity.data.object['@type'] === 'User' && activity.data.target['@type'] === 'Group')) { // Last condition if for Group invites
-      console.log(activity)
       return 'invite';
     } else if (['Topic', 'TopicMemberUser', 'Attachment', 'TopicFavourite'].indexOf(dataobject['@type']) > -1 || activity.data.target && activity.data.target['@type'] === ' Topic') {
       return 'discussion';
@@ -370,6 +378,8 @@ export class ActivityService extends ItemsListService {
       values.userName2 = activity.data.target.name;
     } else if (activity.data.target && activity.data.target.userName) {
       values.userName2 = activity.data.target.userName;
+    } else if (activity.data.actor && activity.data.actor.type==='Moderator') {
+      values.userName = '';
     }
   };
 
@@ -547,16 +557,15 @@ export class ActivityService extends ItemsListService {
     // Filter out the final activities
     const final: any = {};
     activities.forEach((activity: any) => {
-      let groupKey: any;
+      final[activity.id] = [activity];
+      /*COMMENTED OUT AS WE DON'T GROUP ACTIVITIES IN THE NEW FEED*/
+      /*let groupKey: any;
       Object.keys(grouped).forEach((key) => {
         if (grouped[key].length > 1 && grouped[key].indexOf(activity.id) > -1) {
-          if (key.indexOf('USERACTIVITYGROUP')) {
-            groupKey = key;
-          } else if (groupKey.indexOf('USERACTIVITYGROUP') === -1) {
-            groupKey = key;
-          }
+          groupKey = key;
         }
       });
+
       if (groupKey) {
         if (!final[groupKey]) {
           final[groupKey] = [activity];
@@ -579,7 +588,7 @@ export class ActivityService extends ItemsListService {
         });
       } else {
         final[activity.id] = [activity];
-      }
+      }*/
     });
     Object.keys(final).forEach((key) => {
       returnActivities.push({ referer: key, values: final[key] });
@@ -679,7 +688,6 @@ export class ActivityService extends ItemsListService {
       state = [this.$translate.currentLang, 'groups', target.id];
     }
 
-    console.log()
     if (state[1] !== 'topics' && origin && origin['@type'] === 'Topic' && activityType !== 'Invite') {
       state = state.concat(['topics', origin.id]);
     }

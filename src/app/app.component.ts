@@ -1,9 +1,9 @@
-import { Component, Inject, HostListener, ChangeDetectorRef } from '@angular/core';
+import { DialogService } from 'src/app/shared/dialog';
+import { Component, Inject, HostListener, ChangeDetectorRef, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { Router, PRIMARY_OUTLET, Event, NavigationStart, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Title, Meta, MetaDefinition } from '@angular/platform-browser';
 
-import { MatDialog } from '@angular/material/dialog';
 import { AuthService} from './services/auth.service';
 import { AppService } from './services/app.service';
 import { LocationService } from './services/location.service';
@@ -26,6 +26,7 @@ export class AppComponent {
   wWidth: number = window.innerWidth;
   destroy$ = new Subject<boolean>();
 
+  @ViewChild('content') content?: ElementRef;
   private keysPressed = <string[]>[];
   @HostListener('window:keydown', ['$event'])
   handleKeyDownEvent(event: KeyboardEvent) {
@@ -44,11 +45,12 @@ export class AppComponent {
     private Meta: Meta,
     public translate: TranslateService,
     private config: ConfigService,
+    private renderer: Renderer2,
     private changeDetection: ChangeDetectorRef,
     private Location: LocationService,
     private Notification: NotificationService,
     private auth: AuthService,
-    private dialog: MatDialog,
+    private dialog: DialogService,
     private translateDebug: NgxTranslateDebugService,
     public app: AppService) {
     const languageConf = config.get('language');
@@ -59,6 +61,8 @@ export class AppComponent {
       ((event: Event) => {
         //console.log(event);
         if (event && event instanceof NavigationStart) {
+          app.tabletNav = false;
+          app.darkNav = false;
           this.Notification.removeAll(); //Remove all notifications on navigating away
           app.showNav = false;
           app.topic = undefined;
@@ -95,10 +99,10 @@ export class AppComponent {
       })
     ).subscribe();
     //
-    this.auth.user$?.pipe(tap((user) => {
+    this.auth.user$.pipe(tap((user) => {
       if (user && (!user.termsVersion || user.termsVersion !== this.config.get('legal').version)) {
         const tosDialog = this.dialog.open(PrivacyPolicyComponent, {
-          data: { user }
+          data: { user, new: !user.termsVersion }
         });
         tosDialog.afterClosed().subscribe(() => {
           if (!user.email) {
@@ -117,11 +121,14 @@ export class AppComponent {
         const emailDialog = this.dialog.open(AddEmailComponent, {
           data: { user }
         });
-        emailDialog.afterClosed().subscribe(() => {
-          user.loggedIn = true;
-          this.auth.user.next({ id: user.id });
-          this.auth.loggedIn$.next(true);
-          window.location.reload();
+        emailDialog.afterClosed().subscribe((loggedIn) => {
+          console.log(loggedIn);
+          if (loggedIn) {
+            user.loggedIn = true;
+            this.auth.user.next({ id: user.id });
+            this.auth.loggedIn$.next(true);
+            window.location.reload();
+          }
         })
       }
     })).subscribe();
@@ -199,4 +206,21 @@ export class AppComponent {
       link.setAttribute('href', this.Location.getAbsoluteUrl(urlItem.join('/')));
     });
   };
+
+  isDialog () {
+    return this.dialog.getOpenDialogs();
+  }
+
+  hasNotifications () {
+    let count = 0;
+    Object.values(this.Notification.levels).forEach((level) => {
+      count += this.Notification.messages[level].length;
+    })
+    if (count && window.innerWidth > 1024) {
+      this.renderer.setStyle(this.content?.nativeElement, 'padding-top', `${77 * count}px`);
+    } else if (this.content?.nativeElement.style['padding-top'] && parseInt(this.content?.nativeElement.style['padding-top']) > 0){
+      this.renderer.setStyle(this.content?.nativeElement, 'padding-top', `0`);
+    }
+    return count;
+  }
 }

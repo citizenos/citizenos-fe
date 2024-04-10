@@ -1,8 +1,11 @@
 <ngx-loading-bar></ngx-loading-bar>
+<div id="notification_wrap" [ngClass]="{'fixed': !(isDialog() | async)}">
+  <notification></notification>
+</div>
 <!-- NAV -->
 <nav *ngIf="translate.currentLang"></nav>
 <!-- CONTENT -->
-<div id="content_root" *ngIf="translate.currentLang" [ngClass]="{'no_scroll': (app.createMenu && wWidth <= 1024)}">
+<div id="content_root" *ngIf="translate.currentLang" [ngClass]="{'no_scroll': (app.createMenu && wWidth <= 1024), 'fixed': (isDialog() | async) || app.tabletNav}">
   <div id="content_header">
     <!-- SEARCH AREA -->
     <div id="search_wrap" [TourItem]="{tourid: 'dashboard', index: 4, position: 'left'}" [ngClass]="{'hidden': !app.showSearch}">
@@ -10,10 +13,7 @@
     </div>
   </div>
   <!-- CONTENT -->
-  <div id="content" [ngClass]="!displaySearch() ? 'content_no_padding' : ''">
-    <div id="notification_wrap">
-      <notification></notification>
-    </div>
+  <div id="content" #content [ngClass]="{'content_no_padding': !displaySearch(), 'notifications': hasNotifications()}">
     <!-- ROUTES CONTENT -->
     <router-outlet id="view"></router-outlet>
   </div>

@@ -14,13 +14,13 @@
       </div>
       <div class="notification_title" translate="COMPONENTS.TOPICBOX.NOTIFICATION_TITLE"></div>
       <div class="notification_links">
-        <a translate="COMPONENTS.TOPICBOX.NOTIFICATION_LNK_WHY"></a>
+        <a translate="COMPONENTS.TOPICBOX.NOTIFICATION_LNK_WHY" (click)="reportReasonDialog()"></a>
         <a translate="COMPONENTS.TOPICBOX.NOTIFICATION_LNK_VIEW" (click)="goToView()"></a>
       </div>
     </div>
   </div>
   <div class="topic_header"
-    [ngClass]="{'discussion': topic.status === 'inProgress', 'voting': topic.status === 'voting', 'follow_up': topic.status === 'followUp', 'draft': topic.status === 'draft'}">
+    [ngClass]="{'discussion': topic.status === 'inProgress', 'voting': topic.status === 'voting', 'follow_up': topic.status === 'followUp', 'draft': topic.status === 'draft', 'closed': topic.status === 'closed'}">
     <div class="progress" [ngStyle]="{'width.%': getProgress()}">
       <div class="header_content">
         <ng-container *ngIf="topic.status==='draft'">
@@ -121,7 +121,7 @@
         </div>
       </div>
     </div>
-    <div class="date">{{topic.updatedAt | date:'YYYY-MM-dd'}}</div>
+    <div class="date">{{topic.createdAt | date:'YYYY-MM-dd'}}</div>
     <div class="topic_title" [innerHTML]="topic.title"></div>
 
   </div>

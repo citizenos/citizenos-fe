@@ -1,5 +1,5 @@
 <ng-container *ngFor="let level of notifications.levels | keyvalue">
-  <div class="notification_top" [ngClass]="level.value" [ngClass]="{'narrow': getOpenDialogsLength()}"
+  <div class="notification_top" [ngClass]="getNotificationClass(level.value)"
     *ngFor="let notification of notifications.messages[level.value];trackBy: trackByIndex;">
     <div class="icon_notification">
       <ng-container *ngIf="level.value === 'error'">

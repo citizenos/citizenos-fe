@@ -1,10 +1,10 @@
-
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap, tap, of, take, catchError, map, Observable, BehaviorSubject } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
+import { switchMap, tap, of, take, catchError, map, Observable, BehaviorSubject, combineLatest } from 'rxjs';
+import { DialogService } from 'src/app/shared/dialog';
 
 import { GroupMemberUserService } from 'src/app/services/group-member-user.service';
+import { GroupInviteUserService } from './../services/group-invite-user.service';
 import { GroupService } from 'src/app/services/group.service';
 import { GroupJoinService } from 'src/app/services/group-join.service';
 import { Group } from 'src/app/interfaces/group';
@@ -23,6 +23,10 @@ import { GroupJoinComponent } from './components/group-join/group-join.component
 import { countries } from '../services/country.service';
 import { languages } from '../services/language.service';
 import { GroupSettingsComponent } from './components/group-settings/group-settings.component';
+import { Country } from '../interfaces/country';
+import { Language } from '../interfaces/language';
+import { GroupRequestTopicsComponent } from './components/group-request-topics/group-request-topics.component';
+import { TopicRequestsComponent } from './components/topic-requests/topic-requests.component';
 
 @Component({
   selector: 'group',
@@ -34,11 +38,11 @@ import { GroupSettingsComponent } from './components/group-settings/group-settin
       state('open', style({
         minHeight: 'min-content',
         maxHeight: 'min-content',
-        transition: '0.2s ease-in-out max-height'
+        transition: 'max-height 0.2s ease-in 0.2'
       })),
       state('closed', style({
         overflowY: 'hidden',
-        transition: '0.2s ease-in-out max-height'
+        transition: 'max-height 0.2s ease-in 0.2'
       }))
     ]),
     trigger('openSlide', [
@@ -46,14 +50,12 @@ import { GroupSettingsComponent } from './components/group-settings/group-settin
       state('open', style({
         minHeight: 'auto',
         'maxHeight': '400px',
-        transition: '0.2s ease-in-out max-height'
+        transition: 'max-height 0.2s ease-in 0.2'
       })),
       state('closed', style({
-        minHeight: '80px',
-        'maxHeight': '80px',
-        transition: '0.2s ease-in-out max-height'
+        transition: 'max-height 0.2s ease-in 0.2'
       }))
-  ])]
+    ])]
 })
 export class GroupComponent implements OnInit {
   group$;
@@ -63,24 +65,61 @@ export class GroupComponent implements OnInit {
   wWidth: number = window.innerWidth;
   moreInfo = false;
   topics$: Observable<Topic[] | any[]> = of([]);
+  allTopics$: Topic[] = [];
   users$: Observable<User[] | any[]> = of([]);
-  showNoEngagements = false;
+  allMembers$ = <any[]>[];
   moreFilters = false;
   topicStatuses = Object.keys(this.TopicService.STATUSES);
-  countries = countries;
-  languages = languages;
+
+  countrySearch = '';
+  countrySearch$ = new BehaviorSubject('');
+  countries = countries.sort((a: any, b: any) => {
+    return a.name.localeCompare(b.name);
+  });
+  countries$ = of(<Country[]>[]);
+  countryFocus = false;
+
+  languageSearch = '';
+  languageSearch$ = new BehaviorSubject('');
+  languages = languages.sort((a: any, b: any) => {
+    return a.name.localeCompare(b.name);
+  });
+  languages$ = of(<Language[]>[]);
   public FILTERS_ALL = 'all';
+
   topicFilters = {
-    category: this.FILTERS_ALL,
-    status: this.FILTERS_ALL,
-    engagements: this.FILTERS_ALL
+    visibility: '',
+    category: '',
+    status: '',
+    country: '',
+    orderBy: '',
+    engagements: '',
+    language: ''
   };
 
-  mobile_filters = {
-    type: false,
-    my_engagements: false,
+  topicTypeFilter$ = new BehaviorSubject('');
+  engagmentsFilter$ = new BehaviorSubject('');
+  statusFilter$ = new BehaviorSubject('');
+  orderFilter$ = new BehaviorSubject('');
+  categoryFilter$ = new BehaviorSubject('');
+  countryFilter$ = new BehaviorSubject('');
+  languageFilter$ = new BehaviorSubject('');
+  groupActions = false;
+  mobileTopicFiltersList = false;
+  /*
+    mobileTopicFilters: any = {
+      category: this.FILTERS_ALL,
+      status: this.FILTERS_ALL,
+      engagements: this.FILTERS_ALL,
+      country: this.FILTERS_ALL,
+      language: this.FILTERS_ALL
+    }*/
+  mobileTopicFilters: any = {
     category: false,
     status: false,
+    engagements: false,
+    country: false,
+    language: false,
   }
   searchTopicsInput = '';
   searchTopicString$ = new BehaviorSubject('');
@@ -88,31 +127,46 @@ export class GroupComponent implements OnInit {
   searchUsersInput = '';
   searchUserString$ = new BehaviorSubject('');
 
-  constructor(public dialog: MatDialog,
-    private GroupService: GroupService,
+  showCreate = false;
+  showCreateInContent = false;
+  filtersSet = false;
+  addTopicsDialogOpen = false;
+  constructor(public dialog: DialogService,
+    public GroupService: GroupService,
     private GroupJoinService: GroupJoinService,
     private route: ActivatedRoute,
     private router: Router,
     public translate: TranslateService,
     public TopicService: TopicService,
     public GroupMemberUserService: GroupMemberUserService,
+    public GroupInviteUserService: GroupInviteUserService,
     public auth: AuthService,
     public app: AppService,
     public GroupMemberTopicService: GroupMemberTopicService) {
-    this.topics$ = this.GroupMemberTopicService.loadItems().pipe(
-      tap((topics) => {
-        if (topics.length === 0) {
-          this.showNoEngagements = true;
+    this.app.darkNav = true;
+    this.users$ = combineLatest([this.searchUserString$, this.GroupInviteUserService.loadMembers$, this.GroupMemberUserService.loadMembers$]).pipe(
+      switchMap(([search]) => {
+        GroupMemberUserService.reset();
+        GroupMemberUserService.setParam('groupId', this.groupId);
+        this.allMembers$ = [];
+        if (search) {
+          GroupMemberUserService.setParam('search', search);
         }
-      })
-    );
 
-    this.users$ = this.GroupMemberUserService.loadItems().pipe(
-      tap((topics) => {
-        if (topics.length === 0) {
-          this.showNoEngagements = true;
+        if (this.auth.loggedIn$.value && this.app.group.value?.userLevel === 'admin') {
+          GroupMemberUserService.setParam('include', 'invite');
         }
+        return this.GroupMemberUserService.loadItems();
       })
+      , map(
+        (members: any) => {
+          this.allMembers$ = [];
+          if (members) {
+            this.allMembers$ = this.allMembers$.concat(members)
+          }
+          return this.allMembers$;
+        }
+      )
     );
 
     this.group$ = this.route.params.pipe<Group>(
@@ -139,22 +193,201 @@ export class GroupComponent implements OnInit {
       })
     );
 
+    this.topics$ = combineLatest([this.topicTypeFilter$, this.engagmentsFilter$, this.statusFilter$, this.orderFilter$, this.categoryFilter$, this.countryFilter$, this.languageFilter$, this.searchTopicString$])
+      .pipe(
+        switchMap(([topicTypeFilter, engagmentsFilter, statusFilter, orderFilter, categoryFilter, countryFilter, languageFilter, search]) => {
+          if (this.addTopicsDialogOpen) {
+            const topics = (<Topic[]>[]).concat(this.allTopics$);
+            this.allTopics$ = [];
+            return topics;
+          }
+          GroupMemberTopicService.reset();
+          GroupMemberTopicService.setParam('groupId', this.groupId);
+          GroupMemberTopicService.setParam('include', ['event']);
+          this.allTopics$ = [];
+          if (topicTypeFilter) {
+            if (TopicService.VISIBILITY[topicTypeFilter]) {
+              GroupMemberTopicService.setParam('visibility', topicTypeFilter);
+            } else if (['favourite', 'showModerated'].indexOf(topicTypeFilter) > -1) {
+              GroupMemberTopicService.setParam(topicTypeFilter, topicTypeFilter);
+            }
+          }
+
+          if (engagmentsFilter) {
+            if (engagmentsFilter === 'hasVoted') {
+              GroupMemberTopicService.setParam(engagmentsFilter, true);
+            } else if (engagmentsFilter === 'hasNotVoted') {
+              GroupMemberTopicService.setParam('hasVoted', false);
+            } else if (engagmentsFilter === 'iCreated') {
+              GroupMemberTopicService.setParam('creatorId', this.auth.user.value.id);
+            }
+          }
+
+          if (statusFilter) {
+            GroupMemberTopicService.setParam('statuses', [statusFilter]);
+          }
+
+          if (orderFilter) {
+            GroupMemberTopicService.setParam('orderBy', orderFilter);
+            GroupMemberTopicService.setParam('order', 'desc');
+          }
+
+          if (categoryFilter) {
+            GroupMemberTopicService.setParam('categories', [categoryFilter]);
+          }
+
+          if (countryFilter) {
+            GroupMemberTopicService.setParam('country', countryFilter);
+          }
+          if (languageFilter) {
+            GroupMemberTopicService.setParam('language', languageFilter);
+          }
+
+          if (search) {
+            GroupMemberTopicService.setParam('search', search);
+          }
+
+          if (topicTypeFilter || engagmentsFilter || statusFilter || orderFilter || categoryFilter || countryFilter || languageFilter || search) {
+            this.filtersSet = true;
+          } else {
+            this.filtersSet = false;
+          }
+          return GroupMemberTopicService.loadItems();
+        }), map(
+          (newtopics: any) => {
+            this.allTopics$ = [];
+            this.allTopics$ = this.allTopics$.concat(newtopics);
+            return this.allTopics$;
+          }
+        ));
+
+    /*this.topics$ = combineLatest([this.route.queryParams, this.searchTopicString$]).pipe(
+      switchMap(([queryParams, search]) => {
+        if (!this.groupId) return [];
+        GroupMemberTopicService.reset();
+        GroupMemberTopicService.setParam('groupId', this.groupId);
+        this.allTopics$ = [];
+        if (search) {
+          GroupMemberTopicService.setParam('title', search);
+        }
+        Object.entries(queryParams).forEach((param) => {
+          GroupMemberTopicService.setParam(param[0], param[1]);
+        })
+        return GroupMemberTopicService.loadItems();
+      }), map(
+        (newtopics: any) => {
+          this.allTopics$ = this.allTopics$.concat(newtopics);
+          return this.allTopics$;
+        }
+      ));*/
+
     this.tabSelected = this.route.fragment.pipe(
       map((fragment) => {
         this.app.setPageTitle(this.groupTitle);
         if (!fragment) {
-          return this.selectTab('topics')
+          return 'topics';
         }
         return fragment
       }
       ));
+
+
+    this.countries$ = this.countrySearch$.pipe(switchMap((string) => {
+      const countries = this.countries.filter((country) => country.name.toLowerCase().indexOf(string.toLowerCase()) > -1);
+
+      return [countries];
+    }));
+    this.languages$ = this.languageSearch$.pipe(switchMap((string) => {
+      const languages = this.languages.filter((language) => language.name.toLowerCase().indexOf(string.toLowerCase()) > -1);
+
+      return [languages];
+    }));
+  }
+
+  showCreateMenu() {
+    this.showCreate = true;
+  }
+
+  addNewTopic() {
+    this.app.createNewTopic(this.groupId);
+  }
+
+  addNewVotingTopic() {
+    this.app.createNewTopic(this.groupId, true);
+  }
+
+  closeMobileFilter() {
+    const filtersShow = Object.entries(this.mobileTopicFilters).find(([key, value]) => {
+      return !!value;
+    })
+    if (filtersShow)
+      this.mobileTopicFilters[filtersShow[0]] = false;
+  }
+
+  showMobileOverlay() {
+    const filtersShow = Object.entries(this.mobileTopicFilters).find(([key, value]) => {
+      return !!value;
+    });
+
+    if (filtersShow) return true;
+
+    return false;
+  }
+
+  setMemberLimit(limit: number) {
+    this.GroupMemberUserService.setParam('limit', limit);
+    this.GroupInviteUserService.setParam('limit', limit);
+  }
+
+  setVisibility(visibility: string) {
+    if (visibility === 'all' || typeof visibility !== 'string') visibility = '';
+    this.topicTypeFilter$.next(visibility);
+    this.topicFilters.visibility = visibility;
+  }
+
+  orderBy(orderBy: string) {
+    if (orderBy === 'all' || typeof orderBy !== 'string') orderBy = '';
+    this.orderFilter$.next(orderBy);
+    this.topicFilters.orderBy = orderBy;
+  }
+
+  setStatus(status: string) {
+    if (status === 'all' || typeof status !== 'string') status = '';
+    this.statusFilter$.next(status);
+    this.topicFilters.status = status;
+  }
+
+  setCountry(country: string) {
+    if (country === 'all' || typeof country !== 'string') country = '';
+    this.countryFilter$.next(country);
+    this.topicFilters.country = country;
+
+    this.countrySearch$.next(country);
+    this.countrySearch = country;
+  }
+
+  setLanguage(language: string) {
+    if (language === 'all' || typeof language !== 'string') language = '';
+    this.languageFilter$.next(language);
+    this.topicFilters.language = language;
+
+    this.languageSearch$.next(language);
+    this.languageSearch = language;
+  }
+
+  searchCountry(event: any) {
+    this.countrySearch$.next(event);
+  }
+
+  searchLanguage(event: any) {
+    this.languageSearch$.next(event);
   }
 
   searchTopics(search: string) {
     this.searchTopicString$.next(search);
   }
 
-  searchUsers (search: string) {
+  searchUsers(search: string) {
     this.searchUserString$.next(search);
   }
 
@@ -165,7 +398,15 @@ export class GroupComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  doClearFilters () {
+  doClearFilters() {
+    this.setStatus('');
+    this.setCountry('');
+    this.orderBy('');
+    this.setVisibility('');
+    this.setLanguage('');
+    this.filtersSet = false;
+    this.topicFilters.country = this.FILTERS_ALL;
+    this.topicFilters.language = this.FILTERS_ALL;
 
   }
 
@@ -173,6 +414,7 @@ export class GroupComponent implements OnInit {
     if (this.app.group) {
       const inviteDialog = this.dialog.open(GroupInviteDialogComponent, { data: { group: group } });
       inviteDialog.afterClosed().subscribe(result => {
+        this.GroupInviteUserService.reloadItems();
       });
     }
   }
@@ -205,7 +447,21 @@ export class GroupComponent implements OnInit {
     });
   }
 
+  requestAddTopics(group: Group) {
+    const requestAddTopicsDialog = this.dialog.open(GroupRequestTopicsComponent, {
+      data: {
+        group
+      }
+    });
+
+    requestAddTopicsDialog.afterClosed().subscribe(result => {
+      this.GroupMemberTopicService.loadItems();
+      this.topicTypeFilter$.next('private');
+      this.topicTypeFilter$.next('');
+    });
+  }
   showSettings(group: Group) {
+    console.log(group);
     const settingsDialog = this.dialog.open(GroupSettingsComponent, {
       data: {
         group
@@ -214,11 +470,7 @@ export class GroupComponent implements OnInit {
 
     settingsDialog.afterClosed().subscribe(result => {
       if (result === true) {
-       /* this.GroupService.delete(group)
-          .pipe(take(1))
-          .subscribe((res) => {
-            this.router.navigate(['../'], { relativeTo: this.route });
-          })*/
+        this.GroupService.reloadGroup();
       }
     });
   }
@@ -248,11 +500,28 @@ export class GroupComponent implements OnInit {
   }
 
   addTopicDialog(group: Group) {
-    this.dialog.open(GroupAddTopicsDialogComponent, {
+    this.addTopicsDialogOpen = true;
+    const addTopicsDialog = this.dialog.open(GroupAddTopicsDialogComponent, {
       data: {
         group: group
       }
     });
+
+    addTopicsDialog.afterClosed().subscribe(() => {
+      this.addTopicsDialogOpen = false;
+      this.doClearFilters();
+    })
+  }
+
+  topicRequests (group: Group) {
+    const topicRequestsDialog = this.dialog.open(TopicRequestsComponent, {
+      data: {
+        group: group
+      }
+    });
+    topicRequestsDialog.afterClosed().subscribe(() => {
+      this.doClearFilters();
+    })
   }
 
   joinGroup(group: Group) {
@@ -267,10 +536,11 @@ export class GroupComponent implements OnInit {
     joinDialog.afterClosed().subscribe((res) => {
       if (res === true) {
         this.GroupJoinService
-          .join(group.join.token).pipe(take(1)).subscribe(
+          .joinPublic(group.id).pipe(take(1)).subscribe(
             {
               next: (res) => {
                 group.userLevel = res.userLevel;
+                this.GroupService.reloadGroup();
               },
               error: (err) => {
                 console.error('Failed to join Topic', err)

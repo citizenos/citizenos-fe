@@ -42,10 +42,6 @@
         position: relative;
 
         @include mixins.tablet {
-          display: flex;
-        }
-
-        @include mixins.mobile {
           display: none;
         }
 
@@ -92,7 +88,7 @@
   border-radius: 16px;
   gap: 16px;
 
-  @include mixins.mobile {
+  @include mixins.tablet {
     display: flex;
   }
   &.open {
@@ -207,7 +203,6 @@
   img {
     width: 100%;
     object-fit: cover;
-    aspect-ratio: 1;
   }
 }
 
@@ -334,7 +329,7 @@
     border-top-right-radius: 16px;
     padding: 16px;
     background-color: var(--color-warn-background);
-    position: absolute;
+    position: relative;
     top: 0;
     width: 100%;
   }
@@ -373,18 +368,24 @@
   }
 
   .topic_content {
-    display: flex;
-    flex-direction: column;
+    display: block;
     padding: 8px 16px;
-    display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
     position: relative;
     font-weight: 400;
-    font-size: 15px;
-    line-height: 30px;
+    font-size: 16px;
+    line-height: 32px;
     margin-bottom: 36px;
+    strong, li, b, i, em, s, u {
+      font-size: 16px;
+      line-height: 32px;
+    }
+
+    img {
+      max-width: 100%;
+    }
   }
 
   .button_wrap {
@@ -422,5 +423,29 @@
       background: var(--btn-submit);
       cursor:default;
     }
+  }
+}
+.setting_button {
+  background: none;
+  @include mixins.mobile {
+    max-width: max-content;
+    align-self: flex-end;
+  }
+  button:first-child {
+    background-color: var(--color-surfaces);
+    &:hover {
+      background-color: var(--color-argument-pro-light);
+      svg {
+        path {
+          fill: var(--color-link);
+        }
+      }
+    }
+  }
+}
+
+#mobile_action_buttons_row {
+  button {
+    width: 100%;
   }
 }

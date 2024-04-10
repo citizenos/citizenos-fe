@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { LocationService } from './location.service';
-import { Observable, switchMap, map, of, tap, take } from 'rxjs';
+import { Observable, switchMap, map, of, tap, take, BehaviorSubject, exhaustMap, shareReplay } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic'; // Vote interface
 import { Vote } from 'src/app/interfaces/vote'; // Vote interface
 import { AuthService } from './auth.service';
@@ -25,7 +25,20 @@ export class TopicVoteService {
 
   STATUSES = this.TopicService.STATUSES;
 
+  private loadVote$ = new BehaviorSubject<void>(undefined);
+
   constructor(private Location: LocationService, private http: HttpClient, private Auth: AuthService, private TopicService: TopicService) { }
+
+  loadVote(params?: { [key: string]: string | boolean }) {
+    return this.loadVote$.pipe(
+      exhaustMap(() => this.get(params)),
+      shareReplay()
+    );
+  }
+
+  reloadVote(): void {
+    this.loadVote$.next();
+  }
 
   query(params: any) {
     let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('topics/:topicId/votes'), params);

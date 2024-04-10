@@ -11,6 +11,19 @@
   }
 }
 
+.member_info {
+  display: flex;
+  flex-direction: column;
+
+  .via {
+    font-size: 13px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 16px; /* 123.077% */
+        color: var(--color-argument-info);
+  }
+}
+
 .name {
   flex: 5 5 0;
   text-align: start;

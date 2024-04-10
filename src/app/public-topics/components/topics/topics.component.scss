@@ -4,7 +4,7 @@
   gap: 24px;
 
   @include mixins.tablet {
-    margin: 60px 0;
+    margin: 56px 0;
     gap: 16px;
 
     #page_header {
@@ -33,6 +33,12 @@
   width: 100%;
   padding: 16px;
   gap: 16px;
+
+  @include mixins.mobile {
+    margin: 0 8px;
+    padding: 0;
+    width: auto;
+  }
 
   .dropdown {
     width: 100%;
@@ -110,6 +116,11 @@
   display: flex;
   gap: 24px;
   flex-flow: row wrap;
+
+  @include mixins.tablet {
+    gap: 20px;
+  }
+
   @include mixins.mobile {
     padding: 0 16px;
     justify-content: center;

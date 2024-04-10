@@ -21,11 +21,13 @@
     </div>
   </div>
   <div class="line_separator"></div>
-  <div class="cos_cal_days" *ngFor="let week of calendar; let i = index">
-    <div class="cos_cal_week">
-      <button class="cos_cal_day" (click)="selectDate(day)" *ngFor="let day of week">
-        <span class="day_item" [ngClass]="{ 'empty': day < 0, 'selected': isSelected(day) }">{{getDay(day)}}</span>
-      </button>
+  <div class="cos_cal_days_wrap">
+    <div class="cos_cal_days" *ngFor="let week of calendar; let i = index">
+      <div class="cos_cal_week">
+        <button class="cos_cal_day" (click)="selectDate(day)" *ngFor="let day of week">
+          <span class="day_item" [ngClass]="{ 'empty': day < 0, 'selected': isSelected(day) }">{{getDay(day)}}</span>
+        </button>
+      </div>
     </div>
   </div>
 </div>

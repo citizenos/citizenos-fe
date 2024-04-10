@@ -43,7 +43,7 @@ topic-member-invite {
 .dropdown {
   &.dropdown_active {
     .options {
-      position: fixed;
+      position: absolute;
       width: max-content;
     }
   }

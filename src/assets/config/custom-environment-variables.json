@@ -35,5 +35,9 @@
   },
   "helplink": "CITIZENOS_HELP_LINK",
   "newHelp": "CITIZENOS_HELP_NEW",
-  "showHelpTooltip": "CITIZENOS_SHOW_HELP_TOOLTIP"
+  "showHelpTooltip": "CITIZENOS_SHOW_HELP_TOOLTIP",
+  "plausible": {
+    "__name": "CITIZENOS_PLAUSIBLE",
+    "__format": "json"
+  }
 }

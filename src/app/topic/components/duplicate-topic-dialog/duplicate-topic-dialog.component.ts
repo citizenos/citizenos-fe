@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DIALOG_DATA } from 'src/app/shared/dialog';
 import { Topic } from 'src/app/interfaces/topic';
 
 @Component({
@@ -9,7 +9,7 @@ import { Topic } from 'src/app/interfaces/topic';
 })
 export class DuplicateTopicDialogComponent {
   topic!: Topic;
-  constructor (@Inject(MAT_DIALOG_DATA) private data: any ) {
+  constructor (@Inject(DIALOG_DATA) private data: any ) {
     this.topic = data.topic;
   }
 }

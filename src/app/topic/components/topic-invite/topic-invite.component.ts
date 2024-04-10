@@ -1,5 +1,8 @@
+import { DIALOG_DATA } from 'src/app/shared/dialog/dialog-tokens';
 import { Component, OnInit, Inject, Input, Output, EventEmitter } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+//import { DialogRef, DIALOG_DATA } from 'src/app/shared/dialog';
+import { DialogService } from 'src/app/shared/dialog/dialog.service';
+import { DialogRef } from 'src/app/shared/dialog/dialog-ref';
 import { isEmail } from 'validator';
 import { take, of, switchMap, forkJoin, Observable } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
@@ -21,7 +24,7 @@ export interface TopicInviteData {
   styleUrls: ['./topic-invite.component.scss']
 })
 export class TopicInviteComponent implements OnInit {
-  @Input() dialog?= false;
+  @Input() dialog? = false;
   @Input() topic!: Topic;
   @Input() members = <any[]>[];
   @Input() inviteMessage?: string;
@@ -44,7 +47,7 @@ export class TopicInviteComponent implements OnInit {
   public maxUsers = 550;
 
   public membersPage = 1;
-  public itemsPerPage = 10;
+  public itemsPerPage = 5;
 
   public invalid = <any[]>[];
   public LEVELS = Object.keys(this.TopicService.LEVELS);
@@ -96,6 +99,9 @@ export class TopicInviteComponent implements OnInit {
   }
 
   addTopicMember(member?: any) {
+    if (member?.text) {
+      member = member.text
+    }
     this.searchResultUsers$ = of([]);
     this.search('');
     if (this.members.length >= this.maxUsers) {
@@ -209,8 +215,10 @@ export class TopicInviteComponent implements OnInit {
       forkJoin(topicMemberUsersToSave)
         .pipe(take(1))
         .subscribe((res: any) => {
-          this.Notification.addSuccess('COMPONENTS.TOPIC_INVITE.MSG_INVITES_SENT');
           this.TopicService.reloadTopic();
+          setTimeout(() => {
+            this.Notification.addSuccess('COMPONENTS.TOPIC_INVITE.MSG_INVITES_SENT');
+          }, 500);
         })
     }
   };
@@ -253,12 +261,16 @@ export class TopicInviteDialogComponent {
   activeTab = 'invite';
   members = [];
   public inviteMessage = '';
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, @Inject(MatDialogRef) private dialog: MatDialogRef<TopicInviteDialogComponent>, private TopicInviteUser: TopicInviteUserService, public Notification: NotificationService) {
+  noUsersSelected = false;
+  constructor(private DialogService: DialogService, @Inject(DIALOG_DATA) public data: any, @Inject(DialogRef) private dialog: DialogRef<TopicInviteDialogComponent>, private TopicInviteUser: TopicInviteUserService, public Notification: NotificationService) {
     if (!this.canInvite()) {
       this.activeTab = 'share';
     }
   }
 
+  close() {
+    this.dialog.close();
+  }
   canInvite() {
     return this.TopicInviteUser.canInvite(this.data.topic);
   }
@@ -281,15 +293,18 @@ export class TopicInviteDialogComponent {
           .pipe(take(1))
           .subscribe(res => {
             this.Notification.removeAll();
-            this.Notification.addSuccess('COMPONENTS.TOPIC_INVITE_DIALOG.MSG_INVITES_SENT');
             this.dialog.close()
+            setTimeout(() => {
+              this.Notification.addSuccess('COMPONENTS.TOPIC_INVITE.MSG_INVITES_SENT');
+            }, 500);
           })
       } else {
         this.dialog.close(topicMemberUsersToInvite);
       }
     } else {
       this.Notification.removeAll();
-      this.dialog.close();
+      this.noUsersSelected = true;
+      setTimeout(() => this.noUsersSelected = false, 5000)
     }
 
   }

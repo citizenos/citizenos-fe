@@ -1,5 +1,6 @@
 import { trigger, state, style } from '@angular/animations';
 import { Component, OnInit, Input, Inject } from '@angular/core';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { take } from 'rxjs';
@@ -14,24 +15,29 @@ import { TopicArgumentService } from 'src/app/services/topic-argument.service';
     trigger('openSlide', [
       // ...
       state('open', style({
-        'maxHeight': 'initial',
-        transition: '0.5s ease-in-out max-height'
+        'maxHeight': '100%',
+        transition: 'max-height 0.2s ease-in-out',
       })),
       state('closed', style({
         padding: '0',
         'maxHeight': '0',
-        transition: '0.5s ease-in-out max-height'
+        transition: 'all 0.2s ease-in-out',
       }))
-  ])]
+    ])]
 })
 export class PostArgumentComponent implements OnInit {
   @Input() topicId!: string;
   wWidth = window.innerWidth;
   focusArgumentSubject = false;
-  subject = <string>'';
   argumentType = <string>'pro';
-  text = <string>'';
   errors: any;
+
+  text = <string>'';
+  argumentForm = new UntypedFormGroup({
+    subject: new UntypedFormControl('', [Validators.required]),
+    text: new UntypedFormControl('', [Validators.required]),
+  });
+
   ARGUMENT_TYPES = Object.keys(this.TopicArgumentService.ARGUMENT_TYPES).filter((key) => key != 'reply');
   ARGUMENT_TYPES_MAXLENGTH = this.TopicArgumentService.ARGUMENT_TYPES_MAXLENGTH;
   ARGUMENT_SUBJECT_MAXLENGTH = this.TopicArgumentService.ARGUMENT_SUBJECT_MAXLENGTH;
@@ -56,22 +62,27 @@ export class PostArgumentComponent implements OnInit {
   }
 
   updateText(text: any) {
-    this.text = text;
+    this.argumentForm.controls['text'].markAsTouched();
+    this.argumentForm.controls['text'].setValue(text);
   }
 
   addNewArgument() {
-    this.app.addArgument.next(true);
+    if (!this.loggedIn()) {
+      this.app.doShowLogin();
+    } else {
+      this.app.addArgument.next(true);
+    }
   }
 
-  close () {
+  close() {
     this.app.addArgument.next(false);
   }
   postArgument() {
     const argument = {
       parentVersion: 0,
       type: this.argumentType,
-      subject: this.subject,
-      text: this.text,
+      subject: this.argumentForm.value['subject'],
+      text: this.argumentForm.value['text'] ,
       topicId: this.topicId
     };
     this.TopicArgumentService
@@ -79,9 +90,10 @@ export class PostArgumentComponent implements OnInit {
       .pipe(take(1))
       .subscribe({
         next: (argument) => {
-          this.subject = '';
-          this.text = '';
+          this.argumentForm.reset();
           this.TopicArgumentService.reset();
+          this.text = '';
+          this.TopicArgumentService.setParam('topicId', this.topicId)
           this.app.addArgument.next(false);
           this.router.navigate(
             [],

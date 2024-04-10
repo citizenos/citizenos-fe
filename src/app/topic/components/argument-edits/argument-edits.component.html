@@ -17,7 +17,6 @@
           </div>
           <span>{{item.value.createdAt | date : 'yyyy-MM-dd HH:mm'}}</span>
         </div>
-        <a (click)="$event.stopPropagation(); copyArgumentLink($event, item.key)"><span translate="LNK_DIRECT_LINK"></span></a>
       </div>
       <div class="argument_content">
         <div class="argument_subject" *ngIf="item.value.subject">

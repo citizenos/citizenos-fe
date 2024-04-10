@@ -1,6 +1,6 @@
 import { AuthService } from './auth.service';
 import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { BehaviorSubject, map, take } from 'rxjs';
 import { Group } from '../interfaces/group';
 import { Topic } from '../interfaces/topic';
@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 import { LoginDialogComponent } from '../account/components/login/login.component';
 import { RegisterDialogComponent } from '../account/components/register/register.component';
 import { CreateComponent } from 'src/app/core/components/create/create.component';
-import { ActivityFeedComponent } from '../core/components/activity-feed/activity-feed.component';
+import { ActivityFeedDialogComponent } from '../core/components/activity-feed/activity-feed.component';
 import { HttpClient } from '@angular/common/http';
 import { ApiResponse } from '../interfaces/apiResponse';
 import { Title, Meta, MetaDefinition } from '@angular/platform-browser';
@@ -30,6 +30,8 @@ export class AppService {
   mobileTutorial = false;
   editMode = false;
   darkNav = false;
+  mobileNavBox = false;
+  tabletNav = false;
   showActivities = false;
   searchAllowed = true;
   addArgument = new BehaviorSubject(false);
@@ -46,7 +48,7 @@ export class AppService {
     text: ''
   });
 
-  constructor(private dialog: MatDialog,
+  constructor(private dialog: DialogService,
     private Title: Title,
     private Meta: Meta,
     private translate: TranslateService,
@@ -58,25 +60,29 @@ export class AppService {
     private AuthService: AuthService,
     private http: HttpClient) { }
 
-  showMobile () {
+  showMobile() {
     return window.innerWidth <= 560;
   }
 
   doShowActivityModal(params?: any) {
-    this.dialog.closeAll();
-    const activitiesDialog = this.dialog.open(ActivityFeedComponent, {
-      data: params
-    });
-    this.showActivities = true;
-    activitiesDialog.afterClosed().subscribe({
-      next: () => {
-        this.showActivities = false;
-      }
-    })
+    if (this.showMobile() && !params.topicId && !params.groupId) {
+      this.router.navigate([this.translate.currentLang, 'activity']);
+    } else {
+      this.dialog.closeAll();
+      const activitiesDialog = this.dialog.open(ActivityFeedDialogComponent, {
+        data: params
+      });
+      this.showActivities = true;
+      activitiesDialog.afterClosed().subscribe({
+        next: () => {
+          this.showActivities = false;
+        }
+      })
+    }
   };
 
   doShowLogin(redirectSuccess?: string) {
-    this.dialog.open(LoginDialogComponent, {data: {redirectSuccess}});
+    this.dialog.open(LoginDialogComponent, { data: { redirectSuccess } });
   }
 
   doShowRegister(email?: string) {
@@ -99,49 +105,35 @@ export class AppService {
 
   logout() {
     this.AuthService.logout()
-    .pipe(take(1))
-    .subscribe({
-      next: (done) => {
-        this.AuthService.status().pipe(take(1)).subscribe();
-        setTimeout(() => {
-          this.router.navigate(['/']);
-        });
-      },
-      error: (err) => {
-        console.error('LOGOUT ERROR', err);
-      }
-    });
+      .pipe(take(1))
+      .subscribe({
+        next: (done) => {
+          this.AuthService.reloadUser();
+          setTimeout(() => {
+            this.router.navigate(['/']);
+          });
+        },
+        error: (err) => {
+          console.error('LOGOUT ERROR', err);
+        }
+      });
   }
 
-  createNewTopic(title?: string, visibility?: string, groupId?: string, groupLevel?: string) {
+  createNewTopic(groupId?: string, voting?: boolean) {
     const topic = <any>{};
-    if (title) {
-      topic['description'] = '<html><head></head><body><h1>' + title + '</h1></body></html>';
+    const url = ['topics'];
+    if (voting) {
+      url.push('vote');
     }
-    if (visibility === 'public') {
-      topic['visibility'] = this.TopicService.VISIBILITY.public;
-    }
-
+    topic.description = '<html><head></head><body></body></html>';
     this.TopicService.save(topic)
       .pipe(take(1))
       .subscribe((topic) => {
+        const redirect = url.concat(['create', topic.id])
         if (groupId) {
-          const level = groupLevel || this.GroupMemberTopicService.LEVELS.read;
-          const member = {
-            groupId: groupId,
-            topicId: topic.id,
-            level: level
-          };
-          this.GroupMemberTopicService
-            .save(member)
-            .pipe(take(1)).
-            subscribe(() => {
-              //this.router.navigate(['/topics', topic.id], { queryParams: { editMode: true } })
-              return topic;
-            });
+              this.router.navigate(redirect, {queryParams: {groupId}})
         } else {
-          //this.router.navigate(['/topics', topic.id], { queryParams: { editMode: true } })
-          return topic;
+          this.router.navigate(redirect)
         }
       });
   }
@@ -151,13 +143,13 @@ export class AppService {
     if (!this.createMenu) {
       const createDialog = this.dialog.open(CreateComponent);
       createDialog.afterClosed().subscribe(() => {
+        this.dialog.closeAll();
         this.createMenu = false;
       })
-    } else {
+      this.createMenu = true;
+    } else if (this.createMenu) {
       this.dialog.closeAll();
     }
-
-    this.createMenu = !this.createMenu;
   }
 
   hwCryptoErrorToTranslationKey(err: any) {
@@ -188,8 +180,8 @@ export class AppService {
     );
   };
 
-  setPageTitle (title?:string) {
-    this.Title.setTitle(title || this.translate.instant('META_DEFAULT_TITLE'));
+  setPageTitle(title?: string) {
+    this.Title.setTitle(this.translate.instant(title || 'META_DEFAULT_TITLE'));
     this.Meta.addTag({
       property: 'og:title',
       content: this.translate.instant(title || 'META_DEFAULT_TITLE')

@@ -37,6 +37,10 @@
     display: flex;
     gap: 8px;
 
+    .item_icon {
+      height: 24px;
+    }
+
     span {
       font-size: 14px;
       font-style: normal;
@@ -54,6 +58,15 @@
   flex-direction: column;
   padding: 24px 14px 16px 24px;
   justify-content: space-between;
+
+  @include mixins.mobile {
+    height: 176px;
+  }
+
+  @include mixins.mobile {
+    height: auto;
+    gap: 16px;
+  }
 
   .footer_text {
     display: flex;

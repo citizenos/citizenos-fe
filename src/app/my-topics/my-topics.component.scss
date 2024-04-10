@@ -4,7 +4,7 @@
   gap: 24px;
 
   @include mixins.tablet {
-    margin: 60px 0;
+    margin: 56px 0;
     gap: 16px;
 
     #page_header {
@@ -35,6 +35,11 @@
   padding: 16px;
   gap: 16px;
 
+  @include mixins.mobile {
+    margin: 0 8px;
+    padding: 0;
+    width: auto;
+  }
   .dropdown {
     width: 100%;
   }
@@ -100,6 +105,17 @@
           fill: none;
         }
       }
+
+      &:hover {
+        .btn_icon {
+          transform: rotate(-360deg);
+          transition: transform 150ms ease;
+          transition-delay: 200ms;
+          path {
+            stroke: var(--color-surfaces);
+          }
+        }
+      }
     }
   }
 }
@@ -109,6 +125,11 @@
   display: flex;
   gap: 24px;
   flex-flow: row wrap;
+
+  @include mixins.tablet {
+    gap: 20px;
+  }
+
   @include mixins.mobile {
     justify-content: center;
     padding: 0 16px;
@@ -128,5 +149,16 @@
 
   button {
     margin-top: 8px;
+  }
+}
+
+#close_create {
+  @extend %all_zero;
+  position: fixed;
+  cursor: pointer;
+  z-index: 1;
+
+  @include mixins.tablet {
+    background-color: rgba(44, 59, 71, 0.8);
   }
 }

@@ -17,6 +17,31 @@
     vertical-align: middle;
   }
 
+
+.icons_wrap {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 24px;
+  justify-content: flex-start;
+
+  @include mixins.mobile {
+    gap: 8px;
+    max-width: 100%;
+  }
+  a.login_icon {
+    cursor: pointer;
+    width: 64px;
+    height: 64px;
+    background-color: #f9fbfd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    border-radius: 48px;
+  }
+}
+
   a {
     width: max-content;
   }
@@ -37,3 +62,4 @@
     }
   }
 }
+

@@ -2,7 +2,8 @@ import { LocationService } from 'src/app/services/location.service';
 import { ItemsListService } from 'src/app/services/items-list.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, BehaviorSubject } from 'rxjs';
+import { map, BehaviorSubject, shareReplay, exhaustMap } from 'rxjs';
+import { ApiResponse } from '../interfaces/apiResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +12,19 @@ export class GroupInviteUserService extends ItemsListService {
   params = Object.assign(this.defaultParams, {groupId: <string | null>null});
   params$ = new BehaviorSubject(this.params);
 
+  public LEVELS = ['read','admin'];
+  public loadMembers$ = new BehaviorSubject<void>(undefined);
+
   constructor(private http: HttpClient, private Location: LocationService) {
     super();
-    this.items$ = this.loadItems();
+    this.items$ = this.loadMembers$.pipe(
+      exhaustMap(() => this.loadItems()),
+      shareReplay()
+    );
+  }
+
+  reloadItems(): void {
+    this.loadMembers$.next();
   }
 
   getItems(params:any) {
@@ -64,12 +75,20 @@ export class GroupInviteUserService extends ItemsListService {
   }
 
   delete(params: any) {
-    let path = this.Location.getAbsoluteUrlApi('/api/users/self/groups/:groupId/invites/users/:id', params);
+    let path = this.Location.getAbsoluteUrlApi('/api/users/self/groups/:groupId/invites/users/:inviteId', params);
 
     return this.http.delete<any>(path, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
       map((data) => {
         return data;
       })
+    );
+  }
+
+  update(data: any) {
+    if (!data.inviteId) data.inviteId = data.id;
+    const path = this.Location.getAbsoluteUrlApi('/api/users/self/groups/:groupId/invites/users/:inviteId', data);
+    return this.http.put<ApiResponse>(path, data, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
+      map(res => res.data)
     );
   }
 }

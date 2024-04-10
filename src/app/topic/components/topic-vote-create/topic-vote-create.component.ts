@@ -1,13 +1,14 @@
-import { Component, OnInit, Output, EventEmitter, Input, Inject, inject, HostBinding, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, Inject, inject, HostBinding, ChangeDetectorRef, enableProdMode } from '@angular/core';
 import { Topic } from 'src/app/interfaces/topic';
-import { Vote } from 'src/app/interfaces/vote';
 import { TopicService } from 'src/app/services/topic.service';
 import { TopicVoteService } from 'src/app/services/topic-vote.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { TranslateService } from '@ngx-translate/core';
 import { take } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
+import { Vote } from 'src/app/interfaces/vote';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 @Component({
   selector: 'topic-vote-create',
   templateUrl: './topic-vote-create.component.html',
@@ -17,6 +18,7 @@ export class TopicVoteCreateComponent implements OnInit {
   @Input() topic!: Topic;
   @Input() vote!: any;
   @Output() saveVote = new EventEmitter();
+  @Output() syncSettings = new EventEmitter();
 
   VOTE_TYPES = this.TopicVoteService.VOTE_TYPES;
   voteTypes = Object.keys(this.VOTE_TYPES);
@@ -25,33 +27,6 @@ export class TopicVoteCreateComponent implements OnInit {
   timezones = <any[]>[];
   datePickerMin = new Date();
   public CONF = {
-    defaultOptions: {
-      regular: [
-        {
-          value: 'Yes',
-          enabled: true
-        },
-        {
-          value: 'No',
-          enabled: true
-        }
-      ],
-      multiple: [
-        { value: null },
-        { value: null },
-        { value: null }
-      ]
-    },
-    extraOptions: {
-      neutral: {
-        value: 'Neutral',
-        enabled: false
-      }, // enabled - is the option enabled by default
-      veto: {
-        value: 'Veto',
-        enabled: false
-      }
-    },
     autoClose: [{
       value: 'allMembersVoted',
       enabled: false
@@ -99,6 +74,23 @@ export class TopicVoteCreateComponent implements OnInit {
       enabled: false
     }
   };
+
+  predefinedOptions = <any> {
+    yes: {
+      value: 'Yes',
+      enabled: true
+    },
+    no: {
+      value: 'No',
+      enabled: true
+    }
+  }
+
+  customOptions = [
+    {value: ''},
+    {value: ''},
+    {value: ''},
+  ]
   reminder = false;
   reminderOptionsList = [{ value: 1, unit: 'days' }, { value: 2, unit: 'days' }, { value: 3, unit: 'days' }, { value: 1, unit: 'weeks' }, { value: 2, unit: 'weeks' }, { value: 1, unit: 'month' }];
   reminderOptions = <any[]>[];
@@ -112,29 +104,49 @@ export class TopicVoteCreateComponent implements OnInit {
     public router: Router
   ) {
     this.setTimeZones();
-
   }
 
   ngOnInit(): void {
-    this.topicId = this.topic.id;
-    if (!this.topic.voteId && !this.vote) {
+    if (!this.vote) {
       this.vote = Object.assign({}, this.voteDefault);
     }
+    this.topicId = this.topic.id;
 
     if (this.vote.endsAt) {
       this.deadline = new Date(this.vote.endsAt);
       this.endsAt.date = this.deadline;
       this.endsAt.min = this.deadline.getMinutes();
       this.endsAt.h = this.deadline.getHours();
+  //    this.setEndsAtTime();
+    }
+    if (this.vote.type === this.VOTE_TYPES.multiple) {
+      this.customOptions = [];
     }
     this.vote.options.forEach((opt: any) => {
-      if (opt.value === 'Neutral') {
-        this.extraOptions.neutral.enabled = true;
-      } else if (opt.value === 'Veto') {
-        this.extraOptions.veto.enabled = true;
+      const val = opt.value.toLowerCase();
+
+      switch (val) {
+        case 'yes':
+          this.predefinedOptions.yes.enabled = true;
+          break;
+        case 'no':
+          this.predefinedOptions.no.enabled = true;
+          break;
+        case 'neutral':
+          this.extraOptions.neutral.enabled = true;
+          break;
+        case 'veto':
+          this.extraOptions.veto.enabled = true;
+          break;
+        default:
+          this.customOptions.push(opt);
       }
       this.cd.detectChanges();
     })
+    if (this.vote.reminderTime) {
+      this.reminder = true;
+      this.setReminderOptions();
+    }
   }
 
   private setTimeZones() {
@@ -150,37 +162,58 @@ export class TopicVoteCreateComponent implements OnInit {
     }
   };
 
+  toggleOption(option: string) {
+    switch (option.toLowerCase()) {
+      case 'yes':
+        this.predefinedOptions.yes.enabled = !this.predefinedOptions.yes.enabled;
+        break;
+      case 'no':
+        this.predefinedOptions.no.enabled = !this.predefinedOptions.no.enabled;
+        break;
+      case 'neutral':
+        this.extraOptions.neutral.enabled = !this.extraOptions.neutral.enabled;
+        break;
+      case 'veto':
+        this.extraOptions.veto.enabled = !this.extraOptions.veto.enabled;
+        break;
+    }
+    this.filterOptions();
+  }
+
   setVoteType(voteType: string) {
     if (!this.TopicService.canEditDescription(this.topic)) return;
     if (voteType == this.VOTE_TYPES.multiple) {
       this.vote.type = voteType;
-      if (!this.vote.options)
-        this.vote.options = this.CONF.defaultOptions.multiple;
+      if (!this.vote.options.length)
       this.vote.maxChoices = 1;
     } else {
       this.vote.type = this.VOTE_TYPES.regular;
-      this.vote.options = this.CONF.defaultOptions.regular;
     }
+    this.filterOptions();
   };
 
   addOption() {
-    this.vote.options.push({ value: null });
+    this.customOptions.push({ value: '' });
   };
 
   removeOption(key: number) {
-    this.vote.options.splice(key, 1);
+    this.customOptions.splice(key, 1);
+    this.filterOptions();
   };
 
   optionsCountUp(type?: string) {
     const options = this.vote.options.filter((option: any) => {
       return !!option.value;
     });
-    if (type === 'min' && this.vote.minChoices < options.length) {
+    let count = options.length;
+    if (this.extraOptions.neutral.enabled) count = count-1;
+    if (this.extraOptions.veto.enabled) count = count-1;
+    if (type === 'min' && this.vote.minChoices < count) {
       this.vote.minChoices++;
       if (this.vote.minChoices > this.vote.maxChoices) {
         this.vote.maxChoices = this.vote.minChoices;
       }
-    } else if (this.vote.maxChoices < options.length) {
+    } else if (this.vote.maxChoices < count) {
       this.vote.maxChoices++;
     }
   };
@@ -209,6 +242,17 @@ export class TopicVoteCreateComponent implements OnInit {
     return this.deadline;
   }
 
+  getOptionsLimit () {
+    let count = this.vote.options.length;
+
+    if (this.extraOptions.neutral.enabled) {count = count-1;}
+    if (this.extraOptions.veto.enabled) {count = count-1;}
+
+    if (this.vote.maxChoices > count && count > 0) this.vote.maxChoices = count;
+    if (this.vote.minChoices > count && count > 0) this.vote.minChoices = count;
+    return count;
+  }
+
   toggleDeadline() {
     if (!this.deadline) {
       this.endsAt.h = new Date().getHours();
@@ -216,6 +260,7 @@ export class TopicVoteCreateComponent implements OnInit {
       this.setEndsAtTime();
     } else {
       this.deadline = null;
+      this.vote.endsAt = this.deadline;
     }
   }
 
@@ -266,6 +311,18 @@ export class TopicVoteCreateComponent implements OnInit {
     return val;
   };
 
+  timeFormatDisabled () {
+    const now = new Date();
+    const deadline = new Date(this.deadline);
+    if (new Date(deadline.getFullYear(), deadline.getMonth(), deadline.getDate()).getTime() === new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime()) {
+      if (deadline.getHours() > 12) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   setTimeFormat() {
     this.HCount = 23;
     if (this.endsAt.timeFormat !== 24) {
@@ -311,7 +368,6 @@ export class TopicVoteCreateComponent implements OnInit {
       if (this.deadline) {
         this.vote.endsAt = this.deadline
       }
-      console.log(this.vote);
       this.saveVote.emit(this.vote);
     }
   }
@@ -357,28 +413,37 @@ export class TopicVoteCreateComponent implements OnInit {
   };
 
   filterOptions() {
-    for (let o in this.extraOptions) {
-      const option = this.extraOptions[o];
-      this.vote.options = this.vote.options.filter((opt: any) => {
-        return opt.value !== option.value;
-      });
-      if (option.enabled) {
-        this.vote.options.push({ value: option.value });
+    let options = [];
+    if (this.vote.type === this.VOTE_TYPES.regular) {
+      this.vote.options = [];
+      for (let o in this.predefinedOptions) {
+        const option = this.predefinedOptions[o];
+        if (option.enabled) {
+          options.push({ value: option.value });
+        }
+      }
+    } else {
+      for (let key in this.customOptions) {
+        if (this.customOptions[key].value)
+          options.push(this.customOptions[key]);
       }
     }
-    this.vote.options = this.vote.options.filter((option: any) => {
-      return !!option.value
-    });
+    for (let o in this.extraOptions) {
+      const option = this.extraOptions[o];
+      if (option.enabled) {
+        options.push({ value: option.value });
+      }
+    }
+    this.vote.options = Object.assign([], options);
   }
 
   displayOptInput(option: any) {
-    return (Object.keys(this.extraOptions).indexOf(option.value) === -1)
+    return (Object.keys(this.extraOptions).indexOf(option.value?.toLowerCase()) === -1)
   }
 
   updateVote() {
     this.filterOptions();
     const updateVote = Object.assign({topicId: this.topic.id}, this.vote);
-    console.log('DEADLINE', this.deadline);
     if (this.deadline) {
       updateVote.endsAt = this.deadline;
     }
@@ -416,6 +481,20 @@ export class TopicVoteCreateComponent implements OnInit {
         }
       });
   };
+
+  toggleDelegation ($event: any) {
+    if ($event.target.nodeName === "INPUT") {
+      return;
+    }
+
+    return this.vote.delegationIsAllowed =!this.vote.delegationIsAllowed;
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.customOptions, event.previousIndex, event.currentIndex);
+    this.filterOptions();
+  }
+
 }
 @Component({
   selector: 'topic-vote-create-dialog',
@@ -427,29 +506,56 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
   tabs = [...Array(4).keys()];
   tabActive = 1;
 
-  @HostBinding('class.pos_dialog_fixed') addPosAbsolute: boolean = false;
 
-  private dialog = inject(MatDialog);
-  private data = inject(MAT_DIALOG_DATA);
+  private dialog = inject(DialogService);
+  private data = inject(DIALOG_DATA);
 
   override ngOnInit(): void {
+    if (!this.vote) {
+      this.vote = Object.assign({}, this.voteDefault);
+    }
     this.topic = this.data.topic;
     this.topicId = this.topic.id;
 
     if (this.topic.voteId) {
       this.router.navigate(['/topics', this.topic.id, 'votes', this.topic.voteId]);
     }
-    if (!this.topic.voteId && !this.vote) {
-      this.vote = Object.assign({}, this.voteDefault);
+
+    this.vote.options.forEach((opt: any) => {
+      const val = opt.value.toLowerCase();
+
+      switch (val) {
+        case 'yes':
+          this.predefinedOptions.yes.enabled = true;
+          break;
+        case 'no':
+          this.predefinedOptions.no.enabled = true;
+          break;
+        case 'neutral':
+          this.extraOptions.neutral.enabled = true;
+          break;
+        case 'veto':
+          this.extraOptions.veto.enabled = true;
+          break;
+      }
+    })
+    if (this.vote.reminderTime) {
+      this.reminder = true;
+      this.setReminderOptions();
     }
   }
 
+
+  isNextDisabled () {
+    if (this.tabActive === 2 && (!this.vote.type || !this.vote.description)) return true;
+    if (this.tabActive === 3 && (!this.vote.authType || this.vote.options.length < 2)) return true;
+    return false;
+  }
+
   tabNext() {
-    this.addPosAbsolute = false;
-    if (this.tabActive === 2 && !this.vote.type) return;
+    if (this.tabActive === 2 && (!this.vote.type || !this.vote.description)) return;
     if (this.tabActive >= 3) this.filterOptions();
-    (this.tabActive < 4) ? this.tabActive = this.tabActive + 1 : this.createVote()
-    if (this.tabActive === 3) this.addPosAbsolute = true;
+    (this.tabActive < 4) ? setTimeout(() => this.tabActive = this.tabActive + 1) : this.createVote()
   }
 
   override createVote() {
@@ -475,6 +581,7 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
           this.TopicService.reloadTopic();
           this.router.navigate(['/topics', this.topic.id], { fragment: 'voting' });
           this.route.url.pipe(take(1)).subscribe();
+          this.Notification.addSuccess('VIEWS.VOTE_CREATE.SUCCESS_VOTE_STARTED');
           this.dialog.closeAll();
         },
         error: (res:any) => {

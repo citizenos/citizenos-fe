@@ -1,8 +1,9 @@
 import { style, transition, trigger, animate, state } from '@angular/animations';
-import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Component, OnInit, Input, inject} from '@angular/core';
+import { DIALOG_DATA, DialogRef, DialogService } from 'src/app/shared/dialog';
 import { map, tap, of } from 'rxjs';
 import { ActivityService } from 'src/app/services/activity.service'
+import { Location } from '@angular/common';
 @Component({
   selector: 'activity-feed',
   templateUrl: './activity-feed.component.html',
@@ -13,7 +14,7 @@ import { ActivityService } from 'src/app/services/activity.service'
         right: 0,
       })),
       state('closed', style({
-        right: '-300px'
+        right: '-100vw'
       })),
       transition('* => closed', [
         animate('1s')
@@ -30,7 +31,10 @@ export class ActivityFeedComponent implements OnInit {
   activities$ = of(<any[]>[]);
   show = false;
   feedType = 'global';
-  constructor(public ActivityService: ActivityService, @Inject(MAT_DIALOG_DATA) private data: any, private dialogRef: MatDialogRef<ActivityFeedComponent>) {
+  @Input() groupId?: string;
+  @Input() topicId?: string;
+  @Input() modal?: boolean;
+  constructor(public ActivityService: ActivityService, private location: Location, public dialog: DialogService) {
     setTimeout(() => {
       this.show = true
     });
@@ -39,17 +43,25 @@ export class ActivityFeedComponent implements OnInit {
   filterActivities(filter: string) {
     this.allActivities$ = [];
     this.ActivityService.reset();
+    if (this.groupId) {
+      this.feedType = 'group';
+      this.ActivityService.setParam('groupId', this.groupId);
+    }
+    if (this.topicId) {
+      this.feedType = 'topic';
+      this.ActivityService.setParam('topicId', this.topicId);
+    }
     this.ActivityService.setParam('include', filter)
   }
   ngOnInit(): void {
     this.ActivityService.reset();
-    if (this.data?.groupId) {
+    if (this.groupId) {
       this.feedType = 'group';
-      this.ActivityService.setParam('groupId', this.data.groupId);
+      this.ActivityService.setParam('groupId', this.groupId);
     }
-    if (this.data?.topicId) {
+    if (this.topicId) {
       this.feedType = 'topic';
-      this.ActivityService.setParam('topicId', this.data.topicId);
+      this.ActivityService.setParam('topicId', this.topicId);
     }
     this.activities$ = this.ActivityService.loadItems().pipe(
       tap((res: any) => {
@@ -75,10 +87,32 @@ export class ActivityFeedComponent implements OnInit {
       this.ActivityService.loadMore();
     }
   }
-  close () {
+
+  close() {
+    console.log('cLOSE');
+    this.ActivityService.reset();
+    this.ActivityService.reloadUnreadItems();
     this.show = false;
-    setTimeout(() => {
-      this.dialogRef.close();
-    }, 500)
+    if (!this.modal) {
+      this.location.back();
+    } else {
+      this.dialog.closeAll();
+    }
+  }
+}
+@Component({
+  selector: 'activity-feed-dialog',
+  templateUrl: './activity-feed-dialog.component.html',
+  styleUrls: ['./activity-feed.component.scss'],
+})
+export class ActivityFeedDialogComponent extends ActivityFeedComponent {
+  public data: any = inject(DIALOG_DATA);
+  private dialogRef: any = inject(DialogRef<ActivityFeedComponent>);
+  override close() {
+    this.show = false;
+    console.log('cLOSE');
+    this.ActivityService.reset();
+    this.ActivityService.reloadUnreadItems();
+    this.dialog.closeAll();
   }
 }

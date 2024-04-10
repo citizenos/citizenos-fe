@@ -2,7 +2,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { GroupService } from 'src/app/services/group.service';
 import { GroupMemberUserService } from 'src/app/services/group-member-user.service';
 import { Component, OnInit, Input } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { take, catchError } from 'rxjs/operators';
 import { Group } from 'src/app/interfaces/group';
 import { GroupMemberUser } from 'src/app/interfaces/user';
@@ -21,7 +21,7 @@ export class GroupMemberUserComponent implements OnInit {
   memberLevels = this.GroupMemberUser.LEVELS;
 
   LEVELS = Object.keys(this.GroupMemberUser.LEVELS);
-  constructor(private dialog: MatDialog, public app: AppService, private AuthService: AuthService, private GroupMemberUser: GroupMemberUserService,private GroupService: GroupService) { }
+  constructor(private dialog: DialogService, public app: AppService, private AuthService: AuthService, private GroupMemberUser: GroupMemberUserService,private GroupService: GroupService) { }
 
   ngOnInit(): void {
   }

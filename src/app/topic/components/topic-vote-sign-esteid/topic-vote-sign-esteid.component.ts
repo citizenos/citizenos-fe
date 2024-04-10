@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicVoteSignData } from '../topic-vote-sign/topic-vote-sign.component';
 import { TopicVoteService } from 'src/app/services/topic-vote.service';
@@ -32,8 +32,8 @@ export class TopicVoteSignEsteidComponent implements OnInit {
     phoneNumber: new UntypedFormControl('', Validators.compose([Validators.pattern(/^\+?[0-9\s-]{7,}$/), Validators.required]))
   });
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: TopicVoteSignData,
-    private dialog: MatDialog,
+  constructor(@Inject(DIALOG_DATA) public data: TopicVoteSignData,
+    private dialog: DialogService,
     private Notification: NotificationService,
     public TopicVoteService: TopicVoteService,
     private translate: TranslateService,

@@ -1,5 +1,5 @@
 <ng-container *ngIf="topic && group">
-  <div class="row_cell">
+  <div class="name">
     <div class="profile_image_wrap">
       <img class="profile_image" *ngIf="group.imageUrl" [src]="group.imageUrl">
       <div class="profile_image_filler" *ngIf="!group.imageUrl">
@@ -10,7 +10,7 @@
     <a class="user_name" *ngIf="group.permission.level" [routerLink]="['/my/groups/', group.id]"
       [innerHtml]>{{group.name}}</a>
   </div>
-  <div class="row_cell">
+  <div class="level">
     <div class="dropdown" [cosDropdown] *ngIf="TopicService.canUpdate(topic)">
       <div class="selection">
         <div class="selected_item">{{'TXT_TOPIC_LEVELS_' + (group.level) |

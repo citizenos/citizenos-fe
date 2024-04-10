@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { LocationService } from './location.service';
-import { Observable, switchMap, map, of, take, BehaviorSubject, exhaustMap, shareReplay } from 'rxjs';
+import { Observable, switchMap, map, tap, of, take, BehaviorSubject, exhaustMap, shareReplay } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { AuthService } from './auth.service';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { Router } from '@angular/router';
 
@@ -14,32 +14,36 @@ import { Router } from '@angular/router';
 })
 export class TopicService {
   public CATEGORIES = <any>{
-    biotoopia: 'biotoopia',
-    citizenos: 'citizenos',
-    eestijazziarengusuunad: 'eestijazziarengusuunad', // Special project with http://www.jazz.ee/ - https://github.com/citizenos/citizenos-api/issues/73
-    eurochangemakers: 'eurochangemakers',
-    hacktivistcommunity: 'hacktivistcommunity',
-    opinionfestival: 'opinionfestival',
-    pyln: 'pyln',
-    thetwelvemovie: 'thetwelvemovie',
-    thirtyfourislandproject: 'thirtyfourislandproject',
-    business: 'business', // Business and industry
-    transport: 'transport', // Public transport and road safety
-    taxes: 'taxes', // Taxes and budgeting
-    agriculture: 'agriculture', // Agriculture
-    environment: 'environment', // Environment, animal protection
-    culture: 'culture', // Culture, media and sports
-    health: 'health', // Health care and social care
-    work: 'work', // Work and employment
-    education: 'education', // Education
-    politics: 'politics', // Politics and public administration
-    communities: 'communities', // Communities and urban development
-    defense: 'defense', //  Defense and security
-    integration: 'integration', // Integration and human rights
-    youth: 'youth', //Youth
-    science: 'science', //Science and Technology
-    society: 'society', //Democracy and civil society
-    varia: 'varia' // Varia
+    agriculture: "agriculture",
+    animal_protection: "animal_protection",
+    arts: "arts",
+    business: "business",
+    civil_society: "civil_society",
+    communities: "communities",
+    culture: "culture",
+    defence: "defence",
+    democracy: "democracy",
+    diversity: "diversity",
+    education: "education",
+    entertainment: "entertainment",
+    environment: "environment",
+    equality: "equality",
+    health: "health",
+    human_rights: "human_rights",
+    legal: "legal",
+    media: "media",
+    migration: "migration",
+    politics: "politics",
+    public_transportation: "public_transportation",
+    religion: "religion",
+    science: "science",
+    social_welfare: "social_welfare",
+    sports: "sports",
+    taxes: "taxes",
+    technology: "technology",
+    urban_development: "urban_development",
+    work: "work",
+    youth: "youth",
   };
 
   public STATUSES = <any>{
@@ -64,7 +68,7 @@ export class TopicService {
 
   private loadTopic$ = new BehaviorSubject<void>(undefined);
 
-  constructor(private dialog: MatDialog, private Location: LocationService, private http: HttpClient, private Auth: AuthService, private router: Router) { }
+  constructor(private dialog: DialogService, private Location: LocationService, private http: HttpClient, private Auth: AuthService, private router: Router) { }
 
   loadTopic(id: string, params?: { [key: string]: string | boolean }) {
     return this.loadTopic$.pipe(
@@ -101,6 +105,18 @@ export class TopicService {
     );
   }
 
+  readDescription(id: string, rev?: string): Observable<Topic> {
+    let path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/description', { topicId: id });
+    let params = <any>{};
+    if (rev) {
+      params.rev = rev;
+    }
+    return this.http.get<ApiResponse>(path, { withCredentials: true, params , observe: 'body', responseType: 'json' })
+      .pipe(switchMap((res: any) => {
+        const topic = res.data;
+        return of(topic);
+      }))
+  }
   update(data: any) {
     const updateFields = ['visibility', 'status', 'categories', 'endsAt', 'hashtag', 'imageUrl', 'title', 'intro', 'contact', 'country', 'language'];
     const sendData: any = {};
@@ -119,8 +135,16 @@ export class TopicService {
       );
   }
 
+  revert (topicId: string ,rev: number) {
+    const path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/revert', { topicId: topicId });
+
+    return this.http.post<ApiResponse>(path, {rev: rev}, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
+      map(res => res.data)
+    );
+  }
+
   patch(data: any) {
-    const updateFields = ['title', 'visibility', 'status', 'categories', 'endsAt', 'hashtag','imageUrl', 'intro', 'contact', 'country', 'language'];
+    const updateFields = ['title', 'visibility', 'status', 'categories', 'endsAt', 'hashtag', 'imageUrl', 'intro', 'contact', 'country', 'language'];
     const sendData: any = {};
 
     updateFields.forEach((field) => {
@@ -205,15 +229,6 @@ export class TopicService {
 
   changeState(topic: Topic, state: string, stateSuccess?: string) {
     const templates = <any>{
-      followUp: {
-        level: 'delete',
-        heading: 'MODALS.TOPIC_SEND_TO_FOLLOWUP_CONFIRM_HEADING',
-        title: 'MODALS.TOPIC_SEND_TO_FOLLOWUP_CONFIRM_TXT_ARE_YOU_SURE',
-        description: 'MODALS.USER_DELETE_CONFIRM_TXT_NO_UNDO',
-        points: ['MODALS.TOPIC_SEND_TO_FOLLOWUP_CONFIRM_TXT_NO_EDIT', 'MODALS.TOPIC_SEND_TO_FOLLOWUP_CONFIRM_TXT_NO_VOTE'],
-        confirmBtn: 'MODALS.TOPIC_SEND_TO_FOLLOWUP_CONFIRM_BTN_YES',
-        closeBtn: 'MODALS.TOPIC_SEND_TO_FOLLOWUP_CONFIRM_BTN_NO'
-      },
       closed: {
         level: 'delete',
         heading: 'MODALS.TOPIC_CLOSE_CONFIRM_HEADING_CLOSE_TOPIC',
@@ -233,32 +248,53 @@ export class TopicService {
       }
     }
 
-    const confirm = this.dialog.open(ConfirmDialogComponent, {
-      data: templates[state]
-    });
-    confirm.afterClosed().subscribe((res) => {
-      if (res === true) {
-        this.patch({
-          id: topic.id,
-          status: this.STATUSES[state]
-        }).pipe(take(1))
-          .subscribe({
-            next: () => {
-              if (state === 'vote' && !topic.voteId && !topic.vote) {
-                this.router.navigate(['/topics', topic.id, 'votes', 'create'])
+    if (templates[state]) {
+      const confirm = this.dialog.open(ConfirmDialogComponent, {
+        data: templates[state]
+      });
+      confirm.afterClosed().subscribe((res) => {
+        if (res === true) {
+          this.patch({
+            id: topic.id,
+            status: this.STATUSES[state]
+          }).pipe(take(1))
+            .subscribe({
+              next: () => {
+                if (state === 'vote' && !topic.voteId && !topic.vote) {
+                  this.router.navigate(['/topics', topic.id, 'votes', 'create'])
+                }
+                this.reloadTopic();
+                if (state === 'followUp') {
+                  this.router.navigate(['/topics', topic.id], { fragment: 'followUp' })
+                }
+                this.dialog.closeAll();
+              }, error: (res) => {
+                console.error(res);
               }
-              this.reloadTopic();
-              if (state === 'followUp') {
-                this.router.navigate(['/topics', topic.id], {fragment:'followUp'})
-              }
-              this.dialog.closeAll();
-            }, error: (res) => {
-              console.error(res);
-            }
-          })
+            })
 
-      }
-    });
+        }
+      });
+    } else {
+      this.patch({
+        id: topic.id,
+        status: this.STATUSES[state]
+      }).pipe(take(1))
+        .subscribe({
+          next: () => {
+            if (state === 'vote' && !topic.voteId && !topic.vote) {
+              this.router.navigate(['/topics', topic.id, 'votes', 'create'])
+            }
+            this.reloadTopic();
+            if (state === 'followUp') {
+              this.router.navigate(['/topics', topic.id], { fragment: 'followUp' })
+            }
+            this.dialog.closeAll();
+          }, error: (res) => {
+            console.error(res);
+          }
+        })
+    }
   }
   /**
    * Can one edit Topics settings and possibly description (content)?

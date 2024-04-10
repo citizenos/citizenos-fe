@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
 import { ActivityService } from 'src/app/services/activity.service';
@@ -11,7 +11,7 @@ import { ActivityService } from 'src/app/services/activity.service';
 })
 export class ActivityComponent implements OnInit {
   @Input() activitygroup!: any;
-  constructor(private dialog: MatDialog, private Translate: TranslateService, private ActivityService: ActivityService, private sanitized: DomSanitizer) {
+  constructor(private dialog: DialogService, private Translate: TranslateService, private ActivityService: ActivityService, private sanitized: DomSanitizer) {
   }
 
   ngOnInit(): void {

@@ -2,6 +2,12 @@
 
 .dialog {
   max-width: 560px;
+
+  .dialog_header {
+    .title {
+      color: var(--color-text);
+    }
+  }
   .dialog_tabs_wrap {
     @include mixins.mobile {
       background-color: var(--color-argument-pro-light);
@@ -27,6 +33,26 @@
         width: 100%;
         flex-direction: column;
         justify-content: center;
+        font-size: 16px;
+        line-height: 24px;
+        span {
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 24px;
+        }
+      }
+    }
+
+    .dialog_info {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      .row {
+        span {
+          line-height: 20px;
+        }
       }
     }
   }
@@ -56,8 +82,26 @@
   }
 }
 
-.input_area {
+.cdk-drag-preview {
+  z-index: 999999 !important;
+}
 
+.input_area {
+  justify-content: space-between;
+  .actions_wrap {
+    display: flex;
+    align-items: center;
+    gap: 8p;
+  }
+
+  .icon_drag {
+    cursor: move;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+  }
   input {
     background-color: var(--color-surfaces);
   }
@@ -116,17 +160,32 @@
   }
 }
 
+.btn_medium_plain {
+  background-color: var(--color-surface-contrast);
+}
+#voting_question_wrap {
+  border-radius: 8px;
+}
+
 .date_selector {
   width: 100%;
 
   .checkbox {
     width: 100%;
+    flex-direction: row;
+    justify-content: flex-start;
+    .checkbox_text_wrap {
+      display: flex;
+      justify-content: space-between;
+      width: calc(100% - 40px);
 
-    .deadline {
-      position: absolute;
-      right: 0;
+      @include mixins.mobile {
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
   }
+
 }
 
 .deadline_wrap {
@@ -142,6 +201,11 @@
     vertical-align: middle;
     gap: 24px;
 
+    @include mixins.mobile {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
     .date_row_title {
       min-width: 25%;
     }
@@ -153,7 +217,24 @@
       align-items: center;
       justify-content: flex-end;
 
+      @include mixins.mobile {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+      }
+
+      .time_wrap {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        @include mixins.mobile {
+          width: 100%;
+        }
+      }
+
       .time_input {
+        min-width: max-content;
         max-width: max-content;
       }
 
@@ -198,7 +279,14 @@
   }
 }
 
-.id_icons_wrap{
+.id_icons_wrap {
   display: flex;
   justify-content: space-around;
+}
+
+
+.vote_info_reminder {
+  font-size: 14px;
+  line-height: 16px;
+  margin-bottom: 16px;
 }

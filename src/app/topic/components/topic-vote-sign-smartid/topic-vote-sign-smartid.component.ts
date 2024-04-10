@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicVoteSignData } from '../topic-vote-sign/topic-vote-sign.component';
 import { TopicVoteService } from 'src/app/services/topic-vote.service';
@@ -27,8 +27,8 @@ export class TopicVoteSignSmartidComponent implements OnInit {
   challengeID?: number | null;
   wWidth = window.innerWidth;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: TopicVoteSignData,
-  private dialog: MatDialog,
+  constructor(@Inject(DIALOG_DATA) public data: TopicVoteSignData,
+  private dialog: DialogService,
   private Notification: NotificationService,
   private translate: TranslateService,
   public TopicVoteService: TopicVoteService) {
