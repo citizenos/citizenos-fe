@@ -1,3 +1,4 @@
+import { TopicNotificationSettingsComponent } from './components/topic-notification-settings/topic-notification-settings.component';
 import { TopicEventService } from './../services/topic-event.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { TopicMemberGroupService } from 'src/app/services/topic-member-group.service';
@@ -264,11 +265,15 @@ export class TopicComponent implements OnInit {
             if (!args.length && topic.status !== this.TopicService.STATUSES.inProgress) {
               this.hideDiscussion = true;
               if (!this.route.snapshot.fragment || this.route.snapshot.fragment === 'discussion') {
-                this.router.navigate([], { fragment: 'voting' });
+                this.router.navigate([], { fragment: 'voting', queryParams: this.route.snapshot.queryParams });
               }
             }
             if (topic.status === this.TopicService.STATUSES.draft) {
               this.router.navigate(['topics', 'edit', topic.id]);
+            }
+
+            if(Object.keys(this.route.snapshot.queryParams).indexOf('notificationSettings') > -1) {
+              this.app.doShowTopicNotificationSettings(topic.id);
             }
           })
         );

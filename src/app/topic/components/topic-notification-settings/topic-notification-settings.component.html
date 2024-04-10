@@ -34,8 +34,6 @@
           <div class="bold" [innerHTML]="topic.title"></div>
         </div>
       </div>
-    </div>
-    <div class="dialog_info_wrap">
       <div class="dialog_info" [ngClass]="{'toggle_off': !allowNotifications, 'toggle_on': allowNotifications}">
         <div class="info_row with_toggle">
           <div class="bold" translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_LBL_TOPIC_NOTIFICATIONS"></div>
@@ -45,6 +43,7 @@
       </div>
     </div>
     <div class="dialog_content" *ngIf="settings | async as settings">
+      <div class="line_separator"></div>
       <div class="bold" translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_LBL_NOTIFY_ME_ABOUT"></div>
       <label class="checkbox"><span translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_LBL_ALL_ACTIONS"></span>
         <input type="checkbox" [checked]="allChecked()" (click)="toggleAllNotifications()">

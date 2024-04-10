@@ -4,4 +4,23 @@
 
 .dialog_content {
   gap: 16px;
+  padding: 0px 24px 24px 24px;
+}
+
+.dialog_info_wrap {
+  padding: 24px 24px 16px 24px;
+  gap: 16px;
+
+  background-color: var(--color-surfaces);
+  .dialog_info {
+    background-color: var(--color-surface-contrast);
+
+    &.toggle_off {
+      background-color: var(--color-error-background);
+    }
+
+    &.toggle_on {
+      background: var(--color-success-background);
+    }
+  }
 }
