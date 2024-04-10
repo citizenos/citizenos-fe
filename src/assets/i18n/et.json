@@ -2807,7 +2807,7 @@
     "ACTIVITY_USERCONNECTION_CONNECTION_NAME_ESTEID": "Eesti ID-kaart / Mobiil-ID",
     "ACTIVITY_USERCONNECTION_CONNECTION_NAME_CITIZENOS": "Citizen OS",
     "ACTIVITY_USER_OFFER_TOPIC_GROUP": "User <em>{{userName}}</em> has requested to add <em>{{topicTitle}}</em> to group <em>{{groupName}}</em>",
-    "ACTIVITY_USER_ACCEPT_REQUEST_TOPIC_GROUP": "User <em>{{userName}}</em> has accepted a request to add <em>{{topicTitle}}</em> to group <em>{{groupName}}</em>",
+    "ACTIVITY_USER_ACCEPT_REQUEST_TOPIC_GROUP": "User <em>{{userName}}</em> has accepted a request to add topic <em>{{topicTitle}}</em> to group <em>{{groupName}}</em>",
     "ACTIVITY_USER_REJECT_REQUEST_TOPIC_GROUP": "User <em>{{userName}}</em> has rejected a request to add <em>{{topicTitle}}</em> to group <em>{{groupName}}</em>"
   },
   "MSG_REQUEST_ACCEPTED": "Request has been accepted!",
@@ -2911,6 +2911,7 @@
   "MSG_ERROR_GET_API_USERS_TOPICS_INVITES_USERS_41002_HEADING": "Kutse on aegunud",
   "MSG_ERROR_GET_API_USERS_TOPICS_INVITES_USERS_41002": "See kutse on aegunud. Vabandame ebamugavuste pärast. Võid proovida sellele teemale uuesti juurdepääsu taotleda.",
   "MSG_ERROR_POST_API_USERS_TOPICS_EVENTS_40000_TEXT": "Tekstiväli ei tohi olla tühi.",
+  "MSG_ERROR_POST_API_USERS_GROUPS_REQUESTS_TOPICS_40001": "Your request to add a topic has not been sent. Please try again.",
   "MSG_ERROR_HWCRYPTO_USER_CANCEL": "Katkestasid sisselogimise.",
   "MSG_ERROR_HWCRYPTO_NO_CERTIFICATES": "Lugeja ei leia ID-kaarti. Palun kontrolli, et ID-kaart oleks korralikult lugejas. Uutel ID-kaartidel on kiip kaardi tagaküljel.",
   "MSG_ERROR_HWCRYPTO_NO_IMPLEMENTATION": "Arvutis puudub digitaalse allkirjastamise tarkvara. Tarkvara saad paigaldada installer.id.ee veebilehelt.",
