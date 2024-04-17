@@ -16,6 +16,7 @@ import { TopicComponent } from './topic.component';
 import { VoteCreateComponent } from '../voting/components/vote-create/vote-create.component';
 import { AuthGuard } from 'src/app/auth/auth.guard';
 import { CanDeactivateBlockNavigationIfChange } from '../shared/pending-changes.guard';
+import { IdeationCreateComponent } from '../ideation/components/ideation-create/ideation-create.component';
 
 const routes: Routes = [
   {
@@ -41,6 +42,22 @@ const routes: Routes = [
         path: 'edit', canActivate: [AuthGuard], children: [
           { path: '', component: VoteCreateComponent },
           { path: ':topicId', component: VoteCreateComponent, canDeactivate:[CanDeactivateBlockNavigationIfChange]}
+        ]
+      }
+    ]
+  },
+  {
+    path: 'ideation', children: [
+      {
+        path: 'create', canActivate: [AuthGuard], children: [
+          { path: '', component: IdeationCreateComponent },
+          { path: ':topicId', component: IdeationCreateComponent, canDeactivate:[CanDeactivateBlockNavigationIfChange] }
+        ]
+      },
+      {
+        path: 'edit', canActivate: [AuthGuard], children: [
+          { path: '', component: IdeationCreateComponent },
+          { path: ':topicId', component: IdeationCreateComponent, canDeactivate:[CanDeactivateBlockNavigationIfChange]}
         ]
       }
     ]

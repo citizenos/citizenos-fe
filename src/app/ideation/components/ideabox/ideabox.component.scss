@@ -1,0 +1,119 @@
+.idea {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  border-radius: 16px;
+  padding: 16px;
+  background-color: var(--color-dialog-ideation-contrast);
+  height: 280px;
+  width: 264px;
+
+  &:hover {
+    text-decoration: none;
+  }
+  .idea_header {
+    position: relative;
+    justify-content: space-between;
+    display: flex;
+    height: 32px;
+    width: 100%;
+    align-items: center;
+
+    .idea_header_left {
+      display: flex;
+      gap: 12px;
+      .avatar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 32px;
+        width: 32px;
+        height: 32px;
+        margin-left: -10px;
+        background-color: var(--color-secondary);
+        font-size: 10px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 16px;
+
+        &:first-child {
+          margin-left: 0;
+        }
+        img {
+          width: inherit;
+          border-radius: 32px;
+          aspect-ratio: 1;
+          object-fit: cover;
+        }
+        .profile_image_filler {
+          width: 100%;
+          height: 100%;
+          background-color: var(--color-surfaces);
+          border-radius: 32px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cos-initials {
+            font-size: 14px;
+          }
+        }
+      }
+      .vertical_line_separator {
+        background-color: var(--color-text);
+        margin: 4px 0;
+      }
+
+      .btn_small_plain {
+        padding: 0;
+      }
+    }
+    .idea_header_right {
+      display: flex;
+      gap: 8px;
+
+      .dropdown {
+        background-color: unset;
+      }
+    }
+  }
+
+  .idea_content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    .statement {
+      color: var(--color-text);
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 24px;
+    }
+
+    .btn_like_wrap {
+      height: 44px;
+      width: 88px;
+      gap: 8px;
+      border-radius: 24px;
+      align-items: center;
+      display: flex;
+      align-self: center;
+      flex-direction: row;
+      border: 2px solid var(--color-dialog-ideation);
+
+      .btn_like {
+        width: 40px;
+        height: 40px;
+        background-color: var(--color-dialog-ideation);
+      }
+    }
+  }
+  .idea_footer {
+    display: flex;
+    justify-content: space-between;
+    .date {
+      color: var(--color-text);
+    }
+  }
+}

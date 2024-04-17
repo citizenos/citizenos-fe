@@ -49,6 +49,11 @@ import { TopicAddGroupsComponent, TopicAddGroupsDialogComponent } from './compon
 import { TopicOnboardingComponent } from './components/topic-onboarding/topic-onboarding.component';
 import { DownloadVoteResultsComponent } from './components/download-vote-results/download-vote-results.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { IdeationCreateComponent } from '../ideation/components/ideation-create/ideation-create.component';
+import { TopicIdeationComponent } from '../ideation/components/topic-ideation/topic-ideation.component';
+import { AddIdeaComponent } from '../ideation/components/add-idea/add-idea.component';
+import { IdeaboxComponent } from '../ideation/components/ideabox/ideabox.component';
+import { IdeaReportComponent } from '../ideation/components/idea-report/idea-report.component';
 
 @NgModule({
   declarations: [
@@ -102,7 +107,12 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     TopicAddGroupsComponent,
     TopicAddGroupsDialogComponent,
     TopicOnboardingComponent,
-    DownloadVoteResultsComponent
+    DownloadVoteResultsComponent,
+    IdeationCreateComponent,
+    TopicIdeationComponent,
+    AddIdeaComponent,
+    IdeaboxComponent,
+    IdeaReportComponent
   ],
   imports: [
     LinkyModule,

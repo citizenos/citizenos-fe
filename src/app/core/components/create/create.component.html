@@ -26,7 +26,7 @@
     </div>
   </div>
 
-  <!--div class="create_menu_item">
+  <div class="create_menu_item" [routerLink]="['/', translate.currentLang, 'topics', 'ideation', 'create']">
     <div class="left_wrap">
       <div class="icon_wrap">
         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -41,7 +41,7 @@
       </div>
     </div>
     <div class="icon_item icon_arrow_right"></div>
-  </div-->
+  </div>
 
   <div class="create_menu_item" [routerLink]="['/', translate.currentLang, 'topics', 'vote', 'create']"
     routerLinkActive="active" dialog-close>

@@ -880,6 +880,13 @@
       border-bottom: none;
     }
 
+    &.ideation {
+      border-bottom: 2px solid var(--color-ideation);
+      @include mixins.tablet {
+        border-bottom: none;
+      }
+    }
+
     &.voting {
       border-bottom: 2px solid var(--color-voting);
       @include mixins.tablet {

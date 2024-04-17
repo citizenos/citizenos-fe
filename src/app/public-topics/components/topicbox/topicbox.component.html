@@ -1,4 +1,4 @@
-<a (click)="(!topic.report)? goToView(): ''" class="topic" [ngClass]="{'moderated': topic.report}">
+<a (click)="(!topic.report)? goToView(): ''" [attr.href]="(!topic.report)? getTopicLink(): ''" class="topic" [ngClass]="{'moderated': topic.report}">
   <div class="moderated_topic" *ngIf="topic.report">
     <div class="notification">
       <div>
@@ -20,7 +20,7 @@
     </div>
   </div>
   <div class="topic_header"
-    [ngClass]="{'discussion': topic.status === 'inProgress', 'voting': topic.status === 'voting', 'follow_up': topic.status === 'followUp', 'draft': topic.status === 'draft', 'closed': topic.status === 'closed'}">
+    [ngClass]="{'discussion': topic.status === 'inProgress', 'voting': topic.status === 'voting', 'ideation': topic.status === 'ideation', 'follow_up': topic.status === 'followUp', 'draft': topic.status === 'draft', 'closed': topic.status === 'closed'}">
     <div class="progress" [ngStyle]="{'width.%': getProgress()}">
       <div class="header_content">
         <ng-container *ngIf="topic.status==='draft'">
