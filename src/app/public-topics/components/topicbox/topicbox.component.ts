@@ -44,7 +44,7 @@ export class TopicboxComponent implements OnInit {
     return window.innerWidth > 667;
   }
 
-  goToView() {
+  getTopicPath () {
     let urlArray = ['topics', this.topic.id];
     if (this.topic.status === this.TopicService.STATUSES.draft && this.TopicService.canDelete(this.topic)) {
       urlArray = ['topics', 'edit', this.topic.id];
@@ -61,7 +61,17 @@ export class TopicboxComponent implements OnInit {
     } else if (this.topic.status === this.TopicService.STATUSES.followUp) {
       fragment = 'followUp';
     }
-    this.router.navigate(urlArray, { fragment });
+    return {urlArray, fragment};
+  }
+
+  getTopicLink() {
+    const navItems = this.getTopicPath();
+    return this.router.createUrlTree(navItems.urlArray, {fragment: navItems.fragment});
+  }
+
+  goToView() {
+    const navItems = this.getTopicPath();
+    this.router.navigate(navItems.urlArray, { fragment: navItems.fragment });
   }
 
   getProgress() {

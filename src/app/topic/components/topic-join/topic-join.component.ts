@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { AppService } from 'src/app/services/app.service';
 
 @Component({
-  selector: 'app-topic-join',
+  selector: 'topic-join',
   templateUrl: './topic-join.component.html',
   styleUrls: ['./topic-join.component.scss']
 })
@@ -22,7 +22,7 @@ export class TopicJoinComponent {
 }
 
 @Component({
-  selector: 'app-group-join',
+  selector: 'topic-token-join',
   template: ''
 })
 export class TopicTokenJoinComponent {

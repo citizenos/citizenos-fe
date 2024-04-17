@@ -613,29 +613,6 @@
   }
 }
 
-.tabs_wrap {
-  display: flex;
-  gap: 24px;
-  width: 100%;
-  justify-content: space-between;
-
-  .tabs_row {
-    width: 100%;
-
-    @include mixins.mobile {
-      justify-content: center;
-    }
-  }
-
-  button {
-    min-width: 240px;
-
-    @include mixins.mobile {
-      display: none;
-    }
-  }
-}
-
 #topic_list_filters {
   display: flex;
   flex-direction: row;

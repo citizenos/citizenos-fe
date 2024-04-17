@@ -23,6 +23,7 @@ export interface Topic {
   language: string | null,
   members: any,
   voteId:	string | null,
+  ideationId?: string | null,
   comments: any,
   padUrl: any,
   favourite?: boolean | null,

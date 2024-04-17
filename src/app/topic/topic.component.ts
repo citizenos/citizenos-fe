@@ -37,6 +37,7 @@ import { TourService } from 'src/app/services/tour.service';
 import { InviteEditorsComponent } from './components/invite-editors/invite-editors.component';
 import { TopicOnboardingComponent } from './components/topic-onboarding/topic-onboarding.component';
 import { CookieService } from 'ngx-cookie-service';
+import { TopicIdeationService } from 'src/app/services/topic-ideation.service';
 
 @Component({
   selector: 'topic',
@@ -129,6 +130,7 @@ export class TopicComponent implements OnInit {
   topic$; // decorate the property with @Input()
   groups$: Observable<Group[]>;
   vote$?: Observable<Vote>;
+  ideation$?: Observable<any>;
   topicId$: Observable<string> = of('');
   events$?: Observable<any> = of([]);
   members$: Observable<any[]>;
@@ -157,6 +159,7 @@ export class TopicComponent implements OnInit {
     private TopicJoinService: TopicJoinService,
     public TopicArgumentService: TopicArgumentService,
     private TopicVoteService: TopicVoteService,
+    private TopicIdeationService: TopicIdeationService,
     public TopicEventService: TopicEventService,
     private TourService: TourService,
     private cd: ChangeDetectorRef,
@@ -205,6 +208,10 @@ export class TopicComponent implements OnInit {
         }
         if (topic.voteId) {
           this.vote$ = this.TopicVoteService.loadVote({ topicId: topic.id, voteId: topic.voteId });
+          this.cd.detectChanges();
+        }
+        if (topic.ideationId) {
+          this.ideation$ = this.TopicIdeationService.loadIdeation({ topicId: topic.id, ideationId: topic.ideationId });
           this.cd.detectChanges();
         }
         if (topic.status === this.TopicService.STATUSES.followUp) {
@@ -262,7 +269,7 @@ export class TopicComponent implements OnInit {
         this.TopicArgumentService.setParam('topicId', topic.id);
         return this.TopicArgumentService.loadItems().pipe(
           tap((args) => {
-            if (!args.length && topic.status !== this.TopicService.STATUSES.inProgress) {
+            if (!args.length && [this.TopicService.STATUSES.inProgress, this.TopicService.STATUSES.ideation].indexOf(topic.status) === -1) {
               this.hideDiscussion = true;
               if (!this.route.snapshot.fragment || this.route.snapshot.fragment === 'discussion') {
                 this.router.navigate([], { fragment: 'voting', queryParams: this.route.snapshot.queryParams });
