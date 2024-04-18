@@ -4,7 +4,7 @@ import { AuthService } from './auth.service';
 import { LocationService } from './location.service';
 import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { Idea } from 'src/app/interfaces/idea';
-import { Observable, BehaviorSubject, map, distinct, catchError, EMPTY, exhaustMap, shareReplay, tap } from 'rxjs';
+import { Observable, BehaviorSubject, map, distinct, catchError, EMPTY, exhaustMap, shareReplay, tap, take } from 'rxjs';
 import { ItemsListService } from './items-list.service';
 
 @Injectable({
@@ -87,6 +87,34 @@ export class TopicIdeaService extends ItemsListService {
   delete(data: any) {
     if (!data.commentId) data.commentId = data.id;
     const path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId/ideas/:ideaId'), data)
+
+    return this.http.delete<ApiResponse>(path, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
+      map(res => res.data)
+    );
+  }
+
+  toggleFavourite(idea: { [key: string]: any }) {
+    if (!idea['favourite']) {
+      return this.addToFavourites(idea).pipe(take(1)).subscribe(() => {
+        idea['favourite'] = true;
+      });
+    } else {
+      return this.removeFromFavourites(idea).pipe(take(1)).subscribe(() => {
+        idea['favourite'] = false;
+      });
+    }
+  };
+
+  addToFavourites(params: { [key: string]: any }) {
+    const path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/ideations/:ideationId/ideas/:ideaId/favourite', params);
+
+    return this.http.post<ApiResponse>(path, {}, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
+      map(res => res.data)
+    );
+  }
+
+  removeFromFavourites(params: { [key: string]: any }) {
+    const path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/ideations/:ideationId/ideas/:ideaId/favourite', params);
 
     return this.http.delete<ApiResponse>(path, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
       map(res => res.data)

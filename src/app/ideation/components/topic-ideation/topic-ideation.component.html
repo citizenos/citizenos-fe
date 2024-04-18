@@ -73,7 +73,8 @@
                 <a class="tab_item" (click)="selectTab('ideas')" [ngClass]="tabSelected=== 'ideas' ? 'active' : ''"
                   translate="COMPONENTS.TOPIC_IDEATION.TAB_IDEAS" [translateParams]="{count: ideation.ideas.count}"></a>
                 <a class="tab_item" (click)="selectTab('folders')" [ngClass]="tabSelected=== 'folders' ? 'active' : ''"
-                  translate="COMPONENTS.TOPIC_IDEATION.TAB_FOLDERS" [translateParams]="{count: ideation.folders?.count || 0}"></a>
+                  translate="COMPONENTS.TOPIC_IDEATION.TAB_FOLDERS"
+                  [translateParams]="{count: ideation.folders?.count || 0}"></a>
               </div>
               <ng-container
                 *ngIf="(AuthService.loggedIn$ | async) && topic.visibility === TopicService.VISIBILITY.public || (topic.visibility === TopicService.VISIBILITY.private && canUpdate())">
@@ -83,7 +84,115 @@
             </div>
           </ng-container>
           <div class="idea_filters_wrap" *ngIf="ideas.length">
+            <div class="options_row">
+              <cos-input [placeholder]="'COMPONENTS.TOPIC_IDEATION.IDEA_FILTER_TYPE' | translate"
+                class="dropdown_input">
+                <div class="dropdown" [cosDropdown]>
+                  <div class="selection">
+                    <div class="selected_item">
+                      <span *ngIf="!ideaFilters.type" translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL"></span>
+                      <span *ngIf="ideaFilters.type === 'iCreated'">
+                        {{'COMPONENTS.TOPIC_IDEATION.FILTER_TYPE_YOUR_IDEAS' |
+                        translate}}</span>
+                      <span *ngIf="ideaFilters.type === 'favourite'">
+                        {{'COMPONENTS.TOPIC_IDEATION.FILTER_TYPE_FAVOURITES' |
+                        translate}}</span>
+                      <span *ngIf="ideaFilters.type === 'showModerated'">
+                        {{'COMPONENTS.TOPIC_IDEATION.FILTER_TYPE_MODERATED'
+                        |
+                        translate}}</span>
 
+                    </div>
+                    <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="options">
+                    <div class="option" (click)="setType('')" translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL">
+                    </div>
+                    <div *ngIf="(AuthService.loggedIn$ | async)" class="option" (click)="setType('iCreated')"
+                      translate="COMPONENTS.TOPIC_IDEATION.FILTER_TYPE_YOUR_IDEAS">
+                    </div>
+                    <div *ngIf="(AuthService.loggedIn$ | async)" class="option" (click)="setType('favourite')"
+                      translate="COMPONENTS.TOPIC_IDEATION.FILTER_TYPE_FAVOURITES">
+                    </div>
+                    <div class="option" (click)="setType('showModerated')"
+                      translate="COMPONENTS.TOPIC_IDEATION.FILTER_TYPE_MODERATED">
+                    </div>
+                  </div>
+                </div>
+              </cos-input>
+              <cos-input [placeholder]="'COMPONENTS.TOPIC_IDEATION.IDEA_FILTER_ORDER' | translate"
+                class="dropdown_input">
+                <div class="dropdown" [cosDropdown]>
+                  <div class="selection">
+                    <div class="selected_item">
+                      <span *ngIf="!ideaFilters.orderBy" translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL"></span>
+                      <span *ngIf="ideaFilters.orderBy === 'likes'">
+                        {{'COMPONENTS.TOPIC_IDEATION.FILTER_ORDER_MOST_LIKED' |
+                        translate}}</span>
+                      <span *ngIf="ideaFilters.orderBy === 'recent'">
+                        {{'COMPONENTS.TOPIC_IDEATION.FILTER_ORDER_MOST_RECENT'
+                        |
+                        translate}}</span>
+                      <span *ngIf="ideaFilters.orderBy === 'replies'">
+                        {{'COMPONENTS.TOPIC_IDEATION.FILTER_ORDER_MOST_REPLIES'
+                        |
+                        translate}}</span>
+                    </div>
+                    <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="options">
+                    <div class="option" (click)="orderBy('')" translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL">
+                    </div>
+                    <div *ngIf="(AuthService.loggedIn$ | async)" class="option" (click)="orderBy('likes')"
+                      translate="COMPONENTS.TOPIC_IDEATION.FILTER_ORDER_MOST_LIKED">
+                    </div>
+                    <div class="option" (click)="orderBy('recent')"
+                      translate="COMPONENTS.TOPIC_IDEATION.FILTER_ORDER_MOST_RECENT">
+                    </div>
+                    <div class="option" (click)="orderBy('replies')"
+                    translate="COMPONENTS.TOPIC_IDEATION.FILTER_ORDER_MOST_REPLIES">
+                  </div>
+                  </div>
+                </div>
+              </cos-input>
+              <cos-input [placeholder]="'COMPONENTS.TOPIC_IDEATION.IDEA_FILTER_PARTICIPANTS' | translate"
+                class="dropdown_input">
+                <div class="dropdown" [cosDropdown]>
+                  <div class="selection">
+                    <div class="selected_item">
+                      <span *ngIf="!ideaFilters.participants" translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL"></span>
+
+                      <span *ngIf="ideaFilters.type === 'favourite'"> {{'VIEWS.GROUP.FILTER_FAVOURITED' |
+                        translate}}</span>
+                      <span *ngIf="ideaFilters.type === 'showModerated'">
+                        {{'VIEWS.GROUP.FILTER_MODERATED'
+                        |
+                        translate}}</span>
+
+                    </div>
+                    <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="options">
+                    <div class="option" (click)="setType('')" translate="VIEWS.GROUP.FILTER_ALL">
+                    </div>
+                    <div *ngIf="(AuthService.loggedIn$ | async)" class="option" (click)="setType('favourite')"
+                      translate="VIEWS.GROUP.FILTER_FAVOURITED">
+                    </div>
+                    <div class="option" (click)="setType('showModerated')" translate="VIEWS.GROUP.FILTER_MODERATED">
+                    </div>
+                  </div>
+                </div>
+              </cos-input>
+            </div>
           </div>
           <div class="ideas_wrap">
             <ng-container *ngIf="!ideas.length">

@@ -48,3 +48,21 @@
     }
   }
 }
+
+.idea_filters_wrap {
+  display: flex;
+  gap: 16px;
+  flex-direction: row;
+  padding: 24px;
+  width: 100%;
+
+  .options_row {
+    display: flex;
+    gap: 24px;
+    width: 100%;
+
+    .dropdown_input {
+      width: 100%;
+    }
+  }
+}

@@ -670,29 +670,6 @@ html {
   }
 }
 
-.tabs_wrap {
-  display: flex;
-  gap: 24px;
-  width: 100%;
-  justify-content: space-between;
-
-  .tabs_row {
-    width: 100%;
-
-    @include mixins.mobile {
-      justify-content: center;
-    }
-  }
-
-  button {
-    min-width: 240px;
-
-    @include mixins.mobile {
-      display: none;
-    }
-  }
-}
-
 .vertical_line_separator {
   width: 1px;
   margin: 8px 0;
