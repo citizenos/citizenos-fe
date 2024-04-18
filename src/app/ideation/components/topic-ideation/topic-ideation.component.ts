@@ -6,7 +6,7 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { TopicService } from 'src/app/services/topic.service';
 import { TopicIdeationService } from 'src/app/services/topic-ideation.service';
 import { DialogService } from 'src/app/shared/dialog';
-import { of, take, tap, map } from 'rxjs';
+import { of, take, tap, map, BehaviorSubject, combineLatest, switchMap } from 'rxjs';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { TopicVoteReminderDialog } from 'src/app/topic/components/topic-vote-reminder-dialog/topic-vote-reminder-dialog.component';
 import { TopicIdeaService } from 'src/app/services/topic-idea.service';
@@ -27,8 +27,19 @@ export class TopicIdeationComponent {
   userHasVoted: boolean = false;
   editVote: boolean = false;
   wWidth: number = window.innerWidth;
-  ideas$ = of(<any[]>[]);
+  ideas$ = of(<Idea[]>[]);
+  allIdeas$: Idea[] = [];
   tabSelected = 'ideas';
+  ideaFilters = {
+    type: '',
+    orderBy: '',
+    participants: ''
+  };
+
+  ideaTypeFilter$ = new BehaviorSubject('');
+  orderFilter$ = new BehaviorSubject('');
+  ideaParticipantsFilter$ = new BehaviorSubject('');
+  ideaSearchFilter$ = new BehaviorSubject('');
 
   constructor(
     public app: AppService,
@@ -43,16 +54,58 @@ export class TopicIdeationComponent {
   ngOnInit(): void {
     this.TopicIdeaService.setParam('topicId', this.topic.id);
     this.TopicIdeaService.setParam('ideationId', this.topic.ideationId);
-    this.ideas$ = this.TopicIdeaService.loadItems();
+    this.ideas$ = combineLatest([this.ideaTypeFilter$, this.orderFilter$, this.ideaParticipantsFilter$, this.ideaSearchFilter$])
+      .pipe(
+        switchMap(([typeFilter, orderFilter, participantFilter, search]) => {
+          this.allIdeas$ = [];
+          if (typeFilter) {
+            if (['favourite', 'showModerated'].indexOf(typeFilter) > -1) {
+              this.TopicIdeaService.setParam(typeFilter, typeFilter);
+            }
+          }
+
+          if (orderFilter) {
+            this.TopicIdeaService.setParam('orderBy', orderFilter);
+            this.TopicIdeaService.setParam('order', 'desc');
+          }
+
+          if (participantFilter) {
+            this.TopicIdeaService.setParam('authorId', [participantFilter]);
+          }
+
+          if (search) {
+            this.TopicIdeaService.setParam('search', search);
+          }
+          return this.TopicIdeaService.loadItems();
+        }), map(
+          (newideas: any) => {
+            this.allIdeas$ = [];
+            this.allIdeas$ = this.allIdeas$.concat(newideas);
+            return this.allIdeas$;
+          }
+        ));
   }
 
-  selectTab (tab: string) {
+  setType(type: string) {
+    if (type === 'all' || typeof type !== 'string') type = '';
+    this.ideaTypeFilter$.next(type);
+    this.ideaFilters.type = type;
+  }
+
+  orderBy(orderBy: string) {
+    if (orderBy === 'all' || typeof orderBy !== 'string') orderBy = '';
+    this.orderFilter$.next(orderBy);
+    this.ideaFilters.orderBy = orderBy;
+  }
+
+  selectTab(tab: string) {
     this.tabSelected = tab;
   }
 
-  addIdea () {
+  addIdea() {
     this.app.addIdea.next(!this.app.addIdea.value);
   }
+
   canUpdate() {
     return this.TopicService.canUpdate(this.topic);
   }
@@ -109,12 +162,12 @@ export class TopicIdeationComponent {
 
 
   editDeadline() {
-  /*  const voteDeadlineDialog = this.dialog.open(TopicVoteDeadlineComponent, {
-      data: {
-        vote: this.vote,
-        topic: this.topic
-      }
-    });*/
+    /*  const voteDeadlineDialog = this.dialog.open(TopicVoteDeadlineComponent, {
+        data: {
+          vote: this.vote,
+          topic: this.topic
+        }
+      });*/
   }
   canEditDeadline() {
     return this.topic.status === this.TopicService.STATUSES.voting;
@@ -122,61 +175,61 @@ export class TopicIdeationComponent {
 
   hasIdeationEndedExpired() {
     return false;
-//    return this.TopicVoteService.hasVoteEndedExpired(this.topic, this.vote);
+    //    return this.TopicVoteService.hasVoteEndedExpired(this.topic, this.vote);
   };
 
   hasIdeationEnded() {
- //  return this.TopicVoteService.hasVoteEnded(this.topic, this.vote);
+    //  return this.TopicVoteService.hasVoteEnded(this.topic, this.vote);
   };
 
   triggerFinalDownload(type: string, includeCSV?: boolean) {
-  /*  let url = ''
-    if (this.vote.downloads?.bdocFinal || this.vote.downloads?.zipFinal) {
-      if (type === 'zip') {
-        url = this.vote.downloads.zipFinal;
-      } else {
-        url = this.vote.downloads.bdocFinal;
-      }
-      if (!url) return;
-      if (includeCSV) {
-        url += '&include[]=csv';
-      }
-      window.location.href = url;
-      return;
-    }
-    const finalDownloadDialog = this.dialog.open(DownloadVoteResultsComponent);
-    finalDownloadDialog.afterClosed().subscribe({
-      next: (allow: any) => {
-        if (allow === 'deadline') {
-          this.editDeadline();
-        } else if (allow === true) {
-          this.topic.status = this.TopicService.STATUSES.followUp;
-          this.TopicService.patch(this.topic).pipe(take(1)).subscribe({
-            next: () => {
-              this.TopicService.reloadTopic();
-              this.TopicVoteService.loadVote({ topicId: this.topic.id, voteId: this.topic.voteId! })
-                .pipe(take(1))
-                .subscribe({
-                  next: (vote) => {
-                    if (type === 'zip') {
-                      url = vote.downloads.zipFinal;
-                    } else {
-                      url = vote.downloads.bdocFinal;
-                    }
-                    if (!url) return;
-                    if (includeCSV) {
-                      url += '&include[]=csv';
-                    }
-                    window.location.href = url;
-                  }
-                });
-            }
-          });
+    /*  let url = ''
+      if (this.vote.downloads?.bdocFinal || this.vote.downloads?.zipFinal) {
+        if (type === 'zip') {
+          url = this.vote.downloads.zipFinal;
+        } else {
+          url = this.vote.downloads.bdocFinal;
         }
-      },
-      error: (err) => {
-
+        if (!url) return;
+        if (includeCSV) {
+          url += '&include[]=csv';
+        }
+        window.location.href = url;
+        return;
       }
-    })*/
+      const finalDownloadDialog = this.dialog.open(DownloadVoteResultsComponent);
+      finalDownloadDialog.afterClosed().subscribe({
+        next: (allow: any) => {
+          if (allow === 'deadline') {
+            this.editDeadline();
+          } else if (allow === true) {
+            this.topic.status = this.TopicService.STATUSES.followUp;
+            this.TopicService.patch(this.topic).pipe(take(1)).subscribe({
+              next: () => {
+                this.TopicService.reloadTopic();
+                this.TopicVoteService.loadVote({ topicId: this.topic.id, voteId: this.topic.voteId! })
+                  .pipe(take(1))
+                  .subscribe({
+                    next: (vote) => {
+                      if (type === 'zip') {
+                        url = vote.downloads.zipFinal;
+                      } else {
+                        url = vote.downloads.bdocFinal;
+                      }
+                      if (!url) return;
+                      if (includeCSV) {
+                        url += '&include[]=csv';
+                      }
+                      window.location.href = url;
+                    }
+                  });
+              }
+            });
+          }
+        },
+        error: (err) => {
+
+        }
+      })*/
   }
 }

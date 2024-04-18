@@ -40,6 +40,7 @@ export interface Idea {
     },
     count: number
   },
+  favourite?: boolean | null,
   showEdits: boolean
 }
 

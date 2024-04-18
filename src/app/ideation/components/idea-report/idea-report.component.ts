@@ -46,8 +46,9 @@ export class IdeaReportComponent {
   }
 
   doReport() {
-    this.report.value.commentId = this.data.argument.id;
+    this.report.value.ideaId = this.data.idea.id;
     this.report.value.topicId = this.data.topicId;
+    this.report.value.ideationId = this.data.ideationId;
     this.TopicIdeaService.report(this.report.value).pipe(take(1))
     .subscribe({
       next: () => {

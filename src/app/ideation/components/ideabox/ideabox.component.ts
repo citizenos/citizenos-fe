@@ -32,7 +32,6 @@ export class IdeaboxComponent implements AfterViewInit {
   errors = [];
   wWidth = window.innerWidth;
   private loadVotes$ = new BehaviorSubject<void>(undefined);
-  votes$!: Observable<number>;
   constructor(
     public dialog: DialogService,
     public config: ConfigService,
@@ -48,16 +47,6 @@ export class IdeaboxComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
     //Add 'implements AfterViewInit' to the class.
-
-    this.votes$ = this.loadVotes$.pipe(
-      exhaustMap(() => {
-        return this.TopicIdeaService.votes({ topicId: this.topicId, ideationId: this.ideationId, ideaId: this.idea.id }).pipe(
-          switchMap((data) => {
-            return of(data.count);
-          }))
-      }),
-      shareReplay()
-    );
   }
   canEdit() {
     return (this.idea.creator.id === this.Auth.user.value.id && !this.idea.deletedAt);
@@ -142,9 +131,14 @@ export class IdeaboxComponent implements AfterViewInit {
       .vote(idea)
       .pipe(take(1))
       .subscribe((voteResult) => {
-        this.loadVotes$.next();
+        this.idea.votes = voteResult;
       });
   };
+
+  toggleFavourite() {
+    this.TopicIdeaService.toggleFavourite({favourite: this.idea.favourite, topicId: this.topicId, ideationId: this.ideationId, ideaId: this.idea.id});
+    this.idea.favourite = !this.idea.favourite;
+  }
 
   doShowVotersList() {
     /*  this.dialog.open(ArgumentReactionsComponent, {
@@ -165,5 +159,20 @@ export class IdeaboxComponent implements AfterViewInit {
           argumentEl?.classList.remove('highlight');
         }, 2000);
       }*/
+  }
+
+  addToFolder() {
+
+  }
+
+  reportReasonDialog() {
+  /*  this.dialog.open(IdeaReportReasonComponent, {
+      data: {
+        report: {
+          moderatedReasonText: this.topic.report?.moderatedReasonText || this.topic.report?.text,
+          moderatedReasonType: this.topic.report?.moderatedReasonType || this.topic.report?.type,
+        }
+      }
+    })*/
   }
 }
