@@ -817,6 +817,9 @@ est-id-login-form {
       }
     }
   }
+  .editor-toolbar button {
+    width: 30px;
+  }
 }
 
 .profile_photo {
@@ -1653,6 +1656,7 @@ tour-item-template {
 }
 
 .EasyMDEContainer {
+  width: 100%;
   border: 1px solid var(--color-border);
   border-radius: 8px;
 

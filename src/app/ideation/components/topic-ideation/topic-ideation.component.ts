@@ -52,15 +52,19 @@ export class TopicIdeationComponent {
   ) { }
 
   ngOnInit(): void {
-    this.TopicIdeaService.setParam('topicId', this.topic.id);
-    this.TopicIdeaService.setParam('ideationId', this.topic.ideationId);
+
     this.ideas$ = combineLatest([this.ideaTypeFilter$, this.orderFilter$, this.ideaParticipantsFilter$, this.ideaSearchFilter$])
       .pipe(
-        switchMap(([typeFilter, orderFilter, participantFilter, search]) => {
+        switchMap(([typeFilter, orderFilter, participantFilter, search]) => {this.TopicIdeaService.setParam('topicId', this.topic.id);
+          this.TopicIdeaService.reset();
+          this.TopicIdeaService.setParam('topicId', this.topic.id);
+          this.TopicIdeaService.setParam('ideationId', this.topic.ideationId);
           this.allIdeas$ = [];
           if (typeFilter) {
             if (['favourite', 'showModerated'].indexOf(typeFilter) > -1) {
               this.TopicIdeaService.setParam(typeFilter, typeFilter);
+            } else if(typeFilter === 'iCreated') {
+              this.TopicIdeaService.setParam('authorId', this.AuthService.user.value.id);
             }
           }
 

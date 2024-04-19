@@ -1,4 +1,4 @@
-<a class="idea" (click)="(!idea.report)? goToView(): ''" [ngClass]="{'moderated': idea.report}">
+<a class="idea" (click)="(!idea.report)? goToView(): ''" [ngClass]="{'moderated': idea.report}" [routerLink]="['/','topics', topicId, 'ideation', ideationId, 'ideas', idea.id ]">
   <div class="moderated_topic" *ngIf="idea.report">
     <div class="notification">
       <div>

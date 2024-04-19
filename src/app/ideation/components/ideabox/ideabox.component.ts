@@ -35,11 +35,11 @@ export class IdeaboxComponent implements AfterViewInit {
   constructor(
     public dialog: DialogService,
     public config: ConfigService,
-    private router: Router,
+    public router: Router,
     public Auth: AuthService,
     private Location: LocationService,
     private Notification: NotificationService,
-    private Translate: TranslateService,
+    public Translate: TranslateService,
     public TopicIdeaService: TopicIdeaService
   ) {
   }

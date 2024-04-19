@@ -54,6 +54,9 @@ import { TopicIdeationComponent } from '../ideation/components/topic-ideation/to
 import { AddIdeaComponent } from '../ideation/components/add-idea/add-idea.component';
 import { IdeaboxComponent } from '../ideation/components/ideabox/ideabox.component';
 import { IdeaReportComponent } from '../ideation/components/idea-report/idea-report.component';
+import { IdeaComponent, IdeaDialogComponent } from '../ideation/components/idea/idea.component';
+import { IdeaReplyFormComponent } from '../ideation/components/idea-reply-form/idea-reply-form.component';
+import { IdeaReplyComponent } from '../ideation/components/idea-reply/idea-reply.component';
 
 @NgModule({
   declarations: [
@@ -112,7 +115,11 @@ import { IdeaReportComponent } from '../ideation/components/idea-report/idea-rep
     TopicIdeationComponent,
     AddIdeaComponent,
     IdeaboxComponent,
-    IdeaReportComponent
+    IdeaReportComponent,
+    IdeaComponent,
+    IdeaDialogComponent,
+    IdeaReplyFormComponent,
+    IdeaReplyComponent
   ],
   imports: [
     LinkyModule,
