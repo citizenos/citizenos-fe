@@ -2233,7 +2233,9 @@
       "HELP_ITEM_ADD_VOTING": "Pridajte hlasovanie a začnite zbierať hlasy",
       "HELP_ITEM_ADD_FOLLOW_UP": "Pridajte následné opatrenia, aby ste účastníkov informovali o dosiahnutom pokroku.",
       "NOTIFICATION_SUCCESS_TITLE": "Téma úspešne publikovaná",
-      "NOTIFICATION_SUCCESS_MESSAGE": "Gratulujeme k novej téme! Teraz je čas zapojiť ľudí. Pozvite účastníkov nižšie alebo ich môžete pozvať aj neskôr."
+      "NOTIFICATION_SUCCESS_MESSAGE": "Gratulujeme k novej téme! Teraz je čas zapojiť ľudí. Pozvite účastníkov nižšie alebo ich môžete pozvať aj neskôr.",
+      "NOTIFICATION_DRAFT_SUCCESS_TITLE": "Draft topic saved!",
+      "NOTIFICATION_DRAFT_SUCCESS_MESSAGE": "Your topic has been saved to your drafts."
     },
     "TOPIC_EDIT": {
       "HEADING": "Upraviť tému",
