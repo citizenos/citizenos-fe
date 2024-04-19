@@ -2233,7 +2233,9 @@
       "HELP_ITEM_ADD_VOTING": "Abstimmung hinzufügen, um Stimmen zu sammeln",
       "HELP_ITEM_ADD_FOLLOW_UP": "Füge eine Nachverfolgung hinzu, um die Teilnehmer über die erzielten Fortschritte auf dem Laufenden zu halten.",
       "NOTIFICATION_SUCCESS_TITLE": "Thema erfolgreich veröffentlicht",
-      "NOTIFICATION_SUCCESS_MESSAGE": "Herzlichen Glückwunsch zu Ihrem neuen Thema! Jetzt ist es an der Zeit, Leute ins Gespräch zu bringen. Laden Sie unten jetzt Teilnehmer ein, oder erledigen Sie das einfach später."
+      "NOTIFICATION_SUCCESS_MESSAGE": "Herzlichen Glückwunsch zu Ihrem neuen Thema! Jetzt ist es an der Zeit, Leute ins Gespräch zu bringen. Laden Sie unten jetzt Teilnehmer ein, oder erledigen Sie das einfach später.",
+      "NOTIFICATION_DRAFT_SUCCESS_TITLE": "Draft topic saved!",
+      "NOTIFICATION_DRAFT_SUCCESS_MESSAGE": "Your topic has been saved to your drafts."
     },
     "TOPIC_EDIT": {
       "HEADING": "Thema bearbeiten",
