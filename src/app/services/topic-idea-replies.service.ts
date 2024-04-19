@@ -1,18 +1,36 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
 import { AuthService } from './auth.service';
 import { LocationService } from './location.service';
 import { ApiResponse } from 'src/app/interfaces/apiResponse';
-import { Idea } from 'src/app/interfaces/idea';
-import { Observable, BehaviorSubject, map, distinct, catchError, EMPTY, exhaustMap, shareReplay, tap, take } from 'rxjs';
+import { Argument } from 'src/app/interfaces/argument';
+import { Observable, BehaviorSubject, map, distinct, catchError, EMPTY, combineLatest, switchMap, exhaustMap, shareReplay } from 'rxjs';
 import { ItemsListService } from './items-list.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TopicIdeaService extends ItemsListService {
+export class TopicIdeaRepliesService extends ItemsListService {
 
-  public IDEA_REPORT_TYPES = {
+
+  public ARGUMENT_TYPES = {
+    pro: 'pro',
+    con: 'con',
+    poi: 'poi',
+    reply: 'reply'
+  };
+
+  public ARGUMENT_SUBJECT_MAXLENGTH = 128;
+
+  public ARGUMENT_TYPES_MAXLENGTH = <any>{
+    'pro': 2048,
+    'con': 2048,
+    'poi': 2048,
+    'reply': 2048
+  };
+
+  public ARGUMENT_REPORT_TYPES = {
     abuse: 'abuse', // is abusive or insulting
     obscene: 'obscene', // contains obscene language
     spam: 'spam', // contains spam or is unrelated to topic
@@ -21,23 +39,19 @@ export class TopicIdeaService extends ItemsListService {
     other: 'other'
   };
 
-  public IDEA_ORDER_BY = {
-    rating: 'rating',
+  public ARGUMENT_ORDER_BY = {
+    //    rating: 'rating', removed 23.12.2022
     popularity: 'popularity',
     date: 'date'
   };
-  IDEA_VERSION_SEPARATOR = '_v';
-  IdeaIds = <string[]>[];
+  ARGUMENT_VERSION_SEPARATOR = '_v';
+  ArgumentIds = <string[]>[];
   params = {
     topicId: <string | null>null,
-    ideationId: <string | null>null,
-    orderBy: <string>this.IDEA_ORDER_BY.date,
+    orderBy: <string>this.ARGUMENT_ORDER_BY.date,
     types: <string | string[] | null>null,
     sortOrder: <string | null>null,
     offset: <number>0,
-    authorId: <string | null>null,
-    showModerated: <boolean | string | null>null,
-    favourite: <boolean | string | null>null,
     limit: <number>8,
   };
 
@@ -50,7 +64,7 @@ export class TopicIdeaService extends ItemsListService {
     poi: 0,
     reply: 0
   });
-  private loadIdeas$ = new BehaviorSubject<void>(undefined);
+  private loadArguments$ = new BehaviorSubject<void>(undefined);
 
   constructor(private http: HttpClient, private Location: LocationService, private Auth: AuthService) {
     super();
@@ -58,20 +72,19 @@ export class TopicIdeaService extends ItemsListService {
 
   }
 
-  loadIdeas() {
-    return this.loadIdeas$.pipe(
+  loadArguments() {
+    return this.loadArguments$.pipe(
       exhaustMap(() => this.loadItems()),
-      tap((ideas) => console.log(ideas)),
       shareReplay()
     );
   }
 
-  reloadIdeas(): void {
-    this.loadIdeas$.next();
+  reloadArguments(): void {
+    this.loadArguments$.next();
   }
 
   save(data: any) {
-    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId/ideas'), data);
+    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId/ideas/:ideaId/comments'), data);
 
     return this.http.post<ApiResponse>(path, data, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
       map(res => res.data)
@@ -80,7 +93,7 @@ export class TopicIdeaService extends ItemsListService {
 
   update(data: any) {
     if (!data.commentId) data.commentId = data.id;
-    const path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId/ideas/:ideaId'), data);
+    const path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId/ideas/:ideaId/comments/:commentId'), data);
 
     return this.http.put<ApiResponse>(path, data, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
       map(res => res.data)
@@ -89,35 +102,7 @@ export class TopicIdeaService extends ItemsListService {
 
   delete(data: any) {
     if (!data.commentId) data.commentId = data.id;
-    const path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId/ideas/:ideaId'), data)
-
-    return this.http.delete<ApiResponse>(path, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
-      map(res => res.data)
-    );
-  }
-
-  toggleFavourite(idea: { [key: string]: any }) {
-    if (!idea['favourite']) {
-      return this.addToFavourites(idea).pipe(take(1)).subscribe(() => {
-        idea['favourite'] = true;
-      });
-    } else {
-      return this.removeFromFavourites(idea).pipe(take(1)).subscribe(() => {
-        idea['favourite'] = false;
-      });
-    }
-  };
-
-  addToFavourites(params: { [key: string]: any }) {
-    const path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/ideations/:ideationId/ideas/:ideaId/favourite', params);
-
-    return this.http.post<ApiResponse>(path, {}, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
-      map(res => res.data)
-    );
-  }
-
-  removeFromFavourites(params: { [key: string]: any }) {
-    const path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/ideations/:ideationId/ideas/:ideaId/favourite', params);
+    const path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId/ideas/:ideaId/comments/:commentId'), data)
 
     return this.http.delete<ApiResponse>(path, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
       map(res => res.data)
@@ -125,7 +110,7 @@ export class TopicIdeaService extends ItemsListService {
   }
 
   query(params: { [key: string]: any }): Observable<ApiResponse> {
-    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId/ideas'), params);
+    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId/ideas/:ideaId/comments'), params);
 
     const queryParams = Object.fromEntries(Object.entries(params).filter((i) => i[1] !== null));
 
@@ -133,7 +118,7 @@ export class TopicIdeaService extends ItemsListService {
   }
 
   vote(data: any) {
-    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId/ideas/:ideaId/votes'), data);
+    let path = this.Location.getAbsoluteUrlApi('/api/topics/:topicId/ideations/:ideationId/ideas/:ideaId/comments/:commentId/votes', data);
 
     return this.http.post<ApiResponse>(path, data, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
       map(res => res.data)
@@ -144,7 +129,7 @@ export class TopicIdeaService extends ItemsListService {
     if (!data['commentId']) data['commentId'] = data['id'];
     const queryParams = Object.fromEntries(Object.entries(data).filter((i) => i[1] !== null));
 
-    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId/ideas/:ideaId/votes'), data);
+    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId/ideas/:ideaId/comments/:commentId/votes'), data);
     return this.http.get<ApiResponse>(path, { withCredentials: true, params: queryParams, observe: 'body', responseType: 'json' }).pipe(
       map(res => res.data)
     );
@@ -152,7 +137,7 @@ export class TopicIdeaService extends ItemsListService {
 
   report(data: any) {
     if (!data.commentId) data.commentId = data.id;
-    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId/ideas/:ideaId/reports'), data);
+    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId/ideas/:ideaId/comments/:commentId/reports'), data);
 
     return this.http.post<ApiResponse>(path, data, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
       map(res => res.data)
@@ -160,7 +145,7 @@ export class TopicIdeaService extends ItemsListService {
   };
 
   getReport(data: any) {
-    const path = this.Location.getAbsoluteUrlApi('/api/topics/:topicId/ideations/:ideationId/ideas/:ideaId/reports/:reportId', data);
+    const path = this.Location.getAbsoluteUrlApi('/api/topics/:topicId/ideations/:ideationId/ideas/:ideaId/comments/:commentId/reports/:reportId', data);
     const headers = {
       'Authorization': 'Bearer ' + data.token
     };
@@ -170,7 +155,7 @@ export class TopicIdeaService extends ItemsListService {
   };
 
   moderate(data: any) {
-    const path = this.Location.getAbsoluteUrlApi('/api/topics/:topicId/ideations/:ideationId/ideas/:ideaId/reports/:reportId/moderate', data)
+    const path = this.Location.getAbsoluteUrlApi('/api/topics/:topicId/ideations/:ideationId/ideas/:ideaId/comments/:commentId/reports/:reportId/moderate', data)
     const headers = {
       'Authorization': 'Bearer ' + data.token
     };
@@ -181,13 +166,20 @@ export class TopicIdeaService extends ItemsListService {
   }
 
   getItems(params: any) {
-    return this.getIdeas(params);
+    return this.getArguments(params);
   }
 
-  getIdeas(params?: any | null) {
+  getArguments(params?: any | null) {
     return this.query(params).pipe(
       map((res) => {
         this.count.next(res.data.count);
+        this.ArgumentIds = [];
+        res.data.rows.forEach((argument: Argument) => {
+          this.ArgumentIds.push(argument.id)
+          if (argument.replies.count) {
+            argument.replies.rows.forEach((reply: Argument) => this.ArgumentIds.push(reply.id))
+          }
+        })
         return { rows: res.data.rows, countTotal: (res.data.count.total - res.data.count.reply) || 0 }
       }),
       distinct(),
@@ -201,7 +193,7 @@ export class TopicIdeaService extends ItemsListService {
     this.params$.next(curparams);
   }
 
-  getIdeaIdWithVersion(ideaId: string, version: number) {
-    return ideaId + this.IDEA_VERSION_SEPARATOR + version;
+  getArgumentIdWithVersion(argumentId: string, version: number) {
+    return argumentId + this.ARGUMENT_VERSION_SEPARATOR + version;
   };
 }

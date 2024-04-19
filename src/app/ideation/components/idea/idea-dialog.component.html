@@ -1,0 +1,205 @@
+<div class="overlay"></div>
+<div class="dialog_wrap">
+  <div id="notification_wrap_dialog">
+    <notification></notification>
+  </div>
+  <div class="dialog">
+    <div class="nav_buttons_wrap" *ngIf="TopicIdeaService.items$ | async as ideas">
+      <button class="btn_medium_close icon" (click)="prevIdea(ideas)">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M9.45327 6.31262C9.85294 5.89579 10.5009 5.89579 10.9006 6.31262C11.3003 6.72945 11.3003 7.40527 10.9006 7.8221L7.91837 11L18 11C18.5652 11 19 11.4108 19 12.0003C19 12.5897 18.5652 12.9824 18 12.9824L7.91837 12.9824L10.9006 16.1779C11.3003 16.5947 11.3003 17.2705 10.9006 17.6874C10.5009 18.1042 9.85294 18.1042 9.45327 17.6874L4 12L9.45327 6.31262Z"
+            fill="#2C3B47" />
+        </svg>
+      </button>
+      <button class="btn_medium_close icon" (click)="nextIdea(ideas)">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M14.5467 6.31262C14.1471 5.89579 13.4991 5.89579 13.0994 6.31262C12.6997 6.72945 12.6997 7.40527 13.0994 7.8221L16.0816 11L6 11C5.43478 11 5 11.4108 5 12.0003C5 12.5897 5.43478 12.9824 6 12.9824L16.0816 12.9824L13.0994 16.1779C12.6997 16.5947 12.6997 17.2705 13.0994 17.6874C13.4991 18.1042 14.1471 18.1042 14.5467 17.6874L20 12L14.5467 6.31262Z"
+            fill="#2C3B47" />
+        </svg>
+      </button>
+      <button class="btn_medium_close icon" [dialog-close]="true">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929Z"
+            fill="#2C3B47" />
+        </svg>
+
+      </button>
+    </div>
+    <div class="dialog_content">
+      <div class="idea_content_left">
+        <div class="idea_header">
+          <div class="idea_header_left">
+            <div class="avatar">
+              <img *ngIf="idea.creator.imageUrl" [src]="idea.creator.imageUrl" />
+              <div class="profile_image_filler" *ngIf="!idea.creator.imageUrl">
+                <cos-initials *ngIf="idea.creator.name" [name]="idea.creator.name || ''">
+                </cos-initials>
+              </div>
+            </div>
+            <div class="name" [innerHTML]="idea.creator.name"></div>
+            <div class="vertical_line_separator"></div>
+            <button class="btn_small_plain icon" (click)="toggleFavourite()" *ngIf="(Auth.loggedIn$ | async)">
+              <svg *ngIf="!idea.favourite" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M14.6459 8.35942L12.0009 3L9.35588 8.35942L3.44141 9.21885L7.72116 13.3906L6.71085 19.2812L12.0009 16.5L17.291 19.2812L16.2807 13.3906L20.5604 9.21885L14.6459 8.35942ZM16.2625 10.6153L13.3178 10.1874L12.0009 7.5191L10.684 10.1874L7.73933 10.6153L9.87012 12.6923L9.36711 15.6251L12.0009 14.2404L14.6347 15.6251L14.1317 12.6923L16.2625 10.6153Z"
+                  fill="#2C3B47" />
+              </svg>
+              <svg *ngIf="idea.favourite" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12 3L14.645 8.35942L20.5595 9.21885L16.2798 13.3906L17.2901 19.2812L12 16.5L6.70993 19.2812L7.72025 13.3906L3.44049 9.21885L9.35497 8.35942L12 3Z"
+                  fill="#2C3B47" />
+              </svg>
+            </button>
+          </div>
+          <div class="idea_header_right">
+            <div class="dropdown button_dropdown" [cosDropdown]>
+              <button class="btn_small_plain icon">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M17.334 11.9993C17.334 11.266 16.734 10.666 16.0007 10.666C15.2673 10.666 14.6673 11.266 14.6673 11.9993C14.6673 12.7327 15.2673 13.3327 16.0007 13.3327C16.734 13.3327 17.334 12.7327 17.334 11.9993ZM17.334 19.9993C17.334 19.266 16.734 18.666 16.0007 18.666C15.2673 18.666 14.6673 19.266 14.6673 19.9993C14.6673 20.7327 15.2673 21.3327 16.0007 21.3327C16.734 21.3327 17.334 20.7327 17.334 19.9993ZM16.0007 14.666C16.734 14.666 17.334 15.266 17.334 15.9993C17.334 16.7327 16.734 17.3327 16.0007 17.3327C15.2673 17.3327 14.6673 16.7327 14.6673 15.9993C14.6673 15.266 15.2673 14.666 16.0007 14.666Z"
+                    fill="#2C3B47" />
+                </svg>
+              </button>
+              <div class="options button_options">
+                <ng-container *ngIf="(Auth.loggedIn$ | async)">
+                  <button class="option" (click)="toggleFavourite()">
+                    <div class="icon_wrap">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                          d="M8 1L10.0572 5.16844L14.6574 5.83688L11.3287 9.08156L12.1145 13.6631L8 11.5L3.8855 13.6631L4.6713 9.08156L1.3426 5.83688L5.94275 5.16844L8 1Z"
+                          fill="#2C3B47" />
+                      </svg>
+                    </div>
+                    <span *ngIf="!idea.favourite" translate="COMPONENTS.IDEABOX.OPTION_FAVOURITE"></span>
+                    <span *ngIf="idea.favourite" translate="COMPONENTS.IDEABOX.OPTION_UNFAVOURITE"></span>
+                  </button>
+                </ng-container>
+                <ng-container *ngIf="canEdit()">
+                  <div class="line_separator"></div>
+                  <button class="option" (click)="addToFolder()">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M2.05 13C1.77 13 1.525 12.894 1.315 12.682C1.105 12.4701 1 12.2323 1 11.9688V3.03125C1 2.76771 1.105 2.52995 1.315 2.31797C1.525 2.10599 1.77 2 2.05 2H6.5125C6.6525 2 6.78958 2.02865 6.92375 2.08594C7.05792 2.14323 7.17167 2.21771 7.265 2.30937L8 4H13.95C14.2183 4 14.4604 4.10599 14.6763 4.31797C14.8921 4.52995 15 4.76771 15 5.03125V11.9688C15 12.2323 14.8921 12.4701 14.6763 12.682C14.4604 12.894 14.2183 13 13.95 13H2.05Z"
+                        fill="#2C3B47" />
+                    </svg>
+                    <span translate="COMPONENTS.IDEABOX.OPTION_ADD_TO_FOLDER"></span>
+                  </button>
+                </ng-container>
+                <ng-container *ngIf="canEdit()">
+                  <div class="line_separator"></div>
+                  <button class="option" (click)="ideaEditMode()">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M8.8143 4.18517L11.8147 7.18569L5.29947 13.7012L2.62438 13.9965C2.26626 14.0361 1.96369 13.7333 2.00354 13.3752L2.30118 10.6981L8.8143 4.18517ZM13.6704 3.73845L12.2616 2.3296C11.8222 1.89013 11.1095 1.89013 10.67 2.3296L9.34467 3.65501L12.3451 6.65553L13.6704 5.33011C14.1099 4.89042 14.1099 4.17791 13.6704 3.73845Z"
+                        fill="#2C3B47" />
+                    </svg>
+                    <span translate="COMPONENTS.IDEABOX.OPTION_EDIT"></span>
+                  </button>
+                </ng-container>
+                <ng-container *ngIf="Auth.loggedIn$">
+                  <div class="line_separator"></div>
+                  <button class="option" (click)="doIdeaReport()"><svg width="16" height="16" viewBox="0 0 16 16"
+                      fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="8" cy="8" r="5.5" fill="#2C3B47" stroke="#2C3B47" />
+                      <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M4.83552 4.12842L11.8714 11.1643C11.6598 11.4228 11.4228 11.6598 11.1643 11.8714L4.12842 4.83552C4.34 4.57697 4.57697 4.34 4.83552 4.12842Z"
+                        fill="white" />
+                    </svg>
+                    <span translate="COMPONENTS.IDEABOX.OPTION_REPORT"></span>
+                  </button>
+                </ng-container>
+                <ng-container *ngIf="isEdited()">
+                  <div class="line_separator"></div>
+                  <button class="option" (click)="idea.showEdits = !idea.showEdits">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path
+                        d="M0 6C0.521305 3.15556 3.00971 1 6 1C7.91262 1 9.61969 1.88184 10.7383 3.26175L8.68681 5.31319C8.5647 4.83384 8.31585 4.39155 7.96074 4.03581C7.44072 3.51488 6.73542 3.22222 6 3.22222C5.26458 3.22222 4.55928 3.51488 4.03926 4.03581C3.51924 4.55675 3.2271 5.26329 3.2271 6C3.2271 6.73671 3.51924 7.44325 4.03926 7.96419C4.39321 8.31875 4.83299 8.56757 5.30967 8.69033L3.52425 10.4757C1.71392 9.66945 0.368041 8.00604 0 6Z"
+                        fill="#2C3B47" />
+                      <path
+                        d="M7.66374 6C7.66374 6.12901 7.64881 6.25649 7.6199 6.3801L6.37658 7.62342C6.25408 7.65194 6.1278 7.66667 6 7.66667C5.55875 7.66667 5.13557 7.49107 4.82356 7.17851C4.51155 6.86595 4.33626 6.44203 4.33626 6C4.33626 5.55797 4.51155 5.13405 4.82356 4.82149C5.13557 4.50893 5.55875 4.33333 6 4.33333C6.44125 4.33333 6.86443 4.50893 7.17644 4.82149C7.48845 5.13405 7.66374 5.55797 7.66374 6Z"
+                        fill="#2C3B47" />
+                      <path
+                        d="M13.9968 7.75355L11.2464 5.00308L5.27609 10.9733L5.00324 13.4272C4.96672 13.7555 5.24407 14.0331 5.57235 13.9968L8.02451 13.7261L13.9968 7.75355Z"
+                        fill="#2C3B47" />
+                      <path
+                        d="M14.4065 3.30213L15.6979 4.59358C16.1007 4.99641 16.1007 5.64955 15.6979 6.0526L14.483 7.26757L11.7326 4.51709L12.9475 3.30213C13.3503 2.89929 14.0037 2.89929 14.4065 3.30213Z"
+                        fill="#2C3B47" />
+                    </svg>
+                    <span translate="COMPONENTS.IDEABOX.OPTION_VIEW_PREVIOUS_VERSIONS"></span>
+                  </button>
+                </ng-container>
+                <ng-container *ngIf="canEdit()">
+                  <div class="line_separator"></div>
+                  <button class="option error_text" (click)="doShowDeleteIdea()">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M10 3H6V4H10V3ZM11 4V3C11 2.44772 10.5523 2 10 2H6C5.44772 2 5 2.44772 5 3V4H4H2.5C2.22386 4 2 4.22386 2 4.5C2 4.77614 2.22386 5 2.5 5H4V13C4 13.5523 4.44772 14 5 14H11C11.5523 14 12 13.5523 12 13V5H13.5C13.7761 5 14 4.77614 14 4.5C14 4.22386 13.7761 4 13.5 4H12H11ZM7 7H6V11H7V7ZM10 7H9V11H10V7Z"
+                        fill="#2C3B47" />
+                    </svg>
+                    <span translate="COMPONENTS.IDEABOX.OPTION_REMOVE"></span>
+                  </button>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="idea_content">
+          <div class="statement" [innerHTML]="idea.statement"></div>
+          <div class="description" [innerHTML]="idea.description"></div>
+        </div>
+        <div class="idea_footer">
+
+          <div class="btn_like_wrap">
+            <button class="btn_medium_plain btn_like" (click)="doIdeaVote(1)">
+              <div class="icon">
+                <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <mask id="path-1-inside-1_12557_36360" fill="white">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M4.5 8.23052C4.5 5.75213 6.4675 4 8.50006 4C10.5327 4 12.5 5.7523 12.5 8.23052C12.5 9.98094 11.8561 10.9778 11.2695 11.886C10.8399 12.5512 10.441 13.1688 10.3483 14L6.65595 14C6.56314 13.1686 6.16341 12.551 5.73288 11.8858C5.14514 10.9776 4.5 9.9808 4.5 8.23052ZM8.5 17C9.60457 17 10.5 16.1046 10.5 15L6.5 15C6.5 16.1046 7.39543 17 8.5 17Z" />
+                  </mask>
+                  <path
+                    d="M11.2695 11.886L12.1095 12.4286L12.1095 12.4286L11.2695 11.886ZM10.3483 14V15H11.2429L11.3421 14.1109L10.3483 14ZM6.65595 14L5.66212 14.1109L5.76137 15H6.65595V14ZM5.73288 11.8858L4.89336 12.4291H4.89336L5.73288 11.8858ZM10.5 15H11.5V14H10.5V15ZM6.5 15V14H5.5V15H6.5ZM8.50006 3C5.91284 3 3.5 5.20223 3.5 8.23052H5.5C5.5 6.30203 7.02216 5 8.50006 5V3ZM13.5 8.23052C13.5 5.20247 11.0874 3 8.50006 3V5C9.97794 5 11.5 6.30212 11.5 8.23052L13.5 8.23052ZM12.1095 12.4286C12.7163 11.4892 13.5 10.2852 13.5 8.23052L11.5 8.23052C11.5 9.67669 10.996 10.4664 10.4295 11.3435L12.1095 12.4286ZM11.3421 14.1109C11.4051 13.5465 11.6655 13.116 12.1095 12.4286L10.4295 11.3435C10.0143 11.9863 9.47694 12.7911 9.35442 13.8891L11.3421 14.1109ZM6.65595 15L10.3483 15V13L6.65595 13V15ZM4.89336 12.4291C5.3384 13.1167 5.59917 13.547 5.66212 14.1109L7.64978 13.8891C7.52712 12.7903 6.98842 11.9852 6.5724 11.3424L4.89336 12.4291ZM3.5 8.23052C3.5 10.2856 4.28553 11.4899 4.89336 12.4291L6.5724 11.3424C6.00474 10.4653 5.5 9.67597 5.5 8.23052H3.5ZM9.5 15C9.5 15.5523 9.05228 16 8.5 16L8.5 18C10.1569 18 11.5 16.6569 11.5 15L9.5 15ZM6.5 16L10.5 16V14L6.5 14V16ZM8.5 16C7.94772 16 7.5 15.5523 7.5 15H5.5C5.5 16.6569 6.84315 18 8.5 18L8.5 16Z"
+                    fill="#2C3B47" mask="url(#path-1-inside-1_12557_36360)" />
+                  <rect x="14.5098" y="3.19531" width="2" height="1" rx="0.5" transform="rotate(135 14.5098 3.19531)"
+                    fill="#2C3B47" />
+                  <rect x="9" y="0.5" width="2" height="1" rx="0.5" transform="rotate(90 9 0.5)" fill="#2C3B47" />
+                  <rect x="3.19727" y="2.48828" width="2" height="1" rx="0.5" transform="rotate(45 3.19727 2.48828)"
+                    fill="#2C3B47" />
+                  <rect x="0.5" y="8" width="2" height="1" rx="0.5" fill="#2C3B47" />
+                  <rect x="14.5" y="8" width="2" height="1" rx="0.5" fill="#2C3B47" />
+                </svg>
+              </div>
+            </button>
+            <div class="like_counter_wrap" [innerHTML]="idea.votes.up.count"></div>
+          </div>
+          <div class="date">{{idea.createdAt | date: 'YYYY-MM-dd HH:mm'}}</div>
+        </div>
+      </div>
+      <div class="idea_content_right">
+        <div class="replies_header">
+          <div class="items_wrap">
+            <div class="bold" translate="COMPONENTS.IDEA_DIALOG.REPLIES"
+              [translateParams]="{count: idea.replies.count}"></div>
+            <button class="btn_medium_submit" (click)="showReply = true">Reply</button>
+          </div>
+          <div class="form_wrap">
+            <idea-reply-form id="reply_form" *ngIf="showReply" [(showReply)]="showReply" [topicId]="topicId" [ideationId]="ideationId" [ideaId]="idea.id"></idea-reply-form>
+          </div>
+          <div class="line_separator"></div>
+        </div>
+        <div class="replies_content_wrap">
+          <div class="replies_wrap">
+            <ng-container *ngIf="replies$ | async as replies">
+              <idea-reply [topicId]="topicId" [ideationId]="ideationId" [ideaId]="idea.id" [argument]="reply" *ngFor="let reply of replies.rows" ></idea-reply>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

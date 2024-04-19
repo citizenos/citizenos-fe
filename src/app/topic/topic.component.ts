@@ -182,7 +182,7 @@ export class TopicComponent implements OnInit {
             this.scroll(this.followUpEl?.nativeElement);
           }
         }, 200);
-        return value || 'discussion';
+        return value || 'ideation';
       })
     );
 
