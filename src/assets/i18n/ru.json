@@ -2233,7 +2233,9 @@
       "HELP_ITEM_ADD_VOTING": "Добавить голосование, чтобы начать собирать голоса",
       "HELP_ITEM_ADD_FOLLOW_UP": "Добавить стадию применения решения, чтобы информировать участников относительно достигнутого прогресса.",
       "NOTIFICATION_SUCCESS_TITLE": "Тема успешно опубликована",
-      "NOTIFICATION_SUCCESS_MESSAGE": "Поздравляем вас с вашей новой темой! Пришло время задействовать людей. Пригласите участников ниже или вы также можете пригласить их позже."
+      "NOTIFICATION_SUCCESS_MESSAGE": "Поздравляем вас с вашей новой темой! Пришло время задействовать людей. Пригласите участников ниже или вы также можете пригласить их позже.",
+      "NOTIFICATION_DRAFT_SUCCESS_TITLE": "Draft topic saved!",
+      "NOTIFICATION_DRAFT_SUCCESS_MESSAGE": "Your topic has been saved to your drafts."
     },
     "TOPIC_EDIT": {
       "HEADING": "Изменить тему",
