@@ -2234,7 +2234,9 @@
       "HELP_ITEM_ADD_VOTING": "Add voting to start collecting votes",
       "HELP_ITEM_ADD_FOLLOW_UP": "Add follow-up to keep participants up to date on any progress made.",
       "NOTIFICATION_SUCCESS_TITLE": "Topic successfully published",
-      "NOTIFICATION_SUCCESS_MESSAGE": "Congratulations on your new topic! Now it’s time to get people engaged. Invite participants below or you can also invite them later."
+      "NOTIFICATION_SUCCESS_MESSAGE": "Congratulations on your new topic! Now it’s time to get people engaged. Invite participants below or you can also invite them later.",
+      "NOTIFICATION_DRAFT_SUCCESS_TITLE": "Draft topic saved!",
+      "NOTIFICATION_DRAFT_SUCCESS_MESSAGE": "Your topic has been saved to your drafts."
     },
     "TOPIC_EDIT": {
       "HEADING": "Edit topic",
