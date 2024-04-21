@@ -2234,8 +2234,8 @@
       "HELP_ITEM_ADD_FOLLOW_UP": "Lisa järeltegevus, et hoida osalejaid järgmiste sammude osas kursis.",
       "NOTIFICATION_SUCCESS_TITLE": "Teema on avaldatud",
       "NOTIFICATION_SUCCESS_MESSAGE": "Palju õnne uue teema loomise puhul! Nüüd on aeg inimesi kaasama hakata. Saad kutsuda osalejaid allpool ning soovi korral võid neid kutsuda ka hiljem.",
-      "NOTIFICATION_DRAFT_SUCCESS_TITLE": "Draft topic saved!",
-      "NOTIFICATION_DRAFT_SUCCESS_MESSAGE": "Your topic has been saved to your drafts."
+      "NOTIFICATION_DRAFT_SUCCESS_TITLE": "Teema mustand on salvestatud",
+      "NOTIFICATION_DRAFT_SUCCESS_MESSAGE": "Teema on salvestatud mustanditesse."
     },
     "TOPIC_EDIT": {
       "HEADING": "Muuda teemat",
