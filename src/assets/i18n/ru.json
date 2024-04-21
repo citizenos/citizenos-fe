@@ -2234,8 +2234,8 @@
       "HELP_ITEM_ADD_FOLLOW_UP": "Добавить стадию применения решения, чтобы информировать участников относительно достигнутого прогресса.",
       "NOTIFICATION_SUCCESS_TITLE": "Тема успешно опубликована",
       "NOTIFICATION_SUCCESS_MESSAGE": "Поздравляем вас с вашей новой темой! Пришло время задействовать людей. Пригласите участников ниже или вы также можете пригласить их позже.",
-      "NOTIFICATION_DRAFT_SUCCESS_TITLE": "Draft topic saved!",
-      "NOTIFICATION_DRAFT_SUCCESS_MESSAGE": "Your topic has been saved to your drafts."
+      "NOTIFICATION_DRAFT_SUCCESS_TITLE": "Черновик темы сохранен!",
+      "NOTIFICATION_DRAFT_SUCCESS_MESSAGE": "Ваша тема была сохранена в черновиках."
     },
     "TOPIC_EDIT": {
       "HEADING": "Изменить тему",
