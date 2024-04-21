@@ -155,7 +155,7 @@
       "SUBJECT_CHARACTERS_LEFT": "@:COMPONENTS.POST_ARGUMENT.SUBJECT_CHARACTERS_LEFT",
       "PLACEHOLDER_ADD_SUBJECT_TO_ARGUMENT": "@:COMPONENTS.POST_ARGUMENT.PLACEHOLDER_ADD_SUBJECT_TO_ARGUMENT",
       "CHARACTER_LIMIT": "@:VIEWS.TOPICS_TOPICID.COMMENT_TYPE_CHARACTER_LIMIT",
-      "ERROR_NO_TEXT": "Reply field is empty.",
+      "ERROR_NO_TEXT": "Pole pre odpoveď je prázdne.",
       "PLACEHOLDER_WRITE_REPLY_HERE": "@:VIEWS.TOPICS_TOPICID.PLACEHOLDER_WRITE_REPLY_HERE",
       "BTN_POST_REPLY": "@:VIEWS.TOPICS_TOPICID.BTN_ARGUMENT_POST_REPLY"
     },
@@ -2233,7 +2233,9 @@
       "HELP_ITEM_ADD_VOTING": "Pridajte hlasovanie a začnite zbierať hlasy",
       "HELP_ITEM_ADD_FOLLOW_UP": "Pridajte následné opatrenia, aby ste účastníkov informovali o dosiahnutom pokroku.",
       "NOTIFICATION_SUCCESS_TITLE": "Téma úspešne publikovaná",
-      "NOTIFICATION_SUCCESS_MESSAGE": "Gratulujeme k novej téme! Teraz je čas zapojiť ľudí. Pozvite účastníkov nižšie alebo ich môžete pozvať aj neskôr."
+      "NOTIFICATION_SUCCESS_MESSAGE": "Gratulujeme k novej téme! Teraz je čas zapojiť ľudí. Pozvite účastníkov nižšie alebo ich môžete pozvať aj neskôr.",
+      "NOTIFICATION_DRAFT_SUCCESS_TITLE": "Návrh témy uložený!",
+      "NOTIFICATION_DRAFT_SUCCESS_MESSAGE": "Vaša téma bola uložená do Vašich návrhov."
     },
     "TOPIC_EDIT": {
       "HEADING": "Upraviť tému",
@@ -2367,12 +2369,12 @@
       "ARGUMENT_EDIT_BTN_POST_AS_POI": "@:VIEWS.TOPICS_TOPICID.BTN_ARGUMENT_POST_AS_POI",
       "ARGUMENT_EDIT_BTN_POST_AS_CON": "@:VIEWS.TOPICS_TOPICID.BTN_ARGUMENT_POST_AS_CON",
       "ARGUMENT_EDIT_BTN_CANCEL_EDIT": "@:LNK_CANCEL",
-      "ARGUMENT_HAS_BEEN_DELETED_BY": "This contribution has been deleted by user {{usersFullName}}",
-      "ARGUMENT_HAS_BEEN_DELETED_BY_MODERATOR": "This contribution has been deleted by user {{usersFullName}} (moderator)",
+      "ARGUMENT_HAS_BEEN_DELETED_BY": "Tento príspevok vymazal užívateľ {{usersFullName}}",
+      "ARGUMENT_HAS_BEEN_DELETED_BY_MODERATOR": "Tento príspevok vymazal užívateľ {{usersFullName}} (moderátor)",
       "ARGUMENT_WHY": "Prečo?",
-      "ARGUMENT_VIEW_ARGUMENT_ANYWAY": "View contribution anyway",
-      "ARGUMENT_FOUND_INAPPRIOPRIATE_BY": "This contribution was found inappropriate by user <b>{{usersFullName}}</b>",
-      "ARGUMENT_CREATOR_REMOVED_ARGUMENT": "This contribution was removed by its creator",
+      "ARGUMENT_VIEW_ARGUMENT_ANYWAY": "Napriek tomu príspevok zobraziť",
+      "ARGUMENT_FOUND_INAPPRIOPRIATE_BY": "Podľa užívateľa <b>{{usersFullName}}</b> je tento príspevok nevhodný",
+      "ARGUMENT_CREATOR_REMOVED_ARGUMENT": "Tento príspevok jeho autor odstránil",
       "ARGUMENT_READ_CODE_OF_CONDUCT": "Pre viac informácií si prečítajte náš <a class=\"underlined_link\" href=\"{{codeOfConduct}}\">kódex správania</a>",
       "ARGUMENT_LAST_EDITED": "Naposledy upravené: {{edittime}}",
       "PLACEHOLDER_EDIT_REPLY": "Svoju odpoveď upravte tu...",
