@@ -56,6 +56,9 @@ export class TopicboxComponent implements OnInit {
     if (this.topic.status === this.TopicService.STATUSES.draft) {
       fragment = 'info';
     }
+    if (this.topic.status === this.TopicService.STATUSES.ideation) {
+      fragment = 'ideation';
+    }
     if (this.topic.status === this.TopicService.STATUSES.voting) {
       fragment = 'voting';
     } else if (this.topic.status === this.TopicService.STATUSES.followUp) {

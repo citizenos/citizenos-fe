@@ -16,7 +16,7 @@ export interface Idea {
   deletedReasonText: string | null,
   deletedReasonType: string | null,
   showDeletedIdea: boolean | undefined,
-  creator: {
+  author: {
     id: string,
     name: string,
     company: string | null,

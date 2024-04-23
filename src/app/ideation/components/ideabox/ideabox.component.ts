@@ -49,10 +49,13 @@ export class IdeaboxComponent implements AfterViewInit {
     //Add 'implements AfterViewInit' to the class.
   }
   canEdit() {
-    return (this.idea.creator.id === this.Auth.user.value.id && !this.idea.deletedAt);
+    return (this.idea.author.id === this.Auth.user.value.id && !this.idea.deletedAt);
   };
 
-  goToView() { }
+  goToView($event: any) {
+    const routerLink=['/','topics', this.topicId, 'ideation', this.ideationId, 'ideas', this.idea.id ];
+    this.router.navigate(routerLink);
+  }
 
 
   isEdited() {
@@ -116,7 +119,7 @@ export class IdeaboxComponent implements AfterViewInit {
   };
 
   doIdeaVote(value: number) {
-    if (!this.Auth.loggedIn$.getValue) {
+    if (!this.Auth.loggedIn$.value) {
       return;
     }
 

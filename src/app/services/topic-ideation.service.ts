@@ -4,19 +4,36 @@ import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { LocationService } from './location.service';
 import { Observable, switchMap, map, of, tap, take, BehaviorSubject, exhaustMap, shareReplay } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic'; // Vote interface
-import { Vote } from 'src/app/interfaces/vote'; // Vote interface
+import { Ideation } from 'src/app/interfaces/ideation'; // Ideation interface
 import { AuthService } from './auth.service';
 import { TopicService } from './topic.service';
+import { ItemsListService } from './items-list.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TopicIdeationService {
+export class TopicIdeationService extends ItemsListService {
   STATUSES = this.TopicService.STATUSES;
 
+  params = {
+    topicId: <string | null>null,
+    ideationId: <string | null>null,
+    types: <string | string[] | null>null,
+    sortOrder: <string | null>null,
+    offset: <number>0,
+    authorId: <string | null>null,
+    showModerated: <boolean | string | null>null,
+    favourite: <boolean | string | null>null,
+    limit: <number>8,
+  };
+
+  params$ = new BehaviorSubject(this.params);
   private loadIdeation$ = new BehaviorSubject<void>(undefined);
 
-  constructor(private Location: LocationService, private http: HttpClient, private Auth: AuthService, private TopicService: TopicService) { }
+  constructor(private Location: LocationService, private http: HttpClient, private Auth: AuthService, private TopicService: TopicService) {
+    super();
+    this.items$ = this.loadItems();
+   }
 
   loadIdeation(params?: { [key: string]: string | boolean }) {
     return this.loadIdeation$.pipe(
@@ -73,5 +90,20 @@ export class TopicIdeationService {
     return this.http.delete<ApiResponse>(path, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
       map(res => res.data)
     );
+  }
+
+  hasIdeationEnded(topic: Topic, ideation: Ideation) {
+    if ([this.STATUSES.draft, this.STATUSES.ideation].indexOf(topic.status) === -1 ) {
+      return true;
+    }
+    return ideation && ideation.deadline && new Date() > new Date(ideation.deadline);
+  };
+
+  hasIdeationEndedExpired(topic: Topic, ideation: Ideation) {
+    return ([this.STATUSES.draft, this.STATUSES.ideation].indexOf(topic.status) === -1 ) || ideation.deadline && (new Date() > new Date(ideation.deadline));
+  };
+
+  getItems(params: any) {
+    return this.get(params);
   }
 }

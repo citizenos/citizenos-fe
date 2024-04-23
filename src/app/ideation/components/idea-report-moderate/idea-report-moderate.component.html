@@ -19,7 +19,7 @@
             </svg>
           </ng-container>
         </div>
-        <h4 class="title" translate="COMPONENTS.IDEA_REPORT.HEADING"></h4>
+        <h4 class="title" translate="COMPONENTS.IDEA_REPORT_MODERATE.HEADING"></h4>
       </div>
       <div class="dialog_close">
         <a class="btn_dialog_close icon" dialog-close>
@@ -33,23 +33,22 @@
     </div>
     <div class="dialog_content">
       <div class="dialog_info_wrap">
-        <div class="dialog_info row">
-          <div class="delete_info_button_wrap">
-            <div class="delete_info_text" translate="COMPONENTS.IDEA_REPORT.MESSAGE_MAIN"></div>
-          </div>
-          <div class="profile_image_wrap">
-            <img class="profile_image" *ngIf="idea.author.imageUrl" [src]="idea.author.imageUrl">
-            <div class="profile_image_filler" *ngIf="!idea.author.imageUrl">
-              <cos-initials *ngIf="idea.author.name" [name]="idea.author.name">
-              </cos-initials>
-            </div>
-          </div>
-          <div class="bold" [innerHTML]="idea.author.name"></div>
+        <div class="dialog_info">
+          <div class="delete_info_text bold" translate="COMPONENTS.IDEA_REPORT_MODERATE.MESSAGE_MAIN"></div>
+          <div class="delete_info_text italic" *ngIf="idea.statement" [innerHtml]="idea.statement"></div>
+          <div class="delete_info_text italic" *ngIf="idea.description" [innerHtml]="idea.description"></div>
+          <!--div class="profile_image_wrap">
+        <img class="profile_image" *ngIf="argument.creator.imageUrl" [src]="argument.creator.imageUrl">
+        <div class="profile_image_filler" *ngIf="!argument.creator.imageUrl">
+          <cos-initials *ngIf="argument.creator.name" [name]="argument.creator.name">
+          </cos-initials>
+        </div>
+      </!--div>
+      <div-- class="bold" [innerHTML]="argument.creator.name"></div-->
         </div>
       </div>
-
       <form [formGroup]="report">
-        <cos-input [placeholder]="'COMPONENTS.IDEA_REPORT.LABLE_REASON' | translate">
+        <cos-input [placeholder]="'COMPONENTS.IDEA_REPORT_MODERATE.LABLE_REASON' | translate">
           <div class="dropdown" [cosDropdown]>
             <div class="selection">
               <div class="selected_item" [translate]="'TXT_REPORT_TYPES_' + report.value.type.toUpperCase()">
@@ -65,10 +64,11 @@
             </div>
           </div>
         </cos-input>
-        <cos-input placeholder="{{'COMPONENTS.IDEA_REPORT.PLACEHOLDER_REPORT_TEXT' | translate}}">
-          <textarea  #reportText formControlName="text"
+
+        <cos-input placeholder="{{'COMPONENTS.IDEA_REPORT_MODERATE.PLACEHOLDER_REPORT_TEXT' | translate}}">
+          <textarea formControlName="text"
             [ngClass]="{'error_input': report.controls['text'].errors && report.controls['text'].errors['required'] && report.controls['text'].touched}"
-            [placeholder]="'COMPONENTS.IDEA_REPORT.PLACEHOLDER_REPORT_TEXT' | translate" [maxlength]="2048"
+            [placeholder]="'COMPONENTS.ARGUMENT_REPORT.PLACEHOLDER_REPORT_TEXT' | translate" [maxlength]="2048"
             rows="5"></textarea>
           <label for="groupDescription" class="error_label"
             *ngIf="report.controls['text'].errors && report.controls['text'].errors['required'] && report.controls['text'].touched">
@@ -78,17 +78,22 @@
                 fill="#EF4025" />
             </svg>
             <div class="error_text">
-              <span translate="COMPONENTS.IDEA_REPORT.ERROR_TEXT"></span>
+              <span translate="COMPONENTS.IDEA_REPORT_MODERATE.ERROR_TEXT"></span>
             </div>
           </label>
         </cos-input>
       </form>
+      <div class="dialog_info_wrap">
+        <div class="dialog_info">
+          <div class="delete_info_text bold" translate="COMPONENTS.IDEA_REPORT_MODERATE.ARE_YOU_SURE"></div>
+        </div>
+      </div>
     </div>
     <div class="dialog_content no_footer">
       <div class="button_wrap">
-        <button class="btn_big_submit" [ngClass]="{disabled: report.invalid}" translate="COMPONENTS.IDEA_REPORT.BTN_SUBMIT"
-          (click)="doReport()"></button>
-        <a dialog-close translate="COMPONENTS.IDEA_REPORT.BTN_CANCEL"></a>
+        <button class="btn_big_submit" [disabled]="report.invalid"
+          translate="COMPONENTS.IDEA_REPORT_MODERATE.BTN_SUBMIT" (click)="doModerate()"></button>
+        <a dialog-close translate="COMPONENTS.IDEA_REPORT_MODERATE.BTN_CANCEL"></a>
       </div>
     </div>
     <div class="dialog_footer">

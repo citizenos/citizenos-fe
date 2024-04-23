@@ -1,0 +1,17 @@
+
+export interface Ideation {
+  id: string,
+  question: string,
+  creator?: {
+    id: string,
+    name: string,
+    imageUrl: string,
+    email: string
+  },
+  creatorId: string,
+  deadline: null | string
+  createdAt: Date,
+  updatedAt: Date,
+  ideas?: any
+}
+

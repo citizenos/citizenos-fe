@@ -33,13 +33,13 @@
         <div class="idea_header">
           <div class="idea_header_left">
             <div class="avatar">
-              <img *ngIf="idea.creator.imageUrl" [src]="idea.creator.imageUrl" />
-              <div class="profile_image_filler" *ngIf="!idea.creator.imageUrl">
-                <cos-initials *ngIf="idea.creator.name" [name]="idea.creator.name || ''">
+              <img *ngIf="idea.author.imageUrl" [src]="idea.author.imageUrl" />
+              <div class="profile_image_filler" *ngIf="!idea.author.imageUrl">
+                <cos-initials *ngIf="idea.author.name" [name]="idea.author.name || ''">
                 </cos-initials>
               </div>
             </div>
-            <div class="name" [innerHTML]="idea.creator.name"></div>
+            <div class="name" [innerHTML]="idea.author.name"></div>
             <div class="vertical_line_separator"></div>
             <button class="btn_small_plain icon" (click)="toggleFavourite()" *ngIf="(Auth.loggedIn$ | async)">
               <svg *ngIf="!idea.favourite" width="24" height="24" viewBox="0 0 24 24" fill="none"

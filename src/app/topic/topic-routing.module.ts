@@ -18,6 +18,7 @@ import { AuthGuard } from 'src/app/auth/auth.guard';
 import { CanDeactivateBlockNavigationIfChange } from '../shared/pending-changes.guard';
 import { IdeationCreateComponent } from '../ideation/components/ideation-create/ideation-create.component';
 import { IdeaComponent } from '../ideation/components/idea/idea.component';
+import { IdeaReportModerateDialogComponent } from '../ideation/components/idea-report-moderate/idea-report-moderate.component';
 
 const routes: Routes = [
   {
@@ -72,6 +73,7 @@ const routes: Routes = [
           path: ':ideationId', children: [
             {
               path: 'ideas', children: [
+                { path: ':ideaId/reports/:reportId/moderate', component: IdeaReportModerateDialogComponent},
                 { path: ':ideaId', component: IdeaComponent },
               ]
             }
