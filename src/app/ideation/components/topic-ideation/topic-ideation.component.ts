@@ -22,12 +22,16 @@ export class TopicIdeationComponent {
   @Input() ideation!: any;
   @Input() topic!: Topic;
 
+  public FILTERS_ALL = 'all';
   STATUSES = this.TopicService.STATUSES;
   VISIBILITY = this.TopicService.VISIBILITY;
   userHasVoted: boolean = false;
   editVote: boolean = false;
+  filtersSet: boolean = false;
+
   wWidth: number = window.innerWidth;
   ideas$ = of(<Idea[]>[]);
+  folders$ = of(<Folder[]>[]);
   allIdeas$: Idea[] = [];
   tabSelected = 'ideas';
   ideaFilters = {
@@ -80,6 +84,13 @@ export class TopicIdeationComponent {
           if (search) {
             this.TopicIdeaService.setParam('search', search);
           }
+
+          if (typeFilter || orderFilter || participantFilter || search) {
+            this.filtersSet = true;
+          } else {
+            this.filtersSet = false;
+          }
+
           return this.TopicIdeaService.loadItems();
         }), map(
           (newideas: any) => {
@@ -107,16 +118,21 @@ export class TopicIdeationComponent {
   }
 
   addIdea() {
-    this.app.addIdea.next(!this.app.addIdea.value);
+    if (this.AuthService.loggedIn$.value) {
+      this.app.addIdea.next(true);
+    } else {
+      this.app.doShowLogin();
+    }
   }
 
   canUpdate() {
     return this.TopicService.canUpdate(this.topic);
   }
 
-  canVote() {
-    /*this.topic.ideation = this.ideation;
-    return this.TopicVoteService.canVote(this.topic);*/
+  doClearFilters() {
+    this.setType('');
+    this.orderBy('');
+    this.filtersSet = false;
   }
 
   saveIdeation() {
@@ -142,10 +158,10 @@ export class TopicIdeationComponent {
     const closeVoteDialog = this.dialog.open(ConfirmDialogComponent, {
       data: {
         level: 'warn',
-        heading: 'COMPONENTS.CLOSE_VOTING_CONFIRM.HEADING',
-        description: 'COMPONENTS.CLOSE_VOTING_CONFIRM.ARE_YOU_SURE',
-        confirmBtn: 'COMPONENTS.CLOSE_VOTING_CONFIRM.CONFIRM_YES',
-        closeBtn: 'COMPONENTS.CLOSE_VOTING_CONFIRM.CONFIRM_NO'
+        heading: 'COMPONENTS.CLOSE_IDEATION_CONFIRM.HEADING',
+        description: 'COMPONENTS.CLOSE_IDEATION_CONFIRM.ARE_YOU_SURE',
+        confirmBtn: 'COMPONENTS.CLOSE_IDEATION_CONFIRM.CONFIRM_YES',
+        closeBtn: 'COMPONENTS.CLOSE_IDEATION_CONFIRM.CONFIRM_NO'
       }
     });
     closeVoteDialog.afterClosed().subscribe({
@@ -174,16 +190,15 @@ export class TopicIdeationComponent {
       });*/
   }
   canEditDeadline() {
-    return this.topic.status === this.TopicService.STATUSES.voting;
+    return this.topic.status === this.TopicService.STATUSES.ideation;
   }
 
   hasIdeationEndedExpired() {
-    return false;
-    //    return this.TopicVoteService.hasVoteEndedExpired(this.topic, this.vote);
+    return this.TopicIdeationService.hasIdeationEndedExpired(this.topic, this.ideation);
   };
 
   hasIdeationEnded() {
-    //  return this.TopicVoteService.hasVoteEnded(this.topic, this.vote);
+    return this.TopicIdeationService.hasIdeationEnded(this.topic, this.ideation);
   };
 
   triggerFinalDownload(type: string, includeCSV?: boolean) {
