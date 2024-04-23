@@ -330,7 +330,7 @@
     "GROUP_MEMBER_USER": {
       "LAST_ACTIVITY": "@:VIEWS.PUBLIC_GROUP.LNK_LAST_ACTIVITY",
       "SET_MEMBER_PERMISSIONS": "Set permissions to <b>{{level}}</b>",
-      "EDIT_MEMBER": "Edit member",
+      "EDIT_MEMBER": "Upravit člena",
       "BTN_REMOVE": "Remove member"
     },
     "GROUP_INVITE_USER": {
