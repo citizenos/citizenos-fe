@@ -303,7 +303,7 @@
     "GROUP_INVITE_DIALOG": {
       "HEADING": "Pozvat a sdílet",
       "TAB_INVITE": "Pozvat členy",
-      "TAB_SHARE": "Generate link / QR",
+      "TAB_SHARE": "Vytvořit odkaz / QR",
       "LNK_CANCEL": "Pozvat později",
       "BTN_SAVE": "Poslat pozvánky",
       "NO_USERS_SELECTED": "You haven't selected any users to invite to the group. Please search for the users with the search field above or add email addresses."
