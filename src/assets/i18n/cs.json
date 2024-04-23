@@ -155,7 +155,7 @@
       "SUBJECT_CHARACTERS_LEFT": "@:COMPONENTS.POST_ARGUMENT.SUBJECT_CHARACTERS_LEFT",
       "PLACEHOLDER_ADD_SUBJECT_TO_ARGUMENT": "@:COMPONENTS.POST_ARGUMENT.PLACEHOLDER_ADD_SUBJECT_TO_ARGUMENT",
       "CHARACTER_LIMIT": "@:VIEWS.TOPICS_TOPICID.COMMENT_TYPE_CHARACTER_LIMIT",
-      "ERROR_NO_TEXT": "Reply field is empty.",
+      "ERROR_NO_TEXT": "Pole odpovědi je prázdné.",
       "PLACEHOLDER_WRITE_REPLY_HERE": "@:VIEWS.TOPICS_TOPICID.PLACEHOLDER_WRITE_REPLY_HERE",
       "BTN_POST_REPLY": "@:VIEWS.TOPICS_TOPICID.BTN_ARGUMENT_POST_REPLY"
     },
@@ -223,7 +223,7 @@
       "BTN_CANCEL": "@:LNK_CANCEL"
     },
     "DOWNLOAD_VOTING_RESULTS": {
-      "HEADING": "Download vote results",
+      "HEADING": "Stáhnout výsledky hlasování",
       "MESSAGE_DESCRIPTION": "Are you sure you want to download the voting results? This will mean the vote is permanently closed.",
       "MESSAGE_OPTIONS": "Zde jsou některé možnosti:",
       "HEADING_NOT_DOWNLOAD": "Prodloužit termín hlasování",
@@ -231,8 +231,8 @@
       "HEADING_DOWNLOAD": "Stáhnout výsledky",
       "GET_RESULTS": "The vote will be permanently closed.",
       "FOLLOW_UP": "The topic will be moved into 'Follow-up' phase, so you can post updates on actions taken as a result of the vote.",
-      "BTN_EDIT_DEADLINE": "Edit vote deadline",
-      "BTN_CANCEL": "Don't download results",
+      "BTN_EDIT_DEADLINE": "Upravit termín hlasování",
+      "BTN_CANCEL": "Nestahovat výsledky",
       "BTN_SUBMIT": "Stáhnout výsledky"
     },
     "GROUP_ADD_TOPICS_DIALOG": {
@@ -2234,8 +2234,8 @@
       "HELP_ITEM_ADD_FOLLOW_UP": "Add follow-up to keep participants up to date on any progress made.",
       "NOTIFICATION_SUCCESS_TITLE": "Topic successfully published",
       "NOTIFICATION_SUCCESS_MESSAGE": "Congratulations on your new topic! Now it’s time to get people engaged. Invite participants below or you can also invite them later.",
-      "NOTIFICATION_DRAFT_SUCCESS_TITLE": "Draft topic saved!",
-      "NOTIFICATION_DRAFT_SUCCESS_MESSAGE": "Your topic has been saved to your drafts."
+      "NOTIFICATION_DRAFT_SUCCESS_TITLE": "Koncept tématu uložen!",
+      "NOTIFICATION_DRAFT_SUCCESS_MESSAGE": "Téma bylo uloženo do vašich konceptů."
     },
     "TOPIC_EDIT": {
       "HEADING": "Edit topic",
