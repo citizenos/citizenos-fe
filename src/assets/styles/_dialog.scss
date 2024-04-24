@@ -66,7 +66,7 @@
   width: 560px;
   height: max-content;
   border-radius: 16px;
- //overflow: hidden;
+  //overflow: hidden;
   margin-left: auto;
   margin-right: auto;
   margin-top: auto;
@@ -117,6 +117,11 @@
       color: var(--color-info);
     }
 
+    &.ideation {
+      background-color: var(--color-dialog-ideation);
+      color: var(--color-text);
+    }
+
     &.success {
       background-color: var(--color-success-background);
       color: var(--color-success);
@@ -148,6 +153,12 @@
 
       .dialog_close {
         align-items: center;
+      }
+
+      .title {
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 24px;
       }
     }
 
@@ -188,7 +199,6 @@
     &.no_padding {
       padding: 0;
     }
-
 
     .dialog_info {
       line-height: 20px;
@@ -417,7 +427,8 @@
 
       &.active {
         background-color: var(--color-surfaces);
-        box-shadow: 0px 8px 20px 0px rgba(220, 231, 240, 0.30), 0px 12px 16px 0px rgba(50, 85, 112, 0.10);
+        box-shadow: 0px 8px 20px 0px rgba(220, 231, 240, 0.3),
+          0px 12px 16px 0px rgba(50, 85, 112, 0.1);
         font-weight: 600;
 
         .tab_text {

@@ -12,6 +12,7 @@ export interface Folder {
   description: string,
   createdAt: Date,
   updatedAt: Date,
+  latestActivity: Date,
   ideas: {
     count: number,
     rows: any

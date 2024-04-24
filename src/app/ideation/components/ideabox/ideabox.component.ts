@@ -11,6 +11,7 @@ import { TopicIdeaService } from 'src/app/services/topic-idea.service';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { DialogService } from 'src/app/shared/dialog';
 import { IdeaReportComponent } from '../idea-report/idea-report.component';
+import { AddIdeaFolderComponent } from '../add-idea-folder/add-idea-folder.component';
 
 @Component({
   selector: 'ideabox',
@@ -165,7 +166,13 @@ export class IdeaboxComponent implements AfterViewInit {
   }
 
   addToFolder() {
-
+    const addToFolderDialog = this.dialog.open(AddIdeaFolderComponent, {
+      data: {
+        topicId: this.topicId,
+        ideationId: this.ideationId,
+        idea:this.idea
+      }
+    })
   }
 
   reportReasonDialog() {

@@ -11,6 +11,8 @@ import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog
 import { TopicVoteReminderDialog } from 'src/app/topic/components/topic-vote-reminder-dialog/topic-vote-reminder-dialog.component';
 import { TopicIdeaService } from 'src/app/services/topic-idea.service';
 import { Idea } from 'src/app/interfaces/idea';
+import { Folder } from 'src/app/interfaces/folder';
+import { CreateIdeaFolderComponent } from '../create-idea-folder/create-idea-folder.component';
 
 
 @Component({
@@ -33,7 +35,7 @@ export class TopicIdeationComponent {
   ideas$ = of(<Idea[]>[]);
   folders$ = of(<Folder[]>[]);
   allIdeas$: Idea[] = [];
-  tabSelected = 'ideas';
+  tabSelected = 'folders';
   ideaFilters = {
     type: '',
     orderBy: '',
@@ -99,6 +101,13 @@ export class TopicIdeationComponent {
             return this.allIdeas$;
           }
         ));
+      this.TopicIdeationService.setParam('topicId', this.topic.id);
+      this.TopicIdeationService.setParam('ideationId', this.ideation.id);
+      this.folders$ = this.TopicIdeationService.getFolders({topicId: this.topic.id, ideationId: this.ideation.id}).pipe(
+        map((res) => {
+          return res.rows;
+        })
+      );
   }
 
   setType(type: string) {
@@ -180,7 +189,9 @@ export class TopicIdeationComponent {
     });
   }
 
-
+  editFolder(folder: Folder) { }
+  deleteFolder(folder: Folder) { }
+  viewFolder(folder: Folder) {}
   editDeadline() {
     /*  const voteDeadlineDialog = this.dialog.open(TopicVoteDeadlineComponent, {
         data: {
@@ -188,6 +199,9 @@ export class TopicIdeationComponent {
           topic: this.topic
         }
       });*/
+  }
+  canEdit() {
+    return this.TopicService.canEdit(this.topic);
   }
   canEditDeadline() {
     return this.topic.status === this.TopicService.STATUSES.ideation;
@@ -199,6 +213,19 @@ export class TopicIdeationComponent {
 
   hasIdeationEnded() {
     return this.TopicIdeationService.hasIdeationEnded(this.topic, this.ideation);
+  };
+
+  createFolder () {
+    const folderCreateDialog = this.dialog.open(CreateIdeaFolderComponent, {
+      data: {
+        topicId: this.topic.id,
+        ideationId: this.ideation.id
+      }
+    });
+
+    folderCreateDialog.afterClosed().subscribe(() => {
+
+    });
   };
 
   triggerFinalDownload(type: string, includeCSV?: boolean) {
