@@ -223,6 +223,17 @@
       "TITLE_GROUP": "Group",
       "DESC_GROUP": "Create a private or public group to invite people with common interests to access relevant topics."
     },
+    "CREATE_IDEA_FOLDER": {
+      "HEADING": "Create folder",
+      "LBL_NAME": "Please name your new folder",
+      "ADD_NAME_ERROR_MSG_INVALID": "Name cannot be empty",
+      "PLACEHOLDER_NAME": "@:VIEWS.MY_TOPICS_TOPICID.LNK_NAME",
+      "LBL_IDEAS_SELECTION": "Select the ideas you immediately want to add to this folder",
+      "BTN_CREATE": "Create folder",
+      "LNK_CANCEL": "@:LNK_CANCEL",
+      "LBL_IDEAS": "Ideas ({{count}})",
+      "LBL_LIKES": "Likes"
+    },
     "DUPLICATE_TOPIC": {
       "HEADING": "Duplicate topic",
       "MESSAGE_MAIN": "You are duplicating",
@@ -610,6 +621,8 @@
       "LBL_IDEAS": "Ideas",
       "LBL_LAST_ACTIVITY": "Last activity",
       "LBL_ACTIONS": "@:COMPONENTS.GROUP_INVITE.ACTIONS",
+      "OPTION_EDIT_FOLDER": "Edit folder",
+      "OPTION_DELETE_FOLDER": "Delete folder",
       "BTN_CREATE_NEW_FOLDER": "Create new folder"
     },
     "TOUR": {

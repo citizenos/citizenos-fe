@@ -55,14 +55,40 @@ export class TopicIdeationService extends ItemsListService {
       );
   }
 
-  get<Vote>(params?: any) {
-    if (!params.voteId) params.voteId = params.id;
+  get<Ideation>(params?: any) {
     let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId'), params);
 
     return this.http.get<ApiResponse>(path, { withCredentials: true, observe: 'body', responseType: 'json' })
       .pipe(
         map(res => res.data)
       );
+  }
+
+  getFolders(params?: any) {
+    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId/folders'), params);
+
+    return this.http.get<ApiResponse>(path, { withCredentials: true, observe: 'body', responseType: 'json' })
+      .pipe(
+        map(res => res.data)
+      );
+  }
+
+  createFolder (params: any, data: any) {
+    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId/folders'), params);
+
+    return this.http.post<ApiResponse>(path, data, { withCredentials: true, observe: 'body', responseType: 'json' })
+    .pipe(
+      map(res => res.data)
+    );
+  }
+
+  addIdeaFolder(params: any, data: any) {
+    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId/folders/:folderId'), params);
+
+    return this.http.post<ApiResponse>(path, data, { withCredentials: true, observe: 'body', responseType: 'json' })
+    .pipe(
+      map(res => res.data)
+    );
   }
 
   save(data: any) {

@@ -285,25 +285,87 @@
           </ng-container>
           <ng-container *ngIf="tabSelected === 'folders'">
             <div class="folders_wrap">
-              <div class="row">
+              <div class="folder_row">
                 <div class="cell" translate="COMPONENTS.TOPIC_IDEATION.LBL_FOLDER"></div>
                 <div class="cell" translate="COMPONENTS.TOPIC_IDEATION.LBL_IDEAS"></div>
                 <div class="cell" translate="COMPONENTS.TOPIC_IDEATION.LBL_LAST_ACTIVITY"></div>
-                <div class="cell" translate="COMPONENTS.TOPIC_IDEATION.LBL_ACTIONS"></div>
+                <div class="cell" translate="COMPONENTS.TOPIC_IDEATION.LBL_ACTIONS" *ngIf="canEdit()"></div>
               </div>
-              <div class="row" *ngFor="let folder in folders$ | async">
-                <div class="cell">
-                  <div class="icon"></div>
-                  <div class="name" [innerHTML]="folder.name"></div>
+              <ng-container *ngIf="folders$ | async as folders">
+                <div class="folder_row" *ngFor="let folder of folders">
+                  <a class="folder_name" (click)="viewFolder(folder)">
+                    <div class="icon">
+                      <svg width="40" height="34" viewBox="0 0 40 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_12637_35588)">
+                          <path
+                            d="M0 4C0 1.79086 1.79086 0 4 0H14.7932C15.9803 0 17.1061 0.527292 17.866 1.43926L18.8006 2.56074C19.5606 3.47271 20.6864 4 21.8735 4H36C38.2091 4 40 5.79086 40 8V14H0V4Z"
+                            fill="url(#paint0_linear_12637_35588)" />
+                          <path
+                            d="M0 11C0 8.79086 1.79086 7 4 7H36C38.2091 7 40 8.79086 40 11V30C40 32.2091 38.2091 34 36 34H4C1.79086 34 0 32.2091 0 30V11Z"
+                            fill="url(#paint1_linear_12637_35588)" />
+                        </g>
+                        <defs>
+                          <linearGradient id="paint0_linear_12637_35588" x1="20" y1="4.375" x2="20" y2="9.1875"
+                            gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#FFEBA2" />
+                            <stop offset="1" stop-color="#FFDF6F" />
+                          </linearGradient>
+                          <linearGradient id="paint1_linear_12637_35588" x1="20" y1="7" x2="20" y2="34"
+                            gradientUnits="userSpaceOnUse">
+                            <stop offset="0.901042" stop-color="#FFEAA1" />
+                            <stop offset="1" stop-color="#FFDF6F" />
+                          </linearGradient>
+                          <clipPath id="clip0_12637_35588">
+                            <rect width="40" height="34" rx="4" fill="white" />
+                          </clipPath>
+                        </defs>
+                      </svg>
+                    </div>
+                    <div class="name" [innerText]="folder.name"></div>
+                  </a>
+                  <div class="cell" [innerText]="folder.ideas.count"></div>
+                  <div class="cell" [innerText]="folder.updatedAt | date:'YYYY-MM-dd HH:mm'"></div>
+                  <div class="cell" *ngIf="canEdit()">
+                    <div class="dropdown button_dropdown" [cosDropdown]>
+                      <button class="btn_small_plain icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M17.334 11.9993C17.334 11.266 16.734 10.666 16.0007 10.666C15.2673 10.666 14.6673 11.266 14.6673 11.9993C14.6673 12.7327 15.2673 13.3327 16.0007 13.3327C16.734 13.3327 17.334 12.7327 17.334 11.9993ZM17.334 19.9993C17.334 19.266 16.734 18.666 16.0007 18.666C15.2673 18.666 14.6673 19.266 14.6673 19.9993C14.6673 20.7327 15.2673 21.3327 16.0007 21.3327C16.734 21.3327 17.334 20.7327 17.334 19.9993ZM16.0007 14.666C16.734 14.666 17.334 15.266 17.334 15.9993C17.334 16.7327 16.734 17.3327 16.0007 17.3327C15.2673 17.3327 14.6673 16.7327 14.6673 15.9993C14.6673 15.266 15.2673 14.666 16.0007 14.666Z"
+                            fill="#2C3B47" />
+                        </svg>
+                      </button>
+                      <div class="options button_options ideation">
+                        <ng-container *ngIf="canEdit()">
+                          <button class="option" (click)="editFolder(folder)">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="M8.8143 4.18517L11.8147 7.18569L5.29947 13.7012L2.62438 13.9965C2.26626 14.0361 1.96369 13.7333 2.00354 13.3752L2.30118 10.6981L8.8143 4.18517ZM13.6704 3.73845L12.2616 2.3296C11.8222 1.89013 11.1095 1.89013 10.67 2.3296L9.34467 3.65501L12.3451 6.65553L13.6704 5.33011C14.1099 4.89042 14.1099 4.17791 13.6704 3.73845Z"
+                                fill="#2C3B47" />
+                            </svg>
+                            <span translate="COMPONENTS.TOPIC_IDEATION.OPTION_EDIT_FOLDER"></span>
+                          </button>
+                        </ng-container>
+                        <ng-container *ngIf="canEdit()">
+                          <button class="option error_text" (click)="deleteFolder(folder)">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M10 3H6V4H10V3ZM11 4V3C11 2.44772 10.5523 2 10 2H6C5.44772 2 5 2.44772 5 3V4H4H2.5C2.22386 4 2 4.22386 2 4.5C2 4.77614 2.22386 5 2.5 5H4V13C4 13.5523 4.44772 14 5 14H11C11.5523 14 12 13.5523 12 13V5H13.5C13.7761 5 14 4.77614 14 4.5C14 4.22386 13.7761 4 13.5 4H12H11ZM7 7H6V11H7V7ZM10 7H9V11H10V7Z"
+                                fill="#2C3B47"></path>
+                            </svg>
+                            <span translate="COMPONENTS.TOPIC_IDEATION.OPTION_DELETE_FOLDER"></span>
+                          </button>
+                        </ng-container>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="cell" [innerText]="folder.ideas.count"></div>
-                <div class="cell" [innerText]="folder.latestActivity | date:'YYYY-MM-dd HH:mm'"></div>
-                <div class="cell"></div>
-              </div>
+              </ng-container>
             </div>
-            <div class="line_separator"></div>
-            <div class="button_wrap">
-              <button class="btn_medium_submit btn_ideation animage">
+            <div id="add_folder_btn" class="button_wrap">
+              <div class="line_separator"></div>
+              <button class="btn_medium_submit btn_ideation animate" (click)="createFolder()">
                 <svg _ngcontent-ng-c968857107="" width="25" height="24" viewBox="0 0 25 24" fill="none"
                   xmlns="http://www.w3.org/2000/svg">
                   <path _ngcontent-ng-c968857107=""

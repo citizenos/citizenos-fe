@@ -1,0 +1,84 @@
+<div class="overlay" dialog-close></div>
+<div class="dialog_wrap">
+  <div id="notification_wrap_dialog">
+    <notification></notification>
+  </div>
+  <div class="dialog">
+    <div class="dialog_header ideation">
+      <div class="header_text">
+        <div class="title" translate="COMPONENTS.CREATE_IDEA_FOLDER.HEADING"></div>
+        <div class="dialog_close">
+          <a class="btn_dialog_close icon" dialog-close>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M7.72152 6.29537C7.3277 5.90154 6.68919 5.90154 6.29537 6.29537C5.90154 6.68919 5.90154 7.3277 6.29537 7.72153L10.5738 12L6.29541 16.2785C5.90159 16.6723 5.90159 17.3108 6.29541 17.7046C6.68923 18.0985 7.32774 18.0985 7.72156 17.7046L12 13.4262L16.2784 17.7046C16.6723 18.0985 17.3108 18.0985 17.7046 17.7046C18.0984 17.3108 18.0984 16.6723 17.7046 16.2785L13.4262 12L17.7046 7.72153C18.0985 7.3277 18.0985 6.68919 17.7046 6.29537C17.3108 5.90154 16.6723 5.90154 16.2785 6.29537L12 10.5739L7.72152 6.29537Z"
+                fill="#2C3B47" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="dialog_content">
+      <div class="content_section">
+        <div class="section_content_wrap">
+          <div class="bold" translate="COMPONENTS.CREATE_IDEA_FOLDER.LBL_NAME"></div>
+          <form [formGroup]="form">
+            <cos-input placeholder="{{'COMPONENTS.CREATE_IDEA_FOLDER.PLACEHOLDER_NAME' | translate}}">
+              <input id="name" formControlName="name" type="name"
+                placeholder="{{'COMPONENTS.CREATE_IDEA_FOLDER.PLACEHOLDER_NAME' | translate}}" (focus)="wWidth > 1024"
+                [ngClass]="{'error_input': form.controls['name'].touched && form.controls['name'].invalid}"
+                [maxlength]="254">
+              <label for="name" class="error_label"
+                *ngIf="form.controls['name'].touched && form.controls['name'].invalid">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M8.89438 1.78863C8.52586 1.05158 7.47405 1.05158 7.10553 1.78863L0.723562 14.5526C0.391112 15.2175 0.874608 15.9998 1.61799 15.9998H14.3819C15.1253 15.9998 15.6088 15.2175 15.2763 14.5526L8.89438 1.78863ZM6.99996 6.99977C6.99996 6.44749 7.44767 5.99977 7.99996 5.99977C8.55224 5.99977 8.99996 6.44749 8.99996 6.99977V9.99977C8.99996 10.5521 8.55224 10.9998 7.99996 10.9998C7.44767 10.9998 6.99996 10.5521 6.99996 9.99977V6.99977ZM6.99996 12.9998C6.99996 12.4475 7.44767 11.9998 7.99996 11.9998C8.55224 11.9998 8.99996 12.4475 8.99996 12.9998C8.99996 13.5521 8.55224 13.9998 7.99996 13.9998C7.44767 13.9998 6.99996 13.5521 6.99996 12.9998Z"
+                    fill="#EF4025" />
+                </svg>
+                <span translate="COMPONENTS.CREATE_IDEA_FOLDER.ADD_NAME_ERROR_MSG_INVALID"></span>
+              </label>
+            </cos-input>
+          </form>
+          <ng-container *ngIf="ideas$ | async as ideas">
+            <div class="bold" translate="COMPONENTS.CREATE_IDEA_FOLDER.LBL_IDEAS_SELECTION"></div>
+            <div class="idea_selection_wrap">
+              <div class="idea_selection_header">
+                <div class="checkbox_wrap" (click)="toggleAllIdeas(ideas)">
+                  <label class="checkbox" [ngClass]="{selected:allChecked()}">
+                    <span class="checkmark"></span>
+                  </label>
+                  <div translate="COMPONENTS.CREATE_IDEA_FOLDER.LBL_IDEAS" [translateParams]="{count: ideasCount}">
+                  </div>
+                </div>
+                <div class="likes_wrap">
+                  <span translate="COMPONENTS.CREATE_IDEA_FOLDER.LBL_LIKES"></span>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 14L10 14L12.5 18L15 14L13 14L13 5L12 5L12 14Z" fill="#4D5C6A" />
+                  </svg>
+                </div>
+              </div>
+              <div class="line_separator"></div>
+              <div class="ideas_wrap">
+                <div class="idea_row" *ngFor="let idea of ideas">
+                  <div class="checkbox_wrap" (click)="toggleIdea(idea, $event);">
+                    <label class="checkbox" [ngClass]="{selected:ideaSelected(idea)}">
+                      <span class="checkmark"></span>
+                    </label>
+                    <div class="statement" [innerHTML]="idea.statement"></div>
+                  </div>
+                  <div class="votes" [innerText]="idea.votes.up.count"></div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+
+    <div class="dialog_footer with_buttons">
+      <a translate="COMPONENTS.CREATE_IDEA_FOLDER.LNK_CANCEL" dialog-close></a>
+      <button class="btn_big_submit" (click)="createFolder()" [disabled]="form.invalid"
+        translate="COMPONENTS.CREATE_IDEA_FOLDER.BTN_CREATE"></button>
+    </div>
+  </div>
+</div>

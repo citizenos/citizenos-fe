@@ -66,3 +66,49 @@
     }
   }
 }
+
+.folders_wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 24px;
+  .folder_row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    .folder_name {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+
+      .icon {
+        display: flex;
+      }
+    }
+  }
+}
+.button_dropdown {
+  background-color:initial;
+}
+
+.line_separator {
+  background-color: var(--color-dialog-ideation-contrast);
+}
+
+#add_folder_btn {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px 24px;
+  button {
+    max-width: max-content;
+    background-color: var(--color-dialog-ideation-contrast);
+    color: var(--color-text);
+    path, span {
+      color: var(--color-text);
+      fill: var(--color-text);
+    }
+  }
+}
