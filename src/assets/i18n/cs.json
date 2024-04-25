@@ -303,7 +303,7 @@
     "GROUP_INVITE_DIALOG": {
       "HEADING": "Pozvat a sdílet",
       "TAB_INVITE": "Pozvat členy",
-      "TAB_SHARE": "Generate link / QR",
+      "TAB_SHARE": "Vytvořit odkaz / QR",
       "LNK_CANCEL": "Pozvat později",
       "BTN_SAVE": "Poslat pozvánky",
       "NO_USERS_SELECTED": "You haven't selected any users to invite to the group. Please search for the users with the search field above or add email addresses."
@@ -323,20 +323,20 @@
       "HEADING_WHAT_CAN_YOU_DO": "Co můžete udělat, jakmile se připojíte k tématu",
       "ITEM_PARTICIPATE": "Participate in discussions and voting",
       "ITEM_NOTIFICATIONS": "Receive notifications of activity within the topic",
-      "ITEM_REQUEST_EDIT": "Request to become a co-creator",
+      "ITEM_REQUEST_EDIT": "Požádat o to, aby se stal spolutvůrcem",
       "BTN_JOIN": "@:VIEWS.TOPICS_TOPICID.BTN_JOIN",
       "LNK_CANCEL": "@:LNK_CANCEL"
     },
     "GROUP_MEMBER_USER": {
       "LAST_ACTIVITY": "@:VIEWS.PUBLIC_GROUP.LNK_LAST_ACTIVITY",
-      "SET_MEMBER_PERMISSIONS": "Set permissions to <b>{{level}}</b>",
-      "EDIT_MEMBER": "Edit member",
-      "BTN_REMOVE": "Remove member"
+      "SET_MEMBER_PERMISSIONS": "Nastavit oprávnění na <b>{{level}}</b>",
+      "EDIT_MEMBER": "Upravit člena",
+      "BTN_REMOVE": "Odebrat člena"
     },
     "GROUP_INVITE_USER": {
       "SET_MEMBER_PERMISSIONS": "@:COMPONENTS.GROUP_MEMBER_USER.SET_MEMBER_PERMISSIONS",
-      "EDIT_MEMBER": "Edit invite",
-      "BTN_REMOVE": "Remove invite",
+      "EDIT_MEMBER": "Upravit pozvánku",
+      "BTN_REMOVE": "Odstranit pozvánku",
       "INVITE_SENT_TO": "Pending invite sent to {{email}}"
     },
     "GROUP_REQUEST_ADD_TOPICS_DIALOG": {
@@ -344,11 +344,11 @@
       "SEARCH_HEADING": "Search for existing topics you want added to the group",
       "SEARCH_DESC": "You can request to add any topic for which you are admin",
       "PLACEHOLDER_SEARCH": "@:COMPONENTS.GROUP_INVITE.PLACEHOLDER_SEARCH",
-      "MSG_REQUEST_SENT_SUCCESS": "Request has been sent!",
-      "REASON_DESC": "Add a reason for your request",
-      "REASON_PLACEHOLDER": "Write your reason here",
+      "MSG_REQUEST_SENT_SUCCESS": "Žádost byla odeslána!",
+      "REASON_DESC": "Přidat důvod pro vaši žádost",
+      "REASON_PLACEHOLDER": "Zde napište svůj důvod",
       "LNK_CANCEL": "@:LNK_CANCEL",
-      "BTN_SAVE": "Send request"
+      "BTN_SAVE": "Odeslat žádost"
     },
     "GROUP_SETTINGS": {
       "HEADING": "Upravit skupinu",
@@ -382,7 +382,7 @@
       "PLACEHOLDER_CREATE_NEW_LINK": "Vygenerovat odkaz ke sdílení",
       "COPY_LINK": "Zkopírovat odkaz",
       "MSG_LINK_COPIED": "@:COMPONENTS.TOPIC_SHARE.MSG_LINK_COPIED",
-      "LBL_ACCESS_LEVEL": "Users access level",
+      "LBL_ACCESS_LEVEL": "Úroveň přístupu uživatelů",
       "GENERATE_QR_CODE": "Generate QR code",
       "GENERATE_QR_CODE_DESCRIPTION": "Generate a QR code that people can scan to come straight to the topic. You can add the QR code to digital or physical comms, and display it wherever the right people will see it.",
       "GENERATE_QR_CODE_PRINT": "To save the QR code, right click then choose 'Save image'.",
@@ -597,7 +597,7 @@
       "TOPIC_STEP_2_DESC_ACTIVITY_FEED": "Check out what happened while you were away with the topic's activity feed.",
       "TOPIC_STEP_2_LBL_FAVOURITE": "Oblíbené",
       "TOPIC_STEP_2_DESC_FAVOURITE": "Add or remove this topic to or from your favourites.",
-      "TOPIC_STEP_2_LBL_MORE": "Manage",
+      "TOPIC_STEP_2_LBL_MORE": "Spravovat",
       "TOPIC_STEP_2_DESC_MORE": "Here, topic admins and editors can edit the content and settings, invite co-creators or close a topic.",
       "TOPIC_STEP_3_TITLE": "Informace",
       "TOPIC_STEP_3_DESC": "Zde jsou všechny příslušné informace o tématu, které byste mohli potřebovat. Je to veřejné nebo soukromé? Kdo je publikoval a kdy?",
