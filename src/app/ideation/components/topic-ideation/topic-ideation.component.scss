@@ -48,7 +48,16 @@
     }
   }
 }
+.folder_data_wrap {
+  display: flex;
+  align-items: center;
+  gap: 16px;
 
+  .folder_name {
+    display: flex;
+    gap: 4px;
+  }
+}
 .idea_filters_wrap {
   display: flex;
   gap: 16px;

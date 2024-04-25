@@ -13,6 +13,7 @@ import { TopicIdeaService } from 'src/app/services/topic-idea.service';
 import { Idea } from 'src/app/interfaces/idea';
 import { Folder } from 'src/app/interfaces/folder';
 import { CreateIdeaFolderComponent } from '../create-idea-folder/create-idea-folder.component';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -35,7 +36,7 @@ export class TopicIdeationComponent {
   ideas$ = of(<Idea[]>[]);
   folders$ = of(<Folder[]>[]);
   allIdeas$: Idea[] = [];
-  tabSelected = 'folders';
+  tabSelected = 'ideas';
   ideaFilters = {
     type: '',
     orderBy: '',
@@ -46,12 +47,15 @@ export class TopicIdeationComponent {
   orderFilter$ = new BehaviorSubject('');
   ideaParticipantsFilter$ = new BehaviorSubject('');
   ideaSearchFilter$ = new BehaviorSubject('');
+  folderFilter$ = new BehaviorSubject('');
+  selectedFolder?: Folder;
 
   constructor(
     public app: AppService,
     private dialog: DialogService,
     private Notification: NotificationService,
     public AuthService: AuthService,
+    private router: Router,
     public TopicService: TopicService,
     private TopicIdeationService: TopicIdeationService,
     private TopicIdeaService: TopicIdeaService
@@ -59,9 +63,9 @@ export class TopicIdeationComponent {
 
   ngOnInit(): void {
 
-    this.ideas$ = combineLatest([this.ideaTypeFilter$, this.orderFilter$, this.ideaParticipantsFilter$, this.ideaSearchFilter$])
+    this.ideas$ = combineLatest([this.ideaTypeFilter$, this.orderFilter$, this.ideaParticipantsFilter$, this.folderFilter$, this.ideaSearchFilter$])
       .pipe(
-        switchMap(([typeFilter, orderFilter, participantFilter, search]) => {this.TopicIdeaService.setParam('topicId', this.topic.id);
+        switchMap(([typeFilter, orderFilter, participantFilter, folderFilter, search]) => {this.TopicIdeaService.setParam('topicId', this.topic.id);
           this.TopicIdeaService.reset();
           this.TopicIdeaService.setParam('topicId', this.topic.id);
           this.TopicIdeaService.setParam('ideationId', this.topic.ideationId);
@@ -82,12 +86,14 @@ export class TopicIdeationComponent {
           if (participantFilter) {
             this.TopicIdeaService.setParam('authorId', [participantFilter]);
           }
-
+          if (folderFilter) {
+            this.TopicIdeaService.setParam('folderId', folderFilter);
+          }
           if (search) {
             this.TopicIdeaService.setParam('search', search);
           }
 
-          if (typeFilter || orderFilter || participantFilter || search) {
+          if (typeFilter || orderFilter || participantFilter || folderFilter || search) {
             this.filtersSet = true;
           } else {
             this.filtersSet = false;
@@ -190,8 +196,29 @@ export class TopicIdeationComponent {
   }
 
   editFolder(folder: Folder) { }
-  deleteFolder(folder: Folder) { }
-  viewFolder(folder: Folder) {}
+  deleteFolder(folder: Folder) {
+    this.TopicIdeationService.deleteFolder({ topicId: this.topic.id, ideationId: this.ideation.id, folderId: folder.id }).pipe(take(1))
+    .subscribe({
+      next:() => {
+
+      },
+      error: () => {
+
+      }
+    })
+  }
+  viewFolder(folder: Folder) {
+    this.tabSelected = 'folder';
+    this.selectedFolder = folder;
+    this.folderFilter$.next(folder.id);
+  }
+
+  leaveFolder () {
+    this.selectedFolder = undefined;
+    this.tabSelected='folders';
+    this.folderFilter$.next('');
+  }
+
   editDeadline() {
     /*  const voteDeadlineDialog = this.dialog.open(TopicVoteDeadlineComponent, {
         data: {

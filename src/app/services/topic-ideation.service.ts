@@ -33,7 +33,7 @@ export class TopicIdeationService extends ItemsListService {
   constructor(private Location: LocationService, private http: HttpClient, private Auth: AuthService, private TopicService: TopicService) {
     super();
     this.items$ = this.loadItems();
-   }
+  }
 
   loadIdeation(params?: { [key: string]: string | boolean }) {
     return this.loadIdeation$.pipe(
@@ -73,20 +73,36 @@ export class TopicIdeationService extends ItemsListService {
       );
   }
 
-  createFolder (params: any, data: any) {
+  createFolder(params: any, data: any) {
     let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId/folders'), params);
 
     return this.http.post<ApiResponse>(path, data, { withCredentials: true, observe: 'body', responseType: 'json' })
-    .pipe(
+      .pipe(
+        map(res => res.data)
+      );
+  }
+
+  deleteFolder(params: any) {
+    const path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId/folders/:folderId'), params);
+
+    return this.http.delete<ApiResponse>(path, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
       map(res => res.data)
     );
   }
 
-  addIdeaFolder(params: any, data: any) {
-    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId/folders/:folderId'), params);
+  addIdeaToFolder(params: any, data: any) {
+    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId/folders/:folderId/ideas'), params);
 
     return this.http.post<ApiResponse>(path, data, { withCredentials: true, observe: 'body', responseType: 'json' })
-    .pipe(
+      .pipe(
+        map(res => res.data)
+      );
+  }
+
+  removeIdeaFromFolder(params: any) {
+    const path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId/folders/:folderId/ideas/:ideaId'), params);
+
+    return this.http.delete<ApiResponse>(path, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
       map(res => res.data)
     );
   }
@@ -119,14 +135,14 @@ export class TopicIdeationService extends ItemsListService {
   }
 
   hasIdeationEnded(topic: Topic, ideation: Ideation) {
-    if ([this.STATUSES.draft, this.STATUSES.ideation].indexOf(topic.status) === -1 ) {
+    if ([this.STATUSES.draft, this.STATUSES.ideation].indexOf(topic.status) === -1) {
       return true;
     }
     return ideation && ideation.deadline && new Date() > new Date(ideation.deadline);
   };
 
   hasIdeationEndedExpired(topic: Topic, ideation: Ideation) {
-    return ([this.STATUSES.draft, this.STATUSES.ideation].indexOf(topic.status) === -1 ) || ideation.deadline && (new Date() > new Date(ideation.deadline));
+    return ([this.STATUSES.draft, this.STATUSES.ideation].indexOf(topic.status) === -1) || ideation.deadline && (new Date() > new Date(ideation.deadline));
   };
 
   getItems(params: any) {

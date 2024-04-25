@@ -34,9 +34,30 @@ export class CreateIdeaFolderComponent {
     }));
   }
   createFolder() {
-    this.TopicIdeationService.createFolder({topicId: this.topicId, ideationId: this.ideationId}, this.form.value).pipe(take(1)).subscribe((res) => {
-      console.log('RES', res);
-      this.dialogRef.close();
+    this.TopicIdeationService.createFolder({ topicId: this.topicId, ideationId: this.ideationId }, this.form.value).pipe(take(1)).subscribe({
+      next: (folder) => {
+        console.log('RES', folder);
+        if (this.folderIdeas.length) {
+          this.TopicIdeationService.addIdeaToFolder({ topicId: this.topicId, ideationId: this.ideationId, folderId: folder.id }, this.folderIdeas)
+            .pipe(take(1))
+            .subscribe({
+              next: (res) => {
+                console.log('IDEAS to folder', res)
+
+                this.dialogRef.close();
+              },
+              error: (err) => {
+                console.log('Error adding ideas to folder')
+              }
+            })
+        } else {
+
+          this.dialogRef.close();
+        }
+      },
+      error: (err) => {
+        console.log('ERROR', err)
+      }
     })
   }
 
