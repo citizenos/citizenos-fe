@@ -125,7 +125,7 @@
 }
 .help_widget {
   z-index: 999999;
-  width: 360px;
+  width: 400px;
   position: fixed;
   right: 0px;
   top: 0px;
@@ -189,7 +189,7 @@
   }
 
   .help_content {
-    width: 360px;
+    width: 400px;
     height: 100vh;
 
     @include mixins.mobile {

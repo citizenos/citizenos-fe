@@ -96,9 +96,10 @@ export class AddIdeaComponent {
           this.TopicIdeaService.reset();
           this.TopicIdeaService.setParam('topicId', this.topicId);
           this.TopicIdeaService.setParam('ideationId', this.ideationId);
-          this.ideaForm.reset();
           this.description = '';
+          this.ideaForm.reset();
           this.app.addIdea.next(false);
+
           this.router.navigate(
             [],
             {

@@ -345,7 +345,7 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
 
     this.TopicService.patch(updateTopic).pipe(take(1)).subscribe({
       next: () => {
-        console.log('SAVED');
+
         this.TopicService.reloadTopic();
         this.saveImage()
           .subscribe({
@@ -360,22 +360,6 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
               } else {
                 this.updateVote(true);
               }
-              this.TopicService.patch(updateTopic).pipe(take(1)).subscribe({
-                next: (res) => {
-                  this.hasChanges$.next(false);
-                  this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
-                  this.TopicService.reloadTopic();
-                  if (this.isnew || isDraft) {
-                    this.Notification.addSuccess('VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_TITLE');
-                    this.inviteMembers();
-                  } else {
-                    this.Notification.addSuccess('VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE');
-                  }
-                },
-                error: (err) => {
-                  console.log('Update status error', err);
-                }
-              });
             },
             error: (err) => {
               console.log('publish error', err)
@@ -407,11 +391,20 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
             this.vote.options = [{value: 'Yes'}, {value: 'No'}];
           }
           if (updateTopicStatus) {
+            const isDraft = (this.topic.status === this.TopicService.STATUSES.draft);
             const updateTopic = Object.assign({}, this.topic);
             updateTopic.status = this.TopicService.STATUSES.voting;
             this.TopicService.patch(updateTopic).pipe(take(1)).subscribe({
-              next: () => {
+              next: (res) => {
+                this.hasChanges$.next(false);
+                this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
                 this.TopicService.reloadTopic();
+                if (this.isnew || isDraft) {
+                  this.Notification.addSuccess('VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_TITLE');
+                  this.inviteMembers();
+                } else {
+                  this.Notification.addSuccess('VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE');
+                }
               },
               error: (err) => {
                 console.log('Update status error', err);
@@ -444,11 +437,20 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
       next: (res) => {
         console.log('Vote updated', res);
         if (updateTopicStatus) {
+          const isDraft = (this.topic.status === this.TopicService.STATUSES.draft);
           const updateTopic = Object.assign({}, this.topic);
           updateTopic.status = this.TopicService.STATUSES.voting;
           this.TopicService.patch(updateTopic).pipe(take(1)).subscribe({
-            next: () => {
+            next: (res) => {
+              this.hasChanges$.next(false);
+              this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
               this.TopicService.reloadTopic();
+              if (this.isnew || isDraft) {
+                this.Notification.addSuccess('VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_TITLE');
+                this.inviteMembers();
+              } else {
+                this.Notification.addSuccess('VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE');
+              }
             },
             error: (err) => {
               console.log('Update status error', err);
@@ -463,7 +465,6 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
   }
 
   removeChanges() {
-    console.log(this.topic)
     this.TopicService.revert(this.topic.id, this.topic.revision!).pipe(take(1)).subscribe(() => {
       setTimeout(() => {
         this.TopicService.reloadTopic();

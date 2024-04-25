@@ -155,6 +155,7 @@
       "SUBJECT_CHARACTERS_LEFT": "@:COMPONENTS.POST_ARGUMENT.SUBJECT_CHARACTERS_LEFT",
       "PLACEHOLDER_ADD_SUBJECT_TO_ARGUMENT": "@:COMPONENTS.POST_ARGUMENT.PLACEHOLDER_ADD_SUBJECT_TO_ARGUMENT",
       "CHARACTER_LIMIT": "@:VIEWS.TOPICS_TOPICID.COMMENT_TYPE_CHARACTER_LIMIT",
+      "ERROR_NO_TEXT": "Reply field is empty.",
       "PLACEHOLDER_WRITE_REPLY_HERE": "@:VIEWS.TOPICS_TOPICID.PLACEHOLDER_WRITE_REPLY_HERE",
       "BTN_POST_REPLY": "@:VIEWS.TOPICS_TOPICID.BTN_ARGUMENT_POST_REPLY"
     },
@@ -2232,7 +2233,9 @@
       "HELP_ITEM_ADD_VOTING": "Abstimmung hinzufügen, um Stimmen zu sammeln",
       "HELP_ITEM_ADD_FOLLOW_UP": "Füge eine Nachverfolgung hinzu, um die Teilnehmer über die erzielten Fortschritte auf dem Laufenden zu halten.",
       "NOTIFICATION_SUCCESS_TITLE": "Thema erfolgreich veröffentlicht",
-      "NOTIFICATION_SUCCESS_MESSAGE": "Herzlichen Glückwunsch zu Ihrem neuen Thema! Jetzt ist es an der Zeit, Leute ins Gespräch zu bringen. Laden Sie unten jetzt Teilnehmer ein, oder erledigen Sie das einfach später."
+      "NOTIFICATION_SUCCESS_MESSAGE": "Herzlichen Glückwunsch zu Ihrem neuen Thema! Jetzt ist es an der Zeit, Leute ins Gespräch zu bringen. Laden Sie unten jetzt Teilnehmer ein, oder erledigen Sie das einfach später.",
+      "NOTIFICATION_DRAFT_SUCCESS_TITLE": "Draft topic saved!",
+      "NOTIFICATION_DRAFT_SUCCESS_MESSAGE": "Your topic has been saved to your drafts."
     },
     "TOPIC_EDIT": {
       "HEADING": "Thema bearbeiten",
@@ -2366,12 +2369,12 @@
       "ARGUMENT_EDIT_BTN_POST_AS_POI": "@:VIEWS.TOPICS_TOPICID.BTN_ARGUMENT_POST_AS_POI",
       "ARGUMENT_EDIT_BTN_POST_AS_CON": "@:VIEWS.TOPICS_TOPICID.BTN_ARGUMENT_POST_AS_CON",
       "ARGUMENT_EDIT_BTN_CANCEL_EDIT": "@:LNK_CANCEL",
-      "ARGUMENT_HAS_BEEN_DELETED_BY": "Dieses Argument wurde von Benutzer {{usersFullName}} gelöscht",
-      "ARGUMENT_HAS_BEEN_DELETED_BY_MODERATOR": "Dieses Argument wurde von Benutzer {{usersFullName}} (Moderator) gelöscht",
+      "ARGUMENT_HAS_BEEN_DELETED_BY": "This contribution has been deleted by user {{usersFullName}}",
+      "ARGUMENT_HAS_BEEN_DELETED_BY_MODERATOR": "This contribution has been deleted by user {{usersFullName}} (moderator)",
       "ARGUMENT_WHY": "Warum?",
-      "ARGUMENT_VIEW_ARGUMENT_ANYWAY": "Das Argument trotzdem anzeigen",
-      "ARGUMENT_FOUND_INAPPRIOPRIATE_BY": "Dieses Argument wurde von Benutzer <b>{{usersFullName}}</b> als unangemessen empfunden",
-      "ARGUMENT_CREATOR_REMOVED_ARGUMENT": "Dieses Argument wurde vom Verfasser des Arguments entfernt",
+      "ARGUMENT_VIEW_ARGUMENT_ANYWAY": "View contribution anyway",
+      "ARGUMENT_FOUND_INAPPRIOPRIATE_BY": "This contribution was found inappropriate by user <b>{{usersFullName}}</b>",
+      "ARGUMENT_CREATOR_REMOVED_ARGUMENT": "This contribution was removed by its creator",
       "ARGUMENT_READ_CODE_OF_CONDUCT": "Lesen Sie unsere <a class=\"underlined_link\" href=\"{{codeOfConduct}}\">Verhaltensregeln</a> für weitere Informationen",
       "ARGUMENT_LAST_EDITED": "Zuletzt bearbeitet {{edittime}}",
       "PLACEHOLDER_EDIT_REPLY": "Bearbeiten Sie Ihre Antwort hier...",

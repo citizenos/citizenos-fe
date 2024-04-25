@@ -155,6 +155,7 @@
       "SUBJECT_CHARACTERS_LEFT": "@:COMPONENTS.POST_ARGUMENT.SUBJECT_CHARACTERS_LEFT",
       "PLACEHOLDER_ADD_SUBJECT_TO_ARGUMENT": "@:COMPONENTS.POST_ARGUMENT.PLACEHOLDER_ADD_SUBJECT_TO_ARGUMENT",
       "CHARACTER_LIMIT": "@:VIEWS.TOPICS_TOPICID.COMMENT_TYPE_CHARACTER_LIMIT",
+      "ERROR_NO_TEXT": "Pole odpovědi je prázdné.",
       "PLACEHOLDER_WRITE_REPLY_HERE": "@:VIEWS.TOPICS_TOPICID.PLACEHOLDER_WRITE_REPLY_HERE",
       "BTN_POST_REPLY": "@:VIEWS.TOPICS_TOPICID.BTN_ARGUMENT_POST_REPLY"
     },
@@ -222,7 +223,7 @@
       "BTN_CANCEL": "@:LNK_CANCEL"
     },
     "DOWNLOAD_VOTING_RESULTS": {
-      "HEADING": "Download vote results",
+      "HEADING": "Stáhnout výsledky hlasování",
       "MESSAGE_DESCRIPTION": "Are you sure you want to download the voting results? This will mean the vote is permanently closed.",
       "MESSAGE_OPTIONS": "Zde jsou některé možnosti:",
       "HEADING_NOT_DOWNLOAD": "Prodloužit termín hlasování",
@@ -230,8 +231,8 @@
       "HEADING_DOWNLOAD": "Stáhnout výsledky",
       "GET_RESULTS": "The vote will be permanently closed.",
       "FOLLOW_UP": "The topic will be moved into 'Follow-up' phase, so you can post updates on actions taken as a result of the vote.",
-      "BTN_EDIT_DEADLINE": "Edit vote deadline",
-      "BTN_CANCEL": "Don't download results",
+      "BTN_EDIT_DEADLINE": "Upravit termín hlasování",
+      "BTN_CANCEL": "Nestahovat výsledky",
       "BTN_SUBMIT": "Stáhnout výsledky"
     },
     "GROUP_ADD_TOPICS_DIALOG": {
@@ -302,7 +303,7 @@
     "GROUP_INVITE_DIALOG": {
       "HEADING": "Pozvat a sdílet",
       "TAB_INVITE": "Pozvat členy",
-      "TAB_SHARE": "Generate link / QR",
+      "TAB_SHARE": "Vytvořit odkaz / QR",
       "LNK_CANCEL": "Pozvat později",
       "BTN_SAVE": "Poslat pozvánky",
       "NO_USERS_SELECTED": "You haven't selected any users to invite to the group. Please search for the users with the search field above or add email addresses."
@@ -322,20 +323,20 @@
       "HEADING_WHAT_CAN_YOU_DO": "Co můžete udělat, jakmile se připojíte k tématu",
       "ITEM_PARTICIPATE": "Participate in discussions and voting",
       "ITEM_NOTIFICATIONS": "Receive notifications of activity within the topic",
-      "ITEM_REQUEST_EDIT": "Request to become a co-creator",
+      "ITEM_REQUEST_EDIT": "Požádat o to, aby se stal spolutvůrcem",
       "BTN_JOIN": "@:VIEWS.TOPICS_TOPICID.BTN_JOIN",
       "LNK_CANCEL": "@:LNK_CANCEL"
     },
     "GROUP_MEMBER_USER": {
       "LAST_ACTIVITY": "@:VIEWS.PUBLIC_GROUP.LNK_LAST_ACTIVITY",
-      "SET_MEMBER_PERMISSIONS": "Set permissions to <b>{{level}}</b>",
-      "EDIT_MEMBER": "Edit member",
-      "BTN_REMOVE": "Remove member"
+      "SET_MEMBER_PERMISSIONS": "Nastavit oprávnění na <b>{{level}}</b>",
+      "EDIT_MEMBER": "Upravit člena",
+      "BTN_REMOVE": "Odebrat člena"
     },
     "GROUP_INVITE_USER": {
       "SET_MEMBER_PERMISSIONS": "@:COMPONENTS.GROUP_MEMBER_USER.SET_MEMBER_PERMISSIONS",
-      "EDIT_MEMBER": "Edit invite",
-      "BTN_REMOVE": "Remove invite",
+      "EDIT_MEMBER": "Upravit pozvánku",
+      "BTN_REMOVE": "Odstranit pozvánku",
       "INVITE_SENT_TO": "Pending invite sent to {{email}}"
     },
     "GROUP_REQUEST_ADD_TOPICS_DIALOG": {
@@ -343,11 +344,11 @@
       "SEARCH_HEADING": "Search for existing topics you want added to the group",
       "SEARCH_DESC": "You can request to add any topic for which you are admin",
       "PLACEHOLDER_SEARCH": "@:COMPONENTS.GROUP_INVITE.PLACEHOLDER_SEARCH",
-      "MSG_REQUEST_SENT_SUCCESS": "Request has been sent!",
-      "REASON_DESC": "Add a reason for your request",
-      "REASON_PLACEHOLDER": "Write your reason here",
+      "MSG_REQUEST_SENT_SUCCESS": "Žádost byla odeslána!",
+      "REASON_DESC": "Přidat důvod pro vaši žádost",
+      "REASON_PLACEHOLDER": "Zde napište svůj důvod",
       "LNK_CANCEL": "@:LNK_CANCEL",
-      "BTN_SAVE": "Send request"
+      "BTN_SAVE": "Odeslat žádost"
     },
     "GROUP_SETTINGS": {
       "HEADING": "Upravit skupinu",
@@ -381,7 +382,7 @@
       "PLACEHOLDER_CREATE_NEW_LINK": "Vygenerovat odkaz ke sdílení",
       "COPY_LINK": "Zkopírovat odkaz",
       "MSG_LINK_COPIED": "@:COMPONENTS.TOPIC_SHARE.MSG_LINK_COPIED",
-      "LBL_ACCESS_LEVEL": "Users access level",
+      "LBL_ACCESS_LEVEL": "Úroveň přístupu uživatelů",
       "GENERATE_QR_CODE": "Generate QR code",
       "GENERATE_QR_CODE_DESCRIPTION": "Generate a QR code that people can scan to come straight to the topic. You can add the QR code to digital or physical comms, and display it wherever the right people will see it.",
       "GENERATE_QR_CODE_PRINT": "To save the QR code, right click then choose 'Save image'.",
@@ -596,7 +597,7 @@
       "TOPIC_STEP_2_DESC_ACTIVITY_FEED": "Check out what happened while you were away with the topic's activity feed.",
       "TOPIC_STEP_2_LBL_FAVOURITE": "Oblíbené",
       "TOPIC_STEP_2_DESC_FAVOURITE": "Add or remove this topic to or from your favourites.",
-      "TOPIC_STEP_2_LBL_MORE": "Manage",
+      "TOPIC_STEP_2_LBL_MORE": "Spravovat",
       "TOPIC_STEP_2_DESC_MORE": "Here, topic admins and editors can edit the content and settings, invite co-creators or close a topic.",
       "TOPIC_STEP_3_TITLE": "Informace",
       "TOPIC_STEP_3_DESC": "Zde jsou všechny příslušné informace o tématu, které byste mohli potřebovat. Je to veřejné nebo soukromé? Kdo je publikoval a kdy?",
@@ -2232,7 +2233,9 @@
       "HELP_ITEM_ADD_VOTING": "Add voting to start collecting votes",
       "HELP_ITEM_ADD_FOLLOW_UP": "Add follow-up to keep participants up to date on any progress made.",
       "NOTIFICATION_SUCCESS_TITLE": "Topic successfully published",
-      "NOTIFICATION_SUCCESS_MESSAGE": "Congratulations on your new topic! Now it’s time to get people engaged. Invite participants below or you can also invite them later."
+      "NOTIFICATION_SUCCESS_MESSAGE": "Congratulations on your new topic! Now it’s time to get people engaged. Invite participants below or you can also invite them later.",
+      "NOTIFICATION_DRAFT_SUCCESS_TITLE": "Koncept tématu uložen!",
+      "NOTIFICATION_DRAFT_SUCCESS_MESSAGE": "Téma bylo uloženo do vašich konceptů."
     },
     "TOPIC_EDIT": {
       "HEADING": "Edit topic",
@@ -2366,12 +2369,12 @@
       "ARGUMENT_EDIT_BTN_POST_AS_POI": "@:VIEWS.TOPICS_TOPICID.BTN_ARGUMENT_POST_AS_POI",
       "ARGUMENT_EDIT_BTN_POST_AS_CON": "@:VIEWS.TOPICS_TOPICID.BTN_ARGUMENT_POST_AS_CON",
       "ARGUMENT_EDIT_BTN_CANCEL_EDIT": "@:LNK_CANCEL",
-      "ARGUMENT_HAS_BEEN_DELETED_BY": "Tento argument byl odstraněn uživatelem {{usersFullName}}",
-      "ARGUMENT_HAS_BEEN_DELETED_BY_MODERATOR": "Tento argument byl odstraněn uživatelem {{usersFullName}} (moderátor)",
+      "ARGUMENT_HAS_BEEN_DELETED_BY": "This contribution has been deleted by user {{usersFullName}}",
+      "ARGUMENT_HAS_BEEN_DELETED_BY_MODERATOR": "This contribution has been deleted by user {{usersFullName}} (moderator)",
       "ARGUMENT_WHY": "Proč?",
-      "ARGUMENT_VIEW_ARGUMENT_ANYWAY": "Přesto zobrazit argument",
-      "ARGUMENT_FOUND_INAPPRIOPRIATE_BY": "Uživatel <b>{{usersFullName}}</b> shledal tento argument nevhodným",
-      "ARGUMENT_CREATOR_REMOVED_ARGUMENT": "This argument was removed by argument creator",
+      "ARGUMENT_VIEW_ARGUMENT_ANYWAY": "View contribution anyway",
+      "ARGUMENT_FOUND_INAPPRIOPRIATE_BY": "This contribution was found inappropriate by user <b>{{usersFullName}}</b>",
+      "ARGUMENT_CREATOR_REMOVED_ARGUMENT": "This contribution was removed by its creator",
       "ARGUMENT_READ_CODE_OF_CONDUCT": "Přečtěte si náš <a class=\"underlined_link\" href=\"{{codeOfConduct}}\">kodex chování</a> a získejte více informací",
       "ARGUMENT_LAST_EDITED": "Naposledy upraveno: {{edittime}}",
       "PLACEHOLDER_EDIT_REPLY": "Upravte odpověď zde...",
