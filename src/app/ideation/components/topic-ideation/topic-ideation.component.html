@@ -122,7 +122,7 @@
               </div>
               <ng-container
                 *ngIf="(AuthService.loggedIn$ | async) && topic.visibility === TopicService.VISIBILITY.public || (topic.visibility === TopicService.VISIBILITY.private && canUpdate())">
-                <button class="btn_medium_submit animate" (click)="addIdea()" *ngIf="tabSelected === 'ideas'">
+                <button class="btn_medium_submit animate" (click)="addIdea()" *ngIf="tabSelected === 'ideas' && topic.status === TopicService.STATUSES.ideation">
                   <span translate="COMPONENTS.TOPIC_IDEATION.BTN_ADD_YOUR_IDEA"></span></button>
               </ng-container>
             </div>
@@ -423,5 +423,5 @@
   </div>
 </ng-container>
 <ng-container *ngIf="topic.ideationId">
-  <add-idea *ngIf="wWidth > 1024" [topicId]="topic.id" [ideationId]="topic.ideationId"></add-idea>
+  <add-idea *ngIf="wWidth > 1024 && topic.status === TopicService.STATUSES.ideation" [topicId]="topic.id" [ideationId]="topic.ideationId"></add-idea>
 </ng-container>
