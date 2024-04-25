@@ -854,7 +854,7 @@
                     </div>
                     <input id="ideation_deadline"
                       [placeholder]="'VIEWS.IDEATION_CREATE.SETTINGS_IDEATION_DEADLINE_PLACEHOLDER' | translate"
-                      (click)="toggleDeadline()" [(ngModel)]="ideation.deadline"
+                      (click)="toggleDeadline()" [value]="ideation.deadline | date:'YYYY-MM-dd HH:mm'"
                       [ngClass]="{'error_input': errors?.deadline}">
                     <label for="deadline" class="error_label" *ngIf="errors?.deadline">
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -864,81 +864,79 @@
                       </svg>
                       <span translate="{{errors?.deadline}}"></span>
                     </label>
-                    <div class="radio_description">
-                      <ng-container *ngIf="deadlineSelect">
-                        <div class="deadline_wrap">
-                          <div class="date_row">
-                            <div class="bold date_row_title" translate="COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_LBL_TIME">
+                    <div class="deadline_selector" *ngIf="deadlineSelect">
+                      <div class="deadline_wrap">
+                        <div class="date_row">
+                          <div class="bold date_row_title" translate="COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_LBL_TIME">
+                          </div>
+                          <div class="input_wrap">
+                            <div class="time_wrap">
+                              <input class="time_input" [(ngModel)]="endsAt.h"
+                                (change)="formatTime(endsAt.h); setEndsAtTime()" type="number" [min]="minHours()"
+                                max="{{HCount}}" step="1" />
+                              <span class="time_separator">:</span>
+                              <input type="number" class="time_input" [min]="minMinutes()" max="59" step="5"
+                                [(ngModel)]="endsAt.min" (change)="formatTime(endsAt.min);setEndsAtTime()" />
                             </div>
-                            <div class="input_wrap">
-                              <div class="time_wrap">
-                                <input class="time_input" [(ngModel)]="endsAt.h"
-                                  (change)="formatTime(endsAt.h); setEndsAtTime()" type="number" [min]="minHours()"
-                                  max="{{HCount}}" step="1" />
-                                <span class="time_separator">:</span>
-                                <input type="number" class="time_input" [min]="minMinutes()" max="59" step="5"
-                                  [(ngModel)]="endsAt.min" (change)="formatTime(endsAt.min);setEndsAtTime()" />
-                              </div>
 
-                              <div class="dropdown" [cosDropdown]>
-                                <div class="selection">
-                                  <div class="selected_item">
-                                    {{'COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_TIME_OPTION_'+endsAt.timeFormat | uppercase
-                                    |
-                                    translate}}</div>
-                                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2"
-                                      stroke-linecap="round" />
-                                  </svg>
-
-                                </div>
-                                <div class="options">
-                                  <div class="option" translate="COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_TIME_OPTION_24"
-                                    (click)="endsAt.timeFormat = 24; setTimeFormat()">
-                                  </div>
-                                  <div class="option" translate="COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_TIME_OPTION_AM"
-                                    (click)="endsAt.timeFormat = 'AM'; setTimeFormat()"
-                                    [ngClass]="{disabled: timeFormatDisabled()}">
-                                  </div>
-                                  <div class="option" translate="COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_TIME_OPTION_PM"
-                                    (click)="endsAt.timeFormat = 'PM'; setTimeFormat()">
-                                  </div>
-                                </div>
+                            <div class="dropdown" [cosDropdown]>
+                              <div class="selection">
+                                <div class="selected_item">
+                                  {{'COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_TIME_OPTION_'+endsAt.timeFormat | uppercase
+                                  |
+                                  translate}}</div>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2"
+                                    stroke-linecap="round" />
+                                </svg>
 
                               </div>
+                              <div class="options">
+                                <div class="option" translate="COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_TIME_OPTION_24"
+                                  (click)="endsAt.timeFormat = 24; setTimeFormat()">
+                                </div>
+                                <div class="option" translate="COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_TIME_OPTION_AM"
+                                  (click)="endsAt.timeFormat = 'AM'; setTimeFormat()"
+                                  [ngClass]="{disabled: timeFormatDisabled()}">
+                                </div>
+                                <div class="option" translate="COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_TIME_OPTION_PM"
+                                  (click)="endsAt.timeFormat = 'PM'; setTimeFormat()">
+                                </div>
+                              </div>
+
                             </div>
                           </div>
-                          <div class="date_row">
-                            <div class="date_row_title bold"
-                              translate="COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_LBL_TIMEZONE">
-                            </div>
-                            <div class="input_wrap">
-                              <div class="dropdown" [cosDropdown]>
-                                <div class="selection">
-                                  <div class="selected_item">
-                                    {{getTimeZoneName(endsAt.timezone)}}
-                                  </div>
-                                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2"
-                                      stroke-linecap="round" />
-                                  </svg>
-                                </div>
-                                <div class="options">
-                                  <div class="option" *ngFor="let zone of timezones"
-                                    [ngClass]="zone === endsAt.timezone ? 'bold' : ''"
-                                    (click)="endsAt.timezone = zone.value;setEndsAtTime();">
-                                    {{zone.name}}
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <cos-calender [minDate]="datePickerMin" [(date)]="endsAt.date"
-                            (click)="setEndsAtTime()"></cos-calender>
                         </div>
-                      </ng-container>
+                        <div class="date_row">
+                          <div class="date_row_title bold"
+                            translate="COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_LBL_TIMEZONE">
+                          </div>
+                          <div class="input_wrap">
+                            <div class="dropdown" [cosDropdown]>
+                              <div class="selection">
+                                <div class="selected_item">
+                                  {{getTimeZoneName(endsAt.timezone)}}
+                                </div>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2"
+                                    stroke-linecap="round" />
+                                </svg>
+                              </div>
+                              <div class="options">
+                                <div class="option" *ngFor="let zone of timezones"
+                                  [ngClass]="zone === endsAt.timezone ? 'bold' : ''"
+                                  (click)="endsAt.timezone = zone.value;setEndsAtTime();">
+                                  {{zone.name}}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <cos-calender [minDate]="datePickerMin" [(date)]="endsAt.date"
+                          (click)="setEndsAtTime()"></cos-calender>
+                      </div>
                     </div>
                   </div>
                 </div>

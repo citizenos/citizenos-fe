@@ -449,8 +449,17 @@
   }
 }
 
+.deadline_selector {
+  width: 100%;
+  max-width: 546px;
+  padding: 8px;
+  background-color: var(--color-dialog-ideation);
+}
 .date_selector {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .deadline_wrap {
