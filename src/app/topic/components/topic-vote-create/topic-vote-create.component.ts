@@ -4,11 +4,13 @@ import { TopicService } from 'src/app/services/topic.service';
 import { TopicVoteService } from 'src/app/services/topic-vote.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { TranslateService } from '@ngx-translate/core';
-import { take } from 'rxjs';
+import { map, take, Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 import { Vote } from 'src/app/interfaces/vote';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { TopicIdeaService } from 'src/app/services/topic-idea.service';
+import { Idea } from 'src/app/interfaces/idea';
 @Component({
   selector: 'topic-vote-create',
   templateUrl: './topic-vote-create.component.html',
@@ -20,7 +22,7 @@ export class TopicVoteCreateComponent implements OnInit {
   @Output() saveVote = new EventEmitter();
   @Output() syncSettings = new EventEmitter();
 
-  VOTE_TYPES = this.TopicVoteService.VOTE_TYPES;
+  VOTE_TYPES = Object.assign({ideation: 'ideation'},this.TopicVoteService.VOTE_TYPES);
   voteTypes = Object.keys(this.VOTE_TYPES);
   VOTE_AUTH_TYPES = this.TopicVoteService.VOTE_AUTH_TYPES;
   HCount = 23;
@@ -91,6 +93,7 @@ export class TopicVoteCreateComponent implements OnInit {
     {value: ''},
     {value: ''},
   ]
+  optionIdeas = <Idea[]>[];
   reminder = false;
   reminderOptionsList = [{ value: 1, unit: 'days' }, { value: 2, unit: 'days' }, { value: 3, unit: 'days' }, { value: 1, unit: 'weeks' }, { value: 2, unit: 'weeks' }, { value: 1, unit: 'month' }];
   reminderOptions = <any[]>[];
@@ -182,7 +185,7 @@ export class TopicVoteCreateComponent implements OnInit {
 
   setVoteType(voteType: string) {
     if (!this.TopicService.canEditDescription(this.topic)) return;
-    if (voteType == this.VOTE_TYPES.multiple) {
+    if (voteType == this.VOTE_TYPES.multiple || voteType == this.VOTE_TYPES.ideation) {
       this.vote.type = voteType;
       if (!this.vote.options.length)
       this.vote.maxChoices = 1;
@@ -422,7 +425,13 @@ export class TopicVoteCreateComponent implements OnInit {
           options.push({ value: option.value });
         }
       }
-    } else {
+    } else if (this.vote.type === this.VOTE_TYPES.ideation) {
+      this.optionIdeas.forEach((idea) => {
+        if (idea.statement)
+          options.push({value: idea.statement});
+      });
+    }
+    else {
       for (let key in this.customOptions) {
         if (this.customOptions[key].value)
           options.push(this.customOptions[key]);
@@ -462,6 +471,8 @@ export class TopicVoteCreateComponent implements OnInit {
       this.vote.endsAt = this.deadline;
     }
     const saveVote:any = Object.assign({topicId: this.topicId}, this.vote);
+    if (saveVote.type === this.VOTE_TYPES.ideation) saveVote.type = this.VOTE_TYPES.multiple;
+    console.log(saveVote)
     saveVote.autoClose = this.CONF.autoClose;
     this.TopicVoteService.save(saveVote)
       .pipe(take(1))
@@ -506,7 +517,11 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
   tabs = [...Array(4).keys()];
   tabActive = 1;
 
+  ideas$:Observable<Idea[]> | undefined;
+  wWidth = window.innerWidth;
+  ideasCount = 0;
 
+  private TopicIdeaService = inject(TopicIdeaService);
   private dialog = inject(DialogService);
   private data = inject(DIALOG_DATA);
 
@@ -519,6 +534,16 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
 
     if (this.topic.voteId) {
       this.router.navigate(['/topics', this.topic.id, 'votes', this.topic.voteId]);
+    }
+
+    if (this.topic.ideationId) {
+      this.ideas$ = this.TopicIdeaService.query({
+        topicId: this.topicId,
+        ideationId: this.topic.ideationId
+      }).pipe(map((res: any) => {
+        this.ideasCount = res.data.count;
+        return res.data.rows;
+      }));
     }
 
     this.vote.options.forEach((opt: any) => {
@@ -570,6 +595,7 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
     }
     const saveVote:any = Object.assign(this.vote, {topicId: this.topicId || this.topic.id});
     saveVote.autoClose = this.CONF.autoClose;
+    if (saveVote.type === this.VOTE_TYPES.ideation) saveVote.type = this.VOTE_TYPES.multiple;
     if (!saveVote.description) {
       this.Notification.addError('VIEWS.VOTE_CREATE.ERROR_MISSING_QUESTION');
       return;
@@ -594,4 +620,41 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
         }
       });
   };
+
+
+  ideaSelected(idea: Idea) {
+    const exists = this.optionIdeas.find((item) => item.id === idea.id);
+    if (exists) return true;
+    return false;
+  }
+
+  toggleIdea(idea: Idea, $event: any) {
+    console.log('toggle', $event);
+    $event.stopPropagation();
+    const index = this.optionIdeas.findIndex((item) => item.id === idea.id);
+    console.log('index', index);
+    if (index === -1) {
+      this.optionIdeas.push(idea);
+    } else {
+      this.optionIdeas.splice(index, 1);
+    }
+    this.filterOptions();
+  }
+
+  toggleAllIdeas(ideas: Idea[]) {
+    const allChecked = this.optionIdeas.length === ideas.length;
+    if (!allChecked) {
+      ideas.forEach((idea) => {
+        const index = this.optionIdeas.findIndex((item) => item.id === idea.id);
+        if (index === -1) this.optionIdeas.push(idea);
+      });
+    } else {
+      this.optionIdeas = [];
+    }
+    this.filterOptions();
+  }
+
+  allChecked() {
+    return this.optionIdeas.length === this.ideasCount;
+  }
 }

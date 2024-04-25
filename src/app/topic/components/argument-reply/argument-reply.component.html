@@ -43,7 +43,7 @@
           </button>
         </div>
         <div>
-          <div class="btn_medium_submit bold" (click)="saveReply()" translate="COMPONENTS.ARGUMENT_REPLY.BTN_POST_REPLY">
+          <div class="btn_medium_submit bold" (click)="saveReply()" [ngClass]="{disabled: !reply.text.length}" translate="COMPONENTS.ARGUMENT_REPLY.BTN_POST_REPLY">
           </div>
         </div>
       </div>

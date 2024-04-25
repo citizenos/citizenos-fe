@@ -4,56 +4,73 @@
     <notification></notification>
   </div>
   <div class="dialog">
-    <div class="dialog_header info">
-      <div class="header_with_icon">
-        <div>
-          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="40" height="40" rx="20" fill="#1168A8" />
-            <path
-              d="M23 11.5292C23 12.926 21.9255 14.0583 20.6 14.0583C19.2745 14.0583 18 12.926 18 11.5292C18 10.1323 19.2745 9 20.6 9C21.9255 9 23 10.1323 23 11.5292Z"
-              fill="white" />
-            <path
-              d="M17.3359 16.5357L22.8319 15.8098L20.4295 27.7096C20.2591 28.5695 20.4991 29.0576 21.1591 29.0576C21.6247 29.0576 22.3255 28.8806 22.8055 28.4354L22.5943 29.4876C21.9055 30.3626 20.3863 31 19.0783 31C17.3911 31 16.6735 29.9327 17.1391 27.664L18.9103 18.8929C19.0639 18.1518 18.9247 17.8837 18.2191 17.7067L17.1391 17.4968L17.3359 16.5357Z"
-              fill="white" />
-          </svg>
+    <div class="dialog_header ideation">
+      <div class="header_text">
+        <div class="title" translate="COMPONENTS.ADD_IDEA_FOLDER.HEADING"></div>
+        <div class="dialog_close">
+          <a class="btn_dialog_close icon" dialog-close>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M7.72152 6.29537C7.3277 5.90154 6.68919 5.90154 6.29537 6.29537C5.90154 6.68919 5.90154 7.3277 6.29537 7.72153L10.5738 12L6.29541 16.2785C5.90159 16.6723 5.90159 17.3108 6.29541 17.7046C6.68923 18.0985 7.32774 18.0985 7.72156 17.7046L12 13.4262L16.2784 17.7046C16.6723 18.0985 17.3108 18.0985 17.7046 17.7046C18.0984 17.3108 18.0984 16.6723 17.7046 16.2785L13.4262 12L17.7046 7.72153C18.0985 7.3277 18.0985 6.68919 17.7046 6.29537C17.3108 5.90154 16.6723 5.90154 16.2785 6.29537L12 10.5739L7.72152 6.29537Z"
+                fill="#2C3B47" />
+            </svg>
+          </a>
         </div>
-        <h4 class="title" translate="MODALS.ADD_EMAIL_HEADING"></h4>
-      </div>
-      <div class="dialog_close">
-        <a class="btn_dialog_close icon" dialog-close>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289Z"
-              fill="#2C3B47" />
-          </svg>
-        </a>
       </div>
     </div>
-    <div class="dialog_content no_footer">
-      <form [formGroup]="form">
-        <cos-input placeholder="{{'MODALS.ADD_EMAIL_PLACEHOLDER_EMAIL' | translate}}">
-          <input id="email" formControlName="email" type="email"
-            placeholder="{{'MODALS.ADD_EMAIL_PLACEHOLDER_EMAIL' | translate}}" (focus)="wWidth > 1024"
-            [ngClass]="{'error_input': form.controls['email'].touched && form.controls['email'].invalid}" [maxlength]="254">
-          <label for="email" class="error_label" *ngIf="form.controls['email'].touched && form.controls['email'].invalid">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" clip-rule="evenodd"
-                d="M8.89438 1.78863C8.52586 1.05158 7.47405 1.05158 7.10553 1.78863L0.723562 14.5526C0.391112 15.2175 0.874608 15.9998 1.61799 15.9998H14.3819C15.1253 15.9998 15.6088 15.2175 15.2763 14.5526L8.89438 1.78863ZM6.99996 6.99977C6.99996 6.44749 7.44767 5.99977 7.99996 5.99977C8.55224 5.99977 8.99996 6.44749 8.99996 6.99977V9.99977C8.99996 10.5521 8.55224 10.9998 7.99996 10.9998C7.44767 10.9998 6.99996 10.5521 6.99996 9.99977V6.99977ZM6.99996 12.9998C6.99996 12.4475 7.44767 11.9998 7.99996 11.9998C8.55224 11.9998 8.99996 12.4475 8.99996 12.9998C8.99996 13.5521 8.55224 13.9998 7.99996 13.9998C7.44767 13.9998 6.99996 13.5521 6.99996 12.9998Z"
-                fill="#EF4025" />
-            </svg>
-            <span translate="MODALS.ADD_EMAIL_ERROR_MSG_INVALID"></span>
-          </label>
-        </cos-input>
+    <div class="dialog_content">
+      <div class="content_section">
+        <div class="section_content_wrap">
+          <div class="idea_info_wrap">
+            <div translate="COMPONENTS.ADD_IDEA_FOLDER.LBL_IDEA_TO_ADD"></div>
+            <div class="idea_wrap">
+              <div class="icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M21 11.95C20.4477 11.95 20 11.5023 20 10.95C20 10.3977 20.4477 9.95 21 9.95H22C22.5523 9.95 23 10.3977 23 10.95C23 11.5023 22.5523 11.95 22 11.95H21ZM19.747 3.20697C19.3568 2.81684 18.7241 2.81772 18.335 3.20893L17.9511 3.59501C17.5636 3.98468 17.5644 4.61445 17.953 5.00304C18.3432 5.39317 18.976 5.39228 19.365 5.00107L19.7489 4.61499C20.1364 4.22532 20.1356 3.59556 19.747 3.20697ZM11 1.95C11 2.50228 11.4477 2.95 12 2.95C12.5523 2.95 13 2.50228 13 1.95V1C13 0.447715 12.5523 0 12 0C11.4477 0 11 0.447716 11 1V1.95ZM3 9.95C3.55229 9.95 4 10.3977 4 10.95C4 11.5023 3.55229 11.95 3 11.95H2C1.44772 11.95 1 11.5023 1 10.95C1 10.3977 1.44772 9.95 2 9.95H3ZM5.67304 3.19696C5.28508 2.80684 4.65405 2.80596 4.265 3.195C3.87596 3.58404 3.87684 4.21508 4.26696 4.60303L4.65806 4.99195C5.04605 5.37779 5.67309 5.37691 6.06 4.99C6.44692 4.60309 6.44779 3.97604 6.06196 3.58805L5.67304 3.19696ZM5.76123 10.8918C5.76123 7.32287 8.83053 4.7998 12.0013 4.7998C15.1722 4.7998 18.2412 7.32311 18.2412 10.8918C18.2412 13.4124 17.2368 14.8479 16.3217 16.1557C15.6515 17.1135 15.0292 18.0028 14.8845 19.1998H9.12451C8.97974 18.0027 8.35615 17.1132 7.68452 16.1553C6.76764 14.8476 5.76123 13.4122 5.76123 10.8918ZM9.12313 21.1228H14.8831V20.1602H9.12313V21.1228ZM9.12313 22.0802H14.8831C14.8831 23.1405 14.0235 24.0002 12.9631 24.0002H11.0431C9.98275 24.0002 9.12313 23.1405 9.12313 22.0802Z"
+                    fill="#E4B722" />
+                </svg>
 
-        <div class="delete_info_text bold" translate="MODALS.ADD_EMAIL_TXT_VERIFY"></div>
-      </form>
-      <div class="button_wrap">
-        <button class="btn_big_submit" (click)="doAddToFolder()" [disabled]="form.invalid"
-          translate="MODALS.ADD_EMAIL_LOG_IN"></button>
-        <a translate="MODALS.ADD_EMAIL_LNK_CANCEL" dialog-close></a>
+              </div>
+              <div class="bold" [innerHTML]="idea.statement"></div>
+            </div>
+          </div>
+          <ng-container *ngIf="folders$ | async as folders">
+            <div class="bold" translate="COMPONENTS.ADD_IDEA_FOLDER.LBL_FOLDER_SELECTION"></div>
+            <div class="idea_selection_wrap">
+              <div class="idea_selection_header">
+                <div class="checkbox_wrap" (click)="toggleAllFolders(folders)">
+                  <label class="checkbox" [ngClass]="{selected:allChecked()}">
+                    <span class="checkmark"></span>
+                  </label>
+                  <div translate="COMPONENTS.ADD_IDEA_FOLDER.LBL_FOLDERS" [translateParams]="{count: foldersCount}">
+                  </div>
+                </div>
+              </div>
+              <div class="line_separator"></div>
+              <div class="ideas_wrap">
+                <div class="idea_row" *ngFor="let folder of folders">
+                  <div class="checkbox_wrap" (click)="toggleFolder(folder, $event);">
+                    <label class="checkbox" [ngClass]="{selected:folderSelected(folder)}">
+                      <span class="checkmark"></span>
+                    </label>
+                    <div class="name_wrap">
+                      <div class="icon"></div>
+                      <span class="folder_name" [innerHTML]="folder.name"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
       </div>
-      <div class="dialog_footer">
-      </div>
+    </div>
+
+    <div class="dialog_footer with_buttons">
+      <a translate="COMPONENTS.ADD_IDEA_FOLDER.LNK_CANCEL" dialog-close></a>
+      <button class="btn_big_submit" (click)="createFolder()" [disabled]="!this.ideaFolders.length"
+        translate="COMPONENTS.ADD_IDEA_FOLDER.BTN_ADD"></button>
     </div>
   </div>
 </div>

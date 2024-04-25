@@ -200,7 +200,11 @@ export class TopicIdeationComponent {
     this.TopicIdeationService.deleteFolder({ topicId: this.topic.id, ideationId: this.ideation.id, folderId: folder.id }).pipe(take(1))
     .subscribe({
       next:() => {
-
+        this.folders$ = this.TopicIdeationService.getFolders({topicId: this.topic.id, ideationId: this.ideation.id}).pipe(
+          map((res) => {
+            return res.rows;
+          })
+        );
       },
       error: () => {
 
@@ -251,7 +255,11 @@ export class TopicIdeationComponent {
     });
 
     folderCreateDialog.afterClosed().subscribe(() => {
-
+      this.folders$ = this.TopicIdeationService.getFolders({topicId: this.topic.id, ideationId: this.ideation.id}).pipe(
+        map((res) => {
+          return res.rows;
+        })
+      );
     });
   };
 

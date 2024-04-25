@@ -315,7 +315,7 @@ export class TopicService {
    *
    */
   canEditDescription(topic: Topic) {
-    return this.canEdit(topic) && topic.status === this.STATUSES.inProgress || topic.status === this.STATUSES.draft;
+    return this.canEdit(topic) && topic.status === this.STATUSES.ideation || topic.status === this.STATUSES.inProgress || topic.status === this.STATUSES.draft;
   };
 
   canDelete(topic: Topic) {

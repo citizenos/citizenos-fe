@@ -34,7 +34,8 @@
       </a>
       <div class="dropdown mobile_show" [cosDropdown]>
         <div class="selection">
-          <div class="selected_item bold">{{tabActive}}. <span [translate]="'COMPONENTS.TOPIC_VOTE_CREATE.DIALOG_TAB_'+tabActive"></span></div>
+          <div class="selected_item bold">{{tabActive}}. <span
+              [translate]="'COMPONENTS.TOPIC_VOTE_CREATE.DIALOG_TAB_'+tabActive"></span></div>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
           </svg>
@@ -138,6 +139,26 @@
               </div>
               <div translate="COMPONENTS.TOPIC_VOTE_CREATE.SELECT_VOTING_SYSTEM_DESC"></div>
 
+              <div class="radio_wrap voting" (click)="setVoteType(VOTE_TYPES.ideation)"
+                [ngClass]="{selected: vote.type === VOTE_TYPES.ideation, disabled: !TopicService.canEditDescription(topic)}">
+                <div class="radio_text_wrap">
+                  <div class="radio_lable_wrap">
+                    <label class="radio_box">
+                      <input type="radio" [checked]="vote.type === VOTE_TYPES.ideation"
+                        [disabled]="!TopicService.canEditDescription(topic)"
+                        [ngClass]="{disabled: !TopicService.canEditDescription(topic)}">
+                      <span class="radio"></span>
+                      <div class="radio_lable"
+                        [translate]="('COMPONENTS.TOPIC_VOTE_CREATE.OPTION_VOTING_'+VOTE_TYPES.ideation).toUpperCase()">
+                      </div>
+                    </label>
+                  </div>
+                  <div class="radio_description"
+                    [translate]="('COMPONENTS.TOPIC_VOTE_CREATE.OPTION_VOTING_'+VOTE_TYPES.ideation+'_DESC').toUpperCase()">
+                  </div>
+                </div>
+              </div>
+
               <div class="radio_wrap voting" (click)="setVoteType(VOTE_TYPES.regular)"
                 [ngClass]="{selected: vote.type === VOTE_TYPES.regular, disabled: !TopicService.canEditDescription(topic)}">
                 <div class="radio_text_wrap">
@@ -210,6 +231,66 @@
               <div class="small_heading">1. <span
                   translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_DEFINE_VOTE_ANSWERS"></span>
               </div>
+              <div class="vote_option_ideas_wrap" *ngIf="vote.type == VOTE_TYPES.ideation">
+                <ng-container *ngIf="ideas$ | async as ideas">
+                  <div class="bold" translate="COMPONENTS.CREATE_IDEA_FOLDER.LBL_IDEAS_SELECTION"></div>
+                  <div class="idea_selection_wrap">
+                    <div class="idea_selection_header">
+                      <div class="checkbox_wrap" (click)="toggleAllIdeas(ideas)">
+                        <label class="checkbox" [ngClass]="{selected:allChecked()}">
+                          <span class="checkmark"></span>
+                        </label>
+                        <div translate="COMPONENTS.CREATE_IDEA_FOLDER.LBL_IDEAS"
+                          [translateParams]="{count: ideasCount}">
+                        </div>
+                      </div>
+                      <div class="likes_wrap">
+                        <span translate="COMPONENTS.CREATE_IDEA_FOLDER.LBL_LIKES"></span>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M12 14L10 14L12.5 18L15 14L13 14L13 5L12 5L12 14Z" fill="#4D5C6A" />
+                        </svg>
+                      </div>
+                    </div>
+                    <div class="line_separator"></div>
+                    <div class="ideas_wrap">
+                      <div class="idea_row" *ngFor="let idea of ideas">
+                        <div class="checkbox_wrap" (click)="toggleIdea(idea, $event);">
+                          <label class="checkbox" [ngClass]="{selected:ideaSelected(idea)}">
+                            <span class="checkmark"></span>
+                          </label>
+                          <div class="statement" [innerHTML]="idea.statement"></div>
+                        </div>
+                        <div class="votes" [innerText]="idea.votes.up.count"></div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+                <div >You can also add Neutral and Veto option</div>
+                <div class="vote_options_wrap">
+                  <div class="radio_wrap" [ngClass]="{selected: extraOptions.neutral.enabled}"
+                    (click)="toggleOption(extraOptions.neutral.value)">
+                    <div class="radio_text_wrap">
+                      <div class="radio_lable_wrap">
+                        <label class="checkbox" [ngClass]="{selected: extraOptions.neutral.enabled}"><span class="bold"
+                            translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_NEUTRAL"></span>
+                          <span class="checkmark"></span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="radio_wrap" [ngClass]="{selected: extraOptions.veto.enabled}"
+                    (click)="toggleOption(extraOptions.veto.value)">
+                    <div class="radio_text_wrap">
+                      <div class="radio_lable_wrap">
+                        <label class="checkbox" [ngClass]="{selected: extraOptions.veto.enabled}"><span class="bold"
+                            translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_VETO"></span>
+                          <span class="checkmark"></span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div class="vote_options_wrap" *ngIf="vote.type == VOTE_TYPES.regular">
                 <div class="radio_wrap"
                   [ngClass]="{selected: predefinedOptions.yes.enabled, disabled: !TopicService.canEditDescription(topic)}"
@@ -259,7 +340,7 @@
                   </div>
                 </div>
               </div>
-              <div class="vote_options_wrap" *ngIf="vote.type === 'multiple'" cdkDropList
+              <div class="vote_options_wrap" *ngIf="vote.type === VOTE_TYPES.multiple" cdkDropList
                 (cdkDropListDropped)="drop($event)">
                 <ng-container *ngFor="let option of customOptions; let $index = index">
                   <div class="input_area" cdkDrag *ngIf="displayOptInput(option)">
@@ -655,7 +736,8 @@
       </ng-container>
       <ng-container *ngIf="tabActive === 4">
         <div class="dialog_info_wrap">
-          <div class="vote_info_reminder" [innerHTML]="'COMPONENTS.TOPIC_VOTE_CREATE.PREVIEW_INFO_CHECK' | translate"></div>
+          <div class="vote_info_reminder" [innerHTML]="'COMPONENTS.TOPIC_VOTE_CREATE.PREVIEW_INFO_CHECK' | translate">
+          </div>
           <div class="dialog_info voting">
             <span translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_VOTING_QUESTION"></span>
             <span class="bold">{{vote.description}}</span>
