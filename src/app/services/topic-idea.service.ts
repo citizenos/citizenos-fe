@@ -36,6 +36,7 @@ export class TopicIdeaService extends ItemsListService {
     sortOrder: <string | null>null,
     offset: <number>0,
     authorId: <string | null>null,
+    folderId: <string | null>null,
     showModerated: <boolean | string | null>null,
     favourite: <boolean | string | null>null,
     limit: <number>8,

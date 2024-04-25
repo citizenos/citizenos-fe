@@ -425,6 +425,11 @@
               display: flex;
               width: 100%;
               gap: 56px;
+
+              &.wide {
+                justify-content: space-between;
+              }
+
               .dot {
                 height: 8px;
                 width: 8px;
@@ -490,6 +495,13 @@
                 display: flex;
                 width: 50%;
                 background-color: var(--color-dialog-follow-up-contrast);
+              }
+
+              .ideation {
+                height: 4px;
+                display: flex;
+                width: 50%;
+                background-color: var(--color-ideation);
               }
             }
           }

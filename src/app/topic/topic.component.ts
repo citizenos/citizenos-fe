@@ -38,6 +38,7 @@ import { InviteEditorsComponent } from './components/invite-editors/invite-edito
 import { TopicOnboardingComponent } from './components/topic-onboarding/topic-onboarding.component';
 import { CookieService } from 'ngx-cookie-service';
 import { TopicIdeationService } from 'src/app/services/topic-ideation.service';
+import { Ideation } from '../interfaces/ideation';
 
 @Component({
   selector: 'topic',
@@ -427,6 +428,22 @@ export class TopicComponent implements OnInit {
     }
     return window.open(attachment.link, '_blank');
   };
+
+  ideationDeadlineBar(ideation: Ideation) {
+    const start = new Date(ideation.createdAt);
+    const end = new Date(ideation.deadline || new Date());
+    const diff = end.getTime() - start.getTime();
+    const now = new Date().getTime() - start.getTime();
+    Math.round(now/diff);
+  }
+
+  hasIdeationEndedExpired(topic: Topic, ideation: Ideation) {
+    return this.TopicIdeationService.hasIdeationEndedExpired(topic, ideation);
+  };
+
+  getDaysUntil(date: Date) {
+    return Math.round((new Date(date).getTime() - new Date().getTime()) / (1000 * 3600 * 24));
+  }
 
   hasVoteEndedExpired(topic: Topic, vote: Vote) {
     return this.TopicVoteService.hasVoteEndedExpired(topic, vote);

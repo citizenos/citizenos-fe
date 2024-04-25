@@ -208,7 +208,8 @@
 
     <div id="topic_tabs" class="topic_tabs" *ngIf="tabSelected$ | async as tabSelected;">
       <div class="tabs_wrap discussion" [TourItem]="{tourid: 'topic', index: 1, position: 'bottom'}">
-        <a *ngIf="topic.ideationId" class="topic_tab ideation" [ngClass]="tabSelected=== 'ideation' ? 'active' : ''" [routerLink]="['./']" fragment="ideation">
+        <a *ngIf="topic.ideationId" class="topic_tab ideation" [ngClass]="tabSelected=== 'ideation' ? 'active' : ''"
+          [routerLink]="['./']" fragment="ideation">
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="32" height="32" rx="16" fill="#EFE08A" />
             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -1011,6 +1012,47 @@
         </div>
         <div class="state_items_wrap"
           [TourItem]="{tourid: 'topic', index: 5, position: ((wWidth <= 1024)? 'bottom': 'left')}">
+          <div class="state_item ideation" [ngClass]="{'empty': !topic.ideationId}">
+            <ng-container *ngIf="!topic.ideationId">
+              <div class="icon_wrap">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="32" height="32" rx="16" fill="#EFE08A" />
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M22.0001 15.9667C21.6319 15.9667 21.3334 15.6682 21.3334 15.3C21.3334 14.9318 21.6319 14.6333 22.0001 14.6333H22.6668C23.0349 14.6333 23.3334 14.9318 23.3334 15.3C23.3334 15.6682 23.0349 15.9667 22.6668 15.9667H22.0001ZM21.1647 10.138C20.9046 9.87789 20.4828 9.87848 20.2234 10.1393L19.9675 10.3967C19.7091 10.6565 19.7097 11.0763 19.9688 11.3354C20.2289 11.5954 20.6507 11.5949 20.9101 11.334L21.166 11.0767C21.4244 10.8169 21.4238 10.397 21.1647 10.138ZM15.3334 9.3C15.3334 9.66819 15.6319 9.96667 16.0001 9.96667C16.3683 9.96667 16.6667 9.66819 16.6667 9.3V8.66667C16.6667 8.29848 16.3683 8 16.0001 8C15.6319 8 15.3334 8.29848 15.3334 8.66667V9.3ZM10.0001 14.6333C10.3683 14.6333 10.6667 14.9318 10.6667 15.3C10.6667 15.6682 10.3683 15.9667 10.0001 15.9667L9.33341 15.9667C8.96522 15.9667 8.66675 15.6682 8.66675 15.3C8.66675 14.9318 8.96522 14.6333 9.33341 14.6333L10.0001 14.6333ZM11.7821 10.1313C11.5235 9.87122 11.1028 9.87064 10.8434 10.13C10.5841 10.3894 10.5846 10.8101 10.8447 11.0687L11.1055 11.328C11.3641 11.5852 11.7821 11.5846 12.0401 11.3267C12.298 11.0687 12.2986 10.6507 12.0414 10.392L11.7821 10.1313ZM11.8409 15.2612C11.8409 12.8819 13.8871 11.1999 16.001 11.1999C18.1149 11.1999 20.1609 12.8821 20.1609 15.2612C20.1609 16.9416 19.4913 17.8986 18.8812 18.7705C18.4344 19.409 18.0195 20.0019 17.9231 20.7999H14.0831C13.9866 20.0018 13.5708 19.4088 13.1231 18.7702C12.5118 17.8984 11.8409 16.9414 11.8409 15.2612ZM14.0822 22.0819H17.9222V21.4401H14.0822V22.0819ZM14.0822 22.7201H17.9222C17.9222 23.427 17.3491 24.0001 16.6422 24.0001H15.3622C14.6552 24.0001 14.0822 23.427 14.0822 22.7201Z"
+                    fill="white" />
+                </svg>
+              </div>
+              <div class="state_item_text" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_NO_IDEATON"></div>
+            </ng-container>
+            <ng-container *ngIf="(ideation$ | async) as ideation">
+              <div class="item_header">
+                <div class="item_title" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_IDEATION_HEADING"></div>
+                <div class="item_title" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_IDEATION_IDEAS"
+                  [translateParams]="{count: ideation.ideas.count}"></div>
+              </div>
+              <div class="item_content">
+                <div class="graph_wrap">
+                  <div class="legend wide">
+                    <div class="legend_row">
+                      <div class="legend_item">
+                        <div class="bold" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_IDEATION_DAYS_LEFT"></div>
+                        <div>{{getDaysUntil(ideation.deadline)}}</div>
+                      </div>
+                    </div>
+                    <div class="legend_row">
+                      <div class="legend_item">
+                        <div class="bold">{{ideation.deadline | date: 'YYYY-MM-dd'}}</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="graph">
+                    <div class="ideation" [style.width.%]="ideationDeadlineBar(ideation)">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </div>
           <div class="state_item discussion" (click)="selectTab('discussion')" *ngIf="!hideDiscussion">
             <div class="item_header">
               <div class="item_title" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_DISCUSSION_HEADING"></div>
@@ -1056,18 +1098,6 @@
               </div>
             </div>
           </div>
-          <!--div class="state_item empty ideation">
-        <div class="icon_wrap">
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="32" height="32" rx="16" fill="#EFE08A" />
-            <path fill-rule="evenodd" clip-rule="evenodd"
-              d="M22.0001 15.9667C21.6319 15.9667 21.3334 15.6682 21.3334 15.3C21.3334 14.9318 21.6319 14.6333 22.0001 14.6333H22.6668C23.0349 14.6333 23.3334 14.9318 23.3334 15.3C23.3334 15.6682 23.0349 15.9667 22.6668 15.9667H22.0001ZM21.1647 10.138C20.9046 9.87789 20.4828 9.87848 20.2234 10.1393L19.9675 10.3967C19.7091 10.6565 19.7097 11.0763 19.9688 11.3354C20.2289 11.5954 20.6507 11.5949 20.9101 11.334L21.166 11.0767C21.4244 10.8169 21.4238 10.397 21.1647 10.138ZM15.3334 9.3C15.3334 9.66819 15.6319 9.96667 16.0001 9.96667C16.3683 9.96667 16.6667 9.66819 16.6667 9.3V8.66667C16.6667 8.29848 16.3683 8 16.0001 8C15.6319 8 15.3334 8.29848 15.3334 8.66667V9.3ZM10.0001 14.6333C10.3683 14.6333 10.6667 14.9318 10.6667 15.3C10.6667 15.6682 10.3683 15.9667 10.0001 15.9667L9.33341 15.9667C8.96522 15.9667 8.66675 15.6682 8.66675 15.3C8.66675 14.9318 8.96522 14.6333 9.33341 14.6333L10.0001 14.6333ZM11.7821 10.1313C11.5235 9.87122 11.1028 9.87064 10.8434 10.13C10.5841 10.3894 10.5846 10.8101 10.8447 11.0687L11.1055 11.328C11.3641 11.5852 11.7821 11.5846 12.0401 11.3267C12.298 11.0687 12.2986 10.6507 12.0414 10.392L11.7821 10.1313ZM11.8409 15.2612C11.8409 12.8819 13.8871 11.1999 16.001 11.1999C18.1149 11.1999 20.1609 12.8821 20.1609 15.2612C20.1609 16.9416 19.4913 17.8986 18.8812 18.7705C18.4344 19.409 18.0195 20.0019 17.9231 20.7999H14.0831C13.9866 20.0018 13.5708 19.4088 13.1231 18.7702C12.5118 17.8984 11.8409 16.9414 11.8409 15.2612ZM14.0822 22.0819H17.9222V21.4401H14.0822V22.0819ZM14.0822 22.7201H17.9222C17.9222 23.427 17.3491 24.0001 16.6422 24.0001H15.3622C14.6552 24.0001 14.0822 23.427 14.0822 22.7201Z"
-              fill="white" />
-          </svg>
-
-        </div>
-        <div class="state_item_text" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_NO_IDEATON"></div>
-      </!--div-->
           <div class="state_item vote" [ngClass]="{'empty': !topic.voteId}"
             (click)="(!topic.voteId && canUpdate(topic))? startVote(topic): selectTab('voting')">
             <ng-container *ngIf="!topic.voteId">
@@ -1214,7 +1244,8 @@
           <rect x="11" y="24" width="6" height="1" rx="0.5" fill="#4D5C6A" />
         </svg>
       </a>
-      <a *ngIf="topic.ideationId" class="topic_tab ideation" [ngClass]="tabSelected=== 'ideation' ? 'active' : ''" [routerLink]="['./']" fragment="ideation">
+      <a *ngIf="topic.ideationId" class="topic_tab ideation" [ngClass]="tabSelected=== 'ideation' ? 'active' : ''"
+        [routerLink]="['./']" fragment="ideation">
         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect width="32" height="32" rx="16" fill="#EFE08A" />
           <path fill-rule="evenodd" clip-rule="evenodd"
@@ -1223,8 +1254,8 @@
         </svg>
         <span class="tab_text" translate="VIEWS.TOPICS_TOPICID.TAB_IDEATION"></span>
       </a>
-      <a *ngIf="!hideDiscussion" class="topic_tab discussion" [ngClass]="{'active': tabTablet==='discussion'}" (click)="tabTablet='discussion'"
-        [routerLink]="['./']" fragment="discussion">
+      <a *ngIf="!hideDiscussion" class="topic_tab discussion" [ngClass]="{'active': tabTablet==='discussion'}"
+        (click)="tabTablet='discussion'" [routerLink]="['./']" fragment="discussion">
         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect width="32" height="32" rx="16" fill="#1168A8" />
           <path
