@@ -366,6 +366,7 @@
       "REPLIES": "{{count}} replies",
       "NOTIFICATION_TITLE": "This idea was hidden by a moderator",
       "NOTIFICATION_LNK_WHY":"@:VIEWS.TOPICS_TOPICID.ARGUMENT_WHY",
+      "IDEA_AUTHOR_REMOVED_IDEA": "This idea was removed by its author",
       "NOTIFICATION_LNK_VIEW":"View anyway"
     },
     "IDEA_DIALOG": {

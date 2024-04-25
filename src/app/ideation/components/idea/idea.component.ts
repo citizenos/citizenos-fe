@@ -12,31 +12,34 @@ import { LocationService } from 'src/app/services/location.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Argument } from 'src/app/interfaces/argument';
+import { TopicService } from 'src/app/services/topic.service';
 
 @Component({
   selector: 'app-idea',
   template: ''
 })
 export class IdeaComponent {
-  constructor(dialog: DialogService, route: ActivatedRoute, TopicIdeaService: TopicIdeaService, router: Router) {
+  constructor(dialog: DialogService, route: ActivatedRoute, TopicIdeaService: TopicIdeaService, router: Router, TopicService: TopicService) {
     combineLatest([route.params, TopicIdeaService.items$]).pipe(take(1)).subscribe(([params, items]) => {
       console.log(params);
         const idea = items.find((idea) => idea.id === params['ideaId']);
         dialog.closeAll();
-        const ideaDialog = dialog.open(IdeaDialogComponent, {
-          data: {
-            idea,
-            topicId: params['topicId'],
-            ideationId: params['ideationId'],
-            route: route
-          }
-        });
+        TopicService.get(params['topicId']).pipe(take(1)).subscribe((topic) => {
+          const ideaDialog = dialog.open(IdeaDialogComponent, {
+            data: {
+              idea,
+              topic,
+              ideationId: params['ideationId'],
+              route: route
+            }
+          });
 
-        ideaDialog.afterClosed().subscribe((value) => {
-          if (value) {
-            router.navigate(['/', 'topics', params['topicId']], {fragment: 'ideation'})
-          }
-        });
+          ideaDialog.afterClosed().subscribe((value) => {
+            if (value) {
+              router.navigate(['/', 'topics', params['topicId']], {fragment: 'ideation'})
+            }
+          });
+        })
     })
   }
 }
@@ -60,11 +63,12 @@ export class IdeaDialogComponent extends IdeaboxComponent {
     Location: LocationService,
     Notification: NotificationService,
     Translate: TranslateService,
+    TopicService: TopicService,
     TopicIdeaService: TopicIdeaService
   ) {
-    super(dialog, config, router, Auth, Location, Notification, Translate, TopicIdeaService);
+    super(dialog, config, router, Auth, Location, Notification, Translate, TopicService, TopicIdeaService);
     this.idea = this.data.idea;
-    this.topicId = this.data.topicId;
+    this.topic = this.data.topic;
     this.ideationId = this.data.ideationId;
     this.route = this.data.route;
     const url = this.router.parseUrl(this.router.url);
@@ -78,7 +82,7 @@ export class IdeaDialogComponent extends IdeaboxComponent {
     let index = ideas.findIndex((item) => item.id === this.idea.id);
     if (index === 0) index = ideas.length;
     const newIdea = ideas[index-1];
-    this.router.navigate(['/', this.Translate.currentLang, 'topics', this.topicId, 'ideation', this.ideationId, 'ideas', newIdea.id]);
+    this.router.navigate(['/', this.Translate.currentLang, 'topics', this.topic.id, 'ideation', this.ideationId, 'ideas', newIdea.id]);
     this.idea = newIdea;
   }
 
@@ -86,7 +90,7 @@ export class IdeaDialogComponent extends IdeaboxComponent {
     let index = ideas.findIndex((item) => item.id === this.idea.id);
     if (index === ideas.length-1) index = -1;
     const newIdea = ideas[index+1];
-    this.router.navigate(['/', this.Translate.currentLang, 'topics', this.topicId, 'ideation', this.ideationId, 'ideas', newIdea.id]);
+    this.router.navigate(['/', this.Translate.currentLang, 'topics', this.topic.id, 'ideation', this.ideationId, 'ideas', newIdea.id]);
     this.idea = newIdea;
   }
 }

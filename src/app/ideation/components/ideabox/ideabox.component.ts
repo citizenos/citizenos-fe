@@ -1,3 +1,4 @@
+import { TopicService } from 'src/app/services/topic.service';
 import { AfterViewInit, Component, Input } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
@@ -12,6 +13,8 @@ import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog
 import { DialogService } from 'src/app/shared/dialog';
 import { IdeaReportComponent } from '../idea-report/idea-report.component';
 import { AddIdeaFolderComponent } from '../add-idea-folder/add-idea-folder.component';
+import { IdeaReportReasonComponent } from '../idea-report-reason/idea-report-reason.component';
+import { Topic } from 'src/app/interfaces/topic';
 
 @Component({
   selector: 'ideabox',
@@ -21,7 +24,7 @@ import { AddIdeaFolderComponent } from '../add-idea-folder/add-idea-folder.compo
 export class IdeaboxComponent implements AfterViewInit {
   @Input() idea!: Idea; // decorate the property with @Input()
   showDeletedIdea = false;
-  @Input() topicId!: string;
+  @Input() topic!: Topic;
   @Input() ideationId!: string;
   @Input() showReplies?: boolean = false;
   showEdit = false;
@@ -41,6 +44,7 @@ export class IdeaboxComponent implements AfterViewInit {
     private Location: LocationService,
     private Notification: NotificationService,
     public Translate: TranslateService,
+    private TopicService: TopicService,
     public TopicIdeaService: TopicIdeaService
   ) {
   }
@@ -49,12 +53,15 @@ export class IdeaboxComponent implements AfterViewInit {
     //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
     //Add 'implements AfterViewInit' to the class.
   }
-  canEdit() {
+  canEditTopic() {
+    return this.TopicService.canEdit(this.topic);
+  }
+  canEditIdea() {
     return (this.idea.author.id === this.Auth.user.value.id && !this.idea.deletedAt);
   };
 
   goToView($event: any) {
-    const routerLink=['/','topics', this.topicId, 'ideation', this.ideationId, 'ideas', this.idea.id ];
+    const routerLink=['/','topics', this.topic.id, 'ideation', this.ideationId, 'ideas', this.idea.id ];
     this.router.navigate(routerLink);
   }
 
@@ -97,7 +104,7 @@ export class IdeaboxComponent implements AfterViewInit {
 
     deleteArgument.afterClosed().subscribe((confirm) => {
       if (confirm === true) {
-        const idea = Object.assign({ topicId: this.topicId, ideaId: this.idea.id, ideationId: this.ideationId });
+        const idea = Object.assign({ topicId: this.topic.id, ideaId: this.idea.id, ideationId: this.ideationId });
         console.log(idea);
         this.TopicIdeaService
           .delete(idea)
@@ -114,7 +121,7 @@ export class IdeaboxComponent implements AfterViewInit {
       data: {
         idea: this.idea,
         ideationId: this.ideationId,
-        topicId: this.topicId
+        topicId: this.topic.id
       }
     });
   };
@@ -127,7 +134,7 @@ export class IdeaboxComponent implements AfterViewInit {
     const idea = {
       ideaId: this.idea.id,
       ideationId: this.ideationId,
-      topicId: this.topicId,
+      topicId: this.topic.id,
       value: value
     };
 
@@ -140,7 +147,7 @@ export class IdeaboxComponent implements AfterViewInit {
   };
 
   toggleFavourite() {
-    this.TopicIdeaService.toggleFavourite({favourite: this.idea.favourite, topicId: this.topicId, ideationId: this.ideationId, ideaId: this.idea.id});
+    this.TopicIdeaService.toggleFavourite({favourite: this.idea.favourite, topicId: this.topic.id, ideationId: this.ideationId, ideaId: this.idea.id});
     this.idea.favourite = !this.idea.favourite;
   }
 
@@ -168,7 +175,7 @@ export class IdeaboxComponent implements AfterViewInit {
   addToFolder() {
     const addToFolderDialog = this.dialog.open(AddIdeaFolderComponent, {
       data: {
-        topicId: this.topicId,
+        topicId: this.topic.id,
         ideationId: this.ideationId,
         idea:this.idea
       }
@@ -176,13 +183,13 @@ export class IdeaboxComponent implements AfterViewInit {
   }
 
   reportReasonDialog() {
-  /*  this.dialog.open(IdeaReportReasonComponent, {
+    this.dialog.open(IdeaReportReasonComponent, {
       data: {
         report: {
-          moderatedReasonText: this.topic.report?.moderatedReasonText || this.topic.report?.text,
-          moderatedReasonType: this.topic.report?.moderatedReasonType || this.topic.report?.type,
+          moderatedReasonText: this.idea.deletedReasonText,
+          moderatedReasonType: this.idea.deletedReasonType
         }
       }
-    })*/
+    })
   }
 }

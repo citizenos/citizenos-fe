@@ -117,3 +117,39 @@
     }
   }
 }
+.deleted_idea_wrap {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  z-index: 1;
+
+  .deleted_idea_content_wrap {
+    display: flex;
+    background-color: var(--color-surfaces);
+    flex-direction: column;
+    border-radius: 8px;
+    padding: 24px;
+    align-items: center;
+    gap: 16px;
+    z-index: 2;
+    text-align: center;
+
+    .buttons_wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      a {
+        font-weight: 600;
+      }
+    }
+  }
+}
