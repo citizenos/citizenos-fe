@@ -46,7 +46,7 @@ export class TopicIdeationComponent {
   ideaFilters = {
     type: '',
     orderBy: '',
-    participants: <User | ''>''
+    participants: <User | any>''
   };
 
   ideaTypeFilter$ = new BehaviorSubject('');
@@ -136,11 +136,28 @@ export class TopicIdeationComponent {
     this.ideaFilters.type = type;
   }
 
+  userIndex() {
+    let userIndex = this.users.findIndex((user) => user.id === this.ideaFilters.participants?.id)
+    return userIndex + 1;
+  }
+
   nextParticipant() {
-   // this.ideaFilters.participants
+    if (typeof this.ideaFilters.participants === 'object') {
+      let userIndex = this.users.findIndex((user) => user.id === this.ideaFilters.participants?.id)
+      if (userIndex === this.users.length - 1) userIndex = -1;
+      const user = this.users[userIndex + 1];
+      console.log(userIndex, user)
+      this.setParticipant(user);
+    }
   }
   prevParticipant() {
-
+    if (typeof this.ideaFilters.participants === 'object') {
+      let userIndex = this.users.findIndex((user) => user.id === this.ideaFilters.participants.id)
+      if (userIndex === 0) userIndex = this.users.length;
+      const user = this.users[userIndex - 1];
+      console.log(userIndex, user)
+      this.setParticipant(user);
+    }
   }
   setParticipant(user?: User) {
     this.ideaParticipantsFilter$.next(user || '');
