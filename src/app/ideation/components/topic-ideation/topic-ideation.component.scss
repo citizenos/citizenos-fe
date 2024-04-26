@@ -177,6 +177,10 @@
   background-color: var(--color-surfaces);
   border-radius: 8px;
   flex-direction: column;
+  position: absolute;
+  top: 58px;
+  z-index: 2;
+  width: 100%;
 
   .participant_row {
     display: flex;
@@ -192,7 +196,7 @@
     justify-content: space-between;
     padding: 8px 16px;
     align-items: center;
-
+    background-color: var(--color-surface-contrast);
     .buttons_wrap {
       align-items: center;
       display: flex;

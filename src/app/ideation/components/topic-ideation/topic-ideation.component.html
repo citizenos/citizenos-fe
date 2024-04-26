@@ -283,17 +283,17 @@
                     <div class="line_separator"></div>
                     <div class="info_wrap">
                       <div class="info_text">
-                        <span translate="COMPONENTS.TOPIC_IDEATION.IDEA_PARTICIPANTS_FILTER_RESULTS" [translateParams]="{count: participantsCount}"></span>
+                        <span translate="COMPONENTS.TOPIC_IDEATION.IDEA_PARTICIPANTS_FILTER_RESULTS" [translateParams]="{count: ideaFilters.participants.ideas.count}"></span>
                       </div>
                       <div class="buttons_wrap">
-                        <div class="text"></div>
-                        <button (click)="nextParticipant()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        <div class="text">{{userIndex()}} / {{users.length}}</div>
+                        <button (click)="prevParticipant()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path d="M14.5 7.5L9.5 12.5L14.5 17.5" stroke="#2C3B47" stroke-width="2"
                               stroke-linecap="round" />
                           </svg>
                         </button>
-                        <button (click)="prevParticipant()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        <button (click)="nextParticipant()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path d="M9.5 17.5L14.5 12.5L9.5 7.5" stroke="#2C3B47" stroke-width="2"
                               stroke-linecap="round" />
