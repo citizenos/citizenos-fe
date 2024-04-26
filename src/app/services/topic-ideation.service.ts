@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { LocationService } from './location.service';
-import { Observable, switchMap, map, of, tap, take, BehaviorSubject, exhaustMap, shareReplay } from 'rxjs';
-import { Topic } from 'src/app/interfaces/topic'; // Vote interface
+import { map, BehaviorSubject, exhaustMap, shareReplay } from 'rxjs';
+import { Topic } from 'src/app/interfaces/topic';
 import { Ideation } from 'src/app/interfaces/ideation'; // Ideation interface
 import { AuthService } from './auth.service';
 import { TopicService } from './topic.service';
@@ -42,7 +42,7 @@ export class TopicIdeationService extends ItemsListService {
     );
   }
 
-  reloadVote(): void {
+  reloadIdeation(): void {
     this.loadIdeation$.next();
   }
 
@@ -117,8 +117,8 @@ export class TopicIdeationService extends ItemsListService {
   }
 
   update(data: any) {
-    if (!data.voteId) data.voteId = data.id;
     const path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId'), data);
+    console.log(path);
     return this.http.put<ApiResponse>(path, data, { withCredentials: true, observe: 'body', responseType: 'json' })
       .pipe(
         map(res => res.data)
@@ -126,7 +126,7 @@ export class TopicIdeationService extends ItemsListService {
   }
 
   delete(data: any) {
-    if (!data.voteId) data.voteId = data.id;
+    if (!data.ideationId) data.ideationId = data.id;
     const path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId'), data)
 
     return this.http.delete<ApiResponse>(path, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(

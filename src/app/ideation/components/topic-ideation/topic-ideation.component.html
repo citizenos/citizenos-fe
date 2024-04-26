@@ -320,7 +320,7 @@
                 </div>
               </ng-container>
               <ng-container *ngIf="ideas.length">
-                <ideabox *ngFor="let idea of ideas" [topic]="topic" [ideationId]="ideation.id" [idea]="idea">
+                <ideabox *ngFor="let idea of ideas" [topic]="topic" [ideation]="ideation" [idea]="idea">
                 </ideabox>
               </ng-container>
             </div>

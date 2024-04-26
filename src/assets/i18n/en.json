@@ -274,6 +274,22 @@
       "BTN_CANCEL": "Don't download results",
       "BTN_SUBMIT": "Download results"
     },
+    "EDIT_IDEATION_DEADLINE": {
+      "LBL_DEADLINE": "Ideation deadline",
+      "DIALOG_HEADING": "Edit ideation deadline",
+      "DIALOG_HEADING_ADD": "Add ideation deadline",
+      "LBL_EDIT_IDEATION_DEADLINE": "Edit ideation deadline",
+      "LBL_EDIT_IDEATION_DEADLINE_DESC": "You can choose or edit the ideation deadline.",
+      "LBL_OPTION_DEADLINE": "Deadline",
+      "LBL_OPTION_DEADLINE_DESC": "When the set date is reached, the ideation is closed.",
+      "DEADLINE_LBL_TIME": "Time",
+      "DEADLINE_TIME_OPTION_24": "24h clock",
+      "DEADLINE_TIME_OPTION_AM": "AM",
+      "DEADLINE_TIME_OPTION_PM": "PM",
+      "DEADLINE_LBL_TIMEZONE": "Timezone",
+      "LNK_CANCEL": "@:LNK_CANCEL",
+      "BTN_SAVE": "@:DIRECTIVES.COS_MODAL.BTN_SAVE"
+    },
     "GROUP_ADD_TOPICS_DIALOG": {
       "HEADING": "Add topics to the group",
       "NO_TOPICS_SELECTED": "You haven't selected any topics to add to the group. Please search for topics with the search field above.",

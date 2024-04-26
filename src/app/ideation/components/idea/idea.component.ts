@@ -69,7 +69,7 @@ export class IdeaDialogComponent extends IdeaboxComponent {
     super(dialog, config, router, Auth, Location, Notification, Translate, TopicService, TopicIdeaService);
     this.idea = this.data.idea;
     this.topic = this.data.topic;
-    this.ideationId = this.data.ideationId;
+    this.ideation = this.data.ideation;
     this.route = this.data.route;
     const url = this.router.parseUrl(this.router.url);
     console.log(this.route)
@@ -82,7 +82,7 @@ export class IdeaDialogComponent extends IdeaboxComponent {
     let index = ideas.findIndex((item) => item.id === this.idea.id);
     if (index === 0) index = ideas.length;
     const newIdea = ideas[index-1];
-    this.router.navigate(['/', this.Translate.currentLang, 'topics', this.topic.id, 'ideation', this.ideationId, 'ideas', newIdea.id]);
+    this.router.navigate(['/', this.Translate.currentLang, 'topics', this.topic.id, 'ideation', this.ideation.id, 'ideas', newIdea.id]);
     this.idea = newIdea;
   }
 
@@ -90,7 +90,7 @@ export class IdeaDialogComponent extends IdeaboxComponent {
     let index = ideas.findIndex((item) => item.id === this.idea.id);
     if (index === ideas.length-1) index = -1;
     const newIdea = ideas[index+1];
-    this.router.navigate(['/', this.Translate.currentLang, 'topics', this.topic.id, 'ideation', this.ideationId, 'ideas', newIdea.id]);
+    this.router.navigate(['/', this.Translate.currentLang, 'topics', this.topic.id, 'ideation', this.ideation.id, 'ideas', newIdea.id]);
     this.idea = newIdea;
   }
 }

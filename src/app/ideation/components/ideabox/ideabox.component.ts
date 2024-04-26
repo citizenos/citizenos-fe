@@ -15,6 +15,7 @@ import { IdeaReportComponent } from '../idea-report/idea-report.component';
 import { AddIdeaFolderComponent } from '../add-idea-folder/add-idea-folder.component';
 import { IdeaReportReasonComponent } from '../idea-report-reason/idea-report-reason.component';
 import { Topic } from 'src/app/interfaces/topic';
+import { Ideation } from 'src/app/interfaces/ideation';
 
 @Component({
   selector: 'ideabox',
@@ -25,7 +26,7 @@ export class IdeaboxComponent implements AfterViewInit {
   @Input() idea!: Idea; // decorate the property with @Input()
   showDeletedIdea = false;
   @Input() topic!: Topic;
-  @Input() ideationId!: string;
+  @Input() ideation!: Ideation;
   @Input() showReplies?: boolean = false;
   showEdit = false;
   showEdits = false;
@@ -61,7 +62,7 @@ export class IdeaboxComponent implements AfterViewInit {
   };
 
   goToView($event: any) {
-    const routerLink=['/','topics', this.topic.id, 'ideation', this.ideationId, 'ideas', this.idea.id ];
+    const routerLink=['/','topics', this.topic.id, 'ideation', this.ideation.id, 'ideas', this.idea.id ];
     this.router.navigate(routerLink);
   }
 
@@ -104,7 +105,7 @@ export class IdeaboxComponent implements AfterViewInit {
 
     deleteArgument.afterClosed().subscribe((confirm) => {
       if (confirm === true) {
-        const idea = Object.assign({ topicId: this.topic.id, ideaId: this.idea.id, ideationId: this.ideationId });
+        const idea = Object.assign({ topicId: this.topic.id, ideaId: this.idea.id, ideationId: this.ideation.id });
         console.log(idea);
         this.TopicIdeaService
           .delete(idea)
@@ -120,7 +121,7 @@ export class IdeaboxComponent implements AfterViewInit {
     this.dialog.open(IdeaReportComponent, {
       data: {
         idea: this.idea,
-        ideationId: this.ideationId,
+        ideationId: this.ideation.id,
         topicId: this.topic.id
       }
     });
@@ -133,7 +134,7 @@ export class IdeaboxComponent implements AfterViewInit {
 
     const idea = {
       ideaId: this.idea.id,
-      ideationId: this.ideationId,
+      ideationId: this.ideation.id,
       topicId: this.topic.id,
       value: value
     };
@@ -147,7 +148,7 @@ export class IdeaboxComponent implements AfterViewInit {
   };
 
   toggleFavourite() {
-    this.TopicIdeaService.toggleFavourite({favourite: this.idea.favourite, topicId: this.topic.id, ideationId: this.ideationId, ideaId: this.idea.id});
+    this.TopicIdeaService.toggleFavourite({favourite: this.idea.favourite, topicId: this.topic.id, ideationId: this.ideation.id, ideaId: this.idea.id});
     this.idea.favourite = !this.idea.favourite;
   }
 
@@ -176,7 +177,7 @@ export class IdeaboxComponent implements AfterViewInit {
     const addToFolderDialog = this.dialog.open(AddIdeaFolderComponent, {
       data: {
         topicId: this.topic.id,
-        ideationId: this.ideationId,
+        ideationId: this.ideation.id,
         idea:this.idea
       }
     })

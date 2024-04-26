@@ -14,6 +14,7 @@ import { Idea } from 'src/app/interfaces/idea';
 import { Folder } from 'src/app/interfaces/folder';
 import { CreateIdeaFolderComponent } from '../create-idea-folder/create-idea-folder.component';
 import { Router } from '@angular/router';
+import { EditIdeationDeadlineComponent } from '../edit-ideation-deadline/edit-ideation-deadline.component';
 
 
 @Component({
@@ -224,12 +225,15 @@ export class TopicIdeationComponent {
   }
 
   editDeadline() {
-    /*  const voteDeadlineDialog = this.dialog.open(TopicVoteDeadlineComponent, {
+      const ideationDeadlineDialog = this.dialog.open(EditIdeationDeadlineComponent, {
         data: {
-          vote: this.vote,
+          ideation: this.ideation,
           topic: this.topic
         }
-      });*/
+      });
+      ideationDeadlineDialog.afterClosed().subscribe(() => {
+        this.TopicIdeationService.reloadIdeation();
+      })
   }
   canEdit() {
     return this.TopicService.canEdit(this.topic);
