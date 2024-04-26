@@ -46,6 +46,12 @@
   }
 }
 
+.ideation {
+  .selected {
+    background-color: var(--color-dialog-ideation-contrast);
+    border-radius: 16px;
+  }
+}
 .selected {
   background-color: var(--color-voting-disabled);
   border-radius: 16px;
