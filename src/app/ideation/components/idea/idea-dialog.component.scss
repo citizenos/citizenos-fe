@@ -154,7 +154,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  padding: 24px 0;
+  padding-top: 24px;
 
   .items_wrap {
     align-items: center;
@@ -175,4 +175,12 @@
 .replies_content_wrap {
   display: flex;
   flex-direction: column;
+  .replies_wrap {
+    gap: 24px;
+    display: flex;
+    flex-direction: column;
+    .line_separator {
+      background: var(--color-dialog-contrast);
+    }
+  }
 }

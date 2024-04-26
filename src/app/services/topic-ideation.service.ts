@@ -116,6 +116,15 @@ export class TopicIdeationService extends ItemsListService {
       );
   }
 
+  participants(data: any) {
+    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId/participants'), data);
+
+    return this.http.get<ApiResponse>(path, { withCredentials: true, observe: 'body', responseType: 'json' })
+      .pipe(
+        map(res => res.data)
+      );
+  }
+
   update(data: any) {
     const path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId'), data);
     console.log(path);

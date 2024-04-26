@@ -134,6 +134,16 @@
       "BTN_ADD": "Add idea to folder",
       "LNK_CANCEL": "@:LNK_CANCEL"
     },
+    "ADD_IDEAS_TO_FOLDER": {
+      "HEADING": "Add ideas to folder",
+      "LBL_FOLDER_INFO": "Folder to add ideas to",
+      "PLACEHOLDER_NAME": "@:VIEWS.MY_TOPICS_TOPICID.LNK_NAME",
+      "LBL_IDEAS_SELECTION": "Select the ideas you want to add to this folder",
+      "BTN_CREATE": "Add ideas",
+      "LNK_CANCEL": "@:LNK_CANCEL",
+      "LBL_IDEAS": "Ideas ({{count}})",
+      "LBL_LIKES": "Likes"
+    },
     "ARGUMENT": {
       "LBL_ARGUMENT_ACTIONS": "Argument actions",
       "OPTION_EDIT": "edit",
@@ -386,6 +396,7 @@
       "NOTIFICATION_LNK_VIEW":"View anyway"
     },
     "IDEA_DIALOG": {
+      "BTN_REPLY": "@:COMPONENTS.ARGUMENT.BTN_REPLY",
       "OPTION_EDIT": "@:COMPONENTS.IDEABOX.OPTION_EDIT",
       "OPTION_FAVOURITE": "@:VIEWS.TOPICS_TOPICID.OPTION_FAVOURITE",
       "OPTION_UNFAVOURITE": "@:VIEWS.TOPICS_TOPICID.OPTION_UNFAVOURITE",
@@ -643,6 +654,7 @@
       "NO_IDEAS_DESC_HEADING": "@:VIEWS.IDEATION_CREATE.NO_IDEAS_DESC_HEADING",
       "NO_IDEAS_DESC_BEFORE": "@:VIEWS.IDEATION_CREATE.NO_IDEAS_DESC_BEFORE",
       "NO_IDEAS_DESC_AFTER": "@:VIEWS.IDEATION_CREATE.NO_IDEAS_DESC_AFTER",
+      "IDEA_PARTICIPANTS_FILTER_RESULTS": "results {{count}}",
       "LBL_FOLDER": "Folder",
       "LBL_IDEAS": "Ideas",
       "LBL_LAST_ACTIVITY": "Last activity",
