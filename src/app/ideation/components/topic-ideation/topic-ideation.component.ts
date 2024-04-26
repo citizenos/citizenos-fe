@@ -15,6 +15,7 @@ import { Folder } from 'src/app/interfaces/folder';
 import { CreateIdeaFolderComponent } from '../create-idea-folder/create-idea-folder.component';
 import { Router } from '@angular/router';
 import { EditIdeationDeadlineComponent } from '../edit-ideation-deadline/edit-ideation-deadline.component';
+import { AddIdeasToFolderComponent } from '../add-ideas-to-folder/add-ideas-to-folder.component';
 
 
 @Component({
@@ -152,7 +153,7 @@ export class TopicIdeationComponent {
   }
 
   saveIdeation() {
-    const saveIdeation: any = Object.assign(this.ideation, { topicId: this.topic.id });
+    const saveIdeation: any = Object.assign({ topicId: this.topic.id, ideationId: this.ideation.id, deadline: this.ideation.deadline });
     this.TopicIdeationService.update(saveIdeation)
       .pipe(take(1))
       .subscribe({
@@ -162,7 +163,6 @@ export class TopicIdeationComponent {
           this.dialog.closeAll();
         },
         error: (res) => {
-          console.debug('saveIdeation() ERR', res, res.errors);
           Object.values(res).forEach((message) => {
             if (typeof message === 'string')
               this.Notification.addError(message);
@@ -185,7 +185,7 @@ export class TopicIdeationComponent {
         if (value) {
           this.ideation.deadline = new Date();
           this.saveIdeation();
-          this.topic.status = this.TopicService.STATUSES.followUp;
+          this.topic.status = this.TopicService.STATUSES.inProgress;
           this.TopicService.patch(this.topic).pipe(take(1)).subscribe({
             next: () => {
               this.TopicService.reloadTopic();
@@ -194,6 +194,23 @@ export class TopicIdeationComponent {
         }
       }
     });
+  }
+  addIdeasToFolder(folder: Folder) {
+      const folderCreateDialog = this.dialog.open(AddIdeasToFolderComponent, {
+        data: {
+          folder: folder,
+          topicId: this.topic.id,
+          ideationId: this.ideation.id
+        }
+      });
+
+      folderCreateDialog.afterClosed().subscribe(() => {
+        this.folders$ = this.TopicIdeationService.getFolders({topicId: this.topic.id, ideationId: this.ideation.id}).pipe(
+          map((res) => {
+            return res.rows;
+          })
+        );
+      });
   }
 
   editFolder(folder: Folder) { }
@@ -266,55 +283,4 @@ export class TopicIdeationComponent {
       );
     });
   };
-
-  triggerFinalDownload(type: string, includeCSV?: boolean) {
-    /*  let url = ''
-      if (this.vote.downloads?.bdocFinal || this.vote.downloads?.zipFinal) {
-        if (type === 'zip') {
-          url = this.vote.downloads.zipFinal;
-        } else {
-          url = this.vote.downloads.bdocFinal;
-        }
-        if (!url) return;
-        if (includeCSV) {
-          url += '&include[]=csv';
-        }
-        window.location.href = url;
-        return;
-      }
-      const finalDownloadDialog = this.dialog.open(DownloadVoteResultsComponent);
-      finalDownloadDialog.afterClosed().subscribe({
-        next: (allow: any) => {
-          if (allow === 'deadline') {
-            this.editDeadline();
-          } else if (allow === true) {
-            this.topic.status = this.TopicService.STATUSES.followUp;
-            this.TopicService.patch(this.topic).pipe(take(1)).subscribe({
-              next: () => {
-                this.TopicService.reloadTopic();
-                this.TopicVoteService.loadVote({ topicId: this.topic.id, voteId: this.topic.voteId! })
-                  .pipe(take(1))
-                  .subscribe({
-                    next: (vote) => {
-                      if (type === 'zip') {
-                        url = vote.downloads.zipFinal;
-                      } else {
-                        url = vote.downloads.bdocFinal;
-                      }
-                      if (!url) return;
-                      if (includeCSV) {
-                        url += '&include[]=csv';
-                      }
-                      window.location.href = url;
-                    }
-                  });
-              }
-            });
-          }
-        },
-        error: (err) => {
-
-        }
-      })*/
-  }
 }

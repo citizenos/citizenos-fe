@@ -99,7 +99,7 @@
               <span *ngIf="idea.favourite" translate="COMPONENTS.IDEABOX.OPTION_UNFAVOURITE"></span>
             </button>
           </ng-container>
-          <ng-container *ngIf="canEditTopic()">
+          <ng-container *ngIf="canEditTopic() && ideation.folders.count">
             <div class="line_separator"></div>
             <button class="option" (click)="addToFolder()">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

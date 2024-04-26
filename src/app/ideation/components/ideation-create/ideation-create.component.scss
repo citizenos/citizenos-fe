@@ -378,7 +378,13 @@
     font-size: 16px;
     line-height: 32px;
     margin-bottom: 36px;
-    strong, li, b, i, em, s, u {
+    strong,
+    li,
+    b,
+    i,
+    em,
+    s,
+    u {
       font-size: 16px;
       line-height: 32px;
     }
@@ -420,7 +426,7 @@
 
     &:hover {
       background: var(--btn-submit);
-      cursor:default;
+      cursor: default;
     }
   }
 }
@@ -449,10 +455,26 @@
   }
 }
 
+#ideation_deadline_input_wrap {
+  display: flex;
+  height: 48px;
+  padding: 16px;
+  background: var(--color-surfaces);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  gap: 8px;
+  align-items: center;
+  input {
+    padding: 0;
+    border: none;
+    height: 46px;
+    color: var(--color-argument-info);
+  }
+}
 .deadline_selector {
   width: 100%;
   max-width: 546px;
-  padding: 8px;
+  padding: 16px;
   background-color: var(--color-dialog-ideation);
 }
 .date_selector {

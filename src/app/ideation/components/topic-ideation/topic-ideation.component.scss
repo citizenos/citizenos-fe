@@ -52,7 +52,17 @@
   display: flex;
   align-items: center;
   gap: 16px;
+  justify-content: space-between;
+  width: 100%;
 
+  .left {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+  .right {
+    display: flex;
+  }
   .folder_name {
     display: flex;
     gap: 4px;
@@ -100,6 +110,13 @@
 }
 .button_dropdown {
   background-color:initial;
+
+  .line_separator {
+    background-color: var(--color-border);
+  }
+  .option {
+    gap: 8px;
+  }
 }
 
 .line_separator {

@@ -8,10 +8,16 @@ export interface Ideation {
     imageUrl: string,
     email: string
   },
+  folders:{
+    count:
+    number
+  },
   creatorId: string,
   deadline: null | string
   createdAt: Date,
   updatedAt: Date,
-  ideas?: any
+  ideas: {
+    count: number
+  }
 }
 

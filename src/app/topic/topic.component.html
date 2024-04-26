@@ -1026,13 +1026,31 @@
             </ng-container>
             <ng-container *ngIf="(ideation$ | async) as ideation">
               <div class="item_header">
+                <div class="item_title_with_description">
+                  <span translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_IDEATION_HEADING"></span>
+                  <!--div class="description">
+                    <span class="votes_number">{{vote.votersCount || 0}}</span>
+                    <span translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_VOTING_VOTES_NEEDED"></span>
+                  </!--div-->
+                </div>
+                <div class="item_title" [translateParams]="{count: ideation.ideas.count}"
+                  [translate]="(!this.hasIdeationEndedExpired(topic, ideation))? 'VIEWS.TOPICS_TOPICID.STATE_ITEM_IDEATION_IDEAS': 'VIEWS.TOPICS_TOPICID.STATE_ITEM_IDEATION_STATUS_ENDED'">
+                </div>
+              </div>
+              <!--div class="item_header">
                 <div class="item_title" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_IDEATION_HEADING"></div>
                 <div class="item_title" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_IDEATION_IDEAS"
                   [translateParams]="{count: ideation.ideas.count}"></div>
-              </div>
+              </!--div-->
               <div class="item_content">
+
                 <div class="graph_wrap">
-                  <div class="legend wide">
+                  <div class="legend" *ngIf="this.hasIdeationEndedExpired(topic, ideation)">
+                    <div class="bold" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_IDEATION_IDEAS_COLLECTED"></div>
+                    <div><span class="bold">{{ideation.ideas.count || 0}}</span>
+                    </div>
+                  </div>
+                  <div class="legend wide" *ngIf="!this.hasIdeationEndedExpired(topic, ideation)">
                     <div class="legend_row">
                       <div class="legend_item">
                         <div class="bold" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_IDEATION_DAYS_LEFT"></div>
