@@ -138,3 +138,67 @@
     }
   }
 }
+
+.author_wrap {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  .image_wrap {
+    width: 32px;
+    height: 32px;
+    display: flex;
+
+    .profile_image {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      border-radius: 32px;
+      aspect-ratio: 1;
+      object-fit: cover;
+    }
+
+    .profile_image_filler {
+      width: 100%;
+      background-color: var(--color-surfaces);
+      border-radius: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cos-initials {
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+.selected_participant_wrap {
+  display: flex;
+  background-color: var(--color-surfaces);
+  border-radius: 8px;
+  flex-direction: column;
+
+  .participant_row {
+    display: flex;
+    width: 100%;
+    padding: 16px;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .info_wrap {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 8px 16px;
+    align-items: center;
+
+    .buttons_wrap {
+      align-items: center;
+      display: flex;
+    }
+  }
+  .line_separator {
+    background: var(--color-border);
+  }
+}

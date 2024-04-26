@@ -6,7 +6,7 @@
   <div class="dialog">
     <div class="dialog_header ideation">
       <div class="header_text">
-        <div class="title" translate="COMPONENTS.CREATE_IDEA_FOLDER.HEADING"></div>
+        <div class="title" translate="COMPONENTS.ADD_IDEAS_TO_FOLDER.HEADING"></div>
         <div class="dialog_close">
           <a class="btn_dialog_close icon" dialog-close>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -21,21 +21,49 @@
     <div class="dialog_content">
       <div class="content_section">
         <div class="section_content_wrap">
-          <div class="bold" translate="COMPONENTS.CREATE_IDEA_FOLDER.LBL_NAME"></div>
+          <div class="folder_info_wrap">
+            <div translate="COMPONENTS.ADD_IDEAS_TO_FOLDER.LBL_FOLDER_INFO"></div>
+            <div class="folder_wrap">
+              <div class="icon">
+                <svg width="24" height="22" viewBox="0 0 24 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M0 2.80078C0 1.69621 0.895431 0.800781 2 0.800781H9.06325C9.65681 0.800781 10.2197 1.06443 10.5997 1.52041L11.4003 2.48115C11.7803 2.93714 12.3432 3.20078 12.9367 3.20078H22C23.1046 3.20078 24 4.09621 24 5.20078V19.2008C24 20.3054 23.1046 21.2008 22 21.2008H2C0.89543 21.2008 0 20.3054 0 19.2008V2.80078Z"
+                    fill="url(#paint0_linear_12637_35141)" />
+                  <path
+                    d="M0 7C0 5.89543 0.895431 5 2 5H22C23.1046 5 24 5.89543 24 7V19.2C24 20.3046 23.1046 21.2 22 21.2H2C0.89543 21.2 0 20.3046 0 19.2V7Z"
+                    fill="url(#paint1_linear_12637_35141)" />
+                  <defs>
+                    <linearGradient id="paint0_linear_12637_35141" x1="12" y1="3.42578" x2="12" y2="13.501"
+                      gradientUnits="userSpaceOnUse">
+                      <stop stop-color="#FFEBA2" />
+                      <stop offset="0.192708" stop-color="#FFD84F" />
+                      <stop offset="0.265625" stop-color="#FFDF6F" />
+                    </linearGradient>
+                    <linearGradient id="paint1_linear_12637_35141" x1="11" y1="5" x2="11" y2="21.2"
+                      gradientUnits="userSpaceOnUse">
+                      <stop offset="0.901042" stop-color="#FFEAA1" />
+                      <stop offset="1" stop-color="#FFDF6F" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </div>
+              <div class="bold" [innerHTML]="folder.name"></div>
+            </div>
+          </div>
           <ng-container *ngIf="folderIdeas$ | async"></ng-container>
           <ng-container *ngIf="ideas$ | async as ideas">
-            <div class="bold" translate="COMPONENTS.CREATE_IDEA_FOLDER.LBL_IDEAS_SELECTION"></div>
+            <div class="bold" translate="COMPONENTS.ADD_IDEAS_TO_FOLDER.LBL_IDEAS_SELECTION"></div>
             <div class="idea_selection_wrap">
               <div class="idea_selection_header">
                 <div class="checkbox_wrap" (click)="toggleAllIdeas(ideas)">
                   <label class="checkbox" [ngClass]="{selected:allChecked()}">
                     <span class="checkmark"></span>
                   </label>
-                  <div translate="COMPONENTS.CREATE_IDEA_FOLDER.LBL_IDEAS" [translateParams]="{count: ideasCount}">
+                  <div translate="COMPONENTS.ADD_IDEAS_TO_FOLDER.LBL_IDEAS" [translateParams]="{count: ideasCount}">
                   </div>
                 </div>
                 <div class="likes_wrap">
-                  <span translate="COMPONENTS.CREATE_IDEA_FOLDER.LBL_LIKES"></span>
+                  <span translate="COMPONENTS.ADD_IDEAS_TO_FOLDER.LBL_LIKES"></span>
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M12 14L10 14L12.5 18L15 14L13 14L13 5L12 5L12 14Z" fill="#4D5C6A" />
                   </svg>
@@ -60,9 +88,9 @@
     </div>
 
     <div class="dialog_footer with_buttons">
-      <a translate="COMPONENTS.CREATE_IDEA_FOLDER.LNK_CANCEL" dialog-close></a>
+      <a translate="COMPONENTS.ADD_IDEAS_TO_FOLDER.LNK_CANCEL" dialog-close></a>
       <button class="btn_big_submit" (click)="createFolder()"
-        translate="COMPONENTS.CREATE_IDEA_FOLDER.BTN_CREATE"></button>
+        translate="COMPONENTS.ADD_IDEAS_TO_FOLDER.BTN_CREATE"></button>
     </div>
   </div>
 </div>

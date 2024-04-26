@@ -90,7 +90,7 @@
                     <span translate="COMPONENTS.IDEABOX.OPTION_ADD_TO_FOLDER"></span>
                   </button>
                 </ng-container>
-                <ng-container *ngIf="canEditIdea()">
+                <!--ng-container *ngIf="canEditIdea()">
                   <div class="line_separator"></div>
                   <button class="option" (click)="ideaEditMode()">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -100,7 +100,7 @@
                     </svg>
                     <span translate="COMPONENTS.IDEABOX.OPTION_EDIT"></span>
                   </button>
-                </ng-container>
+                </!--ng-container-->
                 <ng-container *ngIf="Auth.loggedIn$">
                   <div class="line_separator"></div>
                   <button class="option" (click)="doIdeaReport()"><svg width="16" height="16" viewBox="0 0 16 16"
@@ -185,17 +185,22 @@
           <div class="items_wrap">
             <div class="bold" translate="COMPONENTS.IDEA_DIALOG.REPLIES"
               [translateParams]="{count: idea.replies.count}"></div>
-            <button class="btn_medium_submit" (click)="showReply = true">Reply</button>
+            <button *ngIf="!showReply" class="btn_medium_submit" (click)="showReply = true" translate="COMPONENTS.IDEA_DIALOG.BTN_REPLY"></button>
           </div>
           <div class="form_wrap">
-            <idea-reply-form id="reply_form" *ngIf="showReply" [(showReply)]="showReply" [topicId]="topic.id" [ideationId]="ideation.id" [ideaId]="idea.id"></idea-reply-form>
+            <idea-reply-form id="reply_form" *ngIf="showReply" [(showReply)]="showReply" [topicId]="topic.id"
+              [ideationId]="ideation.id" [ideaId]="idea.id"></idea-reply-form>
           </div>
           <div class="line_separator"></div>
         </div>
         <div class="replies_content_wrap">
           <div class="replies_wrap">
             <ng-container *ngIf="replies$ | async as replies">
-              <idea-reply [topicId]="topic.id" [ideationId]="ideation.id" [ideaId]="idea.id" [argument]="reply" *ngFor="let reply of replies.rows" ></idea-reply>
+              <ng-container *ngFor="let reply of replies.rows;index as i;">
+                <div class="line_separator" *ngIf="i > 0"></div>
+                <idea-reply [topicId]="topic.id" [ideationId]="ideation.id" [ideaId]="idea.id"
+                  [argument]="reply"></idea-reply>
+              </ng-container>
             </ng-container>
           </div>
         </div>

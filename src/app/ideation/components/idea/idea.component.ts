@@ -19,28 +19,39 @@ import { TopicService } from 'src/app/services/topic.service';
   template: ''
 })
 export class IdeaComponent {
+  ideaId: string = '';
+  topicId: string = '';
+  ideationId: string = '';
   constructor(dialog: DialogService, route: ActivatedRoute, TopicIdeaService: TopicIdeaService, router: Router, TopicService: TopicService) {
-    combineLatest([route.params, TopicIdeaService.items$]).pipe(take(1)).subscribe(([params, items]) => {
-      console.log(params);
-        const idea = items.find((idea) => idea.id === params['ideaId']);
-        dialog.closeAll();
-        TopicService.get(params['topicId']).pipe(take(1)).subscribe((topic) => {
-          const ideaDialog = dialog.open(IdeaDialogComponent, {
-            data: {
-              idea,
-              topic,
-              ideationId: params['ideationId'],
-              route: route
-            }
-          });
+    route.params.pipe(take(1), switchMap((params) => {
+      this.ideaId = params['ideaId'];
+      this.topicId = params['topicId'];
+      this.ideationId = params['ideationId'];
+      return TopicIdeaService.query(params)
+    })).subscribe((items) => {
+      const idea = items.data.rows.find((idea: Idea) => idea.id === this.ideaId);
+      dialog.closeAll();
+      TopicService.get(this.topicId).pipe(take(1)).subscribe((topic) => {
+        const ideaDialog = dialog.open(IdeaDialogComponent, {
+          data: {
+            idea,
+            topic,
+            ideation: {id: this.ideationId},
+            route: route
+          }
+        });
 
-          ideaDialog.afterClosed().subscribe((value) => {
-            if (value) {
-              router.navigate(['/', 'topics', params['topicId']], {fragment: 'ideation'})
-            }
-          });
-        })
-    })
+        ideaDialog.afterClosed().subscribe((value) => {
+          if (value) {
+            router.navigate(['/', 'topics', this.topicId], { fragment: 'ideation' })
+          }
+        });
+      })
+    });
+    /*   combineLatest([route.params, TopicIdeaService.items$]).pipe(take(1)).subscribe(([params, items]) => {
+         console.log(params);
+
+       })*/
   }
 }
 
@@ -50,7 +61,7 @@ export class IdeaComponent {
   styleUrls: ['./idea-dialog.component.scss']
 })
 export class IdeaDialogComponent extends IdeaboxComponent {
-  data:any = inject(DIALOG_DATA);
+  data: any = inject(DIALOG_DATA);
   route;
   TopicIdeaRepliesService = inject(TopicIdeaRepliesService);
   replies$: Observable<any>;
@@ -72,8 +83,7 @@ export class IdeaDialogComponent extends IdeaboxComponent {
     this.ideation = this.data.ideation;
     this.route = this.data.route;
     const url = this.router.parseUrl(this.router.url);
-    console.log(this.route)
-    this.replies$ = combineLatest([this.route.params]).pipe(switchMap(([params]) => {
+    this.replies$ = combineLatest([this.route.params, this.TopicIdeaRepliesService.loadReplies$]).pipe(switchMap(([params]) => {
       return this.TopicIdeaRepliesService.getArguments(params);
     }));
   }
@@ -81,15 +91,15 @@ export class IdeaDialogComponent extends IdeaboxComponent {
   prevIdea(ideas: Idea[]) {
     let index = ideas.findIndex((item) => item.id === this.idea.id);
     if (index === 0) index = ideas.length;
-    const newIdea = ideas[index-1];
+    const newIdea = ideas[index - 1];
     this.router.navigate(['/', this.Translate.currentLang, 'topics', this.topic.id, 'ideation', this.ideation.id, 'ideas', newIdea.id]);
     this.idea = newIdea;
   }
 
   nextIdea(ideas: Idea[]) {
     let index = ideas.findIndex((item) => item.id === this.idea.id);
-    if (index === ideas.length-1) index = -1;
-    const newIdea = ideas[index+1];
+    if (index === ideas.length - 1) index = -1;
+    const newIdea = ideas[index + 1];
     this.router.navigate(['/', this.Translate.currentLang, 'topics', this.topic.id, 'ideation', this.ideation.id, 'ideas', newIdea.id]);
     this.idea = newIdea;
   }

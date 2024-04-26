@@ -16,6 +16,7 @@ import { CreateIdeaFolderComponent } from '../create-idea-folder/create-idea-fol
 import { Router } from '@angular/router';
 import { EditIdeationDeadlineComponent } from '../edit-ideation-deadline/edit-ideation-deadline.component';
 import { AddIdeasToFolderComponent } from '../add-ideas-to-folder/add-ideas-to-folder.component';
+import { User } from 'src/app/interfaces/user';
 
 
 @Component({
@@ -35,6 +36,9 @@ export class TopicIdeationComponent {
   filtersSet: boolean = false;
 
   wWidth: number = window.innerWidth;
+  participants$ = of(<User[]>[]);
+  users = <User[]>[];
+  participantsCount = 0;
   ideas$ = of(<Idea[]>[]);
   folders$ = of(<Folder[]>[]);
   allIdeas$: Idea[] = [];
@@ -42,12 +46,12 @@ export class TopicIdeationComponent {
   ideaFilters = {
     type: '',
     orderBy: '',
-    participants: ''
+    participants: <User | ''>''
   };
 
   ideaTypeFilter$ = new BehaviorSubject('');
   orderFilter$ = new BehaviorSubject('');
-  ideaParticipantsFilter$ = new BehaviorSubject('');
+  ideaParticipantsFilter$ = new BehaviorSubject(<User | string>'');
   ideaSearchFilter$ = new BehaviorSubject('');
   folderFilter$ = new BehaviorSubject('');
   selectedFolder?: Folder;
@@ -67,7 +71,8 @@ export class TopicIdeationComponent {
 
     this.ideas$ = combineLatest([this.ideaTypeFilter$, this.orderFilter$, this.ideaParticipantsFilter$, this.folderFilter$, this.ideaSearchFilter$])
       .pipe(
-        switchMap(([typeFilter, orderFilter, participantFilter, folderFilter, search]) => {this.TopicIdeaService.setParam('topicId', this.topic.id);
+        switchMap(([typeFilter, orderFilter, participantFilter, folderFilter, search]) => {
+          this.TopicIdeaService.setParam('topicId', this.topic.id);
           this.TopicIdeaService.reset();
           this.TopicIdeaService.setParam('topicId', this.topic.id);
           this.TopicIdeaService.setParam('ideationId', this.topic.ideationId);
@@ -75,7 +80,7 @@ export class TopicIdeationComponent {
           if (typeFilter) {
             if (['favourite', 'showModerated'].indexOf(typeFilter) > -1) {
               this.TopicIdeaService.setParam(typeFilter, typeFilter);
-            } else if(typeFilter === 'iCreated') {
+            } else if (typeFilter === 'iCreated') {
               this.TopicIdeaService.setParam('authorId', this.AuthService.user.value.id);
             }
           }
@@ -85,8 +90,8 @@ export class TopicIdeationComponent {
             this.TopicIdeaService.setParam('order', 'desc');
           }
 
-          if (participantFilter) {
-            this.TopicIdeaService.setParam('authorId', [participantFilter]);
+          if (participantFilter && typeof participantFilter === 'object') {
+            this.TopicIdeaService.setParam('authorId', [participantFilter.id]);
           }
           if (folderFilter) {
             this.TopicIdeaService.setParam('folderId', folderFilter);
@@ -109,19 +114,37 @@ export class TopicIdeationComponent {
             return this.allIdeas$;
           }
         ));
-      this.TopicIdeationService.setParam('topicId', this.topic.id);
-      this.TopicIdeationService.setParam('ideationId', this.ideation.id);
-      this.folders$ = this.TopicIdeationService.getFolders({topicId: this.topic.id, ideationId: this.ideation.id}).pipe(
-        map((res) => {
-          return res.rows;
-        })
-      );
+    this.TopicIdeationService.setParam('topicId', this.topic.id);
+    this.TopicIdeationService.setParam('ideationId', this.ideation.id);
+    this.folders$ = this.TopicIdeationService.getFolders({ topicId: this.topic.id, ideationId: this.ideation.id }).pipe(
+      map((res) => {
+        return res.rows;
+      })
+    );
+    this.participants$ = this.TopicIdeationService.participants({ topicId: this.topic.id, ideationId: this.ideation.id }).pipe(
+      map((res) => {
+        this.users = res.rows;
+        this.participantsCount = res.count;
+        return res.rows;
+      })
+    );
   }
 
   setType(type: string) {
     if (type === 'all' || typeof type !== 'string') type = '';
     this.ideaTypeFilter$.next(type);
     this.ideaFilters.type = type;
+  }
+
+  nextParticipant() {
+   // this.ideaFilters.participants
+  }
+  prevParticipant() {
+
+  }
+  setParticipant(user?: User) {
+    this.ideaParticipantsFilter$.next(user || '');
+    this.ideaFilters.participants = user || '';
   }
 
   orderBy(orderBy: string) {
@@ -196,38 +219,38 @@ export class TopicIdeationComponent {
     });
   }
   addIdeasToFolder(folder: Folder) {
-      const folderCreateDialog = this.dialog.open(AddIdeasToFolderComponent, {
-        data: {
-          folder: folder,
-          topicId: this.topic.id,
-          ideationId: this.ideation.id
-        }
-      });
+    const folderCreateDialog = this.dialog.open(AddIdeasToFolderComponent, {
+      data: {
+        folder: folder,
+        topicId: this.topic.id,
+        ideationId: this.ideation.id
+      }
+    });
 
-      folderCreateDialog.afterClosed().subscribe(() => {
-        this.folders$ = this.TopicIdeationService.getFolders({topicId: this.topic.id, ideationId: this.ideation.id}).pipe(
-          map((res) => {
-            return res.rows;
-          })
-        );
-      });
+    folderCreateDialog.afterClosed().subscribe(() => {
+      this.folders$ = this.TopicIdeationService.getFolders({ topicId: this.topic.id, ideationId: this.ideation.id }).pipe(
+        map((res) => {
+          return res.rows;
+        })
+      );
+    });
   }
 
   editFolder(folder: Folder) { }
   deleteFolder(folder: Folder) {
     this.TopicIdeationService.deleteFolder({ topicId: this.topic.id, ideationId: this.ideation.id, folderId: folder.id }).pipe(take(1))
-    .subscribe({
-      next:() => {
-        this.folders$ = this.TopicIdeationService.getFolders({topicId: this.topic.id, ideationId: this.ideation.id}).pipe(
-          map((res) => {
-            return res.rows;
-          })
-        );
-      },
-      error: () => {
+      .subscribe({
+        next: () => {
+          this.folders$ = this.TopicIdeationService.getFolders({ topicId: this.topic.id, ideationId: this.ideation.id }).pipe(
+            map((res) => {
+              return res.rows;
+            })
+          );
+        },
+        error: () => {
 
-      }
-    })
+        }
+      })
   }
   viewFolder(folder: Folder) {
     this.tabSelected = 'folder';
@@ -235,22 +258,22 @@ export class TopicIdeationComponent {
     this.folderFilter$.next(folder.id);
   }
 
-  leaveFolder () {
+  leaveFolder() {
     this.selectedFolder = undefined;
-    this.tabSelected='folders';
+    this.tabSelected = 'folders';
     this.folderFilter$.next('');
   }
 
   editDeadline() {
-      const ideationDeadlineDialog = this.dialog.open(EditIdeationDeadlineComponent, {
-        data: {
-          ideation: this.ideation,
-          topic: this.topic
-        }
-      });
-      ideationDeadlineDialog.afterClosed().subscribe(() => {
-        this.TopicIdeationService.reloadIdeation();
-      })
+    const ideationDeadlineDialog = this.dialog.open(EditIdeationDeadlineComponent, {
+      data: {
+        ideation: this.ideation,
+        topic: this.topic
+      }
+    });
+    ideationDeadlineDialog.afterClosed().subscribe(() => {
+      this.TopicIdeationService.reloadIdeation();
+    })
   }
   canEdit() {
     return this.TopicService.canEdit(this.topic);
@@ -267,7 +290,7 @@ export class TopicIdeationComponent {
     return this.TopicIdeationService.hasIdeationEnded(this.topic, this.ideation);
   };
 
-  createFolder () {
+  createFolder() {
     const folderCreateDialog = this.dialog.open(CreateIdeaFolderComponent, {
       data: {
         topicId: this.topic.id,
@@ -276,7 +299,7 @@ export class TopicIdeationComponent {
     });
 
     folderCreateDialog.afterClosed().subscribe(() => {
-      this.folders$ = this.TopicIdeationService.getFolders({topicId: this.topic.id, ideationId: this.ideation.id}).pipe(
+      this.folders$ = this.TopicIdeationService.getFolders({ topicId: this.topic.id, ideationId: this.ideation.id }).pipe(
         map((res) => {
           return res.rows;
         })

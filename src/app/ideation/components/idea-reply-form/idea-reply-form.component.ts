@@ -60,7 +60,8 @@ export class IdeaReplyFormComponent {
       .save(reply)
       .pipe(take(1))
       .subscribe((reply) => {
-        this.TopicIdeaRepliesService.reset();
+        this.TopicIdeaRepliesService.reloadArguments();
+        this.close();
         /* return this.$state.go(
            this.$state.current.name,
            { commentId: this.getCommentIdWithVersion(comment.id, comment.edits.length - 1) }
