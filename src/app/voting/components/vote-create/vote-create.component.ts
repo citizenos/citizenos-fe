@@ -345,7 +345,7 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
 
     this.TopicService.patch(updateTopic).pipe(take(1)).subscribe({
       next: () => {
-        console.log('SAVED');
+
         this.TopicService.reloadTopic();
         this.saveImage()
           .subscribe({
@@ -356,27 +356,10 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
                 this.saveMemberGroup(group)
               });
               if (!this.vote.id) {
-                this.createVote();
+                this.createVote(true);
               } else {
-                this.updateVote();
+                this.updateVote(true);
               }
-              updateTopic.status = this.TopicService.STATUSES.voting;
-              this.TopicService.patch(updateTopic).pipe(take(1)).subscribe({
-                next: (res) => {
-                  this.hasChanges$.next(false);
-                  this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
-                  this.TopicService.reloadTopic();
-                  if (this.isnew || isDraft) {
-                    this.Notification.addSuccess('VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_TITLE');
-                    this.inviteMembers();
-                  } else {
-                    this.Notification.addSuccess('VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE');
-                  }
-                },
-                error: (err) => {
-                  console.log('Update status error', err);
-                }
-              });
             },
             error: (err) => {
               console.log('publish error', err)
@@ -395,7 +378,7 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
     }
   }
 
-  createVote() {
+  createVote(updateTopicStatus?: boolean) {
     const createVote: any = Object.assign({ topicId: this.topic.id }, this.vote);
     this.TopicVoteService.save(createVote)
       .pipe(take(1))
@@ -406,6 +389,27 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
           this.vote.options = vote.options.rows;
           if (!this.vote.options) {
             this.vote.options = [{value: 'Yes'}, {value: 'No'}];
+          }
+          if (updateTopicStatus) {
+            const isDraft = (this.topic.status === this.TopicService.STATUSES.draft);
+            const updateTopic = Object.assign({}, this.topic);
+            updateTopic.status = this.TopicService.STATUSES.voting;
+            this.TopicService.patch(updateTopic).pipe(take(1)).subscribe({
+              next: (res) => {
+                this.hasChanges$.next(false);
+                this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
+                this.TopicService.reloadTopic();
+                if (this.isnew || isDraft) {
+                  this.Notification.addSuccess('VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_TITLE');
+                  this.inviteMembers();
+                } else {
+                  this.Notification.addSuccess('VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE');
+                }
+              },
+              error: (err) => {
+                console.log('Update status error', err);
+              }
+            });
           }
           //     this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id], { fragment: 'voting' });
           //      this.route.url.pipe(take(1)).subscribe();
@@ -423,17 +427,44 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
   }
 
 
-  updateVote() {
+  updateVote(updateTopicStatus?: boolean) {
     const updateVote = Object.assign({ topicId: this.topic.id }, this.vote);
     const options = updateVote.options.map((opt) => {
       return { value: opt.value, voteId: opt.voteId, id: opt.id };
     })
     updateVote.options = options;
-    return this.TopicVoteService.update(updateVote).pipe(take(1)).subscribe();
+    return this.TopicVoteService.update(updateVote).pipe(take(1)).subscribe({
+      next: (res) => {
+        console.log('Vote updated', res);
+        if (updateTopicStatus) {
+          const isDraft = (this.topic.status === this.TopicService.STATUSES.draft);
+          const updateTopic = Object.assign({}, this.topic);
+          updateTopic.status = this.TopicService.STATUSES.voting;
+          this.TopicService.patch(updateTopic).pipe(take(1)).subscribe({
+            next: (res) => {
+              this.hasChanges$.next(false);
+              this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
+              this.TopicService.reloadTopic();
+              if (this.isnew || isDraft) {
+                this.Notification.addSuccess('VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_TITLE');
+                this.inviteMembers();
+              } else {
+                this.Notification.addSuccess('VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE');
+              }
+            },
+            error: (err) => {
+              console.log('Update status error', err);
+            }
+          });
+        }
+      },
+      error: (error) => {
+        console.log('VOTE updating error', error);
+      }
+    });
   }
 
   removeChanges() {
-    console.log(this.topic)
     this.TopicService.revert(this.topic.id, this.topic.revision!).pipe(take(1)).subscribe(() => {
       setTimeout(() => {
         this.TopicService.reloadTopic();

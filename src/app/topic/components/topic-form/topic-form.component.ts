@@ -415,7 +415,11 @@ export class TopicFormComponent {
               }
               this.hasUnsavedChanges.next(false);
               this.router.navigate(['my', 'topics']);
-              this.Notification.addSuccess('VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE');
+              if (this.isnew) {
+                this.Notification.addSuccess('VIEWS.TOPIC_CREATE.NOTIFICATION_DRAFT_SUCCESS_MESSAGE', 'VIEWS.TOPIC_CREATE.NOTIFICATION_DRAFT_SUCCESS_TITLE');
+              } else {
+                this.Notification.addSuccess('VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE');
+              }
             },
             error: (err: any) => {
               console.log('ERROR', err);
