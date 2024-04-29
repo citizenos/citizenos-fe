@@ -1,3 +1,11 @@
+## 2024-04-10 - v1.0.3
+  * FIX issue https://github.com/citizenos/citizenos-fe/issues/996
+  * FIX issue https://github.com/citizenos/citizenos-fe/issues/1004
+  * FIX issue https://github.com/citizenos/citizenos-fe/issues/1006
+  * FIX issue https://github.com/citizenos/citizenos-fe/issues/1099
+  * FIX issue https://github.com/citizenos/citizenos-fe/issues/1046
+  * FIX issue https://github.com/citizenos/citizenos-fe/issues/1102
+  * FIX vote topic creating flow race condition where topic status was changed to voting before vote was created
 ## 2024-04-10 - v1.0.2
   * Feature: Request to add topics to a group MVP version - https://github.com/citizenos/citizenos-fe/issues/186
   * FIX issue https://github.com/citizenos/citizenos-fe/issues/963
