@@ -1014,16 +1014,16 @@
       "PREVIEW_EMAIL_TEXT_DAYS_LEFT": "You have only {{daysLeft}} days left to cast your vote.",
       "PREVIEW_EMAIL_BTN_CAST_VOTE": "@:VIEWS.TOPICS_TOPICID.VOTE_CAST_YOUR_VOTE",
       "PREVIEW_EMAIL_ATTENTION": "You must log in with <a>{{email}}</a> to access this topic.",
-      "BTN_SEND_REMINDER": "Send reminder e-mail",
+      "BTN_SEND_REMINDER": "Odeslat připomínku e-mailem",
       "LNK_CANCEL": "@:LNK_CANCEL"
     },
     "TYPEAHEAD": {
-      "PRESS_ENTER_TO_ADD": "Press enter to add"
+      "PRESS_ENTER_TO_ADD": "Stiskněte Enter pro přidání"
     },
     "VERIFY_EMAIL": {
       "HEADING": "Verify your account",
-      "DESCRIPTION": "We’ve sent an account verification e-mail to the address",
-      "INFO": "Please follow the instructions in the e-mail to verify your account. Only after doing this you will be able to log in to Citizen OS!",
+      "DESCRIPTION": "Poslali jsme ověřovací e-mail na adresu",
+      "INFO": "Prosím, postupujte podle pokynů v e-mailu pro ověření vašeho účtu. Až poté se budete moci přihlásit do Citizen OS!",
       "BTN_OK": "OK, got it!"
     }
   },
