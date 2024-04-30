@@ -203,3 +203,4 @@
     </div>
   </div>
 </a>
+<edit-idea *ngIf="showEdit" [idea]="idea" [topicId]="topic.id" (showEdit)="toggleEdit($event)"></edit-idea>

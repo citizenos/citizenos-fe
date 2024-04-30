@@ -90,7 +90,7 @@
                     <span translate="COMPONENTS.IDEABOX.OPTION_ADD_TO_FOLDER"></span>
                   </button>
                 </ng-container>
-                <!--ng-container *ngIf="canEditIdea()">
+                <ng-container *ngIf="canEditIdea()">
                   <div class="line_separator"></div>
                   <button class="option" (click)="ideaEditMode()">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -100,7 +100,7 @@
                     </svg>
                     <span translate="COMPONENTS.IDEABOX.OPTION_EDIT"></span>
                   </button>
-                </!--ng-container-->
+                </ng-container>
                 <ng-container *ngIf="Auth.loggedIn$">
                   <div class="line_separator"></div>
                   <button class="option" (click)="doIdeaReport()"><svg width="16" height="16" viewBox="0 0 16 16"
@@ -208,3 +208,4 @@
     </div>
   </div>
 </div>
+<edit-idea *ngIf="showEdit" [idea]="idea" [topicId]="topic.id" (showEdit)="toggleEdit($event)"></edit-idea>
