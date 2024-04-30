@@ -79,7 +79,7 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
     id: '',
     creatorId: '',
     question: '',
-    deadline: '',
+    deadline: null,
     createdAt: '',
     updatedAt: ''
   };
@@ -337,27 +337,10 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
                 this.saveMemberGroup(group)
               });
               if (!this.ideation.id) {
-                this.createIdeation();
+                this.createIdeation(true);
               } else {
-                this.updateIdeation();
+                this.updateIdeation(true);
               }
-              updateTopic.status = this.TopicService.STATUSES.ideation;
-              this.TopicService.patch(updateTopic).pipe(take(1)).subscribe({
-                next: (res) => {
-                  this.hasChanges$.next(false);
-                  this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
-                  this.TopicService.reloadTopic();
-                  if (this.isnew || isDraft) {
-                    this.Notification.addSuccess('VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_TITLE');
-                    this.inviteMembers();
-                  } else {
-                    this.Notification.addSuccess('VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE');
-                  }
-                },
-                error: (err) => {
-                  console.log('Update status error', err);
-                }
-              });
             },
             error: (err) => {
               console.log('publish error', err)
@@ -376,7 +359,7 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
     }
   }
 
-  createIdeation() {
+  createIdeation(updateTopicStatus?: boolean) {
     const createIdeation: any = Object.assign({ topicId: this.topic.id }, this.ideation);
     this.TopicIdeationService.save(createIdeation)
       .pipe(take(1))
@@ -384,8 +367,27 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
         next: (ideation) => {
           //   this.TopicService.reloadTopic();
           this.ideation = ideation;
-          //     this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id], { fragment: 'voting' });
-          //      this.route.url.pipe(take(1)).subscribe();
+          if (updateTopicStatus) {
+            const isDraft = (this.topic.status === this.TopicService.STATUSES.draft);
+            const updateTopic = Object.assign({}, this.topic);
+            updateTopic.status = this.TopicService.STATUSES.ideation;
+            this.TopicService.patch(updateTopic).pipe(take(1)).subscribe({
+              next: (res) => {
+                this.hasChanges$.next(false);
+                this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
+                this.TopicService.reloadTopic();
+                if (this.isnew || isDraft) {
+                  this.Notification.addSuccess('VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_TITLE');
+                  this.inviteMembers();
+                } else {
+                  this.Notification.addSuccess('VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE');
+                }
+              },
+              error: (err) => {
+                console.log('Update status error', err);
+              }
+            });
+          }
         },
         error: (res) => {
           this.nextTab('ideation_system');
@@ -400,9 +402,36 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
   }
 
 
-  updateIdeation() {
+  updateIdeation(updateTopicStatus?: boolean) {
      const updateIdeation = Object.assign({ topicId: this.topic.id }, this.ideation);
-     return this.TopicIdeationService.update(updateIdeation).pipe(take(1)).subscribe();
+     return this.TopicIdeationService.update(updateIdeation).pipe(take(1)).subscribe({
+      next: () => {
+        if (updateTopicStatus) {
+          const isDraft = (this.topic.status === this.TopicService.STATUSES.draft);
+          const updateTopic = Object.assign({}, this.topic);
+          updateTopic.status = this.TopicService.STATUSES.ideation;
+          this.TopicService.patch(updateTopic).pipe(take(1)).subscribe({
+            next: (res) => {
+              this.hasChanges$.next(false);
+              this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
+              this.TopicService.reloadTopic();
+              if (this.isnew || isDraft) {
+                this.Notification.addSuccess('VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_TITLE');
+                this.inviteMembers();
+              } else {
+                this.Notification.addSuccess('VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE');
+              }
+            },
+            error: (err) => {
+              console.log('Update status error', err);
+            }
+          });
+        }
+      },
+      error: (err) => {
+        console.error(err);
+      }
+     });
   }
 
   removeChanges() {
