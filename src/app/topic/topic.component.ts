@@ -144,6 +144,7 @@ export class TopicComponent implements OnInit {
   STATUSES = this.TopicService.STATUSES;
   hideTopicContent = false;
   hideDiscussion = false;
+  topicStatus = this.TopicService.STATUSES.inProgress;
   constructor(
     @Inject(TranslateService) public translate: TranslateService,
     @Inject(DialogService) private DialogService: DialogService,
@@ -183,7 +184,12 @@ export class TopicComponent implements OnInit {
             this.scroll(this.followUpEl?.nativeElement);
           }
         }, 200);
-        return value || 'ideation';
+        if (this.topicStatus === this.STATUSES.ideation && !value ) return 'ideation';
+        if (this.topicStatus === this.STATUSES.inProgress && !value ) return 'discussion';
+        if (this.topicStatus === this.STATUSES.voting && !value ) return 'voting';
+        if (this.topicStatus === this.STATUSES.followUp && !value ) return 'followUp';
+
+        return value || 'discussion';
       })
     );
 
@@ -201,6 +207,7 @@ export class TopicComponent implements OnInit {
         topic.description = topic.description.replace(/href="/gi, 'target="_blank" href="');
         this.app.topic = topic;
         this.topicTitle = topic.title || '';
+        this.topicStatus = topic.status;
         if (topic.report && topic.report.moderatedReasonType) {
           // NOTE: Well.. all views that are under the topics/view/votes/view would trigger doble overlays which we don't want
           // Not nice, but I guess the problem starts with the 2 views using same controller. Ideally they should have a parent controller and extend that with their specific functionality
