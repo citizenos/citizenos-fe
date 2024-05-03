@@ -1,10 +1,12 @@
-import { TopicEventService } from './../../../services/topic-event.service';
+import { countries } from './../../../services/country.service';
+import { TopicIdeaService } from 'src/app/services/topic-idea.service';
+import { TopicEventService } from 'src/app/services/topic-event.service';
 import { Router } from '@angular/router';
 import { TopicService } from 'src/app/services/topic.service';
 import { TopicVoteService } from 'src/app/services/topic-vote.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { Topic } from 'src/app/interfaces/topic';
-import { Observable, of, tap } from 'rxjs';
+import { Observable, map, of, tap } from 'rxjs';
 import { Vote } from 'src/app/interfaces/vote';
 import { DialogService } from 'src/app/shared/dialog';
 import { TopicReportReasonComponent } from 'src/app/topic/components/topic-report-reason/topic-report-reason.component';
@@ -20,8 +22,9 @@ export class TopicboxComponent implements OnInit {
   catClass = "varia";
   vote$?: Observable<Vote>;
   milestones$?: Observable<any[]>;
+  ideaCount$?: Observable<Number> = of(0);
   vote?: Vote;
-  constructor(private TopicService: TopicService, private TopicVoteService: TopicVoteService, private router: Router, private TopicEventService: TopicEventService, private DialogService: DialogService) {
+  constructor(private TopicService: TopicService, private TopicVoteService: TopicVoteService, private router: Router, private TopicEventService: TopicEventService, private DialogService: DialogService, private TopicIdeaService: TopicIdeaService) {
   }
 
   ngOnInit(): void {
@@ -37,6 +40,15 @@ export class TopicboxComponent implements OnInit {
     if (this.topic.status === this.TopicService.STATUSES.followUp) {
       this.TopicEventService.setParam('topicId', this.topic.id);
       this.milestones$ = this.TopicEventService.loadItems();
+    }
+    if (this.topic.status === this.TopicService.STATUSES.ideation && this.topic.ideationId) {
+      this.ideaCount$ = this.TopicIdeaService.query({topicId: this.topic.id, ideationId: this.topic.ideationId}).pipe(
+        map((res) => {
+          console.log(res.data);
+          if( typeof res.data.count  === 'number') return res.data.count;
+          return 0;
+        })
+      )
     }
   }
 
