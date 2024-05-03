@@ -118,6 +118,7 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
     super(dialog, route, router, UploadService, Notification, TopicService, GroupService, GroupMemberTopicService, TopicMemberGroupService, TopicMemberUserService, TopicInviteUserService, TopicAttachmentService, translate, cd, sanitizer)
     this.setTimeZones();
     this.app.darkNav = true;
+
     this.groups$ = this.GroupService.loadItems().pipe(map((groups) => {
       groups.forEach((group: any) => {
         if (this.groupId && this.groupId === group.id) {

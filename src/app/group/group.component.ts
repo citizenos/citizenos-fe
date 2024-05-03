@@ -313,7 +313,11 @@ export class GroupComponent implements OnInit {
   }
 
   addNewVotingTopic() {
-    this.app.createNewTopic(this.groupId, true);
+    this.app.createNewTopic(this.groupId, 'voting');
+  }
+
+  addNewIdeationTopic () {
+    this.app.createNewTopic(this.groupId, 'ideation');
   }
 
   closeMobileFilter() {

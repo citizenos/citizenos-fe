@@ -152,6 +152,7 @@ export class TopicFormComponent {
     public cd: ChangeDetectorRef,
     @Inject(DomSanitizer) public sanitizer: DomSanitizer
   ) {
+    route.queryParams.pipe(take(1), map((params) => this.groupId = params['groupId'])).subscribe();
     this.groups$ = this.GroupService.loadItems().pipe(map((groups) => {
       groups.forEach((group: any) => {
         if (this.groupId && this.groupId === group.id) {
@@ -228,7 +229,7 @@ export class TopicFormComponent {
   }
 
   selectTab(tab: string) {
-    this.router.navigate([], { fragment: tab });
+    this.router.navigate([], { queryParams: this.route.snapshot.queryParams, fragment: tab });
   }
 
 
