@@ -120,19 +120,23 @@ export class AppService {
       });
   }
 
-  createNewTopic(groupId?: string, voting?: boolean) {
+  createNewTopic(groupId?: string, status?: string,) {
     const topic = <any>{};
     const url = ['topics'];
-    if (voting) {
+    if (status && status === 'voting') {
       url.push('vote');
+    } else if (status && status === 'ideation') {
+      url.push('ideation');
     }
+
     topic.description = '<html><head></head><body></body></html>';
     this.TopicService.save(topic)
       .pipe(take(1))
       .subscribe((topic) => {
         const redirect = url.concat(['create', topic.id])
         if (groupId) {
-              this.router.navigate(redirect, {queryParams: {groupId}})
+          console.log('redirect', groupId);
+          this.router.navigate(redirect, { queryParams: { groupId }, fragment: 'info' })
         } else {
           this.router.navigate(redirect)
         }
