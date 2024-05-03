@@ -246,6 +246,15 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
         /*  if (this.voteCreateForm)
             this.voteCreateForm.saveVoteSettings();*/
       }
+      if (tabIndex === 2) {
+        if (!this.ideation.question) {
+          this.Notification.removeAll();
+          this.Notification.addError('VIEWS.IDEATION_CREATE.ERROR_MISSING_QUESTION');
+          return;
+        }
+        /*  if (this.voteCreateForm)
+            this.voteCreateForm.saveVoteSettings();*/
+      }
       if (tabIndex + 1 === 3) {
         //   this.voteCreateForm?.filterOptions();
         setTimeout(() => {
