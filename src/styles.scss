@@ -1208,6 +1208,10 @@ tour-item-template {
       .icon {
         vertical-align: middle;
       }
+      .ideation_text {
+        font-weight: 600;
+        color: var(--color-ideation-disabled);
+      }
       .discussion_text {
         font-weight: 600;
         color: var(--color-scrollbar-thumb);
