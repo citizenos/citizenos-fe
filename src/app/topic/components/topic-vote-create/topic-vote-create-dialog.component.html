@@ -139,7 +139,7 @@
               </div>
               <div translate="COMPONENTS.TOPIC_VOTE_CREATE.SELECT_VOTING_SYSTEM_DESC"></div>
 
-              <div class="radio_wrap voting" (click)="setVoteType(VOTE_TYPES.ideation)"
+              <div class="radio_wrap voting" *ngIf="topic.ideationId" (click)="setVoteType(VOTE_TYPES.ideation)"
                 [ngClass]="{selected: vote.type === VOTE_TYPES.ideation, disabled: !TopicService.canEditDescription(topic)}">
                 <div class="radio_text_wrap">
                   <div class="radio_lable_wrap">
