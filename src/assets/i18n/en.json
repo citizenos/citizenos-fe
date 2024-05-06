@@ -115,7 +115,7 @@
     "ADD_IDEA": {
       "FOOTER_MENU_TITLE": "Join the ideation",
       "FOOTER_MENU_BTN_ADD_IDEA": "Add your idea",
-      "FOOTER_FORM_TITLE": "Join the ideation",
+      "FOOTER_FORM_TITLE": "Add your idea",
       "PLACEHOLDER_ADD_STATEMENT_TO_IDEA": "Your idea heading",
       "SUBJECT_CHARACTERS_LEFT": "Characters left: {{chars}}/{{charsLeft}}",
       "IDEA_TYPE_CHARACTER_LIMIT": "Character limit: {{numberOfCharacters}}",
