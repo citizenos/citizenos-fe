@@ -156,6 +156,10 @@
   gap: 16px;
   padding-top: 24px;
 
+  .line_separator {
+    background-color: var(--color-dialog-contrast);
+  }
+
   .items_wrap {
     align-items: center;
     display: flex;

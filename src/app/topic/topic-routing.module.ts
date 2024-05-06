@@ -19,6 +19,7 @@ import { CanDeactivateBlockNavigationIfChange } from '../shared/pending-changes.
 import { IdeationCreateComponent } from '../ideation/components/ideation-create/ideation-create.component';
 import { IdeaComponent } from '../ideation/components/idea/idea.component';
 import { IdeaReportModerateDialogComponent } from '../ideation/components/idea-report-moderate/idea-report-moderate.component';
+import { IdeaReplyReportModerateComponent, IdeaReplyReportModerateDialogComponent } from '../ideation/components/idea-reply-report-moderate/idea-reply-report-moderate.component';
 
 const routes: Routes = [
   {
@@ -75,6 +76,7 @@ const routes: Routes = [
               path: 'ideas', children: [
                 { path: ':ideaId/reports/:reportId/moderate', component: IdeaReportModerateDialogComponent},
                 { path: ':ideaId', component: IdeaComponent },
+                { path: ':ideaId/comments/:commentId/reports/:reportId/moderate', component: IdeaReplyReportModerateDialogComponent},
               ]
             }
           ]
