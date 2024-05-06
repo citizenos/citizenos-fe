@@ -145,6 +145,7 @@ export class TopicIdeaRepliesService extends ItemsListService {
   };
 
   getReport(data: any) {
+    console.log('report', data.token)
     const path = this.Location.getAbsoluteUrlApi('/api/topics/:topicId/ideations/:ideationId/ideas/:ideaId/comments/:commentId/reports/:reportId', data);
     const headers = {
       'Authorization': 'Bearer ' + data.token

@@ -10,8 +10,8 @@ import { LocationService } from 'src/app/services/location.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { ArgumentReactionsComponent } from 'src/app/topic/components/argument-reactions/argument-reactions.component';
-import { ArgumentReportComponent } from 'src/app/topic/components/argument-report/argument-report.component';
 import { TopicIdeaRepliesService } from 'src/app/services/topic-idea-replies.service';
+import { IdeaReplyReportComponent } from '../idea-reply-report/idea-reply-report.component';
 @Component({
   selector: 'idea-reply',
   templateUrl: './idea-reply.component.html',
@@ -83,7 +83,7 @@ export class IdeaReplyComponent implements OnInit {
   };
 
   isVisible() {
-    return (!this.argument.deletedAt && !this.showDeletedArgument) || (this.argument.deletedAt && this.showDeletedArgument);
+    return (!this.argument.deletedAt && !this.showDeletedArgument && !this.showEdit) || (this.argument.deletedAt && this.showDeletedArgument);
   };
 
   showArgument (value: boolean) {
@@ -146,10 +146,12 @@ export class IdeaReplyComponent implements OnInit {
   };
 
   doArgumentReport() {
-    this.dialog.open(ArgumentReportComponent, {
+    this.dialog.open(IdeaReplyReportComponent, {
       data: {
         argument: this.argument,
-        topicId: this.topicId
+        topicId: this.topicId,
+        ideaId: this.ideaId,
+        ideationId: this.ideationId
       }
     });
   };

@@ -16,6 +16,7 @@ export class IdeaReplyFormComponent {
   @Input() ideationId!: string;
   @Input() ideaId!: string;
   @Input() showReply!: boolean;
+  @Input() editMode = false;
   @Output() showReplyChange = new EventEmitter<boolean>();
   public reply = {
     subject: '',
@@ -36,6 +37,9 @@ export class IdeaReplyFormComponent {
   }
 
   ngOnInit(): void {
+    if (this.editMode && this.argument) {
+      this.reply = this.argument;
+    }
   }
 
   /* argumentTextLengthCheck(form, form.text) {
@@ -72,6 +76,34 @@ export class IdeaReplyFormComponent {
      }*/
   };
 
+  saveEdit() {
+    console.log(this.argument);
+    const reply = {
+      id: this.argument?.id,
+      parentId: this.argument?.id,
+      parentVersion: (this.argument?.edits.length || 1 - 1),
+      type: this.reply.type,
+      subject: this.reply.subject,
+      text: this.reply.text,
+      topicId: this.topicId,
+      ideationId: this.ideationId,
+      ideaId: this.ideaId
+    };
+
+    this.errors = null;
+
+    this.TopicIdeaRepliesService
+      .update(reply)
+      .pipe(take(1))
+      .subscribe((reply) => {
+        this.TopicIdeaRepliesService.reloadArguments();
+        this.close();
+        /* return this.$state.go(
+           this.$state.current.name,
+           { commentId: this.getCommentIdWithVersion(comment.id, comment.edits.length - 1) }
+         );*/
+      });
+  }
   close () {
     this.showReplyChange.emit(false);
   }

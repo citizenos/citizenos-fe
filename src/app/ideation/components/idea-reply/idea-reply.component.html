@@ -103,8 +103,8 @@
           <div class="argument_subject" [innerHTML]="argument.subject"></div>
           <div class="argument_body" #argumentBody [innerHTML]="argument.text | markdown"></div>
         </ng-container>
-        <edit-argument *ngIf="showEdit" [argument]="argument" [topicId]="topicId"
-          (showEdit)="toggleEdit($event)"></edit-argument>
+        <idea-reply-form *ngIf="showEdit" [argument]="argument" [topicId]="topicId"
+          (showEdit)="toggleEdit($event)" [editMode]="showEdit"></idea-reply-form>
         <argument-deleted *ngIf="argument.deletedAt" [argument]="argument"
           (showDeletedArgument)="showArgument($event)"></argument-deleted>
         <argument-edits *ngIf="argument.showEdits && isEdited()" [topicId]="topicId"
