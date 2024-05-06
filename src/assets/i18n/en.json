@@ -123,7 +123,7 @@
       "PLACEHOLDER_EXPLAIN_YOUR_IDEA": "Explain your idea",
       "BTN_ADD_IMAGE": "Add image",
       "BTN_IDEA_POST": "Add your idea",
-      "MSG_ERROR_SUBJECT": "Idea statement must be 1 to {{chars}} characters long.",
+      "MSG_ERROR_SUBJECT": "Idea heading must be 1 to {{chars}} characters long.",
       "MSG_ERROR_DESCRIPTION": "Idea description must be 1 to {{chars}} characters long."
     },
     "ADD_IDEA_FOLDER": {
