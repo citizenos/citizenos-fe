@@ -221,9 +221,9 @@
       }
     },
     "CLOSE_IDEATION_CONFIRM": {
-      "HEADING": "Close ideation",
-      "ARE_YOU_SURE": "Are you sure you want to close this ideation? You cannot undo this action.",
-      "CONFIRM_YES": "Yes, close this ideation",
+      "HEADING": "End ideation",
+      "ARE_YOU_SURE": "Are you sure you want to end this ideation? It will no longer be possible for ideas to be added. You cannot undo this action.",
+      "CONFIRM_YES": "Yes, end this ideation",
       "CONFIRM_NO": "No, keep the ideation open"
     },
     "CLOSE_VOTING_CONFIRM": {
@@ -678,7 +678,7 @@
       "BTN_ADD_YOUR_IDEA": "Add your idea",
       "IDEA_FILTER_TYPE": "Idea type",
       "OPT_EDIT_DEADLINE": "@:MODALS.TOPIC_SETTINGS_BTN_EDIT_DEADLINE",
-      "OPT_CLOSE_IDEATION": "Close ideation",
+      "OPT_CLOSE_IDEATION": "End ideation",
       "FILTER_ALL": "@:VIEWS.MY_TOPICS.FILTER_ALL",
       "FILTER_TYPE_YOUR_IDEAS": "Your ideas",
       "FILTER_TYPE_FAVOURITES": "Favourites",
