@@ -543,4 +543,16 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
   getTimeZoneName(value: number) {
     return (this.timezones.find((item) => { return item.value === value })).name;
   };
+
+  override isNextDisabled(tabSelected: string | void) {
+    if (tabSelected === 'preview' && !this.TopicService.canDelete(this.topic)) {
+      return true;
+    } else if (!this.topic.title || !this.topic.description) {
+      return true;
+    } else if (tabSelected === 'ideation_system' && !this.ideation.question) {
+      return true;
+    }
+
+    return false;
+  }
 }
