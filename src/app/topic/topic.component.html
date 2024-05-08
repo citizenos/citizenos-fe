@@ -1045,12 +1045,12 @@
               <div class="item_content">
 
                 <div class="graph_wrap">
-                  <div class="legend" *ngIf="this.hasIdeationEndedExpired(topic, ideation)">
+                  <div class="legend" *ngIf="!ideation.deadline || this.hasIdeationEndedExpired(topic, ideation)">
                     <div class="bold" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_IDEATION_IDEAS_COLLECTED"></div>
                     <div><span class="bold">{{ideation.ideas.count || 0}}</span>
                     </div>
                   </div>
-                  <div class="legend wide" *ngIf="!this.hasIdeationEndedExpired(topic, ideation)">
+                  <div class="legend wide" *ngIf="ideation.deadline && !this.hasIdeationEndedExpired(topic, ideation)">
                     <div class="legend_row">
                       <div class="legend_item">
                         <div class="bold" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_IDEATION_DAYS_LEFT"></div>
