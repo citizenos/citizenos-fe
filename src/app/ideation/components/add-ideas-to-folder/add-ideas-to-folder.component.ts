@@ -31,7 +31,7 @@ export class AddIdeasToFolderComponent {
       this.ideasCount = res.data.count;
       return res.data.rows;
     }));
-    this.folderIdeas$ = this.TopicIdeationService.query({
+    this.folderIdeas$ = this.TopicIdeaService.query({
       topicId: data.topicId,
       ideationId: data.ideationId,
       folderId: this.folder.id
@@ -49,8 +49,7 @@ export class AddIdeasToFolderComponent {
         .pipe(take(1))
         .subscribe({
           next: (res) => {
-            console.log('IDEAS to folder', res)
-
+            this.TopicIdeaService.reloadIdeas();
             this.dialogRef.close();
           },
           error: (err) => {

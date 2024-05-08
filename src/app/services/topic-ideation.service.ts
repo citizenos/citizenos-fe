@@ -47,7 +47,7 @@ export class TopicIdeationService extends ItemsListService {
   }
 
   query(params: any) {
-    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('topics/:topicId/ideations'), params);
+    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations'), params);
 
     return this.http.get<ApiResponse>(path, { withCredentials: true, params, observe: 'body', responseType: 'json' })
       .pipe(
