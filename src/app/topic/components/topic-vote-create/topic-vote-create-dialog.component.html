@@ -417,7 +417,7 @@
             </div>
           </div>
 
-          <div class="content_section" *ngIf="vote.type === 'multiple'">
+          <div class="content_section" *ngIf="vote.type === VOTE_TYPES.multiple || vote.type === VOTE_TYPES.ideation">
             <div class="section_content_wrap">
               <div class="small_heading">2. <span translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_MIN_MAX"></span></div>
               <div translate="COMPONENTS.TOPIC_VOTE_CREATE.VOTE_TXT_DESCRIPTION_CHOICE_RANGE"></div>
