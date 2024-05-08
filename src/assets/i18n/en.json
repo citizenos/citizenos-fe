@@ -677,6 +677,7 @@
       "TAB_FOLDERS": "{{count}} folders",
       "BTN_ADD_YOUR_IDEA": "Add your idea",
       "IDEA_FILTER_TYPE": "Idea type",
+      "OPT_ADD_DEADLINE":"@:COMPONENTS.TOPIC_VOTE_CAST.OPT_ADD_DEADLINE",
       "OPT_EDIT_DEADLINE": "@:MODALS.TOPIC_SETTINGS_BTN_EDIT_DEADLINE",
       "OPT_CLOSE_IDEATION": "Close ideation",
       "FILTER_ALL": "@:VIEWS.MY_TOPICS.FILTER_ALL",
