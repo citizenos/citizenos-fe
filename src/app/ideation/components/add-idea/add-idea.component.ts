@@ -1,3 +1,4 @@
+import { TopicIdeationService } from 'src/app/services/topic-ideation.service';
 
 import { trigger, state, style } from '@angular/animations';
 import { Component, OnInit, Input, Inject } from '@angular/core';
@@ -47,6 +48,7 @@ export class AddIdeaComponent {
   constructor(
     public app: AppService,
     private AuthService: AuthService,
+    private TopicIdeationService: TopicIdeationService,
     public TopicIdeaService: TopicIdeaService,
     @Inject(ActivatedRoute) private route: ActivatedRoute,
     @Inject(TranslateService) public translate: TranslateService,
@@ -84,7 +86,7 @@ export class AddIdeaComponent {
     const idea = {
       parentVersion: 0,
       statement: this.ideaForm.value['statement'],
-      description: this.ideaForm.value['description'] ,
+      description: this.ideaForm.value['description'],
       topicId: this.topicId,
       ideationId: this.ideationId
     };
@@ -93,9 +95,8 @@ export class AddIdeaComponent {
       .pipe(take(1))
       .subscribe({
         next: (idea) => {
-          this.TopicIdeaService.reset();
-          this.TopicIdeaService.setParam('topicId', this.topicId);
-          this.TopicIdeaService.setParam('ideationId', this.ideationId);
+          this.TopicIdeaService.reloadIdeas();
+          this.TopicIdeationService.reloadIdeation();
           this.description = '';
           this.ideaForm.reset();
           this.app.addIdea.next(false);
