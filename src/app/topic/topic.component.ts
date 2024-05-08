@@ -441,7 +441,8 @@ export class TopicComponent implements OnInit {
     const end = new Date(ideation.deadline || new Date());
     const diff = end.getTime() - start.getTime();
     const now = new Date().getTime() - start.getTime();
-    Math.round(now/diff);
+
+    return Math.round((now/diff)*100);
   }
 
   hasIdeationEndedExpired(topic: Topic, ideation: Ideation) {
