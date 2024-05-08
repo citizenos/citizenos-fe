@@ -51,7 +51,7 @@ export class TopicIdeaService extends ItemsListService {
     poi: 0,
     reply: 0
   });
-  private loadIdeas$ = new BehaviorSubject<void>(undefined);
+  public loadIdeas$ = new BehaviorSubject<void>(undefined);
 
   constructor(private http: HttpClient, private Location: LocationService, private Auth: AuthService) {
     super();

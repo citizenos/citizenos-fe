@@ -1,6 +1,6 @@
 import { TopicIdeaRepliesService } from './../../../services/topic-idea-replies.service';
 import { TopicIdeaService } from 'src/app/services/topic-idea.service';
-import { Component, Inject, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DIALOG_DATA, DialogService } from 'src/app/shared/dialog';
 import { take, combineLatest, Observable, switchMap, of } from 'rxjs';
@@ -43,15 +43,12 @@ export class IdeaComponent {
 
         ideaDialog.afterClosed().subscribe((value) => {
           if (value) {
+            TopicIdeaService.reloadIdeas();
             router.navigate(['/', 'topics', this.topicId], { fragment: 'ideation' })
           }
         });
       })
     });
-    /*   combineLatest([route.params, TopicIdeaService.items$]).pipe(take(1)).subscribe(([params, items]) => {
-         console.log(params);
-
-       })*/
   }
 }
 
