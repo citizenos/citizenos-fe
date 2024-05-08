@@ -138,7 +138,17 @@
     align-self: center;
     flex-direction: row;
     border: 2px solid var(--color-dialog-ideation);
-
+    &.selected {
+      flex-direction: row-reverse;
+      background-color: var(--color-ideation);
+      border: 2px solid var(--color-ideation);
+      .btn_like {
+        background-color: var(--color-surfaces);
+      }
+      .like_counter_wrap {
+        font-weight: 600;
+      }
+    }
     .btn_like {
       width: 40px;
       height: 40px;

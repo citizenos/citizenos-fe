@@ -106,7 +106,6 @@ export class IdeaboxComponent implements AfterViewInit {
     deleteArgument.afterClosed().subscribe((confirm) => {
       if (confirm === true) {
         const idea = Object.assign({ topicId: this.topic.id, ideaId: this.idea.id, ideationId: this.ideation.id });
-        console.log(idea);
         this.TopicIdeaService
           .delete(idea)
           .pipe(take(1))
