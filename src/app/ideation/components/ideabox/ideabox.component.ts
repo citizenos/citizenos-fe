@@ -28,6 +28,7 @@ export class IdeaboxComponent implements AfterViewInit {
   @Input() topic!: Topic;
   @Input() ideation!: Ideation;
   @Input() showReplies?: boolean = false;
+  isNew = false;
   showEdit = false;
   showEdits = false;
   showReply = false;
@@ -54,6 +55,14 @@ export class IdeaboxComponent implements AfterViewInit {
     //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
     //Add 'implements AfterViewInit' to the class.
   }
+  ngOnInit(): void {
+    if (new Date().getTime() - new Date(this.idea.createdAt).getTime() < 5000) {
+      this.isNew = true;
+    }
+    setTimeout(() => {
+      this.isNew = false
+    }, 2000);
+  }
   canEditTopic() {
     return this.TopicService.canEdit(this.topic);
   }
@@ -62,7 +71,7 @@ export class IdeaboxComponent implements AfterViewInit {
   };
 
   goToView($event: any) {
-    const routerLink=['/','topics', this.topic.id, 'ideation', this.ideation.id, 'ideas', this.idea.id ];
+    const routerLink = ['/', 'topics', this.topic.id, 'ideation', this.ideation.id, 'ideas', this.idea.id];
     this.router.navigate(routerLink);
   }
 
@@ -147,7 +156,7 @@ export class IdeaboxComponent implements AfterViewInit {
   };
 
   toggleFavourite() {
-    this.TopicIdeaService.toggleFavourite({favourite: this.idea.favourite, topicId: this.topic.id, ideationId: this.ideation.id, ideaId: this.idea.id});
+    this.TopicIdeaService.toggleFavourite({ favourite: this.idea.favourite, topicId: this.topic.id, ideationId: this.ideation.id, ideaId: this.idea.id });
     this.idea.favourite = !this.idea.favourite;
   }
 
@@ -177,7 +186,7 @@ export class IdeaboxComponent implements AfterViewInit {
       data: {
         topicId: this.topic.id,
         ideationId: this.ideation.id,
-        idea:this.idea
+        idea: this.idea
       }
     })
   }
