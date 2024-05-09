@@ -673,8 +673,9 @@
       "TXT_MAYBE_TYPO": "Maybe there's a typo in your search?"
     },
     "TOPIC_IDEATION": {
-      "TAB_IDEAS": "{{count}} ideas",
-      "TAB_FOLDERS": "{{count}} folders",
+      "TAB_IDEAS": "Ideas: {{count}}",
+      "TAB_FOLDERS": "Folders: {{count}}",
+      "BTN_ADD_IDEAS_TO_FOLDER": "Add ideas to folder",
       "BTN_ADD_YOUR_IDEA": "Add your idea",
       "IDEA_FILTER_TYPE": "Idea type",
       "OPT_ADD_DEADLINE":"@:COMPONENTS.TOPIC_VOTE_CAST.OPT_ADD_DEADLINE",
