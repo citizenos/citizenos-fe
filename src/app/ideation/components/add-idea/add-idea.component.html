@@ -71,8 +71,8 @@
       </button>
     </div>
     <div id="navigate_create">
-      <div id="chars_left" translate="COMPONENTS.ADD_IDEA.IDEA_TYPE_CHARACTER_LIMIT"
-        [translateParams]="{numberOfCharacters: ideaMaxLength() - (ideaForm.value['text']?.length || 0)}"></div>
+      <div id="chars_left" translate="COMPONENTS.ADD_IDEA.IDEA_TYPE_CHARACTERS_LEFT"
+        [translateParams]="{charsLeft: ideaMaxLength(),chars: ideaMaxLength() - (ideaForm.value['description']?.length || 0)}"></div>
       <!--button class="btn_big_submit_ghost">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
