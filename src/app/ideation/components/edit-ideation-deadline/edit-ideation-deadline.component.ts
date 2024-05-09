@@ -92,10 +92,20 @@ export class EditIdeationDeadlineComponent {
    this.daysToIdeationEnd();
   };
 
-
+  formatLength(time: number | string) {
+    console.log(time, time.toString().length);
+    if (time.toString().length > 2) {
+      console.log(parseInt(time.toString().substring(0, 2)))
+      time = parseInt(time.toString().substring(0, 2));
+    }
+  }
   formatTime(val: number | string) {
+    console.log('FORMAT')
     if (parseInt(val.toString()) < 10) {
       val = '0' + val;
+    }
+    if (val.toString().length > 2) {
+      val = val.toString().substring(0,2);
     }
 
     return val;

@@ -31,8 +31,8 @@
           </div>
           <div class="input_wrap">
             <div class="time_wrap">
-              <input class="time_input" [(ngModel)]="endsAt.h" (change)="formatTime(endsAt.h); setEndsAtTime()"
-                type="number" [min]="minHours()" max="{{HCount}}" step="1" />
+              <input class="time_input" [(ngModel)]="endsAt.h" (ngModelChange)="formatLength(endsAt.h)" (change)="formatTime(endsAt.h); setEndsAtTime()"
+                type="number" [min]="minHours()" [max]="HCount" step="1" />
               <span class="time_separator">:</span>
               <input type="number" class="time_input" [min]="minMinutes()" max="59" step="5" [(ngModel)]="endsAt.min"
                 (change)="formatTime(endsAt.min);setEndsAtTime()" />
