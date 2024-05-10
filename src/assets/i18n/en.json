@@ -236,11 +236,11 @@
     },
     "CREATE": {
       "TITLE_DISCUSSION": "Discussion topic",
-      "DESC_DISCUSSION": "Choose this if you want to encourage a discussion before potentially moving to voting and/or follow-up.",
+      "DESC_DISCUSSION": "Choose this if you want to encourage a discussion before potentially moving to voting and/or follow-up. No discussion phase available.",
       "TITLE_IDEATION": "Ideation topic",
-      "DESC_IDEATION": "Choose this if you want to gather ideas before potentially moving to voting and/or follow-up. No pro/con discussion available.",
+      "DESC_IDEATION": "Choose this if you want to gather ideas before potentially moving to discussion and/or voting and follow-up.",
       "TITLE_VOTE": "Voting topic",
-      "DESC_VOTE": "Choose this if you want to collect people’s votes before potentially moving to follow-up. No pro/con discussion available.",
+      "DESC_VOTE": "Choose this if you want to collect people’s votes before potentially moving to follow-up. No ideation or discussion phase available.",
       "TITLE_GROUP": "Group",
       "DESC_GROUP": "Create a private or public group to invite people with common interests to access relevant topics."
     },
