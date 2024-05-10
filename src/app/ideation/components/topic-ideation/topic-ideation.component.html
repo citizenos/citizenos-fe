@@ -130,7 +130,7 @@
               <ng-container
                 *ngIf="(AuthService.loggedIn$ | async) && topic.visibility === TopicService.VISIBILITY.public || (topic.visibility === TopicService.VISIBILITY.private && canUpdate())">
                 <button class="btn_medium_submit animate" (click)="addIdea()"
-                  *ngIf="tabSelected === 'ideas' && topic.status === TopicService.STATUSES.ideation">
+                  *ngIf="tabSelected === 'ideas' && topic.status === TopicService.STATUSES.ideation" [ngClass]="{disabled: hasIdeationEnded()}">
                   <span translate="COMPONENTS.TOPIC_IDEATION.BTN_ADD_YOUR_IDEA"></span></button>
               </ng-container>
             </div>
@@ -349,7 +349,7 @@
                     </defs>
                   </svg>
                   <div class="description_heading" translate="COMPONENTS.TOPIC_IDEATION.NO_IDEAS_HEADING"></div>
-                  <div class="button">
+                  <div class="button" [ngClass]="{disabled: hasIdeationEnded()}">
                     <button class="btn_medium_submit animate" (click)="addIdea()">
                       <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -493,7 +493,7 @@
     </div>
   </div>
 </ng-container>
-<ng-container *ngIf="topic.ideationId">
+<ng-container *ngIf="topic.ideationId && !hasIdeationEndedExpired()">
   <add-idea *ngIf="wWidth > 1024 && topic.status === TopicService.STATUSES.ideation" [topicId]="topic.id"
     [ideationId]="topic.ideationId"></add-idea>
 </ng-container>
