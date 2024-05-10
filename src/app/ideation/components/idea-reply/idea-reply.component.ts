@@ -106,11 +106,11 @@ export class IdeaReplyComponent implements OnInit {
     const deleteArgument = this.dialog.open(ConfirmDialogComponent, {
       data: {
         level: 'delete',
-        heading: 'MODALS.TOPIC_DELETE_ARGUMENT_TITLE',
-        title: 'MODALS.TOPIC_DELETE_ARGUMENT_TITLE',
-        points: ['MODALS.TOPIC_DELETE_ARGUMENT_TXT_ARE_YOU_SURE'],
-        confirmBtn: 'MODALS.TOPIC_DELETE_ARGUMENT_BTN_YES',
-        closeBtn: 'MODALS.TOPIC_DELETE_ARGUMENT_BTN_NO'
+        heading: 'MODALS.TOPIC_DELETE_IDEA_REPLY_TITLE',
+        title: 'MODALS.TOPIC_DELETE_IDEA_REPLY_TITLE',
+        points: ['MODALS.TOPIC_DELETE_IDEA_REPLY_TXT_ARE_YOU_SURE'],
+        confirmBtn: 'MODALS.TOPIC_DELETE_IDEA_REPLY_BTN_YES',
+        closeBtn: 'MODALS.TOPIC_DELETE_IDEA_REPLY_BTN_NO'
       }
     });
 
