@@ -2108,7 +2108,7 @@
       "FOOTER_BTN_SAVE_CHANGES": "@:VIEWS.TOPIC_CREATE.FOOTER_BTN_SAVE_CHANGES",
       "FOOTER_BTN_SAVE_CHANGES_AND_PUBLISH": "@:VIEWS.TOPIC_CREATE.FOOTER_BTN_SAVE_CHANGES_AND_PUBLISH",
       "HELP_HEADING": "@:VIEWS.TOPIC_CREATE.HELP_HEADING",
-      "HELP_DESCRIPTION": "Creating an ideation topic allows you to gather ideas before starting discussion.",
+      "HELP_DESCRIPTION": "Creating an ideation topic allows you to gather ideas, before starting a discussion and/or vote and follow-up.",
       "HELP_LNK_LEARN_MORE": "@:VIEWS.TOPIC_CREATE.HELP_LNK_LEARN_MORE",
       "HELP_NEXT_HEADING": "@:VIEWS.TOPIC_CREATE.HELP_NEXT_HEADING",
       "HELP_NEXT_DESCRIPTION": "@:VIEWS.TOPIC_CREATE.HELP_NEXT_DESCRIPTION",
