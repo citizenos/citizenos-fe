@@ -1,5 +1,6 @@
 .nav_buttons_wrap {
   display: flex;
+  flex-direction: row-reverse;
   justify-content: space-between;
   margin-bottom: 15px;
 
