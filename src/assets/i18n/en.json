@@ -2093,7 +2093,7 @@
       "SETTINGS_HEADING_IDEATION_DEADLINE": "@:COMPONENTS.TOPIC_VOTE_DEADLINE.LBL_OPTION_DEADLINE",
       "SETTINGS_HEADING_IDEATION_DEADLINE_DESC": "Deadline when the idea gathering closes.",
       "SETTINGS_IDEATION_DEADLINE_PLACEHOLDER": "Select a date",
-      "PREVIEW_INFO": "<b>This is a preview of your topic!</b> You can still edit your topic at any point prior to starting the ideation.",
+      "PREVIEW_INFO": "<b>This is a preview of your topic!</b> You can still edit your topic at any point prior to starting a vote.",
       "BTN_IDEATION_ACTIONS": "Manage ideation",
       "NO_IDEAS_HEADING": "There are no ideas yet",
       "NO_IDEAS_BTN_ADD": "Add idea",
