@@ -66,6 +66,7 @@ import { AddIdeasToFolderComponent } from '../ideation/components/add-ideas-to-f
 import { EditIdeaComponent } from '../ideation/components/edit-idea/edit-idea.component';
 import { IdeaReplyReportComponent } from '../ideation/components/idea-reply-report/idea-reply-report.component';
 import { IdeaReplyReportModerateComponent, IdeaReplyReportModerateDialogComponent } from '../ideation/components/idea-reply-report-moderate/idea-reply-report-moderate.component';
+import { EditIdeaFolderComponent } from '../ideation/components/edit-idea-folder/edit-idea-folder.component';
 
 @NgModule({
   declarations: [
@@ -139,7 +140,8 @@ import { IdeaReplyReportModerateComponent, IdeaReplyReportModerateDialogComponen
     EditIdeaComponent,
     IdeaReplyReportComponent,
     IdeaReplyReportModerateComponent,
-    IdeaReplyReportModerateDialogComponent
+    IdeaReplyReportModerateDialogComponent,
+    EditIdeaFolderComponent
   ],
   imports: [
     LinkyModule,

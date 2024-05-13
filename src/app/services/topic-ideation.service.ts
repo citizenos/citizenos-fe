@@ -82,6 +82,15 @@ export class TopicIdeationService extends ItemsListService {
       );
   }
 
+  updateFolder(params: any, data: any) {
+    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId/folders/:folderId'), params);
+
+    return this.http.put<ApiResponse>(path, data, { withCredentials: true, observe: 'body', responseType: 'json' })
+      .pipe(
+        map(res => res.data)
+      );
+  }
+
   deleteFolder(params: any) {
     const path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId/folders/:folderId'), params);
 
