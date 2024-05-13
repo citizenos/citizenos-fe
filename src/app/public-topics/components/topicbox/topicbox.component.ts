@@ -63,6 +63,9 @@ export class TopicboxComponent implements OnInit {
       if (this.topic.voteId) {
         urlArray = ['topics', 'vote', 'edit', this.topic.id];
       }
+      if (this.topic.ideationId) {
+        urlArray = ['topics', 'ideation', 'edit', this.topic.id];
+      }
     }
     let fragment = 'discussion';
     if (this.topic.status === this.TopicService.STATUSES.draft) {
