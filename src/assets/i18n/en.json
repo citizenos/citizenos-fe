@@ -315,6 +315,17 @@
       "MSG_ERROR_SUBJECT": "@:COMPONENTS.ADD_IDEA.MSG_ERROR_SUBJECT",
       "MSG_ERROR_DESCRIPTION": "@:COMPONENTS.ADD_IDEA.MSG_ERROR_DESCRIPTION"
     },
+    "EDIT_IDEA_FOLDER": {
+      "HEADING": "Edit folder",
+      "LBL_NAME": "Edit folder name",
+      "ADD_NAME_ERROR_MSG_INVALID": "Name cannot be empty",
+      "PLACEHOLDER_NAME": "@:VIEWS.MY_TOPICS_TOPICID.LNK_NAME",
+      "LBL_IDEAS_SELECTION": "Select the ideas you want to add to this folder",
+      "BTN_CREATE": "Edit folder",
+      "LNK_CANCEL": "@:LNK_CANCEL",
+      "LBL_IDEAS": "Ideas ({{count}})",
+      "LBL_LIKES": "Likes"
+    },
     "GROUP_ADD_TOPICS_DIALOG": {
       "HEADING": "Add topics to the group",
       "NO_TOPICS_SELECTED": "You haven't selected any topics to add to the group. Please search for topics with the search field above.",
@@ -1864,6 +1875,7 @@
       "STATS_COS_HAS_ENABLED": "Our community is growing:",
       "STATS_DISCUSSIONS": "Discussions",
       "STATS_GROUPS": "Groups",
+      "STATS_IDEAS": "Ideas",
       "STATS_VOTES": "Votes",
       "STATS_USERS": "Participants",
       "FEATURE_DISCUSSION_HEADING": "Have a discussion",

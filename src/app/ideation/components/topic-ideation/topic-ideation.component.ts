@@ -17,6 +17,7 @@ import { Router } from '@angular/router';
 import { EditIdeationDeadlineComponent } from '../edit-ideation-deadline/edit-ideation-deadline.component';
 import { AddIdeasToFolderComponent } from '../add-ideas-to-folder/add-ideas-to-folder.component';
 import { User } from 'src/app/interfaces/user';
+import { EditIdeaFolderComponent } from '../edit-idea-folder/edit-idea-folder.component';
 
 
 @Component({
@@ -253,7 +254,23 @@ export class TopicIdeationComponent {
     });
   }
 
-  editFolder(folder: Folder) { }
+  editFolder(folder: Folder) {
+    const folderCreateDialog = this.dialog.open(EditIdeaFolderComponent, {
+      data: {
+        topicId: this.topic.id,
+        ideationId: this.ideation.id,
+        folder: folder
+      }
+    });
+
+    folderCreateDialog.afterClosed().subscribe(() => {
+      this.folders$ = this.TopicIdeationService.getFolders({ topicId: this.topic.id, ideationId: this.ideation.id }).pipe(
+        map((res) => {
+          return res.rows;
+        })
+      );
+    });
+  }
   deleteFolder(folder: Folder) {
     this.TopicIdeationService.deleteFolder({ topicId: this.topic.id, ideationId: this.ideation.id, folderId: folder.id }).pipe(take(1))
       .subscribe({

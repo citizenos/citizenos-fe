@@ -12,8 +12,8 @@
           <div class="label" translate="VIEWS.HOME.STATS_DISCUSSIONS"></div>
         </div>
         <div class="stats_box ideation">
-          <div class="number">{{stats.groupsCreated}}</div>
-          <div class="label" translate="VIEWS.HOME.STATS_GROUPS"></div>
+          <div class="number">{{stats.ideasProposed}}</div>
+          <div class="label" translate="VIEWS.HOME.STATS_IDEAS"></div>
         </div>
         <div class="stats_box votes">
           <div class="number">{{stats.votesCast}}</div>
@@ -447,8 +447,8 @@
   </div>
 
   <div id="features_wrap">
+    <feature-box class="feature_box" feature="ideation" [items]="4"></feature-box>
     <feature-box class="feature_box" feature="discussion" [items]="4"></feature-box>
-    <!--feature-box class="feature_box" feature="ideation" [items]="4"></!--feature-box-->
     <feature-box class="feature_box" feature="voting" [items]="4"></feature-box>
   </div>
   <div id="feature_group">
