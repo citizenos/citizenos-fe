@@ -2135,6 +2135,9 @@
       "ERROR_AT_LEAST_TWO_OPTIONS_REQUIRED": "@:MSG_ERROR_POST_API_USERS_TOPICS_VOTES_40001",
       "SUCCESS_IDEATION_STARTED": "Ideation has successfully been started"
     },
+    "IDEATION_EDIT": {
+      "HEADING": "Edit ideation topic"
+    },
     "LOGIN": {
       "BTN_BACK": "Back to dashboard",
       "LOGIN_TITLE": "Log in to Citizen OS"
@@ -2773,6 +2776,7 @@
       "STATE_ITEM_CONTRIBUTION_INFO": "Info",
       "STATE_ITEM_CONTRIBUTION_REPLIES": "Replies",
       "STATE_ITEM_NO_IDEATON": "No ideation yet",
+      "STATE_ITEM_NO_DISCUSSION": "No discussion yet",
       "STATE_ITEM_NO_VOTING": "No voting system yet",
       "STATE_ITEM_NO_FOLLOW_UP": "No follow-up yet",
       "STATE_ITEM_ADD_VOTING": "Add voting system",
