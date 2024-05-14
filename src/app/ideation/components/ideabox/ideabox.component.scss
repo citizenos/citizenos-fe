@@ -95,6 +95,12 @@
         background-color: unset;
       }
     }
+
+    .btn_small_plain  {
+      &:hover {
+        background-color: var(--color-surfaces);
+      }
+    }
   }
 
   .idea_content {
@@ -135,6 +141,8 @@
       flex-direction: row;
       border: 2px solid var(--color-dialog-ideation);
       transition: all 200ms ease-in;
+      justify-content: space-between;
+      padding: 0;
 
       &.selected {
         flex-direction: row-reverse;
@@ -147,6 +155,10 @@
           font-weight: 600;
         }
       }
+      .like_counter_wrap {
+        padding: 8px 16px;
+      }
+
       .btn_like {
         width: 40px;
         height: 40px;

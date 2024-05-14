@@ -32,7 +32,7 @@
             </svg>
             <span translate="COMPONENTS.TOPIC_IDEATION.BTN_IDEATION_ACTIONS"></span>
           </button>
-          <button id="mobile_actions" class="btn_medium_plain icon">
+          <button id="mobile_actions" class="btn_medium_plain icon mobile_show">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd"
                 d="M14 6C14 4.9 13.1 4 12 4C10.9 4 10 4.9 10 6C10 7.1 10.9 8 12 8C13.1 8 14 7.1 14 6ZM14 18C14 16.9 13.1 16 12 16C10.9 16 10 16.9 10 18C10 19.1 10.9 20 12 20C13.1 20 14 19.1 14 18ZM12 10C13.1 10 14 10.9 14 12C14 13.1 13.1 14 12 14C10.9 14 10 13.1 10 12C10 10.9 10.9 10 12 10Z"
@@ -598,10 +598,10 @@
               <ng-container *ngIf="folders$ | async as folders">
                 <ng-container *ngIf="folders.length">
                   <div class="folder_row">
-                    <div class="cell" translate="COMPONENTS.TOPIC_IDEATION.LBL_FOLDER"></div>
-                    <div class="cell" translate="COMPONENTS.TOPIC_IDEATION.LBL_IDEAS"></div>
-                    <div class="cell mobile_hidden" translate="COMPONENTS.TOPIC_IDEATION.LBL_LAST_ACTIVITY"></div>
-                    <div class="cell mobile_hidden" translate="COMPONENTS.TOPIC_IDEATION.LBL_ACTIONS" *ngIf="canEdit()">
+                    <div class="folder_name cell" translate="COMPONENTS.TOPIC_IDEATION.LBL_FOLDER"></div>
+                    <div class="cell ideas_cell" translate="COMPONENTS.TOPIC_IDEATION.LBL_IDEAS"></div>
+                    <div class="cell date_cell mobile_hidden" translate="COMPONENTS.TOPIC_IDEATION.LBL_LAST_ACTIVITY"></div>
+                    <div class="cell actions_cell mobile_hidden" translate="COMPONENTS.TOPIC_IDEATION.LBL_ACTIONS" *ngIf="canEdit()">
                     </div>
                   </div>
                   <div class="folder_row" *ngFor="let folder of folders">
@@ -669,8 +669,8 @@
                         <span class="updated mobile_show" [innerText]="folder.updatedAt | date:'YYYY-MM-dd HH:mm'"></span>
                       </div>
                     </a>
-                    <div class="cell mobile_hidden" [innerText]="folder.ideas.count"></div>
-                    <div class="cell mobile_hidden" [innerText]="folder.updatedAt | date:'YYYY-MM-dd HH:mm'"></div>
+                    <div class="cell ideas_cell mobile_hidden" [innerText]="folder.ideas.count"></div>
+                    <div class="cell date_cell mobile_hidden" [innerText]="folder.updatedAt | date:'YYYY-MM-dd HH:mm'"></div>
                     <div class="cell actions_cell" *ngIf="canEdit()">
                       <div class="dropdown button_dropdown" [cosDropdown]>
                         <button class="btn_small_plain icon">

@@ -60,7 +60,7 @@
   gap: 24px;
   padding: 0 16px;
   border-radius: 0 16px 16px 0;
-  overflow: auto;
+  overflow: hidden;
   &::-webkit-scrollbar {
     display: none;
   }
@@ -167,6 +167,10 @@
     align-self: center;
     flex-direction: row;
     border: 2px solid var(--color-dialog-ideation);
+    transition: all 200ms ease-in;
+    justify-content: space-between;
+    padding: 0;
+
     &.selected {
       flex-direction: row-reverse;
       background-color: var(--color-ideation);
@@ -178,6 +182,10 @@
         font-weight: 600;
       }
     }
+    .like_counter_wrap {
+      padding: 8px 16px;
+    }
+
     .btn_like {
       width: 40px;
       height: 40px;
@@ -203,6 +211,7 @@
     align-items: center;
     display: flex;
     justify-content: space-between;
+    margin-bottom: 8px;
   }
   .form_wrap {
     display: flex;
@@ -218,6 +227,10 @@
 .replies_content_wrap {
   display: flex;
   flex-direction: column;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
   .replies_wrap {
     gap: 24px;
     display: flex;
