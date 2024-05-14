@@ -30,6 +30,9 @@
 }
 .setting_button {
   border-radius: 24px;
+  button {
+    gap: 4px;
+  }
 }
 
 .tabs_wrap {
@@ -143,13 +146,32 @@
         padding-bottom: 24px;
       }
     }
+
+    .ideas_cell {
+      display: flex;
+      flex-grow: 1;
+      text-align: left;
+      justify-content: left;
+      width: 100%;
+      max-width: 15%;
+    }
+    .date_cell {
+      display: flex;
+      flex-grow: 2;
+      text-align: left;
+      justify-content: left;
+      max-width: 25%;
+      width: 100%;
+    }
     .folder_name {
       display: flex;
       gap: 16px;
       align-items: center;
       text-decoration: none;
       color: var(--color-text);
-
+      flex-grow: 3;
+      max-width: 50%;
+      width: 100%;
       .name_wrap {
         display: flex;
         width: 100%;
@@ -168,7 +190,7 @@
         align-items: flex-start;
         padding-top: 6px;
         padding-right: 16px;
-        width: 100%;
+        max-width: 100%;
       }
       .icon {
         display: flex;
@@ -178,7 +200,11 @@
     .actions_cell {
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 16px;
+      flex-grow: 1;
+      width: 100%;
+      max-width: 10%;
     }
   }
 }

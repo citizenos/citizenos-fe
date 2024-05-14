@@ -160,8 +160,8 @@
         </div>
         <div class="idea_footer">
 
-          <div class="btn_like_wrap" [ngClass]="{selected: this.idea.votes.up.selected}">
-            <button class="btn_medium_plain btn_like" (click)="doIdeaVote(1)">
+          <button class="btn_like_wrap" [ngClass]="{selected: this.idea.votes.up.selected}" (click)="doIdeaVote(1)">
+            <div class="btn_medium_plain btn_like">
               <div class="icon">
                 <ng-container *ngIf="!this.idea.votes.up.selected">
                   <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -190,9 +190,9 @@
 
                 </ng-container>
               </div>
-            </button>
+            </div>
             <div class="like_counter_wrap" [innerHTML]="idea.votes.up.count"></div>
-          </div>
+          </button>
           <div class="date">{{idea.createdAt | date: 'YYYY-MM-dd HH:mm'}}</div>
         </div>
       </div>
@@ -204,8 +204,8 @@
             <button *ngIf="!showReply" class="btn_medium_submit" (click)="showReply = true"
               translate="COMPONENTS.IDEA_DIALOG.BTN_REPLY"></button>
           </div>
-          <div class="form_wrap">
-            <idea-reply-form id="reply_form" *ngIf="showReply" [(showReply)]="showReply" [topicId]="topic.id"
+          <div class="form_wrap" *ngIf="showReply">
+            <idea-reply-form id="reply_form" [(showReply)]="showReply" [topicId]="topic.id"
               [ideationId]="ideation.id" [ideaId]="idea.id"></idea-reply-form>
           </div>
           <div class="line_separator"></div>

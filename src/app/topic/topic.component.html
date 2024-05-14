@@ -94,6 +94,20 @@
               </button>
               <div class="line_separator"></div>
             </ng-container>
+            <ng-container *ngIf="(auth.loggedIn$ | async)">
+              <button class="option" (click)="app.doShowTopicNotificationSettings(topic.id)">
+                <div class="icon_wrap">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M8.81426 2.60671C8.85167 2.72383 8.86482 2.84773 8.85286 2.97041C10.8114 3.37715 12.2857 5.15938 12.2857 7.29453C12.2857 8.26329 12.7143 12.5883 14 13.4706H9.5C9.5 13.8762 9.34196 14.2652 9.06066 14.552C8.77936 14.8389 8.39782 15 8 15C7.60218 15 7.22064 14.8389 6.93934 14.552C6.65804 14.2652 6.5 13.8762 6.5 13.4706L2 13.4706C3.28571 12.5883 3.71429 8.26329 3.71429 7.29453C3.71441 6.27687 4.05621 5.29053 4.6818 4.50252C5.30739 3.7145 6.17833 3.17325 7.14714 2.97041C7.13518 2.84773 7.14833 2.72383 7.18574 2.60671C7.22316 2.48958 7.284 2.38183 7.36436 2.29039C7.44472 2.19896 7.5428 2.12588 7.65228 2.07586C7.76177 2.02584 7.88022 2 8 2C8.11978 2 8.23823 2.02584 8.34772 2.07586C8.4572 2.12588 8.55528 2.19896 8.63564 2.29039C8.716 2.38183 8.77684 2.48958 8.81426 2.60671Z"
+                      fill="#2C3B47" />
+                  </svg>
+
+                </div>
+                <span translate="VIEWS.TOPICS_TOPICID.OPTION_TOPIC_NOTIFICATIONS"></span>
+              </button>
+              <div class="line_separator"></div>
+            </ng-container>
             <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic)">
               <button class="option" (click)="inviteEditors(topic)">
                 <div class="icon_wrap">
@@ -707,7 +721,6 @@
                       <span translate="VIEWS.TOPICS_TOPICID.BTN_LEAVE"></span>
                     </button>
                   </ng-container>
-
                   <ng-container *ngIf="(auth.loggedIn$ | async)">
                     <div class="line_separator"></div>
                     <button class="option" (click)="toggleFavourite(topic)">
@@ -720,6 +733,20 @@
                       </div>
                       <span *ngIf="!topic.favourite" translate="VIEWS.TOPICS_TOPICID.OPTION_FAVOURITE"></span>
                       <span *ngIf="topic.favourite" translate="VIEWS.TOPICS_TOPICID.OPTION_UNFAVOURITE"></span>
+                    </button>
+                  </ng-container>
+                  <ng-container *ngIf="(auth.loggedIn$ | async)">
+                    <div class="line_separator"></div>
+                    <button class="option" (click)="app.doShowTopicNotificationSettings(topic.id)">
+                      <div class="icon_wrap">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M8.81426 2.60671C8.85167 2.72383 8.86482 2.84773 8.85286 2.97041C10.8114 3.37715 12.2857 5.15938 12.2857 7.29453C12.2857 8.26329 12.7143 12.5883 14 13.4706H9.5C9.5 13.8762 9.34196 14.2652 9.06066 14.552C8.77936 14.8389 8.39782 15 8 15C7.60218 15 7.22064 14.8389 6.93934 14.552C6.65804 14.2652 6.5 13.8762 6.5 13.4706L2 13.4706C3.28571 12.5883 3.71429 8.26329 3.71429 7.29453C3.71441 6.27687 4.05621 5.29053 4.6818 4.50252C5.30739 3.7145 6.17833 3.17325 7.14714 2.97041C7.13518 2.84773 7.14833 2.72383 7.18574 2.60671C7.22316 2.48958 7.284 2.38183 7.36436 2.29039C7.44472 2.19896 7.5428 2.12588 7.65228 2.07586C7.76177 2.02584 7.88022 2 8 2C8.11978 2 8.23823 2.02584 8.34772 2.07586C8.4572 2.12588 8.55528 2.19896 8.63564 2.29039C8.716 2.38183 8.77684 2.48958 8.81426 2.60671Z"
+                            fill="#2C3B47" />
+                        </svg>
+
+                      </div>
+                      <span translate="VIEWS.TOPICS_TOPICID.OPTION_TOPIC_NOTIFICATIONS"></span>
                     </button>
                   </ng-container>
                   <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic)">
@@ -1376,6 +1403,20 @@
             </div>
             <span *ngIf="!topic.favourite" translate="VIEWS.TOPICS_TOPICID.OPTION_FAVOURITE"></span>
             <span *ngIf="topic.favourite" translate="VIEWS.TOPICS_TOPICID.OPTION_UNFAVOURITE"></span>
+          </button>
+        </ng-container>
+        <ng-container *ngIf="(auth.loggedIn$ | async)">
+          <div class="line_separator"></div>
+          <button class="option" (click)="app.doShowTopicNotificationSettings(topic.id);mobileActions=false;">
+            <div class="icon_wrap">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M8.81426 2.60671C8.85167 2.72383 8.86482 2.84773 8.85286 2.97041C10.8114 3.37715 12.2857 5.15938 12.2857 7.29453C12.2857 8.26329 12.7143 12.5883 14 13.4706H9.5C9.5 13.8762 9.34196 14.2652 9.06066 14.552C8.77936 14.8389 8.39782 15 8 15C7.60218 15 7.22064 14.8389 6.93934 14.552C6.65804 14.2652 6.5 13.8762 6.5 13.4706L2 13.4706C3.28571 12.5883 3.71429 8.26329 3.71429 7.29453C3.71441 6.27687 4.05621 5.29053 4.6818 4.50252C5.30739 3.7145 6.17833 3.17325 7.14714 2.97041C7.13518 2.84773 7.14833 2.72383 7.18574 2.60671C7.22316 2.48958 7.284 2.38183 7.36436 2.29039C7.44472 2.19896 7.5428 2.12588 7.65228 2.07586C7.76177 2.02584 7.88022 2 8 2C8.11978 2 8.23823 2.02584 8.34772 2.07586C8.4572 2.12588 8.55528 2.19896 8.63564 2.29039C8.716 2.38183 8.77684 2.48958 8.81426 2.60671Z"
+                  fill="#2C3B47" />
+              </svg>
+
+            </div>
+            <span translate="VIEWS.TOPICS_TOPICID.OPTION_TOPIC_NOTIFICATIONS"></span>
           </button>
         </ng-container>
         <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic)">

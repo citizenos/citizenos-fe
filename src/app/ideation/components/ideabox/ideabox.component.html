@@ -170,9 +170,8 @@
   </div>
   <a class="idea_content" (click)="(!idea.report.id)? goToView($event): ''">
     <div class="statement" [innerHTML]="idea.statement"></div>
-    <div class="btn_like_wrap" [ngClass]="{selected: this.idea.votes.up.selected}">
-      <button class="btn_medium_plain btn_like"
-        (click)="$event.preventDefault();$event.stopPropagation();doIdeaVote(1);">
+    <button class="btn_like_wrap" [ngClass]="{selected: this.idea.votes.up.selected}" (click)="$event.preventDefault();$event.stopPropagation();doIdeaVote(1);">
+      <div class="btn_medium_plain btn_like">
         <div class="icon">
           <ng-container *ngIf="!this.idea.votes.up.selected">
             <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -201,11 +200,11 @@
 
           </ng-container>
         </div>
-      </button>
+      </div>
       <div class="like_counter_wrap" [innerHTML]="idea.votes.up.count">
 
       </div>
-    </div>
+    </button>
   </a>
   <div class="idea_footer">
     <div class="date">{{idea.createdAt | date: 'YYYY-MM-dd HH:mm'}}</div>
