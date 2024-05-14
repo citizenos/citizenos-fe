@@ -272,6 +272,7 @@
       "WILL_NOT_BE_DUPLICATED_5": "related information (topic status, favourited status)",
       "WILL_NOT_BE_DUPLICATED_6": "votes",
       "WILL_NOT_BE_DUPLICATED_7": "follow-up posts",
+      "WILL_NOT_BE_DUPLICATED_8": "ideation (ideas, replies, folders)",
       "BTN_SUBMIT": "Duplicate topic",
       "BTN_CANCEL": "@:LNK_CANCEL"
     },
