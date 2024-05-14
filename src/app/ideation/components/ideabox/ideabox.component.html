@@ -209,7 +209,7 @@
   <div class="idea_footer">
     <div class="date">{{idea.createdAt | date: 'YYYY-MM-dd HH:mm'}}</div>
     <div class="replies_count">
-      <a translate="COMPONENTS.IDEABOX.REPLIES" [translateParams]="{count: idea.replies.count}"></a>
+      <a translate="COMPONENTS.IDEABOX.REPLIES" [translateParams]="{count: idea.replies.count}" (click)="(!idea.report.id)? goToView($event): ''"></a>
     </div>
   </div>
 </a>
