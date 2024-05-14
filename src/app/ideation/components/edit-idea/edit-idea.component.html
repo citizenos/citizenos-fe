@@ -33,7 +33,7 @@
       <textarea cosmarkdown name="description" formControlName="description"
         cosmarkdowntranslatecharacterstatuskey="COMPONENTS.EDIT_IDEA.IDEA_TYPE_CHARACTER_LIMIT"
         id="idea_description" [(item)]="description" class="gray_borders" (itemChange)="updateText($event)"
-        [placeholder]="('COMPONENTS.EDIT_IDEA.PLACEHOLDER_EXPLAIN_YOUR_IDEA' | translate)"
+        placeholder="COMPONENTS.EDIT_IDEA.PLACEHOLDER_EXPLAIN_YOUR_IDEA"
         [ngClass]="{'error_input': ideaForm.controls['description'].errors && ideaForm.controls['description'].errors['required'] && ideaForm.controls['description'].touched}" [limit]="ideaMaxLength()" required></textarea>
       <label for="description" class="error_label" *ngIf="ideaForm.controls['description'].errors && ideaForm.controls['description'].errors['required'] && ideaForm.controls['description'].touched">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

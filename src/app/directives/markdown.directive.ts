@@ -9,6 +9,7 @@ export class MarkdownDirective implements OnDestroy {
   @Input() item: string = ''; // The text for the tooltip to display
   @Output() itemChange = new EventEmitter<string>();
   @Input() limit: number = 100; // Optional delay input, in m
+  @Input() placeholder?: string;
   @Input('cosmarkdowntranslatecharacterstatuskey') cosMarkdownTranslateCharacterStatusKey: any;
   CHAR_COUNTER_ELEMENT_CLASS_NAME = 'charCounter';
   curLength = 0;
@@ -16,7 +17,6 @@ export class MarkdownDirective implements OnDestroy {
 
   config: any = {
     spellChecker: false,
-    placeholder: this.el.nativeElement.attributes.getNamedItem('placeholder')?.value,
     toolbar: [
       {
         name: 'bold',
@@ -78,7 +78,11 @@ export class MarkdownDirective implements OnDestroy {
     if (window.innerWidth < 560) {
       this.config['minHeight'] = '100px';
     }
-
+    let placeholder = this.el.nativeElement.attributes.getNamedItem('placeholder')?.value;
+    if (placeholder) {
+      placeholder = this.Translate.instant(placeholder);
+      this.config.placeholder = placeholder;
+    }
     this.easymde = new EasyMDE(this.config);
     this.easymde.codemirror.on('beforeChange', (cm: any, change: any) => {
       const maxLength = cm.getOption('maxLength') || this.limit;

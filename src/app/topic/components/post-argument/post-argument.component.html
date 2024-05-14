@@ -60,7 +60,7 @@
       <textarea cosmarkdown name="text" formControlName="text"
         cosmarkdowntranslatecharacterstatuskey="COMPONENTS.POST_ARGUMENT.ARGUMENT_TYPE_CHARACTER_LIMIT"
         id="argument_text" [(item)]="text" class="gray_borders" (itemChange)="updateText($event)"
-        [placeholder]="('COMPONENTS.POST_ARGUMENT.PLACEHOLDER_EXPLAIN_YOUR_ARGUMENT' | translate)"
+        placeholder="COMPONENTS.POST_ARGUMENT.PLACEHOLDER_EXPLAIN_YOUR_ARGUMENT"
         [ngClass]="{'error_input': argumentForm.controls['text'].errors && argumentForm.controls['text'].errors['required'] && argumentForm.controls['text'].touched}" [limit]="argumentMaxLength()" required></textarea>
       <label for="argument_text" class="error_label" *ngIf="argumentForm.controls['text'].errors && argumentForm.controls['text'].errors['required'] && argumentForm.controls['text'].touched">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
