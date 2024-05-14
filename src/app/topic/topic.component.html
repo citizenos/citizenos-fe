@@ -420,7 +420,7 @@
           </div>
         </div>
         <ng-container *ngIf="tabSelected === 'ideation' || tabTablet === 'ideation'">
-          <div class="ideation_wrap" #topicIdeation>
+          <div class="ideation_wrap" #topicIdeation  [ngClass]="(tabTablet==='ideation')? 'show': ''">
             <div class="topic_feature_section ideation" *ngIf="!topic.ideationId"
               [ngClass]="(tabTablet === 'ideation')? 'show': ''">
               <ng-container *ngIf="!topic.ideationId">
@@ -1062,7 +1062,8 @@
           </div>
           <div class="state_item discussion" (click)="selectTab('discussion')" *ngIf="!hideDiscussion"
             [ngClass]="{empty: topic.status === TopicService.STATUSES.ideation && !TopicArgumentService.count.value.total}">
-            <ng-container *ngIf="topic.status === TopicService.STATUSES.ideation && !TopicArgumentService.count.value.total">
+            <ng-container
+              *ngIf="topic.status === TopicService.STATUSES.ideation && !TopicArgumentService.count.value.total">
               <div class="icon_wrap">
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <rect width="32" height="32" rx="16" fill="#1168A8" />
@@ -1268,8 +1269,8 @@
           <rect x="11" y="24" width="6" height="1" rx="0.5" fill="#4D5C6A" />
         </svg>
       </a>
-      <a *ngIf="topic.ideationId" class="topic_tab ideation" [ngClass]="tabSelected=== 'ideation' ? 'active' : ''"
-        [routerLink]="['./']" fragment="ideation">
+      <a *ngIf="topic.ideationId" class="topic_tab ideation" [ngClass]="tabTablet=== 'ideation' ? 'active' : ''"
+        (click)="tabTablet='ideation'" [routerLink]="['./']" fragment="ideation">
         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect width="32" height="32" rx="16" fill="#EFE08A" />
           <path fill-rule="evenodd" clip-rule="evenodd"

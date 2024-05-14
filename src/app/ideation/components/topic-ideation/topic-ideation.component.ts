@@ -50,9 +50,18 @@ export class TopicIdeationComponent {
     participants: <User | any>''
   };
 
+  mobileIdeaFiltersList = false;
+
+  mobileIdeaFilters: any = {
+    type: '',
+    orderBy: '',
+    participants: <User | any>''
+  }
+
   ideaTypeFilter$ = new BehaviorSubject('');
   orderFilter$ = new BehaviorSubject('');
   ideaParticipantsFilter$ = new BehaviorSubject(<User | string>'');
+  searchIdeasInput = '';
   ideaSearchFilter$ = new BehaviorSubject('');
   folderFilter$ = new BehaviorSubject('');
   selectedFolder?: Folder;
@@ -340,4 +349,27 @@ export class TopicIdeationComponent {
       );
     });
   };
+
+  searchIdeas(search: string) {
+    this.ideaSearchFilter$.next(search);
+  }
+
+  closeMobileFilter() {
+    const filtersShow = Object.entries(this.mobileIdeaFilters).find(([key, value]) => {
+      return !!value;
+    })
+    if (filtersShow)
+      this.mobileIdeaFilters[filtersShow[0]] = false;
+  }
+
+  showMobileOverlay() {
+    const filtersShow = Object.entries(this.mobileIdeaFilters).find(([key, value]) => {
+      return !!value;
+    });
+
+    if (filtersShow) return true;
+
+    return false;
+  }
+
 }
