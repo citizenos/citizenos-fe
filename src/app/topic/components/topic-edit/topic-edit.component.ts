@@ -28,7 +28,18 @@ export class TopicEditComponent implements BlockNavigationIfChange {
       switchMap((params) => {
         return this.TopicService.loadTopic(params['topicId'])
       }),
-      tap((topic) => this.topic = topic)
+      tap((topic) => {
+        let urlArray;
+        if (topic.status === this.TopicService.STATUSES.draft && topic.voteId) {
+            urlArray = ['topics', 'vote', 'edit', topic.id];
+        } else if (topic.status === this.TopicService.STATUSES.draft && topic.ideationId) {
+          urlArray = ['topics', 'ideation', 'edit', topic.id];
+        }
+        if (urlArray) {
+          this.router.navigate(urlArray);
+        }
+        this.topic = topic;
+      })
     )
   }
   removeChanges() {
