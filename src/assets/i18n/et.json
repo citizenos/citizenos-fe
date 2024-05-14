@@ -103,6 +103,7 @@
     },
     "ACTIVITY_FEED": {
       "HEADING_GLOBAL": "Hiljutine tegevus",
+      "LNK_NOTIFICATION_SETTINGS": "Notification settings",
       "HEADING_GROUP": "Selle grupiga seotud tegevused",
       "HEADING_TOPIC": "Selle teemaga seotud tegevused",
       "PLACEHOLDER_FILTER": "Kuva",
@@ -2449,6 +2450,7 @@
       "BTN_FEEDBACK_OPEN": "Aita meil areneda",
       "OPTION_FAVOURITE": "Lisa lemmikuks",
       "OPTION_UNFAVOURITE": "Eemalda lemmikutest",
+      "OPTION_TOPIC_NOTIFICATIONS": "Topic notifications",
       "OPTION_INVITE_CO_EDITOR": "Kaasalgatajate kutsumine",
       "OPTION_EDIT_TOPIC": "Muuda teemat",
       "OPTION_DUPLICATE_TOPIC": "Dubleeri teema",

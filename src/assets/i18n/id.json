@@ -103,6 +103,7 @@
     },
     "ACTIVITY_FEED": {
       "HEADING_GLOBAL": "Recent activity",
+      "LNK_NOTIFICATION_SETTINGS": "Notification settings",
       "HEADING_GROUP": "This group's activity",
       "HEADING_TOPIC": "This topic's activity",
       "PLACEHOLDER_FILTER": "Show",
@@ -2449,6 +2450,7 @@
       "BTN_FEEDBACK_OPEN": "Bantu kami meningkatkan diri",
       "OPTION_FAVOURITE": "Favourite",
       "OPTION_UNFAVOURITE": "Un-favourite",
+      "OPTION_TOPIC_NOTIFICATIONS": "Topic notifications",
       "OPTION_INVITE_CO_EDITOR": "Invite co-creator",
       "OPTION_EDIT_TOPIC": "Edit topic",
       "OPTION_DUPLICATE_TOPIC": "Duplicate topic",
