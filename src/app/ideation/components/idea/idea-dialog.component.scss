@@ -1,20 +1,41 @@
+@use "mixins";
 .nav_buttons_wrap {
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-between;
   margin-bottom: 15px;
-
   z-index: 9999;
+
+  @include mixins.mobile {
+    justify-content: flex-end;
+    padding: 8px;
+    gap: 16px;
+    background: var(--color-background);
+    margin-bottom: 0;
+    #close_button {
+      position: absolute;
+      right: 8px;
+    }
+  }
 }
 .dialog {
   width: 100%;
   max-width: 872px;
+
+  @include mixins.mobile {
+    background-color: var(--color-background);
+  }
 }
 .dialog_content {
   border-radius: 16px;
   height: 560px;
   flex-direction: row;
   padding: 0;
+
+  @include mixins.mobile {
+    flex-direction: column;
+    height: 100%;
+  }
 }
 
 .idea_content_left {
@@ -25,6 +46,9 @@
   max-width: 480px;
   padding: 24px;
   gap: 24px;
+  @include mixins.mobile {
+    max-width: 100%;
+  }
 }
 .idea_content_right {
   display: flex;
@@ -39,6 +63,10 @@
   overflow: auto;
   &::-webkit-scrollbar {
     display: none;
+  }
+  @include mixins.mobile {
+    max-width: 100%;
+    border-radius: 0;
   }
 }
 .idea_header {

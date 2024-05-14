@@ -226,6 +226,16 @@
           }
         }
       }
+      .ideation_wrap {
+        @include mixins.tablet {
+          display: none;
+          margin-bottom: 0px;
+
+          &.show {
+            display: flex;
+          }
+        }
+      }
       .topic_arguments {
         background-color: var(--color-scrollbar);
         border-radius: 16px;

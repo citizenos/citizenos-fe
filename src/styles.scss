@@ -770,6 +770,10 @@ cos-input {
   }
 }
 
+ideabox {
+  display: contents;
+}
+
 cos-toggle {
   width: max-content;
 }
@@ -1800,7 +1804,7 @@ tour-item-template {
   padding: 16px;
   left: 0;
   background-color: var(--color-surfaces);
-  z-index: 99999;
+  z-index: 9999999;
   width: 100%;
   max-height: 100%;
   border-radius: 16px 16px 0 0;

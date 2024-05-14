@@ -6,8 +6,28 @@
   gap: 16px;
   grid-row-gap: 24px;
   flex-wrap: wrap;
+
+  @include mixins.mobile {
+    flex-direction: column;
+    flex-wrap: unset;
+    align-items: center;
+  }
 }
 
+.ideation_question {
+  @include mixins.mobile {
+    font-size: 16px;
+  }
+}
+.ideation_deadline {
+  @include mixins.mobile {
+    width: 100%;
+  }
+}
+#mobile_actions {
+  max-width: max-content;
+  align-self: flex-end;
+}
 .setting_button {
   border-radius: 24px;
 }
@@ -18,6 +38,10 @@
   gap: 24px;
   width: 100%;
   justify-content: space-between;
+
+  @include mixins.mobile {
+    flex-direction: column;
+  }
 
   .tabs_row {
     width: 100%;
@@ -32,6 +56,11 @@
       font-weight: 400;
       line-height: 24px; /* 133.333% */
       padding: 8px 0;
+      @include mixins.mobile {
+        width: 100%;
+        font-size: 16px;
+        text-align: center;
+      }
       &.active {
         color: var(--color-text);
         font-weight: 600;
@@ -43,9 +72,6 @@
   button {
     min-width: max-content;
     padding: 8px 24px;
-    @include mixins.mobile {
-      display: none;
-    }
   }
 }
 .folder_data_wrap {
@@ -55,12 +81,26 @@
   justify-content: space-between;
   width: 100%;
 
+  @include mixins.mobile {
+    width: 100%;
+    flex-direction: column;
+  }
   .left {
+    @include mixins.mobile {
+      width: 100%;
+    }
     display: flex;
     gap: 16px;
     align-items: center;
   }
   .right {
+    @include mixins.mobile {
+      width: 100%;
+      button {
+        max-width: 100%;
+        width: 100%;
+      }
+    }
     display: flex;
   }
   .folder_name {
@@ -96,20 +136,54 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    @include mixins.mobile {
+      align-items: flex-start;
 
+      &:first-child {
+        padding-bottom: 24px;
+      }
+    }
     .folder_name {
       display: flex;
       gap: 16px;
       align-items: center;
+      text-decoration: none;
+      color: var(--color-text);
 
+      .name_wrap {
+        display: flex;
+        width: 100%;
+        gap: 4px;
+        flex-direction: column;
+        .name {
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+        }
+        .updated {
+          color: var(--color-argument-info);
+        }
+      }
+      @include mixins.mobile {
+        align-items: flex-start;
+        padding-top: 6px;
+        padding-right: 16px;
+        width: 100%;
+      }
       .icon {
         display: flex;
       }
     }
+
+    .actions_cell {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
   }
 }
 .button_dropdown {
-  background-color:initial;
+  background-color: initial;
 
   .line_separator {
     background-color: var(--color-border);
@@ -132,9 +206,13 @@
     max-width: max-content;
     background-color: var(--color-dialog-ideation-contrast);
     color: var(--color-text);
-    path, span {
+    path,
+    span {
       color: var(--color-text);
       fill: var(--color-text);
+    }
+    @include mixins.mobile {
+      max-width: 100%;
     }
   }
 }
