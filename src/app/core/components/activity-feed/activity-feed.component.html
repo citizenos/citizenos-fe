@@ -10,7 +10,18 @@
       </svg>
     </a>
   </div>
-  <cos-input [placeholder]="'COMPONENTS.ACTIVITY_FEED.PLACEHOLDER_FILTER' | translate" *ngIf="!this.groupId && !this.topicId">
+  <div class="info_box" *ngIf="this.topicId">
+    <a (click)="app.doShowTopicNotificationSettings(this.topicId)">
+      <span translate="COMPONENTS.ACTIVITY_FEED.LNK_NOTIFICATION_SETTINGS"></span>
+      <div class="icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15 12V14L19 11.5L15 9V11H6V12H15Z" fill="#1168A8" />
+        </svg>
+      </div>
+    </a>
+  </div>
+  <cos-input [placeholder]="'COMPONENTS.ACTIVITY_FEED.PLACEHOLDER_FILTER' | translate"
+    *ngIf="!this.groupId && !this.topicId">
     <div class="dropdown" [cosDropdown]>
       <div class="selection">
         <div class="selected_item">{{'COMPONENTS.ACTIVITY_FEED.FILTER_' + ((ActivityService.params$ |
