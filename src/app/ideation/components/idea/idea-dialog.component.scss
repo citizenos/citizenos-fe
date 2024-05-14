@@ -240,3 +240,15 @@
     }
   }
 }
+
+.notification_inline {
+  border-radius: 8px;
+  margin-bottom: 16px;
+  align-items: center;
+  width: 100%;
+  flex-direction: row;
+
+  @include mixins.mobile {
+    margin: 0;
+  }
+}

@@ -4,6 +4,7 @@ import { take, map } from 'rxjs';
 import { Argument } from 'src/app/interfaces/argument';
 import { AppService } from 'src/app/services/app.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'idea-reply-form',
@@ -18,6 +19,8 @@ export class IdeaReplyFormComponent {
   @Input() showReply!: boolean;
   @Input() editMode = false;
   @Output() showReplyChange = new EventEmitter<boolean>();
+  @Input() notification: any;
+  @Output() notificationChange = new EventEmitter<any>();
   public reply = {
     subject: '',
     type: 'reply',
@@ -27,7 +30,7 @@ export class IdeaReplyFormComponent {
   ARGUMENT_TYPES_MAXLENGTH = this.TopicIdeaRepliesService.ARGUMENT_TYPES_MAXLENGTH;
   ARGUMENT_SUBJECT_MAXLENGTH = this.TopicIdeaRepliesService.ARGUMENT_SUBJECT_MAXLENGTH;
   errors = <any>null;
-  constructor(public AuthService: AuthService, private TopicIdeaRepliesService: TopicIdeaRepliesService) {
+  constructor(public AuthService: AuthService, private TopicIdeaRepliesService: TopicIdeaRepliesService, private translate: TranslateService) {
     this.AuthService.loggedIn$.pipe(
       map((isLoggedIn) => {
         if (!isLoggedIn) {
@@ -65,6 +68,11 @@ export class IdeaReplyFormComponent {
       .pipe(take(1))
       .subscribe((reply) => {
         this.TopicIdeaRepliesService.reloadArguments();
+        this.notificationChange.emit({
+          level: 'success',
+          message: this.translate.instant('COMPONENTS.IDEA_REPLY_FORM.MSG_SUCCESS')
+        });
+
         this.close();
         /* return this.$state.go(
            this.$state.current.name,
@@ -77,7 +85,6 @@ export class IdeaReplyFormComponent {
   };
 
   saveEdit() {
-    console.log(this.argument);
     const reply = {
       id: this.argument?.id,
       parentId: this.argument?.id,

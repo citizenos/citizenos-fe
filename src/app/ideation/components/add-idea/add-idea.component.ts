@@ -1,7 +1,7 @@
 import { TopicIdeationService } from 'src/app/services/topic-ideation.service';
 
 import { trigger, state, style } from '@angular/animations';
-import { Component, OnInit, Input, Inject } from '@angular/core';
+import { Component, OnInit, Input, Inject, EventEmitter, Output } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -32,6 +32,9 @@ export class AddIdeaComponent {
 
   @Input() topicId!: string;
   @Input() ideationId!: string;
+  @Input() notification: any;
+  @Output() notificationChange = new EventEmitter<any>();
+
   wWidth = window.innerWidth;
   focusIdeaStatement = false;
   argumentType = <string>'pro';
@@ -100,12 +103,15 @@ export class AddIdeaComponent {
           this.description = '';
           this.ideaForm.reset();
           this.app.addIdea.next(false);
-
+          this.notificationChange.emit({
+            level: 'success',
+            message: this.translate.instant('COMPONENTS.ADD_IDEA.MSG_SUCCESS')
+          })
           this.router.navigate(
             [],
             {
               relativeTo: this.route,
-              queryParams: { argumentId: this.getIdeaIdWithVersion(idea.id, idea.edits.length - 1) }
+              queryParams: { argumentId: this.getIdeaIdWithVersion(idea.id,(idea.edits?.length || 1) - 1) }
             });
         },
         error: (err) => {

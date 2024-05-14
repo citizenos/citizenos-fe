@@ -126,6 +126,7 @@
       "PLACEHOLDER_EXPLAIN_YOUR_IDEA": "Explain your idea",
       "BTN_ADD_IMAGE": "Add image",
       "BTN_IDEA_POST": "Add your idea",
+      "MSG_SUCCESS": "Idea successfully posted",
       "MSG_ERROR_SUBJECT": "Idea heading must be 1 to {{chars}} characters long.",
       "MSG_ERROR_DESCRIPTION": "Idea description must be 1 to {{chars}} characters long."
     },
@@ -441,7 +442,8 @@
       "ERROR_NO_TEXT": "@:COMPONENTS.ARGUMENT_REPLY.ERROR_NO_TEXT",
       "PLACEHOLDER_WRITE_REPLY_HERE": "@:VIEWS.TOPICS_TOPICID.PLACEHOLDER_WRITE_REPLY_HERE",
       "BTN_POST_REPLY": "@:VIEWS.TOPICS_TOPICID.BTN_ARGUMENT_POST_REPLY",
-      "BTN_UPDATE_REPLY": "@:VIEWS.TOPIC_CREATE.FOOTER_BTN_SAVE_CHANGES"
+      "BTN_UPDATE_REPLY": "@:VIEWS.TOPIC_CREATE.FOOTER_BTN_SAVE_CHANGES",
+      "MSG_SUCCESS": "Reply successfully posted"
     },
     "IDEA_REPORT": {
       "HEADING": "Report idea to admin",

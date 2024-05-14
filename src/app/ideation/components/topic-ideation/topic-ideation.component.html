@@ -510,6 +510,29 @@
               </div>
             </div>
             <div class="ideas_wrap">
+
+              <div class="notification_inline" *ngIf="notification" [ngClass]="notification.level">
+                <div class="icon_notification">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="24" height="24" rx="12" fill="#5AB467" />
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M18.9849 6.13908C19.2395 6.35122 19.2739 6.72956 19.0617 6.98413L10.0617 17.7841C9.94734 17.9214 9.77773 18.0005 9.59905 18C9.42038 17.9995 9.25123 17.9194 9.13764 17.7814L4.93764 12.6814C4.72699 12.4256 4.76358 12.0475 5.01937 11.8369C5.27517 11.6262 5.6533 11.6628 5.86396 11.9186L9.60353 16.4595L18.1399 6.2159C18.352 5.96134 18.7303 5.92694 18.9849 6.13908Z"
+                      fill="white" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </div>
+                <div class="message">
+                  <div class="content">
+                    <div class="content_description" [innerHTML]="notification.message"></div>
+                  </div>
+                </div>
+                <button class="btn_small_nav icon" (click)="notification=null;">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289Z"
+                      fill="#2C3B47" />
+                  </svg>
+                </button>
+              </div>
               <ng-container *ngIf="!ideas.length && !filtersSet">
                 <div class="no_feature_yet">
                   <svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -600,8 +623,10 @@
                   <div class="folder_row">
                     <div class="folder_name cell" translate="COMPONENTS.TOPIC_IDEATION.LBL_FOLDER"></div>
                     <div class="cell ideas_cell" translate="COMPONENTS.TOPIC_IDEATION.LBL_IDEAS"></div>
-                    <div class="cell date_cell mobile_hidden" translate="COMPONENTS.TOPIC_IDEATION.LBL_LAST_ACTIVITY"></div>
-                    <div class="cell actions_cell mobile_hidden" translate="COMPONENTS.TOPIC_IDEATION.LBL_ACTIONS" *ngIf="canEdit()">
+                    <div class="cell date_cell mobile_hidden" translate="COMPONENTS.TOPIC_IDEATION.LBL_LAST_ACTIVITY">
+                    </div>
+                    <div class="cell actions_cell mobile_hidden" translate="COMPONENTS.TOPIC_IDEATION.LBL_ACTIONS"
+                      *ngIf="canEdit()">
                     </div>
                   </div>
                   <div class="folder_row" *ngFor="let folder of folders">
@@ -666,11 +691,13 @@
                           <span [innerText]="folder.name"></span>
                           <span class="mobile_show" [innerText]="folder.ideas.count"></span>
                         </div>
-                        <span class="updated mobile_show" [innerText]="folder.updatedAt | date:'YYYY-MM-dd HH:mm'"></span>
+                        <span class="updated mobile_show"
+                          [innerText]="folder.updatedAt | date:'YYYY-MM-dd HH:mm'"></span>
                       </div>
                     </a>
                     <div class="cell ideas_cell mobile_hidden" [innerText]="folder.ideas.count"></div>
-                    <div class="cell date_cell mobile_hidden" [innerText]="folder.updatedAt | date:'YYYY-MM-dd HH:mm'"></div>
+                    <div class="cell date_cell mobile_hidden" [innerText]="folder.updatedAt | date:'YYYY-MM-dd HH:mm'">
+                    </div>
                     <div class="cell actions_cell" *ngIf="canEdit()">
                       <div class="dropdown button_dropdown" [cosDropdown]>
                         <button class="btn_small_plain icon">
@@ -732,6 +759,6 @@
   </div>
 </ng-container>
 <ng-container *ngIf="topic.ideationId && !hasIdeationEndedExpired()">
-  <add-idea *ngIf="wWidth > 1024 && topic.status === TopicService.STATUSES.ideation" [topicId]="topic.id"
-    [ideationId]="topic.ideationId"></add-idea>
+  <add-idea *ngIf="topic.status === TopicService.STATUSES.ideation" [topicId]="topic.id"
+    [ideationId]="topic.ideationId" [(notification)]="notification"></add-idea>
 </ng-container>
