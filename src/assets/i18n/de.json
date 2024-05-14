@@ -103,6 +103,7 @@
     },
     "ACTIVITY_FEED": {
       "HEADING_GLOBAL": "Neueste Aktivität",
+      "LNK_NOTIFICATION_SETTINGS": "Notification settings",
       "HEADING_GROUP": "Aktivität dieser Gruppe",
       "HEADING_TOPIC": "Aktivität dieses Themas",
       "PLACEHOLDER_FILTER": "Anzeigen",
@@ -2449,6 +2450,7 @@
       "BTN_FEEDBACK_OPEN": "Helfen Sie uns bei der Verbesserung",
       "OPTION_FAVOURITE": "Favorit",
       "OPTION_UNFAVOURITE": "Von Favoriten entfernen",
+      "OPTION_TOPIC_NOTIFICATIONS": "Topic notifications",
       "OPTION_INVITE_CO_EDITOR": "Mit-Verfasser einladen",
       "OPTION_EDIT_TOPIC": "Thema bearbeiten",
       "OPTION_DUPLICATE_TOPIC": "Thema duplizieren",
