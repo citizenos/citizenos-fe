@@ -65,7 +65,7 @@ export class TopicIdeationComponent {
   ideaSearchFilter$ = new BehaviorSubject('');
   folderFilter$ = new BehaviorSubject('');
   selectedFolder?: Folder;
-
+  notification: any = null;
   constructor(
     public app: AppService,
     private dialog: DialogService,
@@ -186,6 +186,7 @@ export class TopicIdeationComponent {
 
   addIdea() {
     if (this.AuthService.loggedIn$.value) {
+      console.log('addIdea');
       this.app.addIdea.next(true);
     } else {
       this.app.doShowLogin();

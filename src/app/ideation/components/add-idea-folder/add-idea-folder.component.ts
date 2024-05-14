@@ -96,6 +96,6 @@ export class AddIdeaFolderComponent {
   }
 
   allChecked() {
-    return this.ideaFolders.length === this.foldersCount;
+    return this.ideaFolders?.length === this.foldersCount;
   }
 }

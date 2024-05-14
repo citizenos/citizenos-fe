@@ -3,7 +3,7 @@ import { TopicIdeaService } from 'src/app/services/topic-idea.service';
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DIALOG_DATA, DialogService } from 'src/app/shared/dialog';
-import { take, combineLatest, Observable, switchMap, of } from 'rxjs';
+import { take, combineLatest, Observable, switchMap, of, tap } from 'rxjs';
 import { Idea } from 'src/app/interfaces/idea';
 import { AuthService } from 'src/app/services/auth.service';
 import { IdeaboxComponent } from '../ideabox/ideabox.component';
@@ -36,7 +36,7 @@ export class IdeaComponent {
           data: {
             idea,
             topic,
-            ideation: {id: this.ideationId},
+            ideation: { id: this.ideationId },
             route: route
           }
         });
@@ -63,6 +63,8 @@ export class IdeaDialogComponent extends IdeaboxComponent {
   TopicIdeaRepliesService = inject(TopicIdeaRepliesService);
   replies$: Observable<any>;
   argument = <Argument>{};
+  notification: any;
+  replyCount = 0;
   constructor(
     dialog: DialogService,
     config: ConfigService,
@@ -82,7 +84,10 @@ export class IdeaDialogComponent extends IdeaboxComponent {
     const url = this.router.parseUrl(this.router.url);
     this.replies$ = combineLatest([this.route.params, this.TopicIdeaRepliesService.loadReplies$]).pipe(switchMap(([params]) => {
       return this.TopicIdeaRepliesService.getArguments(params);
-    }));
+    }),
+      tap((replies) => {
+        this.replyCount = replies.countTotal;
+      }));
   }
 
   prevIdea(ideas: Idea[]) {
