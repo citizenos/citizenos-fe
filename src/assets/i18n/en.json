@@ -1017,6 +1017,7 @@
       "DIALOG_TAB_INTRODUCTION_ITEM_4": "Participants can submit their vote",
       "DIALOG_TAB_INTRODUCTION_ITEM_5": "You can't edit a vote once you have started it",
       "DIALOG_TAB_INTRODUCTION_ITEM_6": "You can only start one vote per topic",
+      "DIALOG_TAB_INTRODUCTION_ITEM_7": "Participants can no longer add ideas",
       "DIALOG_TAB_INTRODUCTION_INFO": "From here you can move the topic into follow-up.",
       "VOTE_QUESTION_HEADING": "Please add a specific question for the participants to vote on.",
       "VOTE_QUESTION_PLACEHOLDER": "Write your voting question",
