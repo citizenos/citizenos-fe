@@ -71,6 +71,13 @@
               </svg>
               <span translate="COMPONENTS.TOPIC_VOTE_CREATE.DIALOG_TAB_INTRODUCTION_ITEM_5"></span>
             </div>
+            <div class="row" *ngIf="topic.ideationId"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M17 7L7 17" stroke="#2C3B47" stroke-width="2" />
+                <path d="M7 7L17 17" stroke="#2C3B47" stroke-width="2" />
+              </svg>
+              <span translate="COMPONENTS.TOPIC_VOTE_CREATE.DIALOG_TAB_INTRODUCTION_ITEM_7"></span>
+            </div>
             <div class="row"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
                 <path d="M17 7L7 17" stroke="#2C3B47" stroke-width="2" />
@@ -265,7 +272,7 @@
                     </div>
                   </div>
                 </ng-container>
-                <div >You can also add Neutral and Veto option</div>
+                <div>You can also add Neutral and Veto option</div>
                 <div class="vote_options_wrap">
                   <div class="radio_wrap" [ngClass]="{selected: extraOptions.neutral.enabled}"
                     (click)="toggleOption(extraOptions.neutral.value)">
