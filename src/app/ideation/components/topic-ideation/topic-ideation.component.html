@@ -17,7 +17,7 @@
         </svg>
         <div class="ideation_question">{{ideation.question}}</div>
       </div>
-      <div class="header_division">*ngIf="hasIdeationEndedExpired()"
+      <div class="header_division">
         <div *ngIf="hasIdeationEndedExpired()" class="bold mobile_hidden"
           translate="COMPONENTS.TOPIC_IDEATION.LBL_IDEATION_CLOSED"></div>
         <div class="ideation_deadline" *ngIf="ideation.deadline">
