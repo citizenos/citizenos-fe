@@ -894,6 +894,19 @@
       "TOOLTIP_GROUP_PERMISSIONS_TITLE": "@:VIEWS.TOPIC_CREATE.TOOLTIP_GROUP_PERMISSIONS_TITLE",
       "TOOLTIP_GROUP_PERMISSIONS_CONTENT": "@:VIEWS.TOPIC_CREATE.TOOLTIP_GROUP_PERMISSIONS_CONTENT"
     },
+    "TOPIC_DISCUSSION_CREATE": {
+      "DIALOG_HEADING": "Start topic discussion",
+      "DIALOG_TAB_1": "Introduction",
+      "DIALOG_TAB_2": "Settings",
+      "DIALOG_TAB_INTRODUCTION_ARE_YOU_SURE": "Are you sure you want to start the topic discussion?",
+      "DIALOG_TAB_INTRODUCTION_KEEP_IN_MIND": "Things to keep in mind:",
+      "DIALOG_TAB_INTRODUCTION_ITEM_1": "You can no longer collect or upvote ideas",
+      "DIALOG_TAB_INTRODUCTION_ITEM_2": "You can still add ideas to folder",
+      "DIALOG_TAB_INTRODUCTION_ITEM_3": "You can still invite and share with participants",
+      "DIALOG_TAB_INTRODUCTION_INFO": "This is the next stage of a topic. You can now start discussion over the collected ideas.",
+      "LNK_CANCEL": "@:LNK_CANCEL",
+      "BTN_START_DISCUSSION": "Start topic discussion"
+    },
     "TOPIC_INVITE": {
       "HEADING": "Invite people to the topic",
       "MESSAGE_DESC": "@:MODALS.TOPIC_INVITE_LBL_OPTIONAL_MESSAGE",
@@ -1175,6 +1188,7 @@
       "FILTER_ARGUMENT_ORDER_BY_POPULARITY": "Popularity",
       "NO_ARGUMENTS_HEADING": "There is no discussion yet",
       "NO_ARGUMENTS_BTN_ADD": "Add argument",
+      "NO_ARGUMENTS_BTN_START_DISCUSSION": "@:COMPONENTS.TOPIC_DISCUSSION_CREATE.BTN_START_DISCUSSION",
       "NO_ARGUMENTS_DESC_HEADING": "How discussions work",
       "NO_ARGUMENTS_DESC_BEFORE": "In discussions, participants can add pro or con arguments, and other participants can reply or react to these. The general sentiment of the discussion is shown visually.",
       "NO_ARGUMENTS_DESC_AFTER": "Arguments can be favourited or recognised as including proof."

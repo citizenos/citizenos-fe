@@ -222,7 +222,7 @@ export class TopicIdeationComponent {
       });
   }
   closeIdeation() {
-    const closeVoteDialog = this.dialog.open(ConfirmDialogComponent, {
+    const closeIdeationDialog = this.dialog.open(ConfirmDialogComponent, {
       data: {
         level: 'warn',
         heading: 'COMPONENTS.CLOSE_IDEATION_CONFIRM.HEADING',
@@ -231,7 +231,7 @@ export class TopicIdeationComponent {
         closeBtn: 'COMPONENTS.CLOSE_IDEATION_CONFIRM.CONFIRM_NO'
       }
     });
-    closeVoteDialog.afterClosed().subscribe({
+    closeIdeationDialog.afterClosed().subscribe({
       next: (value) => {
         if (value) {
           this.ideation.deadline = new Date();

@@ -523,7 +523,7 @@
           <topic-arguments class="topic_arguments" #arguments [topic]="topic"
             [ngClass]="(tabTablet==='discussion')? 'show': ''"
             [TourItem]="{tourid: 'topic', index: 7, position: 'top'}"></topic-arguments>
-          <post-argument *ngIf="(tabTablet==='discussion') || wWidth > 1024" [topicId]="topic.id"></post-argument>
+          <post-argument *ngIf="topic.status !== TopicService.STATUSES.ideation && (tabTablet==='discussion' || wWidth > 1024)" [topicId]="topic.id"></post-argument>
         </ng-container>
         <ng-container *ngIf="tabSelected === 'voting'">
           <div class="vote_wrap" #topicVote>
@@ -1087,7 +1087,7 @@
               </div>
             </ng-container>
           </div>
-          <div class="state_item discussion" (click)="selectTab('discussion')" *ngIf="!hideDiscussion"
+          <div class="state_item discussion" (click)="(topic.status === TopicService.STATUSES.ideation && canUpdate(topic))? startDiscussion(topic): selectTab('discussion')" *ngIf="!hideDiscussion"
             [ngClass]="{empty: topic.status === TopicService.STATUSES.ideation && !TopicArgumentService.count.value.total}">
             <ng-container
               *ngIf="topic.status === TopicService.STATUSES.ideation && !TopicArgumentService.count.value.total">
