@@ -1,10 +1,10 @@
-import { Component, OnInit, Output, EventEmitter, Input, Inject, inject, HostBinding, ChangeDetectorRef, enableProdMode } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, Inject, inject, ChangeDetectorRef } from '@angular/core';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicService } from 'src/app/services/topic.service';
 import { TopicVoteService } from 'src/app/services/topic-vote.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { TranslateService } from '@ngx-translate/core';
-import { map, take, Observable } from 'rxjs';
+import { map, take, Observable, takeWhile, switchMap } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 import { Vote } from 'src/app/interfaces/vote';
@@ -518,6 +518,8 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
   tabActive = 1;
 
   ideas$:Observable<Idea[]> | undefined;
+  ideasList = <Idea[]> [];
+  ideaOrder = 'desc';
   wWidth = window.innerWidth;
   ideasCount = 0;
 
@@ -537,13 +539,28 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
     }
 
     if (this.topic.ideationId) {
-      this.ideas$ = this.TopicIdeaService.query({
-        topicId: this.topicId,
-        ideationId: this.topic.ideationId
-      }).pipe(map((res: any) => {
-        this.ideasCount = res.data.count;
-        return res.data.rows;
-      }));
+      this.ideasList = [];
+      this.ideas$ = this.TopicIdeaService.params$.pipe(switchMap((params) => {
+        let offset = 0;
+        let limit = 8;
+        return this.TopicIdeaService.query({
+          topicId: this.topicId,
+          ideationId: this.topic.ideationId,
+          orderBy: 'likes',
+          order: 'desc',
+          offset,
+          limit
+        }).pipe(map((res: any) => {
+          offset = offset + limit;
+          this.ideasCount = res.data.count;
+          this.ideasList = this.ideasList.concat(res.data.rows);
+          if (this.ideasList.length < this.ideasCount) {
+            offset = offset+limit;
+            this.TopicIdeaService.setParam('offset', offset);
+          }
+          return this.ideasList;
+        }));
+      }))
     }
 
     this.vote.options.forEach((opt: any) => {
@@ -571,6 +588,14 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
   }
 
 
+  orderIdeas() {
+    if (this.ideaOrder ==='desc') {
+      this.ideaOrder = 'asc'
+    } else {
+      this.ideaOrder = 'desc'
+    }
+    this.ideasList.reverse();
+  }
   isNextDisabled () {
     if (this.tabActive === 2 && (!this.vote.type || !this.vote.description)) return true;
     if (this.tabActive === 3 && (!this.vote.authType || this.vote.options.length < 2)) return true;

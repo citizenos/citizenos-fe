@@ -33,7 +33,7 @@ export class TopicIdeaService extends ItemsListService {
     ideationId: <string | null>null,
     orderBy: <string>this.IDEA_ORDER_BY.date,
     types: <string | string[] | null>null,
-    sortOrder: <string | null>null,
+    order: <string | null>null,
     offset: <number>0,
     authorId: <string | null>null,
     folderId: <string | null>null,
