@@ -39,6 +39,7 @@ import { TopicOnboardingComponent } from './components/topic-onboarding/topic-on
 import { CookieService } from 'ngx-cookie-service';
 import { TopicIdeationService } from 'src/app/services/topic-ideation.service';
 import { Ideation } from '../interfaces/ideation';
+import { TopicDiscussionCreateDialogComponent } from './components/topic-discussion-create-dialog/topic-discussion-create-dialog.component';
 
 @Component({
   selector: 'topic',
@@ -531,6 +532,14 @@ export class TopicComponent implements OnInit {
       }
     })
   };
+
+  startDiscussion (topic: Topic) {
+    this.DialogService.open(TopicDiscussionCreateDialogComponent, {
+      data: {
+        topic: topic
+      }
+    });
+  }
 
   startVote(topic: Topic) {
     this.DialogService.open(TopicVoteCreateDialogComponent, {

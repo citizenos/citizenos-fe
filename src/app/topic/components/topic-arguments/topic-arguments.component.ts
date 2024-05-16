@@ -6,6 +6,9 @@ import { Argument } from 'src/app/interfaces/argument';
 import { AuthService } from 'src/app/services/auth.service';
 import { AppService } from 'src/app/services/app.service';
 import { TopicArgumentService } from 'src/app/services/topic-argument.service';
+import { TopicService } from 'src/app/services/topic.service';
+import { DialogService } from 'src/app/shared/dialog';
+import { TopicDiscussionCreateDialogComponent } from '../topic-discussion-create-dialog/topic-discussion-create-dialog.component';
 
 @Component({
   selector: 'topic-arguments',
@@ -26,6 +29,8 @@ export class TopicArgumentsComponent implements OnInit {
   filtersSelected = false;
   constructor(
     private Auth: AuthService,
+    public TopicService: TopicService,
+    private dialog: DialogService,
     @Inject(ActivatedRoute) private route: ActivatedRoute,
     private app: AppService,
     public TopicArgumentService: TopicArgumentService) {
@@ -93,9 +98,17 @@ export class TopicArgumentsComponent implements OnInit {
 
   doAddArgument() {
     if (this.Auth.loggedIn$.value) {
-      this.app.addArgument.next(true);
-      this.postArgumentEl?.nativeElement.scrollIntoView();
-      this.focusArgumentSubject = true;
+      if (this.topic.status !== this.TopicService.STATUSES.ideation) {
+        this.app.addArgument.next(true);
+        this.postArgumentEl?.nativeElement.scrollIntoView();
+        this.focusArgumentSubject = true;
+      } else {
+        const startDiscussionDialog = this.dialog.open(TopicDiscussionCreateDialogComponent, {
+          data: {
+            topic: this.topic
+          }
+        });
+      }
     } else {
       this.app.doShowLogin();
     }
