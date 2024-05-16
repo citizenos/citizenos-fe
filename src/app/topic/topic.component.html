@@ -1102,7 +1102,15 @@
                     fill="white" />
                 </svg>
               </div>
-              <div class="state_item_text" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_NO_DISCUSSION"></div>
+              <div class="state_item_text">
+                <ng-container *ngIf="topic.permission.level === TopicService.LEVELS.admin">
+                  <div class="item_heading" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_ADD_DISCUSSION"></div>
+                  <div class="item_description" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_ADD_DISCUSSION_DESC"></div>
+                </ng-container>
+                <ng-container *ngIf="topic.permission.level !== TopicService.LEVELS.admin">
+                  <div class="item_heading" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_NO_DISCUSSION"></div>
+                </ng-container>
+              </div>
             </ng-container>
             <ng-container *ngIf="topic.status !== TopicService.STATUSES.ideation">
               <div class="item_header">
