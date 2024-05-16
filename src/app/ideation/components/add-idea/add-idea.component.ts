@@ -85,6 +85,18 @@ export class AddIdeaComponent {
     this.app.addIdea.next(false);
   }
 
+  clear() {
+    this.updateText('')
+    this.description = '';
+    this.ideaForm.markAsUntouched();
+    this.ideaForm.controls['description'].markAsPristine();
+    this.ideaForm.controls['description'].markAsUntouched();
+    setTimeout(() => {
+      this.ideaForm.controls['description'].markAsPristine();
+      this.ideaForm.controls['description'].markAsUntouched();
+      this.ideaForm.markAsUntouched()
+    })
+  }
   postIdea() {
     const idea = {
       parentVersion: 0,
@@ -102,6 +114,7 @@ export class AddIdeaComponent {
           this.TopicIdeationService.reloadIdeation();
           this.description = '';
           this.ideaForm.reset();
+          this.clear();
           this.app.addIdea.next(false);
           this.notificationChange.emit({
             level: 'success',
@@ -111,7 +124,7 @@ export class AddIdeaComponent {
             [],
             {
               relativeTo: this.route,
-              queryParams: { argumentId: this.getIdeaIdWithVersion(idea.id,(idea.edits?.length || 1) - 1) }
+              queryParams: { argumentId: this.getIdeaIdWithVersion(idea.id, (idea.edits?.length || 1) - 1) }
             });
         },
         error: (err) => {
