@@ -709,6 +709,7 @@
       "FILTER_ORDER_MOST_RECENT": "Most recent",
       "FILTER_ORDER_MOST_REPLIES": "Most replies",
       "IDEA_FILTER_PARTICIPANTS": "Participants",
+      "LBL_FILTER_PARTICIPANTS_IDEAS": "Filter participants ideas",
       "FILTER_PLACEHOLDER_SEARCH": "@:DEFAULT.NAV_MOBILE.BTN_SEARCH",
       "LBL_FILTER":"@:LNK_FILTER",
       "BTN_APPLY":"@:BTN_APPLY",

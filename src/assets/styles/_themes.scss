@@ -19,6 +19,7 @@ $--color-voting: --color-voting;
 $--color-voting-disabled: --color-voting-disabled;
 $--color-ideation: --color-ideation;
 $--color-ideation-disabled: --color-ideation-disabled;
+$--color-ideation-light: --color-ideation-light;
 $--color-follow-up: --color-follow-up;
 $--color-follow-up-disabled: --color-follow-up-disabled;
 $--color-group: --color-group;
@@ -100,6 +101,8 @@ $theme-map-default: (
   //yellow 700
   $--color-ideation-disabled: #efe08a,
   //yellow 100
+  $--color-ideation-light: #FFF5D4,
+
   $--color-follow-up: #da7ab1,
   //purple 500
   $--color-follow-up-disabled: #e3a8cc,
