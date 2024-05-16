@@ -239,40 +239,45 @@
                   translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_DEFINE_VOTE_ANSWERS"></span>
               </div>
               <div class="vote_option_ideas_wrap" *ngIf="vote.type == VOTE_TYPES.ideation">
-                <ng-container *ngIf="ideas$ | async as ideas">
-                  <div class="bold" translate="COMPONENTS.CREATE_IDEA_FOLDER.LBL_IDEAS_SELECTION"></div>
-                  <div class="idea_selection_wrap">
-                    <div class="idea_selection_header">
-                      <div class="checkbox_wrap" (click)="toggleAllIdeas(ideas)">
-                        <label class="checkbox" [ngClass]="{selected:allChecked()}">
-                          <span class="checkmark"></span>
-                        </label>
-                        <div translate="COMPONENTS.CREATE_IDEA_FOLDER.LBL_IDEAS"
-                          [translateParams]="{count: ideasCount}">
-                        </div>
+                <ng-container *ngIf="ideas$ | async"></ng-container>
+                <div class="bold" translate="COMPONENTS.CREATE_IDEA_FOLDER.LBL_IDEAS_SELECTION"></div>
+                <div class="idea_selection_wrap">
+                  <div class="idea_selection_header">
+                    <div class="checkbox_wrap" (click)="toggleAllIdeas(ideasList)">
+                      <label class="checkbox" [ngClass]="{selected:allChecked()}">
+                        <span class="checkmark"></span>
+                      </label>
+                      <div translate="COMPONENTS.CREATE_IDEA_FOLDER.LBL_IDEAS" [translateParams]="{count: ideasCount}">
                       </div>
-                      <div class="likes_wrap">
-                        <span translate="COMPONENTS.CREATE_IDEA_FOLDER.LBL_LIKES"></span>
+                    </div>
+                    <a class="likes_wrap" (click)="orderIdeas()">
+                      <span translate="COMPONENTS.CREATE_IDEA_FOLDER.LBL_LIKES"></span>
+                      <ng-container *ngIf="this.ideaOrder === 'desc'">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M12 14L10 14L12.5 18L15 14L13 14L13 5L12 5L12 14Z" fill="#4D5C6A" />
                         </svg>
+                      </ng-container>
+                      <ng-container *ngIf="this.ideaOrder === 'asc'">
+                        <svg width="24" height="24" transform="scale(1 -1)" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M12 14L10 14L12.5 18L15 14L13 14L13 5L12 5L12 14Z" fill="#4D5C6A" />
+                        </svg>
+                      </ng-container>
+                    </a>
+                  </div>
+                  <div class="line_separator"></div>
+                  <div class="ideas_wrap">
+                    <div class="idea_row" *ngFor="let idea of ideasList">
+                      <div class="checkbox_wrap" (click)="toggleIdea(idea, $event);">
+                        <label class="checkbox" [ngClass]="{selected:ideaSelected(idea)}">
+                          <span class="checkmark"></span>
+                        </label>
+                        <div class="statement" [innerHTML]="idea.statement"></div>
                       </div>
-                    </div>
-                    <div class="line_separator"></div>
-                    <div class="ideas_wrap">
-                      <div class="idea_row" *ngFor="let idea of ideas">
-                        <div class="checkbox_wrap" (click)="toggleIdea(idea, $event);">
-                          <label class="checkbox" [ngClass]="{selected:ideaSelected(idea)}">
-                            <span class="checkmark"></span>
-                          </label>
-                          <div class="statement" [innerHTML]="idea.statement"></div>
-                        </div>
-                        <div class="votes" [innerText]="idea.votes.up.count"></div>
-                      </div>
+                      <div class="votes" [innerText]="idea.votes.up.count"></div>
                     </div>
                   </div>
-                </ng-container>
-                <div>You can also add Neutral and Veto option</div>
+                </div>
+                <div translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_CAN_ADD_EXTRA_OPTIONS"></div>
                 <div class="vote_options_wrap">
                   <div class="radio_wrap" [ngClass]="{selected: extraOptions.neutral.enabled}"
                     (click)="toggleOption(extraOptions.neutral.value)">
