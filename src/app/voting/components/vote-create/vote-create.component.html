@@ -266,7 +266,10 @@
                 <div class="block_content image_content">
                   <div class="block_section" *ngIf="!(topic.imageUrl || tmpImageUrl)">
                     <div>
-                      <div class="bold" translate="VIEWS.VOTE_CREATE.HEADER_IMAGE_UPLOAD_DESC"></div>
+                      <div class="bold" translate="VIEWS.VOTE_CREATE.HEADER_IMAGE_UPLOAD_DESC"><div class="tooltip" tooltip>
+                        <div class="content_title">Help on its way</div>
+                        <div class="content_description">Help text coming soon! Please tell us what help you were looking for.</div>
+                      </div></div>
                       <div translate="VIEWS.VOTE_CREATE.HEADER_IMAGE_UPLOAD_DESC_TEXT"></div>
                     </div>
                     <input id="image_upload_input" type="file" #imageUpload (change)="fileUpload()"
@@ -358,7 +361,10 @@
               [@openClose]="block.description ? 'open' : 'closed'">
               <div class="block_title_wrap" (click)="block.description = true;">
                 <div>
-                  <div class="block_title" translate="VIEWS.VOTE_CREATE.TITLE_DESCRIPTION"></div>
+                  <div class="block_title" translate="VIEWS.VOTE_CREATE.TITLE_DESCRIPTION"><div class="tooltip" tooltip>
+                    <div class="content_title">Help on its way</div>
+                    <div class="content_description">Help text coming soon! Please tell us what help you were looking for.</div>
+                  </div></div>
                   <!--div *ngIf="!block.description" translate="VIEWS.VOTE_CREATE.TITLE_DESCRIPTION_TEXT"></!--div-->
                 </div>
                 <div class="counter_wrap">
@@ -481,9 +487,15 @@
                   </div>
 
                   <div class="small_heading" translate="VIEWS.VOTE_CREATE.SETTINGS_HEADING_VISIBILITY"></div>
-                  <div class="mobile_hidden" translate="VIEWS.VOTE_CREATE.SETTINGS_VISIBILITY_DESC"></div>
+                  <div class="mobile_hidden" translate="VIEWS.VOTE_CREATE.SETTINGS_VISIBILITY_DESC"><div class="tooltip" tooltip>
+                    <div class="content_title">Help on its way</div>
+                    <div class="content_description">Help text coming soon! Please tell us what help you were looking for.</div>
+                  </div></div>
                 </div>
-                <div class="mobile_show" translate="VIEWS.VOTE_CREATE.SETTINGS_VISIBILITY_DESC"></div>
+                <div class="mobile_show" translate="VIEWS.VOTE_CREATE.SETTINGS_VISIBILITY_DESC"><div class="tooltip" tooltip>
+                  <div class="content_title">Help on its way</div>
+                  <div class="content_description">Help text coming soon! Please tell us what help you were looking for.</div>
+                </div></div>
 
                 <div class="row_wrap">
                   <div class="radio_wrap" (click)="topic.visibility = VISIBILITY.private"
@@ -558,7 +570,10 @@
 
                   </a>
                 </div>
-                <div class="small_heading" translate="VIEWS.VOTE_CREATE.SETTINGS_HEADING_LOCALITY"></div>
+                <div class="small_heading" translate="VIEWS.VOTE_CREATE.SETTINGS_HEADING_LOCALITY"><div class="tooltip" tooltip>
+                  <div class="content_title">Help on its way</div>
+                  <div class="content_description">Help text coming soon! Please tell us what help you were looking for.</div>
+                </div></div>
                 <div translate="VIEWS.VOTE_CREATE.SETTINGS_LOCALITY_SELECT_DESC"></div>
                 <div class="row_wrap">
                   <div class="dropdown" [cosDropdown]>
@@ -628,7 +643,10 @@
                   <div class="number_wrap mobile_show">
                     <div>3</div>
                   </div>
-                  <div class="small_heading" translate="VIEWS.VOTE_CREATE.SETTINGS_HEADING_ADD_TO_GROUP"></div>
+                  <div class="small_heading" translate="VIEWS.VOTE_CREATE.SETTINGS_HEADING_ADD_TO_GROUP"><div class="tooltip" tooltip>
+                    <div class="content_title">Help on its way</div>
+                    <div class="content_description">Help text coming soon! Please tell us what help you were looking for.</div>
+                  </div></div>
                   <div class="mobile_hidden" translate="VIEWS.VOTE_CREATE.SETTINGS_ADD_TO_GROUP_DESC"></div>
                 </div>
                 <div class="mobile_show" translate="VIEWS.VOTE_CREATE.SETTINGS_ADD_TO_GROUP_DESC"></div>

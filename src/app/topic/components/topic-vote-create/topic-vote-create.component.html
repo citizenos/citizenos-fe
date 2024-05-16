@@ -232,7 +232,10 @@
                 <span translate="COMPONENTS.TOPIC_VOTE_CREATE.BTN_ADD_OPTION"></span>
               </button>
 
-              <div class="description_text" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_CAN_ADD_EXTRA_OPTIONS"></div>
+              <div class="description_text" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_CAN_ADD_EXTRA_OPTIONS"><div class="tooltip" tooltip>
+                <div class="content_title">Help on its way</div>
+                <div class="content_description">Help text coming soon! Please tell us what help you were looking for.</div>
+              </div></div>
               <div class="radio_wrap voting" [ngClass]="{selected: extraOptions.neutral.enabled}"
                 (click)="toggleOption(extraOptions.neutral.value)">
                 <div class="radio_text_wrap">
@@ -387,7 +390,10 @@
           <div class="radio_lable_wrap">
             <label class="radio_box" (click)="vote.authType = VOTE_AUTH_TYPES.hard"
               [ngClass]="{selected: vote.authType === VOTE_AUTH_TYPES.hard}">
-              <span class="bold" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_AUTH_HARD_ID"></span>
+              <span class="bold" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_AUTH_HARD_ID"><div class="tooltip" tooltip>
+                <div class="content_title">Help on its way</div>
+                <div class="content_description">Help text coming soon! Please tell us what help you were looking for.</div>
+              </div></span>
               <input type="radio" name="authType" [(ngModel)]="vote.authType" [value]="VOTE_AUTH_TYPES.hard"
                 [disabled]="!TopicService.canEditDescription(topic)" />
               <span class="radio"></span>
