@@ -4,10 +4,6 @@
 <ng-container *ngIf="ideation">
   <div class="ideation_wrap">
     <div class="ideation_header">
-      <div class="header_division mobile_show" *ngIf="hasIdeationEndedExpired()">
-        <div class="bold" translate="COMPONENTS.TOPIC_IDEATION.LBL_IDEATION_CLOSED">
-        </div>
-      </div>
       <div class="header_division">
         <svg class="mobile_hidden" width="32" height="32" viewBox="0 0 32 32" fill="none"
           xmlns="http://www.w3.org/2000/svg">
@@ -18,8 +14,6 @@
         <div class="ideation_question">{{ideation.question}}</div>
       </div>
       <div class="header_division">
-        <div *ngIf="hasIdeationEndedExpired()" class="bold mobile_hidden"
-          translate="COMPONENTS.TOPIC_IDEATION.LBL_IDEATION_CLOSED"></div>
         <div class="ideation_deadline" *ngIf="ideation.deadline">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -78,11 +72,12 @@
     </div>
     <div class="ideation_content">
       <div class="ideation_info_wrap">
-        <div class="ideation_info_text_wrap">
-          <div class="ideation_text_left">
+        <div class="ideation_info_text_wrap" *ngIf="hasIdeationEndedExpired()">
+          <div class="text_area">
+            <div class="bold" translate="COMPONENTS.TOPIC_IDEATION.HEADING_IDEATION_ENDED"></div>
+            <div translate="COMPONENTS.TOPIC_IDEATION.TXT_IDEATION_ENDED"></div>
           </div>
         </div>
-
         <ng-container *ngIf="ideas$ | async as ideas;">
           <ng-container *ngIf="ideas.length || filtersSet">
             <div class="tabs_wrap">
