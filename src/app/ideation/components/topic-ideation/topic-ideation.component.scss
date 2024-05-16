@@ -278,29 +278,49 @@
 
 .selected_participant_wrap {
   display: flex;
-  background-color: var(--color-surfaces);
   border-radius: 8px;
   flex-direction: column;
-  position: absolute;
-  top: 58px;
+  justify-content: space-between;
   z-index: 2;
   width: 100%;
+  padding: 0 24px;
+  margin-top: -16px;
 
+  .author_wrap {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 16px;
+    .author_name {
+      display: flex;
+      width: 100%;
+    }
+  }
+  .row_label {
+    width: max-content;
+
+    div {
+      width: max-content;
+    }
+  }
   .participant_row {
     display: flex;
     width: 100%;
-    padding: 16px;
     align-items: center;
+    background-color: var(--color-ideation-light);
+    border-radius: 8px;
     justify-content: space-between;
+    border: 1px solid var(--Yellow-50, #FDF0C3);
+    gap: 16px;
+    padding: 8px 16px;
   }
 
   .info_wrap {
     display: flex;
     width: 100%;
-    justify-content: space-between;
-    padding: 8px 16px;
+    justify-content: flex-end;
+    gap: 16px;
     align-items: center;
-    background-color: var(--color-surface-contrast);
     .buttons_wrap {
       align-items: center;
       display: flex;

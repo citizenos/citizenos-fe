@@ -4,7 +4,7 @@
 <ng-container *ngIf="ideation">
   <div class="ideation_wrap">
     <div class="ideation_header">
-      <div class="header_division mobile_show">
+      <div class="header_division mobile_show" *ngIf="hasIdeationEndedExpired()">
         <div class="bold" translate="COMPONENTS.TOPIC_IDEATION.LBL_IDEATION_CLOSED">
         </div>
       </div>
@@ -17,8 +17,9 @@
         </svg>
         <div class="ideation_question">{{ideation.question}}</div>
       </div>
-      <div class="header_division">
-        <div class="bold mobile_hidden" translate="COMPONENTS.TOPIC_IDEATION.LBL_IDEATION_CLOSED"></div>
+      <div class="header_division">*ngIf="hasIdeationEndedExpired()"
+        <div *ngIf="hasIdeationEndedExpired()" class="bold mobile_hidden"
+          translate="COMPONENTS.TOPIC_IDEATION.LBL_IDEATION_CLOSED"></div>
         <div class="ideation_deadline" *ngIf="ideation.deadline">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -271,53 +272,6 @@
                       </ng-container>
                     </div>
                   </div>
-                  <div class="selected_participant_wrap" *ngIf="ideaFilters.participants">
-                    <div class="participant_row">
-                      <div class="author_wrap" *ngIf="ideaFilters.participants">
-                        <div class="image_wrap">
-                          <img class="profile_image" *ngIf="ideaFilters.participants.imageUrl"
-                            [src]="ideaFilters.participants.imageUrl">
-                          <div class="profile_image_filler" *ngIf="!ideaFilters.participants.imageUrl">
-                            <cos-initials *ngIf="ideaFilters.participants.name" [name]="ideaFilters.participants.name">
-                            </cos-initials>
-                          </div>
-                        </div>
-                        <div class="author_name">
-                          {{ideaFilters.participants.name}}
-                        </div>
-                      </div>
-                      <button class="btn_medium_plain icon animate" (click)="setParticipant()">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path
-                            d="M6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289Z"
-                            fill="#2C3B47" />
-                        </svg>
-                      </button>
-                    </div>
-                    <div class="line_separator"></div>
-                    <div class="info_wrap">
-                      <div class="info_text">
-                        <span translate="COMPONENTS.TOPIC_IDEATION.IDEA_PARTICIPANTS_FILTER_RESULTS"
-                          [translateParams]="{count: ideaFilters.participants.ideas.count}"></span>
-                      </div>
-                      <div class="buttons_wrap">
-                        <div class="text">{{userIndex()}} / {{users.length}}</div>
-                        <button (click)="prevParticipant()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path d="M14.5 7.5L9.5 12.5L14.5 17.5" stroke="#2C3B47" stroke-width="2"
-                              stroke-linecap="round" />
-                          </svg>
-                        </button>
-                        <button (click)="nextParticipant()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path d="M9.5 17.5L14.5 12.5L9.5 7.5" stroke="#2C3B47" stroke-width="2"
-                              stroke-linecap="round" />
-                          </svg>
-
-                        </button>
-                      </div>
-                    </div>
-                  </div>
                 </cos-input>
               </div>
               <!--MOBILE_TOPIC_FILTERS-->
@@ -511,6 +465,40 @@
                   <button class="btn_medium_secondary"
                     (click)="setParticipant(mobileIdeaFilters.participants);mobileIdeaFilters.participants= false;"
                     translate="COMPONENTS.TOPIC_IDEATION.BTN_APPLY"></button>
+                </div>
+              </div>
+            </div>
+            <div class="selected_participant_wrap" *ngIf="ideaFilters.participants">
+              <div class="participant_row">
+                <div class="row_label">
+                  <div class="bold" translate="COMPONENTS.TOPIC_IDEATION.LBL_FILTER_PARTICIPANTS_IDEAS"></div>
+                </div>
+                <div class="author_wrap" *ngIf="ideaFilters.participants">
+                  <div class="image_wrap">
+                    <img class="profile_image" *ngIf="ideaFilters.participants.imageUrl"
+                      [src]="ideaFilters.participants.imageUrl">
+                    <div class="profile_image_filler" *ngIf="!ideaFilters.participants.imageUrl">
+                      <cos-initials *ngIf="ideaFilters.participants.name" [name]="ideaFilters.participants.name">
+                      </cos-initials>
+                    </div>
+                  </div>
+                  <div class="author_name">
+                    {{ideaFilters.participants.name}}
+                  </div>
+
+                  <div class="info_wrap">
+                    <div class="info_text">
+                      <span translate="COMPONENTS.TOPIC_IDEATION.IDEA_PARTICIPANTS_FILTER_RESULTS"
+                        [translateParams]="{count: ideaFilters.participants.ideas.count}"></span>
+                    </div>
+                    <button class="btn_medium_plain icon animate" (click)="setParticipant()">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289Z"
+                          fill="#2C3B47" />
+                      </svg>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -764,6 +752,6 @@
   </div>
 </ng-container>
 <ng-container *ngIf="topic.ideationId && !hasIdeationEndedExpired()">
-  <add-idea *ngIf="topic.status === TopicService.STATUSES.ideation" [topicId]="topic.id"
-    [ideationId]="topic.ideationId" [(notification)]="notification"></add-idea>
+  <add-idea *ngIf="topic.status === TopicService.STATUSES.ideation" [topicId]="topic.id" [ideationId]="topic.ideationId"
+    [(notification)]="notification"></add-idea>
 </ng-container>
