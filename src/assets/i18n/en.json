@@ -1748,6 +1748,7 @@
       "LNK_MY_ACCOUNT": "My profile",
       "LOGGED_IN_AS": "Logged in as",
       "OPT_ACCOUNT_DETAILS": "Account details",
+      "OPT_NOTIFICATION_SETTINGS": "@:COMPONENTS.ACTIVITY_FEED.LNK_NOTIFICATION_SETTINGS",
       "HEADING_TOPICS": "Topics",
       "LNK_CREATE_TOPICS": "Create topic",
       "LNK_MY_TOPICS": "My topics",
