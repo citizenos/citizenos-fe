@@ -2793,6 +2793,8 @@
       "STATE_ITEM_NO_DISCUSSION": "No discussion yet",
       "STATE_ITEM_NO_VOTING": "No voting system yet",
       "STATE_ITEM_NO_FOLLOW_UP": "No follow-up yet",
+      "STATE_ITEM_ADD_DISCUSSION": "Add discussion",
+      "STATE_ITEM_ADD_DISCUSSION_DESC": "Discuss the pros and cons",
       "STATE_ITEM_ADD_VOTING": "Add voting system",
       "STATE_ITEM_ADD_VOTING_DESC": "Decide between options",
       "STATE_ITEM_VOTING_HEADING": "Voting",
