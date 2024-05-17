@@ -103,6 +103,7 @@
     },
     "ACTIVITY_FEED": {
       "HEADING_GLOBAL": "Последние обновления",
+      "LNK_NOTIFICATION_SETTINGS": "Параметры уведомлений",
       "HEADING_GROUP": "Обновления по этой группе",
       "HEADING_TOPIC": "Обновления по этой теме",
       "PLACEHOLDER_FILTER": "Показать",
@@ -2449,6 +2450,7 @@
       "BTN_FEEDBACK_OPEN": "Помогите нам стать лучше",
       "OPTION_FAVOURITE": "В избранное",
       "OPTION_UNFAVOURITE": "Удалить из избранного",
+      "OPTION_TOPIC_NOTIFICATIONS": "Уведомления по теме",
       "OPTION_INVITE_CO_EDITOR": "Пригласить соавтора",
       "OPTION_EDIT_TOPIC": "Редактировать тему",
       "OPTION_DUPLICATE_TOPIC": "Дублировать тему",

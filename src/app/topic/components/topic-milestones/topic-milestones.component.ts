@@ -5,7 +5,7 @@ import { TopicEventService } from 'src/app/services/topic-event.service';
 import { TopicService } from 'src/app/services/topic.service';
 import { DialogService } from 'src/app/shared/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
-import { take, of } from 'rxjs';
+import { take, of, map } from 'rxjs';
 @Component({
   selector: 'topic-milestones',
   templateUrl: './topic-milestones.component.html',
@@ -21,15 +21,17 @@ export class TopicMilestonesComponent implements OnInit {
 
   errors = <any>null;
   public topicEvents = of(<Event[] | any[]>[]);
-  public countTotal;
+  public countTotal = 0;
   public maxLengthSubject = 128;
   public maxLengthText = 2048;
   constructor(private dialog: DialogService, private TopicEventService: TopicEventService, private TopicService: TopicService) {
-    this.topicEvents = this.TopicEventService.loadItems();
-    this.countTotal = this.TopicEventService.countTotal$;
   }
 
   ngOnInit(): void {
+    this.topicEvents = this.TopicEventService.loadEvents({topicId: this.topic.id}).pipe(map(events => {
+      this.countTotal = events.count;
+      return events.rows;
+    }));
     this.TopicEventService.setParam('topicId', this.topic.id);
     this.event.topicId = this.topic.id;
   }
@@ -41,7 +43,7 @@ export class TopicMilestonesComponent implements OnInit {
       .subscribe(() => {
         this.event.subject = '';
         this.event.text = '';
-        this.TopicEventService.reset();
+        this.TopicEventService.reloadEvents();
       });
   };
 

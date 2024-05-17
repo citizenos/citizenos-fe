@@ -103,6 +103,7 @@
     },
     "ACTIVITY_FEED": {
       "HEADING_GLOBAL": "Najnovšia aktivita",
+      "LNK_NOTIFICATION_SETTINGS": "Notification settings",
       "HEADING_GROUP": "Aktivita tejto skupiny",
       "HEADING_TOPIC": "Aktivita v tejto téme",
       "PLACEHOLDER_FILTER": "Zobraziť",
@@ -2449,6 +2450,7 @@
       "BTN_FEEDBACK_OPEN": "Pomôž nám zlepšiť sa",
       "OPTION_FAVOURITE": "Obľúbené",
       "OPTION_UNFAVOURITE": "Neobľúbené",
+      "OPTION_TOPIC_NOTIFICATIONS": "Topic notifications",
       "OPTION_INVITE_CO_EDITOR": "Pozvite spolutvorcu",
       "OPTION_EDIT_TOPIC": "Upraviť tému",
       "OPTION_DUPLICATE_TOPIC": "Duplikovať tému",
