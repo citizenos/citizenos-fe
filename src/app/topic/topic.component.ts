@@ -131,6 +131,7 @@ export class TopicComponent implements OnInit {
   vote$?: Observable<Vote>;
   topicId$: Observable<string> = of('');
   events$?: Observable<any> = of([]);
+  eventCount = 0;
   members$: Observable<any[]>;
 
   topicSocialMentions = [];
@@ -208,7 +209,11 @@ export class TopicComponent implements OnInit {
           this.cd.detectChanges();
         }
         if (topic.status === this.TopicService.STATUSES.followUp) {
-          this.events$ = TopicEventService.getItems({ topicId: topic.id }).pipe(map(events => events.rows));
+          this.events$ = TopicEventService.loadEvents({ topicId: topic.id }).pipe(map(events => {
+            console.log('LOAD', events);
+            this.eventCount = events.count;
+            return events.rows;
+          }));
         }
         const padURL = new URL(topic.padUrl);
         if (padURL.searchParams.get('lang') !== this.translate.currentLang) {

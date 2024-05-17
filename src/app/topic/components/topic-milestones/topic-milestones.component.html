@@ -82,7 +82,7 @@
             <div class="circle">{{$index+1}}</div>
             <div class="title_text_area mobile_hidden">
               <div class="title_description" translate="COMPONENTS.TOPIC_MILESTONES.MILESTONE_TITLE"
-                [translateParams]="{number: countTotal.value - $index}"></div>
+                [translateParams]="{number: countTotal - $index}"></div>
               <div class="title" [innerHtml]="evt.subject"></div>
             </div>
           </div>
@@ -129,7 +129,7 @@
         <div class="section_content">
           <div class="title_text_area mobile_show">
             <div class="title_description" translate="COMPONENTS.TOPIC_MILESTONES.MILESTONE_TITLE"
-              [translateParams]="{number: countTotal.value - $index}"></div>
+              [translateParams]="{number: countTotal - $index}"></div>
             <div class="title small_heading" [innerHtml]="evt.subject"></div>
           </div>
           <div class="milestone_description_text" [innerHtml]="evt.text | linky"></div>
@@ -139,7 +139,7 @@
     <div class="milestone" *ngIf="canDelete()">
       <div class="milestone_header">
         <div class="title_wrap">
-          <div class="circle">{{countTotal.value+1}}</div>
+          <div class="circle">{{countTotal+1}}</div>
           <div class="small_heading" translate="COMPONENTS.TOPIC_MILESTONES.HEADING_MILESTONE"></div>
         </div>
       </div>
