@@ -37,14 +37,6 @@
     position: relative;
     border-radius: 8px;
 
-    .cell_title {
-      display: none;
-      @include mixins.mobile {
-        display: flex;
-        width: 100%;
-      }
-    }
-
     @include mixins.mobile {
       flex-direction: column;
       gap: 16px;
