@@ -4,6 +4,9 @@
     <notification></notification>
   </div>
   <div class="dialog">
+    <div id="notification_wrap_dialog" class="mobile_show">
+      <notification></notification>
+    </div>
     <div class="dialog_header"
       [ngClass]="{'warning': data.level === 'warn', 'error': data.level === 'delete', 'info': data.level === 'info', 'voting': data.level === 'voting'}">
       <div class="header_with_icon">
