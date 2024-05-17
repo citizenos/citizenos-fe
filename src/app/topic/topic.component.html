@@ -1232,7 +1232,7 @@
                 <div class="item_title_with_description">
                   <span translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_FOLLOW_UP_HEADING"></span>
                   <div class="description">
-                    <span translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_FOLLOW_UP_DEADLINE"></span> {{topic.endsAt |
+                    <span translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_FOLLOW_UP_DEADLINE" *ngIf="topic.endsAt"></span> {{topic.endsAt |
                     date:'YYYY-MM-dd HH:mm'}}
                   </div>
                 </div>
@@ -1241,7 +1241,7 @@
                 <div class="graph_wrap">
                   <div class="legend">
                     <div class="bold" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_FOLLOW_UP_MILESTONE"></div>
-                    <div><span class="bold">{{events?.rows?.length}}</span>
+                    <div><span class="bold">{{eventCount}}</span>
                     </div>
                   </div>
                   <!--div class="graph">
