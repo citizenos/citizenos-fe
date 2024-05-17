@@ -733,13 +733,13 @@
       "REMOVE_ERROR_MEMBER_VIA_GROUP": "Вы не можете удалить этого участника темы, поскольку он является членом группы. Если вы хотите ограничить их доступ к теме, подумайте об их исключении из группы."
     },
     "TOPIC_MILESTONES": {
-      "CREATE_A_MILESTONE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_CREATE_A_MILESTONE",
+      "CREATE_A_MILESTONE": "Updates",
       "OPT_EDIT_DETAILS": "Изменить детали",
       "OPT_REMOVE_MILESTONE": "Удалить обновление",
       "PLACEHOLDER_SUBJECT": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_PLACEHOLDER_SUBJECT",
       "HEADING_MILESTONE_CONTENT": "Содержимое обновления",
       "ADD_MILESTONE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_ADD_MILESTONE",
-      "HEADING_MILESTONE": "Обновление",
+      "HEADING_MILESTONE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_CREATE_A_MILESTONE",
       "HEADING_MILESTONE_TITLE": "Заглавие обновления",
       "MILESTONE_TITLE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_MILESTONE"
     },
