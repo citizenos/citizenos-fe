@@ -4,6 +4,9 @@
     <notification></notification>
   </div>
   <div class="dialog" *ngIf="topic$ | async as topic">
+    <div id="notification_wrap_dialog" class="mobile_show">
+      <notification></notification>
+    </div>
     <div class="dialog_header">
       <div class="header_text">
         <h4 class="title" translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_TITLE"><div class="tooltip" tooltip>
