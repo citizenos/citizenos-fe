@@ -733,13 +733,13 @@
       "REMOVE_ERROR_MEMBER_VIA_GROUP": "Tohto člena témy nemôžete odstrániť, pretože je členom skupiny. Ak chcete obmedziť jeho/jej prístup k téme, zvážte radšej jeho/jej vylúčenie zo skupiny."
     },
     "TOPIC_MILESTONES": {
-      "CREATE_A_MILESTONE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_CREATE_A_MILESTONE",
+      "CREATE_A_MILESTONE": "Updates",
       "OPT_EDIT_DETAILS": "Upraviť podrobnosti",
       "OPT_REMOVE_MILESTONE": "Odstrániť aktualizáciu",
       "PLACEHOLDER_SUBJECT": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_PLACEHOLDER_SUBJECT",
       "HEADING_MILESTONE_CONTENT": "Obsah aktualizácie",
       "ADD_MILESTONE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_ADD_MILESTONE",
-      "HEADING_MILESTONE": "Aktualizácia",
+      "HEADING_MILESTONE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_CREATE_A_MILESTONE",
       "HEADING_MILESTONE_TITLE": "Názov aktualizácie",
       "MILESTONE_TITLE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_MILESTONE"
     },
