@@ -5,7 +5,7 @@ import { Component, OnInit, Input, Inject, EventEmitter, Output } from '@angular
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { take } from 'rxjs';
+import { take, map } from 'rxjs';
 import { AppService } from 'src/app/services/app.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { TopicIdeaService } from 'src/app/services/topic-idea.service';
@@ -39,7 +39,7 @@ export class AddIdeaComponent {
   focusIdeaStatement = false;
   argumentType = <string>'pro';
   errors: any;
-
+  addIdea;
   description = <string>'';
   ideaForm = new UntypedFormGroup({
     statement: new UntypedFormControl('', [Validators.required]),
@@ -55,9 +55,16 @@ export class AddIdeaComponent {
     public TopicIdeaService: TopicIdeaService,
     @Inject(ActivatedRoute) private route: ActivatedRoute,
     @Inject(TranslateService) public translate: TranslateService,
-    @Inject(Router) private router: Router) { }
+    @Inject(Router) private router: Router) {
+    this.addIdea = this.app.addIdea.pipe(map((val) => {
+      this.description = '';
+      this.ideaForm.reset();
+      return val;
+    }))
+  }
 
   ngOnInit(): void {
+
   }
 
   loggedIn() {
@@ -69,8 +76,10 @@ export class AddIdeaComponent {
   }
 
   updateText(text: any) {
-    this.ideaForm.controls['description'].markAsTouched();
-    this.ideaForm.controls['description'].setValue(text);
+    setTimeout(() => {
+      this.ideaForm.controls['description'].markAsTouched();
+      this.ideaForm.controls['description'].setValue(text);
+    })
   }
 
   addNewIdea() {
@@ -88,7 +97,12 @@ export class AddIdeaComponent {
   clear() {
     this.updateText('')
     this.description = '';
+    this.ideaForm.patchValue({
+      statement: '',
+      description: ''
+    });
     this.ideaForm.markAsUntouched();
+    this.ideaForm.controls['statement'].patchValue('');
     this.ideaForm.controls['description'].markAsPristine();
     this.ideaForm.controls['description'].markAsUntouched();
     setTimeout(() => {
