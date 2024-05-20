@@ -733,13 +733,13 @@
       "REMOVE_ERROR_MEMBER_VIA_GROUP": "Seda teema liiget ei saa eemaldada, sest ta on grupi liige. Kui soovid tema juurdepääsu teemale piirata, eemalda ta grupist."
     },
     "TOPIC_MILESTONES": {
-      "CREATE_A_MILESTONE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_CREATE_A_MILESTONE",
+      "CREATE_A_MILESTONE": "Updates",
       "OPT_EDIT_DETAILS": "Muuda andmeid",
       "OPT_REMOVE_MILESTONE": "Eemalda teavitus",
       "PLACEHOLDER_SUBJECT": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_PLACEHOLDER_SUBJECT",
       "HEADING_MILESTONE_CONTENT": "Teavituse sisu",
       "ADD_MILESTONE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_ADD_MILESTONE",
-      "HEADING_MILESTONE": "Teavitus",
+      "HEADING_MILESTONE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_CREATE_A_MILESTONE",
       "HEADING_MILESTONE_TITLE": "Teavituse pealkiri",
       "MILESTONE_TITLE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_MILESTONE"
     },

@@ -103,7 +103,7 @@
     },
     "ACTIVITY_FEED": {
       "HEADING_GLOBAL": "Najnovšia aktivita",
-      "LNK_NOTIFICATION_SETTINGS": "Notification settings",
+      "LNK_NOTIFICATION_SETTINGS": "Nastavenie upozornení",
       "HEADING_GROUP": "Aktivita tejto skupiny",
       "HEADING_TOPIC": "Aktivita v tejto téme",
       "PLACEHOLDER_FILTER": "Zobraziť",
@@ -733,13 +733,13 @@
       "REMOVE_ERROR_MEMBER_VIA_GROUP": "Tohto člena témy nemôžete odstrániť, pretože je členom skupiny. Ak chcete obmedziť jeho/jej prístup k téme, zvážte radšej jeho/jej vylúčenie zo skupiny."
     },
     "TOPIC_MILESTONES": {
-      "CREATE_A_MILESTONE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_CREATE_A_MILESTONE",
+      "CREATE_A_MILESTONE": "Aktualizácie",
       "OPT_EDIT_DETAILS": "Upraviť podrobnosti",
       "OPT_REMOVE_MILESTONE": "Odstrániť aktualizáciu",
       "PLACEHOLDER_SUBJECT": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_PLACEHOLDER_SUBJECT",
       "HEADING_MILESTONE_CONTENT": "Obsah aktualizácie",
       "ADD_MILESTONE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_ADD_MILESTONE",
-      "HEADING_MILESTONE": "Aktualizácia",
+      "HEADING_MILESTONE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_CREATE_A_MILESTONE",
       "HEADING_MILESTONE_TITLE": "Názov aktualizácie",
       "MILESTONE_TITLE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_MILESTONE"
     },
@@ -2450,7 +2450,7 @@
       "BTN_FEEDBACK_OPEN": "Pomôž nám zlepšiť sa",
       "OPTION_FAVOURITE": "Obľúbené",
       "OPTION_UNFAVOURITE": "Neobľúbené",
-      "OPTION_TOPIC_NOTIFICATIONS": "Topic notifications",
+      "OPTION_TOPIC_NOTIFICATIONS": "Notifikácie tém",
       "OPTION_INVITE_CO_EDITOR": "Pozvite spolutvorcu",
       "OPTION_EDIT_TOPIC": "Upraviť tému",
       "OPTION_DUPLICATE_TOPIC": "Duplikovať tému",
