@@ -733,7 +733,7 @@
       "REMOVE_ERROR_MEMBER_VIA_GROUP": "Seda teema liiget ei saa eemaldada, sest ta on grupi liige. Kui soovid tema juurdepääsu teemale piirata, eemalda ta grupist."
     },
     "TOPIC_MILESTONES": {
-      "CREATE_A_MILESTONE": "Updates",
+      "CREATE_A_MILESTONE": "Teadaanded",
       "OPT_EDIT_DETAILS": "Muuda andmeid",
       "OPT_REMOVE_MILESTONE": "Eemalda teavitus",
       "PLACEHOLDER_SUBJECT": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_PLACEHOLDER_SUBJECT",
