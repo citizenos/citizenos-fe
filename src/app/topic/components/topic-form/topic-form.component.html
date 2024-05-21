@@ -259,10 +259,13 @@
               <div class="block_content image_content">
                 <div class="block_section" *ngIf="!(topic.imageUrl || tmpImageUrl)">
                   <div>
-                    <div class="bold" translate="VIEWS.TOPIC_CREATE.HEADER_IMAGE_UPLOAD_DESC"><div class="tooltip" tooltip>
-                      <div class="content_title">Help on its way</div>
-                      <div class="content_description">Help text coming soon! Please tell us what help you were looking for.</div>
-                    </div></div>
+                    <div class="bold" translate="VIEWS.TOPIC_CREATE.HEADER_IMAGE_UPLOAD_DESC">
+                      <div class="tooltip" tooltip>
+                        <div class="content_title">Help on its way</div>
+                        <div class="content_description">Help text coming soon! Please tell us what help you were
+                          looking for.</div>
+                      </div>
+                    </div>
                     <div translate="VIEWS.TOPIC_CREATE.HEADER_IMAGE_UPLOAD_DESC_TEXT"></div>
                   </div>
                   <input id="image_upload_input" type="file" #imageUpload (change)="fileUpload()" />
@@ -348,10 +351,13 @@
             [@openClose]="block.description ? 'open' : 'closed'">
             <div class="block_title_wrap" (click)="block.description = true;">
               <div>
-                <div class="block_title" translate="VIEWS.TOPIC_CREATE.TITLE_DESCRIPTION"><div class="tooltip" tooltip>
-                  <div class="content_title">Help on its way</div>
-                  <div class="content_description">Help text coming soon! Please tell us what help you were looking for.</div>
-                </div></div>
+                <div class="block_title" translate="VIEWS.TOPIC_CREATE.TITLE_DESCRIPTION">
+                  <div class="tooltip" tooltip>
+                    <div class="content_title">Help on its way</div>
+                    <div class="content_description">Help text coming soon! Please tell us what help you were looking
+                      for.</div>
+                  </div>
+                </div>
                 <!--div *ngIf="!block.description" translate="VIEWS.TOPIC_CREATE.TITLE_DESCRIPTION_TEXT"></!--div-->
               </div>
               <div class="counter_wrap">
@@ -465,15 +471,21 @@
                 </div>
                 <div class="small_heading" translate="VIEWS.TOPIC_CREATE.SETTINGS_HEADING_VISIBILITY"></div>
 
-                <div class="mobile_hidden" translate="VIEWS.TOPIC_CREATE.SETTINGS_VISIBILITY_DESC"><div class="tooltip" tooltip>
-                  <div class="content_title">Help on its way</div>
-                  <div class="content_description">Help text coming soon! Please tell us what help you were looking for.</div>
-                </div></div>
+                <div class="mobile_hidden" translate="VIEWS.TOPIC_CREATE.SETTINGS_VISIBILITY_DESC">
+                  <div class="tooltip" tooltip>
+                    <div class="content_title">Help on its way</div>
+                    <div class="content_description">Help text coming soon! Please tell us what help you were looking
+                      for.</div>
+                  </div>
+                </div>
               </div>
-              <div class="mobile_show" translate="VIEWS.TOPIC_CREATE.SETTINGS_VISIBILITY_DESC"><div class="tooltip" tooltip>
-                <div class="content_title">Help on its way</div>
-                <div class="content_description">Help text coming soon! Please tell us what help you were looking for.</div>
-              </div></div>
+              <div class="mobile_show" translate="VIEWS.TOPIC_CREATE.SETTINGS_VISIBILITY_DESC">
+                <div class="tooltip" tooltip>
+                  <div class="content_title">Help on its way</div>
+                  <div class="content_description">Help text coming soon! Please tell us what help you were looking for.
+                  </div>
+                </div>
+              </div>
               <div class="row_wrap">
                 <div class="radio_wrap" (click)="topic.visibility = VISIBILITY.private"
                   [ngClass]="{'active': topic.visibility === VISIBILITY.private}">
@@ -547,10 +559,13 @@
                 </a>
               </div>
               <div class="header_wrap">
-                <div class="small_heading" translate="VIEWS.TOPIC_CREATE.SETTINGS_HEADING_LOCALITY"><div class="tooltip" tooltip>
-                  <div class="content_title">Help on its way</div>
-                  <div class="content_description">Help text coming soon! Please tell us what help you were looking for.</div>
-                </div></div>
+                <div class="small_heading" translate="VIEWS.TOPIC_CREATE.SETTINGS_HEADING_LOCALITY">
+                  <div class="tooltip" tooltip>
+                    <div class="content_title">Help on its way</div>
+                    <div class="content_description">Help text coming soon! Please tell us what help you were looking
+                      for.</div>
+                  </div>
+                </div>
                 <div class="mobile_hidden" translate="VIEWS.TOPIC_CREATE.SETTINGS_LOCALITY_SELECT_DESC"></div>
               </div>
               <div class="mobile_show" translate="VIEWS.TOPIC_CREATE.SETTINGS_LOCALITY_SELECT_DESC"></div>
@@ -622,10 +637,13 @@
                 <div class="number_wrap mobile_show">
                   <div>3</div>
                 </div>
-                <div class="small_heading" translate="VIEWS.TOPIC_CREATE.SETTINGS_HEADING_ADD_TO_GROUP"><div class="tooltip" tooltip>
-                  <div class="content_title">Help on its way</div>
-                  <div class="content_description">Help text coming soon! Please tell us what help you were looking for.</div>
-                </div></div>
+                <div class="small_heading" translate="VIEWS.TOPIC_CREATE.SETTINGS_HEADING_ADD_TO_GROUP">
+                  <div class="tooltip" tooltip>
+                    <div class="content_title">Help on its way</div>
+                    <div class="content_description">Help text coming soon! Please tell us what help you were looking
+                      for.</div>
+                  </div>
+                </div>
                 <div class="mobile_hidden" translate="VIEWS.TOPIC_CREATE.SETTINGS_ADD_TO_GROUP_DESC"></div>
               </div>
               <div class="mobile_show" translate="VIEWS.TOPIC_CREATE.SETTINGS_ADD_TO_GROUP_DESC"></div>
@@ -891,10 +909,11 @@
             <button *ngIf="topic.status === TopicService.STATUSES.draft" class="btn_medium_secondary"
               (click)="saveAsDraft()" translate="VIEWS.TOPIC_CREATE.FOOTER_BTN_SAVE_AS_DRAFT">
             </button>
-            <button *ngIf="!isnew && topic.status !== TopicService.STATUSES.draft" class="btn_medium_submit icon" (click)="publish();"
-              translate="VIEWS.TOPIC_CREATE.FOOTER_BTN_SAVE_CHANGES_AND_PUBLISH"></button>
-            <button *ngIf="(isnew || topic.status === TopicService.STATUSES.draft) && tabSelected === 'preview'" class="btn_medium_submit publish icon"
-              (click)="publish()" [ngClass]="{disabled: !TopicService.canDelete(topic)}">
+            <button *ngIf="!isnew && topic.status !== TopicService.STATUSES.draft" class="btn_medium_submit icon"
+              (click)="publish();" translate="VIEWS.TOPIC_CREATE.FOOTER_BTN_SAVE_CHANGES_AND_PUBLISH"></button>
+            <button *ngIf="(isnew || topic.status === TopicService.STATUSES.draft) && tabSelected === 'preview'"
+              class="btn_medium_submit publish icon" (click)="publish()"
+              [ngClass]="{disabled: !TopicService.canDelete(topic)}">
               <span class="btn_text"
                 [translate]="(topic.status === TopicService.STATUSES.draft)? 'VIEWS.TOPIC_CREATE.FOOTER_BTN_CREATE' : 'VIEWS.TOPIC_CREATE.FOOTER_BTN_SAVE_CHANGES'"></span>
             </button>
@@ -938,10 +957,10 @@
                     fill="#2C3B47" />
                 </svg>
               </button>
-              <button class="btn_medium_submit icon tablet_hidden" (click)="nextTab(tabSelected)" *ngIf="!isnew && topic.status !== TopicService.STATUSES.draft"
+              <button class="btn_medium_submit icon tablet_hidden" (click)="nextTab(tabSelected)"
+                *ngIf="!isnew && topic.status !== TopicService.STATUSES.draft"
                 [ngClass]="{disabled: isNextDisabled(tabSelected) || tabSelected === 'preview'}">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                  xmlns="http://www.w3.org/2000/svg">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M14.5467 6.31262C14.1471 5.89579 13.4991 5.89579 13.0994 6.31262C12.6997 6.72945 12.6997 7.40527 13.0994 7.8221L16.0816 11L6 11C5.43478 11 5 11.4108 5 12.0003C5 12.5897 5.43478 12.9824 6 12.9824L16.0816 12.9824L13.0994 16.1779C12.6997 16.5947 12.6997 17.2705 13.0994 17.6874C13.4991 18.1042 14.1471 18.1042 14.5467 17.6874L20 12L14.5467 6.31262Z"
                     fill="white" />
@@ -959,7 +978,8 @@
                 </svg>
               </button>
               <button *ngIf="topic.status === TopicService.STATUSES.draft" class="btn_medium_secondary tablet_hidden"
-                (click)="saveAsDraft()" translate="VIEWS.TOPIC_CREATE.FOOTER_BTN_SAVE_AS_DRAFT" [ngClass]="{disabled: isNextDisabled(tabSelected)}">
+                (click)="saveAsDraft()" translate="VIEWS.TOPIC_CREATE.FOOTER_BTN_SAVE_AS_DRAFT"
+                [ngClass]="{disabled: isNextDisabled(tabSelected)}">
               </button>
               <button class="btn_medium_submit icon tablet_hidden" (click)="(tabSelected!=='preview' && topic.status === TopicService.STATUSES.draft)?
                 nextTab(tabSelected) : publish()" [ngClass]="{disabled: isNextDisabled(tabSelected)}">

@@ -420,9 +420,9 @@
       "OPTION_REMOVE": "Remove idea",
       "REPLIES": "{{count}} replies",
       "NOTIFICATION_TITLE": "This idea was hidden by a moderator",
-      "NOTIFICATION_LNK_WHY":"@:VIEWS.TOPICS_TOPICID.ARGUMENT_WHY",
+      "NOTIFICATION_LNK_WHY": "@:VIEWS.TOPICS_TOPICID.ARGUMENT_WHY",
       "IDEA_AUTHOR_REMOVED_IDEA": "This idea was removed by its author",
-      "NOTIFICATION_LNK_VIEW":"View anyway"
+      "NOTIFICATION_LNK_VIEW": "View anyway"
     },
     "IDEA_DIALOG": {
       "BTN_REPLY": "@:COMPONENTS.ARGUMENT.BTN_REPLY",
@@ -509,13 +509,13 @@
     },
     "GROUP_REQUEST_ADD_TOPICS_DIALOG": {
       "HEADING": "Request to add topics to group",
-      "SEARCH_HEADING":"Search for existing topics you want added to the group",
+      "SEARCH_HEADING": "Search for existing topics you want added to the group",
       "SEARCH_DESC": "You can request to add any topic for which you are admin",
       "PLACEHOLDER_SEARCH": "@:COMPONENTS.GROUP_INVITE.PLACEHOLDER_SEARCH",
       "MSG_REQUEST_SENT_SUCCESS": "Request has been sent!",
       "REASON_DESC": "Add a reason for your request",
       "REASON_PLACEHOLDER": "Write your reason here",
-      "LNK_CANCEL":"@:LNK_CANCEL",
+      "LNK_CANCEL": "@:LNK_CANCEL",
       "BTN_SAVE": "Send request"
     },
     "GROUP_SETTINGS": {
@@ -698,7 +698,7 @@
       "IDEA_FILTER_TYPE": "Idea type",
       "HEADING_IDEATION_ENDED": "The ideation has ended!",
       "TXT_IDEATION_ENDED": "A topic admin has closed the ideation. You can no longer add, edit or upvote ideas, but you can still read, reply and favourite them.",
-      "OPT_ADD_DEADLINE":"@:COMPONENTS.TOPIC_VOTE_CAST.OPT_ADD_DEADLINE",
+      "OPT_ADD_DEADLINE": "@:COMPONENTS.TOPIC_VOTE_CAST.OPT_ADD_DEADLINE",
       "OPT_EDIT_DEADLINE": "@:MODALS.TOPIC_SETTINGS_BTN_EDIT_DEADLINE",
       "OPT_CLOSE_IDEATION": "End ideation",
       "FILTER_ALL": "@:VIEWS.MY_TOPICS.FILTER_ALL",
@@ -712,9 +712,9 @@
       "IDEA_FILTER_PARTICIPANTS": "Participants",
       "LBL_FILTER_PARTICIPANTS_IDEAS": "Filter participants ideas",
       "FILTER_PLACEHOLDER_SEARCH": "@:DEFAULT.NAV_MOBILE.BTN_SEARCH",
-      "LBL_FILTER":"@:LNK_FILTER",
-      "BTN_APPLY":"@:BTN_APPLY",
-      "BTN_RESET_FILTERS":"@:BTN_RESET_FILTER",
+      "LBL_FILTER": "@:LNK_FILTER",
+      "BTN_APPLY": "@:BTN_APPLY",
+      "BTN_RESET_FILTERS": "@:BTN_RESET_FILTER",
       "BTN_IDEATION_ACTIONS": "@:VIEWS.IDEATION_CREATE.BTN_IDEATION_ACTIONS",
       "NO_IDEAS_HEADING": "@:VIEWS.IDEATION_CREATE.NO_IDEAS_HEADING",
       "NO_IDEAS_BTN_ADD": "@:VIEWS.IDEATION_CREATE.NO_IDEAS_BTN_ADD",
@@ -900,10 +900,13 @@
       "DIALOG_TAB_2": "Settings",
       "DIALOG_TAB_INTRODUCTION_ARE_YOU_SURE": "Are you sure you want to start the topic discussion?",
       "DIALOG_TAB_INTRODUCTION_KEEP_IN_MIND": "Things to keep in mind:",
-      "DIALOG_TAB_INTRODUCTION_ITEM_1": "You can no longer collect or upvote ideas",
+      "DIALOG_TAB_INTRODUCTION_ITEM_1": "Participants can no longer add, edit or upvote ideas",
       "DIALOG_TAB_INTRODUCTION_ITEM_2": "You can still add ideas to folder",
       "DIALOG_TAB_INTRODUCTION_ITEM_3": "You can still invite and share with participants",
-      "DIALOG_TAB_INTRODUCTION_INFO": "This is the next stage of a topic. You can now start discussion over the collected ideas.",
+      "DIALOG_TAB_INTRODUCTION_ITEM_4": "You cannot restart ideation once it's closed",
+      "DIALOG_TAB_INTRODUCTION_ITEM_5": "Participants can still favourite, reply to and report ideas",
+      "DIALOG_TAB_INTRODUCTION_ITEM_6": "You can still add a voting system and follow-up updates",
+      "DIALOG_TAB_INTRODUCTION_INFO": "This is the next stage of your topic. You can now discuss the collected ideas, before moving on to voting or follow-up.",
       "LNK_CANCEL": "@:LNK_CANCEL",
       "BTN_START_DISCUSSION": "Start topic discussion"
     },
@@ -948,10 +951,9 @@
     },
     "TOPIC_MEMBER_USER": {
       "OPT_REMOVE_USER": "@:MODALS.GROUP_MEMBER_USER_DELETE_CONFIRM_HEADING",
-      "LBL_VIA":"@:VIEWS.MY_TOPICS_TOPICID.LBL_VIA",
-      "LBL_INACCESSIBLE_GROUP":"@:VIEWS.MY_TOPICS_TOPICID.LBL_INACCESSIBLE_GROUP",
+      "LBL_VIA": "@:VIEWS.MY_TOPICS_TOPICID.LBL_VIA",
+      "LBL_INACCESSIBLE_GROUP": "@:VIEWS.MY_TOPICS_TOPICID.LBL_INACCESSIBLE_GROUP",
       "REMOVE_ERROR_MEMBER_VIA_GROUP": "You cannot remove this topic member as they are a member of the group. If you wish to limit their access to the topic, consider excluding them from the group instead."
-
     },
     "TOPIC_MILESTONES": {
       "CREATE_A_MILESTONE": "Updates",
@@ -1033,7 +1035,8 @@
       "DIALOG_TAB_INTRODUCTION_ITEM_4": "Participants can submit their vote",
       "DIALOG_TAB_INTRODUCTION_ITEM_5": "You can't edit a vote once you have started it",
       "DIALOG_TAB_INTRODUCTION_ITEM_6": "You can only start one vote per topic",
-      "DIALOG_TAB_INTRODUCTION_ITEM_7": "Participants can no longer add ideas",
+      "DIALOG_TAB_INTRODUCTION_ITEM_7": "Participants can no longer add, edit or upvote ideas",
+      "DIALOG_TAB_INTRODUCTION_ITEM_8": "You cannot restart ideation once it's closed",
       "DIALOG_TAB_INTRODUCTION_INFO": "From here you can move the topic into follow-up.",
       "VOTE_QUESTION_HEADING": "Please add a specific question for the participants to vote on.",
       "VOTE_QUESTION_PLACEHOLDER": "Write your voting question",
@@ -1191,7 +1194,10 @@
       "NO_ARGUMENTS_BTN_START_DISCUSSION": "@:COMPONENTS.TOPIC_DISCUSSION_CREATE.BTN_START_DISCUSSION",
       "NO_ARGUMENTS_DESC_HEADING": "How discussions work",
       "NO_ARGUMENTS_DESC_BEFORE": "In discussions, participants can add pro or con arguments, and other participants can reply or react to these. The general sentiment of the discussion is shown visually.",
-      "NO_ARGUMENTS_DESC_AFTER": "Arguments can be favourited or recognised as including proof."
+      "NO_ARGUMENTS_DESC_AFTER": "Arguments can be favourited or recognised as including proof.",
+      "NO_ARGUMENTS_DESC_INFO": "There is currently no discussion phase for this topic. To have one, this phase must be started by a topic admin.",
+      "NO_ARGUMENTS_DESC_PARTICIPANTS": "The discussion is open, but no-one has posted any arguments yet. Be bold and be the first to post one!",
+      "NO_ARGUMENTS_DESC_ADMIN": "No-one has posted any arguments yet. As topic admin, get the discussion flowing by posting some yourself!"
     },
     "TOPIC_INVITE_EDITORS": {
       "HEADING": "Invite co-creators",
@@ -2153,7 +2159,7 @@
       "HELP_LNK_LEARN_MORE": "@:VIEWS.TOPIC_CREATE.HELP_LNK_LEARN_MORE",
       "HELP_NEXT_HEADING": "@:VIEWS.TOPIC_CREATE.HELP_NEXT_HEADING",
       "HELP_NEXT_DESCRIPTION": "@:VIEWS.TOPIC_CREATE.HELP_NEXT_DESCRIPTION",
-      "HELP_ITEM_ADD_DISCUSSION":"Add a pro/con discussion phase",
+      "HELP_ITEM_ADD_DISCUSSION": "Add a pro/con discussion phase",
       "HELP_ITEM_SHARE_AND_INVITE": "@:VIEWS.TOPIC_CREATE.HELP_ITEM_SHARE_AND_INVITE",
       "HELP_ITEM_ADD_VOTING": "Add voting to choose from ideas or vote on a question",
       "HELP_ITEM_START_GATHERING_IDEAS": "Start gathering ideas",
