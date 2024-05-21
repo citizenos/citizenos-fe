@@ -119,7 +119,7 @@ export class IdeaboxComponent implements AfterViewInit {
           .delete(idea)
           .pipe(take(1))
           .subscribe(() => {
-            this.TopicIdeaService.reset();
+            this.TopicIdeaService.reloadIdeas();
           });
       }
     });
