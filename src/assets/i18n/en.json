@@ -1195,7 +1195,7 @@
       "NO_ARGUMENTS_DESC_HEADING": "How discussions work",
       "NO_ARGUMENTS_DESC_BEFORE": "In discussions, participants can add pro or con arguments, and other participants can reply or react to these. The general sentiment of the discussion is shown visually.",
       "NO_ARGUMENTS_DESC_AFTER": "Arguments can be favourited or recognised as including proof.",
-      "NO_ARGUMENTS_DESC_INFO": "There is currently no discussion phase for this topic. To have one, this phase must be started by a topic admin.",
+      "NO_ARGUMENTS_DESC_INFO": "There is currently no discussion phase for this topic, but topic admins can start one once the ideation ends.",
       "NO_ARGUMENTS_DESC_PARTICIPANTS": "The discussion is open, but no-one has posted any arguments yet. Be bold and be the first to post one!",
       "NO_ARGUMENTS_DESC_ADMIN": "No-one has posted any arguments yet. As topic admin, get the discussion flowing by posting some yourself!"
     },
