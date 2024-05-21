@@ -3,7 +3,7 @@ import { Component, OnInit, Input, Inject } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { take } from 'rxjs';
+import { map, take } from 'rxjs';
 import { AppService } from 'src/app/services/app.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { TopicArgumentService } from 'src/app/services/topic-argument.service';
@@ -33,6 +33,7 @@ export class PostArgumentComponent implements OnInit {
   errors: any;
 
   text = <string>'';
+  addArgument;
   argumentForm = new UntypedFormGroup({
     subject: new UntypedFormControl('', [Validators.required]),
     text: new UntypedFormControl('', [Validators.required]),
@@ -48,7 +49,13 @@ export class PostArgumentComponent implements OnInit {
     public TopicArgumentService: TopicArgumentService,
     @Inject(ActivatedRoute) private route: ActivatedRoute,
     @Inject(TranslateService) public translate: TranslateService,
-    @Inject(Router) private router: Router) { }
+    @Inject(Router) private router: Router) {
+    this.addArgument = this.app.addArgument.pipe(map((val) => {
+      this.text = '';
+      this.argumentForm.reset();
+      return val;
+    }))
+  }
 
   ngOnInit(): void {
   }
@@ -62,8 +69,10 @@ export class PostArgumentComponent implements OnInit {
   }
 
   updateText(text: any) {
-    this.argumentForm.controls['text'].markAsTouched();
-    this.argumentForm.controls['text'].setValue(text);
+    setTimeout(() => {
+      this.argumentForm.controls['text'].markAsTouched();
+      this.argumentForm.controls['text'].setValue(text);
+    });
   }
 
   addNewArgument() {
@@ -77,12 +86,31 @@ export class PostArgumentComponent implements OnInit {
   close() {
     this.app.addArgument.next(false);
   }
+
+  clear() {
+    this.updateText('')
+    this.text = '';
+    this.argumentForm.patchValue({
+      subject: '',
+      text: ''
+    });
+    this.argumentForm.markAsUntouched();
+    this.argumentForm.controls['subject'].patchValue('');
+    this.argumentForm.controls['text'].markAsPristine();
+    this.argumentForm.controls['text'].markAsUntouched();
+    setTimeout(() => {
+      this.argumentForm.controls['text'].markAsPristine();
+      this.argumentForm.controls['text'].markAsUntouched();
+      this.argumentForm.markAsUntouched()
+    })
+  }
+
   postArgument() {
     const argument = {
       parentVersion: 0,
       type: this.argumentType,
       subject: this.argumentForm.value['subject'],
-      text: this.argumentForm.value['text'] ,
+      text: this.argumentForm.value['text'],
       topicId: this.topicId
     };
     this.TopicArgumentService
@@ -90,10 +118,10 @@ export class PostArgumentComponent implements OnInit {
       .pipe(take(1))
       .subscribe({
         next: (argument) => {
-          this.argumentForm.reset();
-          this.TopicArgumentService.reset();
+          this.TopicArgumentService.reloadArguments();
           this.text = '';
-          this.TopicArgumentService.setParam('topicId', this.topicId)
+          this.argumentForm.reset();
+          this.clear();
           this.app.addArgument.next(false);
           this.router.navigate(
             [],
