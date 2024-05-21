@@ -697,7 +697,7 @@
       "BTN_ADD_YOUR_IDEA": "Add your idea",
       "IDEA_FILTER_TYPE": "Idea type",
       "HEADING_IDEATION_ENDED": "The ideation has ended!",
-      "TXT_IDEATION_ENDED": "A topic admin has closed the ideation. You can no longer add, edit or upvote ideas, but you can still read, reply and favourite them.",
+      "TXT_IDEATION_ENDED": "The ideation has been closed. You can no longer add, edit or upvote ideas, but you can still read, reply and favourite them.",
       "OPT_ADD_DEADLINE": "@:COMPONENTS.TOPIC_VOTE_CAST.OPT_ADD_DEADLINE",
       "OPT_EDIT_DEADLINE": "@:MODALS.TOPIC_SETTINGS_BTN_EDIT_DEADLINE",
       "OPT_CLOSE_IDEATION": "End ideation",
