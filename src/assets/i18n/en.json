@@ -2931,6 +2931,8 @@
     }
   },
   "ACTIVITY_FEED": {
+    "ACTIVITY_USER_CREATE_IDEATION_TOPIC": "User <em>{{userName}}</em> has opened ideation for topic <em>{{topicTitle}}</em>",
+    "ACTIVITY_USER_UPDATE_IDEATION_TOPIC": "User <em>{{userName}}</em> has updated the ideation deadline of topic <em>{{topicTitle}}</em>",
     "ACTIVITY_USER_CREATE_TOPIC": "User <em>{{userName}}</em> has created a topic <em>{{topicTitle}}</em>",
     "ACTIVITY_USER_UPDATE_TOPIC": "User <em>{{userName}}</em> has updated a field <em>{{fieldName}}</em> in topic <em>{{topicTitle}}</em>",
     "ACTIVITY_USER_UPDATE_TOPIC_ACTIVITYGROUP": "User <em>{{userName}}</em> and <em>{{groupCount}}</em> others have updated topic <em>{{topicTitle}}</em>",
