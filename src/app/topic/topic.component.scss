@@ -535,7 +535,6 @@
           justify-content: center;
           border-radius: 16px;
         }
-
         &.discussion {
           cursor: pointer;
           border-color: var(--color-discussion);
@@ -558,6 +557,7 @@
           }
         }
         &.ideation {
+          cursor: pointer;
           border-color: var(--color-ideation-disabled);
           .icon_wrap {
             background-color: var(--color-ideation-disabled);

@@ -1039,7 +1039,7 @@
         </div>
         <div class="state_items_wrap"
           [TourItem]="{tourid: 'topic', index: 5, position: ((wWidth <= 1024)? 'bottom': 'left')}">
-          <div *ngIf="topic.ideationId" class="state_item ideation">
+          <div *ngIf="topic.ideationId" class="state_item ideation" (click)="selectTab('ideation')">
             <ng-container *ngIf="(ideation$ | async) as ideation">
               <div class="item_header">
                 <div class="item_title_with_description">

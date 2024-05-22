@@ -1,4 +1,4 @@
-<a (click)="(!topic.report)? goToView(): ''" [attr.href]="(!topic.report)? getTopicLink(): ''" class="topic" [ngClass]="{'moderated': topic.report}">
+<a (click)="(!topic.report)? goToView(): ''" [href]="(!topic.report)? getTopicLink(): ''" class="topic" [ngClass]="{'moderated': topic.report}">
   <div class="moderated_topic" *ngIf="topic.report">
     <div class="notification">
       <div>
