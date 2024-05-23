@@ -21,7 +21,7 @@ export class TopicboxComponent implements OnInit {
   @Input() topic = <Topic>{}; // decorate the property with @Input()
   catClass = "varia";
   vote$?: Observable<Vote>;
-  milestones$?: Observable<any[]>;
+  milestones$?: Observable<Number> = of(0);
   ideaCount$?: Observable<Number> = of(0);
   vote?: Vote;
   constructor(private TopicService: TopicService, private TopicVoteService: TopicVoteService, private router: Router, private TopicEventService: TopicEventService, private DialogService: DialogService, private TopicIdeaService: TopicIdeaService) {
@@ -38,8 +38,7 @@ export class TopicboxComponent implements OnInit {
       );
     }
     if (this.topic.status === this.TopicService.STATUSES.followUp) {
-      this.TopicEventService.setParam('topicId', this.topic.id);
-      this.milestones$ = this.TopicEventService.loadItems();
+      this.milestones$ = this.TopicEventService.query({topicId: this.topic.id}).pipe(map((res) => res.count));
     }
     if (this.topic.status === this.TopicService.STATUSES.ideation && this.topic.ideationId) {
       this.ideaCount$ = this.TopicIdeaService.query({topicId: this.topic.id, ideationId: this.topic.ideationId}).pipe(
