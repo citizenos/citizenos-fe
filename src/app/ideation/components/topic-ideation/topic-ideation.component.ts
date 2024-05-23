@@ -64,6 +64,7 @@ export class TopicIdeationComponent {
   searchIdeasInput = '';
   ideaSearchFilter$ = new BehaviorSubject('');
   folderFilter$ = new BehaviorSubject('');
+  loadFolders$ = new BehaviorSubject<void>(undefined);
   selectedFolder?: Folder;
   notification: any = null;
   constructor(
@@ -79,7 +80,7 @@ export class TopicIdeationComponent {
 
   ngOnInit(): void {
 
-    this.ideas$ = combineLatest([this.ideaTypeFilter$, this.orderFilter$, this.ideaParticipantsFilter$, this.folderFilter$, this.ideaSearchFilter$, this.TopicIdeaService.loadIdeas$ ])
+    this.ideas$ = combineLatest([this.ideaTypeFilter$, this.orderFilter$, this.ideaParticipantsFilter$, this.folderFilter$, this.ideaSearchFilter$, this.TopicIdeaService.loadIdeas$])
       .pipe(
         switchMap(([typeFilter, orderFilter, participantFilter, folderFilter, search, load]) => {
           this.TopicIdeaService.setParam('topicId', this.topic.id);
@@ -126,8 +127,12 @@ export class TopicIdeationComponent {
         ));
     this.TopicIdeationService.setParam('topicId', this.topic.id);
     this.TopicIdeationService.setParam('ideationId', this.ideation.id);
-    this.folders$ = this.TopicIdeationService.getFolders({ topicId: this.topic.id, ideationId: this.ideation.id }).pipe(
+    this.folders$ = this.loadFolders$.pipe(
+      switchMap(() => {
+        return this.TopicIdeationService.getFolders({ topicId: this.topic.id, ideationId: this.ideation.id })
+      }),
       map((res) => {
+        this.ideation.folders.count = res.count;
         return res.rows;
       })
     );
@@ -256,11 +261,7 @@ export class TopicIdeationComponent {
     });
 
     folderCreateDialog.afterClosed().subscribe(() => {
-      this.folders$ = this.TopicIdeationService.getFolders({ topicId: this.topic.id, ideationId: this.ideation.id }).pipe(
-        map((res) => {
-          return res.rows;
-        })
-      );
+      this.loadFolders$.next();
     });
   }
 
@@ -274,22 +275,14 @@ export class TopicIdeationComponent {
     });
 
     folderCreateDialog.afterClosed().subscribe(() => {
-      this.folders$ = this.TopicIdeationService.getFolders({ topicId: this.topic.id, ideationId: this.ideation.id }).pipe(
-        map((res) => {
-          return res.rows;
-        })
-      );
+      this.loadFolders$.next();
     });
   }
   deleteFolder(folder: Folder) {
     this.TopicIdeationService.deleteFolder({ topicId: this.topic.id, ideationId: this.ideation.id, folderId: folder.id }).pipe(take(1))
       .subscribe({
         next: () => {
-          this.folders$ = this.TopicIdeationService.getFolders({ topicId: this.topic.id, ideationId: this.ideation.id }).pipe(
-            map((res) => {
-              return res.rows;
-            })
-          );
+          this.loadFolders$.next();
         },
         error: () => {
 
@@ -343,11 +336,7 @@ export class TopicIdeationComponent {
     });
 
     folderCreateDialog.afterClosed().subscribe(() => {
-      this.folders$ = this.TopicIdeationService.getFolders({ topicId: this.topic.id, ideationId: this.ideation.id }).pipe(
-        map((res) => {
-          return res.rows;
-        })
-      );
+      this.loadFolders$.next();
     });
   };
 

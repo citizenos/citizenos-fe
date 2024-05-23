@@ -421,6 +421,7 @@
       "REPLIES": "{{count}} replies",
       "NOTIFICATION_TITLE": "This idea was hidden by a moderator",
       "NOTIFICATION_LNK_WHY": "@:VIEWS.TOPICS_TOPICID.ARGUMENT_WHY",
+      "IDEA_FOUND_INAPPRIOPRIATE_BY": "This idea was found inappropriate by user <b>{{usersFullName}}</b>",
       "IDEA_AUTHOR_REMOVED_IDEA": "This idea was removed by its author",
       "NOTIFICATION_LNK_VIEW": "View anyway"
     },
