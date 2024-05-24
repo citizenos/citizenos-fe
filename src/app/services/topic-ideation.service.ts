@@ -100,6 +100,7 @@ export class TopicIdeationService extends ItemsListService {
   }
 
   addIdeaToFolder(params: any, data: any) {
+    console.log('DATA', data);
     let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId/folders/:folderId/ideas'), params);
 
     return this.http.post<ApiResponse>(path, data, { withCredentials: true, observe: 'body', responseType: 'json' })

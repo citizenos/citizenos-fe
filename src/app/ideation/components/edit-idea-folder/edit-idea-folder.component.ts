@@ -48,10 +48,8 @@ export class EditIdeaFolderComponent {
     })
   }
   editFolder() {
-    console.log(this.initialIdeas, this.folderIdeas)
     const ideasToRemove = this.initialIdeas.filter((idea) => {
       const exists = this.folderIdeas.find((i) => i.id === idea.id);
-      console.log('exists', exists)
       return !exists;
     });
     console.log('IDEAS to remvoe', ideasToRemove);

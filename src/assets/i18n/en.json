@@ -135,6 +135,9 @@
       "LBL_IDEA_TO_ADD": "Idea to add to folder",
       "LBL_FOLDER_SELECTION": "Select the folders you want to add the idea to",
       "LBL_FOLDERS": "Folders ({{count}})",
+      "LBL_ADD_TO_A_NEW_FOLDER": "Add to a new folder",
+      "PLACEHOLDER_FOLDER_NAME": "@:COMPONENTS.CREATE_IDEA_FOLDER.PLACEHOLDER_NAME",
+      "ERROR_FOLDER_NAME": "@:COMPONENTS.CREATE_IDEA_FOLDER.ADD_NAME_ERROR_MSG_INVALID",
       "BTN_ADD": "Add idea to folder",
       "LNK_CANCEL": "@:LNK_CANCEL"
     },

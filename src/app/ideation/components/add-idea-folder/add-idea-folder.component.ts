@@ -13,56 +13,97 @@ import { DIALOG_DATA, DialogRef } from 'src/app/shared/dialog';
 })
 export class AddIdeaFolderComponent {
 
+  ideasFolders$;
   folders$;
   wWidth = window.innerWidth;
   ideaFolders = <Folder[]>[];
+  initialFolders = <Folder[]>[];
   foldersCount = 0;
   idea;
   topicId;
   ideationId;
-  doAddToFolder() {
-
-  }
+  form = new UntypedFormGroup({
+    name: new UntypedFormControl('', Validators.required),
+  });
+  showFolderInput = false;
 
   constructor(public TopicIdeaService: TopicIdeaService, public TopicIdeationService: TopicIdeationService, @Inject(DIALOG_DATA) data: any, private dialogRef: DialogRef<AddIdeaFolderComponent>) {
     this.topicId = data.topicId;
     this.ideationId = data.ideationId;
     this.idea = data.idea;
+    this.ideasFolders$ = this.TopicIdeaService.getFolders({
+      topicId: data.topicId,
+      ideationId: data.ideationId,
+      ideaId: data.idea.id
+    }).pipe(take(1), map((data: any) => {
+      this.ideaFolders = Object.assign([], data.rows);
+      this.initialFolders = Object.assign([], data.rows);
+      this.ideaFolders = data.rows;
+      return data.rows;
+    })).subscribe();
+
     this.folders$ = this.TopicIdeationService.getFolders({
       topicId: data.topicId,
       ideationId: data.ideationId
     }).pipe(map((data: any) => {
-      console.log('FOLDERS', data);
       this.foldersCount = data.count;
       return data.rows;
     }));
   }
+
   createFolder() {
-    /*this.TopicIdeationService.createFolder({ topicId: this.topicId, ideationId: this.ideationId }, this.form.value).pipe(take(1)).subscribe({
-      next: (folder) => {
-        console.log('RES', folder);
-        if (this.ideaFolders.length) {
-          this.TopicIdeationService.addIdeaToFolder({ topicId: this.topicId, ideationId: this.ideationId, folderId: folder.id }, this.ideaFolders)
+    if (this.showFolderInput && !this.form.invalid) {
+      this.TopicIdeationService.createFolder({ topicId: this.topicId, ideationId: this.ideationId }, this.form.value).pipe(take(1)).subscribe({
+        next: (folder) => {
+          this.TopicIdeationService.addIdeaToFolder({ topicId: this.topicId, ideationId: this.ideationId, folderId: folder.id }, this.idea)
             .pipe(take(1))
             .subscribe({
               next: (res) => {
-                console.log('IDEAS to folder', res)
-
                 this.dialogRef.close();
               },
               error: (err) => {
                 console.log('Error adding ideas to folder')
               }
             })
-        } else {
-
-          this.dialogRef.close();
+        },
+        error: (err) => {
+          console.log('ERROR', err)
         }
-      },
-      error: (err) => {
-        console.log('ERROR', err)
-      }
-    })*/
+      });
+    }
+    const foldersToRemove = this.initialFolders.filter((folder) => {
+      const exists = this.ideaFolders.find((f) => f.id === folder.id);
+      return !exists;
+    });
+
+    if (foldersToRemove.length) {
+      foldersToRemove.forEach((folder) => {
+        this.TopicIdeationService.removeIdeaFromFolder({ topicId: this.topicId, ideationId: this.ideationId, ideaId: this.idea.id, folderId: folder.id })
+          .pipe(take(1))
+          .subscribe({
+            next: (res) => {
+              console.log(res);
+            },
+            error: (err) => {
+              console.log(err);
+            }
+          })
+      })
+    }
+    if (this.ideaFolders.length) {
+      this.TopicIdeaService.addFolders({ topicId: this.topicId, ideationId: this.ideationId, ideaId: this.idea.id }, this.ideaFolders)
+        .pipe(take(1))
+        .subscribe({
+          next: (res) => {
+          },
+          error: (err) => {
+            console.error(`Error adding folders`, err);
+          }
+        })
+    }
+
+
+    this.dialogRef.close();
   }
 
   folderSelected(folder: Folder) {
@@ -72,10 +113,8 @@ export class AddIdeaFolderComponent {
   }
 
   toggleFolder(folder: Folder, $event: any) {
-    console.log('toggle', $event);
     $event.stopPropagation();
     const index = this.ideaFolders.findIndex((item) => item.id === folder.id);
-    console.log('index', index);
     if (index === -1) {
       this.ideaFolders.push(folder);
     } else {
