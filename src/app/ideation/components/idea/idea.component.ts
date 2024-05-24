@@ -96,6 +96,7 @@ export class IdeaDialogComponent extends IdeaboxComponent {
     const newIdea = ideas[index - 1];
     this.router.navigate(['/', this.Translate.currentLang, 'topics', this.topic.id, 'ideation', this.ideation.id, 'ideas', newIdea.id]);
     this.idea = newIdea;
+    this.notification = null;
   }
 
   nextIdea(ideas: Idea[]) {
@@ -104,5 +105,6 @@ export class IdeaDialogComponent extends IdeaboxComponent {
     const newIdea = ideas[index + 1];
     this.router.navigate(['/', this.Translate.currentLang, 'topics', this.topic.id, 'ideation', this.ideation.id, 'ideas', newIdea.id]);
     this.idea = newIdea;
+    this.notification = null;
   }
 }
