@@ -70,10 +70,8 @@ export class AddIdeasToFolderComponent {
   }
 
   toggleIdea(idea: Idea, $event: any) {
-    console.log('toggle', $event);
     $event.stopPropagation();
     const index = this.folderIdeas.findIndex((item) => item.id === idea.id);
-    console.log('index', index);
     if (index === -1) {
       this.folderIdeas.push(idea);
     } else {

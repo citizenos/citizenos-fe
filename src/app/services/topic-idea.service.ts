@@ -133,6 +133,27 @@ export class TopicIdeaService extends ItemsListService {
     return this.http.get<ApiResponse>(path, { withCredentials: true, params: queryParams, observe: 'body', responseType: 'json' });
   }
 
+
+  getFolders (params: { [key: string]: any }): Observable<ApiResponse> {
+    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId/ideas/:ideaId/folders'), params);
+
+    const queryParams = Object.fromEntries(Object.entries(params).filter((i) => i[1] !== null));
+
+    return this.http.get<ApiResponse>(path, { withCredentials: true, params: queryParams, observe: 'body', responseType: 'json' }).pipe(
+      map(res => res.data)
+    );
+  }
+
+  addFolders (params: any, data: any) {
+    console.log('DATA', data);
+    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId/ideas/:ideaId/folders'), params);
+
+    return this.http.post<ApiResponse>(path, data, { withCredentials: true, observe: 'body', responseType: 'json' })
+      .pipe(
+        map(res => res.data)
+      );
+  }
+
   vote(data: any) {
     let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId/ideas/:ideaId/votes'), data);
 
@@ -205,4 +226,5 @@ export class TopicIdeaService extends ItemsListService {
   getIdeaIdWithVersion(ideaId: string, version: number) {
     return ideaId + this.IDEA_VERSION_SEPARATOR + version;
   };
+
 }
