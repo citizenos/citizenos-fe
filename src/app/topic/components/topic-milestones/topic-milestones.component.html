@@ -71,7 +71,11 @@
           </cos-input>
         </div>
         <div class="section_buttons">
-          <button class="btn_medium_submit bold" translate="COMPONENTS.TOPIC_MILESTONES.ADD_MILESTONE"
+          <a translate="COMPONENTS.TOPIC_MILESTONES.LNK_CANCEL"
+            (click)="toggleEditMode(evt)">
+          </a>
+
+          <button class="btn_medium_submit bold" translate="COMPONENTS.TOPIC_MILESTONES.EDIT_MILESTONE"
             (click)="editEvent(evt)">
           </button>
         </div>
