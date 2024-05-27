@@ -229,7 +229,10 @@ export class TopicComponent implements OnInit {
               this.showTutorial = true;
             }
           }, 500);
+        } else {
+          this.skipTour = true;
         }
+        this.CookieService.set('show-topic-tour', 'true', 36500);
         return topic;
       }),
       catchError((err) => {
@@ -277,7 +280,7 @@ export class TopicComponent implements OnInit {
               this.router.navigate(['topics', 'edit', topic.id]);
             }
 
-            if(Object.keys(this.route.snapshot.queryParams).indexOf('notificationSettings') > -1) {
+            if (Object.keys(this.route.snapshot.queryParams).indexOf('notificationSettings') > -1) {
               this.app.doShowTopicNotificationSettings(topic.id);
             }
           })
