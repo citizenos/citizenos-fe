@@ -109,3 +109,16 @@
     max-height: 100px;
   }
 }
+
+.checkbox {
+  .checkmark {
+    background-color: var(--color-surfaces);
+  }
+
+  &.selected {
+    .checkmark {
+
+    background-color: var(--input-checkbox-background-default);
+    }
+  }
+}
