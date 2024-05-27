@@ -56,10 +56,16 @@ export class TopicMilestonesComponent implements OnInit {
   }
 
   toggleEditMode(event: any) {
+    if (!event.orgSubject) {
+      event.origSubject = event.subject;
+      event.origText = event.text;
+    }
     if (!event.editMode) {
       event.editMode = true;
     } else {
       event.editMode = !event.editMode;
+      event.subject = event.origSubject;
+      event.subject = event.origText;
     }
   }
 
@@ -71,6 +77,7 @@ export class TopicMilestonesComponent implements OnInit {
       .subscribe(() => {
         this.event.subject = '';
         this.event.text = '';
+        event.editMode = !event.editMode;
         this.TopicEventService.reset();
       });
   }
