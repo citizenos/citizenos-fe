@@ -455,12 +455,99 @@
   }
 }
 
+.radio_wrap {
+  padding: 16px;
+  border-radius: 8px;
+
+  &.selected {
+    background-color: var(--color-dialog-ideation);
+  }
+}
+
+.date_selector {
+  width: 100%;
+
+  &.selected {
+    max-width: 546px;
+  }
+
+  .checkbox {
+    width: 100%;
+    flex-direction: row;
+    justify-content: flex-start;
+    .checkbox_text_wrap {
+      display: flex;
+      justify-content: space-between;
+      width: calc(100% - 40px);
+
+      @include mixins.mobile {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  }
+}
+
+.deadline_wrap {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 16px;
+  .date_row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    vertical-align: middle;
+    gap: 24px;
+
+    @include mixins.mobile {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .date_row_title {
+      min-width: 25%;
+    }
+
+    .input_wrap {
+      flex-grow: 2;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      justify-content: flex-end;
+
+      @include mixins.mobile {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+      }
+
+      .time_wrap {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        @include mixins.mobile {
+          width: 100%;
+        }
+      }
+
+      .time_input {
+        min-width: max-content;
+        max-width: max-content;
+      }
+
+      .dropdown {
+        width: 100%;
+      }
+    }
+  }
+}
+
 #ideation_deadline_input_wrap {
   display: flex;
   height: 48px;
   padding: 16px;
-  background: var(--color-surfaces);
-  border: 1px solid var(--color-border);
   border-radius: 8px;
   gap: 8px;
   align-items: center;
@@ -471,12 +558,7 @@
     color: var(--color-argument-info);
   }
 }
-.deadline_selector {
-  width: 100%;
-  max-width: 546px;
-  padding: 16px;
-  background-color: var(--color-dialog-ideation);
-}
+
 .date_selector {
   width: 100%;
   display: flex;
