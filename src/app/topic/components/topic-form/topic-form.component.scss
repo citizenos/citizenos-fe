@@ -454,3 +454,22 @@
     width: 100%;
   }
 }
+
+#topic_members_list_wrap {
+  .row_list, .row_header {
+    .row_cell {
+      &:first-child {
+        min-width: 45%;
+      }
+      &:nth-child(2) {
+        min-width: 30%;
+        justify-content: flex-start;
+      }
+      &:nth-child(3) {
+        min-width: 15%;
+        text-align: right;
+        justify-content: flex-end;
+      }
+    }
+  }
+}
