@@ -75,7 +75,7 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
     id: '',
     reminderSent: null,
     votersCount: 0,
-    description: '',
+    description: <string | null>'',
     options: <any[]>[],
     delegationIsAllowed: false,
     type: '',
@@ -285,6 +285,10 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
     return this.TopicService.save(topic)
       .pipe(take(1),
         tap((topic: Topic) => {
+          this.topic = topic;
+          this.vote.options = [{value: 'Yes'}, {value: 'No'}];
+          this.vote.description = null;
+          this.createVote();
           this.router.navigate([topic.id], { relativeTo: this.route });
         }));
   }
