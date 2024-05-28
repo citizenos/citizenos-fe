@@ -871,7 +871,7 @@
                       <label class="checkbox" [ngClass]="{selected: deadlineSelect}">
                         <span class="checkmark"></span>
                         <div class="checkbox_text_wrap">
-                          <span class="bold" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_DEADLINE"></span>
+                          <span class="bold" translate="VIEWS.IDEATION_CREATE.LBL_OPTION_DEADLINE"></span>
                           <span class="deadline bold" *ngIf="deadlineSelect">{{deadline | date: 'YYYY-MM-dd HH:mm'}}</span>
                         </div>
                       </label>
@@ -880,7 +880,7 @@
                       <ng-container *ngIf="deadlineSelect">
                         <div class="deadline_wrap">
                           <div class="date_row">
-                            <div class="bold date_row_title" translate="COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_LBL_TIME">
+                            <div class="bold date_row_title" translate="VIEWS.IDEATION_CREATE.DEADLINE_LBL_TIME">
                             </div>
                             <div class="input_wrap">
                               <div class="time_wrap">
@@ -894,7 +894,7 @@
                               <div class="dropdown" [cosDropdown]>
                                 <div class="selection">
                                   <div class="selected_item">
-                                    {{'COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_TIME_OPTION_'+endsAt.timeFormat | uppercase |
+                                    {{'VIEWS.IDEATION_CREATE.DEADLINE_TIME_OPTION_'+endsAt.timeFormat | uppercase |
                                     translate}}</div>
                                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
@@ -902,14 +902,14 @@
 
                                 </div>
                                 <div class="options">
-                                  <div class="option" translate="COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_TIME_OPTION_24"
+                                  <div class="option" translate="VIEWS.IDEATION_CREATE.DEADLINE_TIME_OPTION_24"
                                     (click)="endsAt.timeFormat = 24; setTimeFormat()">
                                   </div>
-                                  <div class="option" translate="COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_TIME_OPTION_AM"
+                                  <div class="option" translate="VIEWS.IDEATION_CREATE.DEADLINE_TIME_OPTION_AM"
                                     (click)="endsAt.timeFormat = 'AM'; setTimeFormat()"
                                     [ngClass]="{disabled: timeFormatDisabled()}">
                                   </div>
-                                  <div class="option" translate="COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_TIME_OPTION_PM"
+                                  <div class="option" translate="VIEWS.IDEATION_CREATE.DEADLINE_TIME_OPTION_PM"
                                     (click)="endsAt.timeFormat = 'PM'; setTimeFormat()">
                                   </div>
                                 </div>
@@ -918,7 +918,7 @@
                             </div>
                           </div>
                           <div class="date_row">
-                            <div class="date_row_title bold" translate="COMPONENTS.TOPIC_VOTE_CREATE.DEADLINE_LBL_TIMEZONE">
+                            <div class="date_row_title bold" translate="VIEWS.IDEATION_CREATE.DEADLINE_LBL_TIMEZONE">
                             </div>
                             <div class="input_wrap">
                               <div class="dropdown" [cosDropdown]>
