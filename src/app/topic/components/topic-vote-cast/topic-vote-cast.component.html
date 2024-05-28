@@ -148,11 +148,11 @@
             <!-- VOTE ENDED-->
             <ng-container *ngIf="hasVoteEndedExpired() &&(!userHasVoted || !editVote)">
               <div class="text_area">
-                <div class="bold with_tooltip" translate="COMPONENTS.TOPIC_VOTE_CAST.HEADING_VOTE_ENDED"><div class="tooltip" tooltip>
+                <div class="bold" translate="COMPONENTS.TOPIC_VOTE_CAST.HEADING_VOTE_ENDED"></div>
+                <div class="with_tooltip" *ngIf="canUpdate()" translate="COMPONENTS.TOPIC_VOTE_CAST.VOTE_TXT_VOTE_ENDED"><div class="tooltip" tooltip>
                   <div class="content_title">Help on its way</div>
                   <div class="content_description">Help text coming soon! Please tell us what help you were looking for.</div>
                 </div></div>
-                <div *ngIf="canUpdate()" translate="COMPONENTS.TOPIC_VOTE_CAST.VOTE_TXT_VOTE_ENDED"></div>
                 <div class="links_wrap" *ngIf="canUpdate()">
                   <a [href]="vote.downloads.bdocVote"
                     *ngIf="vote.authType === VOTE_AUTH_TYPES.hard && vote.downloads?.bdocVote" download>
