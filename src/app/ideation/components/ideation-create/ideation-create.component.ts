@@ -188,6 +188,7 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
                 this.TopicIdeationService.get({ topicId: topic.id, ideationId: topic.ideationId }).pipe(take(1)).subscribe({
                   next: (ideation) => {
                     this.ideation = ideation;
+                    this.ideation.question = this.ideation.question.trim();
                     cd.detectChanges();
                   }
                 });
@@ -285,6 +286,9 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
     return this.TopicService.save(topic)
       .pipe(take(1),
         tap((topic: Topic) => {
+          this.topic = topic;
+          this.ideation.question = ' ';
+          this.createIdeation();
           this.router.navigate([topic.id], { relativeTo: this.route });
         }));
   }
