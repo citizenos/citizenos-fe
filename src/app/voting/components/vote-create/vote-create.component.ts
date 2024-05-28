@@ -184,6 +184,9 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
                 this.TopicVoteService.get({ topicId: topic.id, voteId: topic.voteId }).pipe(take(1)).subscribe({
                   next: (vote) => {
                     this.vote = vote;
+                    if (this.vote.description === null) {
+                      this.vote.description = '';
+                    }
                     this.vote.options = vote.options.rows;
                     this.vote.options.forEach((option) => {
                       option.enabled = true;
@@ -199,29 +202,6 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
         return this.createTopic();
       })
     );
-    /*
-        this.route.params.pipe(
-          map((params) => {
-            if (params['topicId']) {
-              return this.TopicService.loadTopic(params['topicId'])
-            }
-            return this.createTopic();
-          })
-          , take(1)
-        ).subscribe({
-          next: (topic) => {
-            if (topic) {
-              topic.pipe(take(1)).subscribe({
-                next: (data) => {
-                  Object.assign(this.topic, data);
-                  this.topic.padUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.topic.padUrl);
-                }
-              })
-
-
-            }
-          }
-        })*/
   }
   override ngOnInit(): void {
 
