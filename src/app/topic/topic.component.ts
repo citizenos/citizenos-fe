@@ -186,10 +186,10 @@ export class TopicComponent implements OnInit {
             this.scroll(this.followUpEl?.nativeElement);
           }
         }, 200);
-        if (this.topicStatus === this.STATUSES.ideation && !value ) return 'ideation';
-        if (this.topicStatus === this.STATUSES.inProgress && !value ) return 'discussion';
-        if (this.topicStatus === this.STATUSES.voting && !value ) return 'voting';
-        if (this.topicStatus === this.STATUSES.followUp && !value ) return 'followUp';
+        if (this.topicStatus === this.STATUSES.ideation && !value) return 'ideation';
+        if (this.topicStatus === this.STATUSES.inProgress && !value) return 'discussion';
+        if (this.topicStatus === this.STATUSES.voting && !value) return 'voting';
+        if (this.topicStatus === this.STATUSES.followUp && !value) return 'followUp';
 
         return value || 'discussion';
       })
@@ -245,10 +245,11 @@ export class TopicComponent implements OnInit {
               this.showTutorial = true;
             }
           }, 500);
+
+          this.CookieService.set('show-topic-tour', 'true', 36500);
         } else {
-          this.skipTour = true;
+          this.showTutorial = false;
         }
-        this.CookieService.set('show-topic-tour', 'true', 36500);
         return topic;
       }),
       catchError((err) => {
@@ -451,7 +452,7 @@ export class TopicComponent implements OnInit {
     const diff = end.getTime() - start.getTime();
     const now = new Date().getTime() - start.getTime();
 
-    return Math.round((now/diff)*100);
+    return Math.round((now / diff) * 100);
   }
 
   hasIdeationEndedExpired(topic: Topic, ideation: Ideation) {
@@ -541,7 +542,7 @@ export class TopicComponent implements OnInit {
     })
   };
 
-  startDiscussion (topic: Topic) {
+  startDiscussion(topic: Topic) {
     this.DialogService.open(TopicDiscussionCreateDialogComponent, {
       data: {
         topic: topic
