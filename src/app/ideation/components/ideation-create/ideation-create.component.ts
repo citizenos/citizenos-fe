@@ -347,7 +347,9 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
           .subscribe({
             next: (res: any) => {
               if (res && !res.link) return;
-
+              if (res.link) {
+                this.topic.imageUrl = res.link;
+              }
               this.topicGroups.forEach((group) => {
                 this.saveMemberGroup(group)
               });
@@ -423,8 +425,7 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
       next: () => {
         if (updateTopicStatus) {
           const isDraft = (this.topic.status === this.TopicService.STATUSES.draft);
-          const updateTopic = Object.assign({}, this.topic);
-          updateTopic.status = this.TopicService.STATUSES.ideation;
+          const updateTopic = {id: this.topic.id, status: this.TopicService.STATUSES.ideation};
           this.TopicService.patch(updateTopic).pipe(take(1)).subscribe({
             next: (res) => {
               this.hasChanges$.next(false);
