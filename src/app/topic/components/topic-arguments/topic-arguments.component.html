@@ -205,7 +205,7 @@
             fill="white" />
         </svg>
 
-        <span [translate]="(topic.status === TopicService.STATUSES.ideation)? 'COMPONENTS.TOPIC_ARGUMENTS.NO_ARGUMENTS_BTN_START_DISCUSSION' :'COMPONENTS.TOPIC_ARGUMENTS.NO_ARGUMENTS_BTN_ADD'"></span></button>
+        <span [translate]="(topic.status === TopicService.STATUSES.ideation && TopicService.canDelete(topic))? 'COMPONENTS.TOPIC_ARGUMENTS.NO_ARGUMENTS_BTN_START_DISCUSSION' :'COMPONENTS.TOPIC_ARGUMENTS.NO_ARGUMENTS_BTN_ADD'"></span></button>
     </div>
     <div class="no_feature_description">
       <div class="description_text">
@@ -216,15 +216,15 @@
           <br><span translate="COMPONENTS.TOPIC_ARGUMENTS.NO_ARGUMENTS_DESC_AFTER"></span>
           <ng-container *ngIf="topic.status === TopicService.STATUSES.ideation">
             <br>
-            <br><span class="bold" translate="COMPONENTS.TOPIC_ARGUMENTS.NO_ARGUMENTS_DESC_INFO"></span>
+            <br><span translate="COMPONENTS.TOPIC_ARGUMENTS.NO_ARGUMENTS_DESC_INFO"></span>
           </ng-container>
           <ng-container *ngIf="topic.status === TopicService.STATUSES.inProgress && !TopicService.canDelete(topic)">
             <br>
-            <br><span class="bold" translate="COMPONENTS.TOPIC_ARGUMENTS.NO_ARGUMENTS_DESC_PARTICIPANTS"></span>
+            <br><span translate="COMPONENTS.TOPIC_ARGUMENTS.NO_ARGUMENTS_DESC_PARTICIPANTS"></span>
           </ng-container>
           <ng-container *ngIf="topic.status === TopicService.STATUSES.inProgress && TopicService.canDelete(topic)">
             <br>
-            <br><span class="bold" translate="COMPONENTS.TOPIC_ARGUMENTS.NO_ARGUMENTS_DESC_ADMIN"></span>
+            <br><span translate="COMPONENTS.TOPIC_ARGUMENTS.NO_ARGUMENTS_DESC_ADMIN"></span>
           </ng-container>
         </div>
       </div>
