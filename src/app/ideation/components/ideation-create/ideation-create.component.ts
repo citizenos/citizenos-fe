@@ -152,6 +152,7 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
         if (params['topicId']) {
           return this.TopicService.loadTopic(params['topicId']).pipe(map((topic) => {
             this.topicUrl = this.sanitizer.bypassSecurityTrustResourceUrl(topic.padUrl);
+            console.log(topic);
             this.topic = topic;
             if (this.topic.id) {
               this.TopicInviteUserService.setParam('topicId', this.topic.id);
