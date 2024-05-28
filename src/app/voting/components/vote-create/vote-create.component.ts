@@ -413,8 +413,7 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
         console.log('Vote updated', res);
         if (updateTopicStatus) {
           const isDraft = (this.topic.status === this.TopicService.STATUSES.draft);
-          const updateTopic = Object.assign({}, this.topic);
-          updateTopic.status = this.TopicService.STATUSES.voting;
+          const updateTopic = {id: this.topic.id, status: this.TopicService.STATUSES.voting};
           this.TopicService.patch(updateTopic).pipe(take(1)).subscribe({
             next: (res) => {
               this.hasChanges$.next(false);
