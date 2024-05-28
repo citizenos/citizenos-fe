@@ -64,7 +64,7 @@
               fill="#DA7AB1" />
           </svg>
           <ng-container *ngIf="milestones$ | async as milestones">
-            <div class="bold" translate="COMPONENTS.TOPICBOX.HEADER_FOLLOW_UP" [translateParams]="{value: milestones}">
+            <div class="bold" translate="COMPONENTS.TOPICBOX.HEADER_FOLLOW_UP" [translateParams]="{value: milestones.count}">
             </div>
           </ng-container>
         </ng-container>
@@ -84,7 +84,7 @@
           </svg>
           <ng-container *ngIf="ideaCount$ | async as ideaCount">
             <div class="bold" translate="COMPONENTS.TOPICBOX.HEADER_IDEATION"
-              [translateParams]="{value: ideaCount}"></div>
+              [translateParams]="{value: ideaCount.count}"></div>
           </ng-container>
         </ng-container>
       </div>
