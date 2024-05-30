@@ -186,7 +186,11 @@ export class TopicFormComponent {
     this.topicUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.topic.padUrl);
     this.downloadUrl = this.TopicService.download(this.topic.id);
     Object.keys(this.block).forEach((blockname) => {
+      if (blockname === 'headerImage' && this.topic.imageUrl) {
+        this.block[blockname] = true;
+      }
       const temp = this.topic[blockname as keyof Topic];
+
       if (blockname === 'description') {
         const el = document.createElement('span');
         el.innerHTML = temp;
