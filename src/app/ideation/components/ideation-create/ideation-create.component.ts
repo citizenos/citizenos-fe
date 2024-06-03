@@ -300,11 +300,11 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
       if (!updateTopic.intro?.length) {
         updateTopic.intro = null;
       }
-
+      console.log([this.TopicService.STATUSES.draft, this.TopicService.STATUSES.ideation].indexOf(this.topic.status) > -1)
       this.TopicService.patch(updateTopic).pipe(take(1)).subscribe(() => {
         if (!this.ideation.id) {
           this.createIdeation();
-        } else {
+        } else if ([this.TopicService.STATUSES.draft, this.TopicService.STATUSES.ideation].indexOf(this.topic.status) > -1) {
           this.updateIdeation();
         }
         this.topicGroups.forEach((group) => {
@@ -355,8 +355,12 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
               });
               if (!this.ideation.id) {
                 this.createIdeation(true);
-              } else {
+              } else if ([this.TopicService.STATUSES.draft, this.TopicService.STATUSES.ideation].indexOf(this.topic.status) > -1) {
                 this.updateIdeation(true);
+              } else {
+                this.hasChanges$.next(false);
+                this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
+                this.TopicService.reloadTopic();
               }
             },
             error: (err) => {
@@ -420,12 +424,12 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
 
 
   updateIdeation(updateTopicStatus?: boolean) {
-     const updateIdeation = Object.assign({ topicId: this.topic.id }, this.ideation);
-     return this.TopicIdeationService.update(updateIdeation).pipe(take(1)).subscribe({
+    const updateIdeation = Object.assign({ topicId: this.topic.id }, this.ideation);
+    return this.TopicIdeationService.update(updateIdeation).pipe(take(1)).subscribe({
       next: () => {
         if (updateTopicStatus) {
           const isDraft = (this.topic.status === this.TopicService.STATUSES.draft);
-          const updateTopic = {id: this.topic.id, status: this.TopicService.STATUSES.ideation};
+          const updateTopic = { id: this.topic.id, status: this.TopicService.STATUSES.ideation };
           this.TopicService.patch(updateTopic).pipe(take(1)).subscribe({
             next: (res) => {
               this.hasChanges$.next(false);
@@ -447,7 +451,7 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
       error: (err) => {
         console.error(err);
       }
-     });
+    });
   }
 
   removeChanges() {
