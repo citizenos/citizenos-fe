@@ -350,7 +350,7 @@ export class TopicFormComponent {
     if (this.fileInput) {
       this.fileInput.nativeElement.value = null;
     }
-    if (this.topic.imageUrl) {
+    if (this.topic.imageUrl || this.tmpImageUrl) {
       this.topic.imageUrl = null;
       this.tmpImageUrl = undefined;
     }
