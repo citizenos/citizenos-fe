@@ -565,4 +565,8 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
 
     return false;
   }
+
+  canEditIdeation() {
+    return this.TopicService.canEdit(this.topic) && (this.topic.status !== this.TopicService.STATUSES.draft || this.topic.status !== this.TopicService.STATUSES.ideation);
+  }
 }

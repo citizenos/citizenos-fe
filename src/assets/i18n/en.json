@@ -704,6 +704,7 @@
       "TXT_IDEATION_ENDED": "The ideation has been closed. You can no longer add, edit or upvote ideas, but you can still read, reply and favourite them.",
       "OPT_ADD_DEADLINE": "@:COMPONENTS.TOPIC_VOTE_CAST.OPT_ADD_DEADLINE",
       "OPT_EDIT_DEADLINE": "@:MODALS.TOPIC_SETTINGS_BTN_EDIT_DEADLINE",
+      "OPT_EDIT_IDEATION": "Edit ideation",
       "OPT_CLOSE_IDEATION": "End ideation",
       "FILTER_ALL": "@:VIEWS.MY_TOPICS.FILTER_ALL",
       "FILTER_TYPE_YOUR_IDEAS": "Your ideas",
@@ -2181,7 +2182,11 @@
       "BTN_INVITE_CO_EDITORS": "@:VIEWS.TOPIC_CREATE.BTN_INVITE_CO_EDITORS",
       "ERROR_MISSING_QUESTION": "Ideation question is required!",
       "ERROR_AT_LEAST_TWO_OPTIONS_REQUIRED": "@:MSG_ERROR_POST_API_USERS_TOPICS_VOTES_40001",
-      "SUCCESS_IDEATION_STARTED": "Ideation has successfully been started"
+      "SUCCESS_IDEATION_STARTED": "Ideation has successfully been started",
+      "CO_EDITORS_TITLE":"@:VIEWS.TOPIC_CREATE.CO_EDITORS_TITLE",
+      "CO_EDITORS_LNK_MANAGE": "@:VIEWS.TOPIC_CREATE.CO_EDITORS_LNK_MANAGE",
+      "CO_EDITORS_LBL_JOINED": "@:VIEWS.TOPIC_CREATE.CO_EDITORS_LBL_JOINED",
+      "CO_EDITORS_LBL_INVITED": "@:VIEWS.TOPIC_CREATE.CO_EDITORS_LBL_INVITED"
     },
     "IDEATION_EDIT": {
       "HEADING": "Edit ideation topic"

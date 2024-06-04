@@ -18,6 +18,7 @@ import { EditIdeationDeadlineComponent } from '../edit-ideation-deadline/edit-id
 import { AddIdeasToFolderComponent } from '../add-ideas-to-folder/add-ideas-to-folder.component';
 import { User } from 'src/app/interfaces/user';
 import { EditIdeaFolderComponent } from '../edit-idea-folder/edit-idea-folder.component';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -73,6 +74,7 @@ export class TopicIdeationComponent {
     private Notification: NotificationService,
     public AuthService: AuthService,
     private router: Router,
+    public translate: TranslateService,
     public TopicService: TopicService,
     private TopicIdeationService: TopicIdeationService,
     private TopicIdeaService: TopicIdeaService
@@ -316,7 +318,7 @@ export class TopicIdeationComponent {
     return this.TopicService.canEdit(this.topic);
   }
   canEditDeadline() {
-    return this.topic.status === this.TopicService.STATUSES.ideation;
+    return this.canEdit() && this.topic.status === this.TopicService.STATUSES.ideation;
   }
 
   hasIdeationEndedExpired() {
