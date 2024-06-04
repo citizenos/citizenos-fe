@@ -3,7 +3,7 @@ import { Component, Inject, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { DialogService } from 'src/app/shared/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { map, tap, Observable, take, switchMap, BehaviorSubject } from 'rxjs';
+import { map, tap, Observable, take, switchMap, BehaviorSubject, Subject } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { AppService } from 'src/app/services/app.service';
 import { ConfigService } from 'src/app/services/config.service';
@@ -118,7 +118,7 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
     super(dialog, route, router, UploadService, Notification, TopicService, GroupService, GroupMemberTopicService, TopicMemberGroupService, TopicMemberUserService, TopicInviteUserService, TopicAttachmentService, translate, cd, sanitizer)
     this.setTimeZones();
     this.app.darkNav = true;
-
+    this.hasUnsavedChanges = new Subject();
     this.groups$ = this.GroupService.loadItems().pipe(map((groups) => {
       groups.forEach((group: any) => {
         if (this.groupId && this.groupId === group.id) {
@@ -224,9 +224,6 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
             }
           }
         })*/
-  }
-  override ngOnInit(): void {
-
   }
   override nextTab(tab: string | void) {
     if (tab) {
