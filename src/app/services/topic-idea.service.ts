@@ -39,7 +39,7 @@ export class TopicIdeaService extends ItemsListService {
     folderId: <string | null>null,
     showModerated: <boolean | string | null>null,
     favourite: <boolean | string | null>null,
-    limit: <number>8,
+    limit: <number>15,
   };
 
   params$ = new BehaviorSubject(this.params);
