@@ -210,7 +210,7 @@ export class TopicIdeaService extends ItemsListService {
     return this.query(params).pipe(
       map((res) => {
         this.count.next(res.data.count);
-        return { rows: res.data.rows, countTotal: (res.data.count.total - res.data.count.reply) || 0 }
+        return { rows: res.data.rows, countTotal: res.data.count || 0 }
       }),
       distinct(),
       catchError(() => EMPTY)

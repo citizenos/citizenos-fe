@@ -58,6 +58,7 @@ export abstract class ItemsListService {
         return this.getItems(paramsValue);
       }),
       map((res: any) => {
+        console.log('RES', res)
         this.countTotal$.next(res.countTotal || res.count || 0);
         this.totalPages$.next(Math.ceil(this.countTotal$.value / this.params$.value.limit));
         this.hasMore$.next(true);

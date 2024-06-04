@@ -8,6 +8,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class CosPaginationComponent implements OnInit {
   @Input() totalPages:number = 0;
   @Input() page:number = 1;
+  @Input() class?: string;
   @Output() select = new EventEmitter<any | null>();
   constructor() { }
 
