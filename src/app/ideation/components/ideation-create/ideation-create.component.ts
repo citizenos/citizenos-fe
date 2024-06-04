@@ -190,6 +190,14 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
                   next: (ideation) => {
                     this.ideation = ideation;
                     this.ideation.question = this.ideation.question.trim();
+                    if (this.ideation.deadline) {
+                      this.deadline = new Date(this.ideation.deadline);
+                      this.endsAt.date = this.ideation.deadline;
+                      this.endsAt.min = this.deadline.getMinutes();
+                      this.endsAt.h = this.deadline.getHours();
+                      this.setEndsAtTime();
+                      this.deadlineSelect = true;
+                    }
                     cd.detectChanges();
                   }
                 });
