@@ -615,6 +615,12 @@
                 <ideabox *ngFor="let idea of ideas" [topic]="topic" [ideation]="ideation" [idea]="idea">
                 </ideabox>
               </ng-container>
+              {{TopicIdeaService.totalPages$ | async}}
+              <div class="pagination_wrap">
+                <cos-pagination (select)="TopicIdeaService.loadPage($event)" class="ideation"
+                  [totalPages]="(TopicIdeaService.totalPages$ | async) || 0"
+                  [page]="(TopicIdeaService.page$ | async) || 0"></cos-pagination>
+              </div>
             </div>
           </ng-container>
           <ng-container *ngIf="tabSelected === 'folders'">

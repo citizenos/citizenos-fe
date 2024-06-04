@@ -77,7 +77,7 @@ export class TopicIdeationComponent {
     public translate: TranslateService,
     public TopicService: TopicService,
     private TopicIdeationService: TopicIdeationService,
-    private TopicIdeaService: TopicIdeaService
+    public TopicIdeaService: TopicIdeaService
   ) { }
 
   ngOnInit(): void {
