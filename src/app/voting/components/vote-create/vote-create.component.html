@@ -809,7 +809,7 @@
                 <span [innerHtml]="'VIEWS.VOTE_CREATE.PREVIEW_INFO' | translate"></span>
               </div>
               <div class="topic_image">
-                <img *ngIf="topic.imageUrl" [src]="topic.imageUrl">
+                <img *ngIf="(topic.imageUrl || tmpImageUrl)" [src]="(topic.imageUrl || tmpImageUrl)">
               </div>
               <div id="topic_text_wrap" #topicText [@readMore]="readMore? 'open' : 'closed'">
                 <div class="topic_title">
