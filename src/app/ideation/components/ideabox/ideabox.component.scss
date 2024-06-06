@@ -116,6 +116,8 @@
       font-style: normal;
       font-weight: 600;
       line-height: 24px;
+      max-height: 116px;
+      overflow: hidden;
 
       &:hover {
         color: var(--color-link);
