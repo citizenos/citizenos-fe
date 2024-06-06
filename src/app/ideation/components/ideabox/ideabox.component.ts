@@ -46,7 +46,7 @@ export class IdeaboxComponent implements AfterViewInit {
     private Location: LocationService,
     private Notification: NotificationService,
     public Translate: TranslateService,
-    private TopicService: TopicService,
+    public TopicService: TopicService,
     public TopicIdeaService: TopicIdeaService
   ) {
   }
@@ -67,7 +67,7 @@ export class IdeaboxComponent implements AfterViewInit {
     return this.TopicService.canEdit(this.topic);
   }
   canEditIdea() {
-    return (this.idea.author.id === this.Auth.user.value.id && !this.idea.deletedAt && [this.TopicService.STATUSES.draft, this.TopicService.STATUSES.ideation ].indexOf(this.topic.status) > -1);
+    return (this.idea.author.id === this.Auth.user.value.id && !this.idea.deletedAt && [this.TopicService.STATUSES.draft, this.TopicService.STATUSES.ideation].indexOf(this.topic.status) > -1);
   };
 
   goToView($event: any) {
@@ -135,8 +135,12 @@ export class IdeaboxComponent implements AfterViewInit {
     });
   };
 
+  canVote() {
+    return (this.Auth.loggedIn$.value && this.topic.status === this.TopicService.STATUSES.ideation);
+  }
+
   doIdeaVote(value: number) {
-    if (!this.Auth.loggedIn$.value) {
+    if (!this.canVote()) {
       return;
     }
 

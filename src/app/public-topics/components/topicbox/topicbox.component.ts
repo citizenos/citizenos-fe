@@ -43,7 +43,6 @@ export class TopicboxComponent implements OnInit {
     if (this.topic.status === this.TopicService.STATUSES.ideation && this.topic.ideationId) {
       this.ideaCount$ = this.TopicIdeaService.query({topicId: this.topic.id, ideationId: this.topic.ideationId}).pipe(
         map((res) => {
-          console.log(res.data);
           if( typeof res.data.count  === 'number') return {count: res.data.count};
           return {count: 0};
         })
