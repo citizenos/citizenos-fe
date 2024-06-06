@@ -15,10 +15,12 @@
             d="M20 10C14.48 10 10 14.48 10 20C10 25.52 14.48 30 20 30C25.52 30 30 25.52 30 20C30 14.48 25.52 10 20 10ZM18.0556 25L25.8333 17.2807L24.375 15.8333L18.0556 22.1053L15.625 19.693L14.1667 21.1404L18.0556 25Z"
             fill="white" />
         </svg>
-        <h4 class="title" translate="COMPONENTS.TOPIC_VOTE_CREATE.DIALOG_HEADING"><div class="tooltip" tooltip>
-          <div class="content_title">Help on its way</div>
-          <div class="content_description">Help text coming soon! Please tell us what help you were looking for.</div>
-        </div></h4>
+        <h4 class="title" translate="COMPONENTS.TOPIC_VOTE_CREATE.DIALOG_HEADING">
+          <div class="tooltip" tooltip>
+            <div class="content_title">Help on its way</div>
+            <div class="content_description">Help text coming soon! Please tell us what help you were looking for.</div>
+          </div>
+        </h4>
         <div class="dialog_close">
           <a class="btn_dialog_close icon" dialog-close>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -245,6 +247,7 @@
                   translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_DEFINE_VOTE_ANSWERS"></span>
               </div>
               <div class="vote_option_ideas_wrap" *ngIf="vote.type == VOTE_TYPES.ideation">
+                <ng-container *ngIf="folders$ | async"></ng-container>
                 <ng-container *ngIf="ideas$ | async"></ng-container>
                 <div class="bold" translate="COMPONENTS.CREATE_IDEA_FOLDER.LBL_IDEAS_SELECTION"></div>
                 <div class="idea_selection_wrap">
@@ -264,14 +267,75 @@
                         </svg>
                       </ng-container>
                       <ng-container *ngIf="this.ideaOrder === 'asc'">
-                        <svg width="24" height="24" transform="scale(1 -1)" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg width="24" height="24" transform="scale(1 -1)" viewBox="0 0 24 24" fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
                           <path d="M12 14L10 14L12.5 18L15 14L13 14L13 5L12 5L12 14Z" fill="#4D5C6A" />
                         </svg>
                       </ng-container>
                     </a>
                   </div>
-                  <div class="line_separator"></div>
                   <div class="ideas_wrap">
+                    <div class="line_separator"></div>
+                    <ng-container *ngFor="let folder of folderList">
+                      <div class="folder_row_wrap" [ngClass]="{open: isShowFolderIdeas(folder)}">
+                        <div class="folder_row">
+                          <div class="checkbox_wrap" (click)="toggleFolder(folder, $event);">
+                            <label class="checkbox" [ngClass]="{selected:folderSelected(folder)}">
+                              <span class="checkmark"></span>
+                            </label>
+                            <div class="folder">
+                              <div class="icon">
+                                <svg width="24" height="22" viewBox="0 0 24 22" fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <path
+                                    d="M0 2.7998C0 1.69523 0.895431 0.799805 2 0.799805H9.06325C9.65681 0.799805 10.2197 1.06345 10.5997 1.51944L11.4003 2.48017C11.7803 2.93616 12.3432 3.1998 12.9367 3.1998H22C23.1046 3.1998 24 4.09524 24 5.1998V19.1998C24 20.3044 23.1046 21.1998 22 21.1998H2C0.89543 21.1998 0 20.3044 0 19.1998V2.7998Z"
+                                    fill="url(#paint0_linear_13260_4901)" />
+                                  <path
+                                    d="M0 7C0 5.89543 0.895431 5 2 5H22C23.1046 5 24 5.89543 24 7V19.2C24 20.3046 23.1046 21.2 22 21.2H2C0.89543 21.2 0 20.3046 0 19.2V7Z"
+                                    fill="url(#paint1_linear_13260_4901)" />
+                                  <defs>
+                                    <linearGradient id="paint0_linear_13260_4901" x1="12" y1="3.4248" x2="12" y2="13.5"
+                                      gradientUnits="userSpaceOnUse">
+                                      <stop stop-color="#FFEBA2" />
+                                      <stop offset="0.192708" stop-color="#FFD84F" />
+                                      <stop offset="0.265625" stop-color="#FFDF6F" />
+                                    </linearGradient>
+                                    <linearGradient id="paint1_linear_13260_4901" x1="11" y1="5" x2="11" y2="21.2"
+                                      gradientUnits="userSpaceOnUse">
+                                      <stop offset="0.901042" stop-color="#FFEAA1" />
+                                      <stop offset="1" stop-color="#FFDF6F" />
+                                    </linearGradient>
+                                  </defs>
+                                </svg>
+                              </div>
+                              <a class="folder_name" [innerHTML]="folder.name + '('+folder.ideas.count+')'"
+                                (click)="toggleFolderIdeas(folder);$event.stopPropagation()">
+                              </a>
+                            </div>
+                          </div>
+                          <div class="votes"> - </div>
+                        </div>
+                        <div class="folder_ideas_wrap" *ngIf="isShowFolderIdeas(folder)">
+                          <div class="idea_row" *ngFor="let idea of folder.ideas.rows">
+                            <div class="checkbox_wrap" (click)="toggleIdea(idea, $event);">
+                              <label class="checkbox" [ngClass]="{selected:ideaSelected(idea)}">
+                                <span class="checkmark"></span>
+                              </label>
+                              <div class="icon">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M4 3H3V10H10V12L14 9.5L10 7V9H4V3Z" fill="#2C3B47" />
+                                </svg>
+
+                              </div>
+                              <div class="statement" [innerHTML]="idea.statement"></div>
+                            </div>
+                            <div class="votes" [innerText]="idea.votes.up.count"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-container>
+                    <div class="line_separator"></div>
                     <div class="idea_row" *ngFor="let idea of ideasList">
                       <div class="checkbox_wrap" (click)="toggleIdea(idea, $event);">
                         <label class="checkbox" [ngClass]="{selected:ideaSelected(idea)}">
@@ -283,10 +347,13 @@
                     </div>
                   </div>
                 </div>
-                <div translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_CAN_ADD_EXTRA_OPTIONS"><div class="tooltip" tooltip>
-                  <div class="content_title">Help on its way</div>
-                  <div class="content_description">Help text coming soon! Please tell us what help you were looking for.</div>
-                </div></div>
+                <div translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_CAN_ADD_EXTRA_OPTIONS">
+                  <div class="tooltip" tooltip>
+                    <div class="content_title">Help on its way</div>
+                    <div class="content_description">Help text coming soon! Please tell us what help you were looking
+                      for.</div>
+                  </div>
+                </div>
                 <div class="vote_options_wrap">
                   <div class="radio_wrap" [ngClass]="{selected: extraOptions.neutral.enabled}"
                     (click)="toggleOption(extraOptions.neutral.value)">
@@ -411,10 +478,13 @@
                   <span translate="COMPONENTS.TOPIC_VOTE_CREATE.BTN_ADD_OPTION"></span>
                 </button>
 
-                <div class="description_text" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_CAN_ADD_EXTRA_OPTIONS"><div class="tooltip" tooltip>
-                  <div class="content_title">Help on its way</div>
-                  <div class="content_description">Help text coming soon! Please tell us what help you were looking for.</div>
-                </div></div>
+                <div class="description_text" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_CAN_ADD_EXTRA_OPTIONS">
+                  <div class="tooltip" tooltip>
+                    <div class="content_title">Help on its way</div>
+                    <div class="content_description">Help text coming soon! Please tell us what help you were looking
+                      for.</div>
+                  </div>
+                </div>
                 <div class="radio_wrap voting" [ngClass]="{selected: extraOptions.neutral.enabled}"
                   (click)="toggleOption(extraOptions.neutral.value)">
                   <div class="radio_text_wrap">
@@ -518,10 +588,13 @@
                   <div class="radio_lable_wrap">
                     <label class="radio_box" (click)="vote.authType = VOTE_AUTH_TYPES.hard"
                       [ngClass]="{selected: vote.authType === VOTE_AUTH_TYPES.hard}">
-                      <span class="bold" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_AUTH_HARD_ID"><div class="tooltip" tooltip>
-                        <div class="content_title">Help on its way</div>
-                        <div class="content_description">Help text coming soon! Please tell us what help you were looking for.</div>
-                      </div></span>
+                      <span class="bold" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_AUTH_HARD_ID">
+                        <div class="tooltip" tooltip>
+                          <div class="content_title">Help on its way</div>
+                          <div class="content_description">Help text coming soon! Please tell us what help you were
+                            looking for.</div>
+                        </div>
+                      </span>
                       <input type="radio" name="authType" [(ngModel)]="vote.authType" [value]="VOTE_AUTH_TYPES.hard"
                         [disabled]="!TopicService.canEditDescription(topic)" />
                       <span class="radio"></span>
