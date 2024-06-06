@@ -758,8 +758,8 @@
       "NO_REQUESTS_DESC": "There are no pending requests for topics to be added to this group.",
       "MSG_ACCEPT_SUCCESS": "The topic has been added to the group!",
       "MSG_REJECT_SUCCESS": "Request to add topic to the group has been rejected!",
-      "BTN_ACCEPT": "Accept",
-      "BTN_REJECT": "Reject"
+      "BTN_ACCEPT": "Zustimmen",
+      "BTN_REJECT": "Ablehnen"
     },
     "TOPIC_VOTE_CAST": {
       "PREVIEW_VOTE_TYPE_REGULAR": "@:COMPONENTS.TOPIC_VOTE_CREATE.PREVIEW_VOTE_TYPE_REGULAR",
