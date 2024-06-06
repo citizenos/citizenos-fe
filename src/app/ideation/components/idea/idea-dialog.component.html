@@ -209,7 +209,7 @@
         </div>
         <div class="idea_footer">
 
-          <button class="btn_like_wrap" [ngClass]="{selected: this.idea.votes.up.selected}" (click)="doIdeaVote(1)">
+          <button class="btn_like_wrap" [ngClass]="{selected: this.idea.votes.up.selected, disabled: !canVote()}" (click)="doIdeaVote(1)">
             <div class="btn_medium_plain btn_like">
               <div class="icon">
                 <ng-container *ngIf="!this.idea.votes.up.selected">
