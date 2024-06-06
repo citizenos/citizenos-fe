@@ -474,7 +474,6 @@ export class TopicVoteCreateComponent implements OnInit {
     }
     const saveVote: any = Object.assign({ topicId: this.topicId }, this.vote);
     if (saveVote.type === this.VOTE_TYPES.ideation) saveVote.type = this.VOTE_TYPES.multiple;
-    console.log(saveVote)
     saveVote.autoClose = this.CONF.autoClose;
     this.TopicVoteService.save(saveVote)
       .pipe(take(1))
@@ -624,7 +623,6 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
   folderIdeasList(folder: Folder) {
     let folderIdeasList = <Idea[]>[];
     let ideasCount = 0;
-    console.log(folder);
     this.TopicIdeaService.params$.pipe(take(1)).subscribe({
       next: (params) => {
         let offset = 0;
@@ -654,7 +652,6 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
   }
 
   toggleFolderIdeas(folder: Folder) {
-    console.log('TOGGLE', folder)
     const folderIndex = this.folderIdeasShown.indexOf(folder.id);
     if (folderIndex > -1) {
       this.folderIdeasShown.splice(folderIndex, 1);
@@ -753,8 +750,6 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
         const index = this.optionIdeas.findIndex((item) => item.id === idea.id);
         if (index === -1) {
           isSelected = false;
-        } else {
-          console.log('INDEX', index, idea.id);
         }
       });
     }
@@ -762,10 +757,8 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
   }
 
   toggleIdea(idea: Idea, $event: any) {
-    console.log('toggle', $event);
     $event.stopPropagation();
     const index = this.optionIdeas.findIndex((item) => item.id === idea.id);
-    console.log('index', index);
     if (index === -1) {
       this.optionIdeas.push(idea);
     } else {

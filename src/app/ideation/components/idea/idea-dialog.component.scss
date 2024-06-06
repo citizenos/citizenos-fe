@@ -144,6 +144,16 @@
   flex-direction: column;
   height: 100%;
   gap: 16px;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+    background-color: var(--color-scrollbar);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color-scrollbar-thumb);
+    border-radius: 8px;
+  }
   .statement {
     color: var(--color-text);
     font-size: 16px;
