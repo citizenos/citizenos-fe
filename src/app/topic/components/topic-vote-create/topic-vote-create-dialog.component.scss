@@ -254,6 +254,19 @@
   .dropdown {
     width: 100%;
   }
+
+  .checkbox {
+    .checkmark {
+      background-color: var(--color-surfaces);
+    }
+
+    &.selected {
+      .checkmark {
+
+      background-color: var(--input-checkbox-background-default);
+      }
+    }
+  }
 }
 
 .dialog_info_wrap {
