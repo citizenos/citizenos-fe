@@ -31,14 +31,14 @@ export class EditIdeationDeadlineComponent {
   isNew = true;
   errors = <any>null;
 
-  constructor (
+  constructor(
     private Translate: TranslateService,
     @Inject(DIALOG_DATA) data: any,
     private TopicIdeationService: TopicIdeationService,
     private TopicService: TopicService,
     private dialog: DialogService,
     private Notification: NotificationService
-    ) {
+  ) {
     this.setTimeZones();
     if (data && data.ideation) {
       this.ideation = data.ideation;
@@ -89,7 +89,7 @@ export class EditIdeationDeadlineComponent {
     if (this.endsAt.timeFormat === 'PM') { hour += 12; }
     this.deadline.setHours(hour - (this.endsAt.timezone - (this.deadline.getTimezoneOffset() / -60)));
     this.deadline.setMinutes(this.endsAt.min);
-   this.daysToIdeationEnd();
+    this.daysToIdeationEnd();
   };
 
   formatLength(time: number | string) {
@@ -105,7 +105,7 @@ export class EditIdeationDeadlineComponent {
       val = '0' + val;
     }
     if (val.toString().length > 2) {
-      val = val.toString().substring(0,2);
+      val = val.toString().substring(0, 2);
     }
 
     return val;
@@ -138,7 +138,7 @@ export class EditIdeationDeadlineComponent {
     this.setEndsAtTime();
   };
 
-  timeFormatDisabled () {
+  timeFormatDisabled() {
     const now = new Date();
     const deadline = new Date(this.deadline);
     if (new Date(deadline.getFullYear(), deadline.getMonth(), deadline.getDate()).getTime() === new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime()) {
@@ -166,7 +166,7 @@ export class EditIdeationDeadlineComponent {
     if (this.deadline) {
       this.ideation.deadline = this.deadline
     }
-    const saveIdeation:any = {topicId: this.topic.id, ideationId: this.ideation.id, deadline: this.deadline};
+    const saveIdeation: any = { topicId: this.topic.id, ideationId: this.ideation.id, deadline: this.deadline };
     this.TopicIdeationService.update(saveIdeation)
       .pipe(take(1))
       .subscribe({
