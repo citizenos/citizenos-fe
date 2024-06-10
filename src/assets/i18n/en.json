@@ -1196,7 +1196,7 @@
       "FILTER_ARGUMENT_ORDER_BY_DEFAULT": "Default",
       "FILTER_ARGUMENT_ORDER_BY_DATE": "Date",
       "FILTER_ARGUMENT_ORDER_BY_POPULARITY": "Popularity",
-      "NO_ARGUMENTS_HEADING": "There is no discussion yet",
+      "NO_ARGUMENTS_HEADING": "Get the discussion started",
       "NO_ARGUMENTS_BTN_ADD": "Add argument",
       "NO_ARGUMENTS_BTN_START_DISCUSSION": "@:COMPONENTS.TOPIC_DISCUSSION_CREATE.BTN_START_DISCUSSION",
       "NO_ARGUMENTS_DESC_HEADING": "How discussions work",
