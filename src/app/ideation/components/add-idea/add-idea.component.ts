@@ -9,6 +9,7 @@ import { take, map } from 'rxjs';
 import { AppService } from 'src/app/services/app.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { TopicIdeaService } from 'src/app/services/topic-idea.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'add-idea',
@@ -52,6 +53,7 @@ export class AddIdeaComponent {
     public app: AppService,
     private AuthService: AuthService,
     private TopicIdeationService: TopicIdeationService,
+    private Notification: NotificationService,
     public TopicIdeaService: TopicIdeaService,
     @Inject(ActivatedRoute) private route: ActivatedRoute,
     @Inject(TranslateService) public translate: TranslateService,
@@ -130,15 +132,16 @@ export class AddIdeaComponent {
           this.ideaForm.reset();
           this.clear();
           this.app.addIdea.next(false);
-          this.notificationChange.emit({
-            level: 'success',
-            message: this.translate.instant('COMPONENTS.ADD_IDEA.MSG_SUCCESS')
-          })
+          /*  this.notificationChange.emit({
+              level: 'success',
+              message: this.translate.instant('COMPONENTS.ADD_IDEA.MSG_SUCCESS')
+            })*/
+          setTimeout(() =>
+            this.Notification.addSuccess('COMPONENTS.ADD_IDEA.MSG_SUCCESS'), 1000);
           this.router.navigate(
-            [],
+            ['ideation', this.ideationId, 'ideas', idea.id],
             {
-              relativeTo: this.route,
-              queryParams: { argumentId: this.getIdeaIdWithVersion(idea.id, (idea.edits?.length || 1) - 1) }
+              relativeTo: this.route
             });
         },
         error: (err) => {

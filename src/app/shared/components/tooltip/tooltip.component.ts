@@ -7,12 +7,19 @@ import { Component, ElementRef, HostListener, ViewChild, Input, OnDestroy, Rende
 })
 export class TooltipComponent implements OnDestroy {
   @Input() delay? = 190; // Optional delay input, in ms
+  @Input() noIcon? = false;
   @ViewChild('tooltTipIcon') toolTipIcon!: ElementRef;
   @ViewChild('tipContainer') tipContainer!: ElementRef;
   private timer: any;
   public visible = false;
-
+  @Input() pos? = 'bottom';
   constructor(private el: ElementRef, private renderer: Renderer2) {
+  }
+
+  ngAfterViewInit(): void {
+    if (this.noIcon) {
+      this.toolTipIcon = this.el;
+    }
   }
 
   ngOnDestroy(): void {

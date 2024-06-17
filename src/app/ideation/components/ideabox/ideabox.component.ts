@@ -16,6 +16,7 @@ import { AddIdeaFolderComponent } from '../add-idea-folder/add-idea-folder.compo
 import { IdeaReportReasonComponent } from '../idea-report-reason/idea-report-reason.component';
 import { Topic } from 'src/app/interfaces/topic';
 import { Ideation } from 'src/app/interfaces/ideation';
+import { IdeaReactionsComponent } from '../idea-reactions/idea-reactions.component';
 
 @Component({
   selector: 'ideabox',
@@ -165,24 +166,13 @@ export class IdeaboxComponent implements AfterViewInit {
   }
 
   doShowVotersList() {
-    /*  this.dialog.open(ArgumentReactionsComponent, {
+      this.dialog.open(IdeaReactionsComponent, {
         data: {
-          commentId: this.argument.id,
-          topicId: this.topicId
+          ideaId: this.idea.id,
+          ideationId: this.ideation.id,
+          topicId: this.topic.id,
         }
-      });/*
-    };
-
-    private scrollTo(argumentEl: HTMLElement | null) {
-      if (argumentEl) {
-        const bodyEl: HTMLElement | null = argumentEl.querySelector('.argument_body');
-        if (bodyEl)
-          bodyEl.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
-        argumentEl.classList.add('highlight');
-        setTimeout(() => {
-          argumentEl?.classList.remove('highlight');
-        }, 2000);
-      }*/
+      });
   }
 
   addToFolder() {

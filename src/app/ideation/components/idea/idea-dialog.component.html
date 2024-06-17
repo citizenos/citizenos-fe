@@ -13,8 +13,7 @@
       </div>
       <div class="message">
         <div class="content">
-          <div class="content_description"
-            [innerHTML]="notification.message"></div>
+          <div class="content_description" [innerHTML]="notification.message"></div>
         </div>
       </div>
       <button class="btn_small_nav icon" (click)="notification=null;">
@@ -40,8 +39,7 @@
         </div>
         <div class="message">
           <div class="content">
-            <div class="content_description"
-              [innerHTML]="notification.message"></div>
+            <div class="content_description" [innerHTML]="notification.message"></div>
           </div>
         </div>
         <button class="btn_small_nav icon" (click)="notification=null;">
@@ -53,38 +51,42 @@
         </button>
       </div>
     </div>
-    <div class="nav_buttons_wrap" *ngIf="TopicIdeaService.items$ | async as ideas">
-      <button class="btn_medium_close mobile_hidden icon" [dialog-close]="true">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929Z"
-            fill="#2C3B47" />
-        </svg>
-      </button>
-      <button id="close_button" class="btn_medium_plain mobile_show icon" [dialog-close]="true">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929Z"
-            fill="#2C3B47" />
-        </svg>
-      </button>
-      <button class="btn_medium_close icon" (click)="nextIdea(ideas)" *ngIf="ideas.length > 1">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M14.5467 6.31262C14.1471 5.89579 13.4991 5.89579 13.0994 6.31262C12.6997 6.72945 12.6997 7.40527 13.0994 7.8221L16.0816 11L6 11C5.43478 11 5 11.4108 5 12.0003C5 12.5897 5.43478 12.9824 6 12.9824L16.0816 12.9824L13.0994 16.1779C12.6997 16.5947 12.6997 17.2705 13.0994 17.6874C13.4991 18.1042 14.1471 18.1042 14.5467 17.6874L20 12L14.5467 6.31262Z"
-            fill="#2C3B47" />
-        </svg>
-      </button>
-      <button class="btn_medium_close icon" (click)="prevIdea(ideas)" *ngIf="ideas.length > 1">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M9.45327 6.31262C9.85294 5.89579 10.5009 5.89579 10.9006 6.31262C11.3003 6.72945 11.3003 7.40527 10.9006 7.8221L7.91837 11L18 11C18.5652 11 19 11.4108 19 12.0003C19 12.5897 18.5652 12.9824 18 12.9824L7.91837 12.9824L10.9006 16.1779C11.3003 16.5947 11.3003 17.2705 10.9006 17.6874C10.5009 18.1042 9.85294 18.1042 9.45327 17.6874L4 12L9.45327 6.31262Z"
-            fill="#2C3B47" />
-        </svg>
-      </button>
-    </div>
     <div class="dialog_content">
-      <div class="idea_content_left">
+      <ng-container *ngIf="TopicIdeaService.items$ | async as ideas">
+        <div class="buttons_left">
+          <button class="btn_medium_close btn_idea_select icon" (click)="prevIdea(ideas)" *ngIf="ideas.length > 1">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M9.45327 6.31262C9.85294 5.89579 10.5009 5.89579 10.9006 6.31262C11.3003 6.72945 11.3003 7.40527 10.9006 7.8221L7.91837 11L18 11C18.5652 11 19 11.4108 19 12.0003C19 12.5897 18.5652 12.9824 18 12.9824L7.91837 12.9824L10.9006 16.1779C11.3003 16.5947 11.3003 17.2705 10.9006 17.6874C10.5009 18.1042 9.85294 18.1042 9.45327 17.6874L4 12L9.45327 6.31262Z"
+                fill="#2C3B47" />
+            </svg>
+          </button>
+        </div>
+        <div class="buttons_right">
+          <button class="btn_medium_close mobile_hidden icon" [dialog-close]="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929Z"
+                fill="#2C3B47" />
+            </svg>
+          </button>
+          <button id="close_button" class="btn_medium_plain mobile_show icon" [dialog-close]="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929Z"
+                fill="#2C3B47" />
+            </svg>
+          </button>
+          <button class="btn_medium_close btn_idea_select icon" (click)="nextIdea(ideas)" *ngIf="ideas.length > 1">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M14.5467 6.31262C14.1471 5.89579 13.4991 5.89579 13.0994 6.31262C12.6997 6.72945 12.6997 7.40527 13.0994 7.8221L16.0816 11L6 11C5.43478 11 5 11.4108 5 12.0003C5 12.5897 5.43478 12.9824 6 12.9824L16.0816 12.9824L13.0994 16.1779C12.6997 16.5947 12.6997 17.2705 13.0994 17.6874C13.4991 18.1042 14.1471 18.1042 14.5467 17.6874L20 12L14.5467 6.31262Z"
+                fill="#2C3B47" />
+            </svg>
+          </button>
+        </div>
+      </ng-container>
+      <div class="idea_content_idea">
         <div class="idea_header">
           <div class="idea_header_left">
             <div class="avatar">
@@ -112,6 +114,7 @@
             </button>
           </div>
           <div class="idea_header_right">
+            <div class="date">{{idea.createdAt | date: 'YYYY-MM-dd HH:mm'}}</div>
             <div class="dropdown button_dropdown" [cosDropdown]>
               <button class="btn_small_plain icon">
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -208,8 +211,39 @@
           <div class="description" [innerHTML]="idea.description"></div>
         </div>
         <div class="idea_footer">
+          <div class="like_wrap" [ngClass]="{selected: this.idea.votes.up.selected}">
+            <button class="btn_idea_like" [ngClass]="{disabled: !canVote()}" (click)="doIdeaVote(1)">
+              <div *ngIf="!this.idea.votes.up.selected">
+                <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <mask id="path-1-inside-1_13347_120913" fill="white">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M4 8.23052C4 5.75213 5.9675 4 8.00006 4C10.0327 4 12 5.7523 12 8.23052C12 9.98094 11.3561 10.9778 10.7695 11.886C10.3399 12.5512 9.941 13.1688 9.84826 14L6.15595 14C6.06314 13.1686 5.66341 12.551 5.23288 11.8858C4.64514 10.9776 4 9.9808 4 8.23052ZM8 17C9.10457 17 10 16.1046 10 15L6 15C6 16.1046 6.89543 17 8 17Z" />
+                  </mask>
+                  <path
+                    d="M10.7695 11.886L12.4496 12.9711V12.9711L10.7695 11.886ZM9.84826 14V16H11.6375L11.8359 14.2218L9.84826 14ZM6.15595 14L4.1683 14.2219L4.36679 16H6.15595V14ZM5.23288 11.8858L3.55384 12.9724H3.55384L5.23288 11.8858ZM10 15H12V13H10V15ZM6 15V13H4V15H6ZM8.00006 2C4.85817 2 2 4.65233 2 8.23052H6C6 6.85193 7.07683 6 8.00006 6V2ZM14 8.23052C14 4.65264 11.1422 2 8.00006 2V6C8.9232 6 10 6.85195 10 8.23052L14 8.23052ZM12.4496 12.9711C13.0764 12.0006 14 10.5894 14 8.23052L10 8.23052C10 9.37245 9.63586 9.95499 9.08949 10.8009L12.4496 12.9711ZM11.8359 14.2218C11.8691 13.9242 11.9911 13.6809 12.4496 12.9711L9.08949 10.8009C8.68867 11.4215 8.01288 12.4133 7.86059 13.7782L11.8359 14.2218ZM6.15595 16L9.84826 16L9.84826 12H6.15595V16ZM3.55384 12.9724C4.01339 13.6825 4.13519 13.9253 4.1683 14.2219L8.1436 13.7781C7.9911 12.412 7.31343 11.4195 6.91192 10.7991L3.55384 12.9724ZM2 8.23052C2 10.5905 2.92593 12.0022 3.55384 12.9724L6.91192 10.7991C6.36434 9.95303 6 9.37113 6 8.23052H2ZM8 15L8 19C10.2091 19 12 17.2091 12 15L8 15ZM6 17H10V13L6 13V17ZM8 15H4C4 17.2091 5.79086 19 8 19L8 15Z"
+                    fill="#2C3B47" mask="url(#path-1-inside-1_13347_120913)" />
+                  <rect x="14.0098" y="3.19531" width="2" height="1" rx="0.5" transform="rotate(135 14.0098 3.19531)"
+                    fill="#2C3B47" />
+                  <rect x="8.5" y="0.5" width="2" height="1" rx="0.5" transform="rotate(90 8.5 0.5)" fill="#2C3B47" />
+                  <rect x="2.69727" y="2.48828" width="2" height="1" rx="0.5" transform="rotate(45 2.69727 2.48828)"
+                    fill="#2C3B47" />
+                  <rect y="8" width="2" height="1" rx="0.5" fill="#2C3B47" />
+                  <rect x="14" y="8" width="2" height="1" rx="0.5" fill="#2C3B47" />
+                </svg>
+              </div>
+              <div *ngIf="this.idea.votes.up.selected">
+                <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M8 0.5C8.27614 0.5 8.5 0.723858 8.5 1V2C8.5 2.27614 8.27614 2.5 8 2.5C7.72386 2.5 7.5 2.27614 7.5 2V1C7.5 0.723858 7.72386 0.5 8 0.5ZM13.6567 3.54984C13.852 3.35458 13.852 3.038 13.6567 2.84274C13.4614 2.64747 13.1449 2.64747 12.9496 2.84274L12.2425 3.54984C12.0472 3.7451 12.0472 4.06169 12.2425 4.25695C12.4377 4.45221 12.7543 4.45221 12.9496 4.25695L13.6567 3.54984ZM8.00006 4C5.9675 4 4 5.75213 4 8.23052C4 9.9808 4.64514 10.9776 5.23288 11.8858C5.66341 12.551 6.06314 13.1686 6.15595 14H9.84826C9.941 13.1688 10.3399 12.5512 10.7695 11.886C11.3561 10.9778 12 9.98094 12 8.23052C12 5.7523 10.0327 4 8.00006 4ZM10 15C10 16.1046 9.10457 17 8 17C6.89543 17 6 16.1046 6 15H10ZM3.05033 2.84281C2.85507 2.64755 2.53849 2.64755 2.34322 2.84281C2.14796 3.03807 2.14796 3.35466 2.34322 3.54992L3.05033 4.25702C3.24559 4.45229 3.56218 4.45229 3.75744 4.25702C3.9527 4.06176 3.9527 3.74518 3.75744 3.54992L3.05033 2.84281ZM0 8.5C0 8.22386 0.223858 8 0.5 8H1.5C1.77614 8 2 8.22386 2 8.5C2 8.77614 1.77614 9 1.5 9H0.5C0.223858 9 0 8.77614 0 8.5ZM14.5 8C14.2239 8 14 8.22386 14 8.5C14 8.77614 14.2239 9 14.5 9H15.5C15.7761 9 16 8.77614 16 8.5C16 8.22386 15.7761 8 15.5 8H14.5Z"
+                    fill="#2C3B47" />
+                </svg>
 
-          <button class="btn_like_wrap" [ngClass]="{selected: this.idea.votes.up.selected, disabled: !canVote()}" (click)="doIdeaVote(1)">
+              </div>
+            </button>
+            <a class="like_counter_wrap" (click)="doShowVotersList()" [innerHTML]="idea.votes.up.count"></a>
+          </div>
+          <!--button class="btn_like_wrap" [ngClass]="{selected: this.idea.votes.up.selected, disabled: !canVote()}"
+            (click)="doIdeaVote(1)">
             <div class="btn_medium_plain btn_like">
               <div class="icon">
                 <ng-container *ngIf="!this.idea.votes.up.selected">
@@ -241,57 +275,44 @@
               </div>
             </div>
             <div class="like_counter_wrap" [innerHTML]="idea.votes.up.count"></div>
-          </button>
-          <div class="date">{{idea.createdAt | date: 'YYYY-MM-dd HH:mm'}}</div>
-        </div>
-      </div>
-      <div class="idea_content_right">
-        <div class="replies_header">
-          <div class="items_wrap">
-            <div class="bold" translate="COMPONENTS.IDEA_DIALOG.REPLIES"
-              [translateParams]="{count: replyCount}"></div>
-            <button *ngIf="!showReply" class="btn_medium_submit" (click)="showReply = true"
+          </!--button-->
+          <div class="buttons_wrap">
+            <button class="btn_ghost_reply_idea" *ngIf="!showReplies && replyCount" id="{{idea.id}}_replies"
+              [translate]="(wWidth > 560)? 'COMPONENTS.ARGUMENT.LNK_SHOW_REPLIES' : 'COMPONENTS.ARGUMENT.LNK_SHOW_REPLIES_MOBILE'"
+              [translateParams]="{count: (replyCount)}" (click)="showReplies = !showReplies"></button>
+            <button class="btn_ghost_reply_idea" *ngIf="showReplies" (click)="showReplies = !showReplies"
+              translate="COMPONENTS.ARGUMENT.LNK_HIDE_REPLIES">
+            </button>
+            <button *ngIf="!showReply" class="btn_small_submit bold" (click)="showReply = true"
               translate="COMPONENTS.IDEA_DIALOG.BTN_REPLY"></button>
           </div>
-          <div class="form_wrap" *ngIf="showReply">
+        </div>
+      </div>
+      <div class="idea_content_replies">
+        <div class="replies_header" *ngIf="showReply">
+          <div class="form_wrap">
             <idea-reply-form id="reply_form" [(showReply)]="showReply" [topicId]="topic.id" [ideationId]="ideation.id"
               [ideaId]="idea.id" [(notification)]="notification"></idea-reply-form>
           </div>
-          <div class="line_separator"></div>
         </div>
         <div class="replies_content_wrap">
-          <div class="replies_wrap">
-            <ng-container *ngIf="replies$ | async as replies">
-              <ng-container *ngFor="let reply of replies.rows;index as i;">
-                <div class="line_separator" *ngIf="i > 0"></div>
-                <idea-reply [topicId]="topic.id" [ideationId]="ideation.id" [ideaId]="idea.id"
-                  [argument]="reply"></idea-reply>
-              </ng-container>
+
+          <ng-container *ngIf="replies$ | async as replies">
+            <ng-container *ngIf="showReplies">
+              <div class="replies_wrap">
+                <ng-container *ngFor="let reply of replies;index as i; let last = last">
+                  <div class="reply_container">
+
+                    <div class="reply_referer">
+                    </div>
+                    <div class="reply_more" *ngIf="!last"></div>
+                    <idea-reply [topicId]="topic.id" [ideationId]="ideation.id" [ideaId]="idea.id"
+                      [argument]="reply"></idea-reply>
+                  </div>
+                </ng-container>
+              </div>
             </ng-container>
-          </div>
-        </div>
-        <div class="notification_inline mobile_hidden" *ngIf="notification" [ngClass]="notification.level">
-          <div class="icon_notification">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect width="24" height="24" rx="12" fill="#5AB467" />
-              <path fill-rule="evenodd" clip-rule="evenodd"
-                d="M18.9849 6.13908C19.2395 6.35122 19.2739 6.72956 19.0617 6.98413L10.0617 17.7841C9.94734 17.9214 9.77773 18.0005 9.59905 18C9.42038 17.9995 9.25123 17.9194 9.13764 17.7814L4.93764 12.6814C4.72699 12.4256 4.76358 12.0475 5.01937 11.8369C5.27517 11.6262 5.6533 11.6628 5.86396 11.9186L9.60353 16.4595L18.1399 6.2159C18.352 5.96134 18.7303 5.92694 18.9849 6.13908Z"
-                fill="white" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </div>
-          <div class="message">
-            <div class="content">
-              <div class="content_description"
-                [innerHTML]="notification.message"></div>
-            </div>
-          </div>
-          <button class="btn_small_nav icon" (click)="notification=null;">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289Z"
-                fill="#2C3B47" />
-            </svg>
-          </button>
+          </ng-container>
         </div>
       </div>
     </div>

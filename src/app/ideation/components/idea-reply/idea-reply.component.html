@@ -103,7 +103,8 @@
           <div class="argument_subject" [innerHTML]="argument.subject"></div>
           <div class="argument_body" #argumentBody [innerHTML]="argument.text | markdown"></div>
         </ng-container>
-        <idea-reply-form *ngIf="showEdit" [argument]="argument" [topicId]="topicId"
+        <idea-reply-form *ngIf="showEdit" [argument]="argument" [topicId]="topicId" [ideationId]="ideationId"
+        [ideaId]="ideaId"
           (showEdit)="toggleEdit($event)" [editMode]="showEdit"></idea-reply-form>
         <argument-deleted *ngIf="argument.deletedAt" [argument]="argument"
           (showDeletedArgument)="showArgument($event)"></argument-deleted>
@@ -162,9 +163,50 @@
           </div>
         </div>
         <div class="footer_right">
+          <button class="btn_ghost_reply_argument"
+            *ngIf="argument.id === argument.parent.id && !showReplies && argument.replies.rows.length"
+            id="{{argument.id}}_replies"
+            [translate]="(wWidth > 560)? 'COMPONENTS.ARGUMENT.LNK_SHOW_REPLIES' : 'COMPONENTS.ARGUMENT.LNK_SHOW_REPLIES_MOBILE'"
+            [translateParams]="{count: (argument.replies.count)}" (click)="showReplies = !showReplies"></button>
+          <button class="btn_ghost_reply_argument" *ngIf="argument.id === argument.parent.id && showReplies"
+            (click)="showReplies = !showReplies" translate="COMPONENTS.ARGUMENT.LNK_HIDE_REPLIES">
+          </button>
+          <ng-container *ngIf="Auth.loggedIn$ | async">
+            <a class="mobile_show" translate="COMPONENTS.ARGUMENT.BTN_REPLY" (click)="showReply=!showReply"></a>
+            <button class="btn_reply_argument mobile_hidden" (click)="showReply=!showReply"
+              translate="COMPONENTS.ARGUMENT.BTN_REPLY"></button>
+          </ng-container>
         </div>
       </div>
     </div>
+    <idea-reply-form *ngIf="showReply" [(showReply)]="showReply" [argument]="argument"
+      [topicId]="topicId" [ideationId]="ideationId" [ideaId]="ideaId"></idea-reply-form>
+    <ng-container *ngIf="showReplies">
+      <div class="replies_wrap" [ngClass]="argument.type">
+        <ng-container *ngIf="!argument.children">
+          <ng-container *ngFor="let reply of argument.replies.rows; let last = last">
+            <div class="reply_container">
+              <div class="reply_referer">
+              </div>
+              <div class="reply_more" *ngIf="!last"></div>
+              <idea-reply [argument]="reply" [topicId]="topicId" [ideationId]="ideationId" [ideaId]="ideaId"
+              [argument]="reply" [root]="argument" [showReplies]="showReplies"></idea-reply>
+            </div>
+          </ng-container>
+        </ng-container>
+        <ng-container *ngIf="argument.children">
+          <ng-container *ngFor="let reply of argument.children; let last = last">
+            <div class="reply_container">
+              <div class="reply_referer">
+              </div>
+              <div class="reply_more" *ngIf="!last"></div>
+              <idea-reply [argument]="reply" [topicId]="topicId" [ideationId]="ideationId" [ideaId]="ideaId"
+              [argument]="reply" [root]="argument" [showReplies]="showReplies"></idea-reply>
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+    </ng-container>
   </div>
 </div>
 <div class="overlay" *ngIf="mobileActions" (click)="mobileActions = !mobileActions"></div>
