@@ -3344,6 +3344,7 @@
   "MSG_ERROR_NEED_TO_AGREE_TERMS": "To complete sign-up you must agree with our Terms of Use & Privacy Policy",
   "MDEDITOR_TOOLTIP_BOLD": "Bold",
   "MDEDITOR_TOOLTIP_ITALIC": "Italic",
+  "MDEDITOR_TOOLTIP_HYPERLINK": "Link",
   "MDEDITOR_TOOLTIP_STRIKETHROUGH": "Strikethrough",
   "MDEDITOR_TOOLTIP_ORDERED_LIST": "Ordered List",
   "MDEDITOR_TOOLTIP_UNORDERED_LIST": "Unordered List",
