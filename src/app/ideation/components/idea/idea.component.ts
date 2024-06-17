@@ -3,7 +3,7 @@ import { TopicIdeaService } from 'src/app/services/topic-idea.service';
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DIALOG_DATA, DialogService } from 'src/app/shared/dialog';
-import { take, combineLatest, Observable, switchMap, of, tap } from 'rxjs';
+import { take, combineLatest, Observable, switchMap, map, of, tap } from 'rxjs';
 import { Idea } from 'src/app/interfaces/idea';
 import { AuthService } from 'src/app/services/auth.service';
 import { IdeaboxComponent } from '../ideabox/ideabox.component';
@@ -82,11 +82,45 @@ export class IdeaDialogComponent extends IdeaboxComponent {
     this.ideation = this.data.ideation;
     this.route = this.data.route;
     const url = this.router.parseUrl(this.router.url);
-    this.replies$ = combineLatest([this.route.params, this.TopicIdeaRepliesService.loadReplies$]).pipe(switchMap(([params]) => {
-      return this.TopicIdeaRepliesService.getArguments(params);
-    }),
-      tap((replies) => {
-        this.replyCount = replies.countTotal;
+    this.replies$ = combineLatest([this.route.params, this.TopicIdeaRepliesService.loadReplies$]).pipe(
+      switchMap(([params]) => {
+        return this.TopicIdeaRepliesService.getArguments(params);
+      }),
+      map((res:any) => {
+        console.log('RES', res);
+        let results = res.rows.concat([]);
+        const argArray = <any[]>[];
+        let children = <any>{};
+
+        const countTree = (parentNode: any, currentNode: any) => {
+          argArray.push(currentNode);
+          if (currentNode.replies.rows.length > 0) {
+            currentNode.replies.rows.forEach((reply: any) => {
+              if (parentNode.id === parentNode.parent.id) {
+                console.log('FIRST');
+                countTree(currentNode, reply);
+              } else {
+                countTree(parentNode, reply);
+                const replyClone = Object.assign({}, reply);
+                replyClone.replies = [];
+                if (!parentNode.children) parentNode.children = [];
+                parentNode.children.push(replyClone);
+              }
+            });
+          }
+          // To have parent comment/reply data
+          if (currentNode.id !== currentNode.parent.id) {
+            const parent = argArray.find((arg) => arg.id === currentNode.parent.id);
+            currentNode.parent = Object.assign(currentNode.parent, parent);
+          }
+        };
+
+        results.forEach((row: any,) => {
+          row.replies.count = countTree(row, row);
+        });
+        console.log(results);
+        this.replyCount = results.length;
+        return results;
       }));
   }
 

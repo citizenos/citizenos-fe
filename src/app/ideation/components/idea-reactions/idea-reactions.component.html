@@ -1,0 +1,72 @@
+<div class="overlay" dialog-close></div>
+<div class="dialog_wrap">
+  <div id="notification_wrap_dialog" class="mobile_hidden">
+    <notification></notification>
+  </div>
+  <div class="dialog">
+    <div id="notification_wrap_dialog" class="mobile_show">
+      <notification></notification>
+    </div>
+    <div class="dialog_header">
+      <div class="header_text">
+        <h4 class="title" translate="MODALS.TOPIC_IDEA_REACTIONS_HEADING"></h4>
+        <div class="dialog_close">
+          <a class="btn_dialog_close icon" dialog-close>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M7.72152 6.29537C7.3277 5.90154 6.68919 5.90154 6.29537 6.29537C5.90154 6.68919 5.90154 7.3277 6.29537 7.72153L10.5738 12L6.29541 16.2785C5.90159 16.6723 5.90159 17.3108 6.29541 17.7046C6.68923 18.0985 7.32774 18.0985 7.72156 17.7046L12 13.4262L16.2784 17.7046C16.6723 18.0985 17.3108 18.0985 17.7046 17.7046C18.0984 17.3108 18.0984 16.6723 17.7046 16.2785L13.4262 12L17.7046 7.72153C18.0985 7.3277 18.0985 6.68919 17.7046 6.29537C17.3108 5.90154 16.6723 5.90154 16.2785 6.29537L12 10.5739L7.72152 6.29537Z"
+                fill="#2C3B47" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="dialog_content">
+      <div class="content_section">
+        <div class="section_content_wrap table_section">
+          <ng-container *ngIf="voteItems| async as members">
+            <div *ngIf="!members.length" translate="MODALS.TOPIC_IDEA_REACTIONS_NO_REACTIONS_YET"></div>
+            <ng-container *ngFor="let member of members | keyvalue">
+              <div class="row_list" *ngIf="isOnPage(member.key, page)">
+                <div class="row_cell">
+                  <div class="profile_image_wrap">
+                    <img class="profile_image" *ngIf="member.value.imageUrl" [src]="member.value.imageUrl">
+                    <div class="profile_image_filler" *ngIf="!member.value.imageUrl">
+                      <cos-initials class="table_cell" *ngIf="member.value.name" [name]="member.value.name">
+                      </cos-initials>
+                    </div>
+                  </div>
+                  <a class="user_name" [innerHtml]>{{member.value.name}}</a>
+                </div>
+                <div class="row_cell">
+                  <svg *ngIf="member.value.vote === 'down'" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M1.33717 10.6949C1.53725 10.8983 1.77068 11 2.03746 11L6.79183 10.9997L6.40844 13.7797C6.36398 13.9944 6.38899 14.2006 6.48347 14.3983C6.57796 14.596 6.71968 14.7514 6.90865 14.8644C7.09762 14.9774 7.29492 15.0198 7.50056 14.9915C7.70621 14.9633 7.88684 14.8701 8.04246 14.7119L12.0177 11V1.99965L4.39093 2C4.13527 2 3.8935 2.08475 3.66563 2.25424C3.43776 2.42373 3.2738 2.62712 3.17376 2.86441L1.07288 7.77966C1.03954 7.85876 1.01207 7.99965 1.01207 7.99965C1.01207 7.99965 0.984535 7.99931 1.01203 8.49965L1.01203 9.98305C1.01203 10.2542 1.13709 10.4915 1.33717 10.6949Z"
+                      fill="#2C3B47" />
+                    <path
+                      d="M13.0179 1.99965V11L14.014 10.9997C14.2919 10.9997 14.5259 10.8927 14.7204 10.6949C14.9149 10.4972 15.012 10.2821 15.012 9.99965L15.0122 3.01695C15.0122 2.73446 14.9149 2.49435 14.7204 2.29661C14.5259 2.09887 14.2897 2 14.0118 2L13.0179 1.99965Z"
+                      fill="#2C3B47" />
+                  </svg>
+                  <svg *ngIf="member.value.vote === 'up'" width="16" height="17" viewBox="0 0 16 17" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M8 0.5C8.27614 0.5 8.5 0.723858 8.5 1V2C8.5 2.27614 8.27614 2.5 8 2.5C7.72386 2.5 7.5 2.27614 7.5 2V1C7.5 0.723858 7.72386 0.5 8 0.5ZM13.6567 3.54984C13.852 3.35458 13.852 3.038 13.6567 2.84274C13.4614 2.64747 13.1449 2.64747 12.9496 2.84274L12.2425 3.54984C12.0472 3.7451 12.0472 4.06169 12.2425 4.25695C12.4377 4.45221 12.7543 4.45221 12.9496 4.25695L13.6567 3.54984ZM8.00006 4C5.9675 4 4 5.75213 4 8.23052C4 9.9808 4.64514 10.9776 5.23288 11.8858C5.66341 12.551 6.06314 13.1686 6.15595 14H9.84826C9.941 13.1688 10.3399 12.5512 10.7695 11.886C11.3561 10.9778 12 9.98094 12 8.23052C12 5.7523 10.0327 4 8.00006 4ZM10 15C10 16.1046 9.10457 17 8 17C6.89543 17 6 16.1046 6 15H10ZM3.05033 2.84281C2.85507 2.64755 2.53849 2.64755 2.34322 2.84281C2.14796 3.03807 2.14796 3.35466 2.34322 3.54992L3.05033 4.25702C3.24559 4.45229 3.56218 4.45229 3.75744 4.25702C3.9527 4.06176 3.9527 3.74518 3.75744 3.54992L3.05033 2.84281ZM0 8.5C0 8.22386 0.223858 8 0.5 8H1.5C1.77614 8 2 8.22386 2 8.5C2 8.77614 1.77614 9 1.5 9H0.5C0.223858 9 0 8.77614 0 8.5ZM14.5 8C14.2239 8 14 8.22386 14 8.5C14 8.77614 14.2239 9 14.5 9H15.5C15.7761 9 16 8.77614 16 8.5C16 8.22386 15.7761 8 15.5 8H14.5Z"
+                      fill="#2C3B47" />
+                  </svg>
+
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <div class="dialog_content no_footer" *ngIf="totalPages > 1">
+      <div class="info_row">
+        <cos-pagination class="pagination" (select)="loadPage($event)" [totalPages]="totalPages"
+          [page]="page"></cos-pagination>
+      </div>
+    </div>
+  </div>
+</div>

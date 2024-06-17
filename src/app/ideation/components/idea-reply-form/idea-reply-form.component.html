@@ -2,7 +2,7 @@
   <ng-container *ngIf="AuthService.loggedIn$ | async; then loggedIn;"></ng-container>
   <ng-template #loggedIn>
     <form name="argumentReply">
-      <cos-input
+      <!--cos-input
         placeholder="{{'COMPONENTS.IDEA_REPLY_FORM.SUBJECT_CHARACTERS_LEFT' | translate:{chars: reply.subject.length, charsLeft: ARGUMENT_SUBJECT_MAXLENGTH} }}">
         <input id="argument_subject" name="subject" [(ngModel)]="reply.subject"
           placeholder="{{'COMPONENTS.IDEA_REPLY_FORM.PLACEHOLDER_ADD_SUBJECT_TO_ARGUMENT' | translate:{chars: reply.subject.length, charsLeft: ARGUMENT_SUBJECT_MAXLENGTH} }}"
@@ -16,7 +16,7 @@
           </svg>
           <span translate="{{errors.subject}}"></span>
         </label>
-      </cos-input>
+      </!--cos-input-->
       <textarea cosmarkdown cosmarkdowntranslatecharacterstatuskey="COMPONENTS.IDEA_REPLY_FORM.CHARACTER_LIMIT"
         id="argument_reply_text" [(item)]="reply.text" class="gray_borders" [ngClass]="{'error_input': errors?.text}"
         placeholder="COMPONENTS.IDEA_REPLY_FORM.PLACEHOLDER_WRITE_REPLY_HERE"

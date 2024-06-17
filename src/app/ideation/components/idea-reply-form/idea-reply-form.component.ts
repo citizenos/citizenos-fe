@@ -22,7 +22,6 @@ export class IdeaReplyFormComponent {
   @Input() notification: any;
   @Output() notificationChange = new EventEmitter<any>();
   public reply = {
-    subject: '',
     type: 'reply',
     text: ''
   };
@@ -50,11 +49,11 @@ export class IdeaReplyFormComponent {
    }*/
 
   saveReply() {
+    console.log(this);
     const reply = {
       parentId: this.argument?.id,
       parentVersion: (this.argument?.edits.length || 1 - 1),
       type: this.reply.type,
-      subject: this.reply.subject,
       text: this.reply.text,
       topicId: this.topicId,
       ideationId: this.ideationId,
@@ -90,7 +89,6 @@ export class IdeaReplyFormComponent {
       parentId: this.argument?.id,
       parentVersion: (this.argument?.edits.length || 1 - 1),
       type: this.reply.type,
-      subject: this.reply.subject,
       text: this.reply.text,
       topicId: this.topicId,
       ideationId: this.ideationId,

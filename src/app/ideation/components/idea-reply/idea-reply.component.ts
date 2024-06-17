@@ -1,5 +1,5 @@
 import { TranslateService } from '@ngx-translate/core';
-import { Component, Input, OnInit, ViewChild, ViewEncapsulation, ElementRef } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ViewEncapsulation, ElementRef, EventEmitter, Output } from '@angular/core';
 import { DialogService } from 'src/app/shared/dialog';
 import { take } from 'rxjs';
 import { Router } from '@angular/router';
@@ -25,11 +25,12 @@ export class IdeaReplyComponent implements OnInit {
   @Input() topicId!: string;
   @Input() ideationId!: string;
   @Input() ideaId!: string;
+  @Input() showReply?: boolean;
+  @Output() showReplyChange = new EventEmitter<boolean>();
 
   @Input() showReplies?:boolean = false;
   showEdit = false;
   showEdits = false;
-  showReply = false;
   readMore = false;
   showDeletedArgument = false;
   mobileActions = false;
@@ -63,6 +64,7 @@ export class IdeaReplyComponent implements OnInit {
         return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
       });
     }
+    console.log(this);
   }
 
   ngAfterViewInit() {
@@ -126,6 +128,10 @@ export class IdeaReplyComponent implements OnInit {
       }
     });
   };
+
+  close () {
+    this.showReplyChange.emit(false);
+  }
 
   copyArgumentLink(event: MouseEvent) {
     const id = this.argument.id + '_v' + (this.argument.edits.length - 1);
