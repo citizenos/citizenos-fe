@@ -31,6 +31,18 @@ export class MarkdownDirective implements OnDestroy {
         title: this.Translate.instant('MDEDITOR_TOOLTIP_ITALIC'),
       },
       {
+        name: 'hyperlink',
+        action: EasyMDE.drawLink,
+        className: 'fa fa-link',
+        title: this.Translate.instant('MDEDITOR_TOOLTIP_HYPERLINK'),
+      },
+      {
+        name: 'image',
+        action: EasyMDE.drawImage,
+        className: 'fa fa-image',
+        title: this.Translate.instant('MDEDITOR_TOOLTIP_HYPERLINK'),
+      },
+      {
         name: 'strikethrough',
         action: EasyMDE.toggleStrikethrough,
         className: 'fa fa-strikethrough',
