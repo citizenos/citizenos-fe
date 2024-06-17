@@ -1,3 +1,4 @@
+import { NotificationService } from './../../../services/notification.service';
 import { TopicIdeaRepliesService } from 'src/app/services/topic-idea-replies.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { take, map } from 'rxjs';
@@ -19,8 +20,6 @@ export class IdeaReplyFormComponent {
   @Input() showReply!: boolean;
   @Input() editMode = false;
   @Output() showReplyChange = new EventEmitter<boolean>();
-  @Input() notification: any;
-  @Output() notificationChange = new EventEmitter<any>();
   public reply = {
     type: 'reply',
     text: ''
@@ -29,7 +28,7 @@ export class IdeaReplyFormComponent {
   ARGUMENT_TYPES_MAXLENGTH = this.TopicIdeaRepliesService.ARGUMENT_TYPES_MAXLENGTH;
   ARGUMENT_SUBJECT_MAXLENGTH = this.TopicIdeaRepliesService.ARGUMENT_SUBJECT_MAXLENGTH;
   errors = <any>null;
-  constructor(public AuthService: AuthService, private TopicIdeaRepliesService: TopicIdeaRepliesService, private translate: TranslateService) {
+  constructor(public AuthService: AuthService, private TopicIdeaRepliesService: TopicIdeaRepliesService, private translate: TranslateService, private Notification: NotificationService) {
     this.AuthService.loggedIn$.pipe(
       map((isLoggedIn) => {
         if (!isLoggedIn) {
@@ -67,11 +66,7 @@ export class IdeaReplyFormComponent {
       .pipe(take(1))
       .subscribe((reply) => {
         this.TopicIdeaRepliesService.reloadArguments();
-        this.notificationChange.emit({
-          level: 'success',
-          message: this.translate.instant('COMPONENTS.IDEA_REPLY_FORM.MSG_SUCCESS')
-        });
-
+        this.Notification.addSuccess('COMPONENTS.IDEA_REPLY_FORM.MSG_SUCCESS')
         this.close();
         /* return this.$state.go(
            this.$state.current.name,
