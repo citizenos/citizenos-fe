@@ -961,7 +961,7 @@
       "REMOVE_ERROR_MEMBER_VIA_GROUP": "You cannot remove this topic member as they are a member of the group. If you wish to limit their access to the topic, consider excluding them from the group instead."
     },
     "TOPIC_MILESTONES": {
-      "CREATE_A_MILESTONE": "Updates",
+      "CREATE_A_MILESTONE": "Plans and updates",
       "OPT_EDIT_DETAILS": "Edit details",
       "OPT_REMOVE_MILESTONE": "Remove update",
       "PLACEHOLDER_SUBJECT": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_PLACEHOLDER_SUBJECT",
@@ -2848,7 +2848,7 @@
       "STATE_ITEM_ADD_FOLLOW_UP_DESC": "Define the next steps",
       "STATE_ITEM_FOLLOW_UP_HEADING": "Action",
       "STATE_ITEM_FOLLOW_UP_DEADLINE": "@:VIEWS.TOPICS_TOPICID.VOTE_LBL_DEADLINE",
-      "STATE_ITEM_FOLLOW_UP_MILESTONE": "Milestones",
+      "STATE_ITEM_FOLLOW_UP_MILESTONE": "Updates",
       "NO_VOTING_HEADING": "There is no voting system yet",
       "NO_VOTING_BTN_ADD": "Add a voting system",
       "NO_VOTING_DESC_HEADING": "How voting works",
