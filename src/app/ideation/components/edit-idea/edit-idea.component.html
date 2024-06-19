@@ -55,8 +55,6 @@
       </button>
     </div>
     <div id="navigate_create">
-      <div *ngIf="ideaMaxLength()" id="chars_left" translate="COMPONENTS.EDIT_IDEA.IDEA_TYPE_CHARACTERS_LEFT"
-        [translateParams]="{chars: ideaMaxLength() - (ideaForm.value['description']?.length || 0), charsLeft: ideaMaxLength()}"></div>
       <!--button class="btn_big_submit_ghost">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
