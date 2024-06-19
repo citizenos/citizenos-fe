@@ -17,9 +17,6 @@ export class TooltipComponent implements OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    if (this.noIcon) {
-      this.toolTipIcon = this.el;
-    }
   }
 
   ngOnDestroy(): void {
@@ -40,6 +37,9 @@ export class TooltipComponent implements OnDestroy {
   }
 
   position () {
+    if (this.noIcon) {
+      this.toolTipIcon = this.el;
+    }
     const containerPosition = this.tipContainer.nativeElement.getBoundingClientRect();
 
     if (containerPosition.width > window.innerWidth) {
@@ -47,6 +47,12 @@ export class TooltipComponent implements OnDestroy {
     }
 
     let left = containerPosition.right - window.innerWidth + 32;
+    if (this.pos === 'top') {
+      this.renderer.setStyle(this.tipContainer.nativeElement, 'top', `-${this.tipContainer.nativeElement.offsetHeight +8}px`);
+    }
+    if (this.pos === 'bottom') {
+      this.renderer.setStyle(this.tipContainer.nativeElement, 'bottom', `-${this.tipContainer.nativeElement.offsetHeight+8}px`);
+    }
     if (window.innerWidth < containerPosition.right) {
       this.renderer.setStyle(this.tipContainer.nativeElement, 'left', `-${left}px`);
     }
@@ -55,8 +61,11 @@ export class TooltipComponent implements OnDestroy {
       this.renderer.setStyle(this.tipContainer.nativeElement, 'left', `-${left}px`);
     } else {
       const iconPos = this.toolTipIcon.nativeElement.getBoundingClientRect().left;
-      if (iconPos === containerPosition.left) {
+      if (iconPos === containerPosition.left ) {
         this.renderer.setStyle(this.tipContainer.nativeElement, 'left', `-16px`);
+      } else {
+          let left = -12;
+          this.renderer.setStyle(this.tipContainer.nativeElement, 'left', `${left}px`);
       }
       //this.renderer.setStyle(this.tipContainer.nativeElement, 'left', `${left}px`);
     }

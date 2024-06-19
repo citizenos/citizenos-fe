@@ -51,6 +51,10 @@
   <div class="idea_header">
     <div class="idea_header_left">
       <div class="avatar">
+        <div class="tooltip_item" tooltip pos="top" [noIcon]="true">
+            <div class="content_description"> {{idea.author.name}}
+            </div>
+          </div>
         <img *ngIf="idea.author.imageUrl" [src]="idea.author.imageUrl" />
         <div class="profile_image_filler" *ngIf="!idea.author.imageUrl">
           <cos-initials *ngIf="idea.author.name" [name]="idea.author.name || ''">
@@ -60,6 +64,9 @@
       <div class="vertical_line_separator"></div>
       <div class="like_wrap" [ngClass]="{selected: this.idea.votes.up.selected}">
         <button class="btn_idea_like" [ngClass]="{disabled: !canVote()}" (click)="doIdeaVote(1)">
+          <div class="tooltip_item" tooltip pos="top" [noIcon]="true">
+            <div class="content_description" translate="COMPONENTS.IDEABOX.TOOLTIP_LIKE"></div>
+          </div>
           <!--div class="tooltip_item" tooltip [noIcon]="true">
             <div class="content_title">Help on its way</div>
             <div class="content_description">Help text coming soon! Please tell us what help you were looking for.
@@ -92,12 +99,20 @@
 
           </div>
         </button>
-        <a class="like_counter_wrap" (click)="doShowVotersList()" [innerHTML]="idea.votes.up.count"></a>
+        <a class="like_counter_wrap" (click)="doShowVotersList()">
+          <div class="tooltip_item" tooltip pos="top" [noIcon]="true">
+            <div class="content_description" translate="COMPONENTS.IDEABOX.TOOLTIP_LIKE_COUNT" [translateParams]="{count: idea.votes.up.count}"></div>
+          </div>
+          <span [innerHTML]="idea.votes.up.count"></span>
+        </a>
       </div>
       <ng-container *ngIf="(Auth.loggedIn$ | async)">
         <div class="vertical_line_separator"></div>
-        <button class="btn_small_plain icon"
+        <button class="btn_small_plain"
           (click)="$event.preventDefault();$event.stopPropagation();toggleFavourite();">
+          <div class="tooltip_item" tooltip pos="top" [noIcon]="true">
+            <div class="content_description" translate="COMPONENTS.IDEABOX.TOOLTIP_FAVOURITE" [translateParams]="{count: idea.votes.up.count}"></div>
+          </div>
           <svg *ngIf="!idea.favourite" width="24" height="24" viewBox="0 0 24 24" fill="none"
             xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd"

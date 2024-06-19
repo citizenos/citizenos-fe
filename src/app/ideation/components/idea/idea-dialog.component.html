@@ -213,6 +213,9 @@
         <div class="idea_footer">
           <div class="like_wrap" [ngClass]="{selected: this.idea.votes.up.selected}">
             <button class="btn_idea_like" [ngClass]="{disabled: !canVote()}" (click)="doIdeaVote(1)">
+              <div class="tooltip_item" tooltip pos="top" [noIcon]="true">
+                <div class="content_description" translate="COMPONENTS.IDEABOX.TOOLTIP_LIKE"></div>
+              </div>
               <div *ngIf="!this.idea.votes.up.selected">
                 <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <mask id="path-1-inside-1_13347_120913" fill="white">
