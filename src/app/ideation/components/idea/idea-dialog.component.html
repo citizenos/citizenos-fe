@@ -282,7 +282,7 @@
           <div class="buttons_wrap">
             <button class="btn_ghost_reply_idea" *ngIf="!showReplies && replyCount" id="{{idea.id}}_replies"
               [translate]="(wWidth > 560)? 'COMPONENTS.ARGUMENT.LNK_SHOW_REPLIES' : 'COMPONENTS.ARGUMENT.LNK_SHOW_REPLIES_MOBILE'"
-              [translateParams]="{count: (replyCount)}" (click)="showReplies = !showReplies"></button>
+              [translateParams]="{count: (idea.replies.count)}" (click)="showReplies = !showReplies"></button>
             <button class="btn_ghost_reply_idea" *ngIf="showReplies" (click)="showReplies = !showReplies"
               translate="COMPONENTS.ARGUMENT.LNK_HIDE_REPLIES">
             </button>
