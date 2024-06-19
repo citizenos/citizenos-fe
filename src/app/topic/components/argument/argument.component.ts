@@ -159,6 +159,7 @@ export class ArgumentComponent implements OnInit {
     const argument = {
       commentId: this.argument.id,
       topicId: this.topicId,
+      discussionId: this.argument.discussionId,
       value: value
     };
 
@@ -174,6 +175,7 @@ export class ArgumentComponent implements OnInit {
     this.dialog.open(ArgumentReactionsComponent, {
       data: {
         commentId: this.argument.id,
+        discussionId: this.argument.discussionId,
         topicId: this.topicId
       }
     });

@@ -285,6 +285,7 @@ export class TopicComponent implements OnInit {
     this.topic$.pipe(
       switchMap((topic: Topic) => {
         this.TopicArgumentService.setParam('topicId', topic.id);
+        this.TopicArgumentService.setParam('discussionId', topic.discussionId);
         return this.TopicArgumentService.loadItems().pipe(
           tap((args) => {
             if (!args.length && [this.TopicService.STATUSES.inProgress, this.TopicService.STATUSES.ideation].indexOf(topic.status) === -1) {

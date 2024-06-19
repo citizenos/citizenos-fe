@@ -187,7 +187,7 @@ export class IdeaReplyComponent implements OnInit {
     this.dialog.open(ArgumentReactionsComponent, {
       data: {
         commentId: this.argument.id,
-        topicId: this.topicId
+        topicId: this.topicId,
       }
     });
   };

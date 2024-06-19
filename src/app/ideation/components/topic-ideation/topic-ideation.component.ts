@@ -314,6 +314,7 @@ export class TopicIdeationComponent {
       this.TopicIdeationService.reloadIdeation();
     })
   }
+
   canEdit() {
     return this.TopicService.canEdit(this.topic);
   }

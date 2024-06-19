@@ -1,65 +1,20 @@
 @use "mixins";
 
 .dialog {
-  max-width: 560px;
-  .dialog_tabs_wrap {
-    padding-top: 8px;
-    @include mixins.mobile {
-      background-color: var(--color-argument-pro-light);
-      padding: 16px;
-    }
-  }
-  .dialog_content {
-    gap: 16px;
-    padding: 24px;
+  width: 560px;
 
-    @include mixins.mobile {
-      padding: 16px;
-    }
-
-    .introduction_wrap {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-
-      .intro_heading {
-        display: flex;
-        align-items: center;
-        width: 100%;
-        flex-direction: column;
-        justify-content: center;
-      }
-    }
-  }
-  .dialog_footer {
-    @include mixins.mobile {
-      gap: 16px;
-      flex-direction: column-reverse;
-
-      button {
-        width: 100%;
-      }
-    }
-  }
-}
-
-.input_area {
-
-  input {
-    background-color: var(--color-surfaces);
-  }
-  button {
-    width: max-content;
-    padding: 8px 16px;
-  }
-  &.min_max_options {
-    justify-content: space-between;
-    padding: 8px 8px 8px 16px;
+  .header_text {
+    color: var(--color-text);
   }
 }
 
 .date_selector {
   width: 100%;
+
+  &:hover,
+  &.selected {
+    background-color: var(--color-dialog);
+  }
 
   .checkbox {
     width: 100%;
@@ -77,13 +32,17 @@
     }
   }
 }
+.dialog_description {
+  padding: 8px 0 24px 0;
+}
 
 .deadline_wrap {
   display: flex;
   flex-direction: column;
   width: 100%;
+  padding: 16px;
   gap: 16px;
-
+  background-color: var(--color-dialog);
   .date_row {
     display: flex;
     justify-content: space-between;
@@ -95,7 +54,6 @@
       flex-direction: column;
       align-items: flex-start;
     }
-
     .date_row_title {
       min-width: 25%;
     }
@@ -122,7 +80,6 @@
           width: 100%;
         }
       }
-
       .time_input {
         min-width: max-content;
         max-width: max-content;
@@ -135,19 +92,3 @@
   }
 }
 
-.dialog_info_wrap {
-  .dialog_info {
-    .dialog_info_header {
-      display: flex;
-      background-color: var(--color-argument-pro-medium);
-    }
-
-    .dialog_info_content {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      align-items: flex-start;
-      width: 100%;
-    }
-  }
-}

@@ -7,6 +7,7 @@ import { map, take } from 'rxjs';
 import { AppService } from 'src/app/services/app.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { TopicArgumentService } from 'src/app/services/topic-argument.service';
+
 @Component({
   selector: 'post-argument',
   templateUrl: './post-argument.component.html',
@@ -27,6 +28,7 @@ import { TopicArgumentService } from 'src/app/services/topic-argument.service';
 })
 export class PostArgumentComponent implements OnInit {
   @Input() topicId!: string;
+  @Input() discussionId!: string;
   wWidth = window.innerWidth;
   focusArgumentSubject = false;
   argumentType = <string>'pro';
@@ -111,7 +113,8 @@ export class PostArgumentComponent implements OnInit {
       type: this.argumentType,
       subject: this.argumentForm.value['subject'],
       text: this.argumentForm.value['text'],
-      topicId: this.topicId
+      topicId: this.topicId,
+      discussionId: this.discussionId
     };
     this.TopicArgumentService
       .save(argument)

@@ -67,7 +67,7 @@ export class EditIdeaComponent {
   }
 
   ideaMaxLength() {
-    return 2048;
+    return 0;
   }
 
   updateText(text: any) {

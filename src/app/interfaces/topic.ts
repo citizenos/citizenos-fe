@@ -24,6 +24,7 @@ export interface Topic {
   members: any,
   voteId:	string | null,
   ideationId?: string | null,
+  discussionId: string | null,
   comments: any,
   padUrl: any,
   favourite?: boolean | null,
