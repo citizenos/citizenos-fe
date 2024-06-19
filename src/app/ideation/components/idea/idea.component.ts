@@ -98,7 +98,7 @@ export class IdeaDialogComponent extends IdeaboxComponent {
             currentNode.replies.rows.forEach((reply: any) => {
               if (parentNode.id === parentNode.parent.id) {
                 console.log('FIRST');
-                countTree(currentNode, reply);
+                countTree(reply, reply);
               } else {
                 countTree(parentNode, reply);
                 const replyClone = Object.assign({}, reply);
