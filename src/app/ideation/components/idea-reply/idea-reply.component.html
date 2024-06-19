@@ -179,7 +179,7 @@
         </div>
       </div>
     </div>
-    <idea-reply-form *ngIf="showReply" [(showReply)]="showReply" [argument]="argument"
+    <idea-reply-form *ngIf="showReply" [(showReply)]="showReply" [(showReplies)]="showReplies" [argument]="argument"
       [topicId]="topicId" [ideationId]="ideationId" [ideaId]="ideaId"></idea-reply-form>
     <ng-container *ngIf="showReplies">
       <div class="replies_wrap" [ngClass]="argument.type">
