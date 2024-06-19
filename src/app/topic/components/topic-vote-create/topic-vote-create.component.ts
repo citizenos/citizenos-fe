@@ -160,7 +160,7 @@ export class TopicVoteCreateComponent implements OnInit {
       let separator = '+';
       if (x < 0) separator = '';
       this.timezones.push({
-        name: `Etc/GMT${separator}${x}`,
+        name: `GMT${separator}${x}`,
         value: x
       });
       x++;
