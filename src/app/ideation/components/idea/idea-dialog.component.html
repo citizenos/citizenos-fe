@@ -294,7 +294,7 @@
       <div class="idea_content_replies">
         <div class="replies_header" *ngIf="showReply">
           <div class="form_wrap">
-            <idea-reply-form id="reply_form" [(showReply)]="showReply" [topicId]="topic.id" [ideationId]="ideation.id"
+            <idea-reply-form id="reply_form" [(showReply)]="showReply" [(showReplies)]="showReplies" [topicId]="topic.id" [ideationId]="ideation.id"
               [ideaId]="idea.id"></idea-reply-form>
           </div>
         </div>

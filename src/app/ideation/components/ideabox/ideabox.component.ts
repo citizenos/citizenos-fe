@@ -28,7 +28,7 @@ export class IdeaboxComponent implements AfterViewInit {
   showDeletedIdea = false;
   @Input() topic!: Topic;
   @Input() ideation!: Ideation;
-  @Input() showReplies?: boolean = false;
+  showReplies = false;
   isNew = false;
   showEdit = false;
   showEdits = false;

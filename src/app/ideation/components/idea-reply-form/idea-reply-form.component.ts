@@ -6,6 +6,8 @@ import { Argument } from 'src/app/interfaces/argument';
 import { AppService } from 'src/app/services/app.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { TranslateService } from '@ngx-translate/core';
+import { relative } from 'path';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'idea-reply-form',
@@ -20,6 +22,9 @@ export class IdeaReplyFormComponent {
   @Input() showReply!: boolean;
   @Input() editMode = false;
   @Output() showReplyChange = new EventEmitter<boolean>();
+
+  @Input() showReplies?:boolean = false;
+  @Output() showRepliesChange = new EventEmitter<boolean>();
   public reply = {
     type: 'reply',
     text: ''
@@ -28,7 +33,9 @@ export class IdeaReplyFormComponent {
   ARGUMENT_TYPES_MAXLENGTH = this.TopicIdeaRepliesService.ARGUMENT_TYPES_MAXLENGTH;
   ARGUMENT_SUBJECT_MAXLENGTH = this.TopicIdeaRepliesService.ARGUMENT_SUBJECT_MAXLENGTH;
   errors = <any>null;
-  constructor(public AuthService: AuthService, private TopicIdeaRepliesService: TopicIdeaRepliesService, private translate: TranslateService, private Notification: NotificationService) {
+  constructor(public AuthService: AuthService, private TopicIdeaRepliesService: TopicIdeaRepliesService, private translate: TranslateService, private Notification: NotificationService,
+    private router: Router, private activatedRoute: ActivatedRoute
+  ) {
     this.AuthService.loggedIn$.pipe(
       map((isLoggedIn) => {
         if (!isLoggedIn) {
@@ -48,7 +55,6 @@ export class IdeaReplyFormComponent {
    }*/
 
   saveReply() {
-    console.log(this);
     const reply = {
       parentId: this.argument?.id,
       parentVersion: (this.argument?.edits.length || 1 - 1),
@@ -66,12 +72,9 @@ export class IdeaReplyFormComponent {
       .pipe(take(1))
       .subscribe((reply) => {
         this.TopicIdeaRepliesService.reloadArguments();
-        this.Notification.addSuccess('COMPONENTS.IDEA_REPLY_FORM.MSG_SUCCESS')
+        this.Notification.addSuccess('COMPONENTS.IDEA_REPLY_FORM.MSG_SUCCESS');
+        this.showRepliesChange.emit(true);
         this.close();
-        /* return this.$state.go(
-           this.$state.current.name,
-           { commentId: this.getCommentIdWithVersion(comment.id, comment.edits.length - 1) }
-         );*/
       });
     /* function (res) {
        this.form.errors = res.data.errors;
@@ -97,7 +100,16 @@ export class IdeaReplyFormComponent {
       .pipe(take(1))
       .subscribe((reply) => {
         this.TopicIdeaRepliesService.reloadArguments();
+        this.showRepliesChange.emit(true);
         this.close();
+        this.router.navigate(
+          [],
+          {
+            relativeTo: this.activatedRoute,
+            queryParams: {replyId: reply.id},
+            queryParamsHandling: 'merge',
+          }
+        );
         /* return this.$state.go(
            this.$state.current.name,
            { commentId: this.getCommentIdWithVersion(comment.id, comment.edits.length - 1) }
