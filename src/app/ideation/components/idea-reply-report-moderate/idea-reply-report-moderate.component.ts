@@ -1,6 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TopicArgumentService } from 'src/app/services/topic-argument.service';
 import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 import { Argument } from 'src/app/interfaces/argument';
 import { switchMap, take, combineLatest } from 'rxjs';

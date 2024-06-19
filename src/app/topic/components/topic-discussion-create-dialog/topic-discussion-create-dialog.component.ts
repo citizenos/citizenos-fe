@@ -7,6 +7,7 @@ import { TopicService } from 'src/app/services/topic.service';
 import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 import { Topic } from 'src/app/interfaces/topic';
 import { take } from 'rxjs';
+import { TopicDiscussionService } from 'src/app/services/topic-discussion.service';
 
 @Component({
   selector: 'topic-discussion-create-dialog',
@@ -17,6 +18,28 @@ export class TopicDiscussionCreateDialogComponent {
   topic!: Topic;
   title: string = '';
 
+  tabs = [...Array(2).keys()];
+  tabActive = 1;
+
+  public discussion = {
+    question: '',
+    deadline: null
+  };
+
+  deadline = <any>null;
+  numberOfDaysLeft = 0;
+  endsAt = <any>{
+    date: null,
+    min: 0,
+    h: 0,
+    timezone: (new Date().getTimezoneOffset() / -60),
+    timeFormat: '24'
+  };
+  timezones = <any[]>[];
+  HCount = 23;
+  datePickerMin = new Date();
+  deadlineSelect = false;
+
   private dialog = inject(DialogService);
   private data = inject(DIALOG_DATA);
 
@@ -25,22 +48,138 @@ export class TopicDiscussionCreateDialogComponent {
     public Translate: TranslateService,
     public Notification: NotificationService,
     @Inject(ActivatedRoute) public route: ActivatedRoute,
+    public TopicDiscussionService: TopicDiscussionService,
     public router: Router
   ) {
-
+    this.setTimeZones();
+    this.setEndsAtTime();
   }
 
   ngOnInit(): void {
     this.topic = this.data.topic;
   }
 
-  startDiscussion() {
-    this.TopicIdeationService.update({ topicId: this.topic.id, ideationId: this.topic.ideationId, deadline: new Date() }).pipe(take(1)).subscribe({
-      next: () => {
-        this.TopicService.reloadTopic();
-        return this.TopicService.changeState(this.topic, this.TopicService.STATUSES.inProgress, this.route.toString());
-      }
-    });
-
+  isNextDisabled() {
+    if (this.tabActive === 2 && (!this.discussion.question)) return true;
+    return false;
   }
+
+  tabNext() {
+    if (this.tabActive === 2 && (!this.discussion.question)) return;
+    (this.tabActive < 2) ? setTimeout(() => this.tabActive = this.tabActive + 1) : this.startDiscussion()
+  }
+
+  startDiscussion() {
+    const createDiscussion: any = Object.assign({ topicId: this.topic.id }, this.discussion);
+    this.TopicDiscussionService.save(createDiscussion)
+      .pipe(take(1))
+      .subscribe({
+        next: (discussion) => {
+          this.TopicService.patch({ topicId: this.topic.id, status: this.TopicService.STATUSES.inProgress }).pipe(take(1)).subscribe(() => {
+
+            this.TopicService.reloadTopic();
+            this.dialog.closeAll();
+          });
+
+        }
+      });
+  }
+
+
+  canEditDiscussion() {
+    return this.TopicService.canEdit(this.topic) && (this.topic.status !== this.TopicService.STATUSES.draft || this.topic.status !== this.TopicService.STATUSES.inProgress);
+  }
+
+  setTimeZones() {
+    let x = -14;
+    while (x <= 12) {
+      let separator = '+';
+      if (x < 0) separator = '';
+      this.timezones.push({
+        name: `Etc/GMT${separator}${x}`,
+        value: x
+      });
+      x++;
+    }
+  };
+
+  toggleDeadline() {
+    this.deadlineSelect = !this.deadlineSelect;
+  }
+
+  minHours() {
+    if (new Date(this.endsAt.date).getDate() === (new Date()).getDate()) {
+      const h = new Date().getHours() + (this.endsAt.timezone - (this.deadline.getTimezoneOffset() / -60));
+      return h;
+    }
+    return 1;
+  };
+
+  minMinutes() {
+    if (new Date(this.endsAt.date).getDate() === (new Date()).getDate()) {
+      return Math.ceil(new Date().getMinutes() / 5) * 5;
+    }
+
+    return 0
+  };
+
+  setEndsAtTime() {
+    this.endsAt.date = this.endsAt.date || new Date();
+    this.deadline = new Date(this.endsAt.date);
+    if (this.endsAt.h === 0 && this.endsAt.min === 0) {
+      this.deadline = new Date(this.deadline.setDate(this.deadline.getDate() + 1));
+    }
+
+    let hour = this.endsAt.h;
+    if (this.endsAt.timeFormat === 'PM') { hour += 12; }
+    this.deadline.setHours(hour - (this.endsAt.timezone - (this.deadline.getTimezoneOffset() / -60)));
+    this.deadline.setMinutes(this.endsAt.min);
+    this.discussion.deadline = this.deadline;
+    this.daysToVoteEnd();
+
+    // this.setReminderOptions();
+  };
+
+
+  daysToVoteEnd() {
+    if (this.deadline) {
+      this.numberOfDaysLeft = Math.ceil((new Date(this.deadline).getTime() - new Date().getTime()) / (1000 * 3600 * 24));
+    }
+    return this.numberOfDaysLeft;
+  };
+  //To display hours in the dropdown like 01
+  formatTime(val: number | string) {
+    if (parseInt(val.toString()) < 10) {
+      val = '0' + val;
+    }
+
+    return val;
+  };
+
+  timeFormatDisabled() {
+    const now = new Date();
+    const deadline = new Date(this.deadline);
+    if (new Date(deadline.getFullYear(), deadline.getMonth(), deadline.getDate()).getTime() === new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime()) {
+      if (deadline.getHours() > 12) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  setTimeFormat() {
+    this.HCount = 23;
+    if (this.endsAt.timeFormat !== 24) {
+      this.HCount = 12;
+      if (this.endsAt.h > 12) {
+        this.endsAt.h -= 12;
+      }
+    }
+    this.setEndsAtTime();
+  };
+
+  getTimeZoneName(value: number) {
+    return (this.timezones.find((item) => { return item.value === value })).name;
+  };
 }

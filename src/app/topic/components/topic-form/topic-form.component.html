@@ -22,9 +22,20 @@
         </svg>
       </div>
     </a>
+    <a class="create_tab" [ngClass]="tabSelected=== 'discussion' ? 'active' : ''" (click)="selectTab('discussion')">
+      <div class="tab_number">2.</div>
+      <span class="tab_text" translate="VIEWS.TOPIC_CREATE.CREATE_TAB_3"></span>
+      <div class="mobile_show">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M20.7701 14.1629L19.1552 13.2702C19.3182 12.4282 19.3182 11.5645 19.1552 10.7226L20.7701 9.82985C20.9558 9.72823 21.0392 9.51775 20.9786 9.32178C20.5578 8.02985 19.8413 6.86131 18.905 5.88873C18.7609 5.73994 18.5259 5.70365 18.3439 5.80527L16.729 6.698C16.0504 6.13914 15.2695 5.70728 14.4241 5.42422V3.64237C14.4241 3.43915 14.2763 3.26132 14.0678 3.21778C12.6765 2.9202 11.2511 2.93471 9.92811 3.21778C9.71961 3.26132 9.57176 3.43915 9.57176 3.64237V5.42785C8.73018 5.71454 7.94926 6.14639 7.26689 6.70163L5.65576 5.80889C5.47001 5.70728 5.23876 5.73994 5.09471 5.89236C4.15835 6.86131 3.44187 8.02985 3.02108 9.32541C2.95664 9.52138 3.04383 9.73186 3.22958 9.83348L4.84451 10.7262C4.6815 11.5681 4.6815 12.4319 4.84451 13.2738L3.22958 14.1665C3.04383 14.2681 2.96043 14.4786 3.02108 14.6746C3.44187 15.9665 4.15835 17.1351 5.09471 18.1076C5.23876 18.2564 5.4738 18.2927 5.65576 18.1911L7.27068 17.2984C7.94926 17.8572 8.73018 18.2891 9.57555 18.5722V20.3576C9.57555 20.5609 9.7234 20.7387 9.9319 20.7822C11.3232 21.0798 12.7485 21.0653 14.0716 20.7822C14.2801 20.7387 14.4279 20.5609 14.4279 20.3576V18.5722C15.2695 18.2855 16.0504 17.8536 16.7328 17.2984L18.3477 18.1911C18.5335 18.2927 18.7647 18.2601 18.9088 18.1076C19.8451 17.1387 20.5616 15.9701 20.9824 14.6746C21.0392 14.475 20.9558 14.2645 20.7701 14.1629ZM11.9979 14.8996C10.3262 14.8996 8.96522 13.5968 8.96522 11.9964C8.96522 10.396 10.3262 9.09316 11.9979 9.09316C13.6697 9.09316 15.0307 10.396 15.0307 11.9964C15.0307 13.5968 13.6697 14.8996 11.9979 14.8996Z"
+            fill="#4D5C6A" />
+        </svg>
+      </div>
+    </a>
     <a class="create_tab" [ngClass]="tabSelected=== 'preview' ? 'active' : ''" (click)="selectTab('preview')">
       <div class="tab_number">3.</div>
-      <span class="tab_text" translate="VIEWS.TOPIC_CREATE.CREATE_TAB_3"></span>
+      <span class="tab_text" translate="VIEWS.TOPIC_CREATE.CREATE_TAB_4"></span>
 
       <div class="mobile_show">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -785,6 +796,168 @@
                   </div>
                 </ng-container>
               </ng-container>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="tabSelected==='discussion'">
+          <div class="create_content_section">
+            <div class="number_wrap mobile_hidden">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="16" height="16" rx="8" fill="white" />
+                <path
+                  d="M12.6558 9.32812C11.2233 8.52002 9.79067 7.71195 8.35815 6.90385C8.47123 7.10587 8.5843 7.30788 8.71632 7.4916V7.47328C8.71632 7.2345 8.58432 6.99582 8.35815 6.88553C6.92564 6.07743 5.49303 5.26936 4.06051 4.46126C3.26884 4.02046 2.55253 5.21426 3.3442 5.65493C4.77672 6.46303 6.20933 7.2711 7.64185 8.0792C7.52877 7.87718 7.41569 7.67517 7.28368 7.49145V7.50977C7.28368 7.74856 7.41569 7.98723 7.64185 8.09752C9.07436 8.90563 10.507 9.71369 11.9395 10.5218C12.7312 10.9626 13.4475 9.76892 12.6558 9.32812Z"
+                  fill="#EF4025" />
+                <path
+                  d="M8.71632 7.4916L8.71634 2.66112C8.71634 1.77963 7.30264 1.77963 7.30264 2.66112V7.49117C7.30264 8.3728 8.71632 8.37323 8.71632 7.4916Z"
+                  fill="#EF4025" />
+                <path
+                  d="M8.71627 12.3388V7.50873C8.71627 6.62723 7.30257 6.62723 7.30257 7.50873V12.3388C7.30257 13.2204 8.71627 13.2204 8.71627 12.3388Z"
+                  fill="#EF4025" />
+                <path
+                  d="M4.06051 10.5208C6.92563 8.90464 9.7907 7.28856 12.6558 5.69076C13.4475 5.24996 12.7311 4.05625 11.9395 4.49708C9.07435 6.11326 6.20929 7.72933 3.3442 9.32714C2.55253 9.76783 3.26886 10.9615 4.06051 10.5208Z"
+                  fill="#EF4025" />
+              </svg>
+              <div>1</div>
+            </div>
+            <div class="section_content_wrap" [ngClass]="{disabled: isCreatedFromGroup}">
+              <div class="header_wrap">
+                <div class="number_wrap mobile_show">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="16" height="16" rx="8" fill="white" />
+                    <path
+                      d="M12.6558 9.32812C11.2233 8.52002 9.79067 7.71195 8.35815 6.90385C8.47123 7.10587 8.5843 7.30788 8.71632 7.4916V7.47328C8.71632 7.2345 8.58432 6.99582 8.35815 6.88553C6.92564 6.07743 5.49303 5.26936 4.06051 4.46126C3.26884 4.02046 2.55253 5.21426 3.3442 5.65493C4.77672 6.46303 6.20933 7.2711 7.64185 8.0792C7.52877 7.87718 7.41569 7.67517 7.28368 7.49145V7.50977C7.28368 7.74856 7.41569 7.98723 7.64185 8.09752C9.07436 8.90563 10.507 9.71369 11.9395 10.5218C12.7312 10.9626 13.4475 9.76892 12.6558 9.32812Z"
+                      fill="#EF4025" />
+                    <path
+                      d="M8.71632 7.4916L8.71634 2.66112C8.71634 1.77963 7.30264 1.77963 7.30264 2.66112V7.49117C7.30264 8.3728 8.71632 8.37323 8.71632 7.4916Z"
+                      fill="#EF4025" />
+                    <path
+                      d="M8.71627 12.3388V7.50873C8.71627 6.62723 7.30257 6.62723 7.30257 7.50873V12.3388C7.30257 13.2204 8.71627 13.2204 8.71627 12.3388Z"
+                      fill="#EF4025" />
+                    <path
+                      d="M4.06051 10.5208C6.92563 8.90464 9.7907 7.28856 12.6558 5.69076C13.4475 5.24996 12.7311 4.05625 11.9395 4.49708C9.07435 6.11326 6.20929 7.72933 3.3442 9.32714C2.55253 9.76783 3.26886 10.9615 4.06051 10.5208Z"
+                      fill="#EF4025" />
+                  </svg>
+                  <div>1</div>
+                </div>
+
+                <div class="small_heading" translate="VIEWS.TOPIC_CREATE.SETTINGS_HEADING_DISCUSSION_QUESTION"></div>
+                <div class="mobile_hidden" translate="VIEWS.TOPIC_CREATE.SETTINGS_HEADING_DISCUSSION_QUESTION_DESC">
+                </div>
+              </div>
+              <div class="mobile_show" translate="VIEWS.TOPIC_CREATE.SETTINGS_HEADING_DISCUSSION_QUESTION_DESC">
+              </div>
+              <cos-input placeholder="{{'VIEWS.TOPIC_CREATE.SETTINGS_DISCUSSION_QUESTION_PLACEHOLDER' | translate}}" [ngClass]="{disabled: !canEditDiscussion()}">
+                <input id="discussion_question"
+                  [placeholder]="'VIEWS.TOPIC_CREATE.SETTINGS_DISCUSSION_QUESTION_PLACEHOLDER' | translate"
+                  [(ngModel)]="discussion.question" [ngClass]="{'error_input': errors?.question}">
+                <label for="discussion_question" class="error_label" *ngIf="errors?.question">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M8.89438 1.78863C8.52586 1.05158 7.47405 1.05158 7.10553 1.78863L0.723562 14.5526C0.391112 15.2175 0.874608 15.9998 1.61799 15.9998H14.3819C15.1253 15.9998 15.6088 15.2175 15.2763 14.5526L8.89438 1.78863ZM6.99996 6.99977C6.99996 6.44749 7.44767 5.99977 7.99996 5.99977C8.55224 5.99977 8.99996 6.44749 8.99996 6.99977V9.99977C8.99996 10.5521 8.55224 10.9998 7.99996 10.9998C7.44767 10.9998 6.99996 10.5521 6.99996 9.99977V6.99977ZM6.99996 12.9998C6.99996 12.4475 7.44767 11.9998 7.99996 11.9998C8.55224 11.9998 8.99996 12.4475 8.99996 12.9998C8.99996 13.5521 8.55224 13.9998 7.99996 13.9998C7.44767 13.9998 6.99996 13.5521 6.99996 12.9998Z"
+                      fill="#EF4025" />
+                  </svg>
+                  <span translate="{{errors?.question}}"></span>
+                </label>
+              </cos-input>
+            </div>
+          </div>
+          <div class="create_content_section">
+            <div class="number_wrap mobile_hidden">
+              <div>2</div>
+            </div>
+            <div class="section_content_wrap">
+              <div class="header_wrap">
+                <div class="number_wrap mobile_show">
+                  <div>2</div>
+                </div>
+                <div class="small_heading" translate="VIEWS.TOPIC_CREATE.SETTINGS_HEADING_DISCUSSION_DEADLINE">
+                </div>
+                <div class="mobile_hidden" translate="VIEWS.TOPIC_CREATE.SETTINGS_HEADING_DISCUSSION_DEADLINE_DESC">
+                </div>
+              </div>
+              <div class="mobile_show" translate="VIEWS.TOPIC_CREATE.SETTINGS_HEADING_DISCUSSION_DEADLINE_DESC">
+              </div>
+              <div class="radio_wrap discussion date_selector" [ngClass]="{selected: deadlineSelect, disabled: !canEditDiscussion()}">
+                <div class="radio_text_wrap date_selector">
+                  <div class="radio_lable_wrap" (click)="toggleDeadline();$event.stopPropagation();">
+                    <label class="checkbox" [ngClass]="{selected: deadlineSelect}">
+                      <span class="checkmark"></span>
+                      <div class="checkbox_text_wrap">
+                        <span class="bold" translate="VIEWS.TOPIC_CREATE.LBL_OPTION_DEADLINE"></span>
+                        <span class="deadline bold" *ngIf="deadlineSelect">{{deadline | date: 'YYYY-MM-dd HH:mm'}}</span>
+                      </div>
+                    </label>
+                  </div>
+                  <div class="radio_description">
+                    <ng-container *ngIf="deadlineSelect">
+                      <div class="deadline_wrap">
+                        <div class="date_row">
+                          <div class="bold date_row_title" translate="VIEWS.TOPIC_CREATE.DEADLINE_LBL_TIME">
+                          </div>
+                          <div class="input_wrap">
+                            <div class="time_wrap">
+                              <input class="time_input" [(ngModel)]="endsAt.h" (change)="formatTime(endsAt.h); setEndsAtTime()"
+                                type="number" [min]="minHours()" max="{{HCount}}" step="1" />
+                              <span class="time_separator">:</span>
+                              <input type="number" class="time_input" [min]="minMinutes()" max="59" step="5"
+                                [(ngModel)]="endsAt.min" (change)="formatTime(endsAt.min);setEndsAtTime()" />
+                            </div>
+
+                            <div class="dropdown" [cosDropdown]>
+                              <div class="selection">
+                                <div class="selected_item">
+                                  {{'VIEWS.TOPIC_CREATE.DEADLINE_TIME_OPTION_'+endsAt.timeFormat | uppercase |
+                                  translate}}</div>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
+                                </svg>
+
+                              </div>
+                              <div class="options">
+                                <div class="option" translate="VIEWS.TOPIC_CREATE.DEADLINE_TIME_OPTION_24"
+                                  (click)="endsAt.timeFormat = 24; setTimeFormat()">
+                                </div>
+                                <div class="option" translate="VIEWS.TOPIC_CREATE.DEADLINE_TIME_OPTION_AM"
+                                  (click)="endsAt.timeFormat = 'AM'; setTimeFormat()"
+                                  [ngClass]="{disabled: timeFormatDisabled()}">
+                                </div>
+                                <div class="option" translate="VIEWS.TOPIC_CREATE.DEADLINE_TIME_OPTION_PM"
+                                  (click)="endsAt.timeFormat = 'PM'; setTimeFormat()">
+                                </div>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+                        <div class="date_row">
+                          <div class="date_row_title bold" translate="VIEWS.TOPIC_CREATE.DEADLINE_LBL_TIMEZONE">
+                          </div>
+                          <div class="input_wrap">
+                            <div class="dropdown" [cosDropdown]>
+                              <div class="selection">
+                                <div class="selected_item">
+                                  {{getTimeZoneName(endsAt.timezone)}}
+                                </div>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
+                                </svg>
+                              </div>
+                              <div class="options">
+                                <div class="option" *ngFor="let zone of timezones"
+                                  [ngClass]="zone === endsAt.timezone ? 'bold' : ''"
+                                  (click)="endsAt.timezone = zone.value;setEndsAtTime();">
+                                  {{zone.name}}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <cos-calender [minDate]="datePickerMin" [(date)]="endsAt.date" (click)="setEndsAtTime()" class="discussion"></cos-calender>
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </ng-container>

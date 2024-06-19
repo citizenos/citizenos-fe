@@ -24,7 +24,7 @@ import { IdeaReplyReportModerateComponent, IdeaReplyReportModerateDialogComponen
 const routes: Routes = [
   {
     path: 'create', canActivate: [AuthGuard], children: [
-      { path: '', component: TopicCreateComponent, canDeactivate: [CanDeactivateBlockNavigationIfChange] },
+      { path: '', component: TopicCreateComponent },
       { path: ':topicId', component: TopicCreateComponent, canDeactivate: [CanDeactivateBlockNavigationIfChange], }
     ]
   },

@@ -1,5 +1,5 @@
 import { trigger, state, style } from '@angular/animations';
-import { Component, Inject, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, Inject, ChangeDetectorRef } from '@angular/core';
 import { DialogService } from 'src/app/shared/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -15,15 +15,13 @@ import { GroupMemberTopicService } from 'src/app/services/group-member-topic.ser
 import { TopicInviteUserService } from 'src/app/services/topic-invite-user.service';
 import { TopicMemberUserService } from 'src/app/services/topic-member-user.service';
 import { DomSanitizer } from '@angular/platform-browser';
-import { TopicVoteCreateComponent } from 'src/app/topic/components/topic-vote-create/topic-vote-create.component';
 import { TopicIdeationService } from 'src/app/services/topic-ideation.service';
-import { countries } from 'src/app/services/country.service';
-import { languages } from 'src/app/services/language.service';
 import { TopicEditDisabledDialogComponent } from 'src/app/topic/components/topic-edit-disabled-dialog/topic-edit-disabled-dialog.component';
 import { TopicAttachmentService } from 'src/app/services/topic-attachment.service';
 import { TopicMemberGroupService } from 'src/app/services/topic-member-group.service';
 import { TopicFormComponent } from 'src/app/topic/components/topic-form/topic-form.component';
 import { BlockNavigationIfChange } from 'src/app/shared/pending-changes.guard';
+import { TopicDiscussionService } from 'src/app/services/topic-discussion.service';
 
 @Component({
   selector: 'app-ideation-create',
@@ -69,10 +67,8 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
 
   languages$: { [key: string]: any } = this.config.get('language').list;
   topic$: Observable<Topic>;
-  hasChanges$ = new BehaviorSubject(<boolean>true);
 
   /**/
-  errors?: any;
   override tabs = ['info', 'settings', 'ideation_system', 'preview'];
   members = <any[]>[];
   public ideation = {
@@ -83,19 +79,6 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
     createdAt: '',
     updatedAt: ''
   };
-  deadline = <any>null;
-  numberOfDaysLeft = 0;
-  endsAt = <any>{
-    date: null,
-    min: 0,
-    h: 0,
-    timezone: (new Date().getTimezoneOffset() / -60),
-    timeFormat: '24'
-  };
-  timezones = <any[]>[];
-  HCount = 23;
-  datePickerMin = new Date();
-  deadlineSelect = false;
   constructor(
     dialog: DialogService,
     route: ActivatedRoute,
@@ -109,13 +92,14 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
     TopicMemberUserService: TopicMemberUserService,
     TopicInviteUserService: TopicInviteUserService,
     TopicAttachmentService: TopicAttachmentService,
+    TopicDiscussionService: TopicDiscussionService,
     translate: TranslateService,
     cd: ChangeDetectorRef,
     @Inject(DomSanitizer) override sanitizer: DomSanitizer,
     private app: AppService,
     private TopicIdeationService: TopicIdeationService,
     private config: ConfigService) {
-    super(dialog, route, router, UploadService, Notification, TopicService, GroupService, GroupMemberTopicService, TopicMemberGroupService, TopicMemberUserService, TopicInviteUserService, TopicAttachmentService, translate, cd, sanitizer)
+    super(dialog, route, router, UploadService, Notification, TopicService, GroupService, GroupMemberTopicService, TopicMemberGroupService, TopicMemberUserService, TopicInviteUserService, TopicAttachmentService, TopicDiscussionService, translate, cd, sanitizer)
     this.setTimeZones();
     this.app.darkNav = true;
     this.hasUnsavedChanges = new Subject();
@@ -469,38 +453,7 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
   }
   /*DEADLINE */
 
-  toggleDeadline() {
-    this.deadlineSelect = !this.deadlineSelect;
-  }
-  private setTimeZones() {
-    let x = -14;
-    while (x <= 12) {
-      let separator = '+';
-      if (x < 0) separator = '';
-      this.timezones.push({
-        name: `Etc/GMT${separator}${x}`,
-        value: x
-      });
-      x++;
-    }
-  };
-
-  minHours() {
-    if (new Date(this.endsAt.date).getDate() === (new Date()).getDate()) {
-      const h = new Date().getHours() + (this.endsAt.timezone - (this.deadline.getTimezoneOffset() / -60));
-      return h;
-    }
-    return 1;
-  };
-
-  minMinutes() {
-    if (new Date(this.endsAt.date).getDate() === (new Date()).getDate()) {
-      return Math.ceil(new Date().getMinutes() / 5) * 5;
-    }
-
-    return 0
-  };
-  setEndsAtTime() {
+  override setEndsAtTime() {
     this.endsAt.date = this.endsAt.date || new Date();
     this.deadline = new Date(this.endsAt.date);
     if (this.endsAt.h === 0 && this.endsAt.min === 0) {
@@ -515,48 +468,6 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
     this.daysToVoteEnd();
 
     // this.setReminderOptions();
-  };
-
-  daysToVoteEnd() {
-    if (this.deadline) {
-      this.numberOfDaysLeft = Math.ceil((new Date(this.deadline).getTime() - new Date().getTime()) / (1000 * 3600 * 24));
-    }
-    return this.numberOfDaysLeft;
-  };
-  //To display hours in the dropdown like 01
-  formatTime(val: number | string) {
-    if (parseInt(val.toString()) < 10) {
-      val = '0' + val;
-    }
-
-    return val;
-  };
-
-  timeFormatDisabled() {
-    const now = new Date();
-    const deadline = new Date(this.deadline);
-    if (new Date(deadline.getFullYear(), deadline.getMonth(), deadline.getDate()).getTime() === new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime()) {
-      if (deadline.getHours() > 12) {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
-  setTimeFormat() {
-    this.HCount = 23;
-    if (this.endsAt.timeFormat !== 24) {
-      this.HCount = 12;
-      if (this.endsAt.h > 12) {
-        this.endsAt.h -= 12;
-      }
-    }
-    this.setEndsAtTime();
-  };
-
-  getTimeZoneName(value: number) {
-    return (this.timezones.find((item) => { return item.value === value })).name;
   };
 
   override isNextDisabled(tabSelected: string | void) {

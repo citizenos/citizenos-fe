@@ -4,24 +4,8 @@
 <ng-container *ngIf="ideation">
   <div class="ideation_wrap">
     <div class="ideation_header">
-      <div class="header_division">
-        <svg class="mobile_hidden" width="32" height="32" viewBox="0 0 32 32" fill="none"
-          xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" clip-rule="evenodd"
-            d="M28.0002 15.9333C27.2638 15.9333 26.6668 15.3364 26.6668 14.6C26.6668 13.8636 27.2638 13.2667 28.0002 13.2667H29.3335C30.0699 13.2667 30.6668 13.8636 30.6668 14.6C30.6668 15.3364 30.0699 15.9333 29.3335 15.9333H28.0002ZM26.3295 4.27596C25.8093 3.75579 24.9656 3.75696 24.4468 4.27858L23.9349 4.79335C23.4183 5.31291 23.4194 6.1526 23.9376 6.67072C24.4577 7.19089 25.3014 7.18971 25.8202 6.6681L26.3321 6.15333C26.8487 5.63376 26.8476 4.79408 26.3295 4.27596ZM14.6668 2.6C14.6668 3.33638 15.2638 3.93333 16.0002 3.93333C16.7365 3.93333 17.3335 3.33638 17.3335 2.6V1.33333C17.3335 0.596954 16.7365 0 16.0002 0C15.2638 0 14.6668 0.596954 14.6668 1.33333V2.6ZM4.00016 13.2667C4.73654 13.2667 5.3335 13.8636 5.3335 14.6C5.3335 15.3364 4.73654 15.9333 4.00016 15.9333L2.66683 15.9333C1.93045 15.9333 1.3335 15.3364 1.3335 14.6C1.3335 13.8636 1.93045 13.2667 2.66683 13.2667L4.00016 13.2667ZM7.56421 4.26262C7.04693 3.74245 6.20556 3.74128 5.68683 4.26C5.16811 4.77872 5.16928 5.6201 5.68945 6.13738L6.2109 6.65594C6.72822 7.17039 7.56428 7.16922 8.08017 6.65333C8.59605 6.13745 8.59722 5.30139 8.08277 4.78407L7.56421 4.26262ZM7.6818 14.5223C7.6818 9.76383 11.7742 6.39974 16.0019 6.39974C20.2298 6.39974 24.3218 9.76415 24.3218 14.5223C24.3218 17.8832 22.9826 19.7972 21.7624 21.5409C20.8688 22.818 20.0391 24.0038 19.8462 25.5997H12.1662C11.9731 24.0035 11.1417 22.8177 10.2462 21.5404C9.02369 19.7968 7.6818 17.8829 7.6818 14.5223ZM12.1643 28.1638H19.8443V26.8802H12.1643V28.1638ZM12.1643 29.4402H19.8443C19.8443 30.8541 18.6982 32.0002 17.2843 32.0002H14.7243C13.3105 32.0002 12.1643 30.8541 12.1643 29.4402Z"
-            fill="#E4B722" />
-        </svg>
-        <div class="ideation_question">{{ideation.question}}</div>
-      </div>
-      <div class="header_division">
-        <div class="ideation_deadline" *ngIf="ideation.deadline">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" clip-rule="evenodd"
-              d="M8 2C7.44772 2 7 2.44772 7 3V4H6C4.89543 4 4 4.89543 4 6V18C4 19.1046 4.89543 20 6 20H18C19.1046 20 20 19.1046 20 18V6C20 4.89543 19.1046 4 18 4H17V3C17 2.44772 16.5523 2 16 2C15.4477 2 15 2.44772 15 3V4H9V3C9 2.44772 8.55228 2 8 2ZM6 8H18V18H6V8ZM9 6V5H7V6H9ZM17 5V6H15V5H17ZM11.0332 9.55428C11.0152 9.25392 11.2438 9 11.5322 9H12.4678C12.7562 9 12.9848 9.25392 12.9668 9.55428L12.5293 13.5108C12.5128 13.7858 12.2943 14 12.0303 14H11.9697C11.7057 14 11.4872 13.7858 11.4707 13.5108L11.0332 9.55428ZM13 15.9565C13 16.5328 12.5523 17 12 17C11.4477 17 11 16.5328 11 15.9565C11 15.3802 11.4477 14.913 12 14.913C12.5523 14.913 13 15.3802 13 15.9565Z"
-              fill="#2C3B47" />
-          </svg>
-          <span class="bold">{{ideation.deadline | date:'YYYY-MM-dd HH:mm'}}</span>
-        </div>
+      <div class="header_section">
+        <div class="question">{{ideation.question}}</div>
         <div class="setting_button dropdown button_dropdown" [cosDropdown]
           *ngIf="canUpdate() && (canEditDeadline() || !hasIdeationEndedExpired())">
           <button class="btn_medium_close mobile_hidden">
@@ -32,7 +16,7 @@
             </svg>
             <span translate="COMPONENTS.TOPIC_IDEATION.BTN_IDEATION_ACTIONS"></span>
           </button>
-          <button id="mobile_actions" class="btn_medium_plain icon mobile_show">
+          <button id="mobile_actions" class="btn_medium_close icon mobile_show">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd"
                 d="M14 6C14 4.9 13.1 4 12 4C10.9 4 10 4.9 10 6C10 7.1 10.9 8 12 8C13.1 8 14 7.1 14 6ZM14 18C14 16.9 13.1 16 12 16C10.9 16 10 16.9 10 18C10 19.1 10.9 20 12 20C13.1 20 14 19.1 14 18ZM12 10C13.1 10 14 10.9 14 12C14 13.1 13.1 14 12 14C10.9 14 10 13.1 10 12C10 10.9 10.9 10 12 10Z"
@@ -81,6 +65,12 @@
               </div>
             </ng-container>
           </div>
+        </div>
+      </div>
+      <div class="data_section" *ngIf="ideation.deadline">
+        <div class="title" translate="COMPONENTS.TOPIC_IDEATION.LBL_DEADLINE"></div>
+        <div class="deadline">
+          <span class="bold">{{ideation.deadline | date:'YYYY-MM-dd HH:mm'}}</span>
         </div>
       </div>
     </div>

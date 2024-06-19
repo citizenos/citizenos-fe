@@ -22,6 +22,7 @@ import { TopicAttachmentService } from 'src/app/services/topic-attachment.servic
 import { TopicMemberGroupService } from 'src/app/services/topic-member-group.service';
 import { TopicFormComponent } from 'src/app/topic/components/topic-form/topic-form.component';
 import { BlockNavigationIfChange } from 'src/app/shared/pending-changes.guard';
+import { TopicDiscussionService } from 'src/app/services/topic-discussion.service';
 
 @Component({
   selector: 'app-vote-create',
@@ -68,7 +69,6 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
 
   languages$: { [key: string]: any } = this.config.get('language').list;
   topic$: Observable<Topic>;
-  hasChanges$ = new BehaviorSubject(<boolean>true);
 
   public vote = {
     createdAt: '',
@@ -91,7 +91,6 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
   };
 
   /**/
-  errors?: any;
   override tabs = ['info', 'settings', 'voting_system', 'preview'];
   members = <any[]>[];
   constructor(
@@ -107,13 +106,14 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
     TopicMemberUserService: TopicMemberUserService,
     TopicInviteUserService: TopicInviteUserService,
     TopicAttachmentService: TopicAttachmentService,
+    TopicDiscussionService: TopicDiscussionService,
     translate: TranslateService,
     cd: ChangeDetectorRef,
     @Inject(DomSanitizer) override sanitizer: DomSanitizer,
     private app: AppService,
     private TopicVoteService: TopicVoteService,
     private config: ConfigService) {
-    super(dialog, route, router, UploadService, Notification, TopicService, GroupService, GroupMemberTopicService, TopicMemberGroupService, TopicMemberUserService, TopicInviteUserService, TopicAttachmentService, translate, cd, sanitizer)
+    super(dialog, route, router, UploadService, Notification, TopicService, GroupService, GroupMemberTopicService, TopicMemberGroupService, TopicMemberUserService, TopicInviteUserService, TopicAttachmentService, TopicDiscussionService, translate, cd, sanitizer)
     this.app.darkNav = true;
     this.groups$ = this.GroupService.loadItems().pipe(map((groups) => {
       groups.forEach((group: any) => {

@@ -31,8 +31,33 @@
         </div>
       </div>
     </div>
+    <div class="dialog_tabs_wrap discussion">
+      <a class="dialog_tab mobile_hidden" *ngFor="let tab of tabs" [ngClass]="(tabActive === tab+1)? 'active' :''"
+        (click)="tabActive=tab+1">
+        <span class="tab_number">{{tab+1}}</span>
+        <span class="tab_text">{{tab+1}}.
+          <span [translate]="'COMPONENTS.TOPIC_DISCUSSION_CREATE.DIALOG_TAB_'+(tab+1)"></span>
+        </span>
+      </a>
+      <div class="dropdown mobile_show" [cosDropdown]>
+        <div class="selection">
+          <div class="selected_item bold">{{tabActive}}. <span
+              [translate]="'COMPONENTS.TOPIC_DISCUSSION_CREATE.DIALOG_TAB_'+tabActive"></span></div>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+          </svg>
+
+        </div>
+        <div class="options">
+          <div class="option" *ngFor="let tab of tabs" (click)="tabActive = tab+1">
+            <span class="tab_number">{{tab+1}}. <span
+                [translate]="'COMPONENTS.TOPIC_VOTE_CREATE.DIALOG_TAB_'+(tab+1)"></span></span>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="dialog_content">
-      <ng-container> <!--*ngIf="tabActive === 1"-->
+      <ng-container *ngIf="tabActive === 1">
         <div class="introduction_wrap">
           <div class="intro_heading">
             <span translate="COMPONENTS.TOPIC_DISCUSSION_CREATE.DIALOG_TAB_INTRODUCTION_ARE_YOU_SURE"></span>
@@ -102,24 +127,128 @@
           </div>
         </div>
       </ng-container>
+      <ng-container *ngIf="tabActive === 2">
+        <div id="form_area">
+          <div class="content_section">
+            <div class="section_content_wrap">
+              <div class="bold" translate="VIEWS.TOPIC_CREATE.SETTINGS_HEADING_DISCUSSION_QUESTION">
+              </div>
+              <div class="section_content_description">
+                <cos-input placeholder="{{'VIEWS.TOPIC_CREATE.SETTINGS_DISCUSSION_QUESTION_PLACEHOLDER' | translate}}">
+                  <input id="groupName"
+                    [placeholder]="'VIEWS.TOPIC_CREATE.SETTINGS_DISCUSSION_QUESTION_PLACEHOLDER' | translate"
+                    [(ngModel)]="discussion.question">
+                </cos-input>
+              </div>
+            </div>
+          </div>
+          <div class="section_content_wrap">
+            <div class="header_wrap">
+              <div class="bold" translate="VIEWS.TOPIC_CREATE.SETTINGS_HEADING_DISCUSSION_DEADLINE">
+              </div>
+            </div>
+          </div>
+          <div class="radio_wrap discussion date_selector"
+            [ngClass]="{selected: deadlineSelect, disabled: !canEditDiscussion()}">
+            <div class="radio_text_wrap date_selector">
+              <div class="radio_lable_wrap" (click)="toggleDeadline();$event.stopPropagation();">
+                <label class="checkbox" [ngClass]="{selected: deadlineSelect}">
+                  <span class="checkmark"></span>
+                  <div class="checkbox_text_wrap">
+                    <span class="bold" translate="VIEWS.TOPIC_CREATE.LBL_OPTION_DEADLINE"></span>
+                    <span class="deadline bold" *ngIf="deadlineSelect">{{deadline | date: 'YYYY-MM-dd HH:mm'}}</span>
+                  </div>
+                </label>
+              </div>
+              <div class="radio_description" *ngIf="deadlineSelect">
+                <div class="deadline_wrap">
+                  <div class="date_row">
+                    <div class="bold date_row_title" translate="VIEWS.TOPIC_CREATE.DEADLINE_LBL_TIME">
+                    </div>
+                    <div class="input_wrap">
+                      <div class="time_wrap">
+                        <input class="time_input" [(ngModel)]="endsAt.h"
+                          (change)="formatTime(endsAt.h); setEndsAtTime()" type="number" [min]="minHours()"
+                          max="{{HCount}}" step="1" />
+                        <span class="time_separator">:</span>
+                        <input type="number" class="time_input" [min]="minMinutes()" max="59" step="5"
+                          [(ngModel)]="endsAt.min" (change)="formatTime(endsAt.min);setEndsAtTime()" />
+                      </div>
+
+                      <div class="dropdown" [cosDropdown]>
+                        <div class="selection">
+                          <div class="selected_item">
+                            {{'VIEWS.TOPIC_CREATE.DEADLINE_TIME_OPTION_'+endsAt.timeFormat | uppercase |
+                            translate}}</div>
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
+                          </svg>
+
+                        </div>
+                        <div class="options">
+                          <div class="option" translate="VIEWS.TOPIC_CREATE.DEADLINE_TIME_OPTION_24"
+                            (click)="endsAt.timeFormat = 24; setTimeFormat()">
+                          </div>
+                          <div class="option" translate="VIEWS.TOPIC_CREATE.DEADLINE_TIME_OPTION_AM"
+                            (click)="endsAt.timeFormat = 'AM'; setTimeFormat()"
+                            [ngClass]="{disabled: timeFormatDisabled()}">
+                          </div>
+                          <div class="option" translate="VIEWS.TOPIC_CREATE.DEADLINE_TIME_OPTION_PM"
+                            (click)="endsAt.timeFormat = 'PM'; setTimeFormat()">
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="date_row">
+                    <div class="date_row_title bold" translate="VIEWS.TOPIC_CREATE.DEADLINE_LBL_TIMEZONE">
+                    </div>
+                    <div class="input_wrap">
+                      <div class="dropdown" [cosDropdown]>
+                        <div class="selection">
+                          <div class="selected_item">
+                            {{getTimeZoneName(endsAt.timezone)}}
+                          </div>
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
+                          </svg>
+                        </div>
+                        <div class="options">
+                          <div class="option" *ngFor="let zone of timezones"
+                            [ngClass]="zone === endsAt.timezone ? 'bold' : ''"
+                            (click)="endsAt.timezone = zone.value;setEndsAtTime();">
+                            {{zone.name}}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <cos-calender [minDate]="datePickerMin" [(date)]="endsAt.date" (click)="setEndsAtTime()"
+                    class="discussion"></cos-calender>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
     </div>
     <div class="dialog_footer with_buttons">
       <a dialog-close translate="COMPONENTS.TOPIC_DISCUSSION_CREATE.LNK_CANCEL"></a>
       <div class="button_row">
-        <!--button *ngIf="tabActive > 1" class="btn_medium_submit_ghost icon mobile_hidden"
-        (click)="tabActive = tabActive - 1;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-          xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M10.4533 17.6874C10.8529 18.1042 11.5009 18.1042 11.9006 17.6874C12.3003 17.2705 12.3003 16.5947 11.9006 16.1779L8.91837 13L19 13C19.5652 13 20 12.5892 20 11.9997C20 11.4103 19.5652 11.0176 19 11.0176L8.91837 11.0176L11.9006 7.8221C12.3003 7.40527 12.3003 6.72945 11.9006 6.31262C11.5009 5.89579 10.8529 5.89579 10.4533 6.31262L5 12L10.4533 17.6874Z"
-            fill="#2C3B47" />
-        </svg>
-      </!--button-->
-        <!--button class="btn_medium_submit" (click)="tabNext()">{{((this.tabActive <
-          2)? "COMPONENTS.TOPIC_DISCUSSION_CREATE.BTN_CONTINUE" : "COMPONENTS.TOPIC_DISCUSSION_CREATE.BTN_START_VOTE" ) |
-          translate }}</button-->
-        <button class="btn_medium_submit"
-          (click)="startDiscussion()">{{"COMPONENTS.TOPIC_DISCUSSION_CREATE.BTN_START_DISCUSSION" |
-          translate }}</button>
+        <button *ngIf="tabActive > 1" class="btn_medium_submit_ghost icon mobile_hidden"
+          (click)="tabActive = tabActive - 1;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M10.4533 17.6874C10.8529 18.1042 11.5009 18.1042 11.9006 17.6874C12.3003 17.2705 12.3003 16.5947 11.9006 16.1779L8.91837 13L19 13C19.5652 13 20 12.5892 20 11.9997C20 11.4103 19.5652 11.0176 19 11.0176L8.91837 11.0176L11.9006 7.8221C12.3003 7.40527 12.3003 6.72945 11.9006 6.31262C11.5009 5.89579 10.8529 5.89579 10.4533 6.31262L5 12L10.4533 17.6874Z"
+              fill="#2C3B47" />
+          </svg>
+        </button>
+        <button class="btn_medium_submit" (click)="tabNext()">{{((this.tabActive <
+            2)? "COMPONENTS.TOPIC_DISCUSSION_CREATE.BTN_CONTINUE"
+            : "COMPONENTS.TOPIC_DISCUSSION_CREATE.BTN_START_DISCUSSION" ) | translate }}</button>
       </div>
     </div>
   </div>

@@ -52,6 +52,14 @@
     border-radius: 16px;
   }
 }
+
+.discussion {
+  .selected {
+    background-color: var(--color-scrollbar-thumb);
+    border-radius: 16px;
+  }
+}
+
 .selected {
   background-color: var(--color-voting-disabled);
   border-radius: 16px;
