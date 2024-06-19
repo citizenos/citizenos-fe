@@ -1667,7 +1667,21 @@ tour-item-template {
   width: 100%;
   border: 1px solid var(--color-border);
   border-radius: 8px;
+  position: relative;
 
+  .editor-statusbar {
+    position: absolute;
+    top:0;
+    right:0;
+    font-size: 12px;
+    line-height: 16px;
+
+    .charCounter {
+      font-size: 12px;
+      line-height: 16px;
+      color: #727C84;
+    }
+  }
   @include mixins.mobile {
     .editor-statusbar {
       display: none;

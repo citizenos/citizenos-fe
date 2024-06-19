@@ -14,7 +14,8 @@
     </div>
     <form id="idea_form" [attr.disabled]="!loggedIn()" name="ideaForm" [formGroup]="ideaForm">
       <cos-input
-        placeholder="{{'COMPONENTS.EDIT_IDEA.PLACEHOLDER_ADD_STATEMENT_TO_IDEA' | translate }}">
+        placeholder="{{'COMPONENTS.EDIT_IDEA.PLACEHOLDER_ADD_STATEMENT_TO_IDEA' | translate }}"
+        limit="{{'COMPONENTS.EDIT_IDEA.SUBJECT_CHARACTERS_LEFT' | translate:{chars: ideaForm.value['statement']?.length || 0, charsLeft: IDEA_STATEMENT_MAXLENGTH} }}">
         <input id="idea_statement" name="statement"  formControlName="statement" autocomplete="off"
           placeholder="{{'COMPONENTS.EDIT_IDEA.PLACEHOLDER_ADD_STATEMENT_TO_IDEA' | translate }}"
           class="gray_borders" [ngClass]="{'error_input': ideaForm.controls['statement'].errors && ideaForm.controls['statement'].errors['required'] && ideaForm.controls['statement'].touched}" (focus)="focusIdeaStatement"
@@ -28,8 +29,6 @@
           <span class="error_text" translate="COMPONENTS.EDIT_IDEA.MSG_ERROR_SUBJECT"></span>
         </label>
       </cos-input>
-      <div id="subject_counter" translate="COMPONENTS.EDIT_IDEA.SUBJECT_CHARACTERS_LEFT"
-        [translateParams]="{chars: ideaForm.value['statement']?.length || 0, charsLeft: IDEA_STATEMENT_MAXLENGTH}"></div>
       <textarea cosmarkdown name="description" formControlName="description"
         cosmarkdowntranslatecharacterstatuskey="COMPONENTS.EDIT_IDEA.IDEA_TYPE_CHARACTER_LIMIT"
         id="idea_description" [(item)]="description" class="gray_borders" (itemChange)="updateText($event)"
@@ -56,7 +55,7 @@
       </button>
     </div>
     <div id="navigate_create">
-      <div id="chars_left" translate="COMPONENTS.EDIT_IDEA.IDEA_TYPE_CHARACTERS_LEFT"
+      <div *ngIf="ideaMaxLength()" id="chars_left" translate="COMPONENTS.EDIT_IDEA.IDEA_TYPE_CHARACTERS_LEFT"
         [translateParams]="{chars: ideaMaxLength() - (ideaForm.value['description']?.length || 0), charsLeft: ideaMaxLength()}"></div>
       <!--button class="btn_big_submit_ghost">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

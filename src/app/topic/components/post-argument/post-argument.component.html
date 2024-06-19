@@ -41,7 +41,8 @@
         </div>
       </div>
       <cos-input
-        placeholder="{{'COMPONENTS.POST_ARGUMENT.PLACEHOLDER_ADD_SUBJECT_TO_ARGUMENT' | translate }}">
+        placeholder="{{'COMPONENTS.POST_ARGUMENT.PLACEHOLDER_ADD_SUBJECT_TO_ARGUMENT' | translate }}"
+        limit="{{'COMPONENTS.POST_ARGUMENT.SUBJECT_CHARACTERS_LEFT' | translate:{chars: argumentForm.value['subject']?.length || 0, charsLeft: ARGUMENT_SUBJECT_MAXLENGTH} }}">
         <input id="argument_subject" name="subject"  formControlName="subject" autocomplete="off"
           placeholder="{{'COMPONENTS.POST_ARGUMENT.PLACEHOLDER_ADD_SUBJECT_TO_ARGUMENT' | translate }}"
           class="gray_borders" [ngClass]="{'error_input': argumentForm.controls['subject'].errors && argumentForm.controls['subject'].errors['required'] && argumentForm.controls['subject'].touched}" (focus)="focusArgumentSubject"
@@ -55,8 +56,7 @@
           <span class="error_text" translate="COMPONENTS.POST_ARGUMENT.MSG_ERROR_SUBJECT"></span>
         </label>
       </cos-input>
-      <div id="subject_counter" translate="COMPONENTS.POST_ARGUMENT.SUBJECT_CHARACTERS_LEFT"
-        [translateParams]="{chars: argumentForm.value['subject']?.length || 0, charsLeft: ARGUMENT_SUBJECT_MAXLENGTH}"></div>
+      <div id="subject_counter" translate=""></div>
       <textarea cosmarkdown name="text" formControlName="text"
         cosmarkdowntranslatecharacterstatuskey="COMPONENTS.POST_ARGUMENT.ARGUMENT_TYPE_CHARACTER_LIMIT"
         id="argument_text" [(item)]="text" class="gray_borders" (itemChange)="updateText($event)"

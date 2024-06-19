@@ -29,7 +29,8 @@
     </div>
     <form id="idea_form" [attr.disabled]="!loggedIn()" name="ideaForm" [formGroup]="ideaForm">
       <cos-input
-        placeholder="{{'COMPONENTS.ADD_IDEA.PLACEHOLDER_ADD_STATEMENT_TO_IDEA' | translate }}">
+        placeholder="{{'COMPONENTS.ADD_IDEA.PLACEHOLDER_ADD_STATEMENT_TO_IDEA' | translate }}"
+        limit="{{'COMPONENTS.ADD_IDEA.SUBJECT_CHARACTERS_LEFT' | translate:{chars: ideaForm.value['statement']?.length || 0, charsLeft: IDEA_STATEMENT_MAXLENGTH} }}">
         <input id="idea_statement" name="statement"  formControlName="statement" autocomplete="off"
           placeholder="{{'COMPONENTS.ADD_IDEA.PLACEHOLDER_ADD_STATEMENT_TO_IDEA' | translate }}"
           class="gray_borders" [ngClass]="{'error_input': ideaForm.controls['statement'].errors && ideaForm.controls['statement'].errors['required'] && ideaForm.controls['statement'].touched}" (focus)="focusIdeaStatement"
@@ -43,8 +44,6 @@
           <span class="error_text" translate="COMPONENTS.ADD_IDEA.MSG_ERROR_SUBJECT" [translateParams]="{chars: 1024}"></span>
         </label>
       </cos-input>
-      <div id="subject_counter" translate="COMPONENTS.ADD_IDEA.SUBJECT_CHARACTERS_LEFT"
-        [translateParams]="{chars: ideaForm.value['statement']?.length || 0, charsLeft: IDEA_STATEMENT_MAXLENGTH}"></div>
       <textarea cosmarkdown name="description" formControlName="description"
         cosmarkdowntranslatecharacterstatuskey="COMPONENTS.ADD_IDEA.IDEA_TYPE_CHARACTER_LIMIT"
         id="idea_description" [(item)]="description" class="gray_borders" (itemChange)="updateText($event)"
