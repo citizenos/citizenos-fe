@@ -65,7 +65,7 @@ export class TopicVoteDeadlineComponent {
       let separator = '+';
       if (x < 0) separator = '';
       this.timezones.push({
-        name: `Etc/GMT${separator}${x}`,
+        name: `GMT${separator}${x}`,
         value: x
       });
       x++;
@@ -91,7 +91,7 @@ export class TopicVoteDeadlineComponent {
 
     let hour = this.endsAt.h;
     if (this.endsAt.timeFormat === 'PM') { hour += 12; }
-    this.deadline.setHours(hour - (this.endsAt.timezone - (this.deadline.getTimezoneOffset() / -60)));
+    this.deadline.setHours(hour);
     this.deadline.setMinutes(this.endsAt.min);
    this.daysToVoteEnd();
 

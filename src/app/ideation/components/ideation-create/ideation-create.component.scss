@@ -622,3 +622,46 @@
     }
   }
 }
+.ideation_header {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  gap: 16px;
+  border-radius: 16px 16px 0 0;
+  background-color: var(--color-dialog-ideation-contrast);
+  align-items: initial;
+
+  @include mixins.mobile {
+    padding: 16px;
+  }
+
+  .header_section {
+    display: flex;
+    justify-content: space-between;
+
+    .question {
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 32px;
+    }
+  }
+  .data_section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    .title {
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 16px;
+    }
+    .deadline {
+
+    }
+  }
+  button {
+    padding: 8px 16px;
+    font-weight: 600;
+  }
+}

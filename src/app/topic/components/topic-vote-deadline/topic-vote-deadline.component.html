@@ -26,8 +26,10 @@
       <div class="dialog_description" translate="COMPONENTS.TOPIC_VOTE_DEADLINE.LBL_EDIT_VOTING_DEADLINE_DESC"></div>
       <div class="deadline_wrap">
         <div class="date_row">
-          <span class="deadline bold" translate="COMPONENTS.TOPIC_VOTE_DEADLINE.LBL_DEADLINE"></span>
-          <span class="deadline bold" *ngIf="deadline">{{deadline | date: 'YYYY-MM-dd HH:mm'}}</span>
+          <span class="deadline bold" *ngIf="deadline">{{deadline | date: 'YYYY-MM-dd HH:mm'}} ({{getTimeZoneName(endsAt.timezone)}})</span>
+        </div>
+        <div class="date_row">
+          <span class="deadline" translate="COMPONENTS.TOPIC_VOTE_DEADLINE.LBL_TIMEZONE"></span>
         </div>
         <div class="date_row">
           <div class="bold date_row_title" translate="COMPONENTS.TOPIC_VOTE_DEADLINE.DEADLINE_LBL_TIME">
@@ -64,28 +66,6 @@
                 </div>
               </div>
 
-            </div>
-          </div>
-        </div>
-        <div class="date_row">
-          <div class="date_row_title bold" translate="COMPONENTS.TOPIC_VOTE_DEADLINE.DEADLINE_LBL_TIMEZONE">
-          </div>
-          <div class="input_wrap">
-            <div class="dropdown" [cosDropdown]>
-              <div class="selection">
-                <div class="selected_item">
-                  {{getTimeZoneName(endsAt.timezone)}}
-                </div>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
-                </svg>
-              </div>
-              <div class="options">
-                <div class="option" *ngFor="let zone of timezones" [ngClass]="zone === endsAt.timezone ? 'bold' : ''"
-                  (click)="endsAt.timezone = zone.value;setEndsAtTime();">
-                  {{zone.name}}
-                </div>
-              </div>
             </div>
           </div>
         </div>
