@@ -1721,19 +1721,18 @@ tour-item-template {
 
   .arrow_up {
     position: absolute;
-    top: 14px;
+    top: -14px;
     z-index: 9999999999;
   }
 
   .arrow_down {
     position: absolute;
-    bottom: 8px;
+    bottom: -13px;
     z-index: 9999999999;
   }
 
   .tooltip_container {
     position: absolute;
-    margin-top: 8px;
     width: max-content;
     height: max-content;
 

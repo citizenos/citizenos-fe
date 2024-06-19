@@ -57,6 +57,7 @@
     width: 32px;
     height: 32px;
     border-radius: 40px;
+    position: relative;
     &:hover {
       background-color: var(--color-dialog-ideation-contrast);
     }
