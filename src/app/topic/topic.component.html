@@ -434,7 +434,7 @@
           </div>
         </div>
         <ng-container *ngIf="tabSelected === 'ideation' || tabTablet === 'ideation'">
-          <div class="ideation_wrap" #topicIdeation  [ngClass]="(tabTablet==='ideation')? 'show': ''">
+          <div class="ideation_wrap" #topicIdeation [ngClass]="(tabTablet==='ideation')? 'show': ''">
             <div class="topic_feature_section ideation" *ngIf="!topic.ideationId"
               [ngClass]="(tabTablet === 'ideation')? 'show': ''">
               <ng-container *ngIf="!topic.ideationId">
@@ -523,7 +523,9 @@
           <topic-arguments class="topic_arguments" #arguments [topic]="topic"
             [ngClass]="(tabTablet==='discussion')? 'show': ''"
             [TourItem]="{tourid: 'topic', index: 7, position: 'top'}"></topic-arguments>
-          <post-argument *ngIf="topic.status !== TopicService.STATUSES.ideation && (tabTablet==='discussion' || wWidth > 1024)" [topicId]="topic.id" [discussionId]="topic.discussionId"></post-argument>
+          <post-argument
+            *ngIf="topic.status !== TopicService.STATUSES.ideation && (tabTablet==='discussion' || wWidth > 1024)"
+            [topicId]="topic.id" [discussionId]="topic.discussionId"></post-argument>
         </ng-container>
         <ng-container *ngIf="tabSelected === 'voting'">
           <div class="vote_wrap" #topicVote>
@@ -767,7 +769,8 @@
                       <span translate="VIEWS.TOPICS_TOPICID.OPTION_INVITE_CO_EDITOR"></span>
                     </button>
                   </ng-container>
-                  <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canEdit(topic) && !topic.voteId && !topic.ideationId">
+                  <ng-container
+                    *ngIf="(auth.loggedIn$ | async) && TopicService.canEdit(topic) && !topic.voteId && !topic.ideationId">
                     <div class="line_separator"></div>
                     <button class="option" [routerLink]="['/','topics', 'edit', topic.id]">
                       <div class="icon_wrap">
@@ -1051,6 +1054,26 @@
             </button>
           </div>
         </div>
+        <div class="info_section notifications" *ngIf="(auth.loggedIn$ | async)">
+          <div class="info_items_wrap">
+            <div class="info_header">
+              <div class="info_title" translate="VIEWS.TOPICS_TOPICID.SECTION_NOTIFICATIONS_HEADING"></div>
+            </div>
+            <div class="info_item" translate="VIEWS.TOPICS_TOPICID.SECTION_NOTIFICATIONS_DESC">
+            </div>
+            <button *ngIf="TopicService.canDelete(topic)" class="btn_medium_secondary bold" (click)="app.doShowTopicNotificationSettings(topic.id)">
+              <div class="icon">
+                <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M11.7651 6.22812L12.497 6.07784L8.78571 9.92362C8.78588 9.04902 9.08555 8.20381 9.63027 7.53085C10.1747 6.85822 10.9297 6.39968 11.7651 6.22812ZM12.497 6.07784L8.78571 9.92387C8.78568 10.7139 8.62446 12.582 8.24378 14.4116C8.13577 14.9307 8.00524 15.4711 7.84732 16L17.1527 16C16.9948 15.4711 16.8642 14.9307 16.7562 14.4116C16.3755 12.5818 16.2143 10.7136 16.2143 9.92362C16.2143 8.08739 14.9229 6.57195 13.238 6.22876L12.497 6.07784ZM4.5 18L7.04661 18L10.5 18C10.5 18.5304 10.7107 19.0391 11.0858 19.4142C11.4609 19.7893 11.9696 20 12.5 20C13.0304 20 13.5391 19.7893 13.9142 19.4142C14.2893 19.0391 14.5 18.5304 14.5 18L17.9534 18L20.5 18C19.9883 17.6556 19.5784 16.9101 19.2552 16C18.4955 13.8609 18.2143 10.8123 18.2143 9.92362C18.2143 7.1315 16.2486 4.80089 13.6371 4.269C13.6531 4.10857 13.6356 3.94655 13.5857 3.79339C13.5358 3.64022 13.4547 3.49931 13.3475 3.37974C13.2404 3.26018 13.1096 3.16461 12.9636 3.0992C12.8176 3.03379 12.6597 3 12.5 3C12.3403 3 12.1824 3.03379 12.0364 3.0992C11.8904 3.16461 11.7596 3.26018 11.6525 3.37974C11.5453 3.49931 11.4642 3.64022 11.4143 3.79339C11.3644 3.94655 11.3469 4.10857 11.3629 4.269C10.0711 4.53425 8.90985 5.24204 8.07573 6.27252C7.24161 7.303 6.78588 8.59283 6.78571 9.92362C6.78571 10.8123 6.5045 13.8609 5.7448 16C5.42155 16.9101 5.01169 17.6556 4.5 18Z"
+                    fill="#1168A8" />
+                </svg>
+
+              </div>
+              <span translate="VIEWS.TOPICS_TOPICID.SECTION_NOTIFICATIONS_BTN"></span>
+            </button>
+          </div>
+        </div>
         <div class="state_items_wrap"
           [TourItem]="{tourid: 'topic', index: 5, position: ((wWidth <= 1024)? 'bottom': 'left')}">
           <div *ngIf="topic.ideationId" class="state_item ideation" (click)="selectTab('ideation')">
@@ -1101,7 +1124,9 @@
               </div>
             </ng-container>
           </div>
-          <div class="state_item discussion" (click)="(topic.status === TopicService.STATUSES.ideation && canUpdate(topic))? startDiscussion(topic): selectTab('discussion')" *ngIf="!hideDiscussion"
+          <div class="state_item discussion"
+            (click)="(topic.status === TopicService.STATUSES.ideation && canUpdate(topic))? startDiscussion(topic): selectTab('discussion')"
+            *ngIf="!hideDiscussion"
             [ngClass]="{empty: topic.status === TopicService.STATUSES.ideation && !TopicArgumentService.count.value.total}">
             <ng-container
               *ngIf="topic.status === TopicService.STATUSES.ideation && !TopicArgumentService.count.value.total">
@@ -1126,7 +1151,8 @@
                 </ng-container>
               </div>
             </ng-container>
-            <ng-container *ngIf="topic.status !== TopicService.STATUSES.ideation || TopicArgumentService.count.value.total">
+            <ng-container
+              *ngIf="topic.status !== TopicService.STATUSES.ideation || TopicArgumentService.count.value.total">
               <div class="item_header">
                 <div class="item_title" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_DISCUSSION_HEADING"></div>
                 <div class="item_title" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_DISCUSSION_CONTRIBUTION"
@@ -1246,7 +1272,8 @@
                 <div class="item_title_with_description">
                   <span translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_FOLLOW_UP_HEADING"></span>
                   <div class="description">
-                    <span translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_FOLLOW_UP_DEADLINE" *ngIf="topic.endsAt"></span> {{topic.endsAt |
+                    <span translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_FOLLOW_UP_DEADLINE" *ngIf="topic.endsAt"></span>
+                    {{topic.endsAt |
                     date:'YYYY-MM-dd HH:mm'}}
                   </div>
                 </div>

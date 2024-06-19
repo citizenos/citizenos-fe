@@ -189,7 +189,13 @@
           font-size: 16px;
           line-height: 32px;
           margin-bottom: 36px;
-          strong, li, b, i, em, s, u {
+          strong,
+          li,
+          b,
+          i,
+          em,
+          s,
+          u {
             font-size: 16px;
             line-height: 32px;
           }
@@ -587,6 +593,19 @@
           right: 8px;
         }
 
+        &.notifications {
+          .info_items_wrap {
+            .info_header {
+              .info_title {
+                padding-bottom: 0;
+              }
+            }
+
+            .info_item {
+              padding-bottom: 8px;
+            }
+          }
+        }
         .info_items_wrap {
           display: flex;
           flex-direction: column;
@@ -909,7 +928,6 @@
 }
 
 #tablet_actions {
-
   @include mixins.desktop {
     display: none;
   }
