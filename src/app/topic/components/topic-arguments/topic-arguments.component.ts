@@ -128,6 +128,16 @@ export class TopicArgumentsComponent implements OnInit {
             topic: this.topic
           }
         });
+
+        startDiscussionDialog.afterClosed().subscribe(() => {
+          this.TopicService.get(this.topic.id).pipe(take(1)).subscribe((topic) => {
+            this.topic = topic;
+            this.discussion$ = this.TopicDiscussionService.loadDiscussion({
+              topicId: this.topic.id,
+              discussionId: this.topic.discussionId
+            });
+          })
+        })
       }
     } else {
       this.app.doShowLogin();
