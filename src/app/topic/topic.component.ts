@@ -52,7 +52,7 @@ import { TopicDiscussionCreateDialogComponent } from './components/topic-discuss
         transition: '0.1s max-height'
       })),
       state('closed', style({
-        maxHeight: '320px',
+        maxHeight: '384px',
         transition: '0.1s max-height'
       }))
     ]),
