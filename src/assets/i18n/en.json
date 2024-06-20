@@ -2138,7 +2138,7 @@
       "NOTIFICATION_SUCCESS_MESSAGE": "Congratulations! Keep in mind you can always manage the group via the group actions menu."
     },
     "IDEATION_CREATE": {
-      "HEADING": "Create a topic that starts with idea gathering",
+      "HEADING": "Create a topic starting with idea gathering",
       "CREATE_TAB_1": "@:VIEWS.VOTE_CREATE.CREATE_TAB_1",
       "CREATE_TAB_2": "@:VIEWS.VOTE_CREATE.CREATE_TAB_2",
       "CREATE_TAB_3": "idea gathering",
@@ -2538,7 +2538,7 @@
       "BTN_BACK": "@:VIEWS.PASSWORD_FORGOT.BTN_BACK"
     },
     "TOPIC_CREATE": {
-      "HEADING": "Create a topic that starts with discussion",
+      "HEADING": "Create a topic starting with discussion",
       "CREATE_TAB_1": "Compose",
       "CREATE_TAB_2": "Settings",
       "CREATE_TAB_3": "Discussion",
