@@ -30,8 +30,8 @@ export class IdeaComponent {
       return TopicIdeaService.query(params)
     })).subscribe((items) => {
       const idea = items.data.rows.find((idea: Idea) => idea.id === this.ideaId);
-      dialog.closeAll();
       TopicService.get(this.topicId).pipe(take(1)).subscribe((topic) => {
+        dialog.closeAll();
         const ideaDialog = dialog.open(IdeaDialogComponent, {
           data: {
             idea,

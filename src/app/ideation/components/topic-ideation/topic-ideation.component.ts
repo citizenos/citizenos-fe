@@ -243,12 +243,7 @@ export class TopicIdeationComponent {
         if (value) {
           this.ideation.deadline = new Date();
           this.saveIdeation();
-          this.topic.status = this.TopicService.STATUSES.inProgress;
-          this.TopicService.patch(this.topic).pipe(take(1)).subscribe({
-            next: () => {
-              this.TopicService.reloadTopic();
-            }
-          });
+          this.TopicService.reloadTopic();
         }
       }
     });
