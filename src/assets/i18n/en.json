@@ -305,23 +305,14 @@
       "DIALOG_HEADING_ADD": "Add discussion deadline",
       "LBL_EDIT_DISCUSSION_DEADLINE": "Edit discussion deadline",
       "LBL_EDIT_DISCUSSION_DEADLINE_DESC": "You can choose or edit the discussion deadline.",
-<<<<<<< HEAD
       "LBL_OPTION_DEADLINE": "@:COMPONENTS.EDIT_IDEATION_DEADLINE.LBL_OPTION_DEADLINE",
-      "LBL_OPTION_DEADLINE_DESC": "When the set date is reached, the discussion is closed.",
+      "LBL_OPTION_DEADLINE_DESC": "The deadline indicates to participants by when they should contribute.",
       "DEADLINE_LBL_TIME": "@:COMPONENTS.EDIT_IDEATION_DEADLINE.DEADLINE_LBL_TIME",
       "DEADLINE_TIME_OPTION_24": "@:COMPONENTS.EDIT_IDEATION_DEADLINE.DEADLINE_TIME_OPTION_24",
       "DEADLINE_TIME_OPTION_AM": "@:COMPONENTS.EDIT_IDEATION_DEADLINE.DEADLINE_TIME_OPTION_AM",
       "DEADLINE_TIME_OPTION_PM": "@:COMPONENTS.EDIT_IDEATION_DEADLINE.DEADLINE_TIME_OPTION_PM",
       "LBL_TIMEZONE": "@:COMPONENTS.EDIT_IDEATION_DEADLINE.LBL_TIMEZONE",
-=======
-      "LBL_OPTION_DEADLINE": "Deadline",
-      "LBL_OPTION_DEADLINE_DESC": "The deadline indicates to participants by when they should contribute.",
-      "DEADLINE_LBL_TIME": "Time",
-      "DEADLINE_TIME_OPTION_24": "24h clock",
-      "DEADLINE_TIME_OPTION_AM": "AM",
-      "DEADLINE_TIME_OPTION_PM": "PM",
       "DEADLINE_LBL_TIMEZONE": "Timezone",
->>>>>>> d4dad0b439be71fe970903dd33c32adbe97023c7
       "LNK_CANCEL": "@:LNK_CANCEL",
       "BTN_SAVE": "@:DIRECTIVES.COS_MODAL.BTN_SAVE"
     },
