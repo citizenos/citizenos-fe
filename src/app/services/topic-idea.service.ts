@@ -134,7 +134,7 @@ export class TopicIdeaService extends ItemsListService {
   }
 
 
-  getFolders (params: { [key: string]: any }): Observable<ApiResponse> {
+  getFolders (params: { [key: string]: any }): any {
     let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId/ideas/:ideaId/folders'), params);
 
     const queryParams = Object.fromEntries(Object.entries(params).filter((i) => i[1] !== null));

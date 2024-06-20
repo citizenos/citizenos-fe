@@ -777,6 +777,13 @@ cos-toggle {
   width: max-content;
 }
 
+.idea_folders_wrap {
+  .folder {
+    color: var(--color-link);
+    font-weight: 600;
+  }
+}
+
 app-login,
 login-form,
 app-smart-id-login,
