@@ -384,7 +384,7 @@
         </svg>
 
         <span
-          [translate]="(topic.status === TopicService.STATUSES.inProgress && TopicService.canDelete(topic))? 'COMPONENTS.TOPIC_ARGUMENTS.NO_ARGUMENTS_BTN_START_DISCUSSION' :'COMPONENTS.TOPIC_ARGUMENTS.NO_ARGUMENTS_BTN_ADD'"></span></button>
+          [translate]="(topic.status !== TopicService.STATUSES.inProgress && TopicService.canDelete(topic))? 'COMPONENTS.TOPIC_ARGUMENTS.NO_ARGUMENTS_BTN_START_DISCUSSION' :'COMPONENTS.TOPIC_ARGUMENTS.NO_ARGUMENTS_BTN_ADD'"></span></button>
     </div>
     <div class="no_feature_description">
       <div class="description_text">
