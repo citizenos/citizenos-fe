@@ -95,6 +95,7 @@
   .like_counter_wrap {
     padding: 8px;
     color: var(--color-text);
+    position: relative;
   }
   &.selected {
     font-weight: 600;
@@ -216,6 +217,7 @@
 
     .btn_small_plain {
       padding: 0;
+      position: relative;
     }
   }
   .idea_header_right {
@@ -406,4 +408,10 @@
       background-color: var(--color-border);
     }
   }
+}
+.tooltip_item {
+  position: absolute;
+  left:0;
+  width: 100%;
+  height: 100%;
 }
