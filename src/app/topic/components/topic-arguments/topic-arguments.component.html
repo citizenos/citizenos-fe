@@ -78,6 +78,12 @@
       </div>
     </div>
     <div class="arguments_content">
+      <div class="discussion_info_text_wrap" *ngIf="hasDiscussionEndedExpired(discussion)">
+        <div class="text_area">
+          <div class="bold" translate="COMPONENTS.TOPIC_IDEATION.HEADING_IDEATION_ENDED"></div>
+          <div translate="COMPONENTS.TOPIC_IDEATION.TXT_IDEATION_ENDED"></div>
+        </div>
+      </div>
       <ng-container *ngIf="arguments$ | async as arguments">
         <ng-container *ngIf="arguments.length">
           <div class="section_header">
@@ -234,7 +240,7 @@
             </ng-container>
           </div>
           <div id="arguments">
-            <argument [argument]="arg" [topicId]="topic.id" *ngFor="let arg of arguments"></argument>
+            <argument [argument]="arg" [canReply]="!hasDiscussionEndedExpired(discussion)" [topicId]="topic.id" *ngFor="let arg of arguments"></argument>
           </div>
           <div class="pagination_wrap">
             <cos-pagination (select)="TopicArgumentService.loadPage($event)"

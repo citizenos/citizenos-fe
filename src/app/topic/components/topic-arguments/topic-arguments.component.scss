@@ -81,6 +81,14 @@
     gap: 16px;
     border-radius: 0 0 16px 16px;
 
+    .discussion_info_text_wrap {
+      display: flex;
+      justify-content: space-between;
+      gap: 32px;
+      padding: 16px;
+      background-color: #c9dff1;
+      border-radius: 8px;
+    }
     .section_header {
       display: flex;
       flex-direction: row;
