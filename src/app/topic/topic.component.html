@@ -524,9 +524,6 @@
           <topic-arguments class="topic_arguments" #arguments [topic]="topic"
             [ngClass]="(tabTablet==='discussion')? 'show': ''"
             [TourItem]="{tourid: 'topic', index: 7, position: 'top'}"></topic-arguments>
-          <post-argument
-            *ngIf="topic.status !== TopicService.STATUSES.ideation && (tabTablet==='discussion' || wWidth > 1024)"
-            [topicId]="topic.id" [discussionId]="topic.discussionId"></post-argument>
         </ng-container>
         <ng-container *ngIf="tabSelected === 'voting'">
           <div class="vote_wrap" #topicVote>

@@ -95,7 +95,7 @@
                 [translateParams]="{countReplies:TopicArgumentService.count.value.reply}"></span>
             </!--div-->
             </div>
-            <button class="btn_medium_submit" (click)="doAddArgument()"
+            <button class="btn_medium_submit" (click)="doAddArgument()" [ngClass]="{disabled: hasDiscussionEndedExpired(discussion)}"
               translate="COMPONENTS.TOPIC_ARGUMENTS.BTN_ADD_YOUR_ARGUMENT"></button>
           </div>
           <div class="argument_graph_wrap">
@@ -331,6 +331,9 @@
       </ng-container>
     </div>
   </div>
+
+  <post-argument *ngIf="!hasDiscussionEndedExpired(discussion)" [topicId]="topic.id"
+    [discussionId]="discussion.id"></post-argument>
 </ng-container>
 
 <ng-template #noDiscussion>
