@@ -151,10 +151,8 @@ export class TopicFormComponent {
     date: null,
     min: 0,
     h: 0,
-    timezone: (new Date().getTimezoneOffset() / -60),
     timeFormat: '24'
   };
-  timezones = <any[]>[];
   HCount = 23;
   datePickerMin = new Date();
   deadlineSelect = false;
@@ -177,7 +175,6 @@ export class TopicFormComponent {
     public cd: ChangeDetectorRef,
     @Inject(DomSanitizer) public sanitizer: DomSanitizer
   ) {
-    this.setTimeZones();
     route.queryParams.pipe(take(1), map((params) => this.groupId = params['groupId'])).subscribe();
     this.groups$ = this.GroupService.loadItems().pipe(map((groups) => {
       groups.forEach((group: any) => {
@@ -744,26 +741,13 @@ export class TopicFormComponent {
     return this.TopicService.canEdit(this.topic) && (this.topic.status !== this.TopicService.STATUSES.draft || this.topic.status !== this.TopicService.STATUSES.inProgress);
   }
 
-  setTimeZones() {
-    let x = -14;
-    while (x <= 12) {
-      let separator = '+';
-      if (x < 0) separator = '';
-      this.timezones.push({
-        name: `Etc/GMT${separator}${x}`,
-        value: x
-      });
-      x++;
-    }
-  };
-
   toggleDeadline() {
     this.deadlineSelect = !this.deadlineSelect;
   }
 
   minHours() {
     if (new Date(this.endsAt.date).getDate() === (new Date()).getDate()) {
-      const h = new Date().getHours() + (this.endsAt.timezone - (this.deadline.getTimezoneOffset() / -60));
+      const h = new Date().getHours();
       return h;
     }
     return 1;
@@ -786,7 +770,7 @@ export class TopicFormComponent {
 
     let hour = this.endsAt.h;
     if (this.endsAt.timeFormat === 'PM') { hour += 12; }
-    this.deadline.setHours(hour - (this.endsAt.timezone - (this.deadline.getTimezoneOffset() / -60)));
+    this.deadline.setHours(hour);
     this.deadline.setMinutes(this.endsAt.min);
     this.discussion.deadline = this.deadline;
     this.daysToVoteEnd();
@@ -831,9 +815,5 @@ export class TopicFormComponent {
       }
     }
     this.setEndsAtTime();
-  };
-
-  getTimeZoneName(value: number) {
-    return (this.timezones.find((item) => { return item.value === value })).name;
   };
 }

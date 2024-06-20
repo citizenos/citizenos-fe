@@ -100,7 +100,6 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
     private TopicIdeationService: TopicIdeationService,
     private config: ConfigService) {
     super(dialog, route, router, UploadService, Notification, TopicService, GroupService, GroupMemberTopicService, TopicMemberGroupService, TopicMemberUserService, TopicInviteUserService, TopicAttachmentService, TopicDiscussionService, translate, cd, sanitizer)
-    this.setTimeZones();
     this.app.darkNav = true;
     this.hasUnsavedChanges = new Subject();
     this.groups$ = this.GroupService.loadItems().pipe(map((groups) => {
@@ -460,7 +459,7 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
 
     let hour = this.endsAt.h;
     if (this.endsAt.timeFormat === 'PM') { hour += 12; }
-    this.deadline.setHours(hour - (this.endsAt.timezone - (this.deadline.getTimezoneOffset() / -60)));
+    this.deadline.setHours(hour);
     this.deadline.setMinutes(this.endsAt.min);
     this.ideation.deadline = this.deadline;
     this.daysToVoteEnd();
