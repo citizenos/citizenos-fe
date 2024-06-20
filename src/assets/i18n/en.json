@@ -2934,7 +2934,7 @@
       "LBL_TOPIC_ACTIONS": "Topic actions"
     },
     "VOTE_CREATE": {
-      "HEADING": "Create a voting topic",
+      "HEADING": "Create a topic with voting options",
       "CREATE_TAB_1": "Compose",
       "CREATE_TAB_2": "Settings",
       "CREATE_TAB_3": "Voting system",
@@ -3352,7 +3352,7 @@
   "MSG_ERROR_POST_API_GROUPS_JOIN_TOKEN_40001": "Sorry, we could not find this group. Either the link is incorrect or a new share link has been generated.",
   "MSG_ERROR_POST_API_USERS_TOPICS_VOTES_40000_VALUE": "Sorry, one of the vote options provided is invalid. Vote options can have maximum of 200 characters.",
   "MSG_ERROR_POST_API_USERS_TOPICS_VOTES_40000": "The voting has ended.",
-  "MSG_ERROR_POST_API_USERS_TOPICS_VOTES_40001": "At least 2 vote options are required to create a voting",
+  "MSG_ERROR_POST_API_USERS_TOPICS_VOTES_40001": "At least 2 vote options are required to create a vote",
   "MSG_ERROR_POST_API_USERS_TOPICS_VOTES_40020": "@:MSG_ERROR_POST_API_AUTH_MOBILE_INIT_40020",
   "MSG_ERROR_POST_API_USERS_TOPICS_VOTES_40021": "@:MSG_ERROR_POST_API_AUTH_MOBILE_INIT_40021",
   "MSG_ERROR_POST_API_USERS_TOPICS_VOTES_40022": "@:MSG_ERROR_POST_API_AUTH_MOBILE_INIT_40022",
