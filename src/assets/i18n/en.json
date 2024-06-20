@@ -764,7 +764,9 @@
       "LBL_ACTIONS": "@:COMPONENTS.GROUP_INVITE.ACTIONS",
       "OPTION_EDIT_FOLDER": "Edit folder",
       "OPTION_DELETE_FOLDER": "Delete folder",
-      "BTN_CREATE_NEW_FOLDER": "Create new folder"
+      "BTN_CREATE_NEW_FOLDER": "Create new folder",
+      "NO_FOLDERS_HEADING": "There are no idea folders yet",
+      "NO_FOLDERS_DESC": "You can create folders to group ideas that fit in the same category."
     },
     "TOUR": {
       "LNK_SKIP": "Skip",
