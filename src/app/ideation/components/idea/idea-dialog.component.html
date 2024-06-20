@@ -132,7 +132,8 @@
             <div class="vertical_line_separator"></div>
             <button class="btn_small_plain" (click)="toggleFavourite()" *ngIf="(Auth.loggedIn$ | async)">
               <div class="tooltip_item" tooltip pos="top" [noIcon]="true">
-                <div class="content_description" translate="COMPONENTS.IDEABOX.TOOLTIP_FAVOURITE" [translateParams]="{count: idea.votes.up.count}"></div>
+                <div class="content_description" translate="COMPONENTS.IDEABOX.TOOLTIP_FAVOURITE"
+                  [translateParams]="{count: idea.votes.up.count}"></div>
               </div>
               <svg *ngIf="!idea.favourite" width="24" height="24" viewBox="0 0 24 24" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
@@ -244,6 +245,42 @@
           <div class="statement" [innerHTML]="idea.statement"></div>
           <div class="description" [innerHTML]="idea.description"></div>
         </div>
+        <ng-container *ngIf="folders$ | async as folders">
+          <div class="idea_folders_wrap">
+            <div class="icon">
+              <svg width="24" height="20" viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g clip-path="url(#clip0_13361_96404)">
+                  <path
+                    d="M0 2.35294C0 1.05345 1.07452 0 2.4 0H8.8759C9.58817 0 10.2636 0.310172 10.7196 0.846624L11.2804 1.50632C11.7364 2.04277 12.4118 2.35294 13.1241 2.35294H21.6C22.9255 2.35294 24 3.40639 24 4.70588V8.23529H0V2.35294Z"
+                    fill="url(#paint0_linear_13361_96404)" />
+                  <path
+                    d="M0 7.47013C0 6.17063 1.07452 5.11719 2.4 5.11719H21.6C22.9255 5.11719 24 6.17064 24 7.47013V17.6466C24 18.9461 22.9255 19.9995 21.6 19.9995H2.4C1.07452 19.9995 0 18.9461 0 17.6466V7.47013Z"
+                    fill="url(#paint1_linear_13361_96404)" />
+                </g>
+                <defs>
+                  <linearGradient id="paint0_linear_13361_96404" x1="12" y1="2.57353" x2="12" y2="5.40441"
+                    gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#FFEBA2" />
+                    <stop offset="1" stop-color="#FFDF6F" />
+                  </linearGradient>
+                  <linearGradient id="paint1_linear_13361_96404" x1="12" y1="4.11719" x2="12" y2="19.9995"
+                    gradientUnits="userSpaceOnUse">
+                    <stop offset="0.901042" stop-color="#FFEAA1" />
+                    <stop offset="1" stop-color="#FFDF6F" />
+                  </linearGradient>
+                  <clipPath id="clip0_13361_96404">
+                    <rect width="24" height="20" fill="white" />
+                  </clipPath>
+                </defs>
+              </svg>
+
+            </div>
+            <div class="text">
+              <span [innerHTML]="getFoldersInfo(folders) | safeHtml"></span>
+              <span *ngIf="folders.length > 3" translate="COMPONENTS.IDEA_DIALOG.FOLDERS_MORE" [translateParams]="{count: (folders.length -3)}"></span>
+            </div>
+          </div>
+        </ng-container>
         <div class="idea_footer">
           <div class="like_wrap" [ngClass]="{selected: this.idea.votes.up.selected}">
             <button class="btn_idea_like" [ngClass]="{disabled: !canVote()}" (click)="doIdeaVote(1)">
@@ -279,7 +316,8 @@
             </button>
             <a class="like_counter_wrap" (click)="doShowVotersList()">
               <div class="tooltip_item" tooltip pos="top" [noIcon]="true">
-                <div class="content_description" translate="COMPONENTS.IDEABOX.TOOLTIP_LIKE_COUNT" [translateParams]="{count: idea.votes.up.count}"></div>
+                <div class="content_description" translate="COMPONENTS.IDEABOX.TOOLTIP_LIKE_COUNT"
+                  [translateParams]="{count: idea.votes.up.count}"></div>
               </div>
               <span [innerHTML]="idea.votes.up.count"></span>
             </a>

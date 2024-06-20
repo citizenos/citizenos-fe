@@ -13,6 +13,9 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Argument } from 'src/app/interfaces/argument';
 import { TopicService } from 'src/app/services/topic.service';
+import { Folder } from 'src/app/interfaces/folder';
+import { DomSanitizer } from '@angular/platform-browser';
+import { SafeHtmlPipe } from 'src/app/shared/pipes/safe-html.pipe';
 
 @Component({
   selector: 'app-idea',
@@ -61,10 +64,12 @@ export class IdeaDialogComponent extends IdeaboxComponent {
   data: any = inject(DIALOG_DATA);
   route;
   TopicIdeaRepliesService = inject(TopicIdeaRepliesService);
+  DomSanitizer = inject(DomSanitizer);
   replies$: Observable<any>;
   argument = <Argument>{};
   notification: any;
   replyCount = 0;
+  folders$: Observable<Folder[]>;
   constructor(
     dialog: DialogService,
     config: ConfigService,
@@ -129,6 +134,9 @@ export class IdeaDialogComponent extends IdeaboxComponent {
           }
         });
       }));
+      this.folders$ = this.TopicIdeaService
+        .getFolders({topicId: this.topic.id, ideationId: this.idea.ideationId, ideaId: this.idea.id})
+        .pipe(map((res:any) => {console.log('FOLDERS', res.rows); return res.rows}));
   }
 
   prevIdea(ideas: Idea[]) {
@@ -137,6 +145,9 @@ export class IdeaDialogComponent extends IdeaboxComponent {
     const newIdea = ideas[index - 1];
     this.router.navigate(['/', this.Translate.currentLang, 'topics', this.topic.id, 'ideation', this.ideation.id, 'ideas', newIdea.id]);
     this.idea = newIdea;
+    this.folders$ = this.TopicIdeaService
+        .getFolders({topicId: this.topic.id, ideationId: this.idea.ideationId, ideaId: this.idea.id})
+        .pipe(map((res:any) => {console.log('FOLDERS', res.rows); return res.rows}));
     this.notification = null;
   }
 
@@ -146,6 +157,9 @@ export class IdeaDialogComponent extends IdeaboxComponent {
     const newIdea = ideas[index + 1];
     this.router.navigate(['/', this.Translate.currentLang, 'topics', this.topic.id, 'ideation', this.ideation.id, 'ideas', newIdea.id]);
     this.idea = newIdea;
+    this.folders$ = this.TopicIdeaService
+        .getFolders({topicId: this.topic.id, ideationId: this.idea.ideationId, ideaId: this.idea.id})
+        .pipe(map((res:any) => {console.log('FOLDERS', res.rows); return res.rows}));
     this.notification = null;
   }
 
@@ -264,4 +278,12 @@ export class IdeaDialogComponent extends IdeaboxComponent {
 
     }
   };
+
+  getFoldersInfo(folders: Folder[]) {
+    const foldersText = <string[]>[];
+    folders.forEach(folder => foldersText.push(`<span class="folder">${folder.name}</span>`));
+    const value =  this.Translate.instant('COMPONENTS.IDEA_DIALOG.FOLDERS', {folders: foldersText.join(',')});
+
+    return value;
+  }
 }
