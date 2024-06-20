@@ -305,6 +305,7 @@
       "DIALOG_HEADING_ADD": "Add discussion deadline",
       "LBL_EDIT_DISCUSSION_DEADLINE": "Edit discussion deadline",
       "LBL_EDIT_DISCUSSION_DEADLINE_DESC": "You can choose or edit the discussion deadline.",
+<<<<<<< HEAD
       "LBL_OPTION_DEADLINE": "@:COMPONENTS.EDIT_IDEATION_DEADLINE.LBL_OPTION_DEADLINE",
       "LBL_OPTION_DEADLINE_DESC": "When the set date is reached, the discussion is closed.",
       "DEADLINE_LBL_TIME": "@:COMPONENTS.EDIT_IDEATION_DEADLINE.DEADLINE_LBL_TIME",
@@ -312,6 +313,15 @@
       "DEADLINE_TIME_OPTION_AM": "@:COMPONENTS.EDIT_IDEATION_DEADLINE.DEADLINE_TIME_OPTION_AM",
       "DEADLINE_TIME_OPTION_PM": "@:COMPONENTS.EDIT_IDEATION_DEADLINE.DEADLINE_TIME_OPTION_PM",
       "LBL_TIMEZONE": "@:COMPONENTS.EDIT_IDEATION_DEADLINE.LBL_TIMEZONE",
+=======
+      "LBL_OPTION_DEADLINE": "Deadline",
+      "LBL_OPTION_DEADLINE_DESC": "The deadline indicates to participants by when they should contribute.",
+      "DEADLINE_LBL_TIME": "Time",
+      "DEADLINE_TIME_OPTION_24": "24h clock",
+      "DEADLINE_TIME_OPTION_AM": "AM",
+      "DEADLINE_TIME_OPTION_PM": "PM",
+      "DEADLINE_LBL_TIMEZONE": "Timezone",
+>>>>>>> d4dad0b439be71fe970903dd33c32adbe97023c7
       "LNK_CANCEL": "@:LNK_CANCEL",
       "BTN_SAVE": "@:DIRECTIVES.COS_MODAL.BTN_SAVE"
     },
@@ -2599,7 +2609,7 @@
       "SETTINGS_HEADING_DISCUSSION_QUESTION_DESC": "Please add a specific discussion question to bring focus for the participants.",
       "SETTINGS_DISCUSSION_QUESTION_PLACEHOLDER": "Question",
       "SETTINGS_HEADING_DISCUSSION_DEADLINE": "Discussion deadline",
-      "SETTINGS_HEADING_DISCUSSION_DEADLINE_DESC": "You can opt to include a deadline, which will close the discussion automatically when reached. You can always edit the deadline, or manually close the discussion at any time.",
+      "SETTINGS_HEADING_DISCUSSION_DEADLINE_DESC": "You can opt to include a deadline, to let participants know by when they should submit their contributions. You can always edit the deadline at any time.",
       "LBL_OPTION_DEADLINE": "Include discussion deadline",
       "LBL_TIMEZONE":"@:COMPONENTS.EDIT_IDEATION_DEADLINE.LBL_TIMEZONE",
       "DEADLINE_LBL_TIME": "@:COMPONENTS.EDIT_IDEATION_DEADLINE.DEADLINE_LBL_TIME",
@@ -2914,8 +2924,8 @@
       "NO_FOLLOW_UP_HEADING": "There is no action phase yet",
       "NO_FOLLOW_BTN_ADD": "Add an action phase",
       "NO_FOLLOW_DESC_HEADING": "How the action phase works",
-      "NO_FOLLOW_DESC_BEFORE": "Action is the last phase of a topic. After a decision has been made, topic admins can post updates for participants about the actions taken.",
-      "NO_FOLLOW_DESC_AFTER": "Updates should show what's happened as a result of the decision, with details of any progress or outcomes.",
+      "NO_FOLLOW_DESC_BEFORE": "Action is the last phase of a topic. After a decision has been made, topic admins can post plans and updates about what has and will happen as a result ",
+      "NO_FOLLOW_DESC_AFTER": "This allows everyone to see the results of the decision, and follow its progress as it goes along.",
       "TUTORIAL_HEADING": "@:COMPONENTS.TOUR.HEADING_TOPIC",
       "TUTORIAL_TITLE": "Welcome to topics",
       "TUTORIAL_DESC": "New to the platform? Or first time since the redesign? We’d love to guide you through how topics work.",

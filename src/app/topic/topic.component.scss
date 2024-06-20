@@ -188,7 +188,6 @@
           font-weight: 400;
           font-size: 16px;
           line-height: 32px;
-          margin-bottom: 36px;
           strong,
           li,
           b,
@@ -218,9 +217,14 @@
           width: 100%;
           justify-content: center;
           z-index: 3;
+          padding: 24px;
+          @include mixins.mobile {
+            padding: 8px 16px;
+          }
           button {
-            margin-top: -21px;
-            position: absolute;
+            width: 100%;
+            position: relative;
+            box-shadow: 0px 8px 20px 0px rgba(220, 231, 240, 0.30);
             path {
               fill: none;
             }
