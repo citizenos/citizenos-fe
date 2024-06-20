@@ -892,12 +892,14 @@
                         <span class="checkmark"></span>
                         <div class="checkbox_text_wrap">
                           <span class="bold" translate="VIEWS.IDEATION_CREATE.LBL_OPTION_DEADLINE"></span>
-                          <span class="deadline bold" *ngIf="deadlineSelect">{{deadline | date: 'YYYY-MM-dd HH:mm'}}
-                            ({{getTimeZoneName(endsAt.timezone)}})</span>
+                          <span class="deadline bold" *ngIf="deadlineSelect">{{deadline | date: 'YYYY-MM-dd HH:mm'}}</span>
                         </div>
                       </label>
                     </div>
                     <div class="radio_description" *ngIf="deadlineSelect">
+                      <div class="date_row">
+                        <span class="deadline" translate="VIEWS.IDEATION_CREATE.LBL_TIMEZONE"></span>
+                      </div>
                       <div class="deadline_wrap">
                         <div class="date_row">
                           <div class="bold date_row_title" translate="VIEWS.IDEATION_CREATE.DEADLINE_LBL_TIME">

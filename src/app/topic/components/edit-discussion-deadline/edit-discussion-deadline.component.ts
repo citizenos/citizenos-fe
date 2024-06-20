@@ -21,12 +21,10 @@ export class EditDiscussionDeadlineComponent {
     date: null,
     min: 0,
     h: 0,
-    timezone: (new Date().getTimezoneOffset() / -60),
     timeFormat: '24'
   };
   HCount = 23;
   numberOfDaysLeft = 0;
-  timezones = <any[]>[];
   datePickerMin = new Date();
   isNew = true;
   errors = <any>null;
@@ -39,7 +37,6 @@ export class EditDiscussionDeadlineComponent {
     private dialog: DialogService,
     private Notification: NotificationService
   ) {
-    this.setTimeZones();
     if (data && data.discussion) {
       this.discussion = data.discussion;
       if (data.discussion.deadline) {
@@ -55,18 +52,6 @@ export class EditDiscussionDeadlineComponent {
       this.topic = data.topic;
     }
   }
-  private setTimeZones() {
-    let x = -14;
-    while (x <= 12) {
-      let separator = '+';
-      if (x < 0) separator = '';
-      this.timezones.push({
-        name: `Etc/GMT${separator}${x}`,
-        value: x
-      });
-      x++;
-    }
-  };
 
   toggleDeadline() {
     if (!this.deadline) {
@@ -87,7 +72,7 @@ export class EditDiscussionDeadlineComponent {
 
     let hour = this.endsAt.h;
     if (this.endsAt.timeFormat === 'PM') { hour += 12; }
-    this.deadline.setHours(hour - (this.endsAt.timezone - (this.deadline.getTimezoneOffset() / -60)));
+    this.deadline.setHours(hour);
     this.deadline.setMinutes(this.endsAt.min);
     this.daysToDiscussionEnd();
   };
@@ -113,7 +98,7 @@ export class EditDiscussionDeadlineComponent {
 
   minHours() {
     if (new Date(this.endsAt.date).getDate() === (new Date()).getDate()) {
-      const h = new Date().getHours() + (this.endsAt.timezone - (this.deadline.getTimezoneOffset() / -60));
+      const h = new Date().getHours();
       return h;
     }
     return 1;
@@ -149,11 +134,6 @@ export class EditDiscussionDeadlineComponent {
 
     return false;
   }
-
-  getTimeZoneName(value: number) {
-    return (this.timezones.find((item) => { return item.value === value })).name;
-  };
-
 
   daysToDiscussionEnd() {
     if (this.deadline) {

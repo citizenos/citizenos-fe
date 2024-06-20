@@ -28,7 +28,6 @@ export class TopicVoteCreateComponent implements OnInit {
   voteTypes = Object.keys(this.VOTE_TYPES);
   VOTE_AUTH_TYPES = this.TopicVoteService.VOTE_AUTH_TYPES;
   HCount = 23;
-  timezones = <any[]>[];
   datePickerMin = new Date();
   public CONF = {
     autoClose: [{
@@ -63,7 +62,6 @@ export class TopicVoteCreateComponent implements OnInit {
     date: null,
     min: 0,
     h: 0,
-    timezone: (new Date().getTimezoneOffset() / -60),
     timeFormat: '24'
   };
 
@@ -108,7 +106,6 @@ export class TopicVoteCreateComponent implements OnInit {
     @Inject(ActivatedRoute) public route: ActivatedRoute,
     public router: Router
   ) {
-    this.setTimeZones();
   }
 
   ngOnInit(): void {
@@ -153,19 +150,6 @@ export class TopicVoteCreateComponent implements OnInit {
       this.setReminderOptions();
     }
   }
-
-  private setTimeZones() {
-    let x = -14;
-    while (x <= 12) {
-      let separator = '+';
-      if (x < 0) separator = '';
-      this.timezones.push({
-        name: `GMT${separator}${x}`,
-        value: x
-      });
-      x++;
-    }
-  };
 
   toggleOption(option: string) {
     switch (option.toLowerCase()) {
@@ -271,7 +255,7 @@ export class TopicVoteCreateComponent implements OnInit {
 
   minHours() {
     if (new Date(this.endsAt.date).getDate() === (new Date()).getDate()) {
-      const h = new Date().getHours() + (this.endsAt.timezone - (this.deadline.getTimezoneOffset() / -60));
+      const h = new Date().getHours();
       return h;
     }
     return 1;
@@ -293,7 +277,7 @@ export class TopicVoteCreateComponent implements OnInit {
 
     let hour = this.endsAt.h;
     if (this.endsAt.timeFormat === 'PM') { hour += 12; }
-    this.deadline.setHours(hour - (this.endsAt.timezone - (this.deadline.getTimezoneOffset() / -60)));
+    this.deadline.setHours(hour);
     this.deadline.setMinutes(this.endsAt.min);
     this.vote.endsAt = this.deadline;
     this.daysToVoteEnd();
@@ -337,10 +321,6 @@ export class TopicVoteCreateComponent implements OnInit {
       }
     }
     this.setEndsAtTime();
-  };
-
-  getTimeZoneName(value: number) {
-    return (this.timezones.find((item) => { return item.value === value })).name;
   };
 
   setReminderOptions() {

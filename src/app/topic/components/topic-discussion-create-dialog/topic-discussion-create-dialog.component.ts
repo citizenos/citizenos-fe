@@ -32,10 +32,8 @@ export class TopicDiscussionCreateDialogComponent {
     date: null,
     min: 0,
     h: 0,
-    timezone: (new Date().getTimezoneOffset() / -60),
     timeFormat: '24'
   };
-  timezones = <any[]>[];
   HCount = 23;
   datePickerMin = new Date();
   deadlineSelect = false;
@@ -51,7 +49,6 @@ export class TopicDiscussionCreateDialogComponent {
     public TopicDiscussionService: TopicDiscussionService,
     public router: Router
   ) {
-    this.setTimeZones();
     this.setEndsAtTime();
   }
 
@@ -90,26 +87,13 @@ export class TopicDiscussionCreateDialogComponent {
     return this.TopicService.canEdit(this.topic) && (this.topic.status !== this.TopicService.STATUSES.draft || this.topic.status !== this.TopicService.STATUSES.inProgress);
   }
 
-  setTimeZones() {
-    let x = -14;
-    while (x <= 12) {
-      let separator = '+';
-      if (x < 0) separator = '';
-      this.timezones.push({
-        name: `Etc/GMT${separator}${x}`,
-        value: x
-      });
-      x++;
-    }
-  };
-
   toggleDeadline() {
     this.deadlineSelect = !this.deadlineSelect;
   }
 
   minHours() {
     if (new Date(this.endsAt.date).getDate() === (new Date()).getDate()) {
-      const h = new Date().getHours() + (this.endsAt.timezone - (this.deadline.getTimezoneOffset() / -60));
+      const h = new Date().getHours();
       return h;
     }
     return 1;
@@ -132,7 +116,7 @@ export class TopicDiscussionCreateDialogComponent {
 
     let hour = this.endsAt.h;
     if (this.endsAt.timeFormat === 'PM') { hour += 12; }
-    this.deadline.setHours(hour - (this.endsAt.timezone - (this.deadline.getTimezoneOffset() / -60)));
+    this.deadline.setHours(hour);
     this.deadline.setMinutes(this.endsAt.min);
     this.discussion.deadline = this.deadline;
     this.daysToVoteEnd();
@@ -177,9 +161,5 @@ export class TopicDiscussionCreateDialogComponent {
       }
     }
     this.setEndsAtTime();
-  };
-
-  getTimeZoneName(value: number) {
-    return (this.timezones.find((item) => { return item.value === value })).name;
   };
 }

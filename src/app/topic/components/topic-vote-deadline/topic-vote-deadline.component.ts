@@ -19,12 +19,10 @@ export class TopicVoteDeadlineComponent {
     date: null,
     min: 0,
     h: 0,
-    timezone: (new Date().getTimezoneOffset() / -60),
     timeFormat: '24'
   };
   HCount = 23;
   numberOfDaysLeft = 0;
-  timezones = <any[]>[];
   datePickerMin = new Date();
   reminder = false;
   reminderOptionsList = [{ value: 1, unit: 'days' }, { value: 2, unit: 'days' }, { value: 3, unit: 'days' }, { value: 1, unit: 'weeks' }, { value: 2, unit: 'weeks' }, { value: 1, unit: 'month' }];
@@ -40,7 +38,6 @@ export class TopicVoteDeadlineComponent {
     private dialog: DialogService,
     private Notification: NotificationService
     ) {
-    this.setTimeZones();
     if (data && data.vote) {
       this.vote = data.vote;
       if (data.vote.endsAt) {
@@ -59,18 +56,6 @@ export class TopicVoteDeadlineComponent {
       this.reminder = true;
     }
   }
-  private setTimeZones() {
-    let x = -14;
-    while (x <= 12) {
-      let separator = '+';
-      if (x < 0) separator = '';
-      this.timezones.push({
-        name: `GMT${separator}${x}`,
-        value: x
-      });
-      x++;
-    }
-  };
 
   toggleDeadline() {
     if (!this.deadline) {
@@ -128,7 +113,7 @@ export class TopicVoteDeadlineComponent {
 
   minHours() {
     if (new Date(this.endsAt.date).getDate() === (new Date()).getDate()) {
-      const h = new Date().getHours() + (this.endsAt.timezone - (this.deadline.getTimezoneOffset() / -60));
+      const h = new Date().getHours();
       return h;
     }
     return 1;
@@ -164,10 +149,6 @@ export class TopicVoteDeadlineComponent {
 
     return false;
   }
-
-  getTimeZoneName(value: number) {
-    return (this.timezones.find((item) => { return item.value === value })).name;
-  };
 
   selectedReminderOption() {
     let voteDeadline = new Date(this.deadline);

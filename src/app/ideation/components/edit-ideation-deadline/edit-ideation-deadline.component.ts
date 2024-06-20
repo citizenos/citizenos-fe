@@ -21,12 +21,10 @@ export class EditIdeationDeadlineComponent {
     date: null,
     min: 0,
     h: 0,
-    timezone: (new Date().getTimezoneOffset() / -60),
     timeFormat: '24'
   };
   HCount = 23;
   numberOfDaysLeft = 0;
-  timezones = <any[]>[];
   datePickerMin = new Date();
   isNew = true;
   errors = <any>null;
@@ -39,7 +37,6 @@ export class EditIdeationDeadlineComponent {
     private dialog: DialogService,
     private Notification: NotificationService
   ) {
-    this.setTimeZones();
     if (data && data.ideation) {
       this.ideation = data.ideation;
       if (data.ideation.deadline) {
@@ -55,18 +52,6 @@ export class EditIdeationDeadlineComponent {
       this.topic = data.topic;
     }
   }
-  private setTimeZones() {
-    let x = -14;
-    while (x <= 12) {
-      let separator = '+';
-      if (x < 0) separator = '';
-      this.timezones.push({
-        name: `GMT${separator}${x}`,
-        value: x
-      });
-      x++;
-    }
-  };
 
   toggleDeadline() {
     if (!this.deadline) {
@@ -113,7 +98,7 @@ export class EditIdeationDeadlineComponent {
 
   minHours() {
     if (new Date(this.endsAt.date).getDate() === (new Date()).getDate()) {
-      const h = new Date().getHours() + (this.endsAt.timezone - (this.deadline.getTimezoneOffset() / -60));
+      const h = new Date().getHours();
       return h;
     }
     return 1;
@@ -149,10 +134,6 @@ export class EditIdeationDeadlineComponent {
 
     return false;
   }
-
-  getTimeZoneName(value: number) {
-    return (this.timezones.find((item) => { return item.value === value })).name;
-  };
 
 
   daysToIdeationEnd() {
