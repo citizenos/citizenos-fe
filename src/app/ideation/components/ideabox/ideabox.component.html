@@ -1,4 +1,4 @@
-<a class="idea" [ngClass]="{'moderated': idea.report.id, 'new': isNew}">
+<div class="idea" [ngClass]="{'moderated': idea.report.id, 'new': isNew}">
   <!--div class="moderated_topic">
     <div class="notification">
       <div>
@@ -265,5 +265,5 @@
         (click)="(!idea.report.id)? goToView($event): ''"></a>
     </div>
   </div>
-</a>
+</div>
 <edit-idea *ngIf="showEdit" [idea]="idea" [topicId]="topic.id" (showEdit)="toggleEdit($event)"></edit-idea>
