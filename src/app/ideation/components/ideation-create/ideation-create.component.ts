@@ -330,8 +330,15 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
 
     this.TopicService.patch(updateTopic).pipe(take(1)).subscribe({
       next: () => {
-        console.log('SAVED');
-        this.TopicService.reloadTopic();
+        if (!this.ideation.id) {
+          this.createIdeation(true);
+        } else if ([this.TopicService.STATUSES.draft, this.TopicService.STATUSES.ideation].indexOf(this.topic.status) > -1) {
+          this.updateIdeation(true);
+        }
+
+        this.topicGroups.forEach((group) => {
+          this.saveMemberGroup(group)
+        });
         this.saveImage()
           .subscribe({
             next: (res: any) => {
@@ -339,18 +346,9 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
               if (res.link) {
                 this.topic.imageUrl = res.link;
               }
-              this.topicGroups.forEach((group) => {
-                this.saveMemberGroup(group)
-              });
-              if (!this.ideation.id) {
-                this.createIdeation(true);
-              } else if ([this.TopicService.STATUSES.draft, this.TopicService.STATUSES.ideation].indexOf(this.topic.status) > -1) {
-                this.updateIdeation(true);
-              } else {
-                this.hasChanges$.next(false);
-                this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
-                this.TopicService.reloadTopic();
-              }
+              this.hasChanges$.next(false);
+              this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
+              this.TopicService.reloadTopic();
             },
             error: (err) => {
               console.log('publish error', err)
