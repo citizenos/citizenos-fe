@@ -991,6 +991,7 @@
     },
     "TOPIC_MILESTONES": {
       "CREATE_A_MILESTONE": "Plans and updates",
+      "TOOLTIP_CREATE": "In the Action phase of a topic, admins can post plans and updates for participants to see what has and will happen as a result of the decision made. This allows everyone to follow its progress.",
       "OPT_EDIT_DETAILS": "Edit details",
       "OPT_REMOVE_MILESTONE": "Remove update",
       "PLACEHOLDER_SUBJECT": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_PLACEHOLDER_SUBJECT",
