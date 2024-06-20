@@ -171,8 +171,8 @@
             (click)="showReplies = !showReplies" translate="COMPONENTS.ARGUMENT.LNK_HIDE_REPLIES">
           </button>
           <ng-container *ngIf="Auth.loggedIn$ | async">
-            <a class="mobile_show" translate="COMPONENTS.ARGUMENT.BTN_REPLY" (click)="showReply=!showReply"></a>
-            <button class="btn_reply_argument mobile_hidden" (click)="showReply=!showReply"
+            <a class="mobile_show" [ngClass]="{disabled: !canReply}" translate="COMPONENTS.ARGUMENT.BTN_REPLY" (click)="showReply=!showReply"></a>
+            <button class="btn_reply_argument mobile_hidden" [ngClass]="{disabled: !canReply}" (click)="showReply=!showReply"
               translate="COMPONENTS.ARGUMENT.BTN_REPLY"></button>
           </ng-container>
         </div>
