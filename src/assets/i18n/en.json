@@ -246,6 +246,7 @@
       "CONFIRM_NO": "No, keep the voting open"
     },
     "CREATE": {
+      "HEADING": "Create a topic starting with",
       "TITLE_DISCUSSION": "Pro-con discussion",
       "DESC_DISCUSSION": "Start with this phase if you want to discuss pros and cons before potentially moving on to a voting and/or action phase. No idea gathering available.",
       "TITLE_IDEATION": "Idea gathering",
