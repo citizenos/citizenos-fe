@@ -1239,6 +1239,8 @@
       "FILTER_ARGUMENT_ORDER_BY_DEFAULT": "Default",
       "FILTER_ARGUMENT_ORDER_BY_DATE": "Date",
       "FILTER_ARGUMENT_ORDER_BY_POPULARITY": "Popularity",
+      "HEADING_DISCUSSION_ENDED": "The discussion has ended!",
+      "TXT_DISCUSSION_ENDED": "The discussion has been closed. You can no longer add arguments or replies, but you can still read and react to them.",
       "NO_DISCUSSION_YET": "There is no discussion yet",
       "NO_ARGUMENTS_HEADING": "Get the discussion started",
       "NO_ARGUMENTS_BTN_ADD": "Add argument",

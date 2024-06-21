@@ -29,8 +29,6 @@ export class IdeaReplyComponent implements OnInit {
   @Input() showReply?: boolean;
   @Output() showReplyChange = new EventEmitter<boolean>();
 
-  @Input() showReplies?:boolean = false;
-  @Output() showRepliesChange = new EventEmitter<boolean>();
   showEdit = false;
   showEdits = false;
   readMore = false;
