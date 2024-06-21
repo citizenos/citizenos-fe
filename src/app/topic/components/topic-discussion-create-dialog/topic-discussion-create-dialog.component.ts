@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { NotificationService } from 'src/app/services/notification.service';
 import { TopicService } from 'src/app/services/topic.service';
-import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
+import { DialogService, DIALOG_DATA, DialogRef } from 'src/app/shared/dialog';
 import { Topic } from 'src/app/interfaces/topic';
 import { take } from 'rxjs';
 import { TopicDiscussionService } from 'src/app/services/topic-discussion.service';
@@ -47,6 +47,7 @@ export class TopicDiscussionCreateDialogComponent {
     public Notification: NotificationService,
     @Inject(ActivatedRoute) public route: ActivatedRoute,
     public TopicDiscussionService: TopicDiscussionService,
+    @Inject(DialogRef<TopicDiscussionCreateDialogComponent>) private startDiscussionDialog: DialogRef<TopicDiscussionCreateDialogComponent> ,
     public router: Router
   ) {
     this.setEndsAtTime();
@@ -75,7 +76,7 @@ export class TopicDiscussionCreateDialogComponent {
           this.TopicService.patch({ topicId: this.topic.id, status: this.TopicService.STATUSES.inProgress }).pipe(take(1)).subscribe(() => {
 
             this.TopicService.reloadTopic();
-            this.dialog.closeAll();
+            this.startDiscussionDialog.close(true);
           });
 
         }
