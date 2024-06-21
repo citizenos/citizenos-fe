@@ -288,7 +288,7 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
       if (!updateTopic.intro?.length) {
         updateTopic.intro = null;
       }
-      console.log([this.TopicService.STATUSES.draft, this.TopicService.STATUSES.ideation].indexOf(this.topic.status) > -1)
+
       this.TopicService.patch(updateTopic).pipe(take(1)).subscribe(() => {
         if (!this.ideation.id) {
           this.createIdeation();
@@ -329,6 +329,41 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
 
     this.TopicService.patch(updateTopic).pipe(take(1)).subscribe({
       next: () => {
+        this.saveImage()
+          .subscribe({
+            next: (res: any) => {
+              if (res && !res.link) return;
+
+              this.topicGroups.forEach((group) => {
+                this.saveMemberGroup(group)
+              });
+              if (!this.ideation.id) {
+                this.createIdeation(true);
+              } else if ([this.TopicService.STATUSES.draft, this.TopicService.STATUSES.ideation].indexOf(this.topic.status) > -1) {
+                this.updateIdeation(true);
+              }
+            },
+            error: (err) => {
+              console.log('publish error', err)
+            }
+          });
+      },
+      error: (err: any) => {
+        console.log('ERROR', err);
+      }
+    });
+  }
+
+  /*override publish() {
+    this.titleInput?.nativeElement?.parentNode.parentNode.classList.remove('error');
+    const isDraft = (this.topic.status === this.TopicService.STATUSES.draft);
+    const updateTopic = Object.assign({}, this.topic);
+    if (!updateTopic.intro?.length) {
+      updateTopic.intro = null;
+    }
+
+    this.TopicService.patch(updateTopic).pipe(take(1)).subscribe({
+      next: () => {
         if (!this.ideation.id) {
           this.createIdeation(true);
         } else if ([this.TopicService.STATUSES.draft, this.TopicService.STATUSES.ideation].indexOf(this.topic.status) > -1) {
@@ -358,7 +393,7 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
         console.log('ERROR', err);
       }
     });
-  }
+  }*/
 
   saveIdeationSettings(ideation?: any) {
     if (ideation) {
