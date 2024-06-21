@@ -97,39 +97,7 @@
         <div class="vote_info_text_wrap">
           <div class="vote_text_left">
             <!-- VOTE STILL ON-->
-            <ng-container *ngIf="(!userHasVoted || editVote) && !hasVoteEndedExpired()">
-              <ng-container *ngIf="vote.type === 'regular' || vote.type === 'multiple' && vote.maxChoices === 1">
-                <div>
-                  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="24" cy="24" r="24" fill="#98DAA2" />
-                    <rect x="12" y="12" width="24" height="24" rx="12" fill="white" />
-                    <rect x="18" y="18" width="12" height="12" rx="6" fill="#5AB467" />
-                  </svg>
-                </div>
-                <div class="text_area">
-                  <span translate="COMPONENTS.TOPIC_VOTE_CAST.PREVIEW_VOTE_TYPE_REGULAR"></span>
-                </div>
-              </ng-container>
-              <ng-container *ngIf="vote.type === 'multiple' && vote.maxChoices > 1">
-                <div>
-                  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="24" cy="24" r="24" fill="#98DAA2" />
-                    <rect x="18" y="26" width="12" height="12" rx="1" fill="#F1FAF3" />
-                    <path fill-rule="evenodd" clip-rule="evenodd"
-                      d="M19.1992 32.1455L22.6278 35.6004L28.7992 29.3816L27.8324 28.4004L22.6278 33.6449L20.1661 31.1712L19.1992 32.1455Z"
-                      fill="#5AB467" />
-                    <rect x="18" y="10" width="12" height="12" rx="1" fill="#F1FAF3" />
-                    <path fill-rule="evenodd" clip-rule="evenodd"
-                      d="M20 16.1209L22.8571 19L28 13.8177L27.1943 13L22.8571 17.3704L20.8057 15.309L20 16.1209Z"
-                      fill="#5AB467" />
-                  </svg>
-                </div>
-                <div class="text_area">
-                  <span translate="COMPONENTS.TOPIC_VOTE_CAST.TXT_YOU_CAN_CHOOSE_OPTIONS"
-                    [translateParams]="{maxChoices: vote.maxChoices}"></span>
-                </div>
-              </ng-container>
-            </ng-container>
+
             <ng-container *ngIf="(userHasVoted && !editVote) && !hasVoteEndedExpired()">
               <div class="text_area">
                 <div class="bold" translate="COMPONENTS.TOPIC_VOTE_CAST.HEADING_VOTE_REGISTERED"></div>
@@ -265,37 +233,44 @@
               </div>
             </ng-container>
           </div>
-          <div class="vote_text_right mobile_hidden">
-            <div class="vote_graph_wrap">
-              <div id="vote_graph">
-                <svg width="48" height="48" viewBox="0 0 48 48" style="transform: rotate(-90deg)">
-                  <circle id="graph_background" r="20" cx="24" cy="24" fill="transparent" stroke="#e0e0e0"
-                    stroke-width="5px">
-                  </circle>
-                  <circle id="graph_bar" r="20" cx="24" cy="24" fill="transparent" stroke="#60e6a8" stroke-width="5px"
-                    [attr.stroke-dasharray]="voteGraphDasharray()"
-                    [attr.stroke-dashoffset]="voteGraphDashOffset(((vote.votersCount || 0)/topic.members.users.count)*100)">
-                  </circle>
-                </svg>
-              </div>
-              <div class="text_area">
-                <div><span translate="COMPONENTS.TOPIC_VOTE_CAST.LBL_VOTES"></span> <span
-                    class="bold">{{vote.votersCount
-                    ||
-                    0}}</span></div>
-                <div>
-                  <span translate="COMPONENTS.TOPIC_VOTE_CAST.LBL_DEADLINE"></span> <span class="bold">{{(vote.endsAt)?
-                    (vote.endsAt | date:'YYYY-MM-dd HH:mm') : ('COMPONENTS.TOPIC_VOTE_CAST.NO_DEADLINE' |
-                    translate)}}</span>
-                </div>
-                <a *ngIf="canUpdate() && !hasVoteEndedExpired() && topic.members.users.count > 1 && !vote.reminderSent"
-                  (click)="sendVoteReminder()" translate="COMPONENTS.TOPIC_VOTE_CAST.OPT_SEND_VOTE_REMINDER"></a>
-              </div>
-            </div>
-          </div>
         </div>
         <ng-container *ngIf="(!userHasVoted || editVote) && !hasVoteEndedExpired()">
           <div class="vote_result_info mobile_show">
+            <div class="vote_info_text_wrap">
+              <ng-container *ngIf="(!userHasVoted || editVote) && !hasVoteEndedExpired()">
+                <ng-container *ngIf="vote.type === 'regular' || vote.type === 'multiple' && vote.maxChoices === 1">
+                  <div>
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="24" cy="24" r="24" fill="#98DAA2" />
+                      <rect x="12" y="12" width="24" height="24" rx="12" fill="white" />
+                      <rect x="18" y="18" width="12" height="12" rx="6" fill="#5AB467" />
+                    </svg>
+                  </div>
+                  <div class="text_area">
+                    <span translate="COMPONENTS.TOPIC_VOTE_CAST.PREVIEW_VOTE_TYPE_REGULAR"></span>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="vote.type === 'multiple' && vote.maxChoices > 1">
+                  <div>
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="24" cy="24" r="24" fill="#98DAA2" />
+                      <rect x="18" y="26" width="12" height="12" rx="1" fill="#F1FAF3" />
+                      <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M19.1992 32.1455L22.6278 35.6004L28.7992 29.3816L27.8324 28.4004L22.6278 33.6449L20.1661 31.1712L19.1992 32.1455Z"
+                        fill="#5AB467" />
+                      <rect x="18" y="10" width="12" height="12" rx="1" fill="#F1FAF3" />
+                      <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M20 16.1209L22.8571 19L28 13.8177L27.1943 13L22.8571 17.3704L20.8057 15.309L20 16.1209Z"
+                        fill="#5AB467" />
+                    </svg>
+                  </div>
+                  <div class="text_area">
+                    <span translate="COMPONENTS.TOPIC_VOTE_CAST.TXT_YOU_CAN_CHOOSE_OPTIONS"
+                      [translateParams]="{maxChoices: vote.maxChoices}"></span>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </div>
             <div class="vote_graph_wrap">
               <div id="vote_graph">
                 <svg width="48" height="48" viewBox="0 0 48 48" style="transform: rotate(-90deg)">
@@ -314,9 +289,6 @@
                     ||
                     0}}</span></div>
                 <div>
-                  <span translate="COMPONENTS.TOPIC_VOTE_CAST.LBL_DEADLINE"></span> <span class="bold">{{(vote.endsAt)?
-                    (vote.endsAt | date:'YYYY-MM-dd HH:mm') : ('COMPONENTS.TOPIC_VOTE_CAST.NO_DEADLINE' |
-                    translate)}}</span>
                 </div>
                 <a *ngIf="canUpdate() && !hasVoteEndedExpired() && topic.members.users.count > 1 && !vote.reminderSent"
                   (click)="sendVoteReminder()" translate="COMPONENTS.TOPIC_VOTE_CAST.OPT_SEND_VOTE_REMINDER"></a>
@@ -339,7 +311,6 @@
               </div>
             </div>
           </div>
-          <div class="line_separator vote"></div>
           <div class="vote_buttons_wrap">
             <button class="btn_medium_close" [ngClass]="vote.delegation ? 'active' : ''"
               *ngIf="(canDelegate() && vote.authType !== VOTE_AUTH_TYPES.hard)" (click)="delegate()">
@@ -353,6 +324,7 @@
 
               <span class="bold" translate="COMPONENTS.TOPIC_VOTE_CAST.VOTE_HEADING_DELEGATE"></span>
             </button>
+            <div *ngIf="!canDelegate()"></div>
             <ng-container *ngIf="!vote.delegation || vote.delegation && canSubmit()">
               <button class="btn_medium_submit bold" [ngClass]="{disabled: !canSubmit()}" (click)="doVote()"
                 translate="COMPONENTS.TOPIC_VOTE_CAST.VOTE_SUBMIT">
@@ -361,34 +333,6 @@
           </div>
         </ng-container>
         <ng-container *ngIf="(userHasVoted && !editVote) && !hasVoteEndedExpired()">
-          <div class="vote_result_info mobile_show">
-            <div class="vote_graph_wrap">
-              <div id="vote_graph">
-                <svg width="48" height="48" viewBox="0 0 48 48" style="transform: rotate(-90deg)">
-                  <circle id="graph_background" r="20" cx="24" cy="24" fill="transparent" stroke="#e0e0e0"
-                    stroke-width="5px">
-                  </circle>
-                  <circle id="graph_bar" r="20" cx="24" cy="24" fill="transparent" stroke="#60e6a8" stroke-width="5px"
-                    [attr.stroke-dasharray]="voteGraphDasharray()"
-                    [attr.stroke-dashoffset]="voteGraphDashOffset(((vote.votersCount || 0)/topic.members.users.count)*100)">
-                  </circle>
-                </svg>
-              </div>
-              <div class="text_area">
-                <div><span translate="COMPONENTS.TOPIC_VOTE_CAST.LBL_VOTES"></span> <span
-                    class="bold">{{vote.votersCount
-                    ||
-                    0}}</span></div>
-                <div>
-                  <span translate="COMPONENTS.TOPIC_VOTE_CAST.LBL_DEADLINE"></span> <span class="bold">{{(vote.endsAt)?
-                    (vote.endsAt | date:'YYYY-MM-dd HH:mm') : ('COMPONENTS.TOPIC_VOTE_CAST.NO_DEADLINE' |
-                    translate)}}</span>
-                </div>
-                <a *ngIf="canUpdate() && !hasVoteEndedExpired() && topic.members.users.count > 1 && !vote.reminderSent"
-                  (click)="sendVoteReminder()" translate="COMPONENTS.TOPIC_VOTE_CAST.OPT_SEND_VOTE_REMINDER"></a>
-              </div>
-            </div>
-          </div>
           <div class="vote_options">
             <div class="vote_section_heading" translate="COMPONENTS.TOPIC_VOTE_CAST.LBL_YOUR_CHOSE_OPTIONS"></div>
             <div class="vote_delegation" *ngIf="vote.delegation">
@@ -482,9 +426,6 @@
                     ||
                     0}}</span></div>
                 <div>
-                  <span translate="COMPONENTS.TOPIC_VOTE_CAST.LBL_DEADLINE"></span> <span class="bold">{{(vote.endsAt)?
-                    (vote.endsAt | date:'YYYY-MM-dd HH:mm') : ('COMPONENTS.TOPIC_VOTE_CAST.NO_DEADLINE' |
-                    translate)}}</span>
                 </div>
                 <!--a *ngIf="canUpdate() && topic.members.users.count > 1 && !vote.reminderSent" (click)="sendVoteReminder()"
                   translate="COMPONENTS.TOPIC_VOTE_CAST.OPT_SEND_VOTE_REMINDER"></!--a-->
@@ -510,9 +451,6 @@
                     ||
                     0}}</span></div>
                 <div>
-                  <span translate="COMPONENTS.TOPIC_VOTE_CAST.LBL_DEADLINE"></span> <span class="bold">{{(vote.endsAt)?
-                    (vote.endsAt | date:'YYYY-MM-dd HH:mm') : ('COMPONENTS.TOPIC_VOTE_CAST.NO_DEADLINE' |
-                    translate)}}</span>
                 </div>
               </div>
             </div>

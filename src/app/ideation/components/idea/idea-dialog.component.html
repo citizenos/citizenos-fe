@@ -386,7 +386,7 @@
                     <div class="reply_referer">
                     </div>
                     <div class="reply_more" *ngIf="!last"></div>
-                    <idea-reply [topicId]="topic.id" [ideationId]="ideation.id" [ideaId]="idea.id"
+                    <idea-reply #ideaReply [topicId]="topic.id" [ideationId]="ideation.id" [ideaId]="idea.id"
                       [argument]="reply"></idea-reply>
                   </div>
                 </ng-container>

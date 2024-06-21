@@ -1,5 +1,5 @@
 import { TranslateService } from '@ngx-translate/core';
-import { Component, Input, OnInit, ViewChild, ViewEncapsulation, ElementRef, EventEmitter, Output } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ViewEncapsulation, ElementRef, EventEmitter, Output, ContentChildren, QueryList } from '@angular/core';
 import { DialogService } from 'src/app/shared/dialog';
 import { take } from 'rxjs';
 import { Router } from '@angular/router';
@@ -20,6 +20,7 @@ import { IdeaReplyReportComponent } from '../idea-reply-report/idea-reply-report
 })
 export class IdeaReplyComponent implements OnInit {
   @ViewChild('argumentBody') argumentBody!: ElementRef;
+  @ContentChildren('replyItem') ideaReplies!: QueryList<any>;
   @Input() argument!: any;
   @Input() root?: any;
   @Input() topicId!: string;
@@ -65,7 +66,6 @@ export class IdeaReplyComponent implements OnInit {
         return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
       });
     }
-    console.log(this);
   }
 
   ngAfterViewInit() {
@@ -136,7 +136,7 @@ export class IdeaReplyComponent implements OnInit {
 
   copyArgumentLink(event: MouseEvent) {
     const id = this.argument.id + '_v' + (this.argument.edits.length - 1);
-    const url = this.Location.getAbsoluteUrl('/topics/:topicId', { topicId: this.topicId }, { argumentId: id });
+    const url = this.Location.getAbsoluteUrl('/topics/:topicId/ideation/:ideationId/ideas/:ideaId', { topicId: this.topicId, ideationId: this.ideationId, ideaId: this.ideaId }, { replyId: id });
     const selBox = document.createElement('textarea');
     selBox.style.position = 'fixed';
     selBox.style.left = '0';
