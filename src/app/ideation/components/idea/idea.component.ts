@@ -121,18 +121,18 @@ export class IdeaDialogComponent extends IdeaboxComponent {
         this.replyCount = results.length;
         return results;
       }),
-      tap(() => {
+      tap((replies) => {
         setTimeout(() => {
           console.log(this.route.queryParams.value['replyId'])
           if (this.route.queryParams.value['replyId']) {
             this.showReplies = true;
-            this.goToArgument(this.route.queryParams.value['replyId'], null);
+            this.goToArgument(this.route.queryParams.value['replyId'], replies);
           }
         }, 1000);
       }));
     this.folders$ = this.TopicIdeaService
       .getFolders({ topicId: this.topic.id, ideationId: this.idea.ideationId, ideaId: this.idea.id })
-      .pipe(map((res: any) => res.rows ));
+      .pipe(map((res: any) => res.rows));
   }
 
   prevIdea(ideas: Idea[]) {
@@ -143,7 +143,7 @@ export class IdeaDialogComponent extends IdeaboxComponent {
     this.idea = newIdea;
     this.folders$ = this.TopicIdeaService
       .getFolders({ topicId: this.topic.id, ideationId: this.idea.ideationId, ideaId: this.idea.id })
-      .pipe(map((res: any) => res.rows ));
+      .pipe(map((res: any) => res.rows));
     this.notification = null;
   }
 
@@ -155,7 +155,7 @@ export class IdeaDialogComponent extends IdeaboxComponent {
     this.idea = newIdea;
     this.folders$ = this.TopicIdeaService
       .getFolders({ topicId: this.topic.id, ideationId: this.idea.ideationId, ideaId: this.idea.id })
-      .pipe(map((res: any) => res.rows ));
+      .pipe(map((res: any) => res.rows));
     this.notification = null;
   }
 
@@ -196,14 +196,81 @@ export class IdeaDialogComponent extends IdeaboxComponent {
       }, 2000);
     }
   }
-  goToArgument(argumentIdWithVersion: string, $event: any) {
+  goToArgument(argumentIdWithVersion: string, items: any) {
     if (!argumentIdWithVersion || argumentIdWithVersion.indexOf(this.TopicIdeaRepliesService.ARGUMENT_VERSION_SEPARATOR) < 0) {
       console.error('Invalid input for this.goToComment. Expecting UUIDv4 comment ID with version. For example: "604670eb-27b4-48d0-b19b-b6cf6bde33b2_v0"', argumentIdWithVersion);
       return;
     }
-    this.ideaReplies.forEach((reply) => {
-      reply.showReplies = true;
-    })
+    let commentElement: HTMLElement | null = document.getElementById(argumentIdWithVersion);
+    // The referenced comment was found on the page displayed
+    if (commentElement) {
+      this.scrollTo(commentElement);
+      commentElement.classList.add('highlight');
+      setTimeout(() => {
+        if (commentElement)
+          commentElement.classList.remove('highlight');
+      }, 2000);
+    } else {
+      // The referenced comment was NOT found on the page displayed.
+      // That means either:
+      // 1. the commentId + version refers to another version of the comment and the comments are not expanded.
+      // 2. the commentId + version refers to a comment reply, but replies have not been expanded.
+      // 3. the commentId + version is on another page
+      // 4. the comment/reply does not exist
+
+      const argumentParameterValues = this._parseArgumentIdAndVersion(argumentIdWithVersion);
+      const argumentId = argumentParameterValues.id;
+      const argumentVersion = argumentParameterValues.version || 0;
+
+      if (!argumentId) {
+        return console.error('this.goToArgument', 'No argumentId and/or version provided, nothing to do here', argumentIdWithVersion);
+      }
+      console.log(items, argumentId)
+      for (let i = 0; i < items.length; i++) {
+        // 1. the commentId + version refers to another version of the comment and the comments are not expanded.
+        if (items[i] === argumentId) {
+          items[i].showEdits = true;
+          const commentElement: HTMLElement | null = document.getElementById(argumentIdWithVersion);
+          this.scrollTo(commentElement);
+        } else { // 2. the commentId + version refers to a comment reply, but replies have not been expanded.
+          for (let j = 0; j < items[i].children.length; j++) {
+            if (items[i].children[j].id === argumentId) {
+              const id = items[i].id;
+              setTimeout(() => {
+                console.log('CLICK')
+                document.getElementById(id + '_replies')?.click();
+                const el : HTMLElement | null = document.getElementById(argumentIdWithVersion);
+                console.log(el);
+                this.scrollTo(el)
+              }, 300)
+
+              // Expand edits only if an actual edit is referenced.
+              const replyEdits = items[i].children[j].edits;
+              if (replyEdits.length && argumentVersion !== replyEdits.length - 1) {
+                items[i].children[j].showEdits = true; // In case the reply has edits and that is referenced.
+              }
+
+              /*  this.$timeout(() => { // TODO:  After "showEdits" is set, angular will render the edits and that takes time. Any better way to detect of it to be done?
+                  this.app.scrollToAnchor(commentIdWithVersion)
+                    .then(() => {
+                      const commentElement = angular.element(this.$document[0].getElementById(commentIdWithVersion));
+                      commentElement.addClass('highlight');
+                      this.$state.commentId = commentIdWithVersion;
+                      this.$timeout(() => {
+                        commentElement.removeClass('highlight');
+                      }, 500);
+                    });
+                }, 100);*/
+
+              // Break the outer loop when the inner reply loop finishes as there is no more work to do.
+              i = items.length;
+
+              break;
+            }
+          }
+        }
+      }
+    }
   };
 
   getFoldersInfo(folders: Folder[]) {

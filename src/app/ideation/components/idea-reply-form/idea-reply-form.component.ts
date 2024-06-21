@@ -75,6 +75,14 @@ export class IdeaReplyFormComponent {
         this.Notification.addSuccess('COMPONENTS.IDEA_REPLY_FORM.MSG_SUCCESS');
         this.showRepliesChange.emit(true);
         this.close();
+        this.router.navigate(
+          [],
+          {
+            relativeTo: this.activatedRoute,
+            queryParams: {replyId: reply.id+'_v0'},
+            queryParamsHandling: 'merge',
+          }
+        );
       });
     /* function (res) {
        this.form.errors = res.data.errors;
