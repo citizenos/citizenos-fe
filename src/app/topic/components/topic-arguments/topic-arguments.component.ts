@@ -129,14 +129,17 @@ export class TopicArgumentsComponent implements OnInit {
           }
         });
 
-        startDiscussionDialog.afterClosed().subscribe(() => {
-          this.TopicService.get(this.topic.id).pipe(take(1)).subscribe((topic) => {
-            this.topic = topic;
-            this.discussion$ = this.TopicDiscussionService.loadDiscussion({
-              topicId: this.topic.id,
-              discussionId: this.topic.discussionId
-            });
-          })
+        startDiscussionDialog.afterClosed().subscribe((val) => {
+          if (val) {
+            this.TopicService.get(this.topic.id).pipe(take(1)).subscribe((topic) => {
+              this.topic = topic;
+              this.discussion$ = this.TopicDiscussionService.loadDiscussion({
+                topicId: this.topic.id,
+                discussionId: this.topic.discussionId
+              });
+            })
+          }
+
         })
       }
     } else {
