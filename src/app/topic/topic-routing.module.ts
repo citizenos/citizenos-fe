@@ -75,9 +75,12 @@ const routes: Routes = [
             {
               path: 'ideas', children: [
                 { path: ':ideaId/reports/:reportId/moderate', component: IdeaReportModerateDialogComponent},
-                { path: ':ideaId', component: IdeaComponent },
+                { path: ':ideaId', component: IdeaComponent},
                 { path: ':ideaId/comments/:commentId/reports/:reportId/moderate', component: IdeaReplyReportModerateDialogComponent},
               ]
+            },
+            {
+              path: 'folders', children: []
             }
           ]
         }]
