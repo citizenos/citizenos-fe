@@ -186,6 +186,8 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
                 });
               });
             }
+            this.downloadUrl = this.TopicService.download(topic.id);
+
             return topic;
           }));
         }
