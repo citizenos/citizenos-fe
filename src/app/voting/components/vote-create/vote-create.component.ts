@@ -196,6 +196,7 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
                 });
               });
             }
+            this.downloadUrl = this.TopicService.download(topic.id);
             return topic;
           }));
         }
@@ -204,7 +205,7 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
     );
   }
   override ngOnInit(): void {
-
+    this.downloadUrl = this.TopicService.download(this.topic.id);
   }
   override nextTab(tab: string | void) {
     if (tab) {
