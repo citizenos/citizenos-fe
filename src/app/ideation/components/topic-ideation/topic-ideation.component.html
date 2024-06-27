@@ -320,8 +320,8 @@
                   </div>
                   <div class="filter_option">
                     <span translate="COMPONENTS.TOPIC_IDEATION.IDEA_FILTER_PARTICIPANTS"></span><a class="bold"
-                      (click)="mobileIdeaFilters.participants = true">{{(ideaFilters.participants)?
-                      ideaFilters.participants :
+                      (click)="mobileIdeaFilters.participants = true">{{(ideaFilters.participants.name)?
+                      ideaFilters.participants.name :
                       'COMPONENTS.TOPIC_IDEATION.FILTER_ALL' |
                       translate | titlecase}}</a>
                   </div>
@@ -466,7 +466,7 @@
                 </div>
               </div>
             </div>
-            <div class="selected_participant_wrap" *ngIf="ideaFilters.participants">
+            <div class="selected_participant_wrap" *ngIf="ideaFilters.participants.name">
               <div class="participant_row">
                 <div class="row_label">
                   <div class="bold" translate="COMPONENTS.TOPIC_IDEATION.LBL_FILTER_PARTICIPANTS_IDEAS"></div>
