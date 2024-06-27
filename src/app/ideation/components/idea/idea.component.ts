@@ -116,6 +116,8 @@ export class IdeaDialogComponent extends IdeaboxComponent {
 
         results.forEach((row: any,) => {
           countTree(row, row);
+          if (row.id === row.parent.id)
+            row.parent = this.idea;
         });
 
         this.replyCount = results.length;

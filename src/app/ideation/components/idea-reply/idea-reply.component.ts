@@ -70,7 +70,7 @@ export class IdeaReplyComponent implements OnInit {
     if (this.isReply) {
       const argBody = this.argumentBody.nativeElement;
       const authorName = document.createElement('b');
-      authorName.innerText = (this.argument.parent.creator?.name || '') + ' ';
+      authorName.innerText = (this.argument.parent.creator?.name || this.argument.parent.author?.name ||  '') + ' ';
       argBody.firstChild.prepend(authorName);
     }
   }

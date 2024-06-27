@@ -164,7 +164,7 @@
         </div>
         <div class="footer_right">
           <button class="btn_ghost_reply_argument"
-            *ngIf="argument.id === argument.parent.id && !argument.showReplies && argument.children"
+            *ngIf="argument.parent.id === ideaId && !argument.showReplies && argument.children"
             id="{{argument.id}}_replies"
             [translate]="(wWidth > 560)? 'COMPONENTS.ARGUMENT.LNK_SHOW_REPLIES' : 'COMPONENTS.ARGUMENT.LNK_SHOW_REPLIES_MOBILE'"
             [translateParams]="{count: (argument.children.length)}" (click)="argument.showReplies = !argument.showReplies"></button>

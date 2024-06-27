@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Topic } from 'src/app/interfaces/topic';
 import { AuthService } from 'src/app/services/auth.service';
 import { AppService } from 'src/app/services/app.service';
@@ -6,14 +6,13 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { TopicService } from 'src/app/services/topic.service';
 import { TopicIdeationService } from 'src/app/services/topic-ideation.service';
 import { DialogService } from 'src/app/shared/dialog';
-import { of, take, tap, map, BehaviorSubject, combineLatest, switchMap } from 'rxjs';
+import { of, take, map, BehaviorSubject, combineLatest, switchMap } from 'rxjs';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
-import { TopicVoteReminderDialog } from 'src/app/topic/components/topic-vote-reminder-dialog/topic-vote-reminder-dialog.component';
 import { TopicIdeaService } from 'src/app/services/topic-idea.service';
 import { Idea } from 'src/app/interfaces/idea';
 import { Folder } from 'src/app/interfaces/folder';
 import { CreateIdeaFolderComponent } from '../create-idea-folder/create-idea-folder.component';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { EditIdeationDeadlineComponent } from '../edit-ideation-deadline/edit-ideation-deadline.component';
 import { AddIdeasToFolderComponent } from '../add-ideas-to-folder/add-ideas-to-folder.component';
 import { User } from 'src/app/interfaces/user';
@@ -68,12 +67,14 @@ export class TopicIdeationComponent {
   loadFolders$ = new BehaviorSubject<void>(undefined);
   selectedFolder?: Folder;
   notification: any = null;
+
   constructor(
     public app: AppService,
     private dialog: DialogService,
     private Notification: NotificationService,
     public AuthService: AuthService,
     private router: Router,
+    private route: ActivatedRoute,
     public translate: TranslateService,
     public TopicService: TopicService,
     private TopicIdeationService: TopicIdeationService,
@@ -145,6 +146,15 @@ export class TopicIdeationComponent {
         return res.rows;
       })
     );
+
+    this.route.queryParams.pipe(take(1)).subscribe((params) => {
+      console.log(params);
+      if (params['folderId']) {
+        this.tabSelected = 'folders';
+        this.viewFolder(<Folder>{id: params['folderId']});
+        console.log('folders', params);
+      }
+    })
   }
 
   setType(type: string) {
