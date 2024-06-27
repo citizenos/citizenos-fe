@@ -217,6 +217,7 @@ export class TopicIdeationComponent {
   doClearFilters() {
     this.setType('');
     this.orderBy('');
+    this.setParticipant();
     this.filtersSet = false;
   }
 
