@@ -15,7 +15,6 @@ import { Argument } from 'src/app/interfaces/argument';
 import { TopicService } from 'src/app/services/topic.service';
 import { Folder } from 'src/app/interfaces/folder';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SafeHtmlPipe } from 'src/app/shared/pipes/safe-html.pipe';
 import { IdeaReplyComponent } from '../idea-reply/idea-reply.component';
 
 @Component({
@@ -33,25 +32,49 @@ export class IdeaComponent {
       this.ideationId = params['ideationId'];
       return TopicIdeaService.query(params)
     })).subscribe((items) => {
-      const idea = items.data.rows.find((idea: Idea) => idea.id === this.ideaId);
-      TopicService.get(this.topicId).pipe(take(1)).subscribe((topic) => {
-        dialog.closeAll();
-        const ideaDialog = dialog.open(IdeaDialogComponent, {
-          data: {
-            idea,
-            topic,
-            ideation: { id: this.ideationId },
-            route: route
-          }
-        });
+      let idea = items.data.rows.find((idea: Idea) => idea.id === this.ideaId);
+      if (!idea) {
+        TopicIdeaService.get({ ideaId: this.ideaId, ideationId: this.ideationId, topicId: this.topicId }).pipe(take(1)).subscribe((ideaRes) => {
+          idea = ideaRes
+          TopicService.get(this.topicId).pipe(take(1)).subscribe((topic) => {
+            dialog.closeAll();
+            const ideaDialog = dialog.open(IdeaDialogComponent, {
+              data: {
+                idea,
+                topic,
+                ideation: { id: this.ideationId },
+                route: route
+              }
+            });
 
-        ideaDialog.afterClosed().subscribe((value) => {
-          if (value) {
-            TopicIdeaService.reloadIdeas();
-            router.navigate(['/', 'topics', this.topicId], { fragment: 'ideation' })
-          }
-        });
-      })
+            ideaDialog.afterClosed().subscribe((value) => {
+              if (value) {
+                TopicIdeaService.reloadIdeas();
+                router.navigate(['/', 'topics', this.topicId], { fragment: 'ideation' })
+              }
+            });
+          })
+        })
+      } else {
+        TopicService.get(this.topicId).pipe(take(1)).subscribe((topic) => {
+          dialog.closeAll();
+          const ideaDialog = dialog.open(IdeaDialogComponent, {
+            data: {
+              idea,
+              topic,
+              ideation: { id: this.ideationId },
+              route: route
+            }
+          });
+
+          ideaDialog.afterClosed().subscribe((value) => {
+            if (value) {
+              TopicIdeaService.reloadIdeas();
+              router.navigate(['/', 'topics', this.topicId], { fragment: 'ideation' })
+            }
+          });
+        })
+      }
     });
   }
 }
@@ -241,7 +264,7 @@ export class IdeaDialogComponent extends IdeaboxComponent {
               setTimeout(() => {
                 console.log('CLICK')
                 document.getElementById(id + '_replies')?.click();
-                const el : HTMLElement | null = document.getElementById(argumentIdWithVersion);
+                const el: HTMLElement | null = document.getElementById(argumentIdWithVersion);
                 console.log(el);
                 this.scrollTo(el)
               }, 300)
