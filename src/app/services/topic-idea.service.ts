@@ -71,6 +71,13 @@ export class TopicIdeaService extends ItemsListService {
     this.loadIdeas$.next();
   }
 
+  get (data: any) {
+    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId/ideas/:ideaId'), data);
+
+    return this.http.get<ApiResponse>(path, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
+      map(res => res.data)
+    );
+  }
   save(data: any) {
     let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId/ideas'), data);
 

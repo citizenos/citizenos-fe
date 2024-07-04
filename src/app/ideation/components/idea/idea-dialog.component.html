@@ -363,7 +363,7 @@
             <button class="btn_ghost_reply_idea" *ngIf="showReplies && idea.replies.count" (click)="showReplies = !showReplies"
               translate="COMPONENTS.ARGUMENT.LNK_HIDE_REPLIES">
             </button>
-            <button *ngIf="!showReply" class="btn_small_submit bold" (click)="showReply = true"
+            <button *ngIf="!showReply" [ngClass]="{disabled: idea.deletedAt}" class="btn_small_submit bold" (click)="showReply = true"
               translate="COMPONENTS.IDEA_DIALOG.BTN_REPLY"></button>
           </div>
         </div>
