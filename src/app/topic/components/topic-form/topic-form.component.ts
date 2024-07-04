@@ -364,12 +364,15 @@ export class TopicFormComponent {
   fileUpload() {
     const allowedTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/svg+xml'];
     const files = this.fileInput?.nativeElement.files;
+    console.log(files, files[0].size);
     if (allowedTypes.indexOf(files[0].type) < 0) {
       this.error = { image: this.translate.instant('MSG_ERROR_FILE_TYPE_NOT_ALLOWED', { allowedFileTypes: allowedTypes.toString() }) };
+      this.Notification.addError(this.translate.instant('MSG_ERROR_FILE_TYPE_NOT_ALLOWED', { allowedFileTypes: allowedTypes.toString() }));
       setTimeout(() => {
         delete this.error.image;
       }, 5000)
     } else if (files[0].size > 5000000) {
+      this.Notification.addError(this.translate.instant('MSG_ERROR_FILE_TOO_LARGE', { allowedFileSize: '5MB' }));
       this.error = { image: this.translate.instant('MSG_ERROR_FILE_TOO_LARGE', { allowedFileSize: '5MB' }) };
 
       setTimeout(() => {
