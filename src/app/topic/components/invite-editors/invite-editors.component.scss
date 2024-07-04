@@ -108,3 +108,32 @@
     }
   }
 }
+
+#footer_buttons {
+  @include mixins.mobile {
+    .dropdown {
+      display: flex;
+      position: fixed;
+      bottom: -200;
+      padding: 16px;
+      left: 0;
+      background-color: var(--color-surfaces);
+      z-index: 9999999;
+      width: 100%;
+      max-height: 100%;
+      border-radius: 16px 16px 0 0;
+      box-shadow: 0px 8px 20px 0px rgba(220, 231, 240, 0.3),
+        0px 12px 16px 0px rgba(50, 85, 112, 0.1);
+      transition: bottom 0.2s ease-in;
+
+      &.dropdown_active{
+        bottom: 0;
+      }
+
+      .options {
+        position: fixed;
+        width: 100%;
+      }
+    }
+  }
+}
