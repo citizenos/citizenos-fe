@@ -497,7 +497,7 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
   override topic!: Topic;
   tabs = [...Array(4).keys()];
   tabActive = 1;
-
+  allIdeas$: any[] = [];
   ideas$: Observable<Idea[]> | undefined;
   ideasList = <Idea[]>[];
   ideaOrder = 'desc';
@@ -528,27 +528,29 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
 
     if (this.topic.ideationId) {
       this.ideasList = [];
-      this.ideas$ = this.TopicIdeaService.params$.pipe(switchMap((params) => {
-        let offset = 0;
-        let limit = 8;
-        return this.TopicIdeaService.query({
-          topicId: this.topicId,
-          ideationId: this.topic.ideationId,
-          orderBy: 'likes',
-          order: 'desc',
-          offset,
-          limit
-        }).pipe(map((res: any) => {
-          offset = offset + limit;
-          this.ideasCount = res.data.count;
-          this.ideasList = this.ideasList.concat(res.data.rows);
-          if (this.ideasList.length < this.ideasCount) {
-            offset = offset + limit;
-            this.TopicIdeaService.setParam('offset', offset);
+      this.TopicIdeaService.reset();
+      this.TopicIdeaService.setParam('topicId', this.topicId);
+      this.TopicIdeaService.setParam('ideationId', this.topic.ideationId);
+      this.TopicIdeaService.setParam('orderBy', 'likes');
+      this.TopicIdeaService.setParam('order', 'desc');
+      this.ideas$ = this.TopicIdeaService.loadItems().pipe(
+        tap((res: any) => {
+          if (res.length) {
+            this.TopicIdeaService.hasMore$.next(true);
+          } else {
+            this.TopicIdeaService.hasMore$.next(false);
           }
-          return this.ideasList;
-        }));
-      }))
+        }),
+        map(
+          (newIdeas: any) => {
+            this.ideasList = this.ideasList.concat(newIdeas);
+            if (this.TopicIdeaService.hasMore$.value === true) {
+              this.TopicIdeaService.loadMore();
+            }
+            this.ideasCount = this.ideasList.length;
+            return this.ideasList;
+          }
+        ));
 
       this.folders$ = this.TopicIdeationService.params$.pipe(switchMap((params) => {
         let offset = 0;
@@ -606,7 +608,7 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
     this.TopicIdeaService.params$.pipe(take(1)).subscribe({
       next: (params) => {
         let offset = 0;
-        let limit = 8;
+        let limit = 15;
         this.TopicIdeaService.query({
           topicId: this.topicId,
           ideationId: this.topic.ideationId,
