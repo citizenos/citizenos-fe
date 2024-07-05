@@ -258,6 +258,10 @@ $button-styles: (
   }
 }
 
+.like_active {
+  background-color: var(--color-ideation-disabled);
+}
+
 .radio_wrap {
   display: flex;
   flex-direction: row;

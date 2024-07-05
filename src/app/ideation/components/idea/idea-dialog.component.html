@@ -135,17 +135,17 @@
                 <div class="content_description" translate="COMPONENTS.IDEABOX.TOOLTIP_FAVOURITE"
                   [translateParams]="{count: idea.votes.up.count}"></div>
               </div>
-              <svg *ngIf="!idea.favourite" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd"
-                  d="M14.6459 8.35942L12.0009 3L9.35588 8.35942L3.44141 9.21885L7.72116 13.3906L6.71085 19.2812L12.0009 16.5L17.291 19.2812L16.2807 13.3906L20.5604 9.21885L14.6459 8.35942ZM16.2625 10.6153L13.3178 10.1874L12.0009 7.5191L10.684 10.1874L7.73933 10.6153L9.87012 12.6923L9.36711 15.6251L12.0009 14.2404L14.6347 15.6251L14.1317 12.6923L16.2625 10.6153Z"
-                  fill="#2C3B47" />
-              </svg>
-              <svg *ngIf="idea.favourite" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
+              <svg *ngIf="!idea.favourite" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                fill="none">
                 <path
-                  d="M12 3L14.645 8.35942L20.5595 9.21885L16.2798 13.3906L17.2901 19.2812L12 16.5L6.70993 19.2812L7.72025 13.3906L3.44049 9.21885L9.35497 8.35942L12 3Z"
-                  fill="#2C3B47" />
+                  d="M8.33541 12.3292L8 12.1615L7.66459 12.3292L3.1118 14.6056C2.94558 14.6887 2.75 14.5678 2.75 14.382V2C2.75 1.86193 2.86193 1.75 3 1.75H13C13.1381 1.75 13.25 1.86193 13.25 2V14.382C13.25 14.5678 13.0544 14.6887 12.8882 14.6056L8.33541 12.3292Z"
+                  stroke="#2C3B47" stroke-width="1.5" />
+              </svg>
+              <svg *ngIf="idea.favourite" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                fill="none">
+                <path
+                  d="M8.33541 12.3292L8 12.1615L7.66459 12.3292L3.1118 14.6056C2.94558 14.6887 2.75 14.5678 2.75 14.382V2C2.75 1.86193 2.86193 1.75 3 1.75H13C13.1381 1.75 13.25 1.86193 13.25 2V14.382C13.25 14.5678 13.0544 14.6887 12.8882 14.6056L8.33541 12.3292Z"
+                  fill="#2C3B47" stroke="#2C3B47" stroke-width="1.5" />
               </svg>
             </button>
           </div>
@@ -277,7 +277,8 @@
             </div>
             <div class="text">
               <span [innerHTML]="getFoldersInfo(folders) | safeHtml"></span>
-              <span *ngIf="folders.length > 3" translate="COMPONENTS.IDEA_DIALOG.FOLDERS_MORE" [translateParams]="{count: (folders.length -3)}"></span>
+              <span *ngIf="folders.length > 3" translate="COMPONENTS.IDEA_DIALOG.FOLDERS_MORE"
+                [translateParams]="{count: (folders.length -3)}"></span>
             </div>
           </div>
         </ng-container>
@@ -287,32 +288,20 @@
               <div class="tooltip_item" tooltip pos="top" [noIcon]="true">
                 <div class="content_description" translate="COMPONENTS.IDEABOX.TOOLTIP_LIKE"></div>
               </div>
-              <div *ngIf="!this.idea.votes.up.selected">
-                <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <mask id="path-1-inside-1_13347_120913" fill="white">
-                    <path fill-rule="evenodd" clip-rule="evenodd"
-                      d="M4 8.23052C4 5.75213 5.9675 4 8.00006 4C10.0327 4 12 5.7523 12 8.23052C12 9.98094 11.3561 10.9778 10.7695 11.886C10.3399 12.5512 9.941 13.1688 9.84826 14L6.15595 14C6.06314 13.1686 5.66341 12.551 5.23288 11.8858C4.64514 10.9776 4 9.9808 4 8.23052ZM8 17C9.10457 17 10 16.1046 10 15L6 15C6 16.1046 6.89543 17 8 17Z" />
-                  </mask>
-                  <path
-                    d="M10.7695 11.886L12.4496 12.9711V12.9711L10.7695 11.886ZM9.84826 14V16H11.6375L11.8359 14.2218L9.84826 14ZM6.15595 14L4.1683 14.2219L4.36679 16H6.15595V14ZM5.23288 11.8858L3.55384 12.9724H3.55384L5.23288 11.8858ZM10 15H12V13H10V15ZM6 15V13H4V15H6ZM8.00006 2C4.85817 2 2 4.65233 2 8.23052H6C6 6.85193 7.07683 6 8.00006 6V2ZM14 8.23052C14 4.65264 11.1422 2 8.00006 2V6C8.9232 6 10 6.85195 10 8.23052L14 8.23052ZM12.4496 12.9711C13.0764 12.0006 14 10.5894 14 8.23052L10 8.23052C10 9.37245 9.63586 9.95499 9.08949 10.8009L12.4496 12.9711ZM11.8359 14.2218C11.8691 13.9242 11.9911 13.6809 12.4496 12.9711L9.08949 10.8009C8.68867 11.4215 8.01288 12.4133 7.86059 13.7782L11.8359 14.2218ZM6.15595 16L9.84826 16L9.84826 12H6.15595V16ZM3.55384 12.9724C4.01339 13.6825 4.13519 13.9253 4.1683 14.2219L8.1436 13.7781C7.9911 12.412 7.31343 11.4195 6.91192 10.7991L3.55384 12.9724ZM2 8.23052C2 10.5905 2.92593 12.0022 3.55384 12.9724L6.91192 10.7991C6.36434 9.95303 6 9.37113 6 8.23052H2ZM8 15L8 19C10.2091 19 12 17.2091 12 15L8 15ZM6 17H10V13L6 13V17ZM8 15H4C4 17.2091 5.79086 19 8 19L8 15Z"
-                    fill="#2C3B47" mask="url(#path-1-inside-1_13347_120913)" />
-                  <rect x="14.0098" y="3.19531" width="2" height="1" rx="0.5" transform="rotate(135 14.0098 3.19531)"
-                    fill="#2C3B47" />
-                  <rect x="8.5" y="0.5" width="2" height="1" rx="0.5" transform="rotate(90 8.5 0.5)" fill="#2C3B47" />
-                  <rect x="2.69727" y="2.48828" width="2" height="1" rx="0.5" transform="rotate(45 2.69727 2.48828)"
-                    fill="#2C3B47" />
-                  <rect y="8" width="2" height="1" rx="0.5" fill="#2C3B47" />
-                  <rect x="14" y="8" width="2" height="1" rx="0.5" fill="#2C3B47" />
-                </svg>
-              </div>
-              <div *ngIf="this.idea.votes.up.selected">
-                <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" clip-rule="evenodd"
-                    d="M8 0.5C8.27614 0.5 8.5 0.723858 8.5 1V2C8.5 2.27614 8.27614 2.5 8 2.5C7.72386 2.5 7.5 2.27614 7.5 2V1C7.5 0.723858 7.72386 0.5 8 0.5ZM13.6567 3.54984C13.852 3.35458 13.852 3.038 13.6567 2.84274C13.4614 2.64747 13.1449 2.64747 12.9496 2.84274L12.2425 3.54984C12.0472 3.7451 12.0472 4.06169 12.2425 4.25695C12.4377 4.45221 12.7543 4.45221 12.9496 4.25695L13.6567 3.54984ZM8.00006 4C5.9675 4 4 5.75213 4 8.23052C4 9.9808 4.64514 10.9776 5.23288 11.8858C5.66341 12.551 6.06314 13.1686 6.15595 14H9.84826C9.941 13.1688 10.3399 12.5512 10.7695 11.886C11.3561 10.9778 12 9.98094 12 8.23052C12 5.7523 10.0327 4 8.00006 4ZM10 15C10 16.1046 9.10457 17 8 17C6.89543 17 6 16.1046 6 15H10ZM3.05033 2.84281C2.85507 2.64755 2.53849 2.64755 2.34322 2.84281C2.14796 3.03807 2.14796 3.35466 2.34322 3.54992L3.05033 4.25702C3.24559 4.45229 3.56218 4.45229 3.75744 4.25702C3.9527 4.06176 3.9527 3.74518 3.75744 3.54992L3.05033 2.84281ZM0 8.5C0 8.22386 0.223858 8 0.5 8H1.5C1.77614 8 2 8.22386 2 8.5C2 8.77614 1.77614 9 1.5 9H0.5C0.223858 9 0 8.77614 0 8.5ZM14.5 8C14.2239 8 14 8.22386 14 8.5C14 8.77614 14.2239 9 14.5 9H15.5C15.7761 9 16 8.77614 16 8.5C16 8.22386 15.7761 8 15.5 8H14.5Z"
-                    fill="#2C3B47" />
-                </svg>
-
-              </div>
+              <svg *ngIf="!this.idea.votes.up.selected" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                viewBox="0 0 16 16" fill="none">
+                <path
+                  d="M8.12835 1.9685L4.5 6V13.5H11.3561C11.7482 13.5 12.1042 13.2708 12.2665 12.9138L14.4104 8.19719C14.4694 8.06724 14.5 7.92614 14.5 7.78339V7C14.5 6.44772 14.0523 6 13.5 6H9V2.30298C9 1.84474 8.4349 1.62789 8.12835 1.9685Z"
+                  stroke="#2C3B47" stroke-width="1.5" />
+                <path d="M4.5 6H2C1.44772 6 1 6.44772 1 7V12.5C1 13.0523 1.44772 13.5 2 13.5H4.5" stroke="#2C3B47"
+                  stroke-width="1.5" />
+              </svg>
+              <svg *ngIf="this.idea.votes.up.selected" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                viewBox="0 0 16 16" fill="none">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M7.57088 1.46709C8.33725 0.61557 9.75 1.15769 9.75 2.30329V5.25032H13.5C14.4665 5.25032 15.25 6.03382 15.25 7.00032V7.78371C15.25 8.03352 15.1965 8.28044 15.0931 8.50787L12.9492 13.2245C12.6653 13.8492 12.0423 14.2503 11.3561 14.2503L4.25 14.2501V5.15696L7.57088 1.46709ZM2.75 5.25H2C1.0335 5.25 0.25 6.0335 0.25 7V12.5C0.25 13.4665 1.0335 14.25 2 14.25L2.75 14.25V5.25Z"
+                  fill="#2C3B47" />
+              </svg>
             </button>
             <a class="like_counter_wrap" (click)="doShowVotersList()">
               <div class="tooltip_item" tooltip pos="top" [noIcon]="true">
@@ -360,11 +349,11 @@
             <button class="btn_ghost_reply_idea" *ngIf="!showReplies && idea.replies.count" id="{{idea.id}}_replies"
               [translate]="(wWidth > 560)? 'COMPONENTS.ARGUMENT.LNK_SHOW_REPLIES' : 'COMPONENTS.ARGUMENT.LNK_SHOW_REPLIES_MOBILE'"
               [translateParams]="{count: (idea.replies.count)}" (click)="showReplies = !showReplies"></button>
-            <button class="btn_ghost_reply_idea" *ngIf="showReplies && idea.replies.count" (click)="showReplies = !showReplies"
-              translate="COMPONENTS.ARGUMENT.LNK_HIDE_REPLIES">
+            <button class="btn_ghost_reply_idea" *ngIf="showReplies && idea.replies.count"
+              (click)="showReplies = !showReplies" translate="COMPONENTS.ARGUMENT.LNK_HIDE_REPLIES">
             </button>
-            <button *ngIf="!showReply" [ngClass]="{disabled: idea.deletedAt}" class="btn_small_submit bold" (click)="showReply = true"
-              translate="COMPONENTS.IDEA_DIALOG.BTN_REPLY"></button>
+            <button *ngIf="!showReply" [ngClass]="{disabled: idea.deletedAt}" class="btn_small_submit bold"
+              (click)="showReply = true" translate="COMPONENTS.IDEA_DIALOG.BTN_REPLY"></button>
           </div>
         </div>
       </div>
