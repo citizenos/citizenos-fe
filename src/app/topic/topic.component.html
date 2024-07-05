@@ -35,21 +35,19 @@
           [translate]="(topic.permission.level !== 'read')? ('TXT_TOPIC_LEVELS_' + topic.permission.level | uppercase) : 'VIEWS.TOPICS_TOPICID.LBL_JOINED'">
         </div>
         <button *ngIf="(auth.loggedIn$ | async)" class="btn_medium_close icon tablet_show"
-          (click)="toggleFavourite(topic);">
-          <svg *ngIf="!topic.favourite" width="40" height="40" viewBox="0 0 40 40" fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-            <rect width="40" height="40" rx="20" fill="#F1F7FC" />
-            <path fill-rule="evenodd" clip-rule="evenodd"
-              d="M22.6459 16.3594L20.0009 11L17.3559 16.3594L11.4414 17.2188L15.7212 21.3906L14.7108 27.2812L20.0009 24.5L25.291 27.2812L24.2807 21.3906L28.5604 17.2188L22.6459 16.3594ZM24.2625 18.6153L21.3178 18.1874L20.0009 15.5191L18.684 18.1874L15.7393 18.6153L17.8701 20.6923L17.3671 23.6251L20.0009 22.2404L22.6347 23.6251L22.1317 20.6923L24.2625 18.6153Z"
-              fill="#2C3B47" />
+          (click)="toggleFavourite(topic);" [ngClass]="{like_active: topic.favourite}">
+          <svg *ngIf="!topic.favourite" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+            fill="none">
+            <path
+              d="M12.4961 16.1318L12 15.8482L11.5039 16.1318L6 19.2768L6 6C6 5.44772 6.44772 5 7 5H17C17.5523 5 18 5.44772 18 6V19.2768L12.4961 16.1318Z"
+              stroke="#2C3B47" stroke-width="2" />
           </svg>
 
-          <svg *ngIf="topic.favourite" width="40" height="40" viewBox="0 0 40 40" fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-            <rect width="40" height="40" rx="20" fill="#EFE08A" />
+          <svg *ngIf="topic.favourite" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+            fill="none">
             <path
-              d="M20 11L22.645 16.3594L28.5595 17.2188L24.2798 21.3906L25.2901 27.2812L20 24.5L14.7099 27.2812L15.7202 21.3906L11.4405 17.2188L17.355 16.3594L20 11Z"
-              fill="#2C3B47" />
+              d="M12.5812 15.1863L12 14.7711L11.4188 15.1863L6 19.0568V6C6 5.44772 6.44772 5 7 5H17C17.5523 5 18 5.44772 18 6V19.0568L12.5812 15.1863Z"
+              fill="#2C3B47" stroke="#2C3B47" stroke-width="2" />
           </svg>
         </button>
         <div id="activities_button_wrap">
@@ -83,10 +81,17 @@
             <ng-container *ngIf="(auth.loggedIn$ | async)">
               <button class="option" (click)="toggleFavourite(topic)">
                 <div class="icon_wrap">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd"
-                      d="M8 1L10.0572 5.16844L14.6574 5.83688L11.3287 9.08156L12.1145 13.6631L8 11.5L3.8855 13.6631L4.6713 9.08156L1.3426 5.83688L5.94275 5.16844L8 1Z"
-                      fill="#2C3B47" />
+                  <svg *ngIf="topic.favourite" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                    viewBox="0 0 16 16" fill="none">
+                    <path
+                      d="M8.33541 12.3292L8 12.1615L7.66459 12.3292L3.1118 14.6056C2.94558 14.6887 2.75 14.5678 2.75 14.382V2C2.75 1.86193 2.86193 1.75 3 1.75H13C13.1381 1.75 13.25 1.86193 13.25 2V14.382C13.25 14.5678 13.0544 14.6887 12.8882 14.6056L8.33541 12.3292Z"
+                      fill="#2C3B47" stroke="#2C3B47" stroke-width="1.5" />
+                  </svg>
+                  <svg *ngIf="!topic.favourite" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                    viewBox="0 0 16 16" fill="none">
+                    <path
+                      d="M8.33541 12.3292L8 12.1615L7.66459 12.3292L3.1118 14.6056C2.94558 14.6887 2.75 14.5678 2.75 14.382V2C2.75 1.86193 2.86193 1.75 3 1.75H13C13.1381 1.75 13.25 1.86193 13.25 2V14.382C13.25 14.5678 13.0544 14.6887 12.8882 14.6056L8.33541 12.3292Z"
+                      stroke="#2C3B47" stroke-width="1.5" />
                   </svg>
                 </div>
                 <span *ngIf="!topic.favourite" translate="VIEWS.TOPICS_TOPICID.OPTION_FAVOURITE"></span>
@@ -287,21 +292,20 @@
         </a>
       </div>
       <div id="activities_button_wrap" [TourItem]="{tourid: 'topic', index: 8, position: 'left'}">
-        <button *ngIf="(auth.loggedIn$ | async)" class="btn_medium_close icon" (click)="toggleFavourite(topic);">
-          <svg *ngIf="!topic.favourite" width="40" height="40" viewBox="0 0 40 40" fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-            <rect width="40" height="40" rx="20" fill="#F1F7FC" />
-            <path fill-rule="evenodd" clip-rule="evenodd"
-              d="M22.6459 16.3594L20.0009 11L17.3559 16.3594L11.4414 17.2188L15.7212 21.3906L14.7108 27.2812L20.0009 24.5L25.291 27.2812L24.2807 21.3906L28.5604 17.2188L22.6459 16.3594ZM24.2625 18.6153L21.3178 18.1874L20.0009 15.5191L18.684 18.1874L15.7393 18.6153L17.8701 20.6923L17.3671 23.6251L20.0009 22.2404L22.6347 23.6251L22.1317 20.6923L24.2625 18.6153Z"
-              fill="#2C3B47" />
+        <button *ngIf="(auth.loggedIn$ | async)" class="btn_medium_close icon" (click)="toggleFavourite(topic);" [ngClass]="{like_active: topic.favourite}">
+
+          <svg *ngIf="!topic.favourite" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+            fill="none">
+            <path
+              d="M12.4961 16.1318L12 15.8482L11.5039 16.1318L6 19.2768L6 6C6 5.44772 6.44772 5 7 5H17C17.5523 5 18 5.44772 18 6V19.2768L12.4961 16.1318Z"
+              stroke="#2C3B47" stroke-width="2" />
           </svg>
 
-          <svg *ngIf="topic.favourite" width="40" height="40" viewBox="0 0 40 40" fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-            <rect width="40" height="40" rx="20" fill="#EFE08A" />
+          <svg *ngIf="topic.favourite" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+            fill="none">
             <path
-              d="M20 11L22.645 16.3594L28.5595 17.2188L24.2798 21.3906L25.2901 27.2812L20 24.5L14.7099 27.2812L15.7202 21.3906L11.4405 17.2188L17.355 16.3594L20 11Z"
-              fill="#2C3B47" />
+              d="M12.5812 15.1863L12 14.7711L11.4188 15.1863L6 19.0568V6C6 5.44772 6.44772 5 7 5H17C17.5523 5 18 5.44772 18 6V19.0568L12.5812 15.1863Z"
+              fill="#2C3B47" stroke="#2C3B47" stroke-width="2" />
           </svg>
         </button>
         <activities-button *ngIf="auth.loggedIn$" [topicId]="topic.id"></activities-button>
@@ -725,10 +729,17 @@
                     <div class="line_separator"></div>
                     <button class="option" (click)="toggleFavourite(topic)">
                       <div class="icon_wrap">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path fill-rule="evenodd" clip-rule="evenodd"
-                            d="M8 1L10.0572 5.16844L14.6574 5.83688L11.3287 9.08156L12.1145 13.6631L8 11.5L3.8855 13.6631L4.6713 9.08156L1.3426 5.83688L5.94275 5.16844L8 1Z"
-                            fill="#2C3B47" />
+                        <svg *ngIf="topic.favourite" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                          viewBox="0 0 16 16" fill="none">
+                          <path
+                            d="M8.33541 12.3292L8 12.1615L7.66459 12.3292L3.1118 14.6056C2.94558 14.6887 2.75 14.5678 2.75 14.382V2C2.75 1.86193 2.86193 1.75 3 1.75H13C13.1381 1.75 13.25 1.86193 13.25 2V14.382C13.25 14.5678 13.0544 14.6887 12.8882 14.6056L8.33541 12.3292Z"
+                            fill="#2C3B47" stroke="#2C3B47" stroke-width="1.5" />
+                        </svg>
+                        <svg *ngIf="!topic.favourite" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                          viewBox="0 0 16 16" fill="none">
+                          <path
+                            d="M8.33541 12.3292L8 12.1615L7.66459 12.3292L3.1118 14.6056C2.94558 14.6887 2.75 14.5678 2.75 14.382V2C2.75 1.86193 2.86193 1.75 3 1.75H13C13.1381 1.75 13.25 1.86193 13.25 2V14.382C13.25 14.5678 13.0544 14.6887 12.8882 14.6056L8.33541 12.3292Z"
+                            stroke="#2C3B47" stroke-width="1.5" />
                         </svg>
                       </div>
                       <span *ngIf="!topic.favourite" translate="VIEWS.TOPICS_TOPICID.OPTION_FAVOURITE"></span>
@@ -1059,7 +1070,8 @@
             </div>
             <div class="info_item" translate="VIEWS.TOPICS_TOPICID.SECTION_NOTIFICATIONS_DESC">
             </div>
-            <button *ngIf="TopicService.canDelete(topic)" class="btn_medium_secondary bold" (click)="app.doShowTopicNotificationSettings(topic.id)">
+            <button *ngIf="TopicService.canDelete(topic)" class="btn_medium_secondary bold"
+              (click)="app.doShowTopicNotificationSettings(topic.id)">
               <div class="icon">
                 <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" clip-rule="evenodd"
@@ -1442,10 +1454,17 @@
           </ng-container>
           <button class="option" (click)="toggleFavourite(topic); mobileActions=false;">
             <div class="icon_wrap">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd"
-                  d="M8 1L10.0572 5.16844L14.6574 5.83688L11.3287 9.08156L12.1145 13.6631L8 11.5L3.8855 13.6631L4.6713 9.08156L1.3426 5.83688L5.94275 5.16844L8 1Z"
-                  fill="#2C3B47" />
+              <svg *ngIf="topic.favourite" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                fill="none">
+                <path
+                  d="M8.33541 12.3292L8 12.1615L7.66459 12.3292L3.1118 14.6056C2.94558 14.6887 2.75 14.5678 2.75 14.382V2C2.75 1.86193 2.86193 1.75 3 1.75H13C13.1381 1.75 13.25 1.86193 13.25 2V14.382C13.25 14.5678 13.0544 14.6887 12.8882 14.6056L8.33541 12.3292Z"
+                  fill="#2C3B47" stroke="#2C3B47" stroke-width="1.5" />
+              </svg>
+              <svg *ngIf="!topic.favourite" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                viewBox="0 0 16 16" fill="none">
+                <path
+                  d="M8.33541 12.3292L8 12.1615L7.66459 12.3292L3.1118 14.6056C2.94558 14.6887 2.75 14.5678 2.75 14.382V2C2.75 1.86193 2.86193 1.75 3 1.75H13C13.1381 1.75 13.25 1.86193 13.25 2V14.382C13.25 14.5678 13.0544 14.6887 12.8882 14.6056L8.33541 12.3292Z"
+                  stroke="#2C3B47" stroke-width="1.5" />
               </svg>
             </div>
             <span *ngIf="!topic.favourite" translate="VIEWS.TOPICS_TOPICID.OPTION_FAVOURITE"></span>
