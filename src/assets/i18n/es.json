@@ -2820,7 +2820,7 @@
     "ACTIVITY_USERCONNECTION_CONNECTION_NAME_SMARTID": "Smart-ID",
     "ACTIVITY_USERCONNECTION_CONNECTION_NAME_ESTEID": "Documento de identidad de Estonia/Mobiil-ID",
     "ACTIVITY_USERCONNECTION_CONNECTION_NAME_CITIZENOS": "Citizen OS",
-    "ACTIVITY_USER_OFFER_TOPIC_GROUP": "User <em>{{userName}}</em> has requested to add <em>{{topicTitle}}</em> to group <em>{{groupName}}</em>",
+    "ACTIVITY_USER_OFFER_TOPIC_GROUP": "User <em>{{userName}}</em> has requested to add topic <em>{{topicTitle}}</em> to group <em>{{groupName}}</em>",
     "ACTIVITY_USER_ACCEPT_REQUEST_TOPIC_GROUP": "User <em>{{userName}}</em> has accepted a request to add topic <em>{{topicTitle}}</em> to group <em>{{groupName}}</em>",
     "ACTIVITY_USER_REJECT_REQUEST_TOPIC_GROUP": "User <em>{{userName}}</em> has rejected a request to add <em>{{topicTitle}}</em> to group <em>{{groupName}}</em>"
   },
