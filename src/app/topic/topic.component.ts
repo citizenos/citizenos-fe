@@ -190,7 +190,7 @@ export class TopicComponent implements OnInit {
         if (this.topicStatus === this.STATUSES.inProgress && !value) return 'discussion';
         if (this.topicStatus === this.STATUSES.voting && !value) return 'voting';
         if (this.topicStatus === this.STATUSES.followUp && !value) return 'followUp';
-
+        this.selectTab(value || '');
         return value || 'discussion';
       })
     );

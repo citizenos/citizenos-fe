@@ -2270,3 +2270,12 @@ tour-item-template {
     font-weight: 600;
   }
 }
+topic-vote-cast, topic-milestones {
+  @include mixins.tablet {
+    display: none;
+
+    &.show {
+      display: contents;
+    }
+  }
+}
