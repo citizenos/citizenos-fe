@@ -410,7 +410,7 @@ export class TopicVoteCreateComponent implements OnInit {
     } else if (this.vote.type === this.VOTE_TYPES.ideation) {
       this.optionIdeas.forEach((idea) => {
         if (idea.statement)
-          options.push({ value: idea.statement });
+          options.push({ value: idea.statement, ideaId: idea.id });
       });
     }
     else {

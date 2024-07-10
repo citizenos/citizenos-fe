@@ -30,8 +30,13 @@ export class IdeaComponent {
       this.ideaId = params['ideaId'];
       this.topicId = params['topicId'];
       this.ideationId = params['ideationId'];
+      console.log(params)
+      TopicIdeaService.setParam('topicId', this.topicId);
+      TopicIdeaService.setParam('ideationId', this.ideationId);
+      TopicIdeaService.setParam('ideaId', this.ideaId);
       return TopicIdeaService.query(params)
     })).subscribe((items) => {
+      console.log('ITEMS', items)
       let idea = items.data.rows.find((idea: Idea) => idea.id === this.ideaId);
       if (!idea) {
         TopicIdeaService.get({ ideaId: this.ideaId, ideationId: this.ideationId, topicId: this.topicId }).pipe(take(1)).subscribe((ideaRes) => {
@@ -80,7 +85,7 @@ export class IdeaComponent {
 }
 
 @Component({
-  selector: 'app-idea',
+  selector: 'app-idea-dialog',
   templateUrl: './idea-dialog.component.html',
   styleUrls: ['./idea-dialog.component.scss']
 })
@@ -112,9 +117,15 @@ export class IdeaDialogComponent extends IdeaboxComponent {
     this.ideation = this.data.ideation;
     this.route = this.data.route;
     const url = this.router.parseUrl(this.router.url);
+    this.TopicIdeaService.setParam('topicId', this.topic.id);
+    this.TopicIdeaService.setParam('ideationId', this.topic.ideationId);
     this.replies$ = combineLatest([this.route.params, this.TopicIdeaRepliesService.loadReplies$]).pipe(
       switchMap(([params]) => {
-        return this.TopicIdeaRepliesService.getArguments(params);
+        const paramsObj = Object.assign({}, params);
+        paramsObj.topicId = this.topic.id;
+        paramsObj.ideationId = this.topic.ideationId;
+        paramsObj.ideaId = this.idea.id;
+        return this.TopicIdeaRepliesService.getArguments(paramsObj);
       }),
       map((res: any) => {
         let results = res.rows.concat([]);
@@ -148,7 +159,6 @@ export class IdeaDialogComponent extends IdeaboxComponent {
       }),
       tap((replies) => {
         setTimeout(() => {
-          console.log(this.route.queryParams.value['replyId'])
           if (this.route.queryParams.value['replyId']) {
             this.showReplies = true;
             this.goToArgument(this.route.queryParams.value['replyId'], replies);
@@ -262,7 +272,6 @@ export class IdeaDialogComponent extends IdeaboxComponent {
             if (items[i].children[j].id === argumentId) {
               const id = items[i].id;
               setTimeout(() => {
-                console.log('CLICK')
                 document.getElementById(id + '_replies')?.click();
                 const el: HTMLElement | null = document.getElementById(argumentIdWithVersion);
                 console.log(el);

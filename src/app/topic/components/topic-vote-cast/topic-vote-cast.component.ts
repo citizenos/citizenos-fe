@@ -1,3 +1,4 @@
+import { TopicIdeaService } from 'src/app/services/topic-idea.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Topic } from 'src/app/interfaces/topic';
 import { AuthService } from 'src/app/services/auth.service';
@@ -14,6 +15,8 @@ import { TopicVoteDelegateComponent } from '../topic-vote-delegate/topic-vote-de
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { TopicVoteReminderDialog } from 'src/app/topic/components/topic-vote-reminder-dialog/topic-vote-reminder-dialog.component';
 import { DownloadVoteResultsComponent } from '../download-vote-results/download-vote-results.component';
+import { IdeaDialogComponent } from 'src/app/ideation/components/idea/idea.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'topic-vote-cast',
@@ -38,6 +41,8 @@ export class TopicVoteCastComponent implements OnInit {
     public AuthService: AuthService,
     private TopicService: TopicService,
     private TopicVoteService: TopicVoteService,
+    private TopicIdeaService: TopicIdeaService,
+    private route: ActivatedRoute,
     private VoteDelegationService: VoteDelegationService
   ) { }
 
@@ -197,7 +202,7 @@ export class TopicVoteCastComponent implements OnInit {
     voteReminderDialog.afterClosed().subscribe({
       next: (send) => {
         console.log(send)
-        if (send===true) {
+        if (send === true) {
           this.vote.reminderTime = new Date();
           this.saveVote();
           this.TopicVoteService.reloadVote();
@@ -365,5 +370,22 @@ export class TopicVoteCastComponent implements OnInit {
 
       }
     })
+  }
+
+  viewIdea(ideaId: string) {
+    this.TopicIdeaService
+    .get({ ideaId: ideaId, ideationId: this.topic.ideationId, topicId: this.topic.id })
+    .pipe(take(1))
+    .subscribe((idea) => {
+      this.dialog.closeAll();
+      const ideaDialog = this.dialog.open(IdeaDialogComponent, {
+        data: {
+          idea,
+          topic: this.topic,
+          ideation: { id: this.topic.ideationId },
+          route: this.route
+        }
+      });
+    });
   }
 }

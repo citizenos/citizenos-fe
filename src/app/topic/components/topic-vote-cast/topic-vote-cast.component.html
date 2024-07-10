@@ -64,9 +64,9 @@
         </div>
       </div>
       <div class="data_section">
-        <div class="data_cell">
+        <div class="data_cell" *ngIf="vote.endsAt">
           <div class="title" translate="COMPONENTS.TOPIC_VOTE_CAST.LBL_DEADLINE"></div>
-          <div class="data_item" *ngIf="vote.endsAt">
+          <div class="data_item">
             <span class="bold">{{(vote.endsAt)?
               (vote.endsAt | date:'YYYY-MM-dd HH:mm') : ('COMPONENTS.TOPIC_VOTE_CAST.NO_DEADLINE' |
               translate)}}</span>
@@ -308,6 +308,9 @@
                     <span [ngClass]="(vote.maxChoices === 1)? 'radio': 'checkmark'"></span>
                   </label>
                 </div>
+              </div>
+              <div class="view_idea_wrap" *ngIf="option.ideaId">
+                <a (click)="$event.stopPropagation(); viewIdea(option.ideaId);" translate="COMPONENTS.TOPIC_VOTE_CAST.LNK_VIEW_IDEA"></a>
               </div>
             </div>
           </div>
