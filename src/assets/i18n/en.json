@@ -1054,6 +1054,7 @@
       "BTN_DOWNLOAD_USER_BDOC": "@:VIEWS.TOPICS_TOPICID.BTN_DOWNLOAD_USER_BDOC",
       "VOTE_VOTES_COUNTED": "@:VIEWS.TOPICS_TOPICID.VOTE_VOTES_COUNTED",
       "LBL_YOUR_CHOSE_OPTIONS": "Your chosen options",
+      "LNK_VIEW_IDEA": "View idea",
       "VOTE_DELEGATED_TO": "@:VIEWS.TOPICS_TOPICID.VOTE_DELEGATED_TO",
       "INFO_DELEGATION_DESCRIPTION": "They won't know they are voting for you. Your vote will be the same as theirs, but you won't see evidence of how they've voted.",
       "VOTE_REVOKE_DELEGATION": "@:VIEWS.TOPICS_TOPICID.VOTE_REVOKE_DELEGATION",
