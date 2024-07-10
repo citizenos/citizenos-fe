@@ -868,7 +868,7 @@
       "TOPIC_MOBILE_STEP_1_LBL_DISCUSSION": "@:COMPONENTS.TOUR.TOPIC_STEP_1_LBL_DISCUSSION",
       "TOPIC_MOBILE_STEP_1_DESC_DISCUSSION": "This is where the discussion takes place, using pro and con arguments.",
       "TOPIC_MOBILE_STEP_1_LBL_IDEATION": "@:COMPONENTS.TOUR.TOPIC_STEP_1_LBL_IDEATION",
-      "TOPIC_MOBILE_STEP_1_DESC_IDEATION": "A topic can start with an idea gathering phase, in which anyone can share their ideas on how to tackle the issue at hand.",
+      "TOPIC_MOBILE_STEP_1_DESC_IDEATION": "@:COMPONENTS.TOUR.TOPIC_STEP_1_DESC_IDEATION",
       "TOPIC_MOBILE_STEP_1_LBL_VOTE": "@:COMPONENTS.TOUR.TOPIC_STEP_1_LBL_VOTE",
       "TOPIC_MOBILE_STEP_1_DESC_VOTE": "When there’s a need for a clear representation of where participants lean, you can hold a vote.",
       "TOPIC_MOBILE_STEP_1_LBL_FOLLOW_UP": "@:COMPONENTS.TOUR.TOPIC_STEP_1_LBL_FOLLOW_UP",
