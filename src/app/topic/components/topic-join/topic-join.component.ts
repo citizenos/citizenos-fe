@@ -1,7 +1,7 @@
 import { TopicService } from 'src/app/services/topic.service';
-import { Component, OnInit, Inject, ViewChild } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { of, switchMap, take } from 'rxjs';
+import { switchMap, take } from 'rxjs';
 import { TopicJoinService } from 'src/app/services/topic-join.service';
 import { LocationService } from 'src/app/services/location.service';
 import { Topic } from 'src/app/interfaces/topic';
@@ -59,7 +59,7 @@ export class TopicTokenJoinComponent {
                 },
                 error: (res) => {
                   const status = res.status;
-                  if (status.code === 40100) { // Unauthorized
+                  if (status.code === 40100 && !Auth.loggedIn$.value) { // Unauthorized
                     const currentUrl = Location.getAbsoluteUrl(router.url);
                     router.navigate(['/account/login'], { queryParams: { redirectSuccess: currentUrl } });
                   } else if (status.code === 40001) { // Matching token not found.
