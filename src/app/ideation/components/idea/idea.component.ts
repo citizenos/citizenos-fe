@@ -30,13 +30,11 @@ export class IdeaComponent {
       this.ideaId = params['ideaId'];
       this.topicId = params['topicId'];
       this.ideationId = params['ideationId'];
-      console.log(params)
       TopicIdeaService.setParam('topicId', this.topicId);
       TopicIdeaService.setParam('ideationId', this.ideationId);
       TopicIdeaService.setParam('ideaId', this.ideaId);
       return TopicIdeaService.query(params)
     })).subscribe((items) => {
-      console.log('ITEMS', items)
       let idea = items.data.rows.find((idea: Idea) => idea.id === this.ideaId);
       if (!idea) {
         TopicIdeaService.get({ ideaId: this.ideaId, ideationId: this.ideationId, topicId: this.topicId }).pipe(take(1)).subscribe((ideaRes) => {
@@ -131,11 +129,16 @@ export class IdeaDialogComponent extends IdeaboxComponent {
         let results = res.rows.concat([]);
         const argArray = <any[]>[];
         let children = <any>{};
-
+        let showReplies = false;
+        if (Object.keys(this.route.queryParams.value).indexOf('replyId') > -1) {
+          showReplies = true;
+        }
         const countTree = (parentNode: any, currentNode: any) => {
           argArray.push(currentNode);
+          currentNode.showReplies = showReplies;
           if (currentNode.replies.rows.length > 0) {
             currentNode.replies.rows.forEach((reply: any) => {
+              reply.showReplies = showReplies;
               countTree(parentNode, reply);
               const replyClone = Object.assign({}, reply);
               replyClone.replies = [];
@@ -160,7 +163,7 @@ export class IdeaDialogComponent extends IdeaboxComponent {
       tap((replies) => {
         setTimeout(() => {
           if (this.route.queryParams.value['replyId']) {
-            this.showReplies = true;
+            this.idea.showReplies = true;
             this.goToArgument(this.route.queryParams.value['replyId'], replies);
           }
         }, 1000);
@@ -170,6 +173,11 @@ export class IdeaDialogComponent extends IdeaboxComponent {
       .pipe(map((res: any) => res.rows));
   }
 
+  override ngAfterViewInit(): void {
+    if (Object.keys(this.route.queryParams.value).indexOf('replyId') > -1) {
+      this.idea.showReplies = true;
+    }
+  }
   prevIdea(ideas: Idea[]) {
     let index = ideas.findIndex((item) => item.id === this.idea.id);
     if (index === 0) index = ideas.length;
@@ -260,7 +268,6 @@ export class IdeaDialogComponent extends IdeaboxComponent {
       if (!argumentId) {
         return console.error('this.goToArgument', 'No argumentId and/or version provided, nothing to do here', argumentIdWithVersion);
       }
-      console.log(items, argumentId)
       for (let i = 0; i < items.length; i++) {
         // 1. the commentId + version refers to another version of the comment and the comments are not expanded.
         if (items[i] === argumentId) {

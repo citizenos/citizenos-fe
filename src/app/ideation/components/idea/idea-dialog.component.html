@@ -346,11 +346,11 @@
             <div class="like_counter_wrap" [innerHTML]="idea.votes.up.count"></div>
           </!--button-->
           <div class="buttons_wrap">
-            <button class="btn_ghost_reply_idea" *ngIf="!showReplies && idea.replies.count" id="{{idea.id}}_replies"
+            <button class="btn_ghost_reply_idea" *ngIf="!idea.showReplies && idea.replies.count" id="{{idea.id}}_replies"
               [translate]="(wWidth > 560)? 'COMPONENTS.ARGUMENT.LNK_SHOW_REPLIES' : 'COMPONENTS.ARGUMENT.LNK_SHOW_REPLIES_MOBILE'"
-              [translateParams]="{count: (idea.replies.count)}" (click)="showReplies = !showReplies"></button>
-            <button class="btn_ghost_reply_idea" *ngIf="showReplies && idea.replies.count"
-              (click)="showReplies = !showReplies" translate="COMPONENTS.ARGUMENT.LNK_HIDE_REPLIES">
+              [translateParams]="{count: (idea.replies.count)}" (click)="idea.showReplies = !idea.showReplies"></button>
+            <button class="btn_ghost_reply_idea" *ngIf="idea.showReplies && idea.replies.count"
+              (click)="idea.showReplies = !idea.showReplies" translate="COMPONENTS.ARGUMENT.LNK_HIDE_REPLIES">
             </button>
             <button *ngIf="!showReply" [ngClass]="{disabled: idea.deletedAt}" class="btn_small_submit bold"
               (click)="showReply = true" translate="COMPONENTS.IDEA_DIALOG.BTN_REPLY"></button>
@@ -360,14 +360,14 @@
       <div class="idea_content_replies">
         <div class="replies_header" *ngIf="showReply">
           <div class="form_wrap">
-            <idea-reply-form id="reply_form" [(showReply)]="showReply" [(showReplies)]="showReplies"
+            <idea-reply-form id="reply_form" [(showReply)]="showReply" [(showReplies)]="idea.showReplies"
               [topicId]="topic.id" [ideationId]="ideation.id" [ideaId]="idea.id"></idea-reply-form>
           </div>
         </div>
         <div class="replies_content_wrap">
 
           <ng-container *ngIf="replies$ | async as replies">
-            <ng-container *ngIf="showReplies">
+            <ng-container *ngIf="idea.showReplies">
               <div class="replies_wrap">
                 <ng-container *ngFor="let reply of replies;index as i; let last = last">
                   <div class="reply_container">

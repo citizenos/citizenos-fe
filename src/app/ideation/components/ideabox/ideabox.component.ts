@@ -71,9 +71,13 @@ export class IdeaboxComponent implements AfterViewInit {
     return (this.idea.author.id === this.Auth.user.value.id && !this.idea.deletedAt && [this.TopicService.STATUSES.draft, this.TopicService.STATUSES.ideation].indexOf(this.topic.status) > -1);
   };
 
-  goToView($event: any) {
+  goToView($event: any, showReplies?: boolean) {
     const routerLink = ['/', 'topics', this.topic.id, 'ideation', this.ideation.id, 'ideas', this.idea.id];
-    this.router.navigate(routerLink);
+    const params = <any>{};
+    if (showReplies) {
+      params.queryParams = {replyId: ''};
+    }
+    this.router.navigate(routerLink, params);
   }
 
 
