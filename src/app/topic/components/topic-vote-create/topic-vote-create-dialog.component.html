@@ -16,10 +16,10 @@
             fill="white" />
         </svg>
         <h4 class="title" translate="COMPONENTS.TOPIC_VOTE_CREATE.DIALOG_HEADING">
-          <div class="tooltip" tooltip>
+          <!--div class="tooltip" tooltip>
             <div class="content_title">Help on its way</div>
             <div class="content_description">Help text coming soon! Please tell us what help you were looking for.</div>
-          </div>
+          </!--div-->
         </h4>
         <div class="dialog_close">
           <a class="btn_dialog_close icon" dialog-close>
@@ -351,11 +351,11 @@
                   </div>
                 </div>
                 <div translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_CAN_ADD_EXTRA_OPTIONS">
-                  <div class="tooltip" tooltip>
+                  <!--div class="tooltip" tooltip>
                     <div class="content_title">Help on its way</div>
                     <div class="content_description">Help text coming soon! Please tell us what help you were looking
                       for.</div>
-                  </div>
+                  </!--div-->
                 </div>
                 <div class="vote_options_wrap">
                   <div class="radio_wrap" [ngClass]="{selected: extraOptions.neutral.enabled}"
@@ -482,11 +482,11 @@
                 </button>
 
                 <div class="description_text" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_CAN_ADD_EXTRA_OPTIONS">
-                  <div class="tooltip" tooltip>
+                  <!--div class="tooltip" tooltip>
                     <div class="content_title">Help on its way</div>
                     <div class="content_description">Help text coming soon! Please tell us what help you were looking
                       for.</div>
-                  </div>
+                  </!--div-->
                 </div>
                 <div class="radio_wrap voting" [ngClass]="{selected: extraOptions.neutral.enabled}"
                   (click)="toggleOption(extraOptions.neutral.value)">
@@ -592,11 +592,11 @@
                     <label class="radio_box" (click)="vote.authType = VOTE_AUTH_TYPES.hard"
                       [ngClass]="{selected: vote.authType === VOTE_AUTH_TYPES.hard}">
                       <span class="bold" translate="COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_AUTH_HARD_ID">
-                        <div class="tooltip" tooltip>
+                        <!--div class="tooltip" tooltip>
                           <div class="content_title">Help on its way</div>
                           <div class="content_description">Help text coming soon! Please tell us what help you were
                             looking for.</div>
-                        </div>
+                        </!--div-->
                       </span>
                       <input type="radio" name="authType" [(ngModel)]="vote.authType" [value]="VOTE_AUTH_TYPES.hard"
                         [disabled]="!TopicService.canEditDescription(topic)" />
