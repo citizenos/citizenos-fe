@@ -704,6 +704,7 @@ html {
     line-height: 26px; /* 162.5% */
     @include mixins.mobile {
       padding: 8px 16px;
+      overflow: hidden;
     }
   }
   .topic_content {
