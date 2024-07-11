@@ -11,7 +11,7 @@
     <div class="tooltip_container">
 
       <div class="tooltip_box" #tipContainer>
-        <div class="arrow_up" *ngIf="pos === 'bottom'">
+        <div class="arrow_up" *ngIf="pos === 'bottom'" #arrow>
           <svg width="16" height="8" viewBox="0 0 16 8" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M0 8L8 0L16 8L0 8Z" fill="#2C3B47" />
           </svg>
@@ -20,7 +20,7 @@
           <ng-content></ng-content>
         </div>
 
-        <div class="arrow_down" *ngIf="pos === 'top'">
+        <div class="arrow_down" *ngIf="pos === 'top'" #arrow>
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="8" viewBox="0 0 16 8" fill="none">
             <path d="M0 -9.53674e-07L8 8L16 -9.53674e-07L0 -9.53674e-07Z" fill="#2C3B47" />
           </svg>

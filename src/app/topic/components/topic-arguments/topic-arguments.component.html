@@ -2,7 +2,7 @@
   <div class="arguments_wrap">
     <div class="arguments_header">
       <div class="header_section">
-        <div class="question">{{discussion.question}}</div>
+        <div class="question">{{discussion.question.trim() || 'COMPONENTS.TOPIC_ARGUMENTS.QUESTION_DISCUSSION' | translate}}</div>
 
         <div class="setting_button dropdown button_dropdown" [cosDropdown]
           *ngIf="canUpdate() && (canEditDeadline() || !hasDiscussionEndedExpired(discussion))">

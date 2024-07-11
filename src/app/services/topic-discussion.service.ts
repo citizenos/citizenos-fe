@@ -83,9 +83,7 @@ export class TopicDiscussionService extends ItemsListService {
   }
 
   update(data: any) {
-    console.log('data', data);
     const path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/discussions/:discussionId'), {topicId: data.topicId, discussionId: data.discussionId || data.id});
-    console.log(path);
     return this.http.put<ApiResponse>(path, data, { withCredentials: true, observe: 'body', responseType: 'json' })
       .pipe(
         map(res => res.data)
