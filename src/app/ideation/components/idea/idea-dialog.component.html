@@ -276,7 +276,8 @@
 
             </div>
             <div class="text">
-              <span [innerHTML]="getFoldersInfo(folders) | safeHtml"></span>
+              <span translate="COMPONENTS.IDEA_DIALOG.FOLDERS"></span>
+              <a class="folder" *ngFor="let folder of folders" (click)="viewFolder(folder)">{{folder.name}}</a>
               <span *ngIf="folders.length > 3" translate="COMPONENTS.IDEA_DIALOG.FOLDERS_MORE"
                 [translateParams]="{count: (folders.length -3)}"></span>
             </div>

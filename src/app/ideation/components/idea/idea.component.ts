@@ -2,7 +2,7 @@ import { TopicIdeaRepliesService } from './../../../services/topic-idea-replies.
 import { TopicIdeaService } from 'src/app/services/topic-idea.service';
 import { Component, ContentChildren, QueryList, ViewChildren, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DIALOG_DATA, DialogService } from 'src/app/shared/dialog';
+import { DIALOG_DATA, DialogRef, DialogService } from 'src/app/shared/dialog';
 import { take, combineLatest, Observable, switchMap, map, of, tap } from 'rxjs';
 import { Idea } from 'src/app/interfaces/idea';
 import { AuthService } from 'src/app/services/auth.service';
@@ -51,6 +51,7 @@ export class IdeaComponent {
             });
 
             ideaDialog.afterClosed().subscribe((value) => {
+              console.log('VALUE', value)
               if (value) {
                 TopicIdeaService.reloadIdeas();
                 router.navigate(['/', 'topics', this.topicId], { fragment: 'ideation' })
@@ -93,6 +94,7 @@ export class IdeaDialogComponent extends IdeaboxComponent {
   route;
   TopicIdeaRepliesService = inject(TopicIdeaRepliesService);
   DomSanitizer = inject(DomSanitizer);
+  dialogRef = inject(DialogRef<IdeaDialogComponent>);
   replies$: Observable<any>;
   argument = <Argument>{};
   notification: any;
@@ -314,11 +316,10 @@ export class IdeaDialogComponent extends IdeaboxComponent {
     }
   };
 
-  getFoldersInfo(folders: Folder[]) {
-    const foldersText = <string[]>[];
-    folders.forEach(folder => foldersText.push(`<span class="folder">${folder.name}</span>`));
-    const value = this.Translate.instant('COMPONENTS.IDEA_DIALOG.FOLDERS', { folders: foldersText.join(',') });
-
-    return value;
+  viewFolder(folder: Folder) {
+    this.dialogRef.afterClosed().subscribe(() => {
+      this.router.navigate(['/', this.Translate.currentLang, 'topics', this.topic.id], { queryParams: { folderId: folder.id }, });
+    });
+    this.dialogRef.close();
   }
 }

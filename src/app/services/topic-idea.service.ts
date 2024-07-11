@@ -141,6 +141,16 @@ export class TopicIdeaService extends ItemsListService {
   }
 
 
+  getFolder (params: { [key: string]: any }): any {
+    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId/folders/:folderId'), params);
+
+    const queryParams = Object.fromEntries(Object.entries(params).filter((i) => i[1] !== null));
+
+    return this.http.get<ApiResponse>(path, { withCredentials: true, params: queryParams, observe: 'body', responseType: 'json' }).pipe(
+      map(res => res.data)
+    );
+  }
+
   getFolders (params: { [key: string]: any }): any {
     let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId/ideas/:ideaId/folders'), params);
 
