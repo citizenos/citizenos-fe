@@ -771,6 +771,7 @@
       "LBL_IDEAS": "Ideas",
       "LBL_LAST_ACTIVITY": "Last activity",
       "LBL_ACTIONS": "@:COMPONENTS.GROUP_INVITE.ACTIONS",
+      "FOLDERS_DESCRIPTION": "Folders are collections of ideas that belong to the same category. Only topic admin can create folders.",
       "OPTION_EDIT_FOLDER": "Edit folder",
       "OPTION_DELETE_FOLDER": "Delete folder",
       "BTN_CREATE_NEW_FOLDER": "Create new folder",

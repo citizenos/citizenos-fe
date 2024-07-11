@@ -405,13 +405,19 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
 
   updateVote(updateTopicStatus?: boolean) {
     const updateVote = Object.assign({ topicId: this.topic.id }, this.vote);
-    const options = updateVote.options.map((opt) => {
+    let options = updateVote.options.map((opt) => {
       return { value: opt.value, voteId: opt.voteId, id: opt.id };
     })
-    updateVote.options = options;
+    if (!options.length && this.topic.status === this.TopicService.STATUSES.draft) {
+      updateVote.options = [{value: 'Yes'}, {value: 'No'}];
+    } else {
+      updateVote.options = options;
+    }
+    if (!updateVote.description && this.topic.status === this.TopicService.STATUSES.draft) {
+      updateVote.description = null;
+    }
     return this.TopicVoteService.update(updateVote).pipe(take(1)).subscribe({
       next: (res) => {
-        console.log('Vote updated', res);
         if (updateTopicStatus) {
           const isDraft = (this.topic.status === this.TopicService.STATUSES.draft);
           const updateTopic = {id: this.topic.id, status: this.TopicService.STATUSES.voting};
