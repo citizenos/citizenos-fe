@@ -130,11 +130,9 @@
           <ng-container *ngIf="(Auth.loggedIn$ | async)">
             <button class="option" (click)="toggleFavourite()">
               <div class="icon_wrap">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" clip-rule="evenodd"
-                    d="M8 1L10.0572 5.16844L14.6574 5.83688L11.3287 9.08156L12.1145 13.6631L8 11.5L3.8855 13.6631L4.6713 9.08156L1.3426 5.83688L5.94275 5.16844L8 1Z"
-                    fill="#2C3B47" />
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M8.33541 12.3292L8 12.1615L7.66459 12.3292L3.1118 14.6056C2.94558 14.6887 2.75 14.5678 2.75 14.382V2C2.75 1.86193 2.86193 1.75 3 1.75H13C13.1381 1.75 13.25 1.86193 13.25 2V14.382C13.25 14.5678 13.0544 14.6887 12.8882 14.6056L8.33541 12.3292Z" fill="#2C3B47" stroke="#2C3B47" stroke-width="1.5"/>
+                  </svg>
               </div>
               <span *ngIf="!idea.favourite" translate="COMPONENTS.IDEABOX.OPTION_FAVOURITE"></span>
               <span *ngIf="idea.favourite" translate="COMPONENTS.IDEABOX.OPTION_UNFAVOURITE"></span>
