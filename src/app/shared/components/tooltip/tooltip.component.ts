@@ -10,6 +10,7 @@ export class TooltipComponent implements OnDestroy {
   @Input() noIcon? = false;
   @ViewChild('tooltTipIcon') toolTipIcon!: ElementRef;
   @ViewChild('tipContainer') tipContainer!: ElementRef;
+  @ViewChild('arrow') arrow!: ElementRef;
   private timer: any;
   public visible = false;
   @Input() pos? = 'bottom';
@@ -39,6 +40,7 @@ export class TooltipComponent implements OnDestroy {
   position () {
     if (this.noIcon) {
       this.toolTipIcon = this.el;
+      console.log(this.el)
     }
     const containerPosition = this.tipContainer.nativeElement.getBoundingClientRect();
 
@@ -47,19 +49,27 @@ export class TooltipComponent implements OnDestroy {
     }
 
     let left = containerPosition.right - window.innerWidth + 32;
+    console.log(`${this.toolTipIcon.nativeElement.getBoundingClientRect().left + (this.toolTipIcon.nativeElement.getBoundingClientRect().width)}px`)
+    this.renderer.setStyle(this.arrow.nativeElement, 'left', `${(this.toolTipIcon.nativeElement.getBoundingClientRect().width/2)}px`)
     if (this.pos === 'top') {
-      this.renderer.setStyle(this.tipContainer.nativeElement, 'top', `-${this.tipContainer.nativeElement.offsetHeight +8}px`);
+      this.renderer.setStyle(this.tipContainer.nativeElement, 'top', `-${this.toolTipIcon.nativeElement.offsetHeight +8}px`);
     }
     if (this.pos === 'bottom') {
-      this.renderer.setStyle(this.tipContainer.nativeElement, 'bottom', `-${this.tipContainer.nativeElement.offsetHeight+8}px`);
+      this.renderer.setStyle(this.tipContainer.nativeElement, 'top', `${this.toolTipIcon.nativeElement.offsetHeight +8}px`);
     }
     if (window.innerWidth < containerPosition.right) {
       this.renderer.setStyle(this.tipContainer.nativeElement, 'left', `-${left}px`);
     }
-    if (this.tipContainer.nativeElement.getBoundingClientRect().left < 0) {
+    const containerBounds = this.tipContainer.nativeElement.getBoundingClientRect();
+    if (containerBounds.left < 0) {
       left = left + this.tipContainer.nativeElement.getBoundingClientRect().left;
       this.renderer.setStyle(this.tipContainer.nativeElement, 'left', `-${left}px`);
-    } else {
+    }
+    console.log(containerBounds.right + 32, window.innerWidth)
+    if (containerBounds.right + 32 >= window.innerWidth) {
+      this.renderer.setStyle(this.tipContainer.nativeElement, 'right', `0px`);
+    }
+    else {
       const iconPos = this.toolTipIcon.nativeElement.getBoundingClientRect().left;
       if (iconPos === containerPosition.left ) {
         this.renderer.setStyle(this.tipContainer.nativeElement, 'left', `-16px`);

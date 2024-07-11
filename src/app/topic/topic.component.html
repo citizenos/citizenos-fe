@@ -36,6 +36,9 @@
         </div>
         <button *ngIf="(auth.loggedIn$ | async)" class="btn_medium_close icon tablet_show"
           (click)="toggleFavourite(topic);" [ngClass]="{like_active: topic.favourite}">
+          <div class="tooltip_item" [noIcon]="true" tooltip>
+            <div class="content_description" translate="VIEWS.TOPICS_TOPICID.TOOLTIP_FAVOURITE"></div>
+          </div>
           <svg *ngIf="!topic.favourite" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
             fill="none">
             <path
@@ -295,7 +298,9 @@
       <div id="activities_button_wrap" [TourItem]="{tourid: 'topic', index: 8, position: 'left'}">
         <button *ngIf="(auth.loggedIn$ | async)" class="btn_medium_close icon" (click)="toggleFavourite(topic);"
           [ngClass]="{like_active: topic.favourite}">
-
+          <div class="tooltip_item" [noIcon]="true" tooltip>
+            <div class="content_description" translate="VIEWS.TOPICS_TOPICID.TOOLTIP_FAVOURITE"></div>
+          </div>
           <svg *ngIf="!topic.favourite" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
             fill="none">
             <path
@@ -1504,7 +1509,8 @@
             <span translate="VIEWS.TOPICS_TOPICID.OPTION_INVITE_CO_EDITOR"></span>
           </button>
         </ng-container>
-        <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canEdit(topic) && !topic.voteId && !topic.ideationId">
+        <ng-container
+          *ngIf="(auth.loggedIn$ | async) && TopicService.canEdit(topic) && !topic.voteId && !topic.ideationId">
           <div class="line_separator"></div>
           <button class="option" [routerLink]="['/','topics', 'edit', topic.id]">
             <div class="icon_wrap">

@@ -609,6 +609,15 @@
       "LOGIN_SMARTID_BTN_LOG_IN_SID": "@:MODALS.LOGIN_BTN_LOGIN_SMARTID",
       "LOGIN_SMARTID_BTN_AUTHENTICATE_SID": "Authenticate with Smart-ID"
     },
+    "MISSING_DISCUSSION": {
+      "TITLE": "Discussion phase missing prompt",
+      "DESCRIPTION": "We’ve updated the discussion phase so that the discussion panel now also holds a prompt or question. Since this is an older topic it does not yet have a prompt. <b>Would you like to add one now?</b>",
+      "HEADING_DISCUSSION_QUESTION": "@:VIEWS.TOPIC_CREATE.SETTINGS_HEADING_DISCUSSION_QUESTION",
+      "DISCUSSION_QUESTION_PLACEHOLDER": "@:VIEWS.TOPIC_CREATE.SETTINGS_DISCUSSION_QUESTION_PLACEHOLDER",
+      "HEADING_DISCUSSION_DEADLINE": "@:VIEWS.TOPIC_CREATE.SETTINGS_HEADING_DISCUSSION_DEADLINE",
+      "LNK_CANCEL":"@:LNK_CANCEL",
+      "BTN_START_DISCUSSION": "@:BTN_CONTINUE"
+    },
     "NOTIFICATION": {
       "TITLE_ERROR": "Error!",
       "TITLE_INFO": "Info!",
@@ -1216,6 +1225,7 @@
       "BTN_GENERATE_QR_CODE": "@:COMPONENTS.GROUP_SHARE.GENERATE_QR_CODE"
     },
     "TOPIC_ARGUMENTS": {
+      "QUESTION_DISCUSSION": "@:VIEWS.TOPICS_TOPICID.TAB_DISCUSSION",
       "TITLE": "Contributions: {{count}}",
       "LBL_DEADLINE": "Discussion phase deadline",
       "BTN_DISCUSSION_ACTIONS": "Manage",
@@ -2660,6 +2670,7 @@
       "BTN_ACTIVITIES": "Topic activity",
       "LBL_JOINED": "Joined topic",
       "TAB_FOLLOW_UP": "Action",
+      "TOOLTIP_FAVOURITE": "Save this topic to your personal favourites",
       "TAB_INFO_TITLE_DRAW": "Looks like your voting process resulted in a draw.",
       "TAB_INFO_DRAW_DESCRIPTION": "Sometimes having several winning options is a good thing, but there are times when you really just need one clear winner.",
       "TAB_INFO_TITLE_DRAW_WHAT_NOW": "Here's what you could do now:",

@@ -40,6 +40,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { TopicIdeationService } from 'src/app/services/topic-ideation.service';
 import { Ideation } from '../interfaces/ideation';
 import { TopicDiscussionCreateDialogComponent } from './components/topic-discussion-create-dialog/topic-discussion-create-dialog.component';
+import { MissingDiscussionComponent } from './components/missing-discussion/missing-discussion.component';
 
 @Component({
   selector: 'topic',
@@ -231,6 +232,12 @@ export class TopicComponent implements OnInit {
             return events.rows;
           }));
         }
+        if (topic.status === this.TopicService.STATUSES.inProgress && !topic.discussionId) {
+          this.DialogService.open(MissingDiscussionComponent, {
+            data: {topic}
+          });
+        }
+
         const padURL = new URL(topic.padUrl);
         if (padURL.searchParams.get('lang') !== this.translate.currentLang) {
           padURL.searchParams.set('lang', this.translate.currentLang);

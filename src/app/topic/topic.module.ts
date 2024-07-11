@@ -70,6 +70,7 @@ import { EditIdeaFolderComponent } from '../ideation/components/edit-idea-folder
 import { TopicDiscussionCreateDialogComponent } from './components/topic-discussion-create-dialog/topic-discussion-create-dialog.component';
 import { IdeaReactionsComponent } from '../ideation/components/idea-reactions/idea-reactions.component';
 import { EditDiscussionDeadlineComponent } from './components/edit-discussion-deadline/edit-discussion-deadline.component';
+import { MissingDiscussionComponent } from './components/missing-discussion/missing-discussion.component';
 
 @NgModule({
   declarations: [
@@ -147,7 +148,8 @@ import { EditDiscussionDeadlineComponent } from './components/edit-discussion-de
     EditIdeaFolderComponent,
     TopicDiscussionCreateDialogComponent,
     IdeaReactionsComponent,
-    EditDiscussionDeadlineComponent
+    EditDiscussionDeadlineComponent,
+    MissingDiscussionComponent
   ],
   imports: [
     LinkyModule,

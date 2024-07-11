@@ -15,6 +15,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { EditDiscussionDeadlineComponent } from '../edit-discussion-deadline/edit-discussion-deadline.component';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { NotificationService } from 'src/app/services/notification.service';
+import { MissingDiscussionComponent } from '../missing-discussion/missing-discussion.component';
 
 @Component({
   selector: 'topic-arguments',
@@ -103,7 +104,14 @@ export class TopicArgumentsComponent implements OnInit {
       this.discussion$ = this.TopicDiscussionService.loadDiscussion({
         topicId: this.topic.id,
         discussionId: this.topic.discussionId
-      });
+      }).pipe(tap((discussion) => {
+
+        if (!discussion.question && discussion.createdAt === discussion.updatedAt) {
+          this.dialog.open(MissingDiscussionComponent, {
+            data: {topic: this.topic}
+          });
+        }
+      }));
     }
   }
 

@@ -1863,6 +1863,15 @@ tour-item-template {
   width: 100%;
 }
 
+.tooltip_item {
+  .no_icon {
+    .arrow_up {
+      position: absolute;
+      top: -8px;
+      z-index: 9999999999;
+    }
+  }
+}
 .tooltip {
   display: inline-block;
   margin-left: 3px;
