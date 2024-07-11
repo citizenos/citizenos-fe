@@ -42,6 +42,7 @@ export class TopicIdeationComponent {
   participantsCount = 0;
   ideas$ = of(<Idea[]>[]);
   folders$ = of(<Folder[]>[]);
+  folders = <Folder[]>[];
   allIdeas$: Idea[] = [];
   tabSelected = 'ideas';
   ideaFilters = {
@@ -150,9 +151,15 @@ export class TopicIdeationComponent {
     this.route.queryParams.pipe(take(1)).subscribe((params) => {
       console.log(params);
       if (params['folderId']) {
-        this.tabSelected = 'folders';
-        this.viewFolder(<Folder>{id: params['folderId']});
-        console.log('folders', params);
+        this.TopicIdeaService.getFolder({ topicId: this.topic.id, ideationId: this.ideation.id, folderId: params['folderId'] }).pipe(
+          take(1)
+        ).subscribe((folder: Folder) => {
+          console.log(folder);
+          this.tabSelected = 'folders';
+          if (folder)
+            this.viewFolder(folder);
+          console.log('folders', params);
+        })
       }
     })
   }
