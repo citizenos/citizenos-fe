@@ -544,6 +544,7 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
         map(
           (newIdeas: any) => {
             this.ideasList = this.ideasList.concat(newIdeas);
+            this.ideasList.forEach((idea) => idea.statement = idea.statement.substring(0, 200));
             if (this.TopicIdeaService.hasMore$.value === true) {
               this.TopicIdeaService.loadMore();
             }
@@ -622,6 +623,7 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
             offset = offset + limit;
             ideasCount = res.data.count;
             folderIdeasList = folderIdeasList.concat(res.data.rows);
+            folderIdeasList.forEach((idea) => idea.statement = idea.statement.substring(0, 200));
             if (folderIdeasList.length < ideasCount) {
               offset = offset + limit;
               this.TopicIdeaService.setParam('offset', offset);
