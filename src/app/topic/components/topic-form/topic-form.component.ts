@@ -110,6 +110,7 @@ export class TopicFormComponent {
   VISIBILITY = this.TopicService.VISIBILITY;
   CATEGORIES = Object.keys(this.TopicService.CATEGORIES);
   groups$: Observable<TopicMemberGroup[] | any[]> = of([]);
+  groupsList = <TopicMemberGroup[]>[];
   loadMembers$ = new BehaviorSubject<void>(undefined);
   members$: Observable<any[] | any[]> = of([]);
   loadInvite$ = new BehaviorSubject<void>(undefined);
@@ -176,7 +177,33 @@ export class TopicFormComponent {
     @Inject(DomSanitizer) public sanitizer: DomSanitizer
   ) {
     route.queryParams.pipe(take(1), map((params) => this.groupId = params['groupId'])).subscribe();
-    this.groups$ = this.GroupService.loadItems().pipe(map((groups) => {
+
+    this.groups$ = this.GroupService.loadItems().pipe(
+      tap((res: any) => {
+        if (res.length) {
+          this.GroupService.hasMore$.next(true);
+        } else {
+          this.GroupService.hasMore$.next(false);
+        }
+      }),
+      map(
+        (newGroups) => {
+          newGroups = newGroups.filter((group:any) => group.visibility === this.GroupService.VISIBILITY.private || group.permission.level === GroupMemberTopicService.LEVELS.admin);
+          newGroups.forEach((group: any) => {
+            if (this.groupId && this.groupId === group.id) {
+              const exists = this.topicGroups.find((mgroup) => mgroup.id === group.id);
+              if (!exists) this.addGroup(group);
+            }
+          });
+          this.groupsList = this.groupsList.concat(newGroups);
+          if (this.GroupService.hasMore$.value === true) {
+            this.GroupService.loadMore();
+          }
+          return this.groupsList;
+        }
+      ));
+
+  /*  this.groups$ = this.GroupService.loadItems().pipe(map((groups) => {
       groups.forEach((group: any) => {
         if (this.groupId && this.groupId === group.id) {
           const exists = this.topicGroups.find((mgroup) => mgroup.id === group.id);
@@ -184,8 +211,7 @@ export class TopicFormComponent {
         }
       });
 
-      return groups.filter((group) => group.visibility === this.GroupService.VISIBILITY.private || group.permission.level === GroupMemberTopicService.LEVELS.admin);
-    }));
+    }));*/
 
     this.tabSelected = this.route.fragment.pipe(
       map((fragment) => {
