@@ -115,6 +115,8 @@ export class AppComponent {
               this.auth.loggedIn$.next(true);
               window.location.reload();
             })
+          } else {
+            window.location.reload();
           }
         });
       } else if (user && !user.email) {
