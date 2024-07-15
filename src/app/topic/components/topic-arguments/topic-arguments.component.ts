@@ -106,7 +106,7 @@ export class TopicArgumentsComponent implements OnInit {
         discussionId: this.topic.discussionId
       }).pipe(tap((discussion) => {
 
-        if (!discussion.question && discussion.createdAt === discussion.updatedAt) {
+        if (!discussion.question && discussion.createdAt === discussion.updatedAt && this.canUpdate()) {
           this.dialog.open(MissingDiscussionComponent, {
             data: {topic: this.topic}
           });

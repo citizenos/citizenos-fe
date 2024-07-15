@@ -234,7 +234,7 @@ export class TopicComponent implements OnInit {
             return events.rows;
           }));
         }
-        if (topic.status === this.TopicService.STATUSES.inProgress && !topic.discussionId) {
+        if (topic.status === this.TopicService.STATUSES.inProgress && !topic.discussionId && this.canUpdate(topic)) {
           this.DialogService.open(MissingDiscussionComponent, {
             data: {topic}
           });
