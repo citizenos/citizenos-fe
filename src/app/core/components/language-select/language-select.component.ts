@@ -36,7 +36,6 @@ export class LanguageSelectComponent implements OnInit {
     if (this.AuthService.loggedIn$.value) {
       this.User.updateLanguage(lang).pipe(take(1)).subscribe();
     }
-    console.log(g);
     this.router.navigate(g, { queryParams: parsedUrl.queryParams, fragment: parsedUrl.fragment || undefined, skipLocationChange: false });
     this.dialogRef.close();
   }
