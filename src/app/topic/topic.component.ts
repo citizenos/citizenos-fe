@@ -4,7 +4,7 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { TopicMemberGroupService } from 'src/app/services/topic-member-group.service';
 import { Component, OnInit, Inject, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap, of, map, tap, Observable, take, catchError } from 'rxjs';
+import { switchMap, of, map, tap, Observable, take, catchError, combineLatest } from 'rxjs';
 import { DialogService } from 'src/app/shared/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -173,8 +173,9 @@ export class TopicComponent implements OnInit {
     private CookieService: CookieService
   ) {
     this.app.darkNav = true;
-    this.tabSelected$ = this.route.fragment.pipe(
-      map((value) => {
+    this.tabSelected$ = combineLatest([this.route.fragment, this.route.queryParams]).pipe(
+      map(([value, params]) => {
+        if (params['folderId']) return 'ideation';
         if (this.hideDiscussion === true && value === 'discussion') {
           value = 'voting';
         }
@@ -201,8 +202,9 @@ export class TopicComponent implements OnInit {
         return of(params['topicId']);
       })
     );
-    this.topic$ = this.route.params.pipe(
-      switchMap((params) => {
+    this.topic$ = combineLatest([this.route.params, this.route.queryParams]).pipe(
+      switchMap(([params, queryParams]) => {
+        console.log(queryParams);
         return this.TopicService.loadTopic(params['topicId']);
       }),
       tap((topic: Topic) => {
