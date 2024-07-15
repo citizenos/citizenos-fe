@@ -32,11 +32,12 @@ export class LanguageSelectComponent implements OnInit {
     const outlet = parsedUrl.root.children[PRIMARY_OUTLET];
 
     let g = outlet?.segments.map(seg => seg.path) || [''];
-    g.splice(0, 1);
-    if (this.AuthService.loggedIn$) {
+    g[0] = lang;
+    if (this.AuthService.loggedIn$.value) {
       this.User.updateLanguage(lang).pipe(take(1)).subscribe();
     }
-    this.router.navigate(g, { queryParams: parsedUrl.queryParams, fragment: parsedUrl.fragment || undefined });
+    console.log(g);
+    this.router.navigate(g, { queryParams: parsedUrl.queryParams, fragment: parsedUrl.fragment || undefined, skipLocationChange: false });
     this.dialogRef.close();
   }
 }
