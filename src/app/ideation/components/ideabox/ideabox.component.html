@@ -99,7 +99,9 @@
         <div class="vertical_line_separator"></div>
         <button class="btn_small_plain" (click)="$event.preventDefault();$event.stopPropagation();toggleFavourite();">
           <div class="tooltip_item" tooltip pos="top" [noIcon]="true">
-            <div class="content_description" translate="COMPONENTS.IDEABOX.TOOLTIP_FAVOURITE"
+            <div class="content_description" *ngIf="!idea.favourite" translate="COMPONENTS.IDEABOX.TOOLTIP_FAVOURITE"
+              [translateParams]="{count: idea.votes.up.count}"></div>
+            <div class="content_description" *ngIf="idea.favourite" translate="COMPONENTS.IDEABOX.TOOLTIP_SAVED_TO_FAVOURITE"
               [translateParams]="{count: idea.votes.up.count}"></div>
           </div>
           <svg *ngIf="!idea.favourite" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
