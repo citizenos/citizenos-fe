@@ -611,8 +611,8 @@
       "LOGIN_SMARTID_BTN_AUTHENTICATE_SID": "Authenticate with Smart-ID"
     },
     "MISSING_DISCUSSION": {
-      "TITLE": "Discussion phase missing prompt",
-      "DESCRIPTION": "We’ve updated the discussion phase so that the discussion panel now also holds a prompt or question. Since this is an older topic it does not yet have a prompt. <b>Would you like to add one now?</b>",
+      "TITLE": "Discussion phase missing question",
+      "DESCRIPTION": "We’ve updated the discussion phase so that the discussion panel now also holds a question. Since this is an older topic it does not yet have a discussion question. <b>Would you like to add one now?</b>",
       "HEADING_DISCUSSION_QUESTION": "@:VIEWS.TOPIC_CREATE.SETTINGS_HEADING_DISCUSSION_QUESTION",
       "DISCUSSION_QUESTION_PLACEHOLDER": "@:VIEWS.TOPIC_CREATE.SETTINGS_DISCUSSION_QUESTION_PLACEHOLDER",
       "HEADING_DISCUSSION_DEADLINE": "@:VIEWS.TOPIC_CREATE.SETTINGS_HEADING_DISCUSSION_DEADLINE",
