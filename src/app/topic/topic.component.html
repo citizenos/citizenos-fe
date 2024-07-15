@@ -37,7 +37,8 @@
         <button *ngIf="(auth.loggedIn$ | async)" class="btn_medium_close icon tablet_show"
           (click)="toggleFavourite(topic);" [ngClass]="{like_active: topic.favourite}">
           <div class="tooltip_item" [noIcon]="true" tooltip>
-            <div class="content_description" translate="VIEWS.TOPICS_TOPICID.TOOLTIP_FAVOURITE"></div>
+            <div class="content_description" *ngIf="!topic.favourite" translate="VIEWS.TOPICS_TOPICID.TOOLTIP_FAVOURITE"></div>
+            <div class="content_description" *ngIf="topic.favourite" translate="VIEWS.TOPICS_TOPICID.TOOLTIP_SAVED_TO_FAVOURITE"></div>
           </div>
           <svg *ngIf="!topic.favourite" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
             fill="none">
