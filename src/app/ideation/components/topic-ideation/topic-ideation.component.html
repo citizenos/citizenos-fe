@@ -613,9 +613,9 @@
           </ng-container>
           <ng-container *ngIf="tabSelected === 'folders'">
             <div class="folders_wrap">
-              <div class="folders_desc" translate="COMPONENTS.TOPIC_IDEATION.FOLDERS_DESCRIPTION"></div>
               <ng-container *ngIf="folders$ | async as folders">
                 <ng-container *ngIf="folders.length">
+                  <div class="folders_desc" translate="COMPONENTS.TOPIC_IDEATION.FOLDERS_DESCRIPTION"></div>
                   <div class="folder_row">
                     <div class="folder_name cell" translate="COMPONENTS.TOPIC_IDEATION.LBL_FOLDER"></div>
                     <div class="cell ideas_cell" translate="COMPONENTS.TOPIC_IDEATION.LBL_IDEAS"></div>
