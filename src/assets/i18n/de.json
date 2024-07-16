@@ -103,7 +103,7 @@
     },
     "ACTIVITY_FEED": {
       "HEADING_GLOBAL": "Neueste Aktivität",
-      "LNK_NOTIFICATION_SETTINGS": "Notification settings",
+      "LNK_NOTIFICATION_SETTINGS": "Benachrichtigungseinstellungen",
       "HEADING_GROUP": "Aktivität dieser Gruppe",
       "HEADING_TOPIC": "Aktivität dieses Themas",
       "PLACEHOLDER_FILTER": "Anzeigen",
@@ -156,7 +156,7 @@
       "SUBJECT_CHARACTERS_LEFT": "@:COMPONENTS.POST_ARGUMENT.SUBJECT_CHARACTERS_LEFT",
       "PLACEHOLDER_ADD_SUBJECT_TO_ARGUMENT": "@:COMPONENTS.POST_ARGUMENT.PLACEHOLDER_ADD_SUBJECT_TO_ARGUMENT",
       "CHARACTER_LIMIT": "@:VIEWS.TOPICS_TOPICID.COMMENT_TYPE_CHARACTER_LIMIT",
-      "ERROR_NO_TEXT": "Reply field is empty.",
+      "ERROR_NO_TEXT": "Antwortfeld ist leer.",
       "PLACEHOLDER_WRITE_REPLY_HERE": "@:VIEWS.TOPICS_TOPICID.PLACEHOLDER_WRITE_REPLY_HERE",
       "BTN_POST_REPLY": "@:VIEWS.TOPICS_TOPICID.BTN_ARGUMENT_POST_REPLY"
     },
@@ -341,15 +341,15 @@
       "INVITE_SENT_TO": "Ausstehende Einladung an {{email}} gesendet"
     },
     "GROUP_REQUEST_ADD_TOPICS_DIALOG": {
-      "HEADING": "Request to add topics to group",
-      "SEARCH_HEADING": "Search for existing topics you want added to the group",
-      "SEARCH_DESC": "You can request to add any topic for which you are admin",
+      "HEADING": "Anfrage, Themen zur Gruppe hinzuzufügen",
+      "SEARCH_HEADING": "Suchen Sie nach Themen zur Gruppenhinzufügung",
+      "SEARCH_DESC": "Sie können jedes Thema anfordern, für das Sie Administrator sind",
       "PLACEHOLDER_SEARCH": "@:COMPONENTS.GROUP_INVITE.PLACEHOLDER_SEARCH",
-      "MSG_REQUEST_SENT_SUCCESS": "Request has been sent!",
-      "REASON_DESC": "Add a reason for your request",
-      "REASON_PLACEHOLDER": "Write your reason here",
+      "MSG_REQUEST_SENT_SUCCESS": "Die Anfrage wurde gesendet.",
+      "REASON_DESC": "Grund für Ihre Anfrage hinzufügen",
+      "REASON_PLACEHOLDER": "Geben Sie hier Ihren Grund an",
       "LNK_CANCEL": "@:LNK_CANCEL",
-      "BTN_SAVE": "Send request"
+      "BTN_SAVE": "Anfrage senden"
     },
     "GROUP_SETTINGS": {
       "HEADING": "Gruppe bearbeiten",
@@ -733,7 +733,7 @@
       "REMOVE_ERROR_MEMBER_VIA_GROUP": "Sie können dieses Themenmitglied nicht entfernen, da es Mitglied der Gruppe ist. Wenn Sie seinen Zugriff auf das Thema einschränken möchten, sollten Sie es stattdessen von der Gruppe ausschließen."
     },
     "TOPIC_MILESTONES": {
-      "CREATE_A_MILESTONE": "Updates",
+      "CREATE_A_MILESTONE": "Aktualisierungen",
       "OPT_EDIT_DETAILS": "Details bearbeiten",
       "OPT_REMOVE_MILESTONE": "Aktualisierung entfernen",
       "PLACEHOLDER_SUBJECT": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_PLACEHOLDER_SUBJECT",
@@ -753,11 +753,11 @@
       "BTN_CANCEL": "@:COMPONENTS.ONBOARDING.BTN_CANCEL"
     },
     "TOPIC_REQUESTS": {
-      "HEADING": "Topic requests",
-      "NO_REQUESTS_HEADING": "There are no requests!",
-      "NO_REQUESTS_DESC": "There are no pending requests for topics to be added to this group.",
-      "MSG_ACCEPT_SUCCESS": "The topic has been added to the group!",
-      "MSG_REJECT_SUCCESS": "Request to add topic to the group has been rejected!",
+      "HEADING": "Themenanfragen",
+      "NO_REQUESTS_HEADING": "Es gibt keine Anfragen.",
+      "NO_REQUESTS_DESC": "Es liegen keine ausstehenden Anfragen vor, um Themen zu dieser Gruppe hinzuzufügen.",
+      "MSG_ACCEPT_SUCCESS": "Das Thema wurde zur Gruppe hinzugefügt!",
+      "MSG_REJECT_SUCCESS": "Die Anfrage, das Thema zur Gruppe hinzuzufügen, wurde abgelehnt.",
       "BTN_ACCEPT": "Zustimmen",
       "BTN_REJECT": "Ablehnen"
     },
@@ -1611,9 +1611,9 @@
       "LBL_SHOW_IN_SEARCH_DESCRIPTION": "Meinen Namen und meine E-Mail-Adresse in den Suchergebnissen anzeigen, damit andere Personen mich leicht zu Gruppen und Themen einladen können",
       "LBL_DELETE_ACCOUNT": "Ihr Konto löschen",
       "LBL_DELETE_ACCOUNT_DESCRIPTION": "Beim Löschen Ihres Kontos bleiben alle Ihre Beiträge bei Citizen OS sichtbar, werden aber nicht mehr mit Ihrem Konto verknüpft.",
-      "LBL_PROFILE_LANGUAEG": "Set your profile language",
-      "LBL_PROFILE_LANGUAEG_DESCRIPTION": "We use this language while sending emails.",
-      "LBL_SELECT_PROFILE_LANGUAEG": "Choose from available languages",
+      "LBL_PROFILE_LANGUAEG": "Sprache des Profils festlegen",
+      "LBL_PROFILE_LANGUAEG_DESCRIPTION": "Wir verwenden diese Sprache beim Versenden von E-Mails.",
+      "LBL_SELECT_PROFILE_LANGUAEG": "Wählen Sie aus verfügbaren Sprachen",
       "BTN_CONNECT_FACEBOOK": "Mit Facebook-Konto verbinden",
       "BTN_CONNECT_GOOGLE": "Mit Google-Konto verbinden",
       "BTN_CONNECT_ESTEID": "Mit ID-Karte/Mobiil-ID verbinden",
@@ -1750,11 +1750,11 @@
       "BTN_OPTION_UNFAVOURITE": "@:VIEWS.TOPICS_TOPICID.OPTION_UNFAVOURITE",
       "BTN_OPTION_INVITE": "Mitglieder einladen",
       "BTN_OPTION_EDIT": "Gruppe bearbeiten",
-      "BTN_REQUEST_ADD_TOPICS": "Request to add topics",
+      "BTN_REQUEST_ADD_TOPICS": "Anfrage, Themen hinzuzufügen",
       "BTN_OPTION_ADD_TOPICS": "Themen hinzufügen",
       "TITLE_ADD_OR_CREATE": "Thema hinzufügen oder erstellen",
       "BTN_ADD_OR_CREATE_TOPICS": "Thema hinzufügen oder erstellen",
-      "BTN_VIEW_TOPIC_REQUESTS": "View topic requests",
+      "BTN_VIEW_TOPIC_REQUESTS": "Themenanfragen anzeigen",
       "HEADING_CREATE_A_NEW_TOPIC": "Ein neues Thema erstellen",
       "BTN_OPTION_REPORT": "An Administrator melden",
       "BTN_OPTION_LEAVE": "Gruppe verlassen",
@@ -2180,7 +2180,7 @@
       "TITLE_DESCRIPTION": "Thementext",
       "TITLE_DESCRIPTION_TEXT": "Der Inhalt des Hauptthemas wird hier eingefügt – alle Anweisungen, Informationen oder Kontext für die Teilnehmer.",
       "TITLE_ATTACHMENTS": "@:MODALS.TOPIC_ATTACHMENTS_TITLE_FILES",
-      "TOOLTIP_ATTACHMENTS_TITLE": "Attachment guidelines",
+      "TOOLTIP_ATTACHMENTS_TITLE": "Anhang-Richtlinien",
       "TOOLTIP_ATTACHMENTS_DESCRIPTION_LIMIT": "Es können maximal {{limit}} Dateien an ein Thema angehängt werden.",
       "TOOLTIP_ATTACHMENTS_DESCRIPTION_SIZE": "Maximal zulässige Upload-Größe {{allowedFileSize}}. ",
       "TOOLTIP_ATTACHMENTS_DESCRIPTION_TYPES": "Erlaubte Typen sind: {{allowedFileTypes}}",
@@ -2240,8 +2240,8 @@
       "HELP_ITEM_ADD_FOLLOW_UP": "Füge eine Nachverfolgung hinzu, um die Teilnehmer über die erzielten Fortschritte auf dem Laufenden zu halten.",
       "NOTIFICATION_SUCCESS_TITLE": "Thema erfolgreich veröffentlicht",
       "NOTIFICATION_SUCCESS_MESSAGE": "Herzlichen Glückwunsch zu Ihrem neuen Thema! Jetzt ist es an der Zeit, Leute ins Gespräch zu bringen. Laden Sie unten jetzt Teilnehmer ein, oder erledigen Sie das einfach später.",
-      "NOTIFICATION_DRAFT_SUCCESS_TITLE": "Draft topic saved!",
-      "NOTIFICATION_DRAFT_SUCCESS_MESSAGE": "Your topic has been saved to your drafts."
+      "NOTIFICATION_DRAFT_SUCCESS_TITLE": "Entwurf des Themas gespeichert!",
+      "NOTIFICATION_DRAFT_SUCCESS_MESSAGE": "Ihr Thema wurde in Entwürfe gespeichert."
     },
     "TOPIC_EDIT": {
       "HEADING": "Thema bearbeiten",
@@ -2375,7 +2375,7 @@
       "ARGUMENT_EDIT_BTN_POST_AS_POI": "@:VIEWS.TOPICS_TOPICID.BTN_ARGUMENT_POST_AS_POI",
       "ARGUMENT_EDIT_BTN_POST_AS_CON": "@:VIEWS.TOPICS_TOPICID.BTN_ARGUMENT_POST_AS_CON",
       "ARGUMENT_EDIT_BTN_CANCEL_EDIT": "@:LNK_CANCEL",
-      "ARGUMENT_HAS_BEEN_DELETED_BY": "This contribution has been deleted by user {{usersFullName}}",
+      "ARGUMENT_HAS_BEEN_DELETED_BY": "Dieser Beitrag wurde von Benutzer {{usersFullName}} gelöscht",
       "ARGUMENT_HAS_BEEN_DELETED_BY_MODERATOR": "This contribution has been deleted by user {{usersFullName}} (moderator)",
       "ARGUMENT_WHY": "Warum?",
       "ARGUMENT_VIEW_ARGUMENT_ANYWAY": "View contribution anyway",
