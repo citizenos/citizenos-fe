@@ -1,4 +1,4 @@
-import { TopicIdeationService } from 'src/app/services/topic-ideation.service';
+import { TopicIdeationFoldersService } from 'src/app/services/topic-ideation-folders.service';
 import { TopicIdeaService } from 'src/app/services/topic-idea.service';
 import { Component, Inject } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
@@ -20,7 +20,7 @@ export class AddIdeasToFolderComponent {
   ideasCount = 0;
   topicId;
   ideationId;
-  constructor(public TopicIdeaService: TopicIdeaService, public TopicIdeationService: TopicIdeationService, @Inject(DIALOG_DATA) data: any, private dialogRef: DialogRef<AddIdeasToFolderComponent>) {
+  constructor(public TopicIdeaService: TopicIdeaService, public TopicIdeationFoldersService: TopicIdeationFoldersService, @Inject(DIALOG_DATA) data: any, private dialogRef: DialogRef<AddIdeasToFolderComponent>) {
     this.topicId = data.topicId;
     this.folder = data.folder;
     this.ideationId = data.ideationId;
@@ -45,7 +45,7 @@ export class AddIdeasToFolderComponent {
   }
   createFolder() {
     if (this.folderIdeas.length) {
-      this.TopicIdeationService.addIdeaToFolder({ topicId: this.topicId, ideationId: this.ideationId, folderId: this.folder.id }, this.folderIdeas)
+      this.TopicIdeationFoldersService.addIdea({ topicId: this.topicId, ideationId: this.ideationId, folderId: this.folder.id }, this.folderIdeas)
         .pipe(take(1))
         .subscribe({
           next: (res) => {

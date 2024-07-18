@@ -64,59 +64,6 @@ export class TopicIdeationService extends ItemsListService {
       );
   }
 
-  getFolders(params?: any) {
-    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId/folders'), params);
-
-    return this.http.get<ApiResponse>(path, { withCredentials: true, observe: 'body', responseType: 'json' })
-      .pipe(
-        map(res => res.data)
-      );
-  }
-
-  createFolder(params: any, data: any) {
-    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId/folders'), params);
-
-    return this.http.post<ApiResponse>(path, data, { withCredentials: true, observe: 'body', responseType: 'json' })
-      .pipe(
-        map(res => res.data)
-      );
-  }
-
-  updateFolder(params: any, data: any) {
-    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId/folders/:folderId'), params);
-
-    return this.http.put<ApiResponse>(path, data, { withCredentials: true, observe: 'body', responseType: 'json' })
-      .pipe(
-        map(res => res.data)
-      );
-  }
-
-  deleteFolder(params: any) {
-    const path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId/folders/:folderId'), params);
-
-    return this.http.delete<ApiResponse>(path, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
-      map(res => res.data)
-    );
-  }
-
-  addIdeaToFolder(params: any, data: any) {
-    console.log('DATA', data);
-    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId/folders/:folderId/ideas'), params);
-
-    return this.http.post<ApiResponse>(path, data, { withCredentials: true, observe: 'body', responseType: 'json' })
-      .pipe(
-        map(res => res.data)
-      );
-  }
-
-  removeIdeaFromFolder(params: any) {
-    const path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId/folders/:folderId/ideas/:ideaId'), params);
-
-    return this.http.delete<ApiResponse>(path, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
-      map(res => res.data)
-    );
-  }
-
   save(data: any) {
     let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations'), data)
 

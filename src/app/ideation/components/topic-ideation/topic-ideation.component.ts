@@ -18,6 +18,7 @@ import { AddIdeasToFolderComponent } from '../add-ideas-to-folder/add-ideas-to-f
 import { User } from 'src/app/interfaces/user';
 import { EditIdeaFolderComponent } from '../edit-idea-folder/edit-idea-folder.component';
 import { TranslateService } from '@ngx-translate/core';
+import { TopicIdeationFoldersService } from 'src/app/services/topic-ideation-folders.service';
 
 
 @Component({
@@ -79,6 +80,7 @@ export class TopicIdeationComponent {
     public translate: TranslateService,
     public TopicService: TopicService,
     private TopicIdeationService: TopicIdeationService,
+    private TopicIdeationFoldersService: TopicIdeationFoldersService,
     public TopicIdeaService: TopicIdeaService
   ) { }
 
@@ -133,7 +135,7 @@ export class TopicIdeationComponent {
     this.TopicIdeationService.setParam('ideationId', this.ideation.id);
     this.folders$ = this.loadFolders$.pipe(
       switchMap(() => {
-        return this.TopicIdeationService.getFolders({ topicId: this.topic.id, ideationId: this.ideation.id })
+        return this.TopicIdeationFoldersService.query({ topicId: this.topic.id, ideationId: this.ideation.id })
       }),
       map((res) => {
         this.ideation.folders.count = res.count;
@@ -294,7 +296,7 @@ export class TopicIdeationComponent {
     });
   }
   deleteFolder(folder: Folder) {
-    this.TopicIdeationService.deleteFolder({ topicId: this.topic.id, ideationId: this.ideation.id, folderId: folder.id }).pipe(take(1))
+    this.TopicIdeationFoldersService.delete({ topicId: this.topic.id, ideationId: this.ideation.id, folderId: folder.id }).pipe(take(1))
       .subscribe({
         next: () => {
           this.loadFolders$.next();

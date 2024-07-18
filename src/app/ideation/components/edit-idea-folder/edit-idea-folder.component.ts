@@ -1,4 +1,4 @@
-import { TopicIdeationService } from 'src/app/services/topic-ideation.service';
+import { TopicIdeationFoldersService } from 'src/app/services/topic-ideation-folders.service';
 import { TopicIdeaService } from 'src/app/services/topic-idea.service';
 import { Component, Inject } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
@@ -24,7 +24,7 @@ export class EditIdeaFolderComponent {
   topicId;
   ideationId;
   folder;
-  constructor(public TopicIdeaService: TopicIdeaService, public TopicIdeationService: TopicIdeationService, @Inject(DIALOG_DATA) data: any, private dialogRef: DialogRef<EditIdeaFolderComponent>) {
+  constructor(public TopicIdeaService: TopicIdeaService, public TopicIdeationFoldersService: TopicIdeationFoldersService, @Inject(DIALOG_DATA) data: any, private dialogRef: DialogRef<EditIdeaFolderComponent>) {
     this.topicId = data.topicId;
     this.ideationId = data.ideationId;
     this.folder = data.folder;
@@ -53,12 +53,12 @@ export class EditIdeaFolderComponent {
       return !exists;
     });
     console.log('IDEAS to remvoe', ideasToRemove);
-    this.TopicIdeationService.updateFolder({ topicId: this.topicId, ideationId: this.ideationId, folderId: this.folder.id }, this.form.value).pipe(take(1)).subscribe({
+    this.TopicIdeationFoldersService.update({ topicId: this.topicId, ideationId: this.ideationId, folderId: this.folder.id }, this.form.value).pipe(take(1)).subscribe({
       next: (folder) => {
         console.log('RES', folder);
         if (ideasToRemove.length) {
           ideasToRemove.forEach((idea) => {
-            this.TopicIdeationService.removeIdeaFromFolder({ topicId: this.topicId, ideationId: this.ideationId, folderId: this.folder.id, ideaId: idea.id })
+            this.TopicIdeationFoldersService.removeIdea({ topicId: this.topicId, ideationId: this.ideationId, folderId: this.folder.id, ideaId: idea.id })
             .pipe(take(1))
             .subscribe({
               next:(res) => {
@@ -71,7 +71,7 @@ export class EditIdeaFolderComponent {
           })
         }
         if (this.folderIdeas.length) {
-          this.TopicIdeationService.addIdeaToFolder({ topicId: this.topicId, ideationId: this.ideationId, folderId: this.folder.id }, this.folderIdeas)
+          this.TopicIdeationFoldersService.addIdea({ topicId: this.topicId, ideationId: this.ideationId, folderId: this.folder.id }, this.folderIdeas)
             .pipe(take(1))
             .subscribe({
               next: (res) => {

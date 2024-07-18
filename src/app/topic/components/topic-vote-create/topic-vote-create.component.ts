@@ -1,3 +1,4 @@
+import { TopicIdeationFoldersService } from './../../../services/topic-ideation-folders.service';
 import { Component, OnInit, Output, EventEmitter, Input, Inject, inject, ChangeDetectorRef } from '@angular/core';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicService } from 'src/app/services/topic.service';
@@ -505,6 +506,7 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
   ideasCount = 0;
 
   private TopicIdeationService = inject(TopicIdeationService);
+  private TopicIdeationFoldersService = inject(TopicIdeationFoldersService);
   private TopicIdeaService = inject(TopicIdeaService);
   private dialog = inject(DialogService);
   private data = inject(DIALOG_DATA);
@@ -553,30 +555,34 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
           }
         ));
 
-      this.folders$ = this.TopicIdeationService.params$.pipe(switchMap((params) => {
-        let offset = 0;
-        let limit = 8;
-        return this.TopicIdeationService.getFolders({
-          topicId: this.topicId,
-          ideationId: this.topic.ideationId,
-          orderBy: 'likes',
-          order: 'desc',
-          offset,
-          limit
-        }).pipe(map((res: any) => {
-          offset = offset + limit;
-          this.folderCount = res.count;
-          res.rows.forEach((folder: Folder) => {
+      this.ideasList = [];
+      this.TopicIdeationFoldersService.reset();
+      this.TopicIdeationFoldersService.setParam('topicId', this.topicId);
+      this.TopicIdeationFoldersService.setParam('ideationId', this.topic.ideationId);
+      this.TopicIdeationFoldersService.setParam('orderBy', 'likes');
+      this.TopicIdeationFoldersService.setParam('order', 'desc');
+      this.folders$ = this.TopicIdeationFoldersService.loadItems().pipe(
+        tap((res: any) => {
+          if (res.length) {
+            this.TopicIdeationFoldersService.hasMore$.next(true);
+          } else {
+            this.TopicIdeationFoldersService.hasMore$.next(false);
+          }
+        }),
+        map((newFolders: any) => {
+          newFolders.forEach((folder: Folder) => {
             this.folderIdeasList(folder);
           })
-          this.folderList = this.folderList.concat(res.rows);
-          if (this.folderList.length < this.folderCount) {
-            offset = offset + limit;
-            this.TopicIdeationService.setParam('offset', offset);
+
+          this.folderList = this.folderList.concat(newFolders);
+          if (this.TopicIdeationFoldersService.hasMore$.value === true) {
+            this.TopicIdeationFoldersService.loadMore();
           }
+          this.folderCount =this.folderList.length;
           return this.folderList;
-        }));
-      }))
+        })
+      );
+
     }
 
     this.vote.options.forEach((opt: any) => {
