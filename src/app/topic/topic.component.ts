@@ -546,7 +546,14 @@ export class TopicComponent implements OnInit {
           .duplicate(topic)
           .pipe(take(1))
           .subscribe((duplicate) => {
-            this.router.navigate(['/topics', 'edit', duplicate.id], { replaceUrl: true, onSameUrlNavigation: 'reload' });
+            const path = ['/', 'topics']
+            if (topic.status === 'voting') {
+              path.push('vote')
+            } else if (topic.status === 'ideation') {
+              path.push('ideation');
+            }
+            path.push('edit', duplicate.id);
+            this.router.navigate(path, { replaceUrl: true, onSameUrlNavigation: 'reload' });
           });
       }
     })
