@@ -736,7 +736,7 @@
     },
     "TOPIC_IDEATION": {
       "TAB_IDEAS": "Ideas: {{count}}",
-      "LBL_DEADLINE": "Ideation phase deadline",
+      "LBL_DEADLINE": "Idea gathering phase deadline",
       "TAB_FOLDERS": "Folders: {{count}}",
       "BTN_ADD_IDEAS_TO_FOLDER": "Add ideas to folder",
       "BTN_ADD_YOUR_IDEA": "Add your idea",
@@ -2169,7 +2169,7 @@
       "HEADING": "Create a topic starting with idea gathering",
       "CREATE_TAB_1": "@:VIEWS.VOTE_CREATE.CREATE_TAB_1",
       "CREATE_TAB_2": "@:VIEWS.VOTE_CREATE.CREATE_TAB_2",
-      "CREATE_TAB_3": "idea gathering",
+      "CREATE_TAB_3": "Idea gathering",
       "CREATE_TAB_4": "@:VIEWS.VOTE_CREATE.CREATE_TAB_4",
       "TITLE_HEADER_IMAGE": "@:VIEWS.TOPIC_CREATE.TITLE_HEADER_IMAGE",
       "TITLE_HEADING": "@:VIEWS.TOPIC_CREATE.TITLE_HEADING",
