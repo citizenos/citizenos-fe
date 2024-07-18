@@ -127,6 +127,7 @@ export class TopicComponent implements OnInit {
   showVoteTablet = (window.innerWidth <= 1024);
   showFollowUpTablet = (window.innerWidth <= 1024);
   tabSelected$: Observable<string>;
+  selectedTab = 'discussion';
   showTutorial = false;
   topicTitle: string = '';
   //new end
@@ -146,7 +147,6 @@ export class TopicComponent implements OnInit {
   topicAttachments$ = of(<Attachment[] | any[]>[]);
   STATUSES = this.TopicService.STATUSES;
   hideTopicContent = false;
-  hideDiscussion = false;
   topicStatus = this.TopicService.STATUSES.inProgress;
   constructor(
     @Inject(TranslateService) public translate: TranslateService,
@@ -176,9 +176,9 @@ export class TopicComponent implements OnInit {
     this.tabSelected$ = combineLatest([this.route.fragment, this.route.queryParams]).pipe(
       map(([value, params]) => {
         if (params['folderId']) return 'ideation';
-        if (this.hideDiscussion === true && value === 'discussion') {
+      /*  if (this.hideDiscussion === true && value === 'discussion') {
           value = 'voting';
-        }
+        }*/
         this.app.setPageTitle(this.topicTitle || 'META_DEFAULT_TITLE');
         setTimeout(() => {
           if (value === 'voting') {
@@ -192,7 +192,8 @@ export class TopicComponent implements OnInit {
         if (this.topicStatus === this.STATUSES.inProgress && !value) return 'discussion';
         if (this.topicStatus === this.STATUSES.voting && !value) return 'voting';
         if (this.topicStatus === this.STATUSES.followUp && !value) return 'followUp';
-        this.selectTab(value || '');
+        if (this.selectedTab !== value)
+          this.selectTab(value || '');
         return value || 'discussion';
       })
     );
@@ -204,7 +205,6 @@ export class TopicComponent implements OnInit {
     );
     this.topic$ = combineLatest([this.route.params, this.route.queryParams]).pipe(
       switchMap(([params, queryParams]) => {
-        console.log(queryParams);
         return this.TopicService.loadTopic(params['topicId']);
       }),
       tap((topic: Topic) => {
@@ -259,6 +259,24 @@ export class TopicComponent implements OnInit {
         } else {
           this.showTutorial = false;
         }
+        this.TopicArgumentService.setParam('topicId', topic.id);
+        this.TopicArgumentService.setParam('discussionId', topic.discussionId);
+        this.TopicArgumentService.loadItems().pipe(
+          tap((args) => {
+            if (!args.length && [this.TopicService.STATUSES.inProgress, this.TopicService.STATUSES.ideation].indexOf(topic.status) === -1) {
+              if (!this.route.snapshot.fragment || this.route.snapshot.fragment === 'discussion') {
+                this.router.navigate([], { fragment: 'voting', queryParams: this.route.snapshot.queryParams });
+              }
+            }
+            if (topic.status === this.TopicService.STATUSES.draft) {
+              this.router.navigate(['topics', 'edit', topic.id]);
+            }
+
+            if (Object.keys(this.route.snapshot.queryParams).indexOf('notificationSettings') > -1) {
+              this.app.doShowTopicNotificationSettings(topic.id);
+            }
+          })
+        );
         return topic;
       }),
       catchError((err) => {
@@ -290,31 +308,13 @@ export class TopicComponent implements OnInit {
         return this.TopicAttachmentService.loadItems();
       })
     );
-
+/*
     this.topic$.pipe(
       switchMap((topic: Topic) => {
-        this.TopicArgumentService.setParam('topicId', topic.id);
-        this.TopicArgumentService.setParam('discussionId', topic.discussionId);
-        return this.TopicArgumentService.loadItems().pipe(
-          tap((args) => {
-            if (!args.length && [this.TopicService.STATUSES.inProgress, this.TopicService.STATUSES.ideation].indexOf(topic.status) === -1) {
-              this.hideDiscussion = true;
-              if (!this.route.snapshot.fragment || this.route.snapshot.fragment === 'discussion') {
-                this.router.navigate([], { fragment: 'voting', queryParams: this.route.snapshot.queryParams });
-              }
-            }
-            if (topic.status === this.TopicService.STATUSES.draft) {
-              this.router.navigate(['topics', 'edit', topic.id]);
-            }
 
-            if (Object.keys(this.route.snapshot.queryParams).indexOf('notificationSettings') > -1) {
-              this.app.doShowTopicNotificationSettings(topic.id);
-            }
-          })
-        );
       }),
       take(1)
-    ).subscribe();
+    ).subscribe();*/
   }
 
   ngOnDestroy(): void {
@@ -603,6 +603,8 @@ export class TopicComponent implements OnInit {
     }
     if (tab === 'vote') tab = 'voting';
     if (tab === 'arguments') tab = 'discussion';
-    this.router.navigate([], { fragment: tab })
+
+    this.selectedTab = tab;
+    this.router.navigate([], { fragment: tab, queryParams: this.route.snapshot.queryParams})
   }
 }
