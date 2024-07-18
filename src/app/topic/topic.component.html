@@ -733,7 +733,7 @@
                     </button>
                   </ng-container>
                   <ng-container
-                    *ngIf="(auth.loggedIn$ | async) && topic.ideationId && (TopicService.canDelete(topic) || TopicService.canEdit(topic) && topic.status === TopicService.STATUSES.draft)">
+                    *ngIf="(auth.loggedIn$ | async) && topic.ideationId && TopicService.canEdit(topic) && ([TopicService.STATUSES.draft, TopicService.STATUSES.ideation].indexOf(topic.status) > -1)">
                     <div class="line_separator"></div>
                     <button class="option" [routerLink]="['/','topics', 'ideation', 'edit', topic.id]">
                       <div class="icon_wrap">
@@ -747,7 +747,7 @@
                     </button>
                   </ng-container>
                   <ng-container
-                    *ngIf="(auth.loggedIn$ | async) && topic.voteId && (TopicService.canDelete(topic) || TopicService.canEdit(topic) && topic.status === TopicService.STATUSES.draft)">
+                    *ngIf="(auth.loggedIn$ | async) && topic.voteId && TopicService.canEdit(topic) && ([TopicService.STATUSES.draft, TopicService.STATUSES.voting].indexOf(topic.status) > -1)">
                     <div class="line_separator"></div>
                     <button class="option" [routerLink]="['/','topics', 'vote', 'edit', topic.id]">
                       <div class="icon_wrap">
