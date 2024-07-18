@@ -58,8 +58,11 @@ export abstract class ItemsListService {
         return this.getItems(paramsValue);
       }),
       map((res: any) => {
+        console.log('countTotal', res.countTotal || res.count || 0);
         this.countTotal$.next(res.countTotal || res.count || 0);
         this.totalPages$.next(Math.ceil(this.countTotal$.value / this.params$.value.limit));
+        console.log('totalPages', Math.ceil(this.countTotal$.value / this.params$.value.limit));
+        console.log('PAGE', this.page$.value);
         this.hasMore$.next(true);
         if (this.totalPages$.value === 0 || this.totalPages$.value === this.page$.value) {
           this.hasMore$.next(false);

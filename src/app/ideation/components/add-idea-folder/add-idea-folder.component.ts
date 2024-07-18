@@ -3,7 +3,7 @@ import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms
 import { map, take } from 'rxjs';
 import { Folder } from 'src/app/interfaces/folder';
 import { TopicIdeaService } from 'src/app/services/topic-idea.service';
-import { TopicIdeationService } from 'src/app/services/topic-ideation.service';
+import { TopicIdeationFoldersService } from 'src/app/services/topic-ideation-folders.service';
 import { DIALOG_DATA, DialogRef } from 'src/app/shared/dialog';
 
 @Component({
@@ -27,7 +27,7 @@ export class AddIdeaFolderComponent {
   });
   showFolderInput = false;
 
-  constructor(public TopicIdeaService: TopicIdeaService, public TopicIdeationService: TopicIdeationService, @Inject(DIALOG_DATA) data: any, private dialogRef: DialogRef<AddIdeaFolderComponent>) {
+  constructor(public TopicIdeaService: TopicIdeaService, public TopicIdeationFoldersService: TopicIdeationFoldersService, @Inject(DIALOG_DATA) data: any, private dialogRef: DialogRef<AddIdeaFolderComponent>) {
     this.topicId = data.topicId;
     this.ideationId = data.ideationId;
     this.idea = data.idea;
@@ -42,7 +42,7 @@ export class AddIdeaFolderComponent {
       return data.rows;
     })).subscribe();
 
-    this.folders$ = this.TopicIdeationService.getFolders({
+    this.folders$ = this.TopicIdeationFoldersService.query({
       topicId: data.topicId,
       ideationId: data.ideationId
     }).pipe(map((data: any) => {
@@ -53,9 +53,9 @@ export class AddIdeaFolderComponent {
 
   createFolder() {
     if (this.showFolderInput && !this.form.invalid) {
-      this.TopicIdeationService.createFolder({ topicId: this.topicId, ideationId: this.ideationId }, this.form.value).pipe(take(1)).subscribe({
+      this.TopicIdeationFoldersService.save({ topicId: this.topicId, ideationId: this.ideationId }, this.form.value).pipe(take(1)).subscribe({
         next: (folder) => {
-          this.TopicIdeationService.addIdeaToFolder({ topicId: this.topicId, ideationId: this.ideationId, folderId: folder.id }, this.idea)
+          this.TopicIdeationFoldersService.addIdea({ topicId: this.topicId, ideationId: this.ideationId, folderId: folder.id }, this.idea)
             .pipe(take(1))
             .subscribe({
               next: (res) => {
@@ -78,7 +78,7 @@ export class AddIdeaFolderComponent {
 
     if (foldersToRemove.length) {
       foldersToRemove.forEach((folder) => {
-        this.TopicIdeationService.removeIdeaFromFolder({ topicId: this.topicId, ideationId: this.ideationId, ideaId: this.idea.id, folderId: folder.id })
+        this.TopicIdeationFoldersService.removeIdea({ topicId: this.topicId, ideationId: this.ideationId, ideaId: this.idea.id, folderId: folder.id })
           .pipe(take(1))
           .subscribe({
             next: (res) => {

@@ -1,10 +1,10 @@
-import { TopicIdeationService } from 'src/app/services/topic-ideation.service';
 import { TopicIdeaService } from 'src/app/services/topic-idea.service';
 import { Component, Inject } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable, map, take } from 'rxjs';
 import { Idea } from 'src/app/interfaces/idea';
 import { DIALOG_DATA, DialogRef } from 'src/app/shared/dialog';
+import { TopicIdeationFoldersService } from 'src/app/services/topic-ideation-folders.service';
 
 @Component({
   selector: 'app-create-idea-folder',
@@ -22,7 +22,7 @@ export class CreateIdeaFolderComponent {
   ideasCount = 0;
   topicId;
   ideationId;
-  constructor(public TopicIdeaService: TopicIdeaService, public TopicIdeationService: TopicIdeationService, @Inject(DIALOG_DATA) data: any, private dialogRef: DialogRef<CreateIdeaFolderComponent>) {
+  constructor(public TopicIdeaService: TopicIdeaService, public TopicIdeationFoldersService: TopicIdeationFoldersService, @Inject(DIALOG_DATA) data: any, private dialogRef: DialogRef<CreateIdeaFolderComponent>) {
     this.topicId = data.topicId;
     this.ideationId = data.ideationId;
     this.ideas$ = this.TopicIdeaService.query({
@@ -34,11 +34,11 @@ export class CreateIdeaFolderComponent {
     }));
   }
   createFolder() {
-    this.TopicIdeationService.createFolder({ topicId: this.topicId, ideationId: this.ideationId }, this.form.value).pipe(take(1)).subscribe({
+    this.TopicIdeationFoldersService.save({ topicId: this.topicId, ideationId: this.ideationId }, this.form.value).pipe(take(1)).subscribe({
       next: (folder) => {
         console.log('RES', folder);
         if (this.folderIdeas.length) {
-          this.TopicIdeationService.addIdeaToFolder({ topicId: this.topicId, ideationId: this.ideationId, folderId: folder.id }, this.folderIdeas)
+          this.TopicIdeationFoldersService.addIdea({ topicId: this.topicId, ideationId: this.ideationId, folderId: folder.id }, this.folderIdeas)
             .pipe(take(1))
             .subscribe({
               next: (res) => {
