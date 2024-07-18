@@ -247,7 +247,7 @@
     },
     "CREATE": {
       "HEADING": "Create a topic starting with",
-      "TITLE_DISCUSSION": "Pro-con discussion",
+      "TITLE_DISCUSSION": "Обсуждение в формате «за и против»",
       "DESC_DISCUSSION": "Start with this phase if you want to discuss pros and cons before potentially moving on to a voting and/or action phase. No idea gathering available.",
       "TITLE_IDEATION": "Idea gathering",
       "DESC_IDEATION": "Start with this phase if you want to gather ideas before potentially moving on to pro-con discussion and/or voting and action.",
