@@ -14,7 +14,7 @@ import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog
   styleUrls: ['./group-invite-user.component.scss']
 })
 export class GroupInviteUserComponent {
-  @Input() invite?: any;
+  @Input() user?: any;
   @Input() group: Group | any;
   @Input() fields?: any;
 
@@ -35,16 +35,16 @@ export class GroupInviteUserComponent {
   }
 
   doUpdateInviteUser(level: string) {
-    if (this.invite.invite && this.invite?.invite.level !== level) {
-      const oldLevel = this.invite.invite.level;
-      this.invite.invite.level = level;
+    if (this.user.invite && this.user?.invite.level !== level) {
+      const oldLevel = this.user.invite.level;
+      this.user.invite.level = level;
       if (this.group) {
-        const inviteData = Object.assign({groupId: this.group.id, inviteId: this.invite.invite.id}, this.invite.invite)
+        const inviteData = Object.assign({groupId: this.group.id, inviteId: this.user.invite.id}, this.user.invite)
         this.GroupInviteUserService
           .update(inviteData)
           .pipe(take(1),
             catchError((error) => {
-              this.invite.level = oldLevel
+              this.user.level = oldLevel
               return error;
             }))
           .subscribe((res) => {
@@ -65,8 +65,8 @@ export class GroupInviteUserComponent {
     });
     deleteUserDialog.afterClosed().subscribe(result => {
       if (result === true) {
-        this.invite.groupId = this.group.id;
-        this.GroupInviteUserService.delete({ groupId: this.group.id, inviteId: this.invite.id })
+        this.user.groupId = this.group.id;
+        this.GroupInviteUserService.delete({ groupId: this.group.id, inviteId: this.user.invite.id })
           .pipe(take(1))
           .subscribe(() => {
             this.GroupService.reloadGroup();
