@@ -145,7 +145,11 @@ export class TopicArgumentService extends ItemsListService {
   };
 
   getReport(data: any) {
-    const path = this.Location.getAbsoluteUrlApi('/api/topics/:topicId/discussions/:discussionId/comments/:commentId/reports/:reportId', data);
+    let path = this.Location.getAbsoluteUrlApi('/api/topics/:topicId/discussions/:discussionId/comments/:commentId/reports/:reportId', data);
+    if (path.indexOf('/discussions/:discussionId')) {
+      path = path.replace('/discussions/:discussionId', '');
+    }
+
     const headers = {
       'Authorization': 'Bearer ' + data.token
     };
