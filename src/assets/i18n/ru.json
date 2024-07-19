@@ -132,7 +132,7 @@
     },
     "ADD_IDEA_FOLDER": {
       "HEADING": "Добавить в папку",
-      "LBL_IDEA_TO_ADD": "Idea to add to folder",
+      "LBL_IDEA_TO_ADD": "Идея для добавления в папку",
       "LBL_FOLDER_SELECTION": "Выберите папки, в которые вы хотите добавить идею",
       "LBL_FOLDERS": "Папок: ({{count}})",
       "LBL_ADD_TO_A_NEW_FOLDER": "Добавить в новую папку",
@@ -248,10 +248,10 @@
     "CREATE": {
       "HEADING": "Create a topic starting with",
       "TITLE_DISCUSSION": "Обсуждение в формате «за и против»",
-      "DESC_DISCUSSION": "Start with this phase if you want to discuss pros and cons before potentially moving on to a voting and/or action phase. No idea gathering available.",
-      "TITLE_IDEATION": "Idea gathering",
-      "DESC_IDEATION": "Start with this phase if you want to gather ideas before potentially moving on to pro-con discussion and/or voting and action.",
-      "TITLE_VOTE": "Voting",
+      "DESC_DISCUSSION": "Начните с этой фазы, если вы хотите обсудить аргументы “за” и “против” перед тем, как потенциально перейти к этапу голосования и/или применения решения. Фаза сбора идей будет недоступна.",
+      "TITLE_IDEATION": "Сбор идей",
+      "DESC_IDEATION": "Начните с этого этапа, если желаете собрать идеи, прежде чем потенциально перейти к обсуждению в формате «за и против» и/или голосованию и этапу применения решения.",
+      "TITLE_VOTE": "Голосование",
       "DESC_VOTE": "Choose this phase if you want to collect people's votes before potentially moving on to an action phase. No idea gathering or pro-con discussion available.",
       "TITLE_GROUP": "Группа",
       "DESC_GROUP": "Создайте приватную или публичную группу, чтобы пригласить людей с общими интересами получить доступ к актуальным темам."
@@ -281,7 +281,7 @@
       "WILL_NOT_BE_DUPLICATED_4": "обсуждения (аргументы, ответы)",
       "WILL_NOT_BE_DUPLICATED_5": "связанная информация (статус темы, статус добавленности в избранное)",
       "WILL_NOT_BE_DUPLICATED_6": "голосов",
-      "WILL_NOT_BE_DUPLICATED_7": "action posts",
+      "WILL_NOT_BE_DUPLICATED_7": "посты о применении решения",
       "WILL_NOT_BE_DUPLICATED_8": "idea gathering (ideas, replies, folders)",
       "BTN_SUBMIT": "Дублировать тему",
       "BTN_CANCEL": "@:LNK_CANCEL"
