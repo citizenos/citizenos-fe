@@ -424,7 +424,7 @@
             </div>
           </div>
           <div class="topic_image">
-            <img *ngIf="topic.imageUrl" [src]="topic.imageUrl">
+            <img *ngIf="topic.imageUrl" [src]="topic.imageUrl+'?'+topic.updatedAt">
             <div *ngIf="(!topic.permission.level || topic.permission.level !== 'none')"
               class="permissions_lable tablet_show"
               [translate]="(topic.permission.level !== 'read')? ('TXT_TOPIC_LEVELS_' + topic.permission.level | uppercase) : 'VIEWS.TOPICS_TOPICID.LBL_JOINED'">
