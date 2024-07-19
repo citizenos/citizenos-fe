@@ -97,10 +97,21 @@
         <div class="vote_info_text_wrap">
           <div class="vote_text_left">
             <!-- VOTE STILL ON-->
-
+            <ng-container *ngIf="!hasVoteEndedExpired() &&(!userHasVoted || editVote)">
+              <div class="text_area">
+                <div class="heading bold" translate="COMPONENTS.TOPIC_VOTE_CAST.CAST_YOUR_VOTE"></div>
+                <ng-container *ngIf="vote.type === 'regular' || vote.type === 'multiple' && vote.maxChoices === 1">
+                  <span translate="COMPONENTS.TOPIC_VOTE_CAST.PREVIEW_VOTE_TYPE_REGULAR"></span>
+                </ng-container>
+                <ng-container *ngIf="vote.type === 'multiple' && vote.maxChoices > 1">
+                  <span translate="COMPONENTS.TOPIC_VOTE_CAST.TXT_YOU_CAN_CHOOSE_OPTIONS"
+                    [translateParams]="{maxChoices: vote.maxChoices}"></span>
+                </ng-container>
+              </div>
+            </ng-container>
             <ng-container *ngIf="(userHasVoted && !editVote) && !hasVoteEndedExpired()">
               <div class="text_area">
-                <div class="bold" translate="COMPONENTS.TOPIC_VOTE_CAST.HEADING_VOTE_REGISTERED"></div>
+                <div class="heading bold" translate="COMPONENTS.TOPIC_VOTE_CAST.HEADING_VOTE_REGISTERED"></div>
                 <div translate="COMPONENTS.TOPIC_VOTE_CAST.VOTE_TXT_VOTE_REGISTERED"></div>
                 <div class="links_wrap">
                   <a (click)="editVote=true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
@@ -132,7 +143,7 @@
             <!-- VOTE ENDED-->
             <ng-container *ngIf="hasVoteEndedExpired() &&(!userHasVoted || !editVote)">
               <div class="text_area">
-                <div class="bold" translate="COMPONENTS.TOPIC_VOTE_CAST.HEADING_VOTE_ENDED"></div>
+                <div class="heading bold" translate="COMPONENTS.TOPIC_VOTE_CAST.HEADING_VOTE_ENDED"></div>
                 <div class="with_tooltip" *ngIf="canUpdate()"
                   translate="COMPONENTS.TOPIC_VOTE_CAST.VOTE_TXT_VOTE_ENDED">
                   <!--div class="tooltip" tooltip>
@@ -310,7 +321,8 @@
                 </div>
               </div>
               <div class="view_idea_wrap" *ngIf="option.ideaId">
-                <a (click)="$event.stopPropagation(); viewIdea(option.ideaId);" translate="COMPONENTS.TOPIC_VOTE_CAST.LNK_VIEW_IDEA"></a>
+                <a (click)="$event.stopPropagation(); viewIdea(option.ideaId);"
+                  translate="COMPONENTS.TOPIC_VOTE_CAST.LNK_VIEW_IDEA"></a>
               </div>
             </div>
           </div>
