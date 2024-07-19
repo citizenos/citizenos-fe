@@ -134,7 +134,7 @@
       "HEADING": "Pridať do priečinka",
       "LBL_IDEA_TO_ADD": "Nápad na pridanie do priečinka",
       "LBL_FOLDER_SELECTION": "Vyber priečinky, do ktorých chceš nápad pridať",
-      "LBL_FOLDERS": "Folders ({{count}})",
+      "LBL_FOLDERS": "Priečinky ({{count}})",
       "LBL_ADD_TO_A_NEW_FOLDER": "Add to a new folder",
       "PLACEHOLDER_FOLDER_NAME": "@:COMPONENTS.CREATE_IDEA_FOLDER.PLACEHOLDER_NAME",
       "ERROR_FOLDER_NAME": "@:COMPONENTS.CREATE_IDEA_FOLDER.ADD_NAME_ERROR_MSG_INVALID",
