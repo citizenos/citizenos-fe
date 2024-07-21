@@ -1100,7 +1100,7 @@
       "VOTE_QUESTION_PLACEHOLDER": "Напишите свой вопрос для голосования",
       "SELECT_VOTING_SYSTEM": "Выберите систему голосования",
       "SELECT_VOTING_SYSTEM_DESC": "Система голосования определяет, какие варианты будут предложены участниками для выбора.",
-      "OPTION_VOTING_IDEATION": "Choose from ideas",
+      "OPTION_VOTING_IDEATION": "Выбрать из идей",
       "OPTION_VOTING_IDEATION_DESC": "Participants can vote for their preferred idea(s) from the idea gathering. In the next step, you'll choose which ideas to include in the vote.",
       "OPTION_VOTING_REGULAR": "Выберите Да/Нет/Нейтральный",
       "OPTION_VOTING_REGULAR_DESC": "Участники могут выбирать из простых вариантов \"да, нет, нейтральный\"",
