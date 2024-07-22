@@ -3,7 +3,7 @@
   "MSG_REDESIGN_CONTENT": "In den kommenden Monaten werden wir mit der Einführung eines neuen und verbesserten Citizen OS beginnen! Alle Fragen, Anliegen oder um Ihre Hilfe als Beta-Tester anzubieten, kontaktieren Sie Sara unter <a href=\"mailto:info@citizenos.com\">info@citizenos.com</a>",
   "MSG_REDESIGN_BTN_CLOSE": "Alles klar",
   "META_DEFAULT_TITLE": "Citizen OS – eine digitale Entscheidungsplattform für Gemeinschaften.",
-  "META_DEFAULT_DESCRIPTION": "Citizen OS enables participative idea-gathering, discussion and voting for groups, when getting together offline or online at the same time is not an option.",
+  "META_DEFAULT_DESCRIPTION": "Citizen OS ermöglicht partizipatives Ideen sammeln, Diskussionen und Abstimmungen für Gruppen, wenn ein Treffen offline oder online zur gleichen Zeit nicht möglich ist.",
   "META_DEFAULT_KEYWORDS": "e-Entscheidungsfindung, e-Steuerung, e-Demokratie, Demokratie, direkte Demokratie, delegative Demokratie",
   "BTN_YES": "✔",
   "BTN_NO": "✘",
@@ -21,10 +21,10 @@
   "BTN_BULK_ACTIONS": "Massenbearbeitung",
   "TXT_TOPIC_STATUS_ALL": "alle",
   "TXT_TOPIC_STATUS_DRAFT": "Entwurf",
-  "TXT_TOPIC_STATUS_IDEATION": "in idea gathering",
-  "TXT_TOPIC_STATUS_INPROGRESS": "in discussion",
+  "TXT_TOPIC_STATUS_IDEATION": "in Ideenfindung",
+  "TXT_TOPIC_STATUS_INPROGRESS": "in Diskussion",
   "TXT_TOPIC_STATUS_VOTING": "in Abstimmung",
-  "TXT_TOPIC_STATUS_FOLLOWUP": "in action",
+  "TXT_TOPIC_STATUS_FOLLOWUP": "in Aktion",
   "TXT_TOPIC_STATUS_CLOSED": "geschlossen",
   "TXT_TOPIC_STATUS_MODERATED": "vom Administrator ausgeblendet",
   "TXT_TOPIC_LEVELS_ADMIN": "Admin",
@@ -115,38 +115,38 @@
       "FILTER_SELF": "Meine Aktivität"
     },
     "ADD_IDEA": {
-      "FOOTER_MENU_TITLE": "Join the idea gathering",
-      "FOOTER_MENU_BTN_ADD_IDEA": "Add your idea",
-      "FOOTER_FORM_TITLE": "Add your idea",
+      "FOOTER_MENU_TITLE": "Ideenfindung beitreten",
+      "FOOTER_MENU_BTN_ADD_IDEA": "Ihre Idee hinzufügen",
+      "FOOTER_FORM_TITLE": "Ihre Idee hinzufügen",
       "PLACEHOLDER_ADD_STATEMENT_TO_IDEA": "Your idea heading",
-      "SUBJECT_CHARACTERS_LEFT": "Characters left: {{chars}}/{{charsLeft}}",
-      "IDEA_TYPE_CHARACTER_LIMIT": "Character limit: {{numberOfCharacters}}",
+      "SUBJECT_CHARACTERS_LEFT": "Zeichen übrig: {{chars}}/{{charsLeft}}",
+      "IDEA_TYPE_CHARACTER_LIMIT": "Zeichenlimit: {{numberOfCharacters}}",
       "IDEA_TYPE_CHARACTERS_LEFT": "@:COMPONENTS.ADD_IDEA.SUBJECT_CHARACTERS_LEFT",
       "CHARACTER_LIMIT": "@:COMPONENTS.GROUP_INVITE.CHARACTER_LIMIT",
       "PLACEHOLDER_EXPLAIN_YOUR_IDEA": "Explain your idea",
-      "BTN_ADD_IMAGE": "Add image",
-      "BTN_IDEA_POST": "Add your idea",
-      "MSG_SUCCESS": "Idea successfully posted",
+      "BTN_ADD_IMAGE": "Bild hinzufügen",
+      "BTN_IDEA_POST": "Ihre Idee hinzufügen",
+      "MSG_SUCCESS": "Idee erfolgreich veröffentlicht",
       "MSG_ERROR_SUBJECT": "Idea heading must be 1 to {{chars}} characters long.",
       "MSG_ERROR_DESCRIPTION": "Idea description must be 1 to {{chars}} characters long."
     },
     "ADD_IDEA_FOLDER": {
-      "HEADING": "Add to folder",
+      "HEADING": "Zum Ordner hinzufügen",
       "LBL_IDEA_TO_ADD": "Idea to add to folder",
       "LBL_FOLDER_SELECTION": "Select the folders you want to add the idea to",
       "LBL_FOLDERS": "Folders ({{count}})",
-      "LBL_ADD_TO_A_NEW_FOLDER": "Add to a new folder",
+      "LBL_ADD_TO_A_NEW_FOLDER": "Zu einem neuen Ordner hinzufügen",
       "PLACEHOLDER_FOLDER_NAME": "@:COMPONENTS.CREATE_IDEA_FOLDER.PLACEHOLDER_NAME",
       "ERROR_FOLDER_NAME": "@:COMPONENTS.CREATE_IDEA_FOLDER.ADD_NAME_ERROR_MSG_INVALID",
-      "BTN_ADD": "Add idea to folder",
+      "BTN_ADD": "Idee zum Ordner hinzufügen",
       "LNK_CANCEL": "@:LNK_CANCEL"
     },
     "ADD_IDEAS_TO_FOLDER": {
-      "HEADING": "Add ideas to folder",
+      "HEADING": "Ideen zum Ordner hinzufügen",
       "LBL_FOLDER_INFO": "Folder to add ideas to",
       "PLACEHOLDER_NAME": "@:VIEWS.MY_TOPICS_TOPICID.LNK_NAME",
       "LBL_IDEAS_SELECTION": "Select the ideas you want to add to this folder",
-      "BTN_CREATE": "Add ideas",
+      "BTN_CREATE": "Ideen hinzufügen",
       "LNK_CANCEL": "@:LNK_CANCEL",
       "LBL_IDEAS": "Ideas ({{count}})",
       "LBL_LIKES": "Likes"
@@ -234,7 +234,7 @@
       "CONFIRM_NO": "No, keep the discussion open"
     },
     "CLOSE_IDEATION_CONFIRM": {
-      "HEADING": "End idea gathering",
+      "HEADING": "Ideenfindung beenden",
       "ARE_YOU_SURE": "Are you sure you want to end the idea gathering? It will no longer be possible for ideas to be added. You cannot undo this action.",
       "CONFIRM_YES": "Yes, end the idea gathering",
       "CONFIRM_NO": "No, keep the idea gathering open"
@@ -257,15 +257,15 @@
       "DESC_GROUP": "Erstellen Sie eine geschlossene oder öffentliche Gruppe, um Personen mit gemeinsamen Interessen einzuladen, auf relevante Themen zuzugreifen."
     },
     "CREATE_IDEA_FOLDER": {
-      "HEADING": "Create folder",
+      "HEADING": "Ordner erstellen",
       "LBL_NAME": "Please name your new folder",
       "ADD_NAME_ERROR_MSG_INVALID": "Name cannot be empty",
       "PLACEHOLDER_NAME": "@:VIEWS.MY_TOPICS_TOPICID.LNK_NAME",
       "LBL_IDEAS_SELECTION": "Select the ideas you immediately want to add to this folder",
-      "BTN_CREATE": "Create folder",
+      "BTN_CREATE": "Ordner erstellen",
       "LNK_CANCEL": "@:LNK_CANCEL",
-      "LBL_IDEAS": "Ideas ({{count}})",
-      "LBL_LIKES": "Likes"
+      "LBL_IDEAS": "({{count}}) Ideen",
+      "LBL_LIKES": "„Gefällt mir“-Angaben"
     },
     "DUPLICATE_TOPIC": {
       "HEADING": "Thema duplizieren",
@@ -329,12 +329,12 @@
       "DEADLINE_TIME_OPTION_24": "24h clock",
       "DEADLINE_TIME_OPTION_AM": "AM",
       "DEADLINE_TIME_OPTION_PM": "PM",
-      "DEADLINE_LBL_TIMEZONE": "Timezone",
+      "DEADLINE_LBL_TIMEZONE": "Zeitzone",
       "LNK_CANCEL": "@:LNK_CANCEL",
       "BTN_SAVE": "@:DIRECTIVES.COS_MODAL.BTN_SAVE"
     },
     "EDIT_IDEA": {
-      "FOOTER_FORM_TITLE": "Edit idea",
+      "FOOTER_FORM_TITLE": "Idee bearbeiten",
       "PLACEHOLDER_ADD_STATEMENT_TO_IDEA": "@:COMPONENTS.ADD_IDEA.PLACEHOLDER_ADD_STATEMENT_TO_IDEA",
       "SUBJECT_CHARACTERS_LEFT": "@:COMPONENTS.ADD_IDEA.SUBJECT_CHARACTERS_LEFT",
       "IDEA_TYPE_CHARACTER_LIMIT": "@:COMPONENTS.ADD_IDEA.IDEA_TYPE_CHARACTER_LIMIT",
@@ -342,7 +342,7 @@
       "CHARACTER_LIMIT": "@:COMPONENTS.GROUP_INVITE.CHARACTER_LIMIT",
       "PLACEHOLDER_EXPLAIN_YOUR_IDEA": "@:COMPONENTS.ADD_IDEA.PLACEHOLDER_EXPLAIN_YOUR_IDEA",
       "BTN_ADD_IMAGE": "@:COMPONENTS.ADD_IDEA.BTN_ADD_IMAGE",
-      "BTN_IDEA_POST": "Update idea",
+      "BTN_IDEA_POST": "Idee aktualisieren",
       "MSG_ERROR_SUBJECT": "@:COMPONENTS.ADD_IDEA.MSG_ERROR_SUBJECT",
       "MSG_ERROR_DESCRIPTION": "@:COMPONENTS.ADD_IDEA.MSG_ERROR_DESCRIPTION"
     },
