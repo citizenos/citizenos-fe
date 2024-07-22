@@ -24,7 +24,7 @@
     "@ngx-loading-bar/http-client": "^6.0.2",
     "@ngx-translate/core": "^15.0.0",
     "@ngx-translate/http-loader": "^8.0.0",
-    "angularx-qrcode": "^16.0.0",
+    "angularx-qrcode": "^17.0.1",
     "autolinker": "^4.0.0",
     "config": "3.3.9",
     "easymde": "^2.16.1",
@@ -35,7 +35,7 @@
     "lodash": "4.17.21",
     "marked": "^5.0.3",
     "moment": "^2.29.4",
-    "ngx-cookie-service": "^16.1.0",
+    "ngx-cookie-service": "^17.1.0",
     "ngx-linky": "^4.0.0",
     "ngx-moment": "^6.0.2",
     "ngx-translate-debug": "^0.1.4",
@@ -65,7 +65,7 @@
     "hwcrypto-js": true
   },
   "engines": {
-    "node": "18.15.0",
+    "node": "20.15.1",
     "npm": "9.5.0"
   }
 }
