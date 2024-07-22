@@ -6,7 +6,6 @@ import { Argument } from 'src/app/interfaces/argument';
 import { AppService } from 'src/app/services/app.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { TranslateService } from '@ngx-translate/core';
-import { relative } from 'path';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
