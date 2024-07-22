@@ -2,7 +2,7 @@ import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS, HttpClientXsrfModule } from '@angular/common/http';
+import { HttpClient, HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi, withXsrfConfiguration } from '@angular/common/http';
 import { TranslateModule, TranslateLoader, TranslateCompiler, MissingTranslationHandler, TranslateService, TranslateParser } from '@ngx-translate/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
@@ -44,78 +44,69 @@ export function appInitializerFactory(translate: TranslateService) {
   };
 }
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    HelpComponent,
-    NavComponent,
-    HomeComponent,
-    LanguageSelectComponent,
-    ActivityFeedComponent,
-    ActivityFeedDialogComponent,
-    SearchComponent,
-    PageNotFoundComponent,
-    PageUnauthorizedComponent,
-    NavMobileComponent,
-    FeedbackComponent,
-    CreateComponent,
-    AccessibilityMenuComponent,
-    DashboardComponent,
-    FeatureBoxComponent,
-    OnboardingComponent
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: (createTranslateLoader),
-        deps: [HttpClient]
-      },
-      parser: { provide: TranslateParser, useClass: NgxTranslateDebugParser },
-      missingTranslationHandler: { provide: MissingTranslationHandler, useClass: CosMissingTranslationHandler },
-      compiler: { provide: TranslateCompiler, useClass: JSONPointerCompiler },
-    }),
-    MomentModule.forRoot({
-      relativeTimeThresholdOptions: {
-        'm': 59
-      }
-    }),
-    CommonModule,
-    HttpClientModule,
-    HttpClientXsrfModule.withOptions({
-      cookieName: 'XSRF-TOKEN',
-      headerName: 'X-CSRF-TOKEN'
-    }),
-    AppRoutingModule,
-    NoopAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule,
-    SharedModule,
-    LoadingBarHttpClientModule
-  ],
-  exports: [
-  ],
-  providers: [
-    MarkdownService,
-    MarkdownModule.init(),
-    ConfigService,
-    CookieService,
-    ConfigModule.init(),
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: HttpErrorInterceptor,
-      multi: true
-    },
-    {
-      provide: APP_INITIALIZER,
-      useFactory: appInitializerFactory,
-      deps: [TranslateService],
-      multi: true
-    }
-
-  ],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        HelpComponent,
+        NavComponent,
+        HomeComponent,
+        LanguageSelectComponent,
+        ActivityFeedComponent,
+        ActivityFeedDialogComponent,
+        SearchComponent,
+        PageNotFoundComponent,
+        PageUnauthorizedComponent,
+        NavMobileComponent,
+        FeedbackComponent,
+        CreateComponent,
+        AccessibilityMenuComponent,
+        DashboardComponent,
+        FeatureBoxComponent,
+        OnboardingComponent
+    ],
+    exports: [],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        BrowserAnimationsModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: (createTranslateLoader),
+                deps: [HttpClient]
+            },
+            parser: { provide: TranslateParser, useClass: NgxTranslateDebugParser },
+            missingTranslationHandler: { provide: MissingTranslationHandler, useClass: CosMissingTranslationHandler },
+            compiler: { provide: TranslateCompiler, useClass: JSONPointerCompiler },
+        }),
+        MomentModule.forRoot({
+            relativeTimeThresholdOptions: {
+                'm': 59
+            }
+        }),
+        CommonModule,
+        AppRoutingModule,
+        NoopAnimationsModule,
+        FormsModule,
+        ReactiveFormsModule,
+        SharedModule,
+        LoadingBarHttpClientModule], providers: [
+        MarkdownService,
+        MarkdownModule.init(),
+        ConfigService,
+        CookieService,
+        ConfigModule.init(),
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: HttpErrorInterceptor,
+            multi: true
+        },
+        {
+            provide: APP_INITIALIZER,
+            useFactory: appInitializerFactory,
+            deps: [TranslateService],
+            multi: true
+        },
+        provideHttpClient(withInterceptorsFromDi(), withXsrfConfiguration({
+            cookieName: 'XSRF-TOKEN',
+            headerName: 'X-CSRF-TOKEN'
+        }))
+    ] })
 export class AppModule { }
