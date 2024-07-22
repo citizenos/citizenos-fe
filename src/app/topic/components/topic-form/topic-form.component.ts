@@ -569,12 +569,6 @@ export class TopicFormComponent {
               this.hasUnsavedChanges.next(false);
               this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
 
-              if (this.isnew || isDraft) {
-                this.Notification.addSuccess('VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_TITLE');
-                this.inviteMembers();
-              } else {
-                this.Notification.addSuccess('VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE');
-              }
             },
             error: (err) => {
               console.log('publish error', err)
