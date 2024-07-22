@@ -95,10 +95,10 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "citizenos-fe:build:production"
+              "buildTarget": "citizenos-fe:build:production"
             },
             "development": {
-              "browserTarget": "citizenos-fe:build:development"
+              "buildTarget": "citizenos-fe:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -106,7 +106,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "citizenos-fe:build"
+            "buildTarget": "citizenos-fe:build"
           }
         },
         "test": {
