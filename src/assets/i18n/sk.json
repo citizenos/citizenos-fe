@@ -2820,7 +2820,7 @@
     "ACTIVITY_USERCONNECTION_CONNECTION_NAME_SMARTID": "Smart-ID",
     "ACTIVITY_USERCONNECTION_CONNECTION_NAME_ESTEID": "Estónska ID-karta / Mobiil-ID",
     "ACTIVITY_USERCONNECTION_CONNECTION_NAME_CITIZENOS": "Citizen OS",
-    "ACTIVITY_USER_OFFER_TOPIC_GROUP": "Užívateľ/ka <em>{{userName}}</em> požiadal/a o pridanie <em>{{topicTitle}}</em> do skupiny <em>{{groupName}}</em>",
+    "ACTIVITY_USER_OFFER_TOPIC_GROUP": "Užívateľ/ka <em>{{userName}}</em> požiadal/a o pridanie témy <em>{{topicTitle}}</em> do skupiny <em>{{groupName}}</em>",
     "ACTIVITY_USER_ACCEPT_REQUEST_TOPIC_GROUP": "Užívateľ/ka <em>{{userName}}</em> prijal/a žiadosť pridať tému <em>{{topicTitle}}</em> do skupiny <em>{{groupName}}</em>",
     "ACTIVITY_USER_REJECT_REQUEST_TOPIC_GROUP": "Užívateľ/ka <em>{{userName}}</em> odmietol/a žiadosť o pridanie <em>{{topicTitle}}</em> do skupiny <em>{{groupName}}</em>"
   },

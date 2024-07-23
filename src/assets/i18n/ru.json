@@ -10,7 +10,7 @@
   "BTN_CLOSE": "Закрыть",
   "DROPDOWN_BTN_SELECT": "Выбрать",
   "BTN_CONTINUE": "Продолжить",
-  "LNK_FILTER": "фильтр",
+  "LNK_FILTER": "отфильтровать",
   "BTN_RESET_FILTER": "Сбросить фильтр",
   "LNK_CANCEL": "Отменить",
   "BTN_APPLY": "Применить",
@@ -35,7 +35,7 @@
   "TXT_TOPIC_VISIBILITY_PUBLIC": "Публичная тема",
   "TXT_TOPIC_VISIBILITY_PRIVATE": "Приватная тема",
   "TXT_GROUP_VISIBILITY_PUBLIC": "Публичная группа",
-  "TXT_GROUP_VISIBILITY_PRIVATE": "Публичная группа",
+  "TXT_GROUP_VISIBILITY_PRIVATE": "Приватная группа",
   "TXT_REPORT_TYPES_NULL": "Выберите причину жалобы",
   "TXT_REPORT_TYPES_ABUSE": "Является оскорбительным или обидным",
   "TXT_REPORT_TYPES_OBSCENE": "Содержит нецензурную брань",
@@ -298,7 +298,7 @@
       "ROLE": "Роль",
       "ACTIONS": "Действия",
       "BTN_BULK_ACTIONS": "@:BTN_BULK_ACTIONS",
-      "BULK_OPT_SET_ALL_RIGHTS": "Установить все права доступа на уровень <b>{{level}}</b>",
+      "BULK_OPT_SET_ALL_RIGHTS": "Установить права доступа на уровень <b>{{level}}</b>",
       "BULK_OPT_REMOVE_ALL": "Удалить все"
     },
     "GROUP_INVITE_DIALOG": {
@@ -2820,7 +2820,7 @@
     "ACTIVITY_USERCONNECTION_CONNECTION_NAME_SMARTID": "Smart-ID",
     "ACTIVITY_USERCONNECTION_CONNECTION_NAME_ESTEID": "Эстонская ID-карта / Mobiil-ID",
     "ACTIVITY_USERCONNECTION_CONNECTION_NAME_CITIZENOS": "Citizen OS",
-    "ACTIVITY_USER_OFFER_TOPIC_GROUP": "Пользователь <em>{{userName}}</em> запросил добавления темы <em>{{topicTitle}}</em> в группу <em>{{groupName}}</em>.",
+    "ACTIVITY_USER_OFFER_TOPIC_GROUP": "Пользователь <em>{{userName}}</em> запросил добавления темы <em>{{topicTitle}}</em> в группу <em>{{groupName}}</em>",
     "ACTIVITY_USER_ACCEPT_REQUEST_TOPIC_GROUP": "Пользователь <em>{{userName}}</em> принял запрос на добавление темы <em>{{topicTitle}}</em> в группу <em>{{groupName}}</em>.",
     "ACTIVITY_USER_REJECT_REQUEST_TOPIC_GROUP": "Пользователь <em>{{userName}}</em> отклонил запрос на добавление темы <em>{{topicTitle}}</em> в группу <em>{{groupName}}</em>."
   },
