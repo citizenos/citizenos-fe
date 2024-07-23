@@ -2206,12 +2206,12 @@
       "MEMBER_GROUP_HEADING_ACTIONS": "@:COMPONENTS.GROUP_ADD_TOPICS.HEADING_ACTIONS",
       "NO_GROUPS_HEADING": "@:VIEWS.TOPIC_CREATE.NO_GROUPS_HEADING",
       "NO_GROUPS_DESCRIPTION": "@:VIEWS.TOPIC_CREATE.NO_GROUPS_DESCRIPTION",
-      "SETTINGS_HEADING_IDEATION_QUESTION": "Idea gathering question",
-      "SETTINGS_HEADING_IDEATION_QUESTION_DESC": "Please add a specific idea gathering question to bring focus for the participants.",
+      "SETTINGS_HEADING_IDEATION_QUESTION": "Frage der Ideenfindung",
+      "SETTINGS_HEADING_IDEATION_QUESTION_DESC": "Bitte fügen Sie eine spezielle Frage der Ideenfindung hinzu, um den Teilnehmern eine klare Ausrichtung zu geben.",
       "SETTINGS_IDEATION_QUESTION_PLACEHOLDER": "Frage",
       "SETTINGS_HEADING_IDEATION_DEADLINE": "Frist der Ideenfindung",
-      "SETTINGS_HEADING_IDEATION_DEADLINE_DESC": "You can opt to include a deadline, which will close the idea gathering automatically when reached. You can always edit the deadline, or manually close the idea gathering at any time.",
-      "LBL_OPTION_DEADLINE": "Include idea gathering deadline",
+      "SETTINGS_HEADING_IDEATION_DEADLINE_DESC": "Sie können eine Frist festlegen, zu der die Ideenfindung automatisch geschlossen wird, Sie können die Frist jederzeit bearbeiten, oder die Ideenfindung manuell schließen.",
+      "LBL_OPTION_DEADLINE": "Frist der Ideenfindung einschließen",
       "LBL_TIMEZONE": "@:COMPONENTS.EDIT_IDEATION_DEADLINE.LBL_TIMEZONE",
       "DEADLINE_LBL_TIME": "@:COMPONENTS.EDIT_IDEATION_DEADLINE.DEADLINE_LBL_TIME",
       "DEADLINE_TIME_OPTION_24": "@:COMPONENTS.EDIT_IDEATION_DEADLINE.DEADLINE_TIME_OPTION_24",
@@ -2219,7 +2219,7 @@
       "DEADLINE_TIME_OPTION_PM": "@:COMPONENTS.EDIT_IDEATION_DEADLINE.DEADLINE_TIME_OPTION_PM",
       "DEADLINE_LBL_TIMEZONE": "@:COMPONENTS.EDIT_IDEATION_DEADLINE.DEADLINE_LBL_TIMEZONE",
       "SETTINGS_IDEATION_DEADLINE_PLACEHOLDER": "Datum auswählen",
-      "PREVIEW_INFO": "<b>This is a preview of your topic!</b> You can still edit your topic at any point prior to starting a vote.",
+      "PREVIEW_INFO": "<b>Dies ist eine Vorschau Ihres Themas!</b> Sie können Ihr Thema jederzeit bearbeiten, bevor Sie eine Abstimmung starten.",
       "BTN_IDEATION_ACTIONS": "Ideenfindung verwalten",
       "NO_IDEAS_HEADING": "Es sind keine Ideen vorhanden",
       "NO_IDEAS_BTN_ADD": "Idee hinzufügen",
@@ -2255,7 +2255,7 @@
       "CO_EDITORS_LBL_INVITED": "@:VIEWS.TOPIC_CREATE.CO_EDITORS_LBL_INVITED"
     },
     "IDEATION_EDIT": {
-      "HEADING": "Edit idea gathering topic"
+      "HEADING": "Thema zur Ideenfindung bearbeiten"
     },
     "LOGIN": {
       "BTN_BACK": "Zurück zum Dashboard",
