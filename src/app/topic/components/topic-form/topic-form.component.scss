@@ -556,6 +556,9 @@
   button {
     gap: 4px;
   }
+  @include mixins.mobile {
+    width: max-content;
+  }
 }
 #mobile_actions {
   max-width: max-content;
