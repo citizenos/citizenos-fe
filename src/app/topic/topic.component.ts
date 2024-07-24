@@ -176,6 +176,7 @@ export class TopicComponent implements OnInit {
     this.tabSelected$ = combineLatest([this.route.fragment, this.route.queryParams]).pipe(
       map(([value, params]) => {
         if (params['folderId']) return 'ideation';
+        if (params['argumentId']) return 'discussion';
       /*  if (this.hideDiscussion === true && value === 'discussion') {
           value = 'voting';
         }*/
