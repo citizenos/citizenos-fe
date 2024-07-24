@@ -130,7 +130,7 @@ export class TopicArgumentsComponent implements OnInit {
 
   doAddArgument() {
     if (this.Auth.loggedIn$.value) {
-      if (this.topic.status !== this.TopicService.STATUSES.ideation) {
+      if (this.topic.status !== this.TopicService.STATUSES.ideation && this.topic.discussionId) {
         this.app.addArgument.next(true);
         this.postArgumentEl?.nativeElement.scrollIntoView();
         this.focusArgumentSubject = true;
