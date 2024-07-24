@@ -4,7 +4,7 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { TopicMemberGroupService } from 'src/app/services/topic-member-group.service';
 import { Component, OnInit, Inject, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap, of, map, tap, Observable, take, catchError } from 'rxjs';
+import { switchMap, of, map, tap, Observable, take, catchError, combineLatest } from 'rxjs';
 import { DialogService } from 'src/app/shared/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -37,6 +37,10 @@ import { TourService } from 'src/app/services/tour.service';
 import { InviteEditorsComponent } from './components/invite-editors/invite-editors.component';
 import { TopicOnboardingComponent } from './components/topic-onboarding/topic-onboarding.component';
 import { CookieService } from 'ngx-cookie-service';
+import { TopicIdeationService } from 'src/app/services/topic-ideation.service';
+import { Ideation } from '../interfaces/ideation';
+import { TopicDiscussionCreateDialogComponent } from './components/topic-discussion-create-dialog/topic-discussion-create-dialog.component';
+import { MissingDiscussionComponent } from './components/missing-discussion/missing-discussion.component';
 
 @Component({
   selector: 'topic',
@@ -49,7 +53,7 @@ import { CookieService } from 'ngx-cookie-service';
         transition: '0.1s max-height'
       })),
       state('closed', style({
-        maxHeight: '320px',
+        maxHeight: '384px',
         transition: '0.1s max-height'
       }))
     ]),
@@ -123,14 +127,17 @@ export class TopicComponent implements OnInit {
   showVoteTablet = (window.innerWidth <= 1024);
   showFollowUpTablet = (window.innerWidth <= 1024);
   tabSelected$: Observable<string>;
+  selectedTab = 'discussion';
   showTutorial = false;
   topicTitle: string = '';
   //new end
   topic$; // decorate the property with @Input()
   groups$: Observable<Group[]>;
   vote$?: Observable<Vote>;
+  ideation$?: Observable<any>;
   topicId$: Observable<string> = of('');
   events$?: Observable<any> = of([]);
+  eventCount = 0;
   members$: Observable<any[]>;
 
   topicSocialMentions = [];
@@ -140,7 +147,7 @@ export class TopicComponent implements OnInit {
   topicAttachments$ = of(<Attachment[] | any[]>[]);
   STATUSES = this.TopicService.STATUSES;
   hideTopicContent = false;
-  hideDiscussion = false;
+  topicStatus = this.TopicService.STATUSES.inProgress;
   constructor(
     @Inject(TranslateService) public translate: TranslateService,
     @Inject(DialogService) private DialogService: DialogService,
@@ -157,6 +164,7 @@ export class TopicComponent implements OnInit {
     private TopicJoinService: TopicJoinService,
     public TopicArgumentService: TopicArgumentService,
     private TopicVoteService: TopicVoteService,
+    private TopicIdeationService: TopicIdeationService,
     public TopicEventService: TopicEventService,
     private TourService: TourService,
     private cd: ChangeDetectorRef,
@@ -165,11 +173,13 @@ export class TopicComponent implements OnInit {
     private CookieService: CookieService
   ) {
     this.app.darkNav = true;
-    this.tabSelected$ = this.route.fragment.pipe(
-      map((value) => {
-        if (this.hideDiscussion === true && value === 'discussion') {
+    this.tabSelected$ = combineLatest([this.route.fragment, this.route.queryParams]).pipe(
+      map(([value, params]) => {
+        if (params['folderId']) return 'ideation';
+        if (params['argumentId']) return 'discussion';
+      /*  if (this.hideDiscussion === true && value === 'discussion') {
           value = 'voting';
-        }
+        }*/
         this.app.setPageTitle(this.topicTitle || 'META_DEFAULT_TITLE');
         setTimeout(() => {
           if (value === 'voting') {
@@ -179,6 +189,12 @@ export class TopicComponent implements OnInit {
             this.scroll(this.followUpEl?.nativeElement);
           }
         }, 200);
+        if (this.topicStatus === this.STATUSES.ideation && !value) return 'ideation';
+        if (this.topicStatus === this.STATUSES.inProgress && !value) return 'discussion';
+        if (this.topicStatus === this.STATUSES.voting && !value) return 'voting';
+        if (this.topicStatus === this.STATUSES.followUp && !value) return 'followUp';
+        if (this.selectedTab !== value)
+          this.selectTab(value || '');
         return value || 'discussion';
       })
     );
@@ -188,8 +204,8 @@ export class TopicComponent implements OnInit {
         return of(params['topicId']);
       })
     );
-    this.topic$ = this.route.params.pipe(
-      switchMap((params) => {
+    this.topic$ = combineLatest([this.route.params, this.route.queryParams]).pipe(
+      switchMap(([params, queryParams]) => {
         return this.TopicService.loadTopic(params['topicId']);
       }),
       tap((topic: Topic) => {
@@ -197,6 +213,7 @@ export class TopicComponent implements OnInit {
         topic.description = topic.description.replace(/href="/gi, 'target="_blank" href="');
         this.app.topic = topic;
         this.topicTitle = topic.title || '';
+        this.topicStatus = topic.status;
         if (topic.report && topic.report.moderatedReasonType) {
           // NOTE: Well.. all views that are under the topics/view/votes/view would trigger doble overlays which we don't want
           // Not nice, but I guess the problem starts with the 2 views using same controller. Ideally they should have a parent controller and extend that with their specific functionality
@@ -207,9 +224,27 @@ export class TopicComponent implements OnInit {
           this.vote$ = this.TopicVoteService.loadVote({ topicId: topic.id, voteId: topic.voteId });
           this.cd.detectChanges();
         }
-        if (topic.status === this.TopicService.STATUSES.followUp) {
-          this.events$ = TopicEventService.getItems({ topicId: topic.id }).pipe(map(events => events.rows));
+        if (topic.ideationId) {
+          this.ideation$ = this.TopicIdeationService.loadIdeation({ topicId: topic.id, ideationId: topic.ideationId });
+          this.cd.detectChanges();
         }
+        if (topic.status === this.TopicService.STATUSES.followUp) {
+          this.events$ = TopicEventService.loadEvents({ topicId: topic.id }).pipe(map(events => {
+            console.log('LOAD', events);
+            this.eventCount = events.count;
+            return events.rows;
+          }));
+        }
+        if (topic.status === this.TopicService.STATUSES.inProgress && !topic.discussionId && this.canUpdate(topic)) {
+          const missingdiscussion = this.DialogService.open(MissingDiscussionComponent, {
+            data: {topic}
+          });
+
+          missingdiscussion.afterClosed().subscribe(() => {
+            this.TopicService.reloadTopic();
+          })
+        }
+
         const padURL = new URL(topic.padUrl);
         if (padURL.searchParams.get('lang') !== this.translate.currentLang) {
           padURL.searchParams.set('lang', this.translate.currentLang);
@@ -224,7 +259,29 @@ export class TopicComponent implements OnInit {
               this.showTutorial = true;
             }
           }, 500);
+
+          this.CookieService.set('show-topic-tour', 'true', 36500);
+        } else {
+          this.showTutorial = false;
         }
+        this.TopicArgumentService.setParam('topicId', topic.id);
+        this.TopicArgumentService.setParam('discussionId', topic.discussionId);
+        this.TopicArgumentService.loadItems().pipe(
+          tap((args) => {
+            if (!args.length && [this.TopicService.STATUSES.inProgress, this.TopicService.STATUSES.ideation].indexOf(topic.status) === -1) {
+              if (!this.route.snapshot.fragment || this.route.snapshot.fragment === 'discussion') {
+                this.router.navigate([], { fragment: 'voting', queryParams: this.route.snapshot.queryParams });
+              }
+            }
+            if (topic.status === this.TopicService.STATUSES.draft) {
+              this.router.navigate(['topics', 'edit', topic.id]);
+            }
+
+            if (Object.keys(this.route.snapshot.queryParams).indexOf('notificationSettings') > -1) {
+              this.app.doShowTopicNotificationSettings(topic.id);
+            }
+          })
+        );
         return topic;
       }),
       catchError((err) => {
@@ -256,30 +313,13 @@ export class TopicComponent implements OnInit {
         return this.TopicAttachmentService.loadItems();
       })
     );
-
+/*
     this.topic$.pipe(
       switchMap((topic: Topic) => {
-        this.TopicArgumentService.setParam('topicId', topic.id);
-        return this.TopicArgumentService.loadItems().pipe(
-          tap((args) => {
-            if (!args.length && topic.status !== this.TopicService.STATUSES.inProgress) {
-              this.hideDiscussion = true;
-              if (!this.route.snapshot.fragment || this.route.snapshot.fragment === 'discussion') {
-                this.router.navigate([], { fragment: 'voting', queryParams: this.route.snapshot.queryParams });
-              }
-            }
-            if (topic.status === this.TopicService.STATUSES.draft) {
-              this.router.navigate(['topics', 'edit', topic.id]);
-            }
 
-            if(Object.keys(this.route.snapshot.queryParams).indexOf('notificationSettings') > -1) {
-              this.app.doShowTopicNotificationSettings(topic.id);
-            }
-          })
-        );
       }),
       take(1)
-    ).subscribe();
+    ).subscribe();*/
   }
 
   ngOnDestroy(): void {
@@ -421,6 +461,23 @@ export class TopicComponent implements OnInit {
     return window.open(attachment.link, '_blank');
   };
 
+  ideationDeadlineBar(ideation: Ideation) {
+    const start = new Date(ideation.createdAt);
+    const end = new Date(ideation.deadline || new Date());
+    const diff = end.getTime() - start.getTime();
+    const now = new Date().getTime() - start.getTime();
+
+    return Math.round((now / diff) * 100);
+  }
+
+  hasIdeationEndedExpired(topic: Topic, ideation: Ideation) {
+    return this.TopicIdeationService.hasIdeationEndedExpired(topic, ideation);
+  };
+
+  getDaysUntil(date: Date) {
+    return Math.round((new Date(date).getTime() - new Date().getTime()) / (1000 * 3600 * 24));
+  }
+
   hasVoteEndedExpired(topic: Topic, vote: Vote) {
     return this.TopicVoteService.hasVoteEndedExpired(topic, vote);
   };
@@ -494,11 +551,26 @@ export class TopicComponent implements OnInit {
           .duplicate(topic)
           .pipe(take(1))
           .subscribe((duplicate) => {
-            this.router.navigate(['/topics', 'edit', duplicate.id], { replaceUrl: true, onSameUrlNavigation: 'reload' });
+            const path = ['/', 'topics']
+            if (topic.status === 'voting') {
+              path.push('vote')
+            } else if (topic.status === 'ideation') {
+              path.push('ideation');
+            }
+            path.push('edit', duplicate.id);
+            this.router.navigate(path, { replaceUrl: true, onSameUrlNavigation: 'reload' });
           });
       }
     })
   };
+
+  startDiscussion(topic: Topic) {
+    this.DialogService.open(TopicDiscussionCreateDialogComponent, {
+      data: {
+        topic: topic
+      }
+    });
+  }
 
   startVote(topic: Topic) {
     this.DialogService.open(TopicVoteCreateDialogComponent, {
@@ -536,6 +608,8 @@ export class TopicComponent implements OnInit {
     }
     if (tab === 'vote') tab = 'voting';
     if (tab === 'arguments') tab = 'discussion';
-    this.router.navigate([], { fragment: tab })
+
+    this.selectedTab = tab;
+    this.router.navigate([], { fragment: tab, queryParams: this.route.snapshot.queryParams})
   }
 }

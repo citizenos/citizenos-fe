@@ -7,7 +7,11 @@
           d="M18.5246 10.0392L18.1335 8H9.3335V25.3333H11.2891V18.1961H16.7646L17.1557 20.2353H24.0002V10.0392H18.5246Z"
           fill="white" />
       </svg>
-      <div class="follow_up_title" translate="COMPONENTS.TOPIC_MILESTONES.CREATE_A_MILESTONE"></div>
+      <div class="follow_up_title" translate="COMPONENTS.TOPIC_MILESTONES.CREATE_A_MILESTONE">
+        <div class="tooltip" tooltip>
+          <div class="content_description" translate="COMPONENTS.TOPIC_MILESTONES.TOOLTIP_CREATE"></div>
+        </div>
+      </div>
     </div>
     <!--div class="header_division">
       <div class="follow_up_deadline">
@@ -71,7 +75,11 @@
           </cos-input>
         </div>
         <div class="section_buttons">
-          <button class="btn_medium_submit bold" translate="COMPONENTS.TOPIC_MILESTONES.ADD_MILESTONE"
+          <a translate="COMPONENTS.TOPIC_MILESTONES.LNK_CANCEL"
+            (click)="toggleEditMode(evt)">
+          </a>
+
+          <button class="btn_medium_submit bold" translate="COMPONENTS.TOPIC_MILESTONES.EDIT_MILESTONE"
             (click)="editEvent(evt)">
           </button>
         </div>
@@ -82,7 +90,7 @@
             <div class="circle">{{$index+1}}</div>
             <div class="title_text_area mobile_hidden">
               <div class="title_description" translate="COMPONENTS.TOPIC_MILESTONES.MILESTONE_TITLE"
-                [translateParams]="{number: countTotal.value - $index}"></div>
+                [translateParams]="{number: countTotal - $index}"></div>
               <div class="title" [innerHtml]="evt.subject"></div>
             </div>
           </div>
@@ -129,7 +137,7 @@
         <div class="section_content">
           <div class="title_text_area mobile_show">
             <div class="title_description" translate="COMPONENTS.TOPIC_MILESTONES.MILESTONE_TITLE"
-              [translateParams]="{number: countTotal.value - $index}"></div>
+              [translateParams]="{number: countTotal - $index}"></div>
             <div class="title small_heading" [innerHtml]="evt.subject"></div>
           </div>
           <div class="milestone_description_text" [innerHtml]="evt.text | linky"></div>
@@ -139,7 +147,7 @@
     <div class="milestone" *ngIf="canDelete()">
       <div class="milestone_header">
         <div class="title_wrap">
-          <div class="circle">{{countTotal.value+1}}</div>
+          <div class="circle">{{countTotal+1}}</div>
           <div class="small_heading" translate="COMPONENTS.TOPIC_MILESTONES.HEADING_MILESTONE"></div>
         </div>
       </div>

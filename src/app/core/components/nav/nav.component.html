@@ -395,8 +395,31 @@
           </button>
         </div>
         <div class="nav_create_menu_wrap" [ngClass]="{'hidden': !showNavCreate}">
+          <div class="create_menu_item" [routerLink]="['/', translate.currentLang, 'topics', 'ideation', 'create']"
+            routerLinkActive="active">
+            <div class="left_wrap">
+              <div class="icon_wrap">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="32" height="32" rx="16" fill="#E4B722" />
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M21.9998 15.9667C21.6317 15.9667 21.3332 15.6682 21.3332 15.3C21.3332 14.9318 21.6317 14.6333 21.9998 14.6333H22.6665C23.0347 14.6333 23.3332 14.9318 23.3332 15.3C23.3332 15.6682 23.0347 15.9667 22.6665 15.9667H21.9998ZM21.1645 10.138C20.9044 9.87789 20.4825 9.87848 20.2232 10.1393L19.9672 10.3967C19.7089 10.6565 19.7095 11.0763 19.9685 11.3354C20.2286 11.5954 20.6505 11.5949 20.9098 11.334L21.1658 11.0767C21.4241 10.8169 21.4235 10.397 21.1645 10.138ZM15.3332 9.3C15.3332 9.66819 15.6316 9.96667 15.9998 9.96667C16.368 9.96667 16.6665 9.66819 16.6665 9.3V8.66667C16.6665 8.29848 16.368 8 15.9998 8C15.6316 8 15.3332 8.29848 15.3332 8.66667V9.3ZM9.99984 14.6333C10.368 14.6333 10.6665 14.9318 10.6665 15.3C10.6665 15.6682 10.368 15.9667 9.99984 15.9667L9.33317 15.9667C8.96498 15.9667 8.6665 15.6682 8.6665 15.3C8.6665 14.9318 8.96498 14.6333 9.33317 14.6333L9.99984 14.6333ZM11.7819 10.1313C11.5232 9.87122 11.1025 9.87064 10.8432 10.13C10.5838 10.3894 10.5844 10.8101 10.8445 11.0687L11.1052 11.328C11.3639 11.5852 11.7819 11.5846 12.0398 11.3267C12.2978 11.0687 12.2984 10.6507 12.0411 10.392L11.7819 10.1313ZM11.8407 15.2612C11.8407 12.8819 13.8869 11.1999 16.0007 11.1999C18.1146 11.1999 20.1607 12.8821 20.1607 15.2612C20.1607 16.9416 19.491 17.8986 18.881 18.7705C18.4342 19.409 18.0193 20.0019 17.9228 20.7999H14.0828C13.9863 20.0018 13.5706 19.4088 13.1229 18.7702C12.5116 17.8984 11.8407 16.9414 11.8407 15.2612ZM14.0819 22.0819H17.9219V21.4401H14.0819V22.0819ZM14.0819 22.7201H17.9219C17.9219 23.427 17.3489 24.0001 16.6419 24.0001H15.3619C14.655 24.0001 14.0819 23.427 14.0819 22.7201Z"
+                    fill="white" />
+                </svg>
+
+              </div>
+              <div class="item_text_wrap">
+                <div class="item_title" translate="COMPONENTS.CREATE.TITLE_IDEATION"></div>
+                <div class="item_description" translate="COMPONENTS.CREATE.DESC_IDEATION"></div>
+              </div>
+            </div>
+            <div class="icon_item icon_arrow_right">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 7L15 12L10 17" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </div>
+          </div>
           <div class="create_menu_item" [routerLink]="['/', translate.currentLang, 'topics', 'create']"
-            routerLinkActive="active" mat-dialog-close>
+            routerLinkActive="active">
             <div class="left_wrap">
               <div class="icon_wrap">
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -440,7 +463,7 @@
         </div-->
 
           <div class="create_menu_item" [routerLink]="['/', translate.currentLang, 'topics', 'vote', 'create']"
-            routerLinkActive="active" mat-dialog-close>
+            routerLinkActive="active">
             <div class="left_wrap">
               <div class="icon_wrap">
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -465,7 +488,7 @@
           <div class="line_separator"></div>
 
           <div class="create_menu_item" [routerLink]="['/', translate.currentLang, 'my', 'groups', 'create']"
-            routerLinkActive="active" mat-dialog-close>
+            routerLinkActive="active">
             <div class="left_wrap">
               <div class="icon_wrap">
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -522,13 +545,15 @@
                     <div class="options">
                       <div id="loggend_in_as_wrap">
                         <div class="icon_wrap">
-                          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="32" height="32" rx="16" fill="#F9FBFD"/>
-                            <rect x="6.5" y="9.5" width="19" height="13" rx="1.5" fill="#D7E9F8" stroke="#2C3B47"/>
-                            <path d="M7 10L14.6268 17.203C15.3975 17.931 16.6025 17.931 17.3732 17.203L25 10" stroke="#2C3B47"/>
-                            <path d="M25 22L19 16" stroke="#2C3B47"/>
-                            <path d="M7 22L13 16" stroke="#2C3B47"/>
-                            </svg>
+                          <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <rect width="32" height="32" rx="16" fill="#F9FBFD" />
+                            <rect x="6.5" y="9.5" width="19" height="13" rx="1.5" fill="#D7E9F8" stroke="#2C3B47" />
+                            <path d="M7 10L14.6268 17.203C15.3975 17.931 16.6025 17.931 17.3732 17.203L25 10"
+                              stroke="#2C3B47" />
+                            <path d="M25 22L19 16" stroke="#2C3B47" />
+                            <path d="M7 22L13 16" stroke="#2C3B47" />
+                          </svg>
 
                         </div>
                         <div class="text_wrap">
@@ -544,6 +569,17 @@
                             fill="#2C3B47" />
                         </svg>
                         <span translate="DEFAULT.NAV.OPT_ACCOUNT_DETAILS"></span>
+                      </div>
+                      <div class="line_separator_options"></div>
+                      <div class="option" [routerLink]="['/', translate.currentLang, 'account']"
+                        fragment="notifications" routerLinkActive="active">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M7.35018 3.94025L7.99735 3.80606L4.71429 7.24363C4.71441 6.46126 4.97988 5.70544 5.46206 5.10391C5.94395 4.50274 6.61175 4.09337 7.35018 3.94025ZM7.99735 3.80606L4.71429 7.24375C4.71427 7.80105 4.59812 9.1798 4.31871 10.5359C4.19246 11.1487 4.02678 11.7876 3.81025 12.3603L12.1898 12.3603C11.9732 11.7876 11.8075 11.1487 11.6813 10.5359C11.4019 9.1797 11.2857 7.80084 11.2857 7.24363C11.2857 5.59965 10.1412 4.24699 8.6514 3.94058L7.99735 3.80606ZM2 13.3603L3.32694 13.3603L12.6731 13.3603L14 13.3603C13.7172 13.1681 13.4758 12.8109 13.2714 12.3603C12.5465 10.7628 12.2857 7.99201 12.2857 7.24363C12.2857 5.12901 10.8114 3.36391 8.85286 2.96108C8.86482 2.83958 8.85167 2.71688 8.81426 2.60087C8.77684 2.48487 8.716 2.37815 8.63564 2.2876C8.55528 2.19705 8.4572 2.12467 8.34772 2.07513C8.23823 2.02559 8.11978 2 8 2C7.88022 2 7.76177 2.02559 7.65228 2.07513C7.5428 2.12467 7.44472 2.19705 7.36436 2.2876C7.28401 2.37815 7.22316 2.48487 7.18574 2.60087C7.14833 2.71688 7.13518 2.83958 7.14714 2.96108C6.17833 3.16197 5.30739 3.69802 4.6818 4.47846C4.05621 5.25889 3.71441 6.23575 3.71429 7.24363C3.71429 7.99201 3.45353 10.7628 2.72864 12.3603C2.5242 12.8109 2.28284 13.1681 2 13.3603ZM9.06048 14.4314C8.77918 14.7155 8.39765 14.8751 7.99983 14.8751C7.602 14.8751 7.22047 14.7155 6.93917 14.4314C6.65786 14.1473 6.49983 13.7621 6.49983 13.3604L9.49983 13.3604C9.49983 13.7621 9.34179 14.1473 9.06048 14.4314Z"
+                            fill="#2C3B47" />
+                        </svg>
+
+                        <span translate="DEFAULT.NAV.OPT_NOTIFICATION_SETTINGS"></span>
                       </div>
                       <div class="line_separator_options"></div>
                       <div class="option logout_option" (click)="app.logout()">
@@ -584,13 +620,15 @@
                     <div class="options">
                       <div id="loggend_in_as_wrap">
                         <div class="icon_wrap">
-                          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="32" height="32" rx="16" fill="#F9FBFD"/>
-                            <rect x="6.5" y="9.5" width="19" height="13" rx="1.5" fill="#D7E9F8" stroke="#2C3B47"/>
-                            <path d="M7 10L14.6268 17.203C15.3975 17.931 16.6025 17.931 17.3732 17.203L25 10" stroke="#2C3B47"/>
-                            <path d="M25 22L19 16" stroke="#2C3B47"/>
-                            <path d="M7 22L13 16" stroke="#2C3B47"/>
-                            </svg>
+                          <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <rect width="32" height="32" rx="16" fill="#F9FBFD" />
+                            <rect x="6.5" y="9.5" width="19" height="13" rx="1.5" fill="#D7E9F8" stroke="#2C3B47" />
+                            <path d="M7 10L14.6268 17.203C15.3975 17.931 16.6025 17.931 17.3732 17.203L25 10"
+                              stroke="#2C3B47" />
+                            <path d="M25 22L19 16" stroke="#2C3B47" />
+                            <path d="M7 22L13 16" stroke="#2C3B47" />
+                          </svg>
 
                         </div>
                         <div class="text_wrap">

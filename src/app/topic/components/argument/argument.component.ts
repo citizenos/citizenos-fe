@@ -21,6 +21,7 @@ import { ArgumentReportComponent } from '../argument-report/argument-report.comp
 export class ArgumentComponent implements OnInit {
   @ViewChild('argumentBody') argumentBody!: ElementRef;
   @Input() argument!: any;
+  @Input() canReply!: any;
   @Input() root?: any;
   @Input() topicId!: string;
   @Input() showReplies?:boolean = false;
@@ -159,6 +160,7 @@ export class ArgumentComponent implements OnInit {
     const argument = {
       commentId: this.argument.id,
       topicId: this.topicId,
+      discussionId: this.argument.discussionId,
       value: value
     };
 
@@ -174,6 +176,7 @@ export class ArgumentComponent implements OnInit {
     this.dialog.open(ArgumentReactionsComponent, {
       data: {
         commentId: this.argument.id,
+        discussionId: this.argument.discussionId,
         topicId: this.topicId
       }
     });

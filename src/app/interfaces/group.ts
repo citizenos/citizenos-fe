@@ -28,5 +28,5 @@ export interface TopicMemberGroup extends Group {
   phoneNumber?: string | number,
   level?: string,
   groupId: string,
-  latestActivity: string
+  latestActivity?: string
 }

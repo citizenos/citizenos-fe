@@ -1,13 +1,16 @@
-import { TopicEventService } from './../../../services/topic-event.service';
+import { countries } from './../../../services/country.service';
+import { TopicIdeaService } from 'src/app/services/topic-idea.service';
+import { TopicEventService } from 'src/app/services/topic-event.service';
 import { Router } from '@angular/router';
 import { TopicService } from 'src/app/services/topic.service';
 import { TopicVoteService } from 'src/app/services/topic-vote.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { Topic } from 'src/app/interfaces/topic';
-import { Observable, of, tap } from 'rxjs';
+import { Observable, map, of, tap } from 'rxjs';
 import { Vote } from 'src/app/interfaces/vote';
 import { DialogService } from 'src/app/shared/dialog';
 import { TopicReportReasonComponent } from 'src/app/topic/components/topic-report-reason/topic-report-reason.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'topicbox',
@@ -19,9 +22,10 @@ export class TopicboxComponent implements OnInit {
   @Input() topic = <Topic>{}; // decorate the property with @Input()
   catClass = "varia";
   vote$?: Observable<Vote>;
-  milestones$?: Observable<any[]>;
+  milestones$?: Observable<{count: Number}> = of({count: 0});
+  ideaCount$?: Observable<{count: Number}> = of({count: 0});
   vote?: Vote;
-  constructor(private TopicService: TopicService, private TopicVoteService: TopicVoteService, private router: Router, private TopicEventService: TopicEventService, private DialogService: DialogService) {
+  constructor(private TopicService: TopicService, private TopicVoteService: TopicVoteService, private router: Router, private TopicEventService: TopicEventService, private DialogService: DialogService, private TopicIdeaService: TopicIdeaService, private Translate: TranslateService) {
   }
 
   ngOnInit(): void {
@@ -35,8 +39,15 @@ export class TopicboxComponent implements OnInit {
       );
     }
     if (this.topic.status === this.TopicService.STATUSES.followUp) {
-      this.TopicEventService.setParam('topicId', this.topic.id);
-      this.milestones$ = this.TopicEventService.loadItems();
+      this.milestones$ = this.TopicEventService.query({topicId: this.topic.id}).pipe(map((res) => {return {count: res.count}}));
+    }
+    if (this.topic.status === this.TopicService.STATUSES.ideation && this.topic.ideationId) {
+      this.ideaCount$ = this.TopicIdeaService.query({topicId: this.topic.id, ideationId: this.topic.ideationId}).pipe(
+        map((res) => {
+          if( typeof res.data.count  === 'number') return {count: res.data.count};
+          return {count: 0};
+        })
+      )
     }
   }
 
@@ -44,24 +55,40 @@ export class TopicboxComponent implements OnInit {
     return window.innerWidth > 667;
   }
 
-  goToView() {
-    let urlArray = ['topics', this.topic.id];
+  getTopicPath () {
+    let urlArray = [this.Translate.currentLang, 'topics', this.topic.id];
     if (this.topic.status === this.TopicService.STATUSES.draft && this.TopicService.canDelete(this.topic)) {
       urlArray = ['topics', 'edit', this.topic.id];
       if (this.topic.voteId) {
         urlArray = ['topics', 'vote', 'edit', this.topic.id];
+      }
+      if (this.topic.ideationId) {
+        urlArray = ['topics', 'ideation', 'edit', this.topic.id];
       }
     }
     let fragment = 'discussion';
     if (this.topic.status === this.TopicService.STATUSES.draft) {
       fragment = 'info';
     }
+    if (this.topic.status === this.TopicService.STATUSES.ideation) {
+      fragment = 'ideation';
+    }
     if (this.topic.status === this.TopicService.STATUSES.voting) {
       fragment = 'voting';
     } else if (this.topic.status === this.TopicService.STATUSES.followUp) {
       fragment = 'followUp';
     }
-    this.router.navigate(urlArray, { fragment });
+    return {urlArray, fragment};
+  }
+
+  getTopicLink() {
+    const navItems = this.getTopicPath();
+    return this.router.createUrlTree(navItems.urlArray, {fragment: navItems.fragment});
+  }
+
+  goToView() {
+    const navItems = this.getTopicPath();
+    this.router.navigate(navItems.urlArray, { fragment: navItems.fragment });
   }
 
   getProgress() {

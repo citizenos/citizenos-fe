@@ -109,6 +109,13 @@
       }
     }
 
+    &.ideation {
+      background-color: var(--color-ideation-disabled);
+      .progress {
+        background-color: var(--color-ideation);
+      }
+    }
+
     &.closed {
       background-color: var(--color-argument-info);
     }

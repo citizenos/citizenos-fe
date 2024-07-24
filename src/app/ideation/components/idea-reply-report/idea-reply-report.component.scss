@@ -1,0 +1,11 @@
+.profile_image_filler  {
+  height: 40px;
+}
+.dialog_content {
+  gap: 16px;
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+}

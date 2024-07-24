@@ -28,6 +28,8 @@ export class RegisterFormComponent {
     showInSearch: new UntypedFormControl(false)
   })
 
+  showPassword = false;
+  showPasswordConfirm = false;
   isInviteFlowSignUp = false;
   wWidth = window.innerWidth;
   errors = <any>{};

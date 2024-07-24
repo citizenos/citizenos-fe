@@ -185,7 +185,6 @@
       }
     }
   }
-
 }
 
 .deadline_wrap {
@@ -255,6 +254,19 @@
   .dropdown {
     width: 100%;
   }
+
+  .checkbox {
+    .checkmark {
+      background-color: var(--color-surfaces);
+    }
+
+    &.selected {
+      .checkmark {
+
+      background-color: var(--input-checkbox-background-default);
+      }
+    }
+  }
 }
 
 .dialog_info_wrap {
@@ -284,9 +296,126 @@
   justify-content: space-around;
 }
 
-
 .vote_info_reminder {
   font-size: 14px;
   line-height: 16px;
   margin-bottom: 16px;
+}
+
+.vote_option_ideas_wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.idea_selection_wrap {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-dialog-voting-contrast);
+  padding: 16px;
+  max-height: 240px;
+  overflow: auto;
+  gap: 16px;
+  &::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color-voting-disabled);
+    border-radius: 8px;
+  }
+
+  .line_separator {
+    background: var(--color-dialog-voting-contrast);
+  }
+  .idea_selection_header {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    .checkbox_wrap {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+    .likes_wrap {
+      display: flex;
+      gap: 0;
+      align-items: center;
+    }
+  }
+
+  .ideas_wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .folder_row_wrap {
+    padding: 4px;
+    &.open {
+      background-color: var(--color-surface-contrast);
+      margin-top: -4px;
+      margin-bottom: -8px;
+    }
+    .folder_ideas_wrap {
+      padding-top: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+  }
+  .folder_row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    justify-content: space-between;
+    height: 24px;
+
+    .checkbox_wrap {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+    .votes {
+      width: 40px;
+    }
+
+    .folder {
+      color: var(--color-link);
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .icon {
+      display: flex;
+      align-items: center;
+    }
+  }
+  .idea_row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 24px;
+
+    .icon {
+      display: flex;
+      align-items: center;
+    }
+    .checkbox_wrap {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+    .votes {
+      width: 40px;
+    }
+    .statement {
+      width: 100%;
+      max-height: 16px;
+      overflow: hidden;
+    }
+  }
 }
