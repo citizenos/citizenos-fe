@@ -117,7 +117,9 @@ export class AuthService {
         } else {
           user.loggedIn = true;
           this.user.next({ id: user.id });
-          this.loggedIn$.next(true);
+          if (this.loggedIn$.value !== true) {
+            this.loggedIn$.next(true);
+          }
           this.userLang$.next(user.language);
 
           return of(user);
