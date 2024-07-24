@@ -3040,7 +3040,7 @@
     }
   },
   "ACTIVITY_FEED": {
-    "ACTIVITY_USER_CREATE_DISCUSSION_TOPIC": "User <em>{{userName}}</em> has started discussion for topic <em>{{topicTitle}}</em>",
+    "ACTIVITY_USER_CREATE_DISCUSSION_TOPIC": "Пользователь <em>{{userName}}</em> открыл этап обсуждения темы <em>{{topicTitle}}</em>",
     "ACTIVITY_USER_UPDATE_DISCUSSION_TOPIC": "User <em>{{userName}}</em> has updated the discussion of topic <em>{{topicTitle}}</em>",
     "ACTIVITY_USER_CREATE_IDEATION_TOPIC": "Пользователь <em>{{userName}}</em> открыл сбор идей по теме <em>{{topicTitle}}</em>",
     "ACTIVITY_USER_UPDATE_IDEATION_TOPIC": "Пользователь <em>{{userName}}</em> обновил срок сбора идей по теме <em>{{topicTitle}}</em>",
