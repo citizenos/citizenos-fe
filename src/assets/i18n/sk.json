@@ -1040,6 +1040,7 @@
       "BTN_REJECT": "Odmietnuť"
     },
     "TOPIC_VOTE_CAST": {
+      "CAST_YOUR_VOTE": "@:VIEWS.TOPICS_TOPICID.VOTE_CAST_YOUR_VOTE",
       "PREVIEW_VOTE_TYPE_REGULAR": "@:COMPONENTS.TOPIC_VOTE_CREATE.PREVIEW_VOTE_TYPE_REGULAR",
       "TXT_YOU_CAN_CHOOSE_OPTIONS": "@:VIEWS.TOPICS_TOPICID.TXT_YOU_CAN_CHOOSE_OPTIONS",
       "LBL_OPTION_YES": "@:COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_YES",
@@ -3039,6 +3040,8 @@
     }
   },
   "ACTIVITY_FEED": {
+    "ACTIVITY_USER_CREATE_DISCUSSION_TOPIC": "User <em>{{userName}}</em> has started discussion for topic <em>{{topicTitle}}</em>",
+    "ACTIVITY_USER_UPDATE_DISCUSSION_TOPIC": "User <em>{{userName}}</em> has updated the discussion of topic <em>{{topicTitle}}</em>",
     "ACTIVITY_USER_CREATE_IDEATION_TOPIC": "Používateľ <em>{{userName}}</em> otvoril získavanie nápadov pre tému <em>{{topicTitle}}</em>",
     "ACTIVITY_USER_UPDATE_IDEATION_TOPIC": "Používateľ <em>{{userName}}</em> aktualizoval termín získavania nápadov k téme <em>{{topicTitle}}</em>",
     "ACTIVITY_USER_CREATE_IDEA_IDEATION": "Používateľ <em>{{userName}}</em> pridal nový nápad k získavaniu nápadov v téme: <em>{{topicTitle}}</em>",

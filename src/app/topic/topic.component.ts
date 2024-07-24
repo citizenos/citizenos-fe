@@ -240,8 +240,9 @@ export class TopicComponent implements OnInit {
             data: {topic}
           });
 
-          missingdiscussion.afterClosed().subscribe(() => {
-            this.TopicService.reloadTopic();
+          missingdiscussion.afterClosed().subscribe((isAdded) => {
+            if (isAdded)
+              this.TopicService.reloadTopic();
           })
         }
 
