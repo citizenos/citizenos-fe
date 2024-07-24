@@ -236,9 +236,13 @@ export class TopicComponent implements OnInit {
           }));
         }
         if (topic.status === this.TopicService.STATUSES.inProgress && !topic.discussionId && this.canUpdate(topic)) {
-          this.DialogService.open(MissingDiscussionComponent, {
+          const missingdiscussion = this.DialogService.open(MissingDiscussionComponent, {
             data: {topic}
           });
+
+          missingdiscussion.afterClosed().subscribe(() => {
+            this.TopicService.reloadTopic();
+          })
         }
 
         const padURL = new URL(topic.padUrl);
