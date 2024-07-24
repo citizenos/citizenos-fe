@@ -17,6 +17,7 @@ export class AuthService {
   private loadUser$ = new BehaviorSubject<void>(undefined);
   public user$: Observable<User>;
   public loggedIn$ = new BehaviorSubject(false);
+  public userLang$ = new BehaviorSubject('');
   public user = new BehaviorSubject({ id: <string|null>null });
 
   constructor(private dialog: DialogService, private Location: LocationService, private http: HttpClient, private Notification: NotificationService, private config: ConfigService) {
@@ -117,6 +118,8 @@ export class AuthService {
           user.loggedIn = true;
           this.user.next({ id: user.id });
           this.loggedIn$.next(true);
+          this.userLang$.next(user.language);
+
           return of(user);
         }
       }),

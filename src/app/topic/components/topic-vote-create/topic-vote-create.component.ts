@@ -1,14 +1,19 @@
-import { Component, OnInit, Output, EventEmitter, Input, Inject, inject, HostBinding, ChangeDetectorRef, enableProdMode } from '@angular/core';
+import { TopicIdeationFoldersService } from './../../../services/topic-ideation-folders.service';
+import { Component, OnInit, Output, EventEmitter, Input, Inject, inject, ChangeDetectorRef } from '@angular/core';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicService } from 'src/app/services/topic.service';
 import { TopicVoteService } from 'src/app/services/topic-vote.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { TranslateService } from '@ngx-translate/core';
-import { take } from 'rxjs';
+import { map, take, Observable, takeWhile, switchMap, of, BehaviorSubject, tap } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 import { Vote } from 'src/app/interfaces/vote';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { TopicIdeaService } from 'src/app/services/topic-idea.service';
+import { Idea } from 'src/app/interfaces/idea';
+import { TopicIdeationService } from 'src/app/services/topic-ideation.service';
+import { Folder } from 'src/app/interfaces/folder';
 @Component({
   selector: 'topic-vote-create',
   templateUrl: './topic-vote-create.component.html',
@@ -20,11 +25,10 @@ export class TopicVoteCreateComponent implements OnInit {
   @Output() saveVote = new EventEmitter();
   @Output() syncSettings = new EventEmitter();
 
-  VOTE_TYPES = this.TopicVoteService.VOTE_TYPES;
+  VOTE_TYPES = Object.assign({ ideation: 'ideation' }, this.TopicVoteService.VOTE_TYPES);
   voteTypes = Object.keys(this.VOTE_TYPES);
   VOTE_AUTH_TYPES = this.TopicVoteService.VOTE_AUTH_TYPES;
   HCount = 23;
-  timezones = <any[]>[];
   datePickerMin = new Date();
   public CONF = {
     autoClose: [{
@@ -47,7 +51,7 @@ export class TopicVoteCreateComponent implements OnInit {
     maxChoices: <number>1,
     minChoices: <number>1,
     reminderTime: <Date | null>null,
-    autoClose: <any[]> [{
+    autoClose: <any[]>[{
       value: 'allMembersVoted',
       enabled: false
     }],
@@ -59,7 +63,6 @@ export class TopicVoteCreateComponent implements OnInit {
     date: null,
     min: 0,
     h: 0,
-    timezone: (new Date().getTimezoneOffset() / -60),
     timeFormat: '24'
   };
 
@@ -75,7 +78,7 @@ export class TopicVoteCreateComponent implements OnInit {
     }
   };
 
-  predefinedOptions = <any> {
+  predefinedOptions = <any>{
     yes: {
       value: 'Yes',
       enabled: true
@@ -87,10 +90,11 @@ export class TopicVoteCreateComponent implements OnInit {
   }
 
   customOptions = [
-    {value: ''},
-    {value: ''},
-    {value: ''},
+    { value: '' },
+    { value: '' },
+    { value: '' },
   ]
+  optionIdeas = <Idea[]>[];
   reminder = false;
   reminderOptionsList = [{ value: 1, unit: 'days' }, { value: 2, unit: 'days' }, { value: 3, unit: 'days' }, { value: 1, unit: 'weeks' }, { value: 2, unit: 'weeks' }, { value: 1, unit: 'month' }];
   reminderOptions = <any[]>[];
@@ -103,7 +107,6 @@ export class TopicVoteCreateComponent implements OnInit {
     @Inject(ActivatedRoute) public route: ActivatedRoute,
     public router: Router
   ) {
-    this.setTimeZones();
   }
 
   ngOnInit(): void {
@@ -117,7 +120,7 @@ export class TopicVoteCreateComponent implements OnInit {
       this.endsAt.date = this.deadline;
       this.endsAt.min = this.deadline.getMinutes();
       this.endsAt.h = this.deadline.getHours();
-  //    this.setEndsAtTime();
+      //    this.setEndsAtTime();
     }
     if (this.vote.type === this.VOTE_TYPES.multiple) {
       this.customOptions = [];
@@ -149,19 +152,6 @@ export class TopicVoteCreateComponent implements OnInit {
     }
   }
 
-  private setTimeZones() {
-    let x = -14;
-    while (x <= 12) {
-      let separator = '+';
-      if (x < 0) separator = '';
-      this.timezones.push({
-        name: `Etc/GMT${separator}${x}`,
-        value: x
-      });
-      x++;
-    }
-  };
-
   toggleOption(option: string) {
     switch (option.toLowerCase()) {
       case 'yes':
@@ -182,10 +172,10 @@ export class TopicVoteCreateComponent implements OnInit {
 
   setVoteType(voteType: string) {
     if (!this.TopicService.canEditDescription(this.topic)) return;
-    if (voteType == this.VOTE_TYPES.multiple) {
+    if (voteType == this.VOTE_TYPES.multiple || voteType == this.VOTE_TYPES.ideation) {
       this.vote.type = voteType;
       if (!this.vote.options.length)
-      this.vote.maxChoices = 1;
+        this.vote.maxChoices = 1;
     } else {
       this.vote.type = this.VOTE_TYPES.regular;
     }
@@ -206,8 +196,8 @@ export class TopicVoteCreateComponent implements OnInit {
       return !!option.value;
     });
     let count = options.length;
-    if (this.extraOptions.neutral.enabled) count = count-1;
-    if (this.extraOptions.veto.enabled) count = count-1;
+    if (this.extraOptions.neutral.enabled) count = count - 1;
+    if (this.extraOptions.veto.enabled) count = count - 1;
     if (type === 'min' && this.vote.minChoices < count) {
       this.vote.minChoices++;
       if (this.vote.minChoices > this.vote.maxChoices) {
@@ -242,11 +232,11 @@ export class TopicVoteCreateComponent implements OnInit {
     return this.deadline;
   }
 
-  getOptionsLimit () {
+  getOptionsLimit() {
     let count = this.vote.options.length;
 
-    if (this.extraOptions.neutral.enabled) {count = count-1;}
-    if (this.extraOptions.veto.enabled) {count = count-1;}
+    if (this.extraOptions.neutral.enabled) { count = count - 1; }
+    if (this.extraOptions.veto.enabled) { count = count - 1; }
 
     if (this.vote.maxChoices > count && count > 0) this.vote.maxChoices = count;
     if (this.vote.minChoices > count && count > 0) this.vote.minChoices = count;
@@ -266,7 +256,7 @@ export class TopicVoteCreateComponent implements OnInit {
 
   minHours() {
     if (new Date(this.endsAt.date).getDate() === (new Date()).getDate()) {
-      const h = new Date().getHours() + (this.endsAt.timezone - (this.deadline.getTimezoneOffset() / -60));
+      const h = new Date().getHours();
       return h;
     }
     return 1;
@@ -288,7 +278,7 @@ export class TopicVoteCreateComponent implements OnInit {
 
     let hour = this.endsAt.h;
     if (this.endsAt.timeFormat === 'PM') { hour += 12; }
-    this.deadline.setHours(hour - (this.endsAt.timezone - (this.deadline.getTimezoneOffset() / -60)));
+    this.deadline.setHours(hour);
     this.deadline.setMinutes(this.endsAt.min);
     this.vote.endsAt = this.deadline;
     this.daysToVoteEnd();
@@ -311,7 +301,7 @@ export class TopicVoteCreateComponent implements OnInit {
     return val;
   };
 
-  timeFormatDisabled () {
+  timeFormatDisabled() {
     const now = new Date();
     const deadline = new Date(this.deadline);
     if (new Date(deadline.getFullYear(), deadline.getMonth(), deadline.getDate()).getTime() === new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime()) {
@@ -332,10 +322,6 @@ export class TopicVoteCreateComponent implements OnInit {
       }
     }
     this.setEndsAtTime();
-  };
-
-  getTimeZoneName(value: number) {
-    return (this.timezones.find((item) => { return item.value === value })).name;
   };
 
   setReminderOptions() {
@@ -422,7 +408,13 @@ export class TopicVoteCreateComponent implements OnInit {
           options.push({ value: option.value });
         }
       }
-    } else {
+    } else if (this.vote.type === this.VOTE_TYPES.ideation) {
+      this.optionIdeas.forEach((idea) => {
+        if (idea.statement)
+          options.push({ value: idea.statement, ideaId: idea.id });
+      });
+    }
+    else {
       for (let key in this.customOptions) {
         if (this.customOptions[key].value)
           options.push(this.customOptions[key]);
@@ -443,7 +435,7 @@ export class TopicVoteCreateComponent implements OnInit {
 
   updateVote() {
     this.filterOptions();
-    const updateVote = Object.assign({topicId: this.topic.id}, this.vote);
+    const updateVote = Object.assign({ topicId: this.topic.id }, this.vote);
     if (this.deadline) {
       updateVote.endsAt = this.deadline;
     }
@@ -461,15 +453,16 @@ export class TopicVoteCreateComponent implements OnInit {
     if (this.deadline) {
       this.vote.endsAt = this.deadline;
     }
-    const saveVote:any = Object.assign({topicId: this.topicId}, this.vote);
+    const saveVote: any = Object.assign({ topicId: this.topicId }, this.vote);
+    if (saveVote.type === this.VOTE_TYPES.ideation) saveVote.type = this.VOTE_TYPES.multiple;
     saveVote.autoClose = this.CONF.autoClose;
     this.TopicVoteService.save(saveVote)
       .pipe(take(1))
       .subscribe({
         next: (vote) => {
           this.TopicService.reloadTopic();
-        /*  this.router.navigate(['/topics', this.topic.id, 'votes', vote.id]);
-          this.route.url.pipe(take(1)).subscribe();*/
+          /*  this.router.navigate(['/topics', this.topic.id, 'votes', vote.id]);
+            this.route.url.pipe(take(1)).subscribe();*/
         },
         error: (res) => {
           console.debug('createVote() ERR', res, res.errors, this.vote.options);
@@ -482,12 +475,12 @@ export class TopicVoteCreateComponent implements OnInit {
       });
   };
 
-  toggleDelegation ($event: any) {
+  toggleDelegation($event: any) {
     if ($event.target.nodeName === "INPUT") {
       return;
     }
 
-    return this.vote.delegationIsAllowed =!this.vote.delegationIsAllowed;
+    return this.vote.delegationIsAllowed = !this.vote.delegationIsAllowed;
   }
 
   drop(event: CdkDragDrop<string[]>) {
@@ -505,11 +498,25 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
   override topic!: Topic;
   tabs = [...Array(4).keys()];
   tabActive = 1;
+  allIdeas$: any[] = [];
+  ideas$: Observable<Idea[]> | undefined;
+  ideasList = <Idea[]>[];
+  ideaOrder = 'desc';
+  wWidth = window.innerWidth;
+  ideasCount = 0;
 
-
+  private TopicIdeationService = inject(TopicIdeationService);
+  private TopicIdeationFoldersService = inject(TopicIdeationFoldersService);
+  private TopicIdeaService = inject(TopicIdeaService);
   private dialog = inject(DialogService);
   private data = inject(DIALOG_DATA);
+  folderCount = 0;
+  folderList = <Folder[]>[];
+  folders$ = of(<Folder[]>[]);
+  loadFolders$ = new BehaviorSubject<void>(undefined);
+  folderIdeasShown = <string[]>[];
 
+  folderIdeasData = <any[]>[];
   override ngOnInit(): void {
     if (!this.vote) {
       this.vote = Object.assign({}, this.voteDefault);
@@ -519,6 +526,63 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
 
     if (this.topic.voteId) {
       this.router.navigate(['/topics', this.topic.id, 'votes', this.topic.voteId]);
+    }
+
+    if (this.topic.ideationId) {
+      this.ideasList = [];
+      this.TopicIdeaService.reset();
+      this.TopicIdeaService.setParam('topicId', this.topicId);
+      this.TopicIdeaService.setParam('ideationId', this.topic.ideationId);
+      this.TopicIdeaService.setParam('orderBy', 'likes');
+      this.TopicIdeaService.setParam('order', 'desc');
+      this.ideas$ = this.TopicIdeaService.loadItems().pipe(
+        tap((res: any) => {
+          if (res.length) {
+            this.TopicIdeaService.hasMore$.next(true);
+          } else {
+            this.TopicIdeaService.hasMore$.next(false);
+          }
+        }),
+        map(
+          (newIdeas: any) => {
+            this.ideasList = this.ideasList.concat(newIdeas);
+            this.ideasList.forEach((idea) => idea.statement = idea.statement.substring(0, 200));
+            if (this.TopicIdeaService.hasMore$.value === true) {
+              this.TopicIdeaService.loadMore();
+            }
+            this.ideasCount = this.ideasList.length;
+            return this.ideasList;
+          }
+        ));
+
+      this.ideasList = [];
+      this.TopicIdeationFoldersService.reset();
+      this.TopicIdeationFoldersService.setParam('topicId', this.topicId);
+      this.TopicIdeationFoldersService.setParam('ideationId', this.topic.ideationId);
+      this.TopicIdeationFoldersService.setParam('orderBy', 'likes');
+      this.TopicIdeationFoldersService.setParam('order', 'desc');
+      this.folders$ = this.TopicIdeationFoldersService.loadItems().pipe(
+        tap((res: any) => {
+          if (res.length) {
+            this.TopicIdeationFoldersService.hasMore$.next(true);
+          } else {
+            this.TopicIdeationFoldersService.hasMore$.next(false);
+          }
+        }),
+        map((newFolders: any) => {
+          newFolders.forEach((folder: Folder) => {
+            this.folderIdeasList(folder);
+          })
+
+          this.folderList = this.folderList.concat(newFolders);
+          if (this.TopicIdeationFoldersService.hasMore$.value === true) {
+            this.TopicIdeationFoldersService.loadMore();
+          }
+          this.folderCount =this.folderList.length;
+          return this.folderList;
+        })
+      );
+
     }
 
     this.vote.options.forEach((opt: any) => {
@@ -545,8 +609,60 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
     }
   }
 
+  folderIdeasList(folder: Folder) {
+    let folderIdeasList = <Idea[]>[];
+    let ideasCount = 0;
+    this.TopicIdeaService.params$.pipe(take(1)).subscribe({
+      next: (params) => {
+        let offset = 0;
+        let limit = 15;
+        this.TopicIdeaService.query({
+          topicId: this.topicId,
+          ideationId: this.topic.ideationId,
+          orderBy: 'likes',
+          folderId: folder.id,
+          order: 'desc',
+          offset,
+          limit
+        }).pipe(take(1)).subscribe({
+          next: (res: any) => {
+            offset = offset + limit;
+            ideasCount = res.data.count;
+            folderIdeasList = folderIdeasList.concat(res.data.rows);
+            folderIdeasList.forEach((idea) => idea.statement = idea.statement.substring(0, 200));
+            if (folderIdeasList.length < ideasCount) {
+              offset = offset + limit;
+              this.TopicIdeaService.setParam('offset', offset);
+            }
+            folder.ideas.rows = folderIdeasList;
+          }
+        });
+      }
+    });
+  }
 
-  isNextDisabled () {
+  toggleFolderIdeas(folder: Folder) {
+    const folderIndex = this.folderIdeasShown.indexOf(folder.id);
+    if (folderIndex > -1) {
+      this.folderIdeasShown.splice(folderIndex, 1);
+    } else {
+      this.folderIdeasShown.push(folder.id);
+    }
+  }
+
+  isShowFolderIdeas(folder: Folder) {
+    return this.folderIdeasShown.indexOf(folder.id) > -1;
+  }
+
+  orderIdeas() {
+    if (this.ideaOrder === 'desc') {
+      this.ideaOrder = 'asc'
+    } else {
+      this.ideaOrder = 'desc'
+    }
+    this.ideasList.reverse();
+  }
+  isNextDisabled() {
     if (this.tabActive === 2 && (!this.vote.type || !this.vote.description)) return true;
     if (this.tabActive === 3 && (!this.vote.authType || this.vote.options.length < 2)) return true;
     return false;
@@ -568,8 +684,9 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
     if (this.deadline) {
       this.vote.endsAt = this.deadline
     }
-    const saveVote:any = Object.assign(this.vote, {topicId: this.topicId || this.topic.id});
+    const saveVote: any = Object.assign(this.vote, { topicId: this.topicId || this.topic.id });
     saveVote.autoClose = this.CONF.autoClose;
+    if (saveVote.type === this.VOTE_TYPES.ideation) saveVote.type = this.VOTE_TYPES.multiple;
     if (!saveVote.description) {
       this.Notification.addError('VIEWS.VOTE_CREATE.ERROR_MISSING_QUESTION');
       return;
@@ -584,7 +701,7 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
           this.Notification.addSuccess('VIEWS.VOTE_CREATE.SUCCESS_VOTE_STARTED');
           this.dialog.closeAll();
         },
-        error: (res:any) => {
+        error: (res: any) => {
           console.debug('createVote() ERR', res, res.errors, this.vote.options);
           this.errors = res.errors;
           Object.values(this.errors).forEach((message) => {
@@ -594,4 +711,66 @@ export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
         }
       });
   };
+
+
+  ideaSelected(idea: Idea) {
+    const exists = this.optionIdeas.find((item) => item.id === idea.id);
+    if (exists) return true;
+    return false;
+  }
+
+  toggleFolder(folder: Folder, $event: any) {
+    if (folder.ideas.rows) {
+      folder.ideas.rows.forEach((idea: Idea) => {
+        const index = this.optionIdeas.findIndex((item) => item.id === idea.id);
+        if (index === -1) {
+          this.optionIdeas.push(idea);
+        } else {
+          this.optionIdeas.splice(index, 1);
+        }
+      });
+    }
+  }
+
+  folderSelected(folder: Folder) {
+    let isSelected = true;
+    if (!folder.ideas.rows) return false;
+    if (folder.ideas.rows) {
+      folder.ideas.rows.forEach((idea: Idea) => {
+        const index = this.optionIdeas.findIndex((item) => item.id === idea.id);
+        if (index === -1) {
+          isSelected = false;
+        }
+      });
+    }
+    return isSelected;
+  }
+
+  toggleIdea(idea: Idea, $event: any) {
+    $event.stopPropagation();
+    const index = this.optionIdeas.findIndex((item) => item.id === idea.id);
+    if (index === -1) {
+      this.optionIdeas.push(idea);
+    } else {
+      this.optionIdeas.splice(index, 1);
+    }
+    this.filterOptions();
+  }
+
+  toggleAllIdeas(ideas: Idea[]) {
+    const allChecked = this.optionIdeas.length === ideas.length;
+    if (!allChecked) {
+      ideas.forEach((idea) => {
+        const index = this.optionIdeas.findIndex((item) => item.id === idea.id);
+        if (index === -1) this.optionIdeas.push(idea);
+      });
+    } else {
+      this.optionIdeas = [];
+    }
+    this.filterOptions();
+  }
+
+  allChecked() {
+    return this.optionIdeas.length === this.ideasCount;
+  }
 }

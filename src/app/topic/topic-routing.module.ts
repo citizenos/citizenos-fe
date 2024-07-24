@@ -16,17 +16,21 @@ import { TopicComponent } from './topic.component';
 import { VoteCreateComponent } from '../voting/components/vote-create/vote-create.component';
 import { AuthGuard } from 'src/app/auth/auth.guard';
 import { CanDeactivateBlockNavigationIfChange } from '../shared/pending-changes.guard';
+import { IdeationCreateComponent } from '../ideation/components/ideation-create/ideation-create.component';
+import { IdeaComponent } from '../ideation/components/idea/idea.component';
+import { IdeaReportModerateDialogComponent } from '../ideation/components/idea-report-moderate/idea-report-moderate.component';
+import { IdeaReplyReportModerateComponent, IdeaReplyReportModerateDialogComponent } from '../ideation/components/idea-reply-report-moderate/idea-reply-report-moderate.component';
 
 const routes: Routes = [
   {
-    path: 'create', canActivate: [AuthGuard],  children: [
-      { path: '', component: TopicCreateComponent, canDeactivate:[CanDeactivateBlockNavigationIfChange] },
-      { path: ':topicId', component: TopicCreateComponent, canDeactivate:[CanDeactivateBlockNavigationIfChange], }
+    path: 'create', canActivate: [AuthGuard], children: [
+      { path: '', component: TopicCreateComponent },
+      { path: ':topicId', component: TopicCreateComponent, canDeactivate: [CanDeactivateBlockNavigationIfChange], }
     ]
   },
   {
     path: 'edit', canActivate: [AuthGuard], children: [
-      { path: ':topicId', component: TopicEditComponent, canDeactivate:[CanDeactivateBlockNavigationIfChange] }
+      { path: ':topicId', component: TopicEditComponent, canDeactivate: [CanDeactivateBlockNavigationIfChange] }
     ]
   },
   {
@@ -34,13 +38,29 @@ const routes: Routes = [
       {
         path: 'create', canActivate: [AuthGuard], children: [
           { path: '', component: VoteCreateComponent },
-          { path: ':topicId', component: VoteCreateComponent, canDeactivate:[CanDeactivateBlockNavigationIfChange] }
+          { path: ':topicId', component: VoteCreateComponent, canDeactivate: [CanDeactivateBlockNavigationIfChange] }
         ]
       },
       {
         path: 'edit', canActivate: [AuthGuard], children: [
           { path: '', component: VoteCreateComponent },
-          { path: ':topicId', component: VoteCreateComponent, canDeactivate:[CanDeactivateBlockNavigationIfChange]}
+          { path: ':topicId', component: VoteCreateComponent, canDeactivate: [CanDeactivateBlockNavigationIfChange] }
+        ]
+      }
+    ]
+  },
+  {
+    path: 'ideation', children: [
+      {
+        path: 'create', canActivate: [AuthGuard], children: [
+          { path: '', component: IdeationCreateComponent },
+          { path: ':topicId', component: IdeationCreateComponent, canDeactivate: [CanDeactivateBlockNavigationIfChange] }
+        ]
+      },
+      {
+        path: 'edit', canActivate: [AuthGuard], children: [
+          { path: '', component: IdeationCreateComponent },
+          { path: ':topicId', component: IdeationCreateComponent, canDeactivate: [CanDeactivateBlockNavigationIfChange] }
         ]
       }
     ]
@@ -49,6 +69,22 @@ const routes: Routes = [
   {
     path: ':topicId', component: TopicComponent, children: [
       { path: 'invite', component: TopicInviteDialogComponent },
+      {
+        path: 'ideation', children: [{
+          path: ':ideationId', children: [
+            {
+              path: 'ideas', children: [
+                { path: ':ideaId/reports/:reportId/moderate', component: IdeaReportModerateDialogComponent},
+                { path: ':ideaId', component: IdeaComponent},
+                { path: ':ideaId/comments/:commentId/reports/:reportId/moderate', component: IdeaReplyReportModerateDialogComponent},
+              ]
+            },
+            {
+              path: 'folders', children: []
+            }
+          ]
+        }]
+      },
       { path: 'followup', children: [] },
       {
         path: 'votes', children: [

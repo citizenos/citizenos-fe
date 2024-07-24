@@ -1,11 +1,21 @@
+import { TopicDiscussionService } from 'src/app/services/topic-discussion.service';
 import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation, Input, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { tap, of, map, take } from 'rxjs';
+import { tap, of, map, take, switchMap, Observable } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { Argument } from 'src/app/interfaces/argument';
 import { AuthService } from 'src/app/services/auth.service';
 import { AppService } from 'src/app/services/app.service';
 import { TopicArgumentService } from 'src/app/services/topic-argument.service';
+import { TopicService } from 'src/app/services/topic.service';
+import { DialogService } from 'src/app/shared/dialog';
+import { TopicDiscussionCreateDialogComponent } from '../topic-discussion-create-dialog/topic-discussion-create-dialog.component';
+import { Discussion } from 'src/app/interfaces/discussion';
+import { TranslateService } from '@ngx-translate/core';
+import { EditDiscussionDeadlineComponent } from '../edit-discussion-deadline/edit-discussion-deadline.component';
+import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
+import { NotificationService } from 'src/app/services/notification.service';
+import { MissingDiscussionComponent } from '../missing-discussion/missing-discussion.component';
 
 @Component({
   selector: 'topic-arguments',
@@ -21,16 +31,26 @@ export class TopicArgumentsComponent implements OnInit {
     return { type: type, checked: false }
   });
   arguments$ = of(<Argument[] | any[]>[]);
+  discussion$ = of(<Discussion | any>null);
   orderByOptions = Object.keys(this.TopicArgumentService.ARGUMENT_ORDER_BY);
   focusArgumentSubject = false;
   filtersSelected = false;
   constructor(
     private Auth: AuthService,
+    public TopicService: TopicService,
+    private dialog: DialogService,
     @Inject(ActivatedRoute) private route: ActivatedRoute,
+    public translate: TranslateService,
     private app: AppService,
+    private Notification: NotificationService,
+    private TopicDiscussionService: TopicDiscussionService,
     public TopicArgumentService: TopicArgumentService) {
     this.TopicArgumentService.setParam('limit', 5);
-    this.arguments$ = this.TopicArgumentService.loadArguments().pipe(
+
+    this.arguments$ = this.TopicArgumentService.loadArguments$.pipe(
+      switchMap(() => {
+        return this.TopicArgumentService.loadArguments()
+      }),
       map((res: any[]) => {
         let results = res.concat([]);
         const argArray = <any[]>[];
@@ -80,6 +100,23 @@ export class TopicArgumentsComponent implements OnInit {
   }
   ngOnInit(): void {
     this.TopicArgumentService.setParam('topicId', this.topic.id)
+    this.discussion$ = this.TopicService.loadTopic(this.topic.id).pipe(switchMap((topic) => {
+      if (topic.discussionId) {
+        return this.TopicDiscussionService.loadDiscussion({
+          topicId: this.topic.id,
+          discussionId: topic.discussionId
+        }).pipe(tap((discussion) => {
+
+          if (!discussion.question && discussion.createdAt === discussion.updatedAt && this.canUpdate()) {
+            this.dialog.open(MissingDiscussionComponent, {
+              data: { topic: this.topic }
+            });
+          }
+        }));
+      } else {
+        return of(null);
+      }
+    }))
   }
 
   filterArguments() {
@@ -93,9 +130,30 @@ export class TopicArgumentsComponent implements OnInit {
 
   doAddArgument() {
     if (this.Auth.loggedIn$.value) {
-      this.app.addArgument.next(true);
-      this.postArgumentEl?.nativeElement.scrollIntoView();
-      this.focusArgumentSubject = true;
+      if (this.topic.status !== this.TopicService.STATUSES.ideation) {
+        this.app.addArgument.next(true);
+        this.postArgumentEl?.nativeElement.scrollIntoView();
+        this.focusArgumentSubject = true;
+      } else {
+        const startDiscussionDialog = this.dialog.open(TopicDiscussionCreateDialogComponent, {
+          data: {
+            topic: this.topic
+          }
+        });
+
+        startDiscussionDialog.afterClosed().subscribe((val) => {
+          if (val) {
+            this.TopicService.get(this.topic.id).pipe(take(1)).subscribe((topic) => {
+              this.topic = topic;
+              this.discussion$ = this.TopicDiscussionService.loadDiscussion({
+                topicId: this.topic.id,
+                discussionId: this.topic.discussionId
+              });
+            })
+          }
+
+        })
+      }
     } else {
       this.app.doShowLogin();
     }
@@ -216,4 +274,80 @@ export class TopicArgumentsComponent implements OnInit {
 
     }
   };
+
+  canUpdate() {
+    return this.TopicService.canUpdate(this.topic);
+  }
+
+  canEdit() {
+    return this.TopicService.canEdit(this.topic);
+  }
+  canEditDeadline() {
+    return this.canEdit() && this.topic.status === this.TopicService.STATUSES.inProgress;
+  }
+
+  hasDiscussionEndedExpired(discussion: Discussion) {
+    return this.TopicDiscussionService.hasDiscussionEndedExpired(this.topic, discussion);
+  };
+
+  hasIdeationEnded(discussion: Discussion) {
+    return this.TopicDiscussionService.hasDiscussionEnded(this.topic, discussion);
+  };
+
+  editDeadline(discussion: Discussion) {
+    const discussionDeadlineDialog = this.dialog.open(EditDiscussionDeadlineComponent, {
+      data: {
+        discussion,
+        topic: this.topic
+      }
+    });
+    discussionDeadlineDialog.afterClosed().subscribe(() => {
+      this.TopicDiscussionService.reloadDiscussion();
+    })
+  }
+
+  closeDiscussion(discussion: Discussion) {
+    const closeDiscussionDialog = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        level: 'warn',
+        heading: 'COMPONENTS.CLOSE_DISCUSSION_CONFIRM.HEADING',
+        description: 'COMPONENTS.CLOSE_DISCUSSION_CONFIRM.ARE_YOU_SURE',
+        confirmBtn: 'COMPONENTS.CLOSE_DISCUSSION_CONFIRM.CONFIRM_YES',
+        closeBtn: 'COMPONENTS.CLOSE_DISCUSSION_CONFIRM.CONFIRM_NO'
+      }
+    });
+    closeDiscussionDialog.afterClosed().subscribe({
+      next: (value) => {
+        if (value) {
+          discussion.deadline = new Date();
+          this.saveDiscussion(discussion);
+          this.topic.status = this.TopicService.STATUSES.inProgress;
+          this.TopicService.patch(this.topic).pipe(take(1)).subscribe({
+            next: () => {
+              this.TopicService.reloadTopic();
+            }
+          });
+        }
+      }
+    });
+  }
+
+  saveDiscussion(discussion: Discussion) {
+    const saveDiscussion: any = Object.assign({ topicId: this.topic.id, discussionId: discussion.id, deadline: discussion.deadline });
+    this.TopicDiscussionService.update(saveDiscussion)
+      .pipe(take(1))
+      .subscribe({
+        next: (ideation) => {
+          this.TopicDiscussionService.reloadDiscussion();
+          this.TopicService.reloadTopic();
+          this.dialog.closeAll();
+        },
+        error: (res) => {
+          Object.values(res).forEach((message) => {
+            if (typeof message === 'string')
+              this.Notification.addError(message);
+          });
+        }
+      });
+  }
 }

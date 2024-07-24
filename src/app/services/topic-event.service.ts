@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { LocationService } from './location.service';
 import { ApiResponse } from 'src/app/interfaces/apiResponse';
-import { Observable, BehaviorSubject, map } from 'rxjs';
+import { Observable, BehaviorSubject, map, exhaustMap, shareReplay } from 'rxjs';
 import { ItemsListService } from './items-list.service';
 
 @Injectable({
@@ -16,10 +16,21 @@ export class TopicEventService extends ItemsListService {
   }, this.defaultParams);
 
   params$ = new BehaviorSubject(this.params);
-
+  public loadEvents$ = new BehaviorSubject<void>(undefined);
   constructor(private Location: LocationService, private http: HttpClient,  private Auth: AuthService) {
     super();
     this.items$ = this.loadItems();
+  }
+
+  loadEvents(params: any) {
+    return this.loadEvents$.pipe(
+      exhaustMap(() => this.getItems(params)),
+      shareReplay()
+    );
+  }
+
+  reloadEvents(): void {
+    this.loadEvents$.next();
   }
 
   getItems(params: any) {

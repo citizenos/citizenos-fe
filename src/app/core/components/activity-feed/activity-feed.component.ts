@@ -4,6 +4,7 @@ import { DIALOG_DATA, DialogRef, DialogService } from 'src/app/shared/dialog';
 import { map, tap, of } from 'rxjs';
 import { ActivityService } from 'src/app/services/activity.service'
 import { Location } from '@angular/common';
+import { AppService } from 'src/app/services/app.service';
 @Component({
   selector: 'activity-feed',
   templateUrl: './activity-feed.component.html',
@@ -34,7 +35,7 @@ export class ActivityFeedComponent implements OnInit {
   @Input() groupId?: string;
   @Input() topicId?: string;
   @Input() modal?: boolean;
-  constructor(public ActivityService: ActivityService, private location: Location, public dialog: DialogService) {
+  constructor(public ActivityService: ActivityService, private location: Location, public dialog: DialogService, public app: AppService) {
     setTimeout(() => {
       this.show = true
     });

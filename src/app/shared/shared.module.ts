@@ -36,6 +36,7 @@ import { GroupAddTopicsComponent, GroupAddTopicsDialogComponent } from '../group
 import { MarkdownDirective } from '../directives/markdown.directive';
 import { MarkdownPipe } from '../services/markdown.service';
 import { CosEllipsisPipe } from './pipes/cos-ellipsis.pipe';
+import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { CheckHeightDirective } from '../directives/check-height.directive';
 import { EtherpadDirective } from '../directives/etherpad.directive';
 import { CosInputComponent } from './components/cos-input/cos-input.component';
@@ -64,6 +65,7 @@ import { NotificationComponent } from '../core/components/notification/notificat
     ConfirmDialogComponent,
     CosDropdownDirective,
     CosEllipsisPipe,
+    SafeHtmlPipe,
     CosInitialsComponent,
     CosPaginationComponent,
     CosToggleComponent,
@@ -126,6 +128,7 @@ import { NotificationComponent } from '../core/components/notification/notificat
     ConfirmDialogComponent,
     CosDropdownDirective,
     CosEllipsisPipe,
+    SafeHtmlPipe,
     CosInitialsComponent,
     CosPaginationComponent,
     CosToggleComponent,

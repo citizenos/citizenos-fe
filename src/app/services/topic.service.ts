@@ -48,6 +48,7 @@ export class TopicService {
 
   public STATUSES = <any>{
     draft: 'draft',
+    ideation: 'ideation',
     inProgress: 'inProgress', // Being worked on
     voting: 'voting', // Is being voted which means the Topic is locked and cannot be edited.
     followUp: 'followUp', // Done editing Topic and executing on the follow up plan.
@@ -314,7 +315,7 @@ export class TopicService {
    *
    */
   canEditDescription(topic: Topic) {
-    return this.canEdit(topic) && topic.status === this.STATUSES.inProgress || topic.status === this.STATUSES.draft;
+    return this.canEdit(topic) && topic.status === this.STATUSES.ideation || topic.status === this.STATUSES.inProgress || topic.status === this.STATUSES.draft;
   };
 
   canDelete(topic: Topic) {

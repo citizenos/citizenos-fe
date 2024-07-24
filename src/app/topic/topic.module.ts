@@ -49,6 +49,28 @@ import { TopicAddGroupsComponent, TopicAddGroupsDialogComponent } from './compon
 import { TopicOnboardingComponent } from './components/topic-onboarding/topic-onboarding.component';
 import { DownloadVoteResultsComponent } from './components/download-vote-results/download-vote-results.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { IdeationCreateComponent } from '../ideation/components/ideation-create/ideation-create.component';
+import { TopicIdeationComponent } from '../ideation/components/topic-ideation/topic-ideation.component';
+import { AddIdeaComponent } from '../ideation/components/add-idea/add-idea.component';
+import { IdeaboxComponent } from '../ideation/components/ideabox/ideabox.component';
+import { IdeaReportComponent } from '../ideation/components/idea-report/idea-report.component';
+import { IdeaComponent, IdeaDialogComponent } from '../ideation/components/idea/idea.component';
+import { IdeaReplyFormComponent } from '../ideation/components/idea-reply-form/idea-reply-form.component';
+import { IdeaReplyComponent } from '../ideation/components/idea-reply/idea-reply.component';
+import { IdeaReportModerateComponent, IdeaReportModerateDialogComponent } from '../ideation/components/idea-report-moderate/idea-report-moderate.component';
+import { AddIdeaFolderComponent } from '../ideation/components/add-idea-folder/add-idea-folder.component';
+import { CreateIdeaFolderComponent } from '../ideation/components/create-idea-folder/create-idea-folder.component';
+import { IdeaReportReasonComponent } from '../ideation/components/idea-report-reason/idea-report-reason.component';
+import { EditIdeationDeadlineComponent } from '../ideation/components/edit-ideation-deadline/edit-ideation-deadline.component';
+import { AddIdeasToFolderComponent } from '../ideation/components/add-ideas-to-folder/add-ideas-to-folder.component';
+import { EditIdeaComponent } from '../ideation/components/edit-idea/edit-idea.component';
+import { IdeaReplyReportComponent } from '../ideation/components/idea-reply-report/idea-reply-report.component';
+import { IdeaReplyReportModerateComponent, IdeaReplyReportModerateDialogComponent } from '../ideation/components/idea-reply-report-moderate/idea-reply-report-moderate.component';
+import { EditIdeaFolderComponent } from '../ideation/components/edit-idea-folder/edit-idea-folder.component';
+import { TopicDiscussionCreateDialogComponent } from './components/topic-discussion-create-dialog/topic-discussion-create-dialog.component';
+import { IdeaReactionsComponent } from '../ideation/components/idea-reactions/idea-reactions.component';
+import { EditDiscussionDeadlineComponent } from './components/edit-discussion-deadline/edit-discussion-deadline.component';
+import { MissingDiscussionComponent } from './components/missing-discussion/missing-discussion.component';
 
 @NgModule({
   declarations: [
@@ -102,7 +124,32 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     TopicAddGroupsComponent,
     TopicAddGroupsDialogComponent,
     TopicOnboardingComponent,
-    DownloadVoteResultsComponent
+    DownloadVoteResultsComponent,
+    IdeationCreateComponent,
+    TopicIdeationComponent,
+    AddIdeaComponent,
+    IdeaboxComponent,
+    IdeaReportComponent,
+    IdeaComponent,
+    IdeaDialogComponent,
+    IdeaReplyFormComponent,
+    IdeaReplyComponent,
+    IdeaReportModerateComponent,
+    IdeaReportModerateDialogComponent,
+    AddIdeaFolderComponent,
+    CreateIdeaFolderComponent,
+    IdeaReportReasonComponent,
+    EditIdeationDeadlineComponent,
+    AddIdeasToFolderComponent,
+    EditIdeaComponent,
+    IdeaReplyReportComponent,
+    IdeaReplyReportModerateComponent,
+    IdeaReplyReportModerateDialogComponent,
+    EditIdeaFolderComponent,
+    TopicDiscussionCreateDialogComponent,
+    IdeaReactionsComponent,
+    EditDiscussionDeadlineComponent,
+    MissingDiscussionComponent
   ],
   imports: [
     LinkyModule,

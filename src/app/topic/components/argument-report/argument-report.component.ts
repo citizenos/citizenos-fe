@@ -20,6 +20,7 @@ export class ArgumentReportComponent implements OnInit {
     type: new UntypedFormControl(this.reportTypes[0], Validators.required),
     text: new UntypedFormControl('', Validators.required),
     topicId: new UntypedFormControl(''),
+    discussionId: new UntypedFormControl(''),
     commentId: new UntypedFormControl(''),
   });
   constructor(
@@ -30,6 +31,7 @@ export class ArgumentReportComponent implements OnInit {
     this.argument = data.argument;
     this.report.value.commentId = data.argument.id;
     this.report.value.topicId = data.topicId;
+    this.report.value.discussionId = data.argument.discussionId;
   }
 
   ngOnInit(): void {
@@ -46,6 +48,7 @@ export class ArgumentReportComponent implements OnInit {
   doReport() {
     this.report.value.commentId = this.data.argument.id;
     this.report.value.topicId = this.data.topicId;
+    this.report.value.discussionId = this.data.argument.discussionId;
     this.TopicArgumentService.report(this.report.value).pipe(take(1))
     .subscribe({
       next: () => {

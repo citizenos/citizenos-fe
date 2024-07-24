@@ -16,6 +16,7 @@ export class ArgumentReportModerateComponent implements OnInit {
   argument!: Argument;
   reportTypes = Object.keys(this.TopicArgumentService.ARGUMENT_REPORT_TYPES);
   topicId = '';
+  discussionId = '';
   commentId = '';
   reportId = '';
   token = '';
@@ -27,6 +28,7 @@ export class ArgumentReportModerateComponent implements OnInit {
   constructor(@Inject(DIALOG_DATA) data: any, private TopicArgumentService: TopicArgumentService, private dialog: DialogService, private TopicService: TopicService) {
     this.argument = data.argument || data.report.comment;
     this.topicId = data.topicId;
+    this.discussionId = data.discussionId;
     this.commentId = data.commentId;
     this.reportId = data.report.id;
     this.token = data.token;
@@ -45,6 +47,7 @@ export class ArgumentReportModerateComponent implements OnInit {
     const data = {
       token: this.token,
       topicId: this.topicId,
+      discussionId: this.discussionId,
       commentId: this.argument.id,
       reportId: this.reportId,
       report: this.report.value
@@ -71,6 +74,7 @@ export class ArgumentReportModerateComponent implements OnInit {
 export class ArgumentReportModerateDialogComponent {
   topicId = '';
   commentId = '';
+  discussionId = '';
   token = '';
   constructor(dialog: DialogService, route: ActivatedRoute, router: Router, TopicArgumentService: TopicArgumentService) {
     /*TODO resove queryParam token */
@@ -78,6 +82,7 @@ export class ArgumentReportModerateDialogComponent {
       switchMap(([params, queryParams]) => {
         this.topicId = params['topicId'];
         this.commentId = params['commentId'];
+        this.discussionId = params['discussionId'] || params['topicId'];
         this.token = queryParams['token'];
         return TopicArgumentService.getReport({
           topicId: params['topicId'],

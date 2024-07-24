@@ -71,8 +71,10 @@ export class AppComponent {
 
           const g = outlet?.segments.map(seg => seg.path) || [''];
           let langParam = g[0];
+          console.log(langParam);
           if (translate.currentLang !== langParam && translate.getLangs().indexOf(langParam) === -1) {
-            g.unshift(translate.currentLang || translate.getBrowserLang() || translate.getDefaultLang());
+            console.log(this.auth.userLang$.value)
+            g.unshift(this.auth.userLang$.value || translate.currentLang || translate.getBrowserLang() || translate.getDefaultLang());
             this.router.navigate(g, { queryParams: parsedUrl.queryParams, fragment: parsedUrl.fragment || undefined });
           }
           else if (translate.currentLang !== langParam) {
@@ -115,6 +117,8 @@ export class AppComponent {
               this.auth.loggedIn$.next(true);
               window.location.reload();
             })
+          } else {
+            window.location.reload();
           }
         });
       } else if (user && !user.email) {
