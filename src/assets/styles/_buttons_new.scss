@@ -305,14 +305,16 @@ $button-styles: (
   }
 
   &.voting {
-    &:focus, &:hover {
+    &:focus,
+    &:hover {
       background-color: var(--color-argument-pro-light);
 
-      .checmark, .radio {
+      .checmark,
+      .radio {
         border-color: initial;
       }
     }
-/*
+    /*
     &.active, &.selected {
       background-color: var(--color-voting-disabled);
 
@@ -414,9 +416,7 @@ $button-styles: (
   flex-wrap: wrap;
 
   span {
-    @include mixins.mobile {
-      max-width: calc(100vw - 90px);
-    }
+    max-width: calc(100% - 40px);
   }
   input {
     position: absolute !important;
