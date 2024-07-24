@@ -55,15 +55,27 @@ export class MissingDiscussionComponent {
   }
 
   updateDiscussion() {
-    const createDiscussion: any = Object.assign({ topicId: this.topic.id, discussionId: this.topic.discussionId }, this.discussion);
-    this.TopicDiscussionService.update(createDiscussion)
-      .pipe(take(1))
-      .subscribe({
-        next: (discussion) => {
-          this.TopicService.reloadTopic();
-          this.startDiscussionDialog.close(true);
-        }
-      });
+    if (this.topic.discussionId) {
+      const createDiscussion: any = Object.assign({ topicId: this.topic.id, discussionId: this.topic.discussionId }, this.discussion);
+      this.TopicDiscussionService.update(createDiscussion)
+        .pipe(take(1))
+        .subscribe({
+          next: (discussion) => {
+            this.TopicService.reloadTopic();
+            this.startDiscussionDialog.close(true);
+          }
+        });
+    } else {
+      const createDiscussion: any = Object.assign({ topicId: this.topic.id }, this.discussion);
+      this.TopicDiscussionService.save(createDiscussion)
+        .pipe(take(1))
+        .subscribe({
+          next: (discussion) => {
+            this.TopicService.reloadTopic();
+            this.startDiscussionDialog.close(true);
+          }
+        });
+    }
   }
 
 

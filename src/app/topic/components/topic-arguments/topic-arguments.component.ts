@@ -100,19 +100,23 @@ export class TopicArgumentsComponent implements OnInit {
   }
   ngOnInit(): void {
     this.TopicArgumentService.setParam('topicId', this.topic.id)
-    if (this.topic.discussionId) {
-      this.discussion$ = this.TopicDiscussionService.loadDiscussion({
-        topicId: this.topic.id,
-        discussionId: this.topic.discussionId
-      }).pipe(tap((discussion) => {
+    this.discussion$ = this.TopicService.loadTopic(this.topic.id).pipe(switchMap((topic) => {
+      if (topic.discussionId) {
+        return this.TopicDiscussionService.loadDiscussion({
+          topicId: this.topic.id,
+          discussionId: topic.discussionId
+        }).pipe(tap((discussion) => {
 
-        if (!discussion.question && discussion.createdAt === discussion.updatedAt && this.canUpdate()) {
-          this.dialog.open(MissingDiscussionComponent, {
-            data: {topic: this.topic}
-          });
-        }
-      }));
-    }
+          if (!discussion.question && discussion.createdAt === discussion.updatedAt && this.canUpdate()) {
+            this.dialog.open(MissingDiscussionComponent, {
+              data: { topic: this.topic }
+            });
+          }
+        }));
+      } else {
+        return of(null);
+      }
+    }))
   }
 
   filterArguments() {
