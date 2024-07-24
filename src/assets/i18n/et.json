@@ -3,7 +3,7 @@
   "MSG_REDESIGN_CONTENT": "Lähikuudel plaanime uue ja täiustatud Citizen OS platvormi kasutuselevõttu. Kui Sul on küsimusi, muresid või soovid pakkuda oma abi beetatestijana, võta julgelt ühendust Saraga aadressil <a href=\"mailto:info@citizenos.com\">info@citizenos.com</a>",
   "MSG_REDESIGN_BTN_CLOSE": "Ok, sain aru",
   "META_DEFAULT_TITLE": "Citizen OS on kogukondlik e-otsustamise platvorm.",
-  "META_DEFAULT_DESCRIPTION": "Citizen OS enables participative idea-gathering, discussion and voting for groups, when getting together offline or online at the same time is not an option.",
+  "META_DEFAULT_DESCRIPTION": "Citizen OS võimaldab kaasavat arutelu, ideede kogumist ja otsustamist tingimustes, kus kõigil osalistel samal ajal veebis või veebiväliselt kohtuda ei ole võimalik.",
   "META_DEFAULT_KEYWORDS": "kaasamine, e-otsustamine, e-valitsemine, e-demokraatia, demokraatia, valgdemokraatia, otsedemokraatia",
   "BTN_YES": "JAH",
   "BTN_NO": "EI",
@@ -1040,6 +1040,7 @@
       "BTN_REJECT": "Lükkan tagasi"
     },
     "TOPIC_VOTE_CAST": {
+      "CAST_YOUR_VOTE": "@:VIEWS.TOPICS_TOPICID.VOTE_CAST_YOUR_VOTE",
       "PREVIEW_VOTE_TYPE_REGULAR": "@:COMPONENTS.TOPIC_VOTE_CREATE.PREVIEW_VOTE_TYPE_REGULAR",
       "TXT_YOU_CAN_CHOOSE_OPTIONS": "@:VIEWS.TOPICS_TOPICID.TXT_YOU_CAN_CHOOSE_OPTIONS",
       "LBL_OPTION_YES": "@:COMPONENTS.TOPIC_VOTE_CREATE.LBL_OPTION_YES",
@@ -3039,6 +3040,8 @@
     }
   },
   "ACTIVITY_FEED": {
+    "ACTIVITY_USER_CREATE_DISCUSSION_TOPIC": "User <em>{{userName}}</em> has started discussion for topic <em>{{topicTitle}}</em>",
+    "ACTIVITY_USER_UPDATE_DISCUSSION_TOPIC": "User <em>{{userName}}</em> has updated the discussion of topic <em>{{topicTitle}}</em>",
     "ACTIVITY_USER_CREATE_IDEATION_TOPIC": "User <em>{{userName}}</em> has opened idea gathering for topic <em>{{topicTitle}}</em>",
     "ACTIVITY_USER_UPDATE_IDEATION_TOPIC": "User <em>{{userName}}</em> has updated the idea gathering deadline of topic <em>{{topicTitle}}</em>",
     "ACTIVITY_USER_CREATE_IDEA_IDEATION": "User <em>{{userName}}</em> has added a new idea to the idea gathering in topic: <em>{{topicTitle}}</em>",
