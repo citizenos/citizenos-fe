@@ -230,14 +230,14 @@
     "CLOSE_DISCUSSION_CONFIRM": {
       "HEADING": "Diskussion beenden",
       "ARE_YOU_SURE": "Sind Sie sicher, dass Sie diese Diskussion beenden möchten? Es können dann keine Argumente mehr hinzugefügt werden. Sie können diese Aktion nicht rückgängig machen.",
-      "CONFIRM_YES": "Ja, diese Diskussion beenden",
-      "CONFIRM_NO": "Nein, diese Diskussion nicht schließen"
+      "CONFIRM_YES": "Ja, diese Diskussion abschließen",
+      "CONFIRM_NO": "Nein, diese Diskussion nicht abschließen"
     },
     "CLOSE_IDEATION_CONFIRM": {
       "HEADING": "Ideenfindung beenden",
-      "ARE_YOU_SURE": "Sind Sie sicher, dass Sie diese Ideenfindung beenden möchten? Es können dann keine Ideen mehr hinzugefügt werden. Sie können diese Aktion nicht rückgängig machen.",
-      "CONFIRM_YES": "Ja, die Ideenfindung beenden",
-      "CONFIRM_NO": "Nein, die Ideenfindung nicht schließen"
+      "ARE_YOU_SURE": "Sind Sie sicher, dass Sie diese Ideenfindung abschließen möchten? Es können dann keine Ideen mehr hinzugefügt werden. Sie können diese Aktion nicht rückgängig machen.",
+      "CONFIRM_YES": "Ja, die Ideenfindung abschließen",
+      "CONFIRM_NO": "Nein, die Ideenfindung nicht abschließen"
     },
     "CLOSE_VOTING_CONFIRM": {
       "HEADING": "Abstimmung beenden",
@@ -752,7 +752,7 @@
       "FILTER_TYPE_FAVOURITES": "Gespeicherte Ideen",
       "FILTER_TYPE_MODERATED": "Moderiert",
       "IDEA_FILTER_ORDER": "@:VIEWS.GROUP.TOPICS_FILTER_ORDER",
-      "FILTER_ORDER_MOST_LIKED": "Am meisten \"Gefällt mir\"",
+      "FILTER_ORDER_MOST_LIKED": "Am meisten „Gefällt mir“",
       "FILTER_ORDER_MOST_RECENT": "Neueste",
       "FILTER_ORDER_MOST_REPLIES": "Meiste Antworten",
       "IDEA_FILTER_PARTICIPANTS": "Teilnehmer",
@@ -2241,7 +2241,7 @@
       "HELP_ITEM_ADD_DISCUSSION": "Eine Pro- und Contra-Diskussionsphase hinzufügen",
       "HELP_ITEM_SHARE_AND_INVITE": "@:VIEWS.TOPIC_CREATE.HELP_ITEM_SHARE_AND_INVITE",
       "HELP_ITEM_ADD_VOTING": "Fügen Sie eine Abstimmung hinzu, um aus Ideen auszuwählen oder über eine Frage abzustimmen",
-      "HELP_ITEM_START_GATHERING_IDEAS": "Ideen sammeln starten",
+      "HELP_ITEM_START_GATHERING_IDEAS": "Ideenfindung starten",
       "HELP_ITEM_ADD_FOLLOW_UP": "@:VIEWS.TOPIC_CREATE.HELP_ITEM_ADD_FOLLOW_UP",
       "WRITE_TOGETHER_HEADING": "@:VIEWS.TOPIC_CREATE.WRITE_TOGETHER_HEADING",
       "WRITE_TOGETHER_DESC": "@:VIEWS.TOPIC_CREATE.WRITE_TOGETHER_DESC",
