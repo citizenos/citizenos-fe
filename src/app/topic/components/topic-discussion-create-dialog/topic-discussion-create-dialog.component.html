@@ -1,0 +1,239 @@
+<div class="overlay" dialog-close></div>
+<div class="dialog_wrap">
+  <div id="notification_wrap_dialog" class="mobile_hidden">
+    <notification></notification>
+  </div>
+  <div class="dialog">
+    <div id="notification_wrap_dialog" class="mobile_show">
+      <notification></notification>
+    </div>
+    <div class="dialog_header discussion">
+      <div class="header_text">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="40" height="40" rx="20" fill="#1168A8" />
+          <path
+            d="M27.5001 22.2043C27.5302 22.1609 27.5591 22.116 27.5888 22.0738C28.3443 20.951 28.7486 19.6287 28.7501 18.2754C28.7626 14.3965 25.49 11.25 21.4431 11.25C17.9134 11.25 14.9689 13.652 14.2791 16.8406C14.1756 17.3132 14.1232 17.7955 14.1228 18.2793C14.1228 22.1621 17.2697 25.393 21.3166 25.393C21.9599 25.393 22.8267 25.1996 23.3021 25.0691C23.7775 24.9387 24.2486 24.7664 24.3705 24.7199C24.4923 24.6734 24.683 24.6258 24.8349 24.6695L27.8591 25.5438C27.8857 25.5516 27.9139 25.5522 27.9408 25.5456C27.9678 25.539 27.9924 25.5253 28.0123 25.5059C28.0322 25.4866 28.0466 25.4624 28.054 25.4356C28.0614 25.4089 28.0615 25.3807 28.0544 25.3539L27.3623 22.7176C27.3142 22.5223 27.308 22.4855 27.5001 22.2043Z"
+            fill="white" />
+          <path
+            d="M22.2086 26.2267C21.908 26.2748 21.6044 26.3015 21.3 26.3068C19.6426 26.3068 18.0774 25.8693 16.8079 25.0489C15.9958 24.5505 15.2908 23.8956 14.734 23.1224C13.7153 21.772 13.1598 20.0556 13.1598 18.2595C13.1598 18.1372 13.1641 18.0196 13.1684 17.9017C13.17 17.8669 13.1607 17.8325 13.142 17.8031C13.1233 17.7737 13.096 17.7508 13.0639 17.7375C13.0317 17.7242 12.9962 17.7211 12.9622 17.7287C12.9282 17.7362 12.8974 17.7541 12.8739 17.7798C11.9385 18.8032 11.3731 20.1105 11.2679 21.4929C11.1627 22.8754 11.5237 24.2532 12.2934 25.4064C12.3899 25.5536 12.4446 25.6673 12.4278 25.7431L11.8774 28.5657C11.8723 28.5926 11.8744 28.6203 11.8833 28.6461C11.8923 28.6719 11.9079 28.6949 11.9285 28.7128C11.9491 28.7307 11.9741 28.7429 12.0009 28.7481C12.0277 28.7534 12.0554 28.7515 12.0813 28.7427L14.7375 27.7958C14.8181 27.764 14.9041 27.7483 14.9907 27.7498C15.0773 27.7513 15.1628 27.7698 15.2422 27.8044C16.0372 28.1169 16.9165 28.3091 17.7957 28.3091C19.4882 28.3146 21.1186 27.6716 22.3516 26.5122C22.3771 26.4874 22.394 26.4551 22.3999 26.4201C22.4058 26.385 22.4004 26.349 22.3845 26.3172C22.3686 26.2854 22.3429 26.2595 22.3113 26.2432C22.2797 26.227 22.2438 26.2212 22.2086 26.2267Z"
+            fill="white" />
+        </svg>
+
+        <h4 class="title" translate="COMPONENTS.TOPIC_DISCUSSION_CREATE.DIALOG_HEADING"></h4>
+        <div class="dialog_close">
+          <a class="btn_dialog_close icon" dialog-close>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289Z"
+                fill="#2C3B47" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="dialog_tabs_wrap discussion">
+      <a class="dialog_tab mobile_hidden" *ngFor="let tab of tabs" [ngClass]="(tabActive === tab+1)? 'active' :''"
+        (click)="tabActive=tab+1">
+        <span class="tab_number">{{tab+1}}</span>
+        <span class="tab_text">{{tab+1}}.
+          <span [translate]="'COMPONENTS.TOPIC_DISCUSSION_CREATE.DIALOG_TAB_'+(tab+1)"></span>
+        </span>
+      </a>
+      <div class="dropdown mobile_show" [cosDropdown]>
+        <div class="selection">
+          <div class="selected_item bold">{{tabActive}}. <span
+              [translate]="'COMPONENTS.TOPIC_DISCUSSION_CREATE.DIALOG_TAB_'+tabActive"></span></div>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+          </svg>
+
+        </div>
+        <div class="options">
+          <div class="option" *ngFor="let tab of tabs" (click)="tabActive = tab+1">
+            <span class="tab_number">{{tab+1}}. <span
+                [translate]="'COMPONENTS.TOPIC_VOTE_CREATE.DIALOG_TAB_'+(tab+1)"></span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="dialog_content">
+      <ng-container *ngIf="tabActive === 1">
+        <div class="introduction_wrap">
+          <div class="intro_heading">
+            <span translate="COMPONENTS.TOPIC_DISCUSSION_CREATE.DIALOG_TAB_INTRODUCTION_ARE_YOU_SURE"></span>
+            <span translate="COMPONENTS.TOPIC_DISCUSSION_CREATE.DIALOG_TAB_INTRODUCTION_KEEP_IN_MIND"></span>
+          </div>
+          <div class="dialog_info">
+            <div class="row"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929Z"
+                  fill="#EF4025" />
+              </svg>
+
+              <span class="error_text bold" translate="COMPONENTS.TOPIC_DISCUSSION_CREATE.DIALOG_TAB_INTRODUCTION_ITEM_1"></span>
+            </div>
+            <div class="row"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929Z"
+                  fill="#EF4025" />
+              </svg>
+
+              <span class="error_text bold" translate="COMPONENTS.TOPIC_DISCUSSION_CREATE.DIALOG_TAB_INTRODUCTION_ITEM_4"></span>
+            </div>
+            <div class="row"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M9.38602 14.8088L17.5256 6L19 7.59558L9.38602 18L5 13.2534L6.47436 11.6578L9.38602 14.8088Z"
+                  fill="#2C3B47" />
+              </svg>
+              <span translate="COMPONENTS.TOPIC_DISCUSSION_CREATE.DIALOG_TAB_INTRODUCTION_ITEM_5"></span>
+            </div>
+            <div class="row"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M9.38602 14.8088L17.5256 6L19 7.59558L9.38602 18L5 13.2534L6.47436 11.6578L9.38602 14.8088Z"
+                  fill="#2C3B47" />
+              </svg>
+              <span translate="COMPONENTS.TOPIC_DISCUSSION_CREATE.DIALOG_TAB_INTRODUCTION_ITEM_2"></span>
+            </div>
+            <div class="row"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M9.38602 14.8088L17.5256 6L19 7.59558L9.38602 18L5 13.2534L6.47436 11.6578L9.38602 14.8088Z"
+                  fill="#2C3B47" />
+              </svg>
+              <span translate="COMPONENTS.TOPIC_DISCUSSION_CREATE.DIALOG_TAB_INTRODUCTION_ITEM_3"></span>
+            </div>
+            <div class="row"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M9.38602 14.8088L17.5256 6L19 7.59558L9.38602 18L5 13.2534L6.47436 11.6578L9.38602 14.8088Z"
+                  fill="#2C3B47" />
+              </svg>
+              <span translate="COMPONENTS.TOPIC_DISCUSSION_CREATE.DIALOG_TAB_INTRODUCTION_ITEM_6"></span>
+            </div>
+          </div>
+          <div class="dialog_info_wrap">
+            <div class="dialog_info discussion">
+              <div class="row">
+                <div>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="24" height="24" rx="12" fill="#5C9CD0" />
+                    <path
+                      d="M13.8002 6.91789C13.8002 7.75599 13.1555 8.4354 12.3602 8.4354C11.5649 8.4354 10.8002 7.75599 10.8002 6.91789C10.8002 6.0798 11.5649 5.40039 12.3602 5.40039C13.1555 5.40039 13.8002 6.0798 13.8002 6.91789Z"
+                      fill="white" />
+                    <path
+                      d="M10.4017 9.9218L13.6993 9.48627L12.2579 16.6261C12.1556 17.1421 12.2996 17.4349 12.6956 17.4349C12.975 17.4349 13.3955 17.3287 13.6835 17.0616L13.5568 17.6929C13.1435 18.218 12.232 18.6004 11.4472 18.6004C10.4348 18.6004 10.0043 17.96 10.2836 16.5988L11.3464 11.3361C11.4385 10.8915 11.355 10.7306 10.9316 10.6244L10.2836 10.4984L10.4017 9.9218Z"
+                      fill="white" />
+                  </svg>
+                </div>
+                <span translate="COMPONENTS.TOPIC_DISCUSSION_CREATE.DIALOG_TAB_INTRODUCTION_INFO"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="tabActive === 2">
+        <div id="form_area">
+          <div class="content_section">
+            <div class="section_content_wrap">
+              <div class="bold" translate="COMPONENTS.TOPIC_DISCUSSION_CREATE.SETTINGS_HEADING_DISCUSSION_QUESTION">
+              </div>
+              <div translate="COMPONENTS.TOPIC_DISCUSSION_CREATE.SETTINGS_HEADING_DISCUSSION_QUESTION_DESC"></div>
+              <div class="section_content_description">
+                <cos-input placeholder="{{'COMPONENTS.TOPIC_DISCUSSION_CREATE.SETTINGS_DISCUSSION_QUESTION_PLACEHOLDER' | translate}}">
+                  <input id="groupName"
+                    [placeholder]="'COMPONENTS.TOPIC_DISCUSSION_CREATE.SETTINGS_DISCUSSION_QUESTION_PLACEHOLDER' | translate"
+                    [(ngModel)]="discussion.question">
+                </cos-input>
+              </div>
+            </div>
+          </div>
+          <div class="section_content_wrap">
+            <div class="header_wrap">
+              <div class="bold" translate="COMPONENTS.TOPIC_DISCUSSION_CREATE.SETTINGS_HEADING_DISCUSSION_DEADLINE">
+              </div>
+            </div>
+          </div>
+          <div class="radio_wrap discussion date_selector"
+            [ngClass]="{selected: deadlineSelect, disabled: !canEditDiscussion()}">
+            <div class="radio_text_wrap date_selector">
+              <div class="radio_lable_wrap" (click)="toggleDeadline();$event.stopPropagation();">
+                <label class="checkbox" [ngClass]="{selected: deadlineSelect}">
+                  <span class="checkmark"></span>
+                  <div class="checkbox_text_wrap">
+                    <span class="bold" translate="VIEWS.TOPIC_CREATE.LBL_OPTION_DEADLINE"></span>
+                    <span class="deadline bold" *ngIf="deadlineSelect">{{deadline | date: 'YYYY-MM-dd HH:mm'}}</span>
+                  </div>
+                </label>
+              </div>
+              <div class="radio_description" *ngIf="deadlineSelect">
+                <div class="deadline_wrap">
+                  <div class="date_row">
+                    <span class="deadline" translate="VIEWS.TOPIC_CREATE.LBL_TIMEZONE"></span>
+                  </div>
+                  <div class="date_row">
+                    <div class="bold date_row_title" translate="VIEWS.TOPIC_CREATE.DEADLINE_LBL_TIME">
+                    </div>
+                    <div class="input_wrap">
+                      <div class="time_wrap">
+                        <input class="time_input" [(ngModel)]="endsAt.h"
+                          (change)="formatTime(endsAt.h); setEndsAtTime()" type="number" [min]="minHours()"
+                          max="{{HCount}}" step="1" />
+                        <span class="time_separator">:</span>
+                        <input type="number" class="time_input" [min]="minMinutes()" max="59" step="5"
+                          [(ngModel)]="endsAt.min" (change)="formatTime(endsAt.min);setEndsAtTime()" />
+                      </div>
+
+                      <div class="dropdown" [cosDropdown]>
+                        <div class="selection">
+                          <div class="selected_item">
+                            {{'VIEWS.TOPIC_CREATE.DEADLINE_TIME_OPTION_'+endsAt.timeFormat | uppercase |
+                            translate}}</div>
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
+                          </svg>
+
+                        </div>
+                        <div class="options">
+                          <div class="option" translate="VIEWS.TOPIC_CREATE.DEADLINE_TIME_OPTION_24"
+                            (click)="endsAt.timeFormat = 24; setTimeFormat()">
+                          </div>
+                          <div class="option" translate="VIEWS.TOPIC_CREATE.DEADLINE_TIME_OPTION_AM"
+                            (click)="endsAt.timeFormat = 'AM'; setTimeFormat()"
+                            [ngClass]="{disabled: timeFormatDisabled()}">
+                          </div>
+                          <div class="option" translate="VIEWS.TOPIC_CREATE.DEADLINE_TIME_OPTION_PM"
+                            (click)="endsAt.timeFormat = 'PM'; setTimeFormat()">
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <cos-calender [minDate]="datePickerMin" [(date)]="endsAt.date" (click)="setEndsAtTime()"
+                    class="discussion"></cos-calender>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <div class="dialog_footer with_buttons">
+      <a dialog-close translate="COMPONENTS.TOPIC_DISCUSSION_CREATE.LNK_CANCEL"></a>
+      <div class="button_row">
+        <button *ngIf="tabActive > 1" class="btn_medium_submit_ghost icon mobile_hidden"
+          (click)="tabActive = tabActive - 1;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M10.4533 17.6874C10.8529 18.1042 11.5009 18.1042 11.9006 17.6874C12.3003 17.2705 12.3003 16.5947 11.9006 16.1779L8.91837 13L19 13C19.5652 13 20 12.5892 20 11.9997C20 11.4103 19.5652 11.0176 19 11.0176L8.91837 11.0176L11.9006 7.8221C12.3003 7.40527 12.3003 6.72945 11.9006 6.31262C11.5009 5.89579 10.8529 5.89579 10.4533 6.31262L5 12L10.4533 17.6874Z"
+              fill="#2C3B47" />
+          </svg>
+        </button>
+        <button class="btn_medium_submit" (click)="tabNext()">{{((this.tabActive <
+            2)? "COMPONENTS.TOPIC_DISCUSSION_CREATE.BTN_CONTINUE"
+            : "COMPONENTS.TOPIC_DISCUSSION_CREATE.BTN_START_DISCUSSION" ) | translate }}</button>
+      </div>
+    </div>
+  </div>
+</div>

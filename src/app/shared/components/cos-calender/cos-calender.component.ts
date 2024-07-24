@@ -9,6 +9,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class CosCalenderComponent implements OnInit {
   @Input() minDate?: Date;
   @Input() date?: Date;
+  @Input() class?: string;
   @Output() dateChange = new EventEmitter();
   yearOptions: number[] = [];
   monthOptions: number[] = [...Array(12).keys()].map(i => i + 1);

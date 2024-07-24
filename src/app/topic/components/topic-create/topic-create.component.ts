@@ -6,9 +6,9 @@ import { Observable, switchMap, tap, take, combineLatest, Subject, BehaviorSubje
 import { Topic } from 'src/app/interfaces/topic';
 import { AppService } from 'src/app/services/app.service';
 import { TopicService } from 'src/app/services/topic.service';
-import { GroupMemberTopicService } from 'src/app/services/group-member-topic.service';
 import { DialogService } from 'src/app/shared/dialog';
 import { BlockNavigationIfChange } from 'src/app/shared/pending-changes.guard';
+import { TopicDiscussionService } from 'src/app/services/topic-discussion.service';
 
 @Component({
   selector: 'app-topic-create',
@@ -54,7 +54,7 @@ export class TopicCreateComponent implements OnInit, BlockNavigationIfChange {
     private app: AppService,
     public TopicService: TopicService,
     public translate: TranslateService,
-    public GroupMemberTopicService: GroupMemberTopicService,
+    private TopicDiscussionService: TopicDiscussionService,
     private router: Router,
     private Dialog: DialogService,
     private route: ActivatedRoute) {
@@ -84,8 +84,21 @@ export class TopicCreateComponent implements OnInit, BlockNavigationIfChange {
     return this.TopicService.save(topic)
       .pipe(take(1),
         tap((topic: Topic) => {
-          this.hasChanges$.next(false);
-          this.router.navigate([topic.id], { relativeTo: this.route, queryParams: params});
+            const createDiscussion: any = {
+              topicId: topic.id,
+              creatorId: '',
+              question: ' ',
+              deadline: null,
+              createdAt: '',
+              updatedAt: ''
+            };
+            this.TopicDiscussionService.save(createDiscussion)
+              .pipe(take(1))
+              .subscribe({
+                next: (discussion) => {
+                  this.router.navigate([topic.id], { relativeTo: this.route });
+                }
+              });
         }));
     /*this.app.createNewTopic(this.topic.title, this.topic.visibility)
     .pipe(take(1))
