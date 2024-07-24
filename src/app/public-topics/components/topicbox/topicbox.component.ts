@@ -10,6 +10,7 @@ import { Observable, map, of, tap } from 'rxjs';
 import { Vote } from 'src/app/interfaces/vote';
 import { DialogService } from 'src/app/shared/dialog';
 import { TopicReportReasonComponent } from 'src/app/topic/components/topic-report-reason/topic-report-reason.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'topicbox',
@@ -24,7 +25,7 @@ export class TopicboxComponent implements OnInit {
   milestones$?: Observable<{count: Number}> = of({count: 0});
   ideaCount$?: Observable<{count: Number}> = of({count: 0});
   vote?: Vote;
-  constructor(private TopicService: TopicService, private TopicVoteService: TopicVoteService, private router: Router, private TopicEventService: TopicEventService, private DialogService: DialogService, private TopicIdeaService: TopicIdeaService) {
+  constructor(private TopicService: TopicService, private TopicVoteService: TopicVoteService, private router: Router, private TopicEventService: TopicEventService, private DialogService: DialogService, private TopicIdeaService: TopicIdeaService, private Translate: TranslateService) {
   }
 
   ngOnInit(): void {
@@ -55,7 +56,7 @@ export class TopicboxComponent implements OnInit {
   }
 
   getTopicPath () {
-    let urlArray = ['topics', this.topic.id];
+    let urlArray = [this.Translate.currentLang, 'topics', this.topic.id];
     if (this.topic.status === this.TopicService.STATUSES.draft && this.TopicService.canDelete(this.topic)) {
       urlArray = ['topics', 'edit', this.topic.id];
       if (this.topic.voteId) {

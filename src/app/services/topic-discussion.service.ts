@@ -107,7 +107,7 @@ export class TopicDiscussionService extends ItemsListService {
   };
 
   hasDiscussionEndedExpired(topic: Topic, discussion: Discussion) {
-    return ([this.STATUSES.draft, this.STATUSES.inProgress].indexOf(topic.status) === -1) || discussion.deadline && (new Date() > new Date(discussion.deadline));
+    return ([this.STATUSES.draft, this.STATUSES.inProgress, this.STATUSES.voting, this.STATUSES.followUp].indexOf(topic.status) === -1) || discussion.deadline && (new Date() > new Date(discussion.deadline));
   };
 
   getItems(params: any) {
