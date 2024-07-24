@@ -2225,7 +2225,7 @@
       "NO_IDEAS_HEADING": "There are no ideas yet",
       "NO_IDEAS_BTN_ADD": "Add idea",
       "NO_IDEAS_DESC_HEADING": "How idea gathering works",
-      "NO_IDEAS_DESC_BEFORE": "By adding an idea gathering phase to your topic, you incentivise your participants to share ideas. Ideas can be considered more, or less, “illuminating” so the top ideas will show up higher.",
+      "NO_IDEAS_DESC_BEFORE": "By adding an idea gathering phase to your topic, you incentivise your participants to share ideas. Ideas can be replied to and 'liked', and the top ideas will show up higher.",
       "NO_IDEAS_DESC_AFTER": "Afterwards you can take the best idea(s) and put them to the vote to reach a final conclusion.",
       "BTN_READ_MORE": "@:VIEWS.TOPIC_CREATE.BTN_READ_MORE",
       "BTN_READ_LESS": "@:VIEWS.TOPIC_CREATE.BTN_READ_LESS",
