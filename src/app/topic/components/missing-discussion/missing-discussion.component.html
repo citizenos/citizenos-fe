@@ -117,7 +117,7 @@
         <button class="btn_medium_submit" (click)="updateDiscussion()"
           translate="COMPONENTS.MISSING_DISCUSSION.BTN_START_DISCUSSION"></button>
 
-      <a dialog-close translate="COMPONENTS.MISSING_DISCUSSION.LNK_CANCEL"></a>
+      <a *ngIf="!topic.discussionId" dialog-close translate="COMPONENTS.MISSING_DISCUSSION.LNK_CANCEL"></a>
       </div>
     </div>
     <div class="dialog_footer">
