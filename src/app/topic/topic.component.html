@@ -1036,9 +1036,12 @@
                     <span translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_VOTING_VOTES_NEEDED"></span>
                   </!--div-->
                 </div>
-                <div class="item_title" [translateParams]="{count: ideation.ideas.count}"
-                  [translate]="(!this.hasIdeationEndedExpired(topic, ideation))? 'VIEWS.TOPICS_TOPICID.STATE_ITEM_IDEATION_IDEAS': 'VIEWS.TOPICS_TOPICID.STATE_ITEM_IDEATION_STATUS_ENDED'">
-                </div>
+                <div *ngIf="ideation.deadline && !this.hasIdeationEndedExpired(topic, ideation)" class="item_title" [translateParams]="{count: ideation.ideas.count}"
+                  translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_IDEATION_IDEAS"></div>
+                <div *ngIf="!ideation.deadline && !this.hasIdeationEndedExpired(topic, ideation)" class="item_title" [translateParams]="{count: ideation.ideas.count}"
+                  translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_IDEATION_STATUS_ACTIVE"></div>
+                <div *ngIf="this.hasIdeationEndedExpired(topic, ideation)" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_IDEATION_STATUS_ENDED"></div>
+
               </div>
               <!--div class="item_header">
                 <div class="item_title" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_IDEATION_HEADING"></div>
