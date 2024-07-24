@@ -45,6 +45,7 @@ export class ArgumentReplyComponent implements OnInit {
       parentId: this.argument.id,
       parentVersion: (this.argument.edits.length - 1),
       type: this.reply.type,
+      discussionId: this.argument.discussionId,
       subject: this.reply.subject,
       text: this.reply.text,
       topicId: this.topicId

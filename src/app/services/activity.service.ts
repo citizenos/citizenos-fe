@@ -427,7 +427,7 @@ export class ActivityService extends ItemsListService {
     let newValueKey = null;
     let fieldNameKey = null;
     const originType = activity.data.origin['@type'];
-    if (originType === 'Topic' || originType === 'Comment' || originType === 'Group') {
+    if (originType === 'Topic' || originType === 'Comment' || originType === 'Group' || originType === 'Idea') {
       fieldNameKey = 'ACTIVITY_FEED.ACTIVITY_' + originType.toUpperCase() + '_FIELD_' + fieldName.toUpperCase();
     }
 
@@ -478,7 +478,7 @@ export class ActivityService extends ItemsListService {
         }
       }
 
-      if (originType === 'Comment') {
+      if (originType === 'Comment' || originType === 'Idea') {
         if (fieldName === 'deletedReasonType') {
           newValueKey = 'ACTIVITY_FEED.ACTIVITY_COMMENT_FIELD_DELETEDREASONTYPE_' + newValue.toUpperCase();
         }
@@ -486,6 +486,7 @@ export class ActivityService extends ItemsListService {
           newValueKey = 'ACTIVITY_FEED.ACTIVITY_COMMENT_FIELD_VALUE_' + newValue.toUpperCase();
         }
       }
+      if (fieldName === 'deletedReasonType') console.log('ORIGIN', originType, newValueKey)
     }
     if (previousValueKey) {
       const prev = this.$translate.instant(previousValueKey);

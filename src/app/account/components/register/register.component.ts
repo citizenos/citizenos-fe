@@ -72,7 +72,7 @@ export class RegisterComponent {
       }
     );
 
-    const redirectSuccess = this.redirectSuccess || this.Location.getAbsoluteUrl(`${this.translate.currentLang}/dashboard`); // Final url to land after successful login
+    const redirectSuccess = this.redirectSuccess || this.Location.getAbsoluteUrl(`dashboard`); // Final url to land after successful login
 
     const loginWindow = this.popupCenter(url, 'CitizenOS Partner Login', 470, 500);
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 import { take } from 'rxjs';
 import { User } from 'src/app/interfaces/user';
@@ -77,9 +77,7 @@ export class PrivacyPolicyComponent implements OnInit {
                   return ['esteid', 'smartid'].indexOf(con.connectionId) > -1;
                 });
 
-                if (filtered.length) {
-                    this.router.navigate(['/dashboard']);
-                } else if (window.navigator.languages.indexOf('et') > -1) {
+                if (!filtered.length && window.navigator.languages.indexOf('et') > -1) {
                     const addEidDialog = this.dialog.open(AddEidComponent, {
                       data: {
                         connections: connections
@@ -88,10 +86,10 @@ export class PrivacyPolicyComponent implements OnInit {
 
 
                     addEidDialog.afterClosed().subscribe(() => {
-                      this.router.navigate(['/dashboard'], { onSameUrlNavigation: 'reload'});
+                   //   this.router.navigate(['/dashboard'], { onSameUrlNavigation: 'reload'});
                     });
                 } else {
-                  this.router.navigate(['/dashboard']);
+              //    this.router.navigate(['/dashboard']);
                 }
               });
           })

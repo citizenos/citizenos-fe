@@ -8,7 +8,7 @@ import { Group } from 'src/app/interfaces/group';
 import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 
 @Component({
-  selector: 'app-group-join',
+  selector: 'group-join',
   templateUrl: './group-join.component.html',
   styleUrls: ['./group-join.component.scss']
 })
@@ -21,7 +21,7 @@ export class GroupJoinComponent {
 }
 
 @Component({
-  selector: 'app-group-join',
+  selector: 'group-token-join',
   template: ''
 })
 export class GroupTokenJoinComponent {

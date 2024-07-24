@@ -78,7 +78,7 @@ export class TopicMilestonesComponent implements OnInit {
         this.event.subject = '';
         this.event.text = '';
         event.editMode = !event.editMode;
-        this.TopicEventService.reset();
+        this.TopicEventService.reloadEvents();
       });
   }
 
@@ -104,7 +104,7 @@ export class TopicMilestonesComponent implements OnInit {
           .subscribe(() => {
             this.event.subject = '';
             this.event.text = '';
-            this.TopicEventService.reset();
+            this.TopicEventService.reloadEvents();
           });
       }
     });

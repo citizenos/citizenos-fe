@@ -112,7 +112,12 @@
         <span class="checkmark"></span>
       </label>
       <div class="checbox_description"><span translate="COMPONENTS.REGISTER_FORM.LBL_SHOW_IN_SEARCH_DESCRIPTION"
-          (click)="allowSearch()"></span></div>
+          (click)="allowSearch()">
+          <!--div class="tooltip" tooltip>
+            <div class="content_title">Help on its way</div>
+            <div class="content_description">Help text coming soon! Please tell us what help you were looking for.</div>
+          </!--div-->
+        </span></div>
     </div>
 
     <button id="register_button" type="submit" (click)="doSignUp()" class="btn_big_submit"
