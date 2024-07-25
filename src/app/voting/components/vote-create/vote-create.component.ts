@@ -149,6 +149,22 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
           return this.TopicService.loadTopic(params['topicId']).pipe(map((topic) => {
             this.topicUrl = this.sanitizer.bypassSecurityTrustResourceUrl(topic.padUrl);
             this.topic = topic;
+
+            Object.keys(this.block).forEach((blockname) => {
+              if (blockname === 'headerImage' && this.topic.imageUrl) {
+                this.block[blockname] = true;
+              }
+              const temp = this.topic[blockname as keyof Topic];
+
+              if (blockname === 'description') {
+                const el = document.createElement('span');
+                el.innerHTML = temp;
+                if (el.innerText)
+                  this.block['description'] = true;
+              } else if (temp)
+                this.block[blockname as keyof typeof this.block] = true;
+            });
+
             if (this.topic.id) {
               this.TopicInviteUserService.setParam('topicId', this.topic.id);
               this.invites$ = this.loadInvite$.pipe(
