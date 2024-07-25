@@ -960,6 +960,7 @@
       "SETTINGS_HEADING_DISCUSSION_QUESTION_DESC": "@:VIEWS.TOPIC_CREATE.SETTINGS_HEADING_DISCUSSION_QUESTION_DESC",
       "SETTINGS_DISCUSSION_QUESTION_PLACEHOLDER": "@:VIEWS.TOPIC_CREATE.SETTINGS_DISCUSSION_QUESTION_PLACEHOLDER",
       "SETTINGS_HEADING_DISCUSSION_DEADLINE": "@:VIEWS.TOPIC_CREATE.SETTINGS_HEADING_DISCUSSION_DEADLINE",
+      "SETTINGS_HEADING_DISCUSSION_DEADLINE_DESC": "@:VIEWS.TOPIC_CREATE.SETTINGS_HEADING_DISCUSSION_DEADLINE_DESC",
       "LNK_CANCEL": "@:LNK_CANCEL",
       "BTN_CONTINUE": "Jätka",
       "BTN_START_DISCUSSION": "Alusta arutelufaasi"
@@ -1024,7 +1025,7 @@
       "MILESTONE_TITLE": "@:VIEWS.TOPICS_TOPICID.ADD_MILESTONES_MILESTONE"
     },
     "TOPIC_ONBOARDING": {
-      "TITLE": "Teemad näevad välja (ja töötavad) pisut teistmoodi pärast uuendust",
+      "TITLE": "@:VIEWS.TOPICS_TOPICID.TUTORIAL_TITLE",
       "DESCRIPTION": "@:VIEWS.TOPICS_TOPICID.TUTORIAL_DESC",
       "TAKE_A_TOUR": "@:COMPONENTS.ONBOARDING.TAKE_A_TOUR",
       "BTN_SUBMIT": "@:COMPONENTS.ONBOARDING.BTN_SUBMIT",
@@ -3058,7 +3059,7 @@
     "ACTIVITY_USER_ADD_REPORT_IDEA_COMMENT": "<em>{{userName}}</em> teatas ideele antud sobimatust vastusest:",
     "ACTIVITY_MODERATOR_UPDATE_COMMENT_IDEA": "<em>{{userName}}</em> (moderaator) uuendas teemas „<em>{{topicTitle}}</em>“ idee vastusevälja <em>{{fieldName}}</em>",
     "ACTIVITY_USER_CREATE_FOLDER_IDEATION": "Kasutaja <em>{{userName}}</em> lisas teema „<em>{{topicTitle}}</em>“ ideekorjesse kausta",
-    "ACTIVITY_USER_DELETE_FOLDER_IDEATION": "User <em>{{userName}}</em> has removed a folder from the idea gathering in topic <em>{{topicTitle}}</em>",
+    "ACTIVITY_USER_DELETE_FOLDER_IDEATION": "Kasutaja <em>{{userName}}</em> eemaldas teema „<em>{{topicTitle}}</em>“ ideekorjest kausta",
     "ACTIVITY_USER_UPDATE_FOLDER": "<em>{{userName}}</em> muutis kausta teemas \"<em>{{topicTitle}}</em>\"",
     "ACTIVITY_USER_DELETE_FOLDER": "<em>{{userName}}</em> eemaldas kausta teemast „<em>{{topicTitle}}</em>“",
     "ACTIVITY_USER_ADD_FOLDERIDEA_FOLDER": "<em>{{userName}}</em> lisas idee teema „<em>{{topicTitle}}</em>“ kausta",
