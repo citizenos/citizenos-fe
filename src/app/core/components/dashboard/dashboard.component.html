@@ -384,7 +384,7 @@
 
         <ng-container *ngIf="news$ | async as news">
 
-          <a [href]="news[i].link" class="news_item" *ngFor="let i of [0,1,2,3]">
+          <a [href]="news[i].link" target="_blank" class="news_item" *ngFor="let i of [0,1,2,3]">
             <div class="news_image" *ngIf="news[i].imageUrl">
               <img [src]="news[i].imageUrl" />
             </div>
@@ -415,7 +415,7 @@
             <circle cx="29" cy="31.5" r="1" fill="#2C3B47" />
             <circle cx="32.5" cy="31.5" r="1" fill="#2C3B47" />
           </svg>
-          <a href="https://citizenos.com/get-involved/" taget="_blank"><span
+          <a href="https://citizenos.com/get-involved/" target="_blank"><span
               translate="VIEWS.DASHBOARD.HELP_US_LNK_SHARE_STORY"></span><svg width="24" height="24" viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg">
               <path d="M15 12V14L19 11.5L15 9V11H6V12H15Z" />
