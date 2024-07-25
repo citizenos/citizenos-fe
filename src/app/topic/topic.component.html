@@ -37,8 +37,10 @@
         <button *ngIf="(auth.loggedIn$ | async)" class="btn_medium_close icon tablet_show"
           (click)="toggleFavourite(topic);" [ngClass]="{like_active: topic.favourite}">
           <div class="tooltip_item" [noIcon]="true" tooltip>
-            <div class="content_description" *ngIf="!topic.favourite" translate="VIEWS.TOPICS_TOPICID.TOOLTIP_FAVOURITE"></div>
-            <div class="content_description" *ngIf="topic.favourite" translate="VIEWS.TOPICS_TOPICID.TOOLTIP_SAVED_TO_FAVOURITE"></div>
+            <div class="content_description" *ngIf="!topic.favourite"
+              translate="VIEWS.TOPICS_TOPICID.TOOLTIP_FAVOURITE"></div>
+            <div class="content_description" *ngIf="topic.favourite"
+              translate="VIEWS.TOPICS_TOPICID.TOOLTIP_SAVED_TO_FAVOURITE"></div>
           </div>
           <svg *ngIf="!topic.favourite" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
             fill="none">
@@ -79,10 +81,10 @@
                 </div>
                 <span translate="VIEWS.TOPICS_TOPICID.BTN_LEAVE"></span>
               </button>
-              <div class="line_separator"></div>
             </ng-container>
 
             <ng-container *ngIf="(auth.loggedIn$ | async)">
+              <div class="line_separator"></div>
               <button class="option" (click)="toggleFavourite(topic)">
                 <div class="icon_wrap">
                   <svg *ngIf="topic.favourite" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -101,9 +103,9 @@
                 <span *ngIf="!topic.favourite" translate="VIEWS.TOPICS_TOPICID.OPTION_FAVOURITE"></span>
                 <span *ngIf="topic.favourite" translate="VIEWS.TOPICS_TOPICID.OPTION_UNFAVOURITE"></span>
               </button>
-              <div class="line_separator"></div>
             </ng-container>
             <ng-container *ngIf="(auth.loggedIn$ | async)">
+              <div class="line_separator"></div>
               <button class="option" (click)="app.doShowTopicNotificationSettings(topic.id)">
                 <div class="icon_wrap">
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -115,9 +117,9 @@
                 </div>
                 <span translate="VIEWS.TOPICS_TOPICID.OPTION_TOPIC_NOTIFICATIONS"></span>
               </button>
-              <div class="line_separator"></div>
             </ng-container>
-            <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic)">
+            <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic) && topic.status !== TopicService.STATUSES.closed">
+              <div class="line_separator"></div>
               <button class="option" (click)="inviteEditors(topic)">
                 <div class="icon_wrap">
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -133,10 +135,10 @@
                 </div>
                 <span translate="VIEWS.TOPICS_TOPICID.OPTION_INVITE_CO_EDITOR"></span>
               </button>
-              <div class="line_separator"></div>
             </ng-container>
             <ng-container
               *ngIf="(auth.loggedIn$ | async) && TopicService.canEdit(topic) && !topic.voteId && !topic.ideationId">
+              <div class="line_separator"></div>
               <button class="option" [routerLink]="['/','topics', 'edit', topic.id]">
                 <div class="icon_wrap">
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -147,10 +149,10 @@
                 </div>
                 <span translate="VIEWS.TOPICS_TOPICID.OPTION_EDIT_TOPIC"></span>
               </button>
-              <div class="line_separator"></div>
             </ng-container>
             <ng-container
               *ngIf="(auth.loggedIn$ | async) && topic.voteId && (TopicService.canDelete(topic) || TopicService.canEdit(topic) && topic.status === TopicService.STATUSES.draft)">
+              <div class="line_separator"></div>
               <button class="option" [routerLink]="['/','topics', 'vote', 'edit', topic.id]">
                 <div class="icon_wrap">
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -161,9 +163,9 @@
                 </div>
                 <span translate="VIEWS.TOPICS_TOPICID.OPTION_EDIT_TOPIC"></span>
               </button>
-              <div class="line_separator"></div>
             </ng-container>
             <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic)">
+              <div class="line_separator"></div>
               <button class="option" (click)="duplicateTopic(topic)">
                 <div class="icon_wrap">
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -173,9 +175,9 @@
                 </div>
                 <span translate="VIEWS.TOPICS_TOPICID.OPTION_DUPLICATE_TOPIC"></span>
               </button>
-              <div class="line_separator"></div>
             </ng-container>
-            <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic)">
+            <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic) && topic.status !== TopicService.STATUSES.closed">
+              <div class="line_separator"></div>
               <button class="option" (click)="addGroupsDialog(topic)">
                 <div class="icon_wrap">
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -204,7 +206,18 @@
                 </div><span translate="VIEWS.TOPICS_TOPICID.OPTION_REPORT_TOPIC"></span>
               </button>
             </ng-container>
-
+            <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic) && topic.status !== TopicService.STATUSES.closed">
+              <div class="line_separator"></div>
+              <button class="option" (click)="closeTopic(topic);">
+                <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M4 2C2.89543 2 2 2.89543 2 4V12C2 13.1046 2.89543 14 4 14H12C13.1046 14 14 13.1046 14 12V4C14 2.89543 13.1046 2 12 2H4ZM12.06 4.92L10.94 4.08L6.97109 9.37188L5.03776 7.05187L3.96225 7.94813L7.02891 11.6281L12.06 4.92Z"
+                      fill="#2C3B47" />
+                  </svg>
+                </div><span translate="VIEWS.TOPICS_TOPICID.NAV_LNK_CLOSE_TOPIC"></span>
+              </button>
+            </ng-container>
             <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic)">
               <div class="line_separator"></div>
               <button class="option error_text" (click)="deleteTopic(topic);">
@@ -242,9 +255,10 @@
           </svg>
           <span class="tab_text" translate="VIEWS.TOPICS_TOPICID.TAB_IDEATION"></span>
         </a>
-        <a class="topic_tab" [ngClass]="tabSelected=== 'discussion' ? 'active' : ''"
-          [routerLink]="['./']" fragment="discussion">
-          <svg *ngIf="!topic.discussionId && tabSelected !== 'discussion'" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <a class="topic_tab" [ngClass]="tabSelected=== 'discussion' ? 'active' : ''" [routerLink]="['./']"
+          fragment="discussion">
+          <svg *ngIf="!topic.discussionId && tabSelected !== 'discussion'" width="32" height="32" viewBox="0 0 32 32"
+            fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="32" height="32" rx="16" fill="#5C9CD0" />
             <path
               d="M22 17.7634C22.024 17.7288 22.0472 17.6928 22.0709 17.6591C22.6753 16.7608 22.9987 15.703 23 14.6203C23.01 11.5172 20.3918 9 17.1543 9C14.3306 9 11.975 10.9216 11.4231 13.4725C11.3403 13.8506 11.2984 14.2364 11.2981 14.6234C11.2981 17.7297 13.8156 20.3144 17.0531 20.3144C17.5678 20.3144 18.2612 20.1597 18.6415 20.0553C19.0218 19.9509 19.3987 19.8131 19.4962 19.7759C19.5937 19.7387 19.7462 19.7006 19.8678 19.7356L22.2872 20.435C22.3084 20.4413 22.331 20.4418 22.3525 20.4365C22.3741 20.4312 22.3938 20.4202 22.4097 20.4048C22.4256 20.3893 22.4371 20.3699 22.443 20.3485C22.449 20.3271 22.4491 20.3046 22.4434 20.2831L21.8897 18.1741C21.8512 18.0178 21.8462 17.9884 22 17.7634Z"
@@ -253,7 +267,8 @@
               d="M17.7669 20.9804C17.5264 21.0188 17.2835 21.0402 17.04 21.0444C15.7141 21.0444 14.4619 20.6944 13.4463 20.0382C12.7966 19.6394 12.2327 19.1155 11.7872 18.4969C10.9722 17.4166 10.5278 16.0435 10.5278 14.6066C10.5278 14.5088 10.5313 14.4147 10.5347 14.3204C10.536 14.2925 10.5286 14.265 10.5136 14.2415C10.4987 14.218 10.4768 14.1997 10.4511 14.189C10.4253 14.1784 10.3969 14.1759 10.3698 14.182C10.3426 14.188 10.3179 14.2023 10.2991 14.2229C9.55083 15.0416 9.09849 16.0874 9.01431 17.1934C8.93014 18.2993 9.21898 19.4016 9.83472 20.3241C9.91191 20.4419 9.95566 20.5329 9.94222 20.5935L9.50191 22.8516C9.49785 22.8731 9.49949 22.8953 9.50666 22.9159C9.51384 22.9365 9.5263 22.9549 9.5428 22.9693C9.55931 22.9836 9.57928 22.9933 9.60073 22.9975C9.62218 23.0017 9.64435 23.0002 9.66504 22.9932L11.79 22.2357C11.8545 22.2102 11.9233 22.1977 11.9926 22.1989C12.0619 22.2001 12.1302 22.2149 12.1938 22.2426C12.8297 22.4926 13.5332 22.6463 14.2366 22.6463C15.5906 22.6507 16.8949 22.1363 17.8813 21.2088C17.9017 21.1889 17.9152 21.1631 17.9199 21.1351C17.9246 21.107 17.9203 21.0782 17.9076 21.0528C17.8948 21.0274 17.8744 21.0066 17.8491 20.9936C17.8238 20.9806 17.795 20.976 17.7669 20.9804Z"
               fill="white" />
           </svg>
-          <svg *ngIf="topic.discussionId || tabSelected === 'discussion'" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg *ngIf="topic.discussionId || tabSelected === 'discussion'" width="32" height="32" viewBox="0 0 32 32"
+            fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="32" height="32" rx="16" fill="#1168A8" />
             <path
               d="M22 17.7634C22.024 17.7288 22.0472 17.6928 22.0709 17.6591C22.6753 16.7608 22.9987 15.703 23 14.6203C23.01 11.5172 20.3918 9 17.1543 9C14.3306 9 11.975 10.9216 11.4231 13.4725C11.3403 13.8506 11.2984 14.2364 11.2981 14.6234C11.2981 17.7297 13.8156 20.3144 17.0531 20.3144C17.5678 20.3144 18.2612 20.1597 18.6415 20.0553C19.0218 19.9509 19.3987 19.8131 19.4962 19.7759C19.5937 19.7387 19.7462 19.7006 19.8678 19.7356L22.2872 20.435C22.3084 20.4413 22.331 20.4418 22.3525 20.4365C22.3741 20.4312 22.3938 20.4202 22.4097 20.4048C22.4256 20.3893 22.4371 20.3699 22.443 20.3485C22.449 20.3271 22.4491 20.3046 22.4434 20.2831L21.8897 18.1741C21.8512 18.0178 21.8462 17.9884 22 17.7634Z"
@@ -515,7 +530,8 @@
                     </defs>
                   </svg>
                   <div class="description_heading" translate="VIEWS.TOPICS_TOPICID.NO_VOTING_HEADING"></div>
-                  <div class="button" *ngIf="TopicService.canDelete(topic) && topic.status !== STATUSES.followUp && topic.status !== STATUSES.closed">
+                  <div class="button"
+                    *ngIf="TopicService.canDelete(topic) && topic.status !== STATUSES.followUp && topic.status !== STATUSES.closed">
                     <button class="btn_medium_submit animate" (click)="startVote(topic)">
                       <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -700,7 +716,7 @@
                       <span translate="VIEWS.TOPICS_TOPICID.OPTION_TOPIC_NOTIFICATIONS"></span>
                     </button>
                   </ng-container>
-                  <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic)">
+                  <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic) && topic.status !== TopicService.STATUSES.closed">
                     <div class="line_separator"></div>
                     <button class="option" (click)="inviteEditors(topic)">
                       <div class="icon_wrap">
@@ -772,7 +788,7 @@
                       <span translate="VIEWS.TOPICS_TOPICID.OPTION_DUPLICATE_TOPIC"></span>
                     </button>
                   </ng-container>
-                  <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic)">
+                  <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic) && topic.status !== TopicService.STATUSES.closed">
                     <div class="line_separator"></div>
                     <button class="option" (click)="addGroupsDialog(topic)">
                       <div class="icon_wrap">
@@ -801,6 +817,19 @@
                             fill="white" />
                         </svg>
                       </div><span translate="VIEWS.TOPICS_TOPICID.OPTION_REPORT_TOPIC"></span>
+                    </button>
+                  </ng-container>
+
+                  <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic) && topic.status !== TopicService.STATUSES.closed">
+                    <div class="line_separator"></div>
+                    <button class="option" (click)="closeTopic(topic);">
+                      <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M4 2C2.89543 2 2 2.89543 2 4V12C2 13.1046 2.89543 14 4 14H12C13.1046 14 14 13.1046 14 12V4C14 2.89543 13.1046 2 12 2H4ZM12.06 4.92L10.94 4.08L6.97109 9.37188L5.03776 7.05187L3.96225 7.94813L7.02891 11.6281L12.06 4.92Z"
+                            fill="#2C3B47" />
+                        </svg>
+                      </div><span translate="VIEWS.TOPICS_TOPICID.NAV_LNK_CLOSE_TOPIC"></span>
                     </button>
                   </ng-container>
 
@@ -1036,11 +1065,14 @@
                     <span translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_VOTING_VOTES_NEEDED"></span>
                   </!--div-->
                 </div>
-                <div *ngIf="ideation.deadline && !this.hasIdeationEndedExpired(topic, ideation)" class="item_title" [translateParams]="{count: ideation.ideas.count}"
+                <div *ngIf="ideation.deadline && !this.hasIdeationEndedExpired(topic, ideation)" class="item_title"
+                  [translateParams]="{count: ideation.ideas.count}"
                   translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_IDEATION_IDEAS"></div>
-                <div *ngIf="!ideation.deadline && !this.hasIdeationEndedExpired(topic, ideation)" class="item_title" [translateParams]="{count: ideation.ideas.count}"
+                <div *ngIf="!ideation.deadline && !this.hasIdeationEndedExpired(topic, ideation)" class="item_title"
+                  [translateParams]="{count: ideation.ideas.count}"
                   translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_IDEATION_STATUS_ACTIVE"></div>
-                <div *ngIf="this.hasIdeationEndedExpired(topic, ideation)" translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_IDEATION_STATUS_ENDED"></div>
+                <div *ngIf="this.hasIdeationEndedExpired(topic, ideation)"
+                  translate="VIEWS.TOPICS_TOPICID.STATE_ITEM_IDEATION_STATUS_ENDED"></div>
 
               </div>
               <!--div class="item_header">
@@ -1308,8 +1340,8 @@
         </svg>
         <span class="tab_text" translate="VIEWS.TOPICS_TOPICID.TAB_IDEATION"></span>
       </a>
-      <a class="topic_tab discussion" [ngClass]="{'active': tabTablet==='discussion'}"
-        (click)="tabTablet='discussion'" [routerLink]="['./']" fragment="discussion">
+      <a class="topic_tab discussion" [ngClass]="{'active': tabTablet==='discussion'}" (click)="tabTablet='discussion'"
+        [routerLink]="['./']" fragment="discussion">
         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect width="32" height="32" rx="16" fill="#1168A8" />
           <path
@@ -1428,7 +1460,7 @@
             <span translate="VIEWS.TOPICS_TOPICID.OPTION_TOPIC_NOTIFICATIONS"></span>
           </button>
         </ng-container>
-        <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic)">
+        <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic) && topic.status !== TopicService.STATUSES.closed">
           <div class="line_separator"></div>
           <button class="option" (click)="inviteEditors(topic); mobileActions=false;">
             <div class="icon_wrap">
@@ -1499,7 +1531,7 @@
             <span translate="VIEWS.TOPICS_TOPICID.OPTION_DUPLICATE_TOPIC"></span>
           </button>
         </ng-container>
-        <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic)">
+        <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic) && topic.status !== TopicService.STATUSES.closed">
           <div class="line_separator"></div>
           <button class="option" (click)="addGroupsDialog(topic); mobileActions=false;">
             <div class="icon_wrap">
@@ -1527,6 +1559,18 @@
                   fill="white" />
               </svg>
             </div><span translate="VIEWS.TOPICS_TOPICID.OPTION_REPORT_TOPIC"></span>
+          </button>
+        </ng-container>
+        <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic) && topic.status !== TopicService.STATUSES.closed">
+          <div class="line_separator"></div>
+          <button class="option" (click)="closeTopic(topic);">
+            <div class="icon_wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M4 2C2.89543 2 2 2.89543 2 4V12C2 13.1046 2.89543 14 4 14H12C13.1046 14 14 13.1046 14 12V4C14 2.89543 13.1046 2 12 2H4ZM12.06 4.92L10.94 4.08L6.97109 9.37188L5.03776 7.05187L3.96225 7.94813L7.02891 11.6281L12.06 4.92Z"
+                  fill="#2C3B47" />
+              </svg>
+            </div><span translate="VIEWS.TOPICS_TOPICID.NAV_LNK_CLOSE_TOPIC"></span>
           </button>
         </ng-container>
         <ng-container *ngIf="(auth.loggedIn$ | async) && TopicService.canDelete(topic)">
