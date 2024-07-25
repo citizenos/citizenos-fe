@@ -319,7 +319,7 @@ export class TopicService {
   };
 
   canDelete(topic: Topic) {
-    return (topic && topic.permission.level === this.LEVELS.admin);
+    return (topic && topic.permission?.level === this.LEVELS.admin);
   };
 
   canSendToFollowUp(topic: Topic) {

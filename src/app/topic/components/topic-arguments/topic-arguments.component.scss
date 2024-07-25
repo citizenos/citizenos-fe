@@ -46,6 +46,7 @@
     .header_section {
       display: flex;
       justify-content: space-between;
+      gap: 8px;
 
       .question {
         font-size: 24px;
@@ -147,6 +148,9 @@
 }
 .button_dropdown {
   background-color: initial;
+  @include mixins.mobile {
+    width: max-content;
+  }
 
   .line_separator {
     background-color: var(--color-border);

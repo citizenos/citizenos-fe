@@ -1,5 +1,5 @@
 import { trigger, state, style } from '@angular/animations';
-import { Component, Inject, ChangeDetectorRef } from '@angular/core';
+import { Component, Inject, ChangeDetectorRef, OnInit } from '@angular/core';
 import { DialogService } from 'src/app/shared/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -135,8 +135,21 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
         if (params['topicId']) {
           return this.TopicService.loadTopic(params['topicId']).pipe(map((topic) => {
             this.topicUrl = this.sanitizer.bypassSecurityTrustResourceUrl(topic.padUrl);
-            console.log(topic);
             this.topic = topic;
+            Object.keys(this.block).forEach((blockname) => {
+              if (blockname === 'headerImage' && this.topic.imageUrl) {
+                this.block[blockname] = true;
+              }
+              const temp = this.topic[blockname as keyof Topic];
+
+              if (blockname === 'description') {
+                const el = document.createElement('span');
+                el.innerHTML = temp;
+                if (el.innerText)
+                  this.block['description'] = true;
+              } else if (temp)
+                this.block[blockname as keyof typeof this.block] = true;
+            });
             if (this.topic.id) {
               this.TopicInviteUserService.setParam('topicId', this.topic.id);
               this.invites$ = this.loadInvite$.pipe(
@@ -194,30 +207,12 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
         return this.createTopic();
       })
     );
-    /*
-        this.route.params.pipe(
-          map((params) => {
-            if (params['topicId']) {
-              return this.TopicService.loadTopic(params['topicId'])
-            }
-            return this.createTopic();
-          })
-          , take(1)
-        ).subscribe({
-          next: (topic) => {
-            if (topic) {
-              topic.pipe(take(1)).subscribe({
-                next: (data) => {
-                  Object.assign(this.topic, data);
-                  this.topic.padUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.topic.padUrl);
-                }
-              })
-
-
-            }
-          }
-        })*/
   }
+
+  override ngOnInit() {
+    this.hasUnsavedChanges.next(true);
+  }
+
   override nextTab(tab: string | void) {
     if (tab) {
       if (tab === 'info') {
