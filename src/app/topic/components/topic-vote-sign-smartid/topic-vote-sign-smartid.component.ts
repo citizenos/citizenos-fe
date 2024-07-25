@@ -15,14 +15,14 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class TopicVoteSignSmartidComponent implements OnInit {
   signForm = new UntypedFormGroup({
-    countryCode: new UntypedFormControl(''),
+    countryCode: new UntypedFormControl('EE'),
     pid: new UntypedFormControl(''),
   });
 
   topic!: Topic;
   options!: any;
   isLoading = false;
-  countryCode?: string;
+  countryCode?= 'EE';
   pid?: number;
   challengeID?: number | null;
   wWidth = window.innerWidth;
