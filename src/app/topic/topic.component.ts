@@ -71,9 +71,11 @@ import { MissingDiscussionComponent } from './components/missing-discussion/miss
     trigger('showTutorial', [
       state('open', style({
         bottom: 0,
+        maxHeight: 'max-content'
       })),
       state('closed', style({
-        bottom: '-200px'
+        bottom: '-200px',
+        maxHeight: '250px'
       })),
       transition('* => closed', [
         animate('1s')
@@ -175,6 +177,7 @@ export class TopicComponent implements OnInit {
     this.app.darkNav = true;
     this.tabSelected$ = combineLatest([this.route.fragment, this.route.queryParams]).pipe(
       map(([value, params]) => {
+        if (this.router.url.indexOf('/ideation/') > -1) return 'ideation';
         if (params['folderId']) return 'ideation';
         if (params['argumentId']) return 'discussion';
       /*  if (this.hideDiscussion === true && value === 'discussion') {
