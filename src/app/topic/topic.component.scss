@@ -300,7 +300,12 @@
             .legend {
               display: flex;
               width: 100%;
-              gap: 56px;
+              justify-content: space-between;
+
+              &.discussion_legend {
+                justify-content: initial;
+                gap: 56px;
+              }
 
               &.wide {
                 justify-content: space-between;
