@@ -405,6 +405,9 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
 
   createIdeation(updateTopicStatus?: boolean) {
     const createIdeation: any = Object.assign({ topicId: this.topic.id }, this.ideation);
+    if (!this.deadlineSelect) {
+      createIdeation.deadline = null;
+    }
     this.TopicIdeationService.save(createIdeation)
       .pipe(take(1))
       .subscribe({
@@ -448,6 +451,9 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
 
   updateIdeation(updateTopicStatus?: boolean) {
     const updateIdeation = Object.assign({ topicId: this.topic.id }, this.ideation);
+    if (!this.deadlineSelect) {
+      updateIdeation.deadline = null;
+    }
     return this.TopicIdeationService.update(updateIdeation).pipe(take(1)).subscribe({
       next: () => {
         if (updateTopicStatus) {
