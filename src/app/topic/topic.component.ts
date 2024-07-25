@@ -71,9 +71,11 @@ import { MissingDiscussionComponent } from './components/missing-discussion/miss
     trigger('showTutorial', [
       state('open', style({
         bottom: 0,
+        maxHeight: 'max-content'
       })),
       state('closed', style({
-        bottom: '-200px'
+        bottom: '-200px',
+        maxHeight: '250px'
       })),
       transition('* => closed', [
         animate('1s')
