@@ -1111,7 +1111,7 @@
           </div>
           <div class="state_item discussion"
             (click)="(topic.status === TopicService.STATUSES.ideation && canUpdate(topic))? startDiscussion(topic): selectTab('discussion')"
-            *ngIf="topic.discussionId"
+            *ngIf="topic.discussionId || ([TopicService.STATUSES.draft, TopicService.STATUSES.ideation, TopicService.STATUSES.inProgress].indexOf(topic.status) > -1)"
             [ngClass]="{empty: topic.status === TopicService.STATUSES.ideation && !TopicArgumentService.count.value.total}">
             <ng-container
               *ngIf="topic.status === TopicService.STATUSES.ideation && !TopicArgumentService.count.value.total">
