@@ -372,6 +372,11 @@ export class TopicComponent implements OnInit {
   deleteTopic(topic: Topic) {
     this.TopicService.doDeleteTopic(topic, ['my', 'topics']);
   }
+
+  closeTopic(topic: Topic) {
+    this.TopicService.changeState(topic, this.TopicService.STATUSES.closed);
+  }
+
   joinTopic(topic: Topic) {
     const joinDialog = this.DialogService.open(TopicJoinComponent, {
       data: {
