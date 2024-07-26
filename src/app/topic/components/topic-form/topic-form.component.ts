@@ -339,7 +339,7 @@ export class TopicFormComponent {
       if (tabIndex === 2) {
         if (!this.discussion.question) {
           this.Notification.removeAll();
-          this.Notification.addError('VIEWS.TOPIC_CREATE.ERROR_MISSING_QUESTION');
+          this.Notification.addError(this.translate.instant('VIEWS.TOPIC_CREATE.ERROR_MISSING_QUESTION'));
           return;
         }
         /*  if (this.voteCreateForm)
