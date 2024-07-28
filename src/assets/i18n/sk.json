@@ -3059,7 +3059,7 @@
     "ACTIVITY_USER_ADD_REPORT_IDEA_COMMENT": "Používateľ <em>{{userName}}</em> nahlásil odpoveď k nápadu: ",
     "ACTIVITY_MODERATOR_UPDATE_COMMENT_IDEA": "Používateľ <em>{{userName}}</em> (moderátor) aktualizoval pole odpovede k nápadu <em>{{fieldName}}</em> v téme <em>{{topicTitle}}</em>",
     "ACTIVITY_USER_CREATE_FOLDER_IDEATION": "Používateľ <em>{{userName}}</em> pridal priečinok k získavaniu nápadov v téme <em>{{topicTitle}}</em>",
-    "ACTIVITY_USER_DELETE_FOLDER_IDEATION": "User <em>{{userName}}</em> has removed a folder from the idea gathering in topic <em>{{topicTitle}}</em>",
+    "ACTIVITY_USER_DELETE_FOLDER_IDEATION": "Užívateľ/ka <em>{{userName}}</em> odstránil/a priečinok zo získavania nápadov v téme <em>{{topicTitle}}</em>",
     "ACTIVITY_USER_UPDATE_FOLDER": "Používateľ <em>{{userName}}</em> aktualizoval priečinok v téme <em>{{topicTitle}}</em>",
     "ACTIVITY_USER_DELETE_FOLDER": "Používateľ <em>{{userName}}</em> odstránil priečinok z témy <em>{{topicTitle}}</em>",
     "ACTIVITY_USER_ADD_FOLDERIDEA_FOLDER": "Používateľ <em>{{userName}}</em> pridal nápad do priečinka v téme <em>{{topicTitle}}</em>",
