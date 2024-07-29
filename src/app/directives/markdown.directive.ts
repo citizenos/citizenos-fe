@@ -1,7 +1,6 @@
 import { Directive, Input, ElementRef, OnDestroy, EventEmitter, Output } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import * as EasyMDE from 'easymde';
-import { MarkdownService } from '../services/markdown.service';
+import EasyMDE from 'easymde';
 @Directive({
   selector: '[cosmarkdown]'
 })
@@ -85,7 +84,7 @@ export class MarkdownDirective implements OnDestroy {
     element: this.el.nativeElement,
     initialValue: this.item
   };
-  constructor(private el: ElementRef, private Translate: TranslateService, markdown: MarkdownService) {
+  constructor(private el: ElementRef, private Translate: TranslateService) {
 
     if (window.innerWidth < 560) {
       this.config['minHeight'] = '100px';
