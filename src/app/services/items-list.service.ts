@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, of, switchMap, map, combineLatest } from 'rxjs';
+import { BehaviorSubject, shareReplay, switchMap, map, combineLatest } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -53,6 +53,7 @@ export abstract class ItemsListService {
 
   loadItems() {
     return combineLatest([this.page$, this.params$]).pipe(
+      shareReplay(),
       switchMap(([page, paramsValue]) => {
         paramsValue.offset = (page - 1) * paramsValue.limit;
         return this.getItems(paramsValue);
