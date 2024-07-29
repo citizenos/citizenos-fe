@@ -151,7 +151,6 @@ export class TopicIdeationComponent {
     );
 
     this.route.queryParams.pipe(take(1)).subscribe((params) => {
-      console.log(params);
       if (params['folderId']) {
         this.TopicIdeaService.getFolder({ topicId: this.topic.id, ideationId: this.ideation.id, folderId: params['folderId'] }).pipe(
           take(1)

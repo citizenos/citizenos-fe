@@ -30,55 +30,28 @@ export class IdeaComponent {
       this.ideaId = params['ideaId'];
       this.topicId = params['topicId'];
       this.ideationId = params['ideationId'];
-      TopicIdeaService.setParam('topicId', this.topicId);
-      TopicIdeaService.setParam('ideationId', this.ideationId);
-      TopicIdeaService.setParam('ideaId', this.ideaId);
-      return TopicIdeaService.query(params)
-    })).subscribe((items) => {
-      let idea = items.data.rows.find((idea: Idea) => idea.id === this.ideaId);
-      if (!idea) {
-        TopicIdeaService.get({ ideaId: this.ideaId, ideationId: this.ideationId, topicId: this.topicId }).pipe(take(1)).subscribe((ideaRes) => {
-          idea = ideaRes
-          TopicService.get(this.topicId).pipe(take(1)).subscribe((topic) => {
-            dialog.closeAll();
-            const ideaDialog = dialog.open(IdeaDialogComponent, {
-              data: {
-                idea,
-                topic,
-                ideation: { id: this.ideationId },
-                route: route
-              }
-            });
 
-            ideaDialog.afterClosed().subscribe((value) => {
-              console.log('VALUE', value)
-              if (value) {
-                TopicIdeaService.reloadIdeas();
-                router.navigate(['/', 'topics', this.topicId], { fragment: 'ideation' })
-              }
-            });
-          })
-        })
-      } else {
-        TopicService.get(this.topicId).pipe(take(1)).subscribe((topic) => {
-          dialog.closeAll();
-          const ideaDialog = dialog.open(IdeaDialogComponent, {
-            data: {
-              idea,
-              topic,
-              ideation: { id: this.ideationId },
-              route: route
-            }
-          });
+      return TopicIdeaService.get({ ideaId: this.ideaId, ideationId: this.ideationId, topicId: this.topicId })
+    })).subscribe((idea) => {
+      TopicService.get(this.topicId).pipe(take(1)).subscribe((topic) => {
+        dialog.closeAll();
+        const ideaDialog = dialog.open(IdeaDialogComponent, {
+          data: {
+            idea,
+            topic,
+            ideation: { id: this.ideationId },
+            route: route
+          }
+        });
 
-          ideaDialog.afterClosed().subscribe((value) => {
-            if (value) {
-              TopicIdeaService.reloadIdeas();
-              router.navigate(['/', 'topics', this.topicId], { fragment: 'ideation' })
-            }
-          });
-        })
-      }
+        ideaDialog.afterClosed().subscribe((value) => {
+          console.log('VALUE', value)
+          if (value) {
+            TopicIdeaService.reloadIdeas();
+            router.navigate(['/', 'topics', this.topicId], { fragment: 'ideation' })
+          }
+        });
+      })
     });
   }
 }

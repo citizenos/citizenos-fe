@@ -69,6 +69,7 @@
             </svg>
           </button>
         </div>
+      </ng-container>
         <div class="mobile_buttons_right">
           <button id="close_button" class="btn_medium_close icon" [dialog-close]="true">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -78,7 +79,6 @@
             </svg>
           </button>
         </div>
-      </ng-container>
     </div>
     <div class="dialog_content">
       <ng-container *ngIf="TopicIdeaService.items$ | async as ideas">
