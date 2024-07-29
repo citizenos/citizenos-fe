@@ -1,3 +1,8 @@
+## 2024-07-29 - v1.1.0
+  * New feature ideation/idea-gathering
+  * Updated Angular to v18
+  * Updated Node to v20
+  * Fixed a lot of smaller UX and performance bugs
 ## 2024-04-10 - v1.0.3
   * FIX issue https://github.com/citizenos/citizenos-fe/issues/996
   * FIX issue https://github.com/citizenos/citizenos-fe/issues/1004
