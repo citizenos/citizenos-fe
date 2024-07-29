@@ -22,7 +22,7 @@
       </!--cos-input-->
       <textarea cosmarkdown cosmarkdowntranslatecharacterstatuskey="COMPONENTS.ARGUMENT_REPLY.CHARACTER_LIMIT"
         id="argument_reply_text" [(item)]="reply.text" class="gray_borders" [ngClass]="{'error_input': errors?.text}"
-        placeholder="{{'COMPONENTS.ARGUMENT_REPLY.PLACEHOLDER_WRITE_REPLY_HERE' | translate}}"
+        placeholder="COMPONENTS.ARGUMENT_REPLY.PLACEHOLDER_WRITE_REPLY_HERE"
         [limit]="ARGUMENT_TYPES_MAXLENGTH['reply']"></textarea><!--(keyup)="argumentTextLengthCheck(form, form.text)"-->
       <label for="argument_reply_text" class="error_label" *ngIf="errors?.text">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -43,7 +43,7 @@
           </button>
         </div>
         <div>
-          <div class="btn_medium_submit bold" (click)="saveReply()" translate="COMPONENTS.ARGUMENT_REPLY.BTN_POST_REPLY">
+          <div class="btn_medium_submit bold" (click)="saveReply()" [ngClass]="{disabled: !reply.text.length}" translate="COMPONENTS.ARGUMENT_REPLY.BTN_POST_REPLY">
           </div>
         </div>
       </div>

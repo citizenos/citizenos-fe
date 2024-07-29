@@ -46,7 +46,8 @@ export class TopicArgumentService extends ItemsListService {
   ARGUMENT_VERSION_SEPARATOR = '_v';
   ArgumentIds = <string[]>[];
   params = {
-    topicId: <string | null>null,
+    topicId: <string | null> null,
+    discussionId: <string | null> null,
     orderBy: <string>this.ARGUMENT_ORDER_BY.date,
     types: <string | string[] | null>null,
     sortOrder: <string | null>null,
@@ -63,7 +64,7 @@ export class TopicArgumentService extends ItemsListService {
     poi: 0,
     reply: 0
   });
-  private loadArguments$ = new BehaviorSubject<void>(undefined);
+  public loadArguments$ = new BehaviorSubject<void>(undefined);
 
   constructor(private http: HttpClient, private Location: LocationService, private Auth: AuthService) {
     super();
@@ -83,7 +84,7 @@ export class TopicArgumentService extends ItemsListService {
   }
 
   save(data: any) {
-    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/comments'), data);
+    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/discussions/:discussionId/comments'), data);
 
     return this.http.post<ApiResponse>(path, data, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
       map(res => res.data)
@@ -92,7 +93,7 @@ export class TopicArgumentService extends ItemsListService {
 
   update(data: any) {
     if (!data.commentId) data.commentId = data.id;
-    const path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/comments/:commentId'), data);
+    const path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/discussions/:discussionId/comments/:commentId'), data);
 
     return this.http.put<ApiResponse>(path, data, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
       map(res => res.data)
@@ -101,7 +102,7 @@ export class TopicArgumentService extends ItemsListService {
 
   delete(data: any) {
     if (!data.commentId) data.commentId = data.id;
-    const path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/comments/:commentId'), data)
+    const path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/discussions/:discussionId/comments/:commentId'), data)
 
     return this.http.delete<ApiResponse>(path, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
       map(res => res.data)
@@ -109,7 +110,7 @@ export class TopicArgumentService extends ItemsListService {
   }
 
   query(params: { [key: string]: any }): Observable<ApiResponse> {
-    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/comments'), params);
+    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/discussions/:discussionId/comments'), params);
 
     const queryParams = Object.fromEntries(Object.entries(params).filter((i) => i[1] !== null));
 
@@ -117,7 +118,7 @@ export class TopicArgumentService extends ItemsListService {
   }
 
   vote(data: any) {
-    let path = this.Location.getAbsoluteUrlApi('/api/topics/:topicId/comments/:commentId/votes', data);
+    let path = this.Location.getAbsoluteUrlApi('/api/topics/:topicId/discussions/:discussionId/comments/:commentId/votes', data);
 
     return this.http.post<ApiResponse>(path, data, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
       map(res => res.data)
@@ -128,7 +129,7 @@ export class TopicArgumentService extends ItemsListService {
     if (!data['commentId']) data['commentId'] = data['id'];
     const queryParams = Object.fromEntries(Object.entries(data).filter((i) => i[1] !== null));
 
-    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/comments/:commentId/votes'), data);
+    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/discussions/:discussionId/comments/:commentId/votes'), data);
     return this.http.get<ApiResponse>(path, { withCredentials: true, params: queryParams, observe: 'body', responseType: 'json' }).pipe(
       map(res => res.data)
     );
@@ -136,7 +137,7 @@ export class TopicArgumentService extends ItemsListService {
 
   report(data: any) {
     if (!data.commentId) data.commentId = data.id;
-    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/comments/:commentId/reports'), data);
+    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/discussions/:discussionId/comments/:commentId/reports'), data);
 
     return this.http.post<ApiResponse>(path, data, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
       map(res => res.data)
@@ -144,7 +145,11 @@ export class TopicArgumentService extends ItemsListService {
   };
 
   getReport(data: any) {
-    const path = this.Location.getAbsoluteUrlApi('/api/topics/:topicId/comments/:commentId/reports/:reportId', data);
+    let path = this.Location.getAbsoluteUrlApi('/api/topics/:topicId/discussions/:discussionId/comments/:commentId/reports/:reportId', data);
+    if (path.indexOf('/discussions/:discussionId')) {
+      path = path.replace('/discussions/:discussionId', '');
+    }
+
     const headers = {
       'Authorization': 'Bearer ' + data.token
     };
@@ -154,7 +159,7 @@ export class TopicArgumentService extends ItemsListService {
   };
 
   moderate(data: any) {
-    const path = this.Location.getAbsoluteUrlApi('/api/topics/:topicId/comments/:commentId/reports/:reportId/moderate', data)
+    const path = this.Location.getAbsoluteUrlApi('/api/topics/:topicId/discussions/:discussionId/comments/:commentId/reports/:reportId/moderate', data)
     const headers = {
       'Authorization': 'Bearer ' + data.token
     };

@@ -38,7 +38,8 @@ export class EditArgumentComponent implements OnInit {
     subject: '',
     text: '',
     type: '',
-    topicId: ''
+    topicId: '',
+    discussionId: ''
   }
   errors: any = null;
   constructor(private TopicArgumentService: TopicArgumentService, public app: AppService, public AuthService: AuthService) {
@@ -96,7 +97,14 @@ export class EditArgumentComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    this.edit = Object.assign(this.edit, {id: this.argument.id, subject: this.argument.subject, text: this.argument.text, type: this.argument.type, topicId: this.topicId});
+    this.edit = Object.assign(this.edit, {
+      id: this.argument.id,
+      subject: this.argument.subject,
+      text: this.argument.text,
+      type: this.argument.type,
+      topicId: this.topicId,
+      discussionId: this.argument.discussionId
+    });
   }
 
 }

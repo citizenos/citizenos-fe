@@ -17,4 +17,19 @@
       display:flex;
     }
   }
+
+  .cos_limit_placeholder {
+    display: none;
+    position: absolute;
+    font-size: 12px;
+    line-height: 16px;
+    top: 4px;
+    right: 16px;
+    color: #727C84;
+    z-index: 2;
+
+    &.show {
+      display:flex;
+    }
+  }
 }

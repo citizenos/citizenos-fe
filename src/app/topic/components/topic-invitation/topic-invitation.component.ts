@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, inject } from '@angular/core';
 import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap, take } from 'rxjs';
+import { switchMap, take, tap } from 'rxjs';
 import { RegisterComponent } from 'src/app/account/components/register/register.component';
 import { InviteData } from 'src/app/interfaces/dialogdata';
 import { AuthService } from 'src/app/services/auth.service';
@@ -100,43 +100,47 @@ export class TopicInvitationDialogComponent implements OnInit {
       next: (topicInvite: any) => {
         topicInvite.inviteId = this.inviteId;
         // 1. The invited User is logged in - https://github.com/citizenos/citizenos-fe/issues/112#issuecomment-541674320
-        if (Auth.loggedIn$.value && topicInvite.user.id === Auth.user.value.id) {
-          TopicInviteUserService
-            .accept(topicInvite)
-            .pipe(take(1))
-            .subscribe({
-              next: () => {
-                router.navigate(['/topics', topicInvite.topicId])
-              },
-              error: (err) => {
-                console.error('Invite error', err)
+        Auth.user$.pipe(take(1), tap((user) => {
+          console.log(user && !Auth.loggedIn$.value)
+          if (user && !Auth.loggedIn$.value) {}
+          else if (Auth.loggedIn$.value && topicInvite.user.id === user.id) {
+            TopicInviteUserService
+              .accept(topicInvite)
+              .pipe(take(1))
+              .subscribe({
+                next: () => {
+                  router.navigate(['/topics', topicInvite.topicId])
+                },
+                error: (err) => {
+                  console.error('Invite error', err)
+                }
+              });
+          } else {
+            const openDialogs = dialog.getOpenDialogs().pipe(take(1)).subscribe({
+              next: (dialogs) => {
+                if (dialogs) {
+                  console.log(dialogs);
+                }
+
+                const invitationDialog = dialog.open(TopicInvitationComponent,
+                  {
+                    data: {
+                      invite: topicInvite
+                    }
+                  });
+
+                  invitationDialog.afterClosed().subscribe({
+                    next: (res) => {
+                      if (res===true) {
+                        router.navigate(['/']);
+                      }
+                    }
+                  })
               }
             });
-        } else {
-          const openDialogs = dialog.getOpenDialogs().pipe(take(1)).subscribe({
-            next: (dialogs) => {
-              if (dialogs) {
-                console.log(dialogs);
-              }
 
-              const invitationDialog = dialog.open(TopicInvitationComponent,
-                {
-                  data: {
-                    invite: topicInvite
-                  }
-                });
-
-                invitationDialog.afterClosed().subscribe({
-                  next: (res) => {
-                    if (res===true) {
-                      router.navigate(['/']);
-                    }
-                  }
-                })
-            }
-          });
-
-        }
+          }
+        })).subscribe();
       },
       error: (err) => {
         router.navigate(['/']);

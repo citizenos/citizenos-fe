@@ -19,12 +19,12 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { TopicInviteDialogComponent } from '../topic-invite/topic-invite.component';
 import { countries } from 'src/app/services/country.service';
 import { languages } from 'src/app/services/language.service';
-import { InterruptDialogComponent } from 'src/app/shared/components/interrupt-dialog/interrupt-dialog.component';
 import { UploadService } from 'src/app/services/upload.service';
 import { TopicSettingsDisabledDialogComponent } from '../topic-settings-disabled-dialog/topic-settings-disabled-dialog.component';
 import { Attachment } from 'src/app/interfaces/attachment';
 import { TopicAttachmentService } from 'src/app/services/topic-attachment.service';
 import { GroupMemberTopicService } from 'src/app/services/group-member-topic.service';
+import { TopicDiscussionService } from 'src/app/services/topic-discussion.service';
 
 @Component({
   selector: 'topic-form',
@@ -86,9 +86,10 @@ export class TopicFormComponent {
   @Input() groupId?: string;
   @Input() isnew?: boolean = true;
   @Input() hasUnsavedChanges!: Subject<boolean>;
+  hasChanges$ = new BehaviorSubject(<boolean>true);
   topicUrl = <SafeResourceUrl>'';
   tabSelected;
-  tabs = ['info', 'settings', 'preview'];
+  tabs = ['info', 'settings', 'discussion', 'preview'];
 
   tags = <string[]>[];
   showManageEditors = false;
@@ -109,6 +110,7 @@ export class TopicFormComponent {
   VISIBILITY = this.TopicService.VISIBILITY;
   CATEGORIES = Object.keys(this.TopicService.CATEGORIES);
   groups$: Observable<TopicMemberGroup[] | any[]> = of([]);
+  groupsList = <TopicMemberGroup[]>[];
   loadMembers$ = new BehaviorSubject<void>(undefined);
   members$: Observable<any[] | any[]> = of([]);
   loadInvite$ = new BehaviorSubject<void>(undefined);
@@ -134,6 +136,27 @@ export class TopicFormComponent {
   topicGroups$ = of(<TopicMemberGroup[] | any[]>[])
   memberGroups = <Group[]>[];
   groupsToRemove = <Group[]>[];
+  errors?: any;
+
+  public discussion = {
+    id: '',
+    creatorId: '',
+    question: '',
+    deadline: null,
+    createdAt: '',
+    updatedAt: ''
+  };
+  deadline = <any>null;
+  numberOfDaysLeft = 0;
+  endsAt = <any>{
+    date: null,
+    min: 0,
+    h: 0,
+    timeFormat: '24'
+  };
+  HCount = 23;
+  datePickerMin = new Date();
+  deadlineSelect = false;
 
   constructor(
     public dialog: DialogService,
@@ -148,11 +171,39 @@ export class TopicFormComponent {
     public TopicMemberUserService: TopicMemberUserService,
     public TopicInviteUserService: TopicInviteUserService,
     public TopicAttachmentService: TopicAttachmentService,
+    public TopicDiscussionService: TopicDiscussionService,
     public translate: TranslateService,
     public cd: ChangeDetectorRef,
     @Inject(DomSanitizer) public sanitizer: DomSanitizer
   ) {
-    this.groups$ = this.GroupService.loadItems().pipe(map((groups) => {
+    route.queryParams.pipe(take(1), map((params) => this.groupId = params['groupId'])).subscribe();
+
+    this.groups$ = this.GroupService.loadItems().pipe(
+      tap((res: any) => {
+        if (res.length) {
+          this.GroupService.hasMore$.next(true);
+        } else {
+          this.GroupService.hasMore$.next(false);
+        }
+      }),
+      map(
+        (newGroups) => {
+          newGroups = newGroups.filter((group:any) => group.visibility === this.GroupService.VISIBILITY.private || group.permission.level === GroupMemberTopicService.LEVELS.admin);
+          newGroups.forEach((group: any) => {
+            if (this.groupId && this.groupId === group.id) {
+              const exists = this.topicGroups.find((mgroup) => mgroup.id === group.id);
+              if (!exists) this.addGroup(group);
+            }
+          });
+          this.groupsList = this.groupsList.concat(newGroups);
+          if (this.GroupService.hasMore$.value === true) {
+            this.GroupService.loadMore();
+          }
+          return this.groupsList;
+        }
+      ));
+
+  /*  this.groups$ = this.GroupService.loadItems().pipe(map((groups) => {
       groups.forEach((group: any) => {
         if (this.groupId && this.groupId === group.id) {
           const exists = this.topicGroups.find((mgroup) => mgroup.id === group.id);
@@ -160,8 +211,7 @@ export class TopicFormComponent {
         }
       });
 
-      return groups.filter((group) => group.visibility === this.GroupService.VISIBILITY.private || group.permission.level === GroupMemberTopicService.LEVELS.admin);
-    }));
+    }));*/
 
     this.tabSelected = this.route.fragment.pipe(
       map((fragment) => {
@@ -185,7 +235,11 @@ export class TopicFormComponent {
     this.topicUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.topic.padUrl);
     this.downloadUrl = this.TopicService.download(this.topic.id);
     Object.keys(this.block).forEach((blockname) => {
+      if (blockname === 'headerImage' && this.topic.imageUrl) {
+        this.block[blockname] = true;
+      }
       const temp = this.topic[blockname as keyof Topic];
+
       if (blockname === 'description') {
         const el = document.createElement('span');
         el.innerHTML = temp;
@@ -220,6 +274,23 @@ export class TopicFormComponent {
           this.memberGroups = groups;
         })
       );
+      if (this.topic.discussionId) {
+        this.TopicDiscussionService.get({ topicId: this.topic.id, discussionId: this.topic.discussionId }).pipe(take(1)).subscribe({
+          next: (discussion) => {
+            this.discussion = discussion;
+            this.discussion.question = this.discussion.question.trim();
+            if (this.discussion.deadline) {
+              this.deadline = new Date(this.discussion.deadline);
+              this.endsAt.date = this.discussion.deadline;
+              this.endsAt.min = this.deadline.getMinutes();
+              this.endsAt.h = this.deadline.getHours();
+              this.setEndsAtTime();
+              this.deadlineSelect = true;
+            }
+            this.cd.detectChanges();
+          }
+        });
+      }
     }
   }
 
@@ -228,7 +299,7 @@ export class TopicFormComponent {
   }
 
   selectTab(tab: string) {
-    this.router.navigate([], { fragment: tab });
+    this.router.navigate([], { queryParams: this.route.snapshot.queryParams, fragment: tab });
   }
 
 
@@ -236,6 +307,8 @@ export class TopicFormComponent {
     if (tabSelected === 'preview' && !this.TopicService.canDelete(this.topic)) {
       return true;
     } else if (!this.topic.title || !this.topic.description) {
+      return true;
+    } else if (tabSelected === 'discussion' && !this.discussion.question) {
       return true;
     }
 
@@ -260,10 +333,19 @@ export class TopicFormComponent {
     if (tab) {
       let tabIndex = this.tabs.indexOf(tab);
       if (tab === 'info' && this.topic.permission.level === this.TopicService.LEVELS.edit) tabIndex = tabIndex + 1;
-      if (tabIndex > -1 && tabIndex < 2) {
+      if (tabIndex > -1 && tabIndex < 3) {
         this.selectTab(this.tabs[tabIndex + 1]);
       }
-      if (tabIndex + 1 === 2) {
+      if (tabIndex === 2) {
+        if (!this.discussion.question) {
+          this.Notification.removeAll();
+          this.Notification.addError(this.translate.instant('VIEWS.TOPIC_CREATE.ERROR_MISSING_QUESTION'));
+          return;
+        }
+        /*  if (this.voteCreateForm)
+            this.voteCreateForm.saveVoteSettings();*/
+      }
+      if (tabIndex + 1 === 3) {
         setTimeout(() => {
           this.TopicService.readDescription(this.topic.id).pipe(take(1)).subscribe({
             next: (topic) => {
@@ -274,6 +356,11 @@ export class TopicFormComponent {
             }
           });
         }, 200)
+      }
+      if (tabIndex > -1 && tabIndex < 3) {
+        setTimeout(() => {
+          this.selectTab(this.tabs[tabIndex + 1]);
+        })
       }
     }
   }
@@ -303,12 +390,15 @@ export class TopicFormComponent {
   fileUpload() {
     const allowedTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/svg+xml'];
     const files = this.fileInput?.nativeElement.files;
+    console.log(files, files[0].size);
     if (allowedTypes.indexOf(files[0].type) < 0) {
       this.error = { image: this.translate.instant('MSG_ERROR_FILE_TYPE_NOT_ALLOWED', { allowedFileTypes: allowedTypes.toString() }) };
+      this.Notification.addError(this.translate.instant('MSG_ERROR_FILE_TYPE_NOT_ALLOWED', { allowedFileTypes: allowedTypes.toString() }));
       setTimeout(() => {
         delete this.error.image;
       }, 5000)
     } else if (files[0].size > 5000000) {
+  //    this.Notification.addError(this.translate.instant('MSG_ERROR_FILE_TOO_LARGE', { allowedFileSize: '5MB' }));
       this.error = { image: this.translate.instant('MSG_ERROR_FILE_TOO_LARGE', { allowedFileSize: '5MB' }) };
 
       setTimeout(() => {
@@ -345,7 +435,7 @@ export class TopicFormComponent {
     if (this.fileInput) {
       this.fileInput.nativeElement.value = null;
     }
-    if (this.topic.imageUrl) {
+    if (this.topic.imageUrl || this.tmpImageUrl) {
       this.topic.imageUrl = null;
       this.tmpImageUrl = undefined;
     }
@@ -398,6 +488,11 @@ export class TopicFormComponent {
       }
 
       this.TopicService.patch(updateTopic).pipe(take(1)).subscribe(() => {
+        if (!this.discussion.id) {
+          this.createDiscussion();
+        } else if ([this.TopicService.STATUSES.draft, this.TopicService.STATUSES.inProgress].indexOf(this.topic.status) > -1) {
+          this.updateDiscussion();
+        }
         this.topicGroups.forEach((group) => {
           this.saveMemberGroup(group);
         });
@@ -415,7 +510,11 @@ export class TopicFormComponent {
               }
               this.hasUnsavedChanges.next(false);
               this.router.navigate(['my', 'topics']);
-              this.Notification.addSuccess('VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE');
+              if (this.isnew) {
+                this.Notification.addSuccess('VIEWS.TOPIC_CREATE.NOTIFICATION_DRAFT_SUCCESS_MESSAGE', 'VIEWS.TOPIC_CREATE.NOTIFICATION_DRAFT_SUCCESS_TITLE');
+              } else {
+                this.Notification.addSuccess('VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE');
+              }
             },
             error: (err: any) => {
               console.log('ERROR', err);
@@ -454,6 +553,14 @@ export class TopicFormComponent {
               this.topicGroups.forEach((group) => {
                 this.saveMemberGroup(group)
               });
+              if (!this.discussion.id) {
+                this.createDiscussion(true);
+              } else if ([this.TopicService.STATUSES.draft, this.TopicService.STATUSES.inProgress].indexOf(this.topic.status) > -1) {
+                this.updateDiscussion(true);
+              } else {
+                this.hasChanges$.next(false);
+                this.TopicService.reloadTopic();
+              }
               this.groupsToRemove.forEach((group: any) => {
                 if (group) {
                   this.TopicMemberGroupService.delete({ topicId: this.topic.id, groupId: group.id }).pipe(take(1)).subscribe();
@@ -462,12 +569,6 @@ export class TopicFormComponent {
               this.hasUnsavedChanges.next(false);
               this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
 
-              if (this.isnew || isDraft) {
-                this.Notification.addSuccess('VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_TITLE');
-                this.inviteMembers();
-              } else {
-                this.Notification.addSuccess('VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE');
-              }
             },
             error: (err) => {
               console.log('publish error', err)
@@ -480,6 +581,85 @@ export class TopicFormComponent {
     });
   }
 
+  saveDiscussionSettings(discussion?: any) {
+    if (discussion) {
+      this.discussion = discussion;
+    }
+  }
+
+  createDiscussion(updateTopicStatus?: boolean) {
+    const createDiscussion: any = Object.assign({ topicId: this.topic.id, discussionId: this.discussion.id }, this.discussion);
+    this.TopicDiscussionService.save(createDiscussion)
+      .pipe(take(1))
+      .subscribe({
+        next: (discussion) => {
+          //   this.TopicService.reloadTopic();
+          this.discussion = discussion;
+          if (updateTopicStatus) {
+            const isDraft = (this.topic.status === this.TopicService.STATUSES.draft);
+            const updateTopic = Object.assign({}, this.topic);
+            updateTopic.status = this.TopicService.STATUSES.inProgress;
+            this.TopicService.patch(updateTopic).pipe(take(1)).subscribe({
+              next: (res) => {
+                this.hasChanges$.next(false);
+                this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
+                this.TopicService.reloadTopic();
+                if (this.isnew || isDraft) {
+                  this.Notification.addSuccess('VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_TITLE');
+                  this.inviteMembers();
+                } else {
+                  this.Notification.addSuccess('VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE');
+                }
+              },
+              error: (err) => {
+                console.log('Update status error', err);
+              }
+            });
+          }
+        },
+        error: (res) => {
+          this.nextTab('discussion');
+          console.debug('createDiscussion() ERR', res, res.errors);
+          this.errors = res.errors;
+          Object.values(this.errors).forEach((message) => {
+            if (typeof message === 'string')
+              this.Notification.addError(message);
+          });
+        }
+      });
+  }
+
+
+  updateDiscussion(updateTopicStatus?: boolean) {
+    const updateDiscussion = Object.assign({ topicId: this.topic.id, discussionId: this.discussion.id }, this.discussion);
+    return this.TopicDiscussionService.update(updateDiscussion).pipe(take(1)).subscribe({
+      next: () => {
+        if (updateTopicStatus) {
+          const isDraft = (this.topic.status === this.TopicService.STATUSES.draft);
+          const updateTopic = { id: this.topic.id, status: this.TopicService.STATUSES.inProgress };
+          this.TopicService.patch(updateTopic).pipe(take(1)).subscribe({
+            next: (res) => {
+              this.hasChanges$.next(false);
+              this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
+              this.TopicService.reloadTopic();
+              if (this.isnew || isDraft) {
+                this.Notification.addSuccess('VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_TITLE');
+                this.inviteMembers();
+              } else {
+                this.Notification.addSuccess('VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE');
+              }
+            },
+            error: (err) => {
+              console.log('Update status error', err);
+            }
+          });
+        }
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
+  }
 
   chooseCategory(category: string) {
     if (this.topic.categories && this.topic.categories.indexOf(category) > -1) {
@@ -579,4 +759,84 @@ export class TopicFormComponent {
   isGroupAdded(group: TopicMemberGroup) {
     return this.topicGroups.find((tg: TopicMemberGroup) => tg.id === group.id);
   }
+
+  canEditDiscussion() {
+    return this.TopicService.canEdit(this.topic) && (this.topic.status !== this.TopicService.STATUSES.draft || this.topic.status !== this.TopicService.STATUSES.inProgress);
+  }
+
+  toggleDeadline() {
+    this.deadlineSelect = !this.deadlineSelect;
+  }
+
+  minHours() {
+    if (new Date(this.endsAt.date).getDate() === (new Date()).getDate()) {
+      const h = new Date().getHours();
+      return h;
+    }
+    return 1;
+  };
+
+  minMinutes() {
+    if (new Date(this.endsAt.date).getDate() === (new Date()).getDate()) {
+      return Math.ceil(new Date().getMinutes() / 5) * 5;
+    }
+
+    return 0
+  };
+
+  setEndsAtTime() {
+    this.endsAt.date = this.endsAt.date || new Date();
+    this.deadline = new Date(this.endsAt.date);
+    if (this.endsAt.h === 0 && this.endsAt.min === 0) {
+      this.deadline = new Date(this.deadline.setDate(this.deadline.getDate() + 1));
+    }
+
+    let hour = this.endsAt.h;
+    if (this.endsAt.timeFormat === 'PM') { hour += 12; }
+    this.deadline.setHours(hour);
+    this.deadline.setMinutes(this.endsAt.min);
+    this.discussion.deadline = this.deadline;
+    this.daysToVoteEnd();
+
+    // this.setReminderOptions();
+  };
+
+
+  daysToVoteEnd() {
+    if (this.deadline) {
+      this.numberOfDaysLeft = Math.ceil((new Date(this.deadline).getTime() - new Date().getTime()) / (1000 * 3600 * 24));
+    }
+    return this.numberOfDaysLeft;
+  };
+  //To display hours in the dropdown like 01
+  formatTime(val: number | string) {
+    if (parseInt(val.toString()) < 10) {
+      val = '0' + val;
+    }
+
+    return val;
+  };
+
+  timeFormatDisabled() {
+    const now = new Date();
+    const deadline = new Date(this.deadline);
+    if (new Date(deadline.getFullYear(), deadline.getMonth(), deadline.getDate()).getTime() === new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime()) {
+      if (deadline.getHours() > 12) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  setTimeFormat() {
+    this.HCount = 23;
+    if (this.endsAt.timeFormat !== 24) {
+      this.HCount = 12;
+      if (this.endsAt.h > 12) {
+        this.endsAt.h -= 12;
+      }
+    }
+    this.setEndsAtTime();
+  };
 }

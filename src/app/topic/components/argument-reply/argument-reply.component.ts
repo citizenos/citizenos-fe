@@ -1,3 +1,4 @@
+import { NotificationService } from 'src/app/services/notification.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { take, map } from 'rxjs';
 import { Argument } from 'src/app/interfaces/argument';
@@ -23,7 +24,7 @@ export class ArgumentReplyComponent implements OnInit {
   ARGUMENT_TYPES_MAXLENGTH = this.TopicArgumentService.ARGUMENT_TYPES_MAXLENGTH;
   ARGUMENT_SUBJECT_MAXLENGTH = this.TopicArgumentService.ARGUMENT_SUBJECT_MAXLENGTH;
   errors = <any>null;
-  constructor(public AuthService: AuthService, private TopicArgumentService: TopicArgumentService) {
+  constructor(public AuthService: AuthService, private TopicArgumentService: TopicArgumentService, private Notification: NotificationService) {
     this.AuthService.loggedIn$.pipe(
       map((isLoggedIn) => {
         if (!isLoggedIn) {
@@ -44,13 +45,18 @@ export class ArgumentReplyComponent implements OnInit {
       parentId: this.argument.id,
       parentVersion: (this.argument.edits.length - 1),
       type: this.reply.type,
+      discussionId: this.argument.discussionId,
       subject: this.reply.subject,
       text: this.reply.text,
       topicId: this.topicId
     };
 
     this.errors = null;
-
+    if (!this.reply.text.length) {
+      this.Notification.removeAll();
+      this.Notification.addError('COMPONENTS.ARGUMENT_REPLY.ERROR_NO_TEXT');
+      return;
+    }
     this.TopicArgumentService
       .save(reply)
       .pipe(take(1))

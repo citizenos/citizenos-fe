@@ -1,9 +1,9 @@
 import { trigger, state, style } from '@angular/animations';
-import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, Inject, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { DialogService } from 'src/app/shared/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { of, map, tap, Observable, take, switchMap, takeWhile, BehaviorSubject } from 'rxjs';
+import { map, tap, Observable, take, switchMap, BehaviorSubject } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { AppService } from 'src/app/services/app.service';
 import { ConfigService } from 'src/app/services/config.service';
@@ -11,26 +11,18 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { TopicService } from 'src/app/services/topic.service';
 import { UploadService } from 'src/app/services/upload.service';
 import { GroupService } from 'src/app/services/group.service';
-import { Group, TopicMemberGroup } from 'src/app/interfaces/group';
 import { GroupMemberTopicService } from 'src/app/services/group-member-topic.service';
 import { TopicInviteUserService } from 'src/app/services/topic-invite-user.service';
 import { TopicMemberUserService } from 'src/app/services/topic-member-user.service';
-import { TopicInviteDialogComponent } from 'src/app/topic/components/topic-invite/topic-invite.component';
-import { TopicParticipantsDialogComponent } from 'src/app/topic/components/topic-participants/topic-participants.component';
-import { InviteEditorsComponent } from 'src/app/topic/components/invite-editors/invite-editors.component';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { TopicVoteCreateComponent } from 'src/app/topic/components/topic-vote-create/topic-vote-create.component';
 import { TopicVoteService } from 'src/app/services/topic-vote.service';
-import { countries } from 'src/app/services/country.service';
-import { languages } from 'src/app/services/language.service';
-import { InterruptDialogComponent } from 'src/app/shared/components/interrupt-dialog/interrupt-dialog.component';
 import { TopicEditDisabledDialogComponent } from 'src/app/topic/components/topic-edit-disabled-dialog/topic-edit-disabled-dialog.component';
-import { Attachment } from 'src/app/interfaces/attachment';
 import { TopicAttachmentService } from 'src/app/services/topic-attachment.service';
 import { TopicMemberGroupService } from 'src/app/services/topic-member-group.service';
 import { TopicFormComponent } from 'src/app/topic/components/topic-form/topic-form.component';
 import { BlockNavigationIfChange } from 'src/app/shared/pending-changes.guard';
+import { TopicDiscussionService } from 'src/app/services/topic-discussion.service';
 
 @Component({
   selector: 'app-vote-create',
@@ -77,14 +69,13 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
 
   languages$: { [key: string]: any } = this.config.get('language').list;
   topic$: Observable<Topic>;
-  hasChanges$ = new BehaviorSubject(<boolean>true);
 
   public vote = {
     createdAt: '',
     id: '',
     reminderSent: null,
     votersCount: 0,
-    description: '',
+    description: <string | null>'',
     options: <any[]>[],
     delegationIsAllowed: false,
     type: '',
@@ -100,7 +91,6 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
   };
 
   /**/
-  errors?: any;
   override tabs = ['info', 'settings', 'voting_system', 'preview'];
   members = <any[]>[];
   constructor(
@@ -116,13 +106,14 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
     TopicMemberUserService: TopicMemberUserService,
     TopicInviteUserService: TopicInviteUserService,
     TopicAttachmentService: TopicAttachmentService,
+    TopicDiscussionService: TopicDiscussionService,
     translate: TranslateService,
     cd: ChangeDetectorRef,
     @Inject(DomSanitizer) override sanitizer: DomSanitizer,
     private app: AppService,
     private TopicVoteService: TopicVoteService,
     private config: ConfigService) {
-    super(dialog, route, router, UploadService, Notification, TopicService, GroupService, GroupMemberTopicService, TopicMemberGroupService, TopicMemberUserService, TopicInviteUserService, TopicAttachmentService, translate, cd, sanitizer)
+    super(dialog, route, router, UploadService, Notification, TopicService, GroupService, GroupMemberTopicService, TopicMemberGroupService, TopicMemberUserService, TopicInviteUserService, TopicAttachmentService, TopicDiscussionService, translate, cd, sanitizer)
     this.app.darkNav = true;
     this.groups$ = this.GroupService.loadItems().pipe(map((groups) => {
       groups.forEach((group: any) => {
@@ -158,6 +149,22 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
           return this.TopicService.loadTopic(params['topicId']).pipe(map((topic) => {
             this.topicUrl = this.sanitizer.bypassSecurityTrustResourceUrl(topic.padUrl);
             this.topic = topic;
+
+            Object.keys(this.block).forEach((blockname) => {
+              if (blockname === 'headerImage' && this.topic.imageUrl) {
+                this.block[blockname] = true;
+              }
+              const temp = this.topic[blockname as keyof Topic];
+
+              if (blockname === 'description') {
+                const el = document.createElement('span');
+                el.innerHTML = temp;
+                if (el.innerText)
+                  this.block['description'] = true;
+              } else if (temp)
+                this.block[blockname as keyof typeof this.block] = true;
+            });
+
             if (this.topic.id) {
               this.TopicInviteUserService.setParam('topicId', this.topic.id);
               this.invites$ = this.loadInvite$.pipe(
@@ -193,6 +200,9 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
                 this.TopicVoteService.get({ topicId: topic.id, voteId: topic.voteId }).pipe(take(1)).subscribe({
                   next: (vote) => {
                     this.vote = vote;
+                    if (this.vote.description === null) {
+                      this.vote.description = '';
+                    }
                     this.vote.options = vote.options.rows;
                     this.vote.options.forEach((option) => {
                       option.enabled = true;
@@ -202,38 +212,16 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
                 });
               });
             }
+            this.downloadUrl = this.TopicService.download(topic.id);
             return topic;
           }));
         }
         return this.createTopic();
       })
     );
-    /*
-        this.route.params.pipe(
-          map((params) => {
-            if (params['topicId']) {
-              return this.TopicService.loadTopic(params['topicId'])
-            }
-            return this.createTopic();
-          })
-          , take(1)
-        ).subscribe({
-          next: (topic) => {
-            if (topic) {
-              topic.pipe(take(1)).subscribe({
-                next: (data) => {
-                  Object.assign(this.topic, data);
-                  this.topic.padUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.topic.padUrl);
-                }
-              })
-
-
-            }
-          }
-        })*/
   }
   override ngOnInit(): void {
-
+    this.downloadUrl = this.TopicService.download(this.topic.id);
   }
   override nextTab(tab: string | void) {
     if (tab) {
@@ -294,6 +282,10 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
     return this.TopicService.save(topic)
       .pipe(take(1),
         tap((topic: Topic) => {
+          this.topic = topic;
+          this.vote.options = [{value: 'Yes'}, {value: 'No'}];
+          this.vote.description = null;
+          this.createVote();
           this.router.navigate([topic.id], { relativeTo: this.route });
         }));
   }
@@ -345,7 +337,7 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
 
     this.TopicService.patch(updateTopic).pipe(take(1)).subscribe({
       next: () => {
-        console.log('SAVED');
+
         this.TopicService.reloadTopic();
         this.saveImage()
           .subscribe({
@@ -356,27 +348,10 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
                 this.saveMemberGroup(group)
               });
               if (!this.vote.id) {
-                this.createVote();
+                this.createVote(true);
               } else {
-                this.updateVote();
+                this.updateVote(true);
               }
-              updateTopic.status = this.TopicService.STATUSES.voting;
-              this.TopicService.patch(updateTopic).pipe(take(1)).subscribe({
-                next: (res) => {
-                  this.hasChanges$.next(false);
-                  this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
-                  this.TopicService.reloadTopic();
-                  if (this.isnew || isDraft) {
-                    this.Notification.addSuccess('VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_TITLE');
-                    this.inviteMembers();
-                  } else {
-                    this.Notification.addSuccess('VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE');
-                  }
-                },
-                error: (err) => {
-                  console.log('Update status error', err);
-                }
-              });
             },
             error: (err) => {
               console.log('publish error', err)
@@ -395,7 +370,7 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
     }
   }
 
-  createVote() {
+  createVote(updateTopicStatus?: boolean) {
     const createVote: any = Object.assign({ topicId: this.topic.id }, this.vote);
     this.TopicVoteService.save(createVote)
       .pipe(take(1))
@@ -406,6 +381,27 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
           this.vote.options = vote.options.rows;
           if (!this.vote.options) {
             this.vote.options = [{value: 'Yes'}, {value: 'No'}];
+          }
+          if (updateTopicStatus) {
+            const isDraft = (this.topic.status === this.TopicService.STATUSES.draft);
+            const updateTopic = Object.assign({}, this.topic);
+            updateTopic.status = this.TopicService.STATUSES.voting;
+            this.TopicService.patch(updateTopic).pipe(take(1)).subscribe({
+              next: (res) => {
+                this.hasChanges$.next(false);
+                this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
+                this.TopicService.reloadTopic();
+                if (this.isnew || isDraft) {
+                  this.Notification.addSuccess('VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_TITLE');
+                  this.inviteMembers();
+                } else {
+                  this.Notification.addSuccess('VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE');
+                }
+              },
+              error: (err) => {
+                console.log('Update status error', err);
+              }
+            });
           }
           //     this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id], { fragment: 'voting' });
           //      this.route.url.pipe(take(1)).subscribe();
@@ -423,17 +419,49 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
   }
 
 
-  updateVote() {
+  updateVote(updateTopicStatus?: boolean) {
     const updateVote = Object.assign({ topicId: this.topic.id }, this.vote);
-    const options = updateVote.options.map((opt) => {
+    let options = updateVote.options.map((opt) => {
       return { value: opt.value, voteId: opt.voteId, id: opt.id };
     })
-    updateVote.options = options;
-    return this.TopicVoteService.update(updateVote).pipe(take(1)).subscribe();
+    if (!options.length && this.topic.status === this.TopicService.STATUSES.draft) {
+      updateVote.options = [{value: 'Yes'}, {value: 'No'}];
+    } else {
+      updateVote.options = options;
+    }
+    if (!updateVote.description && this.topic.status === this.TopicService.STATUSES.draft) {
+      updateVote.description = null;
+    }
+    return this.TopicVoteService.update(updateVote).pipe(take(1)).subscribe({
+      next: (res) => {
+        if (updateTopicStatus) {
+          const isDraft = (this.topic.status === this.TopicService.STATUSES.draft);
+          const updateTopic = {id: this.topic.id, status: this.TopicService.STATUSES.voting};
+          this.TopicService.patch(updateTopic).pipe(take(1)).subscribe({
+            next: (res) => {
+              this.hasChanges$.next(false);
+              this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
+              this.TopicService.reloadTopic();
+              if (this.isnew || isDraft) {
+                this.Notification.addSuccess('VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_TITLE');
+                this.inviteMembers();
+              } else {
+                this.Notification.addSuccess('VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE');
+              }
+            },
+            error: (err) => {
+              console.log('Update status error', err);
+            }
+          });
+        }
+      },
+      error: (error) => {
+        console.log('VOTE updating error', error);
+      }
+    });
   }
 
   removeChanges() {
-    console.log(this.topic)
     this.TopicService.revert(this.topic.id, this.topic.revision!).pipe(take(1)).subscribe(() => {
       setTimeout(() => {
         this.TopicService.reloadTopic();

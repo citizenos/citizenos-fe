@@ -1,7 +1,6 @@
 import { Directive, Input, ElementRef, OnDestroy, EventEmitter, Output } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import * as EasyMDE from 'easymde';
-import { MarkdownService } from '../services/markdown.service';
+import EasyMDE from 'easymde';
 @Directive({
   selector: '[cosmarkdown]'
 })
@@ -9,6 +8,7 @@ export class MarkdownDirective implements OnDestroy {
   @Input() item: string = ''; // The text for the tooltip to display
   @Output() itemChange = new EventEmitter<string>();
   @Input() limit: number = 100; // Optional delay input, in m
+  @Input() placeholder?: string;
   @Input('cosmarkdowntranslatecharacterstatuskey') cosMarkdownTranslateCharacterStatusKey: any;
   CHAR_COUNTER_ELEMENT_CLASS_NAME = 'charCounter';
   curLength = 0;
@@ -16,7 +16,6 @@ export class MarkdownDirective implements OnDestroy {
 
   config: any = {
     spellChecker: false,
-    placeholder: this.el.nativeElement.attributes.getNamedItem('placeholder')?.value,
     toolbar: [
       {
         name: 'bold',
@@ -30,6 +29,18 @@ export class MarkdownDirective implements OnDestroy {
         className: 'fa fa-italic',
         title: this.Translate.instant('MDEDITOR_TOOLTIP_ITALIC'),
       },
+    /*  {
+        name: 'hyperlink',
+        action: EasyMDE.drawLink,
+        className: 'fa fa-link',
+        title: this.Translate.instant('MDEDITOR_TOOLTIP_HYPERLINK'),
+      },
+      {
+        name: 'image',
+        action: EasyMDE.drawImage,
+        className: 'fa fa-image',
+        title: this.Translate.instant('MDEDITOR_TOOLTIP_HYPERLINK'),
+      },*/
       {
         name: 'strikethrough',
         action: EasyMDE.toggleStrikethrough,
@@ -73,15 +84,20 @@ export class MarkdownDirective implements OnDestroy {
     element: this.el.nativeElement,
     initialValue: this.item
   };
-  constructor(private el: ElementRef, private Translate: TranslateService, markdown: MarkdownService) {
+  constructor(private el: ElementRef, private Translate: TranslateService) {
 
     if (window.innerWidth < 560) {
       this.config['minHeight'] = '100px';
     }
-
+    let placeholder = this.el.nativeElement.attributes.getNamedItem('placeholder')?.value;
+    if (placeholder) {
+      placeholder = this.Translate.instant(placeholder);
+      this.config.placeholder = placeholder;
+    }
     this.easymde = new EasyMDE(this.config);
     this.easymde.codemirror.on('beforeChange', (cm: any, change: any) => {
       const maxLength = cm.getOption('maxLength') || this.limit;
+      console.log(maxLength)
       if (maxLength && change?.update && change?.text.length) {
         let str = change.text.join('\n');
         let delta = str.length - (cm.indexFromPos(change.to) - cm.indexFromPos(change.from));

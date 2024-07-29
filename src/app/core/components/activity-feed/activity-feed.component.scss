@@ -31,6 +31,26 @@
     justify-content: space-between;
   }
 
+  .info_box {
+    width: 100%;
+    border-radius: 16px;
+    background-color: var(--color-surfaces);
+    padding: 16px;
+
+    a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      line-height: 24px;
+      span {
+        line-height: 24px;
+      }
+      .icon {
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
   #results_area {
     display: flex;
     flex-direction: column;
@@ -41,5 +61,12 @@
       flex-direction: column;
       gap: 8px;
     }
+  }
+}
+
+.dropdown {
+  .options {
+    min-width: 100%;
+    max-width: 100%;
   }
 }

@@ -69,6 +69,17 @@
       font-style: normal;
       font-weight: 600;
       line-height: 24px;
+
+      span {
+        color: var(--color-text, #2c3b47);
+        text-align: center;
+        /* Body/24.Semibold */
+        font-family: Noto Sans;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 24px;
+      }
     }
 
     .content {

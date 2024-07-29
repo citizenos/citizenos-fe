@@ -188,6 +188,29 @@
         <div class="button_wrap">
           <div id="create_menu_wrap" [ngClass]="{'hidden': !showCreate}">
             <div id="create_menu">
+              <div class="create_menu_item" [routerLink]="['/', translate.currentLang, 'topics', 'ideation', 'create']"
+                routerLinkActive="active">
+                <div class="left_wrap">
+                  <div class="icon_wrap">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect width="32" height="32" rx="16" fill="#E4B722" />
+                      <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M21.9998 15.9667C21.6317 15.9667 21.3332 15.6682 21.3332 15.3C21.3332 14.9318 21.6317 14.6333 21.9998 14.6333H22.6665C23.0347 14.6333 23.3332 14.9318 23.3332 15.3C23.3332 15.6682 23.0347 15.9667 22.6665 15.9667H21.9998ZM21.1645 10.138C20.9044 9.87789 20.4825 9.87848 20.2232 10.1393L19.9672 10.3967C19.7089 10.6565 19.7095 11.0763 19.9685 11.3354C20.2286 11.5954 20.6505 11.5949 20.9098 11.334L21.1658 11.0767C21.4241 10.8169 21.4235 10.397 21.1645 10.138ZM15.3332 9.3C15.3332 9.66819 15.6316 9.96667 15.9998 9.96667C16.368 9.96667 16.6665 9.66819 16.6665 9.3V8.66667C16.6665 8.29848 16.368 8 15.9998 8C15.6316 8 15.3332 8.29848 15.3332 8.66667V9.3ZM9.99984 14.6333C10.368 14.6333 10.6665 14.9318 10.6665 15.3C10.6665 15.6682 10.368 15.9667 9.99984 15.9667L9.33317 15.9667C8.96498 15.9667 8.6665 15.6682 8.6665 15.3C8.6665 14.9318 8.96498 14.6333 9.33317 14.6333L9.99984 14.6333ZM11.7819 10.1313C11.5232 9.87122 11.1025 9.87064 10.8432 10.13C10.5838 10.3894 10.5844 10.8101 10.8445 11.0687L11.1052 11.328C11.3639 11.5852 11.7819 11.5846 12.0398 11.3267C12.2978 11.0687 12.2984 10.6507 12.0411 10.392L11.7819 10.1313ZM11.8407 15.2612C11.8407 12.8819 13.8869 11.1999 16.0007 11.1999C18.1146 11.1999 20.1607 12.8821 20.1607 15.2612C20.1607 16.9416 19.491 17.8986 18.881 18.7705C18.4342 19.409 18.0193 20.0019 17.9228 20.7999H14.0828C13.9863 20.0018 13.5706 19.4088 13.1229 18.7702C12.5116 17.8984 11.8407 16.9414 11.8407 15.2612ZM14.0819 22.0819H17.9219V21.4401H14.0819V22.0819ZM14.0819 22.7201H17.9219C17.9219 23.427 17.3489 24.0001 16.6419 24.0001H15.3619C14.655 24.0001 14.0819 23.427 14.0819 22.7201Z"
+                        fill="white" />
+                    </svg>
+
+                  </div>
+                  <div class="item_text_wrap">
+                    <div class="item_title" translate="COMPONENTS.CREATE.TITLE_IDEATION"></div>
+                    <div class="item_description" translate="COMPONENTS.CREATE.DESC_IDEATION"></div>
+                  </div>
+                </div>
+                <div class="icon_item icon_arrow_right">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 7L15 12L10 17" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                  </svg>
+                </div>
+              </div>
               <div class="create_menu_item" [routerLink]="['/', translate.currentLang, 'topics', 'create']"
                 routerLinkActive="active">
                 <div class="left_wrap">
@@ -361,7 +384,7 @@
 
         <ng-container *ngIf="news$ | async as news">
 
-          <a [href]="news[i].link" class="news_item" *ngFor="let i of [0,1,2,3]">
+          <a [href]="news[i].link" target="_blank" class="news_item" *ngFor="let i of [0,1,2,3]">
             <div class="news_image" *ngIf="news[i].imageUrl">
               <img [src]="news[i].imageUrl" />
             </div>
@@ -392,7 +415,7 @@
             <circle cx="29" cy="31.5" r="1" fill="#2C3B47" />
             <circle cx="32.5" cy="31.5" r="1" fill="#2C3B47" />
           </svg>
-          <a href="https://citizenos.com/get-involved/" taget="_blank"><span
+          <a href="https://citizenos.com/get-involved/" target="_blank"><span
               translate="VIEWS.DASHBOARD.HELP_US_LNK_SHARE_STORY"></span><svg width="24" height="24" viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg">
               <path d="M15 12V14L19 11.5L15 9V11H6V12H15Z" />
