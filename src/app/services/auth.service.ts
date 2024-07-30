@@ -3,7 +3,7 @@ import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { of, BehaviorSubject, Observable, throwError } from 'rxjs';
-import { switchMap, catchError, tap, take, map, retry, shareReplay, exhaustMap, share, combineLatestWith } from 'rxjs/operators';
+import { switchMap, catchError, tap, take, map, retry, exhaustMap, share, combineLatestWith } from 'rxjs/operators';
 import { LocationService } from './location.service';
 import { NotificationService } from './notification.service';
 import { User } from '../interfaces/user';
@@ -22,8 +22,7 @@ export class AuthService {
 
   constructor(private dialog: DialogService, private Location: LocationService, private http: HttpClient, private Notification: NotificationService, private config: ConfigService) {
     this.user$ = this.loadUser$.pipe(
-      exhaustMap(() => this.status()),
-      shareReplay()
+      exhaustMap(() => this.status())
     );
 
     this.loggedIn$.pipe(tap((status) => {
@@ -105,7 +104,9 @@ export class AuthService {
 
   status() {
     const path = this.Location.getAbsoluteUrlApi('/api/auth/status');
-    return this.http.get<User>(path, { withCredentials: true, observe: 'body' }).pipe(
+
+    return this.user$ = this.http.get<User>(path, { withCredentials: true, observe: 'body' }).pipe(
+      share(),
       switchMap((res: any) => {
         const user = res.data;
         if (user.imageUrl) {
@@ -120,6 +121,7 @@ export class AuthService {
             this.loggedIn$.next(true);
           }
           this.userLang$.next(user.language);
+
           return of(user);
         }
       }),
