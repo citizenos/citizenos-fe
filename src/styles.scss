@@ -2248,6 +2248,22 @@ tour-item-template {
         font-size: 16px;
         line-height: 24px;
         color: var(--color-text);
+        display: flex;
+        gap: 8px;
+        align-items: center;
+
+        span {
+          font-family: "Noto Sans";
+          font-style: normal;
+          font-weight: 600;
+          font-size: 16px;
+          line-height: 24px;
+          color: var(--color-text);
+        }
+
+.beta {
+  font-size: 12px;
+}
       }
 
       .item_description {
