@@ -1306,7 +1306,7 @@
     },
     "TOPIC_VOTE_REMINDER": {
       "DIALOG_HEADING": "Send reminder to vote",
-      "DIALOG_DESCRIPTION": "If you want, you can send a reminder e-mail to the people who haven’t voted yet.",
+      "DIALOG_DESCRIPTION": "If you want, you can send an e-mail reminder to vote. It will be sent to anyone who has joined the topic, but hasn't yet voted.",
       "REMINDER_PREVIEW_DESC": "This is a preview of how the reminder e-mail looks.",
       "PREVIEW_EMAIL_HEADING": "A vote reminder for",
       "PREVIEW_EMAIL_GREETING": "Hi {{userName}}",
