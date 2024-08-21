@@ -1093,7 +1093,7 @@
       "DIALOG_TAB_INTRODUCTION_ITEM_3": "Participants can still continue to have a discussion",
       "DIALOG_TAB_INTRODUCTION_ITEM_4": "Participants can submit their vote",
       "DIALOG_TAB_INTRODUCTION_ITEM_5": "You can't edit a vote once you have started it",
-      "DIALOG_TAB_INTRODUCTION_ITEM_6": "You can only start one vote per topic",
+      "DIALOG_TAB_INTRODUCTION_ITEM_6": "You can't start more than one vote per topic",
       "DIALOG_TAB_INTRODUCTION_ITEM_7": "Participants can no longer add, edit or like ideas",
       "DIALOG_TAB_INTRODUCTION_ITEM_8": "You cannot restart idea gathering once it's closed",
       "DIALOG_TAB_INTRODUCTION_INFO": "From here you can move the topic into action.",
