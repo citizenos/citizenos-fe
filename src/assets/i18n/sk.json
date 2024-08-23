@@ -1926,7 +1926,7 @@
       "LBL_DELETE_ACCOUNT": "Odstráňte si účet",
       "LBL_DELETE_ACCOUNT_DESCRIPTION": "Pri vymazaní konta zostanú všetky vaše príspevky viditeľné v systéme Citizen OS, ale už nebudú prepojené s vaším kontom.",
       "LBL_PROFILE_LANGUAEG": "Nastavte si jazyk profilu",
-      "LBL_PROFILE_LANGUAEG_DESCRIPTION": "Tento jazyk používame pri odosielaní emailov.",
+      "LBL_PROFILE_LANGUAEG_DESCRIPTION": "The platform and notification emails will display in this language.",
       "LBL_SELECT_PROFILE_LANGUAEG": "Zvoľte si z dostupných jazykov",
       "BTN_CONNECT_FACEBOOK": "Spojiť sa s účtom Facebooku",
       "BTN_CONNECT_GOOGLE": "Spojiť sa s účtom Google",
