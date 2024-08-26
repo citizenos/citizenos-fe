@@ -1926,7 +1926,7 @@
       "LBL_DELETE_ACCOUNT": "Delete your account",
       "LBL_DELETE_ACCOUNT_DESCRIPTION": "When deleting your account all your contributions will stay visible in Citizen OS, but they will not be linked to your account anymore.",
       "LBL_PROFILE_LANGUAEG": "Set your profile language",
-      "LBL_PROFILE_LANGUAEG_DESCRIPTION": "We use this language while sending emails.",
+      "LBL_PROFILE_LANGUAEG_DESCRIPTION": "The platform and notification emails will display in this language.",
       "LBL_SELECT_PROFILE_LANGUAEG": "Choose from available languages",
       "BTN_CONNECT_FACEBOOK": "Connect with Facebook account",
       "BTN_CONNECT_GOOGLE": "Connect with Google account",
