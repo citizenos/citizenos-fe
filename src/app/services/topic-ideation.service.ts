@@ -101,6 +101,10 @@ export class TopicIdeationService extends ItemsListService {
     );
   }
 
+  downloadIdeas(topicId: string, ideationId: string) {
+    return this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/ideations/:ideationId/download', { topicId, ideationId });
+  }
+
   hasIdeationEnded(topic: Topic, ideation: Ideation) {
     if ([this.STATUSES.draft, this.STATUSES.ideation].indexOf(topic.status) === -1) {
       return true;
