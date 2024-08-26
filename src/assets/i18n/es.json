@@ -420,14 +420,14 @@
       "ACTIONS": "Acciones",
       "BTN_BULK_ACTIONS": "@:BTN_BULK_ACTIONS",
       "BULK_OPT_SET_ALL_RIGHTS": "Definir todos los permisos como <b>{{level}}</b>",
-      "BULK_OPT_REMOVE_ALL": "Remove all"
+      "BULK_OPT_REMOVE_ALL": "Remover todos"
     },
     "GROUP_INVITE_DIALOG": {
-      "HEADING": "Invite and share",
-      "TAB_INVITE": "Invite members",
-      "TAB_SHARE": "Generate link / QR",
-      "LNK_CANCEL": "Invite later",
-      "BTN_SAVE": "Send invites",
+      "HEADING": "Invitar y compartir",
+      "TAB_INVITE": "Invitar miembros",
+      "TAB_SHARE": "Generar enlace / QR",
+      "LNK_CANCEL": "Invitar más tarde",
+      "BTN_SAVE": "Enviar invitaciones",
       "NO_USERS_SELECTED": "You haven't selected any users to invite to the group. Please search for the users with the search field above or add email addresses."
     },
     "GROUP_JOIN": {
