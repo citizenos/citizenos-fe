@@ -663,8 +663,8 @@
       "BTN_ARGUMENT_POST": "@:VIEWS.TOPIC_CREATE.FOOTER_BTN_SAVE_CHANGES"
     },
     "EXPORT_IDEAS_CONFIRM": {
-      "HEADING": "Export ideas",
-      "DESCRIPTION": "Download a .csv spreadsheet file of the ideas collected?",
+      "HEADING": "Экспорт идей",
+      "DESCRIPTION": "Скачать файл .csv с собранными в таблицу идеями?",
       "CONFIRM_YES": "@:BTN_YES",
       "CONFIRM_NO": "@:BTN_NO"
     },
@@ -751,7 +751,7 @@
       "TXT_IDEATION_ENDED": "Сбор идей завершён. Вы больше не можете добавлять, редактировать или ставить «нравится» идеям, но всё ещё можете их просматривать, отвечать на них и сохранять.",
       "OPT_ADD_DEADLINE": "@:COMPONENTS.TOPIC_VOTE_CAST.OPT_ADD_DEADLINE",
       "OPT_EDIT_DEADLINE": "@:MODALS.TOPIC_SETTINGS_BTN_EDIT_DEADLINE",
-      "OPT_DOWNLOAD_IDEAS": "Export ideas",
+      "OPT_DOWNLOAD_IDEAS": "Экспорт идей",
       "OPT_EDIT_IDEATION": "Редактировать сбор идей",
       "OPT_CLOSE_IDEATION": "Завершить сбор идей",
       "FILTER_ALL": "@:VIEWS.MY_TOPICS.FILTER_ALL",
