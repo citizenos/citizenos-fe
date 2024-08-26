@@ -1926,7 +1926,7 @@
       "LBL_DELETE_ACCOUNT": "Ihr Konto löschen",
       "LBL_DELETE_ACCOUNT_DESCRIPTION": "Beim Löschen Ihres Kontos bleiben alle Ihre Beiträge bei Citizen OS sichtbar, werden aber nicht mehr mit Ihrem Konto verknüpft.",
       "LBL_PROFILE_LANGUAEG": "Sprache des Profils festlegen",
-      "LBL_PROFILE_LANGUAEG_DESCRIPTION": "Wir verwenden diese Sprache beim Versenden von E-Mails.",
+      "LBL_PROFILE_LANGUAEG_DESCRIPTION": "The platform and notification emails will display in this language.",
       "LBL_SELECT_PROFILE_LANGUAEG": "Wählen Sie aus verfügbaren Sprachen",
       "BTN_CONNECT_FACEBOOK": "Mit Facebook-Konto verbinden",
       "BTN_CONNECT_GOOGLE": "Mit Google-Konto verbinden",
