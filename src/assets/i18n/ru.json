@@ -1926,7 +1926,7 @@
       "LBL_DELETE_ACCOUNT": "Удалить аккаунт",
       "LBL_DELETE_ACCOUNT_DESCRIPTION": "При удалении аккаунта весь ваш вклад останется доступным в Citizen OS, но он больше не будет привязан к вашему аккаунту.",
       "LBL_PROFILE_LANGUAEG": "Установить язык вашего профиля",
-      "LBL_PROFILE_LANGUAEG_DESCRIPTION": "Мы используем этот язык при отправке писем.",
+      "LBL_PROFILE_LANGUAEG_DESCRIPTION": "The platform and notification emails will display in this language.",
       "LBL_SELECT_PROFILE_LANGUAEG": "Выберите из доступных языков",
       "BTN_CONNECT_FACEBOOK": "Привязать к учетной записи Facebook",
       "BTN_CONNECT_GOOGLE": "Привязать к учетной записи Google",
