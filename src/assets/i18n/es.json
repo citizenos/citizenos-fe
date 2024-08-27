@@ -428,7 +428,7 @@
       "TAB_SHARE": "Generar enlace / QR",
       "LNK_CANCEL": "Invitar más tarde",
       "BTN_SAVE": "Enviar invitaciones",
-      "NO_USERS_SELECTED": "You haven't selected any users to invite to the group. Please search for the users with the search field above or add email addresses."
+      "NO_USERS_SELECTED": "No has seleccionado ningún usuario para invitar al grupo. Busque usuarios en el campo de búsqueda anterior o añada direcciones de correo electrónico."
     },
     "GROUP_JOIN": {
       "HEADING": "Join group",
