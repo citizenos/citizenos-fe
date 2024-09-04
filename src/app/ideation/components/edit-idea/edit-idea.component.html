@@ -42,6 +42,36 @@
         </svg>
         <span class="error_text" translate="COMPONENTS.EDIT_IDEA.MSG_ERROR_DESCRIPTION" [translateParams]="{chars: ideaMaxLength()}"></span>
       </label>
+      <ng-container *ngIf="images.length || newImages.length">
+        <div class="idea_images_wrap">
+
+          <div class="image" *ngFor="let image of newImages; index as index">
+            <a class="name">{{image.name}}</a>
+            <button class="btn_small_plain icon" (click)="removeNewImage(index)">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14 13.9997H15.3333L15.3333 19.333H14L14 13.9997Z" fill="#2C3B47" />
+                <path d="M18 13.9997H16.6667V19.333H18V13.9997Z" fill="#2C3B47" />
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M19.3333 11.333V10.6663C19.3333 9.92996 18.7364 9.33301 18 9.33301L14 9.33301C13.2636 9.33301 12.6667 9.92996 12.6667 10.6663V11.333H10.6667C10.2985 11.333 10 11.6315 10 11.9997C10 12.3679 10.2985 12.6663 10.6667 12.6663H11.3333L11.3333 19.9997C11.3333 21.1043 12.2288 21.9997 13.3333 21.9997H18.6667C19.7713 21.9997 20.6667 21.1043 20.6667 19.9997V12.6663H21.3333C21.7015 12.6663 22 12.3679 22 11.9997C22 11.6315 21.7015 11.333 21.3333 11.333H19.3333ZM18 10.6663L14 10.6663V11.333L18 11.333V10.6663ZM19.3333 12.6663L12.6667 12.6663L12.6667 19.9997C12.6667 20.3679 12.9651 20.6663 13.3333 20.6663H18.6667C19.0349 20.6663 19.3333 20.3679 19.3333 19.9997V12.6663Z"
+                  fill="#2C3B47" />
+              </svg>
+            </button>
+          </div>
+          <div class="image" *ngFor="let image of images; index as index">
+            <a class="name">{{image.name}}</a>
+            <button class="btn_small_plain icon" (click)="removeImage(image, index)">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14 13.9997H15.3333L15.3333 19.333H14L14 13.9997Z" fill="#2C3B47" />
+                <path d="M18 13.9997H16.6667V19.333H18V13.9997Z" fill="#2C3B47" />
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M19.3333 11.333V10.6663C19.3333 9.92996 18.7364 9.33301 18 9.33301L14 9.33301C13.2636 9.33301 12.6667 9.92996 12.6667 10.6663V11.333H10.6667C10.2985 11.333 10 11.6315 10 11.9997C10 12.3679 10.2985 12.6663 10.6667 12.6663H11.3333L11.3333 19.9997C11.3333 21.1043 12.2288 21.9997 13.3333 21.9997H18.6667C19.7713 21.9997 20.6667 21.1043 20.6667 19.9997V12.6663H21.3333C21.7015 12.6663 22 12.3679 22 11.9997C22 11.6315 21.7015 11.333 21.3333 11.333H19.3333ZM18 10.6663L14 10.6663V11.333L18 11.333V10.6663ZM19.3333 12.6663L12.6667 12.6663L12.6667 19.9997C12.6667 20.3679 12.9651 20.6663 13.3333 20.6663H18.6667C19.0349 20.6663 19.3333 20.3679 19.3333 19.9997V12.6663Z"
+                  fill="#2C3B47" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </ng-container>
+      <input id="image_upload_input" type="file" #imageUpload (change)="fileUpload()" />
     </form>
   </div>
   <div id="buttons_row">
@@ -55,7 +85,7 @@
       </button>
     </div>
     <div id="navigate_create">
-      <!--button class="btn_big_submit_ghost">
+      <button class="btn_big_submit_ghost" (click)="uploadImage()">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M7.42058 17.0297H16.6588C16.8706 17.0297 17.0206 16.9414 17.1088 16.7649C17.1971 16.5885 17.1794 16.412 17.0559 16.2355L14.5412 12.9002C14.4353 12.7591 14.3029 12.6885 14.1441 12.6885C13.9853 12.6885 13.8618 12.7591 13.7735 12.9002L11.1794 16.262L9.45882 14.0385C9.35293 13.9149 9.22058 13.8532 9.06176 13.8532C8.90293 13.8532 8.7794 13.9238 8.69117 14.0649L7.02352 16.2355C6.89999 16.412 6.88693 16.5885 6.98434 16.7649C7.08105 16.9414 7.22646 17.0297 7.42058 17.0297Z"
@@ -63,7 +93,7 @@
           <rect x="4" y="4" width="16" height="16" rx="1" stroke="#2C3B47" stroke-width="2" />
         </svg>
         <span translate="COMPONENTS.EDIT_IDEA.BTN_ADD_IMAGE"></span>
-      </!--button-->
+      </button>
       <button class="btn_medium_submit icon" (click)="postIdea()" [ngClass]="{disabled: ideaForm.invalid}">
         <span class="btn_text" translate="COMPONENTS.EDIT_IDEA.BTN_IDEA_POST"></span>
       </button>
