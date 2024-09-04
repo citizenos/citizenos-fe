@@ -1,3 +1,4 @@
+import { IdeaAttachmentService } from 'src/app/services/idea-attachment.service';
 import { TopicIdeaRepliesService } from './../../../services/topic-idea-replies.service';
 import { TopicIdeaService } from 'src/app/services/topic-idea.service';
 import { Component, ContentChildren, QueryList, ViewChildren, inject } from '@angular/core';
@@ -66,6 +67,7 @@ export class IdeaDialogComponent extends IdeaboxComponent {
   data: any = inject(DIALOG_DATA);
   route;
   TopicIdeaRepliesService = inject(TopicIdeaRepliesService);
+  IdeaAttachmentService = inject(IdeaAttachmentService);
   DomSanitizer = inject(DomSanitizer);
   dialogRef = inject(DialogRef<IdeaDialogComponent>);
   replies$: Observable<any>;
@@ -73,6 +75,8 @@ export class IdeaDialogComponent extends IdeaboxComponent {
   notification: any;
   replyCount = 0;
   folders$: Observable<Folder[]>;
+  images$: Observable<any>;
+
   constructor(
     dialog: DialogService,
     config: ConfigService,
@@ -146,6 +150,8 @@ export class IdeaDialogComponent extends IdeaboxComponent {
     this.folders$ = this.TopicIdeaService
       .getFolders({ topicId: this.topic.id, ideationId: this.idea.ideationId, ideaId: this.idea.id })
       .pipe(map((res: any) => res.rows));
+    this.images$ = this.IdeaAttachmentService.query({ topicId: this.topic.id, ideationId: this.idea.ideationId, ideaId: this.idea.id, type: 'image' })
+      .pipe(map((res: any) => res.rows));
   }
 
   override ngAfterViewInit(): void {
@@ -162,6 +168,9 @@ export class IdeaDialogComponent extends IdeaboxComponent {
     this.folders$ = this.TopicIdeaService
       .getFolders({ topicId: this.topic.id, ideationId: this.idea.ideationId, ideaId: this.idea.id })
       .pipe(map((res: any) => res.rows));
+    this.images$ = this.IdeaAttachmentService
+      .query({ topicId: this.topic.id, ideationId: this.idea.ideationId, ideaId: this.idea.id, type: 'image' })
+      .pipe(map((res: any) => res.rows));
     this.notification = null;
   }
 
@@ -174,6 +183,10 @@ export class IdeaDialogComponent extends IdeaboxComponent {
     this.folders$ = this.TopicIdeaService
       .getFolders({ topicId: this.topic.id, ideationId: this.idea.ideationId, ideaId: this.idea.id })
       .pipe(map((res: any) => res.rows));
+    this.images$ = this.IdeaAttachmentService
+      .query({ topicId: this.topic.id, ideationId: this.idea.ideationId, ideaId: this.idea.id, type: 'image' })
+      .pipe(map((res: any) => res.rows));
+
     this.notification = null;
   }
 

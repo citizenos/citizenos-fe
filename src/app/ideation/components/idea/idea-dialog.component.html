@@ -249,6 +249,15 @@
           <div class="statement" [innerHTML]="idea.statement"></div>
           <div class="description" [innerHTML]="idea.description | markdown"></div>
         </div>
+        <ng-container *ngIf="images$ | async as images;">
+          <div class="idea_images_wrap" *ngIf="images.length">
+
+            <div class="image" *ngFor="let image of images; index as index">
+              <img [src]="image.link"/>
+              <a class="name" [href]="image.link" target="_blank">{{image.name}}</a>
+            </div>
+          </div>
+        </ng-container>
         <ng-container *ngIf="folders$ | async as folders">
           <div class="idea_folders_wrap" *ngIf="folders.length">
             <div class="icon">

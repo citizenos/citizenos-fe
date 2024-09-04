@@ -1,15 +1,19 @@
+import { IdeaAttachmentService } from 'src/app/services/idea-attachment.service';
 import { TopicIdeationService } from 'src/app/services/topic-ideation.service';
 
 import { trigger, state, style } from '@angular/animations';
-import { Component, OnInit, Input, Inject, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, Inject, EventEmitter, Output, ElementRef, ViewChild } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { take, map } from 'rxjs';
+import { take, map, takeWhile, of } from 'rxjs';
 import { AppService } from 'src/app/services/app.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { TopicIdeaService } from 'src/app/services/topic-idea.service';
 import { NotificationService } from 'src/app/services/notification.service';
+import { MarkdownDirective } from 'src/app/directives/markdown.directive';
+import { UploadService } from 'src/app/services/upload.service';
+import { Attachment } from 'src/app/interfaces/attachment';
 
 @Component({
   selector: 'add-idea',
@@ -36,6 +40,14 @@ export class AddIdeaComponent {
   @Input() notification: any;
   @Output() notificationChange = new EventEmitter<any>();
 
+  @ViewChild(MarkdownDirective) editor!: MarkdownDirective;
+  @ViewChild('imageUpload') fileInput?: ElementRef;
+
+  tmpImageUrl?: string;
+  images = <any[]>[]
+  topicAttachments$ = of(<Attachment[] | any[]>[]);
+  attachments = <any[]>[]
+
   wWidth = window.innerWidth;
   focusIdeaStatement = false;
   argumentType = <string>'pro';
@@ -53,6 +65,8 @@ export class AddIdeaComponent {
     public app: AppService,
     private AuthService: AuthService,
     private TopicIdeationService: TopicIdeationService,
+    private UploadService: UploadService,
+    private IdeaAttachmentService: IdeaAttachmentService,
     private Notification: NotificationService,
     public TopicIdeaService: TopicIdeaService,
     @Inject(ActivatedRoute) private route: ActivatedRoute,
@@ -66,7 +80,8 @@ export class AddIdeaComponent {
   }
 
   ngOnInit(): void {
-
+    this.IdeaAttachmentService.setParam('topicId', this.topicId);
+    this.IdeaAttachmentService.setParam('ideationId', this.ideationId);
   }
 
   loggedIn() {
@@ -126,6 +141,7 @@ export class AddIdeaComponent {
       .pipe(take(1))
       .subscribe({
         next: (idea) => {
+          this.doSaveAttachments(idea.id)
           this.TopicIdeaService.reloadIdeas();
           this.TopicIdeationService.reloadIdeation();
           this.description = '';
@@ -133,11 +149,9 @@ export class AddIdeaComponent {
           this.clear();
           this.app.addIdea.next(false);
           /*  this.notificationChange.emit({
-              level: 'success',
+              level: 'success',Raul Liivrand
               message: this.translate.instant('COMPONENTS.ADD_IDEA.MSG_SUCCESS')
             })*/
-          setTimeout(() =>
-            this.Notification.addSuccess('COMPONENTS.ADD_IDEA.MSG_SUCCESS'), 1000);
           this.router.navigate(
             ['ideation', this.ideationId, 'ideas', idea.id],
             {
@@ -154,4 +168,82 @@ export class AddIdeaComponent {
   getIdeaIdWithVersion(ideaId: string, version: number) {
     return ideaId + this.IDEA_VERSION_SEPARATOR + version;
   };
+
+  fileUpload() {
+    const allowedTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/svg+xml'];
+    const files = this.fileInput?.nativeElement.files;
+    if (allowedTypes.indexOf(files[0].type) < 0) {
+      this.Notification.addError(this.translate.instant('MSG_ERROR_FILE_TYPE_NOT_ALLOWED', { allowedFileTypes: allowedTypes.toString() }));
+    } else if (files[0].size > 5000000) {
+      this.Notification.addError(this.translate.instant('MSG_ERROR_FILE_TOO_LARGE', { allowedFileSize: '5MB' }));
+    } else {
+      this.images.push(files[0]);
+    }
+  }
+
+  uploadImage() {
+    this.fileInput?.nativeElement.click();
+  };
+
+  getAllowedFileSize() {
+    return (this.UploadService.ALLOWED_FILE_SIZE / 1000 / 1000).toString() + 'MB';
+  }
+
+  getAllowedFileTypes() {
+    return ["jpg", "jpeg", "img", "png"].join(', ');
+  }
+  attachmentUpload(): void {
+    const files = this.fileInput?.nativeElement.files;
+    for (let i = 0; i < files.length; i++) {
+      const attachment = {
+        name: files[i].name,
+        type: files[i].name.split('.').pop(),
+        source: 'upload',
+        size: files[i].size,
+        file: files[i]
+      };
+
+      if (attachment.size > this.UploadService.ALLOWED_FILE_SIZE) {
+        const fileTypeError = this.translate.instant('MSG_ERROR_ATTACHMENT_SIZE_OVER_LIMIT', { allowedFileSize: this.getAllowedFileSize() });
+        this.Notification.addError(fileTypeError);
+      } else if (this.UploadService.ALLOWED_FILE_TYPES.indexOf(files[i].type) === -1) {
+        const fileTypeError = this.translate.instant('MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED', { allowedFileTypes: this.getAllowedFileTypes() });
+        this.Notification.addError(fileTypeError);
+      }
+    }
+  }
+
+  doSaveAttachments(ideaId: string) {
+    let i = 0;
+    while (i < this.images.length) {
+      let image = this.images[i];
+      if (image) {
+        image.source = this.IdeaAttachmentService.SOURCES.upload;
+        this.UploadService.uploadIdeaImage({topicId: this.topicId, ideationId: this.ideationId, ideaId}, image, {name: image.name})
+          .pipe(takeWhile((e) => !e.link, true))
+          .subscribe({
+            next: (result) => {
+              console.log('UPLOADED', result)
+            },
+            error: (res) => {
+              /*   if (res.errors) {
+                   const keys = Object.keys(res.errors);
+                   keys.forEach((key) => {
+                     this.Notification.addError(res.errors[key]);
+                   });
+                 } else if (res.status && res.status.message) {
+                   this.Notification.addError(res.status.message);
+                 } else {
+                   this.Notification.addError(res.message);
+                 }*/
+            }
+          });
+      }
+      i++;
+    }
+  };
+
+  removeImage(index: number) {
+    this.images.splice(index, 1);
+  }
 }

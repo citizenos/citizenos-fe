@@ -136,6 +136,62 @@
 
     }
   }
+
+  .idea_images_wrap {
+    display: flex;
+    flex-direction: column;
+    padding: 8px 12px 8px 8px;
+    align-items: center;
+    gap: 8px;
+    align-self: stretch;
+    border-radius: 8px;
+    background-color: var(--color-surface-contrast);
+    position: relative;
+
+    .image {
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 16px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      width: 100%;
+      position: relative;
+      @include mixins.mobile {
+        flex-direction: column;
+      }
+
+      img {
+        height: 40px;
+        transition: all 0.3s ease-in;
+        -webkit-transition: all 0.3s ease-in;
+        -moz-transition: all 0.3s ease-in;
+        -o-transition: all 0.3s ease-in;
+        -ms-transition: all 0.3s ease-in;
+
+        &:hover {
+          width: 100%;
+          position: absolute;
+          z-index: 9999;
+          height: auto;
+        }
+        @include mixins.mobile {
+          width: 100%;
+          height: auto;
+
+          &:hover {
+            position: initial;
+          }
+        }
+      }
+
+      button {
+        position: relative;
+        right: 0;
+      }
+    }
+  }
 }
 
 .idea_content_idea {

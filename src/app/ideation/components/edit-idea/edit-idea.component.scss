@@ -152,3 +152,33 @@
   background-color: rgba(44, 59, 71, 0.6);
 }
 
+#image_upload_input {
+  width: 1px;
+  height: 1px;
+  visibility: hidden;
+  padding: 0;
+  margin: 0;
+}
+
+.idea_images_wrap {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 12px 8px 8px;
+  align-items: center;
+  gap: 8px;
+  align-self: stretch;
+  border-radius: 8px;
+  background-color: var(--color-surface-contrast);
+
+  .image {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 4px;
+    width: 100%;
+  }
+}
