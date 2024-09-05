@@ -223,9 +223,11 @@ export class AddIdeaComponent {
           .pipe(takeWhile((e) => !e.link, true))
           .subscribe({
             next: (result) => {
+              this.images.splice(i, 1);
               console.log('UPLOADED', result)
             },
             error: (res) => {
+              this.images.splice(i, 1);
               /*   if (res.errors) {
                    const keys = Object.keys(res.errors);
                    keys.forEach((key) => {
