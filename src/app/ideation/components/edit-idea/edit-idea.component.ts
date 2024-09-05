@@ -203,9 +203,10 @@ export class EditIdeaComponent {
           .pipe(takeWhile((e) => !e.link, true))
           .subscribe({
             next: (result) => {
-              console.log('UPLOADED', result)
+              this.images.splice(i, 1);
             },
             error: (res) => {
+              this.images.splice(i, 1);
               /*   if (res.errors) {
                    const keys = Object.keys(res.errors);
                    keys.forEach((key) => {
