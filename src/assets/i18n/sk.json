@@ -1929,7 +1929,7 @@
       "TAB_NOTIFICATIONS": "Notifikácie",
       "TAB_ACCOUNT": "Účet",
       "LBL_SHOW_IN_SEARCH": "Ukázať môj profil vo výsledkoch vyhľadávania",
-      "LBL_SHOW_IN_SEARCH_DESCRIPTION": "Zobraziť moje meno a e-mail vo výsledkoch vyhľadávania pozvánok, aby ma ostatní ľudia mohli ľahko pozvať do skupín a tém",
+      "LBL_SHOW_IN_SEARCH_DESCRIPTION": "Display my username in invite search results so that other people can easily invite me to groups and topics",
       "LBL_DELETE_ACCOUNT": "Odstráňte si účet",
       "LBL_DELETE_ACCOUNT_DESCRIPTION": "Pri vymazaní konta zostanú všetky vaše príspevky viditeľné v systéme Citizen OS, ale už nebudú prepojené s vaším kontom.",
       "LBL_PROFILE_LANGUAEG": "Nastavte si jazyk profilu",
