@@ -1928,7 +1928,7 @@
       "TAB_PREFERENCES": "Предпочтения",
       "TAB_NOTIFICATIONS": "Уведомления",
       "TAB_ACCOUNT": "Учетная запись",
-      "LBL_SHOW_IN_SEARCH": "Показывать мой профиль в результатах поиска",
+      "LBL_SHOW_IN_SEARCH": "Показывать мое имя пользователя в результатах поиска",
       "LBL_SHOW_IN_SEARCH_DESCRIPTION": "Display my username in invite search results so that other people can easily invite me to groups and topics",
       "LBL_DELETE_ACCOUNT": "Удалить аккаунт",
       "LBL_DELETE_ACCOUNT_DESCRIPTION": "При удалении аккаунта весь ваш вклад останется доступным в Citizen OS, но он больше не будет привязан к вашему аккаунту.",
