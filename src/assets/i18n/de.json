@@ -1929,7 +1929,7 @@
       "TAB_NOTIFICATIONS": "Benachrichtigungen",
       "TAB_ACCOUNT": "Konto",
       "LBL_SHOW_IN_SEARCH": "Mein Profil in den Suchergebnissen anzeigen",
-      "LBL_SHOW_IN_SEARCH_DESCRIPTION": "Meinen Namen und meine E-Mail-Adresse in den Suchergebnissen anzeigen, damit andere Personen mich leicht zu Gruppen und Themen einladen können",
+      "LBL_SHOW_IN_SEARCH_DESCRIPTION": "Display my username in invite search results so that other people can easily invite me to groups and topics",
       "LBL_DELETE_ACCOUNT": "Ihr Konto löschen",
       "LBL_DELETE_ACCOUNT_DESCRIPTION": "Beim Löschen Ihres Kontos bleiben alle Ihre Beiträge bei Citizen OS sichtbar, werden aber nicht mehr mit Ihrem Konto verknüpft.",
       "LBL_PROFILE_LANGUAEG": "Sprache des Profils festlegen",
