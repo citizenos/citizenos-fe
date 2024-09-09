@@ -2621,7 +2621,7 @@
       "SETTINGS_HEADING_ADD_TO_GROUP": "Pridať do skupiny",
       "SETTINGS_ADD_TO_GROUP_DESC": "Túto tému môžete pridať do skupiny, ktorej ste členom, buď teraz, alebo neskôr. Všetky témy v skupine sú zdieľané s jej členmi a môžete ich zdieľať aj prostredníctvom verejného prepojenia skupiny. Ak chcete pridávať témy do skupiny, musíte mať správne práva",
       "SETTINGS_GROUP_SELECT": "Vyberte skupinu",
-      "NO_GROUPS_HEADING": "No groups to add to yet",
+      "NO_GROUPS_HEADING": "Zatiaľ žiadne skupiny na pridanie sa",
       "NO_GROUPS_DESCRIPTION": "Keď ste súčasťou skupiny a máte správne práva, môžete sem pridať túto tému. Nebojte sa, môžete to teraz preskočiť a urobiť to aj neskôr",
       "GROUPS_LIST_TITLE": "@:VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_NAME",
       "HEADING_GROUP_PERMISSIONS": "@:COMPONENTS.GROUP_ADD_TOPICS.HEADING_GROUP_PERMISSIONS",
