@@ -123,6 +123,8 @@ export class AddIdeaComponent {
     this.ideaForm.controls['description'].markAsPristine();
     this.ideaForm.controls['description'].markAsUntouched();
     setTimeout(() => {
+      if (this.fileInput?.nativeElement.value)
+        this.fileInput.nativeElement.value = null;
       this.ideaForm.controls['description'].markAsPristine();
       this.ideaForm.controls['description'].markAsUntouched();
       this.ideaForm.markAsUntouched()
@@ -172,12 +174,14 @@ export class AddIdeaComponent {
   fileUpload() {
     const allowedTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/svg+xml'];
     const files = this.fileInput?.nativeElement.files;
-    if (allowedTypes.indexOf(files[0].type) < 0) {
-      this.Notification.addError(this.translate.instant('MSG_ERROR_FILE_TYPE_NOT_ALLOWED', { allowedFileTypes: allowedTypes.toString() }));
-    } else if (files[0].size > 5000000) {
-      this.Notification.addError(this.translate.instant('MSG_ERROR_FILE_TOO_LARGE', { allowedFileSize: '5MB' }));
-    } else {
-      this.images.push(files[0]);
+    for (let i=0; i < files.length; i++) {
+      if (allowedTypes.indexOf(files[i].type) < 0) {
+        this.Notification.addError(this.translate.instant('MSG_ERROR_FILE_TYPE_NOT_ALLOWED', { allowedFileTypes: allowedTypes.toString() }));
+      } else if (files[i].size > 5000000) {
+        this.Notification.addError(this.translate.instant('MSG_ERROR_FILE_TOO_LARGE', { allowedFileSize: '5MB' }));
+      } else {
+        this.images.push(files[i]);
+      }
     }
   }
 
@@ -223,8 +227,6 @@ export class AddIdeaComponent {
           .pipe(takeWhile((e) => !e.link, true))
           .subscribe({
             next: (result) => {
-              this.images.splice(i, 1);
-              console.log('UPLOADED', result)
             },
             error: (res) => {
               this.images.splice(i, 1);

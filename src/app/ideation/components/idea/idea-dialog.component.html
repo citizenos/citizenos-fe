@@ -252,10 +252,10 @@
         <ng-container *ngIf="images$ | async as images;">
           <div class="idea_images_wrap" *ngIf="images.length">
 
-            <div class="image" *ngFor="let image of images; index as index">
+            <a class="image" [href]="image.link" target="_blank" *ngFor="let image of images; index as index">
               <img [src]="image.link"/>
-              <a class="name" [href]="image.link" target="_blank">{{image.name}}</a>
-            </div>
+              <span class="name">{{image.name}}</span>
+            </a>
           </div>
         </ng-container>
         <ng-container *ngIf="folders$ | async as folders">
