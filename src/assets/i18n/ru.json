@@ -2621,7 +2621,7 @@
       "SETTINGS_HEADING_ADD_TO_GROUP": "Добавить в группу",
       "SETTINGS_ADD_TO_GROUP_DESC": "Вы можете добавить эту тему в группу, в которой состоите, либо сейчас, либо позже. Все темы в группе доступны её участникам и могут быть также доступны по публичной ссылке группы. Чтобы добавлять темы в группу, вам необходимо иметь соответствующие права",
       "SETTINGS_GROUP_SELECT": "Выберите группу",
-      "NO_GROUPS_HEADING": "Нет групп для добавления",
+      "NO_GROUPS_HEADING": "No groups to add to yet",
       "NO_GROUPS_DESCRIPTION": "Как только вы станете частью группы и получите соответствующие права, вы сможете здесь добавить эту тему. Не волнуйтесь, вы можете пропустить это сейчас и сделать это позже",
       "GROUPS_LIST_TITLE": "@:VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_NAME",
       "HEADING_GROUP_PERMISSIONS": "@:COMPONENTS.GROUP_ADD_TOPICS.HEADING_GROUP_PERMISSIONS",
