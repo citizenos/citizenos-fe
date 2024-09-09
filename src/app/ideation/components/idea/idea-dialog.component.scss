@@ -171,17 +171,15 @@
         -ms-transition: all 0.3s ease-in;
 
         &:hover {
-          width: 100%;
-          position: absolute;
+          width: 50%;
           z-index: 9999;
           height: auto;
         }
         @include mixins.mobile {
           width: 100%;
           height: auto;
-
           &:hover {
-            position: initial;
+            width: 100%;
           }
         }
       }

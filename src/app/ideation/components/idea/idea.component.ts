@@ -46,7 +46,6 @@ export class IdeaComponent {
         });
 
         ideaDialog.afterClosed().subscribe((value) => {
-          console.log('VALUE', value)
           if (value) {
             TopicIdeaService.reloadIdeas();
             router.navigate(['/', 'topics', this.topicId], { fragment: 'ideation' })
@@ -269,7 +268,6 @@ export class IdeaDialogComponent extends IdeaboxComponent {
               setTimeout(() => {
                 document.getElementById(id + '_replies')?.click();
                 const el: HTMLElement | null = document.getElementById(argumentIdWithVersion);
-                console.log(el);
                 this.scrollTo(el)
               }, 300)
 

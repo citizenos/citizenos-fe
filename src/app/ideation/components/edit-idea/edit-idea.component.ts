@@ -117,6 +117,7 @@ export class EditIdeaComponent {
       .pipe(take(1))
       .subscribe({
         next: (idea) => {
+          this.doSaveAttachments(idea.id)
           this.TopicIdeaService.reset();
           this.TopicIdeaService.setParam('topicId', this.topicId);
           this.TopicIdeaService.setParam('ideationId', this.idea.ideationId);
@@ -145,19 +146,20 @@ export class EditIdeaComponent {
   ideaEditMode() {
     this.ideaForm.patchValue({ 'statement': this.idea.statement });
     this.ideaForm.patchValue({ 'description': this.idea.description });
-    console.log('TERE')
     this.showEdit.emit(false);
   };
 
   fileUpload() {
     const allowedTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/svg+xml'];
     const files = this.fileInput?.nativeElement.files;
-    if (allowedTypes.indexOf(files[0].type) < 0) {
-      this.Notification.addError(this.translate.instant('MSG_ERROR_FILE_TYPE_NOT_ALLOWED', { allowedFileTypes: allowedTypes.toString() }));
-    } else if (files[0].size > 5000000) {
-      this.Notification.addError(this.translate.instant('MSG_ERROR_FILE_TOO_LARGE', { allowedFileSize: '5MB' }));
-    } else {
-      this.images.push(files[0]);
+    for (let i=0; i < files.length; i++) {
+      if (allowedTypes.indexOf(files[i].type) < 0) {
+        this.Notification.addError(this.translate.instant('MSG_ERROR_FILE_TYPE_NOT_ALLOWED', { allowedFileTypes: allowedTypes.toString() }));
+      } else if (files[i].size > 5000000) {
+        this.Notification.addError(this.translate.instant('MSG_ERROR_FILE_TOO_LARGE', { allowedFileSize: '5MB' }));
+      } else {
+        this.images.push(files[i]);
+      }
     }
   }
 
@@ -203,10 +205,8 @@ export class EditIdeaComponent {
           .pipe(takeWhile((e) => !e.link, true))
           .subscribe({
             next: (result) => {
-              this.images.splice(i, 1);
             },
             error: (res) => {
-              this.images.splice(i, 1);
               /*   if (res.errors) {
                    const keys = Object.keys(res.errors);
                    keys.forEach((key) => {
