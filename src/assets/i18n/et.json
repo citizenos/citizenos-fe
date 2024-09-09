@@ -2621,7 +2621,7 @@
       "SETTINGS_HEADING_ADD_TO_GROUP": "Lisa gruppi",
       "SETTINGS_ADD_TO_GROUP_DESC": "Saad selle teema lisada gruppi, mille liige oled, kas kohe või hiljem. Kõik grupi teemad jagatakse selle liikmetega ja neid saab jagada ka grupi avaliku lingi kaudu. Teemade lisamiseks gruppi peavad sul olema vastavad õigused",
       "SETTINGS_GROUP_SELECT": "Vali grupp",
-      "NO_GROUPS_HEADING": "No groups to add yet",
+      "NO_GROUPS_HEADING": "No groups to add to yet",
       "NO_GROUPS_DESCRIPTION": "Kui oled grupi liige ja sul on vastavad õigused, saad selle teema siin gruppi lisada. Ära muretse, võid selle sammu praegu vahele jätta ja teha seda hiljem",
       "GROUPS_LIST_TITLE": "@:VIEWS.GROUP_CREATE.INFO_SETTINGS_INPUT_NAME",
       "HEADING_GROUP_PERMISSIONS": "@:COMPONENTS.GROUP_ADD_TOPICS.HEADING_GROUP_PERMISSIONS",
