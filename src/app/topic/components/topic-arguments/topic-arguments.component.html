@@ -240,7 +240,7 @@
             </ng-container>
           </div>
           <div id="arguments">
-            <argument [argument]="arg" [canReply]="!hasDiscussionEndedExpired(discussion)" [topicId]="topic.id" *ngFor="let arg of arguments"></argument>
+            <argument [argument]="arg" [canReply]="!hasDiscussionEndedExpired(discussion)" [showReplies]="arg.showReplies" [topicId]="topic.id" *ngFor="let arg of arguments"></argument>
           </div>
           <div class="pagination_wrap">
             <cos-pagination (select)="TopicArgumentService.loadPage($event)"
