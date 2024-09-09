@@ -5,6 +5,7 @@ import { Argument } from 'src/app/interfaces/argument';
 import { AppService } from 'src/app/services/app.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { TopicArgumentService } from 'src/app/services/topic-argument.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'argument-reply',
   templateUrl: './argument-reply.component.html',
@@ -24,7 +25,7 @@ export class ArgumentReplyComponent implements OnInit {
   ARGUMENT_TYPES_MAXLENGTH = this.TopicArgumentService.ARGUMENT_TYPES_MAXLENGTH;
   ARGUMENT_SUBJECT_MAXLENGTH = this.TopicArgumentService.ARGUMENT_SUBJECT_MAXLENGTH;
   errors = <any>null;
-  constructor(public AuthService: AuthService, private TopicArgumentService: TopicArgumentService, private Notification: NotificationService) {
+  constructor(public AuthService: AuthService, private TopicArgumentService: TopicArgumentService, private Notification: NotificationService, private router: Router) {
     this.AuthService.loggedIn$.pipe(
       map((isLoggedIn) => {
         if (!isLoggedIn) {
@@ -61,11 +62,27 @@ export class ArgumentReplyComponent implements OnInit {
       .save(reply)
       .pipe(take(1))
       .subscribe((reply) => {
+       /* console.log(reply);
+        console.log(this.argument);
+        this.argument.showReplies = true;
+        this.showReply = false;
+        if(!this.argument.replies.rows) this.argument.replies.rows = [];
+        this.argument.replies.rows.push(reply);*/
         this.TopicArgumentService.reset();
-        /* return this.$state.go(
-           this.$state.current.name,
-           { commentId: this.getCommentIdWithVersion(comment.id, comment.edits.length - 1) }
-         );*/
+        this.router.navigate(['/', 'topics', this.topicId], {queryParams: {argumentId: reply.id+"_v0"}});
+        /*console.log(this.argument)
+        this.TopicArgumentService.items$.pipe(take(1)).subscribe((rows) => {
+          console.log('ARGUMENTS', rows);
+          rows.forEach((arg) => {
+            if (arg.id === this.argument.id) arg.showReplies = true;
+            if (!arg.showReplies) {
+              arg.replies.rows.forEach((reply: Argument) => {
+                arg.showReplies = true;
+                if (reply.id === this.argument.id) reply.showReplies = true;
+              });
+            }
+          })
+        })*/
       });
     /* function (res) {
        this.form.errors = res.data.errors;

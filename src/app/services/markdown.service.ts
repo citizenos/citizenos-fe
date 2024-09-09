@@ -15,7 +15,7 @@ export class MarkdownPipe implements PipeTransform {
       code: (text: string) => `<code>${text}</code>`
     }
     marked.use({ renderer });
-    const html = marked(input);
+    const html = marked(input, {mangle: false, headerIds: false});
     /*div.innerHTML = $filter('linky')(html, '_blank');
             return $sce.getTrustedHtml(div.textContent);*/
     return html;

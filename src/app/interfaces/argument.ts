@@ -50,6 +50,7 @@ export interface Argument {
     },
     count: number
   },
-  showEdits: boolean
+  showEdits: boolean,
+  showReplies: boolean
 }
 
