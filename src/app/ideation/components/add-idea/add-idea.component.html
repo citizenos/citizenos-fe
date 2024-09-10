@@ -65,7 +65,10 @@
         <div class="idea_images_wrap">
 
           <div class="image" *ngFor="let image of images; index as index">
-            <a class="name">{{image.name}}</a>
+            <div class="image_data">
+              <img [src]="image.link" />
+              <a class="name">{{image.name}}</a>
+            </div>
             <button class="btn_small_plain icon" (click)="removeImage(index)">
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M14 13.9997H15.3333L15.3333 19.333H14L14 13.9997Z" fill="#2C3B47" />

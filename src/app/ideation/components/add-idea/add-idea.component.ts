@@ -174,13 +174,19 @@ export class AddIdeaComponent {
   fileUpload() {
     const allowedTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/svg+xml'];
     const files = this.fileInput?.nativeElement.files;
-    for (let i=0; i < files.length; i++) {
+    for (let i = 0; i < files.length; i++) {
       if (allowedTypes.indexOf(files[i].type) < 0) {
         this.Notification.addError(this.translate.instant('MSG_ERROR_FILE_TYPE_NOT_ALLOWED', { allowedFileTypes: allowedTypes.toString() }));
       } else if (files[i].size > 5000000) {
         this.Notification.addError(this.translate.instant('MSG_ERROR_FILE_TOO_LARGE', { allowedFileSize: '5MB' }));
       } else {
-        this.images.push(files[i]);
+        const reader = new FileReader();
+        reader.onload = async () => {
+          const file = files[i];
+          file.link = reader.result;
+          this.images.push(file);
+        };
+        reader.readAsDataURL(files[i]);
       }
     }
   }
@@ -196,26 +202,6 @@ export class AddIdeaComponent {
   getAllowedFileTypes() {
     return ["jpg", "jpeg", "img", "png"].join(', ');
   }
-  attachmentUpload(): void {
-    const files = this.fileInput?.nativeElement.files;
-    for (let i = 0; i < files.length; i++) {
-      const attachment = {
-        name: files[i].name,
-        type: files[i].name.split('.').pop(),
-        source: 'upload',
-        size: files[i].size,
-        file: files[i]
-      };
-
-      if (attachment.size > this.UploadService.ALLOWED_FILE_SIZE) {
-        const fileTypeError = this.translate.instant('MSG_ERROR_ATTACHMENT_SIZE_OVER_LIMIT', { allowedFileSize: this.getAllowedFileSize() });
-        this.Notification.addError(fileTypeError);
-      } else if (this.UploadService.ALLOWED_FILE_TYPES.indexOf(files[i].type) === -1) {
-        const fileTypeError = this.translate.instant('MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED', { allowedFileTypes: this.getAllowedFileTypes() });
-        this.Notification.addError(fileTypeError);
-      }
-    }
-  }
 
   doSaveAttachments(ideaId: string) {
     let i = 0;
@@ -223,7 +209,7 @@ export class AddIdeaComponent {
       let image = this.images[i];
       if (image) {
         image.source = this.IdeaAttachmentService.SOURCES.upload;
-        this.UploadService.uploadIdeaImage({topicId: this.topicId, ideationId: this.ideationId, ideaId}, image, {name: image.name})
+        this.UploadService.uploadIdeaImage({ topicId: this.topicId, ideationId: this.ideationId, ideaId }, image, { name: image.name })
           .pipe(takeWhile((e) => !e.link, true))
           .subscribe({
             next: (result) => {
