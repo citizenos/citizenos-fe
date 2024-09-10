@@ -75,6 +75,7 @@ export class AddIdeaComponent {
     this.addIdea = this.app.addIdea.pipe(map((val) => {
       this.description = '';
       this.ideaForm.reset();
+      this.images = [];
       return val;
     }))
   }
@@ -215,7 +216,6 @@ export class AddIdeaComponent {
             next: (result) => {
             },
             error: (res) => {
-              this.images.splice(i, 1);
               /*   if (res.errors) {
                    const keys = Object.keys(res.errors);
                    keys.forEach((key) => {
