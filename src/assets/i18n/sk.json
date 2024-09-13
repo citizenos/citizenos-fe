@@ -235,9 +235,9 @@
     },
     "CLOSE_IDEATION_CONFIRM": {
       "HEADING": "Ukončiť získavanie nápadov",
-      "ARE_YOU_SURE": "Naozaj chcete ukončiť získavanie nápadov? Nápady už nebude možné pridávať. Tento krok nemôžete vrátiť späť.",
-      "CONFIRM_YES": "Áno, ukončiť získavanie nápadov",
-      "CONFIRM_NO": "Nie, ponechať získavanie nápadov otvorené"
+      "ARE_YOU_SURE": "Are you sure you want to end this idea gathering? Participants will no longer be able to add, edit or like ideas, but can still read, reply and favourite them.",
+      "CONFIRM_YES": "Yes, end idea gathering",
+      "CONFIRM_NO": "No, keep it open"
     },
     "CLOSE_VOTING_CONFIRM": {
       "HEADING": "Uzavrieť hlasovanie",
