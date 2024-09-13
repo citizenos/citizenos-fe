@@ -235,9 +235,9 @@
     },
     "CLOSE_IDEATION_CONFIRM": {
       "HEADING": "Завершить сбор идей",
-      "ARE_YOU_SURE": "Вы уверены, что хотите завершить сбор идей? Добавление идей больше не будет возможно. Это действие нельзя отменить.",
-      "CONFIRM_YES": "Да, закончить сбор идей",
-      "CONFIRM_NO": "Нет, оставить сбор идей открытым"
+      "ARE_YOU_SURE": "Are you sure you want to end this idea gathering? Participants will no longer be able to add, edit or like ideas, but can still read, reply and favourite them.",
+      "CONFIRM_YES": "Yes, end idea gathering",
+      "CONFIRM_NO": "No, keep it open"
     },
     "CLOSE_VOTING_CONFIRM": {
       "HEADING": "Закрыть голосование",
