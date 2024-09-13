@@ -158,30 +158,44 @@
       gap: 4px;
       width: 100%;
       position: relative;
+
+      .image_view_buttons_wrap {
+        display: none;
+      }
+      .image_view_button {
+        display: none;
+      }
+      &.view {
+        img {
+          width: 100%;
+        }
+        .name {
+          display: none;
+        }
+        .image_view_buttons_wrap {
+          display: flex;
+          position: absolute;
+          top: 0;
+          right: 0;
+          padding: 8px;
+          gap: 8px;
+        }
+        .image_view_button {
+          display: flex;
+        }
+      }
       @include mixins.mobile {
         flex-direction: column;
       }
 
       img {
-        height: 40px;
+        cursor: pointer;
+        width: 80px;
         transition: all 0.3s ease-in;
         -webkit-transition: all 0.3s ease-in;
         -moz-transition: all 0.3s ease-in;
         -o-transition: all 0.3s ease-in;
         -ms-transition: all 0.3s ease-in;
-
-        &:hover {
-          width: 50%;
-          z-index: 9999;
-          height: auto;
-        }
-        @include mixins.mobile {
-          width: 100%;
-          height: auto;
-          &:hover {
-            width: 100%;
-          }
-        }
       }
 
       button {
