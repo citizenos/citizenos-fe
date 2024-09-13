@@ -236,6 +236,7 @@
     "CLOSE_IDEATION_CONFIRM": {
       "HEADING": "Lõpeta ideekorje",
       "ARE_YOU_SURE": "Are you sure you want to end this idea gathering? Participants will no longer be able to add, edit or like ideas, but can still read, reply and favourite them.",
+      "CANNOT_UNDO": "You cannot undo this action.",
       "CONFIRM_YES": "Yes, end idea gathering",
       "CONFIRM_NO": "No, keep it open"
     },
