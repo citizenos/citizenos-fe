@@ -1,6 +1,8 @@
-import { Directive, Input, ElementRef, OnDestroy, EventEmitter, Output } from '@angular/core';
+import { DialogService } from 'src/app/shared/dialog';
+import { Directive, Input, ElementRef, OnDestroy, EventEmitter, Output, inject, EnvironmentInjector } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import EasyMDE from 'easymde';
+import { MarkdownLinkDialogComponent } from './components/markdown-link-dialog/markdown-link-dialog.component';
 @Directive({
   selector: '[cosmarkdown]'
 })
@@ -12,60 +14,73 @@ export class MarkdownDirective implements OnDestroy {
   @Input('cosmarkdowntranslatecharacterstatuskey') cosMarkdownTranslateCharacterStatusKey: any;
   CHAR_COUNTER_ELEMENT_CLASS_NAME = 'charCounter';
   curLength = 0;
-  easymde;
+  easymde:any;
 
   config: any = {
     spellChecker: false,
     toolbar: [
       {
-        name: 'bold',
-        action: EasyMDE.toggleBold,
-        className: 'fa fa-bold',
-        title: this.Translate.instant('MDEDITOR_TOOLTIP_BOLD'),
+        name: "write",
+        text: this.Translate.instant('MDEDITOR_TOOLTIP_WRITE'),
+        className: 'no-disable tab-active',
+        action: (editor: any) => {
+          if (editor.isPreviewActive()) {
+            EasyMDE.togglePreview(editor);
+            editor.toolbarElements.write.classList.add('tab-active');
+          }
+        },
+        title: this.Translate.instant('MDEDITOR_TOOLTIP_WRITE'),
+      },
+      {
+        name: "preview",
+        className: 'no-disable',
+        text: this.Translate.instant('MDEDITOR_TOOLTIP_PREVIEW'),
+        action: (editor: any) => {
+          if (!editor.isPreviewActive()) {
+            EasyMDE.togglePreview(editor);
+            console.log('PREVIEW');
+            editor.toolbarElements.write.classList.remove('tab-active');
+          }
+        },
+        title: this.Translate.instant('MDEDITOR_TOOLTIP_PREVIEW'),
+      },
+      {
+        name: 'hyperlink',
+        action: this.toggleLink(),
+        className: 'fa md-right fa-link',
+        title: this.Translate.instant('MDEDITOR_TOOLTIP_HYPERLINK'),
+      },
+      '|',
+      {
+        name: 'unordered-list	',
+        action: EasyMDE.toggleUnorderedList,
+        className: 'fa md-right fa-list-ul',
+        title: this.Translate.instant('MDEDITOR_TOOLTIP_UNORDERED_LIST'),
+      },
+      {
+        name: 'ordered-list	',
+        action: EasyMDE.toggleOrderedList,
+        className: 'fa md-right fa-list-ol',
+        title: this.Translate.instant('MDEDITOR_TOOLTIP_ORDERED_LIST'),
+      },
+      '|', {
+        name: 'strikethrough',
+        action: EasyMDE.toggleStrikethrough,
+        className: 'fa md-right fa-strikethrough',
+        title: this.Translate.instant('MDEDITOR_TOOLTIP_STRIKETHROUGH'),
       },
       {
         name: 'italic',
         action: EasyMDE.toggleItalic,
-        className: 'fa fa-italic',
+        className: 'md-right fa fa-italic',
         title: this.Translate.instant('MDEDITOR_TOOLTIP_ITALIC'),
       },
-    /*  {
-        name: 'hyperlink',
-        action: EasyMDE.drawLink,
-        className: 'fa fa-link',
-        title: this.Translate.instant('MDEDITOR_TOOLTIP_HYPERLINK'),
-      },*/
-   /*   {
-        name: 'image',
-        action: EasyMDE.drawImage,
-        className: 'fa fa-image',
-        title: this.Translate.instant('MDEDITOR_TOOLTIP_HYPERLINK'),
-      },*/
       {
-        name: 'strikethrough',
-        action: EasyMDE.toggleStrikethrough,
-        className: 'fa fa-strikethrough',
-        title: this.Translate.instant('MDEDITOR_TOOLTIP_STRIKETHROUGH'),
+        name: 'bold',
+        action: EasyMDE.toggleBold,
+        className: 'md-right fa fa-bold',
+        title: this.Translate.instant('MDEDITOR_TOOLTIP_BOLD'),
       },
-      '|',
-      {
-        name: 'ordered-list	',
-        action: EasyMDE.toggleOrderedList,
-        className: 'fa fa-list-ol',
-        title: this.Translate.instant('MDEDITOR_TOOLTIP_ORDERED_LIST'),
-      },
-      {
-        name: 'unordered-list	',
-        action: EasyMDE.toggleUnorderedList,
-        className: 'fa fa-list-ul',
-        title: this.Translate.instant('MDEDITOR_TOOLTIP_UNORDERED_LIST'),
-      },
-      {
-        name: 'preview	',
-        action: EasyMDE.togglePreview,
-        className: 'fa fa-eye no-disable',
-        title: this.Translate.instant('MDEDITOR_TOOLTIP_PREVIEW'),
-      }
     ],
     preview: true,
     blockStyles: {
@@ -84,7 +99,7 @@ export class MarkdownDirective implements OnDestroy {
     element: this.el.nativeElement,
     initialValue: this.item
   };
-  constructor(private el: ElementRef, private Translate: TranslateService) {
+  constructor(private el: ElementRef, private Translate: TranslateService, private dialog: DialogService, private injector: EnvironmentInjector) {
 
     if (window.innerWidth < 560) {
       this.config['minHeight'] = '100px';
@@ -116,6 +131,50 @@ export class MarkdownDirective implements OnDestroy {
     });
   }
 
+  toggleLink() {
+    return () => {
+      const selected = this.easymde.codemirror.getSelection();
+      const linkDialog = this.dialog.open(MarkdownLinkDialogComponent, {
+        data: {
+          selected
+        }
+      });
+
+      linkDialog.afterClosed().subscribe({
+        next: (data) => {
+          console.log(data);
+          if (data) {
+            if (!data.link) {
+              return
+            }
+
+            if (data.link.indexOf('http') === -1) {
+              data.link = `http://${data.link}`;
+            }
+
+            const editor = this.easymde;
+            if (!editor.codemirror || editor.isPreviewActive()) {
+              return;
+            }
+            const cm = editor.codemirror;
+            if (!cm || editor.isPreviewActive()) {
+              return;
+            }
+
+            const end = '](#url#)'.replace('#url#', data.link);
+            const startPoint = cm.getCursor('start');
+            const endPoint = cm.getCursor('end');
+            const text = `[${data.linktext || cm.getSelection()}${end}`;
+            cm.replaceSelection(text);
+
+            endPoint.ch = startPoint.ch + text.length + 1;
+            cm.setSelection(endPoint, endPoint);
+            cm.focus();
+          }
+        }
+      })
+    }
+  }
   ngOnInit(): void {
     this.easymde.value(this.item);
   }

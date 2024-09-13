@@ -91,16 +91,8 @@ export class EditIdeaComponent {
     this.ideaForm.controls['description'].setValue(text);
   }
 
-  addNewIdea() {
-    if (!this.loggedIn()) {
-      this.app.doShowLogin();
-    } else {
-      this.app.addIdea.next(true);
-    }
-  }
-
   close() {
-    this.app.addIdea.next(false);
+    this.showEdit.emit(false);
   }
 
   postIdea() {

@@ -1841,18 +1841,61 @@ tour-item-template {
       max-height: 250px;
     }
   }
+  .editor-preview {
+    background: #fff;
+  }
   .editor-toolbar {
+
+    align-items:center;
+    width: 100%;
     border: none;
+    background: #F9FBFD;
+
+    &:before {
+      margin-bottom: 0;
+    }
+
+    &:after {
+      margin-top: 0;
+    }
+
+    .md-right {
+      margin-top: 12px;
+      float: right;
+    }
+    .separator {
+      margin-top: 16px;
+      float: right;
+    }
+    .write, .preview {
+      width: auto;
+      font-weight: bold;
+      padding: 16px;
+      height: 100%;
+      margin-bottom: -1px;
+      margin-top: -1px;
+    }
+
+    .no-disable {
+      border: none;
+    }
+    .write.tab-active {
+      border-right: 1px solid var(--color-border);
+      border-left: 1px solid var(--color-border);
+      border-radius: 8px 8px 0 0;
+      background-color: #fff;
+      border-bottom: 1px solid #fff;
+    }
+    .preview.active {
+      border-right: 1px solid var(--color-border);
+      border-left: 1px solid var(--color-border);
+      border-radius: 8px 8px 0 0;
+      background-color: #fff;
+    }
   }
   .CodeMirror {
     height: 150px;
     border: none;
-
-    .cm-formatting-strong,
-    .cm-formatting-strikethrough,
-    .cm-formatting-em {
-      display: none;
-    }
   }
 }
 

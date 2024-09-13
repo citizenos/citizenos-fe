@@ -93,7 +93,7 @@
       .close_button {
         display: none;
       }
-      .btn_medium_submit {
+      .btn_medium_submit, .btn_medium_submit_ghost {
         width: 100%;
       }
     }
@@ -106,6 +106,7 @@
 
       @include mixins.mobile {
         width: 100%;
+        flex-direction: column;
       }
       #chars_left {
         @include mixins.mobile {
@@ -185,18 +186,17 @@
       align-items: center;
       gap: 4px;
 
+      @include mixins.mobile {
+        flex-direction: column;
+      }
+
       img {
-        height: 40px;
+        width: 80px;
         transition: all 0.3s ease-in;
         -webkit-transition: all 0.3s ease-in;
         -moz-transition: all 0.3s ease-in;
         -o-transition: all 0.3s ease-in;
         -ms-transition: all 0.3s ease-in;
-
-        @include mixins.mobile {
-          width: 100%;
-          height: auto;
-        }
       }
     }
   }
