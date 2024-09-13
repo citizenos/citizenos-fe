@@ -235,9 +235,9 @@
     },
     "CLOSE_IDEATION_CONFIRM": {
       "HEADING": "Finalizar recolección de ideas",
-      "ARE_YOU_SURE": "¿Estás seguro de que quieres finalizar la recolección de ideas? No será posible añadir más ideas. Esta acción no se puede deshacer.",
-      "CONFIRM_YES": "Sí, terminar la recolección de ideas",
-      "CONFIRM_NO": "No, mantener la recolección de ideas abierta"
+      "ARE_YOU_SURE": "Are you sure you want to end this idea gathering? Participants will no longer be able to add, edit or like ideas, but can still read, reply and favourite them.",
+      "CONFIRM_YES": "Yes, end idea gathering",
+      "CONFIRM_NO": "No, keep it open"
     },
     "CLOSE_VOTING_CONFIRM": {
       "HEADING": "Cerrar votación",
