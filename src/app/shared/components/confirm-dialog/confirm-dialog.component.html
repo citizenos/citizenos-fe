@@ -48,7 +48,7 @@
       </div>
     </div>
     <div class="dialog_content">
-      <div class="info_row" translate="{{data.description}}"></div>
+      <div class="info_row" [ngClass]="{center: (!data.sections && !data.info && !data.points?.length)}" translate="{{data.description}}"></div>
     </div>
     <div class="dialog_content" *ngIf="data.sections || data.info || data.points?.length">
       <div class="dialog_info_wrap">
