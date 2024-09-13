@@ -235,9 +235,9 @@
     },
     "CLOSE_IDEATION_CONFIRM": {
       "HEADING": "Ideenfindung beenden",
-      "ARE_YOU_SURE": "Sind Sie sicher, dass Sie diese Ideenfindung abschließen möchten? Es können dann keine Ideen mehr hinzugefügt werden. Sie können diese Aktion nicht rückgängig machen.",
-      "CONFIRM_YES": "Ja, die Ideenfindung abschließen",
-      "CONFIRM_NO": "Nein, die Ideenfindung nicht abschließen"
+      "ARE_YOU_SURE": "Are you sure you want to end this idea gathering? Participants will no longer be able to add, edit or like ideas, but can still read, reply and favourite them.",
+      "CONFIRM_YES": "Yes, end idea gathering",
+      "CONFIRM_NO": "No, keep it open"
     },
     "CLOSE_VOTING_CONFIRM": {
       "HEADING": "Abstimmung beenden",
