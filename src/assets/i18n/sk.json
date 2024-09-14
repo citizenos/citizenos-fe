@@ -235,10 +235,10 @@
     },
     "CLOSE_IDEATION_CONFIRM": {
       "HEADING": "Ukončiť získavanie nápadov",
-      "ARE_YOU_SURE": "Are you sure you want to end this idea gathering? Participants will no longer be able to add, edit or like ideas, but can still read, reply and favourite them.",
-      "CANNOT_UNDO": "You cannot undo this action.",
-      "CONFIRM_YES": "Yes, end idea gathering",
-      "CONFIRM_NO": "No, keep it open"
+      "ARE_YOU_SURE": "Ste si istí, že chcete ukončiť toto zhromažďovanie nápadov? Účastníci už nebudú môcť pridávať, upravovať ani lajkovať nápady, ale stále si ich môžu prečítať, odpovedať na ne a favorizovať ich.",
+      "CANNOT_UNDO": "Tento krok nemožno vráti späť.",
+      "CONFIRM_YES": "Áno, ukončiť získavanie nápadov",
+      "CONFIRM_NO": "Nie, ponechať otvorené"
     },
     "CLOSE_VOTING_CONFIRM": {
       "HEADING": "Uzavrieť hlasovanie",
@@ -1802,13 +1802,13 @@
     "INTERRUPT_DESC": "Žiadny pokrok sa neuloží.",
     "INTERRUPT_BTN_CANCEL": "@:LNK_CANCEL",
     "INTERRUPT_BTN_SUBMIT": "@:MODALS.INTERRUPT_HEADING",
-    "MARKDOWN_ADD_LINK_HEADING": "Add a link",
+    "MARKDOWN_ADD_LINK_HEADING": "Pridať odkaz",
     "MARKDOWN_ADD_LINK_LBL_TEXT": "Text",
     "MARKDOWN_ADD_LINK_PLACEHOLDER_TEXT": "@:MODALS.MARKDOWN_ADD_LINK_LBL_TEXT",
-    "MARKDOWN_ADD_LINK_ERROR_TEXT": "Text cannot be empty!",
-    "MARKDOWN_ADD_LINK_LBL_LINK": "Link",
+    "MARKDOWN_ADD_LINK_ERROR_TEXT": "Text nemôže ostať prázdny!",
+    "MARKDOWN_ADD_LINK_LBL_LINK": "Odkaz",
     "MARKDOWN_ADD_LINK_PLACEHOLDER_LINK": "@:MODALS.MARKDOWN_ADD_LINK_LBL_LINK",
-    "MARKDOWN_ADD_LINK_ERROR_LINK": "Link cannot be empty!",
+    "MARKDOWN_ADD_LINK_ERROR_LINK": "Odkaz nemôže byť prázdny!",
     "MARKDOWN_ADD_LINK_BTN_CANCEL": "@:LNK_CANCEL",
     "MARKDOWN_ADD_LINK_BTN_SAVE": "@:DIRECTIVES.COS_MODAL.BTN_SAVE"
   },
@@ -3454,5 +3454,5 @@
   "MDEDITOR_TOOLTIP_ORDERED_LIST": "Zoznam s usporiadanými položkami",
   "MDEDITOR_TOOLTIP_UNORDERED_LIST": "Zoznam bez zatriedených položiek",
   "MDEDITOR_TOOLTIP_PREVIEW": "Ukážka",
-  "MDEDITOR_TOOLTIP_WRITE": "Write"
+  "MDEDITOR_TOOLTIP_WRITE": "Napísať"
 }
