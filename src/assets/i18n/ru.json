@@ -235,9 +235,10 @@
     },
     "CLOSE_IDEATION_CONFIRM": {
       "HEADING": "Завершить сбор идей",
-      "ARE_YOU_SURE": "Вы уверены, что хотите завершить сбор идей? Добавление идей больше не будет возможно. Это действие нельзя отменить.",
-      "CONFIRM_YES": "Да, закончить сбор идей",
-      "CONFIRM_NO": "Нет, оставить сбор идей открытым"
+      "ARE_YOU_SURE": "Are you sure you want to end this idea gathering? Participants will no longer be able to add, edit or like ideas, but can still read, reply and favourite them.",
+      "CANNOT_UNDO": "You cannot undo this action.",
+      "CONFIRM_YES": "Yes, end idea gathering",
+      "CONFIRM_NO": "No, keep it open"
     },
     "CLOSE_VOTING_CONFIRM": {
       "HEADING": "Закрыть голосование",
@@ -1800,7 +1801,16 @@
     "INTERRUPT_ARE_YOU_SURE": "Это действие прервет текущий процесс. Вы уверены, что хотите продолжить?",
     "INTERRUPT_DESC": "Обновления не будут сохранены.",
     "INTERRUPT_BTN_CANCEL": "@:LNK_CANCEL",
-    "INTERRUPT_BTN_SUBMIT": "@:MODALS.INTERRUPT_HEADING"
+    "INTERRUPT_BTN_SUBMIT": "@:MODALS.INTERRUPT_HEADING",
+    "MARKDOWN_ADD_LINK_HEADING": "Add a link",
+    "MARKDOWN_ADD_LINK_LBL_TEXT": "Text",
+    "MARKDOWN_ADD_LINK_PLACEHOLDER_TEXT": "@:MODALS.MARKDOWN_ADD_LINK_LBL_TEXT",
+    "MARKDOWN_ADD_LINK_ERROR_TEXT": "Text cannot be empty!",
+    "MARKDOWN_ADD_LINK_LBL_LINK": "Link",
+    "MARKDOWN_ADD_LINK_PLACEHOLDER_LINK": "@:MODALS.MARKDOWN_ADD_LINK_LBL_LINK",
+    "MARKDOWN_ADD_LINK_ERROR_LINK": "Link cannot be empty!",
+    "MARKDOWN_ADD_LINK_BTN_CANCEL": "@:LNK_CANCEL",
+    "MARKDOWN_ADD_LINK_BTN_SAVE": "@:DIRECTIVES.COS_MODAL.BTN_SAVE"
   },
   "TXT_TOPIC_CATEGORY_ALL": "Все",
   "TXT_TOPIC_CATEGORY_AGRICULTURE": "Сельское хозяйство",
@@ -3443,5 +3453,6 @@
   "MDEDITOR_TOOLTIP_STRIKETHROUGH": "Перечеркнутый",
   "MDEDITOR_TOOLTIP_ORDERED_LIST": "Упорядоченный список",
   "MDEDITOR_TOOLTIP_UNORDERED_LIST": "Неупорядоченный список",
-  "MDEDITOR_TOOLTIP_PREVIEW": "Предварительный просмотр"
+  "MDEDITOR_TOOLTIP_PREVIEW": "Предварительный просмотр",
+  "MDEDITOR_TOOLTIP_WRITE": "Write"
 }
