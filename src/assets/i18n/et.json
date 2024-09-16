@@ -235,10 +235,10 @@
     },
     "CLOSE_IDEATION_CONFIRM": {
       "HEADING": "Lõpeta ideekorje",
-      "ARE_YOU_SURE": "Are you sure you want to end this idea gathering? Participants will no longer be able to add, edit or like ideas, but can still read, reply and favourite them.",
-      "CANNOT_UNDO": "You cannot undo this action.",
-      "CONFIRM_YES": "Yes, end idea gathering",
-      "CONFIRM_NO": "No, keep it open"
+      "ARE_YOU_SURE": "Oled kindel, et soovid selle ideekorje lõpetada? Osalejad ei saa enam ideid lisada, muuta ega neid meeldivaks märkida, kuid nad saavad neid endiselt lugeda, neile vastata ja neid lemmikutesse lisada.",
+      "CANNOT_UNDO": "Seda toimingut ei saa tagasi võtta.",
+      "CONFIRM_YES": "Jah, lõpeta ideekorje",
+      "CONFIRM_NO": "Ei, hoia see avatud"
     },
     "CLOSE_VOTING_CONFIRM": {
       "HEADING": "Sulge hääletus",
@@ -1802,14 +1802,14 @@
     "INTERRUPT_DESC": "Edenemisteavet ei salvestata.",
     "INTERRUPT_BTN_CANCEL": "@:LNK_CANCEL",
     "INTERRUPT_BTN_SUBMIT": "@:MODALS.INTERRUPT_HEADING",
-    "MARKDOWN_ADD_LINK_HEADING": "Add a link",
-    "MARKDOWN_ADD_LINK_LBL_TEXT": "Text",
+    "MARKDOWN_ADD_LINK_HEADING": "Lisa link",
+    "MARKDOWN_ADD_LINK_LBL_TEXT": "Tekst",
     "MARKDOWN_ADD_LINK_PLACEHOLDER_TEXT": "@:MODALS.MARKDOWN_ADD_LINK_LBL_TEXT",
-    "MARKDOWN_ADD_LINK_ERROR_TEXT": "Text cannot be empty!",
-    "MARKDOWN_ADD_LINK_LBL_LINK": "Link",
+    "MARKDOWN_ADD_LINK_ERROR_TEXT": "Tekstiväli ei tohi olla tühi",
+    "MARKDOWN_ADD_LINK_LBL_LINK": "URL",
     "MARKDOWN_ADD_LINK_PLACEHOLDER_LINK": "@:MODALS.MARKDOWN_ADD_LINK_LBL_LINK",
-    "MARKDOWN_ADD_LINK_ERROR_LINK": "Link cannot be empty!",
-    "MARKDOWN_ADD_LINK_DESCRIPTION": "Your link will appear in the text field as <b>[link text](https://www.url.com)</b>. Don't worry, it'll look better when published - check the preview :)",
+    "MARKDOWN_ADD_LINK_ERROR_LINK": "Väli ei tohi olla tühi",
+    "MARKDOWN_ADD_LINK_DESCRIPTION": "Sinu link kuvatakse tekstiväljal kui <b>[lingi tekst](https://www.url.com)</b>. Ära muretse, see näeb avaldatuna parem välja – vaata eelvaadet :)",
     "MARKDOWN_ADD_LINK_BTN_CANCEL": "@:LNK_CANCEL",
     "MARKDOWN_ADD_LINK_BTN_SAVE": "@:DIRECTIVES.COS_MODAL.BTN_SAVE"
   },
@@ -3455,5 +3455,5 @@
   "MDEDITOR_TOOLTIP_ORDERED_LIST": "Järjestatud nimekiri",
   "MDEDITOR_TOOLTIP_UNORDERED_LIST": "Järjestamata nimekiri",
   "MDEDITOR_TOOLTIP_PREVIEW": "Eelvaade",
-  "MDEDITOR_TOOLTIP_WRITE": "Write"
+  "MDEDITOR_TOOLTIP_WRITE": "Kirjuta"
 }
