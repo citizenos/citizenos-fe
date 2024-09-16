@@ -235,9 +235,10 @@
     },
     "CLOSE_IDEATION_CONFIRM": {
       "HEADING": "Lõpeta ideekorje",
-      "ARE_YOU_SURE": "Kas soovid kindlasti selle ideekorje lõpetada? Argumente ei ole enam võimalik lisada. Seda toimingut ei saa tagasi võtta.",
-      "CONFIRM_YES": "Jah, lõpeta ideekorje",
-      "CONFIRM_NO": "Ei, hoia ideekorje avatuna"
+      "ARE_YOU_SURE": "Are you sure you want to end this idea gathering? Participants will no longer be able to add, edit or like ideas, but can still read, reply and favourite them.",
+      "CANNOT_UNDO": "You cannot undo this action.",
+      "CONFIRM_YES": "Yes, end idea gathering",
+      "CONFIRM_NO": "No, keep it open"
     },
     "CLOSE_VOTING_CONFIRM": {
       "HEADING": "Sulge hääletus",
@@ -1800,7 +1801,16 @@
     "INTERRUPT_ARE_YOU_SURE": "See katkestab sinu käimasoleva protsessi. Kas soovid kindlasti jätkata?",
     "INTERRUPT_DESC": "Edenemisteavet ei salvestata.",
     "INTERRUPT_BTN_CANCEL": "@:LNK_CANCEL",
-    "INTERRUPT_BTN_SUBMIT": "@:MODALS.INTERRUPT_HEADING"
+    "INTERRUPT_BTN_SUBMIT": "@:MODALS.INTERRUPT_HEADING",
+    "MARKDOWN_ADD_LINK_HEADING": "Add a link",
+    "MARKDOWN_ADD_LINK_LBL_TEXT": "Text",
+    "MARKDOWN_ADD_LINK_PLACEHOLDER_TEXT": "@:MODALS.MARKDOWN_ADD_LINK_LBL_TEXT",
+    "MARKDOWN_ADD_LINK_ERROR_TEXT": "Text cannot be empty!",
+    "MARKDOWN_ADD_LINK_LBL_LINK": "Link",
+    "MARKDOWN_ADD_LINK_PLACEHOLDER_LINK": "@:MODALS.MARKDOWN_ADD_LINK_LBL_LINK",
+    "MARKDOWN_ADD_LINK_ERROR_LINK": "Link cannot be empty!",
+    "MARKDOWN_ADD_LINK_BTN_CANCEL": "@:LNK_CANCEL",
+    "MARKDOWN_ADD_LINK_BTN_SAVE": "@:DIRECTIVES.COS_MODAL.BTN_SAVE"
   },
   "TXT_TOPIC_CATEGORY_ALL": "Kõik",
   "TXT_TOPIC_CATEGORY_AGRICULTURE": "Põllumajandus",
@@ -3443,5 +3453,6 @@
   "MDEDITOR_TOOLTIP_STRIKETHROUGH": "Läbikriipsutus",
   "MDEDITOR_TOOLTIP_ORDERED_LIST": "Järjestatud nimekiri",
   "MDEDITOR_TOOLTIP_UNORDERED_LIST": "Järjestamata nimekiri",
-  "MDEDITOR_TOOLTIP_PREVIEW": "Eelvaade"
+  "MDEDITOR_TOOLTIP_PREVIEW": "Eelvaade",
+  "MDEDITOR_TOOLTIP_WRITE": "Write"
 }
