@@ -1809,6 +1809,7 @@
     "MARKDOWN_ADD_LINK_LBL_LINK": "Link",
     "MARKDOWN_ADD_LINK_PLACEHOLDER_LINK": "@:MODALS.MARKDOWN_ADD_LINK_LBL_LINK",
     "MARKDOWN_ADD_LINK_ERROR_LINK": "Link cannot be empty!",
+    "MARKDOWN_ADD_LINK_DESCRIPTION": "Your link will appear in the text field as <b>[link text](https://www.url.com)</b>. Don't worry it'll look better published, check the preview :)",
     "MARKDOWN_ADD_LINK_BTN_CANCEL": "@:LNK_CANCEL",
     "MARKDOWN_ADD_LINK_BTN_SAVE": "@:DIRECTIVES.COS_MODAL.BTN_SAVE"
   },
