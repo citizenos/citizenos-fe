@@ -1764,6 +1764,7 @@
     "TOPIC_NOTIFICATION_SETTINGS_LBL_ALL_ACTIONS": "All actions in this topic",
     "TOPIC_NOTIFICATION_SETTINGS_LBL_TOPIC_UPDATES": "Topic updates (content, status, categories, moderation, etc.)",
     "TOPIC_NOTIFICATION_SETTINGS_LBL_TOPIC_DISCUSSION": "Topic discussion (arguments, replies)",
+    "TOPIC_NOTIFICATION_SETTINGS_LBL_TOPIC_IDEATION": "Idea gathering (ideas, replies, reactions)",
     "TOPIC_NOTIFICATION_SETTINGS_LBL_TOPIC_VOTING": "Voting",
     "TOPIC_NOTIFICATION_SETTINGS_LBL_TOPIC_FOLLOW_UP": "Action updates",
     "TOPIC_NOTIFICATION_SETTINGS_LNK_CANCEL": "@:LNK_CANCEL",
