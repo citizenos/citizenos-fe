@@ -665,9 +665,19 @@
                         for.</div>
                     </!--div-->
                   </div>
-                  <div class="mobile_hidden" translate="VIEWS.VOTE_CREATE.SETTINGS_ADD_TO_GROUP_DESC"></div>
+                  <div class="mobile_hidden" translate="VIEWS.VOTE_CREATE.SETTINGS_ADD_TO_GROUP_DESC">
+                    <div class="tooltip" tooltip>
+                      <div class="content_title" translate="VIEWS.TOPIC_CREATE.TOOLTIP_ADD_TO_GROUP"></div>
+                      <div class="content_description" translate="VIEWS.TOPIC_CREATE.TOOLTIP_ADD_TO_GROUP_CONTENT"></div>
+                    </div>
+                  </div>
                 </div>
-                <div class="mobile_show" translate="VIEWS.VOTE_CREATE.SETTINGS_ADD_TO_GROUP_DESC"></div>
+                <div class="mobile_show" translate="VIEWS.VOTE_CREATE.SETTINGS_ADD_TO_GROUP_DESC">
+                  <div class="tooltip" tooltip>
+                    <div class="content_title" translate="VIEWS.TOPIC_CREATE.TOOLTIP_ADD_TO_GROUP"></div>
+                    <div class="content_description" translate="VIEWS.TOPIC_CREATE.TOOLTIP_ADD_TO_GROUP_CONTENT"></div>
+                  </div>
+                </div>
                 <ng-container *ngIf="groups$ | async as groups;">
                   <ng-container *ngIf="!groups.length">
                     <div class="no_engagements">
