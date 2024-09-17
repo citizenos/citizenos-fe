@@ -725,9 +725,11 @@
                           {{group.name}}
                         </div>
                       </ng-container>
+                      <div class="disabled" *ngIf="groups.length <= topicGroups.length" translate="VIEWS.TOPIC_CREATE.SETTINGS_GROUP_SELECT_ALL_ADDED"></div>
                     </div>
                   </div>
                   <ng-container *ngIf="topicGroups$ | async"></ng-container>
+                  <div *ngIf="topicGroups.length" class="small_heading" translate="VIEWS.TOPIC_CREATE.SETTINGS_HEADING_GROUP_LIST"></div>
                   <div id="topic_members_list_wrap" class="table_section">
                     <div class="row_header mobile_hidden" *ngIf="topicGroups.length">
                       <div class="row_cell" translate="VIEWS.TOPIC_CREATE.GROUPS_LIST_TITLE"></div>

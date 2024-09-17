@@ -738,11 +738,13 @@
                             {{group.name}}
                           </div>
                         </ng-container>
+                        <div class="disabled" *ngIf="groups.length <= topicGroups.length" translate="VIEWS.IDEATION_CREATE.SETTINGS_GROUP_SELECT_ALL_ADDED"></div>
                       </div>
                     </div>
                     <ng-container *ngIf="topicGroups$ | async"></ng-container>
 
                     <div id="topic_members_list_wrap" class="table_section">
+                      <div *ngIf="topicGroups.length" class="small_heading" translate="VIEWS.IDEATION_CREATE.SETTINGS_HEADING_GROUP_LIST"></div>
                       <div class="row_header" *ngIf="topicGroups.length">
                         <div class="row_cell" translate="VIEWS.IDEATION_CREATE.MEMBER_GROUP_HEADING_TITLE"></div>
                         <div class="row_cell" translate="VIEWS.IDEATION_CREATE.MEMBER_GROUP_HEADING_GROUP_PERMISSIONS">
