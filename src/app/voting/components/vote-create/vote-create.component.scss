@@ -156,25 +156,36 @@
   }
 }
 
-.topic_members_list_wrap {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  width: 100%;
+#topic_members_list_wrap {
+  .small_heading {
+    align-self: flex-start;
+  }
+  .row_header {
+    background-color: var(--color-surfaces);
+  }
+  .row_list,
+  .row_header {
+    border-radius: 8px;
+    .row_cell {
+      &:first-child {
+        min-width: 45%;
+      }
+      &:nth-child(2) {
+        min-width: 30%;
+        justify-content: flex-start;
+      }
+      &:nth-child(3) {
+        min-width: 15%;
+        text-align: right;
+        justify-content: flex-end;
+      }
 
-  .topic_member {
-    display: flex;
-    justify-content: flex-start;
-    gap: 8px;
-    align-items: center;
-
-    .profile_image_wrap {
-      width: 24px;
-      height: 24px;
-
-      .profile_image {
-        width: 24px;
-        height: 24px;
+      .tooltip {
+        top: -11px;
+        position: relative;
+        @include mixins.mobile {
+          top: -1px;
+        }
       }
     }
   }
