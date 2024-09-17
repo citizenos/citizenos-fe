@@ -2604,6 +2604,8 @@
       "HEADER_IMAGE_UPLOAD_BTN": "Datei auswählen",
       "TITLE_HEADING": "Titel",
       "TITLE_INTRO": "Einführung",
+      "TOOLTIP_ADD_TO_GROUP": "Who can add topics",
+      "TOOLTIP_ADD_TO_GROUP_CONTENT": "In a private group, anyone can add topics. In a public group, only admins can add topics, but anyone can 'Request to add topics' via the button on the group's page.",
       "TOOLTIP_TOPIC_INTRO_TITLE": "@:VIEWS.TOPIC_CREATE.TITLE_INTRO",
       "TOOLTIP_TOPIC_INTRO_CONTENT": "Die Einleitung zu Ihrem Thema wird es den Teilnehmern erleichtern, sich schnell ein Bild davon zu machen, worum es geht.",
       "TITLE_INTRO_TEXT": "Fügen Sie eine kurze Einführung oder einen Aufruf zum Handeln hinzu, in dem zusammengefasst wird, wofür das Thema steht.",
