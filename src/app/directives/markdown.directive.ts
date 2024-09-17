@@ -84,6 +84,7 @@ export class MarkdownDirective implements OnDestroy {
     ],
     preview: true,
     blockStyles: {
+      unorderedListStyle: '-',
       italic: '_'
     },
     status: [{
