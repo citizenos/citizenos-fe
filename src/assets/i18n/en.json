@@ -1105,6 +1105,7 @@
       "DIALOG_TAB_INTRODUCTION_ITEM_6": "You can't start more than one vote per topic",
       "DIALOG_TAB_INTRODUCTION_ITEM_7": "Participants can no longer add, edit or like ideas",
       "DIALOG_TAB_INTRODUCTION_ITEM_8": "You cannot restart idea gathering once it's closed",
+      "DIALOG_TAB_INTRODUCTION_ITEM_9": "You can no longer add a discussion phase",
       "DIALOG_TAB_INTRODUCTION_INFO": "From here you can move the topic into action.",
       "VOTE_QUESTION_HEADING": "Please add a specific question for the participants to vote on.",
       "VOTE_QUESTION_PLACEHOLDER": "Write your voting question",
