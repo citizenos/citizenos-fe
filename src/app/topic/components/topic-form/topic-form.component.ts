@@ -177,7 +177,7 @@ export class TopicFormComponent {
     @Inject(DomSanitizer) public sanitizer: DomSanitizer
   ) {
     route.queryParams.pipe(take(1), map((params) => this.groupId = params['groupId'])).subscribe();
-
+    this.GroupService.reset();
     this.groups$ = this.GroupService.loadItems().pipe(
       tap((res: any) => {
         if (res.length) {
