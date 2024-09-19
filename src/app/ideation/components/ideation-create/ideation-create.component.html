@@ -367,11 +367,10 @@
               <div class="block_title_wrap" (click)="block.description = true;">
                 <div>
                   <div class="block_title" translate="VIEWS.IDEATION_CREATE.TITLE_DESCRIPTION">
-                    <!--div class="tooltip" tooltip>
-                      <div class="content_title">Help on its way</div>
-                      <div class="content_description">Help text coming soon! Please tell us what help you were looking
-                        for.</div>
-                    </!--div-->
+                    <div class="tooltip" tooltip>
+                      <div class="content_title" translate="VIEWS.IDEATION_CREATE.TOOLTIP_TOPIC_TEXT_TITLE"></div>
+                      <div class="content_description" translate="VIEWS.IDEATION_CREATE.TOOLTIP_TOPIC_TEXT_CONTENT"></div>
+                    </div>
                   </div>
                   <!--div *ngIf="!block.description" translate="VIEWS.IDEATION_CREATE.TITLE_DESCRIPTION_TEXT"></!--div-->
                 </div>
@@ -671,7 +670,8 @@
                   <div class="mobile_hidden" translate="VIEWS.IDEATION_CREATE.SETTINGS_ADD_TO_GROUP_DESC">
                     <div class="tooltip" tooltip>
                       <div class="content_title" translate="VIEWS.TOPIC_CREATE.TOOLTIP_ADD_TO_GROUP"></div>
-                      <div class="content_description" translate="VIEWS.TOPIC_CREATE.TOOLTIP_ADD_TO_GROUP_CONTENT"></div>
+                      <div class="content_description" translate="VIEWS.TOPIC_CREATE.TOOLTIP_ADD_TO_GROUP_CONTENT">
+                      </div>
                     </div>
                   </div>
                 </div>
