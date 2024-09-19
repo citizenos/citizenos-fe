@@ -955,7 +955,7 @@
                         fill="#5AB467" />
                     </svg>
                     <span translate="VIEWS.VOTE_CREATE.TXT_YOU_CAN_CHOOSE_OPTIONS"
-                      [translateParams]="{maxChoices: vote.maxChoices}"></span>
+                      [translateParams]="{range: (vote.maxChoices !== vote.minChoices)? (vote.minChoices + '-' + vote.maxChoices): vote.maxChoices}"></span>
                   </div>
                 </ng-container>
                 <div class="vote_options">
