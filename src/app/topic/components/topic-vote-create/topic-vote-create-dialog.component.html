@@ -874,7 +874,7 @@
                     fill="#5AB467" />
                 </svg>
                 <span translate="COMPONENTS.TOPIC_VOTE_CREATE.PREVIEW_VOTE_TYPE_MULTIPLE"
-                  [translateParams]="{maxOptions: vote.maxChoices}"></span>
+                  [translateParams]="{range: (vote.maxChoices !== vote.minChoices)? (vote.minChoices + '-' + vote.maxChoices): vote.maxChoices}"></span>
               </div>
               <div class="dialog_info_content">
                 <div class="radio_wrap" *ngFor="let option of vote.options">
