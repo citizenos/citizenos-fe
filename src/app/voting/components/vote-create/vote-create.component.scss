@@ -156,6 +156,30 @@
   }
 }
 
+.topic_members_list_wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+
+  .topic_member {
+    display: flex;
+    justify-content: flex-start;
+    gap: 8px;
+    align-items: center;
+
+    .profile_image_wrap {
+      width: 24px;
+      height: 24px;
+
+      .profile_image {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+}
+
 #topic_members_list_wrap {
   .small_heading {
     align-self: flex-start;
