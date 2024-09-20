@@ -132,7 +132,12 @@
     <ng-container *ngIf="group.members.users?.length">
       <div class="row_header mobile_hidden" *ngIf="!dialog">
         <div class="row_cell"><a translate="COMPONENTS.GROUP_INVITE.NAME"></a></div>
-        <div class="row_cell" translate="COMPONENTS.GROUP_INVITE.ROLE"></div>
+        <div class="row_cell" translate="COMPONENTS.GROUP_INVITE.ROLE">
+          <div class="tooltip" tooltip>
+            <div class="content_title" translate="VIEWS.GROUP.TOOLTIP_MEMBERS_PERMISSIONS_HEADING"></div>
+            <div class="content_description" [innerHTML]="'VIEWS.GROUP.TOOLTIP_MEMBERS_PERMISSIONS_DESCRIPTION' | translate"></div>
+          </div>
+        </div>
         <div class="row_cell" translate="COMPONENTS.GROUP_INVITE.ACTIONS"></div>
       </div>
       <ng-container *ngFor="let user of group.members.users; index as i;">
@@ -155,6 +160,10 @@
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
                 </svg>
+                <div class="tooltip mobile_show" tooltip>
+                  <div class="content_title" translate="VIEWS.GROUP.TOOLTIP_MEMBERS_PERMISSIONS_HEADING"></div>
+                  <div class="content_description" [innerHTML]="'VIEWS.GROUP.TOOLTIP_MEMBERS_PERMISSIONS_DESCRIPTION' | translate"></div>
+                </div>
               </div>
               <div class="options">
                 <div class="option" *ngFor="let level of LEVELS | keyvalue" (click)="user.level = level.value">

@@ -738,7 +738,7 @@
                     fill="#2C3B47" />
                 </svg>
                 <span
-                  [innerHtml]="'COMPONENTS.GROUP_INVITE.BULK_OPT_SET_ALL_RIGHTS' | translate:{level: ('TXT_GROUP_LEVELS_'+level | uppercase | translate)}"></span>
+                  [innerHtml]="'VIEWS.GROUP.BULK_OPT_SET_ALL_RIGHTS' | translate:{level: ('TXT_GROUP_LEVELS_'+level | uppercase | translate)}"></span>
               </button>
               <div class="line_separator"></div>
             </ng-container>
@@ -1523,14 +1523,16 @@
 
       <div class="container">
         <div class="row header_row">
-          <div class="name"><a translate="COMPONENTS.GROUP_INVITE.NAME"></a></div>
+          <div class="name"><a translate="VIEWS.GROUP.NAME"></a></div>
           <div class="level">
-            <div class="level_heading" translate="COMPONENTS.GROUP_INVITE.ROLE"><!--div class="tooltip" tooltip>
-              <div class="content_title">Help on its way</div>
-              <div class="content_description">Help text coming soon! Please tell us what help you were looking for.</div>
-            </!--div--></div>
+            <div class="level_heading" translate="VIEWS.GROUP.ROLE">
+              <div class="tooltip" tooltip>
+                <div class="content_title" translate="VIEWS.GROUP.TOOLTIP_MEMBERS_PERMISSIONS_HEADING"></div>
+                <div class="content_description" [innerHTML]="'VIEWS.GROUP.TOOLTIP_MEMBERS_PERMISSIONS_DESCRIPTION' | translate"></div>
+              </div>
+            </div>
 
-            <div class="button_heading" translate="COMPONENTS.GROUP_INVITE.ACTIONS" *ngIf="canUpdate(group)"></div>
+            <div class="button_heading" translate="VIEWS.GROUP.ACTIONS" *ngIf="canUpdate(group)"></div>
           </div>
         </div>
         <ng-container *ngFor="let member of users$ | async">
