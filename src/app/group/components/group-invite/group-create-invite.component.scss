@@ -1,3 +1,5 @@
+@use "mixins";
+
 .heading_wrap {
   display: flex;
   flex-direction: column;
@@ -34,6 +36,18 @@
       font-style: normal;
       font-weight: 400;
       line-height: 20px; /* 142.857% */
+    }
+  }
+}
+#group_members_list_wrap {
+  .tooltip {
+    position: relative;
+    top: -11px;
+    margin-left: -10px;
+
+    @include mixins.mobile {
+      margin-left:0;
+      right: -10px
     }
   }
 }
