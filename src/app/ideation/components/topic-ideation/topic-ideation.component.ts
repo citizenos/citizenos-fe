@@ -275,7 +275,9 @@ export class TopicIdeationComponent {
         level: 'warn',
         heading: 'COMPONENTS.CLOSE_IDEATION_CONFIRM.HEADING',
         description: 'COMPONENTS.CLOSE_IDEATION_CONFIRM.ARE_YOU_SURE',
-        info: 'COMPONENTS.CLOSE_IDEATION_CONFIRM.CANNOT_UNDO',
+        sections: [
+          {heading: '', points: ['COMPONENTS.CLOSE_IDEATION_CONFIRM.CANNOT_UNDO']}
+        ],
         confirmBtn: 'COMPONENTS.CLOSE_IDEATION_CONFIRM.CONFIRM_YES',
         closeBtn: 'COMPONENTS.CLOSE_IDEATION_CONFIRM.CONFIRM_NO'
       }
