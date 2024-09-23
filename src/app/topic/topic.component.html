@@ -137,7 +137,7 @@
               </button>
             </ng-container>
             <ng-container
-              *ngIf="(auth.loggedIn$ | async) && TopicService.canEdit(topic) && !topic.voteId && !topic.ideationId">
+              *ngIf="(auth.loggedIn$ | async) && TopicService.canEdit(topic) && !topic.voteId">
               <div class="line_separator"></div>
               <button class="option" [routerLink]="['/','topics', 'edit', topic.id]">
                 <div class="icon_wrap">
@@ -151,7 +151,7 @@
               </button>
             </ng-container>
             <ng-container
-              *ngIf="(auth.loggedIn$ | async) && topic.voteId && (TopicService.canDelete(topic) || TopicService.canEdit(topic) && topic.status === TopicService.STATUSES.draft)">
+              *ngIf="(auth.loggedIn$ | async) && topic.voteId && (TopicService.canDelete(topic) || (TopicService.canEdit(topic) && topic.status === TopicService.STATUSES.draft))">
               <div class="line_separator"></div>
               <button class="option" [routerLink]="['/','topics', 'vote', 'edit', topic.id]">
                 <div class="icon_wrap">
@@ -735,7 +735,7 @@
                     </button>
                   </ng-container>
                   <ng-container
-                    *ngIf="(auth.loggedIn$ | async) && TopicService.canEdit(topic) && !topic.voteId && !topic.ideationId">
+                    *ngIf="(auth.loggedIn$ | async) && TopicService.canEdit(topic) && !topic.voteId">
                     <div class="line_separator"></div>
                     <button class="option" [routerLink]="['/','topics', 'edit', topic.id]">
                       <div class="icon_wrap">
@@ -1039,7 +1039,7 @@
             </div>
             <div class="info_item" translate="VIEWS.TOPICS_TOPICID.SECTION_NOTIFICATIONS_DESC">
             </div>
-            <button *ngIf="(auth.loggedIn$ | async)" class="btn_medium_secondary bold"
+            <button *ngIf="TopicService.canDelete(topic)" class="btn_medium_secondary bold"
               (click)="app.doShowTopicNotificationSettings(topic.id)">
               <div class="icon">
                 <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1478,7 +1478,7 @@
           </button>
         </ng-container>
         <ng-container
-          *ngIf="(auth.loggedIn$ | async) && TopicService.canEdit(topic) && !topic.voteId && !topic.ideationId">
+          *ngIf="(auth.loggedIn$ | async) && TopicService.canEdit(topic) && !topic.voteId">
           <div class="line_separator"></div>
           <button class="option" [routerLink]="['/','topics', 'edit', topic.id]">
             <div class="icon_wrap">
