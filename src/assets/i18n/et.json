@@ -3128,6 +3128,7 @@
     "ACTIVITY_USER_UPDATE_FOLDER": "Kasutaja <em>{{userName}}</em> uuendas ideekausta teemas <em>{{topicTitle}}</em>",
     "ACTIVITY_USER_DELETE_FOLDER": "Kasutaja <em>{{userName}}</em> eemaldas ideede kausta teemast <em>{{topicTitle}}</em>",
     "ACTIVITY_USER_ADD_FOLDERIDEA_FOLDER": "<em>{{userName}}</em> lisas idee teema „<em>{{topicTitle}}</em>“ kausta",
+    "ACTIVITY_USER_ADD_ATTACHMENT_IDEA": "User <em>{{userName}}</em> has added an attachment <em>{{attachmentName}}</em> to and idea in topic <em>{{topicTitle}}</em>",
     "ACTIVITY_USER_CREATE_TOPIC": "Kasutaja <em>{{userName}}</em> on loonud teema: <em>{{topicTitle}}</em>",
     "ACTIVITY_USER_UPDATE_TOPIC": "Kasutaja <em>{{userName}}</em> uuendas teemas <em>{{topicTitle}}</em> välja <em>{{fieldName}}</em>",
     "ACTIVITY_USER_UPDATE_TOPIC_ACTIVITYGROUP": "Kasutaja <em>{{userName}}</em> ja <em>{{groupCount}}</em> teist kasutajat uuendasid teemat \"<em>{{topicTitle}}</em>\"",

@@ -3128,6 +3128,7 @@
     "ACTIVITY_USER_UPDATE_FOLDER": "Пользователь <em>{{userName}}</em> обновил папку идей по теме <em>{{topicTitle}}</em>",
     "ACTIVITY_USER_DELETE_FOLDER": "Пользователь <em>{{userName}}</em> удалил папку идей из темы <em>{{topicTitle}}</em>",
     "ACTIVITY_USER_ADD_FOLDERIDEA_FOLDER": "Пользователь <em>{{userName}}</em> добавил в теме <em>{{topicTitle}}</em> идею в папку",
+    "ACTIVITY_USER_ADD_ATTACHMENT_IDEA": "User <em>{{userName}}</em> has added an attachment <em>{{attachmentName}}</em> to and idea in topic <em>{{topicTitle}}</em>",
     "ACTIVITY_USER_CREATE_TOPIC": "Пользователь <em>{{userName}}</em> создал тему: <em>{{topicTitle}}</em>",
     "ACTIVITY_USER_UPDATE_TOPIC": "Пользователь <em>{{userName}}</em> обновил поле <em>{{fieldName}}</em> в теме: <em>{{topicTitle}}</em>",
     "ACTIVITY_USER_UPDATE_TOPIC_ACTIVITYGROUP": "Пользователь <em>{{userName}}</em> и еще <em>{{groupCount}}</em> пользователей обновили тему <em>{{topicTitle}}</em>",
