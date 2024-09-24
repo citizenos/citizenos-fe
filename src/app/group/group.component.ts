@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, tap, of, take, catchError, map, Observable, BehaviorSubject, combineLatest } from 'rxjs';
 import { DialogService } from 'src/app/shared/dialog';
@@ -58,6 +58,16 @@ import { TopicRequestsComponent } from './components/topic-requests/topic-reques
     ])]
 })
 export class GroupComponent implements OnInit {
+
+  @HostListener('document:click', ['$event'])
+  handleClickEvent(event:Event) {
+    const target = <HTMLElement>event.target;
+    if (target.parentElement?.classList.contains('option')) return;
+    if (this.removeTopics && (!target.id || ['topics_area', 'group_description_wrap', 'page_header'].indexOf(target.id) > -1)) {
+      this.removeTopics = false;
+    }
+  }
+
   group$;
   groupId: string = '';
   groupTitle: string = '';

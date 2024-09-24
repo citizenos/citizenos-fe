@@ -1344,7 +1344,7 @@
       </div>
       <!--MOBILE_TOPIC_FILTERS_END-->
     </div>
-    <div id="topics_area" *ngIf="topics$ | async as topics;">
+    <div id="topics_area" *ngIf="topics$ | async as topics;"  (click)="(removeTopics)? toggleRemove(): ''">
       <ng-container *ngIf="!topics.length && !filtersSet">
         <div class="no_engagements">
           <div class="illustration">
