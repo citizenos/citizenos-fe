@@ -172,6 +172,13 @@
                       <div class="bold" [innerHtml]>{{user.name}}</div>
                     </div>
                     <div class="level">
+                      <div id="mobile_roles_tooltip" class="tooltip" tooltip>
+                        <div class="content_title"
+                          translate="COMPONENTS.TOPIC_INVITE_EDITORS.TOOLTIP_TOPIC_ROLES_HEADING"></div>
+                        <div class="content_description"
+                          [innerHTML]="'COMPONENTS.TOPIC_INVITE_EDITORS.TOOLTIP_TOPIC_ROLES_DESCRIPTION' | translate">
+                        </div>
+                      </div>
                       <div class="dropdown" [cosDropdown]>
                         <div class="selection">
                           <div class="selected_item">{{'TXT_TOPIC_LEVELS_' + (user.level) |

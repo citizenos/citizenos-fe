@@ -655,13 +655,13 @@
                   <div class="number_wrap mobile_show">
                     <div>3</div>
                   </div>
-                  <div class="small_heading" translate="VIEWS.VOTE_CREATE.SETTINGS_HEADING_ADD_TO_GROUP">
-                    <!--div class="tooltip" tooltip>
-                      <div class="content_title">Help on its way</div>
-                      <div class="content_description">Help text coming soon! Please tell us what help you were looking
-                        for.</div>
-                    </!--div-->
+                  <div class="small_heading mobile_show" translate="VIEWS.VOTE_CREATE.SETTINGS_HEADING_ADD_TO_GROUP">
+                    <div id="add_to_group_tooltip" class="tooltip" tooltip>
+                      <div class="content_title" translate="VIEWS.TOPIC_CREATE.TOOLTIP_ADD_TO_GROUP"></div>
+                      <div class="content_description" translate="VIEWS.TOPIC_CREATE.TOOLTIP_ADD_TO_GROUP_CONTENT"></div>
+                    </div>
                   </div>
+                  <div class="small_heading mobile_hidden" translate="VIEWS.VOTE_CREATE.SETTINGS_HEADING_ADD_TO_GROUP"></div>
                   <div class="mobile_hidden" translate="VIEWS.VOTE_CREATE.SETTINGS_ADD_TO_GROUP_DESC">
                     <div class="tooltip" tooltip>
                       <div class="content_title" translate="VIEWS.TOPIC_CREATE.TOOLTIP_ADD_TO_GROUP"></div>
@@ -669,12 +669,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="mobile_show" translate="VIEWS.VOTE_CREATE.SETTINGS_ADD_TO_GROUP_DESC">
-                  <div class="tooltip" tooltip>
-                    <div class="content_title" translate="VIEWS.TOPIC_CREATE.TOOLTIP_ADD_TO_GROUP"></div>
-                    <div class="content_description" translate="VIEWS.TOPIC_CREATE.TOOLTIP_ADD_TO_GROUP_CONTENT"></div>
-                  </div>
-                </div>
+                <div class="mobile_show" translate="VIEWS.VOTE_CREATE.SETTINGS_ADD_TO_GROUP_DESC"></div>
                 <ng-container *ngIf="groups$ | async as groups;">
                   <ng-container *ngIf="!groups.length">
                     <div class="no_engagements">
