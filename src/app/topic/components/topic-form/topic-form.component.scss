@@ -386,7 +386,7 @@
 
 #topic_members_list_wrap {
   align-items: flex-start;
-  text-align:left;
+  text-align: left;
   .row_header {
     background-color: var(--color-surfaces);
   }
@@ -612,4 +612,9 @@
 #mobile_actions {
   max-width: max-content;
   align-self: flex-end;
+}
+
+#add_to_group_tooltip {
+  position: relative;
+  display: inline-block !important;
 }

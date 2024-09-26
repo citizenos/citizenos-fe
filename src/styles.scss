@@ -1845,11 +1845,10 @@ tour-item-template {
     background: #fff;
   }
   .editor-toolbar {
-
-    align-items:center;
+    align-items: center;
     width: 100%;
     border: none;
-    background: #F9FBFD;
+    background: #f9fbfd;
 
     &:before {
       margin-bottom: 0;
@@ -1867,7 +1866,8 @@ tour-item-template {
       margin-top: 16px;
       float: right;
     }
-    .write, .preview {
+    .write,
+    .preview {
       width: auto;
       font-weight: bold;
       padding: 16px;
@@ -1921,6 +1921,10 @@ tour-item-template {
   margin-left: 3px;
   position: absolute;
 
+  @include mixins.mobile {
+    max-width: 95%;
+  }
+
   &.no_icon {
     position: absolute;
     width: 100%;
@@ -1955,6 +1959,7 @@ tour-item-template {
 
     @include mixins.mobile {
       width: calc(100% - 16px);
+      max-width: calc(100% - 16px);
       left: 0;
       margin-left: 0;
     }
@@ -1974,6 +1979,9 @@ tour-item-template {
       box-shadow: 0px 8px 20px 0px rgba(220, 231, 240, 0.3),
         0px 12px 16px 0px rgba(50, 85, 112, 0.1);
 
+      @include mixins.mobile {
+        max-width: 300px;
+      }
       .tooltip_content {
         display: flex;
         flex-direction: column;
@@ -2304,9 +2312,9 @@ tour-item-template {
           color: var(--color-text);
         }
 
-.beta {
-  font-size: 12px;
-}
+        .beta {
+          font-size: 12px;
+        }
       }
 
       .item_description {
@@ -2337,7 +2345,8 @@ tour-item-template {
     font-weight: 600;
   }
 }
-topic-vote-cast, topic-milestones {
+topic-vote-cast,
+topic-milestones {
   @include mixins.tablet {
     display: none;
 

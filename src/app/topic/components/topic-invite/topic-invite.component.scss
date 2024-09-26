@@ -148,6 +148,14 @@
       }
     }
   }
+  #mobile_roles_tooltip {
+    display: none;
+    @include mixins.mobile {
+      display: inline-block;
+    }
+    left: -7px;
+    bottom: 40px;
+  }
 }
 #topic_members_list_wrap {
   gap: 16px;
