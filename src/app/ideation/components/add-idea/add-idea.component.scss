@@ -74,16 +74,6 @@
     0px -12px 16px 0px rgba(50, 85, 112, 0.04);
   overflow: auto;
 
-  &::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
-    background-color: var(--color-scrollbar);
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: var(--color-scrollbar-thumb);
-    border-radius: 8px;
-  }
 
   @include mixins.tablet {
     position: fixed;

@@ -343,16 +343,6 @@
         padding: 16px 0;
       }
 
-      &::-webkit-scrollbar {
-        width: 4px;
-        height: 4px;
-        background-color: var(--color-scrollbar);
-      }
-
-      &::-webkit-scrollbar-thumb {
-        background-color: var(--color-scrollbar-thumb);
-        border-radius: 8px;
-      }
     }
   }
 }

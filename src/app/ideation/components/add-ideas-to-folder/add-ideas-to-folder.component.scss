@@ -6,14 +6,6 @@
   max-height: 240px;
   overflow: auto;
   gap: 16px;
-  &::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: var(--color-dialog-ideation-contrast);
-    border-radius: 8px;
-  }
 
   .line_separator {
     background: var(--color-border);
