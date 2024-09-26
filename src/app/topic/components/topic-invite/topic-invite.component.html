@@ -114,10 +114,10 @@
           <div class="row header_row">
             <div class="name"><a translate="COMPONENTS.TOPIC_INVITE.NAME"></a></div>
             <div class="level">
-              <div class="level_heading" translate="COMPONENTS.TOPIC_INVITE.ROLE"><!--div class="tooltip" tooltip>
-                <div class="content_title">Help on its way</div>
-                <div class="content_description">Help text coming soon! Please tell us what help you were looking for.</div>
-              </!--div--></div>
+              <div class="level_heading" translate="COMPONENTS.TOPIC_INVITE.ROLE"><div class="tooltip" tooltip>
+                <div class="content_title" translate="COMPONENTS.TOPIC_INVITE_EDITORS.TOOLTIP_TOPIC_ROLES_HEADING"></div>
+                <div class="content_description" [innerHTML]="'COMPONENTS.TOPIC_INVITE_EDITORS.TOOLTIP_TOPIC_ROLES_DESCRIPTION' | translate"></div>
+              </div></div>
 
               <div class="button_heading" translate="COMPONENTS.TOPIC_INVITE.ACTIONS"></div>
             </div>
