@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { catchError, tap, map, of, Observable, switchMap } from 'rxjs';
+import { tap, of, Observable, switchMap } from 'rxjs';
 import { ActivityService } from 'src/app/services/activity.service';
 import { AppService } from 'src/app/services/app.service';
 import { AuthService } from 'src/app/services/auth.service';

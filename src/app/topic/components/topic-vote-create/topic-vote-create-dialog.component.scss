@@ -315,14 +315,6 @@
   max-height: 240px;
   overflow: auto;
   gap: 16px;
-  &::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: var(--color-voting-disabled);
-    border-radius: 8px;
-  }
 
   .line_separator {
     background: var(--color-dialog-voting-contrast);

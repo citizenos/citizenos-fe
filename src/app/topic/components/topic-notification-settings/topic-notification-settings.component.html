@@ -61,8 +61,13 @@
         <span class="checkmark"></span>
       </label>
       <label class="checkbox"><span translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_LBL_TOPIC_DISCUSSION"></span>
-        <input type="checkbox" [checked]="preferences.TopicComment && preferences.CommentVote"
-          (click)="selectOption('TopicComment');selectOption('CommentVote');">
+        <input type="checkbox" [checked]="preferences.Discussion && preferences.DiscussionComment && preferences.CommentVote"
+          (click)="selectOption('Discussion'); selectOption('DiscussionComment');selectOption('CommentVote');">
+        <span class="checkmark"></span>
+      </label>
+      <label class="checkbox"><span translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_LBL_TOPIC_IDEATION"></span>
+        <input type="checkbox" [checked]="preferences.Ideation && preferences.IdeaVote && preferences.Idea && preferences.TopicIdeation && preferences.IdeaComment"
+          (click)="selectOption('TopicIdeation');selectOption('IdeaVote'); selectOption('Idea');selectOption('TopicIdeation');selectOption('IdeaComment');">
         <span class="checkmark"></span>
       </label>
       <label class="checkbox"><span translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_LBL_TOPIC_VOTING"></span>

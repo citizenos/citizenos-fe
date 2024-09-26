@@ -1,30 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, tap, of, take, catchError, map, Observable, BehaviorSubject, combineLatest } from 'rxjs';
 import { DialogService } from 'src/app/shared/dialog';
 
 import { GroupMemberUserService } from 'src/app/services/group-member-user.service';
-import { GroupInviteUserService } from './../services/group-invite-user.service';
+import { GroupInviteUserService } from 'src/app/services/group-invite-user.service';
 import { GroupService } from 'src/app/services/group.service';
 import { GroupJoinService } from 'src/app/services/group-join.service';
 import { Group } from 'src/app/interfaces/group';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
-import { AuthService } from '../services/auth.service';
-import { TopicService } from '../services/topic.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { TopicService } from 'src/app/services/topic.service';
 import { GroupInviteDialogComponent } from './components/group-invite/group-invite.component';
-import { AppService } from '../services/app.service';
-import { GroupMemberTopicService } from '../services/group-member-topic.service';
+import { AppService } from 'src/app/services/app.service';
+import { GroupMemberTopicService } from 'src/app/services/group-member-topic.service';
 import { GroupAddTopicsDialogComponent } from './components/group-add-topics/group-add-topics.component';
 import { TranslateService } from '@ngx-translate/core';
 import { trigger, state, style } from '@angular/animations';
-import { Topic } from '../interfaces/topic';
-import { User } from '../interfaces/user';
+import { Topic } from 'src/app/interfaces/topic';
+import { User } from 'src/app/interfaces/user';
 import { GroupJoinComponent } from './components/group-join/group-join.component';
-import { countries } from '../services/country.service';
-import { languages } from '../services/language.service';
+import { countries } from 'src/app/services/country.service';
+import { languages } from 'src/app/services/language.service';
 import { GroupSettingsComponent } from './components/group-settings/group-settings.component';
-import { Country } from '../interfaces/country';
-import { Language } from '../interfaces/language';
+import { Country } from 'src/app/interfaces/country';
+import { Language } from 'src/app/interfaces/language';
 import { GroupRequestTopicsComponent } from './components/group-request-topics/group-request-topics.component';
 import { TopicRequestsComponent } from './components/topic-requests/topic-requests.component';
 
@@ -58,6 +58,16 @@ import { TopicRequestsComponent } from './components/topic-requests/topic-reques
     ])]
 })
 export class GroupComponent implements OnInit {
+
+  @HostListener('document:click', ['$event'])
+  handleClickEvent(event:Event) {
+    const target = <HTMLElement>event.target;
+    if (target.parentElement?.classList.contains('option')) return;
+    if (this.removeTopics && (!target.id || ['topics_area', 'group_description_wrap', 'page_header'].indexOf(target.id) > -1)) {
+      this.removeTopics = false;
+    }
+  }
+
   group$;
   groupId: string = '';
   groupTitle: string = '';
@@ -97,6 +107,7 @@ export class GroupComponent implements OnInit {
     language: ''
   };
 
+  removeTopics = false;
   topicTypeFilter$ = new BehaviorSubject('');
   engagmentsFilter$ = new BehaviorSubject('');
   statusFilter$ = new BehaviorSubject('');
@@ -144,7 +155,7 @@ export class GroupComponent implements OnInit {
     public app: AppService,
     public GroupMemberTopicService: GroupMemberTopicService) {
     this.app.darkNav = true;
-    this.users$ = combineLatest([this.searchUserString$, this.GroupInviteUserService.loadMembers$, this.GroupMemberUserService.loadMembers$]).pipe(
+    this.users$ = combineLatest([this.searchUserString$, this.GroupMemberUserService.loadMembers$]).pipe(
       switchMap(([search]) => {
         GroupMemberUserService.reset();
         GroupMemberUserService.setParam('groupId', this.groupId);
@@ -257,6 +268,9 @@ export class GroupComponent implements OnInit {
           (newtopics: any) => {
             this.allTopics$ = [];
             this.allTopics$ = this.allTopics$.concat(newtopics);
+            if (this.allTopics$.length === 0) {
+              this.removeTopics = false;
+            }
             return this.allTopics$;
           }
         ));
@@ -316,7 +330,7 @@ export class GroupComponent implements OnInit {
     this.app.createNewTopic(this.groupId, 'voting');
   }
 
-  addNewIdeationTopic () {
+  addNewIdeationTopic() {
     this.app.createNewTopic(this.groupId, 'ideation');
   }
 
@@ -517,7 +531,7 @@ export class GroupComponent implements OnInit {
     })
   }
 
-  topicRequests (group: Group) {
+  topicRequests(group: Group) {
     const topicRequestsDialog = this.dialog.open(TopicRequestsComponent, {
       data: {
         group: group
@@ -566,5 +580,146 @@ export class GroupComponent implements OnInit {
 
   trackByTopic(index: number, element: any) {
     return element.id;
+  }
+
+  toggleRemove() {
+    this.removeTopics = !this.removeTopics;
+  }
+
+  reloadTopics(data?: any) {
+    this.doClearFilters();
+  }
+
+  deleteGroupTopics(group: Group) {
+    const confirmRemoveDialog = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        level: 'delete',
+        heading: 'MODALS.GROUP_DELETE_ALL_TOPICS_CONFIRM_TXT_ARE_YOU_SURE',
+        description: 'MODALS.GROUP_DELETE_ALL_TOPICS_CONFIRM_TXT_NO_UNDO',
+        confirmBtn: 'MODALS.GROUP_DELETE_ALL_TOPICS_CONFIRM_YES',
+        closeBtn: 'MODALS.GROUP_DELETE_ALL_TOPICS_CONFIRM_NO'
+      }
+    });
+
+    confirmRemoveDialog.afterClosed().subscribe({
+      next: (confirm) => {
+        if (confirm) {
+          this.allTopics$.forEach((topic) => {
+            this.GroupMemberTopicService.delete({ topicId: topic.id, groupId: group.id }).pipe(
+              take(1)
+            ).subscribe({
+              next: (res) => {
+                this.doClearFilters();
+              },
+              error: (err) => {
+                console.log(err);
+              }
+            })
+          })
+        }
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
+  }
+
+  deleteGroupMembers(group: Group) {
+    const confirmRemoveDialog = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        level: 'delete',
+        heading: 'MODALS.GROUP_DELETE_ALL_MEMBERS_CONFIRM_TXT_ARE_YOU_SURE',
+        description: 'MODALS.GROUP_DELETE_ALL_MEMBERS_CONFIRM_TXT_NO_UNDO',
+        confirmBtn: 'MODALS.GROUP_DELETE_ALL_MEMBERS_CONFIRM_YES',
+        closeBtn: 'MODALS.GROUP_DELETE_ALL_MEMBERS_CONFIRM_NO'
+      }
+    });
+
+    confirmRemoveDialog.afterClosed().subscribe({
+      next: (confirm) => {
+        if (confirm) {
+
+          this.allMembers$.forEach((member) => {
+            if (member.invite && member?.invite.id) {
+              if (group) {
+                console.log(member);
+                const inviteData = Object.assign({groupId: group.id, inviteId: member.invite.id}, member.invite)
+                this.GroupInviteUserService
+                  .delete(inviteData)
+                  .pipe(take(1))
+                  .subscribe({
+                    next: () => {
+                      this.GroupMemberUserService.reloadItems();
+                    },
+                    error: (err) => {
+                      console.error(err);
+                    }
+                  })
+              }
+            }
+            else if ((member.userId || member.id) !== this.auth.user.value.id) {
+              this.GroupMemberUserService.delete({ groupId: group.id, userId: member.userId || member.id })
+                .pipe(take(1))
+                .subscribe({
+                  next: (res) => {
+                    this.GroupMemberUserService.reloadItems();
+                  },
+                  error: (err) => {
+                    console.log(err);
+                  }
+                })
+            }
+          })
+        }
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
+  }
+
+  updateGroupMembersLevel(group: Group, level: string) {
+    this.allMembers$.forEach((member) => {
+      if ((member.userId || member.id) === this.auth.user.value.id) {
+        return
+      }
+      if (member.invite && member?.invite.level !== level) {
+        const oldLevel = member.invite.level;
+        member.invite.level = level;
+        if (group) {
+          const inviteData = Object.assign({groupId: group.id, inviteId: member.invite.id}, member.invite)
+          this.GroupInviteUserService
+            .update(inviteData)
+            .pipe(take(1))
+            .subscribe({
+              next: () => {
+                this.GroupMemberUserService.reloadItems();
+              },
+              error: (err) => {
+                member.level = oldLevel
+                console.error(err);
+              }
+            })
+        }
+      }
+      else if (member && member?.level !== level) {
+        const oldLevel = member.level;
+        member.level = level;
+        if (group) {
+          this.GroupMemberUserService
+            .update({ groupId: group.id, userId: member.userId || member.id }, member)
+            .pipe(take(1))
+            .subscribe({
+              next: () => {
+                this.GroupMemberUserService.reloadItems();
+              },
+              error: (err) => {
+                member.level = oldLevel
+                console.error(err);
+              }
+            })
+        }
+      }
+    })
   }
 }

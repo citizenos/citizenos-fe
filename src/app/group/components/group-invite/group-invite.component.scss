@@ -145,6 +145,18 @@
   .filter_section {
     align-self: baseline;
   }
+
+  .tooltip {
+    position: absolute;
+    top: 10px;
+    right: 0;
+
+    @include mixins.mobile {
+      right: auto;
+      left: -30px;
+    }
+  }
+
 }
 #search_wrap {
   display: flex;

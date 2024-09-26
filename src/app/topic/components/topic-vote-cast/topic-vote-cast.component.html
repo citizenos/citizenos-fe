@@ -105,7 +105,7 @@
                 </ng-container>
                 <ng-container *ngIf="vote.type === 'multiple' && vote.maxChoices > 1">
                   <span translate="COMPONENTS.TOPIC_VOTE_CAST.TXT_YOU_CAN_CHOOSE_OPTIONS"
-                    [translateParams]="{maxChoices: vote.maxChoices}"></span>
+                    [translateParams]="{range: (vote.maxChoices !== vote.minChoices)? (vote.minChoices + '-' + vote.maxChoices): vote.maxChoices}"></span>
                 </ng-container>
               </div>
             </ng-container>
@@ -277,7 +277,7 @@
                   </div>
                   <div class="text_area">
                     <span translate="COMPONENTS.TOPIC_VOTE_CAST.TXT_YOU_CAN_CHOOSE_OPTIONS"
-                      [translateParams]="{maxChoices: vote.maxChoices}"></span>
+                      [translateParams]="{range: (vote.maxChoices !== vote.minChoices)? (vote.minChoices + '-' + vote.maxChoices): vote.maxChoices}"></span>
                   </div>
                 </ng-container>
               </ng-container>

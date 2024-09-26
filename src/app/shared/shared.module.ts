@@ -12,7 +12,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { CosDropdownDirective } from '../directives/cos-dropdown.directive';
 
 import { TypeaheadComponent, TypeaheadItem, TypeaheadSelect } from './components/typeahead/typeahead.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CosInitialsComponent } from './components/cos-initials/cos-initials.component';
 import { MomentModule } from 'ngx-moment';
 import { QRCodeModule } from 'angularx-qrcode';
@@ -35,6 +35,7 @@ import { GroupAddTopicsComponent, GroupAddTopicsDialogComponent } from '../group
 
 import { MarkdownDirective } from '../directives/markdown.directive';
 import { MarkdownPipe } from '../services/markdown.service';
+import { MarkdownLinkDialogComponent } from '../directives/components/markdown-link-dialog/markdown-link-dialog.component';
 import { CosEllipsisPipe } from './pipes/cos-ellipsis.pipe';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { CheckHeightDirective } from '../directives/check-height.directive';
@@ -110,12 +111,14 @@ import { NotificationComponent } from '../core/components/notification/notificat
     TooltipComponent,
     ImageEditorComponent,
     TopicVoteDeadlineComponent,
-    NotificationComponent
+    NotificationComponent,
+    MarkdownLinkDialogComponent
   ],
   imports: [
     RouterModule,
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     MomentModule,
     QRCodeModule,
     TranslateModule,
@@ -174,7 +177,8 @@ import { NotificationComponent } from '../core/components/notification/notificat
     TooltipComponent,
     ImageEditorComponent,
     DialogModule,
-    NotificationComponent
+    NotificationComponent,
+    MarkdownLinkDialogComponent
    ]
 })
 export class SharedModule { }

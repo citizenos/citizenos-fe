@@ -35,6 +35,7 @@ export class ActivityFeedComponent implements OnInit {
   @Input() groupId?: string;
   @Input() topicId?: string;
   @Input() modal?: boolean;
+  @Input() dialogRef?: DialogRef<ActivityFeedDialogComponent>;
   constructor(public ActivityService: ActivityService, private location: Location, public dialog: DialogService, public app: AppService) {
     setTimeout(() => {
       this.show = true
@@ -90,14 +91,13 @@ export class ActivityFeedComponent implements OnInit {
   }
 
   close() {
-    console.log('cLOSE');
     this.ActivityService.reset();
     this.ActivityService.reloadUnreadItems();
     this.show = false;
     if (!this.modal) {
       this.location.back();
-    } else {
-      this.dialog.closeAll();
+    } else if (this.dialogRef) {
+      this.dialogRef.close();
     }
   }
 }
@@ -108,12 +108,5 @@ export class ActivityFeedComponent implements OnInit {
 })
 export class ActivityFeedDialogComponent extends ActivityFeedComponent {
   public data: any = inject(DIALOG_DATA);
-  private dialogRef: any = inject(DialogRef<ActivityFeedComponent>);
-  override close() {
-    this.show = false;
-    console.log('cLOSE');
-    this.ActivityService.reset();
-    this.ActivityService.reloadUnreadItems();
-    this.dialog.closeAll();
-  }
+  public dialogItem: any = inject(DialogRef<ActivityFeedComponent>);
 }

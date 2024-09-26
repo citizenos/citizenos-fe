@@ -70,7 +70,7 @@ export class IdeaReplyReportModerateComponent {
 }
 
 @Component({
-  selector: 'app-argument-report-moderate-dialog',
+  selector: 'app-idea-reply-report-moderate-dialog',
   template: '',
 })
 export class IdeaReplyReportModerateDialogComponent {
