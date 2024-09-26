@@ -734,6 +734,10 @@ html {
     @include mixins.mobile {
       padding: 8px 16px;
     }
+
+    img {
+      max-width: 100%;
+    }
   }
 
   .button_wrap {
