@@ -77,6 +77,16 @@ export class TopicFormComponent {
       this.topicText = content;
       if (content.nativeElement.offsetHeight >= 320) {
         this.readMoreButton.next(true);
+      } else {
+        const contentChilds = content.nativeElement.children[2]?.children;
+        let h = 0;
+        for(let i=0; i<contentChilds.length; i++) {
+          h+=contentChilds[i].offsetHeight;
+          if (h >= 320) {
+            this.readMoreButton.next(true);
+            i = contentChilds.length;
+          }
+        }
       }
       this.cd.detectChanges();
     }
