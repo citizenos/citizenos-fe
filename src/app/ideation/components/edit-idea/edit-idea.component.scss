@@ -1,60 +1,5 @@
 @use "mixins";
 
-#create_idea_footer_menu {
-  display: flex;
-  justify-content: space-between;
-  background-color: var(--color-surfaces);
-  border-radius: 16px 16px 0 0;
-  width: inherit;
-  z-index: 9999;
-  padding: 16px;
-  position: fixed;
-  bottom: 0;
-  align-items: center;
-  max-width: 872px;
-  width: calc(100% - 567px);
-  box-shadow: 0px -8px 20px 0px rgba(220, 231, 240, 0.10), 0px -12px 16px 0px rgba(50, 85, 112, 0.04);
-
-  @include mixins.tablet {
-    max-width: 100%;
-    display: none;
-  }
-
-  @include mixins.mobile {
-    overflow-y: scroll;
-  }
-
-  .footer_title {
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 24px; /* 150% */
-  }
-}
-
-#create_idea_tablet_btn {
-  display: none;
-  @include mixins.tablet {
-    position: fixed;
-    display: flex;
-    justify-content: flex-end;
-    bottom: 64px;
-    right: 8px;
-
-    button {
-      svg {
-        position: absolute;
-      }
-    }
-  }
-
-  @include mixins.mobile {
-    margin-top: -30px;
-    margin-bottom: 0;
-    margin-right: 0;
-  }
-}
-
 #create_idea_footer {
   display: flex;
   flex-direction: column;
@@ -71,6 +16,7 @@
   bottom: 0;
   gap: 16px;
   box-shadow: 0px -8px 20px 0px rgba(220, 231, 240, 0.10), 0px -12px 16px 0px rgba(50, 85, 112, 0.04);
+  overflow: auto;
 
   @include mixins.tablet {
     position: fixed;
@@ -81,7 +27,9 @@
     max-width: 100%;
     width: 100%;
   }
-
+  @include mixins.mobile {
+    overflow: auto;
+  }
   #buttons_row {
     display: flex;
     width: 100%;
@@ -92,7 +40,7 @@
       .close_button {
         display: none;
       }
-      .btn_medium_submit {
+      .btn_medium_submit_ghost, .btn_medium_submit {
         width: 100%;
       }
     }
@@ -106,6 +54,7 @@
 
       @include mixins.mobile {
         width: 100%;
+        flex-direction: column;
       }
       #chars_left {
         @include mixins.mobile {
@@ -152,3 +101,50 @@
   background-color: rgba(44, 59, 71, 0.6);
 }
 
+#image_upload_input {
+  width: 1px;
+  height: 1px;
+  visibility: hidden;
+  padding: 0;
+  margin: 0;
+}
+
+.idea_images_wrap {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 12px 8px 8px;
+  align-items: center;
+  gap: 8px;
+  align-self: stretch;
+  border-radius: 8px;
+  background-color: var(--color-surface-contrast);
+
+  .image {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 4px;
+    width: 100%;
+    .image_data {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+
+      @include mixins.mobile {
+        flex-direction: column;
+      }
+      img {
+        width: 80px;
+        transition: all 0.3s ease-in;
+        -webkit-transition: all 0.3s ease-in;
+        -moz-transition: all 0.3s ease-in;
+        -o-transition: all 0.3s ease-in;
+        -ms-transition: all 0.3s ease-in;
+      }
+    }
+  }
+}

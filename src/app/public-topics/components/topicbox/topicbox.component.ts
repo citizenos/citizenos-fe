@@ -1,16 +1,18 @@
+import { GroupMemberTopicService } from 'src/app/services/group-member-topic.service';
 import { countries } from './../../../services/country.service';
 import { TopicIdeaService } from 'src/app/services/topic-idea.service';
 import { TopicEventService } from 'src/app/services/topic-event.service';
 import { Router } from '@angular/router';
 import { TopicService } from 'src/app/services/topic.service';
 import { TopicVoteService } from 'src/app/services/topic-vote.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { Topic } from 'src/app/interfaces/topic';
-import { Observable, map, of, tap } from 'rxjs';
+import { Observable, map, of, take, tap } from 'rxjs';
 import { Vote } from 'src/app/interfaces/vote';
 import { DialogService } from 'src/app/shared/dialog';
 import { TopicReportReasonComponent } from 'src/app/topic/components/topic-report-reason/topic-report-reason.component';
 import { TranslateService } from '@ngx-translate/core';
+import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'topicbox',
@@ -20,12 +22,24 @@ import { TranslateService } from '@ngx-translate/core';
 
 export class TopicboxComponent implements OnInit {
   @Input() topic = <Topic>{}; // decorate the property with @Input()
+  @Input() remove?:boolean;
+  @Input() groupId?:string;
+  @Output() topicChanges = new EventEmitter<string>();
+
   catClass = "varia";
   vote$?: Observable<Vote>;
   milestones$?: Observable<{count: Number}> = of({count: 0});
   ideaCount$?: Observable<{count: Number}> = of({count: 0});
   vote?: Vote;
-  constructor(private TopicService: TopicService, private TopicVoteService: TopicVoteService, private router: Router, private TopicEventService: TopicEventService, private DialogService: DialogService, private TopicIdeaService: TopicIdeaService, private Translate: TranslateService) {
+  constructor(
+    private TopicService: TopicService,
+    private TopicVoteService: TopicVoteService,
+    private router: Router,
+    private TopicEventService: TopicEventService,
+    private DialogService: DialogService,
+    private TopicIdeaService: TopicIdeaService,
+    private GroupMemberTopicService: GroupMemberTopicService,
+    private Translate: TranslateService) {
   }
 
   ngOnInit(): void {
@@ -122,5 +136,38 @@ export class TopicboxComponent implements OnInit {
         }
       }
     })
+  }
+
+  removeFromGroup ($event: any) {
+    $event.stopPropagation();
+    const confirmRemoveDialog = this.DialogService.open(ConfirmDialogComponent, {
+      data: {
+        level: 'delete',
+        heading: 'MODALS.GROUP_MEMBER_TOPIC_DELETE_CONFIRM_HEADING',
+        description: 'MODALS.GROUP_MEMBER_TOPIC_DELETE_CONFIRM_TXT_ARE_YOU_SURE',
+        confirmBtn: 'MODALS.GROUP_MEMBER_TOPIC_DELETE_CONFIRM_BTN_YES',
+        closeBtn: 'MODALS.GROUP_MEMBER_TOPIC_DELETE_CONFIRM_BTN_NO'
+      }
+    });
+
+    confirmRemoveDialog.afterClosed().subscribe({
+      next: (confirm) => {
+        if (confirm && this.groupId) {
+          this.GroupMemberTopicService.delete({topicId: this.topic.id, groupId: this.groupId}).pipe(
+            take(1)
+          ).subscribe({
+            next: (res) => {
+              this.topicChanges?.emit(this.topic.id);
+            },
+            error: (err) => {
+              console.log(err);
+            }
+          })
+        }
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
   }
 }

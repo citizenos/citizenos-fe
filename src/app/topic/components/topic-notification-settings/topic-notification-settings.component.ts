@@ -1,3 +1,4 @@
+import { Discussion } from 'src/app/interfaces/discussion';
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 import { NotificationService } from 'src/app/services/notification.service';
@@ -20,11 +21,18 @@ export class TopicNotificationSettingsComponent implements OnInit {
   public settings: any;
   preferences: any = {
     Topic: false,
-    TopicComment: false,
+    Discussion: false,
+    DiscussionComment: false,
+    TopicDiscussion: false,
     CommentVote: false,
     TopicReport: false,
     TopicVoteList: false,
-    TopicEvent: false
+    TopicEvent: false,
+    Ideation: false,
+    Idea: false,
+    IdeaVote: false,
+    TopicIdeation: false,
+    IdeaComment: false
   };
   allowNotifications = false
   constructor(

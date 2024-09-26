@@ -180,6 +180,41 @@
   }
 }
 
+#topic_members_list_wrap {
+  .small_heading {
+    align-self: flex-start;
+  }
+  .row_header {
+    background-color: var(--color-surfaces);
+  }
+  .row_list,
+  .row_header {
+    border-radius: 8px;
+    .row_cell {
+      &:first-child {
+        min-width: 45%;
+      }
+      &:nth-child(2) {
+        min-width: 30%;
+        justify-content: flex-start;
+      }
+      &:nth-child(3) {
+        min-width: 15%;
+        text-align: right;
+        justify-content: flex-end;
+      }
+
+      .tooltip {
+        top: -11px;
+        position: relative;
+        @include mixins.mobile {
+          top: -1px;
+        }
+      }
+    }
+  }
+}
+
 #help_wrap {
   flex-direction: column;
   gap: 16px;
@@ -409,4 +444,9 @@
       }
     }
   }
+}
+
+#add_to_group_tooltip {
+  position: relative;
+  display: inline-block !important;
 }

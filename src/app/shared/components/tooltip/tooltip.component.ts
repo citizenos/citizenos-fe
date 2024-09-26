@@ -52,7 +52,7 @@ export class TooltipComponent implements OnDestroy {
     const arrowContainer = this.arrow.nativeElement.getBoundingClientRect();
     setTimeout(() => {
       const tipIconContainer = this.toolTipIcon.nativeElement.getBoundingClientRect();
-      const arrowContainer = this.arrow.nativeElement.getBoundingClientRect();
+      const arrowContainer = this.arrow?.nativeElement.getBoundingClientRect();
       if (tipIconContainer.left - arrowContainer.left > tipIconContainer.width / 2)
         this.renderer.setStyle(this.arrow.nativeElement, 'left', `${(tipIconContainer.left - arrowContainer.left + tipIconContainer.width / 2)}px`)
     })
@@ -66,7 +66,7 @@ export class TooltipComponent implements OnDestroy {
       this.renderer.setStyle(this.tipContainer.nativeElement, 'left', `-${left}px`);
     }
     const containerBounds = this.tipContainer.nativeElement.getBoundingClientRect();
-    if (containerBounds.left < 0) {
+    if (containerBounds.left <= 0) {
       left = left + this.tipContainer.nativeElement.getBoundingClientRect().left;
       this.renderer.setStyle(this.tipContainer.nativeElement, 'left', `-${left}px`);
     }
@@ -83,5 +83,6 @@ export class TooltipComponent implements OnDestroy {
       }
       //this.renderer.setStyle(this.tipContainer.nativeElement, 'left', `${left}px`);
     }
+    console.log(left)
   }
 }

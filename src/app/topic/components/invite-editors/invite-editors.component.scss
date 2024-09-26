@@ -107,6 +107,15 @@
       }
     }
   }
+
+  #mobile_roles_tooltip {
+    display: none;
+    @include mixins.mobile {
+      display: inline-block;
+    }
+    left: -7px;
+    bottom: 40px;
+  }
 }
 
 #footer_buttons {

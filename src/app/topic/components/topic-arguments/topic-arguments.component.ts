@@ -55,7 +55,6 @@ export class TopicArgumentsComponent implements OnInit {
         let results = res.concat([]);
         const argArray = <any[]>[];
         let children = <any>{};
-
         const countTree = (parentNode: any, currentNode: any) => {
           argArray.push(currentNode);
           if (currentNode.replies.rows.length > 0) {
@@ -81,7 +80,7 @@ export class TopicArgumentsComponent implements OnInit {
         results.forEach((row: any,) => {
           row.replies.count = countTree(row, row);
         });
-
+        this.TopicArgumentService.items$ = of(results);
         return results;
       }),
       tap(() => {
@@ -221,54 +220,65 @@ export class TopicArgumentsComponent implements OnInit {
       const argumentParameterValues = this._parseArgumentIdAndVersion(argumentIdWithVersion);
       const argumentId = argumentParameterValues.id;
       const argumentVersion = argumentParameterValues.version || 0;
-
       if (!argumentId) {
         return console.error('this.goToArgument', 'No argumentId and/or version provided, nothing to do here', argumentIdWithVersion);
       }
 
+      const functionParseReplies = (items: any, parent?: any) => {
+        for (let i = 0; i < items.length; i++) {
+          // 1. the commentId + version refers to another version of the comment and the comments are not expanded.
+
+          if (items[i].id === argumentId) {
+            console.log(items[i].id, argumentId);
+            if (parent) {
+              document.getElementById(parent.id + '_replies')?.click();
+            }
+            items[i].showEdits = true;
+            setTimeout(() => {
+              const commentElement: HTMLElement | null = document.getElementById(argumentIdWithVersion);
+              if (commentElement) {
+                this.scrollTo(commentElement);
+                commentElement.classList.add('highlight');
+                setTimeout(() => {
+                  commentElement.classList.remove('highlight');
+                }, 2000);
+              }
+            }, 200)
+
+            i = items.length;
+          } else if (items[i].replies.rows.length) { // 2. the commentId + version refers to a comment reply, but replies have not been expanded.
+            console.log(items[i].replies.rows)
+            functionParseReplies(items[i].replies.rows, parent || items[i]);
+            /*for (let j = 0; j < items[i].replies.rows.length; j++) {
+              if (items[i].replies.rows[j].id === argumentId) {
+                const id = items[i].id;
+                setTimeout(() => {
+                  document.getElementById(id + '_replies')?.click();
+                  setTimeout(() => {
+                    const commentElement: HTMLElement | null = document.getElementById(argumentIdWithVersion);
+                    this.scrollTo(commentElement);
+
+                  }, 300)
+                }, 300)
+
+                // Expand edits only if an actual edit is referenced.
+                const replyEdits = items[i].replies.rows[j].edits;
+                if (replyEdits.length && argumentVersion !== replyEdits.length - 1) {
+                  items[i].replies.rows[j].showEdits = true; // In case the reply has edits and that is referenced.
+                }
+                // Break the outer loop when the inner reply loop finishes as there is no more work to do.
+                i = items.length;
+
+                break;
+              }
+            }*/
+          }
+        }
+      }
       this.TopicArgumentService.items$.pipe(take(1))
         .subscribe(
           (items: any) => {
-            for (let i = 0; i < items.length; i++) {
-              // 1. the commentId + version refers to another version of the comment and the comments are not expanded.
-              if (items[i] === argumentId) {
-                items[i].showEdits = true;
-                const commentElement: HTMLElement | null = document.getElementById(argumentIdWithVersion);
-                this.scrollTo(commentElement);
-              } else { // 2. the commentId + version refers to a comment reply, but replies have not been expanded.
-                for (let j = 0; j < items[i].replies.rows.length; j++) {
-                  if (items[i].replies.rows[j].id === argumentId) {
-                    const id = items[i].id;
-                    setTimeout(() => {
-                      document.getElementById(id + '_replies')?.click();
-                      this.scrollTo(document.getElementById(argumentIdWithVersion))
-                    }, 300)
-
-                    // Expand edits only if an actual edit is referenced.
-                    const replyEdits = items[i].replies.rows[j].edits;
-                    if (replyEdits.length && argumentVersion !== replyEdits.length - 1) {
-                      items[i].replies.rows[j].showEdits = true; // In case the reply has edits and that is referenced.
-                    }
-                    /*  this.$timeout(() => { // TODO:  After "showEdits" is set, angular will render the edits and that takes time. Any better way to detect of it to be done?
-                        this.app.scrollToAnchor(commentIdWithVersion)
-                          .then(() => {
-                            const commentElement = angular.element(this.$document[0].getElementById(commentIdWithVersion));
-                            commentElement.addClass('highlight');
-                            this.$state.commentId = commentIdWithVersion;
-                            this.$timeout(() => {
-                              commentElement.removeClass('highlight');
-                            }, 500);
-                          });
-                      }, 100);*/
-
-                    // Break the outer loop when the inner reply loop finishes as there is no more work to do.
-                    i = items.length;
-
-                    break;
-                  }
-                }
-              }
-            }
+            functionParseReplies(items);
           }
         )
 

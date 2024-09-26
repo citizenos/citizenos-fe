@@ -247,12 +247,37 @@ export class TopicIdeationComponent {
         }
       });
   }
+
+  exportIdeas() {
+    const downloadUrl = this.TopicIdeationService.downloadIdeas(this.topic.id, this.ideation.id);
+    window.open(downloadUrl);
+    /* const closeIdeationDialog = this.dialog.open(ConfirmDialogComponent, {
+       data: {
+         level: 'info',
+         heading: 'COMPONENTS.EXPORT_IDEAS_CONFIRM.HEADING',
+         description: 'COMPONENTS.EXPORT_IDEAS_CONFIRM.DESCRIPTION',
+         confirmBtn: 'COMPONENTS.EXPORT_IDEAS_CONFIRM.CONFIRM_YES',
+         closeBtn: 'COMPONENTS.EXPORT_IDEAS_CONFIRM.CONFIRM_NO'
+       }
+     });
+     closeIdeationDialog.afterClosed().subscribe({
+       next: (value) => {
+         if (value) {
+           const downloadUrl = this.TopicIdeationService.downloadIdeas(this.topic.id, this.ideation.id);
+           window.open(downloadUrl);
+         }
+       }
+     });*/
+  }
   closeIdeation() {
     const closeIdeationDialog = this.dialog.open(ConfirmDialogComponent, {
       data: {
         level: 'warn',
         heading: 'COMPONENTS.CLOSE_IDEATION_CONFIRM.HEADING',
         description: 'COMPONENTS.CLOSE_IDEATION_CONFIRM.ARE_YOU_SURE',
+        sections: [
+          {heading: '', points: ['COMPONENTS.CLOSE_IDEATION_CONFIRM.CANNOT_UNDO']}
+        ],
         confirmBtn: 'COMPONENTS.CLOSE_IDEATION_CONFIRM.CONFIRM_YES',
         closeBtn: 'COMPONENTS.CLOSE_IDEATION_CONFIRM.CONFIRM_NO'
       }

@@ -60,4 +60,11 @@ export class UploadService {
 
     return this.upload(path, file);
   };
+
+  uploadIdeaImage(params: any, file: File, data?: any) {
+    const path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/ideations/:ideationId/ideas/:ideaId/image/upload', params );
+
+    return this.upload(path, file, data);
+  }
+
 }

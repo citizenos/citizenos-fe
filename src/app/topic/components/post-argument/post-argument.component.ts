@@ -1,9 +1,10 @@
 import { trigger, state, style } from '@angular/animations';
-import { Component, OnInit, Input, Inject } from '@angular/core';
+import { Component, OnInit, Input, Inject, ViewChild, ElementRef } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { map, take } from 'rxjs';
+import { MarkdownDirective } from 'src/app/directives/markdown.directive';
 import { AppService } from 'src/app/services/app.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { TopicArgumentService } from 'src/app/services/topic-argument.service';
@@ -29,6 +30,8 @@ import { TopicArgumentService } from 'src/app/services/topic-argument.service';
 export class PostArgumentComponent implements OnInit {
   @Input() topicId!: string;
   @Input() discussionId!: string;
+  @ViewChild(MarkdownDirective) editor!: MarkdownDirective;
+
   wWidth = window.innerWidth;
   focusArgumentSubject = false;
   argumentType = <string>'pro';

@@ -1,13 +1,16 @@
 import { trigger, state, style } from '@angular/animations';
-import { Component, OnInit, Input, Inject, EventEmitter, Output } from '@angular/core';
+import { Component, Input, Inject, EventEmitter, Output, ElementRef, ViewChild } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { take } from 'rxjs';
+import { of, take, takeWhile } from 'rxjs';
 import { Idea } from 'src/app/interfaces/idea';
 import { AppService } from 'src/app/services/app.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { IdeaAttachmentService } from 'src/app/services/idea-attachment.service';
+import { NotificationService } from 'src/app/services/notification.service';
 import { TopicIdeaService } from 'src/app/services/topic-idea.service';
+import { UploadService } from 'src/app/services/upload.service';
 
 @Component({
   selector: 'edit-idea',
@@ -32,11 +35,14 @@ export class EditIdeaComponent {
   @Input() ideationId!: string;
   @Input() idea!: Idea;
   @Output() showEdit = new EventEmitter<boolean | null>();
+  @ViewChild('imageUpload') fileInput?: ElementRef;
+
   wWidth = window.innerWidth;
   focusIdeaStatement = false;
   argumentType = <string>'pro';
   errors: any;
-
+  images = <any[]>[];
+  newImages = <any[]>[];
   description = <string>'';
   ideaForm = new UntypedFormGroup({
     statement: new UntypedFormControl('', [Validators.required]),
@@ -50,6 +56,9 @@ export class EditIdeaComponent {
     private AuthService: AuthService,
     public TopicIdeaService: TopicIdeaService,
     @Inject(ActivatedRoute) private route: ActivatedRoute,
+    @Inject(IdeaAttachmentService) private IdeaAttachmentService: IdeaAttachmentService,
+    @Inject(UploadService) private UploadService: UploadService,
+    @Inject(NotificationService) private Notification: NotificationService,
     @Inject(TranslateService) public translate: TranslateService,
     @Inject(Router) private router: Router) { }
 
@@ -60,6 +69,13 @@ export class EditIdeaComponent {
     });
     this.description = this.idea.description;
     this.updateText(this.idea.description);
+    this.IdeaAttachmentService
+      .query({ topicId: this.topicId, ideationId: this.idea.ideationId, ideaId: this.idea.id, type: 'image' })
+      .pipe(take(1))
+      .subscribe((res: any) => {
+        this.images = res.rows;
+        return of(this.images)
+      });
   }
 
   loggedIn() {
@@ -75,16 +91,8 @@ export class EditIdeaComponent {
     this.ideaForm.controls['description'].setValue(text);
   }
 
-  addNewIdea() {
-    if (!this.loggedIn()) {
-      this.app.doShowLogin();
-    } else {
-      this.app.addIdea.next(true);
-    }
-  }
-
   close() {
-    this.app.addIdea.next(false);
+    this.showEdit.emit(false);
   }
 
   postIdea() {
@@ -101,6 +109,7 @@ export class EditIdeaComponent {
       .pipe(take(1))
       .subscribe({
         next: (idea) => {
+          this.doSaveAttachments(idea.id);
           this.TopicIdeaService.reset();
           this.TopicIdeaService.setParam('topicId', this.topicId);
           this.TopicIdeaService.setParam('ideationId', this.idea.ideationId);
@@ -116,7 +125,7 @@ export class EditIdeaComponent {
             [],
             {
               relativeTo: this.route,
-              queryParams: { argumentId: this.getIdeaIdWithVersion(idea.id, idea.edits.length - 1) }
+              queryParams: { ideaId: idea.id }
             });
         },
         error: (err) => {
@@ -126,14 +135,87 @@ export class EditIdeaComponent {
       })
   };
 
-  getIdeaIdWithVersion(ideaId: string, version: number) {
-    return ideaId + this.IDEA_VERSION_SEPARATOR + version;
-  };
-
   ideaEditMode() {
     this.ideaForm.patchValue({ 'statement': this.idea.statement });
     this.ideaForm.patchValue({ 'description': this.idea.description });
-    console.log('TERE')
     this.showEdit.emit(false);
   };
+
+  fileUpload() {
+    const allowedTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/svg+xml'];
+    const files = this.fileInput?.nativeElement.files;
+    for (let i=0; i < files.length; i++) {
+      if (allowedTypes.indexOf(files[i].type) < 0) {
+        this.Notification.addError(this.translate.instant('MSG_ERROR_FILE_TYPE_NOT_ALLOWED', { allowedFileTypes: allowedTypes.toString() }));
+      } else if (files[i].size > 5000000) {
+        this.Notification.addError(this.translate.instant('MSG_ERROR_FILE_TOO_LARGE', { allowedFileSize: '5MB' }));
+      } else {
+        const reader = new FileReader();
+        reader.onload = async () => {
+          const file = files[i];
+          file.link = reader.result;
+          this.newImages.push(file);
+        };
+        reader.readAsDataURL(files[i]);
+      }
+    }
+  }
+
+  uploadImage() {
+    this.fileInput?.nativeElement.click();
+  };
+
+  getAllowedFileSize() {
+    return (this.UploadService.ALLOWED_FILE_SIZE / 1000 / 1000).toString() + 'MB';
+  }
+
+  getAllowedFileTypes() {
+    return ["jpg", "jpeg", "img", "png"].join(', ');
+  }
+
+  doSaveAttachments(ideaId: string) {
+    let i = 0;
+    while (i < this.newImages.length) {
+      let image = this.newImages[i];
+      if (image) {
+        console.log(image);
+        image.source = this.IdeaAttachmentService.SOURCES.upload;
+        this.UploadService.uploadIdeaImage({topicId: this.topicId, ideationId: this.idea.ideationId, ideaId}, image, {name: image.name})
+          .pipe(takeWhile((e) => !e.link, true))
+          .subscribe({
+            next: (result) => {
+            },
+            error: (res) => {
+              /*   if (res.errors) {
+                   const keys = Object.keys(res.errors);
+                   keys.forEach((key) => {
+                     this.Notification.addError(res.errors[key]);
+                   });
+                 } else if (res.status && res.status.message) {
+                   this.Notification.addError(res.status.message);
+                 } else {
+                   this.Notification.addError(res.message);
+                 }*/
+            }
+          });
+      }
+      i++;
+    }
+  };
+
+  removeImage (image: any, index: number) {
+    return this.IdeaAttachmentService.delete({
+      topicId: this.topicId,
+      ideationId: this.idea.ideationId,
+      ideaId: this.idea.id,
+      attachmentId: image.id
+    }).pipe(take(1)).subscribe({
+      next:() => {
+        this.images.splice(index, 1);
+      }
+    });
+  }
+  removeNewImage(index: number) {
+    this.newImages.splice(index, 1);
+  }
 }
