@@ -34,7 +34,7 @@
     justify-content: center;
     align-items: center;
     gap: 8px;
-    background-color: var(--color-scrollbar);
+    background-color: var(--color-blue-100);
     border-radius: 8px;
     font-size: 14px;
     font-weight: 600;
@@ -633,7 +633,7 @@
     .tutorial_header {
       cursor: pointer;
       display: flex;
-      color: var(--color-scrollbar-thumb);
+      color: var(--color-blue-200);
       align-items: center;
       justify-content: space-between;
     }
@@ -642,7 +642,7 @@
       display: flex;
       justify-content: space-between;
       flex-direction: column;
-      color: var(--color-scrollbar-thumb);
+      color: var(--color-blue-200);
       align-items: center;
       gap: 16px;
 
@@ -707,13 +707,13 @@
     }
     .topic_tab {
       .active {
-        background-color: var(--color-scrollbar);
+        background-color: var(--color-blue-100);
         border-bottom: none;
       }
       &.discussion.active {
         background-color: var(--color-discussion);
         rect {
-          fill: var(--color-scrollbar);
+          fill: var(--color-blue-100);
         }
         path {
           fill: var(--color-discussion);
@@ -781,7 +781,7 @@
     border-bottom: 2px solid var(--color-discussion);
 
     @include mixins.tablet {
-      background-color: var(--color-scrollbar);
+      background-color: var(--color-blue-100);
       border-bottom: none;
     }
 

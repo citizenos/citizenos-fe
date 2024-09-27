@@ -240,7 +240,7 @@
       min-width: 280px;
       max-width: 280px;
       min-height: 456px;
-      background-color: var(--color-scrollbar);
+      background-color: var(--color-blue-100);
       border-radius: 16px;
       padding: 24px 16px;
       gap: 24px;
@@ -348,7 +348,7 @@
 }
 #subscribe_box {
   display: flex;
-  background-color: var(--color-scrollbar);
+  background-color: var(--color-blue-100);
   justify-content: space-between;
   padding: 24px 24px 0 24px;
   @include mixins.tablet {

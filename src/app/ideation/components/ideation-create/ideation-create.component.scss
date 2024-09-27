@@ -27,7 +27,7 @@
       &.tablet_tab {
         border-radius: 8px 8px 0 0;
         padding: 12px 8px;
-        background-color: var(--color-scrollbar);
+        background-color: var(--color-blue-100);
         @include mixins.mobile {
           padding: 12px 16px;
         }
@@ -84,7 +84,7 @@
   padding: 8px;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--color-scrollbar);
+  background-color: var(--color-blue-100);
   border-radius: 16px;
   gap: 16px;
 
@@ -115,7 +115,7 @@
 }
 
 #editors_tablet {
-  background-color: var(--color-scrollbar);
+  background-color: var(--color-blue-100);
   border-radius: 0 0 16px 16px;
 }
 

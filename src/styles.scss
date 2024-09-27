@@ -1267,9 +1267,9 @@ tour-item-template {
   .tour_footer {
     display: flex;
     justify-content: space-between;
-    color: var(--color-scrollbar-thumb);
+    color: var(--color-blue-200);
     a {
-      color: var(--color-scrollbar-thumb);
+      color: var(--color-blue-200);
 
       &.skip {
         color: var(--color-error-background);
@@ -1287,7 +1287,7 @@ tour-item-template {
         background-color: var(--color-argument-info);
 
         &.active {
-          background-color: var(--color-scrollbar-thumb);
+          background-color: var(--color-blue-200);
         }
       }
     }
@@ -1339,7 +1339,7 @@ tour-item-template {
       }
       .discussion_text {
         font-weight: 600;
-        color: var(--color-scrollbar-thumb);
+        color: var(--color-blue-200);
       }
       .vote_text {
         font-weight: 600;
@@ -1995,7 +1995,7 @@ tour-item-template {
       }
       .tooltip_footer {
         a {
-          color: var(--color-scrollbar-thumb);
+          color: var(--color-blue-200);
           display: flex;
           font-weight: 600;
           align-items: center;
