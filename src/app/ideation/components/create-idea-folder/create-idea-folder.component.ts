@@ -1,7 +1,7 @@
 import { TopicIdeaService } from 'src/app/services/topic-idea.service';
 import { Component, Inject } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { Observable, map, take } from 'rxjs';
+import { Observable, Subscription, map, of, take, combineLatest, switchMap, tap } from 'rxjs';
 import { Idea } from 'src/app/interfaces/idea';
 import { DIALOG_DATA, DialogRef } from 'src/app/shared/dialog';
 import { TopicIdeationFoldersService } from 'src/app/services/topic-ideation-folders.service';
@@ -17,6 +17,7 @@ export class CreateIdeaFolderComponent {
   });
 
   ideas$;
+  allIdeas$ = <Idea[]>[];
   wWidth = window.innerWidth;
   folderIdeas = <Idea[]>[];
   ideasCount = 0;
@@ -25,13 +26,25 @@ export class CreateIdeaFolderComponent {
   constructor(public TopicIdeaService: TopicIdeaService, public TopicIdeationFoldersService: TopicIdeationFoldersService, @Inject(DIALOG_DATA) data: any, private dialogRef: DialogRef<CreateIdeaFolderComponent>) {
     this.topicId = data.topicId;
     this.ideationId = data.ideationId;
-    this.ideas$ = this.TopicIdeaService.query({
-      topicId: data.topicId,
-      ideationId: data.ideationId
-    }).pipe(map((res: any) => {
-      this.ideasCount = res.data.count;
-      return res.data.rows;
-    }));
+    this.TopicIdeaService.setParam('topicId', data.topicId);
+    this.TopicIdeaService.setParam('ideationId', data.ideationId);
+    this.ideas$ = this.TopicIdeaService.loadItems().pipe(
+      tap((res: any) => {
+        if (res.length) {
+          this.TopicIdeaService.hasMore$.next(true);
+        } else {
+          this.TopicIdeaService.hasMore$.next(false);
+        }
+      }),
+      map(
+        (newIdeas: any) => {
+          this.allIdeas$ = this.allIdeas$.concat(newIdeas);
+          if (this.allIdeas$.length < 10 && newIdeas.length) {
+            this.TopicIdeaService.loadMore();
+          }
+          return this.allIdeas$;
+        }
+      ));
   }
   createFolder() {
     this.TopicIdeationFoldersService.save({ topicId: this.topicId, ideationId: this.ideationId }, this.form.value).pipe(take(1)).subscribe({

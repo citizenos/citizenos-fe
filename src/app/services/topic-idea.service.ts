@@ -132,11 +132,10 @@ export class TopicIdeaService extends ItemsListService {
     );
   }
 
-  query(params: { [key: string]: any }): Observable<ApiResponse> {
+  query(params?: { [key: string]: any }): Observable<ApiResponse> {
     let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId/ideas'), params);
 
-    const queryParams = Object.fromEntries(Object.entries(params).filter((i) => i[1] !== null));
-
+    const queryParams = Object.fromEntries(Object.entries(params || {}).filter((i) => i[1] !== null));
     return this.http.get<ApiResponse>(path, { withCredentials: true, params: queryParams, observe: 'body', responseType: 'json' });
   }
 
