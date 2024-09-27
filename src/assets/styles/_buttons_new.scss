@@ -130,11 +130,11 @@ $button-styles: (
   ),
   pagination: (
     background: var(--color-surfaces),
-    hover: var(--color-scrollbar),
+    hover: var(--color-blue-100),
     hover-color: var(--color-link),
   ),
   plain: (
-    hover: var(--color-scrollbar),
+    hover: var(--color-blue-100),
   ),
 );
 

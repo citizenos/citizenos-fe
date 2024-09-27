@@ -25,7 +25,7 @@
   &.discussion {
     padding: 24px;
     border-radius: 16px;
-    background-color: var(--color-scrollbar);
+    background-color: var(--color-blue-100);
   }
 }
 .arguments_wrap {
@@ -75,7 +75,7 @@
   }
 
   .arguments_content {
-    background-color: var(--color-scrollbar);
+    background-color: var(--color-blue-100);
     padding: 24px;
     display: flex;
     flex-direction: column;
