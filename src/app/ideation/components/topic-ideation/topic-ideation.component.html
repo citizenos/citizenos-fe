@@ -798,7 +798,7 @@
                       <div class="description_text" translate="COMPONENTS.TOPIC_IDEATION.NO_FOLDERS_DESC">
                       </div>
                     </div>
-                    <div class="button" [ngClass]="{disabled: !canEdit()}">
+                    <div class="button" [ngClass]="{disabled: !canUpdate()}">
                       <button class="btn_medium_submit animate" (click)="createFolder()">
                         <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path
@@ -813,7 +813,7 @@
                 </ng-container>
               </ng-container>
             </div>
-            <div id="add_folder_btn" class="button_wrap" *ngIf="canEdit()">
+            <div id="add_folder_btn" class="button_wrap" *ngIf="canUpdate()">
               <div class="line_separator"></div>
               <button class="btn_medium_submit btn_ideation animate" (click)="createFolder()">
                 <svg _ngcontent-ng-c968857107="" width="25" height="24" viewBox="0 0 25 24" fill="none"
