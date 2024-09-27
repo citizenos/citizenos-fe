@@ -25,7 +25,7 @@
       </button>
     </div>
   </div>
-  <div class="dialog" *ngIf="TopicIdeaService.items$ | async as ideas">
+  <div class="dialog">
     <div id="notification_wrap_dialog" class="mobile_show">
       <notification></notification>
       <div class="notification_inline" *ngIf="notification" [ngClass]="notification.level">
@@ -53,14 +53,14 @@
     </div>
     <div class="mobile_buttons mobile_show">
       <div class="mobile_buttons_left">
-        <button class="btn_medium_close icon" (click)="prevIdea(ideas)" *ngIf="ideas.length > 1">
+        <button class="btn_medium_close icon" (click)="prevIdea()" *ngIf="hasMoreIdeas()">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M9.45327 6.31262C9.85294 5.89579 10.5009 5.89579 10.9006 6.31262C11.3003 6.72945 11.3003 7.40527 10.9006 7.8221L7.91837 11L18 11C18.5652 11 19 11.4108 19 12.0003C19 12.5897 18.5652 12.9824 18 12.9824L7.91837 12.9824L10.9006 16.1779C11.3003 16.5947 11.3003 17.2705 10.9006 17.6874C10.5009 18.1042 9.85294 18.1042 9.45327 17.6874L4 12L9.45327 6.31262Z"
               fill="#2C3B47" />
           </svg>
         </button>
-        <button class="btn_medium_close icon" (click)="nextIdea(ideas)" *ngIf="ideas.length > 1">
+        <button class="btn_medium_close icon" (click)="nextIdea()" *ngIf="hasMoreIdeas()">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M14.5467 6.31262C14.1471 5.89579 13.4991 5.89579 13.0994 6.31262C12.6997 6.72945 12.6997 7.40527 13.0994 7.8221L16.0816 11L6 11C5.43478 11 5 11.4108 5 12.0003C5 12.5897 5.43478 12.9824 6 12.9824L16.0816 12.9824L13.0994 16.1779C12.6997 16.5947 12.6997 17.2705 13.0994 17.6874C13.4991 18.1042 14.1471 18.1042 14.5467 17.6874L20 12L14.5467 6.31262Z"
@@ -80,7 +80,7 @@
     </div>
     <div class="dialog_content">
       <div class="buttons_left mobile_hidden">
-        <button class="btn_medium_close btn_idea_select icon" (click)="prevIdea(ideas)" *ngIf="ideas.length > 1">
+        <button class="btn_medium_close btn_idea_select icon" (click)="prevIdea()" *ngIf="hasMoreIdeas()">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M9.45327 6.31262C9.85294 5.89579 10.5009 5.89579 10.9006 6.31262C11.3003 6.72945 11.3003 7.40527 10.9006 7.8221L7.91837 11L18 11C18.5652 11 19 11.4108 19 12.0003C19 12.5897 18.5652 12.9824 18 12.9824L7.91837 12.9824L10.9006 16.1779C11.3003 16.5947 11.3003 17.2705 10.9006 17.6874C10.5009 18.1042 9.85294 18.1042 9.45327 17.6874L4 12L9.45327 6.31262Z"
@@ -103,7 +103,7 @@
               fill="#2C3B47" />
           </svg>
         </button>
-        <button class="btn_medium_close btn_idea_select icon" (click)="nextIdea(ideas)" *ngIf="ideas.length > 1">
+        <button class="btn_medium_close btn_idea_select icon" (click)="nextIdea()" *ngIf="hasMoreIdeas()">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M14.5467 6.31262C14.1471 5.89579 13.4991 5.89579 13.0994 6.31262C12.6997 6.72945 12.6997 7.40527 13.0994 7.8221L16.0816 11L6 11C5.43478 11 5 11.4108 5 12.0003C5 12.5897 5.43478 12.9824 6 12.9824L16.0816 12.9824L13.0994 16.1779C12.6997 16.5947 12.6997 17.2705 13.0994 17.6874C13.4991 18.1042 14.1471 18.1042 14.5467 17.6874L20 12L14.5467 6.31262Z"
