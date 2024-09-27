@@ -22,6 +22,7 @@ import { TopicMemberGroupService } from 'src/app/services/topic-member-group.ser
 import { TopicFormComponent } from 'src/app/topic/components/topic-form/topic-form.component';
 import { BlockNavigationIfChange } from 'src/app/shared/pending-changes.guard';
 import { TopicDiscussionService } from 'src/app/services/topic-discussion.service';
+import { TopicSettingsDisabledDialogComponent } from 'src/app/topic/components/topic-settings-disabled-dialog/topic-settings-disabled-dialog.component';
 
 @Component({
   selector: 'app-ideation-create',
@@ -124,6 +125,11 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
           const infoDialog = dialog.open(TopicEditDisabledDialogComponent);
           infoDialog.afterClosed().subscribe(() => {
             this.selectTab('settings')
+          });
+        } else if (fragment === 'settings' && !this.TopicService.canDelete(<Topic>this.topic)) {
+          const infoDialog = this.dialog.open(TopicSettingsDisabledDialogComponent);
+          infoDialog.afterClosed().subscribe(() => {
+            this.selectTab('info')
           });
         }
       }));
@@ -335,9 +341,9 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
               this.topicGroups.forEach((group) => {
                 this.saveMemberGroup(group)
               });
-              if (!this.ideation.id) {
+              if (!this.ideation.id && this.canEditIdeation()) {
                 this.createIdeation(true);
-              } else if ([this.TopicService.STATUSES.draft, this.TopicService.STATUSES.ideation].indexOf(this.topic.status) > -1) {
+              } else if (this.canEditIdeation()) {
                 this.updateIdeation(true);
               }
             },
@@ -519,6 +525,6 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
   }
 
   canEditIdeation() {
-    return this.TopicService.canEdit(this.topic) && (this.topic.status !== this.TopicService.STATUSES.draft || this.topic.status !== this.TopicService.STATUSES.ideation);
+    return this.TopicService.canDelete(this.topic) && (this.topic.status !== this.TopicService.STATUSES.draft || this.topic.status !== this.TopicService.STATUSES.ideation);
   }
 }
