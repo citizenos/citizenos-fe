@@ -25,7 +25,7 @@
       </button>
     </div>
   </div>
-  <div class="dialog">
+  <div class="dialog" *ngIf="TopicIdeaService.items$ | async as ideas">
     <div id="notification_wrap_dialog" class="mobile_show">
       <notification></notification>
       <div class="notification_inline" *ngIf="notification" [ngClass]="notification.level">
@@ -52,24 +52,22 @@
       </div>
     </div>
     <div class="mobile_buttons mobile_show">
-      <ng-container *ngIf="TopicIdeaService.items$ | async as ideas">
-        <div class="mobile_buttons_left">
-          <button class="btn_medium_close icon" (click)="prevIdea(ideas)" *ngIf="ideas.length > 1">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M9.45327 6.31262C9.85294 5.89579 10.5009 5.89579 10.9006 6.31262C11.3003 6.72945 11.3003 7.40527 10.9006 7.8221L7.91837 11L18 11C18.5652 11 19 11.4108 19 12.0003C19 12.5897 18.5652 12.9824 18 12.9824L7.91837 12.9824L10.9006 16.1779C11.3003 16.5947 11.3003 17.2705 10.9006 17.6874C10.5009 18.1042 9.85294 18.1042 9.45327 17.6874L4 12L9.45327 6.31262Z"
-                fill="#2C3B47" />
-            </svg>
-          </button>
-          <button class="btn_medium_close icon" (click)="nextIdea(ideas)" *ngIf="ideas.length > 1">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M14.5467 6.31262C14.1471 5.89579 13.4991 5.89579 13.0994 6.31262C12.6997 6.72945 12.6997 7.40527 13.0994 7.8221L16.0816 11L6 11C5.43478 11 5 11.4108 5 12.0003C5 12.5897 5.43478 12.9824 6 12.9824L16.0816 12.9824L13.0994 16.1779C12.6997 16.5947 12.6997 17.2705 13.0994 17.6874C13.4991 18.1042 14.1471 18.1042 14.5467 17.6874L20 12L14.5467 6.31262Z"
-                fill="#2C3B47" />
-            </svg>
-          </button>
-        </div>
-      </ng-container>
+      <div class="mobile_buttons_left">
+        <button class="btn_medium_close icon" (click)="prevIdea(ideas)" *ngIf="ideas.length > 1">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M9.45327 6.31262C9.85294 5.89579 10.5009 5.89579 10.9006 6.31262C11.3003 6.72945 11.3003 7.40527 10.9006 7.8221L7.91837 11L18 11C18.5652 11 19 11.4108 19 12.0003C19 12.5897 18.5652 12.9824 18 12.9824L7.91837 12.9824L10.9006 16.1779C11.3003 16.5947 11.3003 17.2705 10.9006 17.6874C10.5009 18.1042 9.85294 18.1042 9.45327 17.6874L4 12L9.45327 6.31262Z"
+              fill="#2C3B47" />
+          </svg>
+        </button>
+        <button class="btn_medium_close icon" (click)="nextIdea(ideas)" *ngIf="ideas.length > 1">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M14.5467 6.31262C14.1471 5.89579 13.4991 5.89579 13.0994 6.31262C12.6997 6.72945 12.6997 7.40527 13.0994 7.8221L16.0816 11L6 11C5.43478 11 5 11.4108 5 12.0003C5 12.5897 5.43478 12.9824 6 12.9824L16.0816 12.9824L13.0994 16.1779C12.6997 16.5947 12.6997 17.2705 13.0994 17.6874C13.4991 18.1042 14.1471 18.1042 14.5467 17.6874L20 12L14.5467 6.31262Z"
+              fill="#2C3B47" />
+          </svg>
+        </button>
+      </div>
       <div class="mobile_buttons_right">
         <button id="close_button" class="btn_medium_close icon" [dialog-close]="true">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -81,40 +79,38 @@
       </div>
     </div>
     <div class="dialog_content">
-      <ng-container *ngIf="TopicIdeaService.items$ | async as ideas">
-        <div class="buttons_left mobile_hidden">
-          <button class="btn_medium_close btn_idea_select icon" (click)="prevIdea(ideas)" *ngIf="ideas.length > 1">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M9.45327 6.31262C9.85294 5.89579 10.5009 5.89579 10.9006 6.31262C11.3003 6.72945 11.3003 7.40527 10.9006 7.8221L7.91837 11L18 11C18.5652 11 19 11.4108 19 12.0003C19 12.5897 18.5652 12.9824 18 12.9824L7.91837 12.9824L10.9006 16.1779C11.3003 16.5947 11.3003 17.2705 10.9006 17.6874C10.5009 18.1042 9.85294 18.1042 9.45327 17.6874L4 12L9.45327 6.31262Z"
-                fill="#2C3B47" />
-            </svg>
-          </button>
-        </div>
-        <div class="buttons_right mobile_hidden">
-          <button class="btn_medium_close mobile_hidden icon" [dialog-close]="true">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929Z"
-                fill="#2C3B47" />
-            </svg>
-          </button>
-          <button id="close_button" class="btn_medium_plain mobile_show icon" [dialog-close]="true">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929Z"
-                fill="#2C3B47" />
-            </svg>
-          </button>
-          <button class="btn_medium_close btn_idea_select icon" (click)="nextIdea(ideas)" *ngIf="ideas.length > 1">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M14.5467 6.31262C14.1471 5.89579 13.4991 5.89579 13.0994 6.31262C12.6997 6.72945 12.6997 7.40527 13.0994 7.8221L16.0816 11L6 11C5.43478 11 5 11.4108 5 12.0003C5 12.5897 5.43478 12.9824 6 12.9824L16.0816 12.9824L13.0994 16.1779C12.6997 16.5947 12.6997 17.2705 13.0994 17.6874C13.4991 18.1042 14.1471 18.1042 14.5467 17.6874L20 12L14.5467 6.31262Z"
-                fill="#2C3B47" />
-            </svg>
-          </button>
-        </div>
-      </ng-container>
+      <div class="buttons_left mobile_hidden">
+        <button class="btn_medium_close btn_idea_select icon" (click)="prevIdea(ideas)" *ngIf="ideas.length > 1">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M9.45327 6.31262C9.85294 5.89579 10.5009 5.89579 10.9006 6.31262C11.3003 6.72945 11.3003 7.40527 10.9006 7.8221L7.91837 11L18 11C18.5652 11 19 11.4108 19 12.0003C19 12.5897 18.5652 12.9824 18 12.9824L7.91837 12.9824L10.9006 16.1779C11.3003 16.5947 11.3003 17.2705 10.9006 17.6874C10.5009 18.1042 9.85294 18.1042 9.45327 17.6874L4 12L9.45327 6.31262Z"
+              fill="#2C3B47" />
+          </svg>
+        </button>
+      </div>
+      <div class="buttons_right mobile_hidden">
+        <button class="btn_medium_close mobile_hidden icon" [dialog-close]="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929Z"
+              fill="#2C3B47" />
+          </svg>
+        </button>
+        <button id="close_button" class="btn_medium_plain mobile_show icon" [dialog-close]="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929Z"
+              fill="#2C3B47" />
+          </svg>
+        </button>
+        <button class="btn_medium_close btn_idea_select icon" (click)="nextIdea(ideas)" *ngIf="ideas.length > 1">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M14.5467 6.31262C14.1471 5.89579 13.4991 5.89579 13.0994 6.31262C12.6997 6.72945 12.6997 7.40527 13.0994 7.8221L16.0816 11L6 11C5.43478 11 5 11.4108 5 12.0003C5 12.5897 5.43478 12.9824 6 12.9824L16.0816 12.9824L13.0994 16.1779C12.6997 16.5947 12.6997 17.2705 13.0994 17.6874C13.4991 18.1042 14.1471 18.1042 14.5467 17.6874L20 12L14.5467 6.31262Z"
+              fill="#2C3B47" />
+          </svg>
+        </button>
+      </div>
       <div class="idea_content_idea">
         <div class="idea_header">
           <div class="idea_header_left">
@@ -255,7 +251,8 @@
 
             <div class="image" [ngClass]="{view: image.view}" *ngFor="let image of images; index as index">
               <div class="image_view_buttons_wrap">
-                <a [download]="image.name"  [title]="image.name" [href]="image.link" target="_blank" class="image_view_button btn_medium_close icon">
+                <a [download]="image.name" [title]="image.name" [href]="image.link" target="_blank"
+                  class="image_view_button btn_medium_close icon">
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g clip-path="url(#clip0_14522_105688)">
                       <path
