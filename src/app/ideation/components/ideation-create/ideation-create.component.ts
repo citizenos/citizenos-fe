@@ -338,9 +338,17 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
             next: (res: any) => {
               if (res && !res.link) return;
 
-              this.topicGroups.forEach((group) => {
-                this.saveMemberGroup(group)
-              });
+              if (this.canEditIdeation()) {
+                this.topicGroups.forEach((group) => {
+                  this.saveMemberGroup(group)
+                });
+                this.groupsToRemove.forEach((group: any) => {
+                  if (group) {
+                    this.TopicMemberGroupService.delete({ topicId: this.topic.id, groupId: group.id }).pipe(take(1)).subscribe();
+                  }
+                });
+              }
+
               if (!this.ideation.id && this.canEditIdeation()) {
                 this.createIdeation(true);
               } else if (this.canEditIdeation()) {

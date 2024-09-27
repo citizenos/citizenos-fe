@@ -298,7 +298,7 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
       .pipe(take(1),
         tap((topic: Topic) => {
           this.topic = topic;
-          this.vote.options = [{value: 'Yes'}, {value: 'No'}];
+          this.vote.options = [{ value: 'Yes' }, { value: 'No' }];
           this.vote.description = null;
           this.createVote();
           this.router.navigate([topic.id], { relativeTo: this.route });
@@ -359,9 +359,16 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
             next: (res: any) => {
               if (res && !res.link) return;
 
-              this.topicGroups.forEach((group) => {
-                this.saveMemberGroup(group)
-              });
+              if (this.canEditDiscussion()) {
+                this.topicGroups.forEach((group) => {
+                  this.saveMemberGroup(group)
+                });
+                this.groupsToRemove.forEach((group: any) => {
+                  if (group) {
+                    this.TopicMemberGroupService.delete({ topicId: this.topic.id, groupId: group.id }).pipe(take(1)).subscribe();
+                  }
+                });
+              }
               if (!this.vote.id && this.canEditVote()) {
                 this.createVote(true);
               } else if (this.canEditVote()) {
@@ -395,7 +402,7 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
           this.vote = vote;
           this.vote.options = vote.options.rows;
           if (!this.vote.options) {
-            this.vote.options = [{value: 'Yes'}, {value: 'No'}];
+            this.vote.options = [{ value: 'Yes' }, { value: 'No' }];
           }
           if (updateTopicStatus) {
             const isDraft = (this.topic.status === this.TopicService.STATUSES.draft);
@@ -440,7 +447,7 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
       return { value: opt.value, voteId: opt.voteId, id: opt.id };
     })
     if (!options.length && this.topic.status === this.TopicService.STATUSES.draft) {
-      updateVote.options = [{value: 'Yes'}, {value: 'No'}];
+      updateVote.options = [{ value: 'Yes' }, { value: 'No' }];
     } else {
       updateVote.options = options;
     }
@@ -451,7 +458,7 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
       next: (res) => {
         if (updateTopicStatus) {
           const isDraft = (this.topic.status === this.TopicService.STATUSES.draft);
-          const updateTopic = {id: this.topic.id, status: this.TopicService.STATUSES.voting};
+          const updateTopic = { id: this.topic.id, status: this.TopicService.STATUSES.voting };
           this.TopicService.patch(updateTopic).pipe(take(1)).subscribe({
             next: (res) => {
               this.hasChanges$.next(false);

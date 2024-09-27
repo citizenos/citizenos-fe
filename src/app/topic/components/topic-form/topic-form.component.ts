@@ -80,8 +80,8 @@ export class TopicFormComponent {
       } else {
         const contentChilds = content.nativeElement.children[2]?.children;
         let h = 0;
-        for(let i=0; i<contentChilds.length; i++) {
-          h+=contentChilds[i].offsetHeight;
+        for (let i = 0; i < contentChilds.length; i++) {
+          h += contentChilds[i].offsetHeight;
           if (h >= 320) {
             this.readMoreButton.next(true);
             i = contentChilds.length;
@@ -198,7 +198,7 @@ export class TopicFormComponent {
       }),
       map(
         (newGroups) => {
-          newGroups = newGroups.filter((group:any) => group.visibility === this.GroupService.VISIBILITY.private || group.permission.level === GroupMemberTopicService.LEVELS.admin);
+          newGroups = newGroups.filter((group: any) => group.visibility === this.GroupService.VISIBILITY.private || group.permission.level === GroupMemberTopicService.LEVELS.admin);
           newGroups.forEach((group: any) => {
             if (this.groupId && this.groupId === group.id) {
               const exists = this.topicGroups.find((mgroup) => mgroup.id === group.id);
@@ -213,15 +213,15 @@ export class TopicFormComponent {
         }
       ));
 
-  /*  this.groups$ = this.GroupService.loadItems().pipe(map((groups) => {
-      groups.forEach((group: any) => {
-        if (this.groupId && this.groupId === group.id) {
-          const exists = this.topicGroups.find((mgroup) => mgroup.id === group.id);
-          if (!exists) this.addGroup(group);
-        }
-      });
+    /*  this.groups$ = this.GroupService.loadItems().pipe(map((groups) => {
+        groups.forEach((group: any) => {
+          if (this.groupId && this.groupId === group.id) {
+            const exists = this.topicGroups.find((mgroup) => mgroup.id === group.id);
+            if (!exists) this.addGroup(group);
+          }
+        });
 
-    }));*/
+      }));*/
 
     this.tabSelected = this.route.fragment.pipe(
       map((fragment) => {
@@ -408,7 +408,7 @@ export class TopicFormComponent {
         delete this.error.image;
       }, 5000)
     } else if (files[0].size > 5000000) {
-  //    this.Notification.addError(this.translate.instant('MSG_ERROR_FILE_TOO_LARGE', { allowedFileSize: '5MB' }));
+      //    this.Notification.addError(this.translate.instant('MSG_ERROR_FILE_TOO_LARGE', { allowedFileSize: '5MB' }));
       this.error = { image: this.translate.instant('MSG_ERROR_FILE_TOO_LARGE', { allowedFileSize: '5MB' }) };
 
       setTimeout(() => {
@@ -560,9 +560,16 @@ export class TopicFormComponent {
             next: (res: any) => {
               if (res && !res.link) return;
 
-              this.topicGroups.forEach((group) => {
-                this.saveMemberGroup(group)
-              });
+              if (this.canEditDiscussion()) {
+                this.topicGroups.forEach((group) => {
+                  this.saveMemberGroup(group)
+                });
+                this.groupsToRemove.forEach((group: any) => {
+                  if (group) {
+                    this.TopicMemberGroupService.delete({ topicId: this.topic.id, groupId: group.id }).pipe(take(1)).subscribe();
+                  }
+                });
+              }
               if (!this.discussion.id && this.canEditDiscussion()) {
                 this.createDiscussion(true);
               } else if (this.canEditDiscussion()) {
@@ -571,11 +578,6 @@ export class TopicFormComponent {
                 this.hasChanges$.next(false);
                 this.TopicService.reloadTopic();
               }
-              this.groupsToRemove.forEach((group: any) => {
-                if (group) {
-                  this.TopicMemberGroupService.delete({ topicId: this.topic.id, groupId: group.id }).pipe(take(1)).subscribe();
-                }
-              });
               this.hasUnsavedChanges.next(false);
               this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
 
