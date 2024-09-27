@@ -158,35 +158,39 @@ export class IdeaDialogComponent extends IdeaboxComponent {
       this.idea.showReplies = true;
     }
   }
-  prevIdea(ideas: Idea[]) {
-    let index = ideas.findIndex((item) => item.id === this.idea.id);
-    if (index === 0) index = ideas.length;
-    const newIdea = ideas[index - 1];
-    this.router.navigate(['/', this.Translate.currentLang, 'topics', this.topic.id, 'ideation', this.ideation.id, 'ideas', newIdea.id]);
-    this.idea = newIdea;
-    this.folders$ = this.TopicIdeaService
-      .getFolders({ topicId: this.topic.id, ideationId: this.idea.ideationId, ideaId: this.idea.id })
-      .pipe(map((res: any) => res.rows));
-    this.images$ = this.IdeaAttachmentService
-      .query({ topicId: this.topic.id, ideationId: this.idea.ideationId, ideaId: this.idea.id, type: 'image' })
-      .pipe(map((res: any) => res.rows));
-    this.notification = null;
+  prevIdea() {
+    this.TopicIdeaService.loadItems().pipe(take(1)).subscribe((ideas) => {
+      let index = ideas.findIndex((item) => item.id === this.idea.id);
+      if (index === 0) index = ideas.length;
+      const newIdea = ideas[index - 1];
+      this.router.navigate(['/', this.Translate.currentLang, 'topics', this.topic.id, 'ideation', this.ideation.id, 'ideas', newIdea.id]);
+      this.idea = newIdea;
+      this.folders$ = this.TopicIdeaService
+        .getFolders({ topicId: this.topic.id, ideationId: this.idea.ideationId, ideaId: this.idea.id })
+        .pipe(take(1), map((res: any) => res.rows));
+      this.images$ = this.IdeaAttachmentService
+        .query({ topicId: this.topic.id, ideationId: this.idea.ideationId, ideaId: this.idea.id, type: 'image' })
+        .pipe(take(1), map((res: any) => res.rows));
+      this.notification = null;
+    })
   }
 
-  nextIdea(ideas: Idea[]) {
-    let index = ideas.findIndex((item) => item.id === this.idea.id);
-    if (index === ideas.length - 1) index = -1;
-    const newIdea = ideas[index + 1];
-    this.router.navigate(['/', this.Translate.currentLang, 'topics', this.topic.id, 'ideation', this.ideation.id, 'ideas', newIdea.id]);
-    this.idea = newIdea;
-    this.folders$ = this.TopicIdeaService
-      .getFolders({ topicId: this.topic.id, ideationId: this.idea.ideationId, ideaId: this.idea.id })
-      .pipe(map((res: any) => res.rows));
-    this.images$ = this.IdeaAttachmentService
-      .query({ topicId: this.topic.id, ideationId: this.idea.ideationId, ideaId: this.idea.id, type: 'image' })
-      .pipe(map((res: any) => res.rows));
+  nextIdea() {
+    this.TopicIdeaService.loadItems().pipe(take(1)).subscribe((ideas) => {
+      let index = ideas.findIndex((item) => item.id === this.idea.id);
+      if (index === ideas.length - 1) index = -1;
+      const newIdea = ideas[index + 1];
+      this.router.navigate(['/', this.Translate.currentLang, 'topics', this.topic.id, 'ideation', this.ideation.id, 'ideas', newIdea.id]);
+      this.idea = newIdea;
+      this.folders$ = this.TopicIdeaService
+        .getFolders({ topicId: this.topic.id, ideationId: this.idea.ideationId, ideaId: this.idea.id })
+        .pipe(take(1), map((res: any) => res.rows));
+      this.images$ = this.IdeaAttachmentService
+        .query({ topicId: this.topic.id, ideationId: this.idea.ideationId, ideaId: this.idea.id, type: 'image' })
+        .pipe(take(1), map((res: any) => res.rows));
 
-    this.notification = null;
+      this.notification = null;
+    });
   }
 
   private _parseArgumentIdAndVersion(argumentIdWithVersion: string) {
@@ -305,5 +309,9 @@ export class IdeaDialogComponent extends IdeaboxComponent {
       this.router.navigate(['/', this.Translate.currentLang, 'topics', this.topic.id], { queryParams: { folderId: folder.id }, });
     });
     this.dialogRef.close();
+  }
+
+  hasMoreIdeas() {
+    return this.TopicIdeaService.count.value;
   }
 }

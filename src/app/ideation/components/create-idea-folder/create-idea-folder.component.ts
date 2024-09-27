@@ -26,8 +26,12 @@ export class CreateIdeaFolderComponent {
   constructor(public TopicIdeaService: TopicIdeaService, public TopicIdeationFoldersService: TopicIdeationFoldersService, @Inject(DIALOG_DATA) data: any, private dialogRef: DialogRef<CreateIdeaFolderComponent>) {
     this.topicId = data.topicId;
     this.ideationId = data.ideationId;
+    let offset = 0;
+    let limit = 8;
     this.TopicIdeaService.setParam('topicId', data.topicId);
     this.TopicIdeaService.setParam('ideationId', data.ideationId);
+    this.TopicIdeaService.setParam('offset', offset);
+    this.TopicIdeaService.setParam('limit', limit);
     this.ideas$ = this.TopicIdeaService.loadItems().pipe(
       tap((res: any) => {
         if (res.length) {
