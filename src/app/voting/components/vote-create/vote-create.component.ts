@@ -23,6 +23,7 @@ import { TopicMemberGroupService } from 'src/app/services/topic-member-group.ser
 import { TopicFormComponent } from 'src/app/topic/components/topic-form/topic-form.component';
 import { BlockNavigationIfChange } from 'src/app/shared/pending-changes.guard';
 import { TopicDiscussionService } from 'src/app/services/topic-discussion.service';
+import { TopicSettingsDisabledDialogComponent } from 'src/app/topic/components/topic-settings-disabled-dialog/topic-settings-disabled-dialog.component';
 
 @Component({
   selector: 'app-vote-create',
@@ -136,7 +137,20 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
         if (fragment === 'info' && !this.TopicService.canEditDescription(<Topic>this.topic)) {
           const infoDialog = dialog.open(TopicEditDisabledDialogComponent);
           infoDialog.afterClosed().subscribe(() => {
-            this.selectTab('settings')
+            if (this.TopicService.canDelete(<Topic>this.topic)) {
+              this.selectTab('settings')
+            } else {
+              this.selectTab('preview')
+            }
+          });
+        } else if (fragment === 'settings' && !this.TopicService.canDelete(<Topic>this.topic)) {
+          const infoDialog = this.dialog.open(TopicSettingsDisabledDialogComponent);
+          infoDialog.afterClosed().subscribe(() => {
+            if (this.TopicService.canEditDescription(<Topic>this.topic)) {
+              this.selectTab('info')
+            } else {
+              this.selectTab('preview')
+            }
           });
         }
       }));
@@ -348,9 +362,9 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
               this.topicGroups.forEach((group) => {
                 this.saveMemberGroup(group)
               });
-              if (!this.vote.id) {
+              if (!this.vote.id && this.canEditVote()) {
                 this.createVote(true);
-              } else {
+              } else if (this.canEditVote()) {
                 this.updateVote(true);
               }
             },
@@ -470,4 +484,7 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
     });
   }
 
+  canEditVote() {
+    return this.TopicService.canDelete(this.topic) && (this.topic.status !== this.TopicService.STATUSES.draft || this.topic.status !== this.TopicService.STATUSES.voting);
+  }
 }

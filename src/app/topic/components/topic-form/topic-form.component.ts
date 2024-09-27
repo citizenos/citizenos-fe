@@ -563,9 +563,9 @@ export class TopicFormComponent {
               this.topicGroups.forEach((group) => {
                 this.saveMemberGroup(group)
               });
-              if (!this.discussion.id) {
+              if (!this.discussion.id && this.canEditDiscussion()) {
                 this.createDiscussion(true);
-              } else if ([this.TopicService.STATUSES.draft, this.TopicService.STATUSES.inProgress].indexOf(this.topic.status) > -1) {
+              } else if (this.canEditDiscussion()) {
                 this.updateDiscussion(true);
               } else {
                 this.hasChanges$.next(false);
@@ -771,7 +771,7 @@ export class TopicFormComponent {
   }
 
   canEditDiscussion() {
-    return this.TopicService.canEdit(this.topic) && (this.topic.status !== this.TopicService.STATUSES.draft || this.topic.status !== this.TopicService.STATUSES.inProgress);
+    return this.TopicService.canDelete(this.topic) && (this.topic.status !== this.TopicService.STATUSES.draft || this.topic.status !== this.TopicService.STATUSES.inProgress);
   }
 
   toggleDeadline() {
