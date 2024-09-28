@@ -330,7 +330,6 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
     if (!updateTopic.intro?.length) {
       updateTopic.intro = null;
     }
-
     this.TopicService.patch(updateTopic).pipe(take(1)).subscribe({
       next: () => {
         this.saveImage()
@@ -353,6 +352,16 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
                 this.createIdeation(true);
               } else if (this.canEditIdeation()) {
                 this.updateIdeation(true);
+              } else {
+                this.hasChanges$.next(false);
+                this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
+                this.TopicService.reloadTopic();
+                if (this.isnew || isDraft) {
+                  this.Notification.addSuccess('VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_TITLE');
+                  this.inviteMembers();
+                } else {
+                  this.Notification.addSuccess('VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE');
+                }
               }
             },
             error: (err) => {
