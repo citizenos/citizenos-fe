@@ -126,7 +126,7 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
           infoDialog.afterClosed().subscribe(() => {
             this.selectTab('settings')
           });
-        } else if (fragment === 'settings' && !this.TopicService.canDelete(<Topic>this.topic)) {
+        } else if ((fragment === 'settings' || fragment === 'ideation_system') && !this.TopicService.canDelete(<Topic>this.topic)) {
           const infoDialog = this.dialog.open(TopicSettingsDisabledDialogComponent);
           infoDialog.afterClosed().subscribe(() => {
             this.selectTab('info')
