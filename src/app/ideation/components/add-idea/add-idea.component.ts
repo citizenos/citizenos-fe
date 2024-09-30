@@ -58,7 +58,7 @@ export class AddIdeaComponent {
     statement: new UntypedFormControl('', [Validators.required]),
     description: new UntypedFormControl('', [Validators.required]),
   });
-
+  IMAGE_LIMIT = 10;
   IDEA_STATEMENT_MAXLENGTH = 1024;
   private IDEA_VERSION_SEPARATOR = '_v';
   constructor(
@@ -175,19 +175,25 @@ export class AddIdeaComponent {
   fileUpload() {
     const allowedTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/svg+xml'];
     const files = this.fileInput?.nativeElement.files;
+    if (this.images.length === this.IMAGE_LIMIT) {
+      return this.Notification.addError(this.translate.instant('MSG_ERROR_IDEA_IMAGE_LIMIT', {limit: this.IMAGE_LIMIT}));
+    }
     for (let i = 0; i < files.length; i++) {
       if (allowedTypes.indexOf(files[i].type) < 0) {
         this.Notification.addError(this.translate.instant('MSG_ERROR_FILE_TYPE_NOT_ALLOWED', { allowedFileTypes: allowedTypes.toString() }));
       } else if (files[i].size > 5000000) {
         this.Notification.addError(this.translate.instant('MSG_ERROR_FILE_TOO_LARGE', { allowedFileSize: '5MB' }));
-      } else {
+      } else if (this.images.length < 5) {
         const reader = new FileReader();
-        reader.onload = async () => {
+        reader.onload = () => {
           const file = files[i];
           file.link = reader.result;
           this.images.push(file);
         };
         reader.readAsDataURL(files[i]);
+      } else {
+        i = files.length;
+        this.Notification.addError(this.translate.instant('MSG_ERROR_IDEA_IMAGE_LIMIT', {limit: this.IMAGE_LIMIT}));
       }
     }
   }
