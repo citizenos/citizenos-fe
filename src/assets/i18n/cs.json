@@ -1,6 +1,6 @@
 {
   "MSG_REDESIGN_TITLE": "Přepracováváme naši platformu!",
-  "MSG_REDESIGN_CONTENT": "Počátkem roku 2024 začneme realizovat nový a vylepšený Citizen OS! Jakékoli dotazy, obavy, nebo nabídnout vaši pomoc jako beta tester, kontaktujte Sara na <a href=\"mailto:support@citizenos.com\">support@citizenos. om</a>",
+  "MSG_REDESIGN_CONTENT": "In the coming months, we’ll be starting to roll out a new and improved Citizen OS! Any questions, concerns, or to offer your help as a beta tester, contact Sara on <a href=\"mailto:info@citizenos.com\">info@citizenos.com</a>",
   "MSG_REDESIGN_BTN_CLOSE": "OK, rozumím",
   "META_DEFAULT_TITLE": "Citizen OS - e-Rozhodovací platforma pro komunity.",
   "META_DEFAULT_DESCRIPTION": "Citizen OS enables participative idea-gathering, discussion and voting for groups, when getting together offline or online at the same time is not an option.",
@@ -3488,6 +3488,7 @@
   "MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED": "File type is not allowed. Allowed types are: {{allowedFileTypes}}",
   "MSG_ERROR_FILE_TYPE_NOT_ALLOWED": "@:MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED",
   "MSG_ERROR_FILE_TOO_LARGE": "File is too large. Maximum allowed size is {{allowedFileSize}}",
+  "MSG_ERROR_IDEA_IMAGE_LIMIT": "Maximum {{limit}} images allowed per idea.",
   "MSG_ERROR_POST_API_USERS_TOPICS_ATTACHMENTS_40000_LINK": "Odkaz na přílohu není definován!",
   "MSG_ERROR_POST_API_USERS_TOPICS_ATTACHMENTS_40000_NAME": "Název přílohy není definován!",
   "MSG_ERROR_PASSWORD_MISMATCH": "Passwords do not match. Please try again.",
