@@ -3488,7 +3488,7 @@
   "MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED": "Tento typ súboru nie je povolený! Povolené typy sú: {{allowedFileTypes}}",
   "MSG_ERROR_FILE_TYPE_NOT_ALLOWED": "@:MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED",
   "MSG_ERROR_FILE_TOO_LARGE": "Súbor je príliš veľký! Maximálna povolená veľkosť je {{allowedFileSize}}",
-  "MSG_ERROR_IDEA_IMAGE_LIMIT": "Maximum {{limit}} images allowed per idea.",
+  "MSG_ERROR_IDEA_IMAGE_LIMIT": "Maximálny počet {{limit}} obrázkov povolených na jeden nápad.",
   "MSG_ERROR_POST_API_USERS_TOPICS_ATTACHMENTS_40000_LINK": "Odkaz prílohy nie je definovaný!",
   "MSG_ERROR_POST_API_USERS_TOPICS_ATTACHMENTS_40000_NAME": "Názov prílohy nie je zadefinovaný!",
   "MSG_ERROR_PASSWORD_MISMATCH": "Heslá sa nezhodujú. Prosím, skúste to znova.",
