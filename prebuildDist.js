@@ -15,6 +15,6 @@ try {
     settingsFileTxt += '}(this));';*/
     fs.writeFileSync(pathDistSettings, JSON.stringify(configFe));
 } catch (err) {
-    console.log('config.ts write FAILED to ' + pathSettings, err);
+    console.log('config.ts write FAILED to ' + pathDistSettings, err);
     process.exit(1);
 }
