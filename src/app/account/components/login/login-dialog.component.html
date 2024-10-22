@@ -82,7 +82,7 @@
 
             </a>
           </div>
-          <div translate="COMPONENTS.LOGIN_FORM.LOGIN_OR"></div>
+          <div translate="COMPONENTS.LOGIN_FORM.LOGIN_OR" *ngIf="authMethodsAvailable.esteid || authMethodsAvailable.smartId || authMethodsAvailable.google || authMethodsAvailable.facebook"></div>
           <login-form [isDialog]="true" [redirectSuccess]="redirectSuccess" [email]="email"></login-form>
         </div>
       </ng-container>
