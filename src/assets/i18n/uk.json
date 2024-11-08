@@ -525,7 +525,7 @@
       "MESSAGE_MAIN": "You want to join",
       "MESSAGE_DESCRIPTION": "Are you sure you want to join the topic? See the explanation below for what this means. You can always easily leave a topic if you want to.",
       "HEADING_WHAT_CAN_YOU_DO": "What you can do once you join a topic",
-      "ITEM_PARTICIPATE": "Participate in idea-gathering, discussions and voting",
+      "ITEM_PARTICIPATE": "Participate in the topic, giving your view and engaging with others",
       "ITEM_NOTIFICATIONS": "Receive notifications of activity within the topic",
       "ITEM_REQUEST_EDIT": "Request to become a co-creator",
       "BTN_JOIN": "@:VIEWS.TOPICS_TOPICID.BTN_JOIN",
