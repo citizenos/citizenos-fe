@@ -525,7 +525,7 @@
       "MESSAGE_MAIN": "Sa soovid liituda",
       "MESSAGE_DESCRIPTION": "Kas oled kindel, et soovid teemaga liituda? Loe täpsemat selgitust allpool. Sa võid soovi korral teemast alati lahkuda.",
       "HEADING_WHAT_CAN_YOU_DO": "Mida saad teha, kui oled teemaga liitunud",
-      "ITEM_PARTICIPATE": "Osale ideekorjes, aruteludes ja hääletamisel",
+      "ITEM_PARTICIPATE": "Participate in the topic, giving your view and engaging with others",
       "ITEM_NOTIFICATIONS": "Saada teavitusi selle teemaga seotud toimingute kohta",
       "ITEM_REQUEST_EDIT": "Taotleda teema kaasloojaks saamist",
       "BTN_JOIN": "@:VIEWS.TOPICS_TOPICID.BTN_JOIN",
