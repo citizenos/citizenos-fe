@@ -525,7 +525,7 @@
       "MESSAGE_MAIN": "Вы хотите присоединиться к",
       "MESSAGE_DESCRIPTION": "Вы уверены, что хотите присоединиться к теме? Смотрите ниже пояснение о том, что это означает. Вы всегда можете покинуть тему, если пожелаете.",
       "HEADING_WHAT_CAN_YOU_DO": "Какие у Вас будут возможности, когда присоединитесь к теме",
-      "ITEM_PARTICIPATE": "Участвовать в сборе идей, обсуждениях и голосовании",
+      "ITEM_PARTICIPATE": "Participate in the topic, giving your view and engaging with others",
       "ITEM_NOTIFICATIONS": "Получайте уведомления об активности в рамках темы",
       "ITEM_REQUEST_EDIT": "Имейте возможность стать соавтором",
       "BTN_JOIN": "@:VIEWS.TOPICS_TOPICID.BTN_JOIN",
