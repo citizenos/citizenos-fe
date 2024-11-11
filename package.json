@@ -28,7 +28,7 @@
     "autolinker": "^4.0.0",
     "config": "3.3.12",
     "easymde": "^2.16.1",
-    "express": "4.19.2",
+    "express": "^4.21.1",
     "express-csp-header": "5.2.1",
     "fast-json-patch": "^3.1.1",
     "hwcrypto-js": "0.0.13",
@@ -41,6 +41,7 @@
     "ngx-translate-debug": "^0.1.4",
     "prerender-node": "3.8.0",
     "rxjs": "~7.8.0",
+    "sass": "^1.80.4",
     "timers": "^0.1.1",
     "tslib": "^2.6.3",
     "validator": "^13.12.0",
@@ -51,8 +52,8 @@
     "@angular/cli": "^18.1.2",
     "@angular/compiler-cli": "^18.1.2",
     "@types/jasmine": "~5.1.4",
-    "@types/node": "^20.14.12",
     "@types/marked": "^5.0.0",
+    "@types/node": "^20.14.12",
     "jasmine-core": "~5.2.0",
     "karma": "~6.4.3",
     "karma-chrome-launcher": "~3.2.0",
@@ -66,7 +67,7 @@
     "hwcrypto-js": true
   },
   "engines": {
-    "node": "20.15.1",
-    "npm": "10.7.0"
+    "node": "20.18.1",
+    "npm": "10.8.0"
   }
 }

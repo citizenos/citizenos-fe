@@ -36,7 +36,7 @@
                       </cos-initials>
                     </div>
                   </div>
-                  <a class="user_name" [innerHtml]>{{member.value.name}}</a>
+                  <a class="user_name" [innerHtml]="member.value.name"></a>
                 </div>
                 <div class="row_cell">
                   <svg *ngIf="member.value.vote === 'down'" xmlns="http://www.w3.org/2000/svg" width="16" height="16"

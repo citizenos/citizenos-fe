@@ -32,7 +32,6 @@ export class TopicMemberGroupComponent implements OnInit {
 
   doUpdateMemberGroup(level: any) {
     if (this.group.level !== level) {
-      const oldLevel = this.group.level;
       this.group.level = level;
       this.group.topicId = this.topic?.id;
 

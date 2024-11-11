@@ -67,8 +67,8 @@
             <ng-container *ngFor="let request of requests; index as i;">
               <div class="row_list">
                 <div class="name">
-                  <a class="topic_title" [routerLink]="['/topics/', request.topic.id]" [innerHtml]>{{request.topic.title
-                    || request.topic.id}}</a>
+                  <a class="topic_title" [routerLink]="['/topics/', request.topic.id]" [innerHtml]="request.topic.title
+                    || request.topic.id"></a>
                   <div class="text" [innerHTML]="request.text"></div>
                 </div>
                 <div class="visibility">

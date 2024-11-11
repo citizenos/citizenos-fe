@@ -1,5 +1,11 @@
 import { Language } from '../interfaces/language';
 
+export class LanguageService {
+
+  // Add the implementation of LanguageService here
+
+}
+
 export const languages: Language[] = [
   {
       code: "ab",

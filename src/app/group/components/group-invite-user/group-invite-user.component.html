@@ -9,7 +9,7 @@
         </svg>
       </div>
       <div class="member_name_wrap">
-        <div class="bold" [innerHtml]>{{user.name}}</div>
+        <div class="bold" [innerHtml]="user.name"></div>
         <div class="member_info" *ngIf="canUpdate() && user.email" translate="COMPONENTS.GROUP_INVITE_USER.INVITE_SENT_TO" [translateParams]="{email: user.email}"></div>
       </div>
     </div>

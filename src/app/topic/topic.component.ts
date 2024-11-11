@@ -133,7 +133,7 @@ export class TopicComponent implements OnInit {
   showTutorial = false;
   topicTitle: string = '';
   //new end
-  topic$; // decorate the property with @Input()
+  topic$: Observable<Topic>; // decorate the property with @Input()
   groups$: Observable<Group[]>;
   vote$?: Observable<Vote>;
   ideation$?: Observable<any>;
@@ -383,7 +383,7 @@ export class TopicComponent implements OnInit {
   joinTopic(topic: Topic) {
     const joinDialog = this.DialogService.open(TopicJoinComponent, {
       data: {
-        topic: topic
+        topic
       }
     })/*.openConfirm({
         template: '/views/modals/group_join_confirm.html',
