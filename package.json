@@ -67,7 +67,7 @@
     "hwcrypto-js": true
   },
   "engines": {
-    "node": "20.18.1",
+    "node": "20.18.0",
     "npm": "10.8.0"
   }
 }
