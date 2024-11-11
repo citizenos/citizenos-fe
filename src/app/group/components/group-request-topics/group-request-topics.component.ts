@@ -1,6 +1,6 @@
 import { NotificationService } from 'src/app/services/notification.service';
 import { Topic } from 'src/app/interfaces/topic';
-import { Component, OnInit, Inject, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Group } from 'src/app/interfaces/group';
 import { GroupService } from 'src/app/services/group.service';
 import { AppService } from 'src/app/services/app.service';
@@ -17,7 +17,7 @@ import { GroupRequestTopicService } from 'src/app/services/group-request-topic.s
   templateUrl: './group-request-topics.component.html',
   styleUrls: ['./group-request-topics.component.scss']
 })
-export class GroupRequestTopicsComponent {
+export class GroupRequestTopicsComponent implements OnInit {
   public group!: Group;
   topicsToAdd? = <Topic[]>[];
   VISIBILITY = this.GroupService.VISIBILITY;
@@ -37,7 +37,6 @@ export class GroupRequestTopicsComponent {
   constructor(
     private Search: SearchService,
     public GroupService: GroupService,
-    private app: AppService,
     public translate: TranslateService,
     public TopicService: TopicService,
     @Inject(DIALOG_DATA) public data: any,

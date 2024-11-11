@@ -8,7 +8,7 @@
       </div>
     </div>
     <a class="user_name" *ngIf="group.permission.level" [routerLink]="['/my/groups/', group.id]"
-      [innerHtml]>{{group.name}}</a>
+      [innerHtml]="group.name"></a>
   </div>
   <div class="level">
     <div class="dropdown" [cosDropdown] *ngIf="TopicService.canUpdate(topic)">

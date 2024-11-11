@@ -7,7 +7,7 @@
     </div>
   </div>
   <div class="invite_info">
-    <div class="bold user_name" [innerHtml]>{{invite.user.name}}</div>
+    <div class="bold user_name" [innerHtml]="invite.user.name"></div>
     <div class="via">
       <span *ngIf="invite.user.email">
         {{invite.user.email}}

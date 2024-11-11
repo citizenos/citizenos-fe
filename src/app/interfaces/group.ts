@@ -1,3 +1,5 @@
+import { Topic } from "./topic"
+
 export interface Group {
   id:	string,
   name: string,
@@ -6,6 +8,7 @@ export interface Group {
   join: {token: string, level: string},
   createdAt:	string,
   updatedAt: string,
+  deletedAt?: string,
   sourcePartnerId:	string | null,
   sourcePartnerObjectId:	string | null,
   permission: {level: string},
@@ -20,6 +23,7 @@ export interface Group {
   rules: string[],
   contact: string | null,
   favourite?: boolean | null,
+  topics?: Topic[],
   inviteMessage: string | null | undefined //optional field while creating groups
 }
 
