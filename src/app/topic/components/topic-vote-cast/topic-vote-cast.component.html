@@ -152,7 +152,7 @@
                       for.</div>
                   </!--div-->
                 </div>
-                <div class="links_wrap" *ngIf="canUpdate()">
+                <div class="links_wrap" *ngIf="canDelete()">
                   <a [href]="vote.downloads.bdocVote"
                     *ngIf="vote.authType === VOTE_AUTH_TYPES.hard && vote.downloads?.bdocVote" download>
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
