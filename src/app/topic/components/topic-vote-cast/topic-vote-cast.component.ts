@@ -61,6 +61,10 @@ export class TopicVoteCastComponent implements OnInit {
     return this.TopicService.canUpdate(this.topic);
   }
 
+  canDelete () {
+    return this.TopicService.canDelete(this.topic);
+  }
+
   canVote() {
     this.topic.vote = this.vote;
     return this.TopicVoteService.canVote(this.topic);
