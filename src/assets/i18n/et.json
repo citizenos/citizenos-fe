@@ -243,6 +243,7 @@
     "CLOSE_VOTING_CONFIRM": {
       "HEADING": "Sulge hääletus",
       "ARE_YOU_SURE": "Kas oled kindel, et soovid hääletuse sulgeda? Seda toimingut ei saa tagasi võtta.",
+      "CLOSE_VOTING_DESCRIPTION": "Closing the vote will send the topic into 'Action' phase. Any phases still open will be closed, and participants will no longer be able to contribute.",
       "CONFIRM_YES": "Jah, sulge hääletus",
       "CONFIRM_NO": "Ei, hoia hääletus avatuna"
     },
@@ -1193,7 +1194,9 @@
       "DIALOG_TAB_INTRODUCTION_ITEM_2": "Endiselt saad kutseid saata ja hääletuse teavet osalejatega jagada",
       "DIALOG_TAB_INTRODUCTION_ITEM_3": "Saad postitada teadaandeid selle teema tulemusena tehtud toimingute kohta",
       "DIALOG_TAB_INTRODUCTION_ITEM_4": "Hääletamine ei ole selles teemas enam võimalik",
-      "DIALOG_TAB_INTRODUCTION_ITEM_5": "Osalejad saavad arutelu jätkata",
+      "DIALOG_TAB_INTRODUCTION_ITEM_5": "Participants will no longer be able to contribute",
+      "DIALOG_TAB_INTRODUCTION_ITEM_6": "You can no longer start a new phase",
+      "DIALOG_TAB_INTRODUCTION_ITEM_7": "Any phases still open will be automatically closed",
       "DIALOG_TAB_INTRODUCTION_INFO": "See on teema viimane etapp.",
       "FOLLOW_UP_TITLE_HEADING": "Lisa tegevuse pealkiri",
       "FOLLOW_UP_TITLE_HEADING_PLACEHOLDER": "Kirjuta oma tegevuse pealkiri",
