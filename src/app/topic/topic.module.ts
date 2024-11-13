@@ -71,7 +71,7 @@ import { TopicDiscussionCreateDialogComponent } from './components/topic-discuss
 import { IdeaReactionsComponent } from '../ideation/components/idea-reactions/idea-reactions.component';
 import { EditDiscussionDeadlineComponent } from './components/edit-discussion-deadline/edit-discussion-deadline.component';
 import { MissingDiscussionComponent } from './components/missing-discussion/missing-discussion.component';
-
+import { CloseVotingComponent } from './components/close-voting/close-voting.component';
 @NgModule({
   declarations: [
     TopicComponent,
@@ -149,7 +149,8 @@ import { MissingDiscussionComponent } from './components/missing-discussion/miss
     TopicDiscussionCreateDialogComponent,
     IdeaReactionsComponent,
     EditDiscussionDeadlineComponent,
-    MissingDiscussionComponent
+    MissingDiscussionComponent,
+    CloseVotingComponent
   ],
   imports: [
     LinkyModule,
