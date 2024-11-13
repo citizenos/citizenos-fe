@@ -243,6 +243,7 @@
     "CLOSE_VOTING_CONFIRM": {
       "HEADING": "Закрыть голосование",
       "ARE_YOU_SURE": "Вы уверены, что хотите закрыть голосование? Это действие необратимо.",
+      "CLOSE_VOTING_DESCRIPTION": "Closing the vote will send the topic into 'Action' phase. Any phases still open will be closed, and participants will no longer be able to contribute.",
       "CONFIRM_YES": "Да, закрыть это голосование",
       "CONFIRM_NO": "Нет, оставить голосование открытым"
     },
@@ -1193,7 +1194,9 @@
       "DIALOG_TAB_INTRODUCTION_ITEM_2": "Вы все еще сможете приглашать и делиться с участниками",
       "DIALOG_TAB_INTRODUCTION_ITEM_3": "Также можно размещать обновления по этапам выполнения действий в отношении этой темы",
       "DIALOG_TAB_INTRODUCTION_ITEM_4": "Голосование по этой теме больше не будет возможным",
-      "DIALOG_TAB_INTRODUCTION_ITEM_5": "Участники смогут продолжать обсуждение",
+      "DIALOG_TAB_INTRODUCTION_ITEM_5": "Participants will no longer be able to contribute",
+      "DIALOG_TAB_INTRODUCTION_ITEM_6": "You can no longer start a new phase",
+      "DIALOG_TAB_INTRODUCTION_ITEM_7": "Any phases still open will be automatically closed",
       "DIALOG_TAB_INTRODUCTION_INFO": "Это последний этап темы.",
       "FOLLOW_UP_TITLE_HEADING": "Пожалуйста, назовите Ваше обновление по применению решения",
       "FOLLOW_UP_TITLE_HEADING_PLACEHOLDER": "Напишите название обновления",
