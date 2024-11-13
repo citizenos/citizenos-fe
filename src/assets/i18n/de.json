@@ -243,6 +243,7 @@
     "CLOSE_VOTING_CONFIRM": {
       "HEADING": "Abstimmung beenden",
       "ARE_YOU_SURE": "Sind Sie sicher, dass sie diese Abstimmung schließen wollen? Sie können dies nicht widerrufen.",
+      "CLOSE_VOTING_DESCRIPTION": "Closing the vote will send the topic into 'Action' phase. Any phases still open will be closed, and participants will no longer be able to contribute.",
       "CONFIRM_YES": "Ja, diese Abstimmung schließen",
       "CONFIRM_NO": "Nein, diese Abstimmung nicht schließen"
     },
@@ -1193,7 +1194,9 @@
       "DIALOG_TAB_INTRODUCTION_ITEM_2": "Sie können immer noch Teilnehmer einladen und mit ihnen teilen",
       "DIALOG_TAB_INTRODUCTION_ITEM_3": "Sie können Aktualisierungen für Aktionen veröffentlichen, die als Ergebnis dieses Themas durchgeführt wurden",
       "DIALOG_TAB_INTRODUCTION_ITEM_4": "Abstimmungen in diesem Thema sind nicht mehr möglich",
-      "DIALOG_TAB_INTRODUCTION_ITEM_5": "Teilnehmer können weiterhin eine Diskussion führen",
+      "DIALOG_TAB_INTRODUCTION_ITEM_5": "Participants will no longer be able to contribute",
+      "DIALOG_TAB_INTRODUCTION_ITEM_6": "You can no longer start a new phase",
+      "DIALOG_TAB_INTRODUCTION_ITEM_7": "Any phases still open will be automatically closed",
       "DIALOG_TAB_INTRODUCTION_INFO": "Dies ist die letzte Stufe eines Themas.",
       "FOLLOW_UP_TITLE_HEADING": "Geben Sie bitte einen Aktionstitel ein",
       "FOLLOW_UP_TITLE_HEADING_PLACEHOLDER": "Geben Sie Ihren Aktionstitel ein",
