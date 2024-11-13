@@ -17,6 +17,7 @@ import { TopicVoteReminderDialog } from 'src/app/topic/components/topic-vote-rem
 import { DownloadVoteResultsComponent } from '../download-vote-results/download-vote-results.component';
 import { IdeaDialogComponent } from 'src/app/ideation/components/idea/idea.component';
 import { ActivatedRoute } from '@angular/router';
+import { CloseVotingComponent } from '../close-voting/close-voting.component';
 
 @Component({
   selector: 'topic-vote-cast',
@@ -171,14 +172,8 @@ export class TopicVoteCastComponent implements OnInit {
       });
   }
   closeVoting() {
-    const closeVoteDialog = this.dialog.open(ConfirmDialogComponent, {
-      data: {
-        level: 'warn',
-        heading: 'COMPONENTS.CLOSE_VOTING_CONFIRM.HEADING',
-        description: 'COMPONENTS.CLOSE_VOTING_CONFIRM.ARE_YOU_SURE',
-        confirmBtn: 'COMPONENTS.CLOSE_VOTING_CONFIRM.CONFIRM_YES',
-        closeBtn: 'COMPONENTS.CLOSE_VOTING_CONFIRM.CONFIRM_NO'
-      }
+    const closeVoteDialog = this.dialog.open(CloseVotingComponent, {
+      data: {topic: this.topic}
     });
     closeVoteDialog.afterClosed().subscribe({
       next: (value) => {

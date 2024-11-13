@@ -1,0 +1,22 @@
+.dialog {
+  max-width: 560px;
+}
+.warn {
+  .icon_notification {
+    rect {
+      fill: var(--color-warn);
+    }
+  }
+}
+
+.error {
+  .icon_notification {
+    rect {
+      fill: var(--color-error);
+    }
+  }
+}
+
+.center {
+  text-align: center;
+}

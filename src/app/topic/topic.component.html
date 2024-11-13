@@ -1204,6 +1204,7 @@
             </ng-container>
           </div>
           <div class="state_item vote" [ngClass]="{'empty': !topic.voteId}"
+          *ngIf="topic.voteId || ([TopicService.STATUSES.draft, TopicService.STATUSES.ideation, TopicService.STATUSES.inProgress, TopicService.STATUSES.voting].indexOf(topic.status) > -1)"
             (click)="(!topic.voteId && canUpdate(topic))? startVote(topic): selectTab('voting')">
             <ng-container *ngIf="!topic.voteId">
               <div class="icon_wrap">
