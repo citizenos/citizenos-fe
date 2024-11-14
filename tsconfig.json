@@ -25,7 +25,9 @@
     "useDefineForClassFields": false,
     "paths": {
       "@services/*": ["src/app/services/*"],
-      "@interfaces/*": ["src/app/interfaces/*"]
+      "@interfaces/*": ["src/app/interfaces/*"],
+      "@shared/*": ["src/app/shared/*"],
+      "@assets/*": ["src/assets/*"],
     }
   },
   "angularCompilerOptions": {

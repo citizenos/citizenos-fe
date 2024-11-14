@@ -1,6 +1,5 @@
 {
-    "qodana.projectId": "AOK69",
-    "cody.autocomplete.advanced.provider": "experimental-ollama",
+  "cody.autocomplete.advanced.provider": "experimental-ollama",
     "cody.autocomplete.experimental.ollamaOptions": {
       "url": "http://localhost:11434",
       "model": "codellama"
