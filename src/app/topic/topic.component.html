@@ -3,7 +3,7 @@
     <ng-container *ngIf="tabSelected$ | async as tabSelected;">
       <div id="page_header" [TourItem]="{tourid: ['topic_mobile', 'topic_tablet'], index: 2, position: 'bottom'}">
         <div id="user_info_area">
-          <ng-container *ngIf="!auth.loggedIn$.value">
+          <ng-container *ngIf="!auth.loggedIn$.value || topic.visibility === TopicService.VISIBILITY.public">
             <button [routerLink]="['/', translate.currentLang, 'public', 'topics']"><svg width="24" height="24"
                 viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -14,7 +14,7 @@
             <div class="small_heading mobile_hidden"
               [innerHTML]="'VIEWS.TOPICS_TOPICID.HEADING_BACK_TO_PUBLIC_TOPICS'| translate"></div>
           </ng-container>
-          <ng-container *ngIf="auth.loggedIn$.value">
+          <ng-container *ngIf="auth.loggedIn$.value && topic.visibility === TopicService.VISIBILITY.private">
             <button class="btn_medium_close icon" [routerLink]="['/', translate.currentLang, 'my', 'topics']"><svg
                 width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
