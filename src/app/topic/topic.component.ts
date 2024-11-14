@@ -1,29 +1,41 @@
-import { TopicNotificationSettingsComponent } from './components/topic-notification-settings/topic-notification-settings.component';
-import { TopicEventService } from './../services/topic-event.service';
-import { NotificationService } from 'src/app/services/notification.service';
-import { TopicMemberGroupService } from 'src/app/services/topic-member-group.service';
 import { Component, OnInit, Inject, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, of, map, tap, Observable, take, catchError, combineLatest } from 'rxjs';
-import { DialogService } from 'src/app/shared/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { DomSanitizer } from '@angular/platform-browser';
-
-import { TopicAttachmentService } from 'src/app/services/topic-attachment.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { LocationService } from 'src/app/services/location.service';
-import { UploadService } from 'src/app/services/upload.service';
-import { TopicService } from 'src/app/services/topic.service';
-import { TopicArgumentService } from 'src/app/services/topic-argument.service';
-import { TopicVoteService } from 'src/app/services/topic-vote.service';
-import { AppService } from 'src/app/services/app.service';
-import { Topic } from 'src/app/interfaces/topic';
-import { Attachment } from 'src/app/interfaces/attachment';
-import { Vote } from '../interfaces/vote';
-import { Group } from '../interfaces/group';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { ConfirmDialogComponent } from '../shared/components/confirm-dialog/confirm-dialog.component';
-import { TopicMemberUserService } from '../services/topic-member-user.service';
+import { CookieService } from 'ngx-cookie-service';
+
+/** Interfaces*/
+import { Topic } from '@interfaces/topic';
+import { Attachment } from '@interfaces/attachment';
+import { Vote } from '@interfaces/vote';
+import { Group } from '@interfaces/group';
+import { Ideation } from '@interfaces/ideation';
+
+
+/** Services*/
+import { TopicEventService } from '@services/topic-event.service';
+import { NotificationService } from '@services/notification.service';
+import { TopicMemberGroupService } from '@services/topic-member-group.service';
+import { TopicAttachmentService } from '@services/topic-attachment.service';
+import { AuthService } from '@services/auth.service';
+import { LocationService } from '@services/location.service';
+import { UploadService } from '@services/upload.service';
+import { TopicService } from '@services/topic.service';
+import { TopicArgumentService } from '@services/topic-argument.service';
+import { TopicVoteService } from '@services/topic-vote.service';
+import { AppService } from '@services/app.service';
+import { TopicMemberUserService } from '@services/topic-member-user.service';
+import { TopicJoinService } from '@services/topic-join.service';
+import { TourService } from '@services/tour.service';
+import { TopicIdeationService } from '@services/topic-ideation.service';
+
+/** Shared */
+import { DialogService } from '@shared/dialog';
+import { ConfirmDialogComponent } from '@shared/components/confirm-dialog/confirm-dialog.component';
+
+/** Components */
 import { TopicInviteDialogComponent } from './components/topic-invite/topic-invite.component';
 import { TopicParticipantsComponent } from './components/topic-participants/topic-participants.component';
 import { DuplicateTopicDialogComponent } from './components/duplicate-topic-dialog/duplicate-topic-dialog.component';
@@ -32,13 +44,8 @@ import { TopicFollowUpCreateDialogComponent } from './components/topic-follow-up
 import { TopicAddGroupsDialogComponent } from './components/topic-add-groups/topic-add-groups.component';
 import { TopicJoinComponent } from './components/topic-join/topic-join.component';
 import { TopicReportReasonComponent } from './components/topic-report-reason/topic-report-reason.component';
-import { TopicJoinService } from 'src/app/services/topic-join.service';
-import { TourService } from 'src/app/services/tour.service';
 import { InviteEditorsComponent } from './components/invite-editors/invite-editors.component';
 import { TopicOnboardingComponent } from './components/topic-onboarding/topic-onboarding.component';
-import { CookieService } from 'ngx-cookie-service';
-import { TopicIdeationService } from 'src/app/services/topic-ideation.service';
-import { Ideation } from '../interfaces/ideation';
 import { TopicDiscussionCreateDialogComponent } from './components/topic-discussion-create-dialog/topic-discussion-create-dialog.component';
 import { MissingDiscussionComponent } from './components/missing-discussion/missing-discussion.component';
 

@@ -1,0 +1,134 @@
+@use "mixins";
+
+.topic_tabs {
+  display: flex;
+  background-color: var(--color-surfaces);
+  width: 100%;
+  border-radius: 16px;
+  padding: 0px 16px;
+
+  @include mixins.tablet {
+    display: none;
+  }
+
+  &.tablet {
+    display: none;
+    z-index: 999999;
+    display: flex;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 0;
+    justify-content: space-between;
+    &.tour_item {
+      position: relative;
+    }
+    .topic_tab {
+      .active {
+        background-color: var(--color-blue-100);
+        border-bottom: none;
+      }
+      &.discussion.active {
+        background-color: var(--color-discussion);
+        rect {
+          fill: var(--color-blue-100);
+        }
+        path {
+          fill: var(--color-discussion);
+        }
+      }
+      &.voting.active {
+        background-color: var(--color-voting);
+        rect {
+          fill: var(--color-dialog-voting-contrast);
+        }
+        path {
+          fill: var(--color-voting);
+        }
+      }
+      &.follow_up.active {
+        background-color: var(--color-follow-up);
+        rect {
+          fill: var(--color-dialog-follow-up);
+        }
+        path {
+          fill: var(--color-follow-up);
+        }
+      }
+    }
+  }
+
+  &.hidden {
+    display: none;
+  }
+  .tabs_wrap {
+    display: flex;
+  }
+  #activities_button_wrap {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    align-self: end;
+    position: absolute;
+    right: 36px;
+    height: 72px;
+
+    @include mixins.tablet {
+      display: none;
+    }
+  }
+}
+.topic_tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 19px 24px;
+  color: var(--color-text);
+
+  @include mixins.tablet {
+    padding: 12px 38px;
+    width: 100%;
+    justify-content: center;
+  }
+  @include mixins.mobile {
+    padding: 12px 0;
+  }
+  &.active {
+    font-weight: 600;
+    border-bottom: 2px solid var(--color-discussion);
+
+    @include mixins.tablet {
+      background-color: var(--color-blue-100);
+      border-bottom: none;
+    }
+
+    &.ideation {
+      border-bottom: 2px solid var(--color-ideation);
+      @include mixins.tablet {
+        border-bottom: none;
+      }
+    }
+
+    &.voting {
+      border-bottom: 2px solid var(--color-voting);
+      @include mixins.tablet {
+        border-bottom: none;
+      }
+    }
+
+    &.follow_up {
+      border-bottom: 2px solid var(--color-follow-up);
+      @include mixins.tablet {
+        border-bottom: none;
+      }
+    }
+  }
+
+  .tab_text {
+    @include mixins.tablet {
+      display: none;
+    }
+  }
+}
