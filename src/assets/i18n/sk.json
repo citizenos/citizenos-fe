@@ -243,6 +243,7 @@
     "CLOSE_VOTING_CONFIRM": {
       "HEADING": "Uzavrieť hlasovanie",
       "ARE_YOU_SURE": "Určite chcete toto hlasovanie uzavrieť? Tento krok nie je možné odvolať.",
+      "CLOSE_VOTING_DESCRIPTION": "Closing the vote will send the topic into 'Action' phase. Any phases still open will be closed, and participants will no longer be able to contribute.",
       "CONFIRM_YES": "Áno, hlasovanie uzavrieť",
       "CONFIRM_NO": "Nie, ponechať toto hlasovanie otvorené"
     },
@@ -1193,7 +1194,9 @@
       "DIALOG_TAB_INTRODUCTION_ITEM_2": "Stále môžete pozývať účastníkov a zdieľať s nimi",
       "DIALOG_TAB_INTRODUCTION_ITEM_3": "Môžete zverejňovať aktualizácie opatrení prijatých na základe tejto témy",
       "DIALOG_TAB_INTRODUCTION_ITEM_4": "Hlasovanie v tejto téme už nebude viac možné",
-      "DIALOG_TAB_INTRODUCTION_ITEM_5": "Participanti môžu ešte stále pokračovať v diskusii",
+      "DIALOG_TAB_INTRODUCTION_ITEM_5": "Participants will no longer be able to contribute",
+      "DIALOG_TAB_INTRODUCTION_ITEM_6": "You can no longer start a new phase",
+      "DIALOG_TAB_INTRODUCTION_ITEM_7": "Any phases still open will be automatically closed",
       "DIALOG_TAB_INTRODUCTION_INFO": "Toto je posledná fáza témy.",
       "FOLLOW_UP_TITLE_HEADING": "Pridajte názov akcie",
       "FOLLOW_UP_TITLE_HEADING_PLACEHOLDER": "Napíšte názov svojej akcie",
