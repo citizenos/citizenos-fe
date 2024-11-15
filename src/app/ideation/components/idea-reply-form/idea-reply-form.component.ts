@@ -1,10 +1,9 @@
-import { NotificationService } from './../../../services/notification.service';
-import { TopicIdeaRepliesService } from 'src/app/services/topic-idea-replies.service';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { NotificationService } from '@services/notification.service';
+import { TopicIdeaRepliesService } from '@services/topic-idea-replies.service';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { take, map } from 'rxjs';
 import { Argument } from 'src/app/interfaces/argument';
-import { AppService } from 'src/app/services/app.service';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from '@services/auth.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute, Router } from '@angular/router';
 

@@ -2,8 +2,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { NotificationService } from 'src/app/services/notification.service';
-import { LocationService } from 'src/app/services/location.service';
+import { NotificationService } from '@services/notification.service';
+import { LocationService } from '@services/location.service';
 import { map, catchError, share } from 'rxjs/operators';
 import { ApiResponse } from '../interfaces/apiResponse';
 

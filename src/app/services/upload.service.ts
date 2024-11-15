@@ -1,4 +1,4 @@
-import { LocationService } from 'src/app/services/location.service';
+import { LocationService } from '@services/location.service';
 import { HttpClient, HttpRequest, HttpEvent, HttpEventType, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';

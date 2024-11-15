@@ -1,6 +1,6 @@
 import { Idea } from 'src/app/interfaces/idea';
 import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
-import { TopicIdeaService } from 'src/app/services/topic-idea.service';
+import { TopicIdeaService } from '@services/topic-idea.service';
 import { DIALOG_DATA, DialogRef } from 'src/app/shared/dialog';
 import { take } from 'rxjs';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';

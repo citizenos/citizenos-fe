@@ -1,9 +1,9 @@
 import { Discussion } from 'src/app/interfaces/discussion';
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
-import { NotificationService } from 'src/app/services/notification.service';
-import { TopicNotificationService } from 'src/app/services/topic-notification.service';
-import { TopicService } from 'src/app/services/topic.service';
+import { NotificationService } from '@services/notification.service';
+import { TopicNotificationService } from '@services/topic-notification.service';
+import { TopicService } from '@services/topic.service';
 import { tap, map, Observable, take } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 

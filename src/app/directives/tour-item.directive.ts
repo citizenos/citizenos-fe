@@ -1,5 +1,4 @@
-import { Subscription, switchMap, of } from 'rxjs';
-import { TourService } from './../services/tour.service';
+import { TourService } from '@services/tour.service';
 import { Directive, Component, ElementRef, Input, ViewChild } from '@angular/core';
 
 @Component({

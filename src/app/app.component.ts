@@ -4,11 +4,11 @@ import { Router, PRIMARY_OUTLET, Event, NavigationStart, NavigationEnd } from '@
 import { TranslateService } from '@ngx-translate/core';
 import { Title, Meta, MetaDefinition } from '@angular/platform-browser';
 
-import { AuthService} from './services/auth.service';
-import { AppService } from './services/app.service';
-import { LocationService } from './services/location.service';
-import { NotificationService } from './services/notification.service';
-import { ConfigService } from './services/config.service';
+import { AuthService} from '@services/auth.service';
+import { AppService } from '@services/app.service';
+import { LocationService } from '@services/location.service';
+import { NotificationService } from '@services/notification.service';
+import { ConfigService } from '@services/config.service';
 import { takeUntil, Subject, tap, map } from 'rxjs';
 import * as moment from 'moment';
 import { DOCUMENT } from '@angular/common';

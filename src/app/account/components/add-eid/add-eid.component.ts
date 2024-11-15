@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { DIALOG_DATA, DialogService } from 'src/app/shared/dialog';
-import { ConfigService } from 'src/app/services/config.service';
+import { ConfigService } from '@services/config.service';
 import { ConnectEidComponent } from '../connect-eid/connect-eid.component';
 import { ConnectSmartIdComponent } from '../connect-smart-id/connect-smart-id.component';
 

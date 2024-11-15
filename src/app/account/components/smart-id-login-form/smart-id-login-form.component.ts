@@ -1,6 +1,6 @@
 import { Component, Input, Inject } from '@angular/core';
 import { Subscriber, Subscription, catchError, interval, of, switchMap, take, takeWhile } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from '@services/auth.service';
 import { DialogService } from 'src/app/shared/dialog';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';

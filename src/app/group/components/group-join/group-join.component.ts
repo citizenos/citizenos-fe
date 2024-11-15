@@ -1,9 +1,9 @@
-import { GroupService } from 'src/app/services/group.service';
+import { GroupService } from '@services/group.service';
 import { Component, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, take } from 'rxjs';
-import { GroupJoinService } from 'src/app/services/group-join.service';
-import { LocationService } from 'src/app/services/location.service';
+import { GroupJoinService } from '@services/group-join.service';
+import { LocationService } from '@services/location.service';
 import { Group } from 'src/app/interfaces/group';
 import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 

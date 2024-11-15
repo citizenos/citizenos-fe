@@ -1,10 +1,10 @@
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from '@services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { ConfigService } from 'src/app/services/config.service';
+import { ConfigService } from '@services/config.service';
 import { Router, PRIMARY_OUTLET } from '@angular/router';
 import { DialogRef } from 'src/app/shared/dialog';
-import { UserService } from 'src/app/services/user.service';
+import { UserService } from '@services/user.service';
 import { take } from 'rxjs';
 
 @Component({

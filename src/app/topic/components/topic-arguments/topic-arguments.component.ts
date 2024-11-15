@@ -1,20 +1,20 @@
-import { TopicDiscussionService } from 'src/app/services/topic-discussion.service';
+import { TopicDiscussionService } from '@services/topic-discussion.service';
 import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation, Input, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { tap, of, map, take, switchMap, Observable } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { Argument } from 'src/app/interfaces/argument';
-import { AuthService } from 'src/app/services/auth.service';
-import { AppService } from 'src/app/services/app.service';
-import { TopicArgumentService } from 'src/app/services/topic-argument.service';
-import { TopicService } from 'src/app/services/topic.service';
+import { AuthService } from '@services/auth.service';
+import { AppService } from '@services/app.service';
+import { TopicArgumentService } from '@services/topic-argument.service';
+import { TopicService } from '@services/topic.service';
 import { DialogService } from 'src/app/shared/dialog';
 import { TopicDiscussionCreateDialogComponent } from '../topic-discussion-create-dialog/topic-discussion-create-dialog.component';
 import { Discussion } from 'src/app/interfaces/discussion';
 import { TranslateService } from '@ngx-translate/core';
 import { EditDiscussionDeadlineComponent } from '../edit-discussion-deadline/edit-discussion-deadline.component';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
-import { NotificationService } from 'src/app/services/notification.service';
+import { NotificationService } from '@services/notification.service';
 import { MissingDiscussionComponent } from '../missing-discussion/missing-discussion.component';
 
 @Component({

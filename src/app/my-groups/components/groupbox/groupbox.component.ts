@@ -1,10 +1,10 @@
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from '@services/auth.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { DialogService } from 'src/app/shared/dialog';
 import { Router } from '@angular/router';
 
 import { Group } from 'src/app/interfaces/group';
-import { GroupJoinService } from 'src/app/services/group-join.service';
+import { GroupJoinService } from '@services/group-join.service';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { LoginDialogComponent } from 'src/app/account/components/login/login.component';
 import { take } from 'rxjs';

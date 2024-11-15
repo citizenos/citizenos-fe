@@ -1,17 +1,17 @@
 import { Component, Inject } from '@angular/core';
-import { UserTopicService } from '../services/user-topic.service';
+import { UserTopicService } from '@services/user-topic.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '@services/auth.service';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, combineLatest, map, of, switchMap } from 'rxjs';
 import { Topic } from '../interfaces/topic';
-import { AppService } from '../services/app.service';
-import { TopicService } from '../services/topic.service';
+import { AppService } from '@services/app.service';
+import { TopicService } from '@services/topic.service';
 import { trigger, state, style } from '@angular/animations';
-import { countries } from '../services/country.service';
-import { languages } from '../services/language.service';
-import { Country } from 'src/app/interfaces/country';
-import { Language } from 'src/app/interfaces/language';
+import { countries } from '@services/country.service';
+import { languages } from '@services/language.service';
+import { Country } from '@interfaces/country';
+import { Language } from '@interfaces/language';
 
 @Component({
   selector: 'my-topics',

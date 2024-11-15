@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { TopicArgumentService } from 'src/app/services/topic-argument.service';
-import { NotificationService } from 'src/app/services/notification.service';
-import { LocationService } from 'src/app/services/location.service';
+import { TopicArgumentService } from '@services/topic-argument.service';
+import { NotificationService } from '@services/notification.service';
+import { LocationService } from '@services/location.service';
 import { Argument } from 'src/app/interfaces/argument';
 import { TranslateService } from '@ngx-translate/core';
 

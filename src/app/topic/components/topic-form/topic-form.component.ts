@@ -3,28 +3,28 @@ import { Component, Inject, ViewChild, ElementRef, Input, ChangeDetectorRef } fr
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, tap, of, take, BehaviorSubject, Observable, takeWhile, switchMap, Subject } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
-import { TopicService } from 'src/app/services/topic.service';
+import { TopicService } from '@services/topic.service';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { DialogService } from 'src/app/shared/dialog';
-import { GroupService } from 'src/app/services/group.service';
+import { GroupService } from '@services/group.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Group, TopicMemberGroup } from 'src/app/interfaces/group';
 import { TranslateService } from '@ngx-translate/core';
-import { TopicMemberGroupService } from 'src/app/services/topic-member-group.service';
-import { TopicMemberUserService } from 'src/app/services/topic-member-user.service';
-import { TopicInviteUserService } from 'src/app/services/topic-invite-user.service';
+import { TopicMemberGroupService } from '@services/topic-member-group.service';
+import { TopicMemberUserService } from '@services/topic-member-user.service';
+import { TopicInviteUserService } from '@services/topic-invite-user.service';
 import { TopicParticipantsDialogComponent } from '../topic-participants/topic-participants.component';
 import { InviteEditorsComponent } from '../invite-editors/invite-editors.component';
-import { NotificationService } from 'src/app/services/notification.service';
+import { NotificationService } from '@services/notification.service';
 import { TopicInviteDialogComponent } from '../topic-invite/topic-invite.component';
-import { countries } from 'src/app/services/country.service';
-import { languages } from 'src/app/services/language.service';
-import { UploadService } from 'src/app/services/upload.service';
+import { countries } from '@services/country.service';
+import { languages } from '@services/language.service';
+import { UploadService } from '@services/upload.service';
 import { TopicSettingsDisabledDialogComponent } from '../topic-settings-disabled-dialog/topic-settings-disabled-dialog.component';
 import { Attachment } from 'src/app/interfaces/attachment';
-import { TopicAttachmentService } from 'src/app/services/topic-attachment.service';
-import { GroupMemberTopicService } from 'src/app/services/group-member-topic.service';
-import { TopicDiscussionService } from 'src/app/services/topic-discussion.service';
+import { TopicAttachmentService } from '@services/topic-attachment.service';
+import { GroupMemberTopicService } from '@services/group-member-topic.service';
+import { TopicDiscussionService } from '@services/topic-discussion.service';
 
 @Component({
   selector: 'topic-form',

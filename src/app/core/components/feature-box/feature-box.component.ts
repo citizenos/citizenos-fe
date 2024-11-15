@@ -1,9 +1,9 @@
 import { Router } from '@angular/router';
 import { Component, Input, inject } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { LocationService } from 'src/app/services/location.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { AppService } from 'src/app/services/app.service';
+import { LocationService } from '@services/location.service';
+import { AuthService } from '@services/auth.service';
+import { AppService } from '@services/app.service';
 
 @Component({
   selector: 'feature-box',

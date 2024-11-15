@@ -9,19 +9,19 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ItemsListService } from './items-list.service';
 import { LocationService } from './location.service';
 import { AuthService } from './auth.service';
-import { AppService } from 'src/app/services/app.service';
-import { TopicService } from 'src/app/services/topic.service';
+import { AppService } from '@services/app.service';
+import { TopicService } from '@services/topic.service';
 import { DialogService } from 'src/app/shared/dialog';
 import { BlockNavigationIfChange } from 'src/app/shared/pending-changes.guard';
-import { NotificationService } from 'src/app/services/notification.service';
-import { UploadService } from 'src/app/services/upload.service';
-import { GroupService } from 'src/app/services/group.service';
-import { GroupMemberTopicService } from 'src/app/services/group-member-topic.service';
-import { TopicInviteUserService } from 'src/app/services/topic-invite-user.service';
-import { TopicMemberUserService } from 'src/app/services/topic-member-user.service';
-import { TopicAttachmentService } from 'src/app/services/topic-attachment.service';
-import { TopicMemberGroupService } from 'src/app/services/topic-member-group.service';
-import { TopicDiscussionService } from 'src/app/services/topic-discussion.service';
+import { NotificationService } from '@services/notification.service';
+import { UploadService } from '@services/upload.service';
+import { GroupService } from '@services/group.service';
+import { GroupMemberTopicService } from '@services/group-member-topic.service';
+import { TopicInviteUserService } from '@services/topic-invite-user.service';
+import { TopicMemberUserService } from '@services/topic-member-user.service';
+import { TopicAttachmentService } from '@services/topic-attachment.service';
+import { TopicMemberGroupService } from '@services/topic-member-group.service';
+import { TopicDiscussionService } from '@services/topic-discussion.service';
 
 @Injectable({
   providedIn: 'root'

@@ -4,11 +4,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, take, tap } from 'rxjs';
 import { RegisterComponent } from 'src/app/account/components/register/register.component';
 import { InviteData } from 'src/app/interfaces/dialogdata';
-import { AuthService } from 'src/app/services/auth.service';
-import { ConfigService } from 'src/app/services/config.service';
-import { LocationService } from 'src/app/services/location.service';
-import { NotificationService } from 'src/app/services/notification.service';
-import { TopicInviteUserService } from 'src/app/services/topic-invite-user.service';
+import { AuthService } from '@services/auth.service';
+import { ConfigService } from '@services/config.service';
+import { LocationService } from '@services/location.service';
+import { NotificationService } from '@services/notification.service';
+import { TopicInviteUserService } from '@services/topic-invite-user.service';
 
 @Component({
   selector: 'app-topic-invitation',

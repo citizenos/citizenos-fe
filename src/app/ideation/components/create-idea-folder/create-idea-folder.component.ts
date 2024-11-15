@@ -1,10 +1,10 @@
-import { TopicIdeaService } from 'src/app/services/topic-idea.service';
+import { TopicIdeaService } from '@services/topic-idea.service';
 import { Component, Inject } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable, Subscription, map, of, take, combineLatest, switchMap, tap } from 'rxjs';
 import { Idea } from 'src/app/interfaces/idea';
 import { DIALOG_DATA, DialogRef } from 'src/app/shared/dialog';
-import { TopicIdeationFoldersService } from 'src/app/services/topic-ideation-folders.service';
+import { TopicIdeationFoldersService } from '@services/topic-ideation-folders.service';
 
 @Component({
   selector: 'app-create-idea-folder',
