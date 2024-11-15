@@ -1,4 +1,4 @@
-import { TopicIdeaService } from 'src/app/services/topic-idea.service';
+import { TopicIdeaService } from '@services/topic-idea.service';
 import { Component, OnInit, Inject } from '@angular/core';
 import { map, of } from 'rxjs';
 import { DIALOG_DATA } from 'src/app/shared/dialog';

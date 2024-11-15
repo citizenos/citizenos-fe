@@ -1,4 +1,4 @@
-import { languages } from 'src/app/services/language.service';
+import { languages } from '@services/language.service';
 
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, PRIMARY_OUTLET } from '@angular/router';
@@ -6,16 +6,16 @@ import { map, take, takeWhile } from 'rxjs/operators';
 import { DialogService } from 'src/app/shared/dialog';
 
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
-import { AppService } from 'src/app/services/app.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { UserService } from 'src/app/services/user.service';
-import { TopicNotificationService } from 'src/app/services/topic-notification.service';
+import { AppService } from '@services/app.service';
+import { AuthService } from '@services/auth.service';
+import { UserService } from '@services/user.service';
+import { TopicNotificationService } from '@services/topic-notification.service';
 import { User } from 'src/app/interfaces/user';
-import { NotificationService } from 'src/app/services/notification.service';
+import { NotificationService } from '@services/notification.service';
 import { Observable, of } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { TranslateService } from '@ngx-translate/core';
-import { ConfigService } from 'src/app/services/config.service';
+import { ConfigService } from '@services/config.service';
 
 @Component({
   selector: 'app-profile',

@@ -1,6 +1,6 @@
 import { Observable, of, tap, take, combineLatest, switchMap, map, BehaviorSubject } from 'rxjs';
-import { TourService } from 'src/app/services/tour.service';
-import { AuthService } from 'src/app/services/auth.service';
+import { TourService } from '@services/tour.service';
+import { AuthService } from '@services/auth.service';
 import { Component, ElementRef, HostListener, ViewChild, Renderer2 } from '@angular/core';
 
 @Component({

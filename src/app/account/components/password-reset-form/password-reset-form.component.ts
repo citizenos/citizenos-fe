@@ -1,8 +1,8 @@
 import { Component, Input, Inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
-import { NotificationService } from 'src/app/services/notification.service';
+import { AuthService } from '@services/auth.service';
+import { NotificationService } from '@services/notification.service';
 import { UntypedFormGroup, UntypedFormControl } from '@angular/forms'
 import { DialogService } from 'src/app/shared/dialog';
 

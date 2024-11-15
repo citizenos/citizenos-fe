@@ -1,13 +1,13 @@
-import { GroupService } from 'src/app/services/group.service';
+import { GroupService } from '@services/group.service';
 import { Component, OnInit, Inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 import { Topic } from 'src/app/interfaces/topic';
-import { TopicService } from 'src/app/services/topic.service';
-import { TopicVoteService } from 'src/app/services/topic-vote.service';
-import { TopicMemberGroupService } from 'src/app/services/topic-member-group.service';
-import { TopicMemberUserService } from 'src/app/services/topic-member-user.service';
+import { TopicService } from '@services/topic.service';
+import { TopicVoteService } from '@services/topic-vote.service';
+import { TopicMemberGroupService } from '@services/topic-member-group.service';
+import { TopicMemberUserService } from '@services/topic-member-user.service';
 import { take, switchMap } from 'rxjs';
 import { ModalDatepickerComponent } from 'src/app/shared/components/modal-datepicker/modal-datepicker.component';
 import { DIALOG_DATA, DialogRef, DialogService } from 'src/app/shared/dialog';

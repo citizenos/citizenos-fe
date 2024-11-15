@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppService } from 'src/app/services/app.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { ConfigService } from 'src/app/services/config.service';
-import { SearchService } from 'src/app/services/search.service';
+import { AppService } from '@services/app.service';
+import { AuthService } from '@services/auth.service';
+import { ConfigService } from '@services/config.service';
+import { SearchService } from '@services/search.service';
 import { TranslateService } from '@ngx-translate/core';
 import { debounceTime, distinctUntilChanged, of, take } from 'rxjs';
 import { style, transition, trigger, animate, state } from '@angular/animations';

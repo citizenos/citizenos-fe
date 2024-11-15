@@ -4,11 +4,11 @@ import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { take, tap } from 'rxjs';
-import { AppService } from 'src/app/services/app.service';
-import { ConfigService } from 'src/app/services/config.service';
-import { LocationService } from 'src/app/services/location.service';
-import { NotificationService } from 'src/app/services/notification.service';
-import { TourService } from 'src/app/services/tour.service';
+import { AppService } from '@services/app.service';
+import { ConfigService } from '@services/config.service';
+import { LocationService } from '@services/location.service';
+import { NotificationService } from '@services/notification.service';
+import { TourService } from '@services/tour.service';
 
 @Component({
   selector: 'app-help',

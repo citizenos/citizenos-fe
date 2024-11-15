@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { ConfigService } from 'src/app/services/config.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { NotificationService } from 'src/app/services/notification.service';
+import { ConfigService } from '@services/config.service';
+import { AuthService } from '@services/auth.service';
+import { NotificationService } from '@services/notification.service';
 import { DialogService } from 'src/app/shared/dialog';
 import { take } from 'rxjs';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';

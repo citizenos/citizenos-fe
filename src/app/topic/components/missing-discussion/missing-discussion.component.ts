@@ -1,13 +1,13 @@
-import { TopicIdeationService } from './../../../services/topic-ideation.service';
+import { TopicIdeationService } from '@services/topic-ideation.service';
 import { Component, Inject, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { NotificationService } from 'src/app/services/notification.service';
-import { TopicService } from 'src/app/services/topic.service';
-import { DialogService, DIALOG_DATA, DialogRef } from 'src/app/shared/dialog';
-import { Topic } from 'src/app/interfaces/topic';
+import { NotificationService } from '@services/notification.service';
+import { TopicService } from '@services/topic.service';
+import { DialogService, DIALOG_DATA, DialogRef } from '@shared/dialog';
+import { Topic } from '@interfaces/topic';
 import { take } from 'rxjs';
-import { TopicDiscussionService } from 'src/app/services/topic-discussion.service';
+import { TopicDiscussionService } from '@services/topic-discussion.service';
 
 @Component({
   selector: 'app-missing-discussion',

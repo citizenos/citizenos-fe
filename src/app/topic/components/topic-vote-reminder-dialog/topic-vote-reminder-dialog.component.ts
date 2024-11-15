@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { DIALOG_DATA } from 'src/app/shared/dialog';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from '@services/auth.service';
 
 @Component({
   selector: 'app-topic-vote-reminder-dialog',

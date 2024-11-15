@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { AuthGuard } from './auth/auth.guard';
 import { PageNotFoundComponent } from './core/components/page-not-found/page-not-found.component';
 import { PageUnauthorizedComponent } from './core/components/page-unauthorized/page-unauthorized.component';
-import { authResolver } from './services/auth.service';
+import { authResolver } from '@services/auth.service';
 import { ActivityFeedComponent } from './core/components/activity-feed/activity-feed.component';
 
 const options: ExtraOptions = {

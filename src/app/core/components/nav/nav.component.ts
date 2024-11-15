@@ -1,16 +1,16 @@
 import { DialogService } from 'src/app/shared/dialog';
-import { ConfigService } from 'src/app/services/config.service';
+import { ConfigService } from '@services/config.service';
 
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageSelectComponent } from '../language-select/language-select.component';
 import { AccessibilityMenuComponent } from '../accessibility-menu/accessibility-menu.component';
 
-import { AuthService } from 'src/app/services/auth.service';
-import { LocationService } from 'src/app/services/location.service';
-import { AppService } from 'src/app/services/app.service';
-import { TourService } from 'src/app/services/tour.service';
-import { TopicService } from 'src/app/services/topic.service';
+import { AuthService } from '@services/auth.service';
+import { LocationService } from '@services/location.service';
+import { AppService } from '@services/app.service';
+import { TourService } from '@services/tour.service';
+import { TopicService } from '@services/topic.service';
 import { Observable, take, of, switchMap } from 'rxjs';
 import { NavigationEnd, Router } from '@angular/router';
 @Component({

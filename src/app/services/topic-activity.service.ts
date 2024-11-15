@@ -1,4 +1,4 @@
-import { ActivityService } from 'src/app/services/activity.service';
+import { ActivityService } from '@services/activity.service';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, catchError, map, of } from 'rxjs';

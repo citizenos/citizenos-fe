@@ -3,9 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 import { take } from 'rxjs';
 import { User } from 'src/app/interfaces/user';
-import { AuthService } from 'src/app/services/auth.service';
-import { ConfigService } from 'src/app/services/config.service';
-import { UserService } from 'src/app/services/user.service';
+import { AuthService } from '@services/auth.service';
+import { ConfigService } from '@services/config.service';
+import { UserService } from '@services/user.service';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { AddEidComponent } from '../add-eid/add-eid.component';
 

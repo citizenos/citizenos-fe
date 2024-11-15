@@ -34,7 +34,7 @@ import { GroupShareComponent } from '../group/components/group-share/group-share
 import { GroupAddTopicsComponent, GroupAddTopicsDialogComponent } from '../group/components/group-add-topics/group-add-topics.component';
 
 import { MarkdownDirective } from '../directives/markdown.directive';
-import { MarkdownPipe } from '../services/markdown.service';
+import { MarkdownPipe } from '@services/markdown.service';
 import { MarkdownLinkDialogComponent } from '../directives/components/markdown-link-dialog/markdown-link-dialog.component';
 import { CosEllipsisPipe } from './pipes/cos-ellipsis.pipe';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';

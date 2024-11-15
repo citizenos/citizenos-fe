@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Argument } from 'src/app/interfaces/argument';
-import { ConfigService } from 'src/app/services/config.service';
+import { ConfigService } from '@services/config.service';
 import { ArgumentWhyDialogComponent } from '../argument-why-dialog/argument-why-dialog.component';
 import { DialogService } from 'src/app/shared/dialog';
 

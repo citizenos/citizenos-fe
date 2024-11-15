@@ -1,5 +1,5 @@
-import { TopicIdeationFoldersService } from 'src/app/services/topic-ideation-folders.service';
-import { TopicIdeaService } from 'src/app/services/topic-idea.service';
+import { TopicIdeationFoldersService } from '@services/topic-ideation-folders.service';
+import { TopicIdeaService } from '@services/topic-idea.service';
 import { Component, Inject } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable, map, take } from 'rxjs';

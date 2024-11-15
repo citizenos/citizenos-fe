@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { catchError, interval, map, of, switchMap, take, takeWhile } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from '@services/auth.service';
 import { DIALOG_DATA, DialogService } from 'src/app/shared/dialog';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 

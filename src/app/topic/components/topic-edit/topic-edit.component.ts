@@ -2,7 +2,7 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, Observable, tap, BehaviorSubject, take } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
-import { TopicService } from 'src/app/services/topic.service';
+import { TopicService } from '@services/topic.service';
 import { DialogService } from 'src/app/shared/dialog';
 import { BlockNavigationIfChange } from 'src/app/shared/pending-changes.guard';
 

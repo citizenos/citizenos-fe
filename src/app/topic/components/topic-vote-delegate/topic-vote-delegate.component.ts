@@ -1,9 +1,9 @@
 import { Component, Inject } from '@angular/core';
-import { TopicMemberUserService } from 'src/app/services/topic-member-user.service';
-import { VoteDelegationService } from 'src/app/services/vote-delegation.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { TopicService } from 'src/app/services/topic.service';
-import { NotificationService } from 'src/app/services/notification.service';
+import { TopicMemberUserService } from '@services/topic-member-user.service';
+import { VoteDelegationService } from '@services/vote-delegation.service';
+import { AuthService } from '@services/auth.service';
+import { TopicService } from '@services/topic.service';
+import { NotificationService } from '@services/notification.service';
 import { DIALOG_DATA } from 'src/app/shared/dialog';
 import { debounceTime, distinctUntilChanged, of, take, switchMap } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';

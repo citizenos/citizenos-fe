@@ -1,14 +1,14 @@
 import { Component, OnInit, Inject, Input } from '@angular/core';
 import { Topic } from 'src/app/interfaces/topic';
 import { Group } from 'src/app/interfaces/group';
-import { GroupService } from 'src/app/services/group.service';
-import { AppService } from 'src/app/services/app.service';
-import { SearchService } from 'src/app/services/search.service';
-import { TopicMemberGroupService } from 'src/app/services/topic-member-group.service';
-import { GroupMemberTopicService } from 'src/app/services/group-member-topic.service';
+import { GroupService } from '@services/group.service';
+import { AppService } from '@services/app.service';
+import { SearchService } from '@services/search.service';
+import { TopicMemberGroupService } from '@services/topic-member-group.service';
+import { GroupMemberTopicService } from '@services/group-member-topic.service';
 import { of, tap, switchMap, take, forkJoin } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
-import { TopicService } from 'src/app/services/topic.service';
+import { TopicService } from '@services/topic.service';
 import { DIALOG_DATA, DialogRef } from 'src/app/shared/dialog';
 
 @Component({

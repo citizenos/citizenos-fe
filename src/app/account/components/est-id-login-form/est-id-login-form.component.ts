@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { catchError, interval, map, of, switchMap, take, takeWhile } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
-import { ConfigService } from 'src/app/services/config.service';
+import { AuthService } from '@services/auth.service';
+import { ConfigService } from '@services/config.service';
 import { DialogService } from 'src/app/shared/dialog';
-import { NotificationService } from 'src/app/services/notification.service';
+import { NotificationService } from '@services/notification.service';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 declare let hwcrypto: any;
