@@ -1,15 +1,15 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from '@services/auth.service';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicMemberUser } from 'src/app/interfaces/user';
-import { TopicService } from 'src/app/services/topic.service';
-import { TopicMemberUserService } from 'src/app/services/topic-member-user.service';
+import { TopicService } from '@services/topic.service';
+import { TopicMemberUserService } from '@services/topic-member-user.service';
 import { take } from 'rxjs';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { DialogService } from 'src/app/shared/dialog';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { NotificationService } from 'src/app/services/notification.service';
+import { NotificationService } from '@services/notification.service';
 
 
 @Component({

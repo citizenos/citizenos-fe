@@ -4,8 +4,8 @@ import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 import { Argument } from 'src/app/interfaces/argument';
 import { switchMap, take, combineLatest } from 'rxjs';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
-import { TopicService } from 'src/app/services/topic.service';
-import { TopicIdeaRepliesService } from 'src/app/services/topic-idea-replies.service';
+import { TopicService } from '@services/topic.service';
+import { TopicIdeaRepliesService } from '@services/topic-idea-replies.service';
 
 @Component({
   selector: 'app-idea-reply-report-moderate',

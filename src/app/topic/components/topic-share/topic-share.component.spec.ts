@@ -2,10 +2,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TopicShareComponent } from './topic-share.component';
 import { DialogService } from 'src/app/shared/dialog';
-import { TopicService } from 'src/app/services/topic.service';
-import { TopicJoinService } from 'src/app/services/topic-join.service';
-import { LocationService } from 'src/app/services/location.service';
-import { AuthService } from 'src/app/services/auth.service';
+import { TopicService } from '@services/topic.service';
+import { TopicJoinService } from '@services/topic-join.service';
+import { LocationService } from '@services/location.service';
+import { AuthService } from '@services/auth.service';
 import { of } from 'rxjs';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';

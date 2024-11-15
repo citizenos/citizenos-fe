@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Argument } from 'src/app/interfaces/argument';
-import { TopicArgumentService } from 'src/app/services/topic-argument.service';
-import { AppService } from 'src/app/services/app.service';
-import { AuthService } from 'src/app/services/auth.service';
+import { TopicArgumentService } from '@services/topic-argument.service';
+import { AppService } from '@services/app.service';
+import { AuthService } from '@services/auth.service';
 import { take } from 'rxjs';
 import { trigger, state, style } from '@angular/animations';
 

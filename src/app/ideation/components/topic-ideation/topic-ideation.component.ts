@@ -1,14 +1,14 @@
 import { Component, Input } from '@angular/core';
 import { Topic } from 'src/app/interfaces/topic';
-import { AuthService } from 'src/app/services/auth.service';
-import { AppService } from 'src/app/services/app.service';
-import { NotificationService } from 'src/app/services/notification.service';
-import { TopicService } from 'src/app/services/topic.service';
-import { TopicIdeationService } from 'src/app/services/topic-ideation.service';
+import { AuthService } from '@services/auth.service';
+import { AppService } from '@services/app.service';
+import { NotificationService } from '@services/notification.service';
+import { TopicService } from '@services/topic.service';
+import { TopicIdeationService } from '@services/topic-ideation.service';
 import { DialogService } from 'src/app/shared/dialog';
 import { of, take, map, BehaviorSubject, combineLatest, switchMap } from 'rxjs';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
-import { TopicIdeaService } from 'src/app/services/topic-idea.service';
+import { TopicIdeaService } from '@services/topic-idea.service';
 import { Idea } from 'src/app/interfaces/idea';
 import { Folder } from 'src/app/interfaces/folder';
 import { CreateIdeaFolderComponent } from '../create-idea-folder/create-idea-folder.component';
@@ -18,7 +18,7 @@ import { AddIdeasToFolderComponent } from '../add-ideas-to-folder/add-ideas-to-f
 import { User } from 'src/app/interfaces/user';
 import { EditIdeaFolderComponent } from '../edit-idea-folder/edit-idea-folder.component';
 import { TranslateService } from '@ngx-translate/core';
-import { TopicIdeationFoldersService } from 'src/app/services/topic-ideation-folders.service';
+import { TopicIdeationFoldersService } from '@services/topic-ideation-folders.service';
 
 
 @Component({

@@ -4,13 +4,13 @@ import { DialogService } from 'src/app/shared/dialog';
 import { take } from 'rxjs';
 import { Router } from '@angular/router';
 import { Argument } from 'src/app/interfaces/argument';
-import { AuthService } from 'src/app/services/auth.service';
-import { ConfigService } from 'src/app/services/config.service';
-import { LocationService } from 'src/app/services/location.service';
-import { NotificationService } from 'src/app/services/notification.service';
+import { AuthService } from '@services/auth.service';
+import { ConfigService } from '@services/config.service';
+import { LocationService } from '@services/location.service';
+import { NotificationService } from '@services/notification.service';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { ArgumentReactionsComponent } from 'src/app/topic/components/argument-reactions/argument-reactions.component';
-import { TopicIdeaRepliesService } from 'src/app/services/topic-idea-replies.service';
+import { TopicIdeaRepliesService } from '@services/topic-idea-replies.service';
 import { IdeaReplyReportComponent } from '../idea-reply-report/idea-reply-report.component';
 @Component({
   selector: 'idea-reply',

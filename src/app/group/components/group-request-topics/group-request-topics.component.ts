@@ -1,16 +1,16 @@
-import { NotificationService } from 'src/app/services/notification.service';
+import { NotificationService } from '@services/notification.service';
 import { Topic } from 'src/app/interfaces/topic';
 import { Component, OnInit, Inject } from '@angular/core';
 import { Group } from 'src/app/interfaces/group';
-import { GroupService } from 'src/app/services/group.service';
-import { AppService } from 'src/app/services/app.service';
-import { SearchService } from 'src/app/services/search.service';
-import { GroupMemberTopicService } from 'src/app/services/group-member-topic.service';
+import { GroupService } from '@services/group.service';
+import { AppService } from '@services/app.service';
+import { SearchService } from '@services/search.service';
+import { GroupMemberTopicService } from '@services/group-member-topic.service';
 import { of, tap, switchMap, take, forkJoin } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
-import { TopicService } from 'src/app/services/topic.service';
+import { TopicService } from '@services/topic.service';
 import { DIALOG_DATA, DialogRef } from 'src/app/shared/dialog';
-import { GroupRequestTopicService } from 'src/app/services/group-request-topic.service';
+import { GroupRequestTopicService } from '@services/group-request-topic.service';
 
 @Component({
   selector: 'app-group-request-topics',

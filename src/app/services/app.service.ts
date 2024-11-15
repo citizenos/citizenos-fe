@@ -7,7 +7,7 @@ import { Topic } from '../interfaces/topic';
 import { TopicNotificationSettingsComponent } from '../topic/components/topic-notification-settings/topic-notification-settings.component';
 import { ConfigService } from './config.service';
 import { TopicService } from './topic.service';
-import { LocationService } from 'src/app/services/location.service';
+import { LocationService } from '@services/location.service';
 import { GroupMemberTopicService } from './group-member-topic.service';
 import { Router } from '@angular/router';
 import { LoginDialogComponent } from '../account/components/login/login.component';

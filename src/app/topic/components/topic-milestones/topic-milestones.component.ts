@@ -1,8 +1,8 @@
 import { Topic } from 'src/app/interfaces/topic';
 import { Event } from 'src/app/interfaces/event';
 import { Component, OnInit, Input } from '@angular/core';
-import { TopicEventService } from 'src/app/services/topic-event.service';
-import { TopicService } from 'src/app/services/topic.service';
+import { TopicEventService } from '@services/topic-event.service';
+import { TopicService } from '@services/topic.service';
 import { DialogService } from 'src/app/shared/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { take, of, map } from 'rxjs';

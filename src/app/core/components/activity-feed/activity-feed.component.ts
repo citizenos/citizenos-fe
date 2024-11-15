@@ -2,9 +2,9 @@ import { style, transition, trigger, animate, state } from '@angular/animations'
 import { Component, OnInit, Input, inject} from '@angular/core';
 import { DIALOG_DATA, DialogRef, DialogService } from 'src/app/shared/dialog';
 import { map, tap, of } from 'rxjs';
-import { ActivityService } from 'src/app/services/activity.service'
+import { ActivityService } from '@services/activity.service'
 import { Location } from '@angular/common';
-import { AppService } from 'src/app/services/app.service';
+import { AppService } from '@services/app.service';
 @Component({
   selector: 'activity-feed',
   templateUrl: './activity-feed.component.html',

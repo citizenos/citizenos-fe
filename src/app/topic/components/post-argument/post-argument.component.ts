@@ -5,9 +5,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { map, take } from 'rxjs';
 import { MarkdownDirective } from 'src/app/directives/markdown.directive';
-import { AppService } from 'src/app/services/app.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { TopicArgumentService } from 'src/app/services/topic-argument.service';
+import { AppService } from '@services/app.service';
+import { AuthService } from '@services/auth.service';
+import { TopicArgumentService } from '@services/topic-argument.service';
 
 @Component({
   selector: 'post-argument',

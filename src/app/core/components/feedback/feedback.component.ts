@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { LocationService } from 'src/app/services/location.service';
-import { NotificationService } from 'src/app/services/notification.service';
+import { LocationService } from '@services/location.service';
+import { NotificationService } from '@services/notification.service';
 import { take } from 'rxjs';
 @Component({
   selector: 'app-feedback',
