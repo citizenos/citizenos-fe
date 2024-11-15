@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { Group } from 'src/app/interfaces/group';
-import { AppService } from 'src/app/services/app.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { GroupService } from 'src/app/services/group.service';
-import { GroupInviteUserService } from 'src/app/services/group-invite-user.service';
+import { AppService } from '@services/app.service';
+import { AuthService } from '@services/auth.service';
+import { GroupService } from '@services/group.service';
+import { GroupInviteUserService } from '@services/group-invite-user.service';
 import { DialogService } from 'src/app/shared/dialog';
 import { catchError, take } from 'rxjs';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';

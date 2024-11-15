@@ -1,13 +1,13 @@
-import { TopicService } from 'src/app/services/topic.service';
+import { TopicService } from '@services/topic.service';
 import { Component, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, take, tap, combineLatest } from 'rxjs';
-import { TopicJoinService } from 'src/app/services/topic-join.service';
-import { LocationService } from 'src/app/services/location.service';
+import { TopicJoinService } from '@services/topic-join.service';
+import { LocationService } from '@services/location.service';
 import { Topic } from 'src/app/interfaces/topic';
 import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
-import { AuthService } from 'src/app/services/auth.service';
-import { AppService } from 'src/app/services/app.service';
+import { AuthService } from '@services/auth.service';
+import { AppService } from '@services/app.service';
 import { User } from 'src/app/interfaces/user';
 
 @Component({

@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GroupSettingsComponent } from './group-settings.component';
 import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
-import { GroupService } from 'src/app/services/group.service';
+import { GroupService } from '@services/group.service';
 import { of } from 'rxjs';
 import { NO_ERRORS_SCHEMA, ElementRef } from '@angular/core';
 

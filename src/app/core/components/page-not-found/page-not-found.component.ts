@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AppService } from 'src/app/services/app.service';
-import { AuthService } from 'src/app/services/auth.service';
+import { AppService } from '@services/app.service';
+import { AuthService } from '@services/auth.service';
 @Component({
   selector: 'app-page-not-found',
   templateUrl: './page-not-found.component.html',

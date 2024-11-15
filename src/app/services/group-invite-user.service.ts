@@ -1,5 +1,5 @@
-import { LocationService } from 'src/app/services/location.service';
-import { ItemsListService } from 'src/app/services/items-list.service';
+import { LocationService } from '@services/location.service';
+import { ItemsListService } from '@services/items-list.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, BehaviorSubject, shareReplay, exhaustMap } from 'rxjs';

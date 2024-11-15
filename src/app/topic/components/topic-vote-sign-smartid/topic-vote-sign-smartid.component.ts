@@ -2,9 +2,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicVoteSignData } from '../topic-vote-sign/topic-vote-sign.component';
-import { TopicVoteService } from 'src/app/services/topic-vote.service';
+import { TopicVoteService } from '@services/topic-vote.service';
 import { take, interval, takeWhile, switchMap, map, catchError, of } from 'rxjs';
-import { NotificationService } from 'src/app/services/notification.service';
+import { NotificationService } from '@services/notification.service';
 import { UntypedFormGroup, UntypedFormControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 

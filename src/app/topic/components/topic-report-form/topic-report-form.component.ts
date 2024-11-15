@@ -2,9 +2,9 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { DialogService, DIALOG_DATA, DialogRef } from 'src/app/shared/dialog';
 import { take, switchMap } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
-import { TopicReportService } from 'src/app/services/topic-report.service';
+import { TopicReportService } from '@services/topic-report.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { TopicService } from 'src/app/services/topic.service';
+import { TopicService } from '@services/topic.service';
 import { Validators, FormBuilder } from '@angular/forms';
 export interface TopicReportFormData {
   topic: Topic

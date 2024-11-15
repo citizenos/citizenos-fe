@@ -3,7 +3,7 @@ import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core'
 import { DIALOG_DATA, DialogRef } from 'src/app/shared/dialog';
 import { take } from 'rxjs';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
-import { TopicIdeaRepliesService } from 'src/app/services/topic-idea-replies.service';
+import { TopicIdeaRepliesService } from '@services/topic-idea-replies.service';
 
 @Component({
   selector: 'idea-reply-report',

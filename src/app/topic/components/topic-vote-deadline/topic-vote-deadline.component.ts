@@ -3,9 +3,9 @@ import { DIALOG_DATA, DialogService } from 'src/app/shared/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { take } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
-import { TopicVoteService } from 'src/app/services/topic-vote.service';
-import { TopicService } from 'src/app/services/topic.service';
-import { NotificationService } from 'src/app/services/notification.service';
+import { TopicVoteService } from '@services/topic-vote.service';
+import { TopicService } from '@services/topic.service';
+import { NotificationService } from '@services/notification.service';
 @Component({
   selector: 'app-topic-vote-deadline',
   templateUrl: './topic-vote-deadline.component.html',

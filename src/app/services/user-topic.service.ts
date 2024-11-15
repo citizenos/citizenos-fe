@@ -1,4 +1,4 @@
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from '@services/auth.service';
 import { Injectable } from '@angular/core';
 import { TopicService } from './topic.service';
 import { BehaviorSubject } from 'rxjs';

@@ -1,14 +1,14 @@
-import { GroupInviteUserService } from 'src/app/services/group-invite-user.service';
+import { GroupInviteUserService } from '@services/group-invite-user.service';
 import { Component, OnInit, Input, Output, EventEmitter, Inject } from '@angular/core';
 import { DIALOG_DATA, DialogRef } from 'src/app/shared/dialog';
 import { isEmail } from 'validator';
 import { take, of, switchMap, BehaviorSubject } from 'rxjs';
 import { Group } from 'src/app/interfaces/group';
-import { GroupJoinService } from 'src/app/services/group-join.service';
-import { GroupMemberUserService } from 'src/app/services/group-member-user.service';
-import { GroupService } from 'src/app/services/group.service';
-import { SearchService } from 'src/app/services/search.service';
-import { NotificationService } from 'src/app/services/notification.service';
+import { GroupJoinService } from '@services/group-join.service';
+import { GroupMemberUserService } from '@services/group-member-user.service';
+import { GroupService } from '@services/group.service';
+import { SearchService } from '@services/search.service';
+import { NotificationService } from '@services/notification.service';
 
 @Component({
   selector: 'group-invite',

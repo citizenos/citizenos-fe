@@ -1,11 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TopicArgumentService } from 'src/app/services/topic-argument.service';
+import { TopicArgumentService } from '@services/topic-argument.service';
 import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 import { Argument } from 'src/app/interfaces/argument';
 import { switchMap, take, combineLatest } from 'rxjs';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
-import { TopicService } from 'src/app/services/topic.service';
+import { TopicService } from '@services/topic.service';
 
 @Component({
   selector: 'app-argument-report-moderate',

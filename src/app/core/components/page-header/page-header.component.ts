@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { AppService } from 'src/app/services/app.service';
-import { AuthService } from 'src/app/services/auth.service';
+import { AppService } from '@services/app.service';
+import { AuthService } from '@services/auth.service';
 import { TranslateService } from '@ngx-translate/core';
 
 

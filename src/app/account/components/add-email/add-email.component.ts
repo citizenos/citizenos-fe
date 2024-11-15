@@ -1,11 +1,11 @@
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from '@services/auth.service';
 import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from 'src/app/services/user.service';
-import { NotificationService } from 'src/app/services/notification.service';
-import { DialogService, DIALOG_DATA, DialogRef } from 'src/app/shared/dialog';
+import { UserService } from '@services/user.service';
+import { NotificationService } from '@services/notification.service';
+import { DialogService, DIALOG_DATA, DialogRef } from '@shared/dialog';
 import { take } from 'rxjs';
-import { User } from 'src/app/interfaces/user';
+import { User } from '@interfaces/user';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 
 export interface AddEmailData {

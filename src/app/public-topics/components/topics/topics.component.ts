@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AppService } from 'src/app/services/app.service';
-import { TopicService } from 'src/app/services/topic.service';
-import { PublicTopicService } from 'src/app/services/public-topic.service';
+import { AppService } from '@services/app.service';
+import { TopicService } from '@services/topic.service';
+import { PublicTopicService } from '@services/public-topic.service';
 import { switchMap, map, of, Subject, BehaviorSubject, combineLatest, } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { trigger, state, style } from '@angular/animations';
-import { AuthService } from 'src/app/services/auth.service';
-import { countries } from 'src/app/services/country.service';
-import { languages } from 'src/app/services/language.service';
+import { AuthService } from '@services/auth.service';
+import { countries } from '@services/country.service';
+import { languages } from '@services/language.service';
 import { Country } from 'src/app/interfaces/country';
 import { Language } from 'src/app/interfaces/language';
 
