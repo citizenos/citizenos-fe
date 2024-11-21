@@ -59,7 +59,6 @@
           </button>
           <div id="activities_button_wrap">
             <activities-button *ngIf="auth.loggedIn$ | async" [topicId]="topic.id"></activities-button>
-            <!-- add [topicId]="topic.id"-->
           </div>
           <div id="tablet_actions" class="dropdown button_dropdown mobile_hidden" [cosDropdown]>
             <button class="btn_medium_close icon">
@@ -356,8 +355,8 @@
                 </div>
                 <div class="notification_title" translate="COMPONENTS.TOPICBOX.NOTIFICATION_TITLE"></div>
                 <div class="notification_links">
-                  <a translate="COMPONENTS.TOPICBOX.NOTIFICATION_LNK_WHY" (click)="reportReasonDialog(topic)"></a>
-                  <a translate="COMPONENTS.TOPICBOX.NOTIFICATION_LNK_VIEW" (click)="hideTopicContent=false"></a>
+                  <a (click)="reportReasonDialog(topic)">{{'COMPONENTS.TOPICBOX.NOTIFICATION_LNK_WHY' | translate}}</a>
+                  <a (click)="hideTopicContent=false">{{'COMPONENTS.TOPICBOX.NOTIFICATION_LNK_VIEW' | translate}}</a>
                 </div>
               </div>
             </div>
