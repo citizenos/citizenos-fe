@@ -1,5 +1,5 @@
 import { AuthService } from '@services/auth.service';
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '@services/user.service';
 import { NotificationService } from '@services/notification.service';
@@ -16,24 +16,21 @@ export interface AddEmailData {
   templateUrl: './add-email.component.html',
   styleUrls: ['./add-email.component.scss']
 })
-export class AddEmailComponent implements OnInit {
+export class AddEmailComponent {
   user!: User;
   form = new UntypedFormGroup({
     email: new UntypedFormControl('', Validators.email),
   });
   errors?: any;
   wWidth = window.innerWidth;
-  constructor(@Inject(DIALOG_DATA) private data: AddEmailData,
-    @Inject(DialogRef<AddEmailComponent>) private emailDialog: DialogRef<AddEmailComponent> ,
-    private dialog: DialogService,
-    private AuthService: AuthService,
-    private Notification: NotificationService,
-    @Inject(Router) private router: Router,
-    private UserService: UserService) {
+  constructor(@Inject(DIALOG_DATA) private readonly data: AddEmailData,
+    @Inject(DialogRef<AddEmailComponent>) private readonly emailDialog: DialogRef<AddEmailComponent> ,
+    private readonly dialog: DialogService,
+    private readonly AuthService: AuthService,
+    private readonly Notification: NotificationService,
+    @Inject(Router) private readonly router: Router,
+    private readonly UserService: UserService) {
     this.user = data.user;
-  }
-
-  ngOnInit(): void {
   }
 
   doUpdateProfile() {
