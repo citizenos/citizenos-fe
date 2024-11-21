@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, PRIMARY_OUTLET } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { switchMap, combineLatest, Observable, of, BehaviorSubject, map } from 'rxjs';
-import { Group } from 'src/app/interfaces/group';
-import { GroupService } from 'src/app/services/group.service';
-import { AppService } from '../services/app.service';
-import { AuthService } from '../services/auth.service';
-import { countries } from '../services/country.service';
-import { languages } from '../services/language.service';
+import { Group } from '@interfaces/group';
+import { GroupService } from '@services/group.service';
+import { AppService } from '@services/app.service';
+import { AuthService } from '@services/auth.service';
+import { countries } from '@services/country.service';
+import { languages } from '@services/language.service';
 import { state, style, trigger } from '@angular/animations';
-import { Country } from 'src/app/interfaces/country';
-import { Language } from 'src/app/interfaces/language';
+import { Country } from '@interfaces/country';
+import { Language } from '@interfaces/language';
 
 @Component({
   selector: 'my-groups',

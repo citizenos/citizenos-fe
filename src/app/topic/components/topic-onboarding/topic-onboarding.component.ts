@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
-import { TourService } from 'src/app/services/tour.service';
+import { AuthService } from '@services/auth.service';
+import { TourService } from '@services/tour.service';
 
 @Component({
   selector: 'app-topic-onboarding',

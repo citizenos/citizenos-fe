@@ -1,12 +1,12 @@
-import { TopicService } from 'src/app/services/topic.service';
-import { GroupService } from 'src/app/services/group.service';
+import { TopicService } from '@services/topic.service';
+import { GroupService } from '@services/group.service';
 import { Observable, map, take } from 'rxjs';
 import { Component, Inject } from '@angular/core';
 import { Group } from 'src/app/interfaces/group';
 import { DIALOG_DATA } from 'src/app/shared/dialog';
-import { GroupRequestTopicService } from 'src/app/services/group-request-topic.service';
-import { NotificationService } from 'src/app/services/notification.service';
-import { GroupMemberTopicService } from 'src/app/services/group-member-topic.service';
+import { GroupRequestTopicService } from '@services/group-request-topic.service';
+import { NotificationService } from '@services/notification.service';
+import { GroupMemberTopicService } from '@services/group-member-topic.service';
 
 @Component({
   selector: 'app-topic-requests',

@@ -1,6 +1,6 @@
 import { TourItemDirective } from './tour-item.directive';
 import { ElementRef } from '@angular/core';
-import { TourService } from './../services/tour.service';
+import { TourService } from '@services/tour.service';
 
 describe('TourItemDirective', () => {
     let directive: TourItemDirective;

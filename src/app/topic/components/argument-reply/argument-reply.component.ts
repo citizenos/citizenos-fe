@@ -1,10 +1,10 @@
-import { NotificationService } from 'src/app/services/notification.service';
+import { NotificationService } from '@services/notification.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { take, map } from 'rxjs';
 import { Argument } from 'src/app/interfaces/argument';
-import { AppService } from 'src/app/services/app.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { TopicArgumentService } from 'src/app/services/topic-argument.service';
+import { AppService } from '@services/app.service';
+import { AuthService } from '@services/auth.service';
+import { TopicArgumentService } from '@services/topic-argument.service';
 import { Router } from '@angular/router';
 @Component({
   selector: 'argument-reply',

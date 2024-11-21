@@ -3,9 +3,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { take } from 'rxjs';
 import { Discussion } from 'src/app/interfaces/discussion';
 import { Topic } from 'src/app/interfaces/topic';
-import { NotificationService } from 'src/app/services/notification.service';
-import { TopicDiscussionService } from 'src/app/services/topic-discussion.service';
-import { TopicService } from 'src/app/services/topic.service';
+import { NotificationService } from '@services/notification.service';
+import { TopicDiscussionService } from '@services/topic-discussion.service';
+import { TopicService } from '@services/topic.service';
 import { DIALOG_DATA, DialogService } from 'src/app/shared/dialog';
 
 @Component({

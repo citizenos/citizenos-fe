@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { PRIMARY_OUTLET, Router, ActivatedRoute } from '@angular/router';
-import { AppService } from 'src/app/services/app.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { TopicService } from 'src/app/services/topic.service';
+import { AppService } from '@services/app.service';
+import { AuthService } from '@services/auth.service';
+import { TopicService } from '@services/topic.service';
 import { Topic } from 'src/app/interfaces/topic';
 import { TranslateService } from '@ngx-translate/core';
-import { TourService } from 'src/app/services/tour.service';
+import { TourService } from '@services/tour.service';
 import { DialogService } from 'src/app/shared/dialog';
 
 @Component({

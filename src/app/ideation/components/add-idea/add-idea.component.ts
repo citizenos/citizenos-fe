@@ -1,5 +1,5 @@
-import { IdeaAttachmentService } from 'src/app/services/idea-attachment.service';
-import { TopicIdeationService } from 'src/app/services/topic-ideation.service';
+import { IdeaAttachmentService } from '@services/idea-attachment.service';
+import { TopicIdeationService } from '@services/topic-ideation.service';
 
 import { trigger, state, style } from '@angular/animations';
 import { Component, OnInit, Input, Inject, EventEmitter, Output, ElementRef, ViewChild } from '@angular/core';
@@ -7,12 +7,12 @@ import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { take, map, takeWhile, of } from 'rxjs';
-import { AppService } from 'src/app/services/app.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { TopicIdeaService } from 'src/app/services/topic-idea.service';
-import { NotificationService } from 'src/app/services/notification.service';
+import { AppService } from '@services/app.service';
+import { AuthService } from '@services/auth.service';
+import { TopicIdeaService } from '@services/topic-idea.service';
+import { NotificationService } from '@services/notification.service';
 import { MarkdownDirective } from 'src/app/directives/markdown.directive';
-import { UploadService } from 'src/app/services/upload.service';
+import { UploadService } from '@services/upload.service';
 import { Attachment } from 'src/app/interfaces/attachment';
 
 @Component({

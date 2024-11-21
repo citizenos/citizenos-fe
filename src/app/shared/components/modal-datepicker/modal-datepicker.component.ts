@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { DialogRef, DIALOG_DATA } from 'src/app/shared/dialog';
 import { take } from 'rxjs';
-import { TopicVoteService } from 'src/app/services/topic-vote.service';
+import { TopicVoteService } from '@services/topic-vote.service';
 import { Topic } from 'src/app/interfaces/topic';
 
 export interface DatepickerModalData {

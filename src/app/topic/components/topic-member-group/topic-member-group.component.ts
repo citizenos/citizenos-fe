@@ -5,8 +5,8 @@ import { DialogService } from 'src/app/shared/dialog';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicMemberGroup } from 'src/app/interfaces/group';
 
-import { TopicService } from 'src/app/services/topic.service';
-import { TopicMemberGroupService } from 'src/app/services/topic-member-group.service';
+import { TopicService } from '@services/topic.service';
+import { TopicMemberGroupService } from '@services/topic-member-group.service';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 @Component({
   selector: 'topic-member-group',

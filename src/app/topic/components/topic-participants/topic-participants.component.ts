@@ -1,10 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { DialogService, DIALOG_DATA, DialogRef } from 'src/app/shared/dialog';
 import { Topic } from 'src/app/interfaces/topic';
-import { TopicMemberUserService } from 'src/app/services/topic-member-user.service';
-import { TopicInviteUserService } from 'src/app/services/topic-invite-user.service';
-import { TopicMemberGroupService } from 'src/app/services/topic-member-group.service';
-import { TopicService } from 'src/app/services/topic.service';
+import { TopicMemberUserService } from '@services/topic-member-user.service';
+import { TopicInviteUserService } from '@services/topic-invite-user.service';
+import { TopicMemberGroupService } from '@services/topic-member-group.service';
+import { TopicService } from '@services/topic.service';
 import { of, take, tap, switchMap } from 'rxjs';
 import { TopicMemberUser } from 'src/app/interfaces/user';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';

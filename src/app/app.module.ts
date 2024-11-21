@@ -9,8 +9,8 @@ import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { MomentModule } from 'ngx-moment';
 
 
-import { MarkdownService, MarkdownModule } from './services/markdown.service';
-import { ConfigModule, ConfigService } from './services/config.service';
+import { MarkdownService, MarkdownModule } from '@services/markdown.service';
+import { ConfigModule, ConfigService } from '@services/config.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HelpComponent } from './core/components/help/help.component';
@@ -23,7 +23,7 @@ import { NgxTranslateDebugParser } from 'ngx-translate-debug';
 import { LanguageSelectComponent } from './core/components/language-select/language-select.component';
 import { ActivityFeedComponent, ActivityFeedDialogComponent } from './core/components/activity-feed/activity-feed.component';
 import { SharedModule } from './shared/shared.module';
-import { HttpErrorInterceptor } from './services/http.error.interceptor.service';
+import { HttpErrorInterceptor } from '@services/http.error.interceptor.service';
 import { SearchComponent } from './core/components/search/search.component';
 import { PageNotFoundComponent } from './core/components/page-not-found/page-not-found.component';
 import { PageUnauthorizedComponent } from './core/components/page-unauthorized/page-unauthorized.component';
