@@ -1,6 +1,6 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi, withXsrfConfiguration } from '@angular/common/http';
 import { TranslateModule, TranslateLoader, TranslateCompiler, MissingTranslationHandler, TranslateService, TranslateParser } from '@ngx-translate/core';
@@ -15,9 +15,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HelpComponent } from './core/components/help/help.component';
 import { NavComponent } from './core/components/nav/nav.component';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './core/components/home/home.component';
-import { } from '@ngx-translate/core';
 import { JSONPointerCompiler, CosMissingTranslationHandler, createTranslateLoader } from './TranslateHandlers';
 import { NgxTranslateDebugParser } from 'ngx-translate-debug';
 import { LanguageSelectComponent } from './core/components/language-select/language-select.component';
