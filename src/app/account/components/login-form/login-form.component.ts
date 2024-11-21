@@ -1,15 +1,13 @@
-import { PlausibleService } from './../../../services/plausible.service';
-import { AuthService } from 'src/app/services/auth.service';
+import { PlausibleService } from '@services/plausible.service';
+import { AuthService } from '@services/auth.service';
 import { Component, Inject, Input } from '@angular/core';
-import { NotificationService } from 'src/app/services/notification.service';
-import { LocationService } from 'src/app/services/location.service';
+import { NotificationService } from '@services/notification.service';
+import { LocationService } from '@services/location.service';
 import { Router } from '@angular/router';
 import { DialogService } from 'src/app/shared/dialog';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { PasswordForgotComponent } from '../password-forgot/password-forgot.component';
 import { TranslateService } from '@ngx-translate/core';
-import { RegisterDialogComponent } from '../register/register.component';
-import { take } from 'rxjs';
 
 @Component({
   selector: 'login-form',

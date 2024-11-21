@@ -4,11 +4,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, switchMap, tap, take, combineLatest, Subject, BehaviorSubject } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
-import { AppService } from 'src/app/services/app.service';
-import { TopicService } from 'src/app/services/topic.service';
+import { AppService } from '@services/app.service';
+import { TopicService } from '@services/topic.service';
 import { DialogService } from 'src/app/shared/dialog';
 import { BlockNavigationIfChange } from 'src/app/shared/pending-changes.guard';
-import { TopicDiscussionService } from 'src/app/services/topic-discussion.service';
+import { TopicDiscussionService } from '@services/topic-discussion.service';
 
 @Component({
   selector: 'app-topic-create',

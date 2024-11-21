@@ -1,18 +1,17 @@
-import { GroupMemberTopicService } from 'src/app/services/group-member-topic.service';
-import { countries } from './../../../services/country.service';
-import { TopicIdeaService } from 'src/app/services/topic-idea.service';
-import { TopicEventService } from 'src/app/services/topic-event.service';
+import { GroupMemberTopicService } from '@services/group-member-topic.service';
+import { TopicIdeaService } from '@services/topic-idea.service';
+import { TopicEventService } from '@services/topic-event.service';
 import { Router } from '@angular/router';
-import { TopicService } from 'src/app/services/topic.service';
-import { TopicVoteService } from 'src/app/services/topic-vote.service';
+import { TopicService } from '@services/topic.service';
+import { TopicVoteService } from '@services/topic-vote.service';
 import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
-import { Topic } from 'src/app/interfaces/topic';
+import { Topic } from '@interfaces/topic';
 import { Observable, map, of, take, tap } from 'rxjs';
-import { Vote } from 'src/app/interfaces/vote';
-import { DialogService } from 'src/app/shared/dialog';
+import { Vote } from '@interfaces/vote';
+import { DialogService } from '@shared/dialog';
 import { TopicReportReasonComponent } from 'src/app/topic/components/topic-report-reason/topic-report-reason.component';
 import { TranslateService } from '@ngx-translate/core';
-import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from '@shared/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'topicbox',

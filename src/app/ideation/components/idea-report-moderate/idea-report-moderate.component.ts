@@ -1,10 +1,10 @@
-import { TopicIdeaService } from 'src/app/services/topic-idea.service';
+import { TopicIdeaService } from '@services/topic-idea.service';
 import { Component, OnInit, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 import { switchMap, take, combineLatest } from 'rxjs';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
-import { TopicService } from 'src/app/services/topic.service';
+import { TopicService } from '@services/topic.service';
 import { Idea } from 'src/app/interfaces/idea';
 
 @Component({

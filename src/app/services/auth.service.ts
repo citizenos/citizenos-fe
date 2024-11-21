@@ -1,4 +1,4 @@
-import { ConfigService } from 'src/app/services/config.service';
+import { ConfigService } from '@services/config.service';
 import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';

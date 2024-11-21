@@ -2,8 +2,8 @@ import { Component, Inject } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { map, take } from 'rxjs';
 import { Folder } from 'src/app/interfaces/folder';
-import { TopicIdeaService } from 'src/app/services/topic-idea.service';
-import { TopicIdeationFoldersService } from 'src/app/services/topic-ideation-folders.service';
+import { TopicIdeaService } from '@services/topic-idea.service';
+import { TopicIdeationFoldersService } from '@services/topic-ideation-folders.service';
 import { DIALOG_DATA, DialogRef } from 'src/app/shared/dialog';
 
 @Component({

@@ -1,19 +1,19 @@
-import { TopicIdeationFoldersService } from './../../../services/topic-ideation-folders.service';
+import { TopicIdeationFoldersService } from '@services/topic-ideation-folders.service';
 import { Component, OnInit, Output, EventEmitter, Input, Inject, inject, ChangeDetectorRef } from '@angular/core';
-import { Topic } from 'src/app/interfaces/topic';
-import { TopicService } from 'src/app/services/topic.service';
-import { TopicVoteService } from 'src/app/services/topic-vote.service';
-import { NotificationService } from 'src/app/services/notification.service';
+import { Topic } from '@interfaces/topic';
+import { TopicService } from '@services/topic.service';
+import { TopicVoteService } from '@services/topic-vote.service';
+import { NotificationService } from '@services/notification.service';
 import { TranslateService } from '@ngx-translate/core';
-import { map, take, Observable, takeWhile, switchMap, of, BehaviorSubject, tap } from 'rxjs';
+import { map, take, Observable, of, BehaviorSubject, tap } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
-import { Vote } from 'src/app/interfaces/vote';
+import { DialogService, DIALOG_DATA } from '@shared/dialog';
+import { Vote } from '@interfaces/vote';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { TopicIdeaService } from 'src/app/services/topic-idea.service';
-import { Idea } from 'src/app/interfaces/idea';
-import { TopicIdeationService } from 'src/app/services/topic-ideation.service';
-import { Folder } from 'src/app/interfaces/folder';
+import { TopicIdeaService } from '@services/topic-idea.service';
+import { Idea } from '@interfaces/idea';
+import { TopicIdeationService } from '@services/topic-ideation.service';
+import { Folder } from '@interfaces/folder';
 @Component({
   selector: 'topic-vote-create',
   templateUrl: './topic-vote-create.component.html',

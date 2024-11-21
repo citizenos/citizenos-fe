@@ -117,12 +117,15 @@ We listen to our users in issues.
 
 **NOTES:**
 
-* By default the app runs against CitizenOS public testing environment (https://test.api.citizenos.com). If you want to run against your local [citizenos-api](https://github.com/citizenos/citizenos-api) instance, modify the url in app.js to https://dev.api.citizenos.com:3003
+* By default the app runs against CitizenOS public development environment (https://development.api.citizenos.com). If you want to run against your local [citizenos-api](https://github.com/citizenos/citizenos-api) instance, modify the url in app.js to https://dev.api.citizenos.com:3003
 
 ## :thumbsup: Contributing
 
+https://github.com/citizenos/citizenos-api/wiki/Development-guidelines
+
 ### Pull requests
 
-* All pull requests to `master` branch
+* All pull requests to `development` branch
+* Translations and live-ready code in `master`branch
 * Live site runs on `prod` branch
 * All the other ways to contribute - https://citizenos.com/get-involved/

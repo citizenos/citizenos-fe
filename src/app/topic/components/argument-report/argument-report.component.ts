@@ -1,6 +1,6 @@
 import { Argument } from 'src/app/interfaces/argument';
 import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
-import { TopicArgumentService } from 'src/app/services/topic-argument.service';
+import { TopicArgumentService } from '@services/topic-argument.service';
 import { DIALOG_DATA, DialogRef } from 'src/app/shared/dialog';
 import { take } from 'rxjs';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';

@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { LocationService } from 'src/app/services/location.service';
+import { LocationService } from '@services/location.service';
 import { map } from 'rxjs/operators';
 import { ApiResponse } from '../interfaces/apiResponse';
 

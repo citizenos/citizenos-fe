@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Topic } from 'src/app/interfaces/topic';
-import { TopicService } from 'src/app/services/topic.service';
-import { TopicInviteUserService } from 'src/app/services/topic-invite-user.service';
+import { TopicService } from '@services/topic.service';
+import { TopicInviteUserService } from '@services/topic-invite-user.service';
 import { take, forkJoin } from 'rxjs';
 import { TopicMemberInviteDeleteComponent } from '../topic-member-invite-delete/topic-member-invite-delete.component';
 import { DialogService } from 'src/app/shared/dialog';

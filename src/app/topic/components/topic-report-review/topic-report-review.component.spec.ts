@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TopicReportReviewComponent } from './topic-report-review.component';
-import { TopicReportService } from 'src/app/services/topic-report.service';
+import { TopicReportService } from '@services/topic-report.service';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { of, throwError } from 'rxjs';
 import { ReactiveFormsModule, UntypedFormControl, UntypedFormGroup } from '@angular/forms';

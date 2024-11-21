@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { map, of, distinct } from 'rxjs';
-import { TopicArgumentService } from 'src/app/services/topic-argument.service';
+import { TopicArgumentService } from '@services/topic-argument.service';
 import { DIALOG_DATA } from 'src/app/shared/dialog';
 
 export interface ArgumentReactionsData {

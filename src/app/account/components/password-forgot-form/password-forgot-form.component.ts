@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { take } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
-import { NotificationService } from 'src/app/services/notification.service';
+import { AuthService } from '@services/auth.service';
+import { NotificationService } from '@services/notification.service';
 
 @Component({
   selector: 'password-forgot-form',
