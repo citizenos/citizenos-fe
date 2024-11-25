@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, Inject, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, of, map, tap, Observable, take, catchError, combineLatest } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
@@ -94,7 +94,7 @@ import { MissingDiscussionComponent } from './components/missing-discussion/miss
   ]
 })
 
-export class TopicComponent implements OnInit {
+export class TopicComponent {
   //new
   readMoreButton = false;
   skipTour = false;
@@ -159,27 +159,27 @@ export class TopicComponent implements OnInit {
   topicStatus = this.TopicService.STATUSES.inProgress;
   constructor(
     @Inject(TranslateService) public translate: TranslateService,
-    @Inject(DialogService) private DialogService: DialogService,
+    @Inject(DialogService) private readonly  DialogService: DialogService,
     public auth: AuthService,
     public TopicService: TopicService,
-    @Inject(Router) private router: Router,
-    @Inject(ActivatedRoute) private route: ActivatedRoute,
-    private Upload: UploadService,
-    private Location: LocationService,
-    private NotificationService: NotificationService,
-    private TopicMemberUserService: TopicMemberUserService,
-    private TopicMemberGroupService: TopicMemberGroupService,
+    @Inject(Router) private readonly router: Router,
+    @Inject(ActivatedRoute) private readonly  route: ActivatedRoute,
+    private readonly Upload: UploadService,
+    private readonly Location: LocationService,
+    private readonly NotificationService: NotificationService,
+    private readonly TopicMemberUserService: TopicMemberUserService,
+    private readonly TopicMemberGroupService: TopicMemberGroupService,
     public TopicAttachmentService: TopicAttachmentService,
-    private TopicJoinService: TopicJoinService,
+    private readonly TopicJoinService: TopicJoinService,
     public TopicArgumentService: TopicArgumentService,
-    private TopicVoteService: TopicVoteService,
-    private TopicIdeationService: TopicIdeationService,
+    private readonly TopicVoteService: TopicVoteService,
+    private readonly TopicIdeationService: TopicIdeationService,
     public TopicEventService: TopicEventService,
-    private TourService: TourService,
-    private cd: ChangeDetectorRef,
-    @Inject(DomSanitizer) private sanitizer: DomSanitizer,
+    private readonly TourService: TourService,
+    private readonly cd: ChangeDetectorRef,
+    @Inject(DomSanitizer) private readonly sanitizer: DomSanitizer,
     public app: AppService,
-    private CookieService: CookieService
+    private readonly CookieService: CookieService
   ) {
     this.app.darkNav = true;
     this.tabSelected$ = combineLatest([this.route.fragment, this.route.queryParams]).pipe(
@@ -204,8 +204,8 @@ export class TopicComponent implements OnInit {
         if (this.topicStatus === this.STATUSES.voting && !value) return 'voting';
         if (this.topicStatus === this.STATUSES.followUp && !value) return 'followUp';
         if (this.selectedTab !== value)
-          this.selectTab(value || '');
-        return value || 'discussion';
+          this.selectTab(value ?? '');
+        return value ?? 'discussion';
       })
     );
 
@@ -215,16 +215,16 @@ export class TopicComponent implements OnInit {
       })
     );
     this.topic$ = combineLatest([this.route.params, this.route.queryParams]).pipe(
-      switchMap(([params, queryParams]) => {
+      switchMap(([params]) => {
         return this.TopicService.loadTopic(params['topicId']);
       }),
       tap((topic: Topic) => {
-        this.app.setPageTitle(topic.title || 'META_DEFAULT_TITLE');
+        this.app.setPageTitle(topic.title ?? 'META_DEFAULT_TITLE');
         topic.description = topic.description.replace(/href="/gi, 'target="_blank" href="');
         this.app.topic = topic;
-        this.topicTitle = topic.title || '';
+        this.topicTitle = topic.title ?? '';
         this.topicStatus = topic.status;
-        if (topic.report && topic.report.moderatedReasonType) {
+        if (topic.report?.moderatedReasonType) {
           // NOTE: Well.. all views that are under the topics/view/votes/view would trigger doble overlays which we don't want
           // Not nice, but I guess the problem starts with the 2 views using same controller. Ideally they should have a parent controller and extend that with their specific functionality
           this.DialogService.closeAll();
@@ -333,12 +333,6 @@ export class TopicComponent implements OnInit {
     ).subscribe();*/
   }
 
-  ngOnDestroy(): void {
-  }
-
-  ngOnInit(): void {
-  }
-
   ngAfterViewInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
@@ -368,8 +362,8 @@ export class TopicComponent implements OnInit {
     this.DialogService.open(TopicReportReasonComponent, {
       data: {
         report: {
-          moderatedReasonText: topic.report?.moderatedReasonText || topic.report?.text,
-          moderatedReasonType: topic.report?.moderatedReasonType || topic.report?.type,
+          moderatedReasonText: topic.report?.moderatedReasonText ?? topic.report?.text,
+          moderatedReasonType: topic.report?.moderatedReasonType ?? topic.report?.type,
         }
       }
     })
@@ -472,14 +466,14 @@ export class TopicComponent implements OnInit {
 
   downloadAttachment(topicId: string, attachment: Attachment) {
     if (attachment.source === this.TopicAttachmentService.SOURCES.upload) {
-      return this.Upload.download(topicId, attachment.id, this.auth.user.value.id || '');
+      return this.Upload.download(topicId, attachment.id, this.auth.user.value.id ?? '');
     }
     return window.open(attachment.link, '_blank');
   };
 
   ideationDeadlineBar(ideation: Ideation) {
     const start = new Date(ideation.createdAt);
-    const end = new Date(ideation.deadline || new Date());
+    const end = new Date(ideation.deadline ?? new Date());
     const diff = end.getTime() - start.getTime();
     const now = new Date().getTime() - start.getTime();
 
@@ -503,7 +497,7 @@ export class TopicComponent implements OnInit {
       return true;
     }
 
-    return vote && vote.endsAt && new Date() > new Date(vote.endsAt);
+    return vote?.endsAt && new Date() > new Date(vote.endsAt);
   };
 
   addGroupsDialog(topic: Topic) {
