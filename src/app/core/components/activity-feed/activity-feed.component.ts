@@ -36,7 +36,7 @@ export class ActivityFeedComponent implements OnInit {
   @Input() topicId?: string;
   @Input() modal?: boolean;
   @Input() dialogRef?: DialogRef<ActivityFeedDialogComponent>;
-  constructor(public ActivityService: ActivityService, private location: Location, public dialog: DialogService, public app: AppService) {
+  constructor(public ActivityService: ActivityService, private readonly location: Location, public dialog: DialogService, public app: AppService) {
     setTimeout(() => {
       this.show = true
     });
