@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TopicEditDisabledDialogComponent } from './topic-edit-disabled-dialog.component';
+import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 
 describe('TopicEditDisabledDialogComponent', () => {
   let component: TopicEditDisabledDialogComponent;
@@ -8,7 +9,8 @@ describe('TopicEditDisabledDialogComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [TopicEditDisabledDialogComponent]
+      declarations: [TopicEditDisabledDialogComponent],
+      imports: [TranslateModule.forRoot(), TranslatePipe]
     });
     fixture = TestBed.createComponent(TopicEditDisabledDialogComponent);
     component = fixture.componentInstance;

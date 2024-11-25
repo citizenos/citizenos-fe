@@ -25,6 +25,8 @@ import { Attachment } from 'src/app/interfaces/attachment';
 import { TopicAttachmentService } from '@services/topic-attachment.service';
 import { GroupMemberTopicService } from '@services/group-member-topic.service';
 import { TopicDiscussionService } from '@services/topic-discussion.service';
+import { TopicEditDisabledDialogComponent } from '../topic-edit-disabled-dialog/topic-edit-disabled-dialog.component';
+import { TopicSettingsLockedComponent } from '../topic-settings-locked/topic-settings-locked.component';
 
 @Component({
   selector: 'topic-form',
@@ -80,11 +82,11 @@ export class TopicFormComponent {
       } else {
         const contentChilds = content.nativeElement.children[2]?.children;
         let h = 0;
-        for (let i = 0; i < contentChilds.length; i++) {
-          h += contentChilds[i].offsetHeight;
+        for (const child of contentChilds) {
+          h += child.offsetHeight;
           if (h >= 320) {
             this.readMoreButton.next(true);
-            i = contentChilds.length;
+            break;
           }
         }
       }
@@ -231,7 +233,26 @@ export class TopicFormComponent {
         return fragment
       }
       ), tap((fragment) => {
-        if (fragment === 'settings' && !this.TopicService.canDelete(this.topic)) {
+        if (fragment === 'discussion' && !this.TopicService.canEditDescription(this.topic)) {
+          const infoDialog = dialog.open(TopicSettingsLockedComponent);
+          infoDialog.afterClosed().subscribe(() => {
+            if (this.TopicService.canDelete(this.topic)) {
+              this.selectTab('settings')
+            } else {
+              this.selectTab('preview')
+            }
+          });
+        }
+        else if (fragment === 'info' && !this.TopicService.canEditDescription(this.topic)) {
+          const infoDialog = dialog.open(TopicEditDisabledDialogComponent);
+          infoDialog.afterClosed().subscribe(() => {
+            if (this.TopicService.canDelete(this.topic)) {
+              this.selectTab('settings')
+            } else {
+              this.selectTab('preview')
+            }
+          });
+        } else if (fragment === 'settings' && !this.TopicService.canDelete(this.topic)) {
           const infoDialog = this.dialog.open(TopicSettingsDisabledDialogComponent);
           infoDialog.afterClosed().subscribe(() => {
             this.selectTab('info')
@@ -541,9 +562,8 @@ export class TopicFormComponent {
 
   publish() {
     this.titleInput?.nativeElement?.parentNode.parentNode.classList.remove('error');
-    const isDraft = (this.topic.status === this.TopicService.STATUSES.draft);
     this.topic.status = this.TopicService.STATUSES.inProgress;
-    const updateTopic = Object.assign({}, this.topic);
+    const updateTopic = { ...this.topic };
     if (!updateTopic.intro?.length) {
       updateTopic.intro = null;
     }
@@ -596,7 +616,7 @@ export class TopicFormComponent {
   }
 
   createDiscussion(updateTopicStatus?: boolean) {
-    const createDiscussion: any = Object.assign({ topicId: this.topic.id, discussionId: this.discussion.id }, this.discussion);
+    const createDiscussion: any = { topicId: this.topic.id, discussionId: this.discussion.id, ...this.discussion };
     this.TopicDiscussionService.save(createDiscussion)
       .pipe(take(1))
       .subscribe({
@@ -605,7 +625,7 @@ export class TopicFormComponent {
           this.discussion = discussion;
           if (updateTopicStatus) {
             const isDraft = (this.topic.status === this.TopicService.STATUSES.draft);
-            const updateTopic = Object.assign({}, this.topic);
+            const updateTopic = { ...this.topic };
             updateTopic.status = this.TopicService.STATUSES.inProgress;
             this.TopicService.patch(updateTopic).pipe(take(1)).subscribe({
               next: (res) => {
@@ -639,7 +659,7 @@ export class TopicFormComponent {
 
 
   updateDiscussion(updateTopicStatus?: boolean) {
-    const updateDiscussion = Object.assign({ topicId: this.topic.id, discussionId: this.discussion.id }, this.discussion);
+    const updateDiscussion = { topicId: this.topic.id, discussionId: this.discussion.id , ...this.discussion};
     return this.TopicDiscussionService.update(updateDiscussion).pipe(take(1)).subscribe({
       next: () => {
         if (updateTopicStatus) {
