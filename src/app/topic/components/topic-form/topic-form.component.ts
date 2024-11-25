@@ -122,7 +122,7 @@ export class TopicFormComponent {
   groups$: Observable<TopicMemberGroup[] | any[]> = of([]);
   groupsList = <TopicMemberGroup[]>[];
   loadMembers$ = new BehaviorSubject<void>(undefined);
-  members$: Observable<any[] | any[]> = of([]);
+  members$: Observable<any[]> = of([]);
   loadInvite$ = new BehaviorSubject<void>(undefined);
   invites$: Observable<any[]> = of([]);
   topicGroups = <TopicMemberGroup[]>[];
@@ -231,7 +231,7 @@ export class TopicFormComponent {
         return fragment
       }
       ), tap((fragment) => {
-        if (fragment === 'settings' && !this.TopicService.canDelete(<Topic>this.topic)) {
+        if (fragment === 'settings' && !this.TopicService.canDelete(this.topic)) {
           const infoDialog = this.dialog.open(TopicSettingsDisabledDialogComponent);
           infoDialog.afterClosed().subscribe(() => {
             this.selectTab('info')
@@ -314,11 +314,7 @@ export class TopicFormComponent {
 
 
   isNextDisabled(tabSelected: string | void) {
-    if (tabSelected === 'preview' && !this.TopicService.canDelete(this.topic)) {
-      return true;
-    } else if (!this.topic.title || !this.topic.description) {
-      return true;
-    } else if (tabSelected === 'discussion' && !this.discussion.question) {
+    if ((tabSelected === 'preview' && !this.TopicService.canDelete(this.topic)) || !this.topic.title || !this.topic.description || (tabSelected === 'discussion' && !this.discussion.question)) {
       return true;
     }
 
@@ -492,7 +488,7 @@ export class TopicFormComponent {
 
   saveAsDraft() {
     if (this.topic.status === this.TopicService.STATUSES.draft) {
-      const updateTopic = Object.assign({}, this.topic);
+      const updateTopic = { ...this.topic };
       if (!updateTopic.intro?.length) {
         updateTopic.intro = null;
       }
