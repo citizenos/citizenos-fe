@@ -1,9 +1,9 @@
 import { trigger, state, style } from '@angular/animations';
-import { Component, Inject, ChangeDetectorRef, OnInit } from '@angular/core';
+import { Component, Inject, ChangeDetectorRef } from '@angular/core';
 import { DialogService } from 'src/app/shared/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { map, tap, Observable, take, switchMap, BehaviorSubject, Subject } from 'rxjs';
+import { map, tap, Observable, take, switchMap, Subject } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { AppService } from '@services/app.service';
 import { ConfigService } from '@services/config.service';
@@ -23,6 +23,7 @@ import { TopicFormComponent } from 'src/app/topic/components/topic-form/topic-fo
 import { BlockNavigationIfChange } from 'src/app/shared/pending-changes.guard';
 import { TopicDiscussionService } from '@services/topic-discussion.service';
 import { TopicSettingsDisabledDialogComponent } from 'src/app/topic/components/topic-settings-disabled-dialog/topic-settings-disabled-dialog.component';
+import { TopicSettingsLockedComponent } from 'src/app/topic/components/topic-settings-locked/topic-settings-locked.component';
 
 @Component({
   selector: 'app-ideation-create',
@@ -97,9 +98,9 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
     translate: TranslateService,
     cd: ChangeDetectorRef,
     @Inject(DomSanitizer) override sanitizer: DomSanitizer,
-    private app: AppService,
-    private TopicIdeationService: TopicIdeationService,
-    private config: ConfigService) {
+    private readonly app: AppService,
+    private readonly TopicIdeationService: TopicIdeationService,
+    private readonly config: ConfigService) {
     super(dialog, route, router, UploadService, Notification, TopicService, GroupService, GroupMemberTopicService, TopicMemberGroupService, TopicMemberUserService, TopicInviteUserService, TopicAttachmentService, TopicDiscussionService, translate, cd, sanitizer)
     this.app.darkNav = true;
     this.hasUnsavedChanges = new Subject();
@@ -121,19 +122,28 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
         }
         return fragment
       }), tap((fragment) => {
-        if (fragment === 'info' && !this.TopicService.canEditDescription(<Topic>this.topic)) {
+        if (fragment === 'ideation_system' && !this.TopicService.canEditDescription(this.topic)) {
+          const infoDialog = dialog.open(TopicSettingsLockedComponent);
+          infoDialog.afterClosed().subscribe(() => {
+            if (this.TopicService.canDelete(this.topic)) {
+              this.selectTab('settings')
+            } else {
+              this.selectTab('preview')
+            }
+          });
+        } else if (fragment === 'info' && !this.TopicService.canEditDescription(this.topic)) {
           const infoDialog = dialog.open(TopicEditDisabledDialogComponent);
           infoDialog.afterClosed().subscribe(() => {
             this.selectTab('settings')
           });
-        } else if ((fragment === 'settings' || fragment === 'ideation_system') && !this.TopicService.canDelete(<Topic>this.topic)) {
+        } else if ((fragment === 'settings' || fragment === 'ideation_system') && !this.TopicService.canDelete(this.topic)) {
           const infoDialog = this.dialog.open(TopicSettingsDisabledDialogComponent);
           infoDialog.afterClosed().subscribe(() => {
             this.selectTab('info')
           });
         }
       }));
-    // app.createNewTopic();
+
     if (router.url.indexOf('/edit/') > -1) {
       this.isnew = false;
     }
