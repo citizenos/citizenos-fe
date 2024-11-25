@@ -3,7 +3,7 @@ import { Component, Inject, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { DialogService } from 'src/app/shared/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { map, tap, Observable, take, switchMap, BehaviorSubject } from 'rxjs';
+import { map, tap, Observable, take, switchMap } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { AppService } from '@services/app.service';
 import { ConfigService } from '@services/config.service';
@@ -111,9 +111,9 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
     translate: TranslateService,
     cd: ChangeDetectorRef,
     @Inject(DomSanitizer) override sanitizer: DomSanitizer,
-    private app: AppService,
-    private TopicVoteService: TopicVoteService,
-    private config: ConfigService) {
+    private readonly app: AppService,
+    private readonly TopicVoteService: TopicVoteService,
+    private readonly config: ConfigService) {
     super(dialog, route, router, UploadService, Notification, TopicService, GroupService, GroupMemberTopicService, TopicMemberGroupService, TopicMemberUserService, TopicInviteUserService, TopicAttachmentService, TopicDiscussionService, translate, cd, sanitizer)
     this.app.darkNav = true;
     this.GroupService.reset();
@@ -134,19 +134,19 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
         }
         return fragment
       }), tap((fragment) => {
-        if (fragment === 'info' && !this.TopicService.canEditDescription(<Topic>this.topic)) {
+        if (fragment === 'info' && !this.TopicService.canEditDescription(this.topic)) {
           const infoDialog = dialog.open(TopicEditDisabledDialogComponent);
           infoDialog.afterClosed().subscribe(() => {
-            if (this.TopicService.canDelete(<Topic>this.topic)) {
+            if (this.TopicService.canDelete(this.topic)) {
               this.selectTab('settings')
             } else {
               this.selectTab('preview')
             }
           });
-        } else if (fragment === 'settings' && !this.TopicService.canDelete(<Topic>this.topic)) {
+        } else if (fragment === 'settings' && !this.TopicService.canDelete(this.topic)) {
           const infoDialog = this.dialog.open(TopicSettingsDisabledDialogComponent);
           infoDialog.afterClosed().subscribe(() => {
-            if (this.TopicService.canEditDescription(<Topic>this.topic)) {
+            if (this.TopicService.canEditDescription(this.topic)) {
               this.selectTab('info')
             } else {
               this.selectTab('preview')
@@ -307,7 +307,7 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
 
   override saveAsDraft() {
     if (this.topic.status === this.TopicService.STATUSES.draft) {
-      const updateTopic = Object.assign({}, this.topic);
+      const updateTopic = { ...this.topic };
       if (!updateTopic.intro?.length) {
         updateTopic.intro = null;
       }
@@ -344,8 +344,7 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
 
   override publish() {
     this.titleInput?.nativeElement?.parentNode.parentNode.classList.remove('error');
-    const isDraft = (this.topic.status === this.TopicService.STATUSES.draft);
-    const updateTopic = Object.assign({}, this.topic);
+    const updateTopic = { ...this.topic };
     if (!updateTopic.intro?.length) {
       updateTopic.intro = null;
     }
@@ -393,7 +392,7 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
   }
 
   createVote(updateTopicStatus?: boolean) {
-    const createVote: any = Object.assign({ topicId: this.topic.id }, this.vote);
+    const createVote: any = { topicId: this.topic.id, ...this.vote };
     this.TopicVoteService.save(createVote)
       .pipe(take(1))
       .subscribe({
@@ -406,7 +405,7 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
           }
           if (updateTopicStatus) {
             const isDraft = (this.topic.status === this.TopicService.STATUSES.draft);
-            const updateTopic = Object.assign({}, this.topic);
+            const updateTopic = { ...this.topic };
             updateTopic.status = this.TopicService.STATUSES.voting;
             this.TopicService.patch(updateTopic).pipe(take(1)).subscribe({
               next: (res) => {
@@ -442,7 +441,7 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
 
 
   updateVote(updateTopicStatus?: boolean) {
-    const updateVote = Object.assign({ topicId: this.topic.id }, this.vote);
+    const updateVote = { topicId: this.topic.id, ...this.vote };
     let options = updateVote.options.map((opt) => {
       return { value: opt.value, voteId: opt.voteId, id: opt.id };
     })
