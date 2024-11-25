@@ -50,7 +50,7 @@
 
           <div class="image" *ngFor="let image of newImages; index as index">
             <div class="image_data">
-              <img [src]="image.link" />
+              <img [src]="image.link" [alt]="image.name"/>
               <a class="name">{{image.name}}</a>
             </div>
             <button class="btn_small_plain icon" (click)="removeNewImage(index)">
@@ -65,7 +65,7 @@
           </div>
           <div class="image" *ngFor="let image of images; index as index">
             <div class="image_data">
-              <img [src]="image.link" />
+              <img [src]="image.link" [alt]="image.name" />
               <a class="name">{{image.name}}</a>
             </div>
             <button class="btn_small_plain icon" (click)="removeImage(image, index)">
