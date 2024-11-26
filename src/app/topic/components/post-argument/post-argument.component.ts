@@ -1,5 +1,5 @@
 import { trigger, state, style } from '@angular/animations';
-import { Component, OnInit, Input, Inject, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, Inject, ViewChild } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -27,7 +27,7 @@ import { TopicArgumentService } from '@services/topic-argument.service';
       }))
     ])]
 })
-export class PostArgumentComponent implements OnInit {
+export class PostArgumentComponent {
   @Input() topicId!: string;
   @Input() discussionId!: string;
   @ViewChild(MarkdownDirective) editor!: MarkdownDirective;
@@ -47,22 +47,19 @@ export class PostArgumentComponent implements OnInit {
   ARGUMENT_TYPES = Object.keys(this.TopicArgumentService.ARGUMENT_TYPES).filter((key) => key != 'reply');
   ARGUMENT_TYPES_MAXLENGTH = this.TopicArgumentService.ARGUMENT_TYPES_MAXLENGTH;
   ARGUMENT_SUBJECT_MAXLENGTH = this.TopicArgumentService.ARGUMENT_SUBJECT_MAXLENGTH;
-  private COMMENT_VERSION_SEPARATOR = '_v';
+  private readonly COMMENT_VERSION_SEPARATOR = '_v';
   constructor(
     public app: AppService,
-    private AuthService: AuthService,
+    private readonly AuthService: AuthService,
     public TopicArgumentService: TopicArgumentService,
-    @Inject(ActivatedRoute) private route: ActivatedRoute,
+    @Inject(ActivatedRoute) private readonly route: ActivatedRoute,
     @Inject(TranslateService) public translate: TranslateService,
-    @Inject(Router) private router: Router) {
+    @Inject(Router) private readonly router: Router) {
     this.addArgument = this.app.addArgument.pipe(map((val) => {
       this.text = '';
       this.argumentForm.reset();
       return val;
     }))
-  }
-
-  ngOnInit(): void {
   }
 
   loggedIn() {
