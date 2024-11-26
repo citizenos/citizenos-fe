@@ -48,7 +48,7 @@ export class TopicArgumentService extends ItemsListService {
   params = {
     topicId: <string | null> null,
     discussionId: <string | null> null,
-    orderBy: <string>this.ARGUMENT_ORDER_BY.date,
+    orderBy: this.ARGUMENT_ORDER_BY.date,
     types: <string | string[] | null>null,
     sortOrder: <string | null>null,
     offset: <number>0,
@@ -66,7 +66,7 @@ export class TopicArgumentService extends ItemsListService {
   });
   public loadArguments$ = new BehaviorSubject<void>(undefined);
 
-  constructor(private http: HttpClient, private Location: LocationService, private Auth: AuthService) {
+  constructor(private readonly http: HttpClient, private readonly Location: LocationService, private readonly Auth: AuthService) {
     super();
     this.items$ = this.loadItems();
 
@@ -173,7 +173,7 @@ export class TopicArgumentService extends ItemsListService {
     return this.getArguments(params);
   }
 
-  getArguments(params?: any | null) {
+  getArguments(params?: any) {
     return this.query(params).pipe(
       map((res) => {
         this.count.next(res.data.count);
@@ -184,7 +184,7 @@ export class TopicArgumentService extends ItemsListService {
             argument.replies.rows.forEach((reply: Argument) => this.ArgumentIds.push(reply.id))
           }
         })
-        return { rows: res.data.rows, countTotal: (res.data.count.total - res.data.count.reply) || 0 }
+        return { rows: res.data.rows, count: res.data.count, countTotal: (res.data.count.total - res.data.count.reply) || 0 }
       }),
       distinct(),
       catchError(() => EMPTY)
@@ -200,4 +200,31 @@ export class TopicArgumentService extends ItemsListService {
   getArgumentIdWithVersion(argumentId: string, version: number) {
     return argumentId + this.ARGUMENT_VERSION_SEPARATOR + version;
   };
+
+  override loadItems() {
+    return combineLatest([this.page$, this.params$]).pipe(
+      shareReplay(),
+      switchMap(([page, paramsValue]) => {
+        paramsValue.offset = (page - 1) * paramsValue.limit;
+        return this.getItems(paramsValue);
+      }),
+      map((res: any) => {
+        const params = this.params$.value;
+        this.countTotal$.next(res.countTotal || res.count || 0);
+        if (params.types?.length) {
+          let totalCount = 0;
+          let types = (!Array.isArray(params.types))? [params.types] : params.types;
+          console.log(res);
+          types.forEach((type) => totalCount += res.count[type]);
+          this.countTotal$.next(totalCount);
+        }
+        this.totalPages$.next(Math.ceil(this.countTotal$.value / params.limit));
+        this.hasMore$.next(true);
+        if (this.totalPages$.value === 0 || this.totalPages$.value === this.page$.value) {
+          this.hasMore$.next(false);
+        }
+        return Array.from<any>(res.rows);
+      })
+    );
+  }
 }
