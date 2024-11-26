@@ -69,7 +69,7 @@
                 </svg>
                 <span translate="COMPONENTS.ARGUMENT.OPTION_REPORT"></span>
               </button>
-              <button class="option" *ngIf="isEdited()" (click)="argument.showEdits = !argument.showEdits">
+              <button class="option" *ngIf="isEdited()" (click)="showEdits = !showEdits">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                   <path
                     d="M0 6C0.521305 3.15556 3.00971 1 6 1C7.91262 1 9.61969 1.88184 10.7383 3.26175L8.68681 5.31319C8.5647 4.83384 8.31585 4.39155 7.96074 4.03581C7.44072 3.51488 6.73542 3.22222 6 3.22222C5.26458 3.22222 4.55928 3.51488 4.03926 4.03581C3.51924 4.55675 3.2271 5.26329 3.2271 6C3.2271 6.73671 3.51924 7.44325 4.03926 7.96419C4.39321 8.31875 4.83299 8.56757 5.30967 8.69033L3.52425 10.4757C1.71392 9.66945 0.368041 8.00604 0 6Z"
@@ -107,8 +107,8 @@
           (showEdit)="toggleEdit($event)"></edit-argument>
         <argument-deleted *ngIf="argument.deletedAt" [argument]="argument"
           (showDeletedArgument)="showArgument($event)"></argument-deleted>
-        <argument-edits *ngIf="argument.showEdits && isEdited()" [topicId]="topicId"
-          [argument]="argument"></argument-edits>
+        <argument-edits *ngIf="showEdits && isEdited()" [topicId]="topicId"
+          [argument]="argument" [(showEdits)]="showEdits"></argument-edits>
       </div>
       <div class="argument_footer">
         <div class="footer_left">
@@ -256,7 +256,7 @@
     <ng-container *ngIf="isEdited()">
 
       <div class="line_separator"></div>
-      <button class="option" (click)="argument.showEdits = !argument.showEdits;  mobileActions = false;">
+      <button class="option" (click)="showEdits = !showEdits;  mobileActions = false;">
         <span translate="VIEWS.TOPICS_TOPICID.ARGUMENT_LNK_VIEW_PREVIOUS_VERSIONS"></span>
       </button>
     </ng-container>
