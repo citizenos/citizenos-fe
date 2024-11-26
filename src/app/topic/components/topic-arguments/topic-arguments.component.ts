@@ -1,7 +1,7 @@
 import { TopicDiscussionService } from '@services/topic-discussion.service';
 import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation, Input, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { tap, of, map, take, switchMap, Observable } from 'rxjs';
+import { tap, of, map, take, switchMap } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { Argument } from 'src/app/interfaces/argument';
 import { AuthService } from '@services/auth.service';
@@ -36,14 +36,14 @@ export class TopicArgumentsComponent implements OnInit {
   focusArgumentSubject = false;
   filtersSelected = false;
   constructor(
-    private Auth: AuthService,
+    private readonly Auth: AuthService,
     public TopicService: TopicService,
-    private dialog: DialogService,
-    @Inject(ActivatedRoute) private route: ActivatedRoute,
+    private readonly dialog: DialogService,
+    @Inject(ActivatedRoute) private readonly route: ActivatedRoute,
     public translate: TranslateService,
-    private app: AppService,
-    private Notification: NotificationService,
-    private TopicDiscussionService: TopicDiscussionService,
+    private readonly app: AppService,
+    private readonly Notification: NotificationService,
+    private readonly TopicDiscussionService: TopicDiscussionService,
     public TopicArgumentService: TopicArgumentService) {
     this.TopicArgumentService.setParam('limit', 5);
 
@@ -54,7 +54,6 @@ export class TopicArgumentsComponent implements OnInit {
       map((res: any[]) => {
         let results = res.concat([]);
         const argArray = <any[]>[];
-        let children = <any>{};
         const countTree = (parentNode: any, currentNode: any) => {
           argArray.push(currentNode);
           if (currentNode.replies.rows.length > 0) {
@@ -63,7 +62,7 @@ export class TopicArgumentsComponent implements OnInit {
                 countTree(reply, reply);
               } else {
                 countTree(parentNode, reply);
-                const replyClone = Object.assign({}, reply);
+                const replyClone = { ...reply };
                 replyClone.replies = [];
                 if (!parentNode.children) parentNode.children = [];
                 parentNode.children.push(replyClone);
@@ -121,6 +120,7 @@ export class TopicArgumentsComponent implements OnInit {
   filterArguments() {
     this.filtersSelected = true;
     const types = this.argumentTypes.filter((item: any) => item.checked).map(item => item.type);
+    this.TopicArgumentService.loadPage(1);
     this.TopicArgumentService.setParam('types', types);
   }
   getArgumentPercentage(count: number) {
@@ -169,7 +169,7 @@ export class TopicArgumentsComponent implements OnInit {
       argumentIdWithVersion = argumentIdWithVersion + this.TopicArgumentService.ARGUMENT_VERSION_SEPARATOR + '0';
     }
     const argumentIdAndVersionRegex = new RegExp('^([a-fA-F0-9]{8}-[a-fA-F0-9]{4}-4{1}[a-fA-F0-9]{3}-[89abAB]{1}[a-fA-F0-9]{3}-[a-fA-F0-9]{12})' + this.TopicArgumentService.ARGUMENT_VERSION_SEPARATOR + '([0-9]+)$'); // SRC: https://gist.github.com/bugventure/f71337e3927c34132b9a#gistcomment-2238943
-    const argumentIdWithVersionSplit = argumentIdWithVersion.match(argumentIdAndVersionRegex);
+    const argumentIdWithVersionSplit = RegExp(argumentIdAndVersionRegex).exec(argumentIdWithVersion);
 
     if (!argumentIdWithVersionSplit) {
       console.error('Invalid input for _parseCommentIdAndVersion. Provided commentId does not look like UUIDv4 with version appended', argumentIdWithVersion);
@@ -206,8 +206,7 @@ export class TopicArgumentsComponent implements OnInit {
       this.scrollTo(commentElement);
       commentElement.classList.add('highlight');
       setTimeout(() => {
-        if (commentElement)
-          commentElement.classList.remove('highlight');
+        commentElement.classList.remove('highlight');
       }, 2000);
     } else {
       // The referenced comment was NOT found on the page displayed.
@@ -219,7 +218,7 @@ export class TopicArgumentsComponent implements OnInit {
 
       const argumentParameterValues = this._parseArgumentIdAndVersion(argumentIdWithVersion);
       const argumentId = argumentParameterValues.id;
-      const argumentVersion = argumentParameterValues.version || 0;
+     // const argumentVersion = argumentParameterValues.version ?? 0;
       if (!argumentId) {
         return console.error('this.goToArgument', 'No argumentId and/or version provided, nothing to do here', argumentIdWithVersion);
       }
@@ -343,7 +342,7 @@ export class TopicArgumentsComponent implements OnInit {
   }
 
   saveDiscussion(discussion: Discussion) {
-    const saveDiscussion: any = Object.assign({ topicId: this.topic.id, discussionId: discussion.id, deadline: discussion.deadline });
+    const saveDiscussion: any = { topicId: this.topic.id, discussionId: discussion.id, deadline: discussion.deadline };
     this.TopicDiscussionService.update(saveDiscussion)
       .pipe(take(1))
       .subscribe({
