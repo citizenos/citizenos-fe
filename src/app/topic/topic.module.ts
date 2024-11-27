@@ -5,8 +5,8 @@ import { LinkyModule} from 'ngx-linky';
 
 import { TopicRoutingModule } from './topic-routing.module';
 import { TopicComponent } from './topic.component';
-import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '../shared/shared.module';
+import { TranslateModule } from '@ngx-translate/core';
 import { TopicArgumentsComponent } from './components/topic-arguments/topic-arguments.component';
 import { ArgumentComponent } from './components/argument/argument.component';
 import { TopicNotificationSettingsComponent } from './components/topic-notification-settings/topic-notification-settings.component';
@@ -73,6 +73,7 @@ import { EditDiscussionDeadlineComponent } from './components/edit-discussion-de
 import { MissingDiscussionComponent } from './components/missing-discussion/missing-discussion.component';
 import { CloseVotingComponent } from './components/close-voting/close-voting.component';
 import { TopicTabsComponent } from './components/topic-tabs/topic-tabs.component';
+import { TopicSettingsLockedComponent } from './components/topic-settings-locked/topic-settings-locked.component';
 @NgModule({
   declarations: [
     TopicComponent,
@@ -152,7 +153,8 @@ import { TopicTabsComponent } from './components/topic-tabs/topic-tabs.component
     EditDiscussionDeadlineComponent,
     MissingDiscussionComponent,
     CloseVotingComponent,
-    TopicTabsComponent
+    TopicTabsComponent,
+    TopicSettingsLockedComponent
   ],
   imports: [
     LinkyModule,

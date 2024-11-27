@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { LocationService } from './location.service';
-import { Observable, switchMap, map, tap, of, take, BehaviorSubject, exhaustMap, shareReplay } from 'rxjs';
+import { Observable, switchMap, map, of, take, BehaviorSubject, exhaustMap, shareReplay } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { AuthService } from './auth.service';
 import { DialogService } from 'src/app/shared/dialog';
@@ -67,9 +67,9 @@ export class TopicService {
   };
   CATEGORIES_COUNT_MAX = 3;
 
-  private loadTopic$ = new BehaviorSubject<void>(undefined);
+  private readonly loadTopic$ = new BehaviorSubject<void>(undefined);
 
-  constructor(private dialog: DialogService, private Location: LocationService, private http: HttpClient, private Auth: AuthService, private router: Router) { }
+  constructor(private readonly dialog: DialogService, private readonly Location: LocationService, private readonly http: HttpClient, private readonly Auth: AuthService, private readonly router: Router) { }
 
   loadTopic(id: string, params?: { [key: string]: string | boolean }) {
     return this.loadTopic$.pipe(
@@ -225,7 +225,7 @@ export class TopicService {
   };
 
   canUpdate(topic: Topic) {
-    return (topic && topic.permission && topic.permission.level === this.LEVELS.admin && topic.status !== this.STATUSES.closed);
+    return (topic?.permission && topic.permission.level === this.LEVELS.admin && topic.status !== this.STATUSES.closed);
   };
 
   changeState(topic: Topic, state: string, stateSuccess?: string) {
@@ -315,7 +315,7 @@ export class TopicService {
    *
    */
   canEditDescription(topic: Topic) {
-    return this.canEdit(topic) && topic.status === this.STATUSES.ideation || topic.status === this.STATUSES.inProgress || topic.status === this.STATUSES.draft;
+    return this.canEdit(topic) && [this.STATUSES.ideation, this.STATUSES.inProgress, this.STATUSES.draft].indexOf(topic.status) > -1;
   };
 
   canDelete(topic: Topic) {
@@ -323,7 +323,7 @@ export class TopicService {
   };
 
   canSendToFollowUp(topic: Topic) {
-    return this.canUpdate(topic) && topic.vote && topic.vote.id && topic.status !== this.STATUSES.followUp;
+    return this.canUpdate(topic) && topic.vote?.id && topic.status !== this.STATUSES.followUp;
   };
 
   canSendToVote(topic: Topic) {
