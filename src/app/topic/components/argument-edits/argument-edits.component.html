@@ -1,7 +1,7 @@
 <div class="edits_wrap" [ngClass]="argument.type">
   <div class="edits_header">
     <div class="small_heading" translate="COMPONENTS.ARGUMENT_EDITS.HEADING"></div>
-    <a translate="COMPONENTS.ARGUMENT_EDITS.LNK_HIDE_EDITS" (click)="argument.showEdits = false;"></a>
+    <a translate (click)="hideEdits()">COMPONENTS.ARGUMENT_EDITS.LNK_HIDE_EDITS</a>
   </div>
   <div class="edits_content">
     <div id="{{argument.id + '_v' + item.key}}" class="argument_edit" [ngClass]="'is_' + item.value['type']"
