@@ -1,6 +1,7 @@
 <ngx-loading-bar></ngx-loading-bar>
 <div id="notification_wrap" [ngClass]="{'fixed': !(isDialog() | async)}">
   <notification></notification>
+  <site-notification></site-notification>
 </div>
 <!-- NAV -->
 <nav *ngIf="translate.currentLang"></nav>
