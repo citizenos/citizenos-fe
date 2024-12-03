@@ -58,6 +58,7 @@ import { ImageEditorComponent } from './components/image-editor/image-editor.com
 import { TopicVoteDeadlineComponent } from '../topic/components/topic-vote-deadline/topic-vote-deadline.component';
 
 import { NotificationComponent } from '../core/components/notification/notification.component';
+import { SiteNotificationComponent } from './components/site-notification/site-notification.component';
 
 @NgModule({
   declarations: [
@@ -112,7 +113,8 @@ import { NotificationComponent } from '../core/components/notification/notificat
     ImageEditorComponent,
     TopicVoteDeadlineComponent,
     NotificationComponent,
-    MarkdownLinkDialogComponent
+    MarkdownLinkDialogComponent,
+    SiteNotificationComponent
   ],
   imports: [
     RouterModule,
@@ -178,7 +180,8 @@ import { NotificationComponent } from '../core/components/notification/notificat
     ImageEditorComponent,
     DialogModule,
     NotificationComponent,
-    MarkdownLinkDialogComponent
+    MarkdownLinkDialogComponent,
+    SiteNotificationComponent
    ]
 })
 export class SharedModule { }
