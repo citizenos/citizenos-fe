@@ -1,4 +1,6 @@
 {
+  "MSG_ISSUE_NOTIFICATION_TITLE": "Temporary Disruption on Citizen OS Platform",
+  "MSG_ISSUE_NOTIFICATION": "We will post an update as soon as the issue is resolved.",
   "MSG_REDESIGN_TITLE": "Prerábame našu platformu!",
   "MSG_REDESIGN_CONTENT": "V nasledujúcich mesiacoch začneme zavádzať nový a vylepšený operačný systém Citizen! Ak máte akékoľvek otázky, obavy alebo chcete ponúknuť svoju pomoc ako beta tester, kontaktujte Saru<a href=\"mailto:info@citizenos.com\">info@citizenos.com</a>",
   "MSG_REDESIGN_BTN_CLOSE": "OK, rozumiem",
