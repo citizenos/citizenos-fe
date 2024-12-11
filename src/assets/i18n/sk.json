@@ -412,7 +412,7 @@
       "MESSAGE_PLACEHOLDER": "Tu napíšte vašu správu",
       "CHARACTER_LIMIT": "Limit počtu znakov:",
       "EMAIL_DESC": "Pozvite užívateľov cez ich meno alebo emailovú adresu",
-      "EMAIL_DESC_LONG": "Pridajte naraz až do 50 emailov, s medzerou alebo čiarkou medzi nimi",
+      "EMAIL_DESC_LONG": "Add up to 50 emails at once, with a space or comma between each. Inviting lots of people? Try using the share link.",
       "PLACEHOLDER_SEARCH": "@:DEFAULT.NAV_MOBILE.BTN_SEARCH",
       "SHOW_PER_PAGE": "@:VIEWS.ACCOUNT.SHOW_PER_PAGE",
       "NO_INVITES_HEADING": "Ešte ste nikoho nepozvali",
