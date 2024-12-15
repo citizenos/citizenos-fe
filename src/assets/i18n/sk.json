@@ -1,6 +1,6 @@
 {
-  "MSG_ISSUE_NOTIFICATION_TITLE": "Temporary Disruption on Citizen OS Platform",
-  "MSG_ISSUE_NOTIFICATION": "We will post an update as soon as the issue is resolved.",
+  "MSG_ISSUE_NOTIFICATION_TITLE": "Dočasné prerušenie fungovania platformy Citizen OS",
+  "MSG_ISSUE_NOTIFICATION": "Hneď po vyriešení problému uverejníme aktualizáciu.",
   "MSG_REDESIGN_TITLE": "Prerábame našu platformu!",
   "MSG_REDESIGN_CONTENT": "V nasledujúcich mesiacoch začneme zavádzať nový a vylepšený operačný systém Citizen! Ak máte akékoľvek otázky, obavy alebo chcete ponúknuť svoju pomoc ako beta tester, kontaktujte Saru<a href=\"mailto:info@citizenos.com\">info@citizenos.com</a>",
   "MSG_REDESIGN_BTN_CLOSE": "OK, rozumiem",
@@ -412,7 +412,7 @@
       "MESSAGE_PLACEHOLDER": "Tu napíšte vašu správu",
       "CHARACTER_LIMIT": "Limit počtu znakov:",
       "EMAIL_DESC": "Pozvite užívateľov cez ich meno alebo emailovú adresu",
-      "EMAIL_DESC_LONG": "Add up to 50 emails at once, with a space or comma between each. Inviting lots of people? Try using the share link.",
+      "EMAIL_DESC_LONG": "Pridajte naraz až 50 e-mailov, pričom medzi jednotlivými e-mailami urobte medzeru alebo čiarku. Pozývate veľa ľudí? Skúste použiť odkaz na zdieľanie.",
       "PLACEHOLDER_SEARCH": "@:DEFAULT.NAV_MOBILE.BTN_SEARCH",
       "SHOW_PER_PAGE": "@:VIEWS.ACCOUNT.SHOW_PER_PAGE",
       "NO_INVITES_HEADING": "Ešte ste nikoho nepozvali",
