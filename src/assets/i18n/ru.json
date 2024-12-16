@@ -412,7 +412,7 @@
       "MESSAGE_PLACEHOLDER": "Напишите здесь свое сообщение",
       "CHARACTER_LIMIT": "Лимит символов:",
       "EMAIL_DESC": "Пригласить участников по их имени или по адресу эл. почты",
-      "EMAIL_DESC_LONG": "Add up to 50 emails at once, with a space or comma between each. Inviting lots of people? Try using the share link.",
+      "EMAIL_DESC_LONG": "Добавляйте до 50 адресов эл. почты за раз, разделяя их пробелом или запятой. Нужно пригласить много людей? Попробуйте использовать ссылку для общего доступа.",
       "PLACEHOLDER_SEARCH": "@:DEFAULT.NAV_MOBILE.BTN_SEARCH",
       "SHOW_PER_PAGE": "@:VIEWS.ACCOUNT.SHOW_PER_PAGE",
       "NO_INVITES_HEADING": "Вы еще никого не пригласили",
