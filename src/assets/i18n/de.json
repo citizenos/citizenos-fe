@@ -412,7 +412,7 @@
       "MESSAGE_PLACEHOLDER": "Geben Sie Ihre Antwort hier ein",
       "CHARACTER_LIMIT": "Zeichenlimit:",
       "EMAIL_DESC": "Laden Sie Personen über ihren Namen oder ihre E-Mail-Adresse ein",
-      "EMAIL_DESC_LONG": "Fügen Sie bis zu 50 E-Mails gleichzeitig mit einem Leerzeichen oder einem Komma zwischen den einzelnen E-Mail-Adressen hinzu",
+      "EMAIL_DESC_LONG": "Add up to 50 emails at once, with a space or comma between each. Inviting lots of people? Try using the share link.",
       "PLACEHOLDER_SEARCH": "@:DEFAULT.NAV_MOBILE.BTN_SEARCH",
       "SHOW_PER_PAGE": "@:VIEWS.ACCOUNT.SHOW_PER_PAGE",
       "NO_INVITES_HEADING": "Sie haben bisher niemanden eingeladen",
