@@ -412,7 +412,7 @@
       "MESSAGE_PLACEHOLDER": "Kirjuta oma sõnum siia",
       "CHARACTER_LIMIT": "Tähemärgi piirang:",
       "EMAIL_DESC": "Kutsu liikmeid nime või e-posti aadressi kaudu",
-      "EMAIL_DESC_LONG": "Lisa kuni 50 meiliaadressit ühe korraga, jättes iga meiliaadressi vahele tühiku või koma",
+      "EMAIL_DESC_LONG": "Lisa korraga kuni 50 e-posti aadressi, eraldades need tühiku või komaga. Kasuta jagamislinki, kui soovid korraga palju inimesi kutsuda.",
       "PLACEHOLDER_SEARCH": "@:DEFAULT.NAV_MOBILE.BTN_SEARCH",
       "SHOW_PER_PAGE": "@:VIEWS.ACCOUNT.SHOW_PER_PAGE",
       "NO_INVITES_HEADING": "Sa ei ole veel kedagi kutsunud",
