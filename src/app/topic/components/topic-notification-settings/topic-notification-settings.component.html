@@ -57,17 +57,17 @@
       </label>
       <label class="checkbox"><span translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_LBL_TOPIC_UPDATES"></span>
         <input type="checkbox" [checked]="preferences.Topic && preferences.TopicReport"
-          (click)="selectOption('Topic');selectOption('TopicReport');">
+          (click)="selectOption(['Topic', 'TopicReport']);">
         <span class="checkmark"></span>
       </label>
       <label class="checkbox"><span translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_LBL_TOPIC_DISCUSSION"></span>
         <input type="checkbox" [checked]="preferences.Discussion && preferences.DiscussionComment && preferences.CommentVote"
-          (click)="selectOption('Discussion'); selectOption('DiscussionComment');selectOption('CommentVote');">
+          (click)="selectOption(['Discussion', 'DiscussionComment', 'CommentVote', 'TopicComment', 'CommentReport' ]);">
         <span class="checkmark"></span>
       </label>
       <label class="checkbox"><span translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_LBL_TOPIC_IDEATION"></span>
         <input type="checkbox" [checked]="preferences.Ideation && preferences.IdeaVote && preferences.Idea && preferences.TopicIdeation && preferences.IdeaComment"
-          (click)="selectOption('TopicIdeation');selectOption('IdeaVote'); selectOption('Idea');selectOption('TopicIdeation');selectOption('IdeaComment');">
+          (click)="selectOption(['Ideation', 'Idea', 'IdeaVote', 'TopicIdeation', 'IdeaComment', 'IdeationIdea', 'IdeaReport']);">
         <span class="checkmark"></span>
       </label>
       <label class="checkbox"><span translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_LBL_TOPIC_VOTING"></span>
@@ -81,7 +81,7 @@
     </div>
 
     <div class="dialog_footer with_buttons">
-      <a dialog-close translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_LNK_CANCEL"></a>
+      <a dialog-close translate>MODALS.TOPIC_NOTIFICATION_SETTINGS_LNK_CANCEL</a>
       <button class="btn_medium_submit" (click)="doSaveSettings();"
         translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_BTN_SAVE"></button>
     </div>
