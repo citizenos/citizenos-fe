@@ -238,7 +238,7 @@ export class TopicComponent {
           this.ideation$ = this.TopicIdeationService.loadIdeation({ topicId: topic.id, ideationId: topic.ideationId });
           this.cd.detectChanges();
         }
-        if (topic.status === this.TopicService.STATUSES.followUp) {
+        if (topic.status === this.TopicService.STATUSES.followUp || topic.status === this.TopicService.STATUSES.closed) {
           this.events$ = TopicEventService.loadEvents({ topicId: topic.id }).pipe(map(events => {
             console.log('LOAD', events);
             this.eventCount = events.count;
