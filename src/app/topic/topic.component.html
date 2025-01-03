@@ -947,9 +947,9 @@
                 <a class="manage_link" (click)="manageParticipants(topic)" translate="VIEWS.TOPICS_TOPICID.LNK_MANAGE"
                   *ngIf="canUpdate(topic)"></a>
               </div>
-              <div class="participants_count_wrap">
-                <div class="participants_count">{{topic.members.users.count}}</div>
-                <div class="avatars_wrap" *ngIf="members$ | async as members">
+              <div class="participants_count_wrap" *ngIf="members$ | async as members">
+                <div class="participants_count">{{members.length || topic.members.users.count}}</div>
+                <div class="avatars_wrap">
                   <ng-container *ngFor="let index  of [0, 1, 2];">
                     <div class="avatar" *ngIf="members[index]">
                       <img *ngIf="members[index].imageUrl" [src]="members[index].imageUrl" />

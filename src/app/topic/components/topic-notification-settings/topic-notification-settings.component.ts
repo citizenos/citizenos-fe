@@ -51,8 +51,8 @@ export class TopicNotificationSettingsComponent implements OnInit {
     this.settings = this.TopicNotificationService.get({ topicId: this.topicId }).pipe(
       tap((settings: any) => {
         this.allowNotifications = settings.allowNotifications;
-        this.preferences = Object.assign(this.preferences, settings.preferences);
-        this.settings = Object.assign(this.settings, settings);
+        this.preferences = { ...this.preferences, ...settings.preferences };
+        this.settings = { ...this.settings, ...settings };
       })
     )
   }

@@ -187,9 +187,7 @@ export class TopicComponent {
         if (this.router.url.indexOf('/ideation/') > -1) return 'ideation';
         if (params['folderId']) return 'ideation';
         if (params['argumentId']) return 'discussion';
-      /*  if (this.hideDiscussion === true && value === 'discussion') {
-          value = 'voting';
-        }*/
+
         this.app.setPageTitle(this.topicTitle || 'META_DEFAULT_TITLE');
         setTimeout(() => {
           if (value === 'voting') {
@@ -312,8 +310,8 @@ export class TopicComponent {
       })
     );
 
-    this.members$ = this.route.params.pipe(
-      switchMap((params) => {
+    this.members$ = combineLatest([this.route.params, this.TopicMemberUserService.reload$]).pipe(
+      switchMap(([params]) => {
         this.TopicMemberUserService.setParam('topicId', params['topicId']);
         return this.TopicMemberUserService.loadItems();
       })
@@ -324,13 +322,6 @@ export class TopicComponent {
         return this.TopicAttachmentService.loadItems();
       })
     );
-/*
-    this.topic$.pipe(
-      switchMap((topic: Topic) => {
-
-      }),
-      take(1)
-    ).subscribe();*/
   }
 
   ngAfterViewInit(): void {
