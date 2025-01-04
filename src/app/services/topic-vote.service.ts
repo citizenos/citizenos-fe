@@ -147,7 +147,7 @@ export class TopicVoteService {
   };
 
   canVote(topic: Topic) {
-    return topic?.vote && ((topic.permission.level !== 'none' || (topic.visibility === this.TopicService.VISIBILITY.public)) && topic.status === this.STATUSES.voting);
+    return topic.vote && ((topic.permission.level !== 'none' || (topic.visibility === this.TopicService.VISIBILITY.public)) && topic.status === this.STATUSES.voting);
   };
 
   canDelegate(topic: Topic) {
