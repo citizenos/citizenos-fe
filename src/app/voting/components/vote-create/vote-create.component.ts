@@ -204,7 +204,7 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
                     this.topic.visibility = groups[0].visibility;
                     this.isCreatedFromGroup = true;
                   }
-                  groups.forEach((group: TopicMemberGroup) => {
+                  groups.forEach((group) => {
                     const exists = this.topicGroups.find((mgroup) => mgroup.id === group.id);
                     if (!exists) this.topicGroups.push(group);
                   })
