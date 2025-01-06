@@ -1526,7 +1526,7 @@
     "TOPIC_DELETE_REPLY_TXT_ARE_YOU_SURE": "¿Está seguro de que quiere eliminar la respuesta? Esta acción no se puede deshacer.",
     "TOPIC_DELETE_REPLY_BTN_NO": "@:MODALS.TOPIC_ARGUMENT_REPORT_BTN_NO",
     "TOPIC_DELETE_REPLY_BTN_YES": "Sí, eliminar esta respuesta",
-    "LOGIN_HEADING": "Iniciar sesión en Citizen OS",
+    "LOGIN_HEADING": "Please log in to Citizen OS to continue",
     "LOGIN_EMAIL_HEADING": "Log in with email",
     "LOGIN_BTN_LOGIN_FACEBOOK": "Iniciar sesión con una cuenta de Facebook",
     "LOGIN_BTN_LOGIN_GOOGLE": "Iniciar sesión con una cuenta de Google",
