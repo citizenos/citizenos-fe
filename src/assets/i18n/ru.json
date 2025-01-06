@@ -1526,7 +1526,7 @@
     "TOPIC_DELETE_REPLY_TXT_ARE_YOU_SURE": "Вы уверены, что хотите удалить этот ответ? Это действие необратимо.",
     "TOPIC_DELETE_REPLY_BTN_NO": "@:MODALS.TOPIC_ARGUMENT_REPORT_BTN_NO",
     "TOPIC_DELETE_REPLY_BTN_YES": "Да, удалить этот ответ",
-    "LOGIN_HEADING": "Войти в Citizen OS",
+    "LOGIN_HEADING": "Please log in to Citizen OS to continue",
     "LOGIN_EMAIL_HEADING": "Войти с помощью эл. почты",
     "LOGIN_BTN_LOGIN_FACEBOOK": "Войти через Facebook",
     "LOGIN_BTN_LOGIN_GOOGLE": "Войти через Google",
