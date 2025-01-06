@@ -1526,7 +1526,7 @@
     "TOPIC_DELETE_REPLY_TXT_ARE_YOU_SURE": "Ви впевнені, що хочете видалити цю відповідь? Ця дія незворотня.",
     "TOPIC_DELETE_REPLY_BTN_NO": "@:MODALS.TOPIC_ARGUMENT_REPORT_BTN_NO",
     "TOPIC_DELETE_REPLY_BTN_YES": "Так, видалити цю відповідь",
-    "LOGIN_HEADING": "Вхід до Citizen OS",
+    "LOGIN_HEADING": "Please log in to Citizen OS to continue",
     "LOGIN_EMAIL_HEADING": "Log in with email",
     "LOGIN_BTN_LOGIN_FACEBOOK": "Увійти через Facebook",
     "LOGIN_BTN_LOGIN_GOOGLE": "Увійти через Google",
