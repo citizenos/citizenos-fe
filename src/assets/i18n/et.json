@@ -1526,7 +1526,7 @@
     "TOPIC_DELETE_REPLY_TXT_ARE_YOU_SURE": "Kas oled kindel, et soovid vastuse kustutada? Toimingut ei saa tagasi võtta.",
     "TOPIC_DELETE_REPLY_BTN_NO": "@:MODALS.TOPIC_ARGUMENT_REPORT_BTN_NO",
     "TOPIC_DELETE_REPLY_BTN_YES": "Jah, kustuta see vastus",
-    "LOGIN_HEADING": "Logi sisse Citizen OS-i",
+    "LOGIN_HEADING": "Jätkamiseks palun logi Citizen OS'i sisse",
     "LOGIN_EMAIL_HEADING": "Logi sisse e-posti aadressiga",
     "LOGIN_BTN_LOGIN_FACEBOOK": "Sisene Facebooki kontoga",
     "LOGIN_BTN_LOGIN_GOOGLE": "Sisene Google'i kontoga",
