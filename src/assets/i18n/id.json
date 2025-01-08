@@ -1526,7 +1526,7 @@
     "TOPIC_DELETE_REPLY_TXT_ARE_YOU_SURE": "Apakah Anda yakin ingin menghapus balasan ini? Anda tidak dapat membatalkan tindakan ini.",
     "TOPIC_DELETE_REPLY_BTN_NO": "@:MODALS.TOPIC_ARGUMENT_REPORT_BTN_NO",
     "TOPIC_DELETE_REPLY_BTN_YES": "Ya, hapus balasan ini",
-    "LOGIN_HEADING": "Masuk ke Citizen OS",
+    "LOGIN_HEADING": "Please log in to Citizen OS to continue",
     "LOGIN_EMAIL_HEADING": "Log in with email",
     "LOGIN_BTN_LOGIN_FACEBOOK": "Masuk dengan akun Facebook",
     "LOGIN_BTN_LOGIN_GOOGLE": "Masuk dengan akun Google",
