@@ -9,6 +9,8 @@ $--color-on-surfaces: --color-on-surfaces;
 $--color-border: --color-border;
 $--color-border-active: --color-border-active;
 $--color-secondary: --color-secondary;
+$--color-blue-100: --color-blue-100;
+$--color-blue-200: --color-blue-200;
 $--color-scrollbar: --color-scrollbar;
 $--color-scrollbar-thumb: --color-scrollbar-thumb;
 $--color-link: --color-link;
@@ -19,6 +21,7 @@ $--color-voting: --color-voting;
 $--color-voting-disabled: --color-voting-disabled;
 $--color-ideation: --color-ideation;
 $--color-ideation-disabled: --color-ideation-disabled;
+$--color-ideation-light: --color-ideation-light;
 $--color-follow-up: --color-follow-up;
 $--color-follow-up-disabled: --color-follow-up-disabled;
 $--color-group: --color-group;
@@ -84,9 +87,11 @@ $theme-map-default: (
   //gray 700
   $--color-secondary: #ebf4fb,
   //blue 100
-  $--color-scrollbar: #D7E9F8,
+  $--color-blue-100: #D7E9F8,
   //blue 200
-  $--color-scrollbar-thumb: #A7D1F3,
+  $--color-blue-200: #A7D1F3,
+  $--color-scrollbar: #ffffff,
+  $--color-scrollbar-thumb: #5C9CD0,
   //blue 300
   $--color-link: #1168a8,
   //blue 700
@@ -100,6 +105,8 @@ $theme-map-default: (
   //yellow 700
   $--color-ideation-disabled: #efe08a,
   //yellow 100
+  $--color-ideation-light: #FFF5D4,
+
   $--color-follow-up: #da7ab1,
   //purple 500
   $--color-follow-up-disabled: #e3a8cc,
@@ -186,9 +193,11 @@ $theme-map-contrast: (
   $--color-border: #000,
   $--color-secondary: #ebf4fb,
   //blue 100
-  $--color-scrollbar: #D7E9F8,
+  $--color-blue-100: #D7E9F8,
   //blue 200
-  $--color-scrollbar-thumb: #A7D1F3,
+  $--color-blue-200: #A7D1F3,
+  $--color-scrollbar: #ffffff,
+  $--color-scrollbar-thumb: #5C9CD0,
   //blue 300
   $--color-link: #1168a8,
   //blue 700

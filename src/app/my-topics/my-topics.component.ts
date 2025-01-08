@@ -1,17 +1,17 @@
 import { Component, Inject } from '@angular/core';
-import { UserTopicService } from '../services/user-topic.service';
+import { UserTopicService } from '@services/user-topic.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '@services/auth.service';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, combineLatest, map, of, switchMap } from 'rxjs';
 import { Topic } from '../interfaces/topic';
-import { AppService } from '../services/app.service';
-import { TopicService } from '../services/topic.service';
+import { AppService } from '@services/app.service';
+import { TopicService } from '@services/topic.service';
 import { trigger, state, style } from '@angular/animations';
-import { countries } from '../services/country.service';
-import { languages } from '../services/language.service';
-import { Country } from 'src/app/interfaces/country';
-import { Language } from 'src/app/interfaces/language';
+import { countries } from '@services/country.service';
+import { languages } from '@services/language.service';
+import { Country } from '@interfaces/country';
+import { Language } from '@interfaces/language';
 
 @Component({
   selector: 'my-topics',
@@ -198,43 +198,43 @@ export class MyTopicsComponent {
   }
 
   orderBy(orderBy: string) {
-    if (orderBy === 'all') orderBy = '';
+    if (orderBy === 'all' || typeof orderBy !== 'string') orderBy = '';
     this.orderFilter$.next(orderBy);
     this.topicFilters.orderBy = orderBy;
   }
 
   setStatus(status: string) {
-    if (status === 'all') status = '';
+    if (status === 'all' || typeof status !== 'string') status = '';
     this.statusFilter$.next(status);
     this.topicFilters.status = status;
   }
 
   setVisibility(visibility: string) {
-    if (visibility === 'all') visibility = '';
+    if (visibility === 'all' || typeof visibility !== 'string') visibility = '';
     this.topicTypeFilter$.next(visibility);
     this.topicFilters.visibility = visibility;
   }
 
   setCategory(category: string) {
-    if (category === 'all') category = '';
+    if (category === 'all' || typeof category !== 'string') category = '';
     this.categoryFilter$.next(category);
     this.topicFilters.category = category;
   }
 
   setFilter(filter: string) {
-    if (filter === 'all') filter = '';
+    if (filter === 'all' || typeof filter !== 'string') filter = '';
     this.engagmentsFilter$.next(filter);
     this.topicFilters.engagements = filter;
   }
 
   setCountry(country: string) {
-    if (country === 'all') country = '';
+    if (country === 'all' || typeof country !== 'string') country = '';
     this.countryFilter$.next(country);
     this.topicFilters.country = country;
   }
 
   setLanguage(language: string) {
-    if (language === 'all') language = '';
+    if (language === 'all' || typeof language !== 'string') language = '';
     this.languageFilter$.next(language);
     this.topicFilters.language = language;
   }

@@ -1,9 +1,12 @@
 <div class="overlay" dialog-close></div>
 <div class="dialog_wrap">
-  <div id="notification_wrap_dialog">
+  <div id="notification_wrap_dialog" class="mobile_hidden">
     <notification></notification>
   </div>
   <div class="dialog">
+    <div id="notification_wrap_dialog" class="mobile_show">
+      <notification></notification>
+    </div>
     <div class="dialog_header info">
       <div class="header_with_icon">
         <div>
@@ -17,7 +20,7 @@
               fill="white" />
           </svg>
         </div>
-        <h4 class="title" translate="MODALS.ADD_EMAIL_HEADING"></h4>
+        <h4 class="title">{{ 'MODALS.ADD_EMAIL_HEADING' | translate }}</h4>
       </div>
       <div class="dialog_close">
         <a class="btn_dialog_close icon" dialog-close>
@@ -31,29 +34,31 @@
     </div>
     <div class="dialog_content no_footer">
       <form [formGroup]="form">
-        <cos-input placeholder="{{'MODALS.ADD_EMAIL_PLACEHOLDER_EMAIL' | translate}}">
+        <cos-input [placeholder]="'MODALS.ADD_EMAIL_PLACEHOLDER_EMAIL' | translate">
           <input id="email" formControlName="email" type="email"
-            placeholder="{{'MODALS.ADD_EMAIL_PLACEHOLDER_EMAIL' | translate}}" (focus)="wWidth > 1024"
-            [ngClass]="{'error_input': form.touched && form.invalid}" [maxlength]="254">
-          <label for="email" class="error_label" *ngIf="form.invalid && form.touched">
+            [placeholder]="'MODALS.ADD_EMAIL_PLACEHOLDER_EMAIL' | translate" (focus)="wWidth > 1024"
+            [ngClass]="{'error_input': form.controls['email'].touched && form.controls['email'].invalid}" [maxlength]="254">
+          <label for="email" class="error_label" *ngIf="form.controls['email'].touched && form.controls['email'].invalid">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd"
                 d="M8.89438 1.78863C8.52586 1.05158 7.47405 1.05158 7.10553 1.78863L0.723562 14.5526C0.391112 15.2175 0.874608 15.9998 1.61799 15.9998H14.3819C15.1253 15.9998 15.6088 15.2175 15.2763 14.5526L8.89438 1.78863ZM6.99996 6.99977C6.99996 6.44749 7.44767 5.99977 7.99996 5.99977C8.55224 5.99977 8.99996 6.44749 8.99996 6.99977V9.99977C8.99996 10.5521 8.55224 10.9998 7.99996 10.9998C7.44767 10.9998 6.99996 10.5521 6.99996 9.99977V6.99977ZM6.99996 12.9998C6.99996 12.4475 7.44767 11.9998 7.99996 11.9998C8.55224 11.9998 8.99996 12.4475 8.99996 12.9998C8.99996 13.5521 8.55224 13.9998 7.99996 13.9998C7.44767 13.9998 6.99996 13.5521 6.99996 12.9998Z"
                 fill="#EF4025" />
             </svg>
-            <span translate="MODALS.ADD_EMAIL_ERROR_MSG_INVALID"></span>
+            <span>{{ 'MODALS.ADD_EMAIL_ERROR_MSG_INVALID' | translate }}</span>
           </label>
         </cos-input>
 
-        <div class="delete_info_text bold" translate="MODALS.ADD_EMAIL_TXT_VERIFY"></div>
+        <div class="delete_info_text bold">{{ 'MODALS.ADD_EMAIL_TXT_VERIFY' | translate }}</div>
       </form>
       <div class="button_wrap">
-        <button class="btn_big_submit" (click)="doUpdateProfile()" [disabled]="form.invalid"
-          translate="MODALS.ADD_EMAIL_LOG_IN"></button>
-        <a translate="MODALS.ADD_EMAIL_LNK_CANCEL" (click)="logout()"></a>
+        <button class="btn_big_submit" (click)="doUpdateProfile()" [disabled]="form.invalid">
+          {{ 'MODALS.ADD_EMAIL_LOG_IN' | translate }}
+        </button>
+        <a (click)="logout()">{{ 'MODALS.ADD_EMAIL_LNK_CANCEL' | translate }}</a>
       </div>
       <div class="dialog_footer">
       </div>
     </div>
   </div>
 </div>
+

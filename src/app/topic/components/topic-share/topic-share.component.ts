@@ -2,11 +2,11 @@ import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
 import { DialogService } from 'src/app/shared/dialog';
 import { take } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
-import { TopicService } from 'src/app/services/topic.service';
-import { TopicJoinService } from 'src/app/services/topic-join.service';
-import { LocationService } from 'src/app/services/location.service';
+import { TopicService } from '@services/topic.service';
+import { TopicJoinService } from '@services/topic-join.service';
+import { LocationService } from '@services/location.service';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from '@services/auth.service';
 
 @Component({
   selector: 'topic-share',

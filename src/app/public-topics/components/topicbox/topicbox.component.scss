@@ -109,11 +109,15 @@
       }
     }
 
+    &.ideation {
+      background-color: var(--color-ideation-disabled);
+      .progress {
+        background-color: var(--color-ideation);
+      }
+    }
+
     &.closed {
       background-color: var(--color-argument-info);
-    }
-    path {
-      fill: var(--color-surfaces);
     }
   }
 
@@ -255,3 +259,19 @@
     }
   }
 }
+.remove_wrap {
+  position: absolute;
+  z-index: 9;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255,255,255, 0.5);
+
+  button {
+    z-index: 99;
+    gap: 8px;
+  }
+}
+

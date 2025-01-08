@@ -1,15 +1,16 @@
+import { CookieService } from 'ngx-cookie-service';
 import { OnboardingComponent } from './../onboarding/onboarding.component';
 import { DialogService } from 'src/app/shared/dialog';
 import { Component } from '@angular/core';
-import { AppService } from 'src/app/services/app.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { UserTopicService } from 'src/app/services/user-topic.service';
-import { PublicTopicService } from 'src/app/services/public-topic.service';
-import { PublicGroupService } from 'src/app/services/public-group.service';
+import { AppService } from '@services/app.service';
+import { AuthService } from '@services/auth.service';
+import { UserTopicService } from '@services/user-topic.service';
+import { PublicTopicService } from '@services/public-topic.service';
+import { PublicGroupService } from '@services/public-group.service';
 import { TranslateService } from '@ngx-translate/core';
 
-import { GroupService } from 'src/app/services/group.service';
-import { NewsService } from 'src/app/services/news.service';
+import { GroupService } from '@services/group.service';
+import { NewsService } from '@services/news.service';
 import { of, tap, Observable, map } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { Group } from 'src/app/interfaces/group';
@@ -41,7 +42,8 @@ export class DashboardComponent {
     private PublicGroupService: PublicGroupService,
     private GroupService: GroupService,
     private NewsService: NewsService,
-    private dialog: DialogService
+    private dialog: DialogService,
+    private CookieService: CookieService
   ) {
     this.groups$ = this.GroupService.loadItems();
     this.news$ = this.NewsService.get().pipe(
@@ -78,12 +80,16 @@ export class DashboardComponent {
   ngAfterViewInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-    setTimeout(() => {
-      this.dialog.closeAll();
-      const onBoarding = this.dialog.open(OnboardingComponent);
-      this.app.mobileTutorial = true;
-      onBoarding.afterClosed().subscribe(() => this.app.mobileTutorial = false);
-    });
+    if (!this.CookieService.get('show-dashboard-tour')){
+      setTimeout(() => {
+        this.dialog.closeAll();
+        const onBoarding = this.dialog.open(OnboardingComponent);
+        this.app.mobileTutorial = true;
+        onBoarding.afterClosed().subscribe(() => {
+          this.CookieService.set('show-dashboard-tour', 'true', 36500); this.app.mobileTutorial = false
+        });
+      });
+    }
   }
 
   showCreateMenu () {

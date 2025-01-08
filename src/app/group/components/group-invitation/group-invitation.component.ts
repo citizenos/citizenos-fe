@@ -2,11 +2,11 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, take } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
-import { ConfigService } from 'src/app/services/config.service';
-import { LocationService } from 'src/app/services/location.service';
-import { NotificationService } from 'src/app/services/notification.service';
-import { GroupInviteUserService } from 'src/app/services/group-invite-user.service';
+import { AuthService } from '@services/auth.service';
+import { ConfigService } from '@services/config.service';
+import { LocationService } from '@services/location.service';
+import { NotificationService } from '@services/notification.service';
+import { GroupInviteUserService } from '@services/group-invite-user.service';
 import { InviteData } from 'src/app/interfaces/dialogdata';
 
 @Component({

@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TopicVoteReminderDialogComponent } from './topic-vote-reminder-dialog.component';
+import { TopicVoteReminderDialog } from './topic-vote-reminder-dialog.component';
 
-describe('TopicVoteReminderDialogComponent', () => {
-  let component: TopicVoteReminderDialogComponent;
-  let fixture: ComponentFixture<TopicVoteReminderDialogComponent>;
+describe('TopicVoteReminderDialog', () => {
+  let component: TopicVoteReminderDialog;
+  let fixture: ComponentFixture<TopicVoteReminderDialog>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [TopicVoteReminderDialogComponent]
+      declarations: [TopicVoteReminderDialog]
     });
-    fixture = TestBed.createComponent(TopicVoteReminderDialogComponent);
+    fixture = TestBed.createComponent(TopicVoteReminderDialog);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,12 +1,15 @@
 import { trigger, state, style } from '@angular/animations';
-import { Component, OnInit, Input, Inject } from '@angular/core';
+import { Component, Input, Inject, ViewChild } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { take } from 'rxjs';
-import { AppService } from 'src/app/services/app.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { TopicArgumentService } from 'src/app/services/topic-argument.service';
+import { map, take } from 'rxjs';
+import { MarkdownDirective } from 'src/app/directives/markdown.directive';
+import { AppService } from '@services/app.service';
+import { AuthService } from '@services/auth.service';
+import { TopicArgumentService } from '@services/topic-argument.service';
+import { TopicMemberUserService } from '@services/topic-member-user.service';
+
 @Component({
   selector: 'post-argument',
   templateUrl: './post-argument.component.html',
@@ -25,14 +28,18 @@ import { TopicArgumentService } from 'src/app/services/topic-argument.service';
       }))
     ])]
 })
-export class PostArgumentComponent implements OnInit {
+export class PostArgumentComponent {
   @Input() topicId!: string;
+  @Input() discussionId!: string;
+  @ViewChild(MarkdownDirective) editor!: MarkdownDirective;
+
   wWidth = window.innerWidth;
   focusArgumentSubject = false;
   argumentType = <string>'pro';
   errors: any;
 
   text = <string>'';
+  addArgument;
   argumentForm = new UntypedFormGroup({
     subject: new UntypedFormControl('', [Validators.required]),
     text: new UntypedFormControl('', [Validators.required]),
@@ -41,16 +48,20 @@ export class PostArgumentComponent implements OnInit {
   ARGUMENT_TYPES = Object.keys(this.TopicArgumentService.ARGUMENT_TYPES).filter((key) => key != 'reply');
   ARGUMENT_TYPES_MAXLENGTH = this.TopicArgumentService.ARGUMENT_TYPES_MAXLENGTH;
   ARGUMENT_SUBJECT_MAXLENGTH = this.TopicArgumentService.ARGUMENT_SUBJECT_MAXLENGTH;
-  private COMMENT_VERSION_SEPARATOR = '_v';
+  private readonly COMMENT_VERSION_SEPARATOR = '_v';
   constructor(
     public app: AppService,
-    private AuthService: AuthService,
+    private readonly AuthService: AuthService,
     public TopicArgumentService: TopicArgumentService,
-    @Inject(ActivatedRoute) private route: ActivatedRoute,
+    private readonly TopicMemberUserService: TopicMemberUserService,
+    @Inject(ActivatedRoute) private readonly route: ActivatedRoute,
     @Inject(TranslateService) public translate: TranslateService,
-    @Inject(Router) private router: Router) { }
-
-  ngOnInit(): void {
+    @Inject(Router) private readonly router: Router) {
+    this.addArgument = this.app.addArgument.pipe(map((val) => {
+      this.text = '';
+      this.argumentForm.reset();
+      return val;
+    }))
   }
 
   loggedIn() {
@@ -62,7 +73,10 @@ export class PostArgumentComponent implements OnInit {
   }
 
   updateText(text: any) {
-    this.argumentForm.controls['text'].setValue(text);
+    setTimeout(() => {
+      this.argumentForm.controls['text'].markAsTouched();
+      this.argumentForm.controls['text'].setValue(text);
+    });
   }
 
   addNewArgument() {
@@ -76,23 +90,44 @@ export class PostArgumentComponent implements OnInit {
   close() {
     this.app.addArgument.next(false);
   }
+
+  clear() {
+    this.updateText('')
+    this.text = '';
+    this.argumentForm.patchValue({
+      subject: '',
+      text: ''
+    });
+    this.argumentForm.markAsUntouched();
+    this.argumentForm.controls['subject'].patchValue('');
+    this.argumentForm.controls['text'].markAsPristine();
+    this.argumentForm.controls['text'].markAsUntouched();
+    setTimeout(() => {
+      this.argumentForm.controls['text'].markAsPristine();
+      this.argumentForm.controls['text'].markAsUntouched();
+      this.argumentForm.markAsUntouched()
+    })
+  }
+
   postArgument() {
     const argument = {
       parentVersion: 0,
       type: this.argumentType,
       subject: this.argumentForm.value['subject'],
-      text: this.argumentForm.value['text'] ,
-      topicId: this.topicId
+      text: this.argumentForm.value['text'],
+      topicId: this.topicId,
+      discussionId: this.discussionId
     };
     this.TopicArgumentService
       .save(argument)
       .pipe(take(1))
       .subscribe({
         next: (argument) => {
-          this.argumentForm.reset();
-          this.TopicArgumentService.reset();
+          this.TopicArgumentService.reload();
+          this.TopicMemberUserService.reload();
           this.text = '';
-          this.TopicArgumentService.setParam('topicId', this.topicId)
+          this.argumentForm.reset();
+          this.clear();
           this.app.addArgument.next(false);
           this.router.navigate(
             [],

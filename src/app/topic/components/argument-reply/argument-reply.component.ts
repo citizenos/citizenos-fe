@@ -1,15 +1,16 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { take, map } from 'rxjs';
+import { NotificationService } from '@services/notification.service';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { take } from 'rxjs';
 import { Argument } from 'src/app/interfaces/argument';
-import { AppService } from 'src/app/services/app.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { TopicArgumentService } from 'src/app/services/topic-argument.service';
+import { AuthService } from '@services/auth.service';
+import { TopicArgumentService } from '@services/topic-argument.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'argument-reply',
   templateUrl: './argument-reply.component.html',
   styleUrls: ['./argument-reply.component.scss']
 })
-export class ArgumentReplyComponent implements OnInit {
+export class ArgumentReplyComponent {
   @Input() argument!: Argument;
   @Input() topicId!: string;
   @Input() showReply!: boolean;
@@ -23,50 +24,38 @@ export class ArgumentReplyComponent implements OnInit {
   ARGUMENT_TYPES_MAXLENGTH = this.TopicArgumentService.ARGUMENT_TYPES_MAXLENGTH;
   ARGUMENT_SUBJECT_MAXLENGTH = this.TopicArgumentService.ARGUMENT_SUBJECT_MAXLENGTH;
   errors = <any>null;
-  constructor(public AuthService: AuthService, private TopicArgumentService: TopicArgumentService) {
-    this.AuthService.loggedIn$.pipe(
-      map((isLoggedIn) => {
-        if (!isLoggedIn) {
+  constructor(public AuthService: AuthService, private readonly TopicArgumentService: TopicArgumentService, private readonly Notification: NotificationService, private readonly router: Router) {
 
-        }
-      }))
   }
-
-  ngOnInit(): void {
-  }
-
-  /* argumentTextLengthCheck(form, form.text) {
-
-   }*/
 
   saveReply() {
     const reply = {
       parentId: this.argument.id,
       parentVersion: (this.argument.edits.length - 1),
       type: this.reply.type,
+      discussionId: this.argument.discussionId,
       subject: this.reply.subject,
       text: this.reply.text,
       topicId: this.topicId
     };
 
     this.errors = null;
-
+    if (!this.reply.text.length) {
+      this.Notification.removeAll();
+      this.Notification.addError('COMPONENTS.ARGUMENT_REPLY.ERROR_NO_TEXT');
+      return;
+    }
     this.TopicArgumentService
       .save(reply)
       .pipe(take(1))
       .subscribe((reply) => {
-        this.TopicArgumentService.reset();
-        /* return this.$state.go(
-           this.$state.current.name,
-           { commentId: this.getCommentIdWithVersion(comment.id, comment.edits.length - 1) }
-         );*/
+        this.TopicArgumentService.reload();
+        this.router.navigate(['/', 'topics', this.topicId], { queryParams: { argumentId: reply.id + "_v0" } });
       });
-    /* function (res) {
-       this.form.errors = res.data.errors;
-     }*/
+
   };
 
-  close () {
+  close() {
     this.showReplyChange.emit(false);
   }
 }

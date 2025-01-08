@@ -1,0 +1,65 @@
+<div class="overlay" dialog-close></div>
+<div class="dialog_wrap">
+  <div class="dialog">
+    <div class="dialog_header">
+      <div class="header_text">
+        <h4 class="title" translate="MODALS.MARKDOWN_ADD_LINK_HEADING"></h4>
+        <div class="dialog_close">
+          <a class="btn_dialog_close icon" dialog-close>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289Z"
+                fill="#2C3B47" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="dialog_content">
+      <form [formGroup]="form">
+        <div class="input_group">
+          <div class="bold" translate="MODALS.MARKDOWN_ADD_LINK_LBL_TEXT"></div>
+          <cos-input placeholder="{{'MODALS.MARKDOWN_ADD_LINK_PLACEHOLDER_TEXT' | translate}}">
+            <input id="linktext" formControlName="linktext"
+              placeholder="{{'MODALS.MARKDOWN_ADD_LINK_PLACEHOLDER_TEXT' | translate}}" (focus)="wWidth > 1024"
+              [ngClass]="{'error_input': form.controls['linktext'].touched && form.controls['linktext'].invalid}">
+            <label for="email" class="error_label"
+              *ngIf="form.controls['linktext'].touched && form.controls['linktext'].invalid">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M8.89438 1.78863C8.52586 1.05158 7.47405 1.05158 7.10553 1.78863L0.723562 14.5526C0.391112 15.2175 0.874608 15.9998 1.61799 15.9998H14.3819C15.1253 15.9998 15.6088 15.2175 15.2763 14.5526L8.89438 1.78863ZM6.99996 6.99977C6.99996 6.44749 7.44767 5.99977 7.99996 5.99977C8.55224 5.99977 8.99996 6.44749 8.99996 6.99977V9.99977C8.99996 10.5521 8.55224 10.9998 7.99996 10.9998C7.44767 10.9998 6.99996 10.5521 6.99996 9.99977V6.99977ZM6.99996 12.9998C6.99996 12.4475 7.44767 11.9998 7.99996 11.9998C8.55224 11.9998 8.99996 12.4475 8.99996 12.9998C8.99996 13.5521 8.55224 13.9998 7.99996 13.9998C7.44767 13.9998 6.99996 13.5521 6.99996 12.9998Z"
+                  fill="#EF4025" />
+              </svg>
+              <span translate="MODALS.MARKDOWN_ADD_LINK_ERROR_TEXT"></span>
+            </label>
+          </cos-input>
+        </div>
+        <div class="input_group">
+          <div class="bold" translate="MODALS.MARKDOWN_ADD_LINK_LBL_LINK"></div>
+          <cos-input placeholder="{{'MODALS.MARKDOWN_ADD_LINK_PLACEHOLDER_LINK' | translate}}">
+            <input id="link" formControlName="link"
+              placeholder="{{'MODALS.MARKDOWN_ADD_LINK_PLACEHOLDER_LINK' | translate}}" (focus)="wWidth > 1024"
+              [ngClass]="{'error_input': form.controls['link'].touched && form.controls['link'].invalid}">
+            <label for="email" class="error_label"
+              *ngIf="form.controls['link'].touched && form.controls['link'].invalid">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M8.89438 1.78863C8.52586 1.05158 7.47405 1.05158 7.10553 1.78863L0.723562 14.5526C0.391112 15.2175 0.874608 15.9998 1.61799 15.9998H14.3819C15.1253 15.9998 15.6088 15.2175 15.2763 14.5526L8.89438 1.78863ZM6.99996 6.99977C6.99996 6.44749 7.44767 5.99977 7.99996 5.99977C8.55224 5.99977 8.99996 6.44749 8.99996 6.99977V9.99977C8.99996 10.5521 8.55224 10.9998 7.99996 10.9998C7.44767 10.9998 6.99996 10.5521 6.99996 9.99977V6.99977ZM6.99996 12.9998C6.99996 12.4475 7.44767 11.9998 7.99996 11.9998C8.55224 11.9998 8.99996 12.4475 8.99996 12.9998C8.99996 13.5521 8.55224 13.9998 7.99996 13.9998C7.44767 13.9998 6.99996 13.5521 6.99996 12.9998Z"
+                  fill="#EF4025" />
+              </svg>
+              <span translate="MODALS.MARKDOWN_ADD_LINK_ERROR_LINK"></span>
+            </label>
+          </cos-input>
+        </div>
+
+        <div class="line_separator"></div>
+        <div [innerHTML]="'MODALS.MARKDOWN_ADD_LINK_DESCRIPTION' | translate"></div>
+      </form>
+    </div>
+    <div class="dialog_footer with_buttons">
+      <a dialog-close translate="MODALS.MARKDOWN_ADD_LINK_BTN_CANCEL"></a>
+      <button class="btn_big_submit" translate="MODALS.MARKDOWN_ADD_LINK_BTN_SAVE" (click)="save()"></button>
+    </div>
+  </div>
+</div>

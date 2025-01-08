@@ -2,9 +2,9 @@ import { Component, Inject, ViewChild, ElementRef, HostBinding } from '@angular/
 import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 import { take, takeWhile } from 'rxjs';
 import { Group } from 'src/app/interfaces/group';
-import { GroupService } from 'src/app/services/group.service';
-import { countries } from 'src/app/services/country.service';
-import { languages } from 'src/app/services/language.service';
+import { GroupService } from '@services/group.service';
+import { countries } from '@services/country.service';
+import { languages } from '@services/language.service';
 
 @Component({
   selector: 'app-group-settings',
@@ -36,7 +36,8 @@ export class GroupSettingsComponent {
     private GroupService: GroupService
   ) {
     this.group = data.group;
-    this.rules = data.group.rules.map((rule:string) => {return {rule: rule}});
+    if (data.group.rules)
+      this.rules = data.group.rules.map((rule:string) => {return {rule: rule}});
     if (this.activeTab === 'info') {
     }
   }

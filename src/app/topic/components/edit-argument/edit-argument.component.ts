@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Argument } from 'src/app/interfaces/argument';
-import { TopicArgumentService } from 'src/app/services/topic-argument.service';
-import { AppService } from 'src/app/services/app.service';
-import { AuthService } from 'src/app/services/auth.service';
+import { TopicArgumentService } from '@services/topic-argument.service';
+import { AppService } from '@services/app.service';
+import { AuthService } from '@services/auth.service';
 import { take } from 'rxjs';
 import { trigger, state, style } from '@angular/animations';
 
@@ -38,7 +38,8 @@ export class EditArgumentComponent implements OnInit {
     subject: '',
     text: '',
     type: '',
-    topicId: ''
+    topicId: '',
+    discussionId: ''
   }
   errors: any = null;
   constructor(private TopicArgumentService: TopicArgumentService, public app: AppService, public AuthService: AuthService) {
@@ -96,7 +97,14 @@ export class EditArgumentComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    this.edit = Object.assign(this.edit, {id: this.argument.id, subject: this.argument.subject, text: this.argument.text, type: this.argument.type, topicId: this.topicId});
+    this.edit = Object.assign(this.edit, {
+      id: this.argument.id,
+      subject: this.argument.subject,
+      text: this.argument.text,
+      type: this.argument.type,
+      topicId: this.topicId,
+      discussionId: this.argument.discussionId
+    });
   }
 
 }

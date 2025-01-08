@@ -317,17 +317,6 @@
       padding: 0;
       flex-direction: column;
     }
-
-    &::-webkit-scrollbar {
-      width: 4px;
-      height: 4px;
-      background-color: var(--color-scrollbar);
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background-color: var(--color-scrollbar-thumb);
-      border-radius: 8px;
-    }
   }
 
   .view_more_button {

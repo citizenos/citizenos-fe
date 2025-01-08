@@ -5,7 +5,7 @@ import { AuthService } from './auth.service';
 import { LocationService } from './location.service';
 import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { Argument } from 'src/app/interfaces/argument';
-import { Observable, BehaviorSubject, map, distinct, catchError, EMPTY, combineLatest, switchMap } from 'rxjs';
+import { Observable, BehaviorSubject, map, distinct, catchError, EMPTY, combineLatest, switchMap, exhaustMap, shareReplay } from 'rxjs';
 import { ItemsListService } from './items-list.service';
 @Injectable({
   providedIn: 'root'
@@ -46,8 +46,9 @@ export class TopicArgumentService extends ItemsListService {
   ARGUMENT_VERSION_SEPARATOR = '_v';
   ArgumentIds = <string[]>[];
   params = {
-    topicId: <string | null>null,
-    orderBy: <string>this.ARGUMENT_ORDER_BY.date,
+    topicId: <string | null> null,
+    discussionId: <string | null> null,
+    orderBy: this.ARGUMENT_ORDER_BY.date,
     types: <string | string[] | null>null,
     sortOrder: <string | null>null,
     offset: <number>0,
@@ -64,14 +65,21 @@ export class TopicArgumentService extends ItemsListService {
     reply: 0
   });
 
-  constructor(private http: HttpClient, private Location: LocationService, private Auth: AuthService) {
+  constructor(private readonly http: HttpClient, private readonly Location: LocationService, private readonly Auth: AuthService) {
     super();
     this.items$ = this.loadItems();
 
   }
 
+  loadArguments() {
+    return this.reload$.pipe(
+      exhaustMap(() => this.loadItems()),
+      shareReplay()
+    );
+  }
+
   save(data: any) {
-    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/comments'), data);
+    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/discussions/:discussionId/comments'), data);
 
     return this.http.post<ApiResponse>(path, data, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
       map(res => res.data)
@@ -80,7 +88,7 @@ export class TopicArgumentService extends ItemsListService {
 
   update(data: any) {
     if (!data.commentId) data.commentId = data.id;
-    const path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/comments/:commentId'), data);
+    const path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/discussions/:discussionId/comments/:commentId'), data);
 
     return this.http.put<ApiResponse>(path, data, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
       map(res => res.data)
@@ -89,7 +97,7 @@ export class TopicArgumentService extends ItemsListService {
 
   delete(data: any) {
     if (!data.commentId) data.commentId = data.id;
-    const path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/comments/:commentId'), data)
+    const path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/discussions/:discussionId/comments/:commentId'), data)
 
     return this.http.delete<ApiResponse>(path, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
       map(res => res.data)
@@ -97,7 +105,7 @@ export class TopicArgumentService extends ItemsListService {
   }
 
   query(params: { [key: string]: any }): Observable<ApiResponse> {
-    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/comments'), params);
+    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/discussions/:discussionId/comments'), params);
 
     const queryParams = Object.fromEntries(Object.entries(params).filter((i) => i[1] !== null));
 
@@ -105,7 +113,7 @@ export class TopicArgumentService extends ItemsListService {
   }
 
   vote(data: any) {
-    let path = this.Location.getAbsoluteUrlApi('/api/topics/:topicId/comments/:commentId/votes', data);
+    let path = this.Location.getAbsoluteUrlApi('/api/topics/:topicId/discussions/:discussionId/comments/:commentId/votes', data);
 
     return this.http.post<ApiResponse>(path, data, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
       map(res => res.data)
@@ -116,7 +124,7 @@ export class TopicArgumentService extends ItemsListService {
     if (!data['commentId']) data['commentId'] = data['id'];
     const queryParams = Object.fromEntries(Object.entries(data).filter((i) => i[1] !== null));
 
-    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/comments/:commentId/votes'), data);
+    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/discussions/:discussionId/comments/:commentId/votes'), data);
     return this.http.get<ApiResponse>(path, { withCredentials: true, params: queryParams, observe: 'body', responseType: 'json' }).pipe(
       map(res => res.data)
     );
@@ -124,7 +132,7 @@ export class TopicArgumentService extends ItemsListService {
 
   report(data: any) {
     if (!data.commentId) data.commentId = data.id;
-    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/comments/:commentId/reports'), data);
+    let path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/discussions/:discussionId/comments/:commentId/reports'), data);
 
     return this.http.post<ApiResponse>(path, data, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
       map(res => res.data)
@@ -132,7 +140,11 @@ export class TopicArgumentService extends ItemsListService {
   };
 
   getReport(data: any) {
-    const path = this.Location.getAbsoluteUrlApi('/api/topics/:topicId/comments/:commentId/reports/:reportId', data);
+    let path = this.Location.getAbsoluteUrlApi('/api/topics/:topicId/discussions/:discussionId/comments/:commentId/reports/:reportId', data);
+    if (path.indexOf('/discussions/:discussionId')) {
+      path = path.replace('/discussions/:discussionId', '');
+    }
+
     const headers = {
       'Authorization': 'Bearer ' + data.token
     };
@@ -142,7 +154,7 @@ export class TopicArgumentService extends ItemsListService {
   };
 
   moderate(data: any) {
-    const path = this.Location.getAbsoluteUrlApi('/api/topics/:topicId/comments/:commentId/reports/:reportId/moderate', data)
+    const path = this.Location.getAbsoluteUrlApi('/api/topics/:topicId/discussions/:discussionId/comments/:commentId/reports/:reportId/moderate', data)
     const headers = {
       'Authorization': 'Bearer ' + data.token
     };
@@ -156,7 +168,7 @@ export class TopicArgumentService extends ItemsListService {
     return this.getArguments(params);
   }
 
-  getArguments(params?: any | null) {
+  getArguments(params?: any) {
     return this.query(params).pipe(
       map((res) => {
         this.count.next(res.data.count);
@@ -167,7 +179,7 @@ export class TopicArgumentService extends ItemsListService {
             argument.replies.rows.forEach((reply: Argument) => this.ArgumentIds.push(reply.id))
           }
         })
-        return { rows: res.data.rows, countTotal: (res.data.count.total - res.data.count.reply) || 0 }
+        return { rows: res.data.rows, count: res.data.count, countTotal: (res.data.count.total - res.data.count.reply) || 0 }
       }),
       distinct(),
       catchError(() => EMPTY)
@@ -183,4 +195,31 @@ export class TopicArgumentService extends ItemsListService {
   getArgumentIdWithVersion(argumentId: string, version: number) {
     return argumentId + this.ARGUMENT_VERSION_SEPARATOR + version;
   };
+
+  override loadItems() {
+    return combineLatest([this.page$, this.params$]).pipe(
+      shareReplay(),
+      switchMap(([page, paramsValue]) => {
+        paramsValue.offset = (page - 1) * paramsValue.limit;
+        return this.getItems(paramsValue);
+      }),
+      map((res: any) => {
+        const params = this.params$.value;
+        this.countTotal$.next(res.countTotal || res.count || 0);
+        if (params.types?.length) {
+          let totalCount = 0;
+          let types = (!Array.isArray(params.types))? [params.types] : params.types;
+          console.log(res);
+          types.forEach((type) => totalCount += res.count[type]);
+          this.countTotal$.next(totalCount);
+        }
+        this.totalPages$.next(Math.ceil(this.countTotal$.value / params.limit));
+        this.hasMore$.next(true);
+        if (this.totalPages$.value === 0 || this.totalPages$.value === this.page$.value) {
+          this.hasMore$.next(false);
+        }
+        return Array.from<any>(res.rows);
+      })
+    );
+  }
 }

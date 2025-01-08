@@ -1,12 +1,18 @@
 <div class="overlay" dialog-close></div>
 <div class="dialog_wrap">
-  <div id="notification_wrap_dialog">
+  <div id="notification_wrap_dialog" class="mobile_hidden">
     <notification></notification>
   </div>
   <div class="dialog" *ngIf="topic$ | async as topic">
+    <div id="notification_wrap_dialog" class="mobile_show">
+      <notification></notification>
+    </div>
     <div class="dialog_header">
       <div class="header_text">
-        <h4 class="title" translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_TITLE"></h4>
+        <h4 class="title" translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_TITLE"><!--div class="tooltip" tooltip>
+          <div class="content_title">Help on its way</div>
+          <div class="content_description">Help text coming soon! Please tell us what help you were looking for.</div>
+        </!--div--></h4>
         <div class="dialog_close">
           <a class="btn_dialog_close icon" dialog-close>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -34,8 +40,6 @@
           <div class="bold" [innerHTML]="topic.title"></div>
         </div>
       </div>
-    </div>
-    <div class="dialog_info_wrap">
       <div class="dialog_info" [ngClass]="{'toggle_off': !allowNotifications, 'toggle_on': allowNotifications}">
         <div class="info_row with_toggle">
           <div class="bold" translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_LBL_TOPIC_NOTIFICATIONS"></div>
@@ -45,6 +49,7 @@
       </div>
     </div>
     <div class="dialog_content" *ngIf="settings | async as settings">
+      <div class="line_separator"></div>
       <div class="bold" translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_LBL_NOTIFY_ME_ABOUT"></div>
       <label class="checkbox"><span translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_LBL_ALL_ACTIONS"></span>
         <input type="checkbox" [checked]="allChecked()" (click)="toggleAllNotifications()">
@@ -52,12 +57,17 @@
       </label>
       <label class="checkbox"><span translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_LBL_TOPIC_UPDATES"></span>
         <input type="checkbox" [checked]="preferences.Topic && preferences.TopicReport"
-          (click)="selectOption('Topic');selectOption('TopicReport');">
+          (click)="selectOption(['Topic', 'TopicReport']);">
         <span class="checkmark"></span>
       </label>
       <label class="checkbox"><span translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_LBL_TOPIC_DISCUSSION"></span>
-        <input type="checkbox" [checked]="preferences.TopicComment && preferences.CommentVote"
-          (click)="selectOption('TopicComment');selectOption('CommentVote');">
+        <input type="checkbox" [checked]="preferences.Discussion && preferences.DiscussionComment && preferences.CommentVote"
+          (click)="selectOption(['Discussion', 'DiscussionComment', 'CommentVote', 'TopicComment', 'CommentReport' ]);">
+        <span class="checkmark"></span>
+      </label>
+      <label class="checkbox"><span translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_LBL_TOPIC_IDEATION"></span>
+        <input type="checkbox" [checked]="preferences.Ideation && preferences.IdeaVote && preferences.Idea && preferences.TopicIdeation && preferences.IdeaComment"
+          (click)="selectOption(['Ideation', 'Idea', 'IdeaVote', 'TopicIdeation', 'IdeaComment', 'IdeationIdea', 'IdeaReport']);">
         <span class="checkmark"></span>
       </label>
       <label class="checkbox"><span translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_LBL_TOPIC_VOTING"></span>
@@ -71,7 +81,7 @@
     </div>
 
     <div class="dialog_footer with_buttons">
-      <a dialog-close translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_LNK_CANCEL"></a>
+      <a dialog-close translate>MODALS.TOPIC_NOTIFICATION_SETTINGS_LNK_CANCEL</a>
       <button class="btn_medium_submit" (click)="doSaveSettings();"
         translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_BTN_SAVE"></button>
     </div>

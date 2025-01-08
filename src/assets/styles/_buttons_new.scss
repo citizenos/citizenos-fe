@@ -1,4 +1,5 @@
 @use "mixins";
+@use "variables" as *;
 
 %btn_big {
   padding: 8px 24px;
@@ -55,6 +56,7 @@ button,
 %btn_medium,
 %btn_small {
   background: none;
+  position: relative;
   justify-content: center;
   align-items: center;
   border: none;
@@ -129,11 +131,11 @@ $button-styles: (
   ),
   pagination: (
     background: var(--color-surfaces),
-    hover: var(--color-scrollbar),
+    hover: var(--color-blue-100),
     hover-color: var(--color-link),
   ),
   plain: (
-    hover: var(--color-scrollbar),
+    hover: var(--color-blue-100),
   ),
 );
 
@@ -258,6 +260,10 @@ $button-styles: (
   }
 }
 
+.like_active {
+  background-color: var(--color-ideation-disabled);
+}
+
 .radio_wrap {
   display: flex;
   flex-direction: row;
@@ -300,14 +306,16 @@ $button-styles: (
   }
 
   &.voting {
-    &:focus, &:hover {
+    &:focus,
+    &:hover {
       background-color: var(--color-argument-pro-light);
 
-      .checmark, .radio {
+      .checmark,
+      .radio {
         border-color: initial;
       }
     }
-/*
+    /*
     &.active, &.selected {
       background-color: var(--color-voting-disabled);
 
@@ -409,9 +417,7 @@ $button-styles: (
   flex-wrap: wrap;
 
   span {
-    @include mixins.mobile {
-      max-width: calc(100vw - 90px);
-    }
+    max-width: calc(100% - 40px);
   }
   input {
     position: absolute !important;
@@ -556,4 +562,8 @@ $button-styles: (
       }
     }
   }
+}
+
+.btn_submit {
+  @include mixins.button($color-primary, $color-background);
 }

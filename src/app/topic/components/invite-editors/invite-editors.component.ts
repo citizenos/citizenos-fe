@@ -3,15 +3,15 @@ import { DialogRef, DIALOG_DATA } from 'src/app/shared/dialog';
 import { isEmail } from 'validator';
 import { take, of, switchMap, forkJoin, combineLatest, Subscription } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
-import { TopicService } from 'src/app/services/topic.service';
+import { TopicService } from '@services/topic.service';
 import { TopicMemberGroup } from 'src/app/interfaces/group';
 import { TopicMemberUser } from 'src/app/interfaces/user';
-import { NotificationService } from 'src/app/services/notification.service';
-import { SearchService } from 'src/app/services/search.service';
-import { TopicJoinService } from 'src/app/services/topic-join.service';
-import { TopicMemberUserService } from 'src/app/services/topic-member-user.service';
-import { TopicMemberGroupService } from 'src/app/services/topic-member-group.service';
-import { TopicInviteUserService } from 'src/app/services/topic-invite-user.service';
+import { NotificationService } from '@services/notification.service';
+import { SearchService } from '@services/search.service';
+import { TopicJoinService } from '@services/topic-join.service';
+import { TopicMemberUserService } from '@services/topic-member-user.service';
+import { TopicMemberGroupService } from '@services/topic-member-group.service';
+import { TopicInviteUserService } from '@services/topic-invite-user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({

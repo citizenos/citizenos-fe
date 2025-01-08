@@ -13,13 +13,13 @@
   </div>
   <div class="input_wrap">
     <cos-input placeholder="{{'COMPONENTS.LOGIN_FORM.LOGIN_PLACEHOLDER_EMAIL' | translate}}">
-      <input id="email" formControlName="email" type="email" [ngClass]="{'error_input': loginForm.controls['email'].errors && loginForm.controls['email'].errors['required'] && loginForm.touched}"
+      <input id="email" formControlName="email" type="email" [ngClass]="{'error_input': loginForm.controls['email'].errors && loginForm.controls['email'].errors['required'] && loginForm.controls['email'].touched}"
         placeholder="{{'COMPONENTS.LOGIN_FORM.LOGIN_PLACEHOLDER_EMAIL' | translate}}" [maxlength]="254" required>
     </cos-input>
     <cos-input placeholder="{{'COMPONENTS.LOGIN_FORM.LOGIN_PLACEHOLDER_PASSWORD' | translate}}">
       <input id="password" formControlName="password" [type]="showPassword ? 'text' : 'password'"
         placeholder="{{'COMPONENTS.LOGIN_FORM.LOGIN_PLACEHOLDER_PASSWORD' | translate}}" (focus)="isFormEmailProvided"
-        [ngClass]="{'error_input': loginForm.controls['password'].errors && loginForm.controls['password'].errors['required'] && loginForm.touched}" [maxlength]="64" required cos-view-input>
+        [ngClass]="{'error_input': loginForm.controls['password'].errors && loginForm.controls['password'].errors['required'] && loginForm.controls['password'].touched}" [maxlength]="64" required cos-view-input>
       <div class="view_password" (click)="showPassword = !showPassword">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path

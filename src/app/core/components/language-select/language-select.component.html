@@ -1,9 +1,12 @@
 <div class="overlay" dialog-close></div>
 <div class="dialog_wrap">
-  <div id="notification_wrap_dialog">
+  <div id="notification_wrap_dialog" class="mobile_hidden">
     <notification></notification>
   </div>
   <div class="dialog">
+    <div id="notification_wrap_dialog" class="mobile_show">
+      <notification></notification>
+    </div>
     <div class="dialog_header">
       <div class="header_text">
         <h4 class="title" translate="MODALS.LANGUAGES_MODAL_HEADING"></h4>
@@ -29,7 +32,7 @@
     </div>
     <div class="dialog_info_wrap">
       <div id="help_us_box_wrap" class="dialog_info">
-        <a href="https://citizenos.com/get-involved/" target="_blank" class="help_us_box">
+        <a href="https://citizenos.com/get-involved/volunteer-translator" target="_blank" class="help_us_box">
           <div class="illustration_who_politics"></div>
           <div class="help_us_text" translate="MODALS.LANGUAGES_MODAL_HELP_US_TRANSLATE"></div>
           <div>

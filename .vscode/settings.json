@@ -1,0 +1,7 @@
+{
+  "cody.autocomplete.advanced.provider": "experimental-ollama",
+    "cody.autocomplete.experimental.ollamaOptions": {
+      "url": "http://localhost:11434",
+      "model": "codellama"
+    },
+}

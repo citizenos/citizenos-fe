@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { DialogService } from 'src/app/shared/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
-import { ActivityService } from 'src/app/services/activity.service';
+import { ActivityService } from '@services/activity.service';
 
 @Component({
   selector: 'activity',

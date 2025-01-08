@@ -3,6 +3,7 @@
   <div id="title_wrap" class="block_title_wrap" (click)="blockAttachments = true">
     <div class="block_title" translate="VIEWS.TOPIC_CREATE.TITLE_ATTACHMENTS"><div class="tooltip" tooltip>
       <div class="content_title" translate="VIEWS.TOPIC_CREATE.TOOLTIP_ATTACHMENTS_TITLE"></div>
+      <div class="content_description" translate="VIEWS.TOPIC_CREATE.TOOLTIP_ATTACHMENTS_DESCRIPTION_LIMIT" [translateParams]="{limit: config.limit || 10}"></div>
       <div class="content_description" translate="VIEWS.TOPIC_CREATE.TOOLTIP_ATTACHMENTS_DESCRIPTION_SIZE" [translateParams]="{allowedFileSize: getAllowedFileSize()}"></div>
       <div class="content_description" translate="VIEWS.TOPIC_CREATE.TOOLTIP_ATTACHMENTS_DESCRIPTION_TYPES" [translateParams]="{allowedFileTypes: getAllowedFileTypes()}"></div>
     </div></div>

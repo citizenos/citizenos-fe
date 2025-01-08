@@ -18,7 +18,12 @@
       </div>
     </div>
     <div class="level_select_wrap">
-      <span class="bold" translate="COMPONENTS.GROUP_SHARE.LBL_ACCESS_LEVEL"></span>
+      <span class="bold" translate="COMPONENTS.GROUP_SHARE.LBL_ACCESS_LEVEL">
+        <div class="tooltip" tooltip>
+          <div class="content_title" translate="VIEWS.GROUP.TOOLTIP_MEMBERS_PERMISSIONS_HEADING"></div>
+          <div class="content_description" [innerHTML]="'VIEWS.GROUP.TOOLTIP_MEMBERS_PERMISSIONS_DESCRIPTION' | translate"></div>
+        </div>
+      </span>
       <div class="dropdown" [cosDropdown] [ngClass]="{'disabled': !canUpdate()}">
         <div class="selection">
           <div class="selected_item">{{'TXT_GROUP_LEVELS_' + (join.level) |

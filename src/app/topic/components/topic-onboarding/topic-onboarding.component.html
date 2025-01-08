@@ -1,9 +1,12 @@
 <div class="overlay" dialog-close></div>
 <div class="dialog_wrap">
-  <div id="notification_wrap_dialog">
+  <div id="notification_wrap_dialog" class="mobile_hidden">
     <notification></notification>
   </div>
   <div class="dialog">
+    <div id="notification_wrap_dialog" class="mobile_show">
+      <notification></notification>
+    </div>
     <div class="dialog_header">
       <div class="header_with_icon">
         <div class="icon_notification">
@@ -160,7 +163,10 @@
     </div>
     <div class="dialog_content">
       <div class="title_wrap">
-        <div id="title" translate="COMPONENTS.TOPIC_ONBOARDING.TITLE"></div>
+        <div id="title">
+          <span translate="COMPONENTS.TOPIC_ONBOARDING.TITLE"></span>
+          <span>🎉</span>
+        </div>
       </div>
       <div class="content" translate="COMPONENTS.TOPIC_ONBOARDING.DESCRIPTION"></div>
       <div class="content bold" translate="COMPONENTS.TOPIC_ONBOARDING.TAKE_A_TOUR"></div>

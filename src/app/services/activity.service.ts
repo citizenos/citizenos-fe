@@ -1,14 +1,27 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, exhaustMap, map, Observable, shareReplay } from 'rxjs';
-import { Router } from '@angular/router';
+import { Injectable, OnInit, ChangeDetectorRef, Inject } from '@angular/core';
+import { BehaviorSubject, exhaustMap, map, shareReplay, switchMap, tap, take, combineLatest, Subject } from 'rxjs';
+import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import * as jsonpatch from 'fast-json-patch';
 import { TranslateService } from '@ngx-translate/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 import { ItemsListService } from './items-list.service';
 import { LocationService } from './location.service';
-import { ApiResponse } from '../interfaces/apiResponse';
 import { AuthService } from './auth.service';
+import { AppService } from '@services/app.service';
+import { TopicService } from '@services/topic.service';
+import { DialogService } from 'src/app/shared/dialog';
+import { BlockNavigationIfChange } from 'src/app/shared/pending-changes.guard';
+import { NotificationService } from '@services/notification.service';
+import { UploadService } from '@services/upload.service';
+import { GroupService } from '@services/group.service';
+import { GroupMemberTopicService } from '@services/group-member-topic.service';
+import { TopicInviteUserService } from '@services/topic-invite-user.service';
+import { TopicMemberUserService } from '@services/topic-member-user.service';
+import { TopicAttachmentService } from '@services/topic-attachment.service';
+import { TopicMemberGroupService } from '@services/topic-member-group.service';
+import { TopicDiscussionService } from '@services/topic-discussion.service';
 
 @Injectable({
   providedIn: 'root'
@@ -283,51 +296,39 @@ export class ActivityService extends ItemsListService {
 
   getActivityClassName = (activity: any) => {
     const dataobject = this.getActivityObject(activity);
+    const { type } = activity.data;
+    const actorType = activity.data.actor?.type;
+    const objectType = activity.data.object?.['@type'];
+    const targetType = activity.data.target?.['@type'];
 
-    if (activity.data.type === 'Accept' || activity.data.type === 'Invite' || (activity.data.type === 'Add' && activity.data.actor.type === 'User' && activity.data.object['@type'] === 'User' && activity.data.target['@type'] === 'Group')) { // Last condition if for Group invites
-      return 'invite';
-    } else if (['Topic', 'TopicMemberUser', 'Attachment', 'TopicFavourite'].indexOf(dataobject['@type']) > -1 || activity.data.target && activity.data.target['@type'] === ' Topic') {
-      return 'discussion';
-    } else if (['Group'].indexOf(dataobject['@type']) > -1 || dataobject.groupName) {
-      return 'group';
-    } else if (['Vote', 'VoteList', 'VoteUserContainer', 'VoteFinalContainer', 'VoteOption', 'VoteDelegation'].indexOf(dataobject['@type']) > -1) {
-      return 'vote';
-    } else if (['Comment', 'CommentVote'].indexOf(dataobject['@type']) > -1) {
-      return 'comment';
-    } else if (['User', 'UserConnection'].indexOf(dataobject['@type']) > -1 || dataobject.text) {
-      return 'personal';
-    } else {
-      return 'topic';
-    }
+    return type === 'Accept' || type === 'Invite' || (type === 'Add' && actorType === 'User' && objectType === 'User' && targetType === 'Group') ? 'invite' :
+           ['Topic', 'TopicMemberUser', 'Attachment', 'TopicFavourite'].includes(dataobject['@type']) || targetType === 'Topic' ? 'discussion' :
+           ['Group'].includes(dataobject['@type']) || dataobject.groupName ? 'group' :
+           ['Vote', 'VoteList', 'VoteUserContainer', 'VoteFinalContainer', 'VoteOption', 'VoteDelegation'].includes(dataobject['@type']) ? 'vote' :
+           ['Comment', 'CommentVote'].includes(dataobject['@type']) ? 'comment' :
+           ['User', 'UserConnection'].includes(dataobject['@type']) || dataobject.text ? 'personal' :
+           'topic';
   };
 
   getActivityDescription = (activity: any) => {
     const dataobject = this.getActivityObject(activity);
-
-    if (dataobject['@type'] === 'Comment' || dataobject.text) {
-      return dataobject.text;
-    }
-    if (activity.data.target && activity.data.target['@type'] === 'Comment') {
-      return activity.data.target.text;
-    }
+    return dataobject['@type'] === 'Comment' || dataobject.text ? dataobject.text :
+           activity.data.target?.['@type'] === 'Comment' ? activity.data.target.text :
+           undefined;
   };
 
   getActivityGroupName = (activity: any) => {
     const dataobject = this.getActivityObject(activity);
+    const target = activity.data.target;
+    const origin = activity.data.origin;
 
-    if (dataobject['@type'] === 'Group') {
-      return dataobject.name;
-    } else if (dataobject.groupName) {
-      return dataobject.groupName;
-    } else if (activity.data.target && activity.data.target['@type'] === 'Group') {
-      return activity.data.target.name;
-    } else if (activity.data.target && activity.data.target.groupName) {
-      return activity.data.target.groupName;
-    } else if (activity.data.origin && activity.data.origin['@type'] === 'Group') {
-      return activity.data.origin.name;
-    } else if (activity.data.origin && activity.data.origin.groupName) {
-      return activity.data.origin.groupName;
-    }
+    return dataobject['@type'] === 'Group' ? dataobject.name :
+           dataobject.groupName ? dataobject.groupName :
+           target?.['@type'] === 'Group' ? target.name :
+           target?.groupName ? target.groupName :
+           origin?.['@type'] === 'Group' ? origin.name :
+           origin?.groupName ? origin.groupName :
+           undefined;
   };
 
   getActivityAttachmentName = (activity: any) => {
@@ -427,7 +428,7 @@ export class ActivityService extends ItemsListService {
     let newValueKey = null;
     let fieldNameKey = null;
     const originType = activity.data.origin['@type'];
-    if (originType === 'Topic' || originType === 'Comment' || originType === 'Group') {
+    if (originType === 'Topic' || originType === 'Comment' || originType === 'Group' || originType === 'Idea') {
       fieldNameKey = 'ACTIVITY_FEED.ACTIVITY_' + originType.toUpperCase() + '_FIELD_' + fieldName.toUpperCase();
     }
 
@@ -478,7 +479,7 @@ export class ActivityService extends ItemsListService {
         }
       }
 
-      if (originType === 'Comment') {
+      if (originType === 'Comment' || originType === 'Idea') {
         if (fieldName === 'deletedReasonType') {
           newValueKey = 'ACTIVITY_FEED.ACTIVITY_COMMENT_FIELD_DELETEDREASONTYPE_' + newValue.toUpperCase();
         }
@@ -486,6 +487,7 @@ export class ActivityService extends ItemsListService {
           newValueKey = 'ACTIVITY_FEED.ACTIVITY_COMMENT_FIELD_VALUE_' + newValue.toUpperCase();
         }
       }
+      if (fieldName === 'deletedReasonType') console.log('ORIGIN', originType, newValueKey)
     }
     if (previousValueKey) {
       const prev = this.$translate.instant(previousValueKey);

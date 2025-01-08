@@ -2,29 +2,34 @@ import { Component, OnInit, ViewChild, ElementRef, Inject } from '@angular/core'
 import { DialogService } from 'src/app/shared/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { forkJoin, map, of, take, takeWhile } from 'rxjs';
+import { BehaviorSubject, forkJoin, map, of, take, takeWhile } from 'rxjs';
 import { Group } from 'src/app/interfaces/group';
 import { Topic } from 'src/app/interfaces/topic';
-import { ConfigService } from 'src/app/services/config.service';
-import { GroupService } from 'src/app/services/group.service';
-import { SearchService } from 'src/app/services/search.service';
-import { TopicService } from 'src/app/services/topic.service';
-import { GroupMemberTopicService } from 'src/app/services/group-member-topic.service';
-import { NotificationService } from 'src/app/services/notification.service';
-import { GroupInviteUserService } from 'src/app/services/group-invite-user.service';
-import { AppService } from 'src/app/services/app.service';
-import { countries } from 'src/app/services/country.service';
-import { languages } from 'src/app/services/language.service';
+import { ConfigService } from '@services/config.service';
+import { GroupService } from '@services/group.service';
+import { SearchService } from '@services/search.service';
+import { TopicService } from '@services/topic.service';
+import { GroupMemberTopicService } from '@services/group-member-topic.service';
+import { NotificationService } from '@services/notification.service';
+import { GroupInviteUserService } from '@services/group-invite-user.service';
+import { AppService } from '@services/app.service';
+import { countries } from '@services/country.service';
+import { languages } from '@services/language.service';
 import { InterruptDialogComponent } from 'src/app/shared/components/interrupt-dialog/interrupt-dialog.component';
+import { BlockNavigationIfChange } from 'src/app/shared/pending-changes.guard';
+import { GroupAddTopicsComponent } from '../group-add-topics/group-add-topics.component';
 
 @Component({
   selector: 'group-create-component',
   templateUrl: './group-create.component.html',
   styleUrls: ['./group-create.component.scss']
 })
-export class GroupCreateComponent implements OnInit {
+export class GroupCreateComponent implements OnInit, BlockNavigationIfChange {
   @ViewChild('imageUpload') fileInput?: ElementRef;
+  @ViewChild(GroupAddTopicsComponent) groupAddTopics!: GroupAddTopicsComponent;
 
+  hasChanges$ = new BehaviorSubject(<boolean>true);
+  topicsToAdd = <Topic[]>[];
   countries = countries.sort((a: any, b: any) => {
     return a.name.localeCompare(b.name);
   });
@@ -37,7 +42,9 @@ export class GroupCreateComponent implements OnInit {
     imageUrl: '',
     members: {
       users: <any[]>[],
-      topics: <Topic[]>[]
+      topics: {
+        rows: <Topic[]>[]
+      }
     },
     visibility: this.GroupService.VISIBILITY.private,
     contact: null,
@@ -97,6 +104,10 @@ export class GroupCreateComponent implements OnInit {
   }
 
   selectTab(tab: string) {
+
+    if (this.groupAddTopics) {
+      this.topicsToAdd = this.groupAddTopics.membersToAdd;
+    }
     this.router.navigate([], { fragment: tab });
   }
 
@@ -208,6 +219,7 @@ export class GroupCreateComponent implements OnInit {
           )
           .subscribe((res: any) => {
             if (res.link) {
+              this.hasChanges$.next(false);
               this.group.imageUrl = res.link;
 
               this.dialog.closeAll();
@@ -216,6 +228,7 @@ export class GroupCreateComponent implements OnInit {
             }
           });
       } else {
+        this.hasChanges$.next(false);
         this.GroupService.reset();
         this.router.navigate(['/groups', group.id]);
       }
@@ -279,7 +292,7 @@ export class GroupCreateComponent implements OnInit {
     // Topics
     this.errors = null;
     const topicsToAdd = <any>{};
-    this.group.members.topics.forEach((topic: Topic) => {
+    this.topicsToAdd.forEach((topic: Topic) => {
       const member = {
         groupId: this.group.id,
         topicId: topic.id,
@@ -294,7 +307,7 @@ export class GroupCreateComponent implements OnInit {
         .pipe(take(1))
         .subscribe({
           next: (res: any) => {
-            this.GroupService.reloadGroup();
+            this.GroupService.reload();
             this.GroupMemberTopicService.setParam('groupId', this.group.id);
           },
           error: (errorResponse: any) => {
