@@ -475,9 +475,13 @@
           translate="BTN_APPLY"></button>
       </div>
       <div class="options button_options" *ngIf="mobileFilters.country">
-        <typeahead class="dropdown dropdown_input" activeClass="dropdown_active" [term]="countrySearch"
-          (search)="searchCountry($event)" [placeholder]="'VIEWS.MY_GROUPS.FILTER_COUNTRY' | translate">
-        </typeahead>
+        <search-filter
+          [term]="countrySearch"
+          [placeholder]="'VIEWS.MY_GROUPS.FILTER_COUNTRY' | translate"
+          [search]="searchCountry.bind(this)"
+          [close]="closeMobileFilter.bind(this)"
+        />
+
         <div class="options_wrapper">
           <label class="checkbox" (click)="mobileFilters.country = 'all'">
             <span translate="VIEWS.MY_GROUPS.FILTER_ALL"></span>
@@ -493,13 +497,17 @@
           </ng-container>
         </div>
         <button class="btn_medium_secondary"
-          (click)="setCountry(mobileFilters.country.trim()); mobileFilters.country= false;"
+          (click)="setCountry(mobileFilters.country.trim()); closeMobileFilter();"
           translate="BTN_APPLY"></button>
       </div>
       <div class="options button_options" *ngIf="mobileFilters.language">
-        <typeahead class="dropdown dropdown_input" activeClass="dropdown_active" [term]="languageSearch"
-          (search)="searchLanguage($event)" [placeholder]="'VIEWS.MY_GROUPS.FILTER_LANGUAGE' | translate">
-        </typeahead>
+        <search-filter
+          [term]="languageSearch"
+          [placeholder]="'VIEWS.MY_GROUPS.FILTER_LANGUAGE' | translate"
+          [search]="searchLanguage.bind(this)"
+          [close]="closeMobileFilter.bind(this)"
+        />
+
         <div class="options_wrapper">
           <label class="checkbox" (click)="mobileFilters.language = 'all'">
             <span translate="VIEWS.MY_GROUPS.FILTER_ALL"></span>
@@ -514,8 +522,9 @@
             </label>
           </ng-container>
         </div>
+
         <button class="btn_medium_secondary"
-          (click)="setLanguage(mobileFilters.language.trim()); mobileFilters.language = false;"
+          (click)="setLanguage(mobileFilters.language.trim()); closeMobileFilter();"
           translate="BTN_APPLY"></button>
       </div>
     </div>
