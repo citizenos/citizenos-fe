@@ -1,10 +1,9 @@
-import { Discussion } from 'src/app/interfaces/discussion';
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 import { NotificationService } from '@services/notification.service';
 import { TopicNotificationService } from '@services/topic-notification.service';
 import { TopicService } from '@services/topic.service';
-import { tap, map, Observable, take } from 'rxjs';
+import { tap, Observable, take } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 
 @Component({
@@ -25,6 +24,7 @@ export class TopicNotificationSettingsComponent implements OnInit {
     DiscussionComment: false,
     TopicDiscussion: false,
     CommentVote: false,
+    TopicComment: false,
     TopicReport: false,
     TopicVoteList: false,
     TopicEvent: false,
@@ -32,15 +32,18 @@ export class TopicNotificationSettingsComponent implements OnInit {
     Idea: false,
     IdeaVote: false,
     TopicIdeation: false,
-    IdeaComment: false
+    IdeaComment: false,
+    IdeationIdea:false,
+    IdeaReport: false,
+    CommentReport: false
   };
   allowNotifications = false
   constructor(
-    private TopicNotificationService: TopicNotificationService,
-    private Notification: NotificationService,
-    private Topic: TopicService,
+    private readonly TopicNotificationService: TopicNotificationService,
+    private readonly Notification: NotificationService,
+    private readonly Topic: TopicService,
     @Inject(DIALOG_DATA) public data: any,
-    private dialog: DialogService) {
+    private readonly dialog: DialogService) {
     if (data.topicId)
       this.topicId = data.topicId;
 
@@ -79,11 +82,14 @@ export class TopicNotificationSettingsComponent implements OnInit {
     return (Object.values(this.preferences).indexOf(false) === -1)
   };
 
-  selectOption(option: string) {
+  selectOption(options: string | string[]) {
+    if (!Array.isArray(options)) options = [options];
+    options.forEach((option) => {
     this.preferences[option] = !this.preferences[option];
-    if (this.preferences[option] === true) {
-      this.allowNotifications = true;
-    }
+      if (this.preferences[option] === true) {
+        this.allowNotifications = true;
+      }
+    });
   };
 
   doSaveSettings() {

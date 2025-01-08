@@ -1526,7 +1526,7 @@
     "TOPIC_DELETE_REPLY_TXT_ARE_YOU_SURE": "Určite chcete túto odpoveď vymazať? Tento krok sa nedá vrátiť späť.",
     "TOPIC_DELETE_REPLY_BTN_NO": "@:MODALS.TOPIC_ARGUMENT_REPORT_BTN_NO",
     "TOPIC_DELETE_REPLY_BTN_YES": "Áno, vymazať túto odpoveď",
-    "LOGIN_HEADING": "Prihláste sa do Citizen OS",
+    "LOGIN_HEADING": "Please log in to Citizen OS to continue",
     "LOGIN_EMAIL_HEADING": "Prihláste sa e-mailom",
     "LOGIN_BTN_LOGIN_FACEBOOK": "Prihlásiť sa s účtom Facebooku",
     "LOGIN_BTN_LOGIN_GOOGLE": "Prihlásiť sa s účtom Google",
