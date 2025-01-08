@@ -248,27 +248,18 @@
       </div>
 
       <div class="options filter_options">
-        <div class="filter_option">
-          <span translate="VIEWS.PUBLIC_GROUPS.FILTERS.VISIBILITY"></span>
-          <a class="bold" (click)="mobileFilters.visibility = true">
+        <a class="filter_option" (click)="mobileFilters.visibility = true">
+          <span class="filter_option_text" translate="VIEWS.PUBLIC_GROUPS.FILTERS.VISIBILITY"></span>
+          <span class="bold">
             <span *ngIf="!groupFilters.visibility" translate="VIEWS.PUBLIC_GROUPS.FILTERS.ALL"></span>
             <span *ngIf="groupFilters.visibility === 'favourite'"
               translate="VIEWS.PUBLIC_GROUPS.FILTERS.FAVOURITED"></span>
-          </a>
-        </div>
-        <!--div class="filter_option">
-          <span translate="VIEWS.PUBLIC_GROUPS.FILTERS.MY_ENGAGEMENT"></span><a class="bold"
-            (click)="mobileFilters.my_engagement = true">{{'TXT_TOPIC_CATEGORY_ALL' | uppercase |
-            translate}}</a>
-        </!--div-->
-        <!--div class="filter_option">
-          <span translate="VIEWS.PUBLIC_GROUPS.FILTERS.CATEGORIES"></span><a class="bold"
-            (click)="mobileFilters.category = true">{{'TXT_TOPIC_CATEGORY_ALL' | uppercase |
-            translate}}</a>
-        </!--div-->
-        <div class="filter_option">
-          <span translate="VIEWS.PUBLIC_GROUPS.FILTERS.ORDER"></span><a class="bold"
-            (click)="mobileFilters.orderBy = true">
+          </span>
+        </a>
+
+        <a class="filter_option" (click)="mobileFilters.orderBy = true">
+          <span class="filter_option_text" translate="VIEWS.PUBLIC_GROUPS.FILTERS.ORDER"></span>
+          <span class="bold">
             <span *ngIf="!groupFilters.orderBy"> {{'VIEWS.PUBLIC_GROUPS.FILTERS.ALL' | translate}} </span>
             <span *ngIf="groupFilters.orderBy === 'activity'"
               translate="VIEWS.PUBLIC_GROUPS.FILTERS.ORDER_RECENT_ACTIVITY"></span>
@@ -280,18 +271,21 @@
               translate="VIEWS.PUBLIC_GROUPS.FILTERS.MOST_RECENT"></span>
             <span *ngIf="groupFilters.orderBy === 'topicCount'"
               translate="VIEWS.PUBLIC_GROUPS.FILTERS.MOST_TOPICS"></span>
-          </a>
-        </div>
-        <div class="filter_option">
-          <span translate="VIEWS.PUBLIC_GROUPS.FILTERS.COUNTRY"></span><a class="bold"
-            (click)="mobileFilters.country = true">{{groupFilters.country || 'VIEWS.PUBLIC_GROUPS.FILTERS.ALL' |
-            translate}}</a>
-        </div>
-        <div class="filter_option">
-          <span translate="VIEWS.PUBLIC_GROUPS.FILTERS.LANGUAGE"></span><a class="bold"
-            (click)="mobileFilters.language = true">{{groupFilters.language || 'VIEWS.PUBLIC_GROUPS.FILTERS.ALL' |
-            translate}}</a>
-        </div>
+          </span>
+        </a>
+
+        <a class="filter_option" (click)="mobileFilters.country = true">
+          <span class="filter_option_text" translate="VIEWS.PUBLIC_GROUPS.FILTERS.COUNTRY"></span>
+          <span class="bold">{{groupFilters.country || 'VIEWS.PUBLIC_GROUPS.FILTERS.ALL' |
+            translate}}</span>
+        </a>
+
+        <a class="filter_option" (click)="mobileFilters.language = true">
+          <span class="filter_option_text" translate="VIEWS.PUBLIC_GROUPS.FILTERS.LANGUAGE"></span>
+          <span class="bold">{{groupFilters.language || 'VIEWS.PUBLIC_GROUPS.FILTERS.ALL' |
+            translate}}</span>
+        </a>
+
         <button (click)="doClearFilters()" class="btn_medium_plain">
           <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
