@@ -43,5 +43,6 @@
   "plausible": {
     "__name": "CITIZENOS_PLAUSIBLE",
     "__format": "json"
-  }
+  },
+  "showIssueNotification": "CITIZENOS_SHOW_ISSUE_NOTIFICATION"
 }

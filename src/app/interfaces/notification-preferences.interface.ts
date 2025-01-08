@@ -11,5 +11,7 @@ export interface NotificationPreferences {
   Idea: boolean,
   IdeaVote: boolean,
   TopicIdeation: boolean,
-  IdeaComment: boolean
+  IdeaComment: boolean,
+  IdeaReport: boolean,
+  CommentReport: boolean
 }
