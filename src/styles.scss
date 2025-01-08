@@ -162,31 +162,15 @@
 }
 
 .main_heading {
-  font-size: 28px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 32px;
+  @include mixins.heading(28px);
 }
 
 .medium_heading {
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 32px;
+  @include mixins.heading(24px);
 }
 
 .small_heading {
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 24px;
-
-  a {
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 24px;
-  }
+  @include mixins.heading(18px);
 }
 
 a,

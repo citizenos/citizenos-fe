@@ -56,22 +56,20 @@
       </label>
       <label class="checkbox"><span translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_LBL_TOPIC_UPDATES"></span>
         <input type="checkbox" [checked]="preferences.Topic && preferences.TopicReport"
-          (click)="selectOption('Topic');selectOption('TopicReport');"
-          (keydown)="selectOption('Topic');selectOption('TopicReport');">
+          (click)="selectOption(['Topic', 'TopicReport']);"
+          (keydown)="selectOption(['Topic', 'TopicReport']);">
         <span class="checkmark"></span>
       </label>
       <label class="checkbox"><span translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_LBL_TOPIC_DISCUSSION"></span>
-        <input type="checkbox"
-          [checked]="preferences.Discussion && preferences.DiscussionComment && preferences.CommentVote"
-          (click)="selectOption('Discussion'); selectOption('DiscussionComment');selectOption('CommentVote');"
-          (keydown)="selectOption('Discussion'); selectOption('DiscussionComment');selectOption('CommentVote');">
+        <input type="checkbox" [checked]="preferences.Discussion && preferences.DiscussionComment && preferences.CommentVote"
+          (click)="selectOption(['Discussion', 'DiscussionComment', 'CommentVote', 'TopicComment', 'CommentReport' ]);"
+          (keydown)="selectOption(['Discussion', 'DiscussionComment', 'CommentVote', 'TopicComment', 'CommentReport' ]);">
         <span class="checkmark"></span>
       </label>
       <label class="checkbox"><span translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_LBL_TOPIC_IDEATION"></span>
-        <input type="checkbox"
-          [checked]="preferences.Ideation && preferences.IdeaVote && preferences.Idea && preferences.TopicIdeation && preferences.IdeaComment"
-          (click)="selectOption('Ideation');selectOption('TopicIdeation');selectOption('IdeaVote'); selectOption('Idea');selectOption('IdeaComment');"
-          (keydown)="selectOption('Ideation');selectOption('TopicIdeation');selectOption('IdeaVote'); selectOption('Idea');selectOption('IdeaComment');">
+        <input type="checkbox" [checked]="preferences.Ideation && preferences.IdeaVote && preferences.Idea && preferences.TopicIdeation && preferences.IdeaComment"
+          (click)="selectOption(['Ideation', 'Idea', 'IdeaVote', 'TopicIdeation', 'IdeaComment', 'IdeationIdea', 'IdeaReport']);"
+          (keydown)="selectOption(['Ideation', 'Idea', 'IdeaVote', 'TopicIdeation', 'IdeaComment', 'IdeationIdea', 'IdeaReport']);">
         <span class="checkmark"></span>
       </label>
       <label class="checkbox"><span translate="MODALS.TOPIC_NOTIFICATION_SETTINGS_LBL_TOPIC_VOTING"></span>

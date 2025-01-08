@@ -31,7 +31,9 @@ export class TopicNotificationSettingsComponent implements OnInit {
     Idea: false,
     IdeaVote: false,
     TopicIdeation: false,
-    IdeaComment: false
+    IdeaComment: false,
+    IdeaReport: false,
+    CommentReport: false
   };
 
   public preferences: NotificationPreferences;
@@ -40,13 +42,17 @@ export class TopicNotificationSettingsComponent implements OnInit {
   constructor(
     private readonly TopicNotificationService: TopicNotificationService,
     private readonly NotificationService: NotificationService,
-    private readonly TopicService: TopicService,
+    private readonly Topic: TopicService,
     @Inject(DIALOG_DATA) public data: { topicId: string },
     private readonly DialogService: DialogService
   ) {
     this.topicId = data.topicId;
-    this.topic$ = this.TopicService.get(this.data.topicId);
+    this.topic$ = this.Topic.get(this.data.topicId);
     this.preferences = TopicNotificationSettingsComponent.DEFAULT_PREFERENCES;
+    if (data.topicId)
+      this.topicId = data.topicId;
+
+    this.topic$ = this.Topic.get(this.data.topicId);
   }
 
   ngOnInit(): void {
@@ -54,7 +60,7 @@ export class TopicNotificationSettingsComponent implements OnInit {
       tap((settings: any) => {
         this.allowNotifications = settings.allowNotifications;
         this.preferences = { ...this.preferences, ...settings.preferences };
-        this.settings = Object.assign(this.settings, settings);
+        this.settings = { ...this.settings, ...settings };
       })
     )
   }
@@ -81,11 +87,14 @@ export class TopicNotificationSettingsComponent implements OnInit {
     return (Object.values(this.preferences).indexOf(false) === -1)
   };
 
-  selectOption(option: keyof NotificationPreferences) {
-    this.preferences[option] = !this.preferences[option];
-    if (this.preferences[option] === true) {
-      this.allowNotifications = true;
-    }
+  selectOption(options: string | string[]) {
+    if (!Array.isArray(options)) options = [options];
+    options.forEach((option) => {
+      this.preferences[option as keyof NotificationPreferences] = !this.preferences[option as keyof NotificationPreferences];
+      if (this.preferences[option as keyof NotificationPreferences] === true) {
+        this.allowNotifications = true;
+      }
+    });
   };
   doSaveSettings() {
     const request$ = !this.allowNotifications
@@ -99,6 +108,7 @@ export class TopicNotificationSettingsComponent implements OnInit {
     request$.pipe(
       take(1),
       catchError(error => {
+        console.log(error);
         this.NotificationService.addError('MODALS.TOPIC_NOTIFICATION_SETTINGS_ERROR_SAVE');
         return EMPTY;
       })
