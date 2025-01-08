@@ -86,7 +86,7 @@ export class TopicIdeationComponent {
 
   ngOnInit(): void {
 
-    this.ideas$ = combineLatest([this.ideaTypeFilter$, this.orderFilter$, this.ideaParticipantsFilter$, this.folderFilter$, this.ideaSearchFilter$, this.TopicIdeaService.loadIdeas$])
+    this.ideas$ = combineLatest([this.ideaTypeFilter$, this.orderFilter$, this.ideaParticipantsFilter$, this.folderFilter$, this.ideaSearchFilter$, this.TopicIdeaService.reload$])
       .pipe(
         switchMap(([typeFilter, orderFilter, participantFilter, folderFilter, search, load]) => {
           this.TopicIdeaService.setParam('topicId', this.topic.id);
@@ -350,7 +350,7 @@ export class TopicIdeationComponent {
       }
     });
     ideationDeadlineDialog.afterClosed().subscribe(() => {
-      this.TopicIdeationService.reloadIdeation();
+      this.TopicIdeationService.reload();
     })
   }
 
