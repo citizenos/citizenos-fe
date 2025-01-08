@@ -3,7 +3,7 @@ import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 import { NotificationService } from '@services/notification.service';
 import { TopicNotificationService } from '@services/topic-notification.service';
 import { TopicService } from '@services/topic.service';
-import { tap, Observable, take, catchError, EMPTY } from 'rxjs';
+import { map, Observable, take, catchError, EMPTY } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { NotificationPreferences } from '@interfaces/notification-preferences.interface';
 
@@ -57,10 +57,11 @@ export class TopicNotificationSettingsComponent implements OnInit {
 
   ngOnInit(): void {
     this.settings = this.TopicNotificationService.get({ topicId: this.topicId }).pipe(
-      tap((settings: any) => {
+      map((settings: any) => {
+        console.log(settings)
         this.allowNotifications = settings.allowNotifications;
         this.preferences = { ...this.preferences, ...settings.preferences };
-        this.settings = { ...this.settings, ...settings };
+        return { ...this.settings, ...settings };
       })
     )
   }
