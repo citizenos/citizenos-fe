@@ -1,4 +1,17 @@
-<a (click)="(!topic.report)? goToView(): ''" class="topic" [ngClass]="{'moderated': topic.report}">
+<div class="remove_wrap" *ngIf="remove" (click)="$event.stopPropagation();">
+  <button class="btn_medium_submit" (click)="removeFromGroup($event);$event.stopPropagation();">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M9 9H11V17H9L9 9Z" fill="white" />
+      <path d="M15 9H13V17H15V9Z" fill="white" />
+      <path fill-rule="evenodd" clip-rule="evenodd"
+        d="M17 5V4C17 2.89543 16.1046 2 15 2L9 2C7.89543 2 7 2.89543 7 4L7 5H4C3.44772 5 3 5.44772 3 6C3 6.55228 3.44772 7 4 7H5L5 18C5 19.6569 6.34315 21 8 21L16 21C17.6569 21 19 19.6569 19 18L19 7H20C20.5523 7 21 6.55228 21 6C21 5.44772 20.5523 5 20 5L17 5ZM15 4L9 4V5L15 5V4ZM17 7L7 7L7 18C7 18.5523 7.44772 19 8 19L16 19C16.5523 19 17 18.5523 17 18V7Z"
+        fill="white" />
+    </svg>
+    <span translate="COMPONENTS.TOPICBOX.BTN_REMOVE_FROM_GROUP"></span>
+  </button>
+</div>
+<a (click)="(!topic.report)? goToView(): ''" [href]="(!topic.report)? getTopicLink(): ''" class="topic"
+  [ngClass]="{'moderated': topic.report, disabled:remove}">
   <div class="moderated_topic" *ngIf="topic.report">
     <div class="notification">
       <div>
@@ -14,19 +27,21 @@
       </div>
       <div class="notification_title" translate="COMPONENTS.TOPICBOX.NOTIFICATION_TITLE"></div>
       <div class="notification_links">
-        <a translate="COMPONENTS.TOPICBOX.NOTIFICATION_LNK_WHY"></a>
+        <a translate="COMPONENTS.TOPICBOX.NOTIFICATION_LNK_WHY" (click)="reportReasonDialog()"></a>
         <a translate="COMPONENTS.TOPICBOX.NOTIFICATION_LNK_VIEW" (click)="goToView()"></a>
       </div>
     </div>
   </div>
   <div class="topic_header"
-    [ngClass]="{'discussion': topic.status === 'inProgress', 'voting': topic.status === 'voting', 'follow_up': topic.status === 'followUp', 'draft': topic.status === 'draft', 'closed': topic.status === 'closed'}">
+    [ngClass]="{'discussion': topic.status === 'inProgress', 'voting': topic.status === 'voting', 'ideation': topic.status === 'ideation', 'follow_up': topic.status === 'followUp', 'draft': topic.status === 'draft', 'closed': topic.status === 'closed'}">
     <div class="progress" [ngStyle]="{'width.%': getProgress()}">
       <div class="header_content">
         <ng-container *ngIf="topic.status==='draft'">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M8.8143 4.18517L11.8147 7.18569L5.29947 13.7012L2.62438 13.9965C2.26626 14.0361 1.96369 13.7333 2.00354 13.3752L2.30118 10.6981L8.8143 4.18517ZM13.6704 3.73845L12.2616 2.3296C11.8222 1.89013 11.1095 1.89013 10.67 2.3296L9.34467 3.65501L12.3451 6.65553L13.6704 5.33011C14.1099 4.89042 14.1099 4.17791 13.6704 3.73845Z" fill="#2C3B47"/>
-            </svg>
+            <path
+              d="M8.8143 4.18517L11.8147 7.18569L5.29947 13.7012L2.62438 13.9965C2.26626 14.0361 1.96369 13.7333 2.00354 13.3752L2.30118 10.6981L8.8143 4.18517ZM13.6704 3.73845L12.2616 2.3296C11.8222 1.89013 11.1095 1.89013 10.67 2.3296L9.34467 3.65501L12.3451 6.65553L13.6704 5.33011C14.1099 4.89042 14.1099 4.17791 13.6704 3.73845Z"
+              fill="#2C3B47" />
+          </svg>
           <div class="bold" translate="COMPONENTS.TOPICBOX.HEADER_DRAFT"
             [translateParams]="{value: topic.comments?.count || 0}"></div>
         </ng-container>
@@ -60,8 +75,11 @@
               d="M9.26218 5.01961L9.06663 4H4.66663V12.6667H5.6444V9.09804H8.38218L8.57774 10.1176H12V5.01961H9.26218Z"
               fill="#DA7AB1" />
           </svg>
-          <div class="bold" translate="COMPONENTS.TOPICBOX.HEADER_FOLLOW_UP"
-            [translateParams]="{value: (milestones$ | async)?.length}"></div>
+          <ng-container *ngIf="milestones$ | async as milestones">
+            <div class="bold" translate="COMPONENTS.TOPICBOX.HEADER_FOLLOW_UP"
+              [translateParams]="{value: milestones.count}">
+            </div>
+          </ng-container>
         </ng-container>
         <ng-container *ngIf="topic.status==='closed'">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -77,7 +95,10 @@
               d="M8 0C3.584 0 0 3.584 0 8C0 12.416 3.584 16 8 16C12.416 16 16 12.416 16 8C16 3.584 12.416 0 8 0ZM6.44444 12L12.6667 5.82456L11.5 4.66667L6.44444 9.68421L4.5 7.75439L3.33333 8.91228L6.44444 12Z"
               fill="white" />
           </svg>
-          <div class="bold" translate="COMPONENTS.TOPICBOX.HEADER_IDEATION" [translateParams]="{value: 0}"></div>
+          <ng-container *ngIf="ideaCount$ | async as ideaCount">
+            <div class="bold" translate="COMPONENTS.TOPICBOX.HEADER_IDEATION"
+              [translateParams]="{value: ideaCount.count}"></div>
+          </ng-container>
         </ng-container>
       </div>
     </div>
@@ -106,8 +127,8 @@
         <div class="clipped">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
-              d="M12 3L14.645 8.35942L20.5595 9.21885L16.2798 13.3906L17.2901 19.2812L12 16.5L6.70993 19.2812L7.72025 13.3906L3.44049 9.21885L9.35497 8.35942L12 3Z"
-              fill="#2C3B47" />
+              d="M12.5812 15.1863L12 14.7711L11.4188 15.1863L6 19.0568V6C6 5.44772 6.44772 5 7 5H17C17.5523 5 18 5.44772 18 6V19.0568L12.5812 15.1863Z"
+              fill="#2C3B47" stroke="#2C3B47" stroke-width="2" />
           </svg>
         </div>
       </div>
@@ -121,7 +142,7 @@
         </div>
       </div>
     </div>
-    <div class="date">{{topic.updatedAt | date:'YYYY-MM-dd'}}</div>
+    <div class="date">{{topic.createdAt | date:'YYYY-MM-dd'}}</div>
     <div class="topic_title" [innerHTML]="topic.title"></div>
 
   </div>

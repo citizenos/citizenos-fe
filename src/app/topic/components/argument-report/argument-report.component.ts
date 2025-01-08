@@ -1,6 +1,6 @@
 import { Argument } from 'src/app/interfaces/argument';
 import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
-import { TopicArgumentService } from 'src/app/services/topic-argument.service';
+import { TopicArgumentService } from '@services/topic-argument.service';
 import { DIALOG_DATA, DialogRef } from 'src/app/shared/dialog';
 import { take } from 'rxjs';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
@@ -20,6 +20,7 @@ export class ArgumentReportComponent implements OnInit {
     type: new UntypedFormControl(this.reportTypes[0], Validators.required),
     text: new UntypedFormControl('', Validators.required),
     topicId: new UntypedFormControl(''),
+    discussionId: new UntypedFormControl(''),
     commentId: new UntypedFormControl(''),
   });
   constructor(
@@ -30,18 +31,24 @@ export class ArgumentReportComponent implements OnInit {
     this.argument = data.argument;
     this.report.value.commentId = data.argument.id;
     this.report.value.topicId = data.topicId;
+    this.report.value.discussionId = data.argument.discussionId;
   }
 
   ngOnInit(): void {
   }
 
   ngAfterViewInit(): void {
-    this.reportTextInput.nativeElement.focus();
+    //this.reportTextInput.nativeElement.focus();
+  }
+
+  selectReportType(type: string) {
+    this.report.controls['type'].setValue(type);
   }
 
   doReport() {
     this.report.value.commentId = this.data.argument.id;
     this.report.value.topicId = this.data.topicId;
+    this.report.value.discussionId = this.data.argument.discussionId;
     this.TopicArgumentService.report(this.report.value).pipe(take(1))
     .subscribe({
       next: () => {

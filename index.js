@@ -45,7 +45,7 @@ if (cspConfig) {
 
 app.use(prerender.set('prerenderToken', 'CrrAflHAEiF44KMFkrs7'));
 
-app.use(express.static(__dirname + '/dist/citizenos-fe'));
+app.use(express.static(__dirname + '/dist/citizenos-fe/browser'));
 
 const browserDetect = (req, res, next) => {
   const ua = req.headers['user-agent'];
@@ -77,7 +77,7 @@ const browserDetect = (req, res, next) => {
 
 app.use(browserDetect);
 app.get('/*', browserDetect, function (req, res) {
-  res.sendFile(__dirname + '/dist/citizenos-fe/index.html');
+  res.sendFile(__dirname + '/dist/citizenos-fe/browser/index.html');
   res.set('Permissions-Policy', 'interest-cohort=()'); // Opt-out of Google FLoC
 });
 

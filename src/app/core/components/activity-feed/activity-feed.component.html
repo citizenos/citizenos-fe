@@ -1,5 +1,5 @@
 <div id="activity_feed" [TourItem]="{tourid: 'dashboard', index: 3, position: 'left'}"
-  [@openClose]="show? 'open' : 'closed'" [ngClass]="{'mobile_page': !modal}">
+  [@openClose]="show? 'open' : 'closed'" [ngClass]="{'mobile_page': !modal}" (scroll)="loadMore($event)">
   <div class="feed_heading_wrap">
     <div class="small_heading" [translate]="'COMPONENTS.ACTIVITY_FEED.HEADING_'+feedType | uppercase"></div>
     <a class="btn_medium_close icon" (click)="close()" *ngIf="modal">
@@ -10,7 +10,8 @@
       </svg>
     </a>
   </div>
-  <cos-input [placeholder]="'COMPONENTS.ACTIVITY_FEED.PLACEHOLDER_FILTER' | translate" *ngIf="!this.groupId && !this.topicId">
+  <cos-input [placeholder]="'COMPONENTS.ACTIVITY_FEED.PLACEHOLDER_FILTER' | translate"
+    *ngIf="!this.groupId && !this.topicId">
     <div class="dropdown" [cosDropdown]>
       <div class="selection">
         <div class="selected_item">{{'COMPONENTS.ACTIVITY_FEED.FILTER_' + ((ActivityService.params$ |
@@ -21,13 +22,13 @@
 
       </div>
       <div class="options">
-        <div class="option" *ngFor="let filter of ActivityService.filters" (click)="filterActivities(filter)"
+        <div class="option" *ngFor="let filter of ActivityService.filters" (click)="filterActivities(filter)" (keydown)="filterActivities(filter)"
           translate="COMPONENTS.ACTIVITY_FEED.FILTER_{{filter.toUpperCase()}}">
         </div>
       </div>
     </div>
   </cos-input>
-  <div id="results_area" (scroll)="loadMore($event)">
+  <div id="results_area">
     <activity [activitygroup]="item" *ngFor="let item of activities$ | async"></activity>
   </div>
 </div>

@@ -1,9 +1,10 @@
 import { style, transition, trigger, animate, state } from '@angular/animations';
-import { Component, OnInit, Input, inject } from '@angular/core';
+import { Component, OnInit, Input, inject} from '@angular/core';
 import { DIALOG_DATA, DialogRef, DialogService } from 'src/app/shared/dialog';
-import { map, tap, of, take } from 'rxjs';
-import { ActivityService } from 'src/app/services/activity.service'
+import { map, tap, of } from 'rxjs';
+import { ActivityService } from '@services/activity.service'
 import { Location } from '@angular/common';
+import { AppService } from '@services/app.service';
 @Component({
   selector: 'activity-feed',
   templateUrl: './activity-feed.component.html',
@@ -34,7 +35,8 @@ export class ActivityFeedComponent implements OnInit {
   @Input() groupId?: string;
   @Input() topicId?: string;
   @Input() modal?: boolean;
-  constructor(public ActivityService: ActivityService, private location: Location, public dialog: DialogService) {
+  @Input() dialogRef?: DialogRef<ActivityFeedDialogComponent>;
+  constructor(public ActivityService: ActivityService, private readonly location: Location, public dialog: DialogService, public app: AppService) {
     setTimeout(() => {
       this.show = true
     });
@@ -89,13 +91,13 @@ export class ActivityFeedComponent implements OnInit {
   }
 
   close() {
-    console.log('CLOSE')
+    this.ActivityService.reset();
     this.ActivityService.reloadUnreadItems();
     this.show = false;
     if (!this.modal) {
       this.location.back();
-    } else {
-      this.dialog.closeAll();
+    } else if (this.dialogRef) {
+      this.dialogRef.close();
     }
   }
 }
@@ -105,11 +107,6 @@ export class ActivityFeedComponent implements OnInit {
   styleUrls: ['./activity-feed.component.scss'],
 })
 export class ActivityFeedDialogComponent extends ActivityFeedComponent {
-  public data:any = inject(DIALOG_DATA);
-  private dialogRef:any = inject(DialogRef<ActivityFeedComponent>);
-  override close() {
-    this.show = false;
-    this.ActivityService.reloadUnreadItems();
-    this.dialog.closeAll();
-  }
+  public data: any = inject(DIALOG_DATA);
+  public dialogItem: any = inject(DialogRef<ActivityFeedComponent>);
 }

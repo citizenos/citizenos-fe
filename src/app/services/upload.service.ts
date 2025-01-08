@@ -1,4 +1,4 @@
-import { LocationService } from 'src/app/services/location.service';
+import { LocationService } from '@services/location.service';
 import { HttpClient, HttpRequest, HttpEvent, HttpEventType, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
@@ -60,4 +60,11 @@ export class UploadService {
 
     return this.upload(path, file);
   };
+
+  uploadIdeaImage(params: any, file: File, data?: any) {
+    const path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/ideations/:ideationId/ideas/:ideaId/image/upload', params );
+
+    return this.upload(path, file, data);
+  }
+
 }

@@ -233,6 +233,7 @@ argument-reply {
       * {
         font-size: 14px;
         line-height: 20px;
+        max-width: 100%;
       }
     }
   }
@@ -261,7 +262,7 @@ argument-reply {
         align-items: center;
         gap: 8px;
         &:hover {
-          background-color: var(--color-scrollbar);
+          background-color: var(--color-blue-100);
         }
       }
 

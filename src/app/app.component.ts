@@ -4,11 +4,11 @@ import { Router, PRIMARY_OUTLET, Event, NavigationStart, NavigationEnd } from '@
 import { TranslateService } from '@ngx-translate/core';
 import { Title, Meta, MetaDefinition } from '@angular/platform-browser';
 
-import { AuthService} from './services/auth.service';
-import { AppService } from './services/app.service';
-import { LocationService } from './services/location.service';
-import { NotificationService } from './services/notification.service';
-import { ConfigService } from './services/config.service';
+import { AuthService} from '@services/auth.service';
+import { AppService } from '@services/app.service';
+import { LocationService } from '@services/location.service';
+import { NotificationService } from '@services/notification.service';
+import { ConfigService } from '@services/config.service';
 import { takeUntil, Subject, tap, map } from 'rxjs';
 import * as moment from 'moment';
 import { DOCUMENT } from '@angular/common';
@@ -27,7 +27,7 @@ export class AppComponent {
   destroy$ = new Subject<boolean>();
 
   @ViewChild('content') content?: ElementRef;
-  private keysPressed = <string[]>[];
+  private readonly keysPressed = <string[]>[];
   @HostListener('window:keydown', ['$event'])
   handleKeyDownEvent(event: KeyboardEvent) {
     if (this.keysPressed.indexOf(event.key) === -1) this.keysPressed.push(event.key);
@@ -39,27 +39,25 @@ export class AppComponent {
   }
 
   constructor(
-    private router: Router,
-    @Inject(DOCUMENT) private document: Document,
-    private title: Title,
-    private Meta: Meta,
+    private readonly router: Router,
+    @Inject(DOCUMENT) private readonly document: Document,
+    private readonly title: Title,
+    private readonly Meta: Meta,
     public translate: TranslateService,
-    private config: ConfigService,
-    private renderer: Renderer2,
-    private changeDetection: ChangeDetectorRef,
-    private Location: LocationService,
-    private Notification: NotificationService,
-    private auth: AuthService,
-    private dialog: DialogService,
-    private translateDebug: NgxTranslateDebugService,
+    private readonly config: ConfigService,
+    private readonly renderer: Renderer2,
+    private readonly changeDetection: ChangeDetectorRef,
+    private readonly Location: LocationService,
+    private readonly Notification: NotificationService,
+    private readonly auth: AuthService,
+    private readonly dialog: DialogService,
+    private readonly translateDebug: NgxTranslateDebugService,
     public app: AppService) {
     const languageConf = config.get('language');
     translate.addLangs(Object.keys(languageConf.list));
     translate.setDefaultLang(languageConf.default);
     this.setDefaultMetaInfo();
-    this.router.events.pipe(takeUntil(this.destroy$)).subscribe
-      ((event: Event) => {
-        //console.log(event);
+    this.router.events.pipe(takeUntil(this.destroy$)).subscribe((event: Event) => {
         if (event && event instanceof NavigationStart) {
           app.tabletNav = false;
           app.darkNav = false;
@@ -72,8 +70,9 @@ export class AppComponent {
           const g = outlet?.segments.map(seg => seg.path) || [''];
           let langParam = g[0];
           if (translate.currentLang !== langParam && translate.getLangs().indexOf(langParam) === -1) {
-            g.unshift(translate.currentLang || translate.getBrowserLang() || translate.getDefaultLang());
-            this.router.navigate(g, { queryParams: parsedUrl.queryParams, fragment: parsedUrl.fragment || undefined });
+            console.log((this.auth.userLang$.value || translate.currentLang || translate.getBrowserLang()) ?? translate.getDefaultLang())
+            g.unshift((this.auth.userLang$.value || translate.currentLang || translate.getBrowserLang()) ?? translate.getDefaultLang());
+            this.router.navigate(g, { queryParams: parsedUrl.queryParams, fragment: parsedUrl.fragment ?? undefined });
           }
           else if (translate.currentLang !== langParam) {
             if (!this.translateDebug.isDebugMode) {
@@ -115,6 +114,8 @@ export class AppComponent {
               this.auth.loggedIn$.next(true);
               window.location.reload();
             })
+          } else {
+            window.location.reload();
           }
         });
       } else if (user && !user.email) {

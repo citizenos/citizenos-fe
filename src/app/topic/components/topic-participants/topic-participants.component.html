@@ -1,9 +1,12 @@
 <div class="overlay" dialog-close></div>
 <div class="dialog_wrap">
-  <div id="notification_wrap_dialog">
+  <div id="notification_wrap_dialog" class="mobile_hidden">
     <notification></notification>
   </div>
   <div class="dialog">
+    <div id="notification_wrap_dialog" class="mobile_show">
+      <notification></notification>
+    </div>
     <div class="dialog_header">
       <div class="header_text">
         <h4 class="title" translate="MODALS.TOPIC_MEMBERS_HEADING"></h4>
@@ -86,11 +89,26 @@
             </div>
             <div class="line_separator"></div>
             <ng-container *ngIf="memberUsers$ | async as memberUsers">
-              <ng-container *ngFor="let user of memberUsers; index as i;">
-                <div class="row_list">
-                  <topic-member-user [member]="user" [topic]="topic"></topic-member-user>
+              <div class="container">
+                <div class="row header_row">
+                  <div class="name"><a translate="COMPONENTS.GROUP_INVITE.NAME"></a></div>
+                  <div class="level">
+                    <div class="level_heading" translate="COMPONENTS.GROUP_INVITE.ROLE">
+                      <div class="tooltip" tooltip>
+                        <div class="content_title" translate="COMPONENTS.TOPIC_INVITE_EDITORS.TOOLTIP_TOPIC_ROLES_HEADING"></div>
+                        <div class="content_description" [innerHTML]="'COMPONENTS.TOPIC_INVITE_EDITORS.TOOLTIP_TOPIC_ROLES_DESCRIPTION' | translate"></div>
+                      </div>
+                    </div>
+
+                    <div class="button_heading" translate="COMPONENTS.GROUP_INVITE.ACTIONS"></div>
+                  </div>
                 </div>
-              </ng-container>
+                <ng-container *ngFor="let user of memberUsers; index as i;">
+                  <div class="row_list">
+                    <topic-member-user [member]="user" [topic]="topic"></topic-member-user>
+                  </div>
+                </ng-container>
+              </div>
               <div class="line_separator"></div>
               <div id="footer_buttons">
                 <!--div class="dropdown" [cosDropdown]>
@@ -186,12 +204,29 @@
             </div>
             <div class="line_separator"></div>
             <ng-container *ngIf="memberGroups$ | async as memberGroups">
-              <ng-container *ngFor="let group of memberGroups; index as i;">
-                <div class="row_list">
-                  <topic-member-group [topic]="topic" [group]="group"></topic-member-group>
+              <div class="container">
+                <div class="row header_row" *ngIf="memberGroups.length">
+                  <div class="name"><a translate="COMPONENTS.GROUP_INVITE.NAME"></a></div>
+                  <div class="level">
+                    <div class="level_heading" translate="COMPONENTS.GROUP_INVITE.ROLE">
+                      <div class="tooltip" tooltip>
+                        <div class="content_title" translate="COMPONENTS.TOPIC_ADD_GROUPS.TOOLTIP_GROUP_PERMISSIONS_TITLE">
+                        </div>
+                        <div class="content_description"
+                          translate="COMPONENTS.TOPIC_ADD_GROUPS.TOOLTIP_GROUP_PERMISSIONS_CONTENT"></div>
+                      </div>
+                    </div>
+
+                    <div class="button_heading" translate="COMPONENTS.GROUP_INVITE.ACTIONS"></div>
+                  </div>
                 </div>
-              </ng-container>
-              <div class="line_separator"></div>
+                <ng-container *ngFor="let group of memberGroups; index as i;">
+                  <div class="row_list">
+                    <topic-member-group [topic]="topic" [group]="group"></topic-member-group>
+                  </div>
+                </ng-container>
+              </div>
+              <div class="line_separator" *ngIf="memberGroups.length"></div>
               <div id="footer_buttons">
                 <!--div class="dropdown" [cosDropdown]>
                 <button class="btn_medium_secondary"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"

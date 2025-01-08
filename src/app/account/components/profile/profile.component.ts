@@ -1,19 +1,21 @@
+import { languages } from '@services/language.service';
 
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, PRIMARY_OUTLET } from '@angular/router';
 import { map, take, takeWhile } from 'rxjs/operators';
 import { DialogService } from 'src/app/shared/dialog';
 
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
-import { AppService } from 'src/app/services/app.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { UserService } from 'src/app/services/user.service';
-import { TopicNotificationService } from 'src/app/services/topic-notification.service';
+import { AppService } from '@services/app.service';
+import { AuthService } from '@services/auth.service';
+import { UserService } from '@services/user.service';
+import { TopicNotificationService } from '@services/topic-notification.service';
 import { User } from 'src/app/interfaces/user';
-import { NotificationService } from 'src/app/services/notification.service';
+import { NotificationService } from '@services/notification.service';
 import { Observable, of } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { TranslateService } from '@ngx-translate/core';
+import { ConfigService } from '@services/config.service';
 
 @Component({
   selector: 'app-profile',
@@ -42,6 +44,7 @@ export class ProfileComponent {
   public imageFile?: any;
   public uploadedImage?: any;
   public tmpImageUrl?: any;
+  languages$: { [key: string]: any } = this.config.get('language').list;
 
   wWidth = window.innerWidth;
   errors: any = {};
@@ -60,6 +63,7 @@ export class ProfileComponent {
     private route: ActivatedRoute,
     public translate: TranslateService,
     private router: Router,
+    private config: ConfigService,
     private Auth: AuthService) {
     this.tabSelected = this.route.fragment.pipe(
       map((fragment) => {
@@ -117,6 +121,32 @@ export class ProfileComponent {
     this.router.navigate([], { fragment: tab })
   }
 
+  setProfileLanguage(lang: string) {
+    if (this.Auth.loggedIn$) {
+      this.translate.use(lang);
+      const parsedUrl = this.router.parseUrl(this.router.url);
+      const outlet = parsedUrl.root.children[PRIMARY_OUTLET];
+
+      let g = outlet?.segments.map(seg => seg.path) || [''];
+      g.splice(0, 1);
+      this.User.updateLanguage(lang).pipe(take(1)).subscribe({
+        next: () => {
+          this.form.language = lang;
+          setTimeout(() => {
+            this.Notification.addSuccess('MSG_SUCCESS_PUT_API_USERS_SELF');
+          }, 500);
+          this.router.navigate(g, { queryParams: parsedUrl.queryParams, fragment: parsedUrl.fragment || undefined });
+
+
+        },
+        error: (err) => {
+          console.log(err);
+          this.Notification.addError(err.message);
+        }
+      });
+    }
+  }
+
   toggleTopicNotifications(topic: any) {
     if (!topic.allowNotifications) {
       const removeDialog = this.dialog
@@ -136,7 +166,7 @@ export class ProfileComponent {
           this.TopicNotificationService
             .delete({ topicId: topic.topicId }).pipe(take(1)).subscribe();
         } else {
-          topic.allowNotifications=true;
+          topic.allowNotifications = true;
         }
       });
     } else {

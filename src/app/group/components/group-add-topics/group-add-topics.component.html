@@ -1,4 +1,5 @@
 <div class="create_content_section" *ngIf="group">
+  <ng-container *ngIf="memberTopics$ | async"></ng-container>
   <div class="section_content_wrap">
     <div class="small_heading" translate="COMPONENTS.GROUP_ADD_TOPICS.HEADING" *ngIf="!dialog"></div>
     <div translate="COMPONENTS.GROUP_ADD_TOPICS.DESC"></div>
@@ -8,7 +9,7 @@
         [placeholder]="'COMPONENTS.GROUP_ADD_TOPICS.PLACEHOLDER_SEARCH' | translate">
         <ng-container *ngIf="searchResults$ | async as searchResults">
           <div class="search_area_wrap" [ngClass]="{hidden: !searchResults.length}">
-            <div class="search_dropdown_item" [typeaheadItem]="topic" *ngFor="let topic of searchResults"
+            <div class="search_dropdown_item" [typeaheadItem]="topic" *ngFor="let topic of searchResults" [ngClass]="{disabled: isMember(topic)}"
               (click)="addGroupMemberTopic(topic)">
               <div class="item_text_wrap">
                 <div>
@@ -24,7 +25,7 @@
           </div>
         </ng-container>
       </typeahead>
-      <cos-input *ngIf="totalPages(group.members.topics) > 1 && !dialog"
+      <cos-input *ngIf="totalPages(membersToAdd) > 1 && !dialog"
         [placeholder]="'COMPONENTS.GROUP_ADD_TOPICS.SHOW_PER_PAGE' | translate" class="dropdown_input">
         <div class="dropdown" [cosDropdown]>
           <div class="selection">
@@ -44,9 +45,10 @@
     </div>
   </div>
 </div>
-<div class="create_content_section" *ngIf="group.members.topics?.length === 0 && !dialog || group.members.topics?.length > 0">
+<div class="create_content_section"
+  *ngIf="membersToAdd.length === 0 && !dialog || membersToAdd.length > 0">
   <div id="topic_members_list_wrap" class="table_section">
-    <ng-container *ngIf="group.members.topics?.length === 0 && !dialog">
+    <ng-container *ngIf="membersToAdd.length === 0 && !dialog">
       <div class="no_items">
         <svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g clip-path="url(#clip0_437_52785)">
@@ -94,15 +96,21 @@
         </div>
       </div>
     </ng-container>
-    <ng-container *ngIf="group.members.topics?.length">
+    <ng-container *ngIf="membersToAdd.length">
       <div class="container" [ngClass]="{'dialog_container': dialog}">
         <div class="row header_row" *ngIf="!dialog">
           <div class="title"><a translate="COMPONENTS.GROUP_ADD_TOPICS.HEADING_TITLE"></a></div>
           <div class="participants" translate="COMPONENTS.GROUP_ADD_TOPICS.HEADING_PARTICIPANTS"></div>
-          <div class="level" translate="COMPONENTS.GROUP_ADD_TOPICS.HEADING_GROUP_PERMISSIONS"></div>
+          <div class="level with_tooltip" translate="COMPONENTS.GROUP_ADD_TOPICS.HEADING_GROUP_PERMISSIONS">
+            <div class="tooltip" tooltip>
+              <div class="content_title" translate="COMPONENTS.GROUP_ADD_TOPICS.TOOLTIP_GROUP_PERMISSIONS_TITLE"></div>
+              <div class="content_description" translate="COMPONENTS.GROUP_ADD_TOPICS.TOOLTIP_GROUP_PERMISSIONS_CONTENT">
+              </div>
+            </div>
+          </div>
           <div class="actions mobile_hide" translate="COMPONENTS.GROUP_ADD_TOPICS.HEADING_ACTIONS"></div>
         </div>
-        <ng-container *ngFor="let topic of group.members.topics; index as i;">
+        <ng-container *ngFor="let topic of membersToAdd; index as i;">
 
           <div class="row" *ngIf="isOnPage(i, membersPage)" [ngClass]="{'dialog_row': dialog}">
             <div class="title">
@@ -114,9 +122,21 @@
             </div>
             <ng-container *ngIf="dialog">
               <div class="dialog_wrap_items">
-                <div class="level" translate="COMPONENTS.GROUP_ADD_TOPICS.HEADING_GROUP_PERMISSIONS"></div>
+                <div class="level mobile_hidden with_tooltip" translate="COMPONENTS.GROUP_ADD_TOPICS.HEADING_GROUP_PERMISSIONS">
+                  <div class="tooltip" tooltip>
+                    <div class="content_title" translate="COMPONENTS.GROUP_ADD_TOPICS.TOOLTIP_GROUP_PERMISSIONS_TITLE"></div>
+                    <div class="content_description" translate="COMPONENTS.GROUP_ADD_TOPICS.TOOLTIP_GROUP_PERMISSIONS_CONTENT">
+                    </div>
+                  </div>
+                </div>
                 <div class="level">
-                  <div class="cell_title" translate="COMPONENTS.GROUP_ADD_TOPICS.HEADING_GROUP_PERMISSIONS"></div>
+                  <div class="cell_title" translate="COMPONENTS.GROUP_ADD_TOPICS.HEADING_GROUP_PERMISSIONS">
+                    <div class="tooltip" tooltip>
+                      <div class="content_title" translate="COMPONENTS.GROUP_ADD_TOPICS.TOOLTIP_GROUP_PERMISSIONS_TITLE"></div>
+                      <div class="content_description" translate="COMPONENTS.GROUP_ADD_TOPICS.TOOLTIP_GROUP_PERMISSIONS_CONTENT">
+                      </div>
+                    </div>
+                  </div>
                   <div class="dropdown" [cosDropdown]
                     [cosDisabled]="TopicService.canUpdate(topic) && group.visibility !== GroupService.VISIBILITY.public">
                     <div class="selection">
@@ -153,7 +173,13 @@
                 <span>{{topic.members.users.count}}</span>
               </div>
               <div class="level">
-                <div class="cell_title" translate="COMPONENTS.GROUP_ADD_TOPICS.HEADING_GROUP_PERMISSIONS"></div>
+                <div class="cell_title" translate="COMPONENTS.GROUP_ADD_TOPICS.HEADING_GROUP_PERMISSIONS">
+                  <div class="tooltip" tooltip>
+                    <div class="content_title" translate="COMPONENTS.GROUP_ADD_TOPICS.TOOLTIP_GROUP_PERMISSIONS_TITLE"></div>
+                    <div class="content_description" translate="COMPONENTS.GROUP_ADD_TOPICS.TOOLTIP_GROUP_PERMISSIONS_CONTENT">
+                    </div>
+                  </div>
+                </div>
                 <div class="dropdown" [cosDropdown]
                   [cosDisabled]="TopicService.canUpdate(topic) && group.visibility !== GroupService.VISIBILITY.public">
                   <div class="selection">

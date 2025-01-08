@@ -49,6 +49,10 @@
       position: absolute;
     }
   }
+
+  &.pos_initial {
+    position: initial;
+  }
 }
 
 .nav_header_tablet {
@@ -93,6 +97,10 @@
   &.pos_absolute {
     position: absolute;
   }
+
+  &.pos_initial {
+    position: initial;
+  }
   @include mixins.tablet {
     position: absolute;
     width: 320px;
@@ -104,17 +112,6 @@
   @include mixins.mobile {
     max-width: 100%;
     width: 100%;
-  }
-
-  &::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
-    background-color: var(--color-scrollbar);
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: var(--color-scrollbar-thumb);
-    border-radius: 8px;
   }
 }
 .nav {
@@ -219,6 +216,14 @@
         right: initial;
       }
 
+      .logout_option:hover {
+        svg {
+          path {
+            fill:none;
+            stroke:var(--color-link);
+          }
+        }
+      }
       #loggend_in_as_wrap {
         display: flex;
         flex-direction: column;
@@ -275,6 +280,7 @@
   .btn_big_submit,
   .btn_big_submit_ghost {
     min-width: 160px;
+    padding: 2px 8px;
     span {
       font-weight: 600;
       font-size: 16px;

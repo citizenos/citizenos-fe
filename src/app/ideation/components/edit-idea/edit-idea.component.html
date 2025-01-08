@@ -1,0 +1,112 @@
+<div id="create_idea_footer" [@openSlide]="true ? 'open' : 'closed'">
+  <div id="post_idea_form_wrap">
+    <div class="form_header">
+      <span translate="COMPONENTS.EDIT_IDEA.FOOTER_FORM_TITLE"></span>
+      <div id="close_mobile" class="mobile_show">
+        <button class="btn_small_close icon close_button mobile_show" (click)="close()">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M5.29311 17.2929C4.90258 17.6834 4.90258 18.3166 5.29311 18.7071C5.68363 19.0976 6.3168 19.0976 6.70732 18.7071L12.0002 13.4142L17.2931 18.7071C17.6836 19.0976 18.3168 19.0976 18.7073 18.7071C19.0978 18.3166 19.0978 17.6834 18.7073 17.2929L13.4144 12L18.7073 6.70711C19.0978 6.31658 19.0978 5.68342 18.7073 5.29289C18.3168 4.90237 17.6836 4.90237 17.2931 5.29289L12.0002 10.5858L6.70732 5.29289C6.3168 4.90237 5.68363 4.90237 5.29311 5.29289C4.90258 5.68342 4.90258 6.31658 5.29311 6.70711L10.586 12L5.29311 17.2929Z"
+              fill="#2C3B47" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <form id="idea_form" [attr.disabled]="!loggedIn()" name="ideaForm" [formGroup]="ideaForm">
+      <cos-input placeholder="{{'COMPONENTS.EDIT_IDEA.PLACEHOLDER_ADD_STATEMENT_TO_IDEA' | translate }}"
+        limit="{{'COMPONENTS.EDIT_IDEA.SUBJECT_CHARACTERS_LEFT' | translate:{chars: ideaForm.value['statement']?.length || 0, charsLeft: IDEA_STATEMENT_MAXLENGTH} }}">
+        <input id="idea_statement" name="statement" formControlName="statement" autocomplete="off"
+          placeholder="{{'COMPONENTS.EDIT_IDEA.PLACEHOLDER_ADD_STATEMENT_TO_IDEA' | translate }}" class="gray_borders"
+          [ngClass]="{'error_input': ideaForm.controls['statement'].errors && ideaForm.controls['statement'].errors['required'] && ideaForm.controls['statement'].touched}"
+          (focus)="focusIdeaStatement" [attr.maxlength]="IDEA_STATEMENT_MAXLENGTH" required>
+        <label for="idea_statement" class="error_label"
+          *ngIf="ideaForm.controls['statement'].errors && ideaForm.controls['statement'].errors['required'] && ideaForm.controls['statement'].touched">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M8.89438 1.78863C8.52586 1.05158 7.47405 1.05158 7.10553 1.78863L0.723562 14.5526C0.391112 15.2175 0.874608 15.9998 1.61799 15.9998H14.3819C15.1253 15.9998 15.6088 15.2175 15.2763 14.5526L8.89438 1.78863ZM6.99996 6.99977C6.99996 6.44749 7.44767 5.99977 7.99996 5.99977C8.55224 5.99977 8.99996 6.44749 8.99996 6.99977V9.99977C8.99996 10.5521 8.55224 10.9998 7.99996 10.9998C7.44767 10.9998 6.99996 10.5521 6.99996 9.99977V6.99977ZM6.99996 12.9998C6.99996 12.4475 7.44767 11.9998 7.99996 11.9998C8.55224 11.9998 8.99996 12.4475 8.99996 12.9998C8.99996 13.5521 8.55224 13.9998 7.99996 13.9998C7.44767 13.9998 6.99996 13.5521 6.99996 12.9998Z"
+              fill="#EF4025" />
+          </svg>
+          <span class="error_text" translate="COMPONENTS.EDIT_IDEA.MSG_ERROR_SUBJECT"></span>
+        </label>
+      </cos-input>
+      <textarea cosmarkdown name="description" formControlName="description"
+        cosmarkdowntranslatecharacterstatuskey="COMPONENTS.EDIT_IDEA.IDEA_TYPE_CHARACTER_LIMIT" id="idea_description"
+        [(item)]="description" class="gray_borders" (itemChange)="updateText($event)"
+        placeholder="COMPONENTS.EDIT_IDEA.PLACEHOLDER_EXPLAIN_YOUR_IDEA"
+        [ngClass]="{'error_input': ideaForm.controls['description'].errors && ideaForm.controls['description'].errors['required'] && ideaForm.controls['description'].touched}"
+        [limit]="ideaMaxLength()" required></textarea>
+      <label for="description" class="error_label"
+        *ngIf="ideaForm.controls['description'].errors && ideaForm.controls['description'].errors['required'] && ideaForm.controls['description'].touched">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M8.89438 1.78863C8.52586 1.05158 7.47405 1.05158 7.10553 1.78863L0.723562 14.5526C0.391112 15.2175 0.874608 15.9998 1.61799 15.9998H14.3819C15.1253 15.9998 15.6088 15.2175 15.2763 14.5526L8.89438 1.78863ZM6.99996 6.99977C6.99996 6.44749 7.44767 5.99977 7.99996 5.99977C8.55224 5.99977 8.99996 6.44749 8.99996 6.99977V9.99977C8.99996 10.5521 8.55224 10.9998 7.99996 10.9998C7.44767 10.9998 6.99996 10.5521 6.99996 9.99977V6.99977ZM6.99996 12.9998C6.99996 12.4475 7.44767 11.9998 7.99996 11.9998C8.55224 11.9998 8.99996 12.4475 8.99996 12.9998C8.99996 13.5521 8.55224 13.9998 7.99996 13.9998C7.44767 13.9998 6.99996 13.5521 6.99996 12.9998Z"
+            fill="#EF4025" />
+        </svg>
+        <span class="error_text" translate="COMPONENTS.EDIT_IDEA.MSG_ERROR_DESCRIPTION"
+          [translateParams]="{chars: ideaMaxLength()}"></span>
+      </label>
+      <ng-container *ngIf="images.length || newImages.length">
+        <div class="idea_images_wrap">
+
+          <div class="image" *ngFor="let image of newImages; index as index">
+            <div class="image_data">
+              <img [src]="image.link" [alt]="image.name"/>
+              <a class="name">{{image.name}}</a>
+            </div>
+            <button class="btn_small_plain icon" (click)="removeNewImage(index)">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14 13.9997H15.3333L15.3333 19.333H14L14 13.9997Z" fill="#2C3B47" />
+                <path d="M18 13.9997H16.6667V19.333H18V13.9997Z" fill="#2C3B47" />
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M19.3333 11.333V10.6663C19.3333 9.92996 18.7364 9.33301 18 9.33301L14 9.33301C13.2636 9.33301 12.6667 9.92996 12.6667 10.6663V11.333H10.6667C10.2985 11.333 10 11.6315 10 11.9997C10 12.3679 10.2985 12.6663 10.6667 12.6663H11.3333L11.3333 19.9997C11.3333 21.1043 12.2288 21.9997 13.3333 21.9997H18.6667C19.7713 21.9997 20.6667 21.1043 20.6667 19.9997V12.6663H21.3333C21.7015 12.6663 22 12.3679 22 11.9997C22 11.6315 21.7015 11.333 21.3333 11.333H19.3333ZM18 10.6663L14 10.6663V11.333L18 11.333V10.6663ZM19.3333 12.6663L12.6667 12.6663L12.6667 19.9997C12.6667 20.3679 12.9651 20.6663 13.3333 20.6663H18.6667C19.0349 20.6663 19.3333 20.3679 19.3333 19.9997V12.6663Z"
+                  fill="#2C3B47" />
+              </svg>
+            </button>
+          </div>
+          <div class="image" *ngFor="let image of images; index as index">
+            <div class="image_data">
+              <img [src]="image.link" [alt]="image.name" />
+              <a class="name">{{image.name}}</a>
+            </div>
+            <button class="btn_small_plain icon" (click)="removeImage(image, index)">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14 13.9997H15.3333L15.3333 19.333H14L14 13.9997Z" fill="#2C3B47" />
+                <path d="M18 13.9997H16.6667V19.333H18V13.9997Z" fill="#2C3B47" />
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M19.3333 11.333V10.6663C19.3333 9.92996 18.7364 9.33301 18 9.33301L14 9.33301C13.2636 9.33301 12.6667 9.92996 12.6667 10.6663V11.333H10.6667C10.2985 11.333 10 11.6315 10 11.9997C10 12.3679 10.2985 12.6663 10.6667 12.6663H11.3333L11.3333 19.9997C11.3333 21.1043 12.2288 21.9997 13.3333 21.9997H18.6667C19.7713 21.9997 20.6667 21.1043 20.6667 19.9997V12.6663H21.3333C21.7015 12.6663 22 12.3679 22 11.9997C22 11.6315 21.7015 11.333 21.3333 11.333H19.3333ZM18 10.6663L14 10.6663V11.333L18 11.333V10.6663ZM19.3333 12.6663L12.6667 12.6663L12.6667 19.9997C12.6667 20.3679 12.9651 20.6663 13.3333 20.6663H18.6667C19.0349 20.6663 19.3333 20.3679 19.3333 19.9997V12.6663Z"
+                  fill="#2C3B47" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </ng-container>
+      <input id="image_upload_input" multiple type="file" #imageUpload (change)="fileUpload()" />
+    </form>
+  </div>
+  <div id="buttons_row">
+    <div id="close_create">
+      <button class="btn_medium_submit_ghost icon close_button" (click)="ideaEditMode()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M5.29311 17.2929C4.90258 17.6834 4.90258 18.3166 5.29311 18.7071C5.68363 19.0976 6.3168 19.0976 6.70732 18.7071L12.0002 13.4142L17.2931 18.7071C17.6836 19.0976 18.3168 19.0976 18.7073 18.7071C19.0978 18.3166 19.0978 17.6834 18.7073 17.2929L13.4144 12L18.7073 6.70711C19.0978 6.31658 19.0978 5.68342 18.7073 5.29289C18.3168 4.90237 17.6836 4.90237 17.2931 5.29289L12.0002 10.5858L6.70732 5.29289C6.3168 4.90237 5.68363 4.90237 5.29311 5.29289C4.90258 5.68342 4.90258 6.31658 5.29311 6.70711L10.586 12L5.29311 17.2929Z"
+            fill="#2C3B47" />
+        </svg>
+      </button>
+    </div>
+    <div id="navigate_create">
+      <button class="btn_medium_submit_ghost" (click)="uploadImage()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M7.42058 17.0297H16.6588C16.8706 17.0297 17.0206 16.9414 17.1088 16.7649C17.1971 16.5885 17.1794 16.412 17.0559 16.2355L14.5412 12.9002C14.4353 12.7591 14.3029 12.6885 14.1441 12.6885C13.9853 12.6885 13.8618 12.7591 13.7735 12.9002L11.1794 16.262L9.45882 14.0385C9.35293 13.9149 9.22058 13.8532 9.06176 13.8532C8.90293 13.8532 8.7794 13.9238 8.69117 14.0649L7.02352 16.2355C6.89999 16.412 6.88693 16.5885 6.98434 16.7649C7.08105 16.9414 7.22646 17.0297 7.42058 17.0297Z"
+            fill="#2C3B47" />
+          <rect x="4" y="4" width="16" height="16" rx="1" stroke="#2C3B47" stroke-width="2" />
+        </svg>
+        <span translate="COMPONENTS.EDIT_IDEA.BTN_ADD_IMAGE"></span>
+      </button>
+      <button class="btn_medium_submit icon" (click)="postIdea()" [ngClass]="{disabled: ideaForm.invalid}">
+        <span class="btn_text" translate="COMPONENTS.EDIT_IDEA.BTN_IDEA_POST"></span>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="overlay"></div>

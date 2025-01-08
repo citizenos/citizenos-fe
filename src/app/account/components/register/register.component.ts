@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { AuthService } from 'src/app/services/auth.service';
-import { ConfigService } from 'src/app/services/config.service';
-import { LocationService } from 'src/app/services/location.service';
+import { AuthService } from '@services/auth.service';
+import { ConfigService } from '@services/config.service';
+import { LocationService } from '@services/location.service';
 import { DialogService } from 'src/app/shared/dialog';
 import { EstIdLoginDialogComponent } from '../est-id-login/est-id-login.component';
 import { SmartIdLoginDialogComponent } from '../smart-id-login/smart-id-login.component';
@@ -72,7 +72,7 @@ export class RegisterComponent {
       }
     );
 
-    const redirectSuccess = this.redirectSuccess || this.Location.getAbsoluteUrl(`${this.translate.currentLang}/dashboard`); // Final url to land after successful login
+    const redirectSuccess = this.redirectSuccess || this.Location.getAbsoluteUrl(`dashboard`); // Final url to land after successful login
 
     const loginWindow = this.popupCenter(url, 'CitizenOS Partner Login', 470, 500);
 

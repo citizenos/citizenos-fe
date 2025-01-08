@@ -1,4 +1,4 @@
-<div class="pagination" *ngIf="totalPages > 1">
+<div class="pagination" *ngIf="totalPages > 1" [ngClass]="class">
   <button class="btn_medium_pagination icon btn_pagination" (click)="loadPrevious()"><svg width="24" height="24" viewBox="0 0 24 24"
       fill="none" xmlns="http://www.w3.org/2000/svg">
       <path

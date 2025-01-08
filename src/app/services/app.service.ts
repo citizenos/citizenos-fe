@@ -7,7 +7,7 @@ import { Topic } from '../interfaces/topic';
 import { TopicNotificationSettingsComponent } from '../topic/components/topic-notification-settings/topic-notification-settings.component';
 import { ConfigService } from './config.service';
 import { TopicService } from './topic.service';
-import { LocationService } from 'src/app/services/location.service';
+import { LocationService } from '@services/location.service';
 import { GroupMemberTopicService } from './group-member-topic.service';
 import { Router } from '@angular/router';
 import { LoginDialogComponent } from '../account/components/login/login.component';
@@ -35,6 +35,7 @@ export class AppService {
   showActivities = false;
   searchAllowed = true;
   addArgument = new BehaviorSubject(false);
+  addIdea = new BehaviorSubject(false);
   showSearchResults = false;
   showSearchFiltersMobile = false; //remove after UI update
   showHelp = new BehaviorSubject(false);
@@ -42,6 +43,7 @@ export class AppService {
   topic: Topic | undefined;
   topicsSettings = false;
   wWidth = window.innerWidth;
+
   createMenu = false;
   accessibility = new BehaviorSubject({
     contrast: 'default',
@@ -119,30 +121,23 @@ export class AppService {
       });
   }
 
-  createNewTopic(groupId?: string, voting?: boolean) {
+  createNewTopic(groupId?: string, status?: string,) {
     const topic = <any>{};
     const url = ['topics'];
-    if (voting) {
+    if (status && status === 'voting') {
       url.push('vote');
+    } else if (status && status === 'ideation') {
+      url.push('ideation');
     }
+
     topic.description = '<html><head></head><body></body></html>';
     this.TopicService.save(topic)
       .pipe(take(1))
       .subscribe((topic) => {
         const redirect = url.concat(['create', topic.id])
         if (groupId) {
-          const level = this.GroupMemberTopicService.LEVELS.read;
-          const member = {
-            groupId: groupId,
-            topicId: topic.id,
-            level: level
-          };
-          this.GroupMemberTopicService
-            .save(member)
-            .pipe(take(1)).
-            subscribe(() => {
-              this.router.navigate(redirect)
-            });
+          console.log('redirect', groupId);
+          this.router.navigate(redirect, { queryParams: { groupId }, fragment: 'info' })
         } else {
           this.router.navigate(redirect)
         }

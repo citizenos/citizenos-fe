@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
-import { TopicService } from 'src/app/services/topic.service';
-import { PublicTopicService } from 'src/app/services/public-topic.service';
-import { PublicGroupService } from 'src/app/services/public-group.service';
-import { GroupService } from 'src/app/services/group.service';
+import { AuthService } from '@services/auth.service';
+import { TopicService } from '@services/topic.service';
+import { PublicTopicService } from '@services/public-topic.service';
+import { PublicGroupService } from '@services/public-group.service';
+import { GroupService } from '@services/group.service';
 import { of, Subject, Observable } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { Group } from 'src/app/interfaces/group';
 import { DialogService } from 'src/app/shared/dialog';
 import { TopicCreateComponent } from 'src/app/topic/components/topic-create/topic-create.component';
-import { AppService } from 'src/app/services/app.service';
+import { AppService } from '@services/app.service';
 import { TranslateService } from '@ngx-translate/core';
-import { LocationService } from 'src/app/services/location.service';
+import { LocationService } from '@services/location.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',

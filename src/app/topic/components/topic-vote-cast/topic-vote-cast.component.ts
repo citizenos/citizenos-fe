@@ -1,11 +1,13 @@
+import { TopicIdeaService } from '@services/topic-idea.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Topic } from 'src/app/interfaces/topic';
-import { AuthService } from 'src/app/services/auth.service';
-import { AppService } from 'src/app/services/app.service';
-import { NotificationService } from 'src/app/services/notification.service';
-import { TopicService } from 'src/app/services/topic.service';
-import { TopicVoteService } from 'src/app/services/topic-vote.service';
-import { VoteDelegationService } from 'src/app/services/vote-delegation.service';
+import { AuthService } from '@services/auth.service';
+import { AppService } from '@services/app.service';
+import { NotificationService } from '@services/notification.service';
+import { TopicService } from '@services/topic.service';
+import { TopicVoteService } from '@services/topic-vote.service';
+import { VoteDelegationService } from '@services/vote-delegation.service';
+import { TopicMemberUserService } from '@services/topic-member-user.service';
 import { DialogService } from 'src/app/shared/dialog';
 import { take } from 'rxjs';
 import { TopicVoteSignComponent } from '../topic-vote-sign/topic-vote-sign.component';
@@ -14,6 +16,9 @@ import { TopicVoteDelegateComponent } from '../topic-vote-delegate/topic-vote-de
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { TopicVoteReminderDialog } from 'src/app/topic/components/topic-vote-reminder-dialog/topic-vote-reminder-dialog.component';
 import { DownloadVoteResultsComponent } from '../download-vote-results/download-vote-results.component';
+import { IdeaDialogComponent } from 'src/app/ideation/components/idea/idea.component';
+import { ActivatedRoute } from '@angular/router';
+import { CloseVotingComponent } from '../close-voting/close-voting.component';
 
 @Component({
   selector: 'topic-vote-cast',
@@ -33,12 +38,15 @@ export class TopicVoteCastComponent implements OnInit {
 
   constructor(
     public app: AppService,
-    private dialog: DialogService,
-    private Notification: NotificationService,
+    private readonly dialog: DialogService,
+    private readonly Notification: NotificationService,
     public AuthService: AuthService,
-    private TopicService: TopicService,
-    private TopicVoteService: TopicVoteService,
-    private VoteDelegationService: VoteDelegationService
+    private readonly TopicService: TopicService,
+    private readonly TopicVoteService: TopicVoteService,
+    private readonly TopicIdeaService: TopicIdeaService,
+    private readonly route: ActivatedRoute,
+    private readonly VoteDelegationService: VoteDelegationService,
+    private readonly TopicMemberUserService: TopicMemberUserService
   ) { }
 
   ngOnInit(): void {
@@ -54,6 +62,10 @@ export class TopicVoteCastComponent implements OnInit {
 
   canUpdate() {
     return this.TopicService.canUpdate(this.topic);
+  }
+
+  canDelete () {
+    return this.TopicService.canDelete(this.topic);
   }
 
   canVote() {
@@ -126,6 +138,7 @@ export class TopicVoteCastComponent implements OnInit {
                 this.topic.vote = vote;
                 this.TopicService.reloadTopic()
                 this.TopicVoteService.reloadVote();
+                this.TopicMemberUserService.reload();
               },
               error: (err) => {
                 console.error(err);
@@ -162,14 +175,8 @@ export class TopicVoteCastComponent implements OnInit {
       });
   }
   closeVoting() {
-    const closeVoteDialog = this.dialog.open(ConfirmDialogComponent, {
-      data: {
-        level: 'warn',
-        heading: 'COMPONENTS.CLOSE_VOTING_CONFIRM.HEADING',
-        description: 'COMPONENTS.CLOSE_VOTING_CONFIRM.ARE_YOU_SURE',
-        confirmBtn: 'COMPONENTS.CLOSE_VOTING_CONFIRM.CONFIRM_YES',
-        closeBtn: 'COMPONENTS.CLOSE_VOTING_CONFIRM.CONFIRM_NO'
-      }
+    const closeVoteDialog = this.dialog.open(CloseVotingComponent, {
+      data: {topic: this.topic}
     });
     closeVoteDialog.afterClosed().subscribe({
       next: (value) => {
@@ -197,7 +204,7 @@ export class TopicVoteCastComponent implements OnInit {
     voteReminderDialog.afterClosed().subscribe({
       next: (send) => {
         console.log(send)
-        if (send===true) {
+        if (send === true) {
           this.vote.reminderTime = new Date();
           this.saveVote();
           this.TopicVoteService.reloadVote();
@@ -365,5 +372,22 @@ export class TopicVoteCastComponent implements OnInit {
 
       }
     })
+  }
+
+  viewIdea(ideaId: string) {
+    this.TopicIdeaService
+    .get({ ideaId: ideaId, ideationId: this.topic.ideationId, topicId: this.topic.id })
+    .pipe(take(1))
+    .subscribe((idea) => {
+      this.dialog.closeAll();
+      const ideaDialog = this.dialog.open(IdeaDialogComponent, {
+        data: {
+          idea,
+          topic: this.topic,
+          ideation: { id: this.topic.ideationId },
+          route: this.route
+        }
+      });
+    });
   }
 }

@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { Group } from 'src/app/interfaces/group';
-import { AppService } from 'src/app/services/app.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { GroupService } from 'src/app/services/group.service';
-import { GroupInviteUserService } from 'src/app/services/group-invite-user.service';
+import { AppService } from '@services/app.service';
+import { AuthService } from '@services/auth.service';
+import { GroupService } from '@services/group.service';
+import { GroupInviteUserService } from '@services/group-invite-user.service';
 import { DialogService } from 'src/app/shared/dialog';
 import { catchError, take } from 'rxjs';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
@@ -14,7 +14,7 @@ import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog
   styleUrls: ['./group-invite-user.component.scss']
 })
 export class GroupInviteUserComponent {
-  @Input() invite?: any;
+  @Input() user?: any;
   @Input() group: Group | any;
   @Input() fields?: any;
 
@@ -35,16 +35,16 @@ export class GroupInviteUserComponent {
   }
 
   doUpdateInviteUser(level: string) {
-    if (this.invite.invite && this.invite?.invite.level !== level) {
-      const oldLevel = this.invite.invite.level;
-      this.invite.invite.level = level;
+    if (this.user.invite && this.user?.invite.level !== level) {
+      const oldLevel = this.user.invite.level;
+      this.user.invite.level = level;
       if (this.group) {
-        const inviteData = Object.assign({groupId: this.group.id, inviteId: this.invite.invite.id}, this.invite.invite)
+        const inviteData = Object.assign({groupId: this.group.id, inviteId: this.user.invite.id}, this.user.invite)
         this.GroupInviteUserService
           .update(inviteData)
           .pipe(take(1),
             catchError((error) => {
-              this.invite.level = oldLevel
+              this.user.level = oldLevel
               return error;
             }))
           .subscribe((res) => {
@@ -65,12 +65,12 @@ export class GroupInviteUserComponent {
     });
     deleteUserDialog.afterClosed().subscribe(result => {
       if (result === true) {
-        this.invite.groupId = this.group.id;
-        this.GroupInviteUserService.delete({ groupId: this.group.id, inviteId: this.invite.id })
+        this.user.groupId = this.group.id;
+        this.GroupInviteUserService.delete({ groupId: this.group.id, inviteId: this.user.invite.id })
           .pipe(take(1))
           .subscribe(() => {
-            this.GroupService.reloadGroup();
-            this.GroupInviteUserService.reloadItems();
+            this.GroupService.reload();
+            this.GroupInviteUserService.reload();
           });
       }
     });

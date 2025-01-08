@@ -1,5 +1,5 @@
-import { LocationService } from 'src/app/services/location.service';
-import { ItemsListService } from 'src/app/services/items-list.service';
+import { LocationService } from '@services/location.service';
+import { ItemsListService } from '@services/items-list.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, BehaviorSubject, shareReplay, exhaustMap } from 'rxjs';
@@ -13,18 +13,13 @@ export class GroupInviteUserService extends ItemsListService {
   params$ = new BehaviorSubject(this.params);
 
   public LEVELS = ['read','admin'];
-  public loadMembers$ = new BehaviorSubject<void>(undefined);
 
   constructor(private http: HttpClient, private Location: LocationService) {
     super();
-    this.items$ = this.loadMembers$.pipe(
+    this.items$ = this.reload$.pipe(
       exhaustMap(() => this.loadItems()),
       shareReplay()
     );
-  }
-
-  reloadItems(): void {
-    this.loadMembers$.next();
   }
 
   getItems(params:any) {

@@ -2,11 +2,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import { DialogService } from 'src/app/shared/dialog';
 import { take } from 'rxjs';
 import { Group } from 'src/app/interfaces/group';
-import { AuthService } from 'src/app/services/auth.service';
-import { GroupJoinService } from 'src/app/services/group-join.service';
-import { GroupMemberUserService } from 'src/app/services/group-member-user.service';
-import { GroupService } from 'src/app/services/group.service';
-import { LocationService } from 'src/app/services/location.service';
+import { AuthService } from '@services/auth.service';
+import { GroupJoinService } from '@services/group-join.service';
+import { GroupMemberUserService } from '@services/group-member-user.service';
+import { GroupService } from '@services/group.service';
+import { LocationService } from '@services/location.service';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
@@ -83,7 +83,7 @@ export class GroupShareComponent implements OnInit {
 
     this.GroupJoin.update(groupJoin).pipe(take(1)).subscribe(() => {
       this.join.level = level;
-      this.GroupService.reloadGroup();
+      this.GroupService.reload();
     })
   };
 

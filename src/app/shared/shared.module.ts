@@ -12,7 +12,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { CosDropdownDirective } from '../directives/cos-dropdown.directive';
 
 import { TypeaheadComponent, TypeaheadItem, TypeaheadSelect } from './components/typeahead/typeahead.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CosInitialsComponent } from './components/cos-initials/cos-initials.component';
 import { MomentModule } from 'ngx-moment';
 import { QRCodeModule } from 'angularx-qrcode';
@@ -34,8 +34,10 @@ import { GroupShareComponent } from '../group/components/group-share/group-share
 import { GroupAddTopicsComponent, GroupAddTopicsDialogComponent } from '../group/components/group-add-topics/group-add-topics.component';
 
 import { MarkdownDirective } from '../directives/markdown.directive';
-import { MarkdownPipe } from '../services/markdown.service';
+import { MarkdownPipe } from '@services/markdown.service';
+import { MarkdownLinkDialogComponent } from '../directives/components/markdown-link-dialog/markdown-link-dialog.component';
 import { CosEllipsisPipe } from './pipes/cos-ellipsis.pipe';
+import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { CheckHeightDirective } from '../directives/check-height.directive';
 import { EtherpadDirective } from '../directives/etherpad.directive';
 import { CosInputComponent } from './components/cos-input/cos-input.component';
@@ -56,6 +58,7 @@ import { ImageEditorComponent } from './components/image-editor/image-editor.com
 import { TopicVoteDeadlineComponent } from '../topic/components/topic-vote-deadline/topic-vote-deadline.component';
 
 import { NotificationComponent } from '../core/components/notification/notification.component';
+import { SiteNotificationComponent } from './components/site-notification/site-notification.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +67,7 @@ import { NotificationComponent } from '../core/components/notification/notificat
     ConfirmDialogComponent,
     CosDropdownDirective,
     CosEllipsisPipe,
+    SafeHtmlPipe,
     CosInitialsComponent,
     CosPaginationComponent,
     CosToggleComponent,
@@ -108,12 +112,15 @@ import { NotificationComponent } from '../core/components/notification/notificat
     TooltipComponent,
     ImageEditorComponent,
     TopicVoteDeadlineComponent,
-    NotificationComponent
+    NotificationComponent,
+    MarkdownLinkDialogComponent,
+    SiteNotificationComponent
   ],
   imports: [
     RouterModule,
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     MomentModule,
     QRCodeModule,
     TranslateModule,
@@ -126,6 +133,7 @@ import { NotificationComponent } from '../core/components/notification/notificat
     ConfirmDialogComponent,
     CosDropdownDirective,
     CosEllipsisPipe,
+    SafeHtmlPipe,
     CosInitialsComponent,
     CosPaginationComponent,
     CosToggleComponent,
@@ -171,7 +179,9 @@ import { NotificationComponent } from '../core/components/notification/notificat
     TooltipComponent,
     ImageEditorComponent,
     DialogModule,
-    NotificationComponent
+    NotificationComponent,
+    MarkdownLinkDialogComponent,
+    SiteNotificationComponent
    ]
 })
 export class SharedModule { }

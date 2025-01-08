@@ -1,14 +1,15 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from '@services/auth.service';
 import { Topic } from 'src/app/interfaces/topic';
 import { TopicMemberUser } from 'src/app/interfaces/user';
-import { TopicService } from 'src/app/services/topic.service';
-import { TopicMemberUserService } from 'src/app/services/topic-member-user.service';
+import { TopicService } from '@services/topic.service';
+import { TopicMemberUserService } from '@services/topic-member-user.service';
 import { take } from 'rxjs';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { DialogService } from 'src/app/shared/dialog';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { NotificationService } from '@services/notification.service';
 
 
 @Component({
@@ -27,6 +28,7 @@ export class TopicMemberUserComponent implements OnInit {
     private dialog: DialogService,
     private Translate: TranslateService,
     private TopicService: TopicService,
+    private Notification: NotificationService,
     private TopicMemberUserService: TopicMemberUserService,
     private router: Router,
   ) { }
@@ -71,6 +73,9 @@ export class TopicMemberUserComponent implements OnInit {
     });
     deleteUserDialog.afterClosed().subscribe(result => {
       if (result === true) {
+        if (!this.member.levelUser) {
+          return this.Notification.addError('COMPONENTS.TOPIC_MEMBER_USER.REMOVE_ERROR_MEMBER_VIA_GROUP');
+        }
         this.member.topicId = this.topic.id;
         this.TopicMemberUserService.delete({ topicId: this.topic.id, userId: this.member.userId || this.member.id })
           .pipe(take(1))

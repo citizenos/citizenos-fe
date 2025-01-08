@@ -6,6 +6,15 @@
   gap: 8px;
 }
 
+.ideation {
+  button {
+    background-color: initial;
+
+    &:hover, &.active {
+      background: var(--color-surfaces);
+    }
+  }
+}
 button {
   width: 40px;
   height: 40px;

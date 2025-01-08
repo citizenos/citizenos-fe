@@ -1,11 +1,12 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { map, of } from 'rxjs';
-import { TopicArgumentService } from 'src/app/services/topic-argument.service';
+import { map, of, distinct } from 'rxjs';
+import { TopicArgumentService } from '@services/topic-argument.service';
 import { DIALOG_DATA } from 'src/app/shared/dialog';
 
 export interface ArgumentReactionsData {
   commentId: string,
-  topicId: string
+  topicId: string,
+  discussionId: string,
 };
 
 @Component({
@@ -15,8 +16,9 @@ export interface ArgumentReactionsData {
 })
 
 export class ArgumentReactionsComponent implements OnInit {
-  private commentId:string;
-  private topicId:string;
+  private commentId: string;
+  private topicId: string;
+  private discussionId: string;
   public voteItems = of(<any[]>[]);
   private itemsPerPage = 10;
   public page = 1;
@@ -24,26 +26,28 @@ export class ArgumentReactionsComponent implements OnInit {
   constructor(private TopicArgumentService: TopicArgumentService, @Inject(DIALOG_DATA) public data: ArgumentReactionsData,) {
     this.commentId = data.commentId;
     this.topicId = data.topicId;
+    this.discussionId = data.discussionId;
   }
 
   ngOnInit(): void {
     this.voteItems = this.TopicArgumentService
-    .votes({
+      .votes({
+        discussionId: this.discussionId,
         commentId: this.commentId,
         topicId: this.topicId
-    }).pipe(
-      map((commentVotes) => {
-        this.totalPages = Math.ceil(commentVotes.rows.length / this.itemsPerPage) || 1;
-        this.page = 1;
-        return commentVotes.rows
-      })
-    );
+      }).pipe(
+        map((commentVotes) => {
+          this.totalPages = Math.ceil(commentVotes.rows.length / this.itemsPerPage) || 1;
+          this.page = 1;
+          return commentVotes.rows
+        })
+      );
   }
-  loadPage(pageNr:number) {
+  loadPage(pageNr: number) {
     this.page = pageNr;
   };
 
-  isOnPage(index:any, page:number) {
+  isOnPage(index: any, page: number) {
     const endIndex = page * this.itemsPerPage;
 
     return (index >= (endIndex - this.itemsPerPage) && index < endIndex);

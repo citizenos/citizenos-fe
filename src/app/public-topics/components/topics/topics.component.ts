@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AppService } from 'src/app/services/app.service';
-import { TopicService } from 'src/app/services/topic.service';
-import { PublicTopicService } from 'src/app/services/public-topic.service';
+import { AppService } from '@services/app.service';
+import { TopicService } from '@services/topic.service';
+import { PublicTopicService } from '@services/public-topic.service';
 import { switchMap, map, of, Subject, BehaviorSubject, combineLatest, } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { trigger, state, style } from '@angular/animations';
-import { AuthService } from 'src/app/services/auth.service';
-import { countries } from 'src/app/services/country.service';
-import { languages } from 'src/app/services/language.service';
+import { AuthService } from '@services/auth.service';
+import { countries } from '@services/country.service';
+import { languages } from '@services/language.service';
 import { Country } from 'src/app/interfaces/country';
 import { Language } from 'src/app/interfaces/language';
 
@@ -175,19 +175,19 @@ export class TopicsComponent implements OnInit {
   }
 
   orderBy(orderBy: string) {
-    if (orderBy === 'all') orderBy = '';
+    if (orderBy === 'all' || typeof orderBy !== 'string') orderBy = '';
     this.orderFilter$.next(orderBy);
     this.topicFilters.orderBy = orderBy;
   }
 
   setStatus(status: string) {
-    if (status === 'all'|| typeof status === 'boolean') status = '';
+    if (status === 'all'|| typeof status !== 'string') status = '';
     this.statusFilter$.next(status);
     this.topicFilters.status = status;
   }
 
   setCategory(category: string) {
-    if (category === 'all' || typeof category === 'boolean') category = '';
+    if (category === 'all' || typeof category !== 'string') category = '';
     this.categoryFilter$.next(category);
     this.topicFilters.category = category;
   }

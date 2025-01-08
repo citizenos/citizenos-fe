@@ -2,12 +2,12 @@ import { Component, Inject, inject, Input } from '@angular/core';
 import { DIALOG_DATA, DialogService, DialogRef } from 'src/app/shared/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, take } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
-import { ConfigService } from 'src/app/services/config.service';
-import { UserService } from 'src/app/services/user.service';
+import { AuthService } from '@services/auth.service';
+import { ConfigService } from '@services/config.service';
+import { UserService } from '@services/user.service';
 import { EstIdLoginDialogComponent } from '../est-id-login/est-id-login.component';
 import { SmartIdLoginDialogComponent } from '../smart-id-login/smart-id-login.component';
-import { LocationService } from 'src/app/services/location.service';
+import { LocationService } from '@services/location.service';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -182,7 +182,7 @@ export class LoginComponent {
       }
     );
 
-    const redirectSuccess = this.redirectSuccess || this.Location.getAbsoluteUrl(`${this.translate.currentLang}/dashboard`); // Final url to land after successful login
+    const redirectSuccess = this.redirectSuccess || this.Location.getAbsoluteUrl(`dashboard`); // Final url to land after successful login
 
     const loginWindow = this.popupCenter(url, 'CitizenOS Partner Login', 470, 500);
 
@@ -218,6 +218,7 @@ export class LoginComponent {
       const redirectSuccess = this.Location.currentUrl();
       url += '?redirectSuccess=' + redirectSuccess + '?'; // HACK: + '?' avoids digest loop on Angular side for Google callbacks.
     }
+
     window.location.href = url;
   };
 

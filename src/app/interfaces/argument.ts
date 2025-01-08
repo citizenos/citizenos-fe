@@ -11,6 +11,7 @@ export interface Argument {
   },
   deletedReasonText: string | null,
   deletedReasonType: string | null,
+  discussionId: string,
   showDeletedArgument: boolean | undefined,
   creator: {
     id: string,
@@ -49,6 +50,7 @@ export interface Argument {
     },
     count: number
   },
-  showEdits: boolean
+  showEdits: boolean,
+  showReplies: boolean
 }
 

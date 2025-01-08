@@ -7,13 +7,13 @@
       <div id="description" translate="VIEWS.HOME.STATS_DESCRIPTION"></div>
       <div class="bold" translate="VIEWS.HOME.STATS_COS_HAS_ENABLED"></div>
       <div id="stats_wrap" *ngIf="stats$ | async as stats">
+        <div class="stats_box ideation">
+          <div class="number">{{stats.ideasProposed}}</div>
+          <div class="label" translate="VIEWS.HOME.STATS_IDEAS"></div>
+        </div>
         <div class="stats_box discussion">
           <div class="number">{{stats.topicsCreated}}</div>
           <div class="label" translate="VIEWS.HOME.STATS_DISCUSSIONS"></div>
-        </div>
-        <div class="stats_box ideation">
-          <div class="number">{{stats.groupsCreated}}</div>
-          <div class="label" translate="VIEWS.HOME.STATS_GROUPS"></div>
         </div>
         <div class="stats_box votes">
           <div class="number">{{stats.votesCast}}</div>
@@ -447,8 +447,8 @@
   </div>
 
   <div id="features_wrap">
+    <feature-box class="feature_box" feature="ideation" [items]="4"></feature-box>
     <feature-box class="feature_box" feature="discussion" [items]="4"></feature-box>
-    <!--feature-box class="feature_box" feature="ideation" [items]="4"></!--feature-box-->
     <feature-box class="feature_box" feature="voting" [items]="4"></feature-box>
   </div>
   <div id="feature_group">

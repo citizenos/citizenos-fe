@@ -4,11 +4,11 @@ import { DialogService } from 'src/app/shared/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { take, takeWhile, switchMap, of, map } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
-import { AppService } from 'src/app/services/app.service';
-import { NotificationService } from 'src/app/services/notification.service';
-import { TopicAttachmentService } from 'src/app/services/topic-attachment.service';
-import { UploadService } from 'src/app/services/upload.service';
-import { TopicService } from 'src/app/services/topic.service';
+import { AppService } from '@services/app.service';
+import { NotificationService } from '@services/notification.service';
+import { TopicAttachmentService } from '@services/topic-attachment.service';
+import { UploadService } from '@services/upload.service';
+import { TopicService } from '@services/topic.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Attachment } from 'src/app/interfaces/attachment';
 import { trigger, state, style } from '@angular/animations';
@@ -180,7 +180,7 @@ export class TopicAttachmentsComponent implements OnInit {
   }
 
   getAllowedFileTypes() {
-    return ["txt", "text", "bdoc", "asice", "ddoc", "conf", "def", "list", "log", "in", "ini", "pdf", "doc", "dot", "docx", "odt", "ods", "jpeg", "jpg", "jpe", "png", "rtf", "xls", "xlm", "xla", "xlc", "xlt", "xlw", "xlsx", "ppt", "pps", "pot", "pptx"].join(', ');
+    return ["txt", "pdf", "doc", "asice", "docx", "ddoc", "bdoc", "odf", "odt", "jpg", "jpeg", "img", "png", "rtf", "xls", "xlsx", "ppt", "pptx", "pps", "xlt"].join(', ');
   }
   attachmentUpload(): void {
     const files = this.attachmentInput?.nativeElement.files;

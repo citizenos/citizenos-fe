@@ -1,11 +1,11 @@
 import { Topic } from 'src/app/interfaces/topic';
 import { Event } from 'src/app/interfaces/event';
 import { Component, OnInit, Input } from '@angular/core';
-import { TopicEventService } from 'src/app/services/topic-event.service';
-import { TopicService } from 'src/app/services/topic.service';
+import { TopicEventService } from '@services/topic-event.service';
+import { TopicService } from '@services/topic.service';
 import { DialogService } from 'src/app/shared/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
-import { take, of } from 'rxjs';
+import { take, of, map } from 'rxjs';
 @Component({
   selector: 'topic-milestones',
   templateUrl: './topic-milestones.component.html',
@@ -13,6 +13,7 @@ import { take, of } from 'rxjs';
 })
 export class TopicMilestonesComponent implements OnInit {
   @Input() topic!: Topic;
+  @Input() isStatusClosed!: boolean;
   event = {
     subject: '',
     text: '',
@@ -21,15 +22,17 @@ export class TopicMilestonesComponent implements OnInit {
 
   errors = <any>null;
   public topicEvents = of(<Event[] | any[]>[]);
-  public countTotal;
+  public countTotal = 0;
   public maxLengthSubject = 128;
   public maxLengthText = 2048;
   constructor(private dialog: DialogService, private TopicEventService: TopicEventService, private TopicService: TopicService) {
-    this.topicEvents = this.TopicEventService.loadItems();
-    this.countTotal = this.TopicEventService.countTotal$;
   }
 
   ngOnInit(): void {
+    this.topicEvents = this.TopicEventService.loadEvents({topicId: this.topic.id}).pipe(map(events => {
+      this.countTotal = events.count;
+      return events.rows;
+    }));
     this.TopicEventService.setParam('topicId', this.topic.id);
     this.event.topicId = this.topic.id;
   }
@@ -41,7 +44,7 @@ export class TopicMilestonesComponent implements OnInit {
       .subscribe(() => {
         this.event.subject = '';
         this.event.text = '';
-        this.TopicEventService.reset();
+        this.TopicEventService.reloadEvents();
       });
   };
 
@@ -54,10 +57,16 @@ export class TopicMilestonesComponent implements OnInit {
   }
 
   toggleEditMode(event: any) {
+    if (!event.orgSubject) {
+      event.origSubject = event.subject;
+      event.origText = event.text;
+    }
     if (!event.editMode) {
       event.editMode = true;
     } else {
       event.editMode = !event.editMode;
+      event.subject = event.origSubject;
+      event.subject = event.origText;
     }
   }
 
@@ -69,7 +78,8 @@ export class TopicMilestonesComponent implements OnInit {
       .subscribe(() => {
         this.event.subject = '';
         this.event.text = '';
-        this.TopicEventService.reset();
+        event.editMode = !event.editMode;
+        this.TopicEventService.reloadEvents();
       });
   }
 
@@ -95,26 +105,9 @@ export class TopicMilestonesComponent implements OnInit {
           .subscribe(() => {
             this.event.subject = '';
             this.event.text = '';
-            this.TopicEventService.reset();
+            this.TopicEventService.reloadEvents();
           });
       }
     });
-    /*
-        this.ngDialog
-          .openConfirm({
-            template: '/views/modals/topic_event_delete_confirm.html',
-            data: {
-              event: event
-            }
-          })
-          .then(() => {
-            event.topicId = this.topic.id;
-            this.TopicEventService
-              .delete(event)
-              .then(() => {
-                this.init();
-              });
-          }, angular.noop);*/
-
   }
 }

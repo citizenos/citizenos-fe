@@ -240,7 +240,7 @@
       min-width: 280px;
       max-width: 280px;
       min-height: 456px;
-      background-color: var(--color-scrollbar);
+      background-color: var(--color-blue-100);
       border-radius: 16px;
       padding: 24px 16px;
       gap: 24px;
@@ -343,22 +343,12 @@
         padding: 16px 0;
       }
 
-      &::-webkit-scrollbar {
-        width: 4px;
-        height: 4px;
-        background-color: var(--color-scrollbar);
-      }
-
-      &::-webkit-scrollbar-thumb {
-        background-color: var(--color-scrollbar-thumb);
-        border-radius: 8px;
-      }
     }
   }
 }
 #subscribe_box {
   display: flex;
-  background-color: var(--color-scrollbar);
+  background-color: var(--color-blue-100);
   justify-content: space-between;
   padding: 24px 24px 0 24px;
   @include mixins.tablet {
@@ -440,4 +430,8 @@
 
 #create_menu_wrap {
   position: absolute;
+}
+
+#create_menu {
+  top: 60px;
 }

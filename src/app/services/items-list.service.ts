@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, of, switchMap, map, combineLatest } from 'rxjs';
-import { Group } from '../interfaces/group';
+import { BehaviorSubject, shareReplay, switchMap, map, combineLatest } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +20,13 @@ export abstract class ItemsListService {
   countTotal$ = new BehaviorSubject(0);
   totalPages$ = new BehaviorSubject(1);
   page$ = new BehaviorSubject(1);
+  reload$ = new BehaviorSubject<void>(undefined);
   abstract params$: BehaviorSubject<any>;
   constructor() {
+  }
+
+  reload () {
+    this.reload$.next();
   }
 
   doOrder(orderBy: string, order?: string) {
@@ -54,6 +58,7 @@ export abstract class ItemsListService {
 
   loadItems() {
     return combineLatest([this.page$, this.params$]).pipe(
+      shareReplay(),
       switchMap(([page, paramsValue]) => {
         paramsValue.offset = (page - 1) * paramsValue.limit;
         return this.getItems(paramsValue);
@@ -65,7 +70,7 @@ export abstract class ItemsListService {
         if (this.totalPages$.value === 0 || this.totalPages$.value === this.page$.value) {
           this.hasMore$.next(false);
         }
-        return Array.from<Group>(res.rows);
+        return Array.from<any>(res.rows);
       })
     );
   }

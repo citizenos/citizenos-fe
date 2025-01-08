@@ -1,0 +1,126 @@
+<div class="overlay" dialog-close></div>
+<div class="dialog_wrap">
+  <div id="notification_wrap_dialog" class="mobile_hidden">
+    <notification></notification>
+  </div>
+  <div class="dialog">
+    <div id="notification_wrap_dialog" class="mobile_show">
+      <notification></notification>
+    </div>
+    <div class="dialog_header discussion">
+      <div class="header_with_icon">
+        <div>
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="40" height="40" rx="20" fill="#1168A8" />
+            <path
+              d="M23 11.5292C23 12.926 21.9255 14.0583 20.6 14.0583C19.2745 14.0583 18 12.926 18 11.5292C18 10.1323 19.2745 9 20.6 9C21.9255 9 23 10.1323 23 11.5292Z"
+              fill="white" />
+            <path
+              d="M17.3359 16.5357L22.8319 15.8098L20.4295 27.7096C20.2591 28.5695 20.4991 29.0576 21.1591 29.0576C21.6247 29.0576 22.3255 28.8806 22.8055 28.4354L22.5943 29.4876C21.9055 30.3626 20.3863 31 19.0783 31C17.3911 31 16.6735 29.9327 17.1391 27.664L18.9103 18.8929C19.0639 18.1518 18.9247 17.8837 18.2191 17.7067L17.1391 17.4968L17.3359 16.5357Z"
+              fill="white" />
+          </svg>
+        </div>
+        <h4 class="title" translate="COMPONENTS.MISSING_DISCUSSION.TITLE"></h4>
+      </div>
+    </div>
+    <div class="dialog_content">
+      <div id="form_area">
+        <div [innerHTML]="'COMPONENTS.MISSING_DISCUSSION.DESCRIPTION' | translate"></div>
+        <div class="content_section">
+          <div class="section_content_wrap">
+            <div class="bold" translate="COMPONENTS.MISSING_DISCUSSION.HEADING_DISCUSSION_QUESTION">
+            </div>
+            <div class="section_content_description">
+              <cos-input placeholder="{{'COMPONENTS.MISSING_DISCUSSION.DISCUSSION_QUESTION_PLACEHOLDER' | translate}}">
+                <input id="groupName"
+                  [placeholder]="'COMPONENTS.MISSING_DISCUSSION.DISCUSSION_QUESTION_PLACEHOLDER' | translate"
+                  [(ngModel)]="discussion.question">
+              </cos-input>
+            </div>
+          </div>
+        </div>
+        <div class="content_section">
+          <div class="section_content_wrap">
+            <div class="header_wrap">
+              <div class="bold" translate="COMPONENTS.MISSING_DISCUSSION.HEADING_DISCUSSION_DEADLINE">
+              </div>
+            </div>
+            <div class="radio_wrap discussion date_selector"
+              [ngClass]="{selected: deadlineSelect, disabled: !canEditDiscussion()}">
+              <div class="radio_text_wrap date_selector">
+                <div class="radio_lable_wrap" (click)="toggleDeadline();$event.stopPropagation();">
+                  <label class="checkbox" [ngClass]="{selected: deadlineSelect}">
+                    <span class="checkmark"></span>
+                    <div class="checkbox_text_wrap">
+                      <span class="bold" translate="VIEWS.TOPIC_CREATE.LBL_OPTION_DEADLINE"></span>
+                      <span class="deadline bold" *ngIf="deadlineSelect">{{deadline | date: 'YYYY-MM-dd HH:mm'}}</span>
+                    </div>
+                  </label>
+                </div>
+                <div class="radio_description" *ngIf="deadlineSelect">
+                  <div class="deadline_wrap">
+                    <div class="date_row">
+                      <span class="deadline" translate="VIEWS.TOPIC_CREATE.LBL_TIMEZONE"></span>
+                    </div>
+                    <div class="date_row">
+                      <div class="bold date_row_title" translate="VIEWS.TOPIC_CREATE.DEADLINE_LBL_TIME">
+                      </div>
+                      <div class="input_wrap">
+                        <div class="time_wrap">
+                          <input class="time_input" [(ngModel)]="endsAt.h"
+                            (change)="formatTime(endsAt.h); setEndsAtTime()" type="number" [min]="minHours()"
+                            max="{{HCount}}" step="1" />
+                          <span class="time_separator">:</span>
+                          <input type="number" class="time_input" [min]="minMinutes()" max="59" step="5"
+                            [(ngModel)]="endsAt.min" (change)="formatTime(endsAt.min);setEndsAtTime()" />
+                        </div>
+
+                        <div class="dropdown" [cosDropdown]>
+                          <div class="selection">
+                            <div class="selected_item">
+                              {{'VIEWS.TOPIC_CREATE.DEADLINE_TIME_OPTION_'+endsAt.timeFormat | uppercase |
+                              translate}}</div>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path d="M17 10L12 15L7 10" stroke="#727C84" stroke-width="2" stroke-linecap="round" />
+                            </svg>
+
+                          </div>
+                          <div class="options">
+                            <div class="option" translate="VIEWS.TOPIC_CREATE.DEADLINE_TIME_OPTION_24"
+                              (click)="endsAt.timeFormat = 24; setTimeFormat()">
+                            </div>
+                            <div class="option" translate="VIEWS.TOPIC_CREATE.DEADLINE_TIME_OPTION_AM"
+                              (click)="endsAt.timeFormat = 'AM'; setTimeFormat()"
+                              [ngClass]="{disabled: timeFormatDisabled()}">
+                            </div>
+                            <div class="option" translate="VIEWS.TOPIC_CREATE.DEADLINE_TIME_OPTION_PM"
+                              (click)="endsAt.timeFormat = 'PM'; setTimeFormat()">
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                    <cos-calender [minDate]="datePickerMin" [(date)]="endsAt.date" (click)="setEndsAtTime()"
+                      class="discussion"></cos-calender>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="dialog_content no_footer">
+      <div class="button_wrap">
+        <button class="btn_medium_submit" (click)="updateDiscussion()"
+          translate="COMPONENTS.MISSING_DISCUSSION.BTN_START_DISCUSSION"></button>
+
+      <a *ngIf="!topic.discussionId" dialog-close translate="COMPONENTS.MISSING_DISCUSSION.LNK_CANCEL"></a>
+      </div>
+    </div>
+    <div class="dialog_footer">
+    </div>
+  </div>
+</div>

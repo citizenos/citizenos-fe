@@ -1,5 +1,5 @@
 import { ApiResponse } from './../interfaces/apiResponse';
-import { TopicService } from 'src/app/services/topic.service';
+import { TopicService } from '@services/topic.service';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';

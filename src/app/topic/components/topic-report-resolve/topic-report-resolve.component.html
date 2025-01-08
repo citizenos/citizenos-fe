@@ -1,9 +1,12 @@
 <div class="overlay" dialog-close></div>
 <div class="dialog_wrap">
-  <div id="notification_wrap_dialog">
+  <div id="notification_wrap_dialog" class="mobile_hidden">
     <notification></notification>
   </div>
   <div class="dialog">
+    <div id="notification_wrap_dialog" class="mobile_show">
+      <notification></notification>
+    </div>
     <div class="dialog_header warning">
       <div class="header_with_icon">
         <div class="icon_notification">
@@ -67,7 +70,7 @@
             <div class="bold" translate="MODALS.TOPIC_REPORT_REPORTID_RESOLVE_TXT_STATUS_WAITING_FOR_UPDATE_AND_REVIEW">
             </div>
           </div>
-          <div class="dialog_info_content"
+          <div class="dialog_info_content inline"
             [innerHTML]="'MODALS.TOPIC_REPORT_REPORTID_RESOLVE_TXT_FIND_MORE_DETAILS' | translate">
           </div>
         </div>

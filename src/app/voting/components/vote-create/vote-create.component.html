@@ -35,14 +35,14 @@
         {{topic.members.users.length || 1}}
       </a>
       <div class="buttons_wrap tablet_hidden">
-        <button class="btn_medium_plain icon">
+        <a class="btn_medium_plain icon" [href]="downloadUrl">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd"
               d="M12 4C12.5523 4 13 4.44772 13 5L13 12.5858L14.2929 11.2929C14.6834 10.9024 15.3166 10.9024 15.7071 11.2929C16.0976 11.6834 16.0976 12.3166 15.7071 12.7071L12.7071 15.7071C12.3166 16.0976 11.6834 16.0976 11.2929 15.7071L8.29289 12.7071C7.90237 12.3166 7.90237 11.6834 8.29289 11.2929C8.68342 10.9024 9.31658 10.9024 9.70711 11.2929L11 12.5858L11 5C11 4.44772 11.4477 4 12 4ZM5 16C5.55228 16 6 16.4477 6 17V19H18V17C18 16.4477 18.4477 16 19 16C19.5523 16 20 16.4477 20 17V19C20 20.1046 19.1046 21 18 21L6 21C4.89543 21 4 20.1046 4 19L4 17C4 16.4477 4.44772 16 5 16Z"
               fill="#2C3B47" />
           </svg>
-        </button>
-        <button class="btn_medium_plain icon" (click)="deleteTopic()">
+        </a>
+        <button class="btn_medium_plain icon" (click)="deleteTopic(topic.id)">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M9 9H11V17H9L9 9Z" fill="#2C3B47" />
             <path d="M15 9H13V17H15V9Z" fill="#2C3B47" />
@@ -110,7 +110,7 @@
                 fill="#2C3B47" />
             </svg>
           </div>
-          <div class="text" translate="VIEWS.TOPIC_CREATE.BTN_INVITE_CO_EDITORS"></div>
+          <div class="text" translate="VIEWS.VOTE_CREATE.BTN_INVITE_CO_EDITORS"></div>
         </div>
         <div class="arrow">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -174,17 +174,17 @@
                   fill="#2C3B47" />
               </svg>
 
-              <div class="small_heading" translate="VIEWS.TOPIC_CREATE.WRITE_TOGETHER_HEADING"></div>
-              <div translate="VIEWS.TOPIC_CREATE.WRITE_TOGETHER_DESC"></div>
+              <div class="small_heading" translate="VIEWS.VOTE_CREATE.WRITE_TOGETHER_HEADING"></div>
+              <div translate="VIEWS.VOTE_CREATE.WRITE_TOGETHER_DESC"></div>
             </ng-container>
             <ng-container *ngIf="(members.length > 1) || invites.length">
               <div class="topic_editors_header">
-                <div class="title" translate="VIEWS.TOPIC_CREATE.CO_EDITORS_TITLE"></div>
-                <a (click)="manageMembers()" translate="VIEWS.TOPIC_CREATE.CO_EDITORS_LNK_MANAGE"></a>
+                <div class="title" translate="VIEWS.VOTE_CREATE.CO_EDITORS_TITLE"></div>
+                <a (click)="manageMembers()" translate="VIEWS.VOTE_CREATE.CO_EDITORS_LNK_MANAGE"></a>
               </div>
               <div class="topic_members_list_wrap">
                 <div class="topic_member">
-                  <div class="bold" translate="VIEWS.TOPIC_CREATE.CO_EDITORS_LBL_JOINED"></div>
+                  <div class="bold" translate="VIEWS.VOTE_CREATE.CO_EDITORS_LBL_JOINED"></div>
                 </div>
                 <div class="topic_member" *ngFor="let member of members">
                   <div class="profile_image_wrap">
@@ -201,7 +201,7 @@
               <ng-container *ngIf="invites">
                 <div class="topic_members_list_wrap" *ngIf="invites.length">
                   <div class="topic_member">
-                    <div class="bold" translate="VIEWS.TOPIC_CREATE.CO_EDITORS_LBL_INVITED"></div>
+                    <div class="bold" translate="VIEWS.VOTE_CREATE.CO_EDITORS_LBL_INVITED"></div>
                   </div>
                   <div class="topic_member disabled" *ngFor="let invite of invites">
                     <div class="profile_image_wrap">
@@ -219,7 +219,7 @@
             </ng-container>
 
             <button class="btn_medium_secondary bold" (click)="inviteEditors()"
-              translate="VIEWS.TOPIC_CREATE.BTN_INVITE_CO_EDITORS"></button>
+              translate="VIEWS.VOTE_CREATE.BTN_INVITE_CO_EDITORS"></button>
           </div>
         </ng-container>
       </ng-container>
@@ -266,7 +266,13 @@
                 <div class="block_content image_content">
                   <div class="block_section" *ngIf="!(topic.imageUrl || tmpImageUrl)">
                     <div>
-                      <div class="bold" translate="VIEWS.VOTE_CREATE.HEADER_IMAGE_UPLOAD_DESC"></div>
+                      <div class="bold" translate="VIEWS.VOTE_CREATE.HEADER_IMAGE_UPLOAD_DESC">
+                        <!--div class="tooltip" tooltip>
+                          <div class="content_title">Help on its way</div>
+                          <div class="content_description">Help text coming soon! Please tell us what help you were
+                            looking for.</div>
+                        </!--div-->
+                      </div>
                       <div translate="VIEWS.VOTE_CREATE.HEADER_IMAGE_UPLOAD_DESC_TEXT"></div>
                     </div>
                     <input id="image_upload_input" type="file" #imageUpload (change)="fileUpload()"
@@ -321,8 +327,7 @@
               <ng-container *ngIf="block.title || topic.title">
                 <div class="block_content">
                   <input id="title_input" #topicTitle placeholder="..." [(ngModel)]="topic.title"
-                    (change)="updateField()" [maxlength]="titleLimit"
-                    [disabled]="!TopicService.canEditDescription(topic)"
+                    [maxlength]="titleLimit" [disabled]="!TopicService.canEditDescription(topic)"
                     [ngClass]="{'disabled': !TopicService.canEditDescription(topic)}" />
                 </div>
               </ng-container>
@@ -349,8 +354,7 @@
               <ng-container *ngIf="block.intro || topic.intro">
                 <div class="block_content">
                   <textarea id="intro_input" #topicIntro placeholder="..." [(ngModel)]="topic.intro"
-                    (change)="updateField()" [maxlength]="introLimit"
-                    [disabled]="!TopicService.canEditDescription(topic)"
+                    [maxlength]="introLimit" [disabled]="!TopicService.canEditDescription(topic)"
                     [ngClass]="{'disabled': !TopicService.canEditDescription(topic)}"></textarea>
                 </div>
               </ng-container>
@@ -360,8 +364,12 @@
               [@openClose]="block.description ? 'open' : 'closed'">
               <div class="block_title_wrap" (click)="block.description = true;">
                 <div>
-                  <div class="block_title" translate="VIEWS.VOTE_CREATE.TITLE_DESCRIPTION"></div>
-                  <!--div *ngIf="!block.description" translate="VIEWS.VOTE_CREATE.TITLE_DESCRIPTION_TEXT"></!--div-->
+                  <div class="block_title" translate="VIEWS.VOTE_CREATE.TITLE_DESCRIPTION">
+                    <div class="tooltip" tooltip>
+                      <div class="content_title" translate="VIEWS.IDEATION_CREATE.TOOLTIP_TOPIC_TEXT_TITLE"></div>
+                      <div class="content_description" translate="VIEWS.IDEATION_CREATE.TOOLTIP_TOPIC_TEXT_CONTENT"></div>
+                    </div>
+                  </div>
                 </div>
                 <div class="counter_wrap">
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -483,9 +491,21 @@
                   </div>
 
                   <div class="small_heading" translate="VIEWS.VOTE_CREATE.SETTINGS_HEADING_VISIBILITY"></div>
-                  <div class="mobile_hidden" translate="VIEWS.VOTE_CREATE.SETTINGS_VISIBILITY_DESC"></div>
+                  <div class="mobile_hidden" translate="VIEWS.VOTE_CREATE.SETTINGS_VISIBILITY_DESC">
+                    <!--div class="tooltip" tooltip>
+                      <div class="content_title">Help on its way</div>
+                      <div class="content_description">Help text coming soon! Please tell us what help you were looking
+                        for.</div>
+                    </!--div-->
+                  </div>
                 </div>
-                <div class="mobile_show" translate="VIEWS.VOTE_CREATE.SETTINGS_VISIBILITY_DESC"></div>
+                <div class="mobile_show" translate="VIEWS.VOTE_CREATE.SETTINGS_VISIBILITY_DESC">
+                  <!--div class="tooltip" tooltip>
+                    <div class="content_title">Help on its way</div>
+                    <div class="content_description">Help text coming soon! Please tell us what help you were looking
+                      for.</div>
+                  </!--div-->
+                </div>
 
                 <div class="row_wrap">
                   <div class="radio_wrap" (click)="topic.visibility = VISIBILITY.private"
@@ -560,7 +580,12 @@
 
                   </a>
                 </div>
-                <div class="small_heading" translate="VIEWS.VOTE_CREATE.SETTINGS_HEADING_LOCALITY"></div>
+                <div class="small_heading" translate="VIEWS.VOTE_CREATE.SETTINGS_HEADING_LOCALITY">
+                  <div class="tooltip" tooltip>
+                    <div class="content_title" translate="VIEWS.VOTE_CREATE.TOOLTIP_TOPIC_LOCALITY_TITLE"></div>
+                    <div class="content_description" translate="VIEWS.VOTE_CREATE.TOOLTIP_TOPIC_LOCALITY_CONTENT"></div>
+                  </div>
+                </div>
                 <div translate="VIEWS.VOTE_CREATE.SETTINGS_LOCALITY_SELECT_DESC"></div>
                 <div class="row_wrap">
                   <div class="dropdown" [cosDropdown]>
@@ -604,8 +629,8 @@
           </div>
           <div class="section_content_wrap">
             <div class="small_heading" translate="VIEWS.VOTE_CREATE.SETTINGS_HEADING_TOPIC_TAGS"></div>
-            <div translate="VIEWS.TOPIC_CREATE.SETTINGS_TOPIC_TAGS_DESC"></div>
-            <cos-input [placeholder]="'VIEWS.TOPIC_CREATE.SETTINGS_TOPIC_TAG_INPUT_PLACEHOLDER' | translate">
+            <div translate="VIEWS.VOTE_CREATE.SETTINGS_TOPIC_TAGS_DESC"></div>
+            <cos-input [placeholder]="'VIEWS.VOTE_CREATE.SETTINGS_TOPIC_TAG_INPUT_PLACEHOLDER' | translate">
               <input type="text" (click)="addTag($event)" />
             </cos-input>
 
@@ -630,8 +655,19 @@
                   <div class="number_wrap mobile_show">
                     <div>3</div>
                   </div>
-                  <div class="small_heading" translate="VIEWS.VOTE_CREATE.SETTINGS_HEADING_ADD_TO_GROUP"></div>
-                  <div class="mobile_hidden" translate="VIEWS.VOTE_CREATE.SETTINGS_ADD_TO_GROUP_DESC"></div>
+                  <div class="small_heading mobile_show" translate="VIEWS.VOTE_CREATE.SETTINGS_HEADING_ADD_TO_GROUP">
+                    <div id="add_to_group_tooltip" class="tooltip" tooltip>
+                      <div class="content_title" translate="VIEWS.TOPIC_CREATE.TOOLTIP_ADD_TO_GROUP"></div>
+                      <div class="content_description" translate="VIEWS.TOPIC_CREATE.TOOLTIP_ADD_TO_GROUP_CONTENT"></div>
+                    </div>
+                  </div>
+                  <div class="small_heading mobile_hidden" translate="VIEWS.VOTE_CREATE.SETTINGS_HEADING_ADD_TO_GROUP"></div>
+                  <div class="mobile_hidden" translate="VIEWS.VOTE_CREATE.SETTINGS_ADD_TO_GROUP_DESC">
+                    <div class="tooltip" tooltip>
+                      <div class="content_title" translate="VIEWS.TOPIC_CREATE.TOOLTIP_ADD_TO_GROUP"></div>
+                      <div class="content_description" translate="VIEWS.TOPIC_CREATE.TOOLTIP_ADD_TO_GROUP_CONTENT"></div>
+                    </div>
+                  </div>
                 </div>
                 <div class="mobile_show" translate="VIEWS.VOTE_CREATE.SETTINGS_ADD_TO_GROUP_DESC"></div>
                 <ng-container *ngIf="groups$ | async as groups;">
@@ -701,14 +737,27 @@
                             {{group.name}}
                           </div>
                         </ng-container>
+                        <div class="disabled" *ngIf="groups.length <= topicGroups.length"
+                          translate="VIEWS.VOTE_CREATE.SETTINGS_GROUP_SELECT_ALL_ADDED"></div>
                       </div>
                     </div>
                     <ng-container *ngIf="topicGroups$ | async"></ng-container>
-
+                    <div *ngIf="topicGroups.length" class="small_heading"
+                      translate="VIEWS.VOTE_CREATE.SETTINGS_HEADING_GROUP_LIST"></div>
                     <div id="topic_members_list_wrap" class="table_section">
-                      <div class="row_header" *ngIf="topicGroups.length">
+                      <div class="row_header mobile_hidden" *ngIf="topicGroups.length">
                         <div class="row_cell" translate="VIEWS.VOTE_CREATE.MEMBER_GROUP_HEADING_TITLE"></div>
-                        <div class="row_cell" translate="VIEWS.VOTE_CREATE.MEMBER_GROUP_HEADING_GROUP_PERMISSIONS">
+                        <div class="row_cell with_tooltip"
+                          translate="VIEWS.VOTE_CREATE.MEMBER_GROUP_HEADING_GROUP_PERMISSIONS">
+                          <div class="tooltip" tooltip>
+                            <div class="content_title" translate="VIEWS.TOPIC_CREATE.TOOLTIP_GROUP_PERMISSIONS_TITLE">
+                            </div>
+                            <div class="content_description"
+                              translate="VIEWS.TOPIC_CREATE.TOOLTIP_GROUP_PERMISSIONS_CONTENT"></div>
+                            <div class="content_description"
+                              [innerHTML]="'VIEWS.TOPIC_CREATE.TOOLTIP_GROUP_PERMISSIONS_CONTENT_PERMISSIONS_DESC' | translate">
+                            </div>
+                          </div>
                         </div>
                         <div class="row_cell mobile_hide" translate="VIEWS.VOTE_CREATE.MEMBER_GROUP_HEADING_ACTIONS">
                         </div>
@@ -726,6 +775,16 @@
                             <div class="row_cell">
                               <div class="cell_title"
                                 translate="VIEWS.VOTE_CREATE.MEMBER_GROUP_HEADING_GROUP_PERMISSIONS">
+                                <div class="tooltip" tooltip>
+                                  <div class="content_title"
+                                    translate="VIEWS.TOPIC_CREATE.TOOLTIP_GROUP_PERMISSIONS_TITLE">
+                                  </div>
+                                  <div class="content_description"
+                                    translate="VIEWS.TOPIC_CREATE.TOOLTIP_GROUP_PERMISSIONS_CONTENT"></div>
+                                  <div class="content_description"
+                                    [innerHTML]="'VIEWS.TOPIC_CREATE.TOOLTIP_GROUP_PERMISSIONS_CONTENT_PERMISSIONS_DESC' | translate">
+                                  </div>
+                                </div>
                               </div>
                               <div class="dropdown" [cosDropdown]>
                                 <div class="selection">
@@ -773,7 +832,7 @@
             </ng-container>
             <ng-container *ngIf="!topic.voteId && !vote.id">
               <topic-vote-create #vote_create_form [topic]="topic" [vote]="vote"
-              (saveVote)="saveVoteSettings($event)"></topic-vote-create>
+                (saveVote)="saveVoteSettings($event)"></topic-vote-create>
             </ng-container>
           </ng-container>
           <ng-container *ngIf="tabSelected==='preview'">
@@ -793,7 +852,7 @@
                 <span [innerHtml]="'VIEWS.VOTE_CREATE.PREVIEW_INFO' | translate"></span>
               </div>
               <div class="topic_image">
-                <img *ngIf="topic.imageUrl" [src]="topic.imageUrl">
+                <img *ngIf="(topic.imageUrl || tmpImageUrl)" [src]="(topic.imageUrl || tmpImageUrl)">
               </div>
               <div id="topic_text_wrap" #topicText [@readMore]="readMore? 'open' : 'closed'">
                 <div class="topic_title">
@@ -803,44 +862,29 @@
                 </div>
                 <div class="topic_content" [innerHTML]="topic.description">
                 </div>
-              </div>
-              <div class="button_wrap" *ngIf="readMoreButton">
-                <button class="btn_medium_secondary" (click)="readMore=!readMore">
-                  <svg *ngIf="!readMore" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path d="M17 10L12 15L7 10" stroke="#1168A8" stroke-width="2" stroke-linecap="round" />
-                  </svg>
-                  <svg *ngIf="readMore" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path d="M17 15L12 10L7 15" stroke="#1168A8" stroke-width="2" stroke-linecap="round" />
-                  </svg>
-                  <span *ngIf="!readMore" translate="VIEWS.VOTE_CREATE.BTN_READ_MORE"></span>
-                  <span *ngIf="readMore" translate="VIEWS.VOTE_CREATE.BTN_READ_LESS"></span>
-                </button>
+                <div class="button_wrap" *ngIf="readMoreButton" [ngClass]="{open: readMore}">
+                  <button class="btn_medium_secondary" (click)="readMore=!readMore">
+                    <svg *ngIf="!readMore" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path d="M17 10L12 15L7 10" stroke="#1168A8" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                    <svg *ngIf="readMore" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path d="M17 15L12 10L7 15" stroke="#1168A8" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                    <span *ngIf="!readMore" translate="VIEWS.VOTE_CREATE.BTN_READ_MORE"></span>
+                    <span *ngIf="readMore" translate="VIEWS.VOTE_CREATE.BTN_READ_LESS"></span>
+                  </button>
+                </div>
               </div>
             </div>
 
             <div class="vote_wrap">
               <div class="vote_header">
-                <div class="header_division">
-                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd"
-                      d="M16 0C7.168 0 0 7.168 0 16C0 24.832 7.168 32 16 32C24.832 32 32 24.832 32 16C32 7.168 24.832 0 16 0ZM12.8889 24L25.3333 11.6491L23 9.33333L12.8889 19.3684L9 15.5088L6.66667 17.8246L12.8889 24Z"
-                      fill="#5AB467" />
-                  </svg>
-                  <div class="vote_question">{{vote.description}}</div>
-                </div>
-                <div class="header_division">
-                  <div class="vote_deadline" *ngIf="vote.endsAt">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd" clip-rule="evenodd"
-                        d="M8 2C7.44772 2 7 2.44772 7 3V4H6C4.89543 4 4 4.89543 4 6V18C4 19.1046 4.89543 20 6 20H18C19.1046 20 20 19.1046 20 18V6C20 4.89543 19.1046 4 18 4H17V3C17 2.44772 16.5523 2 16 2C15.4477 2 15 2.44772 15 3V4H9V3C9 2.44772 8.55228 2 8 2ZM6 8H18V18H6V8ZM9 6V5H7V6H9ZM17 5V6H15V5H17ZM11.0332 9.55428C11.0152 9.25392 11.2438 9 11.5322 9H12.4678C12.7562 9 12.9848 9.25392 12.9668 9.55428L12.5293 13.5108C12.5128 13.7858 12.2943 14 12.0303 14H11.9697C11.7057 14 11.4872 13.7858 11.4707 13.5108L11.0332 9.55428ZM13 15.9565C13 16.5328 12.5523 17 12 17C11.4477 17 11 16.5328 11 15.9565C11 15.3802 11.4477 14.913 12 14.913C12.5523 14.913 13 15.3802 13 15.9565Z"
-                        fill="#2C3B47" />
-                    </svg>
-                    <span class="bold">{{vote.endsAt | date:'YYYY-MM-dd HH:mm'}}</span>
-                  </div>
+                <div class="header_section">
+                  <div class="question">{{vote.description}}</div>
                   <div class="setting_button dropdown button_dropdown">
-                    <button class="btn_medium_plain">
+                    <button class="btn_medium_close mobile_hidden">
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd"
                           d="M14 6C14 4.9 13.1 4 12 4C10.9 4 10 4.9 10 6C10 7.1 10.9 8 12 8C13.1 8 14 7.1 14 6ZM14 18C14 16.9 13.1 16 12 16C10.9 16 10 16.9 10 18C10 19.1 10.9 20 12 20C13.1 20 14 19.1 14 18ZM12 10C13.1 10 14 10.9 14 12C14 13.1 13.1 14 12 14C10.9 14 10 13.1 10 12C10 10.9 10.9 10 12 10Z"
@@ -848,6 +892,36 @@
                       </svg>
                       <span translate="COMPONENTS.TOPIC_VOTE_CAST.BTN_VOTE_ACTIONS"></span>
                     </button>
+                    <button id="mobile_actions" class="btn_medium_close icon mobile_show">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                          d="M14 6C14 4.9 13.1 4 12 4C10.9 4 10 4.9 10 6C10 7.1 10.9 8 12 8C13.1 8 14 7.1 14 6ZM14 18C14 16.9 13.1 16 12 16C10.9 16 10 16.9 10 18C10 19.1 10.9 20 12 20C13.1 20 14 19.1 14 18ZM12 10C13.1 10 14 10.9 14 12C14 13.1 13.1 14 12 14C10.9 14 10 13.1 10 12C10 10.9 10.9 10 12 10Z"
+                          fill="#2C3B47" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                <div class="data_section">
+                  <div class="data_cell">
+                    <div class="title" translate="COMPONENTS.TOPIC_VOTE_CAST.LBL_DEADLINE"></div>
+                    <div class="data_item" *ngIf="vote.endsAt">
+                      <span class="bold">{{(vote.endsAt)?
+                        (vote.endsAt | date:'YYYY-MM-dd HH:mm') : ('COMPONENTS.TOPIC_VOTE_CAST.NO_DEADLINE' |
+                        translate)}}</span>
+                      <a translate="COMPONENTS.TOPIC_VOTE_CAST.OPT_SEND_VOTE_REMINDER"></a>
+                    </div>
+                  </div>
+                  <div class="data_cell">
+                    <div class="title" translate="COMPONENTS.TOPIC_VOTE_CAST.LBL_VOTES"></div>
+                    <div class="data_item">
+                      <span class="bold">{{vote.votersCount || 0}}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="data_section">
+                  <div class="data_cell">
+                    <div class="info_text" [innerHtml]="'COMPONENTS.TOPIC_VOTE_CAST.LBL_INFO_RESULTS_ADMIN'| translate">
+                    </div>
                   </div>
                 </div>
               </div>
@@ -876,7 +950,7 @@
                         fill="#5AB467" />
                     </svg>
                     <span translate="VIEWS.VOTE_CREATE.TXT_YOU_CAN_CHOOSE_OPTIONS"
-                      [translateParams]="{maxChoices: vote.maxChoices}"></span>
+                      [translateParams]="{range: (vote.maxChoices !== vote.minChoices)? (vote.minChoices + '-' + vote.maxChoices): vote.maxChoices}"></span>
                   </div>
                 </ng-container>
                 <div class="vote_options">
@@ -915,20 +989,19 @@
           <!--group-invite id="group_invite" *ngIf="tabSelected==='invite'" [group]="group"></!--group-invite-->
 
           <div id="create_footer">
-            <div id="mobile_action_buttons_row" class="items_row mobile_show"
-              *ngIf="!isnew || tabSelected === 'preview'">
-              <button *ngIf="isnew && topic.status === TopicService.STATUSES.draft" class="btn_medium_secondary"
+            <div id="mobile_action_buttons_row" class="items_row tablet_show">
+              <button *ngIf="topic.status === TopicService.STATUSES.draft" class="btn_medium_secondary"
                 (click)="saveAsDraft()" translate="VIEWS.VOTE_CREATE.FOOTER_BTN_SAVE_AS_DRAFT">
               </button>
-              <button *ngIf="!isnew" class="btn_medium_submit icon" (click)="saveChanges()"
-                translate="VIEWS.VOTE_CREATE.FOOTER_BTN_SAVE_CHANGES"></button>
-              <button *ngIf="isnew || topic.status === TopicService.STATUSES.draft"
-                class="btn_medium_submit publish icon"
-                (click)="(topic.status === TopicService.STATUSES.draft)? publish(): edit();"
+              <button *ngIf="!isnew && topic.status !== TopicService.STATUSES.draft" class="btn_medium_submit icon"
+                (click)="publish();" translate="VIEWS.VOTE_CREATE.FOOTER_BTN_SAVE_CHANGES_AND_PUBLISH"></button>
+              <button *ngIf="(isnew || topic.status === TopicService.STATUSES.draft) && tabSelected === 'preview'"
+                class="btn_medium_submit publish icon" (click)="publish()"
                 [ngClass]="{disabled: !TopicService.canDelete(topic)}">
                 <span class="btn_text"
                   [translate]="(topic.status === TopicService.STATUSES.draft)?'VIEWS.VOTE_CREATE.FOOTER_BTN_CREATE': 'VIEWS.VOTE_CREATE.FOOTER_BTN_SAVE_CHANGES'"></span>
               </button>
+
             </div>
             <div class="items_row">
               <div id="close_create">
@@ -941,14 +1014,14 @@
                 </button>
               </div>
               <div id="buttons_wrap" class="buttons_wrap tablet_show">
-                <a class="btn_medium_plain icon" [href]="topicDownload()">
+                <a class="btn_medium_plain icon" [href]="downloadUrl">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd"
                       d="M12 4C12.5523 4 13 4.44772 13 5L13 12.5858L14.2929 11.2929C14.6834 10.9024 15.3166 10.9024 15.7071 11.2929C16.0976 11.6834 16.0976 12.3166 15.7071 12.7071L12.7071 15.7071C12.3166 16.0976 11.6834 16.0976 11.2929 15.7071L8.29289 12.7071C7.90237 12.3166 7.90237 11.6834 8.29289 11.2929C8.68342 10.9024 9.31658 10.9024 9.70711 11.2929L11 12.5858L11 5C11 4.44772 11.4477 4 12 4ZM5 16C5.55228 16 6 16.4477 6 17V19H18V17C18 16.4477 18.4477 16 19 16C19.5523 16 20 16.4477 20 17V19C20 20.1046 19.1046 21 18 21L6 21C4.89543 21 4 20.1046 4 19L4 17C4 16.4477 4.44772 16 5 16Z"
                       fill="#2C3B47" />
                   </svg>
                 </a>
-                <button class="btn_medium_plain icon" (click)="deleteTopic()">
+                <button class="btn_medium_plain icon" (click)="deleteTopic(topic.id)">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M9 9H11V17H9L9 9Z" fill="#2C3B47" />
                     <path d="M15 9H13V17H15V9Z" fill="#2C3B47" />
@@ -968,27 +1041,35 @@
                       fill="#2C3B47" />
                   </svg>
                 </button>
-                <button *ngIf="tabSelected === 'preview' && isnew && topic.status === TopicService.STATUSES.draft"
-                  class="btn_medium_secondary mobile_hidden" (click)="saveAsDraft()"
-                  translate="VIEWS.VOTE_CREATE.FOOTER_BTN_SAVE_AS_DRAFT">
+                <button class="btn_medium_submit icon tablet_hidden" (click)="nextTab(tabSelected)"
+                  *ngIf="!isnew && topic.status !== TopicService.STATUSES.draft"
+                  [ngClass]="{disabled: isNextDisabled(tabSelected) || tabSelected === 'preview'}">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M14.5467 6.31262C14.1471 5.89579 13.4991 5.89579 13.0994 6.31262C12.6997 6.72945 12.6997 7.40527 13.0994 7.8221L16.0816 11L6 11C5.43478 11 5 11.4108 5 12.0003C5 12.5897 5.43478 12.9824 6 12.9824L16.0816 12.9824L13.0994 16.1779C12.6997 16.5947 12.6997 17.2705 13.0994 17.6874C13.4991 18.1042 14.1471 18.1042 14.5467 17.6874L20 12L14.5467 6.31262Z"
+                      fill="white" />
+                  </svg>
                 </button>
-                <button class="btn_medium_submit icon mobile_show" [ngClass]="{disabled: isNextDisabled(tabSelected)}" *ngIf="tabSelected!=='preview'"
-                  (click)="nextTab(tabSelected)">
-                  <svg id="continue_btn" width="24" height="24" viewBox="0 0 24 24" fill="none"
+
+                <button class="btn_medium_submit icon tablet_show" (click)="nextTab(tabSelected)"
+                  [ngClass]="{disabled: isNextDisabled(tabSelected) || tabSelected === 'preview'}">
+                  <span class="btn_text tablet_hidden" [translate]="'VIEWS.VOTE_CREATE.FOOTER_BTN_CONTINUE'"></span>
+                  <svg class="tablet_show" id="continue_btn" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M14.5467 6.31262C14.1471 5.89579 13.4991 5.89579 13.0994 6.31262C12.6997 6.72945 12.6997 7.40527 13.0994 7.8221L16.0816 11L6 11C5.43478 11 5 11.4108 5 12.0003C5 12.5897 5.43478 12.9824 6 12.9824L16.0816 12.9824L13.0994 16.1779C12.6997 16.5947 12.6997 17.2705 13.0994 17.6874C13.4991 18.1042 14.1471 18.1042 14.5467 17.6874L20 12L14.5467 6.31262Z"
                       fill="white" />
                   </svg>
                 </button>
-                <button *ngIf="!isnew && tabSelected!=='preview'" class="btn_medium_secondary icon mobile_hidden" (click)="saveChanges()"
-                  translate="VIEWS.VOTE_CREATE.FOOTER_BTN_SAVE_CHANGES"></button>
-
-                <button class="btn_medium_submit icon mobile_hidden" [ngClass]="{disabled: isNextDisabled(tabSelected)}"
-                  (click)="(tabSelected!=='preview')? nextTab(tabSelected): (topic.status === TopicService.STATUSES.draft)? publish(): edit();">
-                  <span class="btn_text mobile_hidden"
-                    [translate]="(tabSelected!=='preview')? 'VIEWS.VOTE_CREATE.FOOTER_BTN_CONTINUE': (topic.status === TopicService.STATUSES.draft)?'VIEWS.VOTE_CREATE.FOOTER_BTN_CREATE': 'VIEWS.VOTE_CREATE.FOOTER_BTN_SAVE_CHANGES'"></span>
-                  <svg class="mobile_show" id="continue_btn" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                <button *ngIf="topic.status === TopicService.STATUSES.draft" class="btn_medium_secondary tablet_hidden"
+                  (click)="saveAsDraft()" translate="VIEWS.VOTE_CREATE.FOOTER_BTN_SAVE_AS_DRAFT"
+                  [ngClass]="{disabled: isNextDisabled(tabSelected)}">
+                </button>
+                <button class="btn_medium_submit icon tablet_hidden" (click)="(tabSelected!=='preview' && topic.status === TopicService.STATUSES.draft)?
+                  nextTab(tabSelected) : publish()" [ngClass]="{disabled: isNextDisabled(tabSelected)}">
+                  <span class="btn_text tablet_hidden"
+                    [translate]="(tabSelected!=='preview' && topic.status === TopicService.STATUSES.draft)? 'VIEWS.VOTE_CREATE.FOOTER_BTN_CONTINUE': 'VIEWS.VOTE_CREATE.FOOTER_BTN_SAVE_CHANGES_AND_PUBLISH'"></span>
+                  <svg class="tablet_show" id="continue_btn" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M14.5467 6.31262C14.1471 5.89579 13.4991 5.89579 13.0994 6.31262C12.6997 6.72945 12.6997 7.40527 13.0994 7.8221L16.0816 11L6 11C5.43478 11 5 11.4108 5 12.0003C5 12.5897 5.43478 12.9824 6 12.9824L16.0816 12.9824L13.0994 16.1779C12.6997 16.5947 12.6997 17.2705 13.0994 17.6874C13.4991 18.1042 14.1471 18.1042 14.5467 17.6874L20 12L14.5467 6.31262Z"
@@ -1220,17 +1301,17 @@
                 </svg>
 
 
-                <div class="small_heading" translate="VIEWS.TOPIC_CREATE.WRITE_TOGETHER_HEADING"></div>
-                <div translate="VIEWS.TOPIC_CREATE.WRITE_TOGETHER_DESC"></div>
+                <div class="small_heading" translate="VIEWS.VOTE_CREATE.WRITE_TOGETHER_HEADING"></div>
+                <div translate="VIEWS.VOTE_CREATE.WRITE_TOGETHER_DESC"></div>
               </ng-container>
               <ng-container *ngIf="(members.length > 1) || invites.length">
                 <div class="topic_editors_header">
-                  <div class="title" translate="VIEWS.TOPIC_CREATE.CO_EDITORS_TITLE"></div>
-                  <a (click)="manageMembers()" translate="VIEWS.TOPIC_CREATE.CO_EDITORS_LNK_MANAGE"></a>
+                  <div class="title" translate="VIEWS.VOTE_CREATE.CO_EDITORS_TITLE"></div>
+                  <a (click)="manageMembers()" translate="VIEWS.VOTE_CREATE.CO_EDITORS_LNK_MANAGE"></a>
                 </div>
                 <div class="topic_members_list_wrap">
                   <div class="topic_member">
-                    <div class="bold" translate="VIEWS.TOPIC_CREATE.CO_EDITORS_LBL_JOINED"></div>
+                    <div class="bold" translate="VIEWS.VOTE_CREATE.CO_EDITORS_LBL_JOINED"></div>
                   </div>
                   <div class="topic_member" *ngFor="let member of members">
                     <div class="profile_image_wrap">
@@ -1247,7 +1328,7 @@
                 <ng-container *ngIf="invites">
                   <div class="topic_members_list_wrap" *ngIf="invites.length">
                     <div class="topic_member">
-                      <div class="bold" translate="VIEWS.TOPIC_CREATE.CO_EDITORS_LBL_INVITED"></div>
+                      <div class="bold" translate="VIEWS.VOTE_CREATE.CO_EDITORS_LBL_INVITED"></div>
                     </div>
                     <div class="topic_member disabled" *ngFor="let invite of invites">
                       <div class="profile_image_wrap">
@@ -1265,7 +1346,7 @@
               </ng-container>
 
               <button class="btn_medium_secondary bold" (click)="inviteEditors()"
-                translate="VIEWS.TOPIC_CREATE.BTN_INVITE_CO_EDITORS"></button>
+                translate="VIEWS.VOTE_CREATE.BTN_INVITE_CO_EDITORS"></button>
             </div>
           </ng-container>
         </ng-container>
@@ -1390,7 +1471,7 @@
               </div>
               <div class="description_text">
                 <div translate="VIEWS.VOTE_CREATE.HELP_DESCRIPTION"></div>
-                <a translate="VIEWS.VOTE_CREATE.HELP_LNK_LEARN_MORE"></a>
+                <!--a translate="VIEWS.VOTE_CREATE.HELP_LNK_LEARN_MORE"></!--a-->
               </div>
             </div>
           </ng-container>
@@ -1506,7 +1587,7 @@
                     <span translate="VIEWS.VOTE_CREATE.HELP_ITEM_ADD_FOLLOW_UP"></span>
                   </div>
                 </div>
-                <a id="view_more_link" translate="VIEWS.VOTE_CREATE.HELP_LNK_LEARN_MORE"></a>
+                <!--a id="view_more_link" translate="VIEWS.VOTE_CREATE.HELP_LNK_LEARN_MORE"></!--a-->
               </div>
             </div>
           </ng-container>

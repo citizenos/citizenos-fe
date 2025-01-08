@@ -23,6 +23,8 @@ export interface Topic {
   language: string | null,
   members: any,
   voteId:	string | null,
+  ideationId?: string | null,
+  discussionId: string | null,
   comments: any,
   padUrl: any,
   favourite?: boolean | null,
@@ -34,6 +36,7 @@ export interface Topic {
     moderatedReasonType: string | null,
     moderatedReasonText: string | null
   },
-  events: any,
-  vote?: Vote
+  events?: any,
+  vote?: Vote,
+  revision?: number
 }

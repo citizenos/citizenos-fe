@@ -1,11 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 import { Topic } from 'src/app/interfaces/topic';
-import { TopicReportService } from 'src/app/services/topic-report.service';
+import { TopicReportService } from '@services/topic-report.service';
 import { TopicReportFormData } from '../topic-report-form/topic-report-form.component';
 import { switchMap, take } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TopicService } from 'src/app/services/topic.service';
+import { TopicService } from '@services/topic.service';
 @Component({
   selector: 'app-topic-report-resolve',
   templateUrl: './topic-report-resolve.component.html',
@@ -16,7 +16,7 @@ export class TopicReportResolveComponent implements OnInit {
   isLoading = false;
   errors = <any>null;
   constructor(@Inject(DIALOG_DATA) public data: TopicReportFormData, private dialog: DialogService, private TopicReportService: TopicReportService,
-  private router: Router) {
+  private router: Router, private TopicService: TopicService) {
     this.topic = data.topic;
   }
 
@@ -35,7 +35,8 @@ export class TopicReportResolveComponent implements OnInit {
       .subscribe({
         next: () => {
           this.dialog.closeAll();
-          this.router.navigate(['/', 'topic', this.topic.id])
+          this.TopicService.reloadTopic();
+          this.router.navigate(['/', 'topics', this.topic.id])
         },
         error: (res) => {
           this.isLoading = false;
@@ -61,7 +62,7 @@ export class TopicReportResolveDialogComponent implements OnInit {
 
         reportDialog.afterClosed().subscribe(() => {
           TopicService.reloadTopic();
-          router.navigate(['../../../'], {relativeTo: route});
+          router.navigate(['topics', topic.id], );
         })
       })
 

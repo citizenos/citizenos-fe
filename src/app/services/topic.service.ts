@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ApiResponse } from 'src/app/interfaces/apiResponse';
 import { LocationService } from './location.service';
-import { Observable, switchMap, map, tap, of, take, BehaviorSubject, exhaustMap, shareReplay } from 'rxjs';
+import { Observable, switchMap, map, of, take, BehaviorSubject, exhaustMap, shareReplay } from 'rxjs';
 import { Topic } from 'src/app/interfaces/topic';
 import { AuthService } from './auth.service';
 import { DialogService } from 'src/app/shared/dialog';
@@ -48,6 +48,7 @@ export class TopicService {
 
   public STATUSES = <any>{
     draft: 'draft',
+    ideation: 'ideation',
     inProgress: 'inProgress', // Being worked on
     voting: 'voting', // Is being voted which means the Topic is locked and cannot be edited.
     followUp: 'followUp', // Done editing Topic and executing on the follow up plan.
@@ -66,9 +67,9 @@ export class TopicService {
   };
   CATEGORIES_COUNT_MAX = 3;
 
-  private loadTopic$ = new BehaviorSubject<void>(undefined);
+  private readonly loadTopic$ = new BehaviorSubject<void>(undefined);
 
-  constructor(private dialog: DialogService, private Location: LocationService, private http: HttpClient, private Auth: AuthService, private router: Router) { }
+  constructor(private readonly dialog: DialogService, private readonly Location: LocationService, private readonly http: HttpClient, private readonly Auth: AuthService, private readonly router: Router) { }
 
   loadTopic(id: string, params?: { [key: string]: string | boolean }) {
     return this.loadTopic$.pipe(
@@ -105,6 +106,18 @@ export class TopicService {
     );
   }
 
+  readDescription(id: string, rev?: string): Observable<Topic> {
+    let path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/description', { topicId: id });
+    let params = <any>{};
+    if (rev) {
+      params.rev = rev;
+    }
+    return this.http.get<ApiResponse>(path, { withCredentials: true, params , observe: 'body', responseType: 'json' })
+      .pipe(switchMap((res: any) => {
+        const topic = res.data;
+        return of(topic);
+      }))
+  }
   update(data: any) {
     const updateFields = ['visibility', 'status', 'categories', 'endsAt', 'hashtag', 'imageUrl', 'title', 'intro', 'contact', 'country', 'language'];
     const sendData: any = {};
@@ -121,6 +134,14 @@ export class TopicService {
       .pipe(
         map(res => res.data)
       );
+  }
+
+  revert (topicId: string ,rev: number) {
+    const path = this.Location.getAbsoluteUrlApi('/api/users/self/topics/:topicId/revert', { topicId: topicId });
+
+    return this.http.post<ApiResponse>(path, {rev: rev}, { withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
+      map(res => res.data)
+    );
   }
 
   patch(data: any) {
@@ -204,7 +225,7 @@ export class TopicService {
   };
 
   canUpdate(topic: Topic) {
-    return (topic && topic.permission && topic.permission.level === this.LEVELS.admin && topic.status !== this.STATUSES.closed);
+    return (topic?.permission && topic.permission.level === this.LEVELS.admin && topic.status !== this.STATUSES.closed);
   };
 
   changeState(topic: Topic, state: string, stateSuccess?: string) {
@@ -294,15 +315,15 @@ export class TopicService {
    *
    */
   canEditDescription(topic: Topic) {
-    return this.canEdit(topic) && topic.status === this.STATUSES.inProgress || topic.status === this.STATUSES.draft;
+    return this.canEdit(topic) && [this.STATUSES.ideation, this.STATUSES.inProgress, this.STATUSES.draft].indexOf(topic.status) > -1;
   };
 
   canDelete(topic: Topic) {
-    return (topic && topic.permission.level === this.LEVELS.admin);
+    return (topic && topic.permission?.level === this.LEVELS.admin);
   };
 
   canSendToFollowUp(topic: Topic) {
-    return this.canUpdate(topic) && topic.vote && topic.vote.id && topic.status !== this.STATUSES.followUp;
+    return this.canUpdate(topic) && topic.vote?.id && topic.status !== this.STATUSES.followUp;
   };
 
   canSendToVote(topic: Topic) {
