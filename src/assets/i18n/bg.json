@@ -1526,7 +1526,7 @@
     "TOPIC_DELETE_REPLY_TXT_ARE_YOU_SURE": "Сигурни ли сте, че искате да изтриете този отговор? Не можете да отмените това действие.",
     "TOPIC_DELETE_REPLY_BTN_NO": "@:MODALS.TOPIC_ARGUMENT_REPORT_BTN_NO",
     "TOPIC_DELETE_REPLY_BTN_YES": "Да, изтрий този отговор",
-    "LOGIN_HEADING": "Вход в Citizen OS",
+    "LOGIN_HEADING": "Please log in to Citizen OS to continue",
     "LOGIN_EMAIL_HEADING": "Log in with email",
     "LOGIN_BTN_LOGIN_FACEBOOK": "Влизане с Facebook",
     "LOGIN_BTN_LOGIN_GOOGLE": "Влезте с Google",
