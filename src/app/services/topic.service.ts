@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class TopicService {
-  public CATEGORIES = <any>{
+  public CATEGORIES = {
     agriculture: "agriculture",
     animal_protection: "animal_protection",
     arts: "arts",
