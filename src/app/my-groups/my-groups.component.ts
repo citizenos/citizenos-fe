@@ -269,15 +269,6 @@ export class MyGroupsComponent implements OnInit {
     this.showCreate = !this.showCreate;
   }
 
-  showMobileOverlay () {
-    const filtersShow = Object.entries(this.mobileFilters).find(([key, value]) => {
-      return !!value;
-    })
-    if (filtersShow) return true;
-
-    return false;
-  }
-
   closeMobileFilter() {
     const keys = this.filterKeys;
 
