@@ -80,18 +80,6 @@ export class MyTopicsComponent {
         { title: 'VIEWS.MY_TOPICS.FILTERS.TOPICS_FAVOURITED', value: "favourite"},
       ]
     },
-    status: {
-      isMobileOpen: false,
-      placeholder: "VIEWS.MY_TOPICS.FILTER_STATUS",
-      selectedValue: "",
-      preSelectedValue: "",
-      items: [
-        { title: 'TXT_TOPIC_STATUS_ALL', value: "all"},
-        ...Object.keys(this.Topic.STATUSES).map((status) => {
-          return { title: `TXT_TOPIC_STATUS_${status}`, value: status }
-        }),
-      ]
-    },
     engagements: {
       isMobileOpen: false,
       placeholder: "VIEWS.MY_TOPICS.FILTER_MY_ENGAGEMENT",
@@ -102,6 +90,18 @@ export class MyTopicsComponent {
         { title: 'VIEWS.MY_TOPICS.FILTERS.TOPICS_I_HAVE_VOTED', value: "hasVoted"},
         { title: 'VIEWS.MY_TOPICS.FILTERS.TOPICS_I_HAVE_NOT_VOTED', value: "hasNotVoted"},
         { title: 'VIEWS.MY_TOPICS.FILTERS.TOPICS_I_CREATED', value: "iCreated"},
+      ]
+    },
+    status: {
+      isMobileOpen: false,
+      placeholder: "VIEWS.MY_TOPICS.FILTER_STATUS",
+      selectedValue: "",
+      preSelectedValue: "",
+      items: [
+        { title: 'TXT_TOPIC_STATUS_ALL', value: "all"},
+        ...Object.keys(this.Topic.STATUSES).map((status) => {
+          return { title: `TXT_TOPIC_STATUS_${status}`, value: status }
+        }),
       ]
     },
     orderBy: {
