@@ -48,9 +48,7 @@ export class MyTopicsComponent {
 
   mobileFiltersList = false;
   showCreate = false;
-  categories$ = Object.keys(this.Topic.CATEGORIES);
 
-  statuses$ = Object.keys(this.Topic.STATUSES);
   countrySearch = '';
   countrySearch$ = new BehaviorSubject('');
   countries = countries.sort((a: any, b: any) => {
