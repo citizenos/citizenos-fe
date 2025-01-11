@@ -35,7 +35,6 @@ export class MyGroupsComponent implements OnInit {
   showCreate = false;
   groups$: Observable<Group[] | any[]> = of([]);
   allGroups$: Group[] = [];
-  visibility = Object.values(this.GroupService.VISIBILITY);
   countrySearch = '';
   countrySearch$ = new BehaviorSubject('');
   countries = countries.sort((a: any, b: any) => {
@@ -56,25 +55,8 @@ export class MyGroupsComponent implements OnInit {
   searchInput = '';
   searchString$ = new BehaviorSubject('');
   moreFilters = false;
-  mobileFilters:any = {
-    visibility: false,
-    engagements: false,
-    category: false,
-    order: false,
-    country: false,
-    language: false
-  }
   mobileFiltersList = false;
   filtersSet = false;
-
-  groupFilters = {
-    visibility: '',
-    engagements: '',
-    category: '',
-    orderBy: '',
-    country: '',
-    language: ''
-  };
 
   visibilityFilter$ = new BehaviorSubject('');
   engagmentsFilter$ = new BehaviorSubject('');

@@ -36,22 +36,6 @@ export class GroupsComponent implements OnInit {
   moreFilters = false;
   searchInput = '';
   searchString$ = new BehaviorSubject('');
-  mobileFilters:any = {
-    visibility: false,
-    my_engagement: false,
-    category: false,
-    orderBy: false,
-    country: false,
-    language: false
-  }
-  groupFilters = {
-    visibility: '',
-    my_engagement: '',
-    category: '',
-    orderBy: '',
-    country: '',
-    language: ''
-  };
 
   visibilityFilter$ = new BehaviorSubject('');
   engagmentsFilter$ = new BehaviorSubject('');

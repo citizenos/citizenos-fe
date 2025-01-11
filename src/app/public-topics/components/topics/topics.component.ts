@@ -31,12 +31,10 @@ import { Language } from 'src/app/interfaces/language';
 })
 export class TopicsComponent implements OnInit {
 
-  //mew
   moreFilters = false;
   searchInput = '';
   searchString$ = new BehaviorSubject('');
   topics$ = of(<Topic[] | any[]>[]);
-  //new
   public FILTERS_ALL = 'all';
   countrySearch = '';
   countrySearch$ = new BehaviorSubject('');
@@ -51,30 +49,14 @@ export class TopicsComponent implements OnInit {
     return a.name.localeCompare(b.name);
   });
   languages$ = of(<Language[]>[]);
-  topicFilters = {
-    category: '',
-    orderBy: '',
-    status: '',
-    country: '',
-    language: ''
-  };
   statusFilter$ = new BehaviorSubject('');
   orderFilter$ = new BehaviorSubject('');
   categoryFilter$ = new BehaviorSubject('');
   countryFilter$ = new BehaviorSubject('');
   languageFilter$ = new BehaviorSubject('');
 
-  mobileFilters: any = {
-    category: false,
-    status: false,
-    orderBy: '',
-    country: false,
-    language: false,
-  }
   mobileFiltersList = false;
-  categories$ = Object.keys(this.Topic.CATEGORIES);
 
-  statuses$ = Object.keys(this.Topic.STATUSES);
   allTopics$: Topic[] = [];
   destroy$ = new Subject<boolean>();
 
@@ -308,10 +290,6 @@ export class TopicsComponent implements OnInit {
   ngOnDestroy(): void {
     this.destroy$.next(true);
   }
-
-  isFilterApplied() {
-    return this.topicFilters.category !== this.FILTERS_ALL || this.topicFilters.status !== this.FILTERS_ALL || this.topicFilters.country !== '' || this.topicFilters.country !== '';
-  };
 
   doSearch(search: string) {
     this.searchString$.next(search);
