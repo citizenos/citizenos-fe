@@ -425,7 +425,7 @@ export class TopicFormComponent {
         delete this.error.image;
       }, 5000)
     } else if (files[0].size > 5000000) {
-      //    this.Notification.addError(this.translate.instant('MSG_ERROR_FILE_TOO_LARGE', { allowedFileSize: '5MB' }));
+      this.Notification.addError(this.translate.instant('MSG_ERROR_FILE_TOO_LARGE', { allowedFileSize: '5MB' }));
       this.error = { image: this.translate.instant('MSG_ERROR_FILE_TOO_LARGE', { allowedFileSize: '5MB' }) };
 
       setTimeout(() => {
