@@ -224,14 +224,16 @@ export class MyTopicsComponent {
 
           return UserTopicService.loadItems();
         }), map(
-          (newtopics: any) => {
+          (newtopics) => {
             if (newtopics.length) {
               this.filtersSet = true;
             }
             this.allTopics$ = this.allTopics$.concat(newtopics);
             return this.allTopics$;
           }
-        ));
+        ), map((topics) => {
+          return topics.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
+        }));
 
     this.countries$ = this.countrySearch$.pipe(switchMap((string) => {
       const countries = this.countries.filter((country) => country.name.toLowerCase().indexOf(string.toLowerCase()) === 0);

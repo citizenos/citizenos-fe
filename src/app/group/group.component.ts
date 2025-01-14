@@ -265,7 +265,7 @@ export class GroupComponent implements OnInit {
           }
           return GroupMemberTopicService.loadItems();
         }), map(
-          (newtopics: any) => {
+          (newtopics) => {
             this.allTopics$ = [];
             this.allTopics$ = this.allTopics$.concat(newtopics);
             if (this.allTopics$.length === 0) {
@@ -273,7 +273,9 @@ export class GroupComponent implements OnInit {
             }
             return this.allTopics$;
           }
-        ));
+        ), map((topics) => {
+          return topics.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
+        }));
 
     /*this.topics$ = combineLatest([this.route.queryParams, this.searchTopicString$]).pipe(
       switchMap(([queryParams, search]) => {
