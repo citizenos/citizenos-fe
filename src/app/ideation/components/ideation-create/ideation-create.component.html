@@ -983,6 +983,45 @@
                 </div>
               </div>
             </div>
+            <div class="create_content_section">
+              <div class="number_wrap mobile_hidden">
+                <div>3</div>
+              </div>
+              <div class="section_content_wrap">
+                <div class="header_wrap">
+                  <div class="number_wrap mobile_show">
+                    <div>3</div>
+                  </div>
+                  <div class="small_heading" translate="VIEWS.IDEATION_CREATE.SETTINGS_HEADING_ADVANCED_SETTINGS">
+                  </div>
+                  <div class="mobile_hidden" translate="VIEWS.IDEATION_CREATE.SETTINGS_HEADING_ADVANCED_SETTINGS_DESC">
+                  </div>
+                </div>
+                <div class="mobile_show" translate="VIEWS.IDEATION_CREATE.SETTINGS_HEADING_IDEATION_DEADLINE_DESC">
+                </div>
+                <div class="radio_wrap ideation date_selector"
+                  [ngClass]="{selected: deadlineSelect, disabled: !canEditIdeation()}">
+                  <div class="radio_text_wrap date_selector">
+                    <div class="radio_lable_wrap" (click)="toggleDeadline();$event.stopPropagation();">
+                      <label class="checkbox" [ngClass]="{selected: deadlineSelect}">
+                        <span class="checkmark"></span>
+                        <div class="checkbox_text_wrap">
+                          <span class="bold" translate="VIEWS.IDEATION_CREATE.LBL_OPTION_DEADLINE"></span>
+                          <span class="deadline bold" *ngIf="deadlineSelect">{{deadline | date: 'YYYY-MM-dd
+                            HH:mm'}}</span>
+                        </div>
+                      </label>
+                    </div>
+                    <div class="radio_description" *ngIf="deadlineSelect">
+                      <div class="date_row">
+                        <span class="deadline" translate="VIEWS.IDEATION_CREATE.LBL_TIMEZONE"></span>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </ng-container>
           <ng-container *ngIf="tabSelected==='preview'">
             <div class="topic_content_wrap">
