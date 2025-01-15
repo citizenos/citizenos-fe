@@ -53,9 +53,9 @@ export class TopicNotificationSettingsComponent implements OnInit {
   ngOnInit(): void {
     this.settings = this.TopicNotificationService.get({ topicId: this.topicId }).pipe(
       tap((settings: any) => {
+        console.log(this.preferences);
         this.allowNotifications = settings.allowNotifications;
         this.preferences = { ...this.preferences, ...settings.preferences };
-        this.settings = { ...this.settings, ...settings };
       })
     )
   }
