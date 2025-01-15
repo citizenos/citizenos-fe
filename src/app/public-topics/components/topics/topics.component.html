@@ -325,9 +325,12 @@
           translate="COMPONENTS.PUBLIC_TOPICS.BTN_APPLY"></button>
       </div>
       <div class="options button_options" *ngIf="mobileFilters.country">
-        <typeahead class="dropdown dropdown_input" activeClass="dropdown_active" [term]="countrySearch"
-          (search)="searchCountry($event)" [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_COUNTRY' | translate">
-        </typeahead>
+        <search-filter
+          [term]="countrySearch"
+          [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_COUNTRY' | translate"
+          [search]="searchCountry.bind(this)"
+          [close]="closeMobileFilter.bind(this)"
+        />
 
         <div class="options_wrapper">
           <label class="checkbox" (click)="mobileFilters.country = 'all'">
@@ -343,13 +346,18 @@
             </label>
           </ng-container>
         </div>
-        <button class="btn_medium_secondary" (click)="setCountry(mobileFilters.country);mobileFilters.country= false;"
+
+        <button class="btn_medium_secondary" (click)="setCountry(mobileFilters.country); closeMobileFilter();"
           translate="COMPONENTS.PUBLIC_TOPICS.BTN_APPLY"></button>
       </div>
       <div class="options button_options" *ngIf="mobileFilters.language">
-        <typeahead class="dropdown dropdown_input" activeClass="dropdown_active" [term]="languageSearch"
-          (search)="searchLanguage($event)" [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_LANGUAGE' | translate">
-        </typeahead>
+        <search-filter
+          [term]="languageSearch"
+          [placeholder]="'COMPONENTS.PUBLIC_TOPICS.FILTER_LANGUAGE' | translate"
+          [search]="searchLanguage.bind(this)"
+          [close]="closeMobileFilter.bind(this)"
+        />
+
         <div class="options_wrapper">
           <label class="checkbox" (click)="mobileFilters.language = 'all'">
             <span translate="TXT_TOPIC_STATUS_ALL"></span>
@@ -364,8 +372,9 @@
             </label>
           </ng-container>
         </div>
+
         <button class="btn_medium_secondary"
-          (click)="setLanguage(mobileFilters.language);mobileFilters.language= false;"
+          (click)="setLanguage(mobileFilters.language); closeMobileFilter();"
           translate="COMPONENTS.PUBLIC_TOPICS.BTN_APPLY"></button>
       </div>
     </div>
