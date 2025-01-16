@@ -491,8 +491,10 @@
                   </div>
                 </ng-container>
               </div>
+
               <ng-container *ngIf="topic?.voteId && (vote$ | async) as vote">
                 <topic-vote-cast [ngClass]="(tabTablet === 'voting')? 'show': ''" [topic]="topic"
+                  [TourItem]="{tourid: 'topic', index: 7, position: 'top'}"
                   [vote]="vote"></topic-vote-cast>
               </ng-container>
             </div>
