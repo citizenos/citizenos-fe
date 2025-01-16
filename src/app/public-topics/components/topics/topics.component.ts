@@ -170,16 +170,14 @@ export class TopicsComponent implements OnInit {
 
           return PublicTopicService.loadItems();
         }), map(
-          (newtopics) => {
+          (newtopics: any) => {
             if (newtopics.length) {
               //    this.filtersSet = true;
             }
             this.allTopics$ = this.allTopics$.concat(newtopics);
             return this.allTopics$;
           }
-        ), map((topics) => {
-          return topics.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
-        }));
+        ));
 
     /*this.topics$ = combineLatest([this.route.queryParams, this.searchString$]).pipe(
       switchMap(([queryParams, search]) => {
