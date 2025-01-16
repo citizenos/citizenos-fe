@@ -791,7 +791,7 @@
       "NO_FOLDERS_DESC": "Topic admins can create folders to group ideas that fit in the same category."
     },
     "TOUR": {
-      "LNK_SKIP": "Skip",
+      "LNK_SKIP": "Close",
       "LNK_BACK": "Back",
       "LNK_NEXT": "Next",
       "LNK_FINISH": "Finish",
