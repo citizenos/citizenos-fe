@@ -1293,6 +1293,8 @@ tour-item-template {
     justify-content: space-between;
     text-align: left;
     gap: 8px;
+    max-height: 300px;
+    overflow-y: auto;
 
     .title {
       font-size: 18px;
