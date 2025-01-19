@@ -114,18 +114,20 @@
       <div class="idea_content_idea">
         <div class="idea_header">
           <div class="idea_header_left">
-            <div class="avatar">
-              <img *ngIf="idea.author.imageUrl" [src]="idea.author.imageUrl" />
-              <div class="profile_image_filler" *ngIf="!idea.author.imageUrl">
-                <cos-initials *ngIf="idea.author.name" [name]="idea.author.name || ''">
-                </cos-initials>
+            <ng-container *ngIf="idea.author">
+              <div class="avatar">
+                <img *ngIf="idea.author.imageUrl" [src]="idea.author.imageUrl" [alt]="idea.author.name" />
+                <div class="profile_image_filler" *ngIf="!idea.author.imageUrl">
+                  <cos-initials *ngIf="idea.author.name" [name]="idea.author.name || ''">
+                  </cos-initials>
+                </div>
               </div>
-            </div>
-            <div class="name_wrap">
-              <div class="name" [innerHTML]="idea.author.name"></div>
-              <div class="date">{{idea.createdAt | date: 'YYYY-MM-dd HH:mm'}}</div>
-            </div>
-            <div class="vertical_line_separator"></div>
+              <div class="name_wrap">
+                <div class="name" [innerHTML]="idea.author.name"></div>
+                <div class="date">{{idea.createdAt | date: 'YYYY-MM-dd HH:mm'}}</div>
+              </div>
+              <div class="vertical_line_separator"></div>
+            </ng-container>
             <button class="btn_small_plain" (click)="toggleFavourite()" *ngIf="(Auth.loggedIn$ | async)">
               <div class="tooltip_item" tooltip pos="top" [noIcon]="true">
                 <div class="content_description" *ngIf="!idea.favourite"

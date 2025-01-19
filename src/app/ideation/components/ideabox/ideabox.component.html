@@ -39,7 +39,7 @@
           <a (click)="goToView($event)" translate="COMPONENTS.IDEABOX.NOTIFICATION_LNK_VIEW"></a>
         </div>
       </ng-container>
-      <ng-container *ngIf="idea.deletedBy?.id === idea.author.id && !idea.deletedReasonType && !idea.deletedReasonText">
+      <ng-container *ngIf="idea.deletedBy?.id === idea.author?.id && !idea.deletedReasonType && !idea.deletedReasonText">
         <div class="bold" [innerHtml]="'COMPONENTS.IDEABOX.IDEA_AUTHOR_REMOVED_IDEA' | translate">
         </div>
         <div class="buttons_wrap">
@@ -50,18 +50,20 @@
   </div>
   <div class="idea_header">
     <div class="idea_header_left">
-      <div class="avatar">
-        <div class="tooltip_item" tooltip pos="top" [noIcon]="true">
-          <div class="content_description"> {{idea.author.name}}
+      <ng-container *ngIf="idea.author">
+        <div class="avatar">
+          <div class="tooltip_item" tooltip pos="top" [noIcon]="true">
+            <div class="content_description"> {{idea.author.name}}
+            </div>
+          </div>
+          <img *ngIf="idea.author.imageUrl" [src]="idea.author.imageUrl" />
+          <div class="profile_image_filler" *ngIf="!idea.author.imageUrl">
+            <cos-initials *ngIf="idea.author.name" [name]="idea.author.name || ''">
+            </cos-initials>
           </div>
         </div>
-        <img *ngIf="idea.author.imageUrl" [src]="idea.author.imageUrl" />
-        <div class="profile_image_filler" *ngIf="!idea.author.imageUrl">
-          <cos-initials *ngIf="idea.author.name" [name]="idea.author.name || ''">
-          </cos-initials>
-        </div>
-      </div>
-      <div class="vertical_line_separator"></div>
+        <div class="vertical_line_separator"></div>
+      </ng-container>
       <div class="like_wrap" [ngClass]="{selected: this.idea.votes.up.selected}">
         <button class="btn_idea_like" [ngClass]="{disabled: !canVote()}" (click)="doIdeaVote(1)">
           <div class="tooltip_item" tooltip pos="top" [noIcon]="true">
@@ -101,7 +103,8 @@
           <div class="tooltip_item" tooltip pos="top" [noIcon]="true">
             <div class="content_description" *ngIf="!idea.favourite" translate="COMPONENTS.IDEABOX.TOOLTIP_FAVOURITE"
               [translateParams]="{count: idea.votes.up.count}"></div>
-            <div class="content_description" *ngIf="idea.favourite" translate="COMPONENTS.IDEABOX.TOOLTIP_SAVED_TO_FAVOURITE"
+            <div class="content_description" *ngIf="idea.favourite"
+              translate="COMPONENTS.IDEABOX.TOOLTIP_SAVED_TO_FAVOURITE"
               [translateParams]="{count: idea.votes.up.count}"></div>
           </div>
           <svg *ngIf="!idea.favourite" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
@@ -133,8 +136,10 @@
             <button class="option" (click)="toggleFavourite()">
               <div class="icon_wrap">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M8.33541 12.3292L8 12.1615L7.66459 12.3292L3.1118 14.6056C2.94558 14.6887 2.75 14.5678 2.75 14.382V2C2.75 1.86193 2.86193 1.75 3 1.75H13C13.1381 1.75 13.25 1.86193 13.25 2V14.382C13.25 14.5678 13.0544 14.6887 12.8882 14.6056L8.33541 12.3292Z" fill="#2C3B47" stroke="#2C3B47" stroke-width="1.5"/>
-                  </svg>
+                  <path
+                    d="M8.33541 12.3292L8 12.1615L7.66459 12.3292L3.1118 14.6056C2.94558 14.6887 2.75 14.5678 2.75 14.382V2C2.75 1.86193 2.86193 1.75 3 1.75H13C13.1381 1.75 13.25 1.86193 13.25 2V14.382C13.25 14.5678 13.0544 14.6887 12.8882 14.6056L8.33541 12.3292Z"
+                    fill="#2C3B47" stroke="#2C3B47" stroke-width="1.5" />
+                </svg>
               </div>
               <span *ngIf="!idea.favourite" translate="COMPONENTS.IDEABOX.OPTION_FAVOURITE"></span>
               <span *ngIf="idea.favourite" translate="COMPONENTS.IDEABOX.OPTION_UNFAVOURITE"></span>

@@ -68,7 +68,7 @@ export class IdeaboxComponent implements AfterViewInit {
     return this.TopicService.canEdit(this.topic);
   }
   canEditIdea() {
-    return (this.idea.author.id === this.Auth.user.value.id && !this.idea.deletedAt && [this.TopicService.STATUSES.draft, this.TopicService.STATUSES.ideation].indexOf(this.topic.status) > -1);
+    return (this.idea.author?.id === this.Auth.user.value.id && !this.idea.deletedAt && [this.TopicService.STATUSES.draft, this.TopicService.STATUSES.ideation].indexOf(this.topic.status) > -1);
   };
 
   goToView($event: any, showReplies?: boolean) {

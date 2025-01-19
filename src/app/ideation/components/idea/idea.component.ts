@@ -26,34 +26,61 @@ export class IdeaComponent {
   ideaId: string = '';
   topicId: string = '';
   ideationId: string = '';
+  /*  constructor(dialog: DialogService, route: ActivatedRoute, TopicIdeaService: TopicIdeaService, router: Router, TopicService: TopicService) {
+      route.params.pipe(take(1), switchMap((params) => {
+        this.ideaId = params['ideaId'];
+        this.topicId = params['topicId'];
+        this.ideationId = params['ideationId'];
+
+        return TopicIdeaService.get({ ideaId: this.ideaId, ideationId: this.ideationId, topicId: this.topicId })
+      })).subscribe((idea) => {
+        TopicService.get(this.topicId).pipe(take(1)).subscribe((topic) => {
+          dialog.closeAll();
+          const ideaDialog = dialog.open(IdeaDialogComponent, {
+            data: {
+              idea,
+              topic,
+              ideation: { id: this.ideationId },
+              route: route
+            }
+          });
+
+          ideaDialog.afterClosed().subscribe((value) => {
+            if (value) {
+              TopicIdeaService.reload();
+              router.navigate(['/', 'topics', this.topicId], { fragment: 'ideation' })
+            }
+          });
+        })
+      });
+    }*/
   constructor(dialog: DialogService, route: ActivatedRoute, TopicIdeaService: TopicIdeaService, router: Router, TopicService: TopicService, TopicIdeationService: TopicIdeationService) {
-    route.params.pipe(take(1), switchMap((params) => {
+    route.params.pipe(take(1)).subscribe((params) => {
       this.ideaId = params['ideaId'];
       this.topicId = params['topicId'];
       this.ideationId = params['ideationId'];
+      combineLatest([
+        TopicIdeaService.get(params),
+        TopicService.get(params['topicId']),
+        TopicIdeationService.get(params)
+      ]).pipe(take(1), map(([idea, topic, ideation]) => {
+        dialog.closeAll();
+        const ideaDialog = dialog.open(IdeaDialogComponent, {
+          data: {
+            idea,
+            topic,
+            ideation,
+            route: route
+          }
+        });
 
-      return combineLatest([
-        TopicIdeaService.get({ ideaId: this.ideaId, ideationId: this.ideationId, topicId: this.topicId }),
-        TopicService.get(this.topicId),
-        TopicIdeationService.get({ topicId: this.topicId, ideationId: this.ideationId })
-      ])
-    })).subscribe(([idea, topic, ideation]) => {
-      dialog.closeAll();
-      const ideaDialog = dialog.open(IdeaDialogComponent, {
-        data: {
-          idea,
-          topic,
-          ideation,
-          route: route
-        }
-      });
-
-      ideaDialog.afterClosed().subscribe((value) => {
-        if (value) {
-          TopicIdeaService.reload();
-          router.navigate(['/', 'topics', this.topicId], { fragment: 'ideation' })
-        }
-      });
+        ideaDialog.afterClosed().subscribe((value) => {
+          if (value) {
+            TopicIdeaService.reload();
+            router.navigate(['/', 'topics', this.topicId], { fragment: 'ideation' })
+          }
+        });
+      })).subscribe();
     });
   }
 }
