@@ -392,9 +392,18 @@
 .radio_wrap {
   padding: 16px;
   border-radius: 8px;
+  width: 100%;
 
+  .radio_text_wrap {
+    width: 100%;
+  }
   &.selected {
     background-color: var(--color-dialog-ideation);
+  }
+  .setting_toggle {
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
   }
 }
 
