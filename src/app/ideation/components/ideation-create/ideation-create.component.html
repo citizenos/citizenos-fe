@@ -1000,7 +1000,18 @@
                 </div>
                 <div class="mobile_show" translate="VIEWS.IDEATION_CREATE.SETTINGS_HEADING_IDEATION_DEADLINE_DESC">
                 </div>
-                <div class="radio_wrap ideation">
+                <div class="radio_wrap ideation" [ngClass]="{'disabled': (!isnew && topic.status !== this.TopicService.STATUSES.draft)}">
+                  <div class="radio_text_wrap">
+                    <div class="radio_lable_wrap setting_toggle">
+                      <span class="bold" translate="VIEWS.IDEATION_CREATE.LBL_ALLOW_ANONYMOUS" [translateParams]="{value: (ideation.allowAnonymous ? 'TOGGLE_OFF' : 'TOGGLE_ON') | translate}"></span>
+                      <cos-toggle [model]="ideation.allowAnonymous" (click)="toggleAnonymous()" onkeypress="toggleAnonymous()"></cos-toggle>
+                    </div>
+                    <div class="radio_description">
+                      <span translate="VIEWS.IDEATION_CREATE.LBL_ALLOW_ANONYMOUS_DESC"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="radio_wrap ideation" [ngClass]="{'disabled': ideation.allowAnonymous}">
                   <div class="radio_text_wrap">
                     <div class="radio_lable_wrap setting_toggle">
                       <span class="bold" translate="VIEWS.IDEATION_CREATE.LBL_DISABLE_REPLIES" [translateParams]="{value: (ideation.disableReplies ? 'TOGGLE_OFF' : 'TOGGLE_ON') | translate}"></span>
