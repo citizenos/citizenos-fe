@@ -16,6 +16,7 @@ import { TopicService } from '@services/topic.service';
 import { Folder } from 'src/app/interfaces/folder';
 import { DomSanitizer } from '@angular/platform-browser';
 import { IdeaReplyComponent } from '../idea-reply/idea-reply.component';
+import { TopicIdeationService } from '@services/topic-ideation.service';
 
 @Component({
   selector: 'app-idea',
@@ -25,32 +26,34 @@ export class IdeaComponent {
   ideaId: string = '';
   topicId: string = '';
   ideationId: string = '';
-  constructor(dialog: DialogService, route: ActivatedRoute, TopicIdeaService: TopicIdeaService, router: Router, TopicService: TopicService) {
+  constructor(dialog: DialogService, route: ActivatedRoute, TopicIdeaService: TopicIdeaService, router: Router, TopicService: TopicService, TopicIdeationService: TopicIdeationService) {
     route.params.pipe(take(1), switchMap((params) => {
       this.ideaId = params['ideaId'];
       this.topicId = params['topicId'];
       this.ideationId = params['ideationId'];
 
-      return TopicIdeaService.get({ ideaId: this.ideaId, ideationId: this.ideationId, topicId: this.topicId })
-    })).subscribe((idea) => {
-      TopicService.get(this.topicId).pipe(take(1)).subscribe((topic) => {
-        dialog.closeAll();
-        const ideaDialog = dialog.open(IdeaDialogComponent, {
-          data: {
-            idea,
-            topic,
-            ideation: { id: this.ideationId },
-            route: route
-          }
-        });
+      return combineLatest([
+        TopicIdeaService.get({ ideaId: this.ideaId, ideationId: this.ideationId, topicId: this.topicId }),
+        TopicService.get(this.topicId),
+        TopicIdeationService.get({ topicId: this.topicId, ideationId: this.ideationId })
+      ])
+    })).subscribe(([idea, topic, ideation]) => {
+      dialog.closeAll();
+      const ideaDialog = dialog.open(IdeaDialogComponent, {
+        data: {
+          idea,
+          topic,
+          ideation,
+          route: route
+        }
+      });
 
-        ideaDialog.afterClosed().subscribe((value) => {
-          if (value) {
-            TopicIdeaService.reload();
-            router.navigate(['/', 'topics', this.topicId], { fragment: 'ideation' })
-          }
-        });
-      })
+      ideaDialog.afterClosed().subscribe((value) => {
+        if (value) {
+          TopicIdeaService.reload();
+          router.navigate(['/', 'topics', this.topicId], { fragment: 'ideation' })
+        }
+      });
     });
   }
 }
