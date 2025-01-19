@@ -31,6 +31,7 @@ export class CosToggleComponent implements OnInit {
     } else {
       this.model = !this.model;
     }
+    console.log('CHANGE', this.model);
     this.modelChange.emit(this.model);
   };
 
