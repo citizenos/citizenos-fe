@@ -2,20 +2,20 @@ import { TopicService } from '@services/topic.service';
 import { AfterViewInit, Component, Input } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, exhaustMap, map, of, shareReplay, switchMap, take } from 'rxjs';
-import { Idea } from 'src/app/interfaces/idea';
+import { BehaviorSubject, take } from 'rxjs';
+import { Idea } from '@interfaces/idea';
 import { AuthService } from '@services/auth.service';
 import { ConfigService } from '@services/config.service';
 import { LocationService } from '@services/location.service';
 import { NotificationService } from '@services/notification.service';
 import { TopicIdeaService } from '@services/topic-idea.service';
-import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
-import { DialogService } from 'src/app/shared/dialog';
+import { ConfirmDialogComponent } from '@shared/components/confirm-dialog/confirm-dialog.component';
+import { DialogService } from '@shared/dialog';
 import { IdeaReportComponent } from '../idea-report/idea-report.component';
 import { AddIdeaFolderComponent } from '../add-idea-folder/add-idea-folder.component';
 import { IdeaReportReasonComponent } from '../idea-report-reason/idea-report-reason.component';
-import { Topic } from 'src/app/interfaces/topic';
-import { Ideation } from 'src/app/interfaces/ideation';
+import { Topic } from '@interfaces/topic';
+import { Ideation } from '@interfaces/ideation';
 import { IdeaReactionsComponent } from '../idea-reactions/idea-reactions.component';
 
 @Component({

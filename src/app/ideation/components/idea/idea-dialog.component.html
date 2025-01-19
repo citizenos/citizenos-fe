@@ -382,6 +382,9 @@
             <div class="like_counter_wrap" [innerHTML]="idea.votes.up.count"></div>
           </!--button-->
           <div class="buttons_wrap">
+            <div class="tooltip_item" tooltip pos="top" [noIcon]="true" *ngIf="ideation.disableReplies">
+              <div class="content_description" translate="COMPONENTS.IDEA_DIALOG.TOOLTIP_REPLIES_DISABLED"></div>
+            </div>
             <button class="btn_ghost_reply_idea" *ngIf="!idea.showReplies && idea.replies.count"
               id="{{idea.id}}_replies"
               [translate]="(wWidth > 560)? 'COMPONENTS.ARGUMENT.LNK_SHOW_REPLIES' : 'COMPONENTS.ARGUMENT.LNK_SHOW_REPLIES_MOBILE'"
@@ -389,8 +392,11 @@
             <button class="btn_ghost_reply_idea" *ngIf="idea.showReplies && idea.replies.count"
               (click)="idea.showReplies = !idea.showReplies" translate="COMPONENTS.ARGUMENT.LNK_HIDE_REPLIES">
             </button>
-            <button *ngIf="!showReply" [ngClass]="{disabled: idea.deletedAt}" class="btn_small_submit bold"
-              (click)="showReply = true" translate="COMPONENTS.IDEA_DIALOG.BTN_REPLY"></button>
+
+            <button *ngIf="!showReply" [ngClass]="{disabled: idea.deletedAt || ideation.disableReplies}"
+              class="btn_small_submit bold" (click)="showReply = true">
+              <span translate="COMPONENTS.IDEA_DIALOG.BTN_REPLY"></span>
+            </button>
           </div>
         </div>
       </div>
