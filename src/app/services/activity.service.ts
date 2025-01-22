@@ -694,6 +694,10 @@ export class ActivityService extends ItemsListService {
       state = state.concat(['topics', origin.id]);
     }
 
+    if ((object && (object['@type'] === 'Idea' || object['@type'] === 'IdeaVote'))) {
+      state = state.concat(['topics', object.topicId]);
+    }
+
     /**
      * @note Assume that the first item is always present and is lang param.
      * No action needed in this case.
