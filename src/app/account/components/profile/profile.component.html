@@ -184,6 +184,13 @@
               [model]="form.preferences?.showInSearch"
               (click)="form.preferences.showInSearch = !form.preferences.showInSearch"></cos-toggle>
           </div>
+
+          <div class="prefrence_box">
+            <div class="preference_title bold" translate="VIEWS.ACCOUNT.LBL_LINKS_TITLE"></div>
+            <div class="preference_description" translate="VIEWS.ACCOUNT.LBL_LINKS_DESCRIPTION"></div>
+            <terms-links />
+          </div>
+
           <div class="prefrence_box">
             <div class="preference_title bold" translate="VIEWS.ACCOUNT.LBL_DELETE_ACCOUNT"></div>
             <div class="preference_description" translate="VIEWS.ACCOUNT.LBL_DELETE_ACCOUNT_DESCRIPTION">
