@@ -35,6 +35,7 @@
   "legal": {
     "termsOfUse": "https://citizenos.com/legal/api/",
     "privacyPolicy": "https://citizenos.com/legal/privacy/",
+    "statut": "https://citizenos.com/legal/statute/",
     "version": "1"
   },
   "attachments": {

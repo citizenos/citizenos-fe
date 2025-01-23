@@ -133,6 +133,8 @@
   border-radius: 4px;
   background: var(--color-surfaces);
   box-shadow: 0 0 8px 0 #727c84;
+  overflow-y: auto;
+  overflow-x: hidden;
 
   @include mixins.mobile {
     width: 100%;
@@ -188,9 +190,19 @@
     }
   }
 
+  .links_content {
+    padding: 16px;
+    border-radius: 4px;
+    background: var(--color-background);
+    margin-top: 16px;
+
+    .links_content_title {
+      margin-bottom: 16px;
+    }
+  }
+
   .help_content {
     width: 400px;
-    height: 100vh;
 
     @include mixins.mobile {
       width: 100%;
