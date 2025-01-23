@@ -56,6 +56,7 @@ import { InterruptDialogComponent } from './components/interrupt-dialog/interrup
 import { TooltipComponent} from './components/tooltip/tooltip.component';
 import { ImageEditorComponent } from './components/image-editor/image-editor.component';
 import { SearchFilterComponent } from './components/search-filter/search-filter.component';
+import { TermsLinksComponent } from './components/terms-links/terms-links.component';
 import { TopicVoteDeadlineComponent } from '../topic/components/topic-vote-deadline/topic-vote-deadline.component';
 
 import { NotificationComponent } from '../core/components/notification/notification.component';
@@ -113,6 +114,7 @@ import { SiteNotificationComponent } from './components/site-notification/site-n
     TooltipComponent,
     ImageEditorComponent,
     SearchFilterComponent,
+    TermsLinksComponent,
     TopicVoteDeadlineComponent,
     NotificationComponent,
     MarkdownLinkDialogComponent,
@@ -181,6 +183,7 @@ import { SiteNotificationComponent } from './components/site-notification/site-n
     TooltipComponent,
     ImageEditorComponent,
     SearchFilterComponent,
+    TermsLinksComponent,
     DialogModule,
     NotificationComponent,
     MarkdownLinkDialogComponent,
