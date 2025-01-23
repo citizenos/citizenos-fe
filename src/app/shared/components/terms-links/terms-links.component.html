@@ -1,0 +1,10 @@
+<ul class="links_wrapper">
+  <li *ngFor="let link of links">
+    <a class="link" target="_blank" [href]="link.href">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 12V14L19 11.5L15 9V11H6V12H15Z" fill="#2C3B47" />
+      </svg>
+      <span [translate]="link.title"></span>
+    </a>
+  </li>
+</ul>
