@@ -14,6 +14,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Argument } from 'src/app/interfaces/argument';
 import { TopicService } from '@services/topic.service';
 import { Folder } from 'src/app/interfaces/folder';
+import { Idea } from 'src/app/interfaces/idea';
 import { DomSanitizer } from '@angular/platform-browser';
 import { IdeaReplyComponent } from '../idea-reply/idea-reply.component';
 import { TopicIdeationService } from '@services/topic-ideation.service';
@@ -187,11 +188,17 @@ export class IdeaDialogComponent extends IdeaboxComponent {
       this.idea.showReplies = true;
     }
   }
-  prevIdea() {
+  getIdeaIndex(ideas: Idea[]) {
+    let index = ideas.findIndex((item: Idea) => item.id === this.idea.id);
+    return index
+  }
+
+  loadIdea(next: number) {
     this.TopicIdeaService.loadItems().pipe(take(1)).subscribe((ideas) => {
-      let index = ideas.findIndex((item) => item.id === this.idea.id);
-      if (index === 0) index = ideas.length;
-      const newIdea = ideas[index - 1];
+      let index = this.getIdeaIndex(ideas);
+      if (next < 0 && index === 0) index = ideas.length;
+      else if (next > 0 && index === ideas.length -1) index = -1;
+      const newIdea = ideas[index + next];
       this.router.navigate(['/', this.Translate.currentLang, 'topics', this.topic.id, 'ideation', this.ideation.id, 'ideas', newIdea.id]);
       this.idea = newIdea;
       this.folders$ = this.TopicIdeaService
@@ -203,23 +210,12 @@ export class IdeaDialogComponent extends IdeaboxComponent {
       this.notification = null;
     })
   }
+  prevIdea() {
+    this.loadIdea(-1);
+  }
 
   nextIdea() {
-    this.TopicIdeaService.loadItems().pipe(take(1)).subscribe((ideas) => {
-      let index = ideas.findIndex((item) => item.id === this.idea.id);
-      if (index === ideas.length - 1) index = -1;
-      const newIdea = ideas[index + 1];
-      this.router.navigate(['/', this.Translate.currentLang, 'topics', this.topic.id, 'ideation', this.ideation.id, 'ideas', newIdea.id]);
-      this.idea = newIdea;
-      this.folders$ = this.TopicIdeaService
-        .getFolders({ topicId: this.topic.id, ideationId: this.idea.ideationId, ideaId: this.idea.id })
-        .pipe(take(1), map((res: any) => res.rows));
-      this.images$ = this.IdeaAttachmentService
-        .query({ topicId: this.topic.id, ideationId: this.idea.ideationId, ideaId: this.idea.id, type: 'image' })
-        .pipe(take(1), map((res: any) => res.rows));
-
-      this.notification = null;
-    });
+    this.loadIdea(1);
   }
 
   private _parseArgumentIdAndVersion(argumentIdWithVersion: string) {
