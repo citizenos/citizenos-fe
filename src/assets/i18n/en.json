@@ -118,7 +118,10 @@
     },
     "ADD_IDEA": {
       "FOOTER_MENU_TITLE": "Join the idea gathering",
+      "FOOTER_FORM_ANONYMOUS_INFO": "You are posting anonymously",
       "FOOTER_MENU_BTN_ADD_IDEA": "Add your idea",
+      "TOOLTIP_ANONYMOUS_TITLE": "Anonymous posting",
+      "TOOLTIP_ANONYMOUS_DESCRIPTION": "Your idea will be posted anonymously. There will be no way to identify you.",
       "FOOTER_FORM_TITLE": "Add your idea",
       "PLACEHOLDER_ADD_STATEMENT_TO_IDEA": "Your idea heading",
       "SUBJECT_CHARACTERS_LEFT": "Characters left: {{chars}}/{{charsLeft}}",
@@ -443,6 +446,7 @@
       "LNK_CANCEL": "@:LNK_CANCEL"
     },
     "IDEABOX": {
+      "IDEA_NUMBER": "Idea {{number}}",
       "OPTION_EDIT": "Edit idea",
       "OPTION_FAVOURITE": "@:VIEWS.TOPICS_TOPICID.OPTION_FAVOURITE",
       "OPTION_UNFAVOURITE": "@:VIEWS.TOPICS_TOPICID.OPTION_UNFAVOURITE",

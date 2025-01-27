@@ -128,6 +128,13 @@
               </div>
               <div class="vertical_line_separator"></div>
             </ng-container>
+            <ng-container *ngIf="!idea.author">
+              <div class="name_wrap">
+                <div class="name" [innerHTML]="'COMPONENTS.IDEABOX.IDEA_NUMBER' | translate:{number: ''}"></div>
+                <div class="date">{{idea.createdAt | date: 'YYYY-MM-dd HH:mm'}}</div>
+              </div>
+              <div class="vertical_line_separator"></div>
+            </ng-container>
             <button class="btn_small_plain" (click)="toggleFavourite()" *ngIf="(Auth.loggedIn$ | async)">
               <div class="tooltip_item" tooltip pos="top" [noIcon]="true">
                 <div class="content_description" *ngIf="!idea.favourite"

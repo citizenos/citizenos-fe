@@ -74,7 +74,6 @@
     0px -12px 16px 0px rgba(50, 85, 112, 0.04);
   overflow: auto;
 
-
   @include mixins.tablet {
     position: fixed;
     bottom: 0;
@@ -203,4 +202,25 @@
       }
     }
   }
+}
+
+.form_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+#anonymous_info_wrap {
+  display: flex;
+  flex-direction: row;
+  width: max-content;
+  justify-content: right;
+  padding: 8px 28px 8px 12px;
+  gap: 8px;
+  position: relative;
+  border-radius: 8px;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  background-color: var(--color-info-background);
 }
