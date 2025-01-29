@@ -446,7 +446,7 @@
       "LNK_CANCEL": "@:LNK_CANCEL"
     },
     "IDEABOX": {
-      "IDEA_NUMBER": "Idea {{number}}",
+      "IDEA_NUMBER": "Idea #{{number}}",
       "OPTION_EDIT": "Edit idea",
       "OPTION_FAVOURITE": "@:VIEWS.TOPICS_TOPICID.OPTION_FAVOURITE",
       "OPTION_UNFAVOURITE": "@:VIEWS.TOPICS_TOPICID.OPTION_UNFAVOURITE",
