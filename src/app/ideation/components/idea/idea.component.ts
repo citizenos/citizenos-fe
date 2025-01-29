@@ -104,6 +104,7 @@ export class IdeaDialogComponent extends IdeaboxComponent {
   replyCount = 0;
   folders$: Observable<Folder[]>;
   images$: Observable<any>;
+  ideaNumber: Observable<number>;
 
   constructor(
     dialog: DialogService,
@@ -123,6 +124,15 @@ export class IdeaDialogComponent extends IdeaboxComponent {
     const url = this.router.parseUrl(this.router.url);
     this.TopicIdeaService.setParam('topicId', this.topic.id);
     this.TopicIdeaService.setParam('ideationId', this.topic.ideationId);
+    this.ideaNumber = combineLatest([this.route.params, this.TopicIdeaService.reload$]).pipe(
+      switchMap(() => {
+        return this.TopicIdeaService.loadItems().pipe(take(1), map((ideas) => {
+          const index = this.getIdeaIndex(ideas);
+          return index + 1;
+        }));
+      })
+    )
+
     this.replies$ = combineLatest([this.route.params, this.TopicIdeaRepliesService.reload$]).pipe(
       switchMap(([params]) => {
         const paramsObj = Object.assign({}, params);
