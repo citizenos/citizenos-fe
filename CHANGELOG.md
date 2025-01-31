@@ -1,3 +1,6 @@
+## 2025-01-31 - v1.2.3
+  * Fix: Issue #1839 - TOPICS: Partially hide email addresses shown to topic admins in the 'Invited' tab
+
 ## 2025-01-31 - v1.2.2
   * Fix: Issue #1819 - TOPICS: Don't show topic admin email addresses
 
