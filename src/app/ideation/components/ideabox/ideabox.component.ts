@@ -3,7 +3,7 @@ import { AfterViewInit, Component, Input } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
-import { Idea } from '@interfaces/idea';
+import { Idea, IdeaStatus } from '@interfaces/idea';
 import { AuthService } from '@services/auth.service';
 import { ConfigService } from '@services/config.service';
 import { TopicIdeaService } from '@services/topic-idea.service';
@@ -38,6 +38,7 @@ export class IdeaboxComponent implements AfterViewInit {
   isReply = false;
   errors = [];
   wWidth = window.innerWidth;
+
   constructor(
     public dialog: DialogService,
     public config: ConfigService,
@@ -70,7 +71,8 @@ export class IdeaboxComponent implements AfterViewInit {
     return (this.idea.author?.id === this.Auth.user.value.id && !this.idea.deletedAt && [this.TopicService.STATUSES.draft, this.TopicService.STATUSES.ideation].indexOf(this.topic.status) > -1);
   };
 
-  goToView($event: any, showReplies?: boolean) {
+  goToView(showReplies?: boolean) {
+    if (this.idea.status === IdeaStatus.draft) return;
     const routerLink = ['/', 'topics', this.topic.id, 'ideation', this.ideation.id, 'ideas', this.idea.id];
     const params = <any>{};
     if (showReplies) {
@@ -84,6 +86,9 @@ export class IdeaboxComponent implements AfterViewInit {
     return this.idea.edits?.length > 1;
   };
 
+  isDraft(status: IdeaStatus) {
+    return status === IdeaStatus.draft;
+  }
   isVisible() {
     return (!this.idea.deletedAt && !this.showDeletedIdea) || (this.idea.deletedAt && this.showDeletedIdea);
   };
