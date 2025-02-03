@@ -143,7 +143,7 @@ export class GroupInvitationDialogComponent {
     ])
       .pipe(
         take(1),
-        tap(([_, __, routeParams, queryParams]) => {
+        tap(([loggedIn, user, routeParams, queryParams]) => {
           this.inviteId = routeParams['inviteId'];
           GroupInviteUserService.get(routeParams).subscribe({
             next: (groupInvite) => {
@@ -165,12 +165,10 @@ export class GroupInvitationDialogComponent {
 
               if (userIsInTopic) {
                 router.navigate(['/groups', groupInvite.topicId]);
-              } else if (
-                Auth.loggedIn$.value &&
-                groupInvite.user.id === Auth.user.value.id &&
-                hasDirectJoin
-              ) {
-                joinGroup(groupInvite);
+              } else if (groupInvite.user.id === user.id && hasDirectJoin) {
+                if (loggedIn) {
+                  joinGroup(groupInvite);
+                }
               } else {
                 router.navigate(['dashboard']);
                 showJoinDialog(groupInvite, joinUrlForRedirect);
