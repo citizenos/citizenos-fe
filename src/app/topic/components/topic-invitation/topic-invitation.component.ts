@@ -146,7 +146,7 @@ export class TopicInvitationDialogComponent {
     ])
       .pipe(
         take(1),
-        tap(([_, __, routeParams, queryParams]) => {
+        tap(([loggedIn, user, routeParams, queryParams]) => {
           this.inviteId = routeParams['inviteId'];
           TopicInviteUserService.get(routeParams).subscribe({
             next: (topicInvite) => {
@@ -168,12 +168,10 @@ export class TopicInvitationDialogComponent {
 
               if (userIsInTopic) {
                 router.navigate(['/topics', topicInvite.topicId]);
-              } else if (
-                Auth.loggedIn$.value &&
-                topicInvite.user.id === Auth.user.value.id &&
-                hasDirectJoin
-              ) {
-                joinTopic(topicInvite);
+              } else if (topicInvite.user.id === user.id && hasDirectJoin) {
+                if (loggedIn) {
+                  joinTopic(topicInvite);
+                }
               } else {
                 router.navigate(['dashboard']);
                 showJoinDialog(topicInvite, joinTopicUrlForRedirect);

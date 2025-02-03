@@ -62,10 +62,10 @@ export class TopicTokenJoinComponent {
                * @note Add a redirectSuccess query parameter to the login URL
                * to join the user to the topic directly after login.
                */
-              let redirect = redirectSuccess
-              route.queryParams.subscribe(params => {
+              let redirect = redirectSuccess;
+              route.queryParams.subscribe((params) => {
                 if (!params['join']) {
-                  redirect = `${redirect}?join=true`
+                  redirect = `${redirect}?join=true`;
                 }
               });
 
@@ -104,13 +104,12 @@ export class TopicTokenJoinComponent {
 
     this.join$ = combineLatest([
       Auth.loggedIn$,
-      Auth.user,
       route.params,
       route.queryParams,
     ])
       .pipe(
         take(1),
-        tap(([_, __, routeParams, queryParams]) => {
+        tap(([loggedIn, routeParams, queryParams]) => {
           this.token = routeParams['token'];
           TopicJoinService.get(this.token).subscribe({
             next: (topic) => {
@@ -124,8 +123,10 @@ export class TopicTokenJoinComponent {
 
               if (userIsInTopic) {
                 router.navigate(['/topics', topicId]);
-              } else if (Auth.loggedIn$.value && hasDirectJoin) {
-                joinTopic(this.token);
+              } else if (hasDirectJoin) {
+                if (loggedIn) {
+                  joinTopic(this.token);
+                }
               } else {
                 router.navigate(['dashboard']);
                 showJoinDialog(topic, this.token, joinTopicUrlForRedirect);
