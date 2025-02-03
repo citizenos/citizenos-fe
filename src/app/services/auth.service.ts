@@ -16,6 +16,12 @@ import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot, Router } from '
 export class AuthService {
   private loadUser$ = new BehaviorSubject<void>(undefined);
   public user$: Observable<User>;
+  /**
+   * @note loggedIn state means loggedIn + accepted t&c.
+   * Naming is confusing and lead to unexpected desigions.
+   *
+   * @todo Fix naming or separate this loggedIn/accepted t&c states.
+   */
   public loggedIn$ = new BehaviorSubject(false);
   public userLang$ = new BehaviorSubject('');
   public user = new BehaviorSubject({ id: <string|null>null });
