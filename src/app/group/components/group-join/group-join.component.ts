@@ -127,13 +127,12 @@ export class GroupTokenJoinComponent {
 
     this.join$ = combineLatest([
       Auth.loggedIn$,
-      Auth.user,
       route.params,
       route.queryParams,
     ])
       .pipe(
         take(1),
-        tap(([_, __, routeParams, queryParams]) => {
+        tap(([loggedIn, routeParams, queryParams]) => {
           this.token = routeParams['token'];
 
           GroupJoinService.get(this.token).subscribe({
@@ -147,8 +146,10 @@ export class GroupTokenJoinComponent {
 
               if (userIsInGroup) {
                 router.navigate(['/groups', groupId]);
-              } else if (Auth.loggedIn$.value && hasDirectJoin) {
-                joinGroup(group, this.token, redirectSuccess);
+              } else if (hasDirectJoin) {
+                if (loggedIn) {
+                  joinGroup(group, this.token, redirectSuccess);
+                }
               } else {
                 router.navigate(['dashboard']);
                 showJoinDialog(group, this.token, redirectSuccess);
