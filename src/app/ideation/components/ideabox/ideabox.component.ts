@@ -137,10 +137,15 @@ export class IdeaboxComponent implements AfterViewInit {
   };
 
   canVote() {
-    return (this.Auth.loggedIn$.value && this.topic.status === this.TopicService.STATUSES.ideation);
+    return (this.topic.status === this.TopicService.STATUSES.ideation);
   }
 
   doIdeaVote(value: number) {
+    if (!this.Auth.loggedIn$.value) {
+      this.App.doShowLogin();
+      return;
+    }
+
     if (!this.canVote()) {
       return;
     }
