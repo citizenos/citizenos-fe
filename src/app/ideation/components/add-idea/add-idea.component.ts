@@ -3,7 +3,7 @@ import { TopicIdeationService } from '@services/topic-ideation.service';
 import { TopicMemberUserService } from '@services/topic-member-user.service';
 
 import { trigger, state, style } from '@angular/animations';
-import { Component, OnInit, Input, Inject, EventEmitter, Output, ElementRef, ViewChild } from '@angular/core';
+import { Component, Input, Inject, EventEmitter, Output, ElementRef, ViewChild } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -14,7 +14,8 @@ import { TopicIdeaService } from '@services/topic-idea.service';
 import { NotificationService } from '@services/notification.service';
 import { MarkdownDirective } from 'src/app/directives/markdown.directive';
 import { UploadService } from '@services/upload.service';
-import { Attachment } from 'src/app/interfaces/attachment';
+import { Attachment } from '@interfaces/attachment';
+import { Ideation } from '@interfaces/ideation';
 
 @Component({
   selector: 'add-idea',
@@ -37,7 +38,7 @@ import { Attachment } from 'src/app/interfaces/attachment';
 export class AddIdeaComponent {
 
   @Input() topicId!: string;
-  @Input() ideationId!: string;
+  @Input() ideation!: Ideation;
   @Input() notification: any;
   @Output() notificationChange = new EventEmitter<any>();
 
@@ -84,7 +85,7 @@ export class AddIdeaComponent {
 
   ngOnInit(): void {
     this.IdeaAttachmentService.setParam('topicId', this.topicId);
-    this.IdeaAttachmentService.setParam('ideationId', this.ideationId);
+    this.IdeaAttachmentService.setParam('ideationId', this.ideation.id);
   }
 
   loggedIn() {
@@ -139,7 +140,7 @@ export class AddIdeaComponent {
       statement: this.ideaForm.value['statement'],
       description: this.ideaForm.value['description'],
       topicId: this.topicId,
-      ideationId: this.ideationId
+      ideationId: this.ideation.id
     };
     this.TopicIdeaService
       .save(idea)
@@ -159,7 +160,7 @@ export class AddIdeaComponent {
               message: this.translate.instant('COMPONENTS.ADD_IDEA.MSG_SUCCESS')
             })*/
           this.router.navigate(
-            ['ideation', this.ideationId, 'ideas', idea.id],
+            ['ideation', this.ideation.id, 'ideas', idea.id],
             {
               relativeTo: this.route
             });
@@ -219,7 +220,7 @@ export class AddIdeaComponent {
       let image = this.images[i];
       if (image) {
         image.source = this.IdeaAttachmentService.SOURCES.upload;
-        this.UploadService.uploadIdeaImage({ topicId: this.topicId, ideationId: this.ideationId, ideaId }, image, { name: image.name })
+        this.UploadService.uploadIdeaImage({ topicId: this.topicId, ideationId: this.ideation.id, ideaId }, image, { name: image.name })
           .pipe(takeWhile((e) => !e.link, true))
           .subscribe({
             next: (result) => {
