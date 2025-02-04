@@ -293,11 +293,9 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
 
   toggleAnonymous() {
     this.ideation.allowAnonymous = !this.ideation.allowAnonymous;
-    console.log(this.ideation.allowAnonymous)
     if (this.ideation.allowAnonymous && !this.ideation.disableReplies) {
       this.ideation.disableReplies = true;
     }
-    console.log(this.ideation.disableReplies)
   }
 
   override saveAsDraft() {
