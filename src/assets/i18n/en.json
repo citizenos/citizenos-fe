@@ -83,6 +83,7 @@
     "PLACEHOLDER_WRITE_YOUR_EMAIL": "Your email address (optional)",
     "PLACEHOLDER_WRITE_YOUR_MESSAGE": "Your message here...",
     "BTN_SEND": "Send",
+    "LINKS_TITLE": "Useful links",
     "ERROR_INVALID_EMAIL": "@:MSG_ERROR_POST_API_AUTH_SIGNUP_40000_EMAIL",
     "ERROR_INVALID_MESSAEG": "Message text is missing.",
     "MSG_REQUEST_SENT": "Your help request has been sent!",
