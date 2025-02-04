@@ -394,7 +394,7 @@
             </button>
 
             <button *ngIf="!showReply" [ngClass]="{disabled: idea.deletedAt || ideation.disableReplies}"
-              class="btn_small_submit bold" (click)="showReply = true">
+              class="btn_small_submit bold" (click)="handleShowReply()">
               <span translate="COMPONENTS.IDEA_DIALOG.BTN_REPLY"></span>
             </button>
           </div>
