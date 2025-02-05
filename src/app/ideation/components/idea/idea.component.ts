@@ -17,6 +17,7 @@ import { Idea } from 'src/app/interfaces/idea';
 import { DomSanitizer } from '@angular/platform-browser';
 import { IdeaReplyComponent } from '../idea-reply/idea-reply.component';
 import { TopicIdeationService } from '@services/topic-ideation.service';
+import { AppService } from '@services/app.service';
 
 @Component({
   selector: 'app-idea',
@@ -111,12 +112,13 @@ export class IdeaDialogComponent extends IdeaboxComponent {
     config: ConfigService,
     router: Router,
     Auth: AuthService,
+    App: AppService,
     TopicMemberUserService: TopicMemberUserService,
     Translate: TranslateService,
     TopicService: TopicService,
     TopicIdeaService: TopicIdeaService
   ) {
-    super(dialog, config, router, Auth, TopicMemberUserService, Translate, TopicService, TopicIdeaService);
+    super(dialog, config, router, Auth, App, TopicMemberUserService, Translate, TopicService, TopicIdeaService);
     this.idea = this.data.idea;
     this.topic = this.data.topic;
     this.ideation = this.data.ideation;
@@ -336,6 +338,15 @@ export class IdeaDialogComponent extends IdeaboxComponent {
       }
     }
   };
+
+  handleShowReply() {
+    const loggedIn = this.Auth.loggedIn$.value;
+    if (loggedIn) {
+      this.showReply = !this.showReply;
+    } else {
+      this.App.doShowLogin();
+    }
+  }
 
   viewFolder(folder: Folder) {
     this.dialogRef.afterClosed().subscribe(() => {

@@ -65,7 +65,7 @@
         <div class="vertical_line_separator"></div>
       </ng-container>
       <div class="like_wrap" [ngClass]="{selected: this.idea.votes.up.selected}">
-        <button class="btn_idea_like" [ngClass]="{disabled: !canVote()}" (click)="doIdeaVote(1)">
+        <button class="btn_idea_like" (click)="doIdeaVote(1)">
           <div class="tooltip_item" tooltip pos="top" [noIcon]="true">
             <div class="content_description" translate="COMPONENTS.IDEABOX.TOOLTIP_LIKE"></div>
           </div>
