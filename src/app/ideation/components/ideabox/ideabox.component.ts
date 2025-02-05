@@ -16,6 +16,7 @@ import { Topic } from '@interfaces/topic';
 import { Ideation } from '@interfaces/ideation';
 import { IdeaReactionsComponent } from '../idea-reactions/idea-reactions.component';
 import { TopicMemberUserService } from '@services/topic-member-user.service';
+import { AppService } from '@services/app.service';
 
 @Component({
   selector: 'ideabox',
@@ -42,6 +43,7 @@ export class IdeaboxComponent implements AfterViewInit {
     public config: ConfigService,
     public router: Router,
     public Auth: AuthService,
+    public App: AppService,
     private readonly TopicMemberUserService: TopicMemberUserService,
     public Translate: TranslateService,
     public TopicService: TopicService,
@@ -135,10 +137,15 @@ export class IdeaboxComponent implements AfterViewInit {
   };
 
   canVote() {
-    return (this.Auth.loggedIn$.value && this.topic.status === this.TopicService.STATUSES.ideation);
+    return (this.topic.status === this.TopicService.STATUSES.ideation);
   }
 
   doIdeaVote(value: number) {
+    if (!this.Auth.loggedIn$.value) {
+      this.App.doShowLogin();
+      return;
+    }
+
     if (!this.canVote()) {
       return;
     }
