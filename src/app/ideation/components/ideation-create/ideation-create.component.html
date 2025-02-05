@@ -1002,7 +1002,7 @@
                 <div class="radio_wrap ideation" [ngClass]="{'disabled': (!isnew && topic.status !== this.TopicService.STATUSES.draft)}">
                   <div class="radio_text_wrap">
                     <div class="radio_lable_wrap setting_toggle">
-                      <span class="bold" translate="VIEWS.IDEATION_CREATE.LBL_ALLOW_ANONYMOUS" [translateParams]="{value: (ideation.allowAnonymous ? 'TOGGLE_OFF' : 'TOGGLE_ON') | translate}"></span>
+                      <span class="bold" translate="VIEWS.IDEATION_CREATE.LBL_ALLOW_ANONYMOUS" [translateParams]="{value: (ideation.allowAnonymous ? 'TOGGLE_ON' : 'TOGGLE_OFF') | translate}"></span>
                       <cos-toggle [model]="ideation.allowAnonymous" (click)="toggleAnonymous()" onkeypress="toggleAnonymous()"></cos-toggle>
                     </div>
                     <div class="radio_description">

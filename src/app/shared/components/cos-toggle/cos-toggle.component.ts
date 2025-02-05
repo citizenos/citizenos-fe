@@ -6,7 +6,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./cos-toggle.component.scss']
 })
 
-export class CosToggleComponent implements OnInit {
+export class CosToggleComponent {
   @Input() model:any = '';
   @Output() modelChange:any = new EventEmitter<any>();
   @Input() value:any = '';
@@ -16,9 +16,6 @@ export class CosToggleComponent implements OnInit {
   @Input() cosToggleDatepickerToggle:any = '';
 
   constructor() {
-  }
-
-  ngOnInit(): void {
   }
 
   cosToggle() {
@@ -31,7 +28,7 @@ export class CosToggleComponent implements OnInit {
     } else {
       this.model = !this.model;
     }
-    console.log('CHANGE', this.model);
+    console.debug('CHANGE', this.model);
     this.modelChange.emit(this.model);
   };
 
