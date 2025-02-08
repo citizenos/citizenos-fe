@@ -103,13 +103,15 @@ export class TopicTokenJoinComponent {
     }
 
     this.join$ = combineLatest([
-      Auth.loggedIn$,
+      Auth.user,
+      Auth.loggedIn$,      
       route.params,
       route.queryParams,
     ])
       .pipe(
         take(1),
-        tap(([loggedIn, routeParams, queryParams]) => {
+        tap(([user, loggedIn, routeParams, queryParams]) => {
+          console.log(user)
           this.token = routeParams['token'];
           TopicJoinService.get(this.token).subscribe({
             next: (topic) => {
@@ -126,6 +128,10 @@ export class TopicTokenJoinComponent {
               } else if (hasDirectJoin) {
                 if (loggedIn) {
                   joinTopic(this.token);
+                } else if (!user.isAuthenticated) {
+                  app.doNavigateLogin({
+                    redirectSuccess: joinTopicUrlForRedirect,
+                  });
                 }
               } else {
                 router.navigate(['dashboard']);
