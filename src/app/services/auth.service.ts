@@ -24,7 +24,7 @@ export class AuthService {
    */
   public loggedIn$ = new BehaviorSubject(false);
   public userLang$ = new BehaviorSubject('');
-  public user = new BehaviorSubject({ id: <string|null>null });
+  public user = new BehaviorSubject({ id: <string|null>null, isAuthenticated: false });
 
   constructor(private dialog: DialogService, private Location: LocationService, private http: HttpClient, private Notification: NotificationService, private config: ConfigService) {
     this.user$ = this.loadUser$.pipe(
@@ -115,14 +115,18 @@ export class AuthService {
       share(),
       switchMap((res: any) => {
         const user = res.data;
+        console.log(user)
         if (user.imageUrl) {
           user.imageUrl = user.imageUrl+'#'+new Date().getTime()
+        }
+        if (user.email) {
+          this.user.next({ id: user.id, isAuthenticated: true });
         }
         if (!user.termsVersion || user.termsVersion !== this.config.get('legal').version || !user.email) {
          return of(user);
         } else {
           user.loggedIn = true;
-          this.user.next({ id: user.id });
+          this.user.next({ id: user.id, isAuthenticated: true });
           if (this.loggedIn$.value !== true) {
             this.loggedIn$.next(true);
           }
