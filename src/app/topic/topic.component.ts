@@ -139,6 +139,10 @@ export class TopicComponent {
   selectedTab = 'discussion';
   showTutorial = false;
   topicTitle: string = '';
+  navigation: { title: string; link: string[] } = {
+    title: "",
+    link: [],
+  };
   //new end
   topic$: Observable<Topic>; // decorate the property with @Input()
   groups$: Observable<Group[]>;
@@ -157,6 +161,7 @@ export class TopicComponent {
   STATUSES = this.TopicService.STATUSES;
   hideTopicContent = false;
   topicStatus = this.TopicService.STATUSES.inProgress;
+  topicVisibility: string = '';
   constructor(
     @Inject(TranslateService) public translate: TranslateService,
     @Inject(DialogService) private readonly  DialogService: DialogService,
@@ -222,6 +227,7 @@ export class TopicComponent {
         this.app.topic = topic;
         this.topicTitle = topic.title ?? '';
         this.topicStatus = topic.status;
+        this.topicVisibility = topic.visibility;
         if (topic.report?.moderatedReasonType) {
           // NOTE: Well.. all views that are under the topics/view/votes/view would trigger doble overlays which we don't want
           // Not nice, but I guess the problem starts with the 2 views using same controller. Ideally they should have a parent controller and extend that with their specific functionality
@@ -324,6 +330,10 @@ export class TopicComponent {
     );
   }
 
+  ngOnInit(): void {
+    this.getNavigationItem();
+  }
+
   ngAfterViewInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
@@ -347,6 +357,38 @@ export class TopicComponent {
         this.showTutorial = false;
       }, 5000);
     }
+  }
+
+  getNavigationItem(): void {
+    this.groups$.pipe(
+      map(groups => {
+        const isTopicPrivate =
+          this.topicVisibility === this.TopicService.VISIBILITY.private;
+
+          if (groups.length > 1) {
+          return {
+            title: isTopicPrivate
+              ? "VIEWS.GROUP.HEADING_BACK_TO_MY_GROUPS"
+              : "VIEWS.GROUP.HEADING_BACK_TO_PUBLIC_GROUPS",
+            link: ['/', this.translate.currentLang, isTopicPrivate ? 'my' : 'public', 'groups'],
+          }
+        } else if (groups.length === 1) {
+          return {
+            title: groups[0].name,
+            link: ['/', this.translate.currentLang, 'groups', groups[0].id],
+          }
+        } else {
+          return {
+            title: isTopicPrivate
+              ? "VIEWS.TOPICS_TOPICID.HEADING_BACK_TO_MY_TOPICS"
+              : "VIEWS.TOPICS_TOPICID.HEADING_BACK_TO_PUBLIC_TOPICS",
+            link: ['/', this.translate.currentLang, isTopicPrivate ? 'my' : 'public', 'topics'],
+          }
+        }
+      })
+    ).subscribe((navigation) => {
+      this.navigation = navigation
+    });
   }
 
   reportReasonDialog(topic: Topic) {

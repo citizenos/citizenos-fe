@@ -3,28 +3,15 @@
     <ng-container *ngIf="tabSelected$ | async as tabSelected;">
       <div id="page_header" [TourItem]="{tourid: ['topic_mobile', 'topic_tablet'], index: 2, position: 'bottom'}">
         <div id="user_info_area">
-          <ng-container *ngIf="!auth.loggedIn$.value || topic.visibility === TopicService.VISIBILITY.public">
-            <button [routerLink]="['/', translate.currentLang, 'public', 'topics']"><svg width="24" height="24"
-                viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M10.4533 17.6874C10.8529 18.1042 11.5009 18.1042 11.9006 17.6874C12.3003 17.2705 12.3003 16.5947 11.9006 16.1779L8.91837 13L19 13C19.5652 13 20 12.5892 20 11.9997C20 11.4103 19.5652 11.0176 19 11.0176L8.91837 11.0176L11.9006 7.8221C12.3003 7.40527 12.3003 6.72945 11.9006 6.31262C11.5009 5.89579 10.8529 5.89579 10.4533 6.31262L5 12L10.4533 17.6874Z"
-                  fill="#2C3B47" />
-              </svg>
-            </button>
-            <div class="small_heading mobile_hidden"
-              [innerHTML]="'VIEWS.TOPICS_TOPICID.HEADING_BACK_TO_PUBLIC_TOPICS'| translate"></div>
-          </ng-container>
-          <ng-container *ngIf="auth.loggedIn$.value && topic.visibility === TopicService.VISIBILITY.private">
-            <button class="btn_medium_close icon" [routerLink]="['/', translate.currentLang, 'my', 'topics']"><svg
-                width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M10.4533 17.6874C10.8529 18.1042 11.5009 18.1042 11.9006 17.6874C12.3003 17.2705 12.3003 16.5947 11.9006 16.1779L8.91837 13L19 13C19.5652 13 20 12.5892 20 11.9997C20 11.4103 19.5652 11.0176 19 11.0176L8.91837 11.0176L11.9006 7.8221C12.3003 7.40527 12.3003 6.72945 11.9006 6.31262C11.5009 5.89579 10.8529 5.89579 10.4533 6.31262L5 12L10.4533 17.6874Z"
-                  fill="#2C3B47" />
-              </svg>
-            </button>
-            <div class="small_heading mobile_hidden"
-              [innerHTML]="'VIEWS.TOPICS_TOPICID.HEADING_BACK_TO_MY_TOPICS'| translate"></div>
-          </ng-container>
+          <button [routerLink]="navigation.link"><svg width="24" height="24"
+            viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M10.4533 17.6874C10.8529 18.1042 11.5009 18.1042 11.9006 17.6874C12.3003 17.2705 12.3003 16.5947 11.9006 16.1779L8.91837 13L19 13C19.5652 13 20 12.5892 20 11.9997C20 11.4103 19.5652 11.0176 19 11.0176L8.91837 11.0176L11.9006 7.8221C12.3003 7.40527 12.3003 6.72945 11.9006 6.31262C11.5009 5.89579 10.8529 5.89579 10.4533 6.31262L5 12L10.4533 17.6874Z"
+              fill="#2C3B47" />
+          </svg>
+        </button>
+        <div class="small_heading mobile_hidden truncate_text navigation_title"
+          [innerHTML]="navigation.title | translate"></div>
         </div>
         <div id="buttons_area">
           <button id="join_button" (click)="joinTopic(topic)"
