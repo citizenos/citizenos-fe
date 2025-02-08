@@ -1,41 +1,93 @@
-.dialog  {
-  max-width: 560px;
-}
-.profile_image_wrap{
-  width: auto;
+.dialog_content_join {
+  gap: 16px;
 }
 
-.dialog_content {
+.content_row {
+  display: flex;
+  flex-direction: column;
   gap: 8px;
-  padding: 24px;
-  gap: 24px;
+  width: 100%;
+  border-radius: 15px;
+  background-color: var(--color-dialog);
+  overflow: hidden;
 }
-.dialog_info_wrap {
-  gap: 8px;
-  .dialog_info_heading {
-    justify-self: flex-start;
-    align-self: flex-start;
+
+.content_image_wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content_image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.content_inner {
+  padding: 16px;
+
+  .topic_title {
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: 600;
+    margin-bottom: 8px;
   }
-  .dialog_info {
-    padding: 16px;
-    gap: 16px;
 
-    .dialog_info_content {
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      align-items: flex-start;
-      width: 100%;
+  .content_title {
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+
+  .topic_text {
+    font-weight: 400;
+    -webkit-line-clamp: 4;
+    display: block;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    overflow-wrap: break-word;
+  }
+
+  hr {
+    margin: 16px 0;
+    color: rgba(225, 231, 238, 1);
+  }
+}
+
+.content_list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &.content_list_details {
+    li {
+      justify-content: space-between;
+      padding: 8px;
+      margin-bottom: 0;
+
+      &:nth-of-type(odd) {
+        background-color: var(--color-dialog-background);
+      }
     }
   }
 }
 
-.notification_inline {
-  align-items: center;
-  margin: 16px 0;
-  .message {
-    width: 100%;
-    display: block;
-  }
+.dialog_footer_join {
+  padding: 16px;
+  background-color: var(--color-dialog-background);
 }

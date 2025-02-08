@@ -47,227 +47,148 @@
         </a>
       </div>
     </div>
-    <div class="dialog_content no_footer">
-      <div class="dialog_info_wrap">
-        <div class="dialog_info row">
-          <div class="delete_info_button_wrap">
-            <div
-              class="delete_info_text"
-              translate="MODALS.TOPIC_INVITE_VIEW_MESSAGE_MAIN"
-            ></div>
+
+    <div class="dialog_content dialog_content_join">
+      <div class="content_row">
+        <div class="content_image_wrapper">
+          <img
+            *ngIf="invite.topic.imageUrl"
+            [src]="invite.topic.imageUrl"
+            class="content_image"
+          />
+          <div class="no_image" *ngIf="!invite.topic.imageUrl">
+            <svg
+              width="37"
+              height="41"
+              viewBox="0 0 37 41"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M29.307 5.5918C30.9953 5.5918 32.3766 7.08292 32.3766 8.90541V32.1007C32.3766 33.9232 30.9953 35.4143 29.307 35.4143H7.81962C6.13133 35.4143 4.75 33.9232 4.75 32.1007V8.90541C4.75 7.08292 6.13133 5.5918 7.81962 5.5918H29.307ZM17.0285 27.9752L13.1915 22.9882L7.81962 30.4439H29.307L22.4003 20.503L17.0285 27.9752Z"
+                fill="#4D5C6A"
+              />
+            </svg>
+          </div>
+        </div>
+
+        <div class="content_inner">
+          <div class="topic_title" [innerHTML]="invite.topic.title"></div>
+
+          <div
+            class="topic_text"
+            [innerHTML]="invite.topic.intro || invite.topic.description"
+          ></div>
+
+          <hr />
+
+          <div class="dialog_info row">
+            <div translate="COMPONENTS.TOPIC_JOIN.TOPIC_CREATED_BY"></div>
             <div class="profile_image_wrap">
+              <img
+                class="profile_image"
+                *ngIf="invite.creator.imageUrl"
+                [src]="invite.creator.imageUrl"
+              />
+              <div
+                class="profile_image_filler"
+                *ngIf="!invite.creator.imageUrl"
+              >
+                <cos-initials
+                  *ngIf="invite.creator.name"
+                  [name]="invite.creator.name"
+                  [initialLimit]="1"
+                >
+                </cos-initials>
+              </div>
+            </div>
+
+            <div class="bold" [innerHTML]="invite.creator.name"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content_row">
+        <div class="dialog_info content_inner">
+          <div
+            class="content_title"
+            translate="MODALS.TOPIC_INVITE_VIEW_HEADING_INVITATION_DETAILS"
+          ></div>
+
+          <ul class="content_list content_list_details">
+            <li>
+              <div translate="MODALS.TOPIC_INVITE_VIEW_LBL_INVITED_BY"></div>
+              <div class="bold">{{ invite.creator.name }}</div>
+            </li>
+            <li>
+              <div
+                translate="MODALS.TOPIC_INVITE_VIEW_LBL_INVITATION_SENT_TO"
+              ></div>
+              <div class="bold">{{ invite.user.email }}</div>
+            </li>
+            <li>
+              <div translate="MODALS.TOPIC_INVITE_VIEW_LBL_TOPIC_LEVEL"></div>
+              <div class="bold">
+                {{ "TXT_TOPIC_LEVELS_" + invite.level | uppercase | translate }}
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="content_row">
+        <div class="dialog_info content_inner">
+          <div
+            translate="MODALS.TOPIC_INVITE_VIEW_HEADING_AFTER_JOIN"
+            class="content_title"
+          ></div>
+
+          <ul class="content_list">
+            <li>
               <svg
-                width="32"
-                height="32"
-                viewBox="0 0 32 32"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M7 4C7 3.44772 7.44772 3 8 3H18.1716C18.4368 3 18.6911 3.10536 18.8787 3.29289L24.7071 9.12132L25.4142 8.41421L24.7071 9.12132C24.8946 9.30886 25 9.56321 25 9.82843V28C25 28.5523 24.5523 29 24 29H8C7.44772 29 7 28.5523 7 28V4Z"
-                  fill="white"
-                  stroke="#2C3B47"
-                  stroke-width="2"
-                />
-                <path
-                  d="M17 2.5L25.5 11H18C17.4477 11 17 10.5523 17 10V2.5Z"
+                  d="M9.38602 14.8088L17.5256 6L19 7.59558L9.38602 18L5 13.2534L6.47436 11.6578L9.38602 14.8088Z"
                   fill="#2C3B47"
                 />
-                <rect
-                  x="11"
-                  y="18"
-                  width="10"
-                  height="1"
-                  rx="0.5"
-                  fill="#4D5C6A"
-                />
-                <rect
-                  x="11"
-                  y="15"
-                  width="10"
-                  height="1"
-                  rx="0.5"
-                  fill="#4D5C6A"
-                />
-                <rect
-                  x="11"
-                  y="21"
-                  width="10"
-                  height="1"
-                  rx="0.5"
-                  fill="#4D5C6A"
-                />
-                <rect
-                  x="11"
-                  y="24"
-                  width="6"
-                  height="1"
-                  rx="0.5"
-                  fill="#4D5C6A"
-                />
               </svg>
-            </div>
 
-            <div class="bold" [innerHTML]="invite.topic.title"></div>
-          </div>
-        </div>
-      </div>
-      <div class="dialog_info_wrap">
-        <div class="dialog_info_heading">
-          <div
-            class="bold"
-            translate="MODALS.TOPIC_INVITE_VIEW_HEADING_INVITATION_DETAILS"
-          ></div>
-        </div>
-        <div class="dialog_info">
-          <div class="dialog_info_content">
-            <div
-              class="bold"
-              translate="MODALS.TOPIC_INVITE_VIEW_LBL_INVITED_BY"
-            ></div>
-            <div>{{ invite.creator.name }}</div>
-          </div>
-          <div class="dialog_info_content">
-            <div
-              class="bold"
-              translate="MODALS.TOPIC_INVITE_VIEW_LBL_INVITATION_SENT_TO"
-            ></div>
-            <div>{{ invite.user.email }}</div>
-          </div>
-          <div class="dialog_info_content">
-            <div
-              class="bold"
-              translate="MODALS.TOPIC_INVITE_VIEW_LBL_TOPIC_LEVEL"
-            ></div>
-            <div>
-              {{ "TXT_TOPIC_LEVELS_" + invite.level | uppercase | translate }}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="dialog_info_wrap">
-        <div class="dialog_info">
-          <div class="dialog_info_content">
-            <div
-              class="bold"
-              translate="MODALS.TOPIC_INVITE_VIEW_HEADING_AFTER_JOIN"
-            ></div>
-          </div>
-          <div class="dialog_info_content">
-            <div class="row">
-              <div>
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M9.38602 14.8088L17.5256 6L19 7.59558L9.38602 18L5 13.2534L6.47436 11.6578L9.38602 14.8088Z"
-                    fill="#2C3B47"
-                  />
-                </svg>
-              </div>
               <span
                 translate="MODALS.TOPIC_INVITE_VIEW_AFTER_JOIN_ITEM_1"
               ></span>
-            </div>
-            <div class="row">
-              <div>
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M9.38602 14.8088L17.5256 6L19 7.59558L9.38602 18L5 13.2534L6.47436 11.6578L9.38602 14.8088Z"
-                    fill="#2C3B47"
-                  />
-                </svg>
-              </div>
+            </li>
+
+            <li>
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M9.38602 14.8088L17.5256 6L19 7.59558L9.38602 18L5 13.2534L6.47436 11.6578L9.38602 14.8088Z"
+                  fill="#2C3B47"
+                />
+              </svg>
+
               <span
                 translate="MODALS.TOPIC_INVITE_VIEW_AFTER_JOIN_ITEM_2"
               ></span>
-            </div>
-            <!--div class="row">
-            <div>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M9.38602 14.8088L17.5256 6L19 7.59558L9.38602 18L5 13.2534L6.47436 11.6578L9.38602 14.8088Z"
-                  fill="#2C3B47" />
-              </svg>
-            </div>
-            <span translate="MODALS.TOPIC_INVITE_VIEW_AFTER_JOIN_ITEM_3"></span>
-          </!--div-->
-          </div>
+            </li>
+          </ul>
         </div>
       </div>
-      <div
-        class="notification_inline warning"
-        *ngIf="!invite.user.isRegistered"
-      >
-        <div class="icon_notification">
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <rect width="24" height="24" rx="12" fill="#F39129" />
-            <path
-              d="M11.4385 4.7998C11.0924 4.7998 10.8181 5.09181 10.8396 5.43723L11.3646 13.8372C11.3844 14.1535 11.6466 14.3998 11.9635 14.3998H12.0361C12.353 14.3998 12.6152 14.1535 12.635 13.8372L13.16 5.43723C13.1816 5.09181 12.9072 4.7998 12.5611 4.7998H11.4385Z"
-              fill="white"
-            />
-            <path
-              d="M11.9998 18.5998C12.6625 18.5998 13.1998 18.0625 13.1998 17.3998C13.1998 16.7371 12.6625 16.1998 11.9998 16.1998C11.3371 16.1998 10.7998 16.7371 10.7998 17.3998C10.7998 18.0625 11.3371 18.5998 11.9998 18.5998Z"
-              fill="white"
-            />
-          </svg>
-        </div>
-        <div
-          class="message"
-          [innerHTML]="
-            'MODALS.TOPIC_INVITE_VIEW_TXT_COMPLETE_ACCOUNT'
-              | translate : { email: invite.user.email }
-          "
-        ></div>
-      </div>
-      <div class="notification_inline warning" *ngIf="invite.user.isRegistered">
-        <div class="icon_notification">
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <rect width="24" height="24" rx="12" fill="#F39129" />
-            <path
-              d="M11.4385 4.7998C11.0924 4.7998 10.8181 5.09181 10.8396 5.43723L11.3646 13.8372C11.3844 14.1535 11.6466 14.3998 11.9635 14.3998H12.0361C12.353 14.3998 12.6152 14.1535 12.635 13.8372L13.16 5.43723C13.1816 5.09181 12.9072 4.7998 12.5611 4.7998H11.4385Z"
-              fill="white"
-            />
-            <path
-              d="M11.9998 18.5998C12.6625 18.5998 13.1998 18.0625 13.1998 17.3998C13.1998 16.7371 12.6625 16.1998 11.9998 16.1998C11.3371 16.1998 10.7998 16.7371 10.7998 17.3998C10.7998 18.0625 11.3371 18.5998 11.9998 18.5998Z"
-              fill="white"
-            />
-          </svg>
-        </div>
-        <div class="message">
-          <div class="content">
-            <div
-              class="content_description"
-              [innerHTML]="
-                'MODALS.TOPIC_INVITE_VIEW_BTN_LOGIN_AS'
-                  | translate : { email: invite.user.email }
-              "
-            ></div>
-          </div>
-        </div>
-      </div>
+    </div>
 
+    <div class="dialog_footer dialog_footer_join">
       <div class="button_wrap">
         <div class="actions_wrap">
           <button class="btn_medium_submit" [dialog-close]="true">
@@ -298,21 +219,5 @@
         ></a>
       </div>
     </div>
-
-    <!--div class="dialog_content">
-    <div class="dialog_info_wrap">
-      <div class="dialog_info row">
-        <div>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect width="24" height="24" rx="4" fill="#1168a8"></rect>
-          <path d="M13.75 6.5C13.75 7.32843 13.0784 8 12.25 8C11.4216 8 10.75 7.32843 10.75 6.5C10.75 5.67157 11.4216 5 12.25 5C13.0784 5 13.75 5.67157 13.75 6.5Z" fill="white"></path>
-          <path d="M10.2099 10.0623L13.6449 9.63184L12.1434 16.6893C12.0369 17.1993 12.1869 17.4888 12.5994 17.4888C12.8904 17.4888 13.3284 17.3838 13.6284 17.1198L13.4964 17.7438C13.0659 18.2628 12.1164 18.6408 11.2989 18.6408C10.2444 18.6408 9.79593 18.0078 10.0869 16.6623L11.1939 11.4603C11.2899 11.0208 11.2029 10.8618 10.7619 10.7568L10.0869 10.6323L10.2099 10.0623Z" fill="white"></path>
-          </svg>
-        </div>
-        <span translate="MODALS.TOPIC_INVITE_VIEW_LBL_ADDITIONAL_ACTIONS"> </span>
-        <a [href]="config.about" translate="MODALS.TOPIC_INVITE_VIEW_LNK_LEARN_MORE"></a>
-      </div>
-    </div>
-  </!--div-->
   </div>
 </div>
