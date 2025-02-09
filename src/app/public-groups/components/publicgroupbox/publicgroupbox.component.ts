@@ -1,12 +1,12 @@
 import { AuthService } from '@services/auth.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { DialogService } from 'src/app/shared/dialog';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { Group } from 'src/app/interfaces/group';
 import { LocationService } from '@services/location.service';
-import { GroupJoinService } from '@services/group-join.service';
 import { LoginDialogComponent } from 'src/app/account/components/login/login.component';
+import { GroupService } from '@services/group.service';
 
 @Component({
   selector: 'public-group-box',
@@ -18,9 +18,8 @@ export class PublicgroupboxComponent implements OnInit {
   constructor(
     private Location: LocationService,
     private dialog: DialogService,
-    private route: ActivatedRoute,
+    private GroupService: GroupService,
     private router: Router,
-    private GroupJoinService: GroupJoinService,
     private Auth: AuthService
   ) {}
 
@@ -28,6 +27,14 @@ export class PublicgroupboxComponent implements OnInit {
 
   viewGroup() {
     this.router.navigate(['/groups', this.group.id]);
+  }
+
+  generateJoinUrl() {
+    if (this.group.join.token && this.GroupService.canShare(this.group)) {
+      return ['/groups/join/', this.group.join.token];
+    } else {
+      return ['/groups/', this.group.id, '/join'];
+    }
   }
 
   joinGroup() {
@@ -42,66 +49,10 @@ export class PublicgroupboxComponent implements OnInit {
       });
       loginDialog.afterClosed().subscribe((result) => {});
     } else {
-      // const joinDialog = this.dialog.open(GroupJoinComponent, {
-      //   data: {
-      //     group: this.group
-      //   }
-      // })
-      // joinDialog.afterClosed().subscribe((res) => {
-      //   if (res === true) {
-      //     this.GroupJoinService
-      //       .joinPublic(this.group.id).pipe(take(1)).subscribe(
-      //         {
-      //           next: (res) => {
-      //             this.group.userLevel = res.userLevel;
-      //             this.router.navigate(['groups', this.group.id]);
-      //           },
-      //           error: (err) => {
-      //             console.error('Failed to join Topic', err)
-      //           }
-      //         }
-      //       )
-      //   }
-      // });
+      /**
+       * @note Workaround to prevent creating a new dialog component.
+       */
+      this.router.navigate(this.generateJoinUrl());
     }
   }
-  /*
-  joinGroup() {
-    if (!this.Auth.loggedIn$.value) {
-      const loginDialog = this.dialog.open(LoginDialogComponent, {
-        data: { redirectSuccess: ['/groups', this.group.id] }
-      });
-      loginDialog.afterClosed().subscribe(result => {
-        console.log(`Login result: ${result}`);
-      });
-    } else {
-
-      const joinDialog = this.dialog.open(ConfirmDialogComponent, {
-        data: {
-          title: 'MODALS.GROUP_JOIN_CONFIRM_TXT_ARE_YOU_SURE',
-          heading: 'MODALS.GROUP_JOIN_CONFIRM_HEADING',
-          closeBtn: 'MODALS.GROUP_JOIN_CONFIRM_BTN_NO',
-          confirmBtn: 'MODALS.GROUP_JOIN_CONFIRM_BTN_YES',
-          info: 'MODALS.GROUP_JOIN_CONFIRM_TXT_DESC',
-          points: ['MODALS.GROUP_JOIN_CONFIRM_TXT_POINT1', 'MODALS.GROUP_JOIN_CONFIRM_TXT_POINT2', 'MODALS.GROUP_JOIN_CONFIRM_TXT_POINT3']
-        }
-      });
-
-      joinDialog.afterClosed().subscribe(result => {
-        if (result === true) {
-          this.GroupJoinService
-            .join(this.group.join.token).pipe(take(1)).subscribe(
-              {
-                next: (res) => {
-                  this.group.userLevel = res.userLevel;
-                },
-                error: (err) => {
-                  console.error('Failed to join Topic', err)
-                }
-              }
-            )
-        }
-      });
-    }
-  }*/
 }

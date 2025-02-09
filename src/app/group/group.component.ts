@@ -633,30 +633,17 @@ export class GroupComponent implements OnInit {
   }
 
   joinGroup(group: Group) {
-    // const joinDialog = this.dialog.open(GroupJoinComponent, {
-    //   data: {
-    //     group: group
-    //   }
-    // })/*.openConfirm({
-    //     template: '/views/modals/group_join_confirm.html',
-    //     closeByEscape: false
-    // })*/
-    // joinDialog.afterClosed().subscribe((res) => {
-    //   if (res === true) {
-    //     this.GroupJoinService
-    //       .joinPublic(group.id).pipe(take(1)).subscribe(
-    //         {
-    //           next: (res) => {
-    //             group.userLevel = res.userLevel;
-    //             this.GroupService.reload();
-    //           },
-    //           error: (err) => {
-    //             console.error('Failed to join Topic', err)
-    //           }
-    //         }
-    //       )
-    //   }
-    // });
+    this.GroupJoinService.joinPublic(group.id)
+      .pipe(take(1))
+      .subscribe({
+        next: (res) => {
+          group.userLevel = res.userLevel;
+          this.GroupService.reload();
+        },
+        error: (err) => {
+          console.error('Failed to join Topic', err);
+        },
+      });
   }
 
   toggleFavourite(group: Group) {
