@@ -507,29 +507,17 @@ export class TopicComponent {
   }
 
   joinTopic(topic: Topic) {
-    // const joinDialog = this.DialogService.open(TopicJoinComponent, {
-    //   data: {
-    //     topic,
-    //   },
-    // }); /*.openConfirm({
-    //     template: '/views/modals/group_join_confirm.html',
-    //     closeByEscape: false
-    // })*/
-    // joinDialog.afterClosed().subscribe((res) => {
-    //   if (res === true) {
-    //     this.TopicJoinService.joinPublic(topic.id)
-    //       .pipe(take(1))
-    //       .subscribe({
-    //         next: (res) => {
-    //           topic.permission.level = res.userLevel;
-    //           this.TopicService.reloadTopic();
-    //         },
-    //         error: (err) => {
-    //           console.error('Failed to join Topic', err);
-    //         },
-    //       });
-    //   }
-    // });
+    this.TopicJoinService.joinPublic(topic.id)
+      .pipe(take(1))
+      .subscribe({
+        next: (res) => {
+          topic.permission.level = res.userLevel;
+          this.TopicService.reloadTopic();
+        },
+        error: (err) => {
+          console.error('Failed to join Topic', err);
+        },
+      });
   }
 
   leaveTopic(topic: Topic) {
