@@ -7,25 +7,25 @@ export interface InviteData {
 }
 
 export interface InviteDialogData {
-  imageUrl: string | undefined;
-  title: string;
-  intro: string | undefined;
-  description: string | undefined;
+  imageUrl: string | null;
+  title: string | null;
+  intro: string | null;
+  description: string | null;
   creator: {
     imageUrl: string | undefined;
     name: string;
-  };
+  } | null;
   user: {
     email: string;
     isRegistered: boolean;
-  };
-  level: string;
+  } | null;
+  level: string | null;
   visibility: string;
-  currentUrl: string;
   publicAccess: {
     title: string;
     link: string[];
   } | null;
+  type: 'join' | 'invite';
 }
 
 export interface ReportData {

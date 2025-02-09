@@ -49,11 +49,14 @@ export class TopicInvitationDialogComponent {
         user: topicInvite.user,
         level: topicInvite.level,
         visibility: topicInvite.topic.visibility,
-        currentUrl,
-        publicAccess: {
-          title: 'COMPONENTS.TOPIC_JOIN.BTN_GO_TO_TOPIC',
-          link: ['/topics/', topicInvite.topic.id as string],
-        },
+        publicAccess:
+          topicInvite.topic.visibility === 'public'
+            ? {
+                title: 'COMPONENTS.TOPIC_JOIN.BTN_GO_TO_TOPIC',
+                link: ['/topics/', topicInvite.topic.id as string],
+              }
+            : null,
+        type: 'invite',
       };
       const invitationDialog = dialog.open(InvitationDialogComponent, {
         /**

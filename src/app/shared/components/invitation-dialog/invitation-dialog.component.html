@@ -75,13 +75,21 @@
         </div>
 
         <div class="content_inner">
-          <div class="topic_title" [innerHTML]="dialogData.title"></div>
+          <div
+            *ngIf="dialogData.title"
+            class="topic_title"
+            [innerHTML]="dialogData.title"
+          ></div>
 
-          <div class="topic_text" [innerHTML]="dialogData.description"></div>
+          <div
+            *ngIf="dialogData.intro || dialogData.description"
+            class="topic_text"
+            [innerHTML]="dialogData.intro || dialogData.description"
+          ></div>
 
           <hr />
 
-          <div class="dialog_info row">
+          <div *ngIf="dialogData.creator" class="dialog_info row">
             <div translate="COMPONENTS.TOPIC_JOIN.TOPIC_CREATED_BY"></div>
             <div class="profile_image_wrap">
               <img
@@ -107,7 +115,14 @@
         </div>
       </div>
 
-      <div class="content_row">
+      <div
+        class="content_row"
+        *ngIf="
+          (dialogData.creator && dialogData.creator.name) ||
+          (dialogData.user && dialogData.user.email) ||
+          dialogData.level
+        "
+      >
         <div class="dialog_info content_inner">
           <div
             class="content_title"
@@ -115,17 +130,23 @@
           ></div>
 
           <ul class="content_list content_list_details">
-            <li>
+            <li
+              *ngIf="
+                dialogData.creator &&
+                dialogData.creator.name &&
+                dialogData.type === 'invite'
+              "
+            >
               <div translate="MODALS.TOPIC_INVITE_VIEW_LBL_INVITED_BY"></div>
               <div class="bold">{{ dialogData.creator.name }}</div>
             </li>
-            <li>
+            <li *ngIf="dialogData.user && dialogData.user.email">
               <div
                 translate="MODALS.TOPIC_INVITE_VIEW_LBL_INVITATION_SENT_TO"
               ></div>
               <div class="bold">{{ dialogData.user.email }}</div>
             </li>
-            <li>
+            <li *ngIf="dialogData.level">
               <div translate="MODALS.TOPIC_INVITE_VIEW_LBL_TOPIC_LEVEL"></div>
               <div class="bold">
                 {{
@@ -191,18 +212,7 @@
       <div class="button_wrap">
         <div class="actions_wrap">
           <button class="btn_medium_submit" [dialog-close]="true">
-            <span
-              *ngIf="dialogData.user.isRegistered && loggedIn"
-              translate="MODALS.TOPIC_INVITE_VIEW_BTN_JOIN"
-            ></span>
-            <span
-              *ngIf="dialogData.user.isRegistered && !loggedIn"
-              translate="MODALS.TOPIC_INVITE_VIEW_BTN_GO_TO_LOGIN"
-            ></span>
-            <span
-              *ngIf="!dialogData.user.isRegistered"
-              translate="MODALS.TOPIC_INVITE_VIEW_BTN_COMPLETE_ACCOUNT"
-            ></span>
+            <span translate="MODALS.TOPIC_INVITE_VIEW_BTN_JOIN"></span>
           </button>
           <button
             *ngIf="dialogData.publicAccess !== null"

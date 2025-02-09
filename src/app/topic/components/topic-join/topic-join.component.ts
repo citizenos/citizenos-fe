@@ -1,34 +1,15 @@
 import { TopicService } from '@services/topic.service';
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { take, tap, combineLatest } from 'rxjs';
 import { TopicJoinService } from '@services/topic-join.service';
 import { LocationService } from '@services/location.service';
 import { Topic } from 'src/app/interfaces/topic';
-import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { AuthService } from '@services/auth.service';
 import { AppService } from '@services/app.service';
-
-@Component({
-  selector: 'topic-join',
-  templateUrl: './topic-join.component.html',
-  styleUrls: ['./topic-join.component.scss'],
-})
-export class TopicJoinComponent {
-  topic: Topic;
-  constructor(
-    @Inject(DIALOG_DATA) data: any,
-    public dialog: DialogService,
-    public router: Router
-  ) {
-    this.topic = data.topic;
-  }
-
-  goToTopic() {
-    this.dialog.closeAll();
-    this.router.navigate(['/topics/', this.topic.id]);
-  }
-}
+import { InvitationDialogComponent } from '@shared/components/invitation-dialog/invitation-dialog.component';
+import { InviteDialogData } from '@interfaces/dialogdata';
 
 @Component({
   selector: 'topic-token-join',
@@ -87,10 +68,33 @@ export class TopicTokenJoinComponent {
       token: string,
       redirectSuccess: string
     ) {
-      const joinDialog = dialog.open(TopicJoinComponent, {
-        data: {
-          topic,
-        },
+      console.log(topic);
+      const data: InviteDialogData = {
+        imageUrl: topic.imageUrl,
+        title: topic.title,
+        intro: topic.intro,
+        description: topic.description,
+        creator: topic.creator,
+        user: null,
+        /**
+         * @note Hardcode level to read as the API returns
+         * topic object, but not invitation object.
+         *
+         * @todo Keep eye on it and fix on API level if needed.
+         */
+        level: TopicService.LEVELS.read,
+        visibility: topic.visibility,
+        publicAccess:
+          topic.visibility === 'public'
+            ? {
+                title: 'COMPONENTS.TOPIC_JOIN.BTN_GO_TO_TOPIC',
+                link: ['/topics/', topic.id as string],
+              }
+            : null,
+        type: 'join',
+      };
+      const joinDialog = dialog.open(InvitationDialogComponent, {
+        data: data as unknown as Record<string, unknown>,
       });
 
       joinDialog.afterClosed().subscribe((confirm) => {
@@ -104,20 +108,21 @@ export class TopicTokenJoinComponent {
 
     this.join$ = combineLatest([
       Auth.user,
-      Auth.loggedIn$,      
+      Auth.loggedIn$,
       route.params,
       route.queryParams,
     ])
       .pipe(
         take(1),
         tap(([user, loggedIn, routeParams, queryParams]) => {
-          console.log(user)
           this.token = routeParams['token'];
           TopicJoinService.get(this.token).subscribe({
             next: (topic) => {
               const topicId = topic.id;
+
               const userIsInTopic =
                 topic.permission && topic.permission.level !== 'none';
+
               const joinTopicUrlForRedirect = Location.currentUrl();
 
               const hasDirectJoin =
