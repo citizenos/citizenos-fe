@@ -68,7 +68,6 @@ export class TopicTokenJoinComponent {
       token: string,
       redirectSuccess: string
     ) {
-      console.log(topic);
       const data: InviteDialogData = {
         imageUrl: topic.imageUrl,
         title: topic.title,
