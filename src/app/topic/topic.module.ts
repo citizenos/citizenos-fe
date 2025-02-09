@@ -54,7 +54,6 @@ import {
   ArgumentReportModerateComponent,
   ArgumentReportModerateDialogComponent,
 } from './components/argument-report-moderate/argument-report-moderate.component';
-import { TopicJoinComponent } from './components/topic-join/topic-join.component';
 import { TopicVoteDelegateComponent } from './components/topic-vote-delegate/topic-vote-delegate.component';
 import { DuplicateTopicDialogComponent } from './components/duplicate-topic-dialog/duplicate-topic-dialog.component';
 import { ArgumentWhyDialogComponent } from './components/argument-why-dialog/argument-why-dialog.component';
@@ -143,7 +142,6 @@ import { TopicSettingsLockedComponent } from './components/topic-settings-locked
     ArgumentReportComponent,
     ArgumentReportModerateComponent,
     ArgumentReportModerateDialogComponent,
-    TopicJoinComponent,
     TopicVoteDelegateComponent,
     DuplicateTopicDialogComponent,
     ArgumentWhyDialogComponent,
