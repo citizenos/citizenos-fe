@@ -8,7 +8,6 @@ import { SharedModule } from '../shared/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { GroupCreateComponent } from './components/group-create/group-create.component';
-import { GroupJoinComponent } from './components/group-join/group-join.component';
 import { GroupSettingsComponent } from './components/group-settings/group-settings.component';
 import { GroupRequestTopicsComponent } from './components/group-request-topics/group-request-topics.component';
 import { GroupRequestTopicsHandlerComponent } from './components/group-request-topics-handler/group-request-topics-handler.component';
@@ -18,7 +17,6 @@ import { TopicRequestsComponent } from './components/topic-requests/topic-reques
   declarations: [
     GroupComponent,
     GroupCreateComponent,
-    GroupJoinComponent,
     GroupSettingsComponent,
     GroupRequestTopicsComponent,
     GroupRequestTopicsHandlerComponent,
