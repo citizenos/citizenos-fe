@@ -28,7 +28,13 @@
             />
           </svg>
         </div>
-        <h4 class="title" translate="MODALS.TOPIC_INVITE_VIEW_HEADING"></h4>
+        <h4 class="title">
+          {{
+            dialogData.view === "topic"
+              ? ("MODALS.TOPIC_INVITE_VIEW_HEADING" | translate)
+              : ("MODALS.GROUP_INVITE_VIEW_HEADING" | translate)
+          }}
+        </h4>
       </div>
       <div class="dialog_close">
         <a class="btn_dialog_close icon" dialog-close>
@@ -55,6 +61,7 @@
             *ngIf="dialogData.imageUrl"
             [src]="dialogData.imageUrl"
             class="content_image"
+            [ngClass]="dialogData.view"
           />
           <div class="no_image" *ngIf="!dialogData.imageUrl">
             <svg
@@ -90,7 +97,14 @@
           <hr />
 
           <div *ngIf="dialogData.creator" class="dialog_info row">
-            <div translate="COMPONENTS.TOPIC_JOIN.TOPIC_CREATED_BY"></div>
+            <div
+              *ngIf="dialogData.view === 'topic'"
+              translate="COMPONENTS.TOPIC_JOIN.TOPIC_CREATED_BY"
+            ></div>
+            <div
+              *ngIf="dialogData.view === 'group'"
+              translate="COMPONENTS.GROUP_JOIN.GROUP_CREATED_BY"
+            ></div>
             <div class="profile_image_wrap">
               <img
                 class="profile_image"
@@ -147,7 +161,14 @@
               <div class="bold">{{ dialogData.user.email }}</div>
             </li>
             <li *ngIf="dialogData.level">
-              <div translate="MODALS.TOPIC_INVITE_VIEW_LBL_TOPIC_LEVEL"></div>
+              <div
+                *ngIf="dialogData.view === 'topic'"
+                translate="MODALS.TOPIC_INVITE_VIEW_LBL_TOPIC_LEVEL"
+              ></div>
+              <div
+                *ngIf="dialogData.view === 'group'"
+                translate="MODALS.GROUP_INVITE_VIEW_LBL_GROUP_LEVEL"
+              ></div>
               <div class="bold">
                 {{
                   "TXT_TOPIC_LEVELS_" + dialogData.level | uppercase | translate
@@ -160,10 +181,13 @@
 
       <div class="content_row">
         <div class="dialog_info content_inner">
-          <div
-            translate="MODALS.TOPIC_INVITE_VIEW_HEADING_AFTER_JOIN"
-            class="content_title"
-          ></div>
+          <div class="content_title">
+            {{
+              dialogData.view === "topic"
+                ? ("MODALS.TOPIC_INVITE_VIEW_HEADING_AFTER_JOIN" | translate)
+                : ("MODALS.GROUP_INVITE_VIEW_HEADING_AFTER_JOIN" | translate)
+            }}
+          </div>
 
           <ul class="content_list">
             <li>
@@ -180,9 +204,11 @@
                 />
               </svg>
 
-              <span
-                translate="MODALS.TOPIC_INVITE_VIEW_AFTER_JOIN_ITEM_1"
-              ></span>
+              <span>{{
+                dialogData.view === "topic"
+                  ? ("MODALS.TOPIC_INVITE_VIEW_AFTER_JOIN_ITEM_1" | translate)
+                  : ("MODALS.GROUP_INVITE_VIEW_AFTER_JOIN_ITEM_1" | translate)
+              }}</span>
             </li>
 
             <li>
@@ -199,12 +225,53 @@
                 />
               </svg>
 
-              <span
-                translate="MODALS.TOPIC_INVITE_VIEW_AFTER_JOIN_ITEM_2"
-              ></span>
+              <span>{{
+                dialogData.view === "topic"
+                  ? ("MODALS.TOPIC_INVITE_VIEW_AFTER_JOIN_ITEM_2" | translate)
+                  : ("MODALS.GROUP_INVITE_VIEW_AFTER_JOIN_ITEM_2" | translate)
+              }}</span>
             </li>
           </ul>
         </div>
+      </div>
+
+      <div
+        class="into_box"
+        *ngIf="dialogData.user && !dialogData.user.isRegistered"
+      >
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect width="24" height="24" rx="12" fill="#F39129" />
+          <path
+            d="M11.4385 4.7998C11.0924 4.7998 10.8181 5.09181 10.8396 5.43723L11.3646 13.8372C11.3844 14.1535 11.6466 14.3998 11.9635 14.3998H12.0361C12.353 14.3998 12.6152 14.1535 12.635 13.8372L13.16 5.43723C13.1816 5.09181 12.9072 4.7998 12.5611 4.7998H11.4385Z"
+            fill="white"
+          />
+          <path
+            d="M11.9998 18.5998C12.6625 18.5998 13.1998 18.0625 13.1998 17.3998C13.1998 16.7371 12.6625 16.1998 11.9998 16.1998C11.3371 16.1998 10.7998 16.7371 10.7998 17.3998C10.7998 18.0625 11.3371 18.5998 11.9998 18.5998Z"
+            fill="white"
+          />
+        </svg>
+
+        <div
+          *ngIf="dialogData.view === 'topic'"
+          [innerHTML]="
+            'MODALS.TOPIC_INVITE_VIEW_TXT_COMPLETE_ACCOUNT'
+              | translate : { email: dialogData.user.email }
+          "
+        ></div>
+
+        <div
+          *ngIf="dialogData.view === 'group'"
+          [innerHTML]="
+            'MODALS.GROUP_INVITE_VIEW_TXT_COMPLETE_ACCOUNT'
+              | translate : { email: dialogData.user.email }
+          "
+        ></div>
       </div>
     </div>
 
@@ -212,7 +279,11 @@
       <div class="button_wrap">
         <div class="actions_wrap">
           <button class="btn_medium_submit" [dialog-close]="true">
-            <span translate="MODALS.TOPIC_INVITE_VIEW_BTN_JOIN"></span>
+            <span>{{
+              dialogData.view === "topic"
+                ? ("MODALS.TOPIC_INVITE_VIEW_BTN_JOIN" | translate)
+                : ("VIEWS.PUBLIC_GROUPS.BTN_JOIN_GROUP" | translate)
+            }}</span>
           </button>
           <button
             *ngIf="dialogData.publicAccess !== null"

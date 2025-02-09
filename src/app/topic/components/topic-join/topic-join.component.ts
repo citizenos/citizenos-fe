@@ -91,6 +91,7 @@ export class TopicTokenJoinComponent {
               }
             : null,
         type: 'join',
+        view: 'topic',
       };
       const joinDialog = dialog.open(InvitationDialogComponent, {
         data: data as unknown as Record<string, unknown>,

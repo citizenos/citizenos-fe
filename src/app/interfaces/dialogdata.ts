@@ -26,6 +26,7 @@ export interface InviteDialogData {
     link: string[];
   } | null;
   type: 'join' | 'invite';
+  view: 'topic' | 'group';
 }
 
 export interface ReportData {

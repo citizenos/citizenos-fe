@@ -57,6 +57,7 @@ export class TopicInvitationDialogComponent {
               }
             : null,
         type: 'invite',
+        view: 'topic',
       };
       const invitationDialog = dialog.open(InvitationDialogComponent, {
         /**

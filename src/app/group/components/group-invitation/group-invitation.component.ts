@@ -1,39 +1,13 @@
-import { Component, Inject } from '@angular/core';
-import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
+import { Component } from '@angular/core';
+import { DialogService } from 'src/app/shared/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, take, tap } from 'rxjs';
 import { AuthService } from '@services/auth.service';
-import { ConfigService } from '@services/config.service';
 import { LocationService } from '@services/location.service';
 import { NotificationService } from '@services/notification.service';
 import { GroupInviteUserService } from '@services/group-invite-user.service';
-import { InviteData } from 'src/app/interfaces/dialogdata';
-
-@Component({
-  selector: 'app-group-invitation',
-  templateUrl: './group-invitation.component.html',
-  styleUrls: ['./group-invitation.component.scss'],
-})
-export class GroupInvitationComponent {
-  invite: any;
-  currentUrl: string | undefined;
-  config = <any>this.ConfigService.get('links');
-  constructor(
-    private ConfigService: ConfigService,
-    private dialog: DialogService,
-    @Inject(DIALOG_DATA) private data: InviteData,
-    private Auth: AuthService,
-    private router: Router
-  ) {
-    this.invite = this.data.invite;
-    this.currentUrl = this.data.currentUrl;
-  }
-
-  goToGroup() {
-    this.dialog.closeAll();
-    this.router.navigate(['/groups/', this.invite.groupId]);
-  }
-}
+import { InvitationDialogComponent } from '@shared/components/invitation-dialog/invitation-dialog.component';
+import { InviteDialogData } from '@interfaces/dialogdata';
 
 @Component({
   selector: 'group-invitation-dialog',
@@ -66,7 +40,7 @@ export class GroupInvitationDialogComponent {
         });
     }
 
-    function showJoinDialog(groupInvite: any, currentUrl: string) {
+    function showJoinDialog(invite: any, currentUrl: string) {
       /**
        * @note Add a redirectSuccess query parameter to the login URL
        * to join the user to the topic directly after login.
@@ -80,33 +54,51 @@ export class GroupInvitationDialogComponent {
 
       const queryParams = {
         redirectSuccess: redirect,
-        email: groupInvite.user.email,
+        email: invite.user.email,
       };
 
-      const invitationDialog = dialog.open(GroupInvitationComponent, {
-        data: {
-          invite: groupInvite,
-          currentUrl,
-        },
+      console.log(invite);
+      const data: InviteDialogData = {
+        imageUrl: invite.group.imageUrl,
+        title: invite.group.name,
+        intro: null,
+        description: invite.group.description,
+        creator: invite.creator,
+        user: invite.user,
+        level: invite.level,
+        visibility: invite.group.visibility,
+        publicAccess:
+          invite.group.visibility === 'public'
+            ? {
+                title: 'COMPONENTS.GROUP_JOIN.BTN_GO_TO_GROUP',
+                link: ['/groups/', invite.group.id as string],
+              }
+            : null,
+        type: 'invite',
+        view: 'group',
+      };
+
+      const invitationDialog = dialog.open(InvitationDialogComponent, {
+        data: data as unknown as Record<string, unknown>,
       });
 
       invitationDialog.afterClosed().subscribe({
         next: (res) => {
           if (res === true) {
             if (Auth.loggedIn$.value) {
-              if (groupInvite.user.id !== Auth.user.value.id) {
+              if (invite.user.id !== Auth.user.value.id) {
                 Auth.logout()
                   .pipe(take(1))
                   .subscribe(() => {
                     router.navigate(['/account/login'], {
                       queryParams: {
                         ...queryParams,
-                        userId: groupInvite.user.id,
+                        userId: invite.user.id,
                       },
                     });
                   });
               } else {
-                joinGroup(groupInvite);
+                joinGroup(invite);
               }
             } else {
               /**
@@ -114,18 +106,18 @@ export class GroupInvitationDialogComponent {
                * Or good to have an eye on this case.
                * @see group-invite-user.service.ts
                */
-              if (groupInvite.user.isRegistered) {
+              if (invite.user.isRegistered) {
                 router.navigate(['/account/login'], {
                   queryParams: {
                     ...queryParams,
-                    userId: groupInvite.user.id,
+                    userId: invite.user.id,
                   },
                 });
               } else {
                 router.navigate(['/account', 'signup'], {
                   queryParams: {
                     ...queryParams,
-                    inviteId: groupInvite.id,
+                    inviteId: invite.id,
                   },
                 });
               }
