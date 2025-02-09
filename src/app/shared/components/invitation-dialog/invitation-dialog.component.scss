@@ -26,19 +26,20 @@
 
 .content_inner {
   padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 
   .topic_title {
     font-size: 18px;
     line-height: 24px;
     font-weight: 600;
-    margin-bottom: 8px;
   }
 
   .content_title {
     font-size: 14px;
     line-height: 16px;
     font-weight: 600;
-    margin-bottom: 16px;
   }
 
   .topic_text {
@@ -53,7 +54,7 @@
   }
 
   hr {
-    margin: 16px 0;
+    width: 100%;
     color: rgba(225, 231, 238, 1);
   }
 }
