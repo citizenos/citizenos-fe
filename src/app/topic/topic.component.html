@@ -42,7 +42,7 @@
           ></button>
 
           <div
-            *ngIf="!topic.permission.level || topic.permission.level !== 'none'"
+            *ngIf="topic.permission.level && topic.permission.level !== 'none'"
             class="permissions_lable tablet_hidden"
             [translate]="
               topic.permission.level !== 'read'
