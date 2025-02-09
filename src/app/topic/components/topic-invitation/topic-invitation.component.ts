@@ -1,43 +1,13 @@
-import { Component, Inject } from '@angular/core';
-import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
+import { Component } from '@angular/core';
+import { DialogService } from 'src/app/shared/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, take, tap } from 'rxjs';
-import { InviteData } from 'src/app/interfaces/dialogdata';
 import { AuthService } from '@services/auth.service';
-import { ConfigService } from '@services/config.service';
 import { LocationService } from '@services/location.service';
 import { NotificationService } from '@services/notification.service';
 import { TopicInviteUserService } from '@services/topic-invite-user.service';
-
-@Component({
-  selector: 'app-topic-invitation',
-  templateUrl: './topic-invitation.component.html',
-  styleUrls: ['./topic-invitation.component.scss'],
-})
-export class TopicInvitationComponent {
-  invite;
-  currentUrl: string | undefined;
-  config = this.ConfigService.get('links');
-  constructor(
-    private ConfigService: ConfigService,
-    private dialog: DialogService,
-    @Inject(DIALOG_DATA) private data: InviteData,
-    private Auth: AuthService,
-    private router: Router
-  ) {
-    this.invite = data.invite;
-    this.currentUrl = this.data.currentUrl;
-  }
-
-  goToTopic() {
-    this.dialog.closeAll();
-    this.router.navigate(['/topics/', this.invite.topic.id]);
-  }
-
-  loggedIn() {
-    return this.Auth.loggedIn$.value;
-  }
-}
+import { InvitationDialogComponent } from '@shared/components/invitation-dialog/invitation-dialog.component';
+import { InviteDialogData } from '@interfaces/dialogdata';
 
 @Component({
   selector: 'topic-invite-dialog',
@@ -70,11 +40,26 @@ export class TopicInvitationDialogComponent {
     }
 
     function showJoinDialog(topicInvite: any, currentUrl: string) {
-      const invitationDialog = dialog.open(TopicInvitationComponent, {
-        data: {
-          invite: topicInvite,
-          currentUrl,
+      const data: InviteDialogData = {
+        imageUrl: topicInvite.topic.imageUrl,
+        title: topicInvite.topic.title,
+        intro: topicInvite.topic.intro,
+        description: topicInvite.topic.description,
+        creator: topicInvite.creator,
+        user: topicInvite.user,
+        level: topicInvite.level,
+        visibility: topicInvite.topic.visibility,
+        currentUrl,
+        publicAccess: {
+          title: 'COMPONENTS.TOPIC_JOIN.BTN_GO_TO_TOPIC',
+          link: ['/topics/', topicInvite.topic.id as string],
         },
+      };
+      const invitationDialog = dialog.open(InvitationDialogComponent, {
+        /**
+         * @todo Fix types.
+         */
+        data: data as unknown as Record<string, unknown>,
       });
 
       /**
@@ -95,6 +80,7 @@ export class TopicInvitationDialogComponent {
 
       invitationDialog.afterClosed().subscribe({
         next: (res) => {
+          console.log('hwew!');
           if (res === true) {
             if (Auth.loggedIn$.value) {
               if (topicInvite.user.id !== Auth.user.value.id) {
