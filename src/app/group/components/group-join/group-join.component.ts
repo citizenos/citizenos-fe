@@ -1,34 +1,15 @@
 import { GroupService } from '@services/group.service';
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest, switchMap, take, tap } from 'rxjs';
+import { combineLatest, take, tap } from 'rxjs';
 import { GroupJoinService } from '@services/group-join.service';
 import { LocationService } from '@services/location.service';
 import { Group } from 'src/app/interfaces/group';
-import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
+import { DialogService } from 'src/app/shared/dialog';
 import { AppService } from '@services/app.service';
 import { AuthService } from '@services/auth.service';
-
-@Component({
-  selector: 'group-join',
-  templateUrl: './group-join.component.html',
-  styleUrls: ['./group-join.component.scss'],
-})
-export class GroupJoinComponent {
-  group: Group;
-  constructor(
-    @Inject(DIALOG_DATA) data: any,
-    public dialog: DialogService,
-    public router: Router
-  ) {
-    this.group = data.group;
-  }
-
-  goToGroup() {
-    this.dialog.closeAll();
-    this.router.navigate(['/groups/', this.group.id]);
-  }
-}
+import { InvitationDialogComponent } from '@shared/components/invitation-dialog/invitation-dialog.component';
+import { InviteDialogData } from '@interfaces/dialogdata';
 
 @Component({
   selector: 'group-token-join',
@@ -111,11 +92,35 @@ export class GroupTokenJoinComponent {
       token: string,
       redirectSuccess?: string
     ) {
-      const joinDialog = dialog.open(GroupJoinComponent, {
-        data: {
-          group,
-          token,
-        },
+      console.log(group);
+      const data: InviteDialogData = {
+        imageUrl: group.imageUrl,
+        title: group.name,
+        intro: null,
+        description: group.description,
+        creator: group.creator,
+        user: null,
+        /**
+         * @note Hardcode level to read as the API returns
+         * topic object, but not invitation object.
+         *
+         * @todo Keep eye on it and fix on API level if needed.
+         */
+        level: 'read',
+        visibility: group.visibility,
+        publicAccess:
+          group.visibility === 'public'
+            ? {
+                title: 'COMPONENTS.GROUP_JOIN.BTN_GO_TO_GROUP',
+                link: ['/groups/', group.id as string],
+              }
+            : null,
+        type: 'join',
+        view: 'group',
+      };
+
+      const joinDialog = dialog.open(InvitationDialogComponent, {
+        data: data as unknown as Record<string, unknown>,
       });
 
       joinDialog.afterClosed().subscribe((confirm) => {
@@ -126,13 +131,14 @@ export class GroupTokenJoinComponent {
     }
 
     this.join$ = combineLatest([
+      Auth.user,
       Auth.loggedIn$,
       route.params,
       route.queryParams,
     ])
       .pipe(
         take(1),
-        tap(([loggedIn, routeParams, queryParams]) => {
+        tap(([user, loggedIn, routeParams, queryParams]) => {
           this.token = routeParams['token'];
 
           GroupJoinService.get(this.token).subscribe({
@@ -149,6 +155,10 @@ export class GroupTokenJoinComponent {
               } else if (hasDirectJoin) {
                 if (loggedIn) {
                   joinGroup(group, this.token, redirectSuccess);
+                } else if (!user.isAuthenticated) {
+                  app.doNavigateLogin({
+                    redirectSuccess,
+                  });
                 }
               } else {
                 router.navigate(['dashboard']);

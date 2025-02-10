@@ -10,14 +10,17 @@ export interface DialogConfig {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DialogService {
   openDialogs = <DialogRef<any>[]>[];
   scrollPosition = 0;
   constructor(private overlay: Overlay, private injector: Injector) {}
 
-  open<T, R = any>(component: ComponentType<T>,  config?: DialogConfig): DialogRef<T, R> {
+  open<T, R = any>(
+    component: ComponentType<T>,
+    config?: DialogConfig
+  ): DialogRef<T, R> {
     // Globally centered position strategy
     this.scrollPosition = window.scrollY;
     const positionStrategy = this.overlay
@@ -31,7 +34,7 @@ export class DialogService {
       positionStrategy,
       hasBackdrop: true,
       backdropClass: 'overlay-backdrop',
-      panelClass: 'overlay-panel'
+      panelClass: 'overlay-panel',
     });
 
     // Create dialogRef to return
@@ -43,8 +46,8 @@ export class DialogService {
       parent: this.injector,
       providers: [
         { provide: DialogRef, useValue: dialogRef },
-        { provide: DIALOG_DATA, useValue: config?.data || {} }
-      ]
+        { provide: DIALOG_DATA, useValue: config?.data || {} },
+      ],
     });
 
     // Attach component portal to the overlay
@@ -52,18 +55,23 @@ export class DialogService {
     overlayRef.attach(portal);
     this.openDialogs.push(dialogRef);
 
-    dialogRef.afterClosed().pipe(take(1)).subscribe(() => {
-      const index = this.openDialogs.findIndex((dialog) => dialog.component.name === dialogRef.component.name);
-      this.openDialogs.splice(index, 1);
-      setTimeout(() => {
-        window.scrollTo(0, this.scrollPosition);
+    dialogRef
+      .afterClosed()
+      .pipe(take(1))
+      .subscribe(() => {
+        const index = this.openDialogs.findIndex(
+          (dialog) => dialog.component.name === dialogRef.component.name
+        );
+        this.openDialogs.splice(index, 1);
+        setTimeout(() => {
+          window.scrollTo(0, this.scrollPosition);
+        });
       });
-    });
 
     return dialogRef;
   }
 
-  closeAll () {
+  closeAll() {
     while (this.openDialogs.length) {
       this.openDialogs.forEach((d) => {
         d.close();
@@ -71,8 +79,7 @@ export class DialogService {
     }
   }
 
-  getOpenDialogs () {
+  getOpenDialogs() {
     return of(this.openDialogs.length);
   }
 }
-
