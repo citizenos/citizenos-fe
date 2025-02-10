@@ -8,6 +8,7 @@ import { NotificationService } from '@services/notification.service';
 import { TopicInviteUserService } from '@services/topic-invite-user.service';
 import { InvitationDialogComponent } from '@shared/components/invitation-dialog/invitation-dialog.component';
 import { InviteDialogData } from '@interfaces/dialogdata';
+import { AppService } from '@services/app.service';
 
 @Component({
   selector: 'topic-invite-dialog',
@@ -24,7 +25,8 @@ export class TopicInvitationDialogComponent {
     route: ActivatedRoute,
     router: Router,
     Notification: NotificationService,
-    Location: LocationService
+    Location: LocationService,
+    app: AppService
   ) {
     function joinTopic(topicInvite: any) {
       TopicInviteUserService.accept(topicInvite)
@@ -161,6 +163,10 @@ export class TopicInvitationDialogComponent {
               } else if (topicInvite.user.id === user.id && hasDirectJoin) {
                 if (loggedIn) {
                   joinTopic(topicInvite);
+                } else if (!user.isAuthenticated) {
+                  app.doNavigateLogin({
+                    redirectSuccess: joinTopicUrlForRedirect,
+                  });
                 }
               } else {
                 router.navigate(['dashboard']);
