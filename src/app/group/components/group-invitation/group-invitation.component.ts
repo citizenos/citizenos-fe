@@ -8,6 +8,7 @@ import { NotificationService } from '@services/notification.service';
 import { GroupInviteUserService } from '@services/group-invite-user.service';
 import { InvitationDialogComponent } from '@shared/components/invitation-dialog/invitation-dialog.component';
 import { InviteDialogData } from '@interfaces/dialogdata';
+import { AppService } from '@services/app.service';
 
 @Component({
   selector: 'group-invitation-dialog',
@@ -24,7 +25,8 @@ export class GroupInvitationDialogComponent {
     route: ActivatedRoute,
     router: Router,
     Notification: NotificationService,
-    Location: LocationService
+    Location: LocationService,
+    app: AppService
   ) {
     function joinGroup(groupInvite: any) {
       GroupInviteUserService.accept(groupInvite)
@@ -57,7 +59,6 @@ export class GroupInvitationDialogComponent {
         email: invite.user.email,
       };
 
-      console.log(invite);
       const data: InviteDialogData = {
         imageUrl: invite.group.imageUrl,
         title: invite.group.name,
@@ -160,6 +161,10 @@ export class GroupInvitationDialogComponent {
               } else if (groupInvite.user.id === user.id && hasDirectJoin) {
                 if (loggedIn) {
                   joinGroup(groupInvite);
+                } else if (!user.isAuthenticated) {
+                  app.doNavigateLogin({
+                    redirectSuccess: joinUrlForRedirect,
+                  });
                 }
               } else {
                 router.navigate(['dashboard']);
