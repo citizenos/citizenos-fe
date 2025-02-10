@@ -92,7 +92,7 @@ export class GroupTokenJoinComponent {
       token: string,
       redirectSuccess?: string
     ) {
-      console.log(group)
+      console.log(group);
       const data: InviteDialogData = {
         imageUrl: group.imageUrl,
         title: group.name,
@@ -106,7 +106,7 @@ export class GroupTokenJoinComponent {
          *
          * @todo Keep eye on it and fix on API level if needed.
          */
-        level: "read",
+        level: 'read',
         visibility: group.visibility,
         publicAccess:
           group.visibility === 'public'
@@ -131,13 +131,14 @@ export class GroupTokenJoinComponent {
     }
 
     this.join$ = combineLatest([
+      Auth.user,
       Auth.loggedIn$,
       route.params,
       route.queryParams,
     ])
       .pipe(
         take(1),
-        tap(([loggedIn, routeParams, queryParams]) => {
+        tap(([user, loggedIn, routeParams, queryParams]) => {
           this.token = routeParams['token'];
 
           GroupJoinService.get(this.token).subscribe({
@@ -154,6 +155,10 @@ export class GroupTokenJoinComponent {
               } else if (hasDirectJoin) {
                 if (loggedIn) {
                   joinGroup(group, this.token, redirectSuccess);
+                } else if (!user.isAuthenticated) {
+                  app.doNavigateLogin({
+                    redirectSuccess,
+                  });
                 }
               } else {
                 router.navigate(['dashboard']);

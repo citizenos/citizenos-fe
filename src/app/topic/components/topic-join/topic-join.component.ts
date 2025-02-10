@@ -107,14 +107,14 @@ export class TopicTokenJoinComponent {
     }
 
     this.join$ = combineLatest([
-      Auth.user,
       Auth.loggedIn$,
+      Auth.user,
       route.params,
       route.queryParams,
     ])
       .pipe(
         take(1),
-        tap(([user, loggedIn, routeParams, queryParams]) => {
+        tap(([loggedIn, user, routeParams, queryParams]) => {
           this.token = routeParams['token'];
           TopicJoinService.get(this.token).subscribe({
             next: (topic) => {
