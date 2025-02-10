@@ -279,10 +279,31 @@
       <div class="button_wrap">
         <div class="actions_wrap">
           <button class="btn_medium_submit" [dialog-close]="true">
-            <span>{{
+            <span
+              *ngIf="
+                (dialogData.user && dialogData.user.isRegistered && loggedIn) ||
+                !dialogData.user
+              "
+              >{{
+                dialogData.view === "topic"
+                  ? ("MODALS.TOPIC_INVITE_VIEW_BTN_JOIN" | translate)
+                  : ("VIEWS.PUBLIC_GROUPS.BTN_JOIN_GROUP" | translate)
+              }}</span
+            >
+            <span
+              *ngIf="
+                dialogData.user && dialogData.user.isRegistered && !loggedIn
+              "
+              >{{
+                dialogData.view === "topic"
+                  ? ("MODALS.TOPIC_INVITE_VIEW_BTN_GO_TO_LOGIN" | translate)
+                  : ("MODALS.GROUP_INVITE_VIEW_BTN_GO_TO_LOGIN" | translate)
+              }}</span
+            >
+            <span *ngIf="dialogData.user && !dialogData.user.isRegistered">{{
               dialogData.view === "topic"
-                ? ("MODALS.TOPIC_INVITE_VIEW_BTN_JOIN" | translate)
-                : ("VIEWS.PUBLIC_GROUPS.BTN_JOIN_GROUP" | translate)
+                ? ("MODALS.TOPIC_INVITE_VIEW_BTN_COMPLETE_ACCOUNT" | translate)
+                : ("MODALS.GROUP_INVITE_VIEW_BTN_COMPLETE_ACCOUNT" | translate)
             }}</span>
           </button>
           <button
