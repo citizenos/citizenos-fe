@@ -203,8 +203,8 @@ export class MarkdownDirective {
     }
   }
   ngOnChanges(): void {
-    if (this.item === '') {
-      this.easymde.value(this.item);
+    if (this.item === this.initialValue) {
+      this.easymde.value(this.initialValue);
     }
   }
 
