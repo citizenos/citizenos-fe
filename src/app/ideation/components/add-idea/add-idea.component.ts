@@ -57,10 +57,11 @@ export class AddIdeaComponent {
 
   wWidth = window.innerWidth;
   focusIdeaStatement = false;
-  argumentType = <string>'pro';
+  argumentType = 'pro';
   errors: any;
   addIdea;
-  description = <string>'';
+  description = '';
+  initialValue = '';
   ideaForm = new UntypedFormGroup({
     statement: new UntypedFormControl('', [Validators.required]),
     description: new UntypedFormControl('', [Validators.required]),
@@ -81,7 +82,7 @@ export class AddIdeaComponent {
     @Inject(TranslateService) public readonly translate: TranslateService,
     @Inject(Router) readonly router: Router) {
     this.addIdea = this.app.addIdea.pipe(map((val) => {
-      this.description = '';
+      this.description = this.initialValue;
       this.ideaForm.reset();
       this.images = [];
       return val;
@@ -89,6 +90,7 @@ export class AddIdeaComponent {
   }
 
   ngOnInit(): void {
+    this.initialValue = this.ideation.template || '';
     this.IdeaAttachmentService.setParam('topicId', this.topicId);
     this.IdeaAttachmentService.setParam('ideationId', this.ideationId);
   }
@@ -121,11 +123,12 @@ export class AddIdeaComponent {
   }
 
   clear() {
-    this.updateText('')
-    this.description = '';
+    this.ideaForm.reset();
+    this.updateText(this.initialValue)
+    this.description = this.initialValue;
     this.ideaForm.patchValue({
       statement: '',
-      description: ''
+      description: this.initialValue
     });
     this.ideaForm.markAsUntouched();
     this.ideaForm.controls['statement'].patchValue('');
