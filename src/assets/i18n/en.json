@@ -2329,8 +2329,6 @@
       "SETTINGS_HEADING_ADVANCED_SETTINGS_DESC": "Further options to customise the idea gathering phase.",
       "LBL_DISABLE_REPLIES": "Replies are turned: {{value}}",
       "LBL_DISABLE_REPLIES_DESC": "Disable replies to ideas",
-      "LBL_CREATE_ITEA_TEMPLATE": "Idea template is turned: {{value}}",
-      "LBL_CREATE_ITEA_TEMPLATE_DESC": "You can create a template to give participants guidance how to compose their idea.",
       "LBL_ALLOW_ANONYMOUS": "Anonymous ideas are turned: {{value}}",
       "LBL_ALLOW_ANONYMOUS_DESC": "Ideas are posted without showing the poster’s name",
       "DEMOGRAPHICS_DATA_TITLE": "Collect demographic data",
