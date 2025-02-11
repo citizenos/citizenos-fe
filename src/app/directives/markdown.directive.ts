@@ -7,8 +7,7 @@ import { MarkdownLinkDialogComponent } from './components/markdown-link-dialog/m
   selector: '[cosmarkdown]'
 })
 export class MarkdownDirective implements OnDestroy {
-  @Input() item = ''; // The text for the tooltip to display
-  @Input() initialValue?: string | null = null;
+  @Input() item: string = ''; // The text for the tooltip to display
   @Output() itemChange = new EventEmitter<string>();
   @Input() limit: number = 100; // Optional delay input, in m
   @Input() placeholder?: string;
@@ -99,7 +98,7 @@ export class MarkdownDirective implements OnDestroy {
     }],
     minHeight: '100px',
     element: this.el.nativeElement,
-    initialValue: this.initialValue
+    initialValue: this.item
   };
   constructor(private el: ElementRef, private Translate: TranslateService, private dialog: DialogService, private injector: EnvironmentInjector) {
 
@@ -178,18 +177,15 @@ export class MarkdownDirective implements OnDestroy {
     }
   }
   ngOnInit(): void {
-    if (!this.initialValue) {
-      this.initialValue = '';
-    }
-    this.easymde.value(this.initialValue);
+    this.easymde.value(this.item);
   }
 
   ngOnDestroy(): void {
   }
 
   ngOnChanges(): void {
-    if (this.item === this.initialValue) {
-      this.easymde.value(this.initialValue);
+    if (this.item === '') {
+      this.easymde.value(this.item);
     }
   }
 
