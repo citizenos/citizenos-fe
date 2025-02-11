@@ -612,3 +612,15 @@
   position: relative;
   display: inline-block !important;
 }
+
+.template_area {
+  flex-wrap: wrap;
+
+  .template_area_wrap {
+    width: 100%;
+    margin-top: 8px;
+  }
+  .hidden {
+    display: none;
+  }
+}
