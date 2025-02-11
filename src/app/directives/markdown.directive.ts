@@ -16,7 +16,8 @@ import { MarkdownLinkDialogComponent } from './components/markdown-link-dialog/m
   selector: '[cosmarkdown]',
 })
 export class MarkdownDirective implements OnDestroy {
-  @Input() item: string = ''; // The text for the tooltip to display
+  @Input() item = ''; // The text for the tooltip to display
+  @Input() initialValue?: string | null = null;
   @Output() itemChange = new EventEmitter<string>();
   @Input() limit: number = 100; // Optional delay input, in m
   @Input() placeholder?: string;
@@ -202,8 +203,8 @@ export class MarkdownDirective implements OnDestroy {
     }
   }
   ngOnChanges(): void {
-    if (this.item === '') {
-      this.easymde.value(this.item);
+    if (this.item === this.initialValue) {
+      this.easymde.value(this.initialValue);
     }
   }
 
