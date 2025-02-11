@@ -1966,6 +1966,26 @@
       placeholder="COMPONENTS.ADD_IDEA.PLACEHOLDER_EXPLAIN_YOUR_IDEA"></textarea>
                   </div>
                 </div>
+                <div class="radio_wrap template_area ideation">
+                  <div class="radio_text_wrap">
+                    <div class="radio_lable_wrap setting_toggle">
+                      <span class="bold" translate="VIEWS.IDEATION_CREATE.LBL_CREATE_ITEA_TEMPLATE" [translateParams]="{value: (enableTemplate ? 'TOGGLE_ON' : 'TOGGLE_OFF') | translate}"></span>
+                      <cos-toggle [(model)]="enableTemplate"></cos-toggle>
+                    </div>
+                    <div class="radio_description">
+                      <span translate="VIEWS.IDEATION_CREATE.LBL_CREATE_ITEA_TEMPLATE_DESC"></span>
+                    </div>
+                  </div>
+
+                  <div class="template_area_wrap"
+                    [ngClass]="enableTemplate ? '' : 'hidden'"
+                  >
+                    <textarea cosmarkdown name="description"
+      cosmarkdowntranslatecharacterstatuskey="COMPONENTS.ADD_IDEA.IDEA_TYPE_CHARACTER_LIMIT" id="idea_description"
+      [(item)]="ideation.template" class="gray_borders" (itemChange)="updateTemplate($event)"
+      placeholder="COMPONENTS.ADD_IDEA.PLACEHOLDER_EXPLAIN_YOUR_IDEA"></textarea>
+                  </div>
+                </div>
               </div>
             </div>
           </ng-container>
