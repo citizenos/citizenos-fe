@@ -107,7 +107,6 @@ export class IdeationCreateComponent
   /**/
   override tabs = ['info', 'settings', 'ideation_system', 'preview'];
   members = <any[]>[];
-  enableTemplate = false;
   public ideation = {
     id: '',
     creatorId: '',
