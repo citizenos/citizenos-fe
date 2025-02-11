@@ -108,16 +108,24 @@ export class IdeationCreateComponent
   override tabs = ['info', 'settings', 'ideation_system', 'preview'];
   members = <any[]>[];
   enableTemplate = false;
+<<<<<<< HEAD
   ideation: Ideation = {
+=======
+  public ideation = {
+>>>>>>> b93d837f (add ideation template)
     id: '',
     creatorId: '',
     question: '',
     deadline: null,
     disableReplies: false,
     allowAnonymous: false,
+<<<<<<< HEAD
     demographicsConfig: null,
     template: '',
     // @ts-expect-error Fix later
+=======
+    template: '',
+>>>>>>> b93d837f (add ideation template)
     createdAt: '',
     // @ts-expect-error Fix later
     updatedAt: '',
@@ -424,7 +432,11 @@ export class IdeationCreateComponent
   updateTemplate(text: string) {
     setTimeout(() => {
       this.ideation.template = text;
+<<<<<<< HEAD
     });
+=======
+    })
+>>>>>>> b93d837f (add ideation template)
   }
 
   override saveAsDraft() {
