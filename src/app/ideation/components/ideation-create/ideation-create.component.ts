@@ -73,7 +73,6 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
   /**/
   override tabs = ['info', 'settings', 'ideation_system', 'preview'];
   members = <any[]>[];
-  enableTemplate = false;
   public ideation = {
     id: '',
     creatorId: '',
@@ -297,12 +296,6 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
     if (this.ideation.allowAnonymous && !this.ideation.disableReplies) {
       this.ideation.disableReplies = true;
     }
-  }
-
-  updateTemplate(text: string) {
-    setTimeout(() => {
-      this.ideation.template = text;
-    })
   }
 
   override saveAsDraft() {
