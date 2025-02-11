@@ -107,10 +107,13 @@ export class IdeationCreateComponent
   /**/
   override tabs = ['info', 'settings', 'ideation_system', 'preview'];
   members = <any[]>[];
+<<<<<<< HEAD
   enableTemplate = false;
 <<<<<<< HEAD
   ideation: Ideation = {
 =======
+=======
+>>>>>>> 2a32a71c (Revert "Feature: Add ideation template [#1822]")
   public ideation = {
 >>>>>>> b93d837f (add ideation template)
     id: '',
@@ -120,12 +123,15 @@ export class IdeationCreateComponent
     disableReplies: false,
     allowAnonymous: false,
 <<<<<<< HEAD
+<<<<<<< HEAD
     demographicsConfig: null,
     template: '',
     // @ts-expect-error Fix later
 =======
     template: '',
 >>>>>>> b93d837f (add ideation template)
+=======
+>>>>>>> 2a32a71c (Revert "Feature: Add ideation template [#1822]")
     createdAt: '',
     // @ts-expect-error Fix later
     updatedAt: '',
@@ -429,6 +435,7 @@ export class IdeationCreateComponent
     }
   }
 
+<<<<<<< HEAD
   updateTemplate(text: string) {
     setTimeout(() => {
       this.ideation.template = text;
@@ -439,6 +446,8 @@ export class IdeationCreateComponent
 >>>>>>> b93d837f (add ideation template)
   }
 
+=======
+>>>>>>> 2a32a71c (Revert "Feature: Add ideation template [#1822]")
   override saveAsDraft() {
     if (this.topic.status === this.TopicService.STATUSES.draft) {
       const updateTopic = { ...this.topic };
