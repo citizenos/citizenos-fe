@@ -1900,10 +1900,20 @@
                     </div>
                   </div>
 
-                  <div class="template_area_wrap" [ngClass]="enableTemplate ? '' : 'hidden'">
-                    <textarea cosmarkdown name="idea_template" id="idea_template" [item]="ideation.template"
-                      class="gray_borders" (itemChange)="updateTemplate($event)"
-                      placeholder="COMPONENTS.ADD_IDEA.PLACEHOLDER_EXPLAIN_YOUR_IDEA"></textarea>
+                  <div
+                    class="template_area_wrap"
+                    [ngClass]="enableTemplate ? '' : 'hidden'"
+                  >
+                    <textarea
+                      cosmarkdown
+                      [limit]="0"
+                      name="idea_template"
+                      id="idea_template"
+                      [item]="ideation.template"
+                      class="gray_borders"
+                      (itemChange)="updateTemplate($event)"
+                      placeholder="COMPONENTS.ADD_IDEA.PLACEHOLDER_EXPLAIN_YOUR_IDEA"
+                    ></textarea>
                   </div>
                 </div>
               </div>
