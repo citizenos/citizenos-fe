@@ -77,6 +77,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { IdeationCreateComponent } from '../ideation/components/ideation-create/ideation-create.component';
 import { TopicIdeationComponent } from '../ideation/components/topic-ideation/topic-ideation.component';
 import { AddIdeaComponent } from '../ideation/components/add-idea/add-idea.component';
+import { AnonymousDialogComponent } from '../ideation/components/anonymous-dialog/anonymous-dialog.component';
 import { IdeaboxComponent } from '../ideation/components/ideabox/ideabox.component';
 import { IdeaReportComponent } from '../ideation/components/idea-report/idea-report.component';
 import {
@@ -162,6 +163,7 @@ import { TopicSettingsLockedComponent } from './components/topic-settings-locked
     IdeationCreateComponent,
     TopicIdeationComponent,
     AddIdeaComponent,
+    AnonymousDialogComponent,
     IdeaboxComponent,
     IdeaReportComponent,
     IdeaComponent,
