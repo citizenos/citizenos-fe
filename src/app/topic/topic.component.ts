@@ -175,7 +175,7 @@ export class TopicComponent {
   showTutorial = false;
   topicTitle: string = '';
   navigation: { title: string; link: string[] } = {
-    title: "",
+    title: '',
     link: [],
   };
   //new end
@@ -450,35 +450,52 @@ export class TopicComponent {
   }
 
   getNavigationItem(): void {
-    this.groups$.pipe(
-      map(groups => {
-        const isTopicPrivate =
-          this.topicVisibility === this.TopicService.VISIBILITY.private;
+    this.groups$
+      .pipe(
+        map((groups) => {
+          const isTopicPrivate =
+            this.topicVisibility === this.TopicService.VISIBILITY.private;
 
           if (groups.length > 1) {
-          return {
-            title: isTopicPrivate
-              ? "VIEWS.GROUP.HEADING_BACK_TO_MY_GROUPS"
-              : "VIEWS.GROUP.HEADING_BACK_TO_PUBLIC_GROUPS",
-            link: ['/', this.translate.currentLang, isTopicPrivate ? 'my' : 'public', 'groups'],
+            return {
+              title: isTopicPrivate
+                ? 'VIEWS.GROUP.HEADING_BACK_TO_MY_GROUPS'
+                : 'VIEWS.GROUP.HEADING_BACK_TO_PUBLIC_GROUPS',
+              link: [
+                '/',
+                this.translate.currentLang,
+                isTopicPrivate ? 'my' : 'public',
+                'groups',
+              ],
+            };
+          } else if (groups.length === 1) {
+            return {
+              title: this.translate.instant(
+                'VIEWS.GROUP.HEADING_BACK_TO_GROUP',
+                {
+                  title: groups[0].name,
+                }
+              ),
+              link: ['/', this.translate.currentLang, 'groups', groups[0].id],
+            };
+          } else {
+            return {
+              title: isTopicPrivate
+                ? 'VIEWS.TOPICS_TOPICID.HEADING_BACK_TO_MY_TOPICS'
+                : 'VIEWS.TOPICS_TOPICID.HEADING_BACK_TO_PUBLIC_TOPICS',
+              link: [
+                '/',
+                this.translate.currentLang,
+                isTopicPrivate ? 'my' : 'public',
+                'topics',
+              ],
+            };
           }
-        } else if (groups.length === 1) {
-          return {
-            title: groups[0].name,
-            link: ['/', this.translate.currentLang, 'groups', groups[0].id],
-          }
-        } else {
-          return {
-            title: isTopicPrivate
-              ? "VIEWS.TOPICS_TOPICID.HEADING_BACK_TO_MY_TOPICS"
-              : "VIEWS.TOPICS_TOPICID.HEADING_BACK_TO_PUBLIC_TOPICS",
-            link: ['/', this.translate.currentLang, isTopicPrivate ? 'my' : 'public', 'topics'],
-          }
-        }
-      })
-    ).subscribe((navigation) => {
-      this.navigation = navigation
-    });
+        })
+      )
+      .subscribe((navigation) => {
+        this.navigation = navigation;
+      });
   }
 
   reportReasonDialog(topic: Topic) {
