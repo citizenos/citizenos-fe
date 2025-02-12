@@ -2139,6 +2139,7 @@
     "GROUP": {
       "HEADING_BACK_TO_MY_GROUPS": "To my groups",
       "HEADING_BACK_TO_PUBLIC_GROUPS": "To public groups",
+      "HEADING_BACK_TO_GROUP": "To {{title}}",
       "LBL_JOINED": "Joined group",
       "BTN_JOIN": "Join group",
       "BTN_ACTIVITIES": "Group activity",
