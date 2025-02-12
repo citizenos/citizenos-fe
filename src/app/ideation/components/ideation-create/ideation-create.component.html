@@ -145,14 +145,9 @@
               <path
                 d="M12.7417 15.0323L18.8083 14.6071C18.8083 14.6071 19.2083 10.4678 15.2462 10.2697C10.6872 10.0724 12.7417 15.0323 12.7417 15.0323Z"
                 fill="#5AB467"
-              />
               <path
                 d="M12.7571 10.2306C12.7571 10.2306 12.3604 10.0865 11.9846 10.6655C11.6087 11.2444 10.9983 13.3155 11.6323 13.7353C12.2662 14.1551 12.6757 13.0948 12.834 12.7976C12.9923 12.5004 13.5888 10.8229 13.5888 10.8229C13.5888 10.8229 13.0552 10.2106 12.7571 10.2306Z"
                 fill="#CB8529"
-              />
-              <path
-                d="M11.8098 14.1645C11.6956 14.1309 11.585 14.086 11.4798 14.0304C10.5296 13.3846 11.4253 11.0128 11.7208 10.5158C12.1017 9.92459 12.5394 9.86083 12.7848 9.91078C13.2069 9.92898 13.6578 10.4444 13.8481 10.645C13.8831 10.6873 13.9075 10.7374 13.9192 10.7911C13.9308 10.8447 13.9294 10.9004 13.9151 10.9534C13.8484 11.138 13.2821 12.6579 13.1238 12.9551L13.0751 13.0418C12.912 13.3707 12.6229 13.9984 12.1393 14.1298C12.037 14.1798 11.9203 14.192 11.8098 14.1645ZM12.6797 10.5435C12.6163 10.534 12.4734 10.6 12.2918 10.858C11.9001 11.4994 11.4876 13.2468 11.8635 13.4851C11.9529 13.5375 11.9846 13.5422 12.0221 13.509C12.2316 13.453 12.4664 12.9273 12.5652 12.7671L12.6192 12.6455C12.7203 12.4694 13.0651 11.5583 13.2993 10.8866C13.1646 10.727 13.0026 10.5928 12.8207 10.4902C12.8016 10.5121 12.777 10.5284 12.7493 10.5374C12.7217 10.5464 12.6922 10.5476 12.6639 10.5411L12.6797 10.5435Z"
-                fill="#2C3B47"
               />
               <path
                 d="M13.6014 9.57489C13.6014 9.57489 12.7522 9.07723 12.2511 9.30332C11.7501 9.52941 11.7917 10.781 11.8598 11.2549C11.9278 11.7289 12.2962 13.007 12.8866 12.8333C13.4771 12.6596 14.3125 10.1069 13.6014 9.57489Z"
@@ -483,7 +478,6 @@
                 >
                   <span
                     class="link"
-                    translate="VIEWS.IDEATION_CREATE.HEADER_IMAGE_BTN_REMOVE"
                   ></span>
                   <svg
                     width="24"
@@ -496,14 +490,6 @@
                     <path d="M15 9H13V17H15V9Z" fill="#1168A8" />
                     <path
                       fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d="M17 5V4C17 2.89543 16.1046 2 15 2L9 2C7.89543 2 7 2.89543 7 4L7 5H4C3.44772 5 3 5.44772 3 6C3 6.55228 3.44772 7 4 7H5L5 18C5 19.6569 6.34315 21 8 21L16 21C17.6569 21 19 19.6569 19 18L19 7H20C20.5523 7 21 6.55228 21 6C21 5.44772 20.5523 5 20 5L17 5ZM15 4L9 4V5L15 5V4ZM17 7L7 7L7 18C7 18.5523 7.44772 19 8 19L16 19C16.5523 19 17 18.5523 17 18V7Z"
-                      fill="#1168A8"
-                    />
-                  </svg>
-                </button>
-              </div>
-              <ng-container *ngIf="block.headerImage">
                 <div class="block_content image_content">
                   <div
                     class="block_section"
@@ -1942,7 +1928,11 @@
                 <div class="radio_wrap template_area ideation">
                   <div class="radio_text_wrap">
                     <div class="radio_lable_wrap setting_toggle">
-                      <span class="bold" translate="VIEWS.IDEATION_CREATE.LBL_CREATE_ITEA_TEMPLATE" [translateParams]="{value: (enableTemplate ? 'TOGGLE_ON' : 'TOGGLE_OFF') | translate}"></span>
+                      <span class="bold" translate="VIEWS.IDEATION_CREATE.LBL_CREATE_ITEA_TEMPLATE" [translateParams]="{
+                          value:
+                            (enableTemplate ? 'TOGGLE_ON' : 'TOGGLE_OFF')
+                            | translate
+                        }"></span>
                       <cos-toggle [(model)]="enableTemplate"></cos-toggle>
                     </div>
                     <div class="radio_description">
@@ -1950,13 +1940,10 @@
                     </div>
                   </div>
 
-                  <div class="template_area_wrap"
-                    [ngClass]="enableTemplate ? '' : 'hidden'"
-                  >
-                    <textarea cosmarkdown name="description"
-      cosmarkdowntranslatecharacterstatuskey="COMPONENTS.ADD_IDEA.IDEA_TYPE_CHARACTER_LIMIT" id="idea_description"
-      [(item)]="ideation.template" class="gray_borders" (itemChange)="updateTemplate($event)"
-      placeholder="COMPONENTS.ADD_IDEA.PLACEHOLDER_EXPLAIN_YOUR_IDEA"></textarea>
+                  <div class="template_area_wrap" [ngClass]="enableTemplate ? '' : 'hidden'">
+                    <textarea cosmarkdown name="idea_template" id="idea_template" [item]="ideation.template"
+                      class="gray_borders" (itemChange)="updateTemplate($event)"
+                      placeholder="COMPONENTS.ADD_IDEA.PLACEHOLDER_EXPLAIN_YOUR_IDEA"></textarea>
                   </div>
                 </div>
               </div>
