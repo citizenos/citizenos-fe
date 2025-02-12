@@ -1734,7 +1734,7 @@
     "TOPIC_INVITE_VIEW_LNK_LEARN_MORE": "Learn more about Citizen OS if you're new!",
     "TOPIC_INVITE_VIEW_LNK_CANCEL": "@:LNK_CANCEL",
     "TOPIC_IDEA_POSTING_ANONIMOUSLY": "Posting anonymously",
-    "TOPIC_IDEA_POSTING_ANONIMOUSLY_TEXT_1": "Are you sure?",
+    "TOPIC_IDEA_POSTING_ANONIMOUSLY_TEXT_1": "Are you sure it's ready?",
     "TOPIC_IDEA_POSTING_ANONIMOUSLY_TEXT_2": "Remember, anonymous ideas can't be edited or deleted after they're posted. Once it's posted, it's permanent!",
     "ACTIVITY_MODAL_HEADING": "@:DEFAULT.NAV.LNK_ACTIVITY",
     "LANGUAGES_MODAL_HEADING": "Select your language",
