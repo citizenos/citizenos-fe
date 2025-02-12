@@ -12,6 +12,8 @@ import { Idea, IdeaStatus } from '@interfaces/idea';
 import { Notification } from '@interfaces/notification';
 import { Ideation } from '@interfaces/ideation';
 import { MarkdownDirective } from 'src/app/directives/markdown.directive';
+import { DialogService } from '@shared/dialog';
+import { AnonymousDialogComponent } from '../anonymous-dialog/anonymous-dialog.component';
 
 import { trigger, state, style } from '@angular/animations';
 import {
@@ -31,6 +33,7 @@ import {
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { take, map, takeWhile, of } from 'rxjs';
+
 
 @Component({
   selector: 'add-idea',
@@ -200,7 +203,7 @@ export class AddIdeaComponent {
       });
   }
 
-  postIdea(status?: IdeaStatus) {
+  saveIdea(status?: IdeaStatus) {
     const idea = {
       parentVersion: 0,
       statement: this.ideaForm.value['statement'],
@@ -235,8 +238,12 @@ export class AddIdeaComponent {
       'image/svg+xml',
     ];
     const files = this.fileInput?.nativeElement.files;
-    if ((this.images.length + this.newImages.length) >= this.IMAGE_LIMIT) {
-      return this.Notification.addError(this.translate.instant('MSG_ERROR_IDEA_IMAGE_LIMIT', { limit: this.IMAGE_LIMIT }));
+    if (this.images.length === this.IMAGE_LIMIT) {
+      return this.Notification.addError(
+        this.translate.instant('MSG_ERROR_IDEA_IMAGE_LIMIT', {
+          limit: this.IMAGE_LIMIT,
+        })
+      );
     }
     for (let i = 0; i < files.length; i++) {
       if (allowedTypes.indexOf(files[i].type) < 0) {
@@ -246,8 +253,12 @@ export class AddIdeaComponent {
           })
         );
       } else if (files[i].size > 5000000) {
-        this.Notification.addError(this.translate.instant('MSG_ERROR_FILE_TOO_LARGE', { allowedFileSize: '5MB' }));
-      } else if ((this.images.length + i) < this.IMAGE_LIMIT) {
+        this.Notification.addError(
+          this.translate.instant('MSG_ERROR_FILE_TOO_LARGE', {
+            allowedFileSize: '5MB',
+          })
+        );
+      } else if (this.images.length < 5) {
         const reader = new FileReader();
         reader.onload = () => {
           const file = files[i];
@@ -256,7 +267,12 @@ export class AddIdeaComponent {
         };
         reader.readAsDataURL(files[i]);
       } else {
-        this.Notification.addError(this.translate.instant('MSG_ERROR_IDEA_IMAGE_LIMIT', { limit: this.IMAGE_LIMIT }));
+        i = files.length;
+        this.Notification.addError(
+          this.translate.instant('MSG_ERROR_IDEA_IMAGE_LIMIT', {
+            limit: this.IMAGE_LIMIT,
+          })
+        );
       }
     }
   }
