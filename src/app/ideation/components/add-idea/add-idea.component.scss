@@ -223,3 +223,17 @@
   line-height: 20px;
   background-color: var(--color-info-background);
 }
+
+.anonymous_info {
+  display: flex;
+  gap: 16px;
+
+  cos-input {
+    min-width: 0;
+    flex-grow: 1;
+  }
+
+  @include mixins.mobile {
+    flex-direction: column;
+  }
+}
