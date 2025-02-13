@@ -135,6 +135,7 @@
       "BTN_IDEA_POST": "Add your idea",
       "MSG_SUCCESS": "Idea successfully posted",
       "MSG_ERROR_SUBJECT": "Idea heading must be 1 to {{chars}} characters long.",
+      "FIELD_IS_MANDATORY": "Field is mandatory",
       "MSG_ERROR_DESCRIPTION": "Idea description must be 1 to {{chars}} characters long."
     },
     "ADD_IDEA_FOLDER": {
@@ -2332,6 +2333,9 @@
       "LBL_CREATE_ITEA_TEMPLATE_DESC": "You can create a template to give participants guidance how to compose their idea.",
       "LBL_ALLOW_ANONYMOUS": "Anonymous ideas are turned: {{value}}",
       "LBL_ALLOW_ANONYMOUS_DESC": "Ideas are posted without showing the poster’s name",
+      "DEMOGRAPHICS_DATA_AGE": "Age",
+      "DEMOGRAPHICS_DATA_GENDER": "Gender",
+      "DEMOGRAPHICS_DATA_RESIDENCE": "Residence",
       "PREVIEW_INFO": "<b>This is a preview of your topic!</b> You can still edit your topic at any point prior to starting a vote.",
       "BTN_IDEATION_ACTIONS": "Manage idea gathering",
       "NO_IDEAS_HEADING": "There are no ideas yet",

@@ -1804,6 +1804,44 @@
                       ></span>
                     </div>
                   </div>
+
+                  <div
+                    class="anonymous_area_wrap"
+                    [ngClass]="ideation.allowAnonymous ? '' : 'hidden'"
+                  >
+                    <label class="checkbox">
+                      <span
+                        [innerHTML]="
+                          'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_AGE'
+                            | translate
+                        "
+                      ></span>
+                      <input type="checkbox" name="orderBy" />
+                      <span class="checkmark"></span>
+                    </label>
+
+                    <label class="checkbox">
+                      <span
+                        [innerHTML]="
+                          'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_GENDER'
+                            | translate
+                        "
+                      ></span>
+                      <input type="checkbox" name="orderBy" />
+                      <span class="checkmark"></span>
+                    </label>
+
+                    <label class="checkbox">
+                      <span
+                        [innerHTML]="
+                          'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_RESIDENCE'
+                            | translate
+                        "
+                      ></span>
+                      <input type="checkbox" name="orderBy" />
+                      <span class="checkmark"></span>
+                    </label>
+                  </div>
                 </div>
                 <div
                   class="radio_wrap ideation"
@@ -1833,6 +1871,7 @@
                     </div>
                   </div>
                 </div>
+
                 <div class="radio_wrap template_area ideation">
                   <div class="radio_text_wrap">
                     <div class="radio_lable_wrap setting_toggle">
