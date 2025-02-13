@@ -613,13 +613,23 @@
   display: inline-block !important;
 }
 
-.template_area {
+.template_area,
+.anonymous_area {
   flex-wrap: wrap;
 
-  .template_area_wrap {
+  .template_area_wrap,
+  .anonymous_area_wrap {
     width: 100%;
     margin-top: 8px;
   }
+
+  .anonymous_area_wrap {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
   .hidden {
     display: none;
   }
