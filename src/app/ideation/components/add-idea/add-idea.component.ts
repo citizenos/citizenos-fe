@@ -30,6 +30,7 @@ import { Attachment } from '@interfaces/attachment';
 import { Ideation } from '@interfaces/ideation';
 import { DialogService } from '@shared/dialog';
 import { AnonymousDialogComponent } from '../anonymous-dialog/anonymous-dialog.component';
+import { Idea } from '@interfaces/idea';
 
 @Component({
   selector: 'add-idea',
@@ -165,17 +166,34 @@ export class AddIdeaComponent {
     });
   }
 
+  getDemographicValues(): Idea['demographics'] {
+    if (!this.ideation.demographicsConfig) {
+      return null;
+    }
+
+    return Object.keys(this.ideation.demographicsConfig)
+      .reduce((acc: Idea['demographics'], curr: string) => {
+        return {
+          ...acc,
+          [curr]: this.ideation.demographicsConfig?.[curr].value || '',
+        };
+      }, null);
+  }
+
   saveIdea() {
-    const idea = {
+    /**
+     * @todo Fix types for ideaData.
+     */
+    const ideaData: Partial<Idea> & {parentVersion: number; topicId: string} = {
       parentVersion: 0,
       statement: this.ideaForm.value['statement'],
       description: this.ideaForm.value['description'],
       topicId: this.topicId,
       ideationId: this.ideation.id,
-      demographicsConfig: this.ideation.demographicsConfig,
+      demographics: this.getDemographicValues(),
     };
 
-    this.TopicIdeaService.save(idea)
+    this.TopicIdeaService.save(ideaData)
       .pipe(take(1))
       .subscribe({
         next: (idea) => {
