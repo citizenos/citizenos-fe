@@ -1909,7 +1909,7 @@
                       [limit]="0"
                       name="idea_template"
                       id="idea_template"
-                      [item]="ideation.template"
+                      [item]="ideation.template || ''"
                       class="gray_borders"
                       (itemChange)="updateTemplate($event)"
                       placeholder="COMPONENTS.ADD_IDEA.PLACEHOLDER_EXPLAIN_YOUR_IDEA"

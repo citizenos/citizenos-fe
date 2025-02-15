@@ -142,117 +142,44 @@
         </label>
       </cos-input>
 
-      <div *ngIf="ideation.allowAnonymous" class="anonymous_info">
+      <div
+        *ngIf="ideation.allowAnonymous && getDemographicKeys().length > 0"
+        class="anonymous_info"
+      >
         <cos-input
+          *ngFor="let key of getDemographicKeys()"
           placeholder="{{
             'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_AGE' | translate
           }}"
         >
           <input
-            id="demographics_age"
-            name="demographics_age"
-            formControlName="demographics_age"
+            [id]="'demographics_' + key"
+            [name]="'demographics_' + key"
+            [formControlName]="'demographics_' + key"
+            [(ngModel)]="ideation.demographicsConfig![key].value"
             autocomplete="off"
             placeholder="{{
-              'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_AGE' | translate
+              'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_' + key
+                | uppercase
+                | translate
             }}"
             class="gray_borders"
             [ngClass]="{
               error_input:
-                ideaForm.controls['demographics_age'].errors &&
-                ideaForm.controls['demographics_age'].errors['required'] &&
-                ideaForm.controls['demographics_age'].touched
+                ideaForm.controls['demographics_' + key].errors &&
+                ideaForm.controls['demographics_' + key].errors?.['required'] &&
+                ideaForm.controls['demographics_' + key].touched
             }"
-            type="number"
-            required
-            min="0"
+            [required]="ideation.demographicsConfig![key].required"
           />
 
           <label
-            for="demographics_age"
+            [for]="'demographics_' + key"
             class="error_label"
             *ngIf="
-              ideaForm.controls['demographics_age'].errors &&
-              ideaForm.controls['demographics_age'].errors['required'] &&
-              ideaForm.controls['demographics_age'].touched
-            "
-          >
-            <span
-              class="error_text"
-              translate="COMPONENTS.ADD_IDEA.FIELD_IS_MANDATORY"
-            ></span>
-          </label>
-        </cos-input>
-
-        <cos-input
-          placeholder="{{
-            'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_GENDER' | translate
-          }}"
-        >
-          <input
-            id="demographics_gender"
-            name="demographics_gender"
-            formControlName="demographics_gender"
-            autocomplete="off"
-            placeholder="{{
-              'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_GENDER' | translate
-            }}"
-            class="gray_borders"
-            [ngClass]="{
-              error_input:
-                ideaForm.controls['demographics_gender'].errors &&
-                ideaForm.controls['demographics_gender'].errors['required'] &&
-                ideaForm.controls['demographics_gender'].touched
-            }"
-            required
-          />
-          <label
-            for="demographics_gender"
-            class="error_label"
-            *ngIf="
-              ideaForm.controls['demographics_gender'].errors &&
-              ideaForm.controls['demographics_gender'].errors['required'] &&
-              ideaForm.controls['demographics_gender'].touched
-            "
-          >
-            <span
-              class="error_text"
-              translate="COMPONENTS.ADD_IDEA.FIELD_IS_MANDATORY"
-            ></span>
-          </label>
-        </cos-input>
-
-        <cos-input
-          placeholder="{{
-            'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_RESIDENCE' | translate
-          }}"
-        >
-          <input
-            id="demographics_residence"
-            name="demographics_residence"
-            formControlName="demographics_residence"
-            autocomplete="off"
-            placeholder="{{
-              'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_RESIDENCE' | translate
-            }}"
-            class="gray_borders"
-            [ngClass]="{
-              error_input:
-                ideaForm.controls['demographics_residence'].errors &&
-                ideaForm.controls['demographics_residence'].errors[
-                  'required'
-                ] &&
-                ideaForm.controls['demographics_residence'].touched
-            }"
-            required
-          />
-          <label
-            for="demographics_residence"
-            class="error_label"
-            *ngIf="
-              ideaForm.controls['demographics_residence'].errors &&
-              ideaForm.controls['demographics_residence'].errors['required'] &&
-              ideaForm.controls['demographics_residence'].touched
+              ideaForm.controls['demographics_' + key].errors &&
+              ideaForm.controls['demographics_' + key].errors?.['required'] &&
+              ideaForm.controls['demographics_' + key].touched
             "
           >
             <span
