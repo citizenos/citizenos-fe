@@ -209,8 +209,9 @@ export class AddIdeaComponent {
       statement: this.ideaForm.value['statement'],
       description: this.ideaForm.value['description'],
       topicId: this.topicId,
-      ideationId: this.ideationId,
-      status: status
+      status: status,
+      ideationId: this.ideation.id,
+      demographicsConfig: this.ideation.demographicsConfig,
     };
 
     this.TopicIdeaService.save(idea)
