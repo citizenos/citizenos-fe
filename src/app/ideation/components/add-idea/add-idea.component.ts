@@ -212,7 +212,7 @@ export class AddIdeaComponent {
       status: status
     };
 
-    this.TopicIdeaService.save(idea)
+    this.TopicIdeaService.save(ideaData)
       .pipe(take(1))
       .subscribe({
         next: (idea) => {
@@ -225,28 +225,6 @@ export class AddIdeaComponent {
       });
   }
 
-<<<<<<< HEAD
-=======
-  postIdea() {
-    if (this.ideation.allowAnonymous) {
-      const invitationDialog = this.dialog.open(AnonymousDialogComponent);
-      invitationDialog.afterClosed().subscribe({
-        next: (res) => {
-          if (res) {
-            this.saveIdea();
-          }
-        },
-      });
-    } else {
-      this.saveIdea();
-    }
-  }
-
-  getDemographicKeys() {
-    return Object.keys(this.ideation.demographicsConfig || {});
-  }
-
->>>>>>> 3ed19c90 (add demographics config)
   getIdeaIdWithVersion(ideaId: string, version: number) {
     return ideaId + this.IDEA_VERSION_SEPARATOR + version;
   }
