@@ -1066,36 +1066,21 @@
                     class="anonymous_area_wrap"
                     [ngClass]="ideation.allowAnonymous ? '' : 'hidden'"
                   >
-                    <label class="checkbox">
+                    <label *ngFor="let key of demographicKeys" class="checkbox">
                       <span
                         [innerHTML]="
-                          'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_AGE'
+                          'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_' + key
+                            | uppercase
                             | translate
                         "
                       ></span>
-                      <input type="checkbox" name="orderBy" />
-                      <span class="checkmark"></span>
-                    </label>
-
-                    <label class="checkbox">
-                      <span
-                        [innerHTML]="
-                          'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_GENDER'
-                            | translate
-                        "
-                      ></span>
-                      <input type="checkbox" name="orderBy" />
-                      <span class="checkmark"></span>
-                    </label>
-
-                    <label class="checkbox">
-                      <span
-                        [innerHTML]="
-                          'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_RESIDENCE'
-                            | translate
-                        "
-                      ></span>
-                      <input type="checkbox" name="orderBy" />
+                      <input
+                        type="checkbox"
+                        name="orderBy"
+                        [id]="key"
+                        [name]="key"
+                        [(ngModel)]="demographicsConfig[key].required"
+                      />
                       <span class="checkmark"></span>
                     </label>
                   </div>
@@ -1146,7 +1131,7 @@
                       [limit]="0"
                       name="idea_template"
                       id="idea_template"
-                      [item]="ideation.template"
+                      [item]="ideation.template || ''"
                       class="gray_borders"
                       (itemChange)="updateTemplate($event)"
                       placeholder="COMPONENTS.ADD_IDEA.PLACEHOLDER_EXPLAIN_YOUR_IDEA"

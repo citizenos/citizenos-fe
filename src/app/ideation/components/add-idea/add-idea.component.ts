@@ -172,6 +172,7 @@ export class AddIdeaComponent {
       description: this.ideaForm.value['description'],
       topicId: this.topicId,
       ideationId: this.ideation.id,
+      demographicsConfig: this.ideation.demographicsConfig,
     };
 
     this.TopicIdeaService.save(idea)
@@ -211,6 +212,10 @@ export class AddIdeaComponent {
     } else {
       this.saveIdea();
     }
+  }
+
+  getDemographicKeys() {
+    return Object.keys(this.ideation.demographicsConfig || {});
   }
 
   getIdeaIdWithVersion(ideaId: string, version: number) {

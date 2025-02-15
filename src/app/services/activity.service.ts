@@ -78,6 +78,15 @@ export class ActivityService extends ItemsListService {
             activity.data.origin.description = null;
           }
           const resultObject = Object.assign({}, activity.data.origin);
+
+          // diff cannot compare object states properly when
+          // previousValues was null and the field type is JSON.
+          // For example, for ideation/demigpaphics field:
+          // TypeError: Cannot use 'in' operator to search for 'age' in null
+          if (resultObject.demographicsConfig === null) {
+            resultObject.demographicsConfig = {};
+          }
+
           activity.data.resultObject = jsonpatch.applyPatch(resultObject, activity.data.result).newDocument;
           activity.data.result.forEach((item: any) => {
             const field = item.path.split('/')[1];
