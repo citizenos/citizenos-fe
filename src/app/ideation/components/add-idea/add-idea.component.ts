@@ -33,7 +33,17 @@ import {
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { take, map, takeWhile, of } from 'rxjs';
-
+import { AppService } from '@services/app.service';
+import { AuthService } from '@services/auth.service';
+import { TopicIdeaService } from '@services/topic-idea.service';
+import { NotificationService } from '@services/notification.service';
+import { MarkdownDirective } from 'src/app/directives/markdown.directive';
+import { UploadService } from '@services/upload.service';
+import { Attachment } from '@interfaces/attachment';
+import { Ideation } from '@interfaces/ideation';
+import { DialogService } from '@shared/dialog';
+import { AnonymousDialogComponent } from '../anonymous-dialog/anonymous-dialog.component';
+import { Idea } from '@interfaces/idea';
 
 @Component({
   selector: 'add-idea',
@@ -205,16 +215,35 @@ export class AddIdeaComponent {
 
   saveIdea(status?: IdeaStatus) {
     const idea = {
+  getDemographicValues(): Idea['demographics'] {
+    if (!this.ideation.demographicsConfig) {
+      return null;
+    }
+
+    return Object.keys(this.ideation.demographicsConfig)
+      .reduce((acc: Idea['demographics'], curr: string) => {
+        return {
+          ...acc,
+          [curr]: this.ideation.demographicsConfig?.[curr].value || '',
+        };
+      }, null);
+  }
+
+  saveIdea() {
+    /**
+     * @todo Fix types for ideaData.
+     */
+    const ideaData: Partial<Idea> & {parentVersion: number; topicId: string} = {
       parentVersion: 0,
       statement: this.ideaForm.value['statement'],
       description: this.ideaForm.value['description'],
       topicId: this.topicId,
       status: status,
       ideationId: this.ideation.id,
-      demographicsConfig: this.ideation.demographicsConfig,
+      demographics: this.getDemographicValues(),
     };
 
-    this.TopicIdeaService.save(idea)
+    this.TopicIdeaService.save(ideaData)
       .pipe(take(1))
       .subscribe({
         next: (idea) => {
