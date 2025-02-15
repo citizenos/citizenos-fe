@@ -95,15 +95,12 @@ export class IdeationCreateComponent
   demographicsConfig: NonNullable<Ideation['demographicsConfig']> = {
     age: {
       required: false,
-      value: '',
     },
     gender: {
       required: false,
-      value: '',
     },
     residence: {
       required: false,
-      value: '',
     },
   };
 

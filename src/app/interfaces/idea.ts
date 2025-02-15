@@ -10,6 +10,7 @@ export interface Idea {
   statement: string,
   description: string,
   imageUrl: string | null,
+  demographics: Record<string, string> | null,
   createdAt: string,
   status: IdeaStatus,
   updatedAt: string,
