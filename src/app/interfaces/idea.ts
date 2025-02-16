@@ -6,6 +6,7 @@ export interface Idea {
   statement: string,
   description: string,
   imageUrl: string | null,
+  demographics: Record<string, string> | null,
   createdAt: string,
   updatedAt: string,
   deletedAt?: string | null,
