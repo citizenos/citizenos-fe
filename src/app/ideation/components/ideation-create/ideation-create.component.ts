@@ -292,7 +292,6 @@ export class IdeationCreateComponent
                     .subscribe({
                       next: (ideation) => {
                         this.ideation = ideation;
-                        console.log("test")
                         if (ideation.demographicsConfig !== null) {
                           this.demographicsConfig = ideation.demographicsConfig;
                         }
@@ -379,6 +378,10 @@ export class IdeationCreateComponent
   }
 
   getDemographicEnabled() {
+    if (!this.ideation.allowAnonymous) {
+      return null;
+    }
+
     return Object.keys(this.demographicsConfig)
       .filter((key) => this.demographicsConfig[key].required)
       .reduce((acc: Ideation['demographicsConfig'], curr: string) => {
