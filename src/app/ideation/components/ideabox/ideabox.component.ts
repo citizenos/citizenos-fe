@@ -3,7 +3,7 @@ import { AfterViewInit, Component, Input } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
-import { Idea } from 'src/app/interfaces/idea';
+import { Idea } from '@interfaces/idea';
 import { AuthService } from '@services/auth.service';
 import { ConfigService } from '@services/config.service';
 import { TopicIdeaService } from '@services/topic-idea.service';
@@ -65,7 +65,7 @@ export class IdeaboxComponent implements AfterViewInit {
     return this.TopicService.canEdit(this.topic);
   }
   canEditIdea() {
-    return (this.idea.author.id === this.Auth.user.value.id && !this.idea.deletedAt && [this.TopicService.STATUSES.draft, this.TopicService.STATUSES.ideation].indexOf(this.topic.status) > -1);
+    return (this.idea.author?.id === this.Auth.user.value.id && !this.idea.deletedAt && [this.TopicService.STATUSES.draft, this.TopicService.STATUSES.ideation].indexOf(this.topic.status) > -1);
   };
 
   goToView($event: any, showReplies?: boolean) {
