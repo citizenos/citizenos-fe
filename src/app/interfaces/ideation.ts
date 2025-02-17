@@ -19,11 +19,7 @@ export interface Ideation {
   ideas: {
     count: number
   },
-<<<<<<< HEAD
-  disableReplies: boolean
-=======
   disableReplies: boolean,
   allowAnonymous: boolean
->>>>>>> master
 }
 
