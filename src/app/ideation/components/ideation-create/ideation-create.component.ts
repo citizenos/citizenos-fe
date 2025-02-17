@@ -79,10 +79,7 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
     question: '',
     deadline: null,
     disableReplies: false,
-<<<<<<< HEAD
-=======
     allowAnonymous: false,
->>>>>>> master
     createdAt: '',
     updatedAt: ''
   };
