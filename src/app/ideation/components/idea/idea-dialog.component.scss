@@ -337,6 +337,7 @@
 .buttons_wrap {
   display: flex;
   gap: 16px;
+  position: relative;
 
   .btn_ghost_reply_idea {
     display: flex;

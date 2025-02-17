@@ -7,13 +7,13 @@ import { Idea } from 'src/app/interfaces/idea';
 import { AuthService } from '@services/auth.service';
 import { ConfigService } from '@services/config.service';
 import { TopicIdeaService } from '@services/topic-idea.service';
-import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
-import { DialogService } from 'src/app/shared/dialog';
+import { ConfirmDialogComponent } from '@shared/components/confirm-dialog/confirm-dialog.component';
+import { DialogService } from '@shared/dialog';
 import { IdeaReportComponent } from '../idea-report/idea-report.component';
 import { AddIdeaFolderComponent } from '../add-idea-folder/add-idea-folder.component';
 import { IdeaReportReasonComponent } from '../idea-report-reason/idea-report-reason.component';
-import { Topic } from 'src/app/interfaces/topic';
-import { Ideation } from 'src/app/interfaces/ideation';
+import { Topic } from '@interfaces/topic';
+import { Ideation } from '@interfaces/ideation';
 import { IdeaReactionsComponent } from '../idea-reactions/idea-reactions.component';
 import { TopicMemberUserService } from '@services/topic-member-user.service';
 
