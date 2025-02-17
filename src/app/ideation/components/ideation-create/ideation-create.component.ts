@@ -79,6 +79,10 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
     question: '',
     deadline: null,
     disableReplies: false,
+<<<<<<< HEAD
+=======
+    allowAnonymous: false,
+>>>>>>> master
     createdAt: '',
     updatedAt: ''
   };
@@ -288,6 +292,13 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
           this.createIdeation();
           this.router.navigate([topic.id], { relativeTo: this.route });
         }));
+  }
+
+  toggleAnonymous() {
+    this.ideation.allowAnonymous = !this.ideation.allowAnonymous;
+    if (this.ideation.allowAnonymous && !this.ideation.disableReplies) {
+      this.ideation.disableReplies = true;
+    }
   }
 
   override saveAsDraft() {
