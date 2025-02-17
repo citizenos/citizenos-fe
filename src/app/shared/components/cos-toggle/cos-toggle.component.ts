@@ -28,7 +28,7 @@ export class CosToggleComponent {
     } else {
       this.model = !this.model;
     }
-    console.debug('CHANGE', this.model);
+    console.log('CHANGE', this.model);
     this.modelChange.emit(this.model);
   };
 
