@@ -11,6 +11,7 @@ import { IdeaAttachmentService } from '@services/idea-attachment.service';
 import { NotificationService } from '@services/notification.service';
 import { TopicIdeaService } from '@services/topic-idea.service';
 import { UploadService } from '@services/upload.service';
+import { Ideation } from '@interfaces/ideation';
 
 @Component({
   selector: 'edit-idea',
@@ -34,6 +35,7 @@ export class EditIdeaComponent {
   @Input() topicId!: string;
   @Input() ideationId!: string;
   @Input() idea!: Idea;
+  @Input() ideation!: Ideation;
   @Output() showEdit = new EventEmitter<boolean | null>();
   @ViewChild('imageUpload') fileInput?: ElementRef;
 
