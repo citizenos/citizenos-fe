@@ -13,6 +13,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Argument } from 'src/app/interfaces/argument';
 import { TopicService } from '@services/topic.service';
 import { Folder } from 'src/app/interfaces/folder';
+import { Idea } from 'src/app/interfaces/idea';
 import { DomSanitizer } from '@angular/platform-browser';
 import { IdeaReplyComponent } from '../idea-reply/idea-reply.component';
 import { TopicIdeationService } from '@services/topic-ideation.service';
@@ -26,34 +27,61 @@ export class IdeaComponent {
   ideaId: string = '';
   topicId: string = '';
   ideationId: string = '';
+  /*  constructor(dialog: DialogService, route: ActivatedRoute, TopicIdeaService: TopicIdeaService, router: Router, TopicService: TopicService) {
+      route.params.pipe(take(1), switchMap((params) => {
+        this.ideaId = params['ideaId'];
+        this.topicId = params['topicId'];
+        this.ideationId = params['ideationId'];
+
+        return TopicIdeaService.get({ ideaId: this.ideaId, ideationId: this.ideationId, topicId: this.topicId })
+      })).subscribe((idea) => {
+        TopicService.get(this.topicId).pipe(take(1)).subscribe((topic) => {
+          dialog.closeAll();
+          const ideaDialog = dialog.open(IdeaDialogComponent, {
+            data: {
+              idea,
+              topic,
+              ideation: { id: this.ideationId },
+              route: route
+            }
+          });
+
+          ideaDialog.afterClosed().subscribe((value) => {
+            if (value) {
+              TopicIdeaService.reload();
+              router.navigate(['/', 'topics', this.topicId], { fragment: 'ideation' })
+            }
+          });
+        })
+      });
+    }*/
   constructor(dialog: DialogService, route: ActivatedRoute, TopicIdeaService: TopicIdeaService, router: Router, TopicService: TopicService, TopicIdeationService: TopicIdeationService) {
-    route.params.pipe(take(1), switchMap((params) => {
+    route.params.pipe(take(1)).subscribe((params) => {
       this.ideaId = params['ideaId'];
       this.topicId = params['topicId'];
       this.ideationId = params['ideationId'];
+      combineLatest([
+        TopicIdeaService.get(params),
+        TopicService.get(params['topicId']),
+        TopicIdeationService.get(params)
+      ]).pipe(take(1), map(([idea, topic, ideation]) => {
+        dialog.closeAll();
+        const ideaDialog = dialog.open(IdeaDialogComponent, {
+          data: {
+            idea,
+            topic,
+            ideation,
+            route: route
+          }
+        });
 
-      return combineLatest([
-        TopicIdeaService.get({ ideaId: this.ideaId, ideationId: this.ideationId, topicId: this.topicId }),
-        TopicService.get(this.topicId),
-        TopicIdeationService.get({ topicId: this.topicId, ideationId: this.ideationId })
-      ])
-    })).subscribe(([idea, topic, ideation]) => {
-      dialog.closeAll();
-      const ideaDialog = dialog.open(IdeaDialogComponent, {
-        data: {
-          idea,
-          topic,
-          ideation,
-          route: route
-        }
-      });
-
-      ideaDialog.afterClosed().subscribe((value) => {
-        if (value) {
-          TopicIdeaService.reload();
-          router.navigate(['/', 'topics', this.topicId], { fragment: 'ideation' })
-        }
-      });
+        ideaDialog.afterClosed().subscribe((value) => {
+          if (value) {
+            TopicIdeaService.reload();
+            router.navigate(['/', 'topics', this.topicId], { fragment: 'ideation' })
+          }
+        });
+      })).subscribe();
     });
   }
 }
@@ -77,6 +105,7 @@ export class IdeaDialogComponent extends IdeaboxComponent {
   replyCount = 0;
   folders$: Observable<Folder[]>;
   images$: Observable<any>;
+  ideaNumber: Observable<number>;
 
   constructor(
     dialog: DialogService,
@@ -97,6 +126,15 @@ export class IdeaDialogComponent extends IdeaboxComponent {
     const url = this.router.parseUrl(this.router.url);
     this.TopicIdeaService.setParam('topicId', this.topic.id);
     this.TopicIdeaService.setParam('ideationId', this.topic.ideationId);
+    this.ideaNumber = combineLatest([this.route.params, this.TopicIdeaService.reload$]).pipe(
+      switchMap(() => {
+        return this.TopicIdeaService.loadItems().pipe(take(1), map((ideas) => {
+          const index = this.getIdeaIndex(ideas);
+          return index + 1;
+        }));
+      })
+    )
+
     this.replies$ = combineLatest([this.route.params, this.TopicIdeaRepliesService.reload$]).pipe(
       switchMap(([params]) => {
         const paramsObj = Object.assign({}, params);
@@ -160,11 +198,17 @@ export class IdeaDialogComponent extends IdeaboxComponent {
       this.idea.showReplies = true;
     }
   }
-  prevIdea() {
+  getIdeaIndex(ideas: Idea[]) {
+    let index = ideas.findIndex((item: Idea) => item.id === this.idea.id);
+    return index
+  }
+
+  loadIdea(next: number) {
     this.TopicIdeaService.loadItems().pipe(take(1)).subscribe((ideas) => {
-      let index = ideas.findIndex((item) => item.id === this.idea.id);
-      if (index === 0) index = ideas.length;
-      const newIdea = ideas[index - 1];
+      let index = this.getIdeaIndex(ideas);
+      if (next < 0 && index === 0) index = ideas.length;
+      else if (next > 0 && index === ideas.length -1) index = -1;
+      const newIdea = ideas[index + next];
       this.router.navigate(['/', this.Translate.currentLang, 'topics', this.topic.id, 'ideation', this.ideation.id, 'ideas', newIdea.id]);
       this.idea = newIdea;
       this.folders$ = this.TopicIdeaService
@@ -176,23 +220,12 @@ export class IdeaDialogComponent extends IdeaboxComponent {
       this.notification = null;
     })
   }
+  prevIdea() {
+    this.loadIdea(-1);
+  }
 
   nextIdea() {
-    this.TopicIdeaService.loadItems().pipe(take(1)).subscribe((ideas) => {
-      let index = ideas.findIndex((item) => item.id === this.idea.id);
-      if (index === ideas.length - 1) index = -1;
-      const newIdea = ideas[index + 1];
-      this.router.navigate(['/', this.Translate.currentLang, 'topics', this.topic.id, 'ideation', this.ideation.id, 'ideas', newIdea.id]);
-      this.idea = newIdea;
-      this.folders$ = this.TopicIdeaService
-        .getFolders({ topicId: this.topic.id, ideationId: this.idea.ideationId, ideaId: this.idea.id })
-        .pipe(take(1), map((res: any) => res.rows));
-      this.images$ = this.IdeaAttachmentService
-        .query({ topicId: this.topic.id, ideationId: this.idea.ideationId, ideaId: this.idea.id, type: 'image' })
-        .pipe(take(1), map((res: any) => res.rows));
-
-      this.notification = null;
-    });
+    this.loadIdea(1);
   }
 
   private _parseArgumentIdAndVersion(argumentIdWithVersion: string) {
