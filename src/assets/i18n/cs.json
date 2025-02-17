@@ -118,7 +118,10 @@
     },
     "ADD_IDEA": {
       "FOOTER_MENU_TITLE": "Připojte se ke shromáždění nápadů",
+      "FOOTER_FORM_ANONYMOUS_INFO": "You are posting anonymously",
       "FOOTER_MENU_BTN_ADD_IDEA": "Přidejte svůj nápad",
+      "TOOLTIP_ANONYMOUS_TITLE": "Anonymous posting",
+      "TOOLTIP_ANONYMOUS_DESCRIPTION": "Your idea will be posted anonymously. There will be no way to identify you.",
       "FOOTER_FORM_TITLE": "Přidejte svůj nápad",
       "PLACEHOLDER_ADD_STATEMENT_TO_IDEA": "Your idea heading",
       "SUBJECT_CHARACTERS_LEFT": "Zbývající znaky: {{chars}}/{{charsLeft}}",
@@ -339,6 +342,9 @@
     },
     "EDIT_IDEA": {
       "FOOTER_FORM_TITLE": "Edit idea",
+      "FOOTER_FORM_ANONYMOUS_INFO": "@:COMPONENTS.ADD_IDEA.FOOTER_FORM_ANONYMOUS_INFO",
+      "TOOLTIP_ANONYMOUS_TITLE": "@:COMPONENTS.ADD_IDEA.TOOLTIP_ANONYMOUS_TITLE",
+      "TOOLTIP_ANONYMOUS_DESCRIPTION": "@:COMPONENTS.ADD_IDEA.TOOLTIP_ANONYMOUS_DESCRIPTION",
       "PLACEHOLDER_ADD_STATEMENT_TO_IDEA": "@:COMPONENTS.ADD_IDEA.PLACEHOLDER_ADD_STATEMENT_TO_IDEA",
       "SUBJECT_CHARACTERS_LEFT": "@:COMPONENTS.ADD_IDEA.SUBJECT_CHARACTERS_LEFT",
       "IDEA_TYPE_CHARACTER_LIMIT": "@:COMPONENTS.ADD_IDEA.IDEA_TYPE_CHARACTER_LIMIT",
@@ -443,6 +449,7 @@
       "LNK_CANCEL": "@:LNK_CANCEL"
     },
     "IDEABOX": {
+      "IDEA_NUMBER": "Idea #{{number}}",
       "OPTION_EDIT": "Edit idea",
       "OPTION_FAVOURITE": "@:VIEWS.TOPICS_TOPICID.OPTION_FAVOURITE",
       "OPTION_UNFAVOURITE": "@:VIEWS.TOPICS_TOPICID.OPTION_UNFAVOURITE",
@@ -462,6 +469,7 @@
       "NOTIFICATION_LNK_VIEW": "View anyway"
     },
     "IDEA_DIALOG": {
+      "TOOLTIP_REPLIES_DISABLED": "Replies are turned off",
       "BTN_REPLY": "@:COMPONENTS.ARGUMENT.BTN_REPLY",
       "OPTION_EDIT": "@:COMPONENTS.IDEABOX.OPTION_EDIT",
       "OPTION_FAVOURITE": "@:VIEWS.TOPICS_TOPICID.OPTION_FAVOURITE",
@@ -2296,6 +2304,12 @@
       "DEADLINE_TIME_OPTION_PM": "@:COMPONENTS.EDIT_IDEATION_DEADLINE.DEADLINE_TIME_OPTION_PM",
       "DEADLINE_LBL_TIMEZONE": "@:COMPONENTS.EDIT_IDEATION_DEADLINE.DEADLINE_LBL_TIMEZONE",
       "SETTINGS_IDEATION_DEADLINE_PLACEHOLDER": "Select a date",
+      "SETTINGS_HEADING_ADVANCED_SETTINGS": "Advanced settings",
+      "SETTINGS_HEADING_ADVANCED_SETTINGS_DESC": "Further options to customise the idea gathering phase.",
+      "LBL_DISABLE_REPLIES": "Replies are turned: {{value}}",
+      "LBL_DISABLE_REPLIES_DESC": "Disable replies to ideas",
+      "LBL_ALLOW_ANONYMOUS": "Anonymous ideas are turned: {{value}}",
+      "LBL_ALLOW_ANONYMOUS_DESC": "Ideas are posted without showing the poster’s name",
       "PREVIEW_INFO": "<b>This is a preview of your topic!</b> You can still edit your topic at any point prior to starting a vote.",
       "BTN_IDEATION_ACTIONS": "Manage idea gathering",
       "NO_IDEAS_HEADING": "There are no ideas yet",
