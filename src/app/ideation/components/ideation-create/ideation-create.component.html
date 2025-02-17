@@ -983,6 +983,35 @@
                 </div>
               </div>
             </div>
+            <div class="create_content_section">
+              <div class="number_wrap mobile_hidden">
+                <div>3</div>
+              </div>
+              <div class="section_content_wrap">
+                <div class="header_wrap">
+                  <div class="number_wrap mobile_show">
+                    <div>3</div>
+                  </div>
+                  <div class="small_heading" translate="VIEWS.IDEATION_CREATE.SETTINGS_HEADING_ADVANCED_SETTINGS">
+                  </div>
+                  <div class="mobile_hidden" translate="VIEWS.IDEATION_CREATE.SETTINGS_HEADING_ADVANCED_SETTINGS_DESC">
+                  </div>
+                </div>
+                <div class="mobile_show" translate="VIEWS.IDEATION_CREATE.SETTINGS_HEADING_IDEATION_DEADLINE_DESC">
+                </div>
+                <div class="radio_wrap ideation">
+                  <div class="radio_text_wrap">
+                    <div class="radio_lable_wrap setting_toggle">
+                      <span class="bold" translate="VIEWS.IDEATION_CREATE.LBL_DISABLE_REPLIES" [translateParams]="{value: (ideation.disableReplies ? 'TOGGLE_OFF' : 'TOGGLE_ON') | translate}"></span>
+                      <cos-toggle [(model)]="ideation.disableReplies"></cos-toggle>
+                    </div>
+                    <div class="radio_description">
+                      <span translate="VIEWS.IDEATION_CREATE.LBL_DISABLE_REPLIES_DESC"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </ng-container>
           <ng-container *ngIf="tabSelected==='preview'">
             <div class="topic_content_wrap">

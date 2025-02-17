@@ -18,6 +18,7 @@ export interface Ideation {
   updatedAt: Date,
   ideas: {
     count: number
-  }
+  },
+  disableReplies: boolean
 }
 
