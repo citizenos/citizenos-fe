@@ -114,6 +114,10 @@ export class EditIdeaComponent extends AddIdeaComponent {
       })
   };
 
+  isDraft() {
+    return this.idea.status === this.TopicIdeaService.STATUSES.draft;
+  }
+
   ideaEditMode() {
     this.ideaForm.patchValue({ 'statement': this.idea.statement });
     this.ideaForm.patchValue({ 'description': this.idea.description });

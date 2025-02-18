@@ -113,7 +113,7 @@
         <span class="btn_text" translate="COMPONENTS.EDIT_IDEA.BTN_IDEA_DRAFT"></span>
       </button>
       <button class="btn_medium_submit icon" (click)="publishIdea()" [ngClass]="{disabled: ideaForm.invalid}">
-        <span class="btn_text" translate="COMPONENTS.EDIT_IDEA.BTN_IDEA_POST"></span>
+        <span class="btn_text" [translate]="(isDraft()) ? 'COMPONENTS.EDIT_IDEA.BTN_IDEA_POST' : 'COMPONENTS.EDIT_IDEA.BTN_IDEA_UPDATE'"></span>
       </button>
     </div>
   </div>

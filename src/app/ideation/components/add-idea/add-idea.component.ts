@@ -90,7 +90,7 @@ export class AddIdeaComponent {
 
   ngOnInit(): void {
     this.IdeaAttachmentService.setParam('topicId', this.topicId);
-    this.IdeaAttachmentService.setParam('ideationId', this.ideation.id);
+    this.IdeaAttachmentService.setParam('ideationId', this.ideationId);
   }
 
   loggedIn() {
