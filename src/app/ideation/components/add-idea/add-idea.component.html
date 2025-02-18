@@ -248,25 +248,11 @@
               <img [src]="image.link" />
               <a class="name">{{ image.name }}</a>
             </div>
-            <button class="btn_small_plain icon" (click)="removeImage(index)">
-              <svg
-                width="32"
-                height="32"
-                viewBox="0 0 32 32"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M14 13.9997H15.3333L15.3333 19.333H14L14 13.9997Z"
-                  fill="#2C3B47"
-                />
-                <path
-                  d="M18 13.9997H16.6667V19.333H18V13.9997Z"
-                  fill="#2C3B47"
-                />
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
+            <button class="btn_small_plain icon" (click)="removeNewImage(index)">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14 13.9997H15.3333L15.3333 19.333H14L14 13.9997Z" fill="#2C3B47" />
+                <path d="M18 13.9997H16.6667V19.333H18V13.9997Z" fill="#2C3B47" />
+                <path fill-rule="evenodd" clip-rule="evenodd"
                   d="M19.3333 11.333V10.6663C19.3333 9.92996 18.7364 9.33301 18 9.33301L14 9.33301C13.2636 9.33301 12.6667 9.92996 12.6667 10.6663V11.333H10.6667C10.2985 11.333 10 11.6315 10 11.9997C10 12.3679 10.2985 12.6663 10.6667 12.6663H11.3333L11.3333 19.9997C11.3333 21.1043 12.2288 21.9997 13.3333 21.9997H18.6667C19.7713 21.9997 20.6667 21.1043 20.6667 19.9997V12.6663H21.3333C21.7015 12.6663 22 12.3679 22 11.9997C22 11.6315 21.7015 11.333 21.3333 11.333H19.3333ZM18 10.6663L14 10.6663V11.333L18 11.333V10.6663ZM19.3333 12.6663L12.6667 12.6663L12.6667 19.9997C12.6667 20.3679 12.9651 20.6663 13.3333 20.6663H18.6667C19.0349 20.6663 19.3333 20.3679 19.3333 19.9997V12.6663Z"
                   fill="#2C3B47"
                 />
@@ -331,15 +317,11 @@
         </svg>
         <span translate="COMPONENTS.POST_ARGUMENT.BTN_ADD_IMAGE"></span>
       </button>
-      <button
-        class="btn_medium_submit icon"
-        (click)="postIdea()"
-        [ngClass]="{ disabled: ideaForm.invalid }"
-      >
-        <span
-          class="btn_text"
-          translate="COMPONENTS.ADD_IDEA.BTN_IDEA_POST"
-        ></span>
+      <button class="btn_medium_secondary icon" (click)="draftIdea()" [ngClass]="{disabled: ideaForm.invalid}">
+        <span class="btn_text" translate="COMPONENTS.ADD_IDEA.BTN_IDEA_DRAFT"></span>
+      </button>
+      <button class="btn_medium_submit icon" (click)="publishIdea()" [ngClass]="{disabled: ideaForm.invalid}">
+        <span class="btn_text" translate="COMPONENTS.ADD_IDEA.BTN_IDEA_POST"></span>
       </button>
     </div>
   </div>

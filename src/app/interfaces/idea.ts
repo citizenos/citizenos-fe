@@ -1,4 +1,8 @@
 
+export enum IdeaStatus {
+  draft = "draft",
+  published = "published"
+}
 export interface Idea {
   id: string,
   ideationId: string,
@@ -8,6 +12,7 @@ export interface Idea {
   imageUrl: string | null,
   demographics: Record<string, string> | null,
   createdAt: string,
+  status: IdeaStatus,
   updatedAt: string,
   deletedAt?: string | null,
   deletedBy?: {
