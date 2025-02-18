@@ -10,6 +10,7 @@ import { UploadService } from '@services/upload.service';
 import { Attachment } from '@interfaces/attachment';
 import { Idea, IdeaStatus } from '@interfaces/idea';
 import { Notification } from '@interfaces/notification';
+import { Ideation } from '@interfaces/ideation';
 import { MarkdownDirective } from 'src/app/directives/markdown.directive';
 
 import { trigger, state, style } from '@angular/animations';
@@ -18,14 +19,6 @@ import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { take, map, takeWhile, of } from 'rxjs';
-import { AppService } from '@services/app.service';
-import { AuthService } from '@services/auth.service';
-import { TopicIdeaService } from '@services/topic-idea.service';
-import { NotificationService } from '@services/notification.service';
-import { MarkdownDirective } from 'src/app/directives/markdown.directive';
-import { UploadService } from '@services/upload.service';
-import { Attachment } from '@interfaces/attachment';
-import { Ideation } from '@interfaces/ideation';
 
 @Component({
   selector: 'add-idea',

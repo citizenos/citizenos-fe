@@ -35,7 +35,6 @@ import { AddIdeaComponent } from '../add-idea/add-idea.component';
 })
 export class EditIdeaComponent extends AddIdeaComponent {
   @Input() idea!: Idea;
-  @Input() ideation!: Ideation;
   @Output() showEdit = new EventEmitter<boolean | null>();
 
   constructor(

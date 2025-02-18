@@ -11,6 +11,7 @@ import { TopicMemberUserService } from '@services/topic-member-user.service';
 import { ConfigService } from '@services/config.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Argument } from '@interfaces/argument';
+import { Idea } from '@interfaces/idea';
 import { TopicService } from '@services/topic.service';
 import { Folder } from '@interfaces/folder';
 import { DomSanitizer } from '@angular/platform-browser';
