@@ -122,6 +122,7 @@ export class IdeationCreateComponent
     // @ts-expect-error Fix later
     updatedAt: '',
   };
+  initialTemplateValue = '';
   constructor(
     dialog: DialogService,
     route: ActivatedRoute,
@@ -294,6 +295,10 @@ export class IdeationCreateComponent
                         this.ideation = ideation;
                         if (ideation.demographicsConfig !== null) {
                           this.demographicsConfig = ideation.demographicsConfig;
+                        }
+                        if (ideation.template) {
+                          this.enableTemplate = true;
+                          this.initialTemplateValue = ideation.template;
                         }
                         this.ideation.question = this.ideation.question.trim();
                         if (this.ideation.deadline) {

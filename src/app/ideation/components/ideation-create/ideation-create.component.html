@@ -1887,6 +1887,7 @@
                       name="idea_template"
                       id="idea_template"
                       [item]="ideation.template || ''"
+                      [initialValue]="initialTemplateValue"
                       class="gray_borders"
                       (itemChange)="updateTemplate($event)"
                       placeholder="COMPONENTS.ADD_IDEA.PLACEHOLDER_EXPLAIN_YOUR_IDEA"
