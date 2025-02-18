@@ -33,10 +33,7 @@
           <button
             id="join_button"
             (click)="joinTopic(topic)"
-            *ngIf="
-              (!topic.permission.level || topic.permission.level === 'none') &&
-              (auth.loggedIn$ | async)
-            "
+            *ngIf="!topic.permission.level || topic.permission.level === 'none'"
             class="btn_medium_close"
             translate="VIEWS.TOPICS_TOPICID.BTN_JOIN"
           ></button>
