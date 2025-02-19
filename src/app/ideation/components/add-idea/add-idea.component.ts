@@ -12,6 +12,8 @@ import { Idea, IdeaStatus } from '@interfaces/idea';
 import { Notification } from '@interfaces/notification';
 import { Ideation } from '@interfaces/ideation';
 import { MarkdownDirective } from 'src/app/directives/markdown.directive';
+import { DialogService } from '@shared/dialog';
+import { AnonymousDialogComponent } from '../anonymous-dialog/anonymous-dialog.component';
 
 import { trigger, state, style } from '@angular/animations';
 import {
@@ -75,11 +77,10 @@ export class AddIdeaComponent {
 
   wWidth = window.innerWidth;
   focusIdeaStatement = false;
-  argumentType = 'pro';
+  argumentType = <string>'pro';
   errors: any;
   addIdea;
-  description = '';
-  initialValue = '';
+  description = <string>'';
   ideaForm = new UntypedFormGroup({
     statement: new UntypedFormControl('', [Validators.required]),
     description: new UntypedFormControl('', [Validators.required]),
@@ -103,7 +104,7 @@ export class AddIdeaComponent {
     @Inject(TranslateService) public readonly translate: TranslateService,
     @Inject(Router) readonly router: Router) {
     this.addIdea = this.app.addIdea.pipe(map((val) => {
-      this.description = this.initialValue;
+      this.description = '';
       this.ideaForm.reset();
       this.images = [];
       return val;
@@ -111,7 +112,6 @@ export class AddIdeaComponent {
   }
 
   ngOnInit(): void {
-    this.initialValue = this.ideation.template || '';
     this.IdeaAttachmentService.setParam('topicId', this.topicId);
     this.IdeaAttachmentService.setParam('ideationId', this.ideationId);
   }
@@ -202,17 +202,35 @@ export class AddIdeaComponent {
       });
   }
 
-  postIdea(status?: IdeaStatus) {
-    const idea = {
+  getDemographicValues(): Idea['demographics'] {
+    if (!this.ideation.demographicsConfig) {
+      return null;
+    }
+
+    return Object.keys(this.ideation.demographicsConfig)
+      .reduce((acc: Idea['demographics'], curr: string) => {
+        return {
+          ...acc,
+          [curr]: this.ideation.demographicsConfig?.[curr].value || '',
+        };
+      }, null);
+  }
+
+  saveIdea(status?: IdeaStatus) {
+    /**
+     * @todo Fix types for ideaData.
+     */
+    const ideaData: Partial<Idea> & {parentVersion: number; topicId: string} = {
       parentVersion: 0,
       statement: this.ideaForm.value['statement'],
       description: this.ideaForm.value['description'],
       topicId: this.topicId,
-      ideationId: this.ideationId,
-      status: status
+      status: status,
+      ideationId: this.ideation.id,
+      demographics: this.getDemographicValues(),
     };
 
-    this.TopicIdeaService.save(idea)
+    this.TopicIdeaService.save(ideaData)
       .pipe(take(1))
       .subscribe({
         next: (idea) => {
@@ -237,8 +255,12 @@ export class AddIdeaComponent {
       'image/svg+xml',
     ];
     const files = this.fileInput?.nativeElement.files;
-    if ((this.images.length + this.newImages.length) >= this.IMAGE_LIMIT) {
-      return this.Notification.addError(this.translate.instant('MSG_ERROR_IDEA_IMAGE_LIMIT', { limit: this.IMAGE_LIMIT }));
+    if (this.images.length === this.IMAGE_LIMIT) {
+      return this.Notification.addError(
+        this.translate.instant('MSG_ERROR_IDEA_IMAGE_LIMIT', {
+          limit: this.IMAGE_LIMIT,
+        })
+      );
     }
     for (let i = 0; i < files.length; i++) {
       if (allowedTypes.indexOf(files[i].type) < 0) {
@@ -248,8 +270,12 @@ export class AddIdeaComponent {
           })
         );
       } else if (files[i].size > 5000000) {
-        this.Notification.addError(this.translate.instant('MSG_ERROR_FILE_TOO_LARGE', { allowedFileSize: '5MB' }));
-      } else if ((this.images.length + i) < this.IMAGE_LIMIT) {
+        this.Notification.addError(
+          this.translate.instant('MSG_ERROR_FILE_TOO_LARGE', {
+            allowedFileSize: '5MB',
+          })
+        );
+      } else if (this.images.length < 5) {
         const reader = new FileReader();
         reader.onload = () => {
           const file = files[i];
@@ -258,7 +284,12 @@ export class AddIdeaComponent {
         };
         reader.readAsDataURL(files[i]);
       } else {
-        this.Notification.addError(this.translate.instant('MSG_ERROR_IDEA_IMAGE_LIMIT', { limit: this.IMAGE_LIMIT }));
+        i = files.length;
+        this.Notification.addError(
+          this.translate.instant('MSG_ERROR_IDEA_IMAGE_LIMIT', {
+            limit: this.IMAGE_LIMIT,
+          })
+        );
       }
     }
   }
