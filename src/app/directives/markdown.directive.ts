@@ -1,26 +1,37 @@
 import { DialogService } from 'src/app/shared/dialog';
-import { Directive, Input, ElementRef, OnDestroy, EventEmitter, Output, inject, EnvironmentInjector } from '@angular/core';
+import {
+  Directive,
+  Input,
+  ElementRef,
+  OnDestroy,
+  EventEmitter,
+  Output,
+  inject,
+  EnvironmentInjector,
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import EasyMDE from 'easymde';
 import { MarkdownLinkDialogComponent } from './components/markdown-link-dialog/markdown-link-dialog.component';
 @Directive({
-  selector: '[cosmarkdown]'
+  selector: '[cosmarkdown]',
 })
 export class MarkdownDirective implements OnDestroy {
-  @Input() item: string = ''; // The text for the tooltip to display
+  @Input() item = ''; // The text for the tooltip to display
+  @Input() initialValue?: string | null = null;
   @Output() itemChange = new EventEmitter<string>();
   @Input() limit: number = 100; // Optional delay input, in m
   @Input() placeholder?: string;
-  @Input('cosmarkdowntranslatecharacterstatuskey') cosMarkdownTranslateCharacterStatusKey: any;
+  @Input('cosmarkdowntranslatecharacterstatuskey')
+  cosMarkdownTranslateCharacterStatusKey: any;
   CHAR_COUNTER_ELEMENT_CLASS_NAME = 'charCounter';
   curLength = 0;
-  easymde:any;
+  easymde: any;
 
   config: any = {
     spellChecker: false,
     toolbar: [
       {
-        name: "write",
+        name: 'write',
         text: this.Translate.instant('MDEDITOR_TOOLTIP_WRITE'),
         className: 'no-disable tab-active',
         action: (editor: any) => {
@@ -32,7 +43,7 @@ export class MarkdownDirective implements OnDestroy {
         title: this.Translate.instant('MDEDITOR_TOOLTIP_WRITE'),
       },
       {
-        name: "preview",
+        name: 'preview',
         className: 'no-disable',
         text: this.Translate.instant('MDEDITOR_TOOLTIP_PREVIEW'),
         action: (editor: any) => {
@@ -63,7 +74,8 @@ export class MarkdownDirective implements OnDestroy {
         className: 'fa md-right fa-list-ol',
         title: this.Translate.instant('MDEDITOR_TOOLTIP_ORDERED_LIST'),
       },
-      '|', {
+      '|',
+      {
         name: 'strikethrough',
         action: EasyMDE.toggleStrikethrough,
         className: 'fa md-right fa-strikethrough',
@@ -85,27 +97,34 @@ export class MarkdownDirective implements OnDestroy {
     preview: true,
     blockStyles: {
       unorderedListStyle: '-',
-      italic: '_'
+      italic: '_',
     },
-    status: [{
-      className: this.CHAR_COUNTER_ELEMENT_CLASS_NAME,
-      defaultValue: (el: any) => {
-        this.updateCharacterCount(el);
+    status: [
+      {
+        className: this.CHAR_COUNTER_ELEMENT_CLASS_NAME,
+        defaultValue: (el: any) => {
+          this.updateCharacterCount(el);
+        },
+        onUpdate: (el: any) => {
+          this.updateCharacterCount(el);
+        },
       },
-      onUpdate: (el: any) => {
-        this.updateCharacterCount(el);
-      },
-    }],
+    ],
     minHeight: '100px',
     element: this.el.nativeElement,
-    initialValue: this.item
+    initialValue: this.initialValue,
   };
-  constructor(private el: ElementRef, private Translate: TranslateService, private dialog: DialogService, private injector: EnvironmentInjector) {
-
+  constructor(
+    private el: ElementRef,
+    private Translate: TranslateService,
+    private dialog: DialogService,
+    private injector: EnvironmentInjector
+  ) {
     if (window.innerWidth < 560) {
       this.config['minHeight'] = '100px';
     }
-    let placeholder = this.el.nativeElement.attributes.getNamedItem('placeholder')?.value;
+    let placeholder =
+      this.el.nativeElement.attributes.getNamedItem('placeholder')?.value;
     if (placeholder) {
       placeholder = this.Translate.instant(placeholder);
       this.config.placeholder = placeholder;
@@ -115,7 +134,9 @@ export class MarkdownDirective implements OnDestroy {
       const maxLength = cm.getOption('maxLength') || this.limit;
       if (maxLength && change?.update && change?.text.length) {
         let str = change.text.join('\n');
-        let delta = str.length - (cm.indexFromPos(change.to) - cm.indexFromPos(change.from));
+        let delta =
+          str.length -
+          (cm.indexFromPos(change.to) - cm.indexFromPos(change.from));
         if (delta <= 0) {
           return true;
         }
@@ -137,8 +158,8 @@ export class MarkdownDirective implements OnDestroy {
       const selected = this.easymde.codemirror.getSelection();
       const linkDialog = this.dialog.open(MarkdownLinkDialogComponent, {
         data: {
-          selected
-        }
+          selected,
+        },
       });
 
       linkDialog.afterClosed().subscribe({
@@ -146,7 +167,7 @@ export class MarkdownDirective implements OnDestroy {
           console.log(data);
           if (data) {
             if (!data.link) {
-              return
+              return;
             }
 
             if (data.link.indexOf('http') === -1) {
@@ -172,20 +193,18 @@ export class MarkdownDirective implements OnDestroy {
             cm.setSelection(endPoint, endPoint);
             cm.focus();
           }
-        }
-      })
-    }
+        },
+      });
+    };
   }
   ngOnInit(): void {
-    this.easymde.value(this.item);
+    if (!this.initialValue) {
+      this.initialValue = this.item;
+    }
   }
-
-  ngOnDestroy(): void {
-  }
-
   ngOnChanges(): void {
-    if (this.item === '') {
-      this.easymde.value(this.item);
+    if (this.item === this.initialValue) {
+      this.easymde.value(this.initialValue);
     }
   }
 
@@ -196,14 +215,17 @@ export class MarkdownDirective implements OnDestroy {
     }
 
     return curLength;
-  };
-
+  }
 
   updateCharacterCount(el: any) {
     if (this.cosMarkdownTranslateCharacterStatusKey && this.limit) {
-      el.innerHTML = this.Translate.instant(this.cosMarkdownTranslateCharacterStatusKey, {
-        numberOfCharacters: this.limit,
-      }) + ' (' + (this.limit - this.getCharLength()) + ')';
+      el.innerHTML =
+        this.Translate.instant(this.cosMarkdownTranslateCharacterStatusKey, {
+          numberOfCharacters: this.limit,
+        }) +
+        ' (' +
+        (this.limit - this.getCharLength()) +
+        ')';
     }
-  };
+  }
 }
