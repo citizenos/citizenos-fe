@@ -579,12 +579,7 @@
             <div
               class="create_content_block discussion"
               [ngClass]="{ active: block.title }"
-              [@openClose]="block.title ? 'open' : 'closed'"
             >
-              <div class="block_title_wrap" (click)="showBlockTitle()">
-                <div
-                  class="block_title"
-                  translate="VIEWS.IDEATION_CREATE.TITLE_HEADING"
                 ></div>
                 <div class="counter_wrap">
                   <div class="char_counter">
@@ -594,14 +589,10 @@
                     width="16"
                     height="16"
                     viewBox="0 0 16 16"
-                    fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       d="M12.6558 9.32812C11.2233 8.52002 9.79067 7.71195 8.35815 6.90385C8.47123 7.10587 8.5843 7.30788 8.71632 7.4916V7.47328C8.71632 7.2345 8.58432 6.99582 8.35815 6.88553C6.92564 6.07743 5.49303 5.26936 4.06051 4.46126C3.26884 4.02046 2.55253 5.21426 3.3442 5.65493C4.77672 6.46303 6.20933 7.2711 7.64185 8.0792C7.52877 7.87718 7.41569 7.67517 7.28368 7.49145V7.50977C7.28368 7.74856 7.41569 7.98723 7.64185 8.09752C9.07436 8.90563 10.507 9.71369 11.9395 10.5218C12.7312 10.9626 13.4475 9.76892 12.6558 9.32812Z"
-                      fill="#EF4025"
-                    />
-                    <path
                       d="M8.71632 7.4916L8.71634 2.66112C8.71634 1.77963 7.30264 1.77963 7.30264 2.66112V7.49117C7.30264 8.3728 8.71632 8.37323 8.71632 7.4916Z"
                       fill="#EF4025"
                     />
@@ -1888,6 +1879,37 @@
                       id="idea_template"
                       [item]="ideation.template || ''"
                       [initialValue]="initialTemplateValue"
+                      class="gray_borders"
+                      (itemChange)="updateTemplate($event)"
+                      placeholder="COMPONENTS.ADD_IDEA.PLACEHOLDER_EXPLAIN_YOUR_IDEA"
+                    ></textarea>
+                  </div>
+                </div>
+                <div class="radio_wrap template_area ideation">
+                  <div class="radio_text_wrap">
+                    <div class="radio_lable_wrap setting_toggle">
+                      <span class="bold" translate="VIEWS.IDEATION_CREATE.LBL_CREATE_ITEA_TEMPLATE" [translateParams]="{
+                          value:
+                            (enableTemplate ? 'TOGGLE_ON' : 'TOGGLE_OFF')
+                            | translate
+                        }"></span>
+                      <cos-toggle [(model)]="enableTemplate"></cos-toggle>
+                    </div>
+                    <div class="radio_description">
+                      <span translate="VIEWS.IDEATION_CREATE.LBL_CREATE_ITEA_TEMPLATE_DESC"></span>
+                    </div>
+                  </div>
+
+                  <div
+                    class="template_area_wrap"
+                    [ngClass]="enableTemplate ? '' : 'hidden'"
+                  >
+                    <textarea
+                      cosmarkdown
+                      [limit]="0"
+                      name="idea_template"
+                      id="idea_template"
+                      [item]="ideation.template || ''"
                       class="gray_borders"
                       (itemChange)="updateTemplate($event)"
                       placeholder="COMPONENTS.ADD_IDEA.PLACEHOLDER_EXPLAIN_YOUR_IDEA"
