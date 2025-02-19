@@ -24,6 +24,7 @@ import { BlockNavigationIfChange } from 'src/app/shared/pending-changes.guard';
 import { TopicDiscussionService } from '@services/topic-discussion.service';
 import { TopicSettingsDisabledDialogComponent } from 'src/app/topic/components/topic-settings-disabled-dialog/topic-settings-disabled-dialog.component';
 import { TopicSettingsLockedComponent } from 'src/app/topic/components/topic-settings-locked/topic-settings-locked.component';
+import { Ideation } from '@interfaces/ideation';
 
 @Component({
   selector: 'app-ideation-create',
@@ -91,21 +92,37 @@ export class IdeationCreateComponent
   languages$: { [key: string]: any } = this.config.get('language').list;
   topic$: Observable<Topic>;
 
+  demographicsConfig: NonNullable<Ideation['demographicsConfig']> = {
+    age: {
+      required: false,
+    },
+    gender: {
+      required: false,
+    },
+    residence: {
+      required: false,
+    },
+  };
+
   /**/
   override tabs = ['info', 'settings', 'ideation_system', 'preview'];
   members = <any[]>[];
   enableTemplate = false;
-  public ideation = {
+  ideation: Ideation = {
     id: '',
     creatorId: '',
     question: '',
     deadline: null,
     disableReplies: false,
     allowAnonymous: false,
+    demographicsConfig: null,
     template: '',
+    // @ts-expect-error Fix later
     createdAt: '',
+    // @ts-expect-error Fix later
     updatedAt: '',
   };
+  initialTemplateValue = '';
   constructor(
     dialog: DialogService,
     route: ActivatedRoute,
@@ -276,6 +293,13 @@ export class IdeationCreateComponent
                     .subscribe({
                       next: (ideation) => {
                         this.ideation = ideation;
+                        if (ideation.demographicsConfig !== null) {
+                          this.demographicsConfig = ideation.demographicsConfig;
+                        }
+                        if (ideation.template) {
+                          this.enableTemplate = true;
+                          this.initialTemplateValue = ideation.template;
+                        }
                         this.ideation.question = this.ideation.question.trim();
                         if (this.ideation.deadline) {
                           this.deadline = new Date(this.ideation.deadline);
@@ -352,6 +376,25 @@ export class IdeationCreateComponent
         });
       }
     }
+  }
+
+  get demographicKeys() {
+    return Object.keys(this.demographicsConfig);
+  }
+
+  getDemographicEnabled() {
+    if (!this.ideation.allowAnonymous) {
+      return null;
+    }
+
+    return Object.keys(this.demographicsConfig)
+      .filter((key) => this.demographicsConfig[key].required)
+      .reduce((acc: Ideation['demographicsConfig'], curr: string) => {
+        return {
+          ...acc,
+          [curr]: this.demographicsConfig[curr],
+        };
+      }, null);
   }
 
   createTopic() {
@@ -507,7 +550,11 @@ export class IdeationCreateComponent
   }
 
   createIdeation(updateTopicStatus?: boolean) {
-    const createIdeation: any = { topicId: this.topic.id, ...this.ideation };
+    const createIdeation = {
+      topicId: this.topic.id,
+      ...this.ideation,
+      demographicsConfig: this.getDemographicEnabled(),
+    };
     if (!this.deadlineSelect) {
       createIdeation.deadline = null;
     }
@@ -554,7 +601,6 @@ export class IdeationCreateComponent
         },
         error: (res) => {
           this.nextTab('ideation_system');
-          console.debug('createIdeation() ERR', res, res.errors);
           this.errors = res.errors;
           Object.values(this.errors).forEach((message) => {
             if (typeof message === 'string')
@@ -565,7 +611,11 @@ export class IdeationCreateComponent
   }
 
   updateIdeation(updateTopicStatus?: boolean) {
-    const updateIdeation = { topicId: this.topic.id, ...this.ideation };
+    const updateIdeation = {
+      topicId: this.topic.id,
+      ...this.ideation,
+      demographicsConfig: this.getDemographicEnabled(),
+    };
     if (!this.deadlineSelect) {
       updateIdeation.deadline = null;
     }
@@ -618,7 +668,6 @@ export class IdeationCreateComponent
   }
 
   removeChanges() {
-    console.log(this.topic);
     this.TopicService.revert(this.topic.id, this.topic.revision!)
       .pipe(take(1))
       .subscribe(() => {

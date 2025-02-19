@@ -20,4 +20,5 @@ export interface Ideation {
   disableReplies: boolean;
   allowAnonymous: boolean;
   template: string | null;
+  demographicsConfig: Record<string, { required: boolean; value?: string }> | null;
 }
