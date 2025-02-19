@@ -212,7 +212,7 @@ export class AddIdeaComponent {
       status: status
     };
 
-    this.TopicIdeaService.save(ideaData)
+    this.TopicIdeaService.save(idea)
       .pipe(take(1))
       .subscribe({
         next: (idea) => {

@@ -15,7 +15,7 @@ import { MarkdownLinkDialogComponent } from './components/markdown-link-dialog/m
 @Directive({
   selector: '[cosmarkdown]',
 })
-export class MarkdownDirective implements OnDestroy {
+export class MarkdownDirective {
   @Input() item = ''; // The text for the tooltip to display
   @Input() initialValue?: string | null = null;
   @Output() itemChange = new EventEmitter<string>();
