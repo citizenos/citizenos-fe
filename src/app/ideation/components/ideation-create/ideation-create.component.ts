@@ -108,7 +108,7 @@ export class IdeationCreateComponent
   override tabs = ['info', 'settings', 'ideation_system', 'preview'];
   members = <any[]>[];
   enableTemplate = false;
-  public ideation = {
+  ideation: Ideation = {
     id: '',
     creatorId: '',
     question: '',
@@ -117,7 +117,9 @@ export class IdeationCreateComponent
     allowAnonymous: false,
     demographicsConfig: null,
     template: '',
+    // @ts-expect-error Fix later
     createdAt: '',
+    // @ts-expect-error Fix later
     updatedAt: '',
   };
   initialTemplateValue = '';
