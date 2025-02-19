@@ -83,6 +83,9 @@ export class AddIdeaComponent {
   ideaForm = new UntypedFormGroup({
     statement: new UntypedFormControl('', [Validators.required]),
     description: new UntypedFormControl('', [Validators.required]),
+    demographics_age: new UntypedFormControl(''),
+    demographics_gender: new UntypedFormControl(''),
+    demographics_residence: new UntypedFormControl(''),
   });
   IMAGE_LIMIT = 10;
   IDEA_STATEMENT_MAXLENGTH = 1024;
@@ -209,7 +212,7 @@ export class AddIdeaComponent {
       status: status
     };
 
-    this.TopicIdeaService.save(idea)
+    this.TopicIdeaService.save(ideaData)
       .pipe(take(1))
       .subscribe({
         next: (idea) => {

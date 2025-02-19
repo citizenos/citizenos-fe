@@ -1804,6 +1804,29 @@
                       ></span>
                     </div>
                   </div>
+
+                  <div
+                    class="anonymous_area_wrap"
+                    [ngClass]="ideation.allowAnonymous ? '' : 'hidden'"
+                  >
+                    <label *ngFor="let key of demographicKeys" class="checkbox">
+                      <span
+                        [innerHTML]="
+                          'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_' + key
+                            | uppercase
+                            | translate
+                        "
+                      ></span>
+                      <input
+                        type="checkbox"
+                        name="orderBy"
+                        [id]="key"
+                        [name]="key"
+                        [(ngModel)]="demographicsConfig[key].required"
+                      />
+                      <span class="checkmark"></span>
+                    </label>
+                  </div>
                 </div>
                 <div
                   class="radio_wrap ideation"
@@ -1833,6 +1856,7 @@
                     </div>
                   </div>
                 </div>
+
                 <div class="radio_wrap template_area ideation">
                   <div class="radio_text_wrap">
                     <div class="radio_lable_wrap setting_toggle">
@@ -1862,7 +1886,8 @@
                       cosmarkdown
                       name="idea_template"
                       id="idea_template"
-                      [item]="ideation.template"
+                      [item]="ideation.template || ''"
+                      [initialValue]="initialTemplateValue"
                       class="gray_borders"
                       (itemChange)="updateTemplate($event)"
                       placeholder="COMPONENTS.ADD_IDEA.PLACEHOLDER_EXPLAIN_YOUR_IDEA"

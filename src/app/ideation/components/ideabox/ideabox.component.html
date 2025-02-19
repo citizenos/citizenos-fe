@@ -19,7 +19,8 @@
           <a (click)="goToView()">{{ 'COMPONENTS.IDEABOX.NOTIFICATION_LNK_VIEW' | translate }}</a>
         </div>
       </ng-container>
-      <ng-container *ngIf="idea.deletedBy?.id === idea.author?.id && !idea.deletedReasonType && !idea.deletedReasonText">
+      <ng-container
+        *ngIf="idea.deletedBy?.id === idea.author?.id && !idea.deletedReasonType && !idea.deletedReasonText">
         <div class="bold" [innerHtml]="'COMPONENTS.IDEABOX.IDEA_AUTHOR_REMOVED_IDEA' | translate">
         </div>
         <div class="buttons_wrap">
@@ -31,18 +32,20 @@
   <div class="idea_header">
     <div class="idea_header_left">
       <ng-container *ngIf="!isDraft(idea.status)">
-        <div class="avatar">
-          <div class="tooltip_item" tooltip pos="top" [noIcon]="true">
-            <div class="content_description"> {{idea.author.name}}
+        <ng-container *ngIf="idea.author">
+          <div class="avatar">
+            <div class="tooltip_item" tooltip pos="top" [noIcon]="true">
+              <div class="content_description"> {{idea.author.name}}
+              </div>
+            </div>
+            <img *ngIf="idea.author.imageUrl" [src]="idea.author.imageUrl" [alt]="idea.author.name" />
+            <div class="profile_image_filler" *ngIf="!idea.author.imageUrl">
+              <cos-initials *ngIf="idea.author.name" [name]="idea.author.name || ''">
+              </cos-initials>
             </div>
           </div>
-          <img *ngIf="idea.author.imageUrl" [src]="idea.author.imageUrl" [alt]="idea.author.name" />
-          <div class="profile_image_filler" *ngIf="!idea.author.imageUrl">
-            <cos-initials *ngIf="idea.author.name" [name]="idea.author.name || ''">
-            </cos-initials>
-          </div>
-        </div>
-        <div class="vertical_line_separator"></div>
+          <div class="vertical_line_separator"></div>
+        </ng-container>
         <div class="like_wrap" [ngClass]="{selected: this.idea.votes.up.selected}">
           <button class="btn_idea_like" [ngClass]="{disabled: !canVote()}" (click)="doIdeaVote(1)">
             <div class="tooltip_item" tooltip pos="top" [noIcon]="true">
@@ -248,8 +251,10 @@
     <div class="date" *ngIf="isDraft(idea.status)">{{'COMPONENTS.IDEABOX.DRAFT_UPDATED_AT' | translate: {date:
       (idea.updatedAt | date: 'YYYY-MM-dd HH:mm')} }}</div>
     <div class="replies_count" *ngIf="!isDraft(idea.status)">
-      <a (click)="(!idea.report.id)? goToView(true): ''">{{'COMPONENTS.IDEABOX.REPLIES' | translate: {count: idea.replies.count} }}</a>
+      <a (click)="(!idea.report.id)? goToView(true): ''">{{'COMPONENTS.IDEABOX.REPLIES' | translate: {count:
+        idea.replies.count} }}</a>
     </div>
   </div>
 </div>
-<edit-idea *ngIf="showEdit" [idea]="idea" [topicId]="topic.id" [ideation]="ideation" (showEdit)="toggleEdit($event)"></edit-idea>
+<edit-idea *ngIf="showEdit" [idea]="idea" [topicId]="topic.id" [ideation]="ideation"
+  (showEdit)="toggleEdit($event)"></edit-idea>
