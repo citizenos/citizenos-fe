@@ -3003,7 +3003,7 @@
       "SECTION_PARTICIPANTS_LNK_MANAGE": "Halda",
       "SECTION_PARTICIPANTS_BTN_SHARE": "Kutsu ja jaga",
       "SECTION_NOTIFICATIONS_HEADING": "Teavitused",
-      "SECTION_NOTIFICATIONS_DESC": "Lülita kõik teavitused sisse, et olla kaasatud ja selle teema tegevusega kursis.",
+      "SECTION_NOTIFICATIONS_DESC": "Lülita teavitused sisse, et olla kaasatud ja olulisega kursis.",
       "SECTION_NOTIFICATIONS_BTN": "Halda teavitusi",
       "STATE_ITEM_IDEATION_HEADING": "Ideekorje",
       "STATE_ITEM_IDEATION_STATUS_ACTIVE": "@:VIEWS.TOPICS_TOPICID.STATE_ITEM_VOTING_STATUS_ACTIVE",
