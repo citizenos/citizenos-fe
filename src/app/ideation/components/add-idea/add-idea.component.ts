@@ -33,17 +33,6 @@ import {
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { take, map, takeWhile, of } from 'rxjs';
-import { AppService } from '@services/app.service';
-import { AuthService } from '@services/auth.service';
-import { TopicIdeaService } from '@services/topic-idea.service';
-import { NotificationService } from '@services/notification.service';
-import { MarkdownDirective } from 'src/app/directives/markdown.directive';
-import { UploadService } from '@services/upload.service';
-import { Attachment } from '@interfaces/attachment';
-import { Ideation } from '@interfaces/ideation';
-import { DialogService } from '@shared/dialog';
-import { AnonymousDialogComponent } from '../anonymous-dialog/anonymous-dialog.component';
-import { Idea } from '@interfaces/idea';
 
 @Component({
   selector: 'add-idea',
@@ -213,8 +202,6 @@ export class AddIdeaComponent {
       });
   }
 
-  saveIdea(status?: IdeaStatus) {
-    const idea = {
   getDemographicValues(): Idea['demographics'] {
     if (!this.ideation.demographicsConfig) {
       return null;
@@ -229,7 +216,7 @@ export class AddIdeaComponent {
       }, null);
   }
 
-  saveIdea() {
+  saveIdea(status?: IdeaStatus) {
     /**
      * @todo Fix types for ideaData.
      */
