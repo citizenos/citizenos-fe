@@ -101,6 +101,7 @@ export class AddIdeaComponent {
     private readonly Notification: NotificationService,
     public readonly TopicIdeaService: TopicIdeaService,
     private readonly TopicMemberUserService: TopicMemberUserService,
+    private readonly dialog: DialogService,
     @Inject(ActivatedRoute) readonly route: ActivatedRoute,
     @Inject(TranslateService) public readonly translate: TranslateService,
     @Inject(Router) readonly router: Router) {
@@ -165,6 +166,26 @@ export class AddIdeaComponent {
       this.ideaForm.markAsUntouched();
     });
   }
+
+  postIdea(status?: IdeaStatus) {
+    if (this.ideation.allowAnonymous) {
+      const invitationDialog = this.dialog.open(AnonymousDialogComponent);
+      invitationDialog.afterClosed().subscribe({
+        next: (res) => {
+          if (res) {
+            this.saveIdea(status);
+          }
+        },
+      });
+    } else {
+      this.saveIdea(status);
+    }
+  }
+
+  getDemographicKeys() {
+    return Object.keys(this.ideation.demographicsConfig || {});
+  }
+
   draftIdea() {
     this.postIdea(IdeaStatus.draft);
   }
@@ -257,12 +278,8 @@ export class AddIdeaComponent {
       'image/svg+xml',
     ];
     const files = this.fileInput?.nativeElement.files;
-    if (this.images.length === this.IMAGE_LIMIT) {
-      return this.Notification.addError(
-        this.translate.instant('MSG_ERROR_IDEA_IMAGE_LIMIT', {
-          limit: this.IMAGE_LIMIT,
-        })
-      );
+    if ((this.images.length + this.newImages.length) >= this.IMAGE_LIMIT) {
+      return this.Notification.addError(this.translate.instant('MSG_ERROR_IDEA_IMAGE_LIMIT', { limit: this.IMAGE_LIMIT }));
     }
     for (let i = 0; i < files.length; i++) {
       if (allowedTypes.indexOf(files[i].type) < 0) {
@@ -272,12 +289,8 @@ export class AddIdeaComponent {
           })
         );
       } else if (files[i].size > 5000000) {
-        this.Notification.addError(
-          this.translate.instant('MSG_ERROR_FILE_TOO_LARGE', {
-            allowedFileSize: '5MB',
-          })
-        );
-      } else if (this.images.length < 5) {
+        this.Notification.addError(this.translate.instant('MSG_ERROR_FILE_TOO_LARGE', { allowedFileSize: '5MB' }));
+      } else if ((this.images.length + i) < this.IMAGE_LIMIT) {
         const reader = new FileReader();
         reader.onload = () => {
           const file = files[i];
@@ -286,12 +299,7 @@ export class AddIdeaComponent {
         };
         reader.readAsDataURL(files[i]);
       } else {
-        i = files.length;
-        this.Notification.addError(
-          this.translate.instant('MSG_ERROR_IDEA_IMAGE_LIMIT', {
-            limit: this.IMAGE_LIMIT,
-          })
-        );
+        this.Notification.addError(this.translate.instant('MSG_ERROR_IDEA_IMAGE_LIMIT', { limit: this.IMAGE_LIMIT }));
       }
     }
   }

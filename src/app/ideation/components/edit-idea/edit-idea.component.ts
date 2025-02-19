@@ -15,6 +15,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { of, take } from 'rxjs';
 import { Idea, IdeaStatus} from 'src/app/interfaces/idea';
 import { AddIdeaComponent } from '../add-idea/add-idea.component';
+import { DialogService } from '@shared/dialog';
 
 @Component({
   selector: 'edit-idea',
@@ -46,10 +47,11 @@ export class EditIdeaComponent extends AddIdeaComponent {
     Notification: NotificationService,
     TopicIdeaService: TopicIdeaService,
     TopicMemberUserService: TopicMemberUserService,
+    dialog: DialogService,
     route: ActivatedRoute,
     translate: TranslateService,
     router: Router) {
-    super(app, AuthService, TopicIdeationService, UploadService, IdeaAttachmentService, Notification, TopicIdeaService, TopicMemberUserService, route, translate, router);
+    super(app, AuthService, TopicIdeationService, UploadService, IdeaAttachmentService, Notification, TopicIdeaService, TopicMemberUserService, dialog, route, translate, router);
   }
 
   override ngOnInit(): void {
