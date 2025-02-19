@@ -142,54 +142,6 @@
         </label>
       </cos-input>
 
-      <div
-        *ngIf="ideation.allowAnonymous && getDemographicKeys().length > 0"
-        class="anonymous_info"
-      >
-        <cos-input
-          *ngFor="let key of getDemographicKeys()"
-          placeholder="{{
-            'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_' + key | uppercase | translate
-          }}"
-        >
-          <input
-            [id]="'demographics_' + key"
-            [name]="'demographics_' + key"
-            [formControlName]="'demographics_' + key"
-            [(ngModel)]="ideation.demographicsConfig![key].value"
-            autocomplete="off"
-            placeholder="{{
-              'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_' + key
-                | uppercase
-                | translate
-            }}"
-            class="gray_borders"
-            [ngClass]="{
-              error_input:
-                ideaForm.controls['demographics_' + key].errors &&
-                ideaForm.controls['demographics_' + key].errors?.['required'] &&
-                ideaForm.controls['demographics_' + key].touched
-            }"
-            [required]="ideation.demographicsConfig![key].required"
-          />
-
-          <label
-            [for]="'demographics_' + key"
-            class="error_label"
-            *ngIf="
-              ideaForm.controls['demographics_' + key].errors &&
-              ideaForm.controls['demographics_' + key].errors?.['required'] &&
-              ideaForm.controls['demographics_' + key].touched
-            "
-          >
-            <span
-              class="error_text"
-              translate="COMPONENTS.ADD_IDEA.FIELD_IS_MANDATORY"
-            ></span>
-          </label>
-        </cos-input>
-      </div>
-
       <textarea
         cosmarkdown
         name="description"
