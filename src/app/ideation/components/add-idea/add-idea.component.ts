@@ -207,22 +207,13 @@ export class AddIdeaComponent {
   }
 
   afterPostNavigate(idea: Idea) {
-    if (idea.status === IdeaStatus.draft) {
+    if (idea.status !== IdeaStatus.draft) {
       this.router.navigate(
-        ['ideation', this.ideationId],
+        ['ideation', this.ideationId, 'ideas', idea.id],
         {
           relativeTo: this.route
         });
     }
-    /*  this.notificationChange.emit({
-        level: 'success'
-        message: this.translate.instant('COMPONENTS.ADD_IDEA.MSG_SUCCESS')
-      })*/
-    this.router.navigate(
-      ['ideation', this.ideationId, 'ideas', idea.id],
-      {
-        relativeTo: this.route
-      });
   }
 
   getDemographicValues(): Idea['demographics'] {
