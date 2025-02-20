@@ -33,7 +33,7 @@ export class MarkdownDirective {
       {
         name: 'write',
         text: this.Translate.instant('MDEDITOR_TOOLTIP_WRITE'),
-        className: 'no-disable tab-active',
+        className: 'no-disable tab-active tab-action',
         action: (editor: any) => {
           if (editor.isPreviewActive()) {
             EasyMDE.togglePreview(editor);
@@ -44,7 +44,7 @@ export class MarkdownDirective {
       },
       {
         name: 'preview',
-        className: 'no-disable',
+        className: 'no-disable tab-action',
         text: this.Translate.instant('MDEDITOR_TOOLTIP_PREVIEW'),
         action: (editor: any) => {
           if (!editor.isPreviewActive()) {

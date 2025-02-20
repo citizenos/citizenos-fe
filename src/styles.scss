@@ -1838,13 +1838,24 @@ tour-item-template {
       margin-top: 0;
     }
 
+    .tab-action {
+      @include mixins.mobile {
+        width: 50% !important;
+      }
+    }
     .md-right {
       margin-top: 12px;
       float: right;
+      @include mixins.mobile {
+        float:none;
+      }
     }
     .separator {
       margin-top: 16px;
       float: right;
+      @include mixins.mobile {
+        float:none;
+      }
     }
     .write,
     .preview {
