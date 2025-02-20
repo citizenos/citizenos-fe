@@ -617,17 +617,36 @@
 .anonymous_area {
   flex-wrap: wrap;
 
-  .template_area_wrap,
-  .anonymous_area_wrap {
+  .template_area_wrap {
     width: 100%;
     margin-top: 8px;
   }
 
   .anonymous_area_wrap {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 8px;
+    &:before {
+      content: '';
+      display: block;
+      position: absolute;
+      height: 1px;
+      top: 0;
+      left: -16px;
+      right: -16px;
+      background-color: var(--color-border);
+
+    }
+  }
+
+  .anonymous_area_options {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: 24px;
+    gap: 8px 24px;
+    width: 100%;
   }
 
   .hidden {

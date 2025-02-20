@@ -1066,23 +1066,32 @@
                     class="anonymous_area_wrap"
                     [ngClass]="ideation.allowAnonymous ? '' : 'hidden'"
                   >
-                    <label *ngFor="let key of demographicKeys" class="checkbox">
-                      <span
-                        [innerHTML]="
-                          'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_' + key
-                            | uppercase
-                            | translate
-                        "
-                      ></span>
-                      <input
-                        type="checkbox"
-                        name="orderBy"
-                        [id]="key"
-                        [name]="key"
-                        [(ngModel)]="demographicsConfig[key].required"
-                      />
-                      <span class="checkmark"></span>
-                    </label>
+                    <div class="radio_lable_wrap setting_toggle">
+                      <span class="bold" translate="VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_TITLE"></span>
+                    </div>
+                    <div class="radio_description">
+                      <span translate="VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_DESCRIPTION"></span>
+                    </div>
+
+                    <div class="anonymous_area_options">
+                      <label *ngFor="let key of demographicKeys" class="checkbox">
+                        <span
+                          [innerHTML]="
+                            'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_' + key
+                              | uppercase
+                              | translate
+                          "
+                        ></span>
+                        <input
+                          type="checkbox"
+                          name="orderBy"
+                          [id]="key"
+                          [name]="key"
+                          [(ngModel)]="demographicsConfig[key].required"
+                        />
+                        <span class="checkmark"></span>
+                      </label>
+                    </div>
                   </div>
                 </div>
 
