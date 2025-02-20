@@ -2333,6 +2333,8 @@
       "LBL_CREATE_ITEA_TEMPLATE_DESC": "You can create a template to give participants guidance how to compose their idea.",
       "LBL_ALLOW_ANONYMOUS": "Anonymous ideas are turned: {{value}}",
       "LBL_ALLOW_ANONYMOUS_DESC": "Ideas are posted without showing the poster’s name",
+      "DEMOGRAPHICS_DATA_TITLE": "Collect demographic data",
+      "DEMOGRAPHICS_DATA_DESCRIPTION": "Fields will be mandatory. Requested fields cannot be changed once idea gathering starts.",
       "DEMOGRAPHICS_DATA_AGE": "Age",
       "DEMOGRAPHICS_DATA_GENDER": "Gender",
       "DEMOGRAPHICS_DATA_RESIDENCE": "Residence",
