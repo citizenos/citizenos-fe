@@ -187,7 +187,7 @@ export class AddIdeaComponent {
   }
 
   draftIdea() {
-    this.postIdea(IdeaStatus.draft);
+    this.saveIdea(IdeaStatus.draft);
   }
 
   publishIdea() {
