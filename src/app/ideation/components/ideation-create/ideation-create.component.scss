@@ -617,7 +617,8 @@
 .anonymous_area {
   flex-wrap: wrap;
 
-  .template_area_wrap {
+  .template_area_wrap,
+  .anonymous_area_wrap {
     width: 100%;
     margin-top: 8px;
   }

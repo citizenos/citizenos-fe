@@ -92,18 +92,20 @@ export class EditIdeaComponent extends AddIdeaComponent {
       });
   }
 
-  override postIdea(status?: IdeaStatus) {
-    const idea = {
+  override saveIdea(status?: IdeaStatus) {
+    const ideaData: Partial<Idea> & {parentVersion: number; topicId: string; ideaId: string} = {
       ideaId: this.idea.id,
       ideationId: this.idea.ideationId,
       parentVersion: 0,
       statement: this.ideaForm.value['statement'],
       description: this.ideaForm.value['description'],
       topicId: this.topicId,
-      status: status
+      status: status,
+      demographics: this.getDemographicValues(),
     };
+
     this.TopicIdeaService
-      .update(idea)
+      .update(ideaData)
       .pipe(take(1))
       .subscribe({
         next: (idea) => {

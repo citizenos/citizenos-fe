@@ -14,6 +14,7 @@ import { Ideation } from '@interfaces/ideation';
 import { MarkdownDirective } from 'src/app/directives/markdown.directive';
 import { DialogService } from '@shared/dialog';
 import { AnonymousDialogComponent } from '../anonymous-dialog/anonymous-dialog.component';
+import { AnonymousDraftDialogComponent } from '../anonymous-draft-dialog/anonymous-draft-dialog.component';
 
 import { trigger, state, style } from '@angular/animations';
 import {
@@ -169,7 +170,13 @@ export class AddIdeaComponent {
 
   postIdea(status?: IdeaStatus) {
     if (this.ideation.allowAnonymous) {
-      const invitationDialog = this.dialog.open(AnonymousDialogComponent);
+      let invitationDialog;
+      if (status === IdeaStatus.draft) {
+        invitationDialog = this.dialog.open(AnonymousDraftDialogComponent);
+      } else {
+        invitationDialog = this.dialog.open(AnonymousDialogComponent);
+      }
+
       invitationDialog.afterClosed().subscribe({
         next: (res) => {
           if (res) {

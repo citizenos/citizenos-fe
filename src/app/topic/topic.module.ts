@@ -109,6 +109,8 @@ import { MissingDiscussionComponent } from './components/missing-discussion/miss
 import { CloseVotingComponent } from './components/close-voting/close-voting.component';
 import { TopicTabsComponent } from './components/topic-tabs/topic-tabs.component';
 import { TopicSettingsLockedComponent } from './components/topic-settings-locked/topic-settings-locked.component';
+import { AnonymousDraftDialogComponent } from '../ideation/components/anonymous-draft-dialog/anonymous-draft-dialog.component';
+
 @NgModule({
   declarations: [
     TopicComponent,
@@ -164,6 +166,7 @@ import { TopicSettingsLockedComponent } from './components/topic-settings-locked
     TopicIdeationComponent,
     AddIdeaComponent,
     AnonymousDialogComponent,
+    AnonymousDraftDialogComponent,
     IdeaboxComponent,
     IdeaReportComponent,
     IdeaComponent,
