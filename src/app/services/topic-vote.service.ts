@@ -25,11 +25,11 @@ export class TopicVoteService {
 
   STATUSES = this.TopicService.STATUSES;
 
-  private loadVote$ = new BehaviorSubject<void>(undefined);
+  public loadVote$ = new BehaviorSubject<void>(undefined);
 
   constructor(private Location: LocationService, private http: HttpClient, private Auth: AuthService, private TopicService: TopicService) { }
 
-  loadVote(params?: { [key: string]: string | boolean }) {
+  loadVote(params?: { [key: string]: string | boolean | null}) {
     return this.loadVote$.pipe(
       exhaustMap(() => this.get(params)),
       shareReplay()
