@@ -37,6 +37,10 @@ export class AppComponent {
   handleKeyUpEvent(event: KeyboardEvent) {
     if (this.keysPressed.indexOf(event.key) > -1) this.keysPressed.splice(this.keysPressed.indexOf(event.key), 1);
   }
+  @HostListener('window:popstate', ['$event'])
+  onPopState() {
+    this.dialog.closeAll();
+  }
 
   constructor(
     private readonly router: Router,
