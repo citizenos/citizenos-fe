@@ -2341,7 +2341,7 @@
       "DEMOGRAPHICS_DATA_DESCRIPTION": "Fields will be mandatory. Requested fields cannot be changed once idea gathering starts.",
       "DEMOGRAPHICS_DATA_AGE": "Age",
       "DEMOGRAPHICS_DATA_GENDER": "Gender",
-      "DEMOGRAPHICS_DATA_RESIDENCE": "Residence",
+      "DEMOGRAPHICS_DATA_RESIDENCE": "Municipality",
       "PREVIEW_INFO": "<b>See on sinu teema eelvaade!</b> Enne hääletuse alustamist saad oma teemat igal ajal redigeerida.",
       "BTN_IDEATION_ACTIONS": "Halda ideekorjet",
       "NO_IDEAS_HEADING": "Ideid veel pole",
