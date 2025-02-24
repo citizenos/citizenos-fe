@@ -190,15 +190,27 @@ export class AddIdeaComponent {
 
   postIdea(status?: IdeaStatus) {
     if (this.ideation.allowAnonymous) {
-      const invitationDialog = this.dialog.open(AnonymousDialogComponent);
+      let invitationDialog;
+      if (status === IdeaStatus.draft) {
+        const isDemographicsRequested = this.ideation.demographicsConfig && Object.values(this.ideation.demographicsConfig).some((config) => config.required);
+        if (isDemographicsRequested) {
+          invitationDialog = this.dialog.open(AnonymousDraftDialogComponent);
+        } else {
+          this.saveIdea(status);
+        }
+      } else {
+        invitationDialog = this.dialog.open(AnonymousDialogComponent);
+      }
 
-      invitationDialog.afterClosed().subscribe({
-        next: (res) => {
-          if (res) {
-            this.saveIdea(status);
-          }
-        },
-      });
+      if (invitationDialog) {
+        invitationDialog.afterClosed().subscribe({
+          next: (res) => {
+            if (res) {
+              this.saveIdea(status);
+            }
+          },
+        });
+      }
     } else {
       this.saveIdea(status);
     }
@@ -293,7 +305,7 @@ export class AddIdeaComponent {
     /**
      * @note Description is not nullable in DB and to avoid updateing DB field,
      * we need to set it to empty string if it's a draft.
-     * 
+     *
      * @see https://github.com/citizenos/citizenos-fe/issues/1954
      */
     if (status === IdeaStatus.draft && !this.ideaForm.value['description']) {
