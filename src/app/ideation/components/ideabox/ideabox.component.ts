@@ -75,7 +75,10 @@ export class IdeaboxComponent implements AfterViewInit {
   }
 
   goToView(showReplies?: boolean) {
-    if (this.idea.status === IdeaStatus.draft) return;
+    if (this.idea.status === IdeaStatus.draft) {
+      this.ideaEditMode()
+      return
+    };
     const routerLink = ['/', 'topics', this.topic.id, 'ideation', this.ideation.id, 'ideas', this.idea.id];
     const params = <any>{};
     if (showReplies) {
