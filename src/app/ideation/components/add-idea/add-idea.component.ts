@@ -172,18 +172,25 @@ export class AddIdeaComponent {
     if (this.ideation.allowAnonymous) {
       let invitationDialog;
       if (status === IdeaStatus.draft) {
-        invitationDialog = this.dialog.open(AnonymousDraftDialogComponent);
+        const isDemographicsRequested = this.ideation.demographicsConfig && Object.values(this.ideation.demographicsConfig).some((config) => config.required);
+        if (isDemographicsRequested) {
+          invitationDialog = this.dialog.open(AnonymousDraftDialogComponent);
+        } else {
+          this.saveIdea(status);
+        }
       } else {
         invitationDialog = this.dialog.open(AnonymousDialogComponent);
       }
 
-      invitationDialog.afterClosed().subscribe({
-        next: (res) => {
-          if (res) {
-            this.saveIdea(status);
-          }
-        },
-      });
+      if (invitationDialog) {
+        invitationDialog.afterClosed().subscribe({
+          next: (res) => {
+            if (res) {
+              this.saveIdea(status);
+            }
+          },
+        });
+      }
     } else {
       this.saveIdea(status);
     }
