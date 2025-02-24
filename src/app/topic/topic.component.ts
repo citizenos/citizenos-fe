@@ -249,7 +249,8 @@ export class TopicComponent {
         if (this.topicStatus === this.STATUSES.followUp && !value)
           return 'followUp';
         if (this.selectedTab !== value) this.selectTab(value ?? '');
-        return value ?? 'discussion';
+
+        return value || 'discussion';
       })
     );
 
@@ -786,7 +787,7 @@ export class TopicComponent {
 
     this.selectedTab = tab;
     this.router.navigate([], {
-      fragment: tab,
+      ...(tab && {fragment: tab}),
       queryParams: this.route.snapshot.queryParams,
     });
   }
