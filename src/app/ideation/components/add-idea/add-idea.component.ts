@@ -34,6 +34,7 @@ import {
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { take, map, takeWhile, of } from 'rxjs';
+import { CloseWithoutSavingDialogComponent } from '../close-without-saving-dialog/close-without-saving-dialog.component';
 
 @Component({
   selector: 'add-idea',
@@ -105,13 +106,16 @@ export class AddIdeaComponent {
     private readonly dialog: DialogService,
     @Inject(ActivatedRoute) readonly route: ActivatedRoute,
     @Inject(TranslateService) public readonly translate: TranslateService,
-    @Inject(Router) readonly router: Router) {
-    this.addIdea = this.app.addIdea.pipe(map((val) => {
-      this.description = this.initialValue;
-      this.ideaForm.reset();
-      this.images = [];
-      return val;
-    }))
+    @Inject(Router) readonly router: Router
+  ) {
+    this.addIdea = this.app.addIdea.pipe(
+      map((val) => {
+        this.description = this.initialValue;
+        this.ideaForm.reset();
+        this.images = [];
+        return val;
+      })
+    );
   }
 
   ngOnInit(): void {
@@ -144,7 +148,22 @@ export class AddIdeaComponent {
   }
 
   close() {
-    this.app.addIdea.next(false);
+    if (
+      this.ideaForm.controls['statement'].value ||
+      this.ideaForm.controls['description'].value
+    ) {
+      const dialog = this.dialog.open(CloseWithoutSavingDialogComponent);
+
+      dialog.afterClosed().subscribe({
+        next: (res) => {
+          if (!res) {
+            this.app.addIdea.next(false);
+          }
+        },
+      });
+    } else {
+      this.app.addIdea.next(false);
+    }
   }
 
   clear() {
@@ -202,7 +221,7 @@ export class AddIdeaComponent {
   }
 
   afterPost(idea: Idea) {
-    this.doSaveAttachments(idea.id)
+    this.doSaveAttachments(idea.id);
     this.TopicIdeaService.reload();
     this.TopicIdeationService.reload();
     this.TopicMemberUserService.reload();
@@ -215,11 +234,9 @@ export class AddIdeaComponent {
 
   afterPostNavigate(idea: Idea) {
     if (idea.status !== IdeaStatus.draft) {
-      this.router.navigate(
-        ['ideation', this.ideationId, 'ideas', idea.id],
-        {
-          relativeTo: this.route
-        });
+      this.router.navigate(['ideation', this.ideationId, 'ideas', idea.id], {
+        relativeTo: this.route,
+      });
     }
   }
 
@@ -228,34 +245,37 @@ export class AddIdeaComponent {
       return null;
     }
 
-    return Object.keys(this.ideation.demographicsConfig)
-      .reduce((acc: Idea['demographics'], curr: string) => {
+    return Object.keys(this.ideation.demographicsConfig).reduce(
+      (acc: Idea['demographics'], curr: string) => {
         return {
           ...acc,
           [curr]: this.ideation.demographicsConfig?.[curr].value || '',
         };
-      }, null);
+      },
+      null
+    );
   }
 
   saveIdea(status?: IdeaStatus) {
     /**
      * @todo Fix types for ideaData.
      */
-    const ideaData: Partial<Idea> & {parentVersion: number; topicId: string} = {
-      parentVersion: 0,
-      statement: this.ideaForm.value['statement'],
-      description: this.ideaForm.value['description'],
-      topicId: this.topicId,
-      status: status,
-      ideationId: this.ideation.id,
-      demographics: this.getDemographicValues(),
-    };
+    const ideaData: Partial<Idea> & { parentVersion: number; topicId: string } =
+      {
+        parentVersion: 0,
+        statement: this.ideaForm.value['statement'],
+        description: this.ideaForm.value['description'],
+        topicId: this.topicId,
+        status: status,
+        ideationId: this.ideation.id,
+        demographics: this.getDemographicValues(),
+      };
 
     this.TopicIdeaService.save(ideaData)
       .pipe(take(1))
       .subscribe({
         next: (idea) => {
-          this.afterPost(idea)
+          this.afterPost(idea);
         },
         error: (err) => {
           console.error(err);
@@ -276,8 +296,12 @@ export class AddIdeaComponent {
       'image/svg+xml',
     ];
     const files = this.fileInput?.nativeElement.files;
-    if ((this.images.length + this.newImages.length) >= this.IMAGE_LIMIT) {
-      return this.Notification.addError(this.translate.instant('MSG_ERROR_IDEA_IMAGE_LIMIT', { limit: this.IMAGE_LIMIT }));
+    if (this.images.length + this.newImages.length >= this.IMAGE_LIMIT) {
+      return this.Notification.addError(
+        this.translate.instant('MSG_ERROR_IDEA_IMAGE_LIMIT', {
+          limit: this.IMAGE_LIMIT,
+        })
+      );
     }
     for (let i = 0; i < files.length; i++) {
       if (allowedTypes.indexOf(files[i].type) < 0) {
@@ -287,8 +311,12 @@ export class AddIdeaComponent {
           })
         );
       } else if (files[i].size > 5000000) {
-        this.Notification.addError(this.translate.instant('MSG_ERROR_FILE_TOO_LARGE', { allowedFileSize: '5MB' }));
-      } else if ((this.images.length + i) < this.IMAGE_LIMIT) {
+        this.Notification.addError(
+          this.translate.instant('MSG_ERROR_FILE_TOO_LARGE', {
+            allowedFileSize: '5MB',
+          })
+        );
+      } else if (this.images.length + i < this.IMAGE_LIMIT) {
         const reader = new FileReader();
         reader.onload = () => {
           const file = files[i];
@@ -297,7 +325,11 @@ export class AddIdeaComponent {
         };
         reader.readAsDataURL(files[i]);
       } else {
-        this.Notification.addError(this.translate.instant('MSG_ERROR_IDEA_IMAGE_LIMIT', { limit: this.IMAGE_LIMIT }));
+        this.Notification.addError(
+          this.translate.instant('MSG_ERROR_IDEA_IMAGE_LIMIT', {
+            limit: this.IMAGE_LIMIT,
+          })
+        );
       }
     }
   }

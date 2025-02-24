@@ -110,6 +110,7 @@ import { CloseVotingComponent } from './components/close-voting/close-voting.com
 import { TopicTabsComponent } from './components/topic-tabs/topic-tabs.component';
 import { TopicSettingsLockedComponent } from './components/topic-settings-locked/topic-settings-locked.component';
 import { AnonymousDraftDialogComponent } from '../ideation/components/anonymous-draft-dialog/anonymous-draft-dialog.component';
+import { CloseWithoutSavingDialogComponent } from '../ideation/components/close-without-saving-dialog/close-without-saving-dialog.component';
 
 @NgModule({
   declarations: [
@@ -167,6 +168,7 @@ import { AnonymousDraftDialogComponent } from '../ideation/components/anonymous-
     AddIdeaComponent,
     AnonymousDialogComponent,
     AnonymousDraftDialogComponent,
+    CloseWithoutSavingDialogComponent,
     IdeaboxComponent,
     IdeaReportComponent,
     IdeaComponent,
