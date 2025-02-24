@@ -2341,7 +2341,7 @@
       "DEMOGRAPHICS_DATA_DESCRIPTION": "Fields will be mandatory. Requested fields cannot be changed once idea gathering starts.",
       "DEMOGRAPHICS_DATA_AGE": "Age",
       "DEMOGRAPHICS_DATA_GENDER": "Gender",
-      "DEMOGRAPHICS_DATA_RESIDENCE": "Residence",
+      "DEMOGRAPHICS_DATA_RESIDENCE": "Municipality",
       "PREVIEW_INFO": "<b>Это предварительный просмотр вашей темы.</b> Вы всегда можете отредактировать свою тему в любой момент до начала голосования.",
       "BTN_IDEATION_ACTIONS": "Управление сбором идей",
       "NO_IDEAS_HEADING": "Пока нет идей",
