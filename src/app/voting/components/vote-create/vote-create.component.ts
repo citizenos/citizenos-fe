@@ -373,6 +373,9 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
                 this.createVote(true);
               } else if (this.canEditVote()) {
                 this.updateVote(true);
+              } else {
+                this.hasChanges$.next(false);
+                this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
               }
             },
             error: (err) => {
@@ -492,6 +495,7 @@ export class VoteCreateComponent extends TopicFormComponent implements BlockNavi
   }
 
   canEditVote() {
-    return this.TopicService.canDelete(this.topic) && (this.topic.status !== this.TopicService.STATUSES.draft || this.topic.status !== this.TopicService.STATUSES.voting);
+    const statuses = [this.TopicService.STATUSES.draft, this.TopicService.STATUSES.voting];
+    return this.TopicService.canDelete(this.topic) && (statuses.indexOf(this.topic.status) > -1);
   }
 }

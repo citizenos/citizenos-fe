@@ -291,6 +291,7 @@
                 *ngIf="
                   (auth.loggedIn$ | async) &&
                   topic.ideationId &&
+                  !topic.voteId &&
                   TopicService.canEdit(topic) &&
                   [
                     TopicService.STATUSES.draft,
@@ -1349,6 +1350,7 @@
                       *ngIf="
                         (auth.loggedIn$ | async) &&
                         topic.ideationId &&
+                        !topic.voteId &&
                         TopicService.canEdit(topic) &&
                         [
                           TopicService.STATUSES.draft,
@@ -2963,6 +2965,7 @@
             *ngIf="
               (auth.loggedIn$ | async) &&
               topic.ideationId &&
+              !topic.voteId &&
               TopicService.canEdit(topic) &&
               [
                 TopicService.STATUSES.draft,
