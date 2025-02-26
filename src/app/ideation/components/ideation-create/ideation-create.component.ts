@@ -711,10 +711,7 @@ export class IdeationCreateComponent
   }
 
   canEditIdeation() {
-    return (
-      this.TopicService.canDelete(this.topic) &&
-      (this.topic.status !== this.TopicService.STATUSES.draft ||
-        this.topic.status !== this.TopicService.STATUSES.ideation)
-    );
+      const statuses = [this.TopicService.STATUSES.draft, this.TopicService.STATUSES.ideation];
+      return this.TopicService.canDelete(this.topic) && (statuses.indexOf(this.topic.status) > -1);
   }
 }
