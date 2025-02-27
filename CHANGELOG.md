@@ -1,3 +1,10 @@
+## 2025-02-26 - v1.2.5
+  * Feature: Allow anonymous users to add ideas to an ideation
+  * Feature: Allow extra fields to be added to an ideation for anonymous users
+  * Feature: Allow disabling replies for an ideation
+
+  * Fix: Issue #1840 - TOPICS: Can't delete topic in ideation or vote phase
+
 ## 2025-01-31 - v1.2.4
   * Fix: Issue #1839 - TOPICS: Partially hide email addresses shown to topic admins in the 'Invited' tab
 
