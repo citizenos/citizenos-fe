@@ -241,9 +241,9 @@
           [translateParams]="{ chars: ideaMaxLength() }"
         ></span>
       </label>
-      <ng-container *ngIf="images.length">
+      <ng-container *ngIf="newImages.length">
         <div class="idea_images_wrap">
-          <div class="image" *ngFor="let image of images; index as index">
+          <div class="image" *ngFor="let image of newImages; index as index">
             <div class="image_data">
               <img [src]="image.link" />
               <a class="name">{{ image.name }}</a>
