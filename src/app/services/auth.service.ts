@@ -181,14 +181,21 @@ export class AuthService {
   };
 
   idCardInit() {
-    return this.http.get<ApiResponse>(this.config.get('features').authentication.idCard.url, { withCredentials: true, responseType: 'json', observe: 'body' })
+    const path = this.Location.getAbsoluteUrlApi('/api/auth/id/init');
+
+    return this.http.get<ApiResponse>(path, { withCredentials: true, responseType: 'json', observe: 'body' })
       .pipe(
         map(res => res.data),
         tap(res => console.log(res))
       );
   };
-  loginIdCard(userId?: string) {
-    return this.idCardInit()
+
+  loginIdCard(data: any) {
+    const path = this.Location.getAbsoluteUrlApi('/api/auth/id');
+    return this.http.post<ApiResponse>(path, data, { withCredentials: true, responseType: 'json', observe: 'body' }).pipe(
+      map(res => res.data)
+    );
+    /*return this.idCardInit()
       .pipe(
         switchMap((response) => {
           if (response.token) {
@@ -201,7 +208,7 @@ export class AuthService {
             return response;
           }
         })
-      );
+      );*/
   };
 
   passwordReset(data: any) {
