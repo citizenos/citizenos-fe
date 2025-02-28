@@ -317,7 +317,7 @@
         </svg>
         <span translate="COMPONENTS.POST_ARGUMENT.BTN_ADD_IMAGE"></span>
       </button>
-      <button class="btn_medium_secondary icon" (click)="draftIdea()" [ngClass]="{disabled: ideaForm.invalid}">
+      <button class="btn_medium_secondary icon" (click)="draftIdea()" [ngClass]="{disabled: !availableForDraft}">
         <span class="btn_text" translate="COMPONENTS.ADD_IDEA.BTN_IDEA_DRAFT"></span>
       </button>
       <button class="btn_medium_submit icon" (click)="publishIdea()" [ngClass]="{disabled: ideaForm.invalid}">
