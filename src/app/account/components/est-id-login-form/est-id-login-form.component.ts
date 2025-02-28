@@ -66,8 +66,6 @@ export class EstIdLoginFormComponent {
   };
 
   authIdCard() {
-    console.debug('LoginEstEIdController.doLoginIdCard()');
-
     this.isLoadingIdCard = true;
 
     hwcrypto
@@ -103,6 +101,7 @@ export class EstIdLoginFormComponent {
           msg = err.status.message;
         }
         this.Notification.addError(msg);
+        this.Notification.addWarning('VIEWS.TOPICS_TOPICID.MSG_VOTE_NOT_AVAILABLE_MESSAGE', 'VIEWS.TOPICS_TOPICID.MSG_VOTE_NOT_AVAILABLE_TITLE');
       });
   };
 
