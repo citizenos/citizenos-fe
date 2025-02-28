@@ -214,9 +214,9 @@ export class AddIdeaComponent {
   draftIdea() {
     if (this.ideation.allowAnonymous) {
       const isDemographicsRequested =
-        this.ideaForm.controls['demographics_age'].dirty ||
-        this.ideaForm.controls['demographics_gender'].dirty ||
-        this.ideaForm.controls['demographics_residence'].dirty;
+        this.ideaForm.controls['demographics_age'].value ||
+        this.ideaForm.controls['demographics_gender'].value ||
+        this.ideaForm.controls['demographics_residence'].value;
 
       if (isDemographicsRequested) {
         const invitationDialog = this.dialog.open(
