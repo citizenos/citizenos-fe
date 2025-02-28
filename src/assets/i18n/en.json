@@ -2840,6 +2840,8 @@
       "VOTE_TXT_REQUIRE_HARD_ID": "This vote needs to be signed with an ID-card or Mobiil-ID to be registered. You cannot vote without identifying yourself.",
       "HEADING_VOTE_REGISTERED": "Your vote has been registered!",
       "MSG_VOTE_REGISTERED": "@:VIEWS.TOPICS_TOPICID.HEADING_VOTE_REGISTERED",
+      "MSG_VOTE_NOT_AVAILABLE_TITLE": "Temporary issues with Estonian ID card features",
+      "MSG_VOTE_NOT_AVAILABLE_MESSAGE": "We are currently experiencing issues with Estonian ID card login. ID card vote signing may also be affected. We are working to fix this as quickly as possible.",
       "BTN_DOWNLOAD_USER_BDOC": "Download your signed vote (BDOC file)",
       "VOTE_TXT_VOTE_REGISTERED": "Thank you for your vote. You can still change your vote at any time before the voting closes.",
       "VOTE_HEADING_DELEGATE": "Delegate your vote",
