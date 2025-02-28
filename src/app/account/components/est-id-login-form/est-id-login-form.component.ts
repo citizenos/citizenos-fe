@@ -6,6 +6,8 @@ import { DialogService } from 'src/app/shared/dialog';
 import { NotificationService } from '@services/notification.service';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as webeid from '@web-eid/web-eid-library/web-eid';
+
 declare let hwcrypto: any;
 
 @Component({
@@ -65,15 +67,18 @@ export class EstIdLoginFormComponent {
     }
   };
 
-  authIdCard() {
+  async authIdCard() {
     console.debug('LoginEstEIdController.doLoginIdCard()');
 
     this.isLoadingIdCard = true;
 
-    hwcrypto
-      .getCertificate({})
-      .then((certificate: any) => {
-        this.AuthService.loginIdCard().pipe(
+    this.AuthService.idCardInit().pipe(take(1)).subscribe({
+      next: async (certificate: any) => {
+        const { nonce } = {"nonce":"s26kIBTGw/XlFHtC3LF16i1hAwK9syO5NgcgAL77iu4="}
+
+        const authToken = await webeid.authenticate(nonce, { lang: 'et' });
+        console.log(authToken);
+        this.AuthService.loginIdCard(authToken).pipe(
           take(1)
         ).subscribe({
           next: (authRes) => {
@@ -94,7 +99,9 @@ export class EstIdLoginFormComponent {
             console.error(res);
           }
         })
-      }, (err: any) => {
+
+      },
+      error: (err: any) => {
         this.isLoadingIdCard = false;
         let msg = null;
         if (err instanceof Error) { //hwcrypto and JS errors
@@ -103,7 +110,8 @@ export class EstIdLoginFormComponent {
           msg = err.status.message;
         }
         this.Notification.addError(msg);
-      });
+      }
+    });
   };
 
   pollMobiilIdLoginStatus(token: string, milliseconds: number, retry: number) {
