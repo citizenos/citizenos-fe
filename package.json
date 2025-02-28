@@ -24,6 +24,7 @@
     "@ngx-loading-bar/http-client": "^6.0.2",
     "@ngx-translate/core": "^15.0.0",
     "@ngx-translate/http-loader": "^8.0.0",
+    "@web-eid/web-eid-library": "^2.0.2",
     "angularx-qrcode": "^18.0.1",
     "autolinker": "^4.0.0",
     "config": "3.3.12",
