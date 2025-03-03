@@ -1,3 +1,5 @@
+@use "mixins";
+
 .dialog_content_join {
   gap: 16px;
 }
@@ -55,6 +57,7 @@
 
   .topic_text {
     font-weight: 400;
+    line-clamp: 4;
     -webkit-line-clamp: 4;
     display: block;
     display: -webkit-box;
@@ -114,5 +117,24 @@
 
   svg {
     flex-shrink: 0;
+  }
+}
+
+.dialog_footer_promo {
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  gap: 16px;
+
+  .line_wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  @include mixins.mobile {
+    flex-direction: column;
   }
 }
