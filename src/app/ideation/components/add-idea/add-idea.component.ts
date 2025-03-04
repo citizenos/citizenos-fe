@@ -121,7 +121,7 @@ export class AddIdeaComponent {
     this.IdeaAttachmentService.setParam('ideationId', this.ideationId);
   }
 
-  get availableForDraft() {
+  get isStatementValid() {
     return this.ideaForm.controls['statement'].valid;
   }
 
@@ -134,10 +134,16 @@ export class AddIdeaComponent {
   }
 
   updateText(text: any) {
-    setTimeout(() => {
-      this.ideaForm.controls['description'].markAsTouched();
-      this.ideaForm.controls['description'].setValue(text);
-    });
+    this.ideaForm.controls['description'].markAsUntouched();
+    this.ideaForm.controls['description'].setValue(text);
+  }
+
+  ngModelChange(key: string, value: string | null) {
+    this.ideaForm.controls[key].markAsUntouched();
+  }
+
+  ngModelBlur(key: string) {
+    this.ideaForm.controls[key].markAsUntouched();
   }
 
   addNewIdea() {
@@ -188,21 +194,28 @@ export class AddIdeaComponent {
     });
   }
 
-  postIdea(status?: IdeaStatus) {
-    if (this.ideation.allowAnonymous) {
-      let invitationDialog;
-      if (status === IdeaStatus.draft) {
-        const isDemographicsRequested = this.ideation.demographicsConfig && Object.values(this.ideation.demographicsConfig).some((config) => config.required);
-        if (isDemographicsRequested) {
-          invitationDialog = this.dialog.open(AnonymousDraftDialogComponent);
-        } else {
-          this.saveIdea(status);
-        }
-      } else {
-        invitationDialog = this.dialog.open(AnonymousDialogComponent);
-      }
+  touchRequiredFieldsForPublish() {
+    this.ideaForm.controls['description'].markAsTouched();
+    this.ideaForm.controls['demographics_age'].markAsTouched();
+    this.ideaForm.controls['demographics_gender'].markAsTouched();
+    this.ideaForm.controls['demographics_residence'].markAsTouched();
+  }
 
-      if (invitationDialog) {
+  untouchRequiredFieldsForDraft() {
+    this.ideaForm.controls['description'].markAsUntouched();
+    this.ideaForm.controls['demographics_age'].markAsUntouched();
+    this.ideaForm.controls['demographics_gender'].markAsUntouched();
+    this.ideaForm.controls['demographics_residence'].markAsUntouched();
+  }
+
+  postIdea(status?: IdeaStatus) {
+    this.ideaForm.controls['statement'].markAsTouched();
+    this.touchRequiredFieldsForPublish();
+
+    if (this.ideaForm.valid) {
+      if (this.ideation.allowAnonymous) {
+        const invitationDialog = this.dialog.open(AnonymousDialogComponent);
+
         invitationDialog.afterClosed().subscribe({
           next: (res) => {
             if (res) {
@@ -210,9 +223,9 @@ export class AddIdeaComponent {
             }
           },
         });
+      } else {
+        this.saveIdea(status);
       }
-    } else {
-      this.saveIdea(status);
     }
   }
 
@@ -221,29 +234,34 @@ export class AddIdeaComponent {
   }
 
   draftIdea() {
-    if (this.ideation.allowAnonymous) {
-      const isDemographicsRequested =
-        this.ideaForm.controls['demographics_age'].value ||
-        this.ideaForm.controls['demographics_gender'].value ||
-        this.ideaForm.controls['demographics_residence'].value;
+    this.ideaForm.controls['statement'].markAsTouched();
+    this.untouchRequiredFieldsForDraft();
 
-      if (isDemographicsRequested) {
-        const invitationDialog = this.dialog.open(
-          AnonymousDraftDialogComponent
-        );
+    if (this.isStatementValid) {
+      if (this.ideation.allowAnonymous) {
+        const isDemographicsRequested =
+          this.ideaForm.controls['demographics_age'].value ||
+          this.ideaForm.controls['demographics_gender'].value ||
+          this.ideaForm.controls['demographics_residence'].value;
 
-        invitationDialog.afterClosed().subscribe({
-          next: (res) => {
-            if (res) {
-              this.saveIdea(IdeaStatus.draft);
-            }
-          },
-        });
+        if (isDemographicsRequested) {
+          const invitationDialog = this.dialog.open(
+            AnonymousDraftDialogComponent
+          );
+
+          invitationDialog.afterClosed().subscribe({
+            next: (res) => {
+              if (res) {
+                this.saveIdea(IdeaStatus.draft);
+              }
+            },
+          });
+        } else {
+          this.saveIdea(IdeaStatus.draft);
+        }
       } else {
         this.saveIdea(IdeaStatus.draft);
       }
-    } else {
-      this.saveIdea(IdeaStatus.draft);
     }
   }
 
