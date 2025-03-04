@@ -108,6 +108,8 @@
               ideaForm.controls['statement'].touched
           }"
           (focus)="(focusIdeaStatement)"
+          (ngModelChange)="ngModelChange('statement', $event)"
+          (blur)="ngModelBlur('statement')"
           [attr.maxlength]="IDEA_STATEMENT_MAXLENGTH"
           required
         />
@@ -120,24 +122,9 @@
             ideaForm.controls['statement'].touched
           "
         >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
-              d="M8.89438 1.78863C8.52586 1.05158 7.47405 1.05158 7.10553 1.78863L0.723562 14.5526C0.391112 15.2175 0.874608 15.9998 1.61799 15.9998H14.3819C15.1253 15.9998 15.6088 15.2175 15.2763 14.5526L8.89438 1.78863ZM6.99996 6.99977C6.99996 6.44749 7.44767 5.99977 7.99996 5.99977C8.55224 5.99977 8.99996 6.44749 8.99996 6.99977V9.99977C8.99996 10.5521 8.55224 10.9998 7.99996 10.9998C7.44767 10.9998 6.99996 10.5521 6.99996 9.99977V6.99977ZM6.99996 12.9998C6.99996 12.4475 7.44767 11.9998 7.99996 11.9998C8.55224 11.9998 8.99996 12.4475 8.99996 12.9998C8.99996 13.5521 8.55224 13.9998 7.99996 13.9998C7.44767 13.9998 6.99996 13.5521 6.99996 12.9998Z"
-              fill="#EF4025"
-            />
-          </svg>
           <span
             class="error_text"
-            translate="COMPONENTS.ADD_IDEA.MSG_ERROR_SUBJECT"
-            [translateParams]="{ chars: 1024 }"
+            translate="COMPONENTS.ADD_IDEA.FIELD_IS_MANDATORY"
           ></span>
         </label>
       </cos-input>
@@ -149,7 +136,9 @@
         <cos-input
           *ngFor="let key of getDemographicKeys()"
           placeholder="{{
-            'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_' + key | uppercase | translate
+            'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_' + key
+              | uppercase
+              | translate
           }}"
         >
           <input
@@ -171,6 +160,8 @@
                 ideaForm.controls['demographics_' + key].touched
             }"
             [required]="ideation.demographicsConfig![key].required"
+            (ngModelChange)="ngModelChange('demographics_' + key, $event)"
+            (blur)="ngModelBlur('demographics_' + key)"
           />
 
           <label
@@ -190,57 +181,44 @@
         </cos-input>
       </div>
 
-      <textarea
-        cosmarkdown
-        name="description"
-        formControlName="description"
-        cosmarkdowntranslatecharacterstatuskey="COMPONENTS.ADD_IDEA.IDEA_TYPE_CHARACTER_LIMIT"
-        id="idea_description"
-        [(item)]="description"
-        class="gray_borders"
-        (itemChange)="updateText($event)"
-        [initialValue]="ideation.template"
-        placeholder="COMPONENTS.ADD_IDEA.PLACEHOLDER_EXPLAIN_YOUR_IDEA"
-        [ngClass]="{
-          error_input:
+      <div>
+        <textarea
+          cosmarkdown
+          name="description"
+          formControlName="description"
+          cosmarkdowntranslatecharacterstatuskey="COMPONENTS.ADD_IDEA.IDEA_TYPE_CHARACTER_LIMIT"
+          id="idea_description"
+          [(item)]="description"
+          class="gray_borders"
+          (itemChange)="updateText($event)"
+          [initialValue]="ideation.template"
+          placeholder="COMPONENTS.ADD_IDEA.PLACEHOLDER_EXPLAIN_YOUR_IDEA"
+          [ngClass]="{
+            error_input:
+              ideaForm.controls['description'].errors &&
+              ideaForm.controls['description'].errors['required'] &&
+              ideaForm.controls['description'].touched
+          }"
+          [limit]="ideaMaxLength()"
+          required
+        ></textarea>
+
+        <label
+          for="description"
+          class="error_label"
+          *ngIf="
+            (addIdea | async) &&
             ideaForm.controls['description'].errors &&
             ideaForm.controls['description'].errors['required'] &&
             ideaForm.controls['description'].touched
-        }"
-        [limit]="ideaMaxLength()"
-        required
-      ></textarea>
-
-      <label
-        for="description"
-        class="error_label"
-        *ngIf="
-          (addIdea | async) &&
-          ideaForm.controls['description'].errors &&
-          ideaForm.controls['description'].errors['required'] &&
-          ideaForm.controls['description'].touched
-        "
-      >
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 16 16"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
+          "
         >
-          <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
-            d="M8.89438 1.78863C8.52586 1.05158 7.47405 1.05158 7.10553 1.78863L0.723562 14.5526C0.391112 15.2175 0.874608 15.9998 1.61799 15.9998H14.3819C15.1253 15.9998 15.6088 15.2175 15.2763 14.5526L8.89438 1.78863ZM6.99996 6.99977C6.99996 6.44749 7.44767 5.99977 7.99996 5.99977C8.55224 5.99977 8.99996 6.44749 8.99996 6.99977V9.99977C8.99996 10.5521 8.55224 10.9998 7.99996 10.9998C7.44767 10.9998 6.99996 10.5521 6.99996 9.99977V6.99977ZM6.99996 12.9998C6.99996 12.4475 7.44767 11.9998 7.99996 11.9998C8.55224 11.9998 8.99996 12.4475 8.99996 12.9998C8.99996 13.5521 8.55224 13.9998 7.99996 13.9998C7.44767 13.9998 6.99996 13.5521 6.99996 12.9998Z"
-            fill="#EF4025"
-          />
-        </svg>
-        <span
-          class="error_text"
-          translate="COMPONENTS.ADD_IDEA.MSG_ERROR_DESCRIPTION"
-          [translateParams]="{ chars: ideaMaxLength() }"
-        ></span>
-      </label>
+          <span
+            class="error_text"
+            translate="COMPONENTS.ADD_IDEA.FIELD_IS_MANDATORY"
+          ></span>
+        </label>
+      </div>
       <ng-container *ngIf="images.length">
         <div class="idea_images_wrap">
           <div class="image" *ngFor="let image of images; index as index">
@@ -248,11 +226,28 @@
               <img [src]="image.link" />
               <a class="name">{{ image.name }}</a>
             </div>
-            <button class="btn_small_plain icon" (click)="removeNewImage(index)">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M14 13.9997H15.3333L15.3333 19.333H14L14 13.9997Z" fill="#2C3B47" />
-                <path d="M18 13.9997H16.6667V19.333H18V13.9997Z" fill="#2C3B47" />
-                <path fill-rule="evenodd" clip-rule="evenodd"
+            <button
+              class="btn_small_plain icon"
+              (click)="removeNewImage(index)"
+            >
+              <svg
+                width="32"
+                height="32"
+                viewBox="0 0 32 32"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M14 13.9997H15.3333L15.3333 19.333H14L14 13.9997Z"
+                  fill="#2C3B47"
+                />
+                <path
+                  d="M18 13.9997H16.6667V19.333H18V13.9997Z"
+                  fill="#2C3B47"
+                />
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
                   d="M19.3333 11.333V10.6663C19.3333 9.92996 18.7364 9.33301 18 9.33301L14 9.33301C13.2636 9.33301 12.6667 9.92996 12.6667 10.6663V11.333H10.6667C10.2985 11.333 10 11.6315 10 11.9997C10 12.3679 10.2985 12.6663 10.6667 12.6663H11.3333L11.3333 19.9997C11.3333 21.1043 12.2288 21.9997 13.3333 21.9997H18.6667C19.7713 21.9997 20.6667 21.1043 20.6667 19.9997V12.6663H21.3333C21.7015 12.6663 22 12.3679 22 11.9997C22 11.6315 21.7015 11.333 21.3333 11.333H19.3333ZM18 10.6663L14 10.6663V11.333L18 11.333V10.6663ZM19.3333 12.6663L12.6667 12.6663L12.6667 19.9997C12.6667 20.3679 12.9651 20.6663 13.3333 20.6663H18.6667C19.0349 20.6663 19.3333 20.3679 19.3333 19.9997V12.6663Z"
                   fill="#2C3B47"
                 />
@@ -317,11 +312,17 @@
         </svg>
         <span translate="COMPONENTS.POST_ARGUMENT.BTN_ADD_IMAGE"></span>
       </button>
-      <button class="btn_medium_secondary icon" (click)="draftIdea()" [ngClass]="{disabled: !availableForDraft}">
-        <span class="btn_text" translate="COMPONENTS.ADD_IDEA.BTN_IDEA_DRAFT"></span>
+      <button class="btn_medium_secondary icon" (click)="draftIdea()">
+        <span
+          class="btn_text"
+          translate="COMPONENTS.ADD_IDEA.BTN_IDEA_DRAFT"
+        ></span>
       </button>
-      <button class="btn_medium_submit icon" (click)="publishIdea()" [ngClass]="{disabled: ideaForm.invalid}">
-        <span class="btn_text" translate="COMPONENTS.ADD_IDEA.BTN_IDEA_POST"></span>
+      <button class="btn_medium_submit icon" (click)="publishIdea()">
+        <span
+          class="btn_text"
+          translate="COMPONENTS.ADD_IDEA.BTN_IDEA_POST"
+        ></span>
       </button>
     </div>
   </div>
