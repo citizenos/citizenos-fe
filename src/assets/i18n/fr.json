@@ -1678,6 +1678,8 @@
     "GROUP_INVITE_VIEW_HEADING_AFTER_JOIN": "What you can do once you join a group",
     "GROUP_INVITE_VIEW_AFTER_JOIN_ITEM_1": "Access any topics that have been added to the group",
     "GROUP_INVITE_VIEW_AFTER_JOIN_ITEM_2": "Take part in the discussions and decision-making",
+    "GROUP_INVITE_NEW_TO_CITIZEN_OS": "New to Citizen OS?",
+    "GROUP_INVITE_READ_MORE": "Read more about the platform",
     "TOPIC_VOTE_DELEGATE_HEADING": "Delegate your vote for this topic",
     "TOPIC_VOTE_DELEGATE_TAB": "Déléguer",
     "TOPIC_VOTE_DELEGATE_BTN_DELEGATE": "Déléguer le vote",
