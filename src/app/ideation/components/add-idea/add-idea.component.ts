@@ -106,16 +106,13 @@ export class AddIdeaComponent {
     private readonly dialog: DialogService,
     @Inject(ActivatedRoute) readonly route: ActivatedRoute,
     @Inject(TranslateService) public readonly translate: TranslateService,
-    @Inject(Router) readonly router: Router
-  ) {
-    this.addIdea = this.app.addIdea.pipe(
-      map((val) => {
-        this.description = this.initialValue;
-        this.ideaForm.reset();
-        this.images = [];
-        return val;
-      })
-    );
+    @Inject(Router) readonly router: Router) {
+    this.addIdea = this.app.addIdea.pipe(map((val) => {
+      this.description = this.initialValue;
+      this.ideaForm.reset();
+      this.images = [];
+      return val;
+    }))
   }
 
   ngOnInit(): void {
@@ -124,7 +121,7 @@ export class AddIdeaComponent {
     this.IdeaAttachmentService.setParam('ideationId', this.ideationId);
   }
 
-  get availableForDraft() {
+  get isStatementValid() {
     return this.ideaForm.controls['statement'].valid;
   }
 
@@ -137,10 +134,16 @@ export class AddIdeaComponent {
   }
 
   updateText(text: any) {
-    setTimeout(() => {
-      this.ideaForm.controls['description'].markAsTouched();
-      this.ideaForm.controls['description'].setValue(text);
-    });
+    this.ideaForm.controls['description'].markAsUntouched();
+    this.ideaForm.controls['description'].setValue(text);
+  }
+
+  ngModelChange(key: string, value: string | null) {
+    this.ideaForm.controls[key].markAsUntouched();
+  }
+
+  ngModelBlur(key: string) {
+    this.ideaForm.controls[key].markAsUntouched();
   }
 
   addNewIdea() {
@@ -191,19 +194,38 @@ export class AddIdeaComponent {
     });
   }
 
-  postIdea(status?: IdeaStatus) {
-    if (this.ideation.allowAnonymous) {
-      const invitationDialog = this.dialog.open(AnonymousDialogComponent);
+  touchRequiredFieldsForPublish() {
+    this.ideaForm.controls['description'].markAsTouched();
+    this.ideaForm.controls['demographics_age'].markAsTouched();
+    this.ideaForm.controls['demographics_gender'].markAsTouched();
+    this.ideaForm.controls['demographics_residence'].markAsTouched();
+  }
 
-      invitationDialog.afterClosed().subscribe({
-        next: (res) => {
-          if (res) {
-            this.saveIdea(status);
-          }
-        },
-      });
-    } else {
-      this.saveIdea(status);
+  untouchRequiredFieldsForDraft() {
+    this.ideaForm.controls['description'].markAsUntouched();
+    this.ideaForm.controls['demographics_age'].markAsUntouched();
+    this.ideaForm.controls['demographics_gender'].markAsUntouched();
+    this.ideaForm.controls['demographics_residence'].markAsUntouched();
+  }
+
+  postIdea(status?: IdeaStatus) {
+    this.ideaForm.controls['statement'].markAsTouched();
+    this.touchRequiredFieldsForPublish();
+
+    if (this.ideaForm.valid) {
+      if (this.ideation.allowAnonymous) {
+        const invitationDialog = this.dialog.open(AnonymousDialogComponent);
+
+        invitationDialog.afterClosed().subscribe({
+          next: (res) => {
+            if (res) {
+              this.saveIdea(status);
+            }
+          },
+        });
+      } else {
+        this.saveIdea(status);
+      }
     }
   }
 
@@ -212,29 +234,34 @@ export class AddIdeaComponent {
   }
 
   draftIdea() {
-    if (this.ideation.allowAnonymous) {
-      const isDemographicsRequested =
-        this.ideaForm.controls['demographics_age'].value ||
-        this.ideaForm.controls['demographics_gender'].value ||
-        this.ideaForm.controls['demographics_residence'].value;
+    this.ideaForm.controls['statement'].markAsTouched();
+    this.untouchRequiredFieldsForDraft();
 
-      if (isDemographicsRequested) {
-        const invitationDialog = this.dialog.open(
-          AnonymousDraftDialogComponent
-        );
+    if (this.isStatementValid) {
+      if (this.ideation.allowAnonymous) {
+        const isDemographicsRequested =
+          this.ideaForm.controls['demographics_age'].value ||
+          this.ideaForm.controls['demographics_gender'].value ||
+          this.ideaForm.controls['demographics_residence'].value;
 
-        invitationDialog.afterClosed().subscribe({
-          next: (res) => {
-            if (res) {
-              this.saveIdea(IdeaStatus.draft);
-            }
-          },
-        });
+        if (isDemographicsRequested) {
+          const invitationDialog = this.dialog.open(
+            AnonymousDraftDialogComponent
+          );
+
+          invitationDialog.afterClosed().subscribe({
+            next: (res) => {
+              if (res) {
+                this.saveIdea(IdeaStatus.draft);
+              }
+            },
+          });
+        } else {
+          this.saveIdea(IdeaStatus.draft);
+        }
       } else {
         this.saveIdea(IdeaStatus.draft);
       }
-    } else {
-      this.saveIdea(IdeaStatus.draft);
     }
   }
 
@@ -296,7 +323,7 @@ export class AddIdeaComponent {
     /**
      * @note Description is not nullable in DB and to avoid updateing DB field,
      * we need to set it to empty string if it's a draft.
-     * 
+     *
      * @see https://github.com/citizenos/citizenos-fe/issues/1954
      */
     if (status === IdeaStatus.draft && !this.ideaForm.value['description']) {
