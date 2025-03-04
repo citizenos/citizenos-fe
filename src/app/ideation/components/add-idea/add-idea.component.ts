@@ -111,6 +111,7 @@ export class AddIdeaComponent {
       this.description = this.initialValue;
       this.ideaForm.reset();
       this.images = [];
+      this.newImages = [];
       return val;
     }))
   }
@@ -310,15 +311,15 @@ export class AddIdeaComponent {
      * @todo Fix types for ideaData.
      */
     const ideaData: Partial<Idea> & { parentVersion: number; topicId: string } =
-      {
-        parentVersion: 0,
-        statement: this.ideaForm.value['statement'],
-        description: this.ideaForm.value['description'],
-        topicId: this.topicId,
-        status: status,
-        ideationId: this.ideation.id,
-        demographics: this.getDemographicValues(),
-      };
+    {
+      parentVersion: 0,
+      statement: this.ideaForm.value['statement'],
+      description: this.ideaForm.value['description'],
+      topicId: this.topicId,
+      status: status,
+      ideationId: this.ideation.id,
+      demographics: this.getDemographicValues(),
+    };
 
     /**
      * @note Description is not nullable in DB and to avoid updateing DB field,
@@ -420,18 +421,18 @@ export class AddIdeaComponent {
         )
           .pipe(takeWhile((e) => !e.link, true))
           .subscribe({
-            next: (result) => {},
+            next: (result) => { },
             error: (res) => {
-              /*   if (res.errors) {
-                   const keys = Object.keys(res.errors);
-                   keys.forEach((key) => {
-                     this.Notification.addError(res.errors[key]);
-                   });
-                 } else if (res.status && res.status.message) {
-                   this.Notification.addError(res.status.message);
-                 } else {
-                   this.Notification.addError(res.message);
-                 }*/
+              if (res.errors) {
+                const keys = Object.keys(res.errors);
+                keys.forEach((key) => {
+                  this.Notification.addError(res.errors[key]);
+                });
+              } else if (res.status?.message) {
+                this.Notification.addError(res.status.message);
+              } else {
+                this.Notification.addError(res.message);
+              }
             },
           });
       }
