@@ -323,7 +323,6 @@ export class TopicFormComponent {
     this.router.navigate([], { queryParams: this.route.snapshot.queryParams, fragment: tab });
   }
 
-
   isNextDisabled(tabSelected: string | void) {
     if ((tabSelected === 'preview' && !this.TopicService.canDelete(this.topic)) || !this.topic.title || !this.topic.description || (tabSelected === 'discussion' && !this.discussion.question)) {
       return true;
@@ -786,7 +785,8 @@ export class TopicFormComponent {
   }
 
   canEditDiscussion() {
-    return this.TopicService.canDelete(this.topic) && (this.topic.status === this.TopicService.STATUSES.draft || this.topic.status === this.TopicService.STATUSES.inProgress);
+    const statuses = [this.TopicService.STATUSES.draft, this.TopicService.STATUSES.inProgress];
+    return this.TopicService.canDelete(this.topic) && (statuses.indexOf(this.topic.status) > -1);
   }
 
   toggleDeadline() {

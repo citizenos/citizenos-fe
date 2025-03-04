@@ -283,10 +283,12 @@ export class TopicComponent {
           this.hideTopicContent = true;
         }
         if (topic.voteId) {
-          this.vote$ = this.TopicVoteService.loadVote({
-            topicId: topic.id,
-            voteId: topic.voteId,
-          });
+          this.vote$ = this.TopicVoteService.loadVote$.pipe(
+            switchMap(() => this.TopicVoteService.loadVote({
+              topicId: topic.id,
+              voteId: topic.voteId,
+            }))
+          );
           this.cd.detectChanges();
         }
         if (topic.ideationId) {

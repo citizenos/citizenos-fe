@@ -124,6 +124,10 @@ export class AddIdeaComponent {
     this.IdeaAttachmentService.setParam('ideationId', this.ideationId);
   }
 
+  get availableForDraft() {
+    return this.ideaForm.controls['statement'].valid;
+  }
+
   loggedIn() {
     return this.AuthService.loggedIn$.value;
   }
@@ -189,12 +193,7 @@ export class AddIdeaComponent {
 
   postIdea(status?: IdeaStatus) {
     if (this.ideation.allowAnonymous) {
-      let invitationDialog;
-      if (status === IdeaStatus.draft) {
-        invitationDialog = this.dialog.open(AnonymousDraftDialogComponent);
-      } else {
-        invitationDialog = this.dialog.open(AnonymousDialogComponent);
-      }
+      const invitationDialog = this.dialog.open(AnonymousDialogComponent);
 
       invitationDialog.afterClosed().subscribe({
         next: (res) => {
@@ -213,7 +212,30 @@ export class AddIdeaComponent {
   }
 
   draftIdea() {
-    this.saveIdea(IdeaStatus.draft);
+    if (this.ideation.allowAnonymous) {
+      const isDemographicsRequested =
+        this.ideaForm.controls['demographics_age'].value ||
+        this.ideaForm.controls['demographics_gender'].value ||
+        this.ideaForm.controls['demographics_residence'].value;
+
+      if (isDemographicsRequested) {
+        const invitationDialog = this.dialog.open(
+          AnonymousDraftDialogComponent
+        );
+
+        invitationDialog.afterClosed().subscribe({
+          next: (res) => {
+            if (res) {
+              this.saveIdea(IdeaStatus.draft);
+            }
+          },
+        });
+      } else {
+        this.saveIdea(IdeaStatus.draft);
+      }
+    } else {
+      this.saveIdea(IdeaStatus.draft);
+    }
   }
 
   publishIdea() {
@@ -270,6 +292,16 @@ export class AddIdeaComponent {
         ideationId: this.ideation.id,
         demographics: this.getDemographicValues(),
       };
+
+    /**
+     * @note Description is not nullable in DB and to avoid updateing DB field,
+     * we need to set it to empty string if it's a draft.
+     * 
+     * @see https://github.com/citizenos/citizenos-fe/issues/1954
+     */
+    if (status === IdeaStatus.draft && !this.ideaForm.value['description']) {
+      ideaData.description = '';
+    }
 
     this.TopicIdeaService.save(ideaData)
       .pipe(take(1))
