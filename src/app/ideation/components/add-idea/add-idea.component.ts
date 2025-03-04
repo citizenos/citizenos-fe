@@ -112,6 +112,7 @@ export class AddIdeaComponent {
       map((val) => {
         this.description = this.initialValue;
         this.ideaForm.reset();
+        this.newImages = [];
         this.images = [];
         return val;
       })
@@ -296,7 +297,7 @@ export class AddIdeaComponent {
     /**
      * @note Description is not nullable in DB and to avoid updateing DB field,
      * we need to set it to empty string if it's a draft.
-     * 
+     *
      * @see https://github.com/citizenos/citizenos-fe/issues/1954
      */
     if (status === IdeaStatus.draft && !this.ideaForm.value['description']) {
