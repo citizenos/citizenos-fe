@@ -49,7 +49,6 @@ export class MarkdownDirective {
         action: (editor: any) => {
           if (!editor.isPreviewActive()) {
             EasyMDE.togglePreview(editor);
-            console.log('PREVIEW');
             editor.toolbarElements.write.classList.remove('tab-active');
           }
         },
@@ -77,19 +76,19 @@ export class MarkdownDirective {
       '|',
       {
         name: 'strikethrough',
-        action: EasyMDE.toggleStrikethrough,
+        action: this.toggleStrikethrough(),
         className: 'fa md-right fa-strikethrough',
         title: this.Translate.instant('MDEDITOR_TOOLTIP_STRIKETHROUGH'),
       },
       {
         name: 'italic',
-        action: EasyMDE.toggleItalic,
+        action: this.toggleItalic(),
         className: 'md-right fa fa-italic',
         title: this.Translate.instant('MDEDITOR_TOOLTIP_ITALIC'),
       },
       {
         name: 'bold',
-        action: EasyMDE.toggleBold,
+        action: this.toggleBold(),
         className: 'md-right fa fa-bold',
         title: this.Translate.instant('MDEDITOR_TOOLTIP_BOLD'),
       },
@@ -153,6 +152,51 @@ export class MarkdownDirective {
     });
   }
 
+  trimSelection() {
+    const editor = this.easymde;
+    if (!editor.codemirror || editor.isPreviewActive()) {
+      return;
+    }
+    const cm = editor.codemirror;
+    if (!cm || editor.isPreviewActive()) {
+      return;
+    }
+
+    const startPoint = cm.getCursor('start');
+    const endPoint = cm.getCursor('end');
+    const text = cm.getSelection().trim();
+    cm.replaceSelection(text);
+
+    endPoint.ch = startPoint.ch + text.length + 1;
+    cm.setSelection(startPoint, endPoint);
+    cm.focus();
+  }
+
+  toggleStrikethrough() {
+    return () => {
+      const editor = this.easymde;
+      this.trimSelection();
+      EasyMDE.toggleStrikethrough(editor);
+    }
+  }
+
+  toggleItalic() {
+    return () => {
+      const editor = this.easymde;
+      this.trimSelection();
+      EasyMDE.toggleItalic(editor);
+    }
+  }
+
+  toggleBold() {
+    return () => {
+      const editor = this.easymde;
+      this.trimSelection();
+      EasyMDE.toggleBold(editor);
+    }
+  }
+
+
   toggleLink() {
     return () => {
       const selected = this.easymde.codemirror.getSelection();
@@ -164,7 +208,6 @@ export class MarkdownDirective {
 
       linkDialog.afterClosed().subscribe({
         next: (data) => {
-          console.log(data);
           if (data) {
             if (!data.link) {
               return;
