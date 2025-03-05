@@ -106,13 +106,17 @@ export class AddIdeaComponent {
     private readonly dialog: DialogService,
     @Inject(ActivatedRoute) readonly route: ActivatedRoute,
     @Inject(TranslateService) public readonly translate: TranslateService,
-    @Inject(Router) readonly router: Router) {
-    this.addIdea = this.app.addIdea.pipe(map((val) => {
-      this.description = this.initialValue;
-      this.ideaForm.reset();
-      this.images = [];
-      return val;
-    }))
+    @Inject(Router) readonly router: Router
+  ) {
+    this.addIdea = this.app.addIdea.pipe(
+      map((val) => {
+        this.description = this.initialValue;
+        this.ideaForm.reset();
+        this.newImages = [];
+        this.images = [];
+        return val;
+      })
+    );
   }
 
   ngOnInit(): void {
