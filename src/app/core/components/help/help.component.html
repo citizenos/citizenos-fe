@@ -20,6 +20,7 @@
       </svg>
     </button>
   </div>
+
   <div id="mobile_tour_info_wrap" *ngIf="showTourBox">
     <div class="title_wrap">
       <div>
@@ -38,6 +39,7 @@
     <div class="description" translate="HELP_WIDGET.EXTRA_INFO_TOUR_DESCRIPTION"></div>
     <button (click)="startTour()" class="start_btn" translate="HELP_WIDGET.EXTRA_INFO_TOUR_BTN_START"></button>
   </div>
+
   <div class="help_content">
     <form id="help_form" *ngIf="(app.showHelp| async)" [formGroup]="helpForm">
       <div class="help_form_text_wrap">
@@ -83,6 +85,11 @@
     </form>
     <!--frame id="help_frame" #helpFrame name="help_frame" *ngIf="(app.showHelp| async)" frameborder="0" [src]="urlSafe"
       width="100%"></!--frame-->
+  </div>
+
+  <div class="links_content">
+    <div class="bold links_content_title" translate="HELP_WIDGET.LINKS_TITLE"></div>
+    <terms-links />
   </div>
 </div>
 

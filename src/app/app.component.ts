@@ -37,6 +37,10 @@ export class AppComponent {
   handleKeyUpEvent(event: KeyboardEvent) {
     if (this.keysPressed.indexOf(event.key) > -1) this.keysPressed.splice(this.keysPressed.indexOf(event.key), 1);
   }
+  @HostListener('window:popstate', ['$event'])
+  onPopState() {
+    this.dialog.closeAll();
+  }
 
   constructor(
     private readonly router: Router,
@@ -110,7 +114,7 @@ export class AppComponent {
             });
             emailDialog.afterClosed().subscribe(() => {
               user.loggedIn = true;
-              this.auth.user.next({ id: user.id });
+              this.auth.user.next({ id: user.id, isAuthenticated: true });
               this.auth.loggedIn$.next(true);
               window.location.reload();
             })
@@ -126,7 +130,7 @@ export class AppComponent {
           console.log(loggedIn);
           if (loggedIn) {
             user.loggedIn = true;
-            this.auth.user.next({ id: user.id });
+            this.auth.user.next({ id: user.id, isAuthenticated: true });
             this.auth.loggedIn$.next(true);
             window.location.reload();
           }

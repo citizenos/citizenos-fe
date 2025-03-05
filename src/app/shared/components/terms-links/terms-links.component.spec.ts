@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TopicJoinComponent } from './topic-join.component';
+import { TermsLinksComponent } from './terms-links.component';
 
-describe('TopicJoinComponent', () => {
-  let component: TopicJoinComponent;
-  let fixture: ComponentFixture<TopicJoinComponent>;
+describe('TermsLinksComponent', () => {
+  let component: TermsLinksComponent;
+  let fixture: ComponentFixture<TermsLinksComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TopicJoinComponent ]
+      declarations: [ TermsLinksComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TopicJoinComponent);
+    fixture = TestBed.createComponent(TermsLinksComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

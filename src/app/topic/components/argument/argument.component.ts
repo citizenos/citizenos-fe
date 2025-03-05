@@ -12,6 +12,7 @@ import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog
 import { ArgumentReactionsComponent } from '../argument-reactions/argument-reactions.component';
 import { ArgumentReportComponent } from '../argument-report/argument-report.component';
 import { TopicMemberUserService } from '@services/topic-member-user.service';
+import { AppService } from '@services/app.service';
 @Component({
   selector: 'argument',
   templateUrl: './argument.component.html',
@@ -39,6 +40,7 @@ export class ArgumentComponent implements OnInit {
     public dialog: DialogService,
     public config: ConfigService,
     public Auth: AuthService,
+    public App: AppService,
     private readonly Location: LocationService,
     private readonly Notification: NotificationService,
     private readonly Translate: TranslateService,
@@ -214,6 +216,15 @@ export class ArgumentComponent implements OnInit {
       setTimeout(() => {
         argumentEl?.classList.remove('highlight');
       }, 2000);
+    }
+  }
+
+  handleShowReply() {
+    const loggedIn = this.Auth.loggedIn$.value;
+    if (loggedIn) {
+      this.showReply = !this.showReply;
+    } else {
+      this.App.doShowLogin();
     }
   }
 }

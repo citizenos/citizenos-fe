@@ -1,9 +1,15 @@
 import { Idea } from 'src/app/interfaces/idea';
-import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
+import { Component, Inject, ViewChild, ElementRef } from '@angular/core';
 import { TopicIdeaService } from '@services/topic-idea.service';
 import { DIALOG_DATA, DialogRef } from 'src/app/shared/dialog';
 import { take } from 'rxjs';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
+
+type IdeaReportData = {
+  idea: Idea;
+  ideationId: string;
+  topicId: string;
+}
 @Component({
   selector: 'app-idea-report',
   templateUrl: './idea-report.component.html',
@@ -23,18 +29,15 @@ export class IdeaReportComponent {
     ideationId: new UntypedFormControl(''),
   });
   constructor(
-    private dialogRef: DialogRef<IdeaReportComponent>,
-    @Inject(DIALOG_DATA) private data: any,
-    private TopicIdeaService: TopicIdeaService
+    private readonly dialogRef: DialogRef<IdeaReportComponent>,
+    @Inject(DIALOG_DATA) private readonly  data: IdeaReportData,
+    private readonly TopicIdeaService: TopicIdeaService
     ) {
       console.log(data);
     this.idea = data.idea;
     this.report.value.ideaId = data.idea.id;
     this.report.value.topicId = data.topicId;
     this.report.value.ideationId = data.ideationId;
-  }
-
-  ngOnInit(): void {
   }
 
   ngAfterViewInit(): void {

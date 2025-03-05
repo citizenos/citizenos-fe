@@ -9,7 +9,7 @@ import { TopicVoteService } from '@services/topic-vote.service';
 import { VoteDelegationService } from '@services/vote-delegation.service';
 import { TopicMemberUserService } from '@services/topic-member-user.service';
 import { DialogService } from 'src/app/shared/dialog';
-import { take } from 'rxjs';
+import { take, combineLatest} from 'rxjs';
 import { TopicVoteSignComponent } from '../topic-vote-sign/topic-vote-sign.component';
 import { TopicVoteDeadlineComponent } from '../topic-vote-deadline/topic-vote-deadline.component';
 import { TopicVoteDelegateComponent } from '../topic-vote-delegate/topic-vote-delegate.component';
@@ -19,6 +19,7 @@ import { DownloadVoteResultsComponent } from '../download-vote-results/download-
 import { IdeaDialogComponent } from 'src/app/ideation/components/idea/idea.component';
 import { ActivatedRoute } from '@angular/router';
 import { CloseVotingComponent } from '../close-voting/close-voting.component';
+import { TopicIdeationService } from '@services/topic-ideation.service';
 
 @Component({
   selector: 'topic-vote-cast',
@@ -46,7 +47,8 @@ export class TopicVoteCastComponent implements OnInit {
     private readonly TopicIdeaService: TopicIdeaService,
     private readonly route: ActivatedRoute,
     private readonly VoteDelegationService: VoteDelegationService,
-    private readonly TopicMemberUserService: TopicMemberUserService
+    private readonly TopicMemberUserService: TopicMemberUserService,
+    private readonly TopicIdeationService: TopicIdeationService
   ) { }
 
   ngOnInit(): void {
@@ -375,16 +377,19 @@ export class TopicVoteCastComponent implements OnInit {
   }
 
   viewIdea(ideaId: string) {
-    this.TopicIdeaService
-    .get({ ideaId: ideaId, ideationId: this.topic.ideationId, topicId: this.topic.id })
+    combineLatest([
+      this.TopicIdeaService
+      .get({ ideaId: ideaId, ideationId: this.topic.ideationId, topicId: this.topic.id }),
+      this.TopicIdeationService.get({ topicId: this.topic.id, ideationId: this.topic.ideationId })
+    ])
     .pipe(take(1))
-    .subscribe((idea) => {
+    .subscribe(([idea, ideation]) => {
       this.dialog.closeAll();
       const ideaDialog = this.dialog.open(IdeaDialogComponent, {
         data: {
           idea,
           topic: this.topic,
-          ideation: { id: this.topic.ideationId },
+          ideation: ideation,
           route: this.route
         }
       });

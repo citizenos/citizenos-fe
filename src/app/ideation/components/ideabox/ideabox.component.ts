@@ -3,19 +3,20 @@ import { AfterViewInit, Component, Input } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
-import { Idea } from 'src/app/interfaces/idea';
+import { Idea, IdeaStatus } from '@interfaces/idea';
 import { AuthService } from '@services/auth.service';
 import { ConfigService } from '@services/config.service';
 import { TopicIdeaService } from '@services/topic-idea.service';
-import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
-import { DialogService } from 'src/app/shared/dialog';
+import { ConfirmDialogComponent } from '@shared/components/confirm-dialog/confirm-dialog.component';
+import { DialogService } from '@shared/dialog';
 import { IdeaReportComponent } from '../idea-report/idea-report.component';
 import { AddIdeaFolderComponent } from '../add-idea-folder/add-idea-folder.component';
 import { IdeaReportReasonComponent } from '../idea-report-reason/idea-report-reason.component';
-import { Topic } from 'src/app/interfaces/topic';
-import { Ideation } from 'src/app/interfaces/ideation';
+import { Topic } from '@interfaces/topic';
+import { Ideation } from '@interfaces/ideation';
 import { IdeaReactionsComponent } from '../idea-reactions/idea-reactions.component';
 import { TopicMemberUserService } from '@services/topic-member-user.service';
+import { AppService } from '@services/app.service';
 
 @Component({
   selector: 'ideabox',
@@ -37,11 +38,13 @@ export class IdeaboxComponent implements AfterViewInit {
   isReply = false;
   errors = [];
   wWidth = window.innerWidth;
+
   constructor(
     public dialog: DialogService,
     public config: ConfigService,
     public router: Router,
     public Auth: AuthService,
+    public App: AppService,
     private readonly TopicMemberUserService: TopicMemberUserService,
     public Translate: TranslateService,
     public TopicService: TopicService,
@@ -65,10 +68,17 @@ export class IdeaboxComponent implements AfterViewInit {
     return this.TopicService.canEdit(this.topic);
   }
   canEditIdea() {
-    return (this.idea.author.id === this.Auth.user.value.id && !this.idea.deletedAt && [this.TopicService.STATUSES.draft, this.TopicService.STATUSES.ideation].indexOf(this.topic.status) > -1);
+    return (this.idea.author?.id === this.Auth.user.value.id && !this.idea.deletedAt && [this.TopicService.STATUSES.draft, this.TopicService.STATUSES.ideation].indexOf(this.topic.status) > -1);
   };
+  showDisabledFunctionality() {
+    return this.ideation.allowAnonymous;
+  }
 
-  goToView($event: any, showReplies?: boolean) {
+  goToView(showReplies?: boolean) {
+    if (this.idea.status === IdeaStatus.draft) {
+      this.ideaEditMode()
+      return
+    };
     const routerLink = ['/', 'topics', this.topic.id, 'ideation', this.ideation.id, 'ideas', this.idea.id];
     const params = <any>{};
     if (showReplies) {
@@ -82,6 +92,9 @@ export class IdeaboxComponent implements AfterViewInit {
     return this.idea.edits?.length > 1;
   };
 
+  isDraft(status: IdeaStatus) {
+    return status === IdeaStatus.draft;
+  }
   isVisible() {
     return (!this.idea.deletedAt && !this.showDeletedIdea) || (this.idea.deletedAt && this.showDeletedIdea);
   };
@@ -135,10 +148,15 @@ export class IdeaboxComponent implements AfterViewInit {
   };
 
   canVote() {
-    return (this.Auth.loggedIn$.value && this.topic.status === this.TopicService.STATUSES.ideation);
+    return (this.topic.status === this.TopicService.STATUSES.ideation);
   }
 
   doIdeaVote(value: number) {
+    if (!this.Auth.loggedIn$.value) {
+      this.App.doShowLogin();
+      return;
+    }
+
     if (!this.canVote()) {
       return;
     }

@@ -78,9 +78,7 @@ export class TopicIdeationService extends ItemsListService {
   }
 
   update(data: any) {
-    console.log('data', data);
     const path = this.Location.getAbsoluteUrlApi(this.Auth.resolveAuthorizedPath('/topics/:topicId/ideations/:ideationId'), {topicId: data.topicId, ideationId: data.ideationId || data.id});
-    console.log(path);
     return this.http.put<ApiResponse>(path, data, { withCredentials: true, observe: 'body', responseType: 'json' })
       .pipe(
         map(res => res.data)

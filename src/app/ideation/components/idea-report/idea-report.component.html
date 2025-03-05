@@ -40,14 +40,14 @@
           <div class="delete_info_button_wrap">
             <div class="delete_info_text" translate="COMPONENTS.IDEA_REPORT.MESSAGE_MAIN"></div>
           </div>
-          <div class="profile_image_wrap">
+          <div class="profile_image_wrap" *ngIf="idea.author">
             <img class="profile_image" *ngIf="idea.author.imageUrl" [src]="idea.author.imageUrl">
             <div class="profile_image_filler" *ngIf="!idea.author.imageUrl">
               <cos-initials *ngIf="idea.author.name" [name]="idea.author.name">
               </cos-initials>
             </div>
           </div>
-          <div class="bold" [innerHTML]="idea.author.name"></div>
+          <div class="bold"  *ngIf="idea.author" [innerHTML]="idea.author.name"></div>
         </div>
       </div>
 

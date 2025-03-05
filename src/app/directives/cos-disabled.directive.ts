@@ -5,7 +5,7 @@ import { Directive, Input, ElementRef, SimpleChanges } from '@angular/core';
 })
 export class CosDisabledDirective {
   @Input() cosDisabled!: any;
-  constructor(private ElementRef: ElementRef) {
+  constructor(private readonly ElementRef: ElementRef) {
   }
 
   ngAfterViewInit(): void {

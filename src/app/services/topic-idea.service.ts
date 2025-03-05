@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { LocationService } from './location.service';
 import { ApiResponse } from 'src/app/interfaces/apiResponse';
-import { Idea } from 'src/app/interfaces/idea';
+import { Idea, IdeaStatus } from 'src/app/interfaces/idea';
 import { Observable, BehaviorSubject, map, distinct, catchError, EMPTY, exhaustMap, shareReplay, tap, take } from 'rxjs';
 import { ItemsListService } from './items-list.service';
 
@@ -26,6 +26,8 @@ export class TopicIdeaService extends ItemsListService {
     popularity: 'popularity',
     date: 'date'
   };
+  public STATUSES = IdeaStatus;
+
   IDEA_VERSION_SEPARATOR = '_v';
   IdeaIds = <string[]>[];
   params = {

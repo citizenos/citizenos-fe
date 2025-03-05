@@ -325,6 +325,7 @@
   flex-direction: column;
   height: 100%;
   gap: 16px;
+
   .statement {
     color: var(--color-text);
     font-size: 16px;
@@ -332,11 +333,18 @@
     font-weight: 600;
     line-height: 24px;
   }
+
+  ::ng-deep .description {
+    P {
+      white-space: pre-line;
+    }
+  }
 }
 
 .buttons_wrap {
   display: flex;
   gap: 16px;
+  position: relative;
 
   .btn_ghost_reply_idea {
     display: flex;

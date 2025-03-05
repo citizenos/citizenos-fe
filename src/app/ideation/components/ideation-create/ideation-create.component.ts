@@ -24,6 +24,7 @@ import { BlockNavigationIfChange } from 'src/app/shared/pending-changes.guard';
 import { TopicDiscussionService } from '@services/topic-discussion.service';
 import { TopicSettingsDisabledDialogComponent } from 'src/app/topic/components/topic-settings-disabled-dialog/topic-settings-disabled-dialog.component';
 import { TopicSettingsLockedComponent } from 'src/app/topic/components/topic-settings-locked/topic-settings-locked.component';
+import { Ideation } from '@interfaces/ideation';
 
 @Component({
   selector: 'app-ideation-create',
@@ -31,56 +32,97 @@ import { TopicSettingsLockedComponent } from 'src/app/topic/components/topic-set
   styleUrls: ['./ideation-create.component.scss'],
   animations: [
     trigger('readMore', [
-      state('open', style({
-        maxHeight: '100%',
-        transition: '0.1s max-height'
-      })),
-      state('closed', style({
-        maxHeight: '320px',
-        transition: '0.1s max-height'
-      }))
+      state(
+        'open',
+        style({
+          maxHeight: '100%',
+          transition: '0.1s max-height',
+        })
+      ),
+      state(
+        'closed',
+        style({
+          maxHeight: '320px',
+          transition: '0.1s max-height',
+        })
+      ),
     ]),
     trigger('openClose', [
       // ...
-      state('open', style({
-        minHeight: 'min-content',
-        maxHeight: 'min-content',
-        transition: '0.2s ease-in-out max-height'
-      })),
-      state('closed', style({
-        transition: '0.2s ease-in-out max-height'
-      }))
+      state(
+        'open',
+        style({
+          minHeight: 'min-content',
+          maxHeight: 'min-content',
+          transition: '0.2s ease-in-out max-height',
+        })
+      ),
+      state(
+        'closed',
+        style({
+          transition: '0.2s ease-in-out max-height',
+        })
+      ),
     ]),
     trigger('openSlide', [
       // ...
-      state('open', style({
-        minHeight: 'auto',
-        'maxHeight': '400px',
-        transition: '0.2s ease-in-out max-height'
-      })),
-      state('closed', style({
-        minHeight: '80px',
-        'maxHeight': '80px',
-        transition: '0.2s ease-in-out max-height'
-      }))
-    ])]
+      state(
+        'open',
+        style({
+          minHeight: 'auto',
+          maxHeight: '400px',
+          transition: '0.2s ease-in-out max-height',
+        })
+      ),
+      state(
+        'closed',
+        style({
+          minHeight: '80px',
+          maxHeight: '80px',
+          transition: '0.2s ease-in-out max-height',
+        })
+      ),
+    ]),
+  ],
 })
-export class IdeationCreateComponent extends TopicFormComponent implements BlockNavigationIfChange {
-
+export class IdeationCreateComponent
+  extends TopicFormComponent
+  implements BlockNavigationIfChange
+{
   languages$: { [key: string]: any } = this.config.get('language').list;
   topic$: Observable<Topic>;
+
+  demographicsConfig: NonNullable<Ideation['demographicsConfig']> = {
+    age: {
+      required: false,
+    },
+    gender: {
+      required: false,
+    },
+    residence: {
+      required: false,
+    },
+  };
 
   /**/
   override tabs = ['info', 'settings', 'ideation_system', 'preview'];
   members = <any[]>[];
-  public ideation = {
+  enableTemplate = false;
+  ideation: Ideation = {
     id: '',
     creatorId: '',
     question: '',
     deadline: null,
+    disableReplies: false,
+    allowAnonymous: false,
+    demographicsConfig: null,
+    template: '',
+    // @ts-expect-error Fix later
     createdAt: '',
-    updatedAt: ''
+    // @ts-expect-error Fix later
+    updatedAt: '',
   };
+  initialTemplateValue = '';
   constructor(
     dialog: DialogService,
     route: ActivatedRoute,
@@ -100,49 +142,88 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
     @Inject(DomSanitizer) override sanitizer: DomSanitizer,
     private readonly app: AppService,
     private readonly TopicIdeationService: TopicIdeationService,
-    private readonly config: ConfigService) {
-    super(dialog, route, router, UploadService, Notification, TopicService, GroupService, GroupMemberTopicService, TopicMemberGroupService, TopicMemberUserService, TopicInviteUserService, TopicAttachmentService, TopicDiscussionService, translate, cd, sanitizer)
+    private readonly config: ConfigService
+  ) {
+    super(
+      dialog,
+      route,
+      router,
+      UploadService,
+      Notification,
+      TopicService,
+      GroupService,
+      GroupMemberTopicService,
+      TopicMemberGroupService,
+      TopicMemberUserService,
+      TopicInviteUserService,
+      TopicAttachmentService,
+      TopicDiscussionService,
+      translate,
+      cd,
+      sanitizer
+    );
     this.app.darkNav = true;
     this.hasUnsavedChanges = new Subject();
     this.GroupService.reset();
-    this.groups$ = this.GroupService.loadItems().pipe(map((groups) => {
-      groups.forEach((group: any) => {
-        if (this.groupId && this.groupId === group.id) {
-          const exists = this.topicGroups.find((mgroup) => mgroup.id === group.id);
-          if (!exists) this.addGroup(group);
-        }
-      });
+    this.groups$ = this.GroupService.loadItems().pipe(
+      map((groups) => {
+        groups.forEach((group: any) => {
+          if (this.groupId && this.groupId === group.id) {
+            const exists = this.topicGroups.find(
+              (mgroup) => mgroup.id === group.id
+            );
+            if (!exists) this.addGroup(group);
+          }
+        });
 
-      return groups.filter((group) => group.visibility === this.GroupService.VISIBILITY.private || group.permission.level === GroupMemberTopicService.LEVELS.admin);
-    }));
+        return groups.filter(
+          (group) =>
+            group.visibility === this.GroupService.VISIBILITY.private ||
+            group.permission.level === GroupMemberTopicService.LEVELS.admin
+        );
+      })
+    );
     this.tabSelected = route.fragment.pipe(
       map((fragment) => {
         if (!fragment) {
           return this.selectTab('info');
         }
-        return fragment
-      }), tap((fragment) => {
-        if (fragment === 'ideation_system' && !this.TopicService.canEditDescription(this.topic)) {
+        return fragment;
+      }),
+      tap((fragment) => {
+        if (
+          fragment === 'ideation_system' &&
+          !this.TopicService.canEditDescription(this.topic)
+        ) {
           const infoDialog = dialog.open(TopicSettingsLockedComponent);
           infoDialog.afterClosed().subscribe(() => {
             if (this.TopicService.canDelete(this.topic)) {
-              this.selectTab('settings')
+              this.selectTab('settings');
             } else {
-              this.selectTab('preview')
+              this.selectTab('preview');
             }
           });
-        } else if (fragment === 'info' && !this.TopicService.canEditDescription(this.topic)) {
+        } else if (
+          fragment === 'info' &&
+          !this.TopicService.canEditDescription(this.topic)
+        ) {
           const infoDialog = dialog.open(TopicEditDisabledDialogComponent);
           infoDialog.afterClosed().subscribe(() => {
-            this.selectTab('settings')
+            this.selectTab('settings');
           });
-        } else if ((fragment === 'settings' || fragment === 'ideation_system') && !this.TopicService.canDelete(this.topic)) {
-          const infoDialog = this.dialog.open(TopicSettingsDisabledDialogComponent);
+        } else if (
+          (fragment === 'settings' || fragment === 'ideation_system') &&
+          !this.TopicService.canDelete(this.topic)
+        ) {
+          const infoDialog = this.dialog.open(
+            TopicSettingsDisabledDialogComponent
+          );
           infoDialog.afterClosed().subscribe(() => {
-            this.selectTab('info')
+            this.selectTab('info');
           });
         }
-      }));
+      })
+    );
 
     if (router.url.indexOf('/edit/') > -1) {
       this.isnew = false;
@@ -150,76 +231,94 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
     this.topic$ = route.params.pipe(
       switchMap((params) => {
         if (params['topicId']) {
-          return this.TopicService.loadTopic(params['topicId']).pipe(map((topic) => {
-            this.topicUrl = this.sanitizer.bypassSecurityTrustResourceUrl(topic.padUrl);
-            this.topic = topic;
-            Object.keys(this.block).forEach((blockname) => {
-              if (blockname === 'headerImage' && this.topic.imageUrl) {
-                this.block[blockname] = true;
-              }
-              const temp = this.topic[blockname as keyof Topic];
+          return this.TopicService.loadTopic(params['topicId']).pipe(
+            map((topic) => {
+              this.topicUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+                topic.padUrl
+              );
+              this.topic = topic;
+              Object.keys(this.block).forEach((blockname) => {
+                if (blockname === 'headerImage' && this.topic.imageUrl) {
+                  this.block[blockname] = true;
+                }
+                const temp = this.topic[blockname as keyof Topic];
 
-              if (blockname === 'description') {
-                const el = document.createElement('span');
-                el.innerHTML = temp;
-                if (el.innerText)
-                  this.block['description'] = true;
-              } else if (temp)
-                this.block[blockname as keyof typeof this.block] = true;
-            });
-            if (this.topic.id) {
-              this.TopicInviteUserService.setParam('topicId', this.topic.id);
-              this.invites$ = this.loadInvite$.pipe(
-                switchMap(() => this.TopicInviteUserService.loadItems())
-              );
-              this.TopicMemberUserService.setParam('topicId', this.topic.id);
-              this.members$ = this.loadMembers$.pipe(
-                switchMap(() => this.TopicMemberUserService.loadItems()),
-                tap((members) => {
-                  this.topic.members.users = members;
-                  return members;
-                })
-              );
-
-              TopicAttachmentService.setParam('topicId', this.topic.id);
-              this.topicAttachments$ = TopicAttachmentService.loadItems();
-              this.TopicMemberGroupService.setParam('topicId', this.topic.id);
-              this.topicGroups$ = this.TopicMemberGroupService.loadItems().pipe(
-                tap((groups) => {
-                  if (groups.length && this.isnew) {
-                    this.topic.visibility = groups[0].visibility;
-                    this.isCreatedFromGroup = true;
-                  }
-                  groups.forEach((group: any) => {
-                    const exists = this.topicGroups.find((mgroup) => mgroup.id === group.id);
-                    if (!exists) this.topicGroups.push(group);
-                  })
-                })
-              );
-            }
-            if (topic.ideationId) {
-              setTimeout(() => {
-                this.TopicIdeationService.get({ topicId: topic.id, ideationId: topic.ideationId }).pipe(take(1)).subscribe({
-                  next: (ideation) => {
-                    this.ideation = ideation;
-                    this.ideation.question = this.ideation.question.trim();
-                    if (this.ideation.deadline) {
-                      this.deadline = new Date(this.ideation.deadline);
-                      this.endsAt.date = this.ideation.deadline;
-                      this.endsAt.min = this.deadline.getMinutes();
-                      this.endsAt.h = this.deadline.getHours();
-                      this.setEndsAtTime();
-                      this.deadlineSelect = true;
-                    }
-                    cd.detectChanges();
-                  }
-                });
+                if (blockname === 'description') {
+                  const el = document.createElement('span');
+                  el.innerHTML = temp;
+                  if (el.innerText) this.block['description'] = true;
+                } else if (temp)
+                  this.block[blockname as keyof typeof this.block] = true;
               });
-            }
-            this.downloadUrl = this.TopicService.download(topic.id);
+              if (this.topic.id) {
+                this.TopicInviteUserService.setParam('topicId', this.topic.id);
+                this.invites$ = this.loadInvite$.pipe(
+                  switchMap(() => this.TopicInviteUserService.loadItems())
+                );
+                this.TopicMemberUserService.setParam('topicId', this.topic.id);
+                this.members$ = this.loadMembers$.pipe(
+                  switchMap(() => this.TopicMemberUserService.loadItems()),
+                  tap((members) => {
+                    this.topic.members.users = members;
+                    return members;
+                  })
+                );
 
-            return topic;
-          }));
+                TopicAttachmentService.setParam('topicId', this.topic.id);
+                this.topicAttachments$ = TopicAttachmentService.loadItems();
+                this.TopicMemberGroupService.setParam('topicId', this.topic.id);
+                this.topicGroups$ =
+                  this.TopicMemberGroupService.loadItems().pipe(
+                    tap((groups) => {
+                      if (groups.length && this.isnew) {
+                        this.topic.visibility = groups[0].visibility;
+                        this.isCreatedFromGroup = true;
+                      }
+                      groups.forEach((group: any) => {
+                        const exists = this.topicGroups.find(
+                          (mgroup) => mgroup.id === group.id
+                        );
+                        if (!exists) this.topicGroups.push(group);
+                      });
+                    })
+                  );
+              }
+              if (topic.ideationId) {
+                setTimeout(() => {
+                  this.TopicIdeationService.get({
+                    topicId: topic.id,
+                    ideationId: topic.ideationId,
+                  })
+                    .pipe(take(1))
+                    .subscribe({
+                      next: (ideation) => {
+                        this.ideation = ideation;
+                        if (ideation.demographicsConfig !== null) {
+                          this.demographicsConfig = ideation.demographicsConfig;
+                        }
+                        if (ideation.template) {
+                          this.enableTemplate = true;
+                          this.initialTemplateValue = ideation.template;
+                        }
+                        this.ideation.question = this.ideation.question.trim();
+                        if (this.ideation.deadline) {
+                          this.deadline = new Date(this.ideation.deadline);
+                          this.endsAt.date = this.ideation.deadline;
+                          this.endsAt.min = this.deadline.getMinutes();
+                          this.endsAt.h = this.deadline.getHours();
+                          this.setEndsAtTime();
+                          this.deadlineSelect = true;
+                        }
+                        cd.detectChanges();
+                      },
+                    });
+                });
+              }
+              this.downloadUrl = this.TopicService.download(topic.id);
+
+              return topic;
+            })
+          );
         }
         return this.createTopic();
       })
@@ -238,82 +337,120 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
           this.block.title = true;
           invalid = true;
           setTimeout(() => {
-            this.titleInput?.nativeElement?.parentNode.parentNode.classList.add('error');
+            this.titleInput?.nativeElement?.parentNode.parentNode.classList.add(
+              'error'
+            );
           });
         }
         if (invalid) {
-          return
+          return;
         }
       }
       const tabIndex = this.tabs.indexOf(tab);
       if (tabIndex === 2) {
-        /*  if (this.voteCreateForm)
-            this.voteCreateForm.saveVoteSettings();*/
-      }
-      if (tabIndex === 2) {
         if (!this.ideation.question) {
           this.Notification.removeAll();
-          this.Notification.addError('VIEWS.IDEATION_CREATE.ERROR_MISSING_QUESTION');
+          this.Notification.addError(
+            'VIEWS.IDEATION_CREATE.ERROR_MISSING_QUESTION'
+          );
           return;
         }
-        /*  if (this.voteCreateForm)
-            this.voteCreateForm.saveVoteSettings();*/
       }
       if (tabIndex + 1 === 3) {
-        //   this.voteCreateForm?.filterOptions();
         setTimeout(() => {
-          this.TopicService.readDescription(this.topic.id).pipe(take(1)).subscribe({
-            next: (topic) => {
-              this.topic.description = topic.description;
-            },
-            error: (err) => {
-              console.error(err)
-            }
-          });
-        }, 200)
+          this.TopicService.readDescription(this.topic.id)
+            .pipe(take(1))
+            .subscribe({
+              next: (topic) => {
+                this.topic.description = topic.description;
+              },
+              error: (err) => {
+                console.error(err);
+              },
+            });
+        }, 200);
       }
       if (tabIndex > -1 && tabIndex < 3) {
         setTimeout(() => {
           this.selectTab(this.tabs[tabIndex + 1]);
-        })
+        });
       }
     }
+  }
+
+  get demographicKeys() {
+    return Object.keys(this.demographicsConfig);
+  }
+
+  getDemographicEnabled() {
+    if (!this.ideation.allowAnonymous) {
+      return null;
+    }
+
+    return Object.keys(this.demographicsConfig)
+      .filter((key) => this.demographicsConfig[key].required)
+      .reduce((acc: Ideation['demographicsConfig'], curr: string) => {
+        return {
+          ...acc,
+          [curr]: this.demographicsConfig[curr],
+        };
+      }, null);
   }
 
   createTopic() {
     const topic = {
       description: '<html><head></head><body></body></html>',
-      visbility: this.TopicService.VISIBILITY.private
+      visbility: this.TopicService.VISIBILITY.private,
     };
 
-    return this.TopicService.save(topic)
-      .pipe(take(1),
-        tap((topic: Topic) => {
-          this.topic = topic;
-          this.ideation.question = ' ';
-          this.createIdeation();
-          this.router.navigate([topic.id], { relativeTo: this.route });
-        }));
+    return this.TopicService.save(topic).pipe(
+      take(1),
+      tap((topic: Topic) => {
+        this.topic = topic;
+        this.ideation.question = ' ';
+        this.createIdeation();
+        this.router.navigate([topic.id], { relativeTo: this.route });
+      })
+    );
+  }
+
+  toggleAnonymous() {
+    this.ideation.allowAnonymous = !this.ideation.allowAnonymous;
+    if (this.ideation.allowAnonymous && !this.ideation.disableReplies) {
+      this.ideation.disableReplies = true;
+    }
+  }
+
+  updateTemplate(text: string) {
+    setTimeout(() => {
+      this.ideation.template = text;
+    });
   }
 
   override saveAsDraft() {
     if (this.topic.status === this.TopicService.STATUSES.draft) {
-      const updateTopic = Object.assign({}, this.topic);
+      const updateTopic = { ...this.topic };
       if (!updateTopic.intro?.length) {
         updateTopic.intro = null;
       }
 
-      this.TopicService.patch(updateTopic).pipe(take(1)).subscribe(() => {
-        if (!this.ideation.id) {
-          this.createIdeation();
-        } else if ([this.TopicService.STATUSES.draft, this.TopicService.STATUSES.ideation].indexOf(this.topic.status) > -1) {
-          this.updateIdeation();
-        }
-        this.topicGroups.forEach((group) => {
-          this.saveMemberGroup(group);
-        });
-        this.saveImage()
-          .subscribe({
+      this.TopicService.patch(updateTopic)
+        .pipe(take(1))
+        .subscribe(() => {
+          if (!this.ideation.id) {
+            this.createIdeation();
+          } else if (
+            [
+              this.TopicService.STATUSES.draft,
+              this.TopicService.STATUSES.ideation,
+            ].indexOf(this.topic.status) > -1
+          ) {
+            this.updateIdeation();
+          }
+          this.topicGroups.forEach((group) => {
+            this.saveMemberGroup(group);
+          });
+          this.saveImage().subscribe({
             next: (res: any) => {
               if (res && !res.link) return;
               if (res.link) {
@@ -322,38 +459,48 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
 
               this.hasChanges$.next(false);
               this.router.navigate(['my', 'topics']);
-              this.Notification.addSuccess('VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE');
+              this.Notification.addSuccess(
+                'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE',
+                'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE'
+              );
             },
             error: (err: any) => {
               console.log('ERROR', err);
-            }
+            },
           });
-
-      });
+        });
     }
   }
 
   override publish() {
-    this.titleInput?.nativeElement?.parentNode.parentNode.classList.remove('error');
-    const isDraft = (this.topic.status === this.TopicService.STATUSES.draft);
-    const updateTopic = Object.assign({}, this.topic);
+    this.titleInput?.nativeElement?.parentNode.parentNode.classList.remove(
+      'error'
+    );
+    const isDraft = this.topic.status === this.TopicService.STATUSES.draft;
+    const updateTopic = { ...this.topic };
     if (!updateTopic.intro?.length) {
       updateTopic.intro = null;
     }
-    this.TopicService.patch(updateTopic).pipe(take(1)).subscribe({
-      next: () => {
-        this.saveImage()
-          .subscribe({
+    this.TopicService.patch(updateTopic)
+      .pipe(take(1))
+      .subscribe({
+        next: () => {
+          this.saveImage().subscribe({
             next: (res: any) => {
               if (res && !res.link) return;
 
               if (this.canEditIdeation()) {
                 this.topicGroups.forEach((group) => {
-                  this.saveMemberGroup(group)
+                  this.saveMemberGroup(group);
                 });
                 this.groupsToRemove.forEach((group: any) => {
                   if (group) {
-                    this.TopicMemberGroupService.delete({ topicId: this.topic.id, groupId: group.id }).pipe(take(1)).subscribe();
+                    this.TopicMemberGroupService.delete({
+                      topicId: this.topic.id,
+                      groupId: group.id,
+                    })
+                      .pipe(take(1))
+                      .subscribe();
                   }
                 });
               }
@@ -364,67 +511,37 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
                 this.updateIdeation(true);
               } else {
                 this.hasChanges$.next(false);
-                this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
+                this.router.navigate([
+                  '/',
+                  this.translate.currentLang,
+                  'topics',
+                  this.topic.id,
+                ]);
                 this.TopicService.reloadTopic();
                 if (this.isnew || isDraft) {
-                  this.Notification.addSuccess('VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_TITLE');
+                  this.Notification.addSuccess(
+                    'VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_MESSAGE',
+                    'VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_TITLE'
+                  );
                   this.inviteMembers();
                 } else {
-                  this.Notification.addSuccess('VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE');
+                  this.Notification.addSuccess(
+                    'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE',
+                    'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE'
+                  );
                 }
               }
             },
             error: (err) => {
-              console.log('publish error', err)
-            }
-          });
-      },
-      error: (err: any) => {
-        console.log('ERROR', err);
-      }
-    });
-  }
-
-  /*override publish() {
-    this.titleInput?.nativeElement?.parentNode.parentNode.classList.remove('error');
-    const isDraft = (this.topic.status === this.TopicService.STATUSES.draft);
-    const updateTopic = Object.assign({}, this.topic);
-    if (!updateTopic.intro?.length) {
-      updateTopic.intro = null;
-    }
-
-    this.TopicService.patch(updateTopic).pipe(take(1)).subscribe({
-      next: () => {
-        if (!this.ideation.id) {
-          this.createIdeation(true);
-        } else if ([this.TopicService.STATUSES.draft, this.TopicService.STATUSES.ideation].indexOf(this.topic.status) > -1) {
-          this.updateIdeation(true);
-        }
-
-        this.topicGroups.forEach((group) => {
-          this.saveMemberGroup(group)
-        });
-        this.saveImage()
-          .subscribe({
-            next: (res: any) => {
-              if (res && !res.link) return;
-              if (res.link) {
-                this.topic.imageUrl = res.link;
-              }
-              this.hasChanges$.next(false);
-              this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
-              this.TopicService.reloadTopic();
+              console.log('publish error', err);
             },
-            error: (err) => {
-              console.log('publish error', err)
-            }
           });
-      },
-      error: (err: any) => {
-        console.log('ERROR', err);
-      }
-    });
-  }*/
+        },
+        error: (err: any) => {
+          console.log('ERROR', err);
+        },
+      });
+  }
 
   saveIdeationSettings(ideation?: any) {
     if (ideation) {
@@ -433,7 +550,11 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
   }
 
   createIdeation(updateTopicStatus?: boolean) {
-    const createIdeation: any = Object.assign({ topicId: this.topic.id }, this.ideation);
+    const createIdeation = {
+      topicId: this.topic.id,
+      ...this.ideation,
+      demographicsConfig: this.getDemographicEnabled(),
+    };
     if (!this.deadlineSelect) {
       createIdeation.deadline = null;
     }
@@ -441,84 +562,119 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
       .pipe(take(1))
       .subscribe({
         next: (ideation) => {
-          //   this.TopicService.reloadTopic();
           this.ideation = ideation;
           if (updateTopicStatus) {
-            const isDraft = (this.topic.status === this.TopicService.STATUSES.draft);
-            const updateTopic = Object.assign({}, this.topic);
+            const isDraft =
+              this.topic.status === this.TopicService.STATUSES.draft;
+            const updateTopic = { ...this.topic };
             updateTopic.status = this.TopicService.STATUSES.ideation;
-            this.TopicService.patch(updateTopic).pipe(take(1)).subscribe({
-              next: (res) => {
-                this.hasChanges$.next(false);
-                this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
-                this.TopicService.reloadTopic();
-                if (this.isnew || isDraft) {
-                  this.Notification.addSuccess('VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_TITLE');
-                  this.inviteMembers();
-                } else {
-                  this.Notification.addSuccess('VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE');
-                }
-              },
-              error: (err) => {
-                console.log('Update status error', err);
-              }
-            });
+            this.TopicService.patch(updateTopic)
+              .pipe(take(1))
+              .subscribe({
+                next: (res) => {
+                  this.hasChanges$.next(false);
+                  this.router.navigate([
+                    '/',
+                    this.translate.currentLang,
+                    'topics',
+                    this.topic.id,
+                  ]);
+                  this.TopicService.reloadTopic();
+                  if (this.isnew || isDraft) {
+                    this.Notification.addSuccess(
+                      'VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_MESSAGE',
+                      'VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_TITLE'
+                    );
+                    this.inviteMembers();
+                  } else {
+                    this.Notification.addSuccess(
+                      'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE',
+                      'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE'
+                    );
+                  }
+                },
+                error: (err) => {
+                  console.log('Update status error', err);
+                },
+              });
           }
         },
         error: (res) => {
           this.nextTab('ideation_system');
-          console.debug('createIdeation() ERR', res, res.errors);
           this.errors = res.errors;
           Object.values(this.errors).forEach((message) => {
             if (typeof message === 'string')
               this.Notification.addError(message);
           });
-        }
+        },
       });
   }
 
-
   updateIdeation(updateTopicStatus?: boolean) {
-    const updateIdeation = Object.assign({ topicId: this.topic.id }, this.ideation);
+    const updateIdeation = {
+      topicId: this.topic.id,
+      ...this.ideation,
+      demographicsConfig: this.getDemographicEnabled(),
+    };
     if (!this.deadlineSelect) {
       updateIdeation.deadline = null;
     }
-    return this.TopicIdeationService.update(updateIdeation).pipe(take(1)).subscribe({
-      next: () => {
-        if (updateTopicStatus) {
-          const isDraft = (this.topic.status === this.TopicService.STATUSES.draft);
-          const updateTopic = { id: this.topic.id, status: this.TopicService.STATUSES.ideation };
-          this.TopicService.patch(updateTopic).pipe(take(1)).subscribe({
-            next: (res) => {
-              this.hasChanges$.next(false);
-              this.router.navigate(['/', this.translate.currentLang, 'topics', this.topic.id]);
-              this.TopicService.reloadTopic();
-              if (this.isnew || isDraft) {
-                this.Notification.addSuccess('VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_TITLE');
-                this.inviteMembers();
-              } else {
-                this.Notification.addSuccess('VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE');
-              }
-            },
-            error: (err) => {
-              console.log('Update status error', err);
-            }
-          });
-        }
-      },
-      error: (err) => {
-        console.error(err);
-      }
-    });
+    return this.TopicIdeationService.update(updateIdeation)
+      .pipe(take(1))
+      .subscribe({
+        next: () => {
+          if (updateTopicStatus) {
+            const isDraft =
+              this.topic.status === this.TopicService.STATUSES.draft;
+            const updateTopic = {
+              id: this.topic.id,
+              status: this.TopicService.STATUSES.ideation,
+            };
+            this.TopicService.patch(updateTopic)
+              .pipe(take(1))
+              .subscribe({
+                next: (res) => {
+                  this.hasChanges$.next(false);
+                  this.router.navigate([
+                    '/',
+                    this.translate.currentLang,
+                    'topics',
+                    this.topic.id,
+                  ]);
+                  this.TopicService.reloadTopic();
+                  if (this.isnew || isDraft) {
+                    this.Notification.addSuccess(
+                      'VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_MESSAGE',
+                      'VIEWS.TOPIC_CREATE.NOTIFICATION_SUCCESS_TITLE'
+                    );
+                    this.inviteMembers();
+                  } else {
+                    this.Notification.addSuccess(
+                      'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_MESSAGE',
+                      'VIEWS.TOPIC_EDIT.NOTIFICATION_SUCCESS_TITLE'
+                    );
+                  }
+                },
+                error: (err) => {
+                  console.log('Update status error', err);
+                },
+              });
+          }
+        },
+        error: (err) => {
+          console.error(err);
+        },
+      });
   }
 
   removeChanges() {
-    console.log(this.topic)
-    this.TopicService.revert(this.topic.id, this.topic.revision!).pipe(take(1)).subscribe(() => {
-      setTimeout(() => {
-        this.TopicService.reloadTopic();
-      }, 200);
-    });
+    this.TopicService.revert(this.topic.id, this.topic.revision!)
+      .pipe(take(1))
+      .subscribe(() => {
+        setTimeout(() => {
+          this.TopicService.reloadTopic();
+        }, 200);
+      });
   }
   /*DEADLINE */
 
@@ -526,25 +682,28 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
     this.endsAt.date = this.endsAt.date || new Date();
     this.deadline = new Date(this.endsAt.date);
     if (this.endsAt.h === 0 && this.endsAt.min === 0) {
-      this.deadline = new Date(this.deadline.setDate(this.deadline.getDate() + 1));
+      this.deadline = new Date(
+        this.deadline.setDate(this.deadline.getDate() + 1)
+      );
     }
 
     let hour = this.endsAt.h;
-    if (this.endsAt.timeFormat === 'PM') { hour += 12; }
+    if (this.endsAt.timeFormat === 'PM') {
+      hour += 12;
+    }
     this.deadline.setHours(hour);
     this.deadline.setMinutes(this.endsAt.min);
     this.ideation.deadline = this.deadline;
     this.daysToVoteEnd();
-
-    // this.setReminderOptions();
-  };
+  }
 
   override isNextDisabled(tabSelected: string | void) {
-    if (tabSelected === 'preview' && !this.TopicService.canDelete(this.topic)) {
-      return true;
-    } else if (!this.topic.title || !this.topic.description) {
-      return true;
-    } else if (tabSelected === 'ideation_system' && !this.ideation.question) {
+    if (
+      (tabSelected === 'preview' && !this.TopicService.canDelete(this.topic)) ||
+      !this.topic.title ||
+      !this.topic.description ||
+      (tabSelected === 'ideation_system' && !this.ideation.question)
+    ) {
       return true;
     }
 
@@ -552,6 +711,7 @@ export class IdeationCreateComponent extends TopicFormComponent implements Block
   }
 
   canEditIdeation() {
-    return this.TopicService.canDelete(this.topic) && (this.topic.status !== this.TopicService.STATUSES.draft || this.topic.status !== this.TopicService.STATUSES.ideation);
+      const statuses = [this.TopicService.STATUSES.draft, this.TopicService.STATUSES.ideation];
+      return this.TopicService.canDelete(this.topic) && (statuses.indexOf(this.topic.status) > -1);
   }
 }
