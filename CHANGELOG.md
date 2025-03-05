@@ -1,9 +1,23 @@
-## 2025-02-26 - v1.2.5
-  * Feature: Allow anonymous users to add ideas to an ideation
-  * Feature: Allow extra fields to be added to an ideation for anonymous users
-  * Feature: Allow disabling replies for an ideation
-
-  * Fix: Issue #1840 - TOPICS: Can't delete topic in ideation or vote phase
+## 2025-03-05 - 1.3.0
+  * Feature: Anonymous idea gatherings - ideas are posted anonymously and not connected to any user
+  * Feature: Ask extra demographic information to anonymous idea gatherings
+  * Feature: User can create idea drafts - for anonymous idea gatherings idea connection with user is removed after posting
+  * Feature: Disable replies for ideas
+  * Feature: Allow users to create templates for anonymous ideas
+  * FIX: Invite and join flow UX/UI updates
+  * FIX: Issue FE #658 - IDEA GATHERING: Back button causes navigation issues when you've opened idea(s)
+  * FIX: Issue FE #1248 - IDEATION / AF: Clicking new idea activity doesn't take me to the topic
+  * FIX: Issue FE #1463 - VOTING: Refresh needed to get vote signing results
+  * FIX: Issue FE #1636 - IDEA GATHERING: When not logged in, clicking 'reply' leads button to disappear
+  * FIX: Issue FE #1637 - DISCUSSIONS: When not logged in, argument 'reply' buttons are missing
+  * FIX: Issue FE #1639 - IDEA GATHERING: When not logged in, 'like idea' button is greyed out, should be active but trigger login pop-up
+  * FIX: Issue FE #1656 - GROUP: Public topics not showing up as added to public group in all places they should
+  * FIX: Issue FE #1782 - MISC: Consistency of filters UI/UX
+  * FIX: Issue FE #1797 - MISC: No access to privacy policy on the platform itself
+  * FIX: Issue FE #1820 - GROUPS: Navigating between topics in groups
+  * FIX: Issue FE #1863 - IDEA GATHERING: Broken formatting options on mobile
+  * FIX: Issue FE #1873 - IS: QR code 'right click to save' doesn't work in all browsers
+  * FIX: Issue FE #1980 - ACTIONS: Duplicate edit topic causing issues
 
 ## 2025-01-31 - v1.2.4
   * Fix: Issue #1839 - TOPICS: Partially hide email addresses shown to topic admins in the 'Invited' tab
