@@ -141,43 +141,102 @@
               | translate
           }}"
         >
-          <input
-            [id]="'demographics_' + key"
-            [name]="'demographics_' + key"
-            [formControlName]="'demographics_' + key"
-            [(ngModel)]="ideation.demographicsConfig![key].value"
-            autocomplete="off"
-            placeholder="{{
-              'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_' + key
-                | uppercase
-                | translate
-            }}"
-            class="gray_borders"
-            [ngClass]="{
-              error_input:
+            <ng-container *ngIf="key === 'residence' && isCountryEstonia;else common_field">
+              <div class="dropdown" [cosDropdown]>
+                <div
+                  class="selection"
+                  [ngClass]="{
+                    error_input: filtersData['residence'].error
+                  }"
+                >
+                  <div class="selected_item">
+                    <ng-container [ngSwitch]="'residence'">
+                      <span *ngSwitchDefault>{{
+                        filtersData["residence"].selectedValue
+                      }}</span>
+                    </ng-container>
+                  </div>
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M17 10L12 15L7 10"
+                      stroke="#2C3B47"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                </div>
+                <div class="options">
+                  <ng-container
+                    *ngFor="let option of filtersData['residence'].items"
+                  >
+                    <div
+                      class="option"
+                      (click)="setFilterValue('residence', option.value)"
+                    >
+                      <ng-container [ngSwitch]="'residence'">
+                        <span *ngSwitchDefault>{{ option.title }}</span>
+                      </ng-container>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+
+              <label
+                [for]="'demographics_' + key"
+                class="error_label"
+                *ngIf="filtersData['residence'].error"
+              >
+                <span
+                  class="error_text"
+                  translate="COMPONENTS.ADD_IDEA.FIELD_IS_MANDATORY"
+                ></span>
+              </label>
+            </ng-container>
+            <ng-template #common_field>
+              <input
+                [id]="'demographics_' + key"
+                [name]="'demographics_' + key"
+                [formControlName]="'demographics_' + key"
+                [(ngModel)]="ideation.demographicsConfig![key].value"
+                autocomplete="off"
+                placeholder="{{
+                  'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_' + key
+                    | uppercase
+                    | translate
+                }}"
+                class="gray_borders"
+                [ngClass]="{
+                error_input:
+                  ideaForm.controls['demographics_' + key].errors &&
+                  ideaForm.controls['demographics_' + key].errors?.['required'] &&
+                  ideaForm.controls['demographics_' + key].touched
+              }"
+                [required]="ideation.demographicsConfig![key].required"
+                (ngModelChange)="ngModelChange('demographics_' + key, $event)"
+                (blur)="ngModelBlur('demographics_' + key)"
+              />
+
+              <label
+                [for]="'demographics_' + key"
+                class="error_label"
+                *ngIf="
                 ideaForm.controls['demographics_' + key].errors &&
                 ideaForm.controls['demographics_' + key].errors?.['required'] &&
                 ideaForm.controls['demographics_' + key].touched
-            }"
-            [required]="ideation.demographicsConfig![key].required"
-            (ngModelChange)="ngModelChange('demographics_' + key, $event)"
-            (blur)="ngModelBlur('demographics_' + key)"
-          />
-
-          <label
-            [for]="'demographics_' + key"
-            class="error_label"
-            *ngIf="
-              ideaForm.controls['demographics_' + key].errors &&
-              ideaForm.controls['demographics_' + key].errors?.['required'] &&
-              ideaForm.controls['demographics_' + key].touched
-            "
-          >
-            <span
-              class="error_text"
-              translate="COMPONENTS.ADD_IDEA.FIELD_IS_MANDATORY"
-            ></span>
-          </label>
+              "
+              >
+                <span
+                  class="error_text"
+                  translate="COMPONENTS.ADD_IDEA.FIELD_IS_MANDATORY"
+                ></span>
+              </label>
+            </ng-template>
         </cos-input>
       </div>
 

@@ -35,6 +35,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { take, map, takeWhile, of } from 'rxjs';
 import { CloseWithoutSavingDialogComponent } from '../close-without-saving-dialog/close-without-saving-dialog.component';
+import { municipalities } from '@services/municipalitiy.service';
 
 @Component({
   selector: 'add-idea',
@@ -65,6 +66,7 @@ export class AddIdeaComponent {
   @Input() topicId!: string;
   @Input() ideation!: Ideation;
   @Input() ideationId!: string;
+  @Input() topicCountry!: string | null;
   @Input() notification?: Notification;
   @Output() notificationChange = new EventEmitter<any>();
 
@@ -91,6 +93,22 @@ export class AddIdeaComponent {
     demographics_gender: new UntypedFormControl(''),
     demographics_residence: new UntypedFormControl(''),
   });
+
+  filtersData = {
+    residence: {
+      error: false,
+      isMobileOpen: false,
+      placeholder: 'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_RESIDENCE',
+      selectedValue: '',
+      preSelectedValue: '',
+      items: [
+        ...municipalities.map((value) => {
+          return { title: value.name, value: value.name };
+        }),
+      ],
+    },
+  };
+
   IMAGE_LIMIT = 10;
   IDEA_STATEMENT_MAXLENGTH = 1024;
   private readonly IDEA_VERSION_SEPARATOR = '_v';
@@ -127,6 +145,22 @@ export class AddIdeaComponent {
 
   get isStatementValid() {
     return this.ideaForm.controls['statement'].valid;
+  }
+
+  get filterKeys() {
+    return Object.keys(this.filtersData) as Array<
+      keyof typeof this.filtersData
+    >;
+  }
+
+  get hasMobileOpen() {
+    return Object.values(this.filtersData).some(
+      (filter) => filter.isMobileOpen
+    );
+  }
+
+  get isCountryEstonia () {
+    return this.topicCountry === 'Estonia'
   }
 
   loggedIn() {
@@ -169,11 +203,13 @@ export class AddIdeaComponent {
         next: (res) => {
           if (!res) {
             this.app.addIdea.next(false);
+            this.clear();
           }
         },
       });
     } else {
       this.app.addIdea.next(false);
+      this.clear();
     }
   }
 
@@ -189,6 +225,8 @@ export class AddIdeaComponent {
     this.ideaForm.controls['statement'].patchValue('');
     this.ideaForm.controls['description'].markAsPristine();
     this.ideaForm.controls['description'].markAsUntouched();
+    this.filtersData.residence.error = false;
+    this.filtersData.residence.selectedValue = '';
     setTimeout(() => {
       if (this.fileInput?.nativeElement.value)
         this.fileInput.nativeElement.value = null;
@@ -198,23 +236,27 @@ export class AddIdeaComponent {
     });
   }
 
-  touchRequiredFieldsForPublish() {
+  validateRequiredFieldsForPublish() {
     this.ideaForm.controls['description'].markAsTouched();
     this.ideaForm.controls['demographics_age'].markAsTouched();
     this.ideaForm.controls['demographics_gender'].markAsTouched();
     this.ideaForm.controls['demographics_residence'].markAsTouched();
+    if (!this.filtersData.residence.selectedValue) {
+      this.filtersData.residence.error = true;
+    }
   }
 
-  untouchRequiredFieldsForDraft() {
+  resetRequiredFieldsForPublish() {
     this.ideaForm.controls['description'].markAsUntouched();
     this.ideaForm.controls['demographics_age'].markAsUntouched();
     this.ideaForm.controls['demographics_gender'].markAsUntouched();
     this.ideaForm.controls['demographics_residence'].markAsUntouched();
+    this.filtersData.residence.error = false;
   }
 
   postIdea(status?: IdeaStatus) {
     this.ideaForm.controls['statement'].markAsTouched();
-    this.touchRequiredFieldsForPublish();
+    this.validateRequiredFieldsForPublish();
 
     if (this.ideaForm.valid) {
       if (this.ideation.allowAnonymous) {
@@ -239,7 +281,7 @@ export class AddIdeaComponent {
 
   draftIdea() {
     this.ideaForm.controls['statement'].markAsTouched();
-    this.untouchRequiredFieldsForDraft();
+    this.resetRequiredFieldsForPublish();
 
     if (this.isStatementValid) {
       if (this.ideation.allowAnonymous) {
@@ -300,6 +342,12 @@ export class AddIdeaComponent {
 
     return Object.keys(this.ideation.demographicsConfig).reduce(
       (acc: Idea['demographics'], curr: string) => {
+        if (curr === 'residence' && this.isCountryEstonia) {
+          return {
+            ...acc,
+            residence: this.filtersData.residence.selectedValue,
+          };
+        }
         return {
           ...acc,
           [curr]: this.ideation.demographicsConfig?.[curr].value || '',
@@ -441,6 +489,11 @@ export class AddIdeaComponent {
       }
       i++;
     }
+  }
+
+  setFilterValue(filter: keyof typeof this.filtersData, val: string) {
+    this.filtersData[filter].selectedValue = val;
+    this.filtersData[filter].error = false;
   }
 
   removeNewImage(index: number) {
