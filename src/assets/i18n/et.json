@@ -3078,7 +3078,7 @@
       "NO_FOLLOW_UP_HEADING": "Tegevusfaas puudub",
       "NO_FOLLOW_BTN_ADD": "Lisa tegevusfaas",
       "NO_FOLLOW_DESC_HEADING": "Kuidas toimib tegevusfaas?",
-      "NO_FOLLOW_DESC_BEFORE": "Tegevus on teema viimane faas. Pärast otsuse tegemist saavad teema administraatorid postitada osalejate jaoks teavet plaanide kohta ning uudiseid ja teadaandeid selle kohta, mis on juba juhtunud ja mis on oodatav tulemus ",
+      "NO_FOLLOW_DESC_BEFORE": "Tegevus on teema viimane faas. Pärast otsuse tegemist saavad teema administraatorid postitada plaane ja uuendusi selle kohta, mis on toimunud ja mis saab edasi.",
       "NO_FOLLOW_DESC_AFTER": "See võimaldab kõigil näha otsuse tulemust ja jälgida otsuse elluviimise protsessi.",
       "TUTORIAL_HEADING": "@:COMPONENTS.TOUR.HEADING_TOPIC",
       "TUTORIAL_TITLE": "Tere tulemast teemade lehele",
