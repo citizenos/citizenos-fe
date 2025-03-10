@@ -166,12 +166,33 @@ export class GroupCreateComponent implements OnInit, BlockNavigationIfChange {
       const image = new Image();
       image.onload = function () {
         const canvas = document.createElement('canvas');
-        canvas.width = 320;
-        canvas.height = 320;
+        const canvasWidth = 320;
+        const canvasHeight = 320;
+        canvas.width = canvasWidth;
+        canvas.height = canvasHeight;
         const ctx = canvas.getContext('2d');
         if (ctx != null) {
+          let { width, height } = image;
+          let delta = 0;
+          const isWidthMoreHeight = width > height;
+          if (isWidthMoreHeight) {
+            delta = width - height;
+          } else {
+            delta = height - width;
+          }
+
           ctx.clearRect(0, 0, canvas.width, canvas.height);
-          ctx.drawImage(image, 0, 0, image.width, image.height, 0, 0, 320, 320);
+          ctx.drawImage(
+            image,
+            isWidthMoreHeight ? delta / 2 : 0,
+            !isWidthMoreHeight ? delta / 2 : 0,
+            isWidthMoreHeight ? width - delta : width,
+            !isWidthMoreHeight ? height - delta : height,
+            0,
+            0,
+            canvasWidth,
+            canvasHeight
+          );
         }
         var data = canvas.toDataURL('image/jpeg', 1);
         canvas.toBlob((blob) => {
