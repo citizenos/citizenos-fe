@@ -159,7 +159,7 @@
                 </div>
               </div>
               <ng-container
-                *ngIf="(AuthService.loggedIn$ | async) && topic.visibility === TopicService.VISIBILITY.public || (topic.visibility === TopicService.VISIBILITY.private && canUpdate())">
+                *ngIf="topic.visibility === TopicService.VISIBILITY.public || (topic.visibility === TopicService.VISIBILITY.private && canUpdate())">
                 <button class="btn_medium_submit animate" (click)="addIdea()"
                   *ngIf="tabSelected === 'ideas' && topic.status === TopicService.STATUSES.ideation"
                   [ngClass]="{disabled: hasIdeationEnded()}">
