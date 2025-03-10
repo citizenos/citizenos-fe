@@ -124,6 +124,7 @@ export class AddIdeaComponent {
     },
   };
 
+  AGE_LIMIT = 110;
   IMAGE_LIMIT = 10;
   IDEA_STATEMENT_MAXLENGTH = 1024;
   private readonly IDEA_VERSION_SEPARATOR = '_v';
@@ -191,8 +192,16 @@ export class AddIdeaComponent {
     this.ideaForm.controls['description'].setValue(text);
   }
 
-  ngModelChange(key: string, value: string | null) {
+  ngModelChange(key: string, value: number | string | null) {
     this.ideaForm.controls[key].markAsUntouched();
+
+    if (value !== null && key === 'demographics_age') {
+      if ((value as number) > this.AGE_LIMIT) {
+        this.ideaForm.controls[key].setValue(this.AGE_LIMIT);
+      } else if ((value as number) < 0) {
+        this.ideaForm.controls[key].setValue(0);
+      }
+    }
   }
 
   ngModelBlur(key: string) {

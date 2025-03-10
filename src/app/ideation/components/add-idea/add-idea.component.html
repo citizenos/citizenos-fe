@@ -316,7 +316,7 @@
               </div>
             </ng-container>
 
-            <ng-container *ngSwitchDefault="">
+            <ng-container *ngSwitchCase="'age'">
               <input
                 [id]="'demographics_' + key"
                 [name]="'demographics_' + key"
@@ -338,6 +338,9 @@
                 [required]="ideation.demographicsConfig![key].required"
                 (ngModelChange)="ngModelChange('demographics_' + key, $event)"
                 (blur)="ngModelBlur('demographics_' + key)"
+                type="number"
+                [attr.min]="0"
+                [attr.max]="AGE_LIMIT"
               />
 
               <label
@@ -355,6 +358,8 @@
                 ></span>
               </label>
             </ng-container>
+
+            <ng-container *ngSwitchDefault />
           </ng-container>
         </cos-input>
       </div>
