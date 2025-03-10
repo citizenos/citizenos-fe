@@ -14,8 +14,9 @@ import { SmartIdLoginDialogComponent } from '../smart-id-login/smart-id-login.co
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
-  redirectSuccess?: any;
+  redirectSuccess?: string;
   email?: string;
+  inviteId?: string;
   authMethodsAvailable: any;
   LOGIN_PARTNERS = {
     facebook: 'facebook',
@@ -35,6 +36,7 @@ export class RegisterComponent {
   ngOnInit() {
     this.route.queryParams.subscribe(value => {
       this.email = value['email'];
+      this.inviteId = value['inviteId'];
       this.redirectSuccess = this.redirectSuccess || value['redirectSuccess'];
       if (!this.redirectSuccess) {
         this.redirectSuccess = this.Location.getAbsoluteUrl(`/account/login`);
@@ -178,11 +180,13 @@ export class RegisterComponent {
 export class RegisterDialogComponent {
   redirectSuccess?: any;
   email?: string;
+  inviteId?: string;
   constructor(private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(value => {
       this.email = value['email'];
+      this.inviteId = value['inviteId'];
       this.redirectSuccess = this.redirectSuccess || value['redirectSuccess'];
     });
   }
