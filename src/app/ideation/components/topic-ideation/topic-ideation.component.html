@@ -845,5 +845,5 @@
   </div>
 </ng-container>
 <ng-container *ngIf="topic.ideationId && !hasIdeationEndedExpired()">
-  <add-idea *ngIf="topic.status === TopicService.STATUSES.ideation" [topicId]="topic.id" [ideation]="ideation" [ideationId]="topic.ideationId"></add-idea>
+  <add-idea *ngIf="topic.status === TopicService.STATUSES.ideation" [topicId]="topic.id" [ideation]="ideation" [ideationId]="topic.ideationId" [topicCountry]="topic.country"></add-idea>
 </ng-container>

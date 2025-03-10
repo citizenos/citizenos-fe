@@ -232,9 +232,34 @@
   cos-input {
     min-width: 0;
     flex-grow: 1;
+    width: 100%;
+  }
+
+  .dropdown {
+    .options {
+      max-height: 200px;
+    }
+
+    .selection {
+      padding: 18px 16px 4px 16px;
+    }
+
+    .error_input {
+      border-color: var(--color-error);
+    }
   }
 
   @include mixins.mobile {
     flex-direction: column;
+  }
+}
+
+.gender_wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  .error_label {
+    margin-top: 0;
   }
 }
