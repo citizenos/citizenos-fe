@@ -107,6 +107,21 @@ export class AddIdeaComponent {
         }),
       ],
     },
+    gender: {
+      error: false,
+      isMobileOpen: false,
+      placeholder: 'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_GENDER',
+      selectedValue: '',
+      preSelectedValue: '',
+      items: [
+        ...['male', 'female', 'other'].map((value) => {
+          return {
+            title: `VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_GENDER_${value.toUpperCase()}`,
+            value: value,
+          };
+        }),
+      ],
+    },
   };
 
   IMAGE_LIMIT = 10;
@@ -159,8 +174,8 @@ export class AddIdeaComponent {
     );
   }
 
-  get isCountryEstonia () {
-    return this.topicCountry === 'Estonia'
+  get isCountryEstonia() {
+    return this.topicCountry === 'Estonia';
   }
 
   loggedIn() {
@@ -227,6 +242,8 @@ export class AddIdeaComponent {
     this.ideaForm.controls['description'].markAsUntouched();
     this.filtersData.residence.error = false;
     this.filtersData.residence.selectedValue = '';
+    this.filtersData.gender.error = false;
+    this.filtersData.gender.selectedValue = '';
     setTimeout(() => {
       if (this.fileInput?.nativeElement.value)
         this.fileInput.nativeElement.value = null;
@@ -244,6 +261,10 @@ export class AddIdeaComponent {
     if (!this.filtersData.residence.selectedValue) {
       this.filtersData.residence.error = true;
     }
+
+    if (!this.filtersData.gender.selectedValue) {
+      this.filtersData.gender.error = true;
+    }
   }
 
   resetRequiredFieldsForPublish() {
@@ -252,6 +273,7 @@ export class AddIdeaComponent {
     this.ideaForm.controls['demographics_gender'].markAsUntouched();
     this.ideaForm.controls['demographics_residence'].markAsUntouched();
     this.filtersData.residence.error = false;
+    this.filtersData.gender.error = false;
   }
 
   postIdea(status?: IdeaStatus) {
@@ -346,6 +368,14 @@ export class AddIdeaComponent {
           return {
             ...acc,
             residence: this.filtersData.residence.selectedValue,
+          };
+        }
+        if (curr === 'gender') {
+          return {
+            ...acc,
+            gender:
+              this.ideation.demographicsConfig?.[curr].value ||
+              this.filtersData.gender.selectedValue,
           };
         }
         return {
