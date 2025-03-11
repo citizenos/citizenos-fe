@@ -1,5 +1,34 @@
 .dialog_content {
   align-items: center;
+
+  .content_row {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    border-radius: 8px;
+    background-color: var(--color-dialog-voting);
+    overflow: hidden;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+
+  .content_inner {
+    color: var(--color-border-active);
+    .content_inner_title {
+      font-size: 16px;
+      line-height: 24px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .content_inner_text {
+      font-size: 14px;
+      line-height: 20px;
+      font-weight: 400;
+      margin: 0;
+    }
+  }
 }
 
 .icons_wrap {
