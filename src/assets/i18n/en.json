@@ -2349,7 +2349,7 @@
       "DEMOGRAPHICS_DATA_GENDER": "Gender",
       "DEMOGRAPHICS_DATA_GENDER_MALE": "Male",
       "DEMOGRAPHICS_DATA_GENDER_FEMALE": "Female",
-      "DEMOGRAPHICS_DATA_GENDER_PLACEHOLDER": "Specify gender (optional)",
+      "DEMOGRAPHICS_DATA_GENDER_PLACEHOLDER": "Your gender (optional)",
       "DEMOGRAPHICS_DATA_GENDER_OTHER": "Other - please specify",
       "DEMOGRAPHICS_DATA_RESIDENCE": "Municipality",
       "PREVIEW_INFO": "<b>This is a preview of your topic!</b> You can still edit your topic at any point prior to starting a vote.",
