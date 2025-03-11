@@ -371,8 +371,7 @@
                   (ngModelChange)="ngModelChange('demographics_' + key, $event)"
                   (blur)="ngModelBlur('demographics_' + key)"
                   type="number"
-                  [attr.min]="0"
-                  [attr.max]="AGE_LIMIT"
+                  onkeypress="return event.charCode >= 48 && event.charCode <= 57"
                 />
 
                 <label
