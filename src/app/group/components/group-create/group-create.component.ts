@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild, ElementRef, Inject } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  Inject,
+} from '@angular/core';
 import { DialogService } from 'src/app/shared/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -22,7 +28,7 @@ import { GroupAddTopicsComponent } from '../group-add-topics/group-add-topics.co
 @Component({
   selector: 'group-create-component',
   templateUrl: './group-create.component.html',
-  styleUrls: ['./group-create.component.scss']
+  styleUrls: ['./group-create.component.scss'],
 })
 export class GroupCreateComponent implements OnInit, BlockNavigationIfChange {
   @ViewChild('imageUpload') fileInput?: ElementRef;
@@ -43,22 +49,18 @@ export class GroupCreateComponent implements OnInit, BlockNavigationIfChange {
     members: {
       users: <any[]>[],
       topics: {
-        rows: <Topic[]>[]
-      }
+        rows: <Topic[]>[],
+      },
     },
     visibility: this.GroupService.VISIBILITY.private,
     contact: null,
     rules: <string[]>[],
     language: null,
     country: null,
-    categories: <string[]>[]
+    categories: <string[]>[],
   };
 
-  rules = [
-    { rule: '' },
-    { rule: '' },
-    { rule: '' }
-  ];
+  rules = [{ rule: '' }, { rule: '' }, { rule: '' }];
 
   VISIBILITY = this.GroupService.VISIBILITY;
   CATEGORIES = Object.keys(this.TopicService.CATEGORIES);
@@ -77,7 +79,7 @@ export class GroupCreateComponent implements OnInit, BlockNavigationIfChange {
   groupLevel = 'read';
   maxUsers = 550;
   descriptionLength = 500;
-  private EMAIL_SEPARATOR_REGEXP = /[;,\s]/ig;
+  private EMAIL_SEPARATOR_REGEXP = /[;,\s]/gi;
 
   constructor(
     private app: AppService,
@@ -91,20 +93,20 @@ export class GroupCreateComponent implements OnInit, BlockNavigationIfChange {
     private Search: SearchService,
     private GroupInviteUser: GroupInviteUserService,
     public GroupMemberTopicService: GroupMemberTopicService,
-    private config: ConfigService) {
+    private config: ConfigService
+  ) {
     this.app.darkNav = true;
     this.tabSelected = this.route.fragment.pipe(
       map((fragment) => {
         if (!fragment) {
-          return this.selectTab('info')
+          return this.selectTab('info');
         }
-        return fragment
-      }
-      ));
+        return fragment;
+      })
+    );
   }
 
   selectTab(tab: string) {
-
     if (this.groupAddTopics) {
       this.topicsToAdd = this.groupAddTopics.membersToAdd;
     }
@@ -145,8 +147,7 @@ export class GroupCreateComponent implements OnInit, BlockNavigationIfChange {
     this.rules?.push({ rule: '' });
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   fileUpload() {
     const files = this.fileInput?.nativeElement.files;
@@ -159,25 +160,46 @@ export class GroupCreateComponent implements OnInit, BlockNavigationIfChange {
       });
     };
     reader.readAsDataURL(files[0]);
-
   }
   resizeImage(imageURL: any): Promise<any> {
     return new Promise((resolve) => {
       const image = new Image();
       image.onload = function () {
         const canvas = document.createElement('canvas');
-        canvas.width = 320;
-        canvas.height = 320;
+        const canvasWidth = 320;
+        const canvasHeight = 320;
+        canvas.width = canvasWidth;
+        canvas.height = canvasHeight;
         const ctx = canvas.getContext('2d');
         if (ctx != null) {
+          let { width, height } = image;
+          let delta = 0;
+          const isWidthMoreHeight = width > height;
+          if (isWidthMoreHeight) {
+            delta = width - height;
+          } else {
+            delta = height - width;
+          }
+
           ctx.clearRect(0, 0, canvas.width, canvas.height);
-          ctx.drawImage(image, 0, 0, image.width, image.height,
-            0, 0, 320, 320);
+          ctx.drawImage(
+            image,
+            isWidthMoreHeight ? delta / 2 : 0,
+            !isWidthMoreHeight ? delta / 2 : 0,
+            isWidthMoreHeight ? width - delta : width,
+            !isWidthMoreHeight ? height - delta : height,
+            0,
+            0,
+            canvasWidth,
+            canvasHeight
+          );
         }
         var data = canvas.toDataURL('image/jpeg', 1);
         canvas.toBlob((blob) => {
           if (blob) {
-            const file = new File([blob], 'profileimage.jpg', { type: "image/jpeg" });
+            const file = new File([blob], 'profileimage.jpg', {
+              type: 'image/jpeg',
+            });
             canvas.remove();
             resolve({ file: file, imageUrl: data });
           }
@@ -192,7 +214,7 @@ export class GroupCreateComponent implements OnInit, BlockNavigationIfChange {
   }
   uploadImage() {
     this.fileInput?.nativeElement.click();
-  };
+  }
 
   deleteGroupImage() {
     if (this.fileInput) {
@@ -209,14 +231,14 @@ export class GroupCreateComponent implements OnInit, BlockNavigationIfChange {
   createGroup() {
     this.errors = null;
     const saveGroup = Object.assign({}, this.group);
-    saveGroup['rules'] = this.rules?.map(rule => rule.rule).filter((rule) => !!rule);
+    saveGroup['rules'] = this.rules
+      ?.map((rule) => rule.rule)
+      .filter((rule) => !!rule);
     const afterCreate = (group: Group) => {
       this.group = Object.assign(this.group, group);
       if (this.imageFile) {
-        this.GroupService
-          .uploadGroupImage(this.imageFile, this.group.id).pipe(
-            takeWhile((e) => !e.link, true)
-          )
+        this.GroupService.uploadGroupImage(this.imageFile, this.group.id)
+          .pipe(takeWhile((e) => !e.link, true))
           .subscribe((res: any) => {
             if (res.link) {
               this.hasChanges$.next(false);
@@ -236,11 +258,15 @@ export class GroupCreateComponent implements OnInit, BlockNavigationIfChange {
       this.doInviteMembers();
       this.doAddTopics();
       setTimeout(() => {
-        this.Notification.addSuccess('VIEWS.GROUP_CREATE.NOTIFICATION_SUCCESS_MESSAGE', 'VIEWS.GROUP_CREATE.NOTIFICATION_SUCCESS_TITLE');
+        this.Notification.addSuccess(
+          'VIEWS.GROUP_CREATE.NOTIFICATION_SUCCESS_MESSAGE',
+          'VIEWS.GROUP_CREATE.NOTIFICATION_SUCCESS_TITLE'
+        );
       }, 500);
-    }
+    };
     if (!this.group.id) {
-      this.GroupService.save(saveGroup).pipe(take(1))
+      this.GroupService.save(saveGroup)
+        .pipe(take(1))
         .subscribe({
           next: (group) => {
             this.group = Object.assign(this.group, group);
@@ -250,10 +276,11 @@ export class GroupCreateComponent implements OnInit, BlockNavigationIfChange {
             if (errorResponse && errorResponse.errors) {
               this.errors = errorResponse.errors;
             }
-          }
+          },
         });
     } else {
-      this.GroupService.update(saveGroup).pipe(take(1))
+      this.GroupService.update(saveGroup)
+        .pipe(take(1))
         .subscribe({
           next: (group) => {
             this.group = Object.assign(this.group, group);
@@ -263,7 +290,7 @@ export class GroupCreateComponent implements OnInit, BlockNavigationIfChange {
             if (errorResponse && errorResponse.errors) {
               this.errors = errorResponse.errors;
             }
-          }
+          },
         });
     }
   }
@@ -275,17 +302,18 @@ export class GroupCreateComponent implements OnInit, BlockNavigationIfChange {
       groupMemberUsersToInvite.push({
         userId: member.userId || member.id,
         level: member.level,
-        inviteMessage: this.group.inviteMessage
-      })
+        inviteMessage: this.group.inviteMessage,
+      });
     });
 
     if (groupMemberUsersToInvite.length) {
-      this.GroupInviteUser.save({ groupId: this.group.id }, groupMemberUsersToInvite)
+      this.GroupInviteUser.save(
+        { groupId: this.group.id },
+        groupMemberUsersToInvite
+      )
         .pipe(take(1))
-        .subscribe(res => {
-        })
+        .subscribe((res) => {});
     }
-
   }
 
   doAddTopics() {
@@ -296,7 +324,7 @@ export class GroupCreateComponent implements OnInit, BlockNavigationIfChange {
       const member = {
         groupId: this.group.id,
         topicId: topic.id,
-        level: topic.permission.level
+        level: topic.permission.level,
       };
 
       topicsToAdd[member.topicId] = this.GroupMemberTopicService.save(member);
@@ -314,15 +342,15 @@ export class GroupCreateComponent implements OnInit, BlockNavigationIfChange {
             if (errorResponse && errorResponse.errors) {
               this.errors = errorResponse.errors;
             }
-          }
-        })
+          },
+        });
     }
-  };
+  }
 
   cancel() {
     const confirmDialog = this.dialog.open(InterruptDialogComponent);
 
-    confirmDialog.afterClosed().subscribe(result => {
+    confirmDialog.afterClosed().subscribe((result) => {
       if (result === true) {
         /*this.TopicService.delete({ id: this.topic.id })
           .pipe(take(1))
@@ -335,4 +363,3 @@ export class GroupCreateComponent implements OnInit, BlockNavigationIfChange {
     //[routerLink]="['/', translate.currentLang, 'topics', topic.id]"
   }
 }
-
