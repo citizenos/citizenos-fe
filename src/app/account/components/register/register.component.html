@@ -80,6 +80,6 @@
       </a>
     </div>
     <div translate="VIEWS.REGISTER.REGISTER_OR" *ngIf="authMethodsAvailable.esteid || authMethodsAvailable.smartId || authMethodsAvailable.google || authMethodsAvailable.facebook"></div>
-    <register-form [redirectSuccess]="redirectSuccess" [email]="email"></register-form>
+    <register-form [redirectSuccess]="redirectSuccess" [email]="email" [inviteId]="inviteId"></register-form>
   </div>
 </div>
