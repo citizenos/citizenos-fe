@@ -229,10 +229,16 @@
   display: flex;
   gap: 16px;
 
-  cos-input {
+  cos-input,
+  .dropdown_wrapper,
+  .gender_wrapper {
     min-width: 0;
     flex-grow: 1;
     width: 100%;
+  }
+
+  .selected_item_placeholder {
+    color: var(--color-argument-info);
   }
 
   .dropdown {
@@ -241,7 +247,7 @@
     }
 
     .selection {
-      padding: 18px 16px 4px 16px;
+      padding: 12px 16px 10px 16px;
     }
 
     .error_input {
