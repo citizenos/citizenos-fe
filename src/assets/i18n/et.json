@@ -125,7 +125,7 @@
       "TOOLTIP_ANONYMOUS_DESCRIPTION": "Sinu idee avaldatakse anonüümselt. Sinu isikut ei ole võimalik määrata.",
       "FOOTER_FORM_TITLE": "Lisa oma idee",
       "PLACEHOLDER_ADD_STATEMENT_TO_IDEA": "Sinu idee pealkiri",
-      "SUBJECT_CHARACTERS_LEFT": "Tähemärke jäänud: {{chars}}/{ {charsLeft}}",
+      "SUBJECT_CHARACTERS_LEFT": "Tähemärke on jäänud: {{chars}}/{{charsLeft}}",
       "IDEA_TYPE_CHARACTER_LIMIT": "Tähemärgipiirang: {{numberOfCharacters}}",
       "IDEA_TYPE_CHARACTERS_LEFT": "@:COMPONENTS.ADD_IDEA.SUBJECT_CHARACTERS_LEFT",
       "CHARACTER_LIMIT": "@:COMPONENTS.GROUP_INVITE.CHARACTER_LIMIT",
