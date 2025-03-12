@@ -114,7 +114,7 @@ export class AddIdeaComponent {
       selectedValue: '',
       preSelectedValue: '',
       items: [
-        ...['male', 'female', 'other'].map((value) => {
+        ...['female', 'male', 'other'].map((value) => {
           return {
             title: `VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_GENDER_${value.toUpperCase()}`,
             value: value,
