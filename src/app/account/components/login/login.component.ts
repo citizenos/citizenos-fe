@@ -19,6 +19,7 @@ export class LoginComponent {
   @Input() redirectSuccess?: any;
   userConnections?: any;
   authMethodsAvailable: any;
+  privacyPolicy: string;
 
   LOGIN_PARTNERS = {
     facebook: 'facebook',
@@ -34,6 +35,7 @@ export class LoginComponent {
     private Auth: AuthService,
     private translate: TranslateService) {
     this.authMethodsAvailable = this.config.get('features').authentication;
+    this.privacyPolicy = this.config.get('legal').privacyPolicy;
     this.Auth.user$.pipe(take(1)).subscribe((user) => {
       if (user) {
         this.router.navigate(['/']);

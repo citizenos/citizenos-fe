@@ -19,10 +19,22 @@
             </svg>
           </a>
         </div>
-
       </div>
     </div>
     <div class="dialog_content no_footer">
+      <div class="content_row">
+        <div class="content_inner">
+          <div class="content_inner_title">{{ 'MODALS.PROMISE_HEADING' | translate }}</div>
+          <p class="content_inner_text">
+            {{ 'MODALS.PROMISE_TEXT' | translate }} <b>{{ 'MODALS.PROMISE_TEXT_BOLD' | translate }}</b>
+            <br/>
+            <br/>
+            {{ 'MODALS.PROMISE_TEXT_MORE' | translate }} <a class="bold" [href]="privacyPolicy" target="_blank"
+            translate="COMPONENTS.REGISTER_FORM.PRIVACY_POLICY_LNK_PRIVACY_POLICY"></a>.
+          </p>
+        </div>
+      </div>
+
       <ng-container *ngIf="!currentMethod || currentMethod === 'email'">
         <div class="form_wrap">
           <div class="icons_wrap">
