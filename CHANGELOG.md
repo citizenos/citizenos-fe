@@ -1,3 +1,18 @@
+## 2025-03-12 - v1.3.1
+  * Feature: Enhanced idea submission form with improved demographic data collection
+    - Added gender selection dropdown
+    - Added municipality selection dropdown
+    - Improved age field validation
+  * UI/UX: Improved form controls and styling
+    - Enhanced dropdown styles and interactions
+    - Updated CTA (Call to Action) visibility
+    - Improved resize logic for better responsiveness
+  * Fix: Improved form validation and restrictions
+    - Enhanced numeric input validation
+    - Updated residence list functionality
+  * Fix: Resolved inviteId property handling issues
+  * Fix: Various UI and language-specific improvements
+
 ## 2025-03-05 - 1.3.0
   * Feature: Anonymous idea gatherings - ideas are posted anonymously and not connected to any user
   * Feature: Ask extra demographic information to anonymous idea gatherings
