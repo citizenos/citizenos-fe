@@ -79,7 +79,7 @@ export class HomeComponent implements OnInit {
 
     if (!this.auth.loggedIn$.value) {
 
-      const redirectSuccess = this.location.getAbsoluteUrl(this.router.serializeUrl(tree).toString());
+      const redirectSuccess = this.router.serializeUrl(tree).toString();
       this.app.doShowLogin(redirectSuccess);
       //this.router.navigate(['/', this.translate.currentLang, 'account', 'login'], {queryParams: {redirectSuccess }})
     } else {
