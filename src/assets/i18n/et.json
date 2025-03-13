@@ -1554,7 +1554,7 @@
     "TOPIC_DELETE_REPLY_BTN_YES": "Jah, kustuta see vastus",
     "PROMISE_HEADING": "Sihtasutuse Citizen OS andmelubadus",
     "PROMISE_TEXT": "Oleme registreeritud mittetulundusühing, mille missioon on edendada demokraatiat. Andmete privaatsus on meie kõrgeim prioriteet.",
-    "PROMISE_TEXT_BOLD": "Platvorm on reklaamivaba. Me ei kogu isikustatud andmeid. Me ei müü sinu andmeid. Ja nii jääbki!",
+    "PROMISE_TEXT_BOLD": "Platvorm on reklaamivaba. Me ei kasuta personaliseeritud küpsiseid. Me ei müü sinu andmeid. Ja nii jääbki!",
     "PROMISE_TEXT_MORE": "Soovid sellest rohkem teada? Loe lisa",
     "LOGIN_HEADING": "Logi sisse Citizen OS-i",
     "LOGIN_EMAIL_HEADING": "Logi sisse e-posti aadressiga",
