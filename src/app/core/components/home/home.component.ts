@@ -74,7 +74,7 @@ export class HomeComponent implements OnInit {
   }
 
   createGroup() {
-    const createGroupTree = ['/', this.translate.currentLang,'my','groups','create'];
+    const createGroupTree = ['/', this.translate.currentLang ,'my', 'groups', 'create'];
     const tree = this.router.createUrlTree(createGroupTree);
 
     if (!this.auth.loggedIn$.value) {
