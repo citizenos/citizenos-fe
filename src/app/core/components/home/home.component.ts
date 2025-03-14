@@ -74,12 +74,12 @@ export class HomeComponent implements OnInit {
   }
 
   createGroup() {
-    const createGroupTree = ['/', this.translate.currentLang,'my','groups','create'];
+    const createGroupTree = ['/', this.translate.currentLang ,'my', 'groups', 'create'];
     const tree = this.router.createUrlTree(createGroupTree);
 
     if (!this.auth.loggedIn$.value) {
 
-      const redirectSuccess = this.location.getAbsoluteUrl(this.router.serializeUrl(tree).toString());
+      const redirectSuccess = this.router.serializeUrl(tree).toString();
       this.app.doShowLogin(redirectSuccess);
       //this.router.navigate(['/', this.translate.currentLang, 'account', 'login'], {queryParams: {redirectSuccess }})
     } else {

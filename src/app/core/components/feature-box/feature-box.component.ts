@@ -48,7 +48,9 @@ export class FeatureBoxComponent {
     }
 
     if (!this.auth.loggedIn$.value) {
-      return this.app.doShowLogin(this.Location.getAbsoluteUrl(this.router.createUrlTree(urlPath).toString()));
+      const tree = this.router.createUrlTree(urlPath);
+      const redirectSuccess = this.router.serializeUrl(tree).toString();
+      return this.app.doShowLogin(redirectSuccess);
     }
     this.router.navigate(urlPath)
   }

@@ -7,6 +7,7 @@ import { Group } from 'src/app/interfaces/group';
 import { LocationService } from '@services/location.service';
 import { LoginDialogComponent } from 'src/app/account/components/login/login.component';
 import { GroupService } from '@services/group.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'public-group-box',
@@ -20,7 +21,8 @@ export class PublicgroupboxComponent implements OnInit {
     private dialog: DialogService,
     private GroupService: GroupService,
     private router: Router,
-    private Auth: AuthService
+    private Auth: AuthService,
+    public translate: TranslateService,
   ) {}
 
   ngOnInit(): void {}
@@ -39,11 +41,10 @@ export class PublicgroupboxComponent implements OnInit {
 
   joinGroup() {
     if (!this.Auth.loggedIn$.value) {
-      const tree = this.router.createUrlTree(['/groups', this.group.id]);
+      const tree = this.router.createUrlTree([this.translate.currentLang, 'groups', this.group.id]);
 
-      const redirectSuccess = this.Location.getAbsoluteUrl(
-        this.router.serializeUrl(tree).toString()
-      );
+      const redirectSuccess = this.router.serializeUrl(tree).toString()
+
       const loginDialog = this.dialog.open(LoginDialogComponent, {
         data: { redirectSuccess: redirectSuccess },
       });
