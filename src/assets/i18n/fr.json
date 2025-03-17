@@ -1552,7 +1552,7 @@
     "TOPIC_DELETE_REPLY_TXT_ARE_YOU_SURE": "Êtes-vous sûr de vouloir supprimer cette réponse ? Vous ne pouvez pas annuler cette action.",
     "TOPIC_DELETE_REPLY_BTN_NO": "@:MODALS.TOPIC_ARGUMENT_REPORT_BTN_NO",
     "TOPIC_DELETE_REPLY_BTN_YES": "Oui, supprimez cette réponse",
-    "PROMISE_HEADING": "Citizen OS Foundation's data promise",
+    "PROMISE_HEADING": "Citizen OS platform's data promise",
     "PROMISE_TEXT": "We're a registered non-profit with a mission to enhance democracy, and data privacy is our highest priority.",
     "PROMISE_TEXT_BOLD": "No Ads. No Invasive Trackers. No Selling Data. Ever.",
     "PROMISE_TEXT_MORE": "Want to know more? Read our",
