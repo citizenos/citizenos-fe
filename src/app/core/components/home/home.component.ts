@@ -74,16 +74,15 @@ export class HomeComponent implements OnInit {
   }
 
   createGroup() {
-    const createGroupTree = ['/', this.translate.currentLang ,'my', 'groups', 'create'];
-    const tree = this.router.createUrlTree(createGroupTree);
+    const urlPath = ['/', this.translate.currentLang ,'my', 'groups', 'create'];
 
     if (!this.auth.loggedIn$.value) {
-
-      const redirectSuccess = this.router.serializeUrl(tree).toString();
+      const tree = this.router.createUrlTree(urlPath);
+      const treeSerialize = this.router.serializeUrl(tree).toString();
+      const redirectSuccess = this.location.getAbsoluteUrl(treeSerialize);
       this.app.doShowLogin(redirectSuccess);
-      //this.router.navigate(['/', this.translate.currentLang, 'account', 'login'], {queryParams: {redirectSuccess }})
     } else {
-      this.router.navigate(createGroupTree);
+      this.router.navigate(urlPath);
     }
   }
   createNewTopic() {
