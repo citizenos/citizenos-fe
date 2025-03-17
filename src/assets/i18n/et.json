@@ -1552,7 +1552,7 @@
     "TOPIC_DELETE_REPLY_TXT_ARE_YOU_SURE": "Kas oled kindel, et soovid vastuse kustutada? Toimingut ei saa tagasi võtta.",
     "TOPIC_DELETE_REPLY_BTN_NO": "@:MODALS.TOPIC_ARGUMENT_REPORT_BTN_NO",
     "TOPIC_DELETE_REPLY_BTN_YES": "Jah, kustuta see vastus",
-    "PROMISE_HEADING": "Sihtasutuse Citizen OS andmelubadus",
+    "PROMISE_HEADING": "Citizen OS platform's data promise",
     "PROMISE_TEXT": "Oleme registreeritud mittetulundusühing, mille missioon on edendada demokraatiat. Andmete privaatsus on meie kõrgeim prioriteet.",
     "PROMISE_TEXT_BOLD": "Platvorm on reklaamivaba. Me ei kasuta personaliseeritud küpsiseid. Me ei müü sinu andmeid. Ja nii jääbki!",
     "PROMISE_TEXT_MORE": "Soovid sellest rohkem teada? Loe lisa",
