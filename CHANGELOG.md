@@ -1,3 +1,17 @@
+## 2025-03-19 - v1.3.2
+  * Fix: Authentication and redirection improvements
+    - Enhanced logout functionality
+    - Improved redirects after authentication
+    - Fixed REST API redirects
+  * Fix: Base URL handling and navigation updates
+    - Improved URL creation and handling
+    - Enhanced language-specific redirects
+  * Localization: Updated translations for multiple languages
+    - Updated translations for Estonian, Russian, German, French, Spanish and other languages
+    - Improved language-specific content and messaging
+  * Fix: Enhanced idea demographic fields editing functionality
+  * Fix: Various UI and styling improvements
+
 ## 2025-03-12 - v1.3.1
   * Feature: Enhanced idea submission form with improved demographic data collection
     - Added gender selection dropdown
