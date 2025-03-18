@@ -141,6 +141,18 @@
   button {
     gap: 4px;
   }
+
+  &.dropdown.dropdown_active {
+    .options {
+      @include mixins.mobile {
+        min-width: max-content;
+      }
+    }
+  }
+
+  .options {
+    right: 0;
+  }
 }
 #mobile_actions {
   max-width: max-content;
