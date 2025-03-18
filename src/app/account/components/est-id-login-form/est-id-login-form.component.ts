@@ -77,7 +77,6 @@ export class EstIdLoginFormComponent {
         const { nonce } = {"nonce":"s26kIBTGw/XlFHtC3LF16i1hAwK9syO5NgcgAL77iu4="}
 
         const authToken = await webeid.authenticate(nonce, { lang: 'et' });
-        console.log(authToken);
         this.AuthService.loginIdCard(authToken).pipe(
           take(1)
         ).subscribe({
@@ -88,7 +87,16 @@ export class EstIdLoginFormComponent {
             this.dialog.closeAll();
             if (this.redirectSuccess) {
               if (typeof this.redirectSuccess === 'string') {
-                this.router.navigateByUrl(this.redirectSuccess);
+                /**
+                 * Currently redirectSuccess is an absolute url.
+                 * However, router.navigateByUrl cannot properly navigate to such absolute url,
+                 * the reason can be counnected to some other issue in this specific case.
+                 * As a quick fix set location href directly.
+                 * 
+                 * @note Think of making redirectSuccess relative. This way router.navigate
+                 * should work as expected.
+                 */
+                window.location.href = this.redirectSuccess;
               }
             } else {
               window.location.reload();
@@ -134,7 +142,16 @@ export class EstIdLoginFormComponent {
           this.dialog.closeAll();
           if (this.redirectSuccess) {
             if (typeof this.redirectSuccess === 'string') {
-              this.router.navigateByUrl(this.redirectSuccess);
+              /**
+               * Currently redirectSuccess is an absolute url.
+               * However, router.navigateByUrl cannot properly navigate to such absolute url,
+               * the reason can be counnected to some other issue in this specific case.
+               * As a quick fix set location href directly.
+               * 
+               * @note Think of making redirectSuccess relative. This way router.navigate
+               * should work as expected.
+               */
+              window.location.href = this.redirectSuccess;
             }
           } else {
             window.location.reload();
