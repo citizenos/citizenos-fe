@@ -18,6 +18,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { IdeaReplyComponent } from '../idea-reply/idea-reply.component';
 import { TopicIdeationService } from '@services/topic-ideation.service';
 import { AppService } from '@services/app.service';
+import { LocationService } from '@services/location.service';
 
 @Component({
   selector: 'app-idea',
@@ -116,9 +117,10 @@ export class IdeaDialogComponent extends IdeaboxComponent {
     TopicMemberUserService: TopicMemberUserService,
     Translate: TranslateService,
     TopicService: TopicService,
-    TopicIdeaService: TopicIdeaService
+    TopicIdeaService: TopicIdeaService,
+    Location: LocationService
   ) {
-    super(dialog, config, router, Auth, App, TopicMemberUserService, Translate, TopicService, TopicIdeaService);
+    super(dialog, config, router, Auth, App, TopicMemberUserService, Translate, TopicService, TopicIdeaService, Location);
     this.idea = this.data.idea;
     this.topic = this.data.topic;
     this.ideation = this.data.ideation;
@@ -344,7 +346,8 @@ export class IdeaDialogComponent extends IdeaboxComponent {
     if (loggedIn) {
       this.showReply = !this.showReply;
     } else {
-      this.App.doShowLogin();
+      const redirectSuccess = this.Location.getAbsoluteUrl(window.location.pathname) + window.location.search
+      this.App.doShowLogin(redirectSuccess);
     }
   }
 

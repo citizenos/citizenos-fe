@@ -9,6 +9,7 @@ import { AppService } from '@services/app.service';
 import { AuthService } from '@services/auth.service';
 import { TopicArgumentService } from '@services/topic-argument.service';
 import { TopicMemberUserService } from '@services/topic-member-user.service';
+import { LocationService } from '@services/location.service';
 
 @Component({
   selector: 'post-argument',
@@ -54,6 +55,7 @@ export class PostArgumentComponent {
     private readonly AuthService: AuthService,
     public TopicArgumentService: TopicArgumentService,
     private readonly TopicMemberUserService: TopicMemberUserService,
+    private readonly Location: LocationService,
     @Inject(ActivatedRoute) private readonly route: ActivatedRoute,
     @Inject(TranslateService) public translate: TranslateService,
     @Inject(Router) private readonly router: Router) {
@@ -81,7 +83,8 @@ export class PostArgumentComponent {
 
   addNewArgument() {
     if (!this.loggedIn()) {
-      this.app.doShowLogin();
+      const redirectSuccess = this.Location.getAbsoluteUrl(window.location.pathname) + window.location.search
+      this.app.doShowLogin(redirectSuccess);
     } else {
       this.app.addArgument.next(true);
     }

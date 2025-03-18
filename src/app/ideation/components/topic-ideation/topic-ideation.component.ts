@@ -11,7 +11,7 @@ import { TopicIdeaService } from '@services/topic-idea.service';
 import { Component, Input, NgZone } from '@angular/core';
 
 import { CreateIdeaFolderComponent } from '../create-idea-folder/create-idea-folder.component';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { EditIdeationDeadlineComponent } from '../edit-ideation-deadline/edit-ideation-deadline.component';
 import { AddIdeasToFolderComponent } from '../add-ideas-to-folder/add-ideas-to-folder.component';
 import { EditIdeaFolderComponent } from '../edit-idea-folder/edit-idea-folder.component';
@@ -23,6 +23,7 @@ import { Idea, IdeaStatus } from '@interfaces/idea';
 import { Folder } from '@interfaces/folder';
 import { User } from '@interfaces/user';
 import { Notification } from '@interfaces/notification';
+import { LocationService } from '@services/location.service';
 
 @Component({
   selector: 'topic-ideation',
@@ -84,6 +85,7 @@ export class TopicIdeationComponent {
     private readonly TopicIdeationService: TopicIdeationService,
     private readonly TopicIdeationFoldersService: TopicIdeationFoldersService,
     public readonly TopicIdeaService: TopicIdeaService,
+    public readonly Location: LocationService,
     private ngZone: NgZone
   ) { }
 
@@ -219,7 +221,8 @@ export class TopicIdeationComponent {
       console.log('addIdea');
       this.app.addIdea.next(true);
     } else {
-      this.app.doShowLogin();
+      const redirectSuccess = this.Location.getAbsoluteUrl(window.location.pathname) + window.location.search;
+      this.app.doShowLogin(redirectSuccess);
     }
   }
 
