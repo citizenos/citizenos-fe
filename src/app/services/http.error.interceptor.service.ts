@@ -42,11 +42,10 @@ export class HttpErrorInterceptor implements HttpInterceptor {
               return throwError(() => response.error);
             }
 
-            const redirectSuccess = `${window.location.pathname}${window.location.search}`
-
             if (response.status === 404) {
+              //  this.app.doShowLogin(this.Location.getAbsoluteUrl(window.location.pathname) + window.location.search);
               if (request.url === '/api/topics') {
-                this.Router.navigate(['/error/404'], { queryParams: { redirectSuccess } });
+                this.Router.navigate(['/error/404'], { queryParams: { redirectSuccess: this.Location.getAbsoluteUrl(window.location.pathname) + window.location.search } });
               }
               /*return throwError(() => response.error);*/
             }
@@ -54,7 +53,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             if (response.url?.match(this.API_REQUEST_REGEX) && response?.status === 401) {
               // Cannot use $state here due to circular dependencies with $http
               if (response.error && response.error.status?.message !== 'Unauthorized' || response.error.status?.code !== 40100) { } else {
-                this.app.doShowLogin(redirectSuccess);
+                this.app.doShowLogin(this.Location.getAbsoluteUrl(window.location.pathname) + window.location.search);
+                //    this.Router.navigate(['/account/login'], { queryParams: { redirectSuccess: this.Location.getAbsoluteUrl(window.location.pathname) + window.location.search } });
               }
               /*
               this.Notification.addError(response.error.status?.message || response.error.message);

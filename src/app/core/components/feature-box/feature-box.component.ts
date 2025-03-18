@@ -49,7 +49,8 @@ export class FeatureBoxComponent {
 
     if (!this.auth.loggedIn$.value) {
       const tree = this.router.createUrlTree(urlPath);
-      const redirectSuccess = this.router.serializeUrl(tree).toString();
+      const treeSerialize = this.router.serializeUrl(tree).toString();
+      const redirectSuccess = this.Location.getAbsoluteUrl(treeSerialize);
       return this.app.doShowLogin(redirectSuccess);
     }
     this.router.navigate(urlPath)

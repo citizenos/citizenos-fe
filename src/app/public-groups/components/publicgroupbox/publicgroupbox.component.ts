@@ -41,9 +41,10 @@ export class PublicgroupboxComponent implements OnInit {
 
   joinGroup() {
     if (!this.Auth.loggedIn$.value) {
-      const tree = this.router.createUrlTree([this.translate.currentLang, 'groups', this.group.id]);
-
-      const redirectSuccess = this.router.serializeUrl(tree).toString()
+      const urlPath = [this.translate.currentLang, 'groups', this.group.id]
+      const tree = this.router.createUrlTree(urlPath);
+      const treeSerialize = this.router.serializeUrl(tree).toString();
+      const redirectSuccess = this.Location.getAbsoluteUrl(treeSerialize);
 
       const loginDialog = this.dialog.open(LoginDialogComponent, {
         data: { redirectSuccess: redirectSuccess },
