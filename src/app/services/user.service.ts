@@ -49,6 +49,8 @@ export class UserService {
       userData.newPassword = newPassword;
     }
 
+    userData.redirectSuccess = this.Location.getAbsoluteUrl(window.location.pathname) + window.location.search
+
     return this.http.put<ApiResponse>(path, userData, {withCredentials: true, observe: 'body', responseType: 'json' }).pipe(
       map((data) => data)
     );
