@@ -224,7 +224,8 @@ export class ArgumentComponent implements OnInit {
     if (loggedIn) {
       this.showReply = !this.showReply;
     } else {
-      this.App.doShowLogin();
+      const redirectSuccess = this.Location.getAbsoluteUrl(window.location.pathname) + window.location.search
+      this.App.doShowLogin(redirectSuccess);
     }
   }
 }

@@ -17,6 +17,7 @@ import { Ideation } from '@interfaces/ideation';
 import { IdeaReactionsComponent } from '../idea-reactions/idea-reactions.component';
 import { TopicMemberUserService } from '@services/topic-member-user.service';
 import { AppService } from '@services/app.service';
+import { LocationService } from '@services/location.service';
 
 @Component({
   selector: 'ideabox',
@@ -48,7 +49,8 @@ export class IdeaboxComponent implements AfterViewInit {
     private readonly TopicMemberUserService: TopicMemberUserService,
     public Translate: TranslateService,
     public TopicService: TopicService,
-    public TopicIdeaService: TopicIdeaService
+    public TopicIdeaService: TopicIdeaService,
+    public readonly Location: LocationService,
   ) {
   }
 
@@ -153,7 +155,8 @@ export class IdeaboxComponent implements AfterViewInit {
 
   doIdeaVote(value: number) {
     if (!this.Auth.loggedIn$.value) {
-      this.App.doShowLogin();
+      const redirectSuccess = this.Location.getAbsoluteUrl(window.location.pathname) + window.location.search;
+      this.App.doShowLogin(redirectSuccess);
       return;
     }
 

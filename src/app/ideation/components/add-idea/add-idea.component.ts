@@ -36,6 +36,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { take, map, takeWhile, of } from 'rxjs';
 import { CloseWithoutSavingDialogComponent } from '../close-without-saving-dialog/close-without-saving-dialog.component';
 import { municipalities } from '@services/municipalitiy.service';
+import { LocationService } from '@services/location.service';
 
 @Component({
   selector: 'add-idea',
@@ -136,6 +137,7 @@ export class AddIdeaComponent {
     readonly IdeaAttachmentService: IdeaAttachmentService,
     private readonly Notification: NotificationService,
     public readonly TopicIdeaService: TopicIdeaService,
+    public readonly Location: LocationService,
     private readonly TopicMemberUserService: TopicMemberUserService,
     private readonly dialog: DialogService,
     @Inject(ActivatedRoute) readonly route: ActivatedRoute,
@@ -218,7 +220,8 @@ export class AddIdeaComponent {
 
   addNewIdea() {
     if (!this.loggedIn()) {
-      this.app.doShowLogin();
+      const redirectSuccess = this.Location.getAbsoluteUrl(window.location.pathname) + window.location.search
+      this.app.doShowLogin(redirectSuccess);
     } else {
       this.app.addIdea.next(true);
     }

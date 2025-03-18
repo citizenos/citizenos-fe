@@ -16,6 +16,7 @@ import { EditDiscussionDeadlineComponent } from '../edit-discussion-deadline/edi
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { NotificationService } from '@services/notification.service';
 import { MissingDiscussionComponent } from '../missing-discussion/missing-discussion.component';
+import { LocationService } from '@services/location.service';
 
 @Component({
   selector: 'topic-arguments',
@@ -80,7 +81,8 @@ export class TopicArgumentsComponent implements OnInit {
     private readonly app: AppService,
     private readonly Notification: NotificationService,
     private readonly TopicDiscussionService: TopicDiscussionService,
-    public TopicArgumentService: TopicArgumentService) {
+    public TopicArgumentService: TopicArgumentService,
+    public Location: LocationService) {
     this.TopicArgumentService.setParam('limit', 5);
 
     this.arguments$ = this.TopicArgumentService.reload$.pipe(
@@ -259,7 +261,8 @@ export class TopicArgumentsComponent implements OnInit {
         })
       }
     } else {
-      this.app.doShowLogin();
+      const redirectSuccess = this.Location.getAbsoluteUrl(window.location.pathname) + window.location.search
+      this.app.doShowLogin(redirectSuccess);
     }
   };
 

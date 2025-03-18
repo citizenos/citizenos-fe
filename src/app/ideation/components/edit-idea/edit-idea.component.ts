@@ -16,6 +16,7 @@ import { of, take } from 'rxjs';
 import { Idea, IdeaStatus} from 'src/app/interfaces/idea';
 import { AddIdeaComponent } from '../add-idea/add-idea.component';
 import { DialogService } from '@shared/dialog';
+import { LocationService } from '@services/location.service';
 
 @Component({
   selector: 'edit-idea',
@@ -50,8 +51,9 @@ export class EditIdeaComponent extends AddIdeaComponent {
     dialog: DialogService,
     route: ActivatedRoute,
     translate: TranslateService,
-    router: Router) {
-    super(app, AuthService, TopicIdeationService, UploadService, IdeaAttachmentService, Notification, TopicIdeaService, TopicMemberUserService, dialog, route, translate, router);
+    router: Router,
+    Location: LocationService) {
+    super(app, AuthService, TopicIdeationService, UploadService, IdeaAttachmentService, Notification, TopicIdeaService, Location, TopicMemberUserService, dialog, route, translate, router);
   }
 
   override ngOnInit(): void {
