@@ -121,7 +121,7 @@ export class AppService {
         next: () => {
           this.AuthService.reloadUser();
           setTimeout(() => {
-            this.router.navigate(['/']);
+            this.router.navigate(['/', this.translate.currentLang]);
           });
         },
         error: (err) => {
