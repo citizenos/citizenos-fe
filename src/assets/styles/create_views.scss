@@ -629,6 +629,12 @@
   }
 }
 .dropdown {
+  .options_line {
+    margin: 0;
+    background-color: var(--color-border);
+    border: none;
+    padding-top: 1px;
+  }
   &.dropdown_active {
     .options {
       display: flex;
