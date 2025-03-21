@@ -33,7 +33,7 @@ import {
 } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { take, map, takeWhile, of } from 'rxjs';
+import { take, map, takeWhile, of, lastValueFrom } from 'rxjs';
 import { CloseWithoutSavingDialogComponent } from '../close-without-saving-dialog/close-without-saving-dialog.component';
 import { municipalities } from '@services/municipalitiy.service';
 import { LocationService } from '@services/location.service';
@@ -509,36 +509,33 @@ export class AddIdeaComponent {
     return ['jpg', 'jpeg', 'img', 'png'].join(', ');
   }
 
-  doSaveAttachments(ideaId: string) {
-    let i = 0;
-    while (i < this.newImages.length) {
-      let image = this.newImages[i];
+  async doSaveAttachments(ideaId: string) {
+    let errorsCounter = 0;
+    document.querySelector("body")?.classList.add("images_loading")
+    for await (const image of this.newImages) {
       if (image) {
         image.source = this.IdeaAttachmentService.SOURCES.upload;
-        this.UploadService.uploadIdeaImage(
+        const uploadIdeaImage = this.UploadService.uploadIdeaImage(
           { topicId: this.topicId, ideationId: this.ideation.id, ideaId },
           image,
           { name: image.name }
         )
           .pipe(takeWhile((e) => !e.link, true))
-          .subscribe({
-            next: (result) => {},
-            error: (res) => {
-              /*   if (res.errors) {
-                   const keys = Object.keys(res.errors);
-                   keys.forEach((key) => {
-                     this.Notification.addError(res.errors[key]);
-                   });
-                 } else if (res.status && res.status.message) {
-                   this.Notification.addError(res.status.message);
-                 } else {
-                   this.Notification.addError(res.message);
-                 }*/
-            },
-          });
+
+        try {
+          await lastValueFrom(uploadIdeaImage)
+        } catch (error) {
+          errorsCounter++
+        }
       }
-      i++;
     }
+    if (errorsCounter > 0) {
+      this.Notification.addError(
+        this.translate.instant('MSG_ERROR_POST_API_USERS_TOPICS_IDEATIONS_IDEAS_IMAGE_UPLOAD_500')
+      );
+    }
+    document.querySelector("body")?.classList.remove("images_loading")
+
   }
 
   setFilterValue(filter: keyof typeof this.filtersData, val: string) {
