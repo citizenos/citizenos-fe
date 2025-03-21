@@ -533,6 +533,8 @@ export class AddIdeaComponent {
       this.Notification.addError(
         this.translate.instant('MSG_ERROR_POST_API_USERS_TOPICS_IDEATIONS_IDEAS_IMAGE_UPLOAD_500')
       );
+    } else {
+      window.location.reload()
     }
     document.querySelector("body")?.classList.remove("images_loading")
 
