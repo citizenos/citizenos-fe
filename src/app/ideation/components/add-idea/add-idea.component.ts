@@ -387,7 +387,9 @@ export class AddIdeaComponent {
         if (curr === 'residence' && this.isCountryEstonia) {
           return {
             ...acc,
-            residence: this.filtersData.residence.selectedValue,
+            residence:
+              this.ideation.demographicsConfig?.[curr].value ||
+              this.filtersData.residence.selectedValue,
           };
         }
         if (curr === 'gender') {

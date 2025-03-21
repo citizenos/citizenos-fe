@@ -2356,6 +2356,8 @@
       "DEMOGRAPHICS_DATA_GENDER_PLACEHOLDER": "Your gender (optional)",
       "DEMOGRAPHICS_DATA_GENDER_OTHER": "Other - please specify",
       "DEMOGRAPHICS_DATA_RESIDENCE": "Municipality",
+      "DEMOGRAPHICS_DATA_RESIDENCE_OTHER": "Other - please specify",
+      "DEMOGRAPHICS_DATA_RESIDENCE_PLACEHOLDER": "Your municipality (optional)",
       "PREVIEW_INFO": "<b>This is a preview of your topic!</b> You can still edit your topic at any point prior to starting a vote.",
       "BTN_IDEATION_ACTIONS": "Manage idea gathering",
       "NO_IDEAS_HEADING": "There are no ideas yet",
