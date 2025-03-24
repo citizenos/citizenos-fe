@@ -479,6 +479,7 @@
     },
     "IDEA_DIALOG": {
       "TOOLTIP_REPLIES_DISABLED": "Replies are turned off",
+      "LOADING_IMAGES": "Loading images",
       "BTN_REPLY": "@:COMPONENTS.ARGUMENT.BTN_REPLY",
       "OPTION_EDIT": "@:COMPONENTS.IDEABOX.OPTION_EDIT",
       "OPTION_FAVOURITE": "@:VIEWS.TOPICS_TOPICID.OPTION_FAVOURITE",
@@ -3569,6 +3570,7 @@
   "MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED": "File type is not allowed. Allowed types are: {{allowedFileTypes}}",
   "MSG_ERROR_FILE_TYPE_NOT_ALLOWED": "@:MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED",
   "MSG_ERROR_FILE_TOO_LARGE": "File is too large. Maximum allowed size is {{allowedFileSize}}",
+  "MSG_ERROR_POST_API_USERS_TOPICS_IDEATIONS_IDEAS_IMAGE_UPLOAD_500": "Attachment loading failed, please try again",
   "MSG_ERROR_IDEA_IMAGE_LIMIT": "Maximum {{limit}} images allowed per idea.",
   "MSG_ERROR_POST_API_USERS_TOPICS_ATTACHMENTS_40000_LINK": "Attachment link is undefined!",
   "MSG_ERROR_POST_API_USERS_TOPICS_ATTACHMENTS_40000_NAME": "Attachment name is undefined!",
