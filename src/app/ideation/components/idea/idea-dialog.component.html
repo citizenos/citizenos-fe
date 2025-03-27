@@ -266,7 +266,21 @@
         <div class="idea_content">
           <div class="statement" [innerHTML]="idea.statement"></div>
           <div class="description" [innerHTML]="idea.description | markdown"></div>
+
+          <div *ngIf="imagesLoading$ | async" class="idea_images_loading">
+            <div class="dialog_info_wrap">
+              <div class="dialog_info discussion">
+                <div class="row">
+                  <div class="loader_wrapper">
+                    <div class="loader"></div>
+                  </div>
+                  <span class="bold loader_text">{{ 'COMPONENTS.IDEA_DIALOG.LOADING_IMAGES' | translate }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
         <ng-container *ngIf="images$ | async as images;">
           <div class="idea_images_wrap" *ngIf="images.length">
 
