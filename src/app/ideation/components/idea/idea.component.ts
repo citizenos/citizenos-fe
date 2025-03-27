@@ -19,6 +19,7 @@ import { IdeaReplyComponent } from '../idea-reply/idea-reply.component';
 import { TopicIdeationService } from '@services/topic-ideation.service';
 import { AppService } from '@services/app.service';
 import { LocationService } from '@services/location.service';
+import { ImageService } from '@services/images.service';
 
 @Component({
   selector: 'app-idea',
@@ -107,6 +108,7 @@ export class IdeaDialogComponent extends IdeaboxComponent {
   folders$: Observable<Folder[]>;
   images$: Observable<any>;
   ideaNumber: Observable<number>;
+  imagesLoading$: Observable<boolean>;
 
   constructor(
     dialog: DialogService,
@@ -118,9 +120,11 @@ export class IdeaDialogComponent extends IdeaboxComponent {
     Translate: TranslateService,
     TopicService: TopicService,
     TopicIdeaService: TopicIdeaService,
-    Location: LocationService
+    Location: LocationService,
+    imageService: ImageService
   ) {
-    super(dialog, config, router, Auth, App, TopicMemberUserService, Translate, TopicService, TopicIdeaService, Location);
+    super(dialog, config, router, Auth, App, TopicMemberUserService, Translate, TopicService, TopicIdeaService, Location, imageService);
+    this.imagesLoading$ = this.imageService.loading$;
     this.idea = this.data.idea;
     this.topic = this.data.topic;
     this.ideation = this.data.ideation;
@@ -191,8 +195,20 @@ export class IdeaDialogComponent extends IdeaboxComponent {
     this.folders$ = this.TopicIdeaService
       .getFolders({ topicId: this.topic.id, ideationId: this.idea.ideationId, ideaId: this.idea.id })
       .pipe(map((res: any) => res.rows));
-    this.images$ = this.IdeaAttachmentService.query({ topicId: this.topic.id, ideationId: this.idea.ideationId, ideaId: this.idea.id, type: 'image' })
-      .pipe(map((res: any) => res.rows));
+
+    this.images$ = combineLatest([
+      this.IdeaAttachmentService.query({
+        topicId: this.topic.id,
+        ideationId: this.idea.ideationId,
+        ideaId: this.idea.id,
+        type: 'image'
+      }).pipe(map((res: any) => res.rows)),
+      this.imageService.images$
+    ]).pipe(
+      map(([existingImages, newImages]) => {
+        return [...existingImages, ...newImages];
+      })
+    );
   }
 
   override ngAfterViewInit(): void {

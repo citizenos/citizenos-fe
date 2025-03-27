@@ -267,7 +267,7 @@
           <div class="statement" [innerHTML]="idea.statement"></div>
           <div class="description" [innerHTML]="idea.description | markdown"></div>
 
-          <div class="idea_images_loading">
+          <div *ngIf="imagesLoading$ | async" class="idea_images_loading">
             <div class="dialog_info_wrap">
               <div class="dialog_info discussion">
                 <div class="row">

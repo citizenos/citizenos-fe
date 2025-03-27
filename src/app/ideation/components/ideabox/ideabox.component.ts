@@ -18,6 +18,7 @@ import { IdeaReactionsComponent } from '../idea-reactions/idea-reactions.compone
 import { TopicMemberUserService } from '@services/topic-member-user.service';
 import { AppService } from '@services/app.service';
 import { LocationService } from '@services/location.service';
+import { ImageService } from '@services/images.service';
 
 @Component({
   selector: 'ideabox',
@@ -51,6 +52,7 @@ export class IdeaboxComponent implements AfterViewInit {
     public TopicService: TopicService,
     public TopicIdeaService: TopicIdeaService,
     public readonly Location: LocationService,
+    public imageService: ImageService
   ) {
   }
 
