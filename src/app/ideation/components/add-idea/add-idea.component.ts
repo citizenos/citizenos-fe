@@ -37,6 +37,7 @@ import { take, map, takeWhile, of, lastValueFrom } from 'rxjs';
 import { CloseWithoutSavingDialogComponent } from '../close-without-saving-dialog/close-without-saving-dialog.component';
 import { municipalities } from '@services/municipalitiy.service';
 import { LocationService } from '@services/location.service';
+import { ImageService } from '@services/images.service';
 
 @Component({
   selector: 'add-idea',
@@ -140,6 +141,7 @@ export class AddIdeaComponent {
     public readonly Location: LocationService,
     private readonly TopicMemberUserService: TopicMemberUserService,
     private readonly dialog: DialogService,
+    private imageService: ImageService,
     @Inject(ActivatedRoute) readonly route: ActivatedRoute,
     @Inject(TranslateService) public readonly translate: TranslateService,
     @Inject(Router) readonly router: Router
@@ -511,7 +513,8 @@ export class AddIdeaComponent {
 
   async doSaveAttachments(ideaId: string) {
     let errorsCounter = 0;
-    document.querySelector("body")?.classList.add("images_loading")
+    const uploadedImages = [];
+    this.imageService.setLoading(true);
     for await (const image of this.newImages) {
       if (image) {
         image.source = this.IdeaAttachmentService.SOURCES.upload;
@@ -523,7 +526,8 @@ export class AddIdeaComponent {
           .pipe(takeWhile((e) => !e.link, true))
 
         try {
-          await lastValueFrom(uploadIdeaImage)
+          const uploadedImage = await lastValueFrom(uploadIdeaImage)
+          uploadedImages.push(uploadedImage);
         } catch (error) {
           errorsCounter++
         }
@@ -533,11 +537,9 @@ export class AddIdeaComponent {
       this.Notification.addError(
         this.translate.instant('MSG_ERROR_POST_API_USERS_TOPICS_IDEATIONS_IDEAS_IMAGE_UPLOAD_500')
       );
-    } else {
-      window.location.reload()
     }
-    document.querySelector("body")?.classList.remove("images_loading")
-
+    this.imageService.setLoading(false);
+    this.imageService.updateImages(uploadedImages);
   }
 
   setFilterValue(filter: keyof typeof this.filtersData, val: string) {
