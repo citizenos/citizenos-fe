@@ -1,7 +1,7 @@
 import { GroupService } from '@services/group.service';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest, take, tap } from 'rxjs';
+import { combineLatest, Observable, take, tap } from 'rxjs';
 import { GroupJoinService } from '@services/group-join.service';
 import { LocationService } from '@services/location.service';
 import { Group } from 'src/app/interfaces/group';
@@ -92,7 +92,6 @@ export class GroupTokenJoinComponent {
       token: string,
       redirectSuccess?: string
     ) {
-      console.log(group);
       const data: InviteDialogData = {
         imageUrl: group.imageUrl,
         title: group.name,
@@ -140,8 +139,15 @@ export class GroupTokenJoinComponent {
         take(1),
         tap(([user, loggedIn, routeParams, queryParams]) => {
           this.token = routeParams['token'];
+          let service: Observable<Group> | null = null
 
-          GroupJoinService.get(this.token).subscribe({
+          if (this.token) {
+            service = GroupJoinService.get(this.token)
+          } else {
+            service = GroupService.get(routeParams['groupId'])
+          }
+
+          service.subscribe({
             next: (group) => {
               const userIsInGroup = group.userLevel;
               const groupId = group.id;
