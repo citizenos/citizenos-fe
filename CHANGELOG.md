@@ -1,3 +1,8 @@
+## 2025-03-19 - v1.3.3
+  * Fix: Issue #2070 - IDEAS: 'Other - please specify' option for Municipalities
+  * Fix: Issue #2077 - MOBILE: Add Idea not visible after adding an image
+  * Fix: Issue #2122 - MP: Sharing link doesn't work and gives an error message
+
 ## 2025-03-19 - v1.3.2
   * Fix: Authentication and redirection improvements
     - Enhanced logout functionality
