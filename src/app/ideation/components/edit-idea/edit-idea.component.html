@@ -102,7 +102,7 @@
           <ng-container [ngSwitch]="key">
             <ng-container *ngSwitchCase="'residence'">
               <ng-container *ngIf="isCountryEstonia; else common_field">
-                <div class="dropdown_wrapper">
+                <div class="gender_wrapper">
                   <div class="dropdown" [cosDropdown]>
                     <div
                       class="selection"
@@ -120,9 +120,12 @@
                               | translate
                           }}</span
                         >
-                        <span *ngIf="filtersData['residence'].selectedValue">{{
+                        <span *ngIf="filtersData['residence'].selectedValue !== 'other'; else other_option">{{
                           filtersData["residence"].selectedValue
                         }}</span>
+                        <ng-template #other_option>
+                          <span>{{ 'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_RESIDENCE_OTHER' | translate }}</span>
+                        </ng-template>
                       </div>
                       <svg
                         width="24"
@@ -150,8 +153,31 @@
                           <span>{{ option.title }}</span>
                         </div>
                       </ng-container>
+                      <hr class="options_line" />
+                      <div
+                        class="option"
+                        (click)="setFilterValue('residence', 'other')"
+                      >
+                        <span>{{ 'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_RESIDENCE_OTHER' | translate }}</span>
+                      </div>
                     </div>
                   </div>
+
+                  <input
+                    *ngIf="filtersData['residence'].selectedValue === 'other'"
+                    [id]="'demographics_' + key"
+                    [name]="'demographics_' + key"
+                    [formControlName]="'demographics_' + key"
+                    [(ngModel)]="ideation.demographicsConfig![key].value"
+                    autocomplete="off"
+                    placeholder="{{
+                      'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_RESIDENCE_PLACEHOLDER'
+                        | translate
+                    }}"
+                    class="gray_borders"
+                    (ngModelChange)="ngModelChange('demographics_' + key, $event)"
+                    (blur)="ngModelBlur('demographics_' + key)"
+                  />
 
                   <label
                     [for]="'demographics_' + key"
