@@ -206,7 +206,14 @@ export class IdeaDialogComponent extends IdeaboxComponent {
       this.imageService.images$
     ]).pipe(
       map(([existingImages, newImages]) => {
-        return [...existingImages, ...newImages];
+        // Combine existing and new images, filtering out duplicates by `id`
+        // In case they uploaded faster then redirect happened.
+        const uniqueImages = new Map();
+        [...existingImages, ...newImages].forEach((image) => {
+          uniqueImages.set(image.id, image);
+        });
+
+        return Array.from(uniqueImages.values());
       })
     );
   }
