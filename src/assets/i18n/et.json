@@ -3572,7 +3572,7 @@
   "MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED": "Failitüüp pole lubatud. Lubatud failitüübid on: {{allowedFileTypes}}",
   "MSG_ERROR_FILE_TYPE_NOT_ALLOWED": "@:MSG_ERROR_ATTACHMENT_TYPE_NOT_ALLOWED",
   "MSG_ERROR_FILE_TOO_LARGE": "Liiga mahukas fail. Lubatud on failid suurusega kuni {{allowedFileSize}}",
-  "MSG_ERROR_POST_API_USERS_TOPICS_IDEATIONS_IDEAS_IMAGE_UPLOAD_500": "Manuse laadimine ebaõnnestus, palun proovi uuesti",
+  "MSG_ERROR_POST_API_USERS_TOPICS_IDEATIONS_IDEAS_IMAGE_UPLOAD_500": "Image upload on your idea failed. Please try again.",
   "MSG_ERROR_IDEA_IMAGE_LIMIT": "Iga idee kohta on lubatud maksimaalselt {{limit}} pilt(-i).",
   "MSG_ERROR_POST_API_USERS_TOPICS_ATTACHMENTS_40000_LINK": "Manuse link puudub!",
   "MSG_ERROR_POST_API_USERS_TOPICS_ATTACHMENTS_40000_NAME": "Manuse nimi puudub!",
