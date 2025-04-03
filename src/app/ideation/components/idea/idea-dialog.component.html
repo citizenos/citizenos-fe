@@ -428,7 +428,7 @@
               (click)="idea.showReplies = !idea.showReplies" translate="COMPONENTS.ARGUMENT.LNK_HIDE_REPLIES">
             </button>
 
-            <button *ngIf="!showReply" [ngClass]="{disabled: idea.deletedAt || ideation.disableReplies}"
+            <button *ngIf="!showReply && !ideation.disableReplies" [ngClass]="{disabled: idea.deletedAt}"
               class="btn_small_submit bold" (click)="handleShowReply()">
               <span translate="COMPONENTS.IDEA_DIALOG.BTN_REPLY"></span>
             </button>
