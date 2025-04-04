@@ -182,6 +182,12 @@
     height: 32px;
     border-radius: 40px;
     position: relative;
+
+    svg {
+      min-width: 16px;
+      min-height: 16px;
+    }
+
     &:hover {
       background-color: var(--color-dialog-ideation-contrast);
     }
