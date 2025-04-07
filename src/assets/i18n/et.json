@@ -1382,7 +1382,7 @@
     "TOPIC_EDIT_DISABLED_HEADING": "Teema sisu redigeerimine pole enam võimalik",
     "TOPIC_EDIT_DISABLED_DESCRIPTION": "Selle teema tekst on lukustatud ja seda ei saa enam redigeerida",
     "TOPIC_EDIT_DISABLED_WHY": "Miks?",
-    "TOPIC_EDIT_DISABLED_WHY_DESCRIPTION": "Hääletus- või tegevusetapi käivitamisel on teematekst ainus tõeallikas. Selle lukustamisega saame tagada, et osalejatel on täielik arusaam sellest, mille üle nad hääletavad või millised on järgmised sammud.",
+    "TOPIC_EDIT_DISABLED_WHY_DESCRIPTION": "When a voting or action phase gets started, the topic text serves as the single source of truth. By locking it, we can ensure there's full transparency for participants to know what they're voting on or what decisions need to be acted on.",
     "TOPIC_EDIT_DISABLED_INFO": "Seadeid saad siiski muuta",
     "TOPIC_EDIT_DISABLED_BTN_SETTINGS": "Kuva seaded",
     "TOPIC_EDIT_DISABLED_LNK_CANCEL": "@:LNK_CANCEL",
