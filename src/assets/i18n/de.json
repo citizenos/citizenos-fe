@@ -1382,7 +1382,7 @@
     "TOPIC_EDIT_DISABLED_HEADING": "Das Bearbeiten von Themeninhalten ist nicht mehr verfügbar",
     "TOPIC_EDIT_DISABLED_DESCRIPTION": "Dieser Thementext wurde gesperrt und kann nicht mehr bearbeitet werden",
     "TOPIC_EDIT_DISABLED_WHY": "Warum?",
-    "TOPIC_EDIT_DISABLED_WHY_DESCRIPTION": "Wenn eine Abstimmung oder eine Aktionsphase beginnt, dient der Thementext als einzige Quelle der Wahrheit. Indem wir ihn sperren, können wir sicherstellen, dass es volle Transparenz für die Teilnehmer gibt, um zu wissen, worüber sie abstimmen oder welche Schritte sie als Nächstes tun.",
+    "TOPIC_EDIT_DISABLED_WHY_DESCRIPTION": "When a voting or action phase gets started, the topic text serves as the single source of truth. By locking it, we can ensure there's full transparency for participants to know what they're voting on or what decisions need to be acted on.",
     "TOPIC_EDIT_DISABLED_INFO": "Sie können noch Einstellungen bearbeiten",
     "TOPIC_EDIT_DISABLED_BTN_SETTINGS": "Einstellungen anzeigen",
     "TOPIC_EDIT_DISABLED_LNK_CANCEL": "@:LNK_CANCEL",

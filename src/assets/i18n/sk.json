@@ -1382,7 +1382,7 @@
     "TOPIC_EDIT_DISABLED_HEADING": "Úprava obsahu témy už nie je k dispozícii",
     "TOPIC_EDIT_DISABLED_DESCRIPTION": "Táto téma je uzamknutá a nie je viac možné ju upravovať",
     "TOPIC_EDIT_DISABLED_WHY": "Prečo?",
-    "TOPIC_EDIT_DISABLED_WHY_DESCRIPTION": "Keď sa začne hlasovanie alebo fáza akcia, text témy slúži ako jediný zdroj pravdy. Jeho uzamknutím môžeme zabezpečiť úplnú transparentnosť účastníkov, aby vedeli, o čom hlasujú alebo aké sú ďalšie kroky.",
+    "TOPIC_EDIT_DISABLED_WHY_DESCRIPTION": "When a voting or action phase gets started, the topic text serves as the single source of truth. By locking it, we can ensure there's full transparency for participants to know what they're voting on or what decisions need to be acted on.",
     "TOPIC_EDIT_DISABLED_INFO": "Nastavenia môžete upravovať aj naďalej",
     "TOPIC_EDIT_DISABLED_BTN_SETTINGS": "Zobraziť nastavenia",
     "TOPIC_EDIT_DISABLED_LNK_CANCEL": "@:LNK_CANCEL",

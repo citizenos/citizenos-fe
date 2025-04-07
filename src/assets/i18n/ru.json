@@ -1382,7 +1382,7 @@
     "TOPIC_EDIT_DISABLED_HEADING": "Редактирование содержания темы уже недоступно",
     "TOPIC_EDIT_DISABLED_DESCRIPTION": "Этот текст темы был зафиксирован и больше не может редактироваться",
     "TOPIC_EDIT_DISABLED_WHY": "Почему?",
-    "TOPIC_EDIT_DISABLED_WHY_DESCRIPTION": "Когда начинается этап голосования или стадия применения решения, текст темы служит главным и единственным источником правды. Зафиксировав его, мы можем обеспечить полную прозрачность для участников, чтобы они знали, за что голосуют или какие последующие шаги.",
+    "TOPIC_EDIT_DISABLED_WHY_DESCRIPTION": "When a voting or action phase gets started, the topic text serves as the single source of truth. By locking it, we can ensure there's full transparency for participants to know what they're voting on or what decisions need to be acted on.",
     "TOPIC_EDIT_DISABLED_INFO": "Вы все еще можете редактировать настройки",
     "TOPIC_EDIT_DISABLED_BTN_SETTINGS": "Настройки просмотра",
     "TOPIC_EDIT_DISABLED_LNK_CANCEL": "@:LNK_CANCEL",
