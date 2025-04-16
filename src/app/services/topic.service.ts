@@ -67,7 +67,7 @@ export class TopicService {
   };
   CATEGORIES_COUNT_MAX = 3;
 
-  private readonly loadTopic$ = new BehaviorSubject<void>(undefined);
+  public loadTopic$ = new BehaviorSubject<void>(undefined);
 
   constructor(private readonly dialog: DialogService, private readonly Location: LocationService, private readonly http: HttpClient, private readonly Auth: AuthService, private readonly router: Router) { }
 
