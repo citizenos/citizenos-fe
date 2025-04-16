@@ -5,6 +5,7 @@ import { TopicVoteSignData } from '../topic-vote-sign/topic-vote-sign.component'
 import { TopicVoteService } from '@services/topic-vote.service';
 import { take, interval, takeWhile, switchMap, map, catchError, of } from 'rxjs';
 import { NotificationService } from '@services/notification.service';
+import { TopicService } from '@services/topic.service';
 import { UntypedFormGroup, UntypedFormControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -31,6 +32,7 @@ export class TopicVoteSignSmartidComponent implements OnInit {
   private dialog: DialogService,
   private Notification: NotificationService,
   private translate: TranslateService,
+  private TopicService: TopicService,
   public TopicVoteService: TopicVoteService) {
     this.topic = data.topic;
     this.options = data.options;
@@ -59,7 +61,7 @@ export class TopicVoteSignSmartidComponent implements OnInit {
           if (voteInitResult.challengeID && voteInitResult.token) {
             this.challengeID = voteInitResult.challengeID;
             const token = voteInitResult.token;
-            return this.pollVoteSignStatus(token, 3000, 80);
+            return this.pollVoteSignStatus(token, 10000, 80);
           }
         },
         error: (err) => {
@@ -87,6 +89,7 @@ export class TopicVoteSignSmartidComponent implements OnInit {
         this.isLoading = false;
         this.challengeID = null;
         this.dialog.closeAll();
+        this.TopicService.reloadTopic();
         this.Notification.addSuccess('VIEWS.TOPICS_TOPICID.MSG_VOTE_REGISTERED');
       },
       error: (error) => {

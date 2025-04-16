@@ -262,6 +262,7 @@ export class TopicComponent {
     this.topic$ = combineLatest([
       this.route.params,
       this.route.queryParams,
+      this.TopicService.loadTopic$
     ]).pipe(
       switchMap(([params]) => {
         return this.TopicService.loadTopic(params['topicId']);
@@ -281,15 +282,6 @@ export class TopicComponent {
           // Not nice, but I guess the problem starts with the 2 views using same controller. Ideally they should have a parent controller and extend that with their specific functionality
           this.DialogService.closeAll();
           this.hideTopicContent = true;
-        }
-        if (topic.voteId) {
-          this.vote$ = this.TopicVoteService.loadVote$.pipe(
-            switchMap(() => this.TopicVoteService.loadVote({
-              topicId: topic.id,
-              voteId: topic.voteId,
-            }))
-          );
-          this.cd.detectChanges();
         }
         if (topic.ideationId) {
           this.ideation$ = this.TopicIdeationService.loadIdeation({
@@ -395,6 +387,14 @@ export class TopicComponent {
         return of(err);
       })
     );
+
+    this.vote$ = combineLatest([this.topic$, this.TopicVoteService.loadVote$]).pipe(
+      switchMap(([topic]) => this.TopicVoteService.loadVote({
+        topicId: topic.id,
+        voteId: topic.voteId,
+      }))
+    );
+
     //needs API implementation
     this.groups$ = this.route.params.pipe(
       switchMap((params) => {
