@@ -9,7 +9,7 @@ import { TopicVoteService } from '@services/topic-vote.service';
 import { VoteDelegationService } from '@services/vote-delegation.service';
 import { TopicMemberUserService } from '@services/topic-member-user.service';
 import { DialogService } from 'src/app/shared/dialog';
-import { take, combineLatest} from 'rxjs';
+import { take, combineLatest, switchMap, of } from 'rxjs';
 import { TopicVoteSignComponent } from '../topic-vote-sign/topic-vote-sign.component';
 import { TopicVoteDeadlineComponent } from '../topic-vote-deadline/topic-vote-deadline.component';
 import { TopicVoteDelegateComponent } from '../topic-vote-delegate/topic-vote-delegate.component';
@@ -30,6 +30,7 @@ export class TopicVoteCastComponent implements OnInit {
   @Input() vote!: any;
   @Input() topic!: Topic;
 
+  voteStatus$;
   STATUSES = this.TopicService.STATUSES;
   VISIBILITY = this.TopicService.VISIBILITY;
   VOTE_TYPES = this.TopicVoteService.VOTE_TYPES;
@@ -49,7 +50,9 @@ export class TopicVoteCastComponent implements OnInit {
     private readonly VoteDelegationService: VoteDelegationService,
     private readonly TopicMemberUserService: TopicMemberUserService,
     private readonly TopicIdeationService: TopicIdeationService
-  ) { }
+  ) {
+    this.voteStatus$ = this.TopicVoteService.loadVote$.pipe(switchMap(() => of(true)));
+  }
 
   ngOnInit(): void {
     this.vote.options.rows.forEach((option: any) => {
@@ -66,7 +69,7 @@ export class TopicVoteCastComponent implements OnInit {
     return this.TopicService.canUpdate(this.topic);
   }
 
-  canDelete () {
+  canDelete() {
     return this.TopicService.canDelete(this.topic);
   }
 
@@ -178,7 +181,7 @@ export class TopicVoteCastComponent implements OnInit {
   }
   closeVoting() {
     const closeVoteDialog = this.dialog.open(CloseVotingComponent, {
-      data: {topic: this.topic}
+      data: { topic: this.topic }
     });
     closeVoteDialog.afterClosed().subscribe({
       next: (value) => {
@@ -379,20 +382,20 @@ export class TopicVoteCastComponent implements OnInit {
   viewIdea(ideaId: string) {
     combineLatest([
       this.TopicIdeaService
-      .get({ ideaId: ideaId, ideationId: this.topic.ideationId, topicId: this.topic.id }),
+        .get({ ideaId: ideaId, ideationId: this.topic.ideationId, topicId: this.topic.id }),
       this.TopicIdeationService.get({ topicId: this.topic.id, ideationId: this.topic.ideationId })
     ])
-    .pipe(take(1))
-    .subscribe(([idea, ideation]) => {
-      this.dialog.closeAll();
-      const ideaDialog = this.dialog.open(IdeaDialogComponent, {
-        data: {
-          idea,
-          topic: this.topic,
-          ideation: ideation,
-          route: this.route
-        }
+      .pipe(take(1))
+      .subscribe(([idea, ideation]) => {
+        this.dialog.closeAll();
+        const ideaDialog = this.dialog.open(IdeaDialogComponent, {
+          data: {
+            idea,
+            topic: this.topic,
+            ideation: ideation,
+            route: this.route
+          }
+        });
       });
-    });
   }
 }

@@ -1,4 +1,4 @@
-<ng-container *ngIf="vote">
+<ng-container *ngIf="voteStatus$ | async as voteStatus">
   <div class="vote_wrap">
     <div class="vote_header">
       <div class="header_section">

@@ -1,3 +1,4 @@
+import { TopicService } from '@services/topic.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 import { Topic } from 'src/app/interfaces/topic';
@@ -37,7 +38,8 @@ export class TopicVoteSignEsteidComponent implements OnInit {
     private Notification: NotificationService,
     public TopicVoteService: TopicVoteService,
     private translate: TranslateService,
-    private app: AppService) {
+    private app: AppService,
+    private TopicService: TopicService) {
     this.topic = data.topic;
     this.options = data.options;
   }
@@ -74,7 +76,7 @@ export class TopicVoteSignEsteidComponent implements OnInit {
           if (voteInitResult.challengeID && voteInitResult.token) {
             this.challengeID = voteInitResult.challengeID;
             const token = voteInitResult.token;
-            return this.pollVoteMobileSignStatus(token, 3000, 80);
+            return this.pollVoteMobileSignStatus(token, 10000, 80);
           }
         },
         error: (err) => {
@@ -156,6 +158,7 @@ export class TopicVoteSignEsteidComponent implements OnInit {
         this.isLoading = false;
         this.challengeID = null;
         this.dialog.closeAll();
+        this.TopicService.reloadTopic();
         this.Notification.addSuccess('VIEWS.TOPICS_TOPICID.MSG_VOTE_REGISTERED');
       },
       error: (err) => {
