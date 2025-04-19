@@ -229,7 +229,7 @@ export class AddIdeaComponent {
     if (this.app.addIdea.value || this.app.editIdea.value) {
       const isValueChanged = text && prevValue && text !== prevValue;
       const isNotSubscribed = !this.autosaveSubscription || this.autosaveSubscription.closed
-  
+
       if (isValueChanged && isNotSubscribed && !this.isPublished) {
         this.startAutosave();
       }
@@ -511,7 +511,7 @@ export class AddIdeaComponent {
         },
         error: (err) => {
           console.error(err);
-          
+
           setTimeout(() => {
             this.isAutosaving = false;
           }, this.AUTOSAVE_HIDE_DELAY);
