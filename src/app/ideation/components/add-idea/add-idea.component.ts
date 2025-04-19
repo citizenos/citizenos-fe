@@ -444,7 +444,7 @@ export class AddIdeaComponent {
           return {
             ...acc,
             gender:
-              this.ideation.demographicsConfig?.[curr].value ? 
+              this.ideation.demographicsConfig?.[curr].value ?
                 prefix + this.ideation.demographicsConfig?.[curr].value :
                 this.filtersData.gender.selectedValue,
           };
