@@ -91,12 +91,24 @@
     align-items: center;
 
     @include mixins.mobile {
+      flex-direction: column;
+      gap: 8px;
+
+      #navigate_create:first-child {
+        order: 2;
+      }
+
+      #navigate_create:last-child {
+        order: 1;
+      }
+
       .close_button {
         display: none;
       }
       .btn_medium_secondary,
       .btn_medium_submit,
-      .btn_medium_submit_ghost {
+      .btn_medium_submit_ghost,
+      .btn_medium_error {
         width: 100%;
       }
     }

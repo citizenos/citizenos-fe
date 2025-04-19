@@ -120,7 +120,6 @@ export class EditIdeaComponent extends AddIdeaComponent {
   }
 
   override saveIdea(status: IdeaStatus, isAutosave: boolean = false) {
-    console.log(isAutosave);
     const ideaData: Partial<Idea> & {
       parentVersion: number;
       topicId: string;

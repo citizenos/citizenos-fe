@@ -213,7 +213,6 @@ export class AddIdeaComponent {
 
   startAutosave(): void {
     this.autosaveSubscription = interval(5000).subscribe(() => {
-      console.log('Autosaving draft...');
       this.saveIdea(IdeaStatus.draft, true);
     });
   }
@@ -231,7 +230,6 @@ export class AddIdeaComponent {
 
   ngModelChange(key: string, value: number | string | null) {
     this.ideaForm.controls[key].markAsUntouched();
-    console.log(key, value);
 
     if (
       key === 'statement' &&
