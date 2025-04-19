@@ -51,10 +51,13 @@
       <div class="button_wrap">
         <button
           class="btn_big_submit"
-          translate="MODALS.TOPIC_IDEA_CLOSE_WITHOUT_SAVING_BACK"
-          [dialog-close]="true"
+          translate="MODALS.TOPIC_IDEA_CLOSE_WITHOUT_SAVING_CLOSE"
+          dialog-close
         ></button>
-        <a dialog-close translate="MODALS.TOPIC_IDEA_CLOSE_WITHOUT_SAVING_CLOSE"></a>
+        <a
+          [dialog-close]="true"
+          translate="MODALS.TOPIC_IDEA_CLOSE_WITHOUT_SAVING_BACK"
+        ></a>
       </div>
     </div>
   </div>

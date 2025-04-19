@@ -155,11 +155,18 @@
                               | translate
                           }}</span
                         >
-                        <span *ngIf="filtersData['residence'].selectedValue !== 'other'; else other_option">{{
-                          filtersData["residence"].selectedValue
-                        }}</span>
+                        <span
+                          *ngIf="
+                            filtersData['residence'].selectedValue !== 'other';
+                            else other_option
+                          "
+                          >{{ filtersData["residence"].selectedValue }}</span
+                        >
                         <ng-template #other_option>
-                          <span>{{ 'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_RESIDENCE_OTHER' | translate }}</span>
+                          <span>{{
+                            "VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_RESIDENCE_OTHER"
+                              | translate
+                          }}</span>
                         </ng-template>
                       </div>
                       <svg
@@ -193,7 +200,10 @@
                         class="option"
                         (click)="setFilterValue('residence', 'other')"
                       >
-                        <span>{{ 'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_RESIDENCE_OTHER' | translate }}</span>
+                        <span>{{
+                          "VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_RESIDENCE_OTHER"
+                            | translate
+                        }}</span>
                       </div>
                     </div>
                   </div>
@@ -210,7 +220,9 @@
                         | translate
                     }}"
                     class="gray_borders"
-                    (ngModelChange)="ngModelChange('demographics_' + key, $event)"
+                    (ngModelChange)="
+                      ngModelChange('demographics_' + key, $event)
+                    "
                     (blur)="ngModelBlur('demographics_' + key)"
                   />
 
@@ -507,7 +519,7 @@
     </form>
   </div>
   <div id="buttons_row">
-    <div id="close_create">
+    <div id="navigate_create">
       <button
         class="btn_medium_submit_ghost icon close_button"
         (click)="close()"
@@ -524,6 +536,30 @@
             fill="#2C3B47"
           />
         </svg>
+      </button>
+      <button
+        *ngIf="!!autosavedIdea"
+        class="option error_text btn_medium_error"
+        (click)="deleteDraftIdea(autosavedIdea)"
+      >
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 16 16"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M10 3H6V4H10V3ZM11 4V3C11 2.44772 10.5523 2 10 2H6C5.44772 2 5 2.44772 5 3V4H4H2.5C2.22386 4 2 4.22386 2 4.5C2 4.77614 2.22386 5 2.5 5H4V13C4 13.5523 4.44772 14 5 14H11C11.5523 14 12 13.5523 12 13V5H13.5C13.7761 5 14 4.77614 14 4.5C14 4.22386 13.7761 4 13.5 4H12H11ZM7 7H6V11H7V7ZM10 7H9V11H10V7Z"
+            fill="#2C3B47"
+          />
+        </svg>
+        <span
+          class="btn_text"
+          translate="COMPONENTS.ADD_IDEA.BTN_DELETE_DRAFT"
+        ></span>
       </button>
     </div>
     <div id="navigate_create">
@@ -552,12 +588,6 @@
           />
         </svg>
         <span translate="COMPONENTS.POST_ARGUMENT.BTN_ADD_IMAGE"></span>
-      </button>
-      <button class="btn_medium_secondary icon" (click)="draftIdea()">
-        <span
-          class="btn_text"
-          translate="COMPONENTS.ADD_IDEA.BTN_IDEA_DRAFT"
-        ></span>
       </button>
       <button class="btn_medium_submit icon" (click)="publishIdea()">
         <span
