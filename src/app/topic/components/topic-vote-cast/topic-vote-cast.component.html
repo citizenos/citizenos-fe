@@ -81,14 +81,9 @@
           </div>
         </div>
       </div>
-      <div class="data_section">
-        <div class="data_cell">
-          <ng-container *ngIf="!hasVoteEndedExpired()">
-            <div class="info_text bold" *ngIf="!canUpdate()" translate="COMPONENTS.TOPIC_VOTE_CAST.LBL_INFO_RESULTS">
-            </div>
-            <div class="info_text" *ngIf="canUpdate()"
-              [innerHtml]="'COMPONENTS.TOPIC_VOTE_CAST.LBL_INFO_RESULTS_ADMIN'| translate"></div>
-          </ng-container>
+      <div class="data_cell">
+        <div class="title" translate="COMPONENTS.TOPIC_VOTE_CAST.LBL_VOTES"></div>
+        <div class="data_item">
         </div>
       </div>
     </div>
@@ -97,7 +92,7 @@
         <div class="vote_info_text_wrap">
           <div class="vote_text_left">
             <!-- VOTE STILL ON-->
-            <ng-container *ngIf="!hasVoteEndedExpired() &&(!userHasVoted || editVote)">
+            <ng-container *ngIf="!hasVoteEndedExpired() &&(!userHasVoted() || editVote)">
               <div class="text_area">
                 <div class="heading bold" translate="COMPONENTS.TOPIC_VOTE_CAST.CAST_YOUR_VOTE"></div>
                 <ng-container *ngIf="vote.type === 'regular' || vote.type === 'multiple' && vote.maxChoices === 1">
@@ -109,7 +104,7 @@
                 </ng-container>
               </div>
             </ng-container>
-            <ng-container *ngIf="(userHasVoted && !editVote) && !hasVoteEndedExpired()">
+            <ng-container *ngIf="(userHasVoted() && !editVote) && !hasVoteEndedExpired()">
               <div class="text_area">
                 <div class="heading bold" translate="COMPONENTS.TOPIC_VOTE_CAST.HEADING_VOTE_REGISTERED"></div>
                 <div translate="COMPONENTS.TOPIC_VOTE_CAST.VOTE_TXT_VOTE_REGISTERED"></div>
@@ -122,8 +117,8 @@
                     </svg>
                     <span translate="COMPONENTS.TOPIC_VOTE_CAST.LNK_EDIT_VOTE"></span>
                   </a>
-                  <a [href]="vote.downloads.bdocVote"
-                    *ngIf="vote.authType === VOTE_AUTH_TYPES.hard && vote.downloads.bdocVote" download>
+                  <a [href]="vote.downloads?.bdocVote"
+                    *ngIf="vote.authType === VOTE_AUTH_TYPES.hard && vote.downloads?.bdocVote" download>
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <g clip-path="url(#clip0_335_42956)">
                         <path
@@ -141,7 +136,7 @@
               </div>
             </ng-container>
             <!-- VOTE ENDED-->
-            <ng-container *ngIf="hasVoteEndedExpired() &&(!userHasVoted || !editVote)">
+            <ng-container *ngIf="hasVoteEndedExpired() &&(!userHasVoted() || !editVote)">
               <div class="text_area">
                 <div class="heading bold" translate="COMPONENTS.TOPIC_VOTE_CAST.HEADING_VOTE_ENDED"></div>
                 <div class="with_tooltip" *ngIf="canUpdate()"
@@ -153,7 +148,7 @@
                   </!--div-->
                 </div>
                 <div class="links_wrap" *ngIf="canDelete()">
-                  <a [href]="vote.downloads.bdocVote"
+                  <a [href]="vote.downloads?.bdocVote"
                     *ngIf="vote.authType === VOTE_AUTH_TYPES.hard && vote.downloads?.bdocVote" download>
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <g clip-path="url(#clip0_335_42956)">
@@ -170,8 +165,8 @@
                     <span translate="COMPONENTS.TOPIC_VOTE_CAST.BTN_DOWNLOAD_USER_BDOC"></span>
                     <!--div class="tooltip" tooltip>
                       <div class="content_title">Help on its way</div>
-                      <div class="content_description">Help text coming soon! Please tell us what help you were looking
-                        for.</div>
+                      <div class="content_description">Help text coming soon! Please tell us what help you were
+                        looking for.</div>
                     </!--div-->
                   </a>
 
@@ -245,10 +240,10 @@
             </ng-container>
           </div>
         </div>
-        <ng-container *ngIf="(!userHasVoted || editVote) && !hasVoteEndedExpired()">
+        <ng-container *ngIf="(!userHasVoted() || editVote) && !hasVoteEndedExpired()">
           <div class="vote_result_info mobile_show">
             <div class="vote_info_text_wrap">
-              <ng-container *ngIf="(!userHasVoted || editVote) && !hasVoteEndedExpired()">
+              <ng-container *ngIf="(!userHasVoted() || editVote) && !hasVoteEndedExpired()">
                 <ng-container *ngIf="vote.type === 'regular' || vote.type === 'multiple' && vote.maxChoices === 1">
                   <div>
                     <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -347,7 +342,7 @@
             </ng-container>
           </div>
         </ng-container>
-        <ng-container *ngIf="(userHasVoted && !editVote) && !hasVoteEndedExpired()">
+        <ng-container *ngIf="(userHasVoted() && !editVote) && !hasVoteEndedExpired()">
           <div class="vote_options">
             <div class="vote_section_heading" translate="COMPONENTS.TOPIC_VOTE_CAST.LBL_YOUR_CHOSE_OPTIONS"></div>
             <div class="vote_delegation" *ngIf="vote.delegation">
@@ -421,7 +416,7 @@
             </ng-container>
           </div>
         </ng-container>
-        <ng-container *ngIf="hasVoteEndedExpired() &&(!userHasVoted || !editVote)">
+        <ng-container *ngIf="hasVoteEndedExpired() &&(!userHasVoted() || !editVote)">
           <div class="vote_result_info mobile_show">
             <div class="vote_graph_wrap">
               <div id="vote_graph">
