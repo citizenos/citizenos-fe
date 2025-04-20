@@ -1,5 +1,5 @@
 import { TopicIdeaService } from '@services/topic-idea.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, signal } from '@angular/core';
 import { Topic } from 'src/app/interfaces/topic';
 import { AuthService } from '@services/auth.service';
 import { AppService } from '@services/app.service';
@@ -35,7 +35,7 @@ export class TopicVoteCastComponent implements OnInit {
   VISIBILITY = this.TopicService.VISIBILITY;
   VOTE_TYPES = this.TopicVoteService.VOTE_TYPES;
   VOTE_AUTH_TYPES = this.TopicVoteService.VOTE_AUTH_TYPES;
-  userHasVoted: boolean = false;
+  userHasVoted = signal<boolean>(false);
   editVote: boolean = false;
 
   constructor(
@@ -55,14 +55,51 @@ export class TopicVoteCastComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.vote.options.rows.forEach((option: any) => {
-      if (option.selected) {
-        this.userHasVoted = true;
-      }
-    })
-    if (this.vote.delegation) {
-      this.userHasVoted = true;
+    // Initialize any missing properties to prevent template errors
+    if (!this.vote.downloads) {
+      this.vote.downloads = {};
     }
+
+    // Ensure vote.options structure exists to prevent template errors
+    if (!this.vote.options) {
+      this.vote.options = { rows: [] };
+    } else if (!this.vote.options.rows) {
+      this.vote.options.rows = [];
+    }
+
+    this.checkUserVotingStatus();
+
+    // Subscribe to vote changes through the service to update the userHasVoted signal
+    this.TopicVoteService.loadVote$.subscribe(() => {
+      // Ensure downloads object exists when vote is updated
+      if (!this.vote.downloads) {
+        this.vote.downloads = {};
+      }
+
+      // Ensure vote.options structure exists after updates
+      if (!this.vote.options) {
+        this.vote.options = { rows: [] };
+      } else if (!this.vote.options.rows) {
+        this.vote.options.rows = [];
+      }
+
+      this.checkUserVotingStatus();
+    });
+  }
+
+  private checkUserVotingStatus(): void {
+    let hasVoted = false;
+
+    if (this.vote.options?.rows?.some((option: any) => option.selected)) {
+      hasVoted = true;
+    }
+
+    if (this.vote.delegation) {
+      hasVoted = true;
+    }
+
+    this.userHasVoted.set(hasVoted);
+    this.editVote = false;
   }
 
   canUpdate() {
@@ -115,17 +152,13 @@ export class TopicVoteCastComponent implements OnInit {
     }
     //  this.TopicVoteService.options = options;
     if (this.vote.authType === this.VOTE_AUTH_TYPES.hard) {
-      const signDialog = this.dialog
+      this.dialog
         .open(TopicVoteSignComponent, {
           data: {
             topic: this.topic,
             options
           }
         });
-      signDialog.afterClosed().subscribe(() => {
-        this.TopicService.reloadTopic()
-        this.TopicVoteService.reloadVote();
-      });
       return;
     } else {
       options.forEach((dOption: any) => {
@@ -136,23 +169,10 @@ export class TopicVoteCastComponent implements OnInit {
         .pipe(take(1))
         .subscribe({
           next: () => {
-            this.vote.topicId = this.topic.id;
-            this.TopicVoteService.get({ voteId: this.vote.id, topicId: this.topic.id }).pipe(take(1)).subscribe({
-              next: (vote) => {
-                this.vote = vote;
-                this.topic.vote = vote;
-                this.TopicService.reloadTopic()
-                this.TopicVoteService.reloadVote();
-                this.TopicMemberUserService.reload();
-              },
-              error: (err) => {
-                console.error(err);
-              }
-            });
             this.Notification.removeAll();
             this.Notification.addSuccess('VIEWS.TOPICS_TOPICID.MSG_VOTE_REGISTERED');
             this.editVote = false;
-            this.userHasVoted = true;
+            this.userHasVoted.set(true);
           }, error: (err) => {
             console.error(err);
           }
@@ -280,6 +300,7 @@ export class TopicVoteCastComponent implements OnInit {
           ).subscribe({
             next: () => {
               this.TopicService.reloadTopic();
+              this.userHasVoted.set(false);
             },
             error: (err) => {
               console.error('ERROR', err)
@@ -332,9 +353,9 @@ export class TopicVoteCastComponent implements OnInit {
     let url = ''
     if (this.vote.downloads?.bdocFinal || this.vote.downloads?.zipFinal) {
       if (type === 'zip') {
-        url = this.vote.downloads.zipFinal;
+        url = this.vote.downloads?.zipFinal || '';
       } else {
-        url = this.vote.downloads.bdocFinal;
+        url = this.vote.downloads?.bdocFinal || '';
       }
       if (!url) return;
       if (includeCSV) {
@@ -357,10 +378,14 @@ export class TopicVoteCastComponent implements OnInit {
                 .pipe(take(1))
                 .subscribe({
                   next: (vote) => {
+                    if (!vote.downloads) {
+                      vote.downloads = {};
+                    }
+
                     if (type === 'zip') {
-                      url = vote.downloads.zipFinal;
+                      url = vote.downloads.zipFinal || '';
                     } else {
-                      url = vote.downloads.bdocFinal;
+                      url = vote.downloads.bdocFinal || '';
                     }
                     if (!url) return;
                     if (includeCSV) {
@@ -374,7 +399,7 @@ export class TopicVoteCastComponent implements OnInit {
         }
       },
       error: (err) => {
-
+        console.error('Error in triggerFinalDownload:', err);
       }
     })
   }
