@@ -14,7 +14,6 @@ import { Ideation } from '@interfaces/ideation';
 import { MarkdownDirective } from 'src/app/directives/markdown.directive';
 import { DialogService } from '@shared/dialog';
 import { AnonymousDialogComponent } from '../anonymous-dialog/anonymous-dialog.component';
-import { AnonymousDraftDialogComponent } from '../anonymous-draft-dialog/anonymous-draft-dialog.component';
 
 import { trigger, state, style } from '@angular/animations';
 import {
@@ -90,6 +89,7 @@ export class AddIdeaComponent {
   attachments = <any[]>[];
 
   autosavedIdea: Idea | null = null;
+  isAutosaving = false;
 
   wWidth = window.innerWidth;
   focusIdeaStatement = false;
@@ -480,17 +480,28 @@ export class AddIdeaComponent {
       }
     }
 
+    if (isAutosave) {
+      this.isAutosaving = true;
+    }
+
     if (this.autosavedIdea) {
       this.TopicIdeaService.update(ideaData).subscribe({
         next: (idea) => {
           if (isAutosave) {
             this.autosavedIdea = idea;
+
+            setTimeout(() => {
+              this.isAutosaving = false;
+            }, 2000);
           } else {
             this.afterPost(idea);
           }
         },
         error: (err) => {
           console.error(err);
+          setTimeout(() => {
+            this.isAutosaving = false;
+          }, 2000);
         },
       });
     } else {

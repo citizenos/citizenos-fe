@@ -35,7 +35,22 @@
 >
   <div id="post_idea_form_wrap">
     <div class="form_header">
-      <span translate="COMPONENTS.ADD_IDEA.FOOTER_FORM_TITLE"></span>
+      <div class="form_header_title">
+        <span translate="COMPONENTS.ADD_IDEA.FOOTER_FORM_TITLE"></span>
+        <div class="dialog_info_wrap" *ngIf="isAutosaving">
+          <div class="dialog_info discussion">
+            <div class="row">
+              <div class="loader_wrapper">
+                <div class="loader"></div>
+              </div>
+              <span class="bold loader_text">{{
+                "COMPONENTS.IDEA_DIALOG.AUTOSAVING" | translate
+              }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div
         *ngIf="ideation.allowAnonymous"
         id="anonymous_info_wrap"
@@ -537,30 +552,31 @@
           />
         </svg>
       </button>
-      <button
-        *ngIf="!!autosavedIdea"
-        class="option error_text btn_medium_error"
-        (click)="deleteDraftIdea(autosavedIdea)"
-      >
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 16 16"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
+      <div class="btn_medium_wrapper" *ngIf="!!autosavedIdea">
+        <button
+          class="option error_text btn_medium_error"
+          (click)="deleteDraftIdea(autosavedIdea)"
         >
-          <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
-            d="M10 3H6V4H10V3ZM11 4V3C11 2.44772 10.5523 2 10 2H6C5.44772 2 5 2.44772 5 3V4H4H2.5C2.22386 4 2 4.22386 2 4.5C2 4.77614 2.22386 5 2.5 5H4V13C4 13.5523 4.44772 14 5 14H11C11.5523 14 12 13.5523 12 13V5H13.5C13.7761 5 14 4.77614 14 4.5C14 4.22386 13.7761 4 13.5 4H12H11ZM7 7H6V11H7V7ZM10 7H9V11H10V7Z"
-            fill="#2C3B47"
-          />
-        </svg>
-        <span
-          class="btn_text"
-          translate="COMPONENTS.ADD_IDEA.BTN_DELETE_DRAFT"
-        ></span>
-      </button>
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 16 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M10 3H6V4H10V3ZM11 4V3C11 2.44772 10.5523 2 10 2H6C5.44772 2 5 2.44772 5 3V4H4H2.5C2.22386 4 2 4.22386 2 4.5C2 4.77614 2.22386 5 2.5 5H4V13C4 13.5523 4.44772 14 5 14H11C11.5523 14 12 13.5523 12 13V5H13.5C13.7761 5 14 4.77614 14 4.5C14 4.22386 13.7761 4 13.5 4H12H11ZM7 7H6V11H7V7ZM10 7H9V11H10V7Z"
+              fill="#2C3B47"
+            />
+          </svg>
+          <span
+            class="btn_text"
+            translate="COMPONENTS.ADD_IDEA.BTN_DELETE_DRAFT"
+          ></span>
+        </button>
+      </div>
     </div>
     <div id="navigate_create">
       <!--div id="chars_left" translate="COMPONENTS.ADD_IDEA.IDEA_TYPE_CHARACTERS_LEFT"

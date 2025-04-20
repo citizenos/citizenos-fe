@@ -135,12 +135,20 @@ export class EditIdeaComponent extends AddIdeaComponent {
       demographics: this.getDemographicValues(),
     };
 
+    if (isAutosave) {
+      this.isAutosaving = true;
+    }
+
     this.TopicIdeaService.update(ideaData)
       .pipe(take(1))
       .subscribe({
         next: (idea) => {
           if (isAutosave) {
             this.idea = idea;
+
+            setTimeout(() => {
+              this.isAutosaving = false;
+            }, 2000);
           } else {
             this.afterPost(idea);
           }
