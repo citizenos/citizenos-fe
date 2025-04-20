@@ -498,7 +498,6 @@ export class AddIdeaComponent {
     if (isAutosave) {
       this.isAutosaving = true;
     }
-
     if (this.autosavedIdea) {
       this.TopicIdeaService.update(ideaData).subscribe({
         next: (idea) => {
