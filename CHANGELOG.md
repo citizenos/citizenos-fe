@@ -1,3 +1,9 @@
+## 2025-04-21 - v1.3.4
+  * Fix: Issue #1811 - MOBILE: In iOS the reaction button for ideas is too small
+  * Fix: Issue #1861 - ID VOTING: User got a 500 error when digitally signing
+  * Fix: Issue #2020 - IDEAS: Remove reply button when replies are switched off
+  * Fix: Issue #2087 - IDEA GATHERING: Images not added to anonymous ideas and HTTP error
+
 ## 2025-03-19 - v1.3.3
   * Fix: Issue #2070 - IDEAS: 'Other - please specify' option for Municipalities
   * Fix: Issue #2077 - MOBILE: Add Idea not visible after adding an image
