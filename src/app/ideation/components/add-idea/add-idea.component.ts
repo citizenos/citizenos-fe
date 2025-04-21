@@ -140,6 +140,11 @@ export class AddIdeaComponent {
   IMAGE_LIMIT = 10;
   IDEA_STATEMENT_MAXLENGTH = 1024;
   private readonly IDEA_VERSION_SEPARATOR = '_v';
+  private readonly AUTOSAVE_TIME = 15000;
+  // Delay for the autosave notification to hide
+  // after the autosave is completed
+  // to avoid jumping of the notification
+  private readonly AUTOSAVE_HIDE_DELAY = 2000;
 
   private autosaveSubscription?: Subscription;
 
@@ -212,7 +217,7 @@ export class AddIdeaComponent {
   }
 
   startAutosave(): void {
-    this.autosaveSubscription = interval(5000).subscribe(() => {
+    this.autosaveSubscription = interval(this.AUTOSAVE_TIME).subscribe(() => {
       this.saveIdea(IdeaStatus.draft, true);
     });
   }
@@ -492,16 +497,17 @@ export class AddIdeaComponent {
 
             setTimeout(() => {
               this.isAutosaving = false;
-            }, 2000);
+            }, this.AUTOSAVE_HIDE_DELAY);
           } else {
             this.afterPost(idea);
           }
         },
         error: (err) => {
           console.error(err);
+          
           setTimeout(() => {
             this.isAutosaving = false;
-          }, 2000);
+          }, this.AUTOSAVE_HIDE_DELAY);
         },
       });
     } else {
@@ -511,6 +517,10 @@ export class AddIdeaComponent {
           next: (idea) => {
             if (isAutosave) {
               this.autosavedIdea = idea;
+
+              setTimeout(() => {
+                this.isAutosaving = false;
+              }, this.AUTOSAVE_HIDE_DELAY);
             } else {
               this.afterPost(idea);
             }
@@ -518,6 +528,10 @@ export class AddIdeaComponent {
           error: (err) => {
             console.error(err);
             this.errors = err;
+
+            setTimeout(() => {
+              this.isAutosaving = false;
+            }, this.AUTOSAVE_HIDE_DELAY);
           },
         });
     }
