@@ -766,7 +766,9 @@
       "HEADING_SEARCH_RESULTS": "Global search results",
       "HEADING_RESULTS_IN": "Search results in: <b>{{context}}</b>",
       "LNK_VIEW_MORE_RESULTS": "View more results",
+      "LNK_HELP_PANEL": "Try here.",
       "TXT_OOPS_NO_RESULTS": "We couldn’t find any results matching your search :(",
+      "TXT_NO_RESULTS_FOUND": "No results found. Looking for help?",
       "TXT_MAYBE_TYPO": "Maybe there's a typo in your search?"
     },
     "TOPIC_IDEATION": {
