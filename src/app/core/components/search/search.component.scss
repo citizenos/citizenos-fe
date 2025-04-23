@@ -114,6 +114,24 @@
       padding: 16px;
     }
 
+    .results_no_results_wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .results_no_results_text {
+      font-size: 13px;
+      font-style: normal;
+      font-weight: 400;
+    }
+
+    .results_no_results_link {
+      @extend .results_no_results_text;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
     .line_separator {
       background-color: var(--color-blue-200);
     }
