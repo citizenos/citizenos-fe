@@ -389,10 +389,13 @@ export class TopicComponent {
     );
 
     this.vote$ = combineLatest([this.topic$, this.TopicVoteService.loadVote$]).pipe(
-      switchMap(([topic]) => this.TopicVoteService.loadVote({
-        topicId: topic.id,
-        voteId: topic.voteId,
-      }))
+      switchMap(([topic]) => {
+        if (!topic.voteId) return of(null);
+        return this.TopicVoteService.loadVote({
+          topicId: topic.id,
+          voteId: topic.voteId,
+        })
+      })
     );
 
     //needs API implementation
