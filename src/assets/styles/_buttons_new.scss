@@ -137,6 +137,9 @@ $button-styles: (
   plain: (
     hover: var(--color-blue-100),
   ),
+  error: (
+    border: 1px solid var(--color-error),
+  ),
 );
 
 @mixin button_styles($theme-map) {
