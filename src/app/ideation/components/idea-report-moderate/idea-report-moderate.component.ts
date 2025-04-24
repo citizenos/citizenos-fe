@@ -33,7 +33,8 @@ export class IdeaReportModerateComponent  implements OnInit {
     this.reportId = data.report.id;
     this.token = data.token;
     this.report.patchValue(data.report); //Object.assign({}, data.report);
-    this.dialog.closeAll();
+
+    console.log(dialog.openDialogs);
   }
 
   ngOnInit(): void {
@@ -96,6 +97,7 @@ export class IdeaReportModerateDialogComponent {
       take(1)
     ).subscribe({
       next: (report) => {
+        if (dialog.openDialogs.length > 0) return;
         const reportDialog = dialog.open(IdeaReportModerateComponent, { data: { report, topicId: this.topicId , ideationId: this.ideationId, ideaId: this.ideaId, token: this.token } });
         reportDialog.afterClosed().subscribe(() => {
           router.navigate(['topics', this.topicId]);
