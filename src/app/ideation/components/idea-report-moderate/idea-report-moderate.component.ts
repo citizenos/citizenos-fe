@@ -25,7 +25,7 @@ export class IdeaReportModerateComponent  implements OnInit {
     text: new UntypedFormControl('', Validators.required),
   });
   errors?: any;
-  constructor(@Inject(DIALOG_DATA) data: any, private TopicIdeaService: TopicIdeaService, private dialog: DialogService, private TopicService: TopicService) {
+  constructor(@Inject(DIALOG_DATA) data: any, private TopicIdeaService: TopicIdeaService, private dialog: DialogService, private TopicService: TopicService, private router: Router) {
     this.idea = data.idea || data.report.idea;
     this.topicId = data.topicId;
     this.ideationId = data.ideationId;
@@ -33,6 +33,7 @@ export class IdeaReportModerateComponent  implements OnInit {
     this.reportId = data.report.id;
     this.token = data.token;
     this.report.patchValue(data.report); //Object.assign({}, data.report);
+    this.dialog.closeAll();
   }
 
   ngOnInit(): void {
@@ -59,7 +60,7 @@ export class IdeaReportModerateComponent  implements OnInit {
           this.dialog.closeAll();
         },
         error: (err) => {
-          console.error(err);
+          this.TopicIdeaService.reload();
           this.dialog.closeAll();
         }
       })
