@@ -3464,7 +3464,7 @@
   "MSG_ERROR_POST_API_AUTH_SIGNUP_40000_PASSWORD": "Heslo musí mať aspoň 6 znakov, musí obsahovať aspoň 1 číslicu, 1 malé písmeno a 1 veľké písmeno.",
   "MSG_ERROR_POST_API_AUTH_LOGIN_40003_PASSWORD": "Nesprávne heslo.",
   "MSG_ERROR_POST_API_AUTH_LOGIN_40002": "Overovanie účtu nebolo ukončené. Skontrolujte si prosím váš email.",
-  "MSG_ERROR_POST_API_AUTH_PASSWORD_RESET_40000": "Neplatný email, heslo alebo kód pre obnovu hesla.",
+  "MSG_ERROR_POST_API_AUTH_PASSWORD_RESET_40000": "Invalid email, password or reset code. Password reset codes expire after 1 hour.",
   "MSG_INFO_CHECK_EMAIL_TO_VERIFY_YOUR_ACCOUNT": "Skontrolujte si email pre overenie vášho účtu.",
   "MSG_INFO_CHECK_EMAIL_TO_VERIFY_YOUR_NEW_EMAIL_ADDRESS": "Vaša emailová adresa bola aktualizovaná. Skontrolujte si mail, aby ste overili svoju novú mailovú adresu. Odteraz používajte pri prihlasovaní túto adresu.",
   "MSG_ERROR_POST_API_AUTH_PASSWORD_RESET_SEND_40002_EMAIL": "Účet s týmto mailom neexistuje.",
