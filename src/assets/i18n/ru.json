@@ -3464,7 +3464,7 @@
   "MSG_ERROR_POST_API_AUTH_SIGNUP_40000_PASSWORD": "Пароль должен быть длиной минимум в 6 знаков и обязательно содержать 1 цифру, 1 заглавную и 1 строчную букву.",
   "MSG_ERROR_POST_API_AUTH_LOGIN_40003_PASSWORD": "Неверный пароль.",
   "MSG_ERROR_POST_API_AUTH_LOGIN_40002": "Проверка учетной записи еще не завершена. Пожалуйста, проверьте вашу эл. почту.",
-  "MSG_ERROR_POST_API_AUTH_PASSWORD_RESET_40000": "Ошибка в адресе электронной почты, пароле или коде сброса пароля.",
+  "MSG_ERROR_POST_API_AUTH_PASSWORD_RESET_40000": "Invalid email, password or reset code. Password reset codes expire after 1 hour.",
   "MSG_INFO_CHECK_EMAIL_TO_VERIFY_YOUR_ACCOUNT": "Пожалуйста, проверьте свою эл. почту на наличие подтверждающего регистрацию письма.",
   "MSG_INFO_CHECK_EMAIL_TO_VERIFY_YOUR_NEW_EMAIL_ADDRESS": "Ваш адрес эл. почты обновлен. Проверьте вашу эл. почту, чтобы подтвердить ваш новый адрес. С этого момента используйте этот адрес эл. почты для входа в систему.",
   "MSG_ERROR_POST_API_AUTH_PASSWORD_RESET_SEND_40002_EMAIL": "Пользователя с таким адресом эл. почты в системе не существует.",
