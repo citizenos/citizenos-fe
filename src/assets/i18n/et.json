@@ -3464,7 +3464,7 @@
   "MSG_ERROR_POST_API_AUTH_SIGNUP_40000_PASSWORD": "Salasõna peab sisaldama vähemalt kuut tähemärki, üht numbrit, üht väike- ja üht suurtähte.",
   "MSG_ERROR_POST_API_AUTH_LOGIN_40003_PASSWORD": "Vale salasõna.",
   "MSG_ERROR_POST_API_AUTH_LOGIN_40002": "Konto on veel kinnitamata. Palun vaata oma e-postkasti.",
-  "MSG_ERROR_POST_API_AUTH_PASSWORD_RESET_40000": "Viga e-posti aadressis, salasõnas või salasõna lähtestamise koodis.",
+  "MSG_ERROR_POST_API_AUTH_PASSWORD_RESET_40000": "Invalid email, password or reset code. Password reset codes expire after 1 hour.",
   "MSG_INFO_CHECK_EMAIL_TO_VERIFY_YOUR_ACCOUNT": "Palun vaata e-postiga saadetud kinnituskirja.",
   "MSG_INFO_CHECK_EMAIL_TO_VERIFY_YOUR_NEW_EMAIL_ADDRESS": "Uuendasime su e-posti aadressi – varsti leiad oma e-postkastist kirja, kus palutakse uus e-posti aadress kinnitada. Nüüdsest saad sisse logida uue e-posti aadressiga.",
   "MSG_ERROR_POST_API_AUTH_PASSWORD_RESET_SEND_40002_EMAIL": "Sellise e-posti aadressiga kontot süsteemis ei ole.",
