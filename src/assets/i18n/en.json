@@ -470,6 +470,7 @@
       "OPTION_ADD_TO_FOLDER": "Add to folder",
       "OPTION_REPORT": "Report to admin",
       "OPTION_REMOVE": "Remove idea",
+      "UNTITLED_IDEA": "Untitled idea",
       "DRAFT_UPDATED_AT": "Last updated: {{date}}",
       "REPLIES": "{{count}} replies",
       "NOTIFICATION_TITLE": "This idea was hidden by a moderator",
