@@ -500,6 +500,7 @@ export class AddIdeaComponent {
     if (isAutosave) {
       this.isAutosaving = true;
     }
+
     if (this.autosavedIdea) {
       this.TopicIdeaService.update(ideaData).subscribe({
         next: (idea) => {
@@ -515,6 +516,7 @@ export class AddIdeaComponent {
         },
         error: (err) => {
           console.error(err);
+
           setTimeout(() => {
             this.isAutosaving = false;
           }, this.AUTOSAVE_HIDE_DELAY);
