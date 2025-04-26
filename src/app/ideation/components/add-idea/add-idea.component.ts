@@ -386,19 +386,27 @@ export class AddIdeaComponent {
 
     return Object.keys(this.ideation.demographicsConfig).reduce(
       (acc: Idea['demographics'], curr: string) => {
-        if (curr === 'residence' && this.isCountryEstonia) {
+        if (curr === 'residence') {
+          const prefix = this.translate.instant(
+            'COMPONENTS.ADD_IDEA.RESIDENCE_VALUE_PREFIX'
+          );
+
           return {
             ...acc,
-            residence:
-              this.ideation.demographicsConfig?.[curr].value ||
-              this.filtersData.residence.selectedValue,
+            residence: this.isCountryEstonia
+              ? this.filtersData.residence.selectedValue
+              : prefix + this.ideation.demographicsConfig?.[curr].value,
           };
         }
         if (curr === 'gender') {
+          const prefix = this.translate.instant(
+            'COMPONENTS.ADD_IDEA.GENDER_VALUE_PREFIX'
+          );
+
           return {
             ...acc,
             gender:
-              this.ideation.demographicsConfig?.[curr].value ||
+              prefix + this.ideation.demographicsConfig?.[curr].value ||
               this.filtersData.gender.selectedValue,
           };
         }
