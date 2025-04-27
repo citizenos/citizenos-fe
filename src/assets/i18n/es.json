@@ -574,13 +574,13 @@
       "SEARCH_DESC": "Puedes solicitar añadir cualquier tema en el que seas administrador",
       "PLACEHOLDER_SEARCH": "@:COMPONENTS.GROUP_INVITE.PLACEHOLDER_SEARCH",
       "MSG_REQUEST_SENT_SUCCESS": "¡La solicitud ha sido enviada!",
-      "REASON_DESC": "Añada un motivo para su solicitud",
-      "REASON_PLACEHOLDER": "Write your reason here",
+      "REASON_DESC": "Añadir un motivo para la solicitud",
+      "REASON_PLACEHOLDER": "Escribe aquí tu motivo",
       "LNK_CANCEL": "@:LNK_CANCEL",
-      "BTN_SAVE": "Send request"
+      "BTN_SAVE": "Enviar solicitud"
     },
     "GROUP_SETTINGS": {
-      "HEADING": "Edit group",
+      "HEADING": "Modificar grupo",
       "TAB_INFO": "@:VIEWS.GROUP_CREATE.CREATE_TAB_1",
       "TAB_SETTINGS": "@:VIEWS.GROUP_CREATE.CREATE_TAB_2",
       "INFO_SETTINGS_HEADING_GENERAL_INFO": "@:VIEWS.GROUP_CREATE.INFO_SETTINGS_HEADING_GENERAL_INFO",
@@ -607,12 +607,12 @@
       "BTN_SAVE": "@:DIRECTIVES.COS_MODAL.BTN_SAVE"
     },
     "GROUP_SHARE": {
-      "GENERATE_LINK": "Generate access link",
-      "PLACEHOLDER_CREATE_NEW_LINK": "Generate a link to share",
-      "COPY_LINK": "Copy link",
+      "GENERATE_LINK": "Generar enlace de acceso",
+      "PLACEHOLDER_CREATE_NEW_LINK": "Generar un enlace para compartir",
+      "COPY_LINK": "Copiar enlace",
       "MSG_LINK_COPIED": "@:COMPONENTS.TOPIC_SHARE.MSG_LINK_COPIED",
-      "LBL_ACCESS_LEVEL": "Users access level",
-      "GENERATE_QR_CODE": "Generate QR code",
+      "LBL_ACCESS_LEVEL": "Nivel de acceso de los usuarios",
+      "GENERATE_QR_CODE": "Generar código QR",
       "GENERATE_QR_CODE_DESCRIPTION": "Generate a QR code that people can scan to come straight to the topic. You can add the QR code to digital or physical comms, and display it wherever the right people will see it.",
       "GENERATE_QR_CODE_PRINT": "To save the QR code, right click then choose 'Save image'.",
       "BTN_GENERATE_QR_CODE": "@:COMPONENTS.GROUP_SHARE.GENERATE_QR_CODE"
