@@ -1,6 +1,6 @@
 {
-  "MSG_ISSUE_NOTIFICATION_TITLE": "Temporary Disruption on Citizen OS Platform",
-  "MSG_ISSUE_NOTIFICATION": "We will post an update as soon as the issue is resolved.",
+  "MSG_ISSUE_NOTIFICATION_TITLE": "Interrupción temporal en la plataforma de Citizen OS",
+  "MSG_ISSUE_NOTIFICATION": "Publicaremos una actualización tan pronto se resuelva el problema.",
   "MSG_REDESIGN_TITLE": "¡Estamos rediseñando nuestra plataforma!",
   "MSG_REDESIGN_CONTENT": "En los próximos meses, empezaremos a desplegar un Citizen OS nuevo y mejorado. Para cualquier pregunta, duda o para ofrecer tu ayuda como probador beta, ponte en contacto con Sara en <a href=\"mailto:info@citizenos.com\">info@citizenos.com</a>",
   "MSG_REDESIGN_BTN_CLOSE": "Ok, entendido",
