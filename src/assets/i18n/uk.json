@@ -137,6 +137,8 @@
       "MSG_SUCCESS": "Idea successfully posted",
       "MSG_ERROR_SUBJECT": "Idea heading must be 1 to {{chars}} characters long.",
       "FIELD_IS_MANDATORY": "Field is mandatory",
+      "RESIDENCE_VALUE_PREFIX": "Other: ",
+      "GENDER_VALUE_PREFIX": "Other: ",
       "MSG_ERROR_DESCRIPTION": "Idea description must be 1 to {{chars}} characters long."
     },
     "ADD_IDEA_FOLDER": {
