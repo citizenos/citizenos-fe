@@ -137,6 +137,8 @@
       "MSG_SUCCESS": "Idee on edukalt postitatud",
       "MSG_ERROR_SUBJECT": "Idee pealkirja lubatud pikkus on 1 kuni {{chars}} sümbolit.",
       "FIELD_IS_MANDATORY": "Kohustuslik väli",
+      "RESIDENCE_VALUE_PREFIX": "Other: ",
+      "GENDER_VALUE_PREFIX": "Other: ",
       "MSG_ERROR_DESCRIPTION": "Idee kirjelduse pikkus peab olema on 1 kuni {{chars}} sümbolit."
     },
     "ADD_IDEA_FOLDER": {
