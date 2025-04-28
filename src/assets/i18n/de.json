@@ -137,6 +137,8 @@
       "MSG_SUCCESS": "Idee erfolgreich veröffentlicht",
       "MSG_ERROR_SUBJECT": "Ideenüberschrift muss 1 bis {{chars}} Zeichen lang sein.",
       "FIELD_IS_MANDATORY": "Field is mandatory",
+      "RESIDENCE_VALUE_PREFIX": "Other: ",
+      "GENDER_VALUE_PREFIX": "Other: ",
       "MSG_ERROR_DESCRIPTION": "Ideenbeschreibung muss 1 bis {{chars}} Zeichen lang sein."
     },
     "ADD_IDEA_FOLDER": {
