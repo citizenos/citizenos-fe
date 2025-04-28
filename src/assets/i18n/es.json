@@ -137,6 +137,8 @@
       "MSG_SUCCESS": "Idea publicada correctamente",
       "MSG_ERROR_SUBJECT": "El título de la idea debe tener entre 1 y {{chars}} caracteres.",
       "FIELD_IS_MANDATORY": "Este campo es obligatorio",
+      "RESIDENCE_VALUE_PREFIX": "Other: ",
+      "GENDER_VALUE_PREFIX": "Other: ",
       "MSG_ERROR_DESCRIPTION": "La descripción de la idea debe tener entre 1 y {{chars}} caracteres."
     },
     "ADD_IDEA_FOLDER": {
