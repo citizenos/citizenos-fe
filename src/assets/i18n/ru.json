@@ -137,6 +137,8 @@
       "MSG_SUCCESS": "Идея успешно опубликована",
       "MSG_ERROR_SUBJECT": "Заголовок идеи должен быть длиной от 1 до {{chars}} символов.",
       "FIELD_IS_MANDATORY": "Поле является обязательным",
+      "RESIDENCE_VALUE_PREFIX": "Other: ",
+      "GENDER_VALUE_PREFIX": "Other: ",
       "MSG_ERROR_DESCRIPTION": "Содержание идеи должно быть длиной от 1 до {{chars}} символов."
     },
     "ADD_IDEA_FOLDER": {
