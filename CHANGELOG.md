@@ -1,3 +1,5 @@
+## 2025-04-21 - v1.3.6
+  * Fix: Issue #2081 - fix demographics-prefix
 ## 2025-04-21 - v1.3.5
   * Fix: Issue #2038 - IDEAS: Autosaving drafts
   * Fix: Issue #2081 - IDEAS: Include both 'Other' and users open text field input in the CSV download
