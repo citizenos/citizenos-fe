@@ -137,6 +137,8 @@
       "MSG_SUCCESS": "Nápad úspešne zverejnený",
       "MSG_ERROR_SUBJECT": "Titulok nápadu musí mať dĺžku od 1 do {{chars}} znakov.",
       "FIELD_IS_MANDATORY": "Field is mandatory",
+      "RESIDENCE_VALUE_PREFIX": "Other: ",
+      "GENDER_VALUE_PREFIX": "Other: ",
       "MSG_ERROR_DESCRIPTION": "Popis nápadu musí mať dĺžku od 1 do {{chars}} znakov."
     },
     "ADD_IDEA_FOLDER": {
