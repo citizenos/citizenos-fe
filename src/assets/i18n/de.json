@@ -472,6 +472,7 @@
       "OPTION_ADD_TO_FOLDER": "Zum Ordner hinzufügen",
       "OPTION_REPORT": "An Administrator melden",
       "OPTION_REMOVE": "Idee entfernen",
+      "UNTITLED_IDEA": "Untitled idea",
       "DRAFT_UPDATED_AT": "Last updated: {{date}}",
       "REPLIES": "{{count}} Antworten",
       "NOTIFICATION_TITLE": "Diese Idee wurde von einem Moderator ausgeblendet",
