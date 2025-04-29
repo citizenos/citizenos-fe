@@ -472,6 +472,7 @@
       "OPTION_ADD_TO_FOLDER": "Pridať do priečinka",
       "OPTION_REPORT": "Nahlásiť adminovi",
       "OPTION_REMOVE": "Odstrániť nápad",
+      "UNTITLED_IDEA": "Untitled idea",
       "DRAFT_UPDATED_AT": "Last updated: {{date}}",
       "REPLIES": "Odpovede: {{count}}",
       "NOTIFICATION_TITLE": "Nápad bol skrytý moderátorom",
