@@ -223,33 +223,49 @@ export class AddIdeaComponent {
   }
 
   updateText(text: any) {
-    this.ideaForm.controls['description'].markAsUntouched();
-    this.ideaForm.controls['description'].setValue(text);
-
-    if (text && text.trim().length > 0) {
-      if (!this.autosaveSubscription || this.autosaveSubscription.closed) {
-        this.startAutosave();
+    /**
+     * Quick fix for the editor to not fire updateText
+     * when the editor is opened and the text is empty.
+     * 
+     * @todo: Think of a better way to handle this.
+     */
+    if (this.app.addIdea.value) {
+      this.ideaForm.controls['description'].markAsUntouched();
+      this.ideaForm.controls['description'].setValue(text);
+  
+      if (text && text.trim().length > 0) {
+        if (!this.autosaveSubscription || this.autosaveSubscription.closed) {
+          this.startAutosave();
+        }
       }
     }
   }
 
   ngModelChange(key: string, value: number | string | null) {
-    this.ideaForm.controls[key].markAsUntouched();
+    /**
+     * Quick fix for the editor to not fire updateText
+     * when the editor is opened and the text is empty.
+     * 
+     * @todo: Think of a better way to handle this.
+     */
+    if (this.app.addIdea.value) {
+      this.ideaForm.controls[key].markAsUntouched();
 
-    if (
-      key === 'statement' &&
-      value &&
-      value.toString().trim().length > 0 &&
-      (!this.autosaveSubscription || this.autosaveSubscription.closed)
-    ) {
-      this.startAutosave();
-    }
+      if (
+        key === 'statement' &&
+        value &&
+        value.toString().trim().length > 0 &&
+        (!this.autosaveSubscription || this.autosaveSubscription.closed)
+      ) {
+        this.startAutosave();
+      }
 
-    if (value !== null && key === 'demographics_age') {
-      if ((value as number) > this.AGE_LIMIT) {
-        this.ideaForm.controls[key].setValue(this.AGE_LIMIT);
-      } else if ((value as number) < 0) {
-        this.ideaForm.controls[key].setValue(0);
+      if (value !== null && key === 'demographics_age') {
+        if ((value as number) > this.AGE_LIMIT) {
+          this.ideaForm.controls[key].setValue(this.AGE_LIMIT);
+        } else if ((value as number) < 0) {
+          this.ideaForm.controls[key].setValue(0);
+        }
       }
     }
   }
