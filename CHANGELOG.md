@@ -1,4 +1,10 @@
-## 2025-04-29 - v1.3.5
+## 2025-04-29 - v1.3.7
+  * Fix: Revert #2038 - IDEAS: Autosaving drafts
+
+## 2025-04-21 - v1.3.6
+  * Fix: Issue #2081 - fix demographics-prefix
+## 2025-04-21 - v1.3.5
+  * Fix: Issue #2038 - IDEAS: Autosaving drafts
   * Fix: Issue #2081 - IDEAS: Include both 'Other' and users open text field input in the CSV download
   * Fix: Issue #2216 - LOGIN: Communicate that password reset code expires after 1 hour
   * Fix: Issue #2218 - TOPICS: Error 'Not found' when entering topics in live
