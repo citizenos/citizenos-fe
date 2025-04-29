@@ -1,3 +1,9 @@
+## 2025-04-29 - v1.3.5
+  * Fix: Issue #2081 - IDEAS: Include both 'Other' and users open text field input in the CSV download
+  * Fix: Issue #2216 - LOGIN: Communicate that password reset code expires after 1 hour
+  * Fix: Issue #2218 - TOPICS: Error 'Not found' when entering topics in live
+  * Fix: Issue #2222 - MODERATION: Page crashes for topic admin and platform moderator
+
 ## 2025-04-21 - v1.3.4
   * Fix: Issue #1811 - MOBILE: In iOS the reaction button for ideas is too small
   * Fix: Issue #1861 - ID VOTING: User got a 500 error when digitally signing
