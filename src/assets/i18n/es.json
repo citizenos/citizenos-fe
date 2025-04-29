@@ -472,6 +472,7 @@
       "OPTION_ADD_TO_FOLDER": "Añadir a carpeta",
       "OPTION_REPORT": "Denunciar al admin",
       "OPTION_REMOVE": "Eliminar idea",
+      "UNTITLED_IDEA": "Untitled idea",
       "DRAFT_UPDATED_AT": "Última actualización: {{date}}",
       "REPLIES": "{{count}} respuestas",
       "NOTIFICATION_TITLE": "Esta idea fue oculta por un moderador",
