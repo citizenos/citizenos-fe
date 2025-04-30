@@ -110,6 +110,7 @@ export class IdeaboxComponent implements AfterViewInit {
     if (this.showEdit) { // Visible, so we gonna hide, need to clear form errors
       this.errors = [];
     }
+    this.App.editIdea.next(!this.App.editIdea.value)
     this.showEdit = !this.showEdit;
   };
 
