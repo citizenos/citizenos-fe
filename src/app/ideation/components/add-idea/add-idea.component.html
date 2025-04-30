@@ -25,7 +25,7 @@
             <div class="content_description" translate="COMPONENTS.ADD_IDEA.TOOLTIP_ANONYMOUS_DESCRIPTION"></div>
           </div>
         </div>
-        <button class="form_header_expand_button" (click)="toggleExpand = !toggleExpand"
+        <button class="form_header_expand_button mobile_hidden" (click)="toggleExpand = !toggleExpand"
           [attr.aria-expanded]="toggleExpand">
           <svg class="form_header_expand_icon" [ngClass]="{ rotated: toggleExpand }" width="24" height="24"
             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
