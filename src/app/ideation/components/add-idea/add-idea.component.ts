@@ -80,6 +80,7 @@ export class AddIdeaComponent {
   newImages = <any[]>[];
   topicAttachments$ = of(<Attachment[] | any[]>[]);
   attachments = <any[]>[];
+  toggleExpand = false;
 
   wWidth = window.innerWidth;
   focusIdeaStatement = false;
