@@ -209,7 +209,7 @@
     </div>
   </div>
   <a class="idea_content" (click)="(!idea.report.id)? goToView(): ''">
-    <div class="statement" [innerHTML]="idea.statement"></div>
+    <div class="statement" [innerHTML]="idea.statement || 'COMPONENTS.IDEABOX.UNTITLED_IDEA' | translate"></div>
     <!--button class="btn_like_wrap" [ngClass]="{selected: this.idea.votes.up.selected, disabled: !canVote()}" (click)="$event.preventDefault();$event.stopPropagation();doIdeaVote(1);">
       <div class="btn_medium_plain btn_like">
         <div class="icon">
