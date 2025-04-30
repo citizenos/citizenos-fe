@@ -160,6 +160,36 @@
     }
   }
 
+  .form_header_actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  .form_header_expand_button {
+    background-color: var(--color-surface-contrast);
+    border-radius: 8px;
+    padding: 8px 12px;
+    gap: 5px;
+    min-width: 120px;
+  }
+
+  .form_header_expand_icon {
+    transition: transform 0.3s ease;
+  }
+
+  .form_header_expand_icon.rotated {
+    transform: rotate(180deg);
+  }
+
+  .form_header_expand_icon {
+    font-family: "Noto Sans";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 16px;
+    color: var(--color-text);
+  }
+
   #subject_counter {
     @include mixins.mobile {
       display: none;
@@ -170,7 +200,24 @@
     gap: 16px;
     flex-direction: column;
   }
+
+  &.expanded {
+    #idea_form {
+      display: flex;
+      flex-direction: column;
+      flex: 1 1 auto;
+      height: calc(100vh - 200px);
+
+      > div:not(.form_header) {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+    }
+  }
 }
+
 .overlay {
   background-color: rgba(44, 59, 71, 0.6);
 }
@@ -294,4 +341,17 @@
   .error_label {
     margin-top: 0;
   }
+}
+
+::ng-deep textarea.expanded + .EasyMDEContainer {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+::ng-deep textarea.expanded + .EasyMDEContainer .CodeMirror {
+  flex: 1 1 auto;
+  height: 100%;
+  min-height: 0;
 }
