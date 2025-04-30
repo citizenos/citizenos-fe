@@ -14,7 +14,6 @@ import { Ideation } from '@interfaces/ideation';
 import { MarkdownDirective } from 'src/app/directives/markdown.directive';
 import { DialogService } from '@shared/dialog';
 import { AnonymousDialogComponent } from '../anonymous-dialog/anonymous-dialog.component';
-import { AnonymousDraftDialogComponent } from '../anonymous-draft-dialog/anonymous-draft-dialog.component';
 
 import { trigger, state, style } from '@angular/animations';
 import {
@@ -33,7 +32,15 @@ import {
 } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { take, map, takeWhile, of, lastValueFrom } from 'rxjs';
+import {
+  take,
+  map,
+  takeWhile,
+  of,
+  lastValueFrom,
+  Subscription,
+  interval,
+} from 'rxjs';
 import { CloseWithoutSavingDialogComponent } from '../close-without-saving-dialog/close-without-saving-dialog.component';
 import { municipalities } from '@services/municipalitiy.service';
 import { LocationService } from '@services/location.service';
@@ -81,6 +88,10 @@ export class AddIdeaComponent {
   topicAttachments$ = of(<Attachment[] | any[]>[]);
   attachments = <any[]>[];
 
+  autosavedIdea: Idea | null = null;
+  isAutosaving = false;
+
+  isPublished = false;
   wWidth = window.innerWidth;
   focusIdeaStatement = false;
   argumentType = 'pro';
@@ -130,6 +141,14 @@ export class AddIdeaComponent {
   IMAGE_LIMIT = 10;
   IDEA_STATEMENT_MAXLENGTH = 1024;
   private readonly IDEA_VERSION_SEPARATOR = '_v';
+  private readonly AUTOSAVE_TIME = 15000;
+  // Delay for the autosave notification to hide
+  // after the autosave is completed
+  // to avoid jumping of the notification
+  private readonly AUTOSAVE_HIDE_DELAY = 2000;
+
+  private autosaveSubscription?: Subscription;
+
   constructor(
     public app: AppService,
     private readonly AuthService: AuthService,
@@ -148,8 +167,6 @@ export class AddIdeaComponent {
   ) {
     this.addIdea = this.app.addIdea.pipe(
       map((val) => {
-        this.description = this.initialValue;
-        this.ideaForm.reset();
         this.newImages = [];
         this.images = [];
         return val;
@@ -161,6 +178,13 @@ export class AddIdeaComponent {
     this.initialValue = this.ideation.template || '';
     this.IdeaAttachmentService.setParam('topicId', this.topicId);
     this.IdeaAttachmentService.setParam('ideationId', this.ideationId);
+  }
+
+  ngOnDestroy(): void {
+    if (this.autosaveSubscription && !this.autosaveSubscription.closed) {
+      this.autosaveSubscription.unsubscribe();
+      this.TopicIdeaService.reload();
+    }
   }
 
   get isStatementValid() {
@@ -191,19 +215,49 @@ export class AddIdeaComponent {
     return 0;
   }
 
+  startAutosave(): void {
+    this.autosaveSubscription = interval(this.AUTOSAVE_TIME).subscribe(() => {
+      this.saveIdea(IdeaStatus.draft, true);
+    });
+  }
+
   updateText(text: any) {
+    const prevValue = this.ideaForm.controls['description'].value;
     this.ideaForm.controls['description'].markAsUntouched();
     this.ideaForm.controls['description'].setValue(text);
+
+    if (this.app.addIdea.value || this.app.editIdea.value) {
+      const isValueChanged = text && prevValue && text !== prevValue;
+      const isNotSubscribed = !this.autosaveSubscription || this.autosaveSubscription.closed
+  
+      if (isValueChanged && isNotSubscribed && !this.isPublished) {
+        this.startAutosave();
+      }
+    }
   }
 
   ngModelChange(key: string, value: number | string | null) {
-    this.ideaForm.controls[key].markAsUntouched();
+    if (this.app.addIdea.value || this.app.editIdea.value) {
+      this.ideaForm.controls[key].markAsUntouched();
 
-    if (value !== null && key === 'demographics_age') {
-      if ((value as number) > this.AGE_LIMIT) {
-        this.ideaForm.controls[key].setValue(this.AGE_LIMIT);
-      } else if ((value as number) < 0) {
-        this.ideaForm.controls[key].setValue(0);
+      const isNotSubscribed = !this.autosaveSubscription || this.autosaveSubscription.closed
+
+      if (
+        key === 'statement' &&
+        value &&
+        value.toString().trim().length > 0 &&
+        isNotSubscribed &&
+        !this.isPublished
+      ) {
+        this.startAutosave();
+      }
+
+      if (value !== null && key === 'demographics_age') {
+        if ((value as number) > this.AGE_LIMIT) {
+          this.ideaForm.controls[key].setValue(this.AGE_LIMIT);
+        } else if ((value as number) < 0) {
+          this.ideaForm.controls[key].setValue(0);
+        }
       }
     }
   }
@@ -222,7 +276,9 @@ export class AddIdeaComponent {
 
   addNewIdea() {
     if (!this.loggedIn()) {
-      const redirectSuccess = this.Location.getAbsoluteUrl(window.location.pathname) + window.location.search
+      const redirectSuccess =
+        this.Location.getAbsoluteUrl(window.location.pathname) +
+        window.location.search;
       this.app.doShowLogin(redirectSuccess);
     } else {
       this.app.addIdea.next(true);
@@ -273,9 +329,16 @@ export class AddIdeaComponent {
       this.ideaForm.controls['description'].markAsUntouched();
       this.ideaForm.markAsUntouched();
     });
+
+    if (this.autosaveSubscription && !this.autosaveSubscription.closed) {
+      this.autosaveSubscription.unsubscribe();
+      this.TopicIdeaService.reload();
+      this.autosavedIdea = null;
+    }
   }
 
   validateRequiredFieldsForPublish() {
+    this.ideaForm.controls['statement'].markAsTouched();
     this.ideaForm.controls['description'].markAsTouched();
     this.ideaForm.controls['demographics_age'].markAsTouched();
     this.ideaForm.controls['demographics_gender'].markAsTouched();
@@ -289,17 +352,7 @@ export class AddIdeaComponent {
     }
   }
 
-  resetRequiredFieldsForPublish() {
-    this.ideaForm.controls['description'].markAsUntouched();
-    this.ideaForm.controls['demographics_age'].markAsUntouched();
-    this.ideaForm.controls['demographics_gender'].markAsUntouched();
-    this.ideaForm.controls['demographics_residence'].markAsUntouched();
-    this.filtersData.residence.error = false;
-    this.filtersData.gender.error = false;
-  }
-
   postIdea(status?: IdeaStatus) {
-    this.ideaForm.controls['statement'].markAsTouched();
     this.validateRequiredFieldsForPublish();
 
     if (this.ideaForm.valid) {
@@ -323,35 +376,18 @@ export class AddIdeaComponent {
     return Object.keys(this.ideation.demographicsConfig || {});
   }
 
-  draftIdea() {
-    this.ideaForm.controls['statement'].markAsTouched();
-    this.resetRequiredFieldsForPublish();
+  deleteDraftIdea(_idea: Partial<Idea>) {
+    if (_idea) {
+      const idea = {
+        topicId: this.topicId,
+        ideaId: _idea.id,
+        ideationId: _idea.ideationId,
+      };
 
-    if (this.isStatementValid) {
-      if (this.ideation.allowAnonymous) {
-        const isDemographicsRequested =
-          this.ideaForm.controls['demographics_age'].value ||
-          this.ideaForm.controls['demographics_gender'].value ||
-          this.ideaForm.controls['demographics_residence'].value;
-
-        if (isDemographicsRequested) {
-          const invitationDialog = this.dialog.open(
-            AnonymousDraftDialogComponent
-          );
-
-          invitationDialog.afterClosed().subscribe({
-            next: (res) => {
-              if (res) {
-                this.saveIdea(IdeaStatus.draft);
-              }
-            },
-          });
-        } else {
-          this.saveIdea(IdeaStatus.draft);
-        }
-      } else {
-        this.saveIdea(IdeaStatus.draft);
-      }
+      this.TopicIdeaService.delete(idea).subscribe(() => {
+        this.app.addIdea.next(false);
+        this.clear();
+      });
     }
   }
 
@@ -419,20 +455,27 @@ export class AddIdeaComponent {
     );
   }
 
-  saveIdea(status?: IdeaStatus) {
+  saveIdea(status: IdeaStatus | undefined, isAutosave = false) {
     /**
      * @todo Fix types for ideaData.
      */
-    const ideaData: Partial<Idea> & { parentVersion: number; topicId: string } =
-      {
-        parentVersion: 0,
-        statement: this.ideaForm.value['statement'],
-        description: this.ideaForm.value['description'],
-        topicId: this.topicId,
-        status: status,
-        ideationId: this.ideation.id,
-        demographics: this.getDemographicValues(),
-      };
+    const ideaData: Partial<Idea> & {
+      parentVersion: number;
+      topicId: string;
+      ideaId?: string;
+    } = {
+      ...(this.autosavedIdea && {
+        ideaId: this.autosavedIdea.id,
+        ideationId: this.autosavedIdea.ideationId,
+      }),
+      parentVersion: 0,
+      statement: this.ideaForm.controls['statement'].value,
+      description: this.ideaForm.controls['description'].value,
+      topicId: this.topicId,
+      status: status,
+      ideationId: this.ideation.id,
+      demographics: this.getDemographicValues(),
+    };
 
     /**
      * @note Description is not nullable in DB and to avoid updateing DB field,
@@ -440,21 +483,65 @@ export class AddIdeaComponent {
      *
      * @see https://github.com/citizenos/citizenos-fe/issues/1954
      */
-    if (status === IdeaStatus.draft && !this.ideaForm.value['description']) {
-      ideaData.description = '';
+    if (status === IdeaStatus.draft) {
+      if (!this.ideaForm.value['description']) {
+        ideaData.description = '';
+      }
+      if (!this.ideaForm.value['statement']) {
+        ideaData.statement = '';
+      }
     }
 
-    this.TopicIdeaService.save(ideaData)
-      .pipe(take(1))
-      .subscribe({
+    if (isAutosave) {
+      this.isAutosaving = true;
+    }
+
+    if (this.autosavedIdea) {
+      this.TopicIdeaService.update(ideaData).subscribe({
         next: (idea) => {
-          this.afterPost(idea);
+          if (isAutosave) {
+            this.autosavedIdea = idea;
+
+            setTimeout(() => {
+              this.isAutosaving = false;
+            }, this.AUTOSAVE_HIDE_DELAY);
+          } else {
+            this.afterPost(idea);
+          }
         },
         error: (err) => {
           console.error(err);
-          this.errors = err;
+          
+          setTimeout(() => {
+            this.isAutosaving = false;
+          }, this.AUTOSAVE_HIDE_DELAY);
         },
       });
+    } else {
+      this.TopicIdeaService.save(ideaData)
+        .pipe(take(1))
+        .subscribe({
+          next: (idea) => {
+            if (isAutosave) {
+              this.autosavedIdea = idea;
+
+              setTimeout(() => {
+                this.isAutosaving = false;
+              }, this.AUTOSAVE_HIDE_DELAY);
+            } else {
+              this.afterPost(idea);
+            }
+          },
+          error: (err) => {
+            console.error(err);
+            this.errors = err;
+
+            setTimeout(() => {
+              this.isAutosaving = false;
+            }, this.AUTOSAVE_HIDE_DELAY);
+          },
+        });
+    }
   }
 
   getIdeaIdWithVersion(ideaId: string, version: number) {
@@ -532,20 +619,21 @@ export class AddIdeaComponent {
           { topicId: this.topicId, ideationId: this.ideation.id, ideaId },
           image,
           { name: image.name }
-        )
-          .pipe(takeWhile((e) => !e.link, true))
+        ).pipe(takeWhile((e) => !e.link, true));
 
         try {
-          const uploadedImage = await lastValueFrom(uploadIdeaImage)
+          const uploadedImage = await lastValueFrom(uploadIdeaImage);
           uploadedImages.push(uploadedImage);
         } catch (error) {
-          errorsCounter++
+          errorsCounter++;
         }
       }
     }
     if (errorsCounter > 0) {
       this.Notification.addError(
-        this.translate.instant('MSG_ERROR_POST_API_USERS_TOPICS_IDEATIONS_IDEAS_IMAGE_UPLOAD_500')
+        this.translate.instant(
+          'MSG_ERROR_POST_API_USERS_TOPICS_IDEATIONS_IDEAS_IMAGE_UPLOAD_500'
+        )
       );
     }
     this.imageService.setLoading(false);
