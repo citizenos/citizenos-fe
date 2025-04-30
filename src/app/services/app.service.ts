@@ -35,6 +35,7 @@ export class AppService {
   showActivities = false;
   searchAllowed = true;
   addArgument = new BehaviorSubject(false);
+  editIdea = new BehaviorSubject(false);
   addIdea = new BehaviorSubject(false);
   showSearchResults = false;
   showSearchFiltersMobile = false; //remove after UI update
