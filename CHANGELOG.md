@@ -1,3 +1,6 @@
+## 2025-05-01 - v1.3.8
+  * Feature: #2038 - IDEAS: Autosaving drafts
+
 ## 2025-04-29 - v1.3.7
   * Fix: Revert #2038 - IDEAS: Autosaving drafts
 
