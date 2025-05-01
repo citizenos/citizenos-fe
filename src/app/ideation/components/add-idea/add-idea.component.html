@@ -26,26 +26,19 @@
               </div>
               <span class="bold loader_text">{{
                 "COMPONENTS.IDEA_DIALOG.AUTOSAVING" | translate
-              }}</span>
+                }}</span>
             </div>
           </div>
         </div>
       </div>
 
-      <div
-        *ngIf="ideation.allowAnonymous"
-        id="anonymous_info_wrap"
-        translate="COMPONENTS.ADD_IDEA.FOOTER_FORM_ANONYMOUS_INFO"
-      >
-        <div class="tooltip" tooltip>
-          <div
-            class="content_title"
-            translate="COMPONENTS.ADD_IDEA.TOOLTIP_ANONYMOUS_TITLE"
-          ></div>
-          <div
-            class="content_description"
-            translate="COMPONENTS.ADD_IDEA.TOOLTIP_ANONYMOUS_DESCRIPTION"
-          ></div>
+      <div class="form_header_actions">
+        <div *ngIf="ideation.allowAnonymous" id="anonymous_info_wrap"
+          translate="COMPONENTS.ADD_IDEA.FOOTER_FORM_ANONYMOUS_INFO">
+          <div class="tooltip" tooltip>
+            <div class="content_title" translate="COMPONENTS.ADD_IDEA.TOOLTIP_ANONYMOUS_TITLE"></div>
+            <div class="content_description" translate="COMPONENTS.ADD_IDEA.TOOLTIP_ANONYMOUS_DESCRIPTION"></div>
+          </div>
         </div>
         <button class="form_header_expand_button" (click)="toggleExpand = !toggleExpand"
           [attr.aria-expanded]="toggleExpand">
@@ -60,6 +53,7 @@
             "></span>
         </button>
       </div>
+
       <div id="close_mobile" class="mobile_show">
         <button class="btn_small_close icon close_button mobile_show" (click)="close()">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -111,27 +105,20 @@
                         error_input: filtersData['residence'].error
                       }">
                       <div class="selected_item">
-                        <span
-                          *ngIf="!filtersData['residence'].selectedValue"
-                          class="selected_item_placeholder"
-                          >{{
-                            "VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_" + key
-                              | uppercase
-                              | translate
-                          }}</span
-                        >
-                        <span
-                          *ngIf="
+                        <span *ngIf="!filtersData['residence'].selectedValue" class="selected_item_placeholder">{{
+                          "VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_" + key
+                          | uppercase
+                          | translate
+                          }}</span>
+                        <span *ngIf="
                             filtersData['residence'].selectedValue !== 'other';
                             else other_option
-                          "
-                          >{{ filtersData["residence"].selectedValue }}</span
-                        >
+                          ">{{ filtersData["residence"].selectedValue }}</span>
                         <ng-template #other_option>
                           <span>{{
                             "VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_RESIDENCE_OTHER"
-                              | translate
-                          }}</span>
+                            | translate
+                            }}</span>
                         </ng-template>
                       </div>
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -145,14 +132,11 @@
                         </div>
                       </ng-container>
                       <hr class="options_line" />
-                      <div
-                        class="option"
-                        (click)="setFilterValue('residence', 'other')"
-                      >
+                      <div class="option" (click)="setFilterValue('residence', 'other')">
                         <span>{{
                           "VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_RESIDENCE_OTHER"
-                            | translate
-                        }}</span>
+                          | translate
+                          }}</span>
                       </div>
                     </div>
                   </div>
@@ -162,13 +146,9 @@
                     [(ngModel)]="ideation.demographicsConfig![key].value" autocomplete="off" placeholder="{{
                       'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_RESIDENCE_PLACEHOLDER'
                         | translate
-                    }}"
-                    class="gray_borders"
-                    (ngModelChange)="
+                    }}" class="gray_borders" (ngModelChange)="
                       ngModelChange('demographics_' + key, $event)
-                    "
-                    (blur)="ngModelBlur('demographics_' + key)"
-                  />
+                    " (blur)="ngModelBlur('demographics_' + key)" />
 
                   <label [for]="'demographics_' + key" class="error_label" *ngIf="filtersData['residence'].error">
                     <span class="error_text" translate="COMPONENTS.ADD_IDEA.FIELD_IS_MANDATORY"></span>
@@ -339,45 +319,21 @@
   </div>
   <div id="buttons_row">
     <div id="navigate_create">
-      <button
-        class="btn_medium_submit_ghost icon close_button"
-        (click)="close()"
-      >
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+      <button class="btn_medium_submit_ghost icon close_button" (click)="close()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M5.29311 17.2929C4.90258 17.6834 4.90258 18.3166 5.29311 18.7071C5.68363 19.0976 6.3168 19.0976 6.70732 18.7071L12.0002 13.4142L17.2931 18.7071C17.6836 19.0976 18.3168 19.0976 18.7073 18.7071C19.0978 18.3166 19.0978 17.6834 18.7073 17.2929L13.4144 12L18.7073 6.70711C19.0978 6.31658 19.0978 5.68342 18.7073 5.29289C18.3168 4.90237 17.6836 4.90237 17.2931 5.29289L12.0002 10.5858L6.70732 5.29289C6.3168 4.90237 5.68363 4.90237 5.29311 5.29289C4.90258 5.68342 4.90258 6.31658 5.29311 6.70711L10.586 12L5.29311 17.2929Z"
             fill="#2C3B47" />
         </svg>
       </button>
       <div class="btn_medium_wrapper" *ngIf="!!autosavedIdea">
-        <button
-          class="option error_text btn_medium_error"
-          (click)="deleteDraftIdea(autosavedIdea)"
-        >
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 16 16"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
+        <button class="option error_text btn_medium_error" (click)="deleteDraftIdea(autosavedIdea)">
+          <svg width="24" height="24" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
               d="M10 3H6V4H10V3ZM11 4V3C11 2.44772 10.5523 2 10 2H6C5.44772 2 5 2.44772 5 3V4H4H2.5C2.22386 4 2 4.22386 2 4.5C2 4.77614 2.22386 5 2.5 5H4V13C4 13.5523 4.44772 14 5 14H11C11.5523 14 12 13.5523 12 13V5H13.5C13.7761 5 14 4.77614 14 4.5C14 4.22386 13.7761 4 13.5 4H12H11ZM7 7H6V11H7V7ZM10 7H9V11H10V7Z"
-              fill="#2C3B47"
-            />
+              fill="#2C3B47" />
           </svg>
-          <span
-            class="btn_text"
-            translate="COMPONENTS.ADD_IDEA.BTN_DELETE_DRAFT"
-          ></span>
+          <span class="btn_text" translate="COMPONENTS.ADD_IDEA.BTN_DELETE_DRAFT"></span>
         </button>
       </div>
     </div>
