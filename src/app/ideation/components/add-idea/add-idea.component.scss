@@ -91,12 +91,31 @@
     align-items: center;
 
     @include mixins.mobile {
+      flex-direction: column;
+      gap: 8px;
+
+      #navigate_create:first-child {
+        order: 2;
+
+        .btn_medium_wrapper {
+          width: 100%;
+          padding-top: 16px;
+          margin-top: 8px;
+          border-top: 1px solid var(--color-border);
+        }
+      }
+
+      #navigate_create:last-child {
+        order: 1;
+      }
+
       .close_button {
         display: none;
       }
       .btn_medium_secondary,
       .btn_medium_submit,
-      .btn_medium_submit_ghost {
+      .btn_medium_submit_ghost,
+      .btn_medium_error {
         width: 100%;
       }
     }
@@ -256,6 +275,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  .form_header_title {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
 }
 #anonymous_info_wrap {
   display: flex;
