@@ -137,7 +137,7 @@ export class TopicIdeationComponent {
 
           if (age || gender || residence) {
             this.TopicIdeaService.setParam('demographics', JSON.stringify({
-              ...(age && { age }),
+              ...(age && { age: age.toString() }),
               ...(gender && { gender }),
               ...(residence && { residence })
             }));
