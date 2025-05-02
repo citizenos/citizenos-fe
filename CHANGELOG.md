@@ -1,3 +1,7 @@
+## 2025-06-19 - v1.3.10
+  * Fix: Issue FE #2302: IDEAS: Allow users to select multiple ages in age filter
+  * Fix: Issue FE #2034: IDEAS: Add filters for demographic data
+
 ## 2025-06-18 - v1.3.9
   * Fix: Issue #1487 - SEARCH: Add 'No results found" message to search, and signpost to Help
   * Fix: Issue #1490 - TOPICS: 'Read more' button not as it should look - text pokes out underneath and margins too big
