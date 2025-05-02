@@ -42,6 +42,7 @@ export class TopicIdeaService extends ItemsListService {
     showModerated: <boolean | string | null>null,
     favourite: <boolean | string | null>null,
     limit: <number>15,
+    demographics: <null>null,
   };
 
   params$ = new BehaviorSubject(this.params);
