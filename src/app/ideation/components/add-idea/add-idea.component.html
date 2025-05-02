@@ -1,39 +1,20 @@
 <div id="create_idea_tablet_btn">
   <button class="btn_big_submit" (click)="addNewIdea()">
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M13.2214 6.27776L17.722 10.7785L7.9492 20.5518L3.93657 20.9948C3.39939 21.0542 2.94554 20.5999 3.0053 20.0627L3.45178 16.0471L13.2214 6.27776ZM20.5056 5.60767L18.3924 3.49439C17.7333 2.8352 16.6642 2.8352 16.005 3.49439L14.017 5.48251L18.5176 9.98329L20.5056 7.99517C21.1648 7.33563 21.1648 6.26686 20.5056 5.60767Z"
-        fill="white"
-      />
+        fill="white" />
     </svg>
   </button>
 </div>
-<div
-  id="create_idea_footer_menu"
-  [@openSlide]="(app.addIdea | async) ? 'closed' : 'open'"
->
-  <div
-    class="footer_title"
-    translate="COMPONENTS.ADD_IDEA.FOOTER_MENU_TITLE"
-  ></div>
+<div id="create_idea_footer_menu" [@openSlide]="(app.addIdea | async) ? 'closed' : 'open'">
+  <div class="footer_title" translate="COMPONENTS.ADD_IDEA.FOOTER_MENU_TITLE"></div>
   <button class="btn_medium_submit" (click)="addNewIdea()">
-    <span
-      class="btn_text"
-      translate="COMPONENTS.ADD_IDEA.FOOTER_MENU_BTN_ADD_IDEA"
-    ></span>
+    <span class="btn_text" translate="COMPONENTS.ADD_IDEA.FOOTER_MENU_BTN_ADD_IDEA"></span>
   </button>
 </div>
-<div
-  id="create_idea_footer"
-  [@openSlide]="(app.addIdea | async) ? 'open' : 'closed'"
->
-  <div id="post_idea_form_wrap">
+<div id="create_idea_footer" [@openSlide]="(app.addIdea | async) ? 'open' : 'closed'">
+  <div id="post_idea_form_wrap" [class.expanded]="toggleExpand">
     <div class="form_header">
       <div class="form_header_title">
         <span translate="COMPONENTS.ADD_IDEA.FOOTER_FORM_TITLE"></span>
@@ -45,261 +26,163 @@
               </div>
               <span class="bold loader_text">{{
                 "COMPONENTS.IDEA_DIALOG.AUTOSAVING" | translate
-              }}</span>
+                }}</span>
             </div>
           </div>
         </div>
       </div>
 
-      <div
-        *ngIf="ideation.allowAnonymous"
-        id="anonymous_info_wrap"
-        translate="COMPONENTS.ADD_IDEA.FOOTER_FORM_ANONYMOUS_INFO"
-      >
-        <div class="tooltip" tooltip>
-          <div
-            class="content_title"
-            translate="COMPONENTS.ADD_IDEA.TOOLTIP_ANONYMOUS_TITLE"
-          ></div>
-          <div
-            class="content_description"
-            translate="COMPONENTS.ADD_IDEA.TOOLTIP_ANONYMOUS_DESCRIPTION"
-          ></div>
+      <div class="form_header_actions">
+        <div *ngIf="ideation.allowAnonymous" id="anonymous_info_wrap"
+          translate="COMPONENTS.ADD_IDEA.FOOTER_FORM_ANONYMOUS_INFO">
+          <div class="tooltip" tooltip>
+            <div class="content_title" translate="COMPONENTS.ADD_IDEA.TOOLTIP_ANONYMOUS_TITLE"></div>
+            <div class="content_description" translate="COMPONENTS.ADD_IDEA.TOOLTIP_ANONYMOUS_DESCRIPTION"></div>
+          </div>
         </div>
+        <button class="form_header_expand_button mobile_hidden" (click)="toggleExpand = !toggleExpand"
+          [attr.aria-expanded]="toggleExpand">
+          <svg class="form_header_expand_icon" [ngClass]="{ rotated: toggleExpand }" width="24" height="24"
+            viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17 15L12 10L7 15" stroke="#2C3B47" stroke-width="2" stroke-linecap="round"></path>
+          </svg>
+          <span class="form_header_expand_text" [translate]="
+            toggleExpand
+              ? 'COMPONENTS.ADD_IDEA.BTN_COLLAPSE'
+              : 'COMPONENTS.ADD_IDEA.BTN_EXPAND'
+          "></span>
+        </button>
       </div>
+
       <div id="close_mobile" class="mobile_show">
-        <button
-          class="btn_small_close icon close_button mobile_show"
-          (click)="close()"
-        >
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+        <button class="btn_small_close icon close_button mobile_show" (click)="close()">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M5.29311 17.2929C4.90258 17.6834 4.90258 18.3166 5.29311 18.7071C5.68363 19.0976 6.3168 19.0976 6.70732 18.7071L12.0002 13.4142L17.2931 18.7071C17.6836 19.0976 18.3168 19.0976 18.7073 18.7071C19.0978 18.3166 19.0978 17.6834 18.7073 17.2929L13.4144 12L18.7073 6.70711C19.0978 6.31658 19.0978 5.68342 18.7073 5.29289C18.3168 4.90237 17.6836 4.90237 17.2931 5.29289L12.0002 10.5858L6.70732 5.29289C6.3168 4.90237 5.68363 4.90237 5.29311 5.29289C4.90258 5.68342 4.90258 6.31658 5.29311 6.70711L10.586 12L5.29311 17.2929Z"
-              fill="#2C3B47"
-            />
+              fill="#2C3B47" />
           </svg>
         </button>
       </div>
     </div>
 
-    <form
-      id="idea_form"
-      [attr.disabled]="!loggedIn()"
-      name="ideaForm"
-      [formGroup]="ideaForm"
-    >
-      <cos-input
-        placeholder="{{
+    <form id="idea_form" [attr.disabled]="!loggedIn()" name="ideaForm" [formGroup]="ideaForm">
+      <cos-input placeholder="{{
           'COMPONENTS.ADD_IDEA.PLACEHOLDER_ADD_STATEMENT_TO_IDEA' | translate
-        }}"
-        limit="{{
+        }}" limit="{{
           'COMPONENTS.ADD_IDEA.SUBJECT_CHARACTERS_LEFT'
             | translate
               : {
                   chars: ideaForm.value['statement']?.length || 0,
                   charsLeft: IDEA_STATEMENT_MAXLENGTH
                 }
-        }}"
-      >
-        <input
-          id="idea_statement"
-          name="statement"
-          formControlName="statement"
-          autocomplete="off"
-          placeholder="{{
+        }}">
+        <input id="idea_statement" name="statement" formControlName="statement" autocomplete="off" placeholder="{{
             'COMPONENTS.ADD_IDEA.PLACEHOLDER_ADD_STATEMENT_TO_IDEA' | translate
-          }}"
-          class="gray_borders"
-          [ngClass]="{
+          }}" class="gray_borders" [ngClass]="{
             error_input:
               ideaForm.controls['statement'].errors &&
               ideaForm.controls['statement'].errors['required'] &&
               ideaForm.controls['statement'].touched
-          }"
-          (focus)="(focusIdeaStatement)"
-          (ngModelChange)="ngModelChange('statement', $event)"
-          (blur)="ngModelBlur('statement')"
-          [attr.maxlength]="IDEA_STATEMENT_MAXLENGTH"
-          required
-        />
-        <label
-          for="idea_statement"
-          class="error_label"
-          *ngIf="
+          }" (focus)="(focusIdeaStatement)" (ngModelChange)="ngModelChange('statement', $event)"
+          (blur)="ngModelBlur('statement')" [attr.maxlength]="IDEA_STATEMENT_MAXLENGTH" required />
+        <label for="idea_statement" class="error_label" *ngIf="
             ideaForm.controls['statement'].errors &&
             ideaForm.controls['statement'].errors['required'] &&
             ideaForm.controls['statement'].touched
-          "
-        >
-          <span
-            class="error_text"
-            translate="COMPONENTS.ADD_IDEA.FIELD_IS_MANDATORY"
-          ></span>
+          ">
+          <span class="error_text" translate="COMPONENTS.ADD_IDEA.FIELD_IS_MANDATORY"></span>
         </label>
       </cos-input>
 
-      <div
-        *ngIf="ideation.allowAnonymous && getDemographicKeys().length > 0"
-        class="anonymous_info"
-      >
+      <div *ngIf="ideation.allowAnonymous && getDemographicKeys().length > 0" class="anonymous_info">
         <ng-container *ngFor="let key of getDemographicKeys()">
           <ng-container [ngSwitch]="key">
             <ng-container *ngSwitchCase="'residence'">
               <ng-container *ngIf="isCountryEstonia; else common_field">
                 <div class="gender_wrapper">
                   <div class="dropdown" [cosDropdown]>
-                    <div
-                      class="selection"
-                      [ngClass]="{
+                    <div class="selection" [ngClass]="{
                         error_input: filtersData['residence'].error
-                      }"
-                    >
+                      }">
                       <div class="selected_item">
-                        <span
-                          *ngIf="!filtersData['residence'].selectedValue"
-                          class="selected_item_placeholder"
-                          >{{
-                            "VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_" + key
-                              | uppercase
-                              | translate
-                          }}</span
-                        >
-                        <span
-                          *ngIf="
+                        <span *ngIf="!filtersData['residence'].selectedValue" class="selected_item_placeholder">{{
+                          "VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_" + key
+                          | uppercase
+                          | translate
+                          }}</span>
+                        <span *ngIf="
                             filtersData['residence'].selectedValue !== 'other';
                             else other_option
-                          "
-                          >{{ filtersData["residence"].selectedValue }}</span
-                        >
+                          ">{{ filtersData["residence"].selectedValue }}</span>
                         <ng-template #other_option>
                           <span>{{
                             "VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_RESIDENCE_OTHER"
-                              | translate
-                          }}</span>
+                            | translate
+                            }}</span>
                         </ng-template>
                       </div>
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M17 10L12 15L7 10"
-                          stroke="#2C3B47"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                        />
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
                       </svg>
                     </div>
                     <div class="options">
-                      <ng-container
-                        *ngFor="let option of filtersData['residence'].items"
-                      >
-                        <div
-                          class="option"
-                          (click)="setFilterValue('residence', option.value)"
-                        >
+                      <ng-container *ngFor="let option of filtersData['residence'].items">
+                        <div class="option" (click)="setFilterValue('residence', option.value)">
                           <span>{{ option.title }}</span>
                         </div>
                       </ng-container>
                       <hr class="options_line" />
-                      <div
-                        class="option"
-                        (click)="setFilterValue('residence', 'other')"
-                      >
+                      <div class="option" (click)="setFilterValue('residence', 'other')">
                         <span>{{
                           "VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_RESIDENCE_OTHER"
-                            | translate
-                        }}</span>
+                          | translate
+                          }}</span>
                       </div>
                     </div>
                   </div>
 
-                  <input
-                    *ngIf="filtersData['residence'].selectedValue === 'other'"
-                    [id]="'demographics_' + key"
-                    [name]="'demographics_' + key"
-                    [formControlName]="'demographics_' + key"
-                    [(ngModel)]="ideation.demographicsConfig![key].value"
-                    autocomplete="off"
-                    placeholder="{{
+                  <input *ngIf="filtersData['residence'].selectedValue === 'other'" [id]="'demographics_' + key"
+                    [name]="'demographics_' + key" [formControlName]="'demographics_' + key"
+                    [(ngModel)]="ideation.demographicsConfig![key].value" autocomplete="off" placeholder="{{
                       'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_RESIDENCE_PLACEHOLDER'
                         | translate
-                    }}"
-                    class="gray_borders"
-                    (ngModelChange)="
+                    }}" class="gray_borders" (ngModelChange)="
                       ngModelChange('demographics_' + key, $event)
-                    "
-                    (blur)="ngModelBlur('demographics_' + key)"
-                  />
+                    " (blur)="ngModelBlur('demographics_' + key)" />
 
-                  <label
-                    [for]="'demographics_' + key"
-                    class="error_label"
-                    *ngIf="filtersData['residence'].error"
-                  >
-                    <span
-                      class="error_text"
-                      translate="COMPONENTS.ADD_IDEA.FIELD_IS_MANDATORY"
-                    ></span>
+                  <label [for]="'demographics_' + key" class="error_label" *ngIf="filtersData['residence'].error">
+                    <span class="error_text" translate="COMPONENTS.ADD_IDEA.FIELD_IS_MANDATORY"></span>
                   </label>
                 </div>
               </ng-container>
 
               <ng-template #common_field>
-                <cos-input
-                  placeholder="{{
+                <cos-input placeholder="{{
                     'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_' + key
                       | uppercase
                       | translate
-                  }}"
-                >
-                  <input
-                    [id]="'demographics_' + key"
-                    [name]="'demographics_' + key"
-                    [formControlName]="'demographics_' + key"
-                    [(ngModel)]="ideation.demographicsConfig![key].value"
-                    autocomplete="off"
-                    placeholder="{{
+                  }}">
+                  <input [id]="'demographics_' + key" [name]="'demographics_' + key"
+                    [formControlName]="'demographics_' + key" [(ngModel)]="ideation.demographicsConfig![key].value"
+                    autocomplete="off" placeholder="{{
                       'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_' + key
                         | uppercase
                         | translate
-                    }}"
-                    class="gray_borders"
-                    [ngClass]="{
+                    }}" class="gray_borders" [ngClass]="{
                 error_input:
                   ideaForm.controls['demographics_' + key].errors &&
                   ideaForm.controls['demographics_' + key].errors?.['required'] &&
                   ideaForm.controls['demographics_' + key].touched
-              }"
-                    [required]="ideation.demographicsConfig![key].required"
-                    (ngModelChange)="
+              }" [required]="ideation.demographicsConfig![key].required" (ngModelChange)="
                       ngModelChange('demographics_' + key, $event)
-                    "
-                    (blur)="ngModelBlur('demographics_' + key)"
-                  />
+                    " (blur)="ngModelBlur('demographics_' + key)" />
 
-                  <label
-                    [for]="'demographics_' + key"
-                    class="error_label"
-                    *ngIf="
+                  <label [for]="'demographics_' + key" class="error_label" *ngIf="
                 ideaForm.controls['demographics_' + key].errors &&
                 ideaForm.controls['demographics_' + key].errors?.['required'] &&
                 ideaForm.controls['demographics_' + key].touched
-              "
-                  >
-                    <span
-                      class="error_text"
-                      translate="COMPONENTS.ADD_IDEA.FIELD_IS_MANDATORY"
-                    ></span>
+              ">
+                    <span class="error_text" translate="COMPONENTS.ADD_IDEA.FIELD_IS_MANDATORY"></span>
                   </label>
                 </cos-input>
               </ng-template>
@@ -308,138 +191,81 @@
             <ng-container *ngSwitchCase="'gender'">
               <div class="gender_wrapper">
                 <div class="dropdown" [cosDropdown]>
-                  <div
-                    class="selection"
-                    [ngClass]="{
+                  <div class="selection" [ngClass]="{
                       error_input: filtersData['gender'].error
-                    }"
-                  >
+                    }">
                     <div class="selected_item">
-                      <span
-                        *ngIf="!filtersData['gender'].selectedValue"
-                        class="selected_item_placeholder"
-                        >{{
-                          "VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_" + key
-                            | uppercase
-                            | translate
-                        }}</span
-                      >
+                      <span *ngIf="!filtersData['gender'].selectedValue" class="selected_item_placeholder">{{
+                        "VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_" + key
+                        | uppercase
+                        | translate
+                        }}</span>
                       <span *ngIf="filtersData['gender'].selectedValue">{{
                         "VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_GENDER_" +
-                          filtersData["gender"].selectedValue
-                          | uppercase
-                          | translate
-                      }}</span>
+                        filtersData["gender"].selectedValue
+                        | uppercase
+                        | translate
+                        }}</span>
                     </div>
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M17 10L12 15L7 10"
-                        stroke="#2C3B47"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                      />
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
                     </svg>
                   </div>
                   <div class="options">
-                    <ng-container
-                      *ngFor="let option of filtersData['gender'].items"
-                    >
-                      <div
-                        class="option"
-                        (click)="setFilterValue('gender', option.value)"
-                      >
+                    <ng-container *ngFor="let option of filtersData['gender'].items">
+                      <div class="option" (click)="setFilterValue('gender', option.value)">
                         <span>{{ option.title | translate }}</span>
                       </div>
                     </ng-container>
                   </div>
                 </div>
 
-                <input
-                  *ngIf="filtersData['gender'].selectedValue === 'other'"
-                  [id]="'demographics_' + key"
-                  [name]="'demographics_' + key"
-                  [formControlName]="'demographics_' + key"
-                  [(ngModel)]="ideation.demographicsConfig![key].value"
-                  autocomplete="off"
-                  placeholder="{{
+                <input *ngIf="filtersData['gender'].selectedValue === 'other'" [id]="'demographics_' + key"
+                  [name]="'demographics_' + key" [formControlName]="'demographics_' + key"
+                  [(ngModel)]="ideation.demographicsConfig![key].value" autocomplete="off" placeholder="{{
                     'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_GENDER_PLACEHOLDER'
                       | translate
-                  }}"
-                  class="gray_borders"
-                  (ngModelChange)="ngModelChange('demographics_' + key, $event)"
-                  (blur)="ngModelBlur('demographics_' + key)"
-                />
+                  }}" class="gray_borders" (ngModelChange)="ngModelChange('demographics_' + key, $event)"
+                  (blur)="ngModelBlur('demographics_' + key)" />
 
-                <label
-                  [for]="'demographics_' + key"
-                  class="error_label"
-                  *ngIf="
+                <label [for]="'demographics_' + key" class="error_label" *ngIf="
                   filtersData['gender'].error ||
                   (filtersData['gender'].selectedValue === 'other' && ideaForm.controls['demographics_' + key].errors &&
                 ideaForm.controls['demographics_' + key].errors?.['required'] &&
                 ideaForm.controls['demographics_' + key].touched)
-                  "
-                >
-                  <span
-                    class="error_text"
-                    translate="COMPONENTS.ADD_IDEA.FIELD_IS_MANDATORY"
-                  ></span>
+                  ">
+                  <span class="error_text" translate="COMPONENTS.ADD_IDEA.FIELD_IS_MANDATORY"></span>
                 </label>
               </div>
             </ng-container>
 
             <ng-container *ngSwitchCase="'age'">
-              <cos-input
-                placeholder="{{
+              <cos-input placeholder="{{
                   'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_' + key
                     | uppercase
                     | translate
-                }}"
-              >
-                <input
-                  [id]="'demographics_' + key"
-                  [name]="'demographics_' + key"
-                  [formControlName]="'demographics_' + key"
-                  [(ngModel)]="ideation.demographicsConfig![key].value"
-                  autocomplete="off"
-                  placeholder="{{
+                }}">
+                <input [id]="'demographics_' + key" [name]="'demographics_' + key"
+                  [formControlName]="'demographics_' + key" [(ngModel)]="ideation.demographicsConfig![key].value"
+                  autocomplete="off" placeholder="{{
                     'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_' + key
                       | uppercase
                       | translate
-                  }}"
-                  class="gray_borders"
-                  [ngClass]="{
+                  }}" class="gray_borders" [ngClass]="{
                 error_input:
                   ideaForm.controls['demographics_' + key].errors &&
                   ideaForm.controls['demographics_' + key].errors?.['required'] &&
                   ideaForm.controls['demographics_' + key].touched
-              }"
-                  [required]="ideation.demographicsConfig![key].required"
+              }" [required]="ideation.demographicsConfig![key].required"
                   (ngModelChange)="ngModelChange('demographics_' + key, $event)"
-                  (blur)="ngModelBlur('demographics_' + key)"
-                  type="number"
-                  (keypress)="numberOnly($event)"
-                />
+                  (blur)="ngModelBlur('demographics_' + key)" type="number" (keypress)="numberOnly($event)" />
 
-                <label
-                  [for]="'demographics_' + key"
-                  class="error_label"
-                  *ngIf="
+                <label [for]="'demographics_' + key" class="error_label" *ngIf="
                 ideaForm.controls['demographics_' + key].errors &&
                 ideaForm.controls['demographics_' + key].errors?.['required'] &&
                 ideaForm.controls['demographics_' + key].touched
-              "
-                >
-                  <span
-                    class="error_text"
-                    translate="COMPONENTS.ADD_IDEA.FIELD_IS_MANDATORY"
-                  ></span>
+              ">
+                  <span class="error_text" translate="COMPONENTS.ADD_IDEA.FIELD_IS_MANDATORY"></span>
                 </label>
               </cos-input>
             </ng-container>
@@ -450,41 +276,23 @@
       </div>
 
       <div>
-        <textarea
-          cosmarkdown
-          name="description"
-          formControlName="description"
-          cosmarkdowntranslatecharacterstatuskey="COMPONENTS.ADD_IDEA.IDEA_TYPE_CHARACTER_LIMIT"
-          id="idea_description"
-          [(item)]="description"
-          class="gray_borders"
-          (itemChange)="updateText($event)"
-          [initialValue]="ideation.template"
-          placeholder="COMPONENTS.ADD_IDEA.PLACEHOLDER_EXPLAIN_YOUR_IDEA"
-          [ngClass]="{
+        <textarea cosmarkdown name="description" formControlName="description"
+          cosmarkdowntranslatecharacterstatuskey="COMPONENTS.ADD_IDEA.IDEA_TYPE_CHARACTER_LIMIT" id="idea_description"
+          [(item)]="description" class="gray_borders" (itemChange)="updateText($event)"
+          [initialValue]="ideation.template" placeholder="COMPONENTS.ADD_IDEA.PLACEHOLDER_EXPLAIN_YOUR_IDEA" [ngClass]="{
             error_input:
               ideaForm.controls['description'].errors &&
               ideaForm.controls['description'].errors['required'] &&
               ideaForm.controls['description'].touched
-          }"
-          [limit]="ideaMaxLength()"
-          required
-        ></textarea>
+          }" [limit]="ideaMaxLength()" [class.expanded]="toggleExpand" required></textarea>
 
-        <label
-          for="description"
-          class="error_label"
-          *ngIf="
+        <label for="description" class="error_label" *ngIf="
             (addIdea | async) &&
             ideaForm.controls['description'].errors &&
             ideaForm.controls['description'].errors['required'] &&
             ideaForm.controls['description'].touched
-          "
-        >
-          <span
-            class="error_text"
-            translate="COMPONENTS.ADD_IDEA.FIELD_IS_MANDATORY"
-          ></span>
+          ">
+          <span class="error_text" translate="COMPONENTS.ADD_IDEA.FIELD_IS_MANDATORY"></span>
         </label>
       </div>
       <ng-container *ngIf="newImages.length">
@@ -494,87 +302,38 @@
               <img [src]="image.link" />
               <a class="name">{{ image.name }}</a>
             </div>
-            <button
-              class="btn_small_plain icon"
-              (click)="removeNewImage(index)"
-            >
-              <svg
-                width="32"
-                height="32"
-                viewBox="0 0 32 32"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M14 13.9997H15.3333L15.3333 19.333H14L14 13.9997Z"
-                  fill="#2C3B47"
-                />
-                <path
-                  d="M18 13.9997H16.6667V19.333H18V13.9997Z"
-                  fill="#2C3B47"
-                />
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
+            <button class="btn_small_plain icon" (click)="removeNewImage(index)">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14 13.9997H15.3333L15.3333 19.333H14L14 13.9997Z" fill="#2C3B47" />
+                <path d="M18 13.9997H16.6667V19.333H18V13.9997Z" fill="#2C3B47" />
+                <path fill-rule="evenodd" clip-rule="evenodd"
                   d="M19.3333 11.333V10.6663C19.3333 9.92996 18.7364 9.33301 18 9.33301L14 9.33301C13.2636 9.33301 12.6667 9.92996 12.6667 10.6663V11.333H10.6667C10.2985 11.333 10 11.6315 10 11.9997C10 12.3679 10.2985 12.6663 10.6667 12.6663H11.3333L11.3333 19.9997C11.3333 21.1043 12.2288 21.9997 13.3333 21.9997H18.6667C19.7713 21.9997 20.6667 21.1043 20.6667 19.9997V12.6663H21.3333C21.7015 12.6663 22 12.3679 22 11.9997C22 11.6315 21.7015 11.333 21.3333 11.333H19.3333ZM18 10.6663L14 10.6663V11.333L18 11.333V10.6663ZM19.3333 12.6663L12.6667 12.6663L12.6667 19.9997C12.6667 20.3679 12.9651 20.6663 13.3333 20.6663H18.6667C19.0349 20.6663 19.3333 20.3679 19.3333 19.9997V12.6663Z"
-                  fill="#2C3B47"
-                />
+                  fill="#2C3B47" />
               </svg>
             </button>
           </div>
         </div>
       </ng-container>
-      <input
-        id="image_upload_input"
-        multiple
-        type="file"
-        #imageUpload
-        (change)="fileUpload()"
-      />
+      <input id="image_upload_input" multiple type="file" #imageUpload (change)="fileUpload()" />
     </form>
   </div>
   <div id="buttons_row">
     <div id="navigate_create">
-      <button
-        class="btn_medium_submit_ghost icon close_button"
-        (click)="close()"
-      >
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+      <button class="btn_medium_submit_ghost icon close_button" (click)="close()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M5.29311 17.2929C4.90258 17.6834 4.90258 18.3166 5.29311 18.7071C5.68363 19.0976 6.3168 19.0976 6.70732 18.7071L12.0002 13.4142L17.2931 18.7071C17.6836 19.0976 18.3168 19.0976 18.7073 18.7071C19.0978 18.3166 19.0978 17.6834 18.7073 17.2929L13.4144 12L18.7073 6.70711C19.0978 6.31658 19.0978 5.68342 18.7073 5.29289C18.3168 4.90237 17.6836 4.90237 17.2931 5.29289L12.0002 10.5858L6.70732 5.29289C6.3168 4.90237 5.68363 4.90237 5.29311 5.29289C4.90258 5.68342 4.90258 6.31658 5.29311 6.70711L10.586 12L5.29311 17.2929Z"
-            fill="#2C3B47"
-          />
+            fill="#2C3B47" />
         </svg>
       </button>
       <div class="btn_medium_wrapper" *ngIf="!!autosavedIdea">
-        <button
-          class="option error_text btn_medium_error"
-          (click)="deleteDraftIdea(autosavedIdea)"
-        >
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 16 16"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
+        <button class="option error_text btn_medium_error" (click)="deleteDraftIdea(autosavedIdea)">
+          <svg width="24" height="24" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
               d="M10 3H6V4H10V3ZM11 4V3C11 2.44772 10.5523 2 10 2H6C5.44772 2 5 2.44772 5 3V4H4H2.5C2.22386 4 2 4.22386 2 4.5C2 4.77614 2.22386 5 2.5 5H4V13C4 13.5523 4.44772 14 5 14H11C11.5523 14 12 13.5523 12 13V5H13.5C13.7761 5 14 4.77614 14 4.5C14 4.22386 13.7761 4 13.5 4H12H11ZM7 7H6V11H7V7ZM10 7H9V11H10V7Z"
-              fill="#2C3B47"
-            />
+              fill="#2C3B47" />
           </svg>
-          <span
-            class="btn_text"
-            translate="COMPONENTS.ADD_IDEA.BTN_DELETE_DRAFT"
-          ></span>
+          <span class="btn_text" translate="COMPONENTS.ADD_IDEA.BTN_DELETE_DRAFT"></span>
         </button>
       </div>
     </div>
@@ -582,34 +341,16 @@
       <!--div id="chars_left" translate="COMPONENTS.ADD_IDEA.IDEA_TYPE_CHARACTERS_LEFT"
         [translateParams]="{charsLeft: ideaMaxLength(),chars: ideaMaxLength() - (ideaForm.value['description']?.length || 0)}"></!--div-->
       <button class="btn_medium_submit_ghost" (click)="uploadImage()">
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M7.42058 17.0297H16.6588C16.8706 17.0297 17.0206 16.9414 17.1088 16.7649C17.1971 16.5885 17.1794 16.412 17.0559 16.2355L14.5412 12.9002C14.4353 12.7591 14.3029 12.6885 14.1441 12.6885C13.9853 12.6885 13.8618 12.7591 13.7735 12.9002L11.1794 16.262L9.45882 14.0385C9.35293 13.9149 9.22058 13.8532 9.06176 13.8532C8.90293 13.8532 8.7794 13.9238 8.69117 14.0649L7.02352 16.2355C6.89999 16.412 6.88693 16.5885 6.98434 16.7649C7.08105 16.9414 7.22646 17.0297 7.42058 17.0297Z"
-            fill="#2C3B47"
-          />
-          <rect
-            x="4"
-            y="4"
-            width="16"
-            height="16"
-            rx="1"
-            stroke="#2C3B47"
-            stroke-width="2"
-          />
+            fill="#2C3B47" />
+          <rect x="4" y="4" width="16" height="16" rx="1" stroke="#2C3B47" stroke-width="2" />
         </svg>
         <span translate="COMPONENTS.POST_ARGUMENT.BTN_ADD_IMAGE"></span>
       </button>
       <button class="btn_medium_submit icon" (click)="publishIdea()">
-        <span
-          class="btn_text"
-          translate="COMPONENTS.ADD_IDEA.BTN_IDEA_POST"
-        ></span>
+        <span class="btn_text" translate="COMPONENTS.ADD_IDEA.BTN_IDEA_POST"></span>
       </button>
     </div>
   </div>

@@ -87,6 +87,7 @@ export class AddIdeaComponent {
   newImages = <any[]>[];
   topicAttachments$ = of(<Attachment[] | any[]>[]);
   attachments = <any[]>[];
+  toggleExpand = false;
 
   autosavedIdea: Idea | null = null;
   isAutosaving = false;

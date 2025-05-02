@@ -134,6 +134,8 @@
       "BTN_IDEA_DRAFT": "@:VIEWS.TOPIC_CREATE.FOOTER_BTN_SAVE_AS_DRAFT",
       "BTN_DELETE_DRAFT": "Delete draft",
       "BTN_IDEA_POST": "Add your idea",
+      "BTN_EXPAND": "Expand",
+      "BTN_COLLAPSE": "Collapse",
       "MSG_SUCCESS": "Idea successfully posted",
       "MSG_ERROR_SUBJECT": "Idea heading must be 1 to {{chars}} characters long.",
       "FIELD_IS_MANDATORY": "Field is mandatory",
