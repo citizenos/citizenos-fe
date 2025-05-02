@@ -87,6 +87,7 @@ export class AddIdeaComponent {
   newImages = <any[]>[];
   topicAttachments$ = of(<Attachment[] | any[]>[]);
   attachments = <any[]>[];
+  toggleExpand = false;
 
   autosavedIdea: Idea | null = null;
   isAutosaving = false;
@@ -229,7 +230,7 @@ export class AddIdeaComponent {
     if (this.app.addIdea.value || this.app.editIdea.value) {
       const isValueChanged = text && prevValue && text !== prevValue;
       const isNotSubscribed = !this.autosaveSubscription || this.autosaveSubscription.closed
-  
+
       if (isValueChanged && isNotSubscribed && !this.isPublished) {
         this.startAutosave();
       }
@@ -443,7 +444,7 @@ export class AddIdeaComponent {
           return {
             ...acc,
             gender:
-              this.ideation.demographicsConfig?.[curr].value ? 
+              this.ideation.demographicsConfig?.[curr].value ?
                 prefix + this.ideation.demographicsConfig?.[curr].value :
                 this.filtersData.gender.selectedValue,
           };
@@ -514,7 +515,7 @@ export class AddIdeaComponent {
         },
         error: (err) => {
           console.error(err);
-          
+
           setTimeout(() => {
             this.isAutosaving = false;
           }, this.AUTOSAVE_HIDE_DELAY);
