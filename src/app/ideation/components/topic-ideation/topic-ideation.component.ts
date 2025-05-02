@@ -9,6 +9,7 @@ import { of, take, map, BehaviorSubject, combineLatest, switchMap } from 'rxjs';
 import { ConfirmDialogComponent } from '@shared/components/confirm-dialog/confirm-dialog.component';
 import { TopicIdeaService } from '@services/topic-idea.service';
 import { Component, Input, NgZone } from '@angular/core';
+import { municipalities } from '@services/municipalitiy.service';
 
 import { CreateIdeaFolderComponent } from '../create-idea-folder/create-idea-folder.component';
 import { ActivatedRoute } from '@angular/router';
@@ -34,6 +35,7 @@ export class TopicIdeationComponent {
   @Input() ideation!: any;
   @Input() topic!: Topic;
 
+  AGE_LIMIT = 110;
   public FILTERS_ALL = 'all';
   STATUSES = this.TopicService.STATUSES;
   VISIBILITY = this.TopicService.VISIBILITY;
@@ -51,6 +53,9 @@ export class TopicIdeationComponent {
   allIdeas$: Idea[] = [];
   tabSelected = 'ideas';
   ideaFilters = {
+    age: <number | string>'',
+    gender: '',
+    residence: '',
     type: '',
     orderBy: '',
     participants: <User | any>''
@@ -59,12 +64,20 @@ export class TopicIdeationComponent {
   mobileIdeaFiltersList = false;
 
   mobileIdeaFilters: any = {
+    age: '',
+    gender: '',
+    residence: '',
     type: '',
     orderBy: '',
     participants: <User | any>''
   }
 
+  municipalities = municipalities;
+
   ideaTypeFilter$ = new BehaviorSubject('');
+  ageFilter$ = new BehaviorSubject<number | string>('');
+  genderFilter$ = new BehaviorSubject('');
+  residenceFilter$ = new BehaviorSubject('');
   orderFilter$ = new BehaviorSubject('');
   ideaParticipantsFilter$ = new BehaviorSubject(<User | string>'');
   searchIdeasInput = '';
@@ -90,9 +103,9 @@ export class TopicIdeationComponent {
   ) { }
 
   ngOnInit(): void {
-    this.ideas$ = combineLatest([this.ideaTypeFilter$, this.orderFilter$, this.ideaParticipantsFilter$, this.folderFilter$, this.ideaSearchFilter$, this.TopicIdeaService.reload$])
+    this.ideas$ = combineLatest([this.ideaTypeFilter$, this.orderFilter$, this.ideaParticipantsFilter$, this.folderFilter$, this.ideaSearchFilter$, this.TopicIdeaService.reload$, this.ageFilter$, this.genderFilter$, this.residenceFilter$])
       .pipe(
-        switchMap(([typeFilter, orderFilter, participantFilter, folderFilter, search, load]) => {
+        switchMap(([typeFilter, orderFilter, participantFilter, folderFilter, search, load, age, gender, residence]) => {
           this.TopicIdeaService.reset();
           this.TopicIdeaService.setParam('topicId', this.topic.id);
           this.TopicIdeaService.setParam('ideationId', this.topic.ideationId);
@@ -122,7 +135,15 @@ export class TopicIdeationComponent {
             this.TopicIdeaService.setParam('search', search);
           }
 
-          if (typeFilter || orderFilter || participantFilter || folderFilter || search) {
+          if (age || gender || residence) {
+            this.TopicIdeaService.setParam('demographics', JSON.stringify({
+              ...(age && { age }),
+              ...(gender && { gender }),
+              ...(residence && { residence })
+            }));
+          }
+
+          if (typeFilter || orderFilter || participantFilter || folderFilter || search || age || gender || residence) {
             this.filtersSet = true;
           } else {
             this.filtersSet = false;
@@ -172,10 +193,40 @@ export class TopicIdeationComponent {
     })
   }
 
+  get isCountryEstonia() {
+    return this.topic.country === 'Estonia';
+  }
+
+  get hasDemograficsField() {
+    return {
+      age: this.ideation.demographicsConfig?.age,
+      gender: this.ideation.demographicsConfig?.gender,
+      residence: this.ideation.demographicsConfig?.residence
+    };
+  }
+
   setType(type: string) {
     if (type === 'all' || typeof type !== 'string') type = '';
     this.ideaTypeFilter$.next(type);
     this.ideaFilters.type = type;
+  }
+
+  setAge(age: number | string) {
+    if (age === 'all') age = '';
+    this.ageFilter$.next(age);
+    this.ideaFilters.age = age;
+  }
+
+  setGender(value: string) {
+    if (value === 'all') value = '';
+    this.genderFilter$.next(value);
+    this.ideaFilters.gender = value;
+  }
+
+  setResidence(value: string) {
+    if (value === 'all') value = '';
+    this.residenceFilter$.next(value);
+    this.ideaFilters.residence = value;
   }
 
   userIndex() {
@@ -233,6 +284,9 @@ export class TopicIdeationComponent {
   doClearFilters() {
     this.setType('');
     this.orderBy('');
+    this.setAge('');
+    this.setGender('');
+    this.setResidence('');
     this.setParticipant();
     this.filtersSet = false;
   }
