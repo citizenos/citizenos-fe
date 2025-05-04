@@ -182,6 +182,9 @@ export class EditIdeaComponent extends AddIdeaComponent {
   }
 
   ideaEditMode() {
+    if (this.idea.status === IdeaStatus.draft) {
+      this.saveIdea(IdeaStatus.draft);
+    }
     this.ideaForm.patchValue({ statement: this.idea.statement });
     this.ideaForm.patchValue({ description: this.idea.description });
     this.showEdit.emit(false);
