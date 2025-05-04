@@ -87,6 +87,7 @@ export class AddIdeaComponent {
   newImages = <any[]>[];
   topicAttachments$ = of(<Attachment[] | any[]>[]);
   attachments = <any[]>[];
+  toggleExpand = false;
 
   autosavedIdea: Idea | null = null;
   isAutosaving = false;
@@ -423,30 +424,33 @@ export class AddIdeaComponent {
 
     return Object.keys(this.ideation.demographicsConfig).reduce(
       (acc: Idea['demographics'], curr: string) => {
-        if (curr === 'residence') {
-          const prefix = this.translate.instant(
-            'COMPONENTS.ADD_IDEA.RESIDENCE_VALUE_PREFIX'
-          );
+        /**
+         * Prefix used to define open field value in the database
+         * for easier filtering.
+         * @see https://github.com/citizenos/citizenos-fe/issues/2081
+         */
+        const prefix = "other: ";
 
+        if (curr === 'residence') {
           return {
             ...acc,
-            residence: this.isCountryEstonia
-              ? this.filtersData.residence.selectedValue
-              : prefix + this.ideation.demographicsConfig?.[curr].value,
+            residence:
+              this.ideation.demographicsConfig?.[curr].value ?
+                prefix + this.ideation.demographicsConfig?.[curr].value :
+                this.filtersData.residence.selectedValue,
           };
         }
-        if (curr === 'gender') {
-          const prefix = this.translate.instant(
-            'COMPONENTS.ADD_IDEA.GENDER_VALUE_PREFIX'
-          );
 
+        if (curr === 'gender') {
           return {
             ...acc,
             gender:
-              prefix + this.ideation.demographicsConfig?.[curr].value ||
-              this.filtersData.gender.selectedValue,
+              this.ideation.demographicsConfig?.[curr].value ?
+                prefix + this.ideation.demographicsConfig?.[curr].value :
+                this.filtersData.gender.selectedValue,
           };
         }
+
         return {
           ...acc,
           [curr]: this.ideation.demographicsConfig?.[curr].value || '',

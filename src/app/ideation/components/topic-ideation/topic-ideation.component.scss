@@ -219,17 +219,18 @@
 .idea_filters_wrap {
   display: flex;
   gap: 16px;
-  flex-direction: row;
+  flex-direction: column;
   padding: 24px 0;
   width: 100%;
 
   .options_row {
     display: flex;
+    flex-wrap: wrap;
     gap: 24px;
     width: 100%;
 
     .dropdown_input {
-      width: 100%;
+      width: calc(100% / 3 - 16px);
     }
   }
 }
