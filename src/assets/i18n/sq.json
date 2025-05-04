@@ -274,7 +274,7 @@
       "LBL_NAME": "Please name your new folder",
       "ADD_NAME_ERROR_MSG_INVALID": "Name cannot be empty",
       "PLACEHOLDER_NAME": "@:VIEWS.MY_TOPICS_TOPICID.LNK_NAME",
-      "LBL_IDEAS_SELECTION": "Select the ideas you immediately want to add to this folder",
+      "LBL_IDEAS_SELECTION": "Select the ideas you want to include in the voting options",
       "BTN_CREATE": "Create folder",
       "LNK_CANCEL": "@:LNK_CANCEL",
       "LBL_IDEAS": "Ideas ({{count}})",
