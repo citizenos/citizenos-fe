@@ -229,7 +229,8 @@ export class AddIdeaComponent {
 
     if (this.app.addIdea.value || this.app.editIdea.value) {
       const isValueChanged = text && prevValue && text !== prevValue;
-      const isNotSubscribed = !this.autosaveSubscription || this.autosaveSubscription.closed
+      const isNotSubscribed =
+        !this.autosaveSubscription || this.autosaveSubscription.closed;
 
       if (isValueChanged && isNotSubscribed && !this.isPublished) {
         this.startAutosave();
@@ -241,7 +242,8 @@ export class AddIdeaComponent {
     if (this.app.addIdea.value || this.app.editIdea.value) {
       this.ideaForm.controls[key].markAsUntouched();
 
-      const isNotSubscribed = !this.autosaveSubscription || this.autosaveSubscription.closed
+      const isNotSubscribed =
+        !this.autosaveSubscription || this.autosaveSubscription.closed;
 
       if (
         key === 'statement' &&
@@ -287,15 +289,14 @@ export class AddIdeaComponent {
   }
 
   close() {
-    if (
-      this.ideaForm.controls['statement'].value ||
-      this.ideaForm.controls['description'].value
-    ) {
+    const isSubscribed = this.autosaveSubscription?.closed === false;
+    if (isSubscribed) {
       const dialog = this.dialog.open(CloseWithoutSavingDialogComponent);
 
       dialog.afterClosed().subscribe({
         next: (res) => {
           if (!res) {
+            this, this.saveIdea(IdeaStatus.draft);
             this.app.addIdea.next(false);
             this.clear();
           }
