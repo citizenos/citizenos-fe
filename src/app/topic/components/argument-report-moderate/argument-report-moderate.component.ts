@@ -94,7 +94,8 @@ export class ArgumentReportModerateDialogComponent {
       take(1)
     ).subscribe({
       next: (report) => {
-        const reportDialog = dialog.open(ArgumentReportModerateComponent, { data: { report, topicId: this.topicId , commentId: this.commentId, token: this.token } });
+        console.log(report);
+        const reportDialog = dialog.open(ArgumentReportModerateComponent, { data: { report, topicId: this.topicId , discussionId: this.discussionId, commentId: this.commentId, token: this.token } });
         reportDialog.afterClosed().subscribe(() => {
           router.navigate(['topics', this.topicId]);
         })
