@@ -135,25 +135,6 @@
       align-items: center;
       justify-content: center;
       background-color: var(--color-border);
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
-
-      &.discussion {
-        background-image: url("/assets/imgs/no_image_discussion.svg");
-      }
-
-      &.voting {
-        background-image: url("/assets/imgs/no_image_voting.svg");
-      }
-
-      &.ideation {
-        background-image: url("/assets/imgs/no_image_ideation.svg");
-      }
-
-      &.follow_up {
-        background-image: url("/assets/imgs/no_image_follow_up.svg");
-      }
     }
 
     .image_overlay {
@@ -287,10 +268,11 @@
   height: 100%;
   align-items: center;
   justify-content: center;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255,255,255, 0.5);
 
   button {
     z-index: 99;
     gap: 8px;
   }
 }
+
