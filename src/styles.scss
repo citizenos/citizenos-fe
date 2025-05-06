@@ -724,8 +724,8 @@ html {
     z-index: 3;
     background: linear-gradient(
       180deg,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(255, 255, 255, 0.9) 100%
+      rgba(255, 255, 255, 0.3) 0%,
+      rgba(255, 255, 255, 1) 100%
     );
     height: 144px;
 
@@ -743,9 +743,9 @@ html {
     }
     button {
       position: absolute;
-      bottom: 16px;
+      bottom: 0px;
       width: calc(100% - 48px);
-      box-shadow: 0px 8px 20px 0px rgba(220, 231, 240, 0.3);
+      box-shadow: 0px -4px 10px rgba(220, 231, 240, 0.3);
       path {
         fill: none;
       }
