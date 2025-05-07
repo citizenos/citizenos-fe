@@ -24,8 +24,8 @@
       </ng-container>
     </div>
     <div id="buttons_area">
-      <button id="join_button" *ngIf="!group.userLevel" class="btn_medium_close"
-        translate="VIEWS.GROUP.BTN_JOIN" (click)="joinGroup(group)"></button>
+      <button id="join_button" *ngIf="!group.userLevel" class="btn_medium_close" translate="VIEWS.GROUP.BTN_JOIN"
+        (click)="joinGroup(group)"></button>
       <div *ngIf="(group.userLevel)" class="permissions_lable tablet_hidden"
         [translate]="(group.userLevel !== 'read')? ('TXT_GROUP_LEVELS_' + group.userLevel | uppercase) : 'VIEWS.GROUP.LBL_JOINED'">
       </div>
@@ -385,18 +385,34 @@
               <div class="info_number">{{group.members.topics.count.followUp || 0}}</div>
             </div>
           </div>
-          <a id="view_more" class="tablet_show" (click)="moreInfo = !moreInfo" *ngIf="!moreInfo">
-            <div class="bold" *ngIf="!moreInfo" translate="VIEWS.GROUP.LNK_MORE_INFO"></div>
-            <div class="bold" *ngIf="moreInfo" translate="VIEWS.GROUP.LNK_CLOSE_INFO"></div>
-            <svg *ngIf="!moreInfo" width="24" height="24" viewBox="0 0 24 24" fill="none"
-              xmlns="http://www.w3.org/2000/svg">
-              <path d="M17 10L12 15L7 10" stroke="#1168A8" stroke-width="2" stroke-linecap="round" />
-            </svg>
-            <svg *ngIf="moreInfo" width="24" height="24" viewBox="0 0 24 24" transform="rotate(180)" fill="none"
-              xmlns="http://www.w3.org/2000/svg">
-              <path d="M17 10L12 15L7 10" stroke="#1168A8" stroke-width="2" stroke-linecap="round" />
-            </svg>
-          </a>
+          <div class="mobile_hidden">
+            <a id="view_more" class="tablet_show" (click)="moreInfo = !moreInfo" *ngIf="!moreInfo">
+              <div class="bold" *ngIf="!moreInfo" translate="VIEWS.GROUP.LNK_MORE_INFO"></div>
+              <div class="bold" *ngIf="moreInfo" translate="VIEWS.GROUP.LNK_CLOSE_INFO"></div>
+              <svg *ngIf="!moreInfo" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M17 10L12 15L7 10" stroke="#1168A8" stroke-width="2" stroke-linecap="round" />
+              </svg>
+              <svg *ngIf="moreInfo" width="24" height="24" viewBox="0 0 24 24" transform="rotate(180)" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M17 10L12 15L7 10" stroke="#1168A8" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </a>
+          </div>
+          <div class="button_wrap mobile_show" *ngIf="!moreInfo">
+            <button class="btn_medium_secondary" id="view_more_btn" (click)="moreInfo = !moreInfo">
+              <svg *ngIf="!moreInfo" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M17 10L12 15L7 10" stroke="#1168A8" stroke-width="2" stroke-linecap="round" />
+              </svg>
+              <svg *ngIf="moreInfo" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M17 15L12 10L7 15" stroke="#1168A8" stroke-width="2" stroke-linecap="round" />
+              </svg>
+              <span *ngIf="!moreInfo" translate="VIEWS.GROUP.LNK_MORE_INFO"></span>
+              <span *ngIf="moreInfo" translate="VIEWS.GROUP.LNK_CLOSE_INFO"></span>
+            </button>
+          </div>
         </div>
       </div>
       <div id="group_extra_info" [ngClass]=" {'open': moreInfo}">
@@ -509,7 +525,7 @@
         </div>
       </div>
       <div class="line_separator" *ngIf="moreInfo"></div>
-      <a id="view_more" (click)="moreInfo = !moreInfo" *ngIf="moreInfo">
+      <a id="view_more" class="mobile_hidden" (click)="moreInfo = !moreInfo" *ngIf="moreInfo">
         <div class="bold" *ngIf="!moreInfo" translate="VIEWS.GROUP.LNK_MORE_INFO"></div>
         <div class="bold" *ngIf="moreInfo" translate="VIEWS.GROUP.LNK_CLOSE_INFO"></div>
         <svg *ngIf="!moreInfo" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -521,6 +537,20 @@
           <path d="M17 10L12 15L7 10" stroke="#1168A8" stroke-width="2" stroke-linecap="round" />
         </svg>
       </a>
+      <div class="button_wrap mobile_show" *ngIf="moreInfo">
+        <button class="btn_medium_secondary" id="view_more_btn" (click)="moreInfo = !moreInfo">
+          <svg *ngIf="!moreInfo" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M17 10L12 15L7 10" stroke="#1168A8" stroke-width="2" stroke-linecap="round" />
+          </svg>
+          <svg *ngIf="moreInfo" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M17 15L12 10L7 15" stroke="#1168A8" stroke-width="2" stroke-linecap="round" />
+          </svg>
+          <span *ngIf="!moreInfo" translate="VIEWS.GROUP.LNK_MORE_INFO"></span>
+          <span *ngIf="moreInfo" translate="VIEWS.GROUP.LNK_CLOSE_INFO"></span>
+        </button>
+      </div>
     </div>
 
   </div>
@@ -1344,7 +1374,7 @@
       </div>
       <!--MOBILE_TOPIC_FILTERS_END-->
     </div>
-    <div id="topics_area" *ngIf="topics$ | async as topics;"  (click)="(removeTopics)? toggleRemove(): ''">
+    <div id="topics_area" *ngIf="topics$ | async as topics;" (click)="(removeTopics)? toggleRemove(): ''">
       <ng-container *ngIf="!topics.length && !filtersSet">
         <div class="no_engagements">
           <div class="illustration">
@@ -1528,7 +1558,8 @@
             <div class="level_heading" translate="VIEWS.GROUP.ROLE">
               <div class="tooltip" tooltip>
                 <div class="content_title" translate="VIEWS.GROUP.TOOLTIP_MEMBERS_PERMISSIONS_HEADING"></div>
-                <div class="content_description" [innerHTML]="'VIEWS.GROUP.TOOLTIP_MEMBERS_PERMISSIONS_DESCRIPTION' | translate"></div>
+                <div class="content_description"
+                  [innerHTML]="'VIEWS.GROUP.TOOLTIP_MEMBERS_PERMISSIONS_DESCRIPTION' | translate"></div>
               </div>
             </div>
 
