@@ -154,7 +154,7 @@ export class TopicArgumentService extends ItemsListService {
   };
 
   moderate(data: any) {
-    const path = this.Location.getAbsoluteUrlApi('/api/topics/:topicId/discussions/:discussionId/comments/:commentId/reports/:reportId/moderate', data)
+    const path = this.Location.getAbsoluteUrlApi('/api/topics/:topicId/comments/:commentId/reports/:reportId/moderate', data)
     const headers = {
       'Authorization': 'Bearer ' + data.token
     };
