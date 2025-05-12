@@ -748,8 +748,7 @@
                     <ng-container *ngIf="
                         (auth.loggedIn$ | async) &&
                         TopicService.canEdit(topic) &&
-                        !topic.voteId &&
-                        !topic.ideationId
+                        !topic.voteId
                       ">
                       <div class="line_separator"></div>
                       <button class="option" [routerLink]="['/', 'topics', 'edit', topic.id]">
@@ -1651,8 +1650,7 @@
           <ng-container *ngIf="
               (auth.loggedIn$ | async) &&
               TopicService.canEdit(topic) &&
-              !topic.voteId &&
-              !topic.ideationId
+              !topic.voteId
             ">
             <div class="line_separator"></div>
             <button class="option" [routerLink]="['/', 'topics', 'edit', topic.id]">
