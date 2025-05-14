@@ -438,6 +438,7 @@ export class IdeationCreateComponent
         .pipe(take(1))
         .subscribe(() => {
           if (!this.ideation.id) {
+            this.ideation.question = ' ';
             this.createIdeation();
           } else if (
             [
