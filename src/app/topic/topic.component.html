@@ -748,7 +748,8 @@
                     <ng-container *ngIf="
                         (auth.loggedIn$ | async) &&
                         TopicService.canEdit(topic) &&
-                        !topic.voteId
+                        !topic.voteId &&
+                        !topic.ideationId
                       ">
                       <div class="line_separator"></div>
                       <button class="option" [routerLink]="['/', 'topics', 'edit', topic.id]">
@@ -765,11 +766,12 @@
                     </ng-container>
                     <ng-container *ngIf="
                         (auth.loggedIn$ | async) &&
+                        TopicService.canEdit(topic) &&
                         topic.ideationId &&
                         !topic.voteId &&
-                        TopicService.canEdit(topic) &&
                         [
                           TopicService.STATUSES.draft,
+                          TopicService.STATUSES.inProgress,
                           TopicService.STATUSES.ideation,
                           TopicService.STATUSES.followUp
                         ].indexOf(topic.status) > -1
@@ -795,10 +797,11 @@
                     </ng-container>
                     <ng-container *ngIf="
                         (auth.loggedIn$ | async) &&
-                        topic.voteId &&
                         TopicService.canEdit(topic) &&
+                        topic.voteId &&
                         [
                           TopicService.STATUSES.draft,
+                          TopicService.STATUSES.inProgress,
                           TopicService.STATUSES.voting,
                           TopicService.STATUSES.followUp
                         ].indexOf(topic.status) > -1
@@ -1648,7 +1651,8 @@
           <ng-container *ngIf="
               (auth.loggedIn$ | async) &&
               TopicService.canEdit(topic) &&
-              !topic.voteId
+              !topic.voteId &&
+              !topic.ideationId
             ">
             <div class="line_separator"></div>
             <button class="option" [routerLink]="['/', 'topics', 'edit', topic.id]">
