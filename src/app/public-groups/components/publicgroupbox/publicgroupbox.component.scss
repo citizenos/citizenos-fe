@@ -21,12 +21,12 @@
   }
 
   &:hover {
-    box-shadow: 0px 8px 20px 0px rgba(220, 231, 240, 0.30), 0px 12px 16px 0px rgba(50, 85, 112, 0.10);
+    box-shadow: 0px 8px 20px 0px rgba(220, 231, 240, 0.3),
+      0px 12px 16px 0px rgba(50, 85, 112, 0.1);
     text-decoration: none;
     .group_title {
       color: var(--color-link);
     }
-
   }
   .group_header {
     display: flex;
@@ -127,8 +127,16 @@
     }
   }
 
-  .btn_big_secondary {
-    font-size: 14px;
-    line-height: 16px;
+  .btn_medium_secondary.disabled {
+    background: var(--color-surface-contrast);
+    opacity: 1;
+
+    path {
+      fill: var(--color-text) !important;
+    }
+
+    span {
+      color: var(--color-text);
+    }
   }
 }
