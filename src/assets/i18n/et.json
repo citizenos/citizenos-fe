@@ -276,7 +276,7 @@
       "LBL_NAME": "Palun pane oma uuele kaustale nimi",
       "ADD_NAME_ERROR_MSG_INVALID": "Nimi ei saa olla tühi",
       "PLACEHOLDER_NAME": "@:VIEWS.MY_TOPICS_TOPICID.LNK_NAME",
-      "LBL_IDEAS_SELECTION": "Vali ideed, mille soovid kohe sellesse kausta lisada",
+      "LBL_IDEAS_SELECTION": "Select the ideas you want to include in the voting options",
       "BTN_CREATE": "Loo kaust",
       "LNK_CANCEL": "@:LNK_CANCEL",
       "LBL_IDEAS": "Ideed ({{count}})",
