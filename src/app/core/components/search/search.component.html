@@ -33,6 +33,10 @@
   </div>
   <div id="results_area" *ngIf="app.showSearchResults">
     <div class="results_header" translate="COMPONENTS.SEARCH.HEADING_SEARCH_RESULTS"></div>
+    <div class="results_no_results_wrap" *ngIf="noResults">
+      <span class="results_no_results_text" translate="COMPONENTS.SEARCH.TXT_NO_RESULTS_FOUND"></span>
+      <span class="results_no_results_link" (click)="toggleHelp()" translate="COMPONENTS.SEARCH.LNK_HELP_PANEL"></span>
+    </div>
     <ng-container *ngFor="let context of contexts">
       <ng-container *ngFor="let model of models">
         <ng-container

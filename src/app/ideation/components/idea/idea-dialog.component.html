@@ -193,15 +193,9 @@
                     <span translate="COMPONENTS.IDEABOX.OPTION_ADD_TO_FOLDER"></span>
                   </button>
                 </ng-container>
-                <ng-container *ngIf="canEditIdea() || showDisabledFunctionality()">
+                <ng-container *ngIf="canEditIdea()">
                   <div class="line_separator"></div>
-                  <button
-                    class="option" (click)="ideaEditMode()"
-                    [disabled]="showDisabledFunctionality()"
-                    [ngClass]="{
-                      disabled: showDisabledFunctionality()
-                    }"
-                  >
+                  <button class="option" (click)="ideaEditMode()">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path
                         d="M8.8143 4.18517L11.8147 7.18569L5.29947 13.7012L2.62438 13.9965C2.26626 14.0361 1.96369 13.7333 2.00354 13.3752L2.30118 10.6981L8.8143 4.18517ZM13.6704 3.73845L12.2616 2.3296C11.8222 1.89013 11.1095 1.89013 10.67 2.3296L9.34467 3.65501L12.3451 6.65553L13.6704 5.33011C14.1099 4.89042 14.1099 4.17791 13.6704 3.73845Z"
@@ -242,15 +236,10 @@
                     <span translate="COMPONENTS.IDEABOX.OPTION_VIEW_PREVIOUS_VERSIONS"></span>
                   </button>
                 </ng-container>
-                <ng-container *ngIf="canEditIdea() || showDisabledFunctionality()">
+                <ng-container *ngIf="canEditIdea()">
                   <div class="line_separator"></div>
                   <button
-                    class="option error_text" (click)="doShowDeleteIdea()"
-                    [disabled]="showDisabledFunctionality()"
-                    [ngClass]="{
-                      disabled: showDisabledFunctionality()
-                    }"
-                  >
+                    class="option error_text" (click)="doShowDeleteIdea()">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path fill-rule="evenodd" clip-rule="evenodd"
                         d="M10 3H6V4H10V3ZM11 4V3C11 2.44772 10.5523 2 10 2H6C5.44772 2 5 2.44772 5 3V4H4H2.5C2.22386 4 2 4.22386 2 4.5C2 4.77614 2.22386 5 2.5 5H4V13C4 13.5523 4.44772 14 5 14H11C11.5523 14 12 13.5523 12 13V5H13.5C13.7761 5 14 4.77614 14 4.5C14 4.22386 13.7761 4 13.5 4H12H11ZM7 7H6V11H7V7ZM10 7H9V11H10V7Z"
