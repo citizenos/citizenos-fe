@@ -276,7 +276,7 @@
       "LBL_NAME": "Pomenujte svoj nový priečinok",
       "ADD_NAME_ERROR_MSG_INVALID": "Názov nemôže byť prázdny",
       "PLACEHOLDER_NAME": "@:VIEWS.MY_TOPICS_TOPICID.LNK_NAME",
-      "LBL_IDEAS_SELECTION": "Vyberte nápady, ktoré chcete ihneď pridať do tohto priečinka",
+      "LBL_IDEAS_SELECTION": "Select the ideas you want to include in the voting options",
       "BTN_CREATE": "Vytvoriť priečinok",
       "LNK_CANCEL": "@:LNK_CANCEL",
       "LBL_IDEAS": "Nápady ({{count}})",
