@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"  # HTTP
+      - "3001:3001"  # HTTPS
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - PORT_SSL=3001
+      - HOST=0.0.0.0
+    volumes:
+      - ./config:/app/config:ro  # Mount config directory as read-only
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Development configuration
+  citizenos-fe:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: builder  # Use the builder stage for development
+    ports:
+      - "3000:3000"
+      - "3001:3001"
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - PORT_SSL=3001
+      - HOST=0.0.0.0
+    volumes:
+      - .:/app  # Mount entire project for development
+      - /app/node_modules  # Preserve node_modules in container
+    command: npm run dev  # Using the correct dev script from package.json
+    restart: unless-stopped
