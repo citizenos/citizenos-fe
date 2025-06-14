@@ -310,11 +310,26 @@
                       </div>
                     </div>
                     <div class="options">
-                      <div class="option" (click)="setAge('')" translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL">
-                      </div>
-                      <div *ngFor="let number of [].constructor(AGE_LIMIT); let i = index" class="option" (click)="setAge((i + 1))">
-                        {{ i + 1 }}
-                      </div>
+                      <label class="checkbox" (click)="setAge('')">
+                        <span [innerHTML]="'COMPONENTS.TOPIC_IDEATION.FILTER_ALL' | translate | titlecase"></span>
+                        <input
+                          type="checkbox"
+                          name="age"
+                          [checked]="ideaFilters.age.length === 0 || ideaFilters.age.length === AGE_LIMIT"
+                          (change)="setAge('')"
+                        />
+                        <span class="checkmark"></span>
+                      </label>
+                      <label *ngFor="let number of [].constructor(AGE_LIMIT); let i = index" class="checkbox">
+                        <span>{{ i + 1 }}</span>
+                        <input
+                          type="checkbox"
+                          name="age"
+                          [checked]="ideaFilters.age.includes((i + 1).toString())"
+                          (change)="setAge(i + 1)"
+                        />
+                        <span class="checkmark"></span>
+                      </label>
                     </div>
                   </div>
                 </cos-input>
@@ -444,7 +459,7 @@
 
                   <a class="filter_option" (click)="mobileIdeaFilters.age = true">
                     <span class="filter_option_text" translate="VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_AGE"></span>
-                    <span class="bold">{{(ideaFilters.age) ? ideaFilters.age : 'COMPONENTS.TOPIC_IDEATION.FILTER_ALL' | translate}}</span>
+                    <span class="bold">{{ideaFilters.age.length > 0 ? sortedSelectedAges : 'COMPONENTS.TOPIC_IDEATION.FILTER_ALL' | translate}}</span>
                   </a>
 
                   <a class="filter_option" (click)="mobileIdeaFilters.gender = true">
@@ -617,30 +632,30 @@
                   </a>
 
                   <div class="options_wrapper">
-                    <label class="checkbox" (click)="setMobileAges('')">
-                      <span [innerHTML]="'COMPONENTS.TOPIC_IDEATION.FILTER_ALL' | translate | titlecase"></span>
-                      <input
-                        type="checkbox"
-                        name="age"
-                        [checked]="mobileAges.length === 0 || mobileAges.length === AGE_LIMIT"
-                        (change)="setMobileAges('')"
-                      />
-                      <span class="checkmark"></span>
-                    </label>
-                    <label *ngFor="let number of [].constructor(AGE_LIMIT); let i = index" class="checkbox">
-                      <span>{{ i + 1 }}</span>
-                      <input
-                        type="checkbox"
-                        name="age"
-                        [checked]="mobileAges.includes((i + 1).toString())"
-                        (change)="setMobileAges(i + 1)"
-                      />
-                      <span class="checkmark"></span>
-                    </label>
+                    <label class="checkbox" (click)="setMobileAge('')">
+                        <span [innerHTML]="'COMPONENTS.TOPIC_IDEATION.FILTER_ALL' | translate | titlecase"></span>
+                        <input
+                          type="checkbox"
+                          name="age"
+                          [checked]="ideaFilters.age.length === 0 || ideaFilters.age.length === AGE_LIMIT"
+                          (change)="setAge('', false)"
+                        />
+                        <span class="checkmark"></span>
+                      </label>
+                      <label *ngFor="let number of [].constructor(AGE_LIMIT); let i = index" class="checkbox">
+                        <span>{{ i + 1 }}</span>
+                        <input
+                          type="checkbox"
+                          name="age"
+                          [checked]="ideaFilters.age.includes((i + 1).toString())"
+                          (change)="setAge(i + 1, false)"
+                        />
+                        <span class="checkmark"></span>
+                      </label>
                   </div>
 
                   <button class="btn_medium_secondary"
-                    (click)="setAge(mobileIdeaFilters.age);mobileIdeaFilters.age= false;"
+                    (click)="applyAgeFilter();mobileIdeaFilters.age= false;"
                     translate="COMPONENTS.TOPIC_IDEATION.BTN_APPLY"></button>
                 </div>
 

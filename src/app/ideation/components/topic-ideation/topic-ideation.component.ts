@@ -64,7 +64,7 @@ export class TopicIdeationComponent {
   mobileIdeaFiltersList = false;
 
   mobileIdeaFilters: any = {
-    age: '',
+    age: <string[]>[],
     gender: '',
     residence: '',
     type: '',
@@ -235,24 +235,23 @@ export class TopicIdeationComponent {
     }
   }
 
-  setMobileAges(_age: number | string) {
+  applyAgeFilter() {
+    this.ageFilter$.next([...this.ideaFilters.age]);
+  }
+
+  setMobileAge(_age: number | string) {
     const age = _age.toString();
     if (age === 'all' || age === '') {
-      this.mobileAges = [];
+      this.mobileIdeaFilters.age = [];
       return;
     }
 
-    const idx = this.mobileAges.indexOf(age);
+    const idx = this.mobileIdeaFilters.age.indexOf(age);
     if (idx > -1) {
-      this.mobileAges.splice(idx, 1);
+      this.mobileIdeaFilters.age.splice(idx, 1);
     } else {
-      this.mobileAges.push(age);
+      this.mobileIdeaFilters.age.push(age);
     }
-  }
-
-  applyAgeFilter() {
-    this.ageFilter$.next([...this.mobileAges]);
-    this.ideaFilters.age = [...this.mobileAges];
   }
 
   setGender(value: string) {
@@ -498,6 +497,9 @@ export class TopicIdeationComponent {
 
   showMobileOverlay() {
     const filtersShow = Object.entries(this.mobileIdeaFilters).find(([key, value]) => {
+      if (key === 'age') {
+        return value === true;
+      }
       return !!value;
     });
 
