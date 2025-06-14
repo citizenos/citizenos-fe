@@ -878,13 +878,6 @@
                 <div class="options filter_options">
                   <a
                     class="filter_option"
-                    (click)="mobileIdeaFilters.type = true"
-                  >
-                    <span
-                      class="filter_option_text"
-                      translate="COMPONENTS.TOPIC_IDEATION.IDEA_FILTER_TYPE"
-                    ></span>
-                    <span class="bold">
                       <span
                         *ngIf="!ideaFilters.type"
                         translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL"
@@ -905,7 +898,6 @@
                         {{
                           "COMPONENTS.TOPIC_IDEATION.FILTER_TYPE_MODERATED"
                             | translate
-                        }}</span
                       >
                     </span>
                   </a>
