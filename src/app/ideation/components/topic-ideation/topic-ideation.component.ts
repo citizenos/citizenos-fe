@@ -64,7 +64,7 @@ export class TopicIdeationComponent {
   mobileIdeaFiltersList = false;
 
   mobileIdeaFilters: any = {
-    age: '',
+    age: <string[]>[],
     gender: '',
     residence: '',
     type: '',
@@ -220,10 +220,12 @@ export class TopicIdeationComponent {
     this.ideaFilters.type = type;
   }
 
-  setAge(_age: number | string) {
+  setAge(_age: number | string, withRequest = true) {
     const age = _age.toString();
     if (age === 'all' || age === '') {
-      this.ageFilter$.next([]);
+      if (withRequest) {
+        this.ageFilter$.next([]);
+      }
       this.ideaFilters.age = [];
       return;
     }
@@ -234,7 +236,28 @@ export class TopicIdeationComponent {
     } else {
       this.ideaFilters.age.push(age);
     }
+    if (withRequest) {
+      this.ageFilter$.next([...this.ideaFilters.age]);
+    }
+  }
+
+  applyAgeFilter() {
     this.ageFilter$.next([...this.ideaFilters.age]);
+  }
+
+  setMobileAge(_age: number | string) {
+    const age = _age.toString();
+    if (age === 'all' || age === '') {
+      this.mobileIdeaFilters.age = [];
+      return;
+    }
+
+    const idx = this.mobileIdeaFilters.age.indexOf(age);
+    if (idx > -1) {
+      this.mobileIdeaFilters.age.splice(idx, 1);
+    } else {
+      this.mobileIdeaFilters.age.push(age);
+    }
   }
 
   setGender(value: string) {
@@ -480,7 +503,7 @@ export class TopicIdeationComponent {
   showMobileOverlay() {
     const filtersShow = Object.entries(this.mobileIdeaFilters).find(([key, value]) => {
       if (key === 'age') {
-        return Array.isArray(value) && value.length > 0;
+        return value === true;
       }
       return !!value;
     });
