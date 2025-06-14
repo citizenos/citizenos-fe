@@ -303,23 +303,24 @@ export class TopicIdeationComponent {
     }
   }
 
-  applyAgeFilter() {
-    this.ageFilter$.next([...this.ideaFilters.age]);
-  }
-
-  setMobileAge(_age: number | string) {
+  setMobileAges(_age: number | string) {
     const age = _age.toString();
     if (age === 'all' || age === '') {
-      this.mobileIdeaFilters.age = [];
+      this.mobileAges = [];
       return;
     }
 
-    const idx = this.mobileIdeaFilters.age.indexOf(age);
+    const idx = this.mobileAges.indexOf(age);
     if (idx > -1) {
-      this.mobileIdeaFilters.age.splice(idx, 1);
+      this.mobileAges.splice(idx, 1);
     } else {
-      this.mobileIdeaFilters.age.push(age);
+      this.mobileAges.push(age);
     }
+  }
+
+  applyAgeFilter() {
+    this.ageFilter$.next([...this.mobileAges]);
+    this.ideaFilters.age = [...this.mobileAges];
   }
 
   setGender(value: string) {
@@ -595,10 +596,8 @@ export class TopicIdeationComponent {
 
   showMobileOverlay() {
     const filtersShow = Object.entries(this.mobileIdeaFilters).find(([key, value]) => {
-      if (key === 'age') {
-        return value === true;
-      }
-    );
+      return !!value;
+    });
 
     if (filtersShow) return true;
 
