@@ -833,9 +833,12 @@
                   </div>
                 </div>
               </ng-container>
-              <ng-container *ngIf="ideas.length">
+              <ng-container *ngIf="ideas.length !== 0">
                 <ideabox *ngFor="let idea of ideas" [topic]="topic" [ideation]="ideation" [idea]="idea">
                 </ideabox>
+              </ng-container>
+              <ng-container *ngIf="ideas.length === 0">
+                <div translate="COMPONENTS.TOPIC_IDEATION.NO_ITEMS_FOUND"></div>
               </ng-container>
               <div class="pagination_wrap">
                 <cos-pagination (select)="TopicIdeaService.loadPage($event)" class="ideation"
