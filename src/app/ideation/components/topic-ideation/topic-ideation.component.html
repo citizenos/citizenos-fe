@@ -293,14 +293,15 @@
                   </div>
                 </cos-input>
 
+                <!-- here -->
                 <cos-input *ngIf="hasDemograficsField.age" [placeholder]="'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_AGE' | translate"
                   class="dropdown_input">
                   <div class="dropdown" [cosDropdown]>
                     <div class="selection">
                       <div class="selected_item">
-                        <span *ngIf="!ideaFilters.age" translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL"></span>
-                        <span *ngIf="ideaFilters.age">
-                          {{ideaFilters.age}}
+                        <span *ngIf="ideaFilters.age.length === 0" translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL"></span>
+                        <span *ngIf="ideaFilters.age.length !== 0">
+                          {{sortedSelectedAges}}
                         </span>
                       </div>
                       <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -320,16 +321,16 @@
                         />
                         <span class="checkmark"></span>
                       </label>
-                      <label *ngFor="let number of [].constructor(AGE_LIMIT); let i = index" class="checkbox">
-                        <span>{{ i + 1 }}</span>
-                        <input
-                          type="checkbox"
-                          name="age"
-                          [checked]="ideaFilters.age.includes((i + 1).toString())"
-                          (change)="setAge(i + 1)"
-                        />
-                        <span class="checkmark"></span>
-                      </label>
+                     <label *ngFor="let number of [].constructor(AGE_LIMIT); let i = index" class="checkbox">
+                      <span>{{ i + 1 }}</span>
+                      <input
+                        type="checkbox"
+                        name="age"
+                        [checked]="ideaFilters.age.includes((i + 1).toString())"
+                        (change)="setAge(i + 1)"
+                      />
+                      <span class="checkmark"></span>
+                    </label>
                     </div>
                   </div>
                 </cos-input>
