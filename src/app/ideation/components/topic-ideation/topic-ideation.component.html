@@ -736,16 +736,16 @@
                         />
                         <span class="checkmark"></span>
                       </label>
-                     <label *ngFor="let number of [].constructor(AGE_LIMIT); let i = index" class="checkbox">
-                      <span>{{ i + 1 }}</span>
-                      <input
-                        type="checkbox"
-                        name="age"
-                        [checked]="ideaFilters.age.includes((i + 1).toString())"
-                        (change)="setAge(i + 1)"
-                      />
-                      <span class="checkmark"></span>
-                    </label>
+                      <label *ngFor="let number of [].constructor(AGE_LIMIT); let i = index" class="checkbox">
+                        <span>{{ i + 1 }}</span>
+                        <input
+                          type="checkbox"
+                          name="age"
+                          [checked]="ideaFilters.age.includes((i + 1).toString())"
+                          (change)="setAge(i + 1)"
+                        />
+                        <span class="checkmark"></span>
+                      </label>
                     </div>
                   </div>
                 </cos-input>
@@ -1534,17 +1534,26 @@
                   </a>
 
                   <div class="options_wrapper">
-                    <label class="checkbox" (click)="mobileIdeaFilters.age = 'all';">
-                      <span [innerHTML]="'COMPONENTS.TOPIC_IDEATION.FILTER_ALL' | translate | titlecase"></span>
-                      <input type="radio" name="orderBy">
-                      <span class="checkmark"></span>
-                    </label>
-
-                    <label *ngFor="let number of [].constructor(AGE_LIMIT); let i = index" class="checkbox" (click)="mobileIdeaFilters.age = i + 1;">
-                      <span>{{ i + 1 }}</span>
-                      <input type="radio" name="age">
-                      <span class="checkmark"></span>
-                    </label>
+                    <label class="checkbox" (click)="setMobileAge('')">
+                        <span [innerHTML]="'COMPONENTS.TOPIC_IDEATION.FILTER_ALL' | translate | titlecase"></span>
+                        <input
+                          type="checkbox"
+                          name="age"
+                          [checked]="ideaFilters.age.length === 0 || ideaFilters.age.length === AGE_LIMIT"
+                          (change)="setAge('', false)"
+                        />
+                        <span class="checkmark"></span>
+                      </label>
+                      <label *ngFor="let number of [].constructor(AGE_LIMIT); let i = index" class="checkbox">
+                        <span>{{ i + 1 }}</span>
+                        <input
+                          type="checkbox"
+                          name="age"
+                          [checked]="ideaFilters.age.includes((i + 1).toString())"
+                          (change)="setAge(i + 1, false)"
+                        />
+                        <span class="checkmark"></span>
+                      </label>
                   </div>
 
                   <button class="btn_medium_secondary"
