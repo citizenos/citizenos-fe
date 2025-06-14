@@ -223,10 +223,12 @@ export class TopicIdeationComponent {
     this.ideaFilters.type = type;
   }
 
-  setAge(_age: number | string) {
+  setAge(_age: number | string, withRequest = true) {
     const age = _age.toString();
     if (age === 'all' || age === '') {
-      this.ageFilter$.next([]);
+      if (withRequest) {
+        this.ageFilter$.next([]);
+      }
       this.ideaFilters.age = [];
       return;
     }
@@ -237,6 +239,12 @@ export class TopicIdeationComponent {
     } else {
       this.ideaFilters.age.push(age);
     }
+    if (withRequest) {
+      this.ageFilter$.next([...this.ideaFilters.age]);
+    }
+  }
+
+  applyAgeFilter() {
     this.ageFilter$.next([...this.ideaFilters.age]);
   }
 
@@ -499,7 +507,7 @@ export class TopicIdeationComponent {
   showMobileOverlay() {
     const filtersShow = Object.entries(this.mobileIdeaFilters).find(([key, value]) => {
       if (key === 'age') {
-        return Array.isArray(value) && value.length > 0;
+        return value === true;
       }
       return !!value;
     });
