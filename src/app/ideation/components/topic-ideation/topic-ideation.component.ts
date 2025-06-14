@@ -72,6 +72,9 @@ export class TopicIdeationComponent {
     participants: <User | any>''
   }
 
+  mobileAges = <string[]>[];
+
+
   municipalities = municipalities;
 
   ideaTypeFilter$ = new BehaviorSubject('');
@@ -211,10 +214,45 @@ export class TopicIdeationComponent {
     this.ideaFilters.type = type;
   }
 
-  setAge(age: number | string) {
-    if (age === 'all') age = '';
-    this.ageFilter$.next(age);
-    this.ideaFilters.age = age;
+  setAge(_age: number | string, withRequest = true) {
+    const age = _age.toString();
+    if (age === 'all' || age === '') {
+      if (withRequest) {
+        this.ageFilter$.next([]);
+      }
+      this.ideaFilters.age = [];
+      return;
+    }
+
+    const idx = this.ideaFilters.age.indexOf(age);
+    if (idx > -1) {
+      this.ideaFilters.age.splice(idx, 1);
+    } else {
+      this.ideaFilters.age.push(age);
+    }
+    if (withRequest) {
+      this.ageFilter$.next([...this.ideaFilters.age]);
+    }
+  }
+
+  setMobileAges(_age: number | string) {
+    const age = _age.toString();
+    if (age === 'all' || age === '') {
+      this.mobileAges = [];
+      return;
+    }
+
+    const idx = this.mobileAges.indexOf(age);
+    if (idx > -1) {
+      this.mobileAges.splice(idx, 1);
+    } else {
+      this.mobileAges.push(age);
+    }
+  }
+
+  applyAgeFilter() {
+    this.ageFilter$.next([...this.mobileAges]);
+    this.ideaFilters.age = [...this.mobileAges];
   }
 
   setGender(value: string) {
@@ -289,6 +327,7 @@ export class TopicIdeationComponent {
     this.setResidence('');
     this.setParticipant();
     this.filtersSet = false;
+    this.mobileAges = [];
   }
 
   saveIdeation() {
