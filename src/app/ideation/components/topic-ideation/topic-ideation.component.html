@@ -708,133 +708,107 @@
                   </div>
                 </cos-input>
 
-                <cos-input
-                  *ngIf="hasDemograficsField.gender"
-                  [placeholder]="
-                    'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_GENDER' | translate
-                  "
-                  class="dropdown_input"
-                >
+                <!-- here -->
+                <cos-input *ngIf="hasDemograficsField.age" [placeholder]="'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_AGE' | translate"
+                  class="dropdown_input">
                   <div class="dropdown" [cosDropdown]>
                     <div class="selection">
                       <div class="selected_item">
-                        <span
-                          *ngIf="!ideaFilters.gender"
-                          translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL"
-                        ></span>
-                        <span *ngIf="ideaFilters.gender === 'male'">
-                          {{
-                            "VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_GENDER_MALE"
-                              | translate
-                          }}</span
-                        >
-                        <span *ngIf="ideaFilters.gender === 'female'">
-                          {{
-                            "VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_GENDER_FEMALE"
-                              | translate
-                          }}</span
-                        >
-                        <span *ngIf="ideaFilters.gender === 'other'">
-                          {{
-                            "VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_GENDER_OTHER_PLACEHOLDER"
-                              | translate
-                          }}</span
-                        >
+                        <span *ngIf="!ideaFilters.age" translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL"></span>
+                        <span *ngIf="ideaFilters.age">
+                          {{ideaFilters.age}}
+                        </span>
                       </div>
-                      <div>
-                        <svg
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M17 10L12 15L7 10"
-                            stroke="#2C3B47"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                          />
+                      <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
                         </svg>
                       </div>
                     </div>
                     <div class="options">
-                      <div
-                        class="option"
-                        (click)="setGender('')"
-                        translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL"
-                      ></div>
-                      <div
-                        *ngFor="let gender of ['female', 'male', 'other']"
-                        class="option"
-                        (click)="setGender(gender)"
-                      >
-                        {{
-                          "VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_GENDER_" +
-                            (gender === "other"
-                              ? gender + "_placeholder"
-                              : gender
-                            ).toUpperCase() | translate
-                        }}
+                      <label class="checkbox" (click)="setAge('')">
+                        <span [innerHTML]="'COMPONENTS.TOPIC_IDEATION.FILTER_ALL' | translate | titlecase"></span>
+                        <input
+                          type="checkbox"
+                          name="age"
+                          [checked]="ideaFilters.age.length === 0 || ideaFilters.age.length === AGE_LIMIT"
+                          (change)="setAge('')"
+                        />
+                        <span class="checkmark"></span>
+                      </label>
+                     <label *ngFor="let number of [].constructor(AGE_LIMIT); let i = index" class="checkbox">
+                      <span>{{ i + 1 }}</span>
+                      <input
+                        type="checkbox"
+                        name="age"
+                        [checked]="ideaFilters.age.includes((i + 1).toString())"
+                        (change)="setAge(i + 1)"
+                      />
+                      <span class="checkmark"></span>
+                    </label>
+                    </div>
+                  </div>
+                </cos-input>
+
+                <cos-input *ngIf="hasDemograficsField.gender" [placeholder]="'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_GENDER' | translate"
+                  class="dropdown_input">
+                  <div class="dropdown" [cosDropdown]>
+                    <div class="selection">
+                      <div class="selected_item">
+                        <span *ngIf="!ideaFilters.gender" translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL"></span>
+                        <span *ngIf="ideaFilters.gender === 'male'">
+                          {{'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_GENDER_MALE'
+                          |
+                          translate}}</span>
+                        <span *ngIf="ideaFilters.gender === 'female'">
+                          {{'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_GENDER_FEMALE'
+                          |
+                          translate}}</span>
+                        <span *ngIf="ideaFilters.gender === 'other'">
+                          {{'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_GENDER_OTHER_PLACEHOLDER'
+                          |
+                          translate}}</span>
+                      </div>
+                      <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                      </div>
+                    </div>
+                    <div class="options">
+                      <div class="option" (click)="setGender('')" translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL">
+                      </div>
+                      <div *ngFor="let gender of ['female', 'male', 'other']" class="option" (click)="setGender(gender)">
+                        {{ "VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_GENDER_" + (gender === "other" ? gender + "_placeholder" : gender).toUpperCase() | translate }}
                       </div>
                     </div>
                   </div>
                 </cos-input>
 
-                <cos-input
-                  *ngIf="isCountryEstonia && hasDemograficsField.residence"
-                  [placeholder]="
-                    'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_RESIDENCE'
-                      | translate
-                  "
-                  class="dropdown_input"
-                >
+                <cos-input *ngIf="isCountryEstonia && hasDemograficsField.residence" [placeholder]="'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_RESIDENCE' | translate"
+                  class="dropdown_input">
                   <div class="dropdown" [cosDropdown]>
                     <div class="selection">
                       <div class="selected_item">
-                        <span
-                          *ngIf="!ideaFilters.residence"
-                          translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL"
-                        ></span>
+                        <span *ngIf="!ideaFilters.residence" translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL"></span>
                         <span *ngIf="ideaFilters.residence">
-                          {{ ideaFilters.residence | titlecase }}
+                          {{ideaFilters.residence | titlecase}}
                         </span>
                       </div>
-                      <div>
-                        <svg
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M17 10L12 15L7 10"
-                            stroke="#2C3B47"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                          />
+                      <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
                         </svg>
                       </div>
                     </div>
                     <div class="options">
-                      <div
-                        class="option"
-                        (click)="setResidence('')"
-                        translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL"
-                      ></div>
-                      <div
-                        *ngFor="let residence of municipalities"
-                        class="option"
-                        (click)="setResidence(residence.name)"
-                      >
+                      <div class="option" (click)="setResidence('')" translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL">
+                      </div>
+                      <div *ngFor="let residence of municipalities;" class="option" (click)="setResidence((residence.name))">
                         {{ residence.name }}
                       </div>
-                      <div
-                        class="option"
-                        (click)="setResidence('other')"
-                        translate="VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_RESIDENCE_OTHER_PLACEHOLDER"
-                      ></div>
+                      <div class="option" (click)="setResidence('other')" translate="VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_RESIDENCE_OTHER_PLACEHOLDER">
+                      </div>
                     </div>
                   </div>
                 </cos-input>
@@ -878,13 +852,6 @@
                 <div class="options filter_options">
                   <a
                     class="filter_option"
-                    (click)="mobileIdeaFilters.type = true"
-                  >
-                    <span
-                      class="filter_option_text"
-                      translate="COMPONENTS.TOPIC_IDEATION.IDEA_FILTER_TYPE"
-                    ></span>
-                    <span class="bold">
                       <span
                         *ngIf="!ideaFilters.type"
                         translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL"
@@ -905,7 +872,6 @@
                         {{
                           "COMPONENTS.TOPIC_IDEATION.FILTER_TYPE_MODERATED"
                             | translate
-                        }}</span
                       >
                     </span>
                   </a>
