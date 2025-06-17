@@ -53,7 +53,7 @@ export class TopicIdeationComponent {
   allIdeas$: Idea[] = [];
   tabSelected = 'ideas';
   ideaFilters = {
-    age: <number | string>'',
+    age: <string[]>[],
     gender: '',
     residence: '',
     type: '',
@@ -72,10 +72,13 @@ export class TopicIdeationComponent {
     participants: <User | any>''
   }
 
+  mobileAges = <string[]>[];
+
+
   municipalities = municipalities;
 
   ideaTypeFilter$ = new BehaviorSubject('');
-  ageFilter$ = new BehaviorSubject<number | string>('');
+  ageFilter$ = new BehaviorSubject<(number | string)[]>([]);
   genderFilter$ = new BehaviorSubject('');
   residenceFilter$ = new BehaviorSubject('');
   orderFilter$ = new BehaviorSubject('');
@@ -137,7 +140,7 @@ export class TopicIdeationComponent {
 
           if (age || gender || residence) {
             this.TopicIdeaService.setParam('demographics', JSON.stringify({
-              ...(age && { age: age.toString() }),
+              ...(age && Array.isArray(age) && age.length && { age: age.map(String) }),
               ...(gender && { gender }),
               ...(residence && { residence })
             }));
@@ -205,16 +208,60 @@ export class TopicIdeationComponent {
     };
   }
 
+  get sortedSelectedAges() {
+    return this.ideaFilters.age.sort((a, b) => {
+      const ageA = parseInt(a, 10);
+      const ageB = parseInt(b, 10);
+      return ageA - ageB;
+    }
+    ).join(', ');
+  }
+
   setType(type: string) {
     if (type === 'all' || typeof type !== 'string') type = '';
     this.ideaTypeFilter$.next(type);
     this.ideaFilters.type = type;
   }
 
-  setAge(age: number | string) {
-    if (age === 'all') age = '';
-    this.ageFilter$.next(age);
-    this.ideaFilters.age = age;
+  setAge(_age: number | string, withRequest = true) {
+    const age = _age.toString();
+    if (age === 'all' || age === '') {
+      if (withRequest) {
+        this.ageFilter$.next([]);
+      }
+      this.ideaFilters.age = [];
+      return;
+    }
+
+    const idx = this.ideaFilters.age.indexOf(age);
+    if (idx > -1) {
+      this.ideaFilters.age.splice(idx, 1);
+    } else {
+      this.ideaFilters.age.push(age);
+    }
+    if (withRequest) {
+      this.ageFilter$.next([...this.ideaFilters.age]);
+    }
+  }
+
+  setMobileAges(_age: number | string) {
+    const age = _age.toString();
+    if (age === 'all' || age === '') {
+      this.mobileAges = [];
+      return;
+    }
+
+    const idx = this.mobileAges.indexOf(age);
+    if (idx > -1) {
+      this.mobileAges.splice(idx, 1);
+    } else {
+      this.mobileAges.push(age);
+    }
+  }
+
+  applyAgeFilter() {
+    this.ageFilter$.next([...this.mobileAges]);
+    this.ideaFilters.age = [...this.mobileAges];
   }
 
   setGender(value: string) {
@@ -289,6 +336,7 @@ export class TopicIdeationComponent {
     this.setResidence('');
     this.setParticipant();
     this.filtersSet = false;
+    this.mobileAges = [];
   }
 
   saveIdeation() {
