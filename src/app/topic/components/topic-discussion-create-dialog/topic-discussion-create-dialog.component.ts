@@ -12,7 +12,8 @@ import { TopicDiscussionService } from '@services/topic-discussion.service';
 @Component({
   selector: 'topic-discussion-create-dialog',
   templateUrl: './topic-discussion-create-dialog.component.html',
-  styleUrls: ['./topic-discussion-create-dialog.component.scss']
+  styleUrls: ['./topic-discussion-create-dialog.component.scss'],
+  standalone: false
 })
 export class TopicDiscussionCreateDialogComponent {
   topic!: Topic;

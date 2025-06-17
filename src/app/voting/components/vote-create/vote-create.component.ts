@@ -30,6 +30,7 @@ import { TopicSettingsDisabledDialogComponent } from 'src/app/topic/components/t
   selector: 'app-vote-create',
   templateUrl: './vote-create.component.html',
   styleUrls: ['./vote-create.component.scss'],
+  standalone: false,
   animations: [
     trigger('readMore', [
       state('open', style({

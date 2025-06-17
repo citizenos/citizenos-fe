@@ -24,7 +24,8 @@ import { TopicIdeationService } from '@services/topic-ideation.service';
 @Component({
   selector: 'topic-vote-cast',
   templateUrl: './topic-vote-cast.component.html',
-  styleUrls: ['./topic-vote-cast.component.scss']
+  styleUrls: ['./topic-vote-cast.component.scss'],
+  standalone: false
 })
 export class TopicVoteCastComponent implements OnInit {
   @Input() vote!: any;

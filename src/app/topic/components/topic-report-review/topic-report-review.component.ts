@@ -8,9 +8,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TopicService } from '@services/topic.service';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 @Component({
-  selector: 'app-topic-report-review',
+  selector: 'topic-report-review',
   templateUrl: './topic-report-review.component.html',
-  styleUrls: ['./topic-report-review.component.scss']
+  styleUrls: ['./topic-report-review.component.scss'],
+  standalone: false
 })
 export class TopicReportReviewComponent implements OnInit {
   reportTypes = Object.keys(this.TopicReportService.TYPES);
@@ -54,6 +55,7 @@ export class TopicReportReviewComponent implements OnInit {
 @Component({
   selector: 'topic-report-review-dialog',
   template: '',
+  standalone: false
 })
 export class TopicReportReviewDialogComponent implements OnInit {
 

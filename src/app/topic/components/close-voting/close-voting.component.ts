@@ -13,7 +13,8 @@ export interface CloseVotingData {
 @Component({
   selector: 'app-close-voting',
   templateUrl: './close-voting.component.html',
-  styleUrl: './close-voting.component.scss'
+  styleUrls: ['./close-voting.component.scss'],
+  standalone: false
 })
 
 export class CloseVotingComponent {

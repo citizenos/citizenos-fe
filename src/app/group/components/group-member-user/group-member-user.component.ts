@@ -12,7 +12,8 @@ import { AppService } from '@services/app.service';
 @Component({
   selector: 'group-member-user',
   templateUrl: './group-member-user.component.html',
-  styleUrls: ['./group-member-user.component.scss']
+  styleUrls: ['./group-member-user.component.scss'],
+  standalone: false
 })
 export class GroupMemberUserComponent implements OnInit {
   @Input() member: GroupMemberUser | any;

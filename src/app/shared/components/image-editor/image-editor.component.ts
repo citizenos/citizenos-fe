@@ -3,7 +3,8 @@ import { Input, Output, EventEmitter, Component, ViewChild, SimpleChanges, HostL
 @Component({
   selector: 'image-editor',
   templateUrl: './image-editor.component.html',
-  styleUrls: ['./image-editor.component.scss']
+  styleUrls: ['./image-editor.component.scss'],
+  standalone: false
 })
 export class ImageEditorComponent {
   @ViewChild('canvasElement') canvasElement!: ElementRef<any>;

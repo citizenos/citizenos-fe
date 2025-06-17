@@ -8,7 +8,8 @@ import { Subject, Observable } from 'rxjs';
  */
 
 @Directive({
-  selector: '[dialog-close]'
+  selector: '[dialog-close]',
+  standalone: true
 })
 export class DialogCloseDirective {
   @Input('dialog-close') dialogClose?:any;
@@ -18,7 +19,6 @@ export class DialogCloseDirective {
 
   constructor(private el: ElementRef, private dialog: DialogRef<any>) {
   }
-
 
   ngOnInit(): void {
   }

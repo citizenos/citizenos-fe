@@ -17,19 +17,14 @@ import {
   TypeaheadSelect,
 } from './components/typeahead/typeahead.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CosInitialsComponent } from './components/cos-initials/cos-initials.component';
 import { MomentModule } from 'ngx-moment';
-import { QRCodeModule } from 'angularx-qrcode';
-import { CosPaginationComponent } from './components/cos-pagination/cos-pagination.component';
 import { SocialshareDirective } from '../directives/socialshare.directive';
 import { ActivityComponent } from './components/activity/activity.component';
-import { CosToggleComponent } from './components/cos-toggle/cos-toggle.component';
 import { TopicMemberUserComponent } from '../topic/components/topic-member-user/topic-member-user.component';
 import { TopicMemberGroupComponent } from '../topic/components/topic-member-group/topic-member-group.component';
 import { TopicMemberInviteComponent } from '../topic/components/topic-member-invite/topic-member-invite.component';
 import { TopicMemberInviteDeleteComponent } from '../topic/components/topic-member-invite-delete/topic-member-invite-delete.component';
-import { TopicVoteCastComponent } from '../topic/components/topic-vote-cast/topic-vote-cast.component';
-import { BigGraphComponent } from '../topic/components/big-graph/big-graph.component';
+import { TopicVoteDeadlineComponent } from '../topic/components/topic-vote-deadline/topic-vote-deadline.component';
 
 import {
   GroupInviteComponent,
@@ -51,7 +46,6 @@ import { CosEllipsisPipe } from './pipes/cos-ellipsis.pipe';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { CheckHeightDirective } from '../directives/check-height.directive';
 import { EtherpadDirective } from '../directives/etherpad.directive';
-import { CosInputComponent } from './components/cos-input/cos-input.component';
 import { HtmlDirective } from '../directives/html.directive';
 import { DownloadDirective } from '../directives/download.directive';
 import { CosDisabledDirective } from '../directives/cos-disabled.directive';
@@ -63,7 +57,6 @@ import {
   MobileFiltersDirective,
   MobileFilterDirective,
 } from '../directives/mobile-filters.directive';
-import { CosCalenderComponent } from './components/cos-calender/cos-calender.component';
 import { TourComponent } from './components/tour/tour.component';
 import {
   TourItemDirective,
@@ -75,59 +68,38 @@ import { TooltipComponent } from './components/tooltip/tooltip.component';
 import { ImageEditorComponent } from './components/image-editor/image-editor.component';
 import { SearchFilterComponent } from './components/search-filter/search-filter.component';
 import { TermsLinksComponent } from './components/terms-links/terms-links.component';
-import { TopicVoteDeadlineComponent } from '../topic/components/topic-vote-deadline/topic-vote-deadline.component';
 
 import { NotificationComponent } from '../core/components/notification/notification.component';
 import { SiteNotificationComponent } from './components/site-notification/site-notification.component';
+import { BigGraphComponent } from '../topic/components/big-graph/big-graph.component';
+
+// Import standalone components
+import { CosInitialsComponent } from './components/cos-initials/cos-initials.component';
+import { CosPaginationComponent } from './components/cos-pagination/cos-pagination.component';
+import { CosToggleComponent } from './components/cos-toggle/cos-toggle.component';
+import { CosInputComponent } from './components/cos-input/cos-input.component';
+import { CosCalenderComponent } from './components/cos-calender/cos-calender.component';
 
 @NgModule({
   declarations: [
     ActivityComponent,
     BigGraphComponent,
     ConfirmDialogComponent,
-    CosDropdownDirective,
-    CosEllipsisPipe,
-    SafeHtmlPipe,
-    CosInitialsComponent,
-    CosPaginationComponent,
-    CosToggleComponent,
-    EtherpadDirective,
-    GroupInviteComponent,
-    GroupCreateInviteComponent,
-    GroupInviteDialogComponent,
     GroupMemberUserComponent,
     GroupInviteUserComponent,
     GroupShareComponent,
     GroupAddTopicsComponent,
     GroupAddTopicsDialogComponent,
-    MarkdownDirective,
-    MarkdownPipe,
     PublicgroupboxComponent,
-    SocialshareDirective,
     TopicMemberInviteComponent,
     TopicMemberInviteDeleteComponent,
     TopicMemberUserComponent,
     TopicMemberGroupComponent,
-    TopicVoteCastComponent,
     TopicboxComponent,
-    TypeaheadComponent,
-    TypeaheadItem,
-    TypeaheadSelect,
-    CheckHeightDirective,
-    CosInputComponent,
-    HtmlDirective,
-    DownloadDirective,
     GroupboxComponent,
-    CosDisabledDirective,
-    DragndropDirective,
     PageHeaderComponent,
     ActivitiesButtonComponent,
-    MobileFiltersDirective,
-    MobileFilterDirective,
-    CosCalenderComponent,
     TourComponent,
-    TourItemDirective,
-    TourItemTemplateComponent,
     InvitationDialogComponent,
     InterruptDialogComponent,
     TooltipComponent,
@@ -140,15 +112,42 @@ import { SiteNotificationComponent } from './components/site-notification/site-n
     SiteNotificationComponent,
   ],
   imports: [
+    CosDisabledDirective,
+    DragndropDirective,
+    MobileFiltersDirective,
+    MobileFilterDirective,
+    TourItemDirective,
+    CheckHeightDirective,
+    HtmlDirective,
+    DownloadDirective,
+    CosDropdownDirective,
+    EtherpadDirective,
+    MarkdownDirective,
+    SocialshareDirective,
     RouterModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     MomentModule,
-    QRCodeModule,
     TranslateModule,
     LinkyModule,
     DialogModule,
+    // Import standalone components
+    CosEllipsisPipe,
+    SafeHtmlPipe,
+    MarkdownPipe,
+    CosInitialsComponent,
+    CosPaginationComponent,
+    CosToggleComponent,
+    CosInputComponent,
+    CosCalenderComponent,
+    TourItemTemplateComponent,
+    TypeaheadComponent,
+    TypeaheadItem,
+    TypeaheadSelect,
+    GroupInviteComponent,
+    GroupCreateInviteComponent,
+    GroupInviteDialogComponent,
   ],
   exports: [
     ActivityComponent,
@@ -157,9 +156,6 @@ import { SiteNotificationComponent } from './components/site-notification/site-n
     CosDropdownDirective,
     CosEllipsisPipe,
     SafeHtmlPipe,
-    CosInitialsComponent,
-    CosPaginationComponent,
-    CosToggleComponent,
     EtherpadDirective,
     GroupInviteComponent,
     GroupCreateInviteComponent,
@@ -173,19 +169,16 @@ import { SiteNotificationComponent } from './components/site-notification/site-n
     MarkdownPipe,
     MomentModule,
     PublicgroupboxComponent,
-    QRCodeModule,
     SocialshareDirective,
     TopicboxComponent,
     TopicMemberInviteComponent,
     TopicMemberInviteDeleteComponent,
     TopicMemberUserComponent,
     TopicMemberGroupComponent,
-    TopicVoteCastComponent,
     TypeaheadComponent,
     TypeaheadItem,
     TypeaheadSelect,
     CheckHeightDirective,
-    CosInputComponent,
     HtmlDirective,
     DownloadDirective,
     GroupboxComponent,
@@ -195,7 +188,6 @@ import { SiteNotificationComponent } from './components/site-notification/site-n
     ActivitiesButtonComponent,
     MobileFiltersDirective,
     MobileFilterDirective,
-    CosCalenderComponent,
     TourComponent,
     TourItemDirective,
     TourItemTemplateComponent,
@@ -207,6 +199,12 @@ import { SiteNotificationComponent } from './components/site-notification/site-n
     NotificationComponent,
     MarkdownLinkDialogComponent,
     SiteNotificationComponent,
+    // Export standalone components
+    CosInitialsComponent,
+    CosPaginationComponent,
+    CosToggleComponent,
+    CosInputComponent,
+    CosCalenderComponent,
   ],
 })
 export class SharedModule {}

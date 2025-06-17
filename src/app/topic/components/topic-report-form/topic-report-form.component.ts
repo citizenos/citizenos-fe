@@ -10,9 +10,10 @@ export interface TopicReportFormData {
   topic: Topic
 }
 @Component({
-  selector: 'app-topic-report-form',
+  selector: 'topic-report-form',
   templateUrl: './topic-report-form.component.html',
-  styleUrls: ['./topic-report-form.component.scss']
+  styleUrls: ['./topic-report-form.component.scss'],
+  standalone: false
 })
 export class TopicReportFormComponent implements OnInit {
   reportTypes = Object.keys(this.TopicReportService.TYPES);
@@ -78,6 +79,7 @@ export class TopicReportFormComponent implements OnInit {
 @Component({
   selector: 'topic-report-form-dialog',
   template: '',
+  standalone: false
 })
 export class TopicReportFormDialogComponent implements OnInit {
 

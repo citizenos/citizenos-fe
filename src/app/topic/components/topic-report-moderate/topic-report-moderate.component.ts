@@ -11,9 +11,10 @@ export interface TopicReportModerateData {
 };
 
 @Component({
-  selector: 'app-topic-report-moderate',
+  selector: 'topic-report-moderate',
   templateUrl: './topic-report-moderate.component.html',
-  styleUrls: ['./topic-report-moderate.component.scss']
+  styleUrls: ['./topic-report-moderate.component.scss'],
+  standalone: false
 })
 export class TopicReportModerateComponent implements OnInit {
   reportTypes = Object.keys(this.TopicReportService.TYPES);
@@ -78,6 +79,7 @@ export class TopicReportModerateComponent implements OnInit {
 @Component({
   selector: 'topic-report-moderate-dialog',
   template: '',
+  standalone: false
 })
 export class TopicReportModerateDialogComponent implements OnInit {
 

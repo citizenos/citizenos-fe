@@ -16,7 +16,8 @@ import { ConfirmDialogComponent } from '@shared/components/confirm-dialog/confir
 @Component({
   selector: 'topicbox',
   templateUrl: './topicbox.component.html',
-  styleUrls: ['./topicbox.component.scss']
+  styleUrls: ['./topicbox.component.scss'],
+  standalone: false
 })
 
 export class TopicboxComponent implements OnInit {

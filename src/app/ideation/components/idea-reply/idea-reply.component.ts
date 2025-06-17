@@ -16,7 +16,8 @@ import { IdeaReplyReportComponent } from '../idea-reply-report/idea-reply-report
   selector: 'idea-reply',
   templateUrl: './idea-reply.component.html',
   styleUrls: ['./idea-reply.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 export class IdeaReplyComponent implements OnInit {
   @ViewChild('argumentBody') argumentBody!: ElementRef;

@@ -11,7 +11,8 @@ import { DIALOG_DATA, DialogService } from 'src/app/shared/dialog';
 @Component({
   selector: 'app-edit-discussion-deadline',
   templateUrl: './edit-discussion-deadline.component.html',
-  styleUrls: ['./edit-discussion-deadline.component.scss']
+  styleUrls: ['./edit-discussion-deadline.component.scss'],
+  standalone: false
 })
 export class EditDiscussionDeadlineComponent {
   @Input() discussion!: Discussion;

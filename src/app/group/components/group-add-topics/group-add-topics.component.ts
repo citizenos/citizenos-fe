@@ -12,7 +12,8 @@ import { DIALOG_DATA, DialogRef } from 'src/app/shared/dialog';
 @Component({
   selector: 'group-add-topics',
   templateUrl: './group-add-topics.component.html',
-  styleUrls: ['./group-add-topics.component.scss']
+  styleUrls: ['./group-add-topics.component.scss'],
+  standalone: false
 })
 export class GroupAddTopicsComponent implements OnInit {
   @Input() group!: Group;
@@ -188,7 +189,8 @@ export class GroupAddTopicsComponent implements OnInit {
 
 @Component({
   templateUrl: './group-add-topics-dialog.component.html',
-  styleUrls: ['./group-add-topics-dialog.component.scss']
+  styleUrls: ['./group-add-topics-dialog.component.scss'],
+  standalone: false
 })
 export class GroupAddTopicsDialogComponent {
   group!: Group;

@@ -13,6 +13,7 @@ import { InviteDialogData } from '@interfaces/dialogdata';
 
 @Component({
   selector: 'topic-token-join',
+  standalone: false,
   template: '',
 })
 export class TopicTokenJoinComponent {

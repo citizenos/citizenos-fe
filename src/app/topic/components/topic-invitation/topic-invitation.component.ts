@@ -12,6 +12,7 @@ import { AppService } from '@services/app.service';
 
 @Component({
   selector: 'topic-invite-dialog',
+  standalone: false,
   template: '',
 })
 export class TopicInvitationDialogComponent {

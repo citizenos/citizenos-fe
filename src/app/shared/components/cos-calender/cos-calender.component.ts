@@ -1,11 +1,14 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'cos-calender',
   templateUrl: './cos-calender.component.html',
-  styleUrls: ['./cos-calender.component.scss']
+  styleUrls: ['./cos-calender.component.scss'],
+  standalone: true,
+  imports: [CommonModule, TranslateModule]
 })
-
 export class CosCalenderComponent implements OnInit {
   @Input() minDate?: Date;
   @Input() date?: Date;

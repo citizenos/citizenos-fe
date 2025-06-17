@@ -9,11 +9,15 @@ import { GroupMemberUserService } from '@services/group-member-user.service';
 import { GroupService } from '@services/group.service';
 import { SearchService } from '@services/search.service';
 import { NotificationService } from '@services/notification.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'group-invite',
   templateUrl: './group-invite.component.html',
-  styleUrls: ['./group-invite.component.scss']
+  styleUrls: ['./group-invite.component.scss'],
+  standalone: true,
+  imports: [CommonModule, FormsModule]
 })
 export class GroupInviteComponent implements OnInit {
   @Input() group!: Group;
@@ -287,20 +291,23 @@ export class GroupInviteComponent implements OnInit {
   }
 }
 
-
 @Component({
   selector: 'group-create-invite',
-  templateUrl: './group-create-invite.component.html',
-  styleUrls: ['./group-create-invite.component.scss']
+  templateUrl: './group-invite.component.html',
+  styleUrls: ['./group-invite.component.scss'],
+  standalone: true,
+  imports: [CommonModule, FormsModule]
 })
 export class GroupCreateInviteComponent extends GroupInviteComponent {
 
 }
 
-
 @Component({
+  selector: 'group-invite-dialog',
   templateUrl: './group-invite-dialog.component.html',
-  styleUrls: ['./group-invite-dialog.component.scss']
+  styleUrls: ['./group-invite-dialog.component.scss'],
+  standalone: true,
+  imports: [CommonModule, FormsModule]
 })
 export class GroupInviteDialogComponent {
   activeTab = 'invite';

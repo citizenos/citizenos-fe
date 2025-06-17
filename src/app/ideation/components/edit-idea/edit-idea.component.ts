@@ -23,6 +23,7 @@ import { ImageService } from '@services/images.service';
   selector: 'edit-idea',
   templateUrl: './edit-idea.component.html',
   styleUrls: ['./edit-idea.component.scss'],
+  standalone: false,
   animations: [
     trigger('openSlide', [
       state(

@@ -15,7 +15,8 @@ import { NotificationService } from '@services/notification.service';
 @Component({
   selector: 'topic-member-user',
   templateUrl: './topic-member-user.component.html',
-  styleUrls: ['./topic-member-user.component.scss']
+  styleUrls: ['./topic-member-user.component.scss'],
+  standalone: false
 })
 export class TopicMemberUserComponent implements OnInit {
   @Input() member?: TopicMemberUser | any;

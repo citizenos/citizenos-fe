@@ -9,7 +9,8 @@ import { NotificationService } from '@services/notification.service';
 @Component({
   selector: 'site-notification',
   templateUrl: './site-notification.component.html',
-  styleUrl: './site-notification.component.scss'
+  styleUrl: './site-notification.component.scss',
+  standalone: false
 })
 export class SiteNotificationComponent {
   public showNotification = false;

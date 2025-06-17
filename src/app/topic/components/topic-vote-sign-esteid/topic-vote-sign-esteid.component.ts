@@ -12,9 +12,10 @@ import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms
 declare let hwcrypto: any;
 
 @Component({
-  selector: 'app-topic-vote-sign-esteid',
+  selector: 'topic-vote-sign-esteid',
   templateUrl: './topic-vote-sign-esteid.component.html',
-  styleUrls: ['./topic-vote-sign-esteid.component.scss']
+  styleUrls: ['./topic-vote-sign-esteid.component.scss'],
+  standalone: false
 })
 export class TopicVoteSignEsteidComponent implements OnInit {
   topic!: Topic;

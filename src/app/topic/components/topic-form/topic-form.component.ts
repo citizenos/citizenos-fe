@@ -32,6 +32,7 @@ import { TopicSettingsLockedComponent } from '../topic-settings-locked/topic-set
   selector: 'topic-form',
   templateUrl: './topic-form.component.html',
   styleUrls: ['./topic-form.component.scss'],
+  standalone: false,
   animations: [
     trigger('readMore', [
       state('open', style({
@@ -44,7 +45,6 @@ import { TopicSettingsLockedComponent } from '../topic-settings-locked/topic-set
       }))
     ]),
     trigger('openClose', [
-      // ...
       state('open', style({
         minHeight: 'min-content',
         maxHeight: 'min-content',
@@ -55,7 +55,6 @@ import { TopicSettingsLockedComponent } from '../topic-settings-locked/topic-set
       }))
     ]),
     trigger('openSlide', [
-      // ...
       state('open', style({
         minHeight: 'auto',
         'maxHeight': '400px',

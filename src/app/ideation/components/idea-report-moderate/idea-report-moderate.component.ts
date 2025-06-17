@@ -10,7 +10,8 @@ import { Idea } from 'src/app/interfaces/idea';
 @Component({
   selector: 'app-idea-report-moderate',
   templateUrl: './idea-report-moderate.component.html',
-  styleUrls: ['./idea-report-moderate.component.scss']
+  styleUrls: ['./idea-report-moderate.component.scss'],
+  standalone: false
 })
 export class IdeaReportModerateComponent  implements OnInit {
   idea!: Idea;
@@ -72,6 +73,7 @@ export class IdeaReportModerateComponent  implements OnInit {
 @Component({
   selector: 'app-idea-report-moderate-dialog',
   template: '',
+  standalone: false
 })
 export class IdeaReportModerateDialogComponent {
   topicId = '';

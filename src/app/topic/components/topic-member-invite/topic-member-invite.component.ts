@@ -9,7 +9,8 @@ import { DialogService } from 'src/app/shared/dialog';
 @Component({
   selector: 'topic-member-invite',
   templateUrl: './topic-member-invite.component.html',
-  styleUrls: ['./topic-member-invite.component.scss']
+  styleUrls: ['./topic-member-invite.component.scss'],
+  standalone: false
 })
 export class TopicMemberInviteComponent implements OnInit {
   @Input() invite?: any;

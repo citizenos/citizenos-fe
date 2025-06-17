@@ -1,9 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'cos-pagination',
   templateUrl: './cos-pagination.component.html',
-  styleUrls: ['./cos-pagination.component.scss']
+  styleUrls: ['./cos-pagination.component.scss'],
+  standalone: true,
+  imports: [CommonModule]
 })
 export class CosPaginationComponent implements OnInit {
   @Input() totalPages:number = 0;

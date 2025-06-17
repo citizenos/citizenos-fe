@@ -10,9 +10,10 @@ export interface ArgumentReactionsData {
 };
 
 @Component({
-  selector: 'app-argument-reactions',
+  selector: 'argument-reactions',
   templateUrl: './argument-reactions.component.html',
-  styleUrls: ['./argument-reactions.component.scss']
+  styleUrls: ['./argument-reactions.component.scss'],
+  standalone: false
 })
 
 export class ArgumentReactionsComponent implements OnInit {

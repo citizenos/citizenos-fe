@@ -11,9 +11,10 @@ export interface TopicVoteSignData {
 };
 
 @Component({
-  selector: 'app-topic-vote-sign',
+  selector: 'topic-vote-sign',
   templateUrl: './topic-vote-sign.component.html',
-  styleUrls: ['./topic-vote-sign.component.scss']
+  styleUrls: ['./topic-vote-sign.component.scss'],
+  standalone: false
 })
 export class TopicVoteSignComponent implements OnInit {
   topic!: Topic;

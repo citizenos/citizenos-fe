@@ -5,7 +5,8 @@ import { DIALOG_DATA, DialogRef } from 'src/app/shared/dialog';
 @Component({
   selector: 'markdown-link-dialog',
   templateUrl: './markdown-link-dialog.component.html',
-  styleUrl: './markdown-link-dialog.component.scss'
+  styleUrl: './markdown-link-dialog.component.scss',
+  standalone: false
 })
 export class MarkdownLinkDialogComponent {
   wWidth = window.innerWidth;

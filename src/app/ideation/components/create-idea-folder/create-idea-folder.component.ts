@@ -9,7 +9,8 @@ import { TopicIdeationFoldersService } from '@services/topic-ideation-folders.se
 @Component({
   selector: 'app-create-idea-folder',
   templateUrl: './create-idea-folder.component.html',
-  styleUrls: ['./create-idea-folder.component.scss']
+  styleUrls: ['./create-idea-folder.component.scss'],
+  standalone: false
 })
 export class CreateIdeaFolderComponent {
   form = new UntypedFormGroup({

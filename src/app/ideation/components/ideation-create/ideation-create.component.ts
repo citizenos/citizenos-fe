@@ -30,6 +30,7 @@ import { Ideation } from '@interfaces/ideation';
   selector: 'app-ideation-create',
   templateUrl: './ideation-create.component.html',
   styleUrls: ['./ideation-create.component.scss'],
+  standalone: false,
   animations: [
     trigger('readMore', [
       state(

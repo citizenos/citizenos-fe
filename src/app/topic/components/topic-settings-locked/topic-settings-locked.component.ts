@@ -3,7 +3,8 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-topic-settings-locked',
   templateUrl: './topic-settings-locked.component.html',
-  styleUrl: './topic-settings-locked.component.scss'
+  styleUrl: './topic-settings-locked.component.scss',
+  standalone: false
 })
 export class TopicSettingsLockedComponent {
 

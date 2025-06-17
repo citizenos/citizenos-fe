@@ -7,9 +7,10 @@ import { switchMap, take } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TopicService } from '@services/topic.service';
 @Component({
-  selector: 'app-topic-report-resolve',
+  selector: 'topic-report-resolve',
   templateUrl: './topic-report-resolve.component.html',
-  styleUrls: ['./topic-report-resolve.component.scss']
+  styleUrls: ['./topic-report-resolve.component.scss'],
+  standalone: false
 })
 export class TopicReportResolveComponent implements OnInit {
   topic!: Topic;
@@ -49,7 +50,8 @@ export class TopicReportResolveComponent implements OnInit {
 @Component({
   selector: 'app-topic-report-resolve-dialog',
   template: '',
-  styleUrls: []
+  styleUrls: [],
+  standalone: false
 })
 export class TopicReportResolveDialogComponent implements OnInit {
 

@@ -11,9 +11,10 @@ import { User } from 'src/app/interfaces/user';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-topic-vote-delegate',
+  selector: 'topic-vote-delegate',
   templateUrl: './topic-vote-delegate.component.html',
-  styleUrls: ['./topic-vote-delegate.component.scss']
+  styleUrls: ['./topic-vote-delegate.component.scss'],
+  standalone: false
 })
 export class TopicVoteDelegateComponent {
   public topic!: Topic;

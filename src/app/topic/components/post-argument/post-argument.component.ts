@@ -27,7 +27,8 @@ import { LocationService } from '@services/location.service';
         'maxHeight': '0',
         transition: 'all 0.2s ease-in-out',
       }))
-    ])]
+    ])],
+  standalone: false
 })
 export class PostArgumentComponent {
   @Input() topicId!: string;

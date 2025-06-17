@@ -7,7 +7,8 @@ import { ActivityService } from '@services/activity.service';
 @Component({
   selector: 'activity',
   templateUrl: './activity.component.html',
-  styleUrls: ['./activity.component.scss']
+  styleUrls: ['./activity.component.scss'],
+  standalone: false
 })
 export class ActivityComponent implements OnInit {
   @Input() activitygroup!: any;

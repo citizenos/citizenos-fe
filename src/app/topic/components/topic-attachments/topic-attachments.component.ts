@@ -17,6 +17,7 @@ import { trigger, state, style } from '@angular/animations';
   selector: 'topic-attachments',
   templateUrl: './topic-attachments.component.html',
   styleUrls: ['./topic-attachments.component.scss'],
+  standalone: false,
   animations: [
     trigger('openClose', [
       // ...
@@ -262,6 +263,7 @@ export class TopicAttachmentsComponent implements OnInit {
 @Component({
   selector: 'topic-attachments-dialog',
   template: '',
+  standalone: false
 })
 export class TopicAttachmentsDialogComponent implements OnInit {
   private topicId: string = '';

@@ -23,7 +23,8 @@ import { ImageService } from '@services/images.service';
 @Component({
   selector: 'ideabox',
   templateUrl: './ideabox.component.html',
-  styleUrls: ['./ideabox.component.scss']
+  styleUrls: ['./ideabox.component.scss'],
+  standalone: false
 })
 export class IdeaboxComponent implements AfterViewInit {
   @Input() idea!: Idea; // decorate the property with @Input()

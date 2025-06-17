@@ -5,7 +5,8 @@ import { Argument } from 'src/app/interfaces/argument';
 @Component({
   selector: 'app-argument-why-dialog',
   templateUrl: './argument-why-dialog.component.html',
-  styleUrls: ['./argument-why-dialog.component.scss']
+  styleUrls: ['./argument-why-dialog.component.scss'],
+  standalone: false
 })
 export class ArgumentWhyDialogComponent {
   @Input() argument!: Argument;

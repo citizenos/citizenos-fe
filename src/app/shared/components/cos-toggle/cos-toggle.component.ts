@@ -1,9 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'cos-toggle',
   templateUrl: './cos-toggle.component.html',
-  styleUrls: ['./cos-toggle.component.scss']
+  styleUrls: ['./cos-toggle.component.scss'],
+  standalone: true,
+  imports: [CommonModule]
 })
 
 export class CosToggleComponent {

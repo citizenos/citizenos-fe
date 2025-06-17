@@ -9,7 +9,8 @@ import { DIALOG_DATA, DialogRef } from 'src/app/shared/dialog';
 @Component({
   selector: 'edit-idea-folder',
   templateUrl: './edit-idea-folder.component.html',
-  styleUrls: ['./edit-idea-folder.component.scss']
+  styleUrls: ['./edit-idea-folder.component.scss'],
+  standalone: false
 })
 export class EditIdeaFolderComponent {
   form = new UntypedFormGroup({

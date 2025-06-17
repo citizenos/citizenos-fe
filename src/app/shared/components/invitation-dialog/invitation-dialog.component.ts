@@ -9,6 +9,7 @@ import { InviteDialogData } from '@interfaces/dialogdata';
   selector: 'app-invitation-dialog',
   templateUrl: './invitation-dialog.component.html',
   styleUrls: ['./invitation-dialog.component.scss'],
+  standalone: false
 })
 export class InvitationDialogComponent {
   dialogData: InviteDialogData;
