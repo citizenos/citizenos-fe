@@ -817,6 +817,7 @@
       "OPTION_DELETE_FOLDER": "Kustuta kaust",
       "BTN_CREATE_NEW_FOLDER": "Loo uus kaust",
       "NO_FOLDERS_HEADING": "Ideekaustad puuduvad",
+      "NO_ITEMS_FOUND": "No results found with these filters. Try adjusting your filters and search again.",
       "NO_FOLDERS_DESC": "Teemade administraatorid saavad luua kaustu samasse kategooriasse sobivate ideede rühmitamiseks."
     },
     "TOUR": {
