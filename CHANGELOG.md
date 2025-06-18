@@ -1,3 +1,14 @@
+## 2025-06-18 - v1.3.9
+  * Fix: Issue #1487 - SEARCH: Add 'No results found" message to search, and signpost to Help
+  * Fix: Issue #1490 - TOPICS: 'Read more' button not as it should look - text pokes out underneath and margins too big
+  * Fix: Issue #1537 - TOPICS: A more pleasing look when there is no image?
+  * Fix: Issue #1685 - TOPIC: Idea gathering topic becomes a discussion topic if saved without a question
+  * Fix: Issue #1712 - TOPIC: With 1 Discussion topic, the Edit button is not visible
+  * Fix: Issue #2021 - IDEAS: Remove 'Edit idea' and 'Remove idea' from menu anonymous ideas
+  * Fix: Issue #2139 - AF: Remove deleted draft ideas from activity feed
+  * Fix: Issue #2180 - GROUPS: 'More info' not so visible on mobile
+  * Fix: Issue #2187 - IDEAS/VOTING: Text about idea folder in the idea vote settings
+
 ## 2025-05-01 - v1.3.8
   * Feature: #2038 - IDEAS: Autosaving drafts
 
