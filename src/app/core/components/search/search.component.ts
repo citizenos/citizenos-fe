@@ -186,4 +186,9 @@ export class SearchComponent implements OnInit {
         });
     }
   };
+
+  toggleHelp() {
+    const curStatus = this.app.showHelp.getValue();
+    this.app.showHelp.next(!curStatus);
+  }
 }
