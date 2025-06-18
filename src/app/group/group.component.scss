@@ -251,6 +251,10 @@
     }
   }
 
+  #view_more_btn {
+    width: 100%;
+  }
+
   #group_content_wrap {
     display: flex;
     flex-direction: column;
@@ -670,7 +674,8 @@
   align-items: center;
   gap: 8px;
 
-  group-member-user, group-invite-user {
+  group-member-user,
+  group-invite-user {
     display: contents;
   }
 
