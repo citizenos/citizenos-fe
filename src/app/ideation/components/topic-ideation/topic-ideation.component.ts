@@ -146,7 +146,7 @@ export class TopicIdeationComponent {
             }));
           }
 
-          if (typeFilter || orderFilter || participantFilter || folderFilter || search || age || gender || residence) {
+          if (typeFilter || orderFilter || participantFilter || folderFilter || search || age?.length > 0 || gender || residence) {
             this.filtersSet = true;
           } else {
             this.filtersSet = false;
