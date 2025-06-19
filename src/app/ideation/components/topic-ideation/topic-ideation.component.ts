@@ -507,6 +507,9 @@ export class TopicIdeationComponent {
 
   showMobileOverlay() {
     const filtersShow = Object.entries(this.mobileIdeaFilters).find(([key, value]) => {
+      if (key === 'age') {
+        return Array.isArray(value) && value.length > 0;
+      }
       return !!value;
     });
 
