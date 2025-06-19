@@ -321,16 +321,16 @@
                         />
                         <span class="checkmark"></span>
                       </label>
-                     <label *ngFor="let number of [].constructor(AGE_LIMIT); let i = index" class="checkbox">
-                      <span>{{ i + 1 }}</span>
-                      <input
-                        type="checkbox"
-                        name="age"
-                        [checked]="ideaFilters.age.includes((i + 1).toString())"
-                        (change)="setAge(i + 1)"
-                      />
-                      <span class="checkmark"></span>
-                    </label>
+                      <label *ngFor="let number of [].constructor(AGE_LIMIT); let i = index" class="checkbox">
+                        <span>{{ i + 1 }}</span>
+                        <input
+                          type="checkbox"
+                          name="age"
+                          [checked]="ideaFilters.age.includes((i + 1).toString())"
+                          (change)="setAge(i + 1)"
+                        />
+                        <span class="checkmark"></span>
+                      </label>
                     </div>
                   </div>
                 </cos-input>
