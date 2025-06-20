@@ -2665,6 +2665,7 @@
       "LNK_CLEAR": "@:LNK_CLEAR",
       "BTN_LEAVE_GROUP": "Leave group",
       "BTN_VIEW_GROUP": "View group",
+      "BTN_JOINED_GROUP": "Joined",
       "ORDER_TITLE_ASC": "Order groups A-Z",
       "ORDER_TITLE_DESC": "Order groups Z-A",
       "HEADING_NO_RESUTS": "@:VIEWS.MY.NO_RESULTS_FOUND_TITLE",
