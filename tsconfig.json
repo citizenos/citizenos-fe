@@ -14,20 +14,29 @@
     "sourceMap": true,
     "declaration": false,
     "experimentalDecorators": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "importHelpers": true,
     "target": "ES2022",
     "module": "es2020",
     "lib": [
       "es2020",
-      "dom", "dom.iterable"
+      "dom",
+      "dom.iterable"
     ],
     "useDefineForClassFields": false,
     "paths": {
-      "@services/*": ["src/app/services/*"],
-      "@interfaces/*": ["src/app/interfaces/*"],
-      "@shared/*": ["src/app/shared/*"],
-      "@assets/*": ["src/assets/*"],
+      "@services/*": [
+        "src/app/services/*"
+      ],
+      "@interfaces/*": [
+        "src/app/interfaces/*"
+      ],
+      "@shared/*": [
+        "src/app/shared/*"
+      ],
+      "@assets/*": [
+        "src/assets/*"
+      ]
     }
   },
   "angularCompilerOptions": {
