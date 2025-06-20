@@ -13,6 +13,7 @@ import { AppService } from '@services/app.service';
 @Component({
   selector: 'group-invitation-dialog',
   template: '',
+  standalone: false
 })
 export class GroupInvitationDialogComponent {
   inviteId: string = '';

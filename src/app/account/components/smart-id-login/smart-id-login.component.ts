@@ -7,7 +7,8 @@ import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms
 @Component({
   selector: 'app-smart-id-login',
   templateUrl: './smart-id-login.component.html',
-  styleUrls: ['./smart-id-login.component.scss']
+  styleUrls: ['./smart-id-login.component.scss'],
+  standalone: false
 })
 export class SmartIdLoginComponent implements OnInit {
   smartIdForm = new UntypedFormGroup({
@@ -81,7 +82,8 @@ export class SmartIdLoginComponent implements OnInit {
 @Component({
   selector: 'app-smart-id-dialog-login',
   templateUrl: './smart-id-login-dialog.component.html',
-  styleUrls: ['./smart-id-login-dialog.component.scss']
+  styleUrls: ['./smart-id-login-dialog.component.scss'],
+  standalone: false
 })
 export class SmartIdLoginDialogComponent {
 

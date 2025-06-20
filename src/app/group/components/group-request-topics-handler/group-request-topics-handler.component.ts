@@ -9,7 +9,8 @@ import { DialogService } from 'src/app/shared/dialog';
 
 @Component({
   template: '',
-  selector: 'app-group-request-topics-handler'
+  selector: 'app-group-request-topics-handler',
+  standalone: false
 })
 export class GroupRequestTopicsHandlerComponent {
 

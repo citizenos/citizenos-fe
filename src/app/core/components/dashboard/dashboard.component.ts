@@ -19,7 +19,8 @@ import { News } from 'src/app/interfaces/news';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
+  standalone: false
 })
 export class DashboardComponent {
   groups$: Observable<Group[] | any[]> = of([]);

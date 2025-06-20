@@ -7,7 +7,8 @@ import { ConnectSmartIdComponent } from '../connect-smart-id/connect-smart-id.co
 @Component({
   selector: 'app-add-eid',
   templateUrl: './add-eid.component.html',
-  styleUrls: ['./add-eid.component.scss']
+  styleUrls: ['./add-eid.component.scss'],
+  standalone: false
 })
 export class AddEidComponent implements OnInit {
   authMethodsAvailable = this.ConfigService.get('features').authentication;

@@ -41,6 +41,7 @@ import { TopicRequestsComponent } from './components/topic-requests/topic-reques
   selector: 'group',
   templateUrl: './group.component.html',
   styleUrls: ['./group.component.scss'],
+  standalone: false,
   animations: [
     trigger('openClose', [
       // ...

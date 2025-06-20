@@ -17,6 +17,7 @@ import { TopicService } from '@services/topic.service';
   selector: 'my-groups',
   templateUrl: './my-groups.component.html',
   styleUrls: ['./my-groups.component.scss'],
+  standalone: false,
   animations: [
     trigger('openClose', [
       state('open', style({

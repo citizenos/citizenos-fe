@@ -2,6 +2,7 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LinkyModule } from 'ngx-linky';
+import { QRCodeComponent } from 'angularx-qrcode';
 
 import { TopicboxComponent } from '../public-topics/components/topicbox/topicbox.component';
 import { PublicgroupboxComponent } from '../public-groups/components/publicgroupbox/publicgroupbox.component';
@@ -75,10 +76,10 @@ import { BigGraphComponent } from '../topic/components/big-graph/big-graph.compo
 
 // Import standalone components
 import { CosInitialsComponent } from './components/cos-initials/cos-initials.component';
-import { CosPaginationComponent } from './components/cos-pagination/cos-pagination.component';
 import { CosToggleComponent } from './components/cos-toggle/cos-toggle.component';
 import { CosInputComponent } from './components/cos-input/cos-input.component';
 import { CosCalenderComponent } from './components/cos-calender/cos-calender.component';
+import { CosPaginationComponent } from './components/cos-pagination/cos-pagination.component';
 
 @NgModule({
   declarations: [
@@ -102,6 +103,9 @@ import { CosCalenderComponent } from './components/cos-calender/cos-calender.com
     TourComponent,
     InvitationDialogComponent,
     InterruptDialogComponent,
+    TypeaheadComponent,
+    TypeaheadItem,
+    TypeaheadSelect,
     TooltipComponent,
     ImageEditorComponent,
     SearchFilterComponent,
@@ -110,6 +114,10 @@ import { CosCalenderComponent } from './components/cos-calender/cos-calender.com
     NotificationComponent,
     MarkdownLinkDialogComponent,
     SiteNotificationComponent,
+    GroupInviteComponent,
+    GroupCreateInviteComponent,
+    GroupInviteDialogComponent,
+    CosPaginationComponent,
   ],
   imports: [
     CosDisabledDirective,
@@ -137,17 +145,11 @@ import { CosCalenderComponent } from './components/cos-calender/cos-calender.com
     SafeHtmlPipe,
     MarkdownPipe,
     CosInitialsComponent,
-    CosPaginationComponent,
     CosToggleComponent,
     CosInputComponent,
     CosCalenderComponent,
     TourItemTemplateComponent,
-    TypeaheadComponent,
-    TypeaheadItem,
-    TypeaheadSelect,
-    GroupInviteComponent,
-    GroupCreateInviteComponent,
-    GroupInviteDialogComponent,
+    QRCodeComponent
   ],
   exports: [
     ActivityComponent,
@@ -205,6 +207,7 @@ import { CosCalenderComponent } from './components/cos-calender/cos-calender.com
     CosToggleComponent,
     CosInputComponent,
     CosCalenderComponent,
+    QRCodeComponent,
   ],
 })
 export class SharedModule {}

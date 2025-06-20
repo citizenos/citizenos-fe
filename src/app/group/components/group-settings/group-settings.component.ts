@@ -9,7 +9,8 @@ import { languages } from '@services/language.service';
 @Component({
   selector: 'app-group-settings',
   templateUrl: './group-settings.component.html',
-  styleUrls: ['./group-settings.component.scss']
+  styleUrls: ['./group-settings.component.scss'],
+  standalone: false
 })
 export class GroupSettingsComponent {
   @ViewChild('imageUpload') fileInput?: ElementRef;

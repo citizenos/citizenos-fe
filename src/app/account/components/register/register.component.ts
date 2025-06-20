@@ -11,7 +11,8 @@ import { SmartIdLoginDialogComponent } from '../smart-id-login/smart-id-login.co
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss'],
+  standalone: false
 })
 export class RegisterComponent {
   redirectSuccess?: string;
@@ -175,7 +176,8 @@ export class RegisterComponent {
 }
 
 @Component({
-  templateUrl: './register-dialog.component.html'
+  templateUrl: './register-dialog.component.html',
+  standalone: false
 })
 export class RegisterDialogComponent {
   redirectSuccess?: any;

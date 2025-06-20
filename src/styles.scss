@@ -86,13 +86,17 @@
     }
 
     #buttons_area {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+
       @include mixins.tablet {
         display: none;
       }
 
-      display: flex;
-      gap: 16px;
-      align-items: center;
+      @include mixins.mobile {
+        display: none;
+      }
 
       #show_search {
         width: 40px;

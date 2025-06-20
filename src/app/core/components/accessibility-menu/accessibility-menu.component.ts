@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { AppService } from '@services/app.service';
 
 @Component({
-  selector: 'app-accessibility-menu',
+  selector: 'accessibility-menu',
   templateUrl: './accessibility-menu.component.html',
-  styleUrls: ['./accessibility-menu.component.scss']
+  styleUrls: ['./accessibility-menu.component.scss'],
+  standalone: false
 })
 export class AccessibilityMenuComponent {
 

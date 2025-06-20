@@ -12,7 +12,8 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'login-form',
   templateUrl: './login-form.component.html',
-  styleUrls: ['./login-form.component.scss']
+  styleUrls: ['./login-form.component.scss'],
+  standalone: false
 })
 export class LoginFormComponent {
   @Input() redirectSuccess?: any;

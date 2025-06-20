@@ -8,9 +8,10 @@ import { UserService } from '@services/user.service';
 import { take } from 'rxjs';
 
 @Component({
-  selector: 'app-language-select',
+  selector: 'language-select',
   templateUrl: './language-select.component.html',
-  styleUrls: ['./language-select.component.scss']
+  styleUrls: ['./language-select.component.scss'],
+  standalone: false
 })
 export class LanguageSelectComponent implements OnInit {
   languages$: { [key: string]: any } = this.config.get('language').list;

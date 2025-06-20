@@ -60,7 +60,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 16px;
-
+  position: relative;
   @include mixins.tablet {
     display: flex;
   }
@@ -68,7 +68,6 @@
     display: none;
   }
 
-  position: relative;
   .logo_wrap_tablet {
     display: flex;
     height: 28px;

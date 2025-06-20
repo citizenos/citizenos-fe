@@ -29,6 +29,7 @@ import { GroupAddTopicsComponent } from '../group-add-topics/group-add-topics.co
   selector: 'group-create-component',
   templateUrl: './group-create.component.html',
   styleUrls: ['./group-create.component.scss'],
+  standalone: false
 })
 export class GroupCreateComponent implements OnInit, BlockNavigationIfChange {
   @ViewChild('imageUpload') fileInput?: ElementRef;

@@ -12,7 +12,7 @@ import { DialogService } from 'src/app/shared/dialog';
   selector: 'nav-mobile',
   templateUrl: './nav-mobile.component.html',
   styleUrls: ['./nav-mobile.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  standalone: false
 })
 export class NavMobileComponent implements OnInit {
   addPosAbsolute = this.TourService.showTour;

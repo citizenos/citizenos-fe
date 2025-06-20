@@ -4,7 +4,8 @@ import { DIALOG_DATA } from 'src/app/shared/dialog';
 @Component({
   selector: 'app-verify-email-dialog',
   templateUrl: './verify-email-dialog.component.html',
-  styleUrls: ['./verify-email-dialog.component.scss']
+  styleUrls: ['./verify-email-dialog.component.scss'],
+  standalone: false
 })
 export class VerifyEmailDialogComponent {
 

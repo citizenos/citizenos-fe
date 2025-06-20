@@ -12,6 +12,7 @@ import { style, transition, trigger, animate, state } from '@angular/animations'
   selector: 'search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
+  standalone: false,
   animations: [
     trigger('openClose', [
       state('open', style({

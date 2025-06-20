@@ -5,8 +5,7 @@ import { CommonModule } from '@angular/common';
   selector: 'cos-pagination',
   templateUrl: './cos-pagination.component.html',
   styleUrls: ['./cos-pagination.component.scss'],
-  standalone: true,
-  imports: [CommonModule]
+  standalone: false
 })
 export class CosPaginationComponent implements OnInit {
   @Input() totalPages:number = 0;

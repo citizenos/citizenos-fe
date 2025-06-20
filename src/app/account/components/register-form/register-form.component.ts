@@ -11,7 +11,8 @@ import { VerifyEmailDialogComponent } from '../verify-email-dialog/verify-email-
 @Component({
   selector: 'register-form',
   templateUrl: './register-form.component.html',
-  styleUrls: ['./register-form.component.scss']
+  styleUrls: ['./register-form.component.scss'],
+  standalone: false
 })
 export class RegisterFormComponent {
   @Input() redirectSuccess?: any;

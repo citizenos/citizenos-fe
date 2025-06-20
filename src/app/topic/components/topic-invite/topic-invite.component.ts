@@ -256,7 +256,8 @@ export class TopicInviteComponent implements OnInit {
 @Component({
   selector: 'topic-invite-dialog',
   templateUrl: './topic-invite-dialog.component.html',
-  styleUrls: ['./topic-invite-dialog.component.scss']
+  styleUrls: ['./topic-invite-dialog.component.scss'],
+  standalone: false
 })
 export class TopicInviteDialogComponent {
   activeTab = 'invite';

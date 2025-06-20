@@ -9,7 +9,8 @@ import { DialogService } from 'src/app/shared/dialog';
 @Component({
   selector: 'password-reset-form',
   templateUrl: './password-reset-form.component.html',
-  styleUrls: ['./password-reset-form.component.scss']
+  styleUrls: ['./password-reset-form.component.scss'],
+  standalone: false
 })
 export class PasswordResetFormComponent {
   @Input() modal?:boolean;

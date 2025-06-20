@@ -194,14 +194,15 @@
     flex-direction: column;
   }
   .left {
-    @include mixins.mobile {
-      width: 100%;
-    }
     display: flex;
     gap: 16px;
     align-items: center;
+    @include mixins.mobile {
+      width: 100%;
+    }
   }
   .right {
+    display: flex;
     @include mixins.mobile {
       width: 100%;
       button {
@@ -209,7 +210,6 @@
         width: 100%;
       }
     }
-    display: flex;
   }
   .folder_name {
     display: flex;
@@ -452,11 +452,11 @@
 
 .mobile_filters_selection {
   .btn_medium_plain {
-    background-color: transparent; 
+    background-color: transparent;
     &:hover {
       background-color: transparent;
     }
-    
+
     &.icon {
       svg {
         position: static;

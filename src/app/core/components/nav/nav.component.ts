@@ -17,7 +17,7 @@ import { NavigationEnd, Router } from '@angular/router';
   selector: 'nav',
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  standalone: false
 })
 export class NavComponent implements OnInit {
   wWidth = window.innerWidth;
