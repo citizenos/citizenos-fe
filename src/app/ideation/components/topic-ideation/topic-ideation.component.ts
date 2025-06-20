@@ -264,26 +264,6 @@ export class TopicIdeationComponent {
     this.ideaFilters.age = [...this.mobileAges];
   }
 
-  setMobileAge(_age: number | string) {
-    const age = _age.toString();
-    if (age === 'all' || age === '') {
-      this.mobileAges = [];
-      return;
-    }
-
-    const idx = this.mobileAges.indexOf(age);
-    if (idx > -1) {
-      this.mobileAges.splice(idx, 1);
-    } else {
-      this.mobileAges.push(age);
-    }
-  }
-
-  applyAgeFilter() {
-    this.ageFilter$.next([...this.mobileAges]);
-    this.ideaFilters.age = [...this.mobileAges];
-  }
-
   setGender(value: string) {
     if (value === 'all') value = '';
     this.genderFilter$.next(value);
