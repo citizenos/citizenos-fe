@@ -12,15 +12,17 @@ export class MarkdownPipe implements PipeTransform {
 
   transform(input: string, ...args: unknown[]): unknown {
     const renderer = {
-      code: (text: string) => `<code>${text}</code>`
-    }
+      code({ text }: { text: string }) {
+        return `<code>${text}</code>`;
+      },
+      heading(token: any) {
+        return `<h${token.level}>${token.text}</h${token.level}>`;
+      }
+    };
     marked.use({ renderer });
-    let html = marked(input, {mangle: false, headerIds: false});
-    /*div.innerHTML = $filter('linky')(html, '_blank');
-            return $sce.getTrustedHtml(div.textContent);*/
-    html = html.replace(/<a/gi, '<a target="_blank"');
-
-    return html;
+    const html = marked.parse(input) as string;
+    const processedHtml = html.replace(/<a/gi, '<a target="_blank"');
+    return processedHtml;
   }
 
 }
