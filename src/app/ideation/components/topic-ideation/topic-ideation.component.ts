@@ -58,7 +58,8 @@ export class TopicIdeationComponent {
     residence: '',
     type: '',
     orderBy: '',
-    participants: <User | any>''
+    participants: <User | any>'',
+    search: '',
   };
 
   mobileIdeaFiltersList = false;
@@ -77,6 +78,7 @@ export class TopicIdeationComponent {
 
   municipalities = municipalities;
 
+  ideaSearchFilter$ = new BehaviorSubject('');
   ideaTypeFilter$ = new BehaviorSubject('');
   ageFilter$ = new BehaviorSubject<(number | string)[]>([]);
   genderFilter$ = new BehaviorSubject('');
@@ -84,7 +86,6 @@ export class TopicIdeationComponent {
   orderFilter$ = new BehaviorSubject('');
   ideaParticipantsFilter$ = new BehaviorSubject(<User | string>'');
   searchIdeasInput = '';
-  ideaSearchFilter$ = new BehaviorSubject('');
   folderFilter$ = new BehaviorSubject('');
   loadFolders$ = new BehaviorSubject<void>(undefined);
   selectedFolder?: Folder;
@@ -106,9 +107,9 @@ export class TopicIdeationComponent {
   ) { }
 
   ngOnInit(): void {
-    this.ideas$ = combineLatest([this.ideaTypeFilter$, this.orderFilter$, this.ideaParticipantsFilter$, this.folderFilter$, this.ideaSearchFilter$, this.TopicIdeaService.reload$, this.ageFilter$, this.genderFilter$, this.residenceFilter$])
+    this.ideas$ = combineLatest([this.ideaTypeFilter$, this.orderFilter$, this.ideaParticipantsFilter$, this.folderFilter$, this.TopicIdeaService.reload$, this.ageFilter$, this.genderFilter$, this.residenceFilter$, this.ideaSearchFilter$])
       .pipe(
-        switchMap(([typeFilter, orderFilter, participantFilter, folderFilter, search, load, age, gender, residence]) => {
+        switchMap(([typeFilter, orderFilter, participantFilter, folderFilter, load, age, gender, residence, search]) => {
           this.TopicIdeaService.reset();
           this.TopicIdeaService.setParam('topicId', this.topic.id);
           this.TopicIdeaService.setParam('ideationId', this.topic.ideationId);
@@ -135,6 +136,7 @@ export class TopicIdeationComponent {
             this.TopicIdeaService.setParam('folderId', folderFilter);
           }
           if (search) {
+            console.log('search', search);
             this.TopicIdeaService.setParam('search', search);
           }
 
@@ -215,6 +217,11 @@ export class TopicIdeationComponent {
       return ageA - ageB;
     }
     ).join(', ');
+  }
+
+  setSearch(value: string) {
+    this.ideaSearchFilter$.next(value);
+    this.ideaFilters.search = value;
   }
 
   setType(type: string) {
@@ -492,10 +499,6 @@ export class TopicIdeationComponent {
       this.TopicIdeaService.page$.next(1);
     });
   };
-
-  searchIdeas(search: string) {
-    this.ideaSearchFilter$.next(search);
-  }
 
   closeMobileFilter() {
     const filtersShow = Object.entries(this.mobileIdeaFilters).find(([key, value]) => {
