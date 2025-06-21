@@ -232,6 +232,10 @@
     .dropdown_input {
       width: calc(100% / 3 - 16px);
     }
+
+    .search_input {
+      flex-grow: 1;
+    }
   }
 }
 

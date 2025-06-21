@@ -395,6 +395,14 @@
                     </div>
                   </div>
                 </cos-input>
+
+                 <cos-input class="dropdown_input search_input" placeholder="{{'COMPONENTS.TOPIC_IDEATION.SEARCH' | translate}}">
+                  <input
+                    type="text"
+                    [(ngModel)]="ideaFilters.search"
+                    (ngModelChange)="setSearch(ideaFilters.search)"
+                    [placeholder]="'COMPONENTS.TOPIC_IDEATION.SEARCH' | translate">
+                </cos-input>
               </div>
 
               <!--MOBILE_TOPIC_FILTERS-->
