@@ -64,7 +64,7 @@ export class TopicIdeationComponent {
   mobileIdeaFiltersList = false;
 
   mobileIdeaFilters: any = {
-    age: <string[]>[],
+    age: '',
     gender: '',
     residence: '',
     type: '',
