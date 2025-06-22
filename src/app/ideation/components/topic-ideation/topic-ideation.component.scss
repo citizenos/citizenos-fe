@@ -251,6 +251,15 @@
       button {
         padding: 0;
       }
+
+      .text_exist_icon {
+        position: absolute;
+        z-index: 1;
+        top: -4px;
+        right: -4px;
+        border: 2px solid #fff;
+        border-radius: 50%;
+      }
     }
   }
 }
