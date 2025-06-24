@@ -29,7 +29,6 @@ import { LocationService } from '@services/location.service';
   selector: 'topic-ideation',
   templateUrl: './topic-ideation.component.html',
   styleUrls: ['./topic-ideation.component.scss'],
-  standalone: false
 })
 export class TopicIdeationComponent {
   @Input() ideation!: any;
@@ -247,6 +246,18 @@ export class TopicIdeationComponent {
     });
   }
 
+  get isCountryEstonia() {
+    return this.topic.country === 'Estonia';
+  }
+
+  get hasDemograficsField() {
+    return {
+      age: this.ideation.demographicsConfig?.age,
+      gender: this.ideation.demographicsConfig?.gender,
+      residence: this.ideation.demographicsConfig?.residence,
+    };
+  }
+
   get sortedSelectedAges() {
     return this.ideaFilters.age
       .sort((a, b) => {
@@ -264,18 +275,6 @@ export class TopicIdeationComponent {
   setSearch(value: string) {
     this.ideaSearchFilter$.next(value);
     this.ideaFilters.search = value;
-  }
-
-  get isCountryEstonia() {
-    return this.topic.country === 'Estonia';
-  }
-
-  get hasDemograficsField() {
-    return {
-      age: this.ideation.demographicsConfig?.age,
-      gender: this.ideation.demographicsConfig?.gender,
-      residence: this.ideation.demographicsConfig?.residence
-    };
   }
 
   setType(type: string) {
@@ -597,9 +596,11 @@ export class TopicIdeationComponent {
   }
 
   showMobileOverlay() {
-    const filtersShow = Object.entries(this.mobileIdeaFilters).find(([key, value]) => {
-      return !!value;
-    });
+    const filtersShow = Object.entries(this.mobileIdeaFilters).find(
+      ([key, value]) => {
+        return !!value;
+      }
+    );
 
     if (filtersShow) return true;
 
