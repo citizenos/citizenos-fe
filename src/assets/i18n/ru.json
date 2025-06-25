@@ -787,7 +787,7 @@
       "OPT_DOWNLOAD_IDEAS": "Экспорт идей",
       "OPT_EDIT_IDEATION": "Редактировать сбор идей",
       "OPT_CLOSE_IDEATION": "Завершить сбор идей",
-      "SEARCH": "Search",
+      "SEARCH": "Поиск",
       "FILTER_ALL": "@:VIEWS.MY_TOPICS.FILTER_ALL",
       "FILTER_TYPE_YOUR_IDEAS": "Ваши идеи",
       "FILTER_TYPE_FAVOURITES": "Сохраненные идеи",
@@ -818,7 +818,7 @@
       "OPTION_DELETE_FOLDER": "Удалить папку",
       "BTN_CREATE_NEW_FOLDER": "Создать новую папку",
       "NO_FOLDERS_HEADING": "Папки с идеями отсутствуют",
-      "NO_ITEMS_FOUND": "No results found with these filters. Try adjusting your filters and search again.",
+      "NO_ITEMS_FOUND": "По Вашему запросу ничего не найдено. Попробуйте изменить фильтры и повторить поиск.",
       "NO_FOLDERS_DESC": "Администраторы темы могут создавать папки для группировки идей, относящихся к одной категории."
     },
     "TOUR": {
