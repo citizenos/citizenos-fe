@@ -31,6 +31,7 @@ export class TopicIdeaService extends ItemsListService {
   IDEA_VERSION_SEPARATOR = '_v';
   IdeaIds = <string[]>[];
   params = {
+    search: <string | null>null,
     topicId: <string | null>null,
     ideationId: <string | null>null,
     orderBy: <string>this.IDEA_ORDER_BY.date,
