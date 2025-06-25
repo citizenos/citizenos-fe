@@ -322,6 +322,21 @@ export class TopicIdeationComponent {
     this.ideaFilters.age = [...this.mobileAges];
   }
 
+  setMobileAge(_age: number | string) {
+    const age = _age.toString();
+    if (age === 'all' || age === '') {
+      this.mobileIdeaFilters.age = [];
+      return;
+    }
+
+    const idx = this.mobileIdeaFilters.age.indexOf(age);
+    if (idx > -1) {
+      this.mobileIdeaFilters.age.splice(idx, 1);
+    } else {
+      this.mobileIdeaFilters.age.push(age);
+    }
+  }
+
   setGender(value: string) {
     if (value === 'all') value = '';
     this.genderFilter$.next(value);
