@@ -47,9 +47,6 @@
       font-weight: 400;
       line-height: 16px;
     }
-    .deadline {
-
-    }
   }
   button {
     padding: 8px 16px;
@@ -229,8 +226,40 @@
     gap: 24px;
     width: 100%;
 
+    .options_row_main {
+      width: 100%;
+      display: flex;
+      gap: 16px;
+
+      .dropdown_input {
+        width: 100%;
+      }
+    }
+
     .dropdown_input {
       width: calc(100% / 3 - 16px);
+    }
+
+    .search_input {
+      flex-grow: 1;
+      padding: 0 16px 0 16px;
+
+      cos-input {
+        flex-grow: 1;
+      }
+
+      button {
+        padding: 0;
+      }
+
+      .text_exist_icon {
+        position: absolute;
+        z-index: 1;
+        top: -4px;
+        right: -4px;
+        border: 2px solid #fff;
+        border-radius: 50%;
+      }
     }
   }
 }
@@ -419,7 +448,7 @@
     background-color: var(--color-ideation-light);
     border-radius: 8px;
     justify-content: space-between;
-    border: 1px solid var(--Yellow-50, #FDF0C3);
+    border: 1px solid var(--Yellow-50, #fdf0c3);
     gap: 16px;
     padding: 8px 16px;
   }

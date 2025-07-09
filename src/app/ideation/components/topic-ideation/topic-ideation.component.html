@@ -4,46 +4,97 @@
   <div class="ideation_wrap">
     <div class="ideation_header">
       <div class="header_section">
-        <div class="question">{{ideation.question}}</div>
-        <div class="setting_button dropdown button_dropdown" [cosDropdown]
-          *ngIf="canUpdate() && (canEditDeadline() || !hasIdeationEndedExpired())">
+        <div class="question">{{ ideation.question }}</div>
+        <div
+          class="setting_button dropdown button_dropdown"
+          [cosDropdown]
+          *ngIf="
+            canUpdate() && (canEditDeadline() || !hasIdeationEndedExpired())
+          "
+        >
           <button class="btn_medium_close mobile_hidden">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" clip-rule="evenodd"
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
                 d="M14 6C14 4.9 13.1 4 12 4C10.9 4 10 4.9 10 6C10 7.1 10.9 8 12 8C13.1 8 14 7.1 14 6ZM14 18C14 16.9 13.1 16 12 16C10.9 16 10 16.9 10 18C10 19.1 10.9 20 12 20C13.1 20 14 19.1 14 18ZM12 10C13.1 10 14 10.9 14 12C14 13.1 13.1 14 12 14C10.9 14 10 13.1 10 12C10 10.9 10.9 10 12 10Z"
-                fill="#2C3B47" />
+                fill="#2C3B47"
+              />
             </svg>
-            <span translate="COMPONENTS.TOPIC_IDEATION.BTN_IDEATION_ACTIONS"></span>
+            <span
+              translate="COMPONENTS.TOPIC_IDEATION.BTN_IDEATION_ACTIONS"
+            ></span>
           </button>
           <button id="mobile_actions" class="btn_medium_close icon mobile_show">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" clip-rule="evenodd"
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
                 d="M14 6C14 4.9 13.1 4 12 4C10.9 4 10 4.9 10 6C10 7.1 10.9 8 12 8C13.1 8 14 7.1 14 6ZM14 18C14 16.9 13.1 16 12 16C10.9 16 10 16.9 10 18C10 19.1 10.9 20 12 20C13.1 20 14 19.1 14 18ZM12 10C13.1 10 14 10.9 14 12C14 13.1 13.1 14 12 14C10.9 14 10 13.1 10 12C10 10.9 10.9 10 12 10Z"
-                fill="#2C3B47" />
+                fill="#2C3B47"
+              />
             </svg>
           </button>
           <div class="options">
             <ng-container *ngIf="canEditDeadline()">
-              <a class="option" [routerLink]="['/', translate.currentLang, 'topics', 'ideation', 'edit', topic.id]"
-                fragment="ideation_system">
+              <a
+                class="option"
+                [routerLink]="[
+                  '/',
+                  translate.currentLang,
+                  'topics',
+                  'ideation',
+                  'edit',
+                  topic.id
+                ]"
+                fragment="ideation_system"
+              >
                 <div class="icon_wrap">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
                     <path
                       d="M8.8143 4.18517L11.8147 7.18569L5.29947 13.7012L2.62438 13.9965C2.26626 14.0361 1.96369 13.7333 2.00354 13.3752L2.30118 10.6981L8.8143 4.18517ZM13.6704 3.73845L12.2616 2.3296C11.8222 1.89013 11.1095 1.89013 10.67 2.3296L9.34467 3.65501L12.3451 6.65553L13.6704 5.33011C14.1099 4.89042 14.1099 4.17791 13.6704 3.73845Z"
-                      fill="#2C3B47" />
+                      fill="#2C3B47"
+                    />
                   </svg>
                 </div>
-                <span translate="COMPONENTS.TOPIC_IDEATION.OPT_EDIT_IDEATION"></span>
+                <span
+                  translate="COMPONENTS.TOPIC_IDEATION.OPT_EDIT_IDEATION"
+                ></span>
               </a>
             </ng-container>
             <ng-container *ngIf="canEdit()">
               <div class="option" (click)="exportIdeas()">
                 <div class="icon_wrap">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
                     <g clip-path="url(#clip0_335_42955)">
                       <path
                         d="M8 11.5189C7.87556 11.5189 7.75573 11.4972 7.64053 11.4536C7.52462 11.4093 7.42222 11.3344 7.33333 11.229L4 7.96046C3.85778 7.81988 3.78667 7.63537 3.78667 7.40692C3.78667 7.17847 3.85778 6.99396 4 6.85338C4.16 6.69522 4.35093 6.61158 4.5728 6.60244C4.79538 6.594 4.98667 6.66886 5.14667 6.82702L7.2 8.85667V0.790774C7.2 0.562328 7.27573 0.373246 7.4272 0.223526C7.57796 0.0745089 7.76889 0 8 0C8.23111 0 8.4224 0.0745089 8.57387 0.223526C8.72462 0.373246 8.8 0.562328 8.8 0.790774V8.85667L10.8533 6.82702C10.9956 6.68644 11.1822 6.61615 11.4133 6.61615C11.6444 6.61615 11.84 6.69522 12 6.85338C12.1422 6.99396 12.2133 7.1739 12.2133 7.39321C12.2133 7.61322 12.1422 7.80231 12 7.96046L8.66667 11.229C8.57778 11.3344 8.47573 11.4093 8.36053 11.4536C8.24462 11.4972 8.12444 11.5189 8 11.5189ZM1.92 16C1.38667 16 0.933333 15.8155 0.56 15.4465C0.186667 15.0774 0 14.6293 0 14.1021V12.0461C0 11.8177 0.0757331 11.6286 0.2272 11.4789C0.377955 11.3299 0.568889 11.2554 0.8 11.2554C1.03111 11.2554 1.22204 11.3299 1.3728 11.4789C1.52427 11.6286 1.6 11.8177 1.6 12.0461V14.1021C1.6 14.1724 1.63556 14.2427 1.70667 14.313C1.77778 14.3833 1.84889 14.4185 1.92 14.4185H14.08C14.1511 14.4185 14.2222 14.3833 14.2933 14.313C14.3644 14.2427 14.4 14.1724 14.4 14.1021V12.0461C14.4 11.8177 14.4754 11.6286 14.6261 11.4789C14.7776 11.3299 14.9689 11.2554 15.2 11.2554C15.4311 11.2554 15.6224 11.3299 15.7739 11.4789C15.9246 11.6286 16 11.8177 16 12.0461V14.1021C16 14.6293 15.8133 15.0774 15.44 15.4465C15.0667 15.8155 14.6133 16 14.08 16H1.92Z"
-                        fill="#2C3B47" />
+                        fill="#2C3B47"
+                      />
                     </g>
                     <defs>
                       <clipPath id="clip0_335_42955">
@@ -52,43 +103,75 @@
                     </defs>
                   </svg>
                 </div>
-                <span translate="COMPONENTS.TOPIC_IDEATION.OPT_DOWNLOAD_IDEAS"></span>
+                <span
+                  translate="COMPONENTS.TOPIC_IDEATION.OPT_DOWNLOAD_IDEAS"
+                ></span>
               </div>
             </ng-container>
             <ng-container *ngIf="canEditDeadline()">
               <div class="option" (click)="editDeadline()">
                 <div class="icon_wrap">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd"
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
                       d="M8 2C7.44772 2 7 2.44772 7 3V4H6C4.89543 4 4 4.89543 4 6V18C4 19.1046 4.89543 20 6 20H18C19.1046 20 20 19.1046 20 18V6C20 4.89543 19.1046 4 18 4H17V3C17 2.44772 16.5523 2 16 2C15.4477 2 15 2.44772 15 3V4H9V3C9 2.44772 8.55228 2 8 2ZM6 8H18V18H6V8ZM9 6V5H7V6H9ZM17 5V6H15V5H17ZM11.0332 9.55428C11.0152 9.25392 11.2438 9 11.5322 9H12.4678C12.7562 9 12.9848 9.25392 12.9668 9.55428L12.5293 13.5108C12.5128 13.7858 12.2943 14 12.0303 14H11.9697C11.7057 14 11.4872 13.7858 11.4707 13.5108L11.0332 9.55428ZM13 15.9565C13 16.5328 12.5523 17 12 17C11.4477 17 11 16.5328 11 15.9565C11 15.3802 11.4477 14.913 12 14.913C12.5523 14.913 13 15.3802 13 15.9565Z"
-                      fill="#2C3B47" />
+                      fill="#2C3B47"
+                    />
                   </svg>
-
                 </div>
-                <span *ngIf="!ideation.deadline" translate="COMPONENTS.TOPIC_IDEATION.OPT_ADD_DEADLINE"></span>
-                <span *ngIf="ideation.deadline" translate="COMPONENTS.TOPIC_IDEATION.OPT_EDIT_DEADLINE"></span>
+                <span
+                  *ngIf="!ideation.deadline"
+                  translate="COMPONENTS.TOPIC_IDEATION.OPT_ADD_DEADLINE"
+                ></span>
+                <span
+                  *ngIf="ideation.deadline"
+                  translate="COMPONENTS.TOPIC_IDEATION.OPT_EDIT_DEADLINE"
+                ></span>
               </div>
             </ng-container>
-            <ng-container *ngIf="!hasIdeationEndedExpired();">
+            <ng-container *ngIf="!hasIdeationEndedExpired()">
               <div class="line_separator"></div>
               <div class="option" (click)="closeIdeation()">
                 <div class="icon_wrap">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd"
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
                       d="M4 2C2.89543 2 2 2.89543 2 4V12C2 13.1046 2.89543 14 4 14H12C13.1046 14 14 13.1046 14 12V4C14 2.89543 13.1046 2 12 2H4ZM12.06 4.92L10.94 4.08L6.97109 9.37188L5.03776 7.05187L3.96225 7.94813L7.02891 11.6281L12.06 4.92Z"
-                      fill="#2C3B47" />
+                      fill="#2C3B47"
+                    />
                   </svg>
                 </div>
-                <span translate="COMPONENTS.TOPIC_IDEATION.OPT_CLOSE_IDEATION"></span>
+                <span
+                  translate="COMPONENTS.TOPIC_IDEATION.OPT_CLOSE_IDEATION"
+                ></span>
               </div>
             </ng-container>
           </div>
         </div>
       </div>
       <div class="data_section" *ngIf="ideation.deadline">
-        <div class="title" translate="COMPONENTS.TOPIC_IDEATION.LBL_DEADLINE"></div>
+        <div
+          class="title"
+          translate="COMPONENTS.TOPIC_IDEATION.LBL_DEADLINE"
+        ></div>
         <div class="deadline">
-          <span class="bold">{{ideation.deadline | date:'YYYY-MM-dd HH:mm'}}</span>
+          <span class="bold">{{
+            ideation.deadline | date : "YYYY-MM-dd HH:mm"
+          }}</span>
         </div>
       </div>
     </div>
@@ -96,48 +179,87 @@
       <div class="ideation_info_wrap">
         <div class="ideation_info_text_wrap" *ngIf="hasIdeationEndedExpired()">
           <div class="text_area">
-            <div class="bold" translate="COMPONENTS.TOPIC_IDEATION.HEADING_IDEATION_ENDED"></div>
+            <div
+              class="bold"
+              translate="COMPONENTS.TOPIC_IDEATION.HEADING_IDEATION_ENDED"
+            ></div>
             <div translate="COMPONENTS.TOPIC_IDEATION.TXT_IDEATION_ENDED"></div>
           </div>
         </div>
-        <ng-container *ngIf="ideas$ | async as ideas;">
+        <ng-container *ngIf="ideas$ | async as ideas">
           <ng-container *ngIf="ideas.length || filtersSet">
             <div class="tabs_wrap">
               <div class="tabs_row" *ngIf="tabSelected !== 'folder'">
-                <a class="tab_item" (click)="selectTab('ideas')" [ngClass]="tabSelected=== 'ideas' ? 'active' : ''"
-                  translate="COMPONENTS.TOPIC_IDEATION.TAB_IDEAS" [translateParams]="{count: ideation.ideas.count}"></a>
-                <a class="tab_item" (click)="selectTab('folders')" [ngClass]="tabSelected=== 'folders' ? 'active' : ''"
+                <a
+                  class="tab_item"
+                  (click)="selectTab('ideas')"
+                  [ngClass]="tabSelected === 'ideas' ? 'active' : ''"
+                  translate="COMPONENTS.TOPIC_IDEATION.TAB_IDEAS"
+                  [translateParams]="{ count: ideation.ideas.count }"
+                ></a>
+                <a
+                  class="tab_item"
+                  (click)="selectTab('folders')"
+                  [ngClass]="tabSelected === 'folders' ? 'active' : ''"
                   translate="COMPONENTS.TOPIC_IDEATION.TAB_FOLDERS"
-                  [translateParams]="{count: ideation.folders?.count || 0}"></a>
+                  [translateParams]="{ count: ideation.folders?.count || 0 }"
+                ></a>
               </div>
               <div class="folder_data_wrap" *ngIf="tabSelected === 'folder'">
                 <div class="left">
                   <button class="btn_medium_close icon" (click)="leaveFolder()">
-                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg
+                      width="40"
+                      height="40"
+                      viewBox="0 0 40 40"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
                       <rect width="40" height="40" rx="20" fill="white" />
                       <path
                         d="M18.4533 25.6874C18.8529 26.1042 19.5009 26.1042 19.9006 25.6874C20.3003 25.2705 20.3003 24.5947 19.9006 24.1779L16.9184 21L27 21C27.5652 21 28 20.5892 28 19.9997C28 19.4103 27.5652 19.0176 27 19.0176L16.9184 19.0176L19.9006 15.8221C20.3003 15.4053 20.3003 14.7295 19.9006 14.3126C19.5009 13.8958 18.8529 13.8958 18.4533 14.3126L13 20L18.4533 25.6874Z"
-                        fill="#2C3B47" />
+                        fill="#2C3B47"
+                      />
                     </svg>
                   </button>
                   <div class="icon">
-                    <svg width="28" height="24" viewBox="0 0 28 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg
+                      width="28"
+                      height="24"
+                      viewBox="0 0 28 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
                       <g clip-path="url(#clip0_698_77087)">
                         <path
                           d="M0 4C0 1.79086 1.79086 0 4 0H9.76637C10.9654 0 12.0972 0.553566 12.8333 1.5C13.5694 2.44643 14.7013 3 15.9003 3H24C26.2091 3 28 4.79086 28 7V9.6H0V4Z"
-                          fill="url(#paint0_linear_698_77087)" />
+                          fill="url(#paint0_linear_698_77087)"
+                        />
                         <path
                           d="M0 8.72656C0 6.51742 1.79086 4.72656 4 4.72656H24C26.2091 4.72656 28 6.51742 28 8.72656V19.9266C28 22.1357 26.2091 23.9266 24 23.9266H4C1.79086 23.9266 0 22.1357 0 19.9266V8.72656Z"
-                          fill="url(#paint1_linear_698_77087)" />
+                          fill="url(#paint1_linear_698_77087)"
+                        />
                       </g>
                       <defs>
-                        <linearGradient id="paint0_linear_698_77087" x1="14" y1="3" x2="14" y2="6.3"
-                          gradientUnits="userSpaceOnUse">
+                        <linearGradient
+                          id="paint0_linear_698_77087"
+                          x1="14"
+                          y1="3"
+                          x2="14"
+                          y2="6.3"
+                          gradientUnits="userSpaceOnUse"
+                        >
                           <stop stop-color="#FFEBA2" />
                           <stop offset="1" stop-color="#FFDF6F" />
                         </linearGradient>
-                        <linearGradient id="paint1_linear_698_77087" x1="14" y1="4.72656" x2="14" y2="23.9266"
-                          gradientUnits="userSpaceOnUse">
+                        <linearGradient
+                          id="paint1_linear_698_77087"
+                          x1="14"
+                          y1="4.72656"
+                          x2="14"
+                          y2="23.9266"
+                          gradientUnits="userSpaceOnUse"
+                        >
                           <stop offset="0.901042" stop-color="#FFEAA1" />
                           <stop offset="1" stop-color="#FFDF6F" />
                         </linearGradient>
@@ -149,150 +271,574 @@
                   </div>
                   <div class="folder_name">
                     <span [innerHTML]="selectedFolder?.name"></span>
-                    <span>({{selectedFolder?.ideas?.count}})</span>
+                    <span>({{ selectedFolder?.ideas?.count }})</span>
                   </div>
                 </div>
                 <div class="right">
-                  <button class="btn_medium_submit animate" *ngIf="selectedFolder && canUpdate()"
-                    (click)="addIdeasToFolder(selectedFolder)">
-                    <span translate="COMPONENTS.TOPIC_IDEATION.BTN_ADD_IDEAS_TO_FOLDER"></span></button>
+                  <button
+                    class="btn_medium_submit animate"
+                    *ngIf="selectedFolder && canUpdate()"
+                    (click)="addIdeasToFolder(selectedFolder)"
+                  >
+                    <span
+                      translate="COMPONENTS.TOPIC_IDEATION.BTN_ADD_IDEAS_TO_FOLDER"
+                    ></span>
+                  </button>
                 </div>
               </div>
               <ng-container
-                *ngIf="topic.visibility === TopicService.VISIBILITY.public || (topic.visibility === TopicService.VISIBILITY.private && canUpdate())">
-                <button class="btn_medium_submit animate" (click)="addIdea()"
-                  *ngIf="tabSelected === 'ideas' && topic.status === TopicService.STATUSES.ideation"
-                  [ngClass]="{disabled: hasIdeationEnded()}">
-                  <span translate="COMPONENTS.TOPIC_IDEATION.BTN_ADD_YOUR_IDEA"></span></button>
+                *ngIf="
+                  topic.visibility === TopicService.VISIBILITY.public ||
+                  (topic.visibility === TopicService.VISIBILITY.private &&
+                    canUpdate())
+                "
+              >
+                <button
+                  class="btn_medium_submit animate"
+                  (click)="addIdea()"
+                  *ngIf="
+                    tabSelected === 'ideas' &&
+                    topic.status === TopicService.STATUSES.ideation
+                  "
+                  [ngClass]="{ disabled: hasIdeationEnded() }"
+                >
+                  <span
+                    translate="COMPONENTS.TOPIC_IDEATION.BTN_ADD_YOUR_IDEA"
+                  ></span>
+                </button>
               </ng-container>
             </div>
           </ng-container>
-          <ng-container *ngIf="tabSelected === 'ideas' || tabSelected === 'folder'">
+          <ng-container
+            *ngIf="tabSelected === 'ideas' || tabSelected === 'folder'"
+          >
             <div class="idea_filters_wrap" *ngIf="ideas.length || filtersSet">
               <div class="options_row mobile_hidden">
-                <cos-input [placeholder]="'COMPONENTS.TOPIC_IDEATION.IDEA_FILTER_TYPE' | translate"
-                  class="dropdown_input">
-                  <div class="dropdown" [cosDropdown]>
-                    <div class="selection">
-                      <div class="selected_item">
-                        <span *ngIf="!ideaFilters.type" translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL"></span>
-                        <span *ngIf="ideaFilters.type === 'iCreated'">
-                          {{'COMPONENTS.TOPIC_IDEATION.FILTER_TYPE_YOUR_IDEAS' |
-                          translate}}</span>
-                        <span *ngIf="ideaFilters.type === 'favourite'">
-                          {{'COMPONENTS.TOPIC_IDEATION.FILTER_TYPE_FAVOURITES' |
-                          translate}}</span>
-                        <span *ngIf="ideaFilters.type === 'showModerated'">
-                          {{'COMPONENTS.TOPIC_IDEATION.FILTER_TYPE_MODERATED'
-                          |
-                          translate}}</span>
-
-                      </div>
-                      <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                          xmlns="http://www.w3.org/2000/svg">
-                          <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
-                        </svg>
-                      </div>
-                    </div>
-                    <div class="options">
-                      <div class="option" (click)="setType('')" translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL">
-                      </div>
-                      <div *ngIf="(AuthService.loggedIn$ | async)" class="option" (click)="setType('iCreated')"
-                        translate="COMPONENTS.TOPIC_IDEATION.FILTER_TYPE_YOUR_IDEAS">
-                      </div>
-                      <div *ngIf="(AuthService.loggedIn$ | async)" class="option" (click)="setType('favourite')"
-                        translate="COMPONENTS.TOPIC_IDEATION.FILTER_TYPE_FAVOURITES">
-                      </div>
-                      <div class="option" (click)="setType('showModerated')"
-                        translate="COMPONENTS.TOPIC_IDEATION.FILTER_TYPE_MODERATED">
-                      </div>
-                    </div>
-                  </div>
-                </cos-input>
-
-                <cos-input [placeholder]="'COMPONENTS.TOPIC_IDEATION.IDEA_FILTER_ORDER' | translate"
-                  class="dropdown_input">
-                  <div class="dropdown" [cosDropdown]>
-                    <div class="selection">
-                      <div class="selected_item">
-                        <span *ngIf="!ideaFilters.orderBy" translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL"></span>
-                        <span *ngIf="ideaFilters.orderBy === 'likes'">
-                          {{'COMPONENTS.TOPIC_IDEATION.FILTER_ORDER_MOST_LIKED' |
-                          translate}}</span>
-                        <span *ngIf="ideaFilters.orderBy === 'recent'">
-                          {{'COMPONENTS.TOPIC_IDEATION.FILTER_ORDER_MOST_RECENT'
-                          |
-                          translate}}</span>
-                        <span *ngIf="ideaFilters.orderBy === 'replies'">
-                          {{'COMPONENTS.TOPIC_IDEATION.FILTER_ORDER_MOST_REPLIES'
-                          |
-                          translate}}</span>
-                      </div>
-                      <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                          xmlns="http://www.w3.org/2000/svg">
-                          <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
-                        </svg>
-                      </div>
-                    </div>
-                    <div class="options">
-                      <div class="option" (click)="orderBy('')" translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL">
-                      </div>
-                      <div *ngIf="(AuthService.loggedIn$ | async)" class="option" (click)="orderBy('likes')"
-                        translate="COMPONENTS.TOPIC_IDEATION.FILTER_ORDER_MOST_LIKED">
-                      </div>
-                      <div class="option" (click)="orderBy('recent')"
-                        translate="COMPONENTS.TOPIC_IDEATION.FILTER_ORDER_MOST_RECENT">
-                      </div>
-                      <div class="option" (click)="orderBy('replies')"
-                        translate="COMPONENTS.TOPIC_IDEATION.FILTER_ORDER_MOST_REPLIES">
-                      </div>
-                    </div>
-                  </div>
-                </cos-input>
-
-                <cos-input [placeholder]="'COMPONENTS.TOPIC_IDEATION.IDEA_FILTER_PARTICIPANTS' | translate"
-                  class="dropdown_input">
-                  <div class="dropdown" [cosDropdown]>
-                    <div class="selection">
-                      <div class="selected_item">
-                        <span *ngIf="!ideaFilters.participants" translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL"></span>
-                        <div class="author_wrap" *ngIf="ideaFilters.participants">
-                          <div class="author_name">
-                            {{ideaFilters.participants.name}}
+                <div class="options_row_main">
+                  <ng-container *ngIf="!showSearch">
+                    <cos-input
+                      [placeholder]="
+                        'COMPONENTS.TOPIC_IDEATION.IDEA_FILTER_TYPE' | translate
+                      "
+                      class="dropdown_input"
+                    >
+                      <div class="dropdown" [cosDropdown]>
+                        <div class="selection">
+                          <div class="selected_item">
+                            <span
+                              *ngIf="!ideaFilters.type"
+                              translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL"
+                            ></span>
+                            <span *ngIf="ideaFilters.type === 'iCreated'">
+                              {{
+                                "COMPONENTS.TOPIC_IDEATION.FILTER_TYPE_YOUR_IDEAS"
+                                  | translate
+                              }}</span
+                            >
+                            <span *ngIf="ideaFilters.type === 'favourite'">
+                              {{
+                                "COMPONENTS.TOPIC_IDEATION.FILTER_TYPE_FAVOURITES"
+                                  | translate
+                              }}</span
+                            >
+                            <span *ngIf="ideaFilters.type === 'showModerated'">
+                              {{
+                                "COMPONENTS.TOPIC_IDEATION.FILTER_TYPE_MODERATED"
+                                  | translate
+                              }}</span
+                            >
+                          </div>
+                          <div>
+                            <svg
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M17 10L12 15L7 10"
+                                stroke="#2C3B47"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                              />
+                            </svg>
                           </div>
                         </div>
+                        <div class="options">
+                          <div
+                            class="option"
+                            (click)="setType('')"
+                            translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL"
+                          ></div>
+                          <div
+                            *ngIf="AuthService.loggedIn$ | async"
+                            class="option"
+                            (click)="setType('iCreated')"
+                            translate="COMPONENTS.TOPIC_IDEATION.FILTER_TYPE_YOUR_IDEAS"
+                          ></div>
+                          <div
+                            *ngIf="AuthService.loggedIn$ | async"
+                            class="option"
+                            (click)="setType('favourite')"
+                            translate="COMPONENTS.TOPIC_IDEATION.FILTER_TYPE_FAVOURITES"
+                          ></div>
+                          <div
+                            class="option"
+                            (click)="setType('showModerated')"
+                            translate="COMPONENTS.TOPIC_IDEATION.FILTER_TYPE_MODERATED"
+                          ></div>
+                        </div>
                       </div>
-                      <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                          xmlns="http://www.w3.org/2000/svg">
-                          <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
-                        </svg>
+                    </cos-input>
+
+                    <cos-input
+                      [placeholder]="
+                        'COMPONENTS.TOPIC_IDEATION.IDEA_FILTER_ORDER'
+                          | translate
+                      "
+                      class="dropdown_input"
+                    >
+                      <div class="dropdown" [cosDropdown]>
+                        <div class="selection">
+                          <div class="selected_item">
+                            <span
+                              *ngIf="!ideaFilters.orderBy"
+                              translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL"
+                            ></span>
+                            <span *ngIf="ideaFilters.orderBy === 'likes'">
+                              {{
+                                "COMPONENTS.TOPIC_IDEATION.FILTER_ORDER_MOST_LIKED"
+                                  | translate
+                              }}</span
+                            >
+                            <span *ngIf="ideaFilters.orderBy === 'recent'">
+                              {{
+                                "COMPONENTS.TOPIC_IDEATION.FILTER_ORDER_MOST_RECENT"
+                                  | translate
+                              }}</span
+                            >
+                            <span *ngIf="ideaFilters.orderBy === 'replies'">
+                              {{
+                                "COMPONENTS.TOPIC_IDEATION.FILTER_ORDER_MOST_REPLIES"
+                                  | translate
+                              }}</span
+                            >
+                          </div>
+                          <div>
+                            <svg
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M17 10L12 15L7 10"
+                                stroke="#2C3B47"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                              />
+                            </svg>
+                          </div>
+                        </div>
+                        <div class="options">
+                          <div
+                            class="option"
+                            (click)="orderBy('')"
+                            translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL"
+                          ></div>
+                          <div
+                            *ngIf="AuthService.loggedIn$ | async"
+                            class="option"
+                            (click)="orderBy('likes')"
+                            translate="COMPONENTS.TOPIC_IDEATION.FILTER_ORDER_MOST_LIKED"
+                          ></div>
+                          <div
+                            class="option"
+                            (click)="orderBy('recent')"
+                            translate="COMPONENTS.TOPIC_IDEATION.FILTER_ORDER_MOST_RECENT"
+                          ></div>
+                          <div
+                            class="option"
+                            (click)="orderBy('replies')"
+                            translate="COMPONENTS.TOPIC_IDEATION.FILTER_ORDER_MOST_REPLIES"
+                          ></div>
+                        </div>
                       </div>
-                    </div>
-                    <div class="options">
-                      <div class="option" (click)="setParticipant()" translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL">
-                      </div>
-                      <ng-container *ngIf="participants$ | async as participants;">
-                        <ng-container *ngFor="let user of participants">
-                          <div class="option" (click)="setParticipant(user)">
-                            <div class="author_wrap">
-                              <div class="image_wrap">
-                                <img class="profile_image" *ngIf="user.imageUrl" [src]="user.imageUrl">
-                                <div class="profile_image_filler" *ngIf="!user.imageUrl">
-                                  <cos-initials *ngIf="user.name" [name]="user.name">
-                                  </cos-initials>
-                                </div>
-                              </div>
+                    </cos-input>
+
+                    <cos-input
+                      [placeholder]="
+                        'COMPONENTS.TOPIC_IDEATION.IDEA_FILTER_PARTICIPANTS'
+                          | translate
+                      "
+                      class="dropdown_input"
+                    >
+                      <div class="dropdown" [cosDropdown]>
+                        <div class="selection">
+                          <div class="selected_item">
+                            <span
+                              *ngIf="!ideaFilters.participants"
+                              translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL"
+                            ></span>
+                            <div
+                              class="author_wrap"
+                              *ngIf="ideaFilters.participants"
+                            >
                               <div class="author_name">
-                                {{user.name}}
+                                {{ ideaFilters.participants.name }}
                               </div>
                             </div>
                           </div>
-                        </ng-container>
-                      </ng-container>
+                          <div>
+                            <svg
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M17 10L12 15L7 10"
+                                stroke="#2C3B47"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                              />
+                            </svg>
+                          </div>
+                        </div>
+                        <div class="options">
+                          <div
+                            class="option"
+                            (click)="setParticipant()"
+                            translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL"
+                          ></div>
+                          <ng-container
+                            *ngIf="participants$ | async as participants"
+                          >
+                            <ng-container *ngFor="let user of participants">
+                              <div
+                                class="option"
+                                (click)="setParticipant(user)"
+                              >
+                                <div class="author_wrap">
+                                  <div class="image_wrap">
+                                    <img
+                                      class="profile_image"
+                                      *ngIf="user.imageUrl"
+                                      [src]="user.imageUrl"
+                                    />
+                                    <div
+                                      class="profile_image_filler"
+                                      *ngIf="!user.imageUrl"
+                                    >
+                                      <cos-initials
+                                        *ngIf="user.name"
+                                        [name]="user.name"
+                                      >
+                                      </cos-initials>
+                                    </div>
+                                  </div>
+                                  <div class="author_name">
+                                    {{ user.name }}
+                                  </div>
+                                </div>
+                              </div>
+                            </ng-container>
+                          </ng-container>
+                        </div>
+                      </div>
+                    </cos-input>
+                  </ng-container>
+
+                  <div class="input_area search_input">
+                    <button (click)="showSearch = true" class="search_start">
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M14.1922 15.6064C13.0236 16.4816 11.5723 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10C17 11.5723 16.4816 13.0236 15.6064 14.1922L19.7071 18.2929C20.0976 18.6834 20.0976 19.3166 19.7071 19.7071C19.3166 20.0976 18.6834 20.0976 18.2929 19.7071L14.1922 15.6064ZM15 10C15 12.7614 12.7614 15 10 15C7.23858 15 5 12.7614 5 10C5 7.23858 7.23858 5 10 5C12.7614 5 15 7.23858 15 10Z"
+                          fill="#727C84"
+                        />
+                      </svg>
+
+                      <svg
+                        *ngIf="ideaFilters.search && !showSearch"
+                        class="text_exist_icon"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          _ngcontent-ng-c1765142405=""
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M8 0C3.584 0 0 3.584 0 8C0 12.416 3.584 16 8 16C12.416 16 16 12.416 16 8C16 3.584 12.416 0 8 0ZM6.44444 12L12.6667 5.82456L11.5 4.66667L6.44444 9.68421L4.5 7.75439L3.33333 8.91228L6.44444 12Z"
+                          fill="#2c3b47"
+                        ></path>
+                      </svg>
+                    </button>
+
+                    <ng-container *ngIf="showSearch">
+                      <cos-input
+                        class=""
+                        placeholder="{{
+                          'COMPONENTS.TOPIC_IDEATION.SEARCH' | translate
+                        }}"
+                      >
+                        <input
+                          type="text"
+                          [(ngModel)]="ideaFilters.search"
+                          (ngModelChange)="setSearch(ideaFilters.search)"
+                          [placeholder]="
+                            'COMPONENTS.TOPIC_IDEATION.SEARCH' | translate
+                          "
+                        />
+                      </cos-input>
+
+                      <a
+                        class="clear_search"
+                        translate="VIEWS.MY_TOPICS.LNK_CLEAR"
+                        (click)="ideaFilters.search = ''; setSearch('')"
+                        *ngIf="ideaFilters.search"
+                      ></a>
+
+                      <button (click)="showSearch = false">
+                        <svg
+                          width="20"
+                          height="20"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289Z"
+                            fill="#2C3B47"
+                          />
+                        </svg>
+                      </button>
+                    </ng-container>
+                  </div>
+                </div>
+
+                <!-- here -->
+                <cos-input
+                  *ngIf="hasDemograficsField.age"
+                  [placeholder]="
+                    'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_AGE' | translate
+                  "
+                  class="dropdown_input"
+                >
+                  <div class="dropdown" [cosDropdown]>
+                    <div class="selection">
+                      <div class="selected_item">
+                        <span
+                          *ngIf="ideaFilters.age.length === 0"
+                          translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL"
+                        ></span>
+                        <span *ngIf="ideaFilters.age.length !== 0">
+                          {{ sortedSelectedAges }}
+                        </span>
+                      </div>
+                      <div>
+                        <svg
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M17 10L12 15L7 10"
+                            stroke="#2C3B47"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                    <div class="options">
+                      <label class="checkbox" (click)="setAge('')">
+                        <span
+                          [innerHTML]="
+                            'COMPONENTS.TOPIC_IDEATION.FILTER_ALL'
+                              | translate
+                              | titlecase
+                          "
+                        ></span>
+                        <input
+                          type="checkbox"
+                          name="age"
+                          [checked]="
+                            ideaFilters.age.length === 0 ||
+                            ideaFilters.age.length === AGE_LIMIT
+                          "
+                          (change)="setAge('')"
+                        />
+                        <span class="checkmark"></span>
+                      </label>
+                      <label
+                        *ngFor="
+                          let number of [].constructor(AGE_LIMIT);
+                          let i = index
+                        "
+                        class="checkbox"
+                      >
+                        <span>{{ i + 1 }}</span>
+                        <input
+                          type="checkbox"
+                          name="age"
+                          [checked]="
+                            ideaFilters.age.includes((i + 1).toString())
+                          "
+                          (change)="setAge(i + 1)"
+                        />
+                        <span class="checkmark"></span>
+                      </label>
                     </div>
                   </div>
                 </cos-input>
-              
+
+                <cos-input
+                  *ngIf="hasDemograficsField.gender"
+                  [placeholder]="
+                    'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_GENDER' | translate
+                  "
+                  class="dropdown_input"
+                >
+                  <div class="dropdown" [cosDropdown]>
+                    <div class="selection">
+                      <div class="selected_item">
+                        <span
+                          *ngIf="!ideaFilters.gender"
+                          translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL"
+                        ></span>
+                        <span *ngIf="ideaFilters.gender === 'male'">
+                          {{
+                            "VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_GENDER_MALE"
+                              | translate
+                          }}</span
+                        >
+                        <span *ngIf="ideaFilters.gender === 'female'">
+                          {{
+                            "VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_GENDER_FEMALE"
+                              | translate
+                          }}</span
+                        >
+                        <span *ngIf="ideaFilters.gender === 'other'">
+                          {{
+                            "VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_GENDER_OTHER_PLACEHOLDER"
+                              | translate
+                          }}</span
+                        >
+                      </div>
+                      <div>
+                        <svg
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M17 10L12 15L7 10"
+                            stroke="#2C3B47"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                    <div class="options">
+                      <div
+                        class="option"
+                        (click)="setGender('')"
+                        translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL"
+                      ></div>
+                      <div
+                        *ngFor="let gender of ['female', 'male', 'other']"
+                        class="option"
+                        (click)="setGender(gender)"
+                      >
+                        {{
+                          "VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_GENDER_" +
+                            (gender === "other"
+                              ? gender + "_placeholder"
+                              : gender
+                            ).toUpperCase() | translate
+                        }}
+                      </div>
+                    </div>
+                  </div>
+                </cos-input>
+
+                <cos-input
+                  *ngIf="isCountryEstonia && hasDemograficsField.residence"
+                  [placeholder]="
+                    'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_RESIDENCE'
+                      | translate
+                  "
+                  class="dropdown_input"
+                >
+                  <div class="dropdown" [cosDropdown]>
+                    <div class="selection">
+                      <div class="selected_item">
+                        <span
+                          *ngIf="!ideaFilters.residence"
+                          translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL"
+                        ></span>
+                        <span *ngIf="ideaFilters.residence">
+                          {{ ideaFilters.residence | titlecase }}
+                        </span>
+                      </div>
+                      <div>
+                        <svg
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M17 10L12 15L7 10"
+                            stroke="#2C3B47"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                    <div class="options">
+                      <div
+                        class="option"
+                        (click)="setResidence('')"
+                        translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL"
+                      ></div>
+                      <div
+                        *ngFor="let residence of municipalities"
+                        class="option"
+                        (click)="setResidence(residence.name)"
+                      >
+                        {{ residence.name }}
+                      </div>
+                      <div
+                        class="option"
+                        (click)="setResidence('other')"
+                        translate="VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_RESIDENCE_OTHER_PLACEHOLDER"
+                      ></div>
+                    </div>
+                  </div>
+                </cos-input>
+
                 <cos-input *ngIf="hasDemograficsField.age" [placeholder]="'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_AGE' | translate"
                   class="dropdown_input">
                   <div class="dropdown" [cosDropdown]>
@@ -353,7 +899,7 @@
                     </div>
                   </div>
                 </cos-input>
- 
+
                 <cos-input *ngIf="isCountryEstonia && hasDemograficsField.residence" [placeholder]="'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_RESIDENCE' | translate"
                   class="dropdown_input">
                   <div class="dropdown" [cosDropdown]>
@@ -384,227 +930,721 @@
               </div>
 
               <!--MOBILE_TOPIC_FILTERS-->
-              <div class="dropdown mobile_filters_selection mobile_show"
-                [ngClass]="{'dropdown_active': mobileIdeaFiltersList}">
-                <button class="btn_medium_plain icon" (click)="mobileIdeaFiltersList = !mobileIdeaFiltersList">
+              <div
+                class="dropdown mobile_filters_selection mobile_show"
+                [ngClass]="{ dropdown_active: mobileIdeaFiltersList }"
+              >
+                <button
+                  class="btn_medium_plain icon"
+                  (click)="mobileIdeaFiltersList = !mobileIdeaFiltersList"
+                >
                   <div class="selection">
                     <div
                       class="selected_item"
-                      [innerHtml]="'COMPONENTS.TOPIC_IDEATION.LBL_FILTER' | translate | titlecase">
-                    </div>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
+                      [innerHtml]="
+                        'COMPONENTS.TOPIC_IDEATION.LBL_FILTER'
+                          | translate
+                          | titlecase
+                      "
+                    ></div>
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M17 10L12 15L7 10"
+                        stroke="#2C3B47"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                      />
                     </svg>
                   </div>
                 </button>
 
                 <div class="options filter_options">
-                  <a class="filter_option" (click)="mobileIdeaFilters.type = true">
-                    <span class="filter_option_text" translate="COMPONENTS.TOPIC_IDEATION.IDEA_FILTER_TYPE"></span>
+                  <a
+                    class="filter_option"
+                    (click)="mobileIdeaFilters.type = true"
+                  >
+                    <span
+                      class="filter_option_text"
+                      translate="COMPONENTS.TOPIC_IDEATION.IDEA_FILTER_TYPE"
+                    ></span>
                     <span class="bold">
-                      <span *ngIf="!ideaFilters.type" translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL"></span>
+                      <span
+                        *ngIf="!ideaFilters.type"
+                        translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL"
+                      ></span>
                       <span *ngIf="ideaFilters.type === 'iCreated'">
-                        {{'COMPONENTS.TOPIC_IDEATION.FILTER_TYPE_YOUR_IDEAS' |
-                        translate}}</span>
+                        {{
+                          "COMPONENTS.TOPIC_IDEATION.FILTER_TYPE_YOUR_IDEAS"
+                            | translate
+                        }}</span
+                      >
                       <span *ngIf="ideaFilters.type === 'favourite'">
-                        {{'COMPONENTS.TOPIC_IDEATION.FILTER_TYPE_FAVOURITES' |
-                        translate}}</span>
+                        {{
+                          "COMPONENTS.TOPIC_IDEATION.FILTER_TYPE_FAVOURITES"
+                            | translate
+                        }}</span
+                      >
                       <span *ngIf="ideaFilters.type === 'showModerated'">
-                        {{'COMPONENTS.TOPIC_IDEATION.FILTER_TYPE_MODERATED'
-                        |
-                        translate}}</span>
+                        {{
+                          "COMPONENTS.TOPIC_IDEATION.FILTER_TYPE_MODERATED"
+                            | translate
+                        }}</span
+                      >
                     </span>
                   </a>
 
-                  <a class="filter_option" (click)="mobileIdeaFilters.orderBy = true">
-                    <span class="filter_option_text" translate="COMPONENTS.TOPIC_IDEATION.IDEA_FILTER_ORDER"></span>
+                  <a
+                    class="filter_option"
+                    (click)="mobileIdeaFilters.orderBy = true"
+                  >
+                    <span
+                      class="filter_option_text"
+                      translate="COMPONENTS.TOPIC_IDEATION.IDEA_FILTER_ORDER"
+                    ></span>
                     <span class="bold">
-                      <span *ngIf="!ideaFilters.orderBy" translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL"></span>
+                      <span
+                        *ngIf="!ideaFilters.orderBy"
+                        translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL"
+                      ></span>
                       <span *ngIf="ideaFilters.orderBy === 'likes'">
-                        {{'COMPONENTS.TOPIC_IDEATION.FILTER_ORDER_MOST_LIKED' |
-                        translate}}</span>
+                        {{
+                          "COMPONENTS.TOPIC_IDEATION.FILTER_ORDER_MOST_LIKED"
+                            | translate
+                        }}</span
+                      >
                       <span *ngIf="ideaFilters.orderBy === 'recent'">
-                        {{'COMPONENTS.TOPIC_IDEATION.FILTER_ORDER_MOST_RECENT'
-                        |
-                        translate}}</span>
+                        {{
+                          "COMPONENTS.TOPIC_IDEATION.FILTER_ORDER_MOST_RECENT"
+                            | translate
+                        }}</span
+                      >
                       <span *ngIf="ideaFilters.orderBy === 'replies'">
-                        {{'COMPONENTS.TOPIC_IDEATION.FILTER_ORDER_MOST_REPLIES'
-                        |
-                        translate}}</span>
+                        {{
+                          "COMPONENTS.TOPIC_IDEATION.FILTER_ORDER_MOST_REPLIES"
+                            | translate
+                        }}</span
+                      >
                     </span>
                   </a>
 
-                  <a class="filter_option" (click)="mobileIdeaFilters.participants = true">
-                    <span class="filter_option_text" translate="COMPONENTS.TOPIC_IDEATION.IDEA_FILTER_PARTICIPANTS"></span>
-                    <span class="bold">{{(ideaFilters.participants.name)?
-                      ideaFilters.participants.name :
-                      'COMPONENTS.TOPIC_IDEATION.FILTER_ALL' |
-                      translate | titlecase}}</span>
+                  <a
+                    class="filter_option"
+                    (click)="mobileIdeaFilters.participants = true"
+                  >
+                    <span
+                      class="filter_option_text"
+                      translate="COMPONENTS.TOPIC_IDEATION.IDEA_FILTER_PARTICIPANTS"
+                    ></span>
+                    <span class="bold">{{
+                      ideaFilters.participants.name
+                        ? ideaFilters.participants.name
+                        : ("COMPONENTS.TOPIC_IDEATION.FILTER_ALL"
+                          | translate
+                          | titlecase)
+                    }}</span>
                   </a>
 
-                  <a class="filter_option" (click)="mobileIdeaFilters.age = true">
-                    <span class="filter_option_text" translate="VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_AGE"></span>
-                    <span class="bold">{{(ideaFilters.age) ? ideaFilters.age : 'COMPONENTS.TOPIC_IDEATION.FILTER_ALL' | translate}}</span>
+                  <a
+                    class="filter_option"
+                    (click)="mobileIdeaFilters.age = true"
+                  >
+                    <span
+                      class="filter_option_text"
+                      translate="VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_AGE"
+                    ></span>
+                    <span class="bold">{{
+                      ideaFilters.age.length > 0
+                        ? sortedSelectedAges
+                        : ("COMPONENTS.TOPIC_IDEATION.FILTER_ALL" | translate)
+                    }}</span>
                   </a>
 
-                  <a class="filter_option" (click)="mobileIdeaFilters.gender = true">
-                    <span class="filter_option_text" translate="VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_GENDER"></span>
-                    <span class="bold">{{(ideaFilters.gender) ? (ideaFilters.gender | titlecase) : 'COMPONENTS.TOPIC_IDEATION.FILTER_ALL' | translate}}</span>
+                  <a
+                    class="filter_option"
+                    (click)="mobileIdeaFilters.gender = true"
+                  >
+                    <span
+                      class="filter_option_text"
+                      translate="VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_GENDER"
+                    ></span>
+                    <span class="bold">{{
+                      ideaFilters.gender
+                        ? (ideaFilters.gender | titlecase)
+                        : ("COMPONENTS.TOPIC_IDEATION.FILTER_ALL" | translate)
+                    }}</span>
                   </a>
 
-                  <a *ngIf="isCountryEstonia" class="filter_option" (click)="mobileIdeaFilters.residence = true">
-                    <span class="filter_option_text" translate="VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_RESIDENCE"></span>
-                    <span class="bold">{{(ideaFilters.residence) ? (ideaFilters.residence | titlecase) : 'COMPONENTS.TOPIC_IDEATION.FILTER_ALL' | translate}}</span>
+                  <a
+                    *ngIf="isCountryEstonia"
+                    class="filter_option"
+                    (click)="mobileIdeaFilters.residence = true"
+                  >
+                    <span
+                      class="filter_option_text"
+                      translate="VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_RESIDENCE"
+                    ></span>
+                    <span class="bold">{{
+                      ideaFilters.residence
+                        ? (ideaFilters.residence | titlecase)
+                        : ("COMPONENTS.TOPIC_IDEATION.FILTER_ALL" | translate)
+                    }}</span>
                   </a>
 
                   <button (click)="doClearFilters()" class="btn_medium_plain">
-                    <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg
+                      width="25"
+                      height="24"
+                      viewBox="0 0 25 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
                       <path
                         d="M12.4999 7L12.4999 5.0001C10.7069 5.0001 8.91716 5.68333 7.55013 7.05036C5.05581 9.54468 4.83742 13.4531 6.89495 16.195C7.22643 16.6368 7.23355 17.2664 6.84302 17.657C6.4525 18.0475 5.81399 18.0504 5.46866 17.6194C2.6374 14.0857 2.85982 8.91224 6.13592 5.63614C7.89308 3.87898 10.1981 3.0001 12.4999 3.0001L12.4999 1L16.4999 4L12.4999 7Z"
-                        fill="#2C3B47" />
+                        fill="#2C3B47"
+                      />
                       <path
                         d="M12.4999 19.0001C14.2929 19.0001 16.0826 18.3169 17.4496 16.9499C19.9439 14.4555 20.1623 10.5471 18.1048 7.80519C17.7733 7.36345 17.7662 6.73377 18.1567 6.34325C18.5473 5.95273 19.1858 5.94982 19.5311 6.38083C22.3624 9.91455 22.1399 15.088 18.8638 18.3641C17.1067 20.1212 14.8016 21.0001 12.4999 21.0001L12.4999 23L8.49988 20L12.4999 17L12.4999 19.0001Z"
-                        fill="#2C3B47" />
+                        fill="#2C3B47"
+                      />
                     </svg>
-                    <span translate="COMPONENTS.TOPIC_IDEATION.BTN_RESET_FILTERS"></span>
+                    <span
+                      translate="COMPONENTS.TOPIC_IDEATION.BTN_RESET_FILTERS"
+                    ></span>
                   </button>
+
+                  <div class="input_area search_input">
+                    <button (click)="showSearch = true">
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M14.1922 15.6064C13.0236 16.4816 11.5723 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10C17 11.5723 16.4816 13.0236 15.6064 14.1922L19.7071 18.2929C20.0976 18.6834 20.0976 19.3166 19.7071 19.7071C19.3166 20.0976 18.6834 20.0976 18.2929 19.7071L14.1922 15.6064ZM15 10C15 12.7614 12.7614 15 10 15C7.23858 15 5 12.7614 5 10C5 7.23858 7.23858 5 10 5C12.7614 5 15 7.23858 15 10Z"
+                          fill="#727C84"
+                        />
+                      </svg>
+                    </button>
+
+                    <cos-input
+                      class=""
+                      placeholder="{{
+                        'COMPONENTS.TOPIC_IDEATION.SEARCH' | translate
+                      }}"
+                    >
+                      <input
+                        type="text"
+                        [(ngModel)]="ideaFilters.search"
+                        (ngModelChange)="setSearch(ideaFilters.search)"
+                        [placeholder]="
+                          'COMPONENTS.TOPIC_IDEATION.SEARCH' | translate
+                        "
+                      />
+                    </cos-input>
+
+                    <a
+                      class="clear_search"
+                      translate="VIEWS.MY_TOPICS.LNK_CLEAR"
+                      (click)="ideaFilters.search = ''; setSearch('')"
+                      *ngIf="ideaFilters.search"
+                    ></a>
+                  </div>
                 </div>
               </div>
 
-              <div class="overlay" *ngIf="showMobileOverlay()" (click)="closeMobileFilter();"></div>
+              <div
+                class="overlay"
+                *ngIf="showMobileOverlay()"
+                (click)="closeMobileFilter()"
+              ></div>
 
-              <div class="mobile_filters_wrap" [ngClass]="{'active': showMobileOverlay()}">
-                <div class="options button_options" *ngIf="mobileIdeaFilters.type">
-                  <a class="btn_medium_close icon" (click)="closeMobileFilter()">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <div
+                class="mobile_filters_wrap"
+                [ngClass]="{ active: showMobileOverlay() }"
+              >
+                <div
+                  class="options button_options"
+                  *ngIf="mobileIdeaFilters.type"
+                >
+                  <a
+                    class="btn_medium_close icon"
+                    (click)="closeMobileFilter()"
+                  >
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
                       <path
                         d="M6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289Z"
-                        fill="#2C3B47" />
+                        fill="#2C3B47"
+                      />
                     </svg>
                   </a>
 
                   <div class="options_wrapper">
-                    <label class="checkbox" (click)="mobileIdeaFilters.type = 'all';">
-                      <span [innerHTML]="'COMPONENTS.TOPIC_IDEATION.FILTER_ALL' | translate | titlecase"></span>
-                      <input type="radio" name="type">
+                    <label
+                      class="checkbox"
+                      (click)="mobileIdeaFilters.type = 'all'"
+                    >
+                      <span
+                        [innerHTML]="
+                          'COMPONENTS.TOPIC_IDEATION.FILTER_ALL'
+                            | translate
+                            | titlecase
+                        "
+                      ></span>
+                      <input type="radio" name="type" />
                       <span class="checkmark"></span>
                     </label>
 
-                    <label class="checkbox" *ngIf="(AuthService.loggedIn$ | async)"
-                      (click)="mobileIdeaFilters.type = 'iCreated';">
+                    <label
+                      class="checkbox"
+                      *ngIf="AuthService.loggedIn$ | async"
+                      (click)="mobileIdeaFilters.type = 'iCreated'"
+                    >
                       <span
-                        [innerHTML]="'COMPONENTS.TOPIC_IDEATION.FILTER_TYPE_YOUR_IDEAS' | translate | titlecase"></span>
-                      <input type="radio" name="type">
+                        [innerHTML]="
+                          'COMPONENTS.TOPIC_IDEATION.FILTER_TYPE_YOUR_IDEAS'
+                            | translate
+                            | titlecase
+                        "
+                      ></span>
+                      <input type="radio" name="type" />
                       <span class="checkmark"></span>
                     </label>
 
-                    <label class="checkbox" *ngIf="(AuthService.loggedIn$ | async)"
-                      (click)="mobileIdeaFilters.type = 'favourite';">
+                    <label
+                      class="checkbox"
+                      *ngIf="AuthService.loggedIn$ | async"
+                      (click)="mobileIdeaFilters.type = 'favourite'"
+                    >
                       <span
-                        [innerHTML]="'COMPONENTS.TOPIC_IDEATION.FILTER_TYPE_FAVOURITES' | translate | titlecase"></span>
-                      <input type="radio" name="type">
+                        [innerHTML]="
+                          'COMPONENTS.TOPIC_IDEATION.FILTER_TYPE_FAVOURITES'
+                            | translate
+                            | titlecase
+                        "
+                      ></span>
+                      <input type="radio" name="type" />
                       <span class="checkmark"></span>
                     </label>
 
-                    <label class="checkbox" (click)="mobileIdeaFilters.type = 'showModerated';">
+                    <label
+                      class="checkbox"
+                      (click)="mobileIdeaFilters.type = 'showModerated'"
+                    >
                       <span
-                        [innerHTML]="'COMPONENTS.TOPIC_IDEATION.FILTER_TYPE_MODERATED' | translate | titlecase"></span>
-                      <input type="radio" name="type">
+                        [innerHTML]="
+                          'COMPONENTS.TOPIC_IDEATION.FILTER_TYPE_MODERATED'
+                            | translate
+                            | titlecase
+                        "
+                      ></span>
+                      <input type="radio" name="type" />
                       <span class="checkmark"></span>
                     </label>
                   </div>
 
-                  <button class="btn_medium_secondary"
-                    (click)="setType(mobileIdeaFilters.type);mobileIdeaFilters.type= false;"
-                    translate="COMPONENTS.TOPIC_IDEATION.BTN_APPLY"></button>
+                  <button
+                    class="btn_medium_secondary"
+                    (click)="
+                      setType(mobileIdeaFilters.type);
+                      mobileIdeaFilters.type = false
+                    "
+                    translate="COMPONENTS.TOPIC_IDEATION.BTN_APPLY"
+                  ></button>
                 </div>
 
-                <div class="options button_options" *ngIf="mobileIdeaFilters.orderBy">
-                  <a class="btn_medium_close icon" (click)="closeMobileFilter()">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <div
+                  class="options button_options"
+                  *ngIf="mobileIdeaFilters.orderBy"
+                >
+                  <a
+                    class="btn_medium_close icon"
+                    (click)="closeMobileFilter()"
+                  >
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
                       <path
                         d="M6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289Z"
-                        fill="#2C3B47" />
+                        fill="#2C3B47"
+                      />
                     </svg>
                   </a>
 
                   <div class="options_wrapper">
-                    <label class="checkbox" (click)="mobileIdeaFilters.orderBy = 'all';">
-                      <span [innerHTML]="'COMPONENTS.TOPIC_IDEATION.FILTER_ALL' | translate | titlecase"></span>
-                      <input type="radio" name="orderBy">
+                    <label
+                      class="checkbox"
+                      (click)="mobileIdeaFilters.orderBy = 'all'"
+                    >
+                      <span
+                        [innerHTML]="
+                          'COMPONENTS.TOPIC_IDEATION.FILTER_ALL'
+                            | translate
+                            | titlecase
+                        "
+                      ></span>
+                      <input type="radio" name="orderBy" />
                       <span class="checkmark"></span>
                     </label>
 
-                    <label *ngIf="(AuthService.loggedIn$ | async)" class="checkbox"
-                      (click)="mobileIdeaFilters.orderBy = 'likes';">
+                    <label
+                      *ngIf="AuthService.loggedIn$ | async"
+                      class="checkbox"
+                      (click)="mobileIdeaFilters.orderBy = 'likes'"
+                    >
                       <span
-                        [innerHTML]="'COMPONENTS.TOPIC_IDEATION.FILTER_ORDER_MOST_LIKED' | translate | titlecase"></span>
-                      <input type="radio" name="orderBy">
+                        [innerHTML]="
+                          'COMPONENTS.TOPIC_IDEATION.FILTER_ORDER_MOST_LIKED'
+                            | translate
+                            | titlecase
+                        "
+                      ></span>
+                      <input type="radio" name="orderBy" />
                       <span class="checkmark"></span>
                     </label>
 
-                    <label class="checkbox" (click)="mobileIdeaFilters.orderBy = 'recent';">
+                    <label
+                      class="checkbox"
+                      (click)="mobileIdeaFilters.orderBy = 'recent'"
+                    >
                       <span
-                        [innerHTML]="'COMPONENTS.TOPIC_IDEATION.FILTER_ORDER_MOST_RECENT' | translate | titlecase"></span>
-                      <input type="radio" name="orderBy">
+                        [innerHTML]="
+                          'COMPONENTS.TOPIC_IDEATION.FILTER_ORDER_MOST_RECENT'
+                            | translate
+                            | titlecase
+                        "
+                      ></span>
+                      <input type="radio" name="orderBy" />
                       <span class="checkmark"></span>
                     </label>
 
-                    <label class="checkbox" (click)="mobileIdeaFilters.orderBy = 'replies';">
+                    <label
+                      class="checkbox"
+                      (click)="mobileIdeaFilters.orderBy = 'replies'"
+                    >
                       <span
-                        [innerHTML]="'COMPONENTS.TOPIC_IDEATION.FILTER_ORDER_MOST_REPLIES' | translate | titlecase"></span>
-                      <input type="radio" name="orderBy">
+                        [innerHTML]="
+                          'COMPONENTS.TOPIC_IDEATION.FILTER_ORDER_MOST_REPLIES'
+                            | translate
+                            | titlecase
+                        "
+                      ></span>
+                      <input type="radio" name="orderBy" />
                       <span class="checkmark"></span>
                     </label>
                   </div>
 
-                  <button class="btn_medium_secondary"
-                    (click)="orderBy(mobileIdeaFilters.orderBy);mobileIdeaFilters.orderBy= false;"
-                    translate="COMPONENTS.TOPIC_IDEATION.BTN_APPLY"></button>
+                  <button
+                    class="btn_medium_secondary"
+                    (click)="
+                      orderBy(mobileIdeaFilters.orderBy);
+                      mobileIdeaFilters.orderBy = false
+                    "
+                    translate="COMPONENTS.TOPIC_IDEATION.BTN_APPLY"
+                  ></button>
                 </div>
 
-                <div class="options button_options" *ngIf="mobileIdeaFilters.participants">
-                  <a class="btn_medium_close icon" (click)="closeMobileFilter()">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <div
+                  class="options button_options"
+                  *ngIf="mobileIdeaFilters.participants"
+                >
+                  <a
+                    class="btn_medium_close icon"
+                    (click)="closeMobileFilter()"
+                  >
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
                       <path
                         d="M6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289Z"
-                        fill="#2C3B47" />
+                        fill="#2C3B47"
+                      />
                     </svg>
                   </a>
 
                   <div class="options_wrapper">
-                    <label class="checkbox" (click)="mobileIdeaFilters.participants = 'all'">
-                      <span translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL"></span>
-                      <input type="radio" name="participants">
+                    <label
+                      class="checkbox"
+                      (click)="mobileIdeaFilters.participants = 'all'"
+                    >
+                      <span
+                        translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL"
+                      ></span>
+                      <input type="radio" name="participants" />
                       <span class="checkmark"></span>
                     </label>
 
-                    <ng-container *ngIf="participants$ | async as participants;">
+                    <ng-container *ngIf="participants$ | async as participants">
                       <ng-container *ngFor="let user of participants">
-                        <label class="checkbox" (click)="mobileIdeaFilters.participants = user">
+                        <label
+                          class="checkbox"
+                          (click)="mobileIdeaFilters.participants = user"
+                        >
                           <div class="author_wrap">
                             <div class="image_wrap">
-                              <img class="profile_image" *ngIf="user.imageUrl" [src]="user.imageUrl">
-                              <div class="profile_image_filler" *ngIf="!user.imageUrl">
-                                <cos-initials *ngIf="user.name" [name]="user.name">
+                              <img
+                                class="profile_image"
+                                *ngIf="user.imageUrl"
+                                [src]="user.imageUrl"
+                              />
+                              <div
+                                class="profile_image_filler"
+                                *ngIf="!user.imageUrl"
+                              >
+                                <cos-initials
+                                  *ngIf="user.name"
+                                  [name]="user.name"
+                                >
                                 </cos-initials>
                               </div>
                             </div>
                             <div class="author_name">
-                              {{user.name}}
+                              {{ user.name }}
                             </div>
                           </div>
 
-                          <input type="radio" name="participants">
+                          <input type="radio" name="participants" />
                           <span class="checkmark"></span>
                         </label>
                       </ng-container>
                     </ng-container>
                   </div>
 
-                  <button class="btn_medium_secondary"
-                    (click)="setParticipant(mobileIdeaFilters.participants);mobileIdeaFilters.participants= false;"
-                    translate="COMPONENTS.TOPIC_IDEATION.BTN_APPLY"></button>
+                  <button
+                    class="btn_medium_secondary"
+                    (click)="
+                      setParticipant(mobileIdeaFilters.participants);
+                      mobileIdeaFilters.participants = false
+                    "
+                    translate="COMPONENTS.TOPIC_IDEATION.BTN_APPLY"
+                  ></button>
+                </div>
+
+                <div
+                  class="options button_options"
+                  *ngIf="mobileIdeaFilters.age"
+                >
+                  <a
+                    class="btn_medium_close icon"
+                    (click)="closeMobileFilter()"
+                  >
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289Z"
+                        fill="#2C3B47"
+                      />
+                    </svg>
+                  </a>
+
+                  <div class="options_wrapper">
+                    <label class="checkbox" (click)="setMobileAges('')">
+                      <span
+                        [innerHTML]="
+                          'COMPONENTS.TOPIC_IDEATION.FILTER_ALL'
+                            | translate
+                            | titlecase
+                        "
+                      ></span>
+                      <input
+                        type="checkbox"
+                        name="age"
+                        [checked]="
+                          mobileAges.length === 0 ||
+                          mobileAges.length === AGE_LIMIT
+                        "
+                        (change)="setMobileAges('')"
+                      />
+                      <span class="checkmark"></span>
+                    </label>
+                    <label
+                      *ngFor="
+                        let number of [].constructor(AGE_LIMIT);
+                        let i = index
+                      "
+                      class="checkbox"
+                    >
+                      <span>{{ i + 1 }}</span>
+                      <input
+                        type="checkbox"
+                        name="age"
+                        [checked]="mobileAges.includes((i + 1).toString())"
+                        (change)="setMobileAges(i + 1)"
+                      />
+                      <span class="checkmark"></span>
+                    </label>
+                  </div>
+
+                  <button
+                    class="btn_medium_secondary"
+                    (click)="applyAgeFilter(); mobileIdeaFilters.age = false"
+                    translate="COMPONENTS.TOPIC_IDEATION.BTN_APPLY"
+                  ></button>
+                </div>
+
+                <div
+                  class="options button_options"
+                  *ngIf="mobileIdeaFilters.gender"
+                >
+                  <a
+                    class="btn_medium_close icon"
+                    (click)="closeMobileFilter()"
+                  >
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289Z"
+                        fill="#2C3B47"
+                      />
+                    </svg>
+                  </a>
+
+                  <div class="options_wrapper">
+                    <label
+                      class="checkbox"
+                      (click)="mobileIdeaFilters.gender = 'all'"
+                    >
+                      <span
+                        [innerHTML]="
+                          'COMPONENTS.TOPIC_IDEATION.FILTER_ALL'
+                            | translate
+                            | titlecase
+                        "
+                      ></span>
+                      <input type="radio" name="gebder" />
+                      <span class="checkmark"></span>
+                    </label>
+
+                    <label
+                      *ngFor="let gender of ['female', 'male', 'other']"
+                      class="checkbox"
+                      (click)="mobileIdeaFilters.gender = gender"
+                    >
+                      <span>{{
+                        "VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_GENDER_" +
+                          (gender === "other"
+                            ? gender + "_placeholder"
+                            : gender
+                          ).toUpperCase() | translate
+                      }}</span>
+                      <input type="radio" name="orderBy" />
+                      <span class="checkmark"></span>
+                    </label>
+                  </div>
+
+                  <button
+                    class="btn_medium_secondary"
+                    (click)="
+                      setGender(mobileIdeaFilters.gender);
+                      mobileIdeaFilters.gender = false
+                    "
+                    translate="COMPONENTS.TOPIC_IDEATION.BTN_APPLY"
+                  ></button>
+                </div>
+
+                <div
+                  class="options button_options"
+                  *ngIf="mobileIdeaFilters.residence"
+                >
+                  <a
+                    class="btn_medium_close icon"
+                    (click)="closeMobileFilter()"
+                  >
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289Z"
+                        fill="#2C3B47"
+                      />
+                    </svg>
+                  </a>
+
+                  <div class="options_wrapper">
+                    <label
+                      class="checkbox"
+                      (click)="mobileIdeaFilters.residence = 'all'"
+                    >
+                      <span
+                        [innerHTML]="
+                          'COMPONENTS.TOPIC_IDEATION.FILTER_ALL'
+                            | translate
+                            | titlecase
+                        "
+                      ></span>
+                      <input type="radio" name="orderBy" />
+                      <span class="checkmark"></span>
+                    </label>
+
+                    <label
+                      *ngFor="let residence of municipalities; let i = index"
+                      class="checkbox"
+                      (click)="mobileIdeaFilters.residence = residence.name"
+                    >
+                      <span>{{ residence.name }}</span>
+                      <input type="radio" name="age" />
+                      <span class="checkmark"></span>
+                    </label>
+
+                    <label
+                      class="checkbox"
+                      (click)="mobileIdeaFilters.residence = 'other'"
+                    >
+                      <span>{{
+                        "VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_RESIDENCE_OTHER_PLACEHOLDER"
+                          | translate
+                          | titlecase
+                      }}</span>
+                      <input type="radio" name="age" />
+                      <span class="checkmark"></span>
+                    </label>
+                  </div>
+
+                  <button
+                    class="btn_medium_secondary"
+                    (click)="
+                      setResidence(mobileIdeaFilters.residence);
+                      mobileIdeaFilters.residence = false
+                    "
+                    translate="COMPONENTS.TOPIC_IDEATION.BTN_APPLY"
+                  ></button>
                 </div>
 
                 <div class="options button_options" *ngIf="mobileIdeaFilters.age">
@@ -699,34 +1739,63 @@
               </div>
             </div>
 
-            <div class="selected_participant_wrap" *ngIf="ideaFilters.participants.name">
+            <div
+              class="selected_participant_wrap"
+              *ngIf="ideaFilters.participants.name"
+            >
               <div class="participant_row">
                 <div class="row_label">
-                  <div class="bold" translate="COMPONENTS.TOPIC_IDEATION.LBL_FILTER_PARTICIPANTS_IDEAS"></div>
+                  <div
+                    class="bold"
+                    translate="COMPONENTS.TOPIC_IDEATION.LBL_FILTER_PARTICIPANTS_IDEAS"
+                  ></div>
                 </div>
                 <div class="author_wrap" *ngIf="ideaFilters.participants">
                   <div class="image_wrap">
-                    <img class="profile_image" *ngIf="ideaFilters.participants.imageUrl"
-                      [src]="ideaFilters.participants.imageUrl">
-                    <div class="profile_image_filler" *ngIf="!ideaFilters.participants.imageUrl">
-                      <cos-initials *ngIf="ideaFilters.participants.name" [name]="ideaFilters.participants.name">
+                    <img
+                      class="profile_image"
+                      *ngIf="ideaFilters.participants.imageUrl"
+                      [src]="ideaFilters.participants.imageUrl"
+                    />
+                    <div
+                      class="profile_image_filler"
+                      *ngIf="!ideaFilters.participants.imageUrl"
+                    >
+                      <cos-initials
+                        *ngIf="ideaFilters.participants.name"
+                        [name]="ideaFilters.participants.name"
+                      >
                       </cos-initials>
                     </div>
                   </div>
                   <div class="author_name">
-                    {{ideaFilters.participants.name}}
+                    {{ ideaFilters.participants.name }}
                   </div>
 
                   <div class="info_wrap">
                     <div class="info_text">
-                      <span translate="COMPONENTS.TOPIC_IDEATION.IDEA_PARTICIPANTS_FILTER_RESULTS"
-                        [translateParams]="{count: ideaFilters.participants.ideas.count}"></span>
+                      <span
+                        translate="COMPONENTS.TOPIC_IDEATION.IDEA_PARTICIPANTS_FILTER_RESULTS"
+                        [translateParams]="{
+                          count: ideaFilters.participants.ideas.count
+                        }"
+                      ></span>
                     </div>
-                    <button class="btn_medium_plain icon animate" (click)="setParticipant()">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <button
+                      class="btn_medium_plain icon animate"
+                      (click)="setParticipant()"
+                    >
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
                         <path
                           d="M6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289Z"
-                          fill="#2C3B47" />
+                          fill="#2C3B47"
+                        />
                       </svg>
                     </button>
                   </div>
@@ -734,63 +1803,110 @@
               </div>
             </div>
             <div class="ideas_wrap">
-
-              <div class="notification_inline" *ngIf="notification" [ngClass]="notification.level">
+              <div
+                class="notification_inline"
+                *ngIf="notification"
+                [ngClass]="notification.level"
+              >
                 <div class="icon_notification">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
                     <rect width="24" height="24" rx="12" fill="#5AB467" />
-                    <path fill-rule="evenodd" clip-rule="evenodd"
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
                       d="M18.9849 6.13908C19.2395 6.35122 19.2739 6.72956 19.0617 6.98413L10.0617 17.7841C9.94734 17.9214 9.77773 18.0005 9.59905 18C9.42038 17.9995 9.25123 17.9194 9.13764 17.7814L4.93764 12.6814C4.72699 12.4256 4.76358 12.0475 5.01937 11.8369C5.27517 11.6262 5.6533 11.6628 5.86396 11.9186L9.60353 16.4595L18.1399 6.2159C18.352 5.96134 18.7303 5.92694 18.9849 6.13908Z"
-                      fill="white" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+                      fill="white"
+                      stroke="white"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
                   </svg>
                 </div>
                 <div class="message">
                   <div class="content">
-                    <div class="content_description" [innerHTML]="notification.message"></div>
+                    <div
+                      class="content_description"
+                      [innerHTML]="notification.message"
+                    ></div>
                   </div>
                 </div>
-                <button class="btn_small_nav icon" (click)="notification=null;">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <button
+                  class="btn_small_nav icon"
+                  (click)="notification = null"
+                >
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
                     <path
                       d="M6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289Z"
-                      fill="#2C3B47" />
+                      fill="#2C3B47"
+                    />
                   </svg>
                 </button>
               </div>
               <ng-container *ngIf="!ideas.length && !filtersSet">
                 <div class="no_feature_yet">
-                  <svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <svg
+                    width="96"
+                    height="96"
+                    viewBox="0 0 96 96"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
                     <g clip-path="url(#clip0_7696_17198)">
                       <rect width="96" height="96" rx="48" fill="white" />
-                      <path d="M60.4741 84.8165L33.9747 87.5576L34.5735 98.5014L60.4741 98.5014L60.4741 84.8165Z"
-                        fill="#5C9CD0" />
+                      <path
+                        d="M60.4741 84.8165L33.9747 87.5576L34.5735 98.5014L60.4741 98.5014L60.4741 84.8165Z"
+                        fill="#5C9CD0"
+                      />
                       <path
                         d="M39.426 73.0151C39.5735 75.6403 39.847 80 39.847 80L55.7464 78.1781C55.7464 78.1781 55.0377 71.6809 57.1247 69.2952C57.4164 68.9617 57.734 68.6141 58.0625 68.2546C60.0836 66.0426 62.5181 63.3781 61.9031 60.7461C61.188 57.6862 55.7332 56.5701 55.7332 56.5701L57.5454 38.1548C57.6222 37.3983 57.3872 36.6431 56.8917 36.0541C56.3963 35.4651 55.6807 35.0903 54.9013 35.0116C54.1676 34.9469 53.4359 35.1552 52.8545 35.5942C52.2731 36.0332 51.8854 36.6701 51.7698 37.3759L49.9372 47.3073C49.9372 47.3073 49.2501 44.0056 47.2133 43.8671C45.1764 43.7286 43.9381 45.5234 43.5256 47.9962C42.9343 46.6963 41.9339 46.17 40.9594 46.4954L40.8798 46.2683C40.8798 46.2683 40.8724 46.3611 40.8593 46.5318C39.8666 46.9164 38.7753 47.761 38.8743 50.475C37.9455 49.4105 37.0625 48.7395 36.1955 48.9294L36.1113 48.687C36.1113 48.687 36.1102 48.7806 36.1087 48.9513C35.9414 48.9992 35.7747 49.0798 35.6083 49.1965C34.5519 49.9373 33.9007 53.5686 34.0124 55.5409C34.0291 55.8357 34.0298 56.2681 34.0307 56.79C34.0356 59.7597 34.0454 65.6267 37.0307 65.5227C37.1332 65.8435 37.3363 66.3302 37.5829 66.9211C38.2775 68.5858 39.3171 71.0776 39.426 73.0151Z"
-                        fill="#F8E1B8" />
+                        fill="#F8E1B8"
+                      />
                       <path
                         d="M54.8583 23.9809C53.9701 23.8388 53.0892 23.7882 52.2249 23.8217C51.7301 23.8408 51.3136 23.4511 51.2946 22.9512C51.2756 22.4513 51.6614 22.0304 52.1562 22.0113C53.1366 21.9733 54.1344 22.0309 55.1386 22.1914C56.1429 22.352 57.1095 22.6086 58.0304 22.9506C58.4952 23.1232 58.7334 23.6438 58.5626 24.1134C58.3917 24.583 57.8765 24.8237 57.4117 24.6511C56.5999 24.3495 55.7466 24.1229 54.8583 23.9809Z"
-                        fill="#2C3B47" />
+                        fill="#2C3B47"
+                      />
                       <path
                         d="M47.5621 23.8584C47.7699 24.3126 47.5739 24.8509 47.1244 25.0608C45.5219 25.8092 44.0768 26.8703 42.8774 28.1791C42.541 28.5462 41.9737 28.5683 41.6103 28.2284C41.247 27.8885 41.2252 27.3153 41.5616 26.9482C42.9202 25.4656 44.5568 24.264 46.372 23.4163C46.8215 23.2063 47.3543 23.4043 47.5621 23.8584Z"
-                        fill="#2C3B47" />
+                        fill="#2C3B47"
+                      />
                       <path
                         d="M63.1024 26.0916C62.7391 25.7517 62.1718 25.7738 61.8354 26.1409C61.499 26.508 61.5208 27.0811 61.8842 27.421C63.1796 28.6328 64.2298 30.0929 64.9705 31.712C65.1783 32.1661 65.7111 32.3641 66.1606 32.1542C66.6101 31.9442 66.806 31.4059 66.5982 30.9518C65.7592 29.1178 64.5698 27.4643 63.1024 26.0916Z"
-                        fill="#2C3B47" />
+                        fill="#2C3B47"
+                      />
                       <path
                         d="M39.6036 31.535C40.0684 31.7076 40.3067 32.2282 40.1358 32.6978C39.8374 33.518 39.6131 34.3801 39.4725 35.2776C39.3306 36.1834 39.2808 37.0816 39.3158 37.9627C39.3357 38.4626 38.9507 38.8842 38.456 38.9042C37.9612 38.9243 37.544 38.5354 37.5241 38.0355C37.4844 37.036 37.5409 36.0185 37.7014 34.9944C37.8603 33.9797 38.1142 33.0031 38.4527 32.0727C38.6236 31.6031 39.1389 31.3624 39.6036 31.535Z"
-                        fill="#2C3B47" />
+                        fill="#2C3B47"
+                      />
                       <path
                         d="M67.9888 36.7958C67.9699 36.2958 67.5534 35.9061 67.0586 35.9253C66.5637 35.9445 66.178 36.3653 66.197 36.8652C66.2301 37.7384 66.18 38.6284 66.0394 39.5259C65.8988 40.4233 65.6745 41.2854 65.3761 42.1056C65.2052 42.5752 65.4435 43.0958 65.9082 43.2684C66.373 43.441 66.8883 43.2003 67.0591 42.7307C67.3977 41.8003 67.6516 40.8237 67.8105 39.8091C67.9695 38.7944 68.0264 37.7863 67.9888 36.7958Z"
-                        fill="#2C3B47" />
+                        fill="#2C3B47"
+                      />
                       <path
                         d="M63.9015 46.5751C64.2649 46.915 64.2867 47.4881 63.9503 47.8552C62.5917 49.3378 60.9551 50.5394 59.1398 51.3872C58.6903 51.5971 58.1575 51.3991 57.9498 50.945C57.742 50.4909 57.938 49.9526 58.3874 49.7427C59.9899 48.9943 61.4351 47.9332 62.6345 46.6244C62.9709 46.2572 63.5382 46.2352 63.9015 46.5751Z"
-                        fill="#2C3B47" />
+                        fill="#2C3B47"
+                      />
                       <path
                         d="M38.2749 84.5623C39.1038 84.6439 39.8411 84.0312 39.9218 83.1938C40.0026 82.3564 39.3961 81.6114 38.5673 81.5299C37.7385 81.4483 37.0012 82.061 36.9204 82.8984C36.8397 83.7358 37.4461 84.4807 38.2749 84.5623Z"
-                        fill="#2C3B47" />
-                      <path fill-rule="evenodd" clip-rule="evenodd"
+                        fill="#2C3B47"
+                      />
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
                         d="M39.3799 42.7231C39.8282 42.5107 40.3621 42.7057 40.5723 43.1587C40.6995 43.4328 40.8356 43.7023 40.9803 43.9668C41.8928 42.1943 43.2772 41.2609 45.055 41.3536C45.8337 41.4099 46.649 41.9902 47.1918 42.557L48.3388 35.5884C48.5077 34.595 49.0424 33.7029 49.8354 33.0912C50.6284 32.4795 51.621 32.1936 52.6141 32.2908C53.1427 32.3154 53.6596 32.4573 54.1278 32.7065C54.5961 32.9556 55.0044 33.3058 55.3237 33.7323C55.6743 34.1291 55.9369 34.5969 56.094 35.1046C56.2511 35.6122 56.299 36.148 56.2345 36.6758L54.5393 54.4304C56.3041 54.9858 59.7778 56.4391 60.4789 59.271C61.2199 62.519 58.6208 65.5353 56.4948 67.9009C56.3365 68.0761 56.193 68.2283 56.0495 68.3803C55.9062 68.5323 55.7625 68.6846 55.6043 68.8597C54.4472 70.2178 54.2574 73.6881 54.3615 76.0866L58.0734 75.5942C58.3564 75.5768 58.6291 75.6765 58.8323 75.8717C58.8516 75.9013 58.873 75.9319 58.8951 75.9635C59.0171 76.1378 59.163 76.3462 59.1139 76.6317L59.2153 83.4638L60.1263 83.3543C60.4435 83.3431 60.7523 83.4587 60.9856 83.6762C61.008 83.7089 61.0328 83.7426 61.0585 83.7776C61.2001 83.9702 61.3693 84.2004 61.3218 84.5092L61.1399 99H58.9026L59.0685 85.7694L34.704 88.7339L35.8982 99H33.5586L32.2791 87.8386C32.2604 87.686 32.2729 87.5311 32.3157 87.3834C32.3585 87.2358 32.4308 87.0986 32.528 86.9802C32.6253 86.8619 32.7454 86.7649 32.8812 86.6952C33.0169 86.6255 33.1653 86.5846 33.3173 86.575L33.9625 86.4975L33.2007 79.9546C33.1874 79.8144 33.2019 79.6714 33.2432 79.5345C33.2846 79.3975 33.3519 79.2695 33.4412 79.1583C33.5304 79.0471 33.6396 78.9551 33.7621 78.8879C33.8846 78.8207 34.0177 78.7797 34.1533 78.7675L36.8294 78.4125C36.7459 77.0079 36.5755 74.108 36.4736 72.1497C36.1363 70.1456 35.5629 68.1895 34.7655 66.3231C34.6927 66.0308 34.5795 65.7504 34.4294 65.49C33.911 65.3494 33.4302 65.0936 33.0222 64.7414C31.179 62.8584 31.0624 58.9049 31.0365 55.2704C31.0084 54.9615 30.9987 54.6512 31.0072 54.3411C30.9385 52.7593 31.3415 48.0445 33.0887 46.8986C33.5031 46.5869 34.0001 46.4072 34.5162 46.3824C35.0322 46.3576 35.5439 46.4888 35.9858 46.7592C36.1389 46.131 36.451 45.5538 36.8915 45.0842C37.332 44.6145 37.8857 44.2686 38.4984 44.0804C38.648 44.0227 38.8021 43.9788 38.9586 43.949L38.9487 43.9278C38.7385 43.4748 38.9316 42.9354 39.3799 42.7231ZM55.1673 66.2923L54.2262 67.3482C51.9604 69.4952 51.9137 73.9897 51.8916 76.1168L51.8914 76.1336L38.7375 77.8095C38.6006 76.3155 38.5027 73.8044 38.4395 71.9548C38.0937 69.7024 37.4746 67.5016 36.5964 65.4021C36.5773 65.3589 36.5585 65.3156 36.5402 65.2721C37.1153 65.001 37.7683 64.5255 38.2963 63.7023C38.6022 63.8321 38.9394 63.8758 39.2715 63.8252C39.7997 63.7979 40.3126 63.6408 40.7661 63.3684C41.0105 63.6052 41.2835 63.8113 41.5794 63.9814C42.1433 64.2627 42.7618 64.4145 43.3906 64.4261C44.9796 64.4113 46.0221 63.3688 46.5187 61.3854L50.3439 62.5647C50.6384 62.6454 50.9524 62.6082 51.2205 62.4609C51.4886 62.3136 51.6902 62.0675 51.7832 61.7738C51.834 61.6266 51.8538 61.4703 51.8412 61.3149C51.8287 61.1596 51.7842 61.0086 51.7105 60.8716C51.6367 60.7347 51.5355 60.6148 51.4132 60.5198C51.2909 60.4247 51.1503 60.3565 51.0004 60.3196L43.4882 58.0037C43.215 57.9128 42.9817 57.7284 42.8287 57.4822C42.6757 57.2361 42.6126 56.9437 42.6502 56.6555C42.6688 56.5041 42.7171 56.3579 42.7922 56.2256C42.8674 56.0932 42.9679 55.9773 43.0879 55.8846C43.2079 55.792 43.345 55.7245 43.4912 55.686C43.6373 55.6475 43.7896 55.6389 43.9391 55.6605C44.6868 55.6764 45.4071 55.745 46.0764 55.8086L46.1736 55.8179C46.2504 55.8998 46.3372 55.9723 46.4322 56.0336C46.4841 56.0703 46.5436 56.0945 46.6062 56.1043C46.6688 56.1142 46.7328 56.1094 46.7933 56.0904C47.0578 56.1174 47.3224 56.0531 47.5446 55.9096C49.416 56.014 51.2805 56.2226 53.1295 56.5344C53.343 56.5485 53.5546 56.5023 53.7415 56.4032C55.0597 56.7108 58.2512 57.8063 58.6969 59.7555C59.1667 61.8102 56.9855 64.2818 55.1673 66.2923ZM36.5852 62.0992C36.5134 61.9819 36.4467 61.8611 36.3854 61.7371C35.8436 60.4954 35.9173 54.647 35.9643 50.9176C35.9696 50.499 35.9745 50.107 35.9782 49.7512C34.9984 48.5549 34.5828 48.7293 34.4111 48.8015C34.3994 48.8064 34.3884 48.811 34.3788 48.8144C33.7641 49.2657 33.1424 52.1722 33.1958 54.276C33.1659 54.6144 33.1603 54.9544 33.179 55.2935C33.1861 55.5006 33.1918 55.7446 33.198 56.0157L33.198 56.0167C33.2478 58.1677 33.3375 62.046 34.492 63.1208C34.6104 63.1968 34.7421 63.2482 34.8793 63.2726C34.9454 63.2603 35.0127 63.2538 35.0804 63.2534C35.5032 63.1885 35.8939 62.9867 36.1935 62.6783C36.3579 62.509 36.4901 62.3127 36.5852 62.0992ZM38.4966 60.9095C38.4556 60.8256 38.4136 60.7319 38.3704 60.6275C38.0434 59.8364 38.0969 54.3724 38.1425 49.7276L38.1442 49.5541C38.1522 49.5269 38.159 49.4993 38.1647 49.4714C38.1917 49.3386 38.1918 49.2017 38.1647 49.069C38.1675 46.6002 38.9833 46.256 39.3905 46.2244C39.963 46.0649 40.2759 46.4893 40.5113 46.9486C40.3064 48.911 39.247 59.0755 39.5905 61.2426C39.6064 61.317 39.6243 61.3909 39.6442 61.4641C39.5372 61.5578 39.4055 61.6334 39.2688 61.6242C39.1592 61.6169 39.0532 61.5906 38.9455 61.5169C38.9234 61.4496 38.8953 61.3839 38.8614 61.3207C38.7724 61.1554 38.6469 61.0151 38.4966 60.9095ZM52.749 54.1246L54.4135 36.4854C54.4461 36.0382 54.3101 35.5952 54.0328 35.2451C53.9007 35.0474 53.7222 34.8858 53.5133 34.7747C53.3043 34.6635 53.0715 34.6063 52.8354 34.608C52.3961 34.5679 51.9581 34.697 51.6091 34.9694C51.2601 35.2419 51.0259 35.6375 50.9534 36.077L49.1763 46.1072C49.1824 46.1866 49.1804 46.2666 49.1702 46.346L48.2509 53.6756C49.5934 53.7709 50.9939 53.8797 52.749 54.1246ZM45.9564 53.5313L46.8612 46.2931C46.853 46.2609 46.8463 46.2283 46.841 46.1952C46.601 45.4133 45.9398 43.6403 45.119 43.5872C43.4991 43.5036 42.9341 45.8086 42.7798 46.8545C42.7735 46.8838 42.7662 46.9128 42.7577 46.9414C42.6632 48.0539 42.5434 49.3299 42.4197 50.6489L42.4194 50.6522C42.3207 51.7034 42.2195 52.782 42.1264 53.8272C42.7268 53.4941 43.4158 53.348 44.1052 53.414C44.7004 53.4873 45.2766 53.5074 45.8327 53.5269L45.9564 53.5313ZM41.7432 59.7442C41.7431 60.1882 41.7623 60.5297 41.8059 60.7406C41.8077 60.8398 41.8204 60.9382 41.8434 61.0341C41.8799 61.0868 41.9122 61.1428 41.9399 61.2016C41.9784 61.2836 42.007 61.3693 42.0255 61.4569C42.0919 61.5588 42.172 61.6515 42.2636 61.7321C42.4043 61.8558 42.5691 61.9484 42.7474 62.0037C42.9256 62.0591 43.1134 62.0761 43.2986 62.0536C43.5145 62.0544 44.0195 62.0328 44.3195 60.7074L42.8317 60.2487C42.5995 60.2265 42.3758 60.1499 42.178 60.025C42.0257 59.942 41.8805 59.848 41.7432 59.7442ZM57.1971 83.7062L36.0438 86.2474L35.3425 80.7258L57.0784 77.8425L57.1971 83.7062Z"
-                        fill="#2C3B47" />
+                        fill="#2C3B47"
+                      />
                     </g>
                     <defs>
                       <clipPath id="clip0_7696_17198">
@@ -798,26 +1914,50 @@
                       </clipPath>
                     </defs>
                   </svg>
-                  <div class="description_heading" translate="COMPONENTS.TOPIC_IDEATION.NO_IDEAS_HEADING"></div>
-                  <div class="button" [ngClass]="{disabled: hasIdeationEnded()}">
-                    <button class="btn_medium_submit animate" (click)="addIdea()">
-                      <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <div
+                    class="description_heading"
+                    translate="COMPONENTS.TOPIC_IDEATION.NO_IDEAS_HEADING"
+                  ></div>
+                  <div
+                    class="button"
+                    [ngClass]="{ disabled: hasIdeationEnded() }"
+                  >
+                    <button
+                      class="btn_medium_submit animate"
+                      (click)="addIdea()"
+                    >
+                      <svg
+                        width="25"
+                        height="24"
+                        viewBox="0 0 25 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
                         <path
                           d="M12.5 20C11.9711 20 11.5423 19.5712 11.5423 19.0423L11.5423 12.9577L5.45775 12.9577C4.9288 12.9577 4.5 12.5289 4.5 12C4.5 11.4711 4.9288 11.0423 5.45775 11.0423H11.5423V4.95775C11.5423 4.4288 11.9711 4 12.5 4C13.0289 4 13.4577 4.4288 13.4577 4.95775L13.4577 11.0423L19.5423 11.0423C20.0712 11.0423 20.5 11.4711 20.5 12C20.5 12.5289 20.0712 12.9577 19.5423 12.9577H13.4577V19.0423C13.4577 19.5712 13.0289 20 12.5 20Z"
-                          fill="white" />
+                          fill="white"
+                        />
                       </svg>
 
-                      <span translate="COMPONENTS.TOPIC_IDEATION.NO_IDEAS_BTN_ADD"></span>
+                      <span
+                        translate="COMPONENTS.TOPIC_IDEATION.NO_IDEAS_BTN_ADD"
+                      ></span>
                     </button>
                   </div>
                   <div class="no_feature_description">
                     <div class="description_text">
-                      <div class="description_heading" translate="COMPONENTS.TOPIC_IDEATION.NO_IDEAS_DESC_HEADING">
-                      </div>
+                      <div
+                        class="description_heading"
+                        translate="COMPONENTS.TOPIC_IDEATION.NO_IDEAS_DESC_HEADING"
+                      ></div>
                       <div>
-                        <span translate="COMPONENTS.TOPIC_IDEATION.NO_IDEAS_DESC_BEFORE"></span>
-                        <br>
-                        <br><span translate="COMPONENTS.TOPIC_IDEATION.NO_IDEAS_DESC_AFTER"></span>
+                        <span
+                          translate="COMPONENTS.TOPIC_IDEATION.NO_IDEAS_DESC_BEFORE"
+                        ></span>
+                        <br />
+                        <br /><span
+                          translate="COMPONENTS.TOPIC_IDEATION.NO_IDEAS_DESC_AFTER"
+                        ></span>
                       </div>
                     </div>
                     <!--div class="description_video">
@@ -833,14 +1973,25 @@
                   </div>
                 </div>
               </ng-container>
-              <ng-container *ngIf="ideas.length">
-                <ideabox *ngFor="let idea of ideas" [topic]="topic" [ideation]="ideation" [idea]="idea">
+              <ng-container *ngIf="ideas.length !== 0">
+                <ideabox
+                  *ngFor="let idea of ideas"
+                  [topic]="topic"
+                  [ideation]="ideation"
+                  [idea]="idea"
+                >
                 </ideabox>
               </ng-container>
+              <ng-container *ngIf="ideas.length === 0 && filtersSet">
+                <div translate="COMPONENTS.TOPIC_IDEATION.NO_ITEMS_FOUND"></div>
+              </ng-container>
               <div class="pagination_wrap">
-                <cos-pagination (select)="TopicIdeaService.loadPage($event)" class="ideation"
+                <cos-pagination
+                  (select)="TopicIdeaService.loadPage($event)"
+                  class="ideation"
                   [totalPages]="(TopicIdeaService.totalPages$ | async) || 0"
-                  [page]="(TopicIdeaService.page$ | async) || 0"></cos-pagination>
+                  [page]="(TopicIdeaService.page$ | async) || 0"
+                ></cos-pagination>
               </div>
             </div>
           </ng-container>
@@ -848,116 +1999,219 @@
             <div class="folders_wrap">
               <ng-container *ngIf="folders$ | async as folders">
                 <ng-container *ngIf="folders.length">
-                  <div class="folders_desc" translate="COMPONENTS.TOPIC_IDEATION.FOLDERS_DESCRIPTION"></div>
+                  <div
+                    class="folders_desc"
+                    translate="COMPONENTS.TOPIC_IDEATION.FOLDERS_DESCRIPTION"
+                  ></div>
                   <div class="folder_row">
-                    <div class="folder_name cell" translate="COMPONENTS.TOPIC_IDEATION.LBL_FOLDER"></div>
-                    <div class="cell ideas_cell" translate="COMPONENTS.TOPIC_IDEATION.LBL_IDEAS"></div>
-                    <div class="cell date_cell mobile_hidden" translate="COMPONENTS.TOPIC_IDEATION.LBL_LAST_ACTIVITY">
-                    </div>
-                    <div class="cell actions_cell mobile_hidden" translate="COMPONENTS.TOPIC_IDEATION.LBL_ACTIONS"
-                      *ngIf="canEdit()">
-                    </div>
+                    <div
+                      class="folder_name cell"
+                      translate="COMPONENTS.TOPIC_IDEATION.LBL_FOLDER"
+                    ></div>
+                    <div
+                      class="cell ideas_cell"
+                      translate="COMPONENTS.TOPIC_IDEATION.LBL_IDEAS"
+                    ></div>
+                    <div
+                      class="cell date_cell mobile_hidden"
+                      translate="COMPONENTS.TOPIC_IDEATION.LBL_LAST_ACTIVITY"
+                    ></div>
+                    <div
+                      class="cell actions_cell mobile_hidden"
+                      translate="COMPONENTS.TOPIC_IDEATION.LBL_ACTIONS"
+                      *ngIf="canEdit()"
+                    ></div>
                   </div>
                   <div class="folder_row" *ngFor="let folder of folders">
                     <a class="folder_name" (click)="viewFolder(folder)">
                       <div class="icon">
-                        <svg class="mobile_hidden" width="40" height="34" viewBox="0 0 40 34" fill="none"
-                          xmlns="http://www.w3.org/2000/svg">
+                        <svg
+                          class="mobile_hidden"
+                          width="40"
+                          height="34"
+                          viewBox="0 0 40 34"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
                           <g clip-path="url(#clip0_12637_35588)">
                             <path
                               d="M0 4C0 1.79086 1.79086 0 4 0H14.7932C15.9803 0 17.1061 0.527292 17.866 1.43926L18.8006 2.56074C19.5606 3.47271 20.6864 4 21.8735 4H36C38.2091 4 40 5.79086 40 8V14H0V4Z"
-                              fill="url(#paint0_linear_12637_35588)" />
+                              fill="url(#paint0_linear_12637_35588)"
+                            />
                             <path
                               d="M0 11C0 8.79086 1.79086 7 4 7H36C38.2091 7 40 8.79086 40 11V30C40 32.2091 38.2091 34 36 34H4C1.79086 34 0 32.2091 0 30V11Z"
-                              fill="url(#paint1_linear_12637_35588)" />
+                              fill="url(#paint1_linear_12637_35588)"
+                            />
                           </g>
                           <defs>
-                            <linearGradient id="paint0_linear_12637_35588" x1="20" y1="4.375" x2="20" y2="9.1875"
-                              gradientUnits="userSpaceOnUse">
+                            <linearGradient
+                              id="paint0_linear_12637_35588"
+                              x1="20"
+                              y1="4.375"
+                              x2="20"
+                              y2="9.1875"
+                              gradientUnits="userSpaceOnUse"
+                            >
                               <stop stop-color="#FFEBA2" />
                               <stop offset="1" stop-color="#FFDF6F" />
                             </linearGradient>
-                            <linearGradient id="paint1_linear_12637_35588" x1="20" y1="7" x2="20" y2="34"
-                              gradientUnits="userSpaceOnUse">
+                            <linearGradient
+                              id="paint1_linear_12637_35588"
+                              x1="20"
+                              y1="7"
+                              x2="20"
+                              y2="34"
+                              gradientUnits="userSpaceOnUse"
+                            >
                               <stop offset="0.901042" stop-color="#FFEAA1" />
                               <stop offset="1" stop-color="#FFDF6F" />
                             </linearGradient>
                             <clipPath id="clip0_12637_35588">
-                              <rect width="40" height="34" rx="4" fill="white" />
+                              <rect
+                                width="40"
+                                height="34"
+                                rx="4"
+                                fill="white"
+                              />
                             </clipPath>
                           </defs>
                         </svg>
-                        <svg class="mobile_show" width="24" height="21" viewBox="0 0 24 21" fill="none"
-                          xmlns="http://www.w3.org/2000/svg">
+                        <svg
+                          class="mobile_show"
+                          width="24"
+                          height="21"
+                          viewBox="0 0 24 21"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
                           <g clip-path="url(#clip0_405_50824)">
                             <path
                               d="M0 2C0 0.895432 0.895431 0 2 0H9.06325C9.65681 0 10.2197 0.263646 10.5997 0.719631L11.4003 1.68037C11.7803 2.13635 12.3432 2.4 12.9367 2.4H22C23.1046 2.4 24 3.29543 24 4.4V8.4H0V2Z"
-                              fill="url(#paint0_linear_405_50824)" />
+                              fill="url(#paint0_linear_405_50824)"
+                            />
                             <path
                               d="M0 6.19922C0 5.09465 0.895431 4.19922 2 4.19922H22C23.1046 4.19922 24 5.09465 24 6.19922V18.3992C24 19.5038 23.1046 20.3992 22 20.3992H2C0.89543 20.3992 0 19.5038 0 18.3992V6.19922Z"
-                              fill="url(#paint1_linear_405_50824)" />
+                              fill="url(#paint1_linear_405_50824)"
+                            />
                           </g>
                           <defs>
-                            <linearGradient id="paint0_linear_405_50824" x1="12" y1="2.625" x2="12" y2="5.5125"
-                              gradientUnits="userSpaceOnUse">
+                            <linearGradient
+                              id="paint0_linear_405_50824"
+                              x1="12"
+                              y1="2.625"
+                              x2="12"
+                              y2="5.5125"
+                              gradientUnits="userSpaceOnUse"
+                            >
                               <stop stop-color="#FFEBA2" />
                               <stop offset="1" stop-color="#FFDF6F" />
                             </linearGradient>
-                            <linearGradient id="paint1_linear_405_50824" x1="12" y1="4.19922" x2="12" y2="20.3992"
-                              gradientUnits="userSpaceOnUse">
+                            <linearGradient
+                              id="paint1_linear_405_50824"
+                              x1="12"
+                              y1="4.19922"
+                              x2="12"
+                              y2="20.3992"
+                              gradientUnits="userSpaceOnUse"
+                            >
                               <stop offset="0.901042" stop-color="#FFEAA1" />
                               <stop offset="1" stop-color="#FFDF6F" />
                             </linearGradient>
                             <clipPath id="clip0_405_50824">
-                              <rect width="24" height="20.4" rx="2" fill="white" />
+                              <rect
+                                width="24"
+                                height="20.4"
+                                rx="2"
+                                fill="white"
+                              />
                             </clipPath>
                           </defs>
                         </svg>
-
                       </div>
                       <div class="name_wrap">
                         <div class="name">
                           <span [innerText]="folder.name"></span>
-                          <span class="mobile_show" [innerText]="folder.ideas.count"></span>
+                          <span
+                            class="mobile_show"
+                            [innerText]="folder.ideas.count"
+                          ></span>
                         </div>
-                        <span class="updated mobile_show"
-                          [innerText]="folder.updatedAt | date:'YYYY-MM-dd HH:mm'"></span>
+                        <span
+                          class="updated mobile_show"
+                          [innerText]="
+                            folder.updatedAt | date : 'YYYY-MM-dd HH:mm'
+                          "
+                        ></span>
                       </div>
                     </a>
-                    <div class="cell ideas_cell mobile_hidden" [innerText]="folder.ideas.count"></div>
-                    <div class="cell date_cell mobile_hidden" [innerText]="folder.updatedAt | date:'YYYY-MM-dd HH:mm'">
-                    </div>
+                    <div
+                      class="cell ideas_cell mobile_hidden"
+                      [innerText]="folder.ideas.count"
+                    ></div>
+                    <div
+                      class="cell date_cell mobile_hidden"
+                      [innerText]="folder.updatedAt | date : 'YYYY-MM-dd HH:mm'"
+                    ></div>
                     <div class="cell actions_cell" *ngIf="canEdit()">
                       <div class="dropdown button_dropdown" [cosDropdown]>
                         <button class="btn_small_plain icon">
-                          <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
+                          <svg
+                            width="32"
+                            height="32"
+                            viewBox="0 0 32 32"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              clip-rule="evenodd"
                               d="M17.334 11.9993C17.334 11.266 16.734 10.666 16.0007 10.666C15.2673 10.666 14.6673 11.266 14.6673 11.9993C14.6673 12.7327 15.2673 13.3327 16.0007 13.3327C16.734 13.3327 17.334 12.7327 17.334 11.9993ZM17.334 19.9993C17.334 19.266 16.734 18.666 16.0007 18.666C15.2673 18.666 14.6673 19.266 14.6673 19.9993C14.6673 20.7327 15.2673 21.3327 16.0007 21.3327C16.734 21.3327 17.334 20.7327 17.334 19.9993ZM16.0007 14.666C16.734 14.666 17.334 15.266 17.334 15.9993C17.334 16.7327 16.734 17.3327 16.0007 17.3327C15.2673 17.3327 14.6673 16.7327 14.6673 15.9993C14.6673 15.266 15.2673 14.666 16.0007 14.666Z"
-                              fill="#2C3B47" />
+                              fill="#2C3B47"
+                            />
                           </svg>
                         </button>
                         <div class="options button_options ideation">
                           <ng-container *ngIf="canEdit()">
                             <button class="option" (click)="editFolder(folder)">
-                              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
+                              <svg
+                                width="16"
+                                height="16"
+                                viewBox="0 0 16 16"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
                                 <path
                                   d="M8.8143 4.18517L11.8147 7.18569L5.29947 13.7012L2.62438 13.9965C2.26626 14.0361 1.96369 13.7333 2.00354 13.3752L2.30118 10.6981L8.8143 4.18517ZM13.6704 3.73845L12.2616 2.3296C11.8222 1.89013 11.1095 1.89013 10.67 2.3296L9.34467 3.65501L12.3451 6.65553L13.6704 5.33011C14.1099 4.89042 14.1099 4.17791 13.6704 3.73845Z"
-                                  fill="#2C3B47" />
+                                  fill="#2C3B47"
+                                />
                               </svg>
-                              <span translate="COMPONENTS.TOPIC_IDEATION.OPTION_EDIT_FOLDER"></span>
+                              <span
+                                translate="COMPONENTS.TOPIC_IDEATION.OPTION_EDIT_FOLDER"
+                              ></span>
                             </button>
                           </ng-container>
                           <ng-container *ngIf="canEdit()">
-                            <button class="option error_text" (click)="deleteFolder(folder)">
-                              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
+                            <button
+                              class="option error_text"
+                              (click)="deleteFolder(folder)"
+                            >
+                              <svg
+                                width="16"
+                                height="16"
+                                viewBox="0 0 16 16"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  fill-rule="evenodd"
+                                  clip-rule="evenodd"
                                   d="M10 3H6V4H10V3ZM11 4V3C11 2.44772 10.5523 2 10 2H6C5.44772 2 5 2.44772 5 3V4H4H2.5C2.22386 4 2 4.22386 2 4.5C2 4.77614 2.22386 5 2.5 5H4V13C4 13.5523 4.44772 14 5 14H11C11.5523 14 12 13.5523 12 13V5H13.5C13.7761 5 14 4.77614 14 4.5C14 4.22386 13.7761 4 13.5 4H12H11ZM7 7H6V11H7V7ZM10 7H9V11H10V7Z"
-                                  fill="#2C3B47"></path>
+                                  fill="#2C3B47"
+                                ></path>
                               </svg>
-                              <span translate="COMPONENTS.TOPIC_IDEATION.OPTION_DELETE_FOLDER"></span>
+                              <span
+                                translate="COMPONENTS.TOPIC_IDEATION.OPTION_DELETE_FOLDER"
+                              ></span>
                             </button>
                           </ng-container>
                         </div>
@@ -967,38 +2221,57 @@
                 </ng-container>
                 <ng-container *ngIf="!folders.length">
                   <div class="no_feature_yet">
-                    <svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg
+                      width="96"
+                      height="96"
+                      viewBox="0 0 96 96"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
                       <g clip-path="url(#clip0_7696_17198)">
                         <rect width="96" height="96" rx="48" fill="white" />
-                        <path d="M60.4741 84.8165L33.9747 87.5576L34.5735 98.5014L60.4741 98.5014L60.4741 84.8165Z"
-                          fill="#5C9CD0" />
+                        <path
+                          d="M60.4741 84.8165L33.9747 87.5576L34.5735 98.5014L60.4741 98.5014L60.4741 84.8165Z"
+                          fill="#5C9CD0"
+                        />
                         <path
                           d="M39.426 73.0151C39.5735 75.6403 39.847 80 39.847 80L55.7464 78.1781C55.7464 78.1781 55.0377 71.6809 57.1247 69.2952C57.4164 68.9617 57.734 68.6141 58.0625 68.2546C60.0836 66.0426 62.5181 63.3781 61.9031 60.7461C61.188 57.6862 55.7332 56.5701 55.7332 56.5701L57.5454 38.1548C57.6222 37.3983 57.3872 36.6431 56.8917 36.0541C56.3963 35.4651 55.6807 35.0903 54.9013 35.0116C54.1676 34.9469 53.4359 35.1552 52.8545 35.5942C52.2731 36.0332 51.8854 36.6701 51.7698 37.3759L49.9372 47.3073C49.9372 47.3073 49.2501 44.0056 47.2133 43.8671C45.1764 43.7286 43.9381 45.5234 43.5256 47.9962C42.9343 46.6963 41.9339 46.17 40.9594 46.4954L40.8798 46.2683C40.8798 46.2683 40.8724 46.3611 40.8593 46.5318C39.8666 46.9164 38.7753 47.761 38.8743 50.475C37.9455 49.4105 37.0625 48.7395 36.1955 48.9294L36.1113 48.687C36.1113 48.687 36.1102 48.7806 36.1087 48.9513C35.9414 48.9992 35.7747 49.0798 35.6083 49.1965C34.5519 49.9373 33.9007 53.5686 34.0124 55.5409C34.0291 55.8357 34.0298 56.2681 34.0307 56.79C34.0356 59.7597 34.0454 65.6267 37.0307 65.5227C37.1332 65.8435 37.3363 66.3302 37.5829 66.9211C38.2775 68.5858 39.3171 71.0776 39.426 73.0151Z"
-                          fill="#F8E1B8" />
+                          fill="#F8E1B8"
+                        />
                         <path
                           d="M54.8583 23.9809C53.9701 23.8388 53.0892 23.7882 52.2249 23.8217C51.7301 23.8408 51.3136 23.4511 51.2946 22.9512C51.2756 22.4513 51.6614 22.0304 52.1562 22.0113C53.1366 21.9733 54.1344 22.0309 55.1386 22.1914C56.1429 22.352 57.1095 22.6086 58.0304 22.9506C58.4952 23.1232 58.7334 23.6438 58.5626 24.1134C58.3917 24.583 57.8765 24.8237 57.4117 24.6511C56.5999 24.3495 55.7466 24.1229 54.8583 23.9809Z"
-                          fill="#2C3B47" />
+                          fill="#2C3B47"
+                        />
                         <path
                           d="M47.5621 23.8584C47.7699 24.3126 47.5739 24.8509 47.1244 25.0608C45.5219 25.8092 44.0768 26.8703 42.8774 28.1791C42.541 28.5462 41.9737 28.5683 41.6103 28.2284C41.247 27.8885 41.2252 27.3153 41.5616 26.9482C42.9202 25.4656 44.5568 24.264 46.372 23.4163C46.8215 23.2063 47.3543 23.4043 47.5621 23.8584Z"
-                          fill="#2C3B47" />
+                          fill="#2C3B47"
+                        />
                         <path
                           d="M63.1024 26.0916C62.7391 25.7517 62.1718 25.7738 61.8354 26.1409C61.499 26.508 61.5208 27.0811 61.8842 27.421C63.1796 28.6328 64.2298 30.0929 64.9705 31.712C65.1783 32.1661 65.7111 32.3641 66.1606 32.1542C66.6101 31.9442 66.806 31.4059 66.5982 30.9518C65.7592 29.1178 64.5698 27.4643 63.1024 26.0916Z"
-                          fill="#2C3B47" />
+                          fill="#2C3B47"
+                        />
                         <path
                           d="M39.6036 31.535C40.0684 31.7076 40.3067 32.2282 40.1358 32.6978C39.8374 33.518 39.6131 34.3801 39.4725 35.2776C39.3306 36.1834 39.2808 37.0816 39.3158 37.9627C39.3357 38.4626 38.9507 38.8842 38.456 38.9042C37.9612 38.9243 37.544 38.5354 37.5241 38.0355C37.4844 37.036 37.5409 36.0185 37.7014 34.9944C37.8603 33.9797 38.1142 33.0031 38.4527 32.0727C38.6236 31.6031 39.1389 31.3624 39.6036 31.535Z"
-                          fill="#2C3B47" />
+                          fill="#2C3B47"
+                        />
                         <path
                           d="M67.9888 36.7958C67.9699 36.2958 67.5534 35.9061 67.0586 35.9253C66.5637 35.9445 66.178 36.3653 66.197 36.8652C66.2301 37.7384 66.18 38.6284 66.0394 39.5259C65.8988 40.4233 65.6745 41.2854 65.3761 42.1056C65.2052 42.5752 65.4435 43.0958 65.9082 43.2684C66.373 43.441 66.8883 43.2003 67.0591 42.7307C67.3977 41.8003 67.6516 40.8237 67.8105 39.8091C67.9695 38.7944 68.0264 37.7863 67.9888 36.7958Z"
-                          fill="#2C3B47" />
+                          fill="#2C3B47"
+                        />
                         <path
                           d="M63.9015 46.5751C64.2649 46.915 64.2867 47.4881 63.9503 47.8552C62.5917 49.3378 60.9551 50.5394 59.1398 51.3872C58.6903 51.5971 58.1575 51.3991 57.9498 50.945C57.742 50.4909 57.938 49.9526 58.3874 49.7427C59.9899 48.9943 61.4351 47.9332 62.6345 46.6244C62.9709 46.2572 63.5382 46.2352 63.9015 46.5751Z"
-                          fill="#2C3B47" />
+                          fill="#2C3B47"
+                        />
                         <path
                           d="M38.2749 84.5623C39.1038 84.6439 39.8411 84.0312 39.9218 83.1938C40.0026 82.3564 39.3961 81.6114 38.5673 81.5299C37.7385 81.4483 37.0012 82.061 36.9204 82.8984C36.8397 83.7358 37.4461 84.4807 38.2749 84.5623Z"
-                          fill="#2C3B47" />
-                        <path fill-rule="evenodd" clip-rule="evenodd"
+                          fill="#2C3B47"
+                        />
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
                           d="M39.3799 42.7231C39.8282 42.5107 40.3621 42.7057 40.5723 43.1587C40.6995 43.4328 40.8356 43.7023 40.9803 43.9668C41.8928 42.1943 43.2772 41.2609 45.055 41.3536C45.8337 41.4099 46.649 41.9902 47.1918 42.557L48.3388 35.5884C48.5077 34.595 49.0424 33.7029 49.8354 33.0912C50.6284 32.4795 51.621 32.1936 52.6141 32.2908C53.1427 32.3154 53.6596 32.4573 54.1278 32.7065C54.5961 32.9556 55.0044 33.3058 55.3237 33.7323C55.6743 34.1291 55.9369 34.5969 56.094 35.1046C56.2511 35.6122 56.299 36.148 56.2345 36.6758L54.5393 54.4304C56.3041 54.9858 59.7778 56.4391 60.4789 59.271C61.2199 62.519 58.6208 65.5353 56.4948 67.9009C56.3365 68.0761 56.193 68.2283 56.0495 68.3803C55.9062 68.5323 55.7625 68.6846 55.6043 68.8597C54.4472 70.2178 54.2574 73.6881 54.3615 76.0866L58.0734 75.5942C58.3564 75.5768 58.6291 75.6765 58.8323 75.8717C58.8516 75.9013 58.873 75.9319 58.8951 75.9635C59.0171 76.1378 59.163 76.3462 59.1139 76.6317L59.2153 83.4638L60.1263 83.3543C60.4435 83.3431 60.7523 83.4587 60.9856 83.6762C61.008 83.7089 61.0328 83.7426 61.0585 83.7776C61.2001 83.9702 61.3693 84.2004 61.3218 84.5092L61.1399 99H58.9026L59.0685 85.7694L34.704 88.7339L35.8982 99H33.5586L32.2791 87.8386C32.2604 87.686 32.2729 87.5311 32.3157 87.3834C32.3585 87.2358 32.4308 87.0986 32.528 86.9802C32.6253 86.8619 32.7454 86.7649 32.8812 86.6952C33.0169 86.6255 33.1653 86.5846 33.3173 86.575L33.9625 86.4975L33.2007 79.9546C33.1874 79.8144 33.2019 79.6714 33.2432 79.5345C33.2846 79.3975 33.3519 79.2695 33.4412 79.1583C33.5304 79.0471 33.6396 78.9551 33.7621 78.8879C33.8846 78.8207 34.0177 78.7797 34.1533 78.7675L36.8294 78.4125C36.7459 77.0079 36.5755 74.108 36.4736 72.1497C36.1363 70.1456 35.5629 68.1895 34.7655 66.3231C34.6927 66.0308 34.5795 65.7504 34.4294 65.49C33.911 65.3494 33.4302 65.0936 33.0222 64.7414C31.179 62.8584 31.0624 58.9049 31.0365 55.2704C31.0084 54.9615 30.9987 54.6512 31.0072 54.3411C30.9385 52.7593 31.3415 48.0445 33.0887 46.8986C33.5031 46.5869 34.0001 46.4072 34.5162 46.3824C35.0322 46.3576 35.5439 46.4888 35.9858 46.7592C36.1389 46.131 36.451 45.5538 36.8915 45.0842C37.332 44.6145 37.8857 44.2686 38.4984 44.0804C38.648 44.0227 38.8021 43.9788 38.9586 43.949L38.9487 43.9278C38.7385 43.4748 38.9316 42.9354 39.3799 42.7231ZM55.1673 66.2923L54.2262 67.3482C51.9604 69.4952 51.9137 73.9897 51.8916 76.1168L51.8914 76.1336L38.7375 77.8095C38.6006 76.3155 38.5027 73.8044 38.4395 71.9548C38.0937 69.7024 37.4746 67.5016 36.5964 65.4021C36.5773 65.3589 36.5585 65.3156 36.5402 65.2721C37.1153 65.001 37.7683 64.5255 38.2963 63.7023C38.6022 63.8321 38.9394 63.8758 39.2715 63.8252C39.7997 63.7979 40.3126 63.6408 40.7661 63.3684C41.0105 63.6052 41.2835 63.8113 41.5794 63.9814C42.1433 64.2627 42.7618 64.4145 43.3906 64.4261C44.9796 64.4113 46.0221 63.3688 46.5187 61.3854L50.3439 62.5647C50.6384 62.6454 50.9524 62.6082 51.2205 62.4609C51.4886 62.3136 51.6902 62.0675 51.7832 61.7738C51.834 61.6266 51.8538 61.4703 51.8412 61.3149C51.8287 61.1596 51.7842 61.0086 51.7105 60.8716C51.6367 60.7347 51.5355 60.6148 51.4132 60.5198C51.2909 60.4247 51.1503 60.3565 51.0004 60.3196L43.4882 58.0037C43.215 57.9128 42.9817 57.7284 42.8287 57.4822C42.6757 57.2361 42.6126 56.9437 42.6502 56.6555C42.6688 56.5041 42.7171 56.3579 42.7922 56.2256C42.8674 56.0932 42.9679 55.9773 43.0879 55.8846C43.2079 55.792 43.345 55.7245 43.4912 55.686C43.6373 55.6475 43.7896 55.6389 43.9391 55.6605C44.6868 55.6764 45.4071 55.745 46.0764 55.8086L46.1736 55.8179C46.2504 55.8998 46.3372 55.9723 46.4322 56.0336C46.4841 56.0703 46.5436 56.0945 46.6062 56.1043C46.6688 56.1142 46.7328 56.1094 46.7933 56.0904C47.0578 56.1174 47.3224 56.0531 47.5446 55.9096C49.416 56.014 51.2805 56.2226 53.1295 56.5344C53.343 56.5485 53.5546 56.5023 53.7415 56.4032C55.0597 56.7108 58.2512 57.8063 58.6969 59.7555C59.1667 61.8102 56.9855 64.2818 55.1673 66.2923ZM36.5852 62.0992C36.5134 61.9819 36.4467 61.8611 36.3854 61.7371C35.8436 60.4954 35.9173 54.647 35.9643 50.9176C35.9696 50.499 35.9745 50.107 35.9782 49.7512C34.9984 48.5549 34.5828 48.7293 34.4111 48.8015C34.3994 48.8064 34.3884 48.811 34.3788 48.8144C33.7641 49.2657 33.1424 52.1722 33.1958 54.276C33.1659 54.6144 33.1603 54.9544 33.179 55.2935C33.1861 55.5006 33.1918 55.7446 33.198 56.0157L33.198 56.0167C33.2478 58.1677 33.3375 62.046 34.492 63.1208C34.6104 63.1968 34.7421 63.2482 34.8793 63.2726C34.9454 63.2603 35.0127 63.2538 35.0804 63.2534C35.5032 63.1885 35.8939 62.9867 36.1935 62.6783C36.3579 62.509 36.4901 62.3127 36.5852 62.0992ZM38.4966 60.9095C38.4556 60.8256 38.4136 60.7319 38.3704 60.6275C38.0434 59.8364 38.0969 54.3724 38.1425 49.7276L38.1442 49.5541C38.1522 49.5269 38.159 49.4993 38.1647 49.4714C38.1917 49.3386 38.1918 49.2017 38.1647 49.069C38.1675 46.6002 38.9833 46.256 39.3905 46.2244C39.963 46.0649 40.2759 46.4893 40.5113 46.9486C40.3064 48.911 39.247 59.0755 39.5905 61.2426C39.6064 61.317 39.6243 61.3909 39.6442 61.4641C39.5372 61.5578 39.4055 61.6334 39.2688 61.6242C39.1592 61.6169 39.0532 61.5906 38.9455 61.5169C38.9234 61.4496 38.8953 61.3839 38.8614 61.3207C38.7724 61.1554 38.6469 61.0151 38.4966 60.9095ZM52.749 54.1246L54.4135 36.4854C54.4461 36.0382 54.3101 35.5952 54.0328 35.2451C53.9007 35.0474 53.7222 34.8858 53.5133 34.7747C53.3043 34.6635 53.0715 34.6063 52.8354 34.608C52.3961 34.5679 51.9581 34.697 51.6091 34.9694C51.2601 35.2419 51.0259 35.6375 50.9534 36.077L49.1763 46.1072C49.1824 46.1866 49.1804 46.2666 49.1702 46.346L48.2509 53.6756C49.5934 53.7709 50.9939 53.8797 52.749 54.1246ZM45.9564 53.5313L46.8612 46.2931C46.853 46.2609 46.8463 46.2283 46.841 46.1952C46.601 45.4133 45.9398 43.6403 45.119 43.5872C43.4991 43.5036 42.9341 45.8086 42.7798 46.8545C42.7735 46.8838 42.7662 46.9128 42.7577 46.9414C42.6632 48.0539 42.5434 49.3299 42.4197 50.6489L42.4194 50.6522C42.3207 51.7034 42.2195 52.782 42.1264 53.8272C42.7268 53.4941 43.4158 53.348 44.1052 53.414C44.7004 53.4873 45.2766 53.5074 45.8327 53.5269L45.9564 53.5313ZM41.7432 59.7442C41.7431 60.1882 41.7623 60.5297 41.8059 60.7406C41.8077 60.8398 41.8204 60.9382 41.8434 61.0341C41.8799 61.0868 41.9122 61.1428 41.9399 61.2016C41.9784 61.2836 42.007 61.3693 42.0255 61.4569C42.0919 61.5588 42.172 61.6515 42.2636 61.7321C42.4043 61.8558 42.5691 61.9484 42.7474 62.0037C42.9256 62.0591 43.1134 62.0761 43.2986 62.0536C43.5145 62.0544 44.0195 62.0328 44.3195 60.7074L42.8317 60.2487C42.5995 60.2265 42.3758 60.1499 42.178 60.025C42.0257 59.942 41.8805 59.848 41.7432 59.7442ZM57.1971 83.7062L36.0438 86.2474L35.3425 80.7258L57.0784 77.8425L57.1971 83.7062Z"
-                          fill="#2C3B47" />
+                          fill="#2C3B47"
+                        />
                       </g>
                       <defs>
                         <clipPath id="clip0_7696_17198">
@@ -1006,21 +2279,38 @@
                         </clipPath>
                       </defs>
                     </svg>
-                    <div class="description_heading" translate="COMPONENTS.TOPIC_IDEATION.NO_FOLDERS_HEADING"></div>
+                    <div
+                      class="description_heading"
+                      translate="COMPONENTS.TOPIC_IDEATION.NO_FOLDERS_HEADING"
+                    ></div>
 
                     <div class="no_feature_description">
-                      <div class="description_text" translate="COMPONENTS.TOPIC_IDEATION.NO_FOLDERS_DESC">
-                      </div>
+                      <div
+                        class="description_text"
+                        translate="COMPONENTS.TOPIC_IDEATION.NO_FOLDERS_DESC"
+                      ></div>
                     </div>
-                    <div class="button" [ngClass]="{disabled: !canUpdate()}">
-                      <button class="btn_medium_submit animate" (click)="createFolder()">
-                        <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <div class="button" [ngClass]="{ disabled: !canUpdate() }">
+                      <button
+                        class="btn_medium_submit animate"
+                        (click)="createFolder()"
+                      >
+                        <svg
+                          width="25"
+                          height="24"
+                          viewBox="0 0 25 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
                           <path
                             d="M12.5 20C11.9711 20 11.5423 19.5712 11.5423 19.0423L11.5423 12.9577L5.45775 12.9577C4.9288 12.9577 4.5 12.5289 4.5 12C4.5 11.4711 4.9288 11.0423 5.45775 11.0423H11.5423V4.95775C11.5423 4.4288 11.9711 4 12.5 4C13.0289 4 13.4577 4.4288 13.4577 4.95775L13.4577 11.0423L19.5423 11.0423C20.0712 11.0423 20.5 11.4711 20.5 12C20.5 12.5289 20.0712 12.9577 19.5423 12.9577H13.4577V19.0423C13.4577 19.5712 13.0289 20 12.5 20Z"
-                            fill="white" />
+                            fill="white"
+                          />
                         </svg>
 
-                        <span translate="COMPONENTS.TOPIC_IDEATION.BTN_CREATE_NEW_FOLDER"></span>
+                        <span
+                          translate="COMPONENTS.TOPIC_IDEATION.BTN_CREATE_NEW_FOLDER"
+                        ></span>
                       </button>
                     </div>
                   </div>
@@ -1029,14 +2319,27 @@
             </div>
             <div id="add_folder_btn" class="button_wrap" *ngIf="canUpdate()">
               <div class="line_separator"></div>
-              <button class="btn_medium_submit btn_ideation animate" (click)="createFolder()">
-                <svg _ngcontent-ng-c968857107="" width="25" height="24" viewBox="0 0 25 24" fill="none"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path _ngcontent-ng-c968857107=""
+              <button
+                class="btn_medium_submit btn_ideation animate"
+                (click)="createFolder()"
+              >
+                <svg
+                  _ngcontent-ng-c968857107=""
+                  width="25"
+                  height="24"
+                  viewBox="0 0 25 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    _ngcontent-ng-c968857107=""
                     d="M12.5 20C11.9711 20 11.5423 19.5712 11.5423 19.0423L11.5423 12.9577L5.45775 12.9577C4.9288 12.9577 4.5 12.5289 4.5 12C4.5 11.4711 4.9288 11.0423 5.45775 11.0423H11.5423V4.95775C11.5423 4.4288 11.9711 4 12.5 4C13.0289 4 13.4577 4.4288 13.4577 4.95775L13.4577 11.0423L19.5423 11.0423C20.0712 11.0423 20.5 11.4711 20.5 12C20.5 12.5289 20.0712 12.9577 19.5423 12.9577H13.4577V19.0423C13.4577 19.5712 13.0289 20 12.5 20Z"
-                    fill="white"></path>
+                    fill="white"
+                  ></path>
                 </svg>
-                <span translate="COMPONENTS.TOPIC_IDEATION.BTN_CREATE_NEW_FOLDER"></span>
+                <span
+                  translate="COMPONENTS.TOPIC_IDEATION.BTN_CREATE_NEW_FOLDER"
+                ></span>
               </button>
             </div>
           </ng-container>
@@ -1046,5 +2349,11 @@
   </div>
 </ng-container>
 <ng-container *ngIf="topic.ideationId && !hasIdeationEndedExpired()">
-  <add-idea *ngIf="topic.status === TopicService.STATUSES.ideation" [topicId]="topic.id" [ideation]="ideation" [ideationId]="topic.ideationId" [topicCountry]="topic.country"></add-idea>
+  <add-idea
+    *ngIf="topic.status === TopicService.STATUSES.ideation"
+    [topicId]="topic.id"
+    [ideation]="ideation"
+    [ideationId]="topic.ideationId"
+    [topicCountry]="topic.country"
+  ></add-idea>
 </ng-container>
