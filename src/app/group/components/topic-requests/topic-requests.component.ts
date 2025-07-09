@@ -11,7 +11,8 @@ import { GroupMemberTopicService } from '@services/group-member-topic.service';
 @Component({
   selector: 'app-topic-requests',
   templateUrl: './topic-requests.component.html',
-  styleUrls: ['./topic-requests.component.scss']
+  styleUrls: ['./topic-requests.component.scss'],
+  standalone: false
 })
 export class TopicRequestsComponent {
   group: Group;

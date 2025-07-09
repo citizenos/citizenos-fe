@@ -6,9 +6,10 @@ import { take } from 'rxjs';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-argument-report',
+  selector: 'argument-report',
   templateUrl: './argument-report.component.html',
-  styleUrls: ['./argument-report.component.scss']
+  styleUrls: ['./argument-report.component.scss'],
+  standalone: false
 })
 export class ArgumentReportComponent implements OnInit {
   @ViewChild('reportText') reportTextInput!: ElementRef;

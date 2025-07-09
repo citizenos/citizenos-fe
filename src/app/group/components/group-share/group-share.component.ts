@@ -12,7 +12,8 @@ import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog
 @Component({
   selector: 'group-share',
   templateUrl: './group-share.component.html',
-  styleUrls: ['./group-share.component.scss']
+  styleUrls: ['./group-share.component.scss'],
+  standalone: false
 })
 export class GroupShareComponent implements OnInit {
   @Input() group!: Group;

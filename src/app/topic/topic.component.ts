@@ -72,6 +72,7 @@ import { MissingDiscussionComponent } from './components/missing-discussion/miss
   selector: 'topic',
   templateUrl: './topic.component.html',
   styleUrls: ['./topic.component.scss'],
+  standalone: false,
   animations: [
     trigger('readMore', [
       state(

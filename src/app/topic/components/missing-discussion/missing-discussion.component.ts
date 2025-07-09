@@ -12,7 +12,8 @@ import { TopicDiscussionService } from '@services/topic-discussion.service';
 @Component({
   selector: 'app-missing-discussion',
   templateUrl: './missing-discussion.component.html',
-  styleUrls: ['./missing-discussion.component.scss']
+  styleUrls: ['./missing-discussion.component.scss'],
+  standalone: false
 })
 export class MissingDiscussionComponent {
   topic!: Topic;

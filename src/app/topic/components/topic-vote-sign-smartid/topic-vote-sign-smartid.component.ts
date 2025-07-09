@@ -10,9 +10,10 @@ import { UntypedFormGroup, UntypedFormControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-topic-vote-sign-smartid',
+  selector: 'topic-vote-sign-smartid',
   templateUrl: './topic-vote-sign-smartid.component.html',
-  styleUrls: ['./topic-vote-sign-smartid.component.scss']
+  styleUrls: ['./topic-vote-sign-smartid.component.scss'],
+  standalone: false
 })
 export class TopicVoteSignSmartidComponent implements OnInit {
   signForm = new UntypedFormGroup({

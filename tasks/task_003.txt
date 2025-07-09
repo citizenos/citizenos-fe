@@ -1,0 +1,11 @@
+# Task ID: 3
+# Title: Update Angular CLI
+# Status: pending
+# Dependencies: 2
+# Priority: high
+# Description: Update both global and local Angular CLI installations
+# Details:
+Update the global Angular CLI using `npm install -g @angular/cli@latest`. Then update the local project CLI from 18.1.2 to 18.2.9 using `npm install @angular/cli@18.2.9 --save-dev`. Run `ng version` to verify both global and local CLI versions have been updated correctly.
+
+# Test Strategy:
+Verify CLI functionality by running basic Angular CLI commands like `ng serve` and `ng test`. Check for any deprecation warnings or errors in the console output.

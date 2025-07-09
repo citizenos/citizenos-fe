@@ -10,7 +10,8 @@ import { NotificationPreferences } from '@interfaces/notification-preferences.in
 @Component({
   selector: 'topic-notification-settings',
   templateUrl: './topic-notification-settings.component.html',
-  styleUrls: ['./topic-notification-settings.component.scss']
+  styleUrls: ['./topic-notification-settings.component.scss'],
+  standalone: false
 })
 export class TopicNotificationSettingsComponent implements OnInit {
   @Input() topicId!: string;

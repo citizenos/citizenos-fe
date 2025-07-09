@@ -11,7 +11,8 @@ import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog
 @Component({
   selector: 'topic-member-group',
   templateUrl: './topic-member-group.component.html',
-  styleUrls: ['./topic-member-group.component.scss']
+  styleUrls: ['./topic-member-group.component.scss'],
+  standalone: false
 })
 export class TopicMemberGroupComponent implements OnInit {
   @Input() group: TopicMemberGroup | any;

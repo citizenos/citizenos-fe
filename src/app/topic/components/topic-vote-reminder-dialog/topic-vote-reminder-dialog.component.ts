@@ -5,7 +5,8 @@ import { AuthService } from '@services/auth.service';
 @Component({
   selector: 'app-topic-vote-reminder-dialog',
   templateUrl: './topic-vote-reminder-dialog.component.html',
-  styleUrls: ['./topic-vote-reminder-dialog.component.scss']
+  styleUrls: ['./topic-vote-reminder-dialog.component.scss'],
+  standalone: false
 })
 export class TopicVoteReminderDialog {
   vote;

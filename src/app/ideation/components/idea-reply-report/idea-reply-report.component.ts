@@ -8,7 +8,8 @@ import { TopicIdeaRepliesService } from '@services/topic-idea-replies.service';
 @Component({
   selector: 'idea-reply-report',
   templateUrl: './idea-reply-report.component.html',
-  styleUrls: ['./idea-reply-report.component.scss']
+  styleUrls: ['./idea-reply-report.component.scss'],
+  standalone: false
 })
 export class IdeaReplyReportComponent {
   @ViewChild('reportText') reportTextInput!: ElementRef;

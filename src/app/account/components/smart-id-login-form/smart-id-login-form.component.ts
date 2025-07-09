@@ -8,7 +8,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'smart-id-login-form',
   templateUrl: './smart-id-login-form.component.html',
-  styleUrls: ['./smart-id-login-form.component.scss']
+  styleUrls: ['./smart-id-login-form.component.scss'],
+  standalone: false
 })
 export class SmartIdLoginFormComponent {
   @Input() redirectSuccess?: any;
@@ -95,7 +96,7 @@ export class SmartIdLoginFormComponent {
                  * However, router.navigateByUrl cannot properly navigate to such absolute url,
                  * the reason can be counnected to some other issue in this specific case.
                  * As a quick fix set location href directly.
-                 * 
+                 *
                  * @note Think of making redirectSuccess relative. This way router.navigate
                  * should work as expected.
                  */

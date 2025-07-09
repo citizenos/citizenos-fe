@@ -9,7 +9,8 @@ import { NotificationService } from '@services/notification.service';
 @Component({
   selector: 'app-topic-vote-deadline',
   templateUrl: './topic-vote-deadline.component.html',
-  styleUrls: ['./topic-vote-deadline.component.scss']
+  styleUrls: ['./topic-vote-deadline.component.scss'],
+  standalone: false
 })
 export class TopicVoteDeadlineComponent {
   @Input() vote!: any;

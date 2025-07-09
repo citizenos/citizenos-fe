@@ -10,7 +10,8 @@ import { TopicIdeaRepliesService } from '@services/topic-idea-replies.service';
 @Component({
   selector: 'app-idea-reply-report-moderate',
   templateUrl: './idea-reply-report-moderate.component.html',
-  styleUrls: ['./idea-reply-report-moderate.component.scss']
+  styleUrls: ['./idea-reply-report-moderate.component.scss'],
+  standalone: false
 })
 export class IdeaReplyReportModerateComponent {
   argument!: Argument;
@@ -72,6 +73,7 @@ export class IdeaReplyReportModerateComponent {
 @Component({
   selector: 'app-idea-reply-report-moderate-dialog',
   template: '',
+  standalone: false
 })
 export class IdeaReplyReportModerateDialogComponent {
   topicId = '';

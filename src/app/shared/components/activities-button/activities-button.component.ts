@@ -7,7 +7,8 @@ import { AuthService } from '@services/auth.service';
 @Component({
   selector: 'activities-button',
   templateUrl: './activities-button.component.html',
-  styleUrls: ['./activities-button.component.scss']
+  styleUrls: ['./activities-button.component.scss'],
+  standalone: false
 })
 export class ActivitiesButtonComponent {
   @Input() groupId?: string;

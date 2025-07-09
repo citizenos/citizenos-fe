@@ -4,7 +4,8 @@ import { DIALOG_DATA } from 'src/app/shared/dialog';
 @Component({
   selector: 'app-idea-report-reason',
   templateUrl: './idea-report-reason.component.html',
-  styleUrls: ['./idea-report-reason.component.scss']
+  styleUrls: ['./idea-report-reason.component.scss'],
+  standalone: false
 })
 export class IdeaReportReasonComponent {
   report: any;

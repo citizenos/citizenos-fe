@@ -3,9 +3,10 @@ import { AppService } from '@services/app.service';
 import { AuthService } from '@services/auth.service';
 
 @Component({
-  selector: 'app-page-unauthorized',
+  selector: 'page-unauthorized',
   templateUrl: './page-unauthorized.component.html',
-  styleUrls: ['./page-unauthorized.component.scss']
+  styleUrls: ['./page-unauthorized.component.scss'],
+  standalone: false
 })
 export class PageUnauthorizedComponent implements OnInit {
 

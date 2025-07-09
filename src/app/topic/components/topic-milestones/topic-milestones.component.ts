@@ -9,7 +9,8 @@ import { take, of, map } from 'rxjs';
 @Component({
   selector: 'topic-milestones',
   templateUrl: './topic-milestones.component.html',
-  styleUrls: ['./topic-milestones.component.scss']
+  styleUrls: ['./topic-milestones.component.scss'],
+  standalone: false
 })
 export class TopicMilestonesComponent implements OnInit {
   @Input() topic!: Topic;

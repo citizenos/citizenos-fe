@@ -6,7 +6,8 @@ import { DIALOG_DATA } from 'src/app/shared/dialog';
 @Component({
   selector: 'app-idea-reactions',
   templateUrl: './idea-reactions.component.html',
-  styleUrls: ['./idea-reactions.component.scss']
+  styleUrls: ['./idea-reactions.component.scss'],
+  standalone: false
 })
 export class IdeaReactionsComponent {
   private ideationId: string;

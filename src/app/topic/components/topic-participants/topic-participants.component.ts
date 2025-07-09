@@ -16,7 +16,8 @@ export interface TopicParticipantsData {
 @Component({
   selector: 'app-topic-participants',
   templateUrl: './topic-participants.component.html',
-  styleUrls: ['./topic-participants.component.scss']
+  styleUrls: ['./topic-participants.component.scss'],
+  standalone: false
 })
 export class TopicParticipantsComponent implements OnInit {
 
@@ -101,7 +102,8 @@ export class TopicParticipantsComponent implements OnInit {
 
 @Component({
   selector: 'app-topic-participants-dialog',
-  template: ''
+  template: '',
+  standalone: false
 })
 export class TopicParticipantsDialogComponent implements OnInit {
 

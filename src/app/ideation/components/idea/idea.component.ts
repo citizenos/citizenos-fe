@@ -23,7 +23,8 @@ import { ImageService } from '@services/images.service';
 
 @Component({
   selector: 'app-idea',
-  template: ''
+  template: '',
+  standalone: false
 })
 export class IdeaComponent {
   ideaId: string = '';
@@ -91,7 +92,8 @@ export class IdeaComponent {
 @Component({
   selector: 'app-idea-dialog',
   templateUrl: './idea-dialog.component.html',
-  styleUrls: ['./idea-dialog.component.scss']
+  styleUrls: ['./idea-dialog.component.scss'],
+  standalone: false
 })
 export class IdeaDialogComponent extends IdeaboxComponent {
   @ContentChildren(IdeaReplyComponent) ideaReplies!: QueryList<any>;

@@ -50,6 +50,7 @@ import { ImageService } from '@services/images.service';
   selector: 'add-idea',
   templateUrl: './add-idea.component.html',
   styleUrls: ['./add-idea.component.scss'],
+  standalone: false,
   animations: [
     trigger('openSlide', [
       // ...

@@ -14,7 +14,8 @@ import { DIALOG_DATA, DialogRef } from 'src/app/shared/dialog';
 @Component({
   selector: 'topic-add-groups',
   templateUrl: './topic-add-groups.component.html',
-  styleUrls: ['./topic-add-groups.component.scss']
+  styleUrls: ['./topic-add-groups.component.scss'],
+  standalone: false
 })
 export class TopicAddGroupsComponent {
   @Input() topic!: Topic;
@@ -177,7 +178,8 @@ export class TopicAddGroupsComponent {
 
 @Component({
   templateUrl: './topic-add-groups-dialog.component.html',
-  styleUrls: ['./topic-add-groups-dialog.component.scss']
+  styleUrls: ['./topic-add-groups-dialog.component.scss'],
+  standalone: false
 })
 export class TopicAddGroupsDialogComponent {
     topic!: Topic;

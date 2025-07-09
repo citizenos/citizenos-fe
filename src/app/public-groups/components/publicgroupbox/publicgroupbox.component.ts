@@ -13,6 +13,7 @@ import { TranslateService } from '@ngx-translate/core';
   selector: 'public-group-box',
   templateUrl: './publicgroupbox.component.html',
   styleUrls: ['./publicgroupbox.component.scss'],
+  standalone: false
 })
 export class PublicgroupboxComponent implements OnInit {
   @Input() group = <Group>{}; // decorate the property with @Input()

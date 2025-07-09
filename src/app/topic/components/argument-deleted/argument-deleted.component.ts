@@ -7,7 +7,8 @@ import { DialogService } from 'src/app/shared/dialog';
 @Component({
   selector: 'argument-deleted',
   templateUrl: './argument-deleted.component.html',
-  styleUrls: ['./argument-deleted.component.scss']
+  styleUrls: ['./argument-deleted.component.scss'],
+  standalone: false
 })
 export class ArgumentDeletedComponent implements OnInit {
   @Input() argument!: Argument;

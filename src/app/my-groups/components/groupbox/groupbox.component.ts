@@ -13,7 +13,8 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'group-box',
   templateUrl: './groupbox.component.html',
-  styleUrls: ['./groupbox.component.scss']
+  styleUrls: ['./groupbox.component.scss'],
+  standalone: false
 })
 export class GroupboxComponent implements OnInit {
   @Input() group = <Group>{}; // decorate the property with @Input()

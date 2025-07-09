@@ -7,7 +7,8 @@ import { take } from 'rxjs';
 @Component({
   selector: 'app-feedback',
   templateUrl: './feedback.component.html',
-  styleUrls: ['./feedback.component.scss']
+  styleUrls: ['./feedback.component.scss'],
+  standalone: false
 })
 export class FeedbackComponent implements OnInit {
   name = '';

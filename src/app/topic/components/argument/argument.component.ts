@@ -17,7 +17,8 @@ import { AppService } from '@services/app.service';
   selector: 'argument',
   templateUrl: './argument.component.html',
   styleUrls: ['./argument.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 export class ArgumentComponent implements OnInit {
   @ViewChild('argumentBody') argumentBody!: ElementRef;

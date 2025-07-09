@@ -7,7 +7,8 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'argument-edits',
   templateUrl: './argument-edits.component.html',
-  styleUrls: ['./argument-edits.component.scss']
+  styleUrls: ['./argument-edits.component.scss'],
+  standalone: false
 })
 export class ArgumentEditComponent {
   @Input() argument!:Argument;

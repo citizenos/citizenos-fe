@@ -18,7 +18,8 @@ import { AddEmailComponent } from 'src/app/account/components/add-email/add-emai
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  standalone: false
 })
 
 export class AppComponent {

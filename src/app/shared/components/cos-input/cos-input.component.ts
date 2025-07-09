@@ -1,9 +1,12 @@
-import { Component, ElementRef,  Input } from '@angular/core';
+import { Component, ElementRef, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'cos-input',
   templateUrl: './cos-input.component.html',
-  styleUrls: ['./cos-input.component.scss']
+  styleUrls: ['./cos-input.component.scss'],
+  standalone: true,
+  imports: [CommonModule]
 })
 export class CosInputComponent {
   @Input() placeholder?: string;

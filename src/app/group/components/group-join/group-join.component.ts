@@ -14,6 +14,7 @@ import { InviteDialogData } from '@interfaces/dialogdata';
 @Component({
   selector: 'group-token-join',
   template: '',
+  standalone: false
 })
 export class GroupTokenJoinComponent {
   token: string = '';

@@ -13,7 +13,8 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  standalone: false
 })
 export class LoginComponent {
   @Input() redirectSuccess?: any;
@@ -229,7 +230,8 @@ export class LoginComponent {
 
 @Component({
   templateUrl: './login-dialog.component.html',
-  styleUrls: ['./login-dialog.component.scss']
+  styleUrls: ['./login-dialog.component.scss'],
+  standalone: false
 })
 export class LoginDialogComponent extends LoginComponent{
   private authSubscriber: Subscription;

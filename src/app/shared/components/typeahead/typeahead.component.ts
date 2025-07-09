@@ -1,6 +1,5 @@
 import { HostBinding, Component, ElementRef, Directive, OnInit, OnDestroy, Input, Output, HostListener, EventEmitter, forwardRef, Inject, ViewChild } from '@angular/core';
-
-@Directive({ selector: '[typeaheadItem]' })
+@Directive({ selector: '[typeaheadItem]', standalone: false })
 export class TypeaheadItem implements OnDestroy {
   @Input() typeaheadItem!: any;
   @Input() noClose!: boolean;
@@ -19,7 +18,7 @@ export class TypeaheadItem implements OnDestroy {
   }
 }
 
-@Directive({ selector: '[typeaheadSelect]' })
+@Directive({ selector: '[typeaheadSelect]', standalone: false })
 export class TypeaheadSelect implements OnDestroy {
   @Input() typeaheadSelect!: any;
   @HostListener('click', []) onClick() {
@@ -34,7 +33,8 @@ export class TypeaheadSelect implements OnDestroy {
 @Component({
   selector: 'typeahead',
   templateUrl: './typeahead.component.html',
-  styleUrls: ['./typeahead.component.scss']
+  styleUrls: ['./typeahead.component.scss'],
+  standalone: false
 })
 export class TypeaheadComponent implements OnInit {
   @Output() enterAction = new EventEmitter<any | null>();

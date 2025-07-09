@@ -14,7 +14,8 @@ export interface AddEmailData {
 @Component({
   selector: 'app-add-email',
   templateUrl: './add-email.component.html',
-  styleUrls: ['./add-email.component.scss']
+  styleUrls: ['./add-email.component.scss'],
+  standalone: false
 })
 export class AddEmailComponent {
   user!: User;

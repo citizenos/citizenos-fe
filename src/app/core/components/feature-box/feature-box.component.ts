@@ -8,7 +8,8 @@ import { AppService } from '@services/app.service';
 @Component({
   selector: 'feature-box',
   templateUrl: './feature-box.component.html',
-  styleUrls: ['./feature-box.component.scss']
+  styleUrls: ['./feature-box.component.scss'],
+  standalone: false
 })
 export class FeatureBoxComponent {
   @Input() feature!: string;

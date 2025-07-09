@@ -16,7 +16,8 @@ import { LocationService } from '@services/location.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  standalone: false
 })
 export class HomeComponent implements OnInit {
   categories$ = Object.keys(this.Topic.CATEGORIES);

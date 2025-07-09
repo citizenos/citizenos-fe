@@ -7,9 +7,10 @@ import { DialogService } from 'src/app/shared/dialog';
 import { BlockNavigationIfChange } from 'src/app/shared/pending-changes.guard';
 
 @Component({
-  selector: 'app-topic-edit',
+  selector: 'topic-edit',
   templateUrl: './topic-edit.component.html',
-  styleUrls: ['./topic-edit.component.scss']
+  styleUrls: ['./topic-edit.component.scss'],
+  standalone: false
 })
 export class TopicEditComponent implements BlockNavigationIfChange {
   @ViewChild('imageUpload') fileInput?: ElementRef;

@@ -21,7 +21,8 @@ export interface TopicInviteData {
 @Component({
   selector: 'topic-invite',
   templateUrl: './topic-invite.component.html',
-  styleUrls: ['./topic-invite.component.scss']
+  styleUrls: ['./topic-invite.component.scss'],
+  standalone: false
 })
 export class TopicInviteComponent implements OnInit {
   @Input() dialog? = false;
@@ -255,7 +256,8 @@ export class TopicInviteComponent implements OnInit {
 @Component({
   selector: 'topic-invite-dialog',
   templateUrl: './topic-invite-dialog.component.html',
-  styleUrls: ['./topic-invite-dialog.component.scss']
+  styleUrls: ['./topic-invite-dialog.component.scss'],
+  standalone: false
 })
 export class TopicInviteDialogComponent {
   activeTab = 'invite';

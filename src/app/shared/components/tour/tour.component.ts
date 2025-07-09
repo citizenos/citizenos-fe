@@ -6,7 +6,8 @@ import { Component, ElementRef, HostListener, ViewChild, Renderer2 } from '@angu
 @Component({
   selector: 'app-tour',
   templateUrl: './tour.component.html',
-  styleUrls: ['./tour.component.scss']
+  styleUrls: ['./tour.component.scss'],
+  standalone: false
 })
 export class TourComponent {
   title?: string;

@@ -16,6 +16,7 @@ import { Language } from 'src/app/interfaces/language';
   selector: 'public-topics',
   templateUrl: './topics.component.html',
   styleUrls: ['./topics.component.scss'],
+  standalone: false,
   animations: [
     trigger('openClose', [
       // ...

@@ -13,7 +13,8 @@ type IdeaReportData = {
 @Component({
   selector: 'app-idea-report',
   templateUrl: './idea-report.component.html',
-  styleUrls: ['./idea-report.component.scss']
+  styleUrls: ['./idea-report.component.scss'],
+  standalone: false
 })
 export class IdeaReportComponent {
   @ViewChild('reportText') reportTextInput!: ElementRef;

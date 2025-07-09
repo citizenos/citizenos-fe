@@ -39,7 +39,8 @@ import { TopicDiscussionService } from '@services/topic-discussion.service';
         'maxHeight': '80px',
         transition: '0.2s ease-in-out max-height'
       }))
-    ])]
+    ])],
+  standalone: false
 })
 export class TopicCreateComponent implements OnInit, BlockNavigationIfChange {
 

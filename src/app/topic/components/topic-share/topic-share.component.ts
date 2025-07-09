@@ -11,7 +11,8 @@ import { AuthService } from '@services/auth.service';
 @Component({
   selector: 'topic-share',
   templateUrl: './topic-share.component.html',
-  styleUrls: ['./topic-share.component.scss']
+  styleUrls: ['./topic-share.component.scss'],
+  standalone: false
 })
 export class TopicShareComponent implements OnInit {
   @Input() topic!: Topic;

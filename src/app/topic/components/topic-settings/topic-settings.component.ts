@@ -17,7 +17,8 @@ export interface TopicSettingsData {
 @Component({
   selector: 'app-topic-settings',
   templateUrl: './topic-settings.component.html',
-  styleUrls: ['./topic-settings.component.scss']
+  styleUrls: ['./topic-settings.component.scss'],
+  standalone: false
 })
 export class TopicSettingsComponent implements OnInit {
   topic: Topic;

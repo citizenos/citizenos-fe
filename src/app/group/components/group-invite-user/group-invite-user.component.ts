@@ -11,7 +11,8 @@ import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog
 @Component({
   selector: 'group-invite-user',
   templateUrl: './group-invite-user.component.html',
-  styleUrls: ['./group-invite-user.component.scss']
+  styleUrls: ['./group-invite-user.component.scss'],
+  standalone: false
 })
 export class GroupInviteUserComponent {
   @Input() user?: any;

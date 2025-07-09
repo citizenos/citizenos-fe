@@ -3,9 +3,10 @@ import { AuthService } from '@services/auth.service';
 import { TourService } from '@services/tour.service';
 
 @Component({
-  selector: 'app-onboarding',
+  selector: 'onboarding',
   templateUrl: './onboarding.component.html',
-  styleUrls: ['./onboarding.component.scss']
+  styleUrls: ['./onboarding.component.scss'],
+  standalone: false
 })
 export class OnboardingComponent {
   constructor(private TourService: TourService, public auth: AuthService) {

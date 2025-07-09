@@ -17,7 +17,8 @@ import { Folder } from '@interfaces/folder';
 @Component({
   selector: 'topic-vote-create',
   templateUrl: './topic-vote-create.component.html',
-  styleUrls: ['./topic-vote-create.component.scss']
+  styleUrls: ['./topic-vote-create.component.scss'],
+  standalone: false
 })
 export class TopicVoteCreateComponent implements OnInit {
   @Input() topic!: Topic;
@@ -492,7 +493,8 @@ export class TopicVoteCreateComponent implements OnInit {
 @Component({
   selector: 'topic-vote-create-dialog',
   templateUrl: './topic-vote-create-dialog.component.html',
-  styleUrls: ['./topic-vote-create-dialog.component.scss']
+  styleUrls: ['./topic-vote-create-dialog.component.scss'],
+  standalone: false
 })
 export class TopicVoteCreateDialogComponent extends TopicVoteCreateComponent {
   override topic!: Topic;

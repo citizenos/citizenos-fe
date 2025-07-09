@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { catchError, interval, map, of, switchMap, take, takeWhile } from 'rxjs';
+import { interval, map, switchMap, take, takeWhile } from 'rxjs';
 import { AuthService } from '@services/auth.service';
 import { ConfigService } from '@services/config.service';
 import { DialogService } from 'src/app/shared/dialog';
@@ -13,7 +13,8 @@ declare let hwcrypto: any;
 @Component({
   selector: 'est-id-login-form',
   templateUrl: './est-id-login-form.component.html',
-  styleUrls: ['./est-id-login-form.component.scss']
+  styleUrls: ['./est-id-login-form.component.scss'],
+  standalone: false
 })
 export class EstIdLoginFormComponent {
   @Input() redirectSuccess?: any;
@@ -92,7 +93,7 @@ export class EstIdLoginFormComponent {
                  * However, router.navigateByUrl cannot properly navigate to such absolute url,
                  * the reason can be counnected to some other issue in this specific case.
                  * As a quick fix set location href directly.
-                 * 
+                 *
                  * @note Think of making redirectSuccess relative. This way router.navigate
                  * should work as expected.
                  */
@@ -147,7 +148,7 @@ export class EstIdLoginFormComponent {
                * However, router.navigateByUrl cannot properly navigate to such absolute url,
                * the reason can be counnected to some other issue in this specific case.
                * As a quick fix set location href directly.
-               * 
+               *
                * @note Think of making redirectSuccess relative. This way router.navigate
                * should work as expected.
                */

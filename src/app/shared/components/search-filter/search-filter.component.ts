@@ -4,6 +4,7 @@ import { Component, Input } from '@angular/core';
   selector: 'search-filter',
   templateUrl: './search-filter.component.html',
   styleUrls: ['./search-filter.component.scss'],
+  standalone: false,
 })
 
 export class SearchFilterComponent {

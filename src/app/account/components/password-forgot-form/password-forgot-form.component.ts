@@ -7,7 +7,8 @@ import { NotificationService } from '@services/notification.service';
 @Component({
   selector: 'password-forgot-form',
   templateUrl: './password-forgot-form.component.html',
-  styleUrls: ['./password-forgot-form.component.scss']
+  styleUrls: ['./password-forgot-form.component.scss'],
+  standalone: false
 })
 export class PasswordForgotFormComponent {
   passwordForgotForm = new UntypedFormGroup({

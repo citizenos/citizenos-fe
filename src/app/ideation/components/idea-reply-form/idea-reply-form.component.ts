@@ -11,7 +11,8 @@ import { TopicMemberUserService } from '@services/topic-member-user.service';
 @Component({
   selector: 'idea-reply-form',
   templateUrl: './idea-reply-form.component.html',
-  styleUrls: ['./idea-reply-form.component.scss']
+  styleUrls: ['./idea-reply-form.component.scss'],
+  standalone: false
 })
 export class IdeaReplyFormComponent {
   @Input() argument?: Argument;

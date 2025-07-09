@@ -4,7 +4,8 @@ import { DIALOG_DATA, DialogRef } from 'src/app/shared/dialog';
 @Component({
   selector: 'app-topic-member-invite-delete',
   templateUrl: './topic-member-invite-delete.component.html',
-  styleUrls: ['./topic-member-invite-delete.component.scss']
+  styleUrls: ['./topic-member-invite-delete.component.scss'],
+  standalone: false
 })
 export class TopicMemberInviteDeleteComponent implements OnInit {
   user!: any;

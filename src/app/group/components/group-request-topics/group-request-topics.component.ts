@@ -15,7 +15,8 @@ import { GroupRequestTopicService } from '@services/group-request-topic.service'
 @Component({
   selector: 'app-group-request-topics',
   templateUrl: './group-request-topics.component.html',
-  styleUrls: ['./group-request-topics.component.scss']
+  styleUrls: ['./group-request-topics.component.scss'],
+  standalone: false
 })
 export class GroupRequestTopicsComponent implements OnInit {
   public group!: Group;

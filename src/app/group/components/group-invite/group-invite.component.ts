@@ -13,7 +13,8 @@ import { NotificationService } from '@services/notification.service';
 @Component({
   selector: 'group-invite',
   templateUrl: './group-invite.component.html',
-  styleUrls: ['./group-invite.component.scss']
+  styleUrls: ['./group-invite.component.scss'],
+  standalone: false
 })
 export class GroupInviteComponent implements OnInit {
   @Input() group!: Group;
@@ -287,20 +288,21 @@ export class GroupInviteComponent implements OnInit {
   }
 }
 
-
 @Component({
   selector: 'group-create-invite',
-  templateUrl: './group-create-invite.component.html',
-  styleUrls: ['./group-create-invite.component.scss']
+  templateUrl: './group-invite.component.html',
+  styleUrls: ['./group-invite.component.scss'],
+  standalone: false
 })
 export class GroupCreateInviteComponent extends GroupInviteComponent {
 
 }
 
-
 @Component({
+  selector: 'group-invite-dialog',
   templateUrl: './group-invite-dialog.component.html',
-  styleUrls: ['./group-invite-dialog.component.scss']
+  styleUrls: ['./group-invite-dialog.component.scss'],
+  standalone: false
 })
 export class GroupInviteDialogComponent {
   activeTab = 'invite';

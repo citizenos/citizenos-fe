@@ -3,7 +3,8 @@ import { Component, ElementRef, HostListener, ViewChild, Input, OnDestroy, Rende
 @Component({
   selector: '[tooltip]',
   templateUrl: './tooltip.component.html',
-  styleUrls: ['./tooltip.component.scss']
+  styleUrls: ['./tooltip.component.scss'],
+  standalone: false
 })
 export class TooltipComponent {
   @Input() delay? = 190; // Optional delay input, in ms

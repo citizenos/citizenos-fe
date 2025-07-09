@@ -9,7 +9,8 @@ interface ILink {
 @Component({
   selector: 'terms-links',
   templateUrl: './terms-links.component.html',
-  styleUrls: ['./terms-links.component.scss']
+  styleUrls: ['./terms-links.component.scss'],
+  standalone: false
 })
 export class TermsLinksComponent {
   @Input() withStatutLink?: boolean = true;
@@ -29,7 +30,7 @@ export class TermsLinksComponent {
       {
         title: "MODALS.PRIVACY_POLICY_LNK_TERMS_OF_USE",
         href: this.config.termsOfUse,
-      }, 
+      },
       {
         title: "MODALS.PRIVACY_POLICY_LNK_PRIVACY_POLICY",
         href: this.config.privacyPolicy,

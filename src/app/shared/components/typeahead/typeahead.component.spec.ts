@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { TypeaheadComponent } from './typeahead.component';
 
@@ -8,7 +10,8 @@ describe('TypeaheadComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TypeaheadComponent ]
+      declarations: [TypeaheadComponent],
+      imports: [FormsModule, TranslateModule.forRoot()]
     })
     .compileComponents();
   });

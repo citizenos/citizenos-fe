@@ -23,7 +23,8 @@ import { trigger, state, style } from '@angular/animations';
         'maxHeight': '0',
         transition: '0.2s ease-in-out max-height'
       }))
-  ])]
+  ])],
+  standalone: false
 })
 export class EditArgumentComponent implements OnInit {
 

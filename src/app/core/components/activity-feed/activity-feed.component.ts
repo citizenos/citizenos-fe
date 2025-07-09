@@ -24,7 +24,8 @@ import { AppService } from '@services/app.service';
         animate('1s')
       ]),
     ]),
-  ]
+  ],
+  standalone: false
 })
 export class ActivityFeedComponent implements OnInit {
   unreadActivitiesCount = 0;
@@ -105,6 +106,7 @@ export class ActivityFeedComponent implements OnInit {
   selector: 'activity-feed-dialog',
   templateUrl: './activity-feed-dialog.component.html',
   styleUrls: ['./activity-feed.component.scss'],
+  standalone: false
 })
 export class ActivityFeedDialogComponent extends ActivityFeedComponent {
   public data: any = inject(DIALOG_DATA);

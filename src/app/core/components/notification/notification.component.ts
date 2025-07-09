@@ -7,7 +7,8 @@ import { CookieService } from 'ngx-cookie-service';
 @Component({
   selector: 'notification',
   templateUrl: './notification.component.html',
-  styleUrls: ['./notification.component.scss']
+  styleUrls: ['./notification.component.scss'],
+  standalone: false
 })
 export class NotificationComponent implements OnInit {
   showTestingEnvNotification: boolean = false;

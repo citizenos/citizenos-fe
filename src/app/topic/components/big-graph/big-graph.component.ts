@@ -3,7 +3,8 @@ import { Component, OnInit, Input } from '@angular/core';
 @Component({
   selector: 'big-graph',
   templateUrl: './big-graph.component.html',
-  styleUrls: ['./big-graph.component.scss']
+  styleUrls: ['./big-graph.component.scss'],
+  standalone: false
 })
 export class BigGraphComponent implements OnInit {
   @Input() options!:{rows: any[]};

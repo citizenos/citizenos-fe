@@ -8,7 +8,8 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'argument-reply',
   templateUrl: './argument-reply.component.html',
-  styleUrls: ['./argument-reply.component.scss']
+  styleUrls: ['./argument-reply.component.scss'],
+  standalone: false
 })
 export class ArgumentReplyComponent {
   @Input() argument!: Argument;

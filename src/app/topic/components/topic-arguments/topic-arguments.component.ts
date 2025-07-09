@@ -22,7 +22,8 @@ import { LocationService } from '@services/location.service';
   selector: 'topic-arguments',
   templateUrl: './topic-arguments.component.html',
   styleUrls: ['./topic-arguments.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 export class TopicArgumentsComponent implements OnInit {
   @Input() topic!: Topic;

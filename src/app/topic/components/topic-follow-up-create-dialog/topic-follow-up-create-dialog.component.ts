@@ -8,9 +8,10 @@ import { DialogService, DIALOG_DATA } from 'src/app/shared/dialog';
 import { Topic } from 'src/app/interfaces/topic';
 
 @Component({
-  selector: 'app-topic-follow-up-create-dialog',
+  selector: 'topic-follow-up-create-dialog',
   templateUrl: './topic-follow-up-create-dialog.component.html',
-  styleUrls: ['./topic-follow-up-create-dialog.component.scss']
+  styleUrls: ['./topic-follow-up-create-dialog.component.scss'],
+  standalone: false
 })
 export class TopicFollowUpCreateDialogComponent {
   topic!: Topic;

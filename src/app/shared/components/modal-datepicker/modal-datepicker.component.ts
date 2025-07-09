@@ -11,7 +11,8 @@ export interface DatepickerModalData {
 @Component({
   selector: 'modal-datepicker',
   templateUrl: './modal-datepicker.component.html',
-  styleUrls: ['./modal-datepicker.component.scss']
+  styleUrls: ['./modal-datepicker.component.scss'],
+  standalone: false
 })
 export class ModalDatepickerComponent implements OnInit {
   date!: any;

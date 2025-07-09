@@ -8,9 +8,10 @@ import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms
 import { TopicService } from '@services/topic.service';
 
 @Component({
-  selector: 'app-argument-report-moderate',
+  selector: 'argument-report-moderate',
   templateUrl: './argument-report-moderate.component.html',
-  styleUrls: ['./argument-report-moderate.component.scss']
+  styleUrls: ['./argument-report-moderate.component.scss'],
+  standalone: false
 })
 export class ArgumentReportModerateComponent implements OnInit {
   argument!: Argument;
@@ -70,6 +71,7 @@ export class ArgumentReportModerateComponent implements OnInit {
 @Component({
   selector: 'app-argument-report-moderate-dialog',
   template: '',
+  standalone: false
 })
 export class ArgumentReportModerateDialogComponent {
   topicId = '';

@@ -9,7 +9,8 @@ import { DIALOG_DATA, DialogRef } from 'src/app/shared/dialog';
 @Component({
   selector: 'app-add-idea-folder',
   templateUrl: './add-idea-folder.component.html',
-  styleUrls: ['./add-idea-folder.component.scss']
+  styleUrls: ['./add-idea-folder.component.scss'],
+  standalone: false
 })
 export class AddIdeaFolderComponent {
 

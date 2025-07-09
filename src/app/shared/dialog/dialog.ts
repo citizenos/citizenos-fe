@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { DialogCloseDirective, DialogRef } from './dialog-ref';
 
 @NgModule({
-  declarations: [
-    DialogCloseDirective
-  ],
   imports: [
+    CommonModule,
+    DialogCloseDirective
   ],
   exports: [
     DialogCloseDirective

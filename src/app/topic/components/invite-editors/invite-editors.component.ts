@@ -15,9 +15,10 @@ import { TopicInviteUserService } from '@services/topic-invite-user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-invite-editors',
+  selector: 'invite-editors',
   templateUrl: './invite-editors.component.html',
-  styleUrls: ['./invite-editors.component.scss']
+  styleUrls: ['./invite-editors.component.scss'],
+  standalone: false
 })
 export class InviteEditorsComponent {
   @Input() topic!: Topic;

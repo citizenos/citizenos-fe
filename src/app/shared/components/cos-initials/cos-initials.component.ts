@@ -1,9 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'cos-initials',
-  template:  `{{initials}}`,
-  styleUrls: ['./cos-initials.component.scss']
+  template: `{{initials}}`,
+  styleUrls: ['./cos-initials.component.scss'],
+  standalone: true,
+  imports: [CommonModule]
 })
 export class CosInitialsComponent implements OnInit {
 
