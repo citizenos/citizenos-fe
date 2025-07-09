@@ -9,9 +9,6 @@ const fs = require('fs');
 const _ = require('lodash');
 const { expressCspHeader, INLINE, NONE, SELF } = require('express-csp-header');
 
-
-const prerender = require('prerender-node');
-
 //TODO: list whitelisted urls to github with description
 const cspConfig = config.csp;
 const cspOptions = _.cloneDeep(cspConfig);
@@ -41,9 +38,6 @@ if (cspConfig) {
 
   app.use(expressCspHeader(cspOptions));
 }
-
-
-app.use(prerender.set('prerenderToken', 'CrrAflHAEiF44KMFkrs7'));
 
 app.use(express.static(__dirname + '/dist/citizenos-fe/browser'));
 
@@ -76,7 +70,7 @@ const browserDetect = (req, res, next) => {
 }
 
 app.use(browserDetect);
-app.get('/*', browserDetect, function (req, res) {
+app.get('*', browserDetect, function (req, res) {
   res.sendFile(__dirname + '/dist/citizenos-fe/browser/index.html');
   res.set('Permissions-Policy', 'interest-cohort=()'); // Opt-out of Google FLoC
 });
@@ -91,7 +85,6 @@ http.createServer(app).listen(portHttp, host, function (err, res) {
   }
   console.log('HTTP server listening on port ' + portHttp);
 });
-
 
 if (app.get('env') === 'development') {
   const portHttps = process.env.PORT_SSL || 3001;

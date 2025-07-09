@@ -29,7 +29,7 @@
     "autolinker": "^4.0.0",
     "config": "^4.0.0",
     "easymde": "^2.16.1",
-    "express": "^5.1.0",
+    "express": "^4.21.2",
     "express-csp-header": "^6.1.0",
     "fast-json-patch": "^3.1.1",
     "hwcrypto-js": "0.0.13",
