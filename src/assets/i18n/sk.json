@@ -818,6 +818,7 @@
       "OPTION_DELETE_FOLDER": "Odstrániť priečinok",
       "BTN_CREATE_NEW_FOLDER": "Vytvoriť nový priečinok",
       "NO_FOLDERS_HEADING": "Zatiaľ žiadne priečinky nápadov",
+      "ITEMS_FOUND_WITH_FILTERS": "Ideas found with these filters: {{count}}",
       "NO_ITEMS_FOUND": "No results found with these filters. Try adjusting your filters and search again.",
       "NO_FOLDERS_DESC": "Admini témy môžu vytvárať priečinky, kde sa zoskupia nápady spadajúce do rovnakej kategórie."
     },
