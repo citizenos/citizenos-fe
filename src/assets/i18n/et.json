@@ -787,7 +787,7 @@
       "OPT_DOWNLOAD_IDEAS": "Ekspordi ideid",
       "OPT_EDIT_IDEATION": "Muuda ideekorjet",
       "OPT_CLOSE_IDEATION": "Lõpeta ideekorje",
-      "SEARCH": "@:DEFAULT.NAV_MOBILE.BTN_SEARCH",
+      "SEARCH": "Search",
       "FILTER_ALL": "@:VIEWS.MY_TOPICS.FILTER_ALL",
       "FILTER_TYPE_YOUR_IDEAS": "Sinu ideed",
       "FILTER_TYPE_FAVOURITES": "Salvestatud ideed",
@@ -818,6 +818,7 @@
       "OPTION_DELETE_FOLDER": "Kustuta kaust",
       "BTN_CREATE_NEW_FOLDER": "Loo uus kaust",
       "NO_FOLDERS_HEADING": "Ideekaustad puuduvad",
+      "ITEMS_FOUND_WITH_FILTERS": "Ideas found with these filters: {{count}}",
       "NO_ITEMS_FOUND": "Nende filtritega ei leitud tulemusi. Proovige filtreid kohandada ja otsige uuesti.",
       "NO_FOLDERS_DESC": "Teemade administraatorid saavad luua kaustu samasse kategooriasse sobivate ideede rühmitamiseks."
     },

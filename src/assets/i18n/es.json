@@ -787,7 +787,7 @@
       "OPT_DOWNLOAD_IDEAS": "Exportar ideas",
       "OPT_EDIT_IDEATION": "Editar recolección de ideas",
       "OPT_CLOSE_IDEATION": "Finalizar recolección de ideas",
-      "SEARCH": "@:DEFAULT.NAV_MOBILE.BTN_SEARCH",
+      "SEARCH": "Search",
       "FILTER_ALL": "@:VIEWS.MY_TOPICS.FILTER_ALL",
       "FILTER_TYPE_YOUR_IDEAS": "Tus ideas",
       "FILTER_TYPE_FAVOURITES": "Ideas guardadas",
@@ -818,6 +818,7 @@
       "OPTION_DELETE_FOLDER": "Eliminar carpeta",
       "BTN_CREATE_NEW_FOLDER": "Create new folder",
       "NO_FOLDERS_HEADING": "There are no idea folders yet",
+      "ITEMS_FOUND_WITH_FILTERS": "Ideas found with these filters: {{count}}",
       "NO_ITEMS_FOUND": "No results found with these filters. Try adjusting your filters and search again.",
       "NO_FOLDERS_DESC": "Topic admins can create folders to group ideas that fit in the same category."
     },
