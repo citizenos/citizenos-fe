@@ -156,7 +156,7 @@
         </div>
       </div>
     </div>
-    <div class="date">{{topic.createdAt | date:'YYYY-MM-dd'}}</div>
+    <div class="date">{{topic.createdAt | date:'y-MM-dd'}}</div>
     <div class="topic_title" [innerHTML]="topic.title"></div>
 
   </div>
@@ -186,7 +186,7 @@
   </div>
   <!--div class="topic_wrap">
       <div class="top text_small">
-          <div class="date">{{topic.lastActivity  | date : 'yyyy-MM-dd'}}</div>
+          <div class="date">{{topic.lastActivity  | date : 'y-MM-dd'}}</div>
           <div class="author">{{topic.creator.name}}</div>
           <div class="clearer"></div>
       </div>

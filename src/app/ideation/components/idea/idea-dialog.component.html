@@ -124,14 +124,14 @@
               </div>
               <div class="name_wrap">
                 <div class="name" [innerHTML]="idea.author.name"></div>
-                <div class="date">{{idea.createdAt | date: 'YYYY-MM-dd HH:mm'}}</div>
+                <div class="date">{{idea.createdAt | date: 'y-MM-dd HH:mm'}}</div>
               </div>
               <div class="vertical_line_separator"></div>
             </ng-container>
             <ng-container *ngIf="!idea.author">
               <div class="name_wrap">
                 <div class="name" [innerHTML]="'COMPONENTS.IDEABOX.IDEA_NUMBER' | translate:{number: (ideaNumber | async)}"></div>
-                <div class="date">{{idea.createdAt | date: 'YYYY-MM-dd HH:mm'}}</div>
+                <div class="date">{{idea.createdAt | date: 'y-MM-dd HH:mm'}}</div>
               </div>
               <div class="vertical_line_separator"></div>
             </ng-container>

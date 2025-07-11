@@ -170,7 +170,7 @@
         ></div>
         <div class="deadline">
           <span class="bold">{{
-            ideation.deadline | date : "YYYY-MM-dd HH:mm"
+            ideation.deadline | date : "y-MM-dd HH:mm"
           }}</span>
         </div>
       </div>
@@ -186,7 +186,7 @@
             <div translate="COMPONENTS.TOPIC_IDEATION.TXT_IDEATION_ENDED"></div>
           </div>
         </div>
-        <ng-container *ngIf="ideas$ | async as ideas">
+        <ng-container *ngIf="ideas$ | async as ideas" defer>
           <ng-container *ngIf="ideas.length || filtersSet">
             <div class="tabs_wrap">
               <div class="tabs_row" *ngIf="tabSelected !== 'folder'">
@@ -1623,6 +1623,9 @@
                 </div>
               </div>
             </div>
+            <ng-container *ngIf="ideas.length > 0 && filtersSet">
+              <div translate="COMPONENTS.TOPIC_IDEATION.ITEMS_FOUND_WITH_FILTERS" [translateParams]="{count: ideasCount$ | async}"></div>
+            </ng-container>
             <div class="ideas_wrap">
               <div
                 class="notification_inline"
@@ -1960,7 +1963,7 @@
                         <span
                           class="updated mobile_show"
                           [innerText]="
-                            folder.updatedAt | date : 'YYYY-MM-dd HH:mm'
+                            folder.updatedAt | date : 'y-MM-dd HH:mm'
                           "
                         ></span>
                       </div>
@@ -1971,7 +1974,7 @@
                     ></div>
                     <div
                       class="cell date_cell mobile_hidden"
-                      [innerText]="folder.updatedAt | date : 'YYYY-MM-dd HH:mm'"
+                      [innerText]="folder.updatedAt | date : 'y-MM-dd HH:mm'"
                     ></div>
                     <div class="cell actions_cell" *ngIf="canEdit()">
                       <div class="dropdown button_dropdown" [cosDropdown]>
