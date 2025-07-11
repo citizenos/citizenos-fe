@@ -170,7 +170,7 @@
         ></div>
         <div class="deadline">
           <span class="bold">{{
-            ideation.deadline | date : "YYYY-MM-dd HH:mm"
+            ideation.deadline | date : "y-MM-dd HH:mm"
           }}</span>
         </div>
       </div>
@@ -186,7 +186,7 @@
             <div translate="COMPONENTS.TOPIC_IDEATION.TXT_IDEATION_ENDED"></div>
           </div>
         </div>
-        <ng-container *ngIf="ideas$ | async as ideas">
+        <ng-container *ngIf="ideas$ | async as ideas" defer>
           <ng-container *ngIf="ideas.length || filtersSet">
             <div class="tabs_wrap">
               <div class="tabs_row" *ngIf="tabSelected !== 'folder'">
@@ -835,95 +835,6 @@
                         (click)="setResidence('other')"
                         translate="VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_RESIDENCE_OTHER_PLACEHOLDER"
                       ></div>
-                    </div>
-                  </div>
-                </cos-input>
-
-                <cos-input *ngIf="hasDemograficsField.age" [placeholder]="'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_AGE' | translate"
-                  class="dropdown_input">
-                  <div class="dropdown" [cosDropdown]>
-                    <div class="selection">
-                      <div class="selected_item">
-                        <span *ngIf="!ideaFilters.age" translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL"></span>
-                        <span *ngIf="ideaFilters.age">
-                          {{ideaFilters.age}}
-                        </span>
-                      </div>
-                      <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                          xmlns="http://www.w3.org/2000/svg">
-                          <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
-                        </svg>
-                      </div>
-                    </div>
-                    <div class="options">
-                      <div class="option" (click)="setAge('')" translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL">
-                      </div>
-                      <div *ngFor="let number of [].constructor(AGE_LIMIT); let i = index" class="option" (click)="setAge((i + 1))">
-                        {{ i + 1 }}
-                      </div>
-                    </div>
-                  </div>
-                </cos-input>
-
-                <cos-input *ngIf="hasDemograficsField.gender" [placeholder]="'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_GENDER' | translate"
-                  class="dropdown_input">
-                  <div class="dropdown" [cosDropdown]>
-                    <div class="selection">
-                      <div class="selected_item">
-                        <span *ngIf="!ideaFilters.gender" translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL"></span>
-                        <span *ngIf="ideaFilters.gender === 'male'">
-                          {{'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_GENDER_MALE'
-                          |
-                          translate}}</span>
-                        <span *ngIf="ideaFilters.gender === 'female'">
-                          {{'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_GENDER_FEMALE'
-                          |
-                          translate}}</span>
-                        <span *ngIf="ideaFilters.gender === 'other'">
-                          {{'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_GENDER_OTHER_PLACEHOLDER'
-                          |
-                          translate}}</span>
-                      </div>
-                      <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                          xmlns="http://www.w3.org/2000/svg">
-                          <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
-                        </svg>
-                      </div>
-                    </div>
-                    <div class="options">
-                      <div class="option" (click)="setGender('')" translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL">
-                      </div>
-                      <div *ngFor="let gender of ['female', 'male', 'other']" class="option" (click)="setGender(gender)">
-                        {{ "VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_GENDER_" + (gender === "other" ? gender + "_placeholder" : gender).toUpperCase() | translate }}
-                      </div>
-                    </div>
-                  </div>
-                </cos-input>
-
-                <cos-input *ngIf="isCountryEstonia && hasDemograficsField.residence" [placeholder]="'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_RESIDENCE' | translate"
-                  class="dropdown_input">
-                  <div class="dropdown" [cosDropdown]>
-                    <div class="selection">
-                      <div class="selected_item">
-                        <span *ngIf="!ideaFilters.residence" translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL"></span>
-                        <span *ngIf="ideaFilters.residence">
-                          {{ideaFilters.residence | titlecase}}
-                        </span>
-                      </div>
-                      <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                          xmlns="http://www.w3.org/2000/svg">
-                          <path d="M17 10L12 15L7 10" stroke="#2C3B47" stroke-width="2" stroke-linecap="round" />
-                        </svg>
-                      </div>
-                    </div>
-                    <div class="options">
-                      <div class="option" (click)="setResidence('')" translate="COMPONENTS.TOPIC_IDEATION.FILTER_ALL">
-                      </div>
-                      <div *ngFor="let residence of municipalities;" class="option" (click)="setResidence((residence.name))">
-                        {{ residence.name }}
-                      </div>
-                      <div class="option" (click)="setResidence('other')" translate="VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_RESIDENCE_OTHER_PLACEHOLDER">
-                      </div>
                     </div>
                   </div>
                 </cos-input>
@@ -1646,96 +1557,6 @@
                     translate="COMPONENTS.TOPIC_IDEATION.BTN_APPLY"
                   ></button>
                 </div>
-
-                <div class="options button_options" *ngIf="mobileIdeaFilters.age">
-                  <a class="btn_medium_close icon" (click)="closeMobileFilter()">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289Z"
-                        fill="#2C3B47" />
-                    </svg>
-                  </a>
-
-                  <div class="options_wrapper">
-                    <label class="checkbox" (click)="mobileIdeaFilters.age = 'all';">
-                      <span [innerHTML]="'COMPONENTS.TOPIC_IDEATION.FILTER_ALL' | translate | titlecase"></span>
-                      <input type="radio" name="orderBy">
-                      <span class="checkmark"></span>
-                    </label>
-
-                    <label *ngFor="let number of [].constructor(AGE_LIMIT); let i = index" class="checkbox" (click)="mobileIdeaFilters.age = i + 1;">
-                      <span>{{ i + 1 }}</span>
-                      <input type="radio" name="age">
-                      <span class="checkmark"></span>
-                    </label>
-                  </div>
-
-                  <button class="btn_medium_secondary"
-                    (click)="setAge(mobileIdeaFilters.age);mobileIdeaFilters.age= false;"
-                    translate="COMPONENTS.TOPIC_IDEATION.BTN_APPLY"></button>
-                </div>
-
-                <div class="options button_options" *ngIf="mobileIdeaFilters.gender">
-                  <a class="btn_medium_close icon" (click)="closeMobileFilter()">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289Z"
-                        fill="#2C3B47" />
-                    </svg>
-                  </a>
-
-                  <div class="options_wrapper">
-                    <label class="checkbox" (click)="mobileIdeaFilters.gender = 'all';">
-                      <span [innerHTML]="'COMPONENTS.TOPIC_IDEATION.FILTER_ALL' | translate | titlecase"></span>
-                      <input type="radio" name="gebder">
-                      <span class="checkmark"></span>
-                    </label>
-
-                    <label *ngFor="let gender of ['female', 'male', 'other']" class="checkbox" (click)="mobileIdeaFilters.gender = gender;">
-                      <span>{{ "VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_GENDER_" + (gender === "other" ? gender + "_placeholder" : gender).toUpperCase() | translate }}</span>
-                      <input type="radio" name="orderBy">
-                      <span class="checkmark"></span>
-                    </label>
-                  </div>
-
-                  <button class="btn_medium_secondary"
-                    (click)="setGender(mobileIdeaFilters.gender);mobileIdeaFilters.gender= false;"
-                    translate="COMPONENTS.TOPIC_IDEATION.BTN_APPLY"></button>
-                </div>
-
-                <div class="options button_options" *ngIf="mobileIdeaFilters.residence">
-                  <a class="btn_medium_close icon" (click)="closeMobileFilter()">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289Z"
-                        fill="#2C3B47" />
-                    </svg>
-                  </a>
-
-                  <div class="options_wrapper">
-                    <label class="checkbox" (click)="mobileIdeaFilters.residence= 'all';">
-                      <span [innerHTML]="'COMPONENTS.TOPIC_IDEATION.FILTER_ALL' | translate | titlecase"></span>
-                      <input type="radio" name="orderBy">
-                      <span class="checkmark"></span>
-                    </label>
-
-                    <label *ngFor="let residence of municipalities; let i = index" class="checkbox" (click)="mobileIdeaFilters.residence= residence.name;">
-                      <span>{{ residence.name }}</span>
-                      <input type="radio" name="age">
-                      <span class="checkmark"></span>
-                    </label>
-
-                    <label class="checkbox" (click)="mobileIdeaFilters.residence= 'other';">
-                      <span>{{ 'VIEWS.IDEATION_CREATE.DEMOGRAPHICS_DATA_RESIDENCE_OTHER_PLACEHOLDER' | translate | titlecase }}</span>
-                      <input type="radio" name="age">
-                      <span class="checkmark"></span>
-                    </label>
-                  </div>
-
-                  <button class="btn_medium_secondary"
-                    (click)="setResidence(mobileIdeaFilters.residence);mobileIdeaFilters.residence= false;"
-                    translate="COMPONENTS.TOPIC_IDEATION.BTN_APPLY"></button>
-                </div>
               </div>
             </div>
 
@@ -1802,6 +1623,9 @@
                 </div>
               </div>
             </div>
+            <ng-container *ngIf="ideas.length > 0 && filtersSet">
+              <div translate="COMPONENTS.TOPIC_IDEATION.ITEMS_FOUND_WITH_FILTERS" [translateParams]="{count: ideasCount$ | async}"></div>
+            </ng-container>
             <div class="ideas_wrap">
               <div
                 class="notification_inline"
@@ -2139,7 +1963,7 @@
                         <span
                           class="updated mobile_show"
                           [innerText]="
-                            folder.updatedAt | date : 'YYYY-MM-dd HH:mm'
+                            folder.updatedAt | date : 'y-MM-dd HH:mm'
                           "
                         ></span>
                       </div>
@@ -2150,7 +1974,7 @@
                     ></div>
                     <div
                       class="cell date_cell mobile_hidden"
-                      [innerText]="folder.updatedAt | date : 'YYYY-MM-dd HH:mm'"
+                      [innerText]="folder.updatedAt | date : 'y-MM-dd HH:mm'"
                     ></div>
                     <div class="cell actions_cell" *ngIf="canEdit()">
                       <div class="dropdown button_dropdown" [cosDropdown]>

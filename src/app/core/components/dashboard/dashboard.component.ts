@@ -1,7 +1,7 @@
 import { CookieService } from 'ngx-cookie-service';
 import { OnboardingComponent } from './../onboarding/onboarding.component';
 import { DialogService } from 'src/app/shared/dialog';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 import { AppService } from '@services/app.service';
 import { AuthService } from '@services/auth.service';
 import { UserTopicService } from '@services/user-topic.service';
@@ -19,38 +19,41 @@ import { News } from 'src/app/interfaces/news';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./dashboard.component.scss'],
   standalone: false
 })
 export class DashboardComponent {
-  groups$: Observable<Group[] | any[]> = of([]);
-  topics$: Observable<Topic[] | any[]> = of([]);
-  publictopics$: Observable<Topic[] | any[]> = of([]);
-  publicgroups$: Observable<Group[] | any[]> = of([]);
+  // Observable properties with proper typing
+  readonly groups$: Observable<Group[]> = of([]);
+  readonly topics$: Observable<Topic[]> = of([]);
+  readonly publictopics$: Observable<Topic[]> = of([]);
+  readonly publicgroups$: Observable<Group[]> = of([]);
+  readonly news$: Observable<News[]> = of([]);
 
-  news$: Observable<News[] | any[]> = of([]);
-  showNoEngagements = false;
+  // Convert to signals for better performance
+  readonly showNoEngagements = signal(false);
+  readonly showPublic = signal(true);
+  readonly showCreate = signal(false);
+  readonly wWidth = signal(window.innerWidth);
 
-  showPublic = true;
-  showCreate = false;
-  wWidth = window.innerWidth;
   constructor(
-    public auth: AuthService,
-    public app: AppService,
-    public translate: TranslateService,
-    private UserTopicService: UserTopicService,
-    private PublicTopicService: PublicTopicService,
-    private PublicGroupService: PublicGroupService,
-    private GroupService: GroupService,
-    private NewsService: NewsService,
-    private dialog: DialogService,
-    private CookieService: CookieService
+    public readonly auth: AuthService,
+    public readonly app: AppService,
+    public readonly translate: TranslateService,
+    private readonly UserTopicService: UserTopicService,
+    private readonly PublicTopicService: PublicTopicService,
+    private readonly PublicGroupService: PublicGroupService,
+    private readonly GroupService: GroupService,
+    private readonly NewsService: NewsService,
+    private readonly dialog: DialogService,
+    private readonly CookieService: CookieService
   ) {
     this.groups$ = this.GroupService.loadItems();
     this.news$ = this.NewsService.get().pipe(
       map((news) => {
-        news.forEach((item:News) => {
-          var elem = document.createElement('div');
+        news.forEach((item: News) => {
+          const elem = document.createElement('div');
           elem.innerHTML = item.content;
           const img = elem.querySelector('img');
           if (img) {
@@ -64,8 +67,8 @@ export class DashboardComponent {
     this.topics$ = this.UserTopicService.loadItems().pipe(
       tap((topics) => {
         if (topics.length === 0) {
-          this.showPublic = true;
-          this.showNoEngagements = true;
+          this.showPublic.set(true);
+          this.showNoEngagements.set(true);
         }
       })
     );
@@ -74,8 +77,8 @@ export class DashboardComponent {
     this.app.mobileNavBox = true;
   }
 
-  trackByTopic(index: number, element: any) {
-    return element.id;
+  trackByTopic(index: number, element: Topic | Group): number {
+    return typeof element.id === 'string' ? parseInt(element.id, 10) : element.id;
   }
 
   ngAfterViewInit(): void {
@@ -93,8 +96,8 @@ export class DashboardComponent {
     }
   }
 
-  showCreateMenu () {
-    this.showCreate = !this.showCreate;
+  showCreateMenu(): void {
+    this.showCreate.update(current => !current);
   }
 
   ngOnDestroy(): void {

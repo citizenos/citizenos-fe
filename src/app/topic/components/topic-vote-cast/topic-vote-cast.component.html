@@ -68,7 +68,7 @@
           <div class="title" translate="COMPONENTS.TOPIC_VOTE_CAST.LBL_DEADLINE"></div>
           <div class="data_item">
             <span class="bold">{{(vote.endsAt)?
-              (vote.endsAt | date:'YYYY-MM-dd HH:mm') : ('COMPONENTS.TOPIC_VOTE_CAST.NO_DEADLINE' |
+              (vote.endsAt | date:'y-MM-dd HH:mm') : ('COMPONENTS.TOPIC_VOTE_CAST.NO_DEADLINE' |
               translate)}}</span>
             <a *ngIf="canUpdate() && !hasVoteEndedExpired() && topic.members.users.count > 1 && !vote.reminderSent"
               (click)="sendVoteReminder()" translate="COMPONENTS.TOPIC_VOTE_CAST.OPT_SEND_VOTE_REMINDER"></a>

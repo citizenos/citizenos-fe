@@ -48,6 +48,7 @@ export class TopicIdeationComponent {
   users = <User[]>[];
   participantsCount = 0;
   ideas$ = of(<Idea[]>[]);
+  ideasCount$ = of (0);
   folders$ = of(<Folder[]>[]);
   folders = <Folder[]>[];
   allIdeas$: Idea[] = [];
@@ -107,6 +108,7 @@ export class TopicIdeationComponent {
   ) {}
 
   ngOnInit(): void {
+    this.ideasCount$ = this.TopicIdeaService.countTotal$;
     this.ideas$ = combineLatest([
       this.ideaTypeFilter$,
       this.orderFilter$,

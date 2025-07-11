@@ -146,8 +146,8 @@
     </div>
   </!--div-->
   <ng-container *ngIf="topics$ | async as topics">
-    <ng-container *ngIf="!topics.length">
-      <div class="no_engagements" *ngIf="showNoEngagements">
+    <ng-container *ngIf="topics.length > 0">
+              <div class="no_engagements" *ngIf="showNoEngagements()">
         <div class="illustration">
           <svg width="96" height="90" viewBox="0 0 96 90" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M60.4741 78.8158L33.9747 81.5569L34.5735 92.5006L60.4741 92.5006L60.4741 78.8158Z"
@@ -186,7 +186,7 @@
           <div translate="VIEWS.DASHBOARD.HAVENT_ENGAGED_TOPICS_DESCRIPTION"></div>
         </div>
         <div class="button_wrap">
-          <div id="create_menu_wrap" [ngClass]="{'hidden': !showCreate}">
+          <div id="create_menu_wrap" [ngClass]="{'hidden': !showCreate()}">
             <div id="create_menu">
               <div class="create_menu_item" [routerLink]="['/', translate.currentLang, 'topics', 'ideation', 'create']"
                 routerLinkActive="active">
@@ -263,9 +263,9 @@
                 </div>
               </div>
             </div>
-            <div id="close_create" (click)="showCreate = false;"></div>
+            <div id="close_create" (click)="showCreate.set(false)"></div>
           </div>
-          <button class="btn_medium_submit" (click)="showCreateMenu()" [ngClass]="{active: showCreate}"><svg width="25"
+          <button class="btn_medium_submit" (click)="showCreateMenu()" [ngClass]="{active: showCreate()}"><svg width="25"
               height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M12.5 20C11.9711 20 11.5423 19.5712 11.5423 19.0423L11.5423 12.9577L5.45775 12.9577C4.9288 12.9577 4.5 12.5289 4.5 12C4.5 11.4711 4.9288 11.0423 5.45775 11.0423H11.5423V4.95775C11.5423 4.4288 11.9711 4 12.5 4C13.0289 4 13.4577 4.4288 13.4577 4.95775L13.4577 11.0423L19.5423 11.0423C20.0712 11.0423 20.5 11.4711 20.5 12C20.5 12.5289 20.0712 12.9577 19.5423 12.9577H13.4577V19.0423C13.4577 19.5712 13.0289 20 12.5 20Z"
@@ -300,7 +300,7 @@
           translate="VIEWS.DASHBOARD.PUBLIC_TOPICS_LNK_VIEW_ALL"></button>
       </div>
     </ng-container>
-    <ng-container *ngIf="topics.length">
+    <ng-container *ngIf="topics.length > 0">
       <div class="dashboard_section items_list_section"
         [TourItem]="{tourid: 'dashboard', index: 5, position: 'bottom'}">
         <div class="section_header">
@@ -322,8 +322,8 @@
     </ng-container>
   </ng-container>
   <ng-container *ngIf="groups$ | async as groups">
-    <ng-container *ngIf="!groups.length">
-      <ng-container *ngIf="publicgroups$ | async as groups;">
+    <ng-container *ngIf="groups.length > 0">
+      <ng-container *ngIf="publicgroups$ | async as groups;" defer>
         <div class="dashboard_section items_list_section"
           [TourItem]="{tourid: 'dashboard', index: 6, position: 'bottom'}">
           <div class="section_header">
@@ -345,7 +345,7 @@
         </div>
       </ng-container>
     </ng-container>
-    <ng-container *ngIf="groups.length">
+    <ng-container *ngIf="groups.length > 0">
       <div class="dashboard_section items_list_section"
         [TourItem]="{tourid: 'dashboard', index: 6, position: 'bottom'}">
         <div class="section_header">
@@ -368,7 +368,7 @@
       </div>
     </ng-container>
   </ng-container>
-  <div class="dashboard_section_row news_section">
+  <div class="dashboard_section_row news_section" *ngIf="news$ | async as news; defer">
     <div class="section_header mobile">
       <div class="small_heading" translate="VIEWS.DASHBOARD.NEWS_HEADER"></div>
     </div>
@@ -383,26 +383,28 @@
         </a>
       </div>
       <div class="news_items_wrap">
-
-        <ng-container *ngIf="news$ | async as news">
-
           <a [href]="news[i].link" target="_blank" class="news_item" *ngFor="let i of [0,1,2,3]">
-            <div class="news_image" *ngIf="news[i].imageUrl">
-              <img [src]="news[i].imageUrl" />
+                        <div class="news_image" *ngIf="news[i].imageUrl">
+              <img [src]="news[i].imageUrl"
+                   [alt]="news[i].title || 'News image'"
+                   loading="lazy"
+                   decoding="async"
+                   [style.width]="'100%'"
+                   [style.height]="'auto'"
+                   [style.object-fit]="'cover'" />
             </div>
             <div class="news_text">
-              <div class="date" [innerHtml]="news[i].pubDate | date: 'YYYY-MM-dd HH:mm'"></div>
+              <div class="date" [innerHtml]="news[i].pubDate | date: 'y-MM-dd HH:mm'"></div>
               <a class="bold" [innerHtml]="news[i].title"></a>
             </div>
           </a>
-        </ng-container>
       </div>
     </div>
 
     <a class="btn_medium_submit mobile_show" href="https://citizenos.com/news" target="_blank"
       translate="VIEWS.DASHBOARD.NEWS_LNK_VIEW_ALL"></a>
 
-    <div id="help_us">
+    <div id="help_us" *ngIf="true; defer">
       <div id="title" translate="VIEWS.DASHBOARD.HELP_US_HEADER"></div>
       <div class="help_items_wrap">
         <div class="help_item">
@@ -483,8 +485,8 @@
       </div>
     </div>
   </div>
-  <ng-container *ngIf="topics$ | async as topics">
-    <div class="dashboard_section items_list_section" *ngIf="topics.length"
+  <ng-container *ngIf="topics$ | async as topics" defer>
+    <div class="dashboard_section items_list_section" *ngIf="topics.length > 0"
       [TourItem]="{tourid: 'dashboard', index: 5, position: 'bottom'}">
       <div class="section_header">
         <div class="small_heading" translate="VIEWS.DASHBOARD.PUBLIC_TOPICS_HEADER"></div><a class="view_more_link"
@@ -506,7 +508,7 @@
     </div>
   </ng-container>
   <ng-container *ngIf="groups$ | async as mygroups">
-    <ng-container *ngIf="mygroups.length && (publicgroups$ | async) as groups;">
+    <ng-container *ngIf="mygroups.length > 0 && (publicgroups$ | async) as groups;">
       <div class="dashboard_section items_list_section"
         [TourItem]="{tourid: 'dashboard', index: 6, position: 'bottom'}">
         <div class="section_header">
@@ -543,7 +545,7 @@
     </div>
   </div>
   <div id="subscribe_illustration">
-    <ng-container *ngIf="wWidth <= 1024 && wWidth > 560">
+            <ng-container *ngIf="wWidth() <= 1024 && wWidth() > 560">
       <svg class="tablet_show" width="330" height="255" viewBox="0 0 330 255" fill="none"
         xmlns="http://www.w3.org/2000/svg">
         <path d="M311.626 223.551V241.5H209.977L236.34 114.922H269.994H311.626V219.189" fill="#D7E9F8" />
@@ -697,7 +699,7 @@
           fill="#2C3B47" />
       </svg>
     </ng-container>
-    <ng-container *ngIf="wWidth > 1024 || wWidth <= 560">
+            <ng-container *ngIf="wWidth() > 1024 || wWidth() <= 560">
 
       <svg width="411" height="244" viewBox="0 0 411 244" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M377.924 251.604V271.806H263.465L293.15 129.344H331.045H377.924V246.694" fill="#D7E9F8" />

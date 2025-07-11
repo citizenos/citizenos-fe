@@ -5,7 +5,7 @@
     "dev": "node ./prebuild.js && ng serve --host",
     "ng": "ng",
     "start": "node ./prebuildDist.js && node ./index.js",
-    "build": "node ./prebuild.js && ng build",
+    "build": "node ./prebuild.js && ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
