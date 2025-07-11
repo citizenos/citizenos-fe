@@ -68,7 +68,7 @@
       <div class="data_section" *ngIf="discussion.deadline || canEditDeadline()">
         <div class="title" translate="COMPONENTS.TOPIC_ARGUMENTS.LBL_DEADLINE"></div>
         <div class="deadline">
-          <span class="bold">{{discussion.deadline | date:'YYYY-MM-dd HH:mm'}}</span>
+          <span class="bold">{{discussion.deadline | date:'y-MM-dd HH:mm'}}</span>
         </div>
         <ng-container *ngIf="canEditDeadline() && !discussion.deadline">
           <a class="deadline" (click)="editDeadline(discussion)">
@@ -155,9 +155,9 @@
                   </ng-container>
                 </div>
               </div>
-          
+
               <div class="overlay" *ngIf="hasMobileOpen" (click)="closeMobileFilter()"></div>
-          
+
               <div class="mobile_filters_wrap" [ngClass]="{'active': hasMobileOpen}">
                 <ng-container *ngFor="let filterKey of filterKeys">
                   <div class="options button_options" *ngIf="filtersData[filterKey].isMobileOpen">
@@ -168,7 +168,7 @@
                           fill="#2C3B47" />
                       </svg>
                     </a>
-          
+
                     <div class="options_wrapper">
                       <ng-container *ngFor="let option of filtersData[filterKey].items">
                         <label class="checkbox">
@@ -192,7 +192,7 @@
                         </label>
                       </ng-container>
                     </div>
-            
+
                     <button class="btn_medium_secondary" (click)="applyFilters(filterKey); closeMobileFilter();"
                       translate="VIEWS.MY_TOPICS.BTN_APPLY"></button>
                   </div>

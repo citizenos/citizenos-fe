@@ -247,9 +247,9 @@
     </!--button-->
   </a>
   <div class="idea_footer">
-    <div class="date" *ngIf="!isDraft(idea.status)">{{idea.createdAt | date: 'YYYY-MM-dd HH:mm'}}</div>
+    <div class="date" *ngIf="!isDraft(idea.status)">{{idea.createdAt | date: 'y-MM-dd HH:mm'}}</div>
     <div class="date" *ngIf="isDraft(idea.status)">{{'COMPONENTS.IDEABOX.DRAFT_UPDATED_AT' | translate: {date:
-      (idea.updatedAt | date: 'YYYY-MM-dd HH:mm')} }}</div>
+      (idea.updatedAt | date: 'y-MM-dd HH:mm')} }}</div>
     <div class="replies_count" *ngIf="!isDraft(idea.status)">
       <a (click)="(!idea.report.id)? goToView(true): ''">{{'COMPONENTS.IDEABOX.REPLIES' | translate: {count:
         idea.replies.count} }}</a>
