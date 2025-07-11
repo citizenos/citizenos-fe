@@ -29,6 +29,7 @@ import { LocationService } from '@services/location.service';
   selector: 'topic-ideation',
   templateUrl: './topic-ideation.component.html',
   styleUrls: ['./topic-ideation.component.scss'],
+  standalone: false
 })
 export class TopicIdeationComponent {
   @Input() ideation!: any;
