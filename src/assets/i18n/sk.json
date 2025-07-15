@@ -787,7 +787,7 @@
       "OPT_DOWNLOAD_IDEAS": "Export ideas",
       "OPT_EDIT_IDEATION": "Upraviť získavanie nápadov",
       "OPT_CLOSE_IDEATION": "Ukončiť získavanie nápadov",
-      "SEARCH": "Search",
+      "SEARCH": "@:DEFAULT.NAV_MOBILE.BTN_SEARCH",
       "FILTER_ALL": "@:VIEWS.MY_TOPICS.FILTER_ALL",
       "FILTER_TYPE_YOUR_IDEAS": "Vaše nápady",
       "FILTER_TYPE_FAVOURITES": "Uložené nápady",
