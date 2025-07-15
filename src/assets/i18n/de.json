@@ -818,6 +818,7 @@
       "OPTION_DELETE_FOLDER": "Ordner löschen",
       "BTN_CREATE_NEW_FOLDER": "Neuen Ordner erstellen",
       "NO_FOLDERS_HEADING": "Es sind noch keine Ideenordner vorhanden",
+      "ITEMS_FOUND_WITH_FILTERS": "Ideas found with these filters: {{count}}",
       "NO_ITEMS_FOUND": "No results found with these filters. Try adjusting your filters and search again.",
       "NO_FOLDERS_DESC": "Themenadministratoren können Ordner erstellen, um Ideen zu gruppieren, die in dieselbe Kategorie passen."
     },
