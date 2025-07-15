@@ -787,7 +787,7 @@
       "OPT_DOWNLOAD_IDEAS": "Экспорт идей",
       "OPT_EDIT_IDEATION": "Редактировать сбор идей",
       "OPT_CLOSE_IDEATION": "Завершить сбор идей",
-      "SEARCH": "Search",
+      "SEARCH": "@:DEFAULT.NAV_MOBILE.BTN_SEARCH",
       "FILTER_ALL": "@:VIEWS.MY_TOPICS.FILTER_ALL",
       "FILTER_TYPE_YOUR_IDEAS": "Ваши идеи",
       "FILTER_TYPE_FAVOURITES": "Сохраненные идеи",
