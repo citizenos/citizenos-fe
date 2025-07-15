@@ -42,7 +42,7 @@
 
 
     </div>
-    <div class="date" [innerHtml]="activity.updatedAt | date:'YYYY-MM-dd HH:mm'"></div>
+    <div class="date" [innerHtml]="activity.updatedAt | date:'y-MM-dd HH:mm'"></div>
   </div>
   <div class="activity_content">
     <div class="grouped" *ngIf="keyCounter(activitygroup.values) > 1">
@@ -104,7 +104,7 @@
 
               <div class="activity_new" [innerHtml]="translateVersion(a, 'new')"></div>
             </i>
-            <div class="date_area" [innerHtml]="a.updatedAt | date : 'yyyy-MM-dd HH:mm'"></div>
+            <div class="date_area" [innerHtml]="a.updatedAt | date : 'y-MM-dd HH:mm'"></div>
           </div>
         </div>
       </div>
@@ -126,7 +126,7 @@
           class="activity_description_text"> <!--[innerHtml]="(activity.values.description | slice:0:200) + (activity.values.description.length > 200 ? '...' : '')">
         </span>
       </div>
-      <div class="date_area" [innerHtml]="activity.updatedAt | date : 'yyyy-MM-dd HH:mm'"></div>
+      <div class="date_area" [innerHtml]="activity.updatedAt | date : 'y-MM-dd HH:mm'"></div>
       <b class="notch border-notch"></b>
       <b class="notch"></b>
     </div>
