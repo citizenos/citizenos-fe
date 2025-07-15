@@ -818,6 +818,7 @@
       "OPTION_DELETE_FOLDER": "Delete folder",
       "BTN_CREATE_NEW_FOLDER": "Create new folder",
       "NO_FOLDERS_HEADING": "There are no idea folders yet",
+      "ITEMS_FOUND_WITH_FILTERS": "Ideas found with these filters: {{count}}",
       "NO_ITEMS_FOUND": "No results found with these filters. Try adjusting your filters and search again.",
       "NO_FOLDERS_DESC": "Topic admins can create folders to group ideas that fit in the same category."
     },
