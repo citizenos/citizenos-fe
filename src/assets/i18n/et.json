@@ -787,7 +787,7 @@
       "OPT_DOWNLOAD_IDEAS": "Ekspordi ideid",
       "OPT_EDIT_IDEATION": "Muuda ideekorjet",
       "OPT_CLOSE_IDEATION": "Lõpeta ideekorje",
-      "SEARCH": "Search",
+      "SEARCH": "@:DEFAULT.NAV_MOBILE.BTN_SEARCH",
       "FILTER_ALL": "@:VIEWS.MY_TOPICS.FILTER_ALL",
       "FILTER_TYPE_YOUR_IDEAS": "Sinu ideed",
       "FILTER_TYPE_FAVOURITES": "Salvestatud ideed",
