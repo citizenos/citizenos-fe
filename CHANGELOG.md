@@ -1,3 +1,6 @@
+## 2025-07-15 - v1.3.11
+  * Update: Issue FE#2331: IDEAS: Show number of ideas returned by ideas filters (and search)
+
 ## 2025-06-19 - v1.3.10
   * Fix: Issue FE #2302: IDEAS: Allow users to select multiple ages in age filter
   * Fix: Issue FE #2034: IDEAS: Add filters for demographic data
