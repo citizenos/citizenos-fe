@@ -2666,6 +2666,7 @@
       "LNK_CLEAR": "@:LNK_CLEAR",
       "BTN_LEAVE_GROUP": "Lahku grupist",
       "BTN_VIEW_GROUP": "Vaata gruppi",
+      "BTN_JOINED_GROUP": "Joined",
       "ORDER_TITLE_ASC": "Reasta grupid A-Z",
       "ORDER_TITLE_DESC": "Reasta grupid Z-A",
       "HEADING_NO_RESUTS": "@:VIEWS.MY.NO_RESULTS_FOUND_TITLE",
