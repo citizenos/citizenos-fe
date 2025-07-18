@@ -24,10 +24,8 @@
               <div class="selection">
                 <div class="selected_item">
                   <ng-container [ngSwitch]="filterKey">
-                    <span *ngSwitchCase="'visibility'">{{ getActiveFilterText("visibility",
-                      filtersData.visibility.selectedValue) | uppercase | translate | titlecase }}</span>
-                    <span *ngSwitchDefault>{{ getActiveFilterText(filterKey, filtersData[filterKey].selectedValue) |
-                      translate }}</span>
+                    <span *ngSwitchCase="'visibility'">{{ getActiveFilterText("visibility", filtersData.visibility.selectedValue) | uppercase | translate | titlecase }}</span>
+                    <span *ngSwitchDefault>{{ getActiveFilterText(filterKey, filtersData[filterKey].selectedValue) | translate }}</span>
                   </ng-container>
                 </div>
                 <div>
@@ -99,8 +97,7 @@
           <a class="filter_option" (click)="filtersData[filterKey].isMobileOpen = true">
             <span class="filter_option_text">{{ filtersData[filterKey].placeholder | translate }}</span>
             <ng-container [ngSwitch]="filterKey">
-              <span *ngSwitchDefault class="bold">{{ getActiveFilterText(filterKey,
-                filtersData[filterKey].selectedValue) | translate }}</span>
+              <span *ngSwitchDefault class="bold">{{ getActiveFilterText(filterKey, filtersData[filterKey].selectedValue) | translate }}</span>
             </ng-container>
           </a>
         </ng-container>
@@ -136,13 +133,21 @@
       <ng-container *ngFor="let filterKey of filterKeys">
         <div class="options button_options" *ngIf="filtersData[filterKey].isMobileOpen">
           <ng-container [ngSwitch]="filterKey">
-            <search-filter *ngSwitchCase="'country'" [term]="countrySearch"
-              [placeholder]="'VIEWS.MY_TOPICS.FILTER_COUNTRY' | translate" [search]="searchCountry.bind(this)"
-              [close]="closeMobileFilter.bind(this)" />
+            <search-filter
+              *ngSwitchCase="'country'"
+              [term]="countrySearch"
+              [placeholder]="'VIEWS.MY_TOPICS.FILTER_COUNTRY' | translate"
+              [search]="searchCountry.bind(this)"
+              [close]="closeMobileFilter.bind(this)"
+            />
 
-            <search-filter *ngSwitchCase="'language'" [term]="languageSearch"
-              [placeholder]="'VIEWS.MY_TOPICS.FILTER_LANGUAGE' | translate" [search]="searchLanguage.bind(this)"
-              [close]="closeMobileFilter.bind(this)" />
+            <search-filter
+              *ngSwitchCase="'language'"
+              [term]="languageSearch"
+              [placeholder]="'VIEWS.MY_TOPICS.FILTER_LANGUAGE' | translate"
+              [search]="searchLanguage.bind(this)"
+              [close]="closeMobileFilter.bind(this)"
+            />
 
             <a *ngSwitchDefault class="btn_medium_close icon" (click)="closeMobileFilter()">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -161,10 +166,9 @@
                   <input type="radio" name="country">
                   <span class="checkmark"></span>
                 </label>
-
+            
                 <ng-container *ngIf="countries$ | async as countries">
-                  <label class="checkbox" *ngFor="let country of countries"
-                    (click)="filtersData.country.preSelectedValue = country.name;">
+                  <label class="checkbox" *ngFor="let country of countries" (click)="filtersData.country.preSelectedValue = country.name;">
                     <span>{{country.name}}</span>
                     <input type="radio" name="country">
                     <span class="checkmark"></span>
@@ -178,10 +182,9 @@
                   <input type="radio" name="language">
                   <span class="checkmark"></span>
                 </label>
-
+            
                 <ng-container *ngIf="languages$ | async as languages">
-                  <label class="checkbox" *ngFor="let language of languages"
-                    (click)="filtersData.language.preSelectedValue = language.name;">
+                  <label class="checkbox" *ngFor="let language of languages" (click)="filtersData.language.preSelectedValue = language.name;">
                     <span>{{language.name}}</span>
                     <input type="radio" name="language">
                     <span class="checkmark"></span>
@@ -203,9 +206,8 @@
               </ng-container>
             </ng-container>
           </div>
-
-          <button class="btn_medium_secondary"
-            (click)="setFilterValue(filterKey, filtersData[filterKey].preSelectedValue); closeMobileFilter();"
+  
+          <button class="btn_medium_secondary" (click)="setFilterValue(filterKey, filtersData[filterKey].preSelectedValue); closeMobileFilter();"
             translate="VIEWS.MY_TOPICS.BTN_APPLY"></button>
         </div>
       </ng-container>
@@ -214,8 +216,14 @@
   <div class="groups_content">
     <ng-container *ngIf="groups$ | async as groups;">
       <ng-container *ngFor="let group of groups">
-        <public-group-box [group]="group">
-        </public-group-box>
+        <ng-container *ngIf="!group.userLevel">
+          <public-group-box [group]="group">
+          </public-group-box>
+        </ng-container>
+        <ng-container *ngIf="group.userLevel">
+          <group-box [group]="group">
+          </group-box>
+        </ng-container>
       </ng-container>
     </ng-container>
   </div>
