@@ -163,6 +163,10 @@
   .form_header_actions {
     display: flex;
     gap: 8px;
+
+    @include mixins.mobile {
+      flex-direction: column;
+    }
   }
 
   .form_header_expand_button {
