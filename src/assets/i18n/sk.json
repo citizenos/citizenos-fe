@@ -2666,6 +2666,7 @@
       "LNK_CLEAR": "@:LNK_CLEAR",
       "BTN_LEAVE_GROUP": "Opustiť skupinu",
       "BTN_VIEW_GROUP": "Zobraziť skupinu",
+      "BTN_JOINED_GROUP": "Joined",
       "ORDER_TITLE_ASC": "Zoradiť skupiny A-Z",
       "ORDER_TITLE_DESC": "Zoradiť skupiny Z-A",
       "HEADING_NO_RESUTS": "@:VIEWS.MY.NO_RESULTS_FOUND_TITLE",
