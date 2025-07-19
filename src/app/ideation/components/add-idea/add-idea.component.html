@@ -15,13 +15,6 @@
 </div>
 <div id="create_idea_footer" [@openSlide]="(app.addIdea | async) ? 'open' : 'closed'">
   <div id="post_idea_form_wrap" [class.expanded]="toggleExpand">
-    <div *ngIf="ideation.allowAnonymous" id="anonymous_info_wrap" class="mobile_show"
-          translate="COMPONENTS.ADD_IDEA.FOOTER_FORM_ANONYMOUS_INFO">
-          <div class="tooltip" tooltip>
-            <div class="content_title" translate="COMPONENTS.ADD_IDEA.TOOLTIP_ANONYMOUS_TITLE"></div>
-            <div class="content_description" translate="COMPONENTS.ADD_IDEA.TOOLTIP_ANONYMOUS_DESCRIPTION"></div>
-          </div>
-        </div>
     <div class="form_header">
       <div class="form_header_title">
         <span translate="COMPONENTS.ADD_IDEA.FOOTER_FORM_TITLE"></span>
@@ -40,14 +33,14 @@
       </div>
 
       <div class="form_header_actions">
-        <div *ngIf="ideation.allowAnonymous" id="anonymous_info_wrap" class="mobile_hidden"
+        <div *ngIf="ideation.allowAnonymous" id="anonymous_info_wrap"
           translate="COMPONENTS.ADD_IDEA.FOOTER_FORM_ANONYMOUS_INFO">
           <div class="tooltip" tooltip>
             <div class="content_title" translate="COMPONENTS.ADD_IDEA.TOOLTIP_ANONYMOUS_TITLE"></div>
             <div class="content_description" translate="COMPONENTS.ADD_IDEA.TOOLTIP_ANONYMOUS_DESCRIPTION"></div>
           </div>
         </div>
-        <button class="form_header_expand_button" (click)="toggleExpand = !toggleExpand"
+        <button class="form_header_expand_button mobile_hidden" (click)="toggleExpand = !toggleExpand"
           [attr.aria-expanded]="toggleExpand">
           <svg class="form_header_expand_icon" [ngClass]="{ rotated: toggleExpand }" width="24" height="24"
             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -282,7 +275,7 @@
         </ng-container>
       </div>
 
-      <div>
+      <div id="idea_description">
         <textarea cosmarkdown name="description" formControlName="description"
           cosmarkdowntranslatecharacterstatuskey="COMPONENTS.ADD_IDEA.IDEA_TYPE_CHARACTER_LIMIT" id="idea_description"
           [(item)]="description" class="gray_borders" (itemChange)="updateText($event)"
