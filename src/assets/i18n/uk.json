@@ -2666,6 +2666,7 @@
       "LNK_CLEAR": "@:LNK_CLEAR",
       "BTN_LEAVE_GROUP": "Leave group",
       "BTN_VIEW_GROUP": "Переглянути групу",
+      "BTN_JOINED_GROUP": "Joined",
       "ORDER_TITLE_ASC": "Сортувати групи А–Я",
       "ORDER_TITLE_DESC": "Сортувати групи Я—А",
       "HEADING_NO_RESUTS": "@:VIEWS.MY.NO_RESULTS_FOUND_TITLE",
