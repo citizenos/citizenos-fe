@@ -112,6 +112,7 @@ import { TopicSettingsLockedComponent } from './components/topic-settings-locked
 import { AnonymousDraftDialogComponent } from '../ideation/components/anonymous-draft-dialog/anonymous-draft-dialog.component';
 import { CloseWithoutSavingDialogComponent } from '../ideation/components/close-without-saving-dialog/close-without-saving-dialog.component';
 import { TopicVoteCastComponent } from './components/topic-vote-cast/topic-vote-cast.component';
+import { TopicParticipantsSectionComponent } from './components/topic-participants-section/topic-participants-section.component';
 
 @NgModule({
   declarations: [
@@ -195,7 +196,8 @@ import { TopicVoteCastComponent } from './components/topic-vote-cast/topic-vote-
     CloseVotingComponent,
     TopicTabsComponent,
     TopicSettingsLockedComponent,
-    TopicVoteCastComponent
+    TopicVoteCastComponent,
+    TopicParticipantsSectionComponent
   ],
   imports: [
     LinkyModule,
