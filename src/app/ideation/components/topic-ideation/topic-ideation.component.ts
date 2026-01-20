@@ -247,6 +247,18 @@ export class TopicIdeationComponent {
     });
   }
 
+  get isCountryEstonia() {
+    return this.topic.country === 'Estonia';
+  }
+
+  get hasDemograficsField() {
+    return {
+      age: this.ideation.demographicsConfig?.age,
+      gender: this.ideation.demographicsConfig?.gender,
+      residence: this.ideation.demographicsConfig?.residence,
+    };
+  }
+
   get sortedSelectedAges() {
     return this.ideaFilters.age
       .sort((a, b) => {
@@ -264,18 +276,6 @@ export class TopicIdeationComponent {
   setSearch(value: string) {
     this.ideaSearchFilter$.next(value);
     this.ideaFilters.search = value;
-  }
-
-  get isCountryEstonia() {
-    return this.topic.country === 'Estonia';
-  }
-
-  get hasDemograficsField() {
-    return {
-      age: this.ideation.demographicsConfig?.age,
-      gender: this.ideation.demographicsConfig?.gender,
-      residence: this.ideation.demographicsConfig?.residence
-    };
   }
 
   setType(type: string) {
@@ -323,21 +323,6 @@ export class TopicIdeationComponent {
   applyAgeFilter() {
     this.ageFilter$.next([...this.mobileAges]);
     this.ideaFilters.age = [...this.mobileAges];
-  }
-
-  setMobileAge(_age: number | string) {
-    const age = _age.toString();
-    if (age === 'all' || age === '') {
-      this.mobileIdeaFilters.age = [];
-      return;
-    }
-
-    const idx = this.mobileIdeaFilters.age.indexOf(age);
-    if (idx > -1) {
-      this.mobileIdeaFilters.age.splice(idx, 1);
-    } else {
-      this.mobileIdeaFilters.age.push(age);
-    }
   }
 
   setGender(value: string) {
