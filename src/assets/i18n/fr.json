@@ -165,10 +165,10 @@
       "LBL_LIKES": "Likes"
     },
     "ARGUMENT": {
-      "LBL_ARGUMENT_ACTIONS": "Argument actions",
+      "LBL_ARGUMENT_ACTIONS": "Sections commentaire",
       "OPTION_EDIT": "edit",
-      "OPTION_REPORT": "report",
-      "OPTION_DELETE": "delete",
+      "OPTION_REPORT": "signaler",
+      "OPTION_DELETE": "supprimer",
       "LNK_SHOW_REPLIES": "Show replies ({{count}})",
       "LNK_SHOW_REPLIES_MOBILE": "Replies ({{count}})",
       "LNK_HIDE_REPLIES": "Hide replies",
@@ -180,8 +180,8 @@
       "ARGUMENT_LNK_REPORT": "@:VIEWS.TOPICS_TOPICID.ARGUMENT_LNK_REPORT"
     },
     "ARGUMENT_EDITS": {
-      "HEADING": "Argument edits",
-      "LNK_HIDE_EDITS": "Hide edits"
+      "HEADING": "Modification des commentaires",
+      "LNK_HIDE_EDITS": "Masquer les modifications"
     },
     "ARGUMENT_REPORT": {
       "HEADING": "Report argument to admin",
